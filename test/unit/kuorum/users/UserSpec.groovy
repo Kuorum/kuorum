@@ -31,8 +31,8 @@ class UserSpec extends Specification {
         false || [:]
         false || [name:'nombre']
         false || [name:'nombre', username:'nicknmae']
-        true  || [name:'nombre', mail:'email@email.com']
-        true  || [username:'nombre', mail:'email@email.com']
-        true  || [name: 'nombre', username:'nombre', mail:'email@email.com']
+        true  || [name:'nombre', email:'email@email.com']
+        true  || [username:'nombre', email:'email@email.com']
+        true  || [name: 'nombre', username:'nombre', email:'email@email.com']
     }
 }
