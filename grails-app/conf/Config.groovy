@@ -113,3 +113,10 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+
+codenarc {
+    reportName = 'target/test-reports/CodeNarcReport.xml'
+    reportType = 'xml'
+    // any further settings like maxPriority1Violations=0
+}
