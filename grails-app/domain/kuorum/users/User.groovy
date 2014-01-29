@@ -7,8 +7,16 @@ class User {
     String username
 
     static constraints = {
-        email nullable: false, email: true
+        email nullable: false, email: true, unique: true
         name nullable: true
         username nullable:true
+    }
+
+    String toString(){
+        username
+    }
+
+    boolean equals(Object object){
+        name.equals(object.name)
     }
 }

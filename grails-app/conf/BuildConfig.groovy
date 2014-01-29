@@ -75,3 +75,15 @@ grails.project.dependency.resolution = {
         compile ":codenarc:0.20"
     }
 }
+
+codenarc.reports = {
+
+    MyXmlReport('xml') { // The report name "MyXmlReport" is user-defined; Report type is 'xml'
+        outputFile = 'test-reports/CodeNarcReport.xml' // Set the 'outputFile' property of the (XML) Report
+        title = 'XmlReport' // Set the 'title' property of the (XML) Report
+    }
+    MyHtmlReport('html') { // Report type is 'html'
+        outputFile = 'test-reports/CodeNarcReport.html'
+        title = 'HtmlReport'
+    }
+}
