@@ -71,5 +71,6 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.5"
 
         //test ":spock:0.7"
+        test ":code-coverage:1.2.7"
     }
 }
