@@ -1,3 +1,5 @@
+import kuorum.users.KuorumUser
+
 class BootStrap {
 
 
@@ -6,11 +8,11 @@ class BootStrap {
     def init = { servletContext ->
         environments {
             development {
-                kuorum.users.User.collection.getDB().dropDatabase()
-                fixtureLoader.load("testData")
+//                KuorumUser.collection.getDB().dropDatabase()
+//                fixtureLoader.load("testData")
             }
             test{
-                kuorum.users.User.collection.getDB().dropDatabase()
+                KuorumUser.collection.getDB().dropDatabase()
                 fixtureLoader.load("testData")
             }
             production{

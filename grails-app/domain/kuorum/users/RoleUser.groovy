@@ -2,6 +2,7 @@ package kuorum.users
 
 class RoleUser {
 
+    Long id
 	String authority
 
 	static mapping = {

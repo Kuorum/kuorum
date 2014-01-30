@@ -1,20 +1,21 @@
 import kuorum.core.model.CommissionType
-import kuorum.users.User
+import kuorum.users.KuorumUser
+import kuorum.users.KuorumUser
 
 fixture {
 
 
-    user(User){
+    user(KuorumUser){
         username = "Peter"
-        email = "user@kuorum.org"
-        name ="Usuario normal"
+        email = "Peter@kuorum.org"
+        name ="Peter-Jhon Kevin"
 
         accountExpired = false
         accountLocked = false
         authorities = [roleUser]
         dateCreated = Date.parse("dd/MM/yyyy","20/11/2013")
         enabled = true
-        languaje ="es_ES"
+        language ="es_ES"
         lastUpdated = Date.parse("dd/MM/yyyy","01/11/2013")
         password = springSecurityService.encodePassword("test")
         passwordExpired = false

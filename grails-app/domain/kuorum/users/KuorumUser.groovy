@@ -4,7 +4,7 @@ import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import org.bson.types.ObjectId
 
-class User {
+class KuorumUser {
 
 
     ObjectId id
@@ -12,7 +12,7 @@ class User {
     String email
     String username
     String password
-    AvailableLanguage languaje = AvailableLanguage.es_ES
+    AvailableLanguage language = AvailableLanguage.es_ES
 
     List<CommissionType> relevantCommissions = []
 
@@ -57,12 +57,13 @@ class User {
 //    }
 
     def beforeInsert() {
-        username = username.toLowerCase()
+        username = username?.toLowerCase()
+        email = email.toLowerCase()
     }
 
     def beforeUpdate() {
         log.debug("Se ha actualizado el usuario ${id}")
-        username = username.toLowerCase()
+        username = username?.toLowerCase()
         email = email.toLowerCase()
 //        def persisted = SecUser.collection.findOne(_id:id)?.password
 //        if(persisted != password)

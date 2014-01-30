@@ -8,8 +8,8 @@ import spock.lang.Unroll
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(User)
-class UserSpec extends Specification {
+@TestFor(KuorumUser)
+class KuorumUserSpec extends Specification {
 
     def setup() {
     }
@@ -20,7 +20,7 @@ class UserSpec extends Specification {
     @Unroll
     def "test USER constraints with params #params -> result: #isValidate"(){
         given: "PersonUser params..."
-        def user = new User()
+        def user = new KuorumUser()
         user.properties = params
         expect: "Validation constraints..."
         isValidate == user.validate()
@@ -42,8 +42,8 @@ class UserSpec extends Specification {
     @Unroll
     def "test USER equals with params #params -> result: #equals"(){
         given: "PersonUser params..."
-        def user1 = new User()
-        def user2 = new User()
+        def user1 = new KuorumUser()
+        def user2 = new KuorumUser()
         user1.properties = params.user1
         user2.properties = params.user2
         expect: "Equals..."
@@ -60,7 +60,7 @@ class UserSpec extends Specification {
     @Unroll
     def "test USER toString"(){
         given: "PersonUser params..."
-        def user = new User()
+        def user = new KuorumUser()
         user.properties = params
         expect: "Check to String"
         toString == "${user}"

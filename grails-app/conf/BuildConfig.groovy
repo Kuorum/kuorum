@@ -10,7 +10,7 @@ grails.project.source.level = 1.6
 grails.project.fork = [
     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
     //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
-
+    development : [test: false,run: false],
     // configure settings for the test-app JVM, uses the daemon by default
     test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
     // configure settings for the run-app JVM
@@ -44,8 +44,9 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenCentral()
 
-        //Repository for springSecurity
+        //Repository for kuorum.springSecurity
         mavenRepo "http://repo.spring.io/milestone/"
+
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
@@ -57,9 +58,13 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.27'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
 
+        //compile('org.springframework.security:org.springframework.security.core:3.0.2.RELEASE')
+        //compile('org.springframework.security:org.springframework.security.web:3.0.2.RELEASE')
         //compile 'org.springframework.social:spring-social-core:1.0.1.RELEASE'
 
-	compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
+
+	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
+
         //TEST
         test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
 
@@ -85,6 +90,7 @@ grails.project.dependency.resolution = {
         // runtime ":database-migration:1.3.8"
 
         compile ":spring-security-core:2.0-RC2"
+        //compile ":spring-security-core:1.2.7.3"
 
         runtime ":jquery:1.10.2.2"
         runtime ":resources:1.2.1"
