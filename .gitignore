@@ -9,6 +9,7 @@
 /ivy*
 /eclipse
 /.idea
+*.iml
 
 
 # logs

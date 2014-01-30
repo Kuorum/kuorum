@@ -12,6 +12,63 @@ hibernate {
 }
 
 // environment specific settings
+
+
+environments {
+    development {
+        logSql = true
+        grails{
+            mongo {
+                host = "localhost"
+                port = "27017"
+                username = ""
+                password = ""
+                databaseName = "KuorumDev"
+    //                options {
+    //                    w = 1
+    //                    wtimeout = 0
+    //                    fsync = true
+    //                }
+            }
+        }
+    }
+    test {
+        logSql = true
+        grails{
+            mongo {
+                host = "localhost"
+                port = "27017"
+                username = ""
+                password = ""
+                databaseName = "KuorumTest"
+    //                options {
+    //                    w = 1
+    //                    wtimeout = 0
+    //                    fsync = true
+    //                }
+            }
+        }
+    }
+
+    production {
+        grails{
+            mongo {
+                host = "localhost"
+                port = "27017"
+                username = ""
+                password = ""
+                databaseName = "Kuorum"
+    //                options {
+    //                    w = 1
+    //                    wtimeout = 0
+    //                    fsync = true
+    //                }
+            }
+        }
+    }
+}
+
+/*
 environments {
     development {
         dataSource {
@@ -43,3 +100,4 @@ environments {
         }
     }
 }
+*/

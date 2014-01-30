@@ -21,6 +21,9 @@ grails.project.fork = [
     console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
 ]
 
+def seleniumVersion = "2.35.0"
+def gebVersion = "0.9.2"
+
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -40,6 +43,9 @@ grails.project.dependency.resolution = {
         mavenLocal()
         grailsCentral()
         mavenCentral()
+
+        //Repository for springSecurity
+        mavenRepo "http://repo.spring.io/milestone/"
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
@@ -50,6 +56,19 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.27'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
+
+        //compile 'org.springframework.social:spring-social-core:1.0.1.RELEASE'
+
+	compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
+        //TEST
+        test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+
+        test "org.gebish:geb-spock:$gebVersion"
+        test("org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion")
+        test("org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion")
+        test("org.seleniumhq.selenium:selenium-support:$seleniumVersion") {
+            exclude "xml-apis"
+        }
     }
 
     plugins {
@@ -58,11 +77,15 @@ grails.project.dependency.resolution = {
 
         // plugins for the compile step
         compile ":scaffolding:2.0.1"
-        compile ':cache:1.1.1'
+        //compile ':cache:1.1.1'
 
+        compile ":mongodb:1.3.3"
         // plugins needed at runtime but not for compilation
-        runtime ":hibernate:3.6.10.7" // or ":hibernate4:4.1.11.6"
-        runtime ":database-migration:1.3.8"
+        // runtime ":hibernate:3.6.10.7" // or ":hibernate4:4.1.11.6"
+        // runtime ":database-migration:1.3.8"
+
+        compile ":spring-security-core:2.0-RC2"
+
         runtime ":jquery:1.10.2.2"
         runtime ":resources:1.2.1"
         // Uncomment these (or add new ones) to enable additional resources capabilities
@@ -71,6 +94,9 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.5"
 
         //test ":spock:0.7"
+        //compile ':build-test-data:1.1.1'
+        compile ':fixtures:1.2'
+        test ":geb:$gebVersion"
         test ":code-coverage:1.2.7"
         compile ":codenarc:0.20"
     }
