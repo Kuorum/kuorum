@@ -120,12 +120,6 @@ log4j = {
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'kuorum.users.KuorumUser'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'kuorum.users.KuorumUserRoleUser'
 grails.plugin.springsecurity.authority.className = 'kuorum.users.RoleUser'
-
-
-// Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'kuorum.users.KuorumUser'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'kuorum.users.KuorumUserRoleUser'
-grails.plugin.springsecurity.authority.className = 'kuorum.users.RoleUser'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
 	'/index':                         ['permitAll'],
@@ -136,3 +130,5 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/favicon.ico':                ['permitAll']
 ]
 
+grails.plugin.springsecurity.rejectIfNoRule = false
+grails.plugin.springsecurity.fii.rejectPublicInvocations = false
