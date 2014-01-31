@@ -1,6 +1,3 @@
 web
 ===
-Kuorum.org es una organicación que trata de ayudar a la sociedad y a los politicos a mirar en una misma dirección. 
-
-
-Aplicación web para acercar el congreso a la sociedad
+Kuorum es una red social de democracia participativa online que amplifica tu voz en las instituciones.
