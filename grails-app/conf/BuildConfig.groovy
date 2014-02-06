@@ -12,7 +12,8 @@ grails.project.fork = [
     //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
     development : [test: false,run: false],
     // configure settings for the test-app JVM, uses the daemon by default
-    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+    //test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+    test:false ,
     // configure settings for the run-app JVM
     run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
     // configure settings for the run-war JVM
@@ -63,6 +64,7 @@ grails.project.dependency.resolution = {
         //compile 'org.springframework.social:spring-social-core:1.0.1.RELEASE'
 
 
+        compile 'org.apache.solr:solr-solrj:4.6.0'
 	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
 
         //TEST

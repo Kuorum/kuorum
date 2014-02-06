@@ -1,7 +1,10 @@
 package kuorum.users
 
 import grails.test.mixin.TestFor
+import kuorum.Region
 import kuorum.core.model.AvailableLanguage
+import kuorum.helper.Helper
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -11,32 +14,36 @@ import spock.lang.Unroll
 @TestFor(KuorumUser)
 class KuorumUserSpec extends Specification {
 
+    @Shared
+    Region europe = new Region(name:"Europe", iso3166_2: "EU")
+
     def setup() {
+        mockForConstraintsTests(KuorumUser, [new KuorumUser()])
     }
 
     def cleanup() {
     }
 
-    @Unroll
-    def "test USER constraints with params #params -> result: #isValidate"(){
-        given: "PersonUser params..."
-        def user = new KuorumUser()
-        user.properties = params
-        expect: "Validation constraints..."
-        isValidate == user.validate()
-        where: "with params...."
-        isValidate || params
-        false || [:]
-        false || [name:'nombre']
-        false || [name:'nombre', username:'nicknmae']
-        true  || [name:'nombre', email:'email@email.com', password:"XX"]
-        true  || [
+    @Unroll("test USER constraints: Checking #field = #value expected #error")
+    def "test USER all constraints"() {
+        when:
+
+        def params = [
                 name:'nombre',
                 password:'XX',
                 email:'email@email.com',
                 username:'email@email.com',
                 languaje:AvailableLanguage.es_ES
-                ]
+        ]
+        params[field] = value
+        def obj = new KuorumUser( params)
+        then:
+        Helper.validateConstraints(obj, field, error)
+
+        where:
+        error           | field         | value
+        'OK'            | 'name'        | 'name'
+        'email'         | 'email'       | 'email'
     }
 
     @Unroll

@@ -14,7 +14,11 @@ class KuorumUser {
     String password
     AvailableLanguage language = AvailableLanguage.es_ES
 
+    PersonalData personalData = new PersonalData()
+
     List<CommissionType> relevantCommissions = []
+
+    static embedded = ['personalData', 'authorities']
 
     //Spring fields
     transient springSecurityService
@@ -36,6 +40,7 @@ class KuorumUser {
 
     static mapping = {
         email index:true, indexAttributes: [unique:true]
+        username index:true, indexAttributes: [unique:true]
     }
 
     String toString(){
@@ -50,7 +55,6 @@ class KuorumUser {
 
 
     static transients = ["springSecurityService"]
-    static embedded = ['authorities']
 
 //    static mapping = {
 //       password column: '`password`'

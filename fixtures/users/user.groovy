@@ -1,24 +1,23 @@
 import kuorum.core.model.CommissionType
+import kuorum.core.model.Gender
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUser
+import kuorum.users.PersonalData
 
 fixture {
 
+    userPersonalData(PersonalData){
+        gender =  Gender.MALE
+        postalCode = 28001
+        regionCode = "EU-SP-MD"
+        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
+    }
 
     user(KuorumUser){
         username = "Peter"
         email = "Peter@kuorum.org"
         name ="Peter-Jhon Kevin"
-
-        accountExpired = false
-        accountLocked = false
-        authorities = [roleUser]
-        dateCreated = Date.parse("dd/MM/yyyy","20/11/2013")
-        enabled = true
-        language ="es_ES"
-        lastUpdated = Date.parse("dd/MM/yyyy","01/11/2013")
         password = springSecurityService.encodePassword("test")
-        passwordExpired = false
         relevantCommissions = [
                 CommissionType.JUSTICE,
                 CommissionType.CONSTITUTIONAL,
@@ -43,5 +42,14 @@ fixture {
                 CommissionType.SUSTAINABLE_MOBILITY,
                 CommissionType.OTHERS
         ]
+        language ="es_ES"
+
+        accountExpired = false
+        accountLocked = false
+        authorities = [roleUser]
+        dateCreated = Date.parse("dd/MM/yyyy","20/11/2013")
+        enabled = true
+        lastUpdated = Date.parse("dd/MM/yyyy","01/11/2013")
+        passwordExpired = false
     }
 }
