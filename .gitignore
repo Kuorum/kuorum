@@ -10,6 +10,7 @@
 /eclipse
 /.idea
 *.iml
+/.sonar
 
 
 # logs
