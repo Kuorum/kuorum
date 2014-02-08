@@ -1,6 +1,6 @@
 package kuorum.users
 
-class Organization {
+class Organization extends KuorumUser{
 
     Boolean isPoliticalParty
 

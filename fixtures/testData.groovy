@@ -1,5 +1,6 @@
 
 include "regions"
-//include "politicalGroups"
+include "institutions"
+include "parliamentaryGroups"
 include "authoritiesData"
 include "users/*"

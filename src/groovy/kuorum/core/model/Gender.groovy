@@ -6,5 +6,5 @@ package kuorum.core.model
 public enum Gender {
     MALE,
     FEMALE,
-    ENTERPRISE
+    ORGANIZATION
 }
