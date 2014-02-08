@@ -8,16 +8,18 @@ import kuorum.users.KuorumUser
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.apache.solr.common.SolrInputDocument
+import org.springframework.beans.factory.annotation.Value
 
 @Transactional
 class IndexSolrService {
 
-    String solrUrl  = "http://localhost:9080/solr/kuorumUsers"
+    SolrServer server
+
+    @Value('${solr.bulkUpdateQuentity}')
     Integer solrBulkUpdateQuantity = 1000
 
     def clearIndex(){
         log.warn("Clearing solr index")
-        SolrServer server = new HttpSolrServer(solrUrl);
         server.deleteByQuery("*:*")
         server.commit()
 
@@ -25,12 +27,11 @@ class IndexSolrService {
 
     def fullIndex() {
         clearIndex()
-        SolrServer server = new HttpSolrServer(solrUrl);
 
         log.warn("Reindexing all mongo")
-
         Date start = new Date()
         Integer numIndexed = 0;
+        log.info("BulkUpdates: $solrBulkUpdateQuantity")
         java.util.ArrayList<SolrInputDocument> solrUsers = new ArrayList<SolrInputDocument>(solrBulkUpdateQuantity)
         KuorumUser.list().each {kuorumUser ->
             SolrKuorumUser solrUser = new SolrKuorumUser(kuorumUser.properties.findAll { k, v -> k in SolrKuorumUser.metaClass.properties*.name} )

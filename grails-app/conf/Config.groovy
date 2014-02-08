@@ -7,12 +7,11 @@
 //                             "file:${userHome}/.grails/${appName}-config.properties",
 //                             "file:${userHome}/.grails/${appName}-config.groovy"]
 
-//grails.config.locations = [
-//        "classpath:${grails.util.Environment.current.name}_config.properties"
+grails.config.locations = [
+        "classpath:${grails.util.Environment.current.name}_config.properties"
 //        Environment.current.name
 //        "classpath:development_config.properties"
-
-//]
+]
 
 // if (System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]

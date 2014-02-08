@@ -8,17 +8,15 @@ import org.apache.solr.client.solrj.response.QueryResponse
 import org.apache.solr.common.SolrDocumentList
 import org.apache.solr.common.params.CommonParams
 import org.apache.solr.common.params.TermsParams
+import org.springframework.beans.factory.annotation.Value
 
 @Transactional(readOnly = true)
 class SearchSolrService {
 
-    //CUando esto crezca pasarlo a CLOUD
-    String solrUrl  = "http://localhost:9080/solr/kuorumUsers"
+    SolrServer server
 
 
     def search(String word) {
-
-        SolrServer server = new HttpSolrServer(solrUrl);
 
         SolrQuery query = new SolrQuery();
         query.setQuery( "username:$word" );

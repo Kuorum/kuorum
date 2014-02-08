@@ -9,8 +9,9 @@ class KuorumUser {
 
     ObjectId id
     String name
+    String surname
     String email
-    String username
+//    String username
     String password
     AvailableLanguage language = AvailableLanguage.es_ES
 
@@ -33,18 +34,15 @@ class KuorumUser {
 
     static constraints = {
         email nullable: false, email: true
-        name nullable: true
-        username nullable:true
         password nullable:false, blank: false
     }
 
     static mapping = {
         email index:true, indexAttributes: [unique:true]
-        username index:true, indexAttributes: [unique:true]
     }
 
     String toString(){
-        username?:email
+        surname?"$name $surname":name
     }
 
     boolean equals(Object object){
@@ -61,13 +59,13 @@ class KuorumUser {
 //    }
 
     def beforeInsert() {
-        username = username?.toLowerCase()
+//        username = username?.toLowerCase()
         email = email.toLowerCase()
     }
 
     def beforeUpdate() {
         log.debug("Se ha actualizado el usuario ${id}")
-        username = username?.toLowerCase()
+//        username = username?.toLowerCase()
         email = email.toLowerCase()
 //        def persisted = SecUser.collection.findOne(_id:id)?.password
 //        if(persisted != password)
