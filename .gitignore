@@ -13,6 +13,8 @@
 /.sonar
 
 
+covertura.ser
+
 # logs
 /stacktrace.log
 /test/reports
