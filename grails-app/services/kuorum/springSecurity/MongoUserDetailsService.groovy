@@ -32,9 +32,8 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
 
     @Override
     UserDetails loadUserByUsername(String username, boolean loadRoles) {
-        System.out.println("Intentando logarse el usuario: $username")
         if(log.debugEnabled) {
-            log.debug("Intentando logarse el usuario: $username")
+            log.debug("Logarndose el usuario: $username")
         }
         KuorumUser.withTransaction { status ->
 
@@ -42,13 +41,9 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
                 log.warn("Empty username: $username")
                 throw new UsernameNotFoundException('Empty username', username)
             }
-            username = username.toLowerCase();
-            def user = KuorumUser.findByUsername(username)
 
-            if (!user){
-                log.debug("KuorumUser not found using username: $username")
-                user = KuorumUser.findByEmail(username)
-            }
+            log.debug("KuorumUser not found using username: $username")
+            user = KuorumUser.findByEmail(username)
 
             if (!user) {
                 log.warn("KuorumUser not found: $username")
@@ -81,7 +76,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
     }
 
     protected UserDetails createUserDetails(user, Collection authorities) {
-        new GrailsUser(user.username, user.password, user.enabled,
+        new GrailsUser("$user", user.password, user.enabled,
                 !user.accountExpired, !user.passwordExpired,
                 !user.accountLocked, authorities, user.id)
     }
