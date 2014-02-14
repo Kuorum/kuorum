@@ -1,6 +1,5 @@
 package kuorum
 
-import grails.plugin.spock.IntegrationSpec
 import org.springframework.security.core.userdetails.UserDetails
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -12,7 +11,6 @@ import spock.lang.Unroll
  * Time: 11:20
  * To change this template use File | Settings | File Templates.
  */
-//@TestFor(PersonUserController)
 class MongoUserDetailServiceIntegrationSpec extends Specification{
 
     def userDetailsService
@@ -34,8 +32,7 @@ class MongoUserDetailServiceIntegrationSpec extends Specification{
         usernameDDBB == userDetails?.username
         where: "Username with params...."
         usernameDDBB || params
-        "peter" || [username:"Peter"]
-        "peter" || [username:'Peter@kuorum.org']
+        "Peter-Jhon Kevin" || [username:'Peter@example.com']
     }
 
     @Unroll
