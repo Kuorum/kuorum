@@ -1,3 +1,5 @@
+import grails.plugin.springsecurity.SpringSecurityUtils
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -125,6 +127,7 @@ log4j = {
 
 
 // Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.usernamePropertyName='email'
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'kuorum.users.KuorumUser'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'kuorum.users.KuorumUserRoleUser'
 grails.plugin.springsecurity.authority.className = 'kuorum.users.RoleUser'
@@ -140,3 +143,51 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 
 grails.plugin.springsecurity.rejectIfNoRule = false
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false
+grails.plugin.springsecurity.securityConfigType = "Annotation"
+
+grails.plugin.springsecurity.ui.encodePassword=true
+grails.plugin.springsecurity.ui.password.minLength=6
+grails.plugin.springsecurity.ui.password.maxLength=64
+//grails.plugin.springsecurity.ui.password.validationRegex="^.*(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&]).*$"
+grails.plugin.springsecurity.ui.password.validationRegex="^.*"
+
+// Added by the Restrpc plugin:
+restrpc.apiName = 'api'
+restrpc.apiVersion = '1.0'
+
+ /*
+grails {
+    kuorum.mail {
+        host = "smtp.mandrillapp.com"
+        port = 587
+        username = "inaki.dominguez@kuorum.org"
+        password = "oHodkjWY5Di5S5H8qTSbMg"
+        props = ["kuorum.mail.smtp.starttls.enable":"true",
+                "kuorum.mail.smtp.port":"587"]
+    }
+}
+
+*/
+
+
+grails {
+    mail {
+        host = "bo51.e-goi.com"
+        port = 1587
+        username = "XXXXXXXXXXX"
+        password = "XXXXXXXX"
+        props =["kuorum.mail.smtp.auth":"true",
+                "kuorum.mail.smtp.debug":"true",
+                "kuorum.mail.smtp.starttls.enable":"true",
+                "kuorum.mail.smtp.socketFactory.port":"1587",
+                "kuorum.mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+//                "kuorum.mail.smtp.starttls.required" : 'true',
+                //"kuorum.mail.smtp.socketFactory.fallback":"false"
+        ]
+
+                //["kuorum.mail.smtp.starttls.enable":"true",
+                //"kuorum.mail.smtp.port":"1587"]
+    }
+}
+
+
