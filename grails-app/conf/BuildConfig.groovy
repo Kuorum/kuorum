@@ -10,12 +10,14 @@ grails.project.source.level = 1.6
 grails.project.fork = [
     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
     //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
-    development : [test: false,run: false],
+    //development : [test: false,run: false],
+    development : false,
     // configure settings for the test-app JVM, uses the daemon by default
     //test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
     test:false ,
     // configure settings for the run-app JVM
-    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    //run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    run: false,
     // configure settings for the run-war JVM
     war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
     // configure settings for the Console UI JVM
@@ -67,8 +69,16 @@ grails.project.dependency.resolution = {
         compile 'org.apache.solr:solr-solrj:4.6.0'
 	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
 
+        compile ('org.codehaus.groovy:groovy-xmlrpc:jar:0.7'){
+            excludes "jivesoftware:smack"
+        }
+        compile 'org.igniterealtime.smack:smack:3.1.0'
+//        compile 'com.ecwid:ecwid-mailchimp:jar:2.0.0.1'
+
+       // compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
+
         //TEST
-        test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+        //test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
 
         test "org.gebish:geb-spock:$gebVersion"
         test("org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion")
@@ -92,8 +102,15 @@ grails.project.dependency.resolution = {
         // runtime ":database-migration:1.3.8"
 
         compile ":spring-security-core:2.0-RC2"
+        //compile ":spring-security-acl:2.0-RC1" //Para las partes que tienen seguridad custom
         compile ":spring-security-ui:1.0-RC1"
         //compile ":spring-security-core:1.2.7.3"
+
+        compile ":rest-client-builder:2.0.0"
+        //Para las peticiones a la API de mandrillapp
+        //compile ":rest:0.8"
+//        compile ":restrpc:0.9"
+
 
         runtime ":jquery:1.10.2.2"
         runtime ":resources:1.2.1"
