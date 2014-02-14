@@ -18,6 +18,9 @@ class KuorumUser {
     PersonalData personalData = new PersonalData()
 
     List<CommissionType> relevantCommissions = []
+    List<KuorumUser> following  = []
+    List<KuorumUser> followers = []
+    List<KuorumUser> subscribers = []
 
     static embedded = ['personalData', 'authorities']
 
@@ -34,6 +37,7 @@ class KuorumUser {
 
     static constraints = {
         email nullable: false, email: true
+        surname nullable:true
         password nullable:false, blank: false
     }
 
