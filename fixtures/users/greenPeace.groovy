@@ -13,7 +13,7 @@ fixture {
     }
 
     greenPeace(Organization){
-        username = "greenPeace"
+//        username = "greenPeace"
         email = "info@greenpeace.com"
         name ="Green Peace"
         isPoliticalParty=false

@@ -12,12 +12,13 @@ fixture {
         birthday = Date.parse("dd/MM/yyyy","09/10/1983")
     }
 
-    user(Person){
-        username = "Peter"
-        email = "Peter@kuorum.org"
+    peter(Person){
+//        username = "Peter"
+        email = "Peter@example.com"
         name ="Peter-Jhon Kevin"
         personalData = userPersonalData
         password = springSecurityService.encodePassword("test")
+        birthday = Date.parse("dd-MM-yyyy","01-02-1980")
         relevantCommissions = [
                 CommissionType.JUSTICE,
                 CommissionType.CONSTITUTIONAL,
