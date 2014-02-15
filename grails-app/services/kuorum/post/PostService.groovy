@@ -15,7 +15,7 @@ class PostService {
 
     Post savePost(Post post) {
 
-        post.owner = springSecurityService.currentUser
+        post.owner = KuorumUser.get(springSecurityService.principal?.id)
         post.numVotes = 1
         post.numClucks = 1
 
