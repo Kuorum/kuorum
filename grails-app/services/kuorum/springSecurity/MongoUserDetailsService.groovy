@@ -43,7 +43,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
             }
 
             log.debug("KuorumUser not found using username: $username")
-            user = KuorumUser.findByEmail(username)
+            KuorumUser user = KuorumUser.findByEmail(username.toLowerCase())
 
             if (!user) {
                 log.warn("KuorumUser not found: $username")
