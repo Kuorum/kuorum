@@ -13,7 +13,7 @@ import kuorum.mail.MailData
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
-    def externalMailService
+    def kuorumMailService
 
     def index() {
         def copy = [:] + (flash.chainedParams ?: [:])
@@ -51,7 +51,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         MailData mailData = new MailData(user:user, bindings: [verifyLink:url])
 
-        externalMailService.registerUser(mailData)
+        kuorumMailService.registerUser(mailData)
 
 
 def conf = SpringSecurityUtils.securityConfig
@@ -91,7 +91,6 @@ mailService.sendMail {
         KuorumUser user
         // TODO to ui service
         RegistrationCode.withTransaction { status ->
-            String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
             user = KuorumUser.findByEmail(registrationCode.username)
             if (!user) {
                 return
@@ -108,7 +107,7 @@ mailService.sendMail {
         }
 
         springSecurityService.reauthenticate user.email
-        externalMailService.addSubscriber(user)
+        kuorumMailService.verifyUser(user)
         flash.message = message(code: 'spring.security.ui.register.complete')
         redirect uri: conf.ui.register.postRegisterUrl ?: defaultTargetUrl
     }
@@ -125,6 +124,11 @@ class KuorumRegisterCommand extends RegisterCommand{
         username nullable:true     //Override username spring command constraint
         name blank: false
         surname nullable: true, blank: true
+        email nullable:false, blank: false, email:true, validator: { val, obj ->
+            if (KuorumUser.findByEmail(val)) {
+                return 'registerCommand.username.unique'
+            }
+        }
     }
 }
 

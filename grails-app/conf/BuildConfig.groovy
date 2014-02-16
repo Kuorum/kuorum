@@ -73,7 +73,7 @@ grails.project.dependency.resolution = {
             excludes "jivesoftware:smack"
         }
         compile 'org.igniterealtime.smack:smack:3.1.0'
-//        compile 'com.ecwid:ecwid-mailchimp:jar:2.0.0.1'
+        compile 'com.ecwid:ecwid-mailchimp:jar:2.0.0.1'
 
        // compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
 
