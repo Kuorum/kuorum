@@ -13,9 +13,9 @@
 /.sonar
 
 # Config files
-src/java/development_config.properties
-src/java/test_config.properties
-src/java/production_config.properties
+/src/java/development_config.properties
+/src/java/test_config.properties
+/src/java/production_config.properties
 
 covertura.ser
 
