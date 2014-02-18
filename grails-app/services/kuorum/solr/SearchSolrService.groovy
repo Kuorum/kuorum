@@ -1,6 +1,9 @@
 package kuorum.solr
 
 import grails.transaction.Transactional
+import kuorum.core.exception.KuorumException
+import kuorum.core.exception.UtilException
+import kuorum.core.model.solr.SearchParams
 import kuorum.core.model.solr.SolrAutocomplete
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.core.model.solr.SolrLaw
@@ -31,13 +34,18 @@ class SearchSolrService {
         docs
     }
 
-    SolrAutocomplete suggest(String word){
+    SolrAutocomplete suggest(SearchParams params){
 
+        if (!params.validate()){
+            throw UtilException.createExceptionFromValidatable(params,"Parametros de búsqueda erroneos")
+        }
         SolrQuery query = new SolrQuery();
         query.setParam(CommonParams.QT, "/suggest");
         //query.setParam(TermsParams.TERMS_FIELD, "name", "username");
-        query.setParam(CommonParams.Q, word);
-        query.setParam("facet.prefix",word)
+        query.setParam(CommonParams.Q, params.word);
+        query.setParam("facet.prefix",params.word)
+        if (params.type) query.setParam(CommonParams.FQ, "type:${params.type}")
+        if (params.subType) query.setParam(CommonParams.FQ, "subType:${params.type}")
 
         QueryResponse rsp = server.query( query );
 
