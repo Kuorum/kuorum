@@ -16,6 +16,7 @@ class Post {
     Integer numVotes
     Integer numClucks
     PostType postType
+    Date dateCreated
 
     static constraints = {
         numVotes min:0

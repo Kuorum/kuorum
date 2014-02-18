@@ -19,7 +19,7 @@ class SearchSolrService {
     def search(String word) {
 
         SolrQuery query = new SolrQuery();
-        query.setQuery( "username:$word" );
+        query.setQuery( "name:$word" );
 
         QueryResponse rsp = server.query( query );
         SolrDocumentList docs = rsp.getResults();

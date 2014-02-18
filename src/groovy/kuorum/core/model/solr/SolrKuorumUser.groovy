@@ -7,15 +7,6 @@ import org.bson.types.ObjectId
 /**
  * Created by iduetxe on 1/02/14.
  */
-class SolrKuorumUser {
+class SolrKuorumUser extends SolrElement{
 
-    String id
-    String name
-    String username
-    String email
-    Gender gender
-    List<CommissionType> relevantCommissions = []
-
-    Date dateCreated
-    boolean enabled
 }

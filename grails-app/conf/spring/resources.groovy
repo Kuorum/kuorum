@@ -25,6 +25,7 @@ beans = {
 
     indexSolrService(IndexSolrService){
         server = solrServer
+        grailsApplication = ref('grailsApplication')
     }
 
 }

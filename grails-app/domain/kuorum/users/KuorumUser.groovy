@@ -11,6 +11,7 @@ class KuorumUser {
     String name
     String surname
     String email
+    String bio
 //    String username
     String password
     AvailableLanguage language = AvailableLanguage.es_ES
@@ -39,6 +40,7 @@ class KuorumUser {
         email nullable: false, email: true
         surname nullable:true
         password nullable:false, blank: false
+        bio nullable:true
     }
 
     static mapping = {

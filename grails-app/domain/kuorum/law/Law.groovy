@@ -15,6 +15,8 @@ class Law {
     String introduction
     List<CommissionType> commissions = []
     Region region
+    Boolean open = Boolean.TRUE
+    Date dateCreated
 
     static embedded = ['region' ]
 

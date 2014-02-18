@@ -3,7 +3,16 @@ package kuorum.solr
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
 import groovy.time.TimeDuration
+import kuorum.core.exception.KuorumException
+import kuorum.core.exception.KuorumExceptionData
+import kuorum.core.model.solr.SolrElement
 import kuorum.core.model.solr.SolrKuorumUser
+import kuorum.core.model.solr.SolrLaw
+import kuorum.core.model.solr.SolrPost
+import kuorum.core.model.solr.SolrSubType
+import kuorum.core.model.solr.SolrType
+import kuorum.law.Law
+import kuorum.post.Post
 import kuorum.users.KuorumUser
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.impl.HttpSolrServer
@@ -12,6 +21,10 @@ import org.springframework.beans.factory.annotation.Value
 
 @Transactional
 class IndexSolrService {
+
+    def grailsApplication
+
+    private final def CLASSNAMES_TO_INDEX = [KuorumUser.name, Law.name, Post.name]
 
     SolrServer server
 
@@ -32,10 +45,22 @@ class IndexSolrService {
         Date start = new Date()
         Integer numIndexed = 0;
         log.info("BulkUpdates: $solrBulkUpdateQuantity")
+        CLASSNAMES_TO_INDEX.each{className ->
+            numIndexed += indexByClassName(className)
+        }
+
+        TimeDuration td = TimeCategory.minus( new Date(), start )
+
+        log.info("Indexed $numIndexed docs. Time indexing: ${td}" )
+    }
+
+    private Integer indexByClassName(String className){
+        Integer numIndexed = 0
+        log.info("Indexing $className")
+        Date start = new Date()
         java.util.ArrayList<SolrInputDocument> solrUsers = new ArrayList<SolrInputDocument>(solrBulkUpdateQuantity)
-        KuorumUser.list().each {kuorumUser ->
-            SolrKuorumUser solrUser = new SolrKuorumUser(kuorumUser.properties.findAll { k, v -> k in SolrKuorumUser.metaClass.properties*.name} )
-            solrUser.id = kuorumUser.id.toString()
+        grailsApplication.getClassForName(className).list().each {kuorumUser ->
+            SolrElement solrUser = createSolrElement(kuorumUser)
             SolrInputDocument solrInputDocument = new SolrInputDocument()
             solrUser.properties.each{k,v->if (k!="class") solrInputDocument.addField(k,v)}
             solrUsers.add(solrInputDocument)
@@ -51,9 +76,45 @@ class IndexSolrService {
             server.commit()
             numIndexed += solrUsers.size()
         }
-
         TimeDuration td = TimeCategory.minus( new Date(), start )
+        log.info("Indexed $numIndexed '${className}'. Time indexing: ${td}" )
+        numIndexed
+    }
 
-        log.info("Indexed $numIndexed docs. Time indexing: ${td}" )
+    SolrPost createSolrElement(Post post){
+        new SolrPost(
+            id:post.id.toString(),
+            name:post.title,
+            type:SolrType.POST,
+            subType:SolrType.POST.generateSubtype(post),
+            text:post.text,
+            dateCreated:post.dateCreated,
+            hashtag:post.law.hashtag,
+            owner:"${post.owner.name} ${post.owner.surname}"
+        )
+    }
+
+    SolrKuorumUser createSolrElement(KuorumUser kuorumUser){
+        //new SolrKuorumUser(kuorumUser.properties.findAll { k, v -> k in SolrKuorumUser.metaClass.properties*.name} )
+        new SolrKuorumUser(
+                id:kuorumUser.id.toString(),
+                name: kuorumUser.toString(),
+                type:SolrType.KUORUM_USER,
+                subType:SolrType.KUORUM_USER.generateSubtype(kuorumUser),
+                dateCreated:kuorumUser.dateCreated
+        )
+
+    }
+
+    SolrLaw createSolrElement(Law law){
+        new SolrLaw(
+            id:law.id.toString(),
+            name:law.shortName,
+            type:SolrType.LAW,
+            subType:SolrType.LAW.generateSubtype(law),
+            text:law.description,
+            dateCreated:law.dateCreated,
+            hashtag:law.hashtag
+        )
     }
 }
