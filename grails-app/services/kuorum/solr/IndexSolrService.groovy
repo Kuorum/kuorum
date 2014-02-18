@@ -76,6 +76,7 @@ class IndexSolrService {
             server.commit()
             numIndexed += solrUsers.size()
         }
+        server.optimize()
         TimeDuration td = TimeCategory.minus( new Date(), start )
         log.info("Indexed $numIndexed '${className}'. Time indexing: ${td}" )
         numIndexed
