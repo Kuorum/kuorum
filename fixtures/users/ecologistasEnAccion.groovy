@@ -5,19 +5,19 @@ import kuorum.users.PersonalData
 
 fixture {
 
-    greenPeaceData(PersonalData){
+    ecologistasData(PersonalData){
         gender =  Gender.ORGANIZATION
 //        postalCode = 28001
 //        regionCode = "EU-SP-MD"
 //        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
     }
 
-    greenPeace(Organization){
-//        username = "greenPeace"
-        email = "info@greenpeace.com"
-        name ="Green Peace"
+    ecologistasEnAccion(Organization){
+//        username = "ecologistasEnAccion"
+        email = "ecologistas@example.com"
+        name ="Ecologistas en acción"
         isPoliticalParty=false
-        personalData = greenPeaceData
+        personalData = ecologistasData
         password = springSecurityService.encodePassword("test")
         relevantCommissions = [
                 CommissionType.JUSTICE,

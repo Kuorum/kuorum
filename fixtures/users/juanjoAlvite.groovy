@@ -5,20 +5,19 @@ import kuorum.users.PersonalData
 
 fixture {
 
-    peterData(PersonalData){
+    juanjoPersonalData(PersonalData){
         gender =  Gender.MALE
         postalCode = 28001
         regionCode = "EU-SP-MD"
-        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
+        birthday = Date.parse("dd/MM/yyyy","09/10/1980")
     }
 
-    peter(Person){
-//        username = "Peter"
-        email = "Peter@example.com"
-        name ="Peter-Jhon Kevin"
-        personalData = peterData
+    juanjoAlvite(Person){
+        email = "juanjoAlvite@example.com"
+        name ="Juanjo Alvite1"
+        personalData = juanjoPersonalData
         password = springSecurityService.encodePassword("test")
-        birthday = Date.parse("dd-MM-yyyy","01-02-1980")
+        birthday = Date.parse("dd/MM/yyyy","09/10/1980")
         relevantCommissions = [
                 CommissionType.JUSTICE,
                 CommissionType.CONSTITUTIONAL,

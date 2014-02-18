@@ -1,24 +1,24 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
-import kuorum.users.Person
+import kuorum.users.Organization
 import kuorum.users.PersonalData
 
 fixture {
 
-    peterData(PersonalData){
-        gender =  Gender.MALE
-        postalCode = 28001
-        regionCode = "EU-SP-MD"
-        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
+    equoData(PersonalData){
+        gender =  Gender.ORGANIZATION
+//        postalCode = 28001
+//        regionCode = "EU-SP-MD"
+//        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
     }
 
-    peter(Person){
-//        username = "Peter"
-        email = "Peter@example.com"
-        name ="Peter-Jhon Kevin"
-        personalData = peterData
+    equo(Organization){
+//        username = "ecologistasEnAccion"
+        email = "equo@example.com"
+        name ="Equo"
+        isPoliticalParty=false
+        personalData = equoData
         password = springSecurityService.encodePassword("test")
-        birthday = Date.parse("dd-MM-yyyy","01-02-1980")
         relevantCommissions = [
                 CommissionType.JUSTICE,
                 CommissionType.CONSTITUTIONAL,
