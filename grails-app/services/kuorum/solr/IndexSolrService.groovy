@@ -16,7 +16,9 @@ import kuorum.post.Post
 import kuorum.users.KuorumUser
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.impl.HttpSolrServer
+import org.apache.solr.common.SolrDocument
 import org.apache.solr.common.SolrInputDocument
+import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Value
 
 @Transactional
@@ -95,6 +97,19 @@ class IndexSolrService {
         )
     }
 
+    SolrPost recoverPostFromSolr(SolrDocument solrDocument){
+        new SolrPost(
+                id:new ObjectId(solrDocument.id),
+                name:solrDocument.shortName,
+                type:SolrType.valueOf(solrDocument.type),
+                subType:SolrSubType.valueOf(solrDocument.subType),
+                text:solrDocument.text,
+                dateCreated:solrDocument.dateCreated,
+                hashtag:solrDocument.hashtag,
+                owner:solrDocument.owner
+        )
+    }
+
     SolrKuorumUser createSolrElement(KuorumUser kuorumUser){
         //new SolrKuorumUser(kuorumUser.properties.findAll { k, v -> k in SolrKuorumUser.metaClass.properties*.name} )
         new SolrKuorumUser(
@@ -104,7 +119,16 @@ class IndexSolrService {
                 subType:SolrType.KUORUM_USER.generateSubtype(kuorumUser),
                 dateCreated:kuorumUser.dateCreated
         )
+    }
 
+    SolrKuorumUser recoverKuorumUserFromSolr(SolrDocument solrDocument){
+        new SolrKuorumUser(
+                id:new ObjectId(solrDocument.id),
+                name:solrDocument.shortName,
+                type:SolrType.valueOf(solrDocument.type),
+                subType:SolrSubType.valueOf(solrDocument.subType),
+                dateCreated:solrDocument.dateCreated,
+        )
     }
 
     SolrLaw createSolrElement(Law law){
@@ -116,6 +140,18 @@ class IndexSolrService {
             text:law.description,
             dateCreated:law.dateCreated,
             hashtag:law.hashtag
+        )
+    }
+
+    SolrLaw recoverLawFromSolr(SolrDocument solrDocument){
+        new SolrLaw(
+                id:new ObjectId(solrDocument.id),
+                name:solrDocument.shortName,
+                type:SolrType.valueOf(solrDocument.type),
+                subType:SolrSubType.valueOf(solrDocument.subType),
+                text:solrDocument.text,
+                dateCreated:solrDocument.dateCreated,
+                hashtag:solrDocument.hashtag
         )
     }
 }

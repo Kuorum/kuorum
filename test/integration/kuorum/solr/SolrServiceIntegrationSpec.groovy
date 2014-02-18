@@ -1,6 +1,7 @@
 package kuorum.solr
 
 import grails.test.spock.IntegrationSpec
+import kuorum.core.model.solr.SolrAutocomplete
 import kuorum.law.Law
 import kuorum.post.Post
 import kuorum.users.KuorumUser
@@ -21,7 +22,7 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
     }
 
 
-//    @Unroll
+    @Unroll
     void "search on solr the : #word -> #quantity"() {
         given: "searh worf ..."
         def wordToSearchFor = word
@@ -32,5 +33,27 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
         KuorumUser.collection.count() + Post.collection.count() + Law.collection.count()|| '*'
         1 || "Peter"
         1 || 'peter'
+    }
+
+    @Unroll
+    void "check suggestions: #word "(){
+        given:"A word to search"
+            def wordToSearchFor = word
+        when:"search for "
+            SolrAutocomplete solrAutocomplete = searchSolrService.suggest(wordToSearchFor)
+        then:
+            solrAutocomplete.numResults == numResults
+            solrAutocomplete.laws.size() == numLaws
+            solrAutocomplete.kuorumUsers.size() == numUsers
+            if (solrAutocomplete.suggests){
+                solrAutocomplete.suggests[0] == firstSuggest
+            }
+        where:
+            word        | numResults    | numLaws | numUsers | firstSuggest
+            "parq"      | 0             | 0       | 0        | "parques"
+            "parques"   | 3             | 1       | 0        | "parques"
+            "parques na"| 3             | 1       | 0        | "parques nacionales"
+            "juanjo"    | 1             | 0       | 1        | "juanjo"
+            "juanjo a"  | 1             | 0       | 1        | "juanjo alvite"
     }
 }

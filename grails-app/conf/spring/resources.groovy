@@ -19,13 +19,13 @@ beans = {
 //   def solrUrl
    //def solrServer = new HttpSolrServer("http://localhost:9080/solr/kuorumUsers")
 
-   searchSolrService(SearchSolrService){
-       server = solrServer
-   }
-
     indexSolrService(IndexSolrService){
         server = solrServer
         grailsApplication = ref('grailsApplication')
     }
+   searchSolrService(SearchSolrService){
+       server = solrServer
+       indexSolrService = indexSolrService
+   }
 
 }
