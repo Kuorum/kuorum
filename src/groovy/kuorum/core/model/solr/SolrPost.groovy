@@ -7,4 +7,5 @@ class SolrPost extends SolrElement{
     String hashtag
     String owner
     String text
+    Boolean victory
 }

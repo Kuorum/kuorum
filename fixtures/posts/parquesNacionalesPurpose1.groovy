@@ -9,6 +9,7 @@ fixture {
         numVotes=1
         owner=ecologistasEnAccion
         postType=PostType.PURPOSE
+        victory=Boolean.TRUE
         title="Rechazo al nuevo Proyecto de Ley de Parques Nacionales"
         text="""
             El Proyecto de Ley de Parques Nacionales elaborado por el Ministerio de Agricultura, Alimentación y Medio Ambiente y aprobado en el Consejo de Ministros del 24 de enero, abre la puerta a actividades prohibidas hasta ahora en los parques nacionales e introduce una peligrosa excepción para la transformación urbanística en los parques, poniendo en riesgo la esencia de la red. Este proyecto de Ley cuenta con la oposición de Ecologistas en Acción y de todas las organizaciones ecologistas, de varias Comunidades Autónomas, de muchos municipios situados en parques nacionales y cuenta con un dictamen del Consejo de Estado que ve indicios de inconstitucionalidad.

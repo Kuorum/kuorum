@@ -93,7 +93,8 @@ class IndexSolrService {
             text:post.text,
             dateCreated:post.dateCreated,
             hashtag:post.law.hashtag,
-            owner:"${post.owner.name} ${post.owner.surname}"
+            owner:"${post.owner.name} ${post.owner.surname}",
+            victory: post.victory
         )
     }
 
@@ -106,9 +107,11 @@ class IndexSolrService {
                 text:solrDocument.text,
                 dateCreated:solrDocument.dateCreated,
                 hashtag:solrDocument.hashtag,
-                owner:solrDocument.owner
+                owner:solrDocument.owner,
+                victory:solrDocument.victory
         )
     }
+
 
     SolrKuorumUser createSolrElement(KuorumUser kuorumUser){
         //new SolrKuorumUser(kuorumUser.properties.findAll { k, v -> k in SolrKuorumUser.metaClass.properties*.name} )
@@ -153,5 +156,14 @@ class IndexSolrService {
                 dateCreated:solrDocument.dateCreated,
                 hashtag:solrDocument.hashtag
         )
+    }
+
+    SolrElement recoverSolrElementFromSolr(SolrDocument solrDocument){
+        switch (SolrType.valueOf(solrDocument.type)){
+            case SolrType.KUORUM_USER:  return recoverKuorumUserFromSolr(solrDocument); break;
+            case SolrType.LAW:          return recoverLawFromSolr(solrDocument); break;
+            case SolrType.POST:         return recoverPostFromSolr(solrDocument); break;
+            default: throw new KuorumException("No se ha reconocido el tipo ${solrDocument.type}")
+        }
     }
 }

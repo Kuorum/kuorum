@@ -24,8 +24,14 @@ class SearchParams {
      */
     SolrSubType subType
 
+    /**
+     * Offset
+     */
+    Long offset = 0
+
 
     static constraints = {
         word blank: false, nullable:false,minSize:3
+        offset min: 0L
     }
 }

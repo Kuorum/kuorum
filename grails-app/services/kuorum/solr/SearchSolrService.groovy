@@ -5,11 +5,15 @@ import kuorum.core.exception.KuorumException
 import kuorum.core.exception.UtilException
 import kuorum.core.model.solr.SearchParams
 import kuorum.core.model.solr.SolrAutocomplete
+import kuorum.core.model.solr.SolrElement
+import kuorum.core.model.solr.SolrFacets
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.core.model.solr.SolrLaw
-
+import kuorum.core.model.solr.SolrResults
+import kuorum.core.model.solr.SolrSuggest
 import kuorum.core.model.solr.SolrType
 import org.apache.solr.client.solrj.SolrQuery
+import org.apache.solr.client.solrj.SolrResponse
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.response.QueryResponse
 import org.apache.solr.common.SolrDocument
@@ -23,15 +27,46 @@ class SearchSolrService {
     IndexSolrService indexSolrService
 
 
-    def search(String word) {
+    SolrResults search(SearchParams params) {
 
         SolrQuery query = new SolrQuery();
-        query.setQuery( "name:$word" );
+        query.setParam(CommonParams.QT, "/query");
+        query.setParam(CommonParams.START, "${params.offset}");
+        prepareFilter(params, query)
 
         QueryResponse rsp = server.query( query );
         SolrDocumentList docs = rsp.getResults();
 
-        docs
+        SolrResults solrResults = new SolrResults()
+        solrResults.elements = docs.collect{indexSolrService.recoverSolrElementFromSolr(it)}
+        solrResults.numResults = docs.numFound
+        solrResults.suggest = prepareSuggestions(rsp)
+        solrResults.facets = prepareFacets(rsp)
+        prepareHighlighting(solrResults,rsp)
+        solrResults
+    }
+
+    private SolrSuggest prepareSuggestions(QueryResponse rsp){
+        SolrSuggest solrSuggest = new SolrSuggest()
+        solrSuggest.suggestedQuery = rsp._spellInfo.suggestions.collation.collationQuery
+        solrSuggest.hits = rsp._spellInfo.suggestions.collation.hits
+        solrSuggest
+    }
+
+    private List<SolrFacets> prepareFacets(QueryResponse rsp){
+        rsp.facetFields.collect{it._values}.flatten().collect{
+            new SolrFacets(facetName: it.name, hits: it.count)
+        }
+    }
+
+    private prepareHighlighting(SolrResults solrResults, QueryResponse rsp){
+        rsp.highlighting.each{id,changes->
+            SolrElement solrElement = solrResults.elements.find{it.id == id}
+            changes.each{field, val ->
+                solrElement."$field" = val[0]
+            }
+        }
+
     }
 
     SolrAutocomplete suggest(SearchParams params){
@@ -42,15 +77,13 @@ class SearchSolrService {
         SolrQuery query = new SolrQuery();
         query.setParam(CommonParams.QT, "/suggest");
         //query.setParam(TermsParams.TERMS_FIELD, "name", "username");
-        query.setParam(CommonParams.Q, params.word);
+        prepareFilter(params, query)
         query.setParam("facet.prefix",params.word)
-        if (params.type) query.setParam(CommonParams.FQ, "type:${params.type}")
-        if (params.subType) query.setParam(CommonParams.FQ, "subType:${params.type}")
 
         QueryResponse rsp = server.query( query );
 
         SolrAutocomplete solrAutocomplete = new SolrAutocomplete()
-        solrAutocomplete.suggests = prepareSuggestions(rsp)
+        solrAutocomplete.suggests = prepareAutocompleteSuggestions(rsp)
         def elements = prepareSolrElements(rsp)
         solrAutocomplete.kuorumUsers = elements.kuorumUsers
         solrAutocomplete.laws = elements.laws
@@ -59,7 +92,13 @@ class SearchSolrService {
         solrAutocomplete
     }
 
-    private ArrayList<String> prepareSuggestions(QueryResponse rsp){
+    private void prepareFilter(SearchParams params, SolrQuery query){
+        query.setParam(CommonParams.Q, params.word);
+        if (params.type) query.setParam(CommonParams.FQ, "type:${params.type}")
+        if (params.subType) query.setParam(CommonParams.FQ, "subType:${params.type}")
+    }
+
+    private ArrayList<String> prepareAutocompleteSuggestions(QueryResponse rsp){
         ArrayList<String> suggests = new ArrayList<String>(rsp.facetFields.size())
         rsp.facetFields[0].values.each{suggest ->
             suggests.add( suggest.name)

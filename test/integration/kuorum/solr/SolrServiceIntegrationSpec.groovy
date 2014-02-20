@@ -3,13 +3,10 @@ package kuorum.solr
 import grails.test.spock.IntegrationSpec
 import kuorum.core.model.solr.SearchParams
 import kuorum.core.model.solr.SolrAutocomplete
+import kuorum.core.model.solr.SolrResults
 import kuorum.core.model.solr.SolrSubType
 import kuorum.core.model.solr.SolrType
-import kuorum.law.Law
-import kuorum.post.Post
-import kuorum.users.KuorumUser
-import org.springframework.security.core.userdetails.UserDetails
-import spock.lang.Specification
+import spock.lang.Shared
 import spock.lang.Unroll
 
 /**
@@ -20,22 +17,48 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
     def indexSolrService
     def searchSolrService
 
+    //CSS class highligted from solr
+    private static final CSS_CLASS = "highlighted"
+
+    @Shared
+    def params = [
+            [word:"parq",       type:null,                  subType:null],
+            [word:"parques",    type:null,                  subType:null],
+            [word:"parques na", type:null,                  subType:null],
+            [word:"parques na", type:SolrType.LAW,          subType:null],
+            [word:"parques na", type:SolrType.POST,         subType:null],
+            [word:"juanjo",     type:null,                  subType:null],
+            [word:"juanjo a",   type:SolrType.KUORUM_USER,  subType:null],
+            [word:"juanjo a",   type:SolrType.KUORUM_USER,  subType:SolrSubType.ORGANIZATION],
+            [word:"juanjo a",   type:SolrType.LAW,          subType:SolrSubType.ORGANIZATION]
+    ]
     def setup(){
         indexSolrService.fullIndex()
     }
 
-
     @Unroll
-    void "search on solr the : #word -> #quantity"() {
+    void "search on solr the : #params -> #quantity"() {
         given: "searh worf ..."
-        def wordToSearchFor = word
-        expect: "Quantity found correct"
-        def founded = searchSolrService.search(wordToSearchFor)
+            SearchParams searchParams = new SearchParams(params)
+        when: "Search for"
+            SolrResults results = searchSolrService.search(searchParams)
+        then:
+            results.numResults == quantity
+            if (results.numResults){
+                results.elements.collect{
+                    it.name.contains(CSS_CLASS) || it?.text.contains(CSS_CLASS) || it?.owner.contains(CSS_CLASS)
+                }.find{it}
+            }
+            results.facets.size() > 0
+            facets.collect{id,val->
+                results.facets.find{it.facetName==id}.hits == val
+            }.find{it}
+
         where: "Username with params...."
-        quantity || word
-        KuorumUser.collection.count() + Post.collection.count() + Law.collection.count()|| '*'
-        1 || "Peter"
-        1 || 'peter'
+            params      | quantity  | facets
+            params[0]   | 0         | ["${SolrType.KUORUM_USER}":0,"${SolrType.LAW}":0, "${SolrType.POST}":0]
+            params[1]   | 3         | ["${SolrType.KUORUM_USER}":0,"${SolrType.LAW}":1, "${SolrType.POST}":2,"${SolrSubType.PURPOSE}":2]
+            params[3]   | 1         | ["${SolrType.KUORUM_USER}":0,"${SolrType.LAW}":1, "${SolrType.POST}":0,"${SolrSubType.PURPOSE}":0]
     }
 
     @Unroll
@@ -52,15 +75,15 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
                 solrAutocomplete.suggests[0] == firstSuggest
             }
         where:
-            params                                                                                | numResults    | numLaws | numUsers | firstSuggest
-            [word:"parq",       type:null,                  subType:null]                         | 0             | 0       | 0        | "parques"
-            [word:"parques",    type:null,                  subType:null]                         | 3             | 1       | 0        | "parques"
-            [word:"parques na", type:null,                  subType:null]                         | 3             | 1       | 0        | "parques nacionales"
-            [word:"parques na", type:SolrType.LAW,          subType:null]                         | 1             | 1       | 0        | "parques nacionales"
-            [word:"parques na", type:SolrType.POST,         subType:null]                         | 2             | 0       | 0        | "parques nacionales"
-            [word:"juanjo",     type:null,                  subType:null]                         | 1             | 0       | 1        | "juanjo"
-            [word:"juanjo a",   type:SolrType.KUORUM_USER,  subType:null]                         | 1             | 0       | 1        | "juanjo alvite"
-            [word:"juanjo a",   type:SolrType.KUORUM_USER,  subType:SolrSubType.ORGANIZATION]     | 0             | 0       | 0        | null
-            [word:"juanjo a",   type:SolrType.LAW,          subType:SolrSubType.ORGANIZATION]     | 0             | 0       | 0        | null
+            params          | numResults    | numLaws | numUsers | firstSuggest
+            params[0]       | 0             | 0       | 0        | "parques"
+            params[1]       | 3             | 1       | 0        | "parques"
+            params[2]       | 3             | 1       | 0        | "parques nacionales"
+            params[3]       | 1             | 1       | 0        | "parques nacionales"
+            params[4]       | 2             | 0       | 0        | "parques nacionales"
+            params[5]       | 1             | 0       | 1        | "juanjo"
+            params[6]       | 1             | 0       | 1        | "juanjo alvite"
+            params[7]       | 0             | 0       | 0        | null
+            params[8]       | 0             | 0       | 0        | null
     }
 }

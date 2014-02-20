@@ -16,6 +16,7 @@ class Post {
     Integer numVotes
     Integer numClucks
     PostType postType
+    Boolean victory = false
     Date dateCreated
 
     static constraints = {
