@@ -12,6 +12,8 @@ class PostService {
 
     def cluckService
     def springSecurityService
+    def indexSolrService
+    def postVoteService
 
     Post savePost(Post post) {
 
@@ -27,15 +29,12 @@ class PostService {
         log.info("Se ha creado el post ${post.id}")
 
         cluckService.createCluck(post, post.owner)
-        votePost(post, post.owner)
+        postVoteService.votePost(post, post.owner)
+        indexSolrService.index(post)
         post
     }
 
     def updatePost(Post post){
         log.info("Updating post $post")
-    }
-
-    def votePost(Post post, KuorumUser kuorumUser){
-
     }
 }

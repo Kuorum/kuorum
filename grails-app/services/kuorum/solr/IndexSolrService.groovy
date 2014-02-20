@@ -56,32 +56,55 @@ class IndexSolrService {
         log.info("Indexed $numIndexed docs. Time indexing: ${td}" )
     }
 
+    SolrPost index(Post post){
+        indexDomainObject(post)
+    }
+    SolrKuorumUser index(KuorumUser user){
+        indexDomainObject(user)
+    }
+
+    SolrLaw index(Law law){
+        indexDomainObject(law)
+    }
+
+    private SolrElement indexDomainObject(element){
+        SolrElement solrElement = createSolrElement(element)
+        SolrInputDocument solrInputDocument = createSolrInputDocument(solrElement)
+        server.add(solrInputDocument)
+        server.commit()
+    }
+
     private Integer indexByClassName(String className){
         Integer numIndexed = 0
         log.info("Indexing $className")
         Date start = new Date()
-        java.util.ArrayList<SolrInputDocument> solrUsers = new ArrayList<SolrInputDocument>(solrBulkUpdateQuantity)
+        java.util.ArrayList<SolrInputDocument> solrDocuments = new ArrayList<SolrInputDocument>(solrBulkUpdateQuantity)
         grailsApplication.getClassForName(className).list().each {kuorumUser ->
-            SolrElement solrUser = createSolrElement(kuorumUser)
-            SolrInputDocument solrInputDocument = new SolrInputDocument()
-            solrUser.properties.each{k,v->if (k!="class") solrInputDocument.addField(k,v)}
-            solrUsers.add(solrInputDocument)
-            if (solrUsers.size() == solrBulkUpdateQuantity){
-                server.add(solrUsers)
+            SolrElement solrElement = createSolrElement(kuorumUser)
+            SolrInputDocument solrInputDocument = createSolrInputDocument(solrElement)
+            solrDocuments.add(solrInputDocument)
+            if (solrDocuments.size() == solrBulkUpdateQuantity){
+                server.add(solrDocuments)
                 server.commit()
-                numIndexed += solrUsers.size()
-                solrUsers.clear()
+                numIndexed += solrDocuments.size()
+                solrDocuments.clear()
             }
         }
-        if (solrUsers){
-            server.add(solrUsers)
+        if (solrDocuments){
+            server.add(solrDocuments)
             server.commit()
-            numIndexed += solrUsers.size()
+            numIndexed += solrDocuments.size()
         }
         server.optimize()
         TimeDuration td = TimeCategory.minus( new Date(), start )
         log.info("Indexed $numIndexed '${className}'. Time indexing: ${td}" )
         numIndexed
+    }
+
+    private SolrInputDocument createSolrInputDocument(SolrElement solrElement){
+        SolrInputDocument solrInputDocument = new SolrInputDocument()
+        solrElement.properties.each{k,v->if (k!="class") solrInputDocument.addField(k,v)}
+        solrElement
     }
 
     SolrPost createSolrElement(Post post){

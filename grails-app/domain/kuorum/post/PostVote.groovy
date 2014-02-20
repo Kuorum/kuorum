@@ -12,6 +12,7 @@ class PostVote {
     Post post
     KuorumUser user
     PersonalData personalData
+    Date dateCreated
 
     static embedded = ['personalData']
 
