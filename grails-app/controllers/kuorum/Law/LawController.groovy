@@ -1,4 +1,4 @@
-package kuorum
+package kuorum.Law
 
 class LawController {
 

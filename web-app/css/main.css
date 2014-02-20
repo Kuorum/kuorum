@@ -23,6 +23,14 @@ html {
 	   -moz-box-sizing: border-box;
 	        box-sizing: border-box;
 }
+#mainContent{
+    float:left;
+    width: 74%;
+}
+#cColumn{
+    flaot:right;
+    width: 25%;
+}
 
 html.no-cssgradients {
 	background-color: #aaa;
