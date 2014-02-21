@@ -18,11 +18,21 @@ class Post {
     PostType postType
     Boolean victory = false
     Date dateCreated
+    List<Sponsor> sponsors = []
+
+    /**
+     * First cluck / owners cluck: Is going to be used to reference the sponsors and politician supports.
+     */
+    Cluck cluck
+
+    //static hasMany = [sponsors:Sponsor]
+    static embedded = ['sponsors']
 
     static constraints = {
         numVotes min:0
         numClucks min:0
         photo nullable:true
+        cluck nullable:true
     }
 
     String toString(){

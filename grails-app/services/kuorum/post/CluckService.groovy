@@ -12,6 +12,21 @@ class CluckService {
         Cluck.findAllByLaw(law)
     }
 
+    List<Cluck> dashboardClucks(KuorumUser kuorumUser){
+
+        def criteria = Cluck.createCriteria()
+        def result = criteria.list() {
+            or {
+                'in'("owner",kuorumUser.following)
+                'in'("supportedBy",kuorumUser.following)
+                'in'("sponsors.kuorumUserId",kuorumUser.following)
+            }
+            //order("dateCreated","asc")
+        }
+        result
+
+    }
+
     Cluck createCluck(Post post, KuorumUser kuorumUser){
         Cluck cluck = new Cluck(
                 owner: kuorumUser,

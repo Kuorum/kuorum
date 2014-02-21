@@ -5,6 +5,8 @@ import kuorum.users.PersonalData
 
 fixture {
 
+    log.info "Creando usuario 'equo' "
+
     equoData(PersonalData){
         gender =  Gender.ORGANIZATION
 //        postalCode = 28001

@@ -23,6 +23,7 @@ class KuorumUser {
     List<KuorumUser> followers = []
     List<KuorumUser> subscribers = []
 
+    static hasMany = [following:KuorumUser]
     static embedded = ['personalData', 'authorities']
 
     //Spring fields

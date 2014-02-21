@@ -16,18 +16,35 @@ class Cluck {
      */
     KuorumUser postOwner
 
-    Date dateCreated
+    /**
+     *The politician user who has supported the Cluck
+     */
+    KuorumUser supportedBy
+
+    /**
+     * The sponsors who has financed any amount of money
+     */
+    List<Sponsor> sponsors =[]
 
     Law law
 
     Post post
 
+    Date dateCreated
+    Date lastUpdated
+
+    static hasMany = [sponsors:Sponsor]
+    static embedded = ['sponsors']
+
     static constraints = {
         owner index:true
         law index:true
+        lastUpdated index:true
+        supportedBy nullable: true,  index:true
     }
 
     static mapping = {
-        sort id:"desc"
+        autoTimestamp true
+        sort lastUpdated:"desc"
     }
 }

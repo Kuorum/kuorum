@@ -1,5 +1,6 @@
 package kuorum.post
 
+import com.mongodb.DBRef
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import kuorum.core.exception.KuorumException
@@ -16,11 +17,11 @@ import spock.lang.Unroll
 class PostServiceIntegrationSpec extends Specification{
 
     def postService
-    def springSecurityService
     def fixtureLoader
 
     def setup(){
-
+        KuorumUser.collection.getDB().dropDatabase()
+        fixtureLoader.load("testData")
     }
 
     void "test create post with wrong params"() {
@@ -37,10 +38,10 @@ class PostServiceIntegrationSpec extends Specification{
     void "test create post with correct params"() {
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")
-        springSecurityService.reauthenticate(user.email, user.password)
         Law law = Law.findByHashtag("#leyAborto")
 
         Post post = new Post(
+                owner : user,
                 law:law,
                 numClucks:1,
                 numVotes:1,
@@ -61,5 +62,33 @@ class PostServiceIntegrationSpec extends Specification{
         cluck.postOwner == savedPost.owner
         //exception.message == "KuorumUser not found"
         //Assertion goes here
+    }
+
+    @Unroll
+    void "test sponsoring a post by #email amount #amount => #total"(){
+        given: "A post"
+            KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+            KuorumUser sponsorUser = KuorumUser.findByEmail(email)
+            Sponsor sponsor = new Sponsor(kuorumUser:sponsorUser , amount: amount)
+            Post post = Post.findByOwner(user)
+        when: "sponsoring the post"
+            postService.sponsorAPost(post, sponsor)
+        then: "The post has a sponsor"
+            Post recoveredPost = Post.get(post.id)
+            recoveredPost.sponsors.find{it.kuorumUser == sponsorUser} != null
+            recoveredPost.sponsors.find{it.kuorumUser == sponsorUser}.amount == total
+            Post.withNewSession {
+                //Check if is in DB
+                Post recoveredPostNewSession = Post.get(post.id)
+                recoveredPostNewSession.sponsors.find{it.kuorumUser == sponsorUser} != null
+                recoveredPostNewSession.sponsors.find{it.kuorumUser == sponsorUser}.amount == total
+            }
+        where:
+            email                       | amount | total
+            "equo@example.com"          | 5      | 10
+            "ecologistas@example.com"   | 5      | 5
+
+
+
     }
 }

@@ -1,26 +1,26 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
-import kuorum.users.Person
 import kuorum.users.PersonalData
+import kuorum.users.Politician
 
 fixture {
 
-    log.info "Creando usuario 'juanjo alvite' "
-
-    juanjoPersonalData(PersonalData){
+    politicianData(PersonalData){
         gender =  Gender.MALE
         postalCode = 28001
         regionCode = "EU-SP-MD"
-        birthday = Date.parse("dd/MM/yyyy","09/10/1980")
+        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
     }
 
-    juanjoAlvite(Person){
-        email = "juanjoAlvite@example.com"
-        name ="Juanjo Alvite1"
-        personalData = juanjoPersonalData
+    politician(Politician){
+//        username = "Peter"
+        email = "rajoy@example.com"
+        name ="Rajoy de los bosques"
+        personalData = politicianData
         password = springSecurityService.encodePassword("test")
-        following = []
-        birthday = Date.parse("dd/MM/yyyy","09/10/1980")
+        birthday = Date.parse("dd-MM-yyyy","01-02-1980")
+        parliamentaryGroup=grupoPopular
+        institution=parliament
         relevantCommissions = [
                 CommissionType.JUSTICE,
                 CommissionType.CONSTITUTIONAL,

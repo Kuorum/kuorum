@@ -72,6 +72,7 @@ class IndexSolrService {
         SolrInputDocument solrInputDocument = createSolrInputDocument(solrElement)
         server.add(solrInputDocument)
         server.commit()
+        solrElement
     }
 
     private Integer indexByClassName(String className){
@@ -104,7 +105,7 @@ class IndexSolrService {
     private SolrInputDocument createSolrInputDocument(SolrElement solrElement){
         SolrInputDocument solrInputDocument = new SolrInputDocument()
         solrElement.properties.each{k,v->if (k!="class") solrInputDocument.addField(k,v)}
-        solrElement
+        solrInputDocument
     }
 
     SolrPost createSolrElement(Post post){
