@@ -18,7 +18,6 @@ class PostServiceSpec extends Specification{
 
     def setup(){
         def springSecurityServiceMock = mockFor(SpringSecurityService)
-        service.springSecurityService = [principal: [id: new ObjectId("52fd88f044ae06c6be306f39")], currentUser:Mock(KuorumUser){id:new ObjectId("52fd88f044ae06c6be306f39")}]
     }
 
     void "test create post with wrong params"() {

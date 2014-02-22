@@ -62,6 +62,7 @@ class PostService {
             Cluck.collection.update ( [_id:post.cluck.id],['$push':['sponsors':sponsorData]])
 
         }
+        Post.collection.update ( [_id:post.id],['$push':['sponsors':[$each: [],$sort:[amount:1]]]])
 
         //Reloading data from DDBB
         post.refresh()

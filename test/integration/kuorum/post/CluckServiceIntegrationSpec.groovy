@@ -31,6 +31,7 @@ class CluckServiceIntegrationSpec extends Specification{
         where:
             email                           | numClucks
             "juanjoalvite@example.com"      | 1
+            "peter@example.com"             | 1
     }
 
 }

@@ -21,7 +21,7 @@ class CluckService {
                 'in'("supportedBy",kuorumUser.following)
                 'in'("sponsors.kuorumUserId",kuorumUser.following)
             }
-            //order("dateCreated","asc")
+            order("lastUpdated","asc")
         }
         result
 
