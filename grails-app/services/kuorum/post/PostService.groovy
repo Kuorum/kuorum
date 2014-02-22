@@ -1,11 +1,8 @@
 package kuorum.post
 
-import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.UtilException
-import kuorum.users.KuorumUser
-import org.springframework.security.access.prepost.PreAuthorize
 
 @Transactional
 class PostService {
@@ -16,7 +13,7 @@ class PostService {
     def postVoteService
 
     /**
-     * Save a post and creates the first cluck and first vote of the owner
+     * Save a post and creates the first firstCluck and first vote of the owner
      * @param post
      * @return
      */
@@ -34,7 +31,7 @@ class PostService {
         log.info("Se ha creado el post ${post.id}")
 
         Cluck cluck = cluckService.createCluck(post, post.owner)
-        post.cluck = cluck  //Ref to first cluck
+        post.firstCluck = cluck  //Ref to first firstCluck
         post.save()
 
         postVoteService.votePost(post, post.owner)
@@ -52,19 +49,20 @@ class PostService {
         if (alreadySponsor){
             double amount = alreadySponsor.amount + sponsor.amount
             Post.collection.update ( [_id:post.id,        'sponsors.kuorumUserId':sponsor.kuorumUser.id],['$set':['sponsors.$.amount':amount]])
-            Cluck.collection.update ( [_id:post.cluck.id, 'sponsors.kuorumUserId':sponsor.kuorumUser.id],['$set':['sponsors.$.amount':amount]])
+            Cluck.collection.update ( [_id:post.firstCluck.id, 'sponsors.kuorumUserId':sponsor.kuorumUser.id],['$set':['sponsors.$.amount':amount]])
         }else{
             //NEW SPONSOR
             def sponsorData = [kuorumUserId:sponsor.kuorumUser.id, amount:sponsor.amount]
             //ATOMIC OPERATION
             Post.collection.update ( [_id:post.id],['$push':['sponsors':sponsorData]])
             //ATOMIC OPERATION
-            Cluck.collection.update ( [_id:post.cluck.id],['$push':['sponsors':sponsorData]])
+            Cluck.collection.update ( [_id:post.firstCluck.id],['$push':['sponsors':sponsorData]])
 
         }
         Post.collection.update ( [_id:post.id],['$push':['sponsors':[$each: [],$sort:[amount:1]]]])
 
         //Reloading data from DDBB
         post.refresh()
+        post.firstCluck.refresh()
     }
 }

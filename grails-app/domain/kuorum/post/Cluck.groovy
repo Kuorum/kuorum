@@ -8,7 +8,7 @@ class Cluck {
 
     ObjectId id
     /**
-     * The user who has created the cluck
+     * The user who has created the firstCluck
      */
     KuorumUser owner
     /**

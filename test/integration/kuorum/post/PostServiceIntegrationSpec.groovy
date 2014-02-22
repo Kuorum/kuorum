@@ -1,13 +1,9 @@
 package kuorum.post
 
-import com.mongodb.DBRef
-import grails.plugin.springsecurity.SpringSecurityService
-import grails.plugin.springsecurity.SpringSecurityUtils
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.users.KuorumUser
-import org.bson.types.ObjectId
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -75,8 +71,11 @@ class PostServiceIntegrationSpec extends Specification{
             postService.sponsorAPost(post, sponsor)
         then: "The post has a sponsor"
             Post recoveredPost = Post.get(post.id)
+            Cluck cluck = recoveredPost.firstCluck
             recoveredPost.sponsors.find{it.kuorumUser == sponsorUser} != null
             recoveredPost.sponsors.find{it.kuorumUser == sponsorUser}.amount == total
+            cluck.sponsors.find{it.kuorumUser == sponsorUser} != null
+            cluck.sponsors.find{it.kuorumUser == sponsorUser}.amount == total
             Post.withNewSession {
                 //Check if is in DB
                 Post recoveredPostNewSession = Post.get(post.id)

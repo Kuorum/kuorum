@@ -21,9 +21,9 @@ class Post {
     List<Sponsor> sponsors = []
 
     /**
-     * First cluck / owners cluck: Is going to be used to reference the sponsors and politician supports.
+     * First firstCluck / owners firstCluck: Is going to be used to reference the sponsors and politician supports.
      */
-    Cluck cluck
+    Cluck firstCluck
 
     //static hasMany = [sponsors:Sponsor]
     static embedded = ['sponsors']
@@ -32,7 +32,7 @@ class Post {
         numVotes min:0
         numClucks min:0
         photo nullable:true
-        cluck nullable:true
+        firstCluck nullable:true
     }
 
     String toString(){
