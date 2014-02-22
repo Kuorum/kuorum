@@ -15,11 +15,13 @@ class CluckService {
     List<Cluck> dashboardClucks(KuorumUser kuorumUser){
 
         def criteria = Cluck.createCriteria()
+        def userList = kuorumUser.following
+        userList << kuorumUser
         def result = criteria.list() {
             or {
-                'in'("owner",kuorumUser.following)
-                'in'("supportedBy",kuorumUser.following)
-                'in'("sponsors.kuorumUserId",kuorumUser.following)
+                'in'("owner",userList)
+                'in'("supportedBy",userList)
+                'in'("sponsors.kuorumUserId",userList)
             }
             order("lastUpdated","asc")
         }

@@ -14,7 +14,7 @@ fixture {
 
     politician(Politician){
 //        username = "Peter"
-        email = "rajoy@example.com"
+        email = "politician@example.com"
         name ="Rajoy de los bosques"
         personalData = politicianData
         password = springSecurityService.encodePassword("test")
