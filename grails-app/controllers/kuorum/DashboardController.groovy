@@ -1,8 +1,12 @@
 package kuorum
 
+import kuorum.post.Cluck
+import kuorum.users.KuorumUser
+
 class DashboardController {
 
     def springSecurityService
+    def cluckService
 
     def index(){
         if (springSecurityService.isLoggedIn()){
@@ -17,7 +21,9 @@ class DashboardController {
         if (!springSecurityService.isLoggedIn()){
             redirect(mapping:"home")
         }
-
+        KuorumUser user = KuorumUser.findById(springSecurityService.principal.id)
+        List<Cluck> clucks =  cluckService.dashboardClucks(user)
+        [clucks: clucks]
     }
 
     def landingPage(){

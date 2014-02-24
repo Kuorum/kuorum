@@ -7,6 +7,15 @@
 
 <content tag="mainContent">
     DASHBOARD
+
+    <H1> Kakareos</H1>
+
+    <g:each in="${clucks}" var="cluck">
+        <div>
+            <h3><h2>${cluck.postOwner}</h2></h3>
+            <h2>${cluck.post.title}</h2>
+        </div>
+    </g:each>
 </content>
 
 <content tag="cColumn">
