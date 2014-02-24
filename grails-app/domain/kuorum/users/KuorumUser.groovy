@@ -9,7 +9,6 @@ class KuorumUser {
 
     ObjectId id
     String name
-    String surname
     String email
     String bio
 //    String username
@@ -39,7 +38,6 @@ class KuorumUser {
 
     static constraints = {
         email nullable: false, email: true
-        surname nullable:true
         password nullable:false, blank: false
         bio nullable:true
     }

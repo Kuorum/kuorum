@@ -20,6 +20,7 @@ class DashboardController {
     def dashboard() {
         if (!springSecurityService.isLoggedIn()){
             redirect(mapping:"home")
+            return
         }
         KuorumUser user = KuorumUser.findById(springSecurityService.principal.id)
         List<Cluck> clucks =  cluckService.dashboardClucks(user)
@@ -29,6 +30,7 @@ class DashboardController {
     def landingPage(){
         if (springSecurityService.isLoggedIn()){
             redirect(mapping:"home")
+            return
         }
     }
 }

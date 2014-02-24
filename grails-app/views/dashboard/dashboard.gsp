@@ -12,7 +12,8 @@
 
     <g:each in="${clucks}" var="cluck">
         <div>
-            <h3><h2>${cluck.postOwner}</h2></h3>
+            <h3>${cluck.postOwner}</h3>
+            <h4><g:link mapping="lawShow" params="${[hashtag:cluck.law.hashtag[1..-1]]}">${cluck.law.hashtag}</g:link> </h4>
             <h2>${cluck.post.title}</h2>
         </div>
     </g:each>

@@ -4,6 +4,8 @@ class UrlMappings {
 	static mappings = {
 
         name home: "/" (controller: "dashboard", action:"index")
+
+        name lawShow: "/ley/$hashtag" (controller: "law", action:"show")
         //name landingPage: "/landingPage" (controller: "dashboard", action:"landingPage")
         //name dashboard: "/dashboard" (controller: "dashboard", action:"dashboard")
 
