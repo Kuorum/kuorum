@@ -7,6 +7,7 @@ import com.ecwid.mailchimp.method.v2_0.lists.SubscribeMethod
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionData
+import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.users.KuorumUser
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
@@ -23,40 +24,70 @@ class KuorumMailService {
     @Value('${mail.mailChimp.listId}')
     String MAILCHIMP_LIST_ID
 
-    def registerUser(MailData mailData) {
+    def registerUser(KuorumUser user, def bindings){
+        MailData mailData = new MailData(user:user, mailType: MailType.REGISTER_VERIFY_ACCOUNT, bindings:bindings)
+        sendTemplate(mailData)
+
+    }
+
+    private void sendTemplate(MailData mailData) {
+
+        if (!mailData.validate()){
+            throw KuorumExceptionUtil.createExceptionFromValidatable(mailData, "Faltan datos para mandar este email")
+        }
 
         def rest = new grails.plugins.rest.client.RestBuilder()
         String apiKey = MANDRIL_APIKEY
 
-        //TODO: PEnsar como poner bonito y reusable este código
+        def vars = mailData.mailType.requiredBindings.collect{
+            ({
+                name = it.toString()
+                content = mailData.bindings."$it".toString()
+            })
+        }
+        def merge_vars=[{
+                        rcpt= "${mailData.user.email}"
+                        vars = vars
+//                        vars= [
+//                                {
+//                                    name = "fname"
+//                                    content = "${mailData.user.name}"
+//                                },
+//                                {
+//                                    name = "verifyLink"
+//                                   content = "${mailData.bindings.verifyLink}"
+//                                }
+//                        ]
+                    }]
+
         def resp = rest.post('https://mandrillapp.com/api/1.0/messages/send-template.json'){
 
             contentType "application/json; charset=UTF-8"
             accept "application/json"
             json {
                 key = "${apiKey}"
-                template_name = "validationEmail"
+                template_name = mailData.mailType.nameTemplate
                 template_content = [{
-                    name = "fname"
+                    name = "NO_SE_USA"
                     content = "${mailData.user.name}"
                 },{
-                    name = "app_button"
-                    content = "${mailData.bindings.validateLink}"
+                    name = "NO_SE_USA_2"
+                    content = "XXXXXX"
                 }]
                 message = {
-                    html = "<p>Contenido HTML que creo que no sirve</p>"
-                    text= "Verifica tu cuenta"
-                    subject= "Verifica tu cuenta"
-                    from_email= "info@kuorum.org"
-                    from_name= "Kuorum"
+                    //html = "<p>Contenido HTML que creo que no sirve</p>"
+                    //text= "Verifica tu cuenta"
+                    //subject= "Verifica tu cuenta"
+                    //from_email= "info@kuorum.org"
+                    //from_name= "Kuorum"
                     to= [{
                         email ="${mailData.user.email}"
                         name = "${mailData.user.name} ${mailData.user.surname}"
                         type = "to"
                     }]
-                    headers =[
-                            "Reply-To":"info@kuorum.org"
-                    ]
+                    //headers =[
+                    //        "Reply-To":"info@kuorum.org"
+                    //]
 //                    important =true
 //                        bcc_address = "iduetxe@gmail.com"
                     global_merge_vars = [{
@@ -64,21 +95,22 @@ class KuorumMailService {
                         content = "<a href='kuorum.org'> Kuorum </a>"
                     }
                     ]
-                    merge_vars=[{
-                        rcpt= "${mailData.user.email}"
-                        vars= [
-                                {
-                                    name = "fname"
-                                    content = "${mailData.user.name}"
-                                },
-                                {
-                                    name = "verifyLink"
-                                    content = "${mailData.bindings.verifyLink}"
-                                }
-                        ]
-                    }]
+                    merge_vars = merge_vars
+//                    merge_vars=[{
+//                        rcpt= "${mailData.user.email}"
+//                        vars= [
+//                                {
+//                                    name = "fname"
+//                                    content = "${mailData.user.name}"
+//                                },
+//                                {
+//                                    name = "verifyLink"
+//                                   content = "${mailData.bindings.verifyLink}"
+//                                }
+//                        ]
+//                    }]
                     tags= [
-                            "registerUser"
+                            mailData.mailType.tagTemplate
                     ]
                     subaccount ="kuorumComunication"
                     google_analytics_domains=[
@@ -88,11 +120,11 @@ class KuorumMailService {
                     metadata=[[
                             "website": "kuorum.org"
                     ]]
-                    attachments= [[
-                            type: "text/plain",
-                            name: "myfile.txt",
-                            content: "ZXhhbXBsZSBmaWxl"
-                    ]]
+//                    attachments= [[
+//                            type: "text/plain",
+//                            name: "myfile.txt",
+//                            content: "ZXhhbXBsZSBmaWxl"
+//                    ]]
                 }
 //                async= true
             }

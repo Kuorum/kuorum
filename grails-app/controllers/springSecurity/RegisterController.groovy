@@ -6,6 +6,7 @@ import grails.plugin.springsecurity.ui.RegisterCommand
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.validation.Validateable
 import kuorum.core.model.CommissionType
+import kuorum.mail.MailType
 import kuorum.users.KuorumUser
 import kuorum.users.Person
 import kuorum.users.RoleUser
@@ -49,18 +50,18 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         String url = generateLink('verifyRegistration', [t: registrationCode.token])
 
-        MailData mailData = new MailData(user:user, bindings: [verifyLink:url])
+//        MailData mailData = new MailData(user:user, bindings: [verifyLink:url], mailType: MailType.REGISTER_VERIFY_ACCOUNT)
 
-        kuorumMailService.registerUser(mailData)
+        kuorumMailService.registerUser(user,[verifyLink:url,fname:user.name])
 
-
+/*
 def conf = SpringSecurityUtils.securityConfig
 def body = conf.ui.register.emailBody
 if (body.contains('$')) {
     body = evaluate(body, [user: user, url: url])
 }
 
-        /*
+
 mailService.sendMail {
     to command.email
     from "inaki.dominguez@kuorum.org"
