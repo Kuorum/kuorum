@@ -19,6 +19,8 @@ class Post {
     Boolean victory = false
     Date dateCreated
     List<Sponsor> sponsors = []
+    List<PostComment> comments = []
+    List<PostComment> debates = []
 
     /**
      * First firstCluck / owners firstCluck: Is going to be used to reference the sponsors and politician supports.
@@ -26,7 +28,7 @@ class Post {
     Cluck firstCluck
 
     //static hasMany = [sponsors:Sponsor]
-    static embedded = ['sponsors']
+    static embedded = ['sponsors', 'comments', 'debates']
 
     static constraints = {
         numVotes min:0

@@ -1,8 +1,10 @@
 package kuorum.post
 
+import com.mongodb.util.JSON
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.UtilException
+import kuorum.users.Politician
 
 @Transactional
 class PostService {
@@ -64,5 +66,25 @@ class PostService {
         //Reloading data from DDBB
         post.refresh()
         post.firstCluck.refresh()
+    }
+
+    Post addComment(Post post, PostComment comment){
+        //Atomic operation
+        def commentData = [kuorumUserId: comment.kuorumUser.id, text:comment.text, dateCreated: new Date()]
+        Post.collection.update ( [_id:post.id],['$push':['comments':commentData]])
+        post.refresh()
+        post
+    }
+
+    Post addDebate(Post post, PostComment comment){
+        if (comment.kuorumUser.instanceOf(Politician) || post.owner == comment.kuorumUser){
+            //Atomic operation
+            def commentData = [kuorumUserId: comment.kuorumUser.id, text:comment.text, dateCreated: new Date()]
+            Post.collection.update ( [_id:post.id],['$push':['debates':commentData]])
+            post.refresh()
+            post
+        }else{
+            throw new KuorumException("El usuario no es el dueño o un político", "error.security.post.notDebateAllowed")
+        }
     }
 }
