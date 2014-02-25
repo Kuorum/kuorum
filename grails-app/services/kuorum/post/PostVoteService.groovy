@@ -3,7 +3,7 @@ package kuorum.post
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionData
-import kuorum.core.exception.UtilException
+import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.users.KuorumUser
 
 @Transactional
@@ -18,7 +18,7 @@ class PostVoteService {
         postVote.post = post
         postVote.user = kuorumUser
         if (!postVote)
-            throw UtilException.createExceptionFromValidatable(postVote,"Error salvando el post")
+            throw KuorumExceptionUtil.createExceptionFromValidatable(postVote,"Error salvando el post")
         postVote
 
     }

@@ -1,7 +1,7 @@
 package kuorum.post
 
 import grails.transaction.Transactional
-import kuorum.core.exception.UtilException
+import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 
@@ -38,7 +38,7 @@ class CluckService {
         )
 
         if (!cluck.save()){
-            UtilException.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
+            KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
         }
         cluck
     }

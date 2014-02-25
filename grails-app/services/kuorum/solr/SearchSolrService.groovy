@@ -2,7 +2,7 @@ package kuorum.solr
 
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
-import kuorum.core.exception.UtilException
+import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.solr.SearchParams
 import kuorum.core.model.solr.SolrAutocomplete
 import kuorum.core.model.solr.SolrElement
@@ -72,7 +72,7 @@ class SearchSolrService {
     SolrAutocomplete suggest(SearchParams params){
 
         if (!params.validate()){
-            throw UtilException.createExceptionFromValidatable(params,"Parametros de búsqueda erroneos")
+            throw KuorumExceptionUtil.createExceptionFromValidatable(params,"Parametros de búsqueda erroneos")
         }
         SolrQuery query = new SolrQuery();
         query.setParam(CommonParams.QT, "/suggest");

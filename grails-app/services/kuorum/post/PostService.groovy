@@ -3,7 +3,7 @@ package kuorum.post
 import com.mongodb.util.JSON
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
-import kuorum.core.exception.UtilException
+import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.users.Politician
 
 @Transactional
@@ -26,7 +26,7 @@ class PostService {
         post.numClucks = 1
 
         if (!post.save()){
-            KuorumException exception = UtilException.createExceptionFromValidatable(post, "Error salvando el post ${post}")
+            KuorumException exception = KuorumExceptionUtil.createExceptionFromValidatable(post, "Error salvando el post ${post}")
             log.warn("No se ha podido salvar un post debido a ${post.errors}")
             throw exception
         }
