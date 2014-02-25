@@ -30,7 +30,6 @@ class KuorumUserSpec extends Specification {
 
         def params = [
                 name:'nombre',
-                surname:'apellido',
                 password:'XX',
                 email:'email@email.com',
                 languaje:AvailableLanguage.es_ES
@@ -74,7 +73,6 @@ class KuorumUserSpec extends Specification {
         where: "with params...."
         toString || params
         "name" || [name:'name', email:"email@email.com"]
-        "name apellido" || [name:'name', surname:'apellido', email:"email@email.com"]
 //        "nickname" || [username:'nickname',email:"email@email.com"]
     }
 }

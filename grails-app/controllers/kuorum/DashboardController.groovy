@@ -22,7 +22,7 @@ class DashboardController {
             redirect(mapping:"home")
             return
         }
-        KuorumUser user = KuorumUser.findById(springSecurityService.principal.id)
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<Cluck> clucks =  cluckService.dashboardClucks(user)
         [clucks: clucks]
     }

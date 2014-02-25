@@ -7,7 +7,7 @@ fixture {
 
     politicianData(PersonalData){
         gender =  Gender.MALE
-        postalCode = 28001
+        postalCode = "28001"
         regionCode = "EU-SP-MD"
         birthday = Date.parse("dd/MM/yyyy","09/10/1983")
     }
@@ -18,7 +18,6 @@ fixture {
         name ="Rajoy de los bosques"
         personalData = politicianData
         password = springSecurityService.encodePassword("test")
-        birthday = Date.parse("dd-MM-yyyy","01-02-1980")
         parliamentaryGroup=grupoPopular
         institution=parliament
         relevantCommissions = [

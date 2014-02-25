@@ -9,7 +9,7 @@ fixture {
 
     juanjoPersonalData(PersonalData){
         gender =  Gender.MALE
-        postalCode = 28001
+        postalCode = "28001"
         regionCode = "EU-SP-MD"
         birthday = Date.parse("dd/MM/yyyy","09/10/1980")
     }
@@ -20,7 +20,6 @@ fixture {
         personalData = juanjoPersonalData
         password = springSecurityService.encodePassword("test")
         following = []
-        birthday = Date.parse("dd/MM/yyyy","09/10/1980")
         relevantCommissions = [
                 CommissionType.JUSTICE,
                 CommissionType.CONSTITUTIONAL,

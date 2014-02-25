@@ -47,7 +47,7 @@ class KuorumUser {
     }
 
     String toString(){
-        surname?"$name $surname":name
+        name
     }
 
     boolean equals(Object object){
