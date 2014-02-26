@@ -120,7 +120,7 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.5"
 
         //test ":spock:0.7"
-        //compile ':build-test-data:1.1.1'
+        //test ':build-test-data:2.1.1'
         compile ':fixtures:1.2'
         test ":geb:$gebVersion"
         test ":code-coverage:1.2.7"

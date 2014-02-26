@@ -15,4 +15,8 @@ class NotificationService {
         if (cluck.owner != cluck.postOwner)
             kuorumMailService.sendCluckNotificationMail(cluck)
     }
+
+    def sendFollowerNotification(KuorumUser follower, KuorumUser following){
+
+    }
 }
