@@ -46,6 +46,10 @@ class KuorumMailService {
         sendTemplate(mailData)
     }
 
+    def sendFollowerNotificationMail(KuorumUser follower, KuorumUser following){
+//TODO: Send mail (prepare Madnrillap)
+    }
+
     private void sendTemplate(MailData mailData) {
 
         if (!mailData.validate()){

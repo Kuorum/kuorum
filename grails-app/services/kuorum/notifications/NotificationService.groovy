@@ -10,13 +10,33 @@ class NotificationService {
 
     def kuorumMailService
 
-    def sendCluckNotification(Cluck cluck) {
-        //if (cluck.owner != cluck.postOwner && Environment.current == Environment.PRODUCTION)
-        if (cluck.owner != cluck.postOwner)
-            kuorumMailService.sendCluckNotificationMail(cluck)
+    void sendCluckNotification(Cluck cluck) {
+        if (cluck.owner != cluck.postOwner){
+            CluckNotification cluckNotification = new CluckNotification(
+                    post: cluck.post,
+                    kuorumUser: cluck.postOwner,
+                    clucker: cluck.owner
+            )
+            if (cluckNotification.save()){
+                kuorumMailService.sendCluckNotificationMail(cluck)
+            }else{
+                log.error("No se ha podido salvar una notificacion de kakareo: ${cluckNotification.errors}")
+            }
+        }
+
     }
 
-    def sendFollowerNotification(KuorumUser follower, KuorumUser following){
-
+    void sendFollowerNotification(KuorumUser follower, KuorumUser following){
+        if (follower != following){
+            FollowerNotification followerNotification = new FollowerNotification(
+                    kuorumUser: following,
+                    follower: follower
+            )
+            if (followerNotification.save()){
+                kuorumMailService.sendFollowerNotificationMail(follower, following)
+            }else{
+                log.error("No se ha podido salvar una notificacion de kakareo: ${followerNotification.errors}")
+            }
+        }
     }
 }

@@ -6,7 +6,9 @@ package kuorum.mail
 public enum MailType {
 
     REGISTER_VERIFY_ACCOUNT (false,  "validationEmail",      "registerUser", ["fname","verifyLink"], []),
-    NOTIFICATION_CLUCK      (true,   "notificationCluck",    "notification", ["fname", "postName"],  ["cluckUserName","cluckUserLink"]);
+    NOTIFICATION_CLUCK      (true,   "notificationCluck",    "notification", ["fname", "postName"],  ["cluckUserName","cluckUserLink"]),
+    NOTIFICATION_FOLLOWER   (true,   "notificationFollower", "notification", [],  ["followerName"]);
+    ;
 
 
     String nameTemplate

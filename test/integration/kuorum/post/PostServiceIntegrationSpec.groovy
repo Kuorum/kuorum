@@ -50,7 +50,7 @@ class PostServiceIntegrationSpec extends Specification{
         //"service" represents the grails service you are testing for
         Post savedPost = postService.savePost(post)
 
-        then: "Expected an exception"
+        then: "Post created"
         savedPost.id != null
         Cluck cluck = Cluck.findByPostAndOwnerAndPostOwner(savedPost, user,user)
         cluck != null

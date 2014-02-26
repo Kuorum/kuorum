@@ -1,5 +1,7 @@
 package kuorum.helper
 
+import kuorum.Region
+import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.post.Post
 import kuorum.users.KuorumUser
@@ -22,7 +24,13 @@ class Helper {
 
     public static final Post createDefaultPost(KuorumUser owner, Law law){
         new Post(
-
+                owner: owner,
+                title:"title",
+                text: "Text",
+                law:law,
+                numVotes: 1,
+                numClucks: 1,
+                postType: PostType.HISTORY
         )
     }
 
@@ -40,7 +48,16 @@ class Helper {
                 shortName: "shortName${hashtag}",
                 realName: "realName${hashtag}",
                 description: "description${hashtag}",
-                introduction: "introducction${hashtag}"
+                introduction: "introducction${hashtag}",
+                region: creteDefaultRegion()
+
+        )
+    }
+
+    public static final Region creteDefaultRegion(){
+        new Region(
+                name:"Europa",
+                iso3166_2:"EU"
         )
     }
 }
