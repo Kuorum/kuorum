@@ -26,6 +26,11 @@ class Law {
         commissions nullable: false
     }
 
+    static mapping = {
+        hashtag index:true, indexAttributes: [unique:true]
+    }
+
+
     String toString(){
         "${hashtag} (${id})"
     }
