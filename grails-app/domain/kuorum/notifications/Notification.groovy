@@ -7,6 +7,8 @@ class Notification {
 
     KuorumUser kuorumUser
     Date dateCreated
+
+    //If no mailType, no send mail
     MailType mailType
     static constraints = {
         mailType  nullable: true
