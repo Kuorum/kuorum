@@ -22,9 +22,9 @@ post {
     postService.sponsorAPost(abortoPurpose1, sponsor)
 
 
-    kuorumUserService.addFollower(juanjoAlvite,equo)
-    kuorumUserService.addFollower(juanjoAlvite,ecologistasEnAccion)
-    kuorumUserService.addFollower(juanjoAlvite,politician)
-    kuorumUserService.addFollower(juanjoAlvite,peter)
-    kuorumUserService.addFollower(peter,equo)
+    kuorumUserService.createFollower(juanjoAlvite,equo)
+    kuorumUserService.createFollower(juanjoAlvite,ecologistasEnAccion)
+    kuorumUserService.createFollower(juanjoAlvite,politician)
+    kuorumUserService.createFollower(juanjoAlvite,peter)
+    kuorumUserService.createFollower(peter,equo)
 }

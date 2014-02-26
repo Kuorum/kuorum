@@ -5,7 +5,7 @@ import grails.transaction.Transactional
 @Transactional
 class KuorumUserService {
 
-    def addFollower(KuorumUser follower, KuorumUser following) {
+    def createFollower(KuorumUser follower, KuorumUser following) {
         follower.following << following
         following.followers << follower
         follower.save()
