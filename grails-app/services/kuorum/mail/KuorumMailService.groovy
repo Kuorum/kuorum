@@ -8,7 +8,9 @@ import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionData
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.post.Cluck
 import kuorum.users.KuorumUser
+import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 
@@ -24,10 +26,24 @@ class KuorumMailService {
     @Value('${mail.mailChimp.listId}')
     String MAILCHIMP_LIST_ID
 
+    LinkGenerator grailsLinkGenerator
+
+
     def registerUser(KuorumUser user, def bindings){
-        MailData mailData = new MailData(user:user, mailType: MailType.REGISTER_VERIFY_ACCOUNT, bindings:bindings)
+        MailUserData mailUserData = new MailUserData(user:user, bindings:bindings)
+        MailData mailData = new MailData(mailType: MailType.REGISTER_VERIFY_ACCOUNT, userBindings: [mailUserData])
         sendTemplate(mailData)
 
+    }
+
+    def sendCluckNotificationMail(Cluck cluck){
+        String userLink = generateLink("userShow",[id:cluck.owner.id.toString()])
+        MailUserData mailUserData = new MailUserData(user:cluck.postOwner, bindings:[fname:cluck.postOwner.name,postName:cluck.post.title])
+        MailData mailData = new MailData()
+        mailData.mailType = MailType.NOTIFICATION_CLUCK
+        mailData.globalBindings=[cluckUserName:cluck.owner.name, cluckUserLink:userLink]
+        mailData.userBindings = [mailUserData]
+        sendTemplate(mailData)
     }
 
     private void sendTemplate(MailData mailData) {
@@ -39,26 +55,38 @@ class KuorumMailService {
         def rest = new grails.plugins.rest.client.RestBuilder()
         String apiKey = MANDRIL_APIKEY
 
-        def vars = mailData.mailType.requiredBindings.collect{
+        def globalMergeVars = mailData.mailType.globalBindings.collect{ field ->
             ({
-                name = it.toString()
-                content = mailData.bindings."$it".toString()
+                name = "${field}"
+                content = "${mailData.globalBindings[field]}"
             })
         }
-        def merge_vars=[{
-                        rcpt= "${mailData.user.email}"
-                        vars = vars
-//                        vars= [
-//                                {
-//                                    name = "fname"
-//                                    content = "${mailData.user.name}"
-//                                },
-//                                {
-//                                    name = "verifyLink"
-//                                   content = "${mailData.bindings.verifyLink}"
-//                                }
-//                        ]
-                    }]
+
+        def mergeVars = mailData.userBindings.collect{MailUserData mailUserData ->
+            def userVars = []
+            mailData.mailType.requiredBindings.each{field ->
+                userVars << ({
+                    name = "${field}"
+                    content = "${mailUserData.bindings[field]}"
+                })
+            }
+            ({
+                rcpt= "${mailUserData.user.email}"
+                vars = userVars
+            })
+        }
+        def to2 = []
+        mailData.userBindings.each{MailUserData mailUserData ->
+            //Check if the user has active the email
+            if (!(mailData.mailType.configurable && !mailUserData.user.availableMails.contains(mailData.mailType))){
+                to2 << ({
+                    email = "${mailUserData.user.email}"
+                    name = "${mailUserData.user.name}"
+                    type = "to"
+                })
+            }
+
+        }
 
         def resp = rest.post('https://mandrillapp.com/api/1.0/messages/send-template.json'){
 
@@ -69,7 +97,7 @@ class KuorumMailService {
                 template_name = mailData.mailType.nameTemplate
                 template_content = [{
                     name = "NO_SE_USA"
-                    content = "${mailData.user.name}"
+                    content = "XXXXX"
                 },{
                     name = "NO_SE_USA_2"
                     content = "XXXXXX"
@@ -80,22 +108,24 @@ class KuorumMailService {
                     //subject= "Verifica tu cuenta"
                     //from_email= "info@kuorum.org"
                     //from_name= "Kuorum"
-                    to= [{
-                        email ="${mailData.user.email}"
-                        name = "${mailData.user.name} ${mailData.user.surname}"
-                        type = "to"
-                    }]
+                    to = to2
+//                    to= [{
+//                        email ="${mailData.userBindings[0].user.email}"
+//                        name = "${mailData.userBindings[0].user.name}"
+//                        type = "to"
+//                    }]
                     //headers =[
                     //        "Reply-To":"info@kuorum.org"
                     //]
 //                    important =true
 //                        bcc_address = "iduetxe@gmail.com"
-                    global_merge_vars = [{
-                        name = "merge1"
-                        content = "<a href='kuorum.org'> Kuorum </a>"
-                    }
-                    ]
-                    merge_vars = merge_vars
+                    global_merge_vars = globalMergeVars
+//                    global_merge_vars = [{
+//                        name = "merge1"
+//                        content = "<a href='kuorum.org'> Kuorum </a>"
+//                    }
+//                    ]
+                    merge_vars = mergeVars
 //                    merge_vars=[{
 //                        rcpt= "${mailData.user.email}"
 //                        vars= [
@@ -180,5 +210,9 @@ class KuorumMailService {
         // Generally the close method should be called from a "finally" block.
         mailChimpClient.close();
 
+    }
+
+    protected String generateLink(String mapping, linkParams) {
+        grailsLinkGenerator.link(mapping:mapping,absolute: true,  params: linkParams)
     }
 }

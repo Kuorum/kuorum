@@ -2,6 +2,7 @@ package kuorum.users
 
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
+import kuorum.mail.MailType
 import org.bson.types.ObjectId
 
 class KuorumUser {
@@ -21,6 +22,8 @@ class KuorumUser {
     List<KuorumUser> following  = []
     List<KuorumUser> followers = []
     List<KuorumUser> subscribers = []
+
+    List<MailType> availableMails = MailType.values()
 
     static hasMany = [following:KuorumUser]
     static embedded = ['personalData', 'authorities']

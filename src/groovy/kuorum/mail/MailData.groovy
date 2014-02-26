@@ -8,18 +8,27 @@ import org.bson.types.ObjectId
  * Created by iduetxe on 10/02/14.
  */
 @Validateable
-class MailData {
-    KuorumUser user
+class   MailData {
     MailType mailType
-    def bindings = [:]
+    def globalBindings = [:]
+    List<MailUserData> userBindings = []
 
     static constraints = {
-        user nullable: false
         mailType nullable: false
-        bindings validator: { val, obj->
-            obj.mailType.requiredBindings.each {
+        globalBindings validator: { val, obj->
+            obj.mailType.globalBindings.each {
                 if (!val.containsKey(it)){
-                    return "mailData.validator.notFoundBindingRequired.${it}"
+                    return "mailData.validator.notFoundGlobalBindingRequired.${it}"
+                }
+            }
+            return true
+        }
+        userBindings validator: { val, obj->
+            val.each {MailUserData data ->
+                obj.mailType.requiredBindings.each {requiredField ->
+                    if (!data.bindings.containsKey(requiredField)){
+                        return "mailData.validator.notFoundBindingRequired.${it}"
+                    }
                 }
             }
             return true

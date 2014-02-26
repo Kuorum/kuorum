@@ -8,6 +8,8 @@ import kuorum.users.KuorumUser
 @Transactional
 class CluckService {
 
+    def notificationService
+
     List<Cluck> lawClucks(Law law) {
         Cluck.findAllByLaw(law)
     }
@@ -40,6 +42,8 @@ class CluckService {
         if (!cluck.save()){
             KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
         }
+        notificationService.sendCluckNotification(cluck)
+
         cluck
     }
 

@@ -15,6 +15,7 @@
             <h3>${cluck.postOwner}</h3>
             <h4><g:link mapping="lawShow" params="${[hashtag:cluck.law.hashtag[1..-1]]}">${cluck.law.hashtag}</g:link> </h4>
             <h2>${cluck.post.title}</h2>
+            <div> <g:link mapping="postCluck" params="[postId:cluck.post.id]">Cluck IT</g:link> </div>
         </div>
     </g:each>
 </content>

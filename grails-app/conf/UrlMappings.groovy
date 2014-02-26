@@ -6,6 +6,10 @@ class UrlMappings {
         name home: "/" (controller: "dashboard", action:"index")
 
         name lawShow: "/ley/$hashtag" (controller: "law", action:"show")
+
+        name userShow: "/user/$id" (controller: "kuorumUser", action: "show")
+
+        name postCluck: "/cluck/$postId" (controller: "cluck", action: "createCluck")
         //name landingPage: "/landingPage" (controller: "dashboard", action:"landingPage")
         //name dashboard: "/dashboard" (controller: "dashboard", action:"dashboard")
 

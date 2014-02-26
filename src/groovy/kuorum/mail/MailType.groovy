@@ -5,16 +5,22 @@ package kuorum.mail
  */
 public enum MailType {
 
-    REGISTER_VERIFY_ACCOUNT("validationEmail", "registerUser", ["fname","verifyLink"]);
+    REGISTER_VERIFY_ACCOUNT (false,  "validationEmail",      "registerUser", ["fname","verifyLink"], []),
+    NOTIFICATION_CLUCK      (true,   "notificationCluck",    "notification", ["fname", "postName"],  ["cluckUserName","cluckUserLink"]);
 
 
     String nameTemplate
     String tagTemplate
     List<String> requiredBindings
-    MailType(String nameTemplate, String tagTemplate, List<String> requiredBindings){
+    List<String> globalBindings
+    Boolean configurable
+
+    MailType(Boolean configurable, String nameTemplate, String tagTemplate, List<String> requiredBindings, List<String> globalBindings){
         this.nameTemplate = nameTemplate
         this.tagTemplate = tagTemplate
         this.requiredBindings = requiredBindings
+        this.globalBindings = globalBindings
+        this.configurable = configurable
     }
 
 }
