@@ -10,7 +10,8 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 //                             "file:${userHome}/.grails/${appName}-config.groovy"]
 
 grails.config.locations = [
-        "classpath:${grails.util.Environment.current.name}_config.properties"
+        "classpath:${grails.util.Environment.current.name}_config.properties",
+        "file:/home/iduetxe/kuorum/kuorum/grails-app/conf/${grails.util.Environment.current.name}_milestones.groovy"
 //        Environment.current.name
 //        "classpath:development_config.properties"
 ]
@@ -161,7 +162,7 @@ grails {
         host = "smtp.mandrillapp.com"
         port = 587
         username = "inaki.dominguez@kuorum.org"
-        password = "oHodkjWY5Di5S5H8qTSbMg"
+        password = "XXXXXXXXXXXxxxx"
         props = ["kuorum.mail.smtp.starttls.enable":"true",
                 "kuorum.mail.smtp.port":"587"]
     }
@@ -189,5 +190,4 @@ grails {
                 //"kuorum.mail.smtp.port":"1587"]
     }
 }
-
 
