@@ -15,15 +15,15 @@ class PostService {
     def postVoteService
 
     /**
-     * Save a post and creates the first firstCluck and first vote of the owner
+     * Save a post and creates the first firstCluck and first vote (owner vote)
      * @param post
      * @return
      */
     Post savePost(Post post) {
 
         //post.owner = KuorumUser.get(springSecurityService.principal?.id)
-        post.numVotes = 1
-        post.numClucks = 1
+        post.numVotes = 0
+        post.numClucks = 0
 
         if (!post.save()){
             KuorumException exception = KuorumExceptionUtil.createExceptionFromValidatable(post, "Error salvando el post ${post}")

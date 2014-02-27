@@ -3,6 +3,7 @@ package kuorum.post
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.PostType
 import kuorum.law.Law
+import kuorum.notifications.CluckNotification
 import kuorum.users.KuorumUser
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -13,6 +14,7 @@ import spock.lang.Unroll
 class CluckServiceIntegrationSpec extends Specification{
 
     def cluckService
+    def notificationService
     def fixtureLoader
 
     def setup(){
@@ -25,10 +27,16 @@ class CluckServiceIntegrationSpec extends Specification{
             KuorumUser user = KuorumUser.findByEmail("peter@example.com")
             KuorumUser clucker = KuorumUser.findByEmail("equo@example.com")
             Post post = Post.findByOwner(user)
-        when: "creating a firstCluck"
+            long numClucks = post.numClucks
+        when: "creating a firstCluck and check if notification is created"
             cluckService.createCluck(post,clucker)
             Cluck cluck = Cluck.findByLawAndOwner(post.law,clucker)
+            CluckNotification cluckNotification = CluckNotification.findByKuorumUserAndClucker(user,clucker)
         then:
+            post.numClucks == numClucks +1
+            cluckNotification
+            cluckNotification.clucker == clucker
+            cluckNotification.kuorumUser== user
             cluck.owner == clucker
             cluck.postOwner == user
             cluck.post == post
