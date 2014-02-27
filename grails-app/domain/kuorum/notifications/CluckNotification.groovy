@@ -6,7 +6,7 @@ import kuorum.users.KuorumUser
 
 class CluckNotification extends Notification{
 
-    MailType mailType = MailType.NOTIFICATION_CLUCK
+    final MailType mailType = MailType.NOTIFICATION_CLUCK
     Post post
     KuorumUser clucker
 
