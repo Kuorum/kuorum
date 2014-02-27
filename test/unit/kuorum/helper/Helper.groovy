@@ -34,6 +34,18 @@ class Helper {
         )
     }
 
+    public static final Post createDefaultPost(){
+        new Post(
+                owner: createDefaultUser("email@example.com"),
+                title:"title",
+                text: "Text",
+                law:createDefaultLaw("#hashTagLawDefault"),
+                numVotes: 1,
+                numClucks: 1,
+                postType: PostType.HISTORY
+        )
+    }
+
     public static final KuorumUser createDefaultUser(String email){
         new KuorumUser(
                 name:"name",

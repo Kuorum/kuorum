@@ -78,6 +78,19 @@ class NotificationServiceSpec extends Specification {
         CommentNotification commentNotification = CommentNotification.findByTertullianAndKuorumUser(user2,user1)
         then: "All OK and mail service has been called"
         commentNotification
-        0 * kuorumMailService._(1..99)
+        0 * kuorumMailService._(1..99) //NO se si esto hace algo
     }
+
+    void "test milestone voting posts"() {
+            given: "A post"
+            Post post = Helper.createDefaultPost().save()
+
+            when: "Sending notification"
+            //"service" represents the grails service you are testing for
+            service.sendPublicMilestoneNotification(post)
+            PublicMilestoneNotification publicMilestoneNotification = PublicMilestoneNotification.findByPost(post)
+            then: "All OK and mail service has been called"
+            publicMilestoneNotification
+            1 * kuorumMailService.sendPublicMilestoneNotificationMail(post)
+        }
 }

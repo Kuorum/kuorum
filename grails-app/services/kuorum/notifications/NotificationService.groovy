@@ -51,4 +51,26 @@ class NotificationService {
             commentNotification.save()
         }
     }
+
+    void sendMilestoneNotification(Post post){
+        MilestoneNotification milestoneNotification = new MilestoneNotification(
+                kuorumUser: post.owner,
+                post: post,
+                numVotes: post.numVotes
+        )
+        milestoneNotification.save()
+    }
+
+    void sendPublicMilestoneNotification(Post post){
+        PublicMilestoneNotification milestoneNotification = new PublicMilestoneNotification (
+                kuorumUser: post.owner,
+                post: post,
+                numVotes: post.numVotes
+        )
+        if (milestoneNotification.save()){
+            kuorumMailService.sendPublicMilestoneNotificationMail(post)
+        }else{
+            log.error("No se ha podido salvar una notificacion de que un hito a alcanzado apoyos para ser público: ${milestoneNotification.errors}")
+        }
+    }
 }

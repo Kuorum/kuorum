@@ -9,6 +9,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionData
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.post.Cluck
+import kuorum.post.Post
 import kuorum.users.KuorumUser
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.beans.factory.annotation.Value
@@ -48,6 +49,10 @@ class KuorumMailService {
 
     def sendFollowerNotificationMail(KuorumUser follower, KuorumUser following){
 //TODO: Send mail (prepare Madnrillap)
+    }
+
+    def sendPublicMilestoneNotificationMail(Post post){
+        //TODO: Send mail (prepeare mandrillapp)
     }
 
     private void sendTemplate(MailData mailData) {

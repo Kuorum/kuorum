@@ -9,7 +9,7 @@ import kuorum.users.KuorumUser
 @Transactional
 class PostVoteService {
 
-    def votePost(Post post, KuorumUser kuorumUser){
+    PostVote votePost(Post post, KuorumUser kuorumUser){
         if (post.id == null || kuorumUser.id == null){
             throw new KuorumException("El post o el usuario no se han salvado previamente en BBDD","error.postVoteService.paramsError")
         }
@@ -21,5 +21,13 @@ class PostVoteService {
             throw KuorumExceptionUtil.createExceptionFromValidatable(postVote,"Error salvando el post")
         postVote
 
+    }
+
+    boolean checkIfMilestone(Post post){
+        true
+    }
+
+    boolean checkIfPublicMilestone(Post){
+        true
     }
 }

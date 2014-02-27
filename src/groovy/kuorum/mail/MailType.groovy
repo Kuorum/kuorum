@@ -7,8 +7,8 @@ public enum MailType {
 
     REGISTER_VERIFY_ACCOUNT (false,  "validationEmail",      "registerUser", ["fname","verifyLink"], []),
     NOTIFICATION_CLUCK      (true,   "notificationCluck",    "notification", ["fname", "postName"],  ["cluckUserName","cluckUserLink"]),
-    NOTIFICATION_FOLLOWER   (true,   "notificationFollower", "notification", [],  ["followerName"]);
-    ;
+    NOTIFICATION_FOLLOWER   (true,   "notificationFollower", "notification", [],  ["followerName"]),
+    NOTIFICATION_PUBLIC_MILESTONE(true,"notificationMilestone","notification",["postName", "numVotes"],[]);
 
 
     String nameTemplate
