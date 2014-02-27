@@ -3,6 +3,7 @@ package kuorum.notifications
 import grails.transaction.Transactional
 import grails.util.Environment
 import kuorum.post.Cluck
+import kuorum.post.Post
 import kuorum.users.KuorumUser
 
 @Transactional
@@ -37,6 +38,17 @@ class NotificationService {
             }else{
                 log.error("No se ha podido salvar una notificacion de kakareo: ${followerNotification.errors}")
             }
+        }
+    }
+
+    void sendCommentNotification(KuorumUser user, Post post){
+        if (user != post.owner){
+            CommentNotification commentNotification = new CommentNotification(
+                    kuorumUser: post.owner,
+                    tertullian: user,
+                    post: post
+            )
+            commentNotification.save()
         }
     }
 }

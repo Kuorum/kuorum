@@ -14,7 +14,7 @@ import spock.lang.Specification
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(NotificationService)
-@Mock([KuorumUser, Cluck, Law, Post,CluckNotification, FollowerNotification])
+@Mock([KuorumUser, Cluck, Law, Post,CluckNotification, FollowerNotification, CommentNotification])
 class NotificationServiceSpec extends Specification {
 
     KuorumMailService kuorumMailService = Mock(KuorumMailService)
@@ -63,5 +63,21 @@ class NotificationServiceSpec extends Specification {
         then: "All OK and mail service has been called"
         followerNotification
         1 * kuorumMailService.sendFollowerNotificationMail(user1, user2)
+    }
+
+    void "test new comment"() {
+        given: "2 users"
+        KuorumUser user1 = Helper.createDefaultUser("user1@ex.com").save()
+        Law law = Helper.createDefaultLaw("#test")
+        Post post = Helper.createDefaultPost(user1, law)
+        KuorumUser user2 = Helper.createDefaultUser("user2@ex.com").save()
+
+        when: "Sending notification"
+        //"service" represents the grails service you are testing for
+        service.sendCommentNotification(user2, post)
+        CommentNotification commentNotification = CommentNotification.findByTertullianAndKuorumUser(user2,user1)
+        then: "All OK and mail service has been called"
+        commentNotification
+        0 * kuorumMailService._(1..99)
     }
 }
