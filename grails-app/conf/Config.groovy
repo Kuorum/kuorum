@@ -1,4 +1,4 @@
-import grails.plugin.springsecurity.SpringSecurityUtils
+//import grails.plugin.springsecurity.SpringSecurityUtils
 
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes

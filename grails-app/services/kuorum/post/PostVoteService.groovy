@@ -38,11 +38,24 @@ class PostVoteService {
     }
 
     boolean checkIfMilestone(Post post){
+
+        Range<Long> rangePost = findPostRange(post)
         grailsApplication.config.kuorum.milestones.postVotes.publicVotes != post.numVotes &&
-        grailsApplication.config.kuorum.milestones.postVotes.ranges.contains(post.numVotes)
+        rangePost.from == post.numVotes
     }
 
     boolean checkIfPublicMilestone(Post post){
         grailsApplication.config.kuorum.milestones.postVotes.publicVotes == post.numVotes
     }
+
+    Range<Long> findPostRange(Post post){
+        //Filling ranges because is lazyList and could be empty or with not enough elements
+        int i = 10
+        while (grailsApplication.config.kuorum.milestones.postVotes.ranges.last().to < post.numVotes){
+            grailsApplication.config.kuorum.milestones.postVotes.ranges[i]
+            i++
+        }
+        grailsApplication.config.kuorum.milestones.postVotes.ranges.find{it.contains(post.numVotes)}
+    }
+
 }

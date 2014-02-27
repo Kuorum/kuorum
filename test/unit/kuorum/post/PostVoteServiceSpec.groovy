@@ -70,8 +70,12 @@ class PostVoteServiceSpec extends Specification {
             4     | 0                           | 1
             10    | 1                           | 1
             25    | 1                           | 2
-
-        //exception.message == "KuorumUser not found"
-        //Assertion goes here
+        //LAZY ARRAY
+            50    | 1                           | 3
+            100   | 1                           | 4
+            250   | 1                           | 5
+            500   | 1                           | 6
+            1000  | 1                           | 7
+            2500  | 1                           | 8
     }
 }
