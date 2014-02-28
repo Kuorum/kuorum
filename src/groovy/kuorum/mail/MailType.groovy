@@ -10,7 +10,7 @@ public enum MailType {
     NOTIFICATION_FOLLOWER   (true,   "notificationFollower", "notification", [],  ["followerName"]),
     NOTIFICATION_PUBLIC_MILESTONE(true,"notificationMilestone","notification",["postName", "numVotes"],[]),
     NOTIFICATION_DEBATE     (true,   "notificationDebate",   "notification",[],["debateOwner","postName", "politicianName","message", "politicianLink", "postLink"]),
-    ALERT_DEBATE            (true,   "alertDebate",          "notification",[],["postName", "politicianName","message", "politicianLink", "postLink"]);
+    ALERT_DEBATE            (false,   "alertDebate",          "notification",[],["postName", "politicianName","message", "politicianLink", "postLink"]);
 
 
     String nameTemplate
