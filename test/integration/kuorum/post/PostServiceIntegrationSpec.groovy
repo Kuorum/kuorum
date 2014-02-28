@@ -13,6 +13,7 @@ import spock.lang.Unroll
 class PostServiceIntegrationSpec extends Specification{
 
     def postService
+    def postVoteService
     def fixtureLoader
 
     def setup(){
@@ -128,7 +129,12 @@ class PostServiceIntegrationSpec extends Specification{
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")
         KuorumUser noe = KuorumUser.findByEmail("politician@example.com")
+        KuorumUser voter1 = KuorumUser.findByEmail("carmen@example.com")
+        KuorumUser voter2 = KuorumUser.findByEmail("juanjoalvite@example.com")
         Post post = Post.findByOwner(user)
+        postVoteService.votePost(post,voter1)
+        postVoteService.votePost(post,voter2)
+
         PostComment postComment1 = new PostComment(kuorumUser:noe, text:"1 -- Loren ipsum")
         PostComment postComment2 = new PostComment(kuorumUser:user, text:"2 -- Loren ipsum")
         PostComment postComment3 = new PostComment(kuorumUser:user, text:"3 -- Loren ipsum")

@@ -2,8 +2,10 @@ package kuorum.notifications
 
 import grails.transaction.Transactional
 import grails.util.Environment
+import kuorum.mail.MailUserData
 import kuorum.post.Cluck
 import kuorum.post.Post
+import kuorum.post.PostVote
 import kuorum.users.KuorumUser
 
 @Transactional
@@ -72,5 +74,30 @@ class NotificationService {
         }else{
             log.error("No se ha podido salvar una notificacion de que un hito a alcanzado apoyos para ser público: ${milestoneNotification.errors}")
         }
+    }
+
+    void sendDebateNotification(Post post){
+        //NOT TESTED - An async task is not possible to test (at least I don't know how)
+        grails.async.Promises.task{
+            List<MailUserData> mailUserDatas = []
+            KuorumUser politician = post.debates[0].kuorumUser
+            PostVote.findAllByPost(post).each{PostVote postVote ->
+                DebateNotification debateNotification
+                if (postVote.user == post.owner){
+                    debateNotification = new DebateAlertNotification()
+                }else{
+                    debateNotification = new DebateNotification()
+
+                    new MailUserData(user:postVote.user, bindings:[:])
+                }
+                debateNotification.post = post
+                debateNotification.politician = politician
+                debateNotification.kuorumUser = postVote.user
+                debateNotification.save()
+            }
+
+            kuorumMailService.sendDebateNotificationMail(post, mailUserDatas)
+        }
+
     }
 }

@@ -55,6 +55,30 @@ class KuorumMailService {
         //TODO: Send mail (prepeare mandrillapp)
     }
 
+    def sendDebateNotificationMail(Post post, List<MailUserData> userMailData){
+        KuorumUser politician = post.debates[0].kuorumUser
+        def globalBindings = [
+                debateOwner:post.owner.name,
+                postName:post.title,
+                politicianName:politician.name,
+                message:post.debates[0].text,
+                politicianLink:generateLink("userShow",[id:politician.id]),
+                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+
+        MailData mailData = new MailData()
+        mailData.mailType = MailType.NOTIFICATION_DEBATE
+        mailData.globalBindings=globalBindings
+        mailData.userBindings = userMailData
+        sendTemplate(mailData)
+
+        MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[])
+        MailData mailDataAlert = new MailData()
+        mailDataAlert.mailType = MailType.ALERT_DEBATE
+        mailDataAlert.globalBindings=globalBindings
+        mailDataAlert.userBindings =[mailUserData]
+        sendTemplate(mailDataAlert)
+    }
+
     private void sendTemplate(MailData mailData) {
 
         if (!mailData.validate()){
@@ -170,8 +194,8 @@ class KuorumMailService {
         }
 
         if (resp.responseEntity.statusCode != HttpStatus.OK){
-            log.error("Error enviando email de registro de '${mailData.user.name}' con el mail ${mailData.user.email}")
-            KuorumExceptionData error = new KuorumExceptionData(code:"error.mail.sendRegisterUser")
+            log.error("Error enviando emai '${mailData.mailType}' ")
+            KuorumExceptionData error = new KuorumExceptionData(code:"error.mail.sendingMail")
             throw new KuorumException(resp.responseEntity.toString(),error)
         }
         resp

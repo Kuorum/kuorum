@@ -7,6 +7,8 @@ import kuorum.law.Law
 import kuorum.mail.KuorumMailService
 import kuorum.post.Cluck
 import kuorum.post.Post
+import kuorum.post.PostComment
+import kuorum.post.PostVote
 import kuorum.users.KuorumUser
 import spock.lang.Specification
 
@@ -14,7 +16,7 @@ import spock.lang.Specification
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(NotificationService)
-@Mock([KuorumUser, Cluck, Law, Post,CluckNotification, FollowerNotification, CommentNotification])
+@Mock([KuorumUser, Cluck, Law, Post,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification])
 class NotificationServiceSpec extends Specification {
 
     KuorumMailService kuorumMailService = Mock(KuorumMailService)
@@ -76,12 +78,12 @@ class NotificationServiceSpec extends Specification {
         //"service" represents the grails service you are testing for
         service.sendCommentNotification(user2, post)
         CommentNotification commentNotification = CommentNotification.findByTertullianAndKuorumUser(user2,user1)
-        then: "All OK and mail service has been called"
+        then: "All OK and mail service has not been called"
         commentNotification
         0 * kuorumMailService._(1..99) //NO se si esto hace algo
     }
 
-    void "test milestone voting posts"() {
+    void "test public milestone voting posts"() {
             given: "A post"
             Post post = Helper.createDefaultPost().save()
 
@@ -93,4 +95,5 @@ class NotificationServiceSpec extends Specification {
             publicMilestoneNotification
             1 * kuorumMailService.sendPublicMilestoneNotificationMail(post)
         }
+
 }

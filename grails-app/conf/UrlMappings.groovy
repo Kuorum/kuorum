@@ -10,6 +10,9 @@ class UrlMappings {
         name userShow: "/user/$id" (controller: "kuorumUser", action: "show")
 
         name postCluck: "/cluck/$postId" (controller: "cluck", action: "createCluck")
+        name HISTORYShow:  "/historia/$postId" (controller: "post", action: "show")
+        name QUESTIONShow:  "/pregunta/$postId" (controller: "post", action: "show")
+        name PORPOSEShow:  "/propuesta/$postId"(controller: "post", action: "show")
         //name landingPage: "/landingPage" (controller: "dashboard", action:"landingPage")
         //name dashboard: "/dashboard" (controller: "dashboard", action:"dashboard")
 
