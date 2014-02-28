@@ -79,4 +79,8 @@ class KuorumUser {
 //        if(persisted != password)
 //            encodePassword()
     }
+
+    int hashCode() {
+        return id?id.hashCode():email.hashCode()
+    }
 }
