@@ -96,4 +96,41 @@ class NotificationServiceSpec extends Specification {
             1 * kuorumMailService.sendPublicMilestoneNotificationMail(post)
         }
 
+
+    void "test sending debate notification"() {
+        given: "Creating a post, its votes and a comment"
+        Post post = Helper.createDefaultPost().save()
+        //Owner vote
+        PostVote ownerVote = new PostVote(post:post, user:post.owner, personalData: post.owner.personalData)
+        ownerVote.save()
+        //Politician
+        KuorumUser politician = Helper.createDefaultUser("politician@example.com")
+        post.debates = [new PostComment(kuorumUser: politician, text: "TEXTO MOLON")]
+        politician.save()
+        Integer numVotes = 5
+        KuorumUser user
+        (1..numVotes).each {
+            user = Helper.createDefaultUser("user${it}@example.com")
+            user.save()
+            PostVote vote = new PostVote(post:post, user:user, personalData: user.personalData)
+            vote.save()
+        }
+        KuorumUser followerPolitician = Helper.createDefaultUser("follower@example.com")
+        politician.followers = [followerPolitician,user]
+        politician.save()
+        followerPolitician.following << politician
+        user.following << politician
+        followerPolitician.save()
+        user.save()
+
+        when: "Sending notification"
+        //"service" represents the grails service you are testing for
+        def promise = service.sendDebateNotification(post)
+        then: "All OK and mail service has been called"
+        DebateNotification.findAllByPost(post).size() - DebateAlertNotification.findAllByPost(post).size() ==6
+        DebateAlertNotification.findAllByPost(post).size()==1
+        1 * kuorumMailService.sendDebateNotificationMail(post, { it.size == numVotes })
+    }
+
+
 }

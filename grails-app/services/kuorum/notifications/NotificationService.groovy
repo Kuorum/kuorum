@@ -77,27 +77,53 @@ class NotificationService {
     }
 
     void sendDebateNotification(Post post){
-        //NOT TESTED - An async task is not possible to test (at least I don't know how)
-        grails.async.Promises.task{
-            List<MailUserData> mailUserDatas = []
-            KuorumUser politician = post.debates[0].kuorumUser
-            PostVote.findAllByPost(post).each{PostVote postVote ->
-                DebateNotification debateNotification
-                if (postVote.user == post.owner){
-                    debateNotification = new DebateAlertNotification()
-                }else{
-                    debateNotification = new DebateNotification()
-
-                    new MailUserData(user:postVote.user, bindings:[:])
+        //An async task is not possible to test (at least I don't know how), for that this trick
+        Environment.executeForCurrentEnvironment {
+            development{
+                grails.async.Promises.task{
+                    syncSendDebateNotification(post)
                 }
-                debateNotification.post = post
-                debateNotification.politician = politician
-                debateNotification.kuorumUser = postVote.user
-                debateNotification.save()
+            }
+            test{
+                syncSendDebateNotification(post)
+            }
+            production{
+                grails.async.Promises.task{
+                    syncSendDebateNotification(post)
+                }
             }
 
-            kuorumMailService.sendDebateNotificationMail(post, mailUserDatas)
         }
 
+    }
+
+    private void syncSendDebateNotification(Post post){
+        List<MailUserData> mailUserDatas = []
+        KuorumUser politician = post.debates[0].kuorumUser
+        PostVote.findAllByPost(post).each{PostVote postVote ->
+            DebateNotification debateNotification
+            if (postVote.user == post.owner){
+                debateNotification = new DebateAlertNotification()
+            }else{
+                debateNotification = new DebateNotification()
+                mailUserDatas << new MailUserData(user:postVote.user, bindings:[:])
+            }
+            debateNotification.post = post
+            debateNotification.politician = politician
+            debateNotification.kuorumUser = postVote.user
+            debateNotification.save()
+        }
+
+        politician.followers.each {KuorumUser user ->
+            if (!(mailUserDatas.find{it.user==user})){
+                DebateNotification debateNotification = new DebateNotification()
+                debateNotification.post = post
+                debateNotification.politician = politician
+                debateNotification.kuorumUser = user
+                debateNotification.save()
+            }
+        }
+
+        kuorumMailService.sendDebateNotificationMail(post, mailUserDatas)
     }
 }

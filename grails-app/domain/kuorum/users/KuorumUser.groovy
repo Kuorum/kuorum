@@ -25,7 +25,7 @@ class KuorumUser {
 
     List<MailType> availableMails = MailType.values()
 
-    static hasMany = [following:KuorumUser]
+    static hasMany = [following:KuorumUser,followers:KuorumUser]
     static embedded = ['personalData', 'authorities']
 
     //Spring fields

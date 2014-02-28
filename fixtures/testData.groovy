@@ -27,4 +27,7 @@ post {
     kuorumUserService.createFollower(juanjoAlvite,politician)
     kuorumUserService.createFollower(juanjoAlvite,peter)
     kuorumUserService.createFollower(peter,equo)
+
+    kuorumUserService.createFollower(noe,politician)
+
 }
