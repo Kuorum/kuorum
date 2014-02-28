@@ -7,8 +7,8 @@ public enum MailType {
 
     REGISTER_VERIFY_ACCOUNT (false,  "validationEmail",      "registerUser", ["fname","verifyLink"], []),
     NOTIFICATION_CLUCK      (true,   "notificationCluck",    "notification", ["fname", "postName"],  ["cluckUserName","cluckUserLink"]),
-    NOTIFICATION_FOLLOWER   (true,   "notificationFollower", "notification", [],  ["followerName"]),
-    NOTIFICATION_PUBLIC_MILESTONE(true,"notificationMilestone","notification",["postName", "numVotes"],[]),
+    NOTIFICATION_FOLLOWER   (true,   "notificationFollower", "notification", [],  ["followerName","followerLink"]),
+    NOTIFICATION_PUBLIC_MILESTONE(true,"notificationMilestone","notification",[],["postName", "numVotes", "postLink"]),
     NOTIFICATION_DEBATE     (true,   "notificationDebate",   "notification",[],["debateOwner","postName", "politicianName","message", "politicianLink", "postLink"]),
     ALERT_DEBATE            (false,   "alertDebate",          "notification",[],["postName", "politicianName","message", "politicianLink", "postLink"]);
 

@@ -48,11 +48,23 @@ class KuorumMailService {
     }
 
     def sendFollowerNotificationMail(KuorumUser follower, KuorumUser following){
-//TODO: Send mail (prepare Madnrillap)
+        String userLink = generateLink("userShow",[id:follower.id.toString()])
+        MailUserData mailUserData = new MailUserData(user:following, bindings:[])
+        MailData mailData = new MailData()
+        mailData.mailType = MailType.NOTIFICATION_FOLLOWER
+        mailData.globalBindings=[followerName:follower.name, followerLink:userLink]
+        mailData.userBindings = [mailUserData]
+        sendTemplate(mailData)
     }
 
     def sendPublicMilestoneNotificationMail(Post post){
-        //TODO: Send mail (prepeare mandrillapp)
+        String postLink = generateLink("${post.postType}Show",[postId:post.id.toString()])
+        MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[])
+        MailData mailData = new MailData()
+        mailData.mailType = MailType.NOTIFICATION_PUBLIC_MILESTONE
+        mailData.globalBindings=[postName:post.title, numVotes:post.numVotes, postLink:postLink]
+        mailData.userBindings = [mailUserData]
+        sendTemplate(mailData)
     }
 
     def sendDebateNotificationMail(Post post, List<MailUserData> userMailData){
