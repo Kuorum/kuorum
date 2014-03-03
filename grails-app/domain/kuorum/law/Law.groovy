@@ -17,6 +17,7 @@ class Law {
     Region region
     Boolean open = Boolean.TRUE
     Date dateCreated
+    Boolean published = Boolean.FALSE
 
     static embedded = ['region' ]
 

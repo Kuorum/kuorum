@@ -15,5 +15,6 @@ Prohibición de prospecciones y explotaciones de hidrocarburos mediante fractura
 """
         commissions = [CommissionType.NUTRITION_AND_ENVIRONMENT, CommissionType.INDUSTRY]
         region = spain
+        published = Boolean.FALSE
     }
 }

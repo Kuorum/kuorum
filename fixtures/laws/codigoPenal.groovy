@@ -17,5 +17,6 @@ Modificación de la Ley Orgánica del Código Penal
 """
         commissions = [CommissionType.JUSTICE, CommissionType.EMPLOY_AND_HEALTH_SERVICE]
         region = spain
+        published = Boolean.TRUE
     }
 }
