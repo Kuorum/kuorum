@@ -46,7 +46,7 @@ class CluckServiceIntegrationSpec extends Specification{
     }
 
     @Unroll
-    void "test dashboard clucks for user #email founding #numClucks"() {
+    void "test dashboard clucks for user #email founding #numClucks clucks"() {
         given: "A user"
         KuorumUser kuorumUser = KuorumUser.findByEmail(email)
 
@@ -55,11 +55,15 @@ class CluckServiceIntegrationSpec extends Specification{
 
         then: "Check the results"
             clucks.size() == numClucks
+            if (numClucks>0){
+                clucks.sort { a, b -> a.lastUpdated <=> b.lastUpdated }.last() == clucks.last()
+                clucks.sort { a, b -> a.lastUpdated <=> b.lastUpdated }.first() == clucks.first()
+            }
         where:
             email                           | numClucks
-            "juanjoalvite@example.com"      | 3
-            "peter@example.com"             | 1
-            "equo@example.com"              | 1
+            "juanjoalvite@example.com"      | 4
+            "peter@example.com"             | 3
+            "equo@example.com"              | 2
             "politician@example.com"        | 0
     }
 

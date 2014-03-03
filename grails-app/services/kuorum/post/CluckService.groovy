@@ -12,7 +12,7 @@ class CluckService {
     def notificationService
 
     List<Cluck> lawClucks(Law law) {
-        Cluck.findAllByLaw(law)
+        Cluck.findAllByLawAndIsFirstCluck(law, Boolean.TRUE,[max: 10, sort: "dateCreated", order: "desc", offset: 0])
     }
 
     List<Cluck> dashboardClucks(KuorumUser kuorumUser){
