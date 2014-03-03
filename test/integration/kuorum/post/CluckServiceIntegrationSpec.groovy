@@ -67,4 +67,26 @@ class CluckServiceIntegrationSpec extends Specification{
             "politician@example.com"        | 0
     }
 
+    @Unroll
+    void "test clucks for law #hashtag founding #numClucks clucks"() {
+        given: "A user"
+        Law law = Law.findByHashtag(hashtag)
+
+        when: "Saving a post"
+        List<Cluck> clucks = cluckService.lawClucks(law)
+
+        then: "Check the results"
+        clucks.size() == numClucks
+        if (numClucks>0){
+            clucks.sort { a, b -> a.lastUpdated <=> b.lastUpdated }.last() == clucks.last()
+            clucks.sort { a, b -> a.lastUpdated <=> b.lastUpdated }.first() == clucks.first()
+        }
+        where:
+        hashtag                 | numClucks
+        "#leyAborto"            | 1
+        "#codigoPenal"          | 0
+        "#parquesNacionales"    | 1
+        "#prohibicionFraking"   | 0
+    }
+
 }
