@@ -41,6 +41,7 @@ class CluckServiceIntegrationSpec extends Specification{
             cluck.postOwner == user
             cluck.post == post
             cluck.law == post.law
+            cluck.isFirstCluck == Boolean.FALSE
 
     }
 

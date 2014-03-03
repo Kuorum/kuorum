@@ -83,6 +83,7 @@ class PostServiceIntegrationSpec extends Specification{
         cluck != null
         cluck.post == savedPost
         cluck.postOwner == savedPost.owner
+        cluck.isFirstCluck == Boolean.TRUE
 
         PostVote.findAllByPostAndUser(post, post.owner).size() == 1
         PostVote postVote = PostVote.findByPostAndUser(post, post.owner)

@@ -15,6 +15,7 @@ fixture{
 post {
 
     postService.savePost(abortoPurpose1)
+    postService.publishPost(abortoPurpose1)
     cluckService.createCluck(abortoPurpose1, juanjoAlvite)
     cluckService.createCluck(abortoPurpose1, ecologistasEnAccion)
     abortoPurpose1.refresh() // Is necesary because fixture sets the last cluck created to abortoPurpose1.firstCluck. I don't know why

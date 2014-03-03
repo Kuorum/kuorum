@@ -4,6 +4,7 @@ import com.mongodb.util.JSON
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.law.Law
 import kuorum.users.Politician
 
 @Transactional
