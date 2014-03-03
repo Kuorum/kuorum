@@ -67,30 +67,30 @@ class KuorumMailService {
         sendTemplate(mailData)
     }
 
-    def sendDebateNotificationMail(Post post, List<MailUserData> userMailData){
-        KuorumUser politician = post.debates[0].kuorumUser
+    def sendDebateNotificationMail(Post post, Set<MailUserData> notificationUsers, Set<MailUserData> alertUsers, Boolean isFirstDebate){
+        KuorumUser politician = post.debates.last().kuorumUser
         def globalBindings = [
                 debateOwner:post.owner.name,
                 postName:post.title,
                 politicianName:politician.name,
-                message:post.debates[0].text,
+                message:post.last().text,
                 politicianLink:generateLink("userShow",[id:politician.id]),
                 postLink:generateLink("${post.postType}Show", [postId:post.id])]
 
-        MailData mailData = new MailData()
-        mailData.mailType = MailType.NOTIFICATION_DEBATE
-        mailData.globalBindings=globalBindings
-        mailData.userBindings = userMailData
-        sendTemplate(mailData)
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = isFirstDebate?MailType.NOTIFICATION_FIRST_DEBATE:MailType.NOTIFICATION_MORE_DEBATE
+        mailNotificationsData.globalBindings=globalBindings
+        mailNotificationsData.userBindings = notificationUsers
+        sendTemplate(mailNotificationsData)
 
-        MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[])
         MailData mailDataAlert = new MailData()
-        mailDataAlert.mailType = MailType.ALERT_DEBATE
+        mailDataAlert.mailType = isFirstDebate?MailType.ALERT_FIRST_DEBATE:MailType.ALERT_MORE_DEBATE
         mailDataAlert.globalBindings=globalBindings
-        mailDataAlert.userBindings =[mailUserData]
+        mailDataAlert.userBindings = alertUsers
         sendTemplate(mailDataAlert)
     }
 
+    //UNTESTED - Is not possible to test if the mail has been sent. Only if not fails
     private void sendTemplate(MailData mailData) {
 
         if (!mailData.validate()){

@@ -2,6 +2,7 @@ package kuorum.notifications
 
 import grails.transaction.Transactional
 import grails.util.Environment
+import kuorum.mail.MailType
 import kuorum.mail.MailUserData
 import kuorum.post.Cluck
 import kuorum.post.Post
@@ -98,32 +99,53 @@ class NotificationService {
     }
 
     private void syncSendDebateNotification(Post post){
-        List<MailUserData> mailUserDatas = []
-        KuorumUser politician = post.debates[0].kuorumUser
-        PostVote.findAllByPost(post).each{PostVote postVote ->
-            DebateNotification debateNotification
-            if (postVote.user == post.owner){
-                debateNotification = new DebateAlertNotification()
-            }else{
-                debateNotification = new DebateNotification()
-                mailUserDatas << new MailUserData(user:postVote.user, bindings:[:])
-            }
+        //mailUserDatas has all the people interested on the debate
+        Set<MailUserData> notificationUsers = []
+        Set<KuorumUser> debateUsers = post.debates.collect{it.kuorumUser}
+        KuorumUser politician = post.debates.last().kuorumUser
+        Boolean isFirstDebate = post.debates.size()==1
+
+        //All interested people for his vote
+        PostVote.findAllByPostAndUserNotEqual(post, post.owner).each{PostVote postVote ->
+            DebateNotification debateNotification = new DebateNotification()
+            debateNotification.mailType = isFirstDebate?MailType.NOTIFICATION_FIRST_DEBATE:MailType.NOTIFICATION_MORE_DEBATE
+            debateNotification.isFirstDebate=isFirstDebate
             debateNotification.post = post
             debateNotification.politician = politician
             debateNotification.kuorumUser = postVote.user
             debateNotification.save()
+            notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
         }
-
-        politician.followers.each {KuorumUser user ->
-            if (!(mailUserDatas.find{it.user==user})){
+        //All interested people for his followings
+        def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
+        def interestedUsersWithoutAlertedPeople = interestedUsers.minus(debateUsers)
+        interestedUsersWithoutAlertedPeople.each {KuorumUser user ->
+            if (!(notificationUsers.find{it.user==user})){
                 DebateNotification debateNotification = new DebateNotification()
+                debateNotification.mailType = isFirstDebate?MailType.NOTIFICATION_FIRST_DEBATE:MailType.NOTIFICATION_MORE_DEBATE
                 debateNotification.post = post
                 debateNotification.politician = politician
                 debateNotification.kuorumUser = user
                 debateNotification.save()
+                notificationUsers << new MailUserData(user:user, bindings:[:])
             }
         }
 
-        kuorumMailService.sendDebateNotificationMail(post, mailUserDatas)
+        Set<KuorumUser> alertUsers = post.debates.collect{it.kuorumUser} as Set<KuorumUser>
+        alertUsers.add(post.owner)
+        alertUsers = alertUsers.minus(post.debates.last().kuorumUser)
+
+        def alertMailUsers = [] as Set<MailUserData>
+        alertUsers.each { user ->
+            DebateAlertNotification debateAlert = new DebateAlertNotification()
+            debateAlert.mailType = isFirstDebate?MailType.ALERT_FIRST_DEBATE:MailType.ALERT_MORE_DEBATE
+            debateAlert.post = post
+            debateAlert.politician = politician
+            debateAlert.kuorumUser = user
+            debateAlert.save()
+            alertMailUsers << new MailUserData(user:user, bindings:[:])
+        }
+
+        kuorumMailService.sendDebateNotificationMail(post, notificationUsers,alertMailUsers, isFirstDebate)
     }
 }

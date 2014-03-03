@@ -83,9 +83,7 @@ class PostService {
             def commentData = [kuorumUserId: comment.kuorumUser.id, text:comment.text, dateCreated: new Date()]
             Post.collection.update ( [_id:post.id],['$push':['debates':commentData]])
             post.refresh()
-            if (post.debates.size()==1){
-                notificationService.sendDebateNotification(post)
-            }
+            notificationService.sendDebateNotification(post)
             post
         }else{
             throw new KuorumException("El usuario no es el dueño o un político", "error.security.post.notDebateAllowed")

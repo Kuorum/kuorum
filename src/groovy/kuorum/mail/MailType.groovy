@@ -9,8 +9,10 @@ public enum MailType {
     NOTIFICATION_CLUCK      (true,   "notificationCluck",    "notification", ["fname", "postName"],  ["cluckUserName","cluckUserLink"]),
     NOTIFICATION_FOLLOWER   (true,   "notificationFollower", "notification", [],  ["followerName","followerLink"]),
     NOTIFICATION_PUBLIC_MILESTONE(true,"notificationMilestone","notification",[],["postName", "numVotes", "postLink"]),
-    NOTIFICATION_DEBATE     (true,   "notificationDebate",   "notification",[],["debateOwner","postName", "politicianName","message", "politicianLink", "postLink"]),
-    ALERT_DEBATE            (false,   "alertDebate",          "notification",[],["postName", "politicianName","message", "politicianLink", "postLink"]);
+    NOTIFICATION_FIRST_DEBATE(true,  "notificationFirstDebate","notification",[],["debateOwner","postName", "politicianName","message", "politicianLink", "postLink"]),
+    ALERT_FIRST_DEBATE      (false,  "alertFirstDebate",     "notification",[],["postName", "politicianName","message", "politicianLink", "postLink"]),
+    NOTIFICATION_MORE_DEBATE(true,  "notificationMoreDebate","notification",[],["debateOwner","postName", "politicianName","message", "politicianLink", "postLink"]),
+    ALERT_MORE_DEBATE      (false,  "alertMoreDebate",     "notification",[],["postName", "politicianName","message", "politicianLink", "postLink"]);
 
 
     String nameTemplate

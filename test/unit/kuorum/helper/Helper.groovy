@@ -36,7 +36,7 @@ class Helper {
 
     public static final Post createDefaultPost(){
         new Post(
-                owner: createDefaultUser("email@example.com"),
+                owner: createDefaultUser("postOwner@example.com"),
                 title:"title",
                 text: "Text",
                 law:createDefaultLaw("#hashTagLawDefault"),
@@ -48,7 +48,7 @@ class Helper {
 
     public static final KuorumUser createDefaultUser(String email){
         new KuorumUser(
-                name:"name",
+                name:email.split("@")[0],
                 email: email,
                 password: "XXXX"
         )
