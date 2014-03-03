@@ -80,13 +80,13 @@ class KuorumMailService {
         MailData mailNotificationsData = new MailData()
         mailNotificationsData.mailType = isFirstDebate?MailType.NOTIFICATION_FIRST_DEBATE:MailType.NOTIFICATION_MORE_DEBATE
         mailNotificationsData.globalBindings=globalBindings
-        mailNotificationsData.userBindings = notificationUsers
+        mailNotificationsData.userBindings = notificationUsers.asList()
         sendTemplate(mailNotificationsData)
 
         MailData mailDataAlert = new MailData()
         mailDataAlert.mailType = isFirstDebate?MailType.ALERT_FIRST_DEBATE:MailType.ALERT_MORE_DEBATE
         mailDataAlert.globalBindings=globalBindings
-        mailDataAlert.userBindings = alertUsers
+        mailDataAlert.userBindings = alertUsers.asList()
         sendTemplate(mailDataAlert)
     }
 
