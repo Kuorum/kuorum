@@ -21,6 +21,7 @@ class Post {
     List<Sponsor> sponsors = []
     List<PostComment> comments = []
     List<PostComment> debates = []
+    Boolean published = false
 
     /**
      * First firstCluck / owners firstCluck: Is going to be used to reference the sponsors and politician supports.

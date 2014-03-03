@@ -24,6 +24,7 @@ class PostVoteService {
             throw KuorumExceptionUtil.createExceptionFromValidatable(postVote,"Error salvando el post")
 
         //Atomic operation - non transactional
+        post.save(flush:true)
         Post.collection.update([_id:post.id],[$inc:[numVotes:1]])
         post.refresh()
 

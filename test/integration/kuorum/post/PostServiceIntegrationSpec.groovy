@@ -50,16 +50,46 @@ class PostServiceIntegrationSpec extends Specification{
         when: "Saving a post"
         //"service" represents the grails service you are testing for
         Post savedPost = postService.savePost(post)
+        Cluck cluck = Cluck.findByPostAndOwnerAndPostOwner(savedPost, user,user)
+        then: "Post created but not published"
+        cluck == null
+        savedPost.id != null
+        savedPost.published == Boolean.FALSE
+
+    }
+
+    void "test publish a post with correct params"() {
+        given: "A post"
+        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        Law law = Law.findByHashtag("#leyAborto")
+
+        Post post = new Post(
+                owner : user,
+                law:law,
+                numClucks:0,
+                numVotes:0,
+                postType:PostType.PURPOSE,
+                title:"Enmienda a la totalidad",
+                text:"Lorem ipsum"
+        ).save()
+
+        when: "Saving a post"
+        Post savedPost = postService.publishPost(post)
 
         then: "Post created"
         savedPost.id != null
+        savedPost.published == Boolean.TRUE
         Cluck cluck = Cluck.findByPostAndOwnerAndPostOwner(savedPost, user,user)
         cluck != null
         cluck.post == savedPost
         cluck.postOwner == savedPost.owner
-        //exception.message == "KuorumUser not found"
-        //Assertion goes here
+
+        PostVote.findAllByPostAndUser(post, post.owner).size() == 1
+        PostVote postVote = PostVote.findByPostAndUser(post, post.owner)
+        postVote != null
+        postVote.user == post.owner
     }
+
 
     @Unroll
     void "test sponsoring a post by #email amount #amount => #total"(){

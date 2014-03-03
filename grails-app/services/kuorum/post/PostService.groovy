@@ -32,13 +32,18 @@ class PostService {
             throw exception
         }
         log.info("Se ha creado el post ${post.id}")
+        post
+    }
 
+    Post publishPost(Post post){
         Cluck cluck = cluckService.createCluck(post, post.owner)
         post.firstCluck = cluck  //Ref to first firstCluck
+        post.published = Boolean.TRUE
         post.save()
 
         postVoteService.votePost(post, post.owner)
         indexSolrService.index(post)
+        log.info("Se ha publicado el post ${post.id}")
         post
     }
 
