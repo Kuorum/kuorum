@@ -26,6 +26,11 @@ class Cluck {
      */
     List<Sponsor> sponsors =[]
 
+    /**
+     * Represents if is the cluck created by the post owner
+     */
+    Boolean isFirstCluck = Boolean.FALSE
+
     Law law
 
     Post post
