@@ -1,10 +1,16 @@
 package kuorum.law
 
+import com.mongodb.DBObject
+import grails.converters.JSON
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.VoteType
 import kuorum.users.KuorumUser
+import kuorum.web.commands.LawCommand
+import org.bson.BSON
+import org.bson.BSONObject
+import org.grails.datastore.mapping.mongo.engine.MongoEntityPersister
 
 @Transactional
 class LawService {
@@ -39,5 +45,16 @@ class LawService {
             throw KuorumExceptionUtil.createExceptionFromValidatable(lawVote)
         }
         lawVote
+    }
+
+    Law saveLaw(Law law){
+        law.save()
+    }
+
+    Law updateLaw(Law law){
+        //Transaction only with atomic operation on mongo
+        // If someone votes while someone saves the law it is possible to lose data for overwriting
+        law.mongoUpdate()
+        law
     }
 }
