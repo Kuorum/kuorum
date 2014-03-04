@@ -1,6 +1,5 @@
 package kuorum.law
 
-import kuorum.Institution
 import kuorum.Region
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
@@ -12,18 +11,12 @@ class Law {
 
     ObjectId id
     String hashtag
-    @Updatable
-    String shortName
-    @Updatable
-    String realName
-    @Updatable
-    String description
-    @Updatable
-    String introduction
-    @Updatable
-    List<CommissionType> commissions = []
-    @Updatable
-    Region region
+    @Updatable String shortName
+    @Updatable String realName
+    @Updatable String description
+    @Updatable String introduction
+    @Updatable List<CommissionType> commissions = []
+    @Updatable Region region
     Boolean open = Boolean.TRUE
     Date dateCreated
     Boolean published = Boolean.FALSE

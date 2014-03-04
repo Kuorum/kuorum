@@ -31,16 +31,17 @@ class BootStrap {
                                 dbObject = obj."$field".properties.dbo
                             }else if (obj."$field" instanceof List){
                                 dbObject = obj."$field".collect{it.toString()}
-                            }else if (obj."$field"?.id!= null){
+                            }else if (obj."$field".hasProperty('id')){
                                 dbObject = obj."$field".id
                             }else{
-                                dbObject = obj."$field"
+                                dbObject = obj."$field".toString()
                             }
                             lawProperties.append(field,dbObject)
                         }
                         obj.class.collection.update([_id:obj.id],['$set':lawProperties])
                         obj.refresh()
                     }else{
+                        log.error(obj.errors)
                         throw KuorumExceptionUtil.createExceptionFromValidatable(delegate, "Datos erroneos actualizando la ley: $law")
                     }
 

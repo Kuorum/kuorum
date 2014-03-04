@@ -1,21 +1,24 @@
 package kuorum.post
 
+import kuorum.core.annotations.MongoUpdatable
+import kuorum.core.annotations.Updatable
 import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
+@MongoUpdatable
 class Post {
 
     ObjectId id
     KuorumUser owner
     Law law
-    String title
-    String text
-    String photo
+    @Updatable String title
+    @Updatable String text
+    @Updatable String photo
     Integer numVotes
     Integer numClucks
-    PostType postType
+    @Updatable PostType postType
     Boolean victory = false
     Date dateCreated
     List<Sponsor> sponsors = []

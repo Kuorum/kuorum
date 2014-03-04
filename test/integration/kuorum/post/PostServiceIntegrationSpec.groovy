@@ -58,6 +58,55 @@ class PostServiceIntegrationSpec extends Specification{
 
     }
 
+    void "test updating post"() {
+        given: "A post"
+        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        Law law = Law.findByHashtag("#leyAborto")
+        Post  post = Post.findByOwnerAndLaw(user,law)
+        def expectedData = [
+                published:post.published,
+                debates:post.debates,
+                firstCluck:post.firstCluck,
+                title: "TITULO",
+                text:"TEXT",
+                postType: PostType.QUESTION,
+                comments: post.comments,
+                numClucks: post.numClucks,
+                numVotes: post.numVotes
+
+        ]
+        post.firstCluck = null
+        post.title = expectedData.title
+        post.text = expectedData.text
+        post.postType = expectedData.postType
+        post.numVotes = 1111
+        post.numClucks = 1111
+        post.published = !expectedData.published
+        when: "Updating a post"
+        //"service" represents the grails service you are testing for
+        Post savedPost = postService.updatePost(post)
+        then: "Post created but not published"
+        savedPost.id != null
+        savedPost.published == expectedData.published
+        savedPost.firstCluck == expectedData.firstCluck
+        savedPost.title == expectedData.title
+        savedPost.text == expectedData.text
+        savedPost.postType == expectedData.postType
+        savedPost.numVotes == expectedData.numVotes
+        savedPost.numClucks == expectedData.numClucks
+        Post.withNewSession {
+            Post  recoveredPost = Post.findByOwnerAndLaw(user,law)
+            recoveredPost.published == expectedData.published
+            recoveredPost.firstCluck == expectedData.firstCluck
+            recoveredPost.title == expectedData.title
+            recoveredPost.text == expectedData.text
+            recoveredPost.postType == expectedData.postType
+            recoveredPost.numVotes == expectedData.numVotes
+            recoveredPost.numClucks == expectedData.numClucks
+        }
+
+    }
+
     void "test publish a post with correct params"() {
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")

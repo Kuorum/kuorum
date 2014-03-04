@@ -50,6 +50,7 @@ class PostService {
 
     def updatePost(Post post){
         log.info("Updating post $post")
+        post.mongoUpdate()
     }
 
     void sponsorAPost(Post post, Sponsor sponsor){
