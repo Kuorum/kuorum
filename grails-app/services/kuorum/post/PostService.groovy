@@ -97,9 +97,15 @@ class PostService {
             throw new KuorumException("Se ha intentado borrar un commentario que no existe","error.post.indexCommentOutOfBound")
         }
         if (isCommentDeletableByUser(deletedBy, post, commentPosition)){
+            PostComment postComment = post.comments[commentPosition]
+            String field = "deleted"
+            if (deletedBy == postComment.kuorumUser){
+                field = "deleted"
+            }else{
+                field = "moderated"
+            }
             DBObject dbObject = new BasicDBObject()
-            dbObject.append("comments.${commentPosition}.deleted",Boolean.TRUE)
-            Post.collection.update([_id:post.id],['$set':dbObject])
+            dbObject.append("comments.${commentPosition}.${field}",Boolean.TRUE)
             Post.collection.update([_id:post.id],['$set':dbObject])
             post.refresh()
 

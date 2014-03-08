@@ -221,17 +221,21 @@ class PostServiceIntegrationSpec extends Specification{
 
         when: "deleting comments a post"
         postService.deleteComment(user,post,0)
+        postService.deleteComment(user,post,1)
         then: "Correct comments in correct order"
         post.comments.size() == 3
         post.comments[0].kuorumUser == noe
         post.comments[0].text.startsWith("1")
-        post.comments[0].deleted == Boolean.TRUE
+        post.comments[0].moderated == Boolean.TRUE
+        post.comments[0].deleted == Boolean.FALSE
         post.comments[1].kuorumUser == user
         post.comments[1].text.startsWith("2")
-        post.comments[1].deleted == Boolean.FALSE
+        post.comments[1].moderated == Boolean.FALSE
+        post.comments[1].deleted == Boolean.TRUE
         post.comments[2].kuorumUser == user
         post.comments[2].text.startsWith("3")
         post.comments[2].deleted == Boolean.FALSE
+        post.comments[2].moderated == Boolean.FALSE
         Post.withNewSession {
             //Check if is in DB
             Post recoveredPostNewSession = Post.get(post.id)
@@ -242,7 +246,8 @@ class PostServiceIntegrationSpec extends Specification{
             recoveredPostNewSession.comments[1].text.startsWith("2")
             recoveredPostNewSession.comments[2].kuorumUser == user
             recoveredPostNewSession.comments[2].text.startsWith("3")
-            post.comments[2].deleted == Boolean.FALSE
+            recoveredPostNewSession.comments[2].deleted == Boolean.FALSE
+            recoveredPostNewSession.comments[2].moderated == Boolean.FALSE
         }
     }
 
