@@ -205,6 +205,47 @@ class PostServiceIntegrationSpec extends Specification{
         }
     }
 
+    void "test deleting comments"() {
+        given: "A post"
+        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser noe = KuorumUser.findByEmail("noe@example.com")
+        KuorumUser carmen = KuorumUser.findByEmail("carmen@example.com")
+        Post post = Post.findByOwner(user)
+        PostComment postComment1 = new PostComment(kuorumUser:noe, text:"1 -- Loren ipsum")
+        PostComment postComment2 = new PostComment(kuorumUser:user, text:"2 -- Loren ipsum")
+        PostComment postComment3 = new PostComment(kuorumUser:user, text:"3 -- Loren ipsum")
+
+        postService.addComment(post, postComment1)
+        postService.addComment(post, postComment2)
+        postService.addComment(post, postComment3)
+
+        when: "deleting comments a post"
+        postService.deleteComment(user,post,0)
+        then: "Correct comments in correct order"
+        post.comments.size() == 3
+        post.comments[0].kuorumUser == noe
+        post.comments[0].text.startsWith("1")
+        post.comments[0].deleted == Boolean.TRUE
+        post.comments[1].kuorumUser == user
+        post.comments[1].text.startsWith("2")
+        post.comments[1].deleted == Boolean.FALSE
+        post.comments[2].kuorumUser == user
+        post.comments[2].text.startsWith("3")
+        post.comments[2].deleted == Boolean.FALSE
+        Post.withNewSession {
+            //Check if is in DB
+            Post recoveredPostNewSession = Post.get(post.id)
+            recoveredPostNewSession.comments.size() == 3
+            recoveredPostNewSession.comments[0].kuorumUser == noe
+            recoveredPostNewSession.comments[0].text.startsWith("1")
+            recoveredPostNewSession.comments[1].kuorumUser == user
+            recoveredPostNewSession.comments[1].text.startsWith("2")
+            recoveredPostNewSession.comments[2].kuorumUser == user
+            recoveredPostNewSession.comments[2].text.startsWith("3")
+            post.comments[2].deleted == Boolean.FALSE
+        }
+    }
+
     void "test adding debate"() {
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")
@@ -262,5 +303,26 @@ class PostServiceIntegrationSpec extends Specification{
         then: "Exception expected"
         final KuorumException exception = thrown()
         exception.errors[0].code == "error.security.post.notDebateAllowed"
+    }
+
+    @Unroll
+    void "test user #user is allowed to write debates = #isAllowedToWriteDebate"(){
+        given: "A post"
+        KuorumUser owner = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser userDebate = KuorumUser.findByEmail(user)
+        Post post = Post.findByOwner(owner)
+
+        expect: "Adding debates a post"
+        //"service" represents the grails service you are testing for
+        isAllowedToWriteDebate == postService.isAllowedToAddDebate(post, userDebate)
+
+
+        where:
+        user                    || isAllowedToWriteDebate
+        "peter@example.com"     || true
+        "politician@example.com"|| true
+        "NONE"                  || false
+        "noe@example.com"       || false
+
     }
 }

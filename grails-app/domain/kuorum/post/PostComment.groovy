@@ -7,6 +7,8 @@ class PostComment {
 
     String text
     Date dateCreated
+    Boolean moderated = Boolean.FALSE
+    Boolean deleted = Boolean.FALSE
 
     /**
      * It is a trick for embedded this object
