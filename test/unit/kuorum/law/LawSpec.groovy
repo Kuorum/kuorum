@@ -1,6 +1,7 @@
 package kuorum.law
 
 import grails.test.mixin.TestFor
+import kuorum.Institution
 import kuorum.Region
 import kuorum.helper.Helper
 import spock.lang.Shared
@@ -13,8 +14,12 @@ import spock.lang.Unroll
 @TestFor(Law)
 class LawSpec extends Specification {
 
-    @Shared
-    Region europe = new Region(name:"Europe", iso3166_2: "EU")
+
+    @Shared Region europe = new Region(name:"Europe", iso3166_2: "EU")
+    @Shared Region spain = new Region(name:"Spain", iso3166_2: "EU_ES", superRegion: europe)
+
+    @Shared parliamentEurope = new Institution(name:"Parlamenteo Europeo", region: europe)
+    @Shared parliamentSpain = new Institution(name:"Parlamenteo Europeo", region: spain)
 
     def setup() {
         mockForConstraintsTests(Law, [new Law()])
@@ -32,6 +37,7 @@ class LawSpec extends Specification {
                 realName:"realname",
                 description:"desc",
                 region:europe,
+                institution: parliamentEurope,
                 commissions:[]
         ]
         params[field] = value
@@ -53,5 +59,6 @@ class LawSpec extends Specification {
         'nullable'      | 'description' | null
         'nullable'      | 'commissions' | null
         'nullable'      | 'region'      | null
+        'notSameRegionAsInstitution'      | 'region'      | spain
     }
 }

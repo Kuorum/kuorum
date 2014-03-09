@@ -1,5 +1,6 @@
 package kuorum.law
 
+import kuorum.Institution
 import kuorum.Region
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
@@ -17,6 +18,7 @@ class Law {
     @Updatable String introduction
     @Updatable List<CommissionType> commissions = []
     @Updatable Region region
+    @Updatable Institution institution
     Boolean open = Boolean.TRUE
     Date dateCreated
     Boolean published = Boolean.FALSE
@@ -27,6 +29,15 @@ class Law {
         hashtag matches: '#[a-zA-Z0-9]+', nullable: false
         shortName nullable: false
         commissions nullable: false
+        realName nullable:false
+        description nullable:false
+        introduction nullable:false
+        institution nullable:false
+        region  nullable:false, validator: { val, obj ->
+            if (val != obj.institution.region) {
+                return ['notSameRegionAsInstitution']
+            }
+        }
     }
 
     static mapping = {
