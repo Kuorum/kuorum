@@ -22,7 +22,7 @@ class Institution {
     }
 
     String toString(){
-        name
+        "${name} (${region})"
     }
 
     boolean equals(Object object){
