@@ -206,6 +206,24 @@ class KuorumMailService {
         sendTemplate(mailNotificationsData)
     }
 
+    def sendVictoryNotification(Post post, Set<MailUserData> notificationUsers){
+        def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                debateOwner:post.owner.name,
+                postName:post.title,
+                politicianName:post.defender.name,
+                politicianLink:generateLink("userShow",[id:post.defender.id]),
+                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.NOTIFICATION_VICTORY
+        mailNotificationsData.globalBindings=globalBindings
+        mailNotificationsData.userBindings = notificationUsers.asList()
+        mailNotificationsData.fromName = post.defender.name
+        sendTemplate(mailNotificationsData)
+    }
+
+
     //UNTESTED - Is not possible to test if the mail has been sent. Only if not fails
     private void sendTemplate(MailData mailData) {
 

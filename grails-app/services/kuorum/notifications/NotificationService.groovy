@@ -309,7 +309,8 @@ class NotificationService {
             }
         }
         //All interested people for his followings
-        def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
+//        def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
+        def interestedUsers = post.defender.followers
 
         interestedUsers.each {KuorumUser user ->
             if (user != post.owner && !(DefendedPostNotification.findByPostAndKuorumUser(post,user))){
@@ -329,6 +330,63 @@ class NotificationService {
 
         if (notificationUsers)
             kuorumMailService.sendPostDefendedNotificationMailInterestedUsers(post, notificationUsers)
+    }
+
+
+    void sendVictoryNotification(Post post){
+        //An async task is not possible to test (at least I don't know how), for that this trick
+        Environment.executeForCurrentEnvironment {
+            development{
+                grails.async.Promises.task{
+                    syncSendVictoryNotification(post)
+                }
+            }
+            test{
+                syncSendVictoryNotification(post)
+            }
+            production{
+                grails.async.Promises.task{
+                    syncSendVictoryNotification(post)
+                }
+            }
+
+        }
+    }
+
+    private void syncSendVictoryNotification(Post post){
+        Set<MailUserData> notificationUsers = []
+
+        //All interested people for their vote
+        PostVote.findAllByPostAndUserNotEqual(post, post.owner).each{PostVote postVote ->
+            if (postVote.user != post.owner){
+                VictoryNotification victoryNotification = new VictoryNotification()
+                victoryNotification.post = post
+                victoryNotification.kuorumUser = postVote.user
+                victoryNotification.politician=post.defender
+                victoryNotification.save()
+                notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
+                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                    kuorumMailService.sendVictoryNotification(post, notificationUsers)
+                    notificationUsers.clear()
+                }
+            }
+        }
+        //All interested people for his followings
+        def interestedUsers = post.defender.followers
+
+        interestedUsers.each {KuorumUser user ->
+            if (user != post.owner && !(VictoryNotification.findByPostAndKuorumUser(post,user))){
+                VictoryNotification victoryNotification = new VictoryNotification()
+                victoryNotification.mailType = MailType.NOTIFICATION_DEFENDED_USERS
+                victoryNotification.post = post
+                victoryNotification.kuorumUser = user
+                victoryNotification.politician=post.defender
+                victoryNotification.save()
+            }
+        }
+
+        if (notificationUsers)
+            kuorumMailService.sendVictoryNotification(post, notificationUsers)
     }
 
 }

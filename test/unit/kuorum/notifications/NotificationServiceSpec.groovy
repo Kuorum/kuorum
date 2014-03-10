@@ -17,7 +17,7 @@ import spock.lang.Unroll
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(NotificationService)
-@Mock([KuorumUser, Cluck, Law, Post,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification])
+@Mock([KuorumUser, Cluck, Law, Post,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification])
 class NotificationServiceSpec extends Specification {
 
     KuorumMailService kuorumMailService = Mock(KuorumMailService)
@@ -243,6 +243,77 @@ class NotificationServiceSpec extends Specification {
         1 * kuorumMailService.sendPostDefendedNotificationMailDefender(post)
 
         times * kuorumMailService.sendPostDefendedNotificationMailInterestedUsers(post,{ it.size()>0})
+        where:
+        numDebates  | numPoliticians | numFollowers | numVotes
+        1           | 1              | 1            | 5
+        1           | 1              | 2            | 5
+        2           | 1              | 1            | 5
+        2           | 1              | 2            | 5
+        5           | 2              | 1            | 5
+        5           | 2              | 2            | 5
+    }
+
+    @Unroll
+    void "test sending victory notification are #numDebates debates of #numPoliticians politicians with #numFollowers followers and #numVotes votes"() {
+        given: "Creating a post, its votes and a debates."
+
+        service.BUFFER_NOTIFICATIONS_SIZE = 2
+        //creating collectWithIndex for a better understanding
+        List.metaClass.collectWithIndex = {body->
+            def i=0
+            delegate.collect { body(it, i++) }
+        }
+        Post post = Helper.createDefaultPost().save()
+        //Owner vote
+        PostVote ownerVote = new PostVote(post:post, user:post.owner, personalData: post.owner.personalData)
+        ownerVote.save()
+        //Politician
+        def politicians = (1..numPoliticians).collect{Helper.createDefaultUser("politician${it}@example.com").save()}
+        KuorumUser politician = politicians[0]
+        post.defender = politician
+        post.save()
+
+        // Adding debates
+        KuorumUser debateWriter
+        post.debates = (1..numDebates).collectWithIndex{it, idx ->
+            debateWriter = politicians[idx%numPoliticians]
+            if (it % (numPoliticians+1) == 0)
+                debateWriter = post.owner
+            new PostComment(kuorumUser: debateWriter, text: "TEXTO MOLON $it de ${debateWriter}")
+
+        }
+        post.save()
+        KuorumUser user
+        (1..numVotes).each {
+            user = Helper.createDefaultUser("user${it}@example.com")
+            user.save()
+            PostVote vote = new PostVote(post:post, user:user, personalData: user.personalData)
+            vote.save()
+        }
+
+        def followers = (1..numFollowers).collect{
+            KuorumUser followerPolitician = Helper.createDefaultUser("follower${it}@example.com").save()
+            followerPolitician.following = [politician]
+            followerPolitician.save()
+        }
+        followers << user
+        user.following << politician
+        user.save()
+        politician.followers = followers
+        politician.save()
+
+        def times = new Float((numVotes)/service.BUFFER_NOTIFICATIONS_SIZE).trunc()
+        if ((numVotes) % service.BUFFER_NOTIFICATIONS_SIZE>0)
+            times ++
+
+        when: "Sending notification"
+        //"service" represents the grails service you are testing for
+        service.sendVictoryNotification(post)
+        then: "All OK and mail service has been called"
+        VictoryNotification.findByPost(post).politician == post.defender
+        VictoryNotification.findAllByPost(post).size() == numVotes + numFollowers
+
+        times * kuorumMailService.sendVictoryNotification(post,{ it.size()>0})
         where:
         numDebates  | numPoliticians | numFollowers | numVotes
         1           | 1              | 1            | 5

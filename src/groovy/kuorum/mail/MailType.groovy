@@ -15,7 +15,8 @@ public enum MailType {
     NOTIFICATION_DEFENDED_USERS         (true, "notificationDefendedUsers",    "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"]),
     NOTIFICATION_DEFENDED_AUTHOR        (true, "notificationDefendedAuthor",   "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"]),
     NOTIFICATION_DEFENDED_BY_POLITICIAN (true, "notificationDefendedByPolitician","notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"]),
-    NOTIFICATION_DEFENDED_POLITICIANS   (true, "notificationDefendedPolitician", "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"])
+    NOTIFICATION_DEFENDED_POLITICIANS   (true, "notificationDefendedPolitician", "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"]),
+    NOTIFICATION_VICTORY                (true, "notificationVictory",           "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"])
 
 
 
