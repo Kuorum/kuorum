@@ -20,5 +20,6 @@ Nuevo marco jurídico para la gestión de los Parques Naturales
         commissions = [CommissionType.JUSTICE, CommissionType.EMPLOY_AND_HEALTH_SERVICE]
         region = spain
         published = Boolean.TRUE
+        institution = parliament
     }
 }

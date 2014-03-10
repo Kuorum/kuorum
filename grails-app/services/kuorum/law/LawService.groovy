@@ -48,7 +48,10 @@ class LawService {
     }
 
     Law saveLaw(Law law){
-        law.save()
+        if (!law.save()){
+           throw KuorumExceptionUtil.createExceptionFromValidatable(law)
+        }
+        law
     }
 
     Law updateLaw(Law law){
@@ -56,5 +59,15 @@ class LawService {
         // If someone votes while someone saves the law it is possible to lose data for overwriting
         law.mongoUpdate()
         law
+    }
+
+    Law publish(Law law){
+        Law.collection.update([_id:law.id], ['$set':[published:Boolean.TRUE]])
+        law.refresh()
+    }
+
+    Law unpublish(Law law){
+        Law.collection.update([_id:law.id], ['$set':[published:Boolean.FALSE]])
+        law.refresh()
     }
 }

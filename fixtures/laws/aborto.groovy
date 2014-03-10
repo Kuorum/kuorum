@@ -18,5 +18,6 @@ Ley Orgánica de protección de la vida del concebido y derechos de la mujer emb
         commissions = [CommissionType.JUSTICE, CommissionType.EMPLOY_AND_HEALTH_SERVICE]
         region = spain
         published = Boolean.TRUE
+        institution = parliament
     }
 }

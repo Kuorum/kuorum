@@ -25,7 +25,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:lawInstance, action:'save']" >
+			<g:form mapping="lawCreate" >
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>

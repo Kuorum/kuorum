@@ -37,12 +37,19 @@
 
 <div class="fieldcontain ${hasErrors(bean: lawInstance, field: 'region', 'error')} ">
     <label for="realName">
-        <g:message code="law.realName.label" default="Real Name" />
+        <g:message code="law.region.label" default="Region" />
 
     </label>
     <g:select name="region" from="${regions}" optionKey="id" optionValue="name"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: lawInstance, field: 'institution', 'error')} ">
+    <label for="realName">
+        <g:message code="law.institution.label" default="Institution" />
+
+    </label>
+    <g:select name="institution" from="${institutions}" optionKey="id" optionValue="name"/>
+</div>
 
 <div class="fieldcontain ${hasErrors(bean: lawInstance, field: 'shortName', 'error')} ">
 	<label for="shortName">

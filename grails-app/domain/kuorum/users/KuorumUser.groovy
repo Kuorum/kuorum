@@ -1,5 +1,6 @@
 package kuorum.users
 
+import com.mongodb.WriteConcern
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.mail.MailType
@@ -47,7 +48,9 @@ class KuorumUser {
 
     static mapping = {
         email index:true, indexAttributes: [unique:true]
+        writeConcern WriteConcern.FSYNC_SAFE
     }
+
 
     String toString(){
         name

@@ -34,7 +34,7 @@ class Law {
         introduction nullable:false
         institution nullable:false
         region  nullable:false, validator: { val, obj ->
-            if (val != obj.institution.region) {
+            if (obj.institution && val != obj.institution.region) {
                 return ['notSameRegionAsInstitution']
             }
         }

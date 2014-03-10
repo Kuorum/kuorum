@@ -1,5 +1,6 @@
 package kuorum.helper
 
+import kuorum.Institution
 import kuorum.Region
 import kuorum.core.model.PostType
 import kuorum.law.Law
@@ -61,7 +62,8 @@ class Helper {
                 realName: "realName${hashtag}",
                 description: "description${hashtag}",
                 introduction: "introducction${hashtag}",
-                region: creteDefaultRegion()
+                region: creteDefaultRegion(),
+                institution: creteDefaultInstitution()
 
         )
     }
@@ -70,6 +72,13 @@ class Helper {
         new Region(
                 name:"Europa",
                 iso3166_2:"EU"
+        )
+    }
+
+    public static final Institution creteDefaultInstitution(){
+        new Institution(
+                name:"Parlamento europer",
+                region: creteDefaultRegion()
         )
     }
 }

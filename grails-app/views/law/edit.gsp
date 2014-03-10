@@ -27,10 +27,9 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:lawInstance, action:'update']" method="PUT" >
-				<g:hiddenField name="version" value="${lawInstance?.version}" />
+			<g:form url="[mapping:'']" method="PUT" >
 				<fieldset class="form">
-					<g:render template="form"/>
+					<g:render template="form" model="[regions:regions, lawInstance:lawInstance]"/>
 				</fieldset>
 				<fieldset class="buttons">
 					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />

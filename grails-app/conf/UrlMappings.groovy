@@ -6,7 +6,7 @@ class UrlMappings {
         name home: "/" (controller: "dashboard", action:"index")
 
         name lawShow:       "/ley/$hashtag" (controller: "law", action:"show")
-        name lawCreate:     "/ley/nueva"(controller: "law", action:"create")
+        name lawCreate:     "/ley/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
         name lawEdit:       "/ley/editar/$hashtag"(controller: "law", action:"edit")
         name lawUpdate:     "/ley/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
 

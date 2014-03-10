@@ -42,11 +42,11 @@
 				<g:each in="${lawInstanceList}" status="i" var="lawInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${lawInstance.id}">${fieldValue(bean: lawInstance, field: "dateCreated")}</g:link></td>
+						<td>${fieldValue(bean: lawInstance, field: "dateCreated")}</td>
 					
 						<td>${fieldValue(bean: lawInstance, field: "description")}</td>
 					
-						<td>${fieldValue(bean: lawInstance, field: "hashtag")}</td>
+						<td><g:link mapping="lawShow" params="[hashtag:lawInstance.hashtag.decodeHashtag()]">${fieldValue(bean: lawInstance, field: "hashtag")}</g:link></td>
 					
 						<td>${fieldValue(bean: lawInstance, field: "introduction")}</td>
 					

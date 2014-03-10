@@ -76,17 +76,22 @@
 					
 				</li>
 				</g:if>
-			
-				<g:if test="${lawInstance?.region}">
+
 				<li class="fieldcontain">
 					<span id="region-label" class="property-label"><g:message code="law.region.label" default="Region" /></span>
 					
 						<span class="property-value" aria-labelledby="region-label"><g:fieldValue bean="${lawInstance}" field="region"/></span>
 					
 				</li>
-				</g:if>
-			
-				<g:if test="${lawInstance?.shortName}">
+                <li class="fieldcontain">
+                    <span id="institution-label" class="property-label"><g:message code="law.institution.label" default="Institution" /></span>
+
+                    <span class="property-value" aria-labelledby="institution-label"><g:fieldValue bean="${lawInstance}" field="institution"/></span>
+
+                </li>
+
+
+                <g:if test="${lawInstance?.shortName}">
 				<li class="fieldcontain">
 					<span id="shortName-label" class="property-label"><g:message code="law.shortName.label" default="Short Name" /></span>
 					
@@ -98,10 +103,19 @@
 			</ol>
 			<g:form url="[resource:lawInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
-					<g:link class="edit" action="edit" resource="${lawInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:link class="edit" mapping="lawEdit" params="[hashtag:lawInstance.hashtag.decodeHashtag()]"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
 		</div>
+
+    <hr/>
+    <div>
+        <ul>
+        <g:each in="${clucks}" var="cluck">
+            <li>${cluck.owner} ||${cluck.post.postType}|| <g:link mapping="${cluck.post.postType}Show" params="[postId:cluck.post.id]">${cluck.post.title}</g:link> </li>
+        </g:each>
+        </ul>
+    </div>
 	</body>
 </html>
