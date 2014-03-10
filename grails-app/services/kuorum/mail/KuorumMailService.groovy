@@ -27,12 +27,14 @@ class KuorumMailService {
     @Value('${mail.mailChimp.listId}')
     String MAILCHIMP_LIST_ID
 
+    String DEFAULT_SENDER_NAME="Kuorum"
+
     LinkGenerator grailsLinkGenerator
 
 
     def registerUser(KuorumUser user, def bindings){
         MailUserData mailUserData = new MailUserData(user:user, bindings:bindings)
-        MailData mailData = new MailData(mailType: MailType.REGISTER_VERIFY_ACCOUNT, userBindings: [mailUserData])
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_VERIFY_ACCOUNT, userBindings: [mailUserData])
         sendTemplate(mailData)
 
     }
@@ -44,6 +46,7 @@ class KuorumMailService {
         mailData.mailType = MailType.NOTIFICATION_CLUCK
         mailData.globalBindings=[cluckUserName:cluck.owner.name, cluckUserLink:userLink]
         mailData.userBindings = [mailUserData]
+        mailData.fromName = cluck.owner.name
         sendTemplate(mailData)
     }
 
@@ -54,6 +57,7 @@ class KuorumMailService {
         mailData.mailType = MailType.NOTIFICATION_FOLLOWER
         mailData.globalBindings=[followerName:follower.name, followerLink:userLink]
         mailData.userBindings = [mailUserData]
+        mailData.fromName = follower.name
         sendTemplate(mailData)
     }
 
@@ -64,29 +68,32 @@ class KuorumMailService {
         mailData.mailType = MailType.NOTIFICATION_PUBLIC_MILESTONE
         mailData.globalBindings=[postName:post.title, numVotes:post.numVotes, postLink:postLink]
         mailData.userBindings = [mailUserData]
+        mailData.fromName = DEFAULT_SENDER_NAME
         sendTemplate(mailData)
     }
 
     def sendDebateNotificationMail(Post post, Set<MailUserData> notificationUsers, Set<MailUserData> alertUsers, Boolean isFirstDebate){
-        KuorumUser politician = post.debates.last().kuorumUser
+        KuorumUser debateWriter = post.debates.last().kuorumUser
         def globalBindings = [
                 debateOwner:post.owner.name,
                 postName:post.title,
-                politicianName:politician.name,
+                politicianName:debateWriter.name,
                 message:post.last().text,
-                politicianLink:generateLink("userShow",[id:politician.id]),
+                politicianLink:generateLink("userShow",[id:debateWriter.id]),
                 postLink:generateLink("${post.postType}Show", [postId:post.id])]
 
         MailData mailNotificationsData = new MailData()
         mailNotificationsData.mailType = isFirstDebate?MailType.NOTIFICATION_FIRST_DEBATE:MailType.NOTIFICATION_MORE_DEBATE
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = notificationUsers.asList()
+        mailNotificationsData.fromName = debateWriter.name
         sendTemplate(mailNotificationsData)
 
         MailData mailDataAlert = new MailData()
         mailDataAlert.mailType = isFirstDebate?MailType.ALERT_FIRST_DEBATE:MailType.ALERT_MORE_DEBATE
         mailDataAlert.globalBindings=globalBindings
         mailDataAlert.userBindings = alertUsers.asList()
+        mailDataAlert.fromName = debateWriter.name
         sendTemplate(mailDataAlert)
     }
 
@@ -152,7 +159,7 @@ class KuorumMailService {
                     //text= "Verifica tu cuenta"
                     //subject= "Verifica tu cuenta"
                     //from_email= "info@kuorum.org"
-                    //from_name= "Kuorum"
+                    from_name= "${mailData.fromName}"
                     to = to2
 //                    to= [{
 //                        email ="${mailData.userBindings[0].user.email}"

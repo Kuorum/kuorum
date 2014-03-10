@@ -9,11 +9,13 @@ import org.bson.types.ObjectId
  */
 @Validateable
 class   MailData {
+    String fromName
     MailType mailType
     def globalBindings = [:]
     List<MailUserData> userBindings = []
 
     static constraints = {
+        fromName nullable:false, blank: false
         mailType nullable: false
         globalBindings validator: { val, obj->
             obj.mailType.globalBindings.each {
