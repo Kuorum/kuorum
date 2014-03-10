@@ -81,9 +81,9 @@ class KuorumMailService {
 
         MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[])
         def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                postType:post.postType,
                 politicianName:debateOwner.name,
                 message:post.last().text,
                 politicianLink:generateLink("userShow",[id:debateOwner.id]),
@@ -97,12 +97,13 @@ class KuorumMailService {
         sendTemplate(mailNotificationsData)
 
     }
+
     def sendDebateNotificationMailPolitician(Post post,Set<MailUserData> politiciansData){
         KuorumUser debateOwner = post.debates.last().kuorumUser
         def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                postType:post.postType,
                 politicianName:debateOwner.name,
                 message:post.last().text,
                 politicianLink:generateLink("userShow",[id:debateOwner.id]),
@@ -119,9 +120,9 @@ class KuorumMailService {
     def sendDebateNotificationMailInterestedUsers(Post post, Set<MailUserData> notificationUsers){
         KuorumUser debateOwner = post.debates.last().kuorumUser
         def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                postType:post.postType,
                 politicianName:debateOwner.name,
                 message:post.last().text,
                 politicianLink:generateLink("userShow",[id:debateOwner.id]),
@@ -135,6 +136,75 @@ class KuorumMailService {
         sendTemplate(mailNotificationsData)
     }
 
+    def sendPostDefendedNotificationMailAuthor(Post post){
+        MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[])
+        def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                debateOwner:post.owner.name,
+                postName:post.title,
+                politicianName:post.defender.name,
+                politicianLink:generateLink("userShow",[id:post.defender.id]),
+                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_AUTHOR
+        mailNotificationsData.globalBindings=globalBindings
+        mailNotificationsData.userBindings = [mailUserData]
+        mailNotificationsData.fromName = post.defender.name
+        sendTemplate(mailNotificationsData)
+    }
+
+    def sendPostDefendedNotificationMailPoliticians(Post post,Set<MailUserData> politiciansData){
+        def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                debateOwner:post.owner.name,
+                postName:post.title,
+                politicianName:post.defender.name,
+                politicianLink:generateLink("userShow",[id:post.defender.id]),
+                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_POLITICIANS
+        mailNotificationsData.globalBindings=globalBindings
+        mailNotificationsData.userBindings = politiciansData.asList()
+        mailNotificationsData.fromName = post.defender.name
+        sendTemplate(mailNotificationsData)
+    }
+
+    def sendPostDefendedNotificationMailDefender(Post post){
+        MailUserData mailUserData = new MailUserData(user:post.defender, bindings:[])
+        def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                debateOwner:post.owner.name,
+                postName:post.title,
+                politicianName:post.defender.name,
+                politicianLink:generateLink("userShow",[id:post.defender.id]),
+                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_BY_POLITICIAN
+        mailNotificationsData.globalBindings=globalBindings
+        mailNotificationsData.userBindings = [mailUserData]
+        mailNotificationsData.fromName = post.defender.name
+        sendTemplate(mailNotificationsData)
+    }
+
+    def sendPostDefendedNotificationMailInterestedUsers(Post post, Set<MailUserData> notificationUsers){
+        def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                debateOwner:post.owner.name,
+                postName:post.title,
+                politicianName:post.defender.name,
+                politicianLink:generateLink("userShow",[id:post.defender.id]),
+                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_USERS
+        mailNotificationsData.globalBindings=globalBindings
+        mailNotificationsData.userBindings = notificationUsers.asList()
+        mailNotificationsData.fromName = post.defender.name
+        sendTemplate(mailNotificationsData)
+    }
 
     //UNTESTED - Is not possible to test if the mail has been sent. Only if not fails
     private void sendTemplate(MailData mailData) {

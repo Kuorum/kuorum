@@ -16,7 +16,8 @@ import org.springframework.context.MessageSource
 class NotificationService {
 
     def kuorumMailService
-    MessageSource messageSource
+
+    private static Integer BUFFER_NOTIFICATIONS_SIZE = 1000
 
     void sendCluckNotification(Cluck cluck) {
         if (cluck.owner != cluck.postOwner){
@@ -131,8 +132,11 @@ class NotificationService {
                 debateNotification.kuorumUser = postVote.user
                 debateNotification.idDebate = idDebate
                 debateNotification.save()
-                def bindings = [mailType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"",postVote.user.language.locale)]
-                notificationUsers << new MailUserData(user:postVote.user, bindings:bindings)
+                notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
+                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                    kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+                    notificationUsers.clear()
+                }
             }
         }
         //All interested people for his followings
@@ -147,12 +151,16 @@ class NotificationService {
                 debateNotification.kuorumUser = user
                 debateNotification.idDebate = idDebate
                 debateNotification.save()
-                def bindings = [mailType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"",user.language.locale)]
-                notificationUsers << new MailUserData(user:user, bindings:bindings)
+                notificationUsers << new MailUserData(user:user, bindings:[:])
+                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                    kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+                    notificationUsers.clear()
+                }
             }
         }
 
-        kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+        if (notificationUsers)
+            kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
     }
 
     private sendDebateNotificationPoliticians(Post post, Integer idDebate){
@@ -168,8 +176,7 @@ class NotificationService {
                 debateNotification.kuorumUser = user
                 debateNotification.idDebate =  idDebate
                 debateNotification.save()
-                def bindings = [mailType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", user.language.locale)]
-                new MailUserData(user:user, bindings:bindings)
+                new MailUserData(user:user, bindings:[:])
             }
             kuorumMailService.sendDebateNotificationMailPolitician(post, politicianUsers)
         }
@@ -200,30 +207,128 @@ class NotificationService {
     * Is an asynchronous procedure
     * @param post
     */
-    void sendPostSupportedNotification(Post post){
+    void sendPostDefendedNotification(Post post){
         //An async task is not possible to test (at least I don't know how), for that this trick
         Environment.executeForCurrentEnvironment {
             development{
                 grails.async.Promises.task{
-                    syncPostSupportedNotification(post)
+                    syncPostDefendedNotification(post)
                 }
             }
             test{
-                syncPostSupportedNotification(post)
+                syncPostDefendedNotification(post)
             }
             production{
                 grails.async.Promises.task{
-                    syncPostSupportedNotification(post)
+                    syncPostDefendedNotification(post)
                 }
             }
 
         }
     }
 
-    void syncPostSupportedNotification(Post post){
-        if (!post.supportedBy){
+    void syncPostDefendedNotification(Post post){
+        if (!post.defender){
             throw new KuorumException("El post $post debe de estar apadrinado para poder enviar la notificacion", "")
         }
+        sendPostDefendedNotificationAuthor(post)
+        sendPostDefendedNotificationDefender(post)
+        sendPostDefendedNotificationPoliticians(post)
+        sendPostDefendedNotificationInterestedUsers(post)
 
     }
+
+    /**
+     * Prepare notification for the owner of the post
+     * @param post
+     */
+    private void sendPostDefendedNotificationAuthor(Post post){
+        DefendedPostAlert defendedNotification = new DefendedPostAlert()
+        defendedNotification.mailType = MailType.NOTIFICATION_DEFENDED_POLITICIANS
+        defendedNotification.post = post
+        defendedNotification.kuorumUser = post.owner
+        defendedNotification.defender = post.defender
+        defendedNotification.save()
+        kuorumMailService.sendPostDefendedNotificationMailAuthor(post)
+
+    }
+
+    /**
+     * Send a notification for the rest of the politicians who has written on the debate
+     * @param post
+     */
+    private void sendPostDefendedNotificationPoliticians(Post post){
+        Set<KuorumUser> politicians = post.debates.collect{it.kuorumUser} as Set<KuorumUser>
+        politicians = politicians.minus(post.defender).minus(post.owner)
+        if (politicians){
+            Set<MailUserData> politicianUsers = politicians.collect{user ->
+                DefendedPostNotification defendedNotification = new DefendedPostNotification()
+                defendedNotification.mailType = MailType.NOTIFICATION_DEFENDED_POLITICIANS
+                defendedNotification.post = post
+                defendedNotification.kuorumUser = user
+                defendedNotification.defender = post.defender
+                defendedNotification.save()
+                new MailUserData(user:user, bindings:[:])
+            }
+            kuorumMailService.sendPostDefendedNotificationMailPoliticians(post, politicianUsers)
+        }
+    }
+
+    /**
+     * Prepare notification for the politician who has defended the post
+     * @param post
+     */
+    private void sendPostDefendedNotificationDefender(Post post){
+        kuorumMailService.sendPostDefendedNotificationMailDefender(post)
+    }
+
+    /**
+     * Prepare notification for the people interested in this post:
+     * - followers of the politician
+     * - people who has voted the post
+     *
+     * @param post
+     */
+    private void sendPostDefendedNotificationInterestedUsers(Post post){
+        Set<MailUserData> notificationUsers = []
+
+        //All interested people for their vote
+        PostVote.findAllByPostAndUserNotEqual(post, post.owner).each{PostVote postVote ->
+            if (postVote.user != post.owner){
+                DefendedPostNotification debateNotification = new DefendedPostNotification()
+                debateNotification.mailType = MailType.NOTIFICATION_DEFENDED_USERS
+                debateNotification.post = post
+                debateNotification.kuorumUser = postVote.user
+                debateNotification.defender = post.defender
+                debateNotification.save()
+                notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
+                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                    kuorumMailService.sendPostDefendedNotificationMailInterestedUsers(post, notificationUsers)
+                    notificationUsers.clear()
+                }
+            }
+        }
+        //All interested people for his followings
+        def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
+
+        interestedUsers.each {KuorumUser user ->
+            if (user != post.owner && !(DefendedPostNotification.findByPostAndKuorumUser(post,user))){
+                DefendedPostNotification debateNotification = new DefendedPostNotification()
+                debateNotification.mailType = MailType.NOTIFICATION_DEFENDED_USERS
+                debateNotification.post = post
+                debateNotification.kuorumUser = user
+                debateNotification.defender = post.defender
+                debateNotification.save()
+                notificationUsers << new MailUserData(user:user, bindings:[:])
+                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                    kuorumMailService.sendPostDefendedNotificationMailInterestedUsers(post, notificationUsers)
+                    notificationUsers.clear()
+                }
+            }
+        }
+
+        if (notificationUsers)
+            kuorumMailService.sendPostDefendedNotificationMailInterestedUsers(post, notificationUsers)
+    }
+
 }
