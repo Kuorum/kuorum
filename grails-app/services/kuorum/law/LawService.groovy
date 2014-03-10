@@ -54,7 +54,6 @@ class LawService {
         if (!law.save()){
            throw KuorumExceptionUtil.createExceptionFromValidatable(law)
         }
-        indexSolrService.index(law)
         law
     }
 
@@ -69,6 +68,7 @@ class LawService {
     Law publish(Law law){
         Law.collection.update([_id:law.id], ['$set':[published:Boolean.TRUE]])
         law.refresh()
+        indexSolrService.index(law)
     }
 
     Law unpublish(Law law){

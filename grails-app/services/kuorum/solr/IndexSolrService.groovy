@@ -57,13 +57,16 @@ class IndexSolrService {
     }
 
     SolrPost index(Post post){
+        log.info("Indexing post: ${post}")
         indexDomainObject(post)
     }
     SolrKuorumUser index(KuorumUser user){
+        log.info("Indexing user:${user}")
         indexDomainObject(user)
     }
 
     SolrLaw index(Law law){
+        log.info("Indexing law: ${law}")
         indexDomainObject(law)
     }
 
