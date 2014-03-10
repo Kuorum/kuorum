@@ -17,7 +17,7 @@ class LawCommand {
     String realName
     String description
     String introduction
-    Set<CommissionType> commissions  = new LinkedHashSet<CommissionType>()
+    List<CommissionType> commissions  = new ArrayList<CommissionType>()
     Region region
     Institution institution
 

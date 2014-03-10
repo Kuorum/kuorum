@@ -66,20 +66,32 @@ class LawController {
         }
         LawCommand lawCommand = new LawCommand()
         lawCommand.properties.each {k,v -> lawCommand."$k" = law."$k"}
-        [lawInstance:lawCommand,regions:Region.findAll()]
+        [
+            lawInstance:lawCommand,
+            regions:Region.findAll(),
+            institutions:Institution.findAll()
+        ]
     }
 
 
     @Secured(['ROLE_ADMIN'])
     def update(LawCommand command){
         if (command.hasErrors()){
-            render view: "edit", model:[lawInstance:command,regions:Region.findAll()]
+            render view: "edit", model:[
+                    lawInstance:command,
+                    regions:Region.findAll(),
+                    institutions:Institution.findAll()
+                ]
         }
         Law law = lawService.findLawByHashtag(command.hashtag.encodeAsHashtag())
         if (!law){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
+        command.properties.each {k,v -> if (k!="class") {law."$k" = command."$k"}}
+        lawService.updateLaw(law)
+        flash.message=message(code: "law.update.success", args: [law.hashtag])
+        redirect mapping:"lawShow", params:[hashtag:law.hashtag.decodeHashtag()]
 
     }
 

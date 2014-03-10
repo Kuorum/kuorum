@@ -6,6 +6,7 @@ import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.VoteType
+import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.web.commands.LawCommand
 import org.bson.BSON
@@ -14,6 +15,8 @@ import org.grails.datastore.mapping.mongo.engine.MongoEntityPersister
 
 @Transactional
 class LawService {
+
+    IndexSolrService indexSolrService
 
     /**
      * Find the law associated to the #hashtag
@@ -51,6 +54,7 @@ class LawService {
         if (!law.save()){
            throw KuorumExceptionUtil.createExceptionFromValidatable(law)
         }
+        indexSolrService.index(law)
         law
     }
 
@@ -58,6 +62,7 @@ class LawService {
         //Transaction only with atomic operation on mongo
         // If someone votes while someone saves the law it is possible to lose data for overwriting
         law.mongoUpdate()
+        indexSolrService.index(law)
         law
     }
 
