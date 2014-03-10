@@ -5,7 +5,6 @@ import grails.test.mixin.TestFor
 import kuorum.helper.Helper
 import kuorum.law.Law
 import kuorum.mail.KuorumMailService
-import kuorum.mail.MailUserData
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostComment
@@ -117,11 +116,12 @@ class NotificationServiceSpec extends Specification {
         KuorumUser politician = politicians[0]
 
         // Adding debates
+        KuorumUser debateWriter
         post.debates = (1..numDebates).collectWithIndex{it, idx ->
-            KuorumUser debateTalker = politicians[idx%numPoliticians]
+            debateWriter = politicians[idx%numPoliticians]
             if (it % (numPoliticians+1) == 0)
-                debateTalker = post.owner
-            new PostComment(kuorumUser: debateTalker, text: "TEXTO MOLON $it de ${debateTalker}")
+                debateWriter = post.owner
+            new PostComment(kuorumUser: debateWriter, text: "TEXTO MOLON $it de ${debateWriter}")
 
         }
         post.save()
@@ -148,17 +148,33 @@ class NotificationServiceSpec extends Specification {
         //"service" represents the grails service you are testing for
         def promise = service.sendDebateNotification(post)
         then: "All OK and mail service has been called"
-        DebateNotification.findAllByPost(post).size() - DebateAlertNotification.findAllByPost(post).size() ==numVotes + numFollowers
         DebateAlertNotification.findAllByPost(post).size()==numAlerts
-        1 * kuorumMailService.sendDebateNotificationMail(post, { it.size() == numVotes+numFollowers},{ it.size() == numPoliticians}, isFirstDebate)
+        DebateNotification.findByPost(post).idDebate == post.debates.size() -1
+        DebateNotification.findByPost(post).debateWriter == debateWriter
+        DebateNotification.findByPost(post).post== post
+        if (debateWriter == post.owner){
+            DebateNotification.findAllByPost(post).size() == numVotes + numFollowers +numPoliticians
+            0 * kuorumMailService.sendDebateNotificationMailAuthor(post)
+            1 * kuorumMailService.sendDebateNotificationMailPolitician(post,{ it.size() == numPoliticians})
+        }else if (politicians.size() > 1){
+            DebateNotification.findAllByPost(post).size() == numVotes + numFollowers +numPoliticians-1
+            1 * kuorumMailService.sendDebateNotificationMailPolitician(post,{ it.size() == numPoliticians -1})
+            1 * kuorumMailService.sendDebateNotificationMailAuthor(post)
+        }else{
+            DebateNotification.findAllByPost(post).size() == numVotes + numFollowers
+            0 * kuorumMailService.sendDebateNotificationMailPolitician(_,_)
+            1 * kuorumMailService.sendDebateNotificationMailAuthor(post)
+        }
+
+        1 * kuorumMailService.sendDebateNotificationMailInterestedUsers(post,{ it.size() == numVotes+numFollowers})
         where:
-        numDebates  | isFirstDebate | numAlerts | numPoliticians | numFollowers | numVotes
-        1           | true          | 1         | 1              | 1            | 5
-        1           | true          | 1         | 1              | 2            | 5
-        2           | false         | 1         | 1              | 1            | 5
-        2           | false         | 1         | 1              | 2            | 5
-        5           | false         | 2         | 2              | 1            | 5
-        5           | false         | 2         | 2              | 2            | 5
+        numDebates  | numAlerts  | numPoliticians | numFollowers | numVotes
+        1           |  1         | 1              | 1            | 5
+        1           |  1         | 1              | 2            | 5
+        2           |  0         | 1              | 1            | 5
+        2           |  0         | 1              | 2            | 5
+        5           |  0         | 2              | 1            | 5
+        5           |  0         | 2              | 2            | 5
     }
 
 

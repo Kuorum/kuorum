@@ -2,17 +2,21 @@ package kuorum.notifications
 
 import grails.transaction.Transactional
 import grails.util.Environment
+import kuorum.core.exception.KuorumException
+import kuorum.core.model.PostType
 import kuorum.mail.MailType
 import kuorum.mail.MailUserData
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostVote
 import kuorum.users.KuorumUser
+import org.springframework.context.MessageSource
 
 @Transactional
 class NotificationService {
 
     def kuorumMailService
+    MessageSource messageSource
 
     void sendCluckNotification(Cluck cluck) {
         if (cluck.owner != cluck.postOwner){
@@ -77,6 +81,12 @@ class NotificationService {
         }
     }
 
+    /**
+     * A debate is created by a politician or by the owner. For instance the corresponding notifications have been sent
+     *
+     * Is an asynchronous procedure
+     * @param post
+     */
     void sendDebateNotification(Post post){
         //An async task is not possible to test (at least I don't know how), for that this trick
         Environment.executeForCurrentEnvironment {
@@ -99,53 +109,121 @@ class NotificationService {
     }
 
     private void syncSendDebateNotification(Post post){
-        //mailUserDatas has all the people interested on the debate
+        Integer idDebate = post.debates.size() -1
+        sendDebateNotificationInterestedUsers(post, idDebate)
+        sendDebateNotificationPoliticians(post, idDebate)
+        sendDebateNotificationAuthor(post, idDebate)
+    }
+
+    private void sendDebateNotificationInterestedUsers(Post post, Integer idDebate){
         Set<MailUserData> notificationUsers = []
-        Set<KuorumUser> debateUsers = post.debates.collect{it.kuorumUser}
-        KuorumUser politician = post.debates.last().kuorumUser
+        KuorumUser debateOwner = post.debates.last().kuorumUser
         Boolean isFirstDebate = post.debates.size()==1
 
-        //All interested people for his vote
+        //All interested people for their vote
         PostVote.findAllByPostAndUserNotEqual(post, post.owner).each{PostVote postVote ->
-            DebateNotification debateNotification = new DebateNotification()
-            debateNotification.mailType = isFirstDebate?MailType.NOTIFICATION_FIRST_DEBATE:MailType.NOTIFICATION_MORE_DEBATE
-            debateNotification.isFirstDebate=isFirstDebate
-            debateNotification.post = post
-            debateNotification.politician = politician
-            debateNotification.kuorumUser = postVote.user
-            debateNotification.save()
-            notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
+            if (postVote.user != post.owner){
+                DebateNotification debateNotification = new DebateNotification()
+                debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
+                debateNotification.isFirstDebate=isFirstDebate
+                debateNotification.post = post
+                debateNotification.debateWriter = debateOwner
+                debateNotification.kuorumUser = postVote.user
+                debateNotification.idDebate = idDebate
+                debateNotification.save()
+                def bindings = [mailType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"",postVote.user.language.locale)]
+                notificationUsers << new MailUserData(user:postVote.user, bindings:bindings)
+            }
         }
         //All interested people for his followings
         def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
-        def interestedUsersWithoutAlertedPeople = interestedUsers.minus(debateUsers)
-        interestedUsersWithoutAlertedPeople.each {KuorumUser user ->
-            if (!(notificationUsers.find{it.user==user})){
+
+        interestedUsers.each {KuorumUser user ->
+            if (user != post.owner && !(DebateNotification.findByPostAndKuorumUserAndIdDebate(post,user,idDebate))){
                 DebateNotification debateNotification = new DebateNotification()
-                debateNotification.mailType = isFirstDebate?MailType.NOTIFICATION_FIRST_DEBATE:MailType.NOTIFICATION_MORE_DEBATE
+                debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
                 debateNotification.post = post
-                debateNotification.politician = politician
+                debateNotification.debateWriter = debateOwner
                 debateNotification.kuorumUser = user
+                debateNotification.idDebate = idDebate
                 debateNotification.save()
-                notificationUsers << new MailUserData(user:user, bindings:[:])
+                def bindings = [mailType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"",user.language.locale)]
+                notificationUsers << new MailUserData(user:user, bindings:bindings)
             }
         }
 
-        Set<KuorumUser> alertUsers = post.debates.collect{it.kuorumUser} as Set<KuorumUser>
-        alertUsers.add(post.owner)
-        alertUsers = alertUsers.minus(post.debates.last().kuorumUser)
+        kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+    }
 
-        def alertMailUsers = [] as Set<MailUserData>
-        alertUsers.each { user ->
-            DebateAlertNotification debateAlert = new DebateAlertNotification()
-            debateAlert.mailType = isFirstDebate?MailType.ALERT_FIRST_DEBATE:MailType.ALERT_MORE_DEBATE
-            debateAlert.post = post
-            debateAlert.politician = politician
-            debateAlert.kuorumUser = user
-            debateAlert.save()
-            alertMailUsers << new MailUserData(user:user, bindings:[:])
+    private sendDebateNotificationPoliticians(Post post, Integer idDebate){
+        Set<KuorumUser> politicians = post.debates.collect{it.kuorumUser} as Set<KuorumUser>
+        KuorumUser debateOwner = post.debates.last().kuorumUser
+        politicians = politicians.minus(debateOwner).minus(post.owner)
+        if (politicians){
+            Set<MailUserData> politicianUsers = politicians.collect{user ->
+                DebateNotification debateNotification = new DebateNotification()
+                debateNotification.mailType = MailType.NOTIFICATION_DEBATE_POLITICIAN
+                debateNotification.post = post
+                debateNotification.debateWriter = debateOwner
+                debateNotification.kuorumUser = user
+                debateNotification.idDebate =  idDebate
+                debateNotification.save()
+                def bindings = [mailType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", user.language.locale)]
+                new MailUserData(user:user, bindings:bindings)
+            }
+            kuorumMailService.sendDebateNotificationMailPolitician(post, politicianUsers)
+        }
+    }
+
+    private sendDebateNotificationAuthor(Post post, Integer idDebate){
+        if (post.debates.last().kuorumUser != post.owner){
+            KuorumUser debateOwner = post.debates.last().kuorumUser
+            DebateNotification debateNotification
+            if (post.debates.size() == 1){
+                debateNotification = new DebateAlertNotification()
+            }else{
+                debateNotification = new DebateNotification()
+            }
+            debateNotification.mailType = MailType.NOTIFICATION_DEBATE_AUTHOR
+            debateNotification.post = post
+            debateNotification.debateWriter = debateOwner
+            debateNotification.kuorumUser = post.owner
+            debateNotification.idDebate = idDebate
+            debateNotification.save()
+            kuorumMailService.sendDebateNotificationMailAuthor(post)
+        }
+    }
+
+    /**
+    * A post has been supported by a politician
+    *
+    * Is an asynchronous procedure
+    * @param post
+    */
+    void sendPostSupportedNotification(Post post){
+        //An async task is not possible to test (at least I don't know how), for that this trick
+        Environment.executeForCurrentEnvironment {
+            development{
+                grails.async.Promises.task{
+                    syncPostSupportedNotification(post)
+                }
+            }
+            test{
+                syncPostSupportedNotification(post)
+            }
+            production{
+                grails.async.Promises.task{
+                    syncPostSupportedNotification(post)
+                }
+            }
+
+        }
+    }
+
+    void syncPostSupportedNotification(Post post){
+        if (!post.supportedBy){
+            throw new KuorumException("El post $post debe de estar apadrinado para poder enviar la notificacion", "")
         }
 
-        kuorumMailService.sendDebateNotificationMail(post, notificationUsers,alertMailUsers, isFirstDebate)
     }
 }

@@ -8,11 +8,13 @@ import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionData
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.PostType
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.MessageSource
 import org.springframework.http.HttpStatus
 
 @Transactional
@@ -30,6 +32,7 @@ class KuorumMailService {
     String DEFAULT_SENDER_NAME="Kuorum"
 
     LinkGenerator grailsLinkGenerator
+    MessageSource messageSource
 
 
     def registerUser(KuorumUser user, def bindings){
@@ -63,7 +66,8 @@ class KuorumMailService {
 
     def sendPublicMilestoneNotificationMail(Post post){
         String postLink = generateLink("${post.postType}Show",[postId:post.id.toString()])
-        MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[])
+        def bindings = [mailType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", user.language.locale)]
+        MailUserData mailUserData = new MailUserData(user:post.owner, bindings:bindings)
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_PUBLIC_MILESTONE
         mailData.globalBindings=[postName:post.title, numVotes:post.numVotes, postLink:postLink]
@@ -72,30 +76,65 @@ class KuorumMailService {
         sendTemplate(mailData)
     }
 
-    def sendDebateNotificationMail(Post post, Set<MailUserData> notificationUsers, Set<MailUserData> alertUsers, Boolean isFirstDebate){
-        KuorumUser debateWriter = post.debates.last().kuorumUser
+    def sendDebateNotificationMailAuthor(Post post){
+        KuorumUser debateOwner = post.debates.last().kuorumUser
+
+        MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[])
         def globalBindings = [
                 debateOwner:post.owner.name,
                 postName:post.title,
-                politicianName:debateWriter.name,
+                postType:post.postType,
+                politicianName:debateOwner.name,
                 message:post.last().text,
-                politicianLink:generateLink("userShow",[id:debateWriter.id]),
+                politicianLink:generateLink("userShow",[id:debateOwner.id]),
                 postLink:generateLink("${post.postType}Show", [postId:post.id])]
 
         MailData mailNotificationsData = new MailData()
-        mailNotificationsData.mailType = isFirstDebate?MailType.NOTIFICATION_FIRST_DEBATE:MailType.NOTIFICATION_MORE_DEBATE
+        mailNotificationsData.mailType = MailType.NOTIFICATION_DEBATE_POLITICIAN
         mailNotificationsData.globalBindings=globalBindings
-        mailNotificationsData.userBindings = notificationUsers.asList()
-        mailNotificationsData.fromName = debateWriter.name
+        mailNotificationsData.userBindings = [mailUserData]
+        mailNotificationsData.fromName = debateOwner.name
         sendTemplate(mailNotificationsData)
 
-        MailData mailDataAlert = new MailData()
-        mailDataAlert.mailType = isFirstDebate?MailType.ALERT_FIRST_DEBATE:MailType.ALERT_MORE_DEBATE
-        mailDataAlert.globalBindings=globalBindings
-        mailDataAlert.userBindings = alertUsers.asList()
-        mailDataAlert.fromName = debateWriter.name
-        sendTemplate(mailDataAlert)
     }
+    def sendDebateNotificationMailPolitician(Post post,Set<MailUserData> politiciansData){
+        KuorumUser debateOwner = post.debates.last().kuorumUser
+        def globalBindings = [
+                debateOwner:post.owner.name,
+                postName:post.title,
+                postType:post.postType,
+                politicianName:debateOwner.name,
+                message:post.last().text,
+                politicianLink:generateLink("userShow",[id:debateOwner.id]),
+                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.NOTIFICATION_DEBATE_POLITICIAN
+        mailNotificationsData.globalBindings=globalBindings
+        mailNotificationsData.userBindings = politiciansData.asList()
+        mailNotificationsData.fromName = debateOwner.name
+        sendTemplate(mailNotificationsData)
+    }
+
+    def sendDebateNotificationMailInterestedUsers(Post post, Set<MailUserData> notificationUsers){
+        KuorumUser debateOwner = post.debates.last().kuorumUser
+        def globalBindings = [
+                debateOwner:post.owner.name,
+                postName:post.title,
+                postType:post.postType,
+                politicianName:debateOwner.name,
+                message:post.last().text,
+                politicianLink:generateLink("userShow",[id:debateOwner.id]),
+                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.NOTIFICATION_DEBATE_USERS
+        mailNotificationsData.globalBindings=globalBindings
+        mailNotificationsData.userBindings = notificationUsers.asList()
+        mailNotificationsData.fromName = debateOwner.name
+        sendTemplate(mailNotificationsData)
+    }
+
 
     //UNTESTED - Is not possible to test if the mail has been sent. Only if not fails
     private void sendTemplate(MailData mailData) {
@@ -267,4 +306,5 @@ class KuorumMailService {
     protected String generateLink(String mapping, linkParams) {
         grailsLinkGenerator.link(mapping:mapping,absolute: true,  params: linkParams)
     }
+
 }

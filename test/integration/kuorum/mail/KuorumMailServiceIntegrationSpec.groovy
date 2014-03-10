@@ -17,8 +17,7 @@ class KuorumMailServiceIntegrationSpec extends Specification{
     def setup(){
     }
 
-    @Unroll
-    void "test send mail of debate notification firstDebate = #firstDebate"() {
+    void "test send mail of debate notification" () {
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")
         KuorumUser politician = KuorumUser.findByEmail("politician@example.com")
@@ -28,21 +27,19 @@ class KuorumMailServiceIntegrationSpec extends Specification{
         Set<MailUserData> peopleNotified = [
                 KuorumUser.findByEmail("carmen@example.com"),
                 KuorumUser.findByEmail("noe@example.com")
-            ].collect{KuorumUser userVoted -> new MailUserData(user: userVoted, bindings: [])} as Set<MailUserData>
+            ].collect{KuorumUser userVoted -> new MailUserData(user: userVoted, bindings: [postType:post.postType.toString()])} as Set<MailUserData>
 
         Set<MailUserData> peopleAlerted = [
                 politician,
-        ].collect{KuorumUser userVoted -> new MailUserData(user: userVoted, bindings: [])} as Set<MailUserData>
+        ].collect{KuorumUser userVoted -> new MailUserData(user: userVoted, bindings: [postType:post.postType.toString()])} as Set<MailUserData>
 
-        when: "Saving a post"
-        kuorumMailService.sendDebateNotificationMail(post, peopleNotified, peopleAlerted, isFirstDebate)
+        when: "Sending notifications"
+        kuorumMailService.sendDebateNotificationMailInterestedUsers(post, peopleNotified)
+        kuorumMailService.sendDebateNotificationMailPolitician(post, peopleAlerted)
+        kuorumMailService.sendDebateNotificationMailAuthor(post)
 
         then: "Expected an exception"
-        !exception //An exception is not thrown (Is the best test that I can imagine)
-        where:
-        isFirstDebate | exception
-        true          | false
-        false         | false
+        Boolean.TRUE //An exception is not thrown (Is the best test that I can test)
     }
 
 }

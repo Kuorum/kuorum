@@ -12,6 +12,10 @@ class Post {
 
     ObjectId id
     KuorumUser owner
+    /**
+     * Politician who has supported the post
+     */
+    KuorumUser supportedBy
     Law law
     @Updatable String title
     @Updatable String text
@@ -39,6 +43,7 @@ class Post {
         numClucks min:0
         photo nullable:true
         firstCluck nullable:true
+        politician nullable:true
     }
 
     String toString(){
