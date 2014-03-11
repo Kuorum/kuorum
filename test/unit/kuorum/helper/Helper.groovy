@@ -2,10 +2,12 @@ package kuorum.helper
 
 import kuorum.Institution
 import kuorum.Region
+import kuorum.core.model.Gender
 import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.post.Post
 import kuorum.users.KuorumUser
+import kuorum.users.PersonalData
 
 /**
  * Created by iduetxe on 4/02/14.
@@ -48,10 +50,12 @@ class Helper {
     }
 
     public static final KuorumUser createDefaultUser(String email){
+        PersonalData personalData = new PersonalData(gender: Gender.MALE)
         new KuorumUser(
                 name:email.split("@")[0],
                 email: email,
-                password: "XXXX"
+                password: "XXXX",
+                personalData: personalData
         )
     }
 

@@ -4,6 +4,8 @@ import grails.transaction.Transactional
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.PostType
+import kuorum.law.Law
+import kuorum.law.LawVote
 import kuorum.mail.MailType
 import kuorum.mail.MailUserData
 import kuorum.post.Cluck
@@ -389,4 +391,41 @@ class NotificationService {
             kuorumMailService.sendVictoryNotification(post, notificationUsers)
     }
 
+
+    void sendLawOpenNotification(Law law){
+
+    }
+
+    void sendLawClosedNotification(Law law){
+        Environment.executeForCurrentEnvironment {
+            development{
+                grails.async.Promises.task{
+                    syncSendLawClosedNotification(law)
+                }
+            }
+            test{
+                syncSendLawClosedNotification(law)
+            }
+            production{
+                grails.async.Promises.task{
+                    syncSendLawClosedNotification(law)
+                }
+            }
+        }
+    }
+
+    void syncSendLawClosedNotification(Law law){
+
+        if (law.open){
+            throw new KuorumException("La ley debe de estar cerrada para que se notifique su cierre","error.law.notClosed")
+        }
+
+        LawVote.findAllByLaw(law).each{LawVote lawVote->
+            LawClosedNotification lawClosedNotification = new LawClosedNotification()
+            lawClosedNotification.law = law
+            lawClosedNotification.kuorumUser = lawVote.kuorumUser
+            lawClosedNotification.save()
+        }
+
+    }
 }

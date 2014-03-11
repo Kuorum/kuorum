@@ -9,14 +9,14 @@ public enum MailType {
     NOTIFICATION_CLUCK                  (true, "notificationCluck",            "notification", ["fname", "postName"],  ["cluckUserName","cluckUserLink"]),
     NOTIFICATION_FOLLOWER               (true, "notificationFollower",         "notification", [],  ["followerName","followerLink"]),
     NOTIFICATION_PUBLIC_MILESTONE       (true, "notificationMilestone",        "notification",[],["postName", "numVotes", "postLink"]),
-    NOTIFICATION_DEBATE_USERS           (true, "notificationDebateUsers",      "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"]),
-    NOTIFICATION_DEBATE_AUTHOR          (true, "notificationDebateAuthor",     "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"]),
-    NOTIFICATION_DEBATE_POLITICIAN      (true, "notificationDebatePolitician", "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"]),
-    NOTIFICATION_DEFENDED_USERS         (true, "notificationDefendedUsers",    "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"]),
-    NOTIFICATION_DEFENDED_AUTHOR        (true, "notificationDefendedAuthor",   "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"]),
-    NOTIFICATION_DEFENDED_BY_POLITICIAN (true, "notificationDefendedByPolitician","notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"]),
-    NOTIFICATION_DEFENDED_POLITICIANS   (true, "notificationDefendedPolitician", "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"]),
-    NOTIFICATION_VICTORY                (true, "notificationVictory",           "notification",[],["postType","debateOwner","postName", "politicianName","message", "politicianLink", "postLink","ownerLink"])
+    NOTIFICATION_DEBATE_USERS           (true, "notificationDebateUsers",      "notification",[],["postType","debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
+    NOTIFICATION_DEBATE_AUTHOR          (true, "notificationDebateAuthor",     "notification",[],["postType","debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
+    NOTIFICATION_DEBATE_POLITICIAN      (true, "notificationDebatePolitician", "notification",[],["postType","debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
+    NOTIFICATION_DEFENDED_USERS         (true, "notificationDefendedUsers",    "notification",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_DEFENDED_AUTHOR        (true, "notificationDefendedAuthor",   "notification",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_DEFENDED_BY_POLITICIAN (true, "notificationDefendedByPolitician","notification",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_DEFENDED_POLITICIANS   (true, "notificationDefendedPoliticians", "notification",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_VICTORY                (true, "notificationVictory",           "notification",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"])
 
 
 

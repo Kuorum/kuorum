@@ -2,8 +2,11 @@ package kuorum.notifications
 
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import kuorum.core.exception.KuorumException
+import kuorum.core.model.VoteType
 import kuorum.helper.Helper
 import kuorum.law.Law
+import kuorum.law.LawVote
 import kuorum.mail.KuorumMailService
 import kuorum.post.Cluck
 import kuorum.post.Post
@@ -17,7 +20,7 @@ import spock.lang.Unroll
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(NotificationService)
-@Mock([KuorumUser, Cluck, Law, Post,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification])
+@Mock([KuorumUser, Cluck, Law, Post,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification, LawClosedNotification, LawVote])
 class NotificationServiceSpec extends Specification {
 
     KuorumMailService kuorumMailService = Mock(KuorumMailService)
@@ -324,5 +327,33 @@ class NotificationServiceSpec extends Specification {
         5           | 2              | 2            | 5
     }
 
+    void "test close law notification"(){
+        given: "A law"
+        Law law = Helper.createDefaultLaw("#law")
+        law.save()
+        def numVotes = 10
+        (1..numVotes).each {
+            KuorumUser user = Helper.createDefaultUser("email${it}@email.com").save()
+            LawVote lawVote = new LawVote(kuorumUser: user, law:law, personalData: user.personalData, voteType: VoteType.POSITIVE)
+            lawVote.save()
+        }
+        law.open = Boolean.FALSE
+        law.save()
+        when: "Sending closing notification"
+        service.sendLawClosedNotification(law)
+        then:"Same notifications as votes"
+        LawClosedNotification.findAllByLaw(law).size() == numVotes
+    }
+    void "test close law notification with a law no closed"(){
+        given: "A law"
+        Law law = Helper.createDefaultLaw("#law")
+        law.open = Boolean.TRUE
+        law.save()
+        when: "Sending closing notification"
+        service.sendLawClosedNotification(law)
+        then:"Same notifications as votes"
+        final KuorumException exception = thrown()
+        exception.errors[0].code == "error.law.notClosed"
+    }
 
 }
