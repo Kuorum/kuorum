@@ -29,6 +29,7 @@ class KuorumMailService {
     String MAILCHIMP_LIST_ID
 
     String DEFAULT_SENDER_NAME="Kuorum"
+    String DEFAULT_VIA="via Kuorum.org"
 
     LinkGenerator grailsLinkGenerator
     MessageSource messageSource
@@ -55,7 +56,7 @@ class KuorumMailService {
         mailData.mailType = MailType.NOTIFICATION_CLUCK
         mailData.globalBindings=[clucker:cluck.owner.name, cluckerLink:userLink,postName:cluck.post.title]
         mailData.userBindings = [mailUserData]
-        mailData.fromName = cluck.owner.name
+        mailData.fromName = prepareFromName(cluck.owner.name)
         sendTemplate(mailData)
     }
 
@@ -66,7 +67,7 @@ class KuorumMailService {
         mailData.mailType = MailType.NOTIFICATION_FOLLOWER
         mailData.globalBindings=[follower:follower.name, followerLink:userLink]
         mailData.userBindings = [mailUserData]
-        mailData.fromName = follower.name
+        mailData.fromName = prepareFromName(follower.name)
         sendTemplate(mailData)
     }
 
@@ -101,7 +102,7 @@ class KuorumMailService {
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEBATE_POLITICIAN
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = [mailUserData]
-        mailNotificationsData.fromName = debateOwner.name
+        mailNotificationsData.fromName = prepareFromName(debateOwner.name)
         sendTemplate(mailNotificationsData)
 
     }
@@ -122,7 +123,7 @@ class KuorumMailService {
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEBATE_POLITICIAN
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = politiciansData.asList()
-        mailNotificationsData.fromName = debateOwner.name
+        mailNotificationsData.fromName = prepareFromName(debateOwner.name)
         sendTemplate(mailNotificationsData)
     }
 
@@ -143,7 +144,7 @@ class KuorumMailService {
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEBATE_USERS
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = notificationUsers.asList()
-        mailNotificationsData.fromName = debateOwner.name
+        mailNotificationsData.fromName = prepareFromName(debateOwner.name)
         sendTemplate(mailNotificationsData)
     }
 
@@ -165,7 +166,7 @@ class KuorumMailService {
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_AUTHOR
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = [mailUserData]
-        mailNotificationsData.fromName = post.defender.name
+        mailNotificationsData.fromName = prepareFromName(post.defender.name)
         sendTemplate(mailNotificationsData)
     }
 
@@ -186,7 +187,7 @@ class KuorumMailService {
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_POLITICIANS
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = politiciansData.asList()
-        mailNotificationsData.fromName = post.defender.name
+        mailNotificationsData.fromName = prepareFromName(post.defender.name)
         sendTemplate(mailNotificationsData)
     }
 
@@ -227,7 +228,7 @@ class KuorumMailService {
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_USERS
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = notificationUsers.asList()
-        mailNotificationsData.fromName = post.defender.name
+        mailNotificationsData.fromName = prepareFromName(post.defender.name)
         sendTemplate(mailNotificationsData)
     }
 
@@ -247,7 +248,7 @@ class KuorumMailService {
         mailNotificationsData.mailType = MailType.NOTIFICATION_VICTORY_USERS
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = notificationUsers.asList()
-        mailNotificationsData.fromName = post.owner.name
+        mailNotificationsData.fromName = prepareFromName(post.owner.name)
         sendTemplate(mailNotificationsData)
     }
 
@@ -267,7 +268,7 @@ class KuorumMailService {
         mailNotificationsData.mailType = MailType.NOTIFICATION_VICTORY_DEFENDER
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = [new MailUserData(user:post.defender, bindings:[])]
-        mailNotificationsData.fromName = post.owner.name
+        mailNotificationsData.fromName = prepareFromName(post.owner.name)
         sendTemplate(mailNotificationsData)
     }
 
@@ -444,6 +445,10 @@ class KuorumMailService {
 
     protected String generateLink(String mapping, linkParams) {
         grailsLinkGenerator.link(mapping:mapping,absolute: true,  params: linkParams)
+    }
+
+    protected String prepareFromName(String name){
+        "$name $DEFAULT_VIA"
     }
 
 }
