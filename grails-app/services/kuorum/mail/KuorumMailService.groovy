@@ -1,7 +1,6 @@
 package kuorum.mail
 
 import com.ecwid.mailchimp.MailChimpClient
-import com.ecwid.mailchimp.MailChimpMethod
 import com.ecwid.mailchimp.method.v2_0.lists.Email
 import com.ecwid.mailchimp.method.v2_0.lists.SubscribeMethod
 import grails.transaction.Transactional
@@ -35,19 +34,26 @@ class KuorumMailService {
     MessageSource messageSource
 
 
-    def registerUser(KuorumUser user, def bindings){
+    def sendRegisterUser(KuorumUser user, String confirmationLink){
+        def bindings = [confirmationLink:confirmationLink]
         MailUserData mailUserData = new MailUserData(user:user, bindings:bindings)
         MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_VERIFY_ACCOUNT, userBindings: [mailUserData])
         sendTemplate(mailData)
+    }
 
+    def sendUserAccountConfirmed(KuorumUser user){
+        def bindings = []
+        MailUserData mailUserData = new MailUserData(user:user)
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_VERIFY_ACCOUNT, userBindings: [mailUserData])
+        sendTemplate(mailData)
     }
 
     def sendCluckNotificationMail(Cluck cluck){
         String userLink = generateLink("userShow",[id:cluck.owner.id.toString()])
-        MailUserData mailUserData = new MailUserData(user:cluck.postOwner, bindings:[fname:cluck.postOwner.name,postName:cluck.post.title])
+        MailUserData mailUserData = new MailUserData(user:cluck.postOwner)
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_CLUCK
-        mailData.globalBindings=[cluckUserName:cluck.owner.name, cluckUserLink:userLink]
+        mailData.globalBindings=[clucker:cluck.owner.name, cluckerLink:userLink,postName:cluck.post.title]
         mailData.userBindings = [mailUserData]
         mailData.fromName = cluck.owner.name
         sendTemplate(mailData)
@@ -58,7 +64,7 @@ class KuorumMailService {
         MailUserData mailUserData = new MailUserData(user:following, bindings:[])
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_FOLLOWER
-        mailData.globalBindings=[followerName:follower.name, followerLink:userLink]
+        mailData.globalBindings=[follower:follower.name, followerLink:userLink]
         mailData.userBindings = [mailUserData]
         mailData.fromName = follower.name
         sendTemplate(mailData)
@@ -145,11 +151,15 @@ class KuorumMailService {
         MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[])
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                defender:post.defender.name,
+                defenderLink:generateLink("userShow",[id:post.defender.id]),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                politicianName:post.defender.name,
-                politicianLink:generateLink("userShow",[id:post.defender.id]),
-                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postOwner: post.owner.name,
+                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+
+        ]
 
         MailData mailNotificationsData = new MailData()
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_AUTHOR
@@ -162,11 +172,15 @@ class KuorumMailService {
     def sendPostDefendedNotificationMailPoliticians(Post post,Set<MailUserData> politiciansData){
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                defender:post.defender.name,
+                defenderLink:generateLink("userShow",[id:post.defender.id]),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                politicianName:post.defender.name,
-                politicianLink:generateLink("userShow",[id:post.defender.id]),
-                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postOwner: post.owner.name,
+                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+
+        ]
 
         MailData mailNotificationsData = new MailData()
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_POLITICIANS
@@ -180,11 +194,14 @@ class KuorumMailService {
         MailUserData mailUserData = new MailUserData(user:post.defender, bindings:[])
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                defender:post.defender.name,
+                defenderLink:generateLink("userShow",[id:post.defender.id]),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                politicianName:post.defender.name,
-                politicianLink:generateLink("userShow",[id:post.defender.id]),
-                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postOwner: post.owner.name,
+                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+        ]
 
         MailData mailNotificationsData = new MailData()
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_BY_POLITICIAN
@@ -197,11 +214,14 @@ class KuorumMailService {
     def sendPostDefendedNotificationMailInterestedUsers(Post post, Set<MailUserData> notificationUsers){
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                defender:post.defender.name,
+                defenderLink:generateLink("userShow",[id:post.defender.id]),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                politicianName:post.defender.name,
-                politicianLink:generateLink("userShow",[id:post.defender.id]),
-                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postOwner: post.owner.name,
+                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+        ]
 
         MailData mailNotificationsData = new MailData()
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_USERS
@@ -211,20 +231,43 @@ class KuorumMailService {
         sendTemplate(mailNotificationsData)
     }
 
-    def sendVictoryNotification(Post post, Set<MailUserData> notificationUsers){
+    def sendVictoryNotificationUsers(Post post, Set<MailUserData> notificationUsers){
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                defender:post.defender.name,
+                defenderLink:generateLink("userShow",[id:post.defender.id]),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                politicianName:post.defender.name,
-                politicianLink:generateLink("userShow",[id:post.defender.id]),
-                postLink:generateLink("${post.postType}Show", [postId:post.id])]
+                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postOwner: post.owner.name,
+                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+        ]
 
         MailData mailNotificationsData = new MailData()
-        mailNotificationsData.mailType = MailType.NOTIFICATION_VICTORY
+        mailNotificationsData.mailType = MailType.NOTIFICATION_VICTORY_USERS
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = notificationUsers.asList()
-        mailNotificationsData.fromName = post.defender.name
+        mailNotificationsData.fromName = post.owner.name
+        sendTemplate(mailNotificationsData)
+    }
+
+    def sendVictoryNotificationDefender(Post post){
+        def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                defender:post.defender.name,
+                defenderLink:generateLink("userShow",[id:post.defender.id]),
+                debateOwner:post.owner.name,
+                postName:post.title,
+                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postOwner: post.owner.name,
+                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+        ]
+
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.NOTIFICATION_VICTORY_DEFENDER
+        mailNotificationsData.globalBindings=globalBindings
+        mailNotificationsData.userBindings = [new MailUserData(user:post.defender, bindings:[])]
+        mailNotificationsData.fromName = post.owner.name
         sendTemplate(mailNotificationsData)
     }
 
@@ -301,6 +344,9 @@ class KuorumMailService {
                     //headers =[
                     //        "Reply-To":"info@kuorum.org"
                     //]
+//                    headers = [
+//                            "X-MC-SigningDomain":"Kuorum.org"
+//                    ]
 //                    important =true
 //                        bcc_address = "iduetxe@gmail.com"
                     global_merge_vars = globalMergeVars
@@ -355,8 +401,8 @@ class KuorumMailService {
     }
 
     def verifyUser(KuorumUser user){
-
         addSubscriber(user)
+        sendUserAccountConfirmed(user)
     }
 
     def addSubscriber(KuorumUser user){

@@ -314,9 +314,10 @@ class NotificationServiceSpec extends Specification {
         service.sendVictoryNotification(post)
         then: "All OK and mail service has been called"
         VictoryNotification.findByPost(post).politician == post.defender
-        VictoryNotification.findAllByPost(post).size() == numVotes + numFollowers
+        VictoryNotification.findAllByPost(post).size() == numVotes + numFollowers + 1 //Politician recives also a notification
 
-        times * kuorumMailService.sendVictoryNotification(post,{ it.size()>0})
+        1 * kuorumMailService.sendVictoryNotificationDefender(post)
+        times * kuorumMailService.sendVictoryNotificationUsers(post,{ it.size()>0})
         where:
         numDebates  | numPoliticians | numFollowers | numVotes
         1           | 1              | 1            | 5

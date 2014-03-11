@@ -3,7 +3,6 @@ package kuorum.notifications
 import grails.transaction.Transactional
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
-import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.law.LawVote
 import kuorum.mail.MailType
@@ -12,7 +11,6 @@ import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostVote
 import kuorum.users.KuorumUser
-import org.springframework.context.MessageSource
 
 @Transactional
 class NotificationService {
@@ -358,6 +356,15 @@ class NotificationService {
     private void syncSendVictoryNotification(Post post){
         Set<MailUserData> notificationUsers = []
 
+        // Dfender notification
+        VictoryNotification victoryDefenderNotification = new VictoryNotification()
+        victoryDefenderNotification.post = post
+        victoryDefenderNotification.mailType = MailType.NOTIFICATION_VICTORY_DEFENDER
+        victoryDefenderNotification.kuorumUser = post.defender
+        victoryDefenderNotification.politician=post.defender
+        victoryDefenderNotification.save()
+        kuorumMailService.sendVictoryNotificationDefender(post)
+
         //All interested people for their vote
         PostVote.findAllByPostAndUserNotEqual(post, post.owner).each{PostVote postVote ->
             if (postVote.user != post.owner){
@@ -368,7 +375,7 @@ class NotificationService {
                 victoryNotification.save()
                 notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
                 if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
-                    kuorumMailService.sendVictoryNotification(post, notificationUsers)
+                    kuorumMailService.sendVictoryNotificationUsers(post, notificationUsers)
                     notificationUsers.clear()
                 }
             }
@@ -388,7 +395,7 @@ class NotificationService {
         }
 
         if (notificationUsers)
-            kuorumMailService.sendVictoryNotification(post, notificationUsers)
+            kuorumMailService.sendVictoryNotificationUsers(post, notificationUsers)
     }
 
 

@@ -6,7 +6,7 @@ import kuorum.users.KuorumUser
 
 class VictoryNotification extends Notification{
 
-    MailType mailType = MailType.NOTIFICATION_VICTORY
+    MailType mailType = MailType.NOTIFICATION_VICTORY_USERS
     Post post
     KuorumUser politician
 
