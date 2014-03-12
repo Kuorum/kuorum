@@ -10,6 +10,9 @@ import org.bson.types.ObjectId
 @Transactional
 class FileService {
 
+    def grailsApplication
+    private static final TMP_PATH = "/tmp"
+
     def KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
         String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}${TMP_PATH}"
         String rootUrl = "${grailsApplication.config.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}${TMP_PATH}"
@@ -17,13 +20,10 @@ class FileService {
 
         KuorumFile kuorumFile = new KuorumFile()
         kuorumFile.id = ObjectId.get()
-        kuorumFile.uploadedBy = kuorumUser
+        kuorumFile.user = kuorumUser
         kuorumFile.temporal = Boolean.TRUE
         kuorumFile.fileGroup = fileGroup
-//        kuorumFile.storagePath = "TEMPORAL"
-//        kuorumFile.url ="TEMPORAL"
-//        kuorumFile.fileName ="TEMPORAL"
-//        kuorumFile.save()//ID necessary
+
         def fileLocation = generatePath(kuorumFile)
         kuorumFile.fileName = "${kuorumFile.id}.${getExtension(fileName)}"
         kuorumFile.storagePath = "$temporalPath/$fileLocation"
@@ -52,12 +52,6 @@ class FileService {
         }
         kuorumFile
     }
-
-    def grailsApplication
-
-
-
-    private static final TMP_PATH = "/tmp"
 
     /**
      * Converts a temporal file to normal file.
@@ -92,6 +86,25 @@ class FileService {
         }catch (Exception e){
             log.error("Hubo algun problema moviendo el fichero del temporal al final",e)
         }
+    }
+
+    /**
+     * Deletes all temporal files uploaded by the user @user.
+     *
+     * Deletes on DB and on file system
+     *
+     * @param user
+     */
+    void deleteTemporalFiles(KuorumUser user){
+        KuorumFile.findAllByUserAndTemporal(user, Boolean.TRUE).each {KuorumFile kuorumFile ->
+            File file = new File("${kuorumFile.storagePath}/${kuorumFile.fileName}")
+            if (!file.exists() || file.delete()){
+                deleteParentIfEmpty(file)
+                kuorumFile.delete()
+            }
+        }
+        String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}${TMP_PATH}"
+
     }
 
     private void deleteParentIfEmpty(File file){
@@ -130,14 +143,9 @@ class FileService {
         fileName?fileName.split("\\.").last():""
     }
 
-    private String cleanName(String string){
-        string.replaceAll("[^a-zA-Z0-9\\.]+","")
-    }
-
     private void upload(InputStream inputStream, File file) {
 
         try {
-//            file.deleteOnExit()
             if (file.exists()){
                 file.delete()
             }

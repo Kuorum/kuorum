@@ -7,7 +7,7 @@ import org.bson.types.ObjectId
 class KuorumFile {
 
     ObjectId id
-    KuorumUser uploadedBy
+    KuorumUser user
     Boolean temporal
     String storagePath
     String fileName

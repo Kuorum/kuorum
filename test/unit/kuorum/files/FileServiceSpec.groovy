@@ -74,6 +74,57 @@ class FileServiceSpec extends Specification {
     }
 
 
+    @Unroll
+    void "test deleting temporal files with #numValidFiles valid files of #totalFiles total files"() {
+        given: "Upload some temporaly files"
+        KuorumUser user = Helper.createDefaultUser("email@email.com").save()
+        KuorumUser controlUser = Helper.createDefaultUser("control@email.com").save()
+
+        def data = "file data"
+
+        if (controlFiles > 0)
+            (1..controlFiles).each{
+                def mockFile = new MockMultipartFile("file${it}.jpg", 'tempFile','jpg/jpeg', data as byte[])
+                KuorumFile kuorumTempFile = service.uploadTemporalFile(mockFile.inputStream,controlUser, mockFile.getName(), FileGroup.USER_AVATAR)
+            }
+
+        if (totalFiles > 0)
+            (1..totalFiles).each{
+                def mockFile = new MockMultipartFile("file${it}.jpg", 'tempFile','jpg/jpeg', data as byte[])
+                KuorumFile kuorumTempFile = service.uploadTemporalFile(mockFile.inputStream,user, mockFile.getName(), FileGroup.USER_AVATAR)
+            }
+
+        if (numValidFiles > 0)
+            (1..numValidFiles).each{
+                KuorumFile kuorumFinalFile = KuorumFile.findByUserAndTemporal(user,Boolean.TRUE)
+                service.convertTemporalToFinalFile(kuorumFinalFile)
+            }
+
+
+        when:"deleting temporal files"
+        service.deleteTemporalFiles(user)
+        then:
+        KuorumFile.findAllByUserAndTemporal(user, Boolean.TRUE).size() == 0
+        KuorumFile.findAllByUser(controlUser).size() == controlFiles
+        KuorumFile.findAllByUserAndTemporal(user, Boolean.FALSE).size() == numValidFiles
+        KuorumFile.count() == numValidFiles + controlFiles
+        File tmpDir = new File("${grailsApplication.config.kuorum.upload.serverPath}${service.TMP_PATH}")
+        if (controlFiles > 0)
+            tmpDir.exists()
+        else
+            !tmpDir.exists()
+
+        where:
+        numValidFiles | totalFiles  | controlFiles
+        0             | 0           | 0
+        0             | 0           | 1
+        1             | 1           | 1
+        1             | 1           | 0
+        1             | 2           | 1
+        2             | 3           | 1
+        2             | 3           | 0
+    }
+
 
 
 
