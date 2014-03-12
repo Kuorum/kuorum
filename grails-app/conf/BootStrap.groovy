@@ -42,7 +42,7 @@ class BootStrap {
                         obj.refresh()
                     }else{
                         log.error(obj.errors)
-                        throw KuorumExceptionUtil.createExceptionFromValidatable(delegate, "Datos erroneos actualizando la ley: $law")
+                        throw KuorumExceptionUtil.createExceptionFromValidatable(delegate, "Datos erroneos actualizando ${obj.class.name}: $obj")
                     }
 
                 }

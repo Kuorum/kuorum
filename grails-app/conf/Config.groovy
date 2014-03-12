@@ -202,4 +202,8 @@ kuorum {
             publicVotes=10
         }
     }
+    upload{
+        serverPath = "/home/iduetxe/kuorum/kuorum/images"
+        relativeUrlPath = "/uploadedImages"
+    }
 }
