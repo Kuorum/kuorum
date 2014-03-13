@@ -1,3 +1,4 @@
+import kuorum.core.model.PostType
 import org.springframework.security.core.context.SecurityContextHolder as SCH
 class UrlMappings {
 
@@ -9,14 +10,19 @@ class UrlMappings {
         name lawCreate:     "/ley/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
         name lawEdit:       "/ley/editar/$hashtag"(controller: "law", action:"edit")
         name lawUpdate:     "/ley/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
-
+        name postShow:      "/ley/$hashtag/$postType/$postId"(controller: "post", action: "show"){
+            constraints {
+                postType(validator: {
+                    return (it in PostType.values().collect{it.urlText})
+                })
+            }
+        }
 
         name userShow: "/user/$id" (controller: "kuorumUser", action: "show")
 
         name cluckCreate: "/cluck/$postId" (controller: "cluck", action: "createCluck")
-        name PURPOSEShow:  "/propuesta/$postId"(controller: "post", action: "show")
-        name HISTORYShow:  "/historia/$postId" (controller: "post", action: "show")
-        name QUESTIONShow:  "/pregunta/$postId" (controller: "post", action: "show")
+
+        //Espacio para que funcione 3 mapping distintos a la misma url????
 
         name customRegisterStep2: "/registro/paso2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
         name customRegisterStep1: "/registro/paso1"(controller: "customRegister"){action = [GET:"step1", POST:"step1Save"]}

@@ -5,6 +5,10 @@ package kuorum.core.model
  */
 public enum PostType {
 
-    PURPOSE,QUESTION,HISTORY
+    PURPOSE("propuesta"),QUESTION("pregunta"),HISTORY("historia")
 
+    String urlText
+    PostType(String urlText){
+        this.urlText = urlText
+    }
 }

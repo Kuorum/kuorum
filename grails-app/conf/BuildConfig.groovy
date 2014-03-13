@@ -113,6 +113,10 @@ grails.project.dependency.resolution = {
 
 //        compile ":executor:0.3"
 
+        //Images and uploading files
+        compile (":ajax-uploader:1.1")
+        compile ":burning-image:0.5.1"
+
 
         runtime ":jquery:1.10.2.2"
         runtime ":resources:1.2.1"
