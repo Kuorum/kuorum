@@ -13,8 +13,6 @@ class LawController {
     def lawService
     def cluckService
 
-    static scaffold = true
-
     def index(){
         [lawInstanceList:Law.findAll()]
     }
