@@ -6,17 +6,26 @@ class UrlMappings {
 
         name home: "/" (controller: "dashboard", action:"index")
 
-        name lawShow:       "/ley/$hashtag" (controller: "law", action:"show")
         name lawCreate:     "/ley/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
-        name lawEdit:       "/ley/editar/$hashtag"(controller: "law", action:"edit")
-        name lawUpdate:     "/ley/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
-        name postShow:      "/ley/$hashtag/$postType/$postId"(controller: "post", action: "show"){
+        name lawShow:       "/ley/$hashtag" (controller: "law", action:"show")
+        name lawEdit:       "/ley/$hashtag/editar"(controller: "law", action:"edit")
+        name lawUpdate:     "/ley/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
+        name postShow:      "/ley/$hashtag/$postTypeUrl/$postId"(controller: "post", action: "show"){
             constraints {
-                postType(validator: {
+                //Only on show. Is not important that the type don't match. Is only here because is the most important
+                postTypeUrl(validator: {
                     return (it in PostType.values().collect{it.urlText})
                 })
             }
         }
+        name postCreate:    "/ley/$hashtag/nuevoPost"(controller: "post", action: "create")
+        name postSave:      "/ley/$hashtag/guardar"(controller: "post"){action = [GET:"create", POST:"save"]}
+        name postReview:    "/ley/$hashtag/$postTypeUrl/$postId/revisar"(controller: "post"){action = [GET:"create", POST:"save"]}
+        name postPublish:   "/ley/$hashtag/$postTypeUrl/$postId/publicar"(controller: "post", action:"publish")
+        name postEdit:      "/ley/$hashtag/$postTypeUrl/$postId/editar"(controller: "post", action:"edit")
+        name postUpdate:    "/ley/$hashtag/$postTypeUrl/$postId/actualizar"(controller: "post"){action = [GET:"edit", POST:"update"]}
+
+
 
         name userShow: "/user/$id" (controller: "kuorumUser", action: "show")
 

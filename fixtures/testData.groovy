@@ -14,7 +14,7 @@ fixture{
 }
 post {
 
-    postService.savePost(abortoPurpose1)
+    postService.savePost(abortoPurpose1, abortoPurpose1.law, abortoPurpose1.owner)
     postService.publishPost(abortoPurpose1)
 
     cluckService.createCluck(abortoPurpose1, juanjoAlvite)
@@ -24,7 +24,7 @@ post {
     postService.sponsorAPost(abortoPurpose1, sponsor)
 
 
-    postService.savePost(parquesNacionalesPurpose2)
+    postService.savePost(parquesNacionalesPurpose2, parquesNacionalesPurpose2.law, parquesNacionalesPurpose2.owner)
     postService.publishPost(parquesNacionalesPurpose2)
     parquesNacionalesPurpose2.refresh()
 

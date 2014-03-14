@@ -46,6 +46,11 @@ grails.mime.types = [ // the first one is the default format
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
+//grails.gorm.default.constraints = {
+//    '*'(nullable: true)
+//    myShared(nullable: false, blank: false)
+//}
+
 // Legacy setting for codec used to encode data with ${}
 grails.views.default.codec = "html"
 

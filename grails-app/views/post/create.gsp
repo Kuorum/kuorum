@@ -19,6 +19,7 @@
 
 <div id="create-post" class="content scaffold-create" role="main">
     <h1><g:message code="default.create.label" args="[entityName]"/></h1>
+    <h3>LAW : ${law.hashtag}</h3>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
@@ -30,7 +31,7 @@
             </g:eachError>
         </ul>
     </g:hasErrors>
-    <g:form url="[resource: postInstance, action: 'save']">
+    <g:form mapping="postSave" params="[hashtag:law.hashtag]">
         <fieldset class="form">
             <g:render template="form"/>
         </fieldset>

@@ -44,6 +44,9 @@ class Post {
         photo nullable:true
         firstCluck nullable:true
         defender nullable:true
+        text nullable: false, blank: false
+        title nullable:false, blank: false
+        postType nullable:false
     }
 
     String toString(){

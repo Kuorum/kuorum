@@ -33,7 +33,7 @@
             </g:eachError>
         </ul>
     </g:hasErrors>
-    <g:form url="[resource: postInstance, action: 'update']" method="PUT">
+    <g:form mapping="postUpdate" params="[postId:postInstance.id, postTypeUrl:postInstance.postType.urlText, hashtag:postInstance.law.hashtag.decodeHashtag()]" method="POST">
         <g:hiddenField name="version" value="${postInstance?.version}"/>
         <fieldset class="form">
             <g:render template="form"/>

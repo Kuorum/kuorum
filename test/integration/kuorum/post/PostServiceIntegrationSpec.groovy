@@ -26,7 +26,7 @@ class PostServiceIntegrationSpec extends Specification{
         Post post = new Post()
 
         when: "Saving a post"
-        Post savedPost = postService.savePost(post)
+        Post savedPost = postService.savePost(post,null,null)
 
         then: "Expected an exception"
         final KuorumException exception = thrown()
@@ -38,10 +38,6 @@ class PostServiceIntegrationSpec extends Specification{
         Law law = Law.findByHashtag("#leyAborto")
 
         Post post = new Post(
-                owner : user,
-                law:law,
-                numClucks:1,
-                numVotes:1,
                 postType:PostType.PURPOSE,
                 title:"Enmienda a la totalidad",
                 text:"Lorem ipsum"
@@ -49,7 +45,7 @@ class PostServiceIntegrationSpec extends Specification{
 
         when: "Saving a post"
         //"service" represents the grails service you are testing for
-        Post savedPost = postService.savePost(post)
+        Post savedPost = postService.savePost(post,law,user)
         Cluck cluck = Cluck.findByPostAndOwnerAndPostOwner(savedPost, user,user)
         then: "Post created but not published"
         cluck == null

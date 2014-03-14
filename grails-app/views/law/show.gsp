@@ -105,6 +105,13 @@
 				<fieldset class="buttons">
 					<g:link class="edit" mapping="lawEdit" params="[hashtag:lawInstance.hashtag.decodeHashtag()]"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+
+
+                    <div style="float:right">
+                        <g:link class="create" mapping="postCreate" params="[hashtag:lawInstance.hashtag.decodeHashtag()]">
+                            <g:message code="default.button.create.label" default="Crear" /> post
+                        </g:link>
+                    </div>
 				</fieldset>
 			</g:form>
 		</div>

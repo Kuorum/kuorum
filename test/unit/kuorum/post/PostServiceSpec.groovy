@@ -35,14 +35,15 @@ class PostServiceSpec extends Specification{
         given: "A post"
             //fixtureLoader.load("testData")
             Post post = new Post()
-
+            Law law = Helper.createDefaultLaw("#hashtag")
+            KuorumUser user = Helper.createDefaultUser("otherUser@example.com")
 
             def cluckServiceMock = mockFor(CluckService)
             service.cluckService = cluckServiceMock
 
         when: "Saving a post"
             //"service" represents the grails service you are testing for
-        service.savePost(post)
+        service.savePost(post, law, user)
 
         then: "Expected an exception"
             final KuorumException exception = thrown()
@@ -55,15 +56,20 @@ class PostServiceSpec extends Specification{
         given: "A post"
         //fixtureLoader.load("testData")
         Post post = Helper.createDefaultPost()
+        Law law = post.law
+        post.law = null
+        KuorumUser user = Helper.createDefaultUser("otherUser@example.com")
 
         when: "Saving a post"
         //"service" represents the grails service you are testing for
-        service.savePost(post)
+        Post postSaved = service.savePost(post,law, user)
 
         then: "Expected an exception"
         0 * indexSolrService.index(_)
         0 * cluckService.createCluck(_,_)
         0 * postVoteService.votePost(_,_)
+        postSaved.owner == user
+        postSaved.law == law
     }
 
     void "test publishing a post"() {
