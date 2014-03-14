@@ -134,7 +134,7 @@ grails.project.dependency.resolution = {
     }
 }
 
-coverage { xml=true }
+//coverage { xml=true }
 
 codenarc.reports = {
 
