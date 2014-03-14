@@ -136,6 +136,8 @@ grails.project.dependency.resolution = {
 
 codenarc.reports = {
 
+    coverage { xml=true }
+
     MyXmlReport('xml') { // The report name "MyXmlReport" is user-defined; Report type is 'xml'
         outputFile = 'test-reports/CodeNarcReport.xml' // Set the 'outputFile' property of the (XML) Report
         title = 'XmlReport' // Set the 'title' property of the (XML) Report
