@@ -31,7 +31,7 @@
             </g:eachError>
         </ul>
     </g:hasErrors>
-    <g:form mapping="postSave" params="[hashtag:law.hashtag]">
+    <g:form mapping="postSave" params="[hashtag:law.hashtag.decodeHashtag()]">
         <fieldset class="form">
             <g:render template="form"/>
         </fieldset>

@@ -20,8 +20,9 @@ class UrlMappings {
         }
         name postCreate:    "/ley/$hashtag/nuevoPost"(controller: "post", action: "create")
         name postSave:      "/ley/$hashtag/guardar"(controller: "post"){action = [GET:"create", POST:"save"]}
-        name postReview:    "/ley/$hashtag/$postTypeUrl/$postId/revisar"(controller: "post"){action = [GET:"create", POST:"save"]}
+        name postReview:    "/ley/$hashtag/$postTypeUrl/$postId/revisar"(controller: "post", action: "review")
         name postPublish:   "/ley/$hashtag/$postTypeUrl/$postId/publicar"(controller: "post", action:"publish")
+        name postPromoteYourPost:"/ley/$hashtag/$postTypeUrl/$postId/promocionar"(controller: "post", action:"promoteYourPost")
         name postEdit:      "/ley/$hashtag/$postTypeUrl/$postId/editar"(controller: "post", action:"edit")
         name postUpdate:    "/ley/$hashtag/$postTypeUrl/$postId/actualizar"(controller: "post"){action = [GET:"edit", POST:"update"]}
 

@@ -11,7 +11,7 @@ import kuorum.post.Post
 @Validateable
 class PostCommand {
     String postId
-    Law law
+    String hashtag
     String title
     String text
     String photo
@@ -22,7 +22,7 @@ class PostCommand {
         title nullable: false, blank: false
         text nullable: false, blank: false
         postType nullable: false
-        law nullable: false
+        hashtag nullable: false, blank: false
 
     }
 }

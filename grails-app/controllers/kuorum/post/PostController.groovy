@@ -75,10 +75,11 @@ class PostController {
                     postInstance:command,
             ]
         }
+        Law law = lawService.findLawByHashtag(command.hashtag.encodeAsHashtag())
         Post post = new Post(command.properties)
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        postService.savePost(post, command.law, user)
-        redirect mapping:"postShow", params:[postId:post.id, postTypeUrl:post.postType.urlText, hashtag:post.law.hashtag.decodeHashtag()]
+        postService.savePost(post, law, user)
+        redirect mapping:"postReview", params:[postId:post.id, postTypeUrl:post.postType.urlText, hashtag:post.law.hashtag.decodeHashtag()]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -88,7 +89,7 @@ class PostController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        if (post.owner != springSecurityService.currentUser){
+        if (post.owner.id != springSecurityService.principal.id){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
         }
@@ -102,20 +103,22 @@ class PostController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        if (post.owner != springSecurityService.currentUser){
+        if (post.owner.id != springSecurityService.principal.id){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
         }
-
+        postService.publishPost(post)
+        redirect mapping:"postPromoteYourPost", params:[postId:post.id, postTypeUrl:post.postType.urlText, hashtag:post.law.hashtag.decodeHashtag()]
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def promoteYourPost(String postId){
         Post post = Post.get(new ObjectId(postId))
         if (!post){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        if (post.owner != springSecurityService.currentUser){
+        if (post.owner.id != springSecurityService.principal.id){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
         }
