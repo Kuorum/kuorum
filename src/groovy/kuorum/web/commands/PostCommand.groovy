@@ -17,12 +17,10 @@ class PostCommand {
     String photo
     PostType postType
     static constraints = {
-        importFrom Post
         postId nullable: false, blank: false
         title nullable: false, blank: false
         text nullable: false, blank: false
         postType nullable: false
         hashtag nullable: false, blank: false
-
     }
 }
