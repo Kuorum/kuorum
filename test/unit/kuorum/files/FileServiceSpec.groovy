@@ -20,7 +20,7 @@ class FileServiceSpec extends Specification {
 
     def setup() {
         grailsApplication.config.kuorum.upload.serverPath = "/tmp/kuorumTest"
-        grailsApplication.config.serverURL = "http://localhost:8080"
+        grailsApplication.config.grails.serverURL = "http://localhost:8080"
         grailsApplication.config.kuorum.upload.relativeUrlPath="/uploadedFiles"
     }
 
@@ -54,6 +54,7 @@ class FileServiceSpec extends Specification {
             kuorumTempFile.storagePath.startsWith("${grailsApplication.config.kuorum.upload.serverPath}${service.TMP_PATH}")
             kuorumTempFile.url.startsWith("${grailsApplication.config.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}")
             kuorumTempFile.storagePath.split("/").last().split("\\.").first() == kuorumTempFile.id.toString()
+            kuorumTempFile.url.split("/").last() == kuorumTempFile.fileName
             tempFile.exists()
         }else{
             finalKuorumFile.temporal == Boolean.FALSE

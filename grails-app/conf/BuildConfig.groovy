@@ -66,7 +66,6 @@ grails.project.dependency.resolution = {
         //compile 'org.springframework.social:spring-social-core:1.0.1.RELEASE'
 
 
-        runtime 'org.apache.commons:commons-lang3:3.2.1'
         compile 'org.apache.solr:solr-solrj:4.6.0'
 	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
 

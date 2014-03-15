@@ -15,19 +15,22 @@ class FileService {
 
     def KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
         String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}${TMP_PATH}"
-        String rootUrl = "${grailsApplication.config.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}${TMP_PATH}"
+        String rootUrl = "${grailsApplication.config.grails.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}${TMP_PATH}"
 
 
         KuorumFile kuorumFile = new KuorumFile()
-        kuorumFile.id = ObjectId.get()
         kuorumFile.user = kuorumUser
         kuorumFile.temporal = Boolean.TRUE
         kuorumFile.fileGroup = fileGroup
+        kuorumFile.fileName = "TEMPORAL"
+        kuorumFile.storagePath = "TEMPORAL"
+        kuorumFile.url ="TEMPORAL"
+        kuorumFile.save()//The ID is necessary
 
         def fileLocation = generatePath(kuorumFile)
         kuorumFile.fileName = "${kuorumFile.id}.${getExtension(fileName)}"
         kuorumFile.storagePath = "$temporalPath/$fileLocation"
-        kuorumFile.url ="$rootUrl/$fileLocation"
+        kuorumFile.url ="$rootUrl/$fileLocation/$kuorumFile.fileName"
         kuorumFile.save()
 
         log.info("Subiendo nueva imagen a ${kuorumFile.storagePath}")
