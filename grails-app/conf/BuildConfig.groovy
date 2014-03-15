@@ -66,6 +66,7 @@ grails.project.dependency.resolution = {
         //compile 'org.springframework.social:spring-social-core:1.0.1.RELEASE'
 
 
+        runtime 'org.apache.commons:commons-lang3:3.2.1'
         compile 'org.apache.solr:solr-solrj:4.6.0'
 	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
 
@@ -118,7 +119,7 @@ grails.project.dependency.resolution = {
         compile ":burning-image:0.5.1"
 
 
-        runtime ":jquery:1.10.2.2"
+        runtime ":jquery:1.11.0.1"
         runtime ":resources:1.2.1"
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0.1"
