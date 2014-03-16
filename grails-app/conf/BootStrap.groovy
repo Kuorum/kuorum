@@ -2,6 +2,7 @@ import com.mongodb.BasicDBObject
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.users.KuorumUser
+import kuorum.users.RoleUser
 
 class BootStrap {
 
@@ -49,7 +50,7 @@ class BootStrap {
             }
 
         }
-            environments {
+        environments {
             development {
                 KuorumUser.collection.getDB().dropDatabase()
                 fixtureLoader.load("testData")
@@ -61,6 +62,10 @@ class BootStrap {
             production{
 
             }
+        }
+        if (RoleUser.count() == 0){
+            //If roles has not been
+            fixtureLoader.load("basicData")
         }
     }
     def destroy = {

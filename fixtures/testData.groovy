@@ -1,10 +1,10 @@
 import kuorum.post.Sponsor
 import kuorum.users.KuorumUser
 
+include "basicData"
 include "regions"
 include "institutions"
 include "parliamentaryGroups"
-include "authoritiesData"
 include "laws/*"
 include "users/*"
 include "posts/*"
