@@ -36,6 +36,11 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         user.relevantCommissions = CommissionType.values()
         user.authorities = [RoleUser.findByAuthority("ROLE_USER")]
         user.validate()
+        if (user.hasErrors()){
+            user.errors.each {
+                log.error("ERROR USER: $it")
+            }
+        }
         log.info("Creando $user.name (valid: ${!user.hasErrors()})....")
         RegistrationCode registrationCode = springSecurityUiService.register(user, command.password, salt)
         log.info("Usuario $user.name creado con el token  $registrationCode.token")
