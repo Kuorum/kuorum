@@ -113,7 +113,7 @@ mailService.sendMail {
     }
 
     /**
-     * Is overwritten because createLink use the request to recover the absolute path. And I prefer
+     * It's overwritten because createLink use the request to recover the absolute path. And I prefer
      * to use "absolute:true" because it uses the grails.serverURL property
      * @return
      */
