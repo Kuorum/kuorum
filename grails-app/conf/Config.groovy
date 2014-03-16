@@ -104,7 +104,7 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+        grails.serverURL = "http://kuorum.org" // This property is overwritten by production_config.properties
     }
 }
 

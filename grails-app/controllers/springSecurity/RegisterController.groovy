@@ -111,6 +111,18 @@ mailService.sendMail {
         flash.message = message(code: 'spring.security.ui.register.complete')
         redirect uri: conf.ui.register.postRegisterUrl ?: defaultTargetUrl
     }
+
+    /**
+     * Is overwritten because createLink use the request to recover the absolute path. And I prefer
+     * to use "absolute:true" because it uses the grails.serverURL property
+     * @return
+     */
+    @Override
+    protected String generateLink(String action, linkParams) {
+        createLink(absolute: true,
+                controller: 'register', action: action,
+                params: linkParams)
+    }
 }
 
 @Validateable
