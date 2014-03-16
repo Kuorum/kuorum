@@ -45,7 +45,7 @@ class KuorumMailService {
     def sendUserAccountConfirmed(KuorumUser user){
         def bindings = []
         MailUserData mailUserData = new MailUserData(user:user)
-        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_VERIFY_ACCOUNT, userBindings: [mailUserData])
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_ACCOUNT_COMPLETED, userBindings: [mailUserData])
         sendTemplate(mailData)
     }
 

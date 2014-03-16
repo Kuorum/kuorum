@@ -29,15 +29,15 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         String salt = saltSource instanceof NullSaltSource ? null : command.username
-        def user = new Person(
+        def user = new KuorumUser(
                 email: command.email,
                 name: command.name,
-                surname: command.surname,
                 accountLocked: true, enabled: true)
         user.relevantCommissions = CommissionType.values()
         user.authorities = [RoleUser.findByAuthority("ROLE_USER")]
-
+        log.info("Creando $user.name ....")
         RegistrationCode registrationCode = springSecurityUiService.register(user, command.password, salt)
+        log.info("Usuario $user.name creado con el token  $registrationCode.token")
         if (registrationCode == null || registrationCode.hasErrors()) {
             // null means problem creating the user
             flash.error = message(code: 'spring.security.ui.register.miscError')
