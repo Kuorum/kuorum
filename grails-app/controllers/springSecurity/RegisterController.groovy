@@ -7,7 +7,6 @@ import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.validation.Validateable
 import kuorum.core.model.CommissionType
 import kuorum.users.KuorumUser
-import kuorum.users.Person
 import kuorum.users.RoleUser
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {

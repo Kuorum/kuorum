@@ -1,11 +1,20 @@
 package kuorum.users
 
 import com.mongodb.WriteConcern
+import kuorum.Institution
+import kuorum.ParliamentaryGroup
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
+import kuorum.core.model.UserType
 import kuorum.mail.MailType
 import org.bson.types.ObjectId
 
+/**
+ * Represents the user in kuorum
+ *
+ * Is not separated with inheritance (Politician, Organization, Person) because an user can switch between them,
+ * and is a nightmare handle it
+ */
 class KuorumUser {
 
 
@@ -18,6 +27,7 @@ class KuorumUser {
     AvailableLanguage language = AvailableLanguage.es_ES
 
     PersonalData personalData = new PersonalData()
+    UserType userType = UserType.PERSON
 
     List<CommissionType> relevantCommissions = []
     List<KuorumUser> following  = []
@@ -28,6 +38,11 @@ class KuorumUser {
 
     static hasMany = [following:KuorumUser,followers:KuorumUser]
     static embedded = ['personalData', 'authorities']
+
+
+    //Politician FIELDS
+    ParliamentaryGroup parliamentaryGroup
+    Institution institution
 
     //Spring fields
     transient springSecurityService
@@ -44,6 +59,21 @@ class KuorumUser {
         email nullable: false, email: true
         password nullable:false, blank: false
         bio nullable:true
+        userType nullable: false, validator:{val, obj ->
+            obj.personalData.userType == val
+        }
+
+        //POLITICIAN VALIDATION
+        parliamentaryGroup nullable: true, validator: { val, obj ->
+            if (val  && val.institution != obj.institution) {
+                return ['notCorrectInstitution']
+            }
+            if (!val && obj.institution){
+                return ['notParliamentaryGroup']
+            }
+        }
+
+        institution nullable:true
     }
 
     static mapping = {

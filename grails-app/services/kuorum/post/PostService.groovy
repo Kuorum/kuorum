@@ -6,9 +6,9 @@ import com.mongodb.util.JSON
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.UserType
 import kuorum.law.Law
 import kuorum.users.KuorumUser
-import kuorum.users.Politician
 
 @Transactional
 class PostService {
@@ -154,6 +154,6 @@ class PostService {
     }
 
     Boolean isAllowedToAddDebate(Post post, KuorumUser user){
-        user && (user.instanceOf(Politician) || post.owner == user)
+        user && (UserType.POLITICIAN.equals(user.userType) || post.owner == user)
     }
 }

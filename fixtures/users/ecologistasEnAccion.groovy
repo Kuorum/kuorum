@@ -1,22 +1,20 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
-import kuorum.users.Organization
+import kuorum.users.KuorumUser
+import kuorum.users.OrganizationData
 import kuorum.users.PersonalData
 
 fixture {
 
-    ecologistasData(PersonalData){
+    ecologistasData(OrganizationData){
         gender =  Gender.ORGANIZATION
-//        postalCode = 28001
-//        regionCode = "EU-SP-MD"
-//        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
+        isPoliticalParty = Boolean.FALSE
     }
 
-    ecologistasEnAccion(Organization){
+    ecologistasEnAccion(KuorumUser){
 //        username = "ecologistasEnAccion"
         email = "ecologistas@example.com"
         name ="Ecologistas en acción"
-        isPoliticalParty=false
         personalData = ecologistasData
         password = springSecurityService.encodePassword("test")
         relevantCommissions = [

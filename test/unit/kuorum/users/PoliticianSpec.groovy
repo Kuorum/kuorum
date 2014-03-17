@@ -11,10 +11,7 @@ import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 
-/**
- * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
- */
-@TestFor(Politician)
+@TestFor(KuorumUser)
 class PoliticianSpec extends Specification {
 
     @Shared
@@ -40,7 +37,7 @@ class PoliticianSpec extends Specification {
     ParliamentaryGroup xxxx = new ParliamentaryGroup(name:'xxxx',region:europe,institution: senate)
 
     def setup() {
-        mockForConstraintsTests(Politician, [new Politician(institution:parliament)])
+        mockForConstraintsTests(KuorumUser, [new KuorumUser(institution:parliament)])
     }
 
     def cleanup() {
@@ -49,7 +46,7 @@ class PoliticianSpec extends Specification {
     @Unroll("test POLITICIAN specific parliamentaryGroup constraints: Checking #field = #value expected #error")
     def "test POLITICIAN specific parliamentaryGroup constraints"() {
         when:
-        def obj = new Politician( params)
+        def obj = new KuorumUser( params)
         obj.institution = parliament
         obj.parliamentaryGroup = value
         then:

@@ -9,7 +9,7 @@ dbDest = connect("localhost:27017/KuorumDev");
 
 dbOrigin.secUser.find({enabled:true}).forEach(function(user){
     var kuorumUser = {
-        "_class" : "Person",
+        "_class" : "KuorumUser",
         "_id" : user._id,
         "accountExpired" : false,
         "accountLocked" : false,

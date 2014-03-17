@@ -1,15 +1,15 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
-import kuorum.users.Person
-import kuorum.users.PersonalData
+import kuorum.users.KuorumUser
+import kuorum.users.PersonData
 
 fixture {
 
-    newUserData(PersonalData){
+    newUserData(PersonData){
 
     }
 
-    newUser(Person){
+    newUser(KuorumUser){
         email = "newUser@example.com"
         name ="Nuevo Usuario"
         personalData = newUserData

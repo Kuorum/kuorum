@@ -1,7 +1,10 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.model.Gender
 import kuorum.users.KuorumUser
+import kuorum.users.OrganizationData
+import kuorum.users.PersonData
 import kuorum.users.PersonalData
 import kuorum.web.commands.customRegister.Step1Command
 
@@ -10,6 +13,7 @@ class CustomRegisterController {
     def regionService
     def springSecurityService
     def kuorumUserService
+    def kuorumMailService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def step1() {
@@ -39,12 +43,21 @@ class CustomRegisterController {
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        PersonalData personalData = user.personalData
-        personalData.birthday = command.date
-        personalData.gender = command.gender
-        personalData.postalCode = command.postalCode
-        personalData.provinceCode = province.iso3166_2
-        personalData.province = province
+        PersonalData personalData = null
+        if (Gender.ORGANIZATION.equals(command.gender)){
+            personalData = new OrganizationData()
+            personalData.isPoliticalParty = false
+            personalData.gender = Gender.ORGANIZATION
+        }else{
+            personalData = new PersonData()
+            personalData.birthday = command.date
+            personalData.gender = command.gender
+            personalData.postalCode = command.postalCode
+            personalData.provinceCode = province.iso3166_2
+            personalData.province = province
+        }
+
+
         kuorumUserService.updatePersonalData(user, personalData)
 
         redirect mapping:'customRegisterStep2'

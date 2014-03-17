@@ -1,22 +1,25 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
-import kuorum.users.PersonalData
-import kuorum.users.Politician
+import kuorum.core.model.UserType
+import kuorum.users.KuorumUser
+import kuorum.users.PersonData
 
 fixture {
 
-    politicianData(PersonalData){
+    politicianData(PersonData){
         gender =  Gender.MALE
         postalCode = "28001"
         provinceCode = "EU-SP-MD-MD"
         province = madrid
+        userType = UserType.POLITICIAN
         birthday = Date.parse("dd/MM/yyyy","09/10/1983")
     }
 
-    politician(Politician){
+    politician(KuorumUser){
 //        username = "Peter"
         email = "politician@example.com"
         name ="Rajoy de los bosques"
+        userType = UserType.POLITICIAN
         personalData = politicianData
         password = springSecurityService.encodePassword("test")
         parliamentaryGroup=grupoPopular

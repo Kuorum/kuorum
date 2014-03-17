@@ -1,12 +1,10 @@
 package kuorum.core.model.solr
 
 import kuorum.core.model.PostType
+import kuorum.core.model.UserType
 import kuorum.law.Law
 import kuorum.post.Post
 import kuorum.users.KuorumUser
-import kuorum.users.Organization
-import kuorum.users.Person
-import kuorum.users.Politician
 
 /**
  * Created by iduetxe on 17/02/14.
@@ -24,10 +22,10 @@ enum SolrType {
         law.open?SolrSubType.OPEN:SolrSubType.CLOSE
     }),
     KUORUM_USER({KuorumUser kuorumUser ->
-        switch (kuorumUser){
-            case Organization: SolrSubType.ORGANIZATION; break;
-            case Politician: SolrSubType.POLITICIAN; break;
-            case Person: SolrSubType.PERSON; break;
+        switch (kuorumUser.userType){
+            case UserType.ORGANIZATION: SolrSubType.ORGANIZATION; break;
+            case UserType.POLITICIAN: SolrSubType.POLITICIAN; break;
+            case UserType.PERSON: SolrSubType.PERSON; break;
         }
 
     })

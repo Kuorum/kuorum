@@ -1,11 +1,11 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
-import kuorum.users.Person
-import kuorum.users.PersonalData
+import kuorum.users.KuorumUser
+import kuorum.users.PersonData
 
 fixture {
 
-    noeData(PersonalData){
+    noeData(PersonData){
         gender =  Gender.FEMALE
         postalCode = "08003"
         provinceCode = "EU-ES-CT-BA"
@@ -13,7 +13,7 @@ fixture {
         birthday = Date.parse("dd/MM/yyyy","09/10/1983")
     }
 
-    noe(Person){
+    noe(KuorumUser){
         email = "noe@example.com"
         name ="Noelia De todos los santos"
         personalData = noeData
