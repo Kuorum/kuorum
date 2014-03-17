@@ -1,5 +1,6 @@
 package kuorum.users
 
+import kuorum.Region
 import kuorum.core.model.Gender
 
 /**
@@ -8,13 +9,15 @@ import kuorum.core.model.Gender
 class PersonalData {
     Gender gender
     String postalCode
-    String regionCode  // this code is Region.iso3166_2
+    String provinceCode  // this code is Region.iso3166_2
+    Region province
     Date birthday
 
     static constraints = {
-        regionCode nullable: true
+        provinceCode nullable: true
         gender nullable: true
         postalCode nullable: true
         birthday nullable:true
+        province nullable: true
     }
 }

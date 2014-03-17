@@ -14,6 +14,10 @@ class Step1Command {
     Integer year
     Integer month
     Integer day
+
+    Date getDate(){
+        Date.parse('yyyy/MM/dd', "${this.year}/${this.month}/${this.day}")
+    }
     static constraints = {
         gender nullable: false
         postalCode nullable: false, minSize: 5, maxSize: 5, matches:"[0-9]+"
@@ -21,10 +25,15 @@ class Step1Command {
         month nullable: false, min:1, max: 12
         day nullable: false, min: 1, max: 31,validator: {val, obj ->
             try{
-                Date date = Date.parse('yyyy/MM/dd', "$obj.year/$obj.month/$val")
-                if (date[Calendar.YEAR]==obj.year && date[Calendar.MONTH] == obj.month -1 && date[Calendar.DAY_OF_MONTH]==val)
-                    return Boolean.TRUE
-                else
+                Date date = obj.date
+                if (date[Calendar.YEAR]==obj.year && date[Calendar.MONTH] == obj.month -1 && date[Calendar.DAY_OF_MONTH]==val){
+                    Date now = new Date()
+                    if (date < now){
+                        return Boolean.TRUE
+                    }else{
+                        return "notCorrectBirthday"
+                    }
+                }else
                     return "notCorrectBirthday"
             }catch (Exception e){
                 return "notCorrectBirthday"

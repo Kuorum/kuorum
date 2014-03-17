@@ -5,18 +5,14 @@ import kuorum.users.PersonalData
 
 fixture {
 
-    noeData(PersonalData){
-        gender =  Gender.FEMALE
-        postalCode = "08003"
-        provinceCode = "EU-ES-CT-BA"
-        province = barcelona
-        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
+    newUserData(PersonalData){
+
     }
 
-    noe(Person){
-        email = "noe@example.com"
-        name ="Noelia De todos los santos"
-        personalData = noeData
+    newUser(Person){
+        email = "newUser@example.com"
+        name ="Nuevo Usuario"
+        personalData = newUserData
         password = springSecurityService.encodePassword("test")
         relevantCommissions = [
                 CommissionType.JUSTICE,

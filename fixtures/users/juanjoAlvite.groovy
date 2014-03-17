@@ -10,7 +10,8 @@ fixture {
     juanjoPersonalData(PersonalData){
         gender =  Gender.MALE
         postalCode = "28001"
-        regionCode = "EU-SP-MD"
+        provinceCode = "EU-SP-MD-MD"
+        province = madrid
         birthday = Date.parse("dd/MM/yyyy","09/10/1980")
     }
 

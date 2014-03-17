@@ -8,7 +8,8 @@ fixture {
     adminData(PersonalData){
         gender =  Gender.FEMALE
         postalCode = "28004"
-        regionCode = "EU-SP-MD"
+        provinceCode = "EU-SP-MD-MD"
+        province = madrid
         birthday = Date.parse("dd/MM/yyyy","21/04/1982")
     }
 

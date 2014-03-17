@@ -59,6 +59,7 @@ class Step1CommandSpec extends Specification {
         'notCorrectBirthday'    | 'day'         | 31         | 4     |2001
         'notCorrectBirthday'    | 'day'         | 31         | 6     |2001
         'notCorrectBirthday'    | 'day'         | 29         | 2     |2001
+        'notCorrectBirthday'    | 'day'         | 20         | 2     |2501
         'OK'                    | 'day'         | 28         | 2     |2001
         'OK'                    | 'day'         | 29         | 2     |2000
     }
