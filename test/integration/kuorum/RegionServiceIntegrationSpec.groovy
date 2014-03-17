@@ -16,14 +16,14 @@ class RegionServiceIntegrationSpec extends Specification{
         given: "Username ..."
         Region country = Region.findByIso3166_2(countryIso)
         when:"Search by postalCode"
-        Region region = regionService.getRegionByPostalCode(country, postalCode)
+        Region region = regionService.findProvinceByPostalCode(country, postalCode)
         then: "Correct region should be recovered"
-        if (regionExpectedName)
-            region.name == regionExpectedName
+        if (provinceExpectedName)
+            region.name == provinceExpectedName
         else
             !region
         where: "Username with params...."
-        countryIso | postalCode | regionExpectedName
+        countryIso | postalCode | provinceExpectedName
         "EU-ES"    | "28021"    | "Madrid"
         "EU-ES-CL" | "47021"    | "Valladolid"
         "EU-ES-CL" | "28021"    | ""
