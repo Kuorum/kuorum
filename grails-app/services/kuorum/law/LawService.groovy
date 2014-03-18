@@ -1,22 +1,17 @@
 package kuorum.law
 
-import com.mongodb.DBObject
-import grails.converters.JSON
 import grails.transaction.Transactional
-import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.VoteType
 import kuorum.solr.IndexSolrService
+import kuorum.users.GamificationService
 import kuorum.users.KuorumUser
-import kuorum.web.commands.LawCommand
-import org.bson.BSON
-import org.bson.BSONObject
-import org.grails.datastore.mapping.mongo.engine.MongoEntityPersister
 
 @Transactional
 class LawService {
 
     IndexSolrService indexSolrService
+    GamificationService gamificationService
 
     /**
      * Find the law associated to the #hashtag
@@ -34,19 +29,63 @@ class LawService {
      * An user votes a law and generates all associated events
      *
      * @param law
-     * @param kuorumUser
+     * @param user
      * @param voteType
      * @return
      */
-    LawVote voteLaw(Law law, KuorumUser kuorumUser, VoteType voteType){
+    LawVote voteLaw(Law law, KuorumUser user, VoteType voteType){
+        LawVote lawVote = LawVote.findByKuorumUserAndLaw(user, law)
+        if (lawVote){
+            lawVote = changeLawVote(law, user, voteType, lawVote)
+        }else if (!lawVote){
+            lawVote = createLawVote(law,user,voteType)
+        }
+        lawVote
+    }
+
+    private LawVote changeLawVote(Law law, KuorumUser user, VoteType voteType, LawVote lawVote){
+        VoteType orgVoteType = lawVote.voteType
+        if (orgVoteType != voteType){
+            lawVote.voteType = voteType
+            lawVote.personalData = user.personalData
+            if (!lawVote.save()){
+                throw KuorumExceptionUtil.createExceptionFromValidatable(lawVote)
+            }
+
+            switch (orgVoteType){
+                case VoteType.POSITIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.yes':-1]]); break;
+                case VoteType.ABSTENTION:   Law.collection.update([_id:law.id],['$inc':['peopleVotes.abs':-1]]); break;
+                case VoteType.NEGATIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.no':-1]]); break;
+                default: break;
+            }
+
+            switch (voteType){
+                case VoteType.POSITIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.yes':1]]); break;
+                case VoteType.ABSTENTION:   Law.collection.update([_id:law.id],['$inc':['peopleVotes.abs':1]]); break;
+                case VoteType.NEGATIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.no':1]]); break;
+                default: break;
+            }
+            law.refresh()
+        }
+        lawVote
+    }
+    private LawVote createLawVote(Law law, KuorumUser user, VoteType voteType){
         LawVote lawVote = new LawVote()
         lawVote.law = law
-        lawVote.kuorumUser = kuorumUser
+        lawVote.kuorumUser = user
         lawVote.voteType = voteType
-        lawVote.personalData = kuorumUser.personalData
+        lawVote.personalData = user.personalData
         if (!lawVote.save()){
             throw KuorumExceptionUtil.createExceptionFromValidatable(lawVote)
         }
+        switch (voteType){
+            case VoteType.POSITIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.yes':1]]); break;
+            case VoteType.ABSTENTION:   Law.collection.update([_id:law.id],['$inc':['peopleVotes.abs':1]]); break;
+            case VoteType.NEGATIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.no':1]]); break;
+            default: break;
+        }
+        law.refresh()
+        gamificationService.lawVotedAward(user, law)
         lawVote
     }
 

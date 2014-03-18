@@ -22,8 +22,10 @@ class Law {
     Boolean open = Boolean.TRUE
     Date dateCreated
     Boolean published = Boolean.FALSE
+    AcumulativeVotes peopleVotes = new AcumulativeVotes()
 
-    static embedded = ['region' ]
+
+    static embedded = ['region','peopleVotes' ]
 
     static constraints = {
         hashtag matches: '#[a-zA-Z0-9]+', nullable: false
@@ -47,5 +49,15 @@ class Law {
 
     String toString(){
         "${hashtag} (${id})"
+    }
+}
+
+public class AcumulativeVotes {
+    Long yes = 0
+    Long no = 0
+    Long abs = 0
+
+    Long getTotal(){
+        yes+no+abs
     }
 }
