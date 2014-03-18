@@ -2,11 +2,15 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.Gender
+import kuorum.core.model.UserType
 import kuorum.users.KuorumUser
 import kuorum.users.OrganizationData
 import kuorum.users.PersonData
 import kuorum.users.PersonalData
 import kuorum.web.commands.customRegister.Step1Command
+import kuorum.web.commands.customRegister.Step2Command
+import kuorum.web.commands.customRegister.Step3Command
+import kuorum.web.commands.customRegister.Step4Command
 
 class CustomRegisterController {
 
@@ -57,8 +61,13 @@ class CustomRegisterController {
             personalData.province = province
         }
 
+        user.personalData = personalData
+        if (Gender.ORGANIZATION.equals(command.gender)){
+            user.personalData.userType = UserType.ORGANIZATION
+            kuorumUserService.convertAsOrganization(user)
+        }
 
-        kuorumUserService.updatePersonalData(user, personalData)
+        user.save()
 
         redirect mapping:'customRegisterStep2'
     }
@@ -66,5 +75,49 @@ class CustomRegisterController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def step2(){
         log.info("Custom register paso2")
+        Step2Command command = new Step2Command()
+        [command: command]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def step2Save(Step2Command command){
+
+        redirect mapping:'customRegisterStep3'
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def step3(){
+        log.info("Custom register paso3")
+        Step3Command command = new Step3Command()
+        [command: command]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def step3Save(Step3Command command){
+
+        redirect mapping:'customRegisterStep4'
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def step4(){
+        log.info("Custom register paso4")
+        Step4Command command = new Step4Command()
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user)
+        [command: command, recommendedUsers:recommendedUsers]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def step4Save(Step4Command command){
+
+        redirect mapping:'customRegisterStep5'
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def step5(){
+        log.info("Custom register finished")
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        kuorumMailService.verifyUser(user)
+        redirect mapping:'home'
     }
 }

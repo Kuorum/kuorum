@@ -34,8 +34,11 @@ class UrlMappings {
 
         //Espacio para que funcione 3 mapping distintos a la misma url????
 
-        name customRegisterStep2: "/registro/paso2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
         name customRegisterStep1: "/registro/paso1"(controller: "customRegister"){action = [GET:"step1", POST:"step1Save"]}
+        name customRegisterStep2: "/registro/paso2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
+        name customRegisterStep3: "/registro/paso3"(controller: "customRegister"){action = [GET:"step3", POST:"step3Save"]}
+        name customRegisterStep4: "/registro/paso4"(controller: "customRegister"){action = [GET:"step4", POST:"step4Save"]}
+        name customRegisterStep5: "/registro/fin"(controller: "customRegister", action:"step5")
 //        name customRegisterStep1: "/registro/paso1"(controller: "customRegister",action:"step1")
 //        name customRegisterStep1Save: "/registro/paso1/save"(controller: "customRegister",action:"step1Save")
 //        name customRegisterStep2: "/registro/paso2"(controller: "customRegister", action: "step2")
