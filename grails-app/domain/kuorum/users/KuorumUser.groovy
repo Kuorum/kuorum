@@ -88,12 +88,16 @@ class KuorumUser {
         name
     }
 
-    boolean equals(Object object){
-        email && email.equals(object?.email)
+    boolean equals(o) {
+        if (this.is(o)) return true
+        if (!(o instanceof KuorumUser)) return false
+
+        KuorumUser that = (KuorumUser) o
+
+        if (email != that.email) return false
+
+        return true
     }
-
-
-
 
     static transients = ["springSecurityService"]
 
