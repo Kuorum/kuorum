@@ -75,4 +75,25 @@ class KuorumUserServiceSpec extends Specification {
         exception.errors[0].code == "error.following.sameUser"
         0 * notificationServiceMock.sendFollowerNotification(_,_)
     }
+
+    void "test user recommendations"(){
+        given: "many users"
+        List.metaClass.isSorted = { -> delegate == delegate.sort( false ) }
+        (1..numUsers).each{
+            KuorumUser user= Helper.createDefaultUser("user${it}@ex.com")
+            user.numFollowers = it %3
+            user.save()
+        }
+
+        when: "recovery recommended users"
+        List<KuorumUser> recommended = service.recommendedUsers()
+        then: "Best 10 users are showed"
+        recommended.size() == numResults
+        recommended.collect{it.numFollowers}.isSorted()
+
+        where:
+        numUsers | numResults
+        5        | 5
+        20       | 10
+    }
 }

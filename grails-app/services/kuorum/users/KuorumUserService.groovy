@@ -57,6 +57,14 @@ class KuorumUserService {
 
     List<KuorumUser> recommendedUsers(KuorumUser user){
         //TODO: Improve algorithm
-        KuorumUser.findAll([sort:"numFollowers", max:10])
+        if (!user){
+            KuorumUser.findAllByNumFollowersGreaterThan(-1,[sort:"numFollowers",order: "desc", max:10])
+        }else{
+            KuorumUser.findAllByNumFollowersGreaterThan(-1,[sort:"numFollowers",order: "desc", max:10])
+        }
+    }
+
+    List<KuorumUser> recommendedUsers(){
+        recommendedUsers(null)
     }
 }
