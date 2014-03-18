@@ -1,6 +1,7 @@
 package kuorum.mail
 
 import com.ecwid.mailchimp.MailChimpClient
+import com.ecwid.mailchimp.MailChimpException
 import com.ecwid.mailchimp.method.v2_0.lists.Email
 import com.ecwid.mailchimp.method.v2_0.lists.SubscribeMethod
 import grails.transaction.Transactional
@@ -408,38 +409,44 @@ class KuorumMailService {
 
     def addSubscriber(KuorumUser user){
 // reuse the same MailChimpClient object whenever possible
-        MailChimpClient mailChimpClient = new MailChimpClient();
+        try {
+            MailChimpClient mailChimpClient = new MailChimpClient();
 
-        Email mailChimpEmail = new Email()
-        mailChimpEmail.email = user.email
+            Email mailChimpEmail = new Email()
+            mailChimpEmail.email = user.email
 
-        // Subscribe a person
-        SubscribeMethod subscribeMethod = new SubscribeMethod();
-        subscribeMethod.apikey = MAILCHIMP_APIKEY;
-        subscribeMethod.id = MAILCHIMP_LIST_ID;
-        subscribeMethod.email = mailChimpEmail
-        subscribeMethod.double_optin = false;
-        subscribeMethod.update_existing = true;
-        subscribeMethod.send_welcome = false;
-        subscribeMethod.merge_vars = new MailChimpMergeVars(user.email, user.name, user?.surname);
-        mailChimpClient.execute(subscribeMethod);
+            // Subscribe a person
+            SubscribeMethod subscribeMethod = new SubscribeMethod();
+            subscribeMethod.apikey = MAILCHIMP_APIKEY;
+            subscribeMethod.id = MAILCHIMP_LIST_ID;
+            subscribeMethod.email = mailChimpEmail
+            subscribeMethod.double_optin = false;
+            subscribeMethod.update_existing = true;
+            subscribeMethod.send_welcome = false;
+            subscribeMethod.merge_vars = new MailChimpMergeVars(user.email, user.name, user?.surname);
+            mailChimpClient.execute(subscribeMethod);
 
-        log.info(" Se ha añadido correctamente el usuario $user con mail $user.email a MailChimp");
+            log.info(" Se ha añadido correctamente el usuario $user con mail $user.email a MailChimp");
 
-        /*
-        // check his status
-        MemberInfoMethod memberInfoMethod = new MemberInfoMethod();
-        memberInfoMethod.apikey = apikey;
-        memberInfoMethod.id = listId;
-        memberInfoMethod.emails = Arrays.asList(subscribeMethod.email);
+            /*
+            // check his status
+            MemberInfoMethod memberInfoMethod = new MemberInfoMethod();
+            memberInfoMethod.apikey = apikey;
+            memberInfoMethod.id = listId;
+            memberInfoMethod.emails = Arrays.asList(subscribeMethod.email);
 
-        MemberInfoResult memberInfoResult = mailChimpClient.execute(memberInfoMethod);
-        MemberInfoData data = memberInfoResult.data.get(0);
-        System.out.println(data.email+"'s status is "+data.status);
-*/
-        // Close http-connection when the MailChimpClient object is not needed any longer.
-        // Generally the close method should be called from a "finally" block.
-        mailChimpClient.close();
+            MemberInfoResult memberInfoResult = mailChimpClient.execute(memberInfoMethod);
+            MemberInfoData data = memberInfoResult.data.get(0);
+            System.out.println(data.email+"'s status is "+data.status);
+    */
+            // Close http-connection when the MailChimpClient object is not needed any longer.
+            // Generally the close method should be called from a "finally" block.
+            mailChimpClient.close();
+        }catch(MailChimpException mailChimpException){
+            log.error("No se ha podido añadir al usuario ${user.email} a mailchimp debido a que MailChimp se ha negado",mailChimpException)
+        }catch(Exception e){
+            log.error("No se ha podido añadir al usuario ${user.email} a mailchimp debido a una excepcion",e)
+        }
 
     }
 
