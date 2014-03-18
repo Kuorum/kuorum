@@ -67,7 +67,7 @@ class CustomRegisterController {
             kuorumUserService.convertAsOrganization(user)
         }
 
-        user.save()
+        user.save(flush:true, failOnError: true)
 
         redirect mapping:'customRegisterStep2'
     }
