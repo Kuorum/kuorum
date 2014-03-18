@@ -16,17 +16,18 @@ class KuorumUserService {
         if (follower == following){
             throw new KuorumException("No se pude seguir a uno mismo","error.following.sameUser")
         }
-        follower.following << following
-        following.followers << follower
-        follower.save()
-        following.save()
+        KuorumUser.collection.update([_id:follower.id],['$addToSet':[following:following.id]])
+        KuorumUser.collection.update([_id:following.id],['$addToSet':[followers:follower.id]])
+        follower.refresh()
+        following.refresh()
+        following.numFollowers = following.followers.size()
+        following.save(flush: true)
+//        follower.following.add(following.id)
+//        following.followers.add(follower.id)
+//        follower.save()
+//        following.save()
         notificationService.sendFollowerNotification(follower, following)
 
-    }
-
-    KuorumUser convertAsEnterprise(KuorumUser user){
-
-        user
     }
 
     KuorumUser convertAsUser(KuorumUser user){
@@ -54,13 +55,8 @@ class KuorumUserService {
     }
 
 
-    KuorumUser updatePersonalData(KuorumUser user, PersonalData personalData){
-        user.personalData = personalData
-        if (Gender.ORGANIZATION.equals(personalData.gender)){
-            user.userType = UserType.ORGANIZATION
-            user.personalData.userType = UserType.ORGANIZATION
-        }
-
-        user.save()
+    List<KuorumUser> recommendedUsers(KuorumUser user){
+        //TODO: Improve algorithm
+        KuorumUser.findAll([sort:"numFollowers", max:10])
     }
 }

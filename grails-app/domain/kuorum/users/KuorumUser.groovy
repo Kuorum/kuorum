@@ -34,6 +34,8 @@ class KuorumUser {
     List<KuorumUser> followers = []
     List<KuorumUser> subscribers = []
 
+    Integer numFollowers = 0
+
     List<MailType> availableMails = MailType.values()
 
     static hasMany = [following:KuorumUser,followers:KuorumUser]
@@ -102,6 +104,9 @@ class KuorumUser {
     def beforeInsert() {
 //        username = username?.toLowerCase()
         email = email.toLowerCase()
+
+        if (!followers) followers = []
+        numFollowers = followers.size()
     }
 
     def beforeUpdate() {
@@ -111,6 +116,8 @@ class KuorumUser {
 //        def persisted = SecUser.collection.findOne(_id:id)?.password
 //        if(persisted != password)
 //            encodePassword()
+        if (!followers) followers = []
+        numFollowers = followers.size()
     }
 
     int hashCode() {

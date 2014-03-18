@@ -1,10 +1,12 @@
 package kuorum.users
 
+import grails.converters.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.core.exception.KuorumException
 import kuorum.helper.Helper
 import kuorum.notifications.NotificationService
+import kuorum.post.Post
 import spock.lang.Specification
 
 /**
@@ -18,6 +20,26 @@ class KuorumUserServiceSpec extends Specification {
 
     def setup() {
         service.notificationService = notificationServiceMock
+
+        KuorumUser.metaClass.static.getCollection = {->
+            [findOne: {
+                delegate.findWhere(it) as JSON
+
+            },
+                update:{filter, updateData ->
+                    KuorumUser user = KuorumUser.get(filter._id)
+                    KuorumUser following = KuorumUser.get(updateData.'$addToSet'.following)
+                    KuorumUser follower = KuorumUser.get(updateData.'$addToSet'.followers)
+                    if (following) user.following << following
+                    if (follower) user.followers << follower
+                    user.save(flush:true)
+                    //post as JSON
+                }
+            ]
+        }
+        KuorumUser.metaClass.refresh={->
+            //REFRESH FAILS with null pointer
+        }
     }
 
     def cleanup() {
@@ -29,6 +51,7 @@ class KuorumUserServiceSpec extends Specification {
         follower.save()
         KuorumUser following = Helper.createDefaultUser("user2@ex.com")
         following.save()
+        Integer numFollowers = following.numFollowers
 
         when: "Adding a follower"
         //"service" represents the grails service you are testing for
@@ -36,6 +59,7 @@ class KuorumUserServiceSpec extends Specification {
         then: "All OK"
         follower.following.contains(following)
         following.followers.contains(follower)
+        numFollowers == following.numFollowers -1
         1 * notificationServiceMock.sendFollowerNotification(follower,following)
         0 * notificationServiceMock.sendFollowerNotification(following,follower)
     }
