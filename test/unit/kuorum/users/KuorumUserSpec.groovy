@@ -27,17 +27,10 @@ class KuorumUserSpec extends Specification {
     @Unroll("test USER constraints: Checking #field = #value expected #error")
     def "test USER all constraints"() {
         when:
-
-        def params = [
-                name:'nombre',
-                password:'XX',
-                email:'email@email.com',
-                languaje:AvailableLanguage.es_ES
-        ]
-        params[field] = value
-        def obj = new KuorumUser( params)
+        KuorumUser user = Helper.createDefaultUser("email@email.com")
+        user."$field"=value
         then:
-        Helper.validateConstraints(obj, field, error)
+        Helper.validateConstraints(user, field, error)
 
         where:
         error           | field         | value
@@ -46,20 +39,18 @@ class KuorumUserSpec extends Specification {
     }
 
     @Unroll
-    def "test USER equals with params #params -> result: #equals"(){
+    def "test #email1 equals #email2 are equals #equals"(){
         given: "PersonUser params..."
-        def user1 = new KuorumUser()
-        def user2 = new KuorumUser()
-        user1.properties = params.user1
-        user2.properties = params.user2
+        def user1 = Helper.createDefaultUser(email1)
+        def user2 = email2?Helper.createDefaultUser(email2):null
         expect: "Equals..."
         equals == (user1 == user2)
         where: "with params...."
-        equals || params
-        false || [:]
-        false || [user1:[name:'nombre'],user2:[name:'nombre']]
-        false || [user1:[email:'email1@email.com'],user2:[email:'email2@email.com']]
-        true || [user1:[email:'email@email.com'],user2:[email:'email@email.com']]
+        equals  |    email1             | email2
+        false   | 'email1@email.com'    | 'email2@email.com'
+        false   | 'email1@email.com'    | null
+        false   | 'email1@email.com'    | ''
+        true    | 'email1@email.com'    | 'email1@email.com'
     }
 
 

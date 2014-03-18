@@ -26,11 +26,11 @@ class KuorumUserServiceIntegrationTest extends Specification {
         following.followers.contains(follower)
         futureNumFollowers == following.numFollowers
         KuorumUser.withNewSession {
-            KuorumUser followerNS = KuorumUser.findByEmail("peter@example.com")
-            KuorumUser followingNS = KuorumUser.findByEmail("equo@example.com")
+            KuorumUser followerNS = KuorumUser.findByEmail(followerEmail)
+            KuorumUser followingNS = KuorumUser.findByEmail(followingEmail)
             followerNS.following.contains(followingNS)
             followingNS.followers.contains(followerNS)
-            futureNumFollowers == followingNS.numFollowers -1
+            futureNumFollowers == followingNS.numFollowers
         }
         where:
         followerEmail           | followingEmail

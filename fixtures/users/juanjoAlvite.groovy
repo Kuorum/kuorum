@@ -46,6 +46,7 @@ fixture {
                 CommissionType.OTHERS
         ]
         language ="es_ES"
+        numFollowers = 0
 
         accountExpired = false
         accountLocked = false
