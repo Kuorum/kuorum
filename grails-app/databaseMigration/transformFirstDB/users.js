@@ -7,7 +7,7 @@ dbDest = connect("localhost:27017/KuorumDev");
 //db.message.update({_class: "NormalDebate"},{$set:{convertAsLeader:false}},{multi:true})
 //db.secUser.remove({"_id": ObjectId("52927047e4b02ef3bc0ed83f")})
 
-dbOrigin.secUser.find({enabled:true}).forEach(function(user){
+dbOrigin.secUser.find({enabled:true, accountLocked:false}).forEach(function(user){
     var kuorumUser = {
         "_class" : "KuorumUser",
         "_id" : user._id,
