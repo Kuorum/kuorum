@@ -64,9 +64,14 @@ grails.project.dependency.resolution = {
         //compile('org.springframework.security:org.springframework.security.core:3.0.2.RELEASE')
         //compile('org.springframework.security:org.springframework.security.web:3.0.2.RELEASE')
         //compile 'org.springframework.social:spring-social-core:1.0.1.RELEASE'
+//        compile 'org.springframework.social:spring-social-core:1.0.1.RELEASE'
+        compile 'org.springframework.social:spring-social-facebook:1.0.3.RELEASE'
 
 
         compile 'org.apache.solr:solr-solrj:4.6.0'
+        test ('org.apache.solr:solr-core:4.6.0'){
+            excludes "slf4j"
+        }
 	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
 
         compile ('org.codehaus.groovy:groovy-xmlrpc:jar:0.7'){
@@ -102,6 +107,7 @@ grails.project.dependency.resolution = {
         // runtime ":database-migration:1.3.8"
 
         compile ":spring-security-core:2.0-RC2"
+        compile ":spring-security-facebook:0.15.2-CORE2"
         //compile ":spring-security-acl:2.0-RC1" //Para las partes que tienen seguridad custom
         compile ":spring-security-ui:1.0-RC1"
         //compile ":spring-security-core:1.2.7.3"

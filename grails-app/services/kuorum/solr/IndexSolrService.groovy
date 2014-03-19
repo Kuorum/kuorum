@@ -28,13 +28,13 @@ class IndexSolrService {
 
     private final def CLASSNAMES_TO_INDEX = [KuorumUser.name, Law.name, Post.name]
 
-    HttpSolrServer server
+    SolrServer server
 
     @Value('${solr.bulkUpdateQuentity}')
     Integer solrBulkUpdateQuantity = 1000
 
     def clearIndex(){
-        log.warn("Clearing solr index on ${server.baseURL}")
+        log.warn("Clearing solr index")
         server.deleteByQuery("*:*")
         server.commit()
 
@@ -43,7 +43,7 @@ class IndexSolrService {
     def fullIndex() {
         clearIndex()
 
-        log.warn("Reindexing all mongo on ${server.baseURL}")
+        log.warn("Reindexing all mongo")
         Date start = new Date()
         Integer numIndexed = 0;
         log.info("BulkUpdates: $solrBulkUpdateQuantity")
@@ -57,16 +57,16 @@ class IndexSolrService {
     }
 
     SolrPost index(Post post){
-        log.info("Indexing post: ${post} on ${server.baseURL}")
+        log.info("Indexing post: ${post}")
         indexDomainObject(post)
     }
     SolrKuorumUser index(KuorumUser user){
-        log.info("Indexing user:${user} on ${server.baseURL}")
+        log.info("Indexing user:${user}")
         indexDomainObject(user)
     }
 
     SolrLaw index(Law law){
-        log.info("Indexing law: ${law} on ${server.baseURL}")
+        log.info("Indexing law: ${law}")
         indexDomainObject(law)
     }
 
@@ -80,7 +80,7 @@ class IndexSolrService {
 
     private Integer indexByClassName(String className){
         Integer numIndexed = 0
-        log.info("Indexing $className on ${server.baseURL}")
+        log.info("Indexing $className")
         Date start = new Date()
         java.util.ArrayList<SolrInputDocument> solrDocuments = new ArrayList<SolrInputDocument>(solrBulkUpdateQuantity)
         grailsApplication.getClassForName(className).list().each {kuorumUser ->

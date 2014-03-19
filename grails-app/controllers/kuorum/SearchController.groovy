@@ -1,6 +1,7 @@
 package kuorum
 
 import grails.converters.JSON
+import kuorum.core.model.solr.SearchParams
 
 class SearchController {
     def searchSolrService
@@ -8,7 +9,8 @@ class SearchController {
 
     def search(String word) {
 
-        def docs = searchSolrService.search(word)
+        SearchParams searchParams = new SearchParams(word:word)
+        def docs = searchSolrService.search(searchParams)
         render docs as JSON
 
     }
@@ -19,7 +21,8 @@ class SearchController {
     }
 
     def suggest(String word){
-        def res = searchSolrService.suggest(word)
+        SearchParams searchParams = new SearchParams(word:word)
+        def res = searchSolrService.suggest(searchParams)
         render res as JSON
     }
 }
