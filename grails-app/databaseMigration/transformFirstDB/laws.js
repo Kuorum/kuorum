@@ -14,6 +14,8 @@ dbOrigin.generalLaw.find({_class:"Law"}).forEach(function(law){
     dbOrigin.message.find().forEach(function(message){
         var destPost = createPostFromOldPost(destLaw,message)
         dbDest.post.insert(destPost)
+        var cluck = createFirstCluck(destPost)
+        dbDest.cluck.insert(cluck)
         print("ley ("+destLaw.hashtag +") => Post:"+destPost._id)
         createPostVotesFromLikes(destPost, message)
         createCommentsFromSubMessages(destPost, message)
@@ -65,6 +67,21 @@ function createPostFromOldPost(destLaw,message){
         debates:[]
     }
     return destPost
+}
+
+function createFirstCluck(post){
+    var cluck ={
+        owner:post.owner,
+        postOwner:post.owner,
+        supportedBy:null,
+        sponsors:[],
+        isFirstCluck:true,
+        law:post.law,
+        post:post.id,
+        dateCreated:post.dateCreated,
+        lastUpdated:post.dateCreated
+    }
+    return cluck
 }
 
 function createPostVotesFromLikes(destPost,message){

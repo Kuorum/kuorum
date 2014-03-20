@@ -1,4 +1,8 @@
+import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncoder
 import grails.spring.BeanBuilder
+import kuorum.core.security.passwordEncoders.PasswordFixingDaoAuthenticationProvider
+import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
 import kuorum.solr.IndexSolrService
 import kuorum.solr.SearchSolrService
 import kuorum.springSecurity.MongoUserDetailsService
@@ -7,6 +11,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.springframework.beans.factory.annotation.Value
 import org.apache.solr.core.CoreContainer
 import grails.util.Environment
+import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder
 
 // Place your Spring DSL code here
 beans = {
@@ -47,5 +52,35 @@ beans = {
 //
 //    task.'annotation-driven'('proxy-target-class':true, 'mode':'proxy')
 
+
+
+    /* Passwords recovered from kuorum (pilot) ar in SHA2 and now we are using bcrypt.
+    * It is necesary to pass all pass to bcrypt
+    */
+    def conf = SpringSecurityUtils.securityConfig
+
+    bcryptPasswordEncoder(BCryptPasswordEncoder, conf.password.bcrypt.logrounds) // 10
+
+    sha256PasswordEncoder(MessageDigestPasswordEncoder, conf.password.algorithm) {
+        encodeHashAsBase64 = conf.password.encodeHashAsBase64 // false
+        iterations = conf.password.hash.iterations // 10000
+    }
+
+    passwordEncoder(Sha256ToBCryptPasswordEncoder) {
+        bcryptPasswordEncoder = ref('bcryptPasswordEncoder')
+        sha256PasswordEncoder = ref('sha256PasswordEncoder')
+    }
+
+    daoAuthenticationProvider(PasswordFixingDaoAuthenticationProvider) {
+        userDetailsService = ref('userDetailsService')
+        passwordEncoder = ref('passwordEncoder')
+        userCache = ref('userCache')
+        saltSource = ref('saltSource')
+        preAuthenticationChecks = ref('preAuthenticationChecks')
+        postAuthenticationChecks = ref('postAuthenticationChecks')
+        authoritiesMapper = ref('authoritiesMapper')
+        hideUserNotFoundExceptions = conf.dao.hideUserNotFoundExceptions // true
+        grailsApplication = ref('grailsApplication')
+    }
 
 }
