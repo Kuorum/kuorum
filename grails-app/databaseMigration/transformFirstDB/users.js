@@ -3,11 +3,36 @@
 dbOrigin = connect("localhost:27017/KuorumWeb");
 dbDest = connect("localhost:27017/KuorumDev");
 
-//db.notification.update({},{$set:{dismiss:false}},{multi:true})
-//db.message.update({_class: "NormalDebate"},{$set:{convertAsLeader:false}},{multi:true})
-//db.secUser.remove({"_id": ObjectId("52927047e4b02ef3bc0ed83f")})
+
+dbOrigin.facebookUser.find().forEach(function(facebookUser){
+    var user = dbOrigin.secUser.find({_id:facebookUser.user})[0]
+    if (user.enabled && !user.accountLocked){
+        var kuorumUser = createKuorumUserFromOldUser(user)
+        print("usuario de facebook creado:"+kuorumUser.email)
+        dbDest.facebookUser.insert(facebookUser)
+        dbDest.kuorumUser.insert(kuorumUser)
+    }else{
+        print("usuario de facebook no activo:"+user.username)
+    }
+
+})
+
 
 dbOrigin.secUser.find({enabled:true, accountLocked:false}).forEach(function(user){
+    var kuorumUser = createKuorumUserFromOldUser(user)
+    var numUsersByEmail = dbDest.kuorumUser.find({email:kuorumUser.email}).count()
+    if (numUsersByEmail==0){
+//        print("usuario creado:"+kuorumUser.email)
+        dbDest.kuorumUser.insert(kuorumUser)
+    }else{
+        print("El usuario ya existia por facebook ("+numUsersByEmail+"):"+kuorumUser.email+"[ID:"+kuorumUser._id+"]")
+    }
+
+});
+
+
+function createKuorumUserFromOldUser(user){
+
     var kuorumUser = {
         "_class" : "KuorumUser",
         "_id" : user._id,
@@ -22,19 +47,26 @@ dbOrigin.secUser.find({enabled:true, accountLocked:false}).forEach(function(user
         ],
         "dateCreated" : user.dateCreated,
         "email" : user.username,
+        "userType":"PERSON",
         "enabled" : true,
         "followers" : user.friends,
-        "following_$$manyToManyIds" : user.friends,
+        "following" : user.friends,
+        "numFollowers":user.friends==undefined?0:user.friends.length,
         "language" : "es_ES",
         "lastUpdated" : user.lastUpdated,
         "name" : user.name,
         "password" : user.password,
         "passwordExpired" : false,
         "personalData" : {
+            _class:"PersonData",
             "birthday" : user.personalData.birthday,
             "gender" : user.personalData.gender,
-//            "postalCode" : "28001",
-//            "regionCode" : "EU-SP-MD",
+            "postalCode" : null,
+            "regionCode" : null,
+            "provinceCode":null,
+            "province":null,
+            "studies":null,
+            "workingSector":null
 //            "version" : NumberLong(0)
         },
         "relevantCommissions" : [
@@ -64,6 +96,5 @@ dbOrigin.secUser.find({enabled:true, accountLocked:false}).forEach(function(user
         "subscribers" : [ ],
         "version" : NumberLong(4)
     }
-    print("usuario creado:"+kuorumUser.email)
-    dbDest.kuorumUser.insert(kuorumUser)
-});
+    return kuorumUser
+}
