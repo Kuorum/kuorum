@@ -67,9 +67,9 @@ grails.project.dependency.resolution = {
 //        compile 'org.springframework.social:spring-social-core:1.0.3.RELEASE'
         compile ('org.springframework.social:spring-social-facebook:1.0.3.RELEASE'){
             //CONFLICT WITH grails json parsers
-            excludes 'org.codehaus.jackson:jackson-mapper-asl'
+//            excludes 'org.codehaus.jackson:jackson-mapper-asl'
         }
-
+        compile 'com.mandrillapp.wrapper.lutung:lutung:0.0.4'
 
         compile 'org.apache.solr:solr-solrj:4.6.0'
         test ('org.apache.solr:solr-core:4.6.0'){
@@ -115,7 +115,7 @@ grails.project.dependency.resolution = {
         compile ":spring-security-ui:1.0-RC1"
         //compile ":spring-security-core:1.2.7.3"
 
-        compile ":rest-client-builder:2.0.1"
+//        compile ":rest-client-builder:2.0.1"
         //Para las peticiones a la API de mandrillapp
         //compile ":rest:0.8"
 //        compile ":restrpc:0.9"

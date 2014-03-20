@@ -130,6 +130,19 @@
 
 <content tag="cColumn">
     Columna C de Login
+
+    <hr/>
+    LOGIN FACEBOOK
+    <div class="hidden" id="facebookLoginContainer">
+        <facebookAuth:connect id="facebookLogin" type="server"/>
+    </div>
+    <g:link controller="register" class="button_send new"  elementId="registerPageLink">
+        <g:message code="head.login.noRegister.register"/>
+    </g:link>
+    <a href="" onclick="$('#facebookLoginContainer a')[0].click(); return false;" class="button_send fb">
+        <g:message code="login.startSession.facebook"/>
+    </a>
+    <facebookAuth:connect />
 </content>
 
 
