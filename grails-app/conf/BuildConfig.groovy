@@ -64,13 +64,16 @@ grails.project.dependency.resolution = {
         //compile('org.springframework.security:org.springframework.security.core:3.0.2.RELEASE')
         //compile('org.springframework.security:org.springframework.security.web:3.0.2.RELEASE')
         //compile 'org.springframework.social:spring-social-core:1.0.1.RELEASE'
-//        compile 'org.springframework.social:spring-social-core:1.0.1.RELEASE'
-        compile 'org.springframework.social:spring-social-facebook:1.0.3.RELEASE'
+//        compile 'org.springframework.social:spring-social-core:1.0.3.RELEASE'
+        compile ('org.springframework.social:spring-social-facebook:1.0.3.RELEASE'){
+            //CONFLICT WITH grails json parsers
+            excludes 'org.codehaus.jackson:jackson-mapper-asl'
+        }
 
 
         compile 'org.apache.solr:solr-solrj:4.6.0'
         test ('org.apache.solr:solr-core:4.6.0'){
-            excludes "slf4j"
+            excludes "org.slf4j:slf4j-log4j12"
         }
 	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
 
@@ -112,7 +115,7 @@ grails.project.dependency.resolution = {
         compile ":spring-security-ui:1.0-RC1"
         //compile ":spring-security-core:1.2.7.3"
 
-        compile ":rest-client-builder:2.0.0"
+        compile ":rest-client-builder:2.0.1"
         //Para las peticiones a la API de mandrillapp
         //compile ":rest:0.8"
 //        compile ":restrpc:0.9"
