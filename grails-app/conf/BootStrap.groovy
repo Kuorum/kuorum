@@ -60,11 +60,12 @@ class BootStrap {
                 fixtureLoader.load("testData")
             }
             production{
-
+                KuorumUser.collection.getDB().dropDatabase()
+                fixtureLoader.load("testData")
             }
         }
         if (RoleUser.count() == 0){
-            //If roles has not been
+            //EMPTY DB
             fixtureLoader.load("basicData")
         }
     }
