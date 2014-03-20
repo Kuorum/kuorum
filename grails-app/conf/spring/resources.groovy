@@ -16,7 +16,7 @@ beans = {
 
     def bb = new BeanBuilder()
     bb.beans{
-        if (application.config.solr.embedded){
+        if (Boolean.parseBoolean(application.config.solr.embedded)){
 //            System.setProperty("solr.solr.home", application.config.solr.solrHome);
             String solrDir = application.config.solr.solrHome;
             File solrConfig = new File("$solrDir/solr.xml")
