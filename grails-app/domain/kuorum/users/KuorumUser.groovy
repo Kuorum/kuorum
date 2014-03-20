@@ -49,10 +49,10 @@ class KuorumUser {
     //Spring fields
     transient springSecurityService
 
-    boolean enabled
-    boolean accountExpired
-    boolean accountLocked
-    boolean passwordExpired
+    boolean enabled = Boolean.TRUE
+    boolean accountExpired = Boolean.FALSE
+    boolean accountLocked = Boolean.FALSE
+    boolean passwordExpired = Boolean.FALSE
     Date dateCreated
     Date lastUpdated
     Set<RoleUser> authorities
