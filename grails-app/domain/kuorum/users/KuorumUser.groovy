@@ -26,7 +26,7 @@ class KuorumUser {
     String password
     AvailableLanguage language = AvailableLanguage.es_ES
 
-    PersonalData personalData = new PersonalData()
+    PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
 
     List<CommissionType> relevantCommissions = []

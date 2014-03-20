@@ -4,9 +4,11 @@ import kuorum.Institution
 import kuorum.Region
 import kuorum.core.model.Gender
 import kuorum.core.model.PostType
+import kuorum.core.model.Studies
 import kuorum.law.Law
 import kuorum.post.Post
 import kuorum.users.KuorumUser
+import kuorum.users.PersonData
 import kuorum.users.PersonalData
 
 /**
@@ -50,7 +52,7 @@ class Helper {
     }
 
     public static final KuorumUser createDefaultUser(String email){
-        PersonalData personalData = new PersonalData(gender: Gender.MALE)
+        PersonData personalData = new PersonData(gender: Gender.MALE, studies: Studies.DOCTOR)
         new KuorumUser(
                 name:email.split("@")[0],
                 email: email,
