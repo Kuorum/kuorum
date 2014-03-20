@@ -9,6 +9,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.PersonData
 import kuorum.users.PersonalData
 import kuorum.users.RoleUser
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.social.facebook.api.Facebook
 import org.springframework.social.facebook.api.FacebookProfile
 import org.springframework.social.facebook.api.impl.FacebookTemplate
@@ -17,7 +18,7 @@ class FacebookAuthService {
 
     private static final String FORMAT_BIRTHDAY_FACEBOOK = "MM/dd/yyyy"
 
-    def personUserService
+    def mongoUserDetailsService
 
     /**
      * Called first time an user register with facebook
@@ -100,12 +101,15 @@ class FacebookAuthService {
 //
 //    }
 
-//    def getPrincipal(FacebookUser user){
-//
-//
-//    }
+    def getPrincipal(KuorumUser user){
+        mongoUserDetailsService.createUserDetails(user)
+    }
 
-//    Collection<GrantedAuthority> getRoles(FacebookUser user){
-//
-//    }
+    Collection<GrantedAuthority> getRoles(FacebookUser user){
+        mongoUserDetailsService.getRoles(user.user)
+    }
+
+    def findUser(long uid){
+        FacebookUser.findByUid(uid)
+    }
 }

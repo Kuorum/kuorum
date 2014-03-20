@@ -163,9 +163,10 @@ grails.plugin.springsecurity.ui.password.maxLength=64
 grails.plugin.springsecurity.ui.password.validationRegex="^.*"
 //FACEBOOK
 grails.plugin.springsecurity.facebook.domain.classname='kuorum.users.FacebookUser'
+grails.plugin.springsecurity.facebook.domain.appUserConnectionPropertyName='user'
 grails.plugin.springsecurity.facebook.appId='OVERWRITE_FROM_EXTERNAL_CONFIG'
 grails.plugin.springsecurity.facebook.secret='OVERWRITE_FROM_EXTERNAL_CONFIG'
-grails.plugin.springsecurity.facebook.permissions='email,user_about_me,user_birthday,user_education_history,user_hometown,user_location,user_relationships'
+grails.plugin.springsecurity.facebook.permissions='email,user_about_me,user_birthday,user_education_history'
 grails.plugin.springsecurity.facebook.autoCreate.roles='ROLE_USER'
 grails.plugin.springsecurity.facebook.filter.type='redirect'
 //grails.plugins.springsecurity.facebook.filter.redirect.failureHandler = 'facebookHandler'

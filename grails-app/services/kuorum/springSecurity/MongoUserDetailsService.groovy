@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.userdetails.GrailsUser
 import grails.plugin.springsecurity.userdetails.GrailsUserDetailsService
 import kuorum.users.KuorumUser
 import org.apache.log4j.Logger
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.GrantedAuthorityImpl
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -54,19 +55,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
                 log.debug("KuorumUser found: $username")
             }
 
-            def roles = NO_ROLES
-            if (loadRoles) {
-                def authorities = user.authorities?.collect {new GrantedAuthorityImpl(it.authority)}
-                if(authorities) {
-                    roles = authorities
-                }
-            }
-
-            if(log.debugEnabled) {
-                log.debug("KuorumUser roles: $roles")
-            }
-
-            return createUserDetails(user, roles)
+            return createUserDetails(user)
         }
     }
 
@@ -76,8 +65,28 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
     }
 
     protected UserDetails createUserDetails(user, Collection authorities) {
-        new GrailsUser("$user", user.password, user.enabled,
+        new GrailsUser(user.name, user.password, user.enabled,
                 !user.accountExpired, !user.passwordExpired,
                 !user.accountLocked, authorities, user.id)
+    }
+
+    UserDetails createUserDetails(KuorumUser user, Boolean loadRoles = Boolean.TRUE){
+        def roles = getRoles(user, loadRoles)
+        return createUserDetails(user, roles)
+    }
+
+    Collection<GrantedAuthority> getRoles(KuorumUser user,Boolean loadRoles = Boolean.TRUE){
+        def roles = NO_ROLES
+        if (loadRoles) {
+            def authorities = user.authorities?.collect {new GrantedAuthorityImpl(it.authority)}
+            if(authorities) {
+                roles = authorities
+            }
+        }
+
+        if(log.debugEnabled) {
+            log.debug("KuorumUser roles: $roles")
+        }
+        roles
     }
 }
