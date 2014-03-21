@@ -48,28 +48,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         String url = generateLink('verifyRegistration', [t: registrationCode.token])
 
-//        MailData mailData = new MailData(user:user, bindings: [verifyLink:url], mailType: MailType.REGISTER_VERIFY_ACCOUNT)
-
         kuorumMailService.sendRegisterUser(user,url)
 
-/*
-def conf = SpringSecurityUtils.securityConfig
-def body = conf.ui.register.emailBody
-if (body.contains('$')) {
-    body = evaluate(body, [user: user, url: url])
-}
-
-
-mailService.sendMail {
-    to command.email
-    from "inaki.dominguez@kuorum.org"
-    subject conf.ui.register.emailSubject
-    html body.toString()
-}
-          */
-
-
-        //render view: 'index', model: [emailSent: true]
         render "<a href='$url'> link </a>"
     }
 

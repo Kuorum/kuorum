@@ -5,7 +5,7 @@ package kuorum.mail
  */
 public enum MailType {
 
-    REGISTER_VERIFY_ACCOUNT             (false,"03_validationEmail",           "registerUser", ["confirmationLink"], []),
+    REGISTER_VERIFY_EMAIL               (false,"03_validationEmail",           "registerUser", ["confirmationLink"], []),
     REGISTER_ACCOUNT_COMPLETED          (false,"05_registerCompleted",         "registerUser", [], []),
     NOTIFICATION_CLUCK                  (true, "07_notificationCluck",         "notification", [],  ["clucker","cluckerLink","postName"]),
     NOTIFICATION_FOLLOWER               (true, "08_notificationFollower",      "notification", [],  ["follower","followerLink"]),

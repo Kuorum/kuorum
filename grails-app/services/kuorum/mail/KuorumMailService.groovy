@@ -4,6 +4,7 @@ import grails.transaction.Transactional
 import kuorum.core.model.PostType
 import kuorum.post.Cluck
 import kuorum.post.Post
+import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.context.MessageSource
@@ -18,12 +19,13 @@ class KuorumMailService {
     MandrillAppService mandrillAppService
     MailchimpService mailchimpService
     MessageSource messageSource
+    IndexSolrService indexSolrService
 
 
     def sendRegisterUser(KuorumUser user, String confirmationLink){
         def bindings = [confirmationLink:confirmationLink]
         MailUserData mailUserData = new MailUserData(user:user, bindings:bindings)
-        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_VERIFY_ACCOUNT, userBindings: [mailUserData])
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_VERIFY_EMAIL, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
 
@@ -261,6 +263,7 @@ class KuorumMailService {
     def verifyUser(KuorumUser user){
         mailchimpService.addSubscriber(user)
         sendUserAccountConfirmed(user)
+        indexSolrService.index(user)
     }
 
 
