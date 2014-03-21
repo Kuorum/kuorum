@@ -126,8 +126,22 @@ class FileServiceSpec extends Specification {
         2             | 3           | 0
     }
 
-
-
+    void "test deleting non existing file"(){
+        given:"Non  exisiting file"
+        KuorumUser user = Helper.createDefaultUser("email@email.com").save()
+        KuorumFile file = new KuorumFile(
+                user:user,
+                temporal:Boolean.TRUE,
+                storagePath:"/tmp",
+                fileName:"noExists.txt",
+                url:"http://url.com",
+                fileGroup:FileGroup.LAW_IMAGE)
+        file.save()
+        when:"Is deleted"
+        service.deleteFile(file)
+        then:"ALL OK"
+        true
+    }
 
     static private boolean deleteDirectory(File path) {
         if( path.exists() ) {

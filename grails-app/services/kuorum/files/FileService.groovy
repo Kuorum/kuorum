@@ -100,13 +100,24 @@ class FileService {
      */
     void deleteTemporalFiles(KuorumUser user){
         KuorumFile.findAllByUserAndTemporal(user, Boolean.TRUE).each {KuorumFile kuorumFile ->
-            File file = new File("${kuorumFile.storagePath}/${kuorumFile.fileName}")
-            if (!file.exists() || file.delete()){
-                deleteParentIfEmpty(file)
+            deleteFile(kuorumFile)
+        }
+    }
+
+    void deleteFile(KuorumFile kuorumFile){
+        File file = new File("${kuorumFile.storagePath}/${kuorumFile.fileName}")
+        if (!file.exists()){
+            kuorumFile.delete()
+        }else{
+            if (file.delete()){
                 kuorumFile.delete()
+                deleteParentIfEmpty(file)
+            }else{
+                log.error("Error deleting file ${file.absolutePath}")
+                kuorumFile["errorDeleting"]=true
+                kuorumFile.save()
             }
         }
-        String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}${TMP_PATH}"
 
     }
 
