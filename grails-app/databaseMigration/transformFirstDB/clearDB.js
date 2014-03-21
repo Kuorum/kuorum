@@ -6,3 +6,4 @@ db.facebookUser.remove();
 db.law.remove();
 db.post.remove()
 db.cluck.remove()
+db.postVote.remove()

@@ -75,7 +75,7 @@ class MandrillAppService {
             userVars.vars = mailData.mailType.requiredBindings.collect{field ->
                 new MandrillMessage.MergeVar(
                         name:field,
-                        content: mailData.globalBindings[field]
+                        content: mailUserData.bindings[field]
                 )
             }
             userVars

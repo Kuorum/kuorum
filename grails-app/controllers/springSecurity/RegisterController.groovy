@@ -27,7 +27,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
 
-        String salt = saltSource instanceof NullSaltSource ? null : command.username
         def user = new KuorumUser(
                 email: command.email,
                 name: command.name,
@@ -35,8 +34,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         user.relevantCommissions = CommissionType.values()
         user.authorities = [RoleUser.findByAuthority("ROLE_USER")]
 
-        log.info("Creando $user.name (valid: ${!user.hasErrors()})....")
-        RegistrationCode registrationCode = springSecurityUiService.register(user, command.password, salt)
+        RegistrationCode registrationCode = springSecurityUiService.register(user, command.password, null)
         log.info("Usuario $user.name creado con el token  $registrationCode.token")
         if (registrationCode == null || registrationCode.hasErrors()) {
             // null means problem creating the user
@@ -86,7 +84,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         springSecurityService.reauthenticate user.email
-        kuorumMailService.verifyUser(user)
         flash.message = message(code: 'spring.security.ui.register.complete')
         redirect uri: conf.ui.register.postRegisterUrl ?: defaultTargetUrl
     }

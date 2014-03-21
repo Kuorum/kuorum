@@ -44,29 +44,5 @@ class PasswordFixingDaoAuthenticationProvider extends DaoAuthenticationProvider 
         KuorumUser.withNewSession {
             KuorumUser.collection.update([_id:userDetails.id],['$set':[password:bcryptPassword]])
         }
-
-        // use HQL to update the password in the database directly
-//
-//        def conf = SpringSecurityUtils.securityConfig
-//        String userClassName = conf.userLookup.userDomainClassName
-//        Class<?> User = grailsApplication.getDomainClass(userClassName).clazz
-//
-//
-//        def args = [p: bcryptPassword]
-//        String hql = 'update ' + User.name + ' u set u.password=:p where '
-//        if (userDetails instanceof GrailsUser) {
-//            hql += 'u.id=:id'
-//            args.id = userDetails.id
-//        }
-//        else {
-//            hql += 'u.' + conf.userLookup.usernamePropertyName + '=:un'
-//            args.un = userDetails.username
-//        }
-//
-//        User.withNewSession {
-//            User.withTransaction {
-//                User.executeUpdate hql, args
-//            }
-//        }
     }
 }

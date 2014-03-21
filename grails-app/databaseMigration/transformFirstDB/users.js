@@ -1,5 +1,5 @@
 
-
+load("htmlDecoder.js")
 dbOrigin = connect("localhost:27017/KuorumWeb");
 dbDest = connect("localhost:27017/KuorumDev");
 
@@ -54,7 +54,7 @@ function createKuorumUserFromOldUser(user){
         "numFollowers":user.friends==undefined?0:user.friends.length,
         "language" : "es_ES",
         "lastUpdated" : user.lastUpdated,
-        "name" : user.name,
+        "name" : HtmlDecode(user.name),
 //        "password" : user.password,
         "password" : "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08", //test
         "passwordExpired" : false,

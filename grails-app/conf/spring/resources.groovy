@@ -1,6 +1,7 @@
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncoder
 import grails.spring.BeanBuilder
+
 import kuorum.core.security.passwordEncoders.PasswordFixingDaoAuthenticationProvider
 import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
 import kuorum.solr.IndexSolrService
@@ -82,5 +83,4 @@ beans = {
         hideUserNotFoundExceptions = conf.dao.hideUserNotFoundExceptions // true
         grailsApplication = ref('grailsApplication')
     }
-
 }

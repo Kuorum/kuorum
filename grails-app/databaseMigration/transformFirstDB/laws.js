@@ -1,5 +1,5 @@
 
-
+load("htmlDecoder.js")
 dbOrigin = connect("localhost:27017/KuorumWeb");
 dbDest = connect("localhost:27017/KuorumDev");
 
@@ -28,7 +28,7 @@ function createLawFromOldLaw(law){
     var destLaw = {
 //        "_id" :law._id,
         "_id":id,
-        "commissions" : law.commissions,
+        "commissions" : translateCommissions(law.commissions),
         "dateCreated" : law.dateCreated,
         "description" : law.longDescription,
         "hashtag" : "#"+law.shortTitle.replace(/ /g, '').toLowerCase(),
@@ -50,6 +50,20 @@ function createLawFromOldLaw(law){
     return destLaw
 }
 
+function translateCommissions(commissions){
+    var translate = {}
+    translate["DEVELOPING"]="RESEARCH_DEVELOP"
+
+    Object.keys(translate).forEach(function(key){
+        var index = commissions.indexOf(key);
+
+        if (index !== -1) {
+            commissions[index] = translate[key];
+        }
+    })
+    commissions
+}
+
 function createPostFromOldPost(destLaw,message){
     var destPost = {
         _id:message._id,
@@ -59,8 +73,8 @@ function createPostFromOldPost(destLaw,message){
         owner:message.user,
         dateCreated:message.dateCreated,
         postType:"PURPOSE",
-        title:message.title,
-        text:message.message,
+        title:HtmlDecode(message.title),
+        text:HtmlDecode(message.message),
         published:true,
         victory:false,
         comments:[],
@@ -77,7 +91,7 @@ function createFirstCluck(post){
         sponsors:[],
         isFirstCluck:true,
         law:post.law,
-        post:post.id,
+        post:post._id,
         dateCreated:post.dateCreated,
         lastUpdated:post.dateCreated
     }
@@ -102,7 +116,7 @@ function createPostVotesFromLikes(destPost,message){
     }else{
 //        print("post sin likes")
     }
-    destPost.numVotes = dbDest.postVote.find({post:destPost._id}).count()//Likes that don't exist are removed
+    destPost.numVotes = dbDest.postVote.find({post:destPost._id}).count()//Likes from non existing users are removed
     dbDest.post.save(destPost)
 }
 
@@ -112,7 +126,7 @@ function createCommentsFromSubMessages(destPost, message){
         message.messages.forEach(function(subComment){
             var comment = {
                 kuorumUserId:subComment.userId,
-                text:subComment.message,
+                text:HtmlDecode(subComment.message),
                 dateCreated:new Date(),
                 moderated:false,
                 deleted:false

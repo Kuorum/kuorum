@@ -21,11 +21,12 @@ class Sha256ToBCryptPasswordEncoder implements org.springframework.security.auth
         if (encPass.startsWith('$2a$10$') && encPass.length() == 60) {
             // already bcrypt
             return bcryptPasswordEncoder.isPasswordValid(encPass, rawPass, null);
+//            return bcryptPasswordEncoder.isPasswordValid(encPass, rawPass, salt);
         }
 
         if (encPass.length() == 64) {
-            return sha256PasswordEncoder.isPasswordValid(
-                    encPass, rawPass, salt);
+            return sha256PasswordEncoder.isPasswordValid(encPass, rawPass, null);
+//            return sha256PasswordEncoder.isPasswordValid(encPass, rawPass, salt);
         }
 
         // TODO

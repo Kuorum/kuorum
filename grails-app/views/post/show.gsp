@@ -65,7 +65,8 @@
             <li class="fieldcontain">
                 <span id="law-label" class="property-label"><g:message code="post.law.label" default="Law"/></span>
 
-                <span class="property-value" aria-labelledby="law-label"><g:link controller="law" action="show"
+                <span class="property-value" aria-labelledby="law-label">
+                    <g:link controller="law" action="show"
                                                                                  id="${postInstance?.law?.id}">${postInstance?.law?.encodeAsHTML()}</g:link></span>
 
             </li>

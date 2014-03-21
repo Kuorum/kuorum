@@ -27,6 +27,7 @@ class CluckService {
                 'in'("sponsors.kuorumUserId",userList)
             }
             order("lastUpdated","asc")
+            max 10
         }
         result
 
