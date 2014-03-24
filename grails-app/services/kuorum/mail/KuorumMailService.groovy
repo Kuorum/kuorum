@@ -271,18 +271,19 @@ class KuorumMailService {
     }
     private def globalBindingsForPromotedMails(Post post, KuorumUser sponsor){
         Law law = post.law
-        String commissionName = messageSource.getMessage("${CommissionType.canonicalName}.${law.commissions.first()}",null,"", new Locale("ES_es"))
+        String commissionName = messageSource.getMessage("${CommissionType.canonicalName}.${law.commissions.first()}",null,"otros", new Locale("ES_es"))
         String postTypeName =   messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es"))
+        def postLink = generateLink("postShow", [postId:post.id,postTypeUrl:postTypeName.encodeAsKuorumUrl(),hashtag: law.hashtag.decodeHashtag(), regionName:law.region.name.encodeAsKuorumUrl(),commision:commissionName.encodeAsKuorumUrl()])
         [
                 postType:postTypeName,
                 postName:post.title,
-                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postLink:postLink,
                 promoter:sponsor.name,
                 promoterLink:generateLink("userShow",[id:sponsor.id]),
                 postOwner: post.owner.name,
                 postOwnerLink: generateLink("userShow",[id:post.owner.id]),
                 hashtag:post.law.hashtag,
-                hashtagLink:generateLink("lawShow",[hashtag: law.hashtag, regionName:law.region.name.encodeAsKuorumUrl(),commision:commissionName.encodeAsKuorumUrl()])
+                hashtagLink:generateLink("lawShow",[hashtag: law.hashtag.decodeHashtag(), regionName:law.region.name.encodeAsKuorumUrl(),commision:commissionName.encodeAsKuorumUrl()])
         ]
     }
 

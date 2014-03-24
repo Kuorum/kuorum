@@ -30,7 +30,7 @@ class Law {
     static constraints = {
         hashtag matches: '#[a-zA-Z0-9]+', nullable: false
         shortName nullable: false
-        commissions nullable: false
+        commissions nullable: false, minSize:1
         realName nullable:false
         description nullable:false
         introduction nullable:false

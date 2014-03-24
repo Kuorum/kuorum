@@ -10,14 +10,7 @@ class UrlMappings {
         name lawShow:       "/leyes/$regionName/$commision/$hashtag" (controller: "law", action:"show")
         name lawEdit:       "/leyes/$regionName/$commision/$hashtag/editar"(controller: "law", action:"edit")
         name lawUpdate:     "/leyes/$regionName/$commision/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
-        name postShow:      "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId"(controller: "post", action: "show"){
-            constraints {
-                //Only on show. Is not important that the type don't match. Is only here because is the most important
-                postTypeUrl(validator: {
-                    return (it in PostType.values().collect{it.urlText})
-                })
-            }
-        }
+        name postShow:      "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId"(controller: "post", action: "show")
         name postCreate:    "/ley/$hashtag/nuevoPost"(controller: "post", action: "create")
         name postSave:      "/ley/$hashtag/guardar"(controller: "post"){action = [GET:"create", POST:"save"]}
         name postReview:    "/ley/$hashtag/$postTypeUrl/$postId/revisar"(controller: "post", action: "review")

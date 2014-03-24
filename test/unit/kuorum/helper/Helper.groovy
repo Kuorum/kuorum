@@ -2,6 +2,7 @@ package kuorum.helper
 
 import kuorum.Institution
 import kuorum.Region
+import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
 import kuorum.core.model.PostType
 import kuorum.core.model.Studies
@@ -47,7 +48,7 @@ class Helper {
                 law:createDefaultLaw("#hashTagLawDefault"),
                 numVotes: 1,
                 numClucks: 1,
-                postType: PostType.HISTORY
+                postType: PostType.HISTORY,
         )
     }
 
@@ -68,6 +69,7 @@ class Helper {
                 realName: "realName${hashtag}",
                 description: "description${hashtag}",
                 introduction: "introducction${hashtag}",
+                commissions: [CommissionType.OTHERS],
                 region: creteDefaultRegion(),
                 institution: creteDefaultInstitution()
 

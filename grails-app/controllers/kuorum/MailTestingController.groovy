@@ -137,6 +137,30 @@ class MailTestingController {
         redirect action: "index", params:[email:email]
     }
 
+    def testPromotedOwner(String email){
+        def data = prepareMailTestEnviroment(email)
+        kuorumMailService.sendPromotedPostMailOwner(data.post, data.politician)
+
+        flash.message ="Se ha enviado el mail al email $email"
+        redirect action: "index", params:[email:email]
+    }
+
+    def testPromotedSponsor(String email){
+        def data = prepareMailTestEnviroment(email)
+        kuorumMailService.sendPromotedPostMailSponsor(data.post, data.politician)
+
+        flash.message ="Se ha enviado el mail al email $email"
+        redirect action: "index", params:[email:email]
+    }
+
+    def testPromotedUsers(String email){
+        def data = prepareMailTestEnviroment(email)
+        kuorumMailService.sendPromotedPostMailUsers(data.post, data.politician,data.peopleNotified)
+
+        flash.message ="Se ha enviado el mail al email $email"
+        redirect action: "index", params:[email:email]
+    }
+
 
     private String prepareEmail(String email, String userName){
         def parts = email.split("@")
@@ -152,7 +176,7 @@ class MailTestingController {
         KuorumUser politician = KuorumUser.findByEmail("politician@example.com")
         politician.email = prepareEmail(email, "politician")
         Post post = Post.findByOwner(user)
-        post.debates = [new PostComment(text:"kk", kuorumUser: politician)]
+        post.debates = [new PostComment(text:"Debate molon", kuorumUser: politician)]
         post.defender = politician
 //        post.save(); //NO SAVES
         Set<MailUserData> peopleNotified = [

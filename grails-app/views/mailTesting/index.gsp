@@ -23,6 +23,9 @@
     <g:link action="testRegister" params="[email:email]">Test envio mail registro</g:link><br/>
     <g:link action="testAccountConfirmed" params="[email:email]">Test envio mail cuenta confirmada</g:link><br/>
 
+    <g:link action="testPromotedOwner" params="[email:email]">Test envio mail post promocionado al usuario</g:link><br/>
+    <g:link action="testPromotedSponsor" params="[email:email]">Test envio mail post promocionado al sponsor</g:link><br/>
+    <g:link action="testPromotedUsers" params="[email:email]">Test envio email post promocionado a usuarios elegidos</g:link><br/>
 
 </content>
 
