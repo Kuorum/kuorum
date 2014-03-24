@@ -11,6 +11,7 @@ class PostVoteService {
 
     def grailsApplication
     def notificationService
+    def gamificationService
 
     PostVote votePost(Post post, KuorumUser kuorumUser){
         if (post.id == null || kuorumUser.id == null){
@@ -30,10 +31,11 @@ class PostVoteService {
 
         if (checkIfPublicMilestone(post)){
             notificationService.sendPublicMilestoneNotification(post)
+            gamificationService.postCreatedAward(post.owner, post)
         }else if(checkIfMilestone(post)){
             notificationService.sendMilestoneNotification(post)
         }
-
+        gamificationService.postVotedAward(kuorumUser, post)
         postVote
 
     }

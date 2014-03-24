@@ -3,6 +3,7 @@ package kuorum.users
 import grails.transaction.Transactional
 import kuorum.law.Law
 import kuorum.post.Post
+import kuorum.post.Sponsor
 
 @Transactional
 class GamificationService {
@@ -19,7 +20,7 @@ class GamificationService {
 
     }
 
-    def postPromotedAward(KuorumUser user, Post post){
+    def postPromotedAward(KuorumUser user, Integer numMailsSent){
         
     }
 }

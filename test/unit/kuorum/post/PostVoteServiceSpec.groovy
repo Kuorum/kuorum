@@ -8,6 +8,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.helper.Helper
 import kuorum.law.Law
 import kuorum.notifications.NotificationService
+import kuorum.users.GamificationService
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 import spock.lang.Specification
@@ -21,9 +22,11 @@ import spock.lang.Unroll
 class PostVoteServiceSpec extends Specification {
 
     NotificationService notificationServiceMock = Mock(NotificationService)
+    GamificationService gamificationService = Mock(GamificationService)
 
     def setup() {
         service.notificationService = notificationServiceMock
+        service.gamificationService = gamificationService
         Post.metaClass.static.getCollection = {->
             [findOne: {
                 delegate.findWhere(it) as JSON
@@ -63,7 +66,9 @@ class PostVoteServiceSpec extends Specification {
         PostVote.findAllByPost(post).size() == votes
         post.numVotes == numVotes +votes
         publicMilestoneNotification * notificationServiceMock.sendPublicMilestoneNotification(post)
+        publicMilestoneNotification * gamificationService.postCreatedAward(post.owner, post)
         milestoneNotification * notificationServiceMock.sendMilestoneNotification(post)
+        votes * gamificationService.postVotedAward(_,post)
         where:
             votes | publicMilestoneNotification | milestoneNotification
             1     | 0                           | 0
