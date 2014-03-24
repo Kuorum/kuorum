@@ -12,10 +12,18 @@
 
     <g:each in="${clucks}" var="cluck">
         <div>
-            <h3>${cluck.postOwner}</h3>
+            <h3>CLUKER: ${cluck.owner.name} || postOwner: ${cluck.postOwner} </h3>
             <h4><g:link mapping="lawShow" params="${cluck.law.encodeAsLinkProperties()}">${cluck.law.hashtag}</g:link> </h4>
             <h2>${cluck.post.title}</h2><span><g:link mapping="postShow" params="${cluck.post.encodeAsLinkProperties()}">VER POST</g:link> </span>
             <div> <g:link mapping="cluckCreate" params="[postId:cluck.post.id]">Cluck IT</g:link> </div>
+            <div>
+                <g:if test="${user.favorites.contains(cluck.post.id)}">
+                    <g:link mapping="postDelFavorite" params="${cluck.post.encodeAsLinkProperties()}">Ya leido</g:link>
+                </g:if>
+                <g:else>
+                    <g:link mapping="postAddFavorite" params="${cluck.post.encodeAsLinkProperties()}">Leer despues</g:link>
+                </g:else>
+            </div>
         </div>
     </g:each>
 </content>

@@ -128,4 +128,29 @@ class PostController {
         }
         [post:post]
     }
+
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def favorite(String postId) {
+        Post post = Post.get(new ObjectId(postId))
+        if (!post){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        postService.favoriteAddPost(post,user)
+        render "Ajax CALL OK"
+    }
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def unfavorite(String postId) {
+        Post post = Post.get(new ObjectId(postId))
+        if (!post){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        postService.favoriteRemovePost(post,user)
+        render "Ajax CALL OK"
+    }
 }

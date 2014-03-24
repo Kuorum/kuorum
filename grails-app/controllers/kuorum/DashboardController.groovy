@@ -24,7 +24,7 @@ class DashboardController {
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<Cluck> clucks =  cluckService.dashboardClucks(user)
-        [clucks: clucks]
+        [clucks: clucks, user:user]
     }
 
     def landingPage(){

@@ -173,4 +173,13 @@ class PostService {
     Boolean isAllowedToAddDebate(Post post, KuorumUser user){
         user && (UserType.POLITICIAN.equals(user.userType) || post.owner == user)
     }
+
+    KuorumUser favoriteAddPost(Post post, KuorumUser user){
+        KuorumUser.collection.update([_id:user.id],['$addToSet':[favorites:post.id]])
+        user.refresh()
+    }
+    KuorumUser favoriteRemovePost(Post post, KuorumUser user){
+        KuorumUser.collection.update([_id:user.id],['$pull':[favorites:post.id]])
+        user.refresh()
+    }
 }

@@ -19,6 +19,9 @@ class UrlMappings {
         name postPromoteYourPost:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/promocionar"(controller: "post", action:"promoteYourPost")
         name postEdit:      "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/editar"(controller: "post", action:"edit")
         name postUpdate:    "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/actualizar"(controller: "post"){action = [GET:"edit", POST:"update"]}
+        name postAddFavorite:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/leerDespues"(controller: "post",action: "favorite")
+        name postDelFavorite:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/yaLeido"(controller: "post",action: "unfavorite")
+
 
 
 
