@@ -114,4 +114,9 @@ class LawService {
         Law.collection.update([_id:law.id], ['$set':[published:Boolean.FALSE]])
         law.refresh()
     }
+
+    Law closeLaw(Law law){
+        Law.collection.update([_id:law.id], ['$set':[open:Boolean.FALSE]])
+        law.refresh()
+    }
 }
