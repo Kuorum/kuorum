@@ -20,7 +20,7 @@ import spock.lang.Unroll
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(NotificationService)
-@Mock([KuorumUser, Cluck, Law, Post,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification, LawClosedNotification, LawVote])
+@Mock([KuorumUser, Cluck, Law, Post,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification, LawClosedNotification, LawVote,PromotedMail])
 class NotificationServiceSpec extends Specification {
 
     KuorumMailService kuorumMailService = Mock(KuorumMailService)
@@ -355,6 +355,42 @@ class NotificationServiceSpec extends Specification {
         then:"Same notifications as votes"
         final KuorumException exception = thrown()
         exception.errors[0].code == "error.law.notClosed"
+    }
+
+
+    @Unroll
+    void "test promotion sending #numEmails mails when there are #numUsers users"(){
+        given: "Some Users and a post"
+        Post post = Helper.createDefaultPost()
+        KuorumUser sponsor = Helper.createDefaultUser("sponsor@email.com")
+        (1..numUsers).each {
+            KuorumUser user = Helper.createDefaultUser("user${it}@example.com")
+            user.save()
+        }
+        def min = numEmails > numUsers?numUsers:numEmails
+        def times = new Float((min)/service.BUFFER_NOTIFICATIONS_SIZE).trunc()
+        if ((min) % service.BUFFER_NOTIFICATIONS_SIZE>0)
+            times ++
+        times = times *numSponsors
+        times = times > numUsers? numUsers: times
+
+        when:"Sending promotion mail"
+        (1..numSponsors).each{
+            service.sendPostPromotedNotification(post, sponsor, numEmails )
+        }
+        then:
+        numSponsors * kuorumMailService.sendPromotedPostMailSponsor(post,sponsor)
+        numSponsors * kuorumMailService.sendPromotedPostMailOwner(post,sponsor)
+        times * kuorumMailService.sendPromotedPostMailUsers(post, sponsor, { it.size()>0})
+        where:
+        numEmails   | numUsers  | numSponsors
+        1           |   10      |   1
+        1           |   10      |   2
+        5           |   10      | 1
+        5           |   10      | 2
+        10          |   10      |  1
+        10          |   10      |  2
+        15          |   10      | 1
     }
 
 }

@@ -435,4 +435,55 @@ class NotificationService {
         }
 
     }
+
+    void sendPostPromotedNotification(Post post, KuorumUser sponsor, Integer numEmails){
+        sendPostPromotedMails(post, sponsor, numEmails)
+        sendPostPromotedOwnerMail(post, sponsor, numEmails)
+        Environment.executeForCurrentEnvironment {
+            development{
+                grails.async.Promises.task{
+                    sendPostPromotedSponsorMail(post, sponsor, numEmails)
+                }
+            }
+            test{
+                sendPostPromotedSponsorMail(post, sponsor, numEmails)
+            }
+            production{
+                grails.async.Promises.task{
+                    sendPostPromotedSponsorMail(post, sponsor, numEmails)
+                }
+            }
+        }
+    }
+
+    private void sendPostPromotedOwnerMail(Post post, KuorumUser sponsor, Integer numEmails){
+        kuorumMailService.sendPromotedPostMailOwner(post,sponsor)
+    }
+    private void sendPostPromotedSponsorMail(Post post, KuorumUser sponsor, Integer numEmails){
+        kuorumMailService.sendPromotedPostMailSponsor(post,sponsor)
+    }
+
+    private void sendPostPromotedMails(Post post, KuorumUser sponsor, Integer numEmails){
+        def users = KuorumUser.findAllByEnabled(Boolean.TRUE)
+        Set<MailUserData> notificationUsers = []
+        Integer counter = 0;
+        for (KuorumUser user : users){
+            if (counter == numEmails){
+                break;
+            }
+            //TODO: Think if is better to store an array with notified Post on the user collection
+            if (!PromotedMail.findByUserAndPost(user,post)){
+                PromotedMail promotedMail = new PromotedMail(use:user, post:post, sponsor:sponsor)
+                promotedMail.save()
+                counter ++
+                notificationUsers << new MailUserData(user:user, bindings:[:])
+                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                    kuorumMailService.sendPromotedPostMailUsers(post,sponsor, notificationUsers)
+                    notificationUsers.clear()
+                }
+            }
+        }
+        if(notificationUsers)
+            kuorumMailService.sendPromotedPostMailUsers(post,sponsor, notificationUsers)
+    }
 }

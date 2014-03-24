@@ -1,7 +1,9 @@
 package kuorum.mail
 
 import grails.transaction.Transactional
+import kuorum.core.model.CommissionType
 import kuorum.core.model.PostType
+import kuorum.law.Law
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.solr.IndexSolrService
@@ -237,6 +239,51 @@ class KuorumMailService {
         mailNotificationsData.userBindings = notificationUsers.asList()
         mailNotificationsData.fromName = prepareFromName(post.owner.name)
         mandrillAppService.sendTemplate(mailNotificationsData)
+    }
+
+    def sendPromotedPostMailUsers(Post post, KuorumUser sponsor, Set<MailUserData> notificationUsers){
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.PROMOTION_USERS
+        mailNotificationsData.globalBindings=globalBindingsForPromotedMails(post,sponsor)
+        mailNotificationsData.userBindings = notificationUsers.asList()
+        mailNotificationsData.fromName = prepareFromName(sponsor.name)
+        mandrillAppService.sendTemplate(mailNotificationsData)
+    }
+
+    def sendPromotedPostMailOwner(Post post, KuorumUser sponsor){
+        MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[:])
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.PROMOTION_OWNER
+        mailNotificationsData.globalBindings=globalBindingsForPromotedMails(post,sponsor)
+        mailNotificationsData.userBindings = [mailUserData]
+        mailNotificationsData.fromName = prepareFromName(sponsor.name)
+        mandrillAppService.sendTemplate(mailNotificationsData)
+    }
+
+    def sendPromotedPostMailSponsor(Post post, KuorumUser sponsor){
+        MailUserData mailUserData = new MailUserData(user:sponsor, bindings:[:])
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.PROMOTION_SPONSOR
+        mailNotificationsData.globalBindings=globalBindingsForPromotedMails(post,sponsor)
+        mailNotificationsData.userBindings = [mailUserData]
+        mailNotificationsData.fromName = DEFAULT_SENDER_NAME
+        mandrillAppService.sendTemplate(mailNotificationsData)
+    }
+    private def globalBindingsForPromotedMails(Post post, KuorumUser sponsor){
+        Law law = post.law
+        String commissionName = messageSource.getMessage("${CommissionType.canonicalName}.${law.commissions.first()}",null,"", new Locale("ES_es"))
+        String postTypeName =   messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es"))
+        [
+                postType:postTypeName,
+                postName:post.title,
+                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                promoter:sponsor.name,
+                promoterLink:generateLink("userShow",[id:sponsor.id]),
+                postOwner: post.owner.name,
+                postOwnerLink: generateLink("userShow",[id:post.owner.id]),
+                hashtag:post.law.hashtag,
+                hashtagLink:generateLink("lawShow",[hashtag: law.hashtag, regionName:law.region.name.encodeAsKuorumUrl(),commision:commissionName.encodeAsKuorumUrl()])
+        ]
     }
 
     def sendVictoryNotificationDefender(Post post){

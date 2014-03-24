@@ -7,6 +7,7 @@ public enum MailType {
 
     REGISTER_VERIFY_EMAIL               (false,"03_validationEmail",           "registerUser", ["confirmationLink"], []),
     REGISTER_ACCOUNT_COMPLETED          (false,"05_registerCompleted",         "registerUser", [], []),
+
     NOTIFICATION_CLUCK                  (true, "07_notificationCluck",         "notification", [],  ["clucker","cluckerLink","postName"]),
     NOTIFICATION_FOLLOWER               (true, "08_notificationFollower",      "notification", [],  ["follower","followerLink"]),
     NOTIFICATION_PUBLIC_MILESTONE       (true, "09_notificationMilestone",     "notification",[],["postName", "numVotes", "postLink"]),
@@ -18,8 +19,11 @@ public enum MailType {
     NOTIFICATION_DEFENDED_BY_POLITICIAN (true, "17_notificationDefendedByPolitician","notification",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_DEFENDED_POLITICIANS   (true, "18_notificationDefendedPoliticians", "notification",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_VICTORY_USERS          (true, "21_notificationVictoryUsers","notification",[],  ["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_VICTORY_DEFENDER       (true, "20_notificationVictoryDefender","notification",[],  ["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"])
+    NOTIFICATION_VICTORY_DEFENDER       (true, "20_notificationVictoryDefender","notification",[],  ["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
 
+    PROMOTION_OWNER        (true, "10_notificationPromotionAuthor",    "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]),
+    PROMOTION_SPONSOR      (true, "11_notificationPromotionPromoter",  "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]),
+    PROMOTION_USERS        (true, "12_notificationPromotionList",      "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]);
 
 
     String nameTemplate
