@@ -1,7 +1,5 @@
-package kuorum
 
-import kuorum.springSecurity.KuorumUrlCodec
-import kuorum.users.KuorumUser
+
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -12,7 +10,7 @@ class CodecSpec extends Specification {
 
 
     @Unroll
-    void "test KuorumUrlCodec #orgString == #tranformedString"() {
+    void "test kuorum.users.kuorum.users.KuorumUrlCodec #orgString == #tranformedString"() {
         given:"The kuorumCodec"
         KuorumUrlCodec codec = new KuorumUrlCodec()
         when:
