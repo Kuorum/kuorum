@@ -12,9 +12,8 @@ class CodecSpec extends Specification {
     @Unroll
     void "test kuorum.users.kuorum.users.KuorumUrlCodec #orgString == #tranformedString"() {
         given:"The kuorumCodec"
-        KuorumUrlCodec codec = new KuorumUrlCodec()
         when:
-        def res = codec.encode(orgString)
+        def res = KuorumUrlCodec.encode(orgString)
         then:
         res == tranformedString
         where:
