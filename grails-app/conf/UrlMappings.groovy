@@ -10,14 +10,15 @@ class UrlMappings {
         name lawShow:       "/leyes/$regionName/$commision/$hashtag" (controller: "law", action:"show")
         name lawEdit:       "/leyes/$regionName/$commision/$hashtag/editar"(controller: "law", action:"edit")
         name lawUpdate:     "/leyes/$regionName/$commision/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
+
+        name postCreate:    "/leyes/$regionName/$commision/$hashtag/nuevo-post"(controller: "post", action: "create")
+        name postSave:      "/leyes/$regionName/$commision/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
         name postShow:      "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId"(controller: "post", action: "show")
-        name postCreate:    "/ley/$hashtag/nuevoPost"(controller: "post", action: "create")
-        name postSave:      "/ley/$hashtag/guardar"(controller: "post"){action = [GET:"create", POST:"save"]}
-        name postReview:    "/ley/$hashtag/$postTypeUrl/$postId/revisar"(controller: "post", action: "review")
-        name postPublish:   "/ley/$hashtag/$postTypeUrl/$postId/publicar"(controller: "post", action:"publish")
-        name postPromoteYourPost:"/ley/$hashtag/$postTypeUrl/$postId/promocionar"(controller: "post", action:"promoteYourPost")
-        name postEdit:      "/ley/$hashtag/$postTypeUrl/$postId/editar"(controller: "post", action:"edit")
-        name postUpdate:    "/ley/$hashtag/$postTypeUrl/$postId/actualizar"(controller: "post"){action = [GET:"edit", POST:"update"]}
+        name postReview:    "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/revisar"(controller: "post", action: "review")
+        name postPublish:   "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/publicar"(controller: "post", action:"publish")
+        name postPromoteYourPost:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/promocionar"(controller: "post", action:"promoteYourPost")
+        name postEdit:      "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/editar"(controller: "post", action:"edit")
+        name postUpdate:    "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/actualizar"(controller: "post"){action = [GET:"edit", POST:"update"]}
 
 
 

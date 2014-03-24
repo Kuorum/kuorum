@@ -33,8 +33,8 @@
             </g:eachError>
         </ul>
     </g:hasErrors>
-    <g:form mapping="postUpdate" params="[postId:postInstance.id, postTypeUrl:postInstance.postType.urlText, hashtag:postInstance.law.hashtag.decodeHashtag()]" method="POST">
-        <g:hiddenField name="version" value="${postInstance?.version}"/>
+    <g:form mapping="postUpdate" params="${post.encodeAsLinkProperties()}" method="POST">
+        <g:hiddenField name="version" value="${post?.version}"/>
         <fieldset class="form">
             <g:render template="form"/>
         </fieldset>

@@ -9,7 +9,7 @@
     <H1> Impulsta tu ${post.postType}</H1>
     <H3> ${post.title}</H3>
 
-    <kPost:postLink post="${post}">Ver tu ${post.postType}</kPost:postLink>
+    <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}">Ver tu ${post.postType}</g:link>
 </content>
 
 <content tag="cColumn">

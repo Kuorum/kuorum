@@ -66,8 +66,7 @@
                 <span id="law-label" class="property-label"><g:message code="post.law.label" default="Law"/></span>
 
                 <span class="property-value" aria-labelledby="law-label">
-                    <g:link controller="law" action="show"
-                                                                                 id="${postInstance?.law?.id}">${postInstance?.law?.encodeAsHTML()}</g:link></span>
+                    <g:link mapping="lawShow" params="${postInstance.law.encodeAsLinkProperties()}">${postInstance?.law?.encodeAsHTML()}</g:link></span>
 
             </li>
         </g:if>
@@ -172,7 +171,7 @@
     </ol>
     <g:form url="[resource: postInstance, action: 'delete']" method="DELETE">
         <fieldset class="buttons">
-            <g:link mapping="postEdit" params="[postId:postInstance.id, postTypeUrl:postInstance.postType.urlText, hashtag:postInstance.law.hashtag.decodeHashtag()]">
+            <g:link mapping="postEdit" params="${postInstance.encodeAsLinkProperties()}">
                 <g:message code="default.button.edit.label" default="Edit"/>
             </g:link>
             <g:actionSubmit class="delete" action="delete"

@@ -46,7 +46,7 @@
 					
 						<td>${fieldValue(bean: lawInstance, field: "description")}</td>
 					
-						<td><g:link mapping="lawShow" params="[hashtag:lawInstance.hashtag.decodeHashtag()]">${fieldValue(bean: lawInstance, field: "hashtag")}</g:link></td>
+						<td><g:link mapping="lawShow" params="${law.encodeAsLinkProperties()}">${fieldValue(bean: lawInstance, field: "hashtag")}</g:link></td>
 					
 						<td>${fieldValue(bean: lawInstance, field: "introduction")}</td>
 					

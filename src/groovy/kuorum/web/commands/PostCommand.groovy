@@ -17,7 +17,7 @@ class PostCommand {
     String photo
     PostType postType
     static constraints = {
-        postId nullable: false, blank: false
+        postId nullable: true, blank: true //Para reusar este command en la edición
         title nullable: false, blank: false
         text nullable: false, blank: false
         postType nullable: false

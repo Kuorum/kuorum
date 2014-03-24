@@ -31,16 +31,13 @@ class PostController {
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
         }
-        [postInstance:post]
+        PostCommand command = new PostCommand()
+        command.properties.each {k,v -> command."$k" = post."$k"}
+        [command:command,post:post ]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def update(PostCommand command){
-        if (command.hasErrors()){
-            render view: "edit", model:[
-                    postInstance:command,
-            ]
-        }
         Post post = Post.get(new ObjectId(command.postId))
         if (!post){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
@@ -50,11 +47,15 @@ class PostController {
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
         }
+        if (command.hasErrors()){
+            render view: "edit", model:[command:command,post:post ]
+            return
+        }
 
         command.properties.each {k,v -> if (k!="class") {post."$k" = command."$k"}}
 
         postService.updatePost(post)
-        redirect mapping:"postShow", params:[postId:post.id, postTypeUrl:post.postType.urlText, hashtag:post.law.hashtag.decodeHashtag()]
+        redirect mapping:"postShow", params:post.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -65,21 +66,24 @@ class PostController {
             return;
         }
 
-        [postInstance:new PostCommand(), law:law]
+        [command:new PostCommand(), law:law]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def save(PostCommand command){
-        if (command.hasErrors()){
-            render view: "create", model:[
-                    postInstance:command,
-            ]
+        Law law = lawService.findLawByHashtag(params.hashtag.encodeAsHashtag())
+        if (!law){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
         }
-        Law law = lawService.findLawByHashtag(command.hashtag.encodeAsHashtag())
+        if (command.hasErrors()){
+            render view: "create", model:[command:command,law:law]
+            return;
+        }
         Post post = new Post(command.properties)
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         postService.savePost(post, law, user)
-        redirect mapping:"postReview", params:[postId:post.id, postTypeUrl:post.postType.urlText, hashtag:post.law.hashtag.decodeHashtag()]
+        redirect mapping:"postReview", params:post.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -108,7 +112,7 @@ class PostController {
             return;
         }
         postService.publishPost(post)
-        redirect mapping:"postPromoteYourPost", params:[postId:post.id, postTypeUrl:post.postType.urlText, hashtag:post.law.hashtag.decodeHashtag()]
+        redirect mapping:"postPromoteYourPost", params:post.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

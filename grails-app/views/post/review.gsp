@@ -11,7 +11,7 @@
     <H1> Review del post</H1>
     <H3> ${post.title}</H3>
 
-    <g:link mapping="postPublish" params="[postId:post.id, postTypeUrl:post.postType.urlText, hashtag:post.law.hashtag.decodeHashtag()]">PUBLICAR</g:link>
+    <g:link mapping="postPublish" params="${post.encodeAsLinkProperties()}">PUBLICAR</g:link>
 </content>
 
 <content tag="cColumn">

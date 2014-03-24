@@ -52,7 +52,7 @@ class LawController {
 
         Law law = new Law(command.properties)
         lawService.saveLaw(law)
-        redirect mapping:"lawShow", params:[hashtag:law.hashtag.decodeHashtag()]
+        redirect mapping:"lawShow", params:law.encodeAsLinkProperties()
     }
 
     @Secured(['ROLE_ADMIN'])
@@ -89,7 +89,7 @@ class LawController {
         command.properties.each {k,v -> if (k!="class") {law."$k" = command."$k"}}
         lawService.updateLaw(law)
         flash.message=message(code: "law.update.success", args: [law.hashtag])
-        redirect mapping:"lawShow", params:[hashtag:law.hashtag.decodeHashtag()]
+        redirect mapping:"lawShow", params:law.encodeAsLinkProperties()
 
     }
 
