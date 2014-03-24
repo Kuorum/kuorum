@@ -14,10 +14,11 @@ import kuorum.users.KuorumUser
 class PostService {
 
     def cluckService
-//    def springSecurityService
+    def grailsApplication
     def indexSolrService
     def postVoteService
     def notificationService
+    def gamificationService
 
     /**
      * Save a post and creates the first firstCluck and first vote (owner vote)
@@ -81,6 +82,22 @@ class PostService {
         //Reloading data from DDBB
         post.refresh()
         post.firstCluck.refresh()
+    }
+
+    Integer calculateNumEmails(Double price){
+        Integer numMails
+        Double mailPrice = grailsApplication.config.kuorum.promotion.mailPrice
+        switch (price as int){
+            case 0: numMails = 0; break;
+            case 1..<5: numMails = 5; break;
+            case 5..<15: numMails = 30; break;
+            default:
+                Double remainingAmount = price - 15
+                Integer extraNumMails = (remainingAmount / mailPrice) as Integer  //Truncate
+                numMails = 100 + extraNumMails
+                break;
+        }
+        numMails
     }
 
     Post addComment(Post post, PostComment comment){
