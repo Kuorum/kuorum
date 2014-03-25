@@ -40,3 +40,6 @@ covertura.ser
 
 # other
 *.iws
+
+#Images testing kuorum
+/images
