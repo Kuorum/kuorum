@@ -61,7 +61,7 @@ function translateCommissions(commissions){
             commissions[index] = translate[key];
         }
     })
-    commissions
+    return commissions
 }
 
 function createPostFromOldPost(destLaw,message){

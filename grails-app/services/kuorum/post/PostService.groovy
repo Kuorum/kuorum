@@ -20,6 +20,8 @@ class PostService {
     def notificationService
     def gamificationService
 
+    private static final Integer NUM_RECOMMENDED_POST=5
+
     /**
      * Save a post and creates the first firstCluck and first vote (owner vote)
      * @param post post data
@@ -181,5 +183,10 @@ class PostService {
     KuorumUser favoriteRemovePost(Post post, KuorumUser user){
         KuorumUser.collection.update([_id:user.id],['$pull':[favorites:post.id]])
         user.refresh()
+    }
+
+    List<Post> recommendedPosts(KuorumUser user){
+        Integer votesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
+        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
     }
 }

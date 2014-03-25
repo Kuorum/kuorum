@@ -30,4 +30,6 @@
 
 <content tag="cColumn">
     Columna C de dashboard
+
+    <g:include controller="modules" action="recommendedPosts"/>
 </content>

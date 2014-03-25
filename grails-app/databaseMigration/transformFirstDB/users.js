@@ -51,6 +51,7 @@ function createKuorumUserFromOldUser(user){
         "enabled" : true,
         "followers" : user.friends,
         "following" : user.friends,
+        "favorites" : [],
         "numFollowers":user.friends==undefined?0:user.friends.length,
         "language" : "es_ES",
         "lastUpdated" : user.lastUpdated,

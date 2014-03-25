@@ -113,4 +113,21 @@ class PostServiceSpec extends Specification{
         15.90   | 106
         16.5    | 110
     }
+
+    void "test recomended post"(){
+        given:"Some posts"
+        Law law = Helper.createDefaultLaw("#law").save()
+        KuorumUser user = Helper.createDefaultUser("email@email.com").save()
+        (1..10).each{
+            Post post = Helper.createDefaultPost(user,law)
+            post.numVotes = (Math.random() *100) as Integer //Truncate
+            post.title ="Title$it"
+            post.save()
+        }
+        when:"Recovering recommended posts"
+        List<Post> recommendedPost = service.recommendedPosts(user)
+        then:
+        recommendedPost.first().numVotes>=recommendedPost.last().numVotes
+        recommendedPost.size() <= service.NUM_RECOMMENDED_POST
+    }
 }
