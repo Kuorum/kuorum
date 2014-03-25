@@ -4,6 +4,7 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.VoteType
+import kuorum.core.model.search.Pagination
 import kuorum.helper.Helper
 import kuorum.law.Law
 import kuorum.law.LawVote
@@ -20,7 +21,7 @@ import spock.lang.Unroll
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(NotificationService)
-@Mock([KuorumUser, Cluck, Law, Post,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification, LawClosedNotification, LawVote,PromotedMail])
+@Mock([KuorumUser, Cluck, Law, Post,Notification,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification, LawClosedNotification, LawVote,PromotedMail])
 class NotificationServiceSpec extends Specification {
 
     KuorumMailService kuorumMailService = Mock(KuorumMailService)
@@ -392,5 +393,4 @@ class NotificationServiceSpec extends Specification {
         10          |   10      |  2
         15          |   10      | 1
     }
-
 }

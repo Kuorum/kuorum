@@ -3,7 +3,7 @@ package kuorum.solr
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
-import kuorum.core.model.solr.SearchParams
+import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.SolrAutocomplete
 import kuorum.core.model.solr.SolrElement
 import kuorum.core.model.solr.SolrFacets

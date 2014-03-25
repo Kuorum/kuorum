@@ -1,7 +1,7 @@
 package kuorum.solr
 
 import grails.test.spock.IntegrationSpec
-import kuorum.core.model.solr.SearchParams
+import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.SolrAutocomplete
 import kuorum.core.model.solr.SolrResults
 import kuorum.core.model.solr.SolrSubType

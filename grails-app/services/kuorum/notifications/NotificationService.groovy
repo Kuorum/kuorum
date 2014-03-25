@@ -3,6 +3,7 @@ package kuorum.notifications
 import grails.transaction.Transactional
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
+import kuorum.core.model.search.Pagination
 import kuorum.law.Law
 import kuorum.law.LawVote
 import kuorum.mail.MailType
@@ -18,6 +19,42 @@ class NotificationService {
     def kuorumMailService
 
     private static Integer BUFFER_NOTIFICATIONS_SIZE = 1000
+
+    /**
+     * Returns notifications, including alerts that the user hasn't see.
+     * @param user
+     * @return
+     */
+    List<Notification> findUserNotificationNotChecked(KuorumUser user, Pagination pagination = new Pagination()){
+        Notification.findAllByKuorumUserAndDateCreatedGreaterThan(user, user.lastNotificationChecked,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
+    }
+
+    /**
+     * Marks all the notifications as checked by the user
+     * @param user
+     */
+    KuorumUser markUserNotificationsAsChecked(KuorumUser user){
+        user.lastNotificationChecked = new Date()
+        user.save()
+    }
+    /**
+     * Returns active alerts
+     * @param user
+     * @return
+     */
+    List<Notification> findActiveUserAlerts(KuorumUser user, Pagination pagination = new Pagination()){
+        Notification.findAllByKuorumUserAndIsAlertAndIsActive(user, Boolean.TRUE, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
+    }
+
+
+    /**
+     * Returns all user alerts
+     * @param user
+     * @return
+     */
+    List<Notification> findUserAlerts(KuorumUser user, Pagination pagination = new Pagination()){
+        Notification.findAllByKuorumUserAndIsAlert(user, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
+    }
 
     void sendCluckNotification(Cluck cluck) {
         if (cluck.owner != cluck.postOwner){
@@ -122,45 +159,47 @@ class NotificationService {
         Boolean isFirstDebate = post.debates.size()==1
 
         //All interested people for their vote
-        PostVote.findAllByPostAndUserNotEqual(post, post.owner).each{PostVote postVote ->
-            if (postVote.user != post.owner){
-                DebateNotification debateNotification = new DebateNotification()
-                debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
-                debateNotification.isFirstDebate=isFirstDebate
-                debateNotification.post = post
-                debateNotification.debateWriter = debateOwner
-                debateNotification.kuorumUser = postVote.user
-                debateNotification.idDebate = idDebate
-                debateNotification.save()
-                notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
-                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
-                    kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
-                    notificationUsers.clear()
+        PostVote.withStatelessSession{
+            PostVote.findAllByPostAndUserNotEqual(post, post.owner).each{PostVote postVote ->
+                if (postVote.user != post.owner){
+                    DebateNotification debateNotification = new DebateNotification()
+                    debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
+                    debateNotification.isFirstDebate=isFirstDebate
+                    debateNotification.post = post
+                    debateNotification.debateWriter = debateOwner
+                    debateNotification.kuorumUser = postVote.user
+                    debateNotification.idDebate = idDebate
+                    debateNotification.save()
+                    notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
+                    if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                        kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+                        notificationUsers.clear()
+                    }
                 }
             }
-        }
-        //All interested people for his followings
-        def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
+            //All interested people for his followings
+            def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
 
-        interestedUsers.each {KuorumUser user ->
-            if (user != post.owner && !(DebateNotification.findByPostAndKuorumUserAndIdDebate(post,user,idDebate))){
-                DebateNotification debateNotification = new DebateNotification()
-                debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
-                debateNotification.post = post
-                debateNotification.debateWriter = debateOwner
-                debateNotification.kuorumUser = user
-                debateNotification.idDebate = idDebate
-                debateNotification.save()
-                notificationUsers << new MailUserData(user:user, bindings:[:])
-                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
-                    kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
-                    notificationUsers.clear()
+            interestedUsers.each {KuorumUser user ->
+                if (user != post.owner && !(DebateNotification.findByPostAndKuorumUserAndIdDebate(post,user,idDebate))){
+                    DebateNotification debateNotification = new DebateNotification()
+                    debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
+                    debateNotification.post = post
+                    debateNotification.debateWriter = debateOwner
+                    debateNotification.kuorumUser = user
+                    debateNotification.idDebate = idDebate
+                    debateNotification.save()
+                    notificationUsers << new MailUserData(user:user, bindings:[:])
+                    if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                        kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+                        notificationUsers.clear()
+                    }
                 }
             }
-        }
 
-        if (notificationUsers)
-            kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+            if (notificationUsers)
+                kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+        }
     }
 
     private sendDebateNotificationPoliticians(Post post, Integer idDebate){

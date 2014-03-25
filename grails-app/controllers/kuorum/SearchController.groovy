@@ -1,7 +1,7 @@
 package kuorum
 
 import grails.converters.JSON
-import kuorum.core.model.solr.SearchParams
+import kuorum.core.model.search.SearchParams
 
 class SearchController {
     def searchSolrService

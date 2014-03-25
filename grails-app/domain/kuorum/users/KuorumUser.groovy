@@ -46,6 +46,10 @@ class KuorumUser {
     static hasMany = [following:KuorumUser,followers:KuorumUser]
     static embedded = ['personalData', 'authorities','gamification']
 
+    /**
+     * Represents the last time that the user checked the notifications
+     */
+    Date lastNotificationChecked = new Date()
 
     //Politician FIELDS
     ParliamentaryGroup parliamentaryGroup

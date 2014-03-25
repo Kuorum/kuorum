@@ -1,6 +1,8 @@
-package kuorum.core.model.solr
+package kuorum.core.model.search
 
 import grails.validation.Validateable
+import kuorum.core.model.solr.SolrSubType
+import kuorum.core.model.solr.SolrType
 
 /**
  * Created by iduetxe on 18/02/14.
@@ -8,7 +10,7 @@ import grails.validation.Validateable
  * Search options
  */
 @Validateable
-class SearchParams {
+class SearchParams extends Pagination{
     /**
      * search text: min 3 character
      */
@@ -23,11 +25,6 @@ class SearchParams {
      * Filter by subtype
      */
     SolrSubType subType
-
-    /**
-     * Offset
-     */
-    Long offset = 0
 
 
     static constraints = {

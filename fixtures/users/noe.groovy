@@ -56,6 +56,7 @@ fixture {
         favorites = []
         numFollowers = 0
         gamification = noeGamification
+        lastNotificationChecked = Date.parse("dd/MM/yyyy","09/09/2012")
 
         accountExpired = false
         accountLocked = false
