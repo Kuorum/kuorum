@@ -1,10 +1,20 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
+import kuorum.core.model.gamification.GamificationAward
+import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
 
 fixture {
+
+    politicianGamification(Gamification){
+        numEggs = 0
+        numPlumes = 0
+        numCorns = 0
+        activeRole = GamificationAward.ROLE_DEFAULT
+        boughtAwards = [GamificationAward.ROLE_DEFAULT ]
+    }
 
     politicianData(PersonData){
         gender =  Gender.MALE
@@ -50,6 +60,7 @@ fixture {
         ]
         language ="es_ES"
         favorites = []
+        gamification = politicianGamification
         numFollowers = 0
 
         accountExpired = false

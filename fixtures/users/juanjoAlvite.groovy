@@ -1,11 +1,22 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
+import kuorum.core.model.gamification.GamificationAward
+import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
 
 fixture {
 
     log.info "Creando usuario 'juanjo alvite' "
+
+
+    juanjoGamification(Gamification){
+        numEggs = 10
+        numPlumes = 10
+        numCorns = 20
+        activeRole = GamificationAward.ROLE_ACTIVISTA
+        boughtAwards = [GamificationAward.ROLE_DEFAULT,  GamificationAward.ROLE_ACTIVISTA]
+    }
 
     juanjoPersonalData(PersonData){
         gender =  Gender.MALE
@@ -48,6 +59,7 @@ fixture {
         language ="es_ES"
         favorites = []
         numFollowers = 0
+        gamification = juanjoGamification
 
         accountExpired = false
         accountLocked = false

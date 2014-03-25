@@ -1,5 +1,7 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
+import kuorum.core.model.gamification.GamificationAward
+import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.OrganizationData
 import kuorum.users.PersonalData
@@ -7,6 +9,14 @@ import kuorum.users.PersonalData
 fixture {
 
     log.info "Creando usuario 'equo' "
+
+    equoGamification(Gamification){
+        numEggs = 1
+        numPlumes =5
+        numCorns = 20
+        activeRole = GamificationAward.ROLE_LIDER_OPINION
+        boughtAwards = [GamificationAward.ROLE_DEFAULT,  GamificationAward.ROLE_LIDER_OPINION]
+    }
 
     equoData(OrganizationData){
         gender =  Gender.ORGANIZATION
@@ -46,6 +56,7 @@ fixture {
         language ="es_ES"
         favorites = []
         numFollowers = 0
+        gamification = equoGamification
 
         accountExpired = false
         accountLocked = false

@@ -1,5 +1,6 @@
 package kuorum
 
+import grails.plugin.springsecurity.annotation.Secured
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 
@@ -15,5 +16,14 @@ class ModulesController {
         }
         List<Post> recommendedPost = postService.recommendedPosts(user)
         [recommendedPost:recommendedPost]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def userProfile() {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Integer numPosts = Post.countByOwner(user)
+        Integer numFollowers = user.followers.size()
+        Integer numFollowing = user.following.size()
+        [user:user, numPost:numPosts, numFollowers:numFollowers, numFollowing:numFollowing]
     }
 }

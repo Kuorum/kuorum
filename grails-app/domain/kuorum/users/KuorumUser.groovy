@@ -41,8 +41,10 @@ class KuorumUser {
 
     List<MailType> availableMails = MailType.values()
 
+    Gamification gamification = new Gamification()
+
     static hasMany = [following:KuorumUser,followers:KuorumUser]
-    static embedded = ['personalData', 'authorities']
+    static embedded = ['personalData', 'authorities','gamification']
 
 
     //Politician FIELDS

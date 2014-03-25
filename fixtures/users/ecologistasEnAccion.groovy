@@ -1,10 +1,20 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
+import kuorum.core.model.gamification.GamificationAward
+import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.OrganizationData
 import kuorum.users.PersonalData
 
 fixture {
+
+    ecologistasGamification(Gamification){
+        numEggs = 0
+        numPlumes =0
+        numCorns = 0
+        activeRole = GamificationAward.ROLE_DEFAULT
+        boughtAwards = [GamificationAward.ROLE_DEFAULT]
+    }
 
     ecologistasData(OrganizationData){
         gender =  Gender.ORGANIZATION
@@ -44,6 +54,7 @@ fixture {
         language ="es_ES"
         favorites = []
         numFollowers = 0
+        gamification = ecologistasGamification
 
         accountExpired = false
         accountLocked = false

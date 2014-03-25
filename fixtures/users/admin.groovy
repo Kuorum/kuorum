@@ -1,9 +1,19 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
+import kuorum.core.model.gamification.GamificationAward
+import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
 
 fixture {
+
+    adminGamification(Gamification){
+        numEggs = 0
+        numPlumes =0
+        numCorns = 0
+        activeRole = GamificationAward.ROLE_DEFAULT
+        boughtAwards = [GamificationAward.ROLE_DEFAULT]
+    }
 
     adminData(PersonData){
         gender =  Gender.FEMALE
@@ -45,6 +55,8 @@ fixture {
         language ="es_ES"
         favorites = []
         numFollowers = 0
+        gamification = adminGamification
+
         accountExpired = false
         accountLocked = false
         authorities = [roleUser, roleAdmin]

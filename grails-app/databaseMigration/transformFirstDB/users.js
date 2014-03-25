@@ -95,6 +95,13 @@ function createKuorumUserFromOldUser(user){
             "SUSTAINABLE_MOBILITY",
             "OTHERS"
         ],
+        gamification: {
+            numEggs: 0,
+            numPlumes:0,
+            numCorns: 0,
+            activeRole:"ROLE_DEFAULT",
+            boughtAwards: ["ROLE_DEFAULT"]
+        },
         "subscribers" : [ ],
         "version" : NumberLong(4)
     }
