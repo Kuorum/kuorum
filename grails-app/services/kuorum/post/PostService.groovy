@@ -147,9 +147,10 @@ class PostService {
      * @return
      */
     Boolean isCommentDeletableByUser(KuorumUser deleteBy, Post post, Integer commentPosition){
-        if (commentPosition>post.comments.size()){
-            throw new KuorumException("Se ha intentado borrar un commentario que no existe","error.post.indexCommentOutOfBound")
+        if (!post || !deleteBy || commentPosition==null || commentPosition>post.comments.size()){
+            return false
         }
+
         PostComment postComment = post.comments[commentPosition]
         postComment.kuorumUser == deleteBy || post.owner == deleteBy
     }

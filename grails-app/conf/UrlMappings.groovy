@@ -21,6 +21,8 @@ class UrlMappings {
         name postUpdate:    "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/actualizar"(controller: "post"){action = [GET:"edit", POST:"update"]}
         name postAddFavorite:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/leerDespues"(controller: "post",action: "favorite")
         name postDelFavorite:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/yaLeido"(controller: "post",action: "unfavorite")
+        name postDelComment:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/borrarCommentario"(controller: "post",action: "deleteComment")
+        name postAddComment:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/nuevoComentario"(controller: "post",action: "addComment")
 
 
 

@@ -180,5 +180,28 @@
         </fieldset>
     </g:form>
 </div>
+
+<hr/>
+<h1>DEBATES</h1>
+<ul>
+<g:each in="${postInstance.debates}" var="debate">
+    <li>${debate.kuorumUser}: ${debate.text}</li>
+</g:each>
+</ul>
+
+<hr/>
+<h1>COMENTARIOS</h1>
+<ul>
+    <g:each in="${postInstance.comments}" var="comment" status="commentPos">
+        ${comment.moderated || comment.deleted}
+        <g:if test="${comment.moderated || comment.deleted}">
+            <g:set var="style" value="color:#CCC"/>
+        </g:if>
+        <g:else>
+            <g:set var="style" value="color:#000"/>
+        </g:else>
+        <li style="${style}">${comment.kuorumUser}: ${comment.text} <post:removeCommentButton post="${postInstance}" commentPosition="${commentPos}"/> </li>
+    </g:each>
+</ul>
 </body>
 </html>

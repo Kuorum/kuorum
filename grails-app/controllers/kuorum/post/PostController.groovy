@@ -153,4 +153,24 @@ class PostController {
         postService.favoriteRemovePost(post,user)
         render "Ajax CALL OK"
     }
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def deleteComment(String postId, Integer commentPosition){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Post post = Post.get(new ObjectId(postId))
+        if (postService.isCommentDeletableByUser(user, post, commentPosition)){
+            postService.deleteComment(user,post,commentPosition)
+        }else{
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+            return;
+        }
+
+        render "Comment deleted"
+    }
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def addComment(){
+        //TODO
+        render "TODO"
+    }
 }
