@@ -87,12 +87,8 @@ class PostController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def review(String postId){
-        Post post = Post.get(new ObjectId(postId))
-        if (!post){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
+    def review(){
+        Post post = params.post
         if (post.owner.id != springSecurityService.principal.id){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
@@ -102,11 +98,7 @@ class PostController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def publish(String postId){
-        Post post = Post.get(new ObjectId(postId))
-        if (!post){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
+        Post post = params.post
         if (post.owner.id != springSecurityService.principal.id){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
@@ -117,11 +109,7 @@ class PostController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def promoteYourPost(String postId){
-        Post post = Post.get(new ObjectId(postId))
-        if (!post){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
+        Post post = params.post
         if (post.owner.id != springSecurityService.principal.id){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
@@ -132,11 +120,7 @@ class PostController {
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def favorite(String postId) {
-        Post post = Post.get(new ObjectId(postId))
-        if (!post){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
+        Post post = params.post
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         postService.favoriteAddPost(post,user)
         render "Ajax CALL OK"
@@ -144,11 +128,7 @@ class PostController {
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def unfavorite(String postId) {
-        Post post = Post.get(new ObjectId(postId))
-        if (!post){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
+        Post post = params.post
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         postService.favoriteRemovePost(post,user)
         render "Ajax CALL OK"
@@ -157,7 +137,7 @@ class PostController {
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def deleteComment(String postId, Integer commentPosition){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Post post = Post.get(new ObjectId(postId))
+        Post post = params.post
         if (postService.isCommentDeletableByUser(user, post, commentPosition)){
             postService.deleteComment(user,post,commentPosition)
         }else{
@@ -169,7 +149,7 @@ class PostController {
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def addComment(){
+    def addComment(String postId,String comment){
         //TODO
         render "TODO"
     }

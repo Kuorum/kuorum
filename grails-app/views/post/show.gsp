@@ -202,6 +202,12 @@
         </g:else>
         <li style="${style}">${comment.kuorumUser}: ${comment.text} <post:removeCommentButton post="${postInstance}" commentPosition="${commentPos}"/> </li>
     </g:each>
+    <li>
+        <g:form mapping="postAddComment" params="${postInstance.encodeAsLinkProperties()}">
+            <textarea name="comment"> COMENtARIO NUECO </textarea>
+            <g:submitButton name="NUEVO COMENTARIO"/>
+        </g:form>
+    </li>
 </ul>
 </body>
 </html>
