@@ -488,21 +488,21 @@ class NotificationService {
 
     }
 
-    void sendPostPromotedNotification(Post post, KuorumUser sponsor, Integer numEmails){
+    void sendSponsoredPostNotification(Post post, KuorumUser sponsor, Integer numEmails){
         sendPostPromotedMails(post, sponsor, numEmails)
         sendPostPromotedOwnerMail(post, sponsor, numEmails)
         Environment.executeForCurrentEnvironment {
             development{
                 grails.async.Promises.task{
-                    sendPostPromotedSponsorMail(post, sponsor, numEmails)
+                    sendSponsoredPostMail(post, sponsor, numEmails)
                 }
             }
             test{
-                sendPostPromotedSponsorMail(post, sponsor, numEmails)
+                sendSponsoredPostMail(post, sponsor, numEmails)
             }
             production{
                 grails.async.Promises.task{
-                    sendPostPromotedSponsorMail(post, sponsor, numEmails)
+                    sendSponsoredPostMail(post, sponsor, numEmails)
                 }
             }
         }
@@ -511,7 +511,7 @@ class NotificationService {
     private void sendPostPromotedOwnerMail(Post post, KuorumUser sponsor, Integer numEmails){
         kuorumMailService.sendPromotedPostMailOwner(post,sponsor)
     }
-    private void sendPostPromotedSponsorMail(Post post, KuorumUser sponsor, Integer numEmails){
+    private void sendSponsoredPostMail(Post post, KuorumUser sponsor, Integer numEmails){
         kuorumMailService.sendPromotedPostMailSponsor(post,sponsor)
     }
 

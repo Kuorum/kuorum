@@ -4,7 +4,6 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.VoteType
-import kuorum.core.model.search.Pagination
 import kuorum.helper.Helper
 import kuorum.law.Law
 import kuorum.law.LawVote
@@ -427,7 +426,7 @@ class NotificationServiceSpec extends Specification {
 
         when:"Sending promotion mail"
         (1..numSponsors).each{
-            service.sendPostPromotedNotification(post, sponsor, numEmails )
+            service.sendSponsoredPostNotification(post, sponsor, numEmails )
         }
         then:
         numSponsors * kuorumMailService.sendPromotedPostMailSponsor(post,sponsor)

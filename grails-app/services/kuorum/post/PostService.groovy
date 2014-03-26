@@ -84,6 +84,10 @@ class PostService {
         //Reloading data from DDBB
         post.refresh()
         post.firstCluck.refresh()
+
+        Integer numMails = calculateNumEmails(sponsor.amount)
+        notificationService.sendSponsoredPostNotification(post, sponsor, numMails)
+        gamificationService.sponsorAPostAward(sponsor, numMails)
     }
 
     Integer calculateNumEmails(Double price){
