@@ -14,8 +14,8 @@ class LawServiceIntegrationSpec extends Specification{
     def fixtureLoader
 
     def setup(){
-        Law.collection.getDB().dropDatabase()
-        fixtureLoader.load("testData")
+        Region.collection.getDB().dropDatabase()
+        fixtureLoader.load("testBasicData")
     }
 
     void "test update a law"() {

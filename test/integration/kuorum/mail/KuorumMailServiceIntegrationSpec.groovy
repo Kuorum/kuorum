@@ -13,8 +13,11 @@ import spock.lang.Unroll
 class KuorumMailServiceIntegrationSpec extends Specification{
 
     def kuorumMailService
+    def fixtureLoader
 
     def setup(){
+        KuorumUser.collection.getDB().dropDatabase()
+        fixtureLoader.load("testBasicData")
     }
 
     void "test send mail of debate notification" () {

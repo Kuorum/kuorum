@@ -149,8 +149,8 @@ class NotificationServiceSpec extends Specification {
         politician.save()
 
         when: "Sending notification"
-        //"service" represents the grails service you are testing for
         def promise = service.sendDebateNotification(post)
+
         then: "All OK and mail service has been called"
         DebateAlertNotification.findAllByPost(post).size()==numAlerts
         DebateNotification.findByPost(post).idDebate == post.debates.size() -1

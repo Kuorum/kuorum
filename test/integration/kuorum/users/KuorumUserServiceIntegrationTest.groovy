@@ -8,6 +8,12 @@ import spock.lang.Specification
 class KuorumUserServiceIntegrationTest extends Specification {
 
     def kuorumUserService
+    def fixtureLoader
+
+    def setup(){
+        KuorumUser.collection.getDB().dropDatabase()
+        fixtureLoader.load("testBasicData")
+    }
 
     void "test creating a follower"() {
         given: "2 users"

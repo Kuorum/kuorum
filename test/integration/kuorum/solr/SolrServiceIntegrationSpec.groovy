@@ -6,6 +6,7 @@ import kuorum.core.model.solr.SolrAutocomplete
 import kuorum.core.model.solr.SolrResults
 import kuorum.core.model.solr.SolrSubType
 import kuorum.core.model.solr.SolrType
+import kuorum.users.KuorumUser
 import spock.lang.Shared
 import spock.lang.Unroll
 
@@ -16,6 +17,7 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
 
     def indexSolrService
     def searchSolrService
+    def fixtureLoader
 
     //CSS class highligted from solr
     private static final CSS_CLASS = "highlighted"
@@ -33,6 +35,8 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             [word:"juanjo a",   type:SolrType.LAW,          subType:SolrSubType.ORGANIZATION]
     ]
     def setup(){
+        KuorumUser.collection.getDB().dropDatabase()
+        fixtureLoader.load("testBasicData")
         indexSolrService.fullIndex()
     }
 

@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.users.KuorumUser
 import org.springframework.security.core.userdetails.UserDetails
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -13,13 +14,12 @@ import spock.lang.Unroll
  */
 class MongoUserDetailServiceIntegrationSpec extends Specification{
 
-    def userDetailsService
     def mongoUserDetailsService
-//    def fixtureLoader
+    def fixtureLoader
 
     def setup(){
-//        controller.personUserService = personUserService
-//        fixtureLoader.load("testData")
+        KuorumUser.collection.getDB().dropDatabase()
+        fixtureLoader.load("testBasicData")
     }
 
 

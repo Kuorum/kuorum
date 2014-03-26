@@ -18,7 +18,7 @@ class PostServiceIntegrationSpec extends Specification{
 
     def setup(){
         KuorumUser.collection.getDB().dropDatabase()
-        fixtureLoader.load("testData")
+        fixtureLoader.load("testBasicData")
     }
 
     void "test create post with wrong params"() {
@@ -139,7 +139,10 @@ class PostServiceIntegrationSpec extends Specification{
 
     @Unroll
     void "test sponsoring a post by #email amount #amount => #total"(){
-        given: "A post"
+        setup: "Dorp database and load data processed and creates sponsor"
+            KuorumUser.collection.getDB().dropDatabase()
+            fixtureLoader.load("testData")
+
             KuorumUser user = KuorumUser.findByEmail("peter@example.com")
             KuorumUser sponsorUser = KuorumUser.findByEmail(email)
             Sponsor sponsor = new Sponsor(kuorumUser:sponsorUser , amount: amount)

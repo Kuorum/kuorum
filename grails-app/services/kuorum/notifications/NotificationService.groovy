@@ -154,52 +154,53 @@ class NotificationService {
     }
 
     private void sendDebateNotificationInterestedUsers(Post post, Integer idDebate){
+//        PostVote.withStatelessSession{}
+        // IF THIS METHOD CONSUME A LOT OF MEMORY TRY WITH withStatelessSession. It dosn't work on unit testing mode
         Set<MailUserData> notificationUsers = []
         KuorumUser debateOwner = post.debates.last().kuorumUser
         Boolean isFirstDebate = post.debates.size()==1
 
         //All interested people for their vote
-        PostVote.withStatelessSession{
-            PostVote.findAllByPostAndUserNotEqual(post, post.owner).each{PostVote postVote ->
-                if (postVote.user != post.owner){
-                    DebateNotification debateNotification = new DebateNotification()
-                    debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
-                    debateNotification.isFirstDebate=isFirstDebate
-                    debateNotification.post = post
-                    debateNotification.debateWriter = debateOwner
-                    debateNotification.kuorumUser = postVote.user
-                    debateNotification.idDebate = idDebate
-                    debateNotification.save()
-                    notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
-                    if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
-                        kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
-                        notificationUsers.clear()
-                    }
+
+        PostVote.findAllByPostAndUserNotEqual(post, post.owner).each{PostVote postVote ->
+            if (postVote.user != post.owner){
+                DebateNotification debateNotification = new DebateNotification()
+                debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
+                debateNotification.isFirstDebate=isFirstDebate
+                debateNotification.post = post
+                debateNotification.debateWriter = debateOwner
+                debateNotification.kuorumUser = postVote.user
+                debateNotification.idDebate = idDebate
+                debateNotification.save()
+                notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
+                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                    kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+                    notificationUsers.clear()
                 }
             }
-            //All interested people for his followings
-            def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
-
-            interestedUsers.each {KuorumUser user ->
-                if (user != post.owner && !(DebateNotification.findByPostAndKuorumUserAndIdDebate(post,user,idDebate))){
-                    DebateNotification debateNotification = new DebateNotification()
-                    debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
-                    debateNotification.post = post
-                    debateNotification.debateWriter = debateOwner
-                    debateNotification.kuorumUser = user
-                    debateNotification.idDebate = idDebate
-                    debateNotification.save()
-                    notificationUsers << new MailUserData(user:user, bindings:[:])
-                    if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
-                        kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
-                        notificationUsers.clear()
-                    }
-                }
-            }
-
-            if (notificationUsers)
-                kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
         }
+        //All interested people for his followings
+        def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
+
+        interestedUsers.each {KuorumUser user ->
+            if (user != post.owner && !(DebateNotification.findByPostAndKuorumUserAndIdDebate(post,user,idDebate))){
+                DebateNotification debateNotification = new DebateNotification()
+                debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
+                debateNotification.post = post
+                debateNotification.debateWriter = debateOwner
+                debateNotification.kuorumUser = user
+                debateNotification.idDebate = idDebate
+                debateNotification.save()
+                notificationUsers << new MailUserData(user:user, bindings:[:])
+                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                    kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+                    notificationUsers.clear()
+                }
+            }
+        }
+
+        if (notificationUsers)
+            kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
     }
 
     private sendDebateNotificationPoliticians(Post post, Integer idDebate){

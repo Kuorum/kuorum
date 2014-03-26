@@ -13,13 +13,13 @@ class Pagination {
     /**
      * Offset
      */
-    Long offset = 0
+    Long offset = 0L
 
     public Integer getMax(){
         Math.min(max ?: 10, 100)
     }
 
-    public Integer getOffset() {
+    public Long getOffset() {
         offset?offset:0
     }
 }

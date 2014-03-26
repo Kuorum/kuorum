@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.users.KuorumUser
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -10,6 +11,12 @@ class RegionServiceIntegrationSpec extends Specification{
 
 
     def regionService
+    def fixtureLoader
+
+    def setup(){
+        Region.collection.getDB().dropDatabase()
+        fixtureLoader.load("testBasicData")
+    }
 
     @Unroll
     void "test get region #regionExpectedName by postalCode #postalCode on country #countryIso"() {
