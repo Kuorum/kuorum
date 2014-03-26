@@ -153,6 +153,7 @@ class NotificationServiceSpec extends Specification {
 
         then: "All OK and mail service has been called"
         DebateAlertNotification.findAllByPost(post).size()==numAlerts
+        DebateAlertNotification.findAllByPostAndIsActive(post,true).size()==numActiveAlerts
         DebateNotification.findByPost(post).idDebate == post.debates.size() -1
         DebateNotification.findByPost(post).debateWriter == debateWriter
         DebateNotification.findByPost(post).post== post
@@ -172,13 +173,62 @@ class NotificationServiceSpec extends Specification {
 
         1 * kuorumMailService.sendDebateNotificationMailInterestedUsers(post,{ it.size() == numVotes+numFollowers})
         where:
-        numDebates  | numAlerts  | numPoliticians | numFollowers | numVotes
-        1           |  1         | 1              | 1            | 5
-        1           |  1         | 1              | 2            | 5
-        2           |  0         | 1              | 1            | 5
-        2           |  0         | 1              | 2            | 5
-        5           |  0         | 2              | 1            | 5
-        5           |  0         | 2              | 2            | 5
+        numDebates  | numAlerts  | numActiveAlerts | numPoliticians | numFollowers | numVotes
+        1           |  1         | 1               |1               | 1            | 5
+        1           |  1         | 1               |1               | 2            | 5
+        2           |  0         | 0               |1               | 1            | 5
+        2           |  0         | 0               |1               | 2            | 5
+        5           |  0         | 0               |2               | 1            | 5
+        5           |  0         | 0               |2               | 2            | 5
+    }
+
+    void "test debate user alert is deactivate after user answer the debate"(){
+        given:"A post"
+        Post post = Helper.createDefaultPost().save()
+        KuorumUser politician = Helper.createDefaultUser("politician@example.com").save()
+        PostComment debatePolitician = new PostComment(kuorumUser: politician, text: "Politician debate")
+        post.debates = [debatePolitician]
+        post.save()
+        service.sendDebateNotification(post)
+        Boolean activeAlertCreated = DebateAlertNotification.findAllByPostAndIsActive(post, true).size()==1
+        when:"User answers"
+
+        PostComment userAnswer = new PostComment(kuorumUser: post.owner, text: "User Answer debate")
+        post.debates += [userAnswer]
+        post.save()
+        service.sendDebateNotification(post)
+        then:
+        activeAlertCreated
+        DebateAlertNotification.findAllByPostAndIsActive(post, false).size()==1
+        DebateAlertNotification.withNewSession {
+            DebateAlertNotification.findAllByPostAndIsActive(post, false).size()==1
+//            DebateAlertNotification.findAllByPostAndIsActive(post, false).isActive == false
+        }
+    }
+
+    void "test debate user alert is not deactivate after politician answer the debate"(){
+        given:"A post"
+        Post post = Helper.createDefaultPost().save()
+        KuorumUser politician = Helper.createDefaultUser("politician@example.com").save()
+        KuorumUser politician2 = Helper.createDefaultUser("politician2@example.com").save()
+        PostComment debatePolitician = new PostComment(kuorumUser: politician, text: "Politician debate")
+        post.debates = [debatePolitician]
+        post.save()
+        service.sendDebateNotification(post)
+        Boolean activeAlertCreated = DebateAlertNotification.findAllByPostAndIsActive(post, true).size()==1
+        when:"User answers"
+
+        PostComment userAnswer = new PostComment(kuorumUser: politician2, text: "politician Answer debate")
+        post.debates += [userAnswer]
+        post.save()
+        service.sendDebateNotification(post)
+        then:
+        activeAlertCreated
+        DebateAlertNotification.findAllByPostAndIsActive(post, true).size()==1
+        DebateAlertNotification.withNewSession {
+            DebateAlertNotification.findAllByPostAndIsActive(post, true).size()==1
+//            DebateAlertNotification.findAllByPostAndIsActive(post, false).isActive == false
+        }
     }
 
     @Unroll

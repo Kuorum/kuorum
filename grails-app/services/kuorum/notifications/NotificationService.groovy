@@ -151,6 +151,18 @@ class NotificationService {
         sendDebateNotificationInterestedUsers(post, idDebate)
         sendDebateNotificationPoliticians(post, idDebate)
         sendDebateNotificationAuthor(post, idDebate)
+        deactivateDebateUserAlertNotification(post,idDebate)
+    }
+
+    private void deactivateDebateUserAlertNotification(Post post, Integer idDebate){
+        if (post.debates.last().kuorumUser == post.owner){
+            DebateAlertNotification alert = DebateAlertNotification.findByKuorumUserAndPostAndIsActive(post.owner,post, true)
+            if (alert){
+                alert.isActive = false
+                alert.save(flush:true)
+                alert.insert()// SAVING IS NOT WORWING!!!!
+            }
+        }
     }
 
     private void sendDebateNotificationInterestedUsers(Post post, Integer idDebate){
