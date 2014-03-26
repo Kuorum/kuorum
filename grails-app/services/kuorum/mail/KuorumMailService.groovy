@@ -61,7 +61,7 @@ class KuorumMailService {
     }
 
     def sendPublicMilestoneNotificationMail(Post post){
-        String postLink = generateLink("${post.postType}Show",[postId:post.id.toString()])
+        String postLink = generateLink("postShow", post.encodeAsLinkProperties())
         def bindings = [mailType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", user.language.locale)]
         MailUserData mailUserData = new MailUserData(user:post.owner, bindings:bindings)
         MailData mailData = new MailData()
@@ -83,7 +83,7 @@ class KuorumMailService {
                 postName:post.title,
                 postOwner:post.owner.name,
                 postOwnerLink:generateLink("userShow",[id:post.owner.id]),
-                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 message:post.last().text
                 ]
 
@@ -105,7 +105,7 @@ class KuorumMailService {
                 postName:post.title,
                 postOwner:post.owner.name,
                 postOwnerLink:generateLink("userShow",[id:post.owner.id]),
-                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 message:post.last().text
         ]
         MailData mailNotificationsData = new MailData()
@@ -125,7 +125,7 @@ class KuorumMailService {
                 postName:post.title,
                 postOwner:post.owner.name,
                 postOwnerLink:generateLink("userShow",[id:post.owner.id]),
-                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 message:post.last().text
         ]
 
@@ -145,7 +145,7 @@ class KuorumMailService {
                 defenderLink:generateLink("userShow",[id:post.defender.id]),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
                 postOwnerLink: generateLink("userShow",[id:post.owner.id])
 
@@ -166,7 +166,7 @@ class KuorumMailService {
                 defenderLink:generateLink("userShow",[id:post.defender.id]),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
                 postOwnerLink: generateLink("userShow",[id:post.owner.id])
 
@@ -188,7 +188,7 @@ class KuorumMailService {
                 defenderLink:generateLink("userShow",[id:post.defender.id]),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
                 postOwnerLink: generateLink("userShow",[id:post.owner.id])
         ]
@@ -208,7 +208,7 @@ class KuorumMailService {
                 defenderLink:generateLink("userShow",[id:post.defender.id]),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
                 postOwnerLink: generateLink("userShow",[id:post.owner.id])
         ]
@@ -228,7 +228,7 @@ class KuorumMailService {
                 defenderLink:generateLink("userShow",[id:post.defender.id]),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
                 postOwnerLink: generateLink("userShow",[id:post.owner.id])
         ]
@@ -293,7 +293,7 @@ class KuorumMailService {
                 defenderLink:generateLink("userShow",[id:post.defender.id]),
                 debateOwner:post.owner.name,
                 postName:post.title,
-                postLink:generateLink("${post.postType}Show", [postId:post.id]),
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
                 postOwnerLink: generateLink("userShow",[id:post.owner.id])
         ]
