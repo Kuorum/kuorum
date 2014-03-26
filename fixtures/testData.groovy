@@ -1,14 +1,24 @@
+import kuorum.post.PostComment
 import kuorum.post.Sponsor
 
 include "testBasicData"
 
 fixture{
 
+    deabatePolitician(PostComment){
+        text="Politician Debate 1"
+        dateCreated = new Date()
+        deleted = Boolean.FALSE
+        moderated = Boolean.FALSE
+        kuorumUser = politician
+    }
+
 }
 post {
 
     postService.savePost(abortoPurpose1, abortoPurpose1.law, abortoPurpose1.owner)
     postService.publishPost(abortoPurpose1)
+    postService.addDebate(abortoPurpose1, deabatePolitician)
 
     cluckService.createCluck(abortoPurpose1, juanjoAlvite)
     cluckService.createCluck(abortoPurpose1, ecologistasEnAccion)

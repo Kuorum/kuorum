@@ -235,7 +235,7 @@ class NotificationService {
             debateNotification.debateWriter = debateOwner
             debateNotification.kuorumUser = post.owner
             debateNotification.idDebate = idDebate
-            debateNotification.save()
+            debateNotification.save(flush:true, failOnError: true)
             kuorumMailService.sendDebateNotificationMailAuthor(post)
         }
     }

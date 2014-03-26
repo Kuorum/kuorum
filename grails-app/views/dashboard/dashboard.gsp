@@ -31,5 +31,6 @@
 <content tag="cColumn">
     Columna C de dashboard
     <g:include controller="modules" action="userProfile"/>
+    <g:include controller="modules" action="userProfileAlerts"/>
     <g:include controller="modules" action="recommendedPosts"/>
 </content>

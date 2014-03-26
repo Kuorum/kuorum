@@ -35,6 +35,8 @@ class KuorumUserService {
         user.personalData.userType = UserType.PERSON
         user.institution = null
         user.parliamentaryGroup = null
+        RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
+        user.authorities.remove(rolePolitician)
         user.save()
     }
 
@@ -43,6 +45,8 @@ class KuorumUserService {
         user.personalData.userType = UserType.ORGANIZATION
         user.institution = null
         user.parliamentaryGroup = null
+        RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
+        user.authorities.remove(rolePolitician)
         user.save()
     }
 
@@ -51,6 +55,8 @@ class KuorumUserService {
         user.personalData.userType = UserType.POLITICIAN
         user.institution = institution
         user.parliamentaryGroup = parliamentaryGroup
+        RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
+        user.authorities.add(rolePolitician)
         user.save()
     }
 

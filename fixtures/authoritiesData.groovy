@@ -5,8 +5,8 @@ fixture {
 //    build{
         roleUser        (RoleUser,authority: 'ROLE_USER')
         roleAdvanced    (RoleUser,authority: 'ROLE_ADVANCED')
+        rolePolitician  (RoleUser,authority: 'ROLE_POLITICIAN')
         roleAdmin       (RoleUser,authority: 'ROLE_ADMIN')
-        roleEnterprise  (RoleUser,authority: 'ROLE_ENTERPRISE')
 //    }
 }
 

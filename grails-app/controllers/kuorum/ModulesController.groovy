@@ -8,6 +8,7 @@ class ModulesController {
 
     def springSecurityService
     def postService
+    def notificationService
 
     def recommendedPosts() {
         KuorumUser user = null
@@ -25,5 +26,11 @@ class ModulesController {
         Integer numFollowers = user.followers.size()
         Integer numFollowing = user.following.size()
         [user:user, numPost:numPosts, numFollowers:numFollowers, numFollowing:numFollowing]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def userProfileAlerts() {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        [alerts:notificationService.findActiveUserAlerts(user)]
     }
 }
