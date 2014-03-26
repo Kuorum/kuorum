@@ -39,6 +39,7 @@ class LawService {
             lawVote = changeLawVote(law, user, voteType, lawVote)
         }else if (!lawVote){
             lawVote = createLawVote(law,user,voteType)
+            gamificationService.lawVotedAward(user, law)
         }
         lawVote
     }
@@ -85,7 +86,6 @@ class LawService {
             default: break;
         }
         law.refresh()
-        gamificationService.lawVotedAward(user, law)
         lawVote
     }
 

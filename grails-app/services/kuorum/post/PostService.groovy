@@ -86,8 +86,8 @@ class PostService {
         post.firstCluck.refresh()
 
         Integer numMails = calculateNumEmails(sponsor.amount)
-        notificationService.sendSponsoredPostNotification(post, sponsor, numMails)
-        gamificationService.sponsorAPostAward(sponsor, numMails)
+        notificationService.sendSponsoredPostNotification(post, sponsor.kuorumUser, numMails)
+        gamificationService.sponsorAPostAward(sponsor.kuorumUser, numMails)
     }
 
     Integer calculateNumEmails(Double price){

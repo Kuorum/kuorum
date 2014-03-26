@@ -3,6 +3,7 @@ import kuorum.core.model.CommissionType
 import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.post.Post
+import kuorum.users.KuorumUser
 import org.codehaus.groovy.grails.commons.ApplicationHolder
 
 /**
@@ -26,6 +27,9 @@ class LinkPropertiesCodec {
                         postId:target.id,
                         postTypeUrl:postTypeName.encodeAsKuorumUrl(),
                 ]
+                break;
+            case KuorumUser:
+                params = [id:target.id]
                 break;
             default:
                 params = [:]

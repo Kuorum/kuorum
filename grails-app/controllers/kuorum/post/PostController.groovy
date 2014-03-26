@@ -20,8 +20,7 @@ class PostController {
     }
 
     def show(String postId){
-        Post post = Post.get(new ObjectId(postId))
-        [postInstance:post]
+        [postInstance:params.post]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

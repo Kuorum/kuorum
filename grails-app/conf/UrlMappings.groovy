@@ -10,6 +10,7 @@ class UrlMappings {
         name lawShow:       "/leyes/$regionName/$commision/$hashtag" (controller: "law", action:"show")
         name lawEdit:       "/leyes/$regionName/$commision/$hashtag/editar"(controller: "law", action:"edit")
         name lawUpdate:     "/leyes/$regionName/$commision/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
+        name lawVote:       "/leyes/$regionName/$commision/$hashtag/votar"(controller: "law", action:"voteLaw")
 
         name postCreate:    "/leyes/$regionName/$commision/$hashtag/nuevo-post"(controller: "post", action: "create")
         name postSave:      "/leyes/$regionName/$commision/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
@@ -27,7 +28,7 @@ class UrlMappings {
 
 
 
-        name userShow: "/user/$id" (controller: "kuorumUser", action: "show")
+        name userShow: "/ciudadano/$id" (controller: "kuorumUser", action: "show")
 
         name cluckCreate: "/cluck/$postId" (controller: "cluck", action: "createCluck")
 

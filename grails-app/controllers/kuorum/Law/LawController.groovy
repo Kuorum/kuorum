@@ -3,7 +3,10 @@ package kuorum.Law
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.Region
+import kuorum.core.model.VoteType
 import kuorum.law.Law
+import kuorum.law.LawVote
+import kuorum.users.KuorumUser
 import kuorum.web.commands.LawCommand
 
 import javax.servlet.http.HttpServletResponse
@@ -12,6 +15,7 @@ class LawController {
 
     def lawService
     def cluckService
+    def springSecurityService
 
     def index(){
         [lawInstanceList:Law.findAll()]
@@ -115,4 +119,16 @@ class LawController {
         render "unpublish"
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def voteLaw(String hashtag){
+        VoteType voteType = VoteType.valueOf(params.voteType)
+        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
+        if (!law || !voteType){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        LawVote lawVote = lawService.voteLaw(law, user, voteType)
+        render "Vote $voteType"
+    }
 }
