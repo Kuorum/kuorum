@@ -149,8 +149,14 @@ class PostController {
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def addComment(String postId,String comment){
-        //TODO
-        render "TODO"
+    def addComment(String comment){
+        if (!comment.trim().isEmpty()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            PostComment postComent = new PostComment(kuorumUser: user, text:comment)
+            postService.addComment(params.post, postComent)
+            render "Comment '$comment' added"
+        }else{
+            render "EMpty comment"
+        }
     }
 }

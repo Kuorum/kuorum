@@ -103,6 +103,10 @@ class PostService {
     }
 
     Post addComment(Post post, PostComment comment){
+
+        if (!comment.validate()){
+            throw KuorumExceptionUtil.createExceptionFromValidatable(comment)
+        }
         //Atomic operation
         def commentData = [
                 kuorumUserId: comment.kuorumUser.id,
