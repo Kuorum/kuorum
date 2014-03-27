@@ -30,7 +30,7 @@ class MandrillAppService {
         message.to = recipients
         message.globalMergeVars = globalMergeVars
         message.mergeVars = mergeVars
-        message.tags = ["kuorum.org"]
+        message.tags = [mailData.mailType.tagTemplate]
         message.googleAnalyticsDomains = ["kuorum.org"]
         message.metadata = ["website":"kuorum.org"]
 
