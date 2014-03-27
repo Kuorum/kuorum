@@ -12,12 +12,13 @@ import kuorum.law.Law
 import kuorum.notifications.NotificationService
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
+import kuorum.users.RoleUser
 import org.bson.types.ObjectId
 import spock.lang.Specification
 import spock.lang.Unroll
 
 @TestFor(PostService)
-@Mock([KuorumUser, Post, Law])
+@Mock([KuorumUser, Post, Law, RoleUser])
 class PostServiceSpec extends Specification{
 
     IndexSolrService indexSolrService = Mock(IndexSolrService)
@@ -129,5 +130,33 @@ class PostServiceSpec extends Specification{
         then:
         recommendedPost.first().numVotes>=recommendedPost.last().numVotes
         recommendedPost.size() <= service.NUM_RECOMMENDED_POST
+    }
+
+    @Unroll
+    void "test if comment in pos #commentPos is deletable by user #email (admin: #isAdmin )"(){
+        given:"A user and a post"
+        Law law = Helper.createDefaultLaw("#law").save()
+        KuorumUser owner = Helper.createDefaultUser("owner@email.com").save()
+        KuorumUser user = Helper.createDefaultUser("user@email.com").save()
+        Post post = Helper.createDefaultPost(owner,law).save()
+        post.comments = [new PostComment([text:"0", kuorumUser:user]),new PostComment([text:"0", kuorumUser:owner])]
+        post.save()
+        KuorumUser deletedBy = email==owner.email?owner:user
+        if (isAdmin){
+            deletedBy.authorities =[new RoleUser(authority: "ROLE_ADMIN").save()]
+            deletedBy.save()
+        }
+        when:
+        boolean isDeletable = service.isCommentDeletableByUser(deletedBy,post, commentPos)
+        then:
+        isDeletable == deletable
+        where:
+        email               | deletable | commentPos | isAdmin
+        "user@email.com"    | false     | 1          | false
+        "user@email.com"    | true      | 0          | false
+        "owner@email.com"   | true      | 1          | false
+        "owner@email.com"   | true      | 0          | false
+        "user@email.com"    | true      | 1          | true
+
     }
 }
