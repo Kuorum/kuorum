@@ -6,6 +6,7 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.core.model.Studies
 import kuorum.helper.Helper
+import kuorum.mail.KuorumMailService
 import kuorum.springSecurity.FacebookAuthService
 import org.springframework.social.facebook.api.CommentOperations
 import org.springframework.social.facebook.api.EventOperations
@@ -38,8 +39,11 @@ class FacebookAuthServiceSpec  extends Specification {
     static String MOCK_TESTING_BIRTHDAY="24/06/1983"
     static long UID = 12345
 
+    KuorumMailService kuorumMailServiceMock = Mock(KuorumMailService)
+
     def setup() {
         def facebookTemplateMock = createMockFacebook()
+        service.kuorumMailService = kuorumMailServiceMock
 
         GroovySpy(FacebookTemplate, global: true)
         new FacebookTemplate(ACCESS_TOKEN)>> facebookTemplateMock
@@ -66,6 +70,7 @@ class FacebookAuthServiceSpec  extends Specification {
         KuorumUser.count() == numUsersAfterRegister
         KuorumUser user = KuorumUser.findByEmail(MOCK_TESTING_EMAIL)
         user == facebookUser.user
+        1 * kuorumMailServiceMock.sendRegisterUserViaRRSS(_)
         if (usersOnDB.contains(MOCK_TESTING_NAME)){
             user.personalData.studies == Studies.DOCTOR
         }else{

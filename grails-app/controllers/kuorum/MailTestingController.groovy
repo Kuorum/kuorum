@@ -129,6 +129,14 @@ class MailTestingController {
         redirect action: "index", params:[email:email]
     }
 
+    def testRegisterRRSS(String email){
+        def data = prepareMailTestEnviroment(email)
+        kuorumMailService.sendRegisterUserViaRRSS(data.user)
+
+        flash.message ="Se ha enviado el mail al email $email"
+        redirect action: "index", params:[email:email]
+    }
+
     def testAccountConfirmed(String email){
         def data = prepareMailTestEnviroment(email)
         kuorumMailService.sendUserAccountConfirmed(data.user)

@@ -31,6 +31,12 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
+    def sendRegisterUserViaRRSS(KuorumUser user){
+        MailUserData mailUserData = new MailUserData(user:user, bindings:[:])
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_RRSS, userBindings: [mailUserData])
+        mandrillAppService.sendTemplate(mailData)
+    }
+
     def sendUserAccountConfirmed(KuorumUser user){
         def bindings = []
         MailUserData mailUserData = new MailUserData(user:user)

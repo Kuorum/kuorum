@@ -21,6 +21,7 @@
     <g:link action="testVictoryUsers" params="[email:email]">Test envio mail victoria a usuarios</g:link><br/>
     <g:link action="testVictoryDefender" params="[email:email]">Test envio mail victoria al politico que la ha defendido</g:link><br/>
     <g:link action="testRegister" params="[email:email]">Test envio mail registro</g:link><br/>
+    <g:link action="testRegisterRRSS" params="[email:email]">Test envio mail registro via RRSS</g:link><br/>
     <g:link action="testAccountConfirmed" params="[email:email]">Test envio mail cuenta confirmada</g:link><br/>
 
     <g:link action="testPromotedOwner" params="[email:email]">Test envio mail post promocionado al usuario</g:link><br/>

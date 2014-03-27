@@ -4,6 +4,7 @@ import com.the6hours.grails.springsecurity.facebook.FacebookAuthToken
 import kuorum.core.model.Gender
 import kuorum.core.model.Studies
 import kuorum.core.model.UserType
+import kuorum.mail.KuorumMailService
 import kuorum.users.FacebookUser
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
@@ -19,6 +20,7 @@ class FacebookAuthService {
     private static final String FORMAT_BIRTHDAY_FACEBOOK = "MM/dd/yyyy"
 
     def mongoUserDetailsService
+    def kuorumMailService
 
     /**
      * Called first time an user register with facebook
@@ -72,6 +74,12 @@ class FacebookAuthService {
         user.save()
         facebookUser.user = user
         facebookUser.save()
+        if (user.hasErrors() || facebookUser.hasErrors()){
+            log.error("El usuario ${user} se ha logado usando faceboook y no se ha podido crear debido a estos errores: ${user.errors}" )
+        }else{
+            kuorumMailService.sendRegisterUserViaRRSS(user)
+        }
+        facebookUser
     }
 
     private def overwriteFieldIfNotFilled(PersonalData personalData, String field, FacebookProfile fbProfile, def parseData){
