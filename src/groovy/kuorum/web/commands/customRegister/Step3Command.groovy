@@ -13,7 +13,11 @@ class Step3Command {
 
     List<CommissionType> relevantCommissions
 
+    List<CommissionType> getRelevantCommissions(){
+        relevantCommissions?:[]
+    }
+
     static constraints = {
-        relevantCommissions minSize: 3
+        relevantCommissions nullable: false, minSize: 3
     }
 }

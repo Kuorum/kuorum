@@ -13,12 +13,19 @@
 FOTO
 <g:form method="POST" mapping="customRegisterStep4">
 
-    <div class="fieldcontain ${hasErrors(bean: command, field: 'userIds', 'error')} ">
-        <label for="userIds">
-            <g:message code="step1.userIds.label" default="userIds"/>
+    <div class="fieldcontain ${hasErrors(bean: command, field: 'recommendedUsers', 'error')} ">
+        <label for="recommendedUsers">
+            <g:message code="step1.recommendedUsers.label" default="recommendedUsers"/>
 
         </label>
-        <g:select name="userIds" from="${recommendedUsers}" optionKey="id" multiple="true"/>
+        <g:each in="${recommendedUsers}" var="recommendedUser">
+            <g:checkBox name="recommendedUsers" value="${recommendedUser.id}" checked="${command.recommendedUsers.contains(recommendedUser.id.toString())}"/>
+            <span class="${hasErrors(bean: command, field: 'recommendedUsers', 'error')}">
+                ${recommendedUser.name}
+            </span>
+            <br/>
+        </g:each>
+
     </div>
 
     <g:link mapping="customRegisterStep5">skip step</g:link>

@@ -11,6 +11,7 @@ import kuorum.web.commands.customRegister.Step1Command
 import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.customRegister.Step3Command
 import kuorum.web.commands.customRegister.Step4Command
+import org.bson.types.ObjectId
 
 class CustomRegisterController {
 
@@ -75,13 +76,21 @@ class CustomRegisterController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def step2(){
         log.info("Custom register paso2")
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Step2Command command = new Step2Command()
+        command.workingSector = user.personalData?.workingSector
+        command.bio = user.bio
+        command.studies =  user.personalData?.studies
         [command: command]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def step2Save(Step2Command command){
-
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        user.personalData.workingSector = command.workingSector
+        user.bio = command.bio
+        user.personalData.studies =  command.studies
+        user.save()
         redirect mapping:'customRegisterStep3'
     }
 
@@ -89,12 +98,20 @@ class CustomRegisterController {
     def step3(){
         log.info("Custom register paso3")
         Step3Command command = new Step3Command()
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        command.relevantCommissions = user.relevantCommissions
         [command: command]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def step3Save(Step3Command command){
-
+        if (command.hasErrors()){
+            render view:"step3", model: [command:command]
+            return
+        }
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        user.relevantCommissions = command.relevantCommissions
+        user.save()
         redirect mapping:'customRegisterStep4'
     }
 
@@ -109,7 +126,16 @@ class CustomRegisterController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def step4Save(Step4Command command){
-
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if (command.hasErrors()){
+            List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user)
+            render view:"step4", model: [command: command, recommendedUsers:recommendedUsers]
+            return
+        }
+        command.recommendedUsers.each {userId ->
+            KuorumUser following = KuorumUser.get(new ObjectId(userId))
+            kuorumUserService.createFollower(user, following)
+        }
         redirect mapping:'customRegisterStep5'
     }
 

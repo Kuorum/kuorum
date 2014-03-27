@@ -18,9 +18,14 @@ FOTO
             <g:message code="step1.relevantCommissions.label" default="relevantCommissions"/>
 
         </label>
-        <g:select name="relevantCommissions" from="${kuorum.core.model.CommissionType?.values()}"
-                  keys="${kuorum.core.model.CommissionType.values()*.name()}"
-                  value="${command?.relevantCommissions?.name()}" multiple="true"/>
+
+        <g:each in="${kuorum.core.model.CommissionType.values()}" var="commissionType">
+            <g:checkBox name="relevantCommissions" value="${commissionType}" checked="${command.relevantCommissions.contains(commissionType)}"/>
+            <span class="${hasErrors(bean: command, field: 'relevantCommissions', 'error')}">
+                <g:message code="kuorum.core.model.CommissionType.${commissionType}" default="${commissionType}"/>
+            </span>
+            <br/>
+        </g:each>
     </div>
 
     <g:link mapping="customRegisterStep4">skip step</g:link>

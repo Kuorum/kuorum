@@ -9,9 +9,13 @@ import kuorum.core.model.CommissionType
 @Validateable
 class Step4Command {
 
-    List<String> userIds
+    List<String> recommendedUsers
+
+    List<String> getRecommendedUsers(){
+        recommendedUsers?:[]
+    }
 
     static constraints = {
-        userIds minSize: 3
+        recommendedUsers nullable:false, minSize: 3
     }
 }
