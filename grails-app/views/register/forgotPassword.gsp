@@ -1,48 +1,24 @@
-<html>
-
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-<title><g:message code='spring.security.ui.forgotPassword.title'/></title>
-<meta name='layout' content='register'/>
+    <title><g:message code="kuorum.name"/> </title>
+<meta name="layout" content="kuorumLayout">
 </head>
 
-<body>
 
-<p/>
+<content tag="mainContent">
+    <g:form mapping="resetPassword">
+        <label for="email"> EMAIL </label>
+        <g:textField name="email" size="25" value="${command.email}"/>
+        <g:submitButton name="reset pass"/>
+    </g:form>
+    <script>
+        $(document).ready(function() {
+            $('#username').focus();
+        });
+    </script>
 
-<s2ui:form width='400' height='220' elementId='forgotPasswordFormContainer'
-           titleCode='spring.security.ui.forgotPassword.header' center='true'>
+</content>
 
-	<g:form action='forgotPassword' name="forgotPasswordForm" autocomplete='off'>
-
-	<g:if test='${emailSent}'>
-	<br/>
-	<g:message code='spring.security.ui.forgotPassword.sent'/>
-	</g:if>
-
-	<g:else>
-
-	<br/>
-	<h4><g:message code='spring.security.ui.forgotPassword.description'/></h4>
-
-	<table>
-		<tr>
-			<td><label for="username"><g:message code='spring.security.ui.forgotPassword.username'/></label></td>
-			<td><g:textField name="username" size="25" /></td>
-		</tr>
-	</table>
-
-	<s2ui:submitButton elementId='reset' form='forgotPasswordForm' messageCode='spring.security.ui.forgotPassword.submit'/>
-
-	</g:else>
-
-	</g:form>
-</s2ui:form>
-
-<script>
-$(document).ready(function() {
-	$('#username').focus();
-});
-</script>
-
-</body>
-</html>
+<content tag="cColumn">
+    Columna C de registro satisfactorio
+</content>

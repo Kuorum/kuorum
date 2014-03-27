@@ -6,7 +6,7 @@ package kuorum.mail
 public enum MailType {
 
     REGISTER_VERIFY_EMAIL               (false,"03_validationEmail",           "registerUser", ["confirmationLink"], []),
-    REGISTER_RESET_PASSWORD             (false,"03A_resetPassword",            "registerUser", ["reserPasswordLink"], []),
+    REGISTER_RESET_PASSWORD             (false,"03A_resetPassword",            "registerUser", ["resetPasswordLink"], []),
     REGISTER_RRSS                       (false,"04_validationEmailRRSS",       "registerUser", [], []),
     REGISTER_ACCOUNT_COMPLETED          (false,"05_registerCompleted",         "registerUser", [], []),
 

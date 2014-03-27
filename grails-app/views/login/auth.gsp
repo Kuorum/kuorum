@@ -136,13 +136,20 @@
     <div class="hidden" id="facebookLoginContainer">
         <facebookAuth:connect id="facebookLogin" type="server"/>
     </div>
-    <g:link controller="register" class="button_send new"  elementId="registerPageLink">
-        <g:message code="head.login.noRegister.register"/>
-    </g:link>
+
     <a href="" onclick="$('#facebookLoginContainer a')[0].click(); return false;" class="button_send fb">
         <g:message code="login.startSession.facebook"/>
     </a>
     <facebookAuth:connect />
+
+    <hr/>
+    <g:link mapping="register" class="button_send new"  elementId="registerPageLink">
+        Registrarse
+    </g:link>
+<br/>
+    <g:link mapping="resetPassword" class="button_send new">
+        Se me ha olvidado
+    </g:link>
 </content>
 
 

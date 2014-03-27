@@ -37,6 +37,13 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
+    def sendResetPasswordMail(KuorumUser user, String resetLink){
+        def bindings = [resetPasswordLink:resetLink]
+        MailUserData mailUserData = new MailUserData(user:user, bindings:bindings)
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_RESET_PASSWORD, userBindings: [mailUserData])
+        mandrillAppService.sendTemplate(mailData)
+    }
+
     def sendUserAccountConfirmed(KuorumUser user){
         def bindings = []
         MailUserData mailUserData = new MailUserData(user:user)

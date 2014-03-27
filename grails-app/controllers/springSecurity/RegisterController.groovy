@@ -8,6 +8,7 @@ import grails.validation.Validateable
 import kuorum.core.model.CommissionType
 import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
+import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
@@ -48,8 +49,10 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         kuorumMailService.sendRegisterUser(user,url)
 
-        render "<a href='$url'> link </a>"
+        redirect maping:"registerSuccess"
     }
+
+    def registerSuccess(){}
 
     def verifyRegistration() {
 
@@ -88,6 +91,30 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         redirect uri: conf.ui.register.postRegisterUrl ?: defaultTargetUrl
     }
 
+    def forgotPassword(){
+        [command: new ForgotUserPasswordCommand()]
+    }
+    def forgotPasswordPost = { ForgotUserPasswordCommand command ->
+
+        if (command.hasErrors()) {
+            render view: "forgotPassword", model:[command:command]
+            return
+        }
+
+        def registrationCode = new RegistrationCode(username: command.user.email)
+        registrationCode.save(flush: true)
+
+        String url = generateLinkWithMapping('resetPasswordChange', [t: registrationCode.token])
+
+        kuorumMailService.sendResetPasswordMail(command.user, url)
+
+        redirect mapping:"resetPasswordSent"
+    }
+
+    def forgotPasswordSuccess = {
+    }
+
+
     /**
      * It's overwritten because createLink use the request to recover the absolute path. And I prefer
      * to use "absolute:true" because it uses the grails.serverURL property
@@ -97,6 +124,13 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     protected String generateLink(String action, linkParams) {
         createLink(absolute: true,
                 controller: 'register', action: action,
+                params: linkParams)
+    }
+
+    @Override
+    protected String generateLinkWithMapping(String mapping, linkParams) {
+        createLink(absolute: true,
+                mapping: mapping,
                 params: linkParams)
     }
 }
