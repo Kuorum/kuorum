@@ -6,6 +6,8 @@ package kuorum.mail
 public enum MailType {
 
     REGISTER_VERIFY_EMAIL               (false,"03_validationEmail",           "registerUser", ["confirmationLink"], []),
+    REGISTER_RESET_PASSWORD             (false,"03A_resetPassword",            "registerUser", ["reserPasswordLink"], []),
+    REGISTER_RRSS                       (false,"04_validationEmailRRSS",       "registerUser", [], []),
     REGISTER_ACCOUNT_COMPLETED          (false,"05_registerCompleted",         "registerUser", [], []),
 
     NOTIFICATION_CLUCK                  (true, "07_notificationCluck",         "notification", [],  ["clucker","cluckerLink","postName"]),
@@ -23,7 +25,12 @@ public enum MailType {
 
     PROMOTION_OWNER        (true, "10_notificationPromotionAuthor",    "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]),
     PROMOTION_SPONSOR      (true, "11_notificationPromotionPromoter",  "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]),
-    PROMOTION_USERS        (true, "12_notificationPromotionList",      "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]);
+    PROMOTION_USERS        (true, "12_notificationPromotionList",      "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]),
+
+    POST_CREATED_1         (false, "02_publishedAuthor",      "promotion",[],["postType"]),
+    POST_CREATED_2         (false, "02A_timePublishedAuthor", "promotion",[],["postType"]),
+    POST_CREATED_3         (false, "02B_timePublishedAuthor", "promotion",[],["postType"]),
+    POST_CREATED_4         (false, "02C_timePublishedAuthor", "promotion",[],["postType"]);
 
 
     String nameTemplate
