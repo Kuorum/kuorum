@@ -2,9 +2,11 @@ package kuorum.mail
 
 import com.ecwid.mailchimp.MailChimpClient
 import com.ecwid.mailchimp.MailChimpException
+import com.ecwid.mailchimp.MailChimpObject
 import com.ecwid.mailchimp.method.v2_0.lists.Email
 import com.ecwid.mailchimp.method.v2_0.lists.SubscribeMethod
 import grails.transaction.Transactional
+import kuorum.core.model.CommissionType
 import kuorum.users.KuorumUser
 import org.springframework.beans.factory.annotation.Value
 
@@ -16,6 +18,8 @@ class MailchimpService {
 
     @Value('${mail.mailChimp.listId}')
     String MAILCHIMP_LIST_ID
+
+    private static final MAILCHIMP_DATE_FORMAT = "yyyy-MM-dd"
 
     def addSubscriber(KuorumUser user){
 // reuse the same MailChimpClient object whenever possible
@@ -33,7 +37,8 @@ class MailchimpService {
             subscribeMethod.double_optin = false;
             subscribeMethod.update_existing = true;
             subscribeMethod.send_welcome = false;
-            subscribeMethod.merge_vars = new MailChimpMergeVars(user.email, user.name, user?.surname);
+            subscribeMethod.replace_interests = true;
+            subscribeMethod.merge_vars = createMergeVars(user)
             mailChimpClient.execute(subscribeMethod);
 
             log.info(" Se ha añadido correctamente el usuario $user con mail $user.email a MailChimp");
@@ -44,5 +49,29 @@ class MailchimpService {
             log.error("No se ha podido añadir al usuario ${user.email} a mailchimp debido a una excepcion",e)
         }
 
+    }
+
+    private MailChimpMergeVars createMergeVars(KuorumUser user){
+        MailChimpMergeVars mergeVars = new MailChimpMergeVars();
+        mergeVars.POSTALCODE = user.personalData.postalCode
+        mergeVars.BIRTHDAY = user.personalData.birthday?.format(MAILCHIMP_DATE_FORMAT)
+        mergeVars.EMAIL = user.email
+        mergeVars.FNAME = user.name
+        mergeVars.GENDER = user.personalData.gender.toString()
+        mergeVars.PROVINCE = user.personalData.provinceCode
+        mergeVars.STUDIES = user.personalData.studies
+        mergeVars.WORKINGSEC = user.personalData.workingSector
+        mergeVars.USERTYPE = user.userType.toString()
+        mergeVars.groupings = createGroups(user)
+        mergeVars
+    }
+
+    private List<MailChimpGroup> createGroups(KuorumUser user){
+        List<String> relevantCommissions = []
+        //NO use collect for fucking lazy evaluation and send all empty
+        for (CommissionType commissionType : user.relevantCommissions){
+            relevantCommissions.add(commissionType.toString())
+        }
+        [new MailChimpGroup( name:"Commissions", groups:relevantCommissions)]
     }
 }
