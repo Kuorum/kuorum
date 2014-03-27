@@ -159,8 +159,9 @@ class PostService {
             return false
         }
 
+        Boolean isAdmin = deleteBy.authorities.collect{it.authority}.contains("ROLE_ADMIN")
         PostComment postComment = post.comments[commentPosition]
-        postComment.kuorumUser == deleteBy || post.owner == deleteBy
+        isAdmin || postComment.kuorumUser == deleteBy || post.owner == deleteBy
     }
 
     Post addDebate(Post post, PostComment comment){
