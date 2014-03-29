@@ -1,6 +1,7 @@
 package kuorum.users
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
  * Created by iduetxe on 17/03/14.
@@ -42,5 +43,46 @@ class KuorumUserServiceIntegrationTest extends Specification {
         followerEmail           | followingEmail
         "peter@example.com"     | "equo@example.com"
         "peter@example.com"     | "carmen@example.com"
+    }
+
+    @Unroll
+    void "test converting as premium on #email"() {
+        given: "1 users"
+        KuorumUser user = KuorumUser.findByEmail(email)
+        when:
+        kuorumUserService.convertAsPremium(user)
+        then:
+        user.authorities.collect{it.authority}.contains("ROLE_PREMIUM")
+        user.authorities.size() == 2
+        KuorumUser.withNewSession {
+            KuorumUser userNS = KuorumUser.findByEmail(email)
+            userNS.authorities.collect{it.authority}.contains("ROLE_PREMIUM")
+            userNS.authorities.size() == 2
+        }
+        where:
+        email                       | result
+        "peter@example.com"         | true  //He has not the role yet
+        "juanjoalvite@example.com"  | true  // He has already the role
+    }
+
+    @Unroll
+    void "test deleting premium roles on user #email"() {
+        given: "1 premium users"
+        KuorumUser user = KuorumUser.findByEmail(email)
+        when:
+        kuorumUserService.convertAsNormalUser(user)
+        then:
+        !user.authorities.collect{it.authority}.contains("ROLE_PREMIUM")
+        user.authorities.size() == 1
+        KuorumUser.withNewSession {
+            KuorumUser userNS = KuorumUser.findByEmail(email)
+            !userNS.authorities.collect{it.authority}.contains("ROLE_PREMIUM")
+            userNS.authorities.size() == 1
+        }
+        where:
+        email                       | result
+        "peter@example.com"         | true  //He has not the role yet
+        "juanjoalvite@example.com"  | true  // He has already the role
+
     }
 }

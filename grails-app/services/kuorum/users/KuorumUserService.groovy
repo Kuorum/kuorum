@@ -60,6 +60,31 @@ class KuorumUserService {
         user.save()
     }
 
+    /**
+     * Adds premium roles to @user
+     * @param user
+     * @return
+     */
+    KuorumUser convertAsPremium(KuorumUser user){
+        RoleUser rolePremium = RoleUser.findByAuthority("ROLE_PREMIUM")
+        user.authorities.add(rolePremium)
+        user.lastUpdated = new Date()//Mongo is not detecting changes on list, and is not updating the user roles. Modifying a root field, object is detected as dirty and it saves the changes
+        user.save(flush: true)
+    }
+
+    /**
+     * Removes the premium roles
+     *
+     * @param user
+     * @return
+     */
+    KuorumUser convertAsNormalUser(KuorumUser user){
+        RoleUser rolePremium = RoleUser.findByAuthority("ROLE_PREMIUM")
+        user.lastUpdated = new Date() //Mongo is not detecting changes on list, and is not updating the user roles. Modifying a root field, object is detected as dirty and it saves the changes
+        user.authorities.remove(rolePremium)
+        user.save(flush: true)
+    }
+
 
     List<KuorumUser> recommendedUsers(KuorumUser user){
         //TODO: Improve algorithm

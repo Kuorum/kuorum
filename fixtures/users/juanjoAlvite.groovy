@@ -64,7 +64,7 @@ fixture {
 
         accountExpired = false
         accountLocked = false
-        authorities = [roleUser]
+        authorities = [roleUser,rolePremium]
         dateCreated = Date.parse("dd/MM/yyyy","20/11/2013")
         enabled = true
         lastUpdated = Date.parse("dd/MM/yyyy","01/11/2013")
