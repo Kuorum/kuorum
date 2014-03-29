@@ -1,6 +1,5 @@
 package kuorum.post
 
-import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.law.Law
 import kuorum.users.KuorumUser
@@ -19,13 +18,13 @@ class PostController {
         [postInstanceList:Post.list()]
     }
 
-    def show(String postId){
+    def show(){
         [postInstance:params.post]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def edit(String postId){
-        Post post = Post.get(new ObjectId(postId))
+    def edit(){
+        Post post = params.post
         if (post.owner.id != springSecurityService.principal.id){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
@@ -96,7 +95,7 @@ class PostController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def publish(String postId){
+    def publish(){
         Post post = params.post
         if (post.owner.id != springSecurityService.principal.id){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
@@ -107,7 +106,7 @@ class PostController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def promoteYourPost(String postId){
+    def promoteYourPost(){
         Post post = params.post
         if (post.owner.id != springSecurityService.principal.id){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
@@ -118,7 +117,7 @@ class PostController {
 
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def favorite(String postId) {
+    def favorite() {
         Post post = params.post
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         postService.favoriteAddPost(post,user)
@@ -126,7 +125,7 @@ class PostController {
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def unfavorite(String postId) {
+    def unfavorite() {
         Post post = params.post
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         postService.favoriteRemovePost(post,user)
@@ -134,7 +133,7 @@ class PostController {
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def deleteComment(String postId, Integer commentPosition){
+    def deleteComment(Integer commentPosition){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Post post = params.post
         if (postService.isCommentDeletableByUser(user, post, commentPosition)){
