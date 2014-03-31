@@ -24,7 +24,7 @@ class FileService {
         kuorumFile.fileGroup = fileGroup
         kuorumFile.fileName = "TEMPORAL"
         kuorumFile.storagePath = "TEMPORAL"
-        kuorumFile.url ="TEMPORAL"
+        kuorumFile.url ="http://TEMPORAL.com"
         kuorumFile.save()//The ID is necessary
 
         def fileLocation = generatePath(kuorumFile)
@@ -63,7 +63,7 @@ class FileService {
      */
     KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile){
         String serverPath = grailsApplication.config.kuorum.upload.serverPath
-        String rootUrl = "${grailsApplication.config.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}"
+        String rootUrl = "${grailsApplication.config.grails.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}"
 
         def fileLocation = generatePath(kuorumFile)
         def serverStoragePath = "$serverPath/$fileLocation"

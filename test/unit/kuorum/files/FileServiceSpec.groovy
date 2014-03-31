@@ -20,7 +20,7 @@ class FileServiceSpec extends Specification {
 
     def setup() {
         grailsApplication.config.kuorum.upload.serverPath = "/tmp/kuorumTest"
-        grailsApplication.config.grails.serverURL = "http://localhost:8080"
+        grailsApplication.config.grails.serverURL = "http://127.0.0.1:8080"
         grailsApplication.config.kuorum.upload.relativeUrlPath="/uploadedFiles"
     }
 
@@ -52,7 +52,7 @@ class FileServiceSpec extends Specification {
         kuorumTempFile.fileGroup == FileGroup.USER_AVATAR
         if (temporal){
             kuorumTempFile.storagePath.startsWith("${grailsApplication.config.kuorum.upload.serverPath}${service.TMP_PATH}")
-            kuorumTempFile.url.startsWith("${grailsApplication.config.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}")
+            kuorumTempFile.url.startsWith("${grailsApplication.config.grails.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}")
             kuorumTempFile.storagePath.split("/").last().split("\\.").first() == kuorumTempFile.id.toString()
             kuorumTempFile.url.split("/").last() == kuorumTempFile.fileName
             tempFile.exists()
@@ -85,7 +85,7 @@ class FileServiceSpec extends Specification {
 
         if (controlFiles > 0)
             (1..controlFiles).each{
-                def mockFile = new MockMultipartFile("file${it}.jpg", 'tempFile','jpg/jpeg', data as byte[])
+                def mockFile = new MockMultipartFile("controlFile${it}.jpg", 'tempFile','jpg/jpeg', data as byte[])
                 KuorumFile kuorumTempFile = service.uploadTemporalFile(mockFile.inputStream,controlUser, mockFile.getName(), FileGroup.USER_AVATAR)
             }
 

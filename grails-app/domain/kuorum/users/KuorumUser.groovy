@@ -2,6 +2,7 @@ package kuorum.users
 
 import com.mongodb.WriteConcern
 import kuorum.Institution
+import kuorum.KuorumFile
 import kuorum.ParliamentaryGroup
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
@@ -27,6 +28,8 @@ class KuorumUser {
     String password
     AvailableLanguage language = AvailableLanguage.es_ES
 
+    KuorumFile avatar
+
     PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
 
@@ -44,7 +47,7 @@ class KuorumUser {
     Gamification gamification = new Gamification()
 
     static hasMany = [following:KuorumUser,followers:KuorumUser]
-    static embedded = ['personalData', 'authorities','gamification']
+    static embedded = ['personalData', 'authorities','gamification','avatar']
 
     /**
      * Represents the last time that the user checked the notifications
@@ -70,6 +73,7 @@ class KuorumUser {
         email nullable: false, email: true
         password nullable:false, blank: false
         bio nullable:true
+        avatar nullable:true
         userType nullable: false, validator:{val, obj ->
             obj.personalData.userType == val
         }

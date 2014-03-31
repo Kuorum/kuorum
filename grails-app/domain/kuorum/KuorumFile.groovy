@@ -8,6 +8,10 @@ class KuorumFile {
 
     ObjectId id
     KuorumUser user
+    /**
+     * Define if the image is stored on kuorumServer or is externarl
+     */
+    Boolean local = Boolean.TRUE
     Boolean temporal
     String storagePath
     String fileName
@@ -15,5 +19,11 @@ class KuorumFile {
     FileGroup fileGroup
 
     static constraints = {
+        storagePath nullable: true
+        fileName nullable:true
+        url url: true
+        local validator: {val, obj-> // If local , storagePath and fileName can not be null
+            (val && obj.storagePath && obj.fileName) || (!val)
+        }
     }
 }
