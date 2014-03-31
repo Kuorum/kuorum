@@ -173,6 +173,25 @@ grails.plugin.springsecurity.facebook.autoCreate.roles='ROLE_USER'
 grails.plugin.springsecurity.facebook.filter.type='redirect'
 //grails.plugins.springsecurity.facebook.filter.redirect.failureHandler = 'facebookHandler'
 
+// Added by the Spring Security OAuth plugin:
+grails.plugin.springsecurity.oauth.domainClass = 'kuorum.users.OAuthID'
+oauth {
+    // ...
+    providers {
+        // for Google OAuth 2.0
+        google {
+            api = org.grails.plugin.springsecurity.oauth.GoogleApi20
+            key = 'GOOGLE KEY'
+            secret = 'GOOGLE SECRET'
+            successUri = '/oauth/google/success'
+            failureUri = '/oauth/google/failure'
+            callback = "http://localhost:8080/kuorum/oauth/google/callback" // Is overwritten with properties file
+            scope = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+        }
+        // ...
+    }
+}
+
 // Added by the Restrpc plugin:
 restrpc.apiName = 'api'
 restrpc.apiVersion = '1.0'
@@ -236,3 +255,4 @@ kuorum {
         votePost=[(GamificationElement.CORN):1]
     }
 }
+

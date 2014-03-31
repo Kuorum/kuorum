@@ -50,6 +50,10 @@ grails.project.dependency.resolution = {
         //Repository for kuorum.springSecurity
         mavenRepo "http://repo.spring.io/milestone/"
 
+        //Repository for google spring social template
+//        mavenRepo "http://gabiaxel.github.io/maven/"
+
+
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
@@ -65,6 +69,7 @@ grails.project.dependency.resolution = {
         //compile('org.springframework.security:org.springframework.security.web:3.0.2.RELEASE')
         //compile 'org.springframework.social:spring-social-core:1.0.1.RELEASE'
 //        compile 'org.springframework.social:spring-social-core:1.0.3.RELEASE'
+//        compile ('org.springframework.social:spring-social-google:1.0.0.M4')
         compile ('org.springframework.social:spring-social-facebook:1.0.3.RELEASE'){
             //CONFLICT WITH grails json parsers
 //            excludes 'org.codehaus.jackson:jackson-mapper-asl'
@@ -111,6 +116,9 @@ grails.project.dependency.resolution = {
 
         compile ":spring-security-core:2.0-RC2"
         compile ":spring-security-facebook:0.15.2-CORE2"
+        compile ':spring-security-oauth:2.0.2'
+        compile ':spring-security-oauth-google:0.2'
+
         //compile ":spring-security-acl:2.0-RC1" //Para las partes que tienen seguridad custom
         compile ":spring-security-ui:1.0-RC1"
         //compile ":spring-security-core:1.2.7.3"
