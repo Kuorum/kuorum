@@ -34,9 +34,9 @@ class KuorumUser {
     UserType userType = UserType.PERSON
 
     List<CommissionType> relevantCommissions = []
-    List<KuorumUser> following  = []
-    List<KuorumUser> followers = []
-    List<KuorumUser> subscribers = []
+//    List<KuorumUser> following  = []
+//    List<KuorumUser> followers = []
+//    List<KuorumUser> subscribers = []
 
     Integer numFollowers = 0
 
@@ -46,7 +46,8 @@ class KuorumUser {
 
     Gamification gamification = new Gamification()
 
-    static hasMany = [following:KuorumUser,followers:KuorumUser]
+    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
+
     static embedded = ['personalData', 'authorities','gamification','avatar']
 
     /**
@@ -93,6 +94,11 @@ class KuorumUser {
 
     static mapping = {
         email index:true, indexAttributes: [unique:true]
+        following cascade:"refresh"
+        followers cascade:"refresh"
+        subscribers cascade:"refresh"
+
+
         writeConcern WriteConcern.FSYNC_SAFE
     }
 
