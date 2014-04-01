@@ -4,7 +4,7 @@
         <a data-target="#" href="#" id="open-user-options" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
             <span itemprop="name"><sec:username/></span>
             <strong>, tú puedes aportar a la ley</strong>
-            <img src="images/user.jpg" alt="nombre" class="user" itemprop="image">
+            <img src="${image.userImgSrc(user:user)}" alt="nombre" class="user" itemprop="image">
             <span class="fa fa-caret-down fa-lg"></span>
         </a>
         <g:render template="/layouts/headUserMenuDropDown"/>

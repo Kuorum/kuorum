@@ -1,8 +1,8 @@
 <ul class="nav navbar-nav navbar-right">
     <li class="dropdown underline" itemscope itemtype="http://schema.org/Person">
-        <a data-target="#" href="/dashboard.htm" id="open-user-options" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
+        <a data-target="#" href="#" id="open-user-options" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
             <span itemprop="name">${user.name}</span>
-            <img src="images/user.jpg" alt="nombre" class="user" itemprop="image">
+            <img src="${image.userImgSrc(user:user)}" alt="${user.name}" class="user" itemprop="image">
                 <span class="fa fa-caret-down fa-lg"></span>
         </a>
         <g:render template="/layouts/headUserMenuDropDown"/>
@@ -15,7 +15,7 @@
             <li>Mensajes</li>
             <li>
                 <span itemscope itemtype="http://schema.org/Person">
-                    <img src="images/user.jpg" alt="nombre" class="user" itemprop="image"> de <a href="#" itemprop="url"><span itemprop="name">Nombre usuario</span></a>
+                    <img src="images/user.jpg" alt="${user.name}" class="user" itemprop="image"> de <a href="#" itemprop="url"><span itemprop="name">Nombre usuario</span></a>
                 </span>
                 <span class="fecha"><small><time pubdate datetime="2014-03-26T12:00">Hace 3 horas</time></small></span><!-- datetime hay que pasarle la fecha y hora que corresponda -->
                 <span class="text-message">Aenean tempor eros ut libero hendrerit vestibulum. Nulla tincidunt malesuada dignissim. Praesent accumsan facilisis fermentum. Duis sit amet ullamcorper sem. Sed pellentesque sit amet nibh quis molestie.</span>
