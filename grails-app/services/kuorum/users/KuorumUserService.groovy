@@ -16,18 +16,21 @@ class KuorumUserService {
         if (follower == following){
             throw new KuorumException("No se pude seguir a uno mismo","error.following.sameUser")
         }
-        KuorumUser.collection.update([_id:follower.id],['$addToSet':[following:following.id]])
-        KuorumUser.collection.update([_id:following.id],['$addToSet':[followers:follower.id]])
-        follower.refresh()
-        following.refresh()
-        following.numFollowers = following.followers.size()
-        following.save(flush: true)
-//        follower.following.add(following.id)
-//        following.followers.add(follower.id)
-//        follower.save()
-//        following.save()
-        notificationService.sendFollowerNotification(follower, following)
-
+        if (follower.following.contains(following.id)){
+            log.warn("Se ha intentado seguir a un usuario que ya exisitía")
+        }else{
+            KuorumUser.collection.update([_id:follower.id],['$addToSet':[following:following.id]])
+            KuorumUser.collection.update([_id:following.id],['$addToSet':[followers:follower.id]])
+            follower.refresh()
+            following.refresh()
+            following.numFollowers = following.followers.size()
+            following.save(flush: true)
+    //        follower.following.add(following.id)
+    //        following.followers.add(follower.id)
+    //        follower.save()
+    //        following.save()
+            notificationService.sendFollowerNotification(follower, following)
+        }
     }
 
     KuorumUser convertAsUser(KuorumUser user){
