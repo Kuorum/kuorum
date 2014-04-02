@@ -21,7 +21,7 @@ class KuorumUserServiceIntegrationTest extends Specification {
         KuorumUser follower = KuorumUser.findByEmail(followerEmail)
         KuorumUser following = KuorumUser.findByEmail(followingEmail)
         Integer futureNumFollowers = following.numFollowers
-        if (!follower.following.contains(following)){
+        if (!follower.following.contains(following.id)){
             futureNumFollowers ++
         }
 
@@ -29,14 +29,14 @@ class KuorumUserServiceIntegrationTest extends Specification {
         //"service" represents the grails service you are testing for
         kuorumUserService.createFollower(follower,following)
         then: "All OK"
-        follower.following.contains(following)
-        following.followers.contains(follower)
+        follower.following.contains(following.id)
+        following.followers.contains(follower.id)
         futureNumFollowers == following.numFollowers
         KuorumUser.withNewSession {
             KuorumUser followerNS = KuorumUser.findByEmail(followerEmail)
             KuorumUser followingNS = KuorumUser.findByEmail(followingEmail)
-            followerNS.following.contains(followingNS)
-            followingNS.followers.contains(followerNS)
+            followerNS.following.contains(followingNS.id)
+            followingNS.followers.contains(followerNS.id)
             futureNumFollowers == followingNS.numFollowers
         }
         where:

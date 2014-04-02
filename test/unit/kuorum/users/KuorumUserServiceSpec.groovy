@@ -30,8 +30,8 @@ class KuorumUserServiceSpec extends Specification {
                     KuorumUser user = KuorumUser.get(filter._id)
                     KuorumUser following = KuorumUser.get(updateData.'$addToSet'.following)
                     KuorumUser follower = KuorumUser.get(updateData.'$addToSet'.followers)
-                    if (following) user.following << following
-                    if (follower) user.followers << follower
+                    if (following) user.following << following.id
+                    if (follower) user.followers << follower.id
                     user.save(flush:true)
                     //post as JSON
                 }
@@ -57,8 +57,8 @@ class KuorumUserServiceSpec extends Specification {
         //"service" represents the grails service you are testing for
         service.createFollower(follower,following)
         then: "All OK"
-        follower.following.contains(following)
-        following.followers.contains(follower)
+        follower.following.contains(following.id)
+        following.followers.contains(follower.id)
         numFollowers == following.numFollowers -1
         1 * notificationServiceMock.sendFollowerNotification(follower,following)
         0 * notificationServiceMock.sendFollowerNotification(following,follower)
@@ -74,6 +74,32 @@ class KuorumUserServiceSpec extends Specification {
         final KuorumException exception = thrown()
         exception.errors[0].code == "error.following.sameUser"
         0 * notificationServiceMock.sendFollowerNotification(_,_)
+    }
+
+    void "test creating a follower for a user that is already following"() {
+        given: "2 users"
+        KuorumUser following = Helper.createDefaultUser("user2@ex.com")
+        following.save()
+
+        KuorumUser follower = Helper.createDefaultUser("user1@ex.com")
+        follower.following.add(following.id)
+        follower.save()
+        following.followers.add(follower.id)
+        following.numFollowers++
+        following.save()
+        Integer numFollowers = following.numFollowers
+
+        when: "Adding a follower"
+        //"service" represents the grails service you are testing for
+        service.createFollower(follower,following)
+        then: "All OK"
+        following.followers.contains(follower.id)
+        follower.following.contains(following.id)
+        follower.following.findAll{it==following.id}.size() == 1
+        following.followers.findAll{it==follower.id}.size() == 1
+        numFollowers == following.numFollowers
+        0 * notificationServiceMock.sendFollowerNotification(follower,following)
+        0 * notificationServiceMock.sendFollowerNotification(following,follower)
     }
 
     void "test user recommendations"(){

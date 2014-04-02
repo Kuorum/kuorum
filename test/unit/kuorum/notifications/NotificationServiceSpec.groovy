@@ -138,13 +138,13 @@ class NotificationServiceSpec extends Specification {
 
         def followers = (1..numFollowers).collect{
             KuorumUser followerPolitician = Helper.createDefaultUser("follower${it}@example.com").save()
-            followerPolitician.following = [politician]
+            followerPolitician.following = [politician.id]
             followerPolitician.save()
         }
         followers << user
-        user.following << politician
+        user.following << politician.id
         user.save()
-        politician.followers = followers
+        politician.followers = followers.id
         politician.save()
 
         when: "Sending notification"
@@ -270,13 +270,13 @@ class NotificationServiceSpec extends Specification {
 
         def followers = (1..numFollowers).collect{
             KuorumUser followerPolitician = Helper.createDefaultUser("follower${it}@example.com").save()
-            followerPolitician.following = [politician]
+            followerPolitician.following = [politician.id]
             followerPolitician.save()
         }
         followers << user
-        user.following << politician
+        user.following << politician.id
         user.save()
-        politician.followers = followers
+        politician.followers = followers.id
         politician.save()
 
         def times = new Float((numVotes+numFollowers)/service.BUFFER_NOTIFICATIONS_SIZE).trunc()
@@ -346,13 +346,13 @@ class NotificationServiceSpec extends Specification {
 
         def followers = (1..numFollowers).collect{
             KuorumUser followerPolitician = Helper.createDefaultUser("follower${it}@example.com").save()
-            followerPolitician.following = [politician]
+            followerPolitician.following = [politician.id]
             followerPolitician.save()
         }
         followers << user
-        user.following << politician
+        user.following << politician.id
         user.save()
-        politician.followers = followers
+        politician.followers = followers.id
         politician.save()
 
         def times = new Float((numVotes)/service.BUFFER_NOTIFICATIONS_SIZE).trunc()

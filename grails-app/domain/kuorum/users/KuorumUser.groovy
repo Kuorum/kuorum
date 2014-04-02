@@ -34,9 +34,9 @@ class KuorumUser {
     UserType userType = UserType.PERSON
 
     List<CommissionType> relevantCommissions = []
-//    List<KuorumUser> following  = []
-//    List<KuorumUser> followers = []
-//    List<KuorumUser> subscribers = []
+    List<ObjectId> following  = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
+    List<ObjectId> followers = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
+    List<ObjectId> subscribers = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
 
     Integer numFollowers = 0
 
@@ -46,7 +46,7 @@ class KuorumUser {
 
     Gamification gamification = new Gamification()
 
-    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
+//    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
 
     static embedded = ['personalData', 'authorities','gamification','avatar']
 
@@ -94,9 +94,9 @@ class KuorumUser {
 
     static mapping = {
         email index:true, indexAttributes: [unique:true]
-        following cascade:"refresh"
-        followers cascade:"refresh"
-        subscribers cascade:"refresh"
+//        following cascade:"refresh"
+//        followers cascade:"refresh"
+//        subscribers cascade:"refresh"
 
 
         writeConcern WriteConcern.FSYNC_SAFE

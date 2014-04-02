@@ -12,6 +12,7 @@ import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostVote
 import kuorum.users.KuorumUser
+import org.bson.types.ObjectId
 
 @Transactional
 class NotificationService {
@@ -194,7 +195,8 @@ class NotificationService {
         //All interested people for his followings
         def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
 
-        interestedUsers.each {KuorumUser user ->
+        interestedUsers.each {ObjectId userId ->
+            KuorumUser user = KuorumUser.load(userId)
             if (user != post.owner && !(DebateNotification.findByPostAndKuorumUserAndIdDebate(post,user,idDebate))){
                 DebateNotification debateNotification = new DebateNotification()
                 debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
@@ -364,7 +366,8 @@ class NotificationService {
 //        def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
         def interestedUsers = post.defender.followers
 
-        interestedUsers.each {KuorumUser user ->
+        interestedUsers.each {ObjectId userId ->
+            KuorumUser user = KuorumUser.load(userId)
             if (user != post.owner && !(DefendedPostNotification.findByPostAndKuorumUser(post,user))){
                 DefendedPostNotification debateNotification = new DefendedPostNotification()
                 debateNotification.mailType = MailType.NOTIFICATION_DEFENDED_USERS
@@ -435,7 +438,8 @@ class NotificationService {
         //All interested people for his followings
         def interestedUsers = post.defender.followers
 
-        interestedUsers.each {KuorumUser user ->
+        interestedUsers.each {ObjectId userId->
+            KuorumUser user = KuorumUser.load(userId)
             if (user != post.owner && !(VictoryNotification.findByPostAndKuorumUser(post,user))){
                 VictoryNotification victoryNotification = new VictoryNotification()
                 victoryNotification.mailType = MailType.NOTIFICATION_DEFENDED_USERS

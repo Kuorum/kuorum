@@ -18,7 +18,7 @@ class CluckService {
     List<Cluck> dashboardClucks(KuorumUser kuorumUser){
 
         def criteria = Cluck.createCriteria()
-        def userList = kuorumUser.following
+        def userList = kuorumUser.following.collect{KuorumUser.load(it)}
         userList << kuorumUser
         def result = criteria.list() {
             or {
