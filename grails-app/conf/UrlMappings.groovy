@@ -51,6 +51,20 @@ class UrlMappings {
         //name landingPage: "/landingPage" (controller: "dashboard", action:"landingPage")
         //name dashboard: "/dashboard" (controller: "dashboard", action:"dashboard")
 
+        name footerWhatIsKuorum:  "/kuorum/queEs"               (controller:"footer", action: "whatIsKuorum" )
+        name footerUsingMyVote:   "/kuorum/para-que-sirve-mi-voto"(controller:"footer", action: "usingMyVote" )
+        name footerUserGuide:     "/kuorum/guia-del-usuario"    (controller:"footer", action: "userGuide" )
+        name footerHistories:     "/kuorum/historias"           (controller:"footer", action: "histories" )
+        name footerPurposes:      "/kuorum/propuestas"          (controller:"footer", action: "purposes" )
+        name footerQuestions:     "/kuorum/preguntas"           (controller:"footer", action: "questions" )
+        name footerCitizens:      "/kuorum/ciudadanos"          (controller:"footer", action: "citizens" )
+        name footerOrganizations: "/kuorum/organizaciones"      (controller:"footer", action: "organizations" )
+        name footerPoliticians:   "/kuorum/politicos"           (controller:"footer", action: "politicians" )
+        name footerDevelopers:    "/kuorum/desarrolladores"     (controller:"footer", action: "developers" )
+        name footerPrivacyPolicy: "/kuorum/politica-privacidad" (controller:"footer", action: "privacyPolicy")
+        name footerTermsUse:      "/kuorum/condicionesDeUso"    (controller:"footer", action: "termsUse")
+        name footerTermsAds:      "/kuorum/normas-publicidad"   (controller:"footer", action: "termsAds")
+
         name login: "/entrar" (controller:"login", action:"index")
         name logout: "/salir" (controller:"logout", action:"index")
 
