@@ -7,6 +7,6 @@
             <img src="${image.userImgSrc(user:user)}" alt="nombre" class="user" itemprop="image">
             <span class="fa fa-caret-down fa-lg"></span>
         </a>
-        <g:render template="/layouts/headUserMenuDropDown"/>
+        <g:render template="/layouts/headUserMenuDropDown" model="[numFavorites:user.favorites.size(), numUserPosts:numUserPosts, numMessages:7]"/>
     </li>
 </ul>

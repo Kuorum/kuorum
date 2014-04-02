@@ -195,6 +195,10 @@ class PostService {
         user.refresh()
     }
 
+    Integer numUserPosts(KuorumUser user){
+        Post.countByOwner(user)
+    }
+
     List<Post> recommendedPosts(KuorumUser user){
         Integer votesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
         Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])

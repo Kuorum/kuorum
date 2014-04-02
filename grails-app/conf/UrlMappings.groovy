@@ -51,6 +51,17 @@ class UrlMappings {
         //name landingPage: "/landingPage" (controller: "dashboard", action:"landingPage")
         //name dashboard: "/dashboard" (controller: "dashboard", action:"dashboard")
 
+        name profileEditUser:     "/mi-perfil"                  (controller: "profile", action: "editUser")
+        name profileChangePass:   "/mi-perfil/cambiar-password" (controller: "profile", action: "changePassword")
+        name profileChangeEmail:  "/mi-perfil/cambiar-email"    (controller: "profile", action: "changeEmail")
+        name profileSocialNetworks:"/mi-perfil/redes-sociales"  (controller: "profile", action: "socialNetworks")
+        name profileEmailNotifications:"/mi-perfil/notificaciones-por-email"(controller: "profile", action: "configurationEmails")
+        name profileFavorites:    "/mi-perfil/pendientes-de-leer"(controller: "profile", action: "showFavoritesPosts")
+        name profileMyPosts:      "/mi-perfil/mis-posts"        (controller: "profile", action: "showUserPosts")
+        name profileKuorumStore:  "/mi-perfil/el-gallinero"     (controller: "profile", action: "kuorumStore")
+        name profileNotifications:"/mi-perfil/notificaciones"   (controller: "profile", action: "userNotifications")
+        name profileMessages:     "/mi-perfil/mensajes"         (controller: "profile", action: "userMessages")
+
         name footerWhatIsKuorum:  "/kuorum/queEs"               (controller:"footer", action: "whatIsKuorum" )
         name footerUsingMyVote:   "/kuorum/para-que-sirve-mi-voto"(controller:"footer", action: "usingMyVote" )
         name footerUserGuide:     "/kuorum/guia-del-usuario"    (controller:"footer", action: "userGuide" )

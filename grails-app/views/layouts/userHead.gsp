@@ -5,7 +5,7 @@
             <img src="${image.userImgSrc(user:user)}" alt="${user.name}" class="user" itemprop="image">
                 <span class="fa fa-caret-down fa-lg"></span>
         </a>
-        <g:render template="/layouts/headUserMenuDropDown"/>
+        <g:render template="/layouts/headUserMenuDropDown" model="[numFavorites:user.favorites.size(), numUserPosts:numUserPosts, numMessages:7]"/>
     </li>
     <g:render template="/layouts/userHeadMessages"/>
     <g:render template="/layouts/userHeadNotifications" model="[user:user, notifications:notifications]"/>
