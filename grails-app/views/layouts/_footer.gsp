@@ -45,8 +45,8 @@
                 <button type="button" class="btn feedback">Danos feedback</button>
                 <h1><g:message code="layout.footer.workingWith"/> </h1>
                 <ul class="collabor">
-                    <li><a href="http://www.sg.ethz.ch/" hreflang="en" class="ethz"><img src="images/logo-ethz.png" alt="ETHZ (Eidgenössische Technische Hochschule Zürich)"></a></li>
-                    <li><a href="http://www.deliveringhappiness.com/" hreflang="en" class="delhap"><img src="images/logo-delhap.png" alt="Delivering Happiness"></a></li>
+                    <li><a href="http://www.sg.ethz.ch/" hreflang="en" class="ethz"><img src="${g.resource(dir:'images', file:'logo-ethz.png')}" alt="ETHZ (Eidgenössische Technische Hochschule Zürich)"></a></li>
+                    <li><a href="http://www.deliveringhappiness.com/" hreflang="en" class="delhap"><img src="${g.resource(dir:'images', file:'logo-delhap.png')}" alt="Delivering Happiness"></a></li>
                 </ul>
             </section>
         </section>
