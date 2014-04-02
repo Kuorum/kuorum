@@ -1,6 +1,8 @@
 package kuorum.springSecurity
 
 import com.the6hours.grails.springsecurity.facebook.FacebookAuthToken
+import kuorum.KuorumFile
+import kuorum.core.FileGroup
 import kuorum.core.model.Gender
 import kuorum.core.model.Studies
 import kuorum.core.model.UserType
@@ -72,6 +74,7 @@ class FacebookAuthService {
 //        socialLinks.facebook = fbProfile.link
 //        person.socialLinks = socialLinks
         user.save()
+        createAvatar(user, fbProfile)
         facebookUser.user = user
         facebookUser.save()
         if (user.hasErrors() || facebookUser.hasErrors()){
@@ -108,6 +111,22 @@ class FacebookAuthService {
 //    def createRoles(FacebookUser facebookUser){
 //
 //    }
+    private void createAvatar(KuorumUser user, FacebookProfile fbProfile){
+        if (!user.avatar){
+            KuorumFile kuorumFile = new KuorumFile(
+                    user:user,
+                    local:Boolean.FALSE,
+                    temporal:Boolean.FALSE,
+                    storagePath:null,
+                    fileName:null,
+                    url:"http://graph.facebook.com/${fbProfile.id}/picture?type=large",
+                    fileGroup:FileGroup.USER_AVATAR
+            )
+            kuorumFile.save()
+            user.avatar = kuorumFile
+            user.save()
+        }
+    }
 
     def getPrincipal(KuorumUser user){
         mongoUserDetailsService.createUserDetails(user)

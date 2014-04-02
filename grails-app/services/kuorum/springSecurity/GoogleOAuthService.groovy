@@ -5,6 +5,8 @@ import grails.plugin.springsecurity.oauth.GoogleOAuthToken
 import grails.plugin.springsecurity.oauth.OAuthLoginException
 import grails.plugin.springsecurity.oauth.OAuthToken
 import grails.transaction.Transactional
+import kuorum.KuorumFile
+import kuorum.core.FileGroup
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.users.KuorumUser
@@ -48,6 +50,7 @@ class GoogleOAuthService implements IOAuthService{
             oAuthID.save()
             kuorumMailService.sendRegisterUserViaRRSS(user)
         }
+        createAvatar(user, googleUser)
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
         def authorities = mongoUserDetailsService.getRoles(user)
 
@@ -77,6 +80,7 @@ class GoogleOAuthService implements IOAuthService{
             user.personalData = personData
         }
 
+
         RoleUser roleUser = RoleUser.findByAuthority('ROLE_USER')
         user.authorities = [roleUser]
 //        user.pathAvatar="http://graph.facebook.com/${facebookUser.uid}/picture?type=large"
@@ -96,5 +100,22 @@ class GoogleOAuthService implements IOAuthService{
             return personalData."$field"
         else
             parseData(user."$field")
+    }
+
+    private void createAvatar(KuorumUser user, def googleUser){
+        if (!user.avatar && googleUser.has("picture")){
+            KuorumFile kuorumFile = new KuorumFile(
+                user:user,
+                local:Boolean.FALSE,
+                temporal:Boolean.FALSE,
+                storagePath:null,
+                fileName:null,
+                url:googleUser.picture,
+                fileGroup:FileGroup.USER_AVATAR
+            )
+            kuorumFile.save()
+            user.avatar = kuorumFile
+            user.save()
+        }
     }
 }
