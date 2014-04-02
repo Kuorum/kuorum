@@ -4,6 +4,7 @@ import com.the6hours.grails.springsecurity.facebook.FacebookAccessToken
 import com.the6hours.grails.springsecurity.facebook.FacebookAuthToken
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import kuorum.KuorumFile
 import kuorum.core.model.Studies
 import kuorum.helper.Helper
 import kuorum.mail.KuorumMailService
@@ -30,7 +31,7 @@ import spock.lang.Specification
  * Created by iduetxe on 20/03/14.
  */
 @TestFor(FacebookAuthService)
-@Mock([KuorumUser,FacebookUser,RoleUser])
+@Mock([KuorumUser,FacebookUser,RoleUser, KuorumFile])
 class FacebookAuthServiceSpec  extends Specification {
 
     static String ACCESS_TOKEN ="ACCES_TOKEN"
@@ -69,6 +70,7 @@ class FacebookAuthServiceSpec  extends Specification {
         !facebookUser.hasErrors()
         KuorumUser.count() == numUsersAfterRegister
         KuorumUser user = KuorumUser.findByEmail(MOCK_TESTING_EMAIL)
+        user.avatar.local == Boolean.FALSE
         user == facebookUser.user
         1 * kuorumMailServiceMock.sendRegisterUserViaRRSS(_)
         if (usersOnDB.contains(MOCK_TESTING_NAME)){
