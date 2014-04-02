@@ -37,6 +37,12 @@
             </span>
             <span class="text-notification">aenean tempor eros ut libero hendrerit aptent taciti <a href="#">vestibulum nulla tincidunt malesuada dignissim</a></span>
         </li>
-        <li class="text-center"><small><a href="#">Ver todas las notificaciones</a></small></li>
+        <li class="text-center">
+            <small>
+                <g:link mapping="profileNotifications">
+                    <g:message code="head.logged.notifications.showAll"/>
+                    </g:link>
+            </small>
+        </li>
     </ul>
 </li>
