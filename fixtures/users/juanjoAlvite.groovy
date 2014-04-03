@@ -30,7 +30,7 @@ fixture {
 
     juanjoAlvite(KuorumUser){
         email = "juanjoAlvite@example.com"
-        name ="Juanjo Alvite1"
+        name ="Juanjo Alvite"
         personalData = juanjoPersonalData
         password = springSecurityService.encodePassword("test")
         following = []
