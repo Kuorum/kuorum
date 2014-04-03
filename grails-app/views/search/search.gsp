@@ -7,7 +7,10 @@
 
 
 <content tag="mainContent">
-    Total Results: ${docs.numResults}
+    Total Results: ${docs.numResults}<br/>
+    <g:if test="${docs.suggest}">
+        Quiso decir: <g:link mapping="searcherSearch" params="[word:docs.suggest.suggestedQuery]" > ${docs.suggest.suggestedQuery} </g:link> => ${docs.suggest.hits}
+    </g:if>
     <hr/>
     <ul>
     <g:each in="${docs.elements}" var="doc">
