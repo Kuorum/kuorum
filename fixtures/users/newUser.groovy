@@ -1,5 +1,6 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
+import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.users.Gamification
 import kuorum.users.KuorumUser
@@ -16,6 +17,7 @@ fixture {
         boughtAwards = [GamificationAward.ROLE_DEFAULT ]
     }
     newUserData(PersonData){
+        userType = UserType.PERSON
 
     }
 
@@ -49,6 +51,7 @@ fixture {
                 CommissionType.OTHERS
         ]
         language ="es_ES"
+        userType = UserType.PERSON
         favorites = []
         numFollowers = 0
         gamification = newUserGamification

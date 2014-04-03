@@ -1,21 +1,22 @@
 package kuorum
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.SearchParams
 
 class SearchController {
     def searchSolrService
     def indexSolrService
 
-    def search(String word) {
+    def search(SearchParams searchParams) {
 
-        SearchParams searchParams = new SearchParams(word:word)
         def docs = searchSolrService.search(searchParams)
-        render docs as JSON
+        [docs:docs]
 
     }
 
-    def index(){
+    @Secured(['ROLE_ADMIN'])
+    def fullIndex(){
          indexSolrService.fullIndex()
         render "Ok"
     }

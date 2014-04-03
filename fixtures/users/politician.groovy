@@ -18,6 +18,7 @@ fixture {
 
     politicianData(PersonData){
         gender =  Gender.MALE
+        userType = UserType.POLITICIAN
         postalCode = "28001"
         provinceCode = "EU-SP-MD-MD"
         province = madrid
@@ -59,6 +60,7 @@ fixture {
                 CommissionType.OTHERS
         ]
         language ="es_ES"
+        userType = UserType.POLITICIAN
         favorites = []
         gamification = politicianGamification
         numFollowers = 0

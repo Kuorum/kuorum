@@ -8,5 +8,5 @@ import org.bson.types.ObjectId
  * Created by iduetxe on 1/02/14.
  */
 class SolrKuorumUser extends SolrElement{
-
+    String postalCode
 }

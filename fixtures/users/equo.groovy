@@ -1,5 +1,6 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
+import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.users.Gamification
 import kuorum.users.KuorumUser
@@ -20,6 +21,7 @@ fixture {
 
     equoData(OrganizationData){
         gender =  Gender.ORGANIZATION
+        userType = UserType.ORGANIZATION
         isPoliticalParty = Boolean.FALSE
     }
 
@@ -54,6 +56,7 @@ fixture {
                 CommissionType.OTHERS
         ]
         language ="es_ES"
+        userType = UserType.ORGANIZATION
         favorites = []
         numFollowers = 0
         gamification = equoGamification

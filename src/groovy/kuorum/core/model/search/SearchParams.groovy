@@ -8,9 +8,11 @@ import kuorum.core.model.solr.SolrType
  * Created by iduetxe on 18/02/14.
  *
  * Search options
+ *
+ * It is serializable because is going to be stored on user session (cookie)
  */
 @Validateable
-class SearchParams extends Pagination{
+class SearchParams extends Pagination implements Serializable{
     /**
      * search text: min 3 character
      */

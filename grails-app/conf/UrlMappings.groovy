@@ -44,12 +44,10 @@ class UrlMappings {
         name customRegisterStep3: "/registro/paso3"(controller: "customRegister"){action = [GET:"step3", POST:"step3Save"]}
         name customRegisterStep4: "/registro/paso4"(controller: "customRegister"){action = [GET:"step4", POST:"step4Save"]}
         name customRegisterStep5: "/registro/fin"(controller: "customRegister", action:"step5")
-//        name customRegisterStep1: "/registro/paso1"(controller: "customRegister",action:"step1")
-//        name customRegisterStep1Save: "/registro/paso1/save"(controller: "customRegister",action:"step1Save")
-//        name customRegisterStep2: "/registro/paso2"(controller: "customRegister", action: "step2")
 
-        //name landingPage: "/landingPage" (controller: "dashboard", action:"landingPage")
-        //name dashboard: "/dashboard" (controller: "dashboard", action:"dashboard")
+        name searcherSearch:      "/buscar"(controller: "search", action:"search")
+        name searcherSearch:      "/buscar/resultados"(controller: "search", action:"search")
+        name searcherSearch:      "/buscar/sugerencias"(controller: "search", action:"suggest")
 
         name profileEditUser:     "/mi-perfil"                  (controller: "profile", action: "editUser")
         name profileChangePass:   "/mi-perfil/cambiar-password" (controller: "profile", action: "changePassword")

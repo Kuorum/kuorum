@@ -47,9 +47,12 @@ class SearchSolrService {
     }
 
     private SolrSuggest prepareSuggestions(QueryResponse rsp){
-        SolrSuggest solrSuggest = new SolrSuggest()
-        solrSuggest.suggestedQuery = rsp._spellInfo.suggestions.collation.collationQuery
-        solrSuggest.hits = rsp._spellInfo.suggestions.collation.hits
+        SolrSuggest solrSuggest = null
+        if (rsp._spellInfo.suggestions.get("collation")){
+            solrSuggest = new SolrSuggest()
+            solrSuggest.suggestedQuery = rsp._spellInfo.suggestions.collation.collationQuery
+            solrSuggest.hits = rsp._spellInfo.suggestions.collation.hits
+        }
         solrSuggest
     }
 
@@ -63,7 +66,8 @@ class SearchSolrService {
         rsp.highlighting.each{id,changes->
             SolrElement solrElement = solrResults.elements.find{it.id == id}
             changes.each{field, val ->
-                solrElement."$field" = val[0]
+                if (solrElement.hasProperty(field))
+                    solrElement."$field" = val[0]
             }
         }
 

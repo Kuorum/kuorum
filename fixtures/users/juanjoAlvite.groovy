@@ -1,5 +1,6 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
+import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.users.Gamification
 import kuorum.users.KuorumUser
@@ -20,6 +21,7 @@ fixture {
 
     juanjoPersonalData(PersonData){
         gender =  Gender.MALE
+        userType = UserType.PERSON
         postalCode = "28001"
         provinceCode = "EU-SP-MD-MD"
         province = madrid
@@ -57,6 +59,7 @@ fixture {
                 CommissionType.OTHERS
         ]
         language ="es_ES"
+        userType = UserType.PERSON
         favorites = []
         numFollowers = 0
         gamification = juanjoGamification

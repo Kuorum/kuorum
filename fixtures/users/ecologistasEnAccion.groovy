@@ -1,5 +1,6 @@
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
+import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.users.Gamification
 import kuorum.users.KuorumUser
@@ -18,6 +19,7 @@ fixture {
 
     ecologistasData(OrganizationData){
         gender =  Gender.ORGANIZATION
+        userType = UserType.ORGANIZATION
         isPoliticalParty = Boolean.FALSE
     }
 
@@ -53,6 +55,7 @@ fixture {
         ]
         language ="es_ES"
         favorites = []
+        userType = UserType.ORGANIZATION
         numFollowers = 0
         gamification = ecologistasGamification
         lastNotificationChecked = Date.parse("dd/MM/yyyy","09/09/2012")

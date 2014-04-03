@@ -3,8 +3,11 @@ package kuorum.solr
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
 import groovy.time.TimeDuration
+import kuorum.Region
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionData
+import kuorum.core.model.CommissionType
+import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrElement
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.core.model.solr.SolrLaw
@@ -85,13 +88,15 @@ class IndexSolrService {
         java.util.ArrayList<SolrInputDocument> solrDocuments = new ArrayList<SolrInputDocument>(solrBulkUpdateQuantity)
         grailsApplication.getClassForName(className).list().each {kuorumUser ->
             SolrElement solrElement = createSolrElement(kuorumUser)
-            SolrInputDocument solrInputDocument = createSolrInputDocument(solrElement)
-            solrDocuments.add(solrInputDocument)
-            if (solrDocuments.size() == solrBulkUpdateQuantity){
-                server.add(solrDocuments)
-                server.commit()
-                numIndexed += solrDocuments.size()
-                solrDocuments.clear()
+            if(solrElement){
+                SolrInputDocument solrInputDocument = createSolrInputDocument(solrElement)
+                solrDocuments.add(solrInputDocument)
+                if (solrDocuments.size() == solrBulkUpdateQuantity){
+                    server.add(solrDocuments)
+                    server.commit()
+                    numIndexed += solrDocuments.size()
+                    solrDocuments.clear()
+                }
             }
         }
         if (solrDocuments){
@@ -121,7 +126,10 @@ class IndexSolrService {
             dateCreated:post.dateCreated,
             hashtag:post.law.hashtag,
             owner:"${post.owner.name} ${post.owner.surname}",
-            victory: post.victory
+            victory: post.victory,
+            commissions: post.law.commissions,
+            regionName: post.law.region.name,
+            regionIso3166_2: post.law.region.iso3166_2
         )
     }
 
@@ -135,19 +143,45 @@ class IndexSolrService {
                 dateCreated:solrDocument.dateCreated,
                 hashtag:solrDocument.hashtag,
                 owner:solrDocument.owner,
-                victory:solrDocument.victory
+                victory:solrDocument.victory,
+                commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
+                regionName:solrDocument.regionName,
+                regionIso3166_2: solrDocument.regionIso3166_2
         )
     }
 
 
     SolrKuorumUser createSolrElement(KuorumUser kuorumUser){
         //new SolrKuorumUser(kuorumUser.properties.findAll { k, v -> k in SolrKuorumUser.metaClass.properties*.name} )
+        String regionName = ""
+        String regionIso = ""
+        String postalCode = null
+        if (UserType.ORGANIZATION.equals(kuorumUser.userType)){
+            //TODO: PENSAR QUE HUEVOS ES PARA LAS EMPRESAS
+            Region spain = Region.findByIso3166_2("EU-ES")
+            regionName = spain.name
+            regionIso = spain.iso3166_2
+        }else{
+            //User or Politicians
+            if (!kuorumUser.personalData.postalCode){
+                log.info("No se indexa al usuario ${kuorumUser.email} porque no tenemos sus datos básicos")
+                return null // Skipping user because we don't have basic data
+            }
+
+            regionName = kuorumUser.personalData.province.name
+            regionIso = kuorumUser.personalData.province.iso3166_2
+            postalCode = kuorumUser.personalData.postalCode
+        }
         new SolrKuorumUser(
                 id:kuorumUser.id.toString(),
                 name: kuorumUser.toString(),
                 type:SolrType.KUORUM_USER,
                 subType:SolrType.KUORUM_USER.generateSubtype(kuorumUser),
-                dateCreated:kuorumUser.dateCreated
+                dateCreated:kuorumUser.dateCreated,
+                commissions: kuorumUser.relevantCommissions,
+                regionName: regionName,
+                regionIso3166_2: regionIso,
+                postalCode: postalCode
         )
     }
 
@@ -158,6 +192,7 @@ class IndexSolrService {
                 type:SolrType.valueOf(solrDocument.type),
                 subType:SolrSubType.valueOf(solrDocument.subType),
                 dateCreated:solrDocument.dateCreated,
+                commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)}
         )
     }
 
@@ -169,7 +204,10 @@ class IndexSolrService {
             subType:SolrType.LAW.generateSubtype(law),
             text:law.description,
             dateCreated:law.dateCreated,
-            hashtag:law.hashtag
+            hashtag:law.hashtag,
+            commissions:law.commissions,
+            regionName: law.region.name,
+            regionIso3166_2: law.region.iso3166_2
         )
     }
 
@@ -181,7 +219,10 @@ class IndexSolrService {
                 subType:SolrSubType.valueOf(solrDocument.subType),
                 text:solrDocument.text,
                 dateCreated:solrDocument.dateCreated,
-                hashtag:solrDocument.hashtag
+                hashtag:solrDocument.hashtag,
+                commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
+                regionName:solrDocument.regionName,
+                regionIso3166_2: solrDocument.regionIso3166_2
         )
     }
 
