@@ -5,5 +5,5 @@
             <g:message code="head.noLogged.login"/>
         </g:link>
     </li>
-    <li><button type="button" class="btn navbar-btn">Regístrate</button></li>
+    <li><a href="#" class="btn btn-custom-primary">Regístrate</a></li>
 </ul>

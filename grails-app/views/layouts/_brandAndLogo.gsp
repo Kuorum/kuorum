@@ -9,6 +9,7 @@
     <h1>
         <g:link mapping="home" class="navbar-brand">
             <img src="${resource(dir: 'images', file: 'logo@2x.png')}" alt="${g.message(code:'head.logo.alt')}">
+            <span class="hidden"><g:message code="kuorum.name"/> </span>
         </g:link>
     </h1>
     <h2 class="hidden"><g:message code="head.logo.hiddenDescription"/></h2>

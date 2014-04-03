@@ -1,7 +1,7 @@
 <footer id="footer" class="row" role="contentinfo">
-    <div class="container">
-        <section class="links clearfix">
-            <section class="col-xs-12 col-sm-6 col-md-2">
+    <div class="container-fluid">
+        <section class="row links clearfix">
+            <section class="col-xs-12 col-sm-3 col-md-2">
                 <h1><g:message code="layout.footer.aboutKuorum"/> </h1>
                 <ul>
                     <li><g:link mapping="footerWhatIsKuorum"><g:message code="layout.footer.whatIsKuorum"/></g:link> </li>
@@ -12,7 +12,7 @@
                     <li><g:link mapping="footerQuestions"><g:message code="layout.footer.questions"/></g:link> </li>
                 </ul>
             </section>
-            <section class="col-xs-12 col-sm-6 col-md-2">
+            <section class="col-xs-12 col-sm-3 col-md-2">
                 <h1><g:message code="layout.footer.howToParticipate"/></h1>
                 <ul>
                     <li><g:link mapping="footerCitizens"><g:message code="layout.footer.citizens"/></g:link></li>
@@ -23,17 +23,17 @@
                     <li><a href="#">Kuorum.org</a></li>
                 </ul>
             </section>
-            <section class="col-xs-12 col-sm-6 col-md-2">
+            <section class="col-xs-12 col-sm-3 col-md-2">
                 <h1><g:message code="layout.footer.media"/> </h1>
                 <ul>
                     <li><a target="_blank" href="http://www.elconfidencial.com/tecnologia/2013-10-25/kuorum-la-startup-espanola-que-lleva-la-democracia-ciudadana-a-la-red_45787/">El Confidencial</a></li>
                     <li><a target="_blank" href="http://noticias.lainformacion.com/asuntos-sociales/nace-kuorum-una-plataforma-espanola-en-busca-de-una-democracia-2-0_uZLstjDCNoiDnIdNTr1Fk4/">La Información</a></li>
-                    <li><a target="_blank" href="http://www.elperiodico.com/es/noticias/reaccionando/articulo-manel-souto-nuevas-herramientas-democraticas-kuorumorg-3012032">El Peroódico</a></li>
+                    <li><a target="_blank" href="http://www.elperiodico.com/es/noticias/reaccionando/articulo-manel-souto-nuevas-herramientas-democraticas-kuorumorg-3012032">El Periódico</a></li>
                     <li><a target="_blank" href="http://www.eldiario.es/turing/Nuevas-aplicaciones-participativas-laboratorio-democratico_0_196330603.html">El Diario</a></li>
                     <li><a target="_blank" href="http://www.rtve.es/alacarta/videos/para-todos-la-2/para-todos-2-internet/2361227/">La 2</a></li>
                 </ul>
             </section>
-            <section class="col-xs-12 col-sm-6 col-md-2">
+            <section class="col-xs-12 col-sm-3 col-md-2">
                 <h1><g:message code="layout.footer.legal"/></h1>
                 <ul>
                     <li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
@@ -41,13 +41,28 @@
                     <li><g:link mapping="footerTermsAds"><g:message code="layout.footer.termsAds"/></g:link></li>
                 </ul>
             </section>
-            <section class="col-xs-12 col-sm-12 col-md-3 col-md-offset-1">
-                <button type="button" class="btn feedback">Danos feedback</button>
-                <h1><g:message code="layout.footer.workingWith"/> </h1>
-                <ul class="collabor">
-                    <li><a href="http://www.sg.ethz.ch/" hreflang="en" class="ethz"><img src="${g.resource(dir:'images', file:'logo-ethz.png')}" alt="ETHZ (Eidgenössische Technische Hochschule Zürich)"></a></li>
-                    <li><a href="http://www.deliveringhappiness.com/" hreflang="en" class="delhap"><img src="${g.resource(dir:'images', file:'logo-delhap.png')}" alt="Delivering Happiness"></a></li>
-                </ul>
+            <section class="col-xs-12 col-sm-12 col-md-2 col-md-offset-2">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3 col-md-12">
+                        <h1 class="map">Mapa web</h1>
+                        <ul>
+                            <li><a href="#">Todos los políticos</a></li>
+                            <li><a href="#">Todas las leyes</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-3 col-md-12">
+                        <a href="#" class="feedback">Danos feedback</a>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-3 col-md-12">
+                        <h1 class="collabor"><g:message code="layout.footer.workingWith"/></h1>
+                        <ul class="collabor">
+                            <li><a href="http://www.sg.ethz.ch/" hreflang="en" class="ethz"><img src="${g.resource(dir:'images', file:'logo-ethz.png')}" alt="ETHZ (Eidgenössische Technische Hochschule Zürich)"></a></li>
+                            <li><a href="http://www.deliveringhappiness.com/" hreflang="en" class="delhap"><img src="${g.resource(dir:'images', file:'logo-delhap.png')}" alt="Delivering Happiness"></a></li>
+                        </ul>
+                    </div>
+                </div>
             </section>
         </section>
     </div><!-- /.container - da ancho máximo y centra -->
