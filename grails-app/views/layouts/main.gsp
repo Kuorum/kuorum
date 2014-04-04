@@ -35,25 +35,25 @@
     <script src="${resource(dir: 'js', file: 'modernizr.js')}"></script>
 
     <!-- For iPhone 5 and iPod touch -->
-    <!-- <link rel="apple-touch-icon" sizes="120x120" href="images/icons/apple-touch-icon-120x120.png"> -->
+    <!-- <link rel="apple-touch-icon" sizes="120x120" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-120x120.png')}"> -->
 
     <!-- For iPhone 4 -->
-    <!-- <link rel="apple-touch-icon" sizes="114x114" href="images/icons/apple-touch-icon-114x114.png"> -->
+    <!-- <link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-114x114.png')}"> -->
 
     <!-- For the new iPad and iPad mini -->
-    <!-- <link rel="apple-touch-icon" sizes="152x152" href="images/icons/apple-touch-icon-152x152.png"> -->
+    <!-- <link rel="apple-touch-icon" sizes="152x152" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-152x152.png')}"> -->
 
     <!-- For iPad 2 -->
-    <!-- <link rel="apple-touch-icon" sizes="144x144" href="images/icons/apple-touch-icon-144x144.png"> -->
+    <!-- <link rel="apple-touch-icon" sizes="144x144" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-114x114.png')}"> -->
 
     <!-- For iPad 1-->
-    <!-- <link rel="apple-touch-icon" sizes="72x72" href="images/icons/apple-touch-icon-72x72.png"> -->
+    <!-- <link rel="apple-touch-icon" sizes="72x72" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-72x72.png')}"> -->
 
     <!-- For iPhone 3G, iPod Touch and Android -->
-    <!-- <link rel="apple-touch-icon" href="images/icons/apple-touch-icon-76x76.png"> -->
+    <!-- <link rel="apple-touch-icon" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-76x76.png')}"> -->
 
     <!-- For Nokia -->
-    <!-- <link rel="shortcut icon" href="images/icons/apple-touch-icon-76x76.png"> -->
+    <!-- <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-76x76.png')}"> -->
 
     <!-- For everything else -->
     <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'favicon.ico')}">
