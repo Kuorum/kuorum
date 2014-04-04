@@ -21,5 +21,6 @@ class CodecSpec extends Specification {
         "holá pepé"         | "hola-pepe"
         ""                  | ""
         "aâäáeéëê iÍÏï#%/"  |"aaaaeeee-iiii"
+        "Aa Ha ÄÁa"         |"aa-ha-aaa"
     }
 }
