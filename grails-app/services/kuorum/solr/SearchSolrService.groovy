@@ -103,9 +103,14 @@ class SearchSolrService {
     }
 
     private ArrayList<String> prepareAutocompleteSuggestions(QueryResponse rsp){
-        ArrayList<String> suggests = new ArrayList<String>(rsp.facetFields.size())
-        rsp.facetFields[0].values.each{suggest ->
-            suggests.add( suggest.name)
+        def collations = rsp._spellInfo.suggestions.getAll("collation")
+        ArrayList<String> suggests = new ArrayList<String>(collations.size())
+        if (collations.size()>0){
+            rsp._spellInfo.suggestions.getAll("collation").each{
+                if (it.hits >  0){
+                    suggests.add(it.misspellingsAndCorrections.first().value)
+                }
+            }
         }
         suggests
     }
@@ -124,7 +129,7 @@ class SearchSolrService {
                 case SolrType.POST:
                     break
                 default:
-                    log.warn("No se ha podido recuperar el elemento de sorl ${solrElement.id}")
+                    log.warn("No se ha podido recuperar el elemento de sorl ${solrDocument}")
             }
         }
         [laws:laws, kuorumUsers:kuorumUsers]

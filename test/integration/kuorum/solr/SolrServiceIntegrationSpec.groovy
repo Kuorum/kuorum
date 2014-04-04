@@ -85,7 +85,7 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             params[2]       | 3             | 1       | 0        | "parques nacionales"
             params[3]       | 1             | 1       | 0        | "parques nacionales"
             params[4]       | 2             | 0       | 0        | "parques nacionales"
-            params[5]       | 1             | 0       | 1        | "juanjo"
+            params[5]       | 1             | 0       | 1        | "juanjo alvite"
             params[6]       | 1             | 0       | 1        | "juanjo alvite"
             params[7]       | 0             | 0       | 0        | null
             params[8]       | 0             | 0       | 0        | null

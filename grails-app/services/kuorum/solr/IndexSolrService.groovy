@@ -125,7 +125,7 @@ class IndexSolrService {
             text:post.text,
             dateCreated:post.dateCreated,
             hashtag:post.law.hashtag,
-            owner:"${post.owner.name} ${post.owner.surname}",
+            owner:"${post.owner.name}",
             victory: post.victory,
             commissions: post.law.commissions,
             regionName: post.law.region.name,

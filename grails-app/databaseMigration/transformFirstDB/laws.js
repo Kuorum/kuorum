@@ -13,12 +13,15 @@ dbOrigin.generalLaw.find({_class:"Law"}).forEach(function(law){
     print("ley creada:"+destLaw.hashtag +(destLaw._id))
     dbOrigin.message.find().forEach(function(message){
         var destPost = createPostFromOldPost(destLaw,message)
-        dbDest.post.insert(destPost)
-        var cluck = createFirstCluck(destPost)
-        dbDest.cluck.insert(cluck)
-        print("ley ("+destLaw.hashtag +") => Post:"+destPost._id)
-        createPostVotesFromLikes(destPost, message)
-        createCommentsFromSubMessages(destPost, message)
+        var existsOwner = dbDest.kuorumUser.count({_id:destPost.owner})
+        if (existsOwner == 1){
+            dbDest.post.insert(destPost)
+            var cluck = createFirstCluck(destPost)
+            dbDest.cluck.insert(cluck)
+            print("ley ("+destLaw.hashtag +") => Post:"+destPost._id)
+            createPostVotesFromLikes(destPost, message)
+            createCommentsFromSubMessages(destPost, message)
+        }
     });
 });
 
