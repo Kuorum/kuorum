@@ -98,3 +98,20 @@
 	<g:textField name="shortName" value="${lawInstance?.shortName}" />
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: lawInstance, field: 'commissions', 'error')} ">
+    <label for="commissions">
+        <g:message code="law.commissions.label" default="Commissions" />
+
+    </label>
+    <ul>
+        <g:each in="${kuorum.core.model.CommissionType.values()}" var="commissionType">
+            <li>
+            <g:checkBox name="commissions" value="${commissionType}" checked="${lawInstance.commissions.contains(commissionType)}"/>
+            <span class="${hasErrors(bean: lawInstance, field: 'commissions', 'error')}">
+                <g:message code="kuorum.core.model.CommissionType.${commissionType}" default="${commissionType}"/>
+            </span>
+            </li>
+        </g:each>
+    </ul>
+</div>
+
