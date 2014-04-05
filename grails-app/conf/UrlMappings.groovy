@@ -26,9 +26,11 @@ class UrlMappings {
         name postAddComment:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/nuevoComentario"(controller: "post",action: "addComment")
 
 
-
-
-        name userShow: "/ciudadano/$id" (controller: "kuorumUser", action: "show")
+        //userShow is used for build the urls but is never called because the urls constructed shuld be like citizienShow, organizationShow, politicianShow
+        name userShow:          "/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "show")
+        name citizienShow:      "/ciudadanos/$urlName-$id"     (controller: "kuorumUser", action: "showCitizen")
+        name organizacionShow:  "/organizaciones/$urlName-$id" (controller: "kuorumUser", action: "showOrganization")
+        name politicianShow:    "/politicos/$urlName-$id"      (controller: "kuorumUser", action: "showPolitician")
 
         name cluckCreate: "/cluck/$postId" (controller: "cluck", action: "createCluck")
 

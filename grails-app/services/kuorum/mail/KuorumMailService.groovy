@@ -52,7 +52,7 @@ class KuorumMailService {
     }
 
     def sendCluckNotificationMail(Cluck cluck){
-        String userLink = generateLink("userShow",[id:cluck.owner.id.toString()])
+        String userLink = generateLink("userShow",cluck.owner.encodeAsLinkProperties())
         MailUserData mailUserData = new MailUserData(user:cluck.postOwner)
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_CLUCK
@@ -63,7 +63,7 @@ class KuorumMailService {
     }
 
     def sendFollowerNotificationMail(KuorumUser follower, KuorumUser following){
-        String userLink = generateLink("userShow",[id:follower.id.toString()])
+        String userLink = generateLink("userShow",follower.encodeAsLinkProperties())
         MailUserData mailUserData = new MailUserData(user:following, bindings:[])
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_FOLLOWER
@@ -92,10 +92,10 @@ class KuorumMailService {
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 debateOwner:debateOwner.name,
-                debateOwnerLink:generateLink("userShow",[id:debateOwner.id]),
+                debateOwnerLink:generateLink("userShow",debateOwner.encodeAsLinkProperties()),
                 postName:post.title,
                 postOwner:post.owner.name,
-                postOwnerLink:generateLink("userShow",[id:post.owner.id]),
+                postOwnerLink:generateLink("userShow", post.owner.encodeAsLinkProperties()),
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 message:post.last().text
                 ]
@@ -114,10 +114,10 @@ class KuorumMailService {
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 debateOwner:debateOwner.name,
-                debateOwnerLink:generateLink("userShow",[id:debateOwner.id]),
+                debateOwnerLink:generateLink("userShow", debateOwner.encodeAsLinkProperties()),
                 postName:post.title,
                 postOwner:post.owner.name,
-                postOwnerLink:generateLink("userShow",[id:post.owner.id]),
+                postOwnerLink:generateLink("userShow",post.owner.encodeAsLinkProperties()),
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 message:post.last().text
         ]
@@ -134,10 +134,10 @@ class KuorumMailService {
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 debateOwner:debateOwner.name,
-                debateOwnerLink:generateLink("userShow",[id:debateOwner.id]),
+                debateOwnerLink:generateLink("userShow",debateOwner.encodeAsLinkProperties()),
                 postName:post.title,
                 postOwner:post.owner.name,
-                postOwnerLink:generateLink("userShow",[id:post.owner.id]),
+                postOwnerLink:generateLink("userShow",post.owner.encodeAsLinkProperties()),
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 message:post.last().text
         ]
@@ -155,12 +155,12 @@ class KuorumMailService {
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 defender:post.defender.name,
-                defenderLink:generateLink("userShow",[id:post.defender.id]),
+                defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 debateOwner:post.owner.name,
                 postName:post.title,
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
-                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties())
 
         ]
 
@@ -176,12 +176,12 @@ class KuorumMailService {
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 defender:post.defender.name,
-                defenderLink:generateLink("userShow",[id:post.defender.id]),
+                defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 debateOwner:post.owner.name,
                 postName:post.title,
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
-                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties())
 
         ]
 
@@ -198,12 +198,12 @@ class KuorumMailService {
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 defender:post.defender.name,
-                defenderLink:generateLink("userShow",[id:post.defender.id]),
+                defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 debateOwner:post.owner.name,
                 postName:post.title,
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
-                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties())
         ]
 
         MailData mailNotificationsData = new MailData()
@@ -218,12 +218,12 @@ class KuorumMailService {
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 defender:post.defender.name,
-                defenderLink:generateLink("userShow",[id:post.defender.id]),
+                defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 debateOwner:post.owner.name,
                 postName:post.title,
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
-                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties())
         ]
 
         MailData mailNotificationsData = new MailData()
@@ -238,12 +238,12 @@ class KuorumMailService {
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 defender:post.defender.name,
-                defenderLink:generateLink("userShow",[id:post.defender.id]),
+                defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 debateOwner:post.owner.name,
                 postName:post.title,
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
-                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties())
         ]
 
         MailData mailNotificationsData = new MailData()
@@ -291,9 +291,9 @@ class KuorumMailService {
                 postName:post.title,
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 promoter:sponsor.name,
-                promoterLink:generateLink("userShow",[id:sponsor.id]),
+                promoterLink:generateLink("userShow",sponsor.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
-                postOwnerLink: generateLink("userShow",[id:post.owner.id]),
+                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties()),
                 hashtag:post.law.hashtag,
                 hashtagLink:generateLink("lawShow",law.encodeAsLinkProperties())
         ]
@@ -303,12 +303,12 @@ class KuorumMailService {
         def globalBindings = [
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 defender:post.defender.name,
-                defenderLink:generateLink("userShow",[id:post.defender.id]),
+                defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 debateOwner:post.owner.name,
                 postName:post.title,
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
-                postOwnerLink: generateLink("userShow",[id:post.owner.id])
+                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties())
         ]
 
         MailData mailNotificationsData = new MailData()

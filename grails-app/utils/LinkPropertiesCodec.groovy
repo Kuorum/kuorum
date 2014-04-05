@@ -1,13 +1,13 @@
 import grails.util.Holders
 import kuorum.core.model.CommissionType
 import kuorum.core.model.PostType
+import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.core.model.solr.SolrLaw
 import kuorum.core.model.solr.SolrPost
 import kuorum.law.Law
 import kuorum.post.Post
 import kuorum.users.KuorumUser
-import org.codehaus.groovy.grails.commons.ApplicationHolder
 
 /**
  * Created by iduetxe on 24/03/14.
@@ -22,13 +22,13 @@ class LinkPropertiesCodec {
             case Law:
             case SolrLaw:
 //                Law law = (Law) target
-                params = lawLinkParams(target);
+                params = prepareParams(target);
                 break;
             case SolrPost:
-                params = lawLinkParams(target)
+                params = prepareParams(target)
                 break;
             case Post:
-                params = lawLinkParams(target.law)
+                params = prepareParams(target.law)
                 String postTypeName =   translate("${PostType.canonicalName}.${target.postType}")
                 params+= [
                         postId:target.id,
@@ -37,7 +37,7 @@ class LinkPropertiesCodec {
                 break;
             case KuorumUser:
             case SolrKuorumUser:
-                params = [id:target.id]
+                params = prepareParams(target)
                 break;
             default:
                 params = [:]
@@ -50,7 +50,7 @@ class LinkPropertiesCodec {
     }
 
 
-    private static def lawLinkParams(Law law){
+    private static def prepareParams(Law law){
         String commissionName = translate("${CommissionType.canonicalName}.${law.commissions.first()}")
         [
                 hashtag: law.hashtag.decodeHashtag(),
@@ -59,7 +59,28 @@ class LinkPropertiesCodec {
         ]
     }
 
-    private static def lawLinkParams(SolrLaw law){
+    private static def prepareParams(KuorumUser user){
+        //userTypeUrl is the name that match with UrlMappings to redirect to correct action
+        String userTypeUrl = transEnumToUrl(user.userType)
+        [
+                id: user.id.toString(),
+                urlName:user.name.encodeAsKuorumUrl(),
+                userTypeUrl:userTypeUrl.encodeAsKuorumUrl(),
+        ]
+    }
+
+    private static def prepareParams(SolrKuorumUser user){
+        //userTypeUrl is the name that match with UrlMappings to redirect to correct action
+        UserType userType = UserType.valueOf(user.subType.toString())
+        String userTypeUrl = transEnumToUrl(userType)
+        [
+                id: user.id.toString(),
+                urlName:user.name.encodeAsKuorumUrl(),
+                userTypeUrl:userTypeUrl.encodeAsKuorumUrl(),
+        ]
+    }
+
+    private static def prepareParams(SolrLaw law){
         String commissionName = translate("${CommissionType.canonicalName}.${law.commissions.first()}")
         [
                 hashtag: law.hashtag.decodeHashtag(),
@@ -68,7 +89,7 @@ class LinkPropertiesCodec {
         ]
     }
 
-    private static def lawLinkParams(SolrPost post){
+    private static def prepareParams(SolrPost post){
         String commissionName = translate("${CommissionType.canonicalName}.${post.commissions.first()}")
         String postTypeName =   translate("${PostType.canonicalName}.${post.subType}")
         [
@@ -84,4 +105,21 @@ class LinkPropertiesCodec {
         def messageSource =Holders.getApplicationContext().getBean("messageSource")
         messageSource.getMessage(txt,null,"default", new Locale("ES_es"))
     }
+
+    private static String transEnumToUrl(UserType userType){
+        /*
+        This returns have to match with:
+            citizienShow:      "/ciudadanos/$urlName-$id"
+            organizacionShow:  "/organizaciones/$urlName-$id" (controller: "kuorumUser", action: "showOrganization")
+            politicianShow:    "/politicos/$urlName-$id"      (controller: "kuorumUser", action: "showPolitician")
+
+         */
+        switch (userType){
+            case UserType.PERSON: return "ciudadanos"
+            case UserType.ORGANIZATION: return "organizaciones"
+            case UserType.POLITICIAN: return "politicos"
+        }
+    }
+
+
 }
