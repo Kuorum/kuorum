@@ -67,7 +67,10 @@ class LawController {
             return;
         }
         LawCommand lawCommand = new LawCommand()
-        lawCommand.properties.each {k,v -> lawCommand."$k" = law."$k"}
+        lawCommand.properties.each {k,v ->
+            if (k!="class")
+                lawCommand."$k" = law."$k"
+        }
         [
             lawInstance:lawCommand,
             regions:Region.findAll(),

@@ -23,6 +23,7 @@ class LawCommand {
 
     static constraints = {
         importFrom Law
+        commissions nullable: false, minSize: 1
 
         //Validator is not imported
         region  nullable:false, validator: { val, obj ->

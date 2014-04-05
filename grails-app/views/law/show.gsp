@@ -100,6 +100,16 @@
 					
 				</li>
 				</g:if>
+                <li>
+                    <h3>Commissions</h3>
+                    <ul>
+                        <g:each in="${lawInstance.commissions}" var="commission">
+                            <li><g:message code="kuorum.core.model.CommissionType.${commission}"/> </li>
+                        </g:each>
+
+                    </ul>
+
+                </li>
 			
 			</ol>
 			<g:form url="[resource:lawInstance, action:'delete']" method="DELETE">
