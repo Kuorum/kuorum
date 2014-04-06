@@ -27,7 +27,7 @@ dbOrigin.generalLaw.find({_class:"Law"}).forEach(function(law){
 
 function createLawFromOldLaw(law){
     var id = new ObjectId();
-//    var regionn = dbDest.
+    var spain = dbDest.region.find({"iso3166_2" : "EU-ES"})[0]
     var destLaw = {
 //        "_id" :law._id,
         "_id":id,
@@ -40,13 +40,7 @@ function createLawFromOldLaw(law){
         "open" : law.lawStatus=="OPEN",
         "published" : law.published!=null,
         "realName" : law.officialTitle,
-        "region" : {
-            "_id" : ObjectId("532828c644aeeccebb29a605"),
-            "iso3166_2" : "EU-ES",
-            "name" : "España",
-            "superRegion" : ObjectId("532828c644aeeccebb29a604"),
-            "version" : NumberLong(0)
-        },
+        "region" : spain,
         "shortName" : law.shortTitle,
         "version" : 0
     }
