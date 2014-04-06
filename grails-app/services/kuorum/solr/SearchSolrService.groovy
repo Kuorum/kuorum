@@ -80,6 +80,7 @@ class SearchSolrService {
         }
         SolrQuery query = new SolrQuery();
         query.setParam(CommonParams.QT, "/suggest");
+        query.setParam("spellcheck.q", params.word);
         //query.setParam(TermsParams.TERMS_FIELD, "name", "username");
         prepareFilter(params, query)
         query.setParam("facet.prefix",params.word)
@@ -103,16 +104,22 @@ class SearchSolrService {
     }
 
     private ArrayList<String> prepareAutocompleteSuggestions(QueryResponse rsp){
-        def collations = rsp._spellInfo.suggestions.getAll("collation")
-        ArrayList<String> suggests = new ArrayList<String>(collations.size())
-        if (collations.size()>0){
-            rsp._spellInfo.suggestions.getAll("collation").each{
-                if (it.hits >  0){
-                    suggests.add(it.misspellingsAndCorrections.first().value)
-                }
-            }
+//        def collations = rsp._spellInfo.suggestions.getAll("collation")
+//        ArrayList<String> suggests = new ArrayList<String>(collations.size())
+//        if (collations.size()>0){
+//            rsp._spellInfo.suggestions.getAll("collation").each{
+//                if (it.hits >  0){
+//                    suggests.add(it.misspellingsAndCorrections.first().value)
+//                }
+//            }
+//        }
+//        suggests
+        if (rsp._spellInfo.suggestions.size()>0){
+            rsp._spellInfo.suggestions.first().value.suggestion
+        }else{
+            []
         }
-        suggests
+
     }
 
     private def prepareSolrElements(QueryResponse rsp){
