@@ -24,7 +24,7 @@
             <p><strong>Extracto</strong>: ${raw(doc.text)}</p>
         </g:elseif>
         <g:elseif test="${doc instanceof kuorum.core.model.solr.SolrLaw}">
-            <li><g:link mapping="lawShow" params="${doc.encodeAsLinkProperties()}">${doc.hashtag}: ${raw(doc.name)} </g:link> </li>
+            <li>Law <g:link mapping="lawShow" params="${doc.encodeAsLinkProperties()}">${raw(doc.hashtag)}: ${raw(doc.name)} </g:link> </li>
             <p><strong>Extracto</strong>: ${raw(doc.text)}</p>
         </g:elseif>
         <g:else>

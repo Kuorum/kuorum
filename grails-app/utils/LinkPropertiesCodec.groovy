@@ -93,7 +93,7 @@ class LinkPropertiesCodec {
         String commissionName = translate("${CommissionType.canonicalName}.${post.commissions.first()}")
         String postTypeName =   translate("${PostType.canonicalName}.${post.subType}")
         [
-                hashtag: post.hashtag.decodeHashtag(),
+                hashtag: post.hashtagLaw.decodeHashtag(),
                 regionName:post.regionName.encodeAsKuorumUrl(),
                 commision:commissionName.encodeAsKuorumUrl(),
                 postId:post.id,

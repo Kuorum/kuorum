@@ -32,7 +32,9 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             [word:"juanjo",     type:null,                  subType:null],
             [word:"juanjo a",   type:SolrType.KUORUM_USER,  subType:null],
             [word:"juanjo a",   type:SolrType.KUORUM_USER,  subType:SolrSubType.ORGANIZATION],
-            [word:"juanjo a",   type:SolrType.LAW,          subType:SolrSubType.ORGANIZATION]
+            [word:"juanjo a",   type:SolrType.LAW,          subType:SolrSubType.ORGANIZATION],
+            [word:"#parquesna", type:null,                  subType:null],
+            [word:"#parquesnacionales", type:null,                  subType:null],
     ]
     def setup(){
         KuorumUser.collection.getDB().dropDatabase()
@@ -80,6 +82,7 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             }
         where:
             params          | numResults    | numLaws | numUsers | firstSuggest
+        params[10]          | 3             | 1       | 0        | null
             params[0]       | 0             | 0       | 0        | "parques"
             params[1]       | 3             | 1       | 0        | "parques"
             params[2]       | 3             | 1       | 0        | "parques nacionales"
@@ -89,5 +92,7 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             params[6]       | 1             | 0       | 1        | "juanjo alvite"
             params[7]       | 0             | 0       | 0        | null
             params[8]       | 0             | 0       | 0        | null
+            params[9]       | 0             | 0       | 0        | "#parquesnacionales"
+
     }
 }
