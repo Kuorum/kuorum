@@ -56,6 +56,8 @@ class UrlMappings {
         name profileFavorites:    "/mi-perfil/pendientes-de-leer"(controller: "profile", action: "showFavoritesPosts")
         name profileMyPosts:      "/mi-perfil/mis-posts"        (controller: "profile", action: "showUserPosts")
         name profileKuorumStore:  "/mi-perfil/el-gallinero"     (controller: "profile", action: "kuorumStore")
+        name profileBuyAward:     "/mi-perfil/el-gallinero/comprar"     (controller: "profile", action: "kuorumStoreBuyAward")
+        name profileActivateAward:"/mi-perfil/el-gallinero/activar"     (controller: "profile", action: "kuorumStoreActivateAward")
         name profileNotifications:"/mi-perfil/notificaciones"   (controller: "profile", action: "userNotifications")
         name profileMessages:     "/mi-perfil/mensajes"         (controller: "profile", action: "userMessages")
 

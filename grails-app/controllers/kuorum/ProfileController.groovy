@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.Gender
 import kuorum.core.model.Studies
 import kuorum.core.model.WorkingSector
+import kuorum.core.model.gamification.GamificationAward
 import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
 import kuorum.post.Post
 import kuorum.users.KuorumUser
@@ -21,6 +22,7 @@ class ProfileController {
     def regionService
     def kuorumUserService
     def postService
+    def gamificationService
 
     def editUser() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
@@ -129,6 +131,28 @@ class ProfileController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         [user:user]
     }
+    def kuorumStoreActivateAward() {
+        GamificationAward award = GamificationAward.valueOf(params.award)
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if (gamificationService.canActivateAward(user,award)){
+            gamificationService.activateAward(user,award)
+            render "AJAX activated ${award}"
+        }else{
+            render "AJAX NOT ALLOWED"
+        }
+    }
+
+    def kuorumStoreBuyAward() {
+        GamificationAward award = GamificationAward.valueOf(params.award)
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if (gamificationService.canBuyAward(user,award)){
+            gamificationService.buyAward(user,award)
+            render "AJAX  buyed ${award}"
+        }else{
+            render "AJAX  no hay dinerito"
+        }
+    }
+
 
     def userNotifications() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)

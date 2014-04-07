@@ -9,9 +9,9 @@ import kuorum.users.PersonData
 fixture {
 
     peterGamification(Gamification){
-        numEggs = 0
-        numPlumes = 0
-        numCorns = 0
+        numEggs = 1000
+        numPlumes = 1000
+        numCorns = 1000
         activeRole = GamificationAward.ROLE_DEFAULT
         boughtAwards = [GamificationAward.ROLE_DEFAULT ]
     }
