@@ -112,7 +112,10 @@ class IndexSolrService {
 
     private SolrInputDocument createSolrInputDocument(SolrElement solrElement){
         SolrInputDocument solrInputDocument = new SolrInputDocument()
-        solrElement.properties.each{k,v->if (k!="class") solrInputDocument.addField(k,v)}
+        solrElement.properties.each{k,v->
+            if (k!="class" && k!="highlighting")
+                solrInputDocument.addField(k,v)
+        }
         solrInputDocument
     }
 
@@ -136,12 +139,12 @@ class IndexSolrService {
     SolrPost recoverPostFromSolr(SolrDocument solrDocument){
         new SolrPost(
                 id:new ObjectId(solrDocument.id),
-                name:solrDocument.shortName,
+                name:solrDocument.name,
                 type:SolrType.valueOf(solrDocument.type),
                 subType:SolrSubType.valueOf(solrDocument.subType),
                 text:solrDocument.text,
                 dateCreated:solrDocument.dateCreated,
-                hashtagLaw:solrDocument.hashtag,
+                hashtagLaw:solrDocument.hashtagLaw,
                 owner:solrDocument.owner,
                 victory:solrDocument.victory,
                 commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
@@ -188,7 +191,7 @@ class IndexSolrService {
     SolrKuorumUser recoverKuorumUserFromSolr(SolrDocument solrDocument){
         new SolrKuorumUser(
                 id:new ObjectId(solrDocument.id),
-                name:solrDocument.shortName,
+                name:solrDocument.name,
                 type:SolrType.valueOf(solrDocument.type),
                 subType:SolrSubType.valueOf(solrDocument.subType),
                 dateCreated:solrDocument.dateCreated,
@@ -214,7 +217,7 @@ class IndexSolrService {
     SolrLaw recoverLawFromSolr(SolrDocument solrDocument){
         new SolrLaw(
                 id:new ObjectId(solrDocument.id),
-                name:solrDocument.shortName,
+                name:solrDocument.name,
                 type:SolrType.valueOf(solrDocument.type),
                 subType:SolrSubType.valueOf(solrDocument.subType),
                 text:solrDocument.text,

@@ -16,21 +16,21 @@
     <g:each in="${docs.elements}" var="doc">
         <g:if test="${doc instanceof kuorum.core.model.solr.SolrKuorumUser}">
             <li>
-                <g:link mapping="userShow" params="${doc.encodeAsLinkProperties()}">Usuario ${raw(doc.name)} </g:link>
+                Usuario:<g:link mapping="userShow" params="${doc.encodeAsLinkProperties()}">${raw(doc.highlighting.name)} </g:link>
             </li>
         </g:if>
         <g:elseif test="${doc instanceof kuorum.core.model.solr.SolrPost}">
-            <li><g:link mapping="postShow" params="${doc.encodeAsLinkProperties()}">Post ${raw(doc.name)} </g:link> </li>
-            <p><strong>Extracto</strong>: ${raw(doc.text)}</p>
+            <li>Post[${raw(doc.highlighting.hashtagLaw)}]:<g:link mapping="postShow" params="${doc.encodeAsLinkProperties()}">${raw(doc.highlighting.name)} </g:link> </li>
+            <p><strong>Extracto</strong>: ${raw(doc.highlighting.text)}</p>
         </g:elseif>
         <g:elseif test="${doc instanceof kuorum.core.model.solr.SolrLaw}">
-            <li>Law <g:link mapping="lawShow" params="${doc.encodeAsLinkProperties()}">${raw(doc.hashtag)}: ${raw(doc.name)} </g:link> </li>
-            <p><strong>Extracto</strong>: ${raw(doc.text)}</p>
+            <li>Law <g:link mapping="lawShow" params="${doc.encodeAsLinkProperties()}">${raw(doc.highlighting.hashtag)} </g:link>: ${raw(doc.highlighting.name)} </li>
+            <p><strong>Extracto</strong>: ${raw(doc.highlighting.text)}</p>
         </g:elseif>
         <g:else>
-            %{--<sec:ifAllGranted roles="ROLE_ADMIN">--}%
+            <sec:ifAllGranted roles="ROLE_ADMIN">
                 <li style="background: red">WAAARRNNN => ${doc} (${doc.name} - ${doc.id})</li>
-            %{--</sec:ifAllGranted>--}%
+            </sec:ifAllGranted>
         </g:else>
     </g:each>
     </ul>

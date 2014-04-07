@@ -67,7 +67,7 @@ class SearchSolrService {
             SolrElement solrElement = solrResults.elements.find{it.id == id}
             changes.each{field, val ->
                 if (solrElement.hasProperty(field))
-                    solrElement."$field" = val[0]
+                    solrElement.highlighting.storage.put(field,val[0])
             }
         }
 
