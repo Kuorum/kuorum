@@ -121,6 +121,7 @@ class ProfileController {
 
     def showUserPosts() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+
         [user:user]
     }
 

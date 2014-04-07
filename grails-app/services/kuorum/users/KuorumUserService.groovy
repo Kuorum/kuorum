@@ -75,7 +75,11 @@ class KuorumUserService {
      */
     KuorumUser convertAsPremium(KuorumUser user){
         RoleUser rolePremium = RoleUser.findByAuthority("ROLE_PREMIUM")
-        user.authorities.add(rolePremium)
+        addRole(user, rolePremium)
+    }
+
+    KuorumUser addRole(KuorumUser user, RoleUser role){
+        user.authorities.add(role)
         user.lastUpdated = new Date()//Mongo is not detecting changes on list, and is not updating the user roles. Modifying a root field, object is detected as dirty and it saves the changes
         user.save(flush: true)
     }
