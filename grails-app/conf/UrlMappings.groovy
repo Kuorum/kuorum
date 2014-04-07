@@ -50,7 +50,7 @@ class UrlMappings {
         name searcherSearch:      "/buscar/sugerencias"(controller: "search", action:"suggest")
 
         name profileEditUser:     "/mi-perfil"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
-        name profileChangePass:   "/mi-perfil/cambiar-password" (controller: "profile", action: "changePassword")
+        name profileChangePass:   "/mi-perfil/cambiar-password" (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
         name profileChangeEmail:  "/mi-perfil/cambiar-email"    (controller: "profile", action: "changeEmail")
         name profileSocialNetworks:"/mi-perfil/redes-sociales"  (controller: "profile", action: "socialNetworks")
         name profileEmailNotifications:"/mi-perfil/notificaciones-por-email"(controller: "profile", action: "configurationEmails")

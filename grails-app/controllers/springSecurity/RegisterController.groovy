@@ -46,7 +46,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         String url = generateLink('verifyRegistration', [t: registrationCode.token])
 
         kuorumMailService.sendRegisterUser(user,url)
-
+        flash.chainedParams = [link:url]
         redirect mapping:"registerSuccess"
     }
 

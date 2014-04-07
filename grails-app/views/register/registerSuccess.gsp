@@ -9,4 +9,7 @@
     Registro biennnn
 
     Mail enviado
+    <g:if env="development">
+        <a href="${flash.chainedParams.link}">Link de confirmacion para desarrollo</a>
+    </g:if>
 </content>

@@ -17,7 +17,7 @@ class Sha256ToBCryptPasswordEncoder implements org.springframework.security.auth
     }
 
     public boolean isPasswordValid(String encPass,
-                                   String rawPass, Object salt) {
+                                   String rawPass, Object salt = null) {
         if (encPass.startsWith('$2a$10$') && encPass.length() == 60) {
             // already bcrypt
             return bcryptPasswordEncoder.isPasswordValid(encPass, rawPass, null);

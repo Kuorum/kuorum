@@ -4,15 +4,18 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.Gender
 import kuorum.core.model.Studies
 import kuorum.core.model.WorkingSector
+import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
 import kuorum.users.KuorumUser
 import kuorum.users.OrganizationData
 import kuorum.users.PersonData
+import kuorum.web.commands.profile.ChangePasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ProfileController {
 
     def springSecurityService
+    def passwordEncoder
     def regionService
     def kuorumUserService
 
@@ -58,11 +61,26 @@ class ProfileController {
         user.name = command.name
         user.bio = command.bio
         kuorumUserService.updateUser(user)
-        redirect mapping:'editUser'
+        redirect mapping:'profileEditUser'
     }
     def changePassword() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        [user:user]
+        [user:user, command: new ChangePasswordCommand()]
+    }
+    def changePasswordSave(ChangePasswordCommand command) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if (command.hasErrors()){
+            render view:"changePassword", model: [command:command,user:user]
+            return
+        }
+        if (!passwordEncoder.isPasswordValid(user.password ,command.originalPassword, null)){
+            command.errors.rejectValue("originalPassword","notCorrectPassword")
+            render view:"changePassword", model: [command:command,user:user]
+            return
+        }
+        user.password = springSecurityService.encodePassword(command.password)
+        kuorumUserService.updateUser(user)
+        redirect mapping:'profileChangePass'
     }
 
     def changeEmail() {
