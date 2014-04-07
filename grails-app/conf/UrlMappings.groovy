@@ -46,14 +46,13 @@ class UrlMappings {
         name customRegisterStep5: "/registro/fin"(controller: "customRegister", action:"step5")
 
         name searcherSearch:      "/buscar"(controller: "search", action:"search")
-        name searcherSearch:      "/buscar/resultados"(controller: "search", action:"search")
-        name searcherSearch:      "/buscar/sugerencias"(controller: "search", action:"suggest")
+        name searcherSuggests:    "/buscar/sugerencias"(controller: "search", action:"suggest")
 
         name profileEditUser:     "/mi-perfil"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
         name profileChangePass:   "/mi-perfil/cambiar-password" (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
         name profileChangeEmail:  "/mi-perfil/cambiar-email"    (controller: "profile", action: "changeEmail")
         name profileSocialNetworks:"/mi-perfil/redes-sociales"  (controller: "profile", action: "socialNetworks")
-        name profileEmailNotifications:"/mi-perfil/notificaciones-por-email"(controller: "profile", action: "configurationEmails")
+        name profileEmailNotifications:"/mi-perfil/notificaciones-por-email"(controller: "profile"){action=[GET:"configurationEmails",POST:"configurationEmailsSave"]}
         name profileFavorites:    "/mi-perfil/pendientes-de-leer"(controller: "profile", action: "showFavoritesPosts")
         name profileMyPosts:      "/mi-perfil/mis-posts"        (controller: "profile", action: "showUserPosts")
         name profileKuorumStore:  "/mi-perfil/el-gallinero"     (controller: "profile", action: "kuorumStore")

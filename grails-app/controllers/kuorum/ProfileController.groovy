@@ -10,6 +10,7 @@ import kuorum.users.OrganizationData
 import kuorum.users.PersonData
 import kuorum.web.commands.profile.ChangePasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
+import kuorum.web.commands.profile.MailNotificationsCommand
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ProfileController {
@@ -95,7 +96,19 @@ class ProfileController {
 
     def configurationEmails() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        [user:user]
+        MailNotificationsCommand command = new MailNotificationsCommand(availableMails:user.availableMails)
+        command.availableMails = user.availableMails?:[]
+        [user:user, command: command]
+    }
+    def configurationEmailsSave(MailNotificationsCommand command) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if (command.hasErrors()){
+            render view:"configurationEmails", model: [command:command,user:user]
+            return
+        }
+        user.availableMails = command.availableMails
+        kuorumUserService.updateUser(user)
+        redirect mapping:'profileEmailNotifications'
     }
 
     def showFavoritesPosts() {
