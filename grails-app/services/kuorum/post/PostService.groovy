@@ -195,6 +195,10 @@ class PostService {
         user.refresh()
     }
 
+    List<Post> favoritesPosts(KuorumUser user){
+        user.favorites.collect{Post.load(it)}
+    }
+
     Integer numUserPosts(KuorumUser user){
         Post.countByOwner(user)
     }

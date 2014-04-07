@@ -6,6 +6,17 @@
 
 
 <content tag="mainContent">
-    <H1> Perfil de ${user.name}</H1>
-Pendientes de leer
+    <H1> Pendientes de leer:  ${user.name}</H1>
+
+    <ul>
+    <g:each in="${favorites}" var="favoritePost">
+        <li>
+            Law:<g:link mapping="lawShow" params="${favoritePost.law.encodeAsLinkProperties()}">${favoritePost.law.hashtag}</g:link>
+            <br/>
+            Title: <g:link mapping="postShow" params="${favoritePost.encodeAsLinkProperties()}">${favoritePost.title}</g:link>
+            <hr/>
+        </li>
+
+    </g:each>
+    </ul>
 </content>

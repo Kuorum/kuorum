@@ -5,6 +5,7 @@ import kuorum.core.model.Gender
 import kuorum.core.model.Studies
 import kuorum.core.model.WorkingSector
 import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
+import kuorum.post.Post
 import kuorum.users.KuorumUser
 import kuorum.users.OrganizationData
 import kuorum.users.PersonData
@@ -19,6 +20,7 @@ class ProfileController {
     def passwordEncoder
     def regionService
     def kuorumUserService
+    def postService
 
     def editUser() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
@@ -113,7 +115,8 @@ class ProfileController {
 
     def showFavoritesPosts() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        [user:user]
+        List<Post> favorites = postService.favoritesPosts(user)
+        [user:user, favorites: favorites]
     }
 
     def showUserPosts() {
