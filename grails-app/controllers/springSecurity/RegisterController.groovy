@@ -1,8 +1,6 @@
 package springSecurity
 
 import grails.plugin.springsecurity.SpringSecurityUtils
-import grails.plugin.springsecurity.authentication.dao.NullSaltSource
-import grails.plugin.springsecurity.ui.RegisterCommand
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.validation.Validateable
 import kuorum.core.model.CommissionType
