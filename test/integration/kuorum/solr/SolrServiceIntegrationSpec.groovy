@@ -52,7 +52,7 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             results.numResults == quantity
             if (results.numResults){
                 results.elements.collect{
-                    it.name.contains(CSS_CLASS) || it?.text.contains(CSS_CLASS) || it?.owner.contains(CSS_CLASS)
+                    it.name.contains(CSS_CLASS) || it?.text.contains(CSS_CLASS)
                 }.find{it}
             }
             results.facets.size() > 0
