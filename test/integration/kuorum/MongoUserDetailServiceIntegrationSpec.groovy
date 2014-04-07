@@ -32,8 +32,8 @@ class MongoUserDetailServiceIntegrationSpec extends Specification{
         usernameDDBB == userDetails?.username
         where: "Username with params...."
         usernameDDBB || params
-        "Peter-Jhon Kevin" || [username:'Peter@example.com']
-        "Peter-Jhon Kevin" || [username:'peter@example.com']
+        "peter@example.com" || [username:'Peter@example.com']
+        "peter@example.com" || [username:'peter@example.com']
     }
 
     @Unroll
