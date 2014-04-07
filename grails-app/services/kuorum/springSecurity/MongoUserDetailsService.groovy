@@ -65,7 +65,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
     }
 
     protected UserDetails createUserDetails(user, Collection authorities) {
-        new GrailsUser(user.name, user.password, user.enabled,
+        new GrailsUser(user.email, user.password, user.enabled,
                 !user.accountExpired, !user.passwordExpired,
                 !user.accountLocked, authorities, user.id)
     }

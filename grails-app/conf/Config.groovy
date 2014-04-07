@@ -172,7 +172,11 @@ grails.plugin.springsecurity.facebook.permissions='email,user_about_me,user_birt
 grails.plugin.springsecurity.facebook.autoCreate.roles='ROLE_USER'
 grails.plugin.springsecurity.facebook.filter.type='redirect'
 //grails.plugins.springsecurity.facebook.filter.redirect.failureHandler = 'facebookHandler'
-
+grails.plugin.springsecurity.rememberMe.alwaysRemember=true
+grails.plugin.springsecurity.rememberMe.tokenValiditySeconds=60*60*24*365 //(one year)
+grails.plugin.springsecurity.rememberMe.key='kuorumRememberMe'
+grails.plugin.springsecurity.rememberMe.cookieName='kuorumSecurity_rememberMe'
+//grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName=''
 // Added by the Spring Security OAuth plugin:
 grails.plugin.springsecurity.oauth.domainClass = 'kuorum.users.OAuthID'
 oauth {
