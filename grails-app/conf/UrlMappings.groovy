@@ -26,15 +26,13 @@ class UrlMappings {
         name postAddComment:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/nuevoComentario"(controller: "post",action: "addComment")
 
 
-        //userShow is used for build the urls but is never called because the urls constructed shuld be like citizienShow, organizationShow, politicianShow
+        //userShow is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
         name userShow:          "/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "show")
-        name citizienShow:      "/ciudadanos/$urlName-$id"     (controller: "kuorumUser", action: "showCitizen")
+        name citizenShow:      "/ciudadanos/$urlName-$id"     (controller: "kuorumUser", action: "showCitizen")
         name organizacionShow:  "/organizaciones/$urlName-$id" (controller: "kuorumUser", action: "showOrganization")
         name politicianShow:    "/politicos/$urlName-$id"      (controller: "kuorumUser", action: "showPolitician")
 
         name cluckCreate: "/cluck/$postId" (controller: "cluck", action: "createCluck")
-
-        //Espacio para que funcione 3 mapping distintos a la misma url????
 
         name register:            "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
         name registerSuccess:     "/registro/satisfactorio"(controller: "register",action:"registerSuccess")

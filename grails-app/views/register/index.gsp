@@ -1,65 +1,59 @@
-<html>
-
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-	<meta name='layout' content='register'/>
-	<title><g:message code='spring.security.ui.register.title'/></title>
+    <title><g:message code="page.title.login"/> </title>
+    <meta name="layout" content="normalLayout">
 </head>
 
-<body>
-
-<p/>
-
-<s2ui:form width='650' height='300' elementId='loginFormContainer'
-           titleCode='spring.security.ui.register.description' center='true'>
-
-<g:form action='register' name='registerForm'>
-
-	<g:if test='${emailSent}'>
-	<br/>
-	<g:message code='spring.security.ui.register.sent'/>
-	</g:if>
-	<g:else>
-
-	<br/>
-
-	<table>
-	<tbody>
-
-		<s2ui:textFieldRow name='username' labelCode='user.username.label' bean="${command}"
-                         size='40' labelCodeDefault='Username' value="${command.username}"/>
-
-        <s2ui:textFieldRow name='name' labelCode='user.name.label' bean="${command}"
-                           size='40' labelCodeDefault='Nombre' value="${command.name}"/>
-
-        <s2ui:textFieldRow name='surname' labelCode='user.surname.label' bean="${command}"
-                           size='40' labelCodeDefault='Apellido' value="${command.surname}"/>
 
 
-        <s2ui:textFieldRow name='email' bean="${command}" value="${command.email}"
-		                   size='40' labelCode='user.email.label' labelCodeDefault='E-kuorum.mail'/>
+<content tag="mainContent">
+    <g:form mapping="register" name="registerForm">
 
-		<s2ui:passwordFieldRow name='password' labelCode='user.password.label' bean="${command}"
-                             size='40' labelCodeDefault='Password' value="${command.password}"/>
+        <div class="fieldcontain ${hasErrors(bean: command, field: 'name', 'error')} ">
+            <label for="name">
+                <g:message code="post.name.label" default="name"/>
+                <g:if test="${hasErrors(bean: command, field: 'name', 'error')}">
+                    <g:fieldError field="name" bean="${command}"/>
+                </g:if>
 
-		<s2ui:passwordFieldRow name='password2' labelCode='user.password2.label' bean="${command}"
-                             size='40' labelCodeDefault='Password (again)' value="${command.password2}"/>
+            </label>
+            <g:textField name="name" value="${command?.name}"/>
+        </div>
 
-	</tbody>
-	</table>
+        <div class="fieldcontain ${hasErrors(bean: command, field: 'email', 'error')} ">
+            <label for="email">
+                <g:message code="post.email.label" default="email"/>
+                <g:if test="${hasErrors(bean: command, field: 'email', 'error')}">
+                    <g:fieldError field="email" bean="${command}"/>
+                </g:if>
+            </label>
+            <g:textField name="email" value="${command?.email}"/>
+        </div>
 
-	<s2ui:submitButton elementId='create' form='registerForm' messageCode='spring.security.ui.register.submit'/>
+        <div class="fieldcontain ${hasErrors(bean: command, field: 'password', 'error')} ">
+            <label for="password">
+                <g:message code="post.password.label" default="password"/>
+                <g:if test="${hasErrors(bean: command, field: 'password', 'error')}">
+                    <g:fieldError field="password" bean="${command}"/>
+                </g:if>
+            </label>
+            <g:passwordField name="password" value="${command?.password}"/>
+        </div>
 
-	</g:else>
+        %{--<div class="fieldcontain ${hasErrors(bean: command, field: 'password2', 'error')} ">--}%
+            %{--<label for="password2">--}%
+                %{--<g:message code="post.password2.label" default="password2"/>--}%
 
-</g:form>
+            %{--</label>--}%
+            %{--<g:textField name="text" value="${command?.password2}"/>--}%
+        %{--</div>--}%
 
-</s2ui:form>
+        <g:submitButton name="registrarse" form="registerForm"/>
+    </g:form>
 
 <script>
 $(document).ready(function() {
 	$('#username').focus();
 });
 </script>
-
-</body>
-</html>
+</content>

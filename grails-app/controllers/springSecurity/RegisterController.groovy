@@ -49,7 +49,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         kuorumMailService.sendRegisterUser(user,url)
 
-        redirect maping:"registerSuccess"
+        redirect mapping:"registerSuccess"
     }
 
     def registerSuccess(){}
@@ -136,21 +136,21 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 }
 
 @Validateable
-class KuorumRegisterCommand extends RegisterCommand{
+class KuorumRegisterCommand{
 
-    String username
+    String email
     String name
-    String surname
+    String password
 
+    public String getUsername(){ email }// RegisterController.passwordValidator uses username
     static constraints = {
-        username nullable:true     //Override username spring command constraint
         name blank: false
-        surname nullable: true, blank: true
         email nullable:false, blank: false, email:true, validator: { val, obj ->
             if (KuorumUser.findByEmail(val)) {
                 return 'registerCommand.username.unique'
             }
         }
+        password blank: false, validator: RegisterController.passwordValidator
     }
 }
 
