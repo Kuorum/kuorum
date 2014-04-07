@@ -34,6 +34,9 @@
         <div class="fieldcontain ${hasErrors(bean: command, field: 'year', 'error')} ">
             <label for="year">
                 <g:message code="step1.year.label" default="year"/>
+                <g:if test="${hasErrors(bean: command, field: 'year', 'error')}">
+                    <g:fieldError field="year" bean="${command}"/>
+                </g:if>
 
             </label>
             <g:textField name="year" value="${command?.year}"/>
@@ -41,14 +44,18 @@
         <div class="fieldcontain ${hasErrors(bean: command, field: 'month', 'error')} ">
             <label for="month">
                 <g:message code="step1.month.label" default="month"/>
-
+                <g:if test="${hasErrors(bean: command, field: 'month', 'error')}">
+                    <g:fieldError field="month" bean="${command}"/>
+                </g:if>
             </label>
             <g:textField name="month" value="${command?.month}"/>
         </div>
         <div class="fieldcontain ${hasErrors(bean: command, field: 'day', 'error')} ">
             <label for="day">
                 <g:message code="step1.day.label" default="day"/>
-
+                <g:if test="${hasErrors(bean: command, field: 'day', 'error')}">
+                    <g:fieldError field="day" bean="${command}"/>
+                </g:if>
             </label>
             <g:textField name="day" value="${command?.day}"/>
         </div>

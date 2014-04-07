@@ -4,6 +4,7 @@ import grails.transaction.Transactional
 import kuorum.Institution
 import kuorum.ParliamentaryGroup
 import kuorum.core.exception.KuorumException
+import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 
@@ -11,6 +12,7 @@ import kuorum.core.model.UserType
 class KuorumUserService {
 
     def notificationService
+    def indexSolrService
 
     def createFollower(KuorumUser follower, KuorumUser following) {
         if (follower == following){
@@ -54,6 +56,9 @@ class KuorumUserService {
     }
 
     KuorumUser convertAsPolitician(KuorumUser user, Institution institution,  ParliamentaryGroup parliamentaryGroup){
+        if (!institution || !parliamentaryGroup){
+            throw new KuorumException("Un politico debe de tener institucion y grupo parlamentario","error.politician.politicianData")
+        }
         user.userType = UserType.POLITICIAN
         user.personalData.userType = UserType.POLITICIAN
         user.institution = institution
@@ -94,11 +99,20 @@ class KuorumUserService {
         if (!user){
             KuorumUser.findAllByNumFollowersGreaterThan(-1,[sort:"numFollowers",order: "desc", max:10])
         }else{
-            KuorumUser.findAllByNumFollowersGreaterThan(-1,[sort:"numFollowers",order: "desc", max:10])
+            KuorumUser.findAllByNumFollowersGreaterThanAndEmailNotEqual(-1,user.email,[sort:"numFollowers",order: "desc", max:10])
         }
     }
 
     List<KuorumUser> recommendedUsers(){
         recommendedUsers(null)
+    }
+
+    KuorumUser updateUser(KuorumUser user){
+        if (!user.save()){
+            log.error("No se ha podido actualizar el usuario ${user.email}(${user.id})")
+            throw KuorumExceptionUtil.createExceptionFromValidatable(user)
+        }
+        indexSolrService.index(user)
+        user
     }
 }

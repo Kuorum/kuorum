@@ -16,7 +16,7 @@ class Step2Command {
     String bio
     static constraints = {
         photoId nullable: false
-        workingSector nullable: false, minSize: 5, maxSize: 5, matches:"[0-9]+"
+        workingSector nullable: false, minSize: 5, maxSize: 5
         studies nullable: true
         bio nullable: true, maxSize: 10
     }
