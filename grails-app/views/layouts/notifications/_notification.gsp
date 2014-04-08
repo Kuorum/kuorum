@@ -1,8 +1,21 @@
-<li>
-    <span itemscope itemtype="http://schema.org/Person">
-        <img src="images/user.jpg" alt="nombre" class="user" itemprop="image">
-        <a href="#" itemprop="url"><span itemprop="name">Nombre usuario</span></a>
+
+<li class='${newNotificationi?'new':''}'>
+    <g:if test="${user}">
+        <span itemscope itemtype="http://schema.org/Person">
+            <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" itemprop="url">
+                <img src="${image.userImgSrc(user:user)}" alt="${user.name}" class="user-img" itemprop="image">
+                <span itemprop="name">${user.name}</span>
+            </g:link>
+        </span>
+    </g:if>
+    <span class="text-notification">
+        ${text}
     </span>
-    <span class="text-notification">${notification.class.name} ean tempor eros ut libero hendrerit aptent taciti <a href="#">vestibulum nulla tincidunt malesuada dignissim</a></span>
-    <span class="actions"><span class="pull-right"><small><a href="#">Más tarde</a></small> <button type="button" class="btn bg-ntral-dark btn-sm">Responder</button></span></span>
+    <g:if test="${answerLink}">
+        <span class="actions clearfix">
+            <span class="pull-right">
+                <a href="#" class="btn btn-sm btn-custom-primary">Responder</a>
+            </span>
+        </span>
+    </g:if>
 </li>

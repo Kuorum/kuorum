@@ -10,7 +10,12 @@
                 <g:render template="/layouts/searchHeadForm"/>
 
                 <ul class="nav navbar-nav navbar-left">
-                    <li class="underline"><a href="#" class="navbar-link"><span class="binoculars">Descubre</span></a></li>
+                    <li class="underline">
+                        <a href="#" class="navbar-link discover">
+                            <span class="icon-Flaticon_9296"></span>
+                            <span class="text-normalize">Descubre</span>
+                        </a>
+                    </li>
                 </ul>
 
 
