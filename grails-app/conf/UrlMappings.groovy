@@ -75,6 +75,9 @@ class UrlMappings {
         name footerTermsUse:      "/kuorum/condicionesDeUso"    (controller:"footer", action: "termsUse")
         name footerTermsAds:      "/kuorum/normas-publicidad"   (controller:"footer", action: "termsAds")
 
+        name ajaxHeadNotificationsChecked: "/ajax/notificaiones/check"(controller:"layouts", action:"headNotificationsChecked")
+        name ajaxHeadMessagesChecked: "/ajax/mensajes/check"(controller:"layouts", action:"headNotificationsChecked")
+
         name login: "/entrar" (controller:"login", action:"index")
         name logout: "/salir" (controller:"logout", action:"index")
 

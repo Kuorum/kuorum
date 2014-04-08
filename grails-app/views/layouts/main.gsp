@@ -62,7 +62,6 @@
     <g:javascript library="jquery" plugin="jquery"/>
     <g:javascript library="application"/>
     <r:layoutResources />
-
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -72,5 +71,6 @@
     <g:layoutBody/>
 </div>
 <r:layoutResources />
+<g:render template="/layouts/jsAjaxUrls"/>
 </body>
 </html>

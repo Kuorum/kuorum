@@ -19,6 +19,16 @@ class LayoutsController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def headNotificationsChecked(){
+
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def headMessagesChecked(){
+
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userHeadNoLinks(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Integer numUserPosts = postService.numUserPosts(user)
