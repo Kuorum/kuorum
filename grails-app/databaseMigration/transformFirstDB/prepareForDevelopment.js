@@ -16,3 +16,9 @@ db.kuorumUser.update(
         "personalData.workingSector":"OTHERS"
     }},
     {"upsert":false, "multi":true}) //test
+
+// EMAIL
+db.kuorumUser.find().forEach(function(user){
+    user.email = "info+"+user.name.replace(/ /g,'').toLowerCase()+"@kuorum.org"
+    db.kuorumUser.save(user)
+})
