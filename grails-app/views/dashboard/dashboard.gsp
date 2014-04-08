@@ -6,15 +6,16 @@
 
 
 <content tag="mainContent">
-    DASHBOARD
-
+    <!-- COMIENZA LISTA DE KAKAREOS Y SEGUIMIENTOS -->
+    <ul class="kakareo-list" role="log" aria-live="assertive" aria-relevant="additions">
+        <g:each in="${clucks}" var="cluck">
+            <g:render template="/cluck/cluck" model="[cluck:cluck]"/>
+        </g:each>
+    </ul>
     <H1> Kakareos</H1>
 
     <g:each in="${clucks}" var="cluck">
         <div>
-            <h3>CLUKER: ${cluck.owner.name} || postOwner: <g:link mapping="userShow" params="${cluck.postOwner.encodeAsLinkProperties()}"> ${cluck.postOwner} </g:link></h3>
-            <h4><g:link mapping="lawShow" params="${cluck.law.encodeAsLinkProperties()}">${cluck.law.hashtag}</g:link> </h4>
-            <h2>${cluck.post.title}</h2><span><g:link mapping="postShow" params="${cluck.post.encodeAsLinkProperties()}">VER POST</g:link> </span>
             <div> <g:link mapping="cluckCreate" params="[postId:cluck.post.id]">Cluck IT</g:link> </div>
             <div>
                 <g:if test="${user.favorites.contains(cluck.post.id)}">

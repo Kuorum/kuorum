@@ -6,14 +6,19 @@
     </head>
     <body>
     <g:render template="/layouts/head"/>
-    <div id="main" class="row" role="main">
-        <content id="mainContent">
-            <g:pageProperty name="page.mainContent"/>
-        </content>
+    <div class="row main">
+        <div class="container-fluid">
+            <div class="row" >
+                <section id="main" class="col-xs-12 col-sm-8 col-md-8" role="main">
+                    <g:pageProperty name="page.mainContent"/>
+                </section>
 
-        <content id="cColumn">
-            <g:pageProperty name="page.cColumn"/>
-        </content>    </div><!-- #main -->
+                <aside class="col-xs-12 col-sm-4 col-md-4" role="complementary">
+                    <g:pageProperty name="page.cColumn"/>
+                </aside>
+            </div>
+        </div><!-- /.conatiner-fluid -->
+    </div><!-- /#main -->
     <g:render template="/layouts/footer"/>
     </body>
 

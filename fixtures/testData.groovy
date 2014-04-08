@@ -30,12 +30,14 @@ post {
     postService.savePost(parquesNacionalesPurpose2, parquesNacionalesPurpose2.law, parquesNacionalesPurpose2.owner)
     postService.publishPost(parquesNacionalesPurpose2)
     parquesNacionalesPurpose2.refresh()
+    cluckService.createCluck(parquesNacionalesPurpose2, juanjoAlvite)
 
     kuorumUserService.createFollower(juanjoAlvite,equo)
     kuorumUserService.createFollower(juanjoAlvite,ecologistasEnAccion)
     kuorumUserService.createFollower(juanjoAlvite,politician)
     kuorumUserService.createFollower(juanjoAlvite,peter)
     kuorumUserService.createFollower(peter,equo)
+    kuorumUserService.createFollower(peter,juanjoAlvite)
 
     kuorumUserService.createFollower(noe,politician)
 
