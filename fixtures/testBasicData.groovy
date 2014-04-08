@@ -1,6 +1,3 @@
-import kuorum.post.Sponsor
-import kuorum.users.KuorumUser
-
 include "basicData"
 include "institutions"
 include "parliamentaryGroups"

@@ -1,5 +1,6 @@
 
 load("htmlDecoder.js")
+load("imageHelper.js")
 dbOrigin = connect("localhost:27017/KuorumWeb");
 dbDest = connect("localhost:27017/KuorumDev");
 
@@ -46,7 +47,7 @@ function createKuorumUserFromOldUser(user){
         "email" : user.username,
         "bio":user.defend,
         "userType":"PERSON",
-        "avatar":createAvatar(user),
+        "avatar":createAvatar(user._id,"USER_AVATAR", user.pathAvatar),
         "enabled" : true,
         "followers" : user.friends,
         "following" : user.friends,
@@ -130,59 +131,4 @@ function createKuorumUserFromOldUser(user){
         "version" : NumberLong(4)
     }
     return kuorumUser
-}
-
-function createAvatar(user){
-    var id = new ObjectId();
-    if (user.pathAvatar != undefined && user.pathAvatar!= null){
-        var kuorumFile = {
-            "_class":"KuorumFile",
-            "_id":id,
-            "user":user._id,
-            "temporal":false,
-            "local":user.pathAvatar.indexOf("http://") > 0,
-            "storagePath":storagePath(user.pathAvatar).storagePath,
-            "fileName":storagePath(user.pathAvatar).fileName,
-            "url":absoluteUrl(user.pathAvatar),
-            "fileGroup":"USER_AVATAR"
-        }
-
-        db.kuorumFile.insert(kuorumFile)
-        return kuorumFile
-    }else{
-        return null
-    }
-}
-
-function storagePath(pathAvatar){
-    var absoluteRootPath = "/home/tomcat7/uploadedImages/"
-    if (pathAvatar.indexOf("http://") == 0){
-        //External file (FACEBOOK)
-        return {
-            "storagePath":null,
-            "fileName": null
-        }
-    }else if (pathAvatar){
-        return {
-            "storagePath":absoluteRootPath+pathAvatar.substring(0,pathAvatar.lastIndexOf("/")),
-            "fileName": pathAvatar.substring(pathAvatar.lastIndexOf("/")+1)
-        }
-    }else{
-        return {
-            "storagePath":null,
-            "fileName": null
-        }
-    }
-}
-
-function absoluteUrl(pathAvatar){
-    var absoluteRootUrl = "http://kuorum.org/uploadedImages/"
-    if (pathAvatar.indexOf("http://") == 0){
-        //External file (FACEBOOK)
-        return pathAvatar
-    }else if (pathAvatar){
-        return absoluteRootUrl+pathAvatar
-    }else{
-        return null
-    }
 }

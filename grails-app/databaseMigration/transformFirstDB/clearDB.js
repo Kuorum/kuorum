@@ -1,7 +1,7 @@
 
 db = connect("localhost:27017/KuorumDev");
 
-db.kuorumUser.remove();
+db.kuorumUser.remove({email:/^((?!.*example.com))/i});
 db.facebookUser.remove();
 db.law.remove();
 db.post.remove()

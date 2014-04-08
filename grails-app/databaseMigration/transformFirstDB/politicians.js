@@ -1,46 +1,73 @@
 
 load("htmlDecoder.js")
+load("imageHelper.js")
 dbOrigin = connect("localhost:27017/KuorumWeb");
 dbDest = connect("localhost:27017/KuorumDev");
 
 
 dbOrigin.politician.find().forEach(function(politician){
     var kuorumUser = createKuorumUserFromPolitician(politician)
-    dbDest.kuorumUser.insert(kuorumUser)
+    if (kuorumUser != null){
+        dbDest.kuorumUser.insert(kuorumUser)
+    }else{
+        print("No se ha podido crear el politico "+politician.username + " " +politician.surname)
+    }
+
 });
 
 
 function createKuorumUserFromPolitician(politician){
 
-    var userRoles = db.roleUser.find({authority:"ROLE_USER"})
+    var userRoles = dbDest.roleUser.find({authority:"ROLE_USER"})
     var userRole = userRoles.hasNext() ? userRoles.next() : null;
+
+    var userRoles = dbDest.roleUser.find({authority:"ROLE_POLITICIAN"})
+    var politicianRole = userRoles.hasNext() ? userRoles.next() : null;
+
+    var politicalParties = dbOrigin.politicalParty.find({_id:politician.politicalParty})
+    var politicalPartyOrg = politicalParties.hasNext() ? politicalParties.next() : null;
+
+    print("parliamentaryGroup: "+politicalPartyOrg.longName)
+    var parliamentaryGroups = dbDest.parliamentaryGroup.find({name:politicalPartyOrg.politicalGroup.name})
+    var parliamentaryGroup = parliamentaryGroups.hasNext() ? parliamentaryGroups.next() : null;
+
+    if (parliamentaryGroup == null){
+        print("No se ha encontrado el grupo parlamenterio "+politicalPartyOrg.politicalGroup.name)
+        return null
+    }
+
+    var institutions = dbDest.institution.find({name:"Parlamento Español"})
+    var institution = institutions.hasNext() ? institutions.next() : null;
+
     var id = new ObjectId();
     var kuorumUser = {
         "_class" : "KuorumUser",
         "_id" : id,
+        "parliamentaryGroup":parliamentaryGroup._id,
+        "institution":institution._id,
         "accountExpired" : false,
         "accountLocked" : false,
-        "authorities" : [userRole],
+        "authorities" : [userRole, politicianRole],
         "dateCreated" : new Date(),
-        "email" : user.username,
-        "bio":user.defend,
-        "userType":"PERSON",
-        "avatar":createAvatar(user),
+        "email" : ("info+"+politician.name+politician.surname+"@kuorum.org").replace(/ /g,""),
+        "bio":politician.history,
+        "userType":"POLITICIAN",
+        "avatar":createAvatar(id,"USER_AVATAR", politician.photo),
         "enabled" : true,
-        "followers" : user.friends,
-        "following" : user.friends,
+        "followers" : [],
+        "following" : [],
         "favorites" : [],
-        "numFollowers":user.friends==undefined?0:user.friends.length,
+        "numFollowers":0,
         "language" : "es_ES",
-        "lastUpdated" : user.lastUpdated,
+        "lastUpdated" : politician.lastUpdated,
         "lastNotificationChecked":new Date(),
-        "name" : HtmlDecode(user.name),
-        "password" : user.password,
+        "name" : HtmlDecode(politician.name + " " +politician.surname),
+        "password" : "passPolitico",
         "passwordExpired" : false,
         "personalData" : {
             _class:"PersonData",
-            "birthday" : user.personalData.birthday,
-            "gender" : user.personalData.gender,
+            "birthday" : null,
+            "gender" : "MALE",
             "postalCode" : null,
             "regionCode" : null,
             "provinceCode":null,
@@ -109,59 +136,4 @@ function createKuorumUserFromPolitician(politician){
         "version" : NumberLong(4)
     }
     return kuorumUser
-}
-
-function createAvatar(user){
-    var id = new ObjectId();
-    if (user.pathAvatar != undefined && user.pathAvatar!= null){
-        var kuorumFile = {
-            "_class":"KuorumFile",
-            "_id":id,
-            "user":user._id,
-            "temporal":false,
-            "local":user.pathAvatar.indexOf("http://") > 0,
-            "storagePath":storagePath(user.pathAvatar).storagePath,
-            "fileName":storagePath(user.pathAvatar).fileName,
-            "url":absoluteUrl(user.pathAvatar),
-            "fileGroup":"USER_AVATAR"
-        }
-
-        db.kuorumFile.insert(kuorumFile)
-        return kuorumFile
-    }else{
-        return null
-    }
-}
-
-function storagePath(pathAvatar){
-    var absoluteRootPath = "/home/tomcat7/uploadedImages/"
-    if (pathAvatar.indexOf("http://") == 0){
-        //External file (FACEBOOK)
-        return {
-            "storagePath":null,
-            "fileName": null
-        }
-    }else if (pathAvatar){
-        return {
-            "storagePath":absoluteRootPath+pathAvatar.substring(0,pathAvatar.lastIndexOf("/")),
-            "fileName": pathAvatar.substring(pathAvatar.lastIndexOf("/")+1)
-        }
-    }else{
-        return {
-            "storagePath":null,
-            "fileName": null
-        }
-    }
-}
-
-function absoluteUrl(pathAvatar){
-    var absoluteRootUrl = "http://kuorum.org/uploadedImages/"
-    if (pathAvatar.indexOf("http://") == 0){
-        //External file (FACEBOOK)
-        return pathAvatar
-    }else if (pathAvatar){
-        return absoluteRootUrl+pathAvatar
-    }else{
-        return null
-    }
 }
