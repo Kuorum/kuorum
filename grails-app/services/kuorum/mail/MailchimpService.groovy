@@ -2,7 +2,6 @@ package kuorum.mail
 
 import com.ecwid.mailchimp.MailChimpClient
 import com.ecwid.mailchimp.MailChimpException
-import com.ecwid.mailchimp.MailChimpObject
 import com.ecwid.mailchimp.method.v2_0.lists.Email
 import com.ecwid.mailchimp.method.v2_0.lists.SubscribeMethod
 import grails.transaction.Transactional

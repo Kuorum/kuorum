@@ -6,12 +6,7 @@ import kuorum.core.FileGroup
 import kuorum.core.model.Gender
 import kuorum.core.model.Studies
 import kuorum.core.model.UserType
-import kuorum.mail.KuorumMailService
-import kuorum.users.FacebookUser
-import kuorum.users.KuorumUser
-import kuorum.users.PersonData
-import kuorum.users.PersonalData
-import kuorum.users.RoleUser
+import kuorum.users.*
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.social.facebook.api.Facebook
 import org.springframework.social.facebook.api.FacebookProfile

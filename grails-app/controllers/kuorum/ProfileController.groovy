@@ -2,14 +2,9 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.Gender
-import kuorum.core.model.Studies
-import kuorum.core.model.WorkingSector
 import kuorum.core.model.gamification.GamificationAward
-import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
 import kuorum.post.Post
 import kuorum.users.KuorumUser
-import kuorum.users.OrganizationData
-import kuorum.users.PersonData
 import kuorum.web.commands.profile.ChangePasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.MailNotificationsCommand

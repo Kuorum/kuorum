@@ -15,19 +15,10 @@
  */
 package kuorum.users
 
-import grails.plugin.springsecurity.oauth.OAuthToken
-import grails.plugin.springsecurity.userdetails.GormUserDetailsService
-import grails.plugin.springsecurity.userdetails.GrailsUser
 import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.plugin.springsecurity.oauth.OAuthToken
 import kuorum.springSecurity.IOAuthService
-import org.springframework.security.core.authority.GrantedAuthorityImpl
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.web.savedrequest.DefaultSavedRequest
-
-import kuorum.users.KuorumUser
-import kuorum.users.RoleUser
-import kuorum.users.KuorumUserRoleUser
-import kuorum.users.OAuthID
 
 /**
  * Simple helper controller for handling OAuth authentication and integrating it

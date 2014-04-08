@@ -8,7 +8,6 @@ import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.mail.MailType
-import kuorum.post.Post
 import org.bson.types.ObjectId
 
 /**

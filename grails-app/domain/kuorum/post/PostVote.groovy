@@ -1,7 +1,7 @@
 package kuorum.post
 
-import kuorum.users.PersonalData
 import kuorum.users.KuorumUser
+import kuorum.users.PersonalData
 import org.bson.types.ObjectId
 
 /**

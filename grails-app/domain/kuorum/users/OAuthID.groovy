@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 package kuorum.users
-
-import kuorum.users.KuorumUser
-
 /**
  * Simple domain class that records the identities of users authenticating via
  * an OAuth provider. Each identity consists of the OAuth account name and the

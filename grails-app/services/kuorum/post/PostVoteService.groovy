@@ -2,7 +2,6 @@ package kuorum.post
 
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
-import kuorum.core.exception.KuorumExceptionData
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.users.KuorumUser
 

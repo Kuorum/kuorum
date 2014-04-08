@@ -1,6 +1,5 @@
 package kuorum.post
 
-import com.sun.org.apache.xpath.internal.operations.Bool
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.law.Law

@@ -1,6 +1,5 @@
 package kuorum.notifications
 
-import kuorum.mail.MailType
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 

@@ -5,7 +5,6 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
-import org.bson.types.ObjectId
 
 @Transactional
 class FileService {

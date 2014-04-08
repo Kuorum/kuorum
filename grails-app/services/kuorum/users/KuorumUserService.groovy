@@ -5,7 +5,6 @@ import kuorum.Institution
 import kuorum.ParliamentaryGroup
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
-import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 
 @Transactional

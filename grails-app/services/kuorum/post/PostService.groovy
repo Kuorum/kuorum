@@ -2,7 +2,6 @@ package kuorum.post
 
 import com.mongodb.BasicDBObject
 import com.mongodb.DBObject
-import com.mongodb.util.JSON
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil

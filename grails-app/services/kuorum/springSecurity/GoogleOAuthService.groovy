@@ -9,13 +9,8 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
-import kuorum.users.KuorumUser
-import kuorum.users.OAuthID
-import kuorum.users.PersonData
-import kuorum.users.PersonalData
-import kuorum.users.RoleUser
+import kuorum.users.*
 import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.social.facebook.api.FacebookProfile
 
 @Transactional
 class GoogleOAuthService implements IOAuthService{
