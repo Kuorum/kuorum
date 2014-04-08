@@ -2,7 +2,7 @@
     <li class="underline" itemscope itemtype="http://schema.org/Person">
         <g:link mapping="home" class="navbar-link user-area">
             <span itemprop="name">${user.name}</span>
-            <img src="${image.userImgSrc(user:user)}" alt="${user.name}" class="user-img" itemprop="image">
+            <img src="${image.userImgSrc(user:user)}"alt="${user.name}" class="user-img" itemprop="image">
         </g:link>
     </li>
     <li class="dropdown underline" itemscope itemtype="http://schema.org/Person">
