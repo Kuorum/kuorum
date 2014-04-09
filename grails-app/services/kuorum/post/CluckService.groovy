@@ -20,14 +20,13 @@ class CluckService {
         def criteria = Cluck.createCriteria()
         def userList = kuorumUser.following.collect{KuorumUser.load(it)}
         userList << kuorumUser
-        def result = criteria.list() {
+        def result = criteria.list(max:pagination.max, offset:pagination.offset) {
             or {
                 'in'("owner",userList)
                 'in'("supportedBy",userList)
                 'in'("sponsors.kuorumUserId",userList)
             }
             order("lastUpdated","asc")
-            max 10
         }
         result
 

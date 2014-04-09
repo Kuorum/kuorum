@@ -12,7 +12,7 @@
     </ul>
     <!-- ver más -->
     <div id="load-more" class="text-center">
-        <g:link mapping="dashboardSeeMore" class="loadMore" parent="dashboard-kakareos-id">
+        <g:link mapping="dashboardSeeMore" class="loadMore" data-parent-id="dashboard-kakareos-id">
             <g:message code="dashboard.clucks.seeMore"/>
         </g:link>
     </div>

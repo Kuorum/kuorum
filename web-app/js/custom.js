@@ -23,20 +23,27 @@ $(document).ready(function() {
 		    e.preventDefault()
 		    var link = $(that)
 		    var url = link.attr('href')
-		    var parentId = link.attr('parent')
+		    var parentId = link.attr('data-parent-id')
+            var offset = link.attr('data-offset') || 10
 		    var loadingId = parentId+"-loading"
 		    var parent = $("#"+parentId)
 		    parent.append('<span id="'+loadingId+'">LOADING</span>')
 		    $.ajax( {
 		        url:url,
+                data:"offset="+offset,
 		        statusCode: {
 		            401: function() {
 		                location.reload();
 		            }
 		        }
 		    })
-		        .done(function(data) {
+		        .done(function(data, status, xhr) {
 		            parent.append(data)
+                    var moreResults = xhr.getResponseHeader('moreResults')
+                    link.attr('data-offset', offset +10)
+                    if (moreResults){
+                        link.remove()
+                    }
 		        })
 		        .fail(function(data) {
 		            console.log(data)
