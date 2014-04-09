@@ -54,4 +54,8 @@ class CluckService {
         cluck
     }
 
+
+    Boolean isAllowedToCluck(Post post, KuorumUser user){
+        Cluck.countByPostAndOwner(post,user) > 0
+    }
 }

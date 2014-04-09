@@ -17,5 +17,10 @@ class PostVote {
     static embedded = ['personalData']
 
     static constraints = {
+
+    }
+
+    static mapping = {
+        compoundIndex post:1, user:-1
     }
 }

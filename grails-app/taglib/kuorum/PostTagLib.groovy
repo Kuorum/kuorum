@@ -9,6 +9,8 @@ class PostTagLib {
 
     def springSecurityService
     def postService
+    def cluckService
+    def postVoteService
 
     static namespace = "post"
 
@@ -20,6 +22,26 @@ class PostTagLib {
             if (postService.isCommentDeletableByUser(user,post,commentPosition)){
                 String link = createLink(mapping:"postDelComment",params: post.encodeAsLinkProperties()+[commentPosition:commentPosition])
                 out << "<a href='$link'>BORRAR</a>"
+            }
+        }
+    }
+
+    def cssClassIfClucked = {attrs->
+        Post post = attrs.post
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (!cluckService.isAllowedToCluck(post, user)){
+                out << "disabled"
+            }
+        }
+    }
+
+    def cssClassIfVoted = {attrs->
+        Post post = attrs.post
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (!postVoteService.isAllowedToVote(post, user)){
+                out << "disabled"
             }
         }
     }

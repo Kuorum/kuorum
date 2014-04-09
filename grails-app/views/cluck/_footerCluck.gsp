@@ -1,52 +1,45 @@
+<%@ page import="kuorum.core.model.PostType" %>
 <footer class="row">
     <ul class="col-xs-2 col-sm-2 col-md-4 info-kak">
         <li itemprop="keywords">
-            <!-- en caso de ser Historia -->
-            %{--<span class="fa fa-book fa-lg"></span><!-- icono para historia -->--}%
-            %{--<span class="sr-only">Esto es una Historia</span><!-- texto que explica el icono y no es visible -->--}%
-
-        <!-- en caso de ser Pregunta -->
-            <span class="fa fa-question fa-lg"></span>
-            <span class="sr-only">Esto es una Pregunta</span>
-
-        <!-- en caso de ser Propuesta -->
-        %{--<span class="fa fa-lightbulb-o fa-lg"></span>--}%
-        %{--<span class="sr-only">Esto es una Propuesta</span>--}%
-
+            <g:if test="${PostType.HISTORY == cluck.post.postType }">       <g:set var="icon" value="fa-book"/>       </g:if>
+            <g:elseif test="${PostType.QUESTION == cluck.post.postType }">  <g:set var="icon" value="fa-question"/>   </g:elseif>
+            <g:else>                                                        <g:set var="icon" value="fa-lightbulb-o"/></g:else>
+            <span class="fa ${icon} fa-lg"></span><!-- icono -->
+            <span class="sr-only"><g:message code="cluck.footer.${cluck.post.postType}"/></span><!-- texto que explica el icono y no es visible -->
         </li>
         <li class="hidden-xs hidden-sm" itemprop="datePublished">
             <kuorumDate:humanDate date="${cluck.post.dateCreated}"/>
         </li>
     </ul>
-    <ul class="col-xs-10 col-sm-10 col-md-8 actions-kak">
-        <li class="read-later">
-            <a href="#">
-                <span class="fa fa-bookmark fa-lg"></span>
-                <span class="hidden-xs">Leer después</span>
-            </a>
-        </li>
+    <sec:ifLoggedIn>
+        <ul class="col-xs-10 col-sm-10 col-md-8 actions-kak">
+            <li class="read-later">
+                <a href="#">
+                    <span class="fa fa-bookmark fa-lg"></span><span class="hidden-xs"><g:message code="cluck.footer.readLater"/></span>
+                </a>
+            </li>
 
-        <li class="like-number">
-            <span class="counter">3222</span>
-            <meta itemprop="interactionCount" content="UserLikes:2"><!-- pasarle el valor que corresponda -->
-            <a href="">
-                <span class="fa fa-rocket fa-lg"></span>
-                <span class="hidden-xs">Impulsar</span>
-            </a>
-        </li>
+            <li class="like-number">
+                <span class="counter">${cluck.post.numVotes}</span>
+                <meta itemprop="interactionCount" content="UserLikes:${cluck.post.numVotes}"><!-- pasarle el valor que corresponda -->
+                <a href="" class="${post.cssClassIfVoted(post:cluck.post)}">
+                    <span class="fa fa-rocket fa-lg"></span><span class="hidden-xs"><g:message code="cluck.footer.vote"/></span>
+                </a>
+            </li>
 
-        <li class="kakareo-number">
-            <span class="counter">5428</span>
-            <a href="#">
-                <span class="fa fa-bullhorn fa-lg"></span>
-                <span class="hidden-xs">Kakarear</span>
-            </a>
-        </li>
+            <li class="kakareo-number">
+                <span class="counter">${cluck.post.numClucks}</span>
+                <a href="#" class="${post.cssClassIfClucked(post:cluck.post)}">
+                    <span class="fa fa-bullhorn fa-lg"></span><span class="hidden-xs"><g:message code="cluck.footer.cluckIt"/></span>
+                </a>
+            </li>
 
-        <li class="more-actions">
-            <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                <span class="fa fa-plus"></span> <span class="sr-only">Más acciones</span>
-            </a>
-        </li>
-    </ul>
+            <li class="more-actions">
+                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                    <span class="fa fa-plus"></span> <span class="sr-only">Más acciones</span>
+                </a>
+            </li>
+        </ul>
+    </sec:ifLoggedIn>
 </footer>
