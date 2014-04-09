@@ -11,12 +11,15 @@
     </g:if>
 
     <article class="kakareo" role="article">
-        <g:link mapping="postShow" params="${cluck.post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
         <g:if test="${recluck && !important}">
             <span class="from"><span class="inside"></span></span>
         </g:if>
         <div class="link-wrapper">
+            <g:link mapping="postShow" params="${cluck.post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
             <h1>${cluck.post.title}<g:link mapping="lawShow" params="${cluck.law.encodeAsLinkProperties()}">${cluck.law.hashtag}</g:link></h1>
+
+            %{--<g:render template="/cluck/cluckPhoto"/>--}%
+            %{--<g:render template="/cluck/cluckVideo"/>--}%
             <div class="main-kakareo row">
                 <g:render template="/cluck/cluckOwnerPost" model="[user:cluck.postOwner]"/>
 

@@ -12,7 +12,8 @@
             <g:render template="/cluck/cluck" model="[cluck:cluck]"/>
         </g:each>
     </ul>
-    <H1> Kakareos</H1>
+    <!-- ver más -->
+    <div id="load-more" class="text-center">Ver más</div>
 
     <g:each in="${clucks}" var="cluck">
         <div>
