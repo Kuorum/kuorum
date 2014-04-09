@@ -26,5 +26,13 @@ class KuorumUserController {
         render (view:"show", model:[user:user])
     }
 
+    def userFollowers(String id){
+
+    }
+
+    def userFollowing(String id){
+
+    }
+
 
 }

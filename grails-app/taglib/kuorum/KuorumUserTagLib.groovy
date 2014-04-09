@@ -18,4 +18,9 @@ class KuorumUserTagLib {
             </a>
             """
     }
+
+    def roleName={attrs ->
+        KuorumUser user = attrs.user
+        out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")
+    }
 }

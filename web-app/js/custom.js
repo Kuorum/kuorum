@@ -1,8 +1,73 @@
+$(document).ajaxStop(function () {
+    $("time.timeago").timeago();
+    $('.kakareo > .link-wrapper').on({
+        mouseenter: function () {
+            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #efefef');
+        },
+        mouseleave: function () {
+            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fafafa');
+        }
+    });
+})
+
 $(document).ready(function() {
 
-	// plugin timeago.es para el formato de las fechas
-  	$("time.timeago").timeago();
+	$("time.timeago").timeago();
 
+	// load more
+	$(function(){
+            $("a.loadMore").on("click", function(e){loadMore(e, this)})
+        })
+
+        function loadMore(e, that){
+		    e.preventDefault()
+		    var link = $(that)
+		    var url = link.attr('href')
+		    var parentId = link.attr('parent')
+		    var loadingId = parentId+"-loading"
+		    var parent = $("#"+parentId)
+		    parent.append('<span id="'+loadingId+'">LOADING</span>')
+		    $.ajax( {
+		        url:url,
+		        statusCode: {
+		            401: function() {
+		                location.reload();
+		            }
+		        }
+		    })
+		        .done(function(data) {
+		            parent.append(data)
+		        })
+		        .fail(function(data) {
+		            console.log(data)
+		        })
+
+		        .always(function(data) {
+		            $("#"+loadingId).remove()
+                    $("time.timeago").timeago();
+		        });
+
+		}
+
+    // el hover sobre el kakareo que afecte al triángulo superior
+
+	$('.kakareo > .link-wrapper').on({
+	    mouseenter: function () {
+	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #efefef');
+	    },
+	    mouseleave: function () {
+	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fafafa');
+	    }
+	});
+
+	$('.important .kakareo > .link-wrapper').on({
+	    mouseenter: function () {
+	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #feedce');
+	    },
+	    mouseleave: function () {
+	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fff8ed');
+	    }
+	});
 
   	// al hacer clic en los badges vacía el contenido para que desaparezca
 	$(function() {
@@ -25,19 +90,6 @@ $(document).ready(function() {
 
 	});
 
-
-	// el hover sobre el kakareo que afecte al triángulo superior
-	$('.kakareo > .link-wrapper').hover(function() {
-		$(this).prev('.from').find('.inside').css('border-bottom', '8px solid #efefef');
-	}, function() {
-		$(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fafafa');
-	});
-
-	$('.important .kakareo > .link-wrapper').hover(function() {
-		$(this).prev('.from').find('.inside').css('border-bottom', '8px solid #feedce');
-	}, function() {
-		$(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fff8ed');
-	});
 
 	// deshabilitar links kakareo, impulsar, leer después
 	$('.kakareo-number a, .like-number a').click( function(e) {
@@ -77,35 +129,4 @@ $(document).ready(function() {
 
 	});
 
-    $("a.loadMore").on("click", function(e){loadMore(e, this)})
 });
-
-
-function loadMore(e, that){
-    e.preventDefault()
-    var link = $(that)
-    var url = link.attr('href')
-    var parentId = link.attr('parent')
-    var loadingId = parentId+"-loading"
-    var parent = $("#"+parentId)
-    parent.append('<span id="'+loadingId+'">LOADING</span>')
-    $.ajax( {
-        url:url,
-        statusCode: {
-            401: function() {
-                location.reload();
-            }
-        }
-    })
-        .done(function(data) {
-            parent.append(data)
-        })
-        .fail(function(data) {
-            console.log(data)
-        })
-
-        .always(function(data) {
-            $("#"+loadingId).remove()
-        });
-
-}

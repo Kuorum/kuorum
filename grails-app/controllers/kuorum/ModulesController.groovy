@@ -25,7 +25,7 @@ class ModulesController {
         Integer numPosts = Post.countByOwner(user)
         Integer numFollowers = user.followers.size()
         Integer numFollowing = user.following.size()
-        [user:user, numPost:numPosts, numFollowers:numFollowers, numFollowing:numFollowing]
+        [user:user, numPosts:numPosts, numFollowers:numFollowers, numFollowing:numFollowing]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

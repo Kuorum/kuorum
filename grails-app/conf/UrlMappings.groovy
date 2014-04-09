@@ -30,6 +30,8 @@ class UrlMappings {
         name citizenShow:      "/ciudadanos/$urlName-$id"     (controller: "kuorumUser", action: "showCitizen")
         name organizacionShow:  "/organizaciones/$urlName-$id" (controller: "kuorumUser", action: "showOrganization")
         name politicianShow:    "/politicos/$urlName-$id"      (controller: "kuorumUser", action: "showPolitician")
+        name userFollowers:     "/$userTypeUrl/$urlName-$id/seguidores" (controller: "kuorumUser", action: "userFollowers")
+        name userFollowing:     "/$userTypeUrl/$urlName-$id/siguiendo"  (controller: "kuorumUser", action: "userFollowing")
 
         name cluckCreate: "/cluck/$postId" (controller: "cluck", action: "createCluck")
 
