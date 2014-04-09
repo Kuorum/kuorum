@@ -1,10 +1,9 @@
-import kuorum.core.model.PostType
-import org.springframework.security.core.context.SecurityContextHolder as SCH
 class UrlMappings {
 
 	static mappings = {
 
         name home: "/" (controller: "dashboard", action:"index")
+        name dashboardSeeMore: "/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
 
         name lawCreate:     "/leyes/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
         name lawShow:       "/leyes/$regionName/$commision/$hashtag" (controller: "law", action:"show")

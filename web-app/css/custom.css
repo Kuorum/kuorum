@@ -261,15 +261,15 @@ a {color: #20a2ea;}
 
 .box .fecha,
 .kakareo .user-type,
-.follow {display: block; padding: 0 0 0 48px; color: #A8A8A8;}
-.box .fecha {margin: -20px 0 0 0;}
+.follow {display: block; padding: 0 0 0 41px; color: #A8A8A8;}
+.box .fecha {margin: -15px 0 0 0;}
 .text-message,
-.text-notification {line-height: 17px; display: inline-block;}
+.text-notification {line-height: 17px; display: block;}
 .box .dropdown-menu > li a {color: #ff9431; text-decoration: none;}
 .box .dropdown-menu > li a:hover {text-decoration: underline;}
 .text-notification {margin: 0; padding: 0;}
 
-.badge {background-color: #ff9431; padding: 3px 6px 4px 6px;}
+.badge {background-color: #ff9431; padding: 3px 5px 4px;}
 .navbar-nav .visible-xs {display: inline-block !important;}
 .user-img {
   border-radius: 20px;
@@ -386,7 +386,8 @@ a {color: #20a2ea;}
 .user-list-images li a,
 .user-list-followers li a {display: inline-block;}
 .user.actor .action {color: #a8a8a8;}
-.user.actor .user-img {width: 25px; height: 25px; margin: 4px 8px;}
+.user.actor .user-img,
+.navbar-nav .dropdown-menu .user-img {width: 25px; height: 25px; margin: 4px 8px;}
 
 .user > a {color: #545454 !important;} /* el enlace del nombre de ususario */
 
@@ -462,25 +463,26 @@ a {color: #20a2ea;}
 
 .kakareo footer > ul li .counter {margin: 0 4px 0 0;}
 
-.kakareo footer ul li a.disabled .fa,
-.kakareo footer ul li a.disabled {color: #8fd0f4 !important;}
-.kakareo footer ul li.read-later a.disabled .fa {color: #20a2ea !important;}
-
-.kakareo footer ul li a.disabled:hover,
-.kakareo footer ul li a.disabled:active,
-.kakareo footer ul li a.disabled:focus {text-decoration: none;}
-
 .kakareo footer ul li a .fa {color: #797979; margin: 0 6px 0 0;}
 
 .kakareo footer ul li a:hover,
 .kakareo footer ul li a:focus,
 .kakareo footer ul li a:active,
-.kakareo footer ul li a:hover span,
-.kakareo footer ul li a:focus span,
-.kakareo footer ul li a:active span {color: #20a2ea;}
+.kakareo footer ul li a:hover .fa,
+.kakareo footer ul li a:focus .fa,
+.kakareo footer ul li a:active .fa {color: #20a2ea;}
 .kakareo footer ul li a:hover,
 .kakareo footer ul li a:focus,
 .kakareo footer ul li a:active {text-decoration: underline;}
+
+.kakareo footer ul li a.disabled .fa,
+.kakareo footer ul li a.disabled {color: #8fd0f4 !important;}
+.kakareo footer ul li.read-later a.disabled .fa {color: #20a2ea !important;}
+.kakareo footer ul li.read-later a.disabled {cursor: pointer;}
+.kakareo footer ul li a.disabled:hover,
+.kakareo footer ul li a.disabled:active,
+.kakareo footer ul li a.disabled:focus {color: #8fd0f4 !important; text-decoration: none;}
+
 
 /*.kakareo footer ul.actions-kak {border-top: 1px solid #dadada;}*/
 .kakareo footer ul li.more-actions {margin: 0 !important; position: absolute; right: 0;}
@@ -560,21 +562,31 @@ a {color: #20a2ea;}
 
 #load-more {
   border-top: solid 1px #a8a8a8;
-  color: #a8a8a8;
   padding: 10px 0 40px;
-  font-size: 12px; font-size: 1.2rem;
-  cursor: pointer;
 }
-#load-more:hover,
-#load-more:active,
-#load-more:focus {text-decoration: underline;}
+#load-more a {color: #a8a8a8; font-size: 12px; font-size: 1.2rem;}
+#load-more a:hover,
+#load-more a:active,
+#load-more a:focus {text-decoration: underline;}
 
 /* ajustes kakareos en el sidebar */
+.boxes .important .kakareo .link-wrapper:hover,
+.boxes .important .kakareo .link-wrapper:active,
+.boxes .important .kakareo .link-wrapper:focus {background-color: #efefef;}
+
+.boxes .kakareo footer ul {padding: 6px 0 4px 15px;}
 .boxes .kakareo footer > ul.info-kak > li,
 .boxes .kakareo footer > ul.actions-kak > li {margin: 0 0 0 2px;}
 .boxes .kakareo footer ul li.read-later {margin-right: 40px !important;}
 .boxes .author.important .user.actor.politic .user-img {float: right; margin-top: 0; margin-bottom: 0;}
-.boxes .author.important .user.actor.politic {height: 35px; padding: 6px 0 0;}
+.boxes .author.important .user.actor.politic {
+  height: 35px;
+  line-height: 24px;
+  padding: 6px 0 0;
+  background-color: transparent;
+  color: #545454;
+}
+.boxes .important .kakareo {background-color: transparent;}
 
 .boxes.guay .kakareo {border: none; padding: 0; margin: 0 0 15px;}
 .boxes.guay .kakareo .link-wrapper {padding: 5px;}
@@ -664,9 +676,13 @@ a {color: #20a2ea;}
 .boxes.alerts ul li .name {font-weight: bold; }
 .boxes.alerts ul li .text-notification {font-size: 12px; font-size: 1.2rem; display: inline;}
 .boxes.alerts .actions {margin: 8px 0 0 47px;}
-.boxes.alerts .actions > li > .btn,
-.boxes.alerts .actions > li > .later {font-size: 12px; font-size: 1.2rem; margin: 0 4px 0 0 !important;}
-
+.boxes.alerts .actions > li > a {
+  font-size: 12px;
+  font-size: 1.2rem;
+  margin: 0 4px 0 0 !important;
+  color: #ff9431;
+}
+.boxes.alerts li a {color: #ff9431;}
 
 
 /* clases especiales =========== */
@@ -820,6 +836,8 @@ a {color: #20a2ea;}
   .activity li {font-size: 16px; font-size: 1.6rem;}
   .activity li span {font-size: 34px; font-size: 3.4rem;}
   .boxes .personal {padding: 30px 0;}
+  .boxes .kakareo footer ul li.read-later {margin-right: 50px !important;}
+  .boxes .kakareo footer > ul.actions-kak > li {margin: 0 0 0 10px;}
 
 }
 

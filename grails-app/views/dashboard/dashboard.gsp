@@ -7,13 +7,15 @@
 
 <content tag="mainContent">
     <!-- COMIENZA LISTA DE KAKAREOS Y SEGUIMIENTOS -->
-    <ul class="kakareo-list" role="log" aria-live="assertive" aria-relevant="additions">
-        <g:each in="${clucks}" var="cluck">
-            <g:render template="/cluck/cluck" model="[cluck:cluck]"/>
-        </g:each>
+    <ul id="dashboard-kakareos-id" class="kakareo-list" role="log" aria-live="assertive" aria-relevant="additions">
+        <g:render template="liClucks" model="[clucks:clucks]"/>
     </ul>
     <!-- ver más -->
-    <div id="load-more" class="text-center">Ver más</div>
+    <div id="load-more" class="text-center">
+        <g:link mapping="dashboardSeeMore" class="loadMore" parent="dashboard-kakareos-id">
+            Ver más
+        </g:link>
+    </div>
 
     <g:each in="${clucks}" var="cluck">
         <div>

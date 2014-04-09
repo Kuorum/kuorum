@@ -2,6 +2,7 @@ package kuorum.post
 
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.search.Pagination
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 
@@ -14,7 +15,7 @@ class CluckService {
         Cluck.findAllByLawAndIsFirstCluck(law, Boolean.TRUE,[max: 10, sort: "dateCreated", order: "desc", offset: 0])
     }
 
-    List<Cluck> dashboardClucks(KuorumUser kuorumUser){
+    List<Cluck> dashboardClucks(KuorumUser kuorumUser, Pagination pagination = new Pagination()){
 
         def criteria = Cluck.createCriteria()
         def userList = kuorumUser.following.collect{KuorumUser.load(it)}
