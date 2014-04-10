@@ -10,7 +10,7 @@
     </ul>
     <ul class="col-md-10 actions-kak">
         <li class="read-later">
-            <g:link mapping="postToggleFavorite" class="${postUtil.cssClassIfFavorite(post:post)}" params="${post.encodeAsLinkProperties()}">
+            <g:link mapping="postToggleFavorite" class="${postUtil.cssClassIfFavorite(post:post)}" params="${post.encodeAsLinkProperties()}" rel="nofollow">
                 <span class="fa fa-bookmark fa-lg"></span>
                 <span class="sr-only"><g:message code="cluck.footer.readLater"/></span>
             </g:link>
@@ -18,7 +18,7 @@
         <li class="like-number">
             <span class="counter">${post.numVotes}</span>
             <meta itemprop="interactionCount" content="UserLikes:${post.numVotes}"><!-- pasarle el valor que corresponda -->
-            <g:link mapping="postVoteIt" class="${postUtil.cssClassIfVoted(post:post)}" params="${post.encodeAsLinkProperties()}" >
+            <g:link mapping="postVoteIt" class="${postUtil.cssClassIfVoted(post:post)}" params="${post.encodeAsLinkProperties()}" rel="nofollow">
                 <span class="fa fa-rocket fa-lg"></span>
                 <span class="sr-only"><g:message code="cluck.footer.vote"/></span>
             </g:link>
@@ -26,13 +26,13 @@
 
         <li class="kakareo-number">
             <span class="counter">${post.numClucks}</span>
-            <g:link mapping="postCluckIt" class="${postUtil.cssClassIfClucked(post:post)}" params="${post.encodeAsLinkProperties()}" >
+            <g:link mapping="postCluckIt" class="${postUtil.cssClassIfClucked(post:post)}" params="${post.encodeAsLinkProperties()}" rel="nofollow" >
                 <span class="fa fa-bullhorn fa-lg"></span><span class="sr-only"><g:message code="cluck.footer.cluckIt"/></span>
             </g:link>
         </li>
 
         <li class="more-actions">
-            <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+            <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover" rel="nofollow">
                 <span class="fa fa-plus"></span> <span class="sr-only">Más acciones</span>
             </a>
         </li>
