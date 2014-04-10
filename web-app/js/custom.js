@@ -99,7 +99,7 @@ $(document).ready(function() {
 
 
 	// deshabilitar links kakareo, impulsar, leer después
-	$('.kakareo-number a, .like-number a').click( function(e) {
+    $('body').on('click','.kakareo-number a, .like-number a', function(e) {
 		e.preventDefault();
         e.stopPropagation();
         if (!$(this).hasClass('disabled')){
@@ -116,9 +116,26 @@ $(document).ready(function() {
             })
         }
 	});
-	$('.read-later a').click( function(e) {
+
+    $('body').on('click', '.read-later a', function(e) {
         e.preventDefault();
-        $(this).toggleClass('enabled disabled');
+        var url = $(this).attr("href")
+        var postId = $(this).parents("article").first().attr("data-cluck-postId")
+        $.ajax(url).done(function(data, status, xhr){
+            var isFavorite = xhr.getResponseHeader('isFavorite')
+            var numFavorites = xhr.getResponseHeader('numFavorites')
+            $(".pending h1 .badge").text(numFavorites)
+            if (isFavorite == "true"){
+                $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("disabled")
+                $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("enabled")
+                $("section.boxes.guay.pending ul.kakareo-list").prepend(data)
+            }else{
+                $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("disabled")
+                $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("enabled")
+                $("section.boxes.guay.pending article[data-cluck-postId='"+postId+"']").parent().remove()
+            }
+        })
+
 	});
 
 	// hacer clic en player falso del video (.front)

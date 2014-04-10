@@ -16,19 +16,6 @@
             <g:message code="dashboard.clucks.seeMore"/>
         </g:link>
     </div>
-
-    <g:each in="${clucks}" var="cluck">
-        <div>
-            <div>
-                <g:if test="${user.favorites.contains(cluck.post.id)}">
-                    <g:link mapping="postDelFavorite" params="${cluck.post.encodeAsLinkProperties()}">Ya leido</g:link>
-                </g:if>
-                <g:else>
-                    <g:link mapping="postAddFavorite" params="${cluck.post.encodeAsLinkProperties()}">Leer despues</g:link>
-                </g:else>
-            </div>
-        </div>
-    </g:each>
 </content>
 
 <content tag="cColumn">

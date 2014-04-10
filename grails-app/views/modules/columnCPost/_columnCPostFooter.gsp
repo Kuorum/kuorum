@@ -10,10 +10,10 @@
     </ul>
     <ul class="col-md-10 actions-kak">
         <li class="read-later">
-            <a href="#">
+            <g:link mapping="postToggleFavorite" class="${postUtil.cssClassIfFavorite(post:post)}" params="${post.encodeAsLinkProperties()}">
                 <span class="fa fa-bookmark fa-lg"></span>
                 <span class="sr-only"><g:message code="cluck.footer.readLater"/></span>
-            </a>
+            </g:link>
         </li>
         <li class="like-number">
             <span class="counter">${post.numVotes}</span>

@@ -19,7 +19,7 @@
         </g:if>
         <div class="link-wrapper">
             <g:link mapping="postShow" params="${cluck.post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
-            <h1>${cluck.post.title}<g:link mapping="lawShow" params="${cluck.law.encodeAsLinkProperties()}">${cluck.law.hashtag}</g:link></h1>
+            <h1>${cluck.post.title} <g:link mapping="lawShow" params="${cluck.law.encodeAsLinkProperties()}">${cluck.law.hashtag}</g:link></h1>
 
             %{--<g:render template="/cluck/cluckPhoto"/>--}%
             %{--<g:render template="/cluck/cluckVideo"/>--}%

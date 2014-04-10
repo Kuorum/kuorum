@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 import kuorum.web.commands.PostCommand
+import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 
 import javax.servlet.http.HttpServletResponse
@@ -122,16 +123,18 @@ class PostController {
     def favorite() {
         Post post = params.post
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        postService.favoriteAddPost(post,user)
-        render "Ajax CALL OK"
-    }
+        if (user.favorites.contains(post.id)){
+            postService.favoriteRemovePost(post,user)
+            response.setHeader(WebConstants.AJAX_IS_FAVORITE, "false")
+            response.setHeader(WebConstants.AJAX_NUM_FAVORITE, "${user.favorites.size()}")
+            render "Deleted from favorites"
+        }else{
+            postService.favoriteAddPost(post,user)
+            response.setHeader(WebConstants.AJAX_IS_FAVORITE, "true")
+            response.setHeader(WebConstants.AJAX_NUM_FAVORITE, "${user.favorites.size()}")
+            render template: "/modules/columnCPost/columnCPost", model: [post:post]
+        }
 
-    @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def unfavorite() {
-        Post post = params.post
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        postService.favoriteRemovePost(post,user)
-        render "Ajax CALL OK"
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')

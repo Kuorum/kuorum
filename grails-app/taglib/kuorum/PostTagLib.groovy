@@ -46,6 +46,17 @@ class PostTagLib {
             }
         }
     }
+    def cssClassIfFavorite = {attrs->
+        Post post = attrs.post
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (user.favorites.contains(post.id)){
+                out << "disabled"
+            }else{
+                out << "enabled"
+            }
+        }
+    }
 
     def ifIsImportant={attrs, body ->
         Post post = attrs.post

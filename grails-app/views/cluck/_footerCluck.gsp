@@ -12,9 +12,9 @@
     <sec:ifLoggedIn>
         <ul class="col-xs-10 col-sm-10 col-md-8 actions-kak">
             <li class="read-later">
-                <a href="#">
+                <g:link mapping="postToggleFavorite" class="${postUtil.cssClassIfFavorite(post:post)}" params="${post.encodeAsLinkProperties()}">
                     <span class="fa fa-bookmark fa-lg"></span><span class="hidden-xs"><g:message code="cluck.footer.readLater"/></span>
-                </a>
+                </g:link>
             </li>
 
             <li class="like-number">
