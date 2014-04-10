@@ -174,7 +174,7 @@ class PostController {
         KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
         Post post = params.post
         //Cluck cluck = cluckService.createCluck(post, kuorumUser)
-//        postVoteService.votePost(post, kuorumUser)
+        postVoteService.votePost(post, kuorumUser)
         //TODO: que se renderiza
         render "OK"
     }
