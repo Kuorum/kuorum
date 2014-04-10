@@ -126,12 +126,12 @@ class PostController {
         if (user.favorites.contains(post.id)){
             postService.favoriteRemovePost(post,user)
             response.setHeader(WebConstants.AJAX_IS_FAVORITE, "false")
-            response.setHeader(WebConstants.AJAX_NUM_FAVORITE, "${user.favorites.size()}")
+            response.setHeader(WebConstants.AJAX_NUM_LIST, "${user.favorites.size()}")
             render "Deleted from favorites"
         }else{
             postService.favoriteAddPost(post,user)
             response.setHeader(WebConstants.AJAX_IS_FAVORITE, "true")
-            response.setHeader(WebConstants.AJAX_NUM_FAVORITE, "${user.favorites.size()}")
+            response.setHeader(WebConstants.AJAX_NUM_LIST, "${user.favorites.size()}")
             render template: "/modules/columnCPost/columnCPost", model: [post:post]
         }
 

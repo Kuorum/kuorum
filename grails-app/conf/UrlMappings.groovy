@@ -76,6 +76,7 @@ class UrlMappings {
         name footerTermsAds:      "/kuorum/normas-publicidad"   (controller:"footer", action: "termsAds")
 
         name ajaxHeadNotificationsChecked: "/ajax/notificaiones/check"(controller:"layouts", action:"headNotificationsChecked")
+        name ajaxPostponeAlert: "/ajax/notificaiones/posponer/$id"(controller:"notification", action:"postponeAlert")
         name ajaxHeadMessagesChecked: "/ajax/mensajes/check"(controller:"layouts", action:"headNotificationsChecked")
 
         name login: "/entrar" (controller:"login", action:"index")

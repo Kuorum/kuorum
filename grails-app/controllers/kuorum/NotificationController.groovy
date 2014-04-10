@@ -1,6 +1,11 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.notifications.Notification
+import kuorum.users.KuorumUser
+import org.bson.types.ObjectId
+
+import javax.servlet.http.HttpServletResponse
 
 class NotificationController {
 
@@ -12,5 +17,17 @@ class NotificationController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userAlert(){
 
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def postponeAlert(String id){
+        Notification notification = Notification.get(new ObjectId(id))
+        if (!notification){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+//        notificationService.markAsInactive(user, notification)
+        render "Ok"
     }
 }

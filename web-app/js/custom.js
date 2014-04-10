@@ -123,7 +123,7 @@ $(document).ready(function() {
         var postId = $(this).parents("article").first().attr("data-cluck-postId")
         $.ajax(url).done(function(data, status, xhr){
             var isFavorite = xhr.getResponseHeader('isFavorite')
-            var numFavorites = xhr.getResponseHeader('numFavorites')
+            var numFavorites = xhr.getResponseHeader('numList')
             $(".pending h1 .badge").text(numFavorites)
             if (isFavorite == "true"){
                 $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("disabled")
@@ -137,6 +137,18 @@ $(document).ready(function() {
         })
 
 	});
+
+    $('a.postpone-alert').click(function(e){
+        e.preventDefault()
+        var url = $(this).attr("href")
+        var alertToRemove = $(this).parents("li.profile-alert")
+        $.ajax(url).done(function(data, status, xhr){
+            var numAlerts = parseInt($(".alerts h1 .badge").text())-1
+            alertToRemove.remove()
+            $(".alerts h1 .badge").text(numAlerts>0?numAlerts:'')
+
+        })
+    })
 
 	// hacer clic en player falso del video (.front)
 	$('.front').click( function() {

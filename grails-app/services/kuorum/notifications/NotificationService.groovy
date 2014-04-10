@@ -47,6 +47,33 @@ class NotificationService {
         Notification.findAllByKuorumUserAndIsAlertAndIsActive(user, Boolean.TRUE, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
     }
 
+    /**
+     * Returns num active alerts
+     * @param user
+     * @return
+     */
+    Integer countActiveUserAlerts(KuorumUser user){
+        Notification.countByKuorumUserAndIsAlertAndIsActive(user, Boolean.TRUE, Boolean.TRUE)
+    }
+
+    Notification markAsInactive(KuorumUser user, Notification notification){
+        if (notification.kuorumUser != user){
+            throw new KuorumException("Usuario ${user} no esta autorizado para modificar la notificacion ${notification.id}")
+        }
+        if (isAlertNotification(notification)){
+            // I don't know why is not saving on mongo with .save()
+            Notification.collection.update([_id:notification.id],[$set:[isActive:false]])
+            notification.refresh();
+        }else{
+            log.warn("Se ha tratado de desactivar una notificación que no es alerta")
+        }
+        notification
+    }
+
+    boolean isAlertNotification(Notification notification){
+        notification.hasProperty("isActive") && notification.hasProperty("isAlert") && notification.isAlert
+    }
+
 
     /**
      * Returns all user alerts

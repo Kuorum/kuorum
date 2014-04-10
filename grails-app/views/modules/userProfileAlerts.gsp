@@ -15,7 +15,7 @@
                         <g:message code="${kuorum.core.model.PostType.name}.${alert.post.postType}"/>
                     </g:set>
                     <g:set var="message">
-                        <g:message code="notifications.debateAlertNotification.text" args="[postType:postType]"/>
+                        <g:message code="notifications.debateAlertNotification.text" args="[postType]"/>
                     </g:set>
                     <g:set var="user" value="${alert.debateWriter}"/>
                 </g:if>
@@ -24,11 +24,11 @@
                         <g:message code="${kuorum.core.model.PostType.name}.${alert.post.postType}"/>
                     </g:set>
                     <g:set var="message">
-                        <g:message code="notifications.defendedPostAlert.text" args="[postType:postType]"/>
+                        <g:message code="notifications.defendedPostAlert.text" args="[postType]"/>
                     </g:set>
                     <g:set var="user" value="${alert.defender}"/>
                 </g:elseif>
-                <g:render template="/modules/userProfileAlerts/userProfileAlert" model="[user:user, message:message]"/>
+                <g:render template="/modules/userProfileAlerts/userProfileAlert" model="[user:user, message:message, alert:alert]"/>
             </g:each>
         </g:if>
         <g:else>
