@@ -11,14 +11,14 @@ dbOrigin.generalLaw.find({_class:"Law"}).forEach(function(law){
     var destLaw = createLawFromOldLaw(law)
     dbDest.law.insert(destLaw)
     print("ley creada:"+destLaw.hashtag +(destLaw._id))
-    dbOrigin.message.find().forEach(function(message){
+    dbOrigin.message.find({law:law._id}).forEach(function(message){
         var destPost = createPostFromOldPost(destLaw,message)
         var existsOwner = dbDest.kuorumUser.count({_id:destPost.owner})
         if (existsOwner == 1){
             dbDest.post.insert(destPost)
             var cluck = createFirstCluck(destPost)
             dbDest.cluck.insert(cluck)
-            print("ley ("+destLaw.hashtag +") => Post:"+destPost._id)
+            print("ley ("+destLaw.hashtag +") => Post:"+destPost.title)
             createPostVotesFromLikes(destPost, message)
             createCommentsFromSubMessages(destPost, message)
         }
