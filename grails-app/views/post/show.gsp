@@ -50,17 +50,6 @@
             </li>
         </g:if>
 
-        <g:if test="${postInstance?.firstCluck}">
-            <li class="fieldcontain">
-                <span id="firstCluck-label" class="property-label"><g:message code="post.firstCluck.label"
-                                                                              default="First Cluck"/></span>
-
-                <span class="property-value" aria-labelledby="firstCluck-label"><g:link controller="cluck" action="show"
-                                                                                        id="${postInstance?.firstCluck?.id}">${postInstance?.firstCluck?.encodeAsHTML()}</g:link></span>
-
-            </li>
-        </g:if>
-
         <g:if test="${postInstance?.law}">
             <li class="fieldcontain">
                 <span id="law-label" class="property-label"><g:message code="post.law.label" default="Law"/></span>

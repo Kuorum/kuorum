@@ -40,7 +40,7 @@ class PostVoteService {
     }
 
     boolean isAllowedToVote(Post post, KuorumUser user){
-        PostVote.countByPostAndUser(post,user) > 0
+        PostVote.countByPostAndUser(post,user) == 0
     }
 
     boolean checkIfMilestone(Post post){

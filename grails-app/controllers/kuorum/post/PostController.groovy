@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse
 class PostController {
 
     def postService
+    def postVoteService
     def springSecurityService
     def lawService
+    def cluckService
 
     def index() {
         [postInstanceList:Post.list()]
@@ -156,5 +158,24 @@ class PostController {
         }else{
             render "EMpty comment"
         }
+    }
+
+    @Secured('isAuthenticated()')
+    def cluckPost() {
+        KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
+        Post post = params.post
+        Cluck cluck = cluckService.createCluck(post, kuorumUser)
+        //TODO: que se renderiza
+        render "OK"
+    }
+
+    @Secured('isAuthenticated()')
+    def votePost() {
+        KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
+        Post post = params.post
+        //Cluck cluck = cluckService.createCluck(post, kuorumUser)
+//        postVoteService.votePost(post, kuorumUser)
+        //TODO: que se renderiza
+        render "OK"
     }
 }

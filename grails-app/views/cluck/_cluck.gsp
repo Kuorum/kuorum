@@ -10,7 +10,7 @@
         <g:render template="/cluck/politicianPosts" model="[recluck:(recluck && important)]"/>
     </g:if>
 
-    <article class="kakareo" role="article">
+    <article class="kakareo" role="article" data-cluck-postId="${cluck.post.id}">
         <g:if test="${recluck && !important}">
             <span class="from"><span class="inside"></span></span>
         </g:if>

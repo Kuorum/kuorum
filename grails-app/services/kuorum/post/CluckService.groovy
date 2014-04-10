@@ -33,29 +33,35 @@ class CluckService {
     }
 
     Cluck createCluck(Post post, KuorumUser kuorumUser){
-        Cluck cluck = new Cluck(
-                owner: kuorumUser,
-                postOwner: post.owner,
-                post: post,
-                law: post.law,
-        )
-        if (post.owner == kuorumUser){
-            cluck.isFirstCluck = Boolean.TRUE
-        }
-        if (!cluck.save()){
-            KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
-        }
-        notificationService.sendCluckNotification(cluck)
-        //Atomic operation - non transactional
-        post.save(flush:true)
-        Post.collection.update([_id:post.id],[$inc:[numClucks:1]])
-        post.refresh()
 
-        cluck
+        if (isAllowedToCluck(post, kuorumUser)){
+            Cluck cluck = new Cluck(
+                    owner: kuorumUser,
+                    postOwner: post.owner,
+                    post: post,
+                    law: post.law,
+            )
+            if (post.owner == kuorumUser){
+                cluck.isFirstCluck = Boolean.TRUE
+            }
+            if (!cluck.save()){
+                KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
+            }
+            notificationService.sendCluckNotification(cluck)
+            //Atomic operation - non transactional
+            post.save(flush:true)
+            Post.collection.update([_id:post.id],[$inc:[numClucks:1]])
+            post.refresh()
+
+            cluck
+        }else{
+            Cluck.findByPostAndOwner(post, kuorumUser)
+        }
+
     }
 
 
     Boolean isAllowedToCluck(Post post, KuorumUser user){
-        Cluck.countByPostAndOwner(post,user) > 0
+        Cluck.countByPostAndOwner(post,user) == 0
     }
 }

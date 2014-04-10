@@ -19,7 +19,6 @@
 
     <g:each in="${clucks}" var="cluck">
         <div>
-            <div> <g:link mapping="cluckCreate" params="[postId:cluck.post.id]">Cluck IT</g:link> </div>
             <div>
                 <g:if test="${user.favorites.contains(cluck.post.id)}">
                     <g:link mapping="postDelFavorite" params="${cluck.post.encodeAsLinkProperties()}">Ya leido</g:link>

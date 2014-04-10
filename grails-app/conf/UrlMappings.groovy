@@ -23,6 +23,8 @@ class UrlMappings {
         name postDelFavorite:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/yaLeido"(controller: "post",action: "unfavorite")
         name postDelComment:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/borrarCommentario"(controller: "post",action: "deleteComment")
         name postAddComment:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/nuevoComentario"(controller: "post",action: "addComment")
+        name postCluckIt:   "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/kakarear"(controller: "post",action: "cluckPost")
+        name postVoteIt:    "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/impulsar"(controller: "post",action: "votePost")
 
 
         //userShow is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
@@ -32,8 +34,6 @@ class UrlMappings {
         name politicianShow:    "/politicos/$urlName-$id"      (controller: "kuorumUser", action: "showPolitician")
         name userFollowers:     "/$userTypeUrl/$urlName-$id/seguidores" (controller: "kuorumUser", action: "userFollowers")
         name userFollowing:     "/$userTypeUrl/$urlName-$id/siguiendo"  (controller: "kuorumUser", action: "userFollowing")
-
-        name cluckCreate: "/cluck/$postId" (controller: "cluck", action: "createCluck")
 
         name register:            "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
         name registerSuccess:     "/registro/satisfactorio"(controller: "register",action:"registerSuccess")

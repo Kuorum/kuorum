@@ -23,16 +23,16 @@
             <li class="like-number">
                 <span class="counter">${cluck.post.numVotes}</span>
                 <meta itemprop="interactionCount" content="UserLikes:${cluck.post.numVotes}"><!-- pasarle el valor que corresponda -->
-                <a href="" class="${post.cssClassIfVoted(post:cluck.post)}">
+                <g:link mapping="postVoteIt" class="${post.cssClassIfVoted(post:cluck.post)}" params="${cluck.post.encodeAsLinkProperties()}" >
                     <span class="fa fa-rocket fa-lg"></span><span class="hidden-xs"><g:message code="cluck.footer.vote"/></span>
-                </a>
+                </g:link>
             </li>
 
             <li class="kakareo-number">
                 <span class="counter">${cluck.post.numClucks}</span>
-                <a href="#" class="${post.cssClassIfClucked(post:cluck.post)}">
+                <g:link mapping="postCluckIt" class="${post.cssClassIfClucked(post:cluck.post)}" params="${cluck.post.encodeAsLinkProperties()}" >
                     <span class="fa fa-bullhorn fa-lg"></span><span class="hidden-xs"><g:message code="cluck.footer.cluckIt"/></span>
-                </a>
+                </g:link>
             </li>
 
             <li class="more-actions">

@@ -101,7 +101,20 @@ $(document).ready(function() {
 	// deshabilitar links kakareo, impulsar, leer después
 	$('.kakareo-number a, .like-number a').click( function(e) {
 		e.preventDefault();
-		$(this).addClass('disabled').attr('href', '');
+        e.stopPropagation();
+        if (!$(this).hasClass('disabled')){
+            var url = $(this).attr("href")
+            var postId = $(this).parents("article").first().attr("data-cluck-postId")
+            var cssClass = $(this).parent().hasClass("kakareo-number")?"kakareo-number":"like-number"
+            $.ajax(url).done(function(data){
+                console.log("article[data-cluck-postId='"+postId+"'] li."+cssClass+" a")
+                $("article[data-cluck-postId='"+postId+"'] li."+cssClass+" a").addClass('disabled')
+                $("li."+cssClass+"[data-cluck-postId='"+postId+"'] .counter").each(function(idx, element){
+                    var numKakareos = parseInt($(element).text()) +1
+                    $(element).text(numKakareos)
+                })
+            })
+        }
 	});
 	$('.read-later a').click( function(e) {
         e.preventDefault();
