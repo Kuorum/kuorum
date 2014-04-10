@@ -109,7 +109,7 @@ $(document).ready(function() {
             $.ajax(url).done(function(data){
                 console.log("article[data-cluck-postId='"+postId+"'] li."+cssClass+" a")
                 $("article[data-cluck-postId='"+postId+"'] li."+cssClass+" a").addClass('disabled')
-                $("li."+cssClass+"[data-cluck-postId='"+postId+"'] .counter").each(function(idx, element){
+                $("article[data-cluck-postId='"+postId+"'] li."+cssClass+" .counter").each(function(idx, element){
                     var numKakareos = parseInt($(element).text()) +1
                     $(element).text(numKakareos)
                 })
