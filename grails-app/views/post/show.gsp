@@ -189,7 +189,7 @@
         <g:else>
             <g:set var="style" value="color:#000"/>
         </g:else>
-        <li style="${style}">${comment.kuorumUser}: ${comment.text} <post:removeCommentButton post="${postInstance}" commentPosition="${commentPos}"/> </li>
+        <li style="${style}">${comment.kuorumUser}: ${comment.text} <postUtil:removeCommentButton post="${postInstance}" commentPosition="${commentPos}"/> </li>
     </g:each>
     <li>
         <g:form mapping="postAddComment" params="${postInstance.encodeAsLinkProperties()}">

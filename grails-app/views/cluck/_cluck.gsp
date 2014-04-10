@@ -1,4 +1,7 @@
-<g:set var="important" value="${!cluck.post.debates.isEmpty() || cluck.supportedBy}"/>
+<g:set var="important" value="${false}"/>
+<postUtil:ifIsImportant post="${cluck.post}">
+    <g:set var="important" value="${true}"/>
+</postUtil:ifIsImportant>
 <g:set var="recluck" value="${cluck.post.owner!=cluck.owner}"/>
 
 <li class="author ${important?'important':''}" itemscope itemtype="http://schema.org/Article">
@@ -26,7 +29,7 @@
                 <g:render template="/cluck/cluckSponsorPost"/>
             </div>
         </div>
-        <g:render template="/cluck/footerCluck" model="[cluck:cluck]"/>
+        <g:render template="/cluck/footerCluck" model="[post:cluck.post]"/>
     </article><!-- /article -->
 
 </li><!-- /kakareo-->

@@ -19,7 +19,7 @@ class PostService {
     def notificationService
     def gamificationService
 
-    private static final Integer NUM_RECOMMENDED_POST=5
+    private static final Integer NUM_RECOMMENDED_POST=3
 
     /**
      * Save a post and creates the first firstCluck and first vote (owner vote)
@@ -204,6 +204,7 @@ class PostService {
 
     List<Post> recommendedPosts(KuorumUser user){
         Integer votesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
-        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
+//        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
+        Post.list([max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
     }
 }

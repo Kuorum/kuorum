@@ -1,18 +1,19 @@
 package kuorum
 
+import kuorum.core.model.PostType
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 
 class PostTagLib {
-    static defaultEncodeAs = 'html'
-    static encodeAsForTags = [removeCommentButton: 'raw']
+    static defaultEncodeAs = 'raw'
+//    static encodeAsForTags = [removeCommentButton: 'html']
 
     def springSecurityService
     def postService
     def cluckService
     def postVoteService
 
-    static namespace = "post"
+    static namespace = "postUtil"
 
     def removeCommentButton={attrs ->
         Post post = attrs.post
@@ -43,6 +44,23 @@ class PostTagLib {
             if (!postVoteService.isAllowedToVote(post, user)){
                 out << "disabled"
             }
+        }
+    }
+
+    def ifIsImportant={attrs, body ->
+        Post post = attrs.post
+        if (!post.debates.isEmpty() || post.defender){
+            out << body()
+        }
+    }
+
+    def cssIconPostType={attrs, body ->
+        Post post = attrs.post
+
+        switch (post.postType){
+            case PostType.HISTORY:  out << "fa-book"; break;
+            case PostType.QUESTION: out << "fa-question"; break;
+            case PostType.PURPOSE:  out << "fa-lightbulb-o"; break;
         }
     }
 }
