@@ -5,7 +5,7 @@
 </postUtil:ifIsImportant>
 
 <li class="author ${important?'important':''}" itemscope itemtype="http://schema.org/Article">
-    <g:render template="/modules/recommendedPosts/recommendedPostPoliticians" model="[post:post]"/>
+    <g:render template="/modules/columnCPost/columnCPostPoliticians" model="[post:post]"/>
     <article class="kakareo" role="article" data-cluck-postId="${post.id}">
         <div class="link-wrapper">
             <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
@@ -29,7 +29,7 @@
                 </div><!-- /patrocinadores -->
             </div>
         </div><!-- /.link-wrapper -->
-        <g:render template="/modules/recommendedPosts/recommendedPostFooter" model="[post:post]"/>
+        <g:render template="/modules/columnCPost/columnCPostFooter" model="[post:post]"/>
     </article><!-- /article -->
 
 </li><!-- /kakareo important -->

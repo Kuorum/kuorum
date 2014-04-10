@@ -35,4 +35,5 @@
     <g:include controller="modules" action="userProfile"/>
     <g:include controller="modules" action="userProfileAlerts"/>
     <g:include controller="modules" action="recommendedPosts"/>
+    <g:include controller="modules" action="userFavorites"/>
 </content>

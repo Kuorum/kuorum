@@ -33,4 +33,11 @@ class ModulesController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         [alerts:notificationService.findActiveUserAlerts(user)]
     }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def userFavorites() {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        [favorites:postService.favoritesPosts(user)]
+    }
+
 }
