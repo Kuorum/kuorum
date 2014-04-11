@@ -65,6 +65,13 @@ class PostTagLib {
         }
     }
 
+    def ifHasMultimedia={attrs, body ->
+        Post post = attrs.post
+        if (post.multimedia){
+            out << body()
+        }
+    }
+
     def cssIconPostType={attrs, body ->
         Post post = attrs.post
 

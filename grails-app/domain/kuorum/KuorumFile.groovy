@@ -1,6 +1,7 @@
 package kuorum
 
 import kuorum.core.FileGroup
+import kuorum.core.FileType
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
@@ -17,6 +18,7 @@ class KuorumFile {
     String fileName
     String url
     FileGroup fileGroup
+    FileType fileType
 
     static constraints = {
         storagePath nullable: true

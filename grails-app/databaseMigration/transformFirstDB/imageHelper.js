@@ -11,7 +11,8 @@ function createAvatar(objectId, fileGroup, photo){
             "storagePath":storagePath(photo).storagePath,
             "fileName":storagePath(photo).fileName,
             "url":absoluteUrl(photo),
-            "fileGroup":fileGroup
+            "fileGroup":fileGroup,
+            "fileType":"IMAGE"
         }
 
         dbDest.kuorumFile.insert(kuorumFile)

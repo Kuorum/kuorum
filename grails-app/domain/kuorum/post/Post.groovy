@@ -1,5 +1,6 @@
 package kuorum.post
 
+import kuorum.KuorumFile
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
 import kuorum.core.model.PostType
@@ -29,6 +30,9 @@ class Post {
     List<PostComment> comments = []
     List<PostComment> debates = []
     Boolean published = false
+
+    @Updatable
+    KuorumFile multimedia
 
     /**
      * First firstCluck / owners firstCluck: Is going to be used to reference the sponsors and politician supports.
