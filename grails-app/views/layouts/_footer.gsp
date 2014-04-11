@@ -19,7 +19,7 @@
                     <li><g:link mapping="footerOrganizations"><g:message code="layout.footer.organizations"/></g:link></li>
                     <li><g:link mapping="footerPoliticians"><g:message code="layout.footer.politicians"/></g:link></li>
                     <li><g:link mapping="footerDevelopers"><g:message code="layout.footer.developers"/></g:link></li>
-                    <li><a href="#">El gallinero</a></li>
+                    <li><g:link mapping="profileKuorumStore"><g:message code="layout.footer.kuorumStore"/></g:link></li>
                     <li><a href="#">Kuorum.org</a></li>
                 </ul>
             </section>
