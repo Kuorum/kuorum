@@ -13,6 +13,7 @@ class PostVote {
     KuorumUser user
     PersonalData personalData
     Date dateCreated
+    Boolean anonymous = Boolean.FALSE
 
     static embedded = ['personalData']
 

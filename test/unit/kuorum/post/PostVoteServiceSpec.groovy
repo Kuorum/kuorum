@@ -3,14 +3,11 @@ package kuorum.post
 import grails.converters.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import grails.test.mixin.TestMixin
-import kuorum.core.exception.KuorumException
 import kuorum.helper.Helper
 import kuorum.law.Law
 import kuorum.notifications.NotificationService
 import kuorum.users.GamificationService
 import kuorum.users.KuorumUser
-import org.bson.types.ObjectId
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -45,6 +42,36 @@ class PostVoteServiceSpec extends Specification {
         }
     }
     def cleanup() {
+    }
+
+    @Unroll
+    void "test voting a post anonymous: #anonymous"() {
+        given: "A post"
+        //fixtureLoader.load("testData")
+        Post post = Helper.createDefaultPost()
+        post.numVotes = 0
+        post.save()
+        KuorumUser user = Helper.createDefaultUser("user@example.com").save()
+
+        long numVotes = post.numVotes
+
+        when: "Voting a post"
+        //"service" represents the grails service you are testing for
+        PostVote postVote = service.votePost(post,user, anonymous)
+
+        then: "Checking num votes and notifications calls"
+        PostVote.findAllByPost(post).size() == numVotes +1
+        post.numVotes == numVotes + 1
+        postVote.anonymous == anonymous
+        postVote.post == post
+        postVote.user == user
+        0 * notificationServiceMock.sendPublicMilestoneNotification(post)
+        0 * gamificationService.postVotedAward(post.owner, post)
+        1 * gamificationService.postVotedAward(user, post)
+        where:
+        anonymous | kk
+        true      | false
+        false      | false
     }
 
     @Unroll

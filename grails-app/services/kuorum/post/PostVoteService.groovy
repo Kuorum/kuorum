@@ -12,7 +12,7 @@ class PostVoteService {
     def notificationService
     def gamificationService
 
-    PostVote votePost(Post post, KuorumUser kuorumUser){
+    PostVote votePost(Post post, KuorumUser kuorumUser, Boolean anonymous = Boolean.FALSE){
         if (post.id == null || kuorumUser.id == null){
             throw new KuorumException("El post o el usuario no se han salvado previamente en BBDD","error.postVoteService.paramsError")
         }
@@ -20,6 +20,7 @@ class PostVoteService {
         postVote.personalData = kuorumUser.personalData
         postVote.post = post
         postVote.user = kuorumUser
+        postVote.anonymous = anonymous
         if (!postVote.save())
             throw KuorumExceptionUtil.createExceptionFromValidatable(postVote,"Error salvando el post")
 
