@@ -9,23 +9,12 @@ import kuorum.core.model.Studies
 import kuorum.helper.Helper
 import kuorum.mail.KuorumMailService
 import kuorum.springSecurity.FacebookAuthService
-import org.springframework.social.facebook.api.CommentOperations
-import org.springframework.social.facebook.api.EventOperations
-import org.springframework.social.facebook.api.Facebook
-import org.springframework.social.facebook.api.FacebookProfile
-import org.springframework.social.facebook.api.FeedOperations
-import org.springframework.social.facebook.api.FriendOperations
-import org.springframework.social.facebook.api.GroupOperations
-import org.springframework.social.facebook.api.ImageType
-import org.springframework.social.facebook.api.LikeOperations
-import org.springframework.social.facebook.api.MediaOperations
-import org.springframework.social.facebook.api.PageOperations
-import org.springframework.social.facebook.api.PlacesOperations
-import org.springframework.social.facebook.api.UserOperations
+import org.springframework.social.facebook.api.*
 import org.springframework.social.facebook.api.impl.FacebookTemplate
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestOperations
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
  * Created by iduetxe on 20/03/14.
@@ -55,7 +44,8 @@ class FacebookAuthServiceSpec  extends Specification {
     def cleanup() {
     }
 
-    void "test creating user from facebook"() {
+    @Unroll
+    void "test creating user from facebook. Users in DDBB: #usersOnDB"() {
         given:"A facebook token and a DDBB filled"
         usersOnDB.each {email ->
             Helper.createDefaultUser(email).save()

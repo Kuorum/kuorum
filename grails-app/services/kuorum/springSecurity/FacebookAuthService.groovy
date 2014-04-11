@@ -3,6 +3,7 @@ package kuorum.springSecurity
 import com.the6hours.grails.springsecurity.facebook.FacebookAuthToken
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
+import kuorum.core.FileType
 import kuorum.core.model.Gender
 import kuorum.core.model.Studies
 import kuorum.core.model.UserType
@@ -115,7 +116,8 @@ class FacebookAuthService {
                     storagePath:null,
                     fileName:null,
                     url:"http://graph.facebook.com/${fbProfile.id}/picture?type=large",
-                    fileGroup:FileGroup.USER_AVATAR
+                    fileGroup:FileGroup.USER_AVATAR,
+                    fileType: FileType.IMAGE
             )
             kuorumFile.save()
             user.avatar = kuorumFile

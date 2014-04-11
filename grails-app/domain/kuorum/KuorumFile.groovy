@@ -18,7 +18,7 @@ class KuorumFile {
     String fileName
     String url
     FileGroup fileGroup
-    FileType fileType
+    FileType fileType = FileType.IMAGE
 
     static constraints = {
         storagePath nullable: true
