@@ -1,6 +1,6 @@
 <ul class="nav navbar-nav navbar-right">
     <li class="underline" itemscope itemtype="http://schema.org/Person">
-        <g:link mapping="home" class="navbar-link user-area">
+        <g:link mapping="home" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "home")}">
             <span itemprop="name">${user.name}</span>
             <img src="${image.userImgSrc(user:user)}"alt="${user.name}" class="user-img" itemprop="image">
         </g:link>
