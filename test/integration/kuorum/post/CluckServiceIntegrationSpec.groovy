@@ -1,7 +1,5 @@
 package kuorum.post
 
-import kuorum.core.exception.KuorumException
-import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.notifications.CluckNotification
 import kuorum.users.KuorumUser
@@ -61,8 +59,8 @@ class CluckServiceIntegrationSpec extends Specification{
             }
         where:
             email                           | numClucks
-            "juanjoalvite@example.com"      | 4
-            "peter@example.com"             | 3
+            "juanjoalvite@example.com"      | 5
+            "peter@example.com"             | 5
             "equo@example.com"              | 2
             "politician@example.com"        | 0
     }
