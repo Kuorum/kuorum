@@ -27,7 +27,16 @@ class NotificationController {
             return;
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-//        notificationService.markAsInactive(user, notification)
+        notificationService.markAsInactive(user, notification)
         render "Ok"
     }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def notificationChecked(){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        notificationService.markUserNotificationsAsChecked(user)
+        render "Ok"
+    }
+
+
 }

@@ -35,7 +35,7 @@ class NotificationServiceIntegrationSpec extends Specification{
         Pagination pagination = new Pagination(max:numResults, offset:offset)
         when:
         notificationService.markUserNotificationsAsChecked(user)
-        List<Notification> notifications = notificationService.findUserNotificationNotChecked(user,pagination)
+        List<Notification> notifications = notificationService.findUserNotificationsNotChecked(user,pagination)
         then:
         notifications.size() == numNotificationFound
         if (notifications.size())

@@ -84,15 +84,8 @@ $(document).ready(function() {
 	    triggers.click(function() {
 	        $(this).find('.badge').empty();
 	        $(this).next('ul').find('li.new').removeClass('new');
-
-	        // llamada a Ajax
-			$.ajax({
-				type: 'POST',
-				url: 'loquesea.url',
-				data: 'variable=Valor&variable2=Valor2'
-			});
-
-
+            var url = $(this).attr("href")
+			$.ajax(url);
 	    });
 
 	});

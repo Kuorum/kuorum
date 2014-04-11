@@ -26,8 +26,17 @@ class NotificationService {
      * @param user
      * @return
      */
-    List<Notification> findUserNotificationNotChecked(KuorumUser user, Pagination pagination = new Pagination()){
+    List<Notification> findUserNotificationsNotChecked(KuorumUser user, Pagination pagination = new Pagination()){
         Notification.findAllByKuorumUserAndDateCreatedGreaterThan(user, user.lastNotificationChecked,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
+    }
+
+    /**
+     * Returns all notifications
+     * @param user
+     * @return
+     */
+    List<Notification> findUserNotifications(KuorumUser user, Pagination pagination = new Pagination()){
+        Notification.findAllByKuorumUser(user, user.lastNotificationChecked,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
     }
 
     /**
