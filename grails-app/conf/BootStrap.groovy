@@ -29,7 +29,7 @@ class BootStrap {
                             def dbObject
                             if (obj.class.embedded.contains(field)){
                                 //Complex object
-                                dbObject = obj."$field".properties.dbo
+                                dbObject = obj."$field"?.properties?.dbo
                             }else if (obj."$field" instanceof List){
                                 dbObject = obj."$field".collect{it.toString()}
                             }else if (obj."$field".hasProperty('id')){
@@ -37,7 +37,8 @@ class BootStrap {
                             }else{
                                 dbObject = obj."$field".toString()
                             }
-                            lawProperties.append(field,dbObject)
+                            if (dbObject)
+                                lawProperties.append(field,dbObject)
                         }
                         obj.class.collection.update([_id:obj.id],['$set':lawProperties])
                         obj.refresh()
