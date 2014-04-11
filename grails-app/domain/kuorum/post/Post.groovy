@@ -40,7 +40,7 @@ class Post {
     Cluck firstCluck
 
     //static hasMany = [sponsors:Sponsor]
-    static embedded = ['sponsors', 'comments', 'debates']
+    static embedded = ['sponsors', 'comments', 'debates','multimedia']
 
     static constraints = {
         numVotes min:0
@@ -51,6 +51,7 @@ class Post {
         text nullable: false, blank: false
         title nullable:false, blank: false
         postType nullable:false
+        multimedia nullable:true
     }
 
     String toString(){
