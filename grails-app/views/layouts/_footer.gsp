@@ -72,10 +72,10 @@
             <div class="col-xs-12 col-sm-8 col-md-8">
                 <ul class="social">
                     <li><g:message code="layout.footer.followUs"/> </li>
-                    <li><a href="#"><span class="sr-only">Twitter</span><span class="fa-stack fa-2x"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-twitter fa-stack-1x"></span></span></a></li>
-                    <li><a href="#"><span class="sr-only">Facebook</span><span class="fa-stack fa-2x"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span></a></li>
-                    <li><a href="#"><span class="sr-only">LinkedIn</span><span class="fa-stack fa-2x"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li>
-                    <li><a href="#"><span class="sr-only">Google+</span><span class="fa-stack fa-2x"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-google-plus fa-stack-1x"></span></span></a></li>
+                    <li><a href="#"><span class="sr-only">Twitter</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-twitter fa-stack-1x"></span></span></a></li>
+                    <li><a href="#"><span class="sr-only">Facebook</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span></a></li>
+                    <li><a href="#"><span class="sr-only">LinkedIn</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li>
+                    <li><a href="#"><span class="sr-only">Google+</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-google-plus fa-stack-1x"></span></span></a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1">
