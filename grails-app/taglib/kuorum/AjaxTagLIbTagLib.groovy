@@ -14,4 +14,9 @@ class AjaxTagLIbTagLib {
         def link = g.createLink(mapping: mapping, params: params)
 
     }
+
+    def activeMenuCss = { attrs ->
+        out << "${params.controller} ${params.action}"
+
+    }
 }

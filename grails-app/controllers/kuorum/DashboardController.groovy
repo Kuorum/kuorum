@@ -44,4 +44,8 @@ class DashboardController {
             return
         }
     }
+
+    def discover(){
+//        log.debug("discover")
+    }
 }

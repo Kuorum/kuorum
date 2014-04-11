@@ -11,15 +11,12 @@
 
                 <ul class="nav navbar-nav navbar-left">
                     <li class="underline">
-                        <a href="#" class="navbar-link discover">
+                        <g:link mapping="discover" class="navbar-link discover ${nav.activeMenuCss(mappingName: "discover")}">
                             <span class="icon-Flaticon_9296"></span>
-                            <span class="text-normalize">Descubre</span>
-                        </a>
+                            <span class="text-normalize"><g:message code="page.title.discover"/></span>
+                        </g:link>
                     </li>
                 </ul>
-
-
-
             <sec:ifLoggedIn>
                 <g:include controller="layouts" action="userHead"/>
             </sec:ifLoggedIn>

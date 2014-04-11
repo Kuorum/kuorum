@@ -682,6 +682,7 @@ a, a:hover, a:active, a:focus {color: #20a2ea;}
 }
 .boxes ul {margin: 0; padding: 0;}
 .boxes ul li {list-style: none; display: inline-block;}
+.boxes .kakareo-list li {display: block;}
 .activity li {
   width: 32%;
   text-align: center;
