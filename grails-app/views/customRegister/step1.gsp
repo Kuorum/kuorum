@@ -4,6 +4,9 @@
     <meta name="layout" content="noHeadLinksLayout">
 </head>
 
+<content tag="headText">
+    <g:message code="head.logged.noLinks.steps"/>
+</content>
 
 <content tag="mainContent">
 

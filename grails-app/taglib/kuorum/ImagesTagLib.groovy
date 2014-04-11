@@ -5,6 +5,7 @@ import kuorum.users.KuorumUser
 class ImagesTagLib {
     static defaultEncodeAs = 'html'
     //static encodeAsForTags = [tagName: 'raw']
+    def springSecurityService
 
     static namespace = "image"
 
@@ -17,8 +18,18 @@ class ImagesTagLib {
         }
     }
 
+    def loggedUserImgSrc={attrs ->
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            out << userImgSrc(user:user)
+        }else{
+            out << getDefaultAvatar(null)
+        }
+    }
+
 
     private String getDefaultAvatar(KuorumUser user){
+        //User can be null
         g.resource(dir:'images', file: 'user.jpg')
     }
 }
