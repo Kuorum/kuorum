@@ -10,15 +10,122 @@
             </div>
         </g:link>
         <ul class="activity">
-            <li class="followers"><g:link mapping="userFollowers" params="${user.encodeAsLinkProperties()}">
-                <span>${numFollowers}</span></g:link> <g:message code="dashboard.userProfile.followers"/>
+            <li class="followers">
+                <span class="popover-trigger more-users" rel="popover" role="button" data-toggle="popover"><span>${numFollowers}</span></span>
+                <g:message code="dashboard.userProfile.followers"/>
+            <!-- POPOVER PARA SACAR LISTAS DE USUARIOS -->
+                <div class="popover">
+                    <a href="#" class="hidden" rel="nofollow">Mostrar lista de seguidores</a>
+                    <div class="popover-user-list">
+                        <p>Seguidores...</p>
+                        <div class="scroll">
+                            <ul>
+                                <li class="user" itemscope="" itemtype="http://schema.org/Person">
+                                    <a href="#" itemprop="url">
+                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                                    </a>
+                                    <span class="user-type">
+                                        <small>Activista digital</small>
+                                    </span>
+                                </li><!-- /.user -->
+                                <li class="user" itemscope="" itemtype="http://schema.org/Person">
+                                    <a href="#" itemprop="url">
+                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                                    </a>
+                                    <span class="user-type">
+                                        <small>Activista digital</small>
+                                    </span>
+                                </li><!-- /.user -->
+                                <li class="user" itemscope="" itemtype="http://schema.org/Person">
+                                    <a href="#" itemprop="url">
+                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                                    </a>
+                                    <span class="user-type">
+                                        <small>Activista digital</small>
+                                    </span>
+                                </li><!-- /.user -->
+                                <li class="user" itemscope="" itemtype="http://schema.org/Person">
+                                    <a href="#" itemprop="url">
+                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                                    </a>
+                                    <span class="user-type">
+                                        <small>Activista digital</small>
+                                    </span>
+                                </li><!-- /.user -->
+                                <li class="user" itemscope="" itemtype="http://schema.org/Person">
+                                    <a href="#" itemprop="url">
+                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                                    </a>
+                                    <span class="user-type">
+                                        <small>Activista digital</small>
+                                    </span>
+                                </li><!-- /.user -->
+                            </ul>
+                        </div><!-- /.contenedor scroll -->
+                    </div><!-- /popover-user-list -->
+                </div>
+                <!-- FIN POPOVER PARA SACAR LISTAS DE USUARIOS -->
             </li>
-            <li class="following"><g:link mapping="userFollowing" params="${user.encodeAsLinkProperties()}">
-                <span>${numFollowing}</span></g:link> <g:message code="dashboard.userProfile.following"/>
+
+
+
+            <li class="following">
+                <span class="popover-trigger more-users" rel="popover" role="button" data-toggle="popover" data-original-title="" title=""><span>${numFollowing}</span></span>
+                <g:message code="dashboard.userProfile.following"/>
+            <!-- POPOVER PARA SACAR LISTAS DE USUARIOS -->
+                <div class="popover">
+                    <a href="#" class="hidden" rel="nofollow">Mostrar lista de seguidores</a>
+                    <div class="popover-user-list">
+                        <p>Siguiendo...</p>
+                        <div class="scroll">
+                            <ul>
+                                <li class="user" itemscope="" itemtype="http://schema.org/Person">
+                                    <a href="#" itemprop="url">
+                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                                    </a>
+                                    <span class="user-type">
+                                        <small>Activista digital</small>
+                                    </span>
+                                </li><!-- /.user -->
+                                <li class="user" itemscope="" itemtype="http://schema.org/Person">
+                                    <a href="#" itemprop="url">
+                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                                    </a>
+                                    <span class="user-type">
+                                        <small>Activista digital</small>
+                                    </span>
+                                </li><!-- /.user -->
+                                <li class="user" itemscope="" itemtype="http://schema.org/Person">
+                                    <a href="#" itemprop="url">
+                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                                    </a>
+                                    <span class="user-type">
+                                        <small>Activista digital</small>
+                                    </span>
+                                </li><!-- /.user -->
+                                <li class="user" itemscope="" itemtype="http://schema.org/Person">
+                                    <a href="#" itemprop="url">
+                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                                    </a>
+                                    <span class="user-type">
+                                        <small>Activista digital</small>
+                                    </span>
+                                </li><!-- /.user -->
+                                <li class="user" itemscope="" itemtype="http://schema.org/Person">
+                                    <a href="#" itemprop="url">
+                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                                    </a>
+                                    <span class="user-type">
+                                        <small>Activista digital</small>
+                                    </span>
+                                </li><!-- /.user -->
+                            </ul>
+                        </div><!-- /.contenedor scroll -->
+                    </div><!-- /popover-user-list -->
+                </div>
+                <!-- FIN POPOVER PARA SACAR LISTAS DE USUARIOS -->
             </li>
-            <li class="posts">
-                <span>${numPosts}</span> <g:message code="dashboard.userProfile.posts"/>
-            </li>
+            <li class="posts"><span>${numPosts}</span> <g:message code="dashboard.userProfile.posts"/></li>
         </ul>
     </div>
 </section>

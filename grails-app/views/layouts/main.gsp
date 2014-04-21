@@ -71,7 +71,10 @@
     <a href="#main" accesskey="S" class="sr-only first"><g:message code="layout.mainContent.skipMenu"/></a>
     <g:layoutBody/>
 </div>
+%{--<r:require module="application"/>--}%
 <r:layoutResources />
+%{--<script src="${resource(dir: '/js', file: 'jquery.slimscroll.min.js')}"></script>--}%
+%{--<script src="${resource(dir: '/js', file: 'custom.js')}"></script>--}%
 <g:render template="/layouts/jsAjaxUrls"/>
 </body>
 </html>

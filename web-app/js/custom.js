@@ -1,62 +1,409 @@
-$(document).ajaxStop(function () {
-    $("time.timeago").timeago();
-    $('.kakareo > .link-wrapper').on({
-        mouseenter: function () {
-            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #efefef');
-        },
-        mouseleave: function () {
-            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fafafa');
-        }
-    });
-})
+$(document).popover({
+	selector: '[data-toggle="popover"]',
+	html: true,
+	placement: 'bottom',
+	content: function() {
+		return $(this).next('.popover').html();
+	}
+
+});
+
+$(document).tooltip({
+	selector: '[rel="tooltip"]'
+});
+
 
 $(document).ready(function() {
 
-	$("time.timeago").timeago();
+    $("time.timeago").timeago();
 
+	// animo la progress-bar de boxes.likes
+	$('.likes .progress-bar').progressbar({
+		done: function() {
+	    		var posTooltip = $('.progress-bar').width();
+	    		console.log(posTooltip);
+                $('#m-callback-done').css('left', posTooltip).css('opacity', '1');
+            }
+	});
+
+
+	//tooltip visible sobre la progress bar
+	$('.progress-bar').tooltip({trigger: 'manual', placement: 'top'}).tooltip('show');
+
+
+    $("a.loadMore").on("click", function(e){loadMore(e, this)})
 	// load more
-	$(function(){
-            $("a.loadMore").on("click", function(e){loadMore(e, this)})
-        })
+	function loadMore(e, that) {
 
-        function loadMore(e, that){
-		    e.preventDefault()
-		    var link = $(that)
-		    var url = link.attr('href')
-		    var parentId = link.attr('data-parent-id')
-            var offset = link.attr('data-offset') || 10
-		    var loadingId = parentId+"-loading"
-		    var parent = $("#"+parentId)
-		    parent.append('<span id="'+loadingId+'">LOADING</span>')
-		    $.ajax( {
-		        url:url,
-                data:"offset="+offset,
-		        statusCode: {
-		            401: function() {
-		                location.reload();
-		            }
-		        }
-		    })
-		        .done(function(data, status, xhr) {
-		            parent.append(data)
-                    var moreResults = xhr.getResponseHeader('moreResults')
-                    link.attr('data-offset', offset +10)
-                    if (moreResults){
-                        link.remove()
-                    }
-		        })
-		        .fail(function(data) {
-		            console.log(data)
-		        })
+		e.preventDefault()
+		var link = $(that)
+		var url = link.attr('href')
+		var parentId = link.attr('data-parent-id')
+		var offset = link.attr('data-offset') || 10
+		var loadingId = parentId+"-loading"
+		var parent = $("#"+parentId)
+		parent.append('<div class="loading" id="'+loadingId+'"><span class="sr-only">Cargando...</span></div>')
+		$.ajax( {
+			url:url,
+			data:"offset="+offset,
+			statusCode: {
+				401: function() {
+					location.reload();
+				}
+			}
+		})
+		.done(function(data, status, xhr) {
+			parent.append(data)
+			var moreResults = xhr.getResponseHeader('moreResults')
+			link.attr('data-offset', offset +10)
+			if (moreResults){
+				link.remove()
+			}
+		})
+		.fail(function(data) {
+			console.log(data)
+		})
+		.always(function(data) {
+			$("#"+loadingId).remove()
+			$("time.timeago").timeago();
+		});
+	}
 
-		        .always(function(data) {
-		            $("#"+loadingId).remove()
-                    $("time.timeago").timeago();
-		        });
+	// funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)
+	function notyError() {
+		var nE = noty({
+			layout: 'top',
+			dismissQueue: true,
+			animation: {
+				open: {height: 'toggle'},
+				close: {height: 'toggle'},
+				easing: 'swing',
+				speed: 500 // opening & closing animation speed
+			},
+			template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
+			type: 'error',
+			text: 'Texto que queremos que salga en la notifiación de error'
+		});
+	}
+	function notySuccess() {
+		var nS = noty({
+			layout: 'top',
+			dismissQueue: true,
+			animation: {
+				open: {height: 'toggle'},
+				close: {height: 'toggle'},
+				easing: 'swing',
+				speed: 500 // opening & closing animation speed
+			},
+			template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
+			type: 'success',
+			text: 'Texto que queremos que salga en la notifiación de éxito'
+		});
+	}
+	function notyInformation() {
+		var nI = noty({
+			layout: 'top',
+			dismissQueue: true,
+			animation: {
+				open: {height: 'toggle'},
+				close: {height: 'toggle'},
+				easing: 'swing',
+				speed: 500 // opening & closing animation speed
+			},
+			template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
+			type: 'information',
+			text: 'Texto que queremos que salga en la notifiación informativa'
+		});
+	}
+	function notyWarning() {
+		var nW = noty({
+			layout: 'top',
+			dismissQueue: true,
+			animation: {
+				open: {height: 'toggle'},
+				close: {height: 'toggle'},
+				easing: 'swing',
+				speed: 500 // opening & closing animation speed
+			},
+			template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
+			type: 'warning',
+			text: 'Texto que queremos que salga en la notifiación de aviso'
+		});
+	}
 
+
+	// apertura de karma
+	function openKarma () {
+		$('#karma').modal('show');
+	}
+
+	// para probar los avisos
+	// $('.alerts .btn').click(function() {
+	// 	notyWarning();
+	// });
+
+	// para probar la apertura del karma
+	// $('body').on('click', '.alerts .btn', function() {
+	//		openKarma();
+ 	// });
+
+
+	// al hacer clic en los badges vacía el contenido para que desaparezca
+	$(function() {
+		$('.badge').closest('a').click(function() {
+
+			$(this).find('.badge').delay(3000).fadeOut("fast").queue(function() {
+				$(this).empty();
+			});
+			$(this).next('ul').find('li.new').delay(3000).queue(function() {
+				$(this).removeClass('new');
+			});
+
+			var url = $(this).attr("href")
+			$.ajax(url);
+		});
+	});
+
+
+	// links kakareo, impulsar
+	$('.action.cluck, .action.drive').click( function(e) {
+		e.preventDefault();
+        e.stopPropagation();
+        if (!$(this).hasClass('disabled')){
+            var url = $(this).attr("href");
+            var postId = $(this).parents("article").first().attr("data-cluck-postId");
+            var cssClass = $(this).parent().hasClass("kakareo-number")?"kakareo-number":"like-number";
+            $.ajax(url).done(function(data){
+                console.log("article[data-cluck-postId='"+postId+"'] li."+cssClass+" .action");
+                $("article[data-cluck-postId='"+postId+"'] li."+cssClass+" .action").addClass('disabled');
+                $("article[data-cluck-postId='"+postId+"'] li."+cssClass+" .counter").each(function(idx, element){
+                    var numKakareos = parseInt($(element).text()) +1;
+                    $(element).text(numKakareos);
+                });
+            });
+        }
+	});
+
+
+	// leer después
+	$('body').on('click', '.read-later a', function(e) {
+        e.preventDefault();
+        var url = $(this).attr("href");
+        var postId = $(this).parents("article").first().attr("data-cluck-postId");
+        $.ajax(url).done(function(data, status, xhr){
+            var isFavorite = xhr.getResponseHeader('isFavorite');
+            var numFavorites = xhr.getResponseHeader('numList');
+            $(".pending h1 .badge").text(numFavorites);
+            if (isFavorite == "true"){
+                $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("disabled");
+                $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("enabled");
+                $("section.boxes.guay.pending ul.kakareo-list").prepend(data);
+            }else{
+                $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("disabled");
+                $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("enabled");
+                $("section.boxes.guay.pending article[data-cluck-postId='"+postId+"']").parent().remove();
+            }
+        });
+
+	});
+
+
+	// Habilitar/deshabilitar link "Marcar como inapropiado"
+	$('body').on("click", ".mark a", function() {
+		if ( $(this).hasClass('disabled') ){
+			$(this).removeClass('disabled');
+		} else {
+			$(this).addClass('disabled');
+		}
+	});
+
+
+	// Habilitar/deshabilitar botón "Seguir" en Popover
+	$('body').on("click", "#follow", function() {
+		if ( $(this).hasClass('disabled') ){
+			$(this).text('Seguir').removeClass('disabled');
+		} else {
+			$(this).html('Siguiendo <span class="fa fa-check-circle"></span>').addClass('disabled');
+		}
+	});
+
+
+	// hacer clic en player falso del video (.front)
+	$('.front').click( function() {
+		$(this).next('.youtube').css('display', 'block');
+		$(this).remove();
+		return false;
+	});
+
+
+	// Buscador: cambia el placeholder según el filtro elegido
+	$(function() {
+
+		var $ui = $('#search-form');
+		$ui.find('#filters li a').bind('focus click',function(){
+			var filtro = $(this).html();
+			$ui.find('#srch-term').attr('placeholder', filtro);
+		});
+
+	});
+
+
+	// hacer un bloque clickable y que tome
+	// que es su primer elemento la url del enlace a.hidden
+	$(function() {
+
+		$('.link-wrapper').click( function() {
+			window.location = $(this).find('a.hidden').attr('href');
+		});
+
+	});
+
+
+	// change text when select option in the edit post form
+	$('#updateText').text($('#typePubli li.active').text());
+	$('#selectType').change(function(){
+        	$('#updateText').text($('#typePubli li').eq(this.selectedIndex).text());
+    });
+
+
+	// countdown
+	$(function() {
+		var totalChars      = parseInt($('#charInit span').text());
+		var countTextBox    = $('.counted'); // Textarea input box
+		var charsCountEl    = $('#charNum span'); // Remaining chars count will be displayed here
+
+		charsCountEl.text(totalChars); //initial value of countchars element
+		countTextBox.keyup(function() { //user releases a key on the keyboard
+
+			var thisChars = this.value.replace(/{.*}/g, '').length; //get chars count in textarea
+
+			if (thisChars > totalChars) //if we have more chars than it should be
+			{
+				var CharsToDel = (thisChars-totalChars); // total extra chars to delete
+				this.value = this.value.substring(0,this.value.length-CharsToDel); //remove excess chars from textarea
+			} else {
+				charsCountEl.text( totalChars - thisChars ); //count remaining chars
+			}
+		});
+	});
+
+	// textarea editor
+	$(".texteditor").jqte({
+		br: false,
+		center: false,
+		color: false,
+		format: false,
+		indent: false,
+		left: false,
+		ol: false,
+		outdent: false,
+		p: false,
+		placeholder: "Escribe un texto que describa tu publicación",
+		linktypes: ["URL", "Email"],
+		remove: false,
+		right: false,
+		rule: false,
+		source: false,
+		sub: false,
+		strike: false,
+		sup: false,
+		ul: false,
+		unlink: false,
+		fsize: false,
+		title: false
+	});
+
+
+	// hacer visible la contraseña
+	$('#show-pass').attr('checked', false);
+
+	$('#show-pass').click(function(){
+
+		if ($(this).hasClass('checked')) {
+			$(this).removeClass('checked');
+		} else {
+			$(this).addClass('checked');
 		}
 
-    // el hover sobre el kakareo que afecte al triángulo superior
+	    name = $('#password').attr('name');
+	    value = $('#password').val();
+
+	    if($(this).hasClass('checked')) {
+	    	html = '<input type="text" name="'+ name + '" value="' + value + '" id="password" class="form-control input-lg">';
+	        $('#password').after(html).remove();
+	    } else {
+	    	html = '<input type="password" name="'+ name + '" value="' + value + '" id="password" class="form-control input-lg">';
+	    	$('#password').after(html).remove();
+	    }
+	});
+
+
+	// seleccionar todos los checkbox
+	$(function () {
+	    var checkAll = $('#selectAll');
+	    var checkboxes = $('input.check');
+
+	    $('input.check').each(function(){
+		    var self = $(this),
+		    label = self.next(),
+		    label_text = label.html();
+		    label.remove();
+		    self.iCheck({
+		      checkboxClass: 'icheckbox_line-orange',
+		      radioClass: 'iradio_line-orange',
+		      inheritID: true,
+		      aria: true,
+		      insert:  label_text
+		    });
+		});
+
+	    $('#selectAll').change(function() {
+		    if($(this).is(':checked')) {
+		        checkboxes.iCheck('check');
+		    } else {
+		        checkboxes.iCheck('uncheck');
+		    }
+		});
+
+
+	    checkAll.on('ifChecked ifUnchecked', function(event) {
+	        if (event.type == 'ifChecked') {
+	            checkboxes.iCheck('check');
+	        } else {
+	            checkboxes.iCheck('uncheck');
+	        }
+	    });
+
+	    checkboxes.on('ifChanged', function(event){
+	        if(checkboxes.filter(':checked').length == checkboxes.length) {
+	            checkAll.prop('checked', 'checked');
+	        } else {
+	            checkAll.removeProp('checked');
+	        }
+	        checkAll.iCheck('update');
+	    });
+	});
+
+
+	// inicializa el scroll dentro del popover
+	$('.popover-trigger.more-users').on('shown.bs.popover', function () {
+
+		$(this).next('.popover').find($('.scroll')).slimScroll({
+			size: '10px',
+			height: '145px',
+			distance: '0',
+			railVisible: true,
+			alwaysVisible: true,
+			disableFadeOut: true
+		});
+
+	})
+
+});
+
+
+// el hover sobre el kakareo que afecte al triángulo superior
+$(document).ajaxStop(function () {
 
 	$('.kakareo > .link-wrapper').on({
 	    mouseenter: function () {
@@ -74,101 +421,6 @@ $(document).ready(function() {
 	    mouseleave: function () {
 	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fff8ed');
 	    }
-	});
-
-  	// al hacer clic en los badges vacía el contenido para que desaparezca
-	$(function() {
-
-		var triggers = $('.badge').closest('a');
-
-	    triggers.click(function() {
-	        $(this).find('.badge').empty();
-	        $(this).next('ul').find('li.new').removeClass('new');
-            var url = $(this).attr("href")
-			$.ajax(url);
-	    });
-
-	});
-
-
-	// deshabilitar links kakareo, impulsar, leer después
-    $('body').on('click','.kakareo-number a, .like-number a', function(e) {
-		e.preventDefault();
-        e.stopPropagation();
-        if (!$(this).hasClass('disabled')){
-            var url = $(this).attr("href")
-            var postId = $(this).parents("article").first().attr("data-cluck-postId")
-            var cssClass = $(this).parent().hasClass("kakareo-number")?"kakareo-number":"like-number"
-            $.ajax(url).done(function(data){
-                console.log("article[data-cluck-postId='"+postId+"'] li."+cssClass+" a")
-                $("article[data-cluck-postId='"+postId+"'] li."+cssClass+" a").addClass('disabled')
-                $("article[data-cluck-postId='"+postId+"'] li."+cssClass+" .counter").each(function(idx, element){
-                    var numKakareos = parseInt($(element).text()) +1
-                    $(element).text(numKakareos)
-                })
-            })
-        }
-	});
-
-    $('body').on('click', '.read-later a', function(e) {
-        e.preventDefault();
-        var url = $(this).attr("href")
-        var postId = $(this).parents("article").first().attr("data-cluck-postId")
-        $.ajax(url).done(function(data, status, xhr){
-            var isFavorite = xhr.getResponseHeader('isFavorite')
-            var numFavorites = xhr.getResponseHeader('numList')
-            $(".pending h1 .badge").text(numFavorites)
-            if (isFavorite == "true"){
-                $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("disabled")
-                $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("enabled")
-                $("section.boxes.guay.pending ul.kakareo-list").prepend(data)
-            }else{
-                $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("disabled")
-                $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("enabled")
-                $("section.boxes.guay.pending article[data-cluck-postId='"+postId+"']").parent().remove()
-            }
-        })
-
-	});
-
-    $('a.postpone-alert').click(function(e){
-        e.preventDefault()
-        var url = $(this).attr("href")
-        var alertToRemove = $(this).parents("li.profile-alert")
-        $.ajax(url).done(function(data, status, xhr){
-            var numAlerts = parseInt($(".alerts h1 .badge").text())-1
-            alertToRemove.remove()
-            $(".alerts h1 .badge").text(numAlerts>0?numAlerts:'')
-
-        })
-    })
-
-	// hacer clic en player falso del video (.front)
-	$('.front').click( function() {
-		$(this).next('.youtube').css('display', 'block');
-		$(this).remove();
-		return false;
-	});
-
-  	// cambia el placeholder según el filtro elegido
-	$(function() {
-
-		var $ui = $('#search-form');
-		$ui.find('#filters li a').bind('focus click',function(){
-			var filtro = $(this).html();
-			$ui.find('#srch-term').attr('placeholder', filtro);
-		});
-
-	});
-
-	// hacer un bloque clicable y que tome
-	// que es su primer elemento la url del enlace a.hidden
-	$(function() {
-
-		$('.link-wrapper').click( function() {
-		    window.location = $(this).find('a.hidden').attr('href');
-		});
-
 	});
 
 });

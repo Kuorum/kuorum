@@ -8,6 +8,7 @@
     <g:render template="/layouts/head"/>
     <div class="row main">
         <div class="container-fluid">
+            <g:pageProperty name="page.intro"/>
             <div class="row" >
                 <section id="main" class="col-xs-12 col-sm-8 col-md-8" role="main">
                     <g:pageProperty name="page.mainContent"/>

@@ -1,9 +1,21 @@
 modules = {
-    application {
-//        resource url:'js/application.js'
-        resource url:'js/bootstrap.min.js'
-        resource url:'js/custom.js'
-        resource url:'js/jquery.timeago.es.js'
 
+    basic {
+        resource url:'js/jquery.min.js'
+        resource url:'js/bootstrap.min.js'
+    }
+
+
+    application {
+        dependsOn "basic"
+        resource url:'js/jquery.timeago.es.js'
+        resource url:'js/jquery-te-1.4.0.min.js'
+        resource url:'js/jquery.noty.packaged.min.js'
+        resource url:'js/jquery.noty.theme.js'
+        resource url:'js/layouts/top.js'
+        resource url:'js/layouts/center.js'
+        resource url:'js/bootstrap-progressbar.min.js'
+        resource url:'js/jquery.slimscroll.min.js'
+        resource url:'js/custom.js'
     }
 }
