@@ -5,6 +5,7 @@ import com.mongodb.DBObject
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.PostType
 import kuorum.core.model.UserType
 import kuorum.law.Law
 import kuorum.users.KuorumUser
@@ -50,11 +51,29 @@ class PostService {
         post.firstCluck = cluck  //Ref to first firstCluck
         post.published = Boolean.TRUE
         post.save()
-
+        updateUserActivity(post, post.owner)
         postVoteService.votePost(post, post.owner)
         indexSolrService.index(post)
         log.info("Se ha publicado el post ${post.id}")
         post
+    }
+
+    KuorumUser updateUserActivity(Post post, KuorumUser user){
+        switch (post.postType){
+            case PostType.HISTORY:
+                user.activity.histories << post.id
+                user.activity.numHistories ++
+                break;
+            case PostType.PURPOSE:
+                user.activity.purposes<< post.id
+                user.activity.numPurposes ++
+                break;
+            case PostType.QUESTION:
+                user.activity.questions<< post.id
+                user.activity.numQuestions ++
+                break;
+        }
+        user.save()
     }
 
     def updatePost(Post post){

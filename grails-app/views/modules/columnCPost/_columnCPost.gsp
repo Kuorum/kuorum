@@ -13,7 +13,7 @@
             <div class="main-kakareo row">
                 <!-- cambia la clase col-md era 5 y pasa a ser 6 -->
                 <div class="col-md-6 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                    <user:showUser user="${post.owner}"/>
+                    <userUtil:showUser user="${post.owner}"/>
                 </div><!-- /autor -->
 
             <!-- cambia la clase col-md era 7 y pasa a ser 6 -->

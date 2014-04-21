@@ -1,6 +1,6 @@
 <li class="profile-alert" data-notification-id="${alert.id}">
     <span class="user" itemscope itemtype="http://schema.org/Person">
-        <user:showUser user="${user}"/>
+        <userUtil:showUser user="${user}"/>
         <span class="text-notification">${message}</span>
         <ul class="actions">
             <li><a href="#" class="btn btn-xs">Responder</a></li>

@@ -26,6 +26,7 @@ class KuorumUser {
 //    String username
     String password
     AvailableLanguage language = AvailableLanguage.es_ES
+    Boolean verified = Boolean.FALSE
 
     KuorumFile avatar
 
@@ -39,15 +40,16 @@ class KuorumUser {
 
     Integer numFollowers = 0
 
-    List<ObjectId> favorites = []
+    List<ObjectId> favorites = [] //PostIds => Is the id instead of Post because gorm updates all
 
     List<MailType> availableMails = MailType.values()
 
     Gamification gamification = new Gamification()
+    Activity activity = new Activity()
 
 //    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
 
-    static embedded = ['personalData', 'authorities','gamification','avatar']
+    static embedded = ['personalData', 'authorities','gamification','avatar', 'activity']
 
     /**
      * Represents the last time that the user checked the notifications

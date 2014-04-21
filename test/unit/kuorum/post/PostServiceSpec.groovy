@@ -1,19 +1,14 @@
 package kuorum.post
 
-import grails.plugin.springsecurity.SpringSecurityService
-import grails.plugin.springsecurity.userdetails.GrailsUser
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import grails.test.spock.IntegrationSpec
 import kuorum.core.exception.KuorumException
-import kuorum.core.model.PostType
 import kuorum.helper.Helper
 import kuorum.law.Law
 import kuorum.notifications.NotificationService
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
-import org.bson.types.ObjectId
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -85,7 +80,9 @@ class PostServiceSpec extends Specification{
         //"service" represents the grails service you are testing for
         service.publishPost(post)
 
-        then: "Expected an exception"
+        then: "called services done"
+//        post.owner.activity.numPurposes == 1
+//        post.owner.activity.purposes.contains(post.id)
         1 * indexSolrService.index(post)
         1 * cluckService.createCluck(post,post.owner)
         1 * postVoteService.votePost(post,post.owner)

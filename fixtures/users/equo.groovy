@@ -5,7 +5,6 @@ import kuorum.core.model.gamification.GamificationAward
 import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.OrganizationData
-import kuorum.users.PersonalData
 
 fixture {
 
@@ -30,6 +29,7 @@ fixture {
         email = "equo@example.com"
         name ="Equo"
         personalData = equoData
+        verified = Boolean.TRUE
         password = springSecurityService.encodePassword("test")
         relevantCommissions = [
                 CommissionType.JUSTICE,

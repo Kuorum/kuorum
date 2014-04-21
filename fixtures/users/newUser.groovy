@@ -1,5 +1,4 @@
 import kuorum.core.model.CommissionType
-import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.users.Gamification
@@ -25,6 +24,7 @@ fixture {
         email = "newUser@example.com"
         name ="Nuevo Usuario"
         personalData = newUserData
+        verified = Boolean.FALSE
         password = springSecurityService.encodePassword("test")
         relevantCommissions = [
                 CommissionType.JUSTICE,

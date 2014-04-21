@@ -34,6 +34,22 @@ class KuorumUserService {
         }
     }
 
+    def deleteFollower(KuorumUser follower, KuorumUser following) {
+        if (follower == following){
+            throw new KuorumException("No se pude seguir a uno mismo","error.following.sameUser")
+        }
+        if (!follower.following.contains(following.id)){
+            log.warn("Se ha intentado eliminar un follower que no existia")
+        }else{
+            KuorumUser.collection.update([_id:follower.id],['$pull':[following:following.id]])
+            KuorumUser.collection.update([_id:following.id],['$pull':[followers:follower.id]])
+            follower.refresh()
+            following.refresh()
+            following.numFollowers = following.followers.size()
+            following.save(flush: true)
+        }
+    }
+
     KuorumUser convertAsUser(KuorumUser user){
         user.userType = UserType.PERSON
         user.personalData.userType = UserType.PERSON

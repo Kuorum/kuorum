@@ -15,6 +15,7 @@ dbOrigin.generalLaw.find({_class:"Law"}).forEach(function(law){
         var destPost = createPostFromOldPost(destLaw,message)
         var existsOwner = dbDest.kuorumUser.count({_id:destPost.owner})
         if (existsOwner == 1){
+
             dbDest.post.insert(destPost)
             var cluck = createFirstCluck(destPost)
             dbDest.cluck.insert(cluck)
@@ -24,6 +25,21 @@ dbOrigin.generalLaw.find({_class:"Law"}).forEach(function(law){
         }
     });
 });
+
+function updateUserActivity(post){
+    var owner = dbDest.kuorumUser.find({_id:post.owner}).next()
+    if ("PURPOSE" == post.postType){
+        owner.activity.numPurposes ++
+        owner.activity.purposes.push(post.id)
+    }else if("QUESTION" == post.postType){
+        owner.activity.numQuestions ++
+        owner.activity.questions.push(post.id)
+    }else if("HISTORY" == post.postType){
+        owner.activity.numHistories ++
+        owner.activity.histories.push(post.id)
+    }
+    dbDest.kuorumUser.insert(owner)
+}
 
 function createLawFromOldLaw(law){
     var id = new ObjectId();

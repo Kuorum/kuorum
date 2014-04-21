@@ -46,6 +46,40 @@ class KuorumUserServiceIntegrationTest extends Specification {
     }
 
     @Unroll
+    void "test deleting a follower"() {
+        given: "2 users"
+        KuorumUser follower = KuorumUser.findByEmail(followerEmail)
+        KuorumUser following = KuorumUser.findByEmail(followingEmail)
+
+        if (createFollower)
+            kuorumUserService.createFollower(follower,following)
+
+        Integer futureNumFollowers = following.numFollowers
+        if (follower.following.contains(following.id)){
+            futureNumFollowers --
+        }
+
+        when: "Deleting follower"
+        //"service" represents the grails service you are testing for
+        kuorumUserService.deleteFollower(follower,following)
+        then: "All OK"
+        !follower.following.contains(following.id)
+        !following.followers.contains(follower.id)
+        futureNumFollowers == following.numFollowers
+        KuorumUser.withNewSession {
+            KuorumUser followerNS = KuorumUser.findByEmail(followerEmail)
+            KuorumUser followingNS = KuorumUser.findByEmail(followingEmail)
+            !followerNS.following.contains(followingNS.id)
+            !followingNS.followers.contains(followerNS.id)
+            futureNumFollowers == followingNS.numFollowers
+        }
+        where:
+        followerEmail           | followingEmail        | createFollower
+        "peter@example.com"     | "equo@example.com"    | false
+        "peter@example.com"     | "carmen@example.com"  | true
+    }
+
+    @Unroll
     void "test converting as premium on #email"() {
         given: "1 users"
         KuorumUser user = KuorumUser.findByEmail(email)

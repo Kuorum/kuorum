@@ -45,6 +45,7 @@ function createKuorumUserFromOldUser(user){
         "authorities" : [userRole],
         "dateCreated" : user.dateCreated,
         "email" : user.username,
+        "verified": false,
         "bio":user.defend,
         "userType":"PERSON",
         "avatar":createAvatar(user._id,"USER_AVATAR", user.pathAvatar),

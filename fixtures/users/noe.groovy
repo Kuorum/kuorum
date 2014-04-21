@@ -29,6 +29,7 @@ fixture {
         email = "noe@example.com"
         name ="Noelia De todos los santos"
         personalData = noeData
+        verified = Boolean.FALSE
         password = springSecurityService.encodePassword("test")
         relevantCommissions = [
                 CommissionType.JUSTICE,

@@ -1,10 +1,15 @@
 package kuorum.users
 
+import grails.plugin.springsecurity.annotation.Secured
 import org.bson.types.ObjectId
+
+import javax.servlet.http.HttpServletResponse
 
 class KuorumUserController {
 
     static scaffold = true
+    def springSecurityService
+    def kuorumUserService
 
     def show(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
@@ -34,5 +39,29 @@ class KuorumUserController {
 
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def follow(String id){
+        KuorumUser following = KuorumUser.get(new ObjectId(id))
+        if (!following){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        KuorumUser follower = KuorumUser.get(springSecurityService.principal.id)
+        kuorumUserService.createFollower(follower, following)
+        render follower.following.size()
+
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def unFollow(String id){
+        KuorumUser following = KuorumUser.get(new ObjectId(id))
+        if (!following){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        KuorumUser follower = KuorumUser.get(springSecurityService.principal.id)
+        kuorumUserService.createFollower(follower, following)
+        render follower.following.size()
+    }
 
 }

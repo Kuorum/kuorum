@@ -34,6 +34,7 @@ fixture {
         personalData = juanjoPersonalData
         password = springSecurityService.encodePassword("test")
         following = []
+        verified = Boolean.FALSE
         relevantCommissions = [
                 CommissionType.JUSTICE,
                 CommissionType.CONSTITUTIONAL,

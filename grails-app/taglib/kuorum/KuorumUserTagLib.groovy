@@ -5,7 +5,8 @@ import kuorum.users.KuorumUser
 class KuorumUserTagLib {
     static defaultEncodeAs = 'raw'
     static encodeAsForTags = [loggedUserName: 'html']
-    static namespace = "user"
+
+    static namespace = "userUtil"
 
     def springSecurityService
 
@@ -28,35 +29,50 @@ class KuorumUserTagLib {
             <div class="popover">
 
                 <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
-                <div class="popover-user">
-                    <div class="user" itemscope itemtype="http://schema.org/Person">
-                        <a href="#" itemprop="url">
-                            <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
-                        </a>
-                        <span class="user-type">
-                            <small>Activista digital</small>
-                        </span>
-                    </div><!-- /user -->
-                    <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
-                    <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
-                    <ul class="infoActivity clearfix">
-                        <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
-                        <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
-                        <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
-                        <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
-                        <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
-                        <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
-                    </ul>
-
-                </div><!-- /popover-user -->
+        """
+        out << g.render(template: '/kuorumUser/popoverUser', model:[user:user])
+        out << """
 
             </div>
             <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
             """
     }
 
+
     def roleName={attrs ->
         KuorumUser user = attrs.user
         out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")
+    }
+
+    def ifIsFollower={attrs, body ->
+        KuorumUser user = attrs.user
+        if (springSecurityService.isLoggedIn()){
+            if (user.following.contains(springSecurityService.principal.id)){
+                out << body()
+            }
+        }
+    }
+
+    def followButton={attrs ->
+        KuorumUser user = attrs.user
+        if (springSecurityService.isLoggedIn()){
+            def linkAjaxFollow = g.createLink(mapping:'ajaxFollow', params: [id:user.id])
+            def linkAjaxUnFollow = g.createLink(mapping:'ajaxUnFollow', params: [id:user.id])
+            def isFollowing = user.followers.contains(springSecurityService.principal.id)
+            def cssClass = ""
+            def text = ""
+            if (isFollowing){
+                cssClass = "disabled"
+                text = "${g.message(code:"kuorumUser.popover.unfollow", codec:"raw")} "
+            }else{
+                text = g.message(code:"kuorumUser.popover.follow")
+            }
+            out << """
+        <button type="button" class="btn btn-blue btn-xs allow ${cssClass}" id="follow" data-ajaxFollowUrl="${linkAjaxFollow}" data-ajaxUnFollowUrl="${linkAjaxUnFollow}">
+            ${text}
+        </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+        """
+      }
+
     }
 }

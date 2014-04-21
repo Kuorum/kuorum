@@ -34,6 +34,7 @@ fixture {
         personalData = politicianData
         password = springSecurityService.encodePassword("test")
         parliamentaryGroup=grupoPopular
+        verified = Boolean.FALSE
         institution=parliament
         relevantCommissions = [
                 CommissionType.JUSTICE,

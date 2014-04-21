@@ -19,9 +19,9 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="underline" itemscope itemtype="http://schema.org/Person">
                             <a href="#" class="navbar-link user-area">
-                                <span itemprop="name"><user:loggedUserName/></span>
+                                <span itemprop="name"><userUtil:loggedUserName/></span>
                                 <strong>, <g:pageProperty name="page.headText"/></strong>
-                                <img src="${image.loggedUserImgSrc()}" alt="${user.loggedUserName()}" class="user-img" itemprop="image">
+                                <img src="${image.loggedUserImgSrc()}" alt="${userUtil.loggedUserName()}" class="user-img" itemprop="image">
                             </a>
                         </li>
                         <li class="dropdown underline">

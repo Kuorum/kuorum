@@ -106,6 +106,7 @@ class PostServiceIntegrationSpec extends Specification{
     void "test publish a post with correct params"() {
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        def numPurposes = user.activity.numPurposes
         Law law = Law.findByHashtag("#leyAborto")
 
         Post post = new Post(
@@ -124,6 +125,8 @@ class PostServiceIntegrationSpec extends Specification{
         then: "Post created"
         savedPost.id != null
         savedPost.published == Boolean.TRUE
+        numPurposes == savedPost.owner.activity.numPurposes -1
+        savedPost.owner.activity.purposes.contains(savedPost.id)
         Cluck cluck = Cluck.findByPostAndOwnerAndPostOwner(savedPost, user,user)
         cluck != null
         cluck.post == savedPost
