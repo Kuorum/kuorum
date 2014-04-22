@@ -19,6 +19,7 @@ class PostService {
     def postVoteService
     def notificationService
     def gamificationService
+    def fileService
 
     private static final Integer NUM_RECOMMENDED_POST=3
 
@@ -36,6 +37,9 @@ class PostService {
         post.numClucks = 0
         post.owner = owner
         post.law =  law
+
+        fileService.convertTemporalToFinalFile(post.multimedia)
+        fileService.deleteTemporalFiles(owner)
 
         if (!post.save()){
             KuorumException exception = KuorumExceptionUtil.createExceptionFromValidatable(post, "Error salvando el post ${post}")
