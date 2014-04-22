@@ -16,7 +16,6 @@ class PostController {
 
     def postService
     def postVoteService
-    def fileService
     def springSecurityService
     def lawService
     def cluckService
