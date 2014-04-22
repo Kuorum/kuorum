@@ -78,7 +78,21 @@ class PostService {
 
     def updatePost(Post post){
         log.info("Updating post $post")
+        post.text = removeCustomCrossScripting(post.text)
         post.mongoUpdate()
+    }
+
+    private removeCustomCrossScripting(String raw){
+        def openTags = ~/<[^\/ibau] *[^>]*>/  // Only allow <a> <b> <i> <u>
+        def closeTags = ~/<\/[^ibau] *[^>]*>/ // Only allow </a> </b> </i> </u>
+        String text = raw.replaceAll(openTags,'')
+        text = text.replaceAll(closeTags,'')
+
+        def notAllowedAttributes = ~/(<[abi])([^h>]*)(href=[^ >]*){0,1}([^h>]*)(>)/ //Delete all atributes that are not href
+        text = text.replaceAll(notAllowedAttributes, '$1 $3 $5')
+        text = text.replaceAll(~/( *)(>)/,'$2')
+        text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\'>')
+        text
     }
 
     void sponsorAPost(Post post, Sponsor sponsor){

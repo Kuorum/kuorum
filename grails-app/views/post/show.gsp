@@ -129,8 +129,7 @@
             <li class="fieldcontain">
                 <span id="text-label" class="property-label"><g:message code="post.text.label" default="Text"/></span>
 
-                <span class="property-value" aria-labelledby="text-label"><g:fieldValue bean="${postInstance}"
-                                                                                        field="text"/></span>
+                <span class="property-value" aria-labelledby="text-label">${raw(postInstance.text)}</span>
 
             </li>
         </g:if>

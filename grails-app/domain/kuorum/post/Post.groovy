@@ -20,6 +20,7 @@ class Post {
     Law law
     @Updatable String title
     @Updatable String text
+    @Updatable Integer pdfPage
     Integer numVotes
     Integer numClucks
     @Updatable PostType postType
@@ -50,6 +51,7 @@ class Post {
         title nullable:false, blank: false
         postType nullable:false
         multimedia nullable:true
+        pdfPage nullable:true
     }
 
     String toString(){

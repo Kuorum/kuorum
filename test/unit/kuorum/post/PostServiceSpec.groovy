@@ -156,4 +156,26 @@ class PostServiceSpec extends Specification{
         "user@email.com"    | true      | 1          | true
 
     }
+
+    @Unroll
+    void "test corosScripting processor #raw => #expectedText"(){
+        given:"A text written by user"
+
+        when:
+        String text  = service.removeCustomCrossScripting(raw)
+        then:
+        expectedText == text
+        where:
+        raw                             | expectedText
+        "<i> hola </i>"                 | "<i> hola </i>"
+        "<b> hola </b>"                 | "<b> hola </b>"
+        "<u> hola </u>"                 | "<u> hola </u>"
+        "<a href='dd'> hola </a>"                           | "<a href='dd' rel='nofollow'> hola </a>"
+        "<a href='dd' style=''> hola </a>"                  | "<a href='dd' rel='nofollow'> hola </a>"
+        "<a class='' href='dd' style=''> hola </a>"         | "<a href='dd' rel='nofollow'> hola </a>"
+        "<script> hola </script>"       | " hola "
+        "<strong class='dd'> hola </strong>"       | " hola "
+
+        "<script>alert(\"hola\")</script>" | "alert(\"hola\")"
+    }
 }

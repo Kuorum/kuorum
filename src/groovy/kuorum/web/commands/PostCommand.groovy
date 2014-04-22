@@ -8,15 +8,19 @@ import kuorum.core.model.PostType
  */
 @Validateable
 class PostCommand {
-    String id
+    String postId
     String title
-    String text
+    String textPost
     String imageId
+    String videoPost
     PostType postType
+    Integer numberPage
     static constraints = {
-        id nullable: true, blank: true //Para reusar este command en la edición
+        postId nullable: true, blank: true //Para reusar este command en la edición
         title nullable: false, blank: false
-        text nullable: false, blank: false
+        textPost nullable: false, blank: false
         postType nullable: false
+        videoPost nullable: true, url:true
+        numberPage nullable:true
     }
 }

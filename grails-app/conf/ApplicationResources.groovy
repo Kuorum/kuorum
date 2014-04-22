@@ -8,6 +8,7 @@ modules = {
 
     application {
         dependsOn "basic"
+        resource url:'js/jquery.validate.min.js'
         resource url:'js/jquery.timeago.es.js'
         resource url:'js/jquery-te-1.4.0.min.js'
         resource url:'css/jquery-te-1.4.0.css'

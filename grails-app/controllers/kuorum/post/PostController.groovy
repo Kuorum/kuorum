@@ -1,6 +1,8 @@
 package kuorum.post
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.KuorumFile
+import kuorum.core.FileType
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 import kuorum.web.commands.PostCommand
@@ -33,15 +35,13 @@ class PostController {
             return;
         }
         PostCommand command = new PostCommand()
-        command.properties.each {k,v ->
-            if (k != "class"){
-                if (k!="imageId"){
-                    command."$k" = post."$k"
-                }else{
-                    command.imageId = post.multimedia?.id
-                }
-            }
-        }
+        command.postId = post.id.toString()
+        command.imageId = post.multimedia?.id
+        command.videoPost = post.multimedia?.fileType == FileType.VIDEO?post.multimedia.url:''
+        command.postType = post.postType
+        command.textPost = post.text
+        command.title = post.title
+        command.numberPage = post.pdfPage
         [command:command,post:post ]
     }
 
@@ -61,7 +61,12 @@ class PostController {
             return
         }
 
-        command.properties.each {k,v -> if (k!="class") {post."$k" = command."$k"}}
+        post.multimedia = KuorumFile.get(new ObjectId(command.imageId))
+//        command.videoPost = post.multimedia?.fileType == FileType.VIDEO?post.multimedia.url:''
+        post.postType = command.postType
+        post.text = command.textPost
+        post.title = command.title
+        post.pdfPage = command.numberPage
 
         postService.updatePost(post)
         redirect mapping:"postShow", params:post.encodeAsLinkProperties()

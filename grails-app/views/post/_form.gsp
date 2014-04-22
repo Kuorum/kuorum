@@ -1,37 +1,62 @@
-<%@ page import="kuorum.post.Post" %>
+<%@ page import="kuorum.core.FileGroup" %>
+<fieldset class="type">
+    <div class="form-group">
+        <label for="selectType"><g:message code="post.edit.step1.postType.label"/></label>
+        <div class="row">
 
-
-<div class="fieldcontain ${hasErrors(bean: command, field: 'photo', 'error')} ">
-    <label for="photo">
-        <g:message code="post.photo.label" default="Photo"/>
-
-    </label>
-    <g:textField name="photo" value="${command?.photo}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: command, field: 'postType', 'error')} ">
-    <label for="postType">
-        <g:message code="post.postType.label" default="Post Type"/>
-
-    </label>
-    <g:select name="postType" from="${kuorum.core.model.PostType?.values()}"
-              keys="${kuorum.core.model.PostType.values()*.name()}" required=""
-              value="${command?.postType?.name()}"/>
-</div>
-
-
-<div class="fieldcontain ${hasErrors(bean: command, field: 'text', 'error')} ">
-    <label for="text">
-        <g:message code="post.text.label" default="Text"/>
-
-    </label>
-    <g:textField name="text" value="${command?.text}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: command, field: 'title', 'error')} ">
-    <label for="title">
-        <g:message code="post.title.label" default="Title"/>
-
-    </label>
-    <g:textField name="title" value="${command?.title}"/>
-</div>
+            <!-- la siguiente lista está oculta; debe venir marcado con class="active" el <li> que corresponda pues ese aparecerá visible -->
+            <ul id="typePubli" class="hidden">
+                <li class="${command.postType == kuorum.core.model.PostType.HISTORY?'active':''}"><g:message code="post.edit.step1.postType.HISTORY.description"/></li>
+                <li class="${command.postType == kuorum.core.model.PostType.QUESTION?'active':''}"><g:message code="post.edit.step1.postType.QUESTION.description"/></li>
+                <li class="${command.postType == kuorum.core.model.PostType.PURPOSE?'active':''}"><g:message code="post.edit.step1.postType.PURPOSE.description"/></li>
+            </ul>
+            <p class="col-md-7" id="updateText"></p> <!-- aquí hago visible por js el texto que corresponde a la opción elegida por el usuario -->
+            <div class="col-md-5">
+                <select class="form-control" id="selectType" name="postType">
+                    <option value="${kuorum.core.model.PostType.HISTORY}">&#xf02d;  <g:message code="kuorum.core.model.PostType.HISTORY"/> </option> <!-- debe venir con la primera opción que sea la que el usuario ha seleccionado en el paso anterior -->
+                    <option value="${kuorum.core.model.PostType.QUESTION}">&#xf128; <g:message code="kuorum.core.model.PostType.QUESTION"/></option>
+                    <option value="${kuorum.core.model.PostType.PURPOSE}">&#xf0eb;  <g:message code="kuorum.core.model.PostType.PURPOSE"/></option>
+                </select>
+            </div>
+        </div>
+    </div><!-- /.form-group -->
+</fieldset>
+<fieldset class="title">
+    <div class="form-group">
+        <label for="titlePost"><g:message code="post.edit.step1.postTitle.label"/> </label>
+        <div class="textareaContainer">
+            <textarea name="title"  class="form-control counted  ${hasErrors(bean: command, field: 'title', 'error')}" rows="3" placeholder="${g.message(code:'post.edit.step1.postTitle.placeholder')}" id="titlePost" tabindex="13" required minlength="2">${command.title}</textarea>
+            <g:if test="${hasErrors(bean: command, field: 'title', 'error')}">
+                <span for="titlePost" class="error">${g.fieldError(bean: command, field: 'title')}</span>
+            </g:if>
+            <span class="hashtag">${post.law.hashtag}</span>
+        </div>
+        <div id="charInit" class="hidden"><g:message code="post.edit.step1.postTitle.chars.limitCharacters"/> <span>${formUtil.postTitleLimitChars(law:post.law)}</span></div>
+        <div id="charNum"><g:message code="post.edit.step1.postTitle.chars.leftCharacters"/> <span></span> <g:message code="post.edit.step1.postTitle.chars.characters"/></div>
+    </div>
+</fieldset>
+<fieldset class="text">
+    <div class="form-group">
+        <label for="textPost"><g:message code="post.edit.step1.postText.label"/> </label>
+        <textarea name="textPost" data-placement="bottom" class="form-control texteditor" rows="10" placeholder="${g.message(code: 'post.edit.step1.postText.placeHolder')}" id="textPost" tabindex="14" required>${command.textPost}</textarea>
+    </div>
+</fieldset>
+<fieldset class="multimedia">
+    <div class="form-group image">
+        <label for="imageId"><g:message code="post.edit.step1.image.label"/></label>
+        <formUtil:editImage command="${command}" field="imageId" fileGroup="${ FileGroup.POST_IMAGE}"/>
+    </div>
+    <div class="form-group video">
+        <label for="videoPost"><g:message code="post.edit.step1.video.label"/></label>
+        <input name="videoPost" type="url" class="form-control" id="videoPost" placeholder="http://" tabindex="16">
+    </div>
+</fieldset>
+<fieldset class="page">
+    <div class="form-group">
+        <label for="numberPage"><g:message code="post.edit.step1.pdfPage.label"/> </label>
+        <div class="form-group">
+            <input name="numberPage" type="number" id="numberPage" placeholder="0" tabindex="17">
+            <p><g:message code="post.edit.step1.pdfPage.description"/></p>
+        </div>
+    </div>
+</fieldset>

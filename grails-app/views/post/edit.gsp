@@ -6,78 +6,23 @@
 </head>
 
 <content tag="intro">
-    <h1>Participa expresando tu voz</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+    <h1><g:message code="post.edit.step1.intro.head"/></h1>
+    <p><g:message code="post.edit.step1.intro.subHead"/></p>
 </content>
 
 <content tag="mainContent">
-    <form action="#" method="POST" role="form">
-        <fieldset class="type">
-            <div class="form-group">
-                <label for="selectType">Selecciona tu tipo de publicación</label>
-                <div class="row">
-
-                    <!-- la siguiente lista está oculta; debe venir marcado con class="active" el <li> que corresponda pues ese aparecerá visible -->
-                    <ul id="typePubli" class="hidden">
-                        <li class="active">Cuéntanos tu historia. En qué te afecta esta ley. Nos comprometemos a hacerla llegar a los políticos para que la tengan en cuenta.</li>
-                        <li>Haz una pregunta. Incididunt ut labore et dolore magna aliqua consectetur adipisicing elit lorem ipsum dolor sit amet.</li>
-                        <li>Haz una propuesta. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</li>
-                    </ul>
-                    <p class="col-md-7" id="updateText"></p> <!-- aquí hago visible por js el texto que corresponde a la opción elegida por el usuario -->
-                    <div class="col-md-5">
-                        <select class="form-control" id="selectType">
-                            <option value="Historia">&#xf02d; Historia</option> <!-- debe venir con la primera opción que sea la que el usuario ha seleccionado en el paso anterior -->
-                            <option value="Pregunta">&#xf128; Pregunta</option>
-                            <option value="Propuesta">&#xf0eb; Propuesta</option>
-                        </select>
-                    </div>
-                </div>
-            </div><!-- /.form-group -->
-        </fieldset>
-        <fieldset class="title">
-            <div class="form-group">
-                <label for="titlePost">Da un título a tu publicación</label>
-                <div class="textareaContainer">
-                    <textarea class="form-control counted" rows="3" placeholder="Escribe un título que describa tu publicación..." id="titlePost" tabindex="13" required></textarea>
-                    <span class="hashtag">#leyloquesea</span>
-                </div>
-                <div id="charInit" class="hidden">Tienes un límite de caracteres de <span>122</span></div>
-                <div id="charNum">Te quedan <span></span> caracteres</div>
-            </div>
-        </fieldset>
-        <fieldset class="text">
-            <div class="form-group">
-                <label for="textPost">Texto de tu publicación</label>
-                <textarea class="form-control texteditor validate[required]" rows="10" placeholder="Escribe un texto que describa tu publicación..." id="textPost" tabindex="14" required></textarea>
-            </div>
-        </fieldset>
-        <fieldset class="multimedia">
-            <div class="form-group image">
-                <label for="fileupload">Sube una imagen</label>
-
-                <formUtil:editImage command="${command}" field="imageId" fileGroup="${FileGroup.POST_IMAGE}"/>
-            </div>
-            <div class="form-group video">
-                <label for="videoPost">También puedes escribir una dirección de un vídeo</label>
-                <input type="url" class="form-control" id="videoPost" placeholder="http://" tabindex="16">
-            </div>
-        </fieldset>
-        <fieldset class="page">
-            <div class="form-group">
-                <label for="numberPage">Escribe la página de la ley que influye para esta propuesta:</label>
-                <div class="form-group">
-                    <input type="number" id="numberPage" placeholder="0" tabindex="17">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                </div>
-            </div>
-        </fieldset>
+    <formUtil:validateForm bean="${command}" form="editPost"/>
+    <g:form mapping="postEdit" params="${post.encodeAsLinkProperties()}" role="form" name="editPost">
+    %{--<form action="#" method="POST" role="form" id="editPost">--}%
+        <g:render template="form" model="[command:command, post:post]"/>
         <fieldset class="btns">
             <div class="form-group">
-                <button type="button" class="btn btn-grey btn-lg" tabindex="18">Guardar y continuar</button>
+                <input type="submit" class="btn btn-grey btn-lg" tabindex="18" value="Guardar y continuar"/>
                 <a href="#" class="cancel" tabindex="19">Cancelar</a>
             </div>
         </fieldset>
-    </form>
+    %{--</form>--}%
+    </g:form>
 </content>
 
 <content tag="cColumn">

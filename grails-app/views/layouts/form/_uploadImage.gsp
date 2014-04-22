@@ -89,6 +89,12 @@
         $(".qq-upload-drop-area").css("background-position","0 0")
         $(".button-container").css("background-color","rgba(0, 0, 0, 0.7)")
     }
+
+    <g:if test="${imageUrl}">
+    $(function(){
+        changeImageBackground('${imageUrl}')
+    })
+    </g:if>
 </script>
 
 <input type="hidden" name="${name}" id="input_${imageId}" value="${value}"/>

@@ -259,5 +259,9 @@ kuorum {
         newPost=[(GamificationElement.PLUME):1]
         votePost=[(GamificationElement.CORN):1]
     }
+
+    post{
+        titleSize = 140
+    }
 }
 

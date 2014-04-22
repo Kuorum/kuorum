@@ -34,7 +34,7 @@ class BootStrap {
                                 dbObject = obj."$field".collect{it.toString()}
                             }else if (obj."$field".hasProperty('id')){
                                 dbObject = obj."$field".id
-                            }else{
+                            }else if (obj."$field" != null) {
                                 dbObject = obj."$field".toString()
                             }
                             if (dbObject)
