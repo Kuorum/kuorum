@@ -177,5 +177,9 @@ class PostServiceSpec extends Specification{
         "<strong class='dd'> hola </strong>"       | " hola "
 
         "<script>alert(\"hola\")</script>" | "alert(\"hola\")"
+        "<br>hola<br>feo<br>" | "<br>hola<br>feo<br>"
+        "<br>hola<br>feo<br><br>" | "<br>hola<br>feo<br>"
+        "<br>hola<br><br><br>feo<br>" | "<br>hola<br>feo<br>"
+        "<br><br>hola<br><br><br>feo<br><br><br><br><br><br>" | "<br>hola<br>feo<br>"
     }
 }

@@ -38,7 +38,10 @@
 <fieldset class="text">
     <div class="form-group">
         <label for="textPost"><g:message code="post.edit.step1.postText.label"/> </label>
-        <textarea name="textPost" data-placement="bottom" class="form-control texteditor" rows="10" placeholder="${g.message(code: 'post.edit.step1.postText.placeHolder')}" id="textPost" tabindex="14" required>${command.textPost}</textarea>
+        <textarea name="textPost" data-placement="bottom" class="form-control texteditor ${hasErrors(bean: command, field: 'textPost', 'error')}" rows="10" placeholder="${g.message(code: 'post.edit.step1.postText.placeHolder')}" id="textPost" tabindex="14" required>${command.textPost}</textarea>
+        <g:if test="${hasErrors(bean: command, field: 'textPost', 'error')}">
+            <span for="textPost" class="error">${g.fieldError(bean: command, field: 'textPost')}</span>
+        </g:if>
     </div>
 </fieldset>
 <fieldset class="multimedia">
@@ -48,14 +51,20 @@
     </div>
     <div class="form-group video">
         <label for="videoPost"><g:message code="post.edit.step1.video.label"/></label>
-        <input name="videoPost" type="url" class="form-control" id="videoPost" placeholder="http://" tabindex="16">
+        <input name="videoPost" type="url" class="form-control ${hasErrors(bean: command, field: 'videoPost', 'error')}" id="videoPost" placeholder="http://" tabindex="16">
+        <g:if test="${hasErrors(bean: command, field: 'videoPost', 'error')}">
+            <span for="textPost" class="error">${g.fieldError(bean: command, field: 'videoPost')}</span>
+        </g:if>
     </div>
 </fieldset>
 <fieldset class="page">
     <div class="form-group">
         <label for="numberPage"><g:message code="post.edit.step1.pdfPage.label"/> </label>
         <div class="form-group">
-            <input name="numberPage" type="number" id="numberPage" placeholder="0" tabindex="17">
+            <input name="numberPage" value="${command.numberPage}" type="number" id="numberPage" placeholder="0" tabindex="17" class="${hasErrors(bean: command, field: 'numberPage', 'error')}">
+            <g:if test="${hasErrors(bean: command, field: 'videoPost', 'error')}">
+                <span for="numberPage" class="error">${g.fieldError(bean: command, field: 'numberPage')}</span>
+            </g:if>
             <p><g:message code="post.edit.step1.pdfPage.description"/></p>
         </div>
     </div>

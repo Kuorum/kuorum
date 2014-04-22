@@ -26,17 +26,5 @@
 </content>
 
 <content tag="cColumn">
-    <section class="boxes noted">
-        <a href="#">#loquesea</a>
-        <h1>Proyecto de ley del aborto</h1>
-        <p>Ley Orgánica de protección de la vida del concebido y derechos de la mujer embarazada</p>
-    </section>
-    <section class="boxes">
-        <h1>Consejos de publicación</h1>
-        <h2><span class="fa fa-caret-right"></span> El título</h2>
-        <p>Elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <h2><span class="fa fa-caret-right"></span> Tu propuesta</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-    </section>
+    <g:render template="/post/editPostColumnC" model="[law:post.law]"/>
 </content>

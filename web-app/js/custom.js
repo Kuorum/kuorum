@@ -12,10 +12,16 @@ $(document).tooltip({
 	selector: '[rel="tooltip"]'
 });
 
-
 $(document).ready(function() {
 
-    $("time.timeago").timeago();
+	//
+	// $('body').on('click', '.link-wrapper .popover-trigger', function(e) {
+	// 	e.preventDefault();
+	// 	e.stopPropagation();
+	// });
+
+	// inicia el timeago
+	$('time.timeago').timeago();
 
 	// animo la progress-bar de boxes.likes
 	$('.likes .progress-bar').progressbar({
@@ -26,12 +32,10 @@ $(document).ready(function() {
             }
 	});
 
-
 	//tooltip visible sobre la progress bar
 	$('.progress-bar').tooltip({trigger: 'manual', placement: 'top'}).tooltip('show');
 
-
-    $("a.loadMore").on("click", function(e){loadMore(e, this)})
+	$("a.loadMore").on("click", function(e){loadMore(e, this)})
 	// load more
 	function loadMore(e, that) {
 
@@ -69,26 +73,30 @@ $(document).ready(function() {
 		});
 	}
 
+	// apertura de karma
+	function openKarma () {
+		$('#karma').modal('show');
+	}
 
 	// para probar los avisos
-	// $('.alerts .btn').click(function() {
-	// 	notyWarning();
-	// });
+	$('.alerts .btn').click(function() {
+		notyError();
+	});
 
 	// para probar la apertura del karma
 	// $('body').on('click', '.alerts .btn', function() {
-	//		openKarma();
- 	// });
+	// 		openKarma();
+ // 	});
 
 
 	// al hacer clic en los badges vacía el contenido para que desaparezca
 	$(function() {
 		$('.badge').closest('a').click(function() {
 
-			$(this).find('.badge').delay(3000).fadeOut("fast").queue(function() {
+			$(this).find('.badge').delay(2000).fadeOut("slow").queue(function() {
 				$(this).empty();
 			});
-			$(this).next('ul').find('li.new').delay(3000).queue(function() {
+			$(this).next('ul').find('li.new').delay(2000).queue(function() {
 				$(this).removeClass('new');
 			});
 
@@ -125,7 +133,7 @@ $(document).ready(function() {
         var postId = $(this).parents("article").first().attr("data-cluck-postId");
         $.ajax(url).done(function(data, status, xhr){
             var isFavorite = xhr.getResponseHeader('isFavorite');
-            var numFavorites = xhr.getResponseHeader('numList');
+             var numFavorites = xhr.getResponseHeader('numList');
             $(".pending h1 .badge").text(numFavorites);
             if (isFavorite == "true"){
                 $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("disabled");
@@ -204,6 +212,7 @@ $(document).ready(function() {
 		var totalChars      = parseInt($('#charInit span').text());
 		var countTextBox    = $('.counted'); // Textarea input box
 		var charsCountEl    = $('#charNum span'); // Remaining chars count will be displayed here
+
 		charsCountEl.text(totalChars - countTextBox.val().length); //initial value of countchars element
 		countTextBox.keyup(function() { //user releases a key on the keyboard
 
@@ -221,7 +230,7 @@ $(document).ready(function() {
 
 	// textarea editor
 	$(".texteditor").jqte({
-		br: false,
+		br: true,
 		center: false,
 		color: false,
 		format: false,
@@ -269,7 +278,6 @@ $(document).ready(function() {
 	    }
 	});
 
-
 	// seleccionar todos los checkbox
 	$(function () {
 	    var checkAll = $('#selectAll');
@@ -292,8 +300,10 @@ $(document).ready(function() {
 	    $('#selectAll').change(function() {
 		    if($(this).is(':checked')) {
 		        checkboxes.iCheck('check');
+		        $('#others').attr('checked', true);
 		    } else {
 		        checkboxes.iCheck('uncheck');
+		        $('#others').attr('checked', false);
 		    }
 		});
 
@@ -316,6 +326,15 @@ $(document).ready(function() {
 	    });
 	});
 
+	// añade la flechita al span de los mensajes de error de los formularios
+	$('span.error').prepend('<span class="tooltip-arrow"></span>');
+
+	// le da la clase error al falso textarea
+	$(function () {
+		if ( $('#textPost').hasClass('error') ) {
+				$('#textPost').closest('.jqte').addClass('error');
+			}
+	});
 
 	// inicializa el scroll dentro del popover
 	$('.popover-trigger.more-users').on('shown.bs.popover', function () {
@@ -332,7 +351,10 @@ $(document).ready(function() {
 	})
 
 });
-var display = {
+
+
+// funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)
+	var display = {
     error:function(text){this._notyGeneric(text, "error")},
     success:function(text){this._notyGeneric(text, "success")},
     info:function(text){this._notyGeneric(text, "information")},
@@ -353,13 +375,6 @@ var display = {
             text: text
         });
     }
-}
-
-
-
-// apertura de karma
-function openKarma () {
-    $('#karma').modal('show');
 }
 
 

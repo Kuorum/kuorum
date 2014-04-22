@@ -972,7 +972,6 @@ span + .text-notification {padding: 0 0 0 33px;}
   color: #545454;
 }
 
-
 .edit-post select.form-control {
   background-color: #efefef;
   border: none;
@@ -994,16 +993,45 @@ select.form-control option {
   padding: 15px 15px 15px 60px;
 }
 select.form-control,
-select.form-control option {cursor: pointer;}
-.title textarea {font-size: 22px; font-size: 2.2rem; color: #a8a8a8;}
+select.form-control option {cursor: pointer; text-transform: capitalize;}
+
+.title textarea {font-size: 22px; font-size: 2.2rem; color: #a8a8a8; height: 120px;}
 .text textarea {font-size: 19px; font-size: 1.9rem; color: #a8a8a8;}
 .textareaContainer {position: relative;}
-.hashtag {position: absolute; bottom: 5px; right: 35px; font-size: 22px; font-size: 2.2rem;}
+.hashtag {position: absolute; top: 85px; right: 35px; font-size: 22px; font-size: 2.2rem;}
 .cancel {padding: 5px 0; margin: 0 20px; color: #a8a8a8 !important; display: inline-block; font-size: 18px !important; font-size: 1.8rem !important;}
 .cancel:hover, .cancel:active, .cancel:focus {color: #a8a8a8;}
 .btn + .cancel {margin: 0 20px 0 40px;}
 
 .form-group.image {position: relative;}
+
+/* estilos mensajes error */
+span.error {
+  background-color: #F2DEDE;
+  font-size: 12px;
+  font-size: 1.2rem;
+  margin: 8px 0 0 0;
+  padding: 4px 8px;
+  color: #BF4343;
+  border-radius: 4px;
+  position: relative;
+  display: inline-block;
+}
+span.error .tooltip-arrow {
+  border-bottom: 6px solid #F2DEDE;
+  border-left: 6px solid rgba(0, 0, 0, 0);
+  border-right: 6px solid rgba(0, 0, 0, 0);
+  display: block;
+  height: 0;
+  left: 10px;
+  top: -9px;
+  width: 0;
+  z-index: 10;
+}
+input.error,
+textarea.error,
+.jqte.error {border-color: #BF4343;}
+
 
 
 /*.files {border: 1px solid #EFEFEF; height: 240px; background: url('../images/fileUpload.png') center 45px no-repeat transparent; padding: 20px; display: block;}
@@ -1018,6 +1046,7 @@ tr.template-download td {background-color: #F9F9F9;}
 #fileupload .progress,
 #fileupload .progress-extended {margin-bottom: 4px;}*/
 
+/* modal para el crop del file upload */
 .uploadKuorumImage .modal-header {
   background-color: #ff9431;
   color: #fff;
@@ -1159,17 +1188,137 @@ tr.template-download td {background-color: #F9F9F9;}
     background: #ffc998;
 }
 
+/* estilos para el resize upload image */
+#au-uploaderImageId {height: 390px; margin: 10px 0 0 0; position: relative;}
+.qq-uploader {position: relative; width: 100%;}
+.qq-upload-button {
+    text-align: center;
+    color: #20a2ea;
+    text-align: center;
+    padding: 8px 0px;
+    height: 34px;
+}
+.uploadImage {width:220px; height:220px; margin-right:20px;}
+.qq-upload-button-hover {text-decoration: underline;}
+.qq-upload-button-focus {outline:1px dotted black;}
+.qq-upload-drop-area {
+  position: absolute;
+  top: 0;
+  height: 372px;
+  left:0;
+  z-index: 2;
+  width: 100%;
+  display: block !important;
+  text-align: center;
+  border: 1px solid #EFEFEF;
+  background: url('../images/fileUpload.png') center 90px no-repeat transparent;
+  padding: 195px 20px 20px 20px;
+  display: block;
+}
+.button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 10px;}
+.qq-upload-drop-area-active {background-color:#FFF8ED;}
+.qq-upload-list {display:none;}
+.qq-upload-list {margin:15px 35px; padding:0; list-style:disc;}
+.qq-upload-list li { margin:0; padding:0; line-height:15px; font-size:12px;}
+.qq-upload-file,
+.qq-upload-spinner,
+.qq-upload-size,
+.qq-upload-cancel,
+.qq-upload-failed-text {margin-right: 7px;}
+.qq-upload-spinner {display:inline-block; background: url('../images/loading.gif'); width:15px; height:15px; vertical-align:text-bottom;}
+.qq-upload-size,.qq-upload-cancel {font-size: 11px;}
+.qq-upload-failed-text {display: none;}
+.qq-upload-fail .qq-upload-failed-text {display: inline;}
+/* fin estilos resize upload image */
+
+
 
 /* ley */
-.kakareo.post.ley {margin-top: -32px;}
-.kakareo.ley h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 52px; font-size: 5.2rem; text-transform: uppercase; padding: 0; border-bottom: solid 1px #a8a8a8;}
-.kakareo.post.ley .laley {font-size: 34px; font-size: 3.4rem;}
-.kakareo.post.ley .photo {margin-bottom: 15px;}
+.kakareo.post.ley {margin: -32px 0 50px 0;}
+.kakareo.post.ley h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 52px; font-size: 5.2rem; text-transform: uppercase; padding: 0; border-bottom: solid 1px #a8a8a8;}
+.kakareo.post.ley .laley {font-size: 34px; font-size: 3.4rem; margin: 15px 0 0 0;}
+.kakareo.post.ley .photo {position: relative;}
+.kakareo.post.ley .photo .aboutLaw {
+  width: 90px;
+  height: 172px;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  top: 60px;
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.05);
+}
+.kakareo.post.ley .photo .phase,
+.kakareo.post.ley .photo .country {
+  font-family: 'League Gothic', Arial, sans-serif;
+  padding: 6px 4px;
+  text-align: center;
+}
+.kakareo.post.ley .photo .circle {
+  display: block;
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  border: 3px solid #545454;
+  font-size: 28px; font-size: 2.8rem;
+  text-align: center;
+  padding: 3px 5px;
+}
+.kakareo.post.ley .photo .text {text-transform: uppercase; font-size: 18px; font-size: 1.8rem;}
+.kakareo.post.ley .photo .info {
+  position: absolute;
+  bottom: 20px; left: 25px;
+}
+.kakareo.post.ley .photo .tooltip.in {opacity: 1;}
+.kakareo.post.ley .photo .info .tooltip-arrow {border-right-color: #fff !important;}
+.kakareo.post.ley .photo .info .tooltip-inner {
+  font-size: 15px;
+  font-size: 1.5rem;
+  background-color: #fff;
+  border-radius: 0;
+  max-width: 225px;
+  width: 225px;
+  padding: 6px;
+  color: #545454;
+  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+}
+.kakareo.post.ley .photo .info .icon-flag2 {line-height: 2;}
+.kakareo.post.ley .photo .info .fa-circle {color: #ff9431;}
+
 .leerLey {text-align: right; margin-bottom: 20px;}
 .leerLey a,
 .leerLey a:hover,
 .leerLey a:active,
 .leerLey a:focus {color: #a8a8a8;}
+
+.participate,
+.participAll,
+.seeVictor {margin-bottom: 50px;}
+
+.participate > h1,
+.participAll > h1,
+.seeVictor > h1,
+.participate > p,
+.participAll > p,
+.seeVictor > p {text-align: center;}
+.participate > h1,
+.participAll > h1,
+.seeVictor > h1 {
+  font-family: 'League Gothic', Arial, sans-serif;
+  font-size: 48px; font-size: 4.8rem;
+  text-transform: uppercase;
+}
+.participate > p,
+.participAll > p,
+.seeVictor > p {border-bottom: 1px solid #A8A8A8; padding-bottom: 20px; margin-bottom: 40px;}
+
+.participate a {height: 100px; margin-bottom: 20px; text-decoration: none; text-align: center; display: block; font-size: 30px; font-size: 3rem;}
+.participate a:hover,
+.participate a:active,
+.participate a:focus {color: #538ecc;}
+
+.participate .row p {text-align: center; padding: 0 20px;}
+
 
 .boxes.vote > h1 {margin-top: 20px; font-size: 28px; font-size: 2.8rem;}
 .vote .activity > li {border-right: none; color: #545454; font-size: 13px; font-size: 1.3rem;}

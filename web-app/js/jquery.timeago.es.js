@@ -51,7 +51,7 @@
         inPast: null,
         seconds: "menos de 1 minuto",
         minute: "un minuto",
-        minutes: "%d minutos",
+        minutes: "%d minuto",
         hour: "una hora",
         hours: "%d horas",
         day: "1 día",

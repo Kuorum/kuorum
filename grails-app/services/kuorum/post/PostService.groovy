@@ -83,15 +83,20 @@ class PostService {
     }
 
     private removeCustomCrossScripting(String raw){
-        def openTags = ~/<[^\/ibau] *[^>]*>/  // Only allow <a> <b> <i> <u>
+        def openTags = ~/<[^\/ibau]r{0,1} *[^>]*>/  // Only allow <a> <b> <i> <u> <br>
         def closeTags = ~/<\/[^ibau] *[^>]*>/ // Only allow </a> </b> </i> </u>
         String text = raw.replaceAll(openTags,'')
         text = text.replaceAll(closeTags,'')
 
-        def notAllowedAttributes = ~/(<[abi])([^h>]*)(href=[^ >]*){0,1}([^h>]*)(>)/ //Delete all atributes that are not href
+        def notAllowedAttributes = ~/(<[abiu]r{0,1})([^h>]*)(href=[^ >]*){0,1}([^h>]*)(>)/ //Delete all atributes that are not href
         text = text.replaceAll(notAllowedAttributes, '$1 $3 $5')
         text = text.replaceAll(~/( *)(>)/,'$2')
         text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\'>')
+        def brs = ~/<br><br>/
+        while(text.find(brs)){
+            text = text.replaceAll(brs,'<br>')
+        }
+
         text
     }
 
