@@ -1,45 +1,28 @@
-<!DOCTYPE html>
-<html>
+<%@ page import="kuorum.core.FileGroup" %>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta name="layout" content="main">
-    <g:set var="entityName" value="${message(code: 'post.label', default: 'Post')}"/>
-    <title><g:message code="default.create.label" args="[entityName]"/></title>
+    <title><g:message code="kuorum.name"/> </title>
+    <meta name="layout" content="editPostLayout">
 </head>
 
-<body>
-<a href="#create-post" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
-                                                             default="Skip to content&hellip;"/></a>
+<content tag="intro">
+    <h1><g:message code="post.edit.step1.intro.head"/></h1>
+    <p><g:message code="post.edit.step1.intro.subHead"/></p>
+</content>
 
-<div class="nav" role="navigation">
-    <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]"/></g:link></li>
-    </ul>
-</div>
-
-<div id="create-post" class="content scaffold-create" role="main">
-    <h1><g:message code="default.create.label" args="[entityName]"/></h1>
-    <h3>LAW : ${law.hashtag}</h3>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
-    <g:hasErrors bean="${command}">
-        <ul class="errors" role="alert">
-            <g:eachError bean="${command}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
-                        error="${error}"/></li>
-            </g:eachError>
-        </ul>
-    </g:hasErrors>
-    <g:form mapping="postSave" params="${law.encodeAsLinkProperties()}">
-        <fieldset class="form">
-            <g:render template="form"/>
-        </fieldset>
-        <fieldset class="buttons">
-            <g:submitButton name="create" class="save"
-                            value="${message(code: 'default.button.create.label', default: 'Create')}"/>
+<content tag="mainContent">
+    <formUtil:validateForm bean="${command}" form="createPost"/>
+    <g:form mapping="postCreate" params="${law.encodeAsLinkProperties()}" role="form" name="createPost">
+        <g:render template="form" model="[command:command,law:law]"/>
+        <fieldset class="btns">
+            <div class="form-group">
+                <input type="submit" class="btn btn-grey btn-lg" tabindex="18" value="Guardar y continuar"/>
+                <a href="#" class="cancel" tabindex="19">Cancelar</a>
+            </div>
         </fieldset>
     </g:form>
-</div>
-</body>
-</html>
+</content>
+
+<content tag="cColumn">
+    <g:render template="/post/editPostColumnC" model="[law:law]"/>
+</content>

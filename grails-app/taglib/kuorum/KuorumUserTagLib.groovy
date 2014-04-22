@@ -18,6 +18,7 @@ class KuorumUserTagLib {
 
     def showUser={attrs ->
         KuorumUser user = attrs.user
+        Boolean showRole = attrs.showRole?:false
 
         def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
         def imgSrc = image.userImgSrc(user:user)
@@ -36,6 +37,13 @@ class KuorumUserTagLib {
             </div>
             <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
             """
+        if (showRole){
+            out << """
+                <span class="user-type">
+                    <small>${userUtil.roleName(user:user)}</small>
+                </span>
+                """
+        }
     }
 
 

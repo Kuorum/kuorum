@@ -15,6 +15,7 @@ class KuorumFile {
     Boolean local = Boolean.TRUE
     Boolean temporal
     String storagePath
+    String alt
     String fileName
     String url
     FileGroup fileGroup
@@ -24,6 +25,7 @@ class KuorumFile {
         storagePath nullable: true
         fileName nullable:true
         url url: true
+        alt nullable:true
         local validator: {val, obj-> // If local , storagePath and fileName can not be null
             (val && obj.storagePath && obj.fileName) || (!val)
         }

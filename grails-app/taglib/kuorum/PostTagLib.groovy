@@ -81,4 +81,26 @@ class PostTagLib {
             case PostType.PURPOSE:  out << "fa-lightbulb-o"; break;
         }
     }
+
+    def postShowImage={attrs ->
+        Post post = attrs.post
+        if (post.multimedia){
+            out <<"""
+        <div class="photo">
+            <img src="${post.multimedia.url}" alt="${post.multimedia.alt}" itemprop="image">
+        </div>
+"""
+        }
+    }
+
+    def progressBarMinValue={attrs ->
+        Post post = attrs.post
+//        Range<Long> range = postVoteService.findPostRange(post)
+        out << 0
+    }
+    def progressBarMaxValue={attrs ->
+        Post post = attrs.post
+        Range<Long> range = postVoteService.findPostRange(post)
+        out << range.to
+    }
 }

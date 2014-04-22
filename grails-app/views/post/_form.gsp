@@ -13,9 +13,9 @@
             <p class="col-md-7" id="updateText"></p> <!-- aquí hago visible por js el texto que corresponde a la opción elegida por el usuario -->
             <div class="col-md-5">
                 <select class="form-control" id="selectType" name="postType">
-                    <option value="${kuorum.core.model.PostType.HISTORY}">&#xf02d;  <g:message code="kuorum.core.model.PostType.HISTORY"/> </option> <!-- debe venir con la primera opción que sea la que el usuario ha seleccionado en el paso anterior -->
-                    <option value="${kuorum.core.model.PostType.QUESTION}">&#xf128; <g:message code="kuorum.core.model.PostType.QUESTION"/></option>
-                    <option value="${kuorum.core.model.PostType.PURPOSE}">&#xf0eb;  <g:message code="kuorum.core.model.PostType.PURPOSE"/></option>
+                    <option value="${kuorum.core.model.PostType.HISTORY}" ${command.postType == kuorum.core.model.PostType.HISTORY?'selected':''}>&#xf02d;  <g:message code="kuorum.core.model.PostType.HISTORY"/> </option> <!-- debe venir con la primera opción que sea la que el usuario ha seleccionado en el paso anterior -->
+                    <option value="${kuorum.core.model.PostType.QUESTION}" ${command.postType == kuorum.core.model.PostType.QUESTION?'selected':''}>&#xf128; <g:message code="kuorum.core.model.PostType.QUESTION"/></option>
+                    <option value="${kuorum.core.model.PostType.PURPOSE}" ${command.postType == kuorum.core.model.PostType.PURPOSE?'selected':''}>&#xf0eb;  <g:message code="kuorum.core.model.PostType.PURPOSE"/></option>
                 </select>
             </div>
         </div>
@@ -29,9 +29,9 @@
             <g:if test="${hasErrors(bean: command, field: 'title', 'error')}">
                 <span for="titlePost" class="error">${g.fieldError(bean: command, field: 'title')}</span>
             </g:if>
-            <span class="hashtag">${post.law.hashtag}</span>
+            <span class="hashtag">${law.hashtag}</span>
         </div>
-        <div id="charInit" class="hidden"><g:message code="post.edit.step1.postTitle.chars.limitCharacters"/> <span>${formUtil.postTitleLimitChars(law:post.law)}</span></div>
+        <div id="charInit" class="hidden"><g:message code="post.edit.step1.postTitle.chars.limitCharacters"/> <span>${formUtil.postTitleLimitChars(law:law)}</span></div>
         <div id="charNum"><g:message code="post.edit.step1.postTitle.chars.leftCharacters"/> <span></span> <g:message code="post.edit.step1.postTitle.chars.characters"/></div>
     </div>
 </fieldset>

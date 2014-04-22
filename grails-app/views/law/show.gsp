@@ -1,5 +1,5 @@
 
-<%@ page import="kuorum.core.model.VoteType; kuorum.law.Law" %>
+<%@ page import="kuorum.core.model.PostType; kuorum.core.model.VoteType; kuorum.law.Law" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -119,8 +119,14 @@
 
 
                     <div style="float:right">
-                        <g:link class="create" mapping="postCreate" params="${lawInstance.encodeAsLinkProperties()}">
-                            <g:message code="default.button.create.label" default="Crear" /> post
+                        <g:link class="create" mapping="postCreate" params="${lawInstance.encodeAsLinkProperties()+[postType:PostType.HISTORY]}">
+                            Crear historia
+                        </g:link>
+                        <g:link class="create" mapping="postCreate" params="${lawInstance.encodeAsLinkProperties()+[postType:PostType.PURPOSE]}">
+                            Crear propuesta
+                        </g:link>
+                        <g:link class="create" mapping="postCreate" params="${lawInstance.encodeAsLinkProperties()+[postType:PostType.QUESTION]}">
+                            Crear pregunta
                         </g:link>
                     </div>
 				</fieldset>

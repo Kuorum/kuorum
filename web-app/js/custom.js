@@ -213,7 +213,9 @@ $(document).ready(function() {
 		var countTextBox    = $('.counted'); // Textarea input box
 		var charsCountEl    = $('#charNum span'); // Remaining chars count will be displayed here
 
-		charsCountEl.text(totalChars - countTextBox.val().length); //initial value of countchars element
+        if (countTextBox.length> 0){
+		    charsCountEl.text(totalChars - countTextBox.val().length); //initial value of countchars element
+        }
 		countTextBox.keyup(function() { //user releases a key on the keyboard
 
 			var thisChars = this.value.replace(/{.*}/g, '').length; //get chars count in textarea

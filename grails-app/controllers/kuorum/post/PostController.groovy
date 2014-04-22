@@ -3,6 +3,7 @@ package kuorum.post
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.FileType
+import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 import kuorum.web.commands.PostCommand
@@ -47,7 +48,7 @@ class PostController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def update(PostCommand command){
-        Post post = Post.get(new ObjectId(command.postId))
+        Post post = params.post
         if (!post){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
@@ -79,8 +80,8 @@ class PostController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-
-        [command:new PostCommand(), law:law]
+        PostCommand command = new PostCommand(postType: PostType.valueOf(params.postType))
+        [command:command, law:law]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -94,7 +95,14 @@ class PostController {
             render view: "create", model:[command:command,law:law]
             return;
         }
-        Post post = new Post(command.properties)
+        Post post = new Post()
+        post.multimedia = KuorumFile.get(new ObjectId(command.imageId))
+//        command.videoPost = post.multimedia?.fileType == FileType.VIDEO?post.multimedia.url:''
+        post.postType = command.postType
+        post.text = command.textPost
+        post.title = command.title
+        post.pdfPage = command.numberPage
+
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         postService.savePost(post, law, user)
         redirect mapping:"postReview", params:post.encodeAsLinkProperties()
@@ -123,6 +131,16 @@ class PostController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def promoteYourPost(){
+        Post post = params.post
+        if (post.owner.id != springSecurityService.principal.id){
+            response.sendError(HttpServletResponse.SC_FORBIDDEN)
+            return;
+        }
+        [post:post]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def payForMailing(){
         Post post = params.post
         if (post.owner.id != springSecurityService.principal.id){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)

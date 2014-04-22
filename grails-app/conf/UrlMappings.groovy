@@ -12,12 +12,13 @@ class UrlMappings {
         name lawUpdate:     "/leyes/$regionName/$commision/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
         name lawVote:       "/leyes/$regionName/$commision/$hashtag/votar"(controller: "law", action:"voteLaw")
 
-        name postCreate:    "/leyes/$regionName/$commision/$hashtag/nuevo-post"(controller: "post", action: "create")
-        name postSave:      "/leyes/$regionName/$commision/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
+        name postCreate:    "/leyes/$regionName/$commision/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
+//        name postSave:      "/leyes/$regionName/$commision/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
         name postShow:      "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId"(controller: "post", action: "show")
         name postReview:    "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/revisar"(controller: "post", action: "review")
         name postPublish:   "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/publicar"(controller: "post", action:"publish")
         name postPromoteYourPost:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/promocionar"(controller: "post", action:"promoteYourPost")
+        name postMailing:   "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/enviar-mails"(controller: "post", action:"payForMailing")
         name postEdit:      "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/editar"(controller: "post"){action = [GET:"edit", POST:"update"]}
         name postToggleFavorite:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/favorito"(controller: "post",action: "favorite")
         name postDelComment:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/borrarCommentario"(controller: "post",action: "deleteComment")
