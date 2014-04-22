@@ -28,7 +28,8 @@
 
             <postUtil:ifHasMultimedia post="${cluck.post}">
                 %{--<g:render template="/cluck/cluckPhoto"/>--}%
-                <g:render template="/cluck/cluckVideo"/>
+                <postUtil:postShowImage post="${cluck.post}"/>
+                %{--<g:render template="/cluck/cluckVideo"/>--}%
             </postUtil:ifHasMultimedia>
             <div class="main-kakareo row">
                 <g:render template="/cluck/cluckOwnerPost" model="[user:cluck.postOwner]"/>
