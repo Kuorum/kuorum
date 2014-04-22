@@ -4,6 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.FileGroup
 import kuorum.users.KuorumUser
+import org.bson.types.ObjectId
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 
@@ -27,7 +28,21 @@ class FileController {
 
         KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
-        render ([absolutePathImg:kuorumFile.url, fileId:kuorumFile.id, status:200] as JSON)
+        render ([absolutePathImg:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def cropImage() {
+        KuorumFile kuorumFile = KuorumFile.get(new ObjectId(params.fileId))
+        Double x = Double.parseDouble(params.x)
+        Double y = Double.parseDouble(params.y)
+        Double height = Double.parseDouble(params.height)
+        Double width = Double.parseDouble(params.width)
+
+        //TODO: Seguridad. Ahora todo el mundo puede hacer crop de cualquier foto
+
+        KuorumFile cropedFile = fileService.cropImage(kuorumFile,x,y,height,width)
+        render ([absolutePathImg:cropedFile.url, fileId:cropedFile.id.toString(), status:200] as JSON)
     }
 
     private def getFileData(HttpServletRequest request) {

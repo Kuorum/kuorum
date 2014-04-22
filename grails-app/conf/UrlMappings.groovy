@@ -81,6 +81,7 @@ class UrlMappings {
         name ajaxHeadMessagesChecked: "/ajax/mensajes/check"(controller:"layouts", action:"headNotificationsChecked")
         name ajaxFollow: "/ajax/kuorumUser/follow"(controller:"kuorumUser", action:"follow")
         name ajaxUnFollow: "/ajax/kuorumUser/unFollow"(controller:"kuorumUser", action:"unFollow")
+        name ajaxCropImage: "/ajax/file/crop"(controller:"file", action:"cropImage")
 
         name login: "/entrar" (controller:"login", action:"index")
         name logout: "/salir" (controller:"logout", action:"index")

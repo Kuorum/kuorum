@@ -33,7 +33,15 @@ class PostController {
             return;
         }
         PostCommand command = new PostCommand()
-        command.properties.each {k,v -> command."$k" = post."$k"}
+        command.properties.each {k,v ->
+            if (k != "class"){
+                if (k!="imageId"){
+                    command."$k" = post."$k"
+                }else{
+                    command.imageId = post.multimedia?.id
+                }
+            }
+        }
         [command:command,post:post ]
     }
 

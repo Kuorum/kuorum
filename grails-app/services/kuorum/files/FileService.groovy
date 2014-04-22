@@ -10,7 +10,9 @@ import kuorum.users.KuorumUser
 class FileService {
 
     def grailsApplication
+    def burningImageService
     private static final TMP_PATH = "/tmp"
+    private static final MODAL_BOX_WIDTH=558
 
     def KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
         String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}${TMP_PATH}"
@@ -52,7 +54,36 @@ class FileService {
             file.delete()
             throw new KuorumException("Subiendo un fichero demasiado grande", "error.file.maxSizeExceded")
         }
+
         kuorumFile
+    }
+
+    /**
+     * Recorta la imagen según las medidas indicadas
+     * @param kuorumFile
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @return
+     */
+    KuorumFile  cropImage(KuorumFile kuorumFile, def x, def y, def h, def w){
+
+        burningImageService.doWith("${kuorumFile.storagePath}/${kuorumFile.fileName}", kuorumFile.storagePath)
+                .execute {
+            it.crop(x,y,w,h)
+//            it.crop(x,y,h,w)
+        }
+//        def imageWidth = fileGroup.imageWidth
+//        burningImageService.doWith("${kuorumFile.storagePath}/${kuorumFile.fileName}", kuorumFile.storagePath)
+//                .execute {
+//            Float ratio = imageWidth  / it.loadedImage.getSize().width
+////            if (it.loadedImage.getSize().width > withLightBox){
+//            it.scaleAccurate(imageWidth, (it.loadedImage.getSize().height * ratio).round().intValue())
+////            }
+//
+//        }
+        return kuorumFile
     }
 
     /**

@@ -20,7 +20,6 @@ class Post {
     Law law
     @Updatable String title
     @Updatable String text
-    @Updatable String photo
     Integer numVotes
     Integer numClucks
     @Updatable PostType postType
@@ -45,7 +44,6 @@ class Post {
     static constraints = {
         numVotes min:0
         numClucks min:0
-        photo nullable:true
         firstCluck nullable:true
         defender nullable:true
         text nullable: false, blank: false

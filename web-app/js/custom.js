@@ -69,73 +69,6 @@ $(document).ready(function() {
 		});
 	}
 
-	// funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)
-	function notyError() {
-		var nE = noty({
-			layout: 'top',
-			dismissQueue: true,
-			animation: {
-				open: {height: 'toggle'},
-				close: {height: 'toggle'},
-				easing: 'swing',
-				speed: 500 // opening & closing animation speed
-			},
-			template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
-			type: 'error',
-			text: 'Texto que queremos que salga en la notifiación de error'
-		});
-	}
-	function notySuccess() {
-		var nS = noty({
-			layout: 'top',
-			dismissQueue: true,
-			animation: {
-				open: {height: 'toggle'},
-				close: {height: 'toggle'},
-				easing: 'swing',
-				speed: 500 // opening & closing animation speed
-			},
-			template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
-			type: 'success',
-			text: 'Texto que queremos que salga en la notifiación de éxito'
-		});
-	}
-	function notyInformation() {
-		var nI = noty({
-			layout: 'top',
-			dismissQueue: true,
-			animation: {
-				open: {height: 'toggle'},
-				close: {height: 'toggle'},
-				easing: 'swing',
-				speed: 500 // opening & closing animation speed
-			},
-			template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
-			type: 'information',
-			text: 'Texto que queremos que salga en la notifiación informativa'
-		});
-	}
-	function notyWarning() {
-		var nW = noty({
-			layout: 'top',
-			dismissQueue: true,
-			animation: {
-				open: {height: 'toggle'},
-				close: {height: 'toggle'},
-				easing: 'swing',
-				speed: 500 // opening & closing animation speed
-			},
-			template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
-			type: 'warning',
-			text: 'Texto que queremos que salga en la notifiación de aviso'
-		});
-	}
-
-
-	// apertura de karma
-	function openKarma () {
-		$('#karma').modal('show');
-	}
 
 	// para probar los avisos
 	// $('.alerts .btn').click(function() {
@@ -400,6 +333,35 @@ $(document).ready(function() {
 	})
 
 });
+var display = {
+    error:function(text){this._notyGeneric(text, "error")},
+    success:function(text){this._notyGeneric(text, "success")},
+    info:function(text){this._notyGeneric(text, "information")},
+    warn:function(text){this._notyGeneric(text, "warning")},
+
+    _notyGeneric:function(text, type) {
+        var nW = noty({
+            layout: 'top',
+            dismissQueue: true,
+            animation: {
+                open: {height: 'toggle'},
+                close: {height: 'toggle'},
+                easing: 'swing',
+                speed: 500 // opening & closing animation speed
+            },
+            template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
+            type: type,
+            text: text
+        });
+    }
+}
+
+
+
+// apertura de karma
+function openKarma () {
+    $('#karma').modal('show');
+}
 
 
 // el hover sobre el kakareo que afecte al triángulo superior

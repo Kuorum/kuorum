@@ -509,10 +509,18 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo .user-list-images li a,
 .kakareo .user-list-followers li a {text-decoration: none;}
 
+.user .popover-trigger:hover,
+.user .popover-trigger:active,
+.user .popover-trigger:focus {text-decoration: underline;}
+
+.edit-user .user .popover-trigger:hover,
+.edit-user .user .popover-trigger:active,
+.edit-user .user .popover-trigger:focus {text-decoration: none;}
+
 .kakareo .user-list-images li .popover-trigger .user-img,
 .kakareo .user-list-followers li .popover-trigger .user-img {margin-left:0; margin-right: 0;}
 
-.popover {width: 360px;}
+.popover {width: 360px; border-radius: 0;}
 .more-users + .popover,
 .more-actions + .popover {width: 225px;}
 
@@ -702,9 +710,9 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer > ul > li a:hover,
 .important .kakareo footer > ul > li a:focus,
 .important .kakareo footer > ul > li a:active,
-.important .kakareo footer > ul > li a:hover span,
-.important .kakareo footer > ul > li a:focus span,
-.important .kakareo footer > ul > li a:active span {color: #ff9431;}
+.important .kakareo footer > ul > li a:hover .fa-lg,
+.important .kakareo footer > ul > li a:focus .fa-l,
+.important .kakareo footer > ul > li a:active .fa-l {color: #ff9431;}
 
 .important .kakareo .main-kakareo .more-users,
 .important .kakareo footer > ul > li.more-actions > span {background-color: #ff9431;}
@@ -719,6 +727,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer {background-color: #feedce; border-top-color: #ff9431;}
 .important .kakareo footer > ul > li a.disabled .fa,
 .important .kakareo footer > ul > li a.disabled {color: #ffc998 !important;}
+.important .kakareo footer > ul > li a.disabled:hover {color: #ffc998 !important; text-decoration: none;}
 .important .kakareo footer > ul > li.read-later a.disabled .fa {color: #ff9431 !important;}
 
 /* kakareo de autor */
@@ -995,7 +1004,9 @@ select.form-control option {cursor: pointer;}
 .btn + .cancel {margin: 0 20px 0 40px;}
 
 .form-group.image {position: relative;}
-.files {border: 1px solid #EFEFEF; height: 240px; background: url('../images/fileUpload.png') center 45px no-repeat transparent; padding: 20px; display: block;}
+
+
+/*.files {border: 1px solid #EFEFEF; height: 240px; background: url('../images/fileUpload.png') center 45px no-repeat transparent; padding: 20px; display: block;}
 .files p {width: 140px; float: left;}
 .fi-button-container {position: absolute; top: 210px; left: 25%; font-size: 19px; font-size: 1.9rem;}
 .fileinput-button {color: #20a2ea;}
@@ -1005,7 +1016,21 @@ tr.template-download {height: 200px; width: 100%; background-color: #F9F9F9; pos
 tr.template-upload td,
 tr.template-download td {background-color: #F9F9F9;}
 #fileupload .progress,
-#fileupload .progress-extended {margin-bottom: 4px;}
+#fileupload .progress-extended {margin-bottom: 4px;}*/
+
+.uploadKuorumImage .modal-header {
+  background-color: #ff9431;
+  color: #fff;
+}
+.uploadKuorumImage .modal-header .close {color: #fff; opacity: 1;}
+.uploadKuorumImage .modal-footer {
+  padding: 12px 20px 12px;
+  margin-top: 0;
+}
+.uploadKuorumImage .modal-footer .btn {
+  margin: 0 0 0 10px !important;
+}
+
 
 /* karma modal */
 .modal-content {border-radius: 3px;}
@@ -1074,12 +1099,20 @@ tr.template-download td {background-color: #F9F9F9;}
 .onecol .boxes h2 {text-transform: none; font-weight: bold; font-size: 16px; font-size: 1.6rem; margin-bottom: 30px;}
 
 .interestContainer,
-.usersContainer {background-color: #efefef; padding: 10px 2px 10px 10px; margin: 20px 0 40px;}
+.usersContainer {background-color: #efefef; padding: 8px 0 8px 8px; margin: 20px 0 40px;}
 .interestContainer span {font-size: 48px; font-size: 4.8rem; display: block; margin-bottom: 8px;}
 
 .usersContainer .user-img.big {width: 80px; height: 80px; margin: 0 0 5px 0;}
-.usersContainer .rol {display: block; color: #545454; margin-top: 5px;}
-.usersContainer .icheckbox_line-orange, .iradio_line-orange {height: 150px;}
+.usersContainer .rol {
+    bottom: 2px;
+    color: #545454;
+    display: block;
+    left: 2px;
+    position: absolute;
+    text-align: center;
+    width: 94px;
+}
+.usersContainer .icheckbox_line-orange, .iradio_line-orange {height: 145px;}
 
 /* iCheck plugin Line skin, orange
 ----------------------------------- */
@@ -1089,11 +1122,11 @@ tr.template-download td {background-color: #F9F9F9;}
     display: block;
     float: left;
     margin: 0 6px 6px 0;
-    padding: 12px 4px 0 4px;
-    width: 97px;
+    padding: 12px 2px 0 2px;
+    width: 98px;
     height: 102px;
-    font-size: 13px;
-    line-height: 1;
+    font-size: 12px;
+    line-height: 1.2;
     color: #ff9431;
     background: #fff;
     text-align: center;
