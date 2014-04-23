@@ -6,7 +6,7 @@
 
 <g:set var="liCss" value="author"/>
 <postUtil:ifHasMultimedia post="${cluck.post}">
-    <g:set var="liCss" value="multimedia"/>
+    <g:set var="liCss" value="author multimedia"/>
 </postUtil:ifHasMultimedia>
 
 <li class="${liCss} ${important?'important':''}" itemscope itemtype="http://schema.org/Article">
