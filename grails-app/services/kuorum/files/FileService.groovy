@@ -92,33 +92,35 @@ class FileService {
      * @return
      */
     KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile){
-        String serverPath = grailsApplication.config.kuorum.upload.serverPath
-        String rootUrl = "${grailsApplication.config.grails.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}"
+        if (kuorumFile.temporal){
+            String serverPath = grailsApplication.config.kuorum.upload.serverPath
+            String rootUrl = "${grailsApplication.config.grails.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}"
 
-        def fileLocation = generatePath(kuorumFile)
-        def serverStoragePath = "$serverPath/$fileLocation"
-        def finalUrl ="$rootUrl/$fileLocation/${kuorumFile.fileName}"
+            def fileLocation = generatePath(kuorumFile)
+            def serverStoragePath = "$serverPath/$fileLocation"
+            def finalUrl ="$rootUrl/$fileLocation/${kuorumFile.fileName}"
 
-        File org = new File("${kuorumFile.storagePath}/${kuorumFile.fileName}")
-        File destDir = new File(serverStoragePath)
-        destDir.mkdirs()
-        File dest = new File("$serverStoragePath/${kuorumFile.fileName}")
+            File org = new File("${kuorumFile.storagePath}/${kuorumFile.fileName}")
+            File destDir = new File(serverStoragePath)
+            destDir.mkdirs()
+            File dest = new File("$serverStoragePath/${kuorumFile.fileName}")
 
-        try{
-            if(org.renameTo(dest)){
-                deleteParentIfEmpty(org)
-                kuorumFile.temporal = Boolean.FALSE
-                kuorumFile.storagePath = serverStoragePath
-                kuorumFile.url =finalUrl
-                kuorumFile.save()
-                log.info("Se ha movido el fichero de '${org.absolutePath}' a '${dest.absolutePath}")
-                return kuorumFile
-            }else{
-                log.error("No se ha podido mover el fichero de '${org.absolutePath}' a '${dest.absolutePath}")
+            try{
+                if(org.renameTo(dest)){
+                    deleteParentIfEmpty(org)
+                    kuorumFile.temporal = Boolean.FALSE
+                    kuorumFile.storagePath = serverStoragePath
+                    kuorumFile.url =finalUrl
+                    kuorumFile.save()
+                    log.info("Se ha movido el fichero de '${org.absolutePath}' a '${dest.absolutePath}")
+                }else{
+                    log.error("No se ha podido mover el fichero de '${org.absolutePath}' a '${dest.absolutePath}")
+                }
+            }catch (Exception e){
+                log.error("Hubo algun problema moviendo el fichero del temporal al final",e)
             }
-        }catch (Exception e){
-            log.error("Hubo algun problema moviendo el fichero del temporal al final",e)
         }
+        kuorumFile
     }
 
     /**

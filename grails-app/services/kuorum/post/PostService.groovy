@@ -38,8 +38,10 @@ class PostService {
         post.owner = owner
         post.law =  law
 
-        fileService.convertTemporalToFinalFile(post.multimedia)
-        fileService.deleteTemporalFiles(owner)
+        if (post.multimedia){
+            fileService.convertTemporalToFinalFile(post.multimedia)
+            fileService.deleteTemporalFiles(owner)
+        }
 
         if (!post.save()){
             KuorumException exception = KuorumExceptionUtil.createExceptionFromValidatable(post, "Error salvando el post ${post}")
@@ -83,9 +85,18 @@ class PostService {
     def updatePost(Post post){
         log.info("Updating post $post")
         post.text = removeCustomCrossScripting(post.text)
+        if (post.multimedia){
+            fileService.convertTemporalToFinalFile(post.multimedia)
+            fileService.deleteTemporalFiles(post.owner)
+        }
         post.mongoUpdate()
     }
 
+    /**
+     * Removes all not allowed html tags
+     * @param raw
+     * @return
+     */
     private removeCustomCrossScripting(String raw){
         def openTags = ~/<[^\/ibau]r{0,1} *[^>]*>/  // Only allow <a> <b> <i> <u> <br>
         def closeTags = ~/<\/[^ibau] *[^>]*>/ // Only allow </a> </b> </i> </u>
