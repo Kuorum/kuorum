@@ -139,16 +139,18 @@ class KuorumRegisterCommand{
     String email
     String name
     String password
+    Boolean conditions
 
     public String getUsername(){ email }// RegisterController.passwordValidator uses username
     static constraints = {
         name blank: false
-        email nullable:false, blank: false, email:true, validator: { val, obj ->
+        email nullable:false, email:true, validator: { val, obj ->
             if (KuorumUser.findByEmail(val)) {
                 return 'registerCommand.username.unique'
             }
         }
         password blank: false, validator: RegisterController.passwordValidator
+        conditions nullable:false
     }
 }
 

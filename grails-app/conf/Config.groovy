@@ -163,7 +163,7 @@ grails.plugin.springsecurity.ui.encodePassword=true
 grails.plugin.springsecurity.ui.password.minLength=6
 grails.plugin.springsecurity.ui.password.maxLength=64
 //grails.plugin.springsecurity.ui.password.validationRegex="^.*(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&]).*$"
-grails.plugin.springsecurity.ui.password.validationRegex="^.*"
+grails.plugin.springsecurity.ui.password.validationRegex='^.*$'
 //FACEBOOK
 grails.plugin.springsecurity.facebook.domain.classname='kuorum.users.FacebookUser'
 grails.plugin.springsecurity.facebook.domain.appUserConnectionPropertyName='user'

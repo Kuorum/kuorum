@@ -49,7 +49,31 @@ class FormTagLib {
 
     }
 
+    def input={attrs->
+        def command = attrs.command
+        def name = attrs.field
+        def label = attrs.label
+        def placeholder = attrs.placeholder?:''
+        def id = attrs.id?:name
+        def helpBlock = attrs.helpBlock?:''
+        def type = attrs.type?:'text'
+        def required = attrs.required?'required':''
+        def cssClass = attrs.cssClass?:''
 
+        def value = command."${name}"?:''
+        def error = hasErrors(bean: command, field: name,'error')
+        out <<"""
+            <label for="${id}">${label}</label>
+            <input type="${type}" name="${name}" class="${cssClass} ${error}" id="${id}" ${required} placeholder="${placeholder}" value="${value}">
+        """
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: name)}</span>"
+        }
+
+        if (helpBlock){
+            out << "<p class='help-block'>${helpBlock}</p>"
+        }
+    }
 
 
     /* VALIDATION */
