@@ -62,7 +62,11 @@ class PostController {
             return
         }
 
-        post.multimedia = KuorumFile.get(new ObjectId(command.imageId))
+        KuorumFile multimedia = null
+        if (command.imageId){
+            multimedia = KuorumFile.get(new ObjectId(command.imageId))
+        }
+        post.multimedia = multimedia
 //        command.videoPost = post.multimedia?.fileType == FileType.VIDEO?post.multimedia.url:''
         post.postType = command.postType
         post.text = command.textPost
@@ -70,7 +74,10 @@ class PostController {
         post.pdfPage = command.numberPage
 
         postService.updatePost(post)
-        redirect mapping:"postShow", params:post.encodeAsLinkProperties()
+        if (post.published)
+            redirect mapping:"postShow", params:post.encodeAsLinkProperties()
+        else
+            redirect mapping:"postReview", params:post.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -96,7 +103,11 @@ class PostController {
             return;
         }
         Post post = new Post()
-        post.multimedia = KuorumFile.get(new ObjectId(command.imageId))
+        KuorumFile multimedia = null
+        if (command.imageId){
+            multimedia = KuorumFile.get(new ObjectId(command.imageId))
+        }
+        post.multimedia = multimedia
 //        command.videoPost = post.multimedia?.fileType == FileType.VIDEO?post.multimedia.url:''
         post.postType = command.postType
         post.text = command.textPost
