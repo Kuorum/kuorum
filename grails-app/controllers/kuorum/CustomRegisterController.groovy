@@ -30,6 +30,7 @@ class CustomRegisterController {
         command.year =  user.personalData?.birthday?user.personalData?.birthday[Calendar.YEAR]:null
         command.month = user.personalData?.birthday?user.personalData?.birthday[Calendar.MONTH]:null
         command.day =   user.personalData?.birthday?user.personalData?.birthday[Calendar.DAY_OF_MONTH]:null
+        command.name = user.name
         [command: command]
     }
 

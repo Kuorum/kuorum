@@ -59,12 +59,14 @@ class FormTagLib {
         def type = attrs.type?:'text'
         def required = attrs.required?'required':''
         def cssClass = attrs.cssClass?:''
+        def labelCssClass = attrs.labelCssClass?:''
+        def maxlength = attrs.maxlength?"maxlength='${attrs.maxlength}'":''
 
         def value = command."${name}"?:''
         def error = hasErrors(bean: command, field: name,'error')
         out <<"""
-            <label for="${id}">${label}</label>
-            <input type="${type}" name="${name}" class="${cssClass} ${error}" id="${id}" ${required} placeholder="${placeholder}" value="${value}">
+            <label for="${id}" class="${labelCssClass}">${label}</label>
+            <input type="${type}" name="${name}" class="${cssClass} ${error}" id="${id}" ${required} ${maxlength} placeholder="${placeholder}" value="${value}">
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: name)}</span>"
