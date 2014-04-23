@@ -77,6 +77,30 @@ class FormTagLib {
         }
     }
 
+    def selectEnum = {attrs->
+        def command = attrs.command
+        def field = attrs.field
+
+        def id = attrs.id?:field
+        def cssClass = attrs.cssClass
+        def clazz = command.metaClass.properties.find{it.name == field}.type
+        def label = message(code: "${clazz.name}.label")
+        def error = hasErrors(bean: command, field: field,'error')
+        out <<"""
+            <label for="${id}">${label}</label>
+            <select name="${field}" class="form-control ${error}" id="${id}">
+            """
+        out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
+        clazz.values().each{
+            String codeMessage = "${clazz.name}.$it"
+            out << "<option value='${it}' ${it==command."$field"?'selected':''}> ${message(code:codeMessage)}</option>"
+        }
+        out << "</select>"
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: name)}</span>"
+        }
+    }
+
 
     /* VALIDATION */
 

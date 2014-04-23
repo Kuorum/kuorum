@@ -19,6 +19,7 @@ class CustomRegisterController {
     def springSecurityService
     def kuorumUserService
     def kuorumMailService
+    def fileService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def step1() {
@@ -82,6 +83,7 @@ class CustomRegisterController {
         command.workingSector = user.personalData?.workingSector
         command.bio = user.bio
         command.studies =  user.personalData?.studies
+        command.photoId = user.avatar?.id?.toString()
         [command: command]
     }
 
@@ -91,6 +93,15 @@ class CustomRegisterController {
         user.personalData.workingSector = command.workingSector
         user.bio = command.bio
         user.personalData.studies =  command.studies
+        if (command.photoId){
+            KuorumFile avatar = KuorumFile.get(new ObjectId(command.photoId))
+            avatar.alt = user.name
+            avatar.save()
+            user.avatar = avatar
+            fileService.convertTemporalToFinalFile(avatar)
+            fileService.deleteTemporalFiles(user)
+        }
+
         user.save()
         redirect mapping:'customRegisterStep3'
     }
