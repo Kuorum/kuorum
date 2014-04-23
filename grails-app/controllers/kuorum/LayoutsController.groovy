@@ -35,7 +35,7 @@ class LayoutsController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userHeadNoLinks(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Integer numUserPosts = postService.numUserPosts(user)
-        [user:user,numUserPosts:numUserPosts]
+//        Integer numUserPosts = postService.numUserPosts(user)
+        [user:user]
     }
 }

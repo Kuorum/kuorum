@@ -30,6 +30,6 @@ class ImagesTagLib {
 
     private String getDefaultAvatar(KuorumUser user){
         //User can be null
-        g.resource(dir:'images', file: 'user.jpg')
+        g.resource(dir:'images', file: 'pre-user.jpg')
     }
 }

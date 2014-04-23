@@ -6,47 +6,7 @@
     </head>
 
     <body>
-
-        <header id="header" class="row" role="banner">
-            <nav class="navbar navbar-fixed-top" role="navigation">
-                <div class="container-fluid">
-                    <g:render template="/layouts/brandAndLogo"/>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <span class="navbar-link user-area">
-                                    <span>Nombre usuario</span> <img src="images/pre-user.jpg" alt="nombre" class="user-img">
-                                </span>
-                            </li>
-                            <li>
-                                <span id="open-user-options" class="navbar-link">
-                                    <span class="fa fa-gear fa-lg"></span>
-                                    <span class="visible-xs">Opciones de usuario</span>
-                                </span>
-
-                            </li>
-                            <li>
-                                <span class="navbar-link" id="open-user-messages">
-                                    <span class="fa fa-envelope fa-lg"></span>
-                                    <span class="visible-xs" id="messages">Mensajes</span>
-                                </span>
-
-                            </li>
-                            <li>
-                                <span class="navbar-link" id="open-user-notifications">
-                                    <span class="fa fa-bell fa-lg"></span>
-                                    <span class="visible-xs" id="alerts">Notificaciones</span>
-                                </span>
-
-                            </li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
-            </nav>
-        </header>
+        <g:render template="/layouts/headNoLinks"/>
         <div class="row main">
             <div class="container-fluid onecol">
                 <section id="main" role="main">
