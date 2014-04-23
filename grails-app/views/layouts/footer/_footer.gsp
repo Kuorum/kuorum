@@ -79,11 +79,7 @@
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1">
-                <ul class="licenses text-right">
-                    <li><span class="sr-only">Licencias</span></li>
-                    <li><a href="https://www.gnu.org/copyleft/gpl.html" hreflang="en" class="gpl"><img src="${g.resource(dir:'images', file:'gplv3.png')}" alt="General Public License"></a></li>
-                    <li><a href="https://github.com/Kuorum/kuorum" hreflang="en" class="github"><img src="${g.resource(dir:'images', file:'logo-github.png')}" alt="Github"></a></li>
-                </ul>
+                <g:render template="/layouts/footer/licences"/>
             </div>
         </div><!-- /.container - da ancho máximo y centra -->
     </section>

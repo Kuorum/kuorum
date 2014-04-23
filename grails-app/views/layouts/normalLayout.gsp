@@ -12,6 +12,6 @@
                 <g:pageProperty name="page.mainContent"/>
             </content>
         </div><!-- #main -->
-        <g:render template="/layouts/footer"/>
+        <g:render template="/layouts/footer/footer"/>
     </body>
 </g:applyLayout>

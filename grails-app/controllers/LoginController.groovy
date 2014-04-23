@@ -100,7 +100,9 @@ class LoginController {
 				msg = g.message(code: "springSecurity.errors.login.disabled")
 			}
 			else if (exception instanceof LockedException) {
-				msg = g.message(code: "springSecurity.errors.login.locked")
+//				msg = g.message(code: "springSecurity.errors.login.locked")
+                redirect mapping:'registerResendMail'
+                return
 			}
 			else {
 				msg = g.message(code: "springSecurity.errors.login.fail")

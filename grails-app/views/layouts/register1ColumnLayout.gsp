@@ -24,24 +24,15 @@
         <div class="row main">
             <div class="container-fluid onecol">
                 <section id="main" role="main">
-                    <div class="intro">
+                    <div class="intro confirm">
                         <g:pageProperty name="page.intro"/>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                            <content id="mainContent">
-                                <g:pageProperty name="page.mainContent"/>
-                            </content>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                            <content id="description">
-                                <g:pageProperty name="page.description"/>
-                            </content>
-                        </div>
+                    <div class="max600 text-center">
+                        <g:pageProperty name="page.mainContent"/>
                     </div>
                 </section>
             </div>
         </div><!-- #main -->
-        <g:render template="/layouts/footer"/>
+        <g:render template="/layouts/footer/footerRegister"/>
     </body>
 </g:applyLayout>

@@ -20,7 +20,7 @@
             </div>
         </div><!-- /.conatiner-fluid -->
     </div><!-- /#main -->
-    <g:render template="/layouts/footer"/>
+    <g:render template="/layouts/footer/footer"/>
     </body>
 
 </g:applyLayout>

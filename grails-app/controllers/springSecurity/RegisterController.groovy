@@ -52,6 +52,9 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     def registerSuccess(){}
 
+    def resendRegisterVerification(){
+    }
+
     def verifyRegistration() {
 
         def conf = SpringSecurityUtils.securityConfig

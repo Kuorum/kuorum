@@ -6,6 +6,7 @@ import kuorum.ParliamentaryGroup
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.UserType
+import kuorum.core.model.search.Pagination
 
 @Transactional
 class KuorumUserService {
@@ -113,17 +114,17 @@ class KuorumUserService {
     }
 
 
-    List<KuorumUser> recommendedUsers(KuorumUser user){
+    List<KuorumUser> recommendedUsers(KuorumUser user, Pagination pagination = new Pagination()){
         //TODO: Improve algorithm
         if (!user){
-            KuorumUser.findAllByNumFollowersGreaterThan(-1,[sort:"numFollowers",order: "desc", max:10])
+            KuorumUser.findAllByNumFollowersGreaterThan(-1,[sort:"numFollowers",order: "desc", max:pagination.max])
         }else{
-            KuorumUser.findAllByNumFollowersGreaterThanAndEmailNotEqual(-1,user.email,[sort:"numFollowers",order: "desc", max:10])
+            KuorumUser.findAllByNumFollowersGreaterThanAndEmailNotEqual(-1,user.email,[sort:"numFollowers",order: "desc", max:pagination.max])
         }
     }
 
-    List<KuorumUser> recommendedUsers(){
-        recommendedUsers(null)
+    List<KuorumUser> recommendedUsers(Pagination pagination = new Pagination()){
+        recommendedUsers(null, pagination)
     }
 
     KuorumUser updateUser(KuorumUser user){

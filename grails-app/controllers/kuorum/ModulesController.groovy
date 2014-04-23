@@ -1,6 +1,7 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.model.search.Pagination
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 
@@ -9,6 +10,7 @@ class ModulesController {
     def springSecurityService
     def postService
     def notificationService
+    def kuorumUserService
 
     def recommendedPosts() {
         KuorumUser user = null
@@ -38,6 +40,11 @@ class ModulesController {
     def userFavorites() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         [favorites:postService.favoritesPosts(user)]
+    }
+
+    def registerFooterRelevantUsers(){
+        List<KuorumUser> users = kuorumUserService.recommendedUsers(new Pagination(max: 8))
+        render template: "/layouts/footer/footerRegisterRelevantUsers", model: [users:users]
     }
 
 }

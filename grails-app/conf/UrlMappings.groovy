@@ -29,7 +29,7 @@ class UrlMappings {
 
         //userShow is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
         name userShow:          "/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "show")
-        name citizenShow:      "/ciudadanos/$urlName-$id"     (controller: "kuorumUser", action: "showCitizen")
+        name citizenShow:       "/ciudadanos/$urlName-$id"     (controller: "kuorumUser", action: "showCitizen")
         name organizacionShow:  "/organizaciones/$urlName-$id" (controller: "kuorumUser", action: "showOrganization")
         name politicianShow:    "/politicos/$urlName-$id"      (controller: "kuorumUser", action: "showPolitician")
         name userFollowers:     "/$userTypeUrl/$urlName-$id/seguidores" (controller: "kuorumUser", action: "userFollowers")
@@ -37,6 +37,7 @@ class UrlMappings {
 
         name register:            "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
         name registerSuccess:     "/registro/satisfactorio"(controller: "register",action:"registerSuccess")
+        name registerResendMail:  "/registro/no-verificado"(controller: "register",action:"resendRegisterVerification")
         name resetPassword:       "/registro/passwordOlvidado"(controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"]}
         name resetPasswordSent:   "/registro/enviadaVerificacion"(controller: "register", action:"forgotPasswordSuccess")
         name resetPasswordChange: "/registro/cambiarPassword"(controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"]}
@@ -73,8 +74,10 @@ class UrlMappings {
         name footerPoliticians:   "/kuorum/politicos"           (controller:"footer", action: "politicians" )
         name footerDevelopers:    "/kuorum/desarrolladores"     (controller:"footer", action: "developers" )
         name footerPrivacyPolicy: "/kuorum/politica-privacidad" (controller:"footer", action: "privacyPolicy")
-        name footerTermsUse:      "/kuorum/condicionesDeUso"    (controller:"footer", action: "termsUse")
+        name footerTermsUse:      "/kuorum/condiciones-de-uso"  (controller:"footer", action: "termsUse")
         name footerTermsAds:      "/kuorum/normas-publicidad"   (controller:"footer", action: "termsAds")
+
+        name tourStart:           "/tour" (controller:"tour", action: "index")
 
         name ajaxHeadNotificationsChecked: "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")
         name ajaxPostponeAlert: "/ajax/notificaiones/posponer/$id"(controller:"notification", action:"postponeAlert")
