@@ -17,6 +17,6 @@ class Step2Command {
         photoId nullable: false
         workingSector nullable: false, minSize: 5, maxSize: 5
         studies nullable: true
-        bio nullable: true, maxSize: 100
+        bio nullable: true, maxSize: 500
     }
 }
