@@ -280,8 +280,25 @@ $(document).ready(function() {
 	    }
 	});
 
+    var texts= {
+        0: i18n.customRegister.step4.form.submit.description0,
+        1: i18n.customRegister.step4.form.submit.description1,
+        2: i18n.customRegister.step4.form.submit.description2,
+        ok:i18n.customRegister.step4.form.submit.descriptionOk
+    }
+    function changeDescriptionNumSelect(){
+        var numChecked = $("#sign4 input[type=checkbox]:checked").length
+        if (numChecked < 3){
+            $("#descNumSelect").html(texts[numChecked])
+            $("#sign4 input[type=submit]").addClass('disabled')
+        }else{
+            $("#descNumSelect").html(texts['ok'])
+            $("#sign4 input[type=submit]").removeClass('disabled')
+        }
+    }
 	// seleccionar todos los checkbox
 	$(function () {
+        changeDescriptionNumSelect()
 	    var checkAll = $('#selectAll');
 	    var checkboxes = $('input.check');
 
@@ -325,6 +342,7 @@ $(document).ready(function() {
 	            checkAll.removeProp('checked');
 	        }
 	        checkAll.iCheck('update');
+            changeDescriptionNumSelect();
 	    });
 	});
 

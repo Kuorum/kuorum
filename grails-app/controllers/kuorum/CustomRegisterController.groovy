@@ -3,6 +3,7 @@ package kuorum
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
+import kuorum.core.model.search.Pagination
 import kuorum.users.KuorumUser
 import kuorum.users.OrganizationData
 import kuorum.users.PersonData
@@ -132,7 +133,7 @@ class CustomRegisterController {
         log.info("Custom register paso4")
         Step4Command command = new Step4Command()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user)
+        List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user, new Pagination(max:12))
         [command: command, recommendedUsers:recommendedUsers]
     }
 
