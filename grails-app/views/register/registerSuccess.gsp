@@ -13,8 +13,8 @@
             </g:link>
         </li>
         <li class="underline">
-            <g:link mapping="login" class="navbar-link">
-                <g:message code="register.head.login"/>
+            <g:link mapping="tourStart" class="navbar-link">
+                <g:message code="register.head.tour"/>
             </g:link>
         </li>
     </ul>
