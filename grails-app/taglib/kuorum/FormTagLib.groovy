@@ -2,6 +2,7 @@ package kuorum
 
 import kuorum.core.FileGroup
 import kuorum.law.Law
+import kuorum.web.commands.customRegister.Step2Command
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
 
@@ -101,6 +102,37 @@ class FormTagLib {
         }
     }
 
+    def textArea = {attrs ->
+        Step2Command command = attrs.command
+        def field = attrs.field
+        def rows = attrs.rows?:5
+
+        def id = attrs.id?:field
+        def value = command."$field"?:''
+//        def cssClass = attrs.cssClass
+        def label = message(code: "${command.class.name}.${field}.label")
+        def placeHolder = message(code: "${command.class.name}.${field}.placeHolder")
+        def error = hasErrors(bean: command, field: field,'error')
+        ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
+        MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
+        def maxSize = maxSizeConstraint.maxSize?:0
+
+
+        out << """
+            <label for="${id}">${label}</label>
+            <textarea name='${field}' class="form-control counted ${error}" rows="${rows}" id="${id}" placeholder="${placeHolder}">${value}</textarea>
+        """
+        if (error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+        }
+
+        if (maxSize){
+        out << """
+            <div id="charInit" class="hidden">${message(code:'form.textarea.limitChar')}<span>${maxSize}</span></div>
+            <div id="charNum" class="help-block">${message(code:'form.textarea.limitChar.left')} <span></span> ${message(code:'form.textarea.limitChar.characters')}</div>
+            """
+        }
+    }
 
     /* VALIDATION */
 

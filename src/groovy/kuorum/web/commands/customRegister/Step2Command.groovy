@@ -1,7 +1,6 @@
 package kuorum.web.commands.customRegister
 
 import grails.validation.Validateable
-import kuorum.core.model.Gender
 import kuorum.core.model.Studies
 import kuorum.core.model.WorkingSector
 
@@ -18,6 +17,6 @@ class Step2Command {
         photoId nullable: false
         workingSector nullable: false, minSize: 5, maxSize: 5
         studies nullable: true
-        bio nullable: true, maxSize: 10
+        bio nullable: true, maxSize: 100
     }
 }

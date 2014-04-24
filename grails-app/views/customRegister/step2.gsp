@@ -13,7 +13,7 @@
 <content tag="mainContent">
     <g:form method="POST" mapping="customRegisterStep2" name="sign2" role="form">
         <div class="form-group">
-            <label for="photoId">Añade una foto</label>
+            <label for="photoId"><g:message code="customRegister.step2.form.changePhoto"/> </label>
             <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
 
             %{--<input type="file" class="form-control" id="addphoto">--}%
@@ -33,42 +33,17 @@
             <p class="help-block"><g:message code="customRegister.step2.form.helpBlock"/> </p>
         </div>
         <div class="form-group">
-            <label for="bio">Bio</label>
-            <textarea class="form-control counted" rows="5" id="bio" placeholder="Escribe algo sobre ti"></textarea>
-            <div id="charInit" class="hidden">Tienes un límite de caracteres de <span>500</span></div>
-            <div id="charNum" class="help-block">Te quedan <span></span> caracteres</div>
+            <formUtil:textArea command="${command}" field="bio" rows="5"/>
+            %{--<label for="bio">Bio</label>--}%
+            %{--<textarea class="form-control counted" rows="5" id="bio" placeholder="Escribe algo sobre ti"></textarea>--}%
+            %{--<div id="charInit" class="hidden">Tienes un límite de caracteres de <span>500</span></div>--}%
+            %{--<div id="charNum" class="help-block">Te quedan <span></span> caracteres</div>--}%
         </div>
         <div class="form-group">
-            <a class="cancel" href="#">Saltar este paso Continuar</a>
-            <input type="submit" class="btn btn-lg" value="Continuar"/>
+            <g:link class="cancel" mapping="customRegisterStep3"><g:message code="customRegister.step2.form.cancel"/></g:link>
+            <input type="submit" class="btn btn-lg" value="${message(code:'customRegister.step2.form.submit')}"/>
         </div>
     </g:form>
-
-FOTO
-<g:form method="POST" mapping="customRegisterStep2">
-
-    <div class="fieldcontain ${hasErrors(bean: command, field: 'workingSector', 'error')} ">
-        <label for="workingSector">
-            <g:message code="step1.workingSector.label" default="workingSector"/>
-
-        </label>
-        <g:select name="workingSector" from="${kuorum.core.model.WorkingSector?.values()}"
-                  keys="${kuorum.core.model.WorkingSector.values()*.name()}" required="true"
-                  value="${command?.workingSector?.name()}"/>
-    </div>
-    <div class="fieldcontain ${hasErrors(bean: command, field: 'studies', 'error')} ">
-        <label for="studies">
-            <g:message code="step1.studies.label" default="studies"/>
-
-        </label>
-        <g:select name="studies" from="${kuorum.core.model.Studies?.values()}"
-                  keys="${kuorum.core.model.Studies.values()*.name()}" required="true"
-                  value="${command?.studies?.name()}"/>
-    </div>
-
-    <g:link mapping="customRegisterStep3">skip step</g:link>
-    <g:submitButton name="paso2">Continuar</g:submitButton>
-</g:form>
 </content>
 
 <content tag="boxes">
