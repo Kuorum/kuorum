@@ -19,7 +19,7 @@
                     field="name"
                     required="true"/>
         </div>
-        <div class="form-group">
+        <div class="form-group groupRadio">
             <span class="span-label"><g:message code="customRegister.step1.form.gender.placeholder"/> </span>
             <g:each in="${kuorum.core.model.Gender?.values()}" var="gender" status="i">
                 <label class="radio-inline">

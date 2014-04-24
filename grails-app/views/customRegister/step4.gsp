@@ -11,7 +11,7 @@
 </content>
 
 <content tag="mainContent">
-    <g:form method="POST" mapping="customRegisterStep4" name="sign3" role="form">
+    <g:form method="POST" mapping="customRegisterStep4" name="sign4" role="form">
         <div class="form-group">
             <span class="span-label">Empieza a seguir a otros <label class="checkbox-inline pull-right"><input type="checkbox" id="selectAll" value="allUsers"> Seleccionar todos</label></span>
             <div class="usersContainer clearfix">

@@ -57,7 +57,7 @@ $(document).ready(function() {
 			}
 		})
 		.done(function(data, status, xhr) {
-			parent.append(data)
+			parent.append(data).show('slow')
 			var moreResults = xhr.getResponseHeader('moreResults')
 			link.attr('data-offset', offset +10)
 			if (moreResults){
@@ -286,6 +286,7 @@ $(document).ready(function() {
         2: i18n.customRegister.step4.form.submit.description2,
         ok:i18n.customRegister.step4.form.submit.descriptionOk
     }
+
     function changeDescriptionNumSelect(){
         var numChecked = $("#sign4 input[type=checkbox]:checked").length
         if (numChecked < 3){
