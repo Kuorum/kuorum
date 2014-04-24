@@ -1,42 +1,50 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="kuorum.name"/> </title>
-    <meta name="layout" content="noHeadLinksLayout">
+    <meta name="layout" content="customRegisterLayout">
+    <parameter name="actualStep" value="3" />
 </head>
 
-
-<content tag="headText">
-    <g:message code="head.logged.noLinks.steps"/>
+<content tag="intro">
+    <h1><g:message code="customRegister.step3.intro.title"/> </h1>
+    <p><g:message code="customRegister.step3.intro.description"/></p>
 </content>
 
 <content tag="mainContent">
-
-
-    <H1> PASO 3</H1>
-
-FOTO
-<g:form method="POST" mapping="customRegisterStep3">
-
-    <div class="fieldcontain ${hasErrors(bean: command, field: 'relevantCommissions', 'error')} ">
-        <label for="relevantCommissions">
-            <g:message code="step1.relevantCommissions.label" default="relevantCommissions"/>
-
-        </label>
-
-        <g:each in="${kuorum.core.model.CommissionType.values()}" var="commissionType">
-            <g:checkBox name="relevantCommissions" value="${commissionType}" checked="${command.relevantCommissions.contains(commissionType)}"/>
-            <span class="${hasErrors(bean: command, field: 'relevantCommissions', 'error')}">
-                <g:message code="kuorum.core.model.CommissionType.${commissionType}" default="${commissionType}"/>
+    <g:form method="POST" mapping="customRegisterStep3" name="sign3" role="form">
+        <div class="form-group">
+            <span class="span-label">
+                <g:message code="customRegister.step3.form.relevantCommissions.label"/>
+                <label class="checkbox-inline pull-right">
+                    <input type="checkbox" id="selectAll" value="allInterest"> <g:message code="customRegister.step3.form.relevantCommissions.selectAll"/>
+                </label>
             </span>
-            <br/>
-        </g:each>
-    </div>
-
-    <g:link mapping="customRegisterStep4">skip step</g:link>
-    <g:submitButton name="Continuar"/>
-</g:form>
+            <div class="interestContainer clearfix">
+                <div class="all clearfix">
+                    <g:each in="${kuorum.core.model.CommissionType.values()-[kuorum.core.model.CommissionType.OTHERS]}" var="commissionType">
+                        <input type="checkbox" name="relevantCommissions" id="${commissionType}" value="${commissionType}" class="check" ${command.relevantCommissions.contains(commissionType)?'checked':''}>
+                        <label for="${commissionType}"><span class="icon-${commissionType}"></span><g:message code="kuorum.core.model.CommissionType.${commissionType}"/></label>
+                    </g:each>
+                </div><!-- /.all -->
+                <label class="checkbox-inline"><input type="checkbox" id="others" value="Otros intereses">
+                    <g:message code="customRegister.step3.form.relevantCommissions.OTHERS"/>
+                </label>
+                <p class="help-block">
+                    <g:message code="customRegister.step3.form.relevantCommissions.helpBlock"/>
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <g:link mapping="customRegisterStep4" class="cancel"><g:message code="customRegister.step3.form.cancel"/></g:link>
+            <input type="submit" class="btn btn-lg" value="${message(code:'customRegister.step3.form.submit')}"/>
+        </div>
+    </g:form>
 </content>
 
-<content tag="cColumn">
-    Columna C de dashboard
+<content tag="boxes">
+    <div class="boxes">
+        <h2>Cuéntanos algo más</h2>
+        <p>Haz llegar tus historias sobre las leyes. Cosas en las que te afectan las leyes, cómo era antes, cómo será después de la entrada en vigor de la ley.</p>
+        <p>Cuéntanos tu historia. En qué te afecta esta ley. Nos comprometemos a hacerla llegar a los políticos para que la tengan en cuenta.</p>
+    </div>
 </content>

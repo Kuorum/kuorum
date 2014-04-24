@@ -1,10 +1,11 @@
 modules = {
 
+
+
     basic {
         resource url:'js/jquery.min.js'
         resource url:'js/bootstrap.min.js'
     }
-
 
     application {
         dependsOn "basic"
@@ -18,6 +19,7 @@ modules = {
         resource url:'js/layouts/center.js'
         resource url:'js/bootstrap-progressbar.min.js'
         resource url:'js/jquery.slimscroll.min.js'
+        resource url:'js/icheck.min.js'
         resource url:'js/custom.js'
     }
 

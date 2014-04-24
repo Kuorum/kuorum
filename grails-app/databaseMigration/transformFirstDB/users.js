@@ -93,7 +93,7 @@ function createKuorumUserFromOldUser(user){
             "EUROPE_UNION",
             "DISABILITY",
             "ROAD_SAFETY",
-            "SUSTAINABLE_MOBILITY",
+//            "SUSTAINABLE_MOBILITY",
             "OTHERS"
         ],
         availableMails:[

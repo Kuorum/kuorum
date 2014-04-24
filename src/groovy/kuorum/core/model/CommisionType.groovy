@@ -24,7 +24,7 @@ enum CommissionType {
     EUROPE_UNION, // Unión Europea,
     DISABILITY, // Discapacidad,
     ROAD_SAFETY, // Seguridad Vial
-    SUSTAINABLE_MOBILITY,// Movilidad Sostenible,
+//    SUSTAINABLE_MOBILITY,// Movilidad Sostenible,
     OTHERS// Otros
 
 }

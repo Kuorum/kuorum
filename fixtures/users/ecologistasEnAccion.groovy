@@ -50,7 +50,7 @@ fixture {
                 CommissionType.EUROPE_UNION,
                 CommissionType.DISABILITY,
                 CommissionType.ROAD_SAFETY,
-                CommissionType.SUSTAINABLE_MOBILITY,
+//                CommissionType.SUSTAINABLE_MOBILITY,
                 CommissionType.OTHERS
         ]
         language ="es_ES"
