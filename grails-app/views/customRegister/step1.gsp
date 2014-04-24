@@ -17,9 +17,6 @@
             <formUtil:input
                     command="${command}"
                     field="name"
-                    label="${message(code:'customRegister.step1.form.name.label' )}"
-                    placeholder="${message(code:'customRegister.step1.form.name.placeholder' )}"
-                    cssClass="form-control input-lg"
                     required="true"/>
         </div>
         <div class="form-group">
@@ -38,9 +35,6 @@
                     <formUtil:input
                             command="${command}"
                             field="day"
-                            label="${message(code:'customRegister.step1.form.day.label' )}"
-                            placeholder="${message(code:'customRegister.step1.form.day.placeholder' )}"
-                            cssClass="form-control input-lg"
                             labelCssClass="sr-only"
                             required="true"
                             type="number"
@@ -51,9 +45,6 @@
                     <formUtil:input
                             command="${command}"
                             field="month"
-                            label="${message(code:'customRegister.step1.form.month.label' )}"
-                            placeholder="${message(code:'customRegister.step1.form.month.placeholder' )}"
-                            cssClass="form-control input-lg"
                             labelCssClass="sr-only"
                             required="true"
                             type="number"
@@ -64,9 +55,6 @@
                     <formUtil:input
                             command="${command}"
                             field="year"
-                            label="${message(code:'customRegister.step1.form.year.label' )}"
-                            placeholder="${message(code:'customRegister.step1.form.year.placeholder' )}"
-                            cssClass="form-control input-lg"
                             labelCssClass="sr-only"
                             required="true"
                             type="number"
@@ -81,9 +69,6 @@
                     <formUtil:input
                             command="${command}"
                             field="postalCode"
-                            label="${message(code:'customRegister.step1.form.postalCode.label' )}"
-                            placeholder="${message(code:'customRegister.step1.form.postalCode.placeholder' )}"
-                            cssClass="form-control input-lg"
                             required="true"
                             type="number"
                             maxlength="5"

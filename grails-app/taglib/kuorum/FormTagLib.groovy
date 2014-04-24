@@ -52,25 +52,28 @@ class FormTagLib {
 
     def input={attrs->
         def command = attrs.command
-        def name = attrs.field
-        def label = attrs.label
-        def placeholder = attrs.placeholder?:''
-        def id = attrs.id?:name
+        def field = attrs.field
+
+        def id = attrs.id?:field
         def helpBlock = attrs.helpBlock?:''
         def type = attrs.type?:'text'
         def required = attrs.required?'required':''
-        def cssClass = attrs.cssClass?:''
+        def cssClass = attrs.cssClass?:'form-control input-lg'
         def labelCssClass = attrs.labelCssClass?:''
         def maxlength = attrs.maxlength?"maxlength='${attrs.maxlength}'":''
 
-        def value = command."${name}"?:''
-        def error = hasErrors(bean: command, field: name,'error')
+        def clazz = command.metaClass.properties.find{it.name == field}.type
+        def label = message(code: "${command.class.name}.${field}.label")
+        def placeHolder = message(code: "${command.class.name}.${field}.placeHolder", default: '')
+
+        def value = command."${field}"?:''
+        def error = hasErrors(bean: command, field: field,'error')
         out <<"""
             <label for="${id}" class="${labelCssClass}">${label}</label>
-            <input type="${type}" name="${name}" class="${cssClass} ${error}" id="${id}" ${required} ${maxlength} placeholder="${placeholder}" value="${value}">
+            <input type="${type}" name="${field}" class="${cssClass} ${error}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}">
         """
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: name)}</span>"
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
 
         if (helpBlock){
