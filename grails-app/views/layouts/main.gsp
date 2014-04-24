@@ -72,9 +72,9 @@
     <g:layoutBody/>
 </div>
 %{--<r:require module="application"/>--}%
+<g:render template="/layouts/jsAjaxUrls"/>
 <r:layoutResources />
 %{--<script src="${resource(dir: '/js', file: 'jquery.slimscroll.min.js')}"></script>--}%
 %{--<script src="${resource(dir: '/js', file: 'custom.js')}"></script>--}%
-<g:render template="/layouts/jsAjaxUrls"/>
 </body>
 </html>
