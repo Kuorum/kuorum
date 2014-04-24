@@ -160,7 +160,7 @@ grails.plugin.springsecurity.password.hash.iterations = 1
 grails.plugin.springsecurity.dao.reflectionSaltSourceProperty='id'
 
 grails.plugin.springsecurity.ui.encodePassword=true
-grails.plugin.springsecurity.ui.password.minLength=6
+grails.plugin.springsecurity.ui.password.minLength=4
 grails.plugin.springsecurity.ui.password.maxLength=64
 //grails.plugin.springsecurity.ui.password.validationRegex="^.*(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&]).*$"
 grails.plugin.springsecurity.ui.password.validationRegex='^.*$'
