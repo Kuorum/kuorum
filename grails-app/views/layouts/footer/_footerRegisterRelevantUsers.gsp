@@ -7,7 +7,7 @@
         <h2><g:message code="register.layoutFooter.usersModules.title"/> </h2>
         <ul class="user-list clearfix">
             <g:each in="${users}" var="user" status="i">
-                <li><img class="user-img big" alt="${user.name}" src="${image.userImgSrc(user:user)}"></li>
+                <li><img class="user-img" alt="${user.name}" src="${image.userImgSrc(user:user)}"></li>
             </g:each>
         </ul>
     </div>

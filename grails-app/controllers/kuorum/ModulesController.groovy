@@ -43,7 +43,7 @@ class ModulesController {
     }
 
     def registerFooterRelevantUsers(){
-        List<KuorumUser> users = kuorumUserService.recommendedUsers(new Pagination(max: 8))
+        List<KuorumUser> users = kuorumUserService.recommendedUsers(new Pagination(max: 19))
         render template: "/layouts/footer/footerRegisterRelevantUsers", model: [users:users]
     }
 
