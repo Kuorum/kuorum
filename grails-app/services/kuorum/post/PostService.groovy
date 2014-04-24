@@ -37,6 +37,7 @@ class PostService {
         post.numClucks = 0
         post.owner = owner
         post.law =  law
+        post.text = removeCustomCrossScripting(post.text)
 
         if (post.multimedia){
             fileService.convertTemporalToFinalFile(post.multimedia)
@@ -106,7 +107,7 @@ class PostService {
         def notAllowedAttributes = ~/(<[abiu]r{0,1})([^h>]*)(href=[^ >]*){0,1}([^h>]*)(>)/ //Delete all atributes that are not href
         text = text.replaceAll(notAllowedAttributes, '$1 $3 $5')
         text = text.replaceAll(~/( *)(>)/,'$2')
-        text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\'>')
+        text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\' target=\'_blank\'>')
         def brs = ~/<br><br>/
         while(text.find(brs)){
             text = text.replaceAll(brs,'<br>')
