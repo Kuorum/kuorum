@@ -13,6 +13,7 @@ class KuorumUserService {
 
     def notificationService
     def indexSolrService
+    def kuorumMailService
 
     def createFollower(KuorumUser follower, KuorumUser following) {
         if (follower == following){
@@ -133,6 +134,8 @@ class KuorumUserService {
             throw KuorumExceptionUtil.createExceptionFromValidatable(user)
         }
         indexSolrService.index(user)
+        kuorumMailService.mailingListUpdateUser(user)
+
         user
     }
 }
