@@ -98,22 +98,27 @@ class PostService {
      * @param raw
      * @return
      */
-    private removeCustomCrossScripting(String raw){
-        def openTags = ~/<[^\/ibau]r{0,1} *[^>]*>/  // Only allow <a> <b> <i> <u> <br>
-        def closeTags = ~/<\/[^ibau] *[^>]*>/ // Only allow </a> </b> </i> </u>
-        String text = raw.replaceAll(openTags,'')
-        text = text.replaceAll(closeTags,'')
+    private String removeCustomCrossScripting(String raw){
+        String text
+        if (raw){
+            def openTags = ~/<[^\/ibau]r{0,1} *[^>]*>/  // Only allow <a> <b> <i> <u> <br>
+            def closeTags = ~/<\/[^ibau] *[^>]*>/ // Only allow </a> </b> </i> </u>
+            text = raw.replaceAll(openTags,'')
+            text = text.replaceAll(closeTags,'')
 
-        def notAllowedAttributes = ~/(<[abiu]r{0,1})([^h>]*)(href=[^ >]*){0,1}([^h>]*)(>)/ //Delete all atributes that are not href
-        text = text.replaceAll(notAllowedAttributes, '$1 $3 $5')
-        text = text.replaceAll(~/( *)(>)/,'$2')
-        text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\' target=\'_blank\'>')
-        def brs = ~/<br><br>/
-        while(text.find(brs)){
-            text = text.replaceAll(brs,'<br>')
+            def notAllowedAttributes = ~/(<[abiu]r{0,1})([^h>]*)(href=[^ >]*){0,1}([^h>]*)(>)/ //Delete all atributes that are not href
+            text = text.replaceAll(notAllowedAttributes, '$1 $3 $5')
+            text = text.replaceAll(~/( *)(>)/,'$2')
+            text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\' target=\'_blank\'>')
+            def brs = ~/<br><br>/
+            while(text.find(brs)){
+                text = text.replaceAll(brs,'<br>')
+            }
+        }else{
+            text = raw
         }
 
-        text
+        text = raw
     }
 
     void sponsorAPost(Post post, Sponsor sponsor){
