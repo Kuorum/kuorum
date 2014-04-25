@@ -44,6 +44,7 @@ function updateUserActivity(post){
 function createLawFromOldLaw(law){
     var id = new ObjectId();
     var spain = dbDest.region.find({"iso3166_2" : "EU-ES"})[0]
+    var status = law.lawStatus=="OPEN"?"OPEN":law.approvedInCongress?"APPROVED":"REJECTED"
     var destLaw = {
 //        "_id" :law._id,
         "_id":id,

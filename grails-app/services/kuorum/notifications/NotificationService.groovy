@@ -3,6 +3,7 @@ package kuorum.notifications
 import grails.transaction.Transactional
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
+import kuorum.core.model.LawStatusType
 import kuorum.core.model.search.Pagination
 import kuorum.law.Law
 import kuorum.law.LawVote
@@ -515,7 +516,7 @@ class NotificationService {
 
     void syncSendLawClosedNotification(Law law){
 
-        if (law.open){
+        if (law.status ==LawStatusType.OPEN){
             throw new KuorumException("La ley debe de estar cerrada para que se notifique su cierre","error.law.notClosed")
         }
 

@@ -1,10 +1,12 @@
 package kuorum.law
 
 import kuorum.Institution
+import kuorum.KuorumFile
 import kuorum.Region
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
 import kuorum.core.model.CommissionType
+import kuorum.core.model.LawStatusType
 import org.bson.types.ObjectId
 
 @MongoUpdatable
@@ -19,7 +21,8 @@ class Law {
     @Updatable List<CommissionType> commissions = []
     @Updatable Region region
     @Updatable Institution institution
-    Boolean open = Boolean.TRUE
+    @Updatable KuorumFile image
+    @Updatable LawStatusType status = LawStatusType.OPEN
     Date dateCreated
     Boolean published = Boolean.FALSE
     AcumulativeVotes peopleVotes = new AcumulativeVotes()
@@ -40,6 +43,9 @@ class Law {
                 return ['notSameRegionAsInstitution']
             }
         }
+
+        //TODO: image no es nullable
+        image nullable:true
     }
 
     static mapping = {

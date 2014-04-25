@@ -60,15 +60,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${lawInstance?.open}">
-				<li class="fieldcontain">
-					<span id="open-label" class="property-label"><g:message code="law.open.label" default="Open" /></span>
-					
-						<span class="property-value" aria-labelledby="open-label"><g:formatBoolean boolean="${lawInstance?.open}" /></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${lawInstance?.realName}">
 				<li class="fieldcontain">
 					<span id="realName-label" class="property-label"><g:message code="law.realName.label" default="Real Name" /></span>

@@ -1,5 +1,6 @@
 package kuorum.core.model.solr
 
+import kuorum.core.model.LawStatusType
 import kuorum.core.model.PostType
 import kuorum.core.model.UserType
 import kuorum.law.Law
@@ -19,7 +20,11 @@ enum SolrType {
         }
     }),
     LAW({Law law->
-        law.open?SolrSubType.OPEN:SolrSubType.CLOSE
+        switch (law.status){
+            case LawStatusType.OPEN: SolrSubType.OPEN; break;
+            case LawStatusType.APPROVED: SolrSubType.APPROVED; break;
+            case LawStatusType.REJECTED: SolrSubType.REJECTED; break;
+        }
     }),
     KUORUM_USER({KuorumUser kuorumUser ->
         switch (kuorumUser.userType){

@@ -6,7 +6,9 @@ import groovy.time.TimeDuration
 import kuorum.Region
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.CommissionType
+import kuorum.core.model.Gender
 import kuorum.core.model.UserType
+import kuorum.core.model.gamification.GamificationAward
 import kuorum.core.model.solr.*
 import kuorum.law.Law
 import kuorum.post.Post
@@ -125,7 +127,8 @@ class IndexSolrService {
             victory: post.victory,
             commissions: post.law.commissions,
             regionName: post.law.region.name,
-            regionIso3166_2: post.law.region.iso3166_2
+            regionIso3166_2: post.law.region.iso3166_2,
+            urlImage: post.multimedia?.url
         )
     }
 
@@ -142,7 +145,8 @@ class IndexSolrService {
                 victory:solrDocument.victory,
                 commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
                 regionName:solrDocument.regionName,
-                regionIso3166_2: solrDocument.regionIso3166_2
+                regionIso3166_2: solrDocument.regionIso3166_2,
+                urlImage: solrDocument.urlImage
         )
     }
 
@@ -177,7 +181,10 @@ class IndexSolrService {
                 commissions: kuorumUser.relevantCommissions,
                 regionName: regionName,
                 regionIso3166_2: regionIso,
-                postalCode: postalCode
+                postalCode: postalCode,
+                urlImage: kuorumUser.avatar?.url,
+                role:kuorumUser.gamification.activeRole,
+                gender:kuorumUser.personalData.gender
         )
     }
 
@@ -188,7 +195,10 @@ class IndexSolrService {
                 type:SolrType.valueOf(solrDocument.type),
                 subType:SolrSubType.valueOf(solrDocument.subType),
                 dateCreated:solrDocument.dateCreated,
-                commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)}
+                commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
+                urlImage: solrDocument.urlImage,
+                role:GamificationAward.valueOf(solrDocument.role),
+                gender: Gender.valueOf(solrDocument.gender)
         )
     }
 
@@ -203,7 +213,8 @@ class IndexSolrService {
             hashtag:law.hashtag,
             commissions:law.commissions,
             regionName: law.region.name,
-            regionIso3166_2: law.region.iso3166_2
+            regionIso3166_2: law.region.iso3166_2,
+            urlImage: law.image?.url
         )
     }
 
@@ -218,7 +229,8 @@ class IndexSolrService {
                 hashtag:solrDocument.hashtag,
                 commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
                 regionName:solrDocument.regionName,
-                regionIso3166_2: solrDocument.regionIso3166_2
+                regionIso3166_2: solrDocument.regionIso3166_2,
+                urlImage: solrDocument.urlImage
         )
     }
 

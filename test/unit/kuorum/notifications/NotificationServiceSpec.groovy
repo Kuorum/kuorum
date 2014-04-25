@@ -3,6 +3,7 @@ package kuorum.notifications
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.core.exception.KuorumException
+import kuorum.core.model.LawStatusType
 import kuorum.core.model.VoteType
 import kuorum.helper.Helper
 import kuorum.law.Law
@@ -388,7 +389,7 @@ class NotificationServiceSpec extends Specification {
             LawVote lawVote = new LawVote(kuorumUser: user, law:law, personalData: user.personalData, voteType: VoteType.POSITIVE)
             lawVote.save()
         }
-        law.open = Boolean.FALSE
+        law.status = LawStatusType.APPROVED
         law.save()
         when: "Sending closing notification"
         service.sendLawClosedNotification(law)
@@ -398,7 +399,7 @@ class NotificationServiceSpec extends Specification {
     void "test close law notification with a law no closed"(){
         given: "A law"
         Law law = Helper.createDefaultLaw("#law")
-        law.open = Boolean.TRUE
+        law.status = LawStatusType.OPEN
         law.save()
         when: "Sending closing notification"
         service.sendLawClosedNotification(law)

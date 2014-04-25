@@ -6,5 +6,5 @@ package kuorum.core.model.solr
 enum SolrSubType {
     HISTORY, QUESTION,PURPOSE, //POST
     POLITICIAN,PERSON,ORGANIZATION,//KUORUM_USER
-    OPEN,CLOSE //LAW
+    OPEN,REJECTED,APPROVED //LAW
 }

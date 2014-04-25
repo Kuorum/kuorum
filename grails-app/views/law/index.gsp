@@ -31,8 +31,7 @@
 						<g:sortableColumn property="hashtag" title="${message(code: 'law.hashtag.label', default: 'Hashtag')}" />
 					
 						<g:sortableColumn property="introduction" title="${message(code: 'law.introduction.label', default: 'Introduction')}" />
-					
-						<g:sortableColumn property="open" title="${message(code: 'law.open.label', default: 'Open')}" />
+
 					
 						<g:sortableColumn property="realName" title="${message(code: 'law.realName.label', default: 'Real Name')}" />
 					
@@ -49,8 +48,7 @@
 						<td><g:link mapping="lawShow" params="${law.encodeAsLinkProperties()}">${fieldValue(bean: lawInstance, field: "hashtag")}</g:link></td>
 					
 						<td>${fieldValue(bean: lawInstance, field: "introduction")}</td>
-					
-						<td><g:formatBoolean boolean="${lawInstance.open}" /></td>
+
 					
 						<td>${fieldValue(bean: lawInstance, field: "realName")}</td>
 					
