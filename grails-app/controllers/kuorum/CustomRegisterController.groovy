@@ -72,6 +72,7 @@ class CustomRegisterController {
         }
 
         user.save(flush:true, failOnError: true)
+        kuorumMailService.mailingListUpdateUser(user)
 
         redirect mapping:'customRegisterStep2'
     }

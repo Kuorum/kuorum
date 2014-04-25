@@ -118,7 +118,7 @@ class PostService {
             text = raw
         }
 
-        text = raw
+        text
     }
 
     void sponsorAPost(Post post, Sponsor sponsor){

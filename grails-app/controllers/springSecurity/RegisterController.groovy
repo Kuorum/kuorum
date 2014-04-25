@@ -3,7 +3,6 @@ package springSecurity
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.validation.Validateable
-import kuorum.core.model.CommissionType
 import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
@@ -30,7 +29,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
                 email: command.email,
                 name: command.name,
                 accountLocked: true, enabled: true)
-        user.relevantCommissions = CommissionType.values()
+        user.relevantCommissions = []
+//        user.relevantCommissions = CommissionType.values()
         user.authorities = [RoleUser.findByAuthority("ROLE_USER")]
 
         RegistrationCode registrationCode = springSecurityUiService.register(user, command.password, null)

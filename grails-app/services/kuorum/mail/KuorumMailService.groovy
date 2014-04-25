@@ -321,9 +321,13 @@ class KuorumMailService {
 
 
     def verifyUser(KuorumUser user){
-        mailchimpService.addSubscriber(user)
+        mailingListUpdateUser(user)
         sendUserAccountConfirmed(user)
         indexSolrService.index(user)
+    }
+
+    def mailingListUpdateUser(KuorumUser user){
+        mailchimpService.addSubscriber(user)
     }
 
 

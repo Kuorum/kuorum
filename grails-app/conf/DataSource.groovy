@@ -41,6 +41,9 @@ environments {
                 username = ""
                 password = ""
                 databaseName = "KuorumTest"
+                options{
+                    DB_CLOSE_ON_EXIT=FALSE
+                }
     //                options {
     //                    w = 1
     //                    wtimeout = 0

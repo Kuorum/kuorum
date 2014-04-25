@@ -33,6 +33,9 @@
                     <g:message code="customRegister.step3.form.relevantCommissions.helpBlock"/>
                 </p>
             </div>
+            <g:if test="${hasErrors(bean: command, field: 'relevantCommissions', 'error')}">
+                <span for="relevantCommissions" class="error">${g.fieldError(bean: command, field: 'relevantCommissions')}</span>
+            </g:if>
         </div>
         <div class="form-group">
             <g:link mapping="customRegisterStep4" class="cancel"><g:message code="customRegister.step3.form.cancel"/></g:link>
