@@ -1,3 +1,4 @@
+<%@ page import="kuorum.core.model.PostType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>${law.shortName}</title>
@@ -7,7 +8,7 @@
 
 <content tag="mainContent">
     <article class="kakareo post ley" role="article" itemscope itemtype="http://schema.org/Article">
-        <div class="callMobile"><a href="#vote" class="smooth">¡Vota!</a></div>
+        <div class="callMobile"><a href="#vote" class="smooth"><g:message code="law.vote.mobileButton"/> </a></div>
         <g:if test="${law.image}">
             <g:render template="lawPhoto" model="[law:law]"/>
         </g:if>
@@ -19,7 +20,9 @@
                 <!-- dejar la estructura aunque a veces esté vacío  -->
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 leerLey">
-                <a href="${law.urlPdf}" target="_blank">Leer ley completa</a>
+                <a href="${law.urlPdf}" target="_blank">
+                    <g:message code="law.showCompleteLaw"/>
+                </a>
             </div>
         </div>
 
@@ -28,27 +31,41 @@
         <p>Consul legendos expetendis id vis. Ne saperet civibus rationibus has. Enim semper maiestatis no quo, ius at erat tollit. Adhuc epicuri intellegam te est. Solet animal apeirian eu est, malis legendos dissentias te usu. Vim at sint meliore officiis, mucius epicurei vel et. Duo fastidii quaestio an. Vim at veri eripuit fabellas, prompta docendi ea mei.</p>
         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis en</p>
 
-        <div class="readMore"><a data-toggle="collapse" data-parent="#accordion" href="#collapse" class="collapsed">Leer más<span class="fa fa-chevron-circle-down fa-lg"></span></a></div>
+        <div class="readMore">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse" class="collapsed">
+                <g:message code="law.text.seeMore"/>
+                <span class="fa fa-chevron-circle-down fa-lg"></span>
+            </a>
+        </div>
         <div id="collapse" class="panel-collapse collapse">
             Mucius epicurei vel et. Duo fastidii quaestio an. Consul legendos expetendis id vis. Ne saperet civibus rationibus has. Enim semper maiestatis no quo, ius at erat tollit. Adhuc epicuri intellegam te est. Solet animal apeirian eu est, malis legendos dissentias te usu. Vim at sint meliore officiis, mucius epicurei vel et. Duo fastidii quaestio an. Vim at veri eripuit fabellas, prompta docendi ea mei.
         </div>
     </article><!-- /article -->
 
     <aside class="participate">
-        <h1>Participa expresando tu voz</h1>
-        <p>Crea una publicación sobre algún artículo en concreto de la ley.</p>
+        <h1><g:message code="law.createPost.title"/> </h1>
+        <p><g:message code="law.createPost.description"/> </p>
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-4">
-                <a href="#"><span class="icon-notebook26 fa-2x"></span><br>Historia</a>
-                <p>Seguro que sabes mucho del tema. Que tienes ideas para mejorarla. Publica tu idea y si es de las mas apoyadas podremos cambiar la ley.</P>
+                <g:link mapping="postCreate" params="${law.encodeAsLinkProperties()+[postType:PostType.HISTORY]}">
+                    <span class="icon-notebook26 fa-2x"></span><br>
+                    <g:message code="${kuorum.core.model.PostType.class.name}.${kuorum.core.model.PostType.HISTORY}"/>
+                </g:link>
+                <p><g:message code="law.createPost.${kuorum.core.model.PostType.HISTORY}.description"/> </P>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">
-                <a href="#"><span class="fa fa-question-circle fa-2x"></span><br>Pregunta</a>
-                <p>Cuéntanos tu historia. En qué te afecta esta ley. Nos comprometemos a hacerla llegar a los políticos para que la tengan en cuenta.</p>
+                <g:link mapping="postCreate" params="${law.encodeAsLinkProperties()+[postType:PostType.QUESTION]}">
+                    <span class="fa fa-question-circle fa-2x"></span><br>
+                    <g:message code="${kuorum.core.model.PostType.class.name}.${kuorum.core.model.PostType.QUESTION}"/>
+                </g:link>
+                <p><g:message code="law.createPost.${kuorum.core.model.PostType.QUESTION}.description"/> </P>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4">
-                <a href="#"><span class="fa fa-lightbulb-o fa-2x"></span><br>Propuesta</a>
-                <p>Pregunta tus dudas sobre la ley. En qué te afectará. Y los políticos podrán verla. Responder y hasta llevarla a al congreso.</p>
+                <g:link mapping="postCreate" params="${law.encodeAsLinkProperties()+[postType:PostType.PURPOSE]}">
+                    <span class="fa fa-lightbulb-o fa-2x"></span><br>
+                    <g:message code="${kuorum.core.model.PostType.class.name}.${kuorum.core.model.PostType.PURPOSE}"/>
+                </g:link>
+                <p><g:message code="law.createPost.${kuorum.core.model.PostType.PURPOSE}.description"/> </P>
             </div>
         </div>
     </aside>
@@ -127,8 +144,8 @@
         </div><!-- carousel -->
     </aside>
     <aside class="participAll">
-        <h1>Ellos participaron</h1>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+        <h1><g:message code="law.clucks.title"/> </h1>
+        <p><g:message code="law.clucks.description"/> </p>
         <!-- COMIENZA LISTA DE KAKAREOS -->
         <ul class="kakareo-list" role="log" aria-live="assertive" aria-relevant="additions">
             <g:each in="${clucks}" var="cluck">
