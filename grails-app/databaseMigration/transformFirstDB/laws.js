@@ -49,6 +49,7 @@ function createLawFromOldLaw(law){
 //        "_id" :law._id,
         "_id":id,
         "commissions" : translateCommissions(law.commissions),
+        "urlPdf":law.urlPdf.split("#")[0], //removes data after #
         "dateCreated" : law.dateCreated,
         "description" : law.longDescription,
         "hashtag" : "#"+law.shortTitle.replace(/ /g, '').toLowerCase(),
@@ -59,6 +60,7 @@ function createLawFromOldLaw(law){
         "realName" : law.officialTitle,
         "region" : spain,
         "shortName" : law.shortTitle,
+        "status":status,
         "version" : 0
     }
     return destLaw

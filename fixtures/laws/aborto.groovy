@@ -1,10 +1,10 @@
 import kuorum.core.model.CommissionType
-import kuorum.core.model.PostType
 import kuorum.law.Law
 
 fixture {
     aborto(Law){
         hashtag = "#leyAborto"
+        urlPdf = "http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF"
         shortName = "Ley del aborto"
         realName = "Ley de Protección de la Vida Concebido y de los Derechos de la Mujer Embarazada"
         description = """Esta nueva ley sustituirá, si finalmente es aprobada, a la actual Ley Orgánica 2/2010 de salud sexual y reproductiva y de la interrupción voluntaria del embarazo aprobada por el gobierno socialista en 2010 y que tiene varios recursos pendientes en el Tribunal Constitucional presentados por el Partido Popular.

@@ -19,7 +19,7 @@
                 <!-- dejar la estructura aunque a veces esté vacío  -->
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 leerLey">
-                <a href="#" target="_blank">Leer ley completa</a>
+                <a href="${law.urlPdf}" target="_blank">Leer ley completa</a>
             </div>
         </div>
 
