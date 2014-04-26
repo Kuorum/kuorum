@@ -23,37 +23,37 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-AGRICULTURE:before {
+.icon-tractor:before {
 	content: "\e61e";
 }
 .icon-tower16:before {
 	content: "\e61f";
 }
-.icon-DEFENSE:before {
+.icon-strategy8:before {
 	content: "\e620";
 }
-.icon-JUSTICE:before {
+.icon-scales2:before {
 	content: "\e621";
 }
-.icon-NUTRITION_AND_ENVIRONMENT:before {
+.icon-recycling1:before {
 	content: "\e622";
 }
-.icon-DOMESTIC_POLICY:before {
+.icon-policeman:before {
 	content: "\e623";
 }
-.icon-DISABILITY:before {
+.icon-male107:before {
 	content: "\e624";
 }
-.icon-CONSTITUTIONAL:before {
+.icon-hammer7:before {
 	content: "\e625";
 }
-.icon-INDUSTRY:before {
+.icon-factory1:before {
 	content: "\e626";
 }
-.icon-EUROPE_UNION:before {
+.icon-euro22:before {
 	content: "\e627";
 }
-.icon-CULTURE:before {
+.icon-earth16:before {
 	content: "\e628";
 }
 .icon-question38:before {
@@ -114,7 +114,7 @@
 .icon-Flaticon_17919:before {
 	content: "\e607";
 }
-.icon-PUBLIC_WORKS:before {
+.icon-office:before {
 	content: "\e629";
 }
 .icon-image:before {
@@ -123,10 +123,10 @@
 .icon-play:before {
 	content: "\e62b";
 }
-.icon-EDUCATION_SPORTS:before {
+.icon-book:before {
 	content: "\e62c";
 }
-.icon-TAXES:before {
+.icon-library:before {
 	content: "\e62d";
 }
 .icon-cart:before {
@@ -135,7 +135,7 @@
 .icon-coin:before {
 	content: "\e62f";
 }
-.icon-ECONOMY:before {
+.icon-credit:before {
 	content: "\e630";
 }
 .icon-pushpin:before {
@@ -162,7 +162,7 @@
 .icon-hammer:before {
 	content: "\e638";
 }
-.icon-HEALTH_CARE:before {
+.icon-aid:before {
 	content: "\e639";
 }
 .icon-pie:before {
@@ -171,25 +171,25 @@
 .icon-stats:before {
 	content: "\e63b";
 }
-.icon-BUDGETS:before {
+.icon-bars:before {
 	content: "\e63c";
 }
 .icon-hammer2:before {
 	content: "\e63d";
 }
-.icon-RESEARCH_DEVELOP:before {
+.icon-lab:before {
 	content: "\e63e";
 }
-.icon-EMPLOY_AND_HEALTH_SERVICE:before {
+.icon-briefcase:before {
 	content: "\e63f";
 }
-.icon-ROAD_SAFETY:before {
+.icon-truck:before {
 	content: "\e640";
 }
 .icon-link:before {
 	content: "\e641";
 }
-.icon-FOREIGN_AFFAIRS:before {
+.icon-flag:before {
 	content: "\e642";
 }
 .icon-eye:before {

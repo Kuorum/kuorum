@@ -1,8 +1,8 @@
 include "basicData"
 include "institutions"
 include "parliamentaryGroups"
-include "laws/*"
 include "users/*"
+include "laws/*"
 include "posts/*"
 
 fixture{

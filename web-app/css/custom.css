@@ -67,6 +67,9 @@ small, .small {font-size: 75%;}
 .link-wrapper {cursor: pointer; z-index: 9;}
 .link-wrapper a {z-index: 999; position: relative;}
 .disabled {cursor: default;}
+
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {opacity: 0.25;}
+
 .normalize {font-size: 15px; font-size: 1.5rem;}
 .fa {vertical-align: middle;}
 .tooltip {z-index: 999;}
@@ -75,14 +78,23 @@ small, .small {font-size: 75%;}
 .loading {color: #a8a8a8; text-align: center; background: url('../images/loading@2x.gif') center center / 50px auto no-repeat transparent; padding: 15px 0; height: 70px;}
 label {font-weight: normal;}
 .span-label {display: block; margin-bottom: 5px;}
-.radio-inline {color: #a8a8a8;}
+
+#sign .radio-inline, #sign1 .radio-inline, #sign2 .radio-inline, #sign3 .radio-inline,
+#sign .checkbox-inline, #sign1 .checkbox-inline, #sign2 .checkbox-inline, #sign3 .checkbox-inline {position: relative; margin-bottom: 22px !important; color: #a8a8a8;}
+#sign .checkbox-inline.pull-right, #sign1 .checkbox-inline.pull-right, #sign2 .checkbox-inline.pull-right, #sign3 .checkbox-inline.pull-right {margin-bottom: 4px !important;}
+
 p {margin: 0 0 20px 0;}
 .help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic;}
 .mb20 {margin-bottom: 20px !important;}
+a:hover, a:focus {outline: 0;}
 
 /* Ajustes sobre Bootstrap =========== */
 /* ====================================================== */
-a, a:hover, a:active, a:focus {color: #20a2ea;}
+
+a,
+a:hover,
+a:active,
+a:focus {color: #20a2ea;}
 
 *[rel="tooltip"] {cursor: pointer;}
 .tooltip.top .tooltip-arrow {border-top-color: #dadada !important;}
@@ -226,13 +238,14 @@ a, a:hover, a:active, a:focus {color: #20a2ea;}
 .btn.btn-blue {background-color: #20a2ea !important;}
 .btn.btn-blue:hover,
 .btn.btn-blue:active,
-.btn.btn-blue:focus {background-color: #538ecc !important;}
+.btn.btn-blue:focus {background-color: #2e6bab !important;}
 
 .popover .btn.btn-blue.disabled {background-color: #a8a8a8 !important;}
 
-.boxes .btn {/*width: 100%; padding-left: 0 !important; padding-right: 0 !important; */margin-bottom: 20px;}
+.boxes .btn {margin-bottom: 20px !important;}
 .boxes .cancel {margin: 0 !important; float: right;}
 .boxes .btn + .cancel {float: left;}
+
 .boxes.btns {padding-top: 35px;}
 .btns {margin: 0; padding: 0;}
 .btns li {list-style: none; float: left; margin: 0 40px 10px 0; line-height: 3.5;}
@@ -395,7 +408,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .social li {display: inline-block;}
 .licenses li {float: right; margin-left: 14px;}
 .collabor li {margin-right: 8px;}
-.social li {margin-right: 15px; font-size: 18.5px; font-size: 1.85rem;}
+.social li {margin-right: 8px; font-size: 18.5px; font-size: 1.85rem;}
 .social li:last-child {margin-right: 0;}
 
 .ethz, .delhap {display: block; background-size: 95px 65px !important; text-indent: -9999rem;}
@@ -785,6 +798,9 @@ span + .text-notification {padding: 0 0 0 33px;}
 .multimedia .video .front img {opacity: 0.3;}
 .multimedia .video iframe {width: 100%; display: none;}
 
+/* DOS BOTONES IGUALES PERO SU FUNCIONAMIENTO ES DIFERENTE A NIVEL INTERNO */
+
+/* este es para la carga real */
 #load-more {
   border-top: solid 1px #a8a8a8;
   padding: 10px 0 0;
@@ -793,6 +809,19 @@ span + .text-notification {padding: 0 0 0 33px;}
 #load-more a:hover,
 #load-more a:active,
 #load-more a:focus {text-decoration: underline;}
+
+/* este es para hacer visible lo ya cargado */
+#ver-mas {
+  border-top: solid 1px #a8a8a8;
+  padding: 10px 0 0;
+}
+#ver-mas a {color: #545454;}
+#ver-mas a:hover,
+#ver-mas a:active,
+#ver-mas a:focus {text-decoration: underline;}
+
+/***************************************************************************/
+
 
 /* ajustes kakareos en el sidebar */
 .boxes .important .kakareo .link-wrapper:hover,
@@ -900,17 +929,17 @@ span + .text-notification {padding: 0 0 0 33px;}
   text-transform: none;
   font-size: 37px;
   font-size: 3.7rem;
-  margin: 26px 0 30px 0;
+  margin: 26px 0 20px 0;
 }
 .boxes.noted.likes .social {margin-bottom: 20px;}
-.boxes.noted.likes .social li a {color: #407ab7 !important;}
+.boxes.noted.likes .social li a {color: #20a2ea !important;}
 .boxes.noted.likes .social li a:hover,
 .boxes.noted.likes .social li a:active,
 .boxes.noted.likes .social li a:focus {color: #fff !important;}
 .boxes.noted.likes .social li .fa-circle {color: #fff !important;}
 .boxes.noted.likes .social li a:hover .fa-circle,
 .boxes.noted.likes .social li a:active .fa-circle,
-.boxes.noted.likes .social li a:focus .fa-circle {color: #407ab7 !important;}
+.boxes.noted.likes .social li a:focus .fa-circle {color: #20a2ea !important;}
 
 .boxes.alerts h1,
 .boxes.pending h1 {font-size: 15px; font-size: 1.5rem;}
@@ -1028,7 +1057,6 @@ select.form-control {
   padding: 14px;
   height: 50px;
 }
-
 select.form-control option {
   background-color: #fcfcfc;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0.075) inset;
@@ -1037,11 +1065,11 @@ select.form-control option {
 select.form-control,
 select.form-control option {cursor: pointer; text-transform: capitalize;}
 
-.title textarea {font-size: 22px; font-size: 2.2rem; color: #a8a8a8; height: 120px}
+.title textarea {font-size: 22px; font-size: 2.2rem; color: #a8a8a8; height: 125px}
 .text textarea {font-size: 19px; font-size: 1.9rem; color: #a8a8a8;}
 .textareaContainer {position: relative;}
 .hashtag {position: absolute; top: 90px; right: 35px; font-size: 22px; font-size: 2.2rem;}
-.cancel {padding: 5px 0; margin: 0 20px; color: #a8a8a8 !important; display: inline-block; font-size: 18px !important; font-size: 1.8rem !important;}
+.cancel {padding: 0; margin: 0 20px; color: #a8a8a8 !important; display: inline-block; font-size: 18px !important; font-size: 1.8rem !important;}
 .cancel:hover, .cancel:active, .cancel:focus {color: #a8a8a8;}
 .btn + .cancel {margin: 0 20px 0 40px;}
 .form-group.image {position: relative;}
@@ -1073,6 +1101,8 @@ input.error,
 textarea.error,
 .jqte.error {border-color: #BF4343;}
 
+.radio-inline span.error,
+.checkbox-inline span.error {position: absolute; bottom: -30px; left: 0;}
 
 /* modal para el crop del file upload */
 .uploadKuorumImage .modal-header {
@@ -1128,19 +1158,24 @@ textarea.error,
 .socialGo li:nth-child(2n) {margin-right: 0;}
 .socialGo li a {width: 276px; padding: 12px 0 !important; margin: 0 !important;}
 .onecol .form-group {margin-top: 20px; margin-bottom: 20px;}
+.onecol .form-group.groupRadio {margin: 0;}
+.onecol .form-group.groupRadio + .form-group {margin-top: 0;}
 .onecol .checkbox-inline {margin: 4px 8px; font-size: 85%; line-height: 1.7;}
 .onecol form .cancel {font-size: 15px !important; font-size: 1.5rem; margin: 0 6px 0 0;}
 
 .preFooter {background-color: #efefef; text-align: center; padding-bottom: 80px;}
-.preFooter .user-list {padding-top: 40px;}
-.preFooter .user-list li {float: left; margin-right: 8px; list-style: none;}
+.preFooter .user-list {padding: 20px 0 0 0; margin: 0;}
+.preFooter .user-list li {float: left; list-style: none;}
+
 .links.simple {padding: 20px;}
 .links.simple .legal li {display: block; margin: 0 0 8px 0; border-bottom: solid 1px #a8a8a8; padding: 4px;}
 .links.simple .legal li:last-child {border: none;}
 
-#remember-pass {margin-top: 51px;}
+/* cuando se tengan los 4 botones de acceso a la web se necesitará este margin */
+/*#remember-pass {margin-top: 51px;}*/
 
 .max600 {max-width: 600px; margin: 0 auto;}
+.max600 .btn {margin-bottom: 20px !important;}
 .screen {max-width: 560px;}
 
 .steps {margin: 0; padding: 0;}
@@ -1267,9 +1302,12 @@ textarea.error,
 
 /*********************** ley **************************/
 /******************************************************/
+.callMobile {position: fixed; top: 76px; left: 24px; display: block; width: 68px; height: 68px; border-radius: 34px; padding: 15px 0; margin-bottom: 10px; background-color: rgba(32, 162, 234, 0.6); z-index: 9999; text-align: center;}
+.callMobile a, .callMobile a:hover, .callMobile a:focus, .callMobile a:active {color: #fff; text-decoration: none; font-family: 'League Gothic', Arial, sans-serif; text-transform: uppercase; font-size: 30px; font-size: 30px;}
+
 .kakareo.post.ley {margin: -32px 0 50px 0;}
 .kakareo.post.ley.participants {margin: 0 0 50px 0;}
-.kakareo.post.ley h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 32px; font-size: 3.2rem; text-transform: uppercase; padding: 0; border-bottom: solid 1px #a8a8a8; margin-bottom: 10px;}
+.kakareo.post.ley h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 32px; font-size: 3.2rem; text-transform: uppercase; padding: 0; border-bottom: solid 1px #dadada; margin-bottom: 10px;}
 .kakareo.post.ley .laley {font-size: 24px; font-size: 2.4rem; margin: 10px 0 0 0;}
 .kakareo.post.ley .photo {position: relative;}
 .kakareo.post.ley .photo .aboutLaw {
@@ -1315,15 +1353,17 @@ textarea.error,
 .kakareo.post.ley .photo .info .icon-flag2 {line-height: 2;}
 .kakareo.post.ley .photo .info .fa-circle {color: #ff9431;}
 
-.leerLey {text-align: right; margin-bottom: 20px;}
-.leerLey a,
-.leerLey a:hover,
-.leerLey a:active,
-.leerLey a:focus,
-.editPost a,
-.editPost a:hover,
-.editPost a:active,
-.editPost a:focus {color: #a8a8a8;}
+.options {margin-bottom: 20px;}
+.leerLey {text-align: right;}
+.leerLey a {padding: 3px 22px 3px 0; background: url('../images/pdf.png') no-repeat right center transparent;}
+.leerLey a, .leerLey a:hover, .leerLey a:active, .leerLey a:focus,
+.editPost a, .editPost a:hover, .editPost a:active, .editPost a:focus {color: #a8a8a8;}
+
+.leerLey a:hover span, .leerLey a:active span, .leerLey a:focus span,
+.editPost a:hover span, .editPost a:active span, .editPost a:focus span {text-decoration: none;}
+
+.leerLey span {margin: 0 0 0 4px;}
+.editPost span {margin: 0 4px 2px 0;}
 
 .participate,
 .participAll,
@@ -1348,18 +1388,18 @@ textarea.error,
 .participate > p,
 .participAll > p,
 .seeVictory > p,
-.comments > p {border-bottom: 1px solid #A8A8A8; padding-bottom: 20px; margin-bottom: 40px;}
+.comments > p {border-bottom: 1px solid #dadada; padding-bottom: 20px; margin-bottom: 40px;}
 
-.participate a {height: 100px; margin-bottom: 20px; text-decoration: none; text-align: center; display: block; font-size: 30px; font-size: 3rem;}
+.participate a {height: 116px; margin-bottom: 20px; text-decoration: none; text-align: center; display: block; font-size: 30px; font-size: 3rem; border: solid 1px #fff; padding: 8px; border-radius: 4px;}
 .participate a:hover,
 .participate a:active,
-.participate a:focus {color: #538ecc;}
+.participate a:focus {color: #2e6bab; border: solid 1px #2e6bab;}
 
 .participate .row p {text-align: center; padding: 0 20px;}
 
 .seeVictory .counter {font-size: 200%;}
 .seeVictory .sliderItem {background-color: #FFF8ED;}
-.seeVictory .sliderItem .content {padding: 4px;}
+.seeVictory .sliderItem .content {padding: 0 8px 8px 8px;}
 .seeVictory .sliderItem img.actor {width: 273px; float: left; margin: 0 20px 20px 0;}
 .seeVictory .sliderItem h1 {
   background-color: #ff9431;
@@ -1380,7 +1420,7 @@ textarea.error,
 
 
 
-.boxes.vote > h1 {margin-top: 20px; font-size: 28px; font-size: 2.8rem;}
+.boxes.vote > h1 {margin-top: 0; font-size: 24px; font-size: 2.4rem;}
 .vote .activity > li {border-right: none; color: #545454; font-size: 13px; font-size: 1.3rem; padding: 0 8px 8px 8px;}
 .vote .activity > li.active {background-color: #aed4fb;}
 .vote .activity span {font-size: 32px; font-size: 3.2rem; display: block;}
@@ -1392,20 +1432,20 @@ textarea.error,
 .boxes.vote .voting > ul > li {list-style: none; display: inline-block; margin-right: 4px;}
 .boxes.vote .voting > ul > li:last-child {margin: 0;}
 .boxes.vote .voting > ul > li > a > span {display: block; margin-bottom: 5px;}
-.boxes.vote .voting > ul > li > a {font-size: 14px; font-size: 1.4rem; width: 78px; height: 64px; margin: 0 !important; padding: 7px 0 0 0 !important; border-radius: 4px !important; display: block;}
+.boxes.vote .voting > ul > li > a {font-size: 13px; font-size: 1.3rem; width: 72px; height: 60px; margin: 0 !important; padding: 7px 0 0 0 !important; border-radius: 4px !important; display: block;}
 
-.boxes.vote .voting .changeOpinion {display: block; font-size: 18px; font-size: 1.8rem; padding: 26px; display: none;}
+.boxes.vote .voting .changeOpinion {display: block; font-size: 16px; font-size: 1.6rem; padding: 20px 0; display: none;}
 
 .boxes.vote div.social {text-align: center; margin: 40px 0;}
 .boxes.vote ul.social {margin: 0; padding: 0;}
-.boxes.vote ul.social li a {color: #407ab7 !important;}
+.boxes.vote ul.social li a {color: #20a2ea !important;}
 .boxes.vote ul.social li a:hover,
 .boxes.vote ul.social li a:active,
 .boxes.vote ul.social li a:focus {color: #fff !important;}
 .boxes.vote ul.social li .fa-circle {color: #fff !important;}
 .boxes.vote ul.social li a:hover .fa-circle,
 .boxes.vote ul.social li a:active .fa-circle,
-.boxes.vote ul.social li a:focus .fa-circle {color: #407ab7 !important;}
+.boxes.vote ul.social li a:focus .fa-circle {color: #20a2ea !important;}
 
 .boxes.vote .voting .vote {margin: 0 0 10px 0 !important; font-size: 32px; font-size: 3.2rem; line-height: 0.7; height: 72px; padding: 14px !important;}
 .boxes.vote .voting .vote.disabled {padding: 24px !important;}
@@ -1419,6 +1459,10 @@ textarea.error,
 .stats a {display: block; text-align: center; color: #545454; border-top: 1px solid #A8A8A8; padding: 10px 0;}
 .stats span {display: inline-block; margin: 0 10px 4px 0;}
 
+.readMore {text-align: right; margin-bottom: 20px;}
+.readMore span {display: inline-block; margin: 0 0 0 4px;}
+.readMore a {color: #545454; font-size: 13px; font-size: 1.3rem;}
+
 .top {font-size: 15px; font-size: 1.5rem;}
 
 /*********************** post **************************/
@@ -1427,7 +1471,7 @@ textarea.error,
 .listComments {margin: 0; padding: 0;}
 .listComments > li {list-style: none; background-color: #fafafa; color: #a8a8a8; margin: 0 0 40px 0;}
 .listComments > li .wrapper {padding: 20px 20px 0 20px;}
-.listComments > li .wrapper p {margin-top: 10px;}
+.listComments > li .wrapper p {margin: 10px 0 15px 48px;}
 .listComments > li .popover-trigger, .listComments > li .wrapper .say  {color: #545454;}
 .listComments > li .actions {background-color: #efefef; padding: 10px 20px; color: #545454;}
 .listComments > li .actions a {color: #545454;}
@@ -1462,8 +1506,43 @@ textarea.error,
 .othersPost #postNav .link-wrapper:active,
 .othersPost #postNav .link-wrapper:focus {background-color: #efefef;}
 
+.important .kakareo.post {background-color: transparent;}
+.important .kakareo.post h1 {margin-top: 20px;}
+.important .kakareo.post h1 a {color: #ff9431;}
+.important .kakareo.post footer {background-color: transparent;}
+.debate {background-color:#efefef; padding: 20px;}
+.kakareo.post .debate h1 {margin: 0 10px 0 0; display: inline-block;}
+.kakareo.post .debate .chat {margin: 10px 0 20px; padding: 0;}
+.kakareo.post .debate .chat > li {list-style: none; padding: 20px; margin: 0 0 2px 0;}
+.kakareo.post .debate .chat > li .say {font-weight: bold;}
+.kakareo.post .debate .chat p {margin: 10px 0 0 0; padding: 0 0 0 48px;}
 
+.kakareo.post .debate .politician {background-color:#fafafa;}
+.kakareo.post .debate .politician .row .text-right {color: #a8a8a8;}
+.kakareo.post .debate .activist {background-color:#fff;}
+#addDebate {margin: 10px 0;}
+#addDebate textarea {padding: 20px;}
+.boxes.noted.likes.important {background-color: #FFF8ED;}
+.boxes.noted.likes.important,
+.boxes.noted.likes.important h1 {color: #ff9431;}
+.boxes.noted.likes.important > .actor {position: absolute; top: 5px; left: 0;}
+.important .likesContainer #m-callback-done,
+.boxes.likes.important .progress-bar {background-color: #ff9431;}
+.important .likesContainer #m-callback-done .arrowLike {border-top: 8px solid #ff9431;}
+.boxes.noted.likes.important .progress {background-color: #FEEDCE;}
+.boxes.noted.likes.important .more-users {background-color: #ff9431;}
+.boxes.noted.likes.important .more-users:hover,
+.boxes.noted.likes.important .more-users:active,
+.boxes.noted.likes.important .more-users:focus {background-color: #ee7612;}
+.boxes.noted.likes.important .social li a {color: #ff9431 !important;}
 
+.boxes.noted.likes.important .social li a:hover,
+.boxes.noted.likes.important .social li a:active,
+.boxes.noted.likes.important .social li a:focus {color: #fff !important;}
+.boxes.noted.likes.important .social li .fa-circle {color: #fff !important;}
+.boxes.noted.likes.important .social li a:hover .fa-circle,
+.boxes.noted.likes.important .social li a:active .fa-circle,
+.boxes.noted.likes.important .social li a:focus .fa-circle {color: #ff9431 !important;}
 
 
 
@@ -1522,6 +1601,7 @@ textarea.error,
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .callMobile {display: none !important;}
   .btn .btn-xs {
     border-radius: 2px !important;
     font-size: 12px !important;
@@ -1576,7 +1656,9 @@ textarea.error,
   .kakareo .main-kakareo {margin-top: 10px;}
 
   .kakareo footer ul li.read-later {margin-right: 28px !important;}
-  .boxes .kakareo footer > ul > li.read-later {margin-right: 22px !important;}
+  .boxes .kakareo footer > ul > li.read-later {margin-right: 33px !important;}
+
+  .kakareo footer > ul > li.more-actions > span {padding: 6px 10px 7px;}
 
   .multimedia .video .fa {left: 44%; top: 40%;}
   .activity > li {font-size: 12px; font-size: 1.2rem;}
@@ -1619,14 +1701,16 @@ textarea.error,
   .kakareo.post.ley .photo .text {font-size: 18px; font-size: 1.8rem;}
   .kakareo.post.ley .photo .info {bottom: 5px; left: 15px;}
   .kakareo.post.ley .laley {font-size: 34px; font-size: 3.4rem; margin: 15px 0 0 0;}
-  .kakareo.post.ley h1 {font-size: 52px; font-size: 5.2rem;}
+  .kakareo.post.ley h1 {font-size: 40px; font-size: 4rem;}
 
   .participate > h1, .participAll > h1, .seeVictory > h1, .comments > h1 {font-size: 48px; font-size: 4.8rem;}
   .seeVictory .sliderItem .content a {font-size: 22px; font-size: 2.2rem;}
 
   .vote .activity span {font-size: 22px; font-size: 2.2rem;}
-  .vote .activity > li {font-size: 12px; font-size: 1.2rem; padding: 0 6px 6px;}
+  .vote .activity > li {font-size: 12px; font-size: 1.2rem; padding: 0 2px 6px;}
+  .boxes {padding: 10px;}
 
+  .boxes.guay .kakareo footer > ul {padding: 0;}
   .boxes.vote .voting > ul > li {margin-right: 2px;}
   .boxes.vote .voting > ul > li > a {font-size: 1.1rem; height: 53px; margin: 0 !important; width: 62px;}
 
@@ -1670,18 +1754,22 @@ textarea.error,
   .activity > li {font-size: 15px; font-size: 1.5rem;}
   .activity .popover-trigger span {font-size: 34px; font-size: 3.4rem;}
   .boxes .personal {padding: 30px 0;}
-  .boxes .kakareo footer ul li.read-later {margin-right: 48px !important;}
+  .boxes .kakareo footer ul li.read-later {margin-right: 44px !important;}
   .boxes .kakareo footer > ul.actions-kak > li {margin: 0 0 0 4px;}
   .multimedia .video .fa {left: 47%; top: 40%;}
 
    #victory {margin: 20px 0 0 0;}
   .seeVictory .sliderItem h1 {padding: 15px; font-size: 24px; font-size: 2.4rem;}
   .seeVictory .sliderItem img.actor {width: 273px; float: left; margin: 0 40px 12px 0;}
+  .kakareo.post.ley h1 {font-size: 52px; font-size: 5.2rem;}
   .kakareo.post.ley .photo .aboutLaw {width: 90px; top: 15%;}
   .kakareo.post.ley .photo .info {bottom: 20px; left: 25px;}
   .vote .activity span {font-size: 36px; font-size: 3.6rem;}
+   .boxes.vote > h1 {margin-top: 20px; font-size: 28px; font-size: 2.8rem;}
   .boxes.vote .voting > ul > li > a {font-size: 14px; font-size: 1.4rem; width: 82px; height: 64px;}
   .boxes.vote .voting > ul > li {margin-right: 10px;}
+  .boxes.vote .voting .changeOpinion {font-size: 18px; font-size: 1.8rem; padding: 26px;}
+  .boxes.guay .kakareo footer > ul {padding: 5px 0;}
   .participate .row p {padding: 0 20px;}
   .controls {float: right; width: 277px;}
    .popover-box {width: 30%; margin: 0 30px 20px 0;}
@@ -1706,6 +1794,7 @@ textarea.error,
   .nav > li > a.btn {margin: 5px 0 0 6px;}
   .box .badge {right: 6px; top: 6px;}
   .boxes.vote .voting > ul > li > a {font-size: 15px; font-size: 1.5rem; width: 90px; height: 68px;}
+  .boxes .kakareo footer ul li.read-later {margin-right: 48px !important;}
 }
 
 /* Retina ready images */

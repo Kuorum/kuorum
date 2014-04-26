@@ -28,7 +28,7 @@ class Law {
     AcumulativeVotes peopleVotes = new AcumulativeVotes()
 
 
-    static embedded = ['region','peopleVotes' ]
+    static embedded = ['region','peopleVotes','image' ]
 
     static constraints = {
         hashtag matches: '#[a-zA-Z0-9]+', nullable: false

@@ -17,6 +17,12 @@
                 <aside class="col-xs-12 col-sm-4 col-md-4" role="complementary">
                     <g:pageProperty name="page.cColumn"/>
                 </aside>
+
+                <g:if test="${pageProperty(name:'page.footerStats')}">
+                    <div class="stats col-xs-12 col-sm-4 col-md-4">
+                        <g:pageProperty name="page.footerStats"/>
+                    </div>
+                </g:if>
             </div>
         </div><!-- /.conatiner-fluid -->
     </div><!-- /#main -->

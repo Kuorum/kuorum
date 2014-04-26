@@ -29,7 +29,7 @@ class LawController {
         }
         def clucks = cluckService.lawClucks(law)
 
-        [lawInstance:law, clucks: clucks]
+        [law:law, clucks: clucks]
 
     }
 

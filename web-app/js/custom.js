@@ -1,3 +1,4 @@
+// inicializa los popover
 $(document).popover({
 	selector: '[data-toggle="popover"]',
 	html: true,
@@ -5,23 +6,80 @@ $(document).popover({
 	content: function() {
 		return $(this).next('.popover').html();
 	}
-
 });
 
+
+// cerrar popovers al hacer click fuera
+$('html').on('click', function(e) {
+  if (typeof $(e.target).data('original-title') == 'undefined' && !$(e.target).parents().is('.popover.in')) {
+    $('[data-original-title]').popover('hide');
+  }
+});
+
+
+// inicializa los tooltip
 $(document).tooltip({
 	selector: '[rel="tooltip"]'
 });
 
+
 $(document).ready(function() {
 
-	//
-	// $('body').on('click', '.link-wrapper .popover-trigger', function(e) {
-	// 	e.preventDefault();
-	// 	e.stopPropagation();
-	// });
+
+	// scroll suave a hashtag
+    $(".smooth").click(function (event) {
+    	event.preventDefault();
+    	// calcular el destino
+    	var dest = 0;
+    	if ($(this.hash).offset().top > $(document).height() - $(window).height()) {
+    		dest = $(document).height() - $(window).height();
+    	} else {
+    		dest = $(this.hash).offset().top - 64;
+    	}
+    	// ir al destino
+    	$('html,body').animate({
+    		scrollTop: dest
+    	}, 600, 'swing');
+    });
+
+
+	// slider y su contador
+	$(function() {
+		$('.carousel').carousel('pause');
+		$('.carousel-inner .item').first().addClass('active');
+
+		var myCarousel = $(".carousel");
+		var indicators = $(".carousel-index");
+
+		var total = myCarousel.find(".carousel-inner").children(".item").length;
+		var actual = $('.carousel .active').index('.carousel .item') + 1;
+		$('.actual').html(actual);
+		$('.total').html(total);
+
+		$(".carousel").on('slid', function(e){
+			var actual = $(".active", e.target).index() + 1;
+			$('.actual').html(actual);
+		});
+	});
+
+
+	// touch swipe para el slider
+	$(".carousel-inner").swipe( {
+		//Generic swipe handler for all directions
+		swipeLeft:function(event, direction, distance, duration, fingerCount) {
+			$(this).parent().carousel('next');
+		},
+		swipeRight: function() {
+			$(this).parent().carousel('prev');
+		},
+		//Default is 75px, set to 0 for demo so any distance triggers swipe
+		threshold:0
+	});
+
 
 	// inicia el timeago
 	$('time.timeago').timeago();
+
 
 	// animo la progress-bar de boxes.likes
 	$('.likes .progress-bar').progressbar({
@@ -32,61 +90,15 @@ $(document).ready(function() {
             }
 	});
 
+
 	//tooltip visible sobre la progress bar
 	$('.progress-bar').tooltip({trigger: 'manual', placement: 'top'}).tooltip('show');
 
-	$("a.loadMore").on("click", function(e){loadMore(e, this)})
-	// load more
-	function loadMore(e, that) {
-
-		e.preventDefault()
-		var link = $(that)
-		var url = link.attr('href')
-		var parentId = link.attr('data-parent-id')
-		var offset = link.attr('data-offset') || 10
-		var loadingId = parentId+"-loading"
-		var parent = $("#"+parentId)
-		parent.append('<div class="loading" id="'+loadingId+'"><span class="sr-only">Cargando...</span></div>')
-		$.ajax( {
-			url:url,
-			data:"offset="+offset,
-			statusCode: {
-				401: function() {
-					location.reload();
-				}
-			}
-		})
-		.done(function(data, status, xhr) {
-			parent.append(data).show('slow')
-			var moreResults = xhr.getResponseHeader('moreResults')
-			link.attr('data-offset', offset +10)
-			if (moreResults){
-				link.remove()
-			}
-		})
-		.fail(function(data) {
-			console.log(data)
-		})
-		.always(function(data) {
-			$("#"+loadingId).remove()
-			$("time.timeago").timeago();
-		});
-	}
 
 	// apertura de karma
 	function openKarma () {
 		$('#karma').modal('show');
 	}
-
-	// para probar los avisos
-	$('.alerts .btn').click(function() {
-		notyError();
-	});
-
-	// para probar la apertura del karma
-	// $('body').on('click', '.alerts .btn', function() {
-	// 		openKarma();
- // 	});
 
 
 	// al hacer clic en los badges vacía el contenido para que desaparezca
@@ -149,8 +161,20 @@ $(document).ready(function() {
 	});
 
 
+	// Cambio de flechita en el botón desplegar texto de la ley
+	$('body').on("click", ".readMore a", function(e) {
+
+		if ( $(this).hasClass('collapsed') ) {
+			$(this).html('Ocultar texto<span class="fa fa-chevron-circle-up fa-lg"></span>');
+		} else {
+			$(this).html('Leer más<span class="fa fa-chevron-circle-down fa-lg"></span>');
+		}
+	});
+
+
 	// Habilitar/deshabilitar link "Marcar como inapropiado"
-	$('body').on("click", ".mark a", function() {
+	$('body').on("click", ".mark a", function(e) {
+		e.preventDefault();
 		if ( $(this).hasClass('disabled') ){
 			$(this).removeClass('disabled');
 		} else {
@@ -166,6 +190,39 @@ $(document).ready(function() {
 		} else {
 			$(this).html('Siguiendo <span class="fa fa-check-circle"></span>').addClass('disabled');
 		}
+	});
+
+
+	// Deshabilitar botón Votar (ley no logado)
+	$('body').on("click", ".voting .vote", function(e) {
+		e.preventDefault();
+		$(this).text('Votación cerrada').addClass('disabled');
+	});
+
+
+	// Si voto desaparecen los botones y aparece el enlace de cambio de opinión
+	$('body').on("click", ".voting li a", function(e) {
+		e.preventDefault();
+		$('.voting ul').css('display', 'none');
+		$('.changeOpinion').css('display', 'block');
+	});
+
+	$('body').on("click", ".voting li .yes", function(e) {
+		$('.activity .favor').addClass('active');
+	});
+	$('body').on("click", ".voting li .no", function(e) {
+		$('.activity .contra').addClass('active');
+	});
+	$('body').on("click", ".voting li .neutral", function(e) {
+		$('.activity .abstencion').addClass('active');
+	});
+
+	// Si hago click en cambio de opinión vuelven los botones
+	$('body').on("click", ".changeOpinion", function(e) {
+		e.preventDefault();
+		$('.activity li').removeClass('active');
+		$(this).css('display', 'none');
+		$('.voting ul').css('display', 'block');
 	});
 
 
@@ -189,6 +246,28 @@ $(document).ready(function() {
 	});
 
 
+	// el enlace callMobile (visible sólo en pantallas de hasta 767px, desaparece si le haces click o si llegas a la votación
+	$(function() {
+		var callMobile = $('.callMobile');
+		var eTop = $('#vote').offset().top;
+		var realPos = eTop - 80;
+		$(window).scroll(function() {
+			var scroll = $(window).scrollTop();
+			if (scroll >= realPos) {
+				callMobile.fadeOut('slow');
+			} else {
+				callMobile.fadeIn('slow');
+			}
+		});
+	});
+
+
+	// si boxes lleva foto pongo padding superior
+	if ( $('.boxes.noted.likes.important').children('img.actor').length > 0 ) {
+		$('.boxes.noted.likes.important').css('padding-top', '275px');
+
+	}
+
 	// hacer un bloque clickable y que tome
 	// que es su primer elemento la url del enlace a.hidden
 	$(function() {
@@ -199,6 +278,15 @@ $(document).ready(function() {
 
 	});
 
+	// oculta los comentarios
+	$('.listComments > li:gt(2)').hide();
+	$('#ver-mas a').click(function(e) {
+		e.preventDefault();
+		$('.listComments > li:gt(2)').fadeIn('slow');
+		$('#ver-mas').remove();
+	});
+
+
 
 	// change text when select option in the edit post form
 	$('#updateText').text($('#typePubli li.active').text());
@@ -207,14 +295,14 @@ $(document).ready(function() {
     });
 
 
-	// countdown
+	// countdown textarea
 	$(function() {
 		var totalChars      = parseInt($('#charInit span').text());
 		var countTextBox    = $('.counted'); // Textarea input box
 		var charsCountEl    = $('#charNum span'); // Remaining chars count will be displayed here
 
-        if (countTextBox.length> 0){
-		    charsCountEl.text(totalChars - countTextBox.val().length); //initial value of countchars element
+		if (countTextBox.length> 0){
+			charsCountEl.text(totalChars - countTextBox.val().length); //initial value of countchars element
         }
 		countTextBox.keyup(function() { //user releases a key on the keyboard
 
@@ -280,7 +368,48 @@ $(document).ready(function() {
 	    }
 	});
 
-    var texts= {
+
+	// load more
+	$("a.loadMore").on("click", function(e){loadMore(e, this)})
+	function loadMore(e, that) {
+
+		e.preventDefault()
+		var link = $(that)
+		var url = link.attr('href')
+		var parentId = link.attr('data-parent-id')
+		var offset = link.attr('data-offset') || 10
+		var loadingId = parentId+"-loading"
+		var parent = $("#"+parentId)
+		parent.append('<div class="loading" id="'+loadingId+'"><span class="sr-only">Cargando...</span></div>')
+		$.ajax( {
+			url:url,
+			data:"offset="+offset,
+			statusCode: {
+				401: function() {
+					location.reload();
+				}
+			}
+		})
+		.done(function(data, status, xhr) {
+			parent.append(data)
+			var moreResults = xhr.getResponseHeader('moreResults')
+			link.attr('data-offset', offset +10)
+			if (moreResults){
+				link.remove()
+			}
+		})
+		.fail(function(data) {
+			console.log(data)
+		})
+		.always(function(data) {
+			$("#"+loadingId).remove()
+			$("time.timeago").timeago();
+		});
+	}
+
+
+	// para los checkbox del formulario de registro
+	var texts= {
         0: i18n.customRegister.step4.form.submit.description0,
         1: i18n.customRegister.step4.form.submit.description1,
         2: i18n.customRegister.step4.form.submit.description2,
@@ -372,6 +501,8 @@ $(document).ready(function() {
 	})
 
 });
+
+
 
 
 // funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)
