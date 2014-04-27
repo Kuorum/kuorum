@@ -9,13 +9,6 @@ $(document).popover({
 });
 
 
-// cerrar popovers al hacer click fuera
-$('html').on('click', function(e) {
-  if (typeof $(e.target).data('original-title') == 'undefined' && !$(e.target).parents().is('.popover.in')) {
-    $('[data-original-title]').popover('hide');
-  }
-});
-
 
 // inicializa los tooltip
 $(document).tooltip({
@@ -97,8 +90,11 @@ $(document).ready(function() {
 
 	// apertura de karma
 	function openKarma () {
-		$('#karma').modal('show');
+		$('#karma').fadeIn().addClass('in');
 	}
+	$('body').on('click', '#karma .close', function() {
+		$('#karma').css('display','none').removeClass('in');
+ 	});
 
 
 	// al hacer clic en los badges vacía el contenido para que desaparezca
@@ -182,13 +178,30 @@ $(document).ready(function() {
 		}
 	});
 
+	// botón Seguir de las cajas popover y página ley-participantes
+	$(document).on({
+	    mouseenter: function () {
+	        $(this).html('Seguir <span class="fa fa-check-circle"></span>');
+	    },
+	    mouseleave: function () {
+	        $(this).html('Seguir');
+	    }
+	}, "#follow.enabled"); //pass the element as an argument to .on
 
-	// Habilitar/deshabilitar botón "Seguir" en Popover
+	$(document).on({
+	    mouseenter: function () {
+	        $(this).html('No seguir');
+	    },
+	    mouseleave: function () {
+	        $(this).html('Siguiendo <span class="fa fa-check-circle"></span>');
+	    }
+	}, "#follow.disabled"); //pass the element as an argument to .on
+
 	$('body').on("click", "#follow", function() {
 		if ( $(this).hasClass('disabled') ){
-			$(this).text('Seguir').removeClass('disabled');
+			$(this).html('Seguir <span class="fa fa-check-circle"></span>').removeClass('disabled').addClass('enabled');
 		} else {
-			$(this).html('Siguiendo <span class="fa fa-check-circle"></span>').addClass('disabled');
+			$(this).html('Siguiendo <span class="fa fa-check-circle"></span>').removeClass('enabled').addClass('disabled');
 		}
 	});
 
@@ -197,6 +210,13 @@ $(document).ready(function() {
 	$('body').on("click", ".voting .vote", function(e) {
 		e.preventDefault();
 		$(this).text('Votación cerrada').addClass('disabled');
+	});
+
+
+	// Deshabilitar botón Impulsar (Post)
+	$('body').on("click", "#drive .btn", function(e) {
+		e.preventDefault();
+		$(this).html('Ya la has impulsado <br><small>es tu momento de hablar</small>').addClass('disabled');
 	});
 
 
@@ -216,6 +236,7 @@ $(document).ready(function() {
 	$('body').on("click", ".voting li .neutral", function(e) {
 		$('.activity .abstencion').addClass('active');
 	});
+
 
 	// Si hago click en cambio de opinión vuelven los botones
 	$('body').on("click", ".changeOpinion", function(e) {
@@ -247,20 +268,23 @@ $(document).ready(function() {
 
 
 	// el enlace callMobile (visible sólo en pantallas de hasta 767px, desaparece si le haces click o si llegas a la votación
-	$(function() {
-		var callMobile = $('.callMobile');
-		var eTop = $('#vote').offset().top;
-		var realPos = eTop - 80;
-		$(window).scroll(function() {
-			var scroll = $(window).scrollTop();
-			if (scroll >= realPos) {
-				callMobile.fadeOut('slow');
-			} else {
-				callMobile.fadeIn('slow');
-			}
-		});
-	});
+	if ( $('#vote').length > 0 ) {
 
+		$(function() {
+			var callMobile = $('.callMobile');
+			var eTop = $('#vote').offset().top;
+			var realPos = eTop - 80;
+			$(window).scroll(function() {
+				var scroll = $(window).scrollTop();
+				if (scroll >= realPos) {
+					callMobile.fadeOut('slow');
+				} else {
+					callMobile.fadeIn('slow');
+				}
+			});
+		});
+
+	}
 
 	// si boxes lleva foto pongo padding superior
 	if ( $('.boxes.noted.likes.important').children('img.actor').length > 0 ) {
@@ -501,8 +525,6 @@ $(document).ready(function() {
 	})
 
 });
-
-
 
 
 // funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)

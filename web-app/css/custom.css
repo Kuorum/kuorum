@@ -65,11 +65,10 @@ small, .small {font-size: 75%;}
 .main { font-size: 15px; font-size:  1.5rem; padding: 0; min-height: 70rem;}
 .navbar-toggle:hover {background-color: #ee7612;}
 .link-wrapper {cursor: pointer; z-index: 9;}
-.link-wrapper a {z-index: 999; position: relative;}
+.link-wrapper a,
+.link-wrapper .popover-trigger {z-index: 999; position: relative;}
 .disabled {cursor: default;}
-
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {opacity: 0.25;}
-
 .normalize {font-size: 15px; font-size: 1.5rem;}
 .fa {vertical-align: middle;}
 .tooltip {z-index: 999;}
@@ -88,14 +87,13 @@ p {margin: 0 0 20px 0;}
 .mb20 {margin-bottom: 20px !important;}
 a:hover, a:focus {outline: 0;}
 
-/* Ajustes sobre Bootstrap =========== */
+/* Estilos generales =========== */
 /* ====================================================== */
-
+.modal-content {border-radius: 3px;}
 a,
 a:hover,
 a:active,
 a:focus {color: #20a2ea;}
-
 *[rel="tooltip"] {cursor: pointer;}
 .tooltip.top .tooltip-arrow {border-top-color: #dadada !important;}
 .tooltip.left .tooltip-arrow {border-left-color: #dadada !important;}
@@ -308,12 +306,6 @@ a:focus {color: #20a2ea;}
 .nav > li > .navbar-link:hover .badge,
 .nav > li > .navbar-link:focus .badge {background-color: #fff; color: #ff9431;}
 
-/* prismaticos en imagen */
-/*.navbar-link .binoculars {background: url('../images/ico-binoculars.png') 0 0 no-repeat transparent; padding-left: 30px; display: block;}
-.navbar-link:hover > .binoculars,
-.navbar-link:active > .binoculars,
-.navbar-link:focus > .binoculars {background-position: 0 -60px;}*/
-
 .nav > li > .discover {padding-top: 0; padding-bottom: 0; margin: -5px 0 0 0;}
 .nav > li > .discover .icon-Flaticon_9296 {vertical-align: middle; font-size: 48px; padding: 0 0 6px 0;}
 
@@ -486,7 +478,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 
 .kakareo {background-color: #fafafa; border-top: solid 1px #20a2ea; padding: 0; margin: 7px 0 40px; position: relative;}
 .kakareo.follow {padding: 5px 15px;}
-.kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 10px 0 0 0; margin: 0;}
+.kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 10px 0; margin: 0;}
 
 .kakareo.post {background-color: transparent; border: 0; margin-top: 0; color: #545454;}
 .kakareo.post h2 {font-size: 27px; font-size: 2.7rem;}
@@ -577,6 +569,15 @@ span + .text-notification {padding: 0 0 0 33px;}
     display: block !important;
 }
 .popover #follow {margin: 1px 0 0 49px !important;}
+.popover-box #follow {margin: 1px 0 0 90px !important;}
+#follow {width: 90px;}
+#follow span {margin: -2px 0 0 8px; display: inline-block;}
+
+#follow.disabled {background-color: #333333 !important;}
+#follow.disabled:hover,
+#follow.disabled:active,
+#follow.disabled:focus {background-color: #797979 !important; opacity: 1 !important;}
+
 
 .popover .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}
 .popover .infoActivity li {list-style: none; float: left; margin-right: 6px; font-size: 14px; font-size: 1.4rem; color: #797979;}
@@ -643,7 +644,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-box .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}
 .popover-box .infoActivity li {list-style: none; float: left; margin-right: 6px; font-size: 14px; font-size: 1.4rem; color: #797979;}
 .popover-box .infoActivity .fa-check {color: #bfd9f5;}
-.popover-box #follow {margin: 1px 0 0 90px !important;}
 /* fin popover-box*/
 
 
@@ -655,58 +655,39 @@ span + .text-notification {padding: 0 0 0 33px;}
   background-color: #efefef;
   color: #a8a8a8;
   margin: 0;
-  /*left: 0;
-  bottom: 0;
-  padding: 0;
-  position: absolute;
-  width: 100%;*/
   border-top: 1px solid #dadada;
 }
 
-/*.kakareo footer > ul {
-  height: 30px;
-  margin: 0;
-  padding: 5px 15px;
-  position: relative;
-}*/
-
 .kakareo footer > ul > li {padding: 5px 0 6px !important;}
-
 .kakareo footer > ul.info-kak > li,
-.kakareo footer > ul.actions-kak > li {
-  /*list-style: none;*/
-  list-style: disc outside none;
-  margin: 0 15px 0 0;
-  padding: 0;
-}
+.kakareo footer > ul.actions-kak > li {list-style: disc outside none; margin: 0 15px 0 0; padding: 0;}
 .kakareo footer > ul.info-kak > li {float: left;}
 .kakareo footer > ul.actions-kak >li {float: right;}
 
 .kakareo footer > ul.info-kak > li:last-child {margin: 0;}
-
 .kakareo footer > ul.info-kak > li:first-child,
 .kakareo footer > ul > li.kakareo-number,
 .kakareo footer > ul > li.more-actions {list-style: none !important; padding: 0;}
 .kakareo footer > ul > li.read-later {margin-right: 25px !important;}
-.kakareo footer > ul > li a {color: #a8a8a8;}
+.kakareo footer > ul > li > a {color: #a8a8a8;}
 
 .kakareo footer > ul > li .counter {margin: 0 4px 0 0;}
 
-.kakareo footer > ul > li a .fa {color: #797979; margin: 0 6px 0 0;}
+.kakareo footer > ul > li > a span:first-child {color: #797979; margin: 0 6px 0 0;}
 
 .kakareo footer > ul > li a:hover,
 .kakareo footer > ul > li a:focus,
 .kakareo footer > ul > li a:active,
-.kakareo footer > ul > li a:hover .fa,
-.kakareo footer > ul > li a:focus .fa,
-.kakareo footer > ul > li a:active .fa {color: #20a2ea;}
-.kakareo footer > ul > li a:hover,
-.kakareo footer > ul > li a:focus,
-.kakareo footer > ul > li a:active {text-decoration: underline;}
+.kakareo footer > ul > li a:hover span:first-child,
+.kakareo footer > ul > li a:focus span:first-child,
+.kakareo footer > ul > li a:active span:first-child {color: #20a2ea; text-decoration: none;}
+.kakareo footer > ul > li a:hover .hidden-xs,
+.kakareo footer > ul > li a:focus .hidden-xs,
+.kakareo footer > ul > li a:active .hidden-xs {text-decoration: underline;}
 
-.kakareo footer > ul > li a.disabled .fa,
+.kakareo footer > ul > li a.disabled span:first-child,
 .kakareo footer > ul > li a.disabled {color: #8fd0f4 !important;}
-.kakareo footer > ul > li.read-later a.disabled .fa {color: #20a2ea !important;}
+.kakareo footer > ul > li.read-later a.disabled span:first-child {color: #20a2ea !important;}
 .kakareo footer > ul > li.read-later a.disabled {cursor: pointer;}
 .kakareo footer > ul > li.read-later a.disabled:hover {text-decoration: underline;}
 .kakareo footer > ul > li a.disabled:hover {color: #8fd0f4 !important; text-decoration: none;}
@@ -755,9 +736,9 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer > ul > li a:hover,
 .important .kakareo footer > ul > li a:focus,
 .important .kakareo footer > ul > li a:active,
-.important .kakareo footer > ul > li a:hover .fa-lg,
-.important .kakareo footer > ul > li a:focus .fa-l,
-.important .kakareo footer > ul > li a:active .fa-l {color: #ff9431;}
+.important .kakareo footer > ul > li a:hover span:first-child,
+.important .kakareo footer > ul > li a:focus span:first-child,
+.important .kakareo footer > ul > li a:active span:first-child {color: #ff9431;}
 
 .important .kakareo .main-kakareo .more-users,
 .important .kakareo footer > ul > li.more-actions > span {background-color: #ff9431;}
@@ -767,13 +748,13 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer > ul > li.more-actions > span:hover,
 .important .kakareo footer > ul > li.more-actions > span:active,
 .important .kakareo footer > ul > li.more-actions > span:focus {background-color: #ee7612; color: #fff;}
-.important .kakareo footer > ul > li a .fa {color: #ff9431;}
+.important .kakareo footer > ul > li a span:first-child {color: #ff9431;}
 .important .kakareo footer > ul > li.more-actions span .fa-plus {color: #fff;}
 .important .kakareo footer {background-color: #feedce; border-top-color: #ff9431;}
-.important .kakareo footer > ul > li a.disabled .fa,
+.important .kakareo footer > ul > li a.disabled span:first-child,
 .important .kakareo footer > ul > li a.disabled {color: #ffc998 !important;}
 .important .kakareo footer > ul > li a.disabled:hover {color: #ffc998 !important; text-decoration: none;}
-.important .kakareo footer > ul > li.read-later a.disabled .fa {color: #ff9431 !important;}
+.important .kakareo footer > ul > li.read-later a.disabled span:first-child {color: #ff9431 !important;}
 
 /* kakareo de autor */
 .author.important .kakareo {margin-top: 0; border-top: 1px solid #ff9431;}
@@ -1119,9 +1100,26 @@ textarea.error,
 }
 
 
-/* karma modal */
-.modal-content {border-radius: 3px;}
-#karma .modal-dialog {width: 93%; color: #a8a8a8; margin: 68px auto 30px;}
+/* karma */
+#karma {
+  width: 93%;
+  max-width: 375px;
+  color: #a8a8a8;
+  position: fixed;
+  right: 4%;
+  top: 69px;
+  z-index: 9999;
+  background-color: #fff;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+  border: solid 1px #a8a8a8;
+  padding: 10px;
+  display: none;
+  -webkit-transform:translate(0,-25%);-ms-transform:translate(0,-25%);transform:translate(0,-25%);
+}
+#karma.in {
+  -webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0);
+  -webkit-transition:-webkit-transform .3s ease-out;-moz-transition:-moz-transform .3s ease-out;-o-transition:-o-transform .3s ease-out;transition:transform .3s ease-out;
+}
 #karma  h1 {
   font-family: 'League Gothic', Arial, sans-serif;
   font-size: 36px;
@@ -1131,10 +1129,8 @@ textarea.error,
   text-align: center;
 }
 #karma h2 {font-size: 23px; font-size: 2.3rem; text-align: center; color: #545454;}
-#karma .modal-header {border-bottom: none;}
-#karma .modal-body {padding: 0 20px 20px 20px;}
 .karma {margin: 0; padding: 0; text-align: center;}
-.karma li {list-style: none; text-align: center; display: inline-block; font-size: 26px; font-size: 2.6rem; color: #efefef; padding: 0 10px;}
+.karma li {list-style: none; text-align: center; display: inline-block; font-size: 20px; font-size: 2rem; color: #efefef; padding: 0 10px;}
 .karma li.active {color: #ff9431;}
 .karma li span {display: block;}
 #karma a {color: #ff9431;}
@@ -1177,16 +1173,12 @@ textarea.error,
 .max600 {max-width: 600px; margin: 0 auto;}
 .max600 .btn {margin-bottom: 20px !important;}
 .screen {max-width: 560px;}
-
 .steps {margin: 0; padding: 0;}
 .steps {text-align: center; color: #dadada; margin: 0 0 60px 0;}
 .steps li {list-style: none; display: inline-block; margin: 0 20px 0 0;}
 .steps li .badge {background-color: #dadada; border-radius: 20px; width: 40px; height: 40px; font-size: 24px; font-size: 2.4rem; font-family: 'League Gothic', Arial, sans-serif; padding: 8px 4px 0 4px; font-weight: normal;}
 .steps li.active .badge {background-color: #ff9431;}
-.steps li + li {
-    background:url('../images/steps-sep.png') no-repeat center left;
-    padding-left: 53px;
-}
+.steps li + li {background:url('../images/steps-sep.png') no-repeat center left; padding-left: 53px;}
 .onecol .boxes {background-color: #fcffd5; padding: 30px 40px; }
 .onecol .boxes h2 {text-transform: none; font-weight: bold; font-size: 16px; font-size: 1.6rem; margin-bottom: 30px;}
 
@@ -1465,6 +1457,8 @@ textarea.error,
 
 .top {font-size: 15px; font-size: 1.5rem;}
 
+
+
 /*********************** post **************************/
 /******************************************************/
 .kakareo.post h1 {font-size: 32px; font-size: 3.2rem; line-height: 1.2; padding: 0; margin: 0 0 25px 0;}
@@ -1496,12 +1490,20 @@ textarea.error,
 .boxes.noted.likes #drive .form-group {margin: 10px 0;}
 
 .othersPost {margin: 120px 0 70px;}
-.othersPost #postNav {padding: 0 60px; margin: -50px 0 0 0; position: relative; height: 70px;}
-.othersPost #postNav p {color: #a8a8a8; margin: -14px 0 0 48px;}
-.othersPost #postNav > a {display: block; padding: 25px 18px 24px; background-color: #20a2ea; color: #fff; border-radius: 0; position: absolute; top: 0;}
+.othersPost h1 {font-size: 20px; font-size: 2rem;}
+.othersPost #postNav {padding: 0 43px; margin: 0; position: relative; height: 70px; font-size: 13px; font-size: 1.3rem;}
+#main .othersPost #postNav .user .popover-trigger {font-size: 13px; font-size: 1.3rem;}
+.othersPost #postNav p {margin: 0 0 13px;}
+.othersPost #postNav .user-img {height: 25px; margin: 0 5px 0 0; width: 25px;}
+.othersPost #postNav .read-later a {color: #797979;}
+.othersPost #postNav .read-later a:hover,
+.othersPost #postNav .read-later a:active,
+.othersPost #postNav .read-later a:focus {color: #20a2ea;}
+.othersPost #postNav > a {display: block; padding: 34px 18px; background-color: #20a2ea; color: #fff; border-radius: 0; position: absolute; top: 0;}
+.othersPost #postNav > a:hover {background-color: #2e6bab;}
 .othersPost #postNav > a.prev {left: 0;}
 .othersPost #postNav > a.next {right: 0;}
-.othersPost #postNav .item {padding: 10px;}
+.othersPost #postNav .item {padding: 6px 15px;}
 .othersPost #postNav .link-wrapper:hover,
 .othersPost #postNav .link-wrapper:active,
 .othersPost #postNav .link-wrapper:focus {background-color: #efefef;}
@@ -1546,7 +1548,6 @@ textarea.error,
 
 
 
-
 /* clases especiales =========== */
 /* ====================================================== */
 .sr-only,
@@ -1567,6 +1568,8 @@ textarea.error,
   text-align: center;
   margin: 0 auto;
 } /* en el caso del .first (enlace que va directamente a los contenidos) lo hacemos visible y activo para los que navegan con teclado */
+
+
 
 /* colores =========== */
 /* ====================================================== */
@@ -1652,7 +1655,7 @@ textarea.error,
   .social li {margin-right: 4px; font-size: 16px; font-size: 1.6rem;}
   #footer .links section .feedback {width: auto; padding: 8px 10px;}
   #footer .links section h1.map {margin-top: 0;}
-  .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 20px 0 10px; margin: 0 0 10px 0;}
+  .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 20px 0 10px;}
   .kakareo .main-kakareo {margin-top: 10px;}
 
   .kakareo footer ul li.read-later {margin-right: 28px !important;}
@@ -1663,8 +1666,6 @@ textarea.error,
   .multimedia .video .fa {left: 44%; top: 40%;}
   .activity > li {font-size: 12px; font-size: 1.2rem;}
   .activity .popover-trigger span {font-size: 28px; font-size: 2.6rem;}
-
-  #karma .modal-dialog {width: 375px;}
 
   #main .user .popover-trigger,
   #main .sponsor {font-size: 15px; font-size: 1.5rem;}
@@ -1721,6 +1722,16 @@ textarea.error,
   .stats span {display: inline-block; margin: 0 8px 4px 0;}
 
   .popover-box {width: 47%; float: left; margin: 0 20px 20px 0;}
+
+  /* karma */
+  #karma {
+    right: 4%;
+    top: 69px;
+    padding: 10px 20px 20px;
+  }
+  #karma  h1 {font-size: 36px; font-style: 3.6rem;}
+  #karma h2 {font-size: 23px; font-size: 2.3rem;}
+  .karma li {font-size: 26px; font-size: 2.6rem; padding: 0 10px;}
 
 }
 
