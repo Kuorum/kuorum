@@ -27,10 +27,9 @@
         </div>
 
         <p class="cl-ntral-dark">${law.realName}</p>
-        <p>Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend reformidans ei. Omnium euismod in pri, eam ei oblique numquam dignissim, vel et erant nostro suscipiantur.</p>
-        <p>Consul legendos expetendis id vis. Ne saperet civibus rationibus has. Enim semper maiestatis no quo, ius at erat tollit. Adhuc epicuri intellegam te est. Solet animal apeirian eu est, malis legendos dissentias te usu. Vim at sint meliore officiis, mucius epicurei vel et. Duo fastidii quaestio an. Vim at veri eripuit fabellas, prompta docendi ea mei.</p>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis en</p>
-
+        <p>
+            ${raw(law.introduction.replaceAll('\n','</p><p>'))}
+        </p>
         <div class="readMore">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse" class="collapsed">
                 <g:message code="law.text.seeMore"/>
@@ -38,7 +37,9 @@
             </a>
         </div>
         <div id="collapse" class="panel-collapse collapse">
-            Mucius epicurei vel et. Duo fastidii quaestio an. Consul legendos expetendis id vis. Ne saperet civibus rationibus has. Enim semper maiestatis no quo, ius at erat tollit. Adhuc epicuri intellegam te est. Solet animal apeirian eu est, malis legendos dissentias te usu. Vim at sint meliore officiis, mucius epicurei vel et. Duo fastidii quaestio an. Vim at veri eripuit fabellas, prompta docendi ea mei.
+            <p>
+                ${raw(law.description.replaceAll('\n','</p><p>'))}
+            </p>
         </div>
     </article><!-- /article -->
 
@@ -70,79 +71,9 @@
         </div>
     </aside>
 
-    <aside class="seeVictory" id="seeVictory">
-        <h1>Mira lo que otros han conseguido</h1>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-        <strong>¡Hemos conseguido <span class="counter">3</span> victorias!</strong>
-
-        <div class="controls">
-            <a href="#victory" data-slide="prev">
-                <span class="fa-stack fa-lg">
-                    <i class="fa fa-square fa-stack-2x"></i>
-                    <i class="fa fa-caret-left fa-stack-1x fa-inverse"></i>
-                </span>
-            </a>
-            <span class="indexCounter"><span class='carousel-index'><span class="actual"></span> de <span class="total"></span></span> victorias</span> <!-- aquí se genere al índice por js-->
-            <a href="#victory" data-slide="next">
-                <span class="fa-stack fa-lg">
-                    <i class="fa fa-square fa-stack-2x"></i>
-                    <i class="fa fa-caret-right fa-stack-1x fa-inverse"></i>
-                </span>
-            </a>
-        </div>
-
-        <div id="victory" class="carousel slide">
-            <div class="carousel-inner">
-
-                <div class="item">
-                    <div class="sliderItem clearfix">
-                        <h1>¡<a href="#">Fulanito de tal</a> lo consiguió! Tú también puedes hacerlo.</h1>
-                        <img alt="texto-alternativo-imagen" src="images/photo.jpg" class="actor">
-                        <div class="content">
-                            <p>Etiam vel lacus sed velit fringilla porta in id tortor. Donec libero eros, tristique id scelerisque eu, lobortis et est. Nlacus sed velitsas</p> <!-- 140 caracteres -->
-                            <p><strong>y 3 días después</strong></p>
-                            <div class="user" itemscope itemtype="http://schema.org/Person">
-                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"> <span itemprop="name">Nombre usuario</span> se comprometió a llevarla al congreso
-                            </div>
-                            <a href="#">Conoce toda la historia</a>
-                        </div>
-                    </div>
-                </div> <!-- slider 1 -->
-
-                <div class="item">
-                    <div class="sliderItem clearfix">
-                        <h1>¡<a href="#">Menganito de tal</a> lo consiguió! Tú también puedes hacerlo.</h1>
-                        <img alt="texto-alternativo-imagen" src="images/photo.jpg" class="actor">
-                        <div class="content">
-                            <p>Etiam vel lacus sed velit fringilla porta in id tortor. Donec libero eros, tristique id scelerisque eu, lobortis et est. Nlacus sed velitsas</p> <!-- 140 caracteres -->
-                            <p><strong>y 3 días después</strong></p>
-                            <div class="user" itemscope itemtype="http://schema.org/Person">
-                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"> <span itemprop="name">Nombre usuario</span> se comprometió a llevarla al congreso
-                            </div>
-                            <a href="#">Conoce toda la historia</a>
-                        </div>
-                    </div>
-                </div> <!-- slider 2 -->
-
-                <div class="item">
-                    <div class="sliderItem clearfix">
-                        <h1>¡<a href="#">Tercero de la lista</a> lo consiguió! Tú también puedes hacerlo.</h1>
-                        <img alt="texto-alternativo-imagen" src="images/photo.jpg" class="actor">
-                        <div class="content">
-                            <p>Etiam vel lacus sed velit fringilla porta in id tortor. Donec libero eros, tristique id scelerisque eu, lobortis et est. Nlacus sed velitsas</p> <!-- 140 caracteres -->
-                            <p><strong>y 3 días después</strong></p>
-                            <div class="user" itemscope itemtype="http://schema.org/Person">
-                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"> <span itemprop="name">Nombre usuario</span> se comprometió a llevarla al congreso
-                            </div>
-                            <a href="#">Conoce toda la historia</a>
-                        </div>
-                    </div>
-                </div> <!-- slider 3 -->
-
-            </div><!-- carousel inner -->
-
-        </div><!-- carousel -->
-    </aside>
+    <g:if test="${victories}">
+        <g:render template="lawVictories" model="[law:law, victories:victories]"/>
+    </g:if>
     <aside class="participAll">
         <h1><g:message code="law.clucks.title"/> </h1>
         <p><g:message code="law.clucks.description"/> </p>
@@ -157,12 +88,12 @@
 
 <content tag="cColumn">
 <section class="boxes vote" id="vote">
-    <h1>Tú también tienes voz... y voto</h1>
-    <p>Siempre has pensado que no se puede hacer nada, que todo está muy mal... pues ahora es el momento de participar.</p>
+    <h1><g:message code="law.vote.title"/></h1>
+    <p><g:message code="law.vote.description"/></p>
     <ul class="activity">
-        <li class="favor"><span>1232</span> A favor</li>
-        <li class="contra"><span>2422</span> En contra</li>
-        <li class="abstencion"><span>322</span> Abstención</li>
+        <li class="favor"><span>${law.peopleVotes.yes}</span> A favor</li>
+        <li class="contra"><span>${law.peopleVotes.no}</span> En contra</li>
+        <li class="abstencion"><span>${law.peopleVotes.abs}</span> Abstención</li>
     </ul>
     <div class="kuorum">
         Faltan <span class="counter">35</span> votos para kuorum

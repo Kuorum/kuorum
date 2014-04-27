@@ -208,7 +208,7 @@ class IndexSolrService {
             name:law.shortName,
             type:SolrType.LAW,
             subType:SolrType.LAW.generateSubtype(law),
-            text:law.description,
+            text:"${law.introduction law.description}",
             dateCreated:law.dateCreated,
             hashtag:law.hashtag,
             commissions:law.commissions,
