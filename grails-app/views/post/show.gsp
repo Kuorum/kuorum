@@ -92,17 +92,6 @@
             </li>
         </g:if>
 
-        <g:if test="${postInstance?.photo}">
-            <li class="fieldcontain">
-                <span id="photo-label" class="property-label"><g:message code="post.photo.label"
-                                                                         default="Photo"/></span>
-
-                <span class="property-value" aria-labelledby="photo-label"><g:fieldValue bean="${postInstance}"
-                                                                                         field="photo"/></span>
-
-            </li>
-        </g:if>
-
         <g:if test="${postInstance?.postType}">
             <li class="fieldcontain">
                 <span id="postType-label" class="property-label"><g:message code="post.postType.label"
