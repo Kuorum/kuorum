@@ -8,6 +8,7 @@ fixture {
         numClucks=1
         numVotes=1
         owner=ecologistasEnAccion
+        defender=politician
         postType=PostType.PURPOSE
         victory=Boolean.TRUE
         title="Rechazo al nuevo Proyecto de Ley de Parques Nacionales"

@@ -7,6 +7,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.PostType
 import kuorum.core.model.UserType
+import kuorum.core.model.search.Pagination
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 
@@ -265,5 +266,9 @@ class PostService {
         Integer votesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
 //        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
         Post.list([max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
+    }
+
+    List<Post> lawVictories(Law law, Pagination pagination = new Pagination()){
+        Post.findAllByLawAndVictory(law,Boolean.TRUE,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
     }
 }

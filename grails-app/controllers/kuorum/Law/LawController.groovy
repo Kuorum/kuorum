@@ -6,6 +6,7 @@ import kuorum.Region
 import kuorum.core.model.VoteType
 import kuorum.law.Law
 import kuorum.law.LawVote
+import kuorum.post.Post
 import kuorum.users.KuorumUser
 import kuorum.web.commands.LawCommand
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse
 class LawController {
 
     def lawService
+    def postService
     def cluckService
     def springSecurityService
 
@@ -28,8 +30,9 @@ class LawController {
             return;
         }
         def clucks = cluckService.lawClucks(law)
+        List<Post> victories = postService.lawVictories(law)
 
-        [law:law, clucks: clucks]
+        [law:law, clucks: clucks,victories:victories]
 
     }
 

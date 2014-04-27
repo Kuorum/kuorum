@@ -47,6 +47,11 @@ class Post {
         numClucks min:0
         firstCluck nullable:true
         defender nullable:true
+//        defender nullable:true, validator:{val, obj ->
+//            if (obj.victory && !defender){
+//                return "victoryPostWithoutDefender"
+//            }
+//        }
         text nullable: false, blank: false
         title nullable:false, blank: false
         postType nullable:false
