@@ -5,6 +5,7 @@ fixture {
 
     parquesNacionalesPurpose1(Post){
         law=parquesNacionales
+        pdfPage=5
         numClucks=1
         numVotes=1
         owner=ecologistasEnAccion

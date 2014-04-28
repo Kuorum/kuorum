@@ -5,6 +5,7 @@ fixture {
 
     parquesNacionalesPurpose2(Post){
         law=parquesNacionales
+        pdfPage=10
         numClucks=1
         numVotes=1
         owner=equo
