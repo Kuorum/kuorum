@@ -4,6 +4,9 @@ import grails.transaction.Transactional
 import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.Method
+import kuorum.law.Law
+import kuorum.post.Post
+import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.beans.factory.annotation.Value
 
 @Transactional
@@ -14,6 +17,8 @@ class ShortUrlService {
 
     @Value('${shortUrl.owly.apykey}')
     String OWLY_APY_KEY = 'XXXXXX'
+
+    LinkGenerator grailsLinkGenerator
 
     URL shortUrl(URL longUrl) {
         URL shortUrl
@@ -38,4 +43,15 @@ class ShortUrlService {
 
         shortUrl
     }
+
+    URL shortUrl(Post post) {
+        String link = grailsLinkGenerator.link(mapping: 'postShow', params:post.encodeAsLinkProperties(), absolute: true)
+        shortUrl(new URL(link))
+    }
+
+    URL shortUrl(Law law) {
+        String link = grailsLinkGenerator.link(mapping: 'lawShow', params:law.encodeAsLinkProperties(), absolute: true)
+        shortUrl(new URL(link))
+    }
+
 }
