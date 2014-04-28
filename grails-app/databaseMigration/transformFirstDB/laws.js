@@ -1,5 +1,6 @@
 
 load("htmlDecoder.js")
+load("imageHelper.js")
 dbOrigin = connect("localhost:27017/KuorumWeb");
 dbDest = connect("localhost:27017/KuorumDev");
 
@@ -49,7 +50,7 @@ function createLawFromOldLaw(law){
 //        "_id" :law._id,
         "_id":id,
         "commissions" : translateCommissions(law.commissions),
-        "urlPdf":law.urlPdf.split("#")[0], //removes data after #
+        "urlPdf":law.urlPdf==undefined?'':law.urlPdf.split("#")[0], //removes data after #
         "dateCreated" : law.dateCreated,
         "description" : law.longDescription,
         "hashtag" : "#"+law.shortTitle.replace(/ /g, '').toLowerCase(),
@@ -60,6 +61,7 @@ function createLawFromOldLaw(law){
         "realName" : law.officialTitle,
         "region" : spain,
         "shortName" : law.shortTitle,
+        "image":createAvatar(id,"LAW_IMAGE", law.image),
         "status":status,
         "version" : 0
     }
