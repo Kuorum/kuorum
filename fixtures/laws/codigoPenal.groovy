@@ -1,9 +1,28 @@
+import kuorum.KuorumFile
+import kuorum.core.FileGroup
+import kuorum.core.FileType
 import kuorum.core.model.CommissionType
 import kuorum.law.Law
 
 fixture {
+
+    codigoPenalImage(KuorumFile){
+        user = admin
+        local = Boolean.FALSE
+        temporal =Boolean.FALSE
+//      storagePath
+        alt='Parques Nacionales'
+        fileName = "${grailsApplication.config.grails.serverURL}/static/images/img-post.jpg" //Para ver si funciona grailsApplication
+        url= "http://127.0.0.1:8080/kuorum/static/images/img-post.jpg"
+//        String url= "${grailsApplication.config.grails.serverURL}/static/images/img-post.jpg"
+        fileGroup = FileGroup.LAW_IMAGE
+        fileType = FileType.IMAGE
+
+    }
+
     codigoPenal(Law){
         hashtag = "#codigoPenal"
+        image = codigoPenalImage
         urlPdf = "http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF"
         shortUrl = "http://ow.ly/3jLTrs"
         shortName = "Reforma del Código Penal"
