@@ -10,10 +10,12 @@
             <span class="text">${law.region.name}</span>
         </div>
     </div>
-    <div class="info">
-        <a href="#seeVictory" class="fa-stack fa-lg smooth" data-toggle="tooltip" data-placement="right" title="${message(code:'law.photo.victoryIcon')}" rel="tooltip">
-            <span class="fa fa-circle fa-stack-2x"></span>
-            <span class="fa icon-flag2 fa-stack-1x fa-inverse"></span>
-        </a>
-    </div>
+    <g:if test="${victory}">
+        <div class="info">
+            <a href="#seeVictory" class="fa-stack fa-lg smooth" data-toggle="tooltip" data-placement="right" title="${message(code:'law.photo.victoryIcon')}" rel="tooltip">
+                <span class="fa fa-circle fa-stack-2x"></span>
+                <span class="fa icon-flag2 fa-stack-1x fa-inverse"></span>
+            </a>
+        </div>
+    </g:if>
 </div>

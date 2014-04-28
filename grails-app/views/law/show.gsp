@@ -11,7 +11,7 @@
     <article class="kakareo post ley" role="article" itemscope itemtype="http://schema.org/Article">
         <div class="callMobile"><a href="#vote" class="smooth"><g:message code="law.vote.mobileButton"/> </a></div>
         <g:if test="${law.image}">
-            <g:render template="lawPhoto" model="[law:law]"/>
+            <g:render template="lawPhoto" model="[law:law, victory:victories]"/>
         </g:if>
         <div itemprop="keywords" class="laley">${law.hashtag}</div>
         <h1>${law.shortName}</h1>
