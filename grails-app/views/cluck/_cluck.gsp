@@ -24,18 +24,7 @@
         </g:if>
         <div class="link-wrapper">
             <g:link mapping="postShow" params="${cluck.post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
-            <h1>${cluck.post.title} <g:link mapping="lawShow" params="${cluck.law.encodeAsLinkProperties()}">${cluck.law.hashtag}</g:link></h1>
-
-            <postUtil:ifHasMultimedia post="${cluck.post}">
-                %{--<g:render template="/cluck/cluckPhoto"/>--}%
-                <postUtil:postShowImage post="${cluck.post}"/>
-                %{--<g:render template="/cluck/cluckVideo"/>--}%
-            </postUtil:ifHasMultimedia>
-            <div class="main-kakareo row">
-                <g:render template="/cluck/cluckOwnerPost" model="[user:cluck.postOwner]"/>
-
-                <g:render template="/cluck/cluckSponsorPost"/>
-            </div>
+            <g:render template="/cluck/cluckMain" model="[post: cluck.post]"/>
         </div>
         <g:render template="/cluck/footerCluck" model="[post:cluck.post]"/>
     </article><!-- /article -->

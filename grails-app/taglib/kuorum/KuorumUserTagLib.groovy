@@ -31,17 +31,8 @@ class KuorumUserTagLib {
                 <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
                     <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image">${userName}
                 </span>
-            <!-- POPOVER PARA IMÁGENES USUARIOS -->
-            <div class="popover">
-
-                <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
         """
         out << g.render(template: '/kuorumUser/popoverUser', model:[user:user])
-        out << """
-
-            </div>
-            <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
-            """
         if (showRole){
             out << """
                 <span class="user-type">

@@ -1,190 +1,501 @@
-<%@ page import="kuorum.post.Post" %>
-<!DOCTYPE html>
-<html>
+<%@ page import="kuorum.core.model.VoteType; kuorum.core.model.PostType" %>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta name="layout" content="main">
-    <g:set var="entityName" value="${message(code: 'post.label', default: 'Post')}"/>
-    <title><g:message code="default.show.label" args="[entityName]"/></title>
+    <title>${post.title}</title>
+    <meta name="layout" content="columnCLayout">
+    <g:render template="postMetaTags" model="[post:post]"/>
 </head>
 
-<body>
-<a href="#show-post" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
-                                                           default="Skip to content&hellip;"/></a>
 
-<div class="nav" role="navigation">
-    <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]"/></g:link></li>
-        <li><g:link class="create" action="create"><g:message code="default.new.label"
-                                                              args="[entityName]"/></g:link></li>
-    </ul>
-</div>
+<content tag="mainContent">
+<article class="kakareo post" role="article" itemscope itemtype="http://schema.org/Article">
+    <div class="wrapper">
+        <g:render template="/cluck/cluckMain" model="[post:post]"/>
+    </div>
+    <g:render template="/cluck/footerCluck" model="[cluck:post.firstCluck]"/>
 
-<div id="show-post" class="content scaffold-show" role="main">
-    <h1><g:message code="default.show.label" args="[entityName]"/></h1>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
-    <ol class="property-list post">
+    <div class="row options">
+        <div class="col-xs-12 col-sm-6 col-md-6 editPost">
+            <a href="#"><span class="fa fa-edit fa-lg"></span>Editar publicación</a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 leerLey">
+            <a target="_blank" href="#">Texto de la ley</a>
+        </div>
+    </div>
 
-        <g:if test="${postInstance?.dateCreated}">
-            <li class="fieldcontain">
-                <span id="dateCreated-label" class="property-label"><g:message code="post.dateCreated.label"
-                                                                               default="Date Created"/></span>
+    ${raw(post.text)}
+    %{--<p>Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend reformidans ei. Omnium euismod in pri, eam ei oblique numquam dignissim, vel et erant nostro suscipiantur.</p>--}%
+    %{--<p>Consul legendos expetendis id vis. Ne saperet civibus rationibus has. Enim semper maiestatis no quo, ius at erat tollit. Adhuc epicuri intellegam te est. Solet animal apeirian eu est, malis legendos dissentias te usu. Vim at sint meliore officiis, mucius epicurei vel et. Duo fastidii quaestio an. Vim at veri eripuit fabellas, prompta docendi ea mei.</p>--}%
+    %{--<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>--}%
+    %{--<p>Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend reformidans ei. Omnium euismod in pri, eam ei oblique numquam dignissim, vel et erant nostro suscipiantur.</p>--}%
+    %{--<p>Consul legendos expetendis id vis. Ne saperet civibus rationibus has. Enim semper maiestatis no quo, ius at erat tollit. Adhuc epicuri intellegam te est. Solet animal apeirian eu est, malis legendos dissentias te usu. Vim at sint meliore officiis, mucius epicurei vel et. Duo fastidii quaestio an. Vim at veri eripuit fabellas, prompta docendi ea mei.</p>--}%
+    %{--<p>Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend reformidans ei. Omnium euismod in pri, eam ei oblique numquam dignissim, vel et erant nostro suscipiantur.</p>--}%
+    %{--<p>Consul legendos expetendis id vis. Ne saperet civibus rationibus has. Enim semper maiestatis no quo, ius at erat tollit. Adhuc epicuri intellegam te est. Solet animal apeirian eu est, malis legendos dissentias te usu. Vim at sint meliore officiis, mucius epicurei vel et. Duo fastidii quaestio an. Vim at veri eripuit fabellas, prompta docendi ea mei.</p>--}%
+    %{--<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>--}%
+    %{--<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>--}%
 
-                <span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate
-                        date="${postInstance?.dateCreated}"/></span>
+    <div class="wrapper">
+        <g:render template="/cluck/cluckUsers" model="[post:post]"/>
+    </div>
+    <g:render template="/cluck/footerCluck" model="[post:post]"/>
+</article><!-- /article -->
 
-            </li>
-        </g:if>
+<aside class="othersPost">
+    <h1>Otras publicaciones relacionadas:</h1>
+    <div id="postNav" class="carousel slide">
+        <a href="#postNav" data-slide="prev" class="prev">
+            <span class="fa fa-caret-left fa-lg"></span>
+            <span class="sr-only">Post anterior</span>
+        </a>
+        <div class="carousel-inner">
+            <div class="item user link-wrapper">
+                <a href="#" class="hidden">Ir al post</a>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy. Cum sociis natoque penatibus et magnis dis partarient <a href="#">#modesntes</a></p>
+                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario 1</span>
+                </span>
+                <!-- POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="popover">
+                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
+                    <div class="popover-user">
+                        <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                        <div class="user" itemscope itemtype="http://schema.org/Person">
+                            <a href="#" itemprop="url">
+                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                            </a>
+                            <span class="user-type">
+                                <small>Activista digital</small>
+                            </span>
+                        </div><!-- /user -->
+                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
+                        <ul class="infoActivity clearfix">
+                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
+                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
+                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
+                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
+                        </ul>
+                    </div><!-- /popover-user -->
+                </div>
+                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="read-later pull-right"><a class="enabled allow" href="#"><span class="fa fa-bookmark fa-lg"></span><span class="sr-only">Leer después</span></a></div>
+            </div>
+            <div class="item user link-wrapper">
+                <a href="#" class="hidden">Ir al post</a>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy. Cum sociis natoque penatibus et magnis dis partarient <a href="#">#modesntes</a></p>
+                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario 2</span>
+                </span>
+                <!-- POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="popover">
+                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
+                    <div class="popover-user">
+                        <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                        <div class="user" itemscope itemtype="http://schema.org/Person">
+                            <a href="#" itemprop="url">
+                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                            </a>
+                            <span class="user-type">
+                                <small>Activista digital</small>
+                            </span>
+                        </div><!-- /user -->
+                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
+                        <ul class="infoActivity clearfix">
+                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
+                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
+                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
+                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
+                        </ul>
+                    </div><!-- /popover-user -->
+                </div>
+                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="read-later pull-right"><a class="enabled allow" href="#"><span class="fa fa-bookmark fa-lg"></span><span class="sr-only">Leer después</span></a></div>
+            </div>
+            <div class="item user link-wrapper">
+                <a href="#" class="hidden">Ir al post</a>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy. Cum sociis natoque penatibus et magnis dis partarient <a href="#">#modesntes</a></p>
+                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario 3</span>
+                </span>
+                <!-- POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="popover">
+                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
+                    <div class="popover-user">
+                        <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                        <div class="user" itemscope itemtype="http://schema.org/Person">
+                            <a href="#" itemprop="url">
+                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                            </a>
+                            <span class="user-type">
+                                <small>Activista digital</small>
+                            </span>
+                        </div><!-- /user -->
+                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
+                        <ul class="infoActivity clearfix">
+                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
+                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
+                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
+                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
+                        </ul>
+                    </div><!-- /popover-user -->
+                </div>
+                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="read-later pull-right"><a class="enabled allow" href="#"><span class="fa fa-bookmark fa-lg"></span><span class="sr-only">Leer después</span></a></div>
+            </div>
+        </div>
+        <a href="#postNav" data-slide="next" class="next">
+            <span class="fa fa-caret-right fa-lg"></span>
+            <span class="sr-only">Post siguiente</span>
+        </a>
+    </div>
+</aside>
 
-        <g:if test="${postInstance?.defender}">
-            <li class="fieldcontain">
-                <span id="defender-label" class="property-label"><g:message code="post.defender.label"
-                                                                            default="Defender"/></span>
-
-                <span class="property-value" aria-labelledby="defender-label"><g:link controller="kuorumUser"
-                                                                                      action="show"
-                                                                                      id="${postInstance?.defender?.id}">${postInstance?.defender?.encodeAsHTML()}</g:link></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${postInstance?.law}">
-            <li class="fieldcontain">
-                <span id="law-label" class="property-label"><g:message code="post.law.label" default="Law"/></span>
-
-                <span class="property-value" aria-labelledby="law-label">
-                    <g:link mapping="lawShow" params="${postInstance.law.encodeAsLinkProperties()}">${postInstance?.law?.encodeAsHTML()}</g:link></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${postInstance?.numClucks}">
-            <li class="fieldcontain">
-                <span id="numClucks-label" class="property-label"><g:message code="post.numClucks.label"
-                                                                             default="Num Clucks"/></span>
-
-                <span class="property-value" aria-labelledby="numClucks-label"><g:fieldValue bean="${postInstance}"
-                                                                                             field="numClucks"/></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${postInstance?.numVotes}">
-            <li class="fieldcontain">
-                <span id="numVotes-label" class="property-label"><g:message code="post.numVotes.label"
-                                                                            default="Num Votes"/></span>
-
-                <span class="property-value" aria-labelledby="numVotes-label"><g:fieldValue bean="${postInstance}"
-                                                                                            field="numVotes"/></span>
-
-            </li>
-        </g:if>
-        <g:if test="${postInstance?.owner}">
-            <li class="fieldcontain">
-                <span id="owner-label" class="property-label"><g:message code="post.owner.label"
-                                                                         default="Owner"/></span>
-
-                <span class="property-value" aria-labelledby="owner-label"><g:link controller="kuorumUser" action="show"
-                                                                                   id="${postInstance?.owner?.id}">${postInstance?.owner?.name.encodeAsHTML()}</g:link></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${postInstance?.postType}">
-            <li class="fieldcontain">
-                <span id="postType-label" class="property-label"><g:message code="post.postType.label"
-                                                                            default="Post Type"/></span>
-
-                <span class="property-value" aria-labelledby="postType-label"><g:fieldValue bean="${postInstance}"
-                                                                                            field="postType"/></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${postInstance?.published}">
-            <li class="fieldcontain">
-                <span id="published-label" class="property-label"><g:message code="post.published.label"
-                                                                             default="Published"/></span>
-
-                <span class="property-value" aria-labelledby="published-label"><g:formatBoolean
-                        boolean="${postInstance?.published}"/></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${postInstance?.text}">
-            <li class="fieldcontain">
-                <span id="text-label" class="property-label"><g:message code="post.text.label" default="Text"/></span>
-
-                <span class="property-value" aria-labelledby="text-label">${raw(postInstance.text)}</span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${postInstance?.title}">
-            <li class="fieldcontain">
-                <span id="title-label" class="property-label"><g:message code="post.title.label"
-                                                                         default="Title"/></span>
-
-                <span class="property-value" aria-labelledby="title-label"><g:fieldValue bean="${postInstance}"
-                                                                                         field="title"/></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${postInstance?.victory}">
-            <li class="fieldcontain">
-                <span id="victory-label" class="property-label"><g:message code="post.victory.label"
-                                                                           default="Victory"/></span>
-
-                <span class="property-value" aria-labelledby="victory-label"><g:formatBoolean
-                        boolean="${postInstance?.victory}"/></span>
-
-            </li>
-        </g:if>
-
-    </ol>
-    <g:form url="[resource: postInstance, action: 'delete']" method="DELETE">
-        <fieldset class="buttons">
-            <g:link mapping="postEdit" params="${postInstance.encodeAsLinkProperties()}">
-                <g:message code="default.button.edit.label" default="Edit"/>
-            </g:link>
-            <g:actionSubmit class="delete" action="delete"
-                            value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-                            onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
-        </fieldset>
-    </g:form>
-</div>
-
-<hr/>
-<h1>DEBATES</h1>
-<ul>
-<g:each in="${postInstance.debates}" var="debate">
-    <li>${debate.kuorumUser}: ${debate.text}</li>
-</g:each>
+<aside class="comments">
+<h1>Ya hay 6 comentarios</h1>
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy.</p>
+<ul class="listComments">
+<li>
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-md-8 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                </span>
+                <!-- POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="popover">
+                    <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
+                    <div class="popover-user">
+                        <div class="user" itemscope itemtype="http://schema.org/Person">
+                            <a href="#" itemprop="url">
+                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                            </a>
+                            <span class="user-type">
+                                <small>Activista digital</small>
+                            </span>
+                        </div><!-- /user -->
+                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
+                        <ul class="infoActivity clearfix">
+                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
+                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
+                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
+                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
+                        </ul>
+                    </div><!-- /popover-user -->
+                </div>
+                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
+                <span class="user-type">
+                    <small>Activista digital</small>
+                </span>
+            </div><!-- /autor -->
+            <span class="col-md-4 text-right">
+                <time datetime="2014-04-07T13:40:50+02:00" class="timeago" title="hace menos de 1 minuto">Hace 16 días</time>
+            </span>
+        </div>
+        <p><span class="say">Dice:</span> Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend.</p>
+    </div>
+    <div class="actions clearfix">
+        <a href="#" class="pull-left">eliminar</a>
+        <ul class="pull-right">
+            <li>14 <a href="#" class="plus disabled">+</a></li>
+            <li>23 <a href="#" class="minus">-</a></li>
+        </ul>
+    </div>
+</li>
+<li>
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-md-8 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                </span>
+                <!-- POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="popover">
+                    <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
+                    <div class="popover-user">
+                        <div class="user" itemscope itemtype="http://schema.org/Person">
+                            <a href="#" itemprop="url">
+                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                            </a>
+                            <span class="user-type">
+                                <small>Activista digital</small>
+                            </span>
+                        </div><!-- /user -->
+                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
+                        <ul class="infoActivity clearfix">
+                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
+                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
+                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
+                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
+                        </ul>
+                    </div><!-- /popover-user -->
+                </div>
+                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
+                <span class="user-type">
+                    <small>Activista digital</small>
+                </span>
+            </div><!-- /autor -->
+            <span class="col-md-4 text-right">
+                <time datetime="2014-04-07T13:40:50+02:00" class="timeago" title="hace menos de 1 minuto">Hace 16 días</time>
+            </span>
+        </div>
+        <p><span class="say">Dice:</span> Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend.</p>
+    </div>
+    <div class="actions clearfix">
+        <a href="#" class="pull-left">eliminar</a>
+        <ul class="pull-right">
+            <li>14 <a href="#" class="plus">+</a></li>
+            <li>23 <a href="#" class="minus">-</a></li>
+        </ul>
+    </div>
+</li>
+<li>
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-md-8 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                </span>
+                <!-- POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="popover">
+                    <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
+                    <div class="popover-user">
+                        <div class="user" itemscope itemtype="http://schema.org/Person">
+                            <a href="#" itemprop="url">
+                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                            </a>
+                            <span class="user-type">
+                                <small>Activista digital</small>
+                            </span>
+                        </div><!-- /user -->
+                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
+                        <ul class="infoActivity clearfix">
+                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
+                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
+                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
+                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
+                        </ul>
+                    </div><!-- /popover-user -->
+                </div>
+                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
+                <span class="user-type">
+                    <small>Activista digital</small>
+                </span>
+            </div><!-- /autor -->
+            <span class="col-md-4 text-right">
+                <time datetime="2014-04-07T13:40:50+02:00" class="timeago" title="hace menos de 1 minuto">Hace 16 días</time>
+            </span>
+        </div>
+        <p><span class="say">Dice:</span> Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend.</p>
+    </div>
+    <div class="actions clearfix">
+        <a href="#" class="pull-left">eliminar</a>
+        <ul class="pull-right">
+            <li>14 <a href="#" class="plus">+</a></li>
+            <li>23 <a href="#" class="minus">-</a></li>
+        </ul>
+    </div>
+</li>
+<li>
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-md-8 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                </span>
+                <!-- POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="popover">
+                    <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
+                    <div class="popover-user">
+                        <div class="user" itemscope itemtype="http://schema.org/Person">
+                            <a href="#" itemprop="url">
+                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                            </a>
+                            <span class="user-type">
+                                <small>Activista digital</small>
+                            </span>
+                        </div><!-- /user -->
+                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
+                        <ul class="infoActivity clearfix">
+                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
+                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
+                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
+                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
+                        </ul>
+                    </div><!-- /popover-user -->
+                </div>
+                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
+                <span class="user-type">
+                    <small>Activista digital</small>
+                </span>
+            </div><!-- /autor -->
+            <span class="col-md-4 text-right">
+                <time datetime="2014-04-07T13:40:50+02:00" class="timeago" title="hace menos de 1 minuto">Hace 16 días</time>
+            </span>
+        </div>
+        <p><span class="say">Dice:</span> Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend.</p>
+    </div>
+    <div class="actions clearfix">
+        <a href="#" class="pull-left">eliminar</a>
+        <ul class="pull-right">
+            <li>14 <a href="#" class="plus">+</a></li>
+            <li>23 <a href="#" class="minus">-</a></li>
+        </ul>
+    </div>
+</li>
+<li>
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-md-8 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                </span>
+                <!-- POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="popover">
+                    <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
+                    <div class="popover-user">
+                        <div class="user" itemscope itemtype="http://schema.org/Person">
+                            <a href="#" itemprop="url">
+                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                            </a>
+                            <span class="user-type">
+                                <small>Activista digital</small>
+                            </span>
+                        </div><!-- /user -->
+                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
+                        <ul class="infoActivity clearfix">
+                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
+                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
+                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
+                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
+                        </ul>
+                    </div><!-- /popover-user -->
+                </div>
+                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
+                <span class="user-type">
+                    <small>Activista digital</small>
+                </span>
+            </div><!-- /autor -->
+            <span class="col-md-4 text-right">
+                <time datetime="2014-04-07T13:40:50+02:00" class="timeago" title="hace menos de 1 minuto">Hace 16 días</time>
+            </span>
+        </div>
+        <p><span class="say">Dice:</span> Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend.</p>
+    </div>
+    <div class="actions clearfix">
+        <a href="#" class="pull-left">eliminar</a>
+        <ul class="pull-right">
+            <li>14 <a href="#" class="plus">+</a></li>
+            <li>23 <a href="#" class="minus">-</a></li>
+        </ul>
+    </div>
+</li>
+<li>
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-md-8 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                </span>
+                <!-- POPOVER PARA IMÁGENES USUARIOS -->
+                <div class="popover">
+                    <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
+                    <div class="popover-user">
+                        <div class="user" itemscope itemtype="http://schema.org/Person">
+                            <a href="#" itemprop="url">
+                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
+                            </a>
+                            <span class="user-type">
+                                <small>Activista digital</small>
+                            </span>
+                        </div><!-- /user -->
+                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
+                        <ul class="infoActivity clearfix">
+                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
+                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
+                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
+                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
+                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
+                        </ul>
+                    </div><!-- /popover-user -->
+                </div>
+                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
+                <span class="user-type">
+                    <small>Activista digital</small>
+                </span>
+            </div><!-- /autor -->
+            <span class="col-md-4 text-right">
+                <time datetime="2014-04-07T13:40:50+02:00" class="timeago" title="hace menos de 1 minuto">Hace 16 días</time>
+            </span>
+        </div>
+        <p><span class="say">Dice:</span> Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend.</p>
+    </div>
+    <div class="actions clearfix">
+        <a href="#" class="pull-left">eliminar</a>
+        <ul class="pull-right">
+            <li>14 <a href="#" class="plus">+</a></li>
+            <li>23 <a href="#" class="minus">-</a></li>
+        </ul>
+    </div>
+</li>
 </ul>
 
-<hr/>
-<h1>COMENTARIOS</h1>
-<ul>
-    <g:each in="${postInstance.comments}" var="comment" status="commentPos">
-        ${comment.moderated || comment.deleted}
-        <g:if test="${comment.moderated || comment.deleted}">
-            <g:set var="style" value="color:#CCC"/>
-        </g:if>
-        <g:else>
-            <g:set var="style" value="color:#000"/>
-        </g:else>
-        <li style="${style}">${comment.kuorumUser}: ${comment.text} <postUtil:removeCommentButton post="${postInstance}" commentPosition="${commentPos}"/> </li>
-    </g:each>
-    <li>
-        <g:form mapping="postAddComment" params="${postInstance.encodeAsLinkProperties()}">
-            <textarea name="comment"> COMENtARIO NUECO </textarea>
-            <g:submitButton name="NUEVO COMENTARIO"/>
-        </g:form>
-    </li>
-</ul>
-</body>
-</html>
+<div class="text-center" id="ver-mas"><a href="#">Ver más</a></div>
+
+<form id="addComment">
+    <div class="form-group">
+        <label for="comment">Añade tu comentario:</label>
+        <textarea id="comment" placeholder="Expresa tu opinión sobre la propuesta..." rows="5" class="form-control"></textarea>
+    </div>
+    <div class="form-group btns clearfix">
+        <input type="submit" class="btn btn-grey btn-lg pull-right" value="Publicar comentario">
+    </div>
+</form>
+</aside>
+
+</content>
+
+<content tag="cColumn">
+
+
+</content>
+
+<content tag="footerStats">
+
+    %{--<modulesUtil:delayedModule mapping="ajaxModuleLawBottomStats" params="[hashtag:law.hashtag.decodeHashtag()]" elementId="idAjaxModuleLawBottomStats"/>--}%
+    %{--<g:include controller="modules" action="bottomLawStats" params="[law:law]"/>--}%
+    <a href="#main" class="smooth top">
+        <span class="fa fa-caret-up fa-lg"></span>
+        <g:message code="law.up"/>
+    </a>
+</content>

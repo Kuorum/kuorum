@@ -25,7 +25,8 @@ class PostController {
     }
 
     def show(){
-        [postInstance:params.post]
+        Post postInstance = params.post //Intellij Detects type for autocomplete
+        [post:postInstance]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
