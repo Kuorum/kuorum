@@ -18,13 +18,18 @@ class KuorumUserTagLib {
 
     def showUser={attrs ->
         KuorumUser user = attrs.user
-        Boolean showRole = attrs.showRole?:false
+        Boolean showRole = attrs.showRole?Boolean.parseBoolean(attrs.showRole):false
+        Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
 
         def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
         def imgSrc = image.userImgSrc(user:user)
+        def userName = ""
+        if (showName){
+            userName = "<span itemprop='name'>${user.name}</span>"
+        }
         out << """
                 <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image"><span itemprop="name">${user.name}</span>
+                    <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image">${userName}
                 </span>
             <!-- POPOVER PARA IMÁGENES USUARIOS -->
             <div class="popover">

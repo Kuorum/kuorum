@@ -15,7 +15,7 @@
             <h1>${post.title} <g:link mapping="lawShow" params="${post.law.encodeAsLinkProperties()}">${post.law.hashtag}</g:link></h1>
             <div class="main-kakareo row">
                 <div class="col-md-5 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                    <userUtil:showUser user="${post.owner}" showRole="${true}"/>
+                    <userUtil:showUser user="${post.owner}" showRole="true"/>
                 </div><!-- /autor -->
 
                 <div class="col-md-7 text-right sponsor">
