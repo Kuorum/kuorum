@@ -225,16 +225,32 @@ $(document).ready(function() {
 		e.preventDefault();
 		$('.voting ul').css('display', 'none');
 		$('.changeOpinion').css('display', 'block');
+        $.ajax( {
+            url:$(this).attr("href"),
+            statusCode: {
+                401: function() {
+                    display.info("Estás deslogado")
+                    setTimeout('location.reload()',5000);
+                }
+            }
+        }).done(function(data, status, xhr) {
+            $('ul.activity li').removeClass("active")
+            $('ul.activity li.'+data.voteType).addClass("active")
+            $('ul.activity li.POSITIVE span').html(data.votes.yes)
+            $('ul.activity li.NEGATIVE span').html(data.votes.no)
+            $('ul.activity li.ABSTENTION span').html(data.votes.abs)
+            $('.kuorum span.counter').html(data.necessaryVotesForKuorum)
+        })
 	});
 
 	$('body').on("click", ".voting li .yes", function(e) {
-		$('.activity .favor').addClass('active');
+		$('.activity .POSITIVE').addClass('active');
 	});
 	$('body').on("click", ".voting li .no", function(e) {
-		$('.activity .contra').addClass('active');
+		$('.activity .NEGATIVE').addClass('active');
 	});
 	$('body').on("click", ".voting li .neutral", function(e) {
-		$('.activity .abstencion').addClass('active');
+		$('.activity .ABSTENTION').addClass('active');
 	});
 
 

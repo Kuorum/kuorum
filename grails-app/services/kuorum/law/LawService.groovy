@@ -16,6 +16,7 @@ class LawService {
     IndexSolrService indexSolrService
     GamificationService gamificationService
     ShortUrlService shortUrlService
+    def grailsApplication
 
     /**
      * Find the law associated to the #hashtag
@@ -29,6 +30,10 @@ class LawService {
         Law.findByHashtag(hashtag)
     }
 
+
+    LawVote findLawVote(Law law, KuorumUser user){
+        LawVote.findByLawAndKuorumUser(law, user)
+    }
     /**
      * An user votes a law and generates all associated events
      *
@@ -134,5 +139,9 @@ class LawService {
         lawStats.numPostsWithManyVotes = Post.collection.count([law:law.id,published:true, numVotes:['$gt':10]])
 
         lawStats
+    }
+
+    Integer necessaryVotesForKuorum(Law law){
+        Math.max(grailsApplication.config.kuorum.milestones.kuorum - law.peopleVotes.total, 0)
     }
 }

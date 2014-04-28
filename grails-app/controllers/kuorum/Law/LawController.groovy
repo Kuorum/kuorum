@@ -1,5 +1,6 @@
 package kuorum.Law
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.Region
@@ -32,7 +33,15 @@ class LawController {
         def clucks = cluckService.lawClucks(law)
         List<Post> victories = postService.lawVictories(law)
 
-        [law:law, clucks: clucks,victories:victories]
+        LawVote userVote
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            userVote = lawService.findLawVote(law,user)
+        }
+        Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
+
+
+        [law:law, clucks: clucks,victories:victories, userVote:userVote,necessaryVotesForKuorum:necessaryVotesForKuorum]
 
     }
 
@@ -135,6 +144,11 @@ class LawController {
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         LawVote lawVote = lawService.voteLaw(law, user, voteType)
-        render "Vote $voteType"
+        Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
+        render ([
+                necessaryVotesForKuorum:necessaryVotesForKuorum,
+                voteType:lawVote.voteType.toString(),
+                votes:law.peopleVotes
+        ] as JSON)
     }
 }
