@@ -26,7 +26,7 @@ fixture {
         hashtag = "#parquesNacionales"
         image = parquesNacionalesImage
         urlPdf = "http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF"
-        shortUrl = "http://ow.ly"
+        shortUrl = "http://ow.ly/3jLTrs"
         shortName = "Parques Nacionales"
         realName = "Proyecto de Ley de Parques Nacionales"
         description = """España cuenta con 15 parques nacionales que ocupan una superficie total de 381.716 hectáreas (un 0,76% del territorio español). Este Proyecto de Ley tiene por objetivo, según el Ministro de Agricultura, Alimentación y Medio Ambiente, Miguel Arias Cañete, garantizar la adecuada conservación de estos espacios y reforzar la coordinación y colaboración entre el Estado y las Comunidades Autónomas (CCAA) encargadas de su gestión.

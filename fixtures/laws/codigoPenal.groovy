@@ -5,7 +5,7 @@ fixture {
     codigoPenal(Law){
         hashtag = "#codigoPenal"
         urlPdf = "http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF"
-        shortUrl = "http://ow.ly"
+        shortUrl = "http://ow.ly/3jLTrs"
         shortName = "Reforma del Código Penal"
         realName = "Proyecto de Ley Orgánica por la que se modifica la Ley Orgánica 10/1995, de 23 de noviembre, del Código Penal"
         description = """Se trata de la reforma más profunda del Código Penal desde 1995. Entre las novedades que introduce la ley destacan:
