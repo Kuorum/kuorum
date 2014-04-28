@@ -10,7 +10,6 @@ import kuorum.law.Law
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
-import kuorum.users.PersonalData
 
 /**
  * Created by iduetxe on 4/02/14.
@@ -71,7 +70,8 @@ class Helper {
                 introduction: "introducction${hashtag}",
                 commissions: [CommissionType.OTHERS],
                 region: creteDefaultRegion(),
-                institution: creteDefaultInstitution()
+                institution: creteDefaultInstitution(),
+                urlPdf:new URL('http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF')
 
         )
     }
