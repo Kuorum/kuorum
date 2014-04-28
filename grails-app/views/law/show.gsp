@@ -91,20 +91,20 @@
     <h1><g:message code="law.vote.title"/></h1>
     <p><g:message code="law.vote.description"/></p>
     <ul class="activity">
-        <li class="favor"><span>${law.peopleVotes.yes}</span> A favor</li>
-        <li class="contra"><span>${law.peopleVotes.no}</span> En contra</li>
-        <li class="abstencion"><span>${law.peopleVotes.abs}</span> Abstención</li>
+        <li class="favor"><span>${law.peopleVotes.yes}</span> <g:message code="law.vote.yes"/></li>
+        <li class="contra"><span>${law.peopleVotes.no}</span> <g:message code="law.vote.no"/></li>
+        <li class="abstencion"><span>${law.peopleVotes.abs}</span> <g:message code="law.vote.abs"/></li>
     </ul>
     <div class="kuorum">
-        Faltan <span class="counter">35</span> votos para kuorum
+        <g:message code="law.vote.kuorum.title" args="[30]" encodeAs="raw"/>
         <span class="popover-trigger fa fa-info-circle" data-toggle="popover" rel="popover" role="button"></span>
         <!-- POPOVER KUORUM -->
         <div class="popover">
             <a href="#" class="hidden" rel="nofollow">Mostrar lista de usuarios</a>
             <div class="popover-kuorum">
 
-                <p class="text-center">¿Qué ocurre si hay <em>kuorum</em>?</p>
-                <p>Texto que explica el kuorum. Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend reformidans ei. Omnium euismod in pri, eam ei oblique numquam dignissim, vel et erant nostro suscipiantur.</p>
+                <p class="text-center"><g:message code="law.vote.kuorum.info.title" encodeAs="raw"/></p>
+                <p><g:message code="law.vote.kuorum.info.description"/></p>
             </div><!-- /popover-more-kuorum -->
         </div>
         <!-- FIN POPOVER KUORUM -->
@@ -137,272 +137,16 @@
     </div>
 </section>
 
-<section class="boxes follow">
-    <h1>Participando en esta ley</h1>
-    <div class="kakareo follow">
-        <ul class="user-list-followers">
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-            <li itemscope itemtype="http://schema.org/Person">
-                <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                </a>
-            </li>
-        </ul><!-- /.user-list-followers -->
-    </div>
-</section>
 
-<section class="boxes guay">
-    <h1>Publicaciones destacadas</h1>
-    <ul class="kakareo-list">
-        <!-- KAKAREO NORMAL Y DESTACADO -->
-        <li itemscope itemtype="http://schema.org/Article">
 
-            <article class="kakareo" role="article">
-                <div class="link-wrapper">
-                    <a href="#" class="hidden">Ir al post</a>
-                    <h1>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor <a href="#">#leyaborto</a></h1>
-                    <div class="main-kakareo row">
-                        <!-- cambia la clase col-md era 5 y pasa a ser 6 -->
-                        <div class="col-md-6 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                            <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
-                            </span>
-                            <!-- POPOVER PARA IMÁGENES USUARIOS -->
-                            <div class="popover">
-
-                                <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
-                                <div class="popover-user">
-                                    <div class="user" itemscope itemtype="http://schema.org/Person">
-                                        <a href="#" itemprop="url">
-                                            <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
-                                        </a>
-                                        <span class="user-type">
-                                            <small>Activista digital</small>
-                                        </span>
-                                    </div><!-- /user -->
-                                    <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
-                                    <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
-                                    <ul class="infoActivity clearfix">
-                                        <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
-                                        <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
-                                        <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
-                                        <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
-                                        <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
-                                        <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
-                                    </ul>
-
-                                </div><!-- /popover-user -->
-
-                            </div>
-                            <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
-                        </div><!-- /autor -->
-
-                    <!-- cambia la clase col-md era 7 y pasa a ser 6 -->
-                        <div class="col-md-6 text-right sponsor">
-                            Patrocinado por
-                            <ul class="user-list-images">
-                                <li itemprop="contributor" itemscope itemtype="http://schema.org/Person">
-                                    <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                                    </a>
-                                </li>
-                            </ul><!-- /.user-list-images -->
-                        </div><!-- /patrocinadores -->
-                    </div>
-                </div><!-- /.link-wrapper -->
-                <footer class="row">
-                    <ul class="col-xs-2 col-sm-2 col-md-4 info-kak">
-                        <li itemprop="keywords">
-                            <!-- en caso de ser Historia -->
-                            <span class="fa fa-book fa-lg" data-toggle="tooltip" data-placement="bottom" title="Historia" rel="tooltip"></span>
-                            <span class="sr-only">Esto es una Historia</span>
-                        </li>
-                        <li class="sr-only" itemprop="datePublished">
-                            <time class="timeago" datetime="2014-04-07T13:40:50+02:00">hace 12 días</time>
-                        </li>
-                    </ul>
-                    <ul class="col-xs-10 col-sm-10 col-md-8 actions-kak">
-                        <li class="read-later">
-                            <a href="#">
-                                <span class="fa fa-bookmark fa-lg"></span>
-                                <span class="sr-only">Leer después</span>
-                            </a>
-                        </li>
-                        <li class="like-number">
-                            <span class="counter">3222</span>
-                            <meta itemprop="interactionCount" content="UserLikes:2"><!-- pasarle el valor que corresponda -->
-                            <a href="#" class="action drive">
-                                <span class="fa fa-rocket fa-lg"></span>
-                                <span class="sr-only">Impulsar</span>
-                            </a>
-                        </li>
-
-                        <li class="kakareo-number">
-                            <span class="counter">5428</span>
-                            <a href="#" class="action cluck">
-                                <span class="fa fa-bullhorn fa-lg"></span>
-                                <span class="sr-only">Kakarear</span>
-                            </a>
-                        </li>
-
-                        <li class="more-actions">
-                            <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                                <span class="fa fa-plus"></span> <span class="sr-only">Más acciones</span>
-                            </span>
-                        </li>
-                    </ul>
-                </footer>
-            </article><!-- /article -->
-
-        </li><!-- /kakareo normal y destacado -->
-
-    <!-- KAKAREO AUTOR IMPORTANT -->
-        <li class="author important" itemscope itemtype="http://schema.org/Article">
-            <div class="user actor politic" itemprop="contributor" itemscope itemtype="http://schema.org/Person">
-                <span itemprop="name">Nombre usuario</span>
-                <a href="#" itemprop="url"><img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"></a>
-            </div>
-            <article class="kakareo" role="article">
-                <div class="link-wrapper">
-                    <a href="#" class="hidden">Ir al post</a>
-                    <h1>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor <a href="#">#leyaborto</a></h1>
-                    <div class="main-kakareo row">
-                        <!-- cambia la clase col-md era 5 y pasa a ser 6 -->
-                        <div class="col-md-6 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                            <a href="#" itemprop="url">
-                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
-                            </a>
-                        </div><!-- /autor -->
-
-                    <!-- cambia la clase col-md era 7 y pasa a ser 6 -->
-                        <div class="col-md-6 text-right sponsor">
-                            Patrocinado por
-                            <ul class="user-list-images">
-                                <li itemprop="contributor" itemscope itemtype="http://schema.org/Person">
-                                    <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                                        <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                                    </a>
-                                </li>
-                            </ul><!-- /.user-list-images -->
-                        </div><!-- /patrocinadores -->
-                    </div>
-                </div><!-- /.link-wrapper -->
-                <footer class="row">
-                    <ul class="col-xs-2 col-sm-2 col-md-4 info-kak">
-                        <li itemprop="keywords">
-                            <!-- en caso de ser Historia -->
-                            <span class="fa fa-book fa-lg" data-toggle="tooltip" data-placement="bottom" title="Historia" rel="tooltip"></span>
-                            <span class="sr-only">Esto es una Historia</span>
-                        </li>
-                        <li class="sr-only" itemprop="datePublished">
-                            <time class="timeago" datetime="2014-04-07T13:40:50+02:00">hace 3 horas</time>
-                        </li>
-                    </ul>
-                    <ul class="col-xs-10 col-sm-10 col-md-8 actions-kak">
-                        <li class="read-later">
-                            <a href="#">
-                                <span class="fa fa-bookmark fa-lg"></span>
-                                <span class="sr-only">Leer después</span>
-                            </a>
-                        </li>
-                        <li class="like-number">
-                            <span class="counter">3222</span>
-                            <meta itemprop="interactionCount" content="UserLikes:2"><!-- pasarle el valor que corresponda -->
-                            <a href="#" class="action drive">
-                                <span class="fa fa-rocket fa-lg"></span>
-                                <span class="sr-only">Impulsar</span>
-                            </a>
-                        </li>
-
-                        <li class="kakareo-number">
-                            <span class="counter">5428</span>
-                            <a href="#" class="action cluck"><span class="fa fa-bullhorn fa-lg"></span><span class="sr-only">Kakarear</span></a>
-                        </li>
-
-                        <li class="more-actions">
-                            <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                                <span class="fa fa-plus"></span> <span class="sr-only">Más acciones</span>
-                            </span>
-                        </li>
-                    </ul>
-                </footer>
-            </article><!-- /article -->
-
-        </li><!-- /kakareo important -->
-    </ul>
-</section>
+<g:include controller="modules" action="activePeopleOnLaw" params="[hashtag:law.hashtag]"/>
+<g:include controller="modules" action="recommendedLawPosts" params="[hashtag:law.hashtag]"/>
 </content>
 
 <content tag="footerStats">
-    <ul>
-        <li><span class="fa fa-heart fa-lg"></span> 3 propuestas han alcanzado los 1.000 apoyos.</li>
-        <li><span class="icon-clock2 fa-lg"></span> última actividad sobre la ley hace 3 días.</li>
-        <li><span class="icon-eye fa-lg"></span> 3.228 vistas de esta ley.</li>
-        <li><span class="icon-users fa-lg"></span> 54 personas actuando sobre la ley.</li>
-    </ul>
-    <a href="#main" class="smooth top"><span class="fa fa-caret-up fa-lg"></span>Arriba</a>
+    <g:include controller="modules" action="bottomLawStats" params="[law:law]"/>
+    <a href="#main" class="smooth top">
+        <span class="fa fa-caret-up fa-lg"></span>
+        <g:message code="law.up"/>
+    </a>
 </content>
