@@ -114,4 +114,16 @@ class PostTagLib {
 
         }
     }
+
+    def ifCommentIsDeletable={attrs, body ->
+        Post post = attrs.post
+        Integer commentPosition = attrs.commentPosition
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (postService.isCommentDeletableByUser(user, post, commentPosition)){
+                out << body()
+            }
+
+        }
+    }
 }

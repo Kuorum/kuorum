@@ -5,6 +5,7 @@ import kuorum.ShortUrlService
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.Law.LawStats
 import kuorum.core.model.VoteType
+import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.solr.IndexSolrService
 import kuorum.users.GamificationService
@@ -143,5 +144,9 @@ class LawService {
 
     Integer necessaryVotesForKuorum(Law law){
         Math.max(grailsApplication.config.kuorum.milestones.kuorum - law.peopleVotes.total, 0)
+    }
+
+    List<KuorumUser> activePeopleOnLaw(Law law){
+        Cluck.collection.distinct('postOwner',[law:law.id]).collect{KuorumUser.get(it)}
     }
 }

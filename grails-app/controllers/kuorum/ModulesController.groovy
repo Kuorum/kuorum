@@ -36,7 +36,8 @@ class ModulesController {
     }
 
     def activePeopleOnLaw(String hashtag){
-        [users: KuorumUser.list()]
+        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
+        [users: lawService.activePeopleOnLaw(law)]
     }
 
     def bottomLawStats(String hashtag){
