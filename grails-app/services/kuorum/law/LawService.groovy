@@ -3,7 +3,9 @@ package kuorum.law
 import grails.transaction.Transactional
 import kuorum.ShortUrlService
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.Law.LawStats
 import kuorum.core.model.VoteType
+import kuorum.post.Post
 import kuorum.solr.IndexSolrService
 import kuorum.users.GamificationService
 import kuorum.users.KuorumUser
@@ -121,5 +123,16 @@ class LawService {
     Law closeLaw(Law law){
         Law.collection.update([_id:law.id], ['$set':[open:Boolean.FALSE]])
         law.refresh()
+    }
+
+    LawStats calculateLawStats(Law law){
+        LawStats lawStats = new LawStats()
+        Post post = Post.findByLaw(law,[max: 1, sort: "dateCreated", order: "desc", offset: 0])
+        lawStats.lastActivity = post?.dateCreated
+
+        lawStats.numPosts = Post.collection.count([law:law.id,published:true])
+        lawStats.numPostsWithManyVotes = Post.collection.count([law:law.id,published:true, numVotes:['$gt':10]])
+
+        lawStats
     }
 }

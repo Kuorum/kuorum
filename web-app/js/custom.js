@@ -554,7 +554,7 @@ $(document).ready(function() {
 
 // el hover sobre el kakareo que afecte al triángulo superior
 $(document).ajaxStop(function () {
-
+    $("time.timeago").timeago();
 	$('.kakareo > .link-wrapper').on({
 	    mouseenter: function () {
 	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #efefef');

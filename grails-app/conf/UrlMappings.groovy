@@ -86,6 +86,8 @@ class UrlMappings {
         name ajaxUnFollow: "/ajax/kuorumUser/unFollow"(controller:"kuorumUser", action:"unFollow")
         name ajaxCropImage: "/ajax/file/crop"(controller:"file", action:"cropImage")
 
+        name ajaxModuleLawBottomStats: '/ajax/law/bottomLawStats' (controller:'modules', action: 'bottomLawStats')
+
         name login: "/entrar" (controller:"login", action:"index")
         name logout: "/salir" (controller:"logout", action:"index")
 

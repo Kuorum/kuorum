@@ -137,7 +137,9 @@
 </content>
 
 <content tag="footerStats">
-    <g:include controller="modules" action="bottomLawStats" params="[law:law]"/>
+
+    <modulesUtil:delayedModule mapping="ajaxModuleLawBottomStats" params="[hashtag:law.hashtag.decodeHashtag()]" elementId="idAjaxModuleLawBottomStats"/>
+    %{--<g:include controller="modules" action="bottomLawStats" params="[law:law]"/>--}%
     <a href="#main" class="smooth top">
         <span class="fa fa-caret-up fa-lg"></span>
         <g:message code="law.up"/>
