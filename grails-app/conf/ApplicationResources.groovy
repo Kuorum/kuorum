@@ -31,4 +31,10 @@ modules = {
         resource url:'js/jquery.Jcrop.min.js'
         resource url:'css/jquery.Jcrop.min.css'
     }
+
+    social{
+        resource url:'js/social/facebook.js'
+        resource url:'js/social/twitter.js'
+        resource url:'js/social/googlePlus.js'
+    }
 }
