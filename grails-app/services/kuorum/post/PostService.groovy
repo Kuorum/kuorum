@@ -86,6 +86,10 @@ class PostService {
         user.save()
     }
 
+    Boolean isPostUpdatableByUser(Post post, KuorumUser user){
+        post.owner == user || user.authorities.find{it.authority=="ROLE_ADMIN"}
+    }
+
     def updatePost(Post post){
         log.info("Updating post $post")
         post.text = removeCustomCrossScripting(post.text)

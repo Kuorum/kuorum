@@ -103,4 +103,15 @@ class PostTagLib {
         Range<Long> range = postVoteService.findPostRange(post)
         out << range.to
     }
+
+    def ifPostIsEditable={attrs, body->
+        Post post = attrs.post
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (postService.isPostUpdatableByUser(post, user)){
+                out << body()
+            }
+
+        }
+    }
 }

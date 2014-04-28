@@ -8,32 +8,27 @@
 
 
 <content tag="mainContent">
-<article class="kakareo post" role="article" itemscope itemtype="http://schema.org/Article">
+<article class="kakareo post" role="article" itemscope itemtype="http://schema.org/Article" data-cluck-postId="${post.id}">
     <div class="wrapper">
         <g:render template="/cluck/cluckMain" model="[post:post]"/>
     </div>
     <g:render template="/cluck/footerCluck" model="[cluck:post.firstCluck]"/>
 
     <div class="row options">
-        <div class="col-xs-12 col-sm-6 col-md-6 editPost">
-            <a href="#"><span class="fa fa-edit fa-lg"></span>Editar publicación</a>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 leerLey">
-            <a target="_blank" href="#">Texto de la ley</a>
-        </div>
+        <postUtil:ifPostIsEditable post="${post}">
+            <div class="col-xs-12 col-sm-6 col-md-6 editPost">
+                <g:link mapping="postEdit" params="${post.encodeAsLinkProperties()}">
+                    <span class="fa fa-edit fa-lg"></span><g:message code="post.show.editLink.${post.postType}"/>
+                </g:link>
+            </div>
+        </postUtil:ifPostIsEditable>
+        <g:if test="${post.pdfPage}">
+            <div class="col-xs-12 col-sm-6 col-md-6 leerLey">
+                <a target="_blank" href="${post.law.urlPdf}#page=${post.pdfPage}"><g:message code="post.show.pdfLink"/></a>
+            </div>
+        </g:if>
     </div>
-
-    ${raw(post.text)}
-    %{--<p>Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend reformidans ei. Omnium euismod in pri, eam ei oblique numquam dignissim, vel et erant nostro suscipiantur.</p>--}%
-    %{--<p>Consul legendos expetendis id vis. Ne saperet civibus rationibus has. Enim semper maiestatis no quo, ius at erat tollit. Adhuc epicuri intellegam te est. Solet animal apeirian eu est, malis legendos dissentias te usu. Vim at sint meliore officiis, mucius epicurei vel et. Duo fastidii quaestio an. Vim at veri eripuit fabellas, prompta docendi ea mei.</p>--}%
-    %{--<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>--}%
-    %{--<p>Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend reformidans ei. Omnium euismod in pri, eam ei oblique numquam dignissim, vel et erant nostro suscipiantur.</p>--}%
-    %{--<p>Consul legendos expetendis id vis. Ne saperet civibus rationibus has. Enim semper maiestatis no quo, ius at erat tollit. Adhuc epicuri intellegam te est. Solet animal apeirian eu est, malis legendos dissentias te usu. Vim at sint meliore officiis, mucius epicurei vel et. Duo fastidii quaestio an. Vim at veri eripuit fabellas, prompta docendi ea mei.</p>--}%
-    %{--<p>Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend reformidans ei. Omnium euismod in pri, eam ei oblique numquam dignissim, vel et erant nostro suscipiantur.</p>--}%
-    %{--<p>Consul legendos expetendis id vis. Ne saperet civibus rationibus has. Enim semper maiestatis no quo, ius at erat tollit. Adhuc epicuri intellegam te est. Solet animal apeirian eu est, malis legendos dissentias te usu. Vim at sint meliore officiis, mucius epicurei vel et. Duo fastidii quaestio an. Vim at veri eripuit fabellas, prompta docendi ea mei.</p>--}%
-    %{--<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>--}%
-    %{--<p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>--}%
-
+    <p>${raw(post.text.replaceAll('<br>','</p><p>'))}</p>
     <div class="wrapper">
         <g:render template="/cluck/cluckUsers" model="[post:post]"/>
     </div>
