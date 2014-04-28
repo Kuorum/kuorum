@@ -1,6 +1,6 @@
 
 db = connect("localhost:27017/KuorumDev");
-
+load("htmlDecoder.js")
 
 db.kuorumUser.update({},{$set:{"password" : "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"}},{"upsert":false, "multi":true}) //test
 
@@ -19,6 +19,6 @@ db.kuorumUser.update(
 
 // EMAIL
 db.kuorumUser.find().forEach(function(user){
-    user.email = "info+"+user.name.replace(/ /g,'').toLowerCase()+"@kuorum.org"
+    user.email = removeDiacritics("info+"+user.name.replace(/ /g,'').toLowerCase()+"@kuorum.org")
     db.kuorumUser.save(user)
 })
