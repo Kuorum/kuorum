@@ -71,7 +71,8 @@ class Helper {
                 commissions: [CommissionType.OTHERS],
                 region: creteDefaultRegion(),
                 institution: creteDefaultInstitution(),
-                urlPdf:new URL('http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF')
+                urlPdf:new URL('http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF'),
+                shortUrl:new URL('http://ow.ly')
 
         )
     }

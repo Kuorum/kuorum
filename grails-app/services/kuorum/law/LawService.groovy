@@ -1,6 +1,7 @@
 package kuorum.law
 
 import grails.transaction.Transactional
+import kuorum.ShortUrlService
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.VoteType
 import kuorum.solr.IndexSolrService
@@ -12,6 +13,7 @@ class LawService {
 
     IndexSolrService indexSolrService
     GamificationService gamificationService
+    ShortUrlService shortUrlService
 
     /**
      * Find the law associated to the #hashtag
@@ -90,6 +92,7 @@ class LawService {
     }
 
     Law saveLaw(Law law){
+        law.shortUrl = shortUrlService.shortUrl(law)
         if (!law.save()){
            throw KuorumExceptionUtil.createExceptionFromValidatable(law)
         }

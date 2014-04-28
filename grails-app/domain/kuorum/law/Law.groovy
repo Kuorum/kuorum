@@ -24,6 +24,7 @@ class Law {
     @Updatable KuorumFile image
     @Updatable LawStatusType status = LawStatusType.OPEN
     @Updatable URL urlPdf
+    URL shortUrl
     Date dateCreated
     Boolean published = Boolean.FALSE
     AcumulativeVotes peopleVotes = new AcumulativeVotes()
