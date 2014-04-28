@@ -53,7 +53,7 @@ function createLawFromOldLaw(law){
         "urlPdf":law.urlPdf==undefined?'':law.urlPdf.split("#")[0], //removes data after #
         "dateCreated" : law.dateCreated,
         "description" : law.longDescription,
-        "hashtag" : "#"+law.shortTitle.replace(/ /g, '').toLowerCase(),
+        "hashtag" : "#"+removeDiacritics(law.shortTitle.replace(/ /g, '').toLowerCase()),
         "institution" : ObjectId("532828c644aeeccebb29a606"),
         "introduction" : law.brief,
         "open" : law.lawStatus=="OPEN",
