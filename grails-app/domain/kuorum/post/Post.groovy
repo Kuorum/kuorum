@@ -24,6 +24,7 @@ class Post {
     Integer numVotes
     Integer numClucks
     @Updatable PostType postType
+    @Updatable URL shortUrl
     Boolean victory = false
     Date dateCreated
     List<Sponsor> sponsors = []
@@ -57,6 +58,7 @@ class Post {
         postType nullable:false
         multimedia nullable:true
         pdfPage nullable:true
+        shortUrl nullable:true
     }
 
     String toString(){

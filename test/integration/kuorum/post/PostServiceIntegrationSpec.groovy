@@ -125,6 +125,7 @@ class PostServiceIntegrationSpec extends Specification{
         then: "Post created"
         savedPost.id != null
         savedPost.published == Boolean.TRUE
+        savedPost.shortUrl && savedPost.shortUrl.host == "ow.ly"
         numPurposes == savedPost.owner.activity.numPurposes -1
         savedPost.owner.activity.purposes.contains(savedPost.id)
         Cluck cluck = Cluck.findByPostAndOwnerAndPostOwner(savedPost, user,user)

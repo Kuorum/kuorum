@@ -2,6 +2,7 @@ package kuorum.post
 
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import kuorum.ShortUrlService
 import kuorum.core.exception.KuorumException
 import kuorum.helper.Helper
 import kuorum.law.Law
@@ -20,6 +21,8 @@ class PostServiceSpec extends Specification{
     PostVoteService postVoteService = Mock(PostVoteService)
     NotificationService notificationService = Mock(NotificationService)
     CluckService cluckService = Mock(CluckService)
+    ShortUrlService shortUrlService = Mock(ShortUrlService)
+
     def setup() {
 
         grailsApplication.config.kuorum.promotion.mailPrice = 0.15
@@ -27,6 +30,7 @@ class PostServiceSpec extends Specification{
         service.postVoteService = postVoteService
         service.notificationService = notificationService
         service.cluckService = cluckService
+        service.shortUrlService = shortUrlService
     }
 
 
@@ -86,6 +90,7 @@ class PostServiceSpec extends Specification{
         1 * indexSolrService.index(post)
         1 * cluckService.createCluck(post,post.owner)
         1 * postVoteService.votePost(post,post.owner)
+        1 * shortUrlService.shortUrl(post)
     }
 
     @Unroll

@@ -21,6 +21,7 @@ class PostService {
     def notificationService
     def gamificationService
     def fileService
+    def shortUrlService
 
     private static final Integer NUM_RECOMMENDED_POST=3
 
@@ -58,6 +59,7 @@ class PostService {
         Cluck cluck = cluckService.createCluck(post, post.owner)
         post.firstCluck = cluck  //Ref to first firstCluck
         post.published = Boolean.TRUE
+        post.shortUrl = shortUrlService.shortUrl(post)
         post.save()
         updateUserActivity(post, post.owner)
         postVoteService.votePost(post, post.owner)
