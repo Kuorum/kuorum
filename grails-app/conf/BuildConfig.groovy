@@ -125,7 +125,7 @@ grails.project.dependency.resolution = {
 
 //        compile ":rest-client-builder:2.0.1"
         //Para las peticiones a la API de mandrillapp
-        //compile ":rest:0.8"
+        compile ":rest:0.8"
 //        compile ":restrpc:0.9"
 
 //        compile ":executor:0.3"
