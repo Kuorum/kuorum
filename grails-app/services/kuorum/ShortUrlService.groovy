@@ -1,6 +1,7 @@
 package kuorum
 
 import grails.transaction.Transactional
+import grails.util.Environment
 import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.Method
@@ -44,14 +45,33 @@ class ShortUrlService {
         shortUrl
     }
 
+    // OW.LY hasn't testing key
+    private URL checkEnviromentShortUrl(String link){
+        Environment.executeForCurrentEnvironment {
+            development{
+                return new URL("http://ow.ly/3jLTrs")
+            }
+            test{
+                return new URL("http://ow.ly/3jLTrs")
+            }
+            production{
+                return shortUrl(new URL(link))
+            }
+
+        }
+
+
+
+    }
+
     URL shortUrl(Post post) {
         String link = grailsLinkGenerator.link(mapping: 'postShow', params:post.encodeAsLinkProperties(), absolute: true)
-        shortUrl(new URL(link))
+        checkEnviromentShortUrl(link)
     }
 
     URL shortUrl(Law law) {
         String link = grailsLinkGenerator.link(mapping: 'lawShow', params:law.encodeAsLinkProperties(), absolute: true)
-        shortUrl(new URL(link))
+        checkEnviromentShortUrl(link)
     }
 
 }
