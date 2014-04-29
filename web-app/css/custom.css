@@ -287,8 +287,10 @@ a:focus {color: #20a2ea;}
   box-shadow: inset 0 0 0 rgba(0,0,0,.9);
   padding: 6px 22px 6px 25px;
   border-radius: 3px !important;
+  font-family: 'FontAwesome', Georgia, serif;
 }
 #search-form .input-group {width: 100%;}
+#search-form .input-group > .filterSign {position: absolute; right: 28px; top: 9px; z-index: 99; color: #a8a8a8;}
 #search-form .input-group-btn {left: 0; position: absolute; top: 0; z-index: 9;}
 
 .nav > li > .navbar-link {color: #545454; padding: 12px 8px; background-color: transparent; line-height: 22px; display: block; position: relative;}
@@ -315,7 +317,8 @@ a:focus {color: #20a2ea;}
 .nav > li > .discover {padding-top: 0; padding-bottom: 0; margin: -5px 0 0 0;}
 .nav > li > .discover .icon-Flaticon_9296 {vertical-align: middle; font-size: 48px; padding: 0 0 6px 0;}
 
-.navbar-form .dropdown-menu {font-size: 14px; font-size:  1.4rem; margin: 0; padding: 0;}
+.navbar-form .dropdown-menu {font-family: 'FontAwesome', Georgia, serif; font-size: 14px; font-size:  1.4rem; margin: 0; padding: 0;}
+.navbar-form .dropdown-menu li {text-align: right;}
 .navbar-form .dropdown-menu li:first-child {font-size: 14px; font-size:  1.4rem; border: 0; margin: 0; padding: 0;}
 
 .dropdown-menu {
