@@ -19,6 +19,6 @@ db.kuorumUser.update(
 
 // EMAIL
 db.kuorumUser.find().forEach(function(user){
-    user.email = removeDiacritics("info+"+user.name.replace(/ /g,'').toLowerCase()+"@kuorum.org")
+    user.email = removeDiacritics("info+"+user.email.replace(/@/g,'').replace(/\./g,'').toLowerCase()+"@kuorum.org")
     db.kuorumUser.save(user)
 })
