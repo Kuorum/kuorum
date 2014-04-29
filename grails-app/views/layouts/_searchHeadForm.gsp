@@ -5,12 +5,13 @@
             <button class="btn search" type="submit"><span class="fa fa-search"></span></button>
         </div>
         <input type="text" name="word" class="form-control" placeholder="En todo kuorum.org" id="srch-term"/>
-        <input type="hidden" name="type" id="srch-type" value="KUORUM_USER"/>
+        <div id="filterSign"></div>
+        <input type="hidden" name="type" id="srch-type" value=""/>
         <a data-target="#" href="/dashboard.htm" class="dropdown-toggle" id="open-filter-search" data-toggle="dropdown" role="button"><span class="sr-only">Filtra tu búsqueda</span> <span class="fa fa-caret-down fa-lg"></span></a>
         <ul id="filters" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-filter-search" role="menu">
             <li><a href="#" id="filtro01">En todo kuorum</a></li>
-            <li><a href="#" id="filtro02">En Leyes</a></li>
-            <li><a href="#" id="filtro03">En Personas</a></li>
+            <li><a href="#" id="filtro02">En Leyes <span class="fa fa-briefcase"></span></a></li>
+            <li><a href="#" id="filtro03">En Personas <span class="fa fa-user"></span></a></li>
         </ul>
     </div>
 </form>
@@ -56,7 +57,7 @@
                 }else if(suggestion.type=="LAW"){
                     window.location = suggestion.data.url
                 }else{
-                    window.location = urls.search+"?word="+userText
+                    window.location = urls.search+"?word="+suggestion.value
                 }
             },
             triggerSelectOnValidInput:false,
