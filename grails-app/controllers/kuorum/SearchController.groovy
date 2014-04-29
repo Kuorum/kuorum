@@ -5,9 +5,8 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.CommissionType
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.*
-import org.springframework.beans.factory.InitializingBean
 
-class SearchController implements InitializingBean {
+class SearchController{
 
     def searchSolrService
     def indexSolrService
@@ -28,38 +27,60 @@ class SearchController implements InitializingBean {
            type = user.subType.toString()
            i18n = g.message(code: "${user.subType.class.name}.${user.subType}")
        }
-       if (user.gender)
+//       if (user.gender)
         [
             type:type,
             i18n:i18n
         ]
    }
 
-    public void afterPropertiesSet() throws Exception {
+//    @PostConstruct
+    void init() {
         JSON.createNamedConfig('suggest') {
+//            log("suggest JSON marshaled created")
             it.registerObjectMarshaller( SolrType)          { SolrType solrType             -> messageEnumJson(solrType)}
             it.registerObjectMarshaller( SolrSubType)       { SolrSubType solrSubType       -> messageEnumJson(solrSubType)}
             it.registerObjectMarshaller( CommissionType )   { CommissionType commissionType -> messageEnumJson(commissionType)}
             it.registerObjectMarshaller( SolrLaw )   { SolrLaw solrLaw ->
                 [
-                        status:solrLaw.subType,
-                        title:solrLaw.name,
-                        hashtag:solrLaw.hashtag
+                    status:solrLaw.subType,
+                    title:solrLaw.name,
+                    hashtag:solrLaw.hashtag,
+                    url:g.createLink(mapping: 'lawShow', params:solrLaw.encodeAsLinkProperties())
                 ]
             }
             it.registerObjectMarshaller( SolrKuorumUser )   { SolrKuorumUser solrKuorumUser ->
+                def urlImage = solrKuorumUser.urlImage
+                if (!urlImage){
+                    urlImage = g.resource(dir:'/images', file: 'pre-user.jpg')
+                }
                 [
-                        name:solrKuorumUser.name,
-                        role:userRoleJson(solrKuorumUser),
-                        urlAvatar:solrKuorumUser.urlImage
+                    name:solrKuorumUser.name,
+                    role:userRoleJson(solrKuorumUser),
+                    urlAvatar:urlImage,
+                    url:g.createLink(mapping: 'userShow', params:solrKuorumUser.encodeAsLinkProperties())
                 ]
             }
             it.registerObjectMarshaller(SolrAutocomplete){SolrAutocomplete solrAutocomplete ->
-                [
-                        suggests : solrAutocomplete.suggests,
-                        users: solrAutocomplete.kuorumUsers,
-                        laws: solrAutocomplete.laws
-                ]
+               def suggestions = []
+
+                solrAutocomplete.suggests.each {
+                    suggestions  << [type:"SUGGESTION", value:it, data:it]
+                }
+                solrAutocomplete.kuorumUsers.each {
+                    suggestions << [type:"USER", value:it.name, data:it]
+                }
+
+                solrAutocomplete.laws.each {
+                    suggestions << [type:"LAW", value:it.name, data:it]
+                }
+
+                [suggestions:suggestions]
+//                [
+//                    suggests : solrAutocomplete.suggests,
+//                    users: solrAutocomplete.kuorumUsers,
+//                    laws: solrAutocomplete.laws
+//                ]
             }
         }
     }
@@ -77,9 +98,13 @@ class SearchController implements InitializingBean {
         render "Ok"
     }
 
-    def suggest(String word){
-        SearchParams searchParams = new SearchParams(word:word)
+    def suggest(SearchParams searchParams){
+        if (searchParams.hasErrors()){
+            render ([] as JSON)
+            return;
+        }
         SolrAutocomplete res = searchSolrService.suggest(searchParams)
+        init()
         JSON.use('suggest') {
             render res as JSON
         }

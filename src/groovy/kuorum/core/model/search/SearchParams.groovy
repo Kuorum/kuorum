@@ -30,7 +30,7 @@ class SearchParams extends Pagination implements Serializable{
 
 
     static constraints = {
-        word blank: false, nullable:false,minSize:3
+        word blank: false, nullable:false,minSize:1
         offset min: 0L
     }
 }

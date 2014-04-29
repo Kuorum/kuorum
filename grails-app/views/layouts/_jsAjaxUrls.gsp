@@ -1,5 +1,9 @@
 
 <script>
+    var urls = {
+        searchSuggest:'<g:createLink mapping="searcherSuggests" absolute="true"/>',
+        search:'<g:createLink mapping="searcherSearch" absolute="true"/>'
+    }
     var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>'
     var ajaxHeadMessagesChecked='<g:createLink mapping="ajaxHeadMessagesChecked" absolute="true"/>'
 </script>

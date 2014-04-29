@@ -21,6 +21,7 @@ modules = {
         resource url:'js/jquery.slimscroll.min.js'
         resource url:'js/icheck.min.js'
         resource url:'js/jquery.touchSwipe.min.js'
+        resource url:'js/autocomplete.js'
         resource url:'js/custom.js'
     }
 
