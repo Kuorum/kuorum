@@ -171,21 +171,22 @@ class PostService {
         numMails
     }
 
-    Post addComment(Post post, PostComment comment){
+    PostComment addComment(Post post, PostComment comment){
 
         if (!comment.validate()){
             throw KuorumExceptionUtil.createExceptionFromValidatable(comment)
         }
+        comment.dateCreated = new Date()
         //Atomic operation
         def commentData = [
                 kuorumUserId: comment.kuorumUser.id,
                 text:comment.text,
-                dateCreated: new Date(),
+                dateCreated: comment.dateCreated,
                 moderated:comment.moderated,
                 deleted :comment.deleted ]
         Post.collection.update ( [_id:post.id],['$push':['comments':commentData]])
         post.refresh()
-        post
+        post.comments.last()
     }
 
     Post deleteComment(KuorumUser  deletedBy, Post post, Integer commentPosition){

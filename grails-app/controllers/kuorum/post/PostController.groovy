@@ -7,6 +7,7 @@ import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 import kuorum.web.commands.PostCommand
+import kuorum.web.commands.post.CommentPostCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 
@@ -200,14 +201,15 @@ class PostController {
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
-    def addComment(String comment){
-        if (!comment.trim().isEmpty()){
-            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            PostComment postComent = new PostComment(kuorumUser: user, text:comment)
-            postService.addComment(params.post, postComent)
-            render "Comment '$comment' added"
-        }else{
+    def addComment(CommentPostCommand command){
+        if (command.hasErrors()){
             render "EMpty comment"
+        }else{
+            Post post = params.post
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            PostComment postComent = new PostComment(kuorumUser: user, text:command.comment)
+            postComent = postService.addComment(params.post, postComent)
+            render template: '/post/postComment', model:[post:post, comment:postComent, pos:post.comments.size()-1, display:'none']
         }
     }
 

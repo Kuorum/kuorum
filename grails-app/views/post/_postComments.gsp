@@ -1,3 +1,4 @@
+<%@ page import="kuorum.web.commands.post.CommentPostCommand" %>
 <aside class="comments">
     <g:set var="filteredComments" value="${post.comments.findAll{!(it.deleted || it.moderated)}}"/>
     <g:if test="${!filteredComments}">
@@ -10,10 +11,11 @@
         <h1><g:message code="post.show.comments.title.plural" args="[filteredComments.size()]"/></h1>
     </g:else>
     <p><g:message code="post.show.comments.description"/> </p>
-    <ul class="listComments">
+    <ul class="listComments" id="listComments">
     <g:each in="${post.comments}" var="comment" status="i">
         <g:if test="${filteredComments.contains(comment)}">
-            <g:render template="postComment" model="[post:post, comment:comment, pos:i]"/>
+            <g:set var="display" value="${i>=2?'none':'block'}"/>
+            <g:render template="postComment" model="[post:post, comment:comment, pos:i, display:display]"/>
         </g:if>
     </g:each>
 
@@ -21,13 +23,16 @@
 
     <div class="text-center" id="ver-mas"><a href="#">Ver más</a></div>
 
-    <form id="addComment">
-        <div class="form-group">
-            <label for="comment">Añade tu comentario:</label>
-            <textarea id="comment" placeholder="Expresa tu opinión sobre la propuesta..." rows="5" class="form-control"></textarea>
-        </div>
-        <div class="form-group btns clearfix">
-            <input type="submit" class="btn btn-grey btn-lg pull-right" value="Publicar comentario">
-        </div>
-    </form>
+    <sec:ifLoggedIn>
+        <g:set var="commentCommand" value="${new CommentPostCommand()}"/>
+        <formUtil:validateForm bean="${commentCommand}" form="addComment"/>
+        <g:form mapping="postAddComment" params="${post.encodeAsLinkProperties()}" name="addComment" data-parent-id="listComments">
+            <div class="form-group">
+                <formUtil:textArea command="${commentCommand}" field="comment" rows="5"/>
+            </div>
+            <div class="form-group btns clearfix">
+                <input type="submit" class="btn btn-grey btn-lg pull-right" value="${message(code: 'post.show.comments.add.submit')}">
+            </div>
+        </g:form>
+    </sec:ifLoggedIn>
 </aside>

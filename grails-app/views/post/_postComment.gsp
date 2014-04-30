@@ -1,4 +1,4 @@
-<li id="commentPos_${pos}">
+<li id="commentPos_${pos}" style="display:${display?:'block'} ">
     <script>
         function removeComment(liId){
             $("#"+liId).hide('slow')
@@ -21,9 +21,9 @@
                 <g:message code="post.show.comments.delete"/>
             </g:remoteLink>
         </postUtil:ifCommentIsDeletable>
-        <ul class="pull-right">
-            <li>14 <a href="#" class="plus disabled">+</a></li>
-            <li>23 <a href="#" class="minus">-</a></li>
-        </ul>
+        %{--<ul class="pull-right">--}%
+            %{--<li>14 <a href="#" class="plus disabled">+</a></li>--}%
+            %{--<li>23 <a href="#" class="minus">-</a></li>--}%
+        %{--</ul>--}%
     </div>
 </li>

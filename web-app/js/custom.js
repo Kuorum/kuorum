@@ -341,12 +341,44 @@ $(document).ready(function() {
 
 
 	// oculta los comentarios
-	$('.listComments > li:gt(2)').hide();
+//	$('.listComments > li:gt(2)').hide();
 	$('#ver-mas a').click(function(e) {
 		e.preventDefault();
-		$('.listComments > li:gt(2)').fadeIn('slow');
+//		$('.listComments > li:gt(2)').fadeIn('slow');
+		$('.listComments > li').fadeIn('slow');
 		$('#ver-mas').remove();
 	});
+    $("#addComment").on('submit', function(e){
+        e.preventDefault()
+        var form = $(this)
+        if (form.valid()){
+            var parentId = form.attr('data-parent-id')
+            var parent = $("#"+parentId)
+            var url = form.attr('action')
+            $.ajax( {
+                url:url,
+                data:$(this).serialize(),
+                statusCode: {
+                    401: function() {
+                        location.reload();
+                    }
+                }
+            })
+                .done(function(data, status, xhr) {
+                    parent.append(data)
+                    $('#ver-mas a').click()
+                    $("html, body").animate({ scrollTop: parent.children().last().prev().offset().top }, 1000);
+                })
+                .fail(function(data) {
+                    console.log(data)
+                })
+                .always(function(data) {
+
+                });
+        }else{
+            //console.log("pete")
+        }
+    })
 
 
 
@@ -467,7 +499,6 @@ $(document).ready(function() {
 		})
 		.always(function(data) {
 			$("#"+loadingId).remove()
-			$("time.timeago").timeago();
 		});
 	}
 

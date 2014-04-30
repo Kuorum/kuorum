@@ -2,7 +2,6 @@ package kuorum
 
 import kuorum.core.FileGroup
 import kuorum.law.Law
-import kuorum.web.commands.customRegister.Step2Command
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
 
@@ -106,7 +105,7 @@ class FormTagLib {
     }
 
     def textArea = {attrs ->
-        Step2Command command = attrs.command
+        def command = attrs.command
         def field = attrs.field
         def rows = attrs.rows?:5
 
@@ -118,7 +117,7 @@ class FormTagLib {
         def error = hasErrors(bean: command, field: field,'error')
         ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
         MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
-        def maxSize = maxSizeConstraint.maxSize?:0
+        def maxSize = maxSizeConstraint?.maxSize?:0
 
 
         out << """
