@@ -1,11 +1,11 @@
 /**
- *  Ajax Autocomplete for jQuery, version 1.2.9
- *  (c) 2013 Tomas Kirda
- *
- *  Ajax Autocomplete for jQuery is freely distributable under the terms of an MIT-style license.
- *  For details, see the web site: https://github.com/devbridge/jQuery-Autocomplete
- *
- */
+*  Ajax Autocomplete for jQuery, version 1.2.9
+*  (c) 2013 Tomas Kirda
+*
+*  Ajax Autocomplete for jQuery is freely distributable under the terms of an MIT-style license.
+*  For details, see the web site: https://github.com/devbridge/jQuery-Autocomplete
+*
+*/
 
 /*jslint  browser: true, white: true, plusplus: true */
 /*global define, window, document, jQuery */
@@ -217,7 +217,6 @@
                 'width': options.width + 'px',
                 'z-index': options.zIndex
             });
-//            that.getValue = that.options.getValue || that.getValue
         },
 
         clearCache: function () {
@@ -336,13 +335,9 @@
                         that.selectHint();
                         return;
                     }
-                // Fall through to RETURN
+                    // Fall through to RETURN
                 case keys.RETURN:
                     if (that.selectedIndex === -1) {
-                        if (that.options.searchUserText !=undefined){
-                            that.options.searchUserText(that.el.val())
-                            return
-                        }
                         that.hide();
                         return;
                     }

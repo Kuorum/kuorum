@@ -87,15 +87,22 @@ class SearchController{
     }
 
     def search(SearchParams searchParams) {
-        SolrResults docs = searchSolrService.search(searchParams)
+        SolrResults docs
+        if (searchParams.hasErrors()){
+            docs = new SolrResults(elements: [], numResults: 0, facets: [], suggest:null)
+            searchParams.word=''
+        }else{
+            docs = searchSolrService.search(searchParams)
+        }
         [docs:docs, seachParams:searchParams]
     }
 
     def searchSeeMore(SearchParams searchParams){
+        searchParams.word = params.wordOrg
+        searchParams.validate()
         SolrResults docs = searchSolrService.search(searchParams)
-        [docs:docs.elements, seachParams:searchParams]
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${docs.elements.size()<=searchParams.max}")
-        render template: '/search/searchElement'
+        render template: '/search/searchElement', model:[docs:docs.elements, seachParams:searchParams]
     }
 
     @Secured(['ROLE_ADMIN'])

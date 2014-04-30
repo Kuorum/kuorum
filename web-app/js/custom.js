@@ -438,6 +438,8 @@ $(document).ready(function() {
 		e.preventDefault()
 		var link = $(that)
 		var url = link.attr('href')
+        var formId = link.attr('data-form-id')
+        url += '?'+$('#'+formId).serialize()
 		var parentId = link.attr('data-parent-id')
 		var offset = link.attr('data-offset') || 10
 		var loadingId = parentId+"-loading"
