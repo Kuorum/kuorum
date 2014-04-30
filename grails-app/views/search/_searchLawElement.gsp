@@ -1,6 +1,6 @@
 <article itemtype="http://schema.org/Article" itemscope role="article" class="kakareo post ley">
     <div class="link-wrapper">
-        <g:link mapping="lawShow" class="hidden" params="${solrLaw.encodeAsLinkProperties()}"><g:message code="search.list.law.goTo"/></g:link>
+        <g:link mapping="lawShow" class="hidden" params="${solrLaw.encodeAsLinkProperties()}"><g:message code="search.list.law.goTo" args="[solrLaw.hashtag]"/></g:link>
         <div class="photo">
             <img src="${solrLaw.urlImage}" alt="${solrLaw.hashtag}" itemprop="image">
         </div>

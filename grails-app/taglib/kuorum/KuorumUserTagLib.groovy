@@ -1,7 +1,9 @@
 package kuorum
 
 import kuorum.core.model.solr.SolrKuorumUser
+import kuorum.core.model.solr.SolrPost
 import kuorum.users.KuorumUser
+import org.bson.types.ObjectId
 
 class KuorumUserTagLib {
     static defaultEncodeAs = 'raw'
@@ -18,7 +20,18 @@ class KuorumUserTagLib {
     }
 
     def showUser={attrs ->
-        KuorumUser user = attrs.user
+        KuorumUser user
+        String name = ""
+        if (attrs.user instanceof SolrKuorumUser){
+            user = KuorumUser.get(new ObjectId(attrs.user.id))
+            name = user.name
+        }else if (attrs.user instanceof SolrPost){
+            user = KuorumUser.get(new ObjectId(attrs.user.ownerId))
+            name = attrs.user.highlighting.owner?:user.name
+        }else{
+            user = attrs.user
+            name = user.name
+        }
         Boolean showRole = attrs.showRole?Boolean.parseBoolean(attrs.showRole):false
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
 
@@ -26,7 +39,7 @@ class KuorumUserTagLib {
         def imgSrc = image.userImgSrc(user:user)
         def userName = ""
         if (showName){
-            userName = "<span itemprop='name'>${user.name}</span>"
+            userName = "<span itemprop='name'>${name}</span>"
         }
         out << """
                 <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
@@ -58,6 +71,24 @@ class KuorumUserTagLib {
         if (springSecurityService.isLoggedIn()){
             if (user.following.contains(springSecurityService.principal.id)){
                 out << body()
+            }
+        }
+    }
+    def isFollower={attrs, body ->
+        KuorumUser user
+        if (attrs.user instanceof SolrKuorumUser){
+            user = KuorumUser.get(new ObjectId(attrs.user.id))
+        }else{
+            user = attrs.user
+        }
+        if (springSecurityService.isLoggedIn()){
+            if (user.following.contains(springSecurityService.principal.id)){
+                out << """
+                <div class="pull-right">
+                    <span class="fa fa-check-circle-o"></span>
+                    <small>${message(code:'kuorumUser.popover.follower')}"</small>
+                </div>
+                """
             }
         }
     }

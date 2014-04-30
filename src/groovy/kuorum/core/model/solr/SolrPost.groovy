@@ -6,6 +6,7 @@ package kuorum.core.model.solr
 class SolrPost extends SolrElement{
     String hashtagLaw
     String owner
+    String ownerId
     String text
     Boolean victory
 }
