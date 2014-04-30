@@ -20,7 +20,7 @@ class UrlMappings {
         name postPromoteYourPost:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/promocionar"(controller: "post", action:"promoteYourPost")
         name postMailing:   "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/enviar-mails"(controller: "post", action:"payForMailing")
         name postEdit:      "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/editar"(controller: "post"){action = [GET:"edit", POST:"update"]}
-        name postToggleFavorite:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/favorito"(controller: "post",action: "favorite")
+        name postToggleFavorite:"/ajax/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/favorito"(controller: "post",action: "favorite")
         name postDelComment:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/borrarCommentario"(controller: "post",action: "deleteComment")
         name postAddComment:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/nuevoComentario"(controller: "post",action: "addComment")
         name postCluckIt:   "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/kakarear"(controller: "post",action: "cluckPost")

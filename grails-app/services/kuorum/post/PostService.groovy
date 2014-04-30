@@ -273,6 +273,30 @@ class PostService {
 //        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
         Post.list([max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
     }
+    /**
+     * Related posts to post and user. User can be null
+     * @param post
+     * @param user
+     * @param pagination
+     * @return
+     */
+    List<Post> relatedPosts(Post post,KuorumUser user, Integer max){
+        //TODO: Improve algorithm
+
+        //Post of the law
+        List<Post> posts = Post.findAllByLawAndIdNotEqual(post.law, post.id, [max: max, sort: "numVotes", order: "desc", offset: 0])
+
+        //If not enough post then => Post with the same owner
+        if (posts.size() < max){
+            posts += Post.findAllByOwnerAndIdNotEqual(post.owner, post.id, [max: max - posts.size(), sort: "numVotes", order: "desc", offset: 0])
+        }
+
+        //If not enough post then => List post ordere by numVotes
+        if (posts.size() < max){
+            posts += Post.findAllByIdNotEqual(post.id, [max: max - posts.size(), sort: "numVotes", order: "desc", offset: 0])
+        }
+        posts
+    }
 
     List<Post> lawVictories(Law law, Pagination pagination = new Pagination()){
         Post.findAllByLawAndVictory(law,Boolean.TRUE,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])

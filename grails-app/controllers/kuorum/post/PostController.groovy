@@ -25,8 +25,13 @@ class PostController {
     }
 
     def show(){
-        Post postInstance = params.post //Intellij Detects type for autocomplete
-        [post:postInstance]
+        Post post = params.post //Intellij Detects type for autocomplete
+        KuorumUser user= null
+        if (springSecurityService.isLoggedIn()){
+            user = KuorumUser.get(springSecurityService.principal.id)
+        }
+        List<Post> relatedPost = postService.relatedPosts(post,  user,  3 )
+        [post:post,relatedPost:relatedPost]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

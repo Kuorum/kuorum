@@ -15,18 +15,18 @@
     <g:render template="/cluck/footerCluck" model="[cluck:post.firstCluck]"/>
 
     <div class="row options">
-        <postUtil:ifPostIsEditable post="${post}">
-            <div class="col-xs-12 col-sm-6 col-md-6 editPost">
+        <div class="col-xs-12 col-sm-6 col-md-6 editPost">
+            <postUtil:ifPostIsEditable post="${post}">
                 <g:link mapping="postEdit" params="${post.encodeAsLinkProperties()}">
                     <span class="fa fa-edit fa-lg"></span><g:message code="post.show.editLink.${post.postType}"/>
                 </g:link>
-            </div>
-        </postUtil:ifPostIsEditable>
-        <g:if test="${post.pdfPage}">
-            <div class="col-xs-12 col-sm-6 col-md-6 leerLey">
+            </postUtil:ifPostIsEditable>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 leerLey">
+            <g:if test="${post.pdfPage}">
                 <a target="_blank" href="${post.law.urlPdf}#page=${post.pdfPage}"><g:message code="post.show.pdfLink"/></a>
-            </div>
-        </g:if>
+            </g:if>
+        </div>
     </div>
     <p>${raw(post.text.replaceAll('<br>','</p><p>'))}</p>
     <div class="wrapper">
@@ -35,124 +35,7 @@
     <g:render template="/cluck/footerCluck" model="[post:post]"/>
 </article><!-- /article -->
 
-<aside class="othersPost">
-    <h1>Otras publicaciones relacionadas:</h1>
-    <div id="postNav" class="carousel slide">
-        <a href="#postNav" data-slide="prev" class="prev">
-            <span class="fa fa-caret-left fa-lg"></span>
-            <span class="sr-only">Post anterior</span>
-        </a>
-        <div class="carousel-inner">
-            <div class="item user link-wrapper">
-                <a href="#" class="hidden">Ir al post</a>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy. Cum sociis natoque penatibus et magnis dis partarient <a href="#">#modesntes</a></p>
-                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario 1</span>
-                </span>
-                <!-- POPOVER PARA IMÁGENES USUARIOS -->
-                <div class="popover">
-                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
-                    <div class="popover-user">
-                        <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
-                        <div class="user" itemscope itemtype="http://schema.org/Person">
-                            <a href="#" itemprop="url">
-                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
-                            </a>
-                            <span class="user-type">
-                                <small>Activista digital</small>
-                            </span>
-                        </div><!-- /user -->
-                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
-                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
-                        <ul class="infoActivity clearfix">
-                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
-                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
-                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
-                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
-                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
-                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
-                        </ul>
-                    </div><!-- /popover-user -->
-                </div>
-                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
-                <div class="read-later pull-right"><a class="enabled allow" href="#"><span class="fa fa-bookmark fa-lg"></span><span class="sr-only">Leer después</span></a></div>
-            </div>
-            <div class="item user link-wrapper">
-                <a href="#" class="hidden">Ir al post</a>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy. Cum sociis natoque penatibus et magnis dis partarient <a href="#">#modesntes</a></p>
-                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario 2</span>
-                </span>
-                <!-- POPOVER PARA IMÁGENES USUARIOS -->
-                <div class="popover">
-                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
-                    <div class="popover-user">
-                        <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
-                        <div class="user" itemscope itemtype="http://schema.org/Person">
-                            <a href="#" itemprop="url">
-                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
-                            </a>
-                            <span class="user-type">
-                                <small>Activista digital</small>
-                            </span>
-                        </div><!-- /user -->
-                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
-                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
-                        <ul class="infoActivity clearfix">
-                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
-                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
-                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
-                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
-                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
-                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
-                        </ul>
-                    </div><!-- /popover-user -->
-                </div>
-                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
-                <div class="read-later pull-right"><a class="enabled allow" href="#"><span class="fa fa-bookmark fa-lg"></span><span class="sr-only">Leer después</span></a></div>
-            </div>
-            <div class="item user link-wrapper">
-                <a href="#" class="hidden">Ir al post</a>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy. Cum sociis natoque penatibus et magnis dis partarient <a href="#">#modesntes</a></p>
-                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                    <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario 3</span>
-                </span>
-                <!-- POPOVER PARA IMÁGENES USUARIOS -->
-                <div class="popover">
-                    <a href="#" class="hidden" rel="nofollow">Mostrar usuario</a>
-                    <div class="popover-user">
-                        <button type="button" class="close" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
-                        <div class="user" itemscope itemtype="http://schema.org/Person">
-                            <a href="#" itemprop="url">
-                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombre usuario</span>
-                            </a>
-                            <span class="user-type">
-                                <small>Activista digital</small>
-                            </span>
-                        </div><!-- /user -->
-                        <button type="button" class="btn btn-blue btn-xs allow" id="follow">Seguir</button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
-                        <div class="pull-right"><span class="fa fa-check-circle-o"></span> <small>te sigue</small></div>
-                        <ul class="infoActivity clearfix">
-                            <li><span class="fa fa-question-circle"></span> <span class="counter">31</span> <span class="sr-only">preguntas</span></li>
-                            <li><span class="fa fa-book"></span> 25 <span class="sr-only">historias</span></li>
-                            <li><span class="fa fa-lightbulb-o"></span> 58 <span class="sr-only">propuestas</span></li>
-                            <li><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> 458 <span class="sr-only">siguiendo</span></li>
-                            <li><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> 328 <span class="sr-only">seguidores</span></li>
-                            <li class="pull-right"><span class="sr-only">Verificada</span> <span class="fa fa-check"></span></li>
-                        </ul>
-                    </div><!-- /popover-user -->
-                </div>
-                <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
-                <div class="read-later pull-right"><a class="enabled allow" href="#"><span class="fa fa-bookmark fa-lg"></span><span class="sr-only">Leer después</span></a></div>
-            </div>
-        </div>
-        <a href="#postNav" data-slide="next" class="next">
-            <span class="fa fa-caret-right fa-lg"></span>
-            <span class="sr-only">Post siguiente</span>
-        </a>
-    </div>
-</aside>
-
+<g:render template="relatedPosts" model="[relatedPosts:relatedPost]"/>
 <g:render template="postComments" model="[post:post]"/>
 
 </content>
