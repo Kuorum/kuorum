@@ -56,6 +56,23 @@ class KuorumUserTagLib {
         }
     }
 
+    def showListUsers={attrs->
+        List<KuorumUser> users = attrs.users
+        if (users){
+            Integer visibleUsers=Integer.parseInt(attrs.visibleUsers)?:1
+            List<KuorumUser> visibleUsersList = users.take(visibleUsers)
+            List<KuorumUser> hiddenUsersList = users.drop(visibleUsers)
+            Integer total = (attrs.total?:users.size() ) - visibleUsers
+            out << render (template:'/kuorumUser/usersList', model:[
+                    users:users,
+                    visibleUsers:visibleUsers,
+                    visibleUsersList:visibleUsersList,
+                    hiddenUsersList:hiddenUsersList,
+                    total:total
+            ])
+        }
+    }
+
 
     def roleName={attrs ->
         KuorumUser user = attrs.user

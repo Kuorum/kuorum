@@ -41,4 +41,12 @@ post {
 
     kuorumUserService.createFollower(noe,politician)
 
+    postVoteService.votePost(parquesNacionalesPurpose2,juanjoAlvite, false )
+    postVoteService.votePost(parquesNacionalesPurpose2,admin, false )
+    postVoteService.votePost(parquesNacionalesPurpose2,carmen, false )
+    postVoteService.votePost(parquesNacionalesPurpose2,ecologistasEnAccion, false )
+    postVoteService.votePost(parquesNacionalesPurpose2,noe, false )
+    postVoteService.votePost(parquesNacionalesPurpose2,politician, true )
+    postVoteService.votePost(parquesNacionalesPurpose2,peter, false )
+
 }

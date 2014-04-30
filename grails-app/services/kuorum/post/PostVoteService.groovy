@@ -3,6 +3,7 @@ package kuorum.post
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.search.Pagination
 import kuorum.users.KuorumUser
 
 @Transactional
@@ -63,6 +64,10 @@ class PostVoteService {
             i++
         }
         grailsApplication.config.kuorum.milestones.postVotes.ranges.find{it.contains(post.numVotes)}
+    }
+
+    List<KuorumUser> findVotedUsers(Post post, Pagination pagination = new Pagination()){
+        PostVote.findAllByPostAndAnonymous(post, Boolean.FALSE,[max: pagination.max, sort: "id", order: "desc", offset: 0]).collect{it.user}
     }
 
 }

@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.FileType
 import kuorum.core.model.PostType
+import kuorum.core.model.search.Pagination
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 import kuorum.web.commands.PostCommand
@@ -32,7 +33,8 @@ class PostController {
             user = KuorumUser.get(springSecurityService.principal.id)
         }
         List<Post> relatedPost = postService.relatedPosts(post,  user,  3 )
-        [post:post,relatedPost:relatedPost]
+        List<KuorumUser> usersVotes = postVoteService.findVotedUsers(post, new Pagination(max:20))
+        [post:post,relatedPost:relatedPost, usersVotes:usersVotes]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
