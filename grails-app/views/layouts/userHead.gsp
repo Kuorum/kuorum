@@ -12,7 +12,7 @@
         </a>
         <g:render template="/layouts/headUserMenuDropDown" model="[numFavorites:user.favorites.size(), numUserPosts:numUserPosts, numMessages:7]"/>
     </li>
-    <g:render template="/layouts/userHeadMessages"/>
+    %{--<g:render template="/layouts/userHeadMessages"/>--}%
     <g:render template="/layouts/userHeadNotifications" model="[user:user, notifications:notifications]"/>
 </ul>
 
