@@ -48,6 +48,7 @@ class UrlMappings {
         name customRegisterStep5: "/registro/fin"(controller: "customRegister", action:"step5")
 
         name searcherSearch:      "/buscar"(controller: "search", action:"search")
+        name searcherSearchSeeMore:"/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
         name searcherSuggests:    "/buscar/sugerencias"(controller: "search", action:"suggest")
 
         name profileEditUser:     "/mi-perfil"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}

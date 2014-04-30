@@ -1568,7 +1568,7 @@ textarea.error,
 #search-results .clearfix h1 #term,
 #search-results #results .counter {color: #545454;}
 #search-results #results {margin: 0 0 5px;}
-#search-results .highlighted {background-color: #fbf157;}
+#search-results .highlighted {background-color: rgba(251, 241, 87, 0.5);}
 
 #search-filters h1 {font-size: 17px; font-size: 1.7rem; font-weight: bold;}
 #search-results > ul {margin:0; padding: 0; border-top: 1px solid #DADADA;}
@@ -1610,6 +1610,7 @@ textarea.error,
 .signContainer h2 a {color: #fff; text-decoration: underline;}
 .signContainer h3 {color: #fff; font-size: 14px; font-size: 1.4rem; text-align: center; margin-bottom: 0;}
 .home .images {
+  background-image: url('../images/home1.jpg');
   background-repeat: no-repeat;
   background-position: center 0;
   background-size: cover;

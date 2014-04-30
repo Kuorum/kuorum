@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.CommissionType
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.*
+import kuorum.web.constants.WebConstants
 
 class SearchController{
 
@@ -86,10 +87,15 @@ class SearchController{
     }
 
     def search(SearchParams searchParams) {
+        SolrResults docs = searchSolrService.search(searchParams)
+        [docs:docs, seachParams:searchParams]
+    }
 
-        def docs = searchSolrService.search(searchParams)
-        [docs:docs]
-
+    def searchSeeMore(SearchParams searchParams){
+        SolrResults docs = searchSolrService.search(searchParams)
+        [docs:docs.elements, seachParams:searchParams]
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${docs.elements.size()<=searchParams.max}")
+        render template: '/search/searchElement'
     }
 
     @Secured(['ROLE_ADMIN'])

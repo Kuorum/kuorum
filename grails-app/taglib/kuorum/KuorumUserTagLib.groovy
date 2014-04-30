@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.users.KuorumUser
 
 class KuorumUserTagLib {
@@ -46,6 +47,10 @@ class KuorumUserTagLib {
     def roleName={attrs ->
         KuorumUser user = attrs.user
         out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")
+    }
+    def roleNameSolrUser={attrs ->
+        SolrKuorumUser user = attrs.user
+        out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.role}.${user.gender}")
     }
 
     def ifIsFollower={attrs, body ->

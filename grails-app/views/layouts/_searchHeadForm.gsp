@@ -49,7 +49,7 @@
                 return format
             },
             searchUserText:function(userText){
-                window.location = urls.search+"?word="+userText
+                window.location = urls.search+"?word="+encodeURIComponent(userText)
             },
             onSelect: function(suggestion){
                 if(suggestion.type=="USER"){
@@ -57,7 +57,7 @@
                 }else if(suggestion.type=="LAW"){
                     window.location = suggestion.data.url
                 }else{
-                    window.location = urls.search+"?word="+suggestion.value
+                    window.location = urls.search+"?word="+encodeURIComponent(suggestion.value)
                 }
             },
             triggerSelectOnValidInput:false,

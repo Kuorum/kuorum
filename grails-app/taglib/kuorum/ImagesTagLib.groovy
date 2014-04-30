@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.users.KuorumUser
 
 class ImagesTagLib {
@@ -17,6 +18,16 @@ class ImagesTagLib {
             out << getDefaultAvatar(user)
         }
     }
+
+    def solrUserImgSrc={attrs ->
+        SolrKuorumUser user = attrs.user
+        if (user.urlImage){
+            out << user.urlImage
+        }else{
+            out << getDefaultAvatar(null)
+        }
+    }
+
 
     def loggedUserImgSrc={attrs ->
         if (springSecurityService.isLoggedIn()){

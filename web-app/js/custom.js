@@ -9,7 +9,6 @@ $(document).popover({
 });
 
 
-
 // inicializa los tooltip
 $(document).tooltip({
 	selector: '[rel="tooltip"]'
@@ -17,6 +16,28 @@ $(document).tooltip({
 
 
 $(document).ready(function() {
+
+	// slider de las imágenes de fondo en la Home
+    $('.home .images').bgswitcher({
+        duration: 2000,
+        images: ['http://localhost/kuorum/images/home1.jpg', 'http://localhost/kuorum/images/home2.jpg', "http://localhost/kuorum/images/home3.jpg"]
+    });
+
+
+
+	// hacer un bloque clickable y que tome que es su primer elemento la url del enlace a.hidden
+	$(function() {
+
+		$('.link-wrapper').click( function() {
+			window.location = $(this).find('a.hidden').attr('href');
+		});
+
+	});
+
+
+	$('body').on('click', '.link-wrapper .popover-trigger', function() {
+		$(this).closest('.link-wrapper').preventDefault();
+	});
 
 
 	// scroll suave a hashtag
@@ -27,7 +48,7 @@ $(document).ready(function() {
     	if ($(this.hash).offset().top > $(document).height() - $(window).height()) {
     		dest = $(document).height() - $(window).height();
     	} else {
-    		dest = $(this.hash).offset().top - 64;
+    		dest = $(this.hash).offset().top - 68;
     	}
     	// ir al destino
     	$('html,body').animate({
@@ -68,10 +89,6 @@ $(document).ready(function() {
 		//Default is 75px, set to 0 for demo so any distance triggers swipe
 		threshold:0
 	});
-
-
-	// inicia el timeago
-	$('time.timeago').timeago();
 
 
 	// animo la progress-bar de boxes.likes
@@ -206,6 +223,13 @@ $(document).ready(function() {
 	});
 
 
+	// Deshabilitar enlaces números (descubre)
+	$('.introDiscover .steps .active').find('a').addClass('disabled');
+	$('body').on("click", ".introDiscover .steps .active a", function(e) {
+		e.preventDefault();
+	});
+
+
 	// Deshabilitar botón Votar (ley no logado)
 	$('body').on("click", ".voting .vote", function(e) {
 		e.preventDefault();
@@ -244,13 +268,13 @@ $(document).ready(function() {
 	});
 
 	$('body').on("click", ".voting li .yes", function(e) {
-		$('.activity .POSITIVE').addClass('active');
+		$('.activity .favor').addClass('active');
 	});
 	$('body').on("click", ".voting li .no", function(e) {
-		$('.activity .NEGATIVE').addClass('active');
+		$('.activity .contra').addClass('active');
 	});
 	$('body').on("click", ".voting li .neutral", function(e) {
-		$('.activity .ABSTENTION').addClass('active');
+		$('.activity .abstencion').addClass('active');
 	});
 
 
@@ -264,9 +288,16 @@ $(document).ready(function() {
 
 
 	// hacer clic en player falso del video (.front)
-	$('.front').click( function() {
+	$('.kakareo .front').click( function() {
 		$(this).next('.youtube').css('display', 'block');
 		$(this).remove();
+		return false;
+	});
+
+	// hacer clic en player del video en la home (.front)
+	$('.home .front').click( function() {
+		$(this).closest('.play').next('.youtube').css('display', 'block');
+		$(this).closest('.play').remove();
 		return false;
 	});
 
@@ -276,7 +307,7 @@ $(document).ready(function() {
 
 		var $ui = $('#search-form');
 		$ui.find('#filters li a').bind('focus click',function(){
-			var filtro = $(this).html();
+			var filtro = $(this).text();
 			$ui.find('#srch-term').attr('placeholder', filtro);
 		});
 
@@ -308,15 +339,6 @@ $(document).ready(function() {
 
 	}
 
-	// hacer un bloque clickable y que tome
-	// que es su primer elemento la url del enlace a.hidden
-	$(function() {
-
-		$('.link-wrapper').click( function() {
-			window.location = $(this).find('a.hidden').attr('href');
-		});
-
-	});
 
 	// oculta los comentarios
 	$('.listComments > li:gt(2)').hide();
@@ -565,12 +587,15 @@ $(document).ready(function() {
             text: text
         });
     }
-}
+	}
 
 
 // el hover sobre el kakareo que afecte al triángulo superior
 $(document).ajaxStop(function () {
-    $("time.timeago").timeago();
+
+	// inicia el timeago
+	$("time.timeago").timeago();
+
 	$('.kakareo > .link-wrapper').on({
 	    mouseenter: function () {
 	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #efefef');
