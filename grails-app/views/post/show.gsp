@@ -46,7 +46,7 @@
 <p class="text-left"><g:message code="post.show.boxes.like.description"/> </p>
 <g:render template="likesContainer" model="[post:post]"/>
 <div class="sponsor">
-    <userUtil:showListUsers users="${usersVotes}" visibleUsers="5"/>
+    <userUtil:showListUsers users="${usersVotes}" visibleUsers="5" messagesPrefix="post.show.boxes.like.userList"/>
 </div>
 <form id="drive">
     <a class="btn btn-blue btn-lg btn-block" href="#">Impulsa esta propuesta <br><small>es tu momento de hablar</small></a>

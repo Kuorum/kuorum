@@ -63,12 +63,20 @@ class KuorumUserTagLib {
             List<KuorumUser> visibleUsersList = users.take(visibleUsers)
             List<KuorumUser> hiddenUsersList = users.drop(visibleUsers)
             Integer total = (attrs.total?:users.size() ) - visibleUsers
+            String messagePrefix = attrs.messagesPrefix
+            def messages = [
+                    intro:message(code:"${messagePrefix}.intro"),
+                    seeMore:message(code:"${messagePrefix}.seeMore"),
+                    showUserList:message(code:"${messagePrefix}.showUserList"),
+                    userListTitle:message(code:"${messagePrefix}.userListTitle")
+            ]
             out << render (template:'/kuorumUser/usersList', model:[
                     users:users,
                     visibleUsers:visibleUsers,
                     visibleUsersList:visibleUsersList,
                     hiddenUsersList:hiddenUsersList,
-                    total:total
+                    total:total,
+                    messages:messages
             ])
         }
     }

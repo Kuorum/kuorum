@@ -1,3 +1,4 @@
+${messages.intro}
 <ul class="user-list-images">
     <g:each in="${visibleUsersList}" var="user">
         <li itemtype="http://schema.org/Person" itemscope="" itemprop="contributor">
@@ -7,15 +8,15 @@
     <g:if test="${hiddenUsersList}">
         <li>
             <span data-toggle="popover" role="button" rel="popover" class="popover-trigger more-users">
-                <span class="sr-only">Ver más patrocinadores</span>
+                <span class="sr-only">${messages.seeMore}</span>
                 <span class="counter">+${total}</span>
             </span>
             <!-- POPOVER PARA SACAR LISTAS DE USUARIOS -->
             <div class="popover">
                 <button aria-hidden="true" class="close" type="button"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
-                <a rel="nofollow" class="hidden" href="#">Mostrar lista de usuarios</a>
+                <a rel="nofollow" class="hidden" href="#">${messages.showUserList}</a>
                 <div class="popover-user-list">
-                    <p>Están participando...</p>
+                    <p>${messages.userListTitle}</p>
                     <div class="scroll">
                         <ul>
                             <g:each in="${hiddenUsersList}" var="user">

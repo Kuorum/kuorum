@@ -25,6 +25,8 @@ post {
     abortoPurpose1.refresh() // Is necesary because fixture sets the last cluck created to abortoPurpose1.firstCluck. I don't know why
     Sponsor sponsor = new Sponsor(kuorumUser: equo, amount: 5)
     postService.sponsorAPost(abortoPurpose1, sponsor)
+    Sponsor sponsor2 = new Sponsor(kuorumUser: ecologistasEnAccion, amount: 7)
+    postService.sponsorAPost(abortoPurpose1, sponsor2)
 
 
     postService.savePost(parquesNacionalesPurpose2, parquesNacionalesPurpose2.law, parquesNacionalesPurpose2.owner)
