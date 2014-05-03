@@ -20,9 +20,7 @@
     </g:each>
 
     </ul>
-
-    <div class="text-center" id="ver-mas"><a href="#">Ver más</a></div>
-
+    <div class="text-center ${post.comments.size()>2?'':'hidden'}" id="ver-mas"><a href="#"><g:message code="post.show.comments.seeMore"/> </a></div>
     <sec:ifLoggedIn>
         <g:set var="commentCommand" value="${new CommentPostCommand()}"/>
         <formUtil:validateForm bean="${commentCommand}" form="addComment"/>
