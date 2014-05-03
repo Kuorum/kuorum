@@ -13,7 +13,7 @@
         </div>
         <input type="text" name="word" class="form-control" placeholder="En todo kuorum.org" id="srch-term"/>
         <div id="filterSign"></div>
-        %{--<input type="hidden" name="type" id="srch-type" value="${params.type?:''}"/>--}%
+        <input type="hidden" name="type" id="srch-type" value="${params.type?:''}"/>
         <input type="hidden" name="wordOrg" id="srch-orgTerm" value="${params.word}"/>
         <g:each in="${kuorum.core.model.solr.SolrSubType.values()}" var="subType">
             <input name="subTypes" type="checkbox" value="${subType}" class="hidden" data-type="${subType.solrType}" ${searchParams?.subTypes?.contains(subType)?'checked':''}/>
