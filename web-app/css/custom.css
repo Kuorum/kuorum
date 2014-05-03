@@ -290,7 +290,7 @@ a:focus {color: #20a2ea;}
   font-family: 'FontAwesome', Georgia, serif;
 }
 #search-form .input-group {width: 100%;}
-#search-form .input-group > .filterSign {position: absolute; right: 28px; top: 9px; z-index: 99; color: #a8a8a8;}
+#search-form .input-group > #filterSign {position: absolute; right: 28px; top: 9px; z-index: 99; color: #a8a8a8;}
 #search-form .input-group-btn {left: 0; position: absolute; top: 0; z-index: 9;}
 
 .nav > li > .navbar-link {color: #545454; padding: 12px 8px; background-color: transparent; line-height: 22px; display: block; position: relative;}
@@ -1570,7 +1570,7 @@ textarea.error,
 #search-results #results {margin: 0 0 5px;}
 #search-results .highlighted {background-color: rgba(251, 241, 87, 0.5);}
 
-#search-filters h1 {font-size: 17px; font-size: 1.7rem; font-weight: bold;}
+#search-filters h1 {font-size: 17px; font-size: 1.7rem; font-weight: bold; margin-top: 0;}
 #search-results > ul {margin:0; padding: 0; border-top: 1px solid #DADADA;}
 #search-results > ul > li {list-style: none; padding: 0; border-bottom: 1px solid #DADADA;}
 
@@ -1753,6 +1753,26 @@ textarea.error,
   border-bottom: 1px solid #dadada;
 }
 .autocomplete-suggestions strong {color: #545454;}
+
+
+/* página resultados buscador =========== */
+/* ====================================================== */
+#searchFilters {color: #a8a8a8;}
+#searchFilters ul {list-style: none;}
+#searchFilters > ol > li > .checkbox {margin: 0 0 20px 0;}
+#searchFilters > ol > li > ul > li {margin: 0 0 30px 0;}
+#searchFilters .checkbox {margin: 0; padding-top: 2px; padding-bottom: 2px; padding-left: 25px;}
+#searchFilters .checkbox:hover,
+#searchFilters .checkbox:active,
+#searchFilters .checkbox:focus { background-color: #dadada;}
+
+#searchFilters .checkbox input {display: none;}
+#searchFilters .checkbox:hover input,
+#searchFilters .checkbox:active input,
+#searchFilters .checkbox:focus input {display: block !important;}
+
+
+
 
 
 /* clases especiales accesibilidad =========== */
@@ -1966,6 +1986,8 @@ textarea.error,
   .discover .others .kakareo.post.ley h1 {margin-bottom: 0;}
   .introDiscover .steps li {margin: 0 0 0 5px;}
   .pre {margin: 5px 0;}
+
+  #search-filters h1 {margin-top: 20px;}
 
 }
 

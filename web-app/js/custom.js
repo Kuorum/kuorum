@@ -17,12 +17,13 @@ $(document).tooltip({
 
 $(document).ready(function() {
 
-	// slider de las imágenes de fondo en la Home
-    $('.home .images').bgswitcher({
-        duration: 2000,
-        images: ['http://localhost/kuorum/images/home1.jpg', 'http://localhost/kuorum/images/home2.jpg', "http://localhost/kuorum/images/home3.jpg"]
-    });
+    $("time.timeago").timeago();
 
+	// slider de las imágenes de fondo en la Home
+	$('.home .images').bgswitcher({
+		duration: 2000,
+	  	images: ['http://localhost/kuorum/images/home1.jpg', 'http://localhost/kuorum/images/home2.jpg', "http://localhost/kuorum/images/home3.jpg"]
+	});
 
 
 	// hacer un bloque clickable y que tome que es su primer elemento la url del enlace a.hidden
@@ -32,11 +33,6 @@ $(document).ready(function() {
 			window.location = $(this).find('a.hidden').attr('href');
 		});
 
-	});
-
-
-	$('body').on('click', '.link-wrapper .popover-trigger', function() {
-		$(this).closest('.link-wrapper').preventDefault();
 	});
 
 
@@ -309,8 +305,66 @@ $(document).ready(function() {
 		$ui.find('#filters li a').bind('focus click',function(){
 			var filtro = $(this).text();
 			$ui.find('#srch-term').attr('placeholder', filtro);
+
+			if ( $(this).hasClass('enleyes') ) {
+				$('#filterSign').html('<span class="fa fa-briefcase"></span>');
+			} else if ( $(this).hasClass('enpersonas') ) {
+				$('#filterSign').html('<span class="fa fa-user"></span>');
+			} else {
+				$('#filterSign').html('');
+			}
+
 		});
 
+	});
+
+
+	//search filters
+	$('#searchFilters #todo').change(function() {
+	    var checkboxes = $(this).closest('form').find(':checkbox');
+	    if($(this).is(':checked')) {
+	        checkboxes.prop('checked', true);
+	        checkboxes.css('display','block');
+	        $('#searchFilters label').css('color','#545454');
+	    } else {
+	        checkboxes.prop('checked', false);
+	        checkboxes.css('display','none');
+	        $('#searchFilters label').css('color','#a8a8a8');
+	    }
+	});
+
+	$('#searchFilters ol > li > ul > li > .checkbox input').change(function() {
+	    var checkboxes = $(this).closest('li').find(':checkbox');
+	    $('#searchFilters #todo').prop('checked', false).css('display','none');
+	    $('#searchFilters #todo').closest('label').css('color','#a8a8a8');
+	    if($(this).is(':checked')) {
+	        checkboxes.prop('checked', true);
+	        checkboxes.css('display','block');
+	        $(this).closest('label').css('color','#545454');
+	        $(this).closest('li').find('ul > li label').css('color','#545454');
+
+	    } else {
+	        checkboxes.prop('checked', false);
+	        checkboxes.css('display','none');
+	        $(this).closest('label').css('color','#a8a8a8');
+	        $(this).closest('li').find('ul > li label').css('color','#a8a8a8');
+	    }
+	});
+
+	$('#searchFilters .only').change(function() {
+		var inputSup = $(this).closest('.checkbox').closest('ul').prev('.checkbox');
+		inputSup.find('input').prop('checked', false).css('display','none');
+		inputSup.find('label').css('color','#a8a8a8');
+		$('#searchFilters #todo').prop('checked', false).css('display','none');
+	    $('#searchFilters #todo').closest('label').css('color','#a8a8a8');
+
+	    if($(this).is(':checked')) {
+	        $(this).css('display','block');
+	        $(this).closest('label').css('color','#545454');
+	    } else {
+	        $(this).css('display','none');
+	        $(this).closest('label').css('color','#a8a8a8');
+	    }
 	});
 
 
@@ -465,6 +519,7 @@ $(document).ready(function() {
 
 	// load more
 	$("a.loadMore").on("click", function(e){loadMore(e, this)})
+
 	function loadMore(e, that) {
 
 		e.preventDefault()
@@ -499,6 +554,7 @@ $(document).ready(function() {
 		})
 		.always(function(data) {
 			$("#"+loadingId).remove()
+			$("time.timeago").timeago();
 		});
 	}
 
@@ -521,7 +577,9 @@ $(document).ready(function() {
             $("#sign4 input[type=submit]").removeClass('disabled')
         }
     }
-	// seleccionar todos los checkbox
+
+
+	//seleccionar todos los checkbox
 	$(function () {
         changeDescriptionNumSelect()
 	    var checkAll = $('#selectAll');
