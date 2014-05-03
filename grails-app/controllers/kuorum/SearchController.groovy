@@ -90,7 +90,7 @@ class SearchController{
         SolrResults docs
         if (searchParams.hasErrors()){
             docs = new SolrResults(elements: [], numResults: 0, facets: [], suggest:null)
-            searchParams.word=''
+            searchParams.word=searchParams.word?:''
         }else{
             if (searchParams.type){
                 searchParams.subTypes += searchParams.type.solrSubTypes
@@ -100,7 +100,18 @@ class SearchController{
             }
             docs = searchSolrService.search(searchParams)
         }
-        [docs:docs, seachParams:searchParams]
+        [docs:docs, searchParams:searchParams]
+    }
+
+    def modifyFilters(SearchParams searchParams) {
+        SolrResults docs
+        if (searchParams.hasErrors() || !searchParams.subTypes){
+            docs = new SolrResults(elements: [], numResults: 0, facets: [], suggest:null)
+            searchParams.word=searchParams.word?:''
+        }else{
+            docs = searchSolrService.search(searchParams)
+        }
+        render template:'/search/searchElement', model:[docs:docs.elements]
     }
 
     def searchSeeMore(SearchParams searchParams){
@@ -108,7 +119,7 @@ class SearchController{
         searchParams.validate()
         SolrResults docs = searchSolrService.search(searchParams)
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${docs.elements.size()<=searchParams.max}")
-        render template: '/search/searchElement', model:[docs:docs.elements, seachParams:searchParams]
+        render template: '/search/searchElement', model:[docs:docs.elements, searchParams:searchParams]
     }
 
     @Secured(['ROLE_ADMIN'])

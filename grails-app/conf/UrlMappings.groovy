@@ -49,6 +49,7 @@ class UrlMappings {
 
         name searcherSearch:      "/buscar"(controller: "search", action:"search")
         name searcherSearchSeeMore:"/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
+        name searcherSearchFilters:"/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
         name searcherSuggests:    "/buscar/sugerencias"(controller: "search", action:"suggest")
 
         name profileEditUser:     "/mi-perfil"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}

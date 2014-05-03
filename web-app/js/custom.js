@@ -365,8 +365,29 @@ $(document).ready(function() {
 	        $(this).css('display','none');
 	        $(this).closest('label').css('color','#a8a8a8');
 	    }
+        reloadSearchNewFilters()
 	});
 
+    $('#searchFilters input[type=checkbox]').change(function(){
+        if($(this).is(':checked')) {
+            $("#search-form input[value="+$(this).val()+"]").prop('checked', true);
+        } else {
+            $("#search-form input[value="+$(this).val()+"]").prop('checked', false);
+        }
+        reloadSearchNewFilters()
+    });
+
+    function reloadSearchNewFilters(){
+        var form = $("#searchFilters")
+        var elementToUpdate=$("#"+form.attr('data-updateElementId'))
+        $.ajax( {
+            url:form.attr("action"),
+            data:form.serialize()
+        }).done(function(data, status, xhr) {
+            $(elementToUpdate).html(data)
+        })
+
+    }
 
 	// el enlace callMobile (visible sólo en pantallas de hasta 767px, desaparece si le haces click o si llegas a la votación
 	if ( $('#vote').length > 0 ) {
