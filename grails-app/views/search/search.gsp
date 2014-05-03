@@ -27,6 +27,44 @@
 </content>
 
 <content tag="leftMenu">
-    <h1>Buscar en</h1>
-
+    <h1><g:message code="search.filters.title"/></h1>
+    <form role="form" id="searchFilters">
+        <ol class="list-unstyled">
+            <li>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="todo" ${seachParams.subTypes.size()==kuorum.core.model.solr.SolrSubType.values().size()?'checked':''}>
+                        <span class="fa fa-search"></span>
+                        <g:message code="search.filters.all"/>
+                    </label>
+                </div>
+                <ul>
+                    <g:each in="${kuorum.core.model.solr.SolrType.values()}" var="solrType">
+                        <li>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="${solrType}" ${seachParams.subTypes.findAll{it.solrType==solrType}.size()==solrType.solrSubTypes.size()?'checked':''}>
+                                    <span class="fa ${postUtil.cssIconSolrType(solrType:solrType)}"></span>
+                                    <g:message code="search.filters.SolrType.${solrType}"/>
+                                </label>
+                            </div>
+                            <ul>
+                                <g:each in="${solrType.solrSubTypes}" var="solrSubType">
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" id="propuestas" class="only" ${seachParams.subTypes.contains(solrSubType)?'checked':''}>
+                                                <span class="fa ${postUtil.cssIconSolrSubType(solrSubType: solrSubType)}"></span>
+                                                <g:message code="search.filters.SolrSubType.${solrSubType}"/>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </g:each>
+                            </ul>
+                        </li>
+                    </g:each>
+                </ul>
+            </li>
+        </ol>
+    </form>
 </content>

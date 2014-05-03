@@ -26,7 +26,7 @@ class SearchParams extends Pagination implements Serializable{
     /**
      * Filter by subtype
      */
-    SolrSubType subType
+    List<SolrSubType> subTypes
 
 
     static constraints = {

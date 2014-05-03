@@ -1,6 +1,8 @@
 package kuorum
 
 import kuorum.core.model.PostType
+import kuorum.core.model.solr.SolrSubType
+import kuorum.core.model.solr.SolrType
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 
@@ -79,6 +81,25 @@ class PostTagLib {
             case PostType.HISTORY:  out << "fa-book"; break;
             case PostType.QUESTION: out << "fa-question"; break;
             case PostType.PURPOSE:  out << "fa-lightbulb-o"; break;
+        }
+    }
+    def cssIconSolrSubType={attrs, body ->
+        SolrSubType solrSubType = attrs.solrSubType
+
+        switch (solrSubType){
+            case SolrSubType.HISTORY:  out << "fa-book"; break;
+            case SolrSubType.QUESTION: out << "fa-question"; break;
+            case SolrSubType.PURPOSE:  out << "fa-lightbulb-o"; break;
+        }
+    }
+
+    def cssIconSolrType={attrs, body ->
+        SolrType solrType= attrs.solrType
+
+        switch (solrType){
+            case SolrType.LAW:  out << "fa-briefcase"; break;
+            case SolrType.KUORUM_USER: out << "fa-user"; break;
+            case SolrType.POST:  out << "fa-paperclip"; break;
         }
     }
 

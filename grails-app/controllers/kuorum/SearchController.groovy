@@ -92,6 +92,12 @@ class SearchController{
             docs = new SolrResults(elements: [], numResults: 0, facets: [], suggest:null)
             searchParams.word=''
         }else{
+            if (searchParams.type){
+                searchParams.subTypes += searchParams.type.solrSubTypes
+            }
+            if (!searchParams.subTypes){
+                searchParams.subTypes = SolrSubType.values()
+            }
             docs = searchSolrService.search(searchParams)
         }
         [docs:docs, seachParams:searchParams]

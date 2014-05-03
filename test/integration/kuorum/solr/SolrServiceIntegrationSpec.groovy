@@ -23,18 +23,18 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
     private static final CSS_CLASS = "highlighted"
 
     @Shared
-    def params = [
-            [word:"parq",       type:null,                  subType:null],
-            [word:"parques",    type:null,                  subType:null],
-            [word:"parques na", type:null,                  subType:null],
-            [word:"parques na", type:SolrType.LAW,          subType:null],
-            [word:"parques na", type:SolrType.POST,         subType:null],
-            [word:"juanjo",     type:null,                  subType:null],
-            [word:"juanjo a",   type:SolrType.KUORUM_USER,  subType:null],
-            [word:"juanjo a",   type:SolrType.KUORUM_USER,  subType:SolrSubType.ORGANIZATION],
-            [word:"juanjo a",   type:SolrType.LAW,          subType:SolrSubType.ORGANIZATION],
-            [word:"#parquesna", type:null,                  subType:null],
-            [word:"#parquesnacionales", type:null,                  subType:null],
+    def params = [// type is not needed
+            [word:"parq",               subTypes:null],
+            [word:"parques",            subTypes:null],
+            [word:"parques na",         subTypes:null],
+            [word:"parques na",         subTypes:SolrType.LAW.solrSubTypes],
+            [word:"parques na",         subTypes:SolrType.POST.solrSubTypes],
+            [word:"juanjo",             subTypes:null],
+            [word:"juanjo a",           subTypes:SolrType.KUORUM_USER.solrSubTypes],
+            [word:"juanjo a",           subTypes:[SolrSubType.ORGANIZATION]],
+            [word:"juanjo a",           subTypes:[SolrSubType.ORGANIZATION]],
+            [word:"#parquesna",         subTypes:null],
+            [word:"#parquesnacionales", subTypes:null],
     ]
     def setup(){
         KuorumUser.collection.getDB().dropDatabase()
@@ -88,7 +88,7 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             params[2]       | 3             | 1       | 0        | "parques nacionales"
             params[3]       | 1             | 1       | 0        | "parques nacionales"
             params[4]       | 2             | 0       | 0        | "parques nacionales"
-            params[5]       | 1             | 0       | 1        | "juanjo alvite"
+            params[5]       | 2             | 0       | 1        | "juanjo alvite"
             params[6]       | 1             | 0       | 1        | "juanjo alvite"
             params[7]       | 0             | 0       | 0        | null
             params[8]       | 0             | 0       | 0        | null

@@ -39,4 +39,8 @@ enum SolrType {
     SolrType(generateSubtype){
         this.generateSubtype = generateSubtype
     }
+
+    List<SolrSubType> getSolrSubTypes(){
+        SolrSubType.values().findAll{it.solrType==this}
+    }
 }
