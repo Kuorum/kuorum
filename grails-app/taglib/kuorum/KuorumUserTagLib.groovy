@@ -19,6 +19,15 @@ class KuorumUserTagLib {
         }
     }
 
+    def showLoggedUser={attrs ->
+        attrs.showRole
+        attrs.showName
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            out << showUser(user:user, showRole: attrs.showRole, showName:attrs.showName)
+        }
+    }
+
     def showUser={attrs ->
         KuorumUser user
         String name = ""

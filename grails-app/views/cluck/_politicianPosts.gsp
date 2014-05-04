@@ -2,8 +2,12 @@
     <g:if test="${recluck}">
         <span class="from"><span class="inside"></span></span>
     </g:if>
-    <span class="type pull-left"><strong>¡Kikirikiiii!</strong></span>
-    <span itemprop="name">Nombre usuario</span>
-    <span class="action">se ha comprometido a</span> llevarla al congreso
-    <a href="#" itemprop="url"><img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"></a>
+    <span class="type pull-left"><strong>${onomatopoeia}</strong></span>
+
+    <g:if test="${defender}">
+        <userUtil:showUser user="${defender}"/>
+    </g:if>
+    <g:elseif test="${debateUsers}">
+        <userUtil:showListUsers messagesPrefix="post.show.important.usersList" users="${debateUsers}" visibleUsers="2"/>
+    </g:elseif>
 </div><!-- /autor -->

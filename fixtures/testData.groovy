@@ -5,12 +5,20 @@ include "testBasicData"
 
 fixture{
 
-    deabatePolitician(PostComment){
+    deabate1_abortoPurpose1(PostComment){
         text="Politician Debate 1"
-        dateCreated = new Date()
+        dateCreated = new Date()-1
         deleted = Boolean.FALSE
         moderated = Boolean.FALSE
         kuorumUser = politician
+    }
+
+    deabate2_abortoPurpose1(PostComment){
+        text="Peter Debate 1"
+        dateCreated = new Date()
+        deleted = Boolean.FALSE
+        moderated = Boolean.FALSE
+        kuorumUser = peter
     }
 
 }
@@ -18,7 +26,8 @@ post {
 
     postService.savePost(abortoPurpose1, abortoPurpose1.law, abortoPurpose1.owner)
     postService.publishPost(abortoPurpose1)
-    postService.addDebate(abortoPurpose1, deabatePolitician)
+    postService.addDebate(abortoPurpose1, deabate1_abortoPurpose1)
+    postService.addDebate(abortoPurpose1, deabate2_abortoPurpose1)
 
     cluckService.createCluck(abortoPurpose1, juanjoAlvite)
     cluckService.createCluck(abortoPurpose1, ecologistasEnAccion)

@@ -3,6 +3,7 @@ package kuorum
 import kuorum.core.model.PostType
 import kuorum.core.model.solr.SolrSubType
 import kuorum.core.model.solr.SolrType
+import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 
@@ -62,9 +63,13 @@ class PostTagLib {
 
     def ifIsImportant={attrs, body ->
         Post post = attrs.post
-        if (!post.debates.isEmpty() || post.defender){
+        if (isPostImpotant(post)){
             out << body()
         }
+    }
+
+    private boolean isPostImpotant(Post post){
+        !post.debates.isEmpty() || post.defender
     }
 
     def ifHasMultimedia={attrs, body ->
@@ -114,6 +119,25 @@ class PostTagLib {
         }
     }
 
+    def politiciansHeadPost={attrs ->
+        Post post = attrs.post
+
+        Boolean showRecluckArrow = false
+        if (attrs.cluck){
+            Cluck cluck = attrs.cluck
+            post = cluck.post
+            showRecluckArrow = isPostImpotant(post) && cluck.owner !=post.owner
+        }
+
+        if (post.defender){
+            def onomatopoeia = message(code:'post.show.victory.onomatopoeia')
+            out << render(template:'/cluck/politicianPosts', model:[recluck:showRecluckArrow, defender:post.defender,onomatopoeia:onomatopoeia])
+        }else if(!post.debates.isEmpty()){
+            def onomatopoeia = message(code:'post.show.debate.onomatopoeia')
+            out << render(template:'/cluck/politicianPosts', model:[recluck:showRecluckArrow, debateUsers:post.debates.kuorumUser,onomatopoeia:onomatopoeia])
+        }
+    }
+
     def progressBarMinValue={attrs ->
         Post post = attrs.post
 //        Range<Long> range = postVoteService.findPostRange(post)
@@ -133,6 +157,16 @@ class PostTagLib {
                 out << body()
             }
 
+        }
+    }
+
+    def ifUserCanAddDebates={attrs, body ->
+        Post post = attrs.post
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (postService.isAllowedToAddDebate(post, user)){
+                out << body()
+            }
         }
     }
 

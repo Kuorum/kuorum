@@ -34,7 +34,7 @@ class PostController {
         }
         List<Post> relatedPost = postService.relatedPosts(post,  user,  3 )
         List<KuorumUser> usersVotes = postVoteService.findVotedUsers(post, new Pagination(max:20))
-        [post:post,relatedPost:relatedPost, usersVotes:usersVotes]
+        [post:post,relatedPost:relatedPost, usersVotes:usersVotes, orange:post.victory || post.debates.size()>0]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

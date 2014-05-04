@@ -14,9 +14,7 @@
         <g:render template="/cluck/reCluckUser" model="[cluck:cluck]"/>
     </g:if>
 
-    <g:if test="${important}">
-        <g:render template="/cluck/politicianPosts" model="[recluck:(recluck && important)]"/>
-    </g:if>
+    <postUtil:politiciansHeadPost cluck="${cluck}"/>
 
     <article class="kakareo" role="article" data-cluck-postId="${cluck.post.id}">
         <g:if test="${recluck && !important}">
