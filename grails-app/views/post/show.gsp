@@ -60,7 +60,7 @@
         <form id="drive">
             <a class="btn  ${important?:'btn-blue'} btn-lg btn-block" href="#">Impulsa esta propuesta <br><small>es tu momento de hablar</small></a>
             <div class="form-group">
-                <label class="checkbox-inline"><input type="checkbox" value="public" id="publico"> Quiero que mi impulso sea público</label>
+                <label class="checkbox-inline"><input type="checkbox" value="private"> Quiero que mi impulso sea privado</label>
             </div>
         </form>
 
