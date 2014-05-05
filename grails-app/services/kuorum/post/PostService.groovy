@@ -40,6 +40,7 @@ class PostService {
         post.owner = owner
         post.law =  law
         post.text = removeCustomCrossScripting(post.text)
+        post.shortUrl = shortUrlService.shortUrl(post)
 
         if (post.multimedia){
             fileService.convertTemporalToFinalFile(post.multimedia)
