@@ -43,7 +43,7 @@ post {
     postService.publishPost(parquesNacionalesPurpose2)
     parquesNacionalesPurpose2.refresh()
     cluckService.createCluck(parquesNacionalesPurpose2, juanjoAlvite)
-//    postService.defendPost(parquesNacionalesPurpose2, politician)
+    postService.defendPost(parquesNacionalesPurpose2, politician)
 
     kuorumUserService.createFollower(juanjoAlvite,equo)
     kuorumUserService.createFollower(juanjoAlvite,ecologistasEnAccion)
