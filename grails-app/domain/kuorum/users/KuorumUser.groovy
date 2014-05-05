@@ -29,6 +29,7 @@ class KuorumUser {
     Boolean verified = Boolean.FALSE
 
     KuorumFile avatar
+    KuorumFile imageProfile
 
     PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
@@ -76,6 +77,7 @@ class KuorumUser {
         password nullable:false, blank: false
         bio nullable:true
         avatar nullable:true
+        imageProfile nullable:true
         userType nullable: false, validator:{val, obj ->
             obj.personalData.userType == val
         }

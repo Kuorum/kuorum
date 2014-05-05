@@ -18,13 +18,21 @@ class ImagesTagLib {
             out << getDefaultAvatar(user)
         }
     }
+    def userImgProfile={attrs ->
+        KuorumUser user = attrs.user
+        if (user.imageProfile){
+            out << user.imageProfile.url
+        }else{
+            out << getDefaultImgProfile(user)
+        }
+    }
 
     def solrUserImgSrc={attrs ->
         SolrKuorumUser user = attrs.user
         if (user.urlImage){
             out << user.urlImage
         }else{
-            out << getDefaultAvatar(null)
+            out << getDefaultAvatar(user)
         }
     }
 
@@ -41,6 +49,11 @@ class ImagesTagLib {
 
     private String getDefaultAvatar(KuorumUser user){
         //User can be null
-        g.resource(dir:'images', file: 'pre-user.jpg')
+        g.resource(dir:'images', file: 'user-default.jpg')
+    }
+
+    private String getDefaultImgProfile(KuorumUser user){
+        //User can be null
+        g.resource(dir:'images', file: 'img-userprofile.jpg')
     }
 }

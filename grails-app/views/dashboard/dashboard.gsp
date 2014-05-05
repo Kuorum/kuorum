@@ -6,16 +6,8 @@
 
 
 <content tag="mainContent">
-    <!-- COMIENZA LISTA DE KAKAREOS Y SEGUIMIENTOS -->
-    <ul id="dashboard-kakareos-id" class="kakareo-list" role="log" aria-live="assertive" aria-relevant="additions">
-        <g:render template="liClucks" model="[clucks:clucks]"/>
-    </ul>
-    <!-- ver más -->
-    <div id="load-more" class="text-center">
-        <g:link mapping="dashboardSeeMore" class="loadMore" data-parent-id="dashboard-kakareos-id">
-            <g:message code="dashboard.clucks.seeMore"/>
-        </g:link>
-    </div>
+    <g:set var="urlLoadMore" value="${createLink(mapping: 'dashboardSeeMore')}"/>
+    <g:render template="/cluck/listClucks" model="[clucks:clucks, urlLoadMore:urlLoadMore]"/>
 </content>
 
 <content tag="cColumn">

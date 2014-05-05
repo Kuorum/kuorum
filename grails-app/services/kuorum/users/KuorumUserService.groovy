@@ -6,7 +6,10 @@ import kuorum.ParliamentaryGroup
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.UserType
+import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
+import kuorum.law.Law
+import kuorum.post.Post
 
 @Transactional
 class KuorumUserService {
@@ -137,5 +140,18 @@ class KuorumUserService {
         kuorumMailService.mailingListUpdateUser(user)
 
         user
+    }
+
+    List<UserParticipating> listUserActivityPerLaw(KuorumUser user){
+        def userActivity = Post.collection.aggregate(
+                [$match : ['$or':[[owner:user.id], [defender:user.id]]]],
+                [$group :[_id:'$law',quantity:[$sum:1]]]
+        )
+        List<UserParticipating> activity = []
+        userActivity.results().each{
+            UserParticipating userParticipating = new UserParticipating(law:Law.get(it._id), numTimes: it.quantity)
+            activity << userParticipating
+        }
+        activity
     }
 }

@@ -105,7 +105,7 @@ function createFirstCluck(post){
     var cluck ={
         owner:post.owner,
         postOwner:post.owner,
-        supportedBy:null,
+        defendedBy:null,
         sponsors:[],
         isFirstCluck:true,
         law:post.law,

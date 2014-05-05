@@ -90,6 +90,17 @@ class KuorumUserTagLib {
         }
     }
 
+    def listFollowers={attrs ->
+        KuorumUser user = attrs.user
+        List<KuorumUser> users = user.followers.collect{id -> KuorumUser.load(id)}
+        out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.follower.userList')
+    }
+
+    def listFollowing={attrs ->
+        KuorumUser user = attrs.user
+        List<KuorumUser> users = user.following.collect{id -> KuorumUser.load(id)}
+        out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.following.userList')
+    }
 
     def roleName={attrs ->
         KuorumUser user = attrs.user
@@ -129,6 +140,7 @@ class KuorumUserTagLib {
 
     def followButton={attrs ->
         KuorumUser user = attrs.user
+        String cssSize = attrs.cssSize?:'btn-xs'
         if (springSecurityService.isLoggedIn()){
             def linkAjaxFollow = g.createLink(mapping:'ajaxFollow', params: [id:user.id])
             def linkAjaxUnFollow = g.createLink(mapping:'ajaxUnFollow', params: [id:user.id])
@@ -142,7 +154,7 @@ class KuorumUserTagLib {
                 text = g.message(code:"kuorumUser.popover.follow")
             }
             out << """
-        <button type="button" class="btn btn-blue btn-xs allow ${cssClass}" id="follow" data-ajaxFollowUrl="${linkAjaxFollow}" data-ajaxUnFollowUrl="${linkAjaxUnFollow}">
+        <button type="button" class="btn btn-blue ${cssSize} allow ${cssClass}" id="follow" data-ajaxFollowUrl="${linkAjaxFollow}" data-ajaxUnFollowUrl="${linkAjaxUnFollow}">
             ${text}
         </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
         """

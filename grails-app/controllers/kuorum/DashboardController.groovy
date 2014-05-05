@@ -35,7 +35,7 @@ class DashboardController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<Cluck> clucks =  cluckService.dashboardClucks(user, pagination)
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${clucks.size()<=pagination.max}")
-        render template: "/dashboard/liClucks", model:[clucks:clucks]
+        render template: "/cluck/liClucks", model:[clucks:clucks]
     }
 
     def landingPage(){
