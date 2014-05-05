@@ -47,12 +47,12 @@ class ImagesTagLib {
     }
 
 
-    private String getDefaultAvatar(KuorumUser user){
+    private String getDefaultAvatar(def user){
         //User can be null
         g.resource(dir:'images', file: 'user-default.jpg')
     }
 
-    private String getDefaultImgProfile(KuorumUser user){
+    private String getDefaultImgProfile(def user){
         //User can be null
         g.resource(dir:'images', file: 'img-userprofile.jpg')
     }
