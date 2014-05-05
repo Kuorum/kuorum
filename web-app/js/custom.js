@@ -165,7 +165,7 @@ $(document).ready(function() {
             $('.likes .progress-bar').attr("aria-valuetransitiongoal",numLikes)
             $('.likes .progress-bar').attr("aria-valuenow",numLikes)
             $('.likes .progress-bar').attr("aria-valuemax",limitTo)
-            $('#drive > a').html('Ya la has impulsado <br><small>es tu momento de hablar</small>').addClass('disabled');
+            $('#drive > a').html(i18n.post.show.boxes.like.vote.buttonVoted).addClass('disabled');
             $("#drive :input").attr("disabled", true);
             prepareProgressBar()
             setTimeout(prepareProgressBar, 500)

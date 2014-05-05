@@ -24,7 +24,20 @@
                     }
                 }
             }
+        },
+        post:{
+            show:{
+                boxes:{
+                    like:{
+                        vote:{
+                            button:'<g:message code="post.show.boxes.like.vote.button"/>',
+                            buttonVoted:'<g:message code="post.show.boxes.like.vote.buttonVoted"/>'
+                        }
+                    }
+                }
+            }
         }
+
     }
 
 

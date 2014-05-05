@@ -58,11 +58,14 @@
             <userUtil:showListUsers users="${usersVotes}" visibleUsers="5" messagesPrefix="post.show.boxes.like.userList"/>
         </div>
         <form id="drive">
-            <g:link mapping="postVoteIt" class="btn  ${important?:'btn-blue'} btn-lg btn-block" params="${post.encodeAsLinkProperties()}" data-postId="${post.id}">
-                Impulsa esta propuesta <br><small>es tu momento de hablar</small>
+            <g:link mapping="postVoteIt" class="${userVote?'disabled':''} btn  ${important?:'btn-blue'} btn-lg btn-block" params="${post.encodeAsLinkProperties()}" data-postId="${post.id}">
+                <g:message code="post.show.boxes.like.vote.${userVote?'buttonVoted':'button'}" encodeAs="raw"/>
             </g:link>
             <div class="form-group">
-                <label class="checkbox-inline"><input type="checkbox" name="anonymous" value="private"/> Quiero que mi impulso sea privado</label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="anonymous" value="private" ${userVote?'disabled':''} ${userVote?.anonymous?'checked':''}/>
+                    <g:message code="post.show.boxes.like.vote.anonymousCheckBoxLabel"/>
+                </label>
             </div>
         </form>
 
