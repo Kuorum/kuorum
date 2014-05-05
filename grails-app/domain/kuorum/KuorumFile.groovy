@@ -8,7 +8,21 @@ import org.bson.types.ObjectId
 class KuorumFile {
 
     ObjectId id
-    KuorumUser user
+/**
+ * It is a trick for embedded this object
+ */
+    transient KuorumUser user
+    ObjectId userId
+    void setUser(KuorumUser user){
+        userId = user.id
+        this.user = user
+    }
+
+    KuorumUser getUser(){
+        if (!user)
+            user = KuorumUser.get(userId)
+        user
+    }
     /**
      * Define if the image is stored on kuorumServer or is externarl
      */

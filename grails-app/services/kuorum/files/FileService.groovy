@@ -131,7 +131,7 @@ class FileService {
      * @param user
      */
     void deleteTemporalFiles(KuorumUser user){
-        KuorumFile.findAllByUserAndTemporal(user, Boolean.TRUE).each {KuorumFile kuorumFile ->
+        KuorumFile.findAllByUserIdAndTemporal(user.id, Boolean.TRUE).each {KuorumFile kuorumFile ->
             deleteFile(kuorumFile)
         }
     }

@@ -97,7 +97,7 @@ class FileServiceSpec extends Specification {
 
         if (numValidFiles > 0)
             (1..numValidFiles).each{
-                KuorumFile kuorumFinalFile = KuorumFile.findByUserAndTemporal(user,Boolean.TRUE)
+                KuorumFile kuorumFinalFile = KuorumFile.findByUserIdAndTemporal(user.id,Boolean.TRUE)
                 service.convertTemporalToFinalFile(kuorumFinalFile)
             }
 
@@ -105,9 +105,9 @@ class FileServiceSpec extends Specification {
         when:"deleting temporal files"
         service.deleteTemporalFiles(user)
         then:
-        KuorumFile.findAllByUserAndTemporal(user, Boolean.TRUE).size() == 0
-        KuorumFile.findAllByUser(controlUser).size() == controlFiles
-        KuorumFile.findAllByUserAndTemporal(user, Boolean.FALSE).size() == numValidFiles
+        KuorumFile.findAllByUserIdAndTemporal(user.id, Boolean.TRUE).size() == 0
+        KuorumFile.findAllByUserId(controlUser.id).size() == controlFiles
+        KuorumFile.findAllByUserIdAndTemporal(user.id, Boolean.FALSE).size() == numValidFiles
         KuorumFile.count() == numValidFiles + controlFiles
         File tmpDir = new File("${grailsApplication.config.kuorum.upload.serverPath}${service.TMP_PATH}")
         if (controlFiles > 0)
