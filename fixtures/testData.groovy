@@ -29,6 +29,7 @@ post {
     postService.addDebate(abortoPurpose1, deabate1_abortoPurpose1)
     postService.addDebate(abortoPurpose1, deabate2_abortoPurpose1)
 
+
     cluckService.createCluck(abortoPurpose1, juanjoAlvite)
     cluckService.createCluck(abortoPurpose1, ecologistasEnAccion)
     abortoPurpose1.refresh() // Is necesary because fixture sets the last cluck created to abortoPurpose1.firstCluck. I don't know why
@@ -42,6 +43,7 @@ post {
     postService.publishPost(parquesNacionalesPurpose2)
     parquesNacionalesPurpose2.refresh()
     cluckService.createCluck(parquesNacionalesPurpose2, juanjoAlvite)
+    postService.defendPost(parquesNacionalesPurpose2, politician)
 
     kuorumUserService.createFollower(juanjoAlvite,equo)
     kuorumUserService.createFollower(juanjoAlvite,ecologistasEnAccion)
