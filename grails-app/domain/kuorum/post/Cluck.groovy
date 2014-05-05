@@ -19,7 +19,7 @@ class Cluck {
     /**
      *The politician user who has supported the Cluck
      */
-    KuorumUser supportedBy
+    KuorumUser defendedBy
 
     /**
      * The sponsors who has financed any amount of money
@@ -45,7 +45,7 @@ class Cluck {
         owner index:true
         law index:true
         lastUpdated index:true
-        supportedBy nullable: true,  index:true
+        defendedBy nullable: true,  index:true
     }
 
     static mapping = {

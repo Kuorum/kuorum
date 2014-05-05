@@ -23,8 +23,23 @@ class CluckService {
         def result = criteria.list(max:pagination.max, offset:pagination.offset) {
             or {
                 'in'("owner",userList)
-                'in'("supportedBy",userList)
+                'in'("defendedBy",userList)
                 'in'("sponsors.kuorumUserId",userList)
+            }
+            order("lastUpdated","asc")
+        }
+        result
+
+    }
+
+    List<Cluck> userClucks(KuorumUser kuorumUser, Pagination pagination = new Pagination()){
+
+        def criteria = Cluck.createCriteria()
+        def result = criteria.list(max:pagination.max, offset:pagination.offset) {
+            or {
+                'eq'("owner",kuorumUser)
+                'eq'("defendedBy",kuorumUser)
+                'eq'("sponsors.kuorumUserId",kuorumUser.id)
             }
             order("lastUpdated","asc")
         }

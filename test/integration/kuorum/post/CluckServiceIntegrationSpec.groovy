@@ -66,6 +66,29 @@ class CluckServiceIntegrationSpec extends Specification{
     }
 
     @Unroll
+    void "test user clucks for user #email founding #numClucks clucks"() {
+        given: "A user"
+        KuorumUser kuorumUser = KuorumUser.findByEmail(email)
+
+        when: "Saving a post"
+        List<Cluck> clucks = cluckService.userClucks(kuorumUser)
+
+        then: "Check the results are in order"
+            clucks.size() == numClucks
+            if (numClucks>0){
+                clucks.sort { a, b -> a.lastUpdated <=> b.lastUpdated }.last() == clucks.last()
+                clucks.sort { a, b -> a.lastUpdated <=> b.lastUpdated }.first() == clucks.first()
+            }
+        where:
+            email                           | numClucks
+            "juanjoalvite@example.com"      | 2
+            "peter@example.com"             | 1
+            "equo@example.com"              | 2
+            "politician@example.com"        | 1
+            "admin@example.com"             | 0
+    }
+
+    @Unroll
     void "test clucks for law #hashtag founding #numClucks clucks"() {
         given: "A user"
         Law law = Law.findByHashtag(hashtag)
