@@ -146,7 +146,7 @@ class PostTagLib {
     def progressBarMaxValue={attrs ->
         Post post = attrs.post
         Range<Long> range = postVoteService.findPostRange(post)
-        out << range.to
+        out << range.to +1
     }
 
     def ifPostIsEditable={attrs, body->

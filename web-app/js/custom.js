@@ -86,16 +86,7 @@ $(document).ready(function() {
 		threshold:0
 	});
 
-
-	// animo la progress-bar de boxes.likes
-	$('.likes .progress-bar').progressbar({
-		done: function() {
-	    		var posTooltip = $('.progress-bar').width();
-	    		console.log(posTooltip);
-                $('#m-callback-done').css('left', posTooltip).css('opacity', '1');
-            }
-	});
-
+    prepareProgressBar();
 
 	//tooltip visible sobre la progress bar
 	$('.progress-bar').tooltip({trigger: 'manual', placement: 'top'}).tooltip('show');
@@ -126,25 +117,61 @@ $(document).ready(function() {
 		});
 	});
 
-
-	// links kakareo, impulsar
-	$('.action.cluck, .action.drive').click( function(e) {
-		e.preventDefault();
+    // links kakareo, impulsar
+    $('.action.cluck').click( function(e) {
+        e.preventDefault();
         e.stopPropagation();
         if (!$(this).hasClass('disabled')){
             var url = $(this).attr("href");
             var postId = $(this).parents("article").first().attr("data-cluck-postId");
-            var cssClass = $(this).parent().hasClass("kakareo-number")?"kakareo-number":"like-number";
             $.ajax(url).done(function(data){
-                console.log("article[data-cluck-postId='"+postId+"'] li."+cssClass+" .action");
-                $("article[data-cluck-postId='"+postId+"'] li."+cssClass+" .action").addClass('disabled');
-                $("article[data-cluck-postId='"+postId+"'] li."+cssClass+" .counter").each(function(idx, element){
+                $("article[data-cluck-postId='"+postId+"'] li.kakareo-number .action").addClass('disabled');
+                $("article[data-cluck-postId='"+postId+"'] li.kakareo-number .counter").each(function(idx, element){
                     var numKakareos = parseInt($(element).text()) +1;
                     $(element).text(numKakareos);
                 });
             });
         }
+    });
+
+	// links kakareo, impulsar
+	$('.action.drive').click( function(e) {
+		e.preventDefault();
+        e.stopPropagation();
+        if (!$(this).hasClass('disabled')){
+            var url = $(this).attr("href");
+            var postId = $(this).parents("article").first().attr("data-cluck-postId");
+            votePost(url, postId, false)
+
+        }
 	});
+
+    function votePost(url, postId, anonymous){
+        $.ajax({
+            url:url,
+            data:{postId:postId, anonymous:anonymous}
+        }).done(function(data){
+            var numLikes = data.numLikes
+            var limitTo = data.limitTo
+            $("article[data-cluck-postId='"+postId+"'] li.like-number .action").addClass('disabled');
+            $("article[data-cluck-postId='"+postId+"'] li.like-number .counter").each(function(idx, element){
+                numLikes = parseInt($(element).text()) +1;
+                $(element).text(numLikes);
+            });
+
+            //If Page == Post
+            var progressBarNumLikes = $("section.boxes.noted.likes > .likesContainer > div > .likesCounter")
+            $('#m-callback-done').css('opacity', '0');
+            $('.likes .progress-bar').attr("aria-valuetransitiongoal",numLikes)
+            $('.likes .progress-bar').attr("aria-valuenow",numLikes)
+            $('.likes .progress-bar').attr("aria-valuemax",limitTo)
+            $('#drive > a').html('Ya la has impulsado <br><small>es tu momento de hablar</small>').addClass('disabled');
+            prepareProgressBar()
+            setTimeout(prepareProgressBar, 500)
+//                setTimeout(prepareProgressBar, 1000)
+
+        });
+    }
 
 
 	// leer después
@@ -236,7 +263,10 @@ $(document).ready(function() {
 	// Deshabilitar botón Impulsar (Post)
 	$('body').on("click", "#drive .btn", function(e) {
 		e.preventDefault();
-		$(this).html('Ya la has impulsado <br><small>es tu momento de hablar</small>').addClass('disabled');
+        var anonymous = $("#drive :input").is(":checked")
+        var url = $(this).attr("href")
+        var postId = $(this).attr("data-postId")
+		votePost(url, postId, anonymous)
 	});
 
 
@@ -675,6 +705,17 @@ $(document).ready(function() {
 	})
 
 });
+
+function prepareProgressBar(){
+    // animo la progress-bar de boxes.likes
+    $('.likes .progress-bar').progressbar({
+        done: function() {
+            var posTooltip = $('.progress-bar').width();
+            $('#m-callback-done').css('left', posTooltip).css('opacity', '1');
+            $('#m-callback-done > .likesCounter').html($('.likes .progress-bar').attr("aria-valuenow"))
+        }
+    });
+}
 
 
 // funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)

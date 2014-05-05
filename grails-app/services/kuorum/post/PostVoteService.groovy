@@ -17,7 +17,11 @@ class PostVoteService {
         if (post.id == null || kuorumUser.id == null){
             throw new KuorumException("El post o el usuario no se han salvado previamente en BBDD","error.postVoteService.paramsError")
         }
-        PostVote postVote = new PostVote()
+        PostVote postVote = PostVote.findByPostAndUser(post,kuorumUser)
+        if (postVote){
+            throw new KuorumException("Este usuario ya habia votado","error.postVoteService.userAleradyVote")
+        }
+        postVote = new PostVote()
         postVote.personalData = kuorumUser.personalData
         postVote.post = post
         postVote.user = kuorumUser

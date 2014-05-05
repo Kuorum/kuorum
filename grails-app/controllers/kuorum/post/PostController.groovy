@@ -1,5 +1,6 @@
 package kuorum.post
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.FileType
@@ -227,10 +228,11 @@ class PostController {
     @Secured('isAuthenticated()')
     def votePost() {
         KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
+        Boolean anonymous = params.privateVote?Boolean.valueOf(params.privateVote):Boolean.FALSE
         Post post = params.post
-        //Cluck cluck = cluckService.createCluck(post, kuorumUser)
-        postVoteService.votePost(post, kuorumUser)
-        //TODO: que se renderiza
-        render "OK"
+//        postVoteService.votePost(post, kuorumUser, anonymous)
+        post.numVotes ++
+        Range<Long> range = postVoteService.findPostRange(post)
+        render ([numLikes:post.numVotes, limitTo:range.to +1] as JSON)
     }
 }
