@@ -1,6 +1,7 @@
 package kuorum.post
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.FileType
@@ -41,10 +42,14 @@ class PostController {
         [post:post,relatedPost:relatedPost, usersVotes:usersVotes, orange:post.victory || post.debates.size()>0,userVote:userVote]
     }
 
+    private Boolean alowedToEditPost(Post post){
+        !(post.owner.id == springSecurityService.principal.id || SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN"))
+    }
+
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def edit(){
         Post post = params.post
-        if (post.owner.id != springSecurityService.principal.id){
+        if (alowedToEditPost(post)){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
         }
@@ -66,7 +71,7 @@ class PostController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        if (post.owner.id != springSecurityService.principal.id){
+        if (alowedToEditPost(post)){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
         }
