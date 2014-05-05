@@ -22,6 +22,7 @@ fixture {
         gender =  Gender.ORGANIZATION
         userType = UserType.ORGANIZATION
         isPoliticalParty = Boolean.FALSE
+        country = spain
     }
 
     equo(KuorumUser){

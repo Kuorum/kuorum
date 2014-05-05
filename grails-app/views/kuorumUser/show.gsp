@@ -44,7 +44,7 @@
         <p>Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend reformidans ei. Omnium euismod in pri, eam ei oblique numquam dignissim, vel et erant nostro suscipiantur.</p>
         <p>Te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend reformidans ei. Omnium euismod in pri, eam ei oblique numquam dignissim, vel et erant nostro suscipiantur.</p>
         <ul class="socialContact">
-            <li><span class="fa fa-map-marker fa-lg"></span> ${user.personalData.province.name}</li>
+            <li><span class="fa fa-map-marker fa-lg"></span> ${provinceName}</li>
             <li><span class="fa fa-twitter fa-lg"></span> <a href="#" target="_blank" rel="nofollow">@twitter</a></li>
             <li><span class="fa fa-facebook fa-lg"></span> <a href="#" target="_blank" rel="nofollow">facebook.com/menganito</a></li>
             <li><span class="fa fa-linkedin fa-lg"></span> <a href="#" target="_blank" rel="nofollow">linkedin.com/menganito</a></li>

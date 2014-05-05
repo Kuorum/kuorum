@@ -56,6 +56,7 @@ class CustomRegisterController {
             personalData = new OrganizationData()
             personalData.isPoliticalParty = false
             personalData.gender = Gender.ORGANIZATION
+            personalData.country = country
         }else{
             personalData = new PersonData()
             personalData.birthday = command.date
