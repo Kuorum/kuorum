@@ -30,12 +30,15 @@ class PostController {
     def show(){
         Post post = params.post //Intellij Detects type for autocomplete
         KuorumUser user= null
+        PostVote userVote=null
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
+            userVote = PostVote.findByPostAndUser(post,user)
         }
         List<Post> relatedPost = postService.relatedPosts(post,  user,  3 )
         List<KuorumUser> usersVotes = postVoteService.findVotedUsers(post, new Pagination(max:20))
-        [post:post,relatedPost:relatedPost, usersVotes:usersVotes, orange:post.victory || post.debates.size()>0]
+
+        [post:post,relatedPost:relatedPost, usersVotes:usersVotes, orange:post.victory || post.debates.size()>0,userVote:userVote]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -228,10 +231,9 @@ class PostController {
     @Secured('isAuthenticated()')
     def votePost() {
         KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
-        Boolean anonymous = params.privateVote?Boolean.valueOf(params.privateVote):Boolean.FALSE
+        Boolean anonymous = params.anonymous?Boolean.valueOf(params.anonymous):Boolean.FALSE
         Post post = params.post
-//        postVoteService.votePost(post, kuorumUser, anonymous)
-        post.numVotes ++
+        postVoteService.votePost(post, kuorumUser, anonymous)
         Range<Long> range = postVoteService.findPostRange(post)
         render ([numLikes:post.numVotes, limitTo:range.to +1] as JSON)
     }
