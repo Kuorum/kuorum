@@ -169,7 +169,29 @@ class PostServiceIntegrationSpec extends Specification{
         where:
             email                       | amount | total
             "equo@example.com"          | 5      | 10
-            "ecologistas@example.com"   | 5      | 5
+            "ecologistas@example.com"   | 5      | 12
+            "peter@example.com"         | 5      | 5
+    }
+
+    void "test defending post"(){
+        setup: "Given a post to defend"
+        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser politician = KuorumUser.findByEmail("politician@example.com")
+        Post post = Post.findByOwner(user)
+        postService.publishPost(post) //Create firstCluck
+        when: "sponsoring the post"
+        Post newPost = postService.defendPost(post, politician)
+        then: "The post has a defender"
+        newPost
+        newPost.defender.email          == "politician@example.com"
+        post.defender.email             == "politician@example.com"
+        newPost.firstCluck.defendedBy.email == "politician@example.com"
+        post.firstCluck.defendedBy.email   == "politician@example.com"
+        Post.withNewSession {
+            Post newSessionPost = Post.get(post.id)
+            newSessionPost.defender.email          == "politician@example.com"
+            newSessionPost.firstCluck.defendedBy.email   == "politician@example.com"
+        }
     }
 
     void "test adding comments"() {

@@ -34,13 +34,16 @@ class PostService {
      */
     Post savePost(Post post, Law law, KuorumUser owner) {
 
-        //post.owner = KuorumUser.get(springSecurityService.principal?.id)
+        if (!law || !owner){
+            KuorumException exception = new KuorumException("No se ha indicado el dieño ${owner} o la ley ${law}", "error.post.saving.data")
+            log.error("No se ha indicado el dieño ${owner} o la ley ${law}")
+            throw exception
+        }
         post.numVotes = 0
         post.numClucks = 0
         post.owner = owner
         post.law =  law
         post.text = removeCustomCrossScripting(post.text)
-        post.shortUrl = shortUrlService.shortUrl(post)
 
         if (post.multimedia){
             fileService.convertTemporalToFinalFile(post.multimedia)
@@ -52,6 +55,8 @@ class PostService {
             log.warn("No se ha podido salvar un post debido a ${post.errors}")
             throw exception
         }
+        post.shortUrl = shortUrlService.shortUrl(post) //Short URL needs the post id
+        post.save()
         log.info("Se ha creado el post ${post.id}")
         post
     }
@@ -302,5 +307,16 @@ class PostService {
 
     List<Post> lawVictories(Law law, Pagination pagination = new Pagination()){
         Post.findAllByLawAndVictory(law,Boolean.TRUE,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
+    }
+
+    Post defendPost(Post post, KuorumUser politician){
+        if (politician.userType != UserType.POLITICIAN){
+            throw new KuorumException("El usuario ${politician.name} (${politician.id}) no es un político para defender la publicacion ${post.id}", "error.security.post.defend.isNotPolitician")
+        }
+        Post.collection.update ( [_id:post.id],['$set':[defender:politician.id]])
+        Cluck.collection.update([_id:post.firstCluck.id],['$set':[defendedBy:politician.id, lastUpdated:new Date()]])
+        post.refresh()
+        post.firstCluck.refresh()
+        post
     }
 }
