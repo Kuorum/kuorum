@@ -42,12 +42,7 @@
             </ul>
         </div>
         <p>${user.bio?.replaceAll('<br>','</p><p>')}</p>
-        <ul class="socialContact">
-            <li><span class="fa fa-map-marker fa-lg"></span> ${provinceName}</li>
-            <li><span class="fa fa-twitter fa-lg"></span> <a href="#" target="_blank" rel="nofollow">@twitter</a></li>
-            <li><span class="fa fa-facebook fa-lg"></span> <a href="#" target="_blank" rel="nofollow">facebook.com/menganito</a></li>
-            <li><span class="fa fa-linkedin fa-lg"></span> <a href="#" target="_blank" rel="nofollow">linkedin.com/menganito</a></li>
-        </ul>
+        <g:render template="userSocial" model="[user:user, provinceName:provinceName]"/>
     </article>
 
     <g:set var="urlLoadMore" value="${createLink(mapping: 'dashboardSeeMore')}"/>

@@ -5,6 +5,7 @@ import kuorum.core.model.gamification.GamificationAward
 import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
+import kuorum.users.SocialLinks
 
 fixture {
 
@@ -26,6 +27,12 @@ fixture {
         provinceCode = "EU-SP-MD-MD"
         province = madrid
         birthday = Date.parse("dd/MM/yyyy","09/10/1980")
+    }
+
+    juanjoSocial(SocialLinks){
+        google="https://plus.google.com/12345678890/posts"
+        facebook="https://www.facebook.com/sarahreynolds.fitness"
+        twitter="kuorumorg"
     }
 
     juanjoAlvite(KuorumUser){

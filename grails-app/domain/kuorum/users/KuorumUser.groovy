@@ -47,10 +47,11 @@ class KuorumUser {
 
     Gamification gamification = new Gamification()
     Activity activity = new Activity()
+    SocialLinks socialLinks = new SocialLinks()
 
 //    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
 
-    static embedded = ['personalData', 'authorities','gamification','avatar', 'activity','imageProfile']
+    static embedded = ['personalData', 'authorities','gamification','avatar', 'activity','imageProfile','socialLinks']
 
     /**
      * Represents the last time that the user checked the notifications
