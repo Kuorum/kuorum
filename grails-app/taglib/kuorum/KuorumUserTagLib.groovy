@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.core.model.solr.SolrPost
 import kuorum.users.KuorumUser
@@ -104,11 +105,14 @@ class KuorumUserTagLib {
 
     def roleName={attrs ->
         KuorumUser user = attrs.user
-        out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")
-    }
-    def roleNameSolrUser={attrs ->
-        SolrKuorumUser user = attrs.user
-        out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.role}.${user.gender}")
+        if (user.userType == UserType.POLITICIAN){
+            String rolePolitician = user.parliamentaryGroup.name
+            if (!user.enabled)
+                rolePolitician = "${g.message(code:"kuorumUser.role.politicianInactive")} [${rolePolitician}]"
+            out << rolePolitician
+        }else{
+            out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")
+        }
     }
 
     def ifIsFollower={attrs, body ->

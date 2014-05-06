@@ -10,7 +10,7 @@
                     <img src="${image.solrUserImgSrc(user:solrUser)}" alt="${solrUser.name}" class="user-img" itemprop="image"><span itemprop="name">${raw(solrUser.highlighting.name)}</span>
                 </a>
                 <span class="user-type">
-                    <small>${userUtil.roleNameSolrUser(user:solrUser)}</small>
+                    <small>${userUtil.roleName(user:user)}</small>
                 </span>
             </div><!-- /user -->
             <userUtil:followButton user="${user}"/>

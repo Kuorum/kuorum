@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.users.KuorumUser
 
@@ -52,8 +53,13 @@ class ImagesTagLib {
         g.resource(dir:'images', file: 'user-default.jpg')
     }
 
-    private String getDefaultImgProfile(def user){
+    private String getDefaultImgProfile(KuorumUser user){
         //User can be null
-        g.resource(dir:'images', file: 'img-userprofile.jpg')
+        def defaultImage = g.resource(dir:'images', file: 'img-userprofile.jpg')
+        if (user && user.userType==UserType.POLITICIAN && !user.enabled){
+            //Inactive politician
+            defaultImage = g.resource(dir:'images', file: 'img-politicianprofile.jpg')
+        }
+
     }
 }

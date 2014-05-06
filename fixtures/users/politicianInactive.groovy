@@ -5,43 +5,37 @@ import kuorum.core.model.gamification.GamificationAward
 import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
-import kuorum.users.SocialLinks
 
 fixture {
 
-    log.info "Creando usuario 'juanjo alvite' "
-
-
-    juanjoGamification(Gamification){
-        numEggs = 10
-        numPlumes = 10
-        numCorns = 20
-        activeRole = GamificationAward.ROLE_ACTIVISTA
-        boughtAwards = [GamificationAward.ROLE_DEFAULT,  GamificationAward.ROLE_ACTIVISTA]
+    politicianInactiveGamification(Gamification){
+        numEggs = 0
+        numPlumes = 0
+        numCorns = 0
+        activeRole = GamificationAward.ROLE_DEFAULT
+        boughtAwards = [GamificationAward.ROLE_DEFAULT ]
     }
 
-    juanjoPersonalData(PersonData){
+    politicianInactiveData(PersonData){
         gender =  Gender.MALE
-        userType = UserType.PERSON
+        userType = UserType.POLITICIAN
         postalCode = "28001"
         provinceCode = "EU-SP-MD-MD"
         province = madrid
-        birthday = Date.parse("dd/MM/yyyy","09/10/1980")
+        userType = UserType.POLITICIAN
+        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
     }
 
-    juanjoSocial(SocialLinks){
-        googlePlus="https://plus.google.com/12345678890/posts"
-        facebook="https://www.facebook.com/sarahreynolds.fitness"
-        twitter="kuorumorg"
-    }
-
-    juanjoAlvite(KuorumUser){
-        email = "juanjoalvite@example.com"
-        name ="Juanjo Alvite"
-        personalData = juanjoPersonalData
+    politicianInactive(KuorumUser){
+//        username = "Peter"
+        email = "politicianInactive@example.com"
+        name ="Ansar de la city"
+        userType = UserType.POLITICIAN
+        personalData = politicianInactiveData
         password = springSecurityService.encodePassword("test")
-        following = []
+        parliamentaryGroup=grupoPopular
         verified = Boolean.FALSE
+        institution=parliament
         relevantCommissions = [
                 CommissionType.JUSTICE,
                 CommissionType.CONSTITUTIONAL,
@@ -67,17 +61,17 @@ fixture {
                 CommissionType.OTHERS
         ]
         language ="es_ES"
-        userType = UserType.PERSON
+        userType = UserType.POLITICIAN
         favorites = []
+        gamification = politicianInactiveGamification
         numFollowers = 0
-        gamification = juanjoGamification
         lastNotificationChecked = Date.parse("dd/MM/yyyy","09/09/2012")
 
         accountExpired = false
         accountLocked = false
-        authorities = [roleUser,rolePremium]
+        authorities = [roleUser,rolePolitician]
         dateCreated = Date.parse("dd/MM/yyyy","20/11/2013")
-        enabled = true
+        enabled = false
         lastUpdated = Date.parse("dd/MM/yyyy","01/11/2013")
         passwordExpired = false
     }

@@ -74,7 +74,7 @@ class KuorumUserController {
             def politicianStats =[postDefended:0, victories:0, debates:0]
             render (view:"show", model:[user:politician, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName,politicianStats:politicianStats])
         }else{
-
+            render (view:"showInactivePolitician", model:[user:politician, provinceName:provinceName])
         }
     }
 

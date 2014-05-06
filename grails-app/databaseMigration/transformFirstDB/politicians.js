@@ -27,7 +27,6 @@ function createKuorumUserFromPolitician(politician){
     var politicalParties = dbOrigin.politicalParty.find({_id:politician.politicalParty})
     var politicalPartyOrg = politicalParties.hasNext() ? politicalParties.next() : null;
 
-    print("parliamentaryGroup: "+politicalPartyOrg.longName)
     var parliamentaryGroups = dbDest.parliamentaryGroup.find({name:politicalPartyOrg.politicalGroup.name})
     var parliamentaryGroup = parliamentaryGroups.hasNext() ? parliamentaryGroups.next() : null;
 
@@ -38,7 +37,29 @@ function createKuorumUserFromPolitician(politician){
 
     var institutions = dbDest.institution.find({name:"Parlamento Español"})
     var institution = institutions.hasNext() ? institutions.next() : null;
-    var region = dbDest.region.find({"iso3166_2" : "EU-ES"})[0]
+//    var region = dbDest.region.find({"iso3166_2" : "EU-ES"})[0]
+    var provinceName = politician.province.split('_').slice(-1)[0]
+    var region = dbDest.region.find({name:{ $regex: provinceName, $options: 'i' } })[0]
+    if (region == undefined){
+        if (provinceName == "GUIPUZCUA") region = dbDest.region.find({"iso3166_2" : "EU-ES-PV-SS"})[0]
+        else if (provinceName == "VIZCAYA") region = dbDest.region.find({"iso3166_2" : "EU-ES-PV-BI"})[0]
+        else if (provinceName == "GERONA") region = dbDest.region.find({"iso3166_2" : "EU-ES-CT-GE"})[0]
+        else if (provinceName == "CORUNIA") region = dbDest.region.find({"iso3166_2" : "EU-ES-GA-CO"})[0]
+        else if (provinceName == "ALMERIA") region = dbDest.region.find({"iso3166_2" : "EU-ES-AN-AL"})[0]
+        else if (provinceName == "LEON") region = dbDest.region.find({"iso3166_2" : "EU-ES-CL-LE"})[0]
+        else if (provinceName == "ORENSE") region = dbDest.region.find({"iso3166_2" : "EU-ES-GA-OR"})[0]
+        else if (provinceName == "MALAGA") region = dbDest.region.find({"iso3166_2" : "EU-ES-AN-MA"})[0]
+        else if (provinceName == "LERIDA") region = dbDest.region.find({"iso3166_2" : "EU-ES-CT-LL"})[0]
+        else if (provinceName == "ATURIAS") region = dbDest.region.find({"iso3166_2" : "EU-ES-AS-AS"})[0]
+        else if (provinceName == "CACERES") region = dbDest.region.find({"iso3166_2" : "EU-ES-EX-CC"})[0]
+        else if (provinceName == "CADIZ") region = dbDest.region.find({"iso3166_2" : "EU-ES-AN-CA"})[0]
+        else if (provinceName == "ALABA") region = dbDest.region.find({"iso3166_2" : "EU-ES-PV-VI"})[0]
+        else if (provinceName == "AVILA") region = dbDest.region.find({"iso3166_2" : "EU-ES-CL-AV"})[0]
+        else if (provinceName == "MELILLA") region = dbDest.region.find({"iso3166_2" : "EU-ES-ML"})[0]
+        else print("No se ha encontrado la region "+provinceName)
+
+    }
+
 
     var id = new ObjectId();
     var kuorumUser = {
