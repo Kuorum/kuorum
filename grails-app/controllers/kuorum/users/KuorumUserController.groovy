@@ -91,7 +91,7 @@ class KuorumUserController {
             return;
         }
         KuorumUser follower = KuorumUser.get(springSecurityService.principal.id)
-        kuorumUserService.createFollower(follower, following)
+        kuorumUserService.deleteFollower(follower, following)
         render follower.following.size()
     }
 

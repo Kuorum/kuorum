@@ -239,12 +239,39 @@ $(document).ready(function() {
 	}, "#follow.disabled"); //pass the element as an argument to .on
 
 	$('body').on("click", "#follow", function() {
-		if ( $(this).hasClass('disabled') ){
-			$(this).html('Seguir <span class="fa fa-check-circle"></span>').removeClass('disabled').addClass('enabled');
+        var buttonFollow= $(this)
+		if ( buttonFollow.hasClass('disabled') ){
+            var url = buttonFollow.attr("data-ajaxunfollowurl")
+            ajaxFollow(url, buttonFollow, function(data, status, xhr) {
+                buttonFollow.html('Seguir <span class="fa fa-check-circle"></span>').removeClass('disabled').addClass('enabled');
+            });
 		} else {
-			$(this).html('Siguiendo <span class="fa fa-check-circle"></span>').removeClass('enabled').addClass('disabled');
+            var url = buttonFollow.attr("data-ajaxfollowurl")
+            ajaxFollow(url, buttonFollow, function(data, status, xhr) {
+                buttonFollow.html('Siguiendo <span class="fa fa-check-circle"></span>').removeClass('enabled').addClass('disabled');
+            });
 		}
 	});
+
+    function ajaxFollow(url, buttonFollow, doneFunction){
+        $.ajax( {
+            url:url,
+            statusCode: {
+                401: function() {
+                    display.info("Estás deslogado")
+                    setTimeout('location.reload()',5000);
+                }
+            },
+            beforeSend: function(){
+                buttonFollow.html('<div class="loading xs"><span class="sr-only">Cargando...</span></div>')
+            },
+            complete:function(){
+                console.log("end")
+            }
+        }).done(function(data, status, xhr) {
+            doneFunction(data,status,xhr)
+        })
+    }
 
 
 	// Deshabilitar enlaces números (descubre)
