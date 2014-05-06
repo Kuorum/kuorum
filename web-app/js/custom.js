@@ -264,9 +264,9 @@ $(document).ready(function() {
 	// Deshabilitar botón Impulsar (Post)
 	$('body').on("click", "#drive .btn", function(e) {
 		e.preventDefault();
-        var anonymous = $("#drive :input").is(":checked")
-        var url = $(this).attr("href")
-        var postId = $(this).attr("data-postId")
+		var anonymous = $("#drive :input").is(":checked")
+		var url = $(this).attr("href")
+		var postId = $(this).attr("data-postId")
 		votePost(url, postId, anonymous)
 	});
 
@@ -351,6 +351,9 @@ $(document).ready(function() {
 
 
 	//search filters
+	$('#searchFilters input:checked').css('display','block');
+	$('#searchFilters input:checked').closest('label').css('color','#545454');
+
 	$('#searchFilters #todo').change(function() {
 	    var checkboxes = $(this).closest('form').find(':checkbox');
 	    if($(this).is(':checked')) {
