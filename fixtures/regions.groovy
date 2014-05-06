@@ -431,12 +431,12 @@ fixture {
 
     /****** Ceuta *******/
     ceutaCA(Region){
-        name ="ceuta (CA)"
+        name ="Ceuta (CA)"
         iso3166_2 = "EU-ES-CE"
         superRegion = spain
     }
     ceuta(Region){
-        name ="Cantabria"
+        name ="Ceuta"
         iso3166_2 = "EU-ES-CE-CE" // ES-CE
         superRegion = ceutaCA
         postalCode = "51"
@@ -444,12 +444,12 @@ fixture {
 
     /****** Melilla *******/
     melillaCA(Region){
-        name ="ceuta (CA)"
+        name ="Melilla (CA)"
         iso3166_2 = "EU-ES-ML"
         superRegion = spain
     }
     melilla(Region){
-        name ="Cantabria"
+        name ="Melilla"
         iso3166_2 = "EU-ES-ML-ML" // ES-ML
         superRegion = melillaCA
         postalCode = "52"
