@@ -39,7 +39,7 @@ function createKuorumUserFromPolitician(politician){
     var institution = institutions.hasNext() ? institutions.next() : null;
 //    var region = dbDest.region.find({"iso3166_2" : "EU-ES"})[0]
     var provinceName = politician.province.split('_').slice(-1)[0]
-    var region = dbDest.region.find({name:{ $regex: provinceName, $options: 'i' } })[0]
+    var region = dbDest.region.find({name:{ $regex: provinceName, $options: 'i' }, iso3166_2:/EU-ES-.{2}-.*/ })[0]
     if (region == undefined){
         if (provinceName == "GUIPUZCUA") region = dbDest.region.find({"iso3166_2" : "EU-ES-PV-SS"})[0]
         else if (provinceName == "VIZCAYA") region = dbDest.region.find({"iso3166_2" : "EU-ES-PV-BI"})[0]
@@ -55,7 +55,8 @@ function createKuorumUserFromPolitician(politician){
         else if (provinceName == "CADIZ") region = dbDest.region.find({"iso3166_2" : "EU-ES-AN-CA"})[0]
         else if (provinceName == "ALABA") region = dbDest.region.find({"iso3166_2" : "EU-ES-PV-VI"})[0]
         else if (provinceName == "AVILA") region = dbDest.region.find({"iso3166_2" : "EU-ES-CL-AV"})[0]
-        else if (provinceName == "MELILLA") region = dbDest.region.find({"iso3166_2" : "EU-ES-ML"})[0]
+//        else if (provinceName == "MELILLA") region = dbDest.region.find({"iso3166_2" : "EU-ES-ML-ML"})[0]
+//        else if (provinceName == "MADRID") region = dbDest.region.find({"iso3166_2" : "EU-ES-MD-MD"})[0]
         else print("No se ha encontrado la region "+provinceName)
 
     }
