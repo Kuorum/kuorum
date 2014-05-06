@@ -25,7 +25,7 @@
 
     <article itemtype="http://schema.org/Article" itemscope role="article" class="noprofile">
         <h1><g:message code="kuorumUser.show.politicianInactive.text.h1"/> </h1>
-        <a href="#" class="btn btn-blue btn-lg btn-block">Quiero que <strong>Nombre político</strong> <br>se una a kuorum</a>
+        <userUtil:followButton user="${user}" prefixMessages="kuorumUser.follow.inactivePolitician" cssSize="btn-lg"/>
 
         <h2><g:message code="kuorumUser.show.politicianInactive.text.p1.title"/></h2>
         <p><g:message code="kuorumUser.show.politicianInactive.text.p1.text"/></p>
@@ -38,7 +38,7 @@
         <p><g:message code="kuorumUser.show.politicianInactive.text.p3.text2"/></p>
 
 
-        <a href="#" class="btn btn-blue btn-lg btn-block">Quiero que <strong>Nombre político</strong> <br>se una a kuorum</a>
+        <userUtil:followButton user="${user}" prefixMessages="kuorumUser.follow.inactivePolitician" cssSize="btn-lg"/>
     </article>
 </content>
 

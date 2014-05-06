@@ -222,19 +222,19 @@ $(document).ready(function() {
 	// botón Seguir de las cajas popover y página ley-participantes
 	$(document).on({
 	    mouseenter: function () {
-	        $(this).html('Seguir <span class="fa fa-check-circle"></span>');
+            $(this).html($(this).attr('data-message-follow_hover'));
 	    },
 	    mouseleave: function () {
-	        $(this).html('Seguir');
+            $(this).html($(this).attr('data-message-follow'));
 	    }
 	}, "#follow.enabled"); //pass the element as an argument to .on
 
 	$(document).on({
 	    mouseenter: function () {
-	        $(this).html('No seguir');
+	        $(this).html($(this).attr('data-message-unfollow_hover'));
 	    },
 	    mouseleave: function () {
-	        $(this).html('Siguiendo <span class="fa fa-check-circle"></span>');
+	        $(this).html($(this).attr('data-message-unfollow'));
 	    }
 	}, "#follow.disabled"); //pass the element as an argument to .on
 
@@ -243,12 +243,16 @@ $(document).ready(function() {
 		if ( buttonFollow.hasClass('disabled') ){
             var url = buttonFollow.attr("data-ajaxunfollowurl")
             ajaxFollow(url, buttonFollow, function(data, status, xhr) {
-                buttonFollow.html('Seguir <span class="fa fa-check-circle"></span>').removeClass('disabled').addClass('enabled');
+                var message = buttonFollow.attr('data-message-follow');
+                var userId = buttonFollow.attr('data-userId');
+                $("button[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
             });
 		} else {
             var url = buttonFollow.attr("data-ajaxfollowurl")
             ajaxFollow(url, buttonFollow, function(data, status, xhr) {
-                buttonFollow.html('Siguiendo <span class="fa fa-check-circle"></span>').removeClass('enabled').addClass('disabled');
+                var message = buttonFollow.attr('data-message-unfollow');
+                var userId = buttonFollow.attr('data-userId');
+                $("button[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
             });
 		}
 	});
@@ -266,7 +270,7 @@ $(document).ready(function() {
                 buttonFollow.html('<div class="loading xs"><span class="sr-only">Cargando...</span></div>')
             },
             complete:function(){
-                console.log("end")
+//                console.log("end")
             }
         }).done(function(data, status, xhr) {
             doneFunction(data,status,xhr)
