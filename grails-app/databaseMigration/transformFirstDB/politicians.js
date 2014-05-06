@@ -38,6 +38,7 @@ function createKuorumUserFromPolitician(politician){
 
     var institutions = dbDest.institution.find({name:"Parlamento Español"})
     var institution = institutions.hasNext() ? institutions.next() : null;
+    var region = dbDest.region.find({"iso3166_2" : "EU-ES"})[0]
 
     var id = new ObjectId();
     var kuorumUser = {
@@ -53,7 +54,7 @@ function createKuorumUserFromPolitician(politician){
         "bio":politician.history,
         "userType":"POLITICIAN",
         "avatar":createAvatar(id,"USER_AVATAR", politician.photo),
-        "enabled" : true,
+        "enabled" : false,
         "followers" : [],
         "following" : [],
         "favorites" : [],
@@ -68,10 +69,9 @@ function createKuorumUserFromPolitician(politician){
             _class:"PersonData",
             "birthday" : null,
             "gender" : "MALE",
-            "postalCode" : null,
-            "regionCode" : null,
-            "provinceCode":null,
-            "province":null,
+            "postalCode" : region.postalCode,
+            "provinceCode":region.iso3166_2,
+            "province":region,
             "studies":null,
             "workingSector":null
 //            "version" : NumberLong(0)

@@ -1,3 +1,4 @@
+<%@ page import="kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="kuorum.name"/> </title>
@@ -51,39 +52,33 @@
 </content>
 
 <content tag="cColumn">
-    <section class="boxes userkarma">
-        <h1><span class="fa fa-user"></span><g:message code="kuorumUser.show.userkarma.title"/> </h1>
-        <p><g:message code="kuorumUser.show.userkarma.description"/></p>
-        <ul class="activity">
-            <li><span class="counter">${user.gamification.numEggs}</span> <span class="icon-Flaticon_17919"></span> <br>votos</li>
-            <li><span class="counter">${user.gamification.numCorns}</span> <span class="icon-Flaticon_20188"></span> <br>impulsos</li>
-            <li><span class="counter">${user.gamification.numPlumes}</span> <span class="icon-Flaticon_24178"></span> <br>propuestas</li>
-        </ul>
-        %{--<button id="follow" class="btn btn-blue btn-lg allow enabled" type="button">Seguir</button>--}%
-        <userUtil:followButton user="${user}" cssSize="btn-lg"/>
-    </section>
+    <g:if test="${user.userType==UserType.POLITICIAN}">
+        <g:render template="politicianKarmaProfile" model="[user:user, politicianStats:politicianStats]"/>
+    </g:if>
+    <g:else>
+        <g:render template="userKarmaProfile" model="[user:user]"/>
+    </g:else>
 
     <section class="boxes follow">
-        <h1><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> Siguiendo</h1>
-        <div class="kakareo follow">
-            <userUtil:listFollowers user="${user}"/>
-        </div>
-    </section>
-
-    <section class="boxes follow">
-        <h1><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> Seguidores</h1>
+        <h1><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> <g:message code="kuorumUser.show.module.following.title"/></h1>
         <div class="kakareo follow">
             <userUtil:listFollowing user="${user}"/>
         </div>
     </section>
 
+    <section class="boxes follow">
+        <h1><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> <g:message code="kuorumUser.show.module.followers.title"/> </h1>
+        <div class="kakareo follow">
+            <userUtil:listFollowers user="${user}"/>
+        </div>
+    </section>
+
     <g:if test="${activeLaws}">
         <section class="boxes laws">
-            <h1><span class="fa fa-briefcase"></span> Leyes en las que participa</h1>
+            <h1><span class="fa fa-briefcase"></span><g:message code="kuorumUser.show.module.activeLaws.title"/> </h1>
             <ul>
                 <g:each in="${activeLaws}" var="activity">
                     <li>
-                    %{--<a href="#">${activity.law.hashtag}</a>--}%
                         <g:link mapping="lawShow" params="${activity.law.encodeAsLinkProperties()}">
                             ${activity.law.hashtag}
                         </g:link>
@@ -91,7 +86,11 @@
                     </li>
                 </g:each>
             </ul>
-            <div class="text-center" id="load-more"><a href="#">Ver todas</a></div>
+            <div class="text-center" id="load-more">
+                <a href="#">
+                    <g:message code="kuorumUser.show.module.activeLaws.seeMore"/>
+                </a>
+            </div>
         </section>
     </g:if>
 </content>

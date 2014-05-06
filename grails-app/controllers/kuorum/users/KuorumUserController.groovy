@@ -38,6 +38,11 @@ class KuorumUserController {
 
     def showCitizen(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
+        if (user.userType != UserType.PERSON){
+            redirect(mapping: "userShow", params: user.encodeAsLinkProperties())
+            return
+        }
+
         List<Cluck> clucks = cluckService.userClucks(user)
         List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(user)
         String provinceName = user.personalData.province.name
@@ -47,7 +52,8 @@ class KuorumUserController {
     def showOrganization(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
         if (user.userType != UserType.ORGANIZATION){
-
+            redirect(mapping: "userShow", params: user.encodeAsLinkProperties())
+            return
         }
         List<Cluck> clucks = cluckService.userClucks(user)
         List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(user)
@@ -56,10 +62,20 @@ class KuorumUserController {
     }
 
     def showPolitician(String id){
-        KuorumUser user = KuorumUser.get(new ObjectId(id))
-        List<Cluck> clucks = cluckService.userClucks(user)
-        List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(user)
-        render (view:"show", model:[user:user])
+        KuorumUser politician = KuorumUser.get(new ObjectId(id))
+        if (politician.userType != UserType.POLITICIAN){
+            redirect(mapping: "userShow", params: politician.encodeAsLinkProperties())
+            return
+        }
+        String provinceName = politician.personalData.province.name
+        if (politician.enabled){
+            List<Cluck> clucks = cluckService.userClucks(politician)
+            List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(politician)
+            def politicianStats =[postDefended:0, victories:0, debates:0]
+            render (view:"show", model:[user:politician, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName,politicianStats:politicianStats])
+        }else{
+
+        }
     }
 
     def userFollowers(String id){
