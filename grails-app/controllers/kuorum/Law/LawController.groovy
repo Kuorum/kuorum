@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.Region
 import kuorum.core.model.VoteType
+import kuorum.core.model.gamification.GamificationElement
 import kuorum.law.Law
 import kuorum.law.LawVote
 import kuorum.post.Post
@@ -19,6 +20,7 @@ class LawController {
     def postService
     def cluckService
     def springSecurityService
+    def gamificationService
 
     def index(){
         [lawInstanceList:Law.findAll()]
@@ -145,10 +147,19 @@ class LawController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         LawVote lawVote = lawService.voteLaw(law, user, voteType)
         Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
+        def gamification = [
+                title: "${message(code:'law.vote.gamification.title', args:[law.hashtag])}",
+                text:"${message(code:'law.vote.gamification.motivationText', args:[law.hashtag])}",
+                eggs:gamificationService.gamificationConfigVoteLaw()[GamificationElement.EGG]?:0,
+                plumes:gamificationService.gamificationConfigVoteLaw()[GamificationElement.PLUME]?:0,
+                corns:gamificationService.gamificationConfigVoteLaw()[GamificationElement.CORN]?:0
+        ]
+
         render ([
                 necessaryVotesForKuorum:necessaryVotesForKuorum,
                 voteType:lawVote.voteType.toString(),
-                votes:law.peopleVotes
+                votes:law.peopleVotes,
+                gamification:gamification
         ] as JSON)
     }
 }

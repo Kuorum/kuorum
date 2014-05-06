@@ -17,6 +17,9 @@ class GamificationService {
         grailsApplication.config.kuorum.gamification
     }
 
+    def gamificationConfigVotePost(){ gamificationConfig().votePost }
+    def gamificationConfigVoteLaw(){ gamificationConfig().voteLaw }
+    def gamificationConfigCreatePost(){ gamificationConfig().newPost }
     def postCreatedAward(KuorumUser user, Post post) {
         def config = gamificationConfig().newPost
         updateGamificationUser(user,config)
@@ -28,12 +31,12 @@ class GamificationService {
     }
 
     def postVotedAward(KuorumUser user, Post post){
-        def config = gamificationConfig().votePost
+        def config = gamificationConfigVotePost()
         updateGamificationUser(user,config)
     }
 
     def sponsorAPostAward(KuorumUser sponsor, Integer numMailsSent){
-        def config = gamificationConfig().votePost.collectEntries{ k, v -> [k, v * numMailsSent] }
+        def config = gamificationConfigVotePost().collectEntries{ k, v -> [k, v * numMailsSent] }
         updateGamificationUser(sponsor,config)
     }
 

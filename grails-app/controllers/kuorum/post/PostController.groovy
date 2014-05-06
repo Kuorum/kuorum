@@ -6,6 +6,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.FileType
 import kuorum.core.model.PostType
+import kuorum.core.model.gamification.GamificationElement
 import kuorum.core.model.search.Pagination
 import kuorum.law.Law
 import kuorum.users.KuorumUser
@@ -23,6 +24,7 @@ class PostController {
     def springSecurityService
     def lawService
     def cluckService
+    def gamificationService
 
     def index() {
         [postInstanceList:Post.list()]
@@ -240,6 +242,13 @@ class PostController {
         Post post = params.post
         postVoteService.votePost(post, kuorumUser, anonymous)
         Range<Long> range = postVoteService.findPostRange(post)
-        render ([numLikes:post.numVotes, limitTo:range.to +1] as JSON)
+        def gamification = [
+                title: "${message(code:'post.show.boxes.like.vote.gamification.title', args:[post.owner.name])}",
+                text:"${message(code:'post.show.boxes.like.vote.gamification.motivationText', args:[post.owner.name])}",
+                eggs:gamificationService.gamificationConfigVotePost()[GamificationElement.EGG]?:0,
+                plumes:gamificationService.gamificationConfigVotePost()[GamificationElement.PLUME]?:0,
+                corns:gamificationService.gamificationConfigVotePost()[GamificationElement.CORN]?:0
+        ]
+        render ([numLikes:post.numVotes, limitTo:range.to +1, gamification:gamification] as JSON)
     }
 }

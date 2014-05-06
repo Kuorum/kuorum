@@ -91,13 +91,8 @@ $(document).ready(function() {
 	//tooltip visible sobre la progress bar
 	$('.progress-bar').tooltip({trigger: 'manual', placement: 'top'}).tooltip('show');
 
-
-	// apertura de karma
-	function openKarma () {
-		$('#karma').fadeIn().addClass('in');
-	}
 	$('body').on('click', '#karma .close', function() {
-		$('#karma').css('display','none').removeClass('in');
+		karma.close()
  	});
 
 
@@ -170,6 +165,9 @@ $(document).ready(function() {
             prepareProgressBar()
             setTimeout(prepareProgressBar, 500)
 //                setTimeout(prepareProgressBar, 1000)
+
+            console.log(data.gamification)
+            karma.open(data.gamification)
 
         });
     }
@@ -322,6 +320,7 @@ $(document).ready(function() {
             $('ul.activity li.NEGATIVE span').html(data.votes.no)
             $('ul.activity li.ABSTENTION span').html(data.votes.abs)
             $('.kuorum span.counter').html(data.necessaryVotesForKuorum)
+            karma.open(data.gamification)
         })
 	});
 
@@ -740,6 +739,56 @@ $(document).ready(function() {
 	})
 
 });
+
+var karma = {
+    title:"",
+    text:"",
+
+    numEggs:0,
+    numPlumes:0,
+    numCorns:0,
+    open:function(options){
+        if (options != undefined){
+            this.numEggs = options.eggs || 0
+            this.numPlumes = options.plumes || 0
+            this.numCorns = options.corns || 0
+            this.text = options.text || ""
+            this.title = options.title || ""
+        }
+        this._open()
+    },
+
+    close:function(){
+        $('#karma').css('display','none').removeClass('in');
+    },
+
+    _idLiEggs:"karmaEggs",
+    _idLiPlumes:"karmaPlumes",
+    _idLiCorn:"karmaCorn",
+    _open:function(){
+        this._prepareKarma()
+        $('#karma').fadeIn().addClass('in');
+    },
+
+    _prepareKarma:function(){
+        console.log(this.title)
+        $("#karma h2").html(this.title)
+        var motivation = $("#karma p span")
+        var motivationText = "<span class='"+motivation.attr('class')+"'>"+motivation.html()+"</span>"
+        $("#karma p").html(this.text +"<br>"+motivationText)
+
+        $("ul.karma li").removeClass("active");
+        this._prepareIcon(this._idLiEggs, this.numEggs)
+        this._prepareIcon(this._idLiPlumes, this.numPlumes)
+        this._prepareIcon(this._idLiCorn, this.numCorns)
+    },
+
+    _prepareIcon:function(liId, quantity){
+        $("#"+liId+" .counter").html("+"+quantity)
+        if (quantity > 0) $("#"+liId).addClass("active")
+    }
+}
+
 
 function prepareProgressBar(){
     // animo la progress-bar de boxes.likes
