@@ -3,6 +3,7 @@ package kuorum.post
 import grails.converters.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import kuorum.core.exception.KuorumException
 import kuorum.helper.Helper
 import kuorum.law.Law
 import kuorum.notifications.NotificationService
@@ -74,18 +75,37 @@ class PostVoteServiceSpec extends Specification {
         false      | false
     }
 
+
+    void "test voting twice"() {
+        given: "A post and an user"
+        //fixtureLoader.load("testData")
+        Post post = Helper.createDefaultPost().save()
+        KuorumUser user = Helper.createDefaultUser("user@example.com").save()
+        PostVote postVote = service.votePost(post,user)
+        when: "Voting a post twice"
+        //"service" represents the grails service you are testing for
+
+        long numVotes = post.numVotes
+        PostVote postVote2 = service.votePost(post,user)
+
+        then: "Exception thrown"
+        final KuorumException exception = thrown()
+        exception.errors[0].code == "error.postVoteService.userAleradyVote"
+        numVotes == post.numVotes
+    }
+
     @Unroll
     void "test voting post #votes times"() {
         given: "A post"
         //fixtureLoader.load("testData")
         Post post = Helper.createDefaultPost().save()
-        KuorumUser user = Helper.createDefaultUser("user@example.com").save()
 
         when: "Voting a post"
         //"service" represents the grails service you are testing for
         long numVotes = post.numVotes
 
         (1..votes).each{
+            KuorumUser user = Helper.createDefaultUser("user${it}@example.com").save()
             PostVote postVote = service.votePost(post,user)
         }
 
