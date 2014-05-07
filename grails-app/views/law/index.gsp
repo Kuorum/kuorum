@@ -1,64 +1,49 @@
+<%@ page import="kuorum.core.model.VoteType; kuorum.core.model.PostType" %>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    %{--<title>${law.shortName}</title>--}%
+    <meta name="layout" content="normalLayout">
+</head>
 
-<%@ page import="kuorum.law.Law" %>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'law.label', default: 'Law')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
-	</head>
-	<body>
-		<a href="#list-law" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="list-law" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-				<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<table>
-			<thead>
-					<tr>
-					
-						<g:sortableColumn property="dateCreated" title="${message(code: 'law.dateCreated.label', default: 'Date Created')}" />
-					
-						<g:sortableColumn property="description" title="${message(code: 'law.description.label', default: 'Description')}" />
-					
-						<g:sortableColumn property="hashtag" title="${message(code: 'law.hashtag.label', default: 'Hashtag')}" />
-					
-						<g:sortableColumn property="introduction" title="${message(code: 'law.introduction.label', default: 'Introduction')}" />
 
-					
-						<g:sortableColumn property="realName" title="${message(code: 'law.realName.label', default: 'Real Name')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${lawInstanceList}" status="i" var="lawInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td>${fieldValue(bean: lawInstance, field: "dateCreated")}</td>
-					
-						<td>${fieldValue(bean: lawInstance, field: "description")}</td>
-					
-						<td><g:link mapping="lawShow" params="${law.encodeAsLinkProperties()}">${fieldValue(bean: lawInstance, field: "hashtag")}</g:link></td>
-					
-						<td>${fieldValue(bean: lawInstance, field: "introduction")}</td>
+<content tag="mainContent">
+    <div class="intro">
+        <h1>Todas las leyes</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dignissim augue eget eros fermentum eu pellentesque erat congue. Proin convallis justo at massa rhoncus non posuere nibh imperdiet.</p>
+        <form id="all-laws" role="form" class="form-inline">
+            <div class="form-group">
+                <label for="region" class="sr-only">Filtrar por región</label>
+                <select class="form-control" id="region">
+                    <option value="Elegir region">Filtrar por región</option>
+                    <option value="Region1">Región 1</option>
+                    <option value="Region2">Región 2</option>
+                    <option value="Region3">Región 3...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="materia" class="sr-only">Filtrar por materia</label>
+                <select class="form-control" id="materia">
+                    <option value="Elegir materia">Filtrar por materia</option>
+                    <option value="Materia1">Región 1</option>
+                    <option value="Materia2">Región 2</option>
+                    <option value="Materia3">Región 3...</option>
+                </select>
+            </div>
+        </form>
+    </div>
 
-					
-						<td>${fieldValue(bean: lawInstance, field: "realName")}</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${lawInstanceCount ?: 0}" />
-			</div>
-		</div>
-	</body>
-</html>
+    <div class="block-results">
+
+        <g:each in="${groupLaws}" var="region">
+            <h1>${region.key}</h1>
+            <g:each in="${region.value}" var="group">
+                <h3>Leyes sobre ${group.commission}</h3>
+                <ul>
+                    <g:each in="${group.elements}" var="law">
+                        <li> <g:link mapping="lawShow" params="${law.encodeAsLinkProperties()}">${law.name}</g:link> </li>
+                    </g:each>
+                </ul>
+            </g:each>
+
+        </g:each>
+</content>

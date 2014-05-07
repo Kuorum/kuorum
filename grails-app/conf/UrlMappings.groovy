@@ -7,6 +7,7 @@ class UrlMappings {
         name discover:         "/descubre" (controller: "dashboard", action:"discover")
 
         name lawCreate:     "/leyes/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
+        name laws:          "/leyes/$regionName?/$commision?" (controller: "law", action:"index")
         name lawShow:       "/leyes/$regionName/$commision/$hashtag" (controller: "law", action:"show")
         name lawEdit:       "/leyes/$regionName/$commision/$hashtag/editar"(controller: "law", action:"edit")
         name lawUpdate:     "/leyes/$regionName/$commision/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}

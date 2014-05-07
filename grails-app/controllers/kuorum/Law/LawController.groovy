@@ -6,6 +6,8 @@ import kuorum.Institution
 import kuorum.Region
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
+import kuorum.core.model.search.SearchLaws
+import kuorum.core.model.solr.SolrLawsGrouped
 import kuorum.law.Law
 import kuorum.law.LawVote
 import kuorum.post.Post
@@ -21,9 +23,29 @@ class LawController {
     def cluckService
     def springSecurityService
     def gamificationService
+    def searchSolrService
 
     def index(){
-        [lawInstanceList:Law.findAll()]
+        //TODO: Think pagination.This page is only for google and scrappers
+        SearchLaws searchParams = new SearchLaws(max: 1000)
+//        searchParams.commissionType = CommissionType.valueOf(params.commision)
+        def groupLaws =[:]
+        if (params.regionName){
+            searchParams.regionName = params.regionName
+            List<SolrLawsGrouped> lawsPerRegion = searchSolrService.listLaws(searchParams)
+            if (lawsPerRegion){
+                searchParams.regionName = lawsPerRegion.elements[0].regionName
+            }
+            groupLaws.put(searchParams.regionName  , lawsPerRegion)
+        }else{
+            Region.list().each {
+                searchParams.regionName = it.name
+                List<SolrLawsGrouped> lawsPerRegion = searchSolrService.listLaws(searchParams)
+                if (lawsPerRegion)
+                    groupLaws.put("${searchParams.regionName}" , lawsPerRegion)
+            }
+        }
+        [groupLaws:groupLaws]
     }
 
     def show(String hashtag){

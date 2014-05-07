@@ -8,6 +8,7 @@ import kuorum.core.model.VoteType
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.solr.IndexSolrService
+import kuorum.solr.SearchSolrService
 import kuorum.users.GamificationService
 import kuorum.users.KuorumUser
 
@@ -15,6 +16,7 @@ import kuorum.users.KuorumUser
 class LawService {
 
     IndexSolrService indexSolrService
+    SearchSolrService searchSolrService
     GamificationService gamificationService
     ShortUrlService shortUrlService
     def grailsApplication

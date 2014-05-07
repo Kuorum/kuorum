@@ -1,9 +1,9 @@
 package kuorum.solr
 
 import grails.test.spock.IntegrationSpec
-import kuorum.core.model.search.SearchParams
-import kuorum.core.model.solr.SolrAutocomplete
-import kuorum.core.model.solr.SolrResults
+import kuorum.core.model.CommissionType
+import kuorum.core.model.search.SearchLaws
+import kuorum.core.model.solr.SolrLawsGrouped
 import kuorum.core.model.solr.SolrSubType
 import kuorum.core.model.solr.SolrType
 import kuorum.users.KuorumUser
@@ -46,7 +46,7 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
     void "search on solr the : #params -> #quantity"() {
         given: "searh worf ..."
             SearchParams searchParams = new SearchParams(params)
-        when: "Search for"
+        when: "Searching"
             SolrResults results = searchSolrService.search(searchParams)
         then:
             results.numResults == quantity
@@ -94,5 +94,23 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             params[8]       | 0             | 0       | 0        | null
             params[9]       | 0             | 0       | 0        | "#parquesnacionales"
 
+    }
+
+    @Unroll
+    void "test list laws: #regionName, #commission "(){
+        given:"Region"
+        SearchLaws searchLaws = new SearchLaws(regionName:regionName, commissionType: commission)
+        when:"search for "
+        List<SolrLawsGrouped>  laws = searchSolrService.listLaws(searchLaws)
+        then:
+        laws.size() == numGroups
+        where:
+        regionName          | commission                | numGroups
+        "espana"            | CommissionType.JUSTICE    | 1
+        "espana"            | CommissionType.NUTRITION_AND_ENVIRONMENT   | 1
+        "espana"            | CommissionType.DEFENSE    | 0
+        "espana"            | null                      | 2
+        "Madrid"            | CommissionType.DEFENSE    | 0
+        "Madrid"            | null                      | 1
     }
 }

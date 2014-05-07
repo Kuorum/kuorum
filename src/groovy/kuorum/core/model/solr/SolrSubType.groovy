@@ -1,5 +1,9 @@
 package kuorum.core.model.solr
 
+import kuorum.core.model.LawStatusType
+import kuorum.core.model.PostType
+import kuorum.core.model.UserType
+
 /**
  * Created by iduetxe on 17/02/14.
  */
@@ -11,5 +15,15 @@ enum SolrSubType {
     SolrType solrType
     SolrSubType (SolrType solrType){
         this.solrType = solrType
+    }
+
+    static SolrSubType fromOriginalType(def originalType){
+        if (originalType instanceof LawStatusType){
+            SolrType.valueOf(originalType.toString())
+        }else if (originalType instanceof UserType){
+            SolrType.valueOf(originalType.toString())
+        }else if (originalType instanceof PostType){
+            SolrType.valueOf(originalType.toString())
+        }
     }
 }

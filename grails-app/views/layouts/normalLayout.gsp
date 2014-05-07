@@ -7,9 +7,13 @@
 
     <body>
         <g:render template="/layouts/head"/>
-        <div class="row main">
-            <g:pageProperty name="page.mainContent"/>
-        </div><!-- #main -->
+    <div class="row main">
+        <div class="container-fluid onecol list">
+            <section id="main" role="main">
+                <g:pageProperty name="page.mainContent"/>
+            </section>
+        </div>
+    </div><!-- #main -->
 
         <g:if test="${Boolean.parseBoolean(pageProperty(name:'page.preFooter').toString())}">
             <g:include controller="modules" action="registerFooterRelevantUsers"/>

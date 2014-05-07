@@ -205,7 +205,7 @@ class IndexSolrService {
     }
 
     SolrLaw createSolrElement(Law law){
-        new SolrLaw(
+        SolrLaw solrLaw = new SolrLaw(
             id:law.id.toString(),
             name:law.shortName,
             type:SolrType.LAW,
@@ -218,6 +218,8 @@ class IndexSolrService {
             regionIso3166_2: law.region.iso3166_2,
             urlImage: law.image?.url
         )
+        solrLaw.metaClass.commission_group = law.commissions[0]
+        solrLaw
     }
 
     SolrLaw recoverLawFromSolr(SolrDocument solrDocument){

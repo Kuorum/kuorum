@@ -2,10 +2,13 @@ package kuorum.solr
 
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.CommissionType
+import kuorum.core.model.search.SearchLaws
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.*
 import org.apache.solr.client.solrj.SolrQuery
 import org.apache.solr.client.solrj.SolrServer
+import org.apache.solr.client.solrj.response.Group
 import org.apache.solr.client.solrj.response.QueryResponse
 import org.apache.solr.common.SolrDocument
 import org.apache.solr.common.SolrDocumentList
@@ -139,5 +142,46 @@ class SearchSolrService {
             }
         }
         [laws:laws, kuorumUsers:kuorumUsers]
+    }
+
+    List<SolrLawsGrouped> listLaws(SearchLaws params){
+        if (!params.validate()){
+            KuorumExceptionUtil.createExceptionFromValidatable(params, "Se necesita una region para buscar por ella")
+        }
+        SolrQuery query = new SolrQuery();
+        query.setParam(CommonParams.QT, "/select");
+        query.setParam(CommonParams.ROWS, "${params.max}");
+        query.setParam(CommonParams.Q, "regionName:${params.regionName}")
+        query.setParam("q.op", "AND")
+        def fq = ["type:${SolrType.LAW}"]
+
+        if (params.lawStatusType){
+            fq << "subType:${SolrSubType.fromOriginalType(params.lawStatusType)}"
+        }
+        if (params.commissionType){
+            fq << "commissions:${params.commissionType}"
+        }
+        query.setParam(CommonParams.FQ, "(${fq.sum{ it +" " }})")
+
+        query.setParam("group", true)
+        query.setParam("group.field", "commission_group")
+        query.setParam("group.limit","${params.max}")
+        query.setParam("group.offset","${params.offset}")
+        query.setParam("group.sort","name desc")
+//        query.setParam(CommonParams.SORT, "name desc") // Default is score
+
+        QueryResponse rsp = server.query( query );
+        SolrDocumentList docs = rsp.getResults();
+        List<SolrLawsGrouped> groupedElements= []
+
+        rsp.groupResponse.values[0].values.each{Group group ->
+
+            SolrLawsGrouped element = new SolrLawsGrouped()
+            element.commission = CommissionType.valueOf(group.groupValue)
+            element.elements = group.result.collect{doc ->indexSolrService.recoverLawFromSolr(doc)}
+            groupedElements.add(element)
+        }
+
+        groupedElements
     }
 }

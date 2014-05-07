@@ -18,6 +18,6 @@ fixture {
 
     madridParliament(Institution){
         name ="Parlamento Madrileño"
-        region = madrid
+        region = madridCA
     }
 }

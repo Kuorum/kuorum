@@ -24,4 +24,11 @@ class RegionService {
         }
         province
     }
+
+    @Transactional(readOnly = true)
+    Region findRegionByName(String regionName) {
+        java.util.regex.Pattern regex = java.util.regex.Pattern.compile("$regionName", java.util.regex.Pattern.CASE_INSENSITIVE)
+        def res= Region.collection.find([name:regex])
+        res[0]
+    }
 }
