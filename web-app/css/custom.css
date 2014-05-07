@@ -75,8 +75,31 @@ small, .small {font-size: 75%;}
 .popover:hover, .popover:active, .popover:focus {cursor: default;}
 .disabled.allow {cursor: pointer; pointer-events: auto;}
 
-.loading {color: #a8a8a8; text-align: center; background: url('../images/loading@2x.gif') center center / 50px auto no-repeat transparent; padding: 15px 0; height: 70px;}
-.loadingSearch {color: #a8a8a8; text-align: center; background: url('../images/loading@2x.gif') center center / 20px auto no-repeat transparent; padding: 0; width: 20px; height: 20px; z-index: 999; position: absolute; right: 26px; top: 4px; display: none;}
+.loading {
+  color: #a8a8a8;
+  text-align: center;
+  background: url('../images/loading@2x.gif') center center / 50px auto no-repeat transparent;
+  padding: 15px 0;
+  height: 70px;
+}
+.loading.xs {
+  background: url('../images/loading@2x.gif') center center / 17px auto no-repeat transparent;
+  padding: 0;
+  height: 19px;
+}
+.loadingSearch {
+  color: #a8a8a8;
+  text-align: center;
+  background: url('../images/loading@2x.gif') center center / 20px auto no-repeat transparent;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  z-index: 999;
+  position: absolute;
+  right: 26px;
+  top: 8px;
+  display: none;
+}
 
 label {font-weight: normal;}
 .span-label {display: block; margin-bottom: 5px;}
@@ -821,6 +844,10 @@ span + .text-notification {padding: 0 0 0 33px;}
 .boxes .kakareo footer > ul.info-kak > li,
 .boxes .kakareo footer > ul.actions-kak > li {margin: 0 0 0 2px;}
 .boxes .kakareo footer > ul > li.read-later {margin-right: 40px !important;}
+.boxes .kakareo footer ul li.read-later + li.like-number {margin: 0 0 0 2px;}
+.boxes .kakareo footer ul li.like-number {margin: 0 40px 0 2px;}
+
+
 .boxes .author.important .user.actor.politic .user-img {float: right; margin-top: 0; margin-bottom: 0;}
 .boxes .author.important .user.actor.politic {
   height: 35px;
@@ -1503,7 +1530,8 @@ textarea.error,
 
 .othersPost {margin: 120px 0 70px;}
 .othersPost h1 {font-size: 20px; font-size: 2rem;}
-.othersPost #postNav {padding: 0 43px; margin: 0; position: relative; height: 70px; font-size: 13px; font-size: 1.3rem;}
+.othersPost #postNav {padding: 0 43px; margin: 0; position: relative; height: 184px; font-size: 13px; font-size: 1.3rem;}
+
 #main .othersPost #postNav .user .popover-trigger {font-size: 13px; font-size: 1.3rem;}
 .othersPost #postNav p {margin: 0 0 13px;}
 .othersPost #postNav .user-img {height: 25px; margin: 0 5px 0 0; width: 25px;}
@@ -1511,7 +1539,7 @@ textarea.error,
 .othersPost #postNav .read-later a:hover,
 .othersPost #postNav .read-later a:active,
 .othersPost #postNav .read-later a:focus {color: #20a2ea;}
-.othersPost #postNav > a {display: block; padding: 34px 18px; background-color: #20a2ea; color: #fff; border-radius: 0; position: absolute; top: 0;}
+.othersPost #postNav > a {display: block; padding: 82px 18px; background-color: #20a2ea; color: #fff; border-radius: 0; position: absolute; top: 0;}
 .othersPost #postNav > a:hover {background-color: #2e6bab;}
 .othersPost #postNav > a.prev {left: 0;}
 .othersPost #postNav > a.next {right: 0;}
@@ -1557,6 +1585,40 @@ textarea.error,
 .boxes.noted.likes.important .social li a:hover .fa-circle,
 .boxes.noted.likes.important .social li a:active .fa-circle,
 .boxes.noted.likes.important .social li a:focus .fa-circle {color: #ff9431 !important;}
+
+/* post promoción =========== */
+/* ====================================================== */
+.kakareo.post.promo h1 {
+  font-family: 'League Gothic', Arial, sans-serif;
+  font-size: 47px; font-size: 4.7rem;
+  text-transform: uppercase;
+}
+.promo-options {margin-top: 50px;}
+.promo-options > div {
+  background-color: #efefef;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.promo-options > div:hover {z-index: 9; margin-top: -25px;}
+
+.promo-options > div:hover {background-color: #ff9431; color: #fff;}
+.promo-options > div:hover  > .link-wrapper {min-height: 390px;}
+.promo-options > div:hover > .link-wrapper > h3 {color: #545454; font-size: 22px; font-size: 2.2rem;}
+.promo-options > div:hover  > .link-wrapper > .euros  {color: #545454; font-size: 64px; font-size: 6.4rem;}
+
+.promo-options > div > .link-wrapper {padding: 0; min-height: 350px;}
+.promo-options > div > .link-wrapper > .mails {font-size: 25px; font-size: 2.5rem;}
+.promo-options > div > .link-wrapper > h2 {font-size: 24px; font-size: 2.4rem; text-transform: uppercase;}
+.promo-options > div > .link-wrapper > h3 {font-size: 18px; font-size: 1.8rem; font-weight: bold;}
+.promo-options > div > .link-wrapper > .euros {font-size: 34px; font-size: 3.4rem; font-weight: bold;}
+.promo-options > div > .link-wrapper > p {margin: 0 0 5px 0;}
+.promo-options > div > .link-wrapper > p:last-child {
+  line-height: 1;
+  position: absolute;
+  bottom: 20px;
+  width: 90%;
+}
 
 
 /* buscador =========== */
@@ -1649,7 +1711,8 @@ textarea.error,
 .userprofile .kakareo.post.ley .user > .user-name {display: block; margin: 0 0 20px 0; font-size: 28px; font-size: 2.8rem;}
 .userprofile .kakareo.post.ley .user > .user-type {margin: -20px 0 20px 0; padding: 4px 0 0 0; font-size: 13px; font-size: 1.3rem; border-top: 1px solid #DADADA;}
 .userprofile .kakareo.post.ley .user > .mark {text-align: right; margin: -40px 0 0 0;}
-.userprofile .kakareo.post.ley .user > .infoActivity {margin: 5px 0 15px 0; padding: 0; text-align: right;}
+.userprofile .kakareo.post.ley .user > .infoActivity {margin: -40px 0 15px; padding: 0; text-align: right;}
+.userprofile .kakareo.post.ley .user > .mark + .infoActivity {margin: 5px 0 15px 0;}
 .userprofile .kakareo.post.ley .user > .infoActivity > li {list-style: none; display: inline; margin-left: 4px; color: #545454;}
 .userprofile .kakareo.post.ley .user > .infoActivity > li .counter {color: #a8a8a8;}
 .userprofile .kakareo.post.ley .socialContact {margin: 0; padding: 0 0 20px 0;}
@@ -1971,7 +2034,7 @@ textarea.error,
 
   .kakareo footer ul li.read-later {margin-right: 28px !important;}
   .boxes .kakareo footer > ul > li.read-later {margin-right: 33px !important;}
-
+  .boxes .kakareo footer ul li.like-number {margin: 0 35px 0 2px;}
   .kakareo footer > ul > li.more-actions > span {padding: 6px 10px 7px;}
 
   .multimedia .video .fa {left: 44%; top: 40%;}
@@ -2060,7 +2123,8 @@ textarea.error,
   .userprofile .kakareo.post.ley .user > .user-name {display: inline-block;}
   .userprofile .kakareo.post.ley .user > .user-type {margin: -20px 0 20px 150px;}
   .userprofile .kakareo.post.ley .user > .mark {margin: -70px 0 0 0;}
-  .userprofile .kakareo.post.ley .user > .infoActivity {margin: 10px 0 17px 0;}
+  .userprofile .kakareo.post.ley .user > .infoActivity {margin: -38px 0 17px 0;}
+  .userprofile .kakareo.post.ley .user > .mark + .infoActivity {margin: 10px 0 17px 0;}
   .userprofile .kakareo.post.ley .socialContact li {display: inline; margin-right: 30px; padding: 0;}
 
   .userprofile .boxes .btn.btn-lg {font-size: 1.4rem !important; padding: 18px !important;}
@@ -2070,9 +2134,7 @@ textarea.error,
   .discover .others .kakareo.post.ley h1 {margin-bottom: 0;}
   .introDiscover .steps li {margin: 0 0 0 5px;}
   .pre {margin: 5px 0;}
-
   #search-filters h1 {margin-top: 20px;}
-
   .onecol.error .intro {
     background: url('../images/ico-error.png') no-repeat left bottom transparent;
     padding: 0 0 60px 350px;
@@ -2081,6 +2143,9 @@ textarea.error,
   }
   .onecol.error .intro h1 {font-size: 172px; font-size: 17.2rem; text-align: left;}
   .preFooter .btn {display: inline-block; margin: 0 5px !important;}
+
+  .othersPost #postNav {height: 110px;}
+  .othersPost #postNav > a {padding: 34px 18px;}
 
 }
 
@@ -2117,8 +2182,7 @@ textarea.error,
   .boxes .kakareo footer ul li.read-later {margin-right: 44px !important;}
   .boxes .kakareo footer > ul.actions-kak > li {margin: 0 0 0 4px;}
   .multimedia .video .fa {left: 47%; top: 40%;}
-
-   #victory {margin: 20px 0 0 0;}
+  #victory {margin: 20px 0 0 0;}
   .seeVictory .sliderItem h1 {padding: 15px; font-size: 24px; font-size: 2.4rem;}
   .seeVictory .sliderItem img.actor {width: 273px; float: left; margin: 0 40px 12px 0;}
   .kakareo.post.ley h1 {font-size: 52px; font-size: 5.2rem;}
@@ -2130,6 +2194,11 @@ textarea.error,
   .boxes.vote .voting > ul > li {margin-right: 10px;}
   .boxes.vote .voting .changeOpinion {font-size: 18px; font-size: 1.8rem; padding: 26px;}
   .boxes.guay .kakareo footer > ul {padding: 5px 0;}
+
+
+  .boxes .kakareo footer ul li.like-number {margin: 0 50px 0 2px;}
+
+
   .participate .row p {padding: 0 20px;}
   .controls {float: right; width: 277px;}
   .popover-box {width: 30%; margin: 0 30px 20px 0;}
@@ -2146,6 +2215,8 @@ textarea.error,
   .pre {margin: 0;}
   .introDiscover {margin: 40px 0;}
   .discover .boxes.vote {margin-top: 105px;}
+
+  .othersPost #postNav {height: 70px;}
 
   .columns2 {
     -moz-column-count: 2;
@@ -2193,6 +2264,9 @@ textarea.error,
   .box .badge {right: 6px; top: 6px;}
   .boxes.vote .voting > ul > li > a {font-size: 15px; font-size: 1.5rem; width: 90px; height: 68px;}
   .boxes .kakareo footer ul li.read-later {margin-right: 48px !important;}
+  .boxes .kakareo footer ul li.read-later + li.like-number {margin: 0 0 0 4px;}
+  .boxes .kakareo footer ul li.like-number {margin: 0 50px 0 4px;}
+
 
   .home .socialGo li {display: inline-block; float: left; margin: 10px 12px 0 0; width: 170px;}
   .home .socialGo li:last-child {margin-right: 0;}
