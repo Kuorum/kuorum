@@ -55,7 +55,7 @@ class LinkPropertiesCodec {
         [
                 hashtag: law.hashtag.decodeHashtag(),
                 regionName:law.region.name.encodeAsKuorumUrl(),
-                commision:commissionName.encodeAsKuorumUrl(),
+                commission:commissionName.encodeAsKuorumUrl(),
         ]
     }
 
@@ -85,7 +85,7 @@ class LinkPropertiesCodec {
         [
                 hashtag: law.hashtag.decodeHashtag(),
                 regionName:law.regionName.encodeAsKuorumUrl(),
-                commision:commissionName.encodeAsKuorumUrl()
+                commission:commissionName.encodeAsKuorumUrl()
         ]
     }
 
@@ -95,7 +95,7 @@ class LinkPropertiesCodec {
         [
                 hashtag: post.hashtagLaw.decodeHashtag(),
                 regionName:post.regionName.encodeAsKuorumUrl(),
-                commision:commissionName.encodeAsKuorumUrl(),
+                commission:commissionName.encodeAsKuorumUrl(),
                 postId:post.id,
                 postTypeUrl:postTypeName.encodeAsKuorumUrl(),
         ]

@@ -29,7 +29,7 @@ class LawController {
     def index(){
         //TODO: Think pagination.This page is only for google and scrappers
         SearchLaws searchParams = new SearchLaws(max: 1000)
-        searchParams.commissionType = recoverCommissionByTranslatedName(request.locale, params.commision)
+        searchParams.commissionType = recoverCommissionByTranslatedName(request.locale, params.commission)
         def groupLaws =[:]
         if (params.regionName){
             searchParams.regionName = params.regionName
@@ -54,9 +54,9 @@ class LawController {
         def commissionsTranslated = [:]
         CommissionType.values().each{commission ->
             String translatedCommission = message(code:"${CommissionType.class.name}.${commission}", locale: locale, default: 'XXXX')
-            commissionsTranslated.put(translatedCommission.toLowerCase(),commission)
+            commissionsTranslated.put(translatedCommission.toLowerCase().encodeAsKuorumUrl(),commission)
         }
-        commissionsTranslated."${searchedCommission.toLowerCase()}"
+        commissionsTranslated."${searchedCommission?.toLowerCase()}"
     }
 
     def show(String hashtag){

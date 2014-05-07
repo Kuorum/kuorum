@@ -7,25 +7,25 @@ class UrlMappings {
         name discover:         "/descubre" (controller: "dashboard", action:"discover")
 
         name lawCreate:     "/leyes/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
-        name laws:          "/leyes/$regionName?/$commision?" (controller: "law", action:"index")
-        name lawShow:       "/leyes/$regionName/$commision/$hashtag" (controller: "law", action:"show")
-        name lawEdit:       "/leyes/$regionName/$commision/$hashtag/editar"(controller: "law", action:"edit")
-        name lawUpdate:     "/leyes/$regionName/$commision/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
-        name lawVote:       "/ajax/leyes/$regionName/$commision/$hashtag/votar"(controller: "law", action:"voteLaw")
+        name laws:          "/leyes/$regionName?/$commission?" (controller: "law", action:"index")
+        name lawShow:       "/leyes/$regionName/$commission/$hashtag" (controller: "law", action:"show")
+        name lawEdit:       "/leyes/$regionName/$commission/$hashtag/editar"(controller: "law", action:"edit")
+        name lawUpdate:     "/leyes/$regionName/$commission/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
+        name lawVote:       "/ajax/leyes/$regionName/$commission/$hashtag/votar"(controller: "law", action:"voteLaw")
 
-        name postCreate:    "/leyes/$regionName/$commision/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-//        name postSave:      "/leyes/$regionName/$commision/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-        name postShow:      "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId"(controller: "post", action: "show")
-        name postReview:    "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/revisar"(controller: "post", action: "review")
-        name postPublish:   "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/publicar"(controller: "post", action:"publish")
-        name postPromoteYourPost:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/promocionar"(controller: "post", action:"promoteYourPost")
-        name postMailing:   "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/enviar-mails"(controller: "post", action:"payForMailing")
-        name postEdit:      "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/editar"(controller: "post"){action = [GET:"edit", POST:"update"]}
-        name postToggleFavorite:"/ajax/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/favorito"(controller: "post",action: "favorite")
-        name postDelComment:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/borrarCommentario"(controller: "post",action: "deleteComment")
-        name postAddComment:"/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/nuevoComentario"(controller: "post",action: "addComment")
-        name postCluckIt:   "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/kakarear"(controller: "post",action: "cluckPost")
-        name postVoteIt:    "/leyes/$regionName/$commision/$hashtag/$postTypeUrl/$postId/impulsar"(controller: "post",action: "votePost")
+        name postCreate:    "/leyes/$regionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
+//        name postSave:      "/leyes/$regionName/$commission/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
+        name postShow:      "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId"(controller: "post", action: "show")
+        name postReview:    "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId/revisar"(controller: "post", action: "review")
+        name postPublish:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId/publicar"(controller: "post", action:"publish")
+        name postPromoteYourPost:"/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId/promocionar"(controller: "post", action:"promoteYourPost")
+        name postMailing:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId/enviar-mails"(controller: "post", action:"payForMailing")
+        name postEdit:      "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId/editar"(controller: "post"){action = [GET:"edit", POST:"update"]}
+        name postToggleFavorite:"/ajax/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId/favorito"(controller: "post",action: "favorite")
+        name postDelComment:"/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId/borrarCommentario"(controller: "post",action: "deleteComment")
+        name postAddComment:"/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId/nuevoComentario"(controller: "post",action: "addComment")
+        name postCluckIt:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId/kakarear"(controller: "post",action: "cluckPost")
+        name postVoteIt:    "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId/impulsar"(controller: "post",action: "votePost")
 
 
         //userShow is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow

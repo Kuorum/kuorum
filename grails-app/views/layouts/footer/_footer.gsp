@@ -47,7 +47,7 @@
                         <h1 class="map">Mapa web</h1>
                         <ul>
                             <li><a href="#">Todos los políticos</a></li>
-                            <li><a href="#">Todas las leyes</a></li>
+                            <li><g:link mapping="laws"><g:message code="list.laws.title"/></g:link></li>
                         </ul>
                     </div>
 

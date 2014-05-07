@@ -1855,6 +1855,7 @@ textarea.error,
   text-transform: uppercase;
 }
 .onecol.list h3 {font-size: 19px; font-style: 1.9rem; margin-bottom: 20px;}
+.onecol.list a {color:rgb(84, 84, 84);}
 .onecol.list .block-results {border-top: 1px solid #DADADA; padding-top: 40px;}
 .onecol.list .block-results ul {
   margin: 0 0 40px 0;

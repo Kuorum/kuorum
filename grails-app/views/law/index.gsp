@@ -1,4 +1,4 @@
-<%@ page import="kuorum.core.model.VoteType; kuorum.core.model.PostType" %>
+<%@ page import="kuorum.core.model.CommissionType; kuorum.core.model.VoteType; kuorum.core.model.PostType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     %{--<title>${law.shortName}</title>--}%
@@ -8,8 +8,8 @@
 
 <content tag="mainContent">
     <div class="intro">
-        <h1>Todas las leyes</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dignissim augue eget eros fermentum eu pellentesque erat congue. Proin convallis justo at massa rhoncus non posuere nibh imperdiet.</p>
+        <h1><g:message code="list.laws.title"/> </h1>
+        <p><g:message code="list.laws.description"/></p>
         <form id="all-laws" role="form" class="form-inline">
             <div class="form-group">
                 <label for="region" class="sr-only">Filtrar por región</label>
@@ -35,9 +35,20 @@
     <div class="block-results">
 
         <g:each in="${groupLaws}" var="region">
-            <h1>${region.key}</h1>
+            <h1>
+                <g:link mapping="laws" params="[regionName:region.key.encodeAsKuorumUrl()]">
+                    ${region.key}
+                </g:link>
+            </h1>
             <g:each in="${region.value}" var="group">
-                <h3>Leyes sobre ${group.commission}</h3>
+                <g:set var="i18nCommission" value="${message(code:"${CommissionType.canonicalName}.${group.commission}")}"/>
+                <!-- is necesary toLowerCase because i18nCommission.encode doens't work -->
+                <g:set var="i18nCommissionUrl" value="${i18nCommission.toLowerCase().encodeAsKuorumUrl()}"/>
+                <h3>
+                    <g:link mapping="laws" params="[regionName:region.key.encodeAsKuorumUrl(), commission:i18nCommissionUrl]">
+                        Leyes sobre ${i18nCommission.toLowerCase()}
+                    </g:link>
+                </h3>
                 <ul>
                     <g:each in="${group.elements}" var="law">
                         <li> <g:link mapping="lawShow" params="${law.encodeAsLinkProperties()}">${law.name}</g:link> </li>
