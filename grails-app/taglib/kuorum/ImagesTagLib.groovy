@@ -61,5 +61,6 @@ class ImagesTagLib {
             defaultImage = g.resource(dir:'images', file: 'img-politicianprofile.jpg')
         }
 
+        defaultImage
     }
 }
