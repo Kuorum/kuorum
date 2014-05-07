@@ -5,6 +5,7 @@ import kuorum.core.model.search.Pagination
 import kuorum.post.Cluck
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
+import springSecurity.KuorumRegisterCommand
 
 class DashboardController {
 
@@ -43,6 +44,7 @@ class DashboardController {
             redirect(mapping:"home")
             return
         }
+        [command: new KuorumRegisterCommand()]
     }
 
     def discover(){

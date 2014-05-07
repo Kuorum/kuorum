@@ -36,8 +36,6 @@
                     command="${command}"
                     field="name"
                     cssClass="form-control input-lg"
-                    label="${g.message(code:'register.email.form.name.label')}"
-                    placeholder="${g.message(code:'register.email.form.name.placeHolder')}"
                     required="true"/>
         </div>
         <div class="form-group">
@@ -47,12 +45,11 @@
                     type="email"
                     id="email"
                     cssClass="form-control input-lg"
-                    label="${g.message(code:'register.email.form.email.label')}"
                     helpBlock="${g.message(code:'register.email.form.email.why')}"
                     required="true"/>
         </div>
         <div class="form-group clearfix">
-            <label for="password"><g:message code="register.email.form.password.label"/></label>
+            <label for="password"><g:message code="springSecurity.KuorumRegisterCommand.password.label"/></label>
             <label class="checkbox-inline pull-right">
                 <input type="checkbox" id="show-pass" value="mostrar"><g:message code="login.email.form.password.show"/>
             </label>

@@ -63,7 +63,7 @@ class FormTagLib {
 
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = message(code: "${command.class.name}.${field}.label")
-        def placeHolder = message(code: "${command.class.name}.${field}.placeHolder", default: '')
+        def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
 
         def value = command."${field}"?:''
         def error = hasErrors(bean: command, field: field,'error')
