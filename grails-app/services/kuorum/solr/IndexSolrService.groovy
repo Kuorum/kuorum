@@ -200,7 +200,9 @@ class IndexSolrService {
                 commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
                 urlImage: solrDocument.urlImage,
                 role:GamificationAward.valueOf(solrDocument.role),
-                gender: Gender.valueOf(solrDocument.gender)
+                gender: Gender.valueOf(solrDocument.gender),
+                regionName: solrDocument.regionName,
+                regionIso3166_2: solrDocument.regionIso3166_2
         )
     }
 

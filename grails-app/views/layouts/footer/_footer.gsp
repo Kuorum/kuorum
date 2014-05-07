@@ -44,9 +44,9 @@
             <section class="col-xs-12 col-sm-12 col-md-2 col-md-offset-2">
                 <div class="row">
                     <div class="col-xs-12 col-sm-3 col-md-12">
-                        <h1 class="map">Mapa web</h1>
+                        <h1 class="map"><g:message code="layout.footer.webMap"/> </h1>
                         <ul>
-                            <li><a href="#">Todos los políticos</a></li>
+                            <li><g:link mapping="users" params="${kuorum.core.model.UserType.POLITICIAN.encodeAsLinkProperties()}"><g:message code="list.citizens.POLITICIAN.title"/></g:link></li>
                             <li><g:link mapping="laws"><g:message code="list.laws.title"/></g:link></li>
                         </ul>
                     </div>

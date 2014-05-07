@@ -19,11 +19,11 @@ enum SolrSubType {
 
     static SolrSubType fromOriginalType(def originalType){
         if (originalType instanceof LawStatusType){
-            SolrType.valueOf(originalType.toString())
+            SolrSubType.valueOf(originalType.toString())
         }else if (originalType instanceof UserType){
-            SolrType.valueOf(originalType.toString())
+            SolrSubType.valueOf(originalType.toString())
         }else if (originalType instanceof PostType){
-            SolrType.valueOf(originalType.toString())
+            SolrSubType.valueOf(originalType.toString())
         }
     }
 }

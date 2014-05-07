@@ -6,18 +6,18 @@
     </head>
 
     <body>
-        <g:render template="/layouts/head"/>
+    <g:render template="/layouts/head"/>
     <div class="row main">
-        <div class="home">
+        <div class="container-fluid onecol list">
             <section id="main" role="main">
                 <g:pageProperty name="page.mainContent"/>
             </section>
         </div>
     </div><!-- #main -->
 
-        <g:if test="${Boolean.parseBoolean(pageProperty(name:'page.preFooter').toString())}">
-            <g:include controller="modules" action="registerFooterRelevantUsers"/>
-        </g:if>
-        <g:render template="/layouts/footer/footer"/>
-        </body>
+    <g:if test="${Boolean.parseBoolean(pageProperty(name:'page.preFooter').toString())}">
+        <g:include controller="modules" action="registerFooterRelevantUsers"/>
+    </g:if>
+    <g:render template="/layouts/footer/footer"/>
+    </body>
 </g:applyLayout>

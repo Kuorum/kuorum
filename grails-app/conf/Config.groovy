@@ -263,5 +263,9 @@ kuorum {
     post{
         titleSize = 140
     }
+
+    seo{
+        maxElements = 1000 //El número de elementos que se van a mostrar en el mapa web para el scrapper
+    }
 }
 

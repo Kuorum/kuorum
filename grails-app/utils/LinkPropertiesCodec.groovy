@@ -39,6 +39,9 @@ class LinkPropertiesCodec {
             case SolrKuorumUser:
                 params = prepareParams(target)
                 break;
+            case UserType:
+                params = [userTypeUrl: transEnumToUrl(target)]
+                break;
             default:
                 params = [:]
         }

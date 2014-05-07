@@ -1,3 +1,5 @@
+import kuorum.core.model.UserType
+
 class UrlMappings {
 
 	static mappings = {
@@ -28,11 +30,32 @@ class UrlMappings {
         name postVoteIt:    "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postId/impulsar"(controller: "post",action: "votePost")
 
 
-        //userShow is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
+        //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
         name userShow:          "/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "show")
+        name users:             "/$userTypeUrl"     (controller: "kuorumUser", action: "index"){
+            constraints {
+                userTypeUrl inList: ["ciudadanos", "organizaciones", "politicos"]
+            }
+        }
+
         name citizenShow:       "/ciudadanos/$urlName-$id"     (controller: "kuorumUser", action: "showCitizen")
+        name citizens:          "/ciudadanos"     {
+            controller = "kuorumUser"
+            action ="index"
+            userTypeUrl = UserType.PERSON
+        }
         name organizacionShow:  "/organizaciones/$urlName-$id" (controller: "kuorumUser", action: "showOrganization")
+        name organizations:     "/organizaciones"  {
+            controller = "kuorumUser"
+            action ="index"
+            userTypeUrl = UserType.ORGANIZATION
+        }
         name politicianShow:    "/politicos/$urlName-$id"      (controller: "kuorumUser", action: "showPolitician")
+        name politicians:       "/politicos"  {
+            controller = "kuorumUser"
+            action ="index"
+            userTypeUrl = UserType.POLITICIAN
+        }
         name userFollowers:     "/$userTypeUrl/$urlName-$id/seguidores" (controller: "kuorumUser", action: "userFollowers")
         name userFollowing:     "/$userTypeUrl/$urlName-$id/siguiendo"  (controller: "kuorumUser", action: "userFollowing")
 

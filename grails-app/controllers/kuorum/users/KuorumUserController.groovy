@@ -3,6 +3,7 @@ package kuorum.users
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
+import kuorum.core.model.search.SearchUsers
 import kuorum.post.Cluck
 import org.bson.types.ObjectId
 
@@ -14,9 +15,10 @@ class KuorumUserController {
     def springSecurityService
     def kuorumUserService
     def cluckService
+    def searchSolrService
 
 //    def beforeInterceptor = [action: this.&checkUser, except: 'login']
-    def beforeInterceptor = [action: this.&checkUser]
+    def beforeInterceptor = [action: this.&checkUser, except: 'index']
 
     private checkUser(){
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
@@ -24,6 +26,11 @@ class KuorumUserController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
+    }
+    def index(){
+        def maxElemens = grailsApplication.config.kuorum.seo.maxElements
+        SearchUsers searchUsers = new SearchUsers(userType: params.userTypeUrl, iso3166_2:params.iso3166_2, max:maxElemens)
+        [userType: params.userTypeUrl, groupUsers:searchSolrService.listUsers(searchUsers)]
     }
 
     def show(String id){
