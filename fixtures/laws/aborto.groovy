@@ -12,8 +12,8 @@ fixture {
 //      storagePath
         alt='Parques Nacionales'
         fileName = "${grailsApplication.config.grails.serverURL}/static/images/img-post.jpg" //Para ver si funciona grailsApplication
-        url= "http://127.0.0.1:8080/kuorum/static/images/img-post.jpg"
-//        String url= "${grailsApplication.config.grails.serverURL}/static/images/img-post.jpg"
+//        url= "http://127.0.0.1:8080/kuorum/static/images/img-post.jpg"
+        url= "${grailsApplication.config.grails.serverURL}/static/images/img-post.jpg"
         fileGroup = FileGroup.LAW_IMAGE
         fileType = FileType.IMAGE
 
