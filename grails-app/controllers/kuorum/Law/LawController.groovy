@@ -4,6 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.Region
+import kuorum.core.model.CommissionType
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
 import kuorum.core.model.search.SearchLaws
@@ -28,13 +29,13 @@ class LawController {
     def index(){
         //TODO: Think pagination.This page is only for google and scrappers
         SearchLaws searchParams = new SearchLaws(max: 1000)
-//        searchParams.commissionType = CommissionType.valueOf(params.commision)
+        searchParams.commissionType = recoverCommissionByTranslatedName(request.locale, params.commision)
         def groupLaws =[:]
         if (params.regionName){
             searchParams.regionName = params.regionName
             List<SolrLawsGrouped> lawsPerRegion = searchSolrService.listLaws(searchParams)
             if (lawsPerRegion){
-                searchParams.regionName = lawsPerRegion.elements[0].regionName
+                searchParams.regionName = lawsPerRegion.elements[0][0].regionName
             }
             groupLaws.put(searchParams.regionName  , lawsPerRegion)
         }else{
@@ -46,6 +47,16 @@ class LawController {
             }
         }
         [groupLaws:groupLaws]
+    }
+
+    private CommissionType recoverCommissionByTranslatedName(Locale locale, String searchedCommission){
+        //Funcion mega ñapa para solucionar el parámetro de la url internacionalizado
+        def commissionsTranslated = [:]
+        CommissionType.values().each{commission ->
+            String translatedCommission = message(code:"${CommissionType.class.name}.${commission}", locale: locale, default: 'XXXX')
+            commissionsTranslated.put(translatedCommission.toLowerCase(),commission)
+        }
+        commissionsTranslated."${searchedCommission.toLowerCase()}"
     }
 
     def show(String hashtag){
