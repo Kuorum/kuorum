@@ -22,7 +22,7 @@ $(document).ready(function() {
 	// slider de las imágenes de fondo en la Home
 	$('.home .images').bgswitcher({
 		duration: 2000,
-	  	images: ['http://localhost/kuorum/images/home1.jpg', 'http://localhost/kuorum/images/home2.jpg', "http://localhost/kuorum/images/home3.jpg"]
+	  	images: ['images/home1.jpg', 'images/home2.jpg', "images/home3.jpg"]
 	});
 
 
