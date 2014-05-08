@@ -279,7 +279,7 @@ class PostServiceIntegrationSpec extends Specification{
     void "test adding debate"() {
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")
-        KuorumUser noe = KuorumUser.findByEmail("politician@example.com")
+        KuorumUser politician = KuorumUser.findByEmail("politician@example.com")
         KuorumUser voter1 = KuorumUser.findByEmail("carmen@example.com")
         KuorumUser voter2 = KuorumUser.findByEmail("juanjoalvite@example.com")
         Post post = Post.findByOwner(user)
@@ -287,7 +287,7 @@ class PostServiceIntegrationSpec extends Specification{
         postVoteService.votePost(post,voter1)
         postVoteService.votePost(post,voter2)
 
-        PostComment postComment1 = new PostComment(kuorumUser:noe, text:"1 -- Loren ipsum")
+        PostComment postComment1 = new PostComment(kuorumUser:politician, text:"1 -- Loren ipsum")
         PostComment postComment2 = new PostComment(kuorumUser:user, text:"2 -- Loren ipsum")
         PostComment postComment3 = new PostComment(kuorumUser:user, text:"3 -- Loren ipsum")
 
@@ -299,7 +299,7 @@ class PostServiceIntegrationSpec extends Specification{
 
         then: "Correct debates in correct order"
         post.debates.size() == 3
-        post.debates[0].kuorumUser == noe
+        post.debates[0].kuorumUser == politician
         post.debates[0].text.startsWith("1")
         post.debates[1].kuorumUser == user
         post.debates[1].text.startsWith("2")
@@ -309,19 +309,19 @@ class PostServiceIntegrationSpec extends Specification{
             //Check if is in DB
             Post recoveredPostNewSession = Post.get(post.id)
             recoveredPostNewSession.debates.size() == 3
-            recoveredPostNewSession.debates[0].kuorumUser == noe
+            recoveredPostNewSession.debates[0].kuorumUser == politician
             recoveredPostNewSession.debates[0].text.startsWith("1")
             recoveredPostNewSession.debates[1].kuorumUser == user
             recoveredPostNewSession.debates[1].text.startsWith("2")
             recoveredPostNewSession.debates[2].kuorumUser == user
             recoveredPostNewSession.debates[2].text.startsWith("3")
-            post.firstCluck.debateMembers.contains(noe.id)
-            post.firstCluck.debateMembers.contains(user.id)
+            post.firstCluck.debateMembers.contains(politician.id)
+            !post.firstCluck.debateMembers.contains(user.id)
         }
         post.debates[0].dateCreated != null
         post.debates[0].dateCreated < new Date()
-        post.firstCluck.debateMembers.contains(noe.id)
-        post.firstCluck.debateMembers.contains(user.id)
+        post.firstCluck.debateMembers.contains(politician.id)
+        !post.firstCluck.debateMembers.contains(user.id)
     }
 
     void "test adding debate by normal user"() {
