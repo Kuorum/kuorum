@@ -165,7 +165,7 @@ class IndexSolrService {
             regionIso = spain.iso3166_2
         }else{
             //User or Politicians
-            if (!kuorumUser.personalData.postalCode){
+            if (!kuorumUser.personalData.postalCode || !kuorumUser.personalData.gender){
                 log.info("No se indexa al usuario ${kuorumUser.email} porque no tenemos sus datos básicos")
                 return null // Skipping user because we don't have basic data
             }
