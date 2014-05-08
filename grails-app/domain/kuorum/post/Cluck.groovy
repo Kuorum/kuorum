@@ -27,6 +27,11 @@ class Cluck {
     List<Sponsor> sponsors =[]
 
     /**
+     * The KuorumUser Ids that are involved in the  post debate
+     */
+    List<ObjectId> debateMembers=[]
+
+    /**
      * Represents if is the cluck created by the post owner
      */
     Boolean isFirstCluck = Boolean.FALSE

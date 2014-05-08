@@ -245,6 +245,8 @@ class PostService {
                     deleted :comment.deleted ]
             Post.collection.update ( [_id:post.id],['$push':['debates':commentData]])
             post.refresh()
+            Cluck.collection.update([_id:post.firstCluck.id], ['$addToSet':['debateMembers':comment.kuorumUser.id]])
+            post.firstCluck.refresh()
             notificationService.sendDebateNotification(post)
             post
         }else{

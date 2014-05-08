@@ -283,6 +283,7 @@ class PostServiceIntegrationSpec extends Specification{
         KuorumUser voter1 = KuorumUser.findByEmail("carmen@example.com")
         KuorumUser voter2 = KuorumUser.findByEmail("juanjoalvite@example.com")
         Post post = Post.findByOwner(user)
+        postService.publishPost(post) //Creates first cluck
         postVoteService.votePost(post,voter1)
         postVoteService.votePost(post,voter2)
 
@@ -314,9 +315,13 @@ class PostServiceIntegrationSpec extends Specification{
             recoveredPostNewSession.debates[1].text.startsWith("2")
             recoveredPostNewSession.debates[2].kuorumUser == user
             recoveredPostNewSession.debates[2].text.startsWith("3")
+            post.firstCluck.debateMembers.contains(noe.id)
+            post.firstCluck.debateMembers.contains(user.id)
         }
         post.debates[0].dateCreated != null
         post.debates[0].dateCreated < new Date()
+        post.firstCluck.debateMembers.contains(noe.id)
+        post.firstCluck.debateMembers.contains(user.id)
     }
 
     void "test adding debate by normal user"() {
