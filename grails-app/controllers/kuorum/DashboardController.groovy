@@ -51,8 +51,8 @@ class DashboardController {
     }
 
     def discover(){
-        List<Law> relevantLaws = lawService.relevantLaws()
-        List<Law> recommendedLaws = lawService.recommendedLaws()
+        List<Law> relevantLaws = lawService.relevantLaws(new Pagination(max:4))
+        List<Law> recommendedLaws = lawService.recommendedLaws(new Pagination(max:4))
         List<KuorumUser> mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7, new Pagination(max:20))
 //        log.debug("discover")
         [relevantLaws:relevantLaws, recommendedLaws:recommendedLaws,mostActiveUsers:mostActiveUsers]

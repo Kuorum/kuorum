@@ -98,8 +98,8 @@ $(document).ready(function() {
 
 	// al hacer clic en los badges vacía el contenido para que desaparezca
 	$(function() {
-		$('.badge').closest('a').click(function() {
-
+		$('.badge').closest('a').click(function(e) {
+            e.preventDefault()
 			$(this).find('.badge').delay(2000).fadeOut("slow").queue(function() {
 				$(this).empty();
 			});
@@ -107,8 +107,16 @@ $(document).ready(function() {
 				$(this).removeClass('new');
 			});
 
-			var url = $(this).attr("href")
-			$.ajax(url);
+            var activeId = $('.introDiscover li.active .badge').closest('a').html() -1
+            $('.introDiscover li.active .badge').removeClass("disabled")
+            $('.introDiscover li.active').removeClass("active")
+			var nextId = $(this).html() -1
+            $(this).addClass("disabled")
+            $(this).parent("li").addClass("active")
+            console.log("#relevantLaw_"+activeId)
+            console.log("#relevantLaw_"+nextId)
+            $("#relevantLaw_"+activeId).fadeOut(1000)
+            $("#relevantLaw_"+nextId).fadeIn(1000)
 		});
 	});
 
@@ -303,8 +311,9 @@ $(document).ready(function() {
 	// Si voto desaparecen los botones y aparece el enlace de cambio de opinión
 	$('body').on("click", ".voting li a", function(e) {
 		e.preventDefault();
-		$('.voting ul').css('display', 'none');
-		$('.changeOpinion').css('display', 'block');
+        var lawId = $(this).attr("data-lawId")
+		$('section[data-lawId='+lawId+'] .voting ul').css('display', 'none');
+		$('section[data-lawId='+lawId+'] .changeOpinion').css('display', 'block');
         $.ajax( {
             url:$(this).attr("href"),
             statusCode: {
@@ -314,33 +323,37 @@ $(document).ready(function() {
                 }
             }
         }).done(function(data, status, xhr) {
-            $('ul.activity li').removeClass("active")
-            $('ul.activity li.'+data.voteType).addClass("active")
-            $('ul.activity li.POSITIVE span').html(data.votes.yes)
-            $('ul.activity li.NEGATIVE span').html(data.votes.no)
-            $('ul.activity li.ABSTENTION span').html(data.votes.abs)
-            $('.kuorum span.counter').html(data.necessaryVotesForKuorum)
+            $('section[data-lawId='+lawId+']  ul.activity li').removeClass("active")
+            $('section[data-lawId='+lawId+']  ul.activity li.'+data.voteType).addClass("active")
+            $('section[data-lawId='+lawId+']  ul.activity li.POSITIVE span').html(data.votes.yes)
+            $('section[data-lawId='+lawId+']  ul.activity li.NEGATIVE span').html(data.votes.no)
+            $('section[data-lawId='+lawId+']  ul.activity li.ABSTENTION span').html(data.votes.abs)
+            $('section[data-lawId='+lawId+']  .kuorum span.counter').html(data.necessaryVotesForKuorum)
             karma.open(data.gamification)
         })
 	});
 
 	$('body').on("click", ".voting li .yes", function(e) {
-		$('.activity .favor').addClass('active');
+        var lawId = $(this).parents("section").attr("data-lawId")
+		$('section[data-lawId='+lawId+'] .activity .favor').addClass('active');
 	});
 	$('body').on("click", ".voting li .no", function(e) {
-		$('.activity .contra').addClass('active');
+        var lawId = $(this).parents("section").attr("data-lawId")
+        $('section[data-lawId='+lawId+'] .activity .contra').addClass('active');
 	});
 	$('body').on("click", ".voting li .neutral", function(e) {
-		$('.activity .abstencion').addClass('active');
+        var lawId = $(this).parents("section").attr("data-lawId")
+        $('section[data-lawId='+lawId+'] .activity .abstencion').addClass('active');
 	});
 
 
 	// Si hago click en cambio de opinión vuelven los botones
 	$('body').on("click", ".changeOpinion", function(e) {
 		e.preventDefault();
-		$('.activity li').removeClass('active');
+        var lawId = $(this).parents("section").attr("data-lawId")
+		$('section[data-lawId='+lawId+'] .activity li').removeClass('active');
 		$(this).css('display', 'none');
-		$('.voting ul').css('display', 'block');
+		$('section[data-lawId='+lawId+']  .voting ul').css('display', 'block');
 	});
 
 

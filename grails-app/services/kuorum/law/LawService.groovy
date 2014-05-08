@@ -153,6 +153,7 @@ class LawService {
         Cluck.collection.distinct('postOwner',[law:law.id]).collect{KuorumUser.get(it)}
     }
 
+    List<Law> recommendedLaws(Pagination pagination){ recommendedLaws(null,pagination)}
     List<Law> recommendedLaws(KuorumUser user = null, Pagination pagination = new Pagination()){
         //TODO: Improve
         Law.createCriteria().list(max:pagination.max, offset:pagination.offset){
@@ -160,6 +161,7 @@ class LawService {
         }
     }
 
+    List<Law> relevantLaws( Pagination pagination){ relevantLaws(null, pagination) }
     List<Law> relevantLaws(KuorumUser user = null, Pagination pagination = new Pagination()){
         //TODO: Improve
         Law.createCriteria().list(max:pagination.max, offset:pagination.offset){

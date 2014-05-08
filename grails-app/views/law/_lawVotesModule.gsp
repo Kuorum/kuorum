@@ -1,5 +1,5 @@
 <%@ page import="kuorum.core.model.VoteType" %>
-<section class="boxes vote" id="vote">
+<section class="boxes vote" id="vote" data-lawId="${law.id}">
     <g:if test="${title}">
         <h1><g:message code="law.vote.title"/></h1>
         <p><g:message code="law.vote.description"/></p>
@@ -28,20 +28,20 @@
             <ul style="${userVote?'display: none;':''}">
                 <!-- LOGADO NO VOTADO -->
                 <li>
-                    <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.POSITIVE]}" class="btn btn-blue yes">
+                    <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.POSITIVE]}" class="btn btn-blue yes" data-lawId="${law.id}">
                         <span class="icon-smiley fa-2x"></span>
                         <g:message code="law.vote.yes"/>
                     </g:link>
                 </li>
                 <li>
-                    <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.NEGATIVE]}" class="btn btn-blue no">
+                    <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.NEGATIVE]}" class="btn btn-blue no" data-lawId="${law.id}">
                         <span class="icon-sad fa-2x"></span>
                         <g:message code="law.vote.no"/>
                     </g:link>
 
                 </li>
                 <li>
-                    <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.ABSTENTION]}" class="btn btn-blue neutral">
+                    <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.ABSTENTION]}" class="btn btn-blue neutral" data-lawId="${law.id}">
                         <span class="icon-neutral fa-2x"></span>
                         <g:message code="law.vote.abs"/>
                     </g:link>
