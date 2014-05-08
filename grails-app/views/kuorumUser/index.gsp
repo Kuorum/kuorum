@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     %{--<title>${law.shortName}</title>--}%
-    <meta name="layout" content="listMultiColumnLayout">
+    <meta name="layout" content="normalLayout">
+    <parameter name="extraCssContainer" value="onecol list" />
 </head>
 
 
