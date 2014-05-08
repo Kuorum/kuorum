@@ -1,5 +1,6 @@
 package kuorum.users
 
+import com.mongodb.BasicDBObject
 import grails.transaction.Transactional
 import kuorum.Institution
 import kuorum.ParliamentaryGroup
@@ -9,6 +10,7 @@ import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
 import kuorum.law.Law
+import kuorum.post.Cluck
 import kuorum.post.Post
 
 @Transactional
@@ -153,5 +155,48 @@ class KuorumUserService {
             activity << userParticipating
         }
         activity
+    }
+
+    List<KuorumUser> mostActiveUsersSince(Date startDate, Pagination pagination = new Pagination()){
+        //MONGO QUERY
+        // aggregate([ {$match:{isFirstCluck:false}}, {$group:{_id:'$owner',total:{$sum:1}}}, {$match:{total:{$gt:0}}}, {$sort:{total:-1}}, {$limit:2} ])
+        def postOwners = Cluck.collection.aggregate(
+                ['$match':[isFirstCluck:true, dateCreated:['$gt':startDate]] ],
+                ['$group':[_id:'$owner',total:['$sum':1]]],
+                ['$match':[total:['$gte':1]]],
+                ['$sort':[total:-1]], ['$limit':pagination.max]
+        )
+        List<KuorumUser> mostActiveUsers = postOwners.results().collect{
+            KuorumUser.load(it._id)
+        }
+
+        //Not enought posts this week
+        if (mostActiveUsers.size() < pagination.max){
+            def postCluckers = Cluck.collection.aggregate(
+                    ['$match':[isFirstCluck:false,dateCreated:['$gt':startDate]]],
+                    ['$group':[_id:'$owner',total:['$sum':1]]],
+                    ['$match':[total:['$gte':1]]],
+                    ['$sort':[total:-1]], ['$limit':pagination.max]
+            )
+            postCluckers.results().each{
+                mostActiveUsers.add(KuorumUser.load(it._id))
+            }
+        }
+
+        //Not enought activity
+        if (mostActiveUsers.size() < pagination.max){
+            log.info("No hay suficiente actividad, se usa la actividad general de cualquier usuario")
+            BasicDBObject alreadyUsers = new BasicDBObject('$nin', mostActiveUsers.collect{it.id});
+            def postCluckers = Cluck.collection.aggregate(
+                    ['$match':[owner:alreadyUsers]],
+                    ['$group':[_id:'$owner',total:['$sum':1]]],
+                    ['$match':[total:['$gte':1]]],
+                    ['$sort':[total:-1]], ['$limit':pagination.max]
+            )
+            postCluckers.results().each{
+                mostActiveUsers.add(KuorumUser.load(it._id))
+            }
+        }
+        mostActiveUsers
     }
 }

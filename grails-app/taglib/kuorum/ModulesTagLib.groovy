@@ -1,10 +1,52 @@
 package kuorum
 
+import kuorum.core.model.search.Pagination
+import kuorum.law.Law
+import kuorum.law.LawVote
+import kuorum.post.Post
+import kuorum.users.KuorumUser
+
 class ModulesTagLib {
     static defaultEncodeAs = 'raw'
     //static encodeAsForTags = [tagName: 'raw']
+    def lawService
+    def springSecurityService
+    def postService
+
+    private static final Long NUM_RECOMMENDED_POST=3
 
     static namespace = "modulesUtil"
+
+    def lawVotes={attrs ->
+        Law law = attrs.law
+        Boolean social = Boolean.parseBoolean(attrs.social?:"false")
+        Boolean title = Boolean.parseBoolean(attrs.title?:"false")
+        LawVote userVote
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            userVote = lawService.findLawVote(law,user)
+        }
+        Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
+        out << render (template:"/law/lawVotesModule", model:[law:law,userVote:userVote,necessaryVotesForKuorum:necessaryVotesForKuorum, social:social, title:title])
+    }
+
+    def lawActivePeople={attrs ->
+        Law law = attrs.law
+        out << render (template:'/modules/activePeopleOnLaw', model: [users: lawService.activePeopleOnLaw(law)])
+    }
+
+    def recommendedPosts={attrs ->
+        KuorumUser user = null
+        String specialCssClass = attrs.specialCssClass
+        Law law = attrs.law //Not necessary
+        Pagination pagination = attrs.numPost?new Pagination(max:Long.parseLong(attrs.numPost)):new Pagination(max:NUM_RECOMMENDED_POST)
+        if (springSecurityService.isLoggedIn()){
+            user = KuorumUser.get(springSecurityService.principal.id)
+        }
+        List<Post> recommendedPost = postService.recommendedPosts(user, law, pagination)
+        String title = attrs.title?:message(code:"modules.recommendedPosts.title")
+        out << render(template: '/modules/recommendedPosts', model:[recommendedPost:recommendedPost, title:title,specialCssClass:specialCssClass])
+    }
 
     def delayedModule={attrs ->
 

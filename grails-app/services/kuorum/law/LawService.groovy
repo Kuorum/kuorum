@@ -5,6 +5,7 @@ import kuorum.ShortUrlService
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.Law.LawStats
 import kuorum.core.model.VoteType
+import kuorum.core.model.search.Pagination
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.solr.IndexSolrService
@@ -92,9 +93,9 @@ class LawService {
             throw KuorumExceptionUtil.createExceptionFromValidatable(lawVote)
         }
         switch (voteType){
-            case VoteType.POSITIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.yes':1]]); break;
-            case VoteType.ABSTENTION:   Law.collection.update([_id:law.id],['$inc':['peopleVotes.abs':1]]); break;
-            case VoteType.NEGATIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.no':1]]); break;
+            case VoteType.POSITIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.yes':1,'peopleVotes.total':1]]); break;
+            case VoteType.ABSTENTION:   Law.collection.update([_id:law.id],['$inc':['peopleVotes.abs':1,'peopleVotes.total':1]]); break;
+            case VoteType.NEGATIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.no':1,'peopleVotes.total':1]]); break;
             default: break;
         }
         law.refresh()
@@ -150,5 +151,22 @@ class LawService {
 
     List<KuorumUser> activePeopleOnLaw(Law law){
         Cluck.collection.distinct('postOwner',[law:law.id]).collect{KuorumUser.get(it)}
+    }
+
+    List<Law> recommendedLaws(KuorumUser user = null, Pagination pagination = new Pagination()){
+        //TODO: Improve
+        Law.createCriteria().list(max:pagination.max, offset:pagination.offset){
+            order("peopleVotes.total","asc")
+        }
+    }
+
+    List<Law> relevantLaws(KuorumUser user = null, Pagination pagination = new Pagination()){
+        //TODO: Improve
+        Law.createCriteria().list(max:pagination.max, offset:pagination.offset){
+            and{
+                order('dateCreated','desc')
+                order('peopleVotes.total','desc')
+            }
+        }
     }
 }

@@ -15,31 +15,6 @@ class ModulesController {
     def notificationService
     def kuorumUserService
 
-    def recommendedPosts() {
-        KuorumUser user = null
-        if (springSecurityService.isLoggedIn()){
-            user = KuorumUser.get(springSecurityService.principal.id)
-        }
-        List<Post> recommendedPost = postService.recommendedPosts(user)
-        String title = message(code:"modules.recommendedPosts.title")
-        [recommendedPost:recommendedPost, title:title]
-    }
-
-    def recommendedLawPosts() {
-        KuorumUser user = null
-        if (springSecurityService.isLoggedIn()){
-            user = KuorumUser.get(springSecurityService.principal.id)
-        }
-        List<Post> recommendedPost = postService.recommendedPosts(user)
-        String title = message(code:"modules.recommendedLawPosts.title")
-        render view:'recommendedPosts', model:[recommendedPost:recommendedPost, title:title]
-    }
-
-    def activePeopleOnLaw(String hashtag){
-        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
-        [users: lawService.activePeopleOnLaw(law)]
-    }
-
     def bottomLawStats(String hashtag){
         Law law = Law.findByHashtag(hashtag.encodeAsHashtag())
         LawStats lawStats = lawService.calculateLawStats(law)

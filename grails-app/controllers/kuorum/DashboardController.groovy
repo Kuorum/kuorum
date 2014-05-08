@@ -2,6 +2,7 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.Pagination
+import kuorum.law.Law
 import kuorum.post.Cluck
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
@@ -11,6 +12,8 @@ class DashboardController {
 
     def springSecurityService
     def cluckService
+    def lawService
+    def kuorumUserService
 
     def index(){
         if (springSecurityService.isLoggedIn()){
@@ -48,6 +51,10 @@ class DashboardController {
     }
 
     def discover(){
+        List<Law> relevantLaws = lawService.relevantLaws()
+        List<Law> recommendedLaws = lawService.recommendedLaws()
+        List<KuorumUser> mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7, new Pagination(max:20))
 //        log.debug("discover")
+        [relevantLaws:relevantLaws, recommendedLaws:recommendedLaws,mostActiveUsers:mostActiveUsers]
     }
 }

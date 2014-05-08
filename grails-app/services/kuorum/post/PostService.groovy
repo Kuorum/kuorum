@@ -23,8 +23,6 @@ class PostService {
     def fileService
     def shortUrlService
 
-    private static final Integer NUM_RECOMMENDED_POST=3
-
     /**
      * Save a post and creates the first firstCluck and first vote (owner vote)
      * @param post post data
@@ -275,10 +273,15 @@ class PostService {
         Post.countByOwner(user)
     }
 
-    List<Post> recommendedPosts(KuorumUser user){
+    List<Post> recommendedPosts(KuorumUser user = null, Law law = null, Pagination pagination = new Pagination()){
+        //TODO: Improve algorithm
         Integer votesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
+        if (law){
+            Post.findAllByLaw(law,[max: pagination.max, sort: "numVotes", order: "desc", offset: 0])
+        }else{
+            Post.list([max: pagination.max, sort: "numVotes", order: "desc", offset: 0])
 //        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
-        Post.list([max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
+        }
     }
     /**
      * Related posts to post and user. User can be null

@@ -13,6 +13,6 @@
 <content tag="cColumn">
     <g:include controller="modules" action="userProfile"/>
     <g:include controller="modules" action="userProfileAlerts"/>
-    <g:include controller="modules" action="recommendedPosts"/>
+    <modulesUtil:recommendedPosts title="${message(code:"modules.recommendedPosts.title")}"/>
     <g:include controller="modules" action="userFavorites"/>
 </content>

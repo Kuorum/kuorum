@@ -28,7 +28,7 @@ class KuorumUserController {
         }
     }
     def index(){
-        def maxElemens = grailsApplication.config.kuorum.seo.maxElements
+            def maxElemens = grailsApplication.config.kuorum.seo.maxElements
         SearchUsers searchUsers = new SearchUsers(userType: params.userTypeUrl, iso3166_2:params.iso3166_2, max:maxElemens)
         [userType: params.userTypeUrl, groupUsers:searchSolrService.listUsers(searchUsers)]
     }

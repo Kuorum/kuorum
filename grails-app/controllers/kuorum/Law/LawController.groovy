@@ -68,15 +68,9 @@ class LawController {
         def clucks = cluckService.lawClucks(law)
         List<Post> victories = postService.lawVictories(law)
 
-        LawVote userVote
-        if (springSecurityService.isLoggedIn()){
-            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            userVote = lawService.findLawVote(law,user)
-        }
-        Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
 
 
-        [law:law, clucks: clucks,victories:victories, userVote:userVote,necessaryVotesForKuorum:necessaryVotesForKuorum]
+        [law:law, clucks: clucks,victories:victories]
 
     }
 
