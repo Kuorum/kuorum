@@ -3,9 +3,8 @@ package kuorum.solr
 import grails.test.spock.IntegrationSpec
 import kuorum.core.model.CommissionType
 import kuorum.core.model.search.SearchLaws
-import kuorum.core.model.solr.SolrLawsGrouped
-import kuorum.core.model.solr.SolrSubType
-import kuorum.core.model.solr.SolrType
+import kuorum.core.model.search.SearchParams
+import kuorum.core.model.solr.*
 import kuorum.users.KuorumUser
 import spock.lang.Shared
 import spock.lang.Unroll
