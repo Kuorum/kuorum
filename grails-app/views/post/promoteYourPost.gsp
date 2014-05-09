@@ -40,7 +40,7 @@
 
     <ul class="btns">
         <li>
-            <g:link mapping="postMailing" class="btn btn-blue btn-lg" params="${post.encodeAsLinkProperties()}">
+            <g:link mapping="postPayPost" class="btn btn-blue btn-lg" params="${post.encodeAsLinkProperties()}">
                 Patrocina mi propuesta
             </g:link>
         </li>
