@@ -17,6 +17,11 @@ class Post {
      * Politician who has defended the post
      */
     KuorumUser defender
+
+    /**
+     * Date when the defender defends the post
+     */
+    Date defenderDate
     Law law
     @Updatable String title
     @Updatable String text
@@ -48,6 +53,11 @@ class Post {
         numClucks min:0
         firstCluck nullable:true
         defender nullable:true
+        defenderDate nullable: true, validator:{val, obj ->
+            if (obj.defender && !val){
+                'defenderWithoutCreationDate'
+            }
+        }
 //        defender nullable:true, validator:{val, obj ->
 //            if (obj.victory && !defender){
 //                return "victoryPostWithoutDefender"
