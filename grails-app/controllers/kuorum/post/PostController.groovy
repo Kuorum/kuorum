@@ -173,10 +173,10 @@ class PostController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def payForMailing(){
         Post post = params.post
-        if (post.owner.id != springSecurityService.principal.id){
-            response.sendError(HttpServletResponse.SC_FORBIDDEN)
-            return;
-        }
+//        if (post.owner.id != springSecurityService.principal.id){
+//            response.sendError(HttpServletResponse.SC_FORBIDDEN)
+//            return;
+//        }
         [post:post]
     }
 

@@ -66,7 +66,7 @@ small, .small {font-size: 75%;}
 .navbar-toggle:hover {background-color: #ee7612;}
 .link-wrapper {cursor: pointer; z-index: 9;}
 .link-wrapper a,
-.link-wrapper .popover-trigger {z-index: 999; position: relative;}
+.link-wrapper .popover-trigger {z-index: 99; position: relative;}
 .disabled {cursor: default !important;}
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {opacity: 0.25;}
 .normalize {font-size: 15px; font-size: 1.5rem;}
@@ -512,7 +512,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo.follow {padding: 5px 15px;}
 .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 10px 0; margin: 0;}
 
-.kakareo.post {background-color: transparent; border: 0; margin-top: 0; color: #545454;}
+.kakareo.post {background-color: transparent; border: 0; margin: 0; color: #545454;}
 .kakareo.post h2 {font-size: 27px; font-size: 2.7rem;}
 .kakareo.post .main-kakareo {padding-bottom: 15px;}
 .kakareo.post footer {background-color: transparent; margin-bottom: 40px;}
@@ -539,6 +539,11 @@ span + .text-notification {padding: 0 0 0 33px;}
 .btn.lin:hover,
 .btn.lin:active,
 .btn.lin:focus {background-color: #1d5e86 !important;}
+.btn.mail {background-color: #efefef !important; color: #545454 !important;}
+.btn.mail:hover,
+.btn.mail:active,
+.btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
+
 
 .user-type {margin-top: -19px;}
 .user-list-images,
@@ -933,7 +938,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .activity > li a:active,
 .activity > li a:focus {text-decoration: none; color: #A8A8A8;}
 
-.boxes > h1 {font-size: 24px; font-size: 2.4rem; border-bottom: 1px solid #dadada; color: #545454; margin-top: 10px; padding: 0 0 8px 0;}
+.boxes > h1 {font-size: 16px; font-size: 1.6rem; border-bottom: 1px solid #dadada; color: #545454; margin-top: 10px; padding: 0 0 8px 0;}
 .boxes > h2 {font-size: 19px; font-size: 1.9rem; color: #545454;}
 .boxes.noted {min-height: 200px;}
 .boxes.noted h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 33px; font-size: 3.3rem; text-transform: uppercase; border: none;}
@@ -1073,7 +1078,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 }
 select.form-control {
   padding: 14px;
-  height: 50px;
+  height: 44px;
 }
 select.form-control option {
   background-color: #fcfcfc;
@@ -1332,7 +1337,7 @@ textarea.error,
 
 /* ley =========== */
 /* ====================================================== */
-.callMobile {position: fixed; top: 76px; left: 24px; display: block; width: 68px; height: 68px; border-radius: 34px; padding: 15px 0; margin-bottom: 10px; background-color: rgba(32, 162, 234, 0.6); z-index: 99; text-align: center;}
+.callMobile {position: fixed; top: 76px; left: 24px; display: block; width: 68px; height: 68px; border-radius: 34px; padding: 15px 0; margin-bottom: 10px; background-color: rgba(32, 162, 234, 0.6); z-index: 999; text-align: center;}
 .callMobile a, .callMobile a:hover, .callMobile a:focus, .callMobile a:active {color: #fff; text-decoration: none; font-family: 'League Gothic', Arial, sans-serif; text-transform: uppercase; font-size: 30px; font-size: 30px;}
 
 .kakareo.post.ley {margin: -37px 0 50px 0;}
@@ -1588,26 +1593,63 @@ textarea.error,
 
 /* post promoción =========== */
 /* ====================================================== */
-.kakareo.post.promo h1 {
+.kakareo.post.promo > h1 {
   font-family: 'League Gothic', Arial, sans-serif;
-  font-size: 47px; font-size: 4.7rem;
+  font-size: 32px; font-size: 3.2rem;
   text-transform: uppercase;
 }
-.promo-options {margin-top: 50px;}
+.kakareo.post.promo > h2 {
+  font-family: 'League Gothic', Arial, sans-serif;
+  font-size: 22px; font-size: 2.2rem;
+  text-transform: uppercase;
+  margin: 30px 0 20px;
+}
+.kakareo.post.promo.tks > h1 {
+  color: #ff9431;
+}
+.kakareo.post.promo.tks > h2,
+.kakareo.post.promo.tks h3 {
+  font-family: 'Georgia', 'Times New Roman', Times, serif;
+  font-size: 22px; font-size: 2.2rem;
+  margin: 30px 0 20px;
+  text-transform: none;
+}
+.kakareo.post.promo.tks h3 {color: #797979;}
+.kakareo.post.promo.tks h4 {
+  font-family: 'Georgia', 'Times New Roman', Times, serif;
+  font-size: 22px; font-size: 2.2rem;
+  margin: 30px 0 20px;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #DADADA;
+}
+
+.promo-options {margin: 50px 0 30px; height: 390px;}
 .promo-options > div {
+  margin-bottom: 10px;
   background-color: #efefef;
   text-align: center;
   padding-top: 20px;
   padding-bottom: 20px;
+  -webkit-transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -o-transition: background-color .5s ease-in-out;
+  transition: background-color .5s ease-in-out;
 }
-.promo-options > div:hover {z-index: 9; margin-top: -25px;}
-
-.promo-options > div:hover {background-color: #ff9431; color: #fff;}
-.promo-options > div:hover  > .link-wrapper {min-height: 390px;}
+.promo-options > div:hover {
+  background-color: #ff9431;
+  color: #fff;
+  z-index: 9;
+  margin-top: -20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+.promo-options > div:hover  > .link-wrapper {min-height: 380px; background-color: transparent; color: #fff;}
 .promo-options > div:hover > .link-wrapper > h3 {color: #545454; font-size: 22px; font-size: 2.2rem;}
 .promo-options > div:hover  > .link-wrapper > .euros  {color: #545454; font-size: 64px; font-size: 6.4rem;}
 
-.promo-options > div > .link-wrapper {padding: 0; min-height: 350px;}
+.promo-options > div > .link-wrapper {
+  padding: 0;
+  min-height: 350px;
+}
 .promo-options > div > .link-wrapper > .mails {font-size: 25px; font-size: 2.5rem;}
 .promo-options > div > .link-wrapper > h2 {font-size: 24px; font-size: 2.4rem; text-transform: uppercase;}
 .promo-options > div > .link-wrapper > h3 {font-size: 18px; font-size: 1.8rem; font-weight: bold;}
@@ -1619,6 +1661,67 @@ textarea.error,
   bottom: 20px;
   width: 90%;
 }
+.form-promo,
+.form-promo-pay {padding: 20px 0; border-bottom: 1px solid #DADADA; border-top: 1px solid #DADADA;}
+.form-promo h4 {font-size: 18px; font-size: 1.8rem;}
+.form-promo h4,
+.form-promo form {display: inline-block;}
+.form-promo form .form-group {float: left;}
+.form-promo form .btn {margin: 2px 0 0 10px !important; padding: 12px 50px !important;}
+.form-promo form input {width: 80px !important; font-size: 22px; font-size: 2.2rem;}
+.form-promo-pay select.form-control {margin: 0 0 8px 0;}
+
+.form-promo-pay label {font-weight: bold;}
+.form-promo-pay .link {line-height: 1;}
+.form-promo-pay .btn.btn-lg {line-height: 1.5 !important;}
+.form-promo-pay .btn.btn-lg small {display: block;}
+.form-promo-pay p.secure {
+  line-height: 1.2;
+  margin: 20px 0;
+  padding: 45px 0 0 0;
+  background: url('../images/secure-payment.png') no-repeat -10px 0 transparent;
+}
+.boxes.plan .up-plan {
+  font-size: 13px; font-size: 1.3rem;
+  font-weight: bold;
+  padding: 10px 0;
+  color: #545454;
+  text-align: center;
+  display: block;
+  border-top: 1px solid #DADADA;
+}
+.boxes.plan h1 .pull-right {font-size: 14px; font-size: 1.4rem;}
+
+.kakareo.post.promo.tks ol {margin: 50px 0 0 0; padding: 0;}
+.kakareo.post.promo.tks ol li {
+  list-style: none;
+  padding-left: 40px;
+  padding-bottom: 40px;
+  margin-left: 20px;
+  margin-top: -30px;
+  position: relative;
+  border-left: 1px solid #DADADA;
+}
+.kakareo.post.promo.tks ol li .badge {
+  position: absolute;
+  top: 0;
+  left: -20px;
+  border-radius: 20px;
+  font-family: 'League Gothic',Arial,sans-serif;
+  font-size: 2.4rem;
+  font-weight: normal;
+  height: 40px;
+  padding: 8px 4px 0;
+  width: 40px;
+  background-color: #797979;
+}
+.kakareo.post.promo.tks ol li:last-child {border-left: none; border-bottom: 1px solid #DADADA;}
+.kakareo.post.promo.tks ol li p:last-child {margin: 0;}
+.kakareo.post.promo.tks .invite {margin: 0; padding: 0;}
+.kakareo.post.promo.tks .invite li {display: block; list-style: none; margin: 0 0 10px 0;}
+.kakareo.post.promo.tks .invite li a {margin-left: 0 !important; padding: 12px 0 !important; display: block;}
+
+
 
 
 /* buscador =========== */
@@ -1684,7 +1787,7 @@ textarea.error,
     -o-transition: background .5s ease-in-out;
     transition: background .5s ease-in-out;
 }
-.home #sign .checkbox-inline {margin: 4px 0 0 0!important;}
+.home #sign .checkbox-inline {margin: 4px 0 !important; font-size: 13px; font-size: 1.3rem;}
 .home .socialGo {margin: 0;}
 .home .socialGo li {display: block; float: none; margin: 10px 0 0 0;}
 .home .socialGo li a {display: block; width: auto;}
@@ -1855,7 +1958,6 @@ textarea.error,
   text-transform: uppercase;
 }
 .onecol.list h3 {font-size: 19px; font-style: 1.9rem; margin-bottom: 20px;}
-.onecol.list a {color:rgb(84, 84, 84);}
 .onecol.list .block-results {border-top: 1px solid #DADADA; padding-top: 40px;}
 .onecol.list .block-results ul {
   margin: 0 0 40px 0;
@@ -2148,6 +2250,24 @@ textarea.error,
   .othersPost #postNav {height: 110px;}
   .othersPost #postNav > a {padding: 34px 18px;}
 
+  .form-promo h4 {font-size: 27px; font-size: 2.7rem; margin-right: 40px;}
+  .form-promo form .form-group {float: none;}
+  .form-promo form .btn {margin: 0 0 0 10px !important;}
+  .promo-options > div > .link-wrapper {min-height: 270px;}
+  .promo-options > div:hover {margin: 0;}
+  .promo-options > div:hover  > .link-wrapper {min-height: 310px;}
+  .form-promo-pay .link {line-height: 6.5;}
+  .form-promo-pay p.secure {padding: 0 0 0 180px; background: url('../images/secure-payment.png') no-repeat 0 0 transparent;}
+
+  .kakareo.post.promo > h1 {font-size: 47px; font-size: 4.7rem;}
+  .kakareo.post.promo > h2 {font-size: 29px; font-size: 2.9rem;}
+  .kakareo.post.promo.tks > h2,
+  .kakareo.post.promo.tks h3 {font-size: 28px; font-size: 2.8rem;}
+  .kakareo.post.promo.tks h4 {font-size: 25px; font-size: 2.5rem;}
+  .kakareo.post.promo.tks .invite li {display: inline; list-style: none; margin: 0 6px 0 0;}
+  .kakareo.post.promo.tks .invite li a {width: 150px; padding: 12px 0 !important; display: inline-block;}
+
+
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -2179,6 +2299,7 @@ textarea.error,
   .kakareo footer ul.actions-kak {border: none !important;}
   .activity > li {font-size: 15px; font-size: 1.5rem;}
   .activity .popover-trigger span {font-size: 34px; font-size: 3.4rem;}
+  .boxes > h1 {font-size: 22px; font-size: 2.2rem;}
   .boxes .personal {padding: 30px 0;}
   .boxes .kakareo footer ul li.read-later {margin-right: 44px !important;}
   .boxes .kakareo footer > ul.actions-kak > li {margin: 0 0 0 4px;}
@@ -2195,29 +2316,32 @@ textarea.error,
   .boxes.vote .voting > ul > li {margin-right: 10px;}
   .boxes.vote .voting .changeOpinion {font-size: 18px; font-size: 1.8rem; padding: 26px;}
   .boxes.guay .kakareo footer > ul {padding: 5px 0;}
-
-
   .boxes .kakareo footer ul li.like-number {margin: 0 50px 0 2px;}
-
-
   .participate .row p {padding: 0 20px;}
   .controls {float: right; width: 277px;}
   .popover-box {width: 30%; margin: 0 30px 20px 0;}
-
   .home .images {background-position: 0 -80px;}
-  .signContainer {padding: 20px 40px 40px 40px;}
+  .signContainer {padding: 20px 30px 40px;}
   .signContainer h3 {font-size: 17px; font-size: 1.7rem;}
   .signContainer h2 small {font-size: 20px; font-size: 2rem;}
   .userprofile .boxes .btn.btn-lg {font-size: 2rem !important; padding: 18px 50px !important;}
-
   .pre {font-size: 25px; font-size: 2.5rem; display: inline-block;}
   .introDiscover .steps li {margin: 0 0 0 45px;}
   .introDiscover .steps {margin: 0; display: inline-block; float: right;}
   .pre {margin: 0;}
   .introDiscover {margin: 40px 0;}
   .discover .boxes.vote {margin-top: 105px;}
-
   .othersPost #postNav {height: 70px;}
+
+  .promo-options > div > .link-wrapper {min-height: 295px;}
+  .promo-options > div > .link-wrapper > h2 {font-size: 20px; font-size: 2rem;}
+  .promo-options > div > .link-wrapper > p {font-size: 12px; font-size: 1.2rem;}
+  .promo-options > div > .link-wrapper > p small {font-size: 10px; font-size: 1rem;}
+  .promo-options > div:hover {margin: -20px 0 0 0;}
+  .promo-options > div:hover  > .link-wrapper {min-height: 330px;}
+
+  .boxes.plan h1 .pull-right {font-size: 18px; font-size: 1.8rem;}
+  .kakareo.post.promo.tks .invite li a {width: 200px;}
 
   .columns2 {
     -moz-column-count: 2;
@@ -2271,6 +2395,16 @@ textarea.error,
 
   .home .socialGo li {display: inline-block; float: left; margin: 10px 12px 0 0; width: 170px;}
   .home .socialGo li:last-child {margin-right: 0;}
+
+  .promo-options > div > .link-wrapper {min-height: 315px;}
+  .promo-options > div > .link-wrapper > h2 {font-size: 24px; font-size: 2.4rem;}
+  .promo-options > div > .link-wrapper > p {font-size: 15px; font-size: 1.5rem;}
+  .promo-options > div > .link-wrapper > p small {font-size: 12px; font-size: 1.2rem;}
+  .promo-options > div:hover {margin: -20px 0 0 0;}
+  .promo-options > div:hover  > .link-wrapper {min-height: 360px;}
+
+  .kakareo.post.promo.tks .invite li a {width: 236px;}
+
 }
 
 /* Retina ready images */

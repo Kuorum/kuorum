@@ -18,14 +18,7 @@
 
             <!-- cambia la clase col-md era 7 y pasa a ser 6 -->
                 <div class="col-md-6 text-right sponsor">
-                    Patrocinado por
-                    <ul class="user-list-images">
-                        <li itemprop="contributor" itemscope itemtype="http://schema.org/Person">
-                            <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">
-                            </a>
-                        </li>
-                    </ul><!-- /.user-list-images -->
+                    <userUtil:showListUsers users="${post.sponsors.kuorumUser}" visibleUsers="2" messagesPrefix="post.promoters.userList"/>
                 </div><!-- /patrocinadores -->
             </div>
         </div><!-- /.link-wrapper -->

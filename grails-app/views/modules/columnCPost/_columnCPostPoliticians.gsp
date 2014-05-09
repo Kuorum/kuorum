@@ -1,6 +1,10 @@
 <postUtil:ifIsImportant post="${post}">
-    <div class="user actor politic" itemprop="contributor" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">Nombre usuario</span>
-        <a href="#" itemprop="url"><img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"></a>
-    </div>
+    <g:if test="${post.defender}">
+        <div class="user actor politic" itemprop="contributor" itemscope itemtype="http://schema.org/Person">
+            <userUtil:showUser user="${post.defender}" />
+        </div>
+    </g:if>
+    <g:elseif test="${post.debates}">
+        <userUtil:showListUsers users="${post.debates.findAll{it.kuorumUser != post.owner}.kuorumUser}" visibleUsers="2"/>
+    </g:elseif>
 </postUtil:ifIsImportant>

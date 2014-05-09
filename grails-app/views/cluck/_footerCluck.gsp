@@ -93,7 +93,7 @@
                 <div class="popover">
                     <div class="popover-more-actions">
                         <ul>
-                            <li><a href="#"><g:message code="cluck.footer.promote"/> </a></li>
+                            <li><g:link mapping="postPayPost" params="${post.encodeAsLinkProperties()}"><g:message code="cluck.footer.promote"/></g:link></li>
                             <li><a href="#">Compartir en Facebook</a></li>
                             <li><a href="#">Compartir en Twitter</a></li>
                             <li><a href="#">Enviar por email</a></li>
