@@ -84,7 +84,7 @@ function createKuorumUserFromPolitician(politician){
         "language" : "es_ES",
         "lastUpdated" : politician.lastUpdated,
         "lastNotificationChecked":new Date(),
-        "name" : HtmlDecode(politician.name + " " +politician.surname),
+        "name" : HtmlDecode(politician.name.trim() + " " +politician.surname.trim()),
         "password" : "passPolitico",
         "passwordExpired" : false,
         "personalData" : {

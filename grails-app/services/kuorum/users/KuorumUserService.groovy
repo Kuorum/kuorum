@@ -1,6 +1,6 @@
 package kuorum.users
 
-import com.mongodb.BasicDBObject
+import com.mongodb.*
 import grails.transaction.Transactional
 import kuorum.Institution
 import kuorum.ParliamentaryGroup
@@ -164,7 +164,9 @@ class KuorumUserService {
                 ['$match':[isFirstCluck:true, dateCreated:['$gt':startDate]] ],
                 ['$group':[_id:'$owner',total:['$sum':1]]],
                 ['$match':[total:['$gte':1]]],
-                ['$sort':[total:-1]], ['$limit':pagination.max]
+                ['$sort':[total:-1]],
+//                ['$skip':pagination.offset],
+                ['$limit':pagination.max]
         )
         List<KuorumUser> mostActiveUsers = postOwners.results().collect{
             KuorumUser.load(it._id)
@@ -176,7 +178,8 @@ class KuorumUserService {
                     ['$match':[isFirstCluck:false,dateCreated:['$gt':startDate]]],
                     ['$group':[_id:'$owner',total:['$sum':1]]],
                     ['$match':[total:['$gte':1]]],
-                    ['$sort':[total:-1]], ['$limit':pagination.max]
+                    ['$sort':[total:-1]],
+                    ['$limit':pagination.max]
             )
             postCluckers.results().each{
                 mostActiveUsers.add(KuorumUser.load(it._id))
@@ -191,12 +194,120 @@ class KuorumUserService {
                     ['$match':[owner:alreadyUsers]],
                     ['$group':[_id:'$owner',total:['$sum':1]]],
                     ['$match':[total:['$gte':1]]],
-                    ['$sort':[total:-1]], ['$limit':pagination.max]
+                    ['$sort':[total:-1]],
+                    ['$limit':pagination.max]
             )
             postCluckers.results().each{
                 mostActiveUsers.add(KuorumUser.load(it._id))
             }
         }
         mostActiveUsers
+    }
+
+    List<KuorumUser> bestSponsorsEver(Pagination pagination = new Pagination()){
+        bestSponsorsSince(null, pagination)
+    }
+    List<KuorumUser> bestSponsorsSince(Date startDate, Pagination pagination = new Pagination()){
+//Not enought posts this week
+        List<KuorumUser> bestSponsors = []
+
+        if (startDate){
+            def bestSponsorsByDate = Cluck.collection.aggregate(
+                    ['$match':[sponsors: ['$exists':1],dateCreated:['$gt':startDate]]],
+                    ['$unwind':'$sponsors'],
+                    ['$group':[_id:'$sponsors.kuorumUserId',total:['$sum':'$sponsors.amount']]],
+                    ['$match':[total:['$gte':1]]],
+                    ['$sort':[total:-1]],
+                    ['$limit':pagination.max]
+            )
+            bestSponsors= bestSponsorsByDate.results().collect{
+                KuorumUser.load(it._id)
+            }
+        }
+
+        //Not enought sponsor
+        if (bestSponsors.size() < pagination.max){
+            log.info("Buscando los mejores sponsors de la historia de kuorum")
+            BasicDBObject alreadyUsers = new BasicDBObject('$nin', bestSponsors.collect{it.id});
+            def bestSponsorsEver = Cluck.collection.aggregate(
+                    ['$match':[sponsors: ['$exists':1],owner:alreadyUsers]],
+                    ['$unwind':'$sponsors'],
+                    ['$group':[_id:'$sponsors.kuorumUserId',total:['$sum':'$sponsors.amount']]],
+                    ['$match':[total:['$gte':1]]],
+                    ['$sort':[total:-1]],
+                    ['$skip':pagination.offset],
+                    ['$limit':pagination.max]
+            )
+            bestSponsorsEver.results().each{
+                bestSponsors.add(KuorumUser.load(it._id))
+            }
+        }
+
+        bestSponsors
+    }
+
+    List<KuorumUser> bestPoliticiansSince(Date startDate, Pagination pagination = new Pagination()){
+        //TODO: CACHE THIS QUERY
+        //TODO: Use startDate. Now is getting best politicians ever
+
+        String mapPost = """
+            function() {
+                if (this.defender != undefined){
+                    emit(this.defender, 2)
+                }
+                if (this.debate != undefined) {
+                    this.debates.forEach( function(value) {
+                            emit(value.kuorumUserId, 1)
+                    });
+                }
+            }
+        """
+
+        String reducePost = """
+            function(key, values) {
+                var acc = 0;
+                values.forEach( function(value) {
+                    acc +=value;
+                });
+                return acc;
+            }
+        """
+
+        DBObject queryPost = new BasicDBObject();
+        DBObject existsDefender = new BasicDBObject(); existsDefender.put('$exists','1');
+        queryPost.put("defender",existsDefender);
+        DBObject sortResult = new BasicDBObject();
+        DBObject sortByValue = new BasicDBObject(); sortByValue.put('value',-1)
+        sortResult.put('$sort',sortByValue)
+
+        DBCollection postCollection = Post.collection
+        def tempCollectionName = "bestPoliticians"
+        MapReduceCommand bestPoliticians = new MapReduceCommand(
+                postCollection,
+                mapPost,
+                reducePost ,
+                tempCollectionName,
+                MapReduceCommand.OutputType.REPLACE, null);
+//        bestPoliticians.sort = sortByValue
+        bestPoliticians.limit = pagination.max
+
+        DBCollection bestPoliticiansCollection = Post.collection.getDB().getCollection(tempCollectionName);
+        log.warn("Realizando un MAP REDUCE. Operación lenta que no se debe ejecturar muchas veces")
+        MapReduceOutput result = Post.collection.mapReduce(bestPoliticians)
+
+        List<KuorumUser> politicians = bestPoliticiansCollection.find().sort(sortResult).collect{KuorumUser.load(it._id)}
+
+        if (politicians.size() < pagination.max){
+            log.warn("Poniendo a pelo politicos que no estan activos. Accion temporal")
+            def userNamesFake = ["Joan Baldoví Roda"]
+
+            userNamesFake.each {
+                KuorumUser user = KuorumUser.findByName(it)
+                if (user) politicians.add(user)
+            }
+        }
+
+        politicians
+
     }
 }

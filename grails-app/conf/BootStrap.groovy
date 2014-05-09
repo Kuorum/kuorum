@@ -8,7 +8,7 @@ class BootStrap {
 
     def grailsApplication
     def fixtureLoader
-
+    def indexSolrService
     def init = { servletContext ->
 
         //TODO: Think where this initialization could be called instead of bootstrap
@@ -55,6 +55,7 @@ class BootStrap {
             development {
                 KuorumUser.collection.getDB().dropDatabase()
                 fixtureLoader.load("testData")
+                indexSolrService.fullIndex()
             }
             test{
 //                KuorumUser.collection.getDB().dropDatabase()
@@ -63,6 +64,7 @@ class BootStrap {
             production{
                 KuorumUser.collection.getDB().dropDatabase()
                 fixtureLoader.load("testData")
+                indexSolrService.fullIndex()
             }
         }
         if (RoleUser.count() == 0){
