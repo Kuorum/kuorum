@@ -321,8 +321,9 @@ class PostService {
         if (politician.userType != UserType.POLITICIAN){
             throw new KuorumException("El usuario ${politician.name} (${politician.id}) no es un político para defender la publicacion ${post.id}", "error.security.post.defend.isNotPolitician")
         }
-        Post.collection.update ( [_id:post.id],['$set':[defender:politician.id]])
-        Cluck.collection.update([_id:post.firstCluck.id],['$set':[defendedBy:politician.id, lastUpdated:new Date()]])
+        Date defenderDate = new Date()
+        Post.collection.update ( [_id:post.id],['$set':[defender:politician.id,defenderDate:defenderDate]])
+        Cluck.collection.update([_id:post.firstCluck.id],['$set':[defendedBy:politician.id, lastUpdated:defenderDate]])
         post.refresh()
         post.firstCluck.refresh()
         post

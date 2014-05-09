@@ -185,6 +185,7 @@ class PostServiceIntegrationSpec extends Specification{
         newPost
         newPost.defender.email          == "politician@example.com"
         post.defender.email             == "politician@example.com"
+        post.defenderDate != null
         newPost.firstCluck.defendedBy.email == "politician@example.com"
         post.firstCluck.defendedBy.email   == "politician@example.com"
         Post.withNewSession {
