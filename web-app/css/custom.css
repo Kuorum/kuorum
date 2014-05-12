@@ -1662,12 +1662,19 @@ textarea.error,
   width: 90%;
 }
 .form-promo,
-.form-promo-pay {padding: 20px 0; border-bottom: 1px solid #DADADA; border-top: 1px solid #DADADA;}
+.form-promo-pay {min-height: 126px; padding: 30px 0 0 0; border-bottom: 1px solid #DADADA; border-top: 1px solid #DADADA;}
 .form-promo h4 {font-size: 18px; font-size: 1.8rem;}
 .form-promo h4,
 .form-promo form {display: inline-block;}
+.form-promo form {position: relative;}
 .form-promo form .form-group {float: left;}
-.form-promo form .btn {margin: 2px 0 0 10px !important; padding: 12px 50px !important;}
+.form-promo form .btn {
+  padding: 12px 50px !important;
+  margin: 0 !important;
+  position: absolute;
+  right: 15px;
+  top: 1px;
+}
 .form-promo form input {width: 80px !important; font-size: 22px; font-size: 2.2rem;}
 .form-promo-pay select.form-control {margin: 0 0 8px 0;}
 
@@ -2310,9 +2317,9 @@ textarea.error,
   .othersPost #postNav {height: 110px;}
   .othersPost #postNav > a {padding: 34px 18px;}
 
-  .form-promo h4 {font-size: 27px; font-size: 2.7rem; margin-right: 40px;}
+  .form-promo h4 {font-size: 27px; font-size: 2.7rem; /*margin-right: 40px;*/}
   .form-promo form .form-group {float: none;}
-  .form-promo form .btn {margin: 0 0 0 10px !important;}
+  /*.form-promo form .btn {margin: 0 0 0 10px !important;}*/
   .promo-options > div > .link-wrapper {min-height: 270px;}
   .promo-options > div:hover {margin: 0;}
   .promo-options > div:hover  > .link-wrapper {min-height: 310px;}
