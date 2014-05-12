@@ -16,3 +16,10 @@
     <modulesUtil:recommendedPosts title="${message(code:"modules.recommendedPosts.title")}"/>
     <g:include controller="modules" action="userFavorites"/>
 </content>
+
+%{--<content tag="footerStats">--}%
+    %{--<a href="#main" class="smooth top">--}%
+        %{--<span class="fa fa-caret-up fa-lg"></span>--}%
+        %{--<g:message code="law.up"/>--}%
+    %{--</a>--}%
+%{--</content>--}%
