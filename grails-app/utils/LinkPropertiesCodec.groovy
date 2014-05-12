@@ -14,6 +14,7 @@ import kuorum.users.KuorumUser
  */
 class LinkPropertiesCodec {
 
+    private static final Integer NUM_CHARS_URL_POST_TITLE = 35
 
     static encode = {target->
 
@@ -32,6 +33,7 @@ class LinkPropertiesCodec {
                 String postTypeName =   translate("${PostType.canonicalName}.${target.postType}")
                 params+= [
                         postId:target.id,
+                        postBrief:target.title[0..Math.min(NUM_CHARS_URL_POST_TITLE, target.title.size()-1)].encodeAsKuorumUrl(),
                         postTypeUrl:postTypeName.encodeAsKuorumUrl(),
                 ]
                 break;
@@ -100,6 +102,7 @@ class LinkPropertiesCodec {
                 regionName:post.regionName.encodeAsKuorumUrl(),
                 commission:commissionName.encodeAsKuorumUrl(),
                 postId:post.id,
+                postBrief:post.name[0..Math.min(NUM_CHARS_URL_POST_TITLE, post.name.size()-1)].encodeAsKuorumUrl(),
                 postTypeUrl:postTypeName.encodeAsKuorumUrl(),
         ]
     }
