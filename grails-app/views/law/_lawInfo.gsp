@@ -21,17 +21,16 @@
         ${raw(law.introduction.replaceAll('\n','</p><p>'))}
     </p>
     <g:if test="${readMore}">
-
+        <div id="collapse" class="panel-collapse collapse">
+            <p>
+                ${raw(law.description.replaceAll('\n','</p><p>'))}
+            </p>
+        </div>
         <div class="readMore">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse" class="collapsed">
                 <g:message code="law.text.seeMore"/>
                 <span class="fa fa-chevron-circle-down fa-lg"></span>
             </a>
-        </div>
-        <div id="collapse" class="panel-collapse collapse">
-            <p>
-                ${raw(law.description.replaceAll('\n','</p><p>'))}
-            </p>
         </div>
     </g:if>
     <g:if test="${linkToLaw}">
