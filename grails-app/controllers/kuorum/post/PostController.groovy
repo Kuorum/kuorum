@@ -157,7 +157,7 @@ class PostController {
             return;
         }
         postService.publishPost(post)
-        redirect mapping:"postPromoteYourPost", params:post.encodeAsLinkProperties()
+        redirect mapping:"postPublished", params:post.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
