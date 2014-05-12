@@ -1,320 +1,320 @@
 @font-face {
-	font-family: 'icomoon';
-	src:url('icomoon.eot?-kwu9ad');
-	src:url('icomoon.eot?#iefix-kwu9ad') format('embedded-opentype'),
-		url('icomoon.woff?-kwu9ad') format('woff'),
-		url('icomoon.ttf?-kwu9ad') format('truetype'),
-		url('icomoon.svg?-kwu9ad#icomoon') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'icomoon';
+    src:url('icomoon.eot?-kwu9ad');
+    src:url('icomoon.eot?#iefix-kwu9ad') format('embedded-opentype'),
+    url('icomoon.woff?-kwu9ad') format('woff'),
+    url('icomoon.ttf?-kwu9ad') format('truetype'),
+    url('icomoon.svg?-kwu9ad#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
 
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-tractor:before {
-	content: "\e61e";
+.icon-AGRICULTURE:before {
+    content: "\e61e";
 }
 .icon-tower16:before {
-	content: "\e61f";
+    content: "\e61f";
 }
-.icon-strategy8:before {
-	content: "\e620";
+.icon-DEFENSE:before {
+    content: "\e620";
 }
-.icon-scales2:before {
-	content: "\e621";
+.icon-JUSTICE:before {
+    content: "\e621";
 }
-.icon-recycling1:before {
-	content: "\e622";
+.icon-NUTRITION_AND_ENVIRONMENT:before {
+    content: "\e622";
 }
-.icon-policeman:before {
-	content: "\e623";
+.icon-DOMESTIC_POLICY:before {
+    content: "\e623";
 }
-.icon-male107:before {
-	content: "\e624";
+.icon-DISABILITY:before {
+    content: "\e624";
 }
-.icon-hammer7:before {
-	content: "\e625";
+.icon-CONSTITUTIONAL:before {
+    content: "\e625";
 }
-.icon-factory1:before {
-	content: "\e626";
+.icon-INDUSTRY:before {
+    content: "\e626";
 }
-.icon-euro22:before {
-	content: "\e627";
+.icon-EUROPE_UNION:before {
+    content: "\e627";
 }
-.icon-earth16:before {
-	content: "\e628";
+.icon-CULTURE:before {
+    content: "\e628";
 }
 .icon-question38:before {
-	content: "\e60b";
+    content: "\e60b";
 }
 .icon-notebook30:before {
-	content: "\e60c";
+    content: "\e60c";
 }
 .icon-notebook26:before {
-	content: "\e60d";
+    content: "\e60d";
 }
 .icon-notebook21:before {
-	content: "\e60e";
+    content: "\e60e";
 }
 .icon-notebook6:before {
-	content: "\e60f";
+    content: "\e60f";
 }
 .icon-light79:before {
-	content: "\e610";
+    content: "\e610";
 }
 .icon-light62:before {
-	content: "\e611";
+    content: "\e611";
 }
 .icon-light59:before {
-	content: "\e612";
+    content: "\e612";
 }
 .icon-help:before {
-	content: "\e613";
+    content: "\e613";
 }
 .icon-binoculares:before {
-	content: "\e614";
+    content: "\e614";
 }
 .icon-gpl:before {
-	content: "\e60a";
+    content: "\e60a";
 }
 .icon-Flaticon_24178:before {
-	content: "\e600";
+    content: "\e600";
 }
 .icon-Flaticon_20188:before {
-	content: "\e601";
+    content: "\e601";
 }
 .icon-Flaticon_17864:before {
-	content: "\e602";
+    content: "\e602";
 }
 /* gafas */
 .icon-Flaticon_9296:before {
-	content: "\e603";
+    content: "\e603";
 }
 .icon-Flaticon_5124:before {
-	content: "\e604";
+    content: "\e604";
 }
 .icon-Flaticon_2449:before {
-	content: "\e605";
+    content: "\e605";
 }
 .icon-Flaticon_2360:before {
-	content: "\e606";
+    content: "\e606";
 }
 .icon-Flaticon_17919:before {
-	content: "\e607";
+    content: "\e607";
 }
-.icon-office:before {
-	content: "\e629";
+.icon-PUBLIC_WORKS:before {
+    content: "\e629";
 }
 .icon-image:before {
-	content: "\e62a";
+    content: "\e62a";
 }
 .icon-play:before {
-	content: "\e62b";
+    content: "\e62b";
 }
-.icon-book:before {
-	content: "\e62c";
+.icon-EDUCATION_SPORTS:before {
+    content: "\e62c";
 }
-.icon-library:before {
-	content: "\e62d";
+.icon-TAXES:before {
+    content: "\e62d";
 }
 .icon-cart:before {
-	content: "\e62e";
+    content: "\e62e";
 }
 .icon-coin:before {
-	content: "\e62f";
+    content: "\e62f";
 }
-.icon-credit:before {
-	content: "\e630";
+.icon-ECONOMY:before {
+    content: "\e630";
 }
 .icon-pushpin:before {
-	content: "\e631";
+    content: "\e631";
 }
 .icon-location:before {
-	content: "\e632";
+    content: "\e632";
 }
 .icon-clock:before {
-	content: "\e633";
+    content: "\e633";
 }
 .icon-bubbles:before {
-	content: "\e634";
+    content: "\e634";
 }
 .icon-bubbles2:before {
-	content: "\e635";
+    content: "\e635";
 }
 .icon-bubbles3:before {
-	content: "\e636";
+    content: "\e636";
 }
 .icon-wrench:before {
-	content: "\e637";
+    content: "\e637";
 }
 .icon-hammer:before {
-	content: "\e638";
+    content: "\e638";
 }
-.icon-aid:before {
-	content: "\e639";
+.icon-HEALTH_CARE:before {
+    content: "\e639";
 }
 .icon-pie:before {
-	content: "\e63a";
+    content: "\e63a";
 }
 .icon-stats:before {
-	content: "\e63b";
+    content: "\e63b";
 }
-.icon-bars:before {
-	content: "\e63c";
+.icon-BUDGETS:before {
+    content: "\e63c";
 }
 .icon-hammer2:before {
-	content: "\e63d";
+    content: "\e63d";
 }
-.icon-lab:before {
-	content: "\e63e";
+.icon-RESEARCH_DEVELOP:before {
+    content: "\e63e";
 }
-.icon-briefcase:before {
-	content: "\e63f";
+.icon-EMPLOY_AND_HEALTH_SERVICE:before {
+    content: "\e63f";
 }
-.icon-truck:before {
-	content: "\e640";
+.icon-ROAD_SAFETY:before {
+    content: "\e640";
 }
 .icon-link:before {
-	content: "\e641";
+    content: "\e641";
 }
-.icon-flag:before {
-	content: "\e642";
+.icon-FOREIGN_AFFAIRS:before {
+    content: "\e642";
 }
 .icon-eye:before {
-	content: "\e643";
+    content: "\e643";
 }
 .icon-bookmark:before {
-	content: "\e608";
+    content: "\e608";
 }
 .icon-heart:before {
-	content: "\e644";
+    content: "\e644";
 }
 .icon-smiley:before {
-	content: "\e645";
+    content: "\e645";
 }
 .icon-smiley2:before {
-	content: "\e646";
+    content: "\e646";
 }
 .icon-tongue:before {
-	content: "\e647";
+    content: "\e647";
 }
 .icon-tongue2:before {
-	content: "\e648";
+    content: "\e648";
 }
 .icon-sad:before {
-	content: "\e649";
+    content: "\e649";
 }
 .icon-sad2:before {
-	content: "\e64a";
+    content: "\e64a";
 }
 .icon-shocked:before {
-	content: "\e64b";
+    content: "\e64b";
 }
 .icon-shocked2:before {
-	content: "\e64c";
+    content: "\e64c";
 }
 .icon-confused:before {
-	content: "\e64d";
+    content: "\e64d";
 }
 .icon-confused2:before {
-	content: "\e64e";
+    content: "\e64e";
 }
 .icon-neutral:before {
-	content: "\e64f";
+    content: "\e64f";
 }
 .icon-neutral2:before {
-	content: "\e650";
+    content: "\e650";
 }
 .icon-wondering:before {
-	content: "\e651";
+    content: "\e651";
 }
 .icon-wondering2:before {
-	content: "\e652";
+    content: "\e652";
 }
 .icon-info:before {
-	content: "\e653";
+    content: "\e653";
 }
 .icon-info2:before {
-	content: "\e654";
+    content: "\e654";
 }
 .icon-share:before {
-	content: "\e655";
+    content: "\e655";
 }
 .icon-file-pdf:before {
-	content: "\e615";
+    content: "\e615";
 }
 .icon-close:before {
-	content: "\e656";
+    content: "\e656";
 }
 .icon-envelope:before {
-	content: "\e657";
+    content: "\e657";
 }
 .icon-trash:before {
-	content: "\e616";
+    content: "\e616";
 }
 .icon-clock2:before {
-	content: "\e658";
+    content: "\e658";
 }
 .icon-photo:before {
-	content: "\e617";
+    content: "\e617";
 }
 .icon-paperclip:before {
-	content: "\e659";
+    content: "\e659";
 }
 .icon-user:before {
-	content: "\e618";
+    content: "\e618";
 }
 .icon-users:before {
-	content: "\e619";
+    content: "\e619";
 }
 .icon-user-add:before {
-	content: "\e61a";
+    content: "\e61a";
 }
 .icon-flag2:before {
-	content: "\e65a";
+    content: "\e65a";
 }
 .icon-megaphone:before {
-	content: "\e609";
+    content: "\e609";
 }
 .icon-suitcase:before {
-	content: "\e61b";
+    content: "\e61b";
 }
 .icon-bars2:before {
-	content: "\e65b";
+    content: "\e65b";
 }
 .icon-minus:before {
-	content: "\e65c";
+    content: "\e65c";
 }
 .icon-plus:before {
-	content: "\e65d";
+    content: "\e65d";
 }
 .icon-minus2:before {
-	content: "\e65e";
+    content: "\e65e";
 }
 .icon-plus2:before {
-	content: "\e65f";
+    content: "\e65f";
 }
 .icon-cross:before {
-	content: "\e660";
+    content: "\e660";
 }
 .icon-disk:before {
-	content: "\e661";
+    content: "\e661";
 }
 .icon-next:before {
-	content: "\e61c";
+    content: "\e61c";
 }
 .icon-previous:before {
-	content: "\e61d";
+    content: "\e61d";
 }
