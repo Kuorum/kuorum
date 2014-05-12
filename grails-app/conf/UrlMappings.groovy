@@ -1,3 +1,5 @@
+import grails.util.Environment
+import kuorum.core.exception.KuorumException
 import kuorum.core.model.UserType
 
 class UrlMappings {
@@ -77,6 +79,7 @@ class UrlMappings {
         name searcherSearchSeeMore:"/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
         name searcherSearchFilters:"/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
         name searcherSuggests:    "/buscar/sugerencias"(controller: "search", action:"suggest")
+        name searcherFullIndex:   "/buscar/indexar"(controller: "search", action:"fullIndex")
 
         name profileEditUser:     "/mi-perfil"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
         name profileChangePass:   "/mi-perfil/cambiar-password" (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
@@ -120,13 +123,31 @@ class UrlMappings {
         name login: "/entrar" (controller:"login", action:"index")
         name logout: "/salir" (controller:"logout", action:"index")
 
-        "/$controller/$action?/$id?(.$format)?"{
-            constraints {
-                // apply constraints here
+        "403" (controller: "error", action: "forbidden")
+        "404" (controller: "error", action: "notFound")
+
+        Environment.executeForCurrentEnvironment {
+            development {
+                "/$controller/$action?/$id?"{
+                    constraints {
+                        // apply constraints here
+                    }
+                }
+                "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
+                "500" (controller: "error", action: "internalError", exception: IllegalArgumentException)
+//                "500"(view:'/error')
             }
+            test{
+                "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
+                "500" (controller: "error", action: "internalError", exception: IllegalArgumentException)
+            }
+            production{
+                "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
+                "500" (controller: "error", action: "internalError", exception: IllegalArgumentException)
+            }
+
+
         }
-
-
-        "500"(view:'/error')
+//        "500"(view:'/error')
 	}
 }

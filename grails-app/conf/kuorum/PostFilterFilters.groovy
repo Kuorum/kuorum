@@ -11,6 +11,10 @@ class PostFilterFilters {
         all(controller: 'post', action: '*',actionExclude:'save|create') {
             before = {
                 if (params.postId){
+                    if (!ObjectId.isValid(params.postId)){
+                        response.sendError(HttpServletResponse.SC_NOT_FOUND)
+                        return;
+                    }
                     Post post = Post.get(new ObjectId(params.postId))
                     if (!post){
                         response.sendError(HttpServletResponse.SC_NOT_FOUND)

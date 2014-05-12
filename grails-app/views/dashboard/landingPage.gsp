@@ -2,7 +2,7 @@
 <head>
     <title><g:message code="kuorum.name"/></title>
     <meta name="layout" content="homeLayout">
-    <parameter name="preFooter" value="true"/>
+    <parameter name="showDefaultPreFooter" value="true"/>
 </head>
 
 

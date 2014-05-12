@@ -19,7 +19,7 @@
         </div>
     </div><!-- #main -->
 
-    <g:if test="${Boolean.parseBoolean(pageProperty(name:'page.preFooter').toString())}">
+    <g:if test="${Boolean.parseBoolean(pageProperty(name:'page.showDefaultPreFooter').toString())}">
         <g:include controller="modules" action="registerFooterRelevantUsers"/>
     </g:if>
     <g:render template="/layouts/footer/footer"/>

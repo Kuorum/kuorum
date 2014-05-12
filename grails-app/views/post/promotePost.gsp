@@ -31,9 +31,9 @@
         </div>
 
         <div class="form-promo row">
-            <h4 class="col-xs-12 col-sm-7 col-md-7"><g:message code="post.promote.step1.pay.custom.title"/> </h4>
+            <h4 class="col-xs-12 col-sm-12 col-md-6"><g:message code="post.promote.step1.pay.custom.title"/> </h4>
             <formUtil:validateForm bean="${command}" form="paimentForm" method="GET"/>
-            <g:form mapping="postPaiment" name="paimentForm" class="col-xs-12 col-sm-5 col-md-5" role="form" params="${post.encodeAsLinkProperties()}">
+            <g:form mapping="postPaiment" name="paimentForm" class="col-xs-12 col-sm-12 col-md-6" role="form" params="${post.encodeAsLinkProperties()}">
                 <div class="form-group">
                     <formUtil:input command="${command}" field="amount" type="number" labelCssClass="sr-only"/>
                 </div>
