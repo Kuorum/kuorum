@@ -4,6 +4,8 @@
         <g:link mapping="postShow" class="hidden" params="${solrPost.encodeAsLinkProperties()}">Ir al post</g:link>
         <h1>${raw(solrPost.highlighting.name)} ${raw(solrPost.highlighting.hashtagLaw)}</h1>
         <p>${raw(solrPost.highlighting.text)}</p>
-        <userUtil:showUser user="${solrPost}" showRole="true"/>
+        <div class="user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <userUtil:showUser user="${solrPost}" showRole="true"/>
+        </div>
     </div>
 </article>
