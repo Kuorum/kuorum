@@ -12,6 +12,7 @@ import kuorum.law.Law
 import kuorum.users.KuorumUser
 import kuorum.web.commands.PostCommand
 import kuorum.web.commands.post.CommentPostCommand
+import kuorum.web.commands.post.PromotePostCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 
@@ -25,6 +26,7 @@ class PostController {
     def lawService
     def cluckService
     def gamificationService
+    def grailsApplication
 
     def index() {
         [postInstanceList:Post.list()]
@@ -171,12 +173,28 @@ class PostController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def payForMailing(){
+    def promotePost(){
         Post post = params.post
-//        if (post.owner.id != springSecurityService.principal.id){
-//            response.sendError(HttpServletResponse.SC_FORBIDDEN)
-//            return;
-//        }
+        def promotionPrizes = grailsApplication.config.kuorum.post.promotionPrizes
+        def prices = promotionPrizes.collect{[price:it, numMails: postService.calculateNumEmails(it)]}
+        [post:post, prices:prices, command: new PromotePostCommand()]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def paimentPost(PromotePostCommand command){
+        Post post = params.post
+        if (command.hasErrors()){
+            def promotionPrizes = grailsApplication.config.kuorum.post.promotionPrizes
+            def prices = promotionPrizes.collect{[price:it, numMails: postService.calculateNumEmails(it)]}
+            [post:post, prices:prices, command: command]
+        }
+
+        [post:post, amount:command.amount, numMails:postService.calculateNumEmails(command.amount)]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def successPromotePost(PromotePostCommand command){
+        Post post = params.post
         [post:post]
     }
 

@@ -27,7 +27,9 @@ class UrlMappings {
         name postAddComment:"/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/nuevoComentario"(controller: "post",action: "addComment")
         name postCluckIt:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/kakarear"(controller: "post",action: "cluckPost")
         name postVoteIt:    "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/impulsar"(controller: "post",action: "votePost")
-        name postPayPost:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/promocionar"(controller: "post", action:"payForMailing")
+        name postPayPost:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/promocionar"(controller: "post", action:"promotePost")
+        name postPaiment:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/resumen-promocion"(controller: "post", action:"paimentPost")
+        name postSuccessPay:"/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/gracias"(controller: "post", action:"successPromotePost")
 
 
         //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow

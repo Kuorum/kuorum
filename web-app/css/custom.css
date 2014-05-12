@@ -49,7 +49,7 @@ Responsive desde 768px
     font-weight: normal;
     font-style: italic;
 }
-
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {font-weight: normal;}
 body {
   font-family: 'Georgia', 'Times New Roman', Times, serif;
   color: #545454;
@@ -361,7 +361,7 @@ a:focus {color: #20a2ea;}
 .box .dropdown-menu {padding-bottom: 0;}
 .box .dropdown-menu > li:last-child {border-bottom: none;}
 .box .dropdown-menu > li > ul >li {list-style: none; padding: 0;}
-.box .dropdown-menu .inline {margin: 0; padding: 0;}
+.box .dropdown-menu .inline {margin: 0; padding: 0 10px;}
 .box .dropdown-menu .btn {margin: 0 0 0 10px !important; font-size: 14px;}
 .box .dropdown-menu .actions {display: block; margin: 2px 0;}
 
@@ -382,7 +382,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .box .dropdown-menu > li a {color: #ff9431; text-decoration: none;}
 .box .dropdown-menu > li a:hover {text-decoration: underline;}
 
-.badge {background-color: #ff9431; padding: 3px 5px 4px;}
+.badge {background-color: #ff9431; padding: 2px 6px 4px; line-height: 1.2;}
 .navbar-nav .visible-xs {display: inline-block !important;}
 .user-img {
   border-radius: 20px;
@@ -498,8 +498,8 @@ span + .text-notification {padding: 0 0 0 33px;}
 .user-list-images li a,
 .user-list-followers li a {display: inline-block;}
 .user.actor .action {color: #a8a8a8;}
-.user.actor .user-img,
-.navbar-nav .dropdown-menu .user-img {width: 25px; height: 25px; /*margin: 4px 8px 4px 0;*/ margin: 4px 8px 5px 9px;}
+.user.actor .user-img {width: 25px; height: 25px; margin: 4px 8px 5px 9px;}
+.navbar-nav .dropdown-menu .user-img {width: 25px; height: 25px; margin: 4px 8px 4px 0;}
 
 .user > a {color: #545454 !important;} /* el enlace del nombre de ususario */
 
@@ -510,12 +510,12 @@ span + .text-notification {padding: 0 0 0 33px;}
 
 .kakareo {background-color: #fafafa; border-top: solid 1px #20a2ea; padding: 0; margin: 7px 0 40px; position: relative;}
 .kakareo.follow {padding: 5px 15px;}
-.kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 10px 0; margin: 0;}
+.kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 10px 0; margin: 0; line-height: 1.3;}
 
 .kakareo.post {background-color: transparent; border: 0; margin: 0; color: #545454;}
 .kakareo.post h2 {font-size: 27px; font-size: 2.7rem;}
 .kakareo.post .main-kakareo {padding-bottom: 15px;}
-.kakareo.post footer {background-color: transparent; margin-bottom: 40px;}
+.kakareo.post footer {background-color: transparent; margin-bottom: 30px;}
 
 .kakareo.post.sponsor {background-color: #fafafa; border: 0; margin-top: -37px; color: #545454;}
 .kakareo.post.sponsor footer {margin-bottom: 0;}
@@ -891,7 +891,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .boxes.guay .kakareo footer ul li.more-actions > span:focus .fa-plus {color: #fff;}
 
 .boxes.follow .kakareo {background-color: transparent; border: none; padding: 0; margin: 15px 0 0;}
-.boxes.follow .kakareo .user-list-followers li {float: left; margin-right: 8px;}
+.boxes.follow .kakareo > ul > li {float: left; margin-right: 6px;}
 
 /* boxes columna derecha dashboard */
 .boxes {background-color: #fcfcfc; padding: 10px 20px; margin: 0 0 20px 0; position: relative;}
@@ -1094,7 +1094,7 @@ select.form-control option {cursor: pointer;}
 .hashtag {position: absolute; top: 90px; right: 35px; font-size: 22px; font-size: 2.2rem;}
 .cancel {padding: 0; margin: 0 20px; color: #a8a8a8 !important; display: inline-block; font-size: 18px !important; font-size: 1.8rem !important;}
 .cancel:hover, .cancel:active, .cancel:focus {color: #a8a8a8;}
-.btn + .cancel {margin: 0 20px 0 40px;}
+.btn + .cancel {margin: 15px 20px 0 40px;}
 .form-group.image {position: relative;}
 
 /* estilos mensajes error */
@@ -1428,7 +1428,7 @@ textarea.error,
 .participate a {height: 116px; margin-bottom: 20px; text-decoration: none; text-align: center; display: block; font-size: 30px; font-size: 3rem; border: solid 1px #fff; padding: 8px; border-radius: 4px;}
 .participate a:hover,
 .participate a:active,
-.participate a:focus {color: #2e6bab; border: solid 1px #2e6bab;}
+.participate a:focus {color: #2e6bab; /*border: solid 1px #2e6bab;*/}
 
 .participate .row p {text-align: center; padding: 0 20px;}
 
@@ -1533,7 +1533,7 @@ textarea.error,
 .boxes.noted.likes #drive {margin-bottom: 50px;}
 .boxes.noted.likes #drive .form-group {margin: 10px 0;}
 
-.othersPost {margin: 120px 0 70px;}
+.othersPost {margin: 60px 0 70px;}
 .othersPost h1 {font-size: 20px; font-size: 2rem;}
 .othersPost #postNav {padding: 0 43px; margin: 0; position: relative; height: 184px; font-size: 13px; font-size: 1.3rem;}
 
@@ -1763,7 +1763,7 @@ textarea.error,
 #search-results .popover-box .infoActivity {border: none;}
 .popover-box .infoActivity li:last-child {margin: 0;}
 #search-results .popover-box .user-img {vertical-align: top}
-#search-results .popover-box a span {margin: 10px 0 0 0; display: inline-block;}
+#search-results .popover-box a > span {margin: 10px 0 0 0; display: inline-block;}
 #search-results .popover-box .user-type {margin-top: -54px;}
 
 
@@ -1854,7 +1854,7 @@ textarea.error,
 /* descubre =========== */
 /* ====================================================== */
 .introDiscover {margin: 10px 0 20px;}
-.introDiscover .steps {margin: 0 0 10px 0; display: inline-block; float: right;}
+.introDiscover .steps {margin: 0 0 10px 0; display: inline-block;}
 .introDiscover .steps li {margin: 0 0 0 34px;}
 .introDiscover .steps li.active .badge {background-color: #20a2ea;}
 .introDiscover .steps li .badge:hover,
@@ -1863,13 +1863,14 @@ textarea.error,
 
 .introDiscover .steps li:first-child {margin: 0;}
 .introDiscover .steps li + li {background: none; padding: 0;}
-
 .pre {font-size: 18px; font-size: 1.8rem; display: inline-block; margin: 75px 0 5px;}
+
 .discover .kakareo.post.ley {margin: 0;}
 .boxes.follow > p,
 .user-list-followers + p {font-size: 13px; font-size: 1.3rem;}
 .discover > aside h1 {font-size: 25px; font-size: 2.5rem; border-bottom: 1px solid #DADADA; margin-bottom: 20px; padding-bottom: 10px;}
 .main > .container-fluid.discover > .row > section:first-child {padding-top: 0;}
+.main > .container-fluid.discover > .row > aside {margin-top: -45px;}
 .discover .user-list-followers {margin: 0 0 10px 0;}
 .discover .moreActives .user-list-followers li {margin-right: 7px;}
 .discover .others {margin-bottom: 60px;}
@@ -1883,7 +1884,7 @@ textarea.error,
 .discover .others .kakareo.post.ley p {font-size: 12px; font-size: 1.2rem; line-height: 1.2;}
 .discover .others .kakareo.post .wrapper {padding: 0;}
 .discover .others .boxes {background: none;}
-.discover .kakareo.post.ley .photo .aboutLaw {top: 22%;}
+.discover .kakareo.post.ley .photo .aboutLaw {top: 7px;}
 
 
 /* autocompletado =========== */
@@ -1904,8 +1905,11 @@ textarea.error,
   overflow: hidden;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #fff;
+  color: #545454;
 }
-.autocomplete-suggestion {color: #545454;}
+.autocomplete-suggestion:hover,
+.autocomplete-suggestion:focus,
+.autocomplete-suggestion:active {cursor: pointer;}
 .autocomplete-suggestion .statusLaw {
   display: block;
   font-size: 11px;
@@ -2023,6 +2027,57 @@ textarea.error,
 }
 
 
+/* configuración =========== */
+/* ====================================================== */
+.container-fluid.config {padding-top: 20px;}
+.container-fluid.config > section > header > h1 {font-size: 19px; font-size: 1.9rem;}
+.container-fluid.config > section > header > h1 .user-name {color: #545454; font-size: 25px; font-size: 2.5rem;}
+.container-fluid.config > section > header,
+.container-fluid.config > section > header > ul > li > a {color: #a8a8a8; padding: 4px 10px; display: block;}
+.container-fluid.config > section > header > ul {margin: 0; padding: 0;}
+.container-fluid.config > section > header > ul > li {margin: 0 0 20px 0; padding: 0; list-style: none;}
+.container-fluid.config > section > header > ul > li > a:hover,
+.container-fluid.config > section > header > ul > li > a:focus,
+.container-fluid.config > section > header > ul > li > a:active,
+.container-fluid.config > section > header > ul > li.active > a {background-color: #dadada; text-decoration: none; color: #545454;}
+.container-fluid.config > section > header > ul > li > a > .badge {background-color: #dadada;}
+.container-fluid.config > section > header > ul > li > a:hover > .badge,
+.container-fluid.config > section > header > ul > li > a:focus > .badge,
+.container-fluid.config > section > header > ul > li > a:active > .badge {background-color: #ffffff; color: #545454;}
+.container-fluid.config > section > div > h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 46px; font-style: 4.6rem; margin-top: 80px; text-transform: uppercase; border-bottom: 1px solid #DADADA; padding-bottom: 15px;}
+
+.config label,
+.config .span-label {font-weight: bold;}
+.config .groupRadio label {font-weight: normal;}
+.config a.pull-right {color: #a8a8a8; margin: 4px 0;}
+.config .form-group {margin: 40px 0;}
+.config .form-group:first-child {margin-top: 20px;}
+.config .form-group > .help-block:first-child {border-top: 1px solid #DADADA; padding-top: 20px;}
+
+.config .noti-filters {margin: -10px 0 0 0; padding: 0; border-bottom: 1px solid #DADADA; border-left: 1px solid #DADADA;}
+.config .noti-filters > li {display: block; border-right: 1px solid #DADADA; border-bottom: 1px solid #DADADA;}
+.config .noti-filters > li:last-child {border-left: 1px solid #DADADA; background-color: #efefef; width: 100%; border-left: 1px solid #DADADA;}
+.config .noti-filters > li > a {display: block; padding: 10px 12px; color: #a8a8a8;}
+.config .noti-filters > li.active > a {color: #545454; font-weight: bold;}
+.config .noti-filters > li > a:hover,
+.config .noti-filters > li > a:active,
+.config .noti-filters > li > a:focus {text-decoration: none; color: #545454;}
+.config .noti-filters .dropdown-menu {right: -1px; margin: 0; width: 100%}
+.config .noti-filters .dropdown-menu > li:first-child {border-bottom: none; margin: 0; padding: 0;}
+
+.config .list-notification {margin: 50px 0 20px; padding: 0; color: #a8a8a8;}
+.config .list-notification > li {margin: 0; padding: 20px 0; list-style: none; position: relative; border-bottom: 1px solid #DADADA;}
+.config .list-notification > li.user {padding: 10px 0 20px 0;}
+.config .list-notification .popover-trigger {font-size: 17px !important; font-size: 1.7rem !important; font-weight: bold;}
+.config .list-notification .popover-trigger,
+.config .list-notification > li > .text-notification a,
+.config .list-notification > li > .text-notification strong {color: #545454;}
+.config .list-notification > li > .text-notification strong {text-transform: uppercase;}
+.config .list-notification > li > .text-notification {padding: 0;}
+.config .list-notification > li.user > .text-notification {margin: -10px 0 5px 49px;}
+.config .list-notification > li.user > .time {padding: 0 0 0 49px;}
+.config .list-notification > li > .actions {float: right; margin: 0 0 0 5px;}
+
 
 
 /* clases especiales accesibilidad =========== */
@@ -2078,6 +2133,10 @@ textarea.error,
 
 /* media queries =========== */
 /* ====================================================== */
+
+@media only screen and (min-width: 480px) {
+  .pre {margin: 75px 20px 5px 0;}
+}
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
@@ -2186,7 +2245,7 @@ textarea.error,
 
   .vote .activity span {font-size: 22px; font-size: 2.2rem;}
   .vote .activity > li {font-size: 12px; font-size: 1.2rem; padding: 0 2px 6px;}
-  .boxes {padding: 10px;}
+  /*.boxes {padding: 10px;}*/
   .boxes.guay .kakareo footer > ul {padding: 0;}
   .boxes.vote .voting > ul > li {margin-right: 2px;}
   .boxes.vote .voting > ul > li > a {font-size: 1.1rem; height: 53px; margin: 0 !important; width: 62px;}
@@ -2207,7 +2266,7 @@ textarea.error,
   .karma li {font-size: 26px; font-size: 2.6rem; padding: 0 10px;}
 
   #search-results .clearfix h1 {font-size: 25px; font-size: 2.5rem; width: 80%; float: left;}
-  #search-results #results {float: right; width: 20%; margin: 25px 0 0 0;}
+  #search-results #results {float: right; width: 20%; margin: 25px 0 0 0; text-align: right;}
   #search-results .kakareo.post.ley .photo {width: 225px; float: left; margin: 0 10px 10px 0;}
   #search-results .popover-box #follow {position: absolute; right: 0; top: 0; padding: 12px 0 !important; font-size: 18px !important; font-size: 1.8rem !important; width: 130px; margin: 0 !important;}
   #search-results .popover-box .infoActivity {border: none; padding-left: 90px; margin: -5px 0 0; display: inline-block;}
@@ -2231,12 +2290,13 @@ textarea.error,
   .userprofile .kakareo.post.ley .socialContact li {display: inline; margin-right: 30px; padding: 0;}
 
   .userprofile .boxes .btn.btn-lg {font-size: 1.4rem !important; padding: 18px !important;}
+
   .discover .kakareo.post.ley .photo .aboutLaw {top: 5%;}
-  .discover .boxes.vote {margin-top: 65px;}
+  .discover .boxes.vote {margin-top: 46px;}
   .discover .others .laws .kakareo.post.ley .photo {width: 180px;}
   .discover .others .kakareo.post.ley h1 {margin-bottom: 0;}
   .introDiscover .steps li {margin: 0 0 0 5px;}
-  .pre {margin: 5px 0;}
+  .pre {margin: 5px 20px 5px 0;}
   #search-filters h1 {margin-top: 20px;}
   .onecol.error .intro {
     background: url('../images/ico-error.png') no-repeat left bottom transparent;
@@ -2266,6 +2326,16 @@ textarea.error,
   .kakareo.post.promo.tks h4 {font-size: 25px; font-size: 2.5rem;}
   .kakareo.post.promo.tks .invite li {display: inline; list-style: none; margin: 0 6px 0 0;}
   .kakareo.post.promo.tks .invite li a {width: 150px; padding: 12px 0 !important; display: inline-block;}
+
+  #config1 > .form-group {margin: 60px 0 40px 0;}
+  .config .noti-filters > li:last-child {border-left: 1px solid #DADADA; width: 160px; border-top: none;}
+  .config .noti-filters > li > a {padding: 10px 12px;}
+  .config .list-notification {margin: 20px 0;}
+  .config .noti-filters > li {display: inline-block; border-bottom: none;}
+  .config .list-notification > li > .text-notification {padding: 0 100px 0 0;}
+  .config .list-notification > li.user > .text-notification {margin: -10px 0 0 49px;}
+  .config .list-notification > li > .time {position: absolute; top: 10px; right: 0;}
+  .config .list-notification > li > .actions {position: absolute; top: 34px; right: 0;}
 
 
 }
@@ -2306,7 +2376,7 @@ textarea.error,
   .multimedia .video .fa {left: 47%; top: 40%;}
   #victory {margin: 20px 0 0 0;}
   .seeVictory .sliderItem h1 {padding: 15px; font-size: 24px; font-size: 2.4rem;}
-  .seeVictory .sliderItem img.actor {width: 273px; float: left; margin: 0 40px 12px 0;}
+  .seeVictory .sliderItem img.actor {width: 273px; float: left; margin: 0 20px 12px 8px;}
   .kakareo.post.ley h1 {font-size: 52px; font-size: 5.2rem;}
   .kakareo.post.ley .photo .aboutLaw {width: 90px; top: 15%;}
   .kakareo.post.ley .photo .info {bottom: 20px; left: 25px;}
@@ -2327,10 +2397,9 @@ textarea.error,
   .userprofile .boxes .btn.btn-lg {font-size: 2rem !important; padding: 18px 50px !important;}
   .pre {font-size: 25px; font-size: 2.5rem; display: inline-block;}
   .introDiscover .steps li {margin: 0 0 0 45px;}
-  .introDiscover .steps {margin: 0; display: inline-block; float: right;}
+  .introDiscover .steps {margin: 0 0 0 20px;}
   .pre {margin: 0;}
-  .introDiscover {margin: 40px 0;}
-  .discover .boxes.vote {margin-top: 105px;}
+  .introDiscover {margin: 30px 0;}
   .othersPost #postNav {height: 70px;}
 
   .promo-options > div > .link-wrapper {min-height: 295px;}
@@ -2342,6 +2411,8 @@ textarea.error,
 
   .boxes.plan h1 .pull-right {font-size: 18px; font-size: 1.8rem;}
   .kakareo.post.promo.tks .invite li a {width: 200px;}
+
+  .config .noti-filters > li > a {padding: 10px 20px;}
 
   .columns2 {
     -moz-column-count: 2;
