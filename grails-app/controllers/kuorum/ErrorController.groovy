@@ -1,5 +1,7 @@
 package kuorum
 
+import kuorum.core.exception.KuorumException
+
 import javax.servlet.http.HttpServletRequest
 
 class ErrorController {
@@ -13,7 +15,8 @@ class ErrorController {
         log.debug("Page not foung: ${((HttpServletRequest)request).getRequestURL()}")
     }
     def kuorumExceptionHandler(){
-        def exception = request.exception
+        KuorumException exception = request.exception.cause
+        [errorMessage:message(code:exception.errors[0].code)]
     }
     def internalError(){
         def exception = request.exception
