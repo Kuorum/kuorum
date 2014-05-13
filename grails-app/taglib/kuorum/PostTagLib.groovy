@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.core.FileType
 import kuorum.core.model.PostType
 import kuorum.core.model.solr.SolrSubType
 import kuorum.core.model.solr.SolrType
@@ -108,14 +109,12 @@ class PostTagLib {
         }
     }
 
-    def postShowImage={attrs ->
+    def postShowMultimedia ={attrs ->
         Post post = attrs.post
-        if (post.multimedia){
-            out <<"""
-        <div class="photo">
-            <img src="${post.multimedia.url}" alt="${post.multimedia.alt}" itemprop="image">
-        </div>
-"""
+        if (post.multimedia && post.multimedia.fileType == FileType.IMAGE){
+            out << render(template: '/post/multimedia/postImage', model:[image:post.multimedia])
+        }else if (post.multimedia && post.multimedia.fileType == FileType.VIDEO){
+            out << render(template: '/post/multimedia/postVideo', model:[video:post.multimedia])
         }
     }
 

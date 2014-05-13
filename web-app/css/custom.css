@@ -549,7 +549,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .user-list-images,
 .user-list-followers {margin: 0; padding: 0; display: inline-block;}
 .user-list-images li,
-.user-list-followers li {list-style: none; display: inline; margin: 0;}
+.user-list-followers li {list-style: none; display: inline !important; margin: 0;}
 .user-list-images li:last-child,
 .user-list-followers li:last-child {margin-right: 0;}
 .user-list-images li a,
@@ -639,7 +639,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 
 .popover-more-actions ul {margin: 20px 0 0 0; padding: 0;}
 .popover-more-actions ul li {list-style: none;}
-.popover-more-actions ul li a {padding: 4px; display: block;}
+.popover-more-actions ul li a {padding: 4px; display: block; color: #a8a8a8;}
 .popover-more-actions ul li a:hover,
 .popover-more-actions ul li a:active,
 .popover-more-actions ul li a:focus {background-color: #efefef !important; text-decoration: none !important; color: #a8a8a8 !important;}
@@ -706,11 +706,10 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul > li.kakareo-number,
 .kakareo footer > ul > li.more-actions {list-style: none !important; padding: 0;}
 .kakareo footer > ul > li.read-later {margin-right: 25px !important;}
-.kakareo footer > ul > li > a {color: #a8a8a8;}
-
 .kakareo footer > ul > li .counter {margin: 0 4px 0 0;}
+.kakareo footer > ul > li > a span:first-child {margin: 0 6px 0 0;}
 
-.kakareo footer > ul > li > a span:first-child {color: #797979; margin: 0 6px 0 0;}
+.kakareo footer > ul > li > a {color: #797979;}
 
 .kakareo footer > ul > li a:hover,
 .kakareo footer > ul > li a:focus,
@@ -722,12 +721,28 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul > li a:focus .hidden-xs,
 .kakareo footer > ul > li a:active .hidden-xs {text-decoration: underline;}
 
-.kakareo footer > ul > li a.disabled span:first-child,
-.kakareo footer > ul > li a.disabled {color: #8fd0f4 !important;}
-.kakareo footer > ul > li.read-later a.disabled span:first-child {color: #20a2ea !important;}
-.kakareo footer > ul > li.read-later a.disabled {cursor: pointer;}
-.kakareo footer > ul > li.read-later a.disabled:hover {text-decoration: underline;}
-.kakareo footer > ul > li a.disabled:hover {color: #8fd0f4 !important; text-decoration: none;}
+.kakareo footer > ul > li a.disabled,
+.kakareo footer > ul > li a.disabled:hover,
+.kakareo footer > ul > li a.disabled:focus,
+.kakareo footer > ul > li a.disabled:active,
+.kakareo footer > ul > li a.disabled:hover span:first-child,
+.kakareo footer > ul > li a.disabled:focus span:first-child,
+.kakareo footer > ul > li a.disabled:active span:first-child,
+.kakareo footer > ul > li a.disabled:hover .hidden-xs,
+.kakareo footer > ul > li a.disabled:focus .hidden-xs,
+.kakareo footer > ul > li a.disabled:active .hidden-xs {color: #8fd0f4 !important; text-decoration: none !important;}
+
+.kakareo footer > ul > li.read-later a.disabled {cursor: pointer; color: #20A2ea !important;}
+
+.kakareo footer > ul > li.read-later a.disabled:hover span:first-child,
+.kakareo footer > ul > li.read-later a.disabled:focus span:first-child,
+.kakareo footer > ul > li.read-later a.disabled:active span:first-child {color: #20a2ea !important; text-decoration: none!important; cursor: pointer !important;}
+.kakareo footer > ul > li.read-later a.disabled:hover,
+.kakareo footer > ul > li.read-later a.disabled:focus,
+.kakareo footer > ul > li.read-later a.disabled:active,
+.kakareo footer > ul > li.read-later a.disabled:hover .hidden-xs,
+.kakareo footer > ul > li.read-later a.disabled:focus .hidden-xs,
+.kakareo footer > ul > li.read-later a.disabled:active .hidden-xs {color: #20a2ea !important; text-decoration: underline !important; cursor: pointer !important;}
 
 .kakareo footer > ul > li.more-actions {margin: 0 !important; position: absolute; right: 0;}
 .kakareo footer > ul > li.more-actions > span {background-color: #a8a8a8; padding: 6px 12px 7px; color: #fff; margin: 0;}
@@ -749,6 +764,9 @@ span + .text-notification {padding: 0 0 0 33px;}
   font-size: 1.5rem;
   text-align: center;
 }
+
+.boxes.guay .user-list-images .more-users {width: 25px; height: 25px; padding: 4px 0 0 0; font-size: 10px; font-size: 1rem;}
+
 .user-list-images .more-users:hover,
 .user-list-images .more-users:active,
 .user-list-images .more-users:focus,
@@ -785,13 +803,38 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer > ul > li.more-actions > span:hover,
 .important .kakareo footer > ul > li.more-actions > span:active,
 .important .kakareo footer > ul > li.more-actions > span:focus {background-color: #ee7612; color: #fff;}
-.important .kakareo footer > ul > li a span:first-child {color: #ff9431;}
 .important .kakareo footer > ul > li.more-actions span .fa-plus {color: #fff;}
 .important .kakareo footer {background-color: #feedce; border-top-color: #ff9431;}
-.important .kakareo footer > ul > li a.disabled span:first-child,
-.important .kakareo footer > ul > li a.disabled {color: #ffc998 !important;}
-.important .kakareo footer > ul > li a.disabled:hover {color: #ffc998 !important; text-decoration: none;}
 .important .kakareo footer > ul > li.read-later a.disabled span:first-child {color: #ff9431 !important;}
+
+.important .kakareo footer > ul > li a span:first-child {color: #ff9431;}
+.important .kakareo footer > ul > li a:hover,
+.important .kakareo footer > ul > li a:focus,
+.important .kakareo footer > ul > li a:active {color: #ff9431;}
+
+.important .kakareo footer > ul > li a.disabled,
+.important .kakareo footer > ul > li a.disabled span:first-child,
+.important .kakareo footer > ul > li a.disabled:hover,
+.important .kakareo footer > ul > li a.disabled:focus,
+.important .kakareo footer > ul > li a.disabled:active,
+.important .kakareo footer > ul > li a.disabled:hover span:first-child,
+.important .kakareo footer > ul > li a.disabled:focus span:first-child,
+.important .kakareo footer > ul > li a.disabled:active span:first-child,
+.important .kakareo footer > ul > li a.disabled:hover .hidden-xs,
+.important .kakareo footer > ul > li a.disabled:focus .hidden-xs,
+.important .kakareo footer > ul > li a.disabled:active .hidden-xs {color: #ffc998 !important; text-decoration: none !important;}
+
+.important .kakareo footer > ul > li.read-later a.disabled {cursor: pointer; color: #ff9431 !important;}
+.important .kakareo footer > ul > li.read-later a.disabled:hover span:first-child,
+.important .kakareo footer > ul > li.read-later a.disabled:focus span:first-child,
+.important .kakareo footer > ul > li.read-later a.disabled:active span:first-child {color: #ff9431 !important; text-decoration: none!important; cursor: pointer !important;}
+.important .kakareo footer > ul > li.read-later a.disabled:hover,
+.important .kakareo footer > ul > li.read-later a.disabled:focus,
+.important .kakareo footer > ul > li.read-later a.disabled:active,
+.important .kakareo footer > ul > li.read-later a.disabled:hover .hidden-xs,
+.important .kakareo footer > ul > li.read-later a.disabled:focus .hidden-xs,
+.important .kakareo footer > ul > li.read-later a.disabled:active .hidden-xs {color: #ff9431 !important; text-decoration: underline !important; cursor: pointer !important;}
+
 
 /* kakareo de autor */
 .author.important .kakareo {margin-top: 0; border-top: 1px solid #ff9431;}
@@ -865,10 +908,11 @@ span + .text-notification {padding: 0 0 0 33px;}
 
 .boxes.guay .kakareo {border: none; padding: 0; margin: 0 0 15px;}
 .boxes.guay .kakareo .link-wrapper {padding: 5px;}
+.others .boxes.guay .kakareo .link-wrapper {padding: 10px;}
 .boxes.guay .kakareo h1 {font-size: 13px; font-size: 1.3rem; line-height: 1.4; margin: 0 0 10px 0; padding-top: 0;}
 .boxes.guay .kakareo .main-kakareo {margin-top: 0; margin-bottom: 5px;}
 .boxes.guay .kakareo .user-img {width: 25px; height: 25px; float: none; margin-right: 5px;}
-.boxes.guay .kakareo .user-list-images li a > .user-img {margin: 0 0 0 5px;}
+.boxes.guay .kakareo .user-list-images li .user-img {margin: 0 0 0 5px !important;}
 .boxes.guay .kakareo footer {
   background-color: transparent;
   border-top: 1px solid #dadada;
@@ -891,7 +935,8 @@ span + .text-notification {padding: 0 0 0 33px;}
 .boxes.guay .kakareo footer ul li.more-actions > span:focus .fa-plus {color: #fff;}
 
 .boxes.follow .kakareo {background-color: transparent; border: none; padding: 0; margin: 15px 0 0;}
-.boxes.follow .kakareo > ul > li {float: left; margin-right: 6px;}
+.boxes.follow .kakareo > ul > li {float: left; margin-right: 3px;}
+.boxes.follow .kakareo > ul > li:last-child {margin: 0;}
 
 /* boxes columna derecha dashboard */
 .boxes {background-color: #fcfcfc; padding: 10px 20px; margin: 0 0 20px 0; position: relative;}
@@ -1216,12 +1261,14 @@ textarea.error,
 .max600 {max-width: 600px; margin: 0 auto;}
 .max600 .btn {margin-bottom: 20px !important;}
 .screen {max-width: 560px;}
-.steps {margin: 0; padding: 0;}
+.steps ol {margin: 0; padding: 0;}
 .steps {text-align: center; color: #dadada; margin: 0 0 60px 0;}
+
 .steps li {list-style: none; display: inline-block; margin: 0 20px 0 0;}
+.steps li:last-child {margin: 0;}
 .steps li .badge {background-color: #dadada; border-radius: 20px; width: 40px; height: 40px; font-size: 24px; font-size: 2.4rem; font-family: 'League Gothic', Arial, sans-serif; padding: 8px 4px 0 4px; font-weight: normal;}
 .steps li.active .badge {background-color: #ff9431;}
-.steps li + li {background:url('../images/steps-sep.png') no-repeat center left; padding-left: 53px;}
+
 .onecol .boxes {background-color: #fcffd5; padding: 30px 40px; }
 .onecol .boxes h2 {text-transform: none; font-weight: bold; font-size: 16px; font-size: 1.6rem; margin-bottom: 30px;}
 
@@ -1537,7 +1584,8 @@ textarea.error,
 .othersPost h1 {font-size: 20px; font-size: 2rem;}
 .othersPost #postNav {padding: 0 43px; margin: 0; position: relative; height: 184px; font-size: 13px; font-size: 1.3rem;}
 
-#main .othersPost #postNav .user .popover-trigger {font-size: 13px; font-size: 1.3rem;}
+#main .othersPost #postNav .user .popover-trigger {font-size: 13px; font-size: 1.3rem; position: absolute; left: 16px; bottom: 8px;}
+#main .othersPost #postNav .user .read-later {position: absolute; right: 16px; bottom: 8px;}
 .othersPost #postNav p {margin: 0 0 13px;}
 .othersPost #postNav .user-img {height: 25px; margin: 0 5px 0 0; width: 25px;}
 .othersPost #postNav .read-later a {color: #797979;}
@@ -1548,7 +1596,7 @@ textarea.error,
 .othersPost #postNav > a:hover {background-color: #2e6bab;}
 .othersPost #postNav > a.prev {left: 0;}
 .othersPost #postNav > a.next {right: 0;}
-.othersPost #postNav .item {padding: 6px 15px;}
+.othersPost #postNav .item {padding: 6px 15px; min-height: 183px;}
 .othersPost #postNav .link-wrapper:hover,
 .othersPost #postNav .link-wrapper:active,
 .othersPost #postNav .link-wrapper:focus {background-color: #efefef;}
@@ -1667,7 +1715,7 @@ textarea.error,
 .form-promo h4,
 .form-promo form {display: inline-block;}
 .form-promo form {position: relative;}
-.form-promo form .form-group {float: left;}
+.form-promo form .form-group {float: right; margin: 0 45px 10px 0;}
 .form-promo form .btn {
   padding: 12px 50px !important;
   margin: 0 !important;
@@ -1773,6 +1821,7 @@ textarea.error,
 #search-results .popover-box a > span {margin: 10px 0 0 0; display: inline-block;}
 #search-results .popover-box .user-type {margin-top: -54px;}
 
+#login {margin: 0 0 40px 0;}
 
 /* Home =========== */
 /* ====================================================== */
@@ -2201,7 +2250,7 @@ textarea.error,
   .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 20px 0 10px;}
   .kakareo .main-kakareo {margin-top: 10px;}
 
-  .kakareo footer ul li.read-later {margin-right: 28px !important;}
+  .kakareo footer > ul > li.read-later {margin-right: 28px !important;}
   .boxes .kakareo footer > ul > li.read-later {margin-right: 33px !important;}
   .boxes .kakareo footer ul li.like-number {margin: 0 35px 0 2px;}
   .kakareo footer > ul > li.more-actions > span {padding: 6px 10px 7px;}
@@ -2214,7 +2263,7 @@ textarea.error,
   #main .sponsor {font-size: 15px; font-size: 1.5rem;}
 
   .socialGo li a {width: 206px;}
-  .intro {margin: 60px 0 80px;}
+  .intro {margin: 40px 0 60px;}
   .intro h1 {font-size: 48px; font-style: 4.8rem;}
   .intro.confirm {margin: 60px 0 40px;}
   .btn.btn-lg {padding: 18px 50px !important; font-size: 20px !important; font-size: 2rem !important;}
@@ -2317,7 +2366,7 @@ textarea.error,
   .othersPost #postNav {height: 110px;}
   .othersPost #postNav > a {padding: 34px 18px;}
 
-  .form-promo h4 {font-size: 27px; font-size: 2.7rem; /*margin-right: 40px;*/}
+  .form-promo h4 {font-size: 23px; font-size: 2.38rem; /*margin-right: 40px;*/}
   .form-promo form .form-group {float: none;}
   /*.form-promo form .btn {margin: 0 0 0 10px !important;}*/
   .promo-options > div > .link-wrapper {min-height: 270px;}
@@ -2325,6 +2374,8 @@ textarea.error,
   .promo-options > div:hover  > .link-wrapper {min-height: 310px;}
   .form-promo-pay .link {line-height: 6.5;}
   .form-promo-pay p.secure {padding: 0 0 0 180px; background: url('../images/secure-payment.png') no-repeat 0 0 transparent;}
+
+  .form-promo form .form-group {float: right; margin: 0 55px 10px 0;}
 
   .kakareo.post.promo > h1 {font-size: 47px; font-size: 4.7rem;}
   .kakareo.post.promo > h2 {font-size: 29px; font-size: 2.9rem;}
@@ -2344,6 +2395,9 @@ textarea.error,
   .config .list-notification > li > .time {position: absolute; top: 10px; right: 0;}
   .config .list-notification > li > .actions {position: absolute; top: 34px; right: 0;}
 
+  .steps li + li {background:url('../images/steps-sep.png') no-repeat center left; padding-left: 53px;}
+  .othersPost #postNav .item {min-height: 107px;}
+  .othersPost #postNav > a {padding: 44px 18px;}
 
 }
 
@@ -2370,9 +2424,9 @@ textarea.error,
   .kakareo footer > ul {height: auto; padding: 6px 0 5px 15px; margin-bottom: 0;}
   .kakareo footer > ul.info-kak > li,
   .kakareo footer > ul.actions-kak > li {margin: 0 21px 0 0; padding: 0;}
-  .kakareo footer ul li.read-later {margin-right: 50px !important;}
+  .kakareo footer > ul > li.read-later {margin-right: 50px !important;}
   .kakareo footer ul.actions-kak {border: 0;}
-  .kakareo footer ul li.more-actions > span {padding: 12px 16px 13px;}
+  .kakareo footer ul li.more-actions > span {padding: 13px 16px 12px;}
   .kakareo footer ul.actions-kak {border: none !important;}
   .activity > li {font-size: 15px; font-size: 1.5rem;}
   .activity .popover-trigger span {font-size: 34px; font-size: 3.4rem;}
@@ -2421,6 +2475,9 @@ textarea.error,
 
   .config .noti-filters > li > a {padding: 10px 20px;}
 
+  .othersPost #postNav .item {min-height: 89px;}
+  .othersPost #postNav > a {padding: 35px 18px;}
+
   .columns2 {
     -moz-column-count: 2;
     -moz-column-gap: 20px;
@@ -2455,7 +2512,7 @@ textarea.error,
   .navbar-form {width: 360px; margin: 1px 0 3px;}
 
   .kakareo footer {font-size: 14px; font-size: 1.4rem;}
-  .kakareo footer ul li.read-later {margin-right: 57px !important;}
+  .kakareo footer > ul > li.read-later {margin-right: 57px !important;}
   .kakareo footer > ul.info-kak > li,
   .kakareo footer > ul.actions-kak > li {margin: 0 23px 0 0; padding: 0 0 0 4px;}
 
@@ -2463,7 +2520,7 @@ textarea.error,
   .nav > li > .discover {padding-bottom: 5px; margin-top: -12px;}
   .nav > li > .user-area {padding-top: 3px; padding-bottom: 5px;}
 
-  .nav > li > a.btn {margin: 5px 0 0 6px !important;}
+  .nav > li > a.btn {margin: -8px 0 0 6px !important; padding: 18px 24px !important;}
   .box .badge {right: 6px; top: 6px;}
   .boxes.vote .voting > ul > li > a {font-size: 15px; font-size: 1.5rem; width: 90px; height: 68px;}
   .boxes .kakareo footer ul li.read-later {margin-right: 48px !important;}

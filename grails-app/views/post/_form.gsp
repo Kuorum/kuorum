@@ -51,7 +51,7 @@
     </div>
     <div class="form-group video">
         <label for="videoPost"><g:message code="post.edit.step1.video.label"/></label>
-        <input name="videoPost" type="url" class="form-control ${hasErrors(bean: command, field: 'videoPost', 'error')}" id="videoPost" placeholder="http://" tabindex="16">
+        <input name="videoPost" type="url" value="${command.videoPost}" class="form-control ${hasErrors(bean: command, field: 'videoPost', 'error')}" id="videoPost" placeholder="http://" tabindex="16">
         <g:if test="${hasErrors(bean: command, field: 'videoPost', 'error')}">
             <span for="textPost" class="error">${g.fieldError(bean: command, field: 'videoPost')}</span>
         </g:if>
@@ -62,7 +62,7 @@
         <label for="numberPage"><g:message code="post.edit.step1.pdfPage.label"/> </label>
         <div class="form-group">
             <input name="numberPage" value="${command.numberPage}" type="number" id="numberPage" placeholder="0" tabindex="17" class="${hasErrors(bean: command, field: 'numberPage', 'error')}">
-            <g:if test="${hasErrors(bean: command, field: 'videoPost', 'error')}">
+            <g:if test="${hasErrors(bean: command, field: 'numberPage', 'error')}">
                 <span for="numberPage" class="error">${g.fieldError(bean: command, field: 'numberPage')}</span>
             </g:if>
             <p><g:message code="post.edit.step1.pdfPage.description"/></p>

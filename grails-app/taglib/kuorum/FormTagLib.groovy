@@ -220,7 +220,7 @@ class FormTagLib {
                     """
             errors.each{error ->
                 String msg = tranlateErrorCode(error.codes)
-                out << "displayError('', '${msg}');"
+                out << "display.error('', '${msg}');"
             }
             out <<"""
                 });
@@ -231,16 +231,14 @@ class FormTagLib {
     }
 
     private void printFieldErrors(def errors, def bean){
-        String title = g.message(code: bean.class.name +".title.error")
         if (errors){
             out << """
             <script>
                 \$(document).ready(function (){
-                    displayError("", "${title}");
                  """
             errors.each{error ->
                 String msg = tranlateErrorCode(error.codes)
-                out << "appendErrorToField('${error.field}','${msg}');"
+                out << "display.error('${error.field}','${msg}');"
             }
 
             out <<"""
@@ -262,7 +260,7 @@ class FormTagLib {
         else{
             obj =  bean
             printGeneralErrors(obj.errors.allErrors - obj.errors.fieldErrors,obj);
-            printFieldErrors(obj.errors.fieldErrors, obj)
+//            printFieldErrors(obj.errors.fieldErrors, obj)
         }
 
 

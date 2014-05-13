@@ -20,7 +20,14 @@ class PostCommand {
         title nullable: false, blank: false
         textPost nullable: false, blank: false
         postType nullable: false
-        videoPost nullable: true, url:true
+        videoPost nullable: true,
+                url:true,
+                matches: 'http[s]{0,1}://(w{3}.){0,1}youtube\\.com/watch\\?v=[a-zA-Z0-9]*',
+                validator: { val, obj ->
+                    if (val && obj.imageId) {
+                        return ['onlyImageOrVideo']
+                    }
+                }
         numberPage nullable:true
     }
 }

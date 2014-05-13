@@ -13,7 +13,7 @@
 <content tag="mainContent">
     <article class="kakareo post" role="article" itemscope itemtype="http://schema.org/Article">
         <h1>${post.title} <g:link mapping="lawShow" params="${post.law.encodeAsLinkProperties()}" itemprop="keywords">${post.law.hashtag}</g:link></h1>
-        <postUtil:postShowImage post="${post}"/>
+        <postUtil:postShowMultimedia post="${post}"/>
         <div class="main-kakareo row">
             <div class="col-md-5 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
                 <userUtil:showUser user="${post.owner}" showRole="true"/>
