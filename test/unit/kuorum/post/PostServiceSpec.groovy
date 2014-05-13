@@ -4,6 +4,7 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.ShortUrlService
 import kuorum.core.exception.KuorumException
+import kuorum.core.model.search.Pagination
 import kuorum.helper.Helper
 import kuorum.law.Law
 import kuorum.notifications.NotificationService
@@ -127,11 +128,12 @@ class PostServiceSpec extends Specification{
             post.title ="Title$it"
             post.save()
         }
+        Pagination pagination = new Pagination()
         when:"Recovering recommended posts"
-        List<Post> recommendedPost = service.recommendedPosts(user)
+        List<Post> recommendedPost = service.recommendedPosts(user, law, pagination)
         then:
         recommendedPost.first().numVotes>=recommendedPost.last().numVotes
-        recommendedPost.size() <= service.NUM_RECOMMENDED_POST
+        recommendedPost.size() <= pagination.max
     }
 
     @Unroll
