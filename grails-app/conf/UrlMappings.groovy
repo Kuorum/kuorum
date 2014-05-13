@@ -57,7 +57,7 @@ class UrlMappings {
         name politicianShow:    "/politicos/$urlName-$id"      (controller: "kuorumUser", action: "showPolitician")
         name politicians:       "/politicos"  {
             controller = "kuorumUser"
-            action ="index"
+            action ="politicians"
             userTypeUrl = UserType.POLITICIAN
         }
         name userFollowers:     "/$userTypeUrl/$urlName-$id/seguidores" (controller: "kuorumUser", action: "userFollowers")
@@ -68,7 +68,7 @@ class UrlMappings {
         name registerResendMail:  "/registro/no-verificado"(controller: "register",action:"resendRegisterVerification")
         name resetPassword:       "/registro/password-olvidado"(controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"]}
         name resetPasswordSent:   "/registro/enviada-verificacion"(controller: "register", action:"forgotPasswordSuccess")
-        name resetPasswordChange: "/registro/cambiarPassword"(controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"]}
+        name resetPasswordChange: "/registro/cambiar-password"(controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"]}
         name customRegisterStep1: "/registro/paso1"(controller: "customRegister"){action = [GET:"step1", POST:"step1Save"]}
         name customRegisterStep2: "/registro/paso2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
         name customRegisterStep3: "/registro/paso3"(controller: "customRegister"){action = [GET:"step3", POST:"step3Save"]}
@@ -94,7 +94,7 @@ class UrlMappings {
         name profileNotifications:"/mi-perfil/notificaciones"   (controller: "profile", action: "userNotifications")
         name profileMessages:     "/mi-perfil/mensajes"         (controller: "profile", action: "userMessages")
 
-        name footerWhatIsKuorum:  "/kuorum/queEs"               (controller:"footer", action: "whatIsKuorum" )
+        name footerWhatIsKuorum:  "/kuorum/que-es"              (controller:"footer", action: "whatIsKuorum" )
         name footerUsingMyVote:   "/kuorum/para-que-sirve-mi-voto"(controller:"footer", action: "usingMyVote" )
         name footerUserGuide:     "/kuorum/guia-del-usuario"    (controller:"footer", action: "userGuide" )
         name footerHistories:     "/kuorum/historias"           (controller:"footer", action: "histories" )

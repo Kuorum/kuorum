@@ -186,7 +186,8 @@ class IndexSolrService {
                 postalCode: postalCode,
                 urlImage: kuorumUser.avatar?.url,
                 role:kuorumUser.gamification.activeRole,
-                gender:kuorumUser.personalData.gender
+                gender:kuorumUser.personalData.gender,
+                institutionName:kuorumUser.userType==UserType.POLITICIAN?kuorumUser.institution.name:null
         )
     }
 
@@ -202,7 +203,8 @@ class IndexSolrService {
                 role:GamificationAward.valueOf(solrDocument.role),
                 gender: Gender.valueOf(solrDocument.gender),
                 regionName: solrDocument.regionName,
-                regionIso3166_2: solrDocument.regionIso3166_2
+                regionIso3166_2: solrDocument.regionIso3166_2,
+                institutionName:solrDocument.institutionName
         )
     }
 

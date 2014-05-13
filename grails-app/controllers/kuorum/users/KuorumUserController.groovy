@@ -1,9 +1,11 @@
 package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.Institution
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
-import kuorum.core.model.search.SearchUsers
+import kuorum.core.model.search.SearchPolitician
+import kuorum.core.model.solr.SolrPoliticiansGrouped
 import kuorum.post.Cluck
 import org.bson.types.ObjectId
 
@@ -18,7 +20,7 @@ class KuorumUserController {
     def searchSolrService
 
 //    def beforeInterceptor = [action: this.&checkUser, except: 'login']
-    def beforeInterceptor = [action: this.&checkUser, except: 'index']
+    def beforeInterceptor = [action: this.&checkUser, except: ['index', 'politicians']]
 
     private checkUser(){
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
@@ -28,9 +30,29 @@ class KuorumUserController {
         }
     }
     def index(){
-            def maxElemens = grailsApplication.config.kuorum.seo.maxElements
-        SearchUsers searchUsers = new SearchUsers(userType: params.userTypeUrl, iso3166_2:params.iso3166_2, max:maxElemens)
-        [userType: params.userTypeUrl, groupUsers:searchSolrService.listUsers(searchUsers)]
+        def maxElemens = grailsApplication.config.kuorum.seo.maxElements
+        [userType: params.userTypeUrl, users:KuorumUser.findAllByUserType(params.userTypeUrl,[max:1000])]
+    }
+
+    def politicians(){
+        SearchPolitician searchParams = new SearchPolitician(max: 1000, regionIso3166_2: params.regionIso3166_2)
+        def groupPoliticians =[:]
+        if (params.institutionName){
+            searchParams.institutionName = params.institutionName
+            List<SolrPoliticiansGrouped> politiciansPerInstitution = searchSolrService.listPoliticians(searchParams)
+            if (politiciansPerInstitution){
+                searchParams.institutionName = politiciansPerInstitution.politicians[0][0].institutionName
+            }
+            groupPoliticians.put(searchParams.institutionName  , politiciansPerInstitution)
+        }else{
+            Institution.list().each {
+                searchParams.institutionName = it.name
+                List<SolrPoliticiansGrouped> politiciansPerInstitution = searchSolrService.listPoliticians(searchParams)
+                if (politiciansPerInstitution)
+                    groupPoliticians.put("${it.name}" , politiciansPerInstitution)
+            }
+        }
+        [groupPoliticians:groupPoliticians]
     }
 
     def show(String id){

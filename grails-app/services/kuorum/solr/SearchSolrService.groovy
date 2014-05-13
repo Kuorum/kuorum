@@ -5,7 +5,7 @@ import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.CommissionType
 import kuorum.core.model.search.SearchLaws
 import kuorum.core.model.search.SearchParams
-import kuorum.core.model.search.SearchUsers
+import kuorum.core.model.search.SearchPolitician
 import kuorum.core.model.solr.*
 import org.apache.solr.client.solrj.SolrQuery
 import org.apache.solr.client.solrj.SolrServer
@@ -186,28 +186,26 @@ class SearchSolrService {
         groupedElements
     }
 
-    List<SolrUserGrouped> listUsers(SearchUsers params){
+    List<SolrPoliticiansGrouped> listPoliticians(SearchPolitician params){
         if (!params.validate()){
-            KuorumExceptionUtil.createExceptionFromValidatable(params, "Se necesita una region para buscar por ella")
+            KuorumExceptionUtil.createExceptionFromValidatable(params, "Se necesita una institución para buscar")
         }
         SolrQuery query = new SolrQuery();
         query.setParam(CommonParams.QT, "/select");
         query.setParam(CommonParams.ROWS, "${params.max}");
         query.setParam("q.op", "AND")
-        query.setParam(CommonParams.Q, "*:*")
-        def fq = ["type:${SolrType.KUORUM_USER}"]
 
-        if (params.userType){
-            fq << "subType:${SolrSubType.fromOriginalType(params.userType)}"
+        def q = "institutionName:\"${params.institutionName}\""
+        def fq = ["type:${SolrType.KUORUM_USER}","subType:${SolrSubType.POLITICIAN}"]
+        if (params.regionIso3166_2){
+            fq << "regionIso3166_2:${params.regionIso3166_2}"
         }
-        if (params.iso3166_2){
-            fq << "regionIso3166_2:${params.iso3166_2}"
-        }
-
+        query.setParam(CommonParams.Q, q)
         query.setParam(CommonParams.FQ, "(${fq.sum{ it +" " }})")
 
+
         query.setParam("group", true)
-        query.setParam("group.field", "regionName")
+        query.setParam("group.field", "regionIso3166_2")
         query.setParam("group.limit","${params.max}")
         query.setParam("group.offset","${params.offset}")
         query.setParam("group.sort","name desc")
@@ -215,14 +213,14 @@ class SearchSolrService {
 
         QueryResponse rsp = server.query( query );
         SolrDocumentList docs = rsp.getResults();
-        List<SolrLawsGrouped> groupedElements= []
+        List<SolrPoliticiansGrouped> groupedElements= []
 
         rsp.groupResponse.values[0].values.each{Group group ->
 
-            SolrUserGrouped element = new SolrUserGrouped()
-            element.elements = group.result.collect{doc ->indexSolrService.recoverSolrElementFromSolr(doc)}
-            element.regionName = element.elements[0].regionName
-            element.iso3166_2 = element.elements[0].regionIso3166_2
+            SolrPoliticiansGrouped element = new SolrPoliticiansGrouped()
+            element.politicians = group.result.collect{doc ->indexSolrService.recoverSolrElementFromSolr(doc)}
+            element.regionName = element.politicians[0].regionName
+            element.iso3166_2 = element.politicians[0].regionIso3166_2
             groupedElements.add(element)
         }
 

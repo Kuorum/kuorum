@@ -15,14 +15,14 @@
 
     <div class="block-results">
         <h1><g:message code="list.citizens.${userType}.title.byRegion"/> </h1>
-        <g:each in="${groupUsers}" var="group">
-            <h3>
-                <g:link mapping="users" params="${userType.encodeAsLinkProperties() + [iso3166_2:group.iso3166_2]}">
-                    ${group.regionName}
-                </g:link>
-            </h3>
+        %{--<g:each in="${users}" var="user">--}%
+            %{--<h3>--}%
+                %{--<g:link mapping="users" params="${userType.encodeAsLinkProperties() + [iso3166_2:group.iso3166_2]}">--}%
+                    %{--${group.regionName}--}%
+                %{--</g:link>--}%
+            %{--</h3>--}%
                 <ul>
-                    <g:each in="${group.elements}" var="user">
+                    <g:each in="${users}" var="user">
                         <li>
                             <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}">
                                 ${user.name}
@@ -30,5 +30,5 @@
                         </li>
                     </g:each>
                 </ul>
-        </g:each>
+        %{--</g:each>--}%
 </content>
