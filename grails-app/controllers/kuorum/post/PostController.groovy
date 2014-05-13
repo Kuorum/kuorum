@@ -33,6 +33,8 @@ class PostController {
     }
 
     def show(){
+        throw new NullPointerException()
+//        throw new KuorumException("","error.postVoteService.paramsError");
         Post post = params.post //Intellij Detects type for autocomplete
         KuorumUser user= null
         PostVote userVote=null

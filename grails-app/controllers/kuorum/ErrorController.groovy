@@ -16,9 +16,13 @@ class ErrorController {
     }
     def kuorumExceptionHandler(){
         KuorumException exception = request.exception.cause
+        log.error("KuorumException: "+exception.message)
         [errorMessage:message(code:exception.errors[0].code)]
     }
     def internalError(){
-        def exception = request.exception
+        def exception = request.exception.cause
+        def email = grailsApplication.config.kuorum.contact.email
+        log.error("KuorumException: "+exception.message)
+        [email:email]
     }
 }

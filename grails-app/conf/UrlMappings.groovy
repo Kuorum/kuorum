@@ -134,16 +134,16 @@ class UrlMappings {
                     }
                 }
                 "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
-                "500" (controller: "error", action: "internalError", exception: IllegalArgumentException)
+                "500" (controller: "error", action: "internalError")
 //                "500"(view:'/error')
             }
             test{
                 "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
-                "500" (controller: "error", action: "internalError", exception: IllegalArgumentException)
+                "500" (controller: "error", action: "internalError")
             }
             production{
                 "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
-                "500" (controller: "error", action: "internalError", exception: IllegalArgumentException)
+                "500" (controller: "error", action: "internalError")
             }
 
 

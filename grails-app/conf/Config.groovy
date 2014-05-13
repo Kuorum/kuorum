@@ -238,6 +238,9 @@ grails {
 
 
 kuorum {
+    contact{
+        email="info@kuorum.org"
+    }
     milestones{
         kuorum = 100
         postVotes{
