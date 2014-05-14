@@ -58,6 +58,7 @@ class ProfileController {
         prepareUserStep1(user,command)
         prepareUserStep2(user,command)
         kuorumUserService.updateUser(user)
+        flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileEditUser'
     }
 
@@ -109,12 +110,13 @@ class ProfileController {
             return
         }
         if (!passwordEncoder.isPasswordValid(user.password ,command.originalPassword, null)){
-            command.errors.rejectValue("originalPassword","notCorrectPassword")
+            command.errors.rejectValue("originalPassword","${ChangePasswordCommand.class.name}.originalPassword.notCorrectPassword")
             render view:"changePassword", model: [command:command,user:user]
             return
         }
         user.password = springSecurityService.encodePassword(command.password)
         kuorumUserService.updateUser(user)
+        flash.message=message(code:'profile.changePassword.success')
         redirect mapping:'profileChangePass'
     }
 
