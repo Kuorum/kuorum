@@ -76,5 +76,12 @@
 <r:layoutResources />
 %{--<script src="${resource(dir: '/js', file: 'jquery.slimscroll.min.js')}"></script>--}%
 %{--<script src="${resource(dir: '/js', file: 'custom.js')}"></script>--}%
+<script>
+    <g:if test="${flash.message}">
+        $(function(){
+            display.success('${flash.message}')
+        })
+    </g:if>
+</script>
 </body>
 </html>
