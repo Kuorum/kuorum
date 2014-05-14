@@ -17,6 +17,6 @@
 </content>
 
 <content tag="mainContent">
-    <H1> Perfil de ${user.name}</H1>
+    <h1><g:message code="profile.socialNetworks.title"/></h1>
     Redes sociales
 </content>

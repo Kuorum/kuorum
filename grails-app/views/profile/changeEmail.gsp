@@ -17,5 +17,5 @@
 </content>
 
 <content tag="mainContent">
-    Cambiar email
+    <h1><g:message code="profile.changeEmail.title"/></h1>
 </content>
