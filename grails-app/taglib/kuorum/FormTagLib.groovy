@@ -109,7 +109,7 @@ class FormTagLib {
         def field = attrs.field
 
         def clazz = command.metaClass.properties.find{it.name == field}.type
-        def label = message(code: "${command.class.name}.label")
+        def label = message(code: "${command.class.name}.${field}.label")
         def error = hasErrors(bean: command, field: field,'error')
         out << "<span class='span-label'>${label} </span>"
         clazz.values().each{
