@@ -62,6 +62,7 @@ class ProfileController {
     }
 
     protected prepareUserStep1(KuorumUser user, def command){
+        user.name = command.name
         PersonalData personalData = null
         if (Gender.ORGANIZATION.equals(command.gender)){
             personalData = new OrganizationData()
