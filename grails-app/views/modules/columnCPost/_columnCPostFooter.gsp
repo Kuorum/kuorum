@@ -27,7 +27,7 @@
         <li class="kakareo-number">
             <span class="counter">${post.numClucks}</span>
             <g:link mapping="postCluckIt" class="${postUtil.cssClassIfClucked(post:post)}" params="${post.encodeAsLinkProperties()}" rel="nofollow" >
-                <span class="fa fa-bullhorn fa-lg"></span><span class="sr-only"><g:message code="cluck.footer.cluckIt"/></span>
+                <span class="icon-megaphone fa-lg"></span><span class="sr-only"><g:message code="cluck.footer.cluckIt"/></span>
             </g:link>
         </li>
 

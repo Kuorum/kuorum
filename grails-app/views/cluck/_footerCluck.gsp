@@ -81,7 +81,7 @@
                 </div>
                 <!-- FIN POPOVER PARA SACAR LISTAS DE USUARIOS -->
                 <g:link mapping="postCluckIt" class="action cluck ${postUtil.cssClassIfClucked(post:post)}" params="${post.encodeAsLinkProperties()}" rel="nofollow">
-                    <span class="fa fa-bullhorn fa-lg"></span><span class="hidden-xs"><g:message code="cluck.footer.cluckIt"/></span>
+                    <span class="icon-megaphone fa-lg"></span><span class="hidden-xs"><g:message code="cluck.footer.cluckIt"/></span>
                 </g:link>
             </li>
 
