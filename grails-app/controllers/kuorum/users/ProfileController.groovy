@@ -1,10 +1,10 @@
-package kuorum
+package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.Region
 import kuorum.core.model.Gender
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.post.Post
-import kuorum.users.KuorumUser
 import kuorum.web.commands.profile.ChangePasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.MailNotificationsCommand
@@ -18,6 +18,17 @@ class ProfileController {
     def kuorumUserService
     def postService
     def gamificationService
+
+    def afterInterceptor = [action: this.&prepareMenuData]
+
+    private prepareMenuData(model) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        model.menu = [
+                activeNotifications:23,
+                unpublishedPosts:2,
+                unreadMessages:3
+        ]
+    }
 
     def editUser() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
@@ -157,6 +168,12 @@ class ProfileController {
     def userMessages() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         [user:user]
+    }
+
+    def deleteAccount(){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        [user:user]
+        render "MANDA UN EMAIL"
     }
 
 }
