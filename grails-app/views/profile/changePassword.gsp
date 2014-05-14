@@ -7,7 +7,7 @@
 
 <content tag="leftMenu">
     <h1>
-        <g:message code="profile.editUser.salutation"/>,
+        <g:message code="profile.changePassword.salutation"/>,
         <br>
         <span class="user-name">${user.name}</span>
     </h1>
