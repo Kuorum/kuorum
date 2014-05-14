@@ -9,7 +9,7 @@ class CustomRegisterFilterFilters {
     private static final STEP1_FIELDS=['birthday','postalCode','gender']
 
     def filters = {
-        all(controller:'customRegister|logout', invert: true) {
+        all(controller:'customRegister|logout|error', invert: true) {
             before = {
                 if (springSecurityService.isLoggedIn()){
                     KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
