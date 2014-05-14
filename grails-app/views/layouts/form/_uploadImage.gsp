@@ -12,7 +12,7 @@
 <uploader:uploader
         id="uploaderImageId"
         multiple="false"
-        url="${[controller:'file', action:"uploadImage"]}"
+        url="${[mapping:'ajaxUploadFile']}"
         sizeLimit="${fileGroup.maxSize}"
         allowedExtensions='["\'png\'", "\'gif\'", "\'jpeg\'", "\'jpg\'"]'
         messages='{

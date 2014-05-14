@@ -117,22 +117,24 @@ class UrlMappings {
         name ajaxUnFollow: "/ajax/kuorumUser/unFollow"(controller:"kuorumUser", action:"unFollow")
         name ajaxRequestPolitician: "/ajax/politico/solicitud-kuorum"(controller:"kuorumUser", action:"follow")
         name ajaxCropImage: "/ajax/file/crop"(controller:"file", action:"cropImage")
+        name ajaxUploadFile: "/ajax/file/upload" (controller:'file', action:"uploadImage")
 
         name ajaxModuleLawBottomStats: '/ajax/law/bottomLawStats' (controller:'modules', action: 'bottomLawStats')
 
-        name login: "/entrar" (controller:"login", action:"index")
-        name logout: "/salir" (controller:"logout", action:"index")
+        name login:     "/entrar"       (controller:"login", action:"index")
+        name loginAuth: "/autenticarse" (controller:"login", action:"auth")
+        name logout:    "/salir"        (controller:"logout", action:"index")
 
         "403" (controller: "error", action: "forbidden")
         "404" (controller: "error", action: "notFound")
 
         Environment.executeForCurrentEnvironment {
             development {
-                "/$controller/$action?/$id?"{
-                    constraints {
-                        // apply constraints here
-                    }
-                }
+//                "/$controller/$action?/$id?"{
+//                    constraints {
+//                        // apply constraints here
+//                    }
+//                }
                 "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
                 "500" (controller: "error", action: "internalError")
 //                "500"(view:'/error')
