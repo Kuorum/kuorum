@@ -251,7 +251,7 @@ kuorum {
         }
     }
     upload{
-        serverPath = "/home/iduetxe/kuorum/kuorum/images"
+        serverPath = "OVERWRITTEN BY PROPERTIES"
         relativeUrlPath = "/uploadedImages"
     }
     promotion{
