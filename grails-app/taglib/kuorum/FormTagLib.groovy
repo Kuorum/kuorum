@@ -104,6 +104,23 @@ class FormTagLib {
         }
     }
 
+    def radioEnum = {attrs ->
+        def command = attrs.command
+        def field = attrs.field
+
+        def clazz = command.metaClass.properties.find{it.name == field}.type
+        def label = message(code: "${command.class.name}.label")
+        def error = hasErrors(bean: command, field: field,'error')
+        out << "<span class='span-label'>${label} </span>"
+        clazz.values().each{
+            out << "<label class='radio-inline'>"
+            out << "<input type='radio' name='${field}' value='${it}' ${command."${field}"==it?'checked':''}>"
+            String codeMessage = "${clazz.name}.$it"
+            out << "${message(code:codeMessage)}"
+            out << "</label>"
+        }
+    }
+
     def textArea = {attrs ->
         def command = attrs.command
         def field = attrs.field

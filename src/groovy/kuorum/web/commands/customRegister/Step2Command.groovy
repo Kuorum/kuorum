@@ -3,6 +3,7 @@ package kuorum.web.commands.customRegister
 import grails.validation.Validateable
 import kuorum.core.model.Studies
 import kuorum.core.model.WorkingSector
+import kuorum.web.commands.profile.EditUserProfileCommand
 
 /**
  * Created by iduetxe on 17/03/14.
@@ -14,9 +15,6 @@ class Step2Command {
     Studies studies
     String bio
     static constraints = {
-        photoId nullable: false
-        workingSector nullable: false, minSize: 5, maxSize: 5
-        studies nullable: true
-        bio nullable: true, maxSize: 500
+        importFrom EditUserProfileCommand, include:["photoId", "workingSector", "studies", "bio"]
     }
 }

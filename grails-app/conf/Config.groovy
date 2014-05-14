@@ -251,7 +251,7 @@ kuorum {
         }
     }
     upload{
-        serverPath = "OVERWRITTEN BY PROPERTIES"
+        serverPath = "OVERWEPROPERTIES"
         relativeUrlPath = "/uploadedImages"
     }
     promotion{

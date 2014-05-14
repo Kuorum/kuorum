@@ -130,13 +130,15 @@ class UrlMappings {
         "403" (controller: "error", action: "forbidden")
         "404" (controller: "error", action: "notFound")
 
+
+       "/$controller/$action?/$id?"{
+           constraints {
+                        // apply constraints here
+                    }
+                }
+
         Environment.executeForCurrentEnvironment {
             development {
-//                "/$controller/$action?/$id?"{
-//                    constraints {
-//                        // apply constraints here
-//                    }
-//                }
                 "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
                 "500" (controller: "error", action: "internalError")
 //                "500"(view:'/error')

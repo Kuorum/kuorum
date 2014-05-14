@@ -1,26 +1,20 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.core.model.Gender
-import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
 import kuorum.users.KuorumUser
-import kuorum.users.OrganizationData
-import kuorum.users.PersonData
-import kuorum.users.PersonalData
+import kuorum.users.ProfileController
 import kuorum.web.commands.customRegister.Step1Command
 import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.customRegister.Step3Command
 import kuorum.web.commands.customRegister.Step4Command
 import org.bson.types.ObjectId
 
-class CustomRegisterController {
+class CustomRegisterController extends  ProfileController{
 
-    def regionService
-    def springSecurityService
-    def kuorumUserService
     def kuorumMailService
-    def fileService
+
+    def afterInterceptor = {}
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def step1() {
@@ -42,36 +36,8 @@ class CustomRegisterController {
             render view:"step1", model: [command:command]
             return
         }
-        //TODO: Change on other country
-        Region country = Region.findByIso3166_2("EU-ES") //ESPAÑA
-        Region province = regionService.findProvinceByPostalCode(country, command.postalCode)
-        if (!province){
-            command.errors.rejectValue("postalCode", "notExists")
-            render view:"step1", model: [command:command]
-            return
-        }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        PersonalData personalData = null
-        if (Gender.ORGANIZATION.equals(command.gender)){
-            personalData = new OrganizationData()
-            personalData.isPoliticalParty = false
-            personalData.gender = Gender.ORGANIZATION
-            personalData.country = country
-        }else{
-            personalData = new PersonData()
-            personalData.birthday = command.date
-            personalData.gender = command.gender
-            personalData.postalCode = command.postalCode
-            personalData.provinceCode = province.iso3166_2
-            personalData.province = province
-        }
-
-        user.personalData = personalData
-        if (Gender.ORGANIZATION.equals(command.gender)){
-            user.personalData.userType = UserType.ORGANIZATION
-            kuorumUserService.convertAsOrganization(user)
-        }
-
+        prepareUserStep1(user, command)
         user.save(flush:true, failOnError: true)
         kuorumMailService.mailingListUpdateUser(user)
 
@@ -93,17 +59,7 @@ class CustomRegisterController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def step2Save(Step2Command command){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        user.personalData.workingSector = command.workingSector
-        user.bio = command.bio
-        user.personalData.studies =  command.studies
-        if (command.photoId){
-            KuorumFile avatar = KuorumFile.get(new ObjectId(command.photoId))
-            avatar.alt = user.name
-            avatar.save()
-            user.avatar = avatar
-            fileService.convertTemporalToFinalFile(avatar)
-            fileService.deleteTemporalFiles(user)
-        }
+        prepareUserStep2(user, command)
 
         user.save()
         redirect mapping:'customRegisterStep3'

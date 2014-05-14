@@ -1,18 +1,21 @@
 package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.Region
+import kuorum.KuorumFile
 import kuorum.core.model.Gender
+import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.post.Post
 import kuorum.web.commands.profile.ChangePasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.MailNotificationsCommand
+import org.bson.types.ObjectId
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ProfileController {
 
     def springSecurityService
+    def fileService
     def passwordEncoder
     def regionService
     def kuorumUserService
@@ -42,6 +45,7 @@ class ProfileController {
         command.workingSector = user.personalData?.workingSector
         command.studies = user.personalData?.studies
         command.bio = user.bio
+        command.photoId = user.avatar?.id?.toString()
         [command: command, user:user]
     }
 
@@ -51,28 +55,47 @@ class ProfileController {
             render view:"editUser", model: [command:command,user:user]
             return
         }
-        Region country = Region.findByIso3166_2("EU-ES") //ESPAÑA
-        Region province = regionService.findProvinceByPostalCode(country, command.postalCode)
-        if (!province){
-            command.errors.rejectValue("postalCode", "notExists")
-            render view:"editUser", model: [command:command,user:user]
-            return
-        }
-        if (Gender.ORGANIZATION.equals(command.gender)){
-            user.personalData.gender = Gender.ORGANIZATION
-        }else{
-            user.personalData.birthday = command.date
-            user.personalData.gender = command.gender
-            user.personalData.postalCode = command.postalCode
-            user.personalData.provinceCode = province.iso3166_2
-            user.personalData.province = province
-            user.personalData.workingSector = command.workingSector
-            user.personalData.studies = command.studies
-        }
-        user.name = command.name
-        user.bio = command.bio
+        prepareUserStep1(user,command)
+        prepareUserStep2(user,command)
         kuorumUserService.updateUser(user)
         redirect mapping:'profileEditUser'
+    }
+
+    protected prepareUserStep1(KuorumUser user, def command){
+        PersonalData personalData = null
+        if (Gender.ORGANIZATION.equals(command.gender)){
+            personalData = new OrganizationData()
+            personalData.isPoliticalParty = false
+            personalData.gender = Gender.ORGANIZATION
+            personalData.country = command.country
+        }else{
+            personalData = new PersonData()
+            personalData.birthday = command.date
+            personalData.gender = command.gender
+            personalData.postalCode = command.postalCode
+            personalData.provinceCode = command.province.iso3166_2
+            personalData.province = command.province
+        }
+
+        user.personalData = personalData
+        if (Gender.ORGANIZATION.equals(command.gender)){
+            user.personalData.userType = UserType.ORGANIZATION
+            kuorumUserService.convertAsOrganization(user)
+        }
+    }
+
+    protected prepareUserStep2(KuorumUser user, def command){
+        user.personalData.workingSector = command.workingSector
+        user.bio = command.bio
+        user.personalData.studies =  command.studies
+        if (command.photoId){
+            KuorumFile avatar = KuorumFile.get(new ObjectId(command.photoId))
+            avatar.alt = user.name
+            avatar.save()
+            user.avatar = avatar
+            fileService.convertTemporalToFinalFile(avatar)
+            fileService.deleteTemporalFiles(user)
+        }
     }
     def changePassword() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)

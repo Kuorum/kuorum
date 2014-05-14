@@ -1,97 +1,100 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.profile.editUser"/> </title>
-    <meta name="layout" content="normalLayout">
+    <meta name="layout" content="leftMenuLayout">
+    <parameter name="extraCssContainer" value="config" />
 </head>
 
+<content tag="leftMenu">
+    <h1>
+        <g:message code="profile.editUser.salutation"/>,
+        <br>
+        <span class="user-name">${user.name}</span>
+    </h1>
+    <p><g:message code="profile.editUser.description"/></p>
+    <g:render template="leftMenu" model="[user:user, activeMapping:'profileEditUser', menu:menu]"/>
 
+</content>
 <content tag="mainContent">
-    <H1> Perfil de ${user.name}</H1>
-    <g:form method="POST" mapping="profileEditUser">
-
-        <div class="fieldcontain ${hasErrors(bean: command, field: 'name', 'error')} ">
-            <label for="name">
-                <g:message code="step1.postalCode.label" default="name"/>
-
-            </label>
-            <g:textField name="name" value="${command?.name}"/>
+    <h1><g:message code="profile.editUser.title"/></h1>
+    <formUtil:validateForm bean="${command}" form="config1"/>
+    <g:form method="POST" mapping="profileEditUser" name="config1" role="form">
+        <div class="form-group">
+            <formUtil:input command="${command}" field="name" required="true"/>
         </div>
 
-
-        <div class="fieldcontain ${hasErrors(bean: command, field: 'gender', 'error')} ">
-            <label for="gender">
-                <g:message code="step1.gender.label" default="Post Type"/>
-
-            </label>
-            <g:select name="gender" from="${kuorum.core.model.Gender?.values()}"
-                      keys="${kuorum.core.model.Gender.values()*.name()}" required="true"
-                      value="${command?.gender?.name()}"/>
+        <div class="form-group groupRadio">
+            <formUtil:radioEnum command="${command}" field="gender"/>
+            <a href="#" class="pull-right">¿Eres un político electo?</a>
         </div>
-
-        <div class="fieldcontain ${hasErrors(bean: command, field: 'year', 'error')} ">
-            <label for="year">
-                <g:message code="step1.year.label" default="year"/>
-                <g:if test="${hasErrors(bean: command, field: 'year', 'error')}">
-                    <g:fieldError field="year" bean="${command}"/>
-                </g:if>
-
-            </label>
-            <g:textField name="year" value="${command?.year}"/>
+        <div class="form-group">
+            <span class="span-label"><g:message code="customRegister.step1.form.birthday.label"/></span>
+            <div class="row">
+                <div class="col-xs-4">
+                    <formUtil:input
+                            command="${command}"
+                            field="day"
+                            labelCssClass="sr-only"
+                            required="true"
+                            type="number"
+                            maxlength="2"
+                    />
+                </div>
+                <div class="col-xs-4">
+                    <formUtil:input
+                            command="${command}"
+                            field="month"
+                            labelCssClass="sr-only"
+                            required="true"
+                            type="number"
+                            maxlength="2"
+                    />
+                </div>
+                <div class="col-xs-4">
+                    <formUtil:input
+                            command="${command}"
+                            field="year"
+                            labelCssClass="sr-only"
+                            required="true"
+                            type="number"
+                            maxlength="4"
+                    />
+                </div>
+            </div>
         </div>
-        <div class="fieldcontain ${hasErrors(bean: command, field: 'month', 'error')} ">
-            <label for="month">
-                <g:message code="step1.month.label" default="month"/>
-                <g:if test="${hasErrors(bean: command, field: 'month', 'error')}">
-                    <g:fieldError field="month" bean="${command}"/>
-                </g:if>
-            </label>
-            <g:textField name="month" value="${command?.month}"/>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-4">
+                    <formUtil:input
+                            command="${command}"
+                            field="postalCode"
+                            required="true"
+                            type="number"
+                            maxlength="5"
+                    />
+                </div>
+                <div class="col-xs-4">
+                    <formUtil:selectEnum command="${command}" field="workingSector"/>
+                </div>
+                <div class="col-xs-4">
+                    <formUtil:selectEnum command="${command}" field="studies"/>
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.form-group -->
+        <div class="form-group">
+            <p class="help-block"><g:message code="profile.editUser.explanationUserData"/> </p>
         </div>
-        <div class="fieldcontain ${hasErrors(bean: command, field: 'day', 'error')} ">
-            <label for="day">
-                <g:message code="step1.day.label" default="day"/>
-                <g:if test="${hasErrors(bean: command, field: 'day', 'error')}">
-                    <g:fieldError field="day" bean="${command}"/>
-                </g:if>
-            </label>
-            <g:textField name="day" value="${command?.day}"/>
+        <div class="form-group">
+            <formUtil:textArea command="${command}" field="bio"/>
         </div>
+        <div class="form-group">
+            <label for="photoId">Fotos de perfil</label>
+            <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
 
-        <div class="fieldcontain ${hasErrors(bean: command, field: 'postalCode', 'error')} ">
-            <label for="postalCode">
-                <g:message code="step1.postalCode.label" default="postalCode"/>
-
-            </label>
-            <g:textField name="postalCode" value="${command?.postalCode}"/>
         </div>
-
-        <div class="fieldcontain ${hasErrors(bean: command, field: 'workingSector', 'error')} ">
-            <label for="workingSector">
-                <g:message code="step1.workingSector.label" default="workingSector"/>
-
-            </label>
-            <g:select name="workingSector" from="${kuorum.core.model.WorkingSector?.values()}"
-                      keys="${kuorum.core.model.WorkingSector.values()*.name()}" required="true"
-                      value="${command?.workingSector?.name()}"/>
+        <div class="form-group">
+            <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">
+            <a href="#" class="cancel" tabindex="19">Cancelar</a>
         </div>
-        <div class="fieldcontain ${hasErrors(bean: command, field: 'studies', 'error')} ">
-            <label for="studies">
-                <g:message code="step1.studies.label" default="studies"/>
-
-            </label>
-            <g:select name="studies" from="${kuorum.core.model.Studies?.values()}"
-                      keys="${kuorum.core.model.Studies.values()*.name()}" required="true"
-                      value="${command?.studies?.name()}"/>
-        </div>
-
-        <div class="fieldcontain ${hasErrors(bean: command, field: 'bio', 'error')} ">
-            <label for="bio">
-                <g:message code="step1.postalCode.label" default="bio"/>
-
-            </label>
-            <g:textArea name="bio" value="${command?.bio}"/>
-        </div>
-
-        <g:submitButton name="guardar">guardar</g:submitButton>
     </g:form>
 </content>
