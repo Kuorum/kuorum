@@ -8,7 +8,7 @@
     <body>
         <g:render template="/layouts/head"/>
         <div class="row main">
-            <div class="container-fluid search">
+            <div class="container-fluid ${pageProperty(name:'page.extraCssContainer')}">
 
                 <section id="main" role="main" class="row">
 

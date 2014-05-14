@@ -2,6 +2,7 @@
 <head>
     <title><g:message code="page.title.login"/> </title>
     <meta name="layout" content="leftMenuLayout">
+    <parameter name="extraCssContainer" value="search" />
 </head>
 
 
