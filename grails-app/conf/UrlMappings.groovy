@@ -93,6 +93,7 @@ class UrlMappings {
         name profileActivateAward:"/mi-perfil/el-gallinero/activar"     (controller: "profile", action: "kuorumStoreActivateAward")
         name profileNotifications:"/mi-perfil/notificaciones"   (controller: "profile", action: "userNotifications")
         name profileMessages:     "/mi-perfil/mensajes"         (controller: "profile", action: "userMessages")
+        name profileDeleteAccount:"/mi-perfil/eliminar"         (controller: "profile", action: "deleteAccount")
 
         name footerWhatIsKuorum:  "/kuorum/que-es"              (controller:"footer", action: "whatIsKuorum" )
         name footerUsingMyVote:   "/kuorum/para-que-sirve-mi-voto"(controller:"footer", action: "usingMyVote" )
@@ -123,6 +124,7 @@ class UrlMappings {
 
         name login:     "/entrar"       (controller:"login", action:"index")
         name loginAuth: "/autenticarse" (controller:"login", action:"auth")
+        name loginFull: "/confirmar-usuario" (controller:"login", action:"full")
         name logout:    "/salir"        (controller:"logout", action:"index")
 
         "403" (controller: "error", action: "forbidden")
