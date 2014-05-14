@@ -15,6 +15,8 @@ class ModulesController {
     def notificationService
     def kuorumUserService
 
+    private static final Long NUM_RELEVANT_FOOTER_USERS = 23
+
     def bottomLawStats(String hashtag){
         Law law = Law.findByHashtag(hashtag.encodeAsHashtag())
         LawStats lawStats = lawService.calculateLawStats(law)
@@ -43,7 +45,7 @@ class ModulesController {
     }
 
     def registerFooterRelevantUsers(){
-        List<KuorumUser> users = kuorumUserService.recommendedUsers(new Pagination(max: 19))
+        List<KuorumUser> users = kuorumUserService.recommendedUsers(new Pagination(max: NUM_RELEVANT_FOOTER_USERS))
         render template: "/layouts/footer/footerRegisterRelevantUsers", model: [users:users]
     }
 
