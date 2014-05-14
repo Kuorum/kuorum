@@ -14,7 +14,7 @@
             <div class="col-md-5">
                 <select class="form-control" id="selectType" name="postType">
                     <option value="${kuorum.core.model.PostType.HISTORY}" ${command.postType == kuorum.core.model.PostType.HISTORY?'selected':''}>&#xf02d;  <g:message code="kuorum.core.model.PostType.HISTORY"/> </option> <!-- debe venir con la primera opción que sea la que el usuario ha seleccionado en el paso anterior -->
-                    <option value="${kuorum.core.model.PostType.QUESTION}" ${command.postType == kuorum.core.model.PostType.QUESTION?'selected':''}>&#xf128; <g:message code="kuorum.core.model.PostType.QUESTION"/></option>
+                    <option value="${kuorum.core.model.PostType.QUESTION}" ${command.postType == kuorum.core.model.PostType.QUESTION?'selected':''}>&#xf059; <g:message code="kuorum.core.model.PostType.QUESTION"/></option>
                     <option value="${kuorum.core.model.PostType.PURPOSE}" ${command.postType == kuorum.core.model.PostType.PURPOSE?'selected':''}>&#xf0eb;  <g:message code="kuorum.core.model.PostType.PURPOSE"/></option>
                 </select>
             </div>

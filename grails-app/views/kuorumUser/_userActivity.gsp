@@ -5,7 +5,7 @@
         <span class="sr-only"><g:message code="kuorumUser.popover.questions"/></span>
     </li>
     <li>
-        <span class="fa fa-book"></span>
+        <span class="icon-notebook26"></span>
         <span class="counter">${user.activity.numHistories}</span>
         <span class="sr-only"><g:message code="kuorumUser.popover.histories"/></span>
     </li>

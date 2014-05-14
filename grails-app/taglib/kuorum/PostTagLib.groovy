@@ -84,8 +84,8 @@ class PostTagLib {
         Post post = attrs.post
 
         switch (post.postType){
-            case PostType.HISTORY:  out << "fa-book"; break;
-            case PostType.QUESTION: out << "fa-question"; break;
+            case PostType.HISTORY:  out << "icon-notebook26"; break;
+            case PostType.QUESTION: out << "fa-question-circle"; break;
             case PostType.PURPOSE:  out << "fa-lightbulb-o"; break;
         }
     }
@@ -93,8 +93,8 @@ class PostTagLib {
         SolrSubType solrSubType = attrs.solrSubType
 
         switch (solrSubType){
-            case SolrSubType.HISTORY:  out << "fa-book"; break;
-            case SolrSubType.QUESTION: out << "fa-question"; break;
+            case SolrSubType.HISTORY:  out << "icon-notebook26"; break;
+            case SolrSubType.QUESTION: out << "fa-question-circle"; break;
             case SolrSubType.PURPOSE:  out << "fa-lightbulb-o"; break;
         }
     }
