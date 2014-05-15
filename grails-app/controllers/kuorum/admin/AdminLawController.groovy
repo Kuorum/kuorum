@@ -3,7 +3,6 @@ package kuorum.admin
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.KuorumFile
-import kuorum.Region
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 import kuorum.web.commands.LawCommand
@@ -17,7 +16,6 @@ class AdminLawController  extends  AdminController{
     def springSecurityService
 
     def createLaw() {
-        Region spain = Region.findByIso3166_2("EU-ES")
         [
                 command:new LawCommand(),
                 institutions:Institution.findAll()
