@@ -70,9 +70,11 @@ class IndexSolrService {
 
     private SolrElement indexDomainObject(element){
         SolrElement solrElement = createSolrElement(element)
-        SolrInputDocument solrInputDocument = createSolrInputDocument(solrElement)
-        server.add(solrInputDocument)
-        server.commit()
+        if (solrElement){//Si es null es que no se indexa por alguna razon
+            SolrInputDocument solrInputDocument = createSolrInputDocument(solrElement)
+            server.add(solrInputDocument)
+            server.commit()
+        }
         solrElement
     }
 

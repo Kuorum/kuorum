@@ -28,11 +28,11 @@ class LawCommand {
         photoId nullable: false
         urlPdf nullable: false, url:true
 
-        hashtag validator: {val, obj ->
-            if (Law.findByHashtag(val)){
-                return "notUnique"
-            }
-        }
+//        hashtag validator: {val, obj ->
+//            if (Law.findByHashtag(val)){
+//                return "notUnique"
+//            }
+//        }
 
         //Validator is not imported
 //        region  nullable:false, validator: { val, obj ->

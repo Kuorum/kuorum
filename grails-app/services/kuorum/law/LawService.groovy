@@ -7,6 +7,7 @@ import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.Law.LawStats
 import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
+import kuorum.files.FileService
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.solr.IndexSolrService
@@ -21,6 +22,7 @@ class LawService {
     SearchSolrService searchSolrService
     GamificationService gamificationService
     ShortUrlService shortUrlService
+    FileService fileService
     def grailsApplication
 
     /**
@@ -109,6 +111,9 @@ class LawService {
         if (!law.image){
             throw new KuorumException("Se ha intentado crear una ley sin imagen","error.law.withOutImage")
         }
+        law.image.alt = law.hashtag
+        law.image.save()
+        fileService.convertTemporalToFinalFile(law.image)
         if (!law.save()){
            throw KuorumExceptionUtil.createExceptionFromValidatable(law)
         }
@@ -116,6 +121,11 @@ class LawService {
     }
 
     Law updateLaw(Law law){
+
+        law.image.alt = law.hashtag
+        law.image.save()
+        fileService.convertTemporalToFinalFile(law.image)
+
         //Transaction only with atomic operation on mongo
         // If someone votes while someone saves the law it is possible to lose data for overwriting
         law.mongoUpdate()
