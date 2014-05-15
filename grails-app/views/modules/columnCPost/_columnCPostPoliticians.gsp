@@ -5,6 +5,6 @@
         </div>
     </g:if>
     <g:elseif test="${post.debates}">
-        <userUtil:showListUsers users="${post.debates.findAll{it.kuorumUser != post.owner}.kuorumUser}" visibleUsers="2"/>
+        <userUtil:showListUsers users="${post.debates.findAll{it.kuorumUser != post.owner}.kuorumUser}" visibleUsers="2" messagesPrefix="post.debate.politicians.userList"/>
     </g:elseif>
 </postUtil:ifIsImportant>
