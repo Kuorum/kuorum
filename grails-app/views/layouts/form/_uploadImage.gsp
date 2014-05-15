@@ -36,20 +36,27 @@
         //Reiniciamos jcrop
         if (jcropApi)
             jcropApi.destroy();
-        $('#${imageId}').Jcrop({
-            onSelect:    showCoords,
+        $("#modal_${imageId}").modal('show');
+
+        //Is necesary the deleay because is necesary show the modal before to calculate the
+        setTimeout(
+          function()
+          {
+            var boxWidth = $("#modal_${imageId} .modal-content").innerWidth()
+            $('#${imageId}').Jcrop({
+                onSelect:    showCoords,
             %{--bgColor:     'black',--}%
-            bgOpacity:   .4,
+                bgOpacity:   .4,
             %{--minSize:[558,0],--}%
             %{--maxSize:[558,0],--}%
-            boxWidth: 558, boxHeight: 0,
-            setSelect:   [ 200, 200, 100, 100 ],
-            aspectRatio: ${fileGroup.aspectRatio}},
-            function(){
-                jcropApi = this;
-            }
-        );
-        $("#modal_${imageId}").modal('show');
+                boxWidth: boxWidth, boxHeight: 0,
+                setSelect:   [ 200, 200, 100, 100 ],
+                aspectRatio: ${fileGroup.aspectRatio}},
+                function(){
+                    jcropApi = this;
+                }
+            );
+          }, 1000);
     </uploader:onComplete>
     <uploader:showMessage>
         display.error(message);
