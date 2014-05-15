@@ -566,6 +566,9 @@ $(document).ready(function() {
                 .done(function(data, status, xhr) {
                     ulList.append(data)
                     form.each (function(){  this.reset();});
+                    $("section.boxes.noted.likes").addClass("important")
+                    $("#main > div.author").addClass("important")
+                    $("#drive a").removeClass("btn-blue")
 //                    $("html, body").animate({ scrollTop: parent.children().last().prev().offset().top }, 1000);
                 })
                 .fail(function(data) {
