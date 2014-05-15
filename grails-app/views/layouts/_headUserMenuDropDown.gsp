@@ -24,4 +24,8 @@
         </g:link>
     </li>
     <li><g:link mapping="logout"><g:message code="head.logged.logout"/></g:link></li>
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+        <li><hr/></li>
+        <li><g:link mapping="adminPrincipal"><g:message code="admin.adminPrincipal.title"/></g:link></li>
+    </sec:ifAnyGranted>
 </ul>

@@ -129,6 +129,11 @@ class UrlMappings {
         name loginFull: "/confirmar-usuario" (controller:"login", action:"full")
         name logout:    "/salir"        (controller:"logout", action:"index")
 
+        name adminPrincipal:        "/admin"                        (controller:"adminLaw", action: "index")
+        name adminCreateLaw:        "/admin/leyes/crear-ley"        (controller:"adminLaw"){action =[GET:"createLaw", POST:"saveLaw"]}
+        name adminEditLaw:          "/admin/leyes/editar-ley/$hashtag" (controller:"adminLaw"){action =[GET:"editLaw", POST:"updateLaw"]}
+        name adminUnpublishedLaws:  "/admin/leyes/no-publicadas"    (controller:"adminLaw", action: "unpublishedLaws")
+
         "403" (controller: "error", action: "forbidden")
         "404" (controller: "error", action: "notFound")
 

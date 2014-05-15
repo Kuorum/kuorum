@@ -117,7 +117,7 @@ class IndexSolrService {
     SolrPost createSolrElement(Post post){
         if (!post.published){
             log.info("No se indexa el post ${post.id} porque no está publicado")
-            return null // Skipping user because we don't have basic data
+            return null // Skipping because is not published
         }
 
         new SolrPost(
@@ -214,6 +214,10 @@ class IndexSolrService {
     }
 
     SolrLaw createSolrElement(Law law){
+        if (!law.published){
+            log.info("No se indexa el post ${law.hashtag} porque no está publicada")
+            return null // Skipping because is not published
+        }
         SolrLaw solrLaw = new SolrLaw(
             id:law.id.toString(),
             name:law.shortName,

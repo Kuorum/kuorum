@@ -99,7 +99,7 @@ $(document).ready(function() {
 	// al hacer clic en los badges vacía el contenido para que desaparezca
 	$(function() {
         //Eventos del menu de cabecera
-        $('.badge').closest('a').click(function(e) {
+        $('.nav .badge').closest('a').click(function(e) {
             e.preventDefault()
             var url = $(this).attr('href')
             var element = $(this)

@@ -25,6 +25,12 @@ class LawCommand {
         importFrom Law
         commissions nullable: false, minSize: 1
 
+        hashtag validator: {val, obj ->
+            if (Law.findByHashtag(val)){
+                return "notUnique"
+            }
+        }
+
         //Validator is not imported
         region  nullable:false, validator: { val, obj ->
             if (val != obj.institution.region) {

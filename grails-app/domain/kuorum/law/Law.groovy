@@ -33,7 +33,7 @@ class Law {
     static embedded = ['region','peopleVotes','image' ]
 
     static constraints = {
-        hashtag matches: '#[a-zA-Z0-9]+', nullable: false
+        hashtag matches: '#[a-zA-Z0-9]+', nullable: false, unique: true
         shortName nullable: false
         commissions nullable: false, minSize:1
         realName nullable:false
