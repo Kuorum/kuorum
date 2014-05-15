@@ -67,7 +67,7 @@ class KuorumUserTagLib {
     }
 
     def showListUsers={attrs->
-        List<KuorumUser> users = attrs.users
+        Set<KuorumUser> users = attrs.users.unique()
         if (users){
             Integer visibleUsers=Integer.parseInt(attrs.visibleUsers)?:1
             List<KuorumUser> visibleUsersList = users.take(visibleUsers)
