@@ -37,7 +37,7 @@ class NotificationService {
      * @return
      */
     List<Notification> findUserNotifications(KuorumUser user, Pagination pagination = new Pagination()){
-        Notification.findAllByKuorumUser(user, user.lastNotificationChecked,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
+        Notification.findAllByKuorumUser(user,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
     }
 
     /**

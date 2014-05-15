@@ -14,7 +14,7 @@
     <g:if test="${answerLink}">
         <span class="actions clearfix">
             <span class="pull-right">
-                <a href="#" class="btn btn-sm btn-custom-primary">Responder</a>
+                <a href="${answerLink}" class="btn btn-sm btn-custom-primary">Responder</a>
             </span>
         </span>
     </g:if>

@@ -1,6 +1,6 @@
 <g:if test="${post.debates}">
     %{--hay debates--}%
-    <section class="debate">
+    <section class="debate" id="debates">
         <h1><g:message code="post.show.debate.title"/></h1>
         <userUtil:showListUsers users="${post.debates.kuorumUser}" visibleUsers="10" messagesPrefix="post.show.debate.usersList"/>
         <ul class="chat">
@@ -14,7 +14,7 @@
 <g:else>
     <postUtil:ifUserCanAddDebates post="${post}">
         %{--No hay debates pero el usuario puede iniciar uno--}%
-        <section class="debate">
+        <section class="debate" id="debates">
             <h1><g:message code="post.show.debate.firstPoliticianDebate.title" args="[post.owner.name]"/></h1>
             <ul class="chat">
             </ul>
