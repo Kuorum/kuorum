@@ -45,11 +45,13 @@
         <h1><g:message code="law.clucks.title"/> </h1>
         <p><g:message code="law.clucks.description"/> </p>
         <!-- COMIENZA LISTA DE KAKAREOS -->
-        <ul class="kakareo-list" role="log" aria-live="assertive" aria-relevant="additions">
-            <g:each in="${clucks}" var="cluck">
-                <g:render template="/cluck/cluck" model="[cluck:cluck]"/>
-            </g:each>
-        </ul>
+        <g:set var="urlLoadMore" value="${createLink(mapping: 'lawListClucks', params: law.encodeAsLinkProperties())}"/>
+        <g:render template="/cluck/listClucks" model="[clucks:clucks, urlLoadMore:urlLoadMore, seeMore:seeMore]"/>
+        %{--<ul class="kakareo-list" role="log" aria-live="assertive" aria-relevant="additions">--}%
+            %{--<g:each in="${clucks}" var="cluck">--}%
+                %{--<g:render template="/cluck/cluck" model="[cluck:cluck]"/>--}%
+            %{--</g:each>--}%
+        %{--</ul>--}%
     </aside>
 </content>
 

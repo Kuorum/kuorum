@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
+import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchPolitician
 import kuorum.core.model.solr.SolrPoliticiansGrouped
 import kuorum.post.Cluck
@@ -71,11 +72,11 @@ class KuorumUserController {
             redirect(mapping: "userShow", params: user.encodeAsLinkProperties())
             return
         }
-
-        List<Cluck> clucks = cluckService.userClucks(user)
+        Pagination pagination = new Pagination()
+        List<Cluck> clucks = cluckService.userClucks(user, pagination)
         List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(user)
         String provinceName = user.personalData.province.name
-        render (view:"show", model:[user:user, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName])
+        render (view:"show", model:[user:user, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName, seeMore: clucks.size()==pagination.max])
     }
 
     def showOrganization(String id){
@@ -84,10 +85,11 @@ class KuorumUserController {
             redirect(mapping: "userShow", params: user.encodeAsLinkProperties())
             return
         }
-        List<Cluck> clucks = cluckService.userClucks(user)
+        Pagination pagination = new Pagination()
+        List<Cluck> clucks = cluckService.userClucks(user, pagination)
         List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(user)
         String provinceName = user.personalData.country.name
-        render (view:"show", model:[user:user, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName])
+        render (view:"show", model:[user:user, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName, seeMore: clucks.size()==pagination.max])
     }
 
     def showPolitician(String id){
@@ -98,10 +100,11 @@ class KuorumUserController {
         }
         String provinceName = politician.personalData.province.name
         if (politician.enabled){
-            List<Cluck> clucks = cluckService.userClucks(politician)
+            Pagination pagination = new Pagination()
+            List<Cluck> clucks = cluckService.userClucks(politician, pagination)
             List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(politician)
             def politicianStats =[postDefended:0, victories:0, debates:0]
-            render (view:"show", model:[user:politician, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName,politicianStats:politicianStats])
+            render (view:"show", model:[user:politician, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName,politicianStats:politicianStats, seeMore: clucks.size()==pagination.max])
         }else{
             render (view:"showInactivePolitician", model:[user:politician, provinceName:provinceName])
         }

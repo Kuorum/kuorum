@@ -30,15 +30,16 @@ class DashboardController {
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<Cluck> clucks =  cluckService.dashboardClucks(user)
-        [clucks: clucks, user:user]
+        Pagination pagination = new Pagination()
+        List<Cluck> clucks =  cluckService.dashboardClucks(user,pagination)
+        [clucks: clucks, user:user,seeMore: clucks.size()==pagination.max]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def dashboardClucks(Pagination pagination){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<Cluck> clucks =  cluckService.dashboardClucks(user, pagination)
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${clucks.size()<=pagination.max}")
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${clucks.size()<pagination.max}")
         render template: "/cluck/liClucks", model:[clucks:clucks]
     }
 

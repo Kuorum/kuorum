@@ -16,6 +16,7 @@ class UrlMappings {
         name lawEdit:       "/leyes/$regionName/$commission/$hashtag/editar"(controller: "law", action:"edit")
         name lawUpdate:     "/leyes/$regionName/$commission/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
         name lawVote:       "/ajax/leyes/$regionName/$commission/$hashtag/votar"(controller: "law", action:"voteLaw")
+        name lawListClucks: "/ajax/leyes/$regionName/$commission/$hashtag/listado-kakareos" (controller: "law", action:"listClucksLaw")
 
         name postCreate:    "/leyes/$regionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
 //        name postSave:      "/leyes/$regionName/$commission/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}

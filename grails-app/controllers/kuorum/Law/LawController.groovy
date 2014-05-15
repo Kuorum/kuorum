@@ -7,6 +7,7 @@ import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
+import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchLaws
 import kuorum.core.model.solr.SolrLawsGrouped
 import kuorum.law.Law
@@ -14,6 +15,7 @@ import kuorum.law.LawVote
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 import kuorum.web.commands.LawCommand
+import kuorum.web.constants.WebConstants
 
 import javax.servlet.http.HttpServletResponse
 
@@ -65,12 +67,22 @@ class LawController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        def clucks = cluckService.lawClucks(law)
+        Pagination pagination = new Pagination()
+        def clucks = cluckService.lawClucks(law,pagination)
         List<Post> victories = postService.lawVictories(law)
+        [law:law, clucks: clucks,victories:victories, seeMore:clucks.size() == pagination.max]
 
+    }
 
-
-        [law:law, clucks: clucks,victories:victories]
+    def listClucksLaw(Pagination pagination){
+        Law law = lawService.findLawByHashtag(params.hashtag.encodeAsHashtag())
+        if (!law){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        def clucks = cluckService.lawClucks(law,pagination)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${clucks.size()<pagination.max}")
+        render template: "/cluck/liClucks", model:[clucks:clucks]
 
     }
 

@@ -11,8 +11,8 @@ class CluckService {
 
     def notificationService
 
-    List<Cluck> lawClucks(Law law) {
-        Cluck.findAllByLawAndIsFirstCluck(law, Boolean.TRUE,[max: 10, sort: "dateCreated", order: "desc", offset: 0])
+    List<Cluck> lawClucks(Law law, Pagination pagination = new Pagination()) {
+        Cluck.findAllByLawAndIsFirstCluck(law, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
     }
 
     List<Cluck> dashboardClucks(KuorumUser kuorumUser, Pagination pagination = new Pagination()){
