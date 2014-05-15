@@ -98,6 +98,22 @@ $(document).ready(function() {
 
 	// al hacer clic en los badges vacía el contenido para que desaparezca
 	$(function() {
+        //Eventos del menu de cabecera
+        $('.badge').closest('a').click(function(e) {
+            e.preventDefault()
+            var url = $(this).attr('href')
+            var element = $(this)
+            $.ajax(url).done(function(data){
+                element.find('.badge').delay(1000).fadeOut("slow").queue(function() {
+                    $(this).empty();
+                });
+                element.next('ul').find('li.new').delay(1000).queue(function() {
+                    $(this).removeClass('new', 1000);
+                });
+            });
+        });
+
+        //Eventos de los numeros del discover
 		$('.introDiscover .badge').closest('a').click(function(e) {
             e.preventDefault()
 			$(this).find('.badge').delay(2000).fadeOut("slow").queue(function() {
