@@ -7,7 +7,7 @@
 
 <content tag="mainContent">
     <g:set var="urlLoadMore" value="${createLink(mapping: 'dashboardSeeMore')}"/>
-    <g:render template="/cluck/listClucks" model="[clucks:clucks, urlLoadMore:urlLoadMore]"/>
+    <g:render template="/cluck/listClucks" model="[clucks:clucks, urlLoadMore:urlLoadMore, seeMore:seeMore]"/>
 </content>
 
 <content tag="cColumn">
