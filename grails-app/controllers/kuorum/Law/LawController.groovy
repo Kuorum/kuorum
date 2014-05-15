@@ -87,32 +87,6 @@ class LawController {
     }
 
     @Secured(['ROLE_ADMIN'])
-    def create(){
-        [   lawInstance:new LawCommand(),
-            regions:Region.findAll(),
-            institutions:Institution.findAll()
-        ]
-    }
-
-    @Secured(['ROLE_ADMIN'])
-    def save(LawCommand command){
-        if (command.hasErrors()){
-            def regions = Region.findAll()
-            def institutions = Institution.findAll()
-            render view: "create", model:[
-                    lawInstance:command,
-                    regions:Region.findAll(),
-                    institutions:Institution.findAll()
-            ]
-            return
-        }
-
-        Law law = new Law(command.properties)
-        lawService.saveLaw(law)
-        redirect mapping:"lawShow", params:law.encodeAsLinkProperties()
-    }
-
-    @Secured(['ROLE_ADMIN'])
     def edit(String hashtag){
         Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
         if (!law){

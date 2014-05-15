@@ -92,6 +92,28 @@ class FormTagLib {
         }
     }
 
+    def selectMultipleCommissions={attrs->
+        def command = attrs.command
+        def field = attrs.field
+
+        def id = attrs.id?:field
+        def label = message(code: "${command.class.name}.${field}.label")
+        def helpBlock = message(code: "${command.class.name}.${field}.helpBlock")
+        def checkedCommissions = command."${field}"
+        def errorMessage =''
+        if (hasErrors(bean: command, field: field,'error')){
+            errorMessage = g.fieldError(bean: command, field: id)
+        }
+        def model = [
+                field:field,
+                label:label,
+                errorMessage:errorMessage,
+                checkedCommissions:checkedCommissions,
+                helpBlock:helpBlock
+        ]
+        out << render(template:'/layouts/form/commissions', model:model)
+    }
+
     def selectEnum = {attrs->
         def command = attrs.command
         def field = attrs.field
@@ -142,7 +164,7 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 

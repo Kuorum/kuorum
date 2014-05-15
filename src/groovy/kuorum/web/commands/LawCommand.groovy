@@ -16,6 +16,7 @@ class LawCommand {
     String realName
     String description
     String introduction
+    URL urlPdf
     List<CommissionType> commissions  = new ArrayList<CommissionType>()
 //    Region region
     Institution institution
@@ -25,6 +26,7 @@ class LawCommand {
         importFrom Law
         commissions nullable: false, minSize: 1
         photoId nullable: false
+        urlPdf nullable: false, url:true
 
         hashtag validator: {val, obj ->
             if (Law.findByHashtag(val)){

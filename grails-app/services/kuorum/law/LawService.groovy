@@ -2,6 +2,7 @@ package kuorum.law
 
 import grails.transaction.Transactional
 import kuorum.ShortUrlService
+import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.Law.LawStats
 import kuorum.core.model.VoteType
@@ -102,8 +103,12 @@ class LawService {
         lawVote
     }
 
-    Law saveLaw(Law law){
+    Law saveAndCreateNewLaw(Law law){
         law.shortUrl = shortUrlService.shortUrl(law)
+        law.published = Boolean.FALSE
+        if (!law.image){
+            throw new KuorumException("Se ha intentado crear una ley sin imagen","error.law.withOutImage")
+        }
         if (!law.save()){
            throw KuorumExceptionUtil.createExceptionFromValidatable(law)
         }

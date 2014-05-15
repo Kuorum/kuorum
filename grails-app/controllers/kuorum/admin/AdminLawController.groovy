@@ -2,14 +2,19 @@ package kuorum.admin
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
+import kuorum.KuorumFile
 import kuorum.Region
 import kuorum.law.Law
+import kuorum.users.KuorumUser
 import kuorum.web.commands.LawCommand
+import org.bson.types.ObjectId
 
 @Secured(['ROLE_ADMIN'])
 class AdminLawController  extends  AdminController{
 
     def lawService
+    def fileService
+    def springSecurityService
 
     def createLaw() {
         Region spain = Region.findByIso3166_2("EU-ES")
@@ -25,8 +30,17 @@ class AdminLawController  extends  AdminController{
                     command:command,
                     institutions:Institution.findAll()
             ]
+            return
         }
-
+        Law law = new Law(command.properties)
+        law.region = command.institution.region
+        KuorumFile image = KuorumFile.get(new ObjectId(command.photoId))
+        law.image = image
+        law = lawService.saveAndCreateNewLaw(law)
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        fileService.deleteTemporalFiles(user)
+        flash.message=message(code:'admin.createLaw.success', args: [law.hashtag])
+        redirect mapping:"lawShow", params:law.encodeAsLinkProperties()
     }
 
     def editLaw(String hashtag){

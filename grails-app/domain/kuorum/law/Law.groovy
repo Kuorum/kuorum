@@ -45,7 +45,7 @@ class Law {
                 return ['notSameRegionAsInstitution']
             }
         }
-
+        urlPdf nullable:false, url:true
         //TODO: image no es nullable
         image nullable:true
     }
