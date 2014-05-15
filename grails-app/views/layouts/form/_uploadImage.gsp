@@ -1,5 +1,6 @@
 <r:require modules="customFileUploader" />
 <g:set var="imageId" value="imageId_XXXXX"/>
+<label for="input_${imageId}" class="${labelCssClass}">${label} </label>
 <script>
     var typeErrorText = "${g.message(code:'uploader.error.typeError')}"
     var sizeErrorText = "${g.message(code:'uploader.error.sizeError')}"
@@ -103,7 +104,6 @@
     })
     </g:if>
 </script>
-
 <input type="hidden" name="${name}" id="input_${imageId}" value="${value}"/>
 <div class="modal fade uploadKuorumImage" id="modal_${imageId}">
     <div class="modal-dialog">

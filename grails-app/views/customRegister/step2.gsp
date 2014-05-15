@@ -13,10 +13,7 @@
 <content tag="mainContent">
     <g:form method="POST" mapping="customRegisterStep2" name="sign2" role="form">
         <div class="form-group">
-            <label for="photoId"><g:message code="customRegister.step2.form.changePhoto"/> </label>
             <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
-
-            %{--<input type="file" class="form-control" id="addphoto">--}%
         </div>
         <div class="form-group">
             <formUtil:selectEnum

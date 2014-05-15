@@ -88,9 +88,7 @@
             <formUtil:textArea command="${command}" field="bio"/>
         </div>
         <div class="form-group">
-            <label for="photoId">Fotos de perfil</label>
             <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
-
         </div>
         <div class="form-group">
             <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">

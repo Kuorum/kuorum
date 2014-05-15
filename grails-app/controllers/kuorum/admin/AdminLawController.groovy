@@ -12,9 +12,9 @@ class AdminLawController  extends  AdminController{
     def lawService
 
     def createLaw() {
+        Region spain = Region.findByIso3166_2("EU-ES")
         [
                 command:new LawCommand(),
-                regions:Region.findAll(),
                 institutions:Institution.findAll()
         ]
     }
@@ -23,7 +23,6 @@ class AdminLawController  extends  AdminController{
         if (command.hasErrors()){
             render view:'/adminLaw/createLaw', model:         [
                     command:command,
-                    regions:Region.findAll(),
                     institutions:Institution.findAll()
             ]
         }

@@ -17,8 +17,11 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
         def kuorumImageId = command."$field"
+
+        def labelCssClass = attrs.labelCssClass?:''
         KuorumFile kuorumFile = null
         FileGroup fileGroup = null
+        def label = message(code: "${command.class.name}.${field}.label")
         def value = ""
         def imageUrl = ""
         if (kuorumImageId)
@@ -37,7 +40,9 @@ class FormTagLib {
                 value:value,
                 fileGroup:fileGroup,
                 imageUrl:imageUrl,
-                name:field
+                name:field,
+                labelCssClass:labelCssClass,
+                label:label
         ]
         out << g.render(template:'/layouts/form/uploadImage', model:model)
     }
@@ -100,7 +105,37 @@ class FormTagLib {
         }
         out << "</select>"
         if(error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: name)}</span>"
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+        }
+    }
+
+
+    def selectDomainObject = {attrs->
+        def command = attrs.command
+        def field = attrs.field
+        def values = attrs.values
+        def valueName=attrs.valueName?:'name'
+
+        def required = attrs.required?'required':''
+        def id = attrs.id?:"${field}.id"
+        def cssClass = attrs.cssClass
+        def clazz = command.metaClass.properties.find{it.name == field}.type
+        def label = message(code: "${clazz.name}.label")
+        def error = hasErrors(bean: command, field: field,'error')
+        out <<"""
+        <label for="${id}">${label}</label>
+        <select name="${field}.id" class="form-control ${error}" id="${id}" ${required?'required':''}>
+        """
+        out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
+        values.each{
+            def valId = it.id
+            def commandValId = command."$field"?.id
+            def valName = it."${valueName}"
+            out << "<option value='${valId}' ${valId==commandValId?'selected':''}> ${valName}</option>"
+        }
+        out << "</select>"
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
         }
     }
 

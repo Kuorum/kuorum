@@ -46,7 +46,6 @@
 </fieldset>
 <fieldset class="multimedia">
     <div class="form-group image">
-        <label for="imageId"><g:message code="post.edit.step1.image.label"/></label>
         <formUtil:editImage command="${command}" field="imageId" fileGroup="${ FileGroup.POST_IMAGE}"/>
     </div>
     <div class="form-group video">
