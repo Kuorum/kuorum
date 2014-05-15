@@ -98,7 +98,7 @@ $(document).ready(function() {
 
 	// al hacer clic en los badges vacía el contenido para que desaparezca
 	$(function() {
-		$('.badge').closest('a').click(function(e) {
+		$('.introDiscover .badge').closest('a').click(function(e) {
             e.preventDefault()
 			$(this).find('.badge').delay(2000).fadeOut("slow").queue(function() {
 				$(this).empty();
