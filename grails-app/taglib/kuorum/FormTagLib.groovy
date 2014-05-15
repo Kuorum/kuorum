@@ -35,6 +35,12 @@ class FormTagLib {
             fileGroup =kuorumFile.fileGroup
             imageUrl = kuorumFile.url
         }
+
+        def error = hasErrors(bean: command, field: field,'error')
+        def errorMessage = ''
+        if(error){
+            errorMessage = g.fieldError(bean: command, field: field)
+        }
         def model = [
                 imageId: kuorumImageId,
                 value:value,
@@ -42,7 +48,8 @@ class FormTagLib {
                 imageUrl:imageUrl,
                 name:field,
                 labelCssClass:labelCssClass,
-                label:label
+                label:label,
+                errorMessage:errorMessage
         ]
         out << g.render(template:'/layouts/form/uploadImage', model:model)
     }

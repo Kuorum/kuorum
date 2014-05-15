@@ -15,10 +15,6 @@
     <formUtil:textArea command="${command}" field="description" required="true"/>
 </div>
 
-%{--<div class="form-group">--}%
-    %{--<formUtil:selectDomainObject command="${command}" field="region" values="${regions}" />--}%
-%{--</div>--}%
-
 <div class="form-group">
     <formUtil:selectDomainObject command="${command}" field="institution" values="${institutions}" />
 </div>

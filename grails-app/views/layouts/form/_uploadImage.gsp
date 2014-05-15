@@ -1,5 +1,4 @@
 <r:require modules="customFileUploader" />
-<g:set var="imageId" value="imageId_XXXXX"/>
 <label for="input_${imageId}" class="${labelCssClass}">${label} </label>
 <script>
     var typeErrorText = "${g.message(code:'uploader.error.typeError')}"
@@ -122,3 +121,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<g:if test="${errorMessage}">
+    <span for='input_${imageId}' class='error'>${errorMessage}</span>
+</g:if>
