@@ -130,6 +130,7 @@ class FormTagLib {
         def value = command."$field"?:''
 //        def cssClass = attrs.cssClass
         def label = message(code: "${command.class.name}.${field}.label")
+        def cssLabel = attrs.cssLabel?:''
         def placeHolder = message(code: "${command.class.name}.${field}.placeHolder")
         def error = hasErrors(bean: command, field: field,'error')
         ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
@@ -138,7 +139,7 @@ class FormTagLib {
 
 
         out << """
-            <label for="${id}">${label}</label>
+            <label class='${cssLabel}' for="${id}">${label}</label>
             <textarea name='${field}' class="form-control counted ${error}" rows="${rows}" id="${id}" placeholder="${placeHolder}">${value}</textarea>
         """
         if (error){

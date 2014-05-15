@@ -1,14 +1,14 @@
 <%@ page import="kuorum.notifications.DefendedPostAlert; kuorum.notifications.DebateAlertNotification" %>
-<section class="boxes alerts">
-    <h1>
-        <span class="badgeContainer">
-            <span class="fa fa-bell"></span>
-            <span class="badge" role="log" aria-labelledby="alerts" aria-live="assertive" aria-relevant="additions">${alerts.size()?:''}</span>
-        </span>
-        <span class="bigger"><g:message code="notifications.alerts.title"/></span>
-    </h1>
-    <ul class="notifications-list">
-        <g:if test="${alerts}">
+<g:if test="${alerts}">
+    <section class="boxes alerts">
+        <h1>
+            <span class="badgeContainer">
+                <span class="fa fa-bell"></span>
+                <span class="badge" role="log" aria-labelledby="alerts" aria-live="assertive" aria-relevant="additions">${alerts.size()?:''}</span>
+            </span>
+            <span class="bigger"><g:message code="notifications.alerts.title"/></span>
+        </h1>
+        <ul class="notifications-list">
             <g:each in="${alerts}" var="alert" status="i">
                 <g:if test="${alert.instanceOf(DebateAlertNotification)}">
                     <g:set var="postType">
@@ -30,13 +30,11 @@
                 </g:elseif>
                 <g:render template="/modules/userProfileAlerts/userProfileAlert" model="[user:user, message:message, alert:alert]"/>
             </g:each>
-        </g:if>
-        <g:else>
-            <li>NO ALERTS</li>
-        </g:else>
-        <li class="text-center">
-            <small>
-                <g:link mapping="profileNotifications"><g:message code="notifications.showAll"/></g:link></small>
-        </li>
-    </ul>
-</section>
+            <li class="text-center">
+                <small>
+                    <g:link mapping="profileNotifications"><g:message code="notifications.showAll"/></g:link>
+                </small>
+            </li>
+        </ul>
+    </section>
+</g:if>

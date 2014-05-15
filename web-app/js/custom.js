@@ -528,7 +528,7 @@ $(document).ready(function() {
                 data:$(this).serialize(),
                 statusCode: {
                     401: function() {
-                        location.reload();
+                        display.warn("Tienes que registrarte para poder añadir comentarios")
                     }
                 }
             })
@@ -548,6 +548,37 @@ $(document).ready(function() {
         }
     })
 
+    $("#addDebate").on('submit', function(e){
+        e.preventDefault()
+        var form = $(this)
+        if (form.valid()){
+            var url = form.attr('action')
+            var ulList = $("ul.chat")
+            $.ajax( {
+                url:url,
+                data:$(this).serialize(),
+                statusCode: {
+                    401: function() {
+                        display.warn("Tienes que registrarte para poder añadir comentarios")
+                    }
+                }
+            })
+                .done(function(data, status, xhr) {
+                    ulList.append(data)
+                    form.each (function(){  this.reset();});
+//                    $("html, body").animate({ scrollTop: parent.children().last().prev().offset().top }, 1000);
+                })
+                .fail(function(data) {
+                    display.warn("Hubo algun error. Intent otra vez o contacte con info@kuorum.org")
+                    console.log(data)
+                })
+                .always(function(data) {
+
+                });
+        }else{
+            //console.log("pete")
+        }
+    })
 
 
 	// change text when select option in the edit post form

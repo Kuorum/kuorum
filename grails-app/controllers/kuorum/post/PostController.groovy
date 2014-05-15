@@ -7,6 +7,7 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.model.PostType
+import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationElement
 import kuorum.core.model.search.Pagination
 import kuorum.law.Law
@@ -301,5 +302,29 @@ class PostController {
                 corns:gamificationService.gamificationConfigVotePost()[GamificationElement.CORN]?:0
         ]
         render ([numLikes:post.numVotes, limitTo:range.to +1, gamification:gamification] as JSON)
+    }
+
+    @Secured('isAuthenticated()')
+    def addDebate(CommentPostCommand command) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Post post = params.post
+        if (command.hasErrors() || !postService.isAllowedToAddDebate(post, user) ){
+            render "Something wrong. Not possible to arrive here using web normally"
+        }else{
+            PostComment postComment = new PostComment(
+                    text: command.comment,
+                    dateCreated:new Date(),
+                    moderated: Boolean.FALSE,
+                    deleted :Boolean.FALSE,
+                    kuorumUser: user
+            )
+            postService.addDebate(post, postComment)
+            postComment = post.debates.last()
+            if (user.userType == UserType.POLITICIAN){
+                render (template: '/post/debates/postDebatePolitician', model:[debate:postComment])
+            }else{
+                render (template: '/post/debates/postDebateActivist', model:[debate:postComment])
+            }
+        }
     }
 }

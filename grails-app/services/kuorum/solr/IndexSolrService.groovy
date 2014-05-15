@@ -115,6 +115,11 @@ class IndexSolrService {
     }
 
     SolrPost createSolrElement(Post post){
+        if (!post.published){
+            log.info("No se indexa el post ${post.id} porque no está publicado")
+            return null // Skipping user because we don't have basic data
+        }
+
         new SolrPost(
             id:post.id.toString(),
             name:post.title,

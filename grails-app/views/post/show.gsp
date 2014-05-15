@@ -35,9 +35,7 @@
                 </div>
             </div>
             <p>${raw(post.text.replaceAll('<br>','</p><p>'))}</p>
-            <g:if test="${!post.debates.isEmpty()}">
-                <g:render template="debates/postDebates" model="[post:post]"/>
-            </g:if>
+            <g:render template="debates/postDebates" model="[post:post]"/>
             <div class="wrapper">
                 <g:render template="/cluck/cluckUsers" model="[post:post]"/>
             </div>
