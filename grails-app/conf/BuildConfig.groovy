@@ -88,6 +88,9 @@ grails.project.dependency.resolution = {
         compile 'org.igniterealtime.smack:smack:3.1.0'
         compile 'com.ecwid:ecwid-mailchimp:jar:2.0.0.1'
 
+        //For burning-image plugin
+        compile 'org.im4java:im4java:1.4.0'
+
        // compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
 
         //TEST
