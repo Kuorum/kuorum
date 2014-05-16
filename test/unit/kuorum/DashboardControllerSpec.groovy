@@ -1,13 +1,9 @@
 package kuorum
 
-import grails.plugin.springsecurity.SpringSecurityService
-import grails.plugin.springsecurity.userdetails.GrailsUser
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
-import grails.test.mixin.TestMixin
 import kuorum.post.CluckService
 import kuorum.users.KuorumUser
-import org.bson.types.ObjectId
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -20,7 +16,7 @@ class DashboardControllerSpec extends Specification {
 
     def setup() {
         def mockCluckService = mockFor(CluckService)
-        mockCluckService.demand.dashboardClucks(1) {def user -> []}
+        mockCluckService.demand.dashboardClucks(_,_) {def user, def pagination -> []}
         controller.cluckService = mockCluckService.createMock()
 
     }
