@@ -24,7 +24,7 @@
             <g:link mapping="postShow" params="${cluck.post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
             <g:render template="/cluck/cluckMain" model="[post: cluck.post]"/>
         </div>
-        <g:render template="/cluck/footerCluck" model="[post:cluck.post]"/>
+        <g:render template="/cluck/footerCluck" model="[post:cluck.post,displayingColumnC:false]"/>
     </article><!-- /article -->
 
 </li><!-- /kakareo-->

@@ -23,7 +23,7 @@
                 </div><!-- /.sponsor -->
             </div><!-- /.main-kakareo -->
         </div>
-        <g:render template="/cluck/footerCluck" model="[cluck:post.firstCluck]"/>
+        <g:render template="/cluck/footerCluck" model="[cluck:post,displayingColumnC:false]"/>
     </article><!-- /article -->
 
     <h2>Para qué patrocinar</h2>

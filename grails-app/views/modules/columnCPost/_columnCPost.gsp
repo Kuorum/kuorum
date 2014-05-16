@@ -22,7 +22,6 @@
                 </div><!-- /patrocinadores -->
             </div>
         </div><!-- /.link-wrapper -->
-        <g:render template="/modules/columnCPost/columnCPostFooter" model="[post:post]"/>
+        <g:render template="/cluck/footerCluck" model="[post:post, displayingColumnC:true]"/>
     </article><!-- /article -->
-
 </li><!-- /kakareo important -->

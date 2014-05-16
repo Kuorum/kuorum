@@ -18,7 +18,7 @@
             <div class="wrapper">
                 <g:render template="/cluck/cluckMain" model="[post:post]"/>
             </div>
-            <g:render template="/cluck/footerCluck" model="[cluck:post.firstCluck]"/>
+            <g:render template="/cluck/footerCluck" model="[cluck:post, displayingColumnC:false]"/>
 
             <div class="row options">
                 <div class="col-xs-12 col-sm-6 col-md-6 editPost">
@@ -39,7 +39,7 @@
             <div class="wrapper">
                 <g:render template="/cluck/cluckUsers" model="[post:post]"/>
             </div>
-            <g:render template="/cluck/footerCluck" model="[post:post]"/>
+            <g:render template="/cluck/footerCluck" model="[post:post,displayingColumnC:false]"/>
         </article><!-- /article -->
 
         <g:render template="relatedPosts" model="[relatedPosts:relatedPost]"/>
