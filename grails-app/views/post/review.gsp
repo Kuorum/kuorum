@@ -25,7 +25,7 @@
         </div><!-- /.main-kakareo -->
 
         <footer class="row">
-            <g:render template="/post/footerPostType" model="[post:post]"/>
+            <g:render template="/cluck/footerCluck/footerCluckPostType" model="[post:post, displayingColumnC:false]"/>
             <ul class="col-xs-10 col-sm-10 col-md-8 actions-kak">
                 <!-- <li class="read-later">
                                         <a href="#"><span class="fa fa-bookmark fa-lg"></span><span class="hidden-xs">Leer después</span></a>
