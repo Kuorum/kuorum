@@ -1,14 +1,11 @@
 package kuorum.users
 
-import grails.test.mixin.TestFor
 import grails.test.mixin.TestMixin
 import grails.test.mixin.support.GrailsUnitTestMixin
 import kuorum.Region
-import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.Gender
 import kuorum.helper.Helper
 import kuorum.web.commands.customRegister.Step1Command
-import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -27,7 +24,7 @@ class Step1CommandSpec extends Specification {
     }
 
     @Unroll
-    def "test Step1 constraints [month=#month]: Checking #field = #value expected #error"() {
+    def "test Step1 constraints [date=#year/#month]: Checking #field = #value expected #error"() {
         when:
 
         def params = [
@@ -35,6 +32,8 @@ class Step1CommandSpec extends Specification {
                 postalCode:"28001",
                 year:year,
                 month:month,
+                country:new Region(),
+                province:new Region(),
                 day:1
         ]
         params[field] = value
