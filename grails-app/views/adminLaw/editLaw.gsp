@@ -20,8 +20,17 @@
     <g:form method="POST" mapping="adminEditLaw" params="${law.encodeAsLinkProperties()}" name="createLaw" role="form">
         <g:render template="formLaw" model="[command:command, institutions:institutions]"/>
         <div class="form-group">
-            <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">
-            <a href="#" class="cancel" tabindex="19">Cancelar</a>
+            <input type="submit" value="${message(code:'admin.editLaw.submit')}" class="btn btn-grey btn-lg">
+            <g:if test="${law.published}">
+                <g:link mapping="adminUnpublishLaw" params="${law.encodeAsLinkProperties()}" class="cancel">
+                    <g:message code="admin.editLaw.unPublish"/>
+                </g:link>
+            </g:if>
+            <g:else>
+                <g:link mapping="adminPublishLaw" params="${law.encodeAsLinkProperties()}" class="cancel">
+                    <g:message code="admin.editLaw.publish"/>
+                </g:link>
+            </g:else>
         </div>
     </g:form>
 </content>

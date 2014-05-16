@@ -87,4 +87,18 @@ class AdminLawController  extends  AdminController{
     def unpublishedLaws(){
         [laws:Law.findAllByPublished(false)]
     }
+
+    def publishLaw(String hashtag){
+        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
+        lawService.publish(law)
+        flash.message=message(code: "admin.editLaw.publish.success", args: [law.hashtag])
+        redirect mapping:"adminEditLaw", params:law.encodeAsLinkProperties()
+    }
+
+    def unPublishLaw(String hashtag){
+        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
+        lawService.unpublish(law)
+        flash.message=message(code: "admin.editLaw.unPublish.success", args: [law.hashtag])
+        redirect mapping:"adminEditLaw", params:law.encodeAsLinkProperties()
+    }
 }

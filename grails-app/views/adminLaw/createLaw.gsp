@@ -23,7 +23,7 @@
         </div>
         <g:render template="formLaw" model="[command:command, institutions:institutions]"/>
         <div class="form-group">
-            <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">
+            <input type="submit" value="${message(code:'admin.createLaw.submit')}" class="btn btn-grey btn-lg">
             <a href="#" class="cancel" tabindex="19">Cancelar</a>
         </div>
     </g:form>

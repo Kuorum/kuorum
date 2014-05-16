@@ -132,6 +132,8 @@ class UrlMappings {
         name adminPrincipal:        "/admin"                        (controller:"adminLaw", action: "index")
         name adminCreateLaw:        "/admin/leyes/crear-ley"        (controller:"adminLaw"){action =[GET:"createLaw", POST:"saveLaw"]}
         name adminEditLaw:          "/admin/leyes/editar-ley/$hashtag" (controller:"adminLaw"){action =[GET:"editLaw", POST:"updateLaw"]}
+        name adminPublishLaw:       "/admin/leyes/editar-ley/$hashtag/publicar"     (controller:"adminLaw", action: "publishLaw")
+        name adminUnpublishLaw:      "/admin/leyes/editar-ley/$hashtag/despublicar"  (controller:"adminLaw", action: "unPublishLaw")
         name adminUnpublishedLaws:  "/admin/leyes/no-publicadas"    (controller:"adminLaw", action: "unpublishedLaws")
 
         "403" (controller: "error", action: "forbidden")

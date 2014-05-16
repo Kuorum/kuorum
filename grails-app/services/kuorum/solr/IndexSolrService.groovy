@@ -35,7 +35,6 @@ class IndexSolrService {
         log.warn("Clearing solr index")
         server.deleteByQuery("*:*")
         server.commit()
-
     }
 
     def fullIndex() {
@@ -66,6 +65,20 @@ class IndexSolrService {
     SolrLaw index(Law law){
         log.info("Indexing law: ${law}")
         indexDomainObject(law)
+    }
+
+    private void deleteDocument(String id){
+        server.deleteByQuery("id:${id}")
+        server.commit()
+    }
+    void delete(Law law){
+        deleteDocument(law.id.toString())
+    }
+    void delete(Post post){
+        deleteDocument(post.id.toString())
+    }
+    void delete(KuorumUser user){
+        deleteDocument(user.id.toString())
     }
 
     private SolrElement indexDomainObject(element){

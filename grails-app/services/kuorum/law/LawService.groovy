@@ -137,16 +137,19 @@ class LawService {
         Law.collection.update([_id:law.id], ['$set':[published:Boolean.TRUE]])
         law.refresh()
         indexSolrService.index(law)
+        law
     }
 
     Law unpublish(Law law){
         Law.collection.update([_id:law.id], ['$set':[published:Boolean.FALSE]])
         law.refresh()
+        law
     }
 
     Law closeLaw(Law law){
         Law.collection.update([_id:law.id], ['$set':[open:Boolean.FALSE]])
         law.refresh()
+        indexSolrService.delete(law)
     }
 
     LawStats calculateLawStats(Law law){
