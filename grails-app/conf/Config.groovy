@@ -215,6 +215,11 @@ grails {
 
 */
 
+//Configuration of burning-image plugin
+bi.renderingEngine = RenderingEngine.IMAGE_MAGICK
+bi.imageMagickQuality = 100 //0 -100
+bi.imageMagickCompression= 50 //0 -100
+
 
 grails {
     mail {
