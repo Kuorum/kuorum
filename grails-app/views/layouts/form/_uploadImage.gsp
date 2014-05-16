@@ -42,21 +42,29 @@
         setTimeout(
           function()
           {
-            var boxWidth = $("#modal_${imageId} .modal-content").innerWidth()
+            var modalContent = $("#modal_${imageId} .modal-content").children(".modal-body")
+            console.log("${imageId}")
+            var padding = parseInt(modalContent.css("padding-left").replace('px', ''))
+             padding += parseInt(modalContent.css("padding-right").replace('px', ''))
+             console.log("padding:" + padding )
+            var boxWidth = parseInt(modalContent.innerWidth()) - padding
+            console.log(boxWidth)
+
+            $('#${imageId}').attr("width",boxWidth)
             $('#${imageId}').Jcrop({
                 onSelect:    showCoords,
             %{--bgColor:     'black',--}%
                 bgOpacity:   .4,
-            %{--minSize:[558,0],--}%
-            %{--maxSize:[558,0],--}%
+            %{--minSize:[boxWidth,0],--}%
+                %{--maxSize:[boxWidth,0],--}%
                 boxWidth: boxWidth, boxHeight: 0,
-                setSelect:   [ 200, 200, 100, 100 ],
+                setSelect:   [ 200, 200, 1001, 100 ],
                 aspectRatio: ${fileGroup.aspectRatio}},
                 function(){
                     jcropApi = this;
                 }
             );
-          }, 1000);
+          }, 500);
     </uploader:onComplete>
     <uploader:showMessage>
         display.error(message);
@@ -67,7 +75,7 @@
 
 <script>
     function showCoords(c){
-//        consoloe.log(c)
+       console.log(c)
     }
     function cropImage(){
         var selected = jcropApi.tellSelect()
@@ -112,7 +120,7 @@
                 <h4 class="modal-title">Recorta tu foto</h4>
             </div>
             <div class="modal-body">
-                <img src="" id="${imageId}"/>
+                <img class="upload-modal-image" src="" id="${imageId}"/>
             </div>
             <div class="modal-footer">
                 <a href="#" class="cancel" data-dismiss="modal">Cancelar</a>

@@ -57,6 +57,8 @@ body {
   font-size: 1.5rem;
   padding-top: 65px;
 }
+
+img.upload-modal-image{width: auto; height: auto;}
 .form-control, input[type="text"], input[type="number"] {color: #545454; font-size: 14px; font-size:  1.4rem; border: 1px solid #EFEFEF;}
 input[type="text"],
 input[type="number"] {padding: 6px 12px;}
@@ -1118,7 +1120,7 @@ span + .text-notification {padding: 0 0 0 33px;}
   font-size: 24px;
   font-size: 2.4rem;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0.075) inset;
-  font-family: 'FontAwesome', Georgia, serif;
+  font-family: 'FontAwesome', 'icomoon', Georgia, serif;
   text-transform: capitalize;
 }
 select.form-control {
@@ -2134,6 +2136,13 @@ textarea.error,
 .config .list-notification > li.user > .time {padding: 0 0 0 49px;}
 .config .list-notification > li > .actions {float: right; margin: 0 0 0 5px;}
 
+
+.config .list-post {margin: 50px 0 20px; padding: 0;}
+.config .list-post > li {margin: 0; padding: 20px 0 0 0; list-style: none; position: relative; border-bottom: 1px solid #DADADA;}
+.config .list-post > li > .text-notification {padding: 0; font-size: 24px; font-size: 2.4rem; line-height: 1.2;}
+.config .list-post > li > .actions {margin: 20px 0 0; padding: 6px; border-top: 1px solid #DADADA; text-align: right;}
+.config .list-post > li > .actions li {list-style: none; display: inline; font-size: 13px; font-size: 1.3rem; margin: 0 0 0 10px;}
+.config .list-post > li > .actions li a {color: #a8a8a8;}
 
 
 /* clases especiales accesibilidad =========== */
