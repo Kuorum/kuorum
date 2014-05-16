@@ -262,11 +262,11 @@ class FormTagLib {
             String code = prefixMessage + ".${filedName}.min.size"
             String text = g.message(code:code,args:[constraint.minSize])
             messages.append("minlength: '${text}',")
-        }else if (constraint instanceof MatchesConstraint){
-            restrictions.append("regex: /${constraint.regex}/,")
-            String code = prefixMessage + ".${filedName}.matches"
-            String text = g.message(code:code)
-            messages.append("regex: '${text}',")
+//        }else if (constraint instanceof MatchesConstraint){
+//            restrictions.append("regex: /${constraint.regex}/,")
+//            String code = prefixMessage + ".${filedName}.matches"
+//            String text = g.message(code:code)
+//            messages.append("regex: '${text}',")
         }else if (constraint instanceof MaxSizeConstraint){
             restrictions.append("maxlength: ${constraint.maxSize},")
             String code = prefixMessage + ".${filedName}.max.size"
