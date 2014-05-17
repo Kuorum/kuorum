@@ -20,7 +20,7 @@ class FormTagLib {
 
         def labelCssClass = attrs.labelCssClass?:''
         KuorumFile kuorumFile = null
-        FileGroup fileGroup = null
+        FileGroup fileGroup = attrs.fileGroup
         def label = message(code: "${command.class.name}.${field}.label")
         def value = ""
         def imageUrl = ""
@@ -29,10 +29,8 @@ class FormTagLib {
 
         if (!kuorumFile){
             kuorumImageId = "__NEW__"
-            fileGroup = attrs.fileGroup
         }else{
             value = kuorumImageId
-            fileGroup =kuorumFile.fileGroup
             imageUrl = kuorumFile.url
         }
 
