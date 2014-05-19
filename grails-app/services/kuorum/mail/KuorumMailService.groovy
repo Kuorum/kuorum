@@ -75,7 +75,7 @@ class KuorumMailService {
 
     def sendPublicMilestoneNotificationMail(Post post){
         String postLink = generateLink("postShow", post.encodeAsLinkProperties())
-        def bindings = [mailType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", user.language.locale)]
+        def bindings = [mailType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", post.owner.language.locale)]
         MailUserData mailUserData = new MailUserData(user:post.owner, bindings:bindings)
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_PUBLIC_MILESTONE

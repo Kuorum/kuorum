@@ -90,7 +90,7 @@ class MailTestingController {
 
     def testCluck(String email){
         def data = prepareMailTestEnviroment(email)
-        Cluck cluck = new Cluck(owner:data.politician, postOwner: data.user)
+        Cluck cluck = new Cluck(owner:data.politician, postOwner: data.user, post:data.post)
         kuorumMailService.sendCluckNotificationMail(cluck)
 
         flash.message ="Se ha enviado el mail al email $email"
