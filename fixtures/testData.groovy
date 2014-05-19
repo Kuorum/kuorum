@@ -46,7 +46,7 @@ post {
     postService.publishPost(parquesNacionalesPurpose2)
     parquesNacionalesPurpose2.refresh()
     cluckService.createCluck(parquesNacionalesPurpose2, juanjoAlvite)
-    postService.defendPost(parquesNacionalesPurpose2, CommitmentType.FUTURE_AMENDMENT, politician)
+    postService.defendPost(parquesNacionalesPurpose2, CommitmentType.ADDED_AS_AMENDMENT, politician)
 
     kuorumUserService.createFollower(juanjoAlvite,equo)
     kuorumUserService.createFollower(juanjoAlvite,ecologistasEnAccion)
