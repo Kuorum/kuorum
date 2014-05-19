@@ -23,7 +23,7 @@ class BootStrap {
                         log.info("Actualizando la ley $obj")
                         //Getting fields which are going to be setted on mongodb
                         def fields = obj.class.declaredFields.grep{kuorum.core.annotations.Updatable in it.annotations*.annotationType()}.collect{it.name}
-                        BasicDBObject lawProperties =new BasicDBObject()
+                        BasicDBObject objProperties =new BasicDBObject()
                         fields.each{field->
 //                            def dbObject = delegate.properties.find{it.key in ['dbo']}.value[it]
                             def dbObject
@@ -38,9 +38,9 @@ class BootStrap {
                                 dbObject = obj."$field".toString()
                             }
                             if (dbObject)
-                                lawProperties.append(field,dbObject)
+                                objProperties.append(field,dbObject)
                         }
-                        obj.class.collection.update([_id:obj.id],['$set':lawProperties])
+                        obj.class.collection.update([_id:obj.id],['$set':objProperties])
                         obj.refresh()
                     }else{
                         log.error(obj.errors)

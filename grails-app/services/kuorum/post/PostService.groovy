@@ -5,6 +5,7 @@ import com.mongodb.DBObject
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
 import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
@@ -317,16 +318,40 @@ class PostService {
         posts
     }
 
+    Post victory(Post post, KuorumUser owner){
+
+        if (post.owner != owner){
+            String message =  "Esta dando victoria el usuario ${owner} cuando el dueño del post es ${post.owner}"
+            log.error(message)
+            throw new KuorumException(message, 'error.security.post.victory.notOwnerGivenVictory')
+        }
+        if (post.victory){
+            String message =  "Al post ${post.id} ya se había otrogado la victoria"
+            log.error(message)
+            throw new KuorumException(message, 'error.security.post.victory.alreadyVictoryGiven')
+        }
+
+        post.victory = Boolean.TRUE
+        Post.collection.update ( [_id:post.id],['$set':[victory:post.victory]])
+        post.refresh()
+        notificationService.sendVictoryNotification(post)
+        post
+    }
     List<Post> lawVictories(Law law, Pagination pagination = new Pagination()){
         Post.findAllByLawAndVictory(law,Boolean.TRUE,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
     }
 
-    Post defendPost(Post post, KuorumUser politician){
+    Post defendPost(Post post, CommitmentType commitmentType, KuorumUser politician){
         if (politician.userType != UserType.POLITICIAN){
             throw new KuorumException("El usuario ${politician.name} (${politician.id}) no es un político para defender la publicacion ${post.id}", "error.security.post.defend.isNotPolitician")
         }
+        if (post.postType != commitmentType.associatedPostType){
+            String message =  "Se ha intentado otorgar un tipo de victoria (${commitmentType}) distinta al tipo de post ${post.postType}"
+            log.error(message)
+            throw new KuorumException(message, 'error.security.post.defend.wrongCommitmentType')
+        }
         Date defenderDate = new Date()
-        Post.collection.update ( [_id:post.id],['$set':[defender:politician.id,defenderDate:defenderDate]])
+        Post.collection.update ( [_id:post.id],['$set':[defender:politician.id,defenderDate:defenderDate, commitmentType:commitmentType.toString()]])
         Cluck.collection.update([_id:post.firstCluck.id],['$set':[defendedBy:politician.id, lastUpdated:defenderDate]])
         post.refresh()
         post.firstCluck.refresh()

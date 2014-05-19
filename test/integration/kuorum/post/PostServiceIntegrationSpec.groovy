@@ -1,6 +1,7 @@
 package kuorum.post
 
 import kuorum.core.exception.KuorumException
+import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.users.KuorumUser
@@ -178,9 +179,10 @@ class PostServiceIntegrationSpec extends Specification{
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")
         KuorumUser politician = KuorumUser.findByEmail("politician@example.com")
         Post post = Post.findByOwner(user)
+        CommitmentType commitmentType = CommitmentType.recoverCommitmentTypesByPostType(post.postType).first()
         postService.publishPost(post) //Create firstCluck
         when: "sponsoring the post"
-        Post newPost = postService.defendPost(post, politician)
+        Post newPost = postService.defendPost(post, commitmentType, politician)
         then: "The post has a defender"
         newPost
         newPost.defender.email          == "politician@example.com"
@@ -188,10 +190,12 @@ class PostServiceIntegrationSpec extends Specification{
         post.defenderDate != null
         newPost.firstCluck.defendedBy.email == "politician@example.com"
         post.firstCluck.defendedBy.email   == "politician@example.com"
+        post.commitmentType == commitmentType
         Post.withNewSession {
             Post newSessionPost = Post.get(post.id)
             newSessionPost.defender.email          == "politician@example.com"
             newSessionPost.firstCluck.defendedBy.email   == "politician@example.com"
+            newSessionPost.commitmentType == commitmentType
         }
     }
 

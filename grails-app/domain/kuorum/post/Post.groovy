@@ -3,6 +3,7 @@ package kuorum.post
 import kuorum.KuorumFile
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
+import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.users.KuorumUser
@@ -31,6 +32,7 @@ class Post {
     @Updatable PostType postType
     @Updatable URL shortUrl
     Boolean victory = false
+    CommitmentType commitmentType
     Date dateCreated
     List<Sponsor> sponsors = []
     List<PostComment> comments = []
@@ -69,6 +71,7 @@ class Post {
         multimedia nullable:true
         pdfPage nullable:true
         shortUrl nullable:true
+        commitmentType nullable:true
     }
 
     String toString(){

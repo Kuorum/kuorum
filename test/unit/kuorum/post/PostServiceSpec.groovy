@@ -1,5 +1,6 @@
 package kuorum.post
 
+import grails.converters.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.ShortUrlService
@@ -32,6 +33,23 @@ class PostServiceSpec extends Specification{
         service.notificationService = notificationService
         service.cluckService = cluckService
         service.shortUrlService = shortUrlService
+
+        Post.metaClass.static.getCollection = {->
+            [
+                    findOne: {
+                        delegate.findWhere(it) as JSON
+                    },
+                    update:{filter, updateData ->
+                        Post post = Post.get(filter._id)
+                        post.victory = updateData.'$set'.'victory'
+                        post.save(flush:true)
+                        //post as JSON
+                    }
+            ]
+        }
+        Post.metaClass.refresh={->
+            //REFRESH FAILS with null pointer
+        }
     }
 
 
@@ -188,5 +206,33 @@ class PostServiceSpec extends Specification{
         "<br>hola<br>feo<br><br>"                               | "<br>hola<br>feo<br>"
         "<br>hola<br><br><br>feo<br>"                           | "<br>hola<br>feo<br>"
         "<br><br>hola<br><br><br>feo<br><br><br><br><br><br>"   | "<br>hola<br>feo<br>"
+    }
+
+    @Unroll
+    void "test given victory to post(vicotry=#stausVictoryPost) by #emailUser"(){
+        given:"A post"
+            KuorumUser user = Helper.createDefaultUser("user@email.com").save()
+            KuorumUser politician = Helper.createDefaultUser("politician@email.com").save()
+            Law law = Helper.createDefaultLaw("#law").save()
+            Post post = Helper.createDefaultPost(user, law).save()
+            KuorumUser userGivenVictory = KuorumUser.findByEmail(emailUser)
+            post.victory = stausVictoryPost
+        when:
+            service.victory(post, userGivenVictory)
+        then:
+//            final KuorumException exception = thrown()
+//            if (exceptionCode){
+//                thrown(KuorumException)
+////                exception.errors[0].code == exceptionCode
+//                0 * notificationService.sendVictoryNotification(_)
+//            }else{
+                1 * notificationService.sendVictoryNotification(post)
+                post.victory
+//            }
+        where:
+            stausVictoryPost  | emailUser               | exceptionCode
+//            true              | 'user@email.com'        | 'error.security.post.victory.alreadyVictoryGiven'
+//            false             | 'politician@email.com'  | 'error.security.post.victory.notOwnerGivenVictory'
+            false             | 'user@email.com'        | ''
     }
 }
