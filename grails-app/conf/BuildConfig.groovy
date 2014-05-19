@@ -89,7 +89,8 @@ grails.project.dependency.resolution = {
         compile 'com.ecwid:ecwid-mailchimp:jar:2.0.0.1'
 
         //For burning-image plugin
-        compile 'org.im4java:im4java:1.4.0'
+//        compile 'org.im4java:im4java:1.4.0'
+        //        compile 'javax.media:jai_core:1.1.2_01'
 
        // compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
 
