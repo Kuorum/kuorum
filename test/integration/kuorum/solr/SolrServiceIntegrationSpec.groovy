@@ -43,7 +43,7 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
 
     @Unroll
     void "search on solr the : #params -> #quantity"() {
-        given: "searh worf ..."
+        given: "searh word ..."
             SearchParams searchParams = new SearchParams(params)
         when: "Searching"
             SolrResults results = searchSolrService.search(searchParams)
