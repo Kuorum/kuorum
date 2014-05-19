@@ -118,7 +118,7 @@ log4j = {
     // Example of changing the log pattern for the default console appender:
     //
     appenders {
-        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+        console name:'stdout', layout:pattern(conversionPattern: '%d{yyyy MM dd HH:mm:ss,SSS} [%c] # %-5p %m  %n' )
     }
 
     info    'grails.app'
@@ -216,9 +216,9 @@ grails {
 */
 
 //Configuration of burning-image plugin
-bi.renderingEngine = RenderingEngine.IMAGE_MAGICK
-bi.imageMagickQuality = 100 //0 -100
-bi.imageMagickCompression= 50 //0 -100
+//bi.renderingEngine = RenderingEngine.IMAGE_MAGICK
+//bi.imageMagickQuality = 100 //0 -100
+//bi.imageMagickCompression= 50 //0 -100
 
 
 grails {
