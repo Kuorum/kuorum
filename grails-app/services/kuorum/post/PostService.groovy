@@ -60,15 +60,19 @@ class PostService {
     }
 
     Post publishPost(Post post){
-        Cluck cluck = cluckService.createCluck(post, post.owner)
-        post.firstCluck = cluck  //Ref to first firstCluck
-        post.published = Boolean.TRUE
-        post.shortUrl = shortUrlService.shortUrl(post)
-        post.save()
-        updateUserActivity(post, post.owner)
-        postVoteService.votePost(post, post.owner)
-        indexSolrService.index(post)
-        log.info("Se ha publicado el post ${post.id}")
+        if (!post.published){
+            Cluck cluck = cluckService.createCluck(post, post.owner)
+            post.firstCluck = cluck  //Ref to first firstCluck
+            post.published = Boolean.TRUE
+            post.shortUrl = shortUrlService.shortUrl(post)
+            post.save()
+            updateUserActivity(post, post.owner)
+            postVoteService.votePost(post, post.owner)
+            indexSolrService.index(post)
+            log.info("Se ha publicado el post ${post.id}")
+        }else{
+            log.warn("Se ha intentado publicar 2 veces el post ${post.id}")
+        }
         post
     }
 
