@@ -1,5 +1,5 @@
 
-<li class='${newNotification?'new':''}'>
+<li class='${newNotification?'new':''} ${user?'user':''}'>
     <g:if test="${user}">
         <span itemscope itemtype="http://schema.org/Person">
             <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" itemprop="url">
