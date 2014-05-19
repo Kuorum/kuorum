@@ -1,11 +1,40 @@
 // inicializa los popover
-$(document).popover({
-	selector: '[data-toggle="popover"]',
-	html: true,
-	placement: 'bottom',
-	content: function() {
-		return $(this).next('.popover').html();
-	}
+$.fn.extend({
+    popoverClosable: function (options) {
+        var defaults = {
+			html: true,
+			placement: 'bottom',
+			content: function() {
+				return $(this).next('.popover').html();
+			}
+        };
+        options = $.extend({}, defaults, options);
+        var $popover_togglers = this;
+        $popover_togglers.popover(options);
+        $popover_togglers.on('click', function (e) {
+            e.preventDefault();
+            $popover_togglers.not(this).popover('hide');
+        });
+        $('html').on('click', '[data-dismiss="popover"]', function (e) {
+            $popover_togglers.popover('hide');
+        });
+    }
+});
+
+$(function () {
+    $('[data-toggle="popover"]').popoverClosable();
+});
+
+
+// cierra los popover al hacer click fuera
+$('body').on('click', function (e) {
+    $('[data-toggle="popover"]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
 });
 
 
@@ -145,7 +174,7 @@ $(document).ready(function() {
             var postId = $(this).parents("article").first().attr("data-cluck-postId");
             $.ajax(url).done(function(data){
                 $("article[data-cluck-postId='"+postId+"'] li.kakareo-number .action").addClass('disabled');
-                $("article[data-cluck-postId='"+postId+"'] li.kakareo-number .counter").each(function(idx, element){
+                $("article[data-cluck-luck-postId='"+postId+"'] li.kakareo-number .counter").each(function(idx, element){
                     var numKakareos = parseInt($(element).text()) +1;
                     $(element).text(numKakareos);
                 });
@@ -240,6 +269,11 @@ $(document).ready(function() {
 			$(this).addClass('disabled');
 		}
 	});
+
+
+	// añade la flechita al span de los mensajes de error de los formularios
+	$('span.error').prepend('<span class="tooltip-arrow"></span>');
+
 
 	// botón Seguir de las cajas popover y página ley-participantes
 	$(document).on({
@@ -640,6 +674,12 @@ $(document).ready(function() {
 		title: false
 	});
 
+	if ( $('.jqte_editor').text() == "" ) {
+        $('.jqte_placeholder_text').css('display', 'block');
+    } else {
+    	$('.jqte_placeholder_text').css('display', 'none');
+    }
+
 
 	// hacer visible la contraseña
 	$('#show-pass').attr('checked', false);
@@ -890,12 +930,12 @@ function prepareProgressBar(){
 	}
 
 
-// el hover sobre el kakareo que afecte al triángulo superior
 $(document).ajaxStop(function () {
 
 	// inicia el timeago
 	$("time.timeago").timeago();
 
+	// el hover sobre el kakareo que afecte al triángulo superior
 	$('.kakareo > .link-wrapper').on({
 	    mouseenter: function () {
 	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #efefef');

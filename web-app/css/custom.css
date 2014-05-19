@@ -57,8 +57,6 @@ body {
   font-size: 1.5rem;
   padding-top: 65px;
 }
-
-img.upload-modal-image{width: auto; height: auto;}
 .form-control, input[type="text"], input[type="number"] {color: #545454; font-size: 14px; font-size:  1.4rem; border: 1px solid #EFEFEF;}
 input[type="text"],
 input[type="number"] {padding: 6px 12px;}
@@ -76,6 +74,12 @@ small, .small {font-size: 75%;}
 .tooltip {z-index: 999;}
 .popover:hover, .popover:active, .popover:focus {cursor: default;}
 .disabled.allow {cursor: pointer; pointer-events: auto;}
+.popover-title {
+  background-color: rgba(0, 0, 0, 0);
+  border-bottom: medium none;
+  border-radius: 0;
+  padding: 2px 4px;
+}
 
 .loading {
   color: #a8a8a8;
@@ -266,6 +270,10 @@ a:focus {color: #20a2ea;}
 .btn.btn-blue:hover,
 .btn.btn-blue:active,
 .btn.btn-blue:focus {background-color: #2e6bab !important;}
+.btn.btn-green {background-color: #87ca47 !important;}
+.btn.btn-green:hover,
+.btn.btn-green:active,
+.btn.btn-green:focus {background-color: #578c25 !important;}
 
 .popover .btn.btn-blue.disabled {background-color: #a8a8a8 !important;}
 
@@ -913,7 +921,9 @@ span + .text-notification {padding: 0 0 0 33px;}
 .others .boxes.guay .kakareo .link-wrapper {padding: 10px;}
 .boxes.guay .kakareo h1 {font-size: 13px; font-size: 1.3rem; line-height: 1.4; margin: 0 0 10px 0; padding-top: 0;}
 .boxes.guay .kakareo .main-kakareo {margin-top: 0; margin-bottom: 5px;}
-.boxes.guay .kakareo .user-img {width: 25px; height: 25px; float: none; margin-right: 5px;}
+.boxes.guay .user-img {width: 25px; height: 25px; float: none; margin-right: 5px;}
+.boxes.guay .user-list-images li .popover-trigger.more-users {margin-bottom: 4px;}
+.boxes.guay .important > .user-list-images {display: block; text-align: right;}
 .boxes.guay .kakareo .user-list-images li .user-img {margin: 0 0 0 5px !important;}
 .boxes.guay .kakareo footer {
   background-color: transparent;
@@ -1223,6 +1233,38 @@ textarea.error,
 .karma li.active {color: #ff9431;}
 .karma li span {display: block;}
 #karma a {color: #ff9431;}
+
+
+/* Modal Dar Victoria */
+#modalVictory .modal-header > .close {position: absolute; top: 5px; right: 5px; z-index: 999; color: #fff;}
+#modalVictory .modal-header .col {width: 100%; margin: 0; float: left; padding: 10px; position: relative;}
+#modalVictory .modal-header > .col:last-child {background-color: #faebcc; color: #545454;}
+#modalVictory .modal-header {position: relative; background-color: #ff9431; padding: 0; color: #fff; height: 110px;}
+#modalVictory .modal-header img {float: left; border: solid 4px #fff; margin-top: 0;}
+#modalVictory .modal-header h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 48px; font-style: 4.8rem; text-transform: uppercase; margin-bottom: 0; margin-top: 10px; line-height: 1;}
+#modalVictory .modal-header h2 {font-size: 22px; font-style: 2.2rem; margin: 0; color: #faebcc;}
+#modalVictory .modal-header .user-img.big {width: 90px; height: 90px; margin: 0 10px 0 0;}
+#modalVictory .modal-header .user {margin: 0; position: relative; width: 100%;}
+#modalVictory .modal-header .user > .user-img.big {width: 70px; height: 70px; border-color: #ff9431; margin: 0 10px 4px 0;}
+#modalVictory .modal-header > .col:last-child .user > span {display: block;}
+#modalVictory .modal-header > .col:last-child .user > .name {
+  font-size: 18px; font-style: 1.8rem;
+  text-overflow: ellipsis; /* pone [...] al final si no cabe */
+  width: 190px;
+  white-space: nowrap;
+  overflow:hidden; /* para old browser */
+}
+#modalVictory .modal-header > .col:last-child .user > .what {color: #ff9431;}
+#modalVictory .fdoDiagonal {width: 0; height: 0; border-bottom: 110px solid #faebcc; border-left: 60px solid transparent; position: absolute; top: 0; left: -60px; display: none;}
+#modalVictory .modal-body {margin-top: 90px;}
+#modalVictory .modal-body > p:first-child {color: #a8a8a8;}
+#modalVictory .modal-body > p:first-child strong {color: #545454; font-weight: normal;}
+#modalVictory .modal-body > p:last-child {font-size: 22px; font-size: 2.2rem;}
+#modalVictory .modal-body > p > a {color: #ff9431;}
+#modalVictory .modal-footer {text-align: left; margin-top: 0;}
+#modalVictory .modal-footer a small {display: block;}
+#modalVictory .modal-footer .btn + .cancel {margin: 10px 0 0 6px !important; display: block !important; float: right; color: #545454 !important;}
+
 
 
 /* páginas de entrar y registro, con layout de 1 columna */
@@ -2144,6 +2186,35 @@ textarea.error,
 .config .list-post > li > .actions li {list-style: none; display: inline; font-size: 13px; font-size: 1.3rem; margin: 0 0 0 10px;}
 .config .list-post > li > .actions li a {color: #a8a8a8;}
 
+.config .saldo {background-color: #fefaf3; padding: 20px; color: #a8a8a8;}
+.config .saldo h2 {margin-top: 0; color: #545454;}
+.config .saldo .activity li {color: #ff9431; border-right: 1px solid #ff9431;}
+.config .saldo .activity,
+.config .saldo p {width: 50%; float: left;}
+.config .saldo .activity li span {font-size: 30px; font-size: 3rem;}
+.config .role h2,
+.config .skill h2,
+.config .item h2 {border-top: 1px solid #DADADA; padding-top: 20px;}
+.config .role section h1,
+.config .skill section h1 {font-size: 24px; font-size: 2.4rem;}
+.config .role section p,
+.config .skill section p {font-size: 13px; font-size: 1.3rem; color: #a8a8a8;}
+.config .role section p a,
+.config .skill section p a {color: #a8a8a8; text-decoration: underline;}
+.config .role section .options,
+.config .skill section .options {border-top: solid 1px #87ca47; margin: 0;}
+.config .role section .options .activity,
+.config .skill section .options .activity {padding: 10px 0; width: 50%; float: left;}
+.config .role section .options .activity li,
+.config .skill section .options .activity li {border-right: none; font-size: 20px; font-size: 2rem; color: #545454;}
+.config .role section .options .activity.inactive li,
+.config .skill section .options .activity.inactive li {opacity: 0.2;}
+
+.config .role section .options .btn,
+.config .skill section .options .btn {float: right; margin: 0 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; padding: 10px 22px !important;}
+
+.config .btn-green.active {background-color: #fff !important; border: solid 1px #87ca47; color: #87ca47 !important; box-shadow: 0 0 0 rgba(0, 0, 0, 0.125) inset;}
+
 
 /* clases especiales accesibilidad =========== */
 /* ====================================================== */
@@ -2201,6 +2272,17 @@ textarea.error,
 
 @media only screen and (min-width: 480px) {
   .pre {margin: 75px 20px 5px 0;}
+}
+
+@media only screen and (min-width: 640px) {
+  #modalVictory .modal-body {margin-top: 0;}
+  #modalVictory .modal-header .col {width: 60%;}
+  #modalVictory .modal-header > .col:last-child {width: 40%;}
+  #modalVictory .fdoDiagonal {display: block;}
+  #modalVictory .modal-header .user > .user-img.big {margin: 0 10px 4px -70px;}
+  #modalVictory .modal-header > .close {color: #ff9431;}
+  #modalVictory .modal-header .user {margin: 16px 0 0 0;}
+  #modalVictory .modal-header .user {width: 100%;}
 }
 
 /* Small devices (tablets, 768px and up) */
