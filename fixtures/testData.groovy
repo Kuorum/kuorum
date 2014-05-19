@@ -24,6 +24,7 @@ fixture{
 }
 post {
     postService.publishPost(abortoPurpose2)
+    postService.publishPost(parquesNacionalesPurpose1)
 
     postService.savePost(abortoPurpose1, abortoPurpose1.law, abortoPurpose1.owner)
     postService.publishPost(abortoPurpose1)
