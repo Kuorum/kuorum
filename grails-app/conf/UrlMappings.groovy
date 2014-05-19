@@ -1,4 +1,5 @@
 import grails.util.Environment
+import grails.util.Environment
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.UserType
 
@@ -135,6 +136,7 @@ class UrlMappings {
         name adminPublishLaw:       "/admin/leyes/editar-ley/$hashtag/publicar"     (controller:"adminLaw", action: "publishLaw")
         name adminUnpublishLaw:      "/admin/leyes/editar-ley/$hashtag/despublicar"  (controller:"adminLaw", action: "unPublishLaw")
         name adminUnpublishedLaws:  "/admin/leyes/no-publicadas"    (controller:"adminLaw", action: "unpublishedLaws")
+        name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
 
         "403" (controller: "error", action: "forbidden")
         "404" (controller: "error", action: "notFound")
