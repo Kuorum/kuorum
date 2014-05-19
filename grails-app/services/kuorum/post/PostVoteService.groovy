@@ -19,7 +19,7 @@ class PostVoteService {
         }
         PostVote postVote = PostVote.findByPostAndUser(post,kuorumUser)
         if (postVote){
-            throw new KuorumException("Este usuario ya habia votado","error.postVoteService.userAleradyVote")
+            throw new KuorumException("El usuario ${kuorumUser} ya habia votado","error.postVoteService.userAleradyVote")
         }
         postVote = new PostVote()
         postVote.personalData = kuorumUser.personalData
