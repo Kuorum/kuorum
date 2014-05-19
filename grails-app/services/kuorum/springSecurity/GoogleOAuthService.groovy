@@ -10,6 +10,7 @@ import kuorum.core.FileGroup
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.users.*
+import kuorum.util.LookUpEnumUtil
 import org.springframework.security.core.userdetails.UserDetails
 
 @Transactional
@@ -68,7 +69,10 @@ class GoogleOAuthService implements IOAuthService{
         if (user.userType == UserType.PERSON){
             PersonData personData = new PersonData()
 
-            personData.gender = overwriteFieldIfNotFilled(user.personalData, "gender", googleUser,{data ->Gender.valueOf(data.toUpperCase())?:Gender.FEMALE})
+            personData.gender = overwriteFieldIfNotFilled(
+                    user.personalData, "gender",
+                    googleUser,
+                    {data -> LookUpEnumUtil.lookup(Gender.class, data,Gender.FEMALE)})
 //            personData.birthday =  overwriteFieldIfNotFilled(user.personalData, "birthday", googleUser,{data ->(!data)?:Date.parse(FORMAT_BIRTHDAY_FACEBOOK,data)})
 //            personData.studies = (user.personalData.hasProperty("studies") && user.personalData.studies)?user.personalData.studies:studies
 
