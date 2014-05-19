@@ -30,7 +30,7 @@
             </ul>
         </li>
     </ul>
-NO ESTA HECHO - Esta usando las notificaciones de la cabecera
+NO ESTA HECHO - Esta usando las notificaciones de la cabecera probando branch
     <ul class="list-notification">
         <g:each in="${notifications}" var="notification">
             <g:render template="/profile/userNotifications/showNotification" model="[notification:notification]"/>
