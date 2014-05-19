@@ -30,4 +30,14 @@
 
 </g:else>
 
-<g:render template="/layouts/notifications/notification" model="[user:notification.debateWriter,newNotification:newNotification, text:text, answerLink:answerLink]"/>
+<g:render
+        template="/layouts/notifications/notification"
+        model="[
+                notification:notification,
+                user:notification.debateWriter,
+                newNotification:newNotification,
+                text:text,
+                answerLink:answerLink,
+                modalUser:modalUser,
+                modalVictory:false
+        ]"/>

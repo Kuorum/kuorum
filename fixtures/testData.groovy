@@ -6,22 +6,6 @@ include "testBasicData"
 
 fixture{
 
-    deabate1_abortoPurpose1(PostComment){
-        text="Politician Debate 1"
-        dateCreated = new Date()-1
-        deleted = Boolean.FALSE
-        moderated = Boolean.FALSE
-        kuorumUser = politician
-    }
-
-    deabate2_abortoPurpose1(PostComment){
-        text="Peter Debate 1"
-        dateCreated = new Date()
-        deleted = Boolean.FALSE
-        moderated = Boolean.FALSE
-        kuorumUser = peter
-    }
-
 }
 post {
     postService.publishPost(abortoPurpose2)
@@ -29,7 +13,22 @@ post {
 
     postService.savePost(abortoPurpose1, abortoPurpose1.law, abortoPurpose1.owner)
     postService.publishPost(abortoPurpose1)
+
+    PostComment deabate1_abortoPurpose1 = new PostComment(
+            text:"Politician Debate 1",
+            dateCreated:new Date() -1 ,
+            deleted:Boolean.FALSE,
+            moderated:Boolean.FALSE,
+            kuorumUser:politician)
     postService.addDebate(abortoPurpose1, deabate1_abortoPurpose1)
+
+    PostComment deabate2_abortoPurpose1 = new PostComment(
+        text:"Peter Debate 1",
+        dateCreated:new Date(),
+        deleted:Boolean.FALSE,
+        moderated:Boolean.FALSE,
+        kuorumUser:peter)
+
     postService.addDebate(abortoPurpose1, deabate2_abortoPurpose1)
 
 

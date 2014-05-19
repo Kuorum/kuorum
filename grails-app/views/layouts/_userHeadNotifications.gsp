@@ -10,7 +10,11 @@
         <li class="hidden-xs"><g:message code="head.logged.notifications"/> </li>
         <g:each in="${notifications.list}" var="notification" status="i">
             <g:set var="newNotification" value="${i<notifications.numNews}"/>
-            <g:render template="/layouts/notifications/showNotification" model="[notification:notification, newNotification:newNotification]"/>
+            <g:render
+                    template="/layouts/notifications/showNotification"
+                    model="[notification:notification, newNotification:newNotification]"
+                    modalUser="${false}"
+            />
         </g:each>
 
         <li>

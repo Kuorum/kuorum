@@ -1,8 +1,8 @@
 <g:set var="postType">
-    <g:message code="${kuorum.core.model.PostType.name}.${notification.post.postType}"/>
+    <g:link mapping="postShow" params="${notification.post.encodeAsLinkProperties()}"><g:message code="${kuorum.core.model.PostType.name}.${notification.post.postType}"/></g:link>
 </g:set>
 <g:set var="text">
-    <g:message code="notifications.cluckNotification.text" args="[postType]" encodeAs="raw"/>
+    <g:message code="notifications.milestoneNotification.text" args="[postType, notification.numVotes]" encodeAs="raw"/>
 </g:set>
 
 <g:render

@@ -83,5 +83,42 @@
         })
     </g:if>
 </script>
+
+<!-- Modal -->
+<aside class="modal fade" id="modalVictory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                <div class="col">
+                    <img class="user-img big" alt="nombre" src="images/user.jpg">
+                    <h1>Kikirikiiii!</h1>
+                    <h2 id="myModalLabel">¿Lo conseguimos?</h2>
+                </div>
+                <div class="col">
+                    <span class="fdoDiagonal"></span>
+                    <div itemtype="http://schema.org/Person" itemscope class="user">
+                        <img itemprop="image" class="user-img big" alt="nombre" src="images/user.jpg">
+                        <span class="name" itemprop="name">Nombreeeee usuuuario</span>
+                        <span class="what">se ha comprometido a</span>
+                        <span class="action">llevarla al congreso</span>
+                    </div>
+                </div>
+            </div><!-- /.modal-header -->
+            <div class="modal-body">
+                <p>Hace unos días que gracias a ti, a tu propuesta y a los <strong>876 apoyos</strong> que <strong>Fulanito de Tal</strong> se comprometió contigo y con 876 personas a llevar tu propuesta al congreso.</p>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor <a href="#">#leyaborto</a></p>
+            </div>
+            <div class="modal-footer">
+                <p>Ahora te toca a ti decir si ese compromiso se ha llevado a fin o no. Si lo tienes claro da la victoria a Fulanito porque nos ha escuchado y se lo merece en caso contrario puedes esperar un tiempo mas o rechazar la victoria. Porque tú sabes si se hizo realidad.</p>
+                <a href="#" class="btn btn-grey btn-lg">SI <small>lo conseguimos</small></a>
+                <a href="#" class="btn btn-grey btn-lg">NO <small>lo conseguimos</small></a>
+                <a class="cancel" href="#">todavía es pronto <small>para saberlo</small></a>
+            </div>
+        </div>
+    </div>
+</aside>
+
+
 </body>
 </html>

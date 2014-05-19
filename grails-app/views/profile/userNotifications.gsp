@@ -30,10 +30,14 @@
             </ul>
         </li>
     </ul>
-NO ESTA HECHO - Esta usando las notificaciones de la cabecera probando branch
+    <script>
+        var modalData = {}
+    </script>
     <ul class="list-notification">
         <g:each in="${notifications}" var="notification">
-            <g:render template="/profile/userNotifications/showNotification" model="[notification:notification]"/>
+            <g:render
+                    template="/layouts/notifications/showNotification"
+                    model="[notification:notification, modalUser:true, newNotification:false]"/>
         </g:each>
         %{--<li class="user">--}%
             %{--<span itemscope itemtype="http://schema.org/Person" class="popover-trigger" rel="popover" role="button" data-toggle="popover">--}%

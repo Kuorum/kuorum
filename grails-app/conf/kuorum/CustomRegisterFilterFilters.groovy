@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.core.model.UserType
 import kuorum.users.KuorumUser
 
 class CustomRegisterFilterFilters {
@@ -13,7 +14,7 @@ class CustomRegisterFilterFilters {
             before = {
                 if (springSecurityService.isLoggedIn()){
                     KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
-                    if (STEP1_FIELDS.find{field -> kuorumUser.personalData."$field" == null}){
+                    if (kuorumUser.userType != UserType.ORGANIZATION && STEP1_FIELDS.find{field -> kuorumUser.personalData."$field" == null}){
                         redirect(mapping: 'customRegisterStep1')
                         return false
                     }
