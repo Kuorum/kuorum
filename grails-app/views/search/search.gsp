@@ -3,6 +3,8 @@
     <title><g:message code="page.title.login"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="search" />
+    <parameter name="idLeftMenu" value="search-filters" />
+    <parameter name="idMainContent" value="search-results" />
 </head>
 
 

@@ -5,6 +5,8 @@ import kuorum.KuorumFile
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
+import kuorum.core.model.search.Pagination
+import kuorum.notifications.Notification
 import kuorum.post.Post
 import kuorum.web.commands.profile.ChangePasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
@@ -21,20 +23,25 @@ class ProfileController {
     def kuorumUserService
     def postService
     def gamificationService
+    def notificationService
 
+    def beforeInterceptor ={
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        params.user = user
+    }
     def afterInterceptor = [action: this.&prepareMenuData]
 
     private prepareMenuData(model) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         model.menu = [
-                activeNotifications:23,
-                unpublishedPosts:2,
+                activeNotifications:Notification.countByKuorumUserAndIsAlertAndIsActive(user, true, true),
+                unpublishedPosts:Post.countByOwnerAndPublished(user, false),
                 unreadMessages:3
         ]
     }
 
     def editUser() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         EditUserProfileCommand command = new EditUserProfileCommand()
         command.gender = user.personalData?.gender
         command.postalCode = user.personalData?.postalCode
@@ -50,7 +57,7 @@ class ProfileController {
     }
 
     def editUserSave(EditUserProfileCommand command) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         if (command.hasErrors()){
             render view:"editUser", model: [command:command,user:user]
             return
@@ -100,11 +107,11 @@ class ProfileController {
         }
     }
     def changePassword() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         [user:user, command: new ChangePasswordCommand()]
     }
     def changePasswordSave(ChangePasswordCommand command) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         if (command.hasErrors()){
             render view:"changePassword", model: [command:command,user:user]
             return
@@ -121,23 +128,23 @@ class ProfileController {
     }
 
     def changeEmail() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         [user:user]
     }
 
     def socialNetworks() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         [user:user]
     }
 
     def configurationEmails() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         MailNotificationsCommand command = new MailNotificationsCommand(availableMails:user.availableMails)
         command.availableMails = user.availableMails?:[]
         [user:user, command: command]
     }
     def configurationEmailsSave(MailNotificationsCommand command) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         if (command.hasErrors()){
             render view:"configurationEmails", model: [command:command,user:user]
             return
@@ -148,24 +155,24 @@ class ProfileController {
     }
 
     def showFavoritesPosts() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         List<Post> favorites = postService.favoritesPosts(user)
         [user:user, favorites: favorites]
     }
 
     def showUserPosts() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
 
         [user:user]
     }
 
     def kuorumStore() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         [user:user]
     }
     def kuorumStoreActivateAward() {
         GamificationAward award = GamificationAward.valueOf(params.award)
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         if (gamificationService.canActivateAward(user,award)){
             gamificationService.activateAward(user,award)
             render "AJAX activated ${award}"
@@ -176,7 +183,7 @@ class ProfileController {
 
     def kuorumStoreBuyAward() {
         GamificationAward award = GamificationAward.valueOf(params.award)
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         if (gamificationService.canBuyAward(user,award)){
             gamificationService.buyAward(user,award)
             render "AJAX  buyed ${award}"
@@ -187,17 +194,19 @@ class ProfileController {
 
 
     def userNotifications() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        [user:user]
+        KuorumUser user = params.user
+        Pagination pagination = new Pagination()
+        List<Notification> notifications = notificationService.findUserNotifications(user,pagination)
+        [user:user, notifications:notifications, pagination:pagination]
     }
 
     def userMessages() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         [user:user]
     }
 
     def deleteAccount(){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = params.user
         [user:user]
         render "MANDA UN EMAIL"
     }
