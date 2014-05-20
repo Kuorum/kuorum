@@ -330,8 +330,10 @@ class PostController {
 
     @Secured('isAuthenticated()')
     def addVictory() {
+
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Post post = params.post
-        render "OK"
+        postService.victory(post, user)
+        render ([postId:post.id]) as JSON
     }
 }

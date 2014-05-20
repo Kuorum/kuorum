@@ -111,9 +111,9 @@
             </div>
             <div class="modal-footer">
                 <p><g:message code="modalVictory.argument"/> </p>
-                <a href="#" class="btn btn-grey btn-lg">SI <small>lo conseguimos</small></a>
-                <a href="#" class="btn btn-grey btn-lg">NO <small>lo conseguimos</small></a>
-                <a class="cancel" href="#">todavía es pronto <small>para saberlo</small></a>
+                <a href="#" class="btn btn-grey btn-lg"><g:message code="modalVictory.yes" encodeAs="raw"/> </a>
+                <a href="#" class="btn btn-grey btn-lg"><g:message code="modalVictory.no" encodeAs="raw"/> </a>
+                <a class="cancel" href="#"><g:message code="modalVictory.notYet" encodeAs="raw"/></a>
             </div>
         </div>
     </div>
