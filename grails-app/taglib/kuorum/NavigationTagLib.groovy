@@ -1,5 +1,7 @@
 package kuorum
 
+import kuorum.core.model.search.Pagination
+
 class NavigationTagLib {
     static defaultEncodeAs = 'raw'
     //static encodeAsForTags = [tagName: 'raw']
@@ -27,5 +29,26 @@ class NavigationTagLib {
         }
 
 
+    }
+
+    def loadMoreLink = {attrs ->
+        def numElements = attrs.numElements
+        Pagination pagination = attrs.pagination
+        String mapping = attrs.mapping
+        def params = attrs.params?:[]
+        String parentId = attrs.parentId
+        String formId = attrs.formId?:''
+        String dataFormId = formId?"data-form-id='${formId}'":''
+
+        def link = createLink(mapping: mapping, params:attrs.params)
+        if (numElements>=pagination.max){
+            out <<"""
+                <div id="load-more" class="text-center">
+                    <a href="${link}" class="loadMore" data-parent-id="${parentId}" ${dataFormId}>
+                        ${message(code:"search.list.seeMore")}
+                    </a>
+                </div>
+                """
+        }
     }
 }

@@ -95,6 +95,7 @@ class UrlMappings {
         name profileBuyAward:     "/mi-perfil/el-gallinero/comprar"     (controller: "profile", action: "kuorumStoreBuyAward")
         name profileActivateAward:"/mi-perfil/el-gallinero/activar"     (controller: "profile", action: "kuorumStoreActivateAward")
         name profileNotifications:"/mi-perfil/notificaciones"   (controller: "profile", action: "userNotifications")
+name profileNotificationsSeeMore: "/ajax/mi-perfil/notificaciones"   (controller: "profile", action: "userNotificationsSeeMore")
         name profileMessages:     "/mi-perfil/mensajes"         (controller: "profile", action: "userMessages")
         name profileDeleteAccount:"/mi-perfil/eliminar"         (controller: "profile", action: "deleteAccount")
 

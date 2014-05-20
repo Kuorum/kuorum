@@ -840,7 +840,7 @@ $(document).ready(function() {
 		});
 
 	})
-    $('.openModalVictory').on("click", function(e){
+    $('body').on("click", ".openModalVictory",function(e){
         var notificationId = $(this).attr("data-notification-id")
         modalVictory.openModal(notificationId)
     });

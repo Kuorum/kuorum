@@ -30,11 +30,13 @@
             %{--</ul>--}%
         </li>
     </ul>
-    <ul class="list-notification">
-        <g:each in="${notifications}" var="notification">
-            <g:render
-                    template="/layouts/notifications/showNotification"
-                    model="[notification:notification, modalUser:true, newNotification:false]"/>
-        </g:each>
+    <ul class="list-notification" id="list-notifications-id">
+        <g:render template="usrNotificationsList" model="[notifications:notifications]"/>
      </ul>
+    <nav:loadMoreLink
+            numElements="${notifications.size()}"
+            pagination="${pagination}"
+            mapping="profileNotificationsSeeMore"
+            params="${[]}"
+            parentId="list-notifications-id"/>
 </content>

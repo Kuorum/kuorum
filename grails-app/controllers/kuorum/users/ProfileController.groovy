@@ -11,6 +11,7 @@ import kuorum.post.Post
 import kuorum.web.commands.profile.ChangePasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.MailNotificationsCommand
+import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -197,7 +198,13 @@ class ProfileController {
         KuorumUser user = params.user
         Pagination pagination = new Pagination()
         List<Notification> notifications = notificationService.findUserNotifications(user,pagination)
-        [user:user, notifications:notifications, pagination:pagination]
+        [user:user, notifications:notifications, pagination:pagination, seeMore: notifications.size()==pagination.max]
+    }
+    def userNotificationsSeeMore(Pagination pagination) {
+        KuorumUser user = params.user
+        List<Notification> notifications = notificationService.findUserNotifications(user,pagination)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${notifications.size()<pagination.max}")
+        render template: "/profile/usrNotificationsList", model:[notifications:notifications]
     }
 
     def userMessages() {
