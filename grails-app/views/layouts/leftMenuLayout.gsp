@@ -16,9 +16,9 @@
                         <g:pageProperty name="page.leftMenu"/>
                     </header>
 
-                    <div id="${pageProperty(name:'page.idMainContent')}" class="col-xs-12 col-sm-8 col-md-9">
+                    <article id="${pageProperty(name:'page.idMainContent')}" class="col-xs-12 col-sm-8 col-md-9">
                         <g:pageProperty name="page.mainContent"/>
-                    </div>
+                    </article>
                 </section>
             </div>
         </div>
