@@ -3,7 +3,6 @@
     <title><g:message code="page.title.footer.whatIsKuorum"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="info" />
-    <parameter name="idMainContent" value="main" />
 </head>
 
 <content tag="leftMenu">
