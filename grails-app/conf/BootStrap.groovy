@@ -53,8 +53,8 @@ class BootStrap {
         }
         environments {
             development {
-                KuorumUser.collection.getDB().dropDatabase()
-                fixtureLoader.load("testData")
+//                KuorumUser.collection.getDB().dropDatabase()
+//                fixtureLoader.load("testData")
                 indexSolrService.fullIndex()
             }
             test{
