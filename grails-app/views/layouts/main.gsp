@@ -90,16 +90,16 @@
         <div class="modal-content">
             <div class="modal-header clearfix">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
-                <div class="col">
-                    <img class="user-img big" alt="nombre" src="images/user.jpg">
-                    <h1>Kikirikiiii!</h1>
-                    <h2 id="myModalLabel">¿Lo conseguimos?</h2>
+                <div class="col" id="modalVictoryUser">
+                    <img class="user-img big" alt="nombre" src="">
+                    <h1>${message(code:'modalVictory.title')}</h1>
+                    <h2 id="myModalLabel">${message(code:'modalVictory.label')}</h2>
                 </div>
-                <div class="col">
+                <div class="col" id="modalVictoryDefender">
                     <span class="fdoDiagonal"></span>
                     <div itemtype="http://schema.org/Person" itemscope class="user">
                         <img itemprop="image" class="user-img big" alt="nombre" src="images/user.jpg">
-                        <span class="name" itemprop="name">Nombreeeee usuuuario</span>
+                        <span class="name" itemprop="name">Nombre usuario</span>
                         <span class="what">se ha comprometido a</span>
                         <span class="action">llevarla al congreso</span>
                     </div>
@@ -110,7 +110,7 @@
                 <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor <a href="#">#leyaborto</a></p>
             </div>
             <div class="modal-footer">
-                <p>Ahora te toca a ti decir si ese compromiso se ha llevado a fin o no. Si lo tienes claro da la victoria a Fulanito porque nos ha escuchado y se lo merece en caso contrario puedes esperar un tiempo mas o rechazar la victoria. Porque tú sabes si se hizo realidad.</p>
+                <p><g:message code="modalVictory.argument"/> </p>
                 <a href="#" class="btn btn-grey btn-lg">SI <small>lo conseguimos</small></a>
                 <a href="#" class="btn btn-grey btn-lg">NO <small>lo conseguimos</small></a>
                 <a class="cancel" href="#">todavía es pronto <small>para saberlo</small></a>

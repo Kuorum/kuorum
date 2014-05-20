@@ -355,6 +355,7 @@ class PostService {
         Cluck.collection.update([_id:post.firstCluck.id],['$set':[defendedBy:politician.id, lastUpdated:defenderDate]])
         post.refresh()
         post.firstCluck.refresh()
+        notificationService.sendPostDefendedNotification(post)
         post
     }
 }

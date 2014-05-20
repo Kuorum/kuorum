@@ -174,7 +174,7 @@ $(document).ready(function() {
             var postId = $(this).parents("article").first().attr("data-cluck-postId");
             $.ajax(url).done(function(data){
                 $("article[data-cluck-postId='"+postId+"'] li.kakareo-number .action").addClass('disabled');
-                $("article[data-cluck-luck-postId='"+postId+"'] li.kakareo-number .counter").each(function(idx, element){
+                $("article[data-cluck-postId='"+postId+"'] li.kakareo-number .counter").each(function(idx, element){
                     var numKakareos = parseInt($(element).text()) +1;
                     $(element).text(numKakareos);
                 });
@@ -767,7 +767,7 @@ $(document).ready(function() {
     }
 
 
-	//seleccionar todos los checkbox
+	// seleccionar todos los checkbox
 	$(function () {
         changeDescriptionNumSelect()
 	    var checkAll = $('#selectAll');
@@ -790,10 +790,10 @@ $(document).ready(function() {
 	    $('#selectAll').change(function() {
 		    if($(this).is(':checked')) {
 		        checkboxes.iCheck('check');
-		        $('#others').attr('checked', true);
+		        $('#others').prop('checked', true);
 		    } else {
 		        checkboxes.iCheck('uncheck');
-		        $('#others').attr('checked', false);
+		        $('#others').prop('checked', false);
 		    }
 		});
 
@@ -840,8 +840,30 @@ $(document).ready(function() {
 		});
 
 	})
+    $('.openModalVictory').on("click", function(e){
+        var notificationId = $(this).attr("data-notification-id")
+        modalVictory.openModal(notificationId)
+    });
 
 });
+
+var modalVictory = {
+    data:{},
+    openModal:function(notificationId){
+        var modalData = this.data['notification_'+notificationId]
+        console.log(modalData)
+        $("#modalVictoryUser img").attr('src',modalData.user.imageUrl)
+        $("#modalVictoryUser img").attr('alt',modalData.user.name)
+        $("#modalVictoryDefender img").attr('src',modalData.defender.imageUrl)
+        $("#modalVictoryDefender img").attr('alt',modalData.defender.name)
+        $("#modalVictoryDefender .name").html(modalData.defender.name)
+        $("#modalVictoryDefender .action").html(modalData.post.action)
+        $("#modalVictory .modal-body p").first().html(modalData.post.description)
+        $("#modalVictory .modal-body p").last().html(modalData.post.lawLink)
+        $("#modalVictory .modal-footer a").first().attr('href',modalData.post.victoryLink)
+        $("#modalVictory .modal-footer a").last().attr('href',modalData.post.victoryLink)
+    }
+}
 
 var karma = {
     title:"",

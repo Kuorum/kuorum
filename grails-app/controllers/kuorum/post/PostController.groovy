@@ -327,4 +327,11 @@ class PostController {
             }
         }
     }
+
+    @Secured('isAuthenticated()')
+    def addVictory() {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Post post = params.post
+        render "OK"
+    }
 }

@@ -10,6 +10,7 @@ fixture{
 post {
     postService.publishPost(abortoPurpose2)
     postService.publishPost(parquesNacionalesPurpose1)
+    postService.publishPost(codigoPenalQuestion1)
 
     postService.savePost(abortoPurpose1, abortoPurpose1.law, abortoPurpose1.owner)
     postService.publishPost(abortoPurpose1)
@@ -47,6 +48,7 @@ post {
     cluckService.createCluck(parquesNacionalesPurpose2, juanjoAlvite)
     postService.defendPost(parquesNacionalesPurpose2, CommitmentType.ADDED_AS_AMENDMENT, politician)
 
+
     kuorumUserService.createFollower(juanjoAlvite,equo)
     kuorumUserService.createFollower(juanjoAlvite,ecologistasEnAccion)
     kuorumUserService.createFollower(juanjoAlvite,politician)
@@ -63,5 +65,9 @@ post {
     postVoteService.votePost(parquesNacionalesPurpose2,noe, false )
     postVoteService.votePost(parquesNacionalesPurpose2,politician, true )
     postVoteService.votePost(parquesNacionalesPurpose2,peter, false )
+
+
+    postService.defendPost(codigoPenalQuestion1, CommitmentType.ASKED_ON_CONGRESS, politician)
+    postService.victory(codigoPenalQuestion1, codigoPenalQuestion1.owner)
 
 }
