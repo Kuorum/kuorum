@@ -253,7 +253,7 @@ a:focus {color: #20a2ea;}
 .btn.btn-lg {
     font-size: 16px !important;
     font-size: 1.65rem !important;
-    line-height: 1 !important;
+    line-height: 1.1 !important;
     margin: 0 !important;
     padding: 18px !important;
 }
@@ -270,10 +270,10 @@ a:focus {color: #20a2ea;}
 .btn.btn-blue:hover,
 .btn.btn-blue:active,
 .btn.btn-blue:focus {background-color: #2e6bab !important;}
-.btn.btn-green {background-color: #87ca47 !important;}
+.btn.btn-green {background-color: #87ca47 !important; border-left: solid 1px #87ca47; border-right: solid 1px #87ca47; border-bottom: solid 1px #87ca47;}
 .btn.btn-green:hover,
 .btn.btn-green:active,
-.btn.btn-green:focus {background-color: #578c25 !important;}
+.btn.btn-green:focus {background-color: #578c25 !important; border-left: solid 1px #578c25; border-right: solid 1px #578c25; border-bottom: solid 1px #578c25;}
 
 .popover .btn.btn-blue.disabled {background-color: #a8a8a8 !important;}
 
@@ -867,7 +867,12 @@ span + .text-notification {padding: 0 0 0 33px;}
 .multimedia .video .fa {position: absolute; left: 40%; top: 33%; color: #fff; z-index: 999;}
 .multimedia .video .front {display: block; background-color: #000; position: relative;}
 .multimedia .video .front img {opacity: 0.3;}
-.youtube {width: 100%; display: none;}
+/*.youtube {width: 100%; display: none;}*/
+#videoHome .modal-dialog {margin: 10% auto;}
+#videoHome .modal-dialog .modal-content {background: transparent;}
+#videoHome .modal-dialog .close {opacity: 1; color: #fff; margin: 0; position: absolute; top: -25px; right: 5px;}
+#videoHome .modal-dialog .modal-body {padding: 0;}
+#videoHome .modal-dialog .modal-header {border-bottom: 0; padding: 0;}
 
 /* DOS BOTONES IGUALES PERO SU FUNCIONAMIENTO ES DIFERENTE A NIVEL INTERNO */
 
@@ -1216,8 +1221,13 @@ textarea.error,
   -webkit-transform:translate(0,-25%);-ms-transform:translate(0,-25%);transform:translate(0,-25%);
 }
 #karma.in {
-  -webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0);
-  -webkit-transition:-webkit-transform .3s ease-out;-moz-transition:-moz-transform .3s ease-out;-o-transition:-o-transform .3s ease-out;transition:transform .3s ease-out;
+    -webkit-transform:translate(0,0);
+    -ms-transform:translate(0,0);
+  transform:translate(0,0);
+    -webkit-transition:-webkit-transform .3s ease-out;
+    -moz-transition:-moz-transform .3s ease-out;
+    -o-transition:-o-transform .3s ease-out;
+  transition:transform .3s ease-out;
 }
 #karma  h1 {
   font-family: 'League Gothic', Arial, sans-serif;
@@ -1891,7 +1901,7 @@ textarea.error,
 .home .socialGo {margin: 0;}
 .home .socialGo li {display: block; float: none; margin: 10px 0 0 0;}
 .home .socialGo li a {display: block; width: auto;}
-.home .youtube {margin: 20% 0;}
+/*.home .youtube {margin: 20% 0;}*/
 .home .play {margin: 10% 0; color: #fff; font-size: 18px; font-size: 1.8rem; text-align: center;}
 .home .front {color: rgba(255, 255, 255, 0.9);}
 .home .front:hover,
@@ -2144,7 +2154,7 @@ textarea.error,
 .container-fluid.config > section > header > ul > li > a:hover > .badge,
 .container-fluid.config > section > header > ul > li > a:focus > .badge,
 .container-fluid.config > section > header > ul > li > a:active > .badge {background-color: #ffffff; color: #545454;}
-.container-fluid.config > section > div > h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 46px; font-style: 4.6rem; margin-top: 80px; text-transform: uppercase; border-bottom: 1px solid #DADADA; padding-bottom: 15px;}
+.container-fluid.config > section > section > h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 46px; font-style: 4.6rem; margin-top: 80px; text-transform: uppercase; border-bottom: 1px solid #DADADA; padding-bottom: 15px;}
 
 .config label,
 .config .span-label {font-weight: bold;}
@@ -2186,11 +2196,10 @@ textarea.error,
 .config .list-post > li > .actions li {list-style: none; display: inline; font-size: 13px; font-size: 1.3rem; margin: 0 0 0 10px;}
 .config .list-post > li > .actions li a {color: #a8a8a8;}
 
-.config .saldo {background-color: #fefaf3; padding: 20px; color: #a8a8a8;}
+.config .saldo {background-color: #fefaf3; padding: 10px 0; color: #a8a8a8;}
 .config .saldo h2 {margin-top: 0; color: #545454;}
-.config .saldo .activity li {color: #ff9431; border-right: 1px solid #ff9431;}
-.config .saldo .activity,
-.config .saldo p {width: 50%; float: left;}
+.config .saldo .activity li {color: #ff9431; border-right: 1px solid #ff9431; font-size: 15px; font-size: 1.5rem;}
+.config .saldo .activity li:last-child {border-right: 0;}
 .config .saldo .activity li span {font-size: 30px; font-size: 3rem;}
 .config .role h2,
 .config .skill h2,
@@ -2201,19 +2210,100 @@ textarea.error,
 .config .skill section p {font-size: 13px; font-size: 1.3rem; color: #a8a8a8;}
 .config .role section p a,
 .config .skill section p a {color: #a8a8a8; text-decoration: underline;}
+
+.config .role .row > section > p,
+.config .skill .row > section > p {min-height: 60px;}
+
 .config .role section .options,
-.config .skill section .options {border-top: solid 1px #87ca47; margin: 0;}
+.config .skill section .options {border-top: solid 1px #DADADA; margin: 0;}
 .config .role section .options .activity,
-.config .skill section .options .activity {padding: 10px 0; width: 50%; float: left;}
+.config .skill section .options .activity {padding: 10px 0; width: 60%; float: left;}
 .config .role section .options .activity li,
-.config .skill section .options .activity li {border-right: none; font-size: 20px; font-size: 2rem; color: #545454;}
+.config .skill section .options .activity li {border-right: none; font-size: 19px; font-size: 1.9rem; color: #545454; width: 30%;}
 .config .role section .options .activity.inactive li,
 .config .skill section .options .activity.inactive li {opacity: 0.2;}
-
 .config .role section .options .btn,
 .config .skill section .options .btn {float: right; margin: 0 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; padding: 10px 22px !important;}
+.config .btn-green.active,
+.config .btn-green.active:hover,
+.config .btn.btn-green.active:active,
+.config .btn.btn-green.active:focus {
+  background-color: #fff !important;
+  border-left: solid 1px #87ca47;
+  border-right: solid 1px #87ca47;
+  border-bottom: solid 1px #87ca47;
+  color: #87ca47 !important;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.125) inset;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.config .btn.active,
+.config .btn.active:hover,
+.config .btn.active:active,
+.config .btn.active:focus {
+  background-color: #fff !important;
+  border-left: solid 1px #ff9431;
+  border-right: solid 1px #ff9431;
+  border-bottom: solid 1px #ff9431;
+  color: #ff9431 !important;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.125) inset;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
-.config .btn-green.active {background-color: #fff !important; border: solid 1px #87ca47; color: #87ca47 !important; box-shadow: 0 0 0 rgba(0, 0, 0, 0.125) inset;}
+.config .item ul {margin: 0; padding: 0;}
+.config .item ul li {list-style: none; border-bottom: solid 1px #dadada;}
+.config .item ul li h3 span {color: #ff9431; font-size: 130%;}
+.config .item ul li p {color: #a8a8a8; font-size: 13px; font-size: 1.3rem;}
+
+.config #config7 p {margin: 20px 0 0 0; line-height: 1.2;}
+.config #config9 .checkbox label,
+.config #config9 .checkbox-inline {font-weight: normal; font-size: 13px; font-size: 1.3rem;}
+.config #config9 .checkbox {margin-top: 15px; margin-bottom: 15px;}
+.config #config9 .interestContainer {width: 530px}
+.config .interestContainer label {font-weight: normal;}
+
+.config #config9 .icheckbox_line-orange,
+.config #config9 .iradio_line-orange {color: #545454;}
+.config #config9 .icheckbox_line-orange.hover,
+.config #config9 .iradio_line-orange.hover {background: #545454; color: #fff;}
+.config #config9 .icheckbox_line-orange.checked,
+.config #config9 .icheckbox_line-orange.checked.hover,
+.config #config9 .iradio_line-orange.checked {
+    background: url("../images/checked-black.png") no-repeat scroll right top #545454;
+    color: #FFFFFF;
+}
+
+.config .list-post.pending > li > .text-notification {color: #545454; display: inline;}
+.config .list-post.pending > li .law {padding: 0; font-size: 24px; font-size: 2.4rem; line-height: 1.2;}
+
+.config #config11 p {color: #a8a8a8;}
+.config #config11 .btn.btn-lg {
+  font-size: 19px; font-size: 1.95rem !important;
+  line-height: 1.4 !important;
+}
+.config #config11 .form-group.textarea {margin: 20px 0;}
+.input-group-addon:first-child {border-right: solid 1px #cccccc;}
+
+
+/* Ficha técnica */
+.kakareo.post.ley.ficha {
+    margin: -12px 0 50px;
+}
+.boxes.votation .boxes > h1 {
+    font-size: 2.2rem;
+}
+aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
+#map {
+  width: 100%;
+  min-height: 223.78px;
+}
+.jvectormap-zoomin,
+.jvectormap-zoomout {display: none;}
+
+
+
+
 
 
 /* clases especiales accesibilidad =========== */
@@ -2422,7 +2512,7 @@ textarea.error,
   .home h1 {padding: 1.5em 0.5em; font-size: 36px; font-size: 3.6rem;}
   .home .play {margin: 36% 0 0 0; font-size: 25px; font-size: 2.5rem;}
   .home .images {background-position: 0 0;}
-  .home .youtube {margin: 76px 0 0 0;}
+ /* .home .youtube {margin: 76px 0 0 0;}*/
   .signContainer {padding: 20px; margin-bottom: 0;}
   .signContainer h2 small {font-size: 18px; font-size: 1.8rem;}
   .signContainer h3 {font-size: 15px; font-size: 1.5rem; margin-bottom: 10px;}
@@ -2489,6 +2579,8 @@ textarea.error,
   .steps li + li {background:url('../images/steps-sep.png') no-repeat center left; padding-left: 53px;}
   .othersPost #postNav .item {min-height: 107px;}
   .othersPost #postNav > a {padding: 44px 18px;}
+
+  #map {width: 475px; height: 544.53px;}
 
 }
 
@@ -2568,6 +2660,11 @@ textarea.error,
 
   .othersPost #postNav .item {min-height: 89px;}
   .othersPost #postNav > a {padding: 35px 18px;}
+
+  .config #config7 p {margin: 10px 0 0 0;}
+  .config .saldo .activity {margin: 30px 0 0 0;}
+
+  #map {width: 730px; height: 544.53px;}
 
   .columns2 {
     -moz-column-count: 2;
