@@ -113,7 +113,7 @@
                 <p><g:message code="modalVictory.argument"/> </p>
                 <a href="#" class="btn btn-grey btn-lg"><g:message code="modalVictory.yes" encodeAs="raw"/> </a>
                 <a href="#" class="btn btn-grey btn-lg"><g:message code="modalVictory.no" encodeAs="raw"/> </a>
-                <a class="cancel" href="#"><g:message code="modalVictory.notYet" encodeAs="raw"/></a>
+                <a class="cancel modalVictoryClose" href="#"><g:message code="modalVictory.notYet" encodeAs="raw"/></a>
             </div>
         </div>
     </div>

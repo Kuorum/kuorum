@@ -845,6 +845,12 @@ $(document).ready(function() {
         modalVictory.openModal(notificationId)
     });
 
+    $('.modalVictoryClose').on("click", function(e){
+        e.preventDefault()
+        $('#modalVictory').modal('hide');
+    })
+
+
 });
 
 var modalVictory = {
