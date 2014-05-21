@@ -7,9 +7,9 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-8">
                     <ul class="legal">
-                        <li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
-                        <li><g:link mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>
-                        <li><g:link mapping="footerTermsAds"><g:message code="layout.footer.termsAds"/></g:link></li>
+                        <li><g:link mapping="footerPrivacyPolicy" target="_blank"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
+                        <li><g:link mapping="footerTermsUse" target="_blank"><g:message code="layout.footer.termsUse"/></g:link></li>
+                        %{--<li><g:link mapping="footerTermsAds"><g:message code="layout.footer.termsAds"/></g:link></li>--}%
                     </ul>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">

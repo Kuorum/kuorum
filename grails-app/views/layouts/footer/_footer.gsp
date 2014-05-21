@@ -19,8 +19,8 @@
                     <li><g:link mapping="footerOrganizations"><g:message code="layout.footer.organizations"/></g:link></li>
                     <li><g:link mapping="footerPoliticians"><g:message code="layout.footer.politicians"/></g:link></li>
                     <li><g:link mapping="footerDevelopers"><g:message code="layout.footer.developers"/></g:link></li>
-                    <li><g:link mapping="profileKuorumStore"><g:message code="layout.footer.kuorumStore"/></g:link></li>
-                    <li><a href="#">Kuorum.org</a></li>
+                    <li><g:link mapping="footerKuorumStore"><g:message code="layout.footer.kuorumStore"/></g:link></li>
+                    <li><a href="http://kuorumorg.tumblr.com" target="_blank""><g:message code="layout.footer.blog"/></a></li>
                 </ul>
             </section>
             <section class="col-xs-12 col-sm-3 col-md-2">
@@ -38,7 +38,7 @@
                 <ul>
                     <li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
                     <li><g:link mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>
-                    <li><g:link mapping="footerTermsAds"><g:message code="layout.footer.termsAds"/></g:link></li>
+                    %{--<li><g:link mapping="footerTermsAds"><g:message code="layout.footer.termsAds"/></g:link></li>--}%
                 </ul>
             </section>
             <section class="col-xs-12 col-sm-12 col-md-2 col-md-offset-2">
@@ -52,16 +52,17 @@
                     </div>
 
                     <div class="col-xs-12 col-sm-3 col-md-12">
-                        <a href="#" class="feedback">Danos feedback</a>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-3 col-md-12">
                         <h1 class="collabor"><g:message code="layout.footer.workingWith"/></h1>
                         <ul class="collabor">
                             <li><a href="http://www.sg.ethz.ch/" hreflang="en" class="ethz"><img src="${g.resource(dir:'images', file:'logo-ethz.png')}" alt="ETHZ (Eidgenössische Technische Hochschule Zürich)"></a></li>
                             <li><a href="http://www.deliveringhappiness.com/" hreflang="en" class="delhap"><img src="${g.resource(dir:'images', file:'logo-delhap.png')}" alt="Delivering Happiness"></a></li>
                         </ul>
                     </div>
+
+                    <div class="col-xs-12 col-sm-3 col-md-12">
+                        <a href="mailto:info@kuorum.org" class="feedback">Danos feedback</a>
+                    </div>
+
                 </div>
             </section>
         </section>
@@ -72,10 +73,10 @@
             <div class="col-xs-12 col-sm-8 col-md-8">
                 <ul class="social">
                     <li><g:message code="layout.footer.followUs"/> </li>
-                    <li><a href="#"><span class="sr-only">Twitter</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-twitter fa-stack-1x"></span></span></a></li>
-                    <li><a href="#"><span class="sr-only">Facebook</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span></a></li>
-                    <li><a href="#"><span class="sr-only">LinkedIn</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li>
-                    <li><a href="#"><span class="sr-only">Google+</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-google-plus fa-stack-1x"></span></span></a></li>
+                    <li><a href="https://twitter.com/kuorumorg" target="_blank"><span class="sr-only">Twitter</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-twitter fa-stack-1x"></span></span></a></li>
+                    <li><a href="https://www.facebook.com/kuorumorg"><span class="sr-only" target="_blank">Facebook</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span></a></li>
+                    <li><a href="http://www.linkedin.com/company/kuorum"><span class="sr-only" target="_blank">LinkedIn</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li>
+                    <li><a href="https://plus.google.com/+KuorumOrg"><span class="sr-only" target="_blank">Google+</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-google-plus fa-stack-1x"></span></span></a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1">
