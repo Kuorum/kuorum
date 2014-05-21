@@ -12,6 +12,7 @@ class FooterController {
     def organizations() {}
     def politicians() {}
     def developers() {}
+    def kuorumStore() {}
     def privacyPolicy(){}
     def termsUse(){}
     def termsAds(){}

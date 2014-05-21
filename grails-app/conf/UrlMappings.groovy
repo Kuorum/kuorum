@@ -108,6 +108,7 @@ class UrlMappings {
         name footerOrganizations: "/kuorum/organizaciones"      (controller:"footer", action: "organizations" )
         name footerPoliticians:   "/kuorum/politicos"           (controller:"footer", action: "politicians" )
         name footerDevelopers:    "/kuorum/desarrolladores"     (controller:"footer", action: "developers" )
+        name footerKuorumStore:    "/kuorum/el-gallinero"        (controller:"footer", action: "kuorumStore" )
         name footerPrivacyPolicy: "/kuorum/politica-privacidad" (controller:"footer", action: "privacyPolicy")
         name footerTermsUse:      "/kuorum/condiciones-de-uso"  (controller:"footer", action: "termsUse")
         name footerTermsAds:      "/kuorum/normas-publicidad"   (controller:"footer", action: "termsAds")
