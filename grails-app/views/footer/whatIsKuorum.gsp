@@ -8,12 +8,15 @@
 <content tag="leftMenu">
     <g:render template="leftMenu" model="[activeMapping:'footerWhatIsKuorum']"/>
 </content>
+
 <content tag="mainContent">
     <article role="article" itemtype="http://schema.org/Article" itemscope>
         <h1><g:message code="layout.footer.whatIsKuorum"/></h1>
         <h2><g:message code="footer.menu.footerWhatIsKuorum.subtitle"/></h2>
         <div class="columns2">
-            <p><g:message code="footer.menu.footerWhatIsKuorum.description1"/></p>
+            <p>
+                <g:message code="footer.menu.footerWhatIsKuorum.description1"/>
+            </p>
             <p>
                 <g:set var="linkPurposes" value="${createLink(mapping:'footerPurposes')}"/>
                 <g:set var="linkQuestions" value="${createLink(mapping:'footerQuestions')}"/>
@@ -24,10 +27,10 @@
                 <g:set var="linkRegister" value="${createLink(mapping:'register')}"/>
                 <g:message code="footer.menu.footerWhatIsKuorum.description3" args="[linkRegister]" encodeAs="raw"/>
             </p>
-            <blockquote>
-                <span class="fa fa-quote-right fa-2x"></span>
-                <p><g:message code="footer.menu.footerWhatIsKuorum.description4"/></p>
-            </blockquote>
+            %{--<blockquote>--}%
+                %{--<span class="fa fa-quote-right fa-2x"></span>--}%
+                %{--<p><g:message code="footer.menu.footerWhatIsKuorum.description4"/></p>--}%
+            %{--</blockquote>--}%
         </div>
         <img src="../images/image-info.jpg" alt="foto-aerea-manifestaciones" itemprop="image">
     </article>
