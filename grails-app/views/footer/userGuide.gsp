@@ -54,7 +54,7 @@
             </p>
         </div>
 
-        <img src="${resource(dir: 'images', file: 'image-info.jpg')}" alt="foto-aerea-manifestaciones" itemprop="image">
+        <img src="${resource(dir: 'images', file: 'image-info-estudiantes.jpg')}" alt="foto-estudiante-megafono" itemprop="image">
 
         <h2 class="border"><g:message code="footer.menu.footerUserGuide.subtitle5"/></h2>
         <div class="columns2">
@@ -72,7 +72,6 @@
             <p>
                 <g:message code="footer.menu.footerUserGuide.description61"/>
             </p>
-s
             <blockquote>
                 <span class="fa fa-quote-right fa-2x"></span>
                 <p><g:message code="footer.menu.footerUserGuide.description62"/></p>
@@ -93,6 +92,6 @@ s
             </p>
         </div>
 
-        <img src="${resource(dir: 'images', file: 'image-info.jpg')}" alt="foto-aerea-manifestaciones" itemprop="image">
+        <img src="${resource(dir: 'images', file: 'image-info-megafono.jpg')}" alt="foto-manifestante" itemprop="image">
     </article>
 </content>
