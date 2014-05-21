@@ -21,7 +21,9 @@
                 <g:message code="footer.menu.footerQuestions.description2"/>
             </p>
             <p>
-                <g:message code="footer.menu.footerPurposes.description3"/>
+                <g:link mapping="register">
+                    <g:message code="footer.menu.footerPurposes.description3"/>
+                </g:link>
             </p>
             %{--<blockquote>--}%
                 %{--<span class="fa fa-quote-right fa-2x"></span>--}%
