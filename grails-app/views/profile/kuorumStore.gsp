@@ -80,45 +80,21 @@
         </div>
     </div><!-- /.skill -->
     <div class="item">
-        <h2>Cómo consigo más items</h2>
+        <h2><g:message code="profile.kuorumStore.awards.explanation.title"/></h2>
         <ul>
             <li>
-                <h3><span class="icon-Flaticon_17919"></span> Huevos</h3>
-                <p>Cada vez que votas una ley consigues un huevo. Los huevos son un símbolo de participación. Las gallinas de Rebelión en la Granja prefirieron estallar sus huevos  contra el suelo antes de regalárselos al líder opresor, el cerdo Napoleón. Así que no  los malgastes, nunca se sabe cuando podrás necesitarlos.</p>
+                <h3><span class="icon-Flaticon_17919"></span> <g:message code="profile.kuorumStore.awards.explanation.eggs"/></h3>
+                <p><g:message code="profile.kuorumStore.awards.explanation.eggs.description"/></p>
             </li>
             <li>
-                <h3><span class="icon-Flaticon_24178"></span> Plumas</h3>
-                <p>Cada vez que una de tus publicaciones alcanza los 10 impulsos recibes una pluma.  Para mantener el plumaje en buenas condiciones, una gallina debe mudar sus plumas  con frecuencia. Lo mismo ocurre con tus publicaciones. Publica frecuentemente para mantener la relevancia de tu perfil.</p>
+                <h3><span class="icon-Flaticon_24178"></span> <g:message code="profile.kuorumStore.awards.explanation.plumes"/></h3>
+                <p><g:message code="profile.kuorumStore.awards.explanation.plumes.description"/></p>
             </li>
             <li>
-                <h3><span class="icon-Flaticon_20188"></span> Maíz</h3>
-                <p>Cuando impulsas las publicaciones de otros recibes un grano de maíz. La gallina es el ave más numerosa del planeta con 13 000 millones de ejemplares, y se alimenta   principalmente de maíz. En Korum, a los lectores más activos nunca les faltará el maíz.</p>
-                <p>Si quieres acumular más granos de maíz de golpe, también puedes promocionar una publicación que te guste especialmente. Recuerda que las publicaciones promocionadas son de pago. Al promocionar una publicación no sólo estás dándole una mayor visibilidad, además estás contribuyendo a hacer posible este proyecto.</p>
+                <h3><span class="icon-Flaticon_20188"></span> <g:message code="profile.kuorumStore.awards.explanation.corn"/></h3>
+                <p><g:message code="profile.kuorumStore.awards.explanation.corn.description1"/></p>
+                <p><g:message code="profile.kuorumStore.awards.explanation.corn.description2"/></p>
             </li>
         </ul>
     </div><!-- /.item -->
-
-    <H1> El gallinero de ${user.name}: ROLE: <g:message code="${GamificationAward.canonicalName}.${user.gamification.activeRole}.${user.personalData.gender}"/></H1>
-    <H3>Gamification</H3>
-    <ul>
-        <li>HUEVOS: ${user.gamification.numEggs}</li>
-        <li>corn: ${user.gamification.numCorns}</li>
-        <li>Plumas: ${user.gamification.numPlumes}</li>
-    </ul>
-    <h3>Tienda</h3>
-    <ul>
-        <g:each in="${GamificationAward.values().findAll{it.toString().startsWith('ROLE_')}}" var="roleAward">
-            <li>
-                <g:message code="${GamificationAward.canonicalName}.${award}.${user.personalData.gender}"/>:
-                %{--TODO: Pasar a taglib--}%
-                <g:if test="${user.gamification.boughtAwards.contains(award)}">
-                    <g:link mapping="profileActivateAward" params="[award:award]">Activar</g:link>
-                </g:if>
-                <g:else>
-                    <g:link mapping="profileBuyAward" params="[award:award]">Comprar</g:link>
-                </g:else>
-            </li>
-        </g:each>
-
-    </ul>
 </content>
