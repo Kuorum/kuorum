@@ -14,8 +14,16 @@
         <h2><g:message code="footer.menu.footerWhatIsKuorum.subtitle"/></h2>
         <div class="columns2">
             <p><g:message code="footer.menu.footerWhatIsKuorum.description1"/></p>
-            <p><g:message code="footer.menu.footerWhatIsKuorum.description2"/></p>
-            <p><g:message code="footer.menu.footerWhatIsKuorum.description3"/></p>
+            <p>
+                <g:set var="linkPurposes" value="${createLink(mapping:'footerPurposes')}"/>
+                <g:set var="linkQuestions" value="${createLink(mapping:'footerQuestions')}"/>
+                <g:set var="linkHistories" value="${createLink(mapping:'footerHistories')}"/>
+                <g:message code="footer.menu.footerWhatIsKuorum.description2" args="[linkPurposes, linkQuestions, linkHistories]" encodeAs="raw"/>
+            </p>
+            <p>
+                <g:set var="linkRegister" value="${createLink(mapping:'register')}"/>
+                <g:message code="footer.menu.footerWhatIsKuorum.description3" args="[linkRegister]" encodeAs="raw"/>
+            </p>
             <blockquote>
                 <span class="fa fa-quote-right fa-2x"></span>
                 <p><g:message code="footer.menu.footerWhatIsKuorum.description4"/></p>
