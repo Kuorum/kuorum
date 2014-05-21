@@ -36,8 +36,17 @@
                     }
                 }
             }
+        },
+        profile:{
+            kuorumStore:{
+                skillButton:{
+                    active:'<g:message code="profile.kuorumStore.skillButton.active"/>'
+                },
+                roleButton:{
+                    active:'<g:message code="profile.kuorumStore.roleButton.active"/>'
+                }
+            }
         }
-
     }
 
 

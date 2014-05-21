@@ -860,7 +860,7 @@ $(document).ready(function() {
         ajaxFollow(url,link, function(data){
             $(".roleButton.active").removeClass("active").html("Activar")
             link.addClass("btn-green active")
-            link.html("Activo")
+            link.html(i18n.profile.kuorumStore.roleButton.active)
             $("#numEggs").html(data.numEggs)
             $("#numCorns").html(data.numCorns)
             $("#numPlumes").html(data.numPlumes)
@@ -872,7 +872,8 @@ $(document).ready(function() {
         var url = link.attr('href')
         ajaxFollow(url,link, function(data){
             link.addClass("active")
-            link.html("Adquirida")
+            console.log()
+            link.html(i18n.profile.kuorumStore.skillButton.active)
             $("#numEggs").html(data.numEggs)
             $("#numCorns").html(data.numCorns)
             $("#numPlumes").html(data.numPlumes)
