@@ -1,7 +1,7 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchNotifications
 import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
 
@@ -16,8 +16,8 @@ class LayoutsController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userHead() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Pagination pagination = new Pagination(max: MAX_HEAD_NOTIFICATIONS)
-        List<Notification> listNotifications = notificationService.findUserNotifications(user,pagination)
+        SearchNotifications searchNotificationsCommand = new SearchNotifications(user:user, max: MAX_HEAD_NOTIFICATIONS)
+        List<Notification> listNotifications = notificationService.findUserNotifications(searchNotificationsCommand)
         Integer numNewNotifications = listNotifications.findAll{it.dateCreated>user.lastNotificationChecked}.size()
         def notifications =[
                 list: listNotifications,

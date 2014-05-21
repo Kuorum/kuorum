@@ -5,7 +5,7 @@ import kuorum.KuorumFile
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
-import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchNotifications
 import kuorum.notifications.Notification
 import kuorum.post.Post
 import kuorum.web.commands.profile.ChangePasswordCommand
@@ -194,16 +194,17 @@ class ProfileController {
     }
 
 
-    def userNotifications() {
+    def userNotifications(SearchNotifications searchNotificationsCommand) {
         KuorumUser user = params.user
-        Pagination pagination = new Pagination()
-        List<Notification> notifications = notificationService.findUserNotifications(user,pagination)
-        [user:user, notifications:notifications, pagination:pagination, seeMore: notifications.size()==pagination.max]
+        searchNotificationsCommand.user = user
+        List<Notification> notifications = notificationService.findUserNotifications(searchNotificationsCommand)
+        [user:user, notifications:notifications, searchNotificationsCommand:searchNotificationsCommand, seeMore: notifications.size()==searchNotificationsCommand.max]
     }
-    def userNotificationsSeeMore(Pagination pagination) {
+    def userNotificationsSeeMore(SearchNotifications searchNotificationsCommand) {
         KuorumUser user = params.user
-        List<Notification> notifications = notificationService.findUserNotifications(user,pagination)
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${notifications.size()<pagination.max}")
+        searchNotificationsCommand.user = user
+        List<Notification> notifications = notificationService.findUserNotifications(searchNotificationsCommand)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${notifications.size()<searchNotificationsCommand.max}")
         render template: "/profile/usrNotificationsList", model:[notifications:notifications]
     }
 
