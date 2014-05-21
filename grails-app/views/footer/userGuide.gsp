@@ -54,7 +54,7 @@
             </p>
         </div>
 
-        <img src="../images/image-info.jpg" alt="foto-aerea-manifestaciones" itemprop="image">
+        <img src="${resource(dir: 'images', file: 'image-info.jpg')}" alt="foto-aerea-manifestaciones" itemprop="image">
 
         <h2 class="border"><g:message code="footer.menu.footerUserGuide.subtitle5"/></h2>
         <div class="columns2">
@@ -93,6 +93,6 @@ s
             </p>
         </div>
 
-        <img src="../images/image-info.jpg" alt="foto-aerea-manifestaciones" itemprop="image">
+        <img src="${resource(dir: 'images', file: 'image-info.jpg')}" alt="foto-aerea-manifestaciones" itemprop="image">
     </article>
 </content>
