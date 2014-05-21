@@ -866,6 +866,18 @@ $(document).ready(function() {
             $("#numPlumes").html(data.numPlumes)
         })
     })
+    $('.skillButton').on("click", function(e){
+        e.preventDefault()
+        var link = $(this)
+        var url = link.attr('href')
+        ajaxFollow(url,link, function(data){
+            link.addClass("active")
+            link.html("Adquirida")
+            $("#numEggs").html(data.numEggs)
+            $("#numCorns").html(data.numCorns)
+            $("#numPlumes").html(data.numPlumes)
+        })
+    })
 
     $('body').on("click", ".openModalVictory",function(e){
         var notificationId = $(this).attr("data-notification-id")

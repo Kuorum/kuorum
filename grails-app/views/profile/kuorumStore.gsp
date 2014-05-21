@@ -41,9 +41,9 @@
                         <p><g:message code="${GamificationAward.canonicalName}.${roleAward}.description"/></p>
                         <div class="options">
                             <g:set var="cssInactive" value=""/>
-                            <gamification:ifRoleIsBought role="${roleAward}">
+                            <gamification:ifAwardIsBought role="${roleAward}">
                                 <g:set var="cssInactive" value="inactive"/>
-                            </gamification:ifRoleIsBought>
+                            </gamification:ifAwardIsBought>
                             <ul class="activity ${cssInactive}">
                                 <li><span class="counter">${roleAward.numEggs}</span> <span class="icon-Flaticon_17919"></span> <br><span class="sr-only"><g:message code="profile.kuorumStore.eggs.description"/></span></li>
                                 <li><span class="counter">${roleAward.numCorns}</span> <span class="icon-Flaticon_20188"></span> <br><span class="sr-only"><g:message code="profile.kuorumStore.corns.description"/></span></li>
@@ -56,56 +56,27 @@
         </div>
     </div><!-- /.role -->
     <div class="skill">
-        <h2>Consigue nuevas habilidades</h2>
+        <h2><g:message code="profile.kuorumStore.skills.title"/></h2>
         <div class="row">
-            <section class="col-xs-12 col-sm-12 col-md-6">
-                <h1>Lorem ipsum dolor sit amet, consectetur</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod <a href="#">tempor incididunt ut labore et dolore magna aliqua.</a></p>
-                <div class="options">
-                    <ul class="activity inactive">
-                        <li><span class="counter">4</span> <span class="icon-Flaticon_17919"></span> <br><span class="sr-only">votos</span></li>
-                        <li><span class="counter">2</span> <span class="icon-Flaticon_20188"></span> <br><span class="sr-only">impulsos</span></li>
-                        <li><span class="counter">6</span> <span class="icon-Flaticon_24178"></span> <br><span class="sr-only">propuestas</span></li>
-                    </ul>
-                    <a href="#" class="btn active">Adquirida</a>
-                </div>
-            </section>
-            <section class="col-xs-12 col-sm-12 col-md-6">
-                <h1>Lorem ipsum dolor sit amet, consectetur</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur do eiusmod <a href="#">tempor incididunt ut labore et dolore magna aliqua.</a></p>
-                <div class="options">
-                    <ul class="activity active">
-                        <li><span class="counter">4</span> <span class="icon-Flaticon_17919"></span> <br><span class="sr-only">votos</span></li>
-                        <li><span class="counter">2</span> <span class="icon-Flaticon_20188"></span> <br><span class="sr-only">impulsos</span></li>
-                        <li><span class="counter">6</span> <span class="icon-Flaticon_24178"></span> <br><span class="sr-only">propuestas</span></li>
-                    </ul>
-                    <a href="#" class="btn">Canjear</a>
-                </div>
-            </section>
-            <section class="col-xs-12 col-sm-12 col-md-6">
-                <h1>Lorem ipsum dolor sit amet, consectetur</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod <a href="#">tempor incididunt ut labore et dolore magna aliqua.</a></p>
-                <div class="options">
-                    <ul class="activity active">
-                        <li><span class="counter">4</span> <span class="icon-Flaticon_17919"></span> <br><span class="sr-only">votos</span></li>
-                        <li><span class="counter">2</span> <span class="icon-Flaticon_20188"></span> <br><span class="sr-only">impulsos</span></li>
-                        <li><span class="counter">6</span> <span class="icon-Flaticon_24178"></span> <br><span class="sr-only">propuestas</span></li>
-                    </ul>
-                    <a href="#" class="btn">Canjear</a>
-                </div>
-            </section>
-            <section class="col-xs-12 col-sm-12 col-md-6">
-                <h1>Lorem ipsum dolor sit amet, consectetur</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur do eiusmod <a href="#">tempor incididunt ut labore et dolore magna aliqua.</a></p>
-                <div class="options">
-                    <ul class="activity active">
-                        <li><span class="counter">4</span> <span class="icon-Flaticon_17919"></span> <br><span class="sr-only">votos</span></li>
-                        <li><span class="counter">2</span> <span class="icon-Flaticon_20188"></span> <br><span class="sr-only">impulsos</span></li>
-                        <li><span class="counter">6</span> <span class="icon-Flaticon_24178"></span> <br><span class="sr-only">propuestas</span></li>
-                    </ul>
-                    <a href="#" class="btn disabled">Canjear</a>
-                </div>
-            </section>
+            <g:each in="${GamificationAward.values().findAll{!it.toString().startsWith('ROLE_')}}" var="skillAward">
+                <section class="col-xs-12 col-sm-12 col-md-6">
+                    <h1><g:message code="${GamificationAward.canonicalName}.${skillAward}.${user.personalData.gender}"/></h1>
+                    <p><g:message code="${GamificationAward.canonicalName}.${skillAward}.description"/></p>
+                    <div class="options">
+                        <g:set var="cssInactive" value=""/>
+                        <gamification:ifAwardIsBought role="${skillAward}">
+                            <g:set var="cssInactive" value="inactive"/>
+                        </gamification:ifAwardIsBought>
+                        <ul class="activity ${cssInactive}">
+                            <li><span class="counter">${skillAward.numEggs}</span> <span class="icon-Flaticon_17919"></span> <br><span class="sr-only"><g:message code="profile.kuorumStore.eggs.description"/></span></li>
+                            <li><span class="counter">${skillAward.numCorns}</span> <span class="icon-Flaticon_20188"></span> <br><span class="sr-only"><g:message code="profile.kuorumStore.corns.description"/></span></li>
+                            <li><span class="counter">${skillAward.numPlumes}</span> <span class="icon-Flaticon_24178"></span> <br><span class="sr-only"><g:message code="profile.kuorumStore.plumes.description"/></span></li>
+                        </ul>
+                        %{--<a href="#" class="btn active">Adquirida</a>--}%
+                        <gamification:skillButton skill="${skillAward}"/>
+                    </div>
+                </section>
+            </g:each>
         </div>
     </div><!-- /.skill -->
     <div class="item">
