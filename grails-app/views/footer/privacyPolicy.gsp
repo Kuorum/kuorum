@@ -36,7 +36,54 @@
         <h2  class="border"><g:message code="footer.menu.footerPrivacyPolicy.subtitle04"/></h2>
         <div class="columns1">
             <p>
-                <g:message code="footer.menu.footerPrivacyPolicy.description041"/>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0401"/>
+            </p>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0402"/>
+            </p>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0403"/>
+            </p>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0404"/>
+            </p>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0405"/>
+            </p>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0406"/>
+            </p>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0407"/>
+            </p>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0408"/>
+            </p>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0409"/>
+            </p>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0410"/>
+            </p>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0411"/>
+            </p>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0412"/>
+            </p>
+            <li>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0413"/>
+            </li>
+        </br>
+            <li>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0414"/>
+            </li>
+        </br>
+            <li>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0415"/>
+            </li>
+            <p>
+                <g:message code="footer.menu.footerPrivacyPolicy.description0416"/>
             </p>
         </div>
 
