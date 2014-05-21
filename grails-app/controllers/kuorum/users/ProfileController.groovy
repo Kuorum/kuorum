@@ -1,5 +1,6 @@
 package kuorum.users
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.model.Gender
@@ -192,7 +193,11 @@ class ProfileController {
         KuorumUser user = params.user
         if (gamificationService.canActivateAward(user,award)){
             gamificationService.activateAward(user,award)
-            render "AJAX activated ${award}"
+            render ([
+                    numEggs : user.gamification.numEggs,
+                    numCorns : user.gamification.numCorns,
+                    numPlumes : user.gamification.numPlumes
+            ] as JSON)
         }else{
             render "AJAX NOT ALLOWED"
         }
@@ -203,7 +208,11 @@ class ProfileController {
         KuorumUser user = params.user
         if (gamificationService.canBuyAward(user,award)){
             gamificationService.buyAward(user,award)
-            render "AJAX  buyed ${award}"
+            render ([
+                    numEggs : user.gamification.numEggs,
+                    numCorns : user.gamification.numCorns,
+                    numPlumes : user.gamification.numPlumes
+            ] as JSON)
         }else{
             render "AJAX  no hay dinerito"
         }

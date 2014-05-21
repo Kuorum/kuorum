@@ -4,6 +4,7 @@ package kuorum.core.model.gamification
  * Created by iduetxe on 24/03/14.
  */
 enum GamificationAward {
+    //Los roles deben empezar por ROLE
     ROLE_DEFAULT            (0,     0,    0, false),
     ROLE_MILITANTE          (10,    5,   30, false),
     ROLE_ACTIVISTA          (20,   10,   50, false),

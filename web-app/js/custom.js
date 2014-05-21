@@ -853,6 +853,20 @@ $(document).ready(function() {
 		});
 
 	})
+    $('.roleButton').on("click", function(e){
+        e.preventDefault()
+        var link = $(this)
+        var url = link.attr('href')
+        ajaxFollow(url,link, function(data){
+            $(".roleButton.active").removeClass("active").html("Activar")
+            link.addClass("btn-green active")
+            link.html("Activo")
+            $("#numEggs").html(data.numEggs)
+            $("#numCorns").html(data.numCorns)
+            $("#numPlumes").html(data.numPlumes)
+        })
+    })
+
     $('body').on("click", ".openModalVictory",function(e){
         var notificationId = $(this).attr("data-notification-id")
         modalVictory.openModal(notificationId)

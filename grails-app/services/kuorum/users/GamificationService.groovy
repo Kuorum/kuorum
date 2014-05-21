@@ -40,6 +40,10 @@ class GamificationService {
         updateGamificationUser(sponsor,config)
     }
 
+    Boolean isAlreadyBought(KuorumUser user, GamificationAward award){
+        user.gamification.boughtAwards.contains(award)
+    }
+
     Boolean  canBuyAward(KuorumUser user, GamificationAward award){
         user.gamification.numCorns >= award.numCorns &&
                 user.gamification.numEggs >= award.numEggs &&
