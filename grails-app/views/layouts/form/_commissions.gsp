@@ -1,9 +1,9 @@
-<span class="span-label">
-    ${label}
-    <label class="checkbox-inline pull-right">
-        <input type="checkbox" id="selectAll" value="allInterest"> <g:message code="customRegister.step3.form.relevantCommissions.selectAll"/>
-    </label>
-</span>
+<span class="span-label">${label}</span>
+<label class="checkbox-inline pull-right">
+    <input type="checkbox" id="selectAll" value="allInterest"> <g:message code="customRegister.step3.form.relevantCommissions.selectAll"/>
+</label>
+<p class="help-block">${subLabel}</p>
+
 <div class="interestContainer clearfix">
     <div class="all clearfix">
         <g:each in="${kuorum.core.model.CommissionType.values()-[kuorum.core.model.CommissionType.OTHERS]}" var="commissionType">

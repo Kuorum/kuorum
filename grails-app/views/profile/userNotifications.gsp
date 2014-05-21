@@ -18,9 +18,9 @@
 <content tag="mainContent">
     <h1><g:message code="profile.profileNotifications.title"/></h1>
     <ul class="noti-filters">
-        <li class="active"><a href="#">Todas</a></li>
-        <li><a href="#">Alertas</a></li>
-        <li><a href="#">Notificaciones</a></li>
+        <li class="${searchNotificationsCommand.alerts==null?'active':''}"><g:link mapping="profileNotifications">Todas</g:link></li>
+        <li class="${searchNotificationsCommand.alerts==true?'active':''}"><g:link mapping="profileNotifications" params="[alerts:true]"> Alertas</g:link></li>
+        <li class="${searchNotificationsCommand.alerts==false?'active':''}"><g:link mapping="profileNotifications" params="[alerts:false]">Notificaciones</g:link></li>
         <li class="dropdown pull-right">
             %{--<a data-target="#" href="" class="dropdown-toggle text-center" id="open-order" data-toggle="dropdown" role="button">Ordenar <span class="fa fa-caret-down fa-lg"></span></a>--}%
             %{--<ul id="ordenar" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-order" role="menu">--}%
@@ -30,11 +30,16 @@
             %{--</ul>--}%
         </li>
     </ul>
-    <ul class="list-notification">
-        <g:each in="${notifications}" var="notification">
-            <g:render
-                    template="/layouts/notifications/showNotification"
-                    model="[notification:notification, modalUser:true, newNotification:false]"/>
-        </g:each>
+    <ul class="list-notification" id="list-notifications-id">
+        <g:render template="usrNotificationsList" model="[notifications:notifications]"/>
      </ul>
+    <nav:loadMoreLink
+            numElements="${notifications.size()}"
+            pagination="${searchNotificationsCommand}"
+            mapping="profileNotifications"
+            parentId="list-notifications-id"
+            formId="list-notifications-form"
+    >
+        <input type="hidden" name="alerts" value="${searchNotificationsCommand.alerts}"/>
+    </nav:loadMoreLink>
 </content>

@@ -20,7 +20,7 @@
                 <g:message code="profile.menu.profileFavorites"/>
             </span>
             <span aria-relevant="additions" aria-live="assertive" aria-labelledby="post-sin-leer" role="log" class="badge pull-right">
-                ${menu.activeNotifications}
+                ${menu.favorites}
             </span>
         </g:link>
     </li>

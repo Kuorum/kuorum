@@ -5,6 +5,7 @@ import grails.util.Environment
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.LawStatusType
 import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchNotifications
 import kuorum.law.Law
 import kuorum.law.LawVote
 import kuorum.mail.MailType
@@ -36,8 +37,16 @@ class NotificationService {
      * @param user
      * @return
      */
-    List<Notification> findUserNotifications(KuorumUser user, Pagination pagination = new Pagination()){
-        Notification.findAllByKuorumUser(user,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
+    List<Notification> findUserNotifications(SearchNotifications searchNotifications){
+        def criteria = Notification.createCriteria()
+        def result = criteria.list(max:searchNotifications.max, offset:searchNotifications.offset) {
+            eq('kuorumUser', searchNotifications.user)
+            if (searchNotifications.alerts==Boolean.TRUE) eq('isAlert', true)
+            if (searchNotifications.alerts==Boolean.FALSE) eq('isAlert', false)
+            order("dateCreated","desc")
+        }
+        result
+//        Notification.findAllByKuorumUser(user,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
     }
 
     /**

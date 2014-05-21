@@ -5,12 +5,14 @@ import kuorum.KuorumFile
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
-import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchNotifications
+import kuorum.core.model.search.SearchUserPosts
 import kuorum.notifications.Notification
 import kuorum.post.Post
 import kuorum.web.commands.profile.ChangePasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.MailNotificationsCommand
+import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -36,6 +38,7 @@ class ProfileController {
         model.menu = [
                 activeNotifications:Notification.countByKuorumUserAndIsAlertAndIsActive(user, true, true),
                 unpublishedPosts:Post.countByOwnerAndPublished(user, false),
+                favorites: postService.favoritesPosts(user).size(),
                 unreadMessages:3
         ]
     }
@@ -139,7 +142,7 @@ class ProfileController {
 
     def configurationEmails() {
         KuorumUser user = params.user
-        MailNotificationsCommand command = new MailNotificationsCommand(availableMails:user.availableMails)
+        MailNotificationsCommand command = new MailNotificationsCommand(availableMails:user.availableMails, commissions: user.relevantCommissions)
         command.availableMails = user.availableMails?:[]
         [user:user, command: command]
     }
@@ -150,7 +153,9 @@ class ProfileController {
             return
         }
         user.availableMails = command.availableMails
+        user.relevantCommissions = command.commissions
         kuorumUserService.updateUser(user)
+        flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'
     }
 
@@ -160,10 +165,22 @@ class ProfileController {
         [user:user, favorites: favorites]
     }
 
-    def showUserPosts() {
+    def showUserPosts(SearchUserPosts searchUserPosts) {
         KuorumUser user = params.user
-
-        [user:user]
+        searchUserPosts.user =  user
+        List<Post> posts = postService.findUserPosts(searchUserPosts)
+        if (request.xhr){
+            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${posts.size()<searchUserPosts.max}")
+            render template: "/profile/userPostsList", model:[posts:posts]
+        }else{
+            [user:user,posts:posts, searchUserPosts:searchUserPosts]
+        }
+    }
+    def showUserPostsSeeMore(SearchUserPosts searchUserPosts) {
+        KuorumUser user = params.user
+        searchUserPosts.user = user
+        List<Post> posts = postService.findUserPosts(searchUserPosts)
+        [user:user,posts:posts, searchUserPosts:searchUserPosts]
     }
 
     def kuorumStore() {
@@ -193,11 +210,16 @@ class ProfileController {
     }
 
 
-    def userNotifications() {
+    def userNotifications(SearchNotifications searchNotificationsCommand) {
         KuorumUser user = params.user
-        Pagination pagination = new Pagination()
-        List<Notification> notifications = notificationService.findUserNotifications(user,pagination)
-        [user:user, notifications:notifications, pagination:pagination]
+        searchNotificationsCommand.user = user
+        List<Notification> notifications = notificationService.findUserNotifications(searchNotificationsCommand)
+        if (request.xhr){
+            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${notifications.size()<searchNotificationsCommand.max}")
+            render template: "/profile/usrNotificationsList", model:[notifications:notifications]
+        }else{
+            [user:user, notifications:notifications, searchNotificationsCommand:searchNotificationsCommand]
+        }
     }
 
     def userMessages() {

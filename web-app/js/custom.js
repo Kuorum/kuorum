@@ -213,7 +213,7 @@ $(document).ready(function() {
             $('.likes .progress-bar').attr("aria-valuetransitiongoal",numLikes)
             $('.likes .progress-bar').attr("aria-valuenow",numLikes)
             $('.likes .progress-bar').attr("aria-valuemax",limitTo)
-            $('#drive > a').html(i18n.post.show.boxes.like.vote.buttonVoted).addClass('disabled');
+            $('#drive > a').html('i18n.post.show.boxes.like.vote.buttonVoted').addClass('disabled');
             $("#drive :input").attr("disabled", true);
             prepareProgressBar()
             setTimeout(prepareProgressBar, 500)
@@ -749,10 +749,10 @@ $(document).ready(function() {
 
 	// para los checkbox del formulario de registro
 	var texts= {
-        0: i18n.customRegister.step4.form.submit.description0,
-        1: i18n.customRegister.step4.form.submit.description1,
-        2: i18n.customRegister.step4.form.submit.description2,
-        ok:i18n.customRegister.step4.form.submit.descriptionOk
+        0: 'i18n.customRegister.step4.form.submit.description0',
+        1: 'i18n.customRegister.step4.form.submit.description1',
+        2: 'i18n.customRegister.step4.form.submit.description2',
+        ok:'i18n.customRegister.step4.form.submit.descriptionOk'
     }
 
     function changeDescriptionNumSelect(){
@@ -797,7 +797,6 @@ $(document).ready(function() {
 		    }
 		});
 
-
 	    checkAll.on('ifChecked ifUnchecked', function(event) {
 	        if (event.type == 'ifChecked') {
 	            checkboxes.iCheck('check');
@@ -820,6 +819,20 @@ $(document).ready(function() {
 	// añade la flechita al span de los mensajes de error de los formularios
 	$('span.error').prepend('<span class="tooltip-arrow"></span>');
 
+	// seleccionar todos los checkbox en configuración
+	$(function () {
+        $('.allActivityMails').change(function() {
+            var formGroup = $(this).parents(".form-group")
+            console.log(formGroup.length)
+            if($(this).is(':checked')) {
+                formGroup.find('.checkbox input').prop('checked', true);
+            } else {
+                formGroup.find('.checkbox input').prop('checked', false);
+            }
+        });
+	});
+
+
 	// le da la clase error al falso textarea
 	$(function () {
 		if ( $('#textPost').hasClass('error') ) {
@@ -840,10 +853,16 @@ $(document).ready(function() {
 		});
 
 	})
-    $('.openModalVictory').on("click", function(e){
+    $('body').on("click", ".openModalVictory",function(e){
         var notificationId = $(this).attr("data-notification-id")
         modalVictory.openModal(notificationId)
     });
+
+    $('.modalVictoryClose').on("click", function(e){
+        e.preventDefault()
+        $('#modalVictory').modal('hide');
+    })
+
 
 });
 
