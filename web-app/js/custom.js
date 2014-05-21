@@ -213,7 +213,7 @@ $(document).ready(function() {
             $('.likes .progress-bar').attr("aria-valuetransitiongoal",numLikes)
             $('.likes .progress-bar').attr("aria-valuenow",numLikes)
             $('.likes .progress-bar').attr("aria-valuemax",limitTo)
-            $('#drive > a').html(i18n.post.show.boxes.like.vote.buttonVoted).addClass('disabled');
+            $('#drive > a').html('i18n.post.show.boxes.like.vote.buttonVoted').addClass('disabled');
             $("#drive :input").attr("disabled", true);
             prepareProgressBar()
             setTimeout(prepareProgressBar, 500)
@@ -730,7 +730,6 @@ $(document).ready(function() {
 			}
 		})
 		.done(function(data, status, xhr) {
-                console.log(parent)
 			parent.append(data)
 			var moreResults = xhr.getResponseHeader('moreResults')
 			link.attr('data-offset', offset +10)
@@ -750,10 +749,10 @@ $(document).ready(function() {
 
 	// para los checkbox del formulario de registro
 	var texts= {
-        0: i18n.customRegister.step4.form.submit.description0,
-        1: i18n.customRegister.step4.form.submit.description1,
-        2: i18n.customRegister.step4.form.submit.description2,
-        ok:i18n.customRegister.step4.form.submit.descriptionOk
+        0: 'i18n.customRegister.step4.form.submit.description0',
+        1: 'i18n.customRegister.step4.form.submit.description1',
+        2: 'i18n.customRegister.step4.form.submit.description2',
+        ok:'i18n.customRegister.step4.form.submit.descriptionOk'
     }
 
     function changeDescriptionNumSelect(){
@@ -798,7 +797,6 @@ $(document).ready(function() {
 		    }
 		});
 
-
 	    checkAll.on('ifChecked ifUnchecked', function(event) {
 	        if (event.type == 'ifChecked') {
 	            checkboxes.iCheck('check');
@@ -820,6 +818,36 @@ $(document).ready(function() {
 
 	// añade la flechita al span de los mensajes de error de los formularios
 	$('span.error').prepend('<span class="tooltip-arrow"></span>');
+
+	// seleccionar todos los checkbox en configuración
+	$(function () {
+
+	    $('#allActivityMe').change(function() {
+		    if($(this).is(':checked')) {
+		        $('.activityMe .checkbox input').prop('checked', true);
+		    } else {
+		        $('.activityMe .checkbox input').prop('checked', false);
+		    }
+		});
+
+		$('#allActivityOthers').change(function() {
+		    if($(this).is(':checked')) {
+		        $('.activityOthers .checkbox input').prop('checked', true);
+		    } else {
+		        $('.activityOthers .checkbox input').prop('checked', false);
+		    }
+		});
+
+		$('#allActivityPoli').change(function() {
+		    if($(this).is(':checked')) {
+		        $('.activityPoli .checkbox input').prop('checked', true);
+		    } else {
+		        $('.activityPoli .checkbox input').prop('checked', false);
+		    }
+		});
+
+	});
+
 
 	// le da la clase error al falso textarea
 	$(function () {
