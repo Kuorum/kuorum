@@ -38,6 +38,7 @@ class ProfileController {
         model.menu = [
                 activeNotifications:Notification.countByKuorumUserAndIsAlertAndIsActive(user, true, true),
                 unpublishedPosts:Post.countByOwnerAndPublished(user, false),
+                favorites: postService.favoritesPosts(user).size(),
                 unreadMessages:3
         ]
     }

@@ -1,22 +1,33 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.profile.showFavoritesPosts"/> </title>
-    <meta name="layout" content="normalLayout">
+    <meta name="layout" content="leftMenuLayout">
+    <parameter name="extraCssContainer" value="config" />
 </head>
 
+<content tag="leftMenu">
+    <h1>
+        <g:message code="profile.menu.profileFavorites"/>,
+        <br>
+        <span class="user-name">${user.name}</span>
+    </h1>
+    <p><g:message code="profile.profileFavorites.description"/></p>
+    <g:render template="leftMenu" model="[user:user, activeMapping:'profileFavorites', menu:menu]"/>
+
+</content>
 
 <content tag="mainContent">
-    <H1> Pendientes de leer:  ${user.name}</H1>
+    <h1><g:message code="profile.profileFavorites.title"/></h1>
 
-    <ul>
-    <g:each in="${favorites}" var="favoritePost">
+    <ul class="list-post pending">
+        <g:each in="${favorites}" var="post">
         <li>
-            Law:<g:link mapping="lawShow" params="${favoritePost.law.encodeAsLinkProperties()}">${favoritePost.law.hashtag}</g:link>
-            <br/>
-            Title: <g:link mapping="postShow" params="${favoritePost.encodeAsLinkProperties()}">${favoritePost.title}</g:link>
-            <hr/>
+            <g:link class="text-notification" mapping="postShow" params="${post.encodeAsLinkProperties()}">${post.title}</g:link>
+            <g:link mapping="lawShow" class="law" params="${post.law.encodeAsLinkProperties()}">${post.law.hashtag}</g:link>
+            <ul class="actions">
+                <li><a href="#">desmarcar</a></li>
+            </ul>
         </li>
-
-    </g:each>
+        </g:each>
     </ul>
 </content>
