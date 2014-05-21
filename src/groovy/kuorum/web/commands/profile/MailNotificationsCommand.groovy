@@ -1,8 +1,8 @@
 package kuorum.web.commands.profile
 
 import grails.validation.Validateable
+import kuorum.core.model.CommissionType
 import kuorum.mail.MailType
-import springSecurity.RegisterController
 
 /**
  * Created by iduetxe on 13/02/14.
@@ -11,6 +11,7 @@ import springSecurity.RegisterController
 class MailNotificationsCommand {
 
     List<MailType> availableMails
+    List<CommissionType> commissions = []
 
     static constraints = {
     }

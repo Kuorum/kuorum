@@ -821,31 +821,15 @@ $(document).ready(function() {
 
 	// seleccionar todos los checkbox en configuración
 	$(function () {
-
-	    $('#allActivityMe').change(function() {
-		    if($(this).is(':checked')) {
-		        $('.activityMe .checkbox input').prop('checked', true);
-		    } else {
-		        $('.activityMe .checkbox input').prop('checked', false);
-		    }
-		});
-
-		$('#allActivityOthers').change(function() {
-		    if($(this).is(':checked')) {
-		        $('.activityOthers .checkbox input').prop('checked', true);
-		    } else {
-		        $('.activityOthers .checkbox input').prop('checked', false);
-		    }
-		});
-
-		$('#allActivityPoli').change(function() {
-		    if($(this).is(':checked')) {
-		        $('.activityPoli .checkbox input').prop('checked', true);
-		    } else {
-		        $('.activityPoli .checkbox input').prop('checked', false);
-		    }
-		});
-
+        $('.allActivityMails').change(function() {
+            var formGroup = $(this).parents(".form-group")
+            console.log(formGroup.length)
+            if($(this).is(':checked')) {
+                formGroup.find('.checkbox input').prop('checked', true);
+            } else {
+                formGroup.find('.checkbox input').prop('checked', false);
+            }
+        });
 	});
 
 

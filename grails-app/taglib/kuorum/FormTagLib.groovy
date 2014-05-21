@@ -96,6 +96,7 @@ class FormTagLib {
 
         def id = attrs.id?:field
         def label = message(code: "${command.class.name}.${field}.label")
+        def subLabel = message(code: "${command.class.name}.${field}.subLabel")
         def helpBlock = message(code: "${command.class.name}.${field}.helpBlock")
         def checkedCommissions = command."${field}"
         def errorMessage =''
@@ -107,6 +108,7 @@ class FormTagLib {
                 label:label,
                 errorMessage:errorMessage,
                 checkedCommissions:checkedCommissions,
+                subLabel:subLabel,
                 helpBlock:helpBlock
         ]
         out << render(template:'/layouts/form/commissions', model:model)
