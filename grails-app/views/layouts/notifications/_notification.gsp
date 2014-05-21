@@ -9,5 +9,5 @@
     <span class="text-notification">
         ${text}
     </span>
-    <g:render template="/layouts/notifications/notificationAction" model="[answerLink:answerLink, notification:notification]"/>
+    <g:render template="/layouts/notifications/notificationAction" model="[answerLink:answerLink, notification:notification, modalVictory:modalVictory]"/>
 </li>

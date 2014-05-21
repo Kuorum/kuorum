@@ -34,6 +34,7 @@ class UrlMappings {
         name postPaiment:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/resumen-promocion"(controller: "post", action:"paimentPost")
         name postSuccessPay:"/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/gracias"(controller: "post", action:"successPromotePost")
         name postAddDebate: "/ajax/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
+        name postAddVictory:"/ajax/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/victoria"(controller: "post", action:"addDebate")
 
 
         //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow

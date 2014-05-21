@@ -1,4 +1,4 @@
-<%@ page import="kuorum.notifications.MilestoneNotification; kuorum.notifications.DebateNotification; kuorum.notifications.FollowerNotification; kuorum.notifications.CluckNotification" %>
+<%@ page import="kuorum.notifications.*" %>
 <g:set var="newNotification" value="${newNotification?:false}"/>
 <g:if test="${notification.instanceOf(CluckNotification)}">
     <g:render template="/layouts/notifications/cluckNotification"  model='[notification:notification,newNotification:newNotification,modalUser:modalUser]'/>
@@ -11,6 +11,12 @@
 </g:elseif>
 <g:elseif test="${notification.instanceOf(MilestoneNotification)}">
     <g:render template="/layouts/notifications/milestoneNotification"  model='[notification:notification,newNotification:newNotification,modalUser:modalUser]'/>
+</g:elseif>
+<g:elseif test="${notification.instanceOf(VictoryNotification)}">
+    <g:render template="/layouts/notifications/victoryNotification"  model='[notification:notification,newNotification:newNotification,modalUser:modalUser]'/>
+</g:elseif>
+<g:elseif test="${notification.instanceOf(DefendedPostNotification)}">
+    <g:render template="/layouts/notifications/defendedNotification"  model='[notification:notification,newNotification:newNotification,modalUser:modalUser]'/>
 </g:elseif>
 <g:else>
     NOT DONE ${notification.class.name}
