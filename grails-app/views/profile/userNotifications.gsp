@@ -36,7 +36,7 @@
     <nav:loadMoreLink
             numElements="${notifications.size()}"
             pagination="${searchNotificationsCommand}"
-            mapping="profileNotificationsSeeMore"
+            mapping="profileNotifications"
             parentId="list-notifications-id"
             formId="list-notifications-form"
     >

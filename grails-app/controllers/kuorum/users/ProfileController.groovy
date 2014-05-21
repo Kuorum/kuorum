@@ -166,15 +166,18 @@ class ProfileController {
         KuorumUser user = params.user
         searchUserPosts.user =  user
         List<Post> posts = postService.findUserPosts(searchUserPosts)
-        [user:user,posts:posts, searchUserPosts:searchUserPosts]
+        if (request.xhr){
+            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${posts.size()<searchUserPosts.max}")
+            render template: "/profile/userPostsList", model:[posts:posts]
+        }else{
+            [user:user,posts:posts, searchUserPosts:searchUserPosts]
+        }
     }
     def showUserPostsSeeMore(SearchUserPosts searchUserPosts) {
         KuorumUser user = params.user
         searchUserPosts.user = user
         List<Post> posts = postService.findUserPosts(searchUserPosts)
         [user:user,posts:posts, searchUserPosts:searchUserPosts]
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${posts.size()<searchUserPosts.max}")
-        render template: "/profile/userPostsList", model:[posts:posts]
     }
 
     def kuorumStore() {
@@ -208,14 +211,12 @@ class ProfileController {
         KuorumUser user = params.user
         searchNotificationsCommand.user = user
         List<Notification> notifications = notificationService.findUserNotifications(searchNotificationsCommand)
-        [user:user, notifications:notifications, searchNotificationsCommand:searchNotificationsCommand, seeMore: notifications.size()==searchNotificationsCommand.max]
-    }
-    def userNotificationsSeeMore(SearchNotifications searchNotificationsCommand) {
-        KuorumUser user = params.user
-        searchNotificationsCommand.user = user
-        List<Notification> notifications = notificationService.findUserNotifications(searchNotificationsCommand)
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${notifications.size()<searchNotificationsCommand.max}")
-        render template: "/profile/usrNotificationsList", model:[notifications:notifications]
+        if (request.xhr){
+            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${notifications.size()<searchNotificationsCommand.max}")
+            render template: "/profile/usrNotificationsList", model:[notifications:notifications]
+        }else{
+            [user:user, notifications:notifications, searchNotificationsCommand:searchNotificationsCommand]
+        }
     }
 
     def userMessages() {

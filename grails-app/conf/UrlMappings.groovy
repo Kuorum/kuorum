@@ -91,12 +91,10 @@ class UrlMappings {
         name profileEmailNotifications:"/mi-perfil/notificaciones-por-email"(controller: "profile"){action=[GET:"configurationEmails",POST:"configurationEmailsSave"]}
         name profileFavorites:    "/mi-perfil/pendientes-de-leer"(controller: "profile", action: "showFavoritesPosts")
         name profileMyPosts:      "/mi-perfil/mis-posts"        (controller: "profile", action: "showUserPosts")
-        name profileMyPostsSeeMore:"/ajax/mi-perfil/mis-posts"        (controller: "profile", action: "showUserPostsSeeMore")
         name profileKuorumStore:  "/mi-perfil/el-gallinero"     (controller: "profile", action: "kuorumStore")
         name profileBuyAward:     "/mi-perfil/el-gallinero/comprar"     (controller: "profile", action: "kuorumStoreBuyAward")
         name profileActivateAward:"/mi-perfil/el-gallinero/activar"     (controller: "profile", action: "kuorumStoreActivateAward")
         name profileNotifications:"/mi-perfil/notificaciones"   (controller: "profile", action: "userNotifications")
-        name profileNotificationsSeeMore: "/ajax/mi-perfil/notificaciones"   (controller: "profile", action: "userNotificationsSeeMore")
         name profileMessages:     "/mi-perfil/mensajes"         (controller: "profile", action: "userMessages")
         name profileDeleteAccount:"/mi-perfil/eliminar"         (controller: "profile", action: "deleteAccount")
 
