@@ -6,6 +6,7 @@ import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.core.model.search.SearchNotifications
+import kuorum.core.model.search.SearchUserPosts
 import kuorum.notifications.Notification
 import kuorum.post.Post
 import kuorum.web.commands.profile.ChangePasswordCommand
@@ -161,10 +162,19 @@ class ProfileController {
         [user:user, favorites: favorites]
     }
 
-    def showUserPosts() {
+    def showUserPosts(SearchUserPosts searchUserPosts) {
         KuorumUser user = params.user
-
-        [user:user]
+        searchUserPosts.user =  user
+        List<Post> posts = postService.findUserPosts(searchUserPosts)
+        [user:user,posts:posts, searchUserPosts:searchUserPosts]
+    }
+    def showUserPostsSeeMore(SearchUserPosts searchUserPosts) {
+        KuorumUser user = params.user
+        searchUserPosts.user = user
+        List<Post> posts = postService.findUserPosts(searchUserPosts)
+        [user:user,posts:posts, searchUserPosts:searchUserPosts]
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${posts.size()<searchUserPosts.max}")
+        render template: "/profile/userPostsList", model:[posts:posts]
     }
 
     def kuorumStore() {

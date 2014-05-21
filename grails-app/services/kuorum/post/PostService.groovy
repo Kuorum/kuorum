@@ -9,6 +9,7 @@ import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
 import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchUserPosts
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 
@@ -273,6 +274,17 @@ class PostService {
     KuorumUser favoriteRemovePost(Post post, KuorumUser user){
         KuorumUser.collection.update([_id:user.id],['$pull':[favorites:post.id]])
         user.refresh()
+    }
+
+    List<Post> findUserPosts(SearchUserPosts searchUserPosts){
+        def criteria = Post.createCriteria()
+        def result = criteria.list(max:searchUserPosts.max, offset:searchUserPosts.offset) {
+            eq('owner', searchUserPosts.user)
+            if (searchUserPosts.publishedPosts==Boolean.TRUE) eq('published', true)
+            if (searchUserPosts.publishedPosts==Boolean.FALSE) eq('published', false)
+            order("dateCreated","desc")
+        }
+        result
     }
 
     List<Post> favoritesPosts(KuorumUser user){

@@ -730,6 +730,7 @@ $(document).ready(function() {
 			}
 		})
 		.done(function(data, status, xhr) {
+                console.log(parent)
 			parent.append(data)
 			var moreResults = xhr.getResponseHeader('moreResults')
 			link.attr('data-offset', offset +10)

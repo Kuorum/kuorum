@@ -17,5 +17,30 @@
 </content>
 <content tag="mainContent">
     <h1><g:message code="profile.profileMyPosts.title"/></h1>
-    Mis posts
+    <ul class="noti-filters">
+        <li class="${searchUserPosts.publishedPosts==null?'active':''}"><g:link mapping="profileMyPosts">Todas</g:link></li>
+        <li class="${searchUserPosts.publishedPosts==true?'active':''}"><g:link mapping="profileMyPosts" params="[publishedPosts:true]"> Publicados</g:link></li>
+        <li class="${searchUserPosts.publishedPosts==false?'active':''}"><g:link mapping="profileMyPosts" params="[publishedPosts:false]">Borradores</g:link></li>
+        <li class="dropdown pull-right">
+            %{--<a data-target="#" href="" class="dropdown-toggle text-center" id="open-order" data-toggle="dropdown" role="button">Ordenar <span class="fa fa-caret-down fa-lg"></span></a>--}%
+            %{--<ul id="ordenar" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-order" role="menu">--}%
+                %{--<li><a href="#">Opción 1</a></li>--}%
+                %{--<li><a href="#">Opción 2</a></li>--}%
+                %{--<li><a href="#">Opción 3</a></li>--}%
+            %{--</ul>--}%
+        </li>
+    </ul>
+
+    <ul class="list-post" id="list-post-id">
+        <g:render template="userPostsList" model="[posts:posts]"/>
+    </ul>
+    <nav:loadMoreLink
+            numElements="${posts.size()}"
+            pagination="${searchUserPosts}"
+            mapping="profileMyPostsSeeMore"
+            parentId="list-post-id"
+            formId="list-userPosts-form"
+    >
+        <input type="hidden" name="publishedPosts" value="${searchUserPosts.publishedPosts}"/>
+    </nav:loadMoreLink>
 </content>

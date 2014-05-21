@@ -33,16 +33,13 @@
     <ul class="list-notification" id="list-notifications-id">
         <g:render template="usrNotificationsList" model="[notifications:notifications]"/>
      </ul>
-    <div class="hidden">
-        <form id="list-notifications-form">
-            <input type="hidden" name="alerts" value="${searchNotificationsCommand.alerts}"/>
-        </form>
-    </div>
     <nav:loadMoreLink
             numElements="${notifications.size()}"
             pagination="${searchNotificationsCommand}"
             mapping="profileNotificationsSeeMore"
             parentId="list-notifications-id"
             formId="list-notifications-form"
-    />
+    >
+        <input type="hidden" name="alerts" value="${searchNotificationsCommand.alerts}"/>
+    </nav:loadMoreLink>
 </content>

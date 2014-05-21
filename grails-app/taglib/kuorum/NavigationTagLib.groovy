@@ -31,7 +31,7 @@ class NavigationTagLib {
 
     }
 
-    def loadMoreLink = {attrs ->
+    def loadMoreLink = {attrs, body ->
         def numElements = attrs.numElements
         Pagination pagination = attrs.pagination
         String mapping = attrs.mapping
@@ -50,5 +50,14 @@ class NavigationTagLib {
                 </div>
                 """
         }
+        out <<"""
+    <div class="hidden">
+        <form id="${formId}">
+            """
+        out << body()
+        out <<"""
+        </form>
+    </div>
+    """
     }
 }
