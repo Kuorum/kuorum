@@ -30,6 +30,6 @@
                 <p><g:message code="footer.menu.footerWhatIsKuorum.description4"/></p>
             </blockquote>
         </div>
-        <img src="../images/image-info.jpg" alt="foto-aerea-manifestaciones" itemprop="image">
+        <img src="../images/image-info-vote.jpg" alt="foto-sufragio-universal" itemprop="image">
     </article>
 </content>
