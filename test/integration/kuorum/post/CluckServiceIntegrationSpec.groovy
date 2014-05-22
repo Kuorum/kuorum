@@ -59,10 +59,10 @@ class CluckServiceIntegrationSpec extends Specification{
             }
         where:
             email                           | numClucks
-            "juanjoalvite@example.com"      | 6
+            "juanjoalvite@example.com"      | 8
             "peter@example.com"             | 6
             "equo@example.com"              | 2
-            "politician@example.com"        | 1
+            "politician@example.com"        | 2
             "admin@example.com"             | 0
     }
 
@@ -106,8 +106,8 @@ class CluckServiceIntegrationSpec extends Specification{
         where:
         hashtag                 | numClucks
         "#leyAborto"            | 2
-        "#codigoPenal"          | 0
-        "#parquesNacionales"    | 1
+        "#codigoPenal"          | 1
+        "#parquesNacionales"    | 2
         "#prohibicionFraking"   | 0
     }
 

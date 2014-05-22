@@ -35,7 +35,7 @@ Otras medidas: Incitar al desorden público con mensajes o consignas a través d
         introduction="""
 Modificación de la Ley Orgánica del Código Penal
 """
-        commissions = [CommissionType.JUSTICE, CommissionType.EMPLOY_AND_HEALTH_SERVICE]
+        commissions = [CommissionType.JUSTICE]
         region = madridCA
         published = Boolean.TRUE
         institution = madridParliament
