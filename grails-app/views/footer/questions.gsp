@@ -30,6 +30,6 @@
                 %{--<p><g:message code="footer.menu.footerQuestions.description3"/></p>--}%
             %{--</blockquote>--}%
         </div>
-        <img src="${resource(dir: 'images', file: 'image-info-vote.jpg')}" alt="foto-aerea-manifestaciones" itemprop="image">
+        <img src="${resource(dir: 'images', file: 'image-info-pregunta.jpg')}" alt="foto-aerea-manifestaciones" itemprop="image">
     </article>
 </content>
