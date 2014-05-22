@@ -36,7 +36,7 @@ db.kuorumUser.update(
     {"upsert":false, "multi":true}) //test
 
 // EMAIL
-db.kuorumUser.find({email:{$not:{$regex:'.*@example.com$'}}}).forEach(function(user){
+db.kuorumUser.find({email:{$regex:'.*^(@example.com)$'}}).forEach(function(user){
     user.email = removeDiacritics("info+"+user.email.replace(/@/g,'').replace(/\./g,'').toLowerCase()+"@kuorum.org")
     db.kuorumUser.save(user)
 })
