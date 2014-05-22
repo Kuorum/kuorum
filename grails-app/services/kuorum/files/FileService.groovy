@@ -55,6 +55,17 @@ class FileService {
             throw new KuorumException("Subiendo un fichero demasiado grande", "error.file.maxSizeExceded")
         }
 
+//        burningImageService.doWith("${kuorumFile.storagePath}/${kuorumFile.fileName}", kuorumFile.storagePath)
+//                .execute {
+//            //Pensar este 558 que es el tamaño del lightbox
+//            Integer withLightBox = 558
+//            Float ratio = withLightBox / it.loadedImage.getSize().width
+////            if (it.loadedImage.getSize().width > withLightBox){
+//            it.scaleAccurate(withLightBox, (it.loadedImage.getSize().height * ratio).round().intValue())
+////            }
+//
+//        }
+
         kuorumFile
     }
 

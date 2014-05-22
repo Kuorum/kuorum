@@ -1203,6 +1203,10 @@ textarea.error,
 .uploadKuorumImage .modal-footer .btn {
   margin: 0 0 0 10px !important;
 }
+.uploadKuorumImage img {
+    width: auto;
+    height: auto;
+}
 
 
 /* karma */
