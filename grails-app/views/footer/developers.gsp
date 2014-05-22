@@ -18,8 +18,9 @@
                 <g:message code="footer.menu.footerDevelopers.description1"/>
             </p>
             <p>
-                <g:set var="linkRegister" value="${createLink(mapping:'register')}"/>
                 <g:message code="footer.menu.footerDevelopers.description2" args="[linkRegister]" encodeAs="raw"/>
+                <a href="https://github.com/Kuorum/kuorum" target="_blank">
+                    <g:message code="footer.menu.footerDevelopers.description3" args="[linkRegister]" encodeAs="raw"/></a><g:message code="footer.menu.footerDevelopers.description4" args="[linkRegister]" encodeAs="raw"/>
             </p>
             %{--<blockquote>--}%
             %{--<span class="fa fa-quote-right fa-2x"></span>--}%
