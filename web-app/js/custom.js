@@ -873,6 +873,21 @@ $(document).ready(function() {
         })
     })
 
+    $("#videoHome").on('hidden.bs.modal', function (e) {
+        var iframe = $("#iframeVideo")[0].contentWindow;
+        func = 'pauseVideo';
+        //this is posible for this option on youtube video : enablejsapi=1
+        iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
+    })
+
+    $("#videoHome").on('shown.bs.modal', function (e) {
+        var iframe = document.getElementById("iframeVideo").contentWindow;
+        func = 'playVideo';
+        //this is posible for this option on youtube video : enablejsapi=1
+        iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
+//        $('#iframeVideo')[0].src += '&autoplay=1';
+    })
+
     $('body').on("click", ".openModalVictory",function(e){
         var notificationId = $(this).attr("data-notification-id")
         modalVictory.openModal(notificationId)
