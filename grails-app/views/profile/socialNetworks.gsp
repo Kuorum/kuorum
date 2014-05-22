@@ -18,5 +18,22 @@
 
 <content tag="mainContent">
     <h1><g:message code="profile.socialNetworks.title"/></h1>
-    Redes sociales
+    <g:form mapping="profileSocialNetworks" role="form">
+        <div class="form-group">
+            <formUtil:socialInput command="${command}" field="facebook" cssIcon="fa-facebook"/>
+        </div>
+        <div class="form-group">
+            <formUtil:socialInput command="${command}" field="twitter" cssIcon="fa-twitter"/>
+        </div>
+        <div class="form-group">
+            <formUtil:socialInput command="${command}" field="blog" cssIcon="fa-rss-square"/>
+        </div>
+        <div class="form-group">
+            <formUtil:socialInput command="${command}" field="googlePlus" cssIcon="fa-google-plus"/>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Guardar" class="btn btn-grey btn-lg">
+            <a href="#" class="cancel">Cancelar</a>
+        </div>
+    </g:form>
 </content>

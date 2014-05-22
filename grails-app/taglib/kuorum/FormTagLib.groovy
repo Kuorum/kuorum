@@ -79,7 +79,7 @@ class FormTagLib {
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
             <label for="${id}" class="${labelCssClass}">${label}</label>
-            <input type="${type}" name="${field}" class="${cssClass} ${error}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}">
+            <input type="${type}" name="${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}">
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
@@ -87,6 +87,28 @@ class FormTagLib {
 
         if (helpBlock){
             out << "<p class='help-block'>${helpBlock}</p>"
+        }
+    }
+
+    def socialInput={attrs ->
+        def command = attrs.command
+        def field = attrs.field
+        def cssIcon = attrs.cssIcon
+
+        def label = message(code: "${command.class.name}.${field}.label")
+        def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
+        def value = command."${field}"?:''
+
+        def error = hasErrors(bean: command, field: field,'error')
+        out <<"""
+            <label for="${field}">${label}</label>
+            <div class="input-group">
+                <span class="input-group-addon"><span class="fa ${cssIcon} fa-fw"></span></span>
+                <input class="form-control ${error?'error':''}" value="${value}" id="${field}" name="${field}" type="text" placeholder="${placeHolder}">
+            </div>
+        """
+        if (error){
+            out << "<span for='${field}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 

@@ -1,4 +1,5 @@
 <r:require modules="customFileUploader" />
+
 <label for="input_${imageId}" class="${labelCssClass}">${label} </label>
 <script>
     var typeErrorText = "${g.message(code:'uploader.error.typeError')}"
@@ -28,15 +29,28 @@
             originalImgPath = $("#${imageId}").attr("src");
             $("#${imageId}").attr("src","${g.resource(dir: 'img', file: 'spinner_small.gif')}");
     </uploader:onSubmit>
-    <uploader:onProgress> console.log(loaded+' of '+total+' done so far') </uploader:onProgress>
+    <uploader:onProgress>
+        $("#progresBar_${imageId}").removeClass("hidden")
+        var progressBar = $("#progresBar_${imageId}").children(".progress-bar")
+        progressBar.attr("aria-valuenow",loaded)
+        progressBar.attr("aria-valuemax",total)
+        var percent = total/loaded * 100
+        progressBar.css("width",percent+"%;")
+
+        console.log(loaded+' of '+total+' done so far')
+    </uploader:onProgress>
     <uploader:onComplete>
         $("#${imageId}").attr("src",responseJSON.absolutePathImg);
         console.log(responseJSON.absolutePathImg)
         fileId = responseJSON.fileId
         //Reiniciamos jcrop
-        if (jcropApi)
-            jcropApi.destroy();
+        if (jcropApi){
+            console.log("detruido jcrop")
+            %{--jcropApi.destroy();--}%
+            jcropApi.setImage(responseJSON.absolutePathImg)
+        }
         $("#modal_${imageId}").modal('show');
+        $("#progresBar_${imageId}").hide()
 
         //Is necesary the deleay because is necesary show the modal before to calculate the
         setTimeout(
@@ -48,21 +62,24 @@
              padding += parseInt(modalContent.css("padding-right").replace('px', ''))
              console.log("padding:" + padding )
             var boxWidth = parseInt(modalContent.innerWidth()) - padding
+            %{--var boxHeigh = parseInt(modalContent.innerWidth()) - padding--}%
             console.log(boxWidth)
 
             $('#${imageId}').attr("width",boxWidth)
             $('#${imageId}').Jcrop({
                 onSelect:    showCoords,
+                keySupport: false,
             %{--bgColor:     'black',--}%
                 bgOpacity:   .4,
             %{--minSize:[boxWidth,0],--}%
                 %{--maxSize:[boxWidth,0],--}%
                 boxWidth: boxWidth, boxHeight: 0,
                 setSelect:   [ 200, 200, 1001, 100 ],
-                aspectRatio: ${fileGroup.aspectRatio}},
-                function(){
-                    jcropApi = this;
-                }
+                aspectRatio: ${fileGroup.aspectRatio}
+            },
+            function(){
+                jcropApi = this;
+            }
             );
           }, 500);
     </uploader:onComplete>
@@ -74,8 +91,22 @@
 </uploader:uploader>
 
 <script>
-    function showCoords(c){
-       console.log(c)
+    function showCoords(coords){
+       console.log(coords)
+//        var $preview = $('#preview');
+//        if (parseInt(coords.w) > 0)
+//        {
+//            var rx = 100 / coords.w;
+//            var ry = 100 / coords.h;
+//            $preview.attr('src', $(".upload-modal-image").attr('src'))
+//
+//            $preview.css({
+//                width: Math.round(rx * 500) + 'px',
+//                height: Math.round(ry * 370) + 'px',
+//                marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+//                marginTop: '-' + Math.round(ry * coords.y) + 'px'
+//            }).show();
+//        }
     }
     function cropImage(){
         var selected = jcropApi.tellSelect()
@@ -112,6 +143,12 @@
     </g:if>
 </script>
 <input type="hidden" name="${name}" id="input_${imageId}" value="${value}"/>
+%{--<img src="" id="preview"/>--}%
+<div class="progress hidden" id="progresBar_${imageId}">
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+        0% Complete
+    </div>
+</div>
 <div class="modal fade uploadKuorumImage" id="modal_${imageId}">
     <div class="modal-dialog">
         <div class="modal-content">

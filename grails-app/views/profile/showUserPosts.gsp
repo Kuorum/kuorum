@@ -12,7 +12,7 @@
         <span class="user-name">${user.name}</span>
     </h1>
     <p><g:message code="profile.profileMyPosts.description"/></p>
-    <g:render template="leftMenu" model="[user:user, activeMapping:'profileNotifications', menu:menu]"/>
+    <g:render template="leftMenu" model="[user:user, activeMapping:'profileMyPosts', menu:menu]"/>
 
 </content>
 <content tag="mainContent">

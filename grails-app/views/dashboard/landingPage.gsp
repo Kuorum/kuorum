@@ -13,12 +13,28 @@
         <div class="container-fluid">
             <div class="col-xs-12 col-sm-7 col-md-7">
                 <div class="play">
-                    <a href="#" class="front"><span class="fa fa-play-circle fa-3x"></span>
-                    </a><g:message code="landingPage.youtube.play"/>
+                    <a href="#" data-toggle="modal" data-target="#videoHome" class="front"><span class="fa fa-play-circle fa-3x"></span></a> Dale al play y entérate
                 </div>
-                <iframe class="youtube" itemprop="video" height="360"
-                        src="//www.youtube.com/embed/fQDQO4VRpF8?fs=1&rel=0&showinfo=0&showsearch=0&autoplay=0"
-                        frameborder="0" allowfullscreen></iframe>
+                <div id="videoHome" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="video" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h2 class="sr-only modal-title" id="video">Vídeo explicativo de Kuorum.org</h2>
+                                <iframe class="youtube" itemprop="video" width="600" height="450" src="http://www.youtube.com/embed/fQDQO4VRpF8?fs=1&rel=0&showinfo=0&showsearch=0&autoplay=0" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /#videoHome -->
+
+
+                %{--<div class="play">--}%
+                    %{--<a href="#" class="front"><span class="fa fa-play-circle fa-3x"></span>--}%
+                    %{--</a><g:message code="landingPage.youtube.play"/>--}%
+                %{--</div>--}%
+                %{--<iframe class="youtube" itemprop="video" height="360"--}%
+                        %{--src="//www.youtube.com/embed/fQDQO4VRpF8?fs=1&rel=0&showinfo=0&showsearch=0&autoplay=0"--}%
+                        %{--frameborder="0" allowfullscreen></iframe>--}%
             </div>
 
             <div class="col-xs-12 col-sm-5 col-md-5">

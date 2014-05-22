@@ -13,6 +13,7 @@ import kuorum.post.Post
 import kuorum.web.commands.profile.ChangePasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.MailNotificationsCommand
+import kuorum.web.commands.profile.SocialNetworkCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 
@@ -138,7 +139,27 @@ class ProfileController {
 
     def socialNetworks() {
         KuorumUser user = params.user
-        [user:user]
+        SocialNetworkCommand command = new SocialNetworkCommand()
+        command.properties.each {
+            if (it.key!= "class" && user.socialLinks.hasProperty(it.key))
+                command."$it.key" = user.socialLinks."${it.key}"
+        }
+        [user:user, command: command]
+    }
+
+    def socialNetworksSave(SocialNetworkCommand command) {
+        KuorumUser user = params.user
+        if (command.hasErrors()){
+            render (view:'socialNetworks', model:[user:user, command: command])
+            return
+        }
+        command.properties.each {
+            if (it.key!= "class" && user.socialLinks.hasProperty(it.key))
+                user.socialLinks."${it.key}" = it.value
+        }
+        kuorumUserService.updateUser(user)
+        flash.message = "OK"
+        redirect mapping:'profileSocialNetworks'
     }
 
     def configurationEmails() {
@@ -176,12 +197,6 @@ class ProfileController {
         }else{
             [user:user,posts:posts, searchUserPosts:searchUserPosts]
         }
-    }
-    def showUserPostsSeeMore(SearchUserPosts searchUserPosts) {
-        KuorumUser user = params.user
-        searchUserPosts.user = user
-        List<Post> posts = postService.findUserPosts(searchUserPosts)
-        [user:user,posts:posts, searchUserPosts:searchUserPosts]
     }
 
     def kuorumStore() {

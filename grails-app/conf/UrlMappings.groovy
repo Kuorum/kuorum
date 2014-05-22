@@ -87,7 +87,7 @@ class UrlMappings {
         name profileEditUser:     "/mi-perfil"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
         name profileChangePass:   "/mi-perfil/cambiar-password" (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
         name profileChangeEmail:  "/mi-perfil/cambiar-email"    (controller: "profile", action: "changeEmail")
-        name profileSocialNetworks:"/mi-perfil/redes-sociales"  (controller: "profile", action: "socialNetworks")
+        name profileSocialNetworks:"/mi-perfil/redes-sociales"  (controller: "profile"){action=[GET:"socialNetworks",POST:"socialNetworksSave"]}
         name profileEmailNotifications:"/mi-perfil/notificaciones-por-email"(controller: "profile"){action=[GET:"configurationEmails",POST:"configurationEmailsSave"]}
         name profileFavorites:    "/mi-perfil/pendientes-de-leer"(controller: "profile", action: "showFavoritesPosts")
         name profileMyPosts:      "/mi-perfil/mis-posts"        (controller: "profile", action: "showUserPosts")

@@ -9,4 +9,7 @@
     <g:if test="${user.socialLinks?.googlePlus}">
         <li><span class="fa fa-google-plus fa-lg"></span> <a href="${user.socialLinks?.googlePlus}" target="_blank" rel="nofollow">${user.socialLinks?.googlePlus}</a></li>
     </g:if>
+    <g:if test="${user.socialLinks?.blog}">
+        <li><span class="fa fa-rss-square fa-lg"></span> <a href="${user.socialLinks?.blog}" target="_blank" rel="nofollow">${user.socialLinks?.googlePlus}</a></li>
+    </g:if>
 </ul>
