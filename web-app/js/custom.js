@@ -213,7 +213,7 @@ $(document).ready(function() {
             $('.likes .progress-bar').attr("aria-valuetransitiongoal",numLikes)
             $('.likes .progress-bar').attr("aria-valuenow",numLikes)
             $('.likes .progress-bar').attr("aria-valuemax",limitTo)
-            $('#drive > a').html('i18n.post.show.boxes.like.vote.buttonVoted').addClass('disabled');
+            $('#drive > a').html(i18n.post.show.boxes.like.vote.buttonVoted).addClass('disabled');
             $("#drive :input").attr("disabled", true);
             prepareProgressBar()
             setTimeout(prepareProgressBar, 500)
@@ -411,13 +411,6 @@ $(document).ready(function() {
 	$('.kakareo .front').click( function() {
 		$(this).next('.youtube').css('display', 'block');
 		$(this).remove();
-		return false;
-	});
-
-	// hacer clic en player del video en la home (.front)
-	$('.home .front').click( function() {
-		$(this).closest('.play').next('.youtube').css('display', 'block');
-		$(this).closest('.play').remove();
 		return false;
 	});
 
@@ -749,10 +742,10 @@ $(document).ready(function() {
 
 	// para los checkbox del formulario de registro
 	var texts= {
-        0: 'i18n.customRegister.step4.form.submit.description0',
-        1: 'i18n.customRegister.step4.form.submit.description1',
-        2: 'i18n.customRegister.step4.form.submit.description2',
-        ok:'i18n.customRegister.step4.form.submit.descriptionOk'
+        0: i18n.customRegister.step4.form.submit.description0,
+        1: i18n.customRegister.step4.form.submit.description1,
+        2: i18n.customRegister.step4.form.submit.description2,
+        ok:i18n.customRegister.step4.form.submit.descriptionOk
     }
 
     function changeDescriptionNumSelect(){
@@ -878,6 +871,31 @@ $(document).ready(function() {
             $("#numCorns").html(data.numCorns)
             $("#numPlumes").html(data.numPlumes)
         })
+    })
+
+    $("#deleteAccountForm a").on("click", function(e){
+        e.preventDefault()
+        $("#deleteAccountForm input[name=forever]").val("true")
+        $("#deleteAccountForm").submit()
+    })
+    $("#deleteAccountForm button").on("click", function(e){
+        e.preventDefault()
+        $("#deleteAccountForm input[name=forever]").val("false")
+        $("#deleteAccountForm").submit()
+    })
+    $("#videoHome").on('hidden.bs.modal', function (e) {
+        var iframe = $("#iframeVideo")[0].contentWindow;
+        func = 'pauseVideo';
+        //this is posible for this option on youtube video : enablejsapi=1
+        iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
+    })
+
+    $("#videoHome").on('shown.bs.modal', function (e) {
+        var iframe = document.getElementById("iframeVideo").contentWindow;
+        func = 'playVideo';
+        //this is posible for this option on youtube video : enablejsapi=1
+        iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
+//        $('#iframeVideo')[0].src += '&autoplay=1';
     })
 
     $('body').on("click", ".openModalVictory",function(e){

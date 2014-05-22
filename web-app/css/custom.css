@@ -868,7 +868,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .multimedia .video .fa {position: absolute; left: 40%; top: 33%; color: #fff; z-index: 999;}
 .multimedia .video .front {display: block; background-color: #000; position: relative;}
 .multimedia .video .front img {opacity: 0.3;}
-/*.youtube {width: 100%; display: none;}*/
+.multimedia .youtube {width: 100%; display: none;}
 #videoHome .modal-dialog {margin: 10% auto;}
 #videoHome .modal-dialog .modal-content {background: transparent;}
 #videoHome .modal-dialog .close {opacity: 1; color: #fff; margin: 0; position: absolute; top: -25px; right: 5px;}
@@ -2147,10 +2147,9 @@ textarea.error,
 .container-fluid.config {padding-top: 20px;}
 .container-fluid.config > section > header > h1 {font-size: 19px; font-size: 1.9rem;}
 .container-fluid.config > section > header > h1 .user-name {color: #545454; font-size: 25px; font-size: 2.5rem;}
-.container-fluid.config > section > header,
-.container-fluid.config > section > header > ul > li > a {color: #a8a8a8; padding: 4px 10px; display: block;}
 .container-fluid.config > section > header > ul {margin: 0; padding: 0;}
-.container-fluid.config > section > header > ul > li {margin: 0 0 20px 0; padding: 0; list-style: none;}
+.container-fluid.config > section > header > ul > li {margin: 0 0 20px 0; padding: 0; list-style: none; font-size: 14px; font-size: 1.4rem;}
+.container-fluid.config > section > header > ul > li > a {color: #a8a8a8; padding: 4px 8px; display: block;}
 .container-fluid.config > section > header > ul > li > a:hover,
 .container-fluid.config > section > header > ul > li > a:focus,
 .container-fluid.config > section > header > ul > li > a:active,
@@ -2295,18 +2294,36 @@ textarea.error,
 .kakareo.post.ley.ficha {
     margin: -12px 0 50px;
 }
-.boxes.votation .boxes > h1 {
-    font-size: 2.2rem;
+.boxes.vote.votation > h1 {
+  margin-top: 4px;
 }
 aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 #map {
-  width: 100%;
-  min-height: 223.78px;
+  width: 300px;
+  height: 256px;
+  margin: 30px 0 0 0;
+  /*border-top: solid 1px #dadada;*/
 }
 .jvectormap-zoomin,
 .jvectormap-zoomout {display: none;}
 
+.graphContainer {text-align: center; width: 100%; height: 205px; margin: 0; position: relative;}
+.graphContainer h2, .graphContainer p {position: relative; z-index: 9;}
+.graphContainer h2 {font-size: 13px; font-size: 1.3rem; text-transform: uppercase; margin: 95px 0 0 0;}
+.graphContainer p {margin: 0;}
+.graphContainer #placeholder {width: 100%; position: absolute; top: -75px; left: 0;}
+.graphContainer span,
+.graphContainer small {display: block;}
+.graphContainer small {color: #a8a8a8; margin: -2px 0 0 0;}
+.graphContainer .numberVotes {font-size: 44px; font-size: 4.4rem; line-height: 1;}
+.graphContainer .pendingVotes {display: inline;}
 
+.vote.votation .activity {padding: 10px 0; border-top: solid 1px #dadada; border-bottom: solid 1px #dadada;}
+.vote.votation .activity li {border-right: solid 1px #dadada; padding: 0;}
+.vote.votation .activity li:last-child {border: 0;}
+.vote.votation .activity li.favor {color: #93bfdb;}
+.vote.votation .activity li.contra {color: #213b47;}
+.vote.votation .activity li.abstencion {color: #d1d1d1;}
 
 
 
@@ -2585,7 +2602,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .othersPost #postNav .item {min-height: 107px;}
   .othersPost #postNav > a {padding: 44px 18px;}
 
-  #map {width: 475px; height: 544.53px;}
+  #map {width: 475px; height: 405px;}
 
 }
 
@@ -2669,7 +2686,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .config #config7 p {margin: 10px 0 0 0;}
   .config .saldo .activity {margin: 30px 0 0 0;}
 
-  #map {width: 730px; height: 544.53px;}
+  #map {width: 650px; height: 554px;}
 
   .columns2 {
     -moz-column-count: 2;

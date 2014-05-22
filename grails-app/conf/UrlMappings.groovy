@@ -96,7 +96,7 @@ class UrlMappings {
         name profileActivateAward:"/ajax/mi-perfil/el-gallinero/activar"     (controller: "profile", action: "kuorumStoreActivateAward")
         name profileNotifications:"/mi-perfil/notificaciones"   (controller: "profile", action: "userNotifications")
         name profileMessages:     "/mi-perfil/mensajes"         (controller: "profile", action: "userMessages")
-        name profileDeleteAccount:"/mi-perfil/eliminar"         (controller: "profile", action: "deleteAccount")
+        name profileDeleteAccount:"/mi-perfil/eliminar-cuenta"  (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
 
         name footerWhatIsKuorum:  "/kuorum/que-es"              (controller:"footer", action: "whatIsKuorum" )
         name footerUsingMyVote:   "/kuorum/para-que-sirve-mi-voto"(controller:"footer", action: "usingMyVote" )
