@@ -10,10 +10,7 @@ import kuorum.core.model.search.SearchNotifications
 import kuorum.core.model.search.SearchUserPosts
 import kuorum.notifications.Notification
 import kuorum.post.Post
-import kuorum.web.commands.profile.ChangePasswordCommand
-import kuorum.web.commands.profile.EditUserProfileCommand
-import kuorum.web.commands.profile.MailNotificationsCommand
-import kuorum.web.commands.profile.SocialNetworkCommand
+import kuorum.web.commands.profile.*
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 
@@ -28,6 +25,7 @@ class ProfileController {
     def postService
     def gamificationService
     def notificationService
+    def kuorumMailService
 
     def beforeInterceptor ={
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
@@ -253,8 +251,23 @@ class ProfileController {
 
     def deleteAccount(){
         KuorumUser user = params.user
-        [user:user]
-        render "MANDA UN EMAIL"
+        [user:user, command: new DeleteAccountCommand()]
     }
 
+    def deleteAccountPost(DeleteAccountCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors()){
+            render view:'deleteAccount', model:[user:user, command:command]
+            return;
+        }
+        kuorumMailService.sendFeedbackMail(user, command.explanation)
+        if (command.forever){
+            kuorumUserService.deleteAccount(user)
+            flash.message=message(code:'profile.deleteAccount.deleteForever.success')
+            redirect(mapping: 'logout')
+        }else{
+            flash.message=message(code:'profile.deleteAccount.oneChance.success')
+            redirect(mapping: 'home')
+        }
+    }
 }

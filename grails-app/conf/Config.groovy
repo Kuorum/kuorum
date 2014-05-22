@@ -245,6 +245,8 @@ grails {
 kuorum {
     contact{
         email="info@kuorum.org"
+        feedback="info@kuorum.org"
+        workWithUs="empleo@kuorum.org"
     }
     milestones{
         kuorum = 100

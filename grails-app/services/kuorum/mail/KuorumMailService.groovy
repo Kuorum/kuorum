@@ -22,7 +22,27 @@ class KuorumMailService {
     MailchimpService mailchimpService
     MessageSource messageSource
     IndexSolrService indexSolrService
+    def grailsApplication
 
+    def sendFeedbackMail(KuorumUser user, String feedback){
+        def bindings = [
+                feedbackUserLink:generateLink("userShow",user.encodeAsLinkProperties()),
+                feedbackUser:user.name,
+                feedbackText:feedback
+        ]
+        MailUserData mailUserData = new MailUserData(user:getFeedbackUser(), bindings:[])
+        MailData mailData = new MailData(fromName:user.name, mailType: MailType.FEEDBACK, globalBindings: bindings, userBindings: [mailUserData])
+        mandrillAppService.sendTemplate(mailData)
+    }
+
+    private KuorumUser getFeedbackUser(){
+        //Chapu
+        KuorumUser user = new KuorumUser(
+                name: "Feedback",
+                email: "${grailsApplication.config.kuorum.contact.feedback}",
+                availableMails: MailType.values()
+        )
+    }
 
     def sendRegisterUser(KuorumUser user, String confirmationLink){
         def bindings = [confirmationLink:confirmationLink]

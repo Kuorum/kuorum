@@ -873,6 +873,16 @@ $(document).ready(function() {
         })
     })
 
+    $("#deleteAccountForm a").on("click", function(e){
+        e.preventDefault()
+        $("#deleteAccountForm input[name=forever]").val("true")
+        $("#deleteAccountForm").submit()
+    })
+    $("#deleteAccountForm button").on("click", function(e){
+        e.preventDefault()
+        $("#deleteAccountForm input[name=forever]").val("false")
+        $("#deleteAccountForm").submit()
+    })
     $("#videoHome").on('hidden.bs.modal', function (e) {
         var iframe = $("#iframeVideo")[0].contentWindow;
         func = 'pauseVideo';
