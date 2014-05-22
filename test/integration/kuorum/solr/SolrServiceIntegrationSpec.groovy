@@ -81,13 +81,13 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             }
         where:
             params          | numResults    | numLaws | numUsers | firstSuggest
-        params[10]          | 3             | 1       | 0        | null
+        params[10]          | 1             | 1       | 0        | null
             params[0]       | 0             | 0       | 0        | "parques"
-            params[1]       | 3             | 1       | 0        | "parques"
-            params[2]       | 3             | 1       | 0        | "parques nacionales"
+            params[1]       | 1             | 1       | 0        | "parques"
+            params[2]       | 1             | 1       | 0        | "parques nacionales"
             params[3]       | 1             | 1       | 0        | "parques nacionales"
-            params[4]       | 2             | 0       | 0        | "parques nacionales"
-            params[5]       | 2             | 0       | 1        | "juanjo alvite"
+            params[4]       | 1             | 0       | 0        | "parques nacionales"
+            params[5]       | 1             | 0       | 1        | "juanjo alvite"
             params[6]       | 1             | 0       | 1        | "juanjo alvite"
             params[7]       | 0             | 0       | 0        | null
             params[8]       | 0             | 0       | 0        | null
@@ -105,8 +105,8 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
         laws.size() == numGroups
         where:
         regionName          | commission                | numGroups
-        "espana"            | CommissionType.JUSTICE    | 1
-        "espana"            | CommissionType.NUTRITION_AND_ENVIRONMENT   | 1
+        "espana"            | CommissionType.JUSTICE    | 2
+        "espana"            | CommissionType.ECONOMY    | 1
         "espana"            | CommissionType.DEFENSE    | 0
         "espana"            | null                      | 2
         "Madrid"            | CommissionType.DEFENSE    | 0

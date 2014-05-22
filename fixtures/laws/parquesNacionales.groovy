@@ -39,7 +39,7 @@ Asimismo se introducen excepciones que permitirán la navegación turística en 
         introduction="""
 Nuevo marco jurídico para la gestión de los Parques Naturales
 """
-        commissions = [CommissionType.JUSTICE, CommissionType.EMPLOY_AND_HEALTH_SERVICE]
+        commissions = [CommissionType.ECONOMY, CommissionType.EMPLOY_AND_HEALTH_SERVICE]
         region = spain
         published = Boolean.TRUE
         institution = parliament
