@@ -177,12 +177,6 @@ class ProfileController {
             [user:user,posts:posts, searchUserPosts:searchUserPosts]
         }
     }
-    def showUserPostsSeeMore(SearchUserPosts searchUserPosts) {
-        KuorumUser user = params.user
-        searchUserPosts.user = user
-        List<Post> posts = postService.findUserPosts(searchUserPosts)
-        [user:user,posts:posts, searchUserPosts:searchUserPosts]
-    }
 
     def kuorumStore() {
         KuorumUser user = params.user
