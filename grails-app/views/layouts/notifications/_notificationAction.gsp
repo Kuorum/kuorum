@@ -12,7 +12,7 @@
                     $(function(){
                         modalVictory.data.notification_${notification.id} = {
                             user: {
-                                name:"notification.kuorumUser.name",
+                                name:"${notification.kuorumUser.name}",
                                 imageUrl:"${image.userImgSrc(user:notification.kuorumUser)}"
                             },
                             defender:{
