@@ -62,7 +62,7 @@ class FacebookAuthServiceSpec  extends Specification {
         KuorumUser user = KuorumUser.findByEmail(MOCK_TESTING_EMAIL)
         user.avatar.local == Boolean.FALSE
         user == facebookUser.user
-        1 * kuorumMailServiceMock.sendRegisterUserViaRRSS(_)
+        1 * kuorumMailServiceMock.sendRegisterUserViaRRSS(_,service.PROVIDER)
         if (usersOnDB.contains(MOCK_TESTING_NAME)){
             user.personalData.studies == Studies.DOCTOR
         }else{

@@ -20,6 +20,7 @@ class FacebookAuthService {
     def mongoUserDetailsService
     def kuorumMailService
 
+    private static final PROVIDER = "Facebook"
     /**
      * Called first time an user register with facebook
      * @link http://splix.github.io/grails-spring-security-facebook/guide/5%20Customization.html
@@ -76,7 +77,7 @@ class FacebookAuthService {
         if (user.hasErrors() || facebookUser.hasErrors()){
             log.error("El usuario ${user} se ha logado usando faceboook y no se ha podido crear debido a estos errores: ${user.errors}" )
         }else{
-            kuorumMailService.sendRegisterUserViaRRSS(user)
+            kuorumMailService.sendRegisterUserViaRRSS(user, PROVIDER)
         }
         facebookUser
     }

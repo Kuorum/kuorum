@@ -21,7 +21,7 @@ class GoogleOAuthService implements IOAuthService{
     def kuorumMailService
 
     private static final String GOOLE_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v1/userinfo'
-    private static final String PROVIDER = 'google'
+    private static final String PROVIDER = 'Google'
 
     OAuthToken createAuthToken(accessToken) {
         def response = oauthService.getGoogleResource(accessToken, GOOLE_USER_INFO_URL)
@@ -42,9 +42,9 @@ class GoogleOAuthService implements IOAuthService{
         KuorumUser user = KuorumUser.findByEmail(googleUser.email)
         if (!user){
             user = createUser(googleUser)
-            OAuthID oAuthID = new OAuthID(provider:PROVIDER,accessToken:accessToken,user:user)
+            OAuthID oAuthID = new OAuthID(provider:PROVIDER.toLowerCase(),accessToken:accessToken,user:user)
             oAuthID.save()
-            kuorumMailService.sendRegisterUserViaRRSS(user)
+            kuorumMailService.sendRegisterUserViaRRSS(user,PROVIDER)
         }
         createAvatar(user, googleUser)
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
