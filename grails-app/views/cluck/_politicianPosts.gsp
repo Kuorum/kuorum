@@ -5,6 +5,7 @@
     <span class="type pull-left"><strong>${onomatopoeia}</strong></span>
 
     <g:if test="${defender}">
+        <span class="hidden-xs">${usersDesc}</span>
         <userUtil:showUser user="${defender}"/>
     </g:if>
     <g:elseif test="${debateUsers}">

@@ -128,9 +128,14 @@ class PostTagLib {
             showRecluckArrow = isPostImpotant(post) && cluck.owner !=post.owner
         }
 
-        if (post.defender){
+        if (post.defender && post.victory){
             def onomatopoeia = message(code:'post.show.victory.onomatopoeia')
-            out << render(template:'/cluck/politicianPosts', model:[recluck:showRecluckArrow, defender:post.defender,onomatopoeia:onomatopoeia])
+            def usersDesc = message(code:'post.show.victory.usersDescription')
+            out << render(template:'/cluck/politicianPosts', model:[recluck:showRecluckArrow, defender:post.defender,onomatopoeia:onomatopoeia,usersDesc:usersDesc])
+        }else if (post.defender && !post.victory){
+            def onomatopoeia = message(code:'post.show.defend.onomatopoeia')
+            def usersDesc = message(code:'post.show.defend.usersDescription')
+            out << render(template:'/cluck/politicianPosts', model:[recluck:showRecluckArrow, defender:post.defender,onomatopoeia:onomatopoeia,usersDesc:usersDesc])
         }else if(!post.debates.isEmpty()){
             def onomatopoeia = message(code:'post.show.debate.onomatopoeia')
             out << render(template:'/cluck/politicianPosts', model:[recluck:showRecluckArrow, debateUsers:post.debates.kuorumUser,onomatopoeia:onomatopoeia])
