@@ -348,6 +348,15 @@ $(document).ready(function() {
 	});
 
 
+    // Deshabilitar botón Impulsar (Post)
+    $('body').on("click", "#driveDefend .btn", function(e) {
+        e.preventDefault();
+        var anonymous = $("#drive :input").is(":checked")
+        var url = $(this).attr("href")
+        var postId = $(this).attr("data-postId")
+//        votePost(url, postId, anonymous)
+    });
+
 	// Deshabilitar botón Impulsar (Post)
 	$('body').on("click", "#drive .btn", function(e) {
 		e.preventDefault();
@@ -904,6 +913,12 @@ $(document).ready(function() {
         modalVictory.openModal(notificationId)
     });
 
+    $('body').on("click", ".openModalDefender",function(e){
+        e.preventDefault()
+        var postId = $(this).attr("data-postId")
+        modalDefend.openModal(postId)
+    });
+
     $('.modalVictoryClose').on("click", function(e){
         e.preventDefault()
         $('#modalVictory').modal('hide');
@@ -912,11 +927,34 @@ $(document).ready(function() {
 
 });
 
+var modalDefend = {
+    data:{},
+    openModal:function(postId){
+        var modalData = this.data['post_'+postId]
+        console.log(modalData)
+        $("#modalDefenderPolitician img").attr('src',modalData.defender.imageUrl)
+        $("#modalDefenderPolitician img").attr('alt',modalData.defender.name)
+        $("#modalDefenderPolitician #sponsorLabel").html(modalData.post.sponsorLabel)
+        $("#modalDefenderPolitician h1").html(modalData.defender.name)
+        $("#modalDefenderOwner img").attr('src',modalData.owner.imageUrl)
+        $("#modalDefenderOwner img").attr('alt',modalData.owner.name)
+        $("#modalDefenderOwner .name").html(modalData.owner.name)
+        $("#modalDefenderOwner .what").html(modalData.post.what)
+        $("#modalDefenderOwner .action span").html(modalData.post.numVotes)
+        $("#modalSponsor .modal-body").children("p").html(modalData.post.description)
+        $("#modalSponsor .modal-body").children("div").each(function(i,buttonElement){
+            var dataButton = modalData.post.options[i]
+            $(buttonElement).children("a").html(dataButton.textButton)
+            $(buttonElement).children("a").attr('href',dataButton.defendLink)
+            $(buttonElement).children("p").html(dataButton.textDescription)
+        })
+    }
+}
+
 var modalVictory = {
     data:{},
     openModal:function(notificationId){
         var modalData = this.data['notification_'+notificationId]
-        console.log(modalData)
         $("#modalVictoryUser img").attr('src',modalData.user.imageUrl)
         $("#modalVictoryUser img").attr('alt',modalData.user.name)
         $("#modalVictoryDefender img").attr('src',modalData.defender.imageUrl)

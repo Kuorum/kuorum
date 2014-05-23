@@ -64,10 +64,10 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
         return loadUserByUsername(username, true)
     }
 
-    protected UserDetails createUserDetails(user, Collection authorities) {
-        new GrailsUser(user.email, user.password, user.enabled,
+    protected KuorumUserSession createUserDetails(user, Collection authorities) {
+        new KuorumUserSession(user.email, user.password, user.enabled,
                 !user.accountExpired, !user.passwordExpired,
-                !user.accountLocked, authorities, user.id)
+                !user.accountLocked, authorities, user.id, user.name)
     }
 
     UserDetails createUserDetails(KuorumUser user, Boolean loadRoles = Boolean.TRUE){
@@ -88,5 +88,15 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
             log.debug("KuorumUser roles: $roles")
         }
         roles
+    }
+}
+
+public class KuorumUserSession extends GrailsUser{
+    String name
+    public KuorumUserSession(String username, String password, boolean enabled, boolean accountNonExpired,
+                      boolean credentialsNonExpired, boolean accountNonLocked,
+                      Collection<GrantedAuthority> authorities, Object id, String name) {
+        super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities, id);
+        this.name = name;
     }
 }

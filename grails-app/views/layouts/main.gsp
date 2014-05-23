@@ -119,6 +119,45 @@
     </div>
 </aside>
 
+<aside class="modal fade" id="modalSponsor" tabindex="-1" role="dialog" aria-labelledby="sponsorLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/> </span></button>
+                <div class="col" id="modalDefenderPolitician">
+                    <img class="user-img big" alt="nombre" src="images/user.jpg">
+                    <h1>Nombre del político</h1>
+                    <h2>Tú puedes darles voz</h2>
+                    <h3 id="sponsorLabel">Apadrina esta historia</h3>
+                </div>
+                <div class="col" id="modalDefenderOwner">
+                    <span class="fdoDiagonal"></span>
+                    <div itemtype="http://schema.org/Person" itemscope class="user">
+                        <img itemprop="image" class="user-img big" alt="nombre" src="images/user.jpg">
+                        <span class="name" itemprop="name">Nombreeeee usuuuario</span>
+                        <span class="what">escribió esta historia</span>
+                        <span class="action">y <span>1245</span> personas la impulsaron</span>
+                    </div>
+                </div>
+            </div><!-- /.modal-header -->
+            <div class="modal-body">
+                <p><strong>Fulanito de tal</strong> escribió esta historia y <strong>876 personas</strong> la impulsaron. El compromiso con los electores es tu mayor activo político, elige una de las siguientes opciones para ayudar a tus representados.</p>
+                <div>
+                    <a href="#" class="btn btn-grey btn-lg">Llévala <br>a tu institución</a>
+                    <p>Te comprometes a ...hora te toca a ti decir si ese compromiso se ha llevado a fin o no. Si lo tienes claro da la victoria a Fulanito porque nos ha escuchado y se lo merece en caso contrario puedes esperar un tiempo mas o rechazar la victoria. Porque tú sabes si se hizo realidad.</p>
+                </div>
+                <div>
+                    <a href="#" class="btn btn-grey btn-lg">Invita al autor<br> a comparecer</a>
+                    <p>Te comprometes a ...hora te toca a ti decir si ese compromiso se ha llevado a fin o no. Si lo tienes claro da la victoria a Fulanito porque nos ha escuchado y se lo merece en caso contrario puedes esperar un tiempo mas o rechazar la victoria. Porque tú sabes si se hizo realidad..</p>
+                </div>
+                <div>
+                    <a href="#" class="btn btn-grey btn-lg">Cita al autor<br> para una audiencia</a>
+                    <p>Te comprometes a ...hora te toca a ti decir si ese compromiso se ha llevado a fin o no. Si lo tienes claro da la victoria a Fulanito porque nos ha escuchado y se lo merece en caso contrario puedes esperar un tiempo mas o rechazar la victoria. Porque tú sabes si se hizo realidad.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
 
 </body>
 </html>

@@ -92,7 +92,6 @@ small, .small {font-size: 75%;}
   background: url('../images/loading@2x.gif') center center / 17px auto no-repeat transparent;
   padding: 0;
   height: 19px;
-  width:50px;
 }
 .loadingSearch {
   color: #a8a8a8;
@@ -443,7 +442,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .social li {display: inline-block;}
 .licenses li {float: right; margin-left: 14px;}
 .collabor li {margin-right: 8px;}
-.social li {margin-right: 5px; font-size: 18.5px; font-size: 1.85rem;}
+.social li {margin-right: 8px; font-size: 18.5px; font-size: 1.85rem;}
 .social li:last-child {margin-right: 0;}
 
 .ethz, .delhap {display: block; background-size: 95px 65px !important; text-indent: -9999rem;}
@@ -1203,10 +1202,6 @@ textarea.error,
 .uploadKuorumImage .modal-footer .btn {
   margin: 0 0 0 10px !important;
 }
-.uploadKuorumImage img {
-    width: auto;
-    height: auto;
-}
 
 
 /* karma */
@@ -1262,13 +1257,7 @@ textarea.error,
 #modalVictory .modal-header .user {margin: 0; position: relative; width: 100%;}
 #modalVictory .modal-header .user > .user-img.big {width: 70px; height: 70px; border-color: #ff9431; margin: 0 10px 4px 0;}
 #modalVictory .modal-header > .col:last-child .user > span {display: block;}
-#modalVictory .modal-header > .col:last-child .user > .name {
-  font-size: 18px; font-style: 1.8rem;
-  text-overflow: ellipsis; /* pone [...] al final si no cabe */
-  width: 190px;
-  white-space: nowrap;
-  overflow:hidden; /* para old browser */
-}
+#modalVictory .modal-header > .col:last-child .user > .name {font-size: 18px; font-style: 1.8rem; text-overflow: ellipsis; /* pone [...] al final si no cabe */ width: 190px; white-space: nowrap; overflow:hidden; /* para old browser */}
 #modalVictory .modal-header > .col:last-child .user > .what {color: #ff9431;}
 #modalVictory .fdoDiagonal {width: 0; height: 0; border-bottom: 110px solid #faebcc; border-left: 60px solid transparent; position: absolute; top: 0; left: -60px; display: none;}
 #modalVictory .modal-body {margin-top: 90px;}
@@ -1280,6 +1269,33 @@ textarea.error,
 #modalVictory .modal-footer a small {display: block;}
 #modalVictory .modal-footer .btn + .cancel {margin: 10px 0 0 6px !important; display: block !important; float: right; color: #545454 !important;}
 
+
+/* Modal Apadrinar */
+#modalSponsor .modal-header > .close {position: absolute; top: 5px; right: 5px; z-index: 999; color: #fff;}
+#modalSponsor .modal-header .col {width: 100%; margin: 0; float: left; padding: 10px; position: relative;}
+#modalSponsor .modal-header > .col:last-child {background-color: #faebcc; color: #545454;}
+#modalSponsor .modal-header {position: relative; background-color: #ff9431; padding: 0; color: #fff; height: 110px;}
+#modalSponsor .modal-header img {float: left; border: solid 4px #fff; margin-top: 0;}
+#modalSponsor .modal-header h1 {font-size: 16px; font-style: 1.6rem; margin: 12px 0 6px 0;}
+#modalSponsor .modal-header h2 {font-family: 'League Gothic', Arial, sans-serif; font-size: 26px; font-style: 2.6rem; text-transform: uppercase; margin-bottom: 0; margin-top: 5px; line-height: 1;}
+#modalSponsor .modal-header h3 {font-size: 16px; font-style: 1.6rem; margin: 0; color: #faebcc;}
+#modalSponsor .modal-header .user-img.big {width: 90px; height: 90px; margin: 0 10px 0 0;}
+#modalSponsor .modal-header .user {margin: 0; position: relative; width: 100%;}
+#modalSponsor .modal-header .user > .user-img.big {width: 70px; height: 70px; border-color: #ff9431; margin: 0 10px 4px 0;}
+#modalSponsor .modal-header > .col:last-child .user > span {display: block;}
+#modalSponsor .modal-header > .col:last-child .user > .name {font-size: 16px; font-style: 1.6rem; text-overflow: ellipsis; /* pone [...] al final si no cabe */ width: 190px; white-space: nowrap; overflow:hidden; /* para old browser */}
+#modalSponsor .modal-header > .col:last-child .user > .what,
+#modalSponsor .modal-header > .col:last-child .user > .action {font-size: 12px; font-style: 1.2rem;}
+#modalSponsor .modal-header > .col:last-child .user > .action {line-height: 1;}
+#modalSponsor .modal-header > .col:last-child .user > .action span {font-size: 20px; font-style: 2rem;}
+#modalSponsor .fdoDiagonal {width: 0; height: 0; border-bottom: 110px solid #faebcc; border-left: 60px solid transparent; position: absolute; top: 0; left: -60px; display: none;}
+#modalSponsor .modal-body {margin-top: 90px;}
+#modalSponsor .modal-body > p:first-child {color: #a8a8a8;}
+#modalSponsor .modal-body > p:first-child strong {color: #545454; font-weight: normal;}
+#modalSponsor .modal-body > p:last-child {font-size: 22px; font-size: 2.2rem;}
+#modalSponsor .modal-body > p > a {color: #ff9431;}
+#modalSponsor .modal-body > div > p {font-size: 14px; font-size: 1.4rem; line-height: 1.2;}
+#modalSponsor .modal-body .btn {display: block; margin: 0 0 10px 0 !important; padding: 18px 10px !important;}
 
 
 /* páginas de entrar y registro, con layout de 1 columna */
@@ -2307,7 +2323,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 .jvectormap-zoomin,
 .jvectormap-zoomout {display: none;}
 
-.graphContainer {text-align: center; width: 100%; height: 205px; margin: 0; position: relative;}
+.graphContainer {text-align: center; width: 100%; height: 200px; margin: 0; position: relative;}
 .graphContainer h2, .graphContainer p {position: relative; z-index: 9;}
 .graphContainer h2 {font-size: 13px; font-size: 1.3rem; text-transform: uppercase; margin: 95px 0 0 0;}
 .graphContainer p {margin: 0;}
@@ -2321,11 +2337,26 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 .vote.votation .activity {padding: 10px 0; border-top: solid 1px #dadada; border-bottom: solid 1px #dadada;}
 .vote.votation .activity li {border-right: solid 1px #dadada; padding: 0;}
 .vote.votation .activity li:last-child {border: 0;}
-.vote.votation .activity li.favor {color: #93bfdb;}
-.vote.votation .activity li.contra {color: #213b47;}
-.vote.votation .activity li.abstencion {color: #d1d1d1;}
+.vote.votation .favor {color: #93bfdb;}
+.vote.votation .contra {color: #213b47;}
+.vote.votation .abstencion {color: #d1d1d1;}
 
+.segmentation {width: 100%; margin: 10px 0 0 0;}
+.segmentation caption {font-size: 20px; font-size: 2rem;}
+.segmentation th, .segmentation td {text-align: center;}
+.segmentation th {font-size: 40px; font-size: 4rem;}
+.segmentation th > span {background-image: url("../images/segmentation.png"); background-repeat: no-repeat; background-color: transparent; width: 56px; height: 56px; display: block; margin: 0 auto;}
+.segmentation th.hombre > span {background-position: 0 0;}
+.segmentation th.mujer > span {background-position: 0 -77px;}
+.segmentation th.todos > span {background-position: 0 -161px;}
+.segmentation tr td > span {display: block; font-size: 34px; font-size: 3.4rem; line-height: 1.1;}
 
+.infoVotation {margin: 22px 0 20px 0; border-top: solid 1px #dadada; padding: 30px 0 0 0;}
+.infoVotation dd {margin-bottom: 20px;}
+
+.moreInfo {margin: 30px 0 20px 0; border-top: solid 1px #dadada; padding: 30px 0 0 0;}
+.moreInfo dt {font-size: 18px; font-size: 1.8rem; font-weight: normal;}
+.moreInfo dd {font-size: 36px; font-size: 3.6rem; margin-bottom: 20px;}
 
 
 /* clases especiales accesibilidad =========== */
@@ -2395,6 +2426,17 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   #modalVictory .modal-header > .close {color: #ff9431;}
   #modalVictory .modal-header .user {margin: 16px 0 0 0;}
   #modalVictory .modal-header .user {width: 100%;}
+
+  #modalSponsor .modal-body {margin-top: 0;}
+  #modalSponsor .modal-header .col {width: 60%;}
+  #modalSponsor .modal-header > .col:last-child {width: 40%;}
+  #modalSponsor .fdoDiagonal {display: block;}
+  #modalSponsor .modal-header .user > .user-img.big {margin: 0 10px 4px -70px;}
+  #modalSponsor .modal-header > .close {color: #ff9431;}
+  #modalSponsor .modal-header .user {margin: 16px 0 0 0;}
+  #modalSponsor .modal-header .user {width: 100%;}
+  #modalSponsor .modal-body .btn {display: inline-block; float: left; font-size: 15px !important; font-size: 1.5rem !important; width: 165px; height: 80px; margin: 0 10px 0 0 !important; padding: 22px 10px !important;}
+
 }
 
 /* Small devices (tablets, 768px and up) */

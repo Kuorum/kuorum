@@ -327,6 +327,14 @@ class PostController {
             }
         }
     }
+    @Secured("ROLE_POLITICIAN")
+    def addDefender() {
+        Post post = params.post
+        KuorumUser politician = KuorumUser.get(springSecurityService.principal.id)
+        String postTypeText = message(code:"${PostType.class.name}.${post.postType}")
+        flash.message = message(code:'modalDefend.success', args:[postTypeText])
+        redirect (mapping:"postShow", params:post.encodeAsLinkProperties())
+    }
 
     @Secured('isAuthenticated()')
     def addVictory() {

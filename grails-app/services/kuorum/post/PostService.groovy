@@ -370,4 +370,20 @@ class PostService {
         notificationService.sendPostDefendedNotification(post)
         post
     }
+
+    /**
+     * This function simulates ACLs for post, and which politicians can work as politician on this post.
+     *
+     * If user is not politician => FALSE
+     * If politician is not of the same institucion => False
+     * Otherwise => True
+     *
+     * @param post
+     * @param user
+     * @return
+     */
+    Boolean isUserAPoliticianForLawPost(Post post, KuorumUser politician){
+        politician.userType == UserType.POLITICIAN &&
+        politician.institution == post.law.institution
+    }
 }

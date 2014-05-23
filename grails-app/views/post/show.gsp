@@ -55,17 +55,7 @@
         <div class="sponsor">
             <userUtil:showListUsers users="${usersVotes}" visibleUsers="5" messagesPrefix="post.show.boxes.like.userList"/>
         </div>
-        <form id="drive">
-            <g:link mapping="postVoteIt" class="${userVote?'disabled':''} btn  ${important?:'btn-blue'} btn-lg btn-block" params="${post.encodeAsLinkProperties()}" data-postId="${post.id}">
-                <g:message code="post.show.boxes.like.vote.${userVote?'buttonVoted':'button'}" encodeAs="raw"/>
-            </g:link>
-            <div class="form-group">
-                <label class="checkbox-inline">
-                    <input type="checkbox" name="anonymous" value="private" ${userVote?'disabled':''} ${userVote?.anonymous?'checked':''}/>
-                    <g:message code="post.show.boxes.like.vote.anonymousCheckBoxLabel"/>
-                </label>
-            </div>
-        </form>
+        <g:render template="/post/postVotePostButton" model="[post:post, userVote:userVote, important:important]"/>
 
         <g:render template="postSocialShare" model="[post:post]"/>
 
