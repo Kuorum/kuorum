@@ -2,6 +2,7 @@
     <li><g:message code="head.navigation.userMenu.title"/></li>
     <li><g:link mapping="profileEditUser" itemprop="url"><g:message code="head.navigation.userMenu.editUser"/></g:link></li>
     <li><g:link mapping="profileChangePass"><g:message code="head.navigation.userMenu.changePassword"/></g:link></li>
+    <li><g:link mapping="profileNotifications"><g:message code="head.navigation.userMenu.userNotifications"/></g:link></li>
     <li><g:link mapping="profileEmailNotifications"><g:message code="head.navigation.userMenu.configurationEmails"/></g:link></li>
     <li>
         <g:link mapping="profileFavorites">
@@ -16,7 +17,6 @@
         </g:link>
     </li>
     <li><g:link mapping="profileKuorumStore"><g:message code="head.navigation.userMenu.kuorumStore"/></g:link></li>
-    <li><g:link mapping="profileNotifications"><g:message code="head.navigation.userMenu.userNotifications"/></g:link></li>
     <li>
         <g:link mapping="profileMessages">
             <span id="messages-user"><g:message code="head.navigation.userMenu.userMessages"/></span>
