@@ -541,7 +541,7 @@ $(document).ready(function() {
 		e.preventDefault();
 //		$('.listComments > li:gt(2)').fadeIn('slow');
 		$('.listComments > li').fadeIn('slow');
-		$('#ver-mas').remove();
+		$('#ver-mas').hide();
 	});
     $("#addComment").on('submit', function(e){
         e.preventDefault()
@@ -562,6 +562,7 @@ $(document).ready(function() {
                 .done(function(data, status, xhr) {
                     parent.append(data)
                     $('#ver-mas a').click()
+                    form[0].reset()
                     $("html, body").animate({ scrollTop: parent.children().last().prev().offset().top }, 1000);
                 })
                 .fail(function(data) {
