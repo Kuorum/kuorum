@@ -13,7 +13,8 @@
         <div class="container-fluid">
             <div class="col-xs-12 col-sm-7 col-md-7">
                 <div class="play">
-                    <a href="#" data-toggle="modal" data-target="#videoHome" class="front"><span class="fa fa-play-circle fa-3x"></span></a><g:message code="landingPage.youtube.play"/>
+                    <a href="#" data-toggle="modal" data-target="#videoHome" class="front"><span class="fa fa-play-circle fa-3x"></span></a>
+                    <g:message code="landingPage.youtube.play"/>
                 </div>
                 <div id="videoHome" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="video" aria-hidden="true">
                     <div class="modal-dialog">
