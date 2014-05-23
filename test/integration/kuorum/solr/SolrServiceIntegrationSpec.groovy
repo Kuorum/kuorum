@@ -56,13 +56,14 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             }
             results.facets.size() > 0
             facets.collect{id,val->
-                results.facets.find{it.facetName==id}.hits == val
+                def facetResult = results.facets.find{it.facetName==id}?.hits?:0
+                facetResult == val
             }.find{it}
 
         where: "Username with params...."
             params      | quantity  | facets
             params[0]   | 0         | ["${SolrType.KUORUM_USER}":0,"${SolrType.LAW}":0, "${SolrType.POST}":0]
-            params[1]   | 3         | ["${SolrType.KUORUM_USER}":0,"${SolrType.LAW}":1, "${SolrType.POST}":2,"${SolrSubType.PURPOSE}":2]
+            params[1]   | 1         | ["${SolrType.KUORUM_USER}":0,"${SolrType.LAW}":1, "${SolrType.POST}":2,"${SolrSubType.PURPOSE}":2]
             params[3]   | 1         | ["${SolrType.KUORUM_USER}":0,"${SolrType.LAW}":1, "${SolrType.POST}":0,"${SolrSubType.PURPOSE}":0]
     }
 
@@ -86,7 +87,7 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             params[1]       | 1             | 1       | 0        | "parques"
             params[2]       | 1             | 1       | 0        | "parques nacionales"
             params[3]       | 1             | 1       | 0        | "parques nacionales"
-            params[4]       | 1             | 0       | 0        | "parques nacionales"
+            params[4]       | 0             | 0       | 0        | "parques nacionales"
             params[5]       | 1             | 0       | 1        | "juanjo alvite"
             params[6]       | 1             | 0       | 1        | "juanjo alvite"
             params[7]       | 0             | 0       | 0        | null
@@ -100,12 +101,12 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
         given:"Region"
         SearchLaws searchLaws = new SearchLaws(regionName:regionName, commissionType: commission)
         when:"search for "
-        List<SolrLawsGrouped>  laws = searchSolrService.listLaws(searchLaws)
+        List<SolrLawsGrouped>  lawsGrouped = searchSolrService.listLaws(searchLaws)
         then:
-        laws.size() == numGroups
+        lawsGrouped.size() == numGroups
         where:
         regionName          | commission                | numGroups
-        "espana"            | CommissionType.JUSTICE    | 2
+        "espana"            | CommissionType.JUSTICE    | 1
         "espana"            | CommissionType.ECONOMY    | 1
         "espana"            | CommissionType.DEFENSE    | 0
         "espana"            | null                      | 2
