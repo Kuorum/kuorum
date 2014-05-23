@@ -26,7 +26,6 @@
 
 
 <content tag="mainContent">
-    <g:render template="/register/registerSocial"/>
     <h2><g:message code="login.email.label"/> </h2>
     <form id="login" role="form" action='${postUrl}' method='POST'>
         <div class="form-group">
@@ -48,6 +47,7 @@
             <input type="submit" class="btn btn-grey btn-lg" value="${g.message(code:'login.email.form.login')}"/>
         </div>
     </form>
+    <g:render template="/register/registerSocial2"/>
     <script type='text/javascript'>
         (function() {
             document.forms['login'].elements['j_username'].focus();
