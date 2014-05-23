@@ -85,7 +85,7 @@ class CluckServiceIntegrationSpec extends Specification{
             "juanjoalvite@example.com"      | 3
             "peter@example.com"             | 1
             "equo@example.com"              | 2
-            "politician@example.com"        | 1
+            "politician@example.com"        | 2
             "admin@example.com"             | 0
     }
 
