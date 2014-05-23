@@ -61,7 +61,7 @@
         <div class="form-group">
             <label class="checkbox-inline">
                 <input type="checkbox" name="conditions" id="accept" value="true" class="${hasErrors(bean: command, field: 'conditions', 'error')}">
-                <g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse'),g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
+                <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
 
                 <g:if test="${hasErrors(bean: command, field: 'conditions', 'error')}">
                     <span for="password" class="error">${g.fieldError(bean: command, field: 'conditions')}</span>
