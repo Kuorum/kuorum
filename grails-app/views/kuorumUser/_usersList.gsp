@@ -1,4 +1,4 @@
-${messages.intro}
+<span class="hidden-xs">${messages.intro}</span>
 <ul class="user-list-images">
     <g:each in="${visibleUsersList}" var="user">
         <li itemtype="http://schema.org/Person" itemscope="" itemprop="contributor">

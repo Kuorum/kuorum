@@ -6,11 +6,11 @@
 
 <content tag="headButtons">
     <ul class="nav navbar-nav navbar-right">
-        <li class="underline">
-            <g:link mapping="footerWhatIsKuorum" class="navbar-link">
-                <g:message code="page.title.footer.whatIsKuorum"/>
-            </g:link>
-        </li>
+        %{--<li class="underline">--}%
+            %{--<g:link mapping="footerWhatIsKuorum" class="navbar-link">--}%
+                %{--<g:message code="page.title.footer.whatIsKuorum"/>--}%
+            %{--</g:link>--}%
+        %{--</li>--}%
         <li>
             <g:link mapping="register" class="btn">
                 <g:message code="login.head.register"/>
