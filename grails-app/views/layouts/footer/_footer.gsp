@@ -72,7 +72,7 @@
         <div class="container">
             <div class="col-xs-12 col-sm-8 col-md-8">
                 <ul class="social">
-                    <li><g:message code="layout.footer.followUs"/> </li>
+                    <li class="hidden-xs"><g:message code="layout.footer.followUs"/></li>
                     <li><a href="https://twitter.com/kuorumorg" target="_blank"><span class="sr-only">Twitter</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-twitter fa-stack-1x"></span></span></a></li>
                     <li><a href="https://www.facebook.com/kuorumorg" target="_blank"><span class="sr-only" target="_blank">Facebook</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span></a></li>
                     <li><a href="http://www.linkedin.com/company/kuorum" target="_blank"><span class="sr-only" target="_blank">LinkedIn</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li>

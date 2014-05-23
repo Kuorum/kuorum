@@ -443,7 +443,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .social li {display: inline-block;}
 .licenses li {float: right; margin-left: 14px;}
 .collabor li {margin-right: 8px;}
-.social li {margin-right: 8px; font-size: 18.5px; font-size: 1.85rem;}
+.social li {margin-right: 5px; font-size: 18.5px; font-size: 1.85rem;}
 .social li:last-child {margin-right: 0;}
 
 .ethz, .delhap {display: block; background-size: 95px 65px !important; text-indent: -9999rem;}

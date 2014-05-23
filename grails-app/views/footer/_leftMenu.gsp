@@ -1,5 +1,5 @@
 <nav>
-    <ul>
+    <ul class="hidden-xs">
         <li>
             <h1><g:message code="layout.footer.aboutKuorum"/></h1>
         </li>
