@@ -811,7 +811,7 @@ $(document).ready(function() {
         var formId = link.attr('data-form-id')
         url += '?'+$('#'+formId).serialize()
 		var parentId = link.attr('data-parent-id')
-		var offset = link.attr('data-offset') || 10
+		var offset = $.parseJSON(link.attr('data-offset') || 10 ) //Para que sea un integer
 		var loadingId = parentId+"-loading"
 		var parent = $("#"+parentId)
 		parent.append('<div class="loading" id="'+loadingId+'"><span class="sr-only">Cargando...</span></div>')
@@ -826,7 +826,7 @@ $(document).ready(function() {
 		})
 		.done(function(data, status, xhr) {
 			parent.append(data)
-			var moreResults = xhr.getResponseHeader('moreResults')
+			var moreResults = $.parseJSON(xhr.getResponseHeader('moreResults')) //Para que sea un bool
 			link.attr('data-offset', offset +10)
 			if (moreResults){
 				link.remove()

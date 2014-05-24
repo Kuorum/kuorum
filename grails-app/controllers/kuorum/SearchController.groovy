@@ -118,7 +118,7 @@ class SearchController{
         searchParams.word = params.wordOrg
         searchParams.validate()
         SolrResults docs = searchSolrService.search(searchParams)
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${docs.elements.size()<=searchParams.max}")
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${docs.numResults-searchParams.offset<=searchParams.max}")
         render template: '/search/searchElement', model:[docs:docs.elements, searchParams:searchParams]
     }
 

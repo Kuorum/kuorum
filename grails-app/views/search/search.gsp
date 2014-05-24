@@ -22,11 +22,18 @@
         <g:render template="searchElement" model="[docs:docs.elements]"/>
     </ul>
 
-    <div id="load-more" class="text-center">
-        <g:link mapping="searcherSearchSeeMore" class="loadMore" data-parent-id="search-list-id" data-form-id="search-form">
-            <g:message code="search.list.seeMore"/>
-        </g:link>
-    </div>
+    <nav:loadMoreLink
+            formId="search-form"
+            mapping="searcherSearchSeeMore"
+            parentId="search-list-id"
+        pagination="${searchParams}"
+        numElements="${docs.numResults}"
+    />
+    %{--<div id="load-more" class="text-center">--}%
+        %{--<g:link mapping="searcherSearchSeeMore" class="loadMore" data-parent-id="search-list-id" data-form-id="search-form">--}%
+            %{--<g:message code="search.list.seeMore"/>--}%
+        %{--</g:link>--}%
+    %{--</div>--}%
 </content>
 
 <content tag="leftMenu">
