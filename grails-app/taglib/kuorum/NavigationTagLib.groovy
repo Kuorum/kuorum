@@ -1,6 +1,7 @@
 package kuorum
 
 import kuorum.core.model.search.Pagination
+import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 
 class NavigationTagLib {
     static defaultEncodeAs = 'raw'
@@ -9,11 +10,12 @@ class NavigationTagLib {
     static namespace = "nav"
 
     def springSecurityService
+    LinkGenerator grailsLinkGenerator
 
     def ACTIVE_ACTIONIS=[
-            [mappingName: "discover", controller:"dashboard", action:"discover", onlyLogged:false],
-            [mappingName: "home", controller:null, action:null, onlyLogged:true], // TODO: Chapu. Including an action in a gsp, the controller and the action are null.
-            [mappingName: "footerWhatIsKuorum", controller:"footer", action:"whatIsKuorum", onlyLogged:false]
+            [mappingName: "discover",  onlyLogged:false],
+            [mappingName: "home", onlyLogged:true],
+            [mappingName: "footerWhatIsKuorum", onlyLogged:false]
     ]
 
     /**
@@ -21,8 +23,9 @@ class NavigationTagLib {
      */
     def activeMenuCss = { attrs ->
         String mappingName = attrs.mappingName
-        def activeMenu = ACTIVE_ACTIONIS.find{it.controller == params.controller && it.action == params.action}
-        if (activeMenu && mappingName == activeMenu.mappingName){
+        String url = grailsLinkGenerator.link(mapping:mappingName,absolute: true)
+        def activeMenu = ACTIVE_ACTIONIS.find{it.mappingName == mappingName}
+        if (request.getRequestURL().toString() == url){
             if (!activeMenu.logged || activeMenu.logged && springSecurityService.isLoggedIn()){
                 out << "active"
             }
