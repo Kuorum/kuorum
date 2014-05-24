@@ -5,31 +5,96 @@ dbOrigin = connect("localhost:27017/KuorumWeb");
 dbDest = connect("localhost:27017/KuorumDev");
 
 
+var numFacebook = 0
+var numFacebookError = 0
 dbOrigin.facebookUser.find().forEach(function(facebookUser){
     var user = dbOrigin.secUser.find({_id:facebookUser.user})[0]
     if (user.enabled && !user.accountLocked){
         var kuorumUser = createKuorumUserFromOldUser(user)
-        print("usuario de facebook creado:"+kuorumUser.email)
+//        print("usuario de facebook creado:"+kuorumUser.email)
         dbDest.facebookUser.insert(facebookUser)
         dbDest.kuorumUser.insert(kuorumUser)
+        var err = dbDest.runCommand( { getLastError: 1, j: "true" }).err
+        if (err){
+            print(err + " => "+user.username)
+            numFacebookError++
+        }else{
+            numFacebook++
+        }
     }else{
         print("usuario de facebook no activo:"+user.username)
     }
 
 })
 
+var numSkipped = 0
+var numLoaded = 0
+var numLocked = 0
+var numDisabled = 0
+//dbOrigin.secUser.find({enabled:true, accountLocked:false}).forEach(function(user){
+dbOrigin.secUser.find().forEach(function(user){
 
-dbOrigin.secUser.find({enabled:true, accountLocked:false}).forEach(function(user){
+    if (!user.enabled){
+        print("usuario desactivado:"+user.username)
+        numDisabled++
+        return
+    }
+    if (user.accountLocked){
+        print("usuario bloqueado:"+user.username)
+        numLocked++
+        return
+    }
     var kuorumUser = createKuorumUserFromOldUser(user)
     var numUsersByEmail = dbDest.kuorumUser.find({email:kuorumUser.email}).count()
     if (numUsersByEmail==0){
 //        print("usuario creado:"+kuorumUser.email)
         dbDest.kuorumUser.insert(kuorumUser)
+        numLoaded ++
     }else{
-        print("El usuario ya existia por facebook ("+numUsersByEmail+"):"+kuorumUser.email+"[ID:"+kuorumUser._id+"]")
+        numSkipped ++
+//        print(numSkipped+":El usuario ya existia por facebook ("+numUsersByEmail+"):"+kuorumUser.email+"[ID:"+kuorumUser._id+"]")
     }
 
 });
+
+print("#### LIMIPIANDO AMIGOS QUE NO EXISTEN ######")
+var deletedFriends = 0
+dbDest.kuorumUser.find({email:/^(?!.*@example.com$)/}).forEach(function(user){
+    user.followers.forEach(function(userId){
+        var exists = dbDest.kuorumUser.find({_id:userId}).count()
+        if (exists == 0){
+            dbDest.kuorumUser.update({followers:userId},{$pull:{followers:userId}}, {multi:true})
+            dbDest.kuorumUser.update({following:userId},{$pull:{following:userId}}, {multi:true})
+            var deletedUser = dbOrigin.secUser.find({_id:userId})[0]
+            print("Removing user "+deletedUser.username+" from followers/following")
+            deletedFriends++
+        }
+    })
+    user.following.forEach(function(userId){
+        var exists = dbDest.kuorumUser.find({_id:userId}).count()
+        if (exists == 0){
+            dbDest.kuorumUser.update({followers:userId},{$pull:{followers:userId}}, {multi:true})
+            dbDest.kuorumUser.update({following:userId},{$pull:{following:userId}}, {multi:true})
+        }
+    })
+})
+
+var notLoaded = dbOrigin.secUser.count({$or:[{enabled:false}, {accountLocked:true}]})
+print("######### RESUMEN IMPORT #########")
+print("Usuarios cargados a través de facebook:"+numFacebook)
+print("Usuarios fallidos a través de facebook:"+numFacebookError)
+print("Usuarios saltados porque ya se habían cargado con facebook: "+numSkipped)
+print("Usuarios saltados por no estar activos: "+numDisabled)
+print("Usuarios saltados por estar bloqueados(No llegaron a confirmar el email): "+numLocked)
+print("Usuarios eliminados como followers/following: "+deletedFriends)
+print("Usuarios cargados: "+numLoaded)
+print("--------------------------")
+print("Usuarios totales cargados: "+(numLoaded + numFacebook))
+print("Usuarios totales desechados: "+notLoaded +numFacebookError)
+print("--------------------------")
+print("Usuarios totales en la BBDD original: "+dbOrigin.secUser.count())
+print("Usuarios totales en la BBDD nueva(sin @example.com): "+dbDest.kuorumUser.count({email:/^(?!.*@example.com$)/}))
+print("Usuarios totales en la BBDD nueva(con @example.com): "+dbDest.kuorumUser.count({}))
 
 
 function createKuorumUserFromOldUser(user){
@@ -44,7 +109,7 @@ function createKuorumUserFromOldUser(user){
         "accountLocked" : false,
         "authorities" : [userRole],
         "dateCreated" : user.dateCreated,
-        "email" : user.username,
+        "email" : user.username.toLowerCase(),
         "verified": false,
         "bio":user.defend,
         "userType":"PERSON",
