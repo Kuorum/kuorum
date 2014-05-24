@@ -27,6 +27,7 @@ class Law {
     URL shortUrl
     Date dateCreated
     Boolean published = Boolean.FALSE
+    Date publishDate
     AcumulativeVotes peopleVotes = new AcumulativeVotes()
 
 
@@ -48,6 +49,7 @@ class Law {
         urlPdf nullable:false, url:true
         //TODO: image no es nullable
         image nullable:true
+        publishDate nullable:true
     }
 
     static mapping = {

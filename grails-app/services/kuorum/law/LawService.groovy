@@ -134,7 +134,7 @@ class LawService {
     }
 
     Law publish(Law law){
-        Law.collection.update([_id:law.id], ['$set':[published:Boolean.TRUE]])
+        Law.collection.update([_id:law.id], ['$set':[published:Boolean.TRUE, publishDate:new Date()]])
         law.refresh()
         indexSolrService.index(law)
         law
