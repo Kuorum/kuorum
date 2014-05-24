@@ -6,6 +6,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
+import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
 import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationElement
@@ -331,6 +332,8 @@ class PostController {
     def addDefender() {
         Post post = params.post
         KuorumUser politician = KuorumUser.get(springSecurityService.principal.id)
+        CommitmentType commitmentType = CommitmentType.valueOf(params.commitmentType)
+        postService.defendPost(post, commitmentType, politician)
         String postTypeText = message(code:"${PostType.class.name}.${post.postType}")
         flash.message = message(code:'modalDefend.success', args:[postTypeText])
         redirect (mapping:"postShow", params:post.encodeAsLinkProperties())
