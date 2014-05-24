@@ -92,6 +92,7 @@ small, .small {font-size: 75%;}
   background: url('../images/loading@2x.gif') center center / 17px auto no-repeat transparent;
   padding: 0;
   height: 19px;
+  width:50px;
 }
 .loadingSearch {
   color: #a8a8a8;
@@ -442,7 +443,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .social li {display: inline-block;}
 .licenses li {float: right; margin-left: 14px;}
 .collabor li {margin-right: 8px;}
-.social li {margin-right: 8px; font-size: 18.5px; font-size: 1.85rem;}
+.social li {margin-right: 5px; font-size: 18.5px; font-size: 1.85rem;}
 .social li:last-child {margin-right: 0;}
 
 .ethz, .delhap {display: block; background-size: 95px 65px !important; text-indent: -9999rem;}
@@ -963,6 +964,8 @@ span + .text-notification {padding: 0 0 0 33px;}
   font-size: 24px;
   font-size: 2.4rem;
   padding-bottom: 8px;
+  display: block;
+  line-height: 1;
 }
 .boxes .user-type {display: inline-block; color: #A8A8A8; margin-bottom: 12px;}
 .boxes .user-img {float: left;}
@@ -1202,7 +1205,10 @@ textarea.error,
 .uploadKuorumImage .modal-footer .btn {
   margin: 0 0 0 10px !important;
 }
-
+.uploadKuorumImage img {
+    width: auto;
+    height: auto;
+}
 
 /* karma */
 #karma {
@@ -1979,8 +1985,8 @@ textarea.error,
 .userprofile .boxes.userkarma .activity li span {color: #a8a8a8;}
 .userprofile .boxes.noted {margin-bottom: 20px;}
 .userprofile .boxes.noted h1 {font-family: 'Georgia', 'Times New Roman', Times, serif; font-size: 24px; font-size: 2.4rem; text-transform: none; border-bottom: 1px solid #DADADA; margin-top: 10px; padding: 0 0 8px;}
-.userprofile .boxes.noted .user-list-followers li {float: left; margin-right: 8px;}
-
+.userprofile .boxes.noted .user-list-followers li {float: left; margin-right: 7px;}
+.userprofile .boxes.noted .user-list-followers li:last-child {margin-right: 0;}
 
 /* descubre =========== */
 /* ====================================================== */
@@ -2318,10 +2324,12 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   width: 300px;
   height: 256px;
   margin: 30px 0 0 0;
-  /*border-top: solid 1px #dadada;*/
 }
 .jvectormap-zoomin,
 .jvectormap-zoomout {display: none;}
+.kakareo.post.ley.ficha > h2 {font-size: 15px; font-size: 1.5rem;}
+.kakareo.post.ley.ficha > h2 > span {font-size: 27px; font-size: 2.7rem;}
+#allMap {cursor: pointer;}
 
 .graphContainer {text-align: center; width: 100%; height: 200px; margin: 0; position: relative;}
 .graphContainer h2, .graphContainer p {position: relative; z-index: 9;}
@@ -2729,6 +2737,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .config .saldo .activity {margin: 30px 0 0 0;}
 
   #map {width: 650px; height: 554px;}
+  aside .back {margin: 36px 0 14px;}
 
   .columns2 {
     -moz-column-count: 2;
@@ -2789,8 +2798,8 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .promo-options > div > .link-wrapper > p small {font-size: 12px; font-size: 1.2rem;}
   .promo-options > div:hover {margin: -20px 0 0 0;}
   .promo-options > div:hover  > .link-wrapper {min-height: 360px;}
-
   .kakareo.post.promo.tks .invite li a {width: 236px;}
+  aside .back {margin: 30px 0 14px; }
 
 }
 
