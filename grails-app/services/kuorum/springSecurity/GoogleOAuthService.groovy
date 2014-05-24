@@ -46,7 +46,11 @@ class GoogleOAuthService implements IOAuthService{
             oAuthID.save()
             kuorumMailService.sendRegisterUserViaRRSS(user,PROVIDER)
         }
+        user.accountExpired = false
+        user.accountLocked = false
+        user.enabled = true
         createAvatar(user, googleUser)
+        user.save()
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
         def authorities = mongoUserDetailsService.getRoles(user)
 

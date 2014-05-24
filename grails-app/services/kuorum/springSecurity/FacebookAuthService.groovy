@@ -47,13 +47,12 @@ class FacebookAuthService {
 
         KuorumUser user = KuorumUser.findByEmail(fbProfile.email)?:new KuorumUser(
                 name: fbProfile.name,
-
-//                username:fbProfile.username,
                 email: fbProfile.email,
-                password: "*facebook*${Math.random()}",
-                accountExpired: false,
-                enabled:true
+                password: "*facebook*${Math.random()}"
         )
+        user.accountExpired = false
+        user.accountLocked = false
+        user.enabled = true
         if (user.userType == UserType.PERSON){
             PersonData personData = new PersonData()
 
