@@ -264,7 +264,12 @@ class PostService {
     }
 
     Boolean isAllowedToAddDebate(Post post, KuorumUser user){
-        user && (UserType.POLITICIAN.equals(user.userType) || post.owner == user)
+        user &&
+        (
+                UserType.POLITICIAN.equals(user.userType) && isAllowedToDefendAPost(post, user)
+                        ||
+                post.owner == user && !post.debates.isEmpty()
+        )
     }
 
     KuorumUser favoriteAddPost(Post post, KuorumUser user){
@@ -382,7 +387,7 @@ class PostService {
      * @param user
      * @return
      */
-    Boolean isUserAPoliticianForLawPost(Post post, KuorumUser politician){
+    Boolean isAllowedToDefendAPost(Post post, KuorumUser politician){
         politician.userType == UserType.POLITICIAN &&
         politician.institution == post.law.institution
     }

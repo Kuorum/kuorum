@@ -198,7 +198,7 @@ class PostTagLib {
         if (springSecurityService.isLoggedIn()){
             noLogged = false
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            loggedAsPolitician = postService.isUserAPoliticianForLawPost(post, user)
+            loggedAsPolitician = postService.isAllowedToDefendAPost(post, user)
             loggedAsUser = !loggedAsPolitician
         }else{
             noLogged = true
