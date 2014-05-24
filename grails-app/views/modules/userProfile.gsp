@@ -5,7 +5,7 @@
         <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" itemprop="url">
             <img src="${image.userImgSrc(user:user)}" alt="${user.name}" class="user-img big" itemprop="image">
             <div class="personal">
-                <span itemprop="name" class="name">${user.name}</span></br>
+                <span itemprop="name" class="name">${user.name}</span>
                 <span class="user-type"><small><userUtil:roleName user="${user}"/></small></span>
             </div>
         </g:link>
