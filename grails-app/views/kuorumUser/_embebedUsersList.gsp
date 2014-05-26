@@ -8,4 +8,4 @@
         </span>
     </li><!-- /.user -->
 </g:each>
-<li class="link"><a href="#">Ver todos</a></li>
+%{--<li class="link"><a href="#">Ver todos</a></li>--}%
