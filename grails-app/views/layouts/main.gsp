@@ -98,7 +98,7 @@
                 <div class="col" id="modalVictoryDefender">
                     <span class="fdoDiagonal"></span>
                     <div itemtype="http://schema.org/Person" itemscope class="user">
-                        <img itemprop="image" class="user-img big" alt="nombre" src="images/user.jpg">
+                        <img itemprop="image" class="user-img big" alt="nombre" src="">
                         <span class="name" itemprop="name">Nombre usuario</span>
                         <span class="what">se ha comprometido a</span>
                         <span class="action">llevarla al congreso</span>
@@ -125,7 +125,7 @@
             <div class="modal-header clearfix">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/> </span></button>
                 <div class="col" id="modalDefenderPolitician">
-                    <img class="user-img big" alt="nombre" src="images/user.jpg">
+                    <img class="user-img big" alt="nombre" src="">
                     <h1>Nombre del político</h1>
                     <h2>Tú puedes darles voz</h2>
                     <h3 id="sponsorLabel">Apadrina esta historia</h3>
@@ -133,7 +133,7 @@
                 <div class="col" id="modalDefenderOwner">
                     <span class="fdoDiagonal"></span>
                     <div itemtype="http://schema.org/Person" itemscope class="user">
-                        <img itemprop="image" class="user-img big" alt="nombre" src="images/user.jpg">
+                        <img itemprop="image" class="user-img big" alt="nombre" src="">
                         <span class="name" itemprop="name">Nombreeeee usuuuario</span>
                         <span class="what">escribió esta historia</span>
                         <span class="action">y <span>1245</span> personas la impulsaron</span>
