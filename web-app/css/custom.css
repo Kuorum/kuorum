@@ -488,7 +488,7 @@ span + .text-notification {padding: 0 0 0 33px;}
   position: absolute;
 }
 .from .inside {
-  border-bottom: 8px solid #fafafa;
+  border-bottom: 8px solid #fcfcfc;
   border-left: 9px solid transparent;
   border-right: 9px solid transparent;
   position: absolute;
@@ -519,7 +519,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 
 .personal .user-type {padding: 0;}
 
-.kakareo {background-color: #fafafa; border-top: solid 1px #20a2ea; padding: 0; margin: 7px 0 40px; position: relative;}
+.kakareo {background-color: #fcfcfc; border-top: solid 1px #20a2ea; padding: 0; margin: 7px 0 40px; position: relative;}
 .kakareo.follow {padding: 5px 15px;}
 .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 10px 0; margin: 0; line-height: 1.3;}
 
