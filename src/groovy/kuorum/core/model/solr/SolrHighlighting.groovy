@@ -12,8 +12,8 @@ public class SolrHighlighting{
     def propertyMissing(String field) {
         if (storage.containsKey(field))
             storage[field]
-        else if(element.hasProperty(field))
-            element."$field"
+//        else if(element.hasProperty(field))
+//            element."$field"
         else
             null
     }

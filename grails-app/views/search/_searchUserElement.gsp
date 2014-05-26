@@ -7,7 +7,7 @@
         <div class="popover-box">
             <div class="user" itemscope itemtype="http://schema.org/Person">
                 <a href="#" itemprop="url">
-                    <img src="${image.solrUserImgSrc(user:solrUser)}" alt="${solrUser.name}" class="user-img" itemprop="image"><span itemprop="name">${raw(solrUser.highlighting.name)}</span>
+                    <img src="${image.solrUserImgSrc(user:solrUser)}" alt="${solrUser.name}" class="user-img" itemprop="image"><span itemprop="name"><searchUtil:highlightedField solrElement="${solrUser}" field="name"/></span>
                 </a>
                 <span class="user-type">
                     <small>${userUtil.roleName(user:user)}</small>

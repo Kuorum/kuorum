@@ -4,9 +4,9 @@
         <div class="photo">
             <img src="${solrLaw.urlImage}" alt="${solrLaw.hashtag}" itemprop="image">
         </div>
-        <div class="laley"><g:link mapping="lawShow" itemprop="keywords" params="${solrLaw.encodeAsLinkProperties()}">${raw(solrLaw.highlighting.hashtag)}</g:link></div>
-        <h1>${raw(solrLaw.highlighting.name)}</h1>
-        <p>${raw(solrLaw.highlighting.text)}</p>
+        <div class="laley"><g:link mapping="lawShow" itemprop="keywords" params="${solrLaw.encodeAsLinkProperties()}"><searchUtil:highlightedField solrElement="${solrLaw}" field="hashtag"/></g:link></div>
+        <h1><searchUtil:highlightedField solrElement="${solrLaw}" field="name"/></h1>
+        <p><searchUtil:highlightedField solrElement="${solrLaw}" field="text"/></p>
     </div>
 </article>
 

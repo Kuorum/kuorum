@@ -168,7 +168,7 @@ class KuorumUserTagLib {
                 out << """
                 <div class="pull-right">
                     <span class="fa fa-check-circle-o"></span>
-                    <small>${message(code:'kuorumUser.popover.follower')}"</small>
+                    <small>${message(code:'kuorumUser.popover.follower')}</small>
                 </div>
                 """
             }
