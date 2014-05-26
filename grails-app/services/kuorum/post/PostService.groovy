@@ -363,9 +363,14 @@ class PostService {
             throw new KuorumException("El usuario ${politician.name} (${politician.id}) no es un político para defender la publicacion ${post.id}", "error.security.post.defend.isNotPolitician")
         }
         if (post.postType != commitmentType.associatedPostType){
-            String message =  "Se ha intentado otorgar un tipo de victoria (${commitmentType}) distinta al tipo de post ${post.postType}"
+            String message =  "Se ha intentado defender con (${commitmentType}) que no se ajusta al tipo de post ${post.postType}"
             log.error(message)
             throw new KuorumException(message, 'error.security.post.defend.wrongCommitmentType')
+        }
+        if (post.defender){
+            String message =  "Se ha intentado apadrinar una ${post.portType} qua ya había sido defendida."
+            log.error(message)
+            throw new KuorumException(message, 'error.security.post.defend.alreadyDefended')
         }
         Date defenderDate = new Date()
         Post.collection.update ( [_id:post.id],['$set':[defender:politician.id,defenderDate:defenderDate, commitmentType:commitmentType.toString()]])
