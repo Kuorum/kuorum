@@ -834,7 +834,25 @@ $(document).ready(function() {
 		});
 	}
 
+    function prepareFormUsingGender(gender){
+        if (gender == "ORGANIZATION"){
+            $(".userData").hide()
+            $(".organizationData").show()
+        }else{
+            $(".userData").show()
+            $(".organizationData").hide()
+        }
 
+    }
+    $("input[name=gender]").on("change", function(e){
+        prepareFormUsingGender($(this).val())
+    })
+
+    if ($("input[name=gender]:checked").val() != undefined){
+        prepareFormUsingGender($("input[name=gender]:checked").val())
+    }else{
+        prepareFormUsingGender("MALE")
+    }
 	// para los checkbox del formulario de registro
 	var texts= {
         0: i18n.customRegister.step4.form.submit.description0,

@@ -1,3 +1,4 @@
+<%@ page import="kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="kuorum.name"/> </title>
@@ -15,17 +16,26 @@
         <div class="form-group">
             <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
         </div>
-        <div class="form-group">
-            <formUtil:selectEnum
-                    command="${command}"
-                    field="workingSector"/>
+        <g:if test="${user.userType != UserType.ORGANIZATION}">
+            <div class="form-group">
+                <formUtil:selectEnum
+                        command="${command}"
+                        field="workingSector"/>
 
-        </div>
-        <div class="form-group">
-            <formUtil:selectEnum
-                    command="${command}"
-                    field="studies"/>
-        </div>
+            </div>
+            <div class="form-group">
+                <formUtil:selectEnum
+                        command="${command}"
+                        field="studies"/>
+            </div>
+        </g:if>
+        <g:else>
+            <div class="form-group">
+                <formUtil:selectEnum
+                        command="${command}"
+                        field="enterpriseSector"/>
+            </div>
+        </g:else>
         <div class="form-group">
             <p class="help-block"><g:message code="customRegister.step2.form.helpBlock"/> </p>
         </div>

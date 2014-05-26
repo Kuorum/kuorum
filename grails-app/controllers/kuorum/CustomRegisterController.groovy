@@ -53,7 +53,8 @@ class CustomRegisterController extends  ProfileController{
         command.bio = user.bio
         command.studies =  user.personalData?.studies
         command.photoId = user.avatar?.id?.toString()
-        [command: command]
+        command.enterpriseSector = user.personalData?.enterpriseSector
+        [command: command, user:user]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

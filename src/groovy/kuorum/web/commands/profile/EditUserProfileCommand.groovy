@@ -2,6 +2,7 @@ package kuorum.web.commands.profile
 
 import grails.validation.Validateable
 import kuorum.Region
+import kuorum.core.model.EnterpriseSector
 import kuorum.core.model.Gender
 import kuorum.core.model.Studies
 import kuorum.core.model.WorkingSector
@@ -31,6 +32,7 @@ class EditUserProfileCommand extends BirthdayCommad{
     String photoId
     WorkingSector workingSector
     Studies studies
+    EnterpriseSector enterpriseSector
     String bio
 
     static constraints = {
@@ -48,8 +50,9 @@ class EditUserProfileCommand extends BirthdayCommad{
 
         //Step2
         photoId nullable: false
-        workingSector nullable: false, minSize: 5, maxSize: 5
+        workingSector nullable: true
         studies nullable: true
+        enterpriseSector nullable:true
         bio nullable: true, maxSize: 500
     }
 

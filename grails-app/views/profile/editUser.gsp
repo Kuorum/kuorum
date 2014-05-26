@@ -73,11 +73,14 @@
                             maxlength="5"
                     />
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-4 userData">
                     <formUtil:selectEnum command="${command}" field="workingSector"/>
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-4 userData">
                     <formUtil:selectEnum command="${command}" field="studies"/>
+                </div>
+                <div class="col-xs-4 organizationData">
+                    <formUtil:selectEnum command="${command}" field="enterpriseSector"/>
                 </div>
             </div><!-- /.row -->
         </div><!-- /.form-group -->

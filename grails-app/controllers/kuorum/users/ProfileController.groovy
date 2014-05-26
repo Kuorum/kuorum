@@ -54,6 +54,7 @@ class ProfileController {
         command.name = user.name
         command.workingSector = user.personalData?.workingSector
         command.studies = user.personalData?.studies
+        command.enterpriseSector = user.personalData?.enterpriseSector
         command.bio = user.bio
         command.photoId = user.avatar?.id?.toString()
         [command: command, user:user]
@@ -78,17 +79,18 @@ class ProfileController {
         if (Gender.ORGANIZATION.equals(command.gender)){
             personalData = new OrganizationData()
             personalData.isPoliticalParty = false
-            personalData.gender = Gender.ORGANIZATION
             personalData.country = command.country
+            user.userType = UserType.ORGANIZATION
         }else{
             personalData = new PersonData()
-            personalData.birthday = command.date
-            personalData.gender = command.gender
-            personalData.postalCode = command.postalCode
-            personalData.provinceCode = command.province.iso3166_2
-            personalData.province = command.province
+            if (user.userType!=UserType.POLITICIAN)
+                user.userType = UserType.PERSON
         }
-
+        personalData.birthday = command.date
+        personalData.gender = command.gender
+        personalData.postalCode = command.postalCode
+        personalData.provinceCode = command.province.iso3166_2
+        personalData.province = command.province
         user.personalData = personalData
         if (Gender.ORGANIZATION.equals(command.gender)){
             user.personalData.userType = UserType.ORGANIZATION
@@ -97,9 +99,13 @@ class ProfileController {
     }
 
     protected prepareUserStep2(KuorumUser user, def command){
-        user.personalData.workingSector = command.workingSector
         user.bio = command.bio
-        user.personalData.studies =  command.studies
+        if (user.userType!=UserType.ORGANIZATION){
+            user.personalData.studies =  command.studies
+            user.personalData.workingSector =  command.workingSector
+        }else{
+            user.personalData.enterpriseSector =  command.enterpriseSector
+        }
         if (command.photoId){
             KuorumFile avatar = KuorumFile.get(new ObjectId(command.photoId))
             avatar.alt = user.name
