@@ -158,7 +158,13 @@ class LawController {
             return;
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Long numVotes = law.peopleVotes.total
         LawVote lawVote = lawService.voteLaw(law, user, voteType)
+
+        def newVote = false
+        if (numVotes < law.peopleVotes.total){
+            newVote = true
+        }
         Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
         def gamification = [
                 title: "${message(code:'law.vote.gamification.title', args:[law.hashtag])}",
@@ -169,6 +175,7 @@ class LawController {
         ]
 
         render ([
+                newVote:newVote,
                 necessaryVotesForKuorum:necessaryVotesForKuorum,
                 voteType:lawVote.voteType.toString(),
                 votes:law.peopleVotes,

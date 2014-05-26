@@ -480,7 +480,9 @@ $(document).ready(function() {
             $('section[data-lawId='+lawId+']  ul.activity li.NEGATIVE span').html(data.votes.no)
             $('section[data-lawId='+lawId+']  ul.activity li.ABSTENTION span').html(data.votes.abs)
             $('section[data-lawId='+lawId+']  .kuorum span.counter').html(data.necessaryVotesForKuorum)
-            karma.open(data.gamification)
+            if (data.newVote){
+                karma.open(data.gamification)
+            }
         })
 	});
 
