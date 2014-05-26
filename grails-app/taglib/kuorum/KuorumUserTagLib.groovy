@@ -178,7 +178,7 @@ class KuorumUserTagLib {
     def followButton={attrs ->
         KuorumUser user = attrs.user
         String cssSize = attrs.cssSize?:'btn-xs'
-        if (springSecurityService.isLoggedIn()){
+        if (springSecurityService.isLoggedIn() && springSecurityService.principal.id != user.id){
             def linkAjaxFollow = g.createLink(mapping:'ajaxFollow', params: [id:user.id])
             def linkAjaxUnFollow = g.createLink(mapping:'ajaxUnFollow', params: [id:user.id])
             def isFollowing = user.followers.contains(springSecurityService.principal.id)
