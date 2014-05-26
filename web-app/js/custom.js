@@ -507,15 +507,6 @@ $(document).ready(function() {
 		$('section[data-lawId='+lawId+']  .voting ul').css('display', 'block');
 	});
 
-
-	// hacer clic en player falso del video (.front)
-	$('.kakareo .front').click( function() {
-		$(this).next('.youtube').css('display', 'block');
-		$(this).remove();
-		return false;
-	});
-
-
 	// Buscador: cambia el placeholder según el filtro elegido
 	$(function() {
 
@@ -1019,6 +1010,16 @@ $(document).ready(function() {
         iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
 //        $('#iframeVideo')[0].src += '&autoplay=1';
     })
+
+    // hacer clic en player falso del video (.front)
+    $('.kakareo .front').click( function(e) {
+        e.preventDefault()
+        var iframe = $(this).next('.youtube')
+        iframe.css('display', 'block');
+        $(this).remove();
+        var func = 'playVideo';
+        iframe.get(0).contentWindow.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
+    });
 
     $('body').on("click", ".openModalVictory",function(e){
         var notificationId = $(this).attr("data-notification-id")

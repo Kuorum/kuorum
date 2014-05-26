@@ -9,19 +9,14 @@
     <p><g:message code="post.edit.step3.intro.subHead"/></p>
 </content>
 
+<g:set var="multimedia" value=""/>
+<postUtil:ifHasMultimedia post="${post}">
+    <g:set var="multimedia" value="multimedia"/>
+</postUtil:ifHasMultimedia>
 <content tag="mainContent">
-    <article class="kakareo post sponsor" role="article" itemscope itemtype="http://schema.org/Article" data-cluck-postId="${post.id}">
+    <article class="kakareo post sponsor ${multimedia}" role="article" itemscope itemtype="http://schema.org/Article" data-cluck-postId="${post.id}">
         <div class="wrapper">
-            <h1>${post.title} <g:link mapping="lawShow" params="${post.law.encodeAsLinkProperties()}">${post.law.hashtag}</g:link></h1>
-            <div class="main-kakareo row">
-                <div class="col-md-5 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                    <userUtil:showUser user="${post.owner}" showRole="true"/>
-                </div><!-- /autor -->
-
-                <div class="col-md-7 text-right sponsor">
-                    <!-- está vacío pero se deja la estructura igual que en un kakareo -->
-                </div><!-- /.sponsor -->
-            </div><!-- /.main-kakareo -->
+            <g:render template="/cluck/cluckMain" model="[post:post]"/>
         </div>
         <g:render template="/cluck/footerCluck" model="[cluck:post,displayingColumnC:false]"/>
     </article><!-- /article -->
