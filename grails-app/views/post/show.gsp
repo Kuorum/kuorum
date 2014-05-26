@@ -12,9 +12,15 @@
     <postUtil:ifIsImportant post="${post}">
         <g:set var="important" value="important"/>
     </postUtil:ifIsImportant>
+
+    <g:set var="multimedia" value=""/>
+    <postUtil:ifHasMultimedia post="${post}">
+        <g:set var="multimedia" value="multimedia"/>
+    </postUtil:ifHasMultimedia>
+
     <div class="author ${important}">
         <postUtil:politiciansHeadPost post="${post}"/>
-        <article class="kakareo post" role="article" itemscope itemtype="http://schema.org/Article" data-cluck-postId="${post.id}">
+        <article class="kakareo post ${multimedia}" role="article" itemscope itemtype="http://schema.org/Article" data-cluck-postId="${post.id}">
             <div class="wrapper">
                 <g:render template="/cluck/cluckMain" model="[post:post]"/>
             </div>

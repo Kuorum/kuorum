@@ -11,19 +11,12 @@
 </content>
 
 <content tag="mainContent">
-    <article class="kakareo post" role="article" itemscope itemtype="http://schema.org/Article">
-        <h1>${post.title} <g:link mapping="lawShow" params="${post.law.encodeAsLinkProperties()}" itemprop="keywords">${post.law.hashtag}</g:link></h1>
-        <postUtil:postShowMultimedia post="${post}"/>
-        <div class="main-kakareo row">
-            <div class="col-md-5 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                <userUtil:showUser user="${post.owner}" showRole="true"/>
-            </div><!-- /autor -->
-
-            <div class="col-md-7 text-right sponsor">
-                <!-- está vacío pero se deja la estructura igual que en un kakareo -->
-            </div><!-- /.sponsor -->
-        </div><!-- /.main-kakareo -->
-
+    <g:set var="multimedia" value=""/>
+    <postUtil:ifHasMultimedia post="${post}">
+        <g:set var="multimedia" value="multimedia"/>
+    </postUtil:ifHasMultimedia>
+    <article class="kakareo post ${multimedia}" role="article" itemscope itemtype="http://schema.org/Article">
+        <g:render template="/cluck/cluckMain" model="[post:post]"/>
         <footer class="row">
             <g:render template="/cluck/footerCluck/footerCluckPostType" model="[post:post, displayingColumnC:false]"/>
             <ul class="col-xs-10 col-sm-10 col-md-8 actions-kak">
