@@ -32,7 +32,9 @@ class ModulesTagLib {
 
     def lawActivePeople={attrs ->
         Law law = attrs.law
-        out << render (template:'/modules/activePeopleOnLaw', model: [users: lawService.activePeopleOnLaw(law)])
+        List<KuorumUser> activePeopleOnLaw = lawService.activePeopleOnLaw(law)
+        if (activePeopleOnLaw)
+            out << render (template:'/modules/activePeopleOnLaw', model: [users: activePeopleOnLaw])
     }
 
     def recommendedPosts={attrs ->
@@ -44,8 +46,10 @@ class ModulesTagLib {
             user = KuorumUser.get(springSecurityService.principal.id)
         }
         List<Post> recommendedPost = postService.recommendedPosts(user, law, pagination)
-        String title = attrs.title?:message(code:"modules.recommendedPosts.title")
-        out << render(template: '/modules/recommendedPosts', model:[recommendedPost:recommendedPost, title:title,specialCssClass:specialCssClass])
+        if (recommendedPost){
+            String title = attrs.title?:message(code:"modules.recommendedPosts.title")
+            out << render(template: '/modules/recommendedPosts', model:[recommendedPost:recommendedPost, title:title,specialCssClass:specialCssClass])
+        }
     }
 
     def delayedModule={attrs ->
