@@ -19,16 +19,7 @@
                     <p>${messages.userListTitle}</p>
                     <div class="scroll">
                         <ul>
-                            <g:each in="${hiddenUsersList}" var="user">
-                                <li itemtype="http://schema.org/Person" itemscope="" class="user">
-                                    <g:link mapping="userShow" itemprop="url" params="${user.encodeAsLinkProperties()}">
-                                        <img itemprop="image" class="user-img" alt="${user.name}" src="${image.userImgSrc(user:user)}"><span itemprop="name">${user.name}</span>
-                                    </g:link>
-                                    <span class="user-type">
-                                        <small><userUtil:roleName user="${user}"/> </small>
-                                    </span>
-                                </li><!-- /.user -->
-                            </g:each>
+                            <g:render template="/kuorumUser/embebedUsersList" model="[users:hiddenUsersList]"/>
                         </ul>
                     </div><!-- /.contenedor scroll -->
                 </div><!-- /popover-user-list -->

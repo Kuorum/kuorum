@@ -946,6 +946,28 @@ $(document).ready(function() {
 		});
 
 	})
+    $('.ajax.popover-trigger.more-users').on('shown.bs.popover', function () {
+        var that = $(this)
+        var content = $(this).next().children(".popover-content")
+        var ajaxUrl = content.children("a").attr("href")
+        var ulUserLists = content.find("ul")
+        $.ajax( {
+            url:ajaxUrl,
+            statusCode: {
+                500: function() {
+                    display.error("Error en el sistema")
+                }
+            },
+            beforeSend: function(){
+                ulUserLists.html('<li class="loading xs"><span class="sr-only">Cargando...</span></li>')
+            },
+            complete:function(){
+//                console.log("end")
+            }
+        }).done(function(data, status, xhr) {
+            ulUserLists.html(data)
+        })
+    })
     $('.roleButton').on("click", function(e){
         e.preventDefault()
         var link = $(this)

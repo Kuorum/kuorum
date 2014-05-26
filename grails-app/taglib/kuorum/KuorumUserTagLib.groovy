@@ -3,6 +3,7 @@ package kuorum
 import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.core.model.solr.SolrPost
+import kuorum.post.Post
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
@@ -101,6 +102,38 @@ class KuorumUserTagLib {
         KuorumUser user = attrs.user
         List<KuorumUser> users = user.following.collect{id -> KuorumUser.load(id)}
         out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.following.userList')
+    }
+
+    def counterUserLikes={attrs->
+        Post post = attrs.post
+
+        Integer total=post.numVotes
+        String messagesPrefix="cluck.footer.likes.counter"
+        def ajaxUrl = createLink(mapping:'postVotesList', params: post.encodeAsLinkProperties())
+        out << counterUsers(total:total, messagesPrefix:messagesPrefix, ajaxUrl:ajaxUrl)
+    }
+
+    def counterUserClucks={attrs->
+        Post post = attrs.post
+
+        Integer total=post.numClucks
+        String messagesPrefix="cluck.footer.clukers.counter"
+        def ajaxUrl = createLink(mapping:'postClucksList', params: post.encodeAsLinkProperties())
+        out << counterUsers(total:total, messagesPrefix:messagesPrefix, ajaxUrl:ajaxUrl)
+    }
+
+    def counterUsers={attrs ->
+        def total = attrs.total
+        String messagesPrefix = attrs.messagesPrefix
+        String ajaxUrl = attrs.ajaxUrl
+
+        String title = message(code:"${messagesPrefix}.title")
+        String linkText = message(code:"${messagesPrefix}.link")
+
+        out << render (
+                template:'/kuorumUser/counterUsers',
+                model:[total:total,title:title,linkText:linkText, ajaxUrl:ajaxUrl]
+        )
     }
 
     def roleName={attrs ->

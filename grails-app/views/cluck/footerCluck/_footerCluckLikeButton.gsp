@@ -1,7 +1,7 @@
 <%@ page import="kuorum.core.model.PostType" %>
 <li class="like-number">
-    <span class="counter">${post.numVotes}</span>
-    <meta itemprop="interactionCount" content="UserLikes:${post.numVotes}"><!-- pasarle el valor que corresponda -->
+    <userUtil:counterUserLikes post="${post}"/>
+    %{--<meta itemprop="interactionCount" content="UserLikes:${post.numVotes}"><!-- pasarle el valor que corresponda -->--}%
     <postUtil:userOption post="${post}">
         <postUtil:asUser>
         <g:link mapping="postVoteIt" class="${postUtil.cssClassIfVoted(post:post)} action drive" params="${post.encodeAsLinkProperties()}" rel="nofollow">

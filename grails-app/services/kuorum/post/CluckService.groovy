@@ -32,6 +32,11 @@ class CluckService {
 
     }
 
+    List<KuorumUser> findPostCluckers(Post post, Pagination pagination=new Pagination()){
+        def cluks = Cluck.findAllByPost(post, [max:pagination.max, offset: pagination.offset, sort: "id", order: "desc" ])
+        cluks.collect{it.owner}
+    }
+
     List<Cluck> userClucks(KuorumUser kuorumUser, Pagination pagination = new Pagination()){
 
         def criteria = Cluck.createCriteria()

@@ -305,6 +305,18 @@ class PostController {
         render ([numLikes:post.numVotes, limitTo:range.to +1, gamification:gamification] as JSON)
     }
 
+    def listVotes(){
+        Post post = params.post
+        List<KuorumUser> users = postVoteService.findVotedUsers(post, new Pagination())
+        render (template:'/kuorumUser/embebedUsersList', model:[users:users])
+    }
+
+    def listClucks(){
+        Post post = params.post
+        List<KuorumUser> users = cluckService.findPostCluckers(post, new Pagination())
+        render (template:'/kuorumUser/embebedUsersList', model:[users:users])
+    }
+
     @Secured('isAuthenticated()')
     def addDebate(CommentPostCommand command) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
