@@ -18,6 +18,9 @@
 <div class="form-group">
     <formUtil:selectDomainObject command="${command}" field="institution" values="${institutions}" />
 </div>
+<div class="form-group">
+    <formUtil:selectEnum command="${command}" field="status"/>
+</div>
 
 <div class="form-group">
     <formUtil:selectMultipleCommissions command="${command}" field="commissions"/>
