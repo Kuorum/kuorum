@@ -47,7 +47,8 @@
             %{--<div id="charNum" class="help-block">Te quedan <span></span> caracteres</div>--}%
         </div>
         <div class="form-group">
-            <g:link class="cancel" mapping="customRegisterStep3"><g:message code="customRegister.step2.form.cancel"/></g:link>
+            %{--<g:link class="cancel" mapping="customRegisterStep3"><g:message code="customRegister.step2.form.cancel"/></g:link>--}%
+            <a href="#" class="cancel" onclick="$('#sign2').submit(); return false;"><g:message code="customRegister.step2.form.cancel"/></a>
             <input type="submit" class="btn btn-lg" value="${message(code:'customRegister.step2.form.submit')}"/>
         </div>
     </g:form>
