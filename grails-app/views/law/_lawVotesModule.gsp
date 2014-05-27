@@ -1,4 +1,4 @@
-<%@ page import="kuorum.core.model.VoteType" %>
+<%@ page import="kuorum.core.model.LawStatusType; kuorum.core.model.VoteType" %>
 <section class="boxes vote" id="vote" data-lawId="${law.id}">
     <g:if test="${title}">
         <h1><g:message code="law.vote.title"/></h1>
@@ -23,40 +23,42 @@
         <!-- FIN POPOVER KUORUM -->
     </div>
     <div class="voting">
-        <sec:ifLoggedIn>
-        %{--<g:if test="${userVote}">--}%
-            <ul style="${userVote?'display: none;':''}">
-                <!-- LOGADO NO VOTADO -->
-                <li>
-                    <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.POSITIVE]}" class="btn btn-blue yes" data-lawId="${law.id}">
-                        <span class="icon-smiley fa-2x"></span>
-                        <g:message code="law.vote.yes"/>
-                    </g:link>
-                </li>
-                <li>
-                    <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.NEGATIVE]}" class="btn btn-blue no" data-lawId="${law.id}">
-                        <span class="icon-sad fa-2x"></span>
-                        <g:message code="law.vote.no"/>
-                    </g:link>
+        <g:if test="${law.status == kuorum.core.model.LawStatusType.OPEN}">
+            <sec:ifLoggedIn>
+                <ul style="${userVote?'display: none;':''}">
+                    <!-- LOGADO NO VOTADO -->
+                    <li>
+                        <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.POSITIVE]}" class="btn btn-blue yes" data-lawId="${law.id}">
+                            <span class="icon-smiley fa-2x"></span>
+                            <g:message code="law.vote.yes"/>
+                        </g:link>
+                    </li>
+                    <li>
+                        <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.NEGATIVE]}" class="btn btn-blue no" data-lawId="${law.id}">
+                            <span class="icon-sad fa-2x"></span>
+                            <g:message code="law.vote.no"/>
+                        </g:link>
 
-                </li>
-                <li>
-                    <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.ABSTENTION]}" class="btn btn-blue neutral" data-lawId="${law.id}">
-                        <span class="icon-neutral fa-2x"></span>
-                        <g:message code="law.vote.abs"/>
-                    </g:link>
-                </li>
-            </ul>
+                    </li>
+                    <li>
+                        <g:link mapping="lawVote" params="${law.encodeAsLinkProperties()+[voteType:VoteType.ABSTENTION]}" class="btn btn-blue neutral" data-lawId="${law.id}">
+                            <span class="icon-neutral fa-2x"></span>
+                            <g:message code="law.vote.abs"/>
+                        </g:link>
+                    </li>
+                </ul>
 
-        %{--</g:if>--}%
-
-            <!-- LOGADO VOTADO -->
-            <a href="#" class="changeOpinion" style="${userVote?'display: block;':''}">¿Has cambiado de opinión?</a>
-        </sec:ifLoggedIn>
-        <sec:ifNotLoggedIn>
-            <!-- NO LOGADO NO VOTADO -->
-            <a href="#" class="btn btn-blue btn-block vote">Vota <br> <small>Es tu momento de hablar</small></a><!-- al hacer click lo deshabilito y cambio el texto -->
-        </sec:ifNotLoggedIn>
+                <!-- LOGADO VOTADO -->
+                <a href="#" class="changeOpinion" style="${userVote?'display: block;':''}"><g:message code="law.vote.changeVote"/></a>
+            </sec:ifLoggedIn>
+            <sec:ifNotLoggedIn>
+                <a href="#" class="btn btn-blue btn-block vote"><g:message code="law.vote.voteButton" encodeAs="raw"/> </a><!-- al hacer click lo deshabilito y cambio el texto -->
+            </sec:ifNotLoggedIn>
+        </g:if> %{--FIN DE LA LEY ABIERTA--}%
+        <g:else> %{-- LEY CERRADA--}%
+            <g:set var="statusLaw" value="${message(code:"${LawStatusType.name}.${law.status}")}"/>
+            <a href="#" class="btn btn-blue btn-block vote disabled"><g:message code="law.vote.voteClosed" args="[statusLaw.toLowerCase()]" encodeAs="raw"/></a><!-- al hacer click lo deshabilito y cambio el texto -->
+        </g:else>
         <a href="#">Ficha técnica</a>
     </div>
     <g:if test="${social}">
