@@ -7,7 +7,7 @@
     <body>
     <g:render template="/layouts/head"/>
     <div class="row main">
-        <div class="container-fluid edit-post">
+        <div class="container-fluid ${pageProperty(name:'page.extraCssContainer')}">
             <g:pageProperty name="page.intro"/>
             <div class="row" >
                 <section id="main" class="col-xs-12 col-sm-8 col-md-8" role="main">
