@@ -230,7 +230,7 @@ class PostController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def successPromotePost(PromotePostCommand command){
         Post post = params.post
-        [post:post]
+        [post:post, numMails: 1000]
     }
 
 

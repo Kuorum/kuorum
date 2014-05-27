@@ -13,6 +13,7 @@
         <h1><g:message code="post.promote.step2.title"/></h1>
         <p><g:message code="post.promote.step2.description.p1"/></p>
         <p><g:message code="post.promote.step2.description.p2"/></p>
+        <p><g:link mapping="postSuccessPay" params="${post.encodeAsLinkProperties()}">SUCCESS</g:link></p>
         <div class="form-promo-pay">
             <form role="form">
                 %{--<div class="form-group">--}%
