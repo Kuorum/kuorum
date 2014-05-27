@@ -76,7 +76,11 @@ class KuorumMailService {
         MailUserData mailUserData = new MailUserData(user:cluck.postOwner)
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_CLUCK
-        mailData.globalBindings=[clucker:cluck.owner.name, cluckerLink:userLink,postName:cluck.post.title]
+        mailData.globalBindings=[
+                clucker:cluck.owner.name,
+                cluckerLink:userLink,
+                postName:cluck.post.title,
+                postType:messageSource.getMessage("${PostType.canonicalName}.${cluck.post.postType}",null,"", new Locale("ES_es")),]
         mailData.userBindings = [mailUserData]
         mailData.fromName = prepareFromName(cluck.owner.name)
         mandrillAppService.sendTemplate(mailData)
@@ -95,7 +99,7 @@ class KuorumMailService {
 
     def sendPublicMilestoneNotificationMail(Post post){
         String postLink = generateLink("postShow", post.encodeAsLinkProperties())
-        def bindings = [mailType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", post.owner.language.locale)]
+        def bindings = [postType: messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", post.owner.language.locale)]
         MailUserData mailUserData = new MailUserData(user:post.owner, bindings:bindings)
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_PUBLIC_MILESTONE
