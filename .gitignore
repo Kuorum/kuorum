@@ -10,6 +10,7 @@
 /eclipse
 /.idea
 *.iml
+/kuorum-grailsPlugins.iml
 /.sonar
 
 # Config files
