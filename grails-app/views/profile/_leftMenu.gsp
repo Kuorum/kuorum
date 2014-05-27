@@ -40,16 +40,16 @@
     <li class="${activeMapping=='profileKuorumStore'?'active':''}">
         <g:link mapping="profileKuorumStore"><g:message code="profile.menu.profileKuorumStore"/></g:link>
     </li>
-    <li class="${activeMapping=='profileMessages'?'active':''}">
-        <g:link mapping="profileMessages">
-            <span id="mensajes">
-                <g:message code="profile.menu.profileMessages"/>
-            </span>
-            <span aria-relevant="additions" aria-live="assertive" aria-labelledby="mensajes" role="log" class="badge pull-right">
-                ${menu.unreadMessages}
-            </span>
-        </g:link>
-    </li>
+    %{--<li class="${activeMapping=='profileMessages'?'active':''}">--}%
+        %{--<g:link mapping="profileMessages">--}%
+            %{--<span id="mensajes">--}%
+                %{--<g:message code="profile.menu.profileMessages"/>--}%
+            %{--</span>--}%
+            %{--<span aria-relevant="additions" aria-live="assertive" aria-labelledby="mensajes" role="log" class="badge pull-right">--}%
+                %{--${menu.unreadMessages}--}%
+            %{--</span>--}%
+        %{--</g:link>--}%
+    %{--</li>--}%
     <li class="${activeMapping=='profileDeleteAccount'?'active':''}">
         <g:link mapping="profileDeleteAccount"><g:message code="profile.menu.profileDeleteAccount"/></g:link>
     </li>

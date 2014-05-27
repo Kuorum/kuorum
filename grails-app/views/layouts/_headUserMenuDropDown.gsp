@@ -17,12 +17,12 @@
         </g:link>
     </li>
     <li><g:link mapping="profileKuorumStore"><g:message code="head.navigation.userMenu.kuorumStore"/></g:link></li>
-    <li>
-        <g:link mapping="profileMessages">
-            <span id="messages-user"><g:message code="head.navigation.userMenu.userMessages"/></span>
-            <span class="badge" role="log" aria-labelledby="messages-user" aria-live="assertive" aria-relevant="additions">${numMessages}</span>
-        </g:link>
-    </li>
+    %{--<li>--}%
+        %{--<g:link mapping="profileMessages">--}%
+            %{--<span id="messages-user"><g:message code="head.navigation.userMenu.userMessages"/></span>--}%
+            %{--<span class="badge" role="log" aria-labelledby="messages-user" aria-live="assertive" aria-relevant="additions">${numMessages}</span>--}%
+        %{--</g:link>--}%
+    %{--</li>--}%
     <li><g:link mapping="logout"><g:message code="head.logged.logout"/></g:link></li>
     <sec:ifAnyGranted roles="ROLE_ADMIN">
         <li><hr/></li>
