@@ -3,6 +3,7 @@ package kuorum.web.commands
 import grails.validation.Validateable
 import kuorum.Institution
 import kuorum.core.model.CommissionType
+import kuorum.core.model.LawStatusType
 import kuorum.law.Law
 
 /**
@@ -21,12 +22,14 @@ class LawCommand {
 //    Region region
     Institution institution
     String photoId
+    LawStatusType status
 
     static constraints = {
         importFrom Law
         commissions nullable: false, minSize: 1
         photoId nullable: false
         urlPdf nullable: false, url:true
+        status nullable:false
 
 //        hashtag validator: {val, obj ->
 //            if (Law.findByHashtag(val)){

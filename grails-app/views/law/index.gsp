@@ -11,26 +11,26 @@
     <div class="intro">
         <h1><g:message code="list.laws.title"/> </h1>
         <p><g:message code="list.laws.description"/></p>
-        <form id="all-laws" role="form" class="form-inline">
-            <div class="form-group">
-                <label for="region" class="sr-only">Filtrar por región</label>
-                <select class="form-control" id="region">
-                    <option value="Elegir region">Filtrar por región</option>
-                    <option value="Region1">Región 1</option>
-                    <option value="Region2">Región 2</option>
-                    <option value="Region3">Región 3...</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="materia" class="sr-only">Filtrar por materia</label>
-                <select class="form-control" id="materia">
-                    <option value="Elegir materia">Filtrar por materia</option>
-                    <option value="Materia1">Región 1</option>
-                    <option value="Materia2">Región 2</option>
-                    <option value="Materia3">Región 3...</option>
-                </select>
-            </div>
-        </form>
+        %{--<form id="all-laws" role="form" class="form-inline">--}%
+            %{--<div class="form-group">--}%
+                %{--<label for="region" class="sr-only">Filtrar por región</label>--}%
+                %{--<select class="form-control" id="region">--}%
+                    %{--<option value="Elegir region">Filtrar por región</option>--}%
+                    %{--<option value="Region1">Región 1</option>--}%
+                    %{--<option value="Region2">Región 2</option>--}%
+                    %{--<option value="Region3">Región 3...</option>--}%
+                %{--</select>--}%
+            %{--</div>--}%
+            %{--<div class="form-group">--}%
+                %{--<label for="materia" class="sr-only">Filtrar por materia</label>--}%
+                %{--<select class="form-control" id="materia">--}%
+                    %{--<option value="Elegir materia">Filtrar por materia</option>--}%
+                    %{--<option value="Materia1">Región 1</option>--}%
+                    %{--<option value="Materia2">Región 2</option>--}%
+                    %{--<option value="Materia3">Región 3...</option>--}%
+                %{--</select>--}%
+            %{--</div>--}%
+        %{--</form>--}%
     </div>
 
     <div class="block-results">
