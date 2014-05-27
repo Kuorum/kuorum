@@ -7,7 +7,12 @@
         <button type="button" class="close" aria-hidden="true"  data-dismiss="popover"><span class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="kuorumUser.popover.close"/></span></button>
         <div class="popover-more-actions">
             <ul>
-                <li><g:link mapping="postPayPost" params="${post.encodeAsLinkProperties()}"><g:message code="cluck.footer.promote"/></g:link></li>
+                <g:if env="production">
+                %{--DESACTIVADO PROCESO PAGO EN PRODUCCION--}%
+                </g:if>
+                <g:else>
+                    <li><g:link mapping="postPayPost" params="${post.encodeAsLinkProperties()}"><g:message code="cluck.footer.promote"/></g:link></li>
+                </g:else>
                 <li><a href="#">Compartir en Facebook</a></li>
                 <li><a href="#">Compartir en Twitter</a></li>
                 <li><a href="#">Compartir en Google+</a></li>
