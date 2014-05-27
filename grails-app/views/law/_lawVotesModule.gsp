@@ -52,7 +52,9 @@
                 <a href="#" class="changeOpinion" style="${userVote?'display: block;':''}"><g:message code="law.vote.changeVote"/></a>
             </sec:ifLoggedIn>
             <sec:ifNotLoggedIn>
-                <a href="#" class="btn btn-blue btn-block vote"><g:message code="law.vote.voteButton" encodeAs="raw"/> </a><!-- al hacer click lo deshabilito y cambio el texto -->
+                <g:link mapping="lawShowSec" params="${law.encodeAsLinkProperties()}" class="btn btn-blue btn-block vote">
+                    <g:message code="law.vote.voteButton" encodeAs="raw"/>
+                </g:link><!-- al hacer click lo deshabilito y cambio el texto -->
             </sec:ifNotLoggedIn>
         </g:if> %{--FIN DE LA LEY ABIERTA--}%
         <g:else> %{-- LEY CERRADA--}%

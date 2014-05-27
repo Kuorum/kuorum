@@ -347,14 +347,6 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 
-
-	// Deshabilitar botón Votar (ley no logado)
-	$('body').on("click", ".voting .vote", function(e) {
-		e.preventDefault();
-		$(this).text('Votación cerrada').addClass('disabled');
-	});
-
-
     // Deshabilitar botón defender (Post)
     $('body').on("click", "#driveDefend .btn", function(e) {
         e.preventDefault();

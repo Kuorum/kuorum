@@ -61,6 +61,13 @@ class LawController {
         commissionsTranslated."${searchedCommission?.toLowerCase()}"
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def showSecured(String hashtag){
+        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
+//        response.sendError(HttpServletResponse.SC_MOVED_PERMANENTLY)
+        redirect(mapping: 'lawShow', params:law.encodeAsLinkProperties(), permanent: true)
+    }
+
     def show(String hashtag){
         Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
         if (!law){

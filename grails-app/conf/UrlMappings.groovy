@@ -13,6 +13,7 @@ class UrlMappings {
         name lawCreate:     "/leyes/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
         name laws:          "/leyes/$regionName?/$commission?" (controller: "law", action:"index")
         name lawShow:       "/leyes/$regionName/$commission/$hashtag" (controller: "law", action:"show")
+        name lawShowSec:    "/sec/leyes/$regionName/$commission/$hashtag" (controller: "law", action:"showSecured")
         name lawEdit:       "/leyes/$regionName/$commission/$hashtag/editar"(controller: "law", action:"edit")
         name lawUpdate:     "/leyes/$regionName/$commission/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
         name lawVote:       "/ajax/leyes/$regionName/$commission/$hashtag/votar"(controller: "law", action:"voteLaw")
