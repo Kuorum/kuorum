@@ -47,7 +47,7 @@
             <input type="submit" class="btn btn-grey btn-lg" value="${g.message(code:'login.email.form.login')}"/>
         </div>
     </form>
-    <g:render template="/register/registerSocial2"/>
+    <g:render template="/register/registerSocial"/>
     <script type='text/javascript'>
         (function() {
             document.forms['login'].elements['j_username'].focus();
