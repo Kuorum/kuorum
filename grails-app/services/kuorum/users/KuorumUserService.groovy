@@ -295,7 +295,8 @@ class KuorumUserService {
         log.warn("Realizando un MAP REDUCE. Operación lenta que no se debe ejecturar muchas veces")
         MapReduceOutput result = Post.collection.mapReduce(bestPoliticians)
 
-        List<KuorumUser> politicians = bestPoliticiansCollection.find().sort(sortResult).collect{KuorumUser.load(it._id)}
+//        List<KuorumUser> politicians = bestPoliticiansCollection.find().sort(sortResult).collect{KuorumUser.load(it._id)}
+        List<KuorumUser> politicians = []
 
         if (politicians.size() < pagination.max){
             log.warn("Poniendo a pelo politicos que no estan activos. Accion temporal")

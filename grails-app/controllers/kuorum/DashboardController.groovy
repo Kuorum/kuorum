@@ -32,7 +32,11 @@ class DashboardController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Pagination pagination = new Pagination()
         List<Cluck> clucks =  cluckService.dashboardClucks(user,pagination)
-        [clucks: clucks, user:user,seeMore: clucks.size()==pagination.max]
+        List<KuorumUser>mostActiveUsers=[]
+        if (!clucks){
+            mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7 , new Pagination(max: 20))
+        }
+        [clucks: clucks,mostActiveUsers:mostActiveUsers, user:user,seeMore: clucks.size()==pagination.max]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
