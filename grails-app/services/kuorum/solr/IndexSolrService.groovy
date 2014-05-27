@@ -37,20 +37,30 @@ class IndexSolrService {
         server.commit()
     }
 
+    def solrIndex(){
+
+    }
+
     def fullIndex() {
         clearIndex()
 
+        def res = [:]
         log.warn("Reindexing all mongo")
         Date start = new Date()
         Integer numIndexed = 0;
         log.info("BulkUpdates: $solrBulkUpdateQuantity")
         CLASSNAMES_TO_INDEX.each{className ->
-            numIndexed += indexByClassName(className)
+            Integer numPartialIndexed = indexByClassName(className)
+            res.put(className, numPartialIndexed)
+            numIndexed += numPartialIndexed
         }
 
         TimeDuration td = TimeCategory.minus( new Date(), start )
 
         log.info("Indexed $numIndexed docs. Time indexing: ${td}" )
+        res.put("total", numIndexed)
+        res.put("time", td)
+        res
     }
 
     SolrPost index(Post post){

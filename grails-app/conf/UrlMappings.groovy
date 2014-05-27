@@ -86,7 +86,6 @@ class UrlMappings {
         name searcherSearchSeeMore:"/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
         name searcherSearchFilters:"/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
         name searcherSuggests:    "/buscar/sugerencias"(controller: "search", action:"suggest")
-        name searcherFullIndex:   "/buscar/indexar"(controller: "search", action:"fullIndex")
 
         name profileEditUser:     "/mi-perfil"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
         name profileChangePass:   "/mi-perfil/cambiar-password" (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
@@ -142,6 +141,8 @@ class UrlMappings {
         name adminUnpublishLaw:      "/admin/leyes/editar-ley/$hashtag/despublicar"  (controller:"adminLaw", action: "unPublishLaw")
         name adminUnpublishedLaws:  "/admin/leyes/no-publicadas"    (controller:"adminLaw", action: "unpublishedLaws")
         name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
+        name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
+        name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller: "admin", action:"fullIndex")
 
         "403" (controller: "error", action: "forbidden")
         "404" (controller: "error", action: "notFound")
