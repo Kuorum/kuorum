@@ -6,7 +6,7 @@ includeTargets << grailsScript("_GrailsInit")
 eventConfigureTomcat = {tomcat ->
 
     if(Environment.current == Environment.DEVELOPMENT) {
-        def path = "/home/iduetxe/kuorum/kuorum/images"
+        def path = "C:\\Users\\abbyrodd\\Documents\\Kuorum\\uploadImages"
         System.out.print("####EVENT: Imagenes en : /uploadedImages");
         def ctx=tomcat.host.findChild(serverContextPath)
         if ( ctx.aliases ) {
