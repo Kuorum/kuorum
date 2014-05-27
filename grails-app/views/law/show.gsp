@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <g:link mapping="postCreate" params="${law.encodeAsLinkProperties()+[postType:PostType.HISTORY]}">
-                    <span class="icon-notebook26 fa-2x"></span><br>
+                    <span class="fa fa-comment fa-2x"></span><br>
                     <g:message code="${kuorum.core.model.PostType.class.name}.${kuorum.core.model.PostType.HISTORY}"/>
                 </g:link>
                 <p><g:message code="law.createPost.${kuorum.core.model.PostType.HISTORY}.description"/> </P>

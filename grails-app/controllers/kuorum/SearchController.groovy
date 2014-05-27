@@ -1,7 +1,6 @@
 package kuorum
 
 import grails.converters.JSON
-import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.CommissionType
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.*
@@ -122,11 +121,6 @@ class SearchController{
         render template: '/search/searchElement', model:[docs:docs.elements, searchParams:searchParams]
     }
 
-    @Secured(['ROLE_ADMIN'])
-    def fullIndex(){
-         indexSolrService.fullIndex()
-        render "Ok"
-    }
 
     def suggest(SearchParams searchParams){
         if (searchParams.hasErrors()){
