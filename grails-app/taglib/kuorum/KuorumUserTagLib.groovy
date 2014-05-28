@@ -94,12 +94,22 @@ class KuorumUserTagLib {
 
     def listFollowers={attrs ->
         KuorumUser user = attrs.user
+        if (!user && springSecurityService.isLoggedIn()){
+            user = KuorumUser.get(springSecurityService.principal.id)
+        }else{
+            throw Exception("Si no está logado el usuario es necesario indicar el usuario")
+        }
         List<KuorumUser> users = user.followers.collect{id -> KuorumUser.load(id)}
         out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.follower.userList')
     }
 
     def listFollowing={attrs ->
         KuorumUser user = attrs.user
+        if (!user && springSecurityService.isLoggedIn()){
+            user = KuorumUser.get(springSecurityService.principal.id)
+        }else{
+            throw Exception("Si no está logado el usuario es necesario indicar el usuario")
+        }
         List<KuorumUser> users = user.following.collect{id -> KuorumUser.load(id)}
         out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.following.userList')
     }
@@ -122,6 +132,33 @@ class KuorumUserTagLib {
         out << counterUsers(total:total, messagesPrefix:messagesPrefix, ajaxUrl:ajaxUrl)
     }
 
+    def counterFollowers={attrs->
+        KuorumUser user = attrs.user
+
+        if (!user && springSecurityService.isLoggedIn()){
+            user = KuorumUser.get(springSecurityService.principal.id)
+        }else{
+            throw Exception("Si no está logado el usuario es necesario indicar el usuario")
+        }
+        Integer numFollowers = user.followers.size()
+        String messagesPrefix="dashboard.userProfile.followers"
+        def ajaxUrl = createLink(mapping:'userFollowers', params: user.encodeAsLinkProperties())
+        out << counterUsers(total:numFollowers, messagesPrefix:messagesPrefix, ajaxUrl:ajaxUrl)
+    }
+    def counterFollowing={attrs->
+        KuorumUser user = attrs.user
+
+        if (!user && springSecurityService.isLoggedIn()){
+            user = KuorumUser.get(springSecurityService.principal.id)
+        }else{
+            throw Exception("Si no está logado el usuario es necesario indicar el usuario")
+        }
+        Integer numFollowing = user.following.size()
+        String messagesPrefix="dashboard.userProfile.following"
+        def ajaxUrl = createLink(mapping:'userFollowing', params: user.encodeAsLinkProperties())
+        out << counterUsers(total:numFollowing, messagesPrefix:messagesPrefix, ajaxUrl:ajaxUrl)
+    }
+
     def counterUsers={attrs ->
         def total = attrs.total
         String messagesPrefix = attrs.messagesPrefix
@@ -129,10 +166,11 @@ class KuorumUserTagLib {
 
         String title = message(code:"${messagesPrefix}.title")
         String linkText = message(code:"${messagesPrefix}.link")
+        String label = message(code:"${messagesPrefix}.label", default: '')
 
         out << render (
                 template:'/kuorumUser/counterUsers',
-                model:[total:total,title:title,linkText:linkText, ajaxUrl:ajaxUrl]
+                model:[total:total,title:title,linkText:linkText, ajaxUrl:ajaxUrl,label:label]
         )
     }
 

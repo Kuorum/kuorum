@@ -111,11 +111,23 @@ class KuorumUserController {
     }
 
     def userFollowers(String id){
-
+        KuorumUser user = KuorumUser.get(new ObjectId(id))
+        List<KuorumUser> followers = kuorumUserService.findFollowers(user, new Pagination())
+        if (request.xhr){
+            render (template:'/kuorumUser/embebedUsersList', model:[users:followers])
+        }else{
+            [users:followers]
+        }
     }
 
     def userFollowing(String id){
-
+        KuorumUser user = KuorumUser.get(new ObjectId(id))
+        List<KuorumUser> following = kuorumUserService.findFollowing(user, new Pagination())
+        if (request.xhr){
+            render (template:'/kuorumUser/embebedUsersList', model:[users:following])
+        }else{
+            [users:following]
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

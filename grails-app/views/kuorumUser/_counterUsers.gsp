@@ -1,4 +1,7 @@
-<span class="ajax popover-trigger more-users counter" rel="popover" role="button" data-toggle="popover">${total}</span>
+<span class="ajax popover-trigger more-users counter" rel="popover" role="button" data-toggle="popover">
+    <span>${total}</span>
+</span>
+${label}
 <!-- POPOVER PARA SACAR LISTAS DE USUARIOS -->
 <div class="popover">
     <button type="button" class="close" aria-hidden="true"  data-dismiss="popover"><span class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="kuorumUser.popover.close"/></span></button>

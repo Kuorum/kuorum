@@ -57,6 +57,30 @@ class KuorumUserService {
         }
     }
 
+    List<KuorumUser> findFollowers(KuorumUser user, Pagination pagination){
+        List<KuorumUser> followers =[]
+        def init = pagination.offset
+        def end = Math.min(pagination.max+pagination.offset, user.followers.size()-1)
+        if (init <= end){
+            (init .. end).each{
+                followers.add(KuorumUser.get(user.followers[(Integer)it]))
+            }
+        }
+        followers
+    }
+
+    List<KuorumUser> findFollowing(KuorumUser user, Pagination pagination){
+        List<KuorumUser> following =[]
+        def init = pagination.offset
+        def end = Math.min(pagination.max+pagination.offset, user.following.size()-1)
+        if (init <= end){
+            (init .. end).each{
+                following.add(KuorumUser.get(user.following[(Integer)it]))
+            }
+        }
+        following
+    }
+
     KuorumUser convertAsUser(KuorumUser user){
         user.userType = UserType.PERSON
         user.personalData.userType = UserType.PERSON
