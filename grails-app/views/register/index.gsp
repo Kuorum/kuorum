@@ -77,7 +77,7 @@
     </g:form>
     <script>
         $(document).ready(function() {
-            $('#username').focus();
+            $('input[name=email]').focus();
         });
     </script>
 </content>
