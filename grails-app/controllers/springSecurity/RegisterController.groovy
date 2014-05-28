@@ -53,6 +53,30 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     def registerSuccess(){}
 
     def resendRegisterVerification(){
+        [command:new ResendVerificationMailCommand()]
+    }
+
+    def resendVerification(ResendVerificationMailCommand command){
+        KuorumUser user = KuorumUser.findByEmail(command.email)
+        if (!user){
+            command.errors.rejectValue('email', 'springSecurity.ResendVerificationMailCommand.email.notUserExists')
+        }
+        RegistrationCode registrationCode = RegistrationCode.findByUsername(command.email)
+        if (!registrationCode){
+            command.errors.rejectValue('email', 'springSecurity.ResendVerificationMailCommand.email.notToken')
+        }
+        if (command.hasErrors()){
+            render view: 'resendRegisterVerification', model:[command:command]
+            return
+        }
+
+        log.info("Usuario $user.name recordando token  $registrationCode.token")
+        String url = generateLink('verifyRegistration', [t: registrationCode.token])
+
+//        kuorumMailService.sendRegisterUser(user,url)
+        flash.chainedParams = [link:url]
+        flash.message=message(code:'register.locked.resendSuccess')
+        redirect mapping:"registerSuccess"
     }
 
     def verifyRegistration() {
@@ -154,6 +178,15 @@ class KuorumRegisterCommand{
         }
         password blank: false, validator: RegisterController.passwordValidator
         conditions nullable:false
+    }
+}
+
+@Validateable
+class ResendVerificationMailCommand{
+
+    String email
+    static constraints = {
+        email nullable:false, email:true
     }
 }
 
