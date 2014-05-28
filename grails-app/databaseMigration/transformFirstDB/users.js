@@ -111,7 +111,7 @@ function createKuorumUserFromOldUser(user){
         "dateCreated" : user.dateCreated,
         "email" : user.username.toLowerCase(),
         "verified": false,
-        "bio":user.defend,
+        "bio":HtmlDecode(user.defend),
         "userType":"PERSON",
         "avatar":createAvatar(user._id,"USER_AVATAR", user.pathAvatar),
         "enabled" : true,
