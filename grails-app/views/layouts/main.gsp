@@ -82,6 +82,11 @@
             display.success('${flash.message}')
         })
     </g:if>
+    <g:if test="${flash.error}">
+    $(function(){
+        display.warn('${flash.error}')
+    })
+    </g:if>
 </script>
 
 <!-- Modal -->
