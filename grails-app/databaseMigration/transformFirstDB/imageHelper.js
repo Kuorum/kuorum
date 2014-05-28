@@ -5,7 +5,7 @@ function createAvatar(objectId, fileGroup, photo){
         var kuorumFile = {
             "_class":"KuorumFile",
             "_id":id,
-            "user":objectId,
+            "userId":objectId,
             "temporal":false,
             "local":photo.indexOf("http://") > 0,
             "storagePath":storagePath(photo).storagePath,
