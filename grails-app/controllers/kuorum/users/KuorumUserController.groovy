@@ -75,7 +75,7 @@ class KuorumUserController {
         Pagination pagination = new Pagination()
         List<Cluck> clucks = cluckService.userClucks(user, pagination)
         List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(user)
-        String provinceName = user.personalData.province.name
+        String provinceName = user.personalData.province?.name
         render (view:"show", model:[user:user, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName, seeMore: clucks.size()==pagination.max])
     }
 

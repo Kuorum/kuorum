@@ -1,5 +1,7 @@
 <ul class="socialContact">
-    <li><span class="fa fa-map-marker fa-lg"></span> ${provinceName}</li>
+    <g:if test="${provinceName}">
+        <li><span class="fa fa-map-marker fa-lg"></span> ${provinceName}</li>
+    </g:if>
     <g:if test="${user.socialLinks?.twitter}">
         <li><span class="fa fa-twitter fa-lg"></span> <a href="https://twitter.com/${user.socialLinks.twitter}" target="_blank" rel="nofollow">@${user.socialLinks.twitter}</a></li>
     </g:if>
