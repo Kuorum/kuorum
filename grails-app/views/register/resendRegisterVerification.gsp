@@ -28,7 +28,7 @@
 
 <content tag="mainContent">
     <g:render template="/register/registerSocial"/>
-    <h2><g:message code="register.email.label"/> </h2>
+    <h2><g:message code="register.locked.form.title"/> </h2>
     <formUtil:validateForm bean="${command}" form="sign"/>
     <g:form mapping="registerResendMail" name="sign" role="form" method="POST" autocomplete="off">
         <div class="form-group">
@@ -57,8 +57,8 @@
 
 
 <content tag="description">
-    <h3><g:message code="login.description.title"/></h3>
-    <p><g:message code="login.description.p1"/> </p>
-    <p><g:message code="login.description.p2"/> </p>
-    <p><g:message code="login.description.p3"/> </p>
+    <h3><g:message code="register.locked.description.title"/></h3>
+    <p><g:message code="register.locked.description.p1"/></p>
+    <p><g:message code="register.locked.description.p2"/></p>
+    <p><g:message code="register.locked.description.p3"/></p>
 </content>
