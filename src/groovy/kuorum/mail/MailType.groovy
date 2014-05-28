@@ -7,7 +7,7 @@ public enum MailType {
 
     REGISTER_VERIFY_EMAIL               (MailGroupType.NOT_CONFIGURABLE,"03_validationEmail",           "registerUser", ["confirmationLink"], []),
     REGISTER_RESET_PASSWORD             (MailGroupType.NOT_CONFIGURABLE,"03A_resetPassword",            "registerUser", ["resetPasswordLink"], []),
-    REGISTER_RRSS                       (MailGroupType.NOT_CONFIGURABLE,"04_validationEmailRRSS",       "registerUser", [], []),
+    REGISTER_RRSS                       (MailGroupType.NOT_CONFIGURABLE,"04_validationEmailRRSS",       "registerUser", [], ["provider"]),
     REGISTER_ACCOUNT_COMPLETED          (MailGroupType.NOT_CONFIGURABLE,"05_registerCompleted",         "registerUser", [], []),
 
     NOTIFICATION_CLUCK                  (MailGroupType.MAIL_RELATED_WITH_ME,            "07_notificationCluck",         "notification", [],  ["postType", "clucker","cluckerLink","postName"]),
