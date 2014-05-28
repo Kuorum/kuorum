@@ -155,6 +155,6 @@ function createCommentsFromSubMessages(destPost, message){
         destPost.comments = comments
         dbDest.post.save(destPost)
     }else{
-        print("post sin mensajes:")
+//        print("post sin mensajes:")
     }
 }
