@@ -50,6 +50,7 @@ $(document).ready(function() {
     // inicializa formato fechas
     $("time.timeago").timeago();
 
+    prepareArrowClucks();
 
 	// slider de las imágenes de fondo en la Home
 	$(".home .images").bgswitcher({
@@ -1067,9 +1068,29 @@ function prepareProgressBar(){
     });
 }
 
+function prepareArrowClucks(){
+// el hover sobre el kakareo que afecte al triángulo superior
+    $('.kakareo > .link-wrapper').on({
+        mouseenter: function () {
+            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #efefef');
+        },
+        mouseleave: function () {
+            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fafafa');
+        }
+    });
 
+    $('.important .kakareo > .link-wrapper').on({
+        mouseenter: function () {
+            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #feedce');
+        },
+        mouseleave: function () {
+            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fff8ed');
+        }
+    });
+
+}
 // funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)
-	var display = {
+var display = {
     error:function(text){this._notyGeneric(text, "error")},
     success:function(text){this._notyGeneric(text, "success")},
     info:function(text){this._notyGeneric(text, "information")},
@@ -1090,7 +1111,7 @@ function prepareProgressBar(){
             text: text
         });
     }
-	}
+}
 
 
 $(document).ajaxStop(function () {
@@ -1098,23 +1119,5 @@ $(document).ajaxStop(function () {
 	// inicia el timeago
 	$("time.timeago").timeago();
 
-	// el hover sobre el kakareo que afecte al triángulo superior
-	$('.kakareo > .link-wrapper').on({
-	    mouseenter: function () {
-	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #efefef');
-	    },
-	    mouseleave: function () {
-	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fafafa');
-	    }
-	});
-
-	$('.important .kakareo > .link-wrapper').on({
-	    mouseenter: function () {
-	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #feedce');
-	    },
-	    mouseleave: function () {
-	        $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fff8ed');
-	    }
-	});
-
+	prepareArrowClucks();
 });
