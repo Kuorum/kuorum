@@ -146,11 +146,13 @@ class KuorumUserService {
 
     List<KuorumUser> recommendedUsers(KuorumUser user, Pagination pagination = new Pagination()){
         //TODO: Improve algorithm
+        List<KuorumUser> res = []
         if (!user){
-            KuorumUser.findAllByNumFollowersGreaterThan(-1,[sort:"numFollowers",order: "desc", max:pagination.max])
+            res = KuorumUser.findAllByNumFollowersGreaterThan(-1,[sort:"numFollowers",order: "desc", max:pagination.max])
         }else{
-            KuorumUser.findAllByNumFollowersGreaterThanAndEmailNotEqual(-1,user.email,[sort:"numFollowers",order: "desc", max:pagination.max])
+            res = KuorumUser.findAllByNumFollowersGreaterThanAndEmailNotEqual(-1,user.email,[sort:"numFollowers",order: "desc", max:pagination.max])
         }
+        res as ArrayList<KuorumUser>
     }
 
     List<KuorumUser> recommendedUsers(Pagination pagination = new Pagination()){

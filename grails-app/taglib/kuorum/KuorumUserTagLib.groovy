@@ -70,7 +70,7 @@ class KuorumUserTagLib {
     def showListUsers={attrs->
         Set<KuorumUser> users = attrs.users.unique()
         if (users){
-            Integer visibleUsers=Integer.parseInt(attrs.visibleUsers)?:1
+            Integer visibleUsers=Integer.parseInt(attrs.visibleUsers.toString())?:1
             List<KuorumUser> visibleUsersList = users.take(visibleUsers)
             List<KuorumUser> hiddenUsersList = users.drop(visibleUsers)
             Integer total = (attrs.total?:users.size() ) - visibleUsers

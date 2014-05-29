@@ -29,7 +29,8 @@ class TourController {
             cluckFake.law = post.law
             cluckFake
         }
-        [fakeClucks:fakeClucks, user:user]
+        def recommendedUsers = posts.owner
+        [fakeClucks:fakeClucks, user:user, favorites:posts,recommendedUsers:recommendedUsers]
     }
     def tour2() {
 
