@@ -13,6 +13,7 @@ class TourController {
     def postService
     def cluckService
     def lawService
+    def postVoteService
 
     def beforeInterceptor ={
         KuorumUser user
@@ -61,6 +62,10 @@ class TourController {
     }
 
     def tour3() {
-
+        KuorumUser user = params.user
+        Post post = Post.findByDefenderIsNull()
+        List<Post> relatedPost = postService.relatedPosts(post,  user,  3 )
+        List<KuorumUser> usersVotes = postVoteService.findVotedUsers(post, new Pagination(max:20))
+        [user:user, post:post,relatedPost:relatedPost,usersVotes:usersVotes]
     }
 }

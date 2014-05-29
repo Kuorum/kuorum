@@ -16,13 +16,13 @@ $(document).ready(function() {
 
         tour3.addSteps([
             {
-                element: '#tour3-10',
+                element: 'section.boxes.noted.likes form  a',
                 placement: 'bottom',
                 title: '10/11 Impulsa la propuesta',
                 content: 'Si te gusta mucho una publicación y crees que debe ser tenida en cuenta por nuestros parlamentarios, impúlsala con este botón y luego compártela con el mayor número de gente posible. Sólo last historias, preguntas y propuestas con un gran número de impulsos tienen posibilidades de llegar a las instituciones. Además puedes elegir si quieres que tu impulso sea anónimo, o si prefieres darle un apoyo incondicional al autor de la publicación mostrando tu nombre.'
             },
             {
-                element: '#tour3-11',
+                element: 'article.kakareo footer ul.actions-kak li.kakareo-number a.action.cluck:first',
                 placement: 'bottom',
                 template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn" data-role="end">Finalizar</button></div></div>',
                 title: '11/11 Kakarea',
@@ -34,9 +34,9 @@ $(document).ready(function() {
         tour3.init();
 
         // Start the tour
-//        $('tour3.htm').ready(function() {
-//            tour3.start();
-//        });
+        if ($(location).attr('pathname') == urls.tour.tour3){
+            tour3.start();
+        }
 
     });
 

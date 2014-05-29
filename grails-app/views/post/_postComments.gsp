@@ -15,7 +15,7 @@
     <g:each in="${filteredComments}" var="comment" status="i">
         <g:if test="${filteredComments.contains(comment)}">
             <g:set var="display" value="${i>=2?'none':'block'}"/>
-            <g:render template="postComment" model="[post:post, comment:comment, pos:i, display:display]"/>
+            <g:render template="/post/postComment" model="[post:post, comment:comment, pos:i, display:display]"/>
         </g:if>
     </g:each>
 
