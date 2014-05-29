@@ -9,6 +9,7 @@ class TourController {
     def tour1() {
         KuorumUser user = KuorumUser.list(max:1, sort:'id', order:'asc').first()
         user.name = "Nombre Usuario"
+        user.avatar = null
         List<Post> posts = Post.findAllByOwnerNotEqual(user,[max:5, sort:'id', order:'asc'])
         List<Cluck> fakeClucks = posts.collect{post ->
             Cluck cluckFake = new Cluck(

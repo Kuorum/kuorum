@@ -1,6 +1,7 @@
 
 <script>
     var urls = {
+        home:'<g:createLink mapping="home" absolute="true"/>',
         searchSuggest:'<g:createLink mapping="searcherSuggests" absolute="true"/>',
         search:'<g:createLink mapping="searcherSearch" absolute="true"/>',
         tour:{
@@ -50,6 +51,24 @@
                 roleButton:{
                     active:'<g:message code="profile.kuorumStore.roleButton.active"/>'
                 }
+            }
+        },
+        tour:{
+            tour1:{
+                step1_title:    '<g:message code="tour.tour1.step1_title"/>'    ,
+                step1_content:  '<g:message code="tour.tour1.step1_content"/>'  ,
+                step2_title:    '<g:message code="tour.tour1.step2_title"/>'    ,
+                step2_content:  '<g:message code="tour.tour1.step2_content"/>'  ,
+                step3_title:    '<g:message code="tour.tour1.step3_title"/>'    ,
+                step3_content:  '<g:message code="tour.tour1.step3_content"/>'  ,
+                step4_title:    '<g:message code="tour.tour1.step4_title"/>'    ,
+                step4_content:  '<g:message code="tour.tour1.step4_content"/>'  ,
+                step5_title:    '<g:message code="tour.tour1.step5_title"/>'    ,
+                step5_content:  '<g:message code="tour.tour1.step5_content"/>'  ,
+                step6_title:    '<g:message code="tour.tour1.step6_title"/>'    ,
+                step6_content:  '<g:message code="tour.tour1.step6_content"/>'  ,
+                step7_title:    '<g:message code="tour.tour1.step7_title"/>'    ,
+                step7_content:  '<g:message code="tour.tour1.step7_content"/>'
             }
         }
     }

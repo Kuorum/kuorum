@@ -10,7 +10,7 @@ $(document).ready(function() {
             backdrop: true,
             template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="next">Continuar</button></div></div>',
             onEnd : function(tour3){
-                window.location.href = "home-videomodal.htm";
+                window.location.href = urls.home;
             }
         });
 
