@@ -39,7 +39,14 @@ class ModulesController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userFavorites() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        [favorites:postService.favoritesPosts(user)]
+        render template:'/modules/userFavorites', model:[favorites:postService.favoritesPosts(user)]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def recommendedUsers() {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user, new Pagination(max:14))
+        render template:'/modules/recommendedUsers', model:[recommendedUsers:recommendedUsers]
     }
 
     def registerFooterRelevantUsers(){
