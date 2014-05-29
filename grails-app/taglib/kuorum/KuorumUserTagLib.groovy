@@ -96,7 +96,8 @@ class KuorumUserTagLib {
         KuorumUser user = attrs.user
         if (!user && springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
-        }else{
+        }
+        if (!user){
             throw Exception("Si no está logado el usuario es necesario indicar el usuario")
         }
         List<KuorumUser> users = user.followers.collect{id -> KuorumUser.load(id)}
@@ -107,8 +108,9 @@ class KuorumUserTagLib {
         KuorumUser user = attrs.user
         if (!user && springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
-        }else{
-            throw Exception("Si no está logado el usuario es necesario indicar el usuario")
+        }
+        if (!user){
+            throw new Exception("Si no está logado el usuario es necesario indicar el usuario")
         }
         List<KuorumUser> users = user.following.collect{id -> KuorumUser.load(id)}
         out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.following.userList')
