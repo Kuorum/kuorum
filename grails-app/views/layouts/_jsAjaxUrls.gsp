@@ -69,6 +69,12 @@
                 step6_content:  '<g:message code="tour.tour1.step6_content"/>'  ,
                 step7_title:    '<g:message code="tour.tour1.step7_title"/>'    ,
                 step7_content:  '<g:message code="tour.tour1.step7_content"/>'
+            },
+            tour2:{
+                step1_title:    '<g:message code="tour.tour2.step1_title"/>'    ,
+                step1_content:  '<g:message code="tour.tour2.step1_content"/>'  ,
+                step2_title:    '<g:message code="tour.tour2.step2_title"/>'    ,
+                step2_content:  '<g:message code="tour.tour2.step2_content"/>'
             }
         }
     }
