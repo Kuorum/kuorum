@@ -5,7 +5,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-    <g:render template="headTourFake"/>
+    <g:render template="headTourFake" model="[user:user]"/>
 
     <div class="row main">
 

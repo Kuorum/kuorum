@@ -24,7 +24,7 @@ class LayoutsController {
                 numNews: numNewNotifications
         ]
         Integer numUserPosts = postService.numUserPosts(user)
-        [user:user, notifications:notifications,numUserPosts:numUserPosts]
+        render template:'/layouts/userHead', model:[user:user, notifications:notifications,numUserPosts:numUserPosts]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
