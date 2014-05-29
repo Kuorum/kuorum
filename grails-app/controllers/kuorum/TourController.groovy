@@ -28,7 +28,11 @@ class TourController {
         params.user = user
     }
 
-    def tour1() {
+    def index(){
+        redirect(mapping:'tour_dashboard')
+    }
+
+    def tour_dashboard() {
         KuorumUser user = params.user
         List<Post> posts = Post.findAllByOwnerNotEqual(user,[max:5, sort:'id', order:'asc'])
         List<Cluck> fakeClucks = posts.collect{post ->
@@ -52,7 +56,7 @@ class TourController {
         def recommendedUsers = posts.owner
         [fakeClucks:fakeClucks, user:user, favorites:posts,recommendedUsers:recommendedUsers]
     }
-    def tour2() {
+    def tour_law() {
         KuorumUser user = params.user
         Law law = Law.findByStatus(LawStatusType.OPEN)
         List<Post> victories = postService.lawVictories(law)
@@ -61,7 +65,7 @@ class TourController {
         [user:user, law:law,victories:victories,clucks:clucks,necessaryVotesForKuorum:necessaryVotesForKuorum]
     }
 
-    def tour3() {
+    def tour_post() {
         KuorumUser user = params.user
         Post post = Post.findByDefenderIsNull()
         List<Post> relatedPost = postService.relatedPosts(post,  user,  3 )

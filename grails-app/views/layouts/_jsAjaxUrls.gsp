@@ -5,9 +5,9 @@
         searchSuggest:'<g:createLink mapping="searcherSuggests" absolute="true"/>',
         search:'<g:createLink mapping="searcherSearch" absolute="true"/>',
         tour:{
-            tour1:'<g:createLink mapping="tourStart"/>',
-            tour2:'<g:createLink mapping="tour2"/>',
-            tour3:'<g:createLink mapping="tour3"/>'
+            tour_dashboard:'<g:createLink mapping="tour_dashboard"/>',
+            tour_law:'<g:createLink mapping="tour_law"/>',
+            tour_post:'<g:createLink mapping="tour_post"/>'
         }
     }
     var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>'
@@ -54,33 +54,33 @@
             }
         },
         tour:{
-            tour1:{
-                step1_title:    '<g:message code="tour.tour1.step1_title"/>'    ,
-                step1_content:  '<g:message code="tour.tour1.step1_content"/>'  ,
-                step2_title:    '<g:message code="tour.tour1.step2_title"/>'    ,
-                step2_content:  '<g:message code="tour.tour1.step2_content"/>'  ,
-                step3_title:    '<g:message code="tour.tour1.step3_title"/>'    ,
-                step3_content:  '<g:message code="tour.tour1.step3_content"/>'  ,
-                step4_title:    '<g:message code="tour.tour1.step4_title"/>'    ,
-                step4_content:  '<g:message code="tour.tour1.step4_content"/>'  ,
-                step5_title:    '<g:message code="tour.tour1.step5_title"/>'    ,
-                step5_content:  '<g:message code="tour.tour1.step5_content"/>'  ,
-                step6_title:    '<g:message code="tour.tour1.step6_title"/>'    ,
-                step6_content:  '<g:message code="tour.tour1.step6_content"/>'  ,
-                step7_title:    '<g:message code="tour.tour1.step7_title"/>'    ,
-                step7_content:  '<g:message code="tour.tour1.step7_content"/>'
+            tour_dashboard:{
+                step1_title:    '<g:message code="tour.tour_dashboard.step1_title"/>'    ,
+                step1_content:  '<g:message code="tour.tour_dashboard.step1_content"/>'  ,
+                step2_title:    '<g:message code="tour.tour_dashboard.step2_title"/>'    ,
+                step2_content:  '<g:message code="tour.tour_dashboard.step2_content"/>'  ,
+                step3_title:    '<g:message code="tour.tour_dashboard.step3_title"/>'    ,
+                step3_content:  '<g:message code="tour.tour_dashboard.step3_content"/>'  ,
+                step4_title:    '<g:message code="tour.tour_dashboard.step4_title"/>'    ,
+                step4_content:  '<g:message code="tour.tour_dashboard.step4_content"/>'  ,
+                step5_title:    '<g:message code="tour.tour_dashboard.step5_title"/>'    ,
+                step5_content:  '<g:message code="tour.tour_dashboard.step5_content"/>'  ,
+                step6_title:    '<g:message code="tour.tour_dashboard.step6_title"/>'    ,
+                step6_content:  '<g:message code="tour.tour_dashboard.step6_content"/>'  ,
+                step7_title:    '<g:message code="tour.tour_dashboard.step7_title"/>'    ,
+                step7_content:  '<g:message code="tour.tour_dashboard.step7_content"/>'
             },
-            tour2:{
-                step1_title:    '<g:message code="tour.tour2.step1_title"/>'    ,
-                step1_content:  '<g:message code="tour.tour2.step1_content"/>'  ,
-                step2_title:    '<g:message code="tour.tour2.step2_title"/>'    ,
-                step2_content:  '<g:message code="tour.tour2.step2_content"/>'
+            tour_law:{
+                step1_title:    '<g:message code="tour.tour_law.step1_title"/>'    ,
+                step1_content:  '<g:message code="tour.tour_law.step1_content"/>'  ,
+                step2_title:    '<g:message code="tour.tour_law.step2_title"/>'    ,
+                step2_content:  '<g:message code="tour.tour_law.step2_content"/>'
             },
-            tour3:{
-                step1_title:    '<g:message code="tour.tour3.step1_title"/>'    ,
-                step1_content:  '<g:message code="tour.tour3.step1_content"/>'  ,
-                step2_title:    '<g:message code="tour.tour3.step2_title"/>'    ,
-                step2_content:  '<g:message code="tour.tour3.step2_content"/>'
+            tour_post:{
+                step1_title:    '<g:message code="tour.tour_post.step1_title"/>'    ,
+                step1_content:  '<g:message code="tour.tour_post.step1_content"/>'  ,
+                step2_title:    '<g:message code="tour.tour_post.step2_title"/>'    ,
+                step2_content:  '<g:message code="tour.tour_post.step2_content"/>'
             }
         }
     }

@@ -1,7 +1,7 @@
 <g:applyLayout name="main">
 
 <head>
-    <title><g:message code="tour.tour1.title"/></title>
+    <title><g:message code="tour.tour_dashboard.title"/></title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">

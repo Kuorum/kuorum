@@ -1,7 +1,7 @@
 <g:applyLayout name="main">
 %{--Es igual al layout de columnC pero cambia la cabecera--}%
     <head>
-        <title><g:message code="tour.tour3.title"/></title>
+        <title><g:message code="tour.tour_post.title"/></title>
     </head>
 
     <body itemscope itemtype="http://schema.org/WebPage">

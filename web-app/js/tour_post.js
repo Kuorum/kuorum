@@ -1,41 +1,42 @@
-var tour2
+var tour_post
 $(document).ready(function() {
 
-    // tour 2
+    // tour 3
     $(function() {
-        tour2 = new Tour({
-            name: 'tour2',
+        tour_post = new Tour({
+            name: 'tour_post',
             storage: false,
             debug: true,
             backdrop: true,
             template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="next">Continuar</button></div></div>',
-            onEnd : function(tour2){
-                window.location.href = urls.tour.tour3;
+            onEnd : function(tour_post){
+                window.location.href = urls.tour.tour_law;
+                $("body").append("<div class='tour-backdrop'></div>")
             }
         });
 
-        tour2.addSteps([
+        tour_post.addSteps([
             {
-                element: 'section.boxes.vote div.voting',
+                element: 'section.boxes.noted.likes form  a',
                 placement: 'bottom',
-                title: i18n.tour.tour2.step1_title,
-                content:i18n.tour.tour2.step1_content
+                title: i18n.tour.tour_post.step1_title,
+                content:i18n.tour.tour_post.step1_content
             },
             {
-                element: 'aside.participate span.fa-question-circle',
+                element: 'article.kakareo footer ul.actions-kak li.kakareo-number a.action.cluck:first',
                 placement: 'bottom',
                 template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="end">Continuar</button></div></div>',
-                title: i18n.tour.tour2.step2_title,
-                content:i18n.tour.tour2.step2_content
+                title: i18n.tour.tour_post.step2_title,
+                content:i18n.tour.tour_post.step2_content
             }
         ]);
 
         // Initialize the tour
-        tour2.init();
+        tour_post.init();
 
         // Start the tour
-        if ($(location).attr('pathname') == urls.tour.tour2){
-            tour2.start();
+        if ($(location).attr('pathname') == urls.tour.tour_post){
+            tour_post.start();
         }
 
     });

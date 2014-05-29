@@ -116,9 +116,10 @@ class UrlMappings {
         name footerTermsUse:      "/kuorum/condiciones-de-uso"  (controller:"footer", action: "termsUse")
         name footerTermsAds:      "/kuorum/normas-publicidad"   (controller:"footer", action: "termsAds")
 
-        name tourStart:           "/tour/dashboard" (controller:"tour", action: "tour1")
-        name tour2:               "/tour/ley"       (controller:"tour", action: "tour2")
-        name tour3:               "/tour/publicacion" (controller:"tour", action: "tour3")
+        name tourStart:           "/tour" (controller:"tour", action: "index")
+        name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
+        name tour_law:            "/tour/ley"       (controller:"tour", action: "tour_law")
+        name tour_post:           "/tour/publicacion" (controller:"tour", action: "tour_post")
 
         name ajaxHeadNotificationsChecked: "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")
         name ajaxPostponeAlert: "/ajax/notificaiones/posponer/$id"(controller:"notification", action:"postponeAlert")
