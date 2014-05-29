@@ -121,7 +121,10 @@ class LawService {
     }
 
     Law updateLaw(Law law){
-
+        if (!law.shortUrl){
+            //TODO: Quitar cuando todas las leyes de la antigua web hayan sido editadas.
+            law.shortUrl = shortUrlService.shortUrl(law)
+        }
         law.image.alt = law.hashtag
         law.image.save()
         fileService.convertTemporalToFinalFile(law.image)
