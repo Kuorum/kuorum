@@ -1,5 +1,8 @@
 package kuorum
 
+import kuorum.core.model.LawStatusType
+import kuorum.core.model.search.Pagination
+import kuorum.law.Law
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.users.KuorumUser
@@ -7,8 +10,11 @@ import kuorum.users.KuorumUser
 class TourController {
 
     def springSecurityService
+    def postService
+    def cluckService
+    def lawService
 
-    def tour1() {
+    def beforeInterceptor ={
         KuorumUser user
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
@@ -18,6 +24,11 @@ class TourController {
             user.avatar = null
 
         }
+        params.user = user
+    }
+
+    def tour1() {
+        KuorumUser user = params.user
         List<Post> posts = Post.findAllByOwnerNotEqual(user,[max:5, sort:'id', order:'asc'])
         List<Cluck> fakeClucks = posts.collect{post ->
             Cluck cluckFake = new Cluck(
@@ -41,7 +52,12 @@ class TourController {
         [fakeClucks:fakeClucks, user:user, favorites:posts,recommendedUsers:recommendedUsers]
     }
     def tour2() {
-
+        KuorumUser user = params.user
+        Law law = Law.findByStatus(LawStatusType.OPEN)
+        List<Post> victories = postService.lawVictories(law)
+        def clucks = cluckService.lawClucks(law,new Pagination(max:4))
+        Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
+        [user:user, law:law,victories:victories,clucks:clucks,necessaryVotesForKuorum:necessaryVotesForKuorum]
     }
 
     def tour3() {

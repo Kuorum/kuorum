@@ -10,49 +10,12 @@
 <content tag="mainContent">
     <g:render template="/law/lawInfo" model="[law:law, victories: victories, readMore:true]"/>
 
-    <aside class="participate">
-        <h1><g:message code="law.createPost.title"/> </h1>
-        <p><g:message code="law.createPost.description"/> </p>
-        <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <g:link mapping="postCreate" params="${law.encodeAsLinkProperties()+[postType:PostType.HISTORY]}">
-                    <span class="fa fa-comment fa-2x"></span><br>
-                    <g:message code="${kuorum.core.model.PostType.class.name}.${kuorum.core.model.PostType.HISTORY}"/>
-                </g:link>
-                <p><g:message code="law.createPost.${kuorum.core.model.PostType.HISTORY}.description"/> </P>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <g:link mapping="postCreate" params="${law.encodeAsLinkProperties()+[postType:PostType.QUESTION]}">
-                    <span class="fa fa-question-circle fa-2x"></span><br>
-                    <g:message code="${kuorum.core.model.PostType.class.name}.${kuorum.core.model.PostType.QUESTION}"/>
-                </g:link>
-                <p><g:message code="law.createPost.${kuorum.core.model.PostType.QUESTION}.description"/> </P>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <g:link mapping="postCreate" params="${law.encodeAsLinkProperties()+[postType:PostType.PURPOSE]}">
-                    <span class="fa fa-lightbulb-o fa-2x"></span><br>
-                    <g:message code="${kuorum.core.model.PostType.class.name}.${kuorum.core.model.PostType.PURPOSE}"/>
-                </g:link>
-                <p><g:message code="law.createPost.${kuorum.core.model.PostType.PURPOSE}.description"/> </P>
-            </div>
-        </div>
-    </aside>
+    <g:render template="/law/lawButtonsCreatePost" model="[law:law]"/>
 
     <g:if test="${victories}">
         <g:render template="lawVictories" model="[law:law, victories:victories]"/>
     </g:if>
-    <aside class="participAll">
-        <h1><g:message code="law.clucks.title"/> </h1>
-        <p><g:message code="law.clucks.description"/> </p>
-        <!-- COMIENZA LISTA DE KAKAREOS -->
-        <g:set var="urlLoadMore" value="${createLink(mapping: 'lawListClucks', params: law.encodeAsLinkProperties())}"/>
-        <g:render template="/cluck/listClucks" model="[clucks:clucks, urlLoadMore:urlLoadMore, seeMore:seeMore]"/>
-        %{--<ul class="kakareo-list" role="log" aria-live="assertive" aria-relevant="additions">--}%
-            %{--<g:each in="${clucks}" var="cluck">--}%
-                %{--<g:render template="/cluck/cluck" model="[cluck:cluck]"/>--}%
-            %{--</g:each>--}%
-        %{--</ul>--}%
-    </aside>
+    <g:render template="lawClucks" model="[law:law, clucks:clucks, seeMore:seeMore]"/>
 </content>
 
 <content tag="cColumn">

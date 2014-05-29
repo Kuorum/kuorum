@@ -16,13 +16,13 @@ $(document).ready(function() {
 
         tour2.addSteps([
             {
-                element: '#tour2-8',
+                element: 'section.boxes.vote div.voting',
                 placement: 'bottom',
                 title: '8/11 Aquí tienes voto',
                 content: 'Además de escribir publicaciones para cambiar un texto legislativo, también puedes votar la ley en su conjunto. Da tu opinión de manera totalmente anónima. Si estás de acuerdo vota a favor, si no lo estás vota en contra y si no lo tienes claro... ya sabes. Pero no pierdas la oportunidad de votar esas leyes que hasta ahora sólo se votaban en el Parlamentpo. En Kuorum tienes la oportunidad de que tu voto cuente, ya que si alcanzamos los 1000 votos - si hay quórum - nos comprometemos a hacer llegar los resultados de la consulta a los parlamentarios.'
             },
             {
-                element: '#tour2-9',
+                element: 'aside.participate span.fa-question-circle',
                 placement: 'bottom',
                 template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="end">Continuar</button></div></div>',
                 title: '9/11 También tienes voz',
@@ -34,9 +34,9 @@ $(document).ready(function() {
         tour2.init();
 
         // Start the tour
-//        $('tour2.htm').ready(function() {
-//            tour2.start();
-//        });
+        if ($(location).attr('pathname') == urls.tour.tour2){
+            tour2.start();
+        }
 
     });
 
