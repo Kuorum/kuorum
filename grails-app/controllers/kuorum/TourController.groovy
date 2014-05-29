@@ -6,10 +6,18 @@ import kuorum.users.KuorumUser
 
 class TourController {
 
+    def springSecurityService
+
     def tour1() {
-        KuorumUser user = KuorumUser.list(max:1, sort:'id', order:'asc').first()
-        user.name = "Nombre Usuario"
-        user.avatar = null
+        KuorumUser user
+        if (springSecurityService.isLoggedIn()){
+            user = KuorumUser.get(springSecurityService.principal.id)
+        }else{
+            user = KuorumUser.list(max:1, sort:'id', order:'asc').first()
+            user.name = "Nombre Usuario"
+            user.avatar = null
+
+        }
         List<Post> posts = Post.findAllByOwnerNotEqual(user,[max:5, sort:'id', order:'asc'])
         List<Cluck> fakeClucks = posts.collect{post ->
             Cluck cluckFake = new Cluck(
