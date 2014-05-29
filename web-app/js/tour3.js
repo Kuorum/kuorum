@@ -18,15 +18,15 @@ $(document).ready(function() {
             {
                 element: 'section.boxes.noted.likes form  a',
                 placement: 'bottom',
-                title: '10/11 Impulsa la propuesta',
-                content: 'Si te gusta mucho una publicación y crees que debe ser tenida en cuenta por nuestros parlamentarios, impúlsala con este botón y luego compártela con el mayor número de gente posible. Sólo last historias, preguntas y propuestas con un gran número de impulsos tienen posibilidades de llegar a las instituciones. Además puedes elegir si quieres que tu impulso sea anónimo, o si prefieres darle un apoyo incondicional al autor de la publicación mostrando tu nombre.'
+                title: i18n.tour.tour3.step2_title,
+                content:i18n.tour.tour3.step2_content
             },
             {
                 element: 'article.kakareo footer ul.actions-kak li.kakareo-number a.action.cluck:first',
                 placement: 'bottom',
                 template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn" data-role="end">Finalizar</button></div></div>',
-                title: '11/11 Kakarea',
-                content: 'Si te gusta tanto una publicación como para compartirla con otros usuarios, sólo tienes que kakarearla pulsando este botón. Y así todos tus seguidores podrán verla aunque no sigan al autor original. También puedes compartirla en otras redes sociales; de esta forma además nos ayudas a crecer. Cuantos más seamos, más fuerza tendremos.'
+                title: i18n.tour.tour3.step2_title,
+                content:i18n.tour.tour3.step2_content
             }
         ]);
 
