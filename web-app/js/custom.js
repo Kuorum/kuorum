@@ -1090,7 +1090,7 @@ function prepareArrowClucks(){
 
 }
 // funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)
-var display = {
+	var display = {
     error:function(text){this._notyGeneric(text, "error")},
     success:function(text){this._notyGeneric(text, "success")},
     info:function(text){this._notyGeneric(text, "information")},
@@ -1111,7 +1111,7 @@ var display = {
             text: text
         });
     }
-}
+	}
 
 
 $(document).ajaxStop(function () {

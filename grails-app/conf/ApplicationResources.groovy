@@ -39,4 +39,13 @@ modules = {
         resource url:'js/social/twitter.js'
         resource url:'js/social/googlePlus.js'
     }
+
+    tour{
+        dependsOn 'basic'
+        resource url:'js/bootstrap-tour.min.js'
+        resource url:'css/bootstrap-tour.min.css'
+        resource url:'js/tour1.js'
+        resource url:'js/tour2.js'
+        resource url:'js/tour3.js'
+    }
 }

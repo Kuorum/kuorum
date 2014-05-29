@@ -2,7 +2,12 @@
 <script>
     var urls = {
         searchSuggest:'<g:createLink mapping="searcherSuggests" absolute="true"/>',
-        search:'<g:createLink mapping="searcherSearch" absolute="true"/>'
+        search:'<g:createLink mapping="searcherSearch" absolute="true"/>',
+        tour:{
+            tour1:'<g:createLink mapping="tourStart"/>',
+            tour2:'<g:createLink mapping="tour2"/>',
+            tour3:'<g:createLink mapping="tour3"/>'
+        }
     }
     var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>'
     var ajaxHeadMessagesChecked='<g:createLink mapping="ajaxHeadMessagesChecked" absolute="true"/>'

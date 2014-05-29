@@ -2,7 +2,6 @@
 Hoja de estilos para kuorum.org
 Base Bootstrap 3.1.1 mobile first
 Responsive desde 768px
-Test Abby ok
 */
 
 /* tipos =========== */
@@ -582,6 +581,17 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-content {padding: 9px;}
 .more-users + .popover,
 .more-actions + .popover {width: 225px;}
+
+.popover.tour {width: 300px; max-width: 300px !important; padding: 8px;}
+.popover.tour .popover-title {font-family: 'League Gothic', Arial, sans-serif; font-size: 34px; font-size: 3.4rem; line-height: 1; text-transform: uppercase;}
+.popover.tour .popover-navigation > button {margin: 0 !important; width: 100%; display: block; float: none; margin: 6px 0 !important;}
+.popover.tour .popover-navigation > button:last-child {margin: 0 !important;}
+.popover.tour .popover-content,
+.popover.tour .popover-navigation {padding: 4px;}
+.tour-step-background {background: none !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
+.tour-backdrop {background: #fff !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
+.popover[class*="tour-"] {z-index: 1110;}
+
 
 .slimScrollBar {z-index: 9999 !important;}
 .slimScrollRail,
@@ -1992,7 +2002,8 @@ textarea.error,
 /* descubre =========== */
 /* ====================================================== */
 .introDiscover {margin: 10px 0 20px;}
-.introDiscover .steps {margin: 0 0 10px 0; display: inline-block;}
+.introDiscover .pre {font-size: 17.5px; font-size: 1.75rem; margin-top: 0;}
+.introDiscover .steps {margin: 0 0 10px 0; padding: 0; display: inline-block;}
 .introDiscover .steps li {margin: 0 0 0 34px;}
 .introDiscover .steps li.active .badge {background-color: #20a2ea;}
 .introDiscover .steps li .badge:hover,
@@ -2122,7 +2133,7 @@ textarea.error,
 .info #main > header nav ul li a:hover,
 .info #main > header nav ul li a:active,
 .info #main > header nav ul li a:focus {text-decoration: none; color: #545454; background-color: #dddddd;}
-.info #main > header nav ul li a.active {color: #545454;}
+.info #main > header nav ul li a.active {color: #545454; background-color: #dadada;}
 .info #main article h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 46px; font-size: 4.6rem; text-transform: uppercase; border-bottom: 1px solid #DADADA; padding-bottom: 15px;}
 .info #main article h2 {font-size: 22px; font-size: 2.2rem; margin: 20px 0; font-weight: bold;}
 .info #main article h2.border {border-top: 1px solid #DADADA; padding-top: 15px;}
@@ -2171,7 +2182,7 @@ textarea.error,
 .container-fluid.config > section > header > h1 {font-size: 19px; font-size: 1.9rem;}
 .container-fluid.config > section > header > h1 .user-name {color: #545454; font-size: 25px; font-size: 2.5rem;}
 .container-fluid.config > section > header > ul {margin: 0; padding: 0;}
-.container-fluid.config > section > header > ul > li {margin: 0 0 20px 0; padding: 0; list-style: none; font-size: 14px; font-size: 1.4rem;}
+.container-fluid.config > section > header > ul > li {margin: 0; padding: 0; list-style: none; line-height: 1.7;}
 .container-fluid.config > section > header > ul > li > a {color: #a8a8a8; padding: 4px 8px; display: block;}
 .container-fluid.config > section > header > ul > li > a:hover,
 .container-fluid.config > section > header > ul > li > a:focus,
@@ -2180,13 +2191,14 @@ textarea.error,
 .container-fluid.config > section > header > ul > li > a > .badge {background-color: #dadada;}
 .container-fluid.config > section > header > ul > li > a:hover > .badge,
 .container-fluid.config > section > header > ul > li > a:focus > .badge,
-.container-fluid.config > section > header > ul > li > a:active > .badge {background-color: #ffffff; color: #545454;}
+.container-fluid.config > section > header > ul > li > a:active > .badge,
+.container-fluid.config > section > header > ul > li.active > a > .badge {background-color: #ffffff; color: #545454;}
 .container-fluid.config > section > section > h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 46px; font-style: 4.6rem; margin-top: 80px; text-transform: uppercase; border-bottom: 1px solid #DADADA; padding-bottom: 15px;}
 
 .config label,
 .config .span-label {font-weight: bold;}
 .config .groupRadio label {font-weight: normal;}
-.config a.pull-right {color: #a8a8a8; margin: 4px 0;}
+.config span.pull-right {color: #a8a8a8; margin: 4px 0;}
 .config .form-group {margin: 40px 0;}
 .config .form-group:first-child {margin-top: 20px;}
 .config .form-group > .help-block:first-child {border-top: 1px solid #DADADA; padding-top: 20px;}
@@ -2654,6 +2666,9 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .othersPost #postNav > a {padding: 44px 18px;}
 
   #map {width: 475px; height: 405px;}
+
+  .popover.tour {width: 385px; max-width: 385px !important; padding: 10px;}
+  .popover.tour .popover-title {font-family: 'League Gothic', Arial, sans-serif; font-size: 48px; font-size: 4.8rem; line-height: 1; text-transform: uppercase;}
 
 }
 

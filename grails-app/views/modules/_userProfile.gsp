@@ -11,13 +11,11 @@
         </g:link>
         <ul class="activity">
             <li class="followers">
-                <userUtil:counterFollowers/>
+                <userUtil:counterFollowers user="${user}"/>
             </li>
 
-
-
             <li class="following">
-                <userUtil:counterFollowing/>
+                <userUtil:counterFollowing user="${user}"/>
             </li>
             <li class="posts"><span>${numPosts}</span> <g:message code="dashboard.userProfile.posts"/></li>
         </ul>

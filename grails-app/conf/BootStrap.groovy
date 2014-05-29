@@ -1,7 +1,6 @@
 import com.mongodb.BasicDBObject
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.exception.KuorumExceptionUtil
-import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
 
 class BootStrap {
@@ -55,20 +54,22 @@ class BootStrap {
             development {
 //                KuorumUser.collection.getDB().dropDatabase()
 //                fixtureLoader.load("testData")
-                indexSolrService.fullIndex()
+//                indexSolrService.fullIndex()
             }
             test{
 //                KuorumUser.collection.getDB().dropDatabase()
 //                fixtureLoader.load("testData")
             }
             production{
-                KuorumUser.collection.getDB().dropDatabase()
-                fixtureLoader.load("testData")
-                indexSolrService.fullIndex()
+//                KuorumUser.collection.getDB().dropDatabase()
+//                fixtureLoader.load("testData")
+//                indexSolrService.fullIndex()
             }
         }
         if (RoleUser.count() == 0){
             //EMPTY DB
+            RoleUser.collection.getDB().dropDatabase()
+            log.info("Empty Database: loading basicData")
             fixtureLoader.load("basicData")
         }
     }

@@ -27,13 +27,13 @@ class ModulesController {
     def userProfile() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Integer numPosts = Post.countByOwner(user)
-        [user:user, numPosts:numPosts]
+        render template:'/modules/userProfile', model:[user:user, numPosts:numPosts]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userProfileAlerts() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        [alerts:notificationService.findActiveUserAlerts(user)]
+        render template:'/modules/userProfileAlerts', module: [alerts:notificationService.findActiveUserAlerts(user)]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

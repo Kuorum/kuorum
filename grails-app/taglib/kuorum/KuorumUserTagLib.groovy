@@ -135,11 +135,6 @@ class KuorumUserTagLib {
     def counterFollowers={attrs->
         KuorumUser user = attrs.user
 
-        if (!user && springSecurityService.isLoggedIn()){
-            user = KuorumUser.get(springSecurityService.principal.id)
-        }else{
-            throw Exception("Si no está logado el usuario es necesario indicar el usuario")
-        }
         Integer numFollowers = user.followers.size()
         String messagesPrefix="dashboard.userProfile.followers"
         def ajaxUrl = createLink(mapping:'userFollowers', params: user.encodeAsLinkProperties())
@@ -148,11 +143,6 @@ class KuorumUserTagLib {
     def counterFollowing={attrs->
         KuorumUser user = attrs.user
 
-        if (!user && springSecurityService.isLoggedIn()){
-            user = KuorumUser.get(springSecurityService.principal.id)
-        }else{
-            throw Exception("Si no está logado el usuario es necesario indicar el usuario")
-        }
         Integer numFollowing = user.following.size()
         String messagesPrefix="dashboard.userProfile.following"
         def ajaxUrl = createLink(mapping:'userFollowing', params: user.encodeAsLinkProperties())
