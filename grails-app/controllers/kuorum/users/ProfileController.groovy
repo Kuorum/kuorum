@@ -52,9 +52,12 @@ class ProfileController {
         command.month = user.personalData?.birthday?user.personalData.birthday[Calendar.MONTH]+1:null
         command.day =   user.personalData?.birthday?user.personalData.birthday[Calendar.DAY_OF_MONTH]:null
         command.name = user.name
-        command.workingSector = user.personalData?.workingSector
-        command.studies = user.personalData?.studies
-        command.enterpriseSector = user.personalData?.enterpriseSector
+        if (user.userType == UserType.ORGANIZATION){
+            command.enterpriseSector = user.personalData?.enterpriseSector
+        }else{
+            command.workingSector = user.personalData?.workingSector
+            command.studies = user.personalData?.studies
+        }
         command.bio = user.bio
         command.photoId = user.avatar?.id?.toString()
         [command: command, user:user]
