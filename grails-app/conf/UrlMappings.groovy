@@ -7,7 +7,7 @@ class UrlMappings {
 	static mappings = {
 
         name home:             "/" (controller: "dashboard", action:"index")
-        name dashboardSeeMore: "/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
+        name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
         name discover:         "/descubre" (controller: "dashboard", action:"discover")
 
         name lawCreate:     "/leyes/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
@@ -111,7 +111,7 @@ class UrlMappings {
         name footerOrganizations: "/kuorum/organizaciones"      (controller:"footer", action: "organizations" )
         name footerPoliticians:   "/kuorum/politicos"           (controller:"footer", action: "politicians" )
         name footerDevelopers:    "/kuorum/desarrolladores"     (controller:"footer", action: "developers" )
-        name footerKuorumStore:    "/kuorum/el-gallinero"        (controller:"footer", action: "kuorumStore" )
+        name footerKuorumStore:   "/kuorum/el-gallinero"        (controller:"footer", action: "kuorumStore" )
         name footerPrivacyPolicy: "/kuorum/politica-privacidad" (controller:"footer", action: "privacyPolicy")
         name footerTermsUse:      "/kuorum/condiciones-de-uso"  (controller:"footer", action: "termsUse")
         name footerTermsAds:      "/kuorum/normas-publicidad"   (controller:"footer", action: "termsAds")
@@ -141,7 +141,7 @@ class UrlMappings {
         name adminCreateLaw:        "/admin/leyes/crear-ley"        (controller:"adminLaw"){action =[GET:"createLaw", POST:"saveLaw"]}
         name adminEditLaw:          "/admin/leyes/editar-ley/$hashtag" (controller:"adminLaw"){action =[GET:"editLaw", POST:"updateLaw"]}
         name adminPublishLaw:       "/admin/leyes/editar-ley/$hashtag/publicar"     (controller:"adminLaw", action: "publishLaw")
-        name adminUnpublishLaw:      "/admin/leyes/editar-ley/$hashtag/despublicar"  (controller:"adminLaw", action: "unPublishLaw")
+        name adminUnpublishLaw:     "/admin/leyes/editar-ley/$hashtag/despublicar"  (controller:"adminLaw", action: "unPublishLaw")
         name adminUnpublishedLaws:  "/admin/leyes/no-publicadas"    (controller:"adminLaw", action: "unpublishedLaws")
         name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
