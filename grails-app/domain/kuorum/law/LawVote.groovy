@@ -9,6 +9,7 @@ class LawVote {
     PersonalData personalData
     Law law
     VoteType voteType
+    Date dateCreated
     static embedded = ['personalData']
 
     static constraints = {
