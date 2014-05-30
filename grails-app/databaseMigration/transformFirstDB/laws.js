@@ -44,6 +44,7 @@ function updateUserActivity(post){
 
 function createLawFromOldLaw(law){
     var id = new ObjectId();
+    var institution = dbDest.institution.find({name:/Parlamento Espa.*/})[0]
     var spain = dbDest.region.find({"iso3166_2" : "EU-ES"})[0]
     var status = law.lawStatus=="OPEN"?"OPEN":law.approvedInCongress?"APPROVED":"REJECTED"
     var destLaw = {
@@ -54,7 +55,7 @@ function createLawFromOldLaw(law){
         "dateCreated" : law.dateCreated,
         "description" : law.longDescription,
         "hashtag" : "#"+removeDiacritics(law.shortTitle.replace(/ /g, '').toLowerCase()),
-        "institution" : ObjectId("532828c644aeeccebb29a606"),
+        "institution" : institution._id,
         "introduction" : law.brief,
         "open" : law.lawStatus=="OPEN",
         "published" : law.publishDate!=null,
