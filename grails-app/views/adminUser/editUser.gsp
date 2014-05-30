@@ -10,13 +10,13 @@
         <g:message code="admin.createUser.title"/>,
     </h1>
     %{--<p><g:message code="profile.changeEmail.description"/></p>--}%
-    <g:render template="/admin/adminMenu" model="[activeMapping:'adminCreateUser', menu:menu]"/>
+    <g:render template="/admin/adminMenu" model="[activeMapping:'', menu:menu]"/>
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="admin.createUser.title"/></h1>
-    <formUtil:validateForm bean="${command}" form="createUser"/>
-    <g:form method="POST" mapping="adminCreateUser" name="createUser" role="form">
+    <h1><g:message code="admin.editUser.title" args="[user.name]"/></h1>
+    <formUtil:validateForm bean="${command}" form="editUser"/>
+    <g:form method="POST" mapping="adminEditUser" params="${user.encodeAsLinkProperties()}" name="editUser" role="form">
         <g:render template="formUser" model="[command:command, institutions:institutions, parliamentaryGroups:parliamentaryGroups]"/>
         <div class="form-group">
             <input type="submit" value="${message(code:'admin.createLaw.submit')}" class="btn btn-grey btn-lg">

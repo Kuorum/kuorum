@@ -9,13 +9,6 @@
             <span class="circle">${law.region.iso3166_2.split('-').last()}</span>
             <span class="text">${law.region.name}</span>
         </div>
-        <sec:ifAnyGranted roles="ROLE_ADMIN">
-            <div class="country">
-                <span class="text">
-                    <g:link mapping="adminEditLaw" params="${law.encodeAsLinkProperties()}">Editar</g:link>
-                </span>
-            </div>
-        </sec:ifAnyGranted>
     </div>
     <g:if test="${victory}">
         <div class="info">

@@ -19,8 +19,12 @@ class AdminUserController extends AdminController {
     }
 
     def saveUser(AdminUserCommand command){
+        if(KuorumUser.findByEmail(command.email)){
+            command.errors.rejectValue("email","kuorum.web.commands.admin.AdminUserCommand.email.notUnique")
+        }
         if (command.hasErrors()){
             render view: 'createUser', model:[command:command, institutions:Institution.findAll(), parliamentaryGroups:ParliamentaryGroup.findAll()]
+            flash.error=message(code:'admin.createUser.error')
             return
         }
         RoleUser roleUser = RoleUser.findByAuthority("ROLE_USER")
@@ -28,14 +32,28 @@ class AdminUserController extends AdminController {
         user.authorities = [roleUser]
         user = prepareUser(user, command)
         user = kuorumUserService.createUser(user)
-        flash.message ="OK"
+        flash.message =message(code:'admin.createUser.success', args: [user.name])
         redirect(mapping:'userShow', params:user.encodeAsLinkProperties())
     }
 
     def editUser(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
         AdminUserCommand command = prepareCommand(user)
-        [user:user, command:command]
+        [user:user, command:command, institutions:Institution.findAll(), parliamentaryGroups:ParliamentaryGroup.findAll()]
+    }
+
+    def updateUser(AdminUserCommand command){
+        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        if (command.hasErrors()){
+            render view: 'editUser', model:[user:user,command:command, institutions:Institution.findAll(), parliamentaryGroups:ParliamentaryGroup.findAll()]
+            flash.error=message(code:'admin.createUser.error')
+            return
+        }
+        user = prepareUser(user, command)
+        kuorumUserService.updateUser(user)
+
+        flash.message =message(code:'admin.editUser.success', args: [user.name])
+        redirect(mapping:'userShow', params:user.encodeAsLinkProperties())
     }
 
     private KuorumUser prepareUser(KuorumUser user, AdminUserCommand command){
@@ -103,7 +121,6 @@ class AdminUserController extends AdminController {
 
         command.gender = user.personalData.gender
         command.postalCode = user.personalData.postalCode
-        command.province.iso3166_2 = user.personalData.provinceCode
         command.province = user.personalData.province
         command.email = user.email
         command.verified = user.verified

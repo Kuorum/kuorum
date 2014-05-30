@@ -205,6 +205,13 @@ a:focus {color: #20a2ea;}
     padding: 0;
     width: 100%;
 }
+#adminActions{
+    position: absolute;
+    z-index: 1;
+    background: none;
+    left: -25px;
+}
+
 #open-filter-search {
   display: block;
   position: absolute;

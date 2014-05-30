@@ -8,6 +8,13 @@
 
 
 <content tag="mainContent">
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+        <div id="adminActions">
+            <span class="text">
+                <g:link mapping="adminEditUser" params="${user.encodeAsLinkProperties()}">Editar</g:link>
+            </span>
+        </div>
+    </sec:ifAnyGranted>
     <article itemtype="http://schema.org/Person" itemscope role="article" class="kakareo post ley">
         <div class="photo">
             <img src="${image.userImgProfile(user:user)}" alt="${user.name}">

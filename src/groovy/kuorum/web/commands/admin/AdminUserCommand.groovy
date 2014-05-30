@@ -5,7 +5,6 @@ import kuorum.Institution
 import kuorum.ParliamentaryGroup
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
-import kuorum.users.KuorumUser
 import kuorum.web.commands.profile.EditUserProfileCommand
 
 /**
@@ -22,11 +21,7 @@ class AdminUserCommand extends EditUserProfileCommand{
     UserType userType
 
     static constraints = {
-        email nullable:false, email:true, validator:{val->
-            if(KuorumUser.findByEmail(val)){
-                "notUnique"
-            }
-        }
+        email nullable:false, email:true
         institution nullable: true, validator:{val, obj ->
             if (obj.userType && obj.userType == UserType.POLITICIAN && !val){
                 return "politicianWithoutInstitution"

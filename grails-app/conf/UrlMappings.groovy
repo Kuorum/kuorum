@@ -147,6 +147,7 @@ class UrlMappings {
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
         name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
+        name adminEditUser:         "/admin/usuarios/$userTypeUrl/$urlName-$id/editar" (controller:"adminUser"){action =[GET:"editUser", POST:"updateUser"]}
 
 
         "403" (controller: "error", action: "forbidden")
