@@ -1,5 +1,6 @@
 package kuorum.admin
 
+import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.ParliamentaryGroup
@@ -8,6 +9,7 @@ import kuorum.users.*
 import kuorum.web.commands.admin.AdminUserCommand
 import org.bson.types.ObjectId
 
+@Secured(['ROLE_ADMIN'])
 class AdminUserController extends AdminController {
 
     def kuorumUserService
