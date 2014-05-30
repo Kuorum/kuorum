@@ -47,6 +47,7 @@ function createLawFromOldLaw(law){
     var institution = dbDest.institution.find({name:/Parlamento Espa.*/})[0]
     var spain = dbDest.region.find({"iso3166_2" : "EU-ES"})[0]
     var status = law.lawStatus=="OPEN"?"OPEN":law.approvedInCongress?"APPROVED":"REJECTED"
+    var peopleVotes = createPeopleVotes(law, id)
     var destLaw = {
 //        "_id" :law._id,
         "_id":id,
@@ -65,9 +66,43 @@ function createLawFromOldLaw(law){
         "shortName" : law.shortTitle,
         "image":createAvatar(id,"LAW_IMAGE", law.image),
         "status":status,
+        peopleVotes:peopleVotes,
         "version" : 0
     }
     return destLaw
+}
+
+function createPeopleVotes(oldLaw, idNewLaw){
+
+    dbOrigin.personVote.find({law:oldLaw._id}).forEach(function(vote){
+        var kuorumUser = dbDest.kuorumUser.find({_id:vote.user})[0]
+        if (kuorumUser!= undefined ){
+            var lawVote = {
+                kuorumUser:vote.user,
+                personalData:kuorumUser.personalData,
+                law:idNewLaw,
+                voteType:vote.voteType,
+                dateCreated:vote.dateCreated
+            }
+            dbDest.lawVote.insert(lawVote)
+        }
+    });
+
+    var peopleVotes = {
+        yes:0,
+        no:0,
+        abs:0
+    }
+    dbDest.lawVote.aggregate([{$match:{law:idNewLaw}},{$group:{_id:"$voteType",total:{$sum:1}}}]).forEach(function(vote){
+        if (vote._id=="POSITIVE"){
+            peopleVotes.yes = vote.total;
+        }else if (vote._id=="NEGATIVE"){
+            peopleVotes.no = vote.total;
+        }else{
+            peopleVotes.abs = vote.total;
+        };
+    })
+    return peopleVotes;
 }
 
 function translateCommissions(commissions){
