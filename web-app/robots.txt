@@ -1,0 +1,9 @@
+# robots.txt for http://www.kuorum.org
+
+User-agent: *
+Disallow: /login/auth
+Disallow: /ajax/*
+Disallow: /admin/*
+Disallow: /mi-perfil/*
+Disallow: /buscar/*
+Disallow: /sec/*
