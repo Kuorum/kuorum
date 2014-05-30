@@ -718,7 +718,7 @@ span + .text-notification {padding: 0 0 0 33px;}
   border-top: 1px solid #dadada;
 }
 
-.kakareo footer > ul > li {padding: 5px 0 6px !important;}
+.kakareo footer > ul > li {padding: 11px 0 !important;}
 .kakareo footer > ul.info-kak > li,
 .kakareo footer > ul.actions-kak > li {list-style: disc outside none; margin: 0 15px 0 0; padding: 0;}
 .kakareo footer > ul.info-kak > li {float: left;}
@@ -728,7 +728,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul.info-kak > li:first-child,
 .kakareo footer > ul > li.kakareo-number,
 .kakareo footer > ul > li.more-actions {list-style: none !important; padding: 0;}
-.kakareo footer > ul > li.read-later {margin-right: 25px !important;}
+.kakareo footer > ul > li.read-later {margin-right: 28px !important;}
 .kakareo footer > ul > li .counter {margin: 0 4px 0 0;}
 .kakareo footer > ul > li > a span:first-child {margin: 0 6px 0 0;}
 
@@ -768,7 +768,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul > li.read-later a.disabled:active .hidden-xs {color: #20a2ea !important; text-decoration: underline !important; cursor: pointer !important;}
 
 .kakareo footer > ul > li.more-actions {margin: 0 !important; position: absolute; right: 0;}
-.kakareo footer > ul > li.more-actions > span {background-color: #a8a8a8; padding: 6px 12px 7px; color: #fff; margin: 0;}
+.kakareo footer > ul > li.more-actions > span {background-color: #a8a8a8; padding: 12px 14px 11px; color: #fff; margin: 0;}
 .kakareo footer > ul > li.more-actions > span:hover,
 .kakareo footer > ul > li.more-actions > span:active,
 .kakareo footer > ul > li.more-actions > span:focus {background-color: #545454;}
@@ -2521,7 +2521,6 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .kakareo footer > ul > li.read-later {margin-right: 28px !important;}
   .boxes .kakareo footer > ul > li.read-later {margin-right: 33px !important;}
   .boxes .kakareo footer ul li.like-number {margin: 0 35px 0 2px;}
-  .kakareo footer > ul > li.more-actions > span {padding: 6px 10px 7px;}
 
   .multimedia .video .fa {left: 44%; top: 40%;}
   .activity > li {font-size: 12px; font-size: 1.2rem;}
