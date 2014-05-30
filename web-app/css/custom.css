@@ -630,7 +630,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 }
 .popover #follow {margin: 1px 0 0 49px !important;}
 .popover-box #follow {margin: 1px 0 0 90px !important;}
-#follow {width: 90px;}
+#follow {width: 105px;}
 #follow span {margin: -2px 0 0 8px; display: inline-block;}
 
 #follow.disabled {background-color: #a8a8a8 !important;}
