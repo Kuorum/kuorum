@@ -85,7 +85,7 @@ class UrlMappings {
         name searcherSearch:      "/buscar"(controller: "search", action:"search")
         name searcherSearchSeeMore:"/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
         name searcherSearchFilters:"/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
-        name searcherSuggests:    "/buscar/sugerencias"(controller: "search", action:"suggest")
+        name searcherSuggests:    "/ajax/buscar/sugerencias"(controller: "search", action:"suggest")
 
         name profileEditUser:     "/mi-perfil"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
         name profileChangePass:   "/mi-perfil/cambiar-password" (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
@@ -149,6 +149,11 @@ class UrlMappings {
         name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
         name adminEditUser:         "/admin/usuarios/$userTypeUrl/$urlName-$id/editar" (controller:"adminUser"){action =[GET:"editUser", POST:"updateUser"]}
 
+
+        "/sitemap"{
+            controller = 'siteMap'
+            action = 'siteMap'
+        }
 
         "403" (controller: "error", action: "forbidden")
         "404" (controller: "error", action: "notFound")
