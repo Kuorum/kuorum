@@ -170,6 +170,18 @@ class KuorumUserService {
         user
     }
 
+    KuorumUser createUser(KuorumUser user){
+
+        user.verified = user.verified?:false
+
+        if (!user.save()){
+            log.error("No se ha podido actualizar el usuario ${user.email}(${user.id})")
+            throw KuorumExceptionUtil.createExceptionFromValidatable(user)
+        }
+        indexSolrService.index(user)
+        user
+    }
+
     List<UserParticipating> listUserActivityPerLaw(KuorumUser user){
         def userActivity = Post.collection.aggregate(
                 [$match : ['$or':[[owner:user.id], [defender:user.id]]]],

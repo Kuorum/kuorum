@@ -6,6 +6,7 @@ import grails.validation.Validateable
 import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
+import kuorum.web.commands.profile.EditUserProfileCommand
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
@@ -170,7 +171,7 @@ class KuorumRegisterCommand{
 
     public String getUsername(){ email }// RegisterController.passwordValidator uses username
     static constraints = {
-        name blank: false, maxSize: 15
+        importFrom EditUserProfileCommand, include:["name"]
         email nullable:false, email:true, validator: { val, obj ->
             if (KuorumUser.findByEmail(val)) {
                 return 'registerCommand.username.unique'

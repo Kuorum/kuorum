@@ -160,6 +160,23 @@ class FormTagLib {
         }
     }
 
+    def checkBox = {attrs ->
+        def command = attrs.command
+        def field = attrs.field
+
+        def checked = command."$field"?'checked':''
+        def label = message(code: "${command.class.name}.${field}.label")
+        def error = hasErrors(bean: command, field: field,'error')
+        out <<"""
+            <label class="checkbox-inline">
+                <input class="${error}" type="checkbox" name='${field}' id="${field}" ${checked} value='true' >
+                ${label}
+            </label>
+            """
+        if(error){
+            out << "<span for='${field}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+        }
+    }
 
     def selectDomainObject = {attrs->
         def command = attrs.command
@@ -203,6 +220,10 @@ class FormTagLib {
             out << "<input type='radio' name='${field}' value='${it}' ${command."${field}"==it?'checked':''}>"
             String codeMessage = "${clazz.name}.$it"
             out << "${message(code:codeMessage)}"
+            if(error){
+                out << "<span for='${field}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+                error = "" //Only first radio button
+            }
             out << "</label>"
         }
     }

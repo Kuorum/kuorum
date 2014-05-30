@@ -39,7 +39,7 @@ class EditUserProfileCommand extends BirthdayCommad{
         importFrom BirthdayCommad
         //Step1
         gender nullable: false
-        name nullable: false
+        name nullable: false, maxSize: 17
         country nullable: false
         province nullable:true
         postalCode nullable: false, minSize: 5, maxSize: 5, matches:"[0-9]+", validator: {val, command ->

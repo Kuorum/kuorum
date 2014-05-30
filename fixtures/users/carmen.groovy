@@ -27,7 +27,7 @@ fixture {
 
     carmen(KuorumUser){
         email = "carmen@example.com"
-        name ="Carmen Mia de mis amores"
+        name ="Carmen Santa"
         personalData = carmenData
         verified = Boolean.FALSE
         password = springSecurityService.encodePassword("test")

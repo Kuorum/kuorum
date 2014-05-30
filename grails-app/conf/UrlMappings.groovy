@@ -145,7 +145,9 @@ class UrlMappings {
         name adminUnpublishedLaws:  "/admin/leyes/no-publicadas"    (controller:"adminLaw", action: "unpublishedLaws")
         name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
-        name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller: "admin", action:"fullIndex")
+        name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
+        name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
+
 
         "403" (controller: "error", action: "forbidden")
         "404" (controller: "error", action: "notFound")

@@ -74,6 +74,7 @@ class KuorumUser {
     Set<RoleUser> authorities
 
     static constraints = {
+        name nullable:false //Limit size will be added
         email nullable: false, email: true
         password nullable:false, blank: false
         bio nullable:true
