@@ -318,7 +318,7 @@ a:focus {color: #20a2ea;}
   -moz-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
   -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
   box-shadow: inset 0 0 0 rgba(0,0,0,.9);
-  padding: 6px 22px 6px 25px;
+  padding: 6px 22px 6px 27px;
   border-radius: 3px !important;
   font-family: 'FontAwesome', Georgia, serif;
   -webkit-appearance: none;
@@ -1925,6 +1925,7 @@ textarea.error,
 .signContainer h2 small {display: block; color: #fff; font-size: 17px; font-size: 1.7rem; font-weight: lighter;}
 .signContainer h2 a {color: #fff; text-decoration: underline;}
 .signContainer h3 {color: #fff; font-size: 14px; font-size: 1.4rem; text-align: center; margin-bottom: 0;}
+#sign .checkbox-inline a {color: #fff;}
 .home .images {
   background-image: url('../images/home1.jpg');
   background-repeat: no-repeat;
@@ -2497,7 +2498,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   }
   .nav > li > a.btn {padding: 10px !important; border: 0; margin: 2px 0 0 4px !important;}
   .nav > li > .discover {padding-top: 6px; padding-bottom: 1px;}
-  .nav > li > .user-area {padding-top: 1px; padding-bottom: 3px;}
+  .nav > li > .user-area {padding-top: 4px; padding-bottom: 3px;}
   .nav > li > .user-area > .user-img {margin-right: 0;}
   .navbar-btn {margin-top: 6px;}
   .box .badge {position: absolute; top: 2px; right: -2px;}
@@ -2795,7 +2796,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 
   .nav > li > .navbar-link {padding-top: 13px; padding-bottom: 20px;}
   .nav > li > .discover {padding-bottom: 6px;}
-  .nav > li > .user-area {padding-top: 5px; padding-bottom: 8px;}
+  .nav > li > .user-area {padding-top: 5px; padding-bottom: 10px;}
 
   .nav > li > a.btn {margin-top: 0 !important; margin-bottom: 11px !important; padding: 14px !important;}
   .box .badge {right: 6px; top: 6px;}
