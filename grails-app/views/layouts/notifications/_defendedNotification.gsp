@@ -12,7 +12,7 @@
         <g:set var="answerLink" value="${createLink(mapping: 'postAddVictory', params: notification.post.encodeAsLinkProperties())}"/>
     </g:if>
     <g:else>
-        <g:message code="notifications.defendedNotification.${notification.post.commitmentType}.text" args="[notification.politician.name,notification.kuorumUser.name, postType]" encodeAs="raw"/>
+        <g:message code="notifications.defendedNotification.${notification.post.commitmentType}.text" args="[notification.defender.name,notification.kuorumUser.name, postType]" encodeAs="raw"/>
     </g:else>
 </g:set>
 
