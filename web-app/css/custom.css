@@ -327,7 +327,7 @@ a:focus {color: #20a2ea;}
 #search-form .input-group > #filterSign {position: absolute; right: 28px; top: 9px; z-index: 99; color: #a8a8a8;}
 #search-form .input-group-btn {left: 0; position: absolute; top: 0; z-index: 9;}
 
-.nav > li > .navbar-link {color: #545454; padding: 12px 8px; background-color: transparent; line-height: 22px; display: block; position: relative;}
+.nav > li > .navbar-link {color: #545454; padding: 12px 8px; background-color: transparent; line-height: 1.6; display: block; position: relative;}
 .nav > li > .navbar-link:hover,
 .nav > li > .navbar-link:focus,
 .nav .open > a,
@@ -338,7 +338,7 @@ a:focus {color: #20a2ea;}
 .nav > li > span.navbar-link:hover,
 .nav > li > span.navbar-link:focus {color: #dadada;}
 
-.nav > li > a.btn {margin: 4px 0 0 6px !important; border: 0;}
+.nav > li > a.btn {margin: 5px 0 0 6px !important; border: 0;}
 .nav > li > a.btn:hover,
 .nav > li > a.btn:active,
 .nav > li > a.btn:focus {background-color: #ee7612 !important;}
@@ -348,8 +348,9 @@ a:focus {color: #20a2ea;}
 .nav > li > .navbar-link:hover .badge,
 .nav > li > .navbar-link:focus .badge {background-color: #fff; color: #ff9431;}
 
-.nav > li > .discover {padding-top: 0; padding-bottom: 0; margin: -5px 0 0 0;}
-.nav > li > .discover .icon-Flaticon_9296 {vertical-align: middle; font-size: 48px; padding: 0 0 6px 0;}
+.nav > li > .discover {padding-top: 8px; padding-bottom: 0;}
+.nav > li > .discover .icon-Flaticon_9296 {font-size: 48px; padding: 0; line-height: 0.65;}
+.nav > li > .discover .text-normalize {display: inline-block; vertical-align: top; margin-top: 5px;}
 
 .navbar-form .dropdown-menu {font-family: 'FontAwesome', Georgia, serif; font-size: 14px; font-size:  1.4rem; margin: 0; padding: 0;}
 .navbar-form .dropdown-menu li {text-align: right;}
@@ -2480,7 +2481,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .navbar-form {width: 263px; margin: 0; padding: 0;}
   #header h1 {margin: 0;}
   .navbar-form {width: 196px; margin: 0; padding: 4px 4px 4px 10px;}
-  .nav > li > .navbar-link {background-color: transparent; border-bottom: 4px solid #fff; padding: 10px 5px 12px;}
+  .nav > li > .navbar-link {background-color: transparent; border-bottom: 4px solid #fff; padding: 11px 5px 14px;}
   .nav > li > .navbar-link:hover,
   .nav > li > .navbar-link:focus {background-color: transparent; color: #ff9431;}
   .nav > .underline > .navbar-link:hover,
@@ -2494,9 +2495,9 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
     -o-transition: all .15s ease-in-out;
     transition: all .15s ease-in-out;
   }
-  .nav > li > .discover {padding-top: 0; padding-bottom: 1px; margin: -5px 0 0 0;}
-  .nav > li > .discover .icon-Flaticon_9296 {vertical-align: middle; font-size: 48px; padding: 0 0 6px 0;}
-  .nav > li > .user-area {padding-top: 1px; padding-bottom: 1px;}
+  .nav > li > a.btn {padding: 10px !important; border: 0; margin: 2px 0 0 4px !important;}
+  .nav > li > .discover {padding-top: 6px; padding-bottom: 1px;}
+  .nav > li > .user-area {padding-top: 1px; padding-bottom: 3px;}
   .nav > li > .user-area > .user-img {margin-right: 0;}
   .navbar-btn {margin-top: 6px;}
   .box .badge {position: absolute; top: 2px; right: -2px;}
@@ -2675,23 +2676,22 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .navbar-brand {width: 180px; height: 53px; margin-top: 4px; margin-bottom: 0;}
-  .navbar {font-size: 15px;
-  font-size: 1.5rem;}
-  /*.btn {font-size: 15px; font-size: 1.5rem;}*/
+  .navbar {font-size: 15px; font-size: 1.5rem;}
   .navbar-form {width: 278px; margin: 0; padding: 6px 15px;}
   .navbar-form .input-group > .form-control, .btn.search {height: 37px;}
+  .btn.search {line-height: 0.7;}
   .navbar-collapse {padding: 7px 0 0 0;}
-
-  .nav > li > .navbar-link {padding-left: 15px; padding-right: 15px; padding-bottom: 13px;}
+  .nav > li > .navbar-link {padding: 9px 15px 16px 15px;}
   .navbar-btn {margin-left: 12px !important; padding: 4px 14px !important;}
-  .nav > li > .discover {margin: -2px 0 0 0; padding-bottom: 1px;}
-  .nav > li > .user-area {padding-top: 3px; padding-bottom: 0;}
-  .navbar-right {margin-top: 2px; min-width: 320px;}
+  .nav > li > .discover {margin: -2px 0 0 0; padding-bottom: 2px;}
+  .nav > li > .user-area {padding-top: 4px; padding-bottom: 3px;}
+  .nav > li > a.btn {margin-top: -2px !important;}
+  .navbar-right {margin-top: 2px;}
   .box .badge {right: 4px;}
 
   #footer .links section h1.map {margin: 30px 0 10px; margin: 3rem 0 1rem;}
 
-  .kakareo footer {font-size: 12px; font-size: 1.2rem;}
+  .kakareo footer {font-size: 12px; font-size: 1.2rem;}++++++++++++++++++++++++++++++++-+++++++++++++++++++++++
   .kakareo footer > ul {height: auto; padding: 6px 0 5px 15px; margin-bottom: 0;}
   .kakareo footer > ul.info-kak > li,
   .kakareo footer > ul.actions-kak > li {margin: 0 21px 0 0; padding: 0;}
@@ -2793,11 +2793,11 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .kakareo footer > ul.info-kak > li,
   .kakareo footer > ul.actions-kak > li {margin: 0 23px 0 0; padding: 0 0 0 4px;}
 
-  .nav > li > .navbar-link {padding-top: 11px; padding-bottom: 17px;}
-  .nav > li > .discover {padding-bottom: 5px; margin-top: -12px;}
-  .nav > li > .user-area {padding-top: 3px; padding-bottom: 5px;}
+  .nav > li > .navbar-link {padding-top: 13px; padding-bottom: 20px;}
+  .nav > li > .discover {padding-bottom: 6px;}
+  .nav > li > .user-area {padding-top: 5px; padding-bottom: 8px;}
 
-  .nav > li > a.btn {margin: -8px 0 0 6px !important; padding: 18px 24px !important;}
+  .nav > li > a.btn {margin-top: 0 !important; margin-bottom: 11px !important; padding: 14px !important;}
   .box .badge {right: 6px; top: 6px;}
   .boxes.vote .voting > ul > li > a {font-size: 15px; font-size: 1.5rem; width: 90px; height: 68px;}
   .boxes .kakareo footer ul li.read-later {margin-right: 48px !important;}
