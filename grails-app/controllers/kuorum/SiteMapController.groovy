@@ -68,10 +68,10 @@ class SiteMapController {
                     priority(0.9)
                 }
 
-                Region.list().each {region ->
-                    String regionName = region.name.encodeAsKuorumUrl()
+                Institution.list().each {institution ->
+                    String institutionName = institution.name.encodeAsKuorumUrl()
                     url {
-                        loc(g.createLink(absolute: true, mapping: 'laws', params:[regionName:regionName]))
+                        loc(g.createLink(absolute: true, mapping: 'laws', params:[institutionName:institutionName]))
                         changefreq('weekly')
                         priority(0.9)
                     }
@@ -79,7 +79,7 @@ class SiteMapController {
                         String commissionUrl = message(code:"${CommissionType.canonicalName}.${commission}")
                         commissionUrl = commissionUrl.toLowerCase().encodeAsKuorumUrl() //toLowerCase is necessary because ... I don't know. If is not present, codec doesn't work
                         url {
-                            loc(g.createLink(absolute: true, mapping: 'laws', params:[regionName:regionName, commission:commissionUrl]))
+                            loc(g.createLink(absolute: true, mapping: 'laws', params:[institutionName:institutionName, commission:commissionUrl]))
                             changefreq('weekly')
                             priority(0.9)
                         }
