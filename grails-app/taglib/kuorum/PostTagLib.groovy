@@ -209,19 +209,19 @@ class PostTagLib {
         insideUserOption = false
     }
     def asUser={attrs, body ->
-        if (!insideUserOption) throw Exception("Este taglib se debe ejecutar dentro de userOption")
+        if (!insideUserOption) throw new Exception("Este taglib se debe ejecutar dentro de userOption")
         if (loggedAsUser){
             out << body()
         }
     }
     def asPolitician={attrs, body ->
-        if (!insideUserOption) throw Exception("Este taglib se debe ejecutar dentro de userOption")
+        if (!insideUserOption) throw new Exception("Este taglib se debe ejecutar dentro de userOption")
         if (loggedAsPolitician){
             out << body()
         }
     }
     def asNoLogged={attrs, body ->
-        if (!insideUserOption) throw Exception("Este taglib se debe ejecutar dentro de userOption")
+        if (!insideUserOption) throw new Exception("Este taglib se debe ejecutar dentro de userOption")
         if (noLogged){
             out << body()
         }
