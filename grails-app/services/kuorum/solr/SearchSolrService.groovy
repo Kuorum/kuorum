@@ -152,7 +152,7 @@ class SearchSolrService {
         SolrQuery query = new SolrQuery();
         query.setParam(CommonParams.QT, "/select");
         query.setParam(CommonParams.ROWS, "${params.max}");
-        query.setParam(CommonParams.Q, "regionName:${params.regionName}")
+        query.setParam(CommonParams.Q, "institutionName:\"${params.institutionName}\"")
         query.setParam("q.op", "AND")
         def fq = ["type:${SolrType.LAW}"]
 

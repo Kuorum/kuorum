@@ -15,5 +15,7 @@ class KuorumUrlCodec {
 
     static decode = {target->
         //TODO
+        // More or less
+        target.replaceAll("-"," ")
     }
 }

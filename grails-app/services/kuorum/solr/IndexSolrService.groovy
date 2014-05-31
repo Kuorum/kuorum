@@ -158,6 +158,7 @@ class IndexSolrService {
             victory: post.victory,
             commissions: post.law.commissions,
             regionName: post.law.region.name,
+            institutionName:post.law.institution.name,
             regionIso3166_2: post.law.region.iso3166_2,
             urlImage: post.multimedia?.url
         )
@@ -177,6 +178,7 @@ class IndexSolrService {
                 victory:solrDocument.victory,
                 commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
                 regionName:solrDocument.regionName,
+                institutionName:solrDocument.institutionName,
                 regionIso3166_2: solrDocument.regionIso3166_2,
                 urlImage: solrDocument.urlImage
         )
@@ -252,6 +254,7 @@ class IndexSolrService {
             dateCreated:law.dateCreated,
             hashtag:law.hashtag,
             commissions:law.commissions,
+            institutionName:law.institution.name,
             regionName: law.region.name,
             regionIso3166_2: law.region.iso3166_2,
             urlImage: law.image?.url
@@ -270,6 +273,7 @@ class IndexSolrService {
                 dateCreated:solrDocument.dateCreated,
                 hashtag:solrDocument.hashtag,
                 commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
+                institutionName:solrDocument.institutionName,
                 regionName:solrDocument.regionName,
                 regionIso3166_2: solrDocument.regionIso3166_2,
                 urlImage: solrDocument.urlImage

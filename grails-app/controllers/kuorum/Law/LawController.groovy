@@ -33,19 +33,19 @@ class LawController {
         SearchLaws searchParams = new SearchLaws(max: 1000)
         searchParams.commissionType = recoverCommissionByTranslatedName(request.locale, params.commission)
         def groupLaws =[:]
-        if (params.regionName){
-            searchParams.regionName = params.regionName
-            List<SolrLawsGrouped> lawsPerRegion = searchSolrService.listLaws(searchParams)
-            if (lawsPerRegion){
-                searchParams.regionName = lawsPerRegion.elements[0][0].regionName
+        if (params.institutionName){
+            searchParams.institutionName = params.institutionName.decodeKuorumUrl()
+            List<SolrLawsGrouped> lawsPerInstitution = searchSolrService.listLaws(searchParams)
+            if (lawsPerInstitution){
+                searchParams.institutionName = lawsPerInstitution.elements[0][0].institutionName
             }
-            groupLaws.put(searchParams.regionName  , lawsPerRegion)
+            groupLaws.put(searchParams.institutionName  , lawsPerInstitution)
         }else{
-            Region.list().each {
-                searchParams.regionName = it.name
-                List<SolrLawsGrouped> lawsPerRegion = searchSolrService.listLaws(searchParams)
-                if (lawsPerRegion)
-                    groupLaws.put("${searchParams.regionName}" , lawsPerRegion)
+            Institution.list().each {
+                searchParams.institutionName = it.name
+                List<SolrLawsGrouped> lawsPerInstitution = searchSolrService.listLaws(searchParams)
+                if (lawsPerInstitution)
+                    groupLaws.put("${searchParams.institutionName}" , lawsPerInstitution)
             }
         }
         [groupLaws:groupLaws]

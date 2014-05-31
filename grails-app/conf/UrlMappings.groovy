@@ -11,34 +11,34 @@ class UrlMappings {
         name discover:         "/descubre" (controller: "dashboard", action:"discover")
 
         name lawCreate:     "/leyes/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
-        name laws:          "/leyes/$regionName?/$commission?" (controller: "law", action:"index")
-        name lawShow:       "/leyes/$regionName/$commission/$hashtag" (controller: "law", action:"show")
-        name lawShowSec:    "/sec/leyes/$regionName/$commission/$hashtag" (controller: "law", action:"showSecured")
-        name lawEdit:       "/leyes/$regionName/$commission/$hashtag/editar"(controller: "law", action:"edit")
-        name lawUpdate:     "/leyes/$regionName/$commission/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
-        name lawVote:       "/ajax/leyes/$regionName/$commission/$hashtag/votar"(controller: "law", action:"voteLaw")
-        name lawListClucks: "/ajax/leyes/$regionName/$commission/$hashtag/listado-kakareos" (controller: "law", action:"listClucksLaw")
+        name laws:          "/leyes/$institutionName?/$commission?" (controller: "law", action:"index")
+        name lawShow:       "/leyes/$institutionName/$commission/$hashtag" (controller: "law", action:"show")
+        name lawShowSec:    "/sec/leyes/$institutionName/$commission/$hashtag" (controller: "law", action:"showSecured")
+        name lawEdit:       "/leyes/$institutionName/$commission/$hashtag/editar"(controller: "law", action:"edit")
+        name lawUpdate:     "/leyes/$institutionName/$commission/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
+        name lawVote:       "/ajax/leyes/$institutionName/$commission/$hashtag/votar"(controller: "law", action:"voteLaw")
+        name lawListClucks: "/ajax/leyes/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "law", action:"listClucksLaw")
 
-        name postCreate:    "/leyes/$regionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-//        name postSave:      "/leyes/$regionName/$commission/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-        name postShow:      "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId"(controller: "post", action: "show")
-        name postReview:    "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/revisar"(controller: "post", action: "review")
-        name postPublish:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/publicar"(controller: "post", action:"publish")
-        name postPublished: "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/publicado"(controller: "post", action:"postPublished")
-        name postEdit:      "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/editar"(controller: "post"){action = [GET:"edit", POST:"update"]}
-        name postToggleFavorite:"/ajax/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/favorito"(controller: "post",action: "favorite")
-        name postDelComment:"/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/borrarCommentario"(controller: "post",action: "deleteComment")
-        name postAddComment:"/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/nuevoComentario"(controller: "post",action: "addComment")
-        name postCluckIt:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/kakarear"(controller: "post",action: "cluckPost")
-        name postVoteIt:    "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/impulsar"(controller: "post",action: "votePost")
-        name postVotesList: "/ajax/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/lista-impulsos"(controller: "post",action: "listVotes")
-        name postClucksList:"/ajax/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/lista-kakareos"(controller: "post",action: "listClucks")
-        name postPayPost:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/promocionar"(controller: "post", action:"promotePost")
-        name postPaiment:   "/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/resumen-promocion"(controller: "post", action:"paimentPost")
-        name postSuccessPay:"/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/gracias"(controller: "post", action:"successPromotePost")
-        name postAddDebate: "/ajax/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
-        name postAddVictory:"/ajax/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/victoria"(controller: "post", action:"addVictory")
-        name postAddDefender:"/ajax/leyes/$regionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/apadrinar"(controller: "post", action:"addDefender")
+        name postCreate:    "/leyes/$institutionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
+//        name postSave:      "/leyes/$institutionName/$commission/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
+        name postShow:      "/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId"(controller: "post", action: "show")
+        name postReview:    "/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/revisar"(controller: "post", action: "review")
+        name postPublish:   "/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/publicar"(controller: "post", action:"publish")
+        name postPublished: "/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/publicado"(controller: "post", action:"postPublished")
+        name postEdit:      "/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/editar"(controller: "post"){action = [GET:"edit", POST:"update"]}
+        name postToggleFavorite:"/ajax/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/favorito"(controller: "post",action: "favorite")
+        name postDelComment:"/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/borrarCommentario"(controller: "post",action: "deleteComment")
+        name postAddComment:"/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/nuevoComentario"(controller: "post",action: "addComment")
+        name postCluckIt:   "/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/kakarear"(controller: "post",action: "cluckPost")
+        name postVoteIt:    "/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/impulsar"(controller: "post",action: "votePost")
+        name postVotesList: "/ajax/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/lista-impulsos"(controller: "post",action: "listVotes")
+        name postClucksList:"/ajax/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/lista-kakareos"(controller: "post",action: "listClucks")
+        name postPayPost:   "/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/promocionar"(controller: "post", action:"promotePost")
+        name postPaiment:   "/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/resumen-promocion"(controller: "post", action:"paimentPost")
+        name postSuccessPay:"/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/gracias"(controller: "post", action:"successPromotePost")
+        name postAddDebate: "/ajax/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
+        name postAddVictory:"/ajax/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/victoria"(controller: "post", action:"addVictory")
+        name postAddDefender:"/ajax/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/apadrinar"(controller: "post", action:"addDefender")
 
 
         //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow

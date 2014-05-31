@@ -35,18 +35,18 @@
 
     <div class="block-results">
 
-        <g:each in="${groupLaws}" var="region">
+        <g:each in="${groupLaws}" var="institution">
             <h1>
-                <g:link mapping="laws" params="[regionName:region.key.encodeAsKuorumUrl()]">
-                    ${region.key}
+                <g:link mapping="laws" params="[institutionName:institution.key.encodeAsKuorumUrl()]">
+                    ${institution.key}
                 </g:link>
             </h1>
-            <g:each in="${region.value}" var="group">
+            <g:each in="${institution.value}" var="group">
                 <g:set var="i18nCommission" value="${message(code:"${CommissionType.canonicalName}.${group.commission}")}"/>
                 <!-- is necesary toLowerCase because i18nCommission.encode doens't work -->
                 <g:set var="i18nCommissionUrl" value="${i18nCommission.toLowerCase().encodeAsKuorumUrl()}"/>
                 <h3>
-                    <g:link mapping="laws" params="[regionName:region.key.encodeAsKuorumUrl(), commission:i18nCommissionUrl]">
+                    <g:link mapping="laws" params="[institutionName:institution.key.encodeAsKuorumUrl(), commission:i18nCommissionUrl]">
                         Leyes sobre ${i18nCommission.toLowerCase()}
                     </g:link>
                 </h3>

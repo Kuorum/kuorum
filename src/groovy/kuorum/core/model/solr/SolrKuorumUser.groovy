@@ -10,6 +10,4 @@ class SolrKuorumUser extends SolrElement{
     String postalCode
     GamificationAward role
     Gender gender
-    //Only Politician
-    String institutionName
 }

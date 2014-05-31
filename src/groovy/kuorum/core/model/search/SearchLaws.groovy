@@ -12,13 +12,13 @@ class SearchLaws extends Pagination implements Serializable{
 
     LawStatusType lawStatusType
 
-    String regionName
+    String institutionName
 
     CommissionType commissionType
 
 
     static constraints = {
-        regionName nullable: false
+        institutionName nullable: false
         commissionType nullable: true
     }
 }
