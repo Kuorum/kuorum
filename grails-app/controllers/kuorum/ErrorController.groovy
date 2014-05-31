@@ -9,7 +9,7 @@ class ErrorController {
     def springSecurityService
 
     def forbidden() {
-        log.info("Page not allowed: ${((HttpServletRequest)request).getRequestURL()} by user ${springSecurityService.principal.id}")
+        log.info("Page not allowed: ${((HttpServletRequest)request).getRequestURL()} by user ${springSecurityService.principal?.id}")
     }
     def notFound() {
         log.debug("Page not foung: ${((HttpServletRequest)request).getRequestURL()}")
