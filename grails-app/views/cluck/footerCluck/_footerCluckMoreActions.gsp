@@ -13,9 +13,7 @@
                 <g:else>
                     <li><g:link mapping="postPayPost" params="${post.encodeAsLinkProperties()}"><g:message code="cluck.footer.promote"/></g:link></li>
                 </g:else>
-                <li><a href="#">Compartir en Facebook</a></li>
-                <li><a href="#">Compartir en Twitter</a></li>
-                <li><a href="#">Compartir en Google+</a></li>
+                <g:render template="/post/postSocialShareList" model="[post:post,showText:true, showIcon:false]"/>
                 %{--<li><a href="#">Enviar por email</a></li>--}%
                 %{--<li class="kakareo-number"><a href="#" class="action cluck">Kakarear</a></li>--}%
                 %{--<li class="like-number"><a href="#" class="action drive">Impulsar</a></li>--}%

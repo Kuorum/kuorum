@@ -669,6 +669,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-more-actions ul {margin: 20px 0 0 0; padding: 0;}
 .popover-more-actions ul li {list-style: none;}
 .popover-more-actions ul li a {padding: 4px; display: block; color: #a8a8a8;}
+.popover-more-actions ul li a span {color: #a8a8a8 !important;}
 .popover-more-actions ul li a:hover,
 .popover-more-actions ul li a:active,
 .popover-more-actions ul li a:focus {background-color: #efefef !important; text-decoration: none !important; color: #a8a8a8 !important;}

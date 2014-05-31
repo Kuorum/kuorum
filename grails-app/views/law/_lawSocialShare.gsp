@@ -48,7 +48,8 @@
         </li>
         %{--<li><a href="#"><span class="sr-only">LinkedIn</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li>--}%
         <li>
-            <a href="https://plus.google.com/share?url=${law.shortUrl}" class="social-share google">
+            <g:set var="shortUrl" value="${law.shortUrl?:createLink(mapping:'lawShow', params:law.encodeAsLinkProperties(), absolute: true)}"/>
+            <a href="https://plus.google.com/share?url=${shortUrl}" class="social-share google">
                 <span class="sr-only"><g:message code="law.social.googlePlus"/></span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-google-plus fa-stack-1x"></span></span>
             </a>
         </li>

@@ -29,7 +29,7 @@
         </div>
         <g:render template="/post/postVotePostButton" model="[post:post, userVote:userVote, important:important]"/>
 
-        <g:render template="postSocialShare" model="[post:post]"/>
+        <g:render template="/post/postSocialShare" model="[post:post]"/>
 
     </section>
 

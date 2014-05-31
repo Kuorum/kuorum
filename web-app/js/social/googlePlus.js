@@ -2,7 +2,7 @@
 
 
 $(function (){
-    $('a.social-share.google').click(function(e) {
+    $('body').on('click','a.social-share.google',function(e) {
         e.preventDefault();
         var width  = 600,
             height = 600,

@@ -2,7 +2,7 @@
 
 
 $(function (){
-    $('a.social-share.twitter').click(function(e) {
+    $('body').on('click', 'a.social-share.twitter', function(e) {
         e.preventDefault()
         var width  = 575,
             height = 400,
