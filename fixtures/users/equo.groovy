@@ -22,6 +22,7 @@ fixture {
         gender =  Gender.ORGANIZATION
         userType = UserType.ORGANIZATION
         isPoliticalParty = Boolean.FALSE
+        provinceCode = "EU-ES-MD-MD"
         country = spain
     }
 
