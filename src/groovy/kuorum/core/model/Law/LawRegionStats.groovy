@@ -1,6 +1,7 @@
 package kuorum.core.model.Law
 
 import kuorum.Region
+import kuorum.core.model.Gender
 import kuorum.law.AcumulativeVotes
 
 /**
@@ -9,7 +10,5 @@ import kuorum.law.AcumulativeVotes
 class LawRegionStats {
     Region region
     AcumulativeVotes totalVotes
-    AcumulativeVotes femaleVotes
-    AcumulativeVotes maleVotes
-    AcumulativeVotes organizationVotes
+    HashMap<Gender, AcumulativeVotes> genderVotes
 }
