@@ -27,7 +27,8 @@ function createKuorumUserFromPolitician(politician){
     var politicalParties = dbOrigin.politicalParty.find({_id:politician.politicalParty})
     var politicalPartyOrg = politicalParties.hasNext() ? politicalParties.next() : null;
 
-    var parliamentaryGroups = dbDest.parliamentaryGroup.find({name:politicalPartyOrg.politicalGroup.name})
+    var spain = dbDest.region.find({iso3166_2:"EU-ES" })[0]
+    var parliamentaryGroups = dbDest.parliamentaryGroup.find({name:politicalPartyOrg.politicalGroup.name, 'region.id':spain.id})
     var parliamentaryGroup = parliamentaryGroups.hasNext() ? parliamentaryGroups.next() : null;
 
     if (parliamentaryGroup == null){

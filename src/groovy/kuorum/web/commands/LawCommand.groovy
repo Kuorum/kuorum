@@ -2,6 +2,7 @@ package kuorum.web.commands
 
 import grails.validation.Validateable
 import kuorum.Institution
+import kuorum.ParliamentaryGroup
 import kuorum.core.model.CommissionType
 import kuorum.core.model.LawStatusType
 import kuorum.law.Law
@@ -23,6 +24,7 @@ class LawCommand {
     Institution institution
     String photoId
     LawStatusType status
+    ParliamentaryGroup parliamentaryGroup
 
     static constraints = {
         importFrom Law

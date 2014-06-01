@@ -37,5 +37,6 @@ Prohibición de prospecciones y explotaciones de hidrocarburos mediante fractura
         region = spain
         published = Boolean.FALSE
         institution = parliament
+        parliamentaryGroup = grupoVasco
     }
 }

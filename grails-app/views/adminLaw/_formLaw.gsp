@@ -16,7 +16,14 @@
 </div>
 
 <div class="form-group">
-    <formUtil:selectDomainObject command="${command}" field="institution" values="${institutions}" />
+    <div class="row">
+        <div class="col-xs-6">
+            <formUtil:selectDomainObject command="${command}" field="institution" values="${institutions}" />
+        </div>
+        <div class="col-xs-6">
+            <formUtil:selectDomainObject command="${command}" field="parliamentaryGroup" values="${parliamentaryGroups}" />
+        </div>
+    </div>
 </div>
 <div class="form-group">
     <formUtil:selectEnum command="${command}" field="status"/>

@@ -24,7 +24,7 @@ class ParliamentaryGroup {
     }
 
     String toString(){
-        name
+        "$name (${region.name})"
     }
 
     boolean equals(Object object){

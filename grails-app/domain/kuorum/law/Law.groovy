@@ -2,6 +2,7 @@ package kuorum.law
 
 import kuorum.Institution
 import kuorum.KuorumFile
+import kuorum.ParliamentaryGroup
 import kuorum.Region
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
@@ -29,6 +30,7 @@ class Law {
     Boolean published = Boolean.FALSE
     Date publishDate
     AcumulativeVotes peopleVotes = new AcumulativeVotes()
+    ParliamentaryGroup parliamentaryGroup
 
 
     static embedded = ['region','peopleVotes','image' ]
@@ -50,6 +52,11 @@ class Law {
         //TODO: image no es nullable
         image nullable:true
         publishDate nullable:true
+        parliamentaryGroup nullable:false, validator:{val, obj ->
+            if (val && val.institution != obj.institution){
+                return "incorrectInstitution"
+            }
+        }
     }
 
     static mapping = {

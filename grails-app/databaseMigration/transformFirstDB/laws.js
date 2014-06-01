@@ -46,6 +46,8 @@ function createLawFromOldLaw(law){
     var id = new ObjectId();
     var institution = dbDest.institution.find({name:/Parlamento Espa.*/})[0]
     var spain = dbDest.region.find({"iso3166_2" : "EU-ES"})[0]
+    var parliamentaryGroups = dbDest.parliamentaryGroup.find({name:law.purposedBy.name, 'region.id':spain.id})
+    var parliamentaryGroup = parliamentaryGroups.hasNext() ? parliamentaryGroups.next() : null;
     var status = law.lawStatus=="OPEN"?"OPEN":law.approvedInCongress?"APPROVED":"REJECTED"
     var peopleVotes = createPeopleVotes(law, id)
     var destLaw = {

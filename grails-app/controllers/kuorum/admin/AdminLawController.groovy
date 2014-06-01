@@ -3,6 +3,7 @@ package kuorum.admin
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.KuorumFile
+import kuorum.ParliamentaryGroup
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 import kuorum.web.commands.LawCommand
@@ -18,7 +19,8 @@ class AdminLawController  extends  AdminController{
     def createLaw() {
         [
                 command:new LawCommand(),
-                institutions:Institution.findAll()
+                institutions:Institution.findAll(),
+                parliamentaryGroups:ParliamentaryGroup.findAll()
         ]
     }
 
@@ -29,7 +31,8 @@ class AdminLawController  extends  AdminController{
         if (command.hasErrors()){
             render view:'/adminLaw/createLaw', model:         [
                     command:command,
-                    institutions:Institution.findAll()
+                    institutions:Institution.findAll(),
+                    parliamentaryGroups:ParliamentaryGroup.findAll()
             ]
             return
         }
@@ -55,7 +58,8 @@ class AdminLawController  extends  AdminController{
         [
                 law:law,
                 command:command,
-                institutions:Institution.findAll()
+                institutions:Institution.findAll(),
+                parliamentaryGroups:ParliamentaryGroup.findAll()
         ]
     }
 
@@ -67,7 +71,8 @@ class AdminLawController  extends  AdminController{
             render view:'/adminLaw/editLaw', model:         [
                     law:law,
                     command:command,
-                    institutions:Institution.findAll()
+                    institutions:Institution.findAll(),
+                    parliamentaryGroups:ParliamentaryGroup.findAll()
             ]
             return
         }
