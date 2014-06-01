@@ -1,6 +1,7 @@
 package kuorum.law
 
 import kuorum.Institution
+import kuorum.ParliamentaryGroup
 import kuorum.Region
 import kuorum.core.model.CommissionType
 import spock.lang.Specification
@@ -22,8 +23,9 @@ class LawServiceIntegrationSpec extends Specification{
         given: "A law"
         Law law = Law.findByHashtag("#leyAborto")
         when: "Updating the law"
-        Region region = Region.findByIso3166_2("EU")
-        Institution institution = Institution.findByName("Parlamento europeo")
+        Region region = Region.findByIso3166_2("EU-ES")
+        Institution institution = Institution.findByRegion(region)
+        ParliamentaryGroup parliamentaryGroup = ParliamentaryGroup.findByInstitution(institution)
         String realName = "realName"
         String shortName = "shortName"
         def commissions = [CommissionType.AGRICULTURE, CommissionType.BUDGETS, CommissionType.CONSTITUTIONAL]
@@ -31,6 +33,7 @@ class LawServiceIntegrationSpec extends Specification{
         law.shortName = shortName
         law.region = region
         law.institution = institution
+        law.parliamentaryGroup = parliamentaryGroup
         law.realName = realName
         law.commissions = commissions
         Law lawSaved = lawService.updateLaw(law)
@@ -42,6 +45,7 @@ class LawServiceIntegrationSpec extends Specification{
         lawSaved.region.id == region.id
         lawSaved.realName == realName
         lawSaved.commissions == commissions
+        lawSaved.parliamentaryGroup == parliamentaryGroup
         lawSaved.institution == institution
         lawSaved.institution.name == institution.name
         Law.withNewSession {
@@ -54,6 +58,8 @@ class LawServiceIntegrationSpec extends Specification{
             lawRecovered.commissions == commissions
             lawRecovered.institution == institution
             lawRecovered.institution.name == institution.name
+            lawRecovered.parliamentaryGroup.name == parliamentaryGroup.name
+            lawRecovered.parliamentaryGroup == parliamentaryGroup
         }
 
     }

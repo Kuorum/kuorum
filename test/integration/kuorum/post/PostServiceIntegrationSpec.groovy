@@ -353,13 +353,12 @@ class PostServiceIntegrationSpec extends Specification{
         Post post = Post.findByOwner(owner)
 
         expect: "Adding debates a post"
-        //"service" represents the grails service you are testing for
         isAllowedToWriteDebate == postService.isAllowedToAddDebate(post, userDebate)
 
 
         where:
         user                    || isAllowedToWriteDebate
-        "peter@example.com"     || true
+        "peter@example.com"     || false
         "politician@example.com"|| true
         "NONE"                  || false
         "noe@example.com"       || false
