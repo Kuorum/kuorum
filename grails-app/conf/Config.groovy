@@ -273,6 +273,8 @@ kuorum {
     post{
         titleSize = 140
         promotionPrizes = [5,15,30] //Default euros amount promoting a post
+        limitVotesToBeEditable = 10
+        limitVotesToBeDeletable = 10
     }
 
     seo{

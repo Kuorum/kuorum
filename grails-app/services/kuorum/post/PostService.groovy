@@ -96,8 +96,34 @@ class PostService {
         user.save()
     }
 
-    Boolean isPostUpdatableByUser(Post post, KuorumUser user){
-        post.owner == user || user.authorities.find{it.authority=="ROLE_ADMIN"}
+    Boolean isEditableByUser(Post post, KuorumUser user){
+        post &&(
+                user.authorities.find{it.authority=="ROLE_ADMIN"} ||
+                    (post.owner == user &&
+                            !post.defender &&
+                            post.debates.isEmpty() &&
+                            post.numVotes < getPostConfiguration().limitVotesToBeEditable
+                    )
+        )
+    }
+    Boolean isDeletableByUser(Post post, KuorumUser user){
+        post &&(
+                user.authorities.find{it.authority=="ROLE_ADMIN"} ||
+                        (post.owner == user &&
+                                !post.defender &&
+                                post.debates.isEmpty() &&
+                                post.numVotes < getPostConfiguration().limitVotesToBeDeletable
+                        )
+        )
+    }
+
+    void deletePost(Post post, KuorumUser user){
+        if (!isDeletableByUser(post,user)){
+            throw new KuorumException("El usuario ${user} no puede borrar el post ${post.id}","")
+        }
+        indexSolrService.delete(post)
+        PostVote.collection.remove([post:post.id])
+        post.delete()
     }
 
     def updatePost(Post post){
@@ -395,5 +421,9 @@ class PostService {
     Boolean isAllowedToDefendAPost(Post post, KuorumUser politician){
         politician.userType == UserType.POLITICIAN &&
         politician.institution == post.law.institution
+    }
+
+    def getPostConfiguration(){
+        grailsApplication.config.kuorum.post
     }
 }

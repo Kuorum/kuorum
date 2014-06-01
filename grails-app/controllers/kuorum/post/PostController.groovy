@@ -1,7 +1,6 @@
 package kuorum.post
 
 import grails.converters.JSON
-import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
@@ -50,14 +49,11 @@ class PostController {
         [post:post,relatedPost:relatedPost, usersVotes:usersVotes, userVote:userVote]
     }
 
-    private Boolean alowedToEditPost(Post post){
-        !(post.owner.id == springSecurityService.principal.id || SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN"))
-    }
-
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def edit(){
         Post post = params.post
-        if (alowedToEditPost(post)){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if (!postService.isEditableByUser(post, user)){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
         }
@@ -79,7 +75,8 @@ class PostController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        if (alowedToEditPost(post)){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if (!postService.isEditableByUser(post, user)){
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
         }
@@ -87,7 +84,6 @@ class PostController {
             render view: "edit", model:[command:command,post:post ]
             return
         }
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         post.multimedia = preparePostFile(post, command,user)
 //        command.videoPost = post.multimedia?.fileType == FileType.VIDEO?post.multimedia.url:''
         post.postType = command.postType
@@ -195,6 +191,19 @@ class PostController {
         }
         postService.publishPost(post)
         redirect mapping:"postPublished", params:post.encodeAsLinkProperties()
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def deletePost(){
+        Post post = params.post
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if (!postService.isDeletableByUser(post, user)){
+            response.sendError(HttpServletResponse.SC_FORBIDDEN)
+            return;
+        }
+        postService.deletePost(post, user)
+        flash.message=message(code:'profile.profileMyPosts.post.success')
+        redirect( mapping:'profileMyPosts')
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

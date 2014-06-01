@@ -157,7 +157,18 @@ class PostTagLib {
         Post post = attrs.post
         if (springSecurityService.isLoggedIn()){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            if (postService.isPostUpdatableByUser(post, user)){
+            if (postService.isEditableByUser(post, user)){
+                out << body()
+            }
+
+        }
+    }
+
+    def ifPostIsDeletable={attrs, body ->
+        Post post = attrs.post
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (postService.isDeletableByUser(post, user)){
                 out << body()
             }
 
