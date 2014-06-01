@@ -598,7 +598,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover.tour .popover-navigation {padding: 4px;}
 .tour-step-background {background: none !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
 .tour-backdrop {background: #fff !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
-.popover[class*="tour-"] {z-index: 1110;}
+.popover[class*="tour-"] {z-index: 1110 !important;}
 
 
 .slimScrollBar {z-index: 9999 !important;}
@@ -990,7 +990,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .boxes .user-type {display: inline-block; color: #A8A8A8; margin-bottom: 12px;}
 .boxes .user-img {float: left;}
 .boxes .popover .user-img {float: none;}
-.boxes .personal {padding: 30px 0 5px;}
+.boxes .personal {padding: 30px 0 40px;}
 .user-img.big {
   border-radius: 60px;
   width: 110px;
@@ -1010,6 +1010,8 @@ span + .text-notification {padding: 0 0 0 33px;}
   border-right: solid 1px #dadada;
   list-style: none;
   display: inline-block;
+  font-size: 12px;
+  font-size: 1.2rem;
 }
 .activity > li:last-child {border: none;}
 .activity .popover-trigger span {font-size: 31px; font-size: 3.1rem; display: block;}
@@ -2155,6 +2157,12 @@ textarea.error,
   font-size: 2.6rem;
   position: relative;
 }
+.info #main article a,
+.info #main article a:hover,
+.info #main article a:active,
+.info #main article a:focus {
+    color: #ff9431;
+}
 .info #main article blockquote .fa {
   display: block;
   position: absolute;
@@ -2532,7 +2540,6 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .boxes .kakareo footer ul li.like-number {margin: 0 35px 0 2px;}
 
   .multimedia .video .fa {left: 44%; top: 40%;}
-  .activity > li {font-size: 12px; font-size: 1.2rem;}
   .activity .popover-trigger span {font-size: 28px; font-size: 2.6rem;}
 
   #main .user .popover-trigger,
