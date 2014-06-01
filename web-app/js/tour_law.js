@@ -18,7 +18,14 @@ $(document).ready(function() {
         tour_law.addSteps([
             {
                 element: 'section.boxes.vote div.voting',
-                placement: 'left',
+                placement: function() {
+                    if ($(window).width() < 960) {
+                        return 'top';
+                    }
+                    else {
+                        return 'left';
+                    }
+                },
                 title: i18n.tour.tour_law.step1_title,
                 content:i18n.tour.tour_law.step1_content
             },

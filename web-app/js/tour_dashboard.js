@@ -54,7 +54,14 @@ $(document).ready(function() {
             },
             {
                 element: 'section.boxes.guay:first',
-                placement: 'left',
+                placement: function() {
+                    if ($(window).width() < 960) {
+                        return 'top';
+                    }
+                    else {
+                        return 'left';
+                    }
+                },
                 template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="end">Continuar</button></div></div>',
                 title: i18n.tour.tour_dashboard.step7_title,
                 content:i18n.tour.tour_dashboard.step7_content
