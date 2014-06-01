@@ -189,4 +189,44 @@ class LawController {
                 gamification:gamification
         ] as JSON)
     }
+
+    def stats(String hashtag){
+        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
+        if (!law){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        [law:law]
+    }
+
+    def statsDataMap(String hashtag){
+        //TODO
+        render """
+{
+  "votation":
+    {
+      "results":
+        {
+          "GaliciaId":1,
+          "Asturias":2,
+          "Cantabria":1,
+          "País Vasco":1,
+          "Navarra":3,
+          "Castilla y León":1,
+          "Aragón":2,
+          "Cataluña":1,
+          "La Rioja":2,
+          "Castilla-La Mancha":1,
+          "Madrid":2,
+          "Comunidad Valenciana":1,
+          "Extremadura":3,
+          "Islas Baleares":3,
+          "Andalucía":2,
+          "Murcia":1,
+          "Islas Canarias":3
+          }
+      }
+    }
+"""
+    }
 }
