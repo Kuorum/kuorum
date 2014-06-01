@@ -1,6 +1,7 @@
 package kuorum.helper
 
 import kuorum.Institution
+import kuorum.ParliamentaryGroup
 import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
@@ -71,6 +72,7 @@ class Helper {
                 commissions: [CommissionType.OTHERS],
                 region: creteDefaultRegion(),
                 institution: creteDefaultInstitution(),
+                parliamentaryGroup: createDefaultParliamentaryGroup(),
                 urlPdf:new URL('http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF'),
                 shortUrl:new URL('http://ow.ly')
 
@@ -88,6 +90,14 @@ class Helper {
         new Institution(
                 name:"Parlamento europer",
                 region: creteDefaultRegion()
+        )
+    }
+
+    public static final ParliamentaryGroup createDefaultParliamentaryGroup(){
+        new ParliamentaryGroup(
+                name:"Parlamento europer",
+                region: creteDefaultRegion(),
+                institution: creteDefaultInstitution()
         )
     }
 }
