@@ -22,6 +22,7 @@ class Law {
     @Updatable List<CommissionType> commissions = []
     @Updatable Region region
     @Updatable Institution institution
+    @Updatable ParliamentaryGroup parliamentaryGroup
     @Updatable KuorumFile image
     @Updatable LawStatusType status = LawStatusType.OPEN
     @Updatable URL urlPdf
@@ -30,7 +31,6 @@ class Law {
     Boolean published = Boolean.FALSE
     Date publishDate
     AcumulativeVotes peopleVotes = new AcumulativeVotes()
-    ParliamentaryGroup parliamentaryGroup
 
 
     static embedded = ['region','peopleVotes','image' ]

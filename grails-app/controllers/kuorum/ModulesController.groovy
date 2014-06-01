@@ -1,7 +1,7 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.core.model.Law.LawStats
+import kuorum.core.model.Law.LawBasicStats
 import kuorum.core.model.search.Pagination
 import kuorum.law.Law
 import kuorum.post.Post
@@ -12,6 +12,7 @@ class ModulesController {
     def springSecurityService
     def postService
     def lawService
+    def lawStatsService
     def notificationService
     def kuorumUserService
 
@@ -19,7 +20,7 @@ class ModulesController {
 
     def bottomLawStats(String hashtag){
         Law law = Law.findByHashtag(hashtag.encodeAsHashtag())
-        LawStats lawStats = lawService.calculateLawStats(law)
+        LawBasicStats lawStats = lawStatsService.calculateLawStats(law)
         [lawStats:lawStats]
     }
 
