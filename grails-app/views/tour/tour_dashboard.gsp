@@ -11,7 +11,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <section id="main" class="col-xs-12 col-sm-8 col-md-8" role="main">
+                <section id="main" class="col-xs-12 col-sm-12 col-md-8" role="main">
                     <ul id="list-kakareos-id" class="kakareo-list" role="log" aria-live="assertive" aria-relevant="additions">
                         <g:each in="${fakeClucks}" var="cluck">
                             <g:render template="fakeCluck" model="[cluck:cluck]"/>
@@ -19,7 +19,7 @@
                     </ul>
                 </section>
 
-                <aside class="col-xs-12 col-sm-4 col-md-4" role="complementary">
+                <aside class="col-xs-12 col-sm-12 col-md-4" role="complementary">
                     <g:render template="/modules/userProfile" model="[user:user, numPosts:10]"/>
                     <g:render template="/modules/userProfileAlerts" model="[alerts:[]]"/>
                     <modulesUtil:recommendedPosts title="${message(code:"modules.recommendedPosts.title")}"/>
