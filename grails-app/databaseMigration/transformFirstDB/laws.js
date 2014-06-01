@@ -46,8 +46,8 @@ function createLawFromOldLaw(law){
     var id = new ObjectId();
     var institution = dbDest.institution.find({name:/Parlamento Espa.*/})[0]
     var spain = dbDest.region.find({"iso3166_2" : "EU-ES"})[0]
-    var parliamentaryGroups = dbDest.parliamentaryGroup.find({name:law.purposedBy.name, 'region.id':spain.id})
-    var parliamentaryGroup = parliamentaryGroups.hasNext() ? parliamentaryGroups.next() : null;
+    if (law.purposedBy !=undefined)
+        var parliamentaryGroup = dbDest.parliamentaryGroup.find({name:law.purposedBy.name, 'region._id':spain._id})[0]
     var status = law.lawStatus=="OPEN"?"OPEN":law.approvedInCongress?"APPROVED":"REJECTED"
     var peopleVotes = createPeopleVotes(law, id)
     var destLaw = {
@@ -69,7 +69,8 @@ function createLawFromOldLaw(law){
         "image":createAvatar(id,"LAW_IMAGE", law.image),
         "status":status,
         peopleVotes:peopleVotes,
-        "version" : 0
+        "version" : 0,
+        parliamentaryGroup:parliamentaryGroup
     }
     return destLaw
 }
