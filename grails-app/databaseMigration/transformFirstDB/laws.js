@@ -70,7 +70,7 @@ function createLawFromOldLaw(law){
         "status":status,
         peopleVotes:peopleVotes,
         "version" : 0,
-        parliamentaryGroup:parliamentaryGroup
+        "parliamentaryGroup":parliamentaryGroup
     }
     return destLaw
 }
