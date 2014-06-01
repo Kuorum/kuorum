@@ -4,6 +4,7 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.post.CluckService
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -17,7 +18,9 @@ class DashboardControllerSpec extends Specification {
     def setup() {
         def mockCluckService = mockFor(CluckService)
         mockCluckService.demand.dashboardClucks(_,_) {def user, def pagination -> []}
-        controller.cluckService = mockCluckService.createMock()
+        def kuorumUserService = mockFor(KuorumUserService)
+        kuorumUserService.demand.mostActiveUsersSince(_,_) {def user, def pagination -> []}
+        controller.kuorumUserService = kuorumUserService.createMock()
 
     }
 
