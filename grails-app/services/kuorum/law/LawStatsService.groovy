@@ -2,8 +2,10 @@ package kuorum.law
 
 import grails.transaction.Transactional
 import kuorum.Region
+import kuorum.core.model.Gender
 import kuorum.core.model.Law.LawBasicStats
 import kuorum.core.model.Law.LawRegionStats
+import kuorum.core.model.VoteType
 import kuorum.post.Post
 
 @Transactional
@@ -23,7 +25,60 @@ class LawStatsService {
 
     LawRegionStats calculateRegionStats(Law law, Region region){
         //TODO: Cache this method
-        LawRegionStats stats = new LawRegionStats()
-//        LawVote.collection.
+        LawRegionStats stats = new LawRegionStats(region: region, genderVotes: [:], totalVotes: new AcumulativeVotes())
+        Gender.values().each {gender ->
+            AcumulativeVotes votes = calculateRegionStatsByGender(law, region, gender)
+            stats.genderVotes.put(gender, votes)
+        }
+        stats.totalVotes = stats.genderVotes.inject(new AcumulativeVotes()) {total,values ->
+            total.yes += values[VoteType.POSITIVE]
+            total.no += values[VoteType.NEGATIVE]
+            total.abs += values[VoteType.ABSTENTION]
+        }
+        stats
+    }
+
+    AcumulativeVotes calculateRegionStatsByGender(Law law, Region region, Gender gender){
+        //TODO: Cache this method
+        def votes = LawVote.collection.aggregate(
+                [$match : [law:law.id, 'personalData.gender': gender.toString()]],
+                [$group :[_id:'$voteType',quantity:[$sum:1]]]
+        )
+
+        HashMap<VoteType, Long> mapResults = [:]
+        votes.results().each{
+            mapResults.put(VoteType.valueOf(it._id),it.quantity)
+        }
+
+        new AcumulativeVotes(
+                abs : mapResults[VoteType.ABSTENTION],
+                yes : mapResults[VoteType.POSITIVE],
+                no : mapResults[VoteType.NEGATIVE]
+        )
+    }
+
+    HashMap<String, AcumulativeVotes> calculateLawStatsPerSubRegions(Law law, Region region){
+        //TODO: Cache this method
+        def lengthCode = "${region.iso3166_2}-XX".length()
+        String regexPrvince = "^${region.iso3166_2}-.*"
+        def votes = LawVote.collection.aggregate(
+                [$match : [law:law.id, 'personalData.provinceCode': [$regex:regexPrvince]]],
+                [$project:[voteType:'$voteType', provinceCode:['$substr' : ['$personalData.provinceCode',0, lengthCode]]]],
+                [$group :[_id:[voteType:'$voteType', region:'$provinceCode'],quantity:[$sum:1]]]
+        )
+        HashMap<String, AcumulativeVotes> res = [:]
+        Region.findAllBySuperRegion(region).each{
+            res.put(it.iso3166_2, new AcumulativeVotes())
+        }
+        votes.results().each{
+            if (it._id.voteType == VoteType.ABSTENTION.toString()){
+                res[it._id.region].abs = it.quantity
+            }else if (it._id.voteType == VoteType.POSITIVE.toString()){
+                res[it._id.region].yes = it.quantity
+            }else if (it._id.voteType == VoteType.NEGATIVE.toString()){
+                res[it._id.region].no = it.quantity
+            }
+        }
+        res
     }
 }

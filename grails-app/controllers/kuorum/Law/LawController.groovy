@@ -10,6 +10,7 @@ import kuorum.core.model.gamification.GamificationElement
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchLaws
 import kuorum.core.model.solr.SolrLawsGrouped
+import kuorum.law.AcumulativeVotes
 import kuorum.law.Law
 import kuorum.law.LawVote
 import kuorum.post.Post
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse
 class LawController {
 
     def lawService
+    def lawStatsService
     def postService
     def cluckService
     def springSecurityService
@@ -201,6 +203,13 @@ class LawController {
 
     def statsDataMap(String hashtag){
         //TODO
+        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
+        if (!law){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        Region spain = Region.findByIso3166_2("EU-ES")
+        HashMap<String, AcumulativeVotes> statsPerProvince = lawStatsService.calculateLawStatsPerSubRegions(law, spain)
         render """
 {
   "votation":
