@@ -97,20 +97,20 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
     }
 
     @Unroll
-    void "test list laws: #regionName, #commission "(){
+    void "test list laws: #institutionName, #commission "(){
         given:"Region"
-        SearchLaws searchLaws = new SearchLaws(regionName:regionName, commissionType: commission)
+        SearchLaws searchLaws = new SearchLaws(institutionName:institutionName, commissionType: commission)
         when:"search for "
         List<SolrLawsGrouped>  lawsGrouped = searchSolrService.listLaws(searchLaws)
         then:
         lawsGrouped.size() == numGroups
         where:
-        regionName          | commission                | numGroups
-        "espana"            | CommissionType.JUSTICE    | 1
-        "espana"            | CommissionType.ECONOMY    | 1
-        "espana"            | CommissionType.DEFENSE    | 0
-        "espana"            | null                      | 2
-        "Madrid"            | CommissionType.DEFENSE    | 0
-        "Madrid"            | null                      | 1
+        institutionName         | commission                | numGroups
+        "parlamento espanol"    | CommissionType.JUSTICE    | 1
+        "parlamento espanol"    | CommissionType.ECONOMY    | 1
+        "parlamento espanol"    | CommissionType.DEFENSE    | 0
+        "parlamento espanol"    | null                      | 2
+        "parlamento madrileno"  | CommissionType.DEFENSE    | 0
+        "parlamento madrileno"  | null                      | 1
     }
 }
