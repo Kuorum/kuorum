@@ -26,7 +26,7 @@
                         </label>
                     </g:each>
                 </div><!-- /.all -->
-                <p class="help-block"><strong>Selecciona a un mínimo de 2 personas.</strong> Selecciona a los usuarios que quieres seguir para estar al día de todo lo que hacen en la comunidad.</p>
+                <p class="help-block"><strong>Selecciona a un mínimo de 3 personas.</strong> Sigue a los usuarios que te interesen para estar al día de todo lo que hacen en Kuorum.</p>
             </div>
             <g:if test="${hasErrors(bean: command, field: 'recommendedUsers', 'error')}">
                 <span for="recommendedUsers" class="error">${g.fieldError(bean: command, field: 'recommendedUsers')}</span>
@@ -44,8 +44,7 @@
 
 <content tag="boxes">
     <div class="boxes">
-        <h2>Cuéntanos algo más</h2>
-        <p>Haz llegar tus historias sobre las leyes. Cosas en las que te afectan las leyes, cómo era antes, cómo será después de la entrada en vigor de la ley.</p>
-        <p>Cuéntanos tu historia. En qué te afecta esta ley. Nos comprometemos a hacerla llegar a los políticos para que la tengan en cuenta.</p>
+        <h2><g:message code="customRegister.step4.lateral.title"/></h2>
+        <p><g:message code="customRegister.step4.lateral.content"/></p>
     </div>
 </content>
