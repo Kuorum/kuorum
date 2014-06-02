@@ -31,17 +31,19 @@ class LawStatsService {
             stats.genderVotes.put(gender, votes)
         }
         stats.totalVotes = stats.genderVotes.inject(new AcumulativeVotes()) {total,values ->
-            total.yes += values[VoteType.POSITIVE]
-            total.no += values[VoteType.NEGATIVE]
-            total.abs += values[VoteType.ABSTENTION]
+            total.yes += values.value.yes
+            total.no += values.value.no
+            total.abs += values.value.abs
+            total
         }
         stats
     }
 
     AcumulativeVotes calculateRegionStatsByGender(Law law, Region region, Gender gender){
         //TODO: Cache this method
+        String regexPrvince = "^${region.iso3166_2}.*"
         def votes = LawVote.collection.aggregate(
-                [$match : [law:law.id, 'personalData.gender': gender.toString()]],
+                [$match : [law:law.id, 'personalData.gender': gender.toString(),'personalData.provinceCode': [$regex:regexPrvince]]],
                 [$group :[_id:'$voteType',quantity:[$sum:1]]]
         )
 
@@ -51,9 +53,9 @@ class LawStatsService {
         }
 
         new AcumulativeVotes(
-                abs : mapResults[VoteType.ABSTENTION],
-                yes : mapResults[VoteType.POSITIVE],
-                no : mapResults[VoteType.NEGATIVE]
+                abs : mapResults[VoteType.ABSTENTION]?:0,
+                yes : mapResults[VoteType.POSITIVE]?:0,
+                no : mapResults[VoteType.NEGATIVE]?:0
         )
     }
 
