@@ -1,4 +1,5 @@
 import kuorum.core.model.CommitmentType
+import kuorum.core.model.VoteType
 import kuorum.post.PostComment
 import kuorum.post.Sponsor
 
@@ -70,4 +71,23 @@ post {
     postService.defendPost(codigoPenalQuestion1, CommitmentType.ASKED_ON_CONGRESS, politician)
     postService.victory(codigoPenalQuestion1, codigoPenalQuestion1.owner)
 
+    lawService.voteLaw(aborto,carmen,VoteType.NEGATIVE)
+    lawService.voteLaw(codigoPenal,carmen,VoteType.NEGATIVE)
+    lawService.voteLaw(parquesNacionales,carmen,VoteType.POSITIVE)
+    lawService.voteLaw(prohibicionFraking,carmen,VoteType.NEGATIVE)
+
+    lawService.voteLaw(aborto,noe,VoteType.NEGATIVE)
+    lawService.voteLaw(codigoPenal,noe,VoteType.POSITIVE)
+    lawService.voteLaw(parquesNacionales,noe,VoteType.POSITIVE)
+    lawService.voteLaw(prohibicionFraking,noe,VoteType.POSITIVE)
+
+    lawService.voteLaw(aborto,equo,VoteType.NEGATIVE)
+    lawService.voteLaw(codigoPenal,equo,VoteType.POSITIVE)
+    lawService.voteLaw(parquesNacionales,equo,VoteType.POSITIVE)
+    lawService.voteLaw(prohibicionFraking,equo,VoteType.NEGATIVE)
+
+    lawService.voteLaw(aborto,ecologistasEnAccion,VoteType.ABSTENTION)
+    lawService.voteLaw(codigoPenal,ecologistasEnAccion,VoteType.ABSTENTION)
+    lawService.voteLaw(parquesNacionales,ecologistasEnAccion,VoteType.POSITIVE)
+    lawService.voteLaw(prohibicionFraking,ecologistasEnAccion,VoteType.NEGATIVE)
 }

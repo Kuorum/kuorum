@@ -73,7 +73,7 @@ small, .small {font-size: 75%;}
 .fa {vertical-align: middle;}
 .tooltip {z-index: 999;}
 .popover:hover, .popover:active, .popover:focus {cursor: default;}
-.disabled.allow {cursor: pointer; pointer-events: auto;}
+.disabled.allow {cursor: pointer !important; pointer-events: auto;}
 .popover-title {
   background-color: rgba(0, 0, 0, 0);
   border-bottom: medium none;

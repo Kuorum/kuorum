@@ -20,7 +20,7 @@ fixture {
         gender =  Gender.FEMALE
         userType = UserType.PERSON
         postalCode = "28004"
-        provinceCode = "EU-SP-MD-MD"
+        provinceCode = "EU-ES-MD-MD"
         province = madrid
         birthday = Date.parse("dd/MM/yyyy","21/04/1982")
     }

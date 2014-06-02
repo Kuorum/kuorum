@@ -46,7 +46,6 @@ $(document).tooltip({
 
 $(document).ready(function() {
 
-
     // inicializa formato fechas
     $("time.timeago").timeago();
 
@@ -59,7 +58,7 @@ $(document).ready(function() {
 	});
 
 
-	// hacer un bloque clickable y que tome que es su primer elemento la url del enlace a.hidden
+	// hacer un bloque clicable y que tome que es su primer elemento la url del enlace a.hidden
 	$(function() {
 
 		$('.link-wrapper').click( function() {
@@ -68,6 +67,16 @@ $(document).ready(function() {
 
 	});
 
+    // popover-trigger dentro del kakareo no lanza el enlace del bloque clicable
+    $('.link-wrapper .popover-trigger').click(function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    // button dentro del popover del kakareo no lanzan el enlace del bloque clicable
+    $('.link-wrapper').on('click', '.popover button', function() {
+        $('.link-wrapper').preventDefault();
+    });
 
 	// scroll suave a hashtag
     $(".smooth").click(function (event) {
@@ -251,8 +260,10 @@ $(document).ready(function() {
                 $("section.boxes.guay.pending article[data-cluck-postId='"+postId+"']").parent().remove();
             }
         });
-
 	});
+    $('.link-wrapper').on('click', '.read-later a', function() {
+        $('.link-wrapper').preventDefault();
+    });
 
 
 	// Cambio de flechita en el botón desplegar texto de la ley
@@ -1120,4 +1131,5 @@ $(document).ajaxStop(function () {
 	$("time.timeago").timeago();
 
 	prepareArrowClucks();
+
 });

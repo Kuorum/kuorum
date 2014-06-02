@@ -190,6 +190,7 @@ class PostController {
             return;
         }
         postService.publishPost(post)
+        flash.args = [justPublished:true]
         redirect mapping:"postPublished", params:post.encodeAsLinkProperties()
     }
 
@@ -213,7 +214,18 @@ class PostController {
             response.sendError(HttpServletResponse.SC_FORBIDDEN)
             return;
         }
-        [post:post]
+        def model = [post:post]
+        if (flash.args?.justPublished){
+            def gamification = [
+                    title: "${message(code:'post.edit.step3.gamification.title')}",
+                    text:"${message(code:'post.edit.step3.gamification.motivationText', args:[10])}",
+                    eggs:gamificationService.gamificationConfigCreatePost()[GamificationElement.EGG]?:0,
+                    plumes:gamificationService.gamificationConfigCreatePost()[GamificationElement.PLUME]?:0,
+                    corns:gamificationService.gamificationConfigCreatePost()[GamificationElement.CORN]?:0
+            ]
+            model += [gamificationData:gamification]
+        }
+        model
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

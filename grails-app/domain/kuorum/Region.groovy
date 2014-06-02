@@ -26,7 +26,18 @@ class Region {
         name
     }
 
-    boolean equals(Object object){
-        iso3166_2.equals(object?.iso3166_2)
+    boolean equals(o) {
+        if (this.is(o)) return true
+        if (!(o instanceof Region)) return false
+
+        Region region = (Region) o
+
+        if (iso3166_2 != region.iso3166_2) return false
+
+        return true
+    }
+
+    int hashCode() {
+        return iso3166_2.hashCode()
     }
 }
