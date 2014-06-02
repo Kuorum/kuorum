@@ -216,9 +216,10 @@ class PostController {
         }
         def model = [post:post]
         if (flash.args?.justPublished){
+            def numVotesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
             def gamification = [
                     title: "${message(code:'post.edit.step3.gamification.title')}",
-                    text:"${message(code:'post.edit.step3.gamification.motivationText', args:[10])}",
+                    text:"${message(code:'post.edit.step3.gamification.motivationText', args:[numVotesToBePublic])}",
                     eggs:gamificationService.gamificationConfigCreatePost()[GamificationElement.EGG]?:0,
                     plumes:gamificationService.gamificationConfigCreatePost()[GamificationElement.PLUME]?:0,
                     corns:gamificationService.gamificationConfigCreatePost()[GamificationElement.CORN]?:0
