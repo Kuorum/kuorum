@@ -1,6 +1,7 @@
 <g:if test="${relatedPosts}">
 <aside class="othersPost">
     <h1><g:message code="post.show.relatedPosts.title"/></h1>
+    <br/>
     <div id="postNav" class="carousel slide">
         <a href="#postNav" data-slide="prev" class="prev">
             <span class="fa fa-caret-left fa-lg"></span>
