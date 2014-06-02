@@ -9,7 +9,7 @@ public enum FileGroup {
     LAW_IMAGE("LawsFiles", 1024000 /*10 MB */, '123/62', 738),
     POST_IMAGE("PoliticianFiles", 1024000 /*10 MB */,'123/62',738);
 
-    static final Long MIN_SIZE_IMAGE = 1024 * 100
+    static final Long MIN_SIZE_IMAGE = 1024 * 10
 
     String folderPath
     Long maxSize
