@@ -838,7 +838,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer {background-color: #feedce; border-top-color: #ff9431;}
 .important .kakareo footer > ul > li.read-later a.disabled span:first-child {color: #ff9431 !important;}
 
-.important .kakareo footer > ul > li a span:first-child {color: #ff9431;}
+.important .kakareo footer > ul > li a span:first-child {color: #797979;}
 .important .kakareo footer > ul > li a:hover,
 .important .kakareo footer > ul > li a:focus,
 .important .kakareo footer > ul > li a:active {color: #ff9431;}
