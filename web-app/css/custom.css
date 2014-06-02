@@ -880,6 +880,7 @@ span + .text-notification {padding: 0 0 0 33px;}
   color: #ffdb8d;
 }
 .author.important .user.actor.politic .type {font-size: 20px; font-size: 2rem; color: #fff;}
+.author.important .user.actor.politic .state {color: #fff;}
 .author.important .user.actor.politic .action {color: #fff;}
 .author.important .user.actor.politic a {color: #FFDB8D !important;}
 

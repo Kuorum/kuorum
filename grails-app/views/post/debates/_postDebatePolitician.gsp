@@ -7,5 +7,5 @@
             <kuorumDate:humanDate date="${debate.dateCreated}"/>
         </span>
     </div>
-    <p><span class="say">Dice:</span>${debate.text}</p>
+    <p>${debate.text}</p>
 </li>
