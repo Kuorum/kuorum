@@ -46,7 +46,7 @@ class KuorumUserTagLib {
         Boolean showRole = attrs.showRole?Boolean.parseBoolean(attrs.showRole):false
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
 
-        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
+//        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
         def imgSrc = image.userImgSrc(user:user)
         def userName = ""
         if (showName){
