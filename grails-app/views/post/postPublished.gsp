@@ -72,13 +72,7 @@
     <section class="boxes noted likes">
         <h1><g:message code="post.edit.step3.firstVoteTitle"/> </h1>
         <g:render template="likesContainer" model="[post:post]"/>
-        <p>Comparte en las redes sociales</p>
-        <ul class="social">
-            <li><a href="#"><span class="sr-only">Twitter</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-twitter fa-stack-1x"></span></span></a></li>
-            <li><a href="#"><span class="sr-only">Facebook</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span></a></li>
-            <li><a href="#"><span class="sr-only">LinkedIn</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li>
-            <li><a href="#"><span class="sr-only">Google+</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-google-plus fa-stack-1x"></span></span></a></li>
-        </ul>
+        <g:render template="/post/postSocialShare" model="[post:post]"/>
 
     </section>
 </content>

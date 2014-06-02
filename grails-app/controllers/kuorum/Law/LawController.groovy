@@ -5,11 +5,13 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.Region
 import kuorum.core.model.CommissionType
+import kuorum.core.model.Law.LawRegionStats
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchLaws
 import kuorum.core.model.solr.SolrLawsGrouped
+import kuorum.law.AcumulativeVotes
 import kuorum.law.Law
 import kuorum.law.LawVote
 import kuorum.post.Post
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletResponse
 class LawController {
 
     def lawService
+    def lawStatsService
     def postService
     def cluckService
     def springSecurityService
@@ -196,37 +199,40 @@ class LawController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        [law:law]
+        Region spain = Region.findByIso3166_2("EU-ES")
+        LawRegionStats stats = lawStatsService.calculateRegionStats(law, spain)
+        [law:law, stats:stats, region:spain]
     }
 
     def statsDataMap(String hashtag){
-        //TODO
-        render """
-{
-  "votation":
-    {
-      "results":
-        {
-          "GaliciaId":1,
-          "Asturias":2,
-          "Cantabria":1,
-          "País Vasco":1,
-          "Navarra":3,
-          "Castilla y León":1,
-          "Aragón":2,
-          "Cataluña":1,
-          "La Rioja":2,
-          "Castilla-La Mancha":1,
-          "Madrid":2,
-          "Comunidad Valenciana":1,
-          "Extremadura":3,
-          "Islas Baleares":3,
-          "Andalucía":2,
-          "Murcia":1,
-          "Islas Canarias":3
-          }
-      }
+        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
+        if (!law){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        Region spain = Region.findByIso3166_2("EU-ES")
+        HashMap<String, AcumulativeVotes> statsPerProvince = lawStatsService.calculateLawStatsPerSubRegions(law, spain)
+        def map = [:]
+        statsPerProvince.each {k,v ->
+            def max = [v.yes,v.no, v.abs].max()
+            if (v.no == max)
+                map.put(k,2)
+            else if (v.yes == max)
+                map.put(k,1)
+            else
+                map.put(k,3)
+        }
+        render ([votation:[results:map]] as JSON)
     }
-"""
+
+    def statsDataPieChart(String hashtag){
+        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
+        Region region = Region.findByIso3166_2(params.regionIso3166)
+        if (!law || !region){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        LawRegionStats stats = lawStatsService.calculateRegionStats(law, region)
+        render stats as JSON
     }
 }

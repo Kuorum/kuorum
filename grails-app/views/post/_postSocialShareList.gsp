@@ -8,7 +8,7 @@
                     post.law.hashtag.encodeAsURL()
             ]"
             encodeAs="HTML"/></g:set>
-    <g:set var="twitterLink">https://twitter.com/share?url=${post.shortUrl}&text=${twitterShareText}&via=kuorumorg&hashtags=${post.law.hashtag}</g:set>
+    <g:set var="twitterLink">https://twitter.com/share?url=${post.shortUrl}&text=${twitterShareText}&hashtags=${post.law.hashtag}</g:set>
 
     <a href="${twitterLink}" class="social-share twitter">
         <span class="${textClass}"><g:message code="law.social.twitter"/></span>
