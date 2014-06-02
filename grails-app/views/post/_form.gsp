@@ -38,7 +38,8 @@
 <fieldset class="text">
     <div class="form-group">
         <label for="textPost"><g:message code="post.edit.step1.postText.label"/> </label>
-        <textarea name="textPost" data-placement="bottom" class="form-control texteditor ${hasErrors(bean: command, field: 'textPost', 'error')}" rows="10" placeholder="${g.message(code: 'post.edit.step1.postText.placeHolder')}" id="textPost" tabindex="14" required>${command.textPost}</textarea>
+        %{--<textarea name="textPost" data-placement="bottom" class="form-control texteditor ${hasErrors(bean: command, field: 'textPost', 'error')}" rows="10" placeholder="${g.message(code: 'post.edit.step1.postText.placeHolder')}" id="textPost" tabindex="14" required>${command.textPost}</textarea>--}%
+        <textarea name="textPost" data-placement="bottom" class="form-control texteditor ${hasErrors(bean: command, field: 'textPost', 'error')}" rows="10" id="textPost" tabindex="14" required>${command.textPost}</textarea>
         <g:if test="${hasErrors(bean: command, field: 'textPost', 'error')}">
             <span for="textPost" class="error">${g.fieldError(bean: command, field: 'textPost')}</span>
         </g:if>

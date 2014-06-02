@@ -1,6 +1,6 @@
 <aside class="seeVictory" id="seeVictory">
-    <h1>Mira lo que otros han conseguido</h1>
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+    <h1><g:message code="law.modules.victories.title"/></h1>
+    <p><g:message code="law.modules.victories.subtitle"/></p>
     <strong>¡Hemos conseguido <span class="counter">${victories.size()}</span> victorias!</strong>
 
     <div class="controls">

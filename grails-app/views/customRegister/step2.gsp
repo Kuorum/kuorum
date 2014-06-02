@@ -7,7 +7,7 @@
 </head>
 
 <content tag="intro">
-    <h1><g:message code="customRegister.step2.intro.title"/> </h1>
+    <h1><g:message code="customRegister.step2.intro.title"/></h1>
     <p><g:message code="customRegister.step2.intro.description"/></p>
 </content>
 
@@ -56,8 +56,7 @@
 
 <content tag="boxes">
     <div class="boxes">
-        <h2>Cuéntanos algo más</h2>
-        <p>Haz llegar tus historias sobre las leyes. Cosas en las que te afectan las leyes, cómo era antes, cómo será después de la entrada en vigor de la ley.</p>
-        <p>Cuéntanos tu historia. En qué te afecta esta ley. Nos comprometemos a hacerla llegar a los políticos para que la tengan en cuenta.</p>
+        <h2><g:message code="customRegister.step2.lateral.title"/></h2>
+        <p><g:message code="customRegister.step2.lateral.content"/></p>
     </div>
 </content>
