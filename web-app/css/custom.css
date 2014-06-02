@@ -1584,7 +1584,7 @@ textarea.error,
 
 .seeVictory .counter {font-size: 200%;}
 .seeVictory .sliderItem {background-color: #FFF8ED;}
-.seeVictory .sliderItem .content {padding: 0 8px 8px 8px;}
+.seeVictory .sliderItem .content {padding: 0 15px 10px 15px;}
 .seeVictory .sliderItem img.actor {float: left; margin: 0 20px 20px 0;}
 .seeVictory .sliderItem h1 {
   background-color: #ff9431;
@@ -1901,7 +1901,7 @@ textarea.error,
 #search-results > ul > li {list-style: none; padding: 0; border-bottom: 1px solid #DADADA;}
 
 #search-results .kakareo.post.ley .link-wrapper,
-#search-results .kakareo.post.ley .wrapper {padding: 15px 0;}
+#search-results .kakareo.post.ley .wrapper {padding: 15px; min-height: 140px;}
 #search-results .kakareo.post .link-wrapper,
 #search-results .kakareo.post .wrapper,
 #search-results .wrapper {padding: 15px;}
@@ -2834,6 +2834,8 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   aside .back {margin: 30px 0 14px; }
 
 }
+.kakareo.post p {line-height: 1.6; font-size: 1.5rem;}
+
 
 /* Retina ready images */
 @media  only screen and (-webkit-min-device-pixel-ratio: 1.5),
