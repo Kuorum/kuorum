@@ -78,7 +78,6 @@ $(document).ready(function() {
         $('.link-wrapper').preventDefault();
     });
 
-
 	// scroll suave a hashtag
     $(".smooth").click(function (event) {
     	event.preventDefault();
@@ -261,8 +260,10 @@ $(document).ready(function() {
                 $("section.boxes.guay.pending article[data-cluck-postId='"+postId+"']").parent().remove();
             }
         });
-
 	});
+    $('.link-wrapper').on('click', '.read-later a', function() {
+        $('.link-wrapper').preventDefault();
+    });
 
 
 	// Cambio de flechita en el botón desplegar texto de la ley
