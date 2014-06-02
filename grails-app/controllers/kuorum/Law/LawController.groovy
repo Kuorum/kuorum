@@ -224,4 +224,15 @@ class LawController {
         }
         render ([votation:[results:map]] as JSON)
     }
+
+    def statsDataPieChart(String hashtag){
+        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
+        Region region = Region.findByIso3166_2(params.regionIso3166)
+        if (!law || !region){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        LawRegionStats stats = lawStatsService.calculateRegionStats(law, region)
+        render stats as JSON
+    }
 }

@@ -7,6 +7,7 @@
     <r:require module="lawStats"/>
     <script>
         var urlDataMap = '${createLink(mapping: 'lawStatsDataMap', params: law.encodeAsLinkProperties())}'
+        var urlPieChart = '${createLink(mapping: 'lawStatsPieChart', params: law.encodeAsLinkProperties())}'
     </script>
 </head>
 
@@ -52,7 +53,7 @@
         <div class="graphContainer">
             <h2><g:message code="law.stats.columnC.pieChart.title"/></h2>
             <p>
-                <span class="numberVotes">6423</span>
+                <span class="numberVotes">${law.peopleVotes.total}</span>
                 <span>Votos</span>
                 <small>(faltan <span class="pendingVotes">35</span> votos)</small>
             </p>
@@ -60,6 +61,14 @@
                 <canvas id="votesChart" width="255" height="255"></canvas>
             </div>
         </div>
+        <script>
+            var votes = {
+                        yes: ${law.peopleVotes.yes},
+                        no: ${law.peopleVotes.no},
+                        abs:${law.peopleVotes.abs},
+                        total:${law.peopleVotes.total}
+                };
+        </script>
         <ul class="activity">
             <li class="favor"><span>${stats.totalVotes.yes}</span> <g:message code="law.stats.columnC.vote.yes"/></li>
             <li class="contra"><span>${stats.totalVotes.no}</span> <g:message code="law.stats.columnC.vote.no"/></li>

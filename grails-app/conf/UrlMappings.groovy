@@ -15,6 +15,7 @@ class UrlMappings {
         name lawShow:       "/leyes/$institutionName/$commission/$hashtag" (controller: "law", action:"show")
         name lawStats:      "/leyes/$institutionName/$commission/$hashtag/ficha-tecnica" (controller: "law", action:"stats")
         name lawStatsDataMap:"/ajax/leyes/$institutionName/$commission/$hashtag/ficha-tecnica/datos-mapa" (controller: "law", action:"statsDataMap")
+        name lawStatsPieChart:"/ajax/leyes/$institutionName/$commission/$hashtag/ficha-tecnica/datos-pieChart" (controller: "law", action:"statsDataPieChart")
         name lawShowSec:    "/sec/leyes/$institutionName/$commission/$hashtag" (controller: "law", action:"showSecured")
         name lawEdit:       "/leyes/$institutionName/$commission/$hashtag/editar"(controller: "law", action:"edit")
         name lawUpdate:     "/leyes/$institutionName/$commission/$hashtag/actualizar"(controller: "law"){action = [GET:"edit", POST:"update"]}
