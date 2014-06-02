@@ -10,11 +10,12 @@
     <p><g:message code="post.edit.step3.intro.subHead"/></p>
 </content>
 
-<g:set var="multimedia" value=""/>
-<postUtil:ifHasMultimedia post="${post}">
-    <g:set var="multimedia" value="multimedia"/>
-</postUtil:ifHasMultimedia>
 <content tag="mainContent">
+    <g:set var="multimedia" value=""/>
+    <postUtil:ifHasMultimedia post="${post}">
+        <g:set var="multimedia" value="multimedia"/>
+    </postUtil:ifHasMultimedia>
+
     <article class="kakareo post sponsor ${multimedia}" role="article" itemscope itemtype="http://schema.org/Article" data-cluck-postId="${post.id}">
         <div class="wrapper">
             <g:render template="/cluck/cluckMain" model="[post:post]"/>
@@ -51,6 +52,20 @@
             </g:link>
         </li>
     </ul>
+    <g:if test="${gamificationData}">
+        <script>
+            $(function(){
+                var gamification = {
+                    title: "${gamificationData.title}",
+                    text:"${gamificationData.text}",
+                    eggs:${gamificationData.eggs},
+                    plumes:${gamificationData.plumes},
+                    corns:${gamificationData.corns}
+                }
+                karma.open(gamification)
+            });
+        </script>
+    </g:if>
 </content>
 
 <content tag="cColumn">
