@@ -16,7 +16,6 @@ import kuorum.law.Law
 import kuorum.law.LawVote
 import kuorum.post.Post
 import kuorum.users.KuorumUser
-import kuorum.web.commands.LawCommand
 import kuorum.web.constants.WebConstants
 
 import javax.servlet.http.HttpServletResponse
@@ -94,69 +93,6 @@ class LawController {
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${clucks.size()<pagination.max}")
         render template: "/cluck/liClucks", model:[clucks:clucks]
 
-    }
-
-    @Secured(['ROLE_ADMIN'])
-    def edit(String hashtag){
-        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
-        if (!law){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
-        LawCommand lawCommand = new LawCommand()
-        lawCommand.properties.each {k,v ->
-            if (k!="class")
-                lawCommand."$k" = law."$k"
-        }
-        [
-            lawInstance:lawCommand,
-            regions:Region.findAll(),
-            institutions:Institution.findAll()
-        ]
-    }
-
-
-    @Secured(['ROLE_ADMIN'])
-    def update(LawCommand command){
-        if (command.hasErrors()){
-            render view: "edit", model:[
-                    lawInstance:command,
-                    regions:Region.findAll(),
-                    institutions:Institution.findAll()
-                ]
-        }
-        Law law = lawService.findLawByHashtag(command.hashtag.encodeAsHashtag())
-        if (!law){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
-        command.properties.each {k,v -> if (k!="class") {law."$k" = command."$k"}}
-        lawService.updateLaw(law)
-        flash.message=message(code: "law.update.success", args: [law.hashtag])
-        redirect mapping:"lawShow", params:law.encodeAsLinkProperties()
-
-    }
-
-    @Secured(['ROLE_ADMIN'])
-    def publish(String hashtag){
-        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
-        if (!law){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
-        law = lawService.publish(law)
-        render "publish"
-    }
-
-    @Secured(['ROLE_ADMIN'])
-    def unpublish(String hashtag){
-        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
-        if (!law){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
-        law = lawService.unpublish(law)
-        render "unpublish"
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
