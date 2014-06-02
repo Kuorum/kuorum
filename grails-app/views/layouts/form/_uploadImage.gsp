@@ -28,10 +28,10 @@
     <uploader:onSubmit>
         $("#${imageId}").attr("alt","Cargando");
             originalImgPath = $("#${imageId}").attr("src");
-            $("#${imageId}").attr("src","${g.resource(dir: 'img', file: 'spinner_small.gif')}");
+            $("#${imageId}").attr("src","${g.resource(dir: 'images', file: 'spinner.gif')}");
     </uploader:onSubmit>
     <uploader:onProgress>
-        $("#progresBar_${imageId}").removeClass("hidden")
+        $("#progresBar_${imageId}").removeClass("hidden").css("display","block")
         var progressBar = $("#progresBar_${imageId}").children(".progress-bar")
         progressBar.attr("aria-valuenow",loaded)
         progressBar.attr("aria-valuemax",total)
@@ -122,6 +122,11 @@
                 height:selected.h,
                 width: selected.w,
                 fileId: fileId
+            },
+            statusCode: {
+                500: function() {
+                    display.warn("Ha habido algún problbema recortando la foto. Vuelva a intentarlo")
+                }
             }
         }).done(function( data ) {
             changeImageBackground(data.absolutePathImg)
