@@ -12,7 +12,6 @@
     <article class="kakareo post promo" role="article" itemscope itemtype="http://schema.org/Article">
         <h1><g:message code="post.promote.step1.title"/></h1>
         <p><g:message code="post.promote.step1.p1"/></p>
-        <p><g:message code="post.promote.step1.p2"/></p>
         <div class="row promo-options">
             <g:each in="${prices}" var="price" status="i">
                 <div class="col-xs-12 col-sm-12 col-md-4">
@@ -25,7 +24,7 @@
                         <p><g:message code="post.promote.step1.pay.${i}.description" args="[price.price,price.numMails]"/> </p>
                         <div class="euros">${price.price}€</div>
                         <h3><g:message code="post.promote.step1.pay.promote" args="[price.price,price.numMails]"/></h3>
-                        <p><small><g:message code="post.promote.step1.pay.footer" args="[price.price,price.numMails]"/> </small></p>
+                        %{--<p><small><g:message code="post.promote.step1.pay.footer" args="[price.price,price.numMails]"/> </small></p>--}%
                     </div>
                 </div>
             </g:each>

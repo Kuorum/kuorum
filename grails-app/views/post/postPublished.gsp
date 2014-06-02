@@ -23,10 +23,10 @@
         <g:render template="/cluck/footerCluck" model="[cluck:post,displayingColumnC:false]"/>
     </article><!-- /article -->
 
-    <h2>Para qué patrocinar</h2>
-    <p class="lead">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
-    <p>Para que llegue mas y más lejos, at vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-    <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+    <h2><g:message code="post.edit.step3.info.title"/></h2>
+    %{--<p class="lead"><g:message code="post.edit.step3.info.content.big"/></p>--}%
+    <p><g:message code="post.edit.step3.info.content.big"/></p>
+    <p><g:message code="post.edit.step3.info.content.small"/></p>
 
     %{--<h2>Invita a tus amigos para que hagan crecer la propuesta</h2>--}%
     %{--<ul class="socialSponsor clearfix">--}%
@@ -42,7 +42,7 @@
         <g:else>
             <li>
                 <g:link mapping="postPayPost" class="btn btn-blue btn-lg" params="${post.encodeAsLinkProperties()}">
-                    Patrocina mi propuesta
+                    <g:message code="post.edit.step3.promoteButton"/>
                 </g:link>
             </li>
         </g:else>

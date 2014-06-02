@@ -1774,7 +1774,7 @@ textarea.error,
   border-bottom: 1px solid #DADADA;
 }
 
-.promo-options {margin: 50px 0 30px; height: 390px;}
+.promo-options {margin: 10px 0 30px; height: 330px;}
 .promo-options > div {
   margin-bottom: 10px;
   background-color: #efefef;
@@ -1793,13 +1793,13 @@ textarea.error,
   margin-top: -20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
-.promo-options > div:hover  > .link-wrapper {min-height: 380px; background-color: transparent; color: #fff;}
+.promo-options > div:hover  > .link-wrapper {min-height: 300px; background-color: transparent; color: #fff;}
 .promo-options > div:hover > .link-wrapper > h3 {color: #545454; font-size: 22px; font-size: 2.2rem;}
 .promo-options > div:hover  > .link-wrapper > .euros  {color: #545454; font-size: 64px; font-size: 6.4rem;}
 
 .promo-options > div > .link-wrapper {
   padding: 0;
-  min-height: 350px;
+  min-height: 250px;
 }
 .promo-options > div > .link-wrapper > .mails {font-size: 25px; font-size: 2.5rem;}
 .promo-options > div > .link-wrapper > h2 {font-size: 24px; font-size: 2.4rem; text-transform: uppercase;}
@@ -2654,7 +2654,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   /*.form-promo form .btn {margin: 0 0 0 10px !important;}*/
   .promo-options > div > .link-wrapper {min-height: 270px;}
   .promo-options > div:hover {margin: 0;}
-  .promo-options > div:hover  > .link-wrapper {min-height: 310px;}
+  .promo-options > div:hover  > .link-wrapper {min-height: 290px;}
   .form-promo-pay .link {line-height: 6.5;}
   .form-promo-pay p.secure {padding: 0 0 0 180px; background: url('../images/secure-payment.png') no-repeat 0 0 transparent;}
 
@@ -2824,12 +2824,12 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .home .socialGo li {display: inline-block; float: left; margin: 10px 12px 0 0; width: 170px;}
   .home .socialGo li:last-child {margin-right: 0;}
 
-  .promo-options > div > .link-wrapper {min-height: 335px;}
+  .promo-options > div > .link-wrapper {min-height: 270px;}
   .promo-options > div > .link-wrapper > h2 {font-size: 24px; font-size: 2.4rem;}
   .promo-options > div > .link-wrapper > p {font-size: 15px; font-size: 1.5rem;}
   .promo-options > div > .link-wrapper > p small {font-size: 12px; font-size: 1.2rem;}
   .promo-options > div:hover {margin: -20px 0 0 0;}
-  .promo-options > div:hover  > .link-wrapper {min-height: 380px;}
+  .promo-options > div:hover  > .link-wrapper {min-height: 290px;}
   .kakareo.post.promo.tks .invite li a {width: 236px;}
   aside .back {margin: 30px 0 14px; }
 
