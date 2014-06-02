@@ -11,14 +11,17 @@ import kuorum.post.Post
 @Transactional
 class LawStatsService {
 
+    def grailsApplication
+
     LawBasicStats calculateLawStats(Law law){
         //TODO: Cache this method
         LawBasicStats lawStats = new LawBasicStats()
         Post post = Post.findByLaw(law,[max: 1, sort: "dateCreated", order: "desc", offset: 0])
         lawStats.lastActivity = post?.dateCreated
 
-        lawStats.numPosts = Post.collection.count([law:law.id,published:true])
-        lawStats.numPostsWithManyVotes = Post.collection.count([law:law.id,published:true, numVotes:['$gt':10]])
+        lawStats.numUsers = Post.collection.count([law:law.id,published:true])
+        lawStats.nomVotesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
+        lawStats.numPublicPosts = Post.collection.count([law:law.id,published:true, numVotes:['$gt':lawStats.nomVotesToBePublic]])
 
         lawStats
     }
