@@ -42,11 +42,11 @@
     </uploader:onProgress>
     <uploader:onComplete>
         $("#${imageId}").attr("src",responseJSON.absolutePathImg);
-        console.log(responseJSON.absolutePathImg)
+        %{--console.log(responseJSON.absolutePathImg)--}%
         fileId = responseJSON.fileId
         //Reiniciamos jcrop
         if (jcropApi){
-            console.log("detruido jcrop")
+            %{--console.log("detruido jcrop")--}%
             %{--jcropApi.destroy();--}%
             jcropApi.setImage(responseJSON.absolutePathImg)
         }
@@ -58,13 +58,10 @@
           function()
           {
             var modalContent = $("#modal_${imageId} .modal-content").children(".modal-body")
-            console.log("${imageId}")
             var padding = parseInt(modalContent.css("padding-left").replace('px', ''))
              padding += parseInt(modalContent.css("padding-right").replace('px', ''))
-             console.log("padding:" + padding )
             var boxWidth = parseInt(modalContent.innerWidth()) - padding
             %{--var boxHeigh = parseInt(modalContent.innerWidth()) - padding--}%
-            console.log(boxWidth)
 
             $('#${imageId}').attr("width",boxWidth)
             $('#${imageId}').Jcrop({
