@@ -38,7 +38,12 @@
         <g:set var="statusLaw" value="${message(code:"${LawStatusType.name}.${law.status}")}"/>
         <a href="#" class="btn btn-blue btn-block vote disabled"><g:message code="law.vote.voteClosed" args="[statusLaw.toLowerCase()]" encodeAs="raw"/></a><!-- al hacer click lo deshabilito y cambio el texto -->
     </g:else>
-    <g:link mapping="lawStats" params="${law.encodeAsLinkProperties()}">
-        <g:message code="law.vote.stats"/>
-    </g:link>
+    <g:if env="production">
+    %{--DESACTIVADA FICHA TECNICA EN PRO--}%
+    </g:if>
+    <g:else>
+        <g:link mapping="lawStats" params="${law.encodeAsLinkProperties()}">
+            <g:message code="law.vote.stats"/>
+        </g:link>
+    </g:else>
 </div>
