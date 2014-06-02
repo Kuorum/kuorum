@@ -46,7 +46,6 @@ $(document).tooltip({
 
 $(document).ready(function() {
 
-
     // inicializa formato fechas
     $("time.timeago").timeago();
 
@@ -59,7 +58,7 @@ $(document).ready(function() {
 	});
 
 
-	// hacer un bloque clickable y que tome que es su primer elemento la url del enlace a.hidden
+	// hacer un bloque clicable y que tome que es su primer elemento la url del enlace a.hidden
 	$(function() {
 
 		$('.link-wrapper').click( function() {
@@ -67,6 +66,12 @@ $(document).ready(function() {
 		});
 
 	});
+
+    // el enlace que abre el popover dentro del kakareo que no lance el enlace del bloque clicable
+    $('.link-wrapper .popover-trigger').click(function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    });
 
 
 	// scroll suave a hashtag
@@ -1120,4 +1125,5 @@ $(document).ajaxStop(function () {
 	$("time.timeago").timeago();
 
 	prepareArrowClucks();
+
 });
