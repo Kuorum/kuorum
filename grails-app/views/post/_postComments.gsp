@@ -2,15 +2,19 @@
 <aside class="comments">
     <g:set var="filteredComments" value="${post.comments.findAll{!(it.deleted || it.moderated)}}"/>
     <g:if test="${!filteredComments}">
-        <h1><g:message code="post.show.comments.title.empty"/></h1>
+        <sec:ifLoggedIn>
+            <h1><g:message code="post.show.comments.title.empty"/></h1>
+            <p><g:message code="post.show.comments.description"/> </p>
+        </sec:ifLoggedIn>
     </g:if>
     <g:elseif test="${filteredComments.size()==1}">
         <h1><g:message code="post.show.comments.title.singular"/></h1>
+        <p><g:message code="post.show.comments.description"/> </p>
     </g:elseif>
     <g:else>
         <h1><g:message code="post.show.comments.title.plural" args="[filteredComments.size()]"/></h1>
+        <p><g:message code="post.show.comments.description"/> </p>
     </g:else>
-    <p><g:message code="post.show.comments.description"/> </p>
     <ul class="listComments" id="listComments">
     <g:each in="${filteredComments}" var="comment" status="i">
         <g:if test="${filteredComments.contains(comment)}">

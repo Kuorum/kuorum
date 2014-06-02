@@ -25,7 +25,6 @@
             %{--<label for="why" class="sr-only"><g:message code="profile.deleteAccount.why"/></label>--}%
             %{--<textarea id="why" class="form-control" rows="3"></textarea>--}%
         </div>
-        <p><g:message code="profile.deleteAccount.requestExplanation2"/></p>
         <div class="form-group">
             <!-- <input type="submit" value="Os voya a dar una segnuda oportunidad, pero quiero que leáis esto" class="btn btn-grey btn-lg"> -->
             <!-- como input es muy largo y no podemos meter salto de línea, así que uso button -->
