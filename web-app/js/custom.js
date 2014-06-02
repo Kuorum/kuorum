@@ -67,10 +67,15 @@ $(document).ready(function() {
 
 	});
 
-    // el enlace que abre el popover dentro del kakareo que no lance el enlace del bloque clicable
+    // popover-trigger dentro del kakareo no lanza el enlace del bloque clicable
     $('.link-wrapper .popover-trigger').click(function(e) {
         e.stopPropagation();
         e.preventDefault();
+    });
+
+    // button dentro del popover del kakareo no lanzan el enlace del bloque clicable
+    $('.link-wrapper').on('click', '.popover button', function() {
+        $('.link-wrapper').preventDefault();
     });
 
 
