@@ -23,8 +23,12 @@ class ModulesTagLib {
         Boolean title = Boolean.parseBoolean(attrs.title?:"false")
         LawVote userVote
         if (springSecurityService.isLoggedIn()){
+            log.info("User Logged IN")
+            log.info("User Logged ID = ${springSecurityService.principal.id}")
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            log.info("User = ${user.name}")
             userVote = lawService.findLawVote(law,user)
+            log.info("Vote = ${userVote.id}")
         }
         Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
         out << render (template:"/law/lawVotesModule", model:[law:law,userVote:userVote,necessaryVotesForKuorum:necessaryVotesForKuorum, social:social, title:title])
