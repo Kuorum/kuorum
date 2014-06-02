@@ -36,7 +36,7 @@
         progressBar.attr("aria-valuenow",loaded)
         progressBar.attr("aria-valuemax",total)
         var percent = total/loaded * 100
-        progressBar.css("width",percent+"%;")
+        progressBar.css("width",percent+"%")
 
         console.log(loaded+' of '+total+' done so far')
     </uploader:onProgress>
