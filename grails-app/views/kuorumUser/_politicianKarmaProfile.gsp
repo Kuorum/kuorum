@@ -1,5 +1,6 @@
 <section class="boxes userkarma">
-    <h1><span class="fa fa-user"></span><g:message code="kuorumUser.show.politiciankarma.title"/> </h1>
+    <h1><span class="fa fa-user"></span>
+        <g:message code="kuorumUser.show.politiciankarma.title"/> </h1>
     <p><g:message code="kuorumUser.show.politiciankarma.description"/></p>
     <ul class="activity">
         <li>

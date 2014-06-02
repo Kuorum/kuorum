@@ -1,5 +1,6 @@
 <section class="boxes userkarma">
-    <h1><span class="fa fa-user"></span><g:message code="kuorumUser.show.userkarma.title"/> </h1>
+    <h1><span class="fa fa-user"></span>
+        <g:message code="kuorumUser.show.userkarma.title"/> </h1>
     <p><g:message code="kuorumUser.show.userkarma.description"/></p>
     <ul class="activity">
         <li><span class="counter">${user.gamification.numEggs}</span> <span class="icon-Flaticon_17919"></span> <br>votos</li>
