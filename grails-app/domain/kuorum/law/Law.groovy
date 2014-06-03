@@ -26,7 +26,7 @@ class Law {
     @Updatable KuorumFile image
     @Updatable LawStatusType status = LawStatusType.OPEN
     @Updatable URL urlPdf
-    URL shortUrl
+    @Updatable URL shortUrl
     Date dateCreated
     Boolean published = Boolean.FALSE
     Date publishDate
