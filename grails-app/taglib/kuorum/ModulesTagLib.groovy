@@ -27,6 +27,7 @@ class ModulesTagLib {
             log.info("User Logged ID = ${springSecurityService.principal.id}")
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             log.info("User = ${user.name}")
+            log.info("Law = ${law} => ${law?.id} - ${law?.hashtag}")
             userVote = lawService.findLawVote(law,user)
             log.info("Vote = ${userVote?.id}")
         }
