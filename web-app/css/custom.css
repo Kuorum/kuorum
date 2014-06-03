@@ -1330,6 +1330,7 @@ textarea.error,
 /* páginas de entrar y registro, con layout de 1 columna */
 .container-fluid.onecol {max-width: 910px;}
 .onecol a {color: #ff9431;}
+.onecol a.grey {color: #545454;}
 .intro {text-align: center; border-bottom: 1px solid #dadada; margin: 0 0 30px;}
 .intro.confirm {margin: 0 0 40px;}
 .intro h1 {

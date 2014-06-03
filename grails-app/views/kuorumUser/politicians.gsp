@@ -16,13 +16,13 @@
 
         <g:each in="${groupPoliticians}" var="institution">
             <h1>
-                <g:link mapping="politicians" params="[institutionName:institution.key]">
+                <g:link class="grey" mapping="politicians" params="[institutionName:institution.key]">
                     ${institution.key}
                 </g:link>
             </h1>
             <g:each in="${institution.value}" var="group">
                 <h3>
-                    <g:link mapping="politicians" params="[regionName:institution.key, regionIso3166_2:group.iso3166_2]">
+                    <g:link class="grey" mapping="politicians" params="[regionName:institution.key, regionIso3166_2:group.iso3166_2]">
                         <g:message code="list.citizens.POLITICIAN.byRegion" args="[group.regionName]"/>
                     </g:link>
                 </h3>
