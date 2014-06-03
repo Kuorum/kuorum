@@ -9,6 +9,9 @@
 <meta itemprop="name" content="${post.title}">
 <meta itemprop="description" content="${post.text}">
 %{--<meta itemprop="image" content="${post.multimedia?.url}">--}%
+<g:if test="${post.multimedia && post.multimedia.fileType == kuorum.core.FileType.IMAGE}">
+    <meta itemprop="image" content="${post.multimedia?.url}" />
+</g:if>
 
 <!-- Twitter Card data -->
 <meta name="twitter:card" content="summary_large_image">
@@ -26,7 +29,9 @@
 <meta property="og:title" content="${post.title}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="${g.createLink(mapping:'postShow', params:post.encodeAsLinkProperties(), absolute:true)}" />
-<meta property="og:image" content="${post.multimedia?.url}" />
+<g:if test="${post.multimedia && post.multimedia.fileType == kuorum.core.FileType.IMAGE}">
+    <meta property="og:image" content="${post.multimedia?.url}" />
+</g:if>
 <meta name="description" content="${post.text}" />
 <meta name="title" content="${post.title}" />
 %{--<meta property="og:description" content="${post.title}" />--}%
