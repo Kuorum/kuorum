@@ -43,7 +43,7 @@ fixture {
     /****** CASTILLA LA MANCHA *******/
     castillaMancha(Region){
         name ="Castilla la Mancha"
-        iso3166_2 = "EU-ES-CM" // ES-BI
+        iso3166_2 = "EU-ES-CM"
         superRegion = spain
     }
     albacete(Region){
@@ -72,7 +72,7 @@ fixture {
     }
     ciudadReal(Region){
         name ="Ciudad Real"
-        iso3166_2 = "EU-ES-CM-CR" // ES-TO
+        iso3166_2 = "EU-ES-CM-CR"
         superRegion = castillaMancha
         postalCode = "13"
     }
@@ -98,7 +98,7 @@ fixture {
     }
     castellon(Region){
         name ="Castellon"
-        iso3166_2 = "EU-ES-CV-AC" // ES-A
+        iso3166_2 = "EU-ES-CV-CS" //
         superRegion = cValenciana
         postalCode = "12"
     }
@@ -191,7 +191,7 @@ fixture {
     }
     segovia(Region){
         name ="Segovia"
-        iso3166_2 = "EU-ES-CL-SO" // ES-SO
+        iso3166_2 = "EU-ES-CL-SG"
         superRegion = castillaLeon
         postalCode = "40"
     }
@@ -311,7 +311,7 @@ fixture {
         postalCode = "32"
     }
 
-    /****** Galicia *******/
+    /****** ARAGON *******/
     aragon(Region){
         name ="Aragón"
         iso3166_2 = "EU-ES-AR"
@@ -337,7 +337,7 @@ fixture {
     }
     /****** La RIoja *******/
     riojaCA(Region){
-        name ="La Rioja (Comunidad Autónoma)"
+        name ="La Rioja"
         iso3166_2 = "EU-ES-RI"
         superRegion = spain
     }
@@ -374,7 +374,7 @@ fixture {
     }
     /****** Navarra *******/
     navarraCA(Region){
-        name ="Comunidad Floral de Navarra"
+        name ="Comunidad Foral de Navarra"
         iso3166_2 = "EU-ES-NA"
         superRegion = spain
     }
