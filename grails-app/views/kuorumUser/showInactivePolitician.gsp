@@ -24,8 +24,8 @@
 
 
     <article itemtype="http://schema.org/Article" itemscope role="article" class="noprofile">
-        <h1><g:message code="kuorumUser.show.politicianInactive.text.h1"/> </h1>
-        <userUtil:followButton user="${user}" prefixMessages="kuorumUser.follow.inactivePolitician" cssSize="btn-lg"/>
+        %{--<h1><g:message code="kuorumUser.show.politicianInactive.text.h1"/> </h1>--}%
+        %{--<userUtil:followButton user="${user}" prefixMessages="kuorumUser.follow.inactivePolitician" cssSize="btn-lg"/>--}%
 
         <h2><g:message code="kuorumUser.show.politicianInactive.text.p1.title"/></h2>
         <p><g:message code="kuorumUser.show.politicianInactive.text.p1.text"/></p>
@@ -35,7 +35,6 @@
 
         <h2><g:message code="kuorumUser.show.politicianInactive.text.p3.title"/></h2>
         <p><g:message code="kuorumUser.show.politicianInactive.text.p3.text1"/></p>
-        <p><g:message code="kuorumUser.show.politicianInactive.text.p3.text2"/></p>
 
 
         <userUtil:followButton user="${user}" prefixMessages="kuorumUser.follow.inactivePolitician" cssSize="btn-lg"/>

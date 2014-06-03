@@ -37,7 +37,7 @@
 
         <g:each in="${groupLaws}" var="institution">
             <h1>
-                <g:link mapping="laws" params="[institutionName:institution.key.encodeAsKuorumUrl()]">
+                <g:link class="grey" mapping="laws" params="[institutionName:institution.key.encodeAsKuorumUrl()]">
                     ${institution.key}
                 </g:link>
             </h1>
@@ -46,7 +46,7 @@
                 <!-- is necesary toLowerCase because i18nCommission.encode doens't work -->
                 <g:set var="i18nCommissionUrl" value="${i18nCommission.toLowerCase().encodeAsKuorumUrl()}"/>
                 <h3>
-                    <g:link mapping="laws" params="[institutionName:institution.key.encodeAsKuorumUrl(), commission:i18nCommissionUrl]">
+                    <g:link class="grey" mapping="laws" params="[institutionName:institution.key.encodeAsKuorumUrl(), commission:i18nCommissionUrl]">
                         Leyes sobre ${i18nCommission.toLowerCase()}
                     </g:link>
                 </h3>

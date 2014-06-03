@@ -93,11 +93,11 @@
                     </li>
                 </g:each>
             </ul>
-            <div class="text-center" id="load-more">
-                <a href="#">
-                    <g:message code="kuorumUser.show.module.activeLaws.seeMore"/>
-                </a>
-            </div>
+            %{--<div class="text-center" id="load-more">--}%
+                %{--<a href="#">--}%
+                    %{--<g:message code="kuorumUser.show.module.activeLaws.seeMore"/>--}%
+                %{--</a>--}%
+            %{--</div>--}%
         </section>
     </g:if>
 </content>

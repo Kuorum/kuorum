@@ -13,7 +13,7 @@
                 <kuorumDate:humanDate date="${comment.dateCreated}"/>
             </span>
         </div>
-        <p><span class="say">Dice:</span> ${comment.text}</p>
+        <p>${comment.text}</p>
     </div>
     <div class="actions clearfix">
         <postUtil:ifCommentIsDeletable post="${post}" commentPosition="${pos}">

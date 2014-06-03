@@ -7,5 +7,5 @@
             <userUtil:showUser user="${debate.kuorumUser}" showRole="true"/>
         </div><!-- /autor -->
     </div>
-    <p><span class="say">Dice:</span>${debate.text}</p>
+    <p>${debate.text}</p>
 </li>

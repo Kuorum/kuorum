@@ -534,7 +534,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo.post {background-color: transparent; border: 0; margin: 0; color: #545454;}
 .kakareo.post h2 {font-size: 27px; font-size: 2.7rem;}
 .kakareo.post .main-kakareo {padding-bottom: 15px;}
-.kakareo.post footer {background-color: transparent; margin-bottom: 30px;}
+.kakareo.post footer {background-color: transparent; margin-bottom: 10px;}
 
 .kakareo.post.sponsor {background-color: #fafafa; border: 0; margin-top: -37px; color: #545454;}
 .kakareo.post.sponsor footer {margin-bottom: 0;}
@@ -838,7 +838,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer {background-color: #feedce; border-top-color: #ff9431;}
 .important .kakareo footer > ul > li.read-later a.disabled span:first-child {color: #ff9431 !important;}
 
-.important .kakareo footer > ul > li a span:first-child {color: #ff9431;}
+.important .kakareo footer > ul > li a span:first-child {color: #797979;}
 .important .kakareo footer > ul > li a:hover,
 .important .kakareo footer > ul > li a:focus,
 .important .kakareo footer > ul > li a:active {color: #ff9431;}
@@ -880,6 +880,7 @@ span + .text-notification {padding: 0 0 0 33px;}
   color: #ffdb8d;
 }
 .author.important .user.actor.politic .type {font-size: 20px; font-size: 2rem; color: #fff;}
+.author.important .user.actor.politic .state {color: #fff;}
 .author.important .user.actor.politic .action {color: #fff;}
 .author.important .user.actor.politic a {color: #FFDB8D !important;}
 
@@ -1329,6 +1330,7 @@ textarea.error,
 /* páginas de entrar y registro, con layout de 1 columna */
 .container-fluid.onecol {max-width: 910px;}
 .onecol a {color: #ff9431;}
+.onecol a.grey {color: #545454;}
 .intro {text-align: center; border-bottom: 1px solid #dadada; margin: 0 0 30px;}
 .intro.confirm {margin: 0 0 40px;}
 .intro h1 {
@@ -1584,7 +1586,7 @@ textarea.error,
 
 .seeVictory .counter {font-size: 200%;}
 .seeVictory .sliderItem {background-color: #FFF8ED;}
-.seeVictory .sliderItem .content {padding: 0 8px 8px 8px;}
+.seeVictory .sliderItem .content {padding: 0 15px 10px 15px;}
 .seeVictory .sliderItem img.actor {float: left; margin: 0 20px 20px 0;}
 .seeVictory .sliderItem h1 {
   background-color: #ff9431;
@@ -1633,7 +1635,7 @@ textarea.error,
 .boxes.vote ul.social li a:focus .fa-circle {color: #20a2ea !important;}
 
 .boxes.vote .voting .vote {margin: 0 0 10px 0 !important; font-size: 32px; font-size: 3.2rem; line-height: 0.7; height: 72px; padding: 14px !important;}
-.boxes.vote .voting .vote.disabled {padding: 24px !important;}
+.boxes.vote .voting .vote.disabled {padding: 15px !important;}
 .boxes.vote .voting .vote small {font-weight: normal; font-size: 16px; font-size: 1.6rem;}
 
 .popover-kuorum .text-center {font-size: 19px; font-size: 1.9rem; margin: 10px 0;}
@@ -1901,7 +1903,7 @@ textarea.error,
 #search-results > ul > li {list-style: none; padding: 0; border-bottom: 1px solid #DADADA;}
 
 #search-results .kakareo.post.ley .link-wrapper,
-#search-results .kakareo.post.ley .wrapper {padding: 15px 0;}
+#search-results .kakareo.post.ley .wrapper {padding: 15px; min-height: 140px;}
 #search-results .kakareo.post .link-wrapper,
 #search-results .kakareo.post .wrapper,
 #search-results .wrapper {padding: 15px;}
@@ -1936,7 +1938,8 @@ textarea.error,
 .signContainer h2 small {display: block; color: #fff; font-size: 17px; font-size: 1.7rem; font-weight: lighter;}
 .signContainer h2 a {color: #fff; text-decoration: underline;}
 .signContainer h3 {color: #fff; font-size: 14px; font-size: 1.4rem; text-align: center; margin-bottom: 0;}
-#sign .checkbox-inline a {color: #fff;}
+.signContainer .checkbox-inline a {color: #fff;}
+.signContainer .btns {margin-top: 35px;}
 .home .images {
   background-image: url('../images/home1.jpg');
   background-repeat: no-repeat;
@@ -2030,7 +2033,8 @@ textarea.error,
 .discover .kakareo.post.ley {margin: 0;}
 .boxes.follow > p,
 .user-list-followers + p {font-size: 13px; font-size: 1.3rem;}
-.discover > aside h1 {font-size: 25px; font-size: 2.5rem; border-bottom: 1px solid #DADADA; margin-bottom: 20px; padding-bottom: 10px;}
+.discover > aside > section > h1,
+.discover > aside > div > section > h1 {font-size: 25px; font-size: 2.5rem; border-bottom: 1px solid #DADADA; margin-bottom: 20px; padding-bottom: 10px;}
 .main > .container-fluid.discover > .row > section:first-child {padding-top: 0;}
 .main > .container-fluid.discover > .row > aside {margin-top: -45px;}
 .discover .user-list-followers {margin: 0 0 10px 0;}
@@ -2834,6 +2838,8 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   aside .back {margin: 30px 0 14px; }
 
 }
+.kakareo.post p {line-height: 1.6; font-size: 1.5rem;}
+
 
 /* Retina ready images */
 @media  only screen and (-webkit-min-device-pixel-ratio: 1.5),
