@@ -79,6 +79,13 @@ class LawController {
         Pagination pagination = new Pagination()
         def clucks = cluckService.lawClucks(law,pagination)
         List<Post> victories = postService.lawVictories(law)
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            log.info("User = ${user.name} : ${user.id}")
+            log.info("Law = ${law} => ${law?.id} - ${law?.hashtag}")
+            LawVote userVote = lawService.findLawVote(law,user)
+            log.info("VOTE: ${userVote}")
+        }
         [law:law, clucks: clucks,victories:victories, seeMore:clucks.size() == pagination.max]
 
     }

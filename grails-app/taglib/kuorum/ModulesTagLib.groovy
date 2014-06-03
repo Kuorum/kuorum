@@ -21,15 +21,12 @@ class ModulesTagLib {
         Law law = attrs.law
         Boolean social = Boolean.parseBoolean(attrs.social?:"false")
         Boolean title = Boolean.parseBoolean(attrs.title?:"false")
-        LawVote userVote
+        LawVote userVote = null
         if (springSecurityService.isLoggedIn()){
-            log.info("User Logged IN")
-            log.info("User Logged ID = ${springSecurityService.principal.id}")
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            log.info("User = ${user.name}")
+            log.info("User = ${user.name} : ${user.id}")
             log.info("Law = ${law} => ${law?.id} - ${law?.hashtag}")
             userVote = lawService.findLawVote(law,user)
-            log.info("Vote = ${userVote?.id}")
         }
         Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
         out << render (template:"/law/lawVotesModule", model:[law:law,userVote:userVote,necessaryVotesForKuorum:necessaryVotesForKuorum, social:social, title:title])
