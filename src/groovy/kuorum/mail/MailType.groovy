@@ -10,7 +10,7 @@ public enum MailType {
     REGISTER_RRSS                       (MailGroupType.NOT_CONFIGURABLE,"04_validationEmailRRSS",       "registerUser", [], ["provider"]),
     REGISTER_ACCOUNT_COMPLETED          (MailGroupType.NOT_CONFIGURABLE,"05_registerCompleted",         "registerUser", [], []),
 
-    NOTIFICATION_CLUCK                  (MailGroupType.MAIL_RELATED_WITH_ME,            "07_notificationCluck",         "notification", [],  ["postType", "clucker","cluckerLink","postName"]),
+    NOTIFICATION_CLUCK                  (MailGroupType.MAIL_RELATED_WITH_ME,            "07_notificationCluck",         "notification", [],  ["postType", "clucker","cluckerLink","postName", "postLink"]),
     NOTIFICATION_FOLLOWER               (MailGroupType.MAIL_RELATED_WITH_ME,            "08_notificationFollower",      "notification", [],  ["follower","followerLink"]),
     NOTIFICATION_PUBLIC_MILESTONE       (MailGroupType.MAIL_RELATED_WITH_ME,            "09_notificationMilestone",     "notification",[],["postName", "numVotes", "postLink"]),
     NOTIFICATION_DEBATE_USERS           (MailGroupType.MAIL_RELATED_WITH_OTHER_USERS,   "15_notificationDebateUsers",   "notification",[],["postType","debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),

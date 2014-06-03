@@ -74,6 +74,7 @@ class KuorumMailService {
 
     def sendCluckNotificationMail(Cluck cluck){
         String userLink = generateLink("userShow",cluck.owner.encodeAsLinkProperties())
+        String postLink = generateLink("postShow",cluck.post.encodeAsLinkProperties())
         MailUserData mailUserData = new MailUserData(user:cluck.postOwner)
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_CLUCK
@@ -81,6 +82,7 @@ class KuorumMailService {
                 clucker:cluck.owner.name,
                 cluckerLink:userLink,
                 postName:cluck.post.title,
+                postLink:postLink,
                 postType:messageSource.getMessage("${PostType.canonicalName}.${cluck.post.postType}",null,"", new Locale("ES_es")),]
         mailData.userBindings = [mailUserData]
         mailData.fromName = prepareFromName(cluck.owner.name)
