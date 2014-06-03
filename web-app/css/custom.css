@@ -1635,7 +1635,7 @@ textarea.error,
 .boxes.vote ul.social li a:focus .fa-circle {color: #20a2ea !important;}
 
 .boxes.vote .voting .vote {margin: 0 0 10px 0 !important; font-size: 32px; font-size: 3.2rem; line-height: 0.7; height: 72px; padding: 14px !important;}
-.boxes.vote .voting .vote.disabled {padding: 24px !important;}
+.boxes.vote .voting .vote.disabled {padding: 15px !important;}
 .boxes.vote .voting .vote small {font-weight: normal; font-size: 16px; font-size: 1.6rem;}
 
 .popover-kuorum .text-center {font-size: 19px; font-size: 1.9rem; margin: 10px 0;}
