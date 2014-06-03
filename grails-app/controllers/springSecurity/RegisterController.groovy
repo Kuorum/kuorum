@@ -54,7 +54,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     def registerSuccess(){}
 
     def resendRegisterVerification(){
-        [command:new ResendVerificationMailCommand()]
+        [command:new ResendVerificationMailCommand(email: params.email)]
     }
 
     def resendVerification(ResendVerificationMailCommand command){
