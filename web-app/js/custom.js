@@ -952,6 +952,7 @@ $(document).ready(function() {
 
     // hacer clic en player falso del video (.front)
     $('.kakareo .front').click( function(e) {
+        e.stopPropagation();
         e.preventDefault()
         var iframe = $(this).next('.youtube')
         iframe.css('display', 'block');
