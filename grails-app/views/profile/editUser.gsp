@@ -25,7 +25,17 @@
 
         <div class="form-group groupRadio">
             <formUtil:radioEnum command="${command}" field="gender"/>
-            <a href="#" class="pull-right">¿Eres un político electo?</a>
+            <div  class="pull-right">
+            <span class="popover-trigger fa fa-info-circle" data-toggle="popover" rel="popover" role="button"></span>
+            <!-- POPOVER KUORUM -->
+            <div class="popover">
+                <div class="popover-kuorum">
+                    <p class="text-center"><g:message code="profile.editUser.explanationPolitician.title" encodeAs="raw"/></p>
+                    <p><g:message code="profile.editUser.explanationPolitician"/></p>
+                </div><!-- /popover-more-kuorum -->
+            </div>
+            <span>¿Eres un político electo?</span>
+            </div>
         </div>
         <div class="form-group">
             <span class="span-label"><g:message code="customRegister.step1.form.birthday.label"/></span>
