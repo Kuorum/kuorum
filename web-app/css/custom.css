@@ -534,7 +534,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo.post {background-color: transparent; border: 0; margin: 0; color: #545454;}
 .kakareo.post h2 {font-size: 27px; font-size: 2.7rem;}
 .kakareo.post .main-kakareo {padding-bottom: 15px;}
-.kakareo.post footer {background-color: transparent; margin-bottom: 1px;}
+.kakareo.post footer {background-color: transparent; margin-bottom: 10px;}
 
 .kakareo.post.sponsor {background-color: #fafafa; border: 0; margin-top: -37px; color: #545454;}
 .kakareo.post.sponsor footer {margin-bottom: 0;}
