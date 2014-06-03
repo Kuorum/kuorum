@@ -22,7 +22,7 @@ class PostCommand {
         postType nullable: false
         videoPost nullable: true,
                 url:true,
-                matches: 'http[s]{0,1}://(w{3}.){0,1}youtube\\.com/watch\\?v=[a-zA-Z0-9]*',
+                matches: 'http[s]{0,1}://(w{3}.){0,1}youtube\\.com/watch\\?v=[a-zA-Z0-9_]*',
                 validator: { val, obj ->
                     if (val && obj.imageId) {
                         return ['onlyImageOrVideo']
