@@ -34,7 +34,7 @@
 <content tag="footerModules">
     <aside class="moreActives" role="complementary">
         <h1><g:message code="discover.module.mostActiveUsers.title"/> </h1>
-        <userUtil:showListUsers users="${mostActiveUsers}" visibleUsers="13" messagesPrefix="discover.module.mostActiveUsers.userList"/>
+        <userUtil:showListUsers users="${mostActiveUsers}" visibleUsers="25" messagesPrefix="discover.module.mostActiveUsers.userList"/>
         <p><g:message code="discover.module.mostActiveUsers.footerText"/></p>
     </aside>
     <aside class="row others">
