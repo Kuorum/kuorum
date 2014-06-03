@@ -28,15 +28,22 @@
     <uploader:onSubmit>
         $("#${imageId}").attr("alt","Cargando");
             originalImgPath = $("#${imageId}").attr("src");
-            $("#${imageId}").attr("src","${g.resource(dir: 'images', file: 'spinner.gif')}");
+            $("#${imageId}").attr("src","${g.resource(dir: 'images', file: 'loading@2x.gif')}");
+
+            $("#progresBar_${imageId}").removeClass("hidden").css("display","block")
+            var progressBar = $("#progresBar_${imageId}").children(".progress-bar")
+            progressBar.attr("aria-valuenow",100)
+            progressBar.attr("aria-valuemax",0)
+            progressBar.css("width","0%")
+            progressBar.html("0%")
     </uploader:onSubmit>
     <uploader:onProgress>
-        $("#progresBar_${imageId}").removeClass("hidden").css("display","block")
         var progressBar = $("#progresBar_${imageId}").children(".progress-bar")
         progressBar.attr("aria-valuenow",loaded)
         progressBar.attr("aria-valuemax",total)
-        var percent = total/loaded * 100
+        var percent = loaded/total * 100
         progressBar.css("width",percent+"%")
+        progressBar.html(percent+"%")
 
         console.log(loaded+' of '+total+' done so far')
     </uploader:onProgress>
