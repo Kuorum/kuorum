@@ -41,7 +41,7 @@ class ShortUrlService {
                 println 'Not found'
             }
         }
-
+        log.info("URL corta para ${longUrl} : ${shortUrl}")
         shortUrl
     }
 
