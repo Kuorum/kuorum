@@ -19,13 +19,13 @@
         <li>
             <script>
 
-                function shareLaw(){
+                function shareLaw_${law.id}(){
                     FB.ui(
                             {
                                 method: 'feed',
-                                name: '${law.shortName}',
-                                caption: '${law.realName}',
-                                description: '${law.introduction.trim()}',
+                                name: '${law.shortName.replaceAll('\'', '\\\'')}',
+                                caption: '${law.realName.replaceAll('\'', '\\\'')}',
+                                description: '${law.introduction.trim().replaceAll('\'', '\\\'')}',
                                 link: '${createLink(mapping: 'lawShow', params:law.encodeAsLinkProperties(), absolute:true)}',
                                 picture: '${law.image.url}'
                             },
@@ -39,10 +39,10 @@
                     );
                 }
                 $(function(){
-                    $("a.social-share.facebook").on('click',function(e){e.preventDefault(); shareLaw()})
+                    $("#socialFacebook_${law.id}").on('click',function(e){e.preventDefault(); shareLaw_${law.id}()})
                 })
             </script>
-            <a href="#" class="social-share facebook">
+            <a href="#" id="socialFacebook_${law.id}" class="social-share facebook">
                 <span class="sr-only"><g:message code="law.social.facebook"/></span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span>
             </a>
         </li>
