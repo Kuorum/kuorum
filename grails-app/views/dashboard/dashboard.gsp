@@ -1,7 +1,7 @@
 
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="kuorum.name"/> </title>
+    <title><g:message code="kuorum.dashboard"/> </title>
     <meta name="layout" content="columnCLayout">
 </head>
 
