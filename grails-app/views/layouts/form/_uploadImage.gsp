@@ -41,7 +41,7 @@
         var progressBar = $("#progresBar_${imageId}").children(".progress-bar")
         progressBar.attr("aria-valuenow",loaded)
         progressBar.attr("aria-valuemax",total)
-        var percent = loaded/total * 100
+        var percent = Math.floor(loaded/total * 100)
         progressBar.css("width",percent+"%")
         progressBar.html(percent+"%")
 
