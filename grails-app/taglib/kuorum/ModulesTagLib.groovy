@@ -24,8 +24,6 @@ class ModulesTagLib {
         LawVote userVote = null
         if (springSecurityService.isLoggedIn()){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            log.info("User = ${user.name} : ${user.id}")
-            log.info("Law = ${law} => ${law?.id} - ${law?.hashtag}")
             userVote = lawService.findLawVote(law,user)
         }
         Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
