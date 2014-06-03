@@ -1938,9 +1938,8 @@ textarea.error,
 .signContainer h2 small {display: block; color: #fff; font-size: 17px; font-size: 1.7rem; font-weight: lighter;}
 .signContainer h2 a {color: #fff; text-decoration: underline;}
 .signContainer h3 {color: #fff; font-size: 14px; font-size: 1.4rem; text-align: center; margin-bottom: 0;}
-#sign .checkbox-inline a {color: #fff;}
-#sign .checkbox .orange-inline a {color: #ff9431;}
-
+.signContainer .checkbox-inline a {color: #fff;}
+.signContainer .btns {margin-top: 35px;}
 .home .images {
   background-image: url('../images/home1.jpg');
   background-repeat: no-repeat;
