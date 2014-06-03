@@ -116,6 +116,7 @@ class CustomRegisterController extends  ProfileController{
         log.info("Custom register finished")
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         kuorumMailService.verifyUser(user)
-        redirect mapping:'home'
+//        redirect mapping:'home'
+        redirect mapping:'tourStart'
     }
 }
