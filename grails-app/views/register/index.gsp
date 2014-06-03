@@ -59,7 +59,7 @@
             </g:if>
         </div>
         <div class="form-group">
-            <label class="checkbox orange-inline">
+            <label class="checkbox-inline">
                 <input type="checkbox" name="conditions" id="accept" value="true" class="${hasErrors(bean: command, field: 'conditions', 'error')}">
                 <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
 
