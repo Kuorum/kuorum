@@ -4,6 +4,7 @@
     <title><g:message code="kuorum.name"/> </title>
     <meta name="layout" content="customRegisterLayout">
     <parameter name="actualStep" value="2" />
+    <g:render template="/layouts/googleAnalyticsConversionCode"/>
 </head>
 
 <content tag="intro">
