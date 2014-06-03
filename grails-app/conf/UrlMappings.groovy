@@ -89,19 +89,19 @@ class UrlMappings {
         name searcherSearchFilters:"/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
         name searcherSuggests:    "/ajax/buscar/sugerencias"(controller: "search", action:"suggest")
 
-        name profileEditUser:     "/mi-perfil"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
-        name profileChangePass:   "/mi-perfil/cambiar-password" (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
-        name profileChangeEmail:  "/mi-perfil/cambiar-email"    (controller: "profile", action: "changeEmail")
-        name profileSocialNetworks:"/mi-perfil/redes-sociales"  (controller: "profile"){action=[GET:"socialNetworks",POST:"socialNetworksSave"]}
-        name profileEmailNotifications:"/mi-perfil/notificaciones-por-email"(controller: "profile"){action=[GET:"configurationEmails",POST:"configurationEmailsSave"]}
-        name profileFavorites:    "/mi-perfil/pendientes-de-leer"(controller: "profile", action: "showFavoritesPosts")
-        name profileMyPosts:      "/mi-perfil/mis-posts"        (controller: "profile", action: "showUserPosts")
-        name profileKuorumStore:  "/mi-perfil/el-gallinero"     (controller: "profile", action: "kuorumStore")
-        name profileBuyAward:     "/ajax/mi-perfil/el-gallinero/comprar"     (controller: "profile", action: "kuorumStoreBuyAward")
-        name profileActivateAward:"/ajax/mi-perfil/el-gallinero/activar"     (controller: "profile", action: "kuorumStoreActivateAward")
-        name profileNotifications:"/mi-perfil/notificaciones"   (controller: "profile", action: "userNotifications")
-        name profileMessages:     "/mi-perfil/mensajes"         (controller: "profile", action: "userMessages")
-        name profileDeleteAccount:"/mi-perfil/eliminar-cuenta"  (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
+        name profileEditUser:     "/configuracion-usuario"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
+        name profileChangePass:   "/configuracion-usuario/cambiar-password" (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
+        name profileChangeEmail:  "/configuracion-usuario/cambiar-email"    (controller: "profile", action: "changeEmail")
+        name profileSocialNetworks:"/configuracion-usuario/redes-sociales"  (controller: "profile"){action=[GET:"socialNetworks",POST:"socialNetworksSave"]}
+        name profileEmailNotifications:"/configuracion-usuario/notificaciones-por-email"(controller: "profile"){action=[GET:"configurationEmails",POST:"configurationEmailsSave"]}
+        name profileFavorites:    "/configuracion-usuario/pendientes-de-leer"(controller: "profile", action: "showFavoritesPosts")
+        name profileMyPosts:      "/configuracion-usuario/mis-posts"        (controller: "profile", action: "showUserPosts")
+        name profileKuorumStore:  "/configuracion-usuario/el-gallinero"     (controller: "profile", action: "kuorumStore")
+        name profileBuyAward:     "/ajax/configuracion-usuario/el-gallinero/comprar"     (controller: "profile", action: "kuorumStoreBuyAward")
+        name profileActivateAward:"/ajax/configuracion-usuario/el-gallinero/activar"     (controller: "profile", action: "kuorumStoreActivateAward")
+        name profileNotifications:"/configuracion-usuario/notificaciones"   (controller: "profile", action: "userNotifications")
+        name profileMessages:     "/configuracion-usuario/mensajes"         (controller: "profile", action: "userMessages")
+        name profileDeleteAccount:"/configuracion-usuario/eliminar-cuenta"  (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
 
         name footerWhatIsKuorum:  "/kuorum/que-es"              (controller:"footer", action: "whatIsKuorum" )
         name footerUsingMyVote:   "/kuorum/para-que-sirve-mi-voto"(controller:"footer", action: "usingMyVote" )
