@@ -528,7 +528,9 @@ span + .text-notification {padding: 0 0 0 33px;}
 
 .personal .user-type {padding: 0;}
 
-.kakareo {background-color: #fcfcfc; border-top: solid 1px #20a2ea; padding: 0; margin: 7px 0 40px; position: relative;}
+/*Prueba kakareos fondo transparente*/
+/*.kakareo {background-color: #fcfcfc; border-top: solid 1px #20a2ea; padding: 0; margin: 7px 0 40px; position: relative;}*/
+.kakareo {border-top: solid 1px #20a2ea; padding: 0; margin: 7px 0 40px; position: relative;}
 .kakareo.follow {padding: 5px 15px;}
 .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 10px 0; margin: 0; line-height: 1.3;}
 
