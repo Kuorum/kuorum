@@ -249,7 +249,7 @@ kuorum {
         workWithUs="empleo@kuorum.org"
     }
     milestones{
-        kuorum = 100
+        kuorum = 1000
         postVotes{
             ranges=[0..<5].withEagerDefault{index ->
                 [5,10,25][(index-1)%3]*(10**((new Double((index-1)/3)).trunc())) ..<[5,10,25][(index)%3]*(10**((new Double(index/3)).trunc()))

@@ -145,18 +145,26 @@ class KuorumUserService {
 
 
     List<KuorumUser> recommendedUsers(KuorumUser user, Pagination pagination = new Pagination()){
+        if (!user){
+            return recommendedUsers(pagination)
+        }
         //TODO: Improve algorithm
         List<KuorumUser> res = []
-        if (!user){
-            res = KuorumUser.findAllByNumFollowersGreaterThan(-1,[sort:"numFollowers",order: "desc", max:pagination.max])
-        }else{
-            res = KuorumUser.findAllByNumFollowersGreaterThanAndEmailNotEqual(-1,user.email,[sort:"numFollowers",order: "desc", max:pagination.max])
+//        List<KuorumUser> res = KuorumUser.findAllByNumFollowersGreaterThanAndEmailNotEqual(-1,user.email,[sort:"numFollowers",order: "desc", max:pagination.max])
+        def userList = user.following.collect{KuorumUser.load(it)}
+        userList << user
+        def result = KuorumUser.createCriteria().list(max:pagination.max, offset:pagination.offset) {
+            'gt'("numFollowers",0)
+            not {'in'("id",userList)}
+            order("numFollowers","desc")
         }
-        res as ArrayList<KuorumUser>
+        result as ArrayList<KuorumUser>
     }
 
     List<KuorumUser> recommendedUsers(Pagination pagination = new Pagination()){
-        recommendedUsers(null, pagination)
+        //TODO: Improve algorithm
+        List<KuorumUser> res = KuorumUser.findAllByNumFollowersGreaterThan(-1,[sort:"numFollowers",order: "desc", max:pagination.max])
+        res as ArrayList<KuorumUser>
     }
 
     KuorumUser updateUser(KuorumUser user){

@@ -27,9 +27,9 @@
             FB.ui(
                     {
                         method: 'feed',
-                        name: '${post.title.trim().encodeAsURL()}',
+                        name: '${post.title.trim().replaceAll('\'', '\\\'')}',
                         caption: '${post.law.hashtag}',
-                        description: '${post.text.trim().encodeAsURL()}',
+                        description: '${post.text.trim().replaceAll('\'', '\\\'')}',
                         link: '${createLink(mapping: 'postShow', params:post.encodeAsLinkProperties(), absolute:true)}',
                         picture: '${post.multimedia?.url}'
                     },
@@ -43,10 +43,10 @@
             );
         }
         $(function(){
-            $("a.social-share.facebook").on('click',function(e){e.preventDefault(); sharePost_${post.id}()})
+            $("#postSocialFacebook_${post.id}").on('click',function(e){e.preventDefault(); sharePost_${post.id}()})
         })
     </script>
-    <a href="#" class="social-share facebook">
+    <a href="#" id="postSocialFacebook_${post.id}" class="social-share facebook">
         <span class="${textClass}"><g:message code="law.social.facebook"/></span>
         <g:if test="${showIcon}">
             <span class="fa-stack fa-lg">
