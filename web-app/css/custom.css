@@ -518,6 +518,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .user-list-followers li a {display: inline-block;}
 .user.actor .action {color: #a8a8a8;}
 .user.actor .user-img {width: 25px; height: 25px; margin: 4px 8px 5px 9px;}
+.author.important .user.actor.politic > .popover-trigger .user-img {float: right; margin-top: 0;}
 .navbar-nav .dropdown-menu .user-img {width: 25px; height: 25px; margin: 4px 8px 4px 0;}
 
 .user > a {color: #545454 !important;} /* el enlace del nombre de ususario */
@@ -584,6 +585,8 @@ span + .text-notification {padding: 0 0 0 33px;}
 
 .user-list-images li .popover-trigger .user-img,
 .user-list-followers li .popover-trigger .user-img {margin-left:0; margin-right: 0;}
+
+.author.important .user.actor.politic .user-list-images li .popover-trigger .user-img {margin: 0;}
 
 .popover {width: 370px; border-radius: 0;}
 .popover-content {padding: 9px;}
@@ -810,8 +813,8 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo .link-wrapper:active,
 .important .kakareo .link-wrapper:focus {background-color: #feedce;}
 
-.important .kakareo .link-wrapper h1 a,
-.important .kakareo .link-wrapper .main-kakareo a {color: #ff9431;}
+.important .kakareo .link-wrapper h1 > a,
+.important .kakareo .link-wrapper .main-kakareo a.popover-trigger {color: #ff9431;}
 
 .important .kakareo {background-color: #fff8ed; border-top: 1px solid #ff9431;}
 
@@ -879,7 +882,7 @@ span + .text-notification {padding: 0 0 0 33px;}
   background-color: #ff9431;
   color: #ffdb8d;
 }
-.author.important .user.actor.politic .type {font-size: 20px; font-size: 2rem; color: #fff;}
+.author.important .user.actor.politic .type {font-size: 20px; font-size: 2rem; line-height: 1.2; color: #fff;}
 .author.important .user.actor.politic .state {color: #fff;}
 .author.important .user.actor.politic .action {color: #fff;}
 .author.important .user.actor.politic a {color: #FFDB8D !important;}
@@ -933,7 +936,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .boxes .kakareo footer ul li.like-number {margin: 0 40px 0 2px;}
 
 
-.boxes .author.important .user.actor.politic .user-img {float: right; margin-top: 0; margin-bottom: 0;}
+.boxes .author.important .user.actor.politic .popover-trigger .user-img {float: right; margin-top: 0; margin-bottom: 0;}
 .boxes .author.important .user.actor.politic {
   height: 35px;
   line-height: 24px;
