@@ -13,15 +13,15 @@
         %{--</g:link>--}%
         %{--</li>--}%
         <li class="underline">
-            <g:link mapping="tourStart" class="navbar-link">
-                <g:message code="register.head.tour"/>
+            <g:link mapping="login" class="navbar-link">
+                <g:message code="register.head.login"/>
             </g:link>
         </li>
     </ul>
 </content>
 <content tag="intro">
     <h1><g:message code="register.locked.title"/> </h1>
-    <p>o <g:link mapping="login"><g:message code="register.intro.login"/> </g:link></p>
+    <p><g:message code="register.resend.subtitle"/></p>
 </content>
 
 
@@ -39,12 +39,8 @@
                 $('input[name=email]').focus();
             });
         </script>
-        <p>Ahora te contamos lo que va a pasar</p>
-        <p>Lorem ipsum dolor sit amet, labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea consectetur adipisicing elit, sed do eiusmod tempor incididunt ut commodo consequat.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p><g:message code="register.resend.top"/></p>
         <img src="${g.resource(dir:'images', file: 'screen.png')}" class="screen">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <a href="#" class="btn btn-lg">Iniciar tour</a>
     </div>
 </content>
 
