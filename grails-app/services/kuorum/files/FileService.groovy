@@ -206,6 +206,7 @@ class FileService {
             if (file.exists()){
                 file.delete()
             }
+            log.info("Cargando imagen subida en :${file.absolutePath}")
             file << inputStream
         } catch (Exception e) {
             //TODO: Gestion Errores
