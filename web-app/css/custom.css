@@ -520,19 +520,15 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo .link-wrapper:hover,
 .kakareo .link-wrapper:active,
 .kakareo .link-wrapper:focus {background-color: #efefef;}
-
 .user-list-images li a,
 .user-list-followers li a {display: inline-block;}
 .user.actor .action {color: #a8a8a8;}
 .user.actor .user-img {width: 25px; height: 25px; margin: 4px 8px 5px 9px;}
 .author.important .user.actor.politic > .popover-trigger .user-img {float: right; margin-top: 0;}
 .navbar-nav .dropdown-menu .user-img {width: 25px; height: 25px; margin: 4px 8px 4px 0;}
-
 .user > a {color: #545454 !important;} /* el enlace del nombre de ususario */
-
 .user-type,
 .kakareo.follow {display: block; padding: 0 0 0 49px; color: #A8A8A8;}
-
 .personal .user-type {padding: 0;}
 
 /*Prueba kakareos fondo transparente (MAT 04/06/2014)*/
@@ -541,18 +537,15 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo {background-color: #fcfcfc; border-top: solid 1px #20a2ea; padding: 0; margin: 7px 0 40px; position: relative;}
 .kakareo.follow {padding: 5px 15px;}
 .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 10px 0; margin: 0; line-height: 1.3;}
-
 .kakareo.post {background-color: transparent; border: 0; margin: 0; color: #545454;}
 .kakareo.post h2 {font-size: 27px; font-size: 2.7rem;}
 .kakareo.post .main-kakareo {padding-bottom: 15px;}
 .kakareo.post footer {background-color: transparent; margin-bottom: 10px;}
-
 .kakareo.post.sponsor {background-color: #fafafa; border: 0; margin-top: -37px; color: #545454;}
 .kakareo.post.sponsor footer {margin-bottom: 0;}
 .socialSponsor {margin: 0 0 20px 0; border-bottom: 1px solid #EFEFEF; padding: 0 0 50px 0;}
 .socialSponsor li {float: left; list-style: none; margin: 0 10px 0 0;}
 .socialSponsor li a {width: 192px; padding: 12px 0 !important; margin: 6px 0 0 !important;}
-
 .btn.tw {background-color: #7ecaf4 !important;}
 .btn.tw:hover,
 .btn.tw:active,
@@ -573,8 +566,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .btn.mail:hover,
 .btn.mail:active,
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
-
-
 .user-type {margin-top: -19px;}
 .user-list-images,
 .user-list-followers {margin: 0; padding: 0; display: inline-block;}
@@ -584,46 +575,48 @@ span + .text-notification {padding: 0 0 0 33px;}
 .user-list-followers li:last-child {margin-right: 0;}
 .user-list-images li a,
 .user-list-followers li a {text-decoration: none;}
-
 .user .popover-trigger:hover,
 .user .popover-trigger:active,
 .user .popover-trigger:focus {text-decoration: underline;}
-
 .edit-user .user .popover-trigger:hover,
 .edit-user .user .popover-trigger:active,
 .edit-user .user .popover-trigger:focus {text-decoration: none;}
-
 .user-list-images li .popover-trigger .user-img,
 .user-list-followers li .popover-trigger .user-img {margin-left:0; margin-right: 0;}
-
 .author.important .user.actor.politic .user-list-images li .popover-trigger .user-img {margin: 0;}
-
 .popover {width: 370px; border-radius: 0;}
 .popover-content {padding: 9px;}
 .more-users + .popover,
 .more-actions + .popover {width: 225px;}
-
 .popover.tour {width: 300px; max-width: 300px !important; padding: 8px;}
-.popover.tour .popover-title {font-family: 'League Gothic', Arial, sans-serif; font-size: 34px; font-size: 3.4rem; line-height: 1; text-transform: uppercase;}
-.popover.tour .popover-navigation > button {margin: 0 !important; width: 100%; display: block; float: none; margin: 6px 0 !important;}
+.popover.tour .popover-title {
+    font-family: 'League Gothic', Arial, sans-serif;
+    font-size: 34px;
+    font-size: 3.4rem;
+    line-height: 1;
+    text-transform: uppercase;
+}
+.popover.tour .popover-navigation > button {
+    margin: 0 !important;
+    width: 100%;
+    display: block;
+    float: none;
+    margin: 6px 0 !important;
+}
 .popover.tour .popover-navigation > button:last-child {margin: 0 !important;}
 .popover.tour .popover-content,
 .popover.tour .popover-navigation {padding: 4px;}
 .tour-step-background {background: none !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
 .tour-backdrop {background: #fff !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
 .popover[class*="tour-"] {z-index: 1110 !important;}
-
-
 .slimScrollBar {z-index: 9999 !important;}
 .slimScrollRail,
 .slimScrollBar {border-radius: 4px !important;}
 .popover-content .close {position: absolute; top: 6px; right: 10px;}
 .popover-trigger {cursor: pointer;}
 .user-list-images .popover-trigger {display: inline-block; z-index: 999; position: relative;}
-
 #main .user .popover-trigger,
 #main .sponsor {font-size: 13px; font-size: 1.3rem;}
-
 
 /* popovers */
 .popover {
@@ -652,17 +645,13 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-box #follow {margin: 1px 0 0 90px !important;}
 #follow {width: 105px;}
 #follow span {margin: -2px 0 0 8px; display: inline-block;}
-
 #follow.disabled {background-color: #a8a8a8 !important;}
 #follow.disabled:hover,
 #follow.disabled:active,
 #follow.disabled:focus {background-color: #797979 !important; opacity: 1 !important;}
-
-
 .popover .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}
 .popover .infoActivity li {list-style: none; float: left; margin-right: 6px; font-size: 14px; font-size: 1.4rem; color: #797979;}
 .popover .infoActivity .fa-check {color: #bfd9f5;}
-
 .popover-user-list ul {margin: 0 20px 0 0 !important; padding: 0;}
 .popover-user-list ul li {padding: 6px 2px 2px 2px; display: block !important;}
 .popover-user-list ul li .user-img {margin-bottom: 0 !important;}
@@ -678,8 +667,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-user-list li.link a:hover,
 .popover-user-list li.link a:active,
 .popover-user-list li.link a:focus {color: #545454;}
-
-
 .popover-more-actions ul {margin: 20px 0 0 0; padding: 0;}
 .popover-more-actions ul li {list-style: none;}
 .popover-more-actions ul li a {padding: 4px; display: block; color: #a8a8a8;}
@@ -696,7 +683,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-more-actions ul li.mark a.disabled:hover,
 .popover-more-actions ul li.mark a.disabled:active,
 .popover-more-actions ul li.mark a.disabled:focus {color: #a8a8a8 !important;}
-
 
 /* popover-box son las cajas de usuarios similares a las de los popover para la ley participantes */
 .kakareo.post.ley.participants .group {margin: 40px 0 0 0;}
@@ -727,7 +713,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-box .infoActivity .fa-check {color: #bfd9f5;}
 /* fin popover-box*/
 
-
 .kakareo .main-kakareo {margin-top: 20px; color: #545454;}
 .kakareo.follow .main-kakareo {margin-top: 8px; margin-bottom: 4px;}
 .kakareo footer {
@@ -738,13 +723,11 @@ span + .text-notification {padding: 0 0 0 33px;}
   margin: 0;
   border-top: 1px solid #dadada;
 }
-
 .kakareo footer > ul > li {padding: 11px 0 !important;}
 .kakareo footer > ul.info-kak > li,
 .kakareo footer > ul.actions-kak > li {list-style: disc outside none; margin: 0 15px 0 0; padding: 0;}
 .kakareo footer > ul.info-kak > li {float: left;}
 .kakareo footer > ul.actions-kak >li {float: right;}
-
 .kakareo footer > ul.info-kak > li:last-child {margin: 0;}
 .kakareo footer > ul.info-kak > li:first-child,
 .kakareo footer > ul > li.kakareo-number,
@@ -752,9 +735,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul > li.read-later {margin-right: 28px !important;}
 .kakareo footer > ul > li .counter {margin: 0 4px 0 0;}
 .kakareo footer > ul > li > a span:first-child {margin: 0 6px 0 0;}
-
 .kakareo footer > ul > li > a {color: #797979;}
-
 .kakareo footer > ul > li a:hover,
 .kakareo footer > ul > li a:focus,
 .kakareo footer > ul > li a:active,
@@ -764,7 +745,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul > li a:hover .hidden-xs,
 .kakareo footer > ul > li a:focus .hidden-xs,
 .kakareo footer > ul > li a:active .hidden-xs {text-decoration: underline;}
-
 .kakareo footer > ul > li a.disabled,
 .kakareo footer > ul > li a.disabled:hover,
 .kakareo footer > ul > li a.disabled:focus,
@@ -775,26 +755,26 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul > li a.disabled:hover .hidden-xs,
 .kakareo footer > ul > li a.disabled:focus .hidden-xs,
 .kakareo footer > ul > li a.disabled:active .hidden-xs {color: #8fd0f4 !important; text-decoration: none !important;}
-
 .kakareo footer > ul > li.read-later a.disabled {cursor: pointer; color: #20A2ea !important;}
-
 .kakareo footer > ul > li.read-later a.disabled:hover span:first-child,
 .kakareo footer > ul > li.read-later a.disabled:focus span:first-child,
-.kakareo footer > ul > li.read-later a.disabled:active span:first-child {color: #20a2ea !important; text-decoration: none!important; cursor: pointer !important;}
+.kakareo footer > ul > li.read-later a.disabled:active span:first-child {
+    color: #20a2ea !important;
+    text-decoration: none!important;
+    cursor: pointer !important;
+}
 .kakareo footer > ul > li.read-later a.disabled:hover,
 .kakareo footer > ul > li.read-later a.disabled:focus,
 .kakareo footer > ul > li.read-later a.disabled:active,
 .kakareo footer > ul > li.read-later a.disabled:hover .hidden-xs,
 .kakareo footer > ul > li.read-later a.disabled:focus .hidden-xs,
 .kakareo footer > ul > li.read-later a.disabled:active .hidden-xs {color: #20a2ea !important; text-decoration: underline !important; cursor: pointer !important;}
-
 .kakareo footer > ul > li.more-actions {margin: 0 !important; position: absolute; right: 0;}
 .kakareo footer > ul > li.more-actions > span {background-color: #a8a8a8; padding: 12px 14px 11px; color: #fff; margin: 0;}
 .kakareo footer > ul > li.more-actions > span:hover,
 .kakareo footer > ul > li.more-actions > span:active,
 .kakareo footer > ul > li.more-actions > span:focus {background-color: #545454;}
 .kakareo footer > ul > li.more-actions > span .fa-plus {margin: 0; color: #fff;}
-
 .user-list-images .more-users,
 .user-list-followers .more-users {
   background-color: #a8a8a8;
@@ -808,9 +788,7 @@ span + .text-notification {padding: 0 0 0 33px;}
   font-size: 1.5rem;
   text-align: center;
 }
-
 .boxes.guay .user-list-images .more-users {width: 25px; height: 25px; padding: 4px 0 0 0; font-size: 10px; font-size: 1rem;}
-
 .user-list-images .more-users:hover,
 .user-list-images .more-users:active,
 .user-list-images .more-users:focus,
@@ -822,23 +800,18 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo .link-wrapper:hover,
 .important .kakareo .link-wrapper:active,
 .important .kakareo .link-wrapper:focus {background-color: #feedce;}
-
 .important .kakareo .link-wrapper h1 > a,
 .important .kakareo .link-wrapper .main-kakareo a.popover-trigger {color: #ff9431;}
-
 .important .kakareo {background-color: #fff8ed; border-top: 1px solid #ff9431;}
-
 .important .from {border-bottom: 10px solid #ff9431;}
 .important .from .inside {border-bottom: 8px solid #fff8ed;}
 .author.important .from .inside {border-bottom: 8px solid #ff9431;}
-
 .important .kakareo footer > ul > li a:hover,
 .important .kakareo footer > ul > li a:focus,
 .important .kakareo footer > ul > li a:active,
 .important .kakareo footer > ul > li a:hover span:first-child,
 .important .kakareo footer > ul > li a:focus span:first-child,
 .important .kakareo footer > ul > li a:active span:first-child {color: #ff9431;}
-
 .important .kakareo .main-kakareo .more-users,
 .important .kakareo footer > ul > li.more-actions > span {background-color: #ff9431;}
 .important .kakareo .main-kakareo .more-users:hover,
@@ -850,12 +823,10 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer > ul > li.more-actions span .fa-plus {color: #fff;}
 .important .kakareo footer {background-color: #feedce; border-top-color: #ff9431;}
 .important .kakareo footer > ul > li.read-later a.disabled span:first-child {color: #ff9431 !important;}
-
 .important .kakareo footer > ul > li a span:first-child {color: #797979;}
 .important .kakareo footer > ul > li a:hover,
 .important .kakareo footer > ul > li a:focus,
 .important .kakareo footer > ul > li a:active {color: #ff9431;}
-
 .important .kakareo footer > ul > li a.disabled,
 .important .kakareo footer > ul > li a.disabled span:first-child,
 .important .kakareo footer > ul > li a.disabled:hover,
@@ -867,7 +838,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer > ul > li a.disabled:hover .hidden-xs,
 .important .kakareo footer > ul > li a.disabled:focus .hidden-xs,
 .important .kakareo footer > ul > li a.disabled:active .hidden-xs {color: #ffc998 !important; text-decoration: none !important;}
-
 .important .kakareo footer > ul > li.read-later a.disabled {cursor: pointer; color: #ff9431 !important;}
 .important .kakareo footer > ul > li.read-later a.disabled:hover span:first-child,
 .important .kakareo footer > ul > li.read-later a.disabled:focus span:first-child,
@@ -878,7 +848,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer > ul > li.read-later a.disabled:hover .hidden-xs,
 .important .kakareo footer > ul > li.read-later a.disabled:focus .hidden-xs,
 .important .kakareo footer > ul > li.read-later a.disabled:active .hidden-xs {color: #ff9431 !important; text-decoration: underline !important; cursor: pointer !important;}
-
 
 /* kakareo de autor */
 .author.important .kakareo {margin-top: 0; border-top: 1px solid #ff9431;}
@@ -1178,7 +1147,7 @@ span + .text-notification {padding: 0 0 0 33px;}
   text-transform: capitalize;
 }
 select.form-control {
-  padding: 14px;
+  padding: 8px 14px;
   height: 44px;
 }
 select.form-control option {
