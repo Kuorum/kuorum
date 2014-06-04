@@ -1,6 +1,7 @@
 .signContainer {
     background-color: #000000;
 }
-.ethz {
+.ethz,
+.delhap{
     background-image: url("../images/colaboramos.png");
 }
