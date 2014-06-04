@@ -128,7 +128,7 @@ function createKuorumUserFromOldUser(user){
         "personalData" : {
             _class:"PersonData",
             "birthday" : user.personalData.birthDay,
-            "gender" : user.personalData.gender,
+            "gender" : user.personalData.gender  || "FEMALE",
             "postalCode" : null,
             "regionCode" : null,
             "provinceCode":null,
