@@ -29,7 +29,7 @@ class FileService {
         kuorumFile.save()//The ID is necessary
 
         def fileLocation = generatePath(kuorumFile)
-        kuorumFile.fileName = "${kuorumFile.id}.${getExtension(fileName)}"
+        kuorumFile.fileName = "${kuorumFile.id}.${getExtension(fileName)}".toLowerCase()
         kuorumFile.storagePath = "$temporalPath/$fileLocation"
         kuorumFile.url ="$rootUrl/$fileLocation/$kuorumFile.fileName"
         kuorumFile.save()
