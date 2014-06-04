@@ -12,6 +12,7 @@ class Region {
 
     static constraints = {
         iso3166_2 blank: false,
+                  unique: true,
                   matches: '([A-Z]{2}-)*[A-Z]{2}', // ES-PV España - Pais Vasco
                   validator: { val, obj ->
                       if (obj.superRegion && !val.startsWith("${obj.superRegion.iso3166_2}-")) {
