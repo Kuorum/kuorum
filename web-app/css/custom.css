@@ -454,7 +454,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .social li {margin-right: 5px; font-size: 18.5px; font-size: 1.85rem;}
 .social li:last-child {margin-right: 0;}
 
-.ethz, .delhap {display: block; background-size: 95px 65px !important; text-indent: -9999rem;}
+.ethz, .delhap {display: block; background-size: 95px 65px !important; text-indent: -9999em;}
 .ethz {width: 50px; height: 30px; background: url('../images/colaboramos@2x.png') 0 0 no-repeat transparent;}
 .delhap {width:48px; height: 30px; background: url('../images/colaboramos@2x.png') -50px 0 no-repeat transparent;}
 .ethz:hover,
