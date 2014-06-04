@@ -1,5 +1,5 @@
 var dbOrigin = dbOrigin || connect("localhost:27017/KuorumWeb");
-var dbDest = dbDest || connect("localhost:27017/KuorumTest");
+var dbDest = dbDest || connect("localhost:27017/Kuorum");
 load("users.js")
 load("politicians.js")
 load("laws.js")
