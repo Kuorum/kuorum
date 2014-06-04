@@ -2,6 +2,13 @@
     background-color: #000000;
 }
 .ethz,
-.delhap{
+.delhap {
     background-image: url("../images/colaboramos.png");
 }
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {filter: progid:DXImageTransform.Microsoft.Alpha(opacity=25);}
+#follow.disabled:hover,
+#follow.disabled:active,
+#follow.disabled:focus {filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100); !important;}
+.multimedia .video .front img {filter: progid:DXImageTransform.Microsoft.Alpha(opacity=30);}

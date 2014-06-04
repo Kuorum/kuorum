@@ -57,12 +57,14 @@ body {
   font-size: 1.5rem;
   padding-top: 65px;
 }
-.form-control, input[type="text"], input[type="number"] {color: #545454; font-size: 14px; font-size:  1.4rem; border: 1px solid #EFEFEF;}
+.form-control,
+input[type="text"],
+input[type="number"] {color: #545454; font-size: 14px; font-size:  1.4rem; border: 1px solid #EFEFEF;}
 input[type="text"],
 input[type="number"] {padding: 6px 12px;}
 img {width: 100%;}
 small, .small {font-size: 75%;}
-.main { font-size: 15px; font-size:  1.5rem; padding: 0; /*min-height: 70rem;*/}
+.main { font-size: 15px; font-size:  1.5rem; padding: 0;}
 .navbar-toggle:hover {background-color: #ee7612;}
 .link-wrapper {cursor: pointer; z-index: 9;}
 .link-wrapper a,
@@ -75,6 +77,7 @@ small, .small {font-size: 75%;}
 .popover:hover, .popover:active, .popover:focus {cursor: default;}
 .disabled.allow {cursor: pointer !important; pointer-events: auto;}
 .popover-title {
+  background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0);
   border-bottom: medium none;
   border-radius: 0;
@@ -92,7 +95,7 @@ small, .small {font-size: 75%;}
   background: url('../images/loading@2x.gif') center center / 17px auto no-repeat transparent;
   padding: 0;
   height: 19px;
-  width:50px;
+  width: 50px;
 }
 .loadingSearch {
   color: #a8a8a8;
@@ -135,7 +138,6 @@ a:focus {color: #20a2ea;}
 .tooltip-inner {background-color: #dadada; color: #545454; font-size: 11px; font-size: 1.1rem;}
 
 .boxes.likes .progress {background-color: #8ac2fc; border-radius: 0; width: 70%; margin: 0 auto 35px;}
-/*.boxes.likes .tooltip.top .tooltip-arrow {border-top-color: #428BCA !important;}*/
 .likesContainer {position: relative; padding-top: 84px;}
 .likesContainer #m-callback-done {
   position: absolute;
@@ -152,7 +154,7 @@ a:focus {color: #20a2ea;}
   width: 94px;
   height: 74px;
   border-radius: 4px;
-      -webkit-transition: opacity 0.5s ease 0.2s;
+  -webkit-transition: opacity 0.5s ease 0.2s;
   -moz-transition: opacity 0.5s ease 0.2s;
   -o-transition: opacity 0.5s ease 0.2s;
   transition: opacity 0.5s ease 0.2s;
@@ -160,6 +162,8 @@ a:focus {color: #20a2ea;}
 .likesContainer #m-callback-done .likesCounter {font-size: 30px; font-size: 5rem; display: block;}
 .likesContainer #m-callback-done .arrowLike {
   border-top: 8px solid #428BCA;
+  border-left: 9px solid rgb(0, 0, 0);
+  border-right: 9px solid rgb(0, 0, 0);
   border-left: 9px solid rgba(0, 0, 0, 0);
   border-right: 9px solid rgba(0, 0, 0, 0);
   height: 0;
@@ -278,33 +282,37 @@ a:focus {color: #20a2ea;}
 .btn.btn-blue:hover,
 .btn.btn-blue:active,
 .btn.btn-blue:focus {background-color: #2e6bab !important;}
-.btn.btn-green {background-color: #87ca47 !important; border-left: solid 1px #87ca47; border-right: solid 1px #87ca47; border-bottom: solid 1px #87ca47;}
+.btn.btn-green {
+    background-color: #87ca47 !important;
+    border-left: solid 1px #87ca47;
+    border-right: solid 1px #87ca47;
+    border-bottom: solid 1px #87ca47;
+}
 .btn.btn-green:hover,
 .btn.btn-green:active,
-.btn.btn-green:focus {background-color: #578c25 !important; border-left: solid 1px #578c25; border-right: solid 1px #578c25; border-bottom: solid 1px #578c25;}
-
+.btn.btn-green:focus {
+    background-color: #578c25 !important;
+    border-left: solid 1px #578c25;
+    border-right: solid 1px #578c25;
+    border-bottom: solid 1px #578c25;
+}
 .popover .btn.btn-blue.disabled {background-color: #a8a8a8 !important;}
-
 .boxes .btn {margin-bottom: 20px !important;}
 .boxes .cancel {margin: 0 !important; float: right;}
 .boxes .btn + .cancel {float: left;}
-
 .boxes.btns {padding-top: 35px;}
 .btns {margin: 0; padding: 0;}
 .btns li {list-style: none; float: left; margin: 0 40px 10px 0; line-height: 3.5;}
 .btns li:last-child {margin: 0;}
-
 .navbar-btn {
   margin-top: 8px;
   margin-left: 4px;
   padding: 3px 6px;
-  padding: 0.3em 0.6em;
 }
 .box .dropdown-menu > li a.btn {color: #fff; text-decoration: none;}
 .box .dropdown-menu > li:hover a.btn,
 .box .dropdown-menu > li:active a.btn,
 .box .dropdown-menu > li:focus a.btn {text-decoration: none;}
-
 .btn:hover, .btn:active, .btn:focus {color: #fff;}
 .btn.search {
   height: 34px;
@@ -334,35 +342,46 @@ a:focus {color: #20a2ea;}
 #search-form .input-group > #filterSign {position: absolute; right: 28px; top: 9px; z-index: 99; color: #a8a8a8;}
 #search-form .input-group-btn {left: 0; position: absolute; top: 0; z-index: 9;}
 
-.nav > li > .navbar-link {color: #545454; padding: 12px 8px; background-color: transparent; line-height: 1.6; display: block; position: relative;}
+.nav > li > .navbar-link {
+    color: #545454;
+    padding: 12px 8px;
+    background-color: transparent;
+    line-height: 1.6;
+    display: block;
+    position: relative;}
 .nav > li > .navbar-link:hover,
 .nav > li > .navbar-link:focus,
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {background-color: #ff9431; color: #fff;}
-
 .nav > li > span.navbar-link,
 .nav > li > span.navbar-link:hover,
 .nav > li > span.navbar-link:focus {color: #dadada;}
-
 .nav > li > a.btn {margin: 5px 0 0 6px !important; border: 0;}
 .nav > li > a.btn:hover,
 .nav > li > a.btn:active,
 .nav > li > a.btn:focus {background-color: #ee7612 !important;}
-
 .navbar-collapse.collapse.in {border-bottom: 6px solid #ff9431;}
-
 .nav > li > .navbar-link:hover .badge,
 .nav > li > .navbar-link:focus .badge {background-color: #fff; color: #ff9431;}
-
 .nav > li > .discover {padding-top: 8px; padding-bottom: 0;}
 .nav > li > .discover .icon-Flaticon_9296 {font-size: 48px; padding: 0; line-height: 0.65;}
 .nav > li > .discover .text-normalize {display: inline-block; vertical-align: top; margin-top: 5px;}
-
-.navbar-form .dropdown-menu {font-family: 'FontAwesome', Georgia, serif; font-size: 14px; font-size:  1.4rem; margin: 0; padding: 0;}
+.navbar-form .dropdown-menu {
+    font-family: 'FontAwesome', Georgia, serif;
+    font-size: 14px;
+    font-size:  1.4rem;
+    margin: 0;
+    padding: 0;
+}
 .navbar-form .dropdown-menu li {text-align: right;}
-.navbar-form .dropdown-menu li:first-child {font-size: 14px; font-size:  1.4rem; border: 0; margin: 0; padding: 0;}
-
+.navbar-form .dropdown-menu li:first-child {
+    font-size: 14px;
+    font-size:  1.4rem;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
 .dropdown-menu {
   background-color: #fcfcfc;
   padding: 0 0 4px 0;
@@ -376,31 +395,25 @@ a:focus {color: #20a2ea;}
 .dropdown-menu > li:first-child,
 .box .dropdown-menu > li {padding: 6px 14px; margin: 0; border-bottom: solid 1px #d9d9d9;}
 .dropdown-menu > li:first-child {font-weight: bold;}
-
 .box .dropdown-menu {padding-bottom: 0;}
 .box .dropdown-menu > li:last-child {border-bottom: none;}
 .box .dropdown-menu > li > ul >li {list-style: none; padding: 0;}
 .box .dropdown-menu .inline {margin: 0; padding: 0 10px;}
 .box .dropdown-menu .btn {margin: 0 0 0 10px !important; font-size: 14px;}
 .box .dropdown-menu .actions {display: block; margin: 2px 0;}
-
 .box .dropdown-menu > .new {
   background-color: #efefef;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #d9d9d9;
   color: #545454;
 }
-
 .box .fecha,
 .text-message,
 span + .text-notification {padding: 0 0 0 33px;}
 .box .fecha {display: block; color: #A8A8A8; margin: -15px 0 0 0;}
-
 .text-message {line-height: 17px; display: block;}
 .text-notification {line-height: 17px; display: block; padding: 0;}
-
 .box .dropdown-menu > li a {color: #ff9431; text-decoration: none;}
 .box .dropdown-menu > li a:hover {text-decoration: underline;}
-
 .badge {background-color: #ff9431; padding: 2px 6px 4px; line-height: 1.2;}
 .navbar-nav .visible-xs {display: inline-block !important;}
 .user-img {
@@ -412,18 +425,16 @@ span + .text-notification {padding: 0 0 0 33px;}
 .boxes.alerts .user-img,
 .boxes.guays .user-img,
 .boxes.follow .user-img {display: inline-block;}
-
 #footer {background-color: #313131; color: #fff;}
 #footer ul, #footer ol {padding: 0}
 #footer li {list-style: none;}
 #footer a {color: #a8a8a8;}
 #footer a:hover {color: #fff;}
-#footer .more {background-color: #373737; padding: 20px 0; padding: 2rem 0;}
+#footer .more {background-color: #373737; padding: 20px 0;}
 #footer .social li:first-child  {font-size: 15px; font-size: 1.5rem;}
 #footer .links section {padding-bottom: 10px;}
-#footer .links section h1 {margin: 30px 0 10px; margin: 3rem 0 1rem;}
+#footer .links section h1 {margin: 30px 0 10px;}
 #footer .links section .feedback {
-  margin: 30px 0 15px;
   margin: 10px 0;
   border-radius: 4px;
   font-weight: 400;
@@ -440,7 +451,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 #footer .links section .feedback:hover,
 #footer .links section .feedback:active,
 #footer .links section .feedback:focus {text-decoration: none; color: #ff9431; border: 3px solid #ff9431;}
-
 #footer .links section h1 {font-size: 19px; font-size: 1.9rem; color: #fff;}
 #footer .links section .btn + h1 {font-size: 15px; font-size: 1.5rem;}
 #footer .links section a {font-size: 15px; font-size: 1.5rem;}
@@ -453,7 +463,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .collabor li {margin-right: 8px;}
 .social li {margin-right: 5px; font-size: 18.5px; font-size: 1.85rem;}
 .social li:last-child {margin-right: 0;}
-
 .ethz, .delhap {display: block; background-size: 95px 65px !important; text-indent: -9999em;}
 .ethz {width: 50px; height: 30px; background: url('../images/colaboramos@2x.png') 0 0 no-repeat transparent;}
 .delhap {width:48px; height: 30px; background: url('../images/colaboramos@2x.png') -50px 0 no-repeat transparent;}
@@ -463,7 +472,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .delhap:hover,
 .delhap:active,
 .delhap:focus {background-position: -50px -34px}
-
 .social li a {color: #ff9431 !important;}
 .social li a:hover,
 .social li a:active,
@@ -476,7 +484,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .delhap img {width: 45px; height: 32px;}
 .gpl img,
 .github img {width: 48px; height: 48px;}
-
 
 /* dashboard */
 .kakareo-list {list-style: none; margin: 0; padding: 0;}
@@ -513,19 +520,15 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo .link-wrapper:hover,
 .kakareo .link-wrapper:active,
 .kakareo .link-wrapper:focus {background-color: #efefef;}
-
 .user-list-images li a,
 .user-list-followers li a {display: inline-block;}
 .user.actor .action {color: #a8a8a8;}
 .user.actor .user-img {width: 25px; height: 25px; margin: 4px 8px 5px 9px;}
 .author.important .user.actor.politic > .popover-trigger .user-img {float: right; margin-top: 0;}
 .navbar-nav .dropdown-menu .user-img {width: 25px; height: 25px; margin: 4px 8px 4px 0;}
-
 .user > a {color: #545454 !important;} /* el enlace del nombre de ususario */
-
 .user-type,
 .kakareo.follow {display: block; padding: 0 0 0 49px; color: #A8A8A8;}
-
 .personal .user-type {padding: 0;}
 
 /*Prueba kakareos fondo transparente (MAT 04/06/2014)*/
@@ -534,18 +537,15 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo {background-color: #fcfcfc; border-top: solid 1px #20a2ea; padding: 0; margin: 7px 0 40px; position: relative;}
 .kakareo.follow {padding: 5px 15px;}
 .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 10px 0; margin: 0; line-height: 1.3;}
-
 .kakareo.post {background-color: transparent; border: 0; margin: 0; color: #545454;}
 .kakareo.post h2 {font-size: 27px; font-size: 2.7rem;}
 .kakareo.post .main-kakareo {padding-bottom: 15px;}
 .kakareo.post footer {background-color: transparent; margin-bottom: 10px;}
-
 .kakareo.post.sponsor {background-color: #fafafa; border: 0; margin-top: -37px; color: #545454;}
 .kakareo.post.sponsor footer {margin-bottom: 0;}
 .socialSponsor {margin: 0 0 20px 0; border-bottom: 1px solid #EFEFEF; padding: 0 0 50px 0;}
 .socialSponsor li {float: left; list-style: none; margin: 0 10px 0 0;}
 .socialSponsor li a {width: 192px; padding: 12px 0 !important; margin: 6px 0 0 !important;}
-
 .btn.tw {background-color: #7ecaf4 !important;}
 .btn.tw:hover,
 .btn.tw:active,
@@ -566,8 +566,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .btn.mail:hover,
 .btn.mail:active,
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
-
-
 .user-type {margin-top: -19px;}
 .user-list-images,
 .user-list-followers {margin: 0; padding: 0; display: inline-block;}
@@ -577,46 +575,48 @@ span + .text-notification {padding: 0 0 0 33px;}
 .user-list-followers li:last-child {margin-right: 0;}
 .user-list-images li a,
 .user-list-followers li a {text-decoration: none;}
-
 .user .popover-trigger:hover,
 .user .popover-trigger:active,
 .user .popover-trigger:focus {text-decoration: underline;}
-
 .edit-user .user .popover-trigger:hover,
 .edit-user .user .popover-trigger:active,
 .edit-user .user .popover-trigger:focus {text-decoration: none;}
-
 .user-list-images li .popover-trigger .user-img,
 .user-list-followers li .popover-trigger .user-img {margin-left:0; margin-right: 0;}
-
 .author.important .user.actor.politic .user-list-images li .popover-trigger .user-img {margin: 0;}
-
 .popover {width: 370px; border-radius: 0;}
 .popover-content {padding: 9px;}
 .more-users + .popover,
 .more-actions + .popover {width: 225px;}
-
 .popover.tour {width: 300px; max-width: 300px !important; padding: 8px;}
-.popover.tour .popover-title {font-family: 'League Gothic', Arial, sans-serif; font-size: 34px; font-size: 3.4rem; line-height: 1; text-transform: uppercase;}
-.popover.tour .popover-navigation > button {margin: 0 !important; width: 100%; display: block; float: none; margin: 6px 0 !important;}
+.popover.tour .popover-title {
+    font-family: 'League Gothic', Arial, sans-serif;
+    font-size: 34px;
+    font-size: 3.4rem;
+    line-height: 1;
+    text-transform: uppercase;
+}
+.popover.tour .popover-navigation > button {
+    margin: 0 !important;
+    width: 100%;
+    display: block;
+    float: none;
+    margin: 6px 0 !important;
+}
 .popover.tour .popover-navigation > button:last-child {margin: 0 !important;}
 .popover.tour .popover-content,
 .popover.tour .popover-navigation {padding: 4px;}
 .tour-step-background {background: none !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
 .tour-backdrop {background: #fff !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
 .popover[class*="tour-"] {z-index: 1110 !important;}
-
-
 .slimScrollBar {z-index: 9999 !important;}
 .slimScrollRail,
 .slimScrollBar {border-radius: 4px !important;}
 .popover-content .close {position: absolute; top: 6px; right: 10px;}
 .popover-trigger {cursor: pointer;}
 .user-list-images .popover-trigger {display: inline-block; z-index: 999; position: relative;}
-
 #main .user .popover-trigger,
 #main .sponsor {font-size: 13px; font-size: 1.3rem;}
-
 
 /* popovers */
 .popover {
@@ -645,17 +645,13 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-box #follow {margin: 1px 0 0 90px !important;}
 #follow {width: 105px;}
 #follow span {margin: -2px 0 0 8px; display: inline-block;}
-
 #follow.disabled {background-color: #a8a8a8 !important;}
 #follow.disabled:hover,
 #follow.disabled:active,
 #follow.disabled:focus {background-color: #797979 !important; opacity: 1 !important;}
-
-
 .popover .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}
 .popover .infoActivity li {list-style: none; float: left; margin-right: 6px; font-size: 14px; font-size: 1.4rem; color: #797979;}
 .popover .infoActivity .fa-check {color: #bfd9f5;}
-
 .popover-user-list ul {margin: 0 20px 0 0 !important; padding: 0;}
 .popover-user-list ul li {padding: 6px 2px 2px 2px; display: block !important;}
 .popover-user-list ul li .user-img {margin-bottom: 0 !important;}
@@ -671,8 +667,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-user-list li.link a:hover,
 .popover-user-list li.link a:active,
 .popover-user-list li.link a:focus {color: #545454;}
-
-
 .popover-more-actions ul {margin: 20px 0 0 0; padding: 0;}
 .popover-more-actions ul li {list-style: none;}
 .popover-more-actions ul li a {padding: 4px; display: block; color: #a8a8a8;}
@@ -689,7 +683,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-more-actions ul li.mark a.disabled:hover,
 .popover-more-actions ul li.mark a.disabled:active,
 .popover-more-actions ul li.mark a.disabled:focus {color: #a8a8a8 !important;}
-
 
 /* popover-box son las cajas de usuarios similares a las de los popover para la ley participantes */
 .kakareo.post.ley.participants .group {margin: 40px 0 0 0;}
@@ -720,7 +713,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-box .infoActivity .fa-check {color: #bfd9f5;}
 /* fin popover-box*/
 
-
 .kakareo .main-kakareo {margin-top: 20px; color: #545454;}
 .kakareo.follow .main-kakareo {margin-top: 8px; margin-bottom: 4px;}
 .kakareo footer {
@@ -731,13 +723,11 @@ span + .text-notification {padding: 0 0 0 33px;}
   margin: 0;
   border-top: 1px solid #dadada;
 }
-
 .kakareo footer > ul > li {padding: 11px 0 !important;}
 .kakareo footer > ul.info-kak > li,
 .kakareo footer > ul.actions-kak > li {list-style: disc outside none; margin: 0 15px 0 0; padding: 0;}
 .kakareo footer > ul.info-kak > li {float: left;}
 .kakareo footer > ul.actions-kak >li {float: right;}
-
 .kakareo footer > ul.info-kak > li:last-child {margin: 0;}
 .kakareo footer > ul.info-kak > li:first-child,
 .kakareo footer > ul > li.kakareo-number,
@@ -745,9 +735,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul > li.read-later {margin-right: 28px !important;}
 .kakareo footer > ul > li .counter {margin: 0 4px 0 0;}
 .kakareo footer > ul > li > a span:first-child {margin: 0 6px 0 0;}
-
 .kakareo footer > ul > li > a {color: #797979;}
-
 .kakareo footer > ul > li a:hover,
 .kakareo footer > ul > li a:focus,
 .kakareo footer > ul > li a:active,
@@ -757,7 +745,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul > li a:hover .hidden-xs,
 .kakareo footer > ul > li a:focus .hidden-xs,
 .kakareo footer > ul > li a:active .hidden-xs {text-decoration: underline;}
-
 .kakareo footer > ul > li a.disabled,
 .kakareo footer > ul > li a.disabled:hover,
 .kakareo footer > ul > li a.disabled:focus,
@@ -768,26 +755,26 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul > li a.disabled:hover .hidden-xs,
 .kakareo footer > ul > li a.disabled:focus .hidden-xs,
 .kakareo footer > ul > li a.disabled:active .hidden-xs {color: #8fd0f4 !important; text-decoration: none !important;}
-
 .kakareo footer > ul > li.read-later a.disabled {cursor: pointer; color: #20A2ea !important;}
-
 .kakareo footer > ul > li.read-later a.disabled:hover span:first-child,
 .kakareo footer > ul > li.read-later a.disabled:focus span:first-child,
-.kakareo footer > ul > li.read-later a.disabled:active span:first-child {color: #20a2ea !important; text-decoration: none!important; cursor: pointer !important;}
+.kakareo footer > ul > li.read-later a.disabled:active span:first-child {
+    color: #20a2ea !important;
+    text-decoration: none!important;
+    cursor: pointer !important;
+}
 .kakareo footer > ul > li.read-later a.disabled:hover,
 .kakareo footer > ul > li.read-later a.disabled:focus,
 .kakareo footer > ul > li.read-later a.disabled:active,
 .kakareo footer > ul > li.read-later a.disabled:hover .hidden-xs,
 .kakareo footer > ul > li.read-later a.disabled:focus .hidden-xs,
 .kakareo footer > ul > li.read-later a.disabled:active .hidden-xs {color: #20a2ea !important; text-decoration: underline !important; cursor: pointer !important;}
-
 .kakareo footer > ul > li.more-actions {margin: 0 !important; position: absolute; right: 0;}
 .kakareo footer > ul > li.more-actions > span {background-color: #a8a8a8; padding: 12px 14px 11px; color: #fff; margin: 0;}
 .kakareo footer > ul > li.more-actions > span:hover,
 .kakareo footer > ul > li.more-actions > span:active,
 .kakareo footer > ul > li.more-actions > span:focus {background-color: #545454;}
 .kakareo footer > ul > li.more-actions > span .fa-plus {margin: 0; color: #fff;}
-
 .user-list-images .more-users,
 .user-list-followers .more-users {
   background-color: #a8a8a8;
@@ -801,9 +788,7 @@ span + .text-notification {padding: 0 0 0 33px;}
   font-size: 1.5rem;
   text-align: center;
 }
-
 .boxes.guay .user-list-images .more-users {width: 25px; height: 25px; padding: 4px 0 0 0; font-size: 10px; font-size: 1rem;}
-
 .user-list-images .more-users:hover,
 .user-list-images .more-users:active,
 .user-list-images .more-users:focus,
@@ -815,23 +800,18 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo .link-wrapper:hover,
 .important .kakareo .link-wrapper:active,
 .important .kakareo .link-wrapper:focus {background-color: #feedce;}
-
 .important .kakareo .link-wrapper h1 > a,
 .important .kakareo .link-wrapper .main-kakareo a.popover-trigger {color: #ff9431;}
-
 .important .kakareo {background-color: #fff8ed; border-top: 1px solid #ff9431;}
-
 .important .from {border-bottom: 10px solid #ff9431;}
 .important .from .inside {border-bottom: 8px solid #fff8ed;}
 .author.important .from .inside {border-bottom: 8px solid #ff9431;}
-
 .important .kakareo footer > ul > li a:hover,
 .important .kakareo footer > ul > li a:focus,
 .important .kakareo footer > ul > li a:active,
 .important .kakareo footer > ul > li a:hover span:first-child,
 .important .kakareo footer > ul > li a:focus span:first-child,
 .important .kakareo footer > ul > li a:active span:first-child {color: #ff9431;}
-
 .important .kakareo .main-kakareo .more-users,
 .important .kakareo footer > ul > li.more-actions > span {background-color: #ff9431;}
 .important .kakareo .main-kakareo .more-users:hover,
@@ -843,12 +823,10 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer > ul > li.more-actions span .fa-plus {color: #fff;}
 .important .kakareo footer {background-color: #feedce; border-top-color: #ff9431;}
 .important .kakareo footer > ul > li.read-later a.disabled span:first-child {color: #ff9431 !important;}
-
 .important .kakareo footer > ul > li a span:first-child {color: #797979;}
 .important .kakareo footer > ul > li a:hover,
 .important .kakareo footer > ul > li a:focus,
 .important .kakareo footer > ul > li a:active {color: #ff9431;}
-
 .important .kakareo footer > ul > li a.disabled,
 .important .kakareo footer > ul > li a.disabled span:first-child,
 .important .kakareo footer > ul > li a.disabled:hover,
@@ -860,7 +838,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer > ul > li a.disabled:hover .hidden-xs,
 .important .kakareo footer > ul > li a.disabled:focus .hidden-xs,
 .important .kakareo footer > ul > li a.disabled:active .hidden-xs {color: #ffc998 !important; text-decoration: none !important;}
-
 .important .kakareo footer > ul > li.read-later a.disabled {cursor: pointer; color: #ff9431 !important;}
 .important .kakareo footer > ul > li.read-later a.disabled:hover span:first-child,
 .important .kakareo footer > ul > li.read-later a.disabled:focus span:first-child,
@@ -871,7 +848,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .important .kakareo footer > ul > li.read-later a.disabled:hover .hidden-xs,
 .important .kakareo footer > ul > li.read-later a.disabled:focus .hidden-xs,
 .important .kakareo footer > ul > li.read-later a.disabled:active .hidden-xs {color: #ff9431 !important; text-decoration: underline !important; cursor: pointer !important;}
-
 
 /* kakareo de autor */
 .author.important .kakareo {margin-top: 0; border-top: 1px solid #ff9431;}
@@ -1171,7 +1147,7 @@ span + .text-notification {padding: 0 0 0 33px;}
   text-transform: capitalize;
 }
 select.form-control {
-  padding: 14px;
+  padding: 8px 14px;
   height: 44px;
 }
 select.form-control option {
@@ -1413,7 +1389,7 @@ textarea.error,
     margin: 0 6px 6px 0;
     padding: 12px 2px 0 2px;
     width: 98px;
-    height: 102px;
+    height: 114px;
     font-size: 12px;
     line-height: 1.2;
     color: #ff9431;
