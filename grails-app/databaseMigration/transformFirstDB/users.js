@@ -1,8 +1,8 @@
 
 load("htmlDecoder.js")
 load("imageHelper.js")
-dbOrigin = connect("localhost:27017/KuorumWeb");
-dbDest = connect("localhost:27017/KuorumDev");
+var dbOrigin = dbOrigin || connect("localhost:27017/KuorumWeb");
+var dbDest = dbDest || connect("localhost:27017/KuorumDev");
 
 
 var numFacebook = 0
