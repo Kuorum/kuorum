@@ -56,7 +56,7 @@ function createKuorumUserFromPolitician(politician){
         else if (provinceName == "CADIZ") region = dbDest.region.find({"iso3166_2" : "EU-ES-AN-CA"})[0]
         else if (provinceName == "ALABA") region = dbDest.region.find({"iso3166_2" : "EU-ES-PV-VI"})[0]
         else if (provinceName == "AVILA") region = dbDest.region.find({"iso3166_2" : "EU-ES-CL-AV"})[0]
-        else if (provinceName == "CASTELLON") region = dbDest.region.find({"iso3166_2" : "EU-ES-AC-CS"})[0]
+        else if (provinceName == "CASTELLON") region = dbDest.region.find({"iso3166_2" : "EU-ES-CV-CS"})[0]
 //        else if (provinceName == "MELILLA") region = dbDest.region.find({"iso3166_2" : "EU-ES-ML-ML"})[0]
 //        else if (provinceName == "MADRID") region = dbDest.region.find({"iso3166_2" : "EU-ES-MD-MD"})[0]
         else print("No se ha encontrado la region "+provinceName)
