@@ -23,30 +23,31 @@ window.fbAsyncInit = function() {
 $(function (){
     $("body").on("click","a.social-share.facebook",function(e){
         e.preventDefault();
-        var facebookDataId = $(this).attr("data-facebookDataId")
-        shareLaw(facebookDataId)
+        window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600')
+//        var facebookDataId = $(this).attr("data-facebookDataId")
+//        shareLaw(facebookDataId)
     })
 });
 
-var facebookData={}
-function shareLaw(facebookDataId){
-    var data =facebookData[facebookDataId]
-    console.log(data)
-    FB.ui(
-        {
-            method: 'feed',
-            name: data.name,
-            caption: data.caption,
-            description: data.description,
-            link: data.link,
-            picture: data.picture
-        },
-        function(response) {
-            if (response && response.post_id) {
-                display.success('Se ha publicado correctamente en tu muro');
-            } else {
-                display.warn('Hubo algun problema, vuelva a intentarlo');
-            }
-        }
-    );
-}
+//var facebookData={}
+//function shareLaw(facebookDataId){
+//    var data =facebookData[facebookDataId]
+//    console.log(data)
+//    FB.ui(
+//        {
+//            method: 'feed',
+//            name: data.name,
+//            caption: data.caption,
+//            description: data.description,
+//            link: data.link,
+//            picture: data.picture
+//        },
+//        function(response) {
+//            if (response && response.post_id) {
+//                display.success('Se ha publicado correctamente en tu muro');
+//            } else {
+//                display.warn('Hubo algun problema, vuelva a intentarlo');
+//            }
+//        }
+//    );
+//}
