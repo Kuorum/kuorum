@@ -26,7 +26,7 @@ class CluckService {
                 'in'("defendedBy",userList)
                 'in'("sponsors.kuorumUserId",userList)
             }
-            order("lastUpdated","asc")
+            order("lastUpdated","desc")
         }
         result
 
