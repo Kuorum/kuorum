@@ -7,7 +7,7 @@ function createAvatar(objectId, fileGroup, photo){
             "_id":id,
             "userId":objectId,
             "temporal":false,
-            "local":photo.indexOf("http://") <= 0,
+            "local":photo.indexOf("http://") < 0,
             "storagePath":storagePath(photo).storagePath,
             "fileName":storagePath(photo).fileName,
             "url":absoluteUrl(photo),
