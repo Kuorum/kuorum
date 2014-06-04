@@ -9,5 +9,5 @@ dbDest.kuorumUser.update({},{$set:{"password" : "9f86d081884c7d659a2feaa0c55ad01
 // EMAIL
 dbDest.kuorumUser.find({email:/^(?!.*@example.com$)/}).forEach(function(user){
     user.email = removeDiacritics("info+"+user.email.replace(/@/g,'').replace(/\./g,'').toLowerCase()+"@kuorum.org")
-    db.kuorumUser.save(user)
+    dbDest.kuorumUser.save(user)
 })
