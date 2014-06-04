@@ -29,7 +29,7 @@
 <content tag="mainContent">
     <g:render template="/register/registerSocial"/>
     <h2><g:message code="register.email.label"/> </h2>
-    <formUtil:validateForm bean="${command}" form="sign"/>
+    <formUtil:validateForm bean="${command}" form="sign" autocomplete="off"/>
     <g:form mapping="register" name="sign" role="form" method="POST" autocomplete="off">
         <div class="form-group">
             <formUtil:input

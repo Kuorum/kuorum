@@ -34,7 +34,7 @@
                     <g:set var="loginLink" value="${createLink(mapping: 'login')}" />
                     <h2><g:message code="landingPage.register.title" args="[loginLink]" encodeAs="raw"/> </h2>
                     <formUtil:validateForm bean="${command}" form="sign"/>
-                    <g:form mapping="register" name="sign" role="form" method="POST">
+                    <g:form mapping="register" name="sign" role="form" method="POST" autocomplete="off">
                         <div class="form-group">
                             <formUtil:input
                                     command="${command}"
