@@ -1,8 +1,8 @@
 
 load("htmlDecoder.js")
 load("imageHelper.js")
-dbOrigin = connect("localhost:27017/KuorumWeb");
-dbDest = connect("localhost:27017/KuorumDev");
+var dbOrigin = dbOrigin || connect("localhost:27017/KuorumWeb");
+var dbDest = dbDest || connect("localhost:27017/KuorumDev");
 
 
 var numFacebook = 0
@@ -99,7 +99,7 @@ print("Usuarios totales en la BBDD nueva(con @example.com): "+dbDest.kuorumUser.
 
 function createKuorumUserFromOldUser(user){
 
-    var userRoles = db.roleUser.find({authority:"ROLE_USER"})
+    var userRoles = dbDest.roleUser.find({authority:"ROLE_USER"})
     var userRole = userRoles.hasNext() ? userRoles.next() : null;
 
     var kuorumUser = {

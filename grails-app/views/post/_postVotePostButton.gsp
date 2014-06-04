@@ -59,13 +59,15 @@
                     params="${post.encodeAsLinkProperties()}" data-postId="${post.id}">
                 <g:message code="post.show.boxes.like.vote.${userVote ? 'buttonVoted' : 'button'}" encodeAs="raw"/>
             </g:link>
-            <div class="form-group">
-                <label class="checkbox-inline">
-                    <input type="checkbox" name="anonymous"
-                           value="private" ${userVote ? 'disabled' : ''} ${userVote?.anonymous ? 'checked' : ''}/>
-                    <g:message code="post.show.boxes.like.vote.anonymousCheckBoxLabel"/>
-                </label>
-            </div>
+            <g:if test="${!userVote}">
+                <div class="form-group">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="anonymous"
+                               value="private"/>
+                        <g:message code="post.show.boxes.like.vote.anonymousCheckBoxLabel"/>
+                    </label>
+                </div>
+            </g:if>
         </form>
     </postUtil:asUser>
 </postUtil:userOption>

@@ -22,31 +22,17 @@
 </li>
 <li>
     <script>
-
-        function sharePost_${post.id}(){
-            FB.ui(
-                    {
-                        method: 'feed',
-                        name: '${post.title.trim().replaceAll('\'', '\\\'')}',
-                        caption: '${post.law.hashtag}',
-                        description: '${post.text.trim().replaceAll('\'', '\\\'')}',
-                        link: '${createLink(mapping: 'postShow', params:post.encodeAsLinkProperties(), absolute:true)}',
-                        picture: '${post.multimedia?.url}'
-                    },
-                    function(response) {
-                        if (response && response.post_id) {
-                            display.success('Se ha publicado correctamente en tu muro');
-                        } else {
-                            display.warn('Hubo algun problema, vuelva a intentarlo');
-                        }
-                    }
-            );
-        }
         $(function(){
-            $("#postSocialFacebook_${post.id}").on('click',function(e){e.preventDefault(); sharePost_${post.id}()})
-        })
+            facebookData["post_${post.id}"]={
+                name: '${post.title.trim().replaceAll('\'', '\\\'')}',
+                caption: '${post.law.hashtag}',
+                description: '${post.text.trim().replaceAll('\'', '\\\'').replaceAll('\n', ' ')}',
+                link: '${post.shortUrl?:createLink(mapping: 'postShow', params:post.encodeAsLinkProperties(), absolute:true)}',
+                picture: '${post.multimedia?.url}'
+            }
+        });
     </script>
-    <a href="#" id="postSocialFacebook_${post.id}" class="social-share facebook">
+    <a href="#" id="postSocialFacebook_${post.id}" class="social-share facebook" data-facebookDataId="post_${post.id}">
         <span class="${textClass}"><g:message code="law.social.facebook"/></span>
         <g:if test="${showIcon}">
             <span class="fa-stack fa-lg">

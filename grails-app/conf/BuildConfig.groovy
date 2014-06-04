@@ -92,6 +92,9 @@ grails.project.dependency.resolution = {
 //        compile 'org.im4java:im4java:1.4.0'
         //        compile 'javax.media:jai_core:1.1.2_01'
 
+        compile 'org.grails:grails-datastore-gorm:3.1.0.RELEASE'
+        compile 'org.grails:grails-datastore-core:3.1.0.RELEASE'
+        test 'org.grails:grails-datastore-simple:3.1.0.RELEASE'
        // compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
 
         //TEST
@@ -113,7 +116,8 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.0.1"
         //compile ':cache:1.1.1'
 
-        compile ":mongodb:1.3.3"
+//        compile ":mongodb:1.3.3"
+        compile ":mongodb:3.0.1"
         // plugins needed at runtime but not for compilation
         //runtime ":hibernate:3.6.10.7" // or ":hibernate4:4.1.11.6"
         // runtime ":database-migration:1.3.8"

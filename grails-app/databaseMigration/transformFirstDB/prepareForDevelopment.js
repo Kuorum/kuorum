@@ -34,9 +34,3 @@ db.kuorumUser.update(
         "personalData.gender":"ORGANIZATION"
     }},
     {"upsert":false, "multi":true}) //test
-
-// EMAIL
-db.kuorumUser.find({email:/^(?!.*@example.com$)/}).forEach(function(user){
-    user.email = removeDiacritics("info+"+user.email.replace(/@/g,'').replace(/\./g,'').toLowerCase()+"@kuorum.org")
-    db.kuorumUser.save(user)
-})

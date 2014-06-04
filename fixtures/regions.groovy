@@ -97,7 +97,7 @@ fixture {
         postalCode = "46"
     }
     castellon(Region){
-        name ="Castellon"
+        name ="Castellón"
         iso3166_2 = "EU-ES-CV-CS" //
         superRegion = cValenciana
         postalCode = "12"

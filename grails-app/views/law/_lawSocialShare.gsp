@@ -18,31 +18,17 @@
         </li>
         <li>
             <script>
-
-                function shareLaw_${law.id}(){
-                    FB.ui(
-                            {
-                                method: 'feed',
-                                name: '${law.shortName.replaceAll('\'', '\\\'')}',
-                                caption: '${law.realName.replaceAll('\'', '\\\'')}',
-                                description: '${law.introduction.trim().replaceAll('\'', '\\\'')}',
-                                link: '${createLink(mapping: 'lawShow', params:law.encodeAsLinkProperties(), absolute:true)}',
-                                picture: '${law.image.url}'
-                            },
-                            function(response) {
-                                if (response && response.post_id) {
-                                    display.success('Se ha publicado correctamente en tu muro');
-                                } else {
-                                    display.warn('Hubo algun problema, vuelva a intentarlo');
-                                }
-                            }
-                    );
-                }
                 $(function(){
-                    $("#socialFacebook_${law.id}").on('click',function(e){e.preventDefault(); shareLaw_${law.id}()})
-                })
+                    facebookData["law_${law.id}"]={
+                        name: '${law.shortName.replaceAll('\'', '\\\'')}',
+                        caption: '${law.realName.replaceAll('\'', '\\\'')}',
+                        description: '${law.introduction.trim().replaceAll('\'', '\\\'')}',
+                        link: '${law.shortUrl?:createLink(mapping: 'lawShow', params:law.encodeAsLinkProperties(), absolute:true)}',
+                        picture: '${law.image.url}'
+                    }
+                });
             </script>
-            <a href="#" id="socialFacebook_${law.id}" class="social-share facebook">
+            <a href="#" class="social-share facebook" data-facebookDataId="law_${law.id}">
                 <span class="sr-only"><g:message code="law.social.facebook"/></span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span>
             </a>
         </li>
