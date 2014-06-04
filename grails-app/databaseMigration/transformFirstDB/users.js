@@ -99,7 +99,7 @@ print("Usuarios totales en la BBDD nueva(con @example.com): "+dbDest.kuorumUser.
 
 function createKuorumUserFromOldUser(user){
 
-    var userRoles = db.roleUser.find({authority:"ROLE_USER"})
+    var userRoles = dbDest.roleUser.find({authority:"ROLE_USER"})
     var userRole = userRoles.hasNext() ? userRoles.next() : null;
 
     var kuorumUser = {
