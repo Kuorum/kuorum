@@ -22,7 +22,9 @@
     <g:if test="${victories}">
         <g:render template="lawVictories" model="[law:law, victories:victories]"/>
     </g:if>
-    <g:render template="lawClucks" model="[law:law, clucks:clucks, seeMore:seeMore]"/>
+    <g:if test="${clucks}">
+        <g:render template="lawClucks" model="[law:law, clucks:clucks, seeMore:seeMore]"/>
+    </g:if>
 </content>
 
 <content tag="cColumn">
