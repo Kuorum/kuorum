@@ -4,19 +4,19 @@ load("users.js")
 load("politicians.js")
 load("laws.js")
 
-db.cluckNotification.drop()
-db.debateAlertNotification.drop()
-db.debateNotification.drop()
-db.defendedPostAlert.drop()
-db.defendedPostNotification.drop()
-db.followerNotification.drop()
-db.lawClosedNotification.drop()
-db.milestoneNotification.drop()
-db.publicMilestoneNotification.drop()
+dbDest.cluckNotification.drop()
+dbDest.debateAlertNotification.drop()
+dbDest.debateNotification.drop()
+dbDest.defendedPostAlert.drop()
+dbDest.defendedPostNotification.drop()
+dbDest.followerNotification.drop()
+dbDest.lawClosedNotification.drop()
+dbDest.milestoneNotification.drop()
+dbDest.publicMilestoneNotification.drop()
 
-var adminRole = dbDest.roleUser.find({authority:"ROLE_USER"})[0]
+var adminRole = dbDest.roleUser.find({authority:"ROLE_ADMIN"})[0]
 
 
-db.kuorumUser.update({email:"iduetxe@gmail.com"},{$addToSet:{authorities:adminRole}})
-db.kuorumUser.update({email:"mat.nso@gmail.com"},{$addToSet:{authorities:adminRole}})
-db.kuorumUser.update({email:"josemaria.garcia@kuorum.org"},{$addToSet:{authorities:adminRole}})
+dbDest.kuorumUser.update({email:"iduetxe@gmail.com"},{$addToSet:{authorities:adminRole}})
+dbDest.kuorumUser.update({email:"mat.nso@gmail.com"},{$addToSet:{authorities:adminRole}})
+dbDest.kuorumUser.update({email:"josemaria.garcia@kuorum.org"},{$addToSet:{authorities:adminRole}})
