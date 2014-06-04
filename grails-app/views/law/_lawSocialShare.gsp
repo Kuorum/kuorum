@@ -28,9 +28,17 @@
                     }
                 });
             </script>
-            <a href="#" class="social-share facebook" data-facebookDataId="law_${law.id}">
+            %{--<a href="#" class="social-share facebook" data-facebookDataId="law_${law.id}">--}%
+                %{--<span class="sr-only"><g:message code="law.social.facebook"/></span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span>--}%
+            %{--</a>--}%
+            %{--<a href="https://www.facebook.com/sharer/sharer.php?u=http://test.kuorum.org/leyes/parlamento-espanol/empleo-y-seguridad-social/recualificacionprofesional" class="social-share facebook" data-facebookDataId="law_${law.id}">--}%
+                %{--<span class="sr-only"><g:message code="law.social.facebook"/></span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span>--}%
+            %{--</a>--}%
+            <g:set var="facebookLink">https://www.facebook.com/sharer/sharer.php?u=${law.shortUrl}</g:set>
+            <a href="${facebookLink}" class="social-share facebook" data-facebookDataId="law_${law.id}">
                 <span class="sr-only"><g:message code="law.social.facebook"/></span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span>
             </a>
+
         </li>
         %{--<li><a href="#"><span class="sr-only">LinkedIn</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li>--}%
         <li>

@@ -29,7 +29,7 @@ class FileService {
         kuorumFile.save()//The ID is necessary
 
         def fileLocation = generatePath(kuorumFile)
-        kuorumFile.fileName = "${kuorumFile.id}.${getExtension(fileName)}"
+        kuorumFile.fileName = "${kuorumFile.id}.${getExtension(fileName)}".toLowerCase()
         kuorumFile.storagePath = "$temporalPath/$fileLocation"
         kuorumFile.url ="$rootUrl/$fileLocation/$kuorumFile.fileName"
         kuorumFile.save()
@@ -55,16 +55,16 @@ class FileService {
             throw new KuorumException("Subiendo un fichero demasiado grande", "error.file.maxSizeExceded")
         }
 
-        burningImageService.doWith("${kuorumFile.storagePath}/${kuorumFile.fileName}", kuorumFile.storagePath)
-                .execute {
-            //Pensar este 558 que es el tamaño del lightbox
-            Integer withLightBox = 558
-            Float ratio = withLightBox / it.loadedImage.getSize().width
-//            if (it.loadedImage.getSize().width > withLightBox){
-            it.scaleAccurate(withLightBox, (it.loadedImage.getSize().height * ratio).round().intValue())
-//            }
-
-        }
+//        burningImageService.doWith("${kuorumFile.storagePath}/${kuorumFile.fileName}", kuorumFile.storagePath)
+//                .execute {
+//            //Pensar este 558 que es el tamaño del lightbox
+//            Integer withLightBox = 558
+//            Float ratio = withLightBox / it.loadedImage.getSize().width
+////            if (it.loadedImage.getSize().width > withLightBox){
+//            it.scaleAccurate(withLightBox, (it.loadedImage.getSize().height * ratio).round().intValue())
+////            }
+//
+//        }
 
         kuorumFile
     }
@@ -206,6 +206,7 @@ class FileService {
             if (file.exists()){
                 file.delete()
             }
+            log.info("Cargando imagen subida en :${file.absolutePath}")
             file << inputStream
         } catch (Exception e) {
             //TODO: Gestion Errores
