@@ -19,16 +19,18 @@ $(document).ready(function() {
             {
                 element: 'section.boxes.noted.likes form  a',
                 placement: 'bottom',
+                template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="end">Continuar</button></div></div>',
                 title: i18n.tour.tour_post.step1_title,
                 content:i18n.tour.tour_post.step1_content
-            },
-            {
-                element: 'article.kakareo footer ul.actions-kak li.kakareo-number a.action.cluck:first',
-                placement: 'bottom',
-                template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="end">Continuar</button></div></div>',
-                title: i18n.tour.tour_post.step2_title,
-                content:i18n.tour.tour_post.step2_content
             }
+//            ,
+//            {
+//                element: 'article.kakareo footer ul.actions-kak li.kakareo-number a.action.cluck:first',
+//                placement: 'bottom',
+//                template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="end">Continuar</button></div></div>',
+//                title: i18n.tour.tour_post.step2_title,
+//                content:i18n.tour.tour_post.step2_content
+//            }
         ]);
 
         // Initialize the tour
