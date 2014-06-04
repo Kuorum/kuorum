@@ -54,9 +54,10 @@
                     <div class="col-xs-12 col-sm-3 col-md-12">
                         <h1 class="collabor"><g:message code="layout.footer.workingWith"/></h1>
                         <ul class="collabor">
-                            <li><a href="http://www.sg.ethz.ch/" target="_blank" hreflang="en" class="ethz"><img src="${g.resource(dir:'images', file:'logo-ethz.png')}" alt="ETHZ (Eidgenössische Technische Hochschule Zürich)"></a></li>
-                            <li><a href="http://www.deliveringhappiness.com/" target="_blank" hreflang="en" class="delhap"><img src="${g.resource(dir:'images', file:'logo-delhap.png')}" alt="Delivering Happiness"></a></li>
+                            <li><a class="ethz" hreflang="en" href="http://www.sg.ethz.ch/">ETHZ (Eidgenössische Technische Hochschule Zürich)</a></li>
+                            <li><a class="delhap" hreflang="en" href="http://www.deliveringhappiness.com/">Delivering Happiness</a></li>
                         </ul>
+
                     </div>
 
                     <div class="col-xs-12 col-sm-3 col-md-12">
