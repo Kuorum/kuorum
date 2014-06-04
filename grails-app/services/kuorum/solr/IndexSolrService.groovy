@@ -197,14 +197,22 @@ class IndexSolrService {
             regionIso = spain.iso3166_2
         }else{
             //User or Politicians
-            if (!kuorumUser.personalData.postalCode || !kuorumUser.personalData.gender){
+//            if (!kuorumUser.personalData.postalCode || !kuorumUser.personalData.gender){
+            if (!kuorumUser.personalData.gender){
                 log.info("No se indexa al usuario ${kuorumUser.email} porque no tenemos sus datos básicos")
                 return null // Skipping user because we don't have basic data
             }
 
-            regionName = kuorumUser.personalData.province.name
-            regionIso = kuorumUser.personalData.province.iso3166_2
-            postalCode = kuorumUser.personalData.postalCode
+            if (!kuorumUser.personalData.postalCode){
+                //Usuarios de antigua web que se indexen
+                regionName = "España"
+                regionIso = "EU-ES"
+                postalCode = "00000"
+            }else{
+                regionName = kuorumUser.personalData.province.name
+                regionIso = kuorumUser.personalData.province.iso3166_2
+                postalCode = kuorumUser.personalData.postalCode
+            }
         }
         new SolrKuorumUser(
                 id:kuorumUser.id.toString(),
