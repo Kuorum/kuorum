@@ -7,7 +7,7 @@
 
 <!-- Schema.org markup for Google+ -->
 <meta itemprop="name" content="${post.title}">
-<meta itemprop="description" content="${post.text}">
+<meta itemprop="description" content="${post.title}">
 %{--<meta itemprop="image" content="${post.multimedia?.url}">--}%
 <g:if test="${post.multimedia && post.multimedia.fileType == kuorum.core.FileType.IMAGE}">
     <meta itemprop="image" content="${post.multimedia?.url}" />
@@ -18,7 +18,7 @@
 <meta name="twitter:site" content="@kuorumorg">
 <meta name="twitter:title" content="${post.title}">
 %{--Page description less than 200 characters--}%
-<meta name="twitter:description" content="${post.text}">
+<meta name="twitter:description" content="${post.title}">
 <g:if test="${post.owner.socialLinks?.twitter}">
     <meta name="twitter:creator" content="@${post.owner.socialLinks.twitter}">
 </g:if>
@@ -32,9 +32,9 @@
 <g:if test="${post.multimedia && post.multimedia.fileType == kuorum.core.FileType.IMAGE}">
     <meta property="og:image" content="${post.multimedia?.url}" />
 </g:if>
-<meta name="description" content="${post.text}" />
+<meta name="description" content="${post.title}" />
 <meta name="title" content="${post.title}" />
-%{--<meta property="og:description" content="${post.title}" />--}%
+<meta property="og:description" content="${post.title}" />
 <meta property="og:site_name" content="${message(code: 'kuorum.name')}" />
 <meta property="article:published_time" content="${formatDate(date:post.dateCreated, format:'yyyy-MM-dd')}" />
 <meta property="article:modified_time" content="${formatDate(date:post.dateCreated, format:'yyyy-MM-dd')}" />
