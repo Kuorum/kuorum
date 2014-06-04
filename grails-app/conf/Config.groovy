@@ -12,7 +12,8 @@ import kuorum.core.model.gamification.GamificationElement
 //                             "file:${userHome}/.grails/${appName}-config.groovy"]
 
 grails.config.locations = [
-        "classpath:${grails.util.Environment.current.name}_config.properties"
+        "classpath:${grails.util.Environment.current.name}_config.properties",
+        "classpath:Config_${grails.util.Environment.current.name}.groovy"
 //        "file:/home/iduetxe/kuorum/kuorum/grails-app/conf/${grails.util.Environment.current.name}_milestones.groovy"
 //        Environment.current.name
 //        "classpath:development_config.properties"
@@ -101,41 +102,6 @@ grails.exceptionresolver.params.exclude = ['password']
 
 // configure auto-caching of queries by default (if false you can cache individual queries with 'cache: true')
 grails.hibernate.cache.queries = false
-
-environments {
-    development {
-        grails.logging.jul.usebridge = true
-        grails.serverURL = "http://127.0.0.1:8080/kuorum"
-    }
-    production {
-        grails.logging.jul.usebridge = false
-        grails.serverURL = "http://kuorum.org" // This property is overwritten by production_config.properties
-    }
-}
-
-// log4j configuration
-log4j = {
-    // Example of changing the log pattern for the default console appender:
-    //
-    appenders {
-        console name:'stdout', layout:pattern(conversionPattern: '%d{yyyy MM dd HH:mm:ss,SSS} [%c] # %-5p %m  %n' )
-    }
-
-    info    'grails.app'
-
-    error  'org.codehaus.groovy.grails.web.servlet',        // controllers
-           'org.codehaus.groovy.grails.web.pages',          // GSP
-           'org.codehaus.groovy.grails.web.sitemesh',       // layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping',        // URL mapping
-           'org.codehaus.groovy.grails.commons',            // core / classloading
-           'org.codehaus.groovy.grails.plugins',            // plugins
-           'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate'
-}
-
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.usernamePropertyName='email'
@@ -258,7 +224,7 @@ kuorum {
         }
     }
     upload{
-        serverPath = "OVERWEPROPERTIES"
+        serverPath = "OVERWRITTEN_PROPERTIES"
         relativeUrlPath = "/uploadedImages"
     }
     promotion{
