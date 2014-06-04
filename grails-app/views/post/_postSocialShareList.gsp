@@ -27,7 +27,7 @@
                 name: '${post.title.trim().replaceAll('\'', '\\\'')}',
                 caption: '${post.law.hashtag}',
                 description: '${post.text.trim().replaceAll('\'', '\\\'').replaceAll('\n', ' ')}',
-                link: '${createLink(mapping: 'postShow', params:post.encodeAsLinkProperties(), absolute:true)}',
+                link: '${post.shortUrl?:createLink(mapping: 'postShow', params:post.encodeAsLinkProperties(), absolute:true)}',
                 picture: '${post.multimedia?.url}'
             }
         });

@@ -23,7 +23,7 @@
                         name: '${law.shortName.replaceAll('\'', '\\\'')}',
                         caption: '${law.realName.replaceAll('\'', '\\\'')}',
                         description: '${law.introduction.trim().replaceAll('\'', '\\\'')}',
-                        link: '${createLink(mapping: 'lawShow', params:law.encodeAsLinkProperties(), absolute:true)}',
+                        link: '${law.shortUrl?:createLink(mapping: 'lawShow', params:law.encodeAsLinkProperties(), absolute:true)}',
                         picture: '${law.image.url}'
                     }
                 });
