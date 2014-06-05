@@ -103,7 +103,7 @@ class UrlMappings {
         name profileMessages:     "/configuracion-usuario/mensajes"         (controller: "profile", action: "userMessages")
         name profileDeleteAccount:"/configuracion-usuario/eliminar-cuenta"  (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
 
-        name footerWhatIsKuorum:  "/kuorum/que-es"              (controller:"footer", action: "whatIsKuorum" )
+        name footerWhatIsKuorum:  "/kuorum"                     (controller:"footer", action: "whatIsKuorum" )
         name footerUsingMyVote:   "/kuorum/para-que-sirve-mi-voto"(controller:"footer", action: "usingMyVote" )
         name footerUserGuide:     "/kuorum/guia-del-usuario"    (controller:"footer", action: "userGuide" )
         name footerHistories:     "/kuorum/historias"           (controller:"footer", action: "histories" )
