@@ -605,7 +605,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 }
 .popover.tour .popover-navigation > button:last-child {margin: 0 !important;}
 .popover.tour .popover-content,
-.popover.tour .popover-navigation {padding: 4px;}
+.popover.tour .popover-navigation {padding: 4px !important;}
 .tour-step-background {background: none !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
 .tour-backdrop {background: #fff !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
 .popover[class*="tour-"] {z-index: 1110 !important;}
@@ -2256,7 +2256,7 @@ textarea.error,
 .config .skill section p a {color: #a8a8a8; text-decoration: underline;}
 
 .config .role .row > section > p,
-.config .skill .row > section > p {min-height: 60px;}
+.config .skill .row > section > p {min-height: 72px;}
 
 .config .role section .options,
 .config .skill section .options {border-top: solid 1px #DADADA; margin: 0;}
@@ -2618,7 +2618,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 
   .discover .kakareo.post.ley .photo .aboutLaw {top: 5%;}
   .discover .boxes.vote {margin-top: 46px;}
-  .discover .others .laws .kakareo.post.ley .photo {width: 180px;}
+  .discover .others .laws .kakareo.post.ley .photo {width: 170px;}
   .discover .others .kakareo.post.ley h1 {margin-bottom: 0;}
   .introDiscover .steps li {margin: 0 0 0 5px;}
   .pre {margin: 5px 20px 5px 0;}
