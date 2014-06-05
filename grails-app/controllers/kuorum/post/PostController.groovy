@@ -296,6 +296,9 @@ class PostController {
             Post post = params.post
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             PostComment postComent = new PostComment(kuorumUser: user, text:command.comment)
+            log.info("Comment: ${command.comment} || ${postComent.text}")
+            log.info("RQUEST: ${request.getCharacterEncoding()}")
+            log.info("RESPONSE: ${response.getCharacterEncoding()}")
             postComent = postService.addComment(params.post, postComent)
             render template: '/post/postComment', model:[post:post, comment:postComent, pos:post.comments.size()-1, display:'none']
         }
