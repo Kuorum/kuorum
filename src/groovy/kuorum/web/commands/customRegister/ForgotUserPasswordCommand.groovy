@@ -18,7 +18,7 @@ class ForgotUserPasswordCommand {
 
     static constraints = {
         email nullable: false, email:true, validator: {val, obj->
-            KuorumUser user = KuorumUser.findByEmail(val)
+            KuorumUser user = KuorumUser.findByEmail(val.toLowerCase())
             if (obj.email && !user){
                 return 'register.forgotPassword.notUserNameExists'
             }
