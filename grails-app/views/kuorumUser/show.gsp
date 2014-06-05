@@ -67,14 +67,22 @@
     </g:else>
 
     <section class="boxes follow">
-        <h1><span class="fa fa-user"></span> <small><span class="fa fa-forward"></span></small> <g:message code="kuorumUser.show.module.following.title"/></h1>
+        <h1>
+            <span class="fa fa-user"></span>
+            <small><span class="fa fa-forward"></span></small>
+            <g:message code="kuorumUser.show.module.following.title" args="[user.following?user.following.size():0]"/>
+        </h1>
         <div class="kakareo follow">
             <userUtil:listFollowing user="${user}"/>
         </div>
     </section>
 
     <section class="boxes follow">
-        <h1><span class="fa fa-user"></span> <small><span class="fa fa-backward"></span></small> <g:message code="kuorumUser.show.module.followers.title"/> </h1>
+        <h1>
+            <span class="fa fa-user"></span>
+            <small><span class="fa fa-backward"></span></small>
+            <g:message code="kuorumUser.show.module.followers.title" args="[user.followers?user.followers.size():0]"/>
+        </h1>
         <div class="kakareo follow">
             <userUtil:listFollowers user="${user}"/>
         </div>
