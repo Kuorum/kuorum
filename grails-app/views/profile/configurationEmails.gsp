@@ -20,7 +20,7 @@
 <content tag="mainContent">
     <h1><g:message code="profile.emailNotifications.title"/></h1>
     <g:form method="POST" mapping="profileEmailNotifications" name="config9" role="form">
-        <g:each in="${kuorum.mail.MailGroupType.values() - [MailGroupType.NOT_CONFIGURABLE]}" var="mailGroup">
+        <g:each in="${kuorum.mail.MailGroupType.values().findAll{it.editable}}" var="mailGroup">
             <div class="form-group activityMe">
                 <span class="span-label"><g:message code="profile.emailNotifications.${mailGroup}.label"/></span>
                 <label class="checkbox-inline pull-right"><input type="checkbox" class="allActivityMails" value=""> marcar todas</label>
