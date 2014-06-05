@@ -13,7 +13,8 @@
         <div class="container-fluid">
             <div class="col-xs-12 col-sm-7 col-md-7">
                 <div class="play">
-                    <a href="#" data-toggle="modal" data-target="#videoHome" class="front"><span class="fa fa-play-circle fa-3x"></span></a>
+                    <a href="#" data-toggle="modal" data-target="#videoHome" class="front hidden-xs hidden-sm"><span class="fa fa-play-circle fa-3x"></span></a>
+                    <a href="http://www.youtube.com/embed/fQDQO4VRpF8?fs=1&rel=0&showinfo=0&showsearch=0&autoplay=1" class="front visible-xs visible-sm"><span class="fa fa-play-circle fa-3x"></span></a>
                     <g:message code="landingPage.youtube.play"/>
                 </div>
                 <div id="videoHome" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="video" aria-hidden="true">
