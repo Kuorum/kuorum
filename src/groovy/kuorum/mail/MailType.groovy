@@ -32,7 +32,7 @@ public enum MailType {
     POST_CREATED_3                      (MailGroupType.NOT_CONFIGURABLE, "02B_timePublishedAuthor", "promotion",[],["postType"]),
     POST_CREATED_4                      (MailGroupType.NOT_CONFIGURABLE, "02C_timePublishedAuthor", "promotion",[],["postType"]),
 
-    FEEDBACK                      (MailGroupType.NOT_CONFIGURABLE, "00_feedback", "internal",[],["feedbackText, feedbackUser, feedbackUserLink"]);
+    FEEDBACK                      (MailGroupType.NOT_CONFIGURABLE, "00_feedback", "internal",[],["feedbackText", "feedbackUser", "feedbackUserLink", "userDeleted"]);
 
 
     String nameTemplate

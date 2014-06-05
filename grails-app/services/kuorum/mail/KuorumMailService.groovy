@@ -24,11 +24,12 @@ class KuorumMailService {
     IndexSolrService indexSolrService
     def grailsApplication
 
-    def sendFeedbackMail(KuorumUser user, String feedback){
+    def sendFeedbackMail(KuorumUser user, String feedback, boolean userDeleted = false){
         def bindings = [
                 feedbackUserLink:generateLink("userShow",user.encodeAsLinkProperties()),
                 feedbackUser:user.name,
-                feedbackText:feedback
+                feedbackText:feedback,
+                userDeleted:userDeleted
         ]
         MailUserData mailUserData = new MailUserData(user:getFeedbackUser(), bindings:[])
         MailData mailData = new MailData(fromName:user.name, mailType: MailType.FEEDBACK, globalBindings: bindings, userBindings: [mailUserData])

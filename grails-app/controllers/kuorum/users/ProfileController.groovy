@@ -269,7 +269,7 @@ class ProfileController {
             render view:'deleteAccount', model:[user:user, command:command]
             return;
         }
-        kuorumMailService.sendFeedbackMail(user, command.explanation)
+        kuorumMailService.sendFeedbackMail(user, command.explanation, command.forever)
         if (command.forever){
             kuorumUserService.deleteAccount(user)
             flash.message=message(code:'profile.deleteAccount.deleteForever.success')
