@@ -21,7 +21,7 @@ class GoogleOAuthService implements IOAuthService{
     def kuorumMailService
 
     private static final String GOOLE_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v1/userinfo'
-    private static final String PROVIDER = 'Google'
+    private static final String PROVIDER = 'Google+'
 
     OAuthToken createAuthToken(accessToken) {
         def response = oauthService.getGoogleResource(accessToken, GOOLE_USER_INFO_URL)
