@@ -2256,7 +2256,7 @@ textarea.error,
 .config .skill section p a {color: #a8a8a8; text-decoration: underline;}
 
 .config .role .row > section > p,
-.config .skill .row > section > p {min-height: 60px;}
+.config .skill .row > section > p {min-height: 72px;}
 
 .config .role section .options,
 .config .skill section .options {border-top: solid 1px #DADADA; margin: 0;}
