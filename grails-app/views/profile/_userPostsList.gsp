@@ -8,6 +8,7 @@
             <postUtil:ifPostIsEditable post="${post}">
                 <li><g:link mapping="postEdit" params="${post.encodeAsLinkProperties()}"><g:message code="profile.profileMyPosts.post.edit"/></g:link></li>
             </postUtil:ifPostIsEditable>
+            <li><g:link mapping="postShow" params="${post.encodeAsLinkProperties()}"><g:message code="profile.profileMyPosts.post.show"/></g:link></li>
         </ul>
     </li>
 </g:each>
