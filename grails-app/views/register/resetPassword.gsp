@@ -29,7 +29,8 @@
     <g:render template="/register/registerSocial"/>
     <h2><g:message code="register.resetPassword.form.title"/> </h2>
     <formUtil:validateForm bean="${command}" form="sign"/>
-    <g:form mapping="registerResendMail" name="sign" role="form" method="POST" autocomplete="off">
+    <g:form mapping="resetPasswordChange" name="sign" role="form" method="POST" autocomplete="off">
+        <g:hiddenField name='t' value='${token}'/>
         <div class="form-group">
             <formUtil:input
                     command="${command}"
@@ -68,29 +69,3 @@
     <h3><g:message code="register.resetPassword.description.title"/></h3>
     <p><g:message code="register.resetPassword.description.p1"/></p>
 </content>
-
-
-<s2ui:form width='475' height='250' elementId='resetPasswordFormContainer'
-           titleCode='spring.security.ui.resetPassword.header' center='true'>
-
-	<g:form action='resetPassword' name='resetPasswordForm' autocomplete='off'>
-	<g:hiddenField name='t' value='${token}'/>
-	<div class="sign-in">
-
-	<br/>
-	<h4><g:message code='spring.security.ui.resetPassword.description'/></h4>
-
-	<table>
-		<s2ui:passwordFieldRow name='password' labelCode='resetPasswordCommand.password.label' bean="${command}"
-                             labelCodeDefault='Password' value="${command?.password}"/>
-
-		<s2ui:passwordFieldRow name='password2' labelCode='resetPasswordCommand.password2.label' bean="${command}"
-                             labelCodeDefault='Password (again)' value="${command?.password2}"/>
-	</table>
-
-	<s2ui:submitButton elementId='reset' form='resetPasswordForm' messageCode='spring.security.ui.resetPassword.submit'/>
-
-	</div>
-	</g:form>
-
-</s2ui:form>

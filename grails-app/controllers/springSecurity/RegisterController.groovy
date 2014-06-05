@@ -1,7 +1,9 @@
 package springSecurity
 
 import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.plugin.springsecurity.authentication.dao.NullSaltSource
 import grails.plugin.springsecurity.ui.RegistrationCode
+import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import grails.validation.Validateable
 import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
@@ -142,6 +144,45 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     def forgotPasswordSuccess = {
     }
 
+    def resetPassword(ResetPasswordCommand command) {
+
+        String token = params.t
+
+        def registrationCode = token ? RegistrationCode.findByToken(token) : null
+        if (!registrationCode) {
+            flash.error = message(code: 'spring.security.ui.resetPassword.badCode')
+            redirect uri: SpringSecurityUtils.securityConfig.successHandler.defaultTargetUrl
+            return
+        }
+
+        if (!request.post) {
+            return [token: token, command: new ResetPasswordCommand()]
+        }
+
+        command.username = registrationCode.username
+        command.validate()
+
+        if (command.hasErrors()) {
+            return [token: token, command: command]
+        }
+
+        String salt = saltSource instanceof NullSaltSource ? null : registrationCode.username
+        RegistrationCode.withTransaction { status ->
+            KuorumUser user = KuorumUser.findByEmail(registrationCode.username)
+            user.accountLocked = false
+            user.password = springSecurityUiService.encodePassword(command.password, salt)
+            user.save()
+            registrationCode.delete()
+        }
+
+        springSecurityService.reauthenticate registrationCode.username
+
+        flash.message = message(code: 'spring.security.ui.resetPassword.success')
+
+        def conf = SpringSecurityUtils.securityConfig
+        String postResetUrl = conf.ui.register.postResetUrl ?: conf.successHandler.defaultTargetUrl
+        redirect uri: postResetUrl
+    }
 
     /**
      * It's overwritten because createLink use the request to recover the absolute path. And I prefer
@@ -175,7 +216,8 @@ class KuorumRegisterCommand{
     static constraints = {
         importFrom EditUserProfileCommand, include:["name"]
         email nullable:false, email:true, validator: { val, obj ->
-            if (KuorumUser.findByEmail(val)) {
+            if (val && KuorumUser.findByEmail(val.toLowerCase())) {
+                obj.email = val.toLowerCase()
                 return 'registerCommand.username.unique'
             }
         }
