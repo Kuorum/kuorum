@@ -605,7 +605,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 }
 .popover.tour .popover-navigation > button:last-child {margin: 0 !important;}
 .popover.tour .popover-content,
-.popover.tour .popover-navigation {padding: 4px;}
+.popover.tour .popover-navigation {padding: 4px !important;}
 .tour-step-background {background: none !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
 .tour-backdrop {background: #fff !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
 .popover[class*="tour-"] {z-index: 1110 !important;}

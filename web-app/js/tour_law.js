@@ -6,9 +6,10 @@ $(document).ready(function() {
         tour_law = new Tour({
             name: 'tour_law',
             storage: false,
+            keyboard: false,
             debug: true,
             backdrop: true,
-            template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="next">Continuar</button></div></div>',
+            template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="next">Continuar</button><button class="btn" data-role="end">Finalizar</button></div></div>',
             onEnd : function(tour_law){
                 window.location.href = urls.home;
                 $("body").append("<div class='tour-backdrop'></div>")
@@ -32,7 +33,6 @@ $(document).ready(function() {
             {
                 element: 'aside.participate div.row',
                 placement: 'top',
-                template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn" data-role="end">Finalizar</button></div></div>',
                 title: i18n.tour.tour_law.step2_title,
                 content:i18n.tour.tour_law.step2_content
             }

@@ -6,11 +6,12 @@ $(document).ready(function() {
         tour_post = new Tour({
             name: 'tour_post',
             storage: false,
+            keyboard: false,
             debug: true,
             backdrop: true,
-            template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="next">Continuar</button></div></div>',
+            template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="next">Continuar</button><button class="btn" data-role="end">Finalizar</button></div></div>',
             onEnd : function(tour_post){
-                window.location.href = urls.tour.tour_law;
+                window.location.href = urls.home;
                 $("body").append("<div class='tour-backdrop'></div>")
             }
         });
@@ -19,7 +20,7 @@ $(document).ready(function() {
             {
                 element: 'section.boxes.noted.likes form  a',
                 placement: 'bottom',
-                template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="end">Continuar</button></div></div>',
+                template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey" id="totour3">Continuar</button><button class="btn" data-role="end">Finalizar</button></div></div>',
                 title: i18n.tour.tour_post.step1_title,
                 content:i18n.tour.tour_post.step1_content
             }
@@ -40,6 +41,11 @@ $(document).ready(function() {
         if ($(location).attr('pathname') == urls.tour.tour_post){
             tour_post.start();
         }
+
+        // enlazar con el tour3
+        $('body').on('click', '#totour3', function() {
+            window.location.href = urls.tour.tour_law;
+        });
 
     });
 
