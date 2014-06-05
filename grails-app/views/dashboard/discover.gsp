@@ -19,7 +19,7 @@
     <g:each in="${relevantLaws}" var="law" status="i">
         <div class="row" style="display:${i!=0?'none':'block'}" id="relevantLaw_${i}">
             <section id="main" class="col-xs-12 col-sm-8 col-md-8" role="main">
-                <g:render template="/law/lawInfo" model="[law:law, linkToLaw:true]"/>
+                <g:render template="/law/lawInfo" model="[law:law, linkToLaw:true, hideCallMobileVoteButton:true]"/>
             </section>
 
             <aside class="col-xs-12 col-sm-4 col-md-4" role="complementary">

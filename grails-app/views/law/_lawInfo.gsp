@@ -1,5 +1,7 @@
 <article class="kakareo post ley" role="article" itemscope itemtype="http://schema.org/Article">
-    <div class="callMobile"><a href="#vote" class="smooth"><g:message code="law.vote.mobileButton"/> </a></div>
+    <g:if test="${!hideCallMobileVoteButton}">
+        <div class="callMobile"><a href="#vote" class="smooth"><g:message code="law.vote.mobileButton"/> </a></div>
+    </g:if>
     <g:if test="${law.image}">
         <g:render template="/law/lawPhoto" model="[law:law, victory:victories]"/>
     </g:if>
