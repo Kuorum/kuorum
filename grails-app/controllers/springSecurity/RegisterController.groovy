@@ -27,7 +27,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         def user = new KuorumUser(
-                email: command.email,
+                email: command.email.toLowerCase(),
                 name: command.name,
                 accountLocked: true, enabled: true)
         user.relevantCommissions = []
@@ -58,12 +58,14 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     }
 
     def resendVerification(ResendVerificationMailCommand command){
-        KuorumUser user = KuorumUser.findByEmail(command.email)
+        KuorumUser user = KuorumUser.findByEmail(command.email.toLowerCase())
         if (!user){
+            flash.error=message(code:'springSecurity.ResendVerificationMailCommand.email.notUserExists')
             command.errors.rejectValue('email', 'springSecurity.ResendVerificationMailCommand.email.notUserExists')
         }
-        RegistrationCode registrationCode = RegistrationCode.findByUsername(command.email)
+        RegistrationCode registrationCode = RegistrationCode.findByUsername(user.email)
         if (!registrationCode){
+            flash.error=message(code:'springSecurity.ResendVerificationMailCommand.email.notUserExists')
             command.errors.rejectValue('email', 'springSecurity.ResendVerificationMailCommand.email.notToken')
         }
         if (command.hasErrors()){
@@ -74,7 +76,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         log.info("Usuario $user.name recordando token  $registrationCode.token")
         String url = generateLink('verifyRegistration', [t: registrationCode.token])
 
-//        kuorumMailService.sendRegisterUser(user,url)
+        kuorumMailService.sendRegisterUser(user,url)
         flash.chainedParams = [link:url]
         flash.message=message(code:'register.locked.resendSuccess')
         redirect mapping:"registerSuccess"
