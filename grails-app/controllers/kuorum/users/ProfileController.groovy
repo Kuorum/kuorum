@@ -37,7 +37,7 @@ class ProfileController {
         KuorumUser user = params.user
         model.menu = [
                 activeNotifications:Notification.countByKuorumUserAndIsAlertAndIsActive(user, true, true),
-                unpublishedPosts:Post.countByOwnerAndPublished(user, false),
+                unpublishedPosts:postService.numUnpublishedUserPosts(user),
                 favorites: postService.favoritesPosts(user).size(),
                 unreadMessages:3
         ]

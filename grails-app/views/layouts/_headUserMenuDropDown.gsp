@@ -7,13 +7,13 @@
     <li>
         <g:link mapping="profileFavorites">
             <span id="post-sin-leer"><g:message code="head.navigation.userMenu.showFavoritesPosts"/></span>
-            <span class="badge" role="log" aria-labelledby="post-sin-leer" aria-live="assertive" aria-relevant="additions">${numFavorites}</span>
+            <span class="badge" role="log" aria-labelledby="post-sin-leer" aria-live="assertive" aria-relevant="additions">${numFavorites?:''}</span>
         </g:link>
     </li>
     <li>
         <g:link mapping="profileMyPosts">
             <span id="mis-post"><g:message code="head.navigation.userMenu.showUserPosts"/></span>
-            <span class="badge" role="log" aria-labelledby="mis-post" aria-live="assertive" aria-relevant="additions">${numUserPosts}</span>
+            <span class="badge" role="log" aria-labelledby="mis-post" aria-live="assertive" aria-relevant="additions">${numUserPosts?:''}</span>
         </g:link>
     </li>
     <li><g:link mapping="profileKuorumStore"><g:message code="head.navigation.userMenu.kuorumStore"/></g:link></li>

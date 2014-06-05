@@ -323,7 +323,11 @@ class PostService {
     }
 
     Integer numUserPosts(KuorumUser user){
-        Post.countByOwner(user)
+        Post.countByOwnerAndPublished(user, true)
+    }
+
+    Integer numUnpublishedUserPosts(KuorumUser user){
+        Post.countByOwnerAndPublished(user, false)
     }
 
     List<Post> recommendedPosts(KuorumUser user = null, Law law = null, Pagination pagination = new Pagination()){

@@ -23,7 +23,7 @@ class LayoutsController {
                 list: listNotifications,
                 numNews: numNewNotifications
         ]
-        Integer numUserPosts = postService.numUserPosts(user)
+        Integer numUserPosts = postService.numUnpublishedUserPosts(user)
         render template:'/layouts/userHead', model:[user:user, notifications:notifications,numUserPosts:numUserPosts]
     }
 
