@@ -21,7 +21,7 @@
     <li class="${activeMapping=='adminSearcherIndex'?'active':''}">
         <g:link mapping="adminSearcherIndex"><g:message code="admin.menu.fullIndex.link"/></g:link>
     </li>
-    <li class="${activeMapping=='adminStatsPieChart'?'active':''}">
-        <g:link mapping="adminStatsPieChart"><g:message code="admin.menu.stats.link"/></g:link>
+    <li class="${activeMapping=='adminStats'?'active':''}">
+        <g:link mapping="adminStats"><g:message code="admin.menu.stats.link"/></g:link>
     </li>
 </ul>
