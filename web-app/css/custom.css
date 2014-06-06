@@ -2602,7 +2602,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .userprofile .kakareo.post.ley .socialContact li {display: inline; margin-right: 30px; padding: 0;}
   .userprofile .boxes .btn.btn-lg {font-size: 1.4rem !important; padding: 18px !important;}
   .discover .kakareo.post.ley .photo .aboutLaw {top: 5%;}
-  .discover .boxes.vote {margin-top: 46px;}
+  .discover .boxes.vote {margin-top: 46px; padding: 10px;}
   .discover .others .laws .kakareo.post.ley .photo {width: 100%;}
   .discover .others .kakareo.post.ley h1 {margin-bottom: 0;}
   .introDiscover .steps li {margin: 0 0 0 5px;}
