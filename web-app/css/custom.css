@@ -723,7 +723,7 @@ span + .text-notification {padding: 0 0 0 33px;}
   margin: 0;
   border-top: 1px solid #dadada;
 }
-.kakareo footer > ul > li {padding: 11px 0 !important;}
+.kakareo footer > ul > li {padding: 11px 0 11px 6px !important;}
 .kakareo footer > ul.info-kak > li,
 .kakareo footer > ul.actions-kak > li {list-style: disc outside none; margin: 0 15px 0 0; padding: 0;}
 .kakareo footer > ul.info-kak > li {float: left;}
@@ -731,7 +731,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul.info-kak > li:last-child {margin: 0;}
 .kakareo footer > ul.info-kak > li:first-child,
 .kakareo footer > ul > li.kakareo-number,
-.kakareo footer > ul > li.more-actions {list-style: none !important; padding: 0;}
+.kakareo footer > ul > li.more-actions {list-style: none !important; padding-left: 0 !important;}
 .kakareo footer > ul > li.read-later {margin-right: 28px !important;}
 .kakareo footer > ul > li .counter {margin: 0 4px 0 0;}
 .kakareo footer > ul > li > a span:first-child {margin: 0 6px 0 0;}
@@ -770,7 +770,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul > li.read-later a.disabled:focus .hidden-xs,
 .kakareo footer > ul > li.read-later a.disabled:active .hidden-xs {color: #20a2ea !important; text-decoration: underline !important; cursor: pointer !important;}
 .kakareo footer > ul > li.more-actions {margin: 0 !important; position: absolute; right: 0;}
-.kakareo footer > ul > li.more-actions > span {background-color: #a8a8a8; padding: 12px 14px 11px; color: #fff; margin: 0;}
+.kakareo footer > ul > li.more-actions > span {background-color: #a8a8a8; padding: 12px 14px; color: #fff; margin: 0;}
 .kakareo footer > ul > li.more-actions > span:hover,
 .kakareo footer > ul > li.more-actions > span:active,
 .kakareo footer > ul > li.more-actions > span:focus {background-color: #545454;}
@@ -907,10 +907,10 @@ span + .text-notification {padding: 0 0 0 33px;}
 .boxes .important .kakareo .link-wrapper:hover,
 .boxes .important .kakareo .link-wrapper:active,
 .boxes .important .kakareo .link-wrapper:focus {background-color: #efefef;}
-
+.boxes .kakareo footer > ul > li {padding: 6px 0 6px 6px !important;}
 .boxes .kakareo footer > ul.info-kak > li,
 .boxes .kakareo footer > ul.actions-kak > li {margin: 0 0 0 2px;}
-.boxes .kakareo footer > ul > li.read-later {margin-right: 40px !important;}
+.boxes .kakareo footer > ul > li.read-later {margin-right: 45px !important;}
 .boxes .kakareo footer ul li.read-later + li.like-number {margin: 0 0 0 2px;}
 .boxes .kakareo footer ul li.like-number {margin: 0 40px 0 2px;}
 
@@ -2522,7 +2522,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .kakareo .main-kakareo {margin-top: 10px;}
 
   .kakareo footer > ul > li.read-later {margin-right: 28px !important;}
-  .boxes .kakareo footer > ul > li.read-later {margin-right: 33px !important;}
+
   .boxes .kakareo footer ul li.like-number {margin: 0 35px 0 2px;}
 
   .multimedia .video .fa {left: 44%; top: 40%;}
@@ -2570,8 +2570,8 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 
   .vote .activity span {font-size: 22px; font-size: 2.2rem;}
   .vote .activity > li {font-size: 12px; font-size: 1.2rem; padding: 0 2px 6px;}
-  /*.boxes {padding: 10px;}*/
-  .boxes.guay .kakareo footer > ul {padding: 0;}
+  /*.boxes {padding: 10px;}
+  .boxes.guay .kakareo footer > ul {padding: 0;}*/
   .boxes.vote .voting > ul > li {margin-right: 2px;}
   .boxes.vote .voting > ul > li > a {font-size: 1.1rem; height: 53px; margin: 0 !important; width: 62px;}
   .participate .row p {padding: 0;}
@@ -2693,11 +2693,11 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 
   #footer .links section h1.map {margin: 30px 0 10px; margin: 3rem 0 1rem;}
 
-  .kakareo footer {font-size: 12px; font-size: 1.2rem;}++++++++++++++++++++++++++++++++-+++++++++++++++++++++++
-  .kakareo footer > ul {height: auto; padding: 6px 0 5px 15px; margin-bottom: 0;}
+  .kakareo footer {font-size: 12px; font-size: 1.2rem;}
+  .kakareo footer > ul {height: auto; padding: 0 0 0 15px; margin-bottom: 0;}
   .kakareo footer > ul.info-kak > li,
   .kakareo footer > ul.actions-kak > li {margin: 0 21px 0 0; padding: 0;}
-  .kakareo footer > ul.actions-kak > li .loading{display: inline-block;}
+  .kakareo footer > ul.actions-kak > li .loading {display: inline-block;}
   .kakareo footer > ul > li.read-later {margin-right: 50px !important;}
   .kakareo footer ul.actions-kak {border: 0;}
   .kakareo footer ul li.more-actions > span {padding: 13px 16px 12px;}
@@ -2706,7 +2706,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .activity .popover-trigger span {font-size: 34px; font-size: 3.4rem;}
   .boxes > h1 {font-size: 22px; font-size: 2.2rem;}
   .boxes .personal {padding: 30px 0;}
-  .boxes .kakareo footer ul li.read-later {margin-right: 44px !important;}
+  .boxes .kakareo footer ul li.read-later {margin-right: 48px !important;}
   .boxes .kakareo footer > ul.actions-kak > li {margin: 0 0 0 4px;}
   .boxes .kakareo footer > ul.actions-kak > li .label-cluckAction {display:none;}
   .multimedia .video .fa {left: 47%; top: 40%;}
