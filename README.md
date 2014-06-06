@@ -1,9 +1,9 @@
-# web
+# Web
 Kuorum es una red social de democracia participativa online que amplifica tu voz en las instituciones.
 
 
 
-## Detalles para montar el entorno
+# Detalles para montar el entorno
 * Recursos
 * IntelliJ-IDEA (IDE aconsejado)
 * Mongodb 2.6.1
