@@ -3,8 +3,11 @@ package kuorum.admin
 import grails.converters.JSON
 import kuorum.Region
 import kuorum.core.model.Law.LawRegionStats
+import kuorum.core.model.LawStatusType
 import kuorum.core.model.UserType
 import kuorum.law.AcumulativeVotes
+import kuorum.law.Law
+import kuorum.post.Post
 import kuorum.users.KuorumUser
 
 class AdminStatsController {
@@ -21,7 +24,12 @@ class AdminStatsController {
             notConfirmedUsers:KuorumUser.countByAccountLocked(true),
             deleteUsers :KuorumUser.countByAccountLockedAndEnabledAndUserTypeNotEqual(false, false, UserType.POLITICIAN),
             activePoliticians:KuorumUser.countByAccountLockedAndEnabledAndUserType(false, true, UserType.POLITICIAN),
-            inactivePoliticians:KuorumUser.countByAccountLockedAndEnabledAndUserType(false, true, UserType.POLITICIAN)
+            inactivePoliticians:KuorumUser.countByAccountLockedAndEnabledAndUserType(false, true, UserType.POLITICIAN),
+            totalLaws: Law.count(),
+            openLaws: Law.countByStatus(LawStatusType.OPEN),
+            closeLaws: Law.countByStatusNotEqual(LawStatusType.OPEN),
+            numPosts:Post.count(),
+            numVictories:Post.countByVictory(true)
         ]
         [stats:stats, region:spain, totalStats:totalStats]
     }

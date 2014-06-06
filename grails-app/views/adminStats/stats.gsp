@@ -59,7 +59,7 @@
     <section class="boxes vote votation" id="votation">
         <h1><g:message code="law.stats.columnC.title"/> </h1>
         <div class="graphContainer">
-            <h2><g:message code="law.stats.columnC.pieChart.title"/></h2>
+            <h2><g:message code="admin.stats.totalStats.columnC.pieChart.title"/></h2>
             <p>
                 <span class="numberVotes">${stats.totalVotes.total}</span>
             </p>
@@ -108,7 +108,11 @@
             </tbody>
         </table>
         <dl class="infoVotation">
-            %{--<dt><g:message code="law.stats.columnC.infoLaw.status"/></dt><dd><g:message code="${kuorum.core.model.LawStatusType.name}.${law.status}"/> </dd>--}%
+            <dt><g:message code="admin.stats.totalStats.columnC.totalLaws"/></dt><dd>${totalStats.totalLaws} </dd>
+            <dt><g:message code="admin.stats.totalStats.columnC.openLaws"/></dt><dd>${totalStats.openLaws} </dd>
+            <dt><g:message code="admin.stats.totalStats.columnC.closeLaws"/></dt><dd>${totalStats.closeLaws} </dd>
+            <dt><g:message code="admin.stats.totalStats.columnC.numPosts"/></dt><dd>${totalStats.numPosts} </dd>
+            <dt><g:message code="admin.stats.totalStats.columnC.numVictories"/></dt><dd>${totalStats.numVictories} </dd>
             %{--<dt>Tipo de ley</dt><dd>Proyecto de ley</dd>--}%
             %{--<dt><g:message code="law.stats.columnC.infoLaw.proposalBy"/></dt><dd>${law.parliamentaryGroup.name}</dd>--}%
             %{--<dt><g:message code="law.stats.columnC.infoLaw.commissions"/></dt>--}%
