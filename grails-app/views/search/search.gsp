@@ -11,8 +11,13 @@
 
 <content tag="mainContent">
     <div class="clearfix">
-        <h1><g:message code="search.head.title.filterType.${searchParams.type}" args="[searchParams.word.encodeAsHTML()]"/> </h1>
-        <div id="results"><g:message code="search.head.title.numResults" args="[docs.numResults]"/> </div>
+        <g:if test="${searchParams.word}">
+            <h1><g:message code="search.head.title.filterType.${searchParams.type}" args="[searchParams.word?.encodeAsHTML()]"/> </h1>
+            <div id="results"><g:message code="search.head.title.numResults" args="[docs.numResults]"/> </div>
+        </g:if>
+        <g:else>
+            <h1><g:message code="search.head.title.noWord"/> </h1>
+        </g:else>
     </div>
     <g:if test="${docs.suggest}">
         <p><g:message code="search.spelling"/> <g:link mapping="searcherSearch" params="[word:docs.suggest.suggestedQuery]" > ${docs.suggest.suggestedQuery} </g:link>(${docs.suggest.hits})</p>
@@ -29,11 +34,6 @@
         pagination="${searchParams}"
         numElements="${docs.numResults}"
     />
-    %{--<div id="load-more" class="text-center">--}%
-        %{--<g:link mapping="searcherSearchSeeMore" class="loadMore" data-parent-id="search-list-id" data-form-id="search-form">--}%
-            %{--<g:message code="search.list.seeMore"/>--}%
-        %{--</g:link>--}%
-    %{--</div>--}%
 </content>
 
 <content tag="leftMenu">
@@ -43,7 +43,7 @@
             <li>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" id="todo" ${searchParams.subTypes.size()==kuorum.core.model.solr.SolrSubType.values().size()?'checked':''}>
+                        <input type="checkbox" id="todo" ${searchParams.subTypes?.size()==kuorum.core.model.solr.SolrSubType.values().size()?'checked':''}>
                         <span class="fa fa-search"></span>
                         <g:message code="search.filters.all"/>
                     </label>
@@ -63,7 +63,7 @@
                                     <li>
                                         <div class="checkbox">
                                             <label>
-                                                <input name="subTypes" value='${solrSubType}'type="checkbox" class="only" ${searchParams.subTypes.contains(solrSubType)?'checked':''}>
+                                                <input name="subTypes" value='${solrSubType}'type="checkbox" class="only" ${searchParams.subTypes?.contains(solrSubType)?'checked':''}>
                                                 <span class="fa ${postUtil.cssIconSolrSubType(solrSubType: solrSubType)}"></span>
                                                 <g:message code="search.filters.SolrSubType.${solrSubType}"/>
                                             </label>
