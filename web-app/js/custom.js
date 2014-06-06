@@ -173,8 +173,6 @@ $(document).ready(function() {
 			var nextId = $(this).html() -1
             $(this).addClass("disabled")
             $(this).parent("li").addClass("active")
-            console.log("#relevantLaw_"+activeId)
-            console.log("#relevantLaw_"+nextId)
             $("#relevantLaw_"+activeId).fadeOut(1000)
             $("#relevantLaw_"+nextId).fadeIn(1000)
 		});
@@ -187,7 +185,14 @@ $(document).ready(function() {
         if (!$(this).hasClass('disabled')){
             var url = $(this).attr("href");
             var postId = $(this).parents("article").first().attr("data-cluck-postId");
-            $.ajax(url).done(function(data){
+            var html = $("article[data-cluck-postId='"+postId+"'] li.kakareo-number").html()
+            $.ajax({
+                url:url,
+                beforeSend:function(xhr){
+                    $("article[data-cluck-postId='"+postId+"'] li.kakareo-number").html('<div class="loading xs"><span class="sr-only">Cargando...</span></div>')
+                }
+            }).done(function(data){
+                $("article[data-cluck-postId='"+postId+"'] li.kakareo-number").html(html)
                 $("article[data-cluck-postId='"+postId+"'] li.kakareo-number .action").addClass('disabled');
                 $("article[data-cluck-postId='"+postId+"'] li.kakareo-number .counter").each(function(idx, element){
                     var numKakareos = parseInt($(element).text()) +1;
@@ -210,12 +215,20 @@ $(document).ready(function() {
 	});
 
     function votePost(url, postId, anonymous){
+        var html = $("article[data-cluck-postId='"+postId+"'] li.like-number").html()
+        var htmlDriveButton = $('#drive > a').html()
+        var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
         $.ajax({
             url:url,
-            data:{postId:postId, anonymous:anonymous}
+            data:{postId:postId, anonymous:anonymous},
+            beforeSend:function(xhr){
+                $("article[data-cluck-postId='"+postId+"'] li.like-number").html(loadingHtml)
+                $('#drive > a').html(loadingHtml)
+            }
         }).done(function(data){
             var numLikes = data.numLikes
             var limitTo = data.limitTo
+            $("article[data-cluck-postId='"+postId+"'] li.like-number").html(html)
             $("article[data-cluck-postId='"+postId+"'] li.like-number .action").addClass('disabled');
             $("article[data-cluck-postId='"+postId+"'] li.like-number .counter").each(function(idx, element){
                 numLikes = parseInt($(element).text()) +1;
@@ -230,11 +243,12 @@ $(document).ready(function() {
             $('.likes .progress-bar').attr("aria-valuemax",limitTo)
             $('#drive > a').html(i18n.post.show.boxes.like.vote.buttonVoted).addClass('disabled');
             $("#drive :input").attr("disabled", true);
+            $("#drive div.form-group").remove()
             prepareProgressBar()
             setTimeout(prepareProgressBar, 500)
 //                setTimeout(prepareProgressBar, 1000)
 
-            console.log(data.gamification)
+//            console.log(data.gamification)
             karma.open(data.gamification)
 
         });
@@ -246,9 +260,17 @@ $(document).ready(function() {
         e.preventDefault();
         var url = $(this).attr("href");
         var postId = $(this).parents("article").first().attr("data-cluck-postId");
-        $.ajax(url).done(function(data, status, xhr){
+        var html = $("article[data-cluck-postId='"+postId+"'] li.read-later").html()
+        var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
+        $.ajax({
+                url:url,
+                beforeSend:function(xhr){
+                    $("article[data-cluck-postId='"+postId+"'] li.read-later").html(loadingHtml)
+                }
+        }).done(function(data, status, xhr){
             var isFavorite = xhr.getResponseHeader('isFavorite');
              var numFavorites = xhr.getResponseHeader('numList');
+            $("article[data-cluck-postId='"+postId+"'] li.read-later").html(html)
             $(".pending h1 .badge").text(numFavorites);
             if (isFavorite == "true"){
                 $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("disabled");

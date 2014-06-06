@@ -6,7 +6,7 @@
         <postUtil:asUser>
         <g:link mapping="postVoteIt" class="${postUtil.cssClassIfVoted(post:post)} action drive" params="${post.encodeAsLinkProperties()}" rel="nofollow">
             <span class="fa fa-rocket fa-lg"></span>
-            <span class="${displayingColumnC?'sr-only':'hidden-xs'}">
+            <span class="${displayingColumnC?'sr-only':'hidden-xs'} label-cluckAction">
                 <g:message code="cluck.footer.vote"/>
             </span>
         </g:link>
@@ -19,7 +19,7 @@
                params="${post.encodeAsLinkProperties()}"
                data-postId="${post.id}">
                 <span class="fa fa-trophy fa-lg"></span>
-                <span class="${displayingColumnC?'sr-only':'hidden-xs'}">
+                <span class="${displayingColumnC?'sr-only':'hidden-xs'} label-cluckAction">
                     <g:message code="cluck.footer.${post.defender ? 'defended' : 'defend'}"/>
                 </span>
             </a>
