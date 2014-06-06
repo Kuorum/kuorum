@@ -24,11 +24,15 @@ Descargamos mongo en $(DESARROLLO)/mongo
 * Creamos un directorio $DESARROLLO/mongo/logs
 * Creamos un directorio $DESARROLLO/mongo/data
 * Creamos un fichero que se llama mongo.cfg. El contenido del fichero es:
+
     logpath=$DESARROLLO/mongo/logs/log
     pidfilepath=$DESARROLLO/mongo/mongo.pid
     dbpath=$DESARROLLO/mongo/data
+
 * Arrancamos la mongo con la siguiente linea
+
     $DESARROLLO/mongo/mongodb-linux-x86_64-2.6.1/bin/mongod --config $DESARROLLO/mongo/mongo.cfg
+
 * Aconsejo crear un script llamado startMongo.sh que te facilite la vida para no escribir todo este churro.
 
 
