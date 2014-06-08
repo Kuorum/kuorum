@@ -1,5 +1,5 @@
 <section class="boxes noted">
-    <g:link mapping="lawShow" params="${law.encodeAsLinkProperties()}">${law.hashtag}</g:link>
+    <g:link mapping="lawShow" target="_blank" params="${law.encodeAsLinkProperties()}">${law.hashtag}</g:link>
     <h1>${law.shortName}</h1>
     <p>${law.realName}</p>
 </section>

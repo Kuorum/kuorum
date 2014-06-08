@@ -90,7 +90,8 @@
 
     <g:if test="${activeLaws}">
         <section class="boxes laws">
-            <h1><span class="fa fa-briefcase"></span><g:message code="kuorumUser.show.module.activeLaws.title"/> </h1>
+            <h1><span class="fa fa-briefcase"></span>
+                <g:message code="kuorumUser.show.module.activeLaws.title"/> </h1>
             <ul>
                 <g:each in="${activeLaws}" var="activity">
                     <li>
