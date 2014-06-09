@@ -171,14 +171,14 @@ $(document).ready(function() {
 				$(this).removeClass('new');
 			});
 
-            var activeId = $('.introDiscover li.active .badge').closest('a').html() -1
-            $('.introDiscover li.active .badge').removeClass("disabled")
-            $('.introDiscover li.active').removeClass("active")
-			var nextId = $(this).html() -1
-            $(this).addClass("disabled")
-            $(this).parent("li").addClass("active")
-            $("#relevantLaw_"+activeId).fadeOut(1000)
-            $("#relevantLaw_"+nextId).fadeIn(1000)
+            var activeId = $('.introDiscover li.active .badge').closest('a').html() -1;
+            $('.introDiscover li.active .badge').removeClass("disabled");
+            $('.introDiscover li.active').removeClass("active");
+			var nextId = $(this).html() -1;
+            $(this).addClass("disabled");
+            $(this).parent("li").addClass("active");
+            $("#relevantLaw_"+activeId).fadeOut(1000);
+            $("#relevantLaw_"+nextId).fadeIn(3000);
 		});
 	});
 

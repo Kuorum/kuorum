@@ -1,7 +1,7 @@
 /*
 Hoja de estilos para kuorum.org
 Base Bootstrap 3.1.1 mobile first
-Responsive desde 768px
+Responsive
 */
 
 /* tipos =========== */
@@ -83,7 +83,6 @@ small, .small {font-size: 75%;}
   border-radius: 0;
   padding: 2px 4px;
 }
-
 .loading {
   color: #a8a8a8;
   text-align: center;
@@ -110,10 +109,8 @@ small, .small {font-size: 75%;}
   top: 8px;
   display: none;
 }
-
 label {font-weight: normal;}
 .span-label {display: block; margin-bottom: 5px;}
-
 #sign .radio-inline, #sign1 .radio-inline, #sign2 .radio-inline, #sign3 .radio-inline,
 #sign .checkbox-inline, #sign1 .checkbox-inline, #sign2 .checkbox-inline, #sign3 .checkbox-inline {position: relative; margin-bottom: 22px !important; color: #a8a8a8;}
 #sign .checkbox-inline.pull-right, #sign1 .checkbox-inline.pull-right, #sign2 .checkbox-inline.pull-right, #sign3 .checkbox-inline.pull-right {margin-bottom: 4px !important;}
@@ -1337,6 +1334,7 @@ textarea.error,
 .preFooter .intro {margin-top: 0;}
 .preFooter .user-list {padding: 20px 0 0 0; margin: 0;}
 .preFooter .user-list li {float: left; list-style: none;}
+.preFooter .user-list li .user-img {margin-right: 8px;}
 
 .links.simple {padding: 20px;}
 .links.simple .legal li {display: block; margin: 0 0 8px 0; border-bottom: solid 1px #a8a8a8; padding: 4px;}
@@ -1913,8 +1911,8 @@ textarea.error,
 
 /* Home =========== */
 /* ====================================================== */
-.home {margin: -25px 0 0 0;}
-.home h1 {text-align: center; padding: 0.8em 0.5em; background: url('../images/fdo-home.png') repeat-x 0 0 transparent; font-size: 22px; font-size: 2.2rem;}
+.home {margin: -40px 0 0 0;}
+.home h1 {text-align: center; padding: 35px 5px 26px; margin-bottom: 0; background: url('../images/fdo-home.png') repeat-x 0 0 transparent; font-size: 22px; font-size: 2.2rem;}
 .signContainer {background-color: rgba(0, 0, 0, 0.5); padding: 10px; margin-bottom: 10px;}
 .signContainer h2 {margin: 0 0 20px 0; color: #fff; font-size: 25px; font-size: 2.5rem; line-height: 2;}
 .signContainer h2 small {display: block; color: #fff; font-size: 17px; font-size: 1.7rem; font-weight: lighter;}
@@ -2441,6 +2439,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 
 @media only screen and (min-width: 480px) {
   .pre {margin: 75px 20px 5px 0;}
+  .preFooter .user-list li .user-img {margin-right: 10px;}
 }
 
 @media only screen and (min-width: 640px) {
