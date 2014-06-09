@@ -12,7 +12,7 @@ public enum MailType {
 
     NOTIFICATION_CLUCK                  (MailGroupType.MAIL_RELATED_WITH_ME,            "07_notificationCluck",         "notification", [],  ["postType", "clucker","cluckerLink","postName", "postLink"]),
     NOTIFICATION_FOLLOWER               (MailGroupType.MAIL_RELATED_WITH_ME,            "08_notificationFollower",      "notification", [],  ["follower","followerLink"]),
-    NOTIFICATION_PUBLIC_MILESTONE       (MailGroupType.MAIL_RELATED_WITH_ME,            "09_notificationMilestone",     "notification",[],["postName", "numVotes", "postLink"]),
+    NOTIFICATION_PUBLIC_MILESTONE       (MailGroupType.MAIL_RELATED_WITH_ME,            "09_notificationMilestone",     "notification",["postType"],["postName", "numVotes", "postLink"]),
     NOTIFICATION_DEBATE_USERS           (MailGroupType.MAIL_RELATED_WITH_OTHER_USERS,   "15_notificationDebateUsers",   "notification",[],["postType","debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
     NOTIFICATION_DEBATE_AUTHOR          (MailGroupType.MAIL_RELATED_WITH_ME,            "13_notificationDebateAuthor",  "notification",[],["postType","debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
     NOTIFICATION_DEBATE_POLITICIAN      (MailGroupType.POLITICIAN_MAIL,                 "14_notificationDebatePolitician", "notification",[],["postType","debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
