@@ -1,0 +1,30 @@
+
+var db =  connect("localhost:27017/KuorumDev");
+
+
+db.law.update({hashtag:"#nuevasmedidasanticrisis"},                 {$set:{hashtag:"#medidasAntiCrisis"}, $unset:{shortUrl:1}})
+db.law.update({hashtag:"#transparencia"},                           {$set:{hashtag:"#transparencia"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#reformaeducativa"},                        {$set:{hashtag:"#reformaEducativa"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#lafiestadelostoros"},                      {$set:{hashtag:"#losToros"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#prohibiciondelfracking"},                  {$set:{hashtag:"#antiFracking"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#parquesnacionales"},                       {$set:{hashtag:"#parquesNacionales"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#evaluacionmedioambiental"},                {$set:{hashtag:"#evalAmbiental"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#seguridadciudadana"},                      {$set:{hashtag:"#seguridadCiudadana"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#penalizarlasconsultaspopulares"},          {$set:{hashtag:"#antiConsultas"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#justiciauniversal"},                       {$set:{hashtag:"#justiciaUniversal"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#reformadelcodigopenal"},                   {$set:{hashtag:"#codigoPenal"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#leydelaborto"},                            {$set:{hashtag:"#aborto"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#presupuestosgeneralesdelestado"},          {$set:{hashtag:"#presupuestos2014"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#autoridadfiscalindependiente"},            {$set:{hashtag:"#autoridadFiscal"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#accionexteriordelestado"},                 {$set:{hashtag:"#accionExterior"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#cajasdeahorros"},                          {$set:{hashtag:"#cajasAhorros"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#leydelsectorelectrico"},                   {$set:{hashtag:"#sectorElectrico"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#pobrezaenergetica"},                       {$set:{hashtag:"#pobrezaEnergetica"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#seguridadprivada"},                        {$set:{hashtag:"#seguridadPrivada"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#recualificacionprofesional"},              {$set:{hashtag:"#recualificacionProf"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#nuevosistemadepensiones"},                 {$set:{hashtag:"#pensiones"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#integraciondetrabajadoresdiscapacitados"}, {$set:{hashtag:"#trabajoDiscap"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#tabaco"},                                  {$set:{hashtag:"#tabaco"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#ecografiasantesdelaborto"},                {$set:{hashtag:"#evalAmbiental"},$unset:{shortUrl:1}})
+db.law.update({hashtag:"#Abdicacion"},                              {$set:{hashtag:"#ecografias"},$unset:{shortUrl:1}})
+
