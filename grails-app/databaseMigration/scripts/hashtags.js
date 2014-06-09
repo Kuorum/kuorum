@@ -1,5 +1,5 @@
 
-var db =  connect("localhost:27017/KuorumDev");
+var db =  connect("localhost:27017/Kuorum");
 
 
 db.law.update({hashtag:"#nuevasmedidasanticrisis"},                 {$set:{hashtag:"#medidasAntiCrisis"}, $unset:{shortUrl:1}})
