@@ -46,7 +46,7 @@ class CluckService {
                 'eq'("defendedBy",kuorumUser)
                 'eq'("sponsors.kuorumUserId",kuorumUser.id)
             }
-            order("lastUpdated","asc")
+            order("lastUpdated","desc")
         }
         result
 
