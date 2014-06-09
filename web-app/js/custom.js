@@ -1,31 +1,35 @@
+
+var htmlLoading = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
+
 // inicializa los popover
-$.fn.extend({
-    popoverClosable: function (options) {
-        var defaults = {
-			html: true,
-			placement: 'bottom',
-			content: function() {
-				return $(this).next('.popover').html();
-			}
-        };
-        options = $.extend({}, defaults, options);
-        var $popover_togglers = this;
-        $popover_togglers.popover(options);
-        $popover_togglers.on('click', function (e) {
-            e.preventDefault();
-            $popover_togglers.not(this).popover('hide');
-        });
-        $('html').on('click', '[data-dismiss="popover"]', function (e) {
-            $popover_togglers.popover('hide');
-        });
-    }
-});
+function preparePopover(){
+    $.fn.extend({
+        popoverClosable: function (options) {
+            var defaults = {
+                html: true,
+                placement: 'bottom',
+                content: function() {
+                    return $(this).next('.popover').html();
+                }
+            };
+            options = $.extend({}, defaults, options);
+            var $popover_togglers = this;
+            $popover_togglers.popover(options);
+            $popover_togglers.on('click', function (e) {
+                e.preventDefault();
+                $popover_togglers.not(this).popover('hide');
+            });
+            $('html').on('click', '[data-dismiss="popover"]', function (e) {
+                $popover_togglers.popover('hide');
+            });
+        }
+    });
 
-$(function () {
-    $('[data-toggle="popover"]').popoverClosable();
-});
-
-
+    $(function () {
+        $('[data-toggle="popover"]').popoverClosable();
+    });
+}
+preparePopover();
 // cierra los popover al hacer click fuera
 $('body').on('click', function (e) {
     $('[data-toggle="popover"]').each(function () {
@@ -179,7 +183,7 @@ $(document).ready(function() {
 	});
 
     // links kakareo, impulsar
-    $('.action.cluck').click( function(e) {
+    $('body').on('click', '.action.cluck', function(e) {
         e.preventDefault();
         e.stopPropagation();
         if (!$(this).hasClass('disabled')){
@@ -203,7 +207,7 @@ $(document).ready(function() {
     });
 
 	// links kakareo, impulsar
-	$('.action.drive').click( function(e) {
+	$('body').on('click', '.action.drive', function(e) {
 		e.preventDefault();
         e.stopPropagation();
         if (!$(this).hasClass('disabled')){
@@ -1154,5 +1158,6 @@ $(document).ajaxStop(function () {
 	$("time.timeago").timeago();
 
 	prepareArrowClucks();
+    preparePopover();
 
 });

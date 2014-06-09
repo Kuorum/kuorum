@@ -11,6 +11,8 @@ Disallow: /sec/*
 
 ## DE LA ANTIGUA WEB
 Disallow: /entidad/*
+Disallow: /login/*
+Disallow: /logout/*
 Disallow: /entidades
 Disallow: /enterpriseUser/*
 Disallow: /congreso/*

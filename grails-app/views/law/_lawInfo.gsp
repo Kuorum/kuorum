@@ -36,8 +36,8 @@
         </div>
     </g:if>
     <g:if test="${linkToLaw}">
-        <div class="linkToLaw">
+        <p class="linkToLaw">
             <g:link mapping="lawShow" params="${law.encodeAsLinkProperties()}">[ver esta ley]</g:link>
-        </div>
+        </p>
     </g:if>
 </article><!-- /article -->

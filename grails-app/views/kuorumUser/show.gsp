@@ -53,7 +53,7 @@
         <g:render template="userSocial" model="[user:user, provinceName:provinceName]"/>
     </article>
 
-    <g:set var="urlLoadMore" value="${createLink(mapping: 'dashboardSeeMore')}"/>
+    <g:set var="urlLoadMore" value="${createLink(mapping: 'userClucks', params: user.encodeAsLinkProperties())}"/>
     <g:render template="/cluck/listClucks" model="[clucks:clucks, urlLoadMore:urlLoadMore, seeMore:seeMore]"/>
 
 </content>

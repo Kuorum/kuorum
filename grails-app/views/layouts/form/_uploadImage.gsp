@@ -115,7 +115,8 @@
     }
     function cropImage(){
         var selected = jcropApi.tellSelect()
-
+        var cutButton = $(".uploadKuorumImage .modal-footer button")
+        var cutButtonHtml = cutButton.html()
 
         $.ajax({
             type: "POST",
@@ -131,6 +132,12 @@
                 500: function() {
                     display.warn("Ha habido algún problbema recortando la foto. Vuelva a intentarlo")
                 }
+            },
+            beforeSend:function(){
+                cutButton.html(htmlLoading)
+            },
+            complete:function(){
+                cutButton.html(cutButtonHtml)
             }
         }).done(function( data ) {
             changeImageBackground(data.absolutePathImg)

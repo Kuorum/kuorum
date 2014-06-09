@@ -22,10 +22,11 @@
     <ul class="list-post pending">
         <g:each in="${favorites}" var="post">
         <li>
-            <g:link class="text-notification" mapping="postShow" params="${post.encodeAsLinkProperties()}">${post.title}</g:link>
+            ${post.title}
             <g:link mapping="lawShow" class="law" params="${post.law.encodeAsLinkProperties()}">${post.law.hashtag}</g:link>
             <ul class="actions">
                 <li><a href="#">desmarcar</a></li>
+                <li><g:link mapping="postShow" params="${post.encodeAsLinkProperties()}"><g:message code="profile.profileMyPosts.post.show"/></g:link></li>
             </ul>
         </li>
         </g:each>
