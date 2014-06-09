@@ -1,3 +1,6 @@
+
+var htmlLoading = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
+
 // inicializa los popover
 function preparePopover(){
     $.fn.extend({
