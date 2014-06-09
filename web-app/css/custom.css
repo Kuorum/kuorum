@@ -997,9 +997,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .activity .popover-trigger span {font-size: 31px; font-size: 3.1rem; display: block;}
 .activity > li.posts span {line-height: 1.1; font-size: 31px; font-size: 3.1rem; display: block;}
 .activity .popover-trigger {color: #545454; line-height: 1.1;}
-.activity .popover-trigger:hover,
-.activity .popover-trigger:active,
-.activity .popover-trigger:focus {color: #a8a8a8;}
+.activity .popover-trigger:hover {color: #a8a8a8;}
 
 .activity > li a:hover,
 .activity > li a:active,
