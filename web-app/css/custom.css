@@ -570,7 +570,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .user-list-followers li {list-style: none; display: inline !important; margin: 0;}
 .user-list-images li:last-child,
 .user-list-followers li:last-child {margin-right: 0;}
-.user-list-images li a,
+/*.user-list-images li a,*/
 .user-list-followers li a {text-decoration: none;}
 .user .popover-trigger:hover,
 .user .popover-trigger:active,
@@ -861,7 +861,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .author.important .user.actor.politic .type {font-size: 20px; font-size: 2rem; line-height: 1.2; color: #fff;}
 .author.important .user.actor.politic .state {color: #fff;}
 .author.important .user.actor.politic .action {color: #fff;}
-.author.important .user.actor.politic a {color: #FFDB8D !important;}
+/*.author.important .user.actor.politic a {color: #FFDB8D !important;}*/
 
 /* kakareo con vídeo */
 .multimedia .video {position: relative; z-index: 99;}
