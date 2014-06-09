@@ -180,7 +180,7 @@ $(document).ready(function() {
 	});
 
     // links kakareo, impulsar
-    $('.action.cluck').click( function(e) {
+    $('body').on('click', '.action.cluck', function(e) {
         e.preventDefault();
         e.stopPropagation();
         if (!$(this).hasClass('disabled')){
@@ -204,7 +204,7 @@ $(document).ready(function() {
     });
 
 	// links kakareo, impulsar
-	$('.action.drive').click( function(e) {
+	$('body').on('click', '.action.drive', function(e) {
 		e.preventDefault();
         e.stopPropagation();
         if (!$(this).hasClass('disabled')){
