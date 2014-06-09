@@ -45,7 +45,7 @@
 
 <content tag="cColumn">
     <section class="boxes noted">
-        <g:link mapping="lawShow" params="${post.law.encodeAsLinkProperties()}">${post.law.hashtag}</g:link>
+        <g:link mapping="lawShow" target="_blank" params="${post.law.encodeAsLinkProperties()}">${post.law.hashtag}</g:link>
         <h1>${post.law.shortName}</h1>
         <p>${post.law.realName}</p>
     </section>
