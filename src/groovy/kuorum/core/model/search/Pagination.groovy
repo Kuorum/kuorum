@@ -1,8 +1,11 @@
 package kuorum.core.model.search
 
+import grails.validation.Validateable
+
 /**
  * Created by iduetxe on 25/03/14.
  */
+@Validateable
 class Pagination {
 
     /**
@@ -21,5 +24,8 @@ class Pagination {
 
     public Long getOffset() {
         offset?offset:0
+    }
+
+    static constraints = {
     }
 }

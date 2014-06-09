@@ -71,6 +71,7 @@ class UrlMappings {
         }
         name userFollowers:     "/$userTypeUrl/$urlName-$id/seguidores" (controller: "kuorumUser", action: "userFollowers")
         name userFollowing:     "/$userTypeUrl/$urlName-$id/siguiendo"  (controller: "kuorumUser", action: "userFollowing")
+        name userClucks:        "/ajax/$userTypeUrl/$urlName-$id/clucks"  (controller: "kuorumUser", action: "userClucks")
 
         name register:            "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
         name registerSuccess:     "/registro/satisfactorio"(controller: "register",action:"registerSuccess")

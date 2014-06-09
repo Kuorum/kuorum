@@ -8,6 +8,7 @@ import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchPolitician
 import kuorum.core.model.solr.SolrPoliticiansGrouped
 import kuorum.post.Cluck
+import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 
 import javax.servlet.http.HttpServletResponse
@@ -108,6 +109,17 @@ class KuorumUserController {
         }else{
             render (view:"showInactivePolitician", model:[user:politician, provinceName:provinceName])
         }
+    }
+
+    def userClucks(Pagination pagination){
+        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        if (!user){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        List<Cluck> clucks = cluckService.userClucks(user, pagination)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${clucks.size()<pagination.max}")
+        render template: "/cluck/liClucks", model:[clucks:clucks]
     }
 
     def userFollowers(String id){
