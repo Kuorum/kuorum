@@ -19,6 +19,11 @@ enterpriseIds.forEach(function (enterpriseId){
                 if (err){
                     print(err + " => "+user.name)
                 }
+                dbDest.kuorumUser.update({_id:enterpriseId},{$addToSet:{followers:user._id}})
+                var err = dbDest.runCommand( { getLastError: 1, j: "true" }).err
+                if (err){
+                    print(err + " => "+user.name)
+                }
             }
         });
     });
