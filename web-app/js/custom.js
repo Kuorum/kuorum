@@ -82,6 +82,14 @@ $(document).ready(function() {
         $('.link-wrapper').preventDefault();
     });
 
+    // button dentro del popover del kakareo no lanzan el enlace del bloque clicable
+    $("#search-results .popover-box #follow").on('click', function(e) {
+        e.preventDefault()
+        e.stopPropagation()
+        //If not stopPropagation -> .link-wrapper is fired
+        clickedButtonFollow($(this))
+    });
+
 	// scroll suave a hashtag
     $(".smooth").click(function (event) {
     	event.preventDefault();
@@ -339,24 +347,28 @@ $(document).ready(function() {
 	    }
 	}, "#follow.disabled"); //pass the element as an argument to .on
 
-	$('body').on("click", "#follow", function() {
-        var buttonFollow= $(this)
-		if ( buttonFollow.hasClass('disabled') ){
+	$('body').on("click", "#follow", function(e) {
+        clickedButtonFollow($(this))
+	});
+
+    function clickedButtonFollow(button){
+        var buttonFollow= $(button)
+        if ( buttonFollow.hasClass('disabled') ){
             var url = buttonFollow.attr("data-ajaxunfollowurl")
             ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-follow');
                 var userId = buttonFollow.attr('data-userId');
                 $("button[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
             });
-		} else {
+        } else {
             var url = buttonFollow.attr("data-ajaxfollowurl")
             ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-unfollow');
                 var userId = buttonFollow.attr('data-userId');
                 $("button[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
             });
-		}
-	});
+        }
+    }
 
     function ajaxFollow(url, buttonFollow, doneFunction){
         $.ajax( {
