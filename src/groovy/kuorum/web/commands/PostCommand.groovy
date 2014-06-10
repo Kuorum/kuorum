@@ -1,6 +1,7 @@
 package kuorum.web.commands
 
 import grails.validation.Validateable
+import kuorum.core.FileType
 import kuorum.core.model.PostType
 
 /**
@@ -8,9 +9,11 @@ import kuorum.core.model.PostType
  */
 @Validateable
 class PostCommand {
+    private static final YOUTUBE_REGEX = ~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube\.com\/watch\?v=[a-zA-Z0-9_]*/
     String postId
     String title
     String textPost
+    FileType fileType
     String imageId
     String videoPost
     PostType postType
@@ -22,10 +25,10 @@ class PostCommand {
         postType nullable: false
         videoPost nullable: true,
                 url:true,
-                matches: 'http[s]{0,1}://(w{3}.){0,1}youtube\\.com/watch\\?v=[a-zA-Z0-9_]*',
+//                matches: 'http[s]{0,1}://(w{3}.){0,1}youtube\\.com/watch\\?v=[a-zA-Z0-9_]*',
                 validator: { val, obj ->
-                    if (val && obj.imageId) {
-                        return ['onlyImageOrVideo']
+                    if (obj.fileType == FileType.YOUTUBE && val && !YOUTUBE_REGEX.matcher(val).matches()) {
+                        return ['notYoutubeFormat']
                     }
                 }
         numberPage nullable:true

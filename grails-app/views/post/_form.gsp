@@ -45,11 +45,23 @@
         </g:if>
     </div>
 </fieldset>
+
 <fieldset class="multimedia">
-    <div class="form-group image">
+    <div class="form-group groupRadio">
+        <formUtil:radioEnum command="${command}" field="fileType"/>
+        <script>
+            $(function(){
+                $('[data-multimedia-switch="on"]').hide()
+                var multimediaType = "${command.fileType}";
+                $('[data-multimedia-type="'+multimediaType+'"]').show()
+            })
+        </script>
+
+    </div>
+    <div class="form-group image" data-multimedia-switch="on" data-multimedia-type="${kuorum.core.FileType.IMAGE}">
         <formUtil:editImage command="${command}" field="imageId" fileGroup="${ FileGroup.POST_IMAGE}"/>
     </div>
-    <div class="form-group video">
+    <div class="form-group video" data-multimedia-switch="on" data-multimedia-type="${kuorum.core.FileType.YOUTUBE}">
         <label for="videoPost"><g:message code="post.edit.step1.video.label"/></label>
         <input name="videoPost" type="url" value="${command.videoPost}" class="form-control ${hasErrors(bean: command, field: 'videoPost', 'error')}" id="videoPost" placeholder="http://" tabindex="16">
         <g:if test="${hasErrors(bean: command, field: 'videoPost', 'error')}">

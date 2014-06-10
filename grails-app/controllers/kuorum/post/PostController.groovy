@@ -60,7 +60,8 @@ class PostController {
         PostCommand command = new PostCommand()
         command.postId = post.id.toString()
         command.imageId = post.multimedia?.fileType == FileType.IMAGE?post.multimedia.id:null
-        command.videoPost = post.multimedia?.fileType == FileType.VIDEO?post.multimedia.url:''
+        command.videoPost = post.multimedia?.fileType == FileType.YOUTUBE?post.multimedia.url:''
+        command.fileType = post.multimedia?.fileType
         command.postType = post.postType
         command.textPost = post.text
         command.title = post.title
@@ -98,15 +99,13 @@ class PostController {
             redirect mapping:"postReview", params:post.encodeAsLinkProperties()
     }
 
-    private preparePostFile(Post post, PostCommand command, KuorumUser user){
+    private KuorumFile preparePostFile(Post post, PostCommand command, KuorumUser user){
         KuorumFile multimedia = null
-        if (command.imageId){
+        if (command.fileType == FileType.IMAGE && command.imageId){
             multimedia = KuorumFile.get(new ObjectId(command.imageId))
-        }else if(command.videoPost && !post.multimedia){
-            command.videoPost
+        }else if(command.fileType == FileType.YOUTUBE && command.videoPost && !post.multimedia){
             multimedia = createKuorumFileFromYoutubeUrl(command.videoPost, user)
-
-        }else if (command.videoPost && post.multimedia){
+        }else if (command.fileType == FileType.YOUTUBE && command.videoPost && post.multimedia){
             if (command.videoPost == post.multimedia.url){
                 multimedia = post.multimedia
             }else{
@@ -114,6 +113,7 @@ class PostController {
                 multimedia = createKuorumFileFromYoutubeUrl(command.videoPost, user)
             }
         }
+        multimedia
     }
 
     private KuorumFile createKuorumFileFromYoutubeUrl(String url, KuorumUser user){
@@ -127,7 +127,7 @@ class PostController {
                 fileName:fileName,
                 url:url,
                 fileGroup:FileGroup.POST_IMAGE,
-                fileType:FileType.VIDEO
+                fileType:FileType.YOUTUBE
         )
         multimedia.save()
     }

@@ -988,6 +988,13 @@ $(document).ready(function() {
 //        $('#iframeVideo')[0].src += '&autoplay=1';
     })
 
+    $(".multimedia .groupRadio input[type=radio]").on('click', function(e){
+        var multimediaType = $(this).val()
+        $('[data-multimedia-switch="on"]').hide()
+        $('[data-multimedia-type="'+multimediaType+'"]').show()
+
+    })
+
     // hacer clic en player falso del video (.front)
     $('.kakareo .front').click( function(e) {
         e.stopPropagation();

@@ -23,6 +23,7 @@ class BootStrap {
                         //Getting fields which are going to be setted on mongodb
                         def fields = obj.class.declaredFields.grep{kuorum.core.annotations.Updatable in it.annotations*.annotationType()}.collect{it.name}
                         BasicDBObject objProperties =new BasicDBObject()
+                        BasicDBObject objUnsetProperties =new BasicDBObject()
                         fields.each{field->
 //                            def dbObject = delegate.properties.find{it.key in ['dbo']}.value[it]
                             def dbObject
@@ -38,8 +39,10 @@ class BootStrap {
                             }
                             if (dbObject)
                                 objProperties.append(field,dbObject)
+                            else
+                                objUnsetProperties.append(field,"")
                         }
-                        obj.class.collection.update([_id:obj.id],['$set':objProperties])
+                        obj.class.collection.update([_id:obj.id],['$set':objProperties, '$unset':objUnsetProperties])
                         obj.refresh()
                     }else{
                         log.error(obj.errors)

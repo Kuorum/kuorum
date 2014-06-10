@@ -113,7 +113,7 @@ class PostTagLib {
         Post post = attrs.post
         if (post.multimedia && post.multimedia.fileType == FileType.IMAGE){
             out << render(template: '/post/multimedia/postImage', model:[image:post.multimedia])
-        }else if (post.multimedia && post.multimedia.fileType == FileType.VIDEO){
+        }else if (post.multimedia && post.multimedia.fileType == FileType.YOUTUBE){
             out << render(template: '/post/multimedia/postVideo', model:[video:post.multimedia])
         }
     }
