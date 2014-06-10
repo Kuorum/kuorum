@@ -64,11 +64,13 @@ Vamos a crear el proyecto desde el github.
 * Seguir los pasos de creación de un proyecto del IDEA.
     * Cuando pide seleccionar grails seleccionamos el que nos acabamos de bajar
     * Yo seleccionaria la descarga del código en la carpeta creada anteriormente $DESARROLLO/kuorum
+### Preparar carpeta para subir imágenes en desarrollo
+* Crear una carpeta en `$DESARROLLO/images`
+* Esta carpeta se le indicará al entorno cual es mediante el fichero de propiedades que se explica más adelante
 
 ### Configuración entorno
 * En la carpeta $DESARROLLO/Kuorum/kuorum/src/java/ hay un fichero que se llama example_config.properties.
-* Crear una carpeta en `$DESARROLLO/images`
-* Copiar y renombrar el fichero a la misma carpeta pero llamandolo development_config.properties
+* Copiar y renombrar el fichero a esta misma carpeta misma carpeta pero llamandolo development_config.properties
 * Las propiedades son autoexplicativas. A continuación se indican las de configuración del entorno
 
 ```properties
@@ -83,4 +85,4 @@ Vamos a crear el proyecto desde el github.
 
  kuorum.upload.serverPath=$DESARROLLO/images
  ```
- * El resto son claves para conectarsea los diferentes servicios
+ * El resto son claves para conectarse a los diferentes servicios
