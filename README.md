@@ -1,7 +1,8 @@
 # Web
 Kuorum es una red social de democracia participativa online que amplifica tu voz en las instituciones.
 
-
+# Bug e incidencias
+http://jira.kuorum.org/browse/BUGS/
 
 # Detalles para montar el entorno
 * Recursos
@@ -43,6 +44,7 @@ referencia a este carpeta con el nombre DESARROLLO
     $DESARROLLO/mongo/mongodb-linux-x86_64-2.6.1/bin/mongod --config $DESARROLLO/mongo/mongo.cfg
     ```
 * TIP: crear un script llamado startMongo.sh que te facilite la vida para no escribir todo este churro.
+
 ### SOLR
 El solr es la BBDD documental basada en Lucene para realizar las búsquedas.
 La configuración del solar esta a parte del proyecto, y hay que descargarla a parte.
