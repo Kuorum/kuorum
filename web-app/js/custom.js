@@ -65,9 +65,9 @@ $(document).ready(function() {
 	// hacer un bloque clicable y que tome que es su primer elemento la url del enlace a.hidden
 	$(function() {
 
-		$('.link-wrapper').click( function() {
-			window.location = $(this).find('a.hidden').attr('href');
-		});
+        $('body').on('click','.link-wrapper', function() {
+            window.location = $(this).find('a.hidden').attr('href');
+        });
 
 	});
 
