@@ -101,7 +101,9 @@ class PostController {
 
     private KuorumFile preparePostFile(Post post, PostCommand command, KuorumUser user){
         KuorumFile multimedia = null
-        if (command.fileType == FileType.IMAGE && command.imageId){
+        if (!command.fileType){
+            multimedia = null
+        }else if (command.fileType == FileType.IMAGE && command.imageId){
             multimedia = KuorumFile.get(new ObjectId(command.imageId))
         }else if(command.fileType == FileType.YOUTUBE && command.videoPost && !post.multimedia){
             multimedia = createKuorumFileFromYoutubeUrl(command.videoPost, user)

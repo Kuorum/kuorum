@@ -1,4 +1,4 @@
-<%@ page import="kuorum.core.FileGroup" %>
+<%@ page import="kuorum.core.FileType; kuorum.core.FileGroup" %>
 <fieldset class="type">
     <div class="form-group">
         <label for="selectType"><g:message code="post.edit.step1.postType.label"/></label>
@@ -47,27 +47,60 @@
 </fieldset>
 
 <fieldset class="multimedia">
-    <div class="form-group groupRadio">
-        <formUtil:radioEnum command="${command}" field="fileType"/>
-        <script>
-            $(function(){
-                $('[data-multimedia-switch="on"]').hide()
-                var multimediaType = "${command.fileType}";
-                $('[data-multimedia-type="'+multimediaType+'"]').show()
-            })
-        </script>
+    <span class="span-label">Añade una imagen o un vídeo a tu publicación </span>
+    <g:hiddenField name="fileType" value="${command.fileType}"/>
+    <script>
+    $(function(){
+        $('.multimedia ul.nav a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var activatedTab = $(e.target)
+            var previousTab = $(e.relatedTarget)
+            $(".multimedia input[name=fileType]").val(activatedTab.attr("data-fileType"))
+        })
+    });
+    </script>
+    <ul class="nav nav-pills nav-justified">
+        <li class="${!command.fileType?'active':''}">
+            <a href="#postMultimediaNone" data-toggle="tab" data-fileType=""><g:message code="post.edit.step1.none.label"/></a>
+        </li>
+        <li class="${command.fileType == FileType.IMAGE?'active':''}">
+            <a href="#postUploadImage" data-toggle="tab" data-fileType="${kuorum.core.FileType.IMAGE}"><g:message code="post.edit.step1.image.label"/></a>
+        </li>
+        <li class="${command.fileType == FileType.YOUTUBE?'active':''}">
+            <a href="#postUploadYoutube" data-toggle="tab" data-fileType="${kuorum.core.FileType.YOUTUBE}"><g:message code="post.edit.step1.video.label"/></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane ${!command.fileType?'in active':''}" id="postMultimediaNone">
+            <g:message code="post.edit.step1.none.description"/>
+        </div>
+        <div class="tab-pane fade ${command.fileType == FileType.IMAGE?'in active':''}" id="postUploadImage">
+            <div class="form-group image" data-multimedia-switch="on" data-multimedia-type="${kuorum.core.FileType.IMAGE}">
+                <formUtil:editImage command="${command}" field="imageId" fileGroup="${ FileGroup.POST_IMAGE}" labelCssClass="sr-only"/>
+            </div>
+        </div>
+        <div class="tab-pane fade ${command.fileType == FileType.YOUTUBE?'in active':''}" id="postUploadYoutube">
+            <div class="form-group video" data-multimedia-switch="on" data-multimedia-type="${kuorum.core.FileType.YOUTUBE}">
+                <label for="videoPost" class="sr-only"><g:message code="post.edit.step1.video.label"/></label>
+                <input name="videoPost" type="url" value="${command.videoPost}" class="form-control ${hasErrors(bean: command, field: 'videoPost', 'error')}" id="videoPost" placeholder="http://" tabindex="16">
+                <g:if test="${hasErrors(bean: command, field: 'videoPost', 'error')}">
+                    <span for="textPost" class="error">${g.fieldError(bean: command, field: 'videoPost')}</span>
+                </g:if>
+            </div>
+        </div>
+    </div>
+    %{--<div class="form-group groupRadio">--}%
+        %{--<formUtil:radioEnum command="${command}" field="fileType"/>--}%
+        %{--<script>--}%
+            %{--$(function(){--}%
+                %{--$('[data-multimedia-switch="on"]').hide()--}%
+                %{--var multimediaType = "${command.fileType}";--}%
+                %{--$('[data-multimedia-type="'+multimediaType+'"]').show()--}%
+            %{--})--}%
+        %{--</script>--}%
 
-    </div>
-    <div class="form-group image" data-multimedia-switch="on" data-multimedia-type="${kuorum.core.FileType.IMAGE}">
-        <formUtil:editImage command="${command}" field="imageId" fileGroup="${ FileGroup.POST_IMAGE}"/>
-    </div>
-    <div class="form-group video" data-multimedia-switch="on" data-multimedia-type="${kuorum.core.FileType.YOUTUBE}">
-        <label for="videoPost"><g:message code="post.edit.step1.video.label"/></label>
-        <input name="videoPost" type="url" value="${command.videoPost}" class="form-control ${hasErrors(bean: command, field: 'videoPost', 'error')}" id="videoPost" placeholder="http://" tabindex="16">
-        <g:if test="${hasErrors(bean: command, field: 'videoPost', 'error')}">
-            <span for="textPost" class="error">${g.fieldError(bean: command, field: 'videoPost')}</span>
-        </g:if>
-    </div>
+    %{--</div>--}%
+
+
 </fieldset>
 <fieldset class="page">
     <div class="form-group">

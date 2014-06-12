@@ -1076,7 +1076,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .edit-post #main h2 {font-family: 'League Gothic', Arial, sans-serif; font-size: 28px; font-size: 2.8rem; text-transform: uppercase;}
 .edit-post > p {border-bottom: solid 1px #efefef; padding: 0 0 20px 0; margin: 0;}
 .edit-post form {font-size: 14px; font-style: 1.4rem;}
-.edit-post form label, .edit-post form .groupRadio .span-label {
+.edit-post form label, .edit-post form .span-label{
   font-size: 24px;
   font-style: 2.4rem;
   color: #545454;
