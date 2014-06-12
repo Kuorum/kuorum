@@ -1022,6 +1022,14 @@ $(document).ready(function() {
         $('#modalVictory').modal('hide');
     });
 
+    jQuery.ajax({
+        url: "http://jira.kuorum.org/s/d41d8cd98f00b204e9800998ecf8427e/es_ES-ce14fm-1988229788/6264/13/1.4.7/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?collectorId=132ad9a9",
+        type: "get",
+        cache: true,
+        dataType: "script"
+    });
+
+
 });
 
 var modalDefend = {
