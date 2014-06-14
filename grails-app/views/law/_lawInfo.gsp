@@ -12,11 +12,13 @@
         <div class="col-xs-12 col-sm-6 col-md-6 editPost">
             <!-- dejar la estructura aunque a veces esté vacío  -->
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 leerLey">
-            <a href="${law.urlPdf}" target="_blank">
-                <g:message code="law.showCompleteLaw"/>
-            </a>
-        </div>
+        <g:if test="${law.urlPdf}">
+            <div class="col-xs-12 col-sm-6 col-md-6 leerLey">
+                <a href="${law.urlPdf}" target="_blank">
+                    <g:message code="law.showCompleteLaw"/>
+                </a>
+            </div>
+        </g:if>
     </div>
     <p class="cl-ntral-dark">${law.realName}</p>
     <p>

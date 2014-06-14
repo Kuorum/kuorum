@@ -30,7 +30,6 @@ class LawCommand {
         importFrom Law
         commissions nullable: false, minSize: 1
         photoId nullable: false
-        urlPdf nullable: false, url:true
         status nullable:false
 
 //        hashtag validator: {val, obj ->
