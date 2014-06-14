@@ -35,6 +35,7 @@ class EditUserProfileCommand extends BirthdayCommad{
     EnterpriseSector enterpriseSector
     String bio
 
+    String imageProfile
     static constraints = {
         importFrom BirthdayCommad
         //Step1

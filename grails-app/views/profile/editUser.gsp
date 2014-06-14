@@ -104,6 +104,9 @@
             <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
         </div>
         <div class="form-group">
+            <formUtil:editImage command="${command}" field="imageProfile" fileGroup="${kuorum.core.FileGroup.USER_PROFILE}"/>
+        </div>
+        <div class="form-group">
             <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">
             <a href="#" class="cancel" tabindex="19">Cancelar</a>
         </div>

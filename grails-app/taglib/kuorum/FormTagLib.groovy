@@ -28,7 +28,7 @@ class FormTagLib {
             kuorumFile = KuorumFile.get(new ObjectId(kuorumImageId))
 
         if (!kuorumFile){
-            kuorumImageId = "__NEW__"
+            kuorumImageId = "_${field}_NEW_"
         }else{
             value = kuorumImageId
             imageUrl = kuorumFile.url

@@ -1422,7 +1422,7 @@ textarea.error,
 }
 
 /* estilos para el resize upload image */
-#au-uploaderImageId {height: 390px; margin: 10px 0 0 0; position: relative;}
+.uploaderImageContainer > div {height: 390px; margin: 10px 0 0 0; position: relative;}
 .qq-uploader {position: relative; width: 100%;}
 .qq-upload-button {
     text-align: center;
@@ -1448,6 +1448,7 @@ textarea.error,
   padding: 195px 20px 20px 20px;
   display: block;
 }
+.uploaderImageContainer.USER_PROFILE .qq-upload-drop-area{height:278px;}
 .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 10px;}
 .qq-upload-drop-area-active {background-color:#FFF8ED;}
 .qq-upload-list {display:none;}

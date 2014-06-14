@@ -60,6 +60,7 @@ class ProfileController {
         }
         command.bio = user.bio
         command.photoId = user.avatar?.id?.toString()
+        command.imageProfile = user.imageProfile?.id?.toString()
         [command: command, user:user]
     }
 
@@ -115,9 +116,18 @@ class ProfileController {
             avatar.save()
             user.avatar = avatar
             fileService.convertTemporalToFinalFile(avatar)
-            fileService.deleteTemporalFiles(user)
         }
+        if (command.hasProperty('imageProfile') && command.imageProfile){
+            KuorumFile imageProfile = KuorumFile.get(new ObjectId(command.imageProfile))
+            imageProfile.alt = user.name
+            imageProfile.save()
+            user.imageProfile = imageProfile
+            fileService.convertTemporalToFinalFile(imageProfile)
+        }
+
+        fileService.deleteTemporalFiles(user)
     }
+
     def changePassword() {
         KuorumUser user = params.user
         [user:user, command: new ChangePasswordCommand()]
