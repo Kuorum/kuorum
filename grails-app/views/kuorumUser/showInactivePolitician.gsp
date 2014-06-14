@@ -50,7 +50,7 @@
         <p><g:message code="kuorumUser.show.politicianInactive.module.noted.p1"/> </p>
         <p><g:message code="kuorumUser.show.politicianInactive.module.noted.p2"/> </p>
         <g:if test="${!user.followers.isEmpty()}">
-            <h2><g:message code="kuorumUser.show.politicianInactive.module.noted.peopleWants"/></h2>
+            <h2><g:message code="kuorumUser.show.politicianInactive.module.noted.peopleWants" args="[user.followers.size()]"/></h2>
             <userUtil:listFollowers user="${user}"/>
         </g:if>
 
