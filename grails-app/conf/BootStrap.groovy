@@ -42,7 +42,10 @@ class BootStrap {
                             else
                                 objUnsetProperties.append(field,"")
                         }
-                        obj.class.collection.update([_id:obj.id],['$set':objProperties, '$unset':objUnsetProperties])
+                        if (objProperties)
+                            obj.class.collection.update([_id:obj.id],['$set':objProperties])
+                        if (objUnsetProperties)
+                            obj.class.collection.update([_id:obj.id],['$unset':objUnsetProperties])
                         obj.refresh()
                     }else{
                         log.error(obj.errors)
