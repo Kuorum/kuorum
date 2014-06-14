@@ -289,6 +289,15 @@ class KuorumUserService {
             }
         }
 
+        if (bestSponsors.size() < pagination.max){
+            log.warn("Using default sponsors")
+            def userNamesFake = ["eQuo", "PACMA"]
+
+            userNamesFake.each {
+                KuorumUser user = KuorumUser.findByName(it)
+                if (user) bestSponsors.add(user)
+            }
+        }
         bestSponsors
     }
 
