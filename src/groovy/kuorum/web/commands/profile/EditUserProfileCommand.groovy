@@ -42,7 +42,7 @@ class EditUserProfileCommand extends BirthdayCommad{
         name nullable: false, maxSize: 17
         country nullable: false
         province nullable:true
-        postalCode nullable: false, minSize: 5, maxSize: 5, matches:"[0-9]+", validator: {val, command ->
+        postalCode nullable: false, maxSize: 5, matches:"[0-9]+", validator: {val, command ->
             if (command.gender != Gender.ORGANIZATION && !command.province){
                 return "notExists"
             }
@@ -62,7 +62,8 @@ class EditUserProfileCommand extends BirthdayCommad{
         obj.country = country
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         def regionService = appContext.regionService
-        obj.province = regionService.findProvinceByPostalCode(country, source['postalCode'])
+        obj.postalCode = source['postalCode'].padLeft( 5, '0' )
+        obj.province = regionService.findProvinceByPostalCode(country, obj.postalCode)
 
     }
 }
