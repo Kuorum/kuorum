@@ -25,7 +25,7 @@ class LawServiceIntegrationSpec extends Specification{
         when: "Updating the law"
         Region region = Region.findByIso3166_2("EU-ES")
         Institution institution = Institution.findByRegion(region)
-        ParliamentaryGroup parliamentaryGroup = ParliamentaryGroup.findByInstitution(institution)
+        ParliamentaryGroup parliamentaryGroup = ParliamentaryGroup.list().find{it.institution == institution}
         String realName = "realName"
         String shortName = "shortName"
         def commissions = [CommissionType.AGRICULTURE, CommissionType.BUDGETS, CommissionType.CONSTITUTIONAL]
