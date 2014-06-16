@@ -13,7 +13,7 @@
             </span>
             <!-- POPOVER PARA SACAR LISTAS DE USUARIOS -->
             <div class="popover">
-                <button aria-hidden="true" class="close" type="button"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                <button aria-hidden="true" class="close" type="button" data-dismiss="popover"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
                 <a rel="nofollow" class="hidden" href="#">${messages.showUserList}</a>
                 <div class="popover-user-list">
                     <p>${messages.userListTitle}</p>
