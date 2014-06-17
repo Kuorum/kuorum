@@ -1669,7 +1669,7 @@ textarea.error,
 .othersPost h1 {font-size: 20px; font-size: 2rem;}
 .othersPost #postNav {padding: 0 43px; margin: 0; position: relative; height: 184px; font-size: 13px; font-size: 1.3rem;}
 
-#main .othersPost #postNav .user .popover-trigger {font-size: 13px; font-size: 1.3rem; position: absolute; left: 16px; bottom: 8px;}
+#main .othersPost #postNav .user > span {font-size: 13px; font-size: 1.3rem; position: absolute; left: 16px; bottom: 8px;}
 #main .othersPost #postNav .user .read-later {position: absolute; right: 16px; bottom: 8px;}
 .othersPost #postNav p {margin: 0 0 13px;}
 .othersPost #postNav .user-img {height: 25px; margin: 0 5px 0 0; width: 25px;}
