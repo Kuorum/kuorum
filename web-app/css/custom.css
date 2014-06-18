@@ -882,6 +882,8 @@ span + .text-notification {padding: 0 0 0 33px;}
   border-top: solid 1px #dadada;
   padding: 10px 0 0;
 }
+/*para quitarle el borde al ver más en las notificaciones*/
+.container-fluid.config #load-more{border-top: none; padding: 10px 0 0;}
 #load-more a {color: #545454;}
 #load-more a:hover,
 #load-more a:active,
