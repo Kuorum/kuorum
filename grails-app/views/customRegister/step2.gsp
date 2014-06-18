@@ -5,6 +5,7 @@
     <meta name="layout" content="customRegisterLayout">
     <parameter name="actualStep" value="2" />
     <g:render template="/layouts/googleAnalyticsConversionCode"/>
+    <g:render template="/layouts/twitterConversionCode"/>
 </head>
 
 <content tag="intro">
