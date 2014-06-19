@@ -352,13 +352,16 @@ class KuorumUserService {
         List<KuorumUser> politicians = bestPoliticiansCollection.find().sort(sortResult).collect{KuorumUser.load(it._id)}
 
         if (politicians.size() < pagination.max){
-            log.warn("Poniendo a pelo politicos que no estan activos. Accion temporal")
-            def userNamesFake = ["Joan Baldoví Roda"]
-
-            userNamesFake.each {
-                KuorumUser user = KuorumUser.findByName(it)
-                if (user) politicians.add(user)
+            log.info("Poniendo politicos en función del número de seguidores que tiene")
+            def userList = politicians.collect{it.id}
+            def politicianByFollowers = KuorumUser.createCriteria().list(max:pagination.max, offset:pagination.offset) {
+                'eq'("userType", UserType.POLITICIAN)
+                'gt'("numFollowers",0)
+                if (userList)
+                    not {'in'("id",userList)}
+                order("numFollowers","desc")
             }
+            politicians.addAll(politicianByFollowers)
         }
 
         politicians
