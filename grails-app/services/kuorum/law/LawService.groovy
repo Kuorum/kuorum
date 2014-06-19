@@ -4,6 +4,7 @@ import grails.transaction.Transactional
 import kuorum.ShortUrlService
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.LawStatusType
 import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.files.FileService
@@ -172,10 +173,12 @@ class LawService {
     List<Law> relevantLaws( Pagination pagination){ relevantLaws(null, pagination) }
     List<Law> relevantLaws(KuorumUser user = null, Pagination pagination = new Pagination()){
         //TODO: Improve
-        Law.createCriteria().list(max:pagination.max, offset:pagination.offset){
+        def res = Law.createCriteria().list(max:pagination.max, offset:pagination.offset){
+            eq("status", LawStatusType.OPEN)
             and{
-                order('dateCreated','desc')
+                order('id','desc')
             }
         }
+        res
     }
 }

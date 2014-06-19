@@ -10,9 +10,9 @@
         <p class="pre">Las leyes más polémicas en debate</p>
         <ul class="steps">
             <li class="active"><a href="#" class="badge">1</a></li>
-            <li><a href="#" class="badge">2</a></li>
-            <li><a href="#" class="badge">3</a></li>
-            <li><a href="#" class="badge">4</a></li>
+            <g:each in="${2..relevantLaws.size()}" var="i">
+                <li><a href="#" class="badge">${i}</a></li>
+            </g:each>
         </ul>
     </div>
 
