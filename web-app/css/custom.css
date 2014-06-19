@@ -1425,6 +1425,8 @@ textarea.error,
 
 /* estilos para el resize upload image */
 .uploaderImageContainer > div {height: 390px; margin: 10px 0 0 0; position: relative;}
+/* avatar en config cuadrado */
+.container-fluid.config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
 .qq-uploader {position: relative; width: 100%;}
 .qq-upload-button {
     text-align: center;
@@ -2114,12 +2116,13 @@ textarea.error,
 .onecol.list .block-results ul {
   margin: 0 0 40px 0;
   padding: 0;
-  -moz-column-count: 4;
-  -moz-column-gap: 20px;
-  -webkit-column-count: 4;
-  -webkit-column-gap: 20px;
-  column-count:4;
-  column-gap: 20px;
+  /* descomentar para 4 columnas en los listados de leyes y políticos */
+  /*-moz-column-count: 4;*/
+  /*-moz-column-gap: 20px;*/
+  /*-webkit-column-count: 4;*/
+  /*-webkit-column-gap: 20px;*/
+  /*column-count:4;*/
+  /*column-gap: 20px;*/
 }
 .onecol.list .block-results li {list-style: none; margin: 0 0 4px 0; font-size: 14px; font-size: 1.4rem;}
 .onecol.list .block-results li a {color: #545454;}
