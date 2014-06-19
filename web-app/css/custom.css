@@ -1427,6 +1427,7 @@ textarea.error,
 .uploaderImageContainer > div {height: 390px; margin: 10px 0 0 0; position: relative;}
 /* avatar en config cuadrado */
 .container-fluid.config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
+.container-fluid.config .uploaderImageContainer.USER_PROFILE > div {height: 300px; margin: 10px 0 0 0; position: relative;}
 .qq-uploader {position: relative; width: 100%;}
 .qq-upload-button {
     text-align: center;
