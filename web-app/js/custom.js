@@ -78,7 +78,7 @@ $(document).ready(function() {
     });
 
     // button dentro del popover del kakareo no lanzan el enlace del bloque clicable
-    $('.link-wrapper').on('click', '.popover button', function() {
+    $('body').on('click', '.popover button', function() {
         $('.link-wrapper').preventDefault();
     });
 
