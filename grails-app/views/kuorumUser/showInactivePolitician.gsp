@@ -8,6 +8,14 @@
 
 
 <content tag="mainContent">
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+        <div id="adminActions">
+            <span class="text">
+                <g:link mapping="adminEditUser" params="${user.encodeAsLinkProperties()}">
+                    <span class="fa fa-edit fa-lg"></span>Editar perfil</g:link>
+            </span>
+        </div>
+    </sec:ifAnyGranted>
     <article itemtype="http://schema.org/Person" itemscope role="article" class="kakareo post ley">
         <div class="photo">
             <img src="${image.userImgProfile(user:user)}" alt="${user.name}">
@@ -50,7 +58,7 @@
         <p><g:message code="kuorumUser.show.politicianInactive.module.noted.p1"/> </p>
         <p><g:message code="kuorumUser.show.politicianInactive.module.noted.p2"/> </p>
         <g:if test="${!user.followers.isEmpty()}">
-            <h2><g:message code="kuorumUser.show.politicianInactive.module.noted.peopleWants" args="[user.followers.size()]"/></h2>
+            <h2><g:message code="kuorumUser.show.politicianInactive.module.noted.peopleWants" args="[user.numFollowers]"/></h2>
             <userUtil:listFollowers user="${user}"/>
         </g:if>
 
