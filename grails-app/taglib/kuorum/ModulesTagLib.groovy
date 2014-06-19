@@ -52,6 +52,18 @@ class ModulesTagLib {
         }
     }
 
+    def lastCreatedPosts={attrs ->
+        String specialCssClass = attrs.specialCssClass
+        Law law = attrs.law //Not necessary
+        Pagination pagination = attrs.numPost?new Pagination(max:Long.parseLong(attrs.numPost)):new Pagination(max:NUM_RECOMMENDED_POST)
+
+        List<Post> lastCreatedPost = postService.lastCreatedPosts(pagination, law)
+        if (lastCreatedPost){
+            String title = attrs.title?:message(code:"modules.lastCreatedPost.title")
+            out << render(template: '/modules/recommendedPosts', model:[recommendedPost:lastCreatedPost, title:title,specialCssClass:specialCssClass])
+        }
+    }
+
     def delayedModule={attrs ->
 
         def params = attrs.params

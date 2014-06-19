@@ -175,7 +175,6 @@ class LawService {
         Law.createCriteria().list(max:pagination.max, offset:pagination.offset){
             and{
                 order('dateCreated','desc')
-                order('peopleVotes.total','desc')
             }
         }
     }

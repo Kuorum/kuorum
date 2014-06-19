@@ -340,6 +340,17 @@ class PostService {
 //        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
         }
     }
+
+
+    List<Post> lastCreatedPosts(Pagination pagination = new Pagination(), Law law = null){
+        if (law){
+            Post.findAllByLawAndPublished(law, true,[max: pagination.max, sort: "id", order: "desc", offset: 0])
+        }else{
+            Post.findAllByPublished(true, [max: pagination.max, sort: "id", order: "desc", offset: 0])
+//        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
+        }
+    }
+
     /**
      * Related posts to post and user. User can be null
      * @param post

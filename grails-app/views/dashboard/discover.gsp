@@ -39,7 +39,7 @@
     </aside>
     <aside class="row others">
         <g:render template="discover/recommendedLaws" model="[recommendedLaws:recommendedLaws]"/>
-        <modulesUtil:recommendedPosts numPost="2" title="${message(code:"modules.recommendedLawPosts.title")}" specialCssClass="col-xs-12 col-sm-4 col-md-4"/>
+        <modulesUtil:lastCreatedPosts numPost="3" specialCssClass="col-xs-12 col-sm-4 col-md-4"/>
 
 
         <div class="col-xs-12 col-sm-4 col-md-4">
