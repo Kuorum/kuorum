@@ -12,12 +12,15 @@ class SearchTagLib {
         SolrElement element = attrs.solrElement
         String field = attrs.field
 
-        def res = element.highlighting."$field"?:element."${field}"
-        if (res instanceof String){
+        String res = ""
+        if (element.highlighting."$field"){
+            res = element.highlighting."$field"
+        }else{
+            res = element."${field}"
             res = res.substring(0, Math.min(res.length(), MAX_LENGHT_TEXT))
-            if (res.length() < element."${field}".length()){
-                res += " ..."
-            }
+        }
+        if (res.length() < element."${field}".length()){
+            res += " ..."
         }
         out << res
     }
