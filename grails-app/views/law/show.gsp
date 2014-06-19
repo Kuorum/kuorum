@@ -8,13 +8,6 @@
 
 
 <content tag="mainContent">
-    <sec:ifAnyGranted roles="ROLE_ADMIN">
-        <div id="adminActions">
-            <span class="text">
-                <g:link mapping="adminEditLaw" params="${law.encodeAsLinkProperties()}">Editar</g:link>
-            </span>
-        </div>
-    </sec:ifAnyGranted>
     <g:render template="/law/lawInfo" model="[law:law, victories: victories, readMore:true]"/>
 
     <g:render template="/law/lawButtonsCreatePost" model="[law:law]"/>

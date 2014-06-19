@@ -11,6 +11,14 @@
     <div class="row options">
         <div class="col-xs-12 col-sm-6 col-md-6 editPost">
             <!-- dejar la estructura aunque a veces esté vacío  -->
+            <sec:ifAnyGranted roles="ROLE_ADMIN">
+                <div id="adminActions">
+                    <span class="text">
+                        <g:link mapping="adminEditLaw" params="${law.encodeAsLinkProperties()}">
+                            <span class="fa fa-edit fa-lg"></span>Editar ley</g:link>
+                    </span>
+                </div>
+            </sec:ifAnyGranted>
         </div>
         <g:if test="${law.urlPdf}">
             <div class="col-xs-12 col-sm-6 col-md-6 leerLey">
