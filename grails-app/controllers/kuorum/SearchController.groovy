@@ -52,7 +52,7 @@ class SearchController{
             it.registerObjectMarshaller( SolrKuorumUser )   { SolrKuorumUser solrKuorumUser ->
                 def urlImage = solrKuorumUser.urlImage
                 if (!urlImage){
-                    urlImage = g.resource(dir:'/images', file: 'pre-user.jpg')
+                    urlImage = g.resource(dir:'/images', file: 'user-default.jpg')
                 }
                 [
                     name:solrKuorumUser.name,
