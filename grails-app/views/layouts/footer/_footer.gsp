@@ -60,9 +60,9 @@
 
                     </div>
 
-                    %{--<div class="col-xs-12 col-sm-3 col-md-12">--}%
-                        %{--<a href="mailto:info@kuorum.org" class="feedback">Danos feedback</a>--}%
-                    %{--</div>--}%
+                    <div class="col-xs-12 col-sm-3 col-md-12">
+                        <a href="mailto:info@kuorum.org" class="feedback" target="_blank">Danos feedback</a>
+                    </div>
 
                 </div>
             </section>
