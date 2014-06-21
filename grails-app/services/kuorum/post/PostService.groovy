@@ -222,6 +222,7 @@ class PostService {
                 deleted :comment.deleted ]
         Post.collection.update ( [_id:post.id],['$push':['comments':commentData]])
         post.refresh()
+        notificationService.sendCommentNotifications(post, comment)
         post.comments.last()
     }
 

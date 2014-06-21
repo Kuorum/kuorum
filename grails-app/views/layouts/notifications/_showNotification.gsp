@@ -18,6 +18,9 @@
 <g:elseif test="${notification.instanceOf(DefendedPostNotification)}">
     <g:render template="/layouts/notifications/defendedNotification"  model='[notification:notification,newNotification:newNotification,modalUser:modalUser]'/>
 </g:elseif>
+<g:elseif test="${notification.instanceOf(CommentNotification)}">
+    <g:render template="/layouts/notifications/commentNotification"  model='[notification:notification,newNotification:newNotification,modalUser:modalUser]'/>
+</g:elseif>
 <g:else>
     NOT DONE ${notification.class.name}
 </g:else>

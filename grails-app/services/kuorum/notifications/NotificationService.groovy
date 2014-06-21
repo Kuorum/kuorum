@@ -12,6 +12,7 @@ import kuorum.mail.MailType
 import kuorum.mail.MailUserData
 import kuorum.post.Cluck
 import kuorum.post.Post
+import kuorum.post.PostComment
 import kuorum.post.PostVote
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
@@ -133,15 +134,22 @@ class NotificationService {
         }
     }
 
-    void sendCommentNotification(KuorumUser user, Post post){
-        if (user != post.owner){
+    void sendCommentNotifications(Post post, PostComment comment){
+        List<KuorumUser> users = post.comments*.kuorumUser
+        KuorumUser commentWriter = comment.kuorumUser
+        users.add(post.owner)
+        users = users.unique()
+        users.remove(commentWriter)
+        users.each {KuorumUser user ->
             CommentNotification commentNotification = new CommentNotification(
-                    kuorumUser: post.owner,
-                    tertullian: user,
-                    post: post
+                    kuorumUser: user,
+                    commentWriter: commentWriter,
+                    post: post,
+                    text: comment.text
             )
             commentNotification.save()
         }
+
     }
 
     void sendMilestoneNotification(Post post){

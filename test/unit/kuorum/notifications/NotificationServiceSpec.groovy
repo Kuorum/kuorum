@@ -21,7 +21,7 @@ import spock.lang.Unroll
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(NotificationService)
-@Mock([KuorumUser, Cluck, Law, Post,Notification,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification, LawClosedNotification, LawVote,PromotedMail])
+@Mock([KuorumUser, Cluck, Law, Post,Notification,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification, LawClosedNotification, LawVote,PromotedMail, PostComment])
 class NotificationServiceSpec extends Specification {
 
     KuorumMailService kuorumMailService = Mock(KuorumMailService)
@@ -72,20 +72,44 @@ class NotificationServiceSpec extends Specification {
         1 * kuorumMailService.sendFollowerNotificationMail(user1, user2)
     }
 
-    void "test new comment"() {
-        given: "2 users"
-        KuorumUser user1 = Helper.createDefaultUser("user1@ex.com").save()
+    @Unroll
+    void "test sending notification to #numUsers users when there are #numDebates debates"(){
+        given: "A post and #numUsers users"
+        KuorumUser postOwner = Helper.createDefaultUser("postOwner@ex.com").save()
         Law law = Helper.createDefaultLaw("#test")
-        Post post = Helper.createDefaultPost(user1, law)
-        KuorumUser user2 = Helper.createDefaultUser("user2@ex.com").save()
+        Post post = Helper.createDefaultPost(postOwner, law)
+        List<KuorumUser> users = (1..numUsers).collect{Helper.createDefaultUser("user${it}@ex.com").save()}
+        users.add(postOwner)
+        (0..numDebates-1).each{
+            KuorumUser user = users.get(it % (numUsers+1))
 
+            PostComment comment = new PostComment(kuorumUser: user, text: "Texto ${it}").save()
+            post.comments.add(comment)
+        }
+        post.save()
         when: "Sending notification"
         //"service" represents the grails service you are testing for
-        service.sendCommentNotification(user2, post)
-        CommentNotification commentNotification = CommentNotification.findByTertullianAndKuorumUser(user2,user1)
+        service.sendCommentNotifications(post, post.comments.last())
         then: "All OK and mail service has not been called"
-        commentNotification
-        0 * kuorumMailService._(1..99) //NO se si esto hace algo
+        users.each {KuorumUser user ->
+            if (user == post.comments.last().kuorumUser){
+                CommentNotification.countByKuorumUserAndPost(user, post) == 0
+            }else{
+                CommentNotification.countByKuorumUserAndPost(user, post) == 1
+            }
+        }
+
+        CommentNotification.countByPost(post) == numNotifications
+        0 * kuorumMailService._(_) //NO se si esto hace algo
+        0 * kuorumMailService._(_,_) //NO se si esto hace algo
+        0 * kuorumMailService._(_,_,_) //NO se si esto hace algo
+        where:
+        numUsers    | numNotifications | numDebates
+        1           | 1                | 1
+        1           | 1                | 11
+        2           | 2                | 4
+        2           | 2                | 10
+        3           | 3                | 3
     }
 
     void "test public milestone voting posts"() {

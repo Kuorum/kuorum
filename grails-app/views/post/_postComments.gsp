@@ -1,5 +1,5 @@
 <%@ page import="kuorum.web.commands.post.CommentPostCommand" %>
-<aside class="comments">
+<aside class="comments" id="comments">
     <g:set var="filteredComments" value="${post.comments.findAll{!(it.deleted || it.moderated)}}"/>
     <g:if test="${!filteredComments}">
         <sec:ifLoggedIn>
