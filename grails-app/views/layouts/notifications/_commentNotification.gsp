@@ -2,7 +2,7 @@
     <g:message code="${kuorum.core.model.PostType.name}.${notification.post.postType}"/>
 </g:set>
 <g:set var="text">
-    <g:message code="notifications.commentNotification.text" args="[postType, notification.text.substring(0, Math.min(notification.text.size(), 50)).encodeAsHTML()+'...']"/>
+    <g:message code="notifications.commentNotification.text" args="[postType, notification.text.substring(0, Math.min(notification.text.size(), 50))+'...']"/>
 </g:set>
 <g:set var="answerLink" value="${createLink(mapping: 'postShow', params: notification.post.encodeAsLinkProperties())}#comments"/>
 
