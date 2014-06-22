@@ -5,38 +5,38 @@
 </head>
 
 
-<content tag="mainContent">
-    <div class="introDiscover">
-        <p class="pre">Las leyes más polémicas en debate</p>
-        <ul class="steps">
-            <li class="active"><a href="#" class="badge">1</a></li>
-            <g:each in="${2..relevantLaws.size()}" var="i">
-                <li><a href="#" class="badge">${i}</a></li>
-            </g:each>
-        </ul>
-    </div>
+%{--<content tag="mainContent">--}%
+    %{--<div class="introDiscover">--}%
+        %{--<p class="pre">Las leyes más polémicas en debate</p>--}%
+        %{--<ul class="steps">--}%
+            %{--<li class="active"><a href="#" class="badge">1</a></li>--}%
+            %{--<g:each in="${2..relevantLaws.size()}" var="i">--}%
+                %{--<li><a href="#" class="badge">${i}</a></li>--}%
+            %{--</g:each>--}%
+        %{--</ul>--}%
+    %{--</div>--}%
 
-    <g:each in="${relevantLaws}" var="law" status="i">
-        <div class="row" style="display:${i!=0?'none':'block'}" id="relevantLaw_${i}">
-            <section id="main" class="col-xs-12 col-sm-8 col-md-8" role="main">
-                <g:render template="/law/lawInfo" model="[law:law, linkToLaw:true, hideCallMobileVoteButton:true]"/>
-            </section>
+    %{--<g:each in="${relevantLaws}" var="law" status="i">--}%
+        %{--<div class="row" style="display:${i!=0?'none':'block'}" id="relevantLaw_${i}">--}%
+            %{--<section id="main" class="col-xs-12 col-sm-8 col-md-8" role="main">--}%
+                %{--<g:render template="/law/lawInfo" model="[law:law, linkToLaw:true, hideCallMobileVoteButton:true]"/>--}%
+            %{--</section>--}%
 
-            <aside class="col-xs-12 col-sm-4 col-md-4" role="complementary">
-                <modulesUtil:lawVotes law="${law}"/>
-                <modulesUtil:lawActivePeople law="${law}"/>
-                <modulesUtil:recommendedPosts law="${law}" title="${message(code:"modules.recommendedLawPosts.title")}"/>
-            </aside>
-        </div>
-    </g:each>
-</content>
+            %{--<aside class="col-xs-12 col-sm-4 col-md-4" role="complementary">--}%
+                %{--<modulesUtil:lawVotes law="${law}"/>--}%
+                %{--<modulesUtil:lawActivePeople law="${law}"/>--}%
+                %{--<modulesUtil:recommendedPosts law="${law}" title="${message(code:"modules.recommendedLawPosts.title")}"/>--}%
+            %{--</aside>--}%
+        %{--</div>--}%
+    %{--</g:each>--}%
+%{--</content>--}%
 
 <content tag="footerModules">
-    <aside class="moreActives" role="complementary">
-        <h1><g:message code="discover.module.mostActiveUsers.title"/> </h1>
-        <userUtil:showListUsers users="${mostActiveUsers}" visibleUsers="25" messagesPrefix="discover.module.mostActiveUsers.userList"/>
-        <p><g:message code="discover.module.mostActiveUsers.footerText"/></p>
-    </aside>
+    %{--<aside class="moreActives" role="complementary">--}%
+        %{--<h1><g:message code="discover.module.mostActiveUsers.title"/> </h1>--}%
+        %{--<userUtil:showListUsers users="${mostActiveUsers}" visibleUsers="25" messagesPrefix="discover.module.mostActiveUsers.userList"/>--}%
+        %{--<p><g:message code="discover.module.mostActiveUsers.footerText"/></p>--}%
+    %{--</aside>--}%
     <aside class="row others">
         <g:render template="discover/recommendedLaws" model="[recommendedLaws:recommendedLaws]"/>
         <modulesUtil:lastCreatedPosts numPost="3" specialCssClass="col-xs-12 col-sm-4 col-md-4"/>

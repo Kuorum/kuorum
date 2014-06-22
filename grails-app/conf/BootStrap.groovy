@@ -58,8 +58,8 @@ class BootStrap {
         }
         environments {
             development {
-                RoleUser.collection.getDB().dropDatabase()
-                fixtureLoader.load("testData")
+//                RoleUser.collection.getDB().dropDatabase()
+//                fixtureLoader.load("testData")
                 indexSolrService.fullIndex()
             }
             test{
