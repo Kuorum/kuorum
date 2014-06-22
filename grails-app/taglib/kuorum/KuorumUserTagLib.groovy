@@ -98,7 +98,7 @@ class KuorumUserTagLib {
             user = KuorumUser.get(springSecurityService.principal.id)
         }
         if (!user){
-            throw Exception("Si no está logado el usuario es necesario indicar el usuario")
+            throw Exception("Si no estï¿½ logado el usuario es necesario indicar el usuario")
         }
         List<KuorumUser> users = user.followers.collect{id -> KuorumUser.load(id)}
         out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.follower.userList')
@@ -110,7 +110,7 @@ class KuorumUserTagLib {
             user = KuorumUser.get(springSecurityService.principal.id)
         }
         if (!user){
-            throw new Exception("Si no está logado el usuario es necesario indicar el usuario")
+            throw new Exception("Si no estï¿½ logado el usuario es necesario indicar el usuario")
         }
         List<KuorumUser> users = user.following.collect{id -> KuorumUser.load(id)}
         out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.following.userList')
@@ -171,7 +171,7 @@ class KuorumUserTagLib {
         if (user.userType == UserType.POLITICIAN){
             String rolePolitician = user.parliamentaryGroup.name
             if (!user.enabled)
-                rolePolitician = "${g.message(code:"kuorumUser.role.politicianInactive")} [${rolePolitician}]"
+                rolePolitician = "${g.message(code:"kuorumUser.role.politicianInactive")} (${rolePolitician})"
             out << rolePolitician
         }else{
             out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")
