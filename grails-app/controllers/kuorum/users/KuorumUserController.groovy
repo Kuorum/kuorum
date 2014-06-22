@@ -57,6 +57,13 @@ class KuorumUserController {
         [groupPoliticians:groupPoliticians]
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def secShow(String id){
+        KuorumUser user = KuorumUser.get(new ObjectId(id))
+        log.info("Redirecting to normal user show")
+        redirect (mapping:'userShow', params:user.encodeAsLinkProperties())
+    }
+
     def show(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
         log.warn("Executing show user")

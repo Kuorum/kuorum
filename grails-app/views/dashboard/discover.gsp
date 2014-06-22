@@ -45,12 +45,12 @@
         <div class="col-xs-12 col-sm-4 col-md-4">
             <section>
                 <h1><g:message code="discover.module.bestPoliticians.title"/> </h1>
-                <userUtil:showListUsers users="${bestPoliticians}" visibleUsers="10" messagesPrefix="discover.module.bestPoliticians.userList"/>
+                <userUtil:showListUsers users="${bestPoliticians}" visibleUsers="32" messagesPrefix="discover.module.bestPoliticians.userList"/>
                 <p><g:message code="discover.module.bestPoliticians.description"/></p>
             </section>
             <section>
                 <h1><g:message code="discover.module.bestSponsors.title"/> </h1>
-                <userUtil:showListUsers users="${bestSponsors}" visibleUsers="10" messagesPrefix="discover.module.bestSponsors.userList"/>
+                <userUtil:showListUsers users="${bestSponsors}" visibleUsers="24" messagesPrefix="discover.module.bestSponsors.userList"/>
                 <p><g:message code="discover.module.bestSponsors.description"/> </p>
             </section>
         </div>

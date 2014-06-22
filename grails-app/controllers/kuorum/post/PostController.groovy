@@ -109,7 +109,7 @@ class PostController {
             multimedia = createKuorumFileFromYoutubeUrl(command.videoPost, user)
         }else if (command.fileType == FileType.YOUTUBE && command.videoPost && post.multimedia){
             if (command.videoPost == post.multimedia.url){
-                multimedia = post.multimedia
+                multimedia = KuorumFile.get(post.multimedia.id)
             }else{
                 fileService.deleteFile(post.multimedia)
                 multimedia = createKuorumFileFromYoutubeUrl(command.videoPost, user)

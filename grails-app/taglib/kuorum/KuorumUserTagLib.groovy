@@ -208,34 +208,42 @@ class KuorumUserTagLib {
     def followButton={attrs ->
         KuorumUser user = attrs.user
         String cssSize = attrs.cssSize?:'btn-xs'
+        Boolean showNoLoggedButton = attrs.showNoLoggedButton?:Boolean.FALSE
+        def linkAjaxFollow = g.createLink(mapping:'ajaxFollow', params: [id:user.id])
+        def linkAjaxUnFollow = g.createLink(mapping:'ajaxUnFollow', params: [id:user.id])
+        def linkNoLoggedFollow = g.createLink(mapping:'secUserShow', params: user.encodeAsLinkProperties())
+        def prefixMessages = attrs.prefixMessages?:"kuorumUser.follow"
+        def text = "${g.message(code:"${prefixMessages}.follow", args:[user.name], codec:"raw")} "
+        def cssClass = "enabled"
         if (springSecurityService.isLoggedIn() && springSecurityService.principal.id != user.id){
-            def linkAjaxFollow = g.createLink(mapping:'ajaxFollow', params: [id:user.id])
-            def linkAjaxUnFollow = g.createLink(mapping:'ajaxUnFollow', params: [id:user.id])
             def isFollowing = user.followers.contains(springSecurityService.principal.id)
-            def cssClass = "enabled"
-            def text = ""
-            def prefixMessages = attrs.prefixMessages?:"kuorumUser.follow"
             if (isFollowing){
                 cssClass = "disabled"
                 text = "${g.message(code:"${prefixMessages}.unfollow", args:[user.name], codec:"raw")} "
-            }else{
-                text = "${g.message(code:"${prefixMessages}.follow", args:[user.name], codec:"raw")} "
             }
+        }else if (!springSecurityService.isLoggedIn()){
+            cssClass += " noLogged"
+        }
+
+        if (springSecurityService.isLoggedIn() && springSecurityService.principal.id != user.id ||
+                !springSecurityService.isLoggedIn() && showNoLoggedButton){
             out << """
-        <button
-                type="button"
-                class="btn btn-blue ${cssSize} allow ${cssClass}"
-                id="follow" data-ajaxFollowUrl="${linkAjaxFollow}"
-                data-message-follow_hover='${g.message(code:"${prefixMessages}.follow_hover", args:[user.name], codec:"raw")}'
-                data-message-follow='${g.message(code:"${prefixMessages}.follow", args:[user.name], codec:"raw")}'
-                data-message-unfollow_hover='${g.message(code:"${prefixMessages}.unfollow_hover", args:[user.name], codec:"raw")}'
-                data-message-unfollow='${g.message(code:"${prefixMessages}.unfollow", args:[user.name], codec:"raw")}'
-                data-userId='${user.id}'
-                data-ajaxUnFollowUrl="${linkAjaxUnFollow}">
-            ${text}
-        </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
-        """
-      }
+            <button
+                    type="button"
+                    class="btn btn-blue ${cssSize} allow ${cssClass}"
+                    id="follow"
+                    data-noLoggedUrl="${linkNoLoggedFollow}"
+                    data-ajaxFollowUrl="${linkAjaxFollow}"
+                    data-ajaxUnFollowUrl="${linkAjaxUnFollow}"
+                    data-message-follow_hover='${g.message(code:"${prefixMessages}.follow_hover", args:[user.name], codec:"raw")}'
+                    data-message-follow='${g.message(code:"${prefixMessages}.follow", args:[user.name], codec:"raw")}'
+                    data-message-unfollow_hover='${g.message(code:"${prefixMessages}.unfollow_hover", args:[user.name], codec:"raw")}'
+                    data-message-unfollow='${g.message(code:"${prefixMessages}.unfollow", args:[user.name], codec:"raw")}'
+                    data-userId='${user.id}'>
+                ${text}
+            </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+            """
+        }
 
     }
 }

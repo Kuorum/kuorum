@@ -16,5 +16,10 @@
         </li>
     </ul>
     %{--<button class="btn btn-blue btn-lg btn-block followInactivePolitician enabled" type="button">Quiero que se una a kuorum</button>--}%
-    <userUtil:followButton user="${user}" prefixMessages="kuorumUser.follow.inactivePolitician.columnC" cssSize="btn-lg"/>
+    <userUtil:followButton
+            user="${user}"
+            prefixMessages="kuorumUser.follow.inactivePolitician.columnC"
+            cssSize="btn-lg"
+            showNoLoggedButton="${java.lang.Boolean.TRUE}"
+    />
 </section>

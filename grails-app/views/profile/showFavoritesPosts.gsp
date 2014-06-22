@@ -21,11 +21,18 @@
 
     <ul class="list-post pending">
         <g:each in="${favorites}" var="post">
-        <li>
+        <li id="pendingPost_${post.id}">
             ${post.title}
             <g:link mapping="lawShow" class="law" params="${post.law.encodeAsLinkProperties()}">${post.law.hashtag}</g:link>
             <ul class="actions">
-                <li><a href="#">desmarcar</a></li>
+                <li>
+                    <g:remoteLink
+                            url="[mapping:'postToggleFavorite', params:post.encodeAsLinkProperties()]"
+                            onSuccess="\$('#pendingPost_${post.id}').remove()"
+                            rel="nofollow">
+                        <g:message code="profile.profileFavorites.posts.alreadyRead"/>
+                    </g:remoteLink>
+                </li>
                 <li><g:link mapping="postShow" params="${post.encodeAsLinkProperties()}"><g:message code="profile.profileMyPosts.post.show"/></g:link></li>
             </ul>
         </li>

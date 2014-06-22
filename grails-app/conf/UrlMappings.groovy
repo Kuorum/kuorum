@@ -45,6 +45,7 @@ class UrlMappings {
 
         //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
         name userShow:          "/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "show")
+        name secUserShow:       "/sec/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "secShow")
         name users:             "/$userTypeUrl"     (controller: "kuorumUser", action: "index"){
             constraints {
                 userTypeUrl inList: ["ciudadanos", "organizaciones", "politicos"]

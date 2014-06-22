@@ -353,7 +353,11 @@ $(document).ready(function() {
 
     function clickedButtonFollow(button){
         var buttonFollow= $(button)
-        if ( buttonFollow.hasClass('disabled') ){
+        if (buttonFollow.hasClass('noLogged')){
+            var url = buttonFollow.attr("data-noLoggedUrl");
+            location.href =url
+        }
+        else if ( buttonFollow.hasClass('disabled') ){
             var url = buttonFollow.attr("data-ajaxunfollowurl")
             ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-follow');

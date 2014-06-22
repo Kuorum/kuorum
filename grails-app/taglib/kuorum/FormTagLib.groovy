@@ -52,10 +52,13 @@ class FormTagLib {
         out << g.render(template:'/layouts/form/uploadImage', model:model)
     }
 
-    private static final Integer NUM_CHARS_SHORTEN_URL = 18 //OWLY
+//    private static final Integer NUM_CHARS_SHORTEN_URL = 19 //OWLY
+    private static final Integer NUM_CHARS_TWITTER_URL = 22 // Twitter change all urls to t.co and its size will be 22 (before february of 2014 was 20)
+    private static final Integer NUM_EXTRA_SPACE = 2 // Between text and hastag, and between hastag and shortUrl
+
     def postTitleLimitChars = {attrs->
         Law law = attrs.law
-        out << grailsApplication.config.kuorum.post.titleSize - law.hashtag.size() - NUM_CHARS_SHORTEN_URL
+        out << grailsApplication.config.kuorum.post.titleSize - law.hashtag.size() - NUM_CHARS_TWITTER_URL -NUM_EXTRA_SPACE
 
     }
 
