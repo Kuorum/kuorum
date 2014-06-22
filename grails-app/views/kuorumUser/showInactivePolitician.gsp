@@ -44,8 +44,9 @@
         <h2><g:message code="kuorumUser.show.politicianInactive.text.p3.title"/></h2>
         <p><g:message code="kuorumUser.show.politicianInactive.text.p3.text1"/></p>
 
-
-        %{--<userUtil:followButton user="${user}" prefixMessages="kuorumUser.follow.inactivePolitician" cssSize="btn-lg"/>--}%
+        <span class="hidden-sm hidden-xs">
+            <userUtil:followButton user="${user}" prefixMessages="kuorumUser.follow.inactivePolitician" cssSize="btn-lg"/>
+        </span>
     </article>
 </content>
 
