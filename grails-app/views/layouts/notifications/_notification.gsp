@@ -1,5 +1,5 @@
 
-<li class='${newNotification?'new':''} ${user?'user':''}'>
+<li class='${newNotification?'new':''} ${user?'user':''} ${answerLink?'answerLink':''}'>
     <g:render template="/layouts/notifications/notificationUser" model="[user:user, modalUser:modalUser]"/>
     <span class="time">
         <small>
