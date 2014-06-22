@@ -15,7 +15,7 @@
                         </div>
                         <h1>${law.shortName}</h1>
                         <g:set var="intro" value="${law.introduction.encodeAsRemovingHtmlTags()}"/>
-                        <p>${intro.substring(0,Math.min(56, intro.size()-1))}...</p>
+                        <p>${intro.substring(0,Math.min(46, intro.size()-1))}...</p>
                     </div>
                 </article>
             </li>

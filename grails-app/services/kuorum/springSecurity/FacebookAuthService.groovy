@@ -54,6 +54,7 @@ class FacebookAuthService {
         user.accountLocked = false
         user.enabled = true
         if (user.userType == UserType.PERSON){
+            log.info("${fbProfile.email} es una persona")
             PersonData personData = new PersonData()
 
             personData.gender = overwriteFieldIfNotFilled(user.personalData, "gender", fbProfile,{data ->Gender.valueOf(data.toUpperCase())?:Gender.FEMALE})
@@ -76,29 +77,37 @@ class FacebookAuthService {
         if (user.hasErrors() || facebookUser.hasErrors()){
             log.error("El usuario ${user} se ha logado usando faceboook y no se ha podido crear debido a estos errores: ${user.errors}" )
         }else{
+            log.info("Usuario ${user} creado usando facebook")
             kuorumMailService.sendRegisterUserViaRRSS(user, PROVIDER)
         }
         facebookUser
     }
 
     private def overwriteFieldIfNotFilled(PersonalData personalData, String field, FacebookProfile fbProfile, def parseData){
-        if (personalData.hasProperty(field) && personalData."$field")
-            return personalData."$field"
-        else
-            parseData(fbProfile."$field")
+        try{
+            if (personalData.hasProperty(field) && personalData."$field")
+                return personalData."$field"
+            else
+                parseData(fbProfile."$field")
+        }catch (Exception e){
+            log.warn("Eror recuperando los datos personales (${field}) de facebook del usuario ${fbProfile.email}. [Excpt: ${e.getMessage()}]")
+        }
     }
 
     private Studies recoverStudies(FacebookProfile fbProfile){
-        def education = fbProfile.education.collect{it.type}
         Studies studies = null
-        if (education.contains("High School"))
-            studies = Studies.UNIVERSITY
-        else if (education.contains("College"))
-            studies = Studies.NONE
-        else if (education.contains("College"))
-            studies = Studies.STUDENT
+        try{
+            def education = fbProfile.education.collect{it.type}
+            if (education.contains("High School"))
+                studies = Studies.UNIVERSITY
+            else if (education.contains("College"))
+                studies = Studies.NONE
+            else if (education.contains("College"))
+                studies = Studies.STUDENT
+        }catch(Exception e){
+            log.warn("Error recuperando los estudios de facebook: [Except:${e.getMessage()}]")
+        }
         studies
-
     }
 //    def afterCreate(kuorum.users.FacebookUser user, com.the6hours.grails.springsecurity.facebook.FacebookAuthToken token){
 //        log.info("Afer facebook user created")
@@ -119,9 +128,12 @@ class FacebookAuthService {
                     fileGroup:FileGroup.USER_AVATAR,
                     fileType: FileType.IMAGE
             )
-            kuorumFile.save()
-            user.avatar = kuorumFile
-            user.save()
+            if (kuorumFile.save()){
+                user.avatar = kuorumFile
+                user.save()
+            }else{
+                log.warn("No se ha podido salvar la imagen del usuario de facebook ${fbProfile.email}. Errors: ${kuorumFile.errors}")
+            }
         }
     }
 
