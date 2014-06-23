@@ -18,7 +18,7 @@ $(document).ready(function() {
 
         tour_dashboard.addSteps([
             {
-                element: '#brand',
+                element: 'header',
                 placement: 'bottom',
                 title: i18n.tour.tour_dashboard.step1_title,
                 content: i18n.tour.tour_dashboard.step1_content
@@ -42,7 +42,7 @@ $(document).ready(function() {
                 content:i18n.tour.tour_dashboard.step4_content
             },
             {
-                element: '#list-kakareos-id li:first div.link-wrapper h1 a',
+                element: '#list-kakareos-id li:first div.link-wrapper h1',
                 placement: 'bottom',
                 title: i18n.tour.tour_dashboard.step5_title,
                 content:i18n.tour.tour_dashboard.step5_content
