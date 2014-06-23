@@ -78,16 +78,16 @@ $(document).ready(function() {
     });
 
     // button dentro del popover del kakareo no lanzan el enlace del bloque clicable
-    $('body').on('click', '.popover button', function() {
+    $('body').on('click', '.link-wrapper .popover button', function() {
         $('.link-wrapper').preventDefault();
     });
 
-    // button dentro del popover del kakareo no lanzan el enlace del bloque clicable
-    $("#search-results .popover-box #follow").on('click', function(e) {
-        e.preventDefault()
-        e.stopPropagation()
-        //If not stopPropagation -> .link-wrapper is fired
-        clickedButtonFollow($(this))
+    //
+    $("#search-results .popover-box #follow").on('click', function() {
+        // e.preventDefault();
+        // e.stopPropagation();
+        /*If not stopPropagation -> .link-wrapper is fired -> el bloque anterior ya evita esto para los button dentro de popover*/
+        clickedButtonFollow($(this));
     });
 
 	// scroll suave a hashtag
@@ -295,14 +295,13 @@ $(document).ready(function() {
             }
         });
 	});
-    $('.link-wrapper').on('click', '.read-later a', function() {
+    $('body').on('click', '#postNav .read-later a', function() {
         $('.link-wrapper').preventDefault();
     });
 
 
 	// Cambio de flechita en el botón desplegar texto de la ley
-	$('body').on("click", ".readMore a", function(e) {
-
+	$('body').on('click', '.readMore a', function() {
 		if ( $(this).hasClass('collapsed') ) {
 			$(this).html('Ocultar texto<span class="fa fa-chevron-circle-up fa-lg"></span>');
 		} else {

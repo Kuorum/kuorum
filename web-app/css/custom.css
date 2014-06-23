@@ -593,8 +593,8 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover.tour {width: 300px; max-width: 300px !important; padding: 8px;}
 .popover.tour .popover-title {
     font-family: 'League Gothic', Arial, sans-serif;
-    font-size: 34px;
-    font-size: 3.4rem;
+    font-size: 30px;
+    font-size: 3rem;
     line-height: 1;
     text-transform: uppercase;
 }
