@@ -65,8 +65,13 @@ $(document).ready(function() {
 	// hacer un bloque clicable y que tome que es su primer elemento la url del enlace a.hidden
 	$(function() {
 
-        $('body').on('click','.link-wrapper', function() {
-            window.location = $(this).find('a.hidden').attr('href');
+        $('body').on('click','.link-wrapper', function(e) {
+            //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
+            var target = $(e.target)
+            var popover = target.parents(".popover")
+            if (!popover.hasClass("popover")){
+                window.location = $(this).find('a.hidden').attr('href');
+            }
         });
 
 	});
@@ -78,9 +83,10 @@ $(document).ready(function() {
     });
 
     // button dentro del popover del kakareo no lanzan el enlace del bloque clicable
-    $('body').on('click', '.link-wrapper .popover button', function() {
-        $('.link-wrapper').preventDefault();
-    });
+//    $('body').on('click', '.link-wrapper .popover button', function(e) {
+//        e.preventDefault();
+//        e.stopPropagation();
+//    });
 
     //
     $("#search-results .popover-box #follow").on('click', function() {
