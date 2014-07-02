@@ -7,6 +7,7 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-43673977-1', 'kuorum.org');
+    ga('require', 'displayfeatures');
     ga('send', 'pageview');
 
 </script>
