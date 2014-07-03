@@ -276,18 +276,29 @@ $(document).ready(function() {
 	// leer después
 	$('body').on('click', '.read-later a', function(e) {
         e.preventDefault();
-        var url = $(this).attr("href");
-        var postId = $(this).parents("article").first().attr("data-cluck-postId");
+        readLater($(this))
+
+	});
+    $('body').on('click', '#postNav .read-later a', function(e) {
+        readLater($(this));
+        e.preventDefault();
+        e.stopPropagation();
+    });
+
+    function readLater(readLaterElement){
+        var url = $(readLaterElement).attr("href");
+        var postId = $(readLaterElement).parents("article").first().attr("data-cluck-postId");
         var html = $("article[data-cluck-postId='"+postId+"'] li.read-later").html()
         var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
+        console.log("Reading later"+postId);
         $.ajax({
-                url:url,
-                beforeSend:function(xhr){
-                    $("article[data-cluck-postId='"+postId+"'] li.read-later").html(loadingHtml)
-                }
+            url:url,
+            beforeSend:function(xhr){
+                $("article[data-cluck-postId='"+postId+"'] li.read-later").html(loadingHtml)
+            }
         }).done(function(data, status, xhr){
             var isFavorite = xhr.getResponseHeader('isFavorite');
-             var numFavorites = xhr.getResponseHeader('numList');
+            var numFavorites = xhr.getResponseHeader('numList');
             $("article[data-cluck-postId='"+postId+"'] li.read-later").html(html)
             $(".pending h1 .badge").text(numFavorites);
             if (isFavorite == "true"){
@@ -300,10 +311,7 @@ $(document).ready(function() {
                 $("section.boxes.guay.pending article[data-cluck-postId='"+postId+"']").parent().remove();
             }
         });
-	});
-    $('body').on('click', '#postNav .read-later a', function() {
-        $('.link-wrapper').preventDefault();
-    });
+    }
 
 
 	// Cambio de flechita en el botón desplegar texto de la ley

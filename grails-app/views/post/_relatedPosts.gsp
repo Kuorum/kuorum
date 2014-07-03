@@ -16,12 +16,14 @@
 
 
                     <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
-                    <div class="read-later pull-right">
-                    <g:link mapping="postToggleFavorite" class="${postUtil.cssClassIfFavorite(post:relatedPost)} allow" params="${relatedPost.encodeAsLinkProperties()}" rel="nofollow">
-                            <span class="fa fa-bookmark fa-lg"></span>
-                            <span class="sr-only"><g:message code="cluck.footer.readLater"/></span>
-                    </g:link>
-                    </div>
+                    <ul class="actions-kak  pull-right">
+                        <li class="read-later">
+                        <g:link mapping="postToggleFavorite" class="${postUtil.cssClassIfFavorite(post:relatedPost)}" params="${relatedPost.encodeAsLinkProperties()}" rel="nofollow">
+                                <span class="fa fa-bookmark fa-lg"></span>
+                                <span class="sr-only"><g:message code="cluck.footer.readLater"/></span>
+                        </g:link>
+                        </li>
+                    </ul>
                 </article>
             </g:each>
         </div>

@@ -1687,6 +1687,8 @@ textarea.error,
 .othersPost #postNav .read-later a:hover,
 .othersPost #postNav .read-later a:active,
 .othersPost #postNav .read-later a:focus {color: #20a2ea;}
+.othersPost #postNav .read-later a.disabled {color: #20a2ea; cursor: pointer !important;}
+.othersPost #postNav ul.actions-kak {list-style: none;}
 .othersPost #postNav > a {display: block; padding: 82px 18px; background-color: #20a2ea; color: #fff; border-radius: 0; position: absolute; top: 0;}
 .othersPost #postNav > a:hover {background-color: #2e6bab;}
 .othersPost #postNav > a.prev {left: 0;}
