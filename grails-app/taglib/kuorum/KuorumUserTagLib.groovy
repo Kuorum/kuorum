@@ -32,6 +32,8 @@ class KuorumUserTagLib {
 
     def showUser={attrs ->
         KuorumUser user
+        //attrs.withPopover => String expected
+        Boolean withPopover = !attrs.withPopover?true:Boolean.parseBoolean(attrs.withPopover)
         String name = ""
         if (attrs.user instanceof SolrKuorumUser){
             user = KuorumUser.get(new ObjectId(attrs.user.id))
@@ -52,12 +54,18 @@ class KuorumUserTagLib {
         if (showName){
             userName = "<span itemprop='name'>${name}</span>"
         }
+        def popOverSpanElements = """class="popover-trigger" rel="popover" role="button" data-toggle="popover" """
+        if (!withPopover){
+            popOverSpanElements = ""
+        }
         out << """
-                <span class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                <span $popOverSpanElements>
                     <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image">${userName}
                 </span>
         """
-        out << g.render(template: '/kuorumUser/popoverUser', model:[user:user])
+        if (withPopover){
+            out << g.render(template: '/kuorumUser/popoverUser', model:[user:user])
+        }
         if (showRole){
             out << """
                 <span class="user-type">
