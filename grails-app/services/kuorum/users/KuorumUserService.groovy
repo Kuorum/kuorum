@@ -373,6 +373,7 @@ class KuorumUserService {
         String nombreEmail = user.email.split("@")[0]
         String domain = user.email.split("@")[1]
         String email = "BORRADO_${nombreEmail}@NO_EMAIL_${domain}"
+        user.email = email
         if (!user.save(flush: true)) {
             //TODO: Gestion errores
             log.error("Error salvando usuario ${user.id}. ERRORS => ${user.errors}")
