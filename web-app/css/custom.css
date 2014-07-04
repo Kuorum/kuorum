@@ -1460,7 +1460,12 @@ textarea.error,
 }
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area{height:278px;}
 .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 10px;}
-.qq-upload-drop-area-active {background-color:#FFF8ED;}
+.qq-upload-drop-area-active {
+    background-color:#FFF8ED;
+    -moz-box-shadow: 0px 0px 20px #000;
+    -webkit-box-shadow: 0px 0px 20px #000;
+    box-shadow: 0px 0px 20px #000;
+}
 .qq-upload-list {display:none;}
 .qq-upload-list {margin:15px 35px; padding:0; list-style:disc;}
 .qq-upload-list li { margin:0; padding:0; line-height:15px; font-size:12px;}
@@ -1687,6 +1692,8 @@ textarea.error,
 .othersPost #postNav .read-later a:hover,
 .othersPost #postNav .read-later a:active,
 .othersPost #postNav .read-later a:focus {color: #20a2ea;}
+.othersPost #postNav .read-later a.disabled {color: #20a2ea; cursor: pointer !important;}
+.othersPost #postNav ul.actions-kak {list-style: none;}
 .othersPost #postNav > a {display: block; padding: 82px 18px; background-color: #20a2ea; color: #fff; border-radius: 0; position: absolute; top: 0;}
 .othersPost #postNav > a:hover {background-color: #2e6bab;}
 .othersPost #postNav > a.prev {left: 0;}

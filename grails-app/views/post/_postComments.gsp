@@ -16,10 +16,12 @@
         <p><g:message code="post.show.comments.description"/> </p>
     </g:else>
     <ul class="listComments" id="listComments">
-    <g:each in="${filteredComments}" var="comment" status="i">
+    <g:set var="displayedComments" value="${0}"/>
+    <g:each in="${post.comments}" var="comment" status="i">
         <g:if test="${filteredComments.contains(comment)}">
-            <g:set var="display" value="${i>=2?'none':'block'}"/>
+            <g:set var="display" value="${displayedComments>=2?'none':'block'}"/>
             <g:render template="/post/postComment" model="[post:post, comment:comment, pos:i, display:display]"/>
+            <g:set var="displayedComments" value="${displayedComments+1}"/>
         </g:if>
     </g:each>
 
