@@ -66,6 +66,7 @@
     <g:javascript library="application"/>
     <r:layoutResources />
     <g:render template="/layouts/googleAnalytics"/>
+    <g:render template="/layouts/facebookRemarketing"/>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
