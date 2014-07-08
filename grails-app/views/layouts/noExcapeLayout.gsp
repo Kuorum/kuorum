@@ -26,7 +26,7 @@
             </div>
         </div><!-- /.conatiner-fluid -->
     </div><!-- /#main -->
-    <g:render template="/layouts/footer/footer"/>
+    <g:render template="/layouts/footer/footerRegister"/>
     </body>
 
 </g:applyLayout>
