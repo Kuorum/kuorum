@@ -1679,6 +1679,8 @@ textarea.error,
 .boxes.noted.likes .sponsor .user-list-images > li:last-child {margin: 0;}
 .boxes.noted.likes #drive {margin-bottom: 50px;}
 .boxes.noted.likes #drive .form-group {margin: 10px 0;}
+.boxes.noted .follow{display: block;position: relative;}
+.boxes.noted .follow ul > li {float: left; margin-right: 3px;}
 
 .othersPost {margin: 60px 0 70px;}
 .othersPost h1 {font-size: 20px; font-size: 2rem;}
