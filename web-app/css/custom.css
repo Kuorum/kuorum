@@ -600,17 +600,19 @@ span + .text-notification {padding: 0 0 0 33px;}
 }
 .popover.tour .popover-navigation > button {
     margin: 0 !important;
-    width: 100%;
     display: block;
-    float: none;
-    margin: 6px 0 !important;
 }
-.popover.tour .popover-navigation > button:last-child {margin: 0 !important;}
+.popover[class*=tour-] .popover-navigation [data-role=end] {float: left !important; width: 30%;}
+.popover[class*=tour-] .popover-navigation [data-role=next],
+.popover[class*=tour-] .popover-navigation #totour2,
+.popover[class*=tour-] .popover-navigation #totour3 {float: right !important; width: 60%;}
 .popover.tour .popover-content,
 .popover.tour .popover-navigation {padding: 4px !important;}
-.tour-step-background {background: none !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
-.tour-backdrop {background: #fff !important;} /*El important es necesario porque se está cargando el bootstrap-tour.min.css después del custom.css por cosas del grails y sus módulos de resources*/
-.popover[class*="tour-"] {z-index: 1110 !important;}
+.popover.tour .popover-navigation {width: 100%; height: 50px;}
+.tour-step-background {background: none !important;}
+.tour-backdrop {background: #fff !important;}
+.popover[class*="tour-"] {z-index: 1200 !important;}
+
 .slimScrollBar {z-index: 9999 !important;}
 .slimScrollRail,
 .slimScrollBar {border-radius: 4px !important;}
@@ -1643,8 +1645,16 @@ textarea.error,
 
 .readMore {text-align: right; margin-bottom: 20px;}
 .readMore span {display: inline-block; margin: 0 0 0 4px;}
-.readMore a {color: #545454; font-size: 13px; font-size: 1.3rem;}
-
+.readMore a {
+    color: #545454;
+    font-size: 13px; font-size: 1.3rem;
+    background-image: url('../images/ico-arrows.png');
+    background-position: right bottom;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    padding: 0 20px 0 0;
+}
+.readMore a.collapsed {background-position: right top;}
 .top {font-size: 15px; font-size: 1.5rem;}
 
 
@@ -2834,4 +2844,9 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
     only screen and (-o-min-device-pixel-ratio: 3/2),
     only screen and (min-device-pixel-ratio: 1.5),
     only screen and (min-resolution: 192dpi) {
+
+    .readMore a {
+        background: url('../images/ico-arrows@2x.png');
+        background-size: 15px 35px;
+    }
 }

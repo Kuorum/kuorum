@@ -317,9 +317,9 @@ $(document).ready(function() {
 	// Cambio de flechita en el botón desplegar texto de la ley
 	$('body').on('click', '.readMore a', function() {
 		if ( $(this).hasClass('collapsed') ) {
-			$(this).html('Ocultar texto<span class="fa fa-chevron-circle-up fa-lg"></span>');
+			$(this).html('Ocultar texto');
 		} else {
-			$(this).html('Leer más<span class="fa fa-chevron-circle-down fa-lg"></span>');
+			$(this).html('Leer más');
 		}
 	});
 

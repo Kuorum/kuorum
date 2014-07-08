@@ -41,7 +41,6 @@
         <div class="readMore">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse" class="collapsed">
                 <g:message code="law.text.seeMore"/>
-                <span class="fa fa-chevron-circle-down fa-lg"></span>
             </a>
         </div>
     </g:if>
