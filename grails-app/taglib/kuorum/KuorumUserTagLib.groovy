@@ -183,6 +183,10 @@ class KuorumUserTagLib {
             out << rolePolitician
         }else{
             out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")
+            if (user.organization){
+                def link = createLink(mapping: 'userShow', params: user.organization.encodeAsLinkProperties())
+                out << "<a href='$link' class='roleOrganization'>${user.organization.name}</a>"
+            }
         }
     }
 

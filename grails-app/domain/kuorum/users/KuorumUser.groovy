@@ -48,6 +48,7 @@ class KuorumUser {
     Gamification gamification = new Gamification()
     Activity activity = new Activity()
     SocialLinks socialLinks = new SocialLinks()
+    KuorumUser organization
 
 //    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
 
@@ -95,6 +96,7 @@ class KuorumUser {
         }
 
         institution nullable:true
+        organization nullable: true
     }
 
     static mapping = {
