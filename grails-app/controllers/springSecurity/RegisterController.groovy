@@ -207,6 +207,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 @Validateable
 class KuorumRegisterCommand{
 
+    def grailsApplication
+
     String email
     String name
     String password
@@ -219,6 +221,11 @@ class KuorumRegisterCommand{
             if (val && KuorumUser.findByEmail(val.toLowerCase())) {
                 obj.email = val.toLowerCase()
                 return 'registerCommand.username.unique'
+            }
+            def domain = val.split("@")[1]
+            def notAllowed = obj.grailsApplication.config.kuorum.register.notAllowedTemporalDomainEmails.find{"@$domain".equalsIgnoreCase(it)}
+            if (notAllowed){
+                return 'registerCommand.username.notAllowed'
             }
         }
         password blank: false, validator: RegisterController.passwordValidator
