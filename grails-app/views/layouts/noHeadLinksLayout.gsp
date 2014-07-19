@@ -11,7 +11,7 @@
     <header id="header" role="banner">
         <nav class="navbar navbar-fixed-top" role="navigation">
             <div class="container-fluid">
-                <g:render template="/layouts/brandAndLogo"/>
+                <g:render template="/layouts/brandAndLogo" model="[disabledLogoLink:'disabled']"/>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-collapse">
