@@ -9,7 +9,7 @@ $(document).ready(function() {
             keyboard: false,
             debug: true,
             backdrop: true,
-            template: '<div class="popover tour"><div class="arrow"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="end">Finalizar</button><button class="btn" data-role="next">Continuar</button></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+            template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey cancel" data-role="end">Finalizar</button><button class="btn" data-role="next">Continuar</button></div></div>',
             onEnd : function(tour_dashboard){
                 window.location.href = urls.home;
                 $("body").append("<div class='tour-backdrop'></div>")
@@ -63,7 +63,7 @@ $(document).ready(function() {
                         return 'left';
                     }
                 },
-                template: '<div class="popover tour"><div class="arrow"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="end">Finalizar</button><button class="btn" id="totour2">Continuar</button></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+                template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey cancel" data-role="end">Finalizar</button><button class="btn" id="totour2">Continuar</button></div></div>',
                 title: i18n.tour.tour_dashboard.step7_title,
                 content:i18n.tour.tour_dashboard.step7_content
             }
