@@ -270,6 +270,9 @@ a:focus {color: #20a2ea;}
     padding: 18px !important;
 }
 
+.btn.btn-grey.cancel {background-color: #fff !important; color:#a8a8a8 !important; font-size: 1.7rem !important;}
+.btn.btn-grey.cancel:hover {background-color: #fff !important; color:#a8a8a8 !important; text-decoration:underline !important; font-size: 1.7rem !important;}
+.btn.btn-grey.cancel:active {background-color: #fff !important; color:#a8a8a8 !important; text-decoration:underline !important; font-size: 1.7rem !important;}
 .btn.btn-grey {background-color: #a8a8a8 !important;}
 .btn.btn-grey:hover,
 .btn.btn-grey:active,
@@ -602,10 +605,10 @@ span + .text-notification {padding: 0 0 0 33px;}
     margin: 0 !important;
     display: block;
 }
-.popover[class*=tour-] .popover-navigation [data-role=end] {float: left !important; width: 30%;}
+.popover[class*=tour-] .popover-navigation [data-role=end] {float: left !important; width: 45%;}
 .popover[class*=tour-] .popover-navigation [data-role=next],
 .popover[class*=tour-] .popover-navigation #totour2,
-.popover[class*=tour-] .popover-navigation #totour3 {float: right !important; width: 60%;}
+.popover[class*=tour-] .popover-navigation #totour3 {float: right !important; width: 45%;}
 .popover.tour .popover-content,
 .popover.tour .popover-navigation {padding: 4px !important;}
 .popover.tour .popover-navigation {width: 100%; height: 50px;}

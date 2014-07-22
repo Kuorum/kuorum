@@ -9,7 +9,7 @@ $(document).ready(function() {
             keyboard: false,
             debug: true,
             backdrop: true,
-            template: '<div class="popover tour"><div class="arrow"></div><div class="popover-navigation"><button class="btn btn-grey" data-role="end">Finalizar</button><button class="btn" data-role="next">Continuar</button></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+            template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey cancel" data-role="end">Finalizar</button><button class="btn" data-role="next">Continuar</button></div></div>',
             onEnd : function(tour_law){
                 window.location.href = urls.home;
                 $("body").append("<div class='tour-backdrop'></div>")
