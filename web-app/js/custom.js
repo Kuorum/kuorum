@@ -196,6 +196,7 @@ $(document).ready(function() {
 		});
 	});
 
+    $("#brand.disabled").on('click', function(e){e.preventDefault();})
     // links kakareo, impulsar
     $('body').on('click', '.action.cluck', function(e) {
         e.preventDefault();

@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
     </button>
     <h1>
-        <g:link mapping="home" class="navbar-brand" elementId="brand">
+        <g:link mapping="home" class="navbar-brand ${disabledLogoLink}" elementId="brand">
             <img src="${resource(dir: 'images', file: 'logo@2x.png')}" alt="${g.message(code:'head.logo.alt')}">
             <span class="hidden"><g:message code="kuorum.name"/> </span>
         </g:link>

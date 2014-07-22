@@ -1652,10 +1652,10 @@ textarea.error,
     color: #545454;
     font-size: 13px; font-size: 1.3rem;
     background-image: url('../images/ico-arrows.png');
-    background-position: right bottom;
-    background-color: transparent;
-    background-repeat: no-repeat;
     padding: 0 20px 0 0;
+    background-color: transparent;
+    background-position: right bottom;
+    background-repeat: no-repeat;
 }
 .readMore a.collapsed {background-position: right top;}
 .top {font-size: 15px; font-size: 1.5rem;}
@@ -2850,7 +2850,8 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
     only screen and (min-resolution: 192dpi) {
 
     .readMore a {
-        background: url('../images/ico-arrows@2x.png');
+        background-image: url('../images/ico-arrows@2x.png');
         background-size: 15px 35px;
+        background-repeat: no-repeat;
     }
 }
