@@ -13,7 +13,7 @@
                 <kuorumDate:humanDate date="${comment.dateCreated}"/>
             </span>
         </div>
-        <p>${comment.text}</p>
+        <p>${raw(comment.text.encodeAsHtmlLinks())}</p>
     </div>
     <div class="actions clearfix">
         <postUtil:ifCommentIsDeletable post="${post}" commentPosition="${pos}">
