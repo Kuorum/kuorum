@@ -621,7 +621,8 @@ span + .text-notification {padding: 0 0 0 33px;}
 .slimScrollBar {border-radius: 4px !important;}
 .popover-content .close {position: absolute; top: 6px; right: 10px;}
 .popover-trigger {cursor: pointer;}
-.user-list-images .popover-trigger {display: inline-block; z-index: 999; position: relative;}
+.user-list-images .popover-trigger,
+.user-list-followers .popover-trigger {display: inline-block; z-index: 999; position: relative;}
 #main .user .popover-trigger,
 #main .sponsor {font-size: 13px; font-size: 1.3rem;}
 
