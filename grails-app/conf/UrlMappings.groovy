@@ -31,6 +31,7 @@ class UrlMappings {
         name postToggleFavorite:"/ajax/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/favorito"(controller: "post",action: "favorite")
         name postDelComment:"/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/borrarCommentario"(controller: "post",action: "deleteComment")
         name postAddComment:"/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/nuevoComentario"(controller: "post",action: "addComment")
+        name postVoteComment:"/ajax/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/votar-comentario"(controller: "post",action: "voteComment")
         name postCluckIt:   "/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/kakarear"(controller: "post",action: "cluckPost")
         name postVoteIt:    "/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/impulsar"(controller: "post",action: "votePost")
         name postVotesList: "/ajax/leyes/$institutionName/$commission/$hashtag/$postTypeUrl/$postBrief-$postId/lista-impulsos"(controller: "post",action: "listVotes")

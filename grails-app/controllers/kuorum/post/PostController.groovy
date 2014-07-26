@@ -8,6 +8,7 @@ import kuorum.core.FileType
 import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
 import kuorum.core.model.UserType
+import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
 import kuorum.core.model.search.Pagination
 import kuorum.law.Law
@@ -302,8 +303,17 @@ class PostController {
             render template: '/post/postComment', model:[post:post, comment:postComent, pos:post.comments.size()-1, display:'none']
         }
     }
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def voteComment(Integer commentPosition){
+        VoteType voteType = VoteType.valueOf(params['voteType'])
+        Post post = params.post
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        postService.voteComment(user, post, commentPosition, voteType);
+        render "Post voted"
+    }
 
-    @Secured('isAuthenticated()')
+
+        @Secured('isAuthenticated()')
     def cluckPost() {
         KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
         Post post = params.post

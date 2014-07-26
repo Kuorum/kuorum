@@ -1,3 +1,4 @@
+<%@ page import="kuorum.core.model.VoteType" %>
 <li id="commentPos_${pos}" style="display:${display?:'block'} ">
     <script>
         function removeComment(liId){
@@ -21,9 +22,11 @@
                 <g:message code="post.show.comments.delete"/>
             </g:remoteLink>
         </postUtil:ifCommentIsDeletable>
-        %{--<ul class="pull-right">--}%
-            %{--<li>14 <a href="#" class="plus disabled">+</a></li>--}%
-            %{--<li>23 <a href="#" class="minus">-</a></li>--}%
-        %{--</ul>--}%
+        <sec:ifLoggedIn>
+            <ul class="pull-right">
+                <li><postUtil:voteCommentLi posComment="${pos}" post="${post}" voteType="${kuorum.core.model.VoteType.POSITIVE}"/></li>
+                <li><postUtil:voteCommentLi posComment="${pos}" post="${post}" voteType="${kuorum.core.model.VoteType.NEGATIVE}"/></li>
+            </ul>
+        </sec:ifLoggedIn>
     </div>
 </li>

@@ -8,6 +8,7 @@ import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
 import kuorum.core.model.UserType
+import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchUserPosts
 import kuorum.law.Law
@@ -248,6 +249,36 @@ class PostService {
         }
     }
 
+    Post voteComment(KuorumUser  votedBy, Post post, Integer commentPosition, VoteType voteType){
+        if (commentPosition>post.comments.size()){
+            throw new KuorumException("Se ha intentado votar un commentario que no existe","error.post.indexCommentOutOfBound")
+        }
+        if (isCommentVotableByUser(votedBy, post, commentPosition)){
+            PostComment postComment = post.comments[commentPosition]
+            String field = null;
+            switch (voteType){
+                case VoteType.POSITIVE:
+                    field = "positiveVotes"
+                    break;
+                case VoteType.NEGATIVE:
+                    field = "negativeVotes"
+                    break;
+                default:
+                    field = null;
+                    log.warn("Se ha intentado votar el comentario ${commentPosition} del post(${post.id}) con ${voteType}")
+            }
+            if (field){
+                DBObject dbObject = new BasicDBObject()
+                dbObject.append("comments.${commentPosition}.${field}",votedBy.id)
+                Post.collection.update([_id:post.id],['$push':dbObject])
+                post.refresh()
+            }
+
+        }else{
+            log.warn("Un usuario ha intentado votar 2 veces")
+        }
+    }
+
     /**
      * Checks if the users can delete/moderate a comment
      *
@@ -265,6 +296,15 @@ class PostService {
         Boolean isAdmin = deleteBy.authorities.collect{it.authority}.contains("ROLE_ADMIN")
         PostComment postComment = post.comments[commentPosition]
         isAdmin || postComment.kuorumUser == deleteBy || post.owner == deleteBy
+    }
+
+    Boolean isCommentVotableByUser(KuorumUser user, Post post, Integer commentPosition){
+        if (!post || !user || commentPosition==null || commentPosition>post.comments.size()){
+            return false
+        }
+        PostComment postComment = post.comments[commentPosition]
+        return  (!postComment.negativeVotes || !postComment.negativeVotes.contains(user.id)) &&
+                (!postComment.positiveVotes || !postComment.positiveVotes.contains(user.id))
     }
 
     Post addDebate(Post post, PostComment comment){

@@ -1040,6 +1040,20 @@ $(document).ready(function() {
         $('#modalVictory').modal('hide');
     });
 
+    $('body').on("click",".votePostCommentLink", function(e){
+        e.preventDefault()
+        var element = $(this)
+        if (!element.hasClass("disabled")){
+            var url = $(this).attr('href')
+            $.ajax(url).done(function(data){
+                element.parent().siblings().children().addClass("disabled");
+                element.addClass("disabled");
+                var q = parseInt(element.siblings('span').html(),10)
+                element.siblings('span').html(q+1)
+            });
+        }
+    })
+
 });
 
 var modalDefend = {

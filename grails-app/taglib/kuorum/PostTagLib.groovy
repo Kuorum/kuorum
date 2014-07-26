@@ -2,10 +2,12 @@ package kuorum
 
 import kuorum.core.FileType
 import kuorum.core.model.PostType
+import kuorum.core.model.VoteType
 import kuorum.core.model.solr.SolrSubType
 import kuorum.core.model.solr.SolrType
 import kuorum.post.Cluck
 import kuorum.post.Post
+import kuorum.post.PostComment
 import kuorum.users.KuorumUser
 
 class PostTagLib {
@@ -195,6 +197,40 @@ class PostTagLib {
             }
 
         }
+    }
+
+    def voteCommentLi={attrs ->
+        VoteType voteType = attrs.voteType
+        Post post = attrs.post
+        Integer pos = attrs.posComment
+
+        //PRE: USER IS LOGGED
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id);
+        PostComment comment = post.comments.get(pos);
+        def link = createLink(mapping:"postVoteComment", params:post.encodeAsLinkProperties()+[commentPosition:pos, voteType:voteType])
+        def numVotes = 0
+        def symbol = ""
+        def cssClass=""
+        switch (voteType){
+            case VoteType.NEGATIVE:
+                numVotes = !comment.negativeVotes?0:comment.negativeVotes.size()
+                cssClass = "minus"
+                symbol = "-"
+                break;
+            case VoteType.POSITIVE:
+                numVotes = !comment.positiveVotes?0:comment.positiveVotes.size()
+                cssClass = "plus"
+                symbol = "+"
+                break;
+            default:
+                log.warn("Displaying a not supported VoteType: $voteType")
+                break;
+        }
+        if (!postService.isCommentVotableByUser(user, post, pos )){
+            cssClass += " disabled"
+        }
+        out << "<span>${numVotes}</span> <a href='$link' class='votePostCommentLink ${cssClass}'>${symbol}</a>"
+
     }
 
 
