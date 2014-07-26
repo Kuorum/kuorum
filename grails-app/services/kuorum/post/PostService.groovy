@@ -208,7 +208,7 @@ class PostService {
     }
 
     PostComment addComment(Post post, PostComment comment){
-
+        log.info("Creating comment: ${comment.text}")
         if (!comment.validate()){
             throw KuorumExceptionUtil.createExceptionFromValidatable(comment)
         }
