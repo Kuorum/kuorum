@@ -82,6 +82,10 @@
                 step2_title:    '<g:message code="tour.tour_post.step2_title"/>'    ,
                 step2_content:  '<g:message code="tour.tour_post.step2_content"/>'
             }
+        },
+        cookies:{
+            message: '<g:message code="cookies.message" args="[createLink(mapping: 'footerPrivacyPolicy', absolute: true)]" encodeAs="raw"/>',
+            accept:'<g:message code="cookies.accept"/>'
         }
     }
 
