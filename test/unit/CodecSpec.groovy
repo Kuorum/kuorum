@@ -38,6 +38,8 @@ class CodecSpec extends Specification {
         where:
         orgString                               | tranformedString
         "http://hola.com"                       | "<a href='http://hola.com' target='_blank' rel='nofollow'>http://hola.com</a>"
+        "https://hola.com"                      | "<a href='https://hola.com' target='_blank' rel='nofollow'>https://hola.com</a>"
+        "httpss://hola.xwzNoExiste"             | "httpss://hola.xwzNoExiste"
         "un barco http://hola.com con vela"     | "un barco <a href='http://hola.com' target='_blank' rel='nofollow'>http://hola.com</a> con vela"
         "un barco http://hola.com con vela"     | "un barco <a href='http://hola.com' target='_blank' rel='nofollow'>http://hola.com</a> con vela"
         "dos http://urls.com seguidas http://hola.com"     | "dos <a href='http://urls.com' target='_blank' rel='nofollow'>http://urls.com</a> seguidas <a href='http://hola.com' target='_blank' rel='nofollow'>http://hola.com</a>"

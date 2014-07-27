@@ -14,7 +14,7 @@ class HtmlLinksCodec {
             .sort{it.length()*-1}// -1 => sorts EXTENSIONS in reverse order
 
     static encode = {target->
-        StringBuilder stringBuilder = new StringBuilder("http://[^ <>]*")
+        StringBuilder stringBuilder = new StringBuilder("http[s]{0,1}://[^ <>]*")
         String separator = "|"
         EXTENSIONS.each {
             stringBuilder.append(separator).append("[^ <>]+\\.").append(it).append("[^ ]*")
