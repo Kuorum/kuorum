@@ -45,5 +45,9 @@ class CodecSpec extends Specification {
         "urls.co"     | "<a href='http://urls.co' target='_blank' rel='nofollow'>urls.co</a>"
         "urls.es"      | "<a href='http://urls.es' target='_blank' rel='nofollow'>urls.es</a>"
         "urls.mobi"      | "<a href='http://urls.mobi' target='_blank' rel='nofollow'>urls.mobi</a>"
+        "http://hola.com/kk/hola"      | "<a href='http://hola.com/kk/hola' target='_blank' rel='nofollow'>http://hola.com/kk/hola</a>"
+        "hola.com/kk/hola"      | "<a href='http://hola.com/kk/hola' target='_blank' rel='nofollow'>hola.com/kk/hola</a>"
+        "hola. com/kk/hola"      | "hola. com/kk/hola"
+        ".com"          | ".com"
     }
 }

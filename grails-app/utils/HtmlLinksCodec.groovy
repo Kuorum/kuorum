@@ -17,7 +17,7 @@ class HtmlLinksCodec {
         StringBuilder stringBuilder = new StringBuilder("http://[^ <>]*")
         String separator = "|"
         EXTENSIONS.each {
-            stringBuilder.append(separator).append("[^ <>]*\\.").append(it)
+            stringBuilder.append(separator).append("[^ <>]+\\.").append(it).append("[^ ]*")
             separator = "|"
         }
 //        /http:\/\/[^ <>]*|[^ <>]*\.com|[^ <>]*\.es|[^ <>]*\.net|[^ <>]*\.gov/
