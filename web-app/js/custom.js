@@ -632,7 +632,10 @@ $(document).ready(function() {
                     parent.append(data)
                     $('#ver-mas a').click()
                     form[0].reset()
-                    $("html, body").animate({ scrollTop: parent.children().last().prev().offset().top }, 1000);
+                    if (parent.children().last().prev().length >0){
+                        //NO es el primer elemento
+                        $("html, body").animate({ scrollTop: parent.children().last().prev().offset().top }, 1000);
+                    }
                 })
                 .fail(function(data) {
                     console.log(data)
