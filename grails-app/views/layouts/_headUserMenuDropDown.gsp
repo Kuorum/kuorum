@@ -24,6 +24,14 @@
         %{--</g:link>--}%
     %{--</li>--}%
     <li><g:link mapping="logout"><g:message code="head.logged.logout"/></g:link></li>
+    <sec:ifSwitched>
+        <li>
+            <a href='${request.contextPath}/j_spring_security_exit_user'>
+                <g:message code="switchUser.menu.backAsNormalUser" args="[sec.switchedUserOriginalUsername()]"/>
+            </a>
+        </li>
+
+    </sec:ifSwitched>
     <sec:ifAnyGranted roles="ROLE_ADMIN">
         <li><hr/></li>
         <li><g:link mapping="adminPrincipal"><g:message code="admin.adminPrincipal.title"/></g:link></li>

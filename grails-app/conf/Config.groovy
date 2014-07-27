@@ -156,6 +156,16 @@ grails.plugin.springsecurity.ui.password.minLength=4
 grails.plugin.springsecurity.ui.password.maxLength=64
 //grails.plugin.springsecurity.ui.password.validationRegex="^.*(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&]).*$"
 grails.plugin.springsecurity.ui.password.validationRegex='^.*$'
+
+//SWITCH USER
+grails.plugin.springsecurity.useSwitchUserFilter = true
+grails.plugin.springsecurity.controllerAnnotations.staticRules=[
+        '/j_spring_security_switch_user': ['ROLE_ADMIN', 'IS_AUTHENTICATED_FULLY']
+]
+grails.plugin.springsecurity.filterChain.chainMap = [  //LOS FILTROS SIN ESPACIOS
+        '/j_spring_security_switch_user/**':'securityContextPersistenceFilter,logoutFilter,authenticationProcessingFilter,rememberMeAuthenticationFilter,anonymousAuthenticationFilter,exceptionTranslationFilter,filterInvocationInterceptor,logoutFilter,authenticationProcessingFilter,switchFilter,switchUserProcessingFilter',
+        '/**':         'JOINED_FILTERS'
+]
 //FACEBOOK
 grails.plugin.springsecurity.facebook.domain.classname='kuorum.users.FacebookUser'
 grails.plugin.springsecurity.facebook.domain.appUserConnectionPropertyName='user'

@@ -1,7 +1,6 @@
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncoder
 import grails.spring.BeanBuilder
-
 import kuorum.core.security.passwordEncoders.PasswordFixingDaoAuthenticationProvider
 import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
 import kuorum.solr.IndexSolrService
@@ -9,9 +8,7 @@ import kuorum.solr.SearchSolrService
 import kuorum.springSecurity.MongoUserDetailsService
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.client.solrj.impl.HttpSolrServer
-import org.springframework.beans.factory.annotation.Value
 import org.apache.solr.core.CoreContainer
-import grails.util.Environment
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder
 
 // Place your Spring DSL code here
@@ -82,5 +79,15 @@ beans = {
         authoritiesMapper = ref('authoritiesMapper')
         hideUserNotFoundExceptions = conf.dao.hideUserNotFoundExceptions // true
         grailsApplication = ref('grailsApplication')
+    }
+
+
+    //SWICH USER
+
+    switchFilter(kuorum.web.filters.KuorumSecuritySwitchFilter) {
+        authenticationManager = ref('authenticationManager')
+//        interchangeAuthenticationProvider = ref('interchangeAuthenticationProvider')
+        securityMetadataSource = ref('objectDefinitionSource')
+        springSecurityService = ref ('springSecurityService')
     }
 }
