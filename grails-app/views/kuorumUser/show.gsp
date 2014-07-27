@@ -4,6 +4,7 @@
     <title>${user.name}</title>
     <meta name="layout" content="columnCLayout">
     <parameter name="specialContainerCssClass" value="userprofile" />
+    <g:render template="userMetaTags" model="[user:user]"/>
 </head>
 
 
