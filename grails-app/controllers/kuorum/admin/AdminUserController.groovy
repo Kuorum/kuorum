@@ -45,6 +45,7 @@ class AdminUserController extends AdminController {
     }
 
     def updateUser(AdminUserCommand command){
+        command.imageProfile = params['imageProfile'] // no se por que no lo esta mapeando
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
         if (command.hasErrors()){
             render view: 'editUser', model:[user:user,command:command, institutions:Institution.findAll(), parliamentaryGroups:ParliamentaryGroup.findAll()]
@@ -103,6 +104,14 @@ class AdminUserController extends AdminController {
             fileService.convertTemporalToFinalFile(avatar)
             fileService.deleteTemporalFiles(user)
         }
+        if (command.imageProfile){
+            KuorumFile imageProfile = KuorumFile.get(new ObjectId(command.imageProfile))
+            imageProfile.alt = user.name
+            imageProfile.save()
+            user.imageProfile = imageProfile
+            fileService.convertTemporalToFinalFile(imageProfile)
+            fileService.deleteTemporalFiles(user)
+        }
         user
     }
 
@@ -118,7 +127,7 @@ class AdminUserController extends AdminController {
             command.workingSector= user.personalData.workingSector
         }
         command.year =  user.personalData?.birthday?user.personalData?.birthday[Calendar.YEAR]:null
-        command.month = user.personalData?.birthday?user.personalData?.birthday[Calendar.MONTH]:null
+        command.month = user.personalData?.birthday?user.personalData?.birthday[Calendar.MONTH] +1:null
         command.day =   user.personalData?.birthday?user.personalData?.birthday[Calendar.DAY_OF_MONTH]:null
 
         command.gender = user.personalData.gender
@@ -132,6 +141,7 @@ class AdminUserController extends AdminController {
         command.name = user.name
         command.password = user.password
         command.photoId = user.avatar?.id
+        command.imageProfile = user.imageProfile?.id
 
         command
     }

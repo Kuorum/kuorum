@@ -105,3 +105,6 @@
 <div class="form-group">
     <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
 </div>
+<div class="form-group">
+    <formUtil:editImage command="${command}" field="imageProfile" fileGroup="${kuorum.core.FileGroup.USER_PROFILE}"/>
+</div>

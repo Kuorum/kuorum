@@ -55,6 +55,8 @@ class EditUserProfileCommand extends BirthdayCommad{
         studies nullable: true
         enterpriseSector nullable:true
         bio nullable: true, maxSize: 500
+
+        imageProfile nullable: true
     }
 
     public static void bindingPostalCode(obj, source){
