@@ -1,5 +1,4 @@
-
-
+import org.codehaus.groovy.grails.plugins.codecs.HTMLEncoder
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -10,7 +9,7 @@ class CodecSpec extends Specification {
 
     def setup(){
         String.metaClass.encodeAsHTML={->
-            delegate
+            new HTMLEncoder().encode(delegate)
         }
     }
 
@@ -42,9 +41,9 @@ class CodecSpec extends Specification {
         "un barco http://hola.com con vela"     | "un barco <a href='http://hola.com' target='_blank' rel='nofollow'>http://hola.com</a> con vela"
         "un barco http://hola.com con vela"     | "un barco <a href='http://hola.com' target='_blank' rel='nofollow'>http://hola.com</a> con vela"
         "dos http://urls.com seguidas http://hola.com"     | "dos <a href='http://urls.com' target='_blank' rel='nofollow'>http://urls.com</a> seguidas <a href='http://hola.com' target='_blank' rel='nofollow'>http://hola.com</a>"
-        "urls.com"     | "<a href='http://urls.com' target='_blank' rel='nofollow'>http://urls.com</a>"
-        "urls.co"     | "<a href='http://urls.co' target='_blank' rel='nofollow'>http://urls.co</a>"
-        "urls.es"      | "<a href='http://urls.es' target='_blank' rel='nofollow'>http://urls.es</a>"
-        "urls.mobi"      | "<a href='http://urls.mobi' target='_blank' rel='nofollow'>http://urls.mobi</a>"
+        "urls.com"     | "<a href='http://urls.com' target='_blank' rel='nofollow'>urls.com</a>"
+        "urls.co"     | "<a href='http://urls.co' target='_blank' rel='nofollow'>urls.co</a>"
+        "urls.es"      | "<a href='http://urls.es' target='_blank' rel='nofollow'>urls.es</a>"
+        "urls.mobi"      | "<a href='http://urls.mobi' target='_blank' rel='nofollow'>urls.mobi</a>"
     }
 }

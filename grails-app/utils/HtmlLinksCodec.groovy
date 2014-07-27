@@ -32,9 +32,10 @@ class HtmlLinksCodec {
     }
 
     private static String wrapInHtmlLink(String link){
+        def httpLink = link
         if (!link.startsWith("http")){
-             link = "http://${link}"
+            httpLink = "http://${link}"
         }
-          "<a href='${link}' target='_blank' rel='nofollow'>${link}</a>"
+          "<a href='${httpLink}' target='_blank' rel='nofollow'>${link}</a>"
     }
 }
