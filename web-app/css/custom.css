@@ -2157,6 +2157,9 @@ textarea.error,
 .onecol.list .block-results li {list-style: none; margin: 0 0 4px 0; font-size: 14px; font-size: 1.4rem;}
 .onecol.list .block-results li a {color: #545454;}
 
+.noty_text {line-height:2rem;}
+.noty_text a {color:#ff9431;}
+
 .container-fluid.info {padding-top: 20px;}
 .info #main > header nav ul {margin: 0; padding: 0;}
 .info #main > header nav ul li {list-style: none;}
