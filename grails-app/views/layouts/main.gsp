@@ -67,6 +67,7 @@
     <r:layoutResources />
     <g:render template="/layouts/googleAnalytics"/>
     <g:render template="/layouts/facebookRemarketing"/>
+    <g:render template="/layouts/twitterRemarketing"/>
     <meta property="twitter:account_id" content="4503599627910348" />
 </head>
 
