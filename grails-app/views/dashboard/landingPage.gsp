@@ -109,7 +109,7 @@
 
     <div class="col-xs-12 col-sm-6 col-md-3">
         <div class="wrapper">
-            <span class="icon-light62 fa-3x"></span>
+            <span class="icon-TAXES fa-3x"></span>
             %{--<span class="icon-book fa-3x"></span>--}%
             <h2><g:message code="landingPage.complementary.editLaws.title"/></h2>
             <p><g:message code="landingPage.complementary.editLaws.description"/></p>
@@ -118,7 +118,7 @@
 
     <div class="col-xs-12 col-sm-6 col-md-3">
         <div class="wrapper">
-            <span class="fa fa-archive fa-3x"></span>
+            <span class="icon-BUDGETS fa-3x"></span>
             <h2><g:message code="landingPage.complementary.parliament.title"/></h2>
             <p><g:message code="landingPage.complementary.parliament.description"/></p>
         </div>
@@ -126,7 +126,7 @@
 
     <div class="col-xs-12 col-sm-6 col-md-3">
         <div class="wrapper">
-            <span class="icon-question38 fa-3x"></span>
+            <span class="icon-DEFENSE fa-3x"></span>
             <h2><g:message code="landingPage.complementary.people.title"/></h2>
             <p><g:message code="landingPage.complementary.people.description"/></p>
         </div>
