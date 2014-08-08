@@ -57,6 +57,8 @@ body {
   font-size: 1.5rem;
   padding-top: 65px;
 }
+.form-group-short {margin-bottom:10px;}
+.form-group-xshort {margin-bottom:0px;}
 .form-control,
 input[type="text"],
 input[type="number"] {color: #545454; font-size: 14px; font-size:  1.4rem; border: 1px solid #EFEFEF;}
@@ -1945,7 +1947,7 @@ textarea.error,
 
 /* Home =========== */
 /* ====================================================== */
-.home {margin: -25px 0 0 0;}
+.home {margin: -40px 0 0 0;}
 .home h1 {text-align: center; padding: 35px 5px 26px; margin-bottom: 0; background: url('../images/fdo-home.png') repeat-x 0 0 transparent; font-size: 22px; font-size: 2.2rem;}
 .signContainer {background-color: rgba(0, 0, 0, 0.5); padding: 10px; margin-bottom: 10px;}
 .signContainer h2 {margin: 0 0 20px 0; color: #fff; font-size: 25px; font-size: 2.5rem; line-height: 2;}
@@ -1953,7 +1955,7 @@ textarea.error,
 .signContainer h2 a {color: #fff; text-decoration: underline;}
 .signContainer h3 {color: #fff; font-size: 14px; font-size: 1.4rem; text-align: center; margin-bottom: 0;}
 .signContainer .checkbox-inline a {color: #fff;}
-.signContainer .btns {margin-top: 15px;}
+.signContainer .btns {margin-top: 10px;}
 .home .images {
   background-image: url('../images/home1.jpg');
   background-repeat: no-repeat;
@@ -2642,7 +2644,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   #search-results .popover-box #follow {position: absolute; right: 0; top: 0; padding: 12px 0 !important; font-size: 18px !important; font-size: 1.8rem !important; width: 130px; margin: 0 !important;}
   #search-results .popover-box .infoActivity {border: none; padding-left: 90px; margin: -5px 0 0; display: inline-block;}
   .popover-box .infoActivity li:last-child {margin: 0 0 0 20px;}
-  .home h1 {padding: 1.5em 0.5em; font-size: 36px; font-size: 3.6rem;}
+  .home h1 {padding: 1.5em 0.5em 0.8em; font-size: 36px; font-size: 3.6rem;}
   .home .play {margin: 36% 0 0 0; font-size: 25px; font-size: 2.5rem;}
   .home .images {background-position: 0 0;}
   .signContainer {padding: 20px; margin-bottom: 0;}
