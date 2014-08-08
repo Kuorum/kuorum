@@ -1945,15 +1945,15 @@ textarea.error,
 
 /* Home =========== */
 /* ====================================================== */
-.home {margin: -40px 0 0 0;}
+.home {margin: -25px 0 0 0;}
 .home h1 {text-align: center; padding: 35px 5px 26px; margin-bottom: 0; background: url('../images/fdo-home.png') repeat-x 0 0 transparent; font-size: 22px; font-size: 2.2rem;}
 .signContainer {background-color: rgba(0, 0, 0, 0.5); padding: 10px; margin-bottom: 10px;}
 .signContainer h2 {margin: 0 0 20px 0; color: #fff; font-size: 25px; font-size: 2.5rem; line-height: 2;}
-.signContainer h2 small {display: block; color: #fff; font-size: 17px; font-size: 1.7rem; font-weight: lighter;}
+.signContainer h2 small {display: block; color: #fff; font-size: 17px; font-size: 1.7rem; font-weight: lighter; line-height: 1.3em;}
 .signContainer h2 a {color: #fff; text-decoration: underline;}
 .signContainer h3 {color: #fff; font-size: 14px; font-size: 1.4rem; text-align: center; margin-bottom: 0;}
 .signContainer .checkbox-inline a {color: #fff;}
-.signContainer .btns {margin-top: 35px;}
+.signContainer .btns {margin-top: 15px;}
 .home .images {
   background-image: url('../images/home1.jpg');
   background-repeat: no-repeat;
