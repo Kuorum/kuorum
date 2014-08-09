@@ -26,7 +26,8 @@
                         </label>
                     </g:each>
                 </div><!-- /.all -->
-                <p class="help-block"><strong>Selecciona a un mínimo de 3 personas.</strong> Sigue a los usuarios que te interesen para estar al día de todo lo que hacen en Kuorum.</p>
+                <p class="help-block"><strong><g:message code="customRegister.step4.instructions.title"/></strong><br/>
+                <g:message code="customRegister.step4.instructions.content"/></p>
             </div>
             <g:if test="${hasErrors(bean: command, field: 'recommendedUsers', 'error')}">
                 <span for="recommendedUsers" class="error">${g.fieldError(bean: command, field: 'recommendedUsers')}</span>
