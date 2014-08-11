@@ -52,5 +52,7 @@ class CodecSpec extends Specification {
         "hola.com/kk/hola?hh=23"                | "<a href='http://hola.com/kk/hola?hh=23' target='_blank' rel='nofollow'>hola.com/kk/hola?hh=23</a>"
         "hola. com/kk/hola"                     | "hola. com/kk/hola"
         ".com"                                  | ".com"
+        "Estos:\nhttp://elpais.com/elpais/2014/06/23/media/1403547645_646044.html" | "Estos:\n<a href='http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html' target='_blank' rel='nofollow'>http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html</a>"
+        "Estos:\rhttp://elpais.com/elpais/2014/06/23/media/1403547645_646044.html" | "Estos:\r<a href='http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html' target='_blank' rel='nofollow'>http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html</a>"
     }
 }
