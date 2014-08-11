@@ -38,8 +38,8 @@
         </div>
         <div class="form-group clearfix">
             <label for="password"><g:message code="login.email.form.password.label"/></label>
-            <label class="checkbox-inline pull-right"><input type="checkbox" id="show-pass" value="mostrar"><g:message code="login.email.form.password.show"/> </label>
             <input type="password" name="j_password" class="form-control input-lg" id="password" required>
+            <label class="checkbox-inline pull-left"><input type="checkbox" id="show-pass" value="mostrar"><g:message code="login.email.form.password.show"/> </label>
         </div>
         <div class="form-group">
             <g:link mapping="resetPassword" class="cancel">
