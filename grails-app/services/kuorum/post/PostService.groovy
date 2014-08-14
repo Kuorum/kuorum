@@ -12,6 +12,7 @@ import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchUserPosts
 import kuorum.law.Law
+import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
 
 @Transactional
@@ -124,6 +125,8 @@ class PostService {
         }
         indexSolrService.delete(post)
         PostVote.collection.remove([post:post.id])
+        Cluck.collection.remove([post:post.id])
+        Notification.collection.remove([post:post.id])
         post.delete()
     }
 
