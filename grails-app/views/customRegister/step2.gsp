@@ -6,6 +6,7 @@
     <parameter name="actualStep" value="2" />
     <g:render template="/layouts/googleAnalyticsConversionCode"/>
     <g:render template="/layouts/twitterConversionCode"/>
+    <g:render template="/layouts/facebookConversionCode"/>
 </head>
 
 <content tag="intro">

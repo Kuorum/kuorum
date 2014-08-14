@@ -45,8 +45,15 @@
                     type="email"
                     id="email"
                     cssClass="form-control input-lg"
-                    helpBlock="${g.message(code:'register.email.form.email.why')}"
                     required="true"/>
+            %{--<formUtil:input--}%
+                    %{--command="${command}"--}%
+                    %{--field="email"--}%
+                    %{--type="email"--}%
+                    %{--id="email"--}%
+                    %{--cssClass="form-control input-lg"--}%
+                    %{--helpBlock="${g.message(code:'register.email.form.email.why')}"--}%
+                    %{--required="true"/>--}%
         </div>
         <div class="form-group clearfix">
             <label for="password"><g:message code="springSecurity.KuorumRegisterCommand.password.label"/></label>
