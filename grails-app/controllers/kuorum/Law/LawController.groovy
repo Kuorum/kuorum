@@ -143,6 +143,9 @@ class LawController {
         [law:law, stats:stats, region:spain]
     }
 
+    private static final int MAP_YES = 1
+    private static final int MAP_NO = 2
+    private static final int MAP_ABS = 3
     def statsDataMap(String hashtag){
         Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
         if (!law){
@@ -154,12 +157,14 @@ class LawController {
         def map = [:]
         statsPerProvince.each {k,v ->
             def max = [v.yes,v.no, v.abs].max()
-            if (v.no == max)
-                map.put(k,2)
+            if (v.abs == max)
+                map.put(k,MAP_ABS)
+            else if (v.no == max)
+                map.put(k,MAP_NO)
             else if (v.yes == max)
-                map.put(k,1)
+                map.put(k,MAP_YES)
             else
-                map.put(k,3)
+                map.put(k,MAP_ABS)
         }
         render ([votation:[results:map]] as JSON)
     }

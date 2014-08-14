@@ -17,7 +17,7 @@
         <a  href="#" itemprop="keywords" class="laley">${law.hashtag}</a>
         <h1>${law.shortName}</h1>
         <p class="cl-ntral-dark">${law.realName}</p>
-        <h2><g:message code="law.stats.introRegionName"/> <span>${region.name}</span></h2>
+        <h2 class="pull-left"><g:message code="law.stats.introRegionName"/> <span>${region.name}</span></h2>
         <a id="allMap" class="pull-right"><g:message code="law.stats.restartParentRegion"/> </a>
         <div id="map"></div>
         <dl class="moreInfo row">
