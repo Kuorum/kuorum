@@ -18,6 +18,7 @@ class LawCommand {
     String realName
     String description
     String introduction
+    Boolean availableStats
     URL urlPdf
     List<CommissionType> commissions  = new ArrayList<CommissionType>()
 //    Region region

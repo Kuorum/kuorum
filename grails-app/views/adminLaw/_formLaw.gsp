@@ -14,6 +14,9 @@
 <div class="form-group">
     <formUtil:textArea command="${command}" field="description" required="true"/>
 </div>
+<div class="form-group">
+    <formUtil:checkBox command="${command}" field="availableStats"/>
+</div>
 
 <div class="form-group">
     <div class="row">

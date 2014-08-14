@@ -27,6 +27,8 @@ class Law {
     @Updatable LawStatusType status = LawStatusType.OPEN
     @Updatable URL urlPdf
     @Updatable URL shortUrl
+    @Updatable Boolean availableStats
+
     Date dateCreated
     Boolean published = Boolean.FALSE
     Date publishDate
