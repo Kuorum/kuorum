@@ -14,7 +14,8 @@
 
 <content tag="mainContent">
     <article class="kakareo post ley ficha" role="article" itemscope itemtype="http://schema.org/Article">
-        <a  href="#" itemprop="keywords" class="laley">${law.hashtag}</a>
+        <g:link mapping="lawShow" class="laley" params="${law.encodeAsLinkProperties()}">${law.hashtag}</g:link>
+        %{--<a  href="#" itemprop="keywords" class="laley">${law.hashtag}</a>--}%
         <h1>${law.shortName}</h1>
         <p class="cl-ntral-dark">${law.realName}</p>
         <h2 class="pull-left"><g:message code="law.stats.introRegionName"/> <span>${region.name}</span></h2>
@@ -26,18 +27,18 @@
                 <dd>${law.peopleVotes.total}</dd>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
-                <dt><g:message code="law.stats.total.numVotes.no"/></dt>
-                <dd>${law.peopleVotes.no}</dd>
+                <dt><g:message code="law.stats.total.numVotes.abs"/></dt>
+                <dd>${law.peopleVotes.abs}</dd>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <dt><g:message code="law.stats.total.numVotes.yes"/></dt>
                 <dd>${law.peopleVotes.yes}</dd>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
-                <dt><g:message code="law.stats.total.numVotes.abs"/></dt>
-                <dd>${law.peopleVotes.abs}</dd>
+                <dt><g:message code="law.stats.total.numVotes.no"/></dt>
+                <dd>${law.peopleVotes.no}</dd>
             </div>
-        </dl>
+         </dl>
         <small><g:message code="law.stats.total.description"/> </small>
     </article><!-- /article -->
 </content>
