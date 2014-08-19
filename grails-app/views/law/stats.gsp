@@ -14,7 +14,7 @@
 
 <content tag="mainContent">
     <article class="kakareo post ley ficha" role="article" itemscope itemtype="http://schema.org/Article">
-        <g:link mapping="lawShow" class="laley" params="${law.encodeAsLinkProperties()}">${law.hashtag}</g:link>
+        <g:link mapping="lawShow" itemprop="keywords" class="laley" params="${law.encodeAsLinkProperties()}">${law.hashtag}</g:link>
         %{--<a  href="#" itemprop="keywords" class="laley">${law.hashtag}</a>--}%
         <h1>${law.shortName}</h1>
         <p class="cl-ntral-dark">${law.realName}</p>
