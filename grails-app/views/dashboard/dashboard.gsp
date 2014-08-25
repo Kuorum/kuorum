@@ -3,6 +3,11 @@
 <head>
     <title><g:message code="kuorum.name"/> </title>
     <meta name="layout" content="columnCLayout">
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
+    <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
+    <meta itemprop="image" content="http://kuorum.org/static/images/home1.jpg" />
+    <meta itemprop="image" content="http://kuorum.org/static/images/logo@2x.png" />
 </head>
 
 

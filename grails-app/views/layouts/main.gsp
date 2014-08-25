@@ -13,8 +13,8 @@
     <title><g:layoutTitle default="${g.message(code:"layout.head.title.default")}"/></title>
     <meta name="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta name="Keywords" content="${g.message(code:"layout.head.meta.keywords")}">
-    <meta name="dcterms.rightsHolder" content="Kuorum Social S.L.">
-    <meta name="dcterms.dateCopyrighted" content="2013">
+    <meta name="dcterms.rightsHolder" content="Kuorum.org">
+    %{--<meta name="dcterms.dateCopyrighted" content="2013">--}%
 
     <meta name="robots" content="all">
 
