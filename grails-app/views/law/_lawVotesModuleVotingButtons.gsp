@@ -39,7 +39,7 @@
         <a href="#" class="btn btn-blue btn-block vote disabled"><g:message code="law.vote.voteClosed" args="[statusLaw.toLowerCase()]" encodeAs="raw"/></a><!-- al hacer click lo deshabilito y cambio el texto -->
     </g:else>
     <g:if test="${law.availableStats}">
-        <g:link mapping="lawStats" params="${law.encodeAsLinkProperties()}">
+        <g:link mapping="lawStats" params="${law.encodeAsLinkProperties()}" class="hidden-xs">
             <g:message code="law.vote.stats"/>
         </g:link>
     </g:if>
