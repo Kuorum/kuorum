@@ -140,7 +140,8 @@ class LawController {
         }
         Region spain = Region.findByIso3166_2("EU-ES")
         LawRegionStats stats = lawStatsService.calculateRegionStats(law, spain)
-        [law:law, stats:stats, region:spain]
+        Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
+        [law:law, stats:stats, region:spain, necessaryVotesForKuorum:necessaryVotesForKuorum]
     }
 
     private static final int MAP_YES = 1

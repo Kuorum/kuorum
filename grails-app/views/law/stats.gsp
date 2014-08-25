@@ -55,8 +55,8 @@
             <h2><g:message code="law.stats.columnC.pieChart.title"/></h2>
             <p>
                 <span class="numberVotes">${law.peopleVotes.total}</span>
-                <span>Votos</span>
-                <small>(faltan <span class="pendingVotes">35</span> votos)</small>
+                <span><g:message code="law.stats.columnC.pieChart.votes"/></span>
+                <small><g:message code="law.stats.columnC.pieChart.remainingKuorumVotes" args="[necessaryVotesForKuorum]"/></small>
             </p>
             <div id="placeholder">
                 <canvas id="votesChart" width="255" height="255"></canvas>
