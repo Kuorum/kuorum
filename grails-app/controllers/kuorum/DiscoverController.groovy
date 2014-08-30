@@ -21,7 +21,7 @@ class DiscoverController {
     SpringSecurityService springSecurityService
 
     def discoverLaws(Pagination pagination) {
-        List<Law> laws = lawService.recommendedLaws(pagination)
+        List<Law> laws = lawService.relevantLaws(pagination)
         if (request.isXhr()){
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${Law.count()-pagination.offset<=pagination.max}")
             render template: '/discover/discoverLawList', model:[laws:laws, pagination:pagination]
