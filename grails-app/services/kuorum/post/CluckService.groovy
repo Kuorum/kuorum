@@ -61,8 +61,12 @@ class CluckService {
                     post: post,
                     law: post.law,
             )
+            Cluck firstCluck = null
             if (post.owner == kuorumUser){
                 cluck.isFirstCluck = Boolean.TRUE
+                firstCluck = cluck
+            }else{
+                firstCluck = post.firstCluck
             }
             if (!cluck.save()){
                 KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
@@ -70,7 +74,7 @@ class CluckService {
             notificationService.sendCluckNotification(cluck)
             //Atomic operation - non transactional
             post.save(flush:true)
-            Post.collection.update([_id:post.id],[$inc:[numClucks:1]])
+            Post.collection.update([_id:post.id],[$inc:[numClucks:1], $set:[firstCluck:firstCluck.id]]) //The first cluck is set again because GORM overwrite with the new cluck
             post.refresh()
 
             cluck
