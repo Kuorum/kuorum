@@ -356,7 +356,7 @@ class KuorumUserService {
             def userList = politicians.collect{it.id}
             def politicianByFollowers = KuorumUser.createCriteria().list(max:pagination.max, offset:pagination.offset) {
                 'eq'("userType", UserType.POLITICIAN)
-                'gt'("numFollowers",0)
+//                'gt'("numFollowers",0)
                 if (userList)
                     not {'in'("id",userList)}
                 order("numFollowers","desc")
