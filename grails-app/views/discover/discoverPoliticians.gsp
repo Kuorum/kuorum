@@ -21,7 +21,7 @@
     </ul>
 
     <nav:loadMoreLink
-            mapping="discoverPoliticiansSeeMore"
+            mapping="discoverPoliticians"
             parentId="politician-list-id"
             pagination="${pagination}"
             numElements="${politicians.size()}"

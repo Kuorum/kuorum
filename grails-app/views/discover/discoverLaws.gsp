@@ -21,7 +21,7 @@
     </ul>
 
     <nav:loadMoreLink
-            mapping="discoverLawsSeeMore"
+            mapping="discoverLaws"
             parentId="law-list-id"
             pagination="${pagination}"
             numElements="${laws.size()}"

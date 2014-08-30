@@ -10,11 +10,8 @@ class UrlMappings {
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
         name discover:                      "/descubre" (controller: "dashboard", action:"discover")
         name discoverLaws:                  "/descubre/leyes"         (controller: "discover", action:"discoverLaws")
-        name discoverLawsSeeMore:           "/ajax/descubre/leyes"    (controller: "discover", action:"discoverLawsSeeMore")
         name discoverPoliticians:           "/descubre/politicos"     (controller: "discover", action:"discoverPoliticians")
-        name discoverPoliticiansSeeMore:    "/ajax/descubre/politicos"     (controller: "discover", action:"discoverPoliticiansSeeMore")
         name discoverPosts:                 "/descubre/publicaciones" (controller: "discover", action:"discoverPosts")
-        name discoverPostsSeeMore:          "/ajax/descubre/publicaciones" (controller: "discover", action:"discoverPostsSeeMore")
 
         name lawCreate:     "/leyes/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
         name laws:          "/leyes/$institutionName?/$commission?" (controller: "law", action:"index")
