@@ -2,7 +2,6 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.Pagination
-import kuorum.law.Law
 import kuorum.post.Cluck
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
@@ -56,19 +55,20 @@ class DashboardController {
     }
 
     def discover(){
-        List<Law> relevantLaws = lawService.relevantLaws(new Pagination(max:4))
-        List<Law> recommendedLaws = lawService.relevantLaws(new Pagination(max:5))
-        List<KuorumUser> mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7, new Pagination(max:24))
-//        List<KuorumUser> bestSponsors = kuorumUserService.bestSponsorsSince(new Date() -7, new Pagination(max:24))
-        List<KuorumUser> bestSponsors = kuorumUserService.mostActiveUsersSince(new Date() -365, new Pagination(max:24))
-        List<KuorumUser> bestPoliticians = kuorumUserService.bestPoliticiansSince(new Date() -7, new Pagination(max:32))
-//        log.debug("discover")
-        [
-                relevantLaws:relevantLaws,
-                recommendedLaws:recommendedLaws,
-                mostActiveUsers:mostActiveUsers,
-                bestSponsors:bestSponsors,
-                bestPoliticians:bestPoliticians
-        ]
+        redirect mapping:'discoverLaws'
+//        List<Law> relevantLaws = lawService.relevantLaws(new Pagination(max:4))
+//        List<Law> recommendedLaws = lawService.relevantLaws(new Pagination(max:5))
+//        List<KuorumUser> mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7, new Pagination(max:24))
+////        List<KuorumUser> bestSponsors = kuorumUserService.bestSponsorsSince(new Date() -7, new Pagination(max:24))
+//        List<KuorumUser> bestSponsors = kuorumUserService.mostActiveUsersSince(new Date() -365, new Pagination(max:24))
+//        List<KuorumUser> bestPoliticians = kuorumUserService.bestPoliticiansSince(new Date() -7, new Pagination(max:32))
+////        log.debug("discover")
+//        [
+//                relevantLaws:relevantLaws,
+//                recommendedLaws:recommendedLaws,
+//                mostActiveUsers:mostActiveUsers,
+//                bestSponsors:bestSponsors,
+//                bestPoliticians:bestPoliticians
+//        ]
     }
 }
