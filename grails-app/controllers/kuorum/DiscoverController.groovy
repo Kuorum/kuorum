@@ -45,9 +45,8 @@ class DiscoverController {
             [posts:recommendedPost, pagination: pagination]
         }
     }
-    def discoverPostsSeeMore(Pagination pagination) {
 
-    }
+
     def discoverPoliticians(Pagination pagination) {
         List<KuorumUser> politicians = kuorumUserService.bestPoliticiansSince(new Date() -7, pagination)
         if (request.isXhr()){
