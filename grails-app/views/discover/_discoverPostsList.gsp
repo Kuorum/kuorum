@@ -5,7 +5,8 @@
             <div class="link-wrapper">
                 <g:link mapping="postShow" class="hidden" params="${post.encodeAsLinkProperties()}">Ir al post</g:link>
                 <h1>${post.title} ${post.law.hashtag}</h1>
-                <p>${post.text.encodeAsRemovingHtmlTags().substring(0,Math.min(300, post.text.size()-1))}...</p>
+                <g:set var="text" value="${post.text.encodeAsRemovingHtmlTags()}"/>
+                <p>${text.substring(0,Math.min(300, text.size()-1))}...</p>
                 <div class="user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
                     <userUtil:showUser user="${post.owner}" showRole="true"/>
                 </div>

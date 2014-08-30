@@ -388,9 +388,9 @@ class PostService {
 
     List<Post> lastCreatedPosts(Pagination pagination = new Pagination(), Law law = null){
         if (law){
-            Post.findAllByLawAndPublished(law, true,[max: pagination.max, sort: "id", order: "desc", offset: 0])
+            Post.findAllByLawAndPublished(law, true,[max: pagination.max, sort: "id", order: "desc", offset: pagination.offset])
         }else{
-            Post.findAllByPublished(true, [max: pagination.max, sort: "id", order: "desc", offset: 0])
+            Post.findAllByPublished(true, [max: pagination.max, sort: "id", order: "desc", offset: pagination.offset])
 //        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
         }
     }
