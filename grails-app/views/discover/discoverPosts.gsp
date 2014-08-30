@@ -16,6 +16,11 @@
 </content>
 
 <content tag="mainContent">
+    <div class="clearfix">
+        <h1>
+            <g:message code="discover.menu.discover.posts"/>
+        </h1>
+    </div>
     <ul id="politician-list-id">
         <g:render template="discoverPostsList" model="[posts:posts]"/>
     </ul>

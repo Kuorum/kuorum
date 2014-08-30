@@ -16,6 +16,11 @@
 </content>
 
 <content tag="mainContent">
+    <div class="clearfix">
+        <h1>
+            <g:message code="discover.menu.discover.laws"/>
+        </h1>
+    </div>
     <ul id="law-list-id">
         <g:render template="discoverLawList" model="[laws:laws]"/>
     </ul>
