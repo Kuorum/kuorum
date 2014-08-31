@@ -4,6 +4,7 @@ import grails.transaction.Transactional
 import kuorum.ShortUrlService
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.LawStatusType
 import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.files.FileService
@@ -112,6 +113,7 @@ class LawService {
         law.image.alt = law.hashtag
         law.image.save()
         fileService.convertTemporalToFinalFile(law.image)
+        calculateLawRelevance(law)
         if (!law.save()){
            throw KuorumExceptionUtil.createExceptionFromValidatable(law)
         }
@@ -127,11 +129,24 @@ class LawService {
         law.image.save()
         fileService.convertTemporalToFinalFile(law.image)
 
+        calculateLawRelevance(law)
         //Transaction only with atomic operation on mongo
         // If someone votes while someone saves the law it is possible to lose data for overwriting
         law.mongoUpdate()
         indexSolrService.index(law)
         law
+    }
+
+    private void calculateLawRelevance(Law law){
+        switch (law.status){
+            case LawStatusType.OPEN:
+                law.relevance = 1
+                break;
+            case LawStatusType.APPROVED:
+            case LawStatusType.REJECTED:
+                law.region = 0
+                break;
+        }
     }
 
     Law publish(Law law){
@@ -175,6 +190,7 @@ class LawService {
         def res = Law.createCriteria().list(max:pagination.max, offset:pagination.offset){
 //            eq("status", LawStatusType.OPEN)
             and{
+                order('relevance', 'desc')
                 order('id','desc')
             }
         }

@@ -28,6 +28,7 @@ class Law {
     @Updatable URL urlPdf
     @Updatable URL shortUrl
     @Updatable Boolean availableStats
+    @Updatable Integer relevance = -1;
 
     Date dateCreated
     Boolean published = Boolean.FALSE
