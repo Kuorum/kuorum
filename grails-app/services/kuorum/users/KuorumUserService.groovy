@@ -349,17 +349,24 @@ class KuorumUserService {
         log.warn("Realizando un MAP REDUCE. Operación lenta que no se debe ejecturar muchas veces")
         MapReduceOutput result = Post.collection.mapReduce(bestPoliticians)
 
-        List<KuorumUser> politicians = bestPoliticiansCollection.find().sort(sortResult).collect{KuorumUser.load(it._id)}
+        List<KuorumUser> politicians = bestPoliticiansCollection.find()
+                .sort(sortResult)
+                .skip((int) pagination.offset)
+                .limit(pagination.max)
+                .collect{KuorumUser.load(it._id)}
 
         if (politicians.size() < pagination.max){
             log.info("Poniendo politicos en función del número de seguidores que tiene")
             def userList = politicians.collect{it.id}
             def politicianByFollowers = KuorumUser.createCriteria().list(max:pagination.max, offset:pagination.offset) {
                 'eq'("userType", UserType.POLITICIAN)
-//                'gt'("numFollowers",0)
                 if (userList)
                     not {'in'("id",userList)}
-                order("numFollowers","desc")
+
+                and{
+                    order('enabled','desc')
+                    order("numFollowers","desc")
+                }
             }
             politicians.addAll(politicianByFollowers)
         }
