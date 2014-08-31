@@ -1,4 +1,4 @@
-var dbDest = dbDest || connect("localhost:27017/KuorumDev");
+var dbDest = dbDest || connect("localhost:27017/Kuorum");
 
 dbDest.law.find().forEach(function(law){
 
