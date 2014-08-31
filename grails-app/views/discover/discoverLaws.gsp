@@ -10,7 +10,7 @@
     <h1>
         <g:message code="discover.menu.discover"/>
     </h1>
-    <p><g:message code="discover.menu.laws.description"/></p>
+    %{--<p><g:message code="discover.menu.laws.description"/></p>--}%
     <g:render template="discoverLeftMenu" model="[activeMapping:'discoverLaws']"/>
 
 </content>
