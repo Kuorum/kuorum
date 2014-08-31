@@ -11,7 +11,8 @@ class UrlMappings {
         name discover:                      "/descubre" (controller: "dashboard", action:"discover")
         name discoverLaws:                  "/descubre/leyes"         (controller: "discover", action:"discoverLaws")
         name discoverPoliticians:           "/descubre/politicos"     (controller: "discover", action:"discoverPoliticians")
-        name discoverPosts:                 "/descubre/publicaciones" (controller: "discover", action:"discoverPosts")
+        name discoverRecentPosts:           "/descubre/publicaciones" (controller: "discover", action:"discoverRecentPosts")
+        name discoverRecommendedPosts:      "/descubre/publicaciones-recomendadas" (controller: "discover", action:"discoverRecommendedPosts")
 
         name lawCreate:     "/leyes/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
         name laws:          "/leyes/$institutionName?/$commission?" (controller: "law", action:"index")

@@ -18,7 +18,7 @@
 <content tag="mainContent">
     <div class="clearfix">
         <h1>
-            <g:message code="discover.menu.discover.laws"/>
+            <g:message code="discover.title.discover.laws"/>
         </h1>
     </div>
     <ul id="law-list-id">

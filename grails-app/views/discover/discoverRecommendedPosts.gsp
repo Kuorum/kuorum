@@ -10,25 +10,25 @@
     <h1>
         <g:message code="discover.menu.discover"/>
     </h1>
-    <p><g:message code="discover.menu.politicians.description"/></p>
-    <g:render template="discoverLeftMenu" model="[activeMapping:'discoverPoliticians']"/>
+    <p><g:message code="discover.menu.recommendedPosts.description"/></p>
+    <g:render template="discoverLeftMenu" model="[activeMapping:'discoverRecommendedPosts']"/>
 
 </content>
 
 <content tag="mainContent">
     <div class="clearfix">
         <h1>
-            <g:message code="discover.title.discover.politicians"/>
+            <g:message code="discover.title.discover.recommendedPosts"/>
         </h1>
     </div>
     <ul id="politician-list-id">
-        <g:render template="discoverUsersList" model="[users:politicians]"/>
+        <g:render template="discoverPostsList" model="[posts:posts]"/>
     </ul>
 
     <nav:loadMoreLink
-            mapping="discoverPoliticians"
+            mapping="discoverRecommendedPosts"
             parentId="politician-list-id"
             pagination="${pagination}"
-            numElements="${politicians.size()}"
+            numElements="${posts.size()}"
     />
 </content>

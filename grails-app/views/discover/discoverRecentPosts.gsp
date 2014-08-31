@@ -10,15 +10,15 @@
     <h1>
         <g:message code="discover.menu.discover"/>
     </h1>
-    <p><g:message code="discover.menu.posts.description"/></p>
-    <g:render template="discoverLeftMenu" model="[activeMapping:'discoverPosts']"/>
+    <p><g:message code="discover.menu.recentPosts.description"/></p>
+    <g:render template="discoverLeftMenu" model="[activeMapping:'discoverRecentPosts']"/>
 
 </content>
 
 <content tag="mainContent">
     <div class="clearfix">
         <h1>
-            <g:message code="discover.menu.discover.posts"/>
+            <g:message code="discover.title.discover.recentPosts"/>
         </h1>
     </div>
     <ul id="politician-list-id">
@@ -26,7 +26,7 @@
     </ul>
 
     <nav:loadMoreLink
-            mapping="discoverPosts"
+            mapping="discoverRecentPosts"
             parentId="politician-list-id"
             pagination="${pagination}"
             numElements="${posts.size()}"
