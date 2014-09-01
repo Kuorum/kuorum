@@ -16,7 +16,8 @@ class NavigationTagLib {
             [mappingName: "discover",  onlyLogged:false],
             [mappingName: "discoverLaws",  onlyLogged:false],
             [mappingName: "discoverPoliticians",  onlyLogged:false],
-            [mappingName: "discoverPosts",  onlyLogged:false],
+            [mappingName: "discoverRecentPosts",  onlyLogged:false],
+            [mappingName: "discoverRecommendedPosts",  onlyLogged:false],
             [mappingName: "home", onlyLogged:true],
             [mappingName: "footerWhatIsKuorum", onlyLogged:false]
     ]
