@@ -361,6 +361,8 @@ $(document).ready(function() {
 	}, "#follow.disabled"); //pass the element as an argument to .on
 
 	$('body').on("click", "#follow", function(e) {
+        e.preventDefault()
+        e.stopPropagation()
         clickedButtonFollow($(this))
 	});
 
