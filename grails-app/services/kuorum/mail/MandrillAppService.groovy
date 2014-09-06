@@ -50,14 +50,14 @@ class MandrillAppService {
                 log.warn("El usuario ${mailUserData.user} tiene a null los availableMails")
             }
             //Check if the user has active the email
-            if (!mailData.mailType.configurable || !mailUserData.user.availableMails || mailUserData.user.availableMails.contains(mailData.mailType)){
+            if (!mailData.mailType.configurable || (mailUserData.user.availableMails && mailUserData.user.availableMails.contains(mailData.mailType))){
                 MandrillMessage.Recipient recipient =new MandrillMessage.Recipient()
                 recipient.email= mailUserData.user.email
                 recipient.name = mailUserData.user.name
                 recipient.type = MandrillMessage.Recipient.Type.TO
                 recipients << recipient
             }else{
-                log.info("No se ha mandado el mail ${mailData.mailType} a ${mailUserData.user.email} debido a: [configurable: ${!mailData.mailType.configurable}, availableMailsNull:${!mailUserData.user.availableMails}, mailDesactivadoPorUser: ${mailUserData.user.availableMails.contains(mailData.mailType)}]")
+                log.info("No se ha mandado el mail ${mailData.mailType} a ${mailUserData.user.email} debido a: [configurable: ${!mailData.mailType.configurable}, availableMailsNull:${!mailUserData.user.availableMails}, mailDesactivadoPorUser: ${mailUserData.user.availableMails?.contains(mailData.mailType)}]")
             }
         }
         recipients
