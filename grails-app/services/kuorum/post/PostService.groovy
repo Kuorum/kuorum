@@ -46,6 +46,7 @@ class PostService {
         post.owner = owner
         post.law =  law
         post.text = removeCustomCrossScripting(post.text)
+        post.ownerPersonalData = owner.personalData
 
         if (post.multimedia){
             fileService.convertTemporalToFinalFile(post.multimedia)

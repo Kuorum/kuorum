@@ -7,6 +7,7 @@ import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.users.KuorumUser
+import kuorum.users.PersonalData
 import org.bson.types.ObjectId
 
 @MongoUpdatable
@@ -14,10 +15,12 @@ class Post {
 
     ObjectId id
     KuorumUser owner
+    PersonalData ownerPersonalData
     /**
      * Politician who has defended the post
      */
     KuorumUser defender
+    PersonalData defenderPersonalData
 
     /**
      * Date when the defender defends the post
@@ -48,13 +51,14 @@ class Post {
     Cluck firstCluck
 
     //static hasMany = [sponsors:Sponsor]
-    static embedded = ['sponsors', 'comments', 'debates','multimedia']
+    static embedded = ['sponsors', 'comments', 'debates','multimedia','ownerPersonalData', 'defenderPersonalData']
 
     static constraints = {
         numVotes min:0
         numClucks min:0
         firstCluck nullable:true
         defender nullable:true
+        defenderPersonalData nullable: true
         defenderDate nullable: true, validator:{val, obj ->
             if (obj.defender && !val){
                 'defenderWithoutCreationDate'

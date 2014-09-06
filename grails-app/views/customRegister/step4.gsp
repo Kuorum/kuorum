@@ -21,7 +21,8 @@
                         <label for="${recommendedUser.id}"><img class="user-img big" alt="${recommendedUser.name}" src="${image.userImgSrc(user:recommendedUser)}">
                             ${recommendedUser.name}
                             <span class="rol">
-                                <g:message code="kuorum.core.model.gamification.GamificationAward.${recommendedUser.gamification.activeRole}.${recommendedUser.personalData.gender}"/>
+                                <userUtil:roleName  user="${recommendedUser}"/>
+                                %{--<g:message code="kuorum.core.model.gamification.GamificationAward.${recommendedUser.gamification.activeRole}.${recommendedUser.personalData.gender}"/>--}%
                             </span>
                         </label>
                     </g:each>

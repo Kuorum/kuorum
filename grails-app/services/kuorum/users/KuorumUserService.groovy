@@ -143,7 +143,12 @@ class KuorumUserService {
         user.save(flush: true)
     }
 
-
+    /**
+     * Returns the best users ever including organizations, normalUsers and politicians
+     * @param user
+     * @param pagination
+     * @return
+     */
     List<KuorumUser> recommendedUsers(KuorumUser user, Pagination pagination = new Pagination()){
         if (!user){
             return recommendedUsers(pagination)
@@ -161,10 +166,41 @@ class KuorumUserService {
         result as ArrayList<KuorumUser>
     }
 
+    private List<KuorumUser> recommendedUsersByPostVotes(UserType userType, KuorumUser user = null, Pagination pagination = new Pagination()){
+        def orderUsersByVotes = Post.collection.aggregate([
+                [$match:['ownerPersonalData.userType':userType.toString()]],
+                [$group:[_id:'$owner', numVotes:[$sum:'$numVotes']]],
+                [$match:[numVotes:[$gt:0]]],
+                [$sort:[numVotes:-1]]
+        ])
+
+        def results = orderUsersByVotes.results();
+        List<KuorumUser> users = []
+        (pagination.offset .. pagination.offset+pagination.max-1).each {
+            if (results.size()>it){
+                def aggregationData = results.get(it.toInteger())
+                users << KuorumUser.get(aggregationData._id)
+            }
+        }
+        users
+    }
+
     List<KuorumUser> recommendedUsers(Pagination pagination = new Pagination()){
         //TODO: Improve algorithm
         List<KuorumUser> res = KuorumUser.findAllByNumFollowersGreaterThanAndEnabled(-1,true,[sort:"numFollowers",order: "desc", max:pagination.max])
         res as ArrayList<KuorumUser>
+    }
+
+    List<KuorumUser> recommendPoliticians(KuorumUser user, Pagination pagination = new Pagination()){
+        List<KuorumUser> politicians = bestPoliticiansSince(null, pagination, Boolean.TRUE);
+    }
+
+    List<KuorumUser> recommendOrganizations(KuorumUser user, Pagination pagination = new Pagination()){
+        recommendedUsersByPostVotes(UserType.ORGANIZATION, user, pagination)
+    }
+
+    List<KuorumUser> recommendPersons(KuorumUser user, Pagination pagination = new Pagination()){
+        recommendedUsersByPostVotes(UserType.PERSON, user, pagination)
     }
 
     KuorumUser updateUser(KuorumUser user){
@@ -301,7 +337,7 @@ class KuorumUserService {
         bestSponsors
     }
 
-    List<KuorumUser> bestPoliticiansSince(Date startDate, Pagination pagination = new Pagination()){
+    List<KuorumUser> bestPoliticiansSince(Date startDate, Pagination pagination = new Pagination(), Boolean isEnabled = null){
         //TODO: CACHE THIS QUERY
         //TODO: Use startDate. Now is getting best politicians ever
 
@@ -360,6 +396,7 @@ class KuorumUserService {
             def userList = politicians.collect{it.id}
             def politicianByFollowers = KuorumUser.createCriteria().list(max:pagination.max, offset:pagination.offset) {
                 'eq'("userType", UserType.POLITICIAN)
+                if (isEnabled != null) 'eq'("enabled", isEnabled)
                 if (userList)
                     not {'in'("id",userList)}
 
