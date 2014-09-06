@@ -126,6 +126,10 @@ class AdminUserController extends AdminController {
             command.studies = user.personalData.studies
             command.workingSector= user.personalData.workingSector
         }
+        if (UserType.POLITICIAN.equals(user.userType)){
+            command.parliamentaryGroup = user.parliamentaryGroup
+            command.institution = user.institution
+        }
         command.year =  user.personalData?.birthday?user.personalData?.birthday[Calendar.YEAR]:null
         command.month = user.personalData?.birthday?user.personalData?.birthday[Calendar.MONTH] +1:null
         command.day =   user.personalData?.birthday?user.personalData?.birthday[Calendar.DAY_OF_MONTH]:null
