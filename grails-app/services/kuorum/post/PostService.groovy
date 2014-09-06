@@ -364,7 +364,12 @@ class PostService {
     }
 
     List<Post> favoritesPosts(KuorumUser user){
-        user.favorites.collect{Post.load(it)}
+        if (user?.favorites){
+            user.favorites.collect{Post.load(it)}
+        }else{
+            []
+        }
+
     }
 
     Integer numUserPosts(KuorumUser user){
