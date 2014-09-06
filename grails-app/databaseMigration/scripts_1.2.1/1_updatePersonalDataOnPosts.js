@@ -1,5 +1,5 @@
 
-var dbDest = dbDest || connect("localhost:27017/KuorumDev");
+var dbDest = dbDest || connect("localhost:27017/Kuorum");
 
 
 dbDest.post.find().forEach(function(post){
