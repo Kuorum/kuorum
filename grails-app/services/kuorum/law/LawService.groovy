@@ -190,6 +190,7 @@ class LawService {
         //TODO: Improve
         def res = Law.createCriteria().list(max:pagination.max, offset:pagination.offset){
 //            eq("status", LawStatusType.OPEN)
+            eq("published", Boolean.TRUE)
             and{
                 order('relevance', 'desc')
                 order('id','desc')
