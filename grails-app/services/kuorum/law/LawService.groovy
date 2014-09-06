@@ -127,6 +127,7 @@ class LawService {
         }
         law.image.alt = law.hashtag
         law.image.save()
+        law.availableStats = law.availableStats?:Boolean.FALSE //Por si es nulo
         fileService.convertTemporalToFinalFile(law.image)
 
         calculateLawRelevance(law)

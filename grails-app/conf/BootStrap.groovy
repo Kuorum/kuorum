@@ -32,6 +32,8 @@ class BootStrap {
                                 dbObject = obj."$field"?.properties?.dbo
                             }else if (obj."$field" instanceof List){
                                 dbObject = obj."$field".collect{it.toString()}
+                            }else if (obj."$field" instanceof Integer){
+                                dbObject = obj."$field"
                             }else if (obj."$field".hasProperty('id')){
                                 dbObject = obj."$field".id
                             }else if (obj."$field" != null) {
