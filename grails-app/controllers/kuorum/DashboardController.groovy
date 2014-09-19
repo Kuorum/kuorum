@@ -3,8 +3,10 @@ package kuorum
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.Pagination
 import kuorum.post.Cluck
+import kuorum.post.Post
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
+import org.bson.types.ObjectId
 import springSecurity.KuorumRegisterCommand
 
 class DashboardController {
@@ -70,5 +72,13 @@ class DashboardController {
 //                bestSponsors:bestSponsors,
 //                bestPoliticians:bestPoliticians
 //        ]
+    }
+
+
+    def customPostMapping(String customLink){
+
+        Post post = Post.get(new ObjectId("53c905bee4b0355ed79906c8"))
+        redirect mapping: "postShow" , params: post.encodeAsLinkProperties()
+
     }
 }
