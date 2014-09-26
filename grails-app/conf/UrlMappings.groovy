@@ -6,6 +6,10 @@ class UrlMappings {
 
 	static mappings = {
 
+        //TODO Hacer esta ñapa en BBDD
+//        name tempmoralLink: "/$customLink" (controller: "dashboard", action:"customPostMapping")
+        name tempmoralLink: "/medidasvalientes" (controller: "dashboard", action:"customPostMapping")
+
         name home:             "/" (controller: "dashboard", action:"index")
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
         name discover:                      "/descubre" (controller: "dashboard", action:"discover")
