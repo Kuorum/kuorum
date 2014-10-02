@@ -27,7 +27,7 @@ class MandrillAppService {
 
         MandrillMessage message = new MandrillMessage()
         message.fromName = mailData.fromName
-        message.to = recipients
+        message.bcc = recipients
         message.globalMergeVars = globalMergeVars
         message.mergeVars = mergeVars
         message.tags = [mailData.mailType.tagTemplate]
