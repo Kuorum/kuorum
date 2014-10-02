@@ -27,7 +27,7 @@ class MandrillAppService {
 
         MandrillMessage message = new MandrillMessage()
         message.fromName = mailData.fromName
-        message.bcc = recipients
+        message.to = recipients
         message.globalMergeVars = globalMergeVars
         message.mergeVars = mergeVars
         message.tags = [mailData.mailType.tagTemplate]
@@ -54,7 +54,7 @@ class MandrillAppService {
                 MandrillMessage.Recipient recipient =new MandrillMessage.Recipient()
                 recipient.email= mailUserData.user.email
                 recipient.name = mailUserData.user.name
-                recipient.type = MandrillMessage.Recipient.Type.TO
+                recipient.type = MandrillMessage.Recipient.Type.BCC
                 recipients << recipient
             }else{
                 log.info("No se ha mandado el mail ${mailData.mailType} a ${mailUserData.user.email} debido a: [configurable: ${!mailData.mailType.configurable}, availableMailsNull:${!mailUserData.user.availableMails}, mailDesactivadoPorUser: ${mailUserData.user.availableMails?.contains(mailData.mailType)}]")
