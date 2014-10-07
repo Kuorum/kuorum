@@ -26,10 +26,11 @@
             <section class="col-xs-12 col-sm-3 col-md-2">
                 <h1><g:message code="layout.footer.media"/> </h1>
                 <ul>
+                    <li><a target="_blank" href="http://www.rtve.es/alacarta/audios/las-mananas-de-rne/mananas-rne-kuorumorg-herramienta-para-politicos-escuchen/2795534/">Radio Nacional</a></li>
                     <li><a target="_blank" href="http://www.elconfidencial.com/tecnologia/2013-10-25/kuorum-la-startup-espanola-que-lleva-la-democracia-ciudadana-a-la-red_45787/">El Confidencial</a></li>
                     <li><a target="_blank" href="http://noticias.lainformacion.com/asuntos-sociales/nace-kuorum-una-plataforma-espanola-en-busca-de-una-democracia-2-0_uZLstjDCNoiDnIdNTr1Fk4/">La Información</a></li>
                     <li><a target="_blank" href="http://www.elperiodico.com/es/noticias/reaccionando/articulo-manel-souto-nuevas-herramientas-democraticas-kuorumorg-3012032">El Periódico</a></li>
-                    <li><a target="_blank" href="http://www.eldiario.es/turing/Nuevas-aplicaciones-participativas-laboratorio-democratico_0_196330603.html">El Diario</a></li>
+                    <li><a target="_blank" href="http://www.eldiario.es/turing/Kuorumorg-plataforma-espanola-fomentar-politica_0_301320478.html">El Diario</a></li>
                     <li><a target="_blank" href="http://www.rtve.es/alacarta/videos/para-todos-la-2/para-todos-2-internet/2361227/">La 2</a></li>
                 </ul>
             </section>
