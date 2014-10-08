@@ -54,5 +54,6 @@ class CodecSpec extends Specification {
         ".com"                                  | ".com"
         "Estos:\nhttp://elpais.com/elpais/2014/06/23/media/1403547645_646044.html" | "Estos:\n<a href='http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html' target='_blank' rel='nofollow'>http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html</a>"
         "Estos:\rhttp://elpais.com/elpais/2014/06/23/media/1403547645_646044.html" | "Estos:\r<a href='http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html' target='_blank' rel='nofollow'>http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html</a>"
+        "pongo www.rae.es\nUn" | "pongo <a href='http://www.rae.es' target='_blank' rel='nofollow'>www.rae.es</a>\nUn"
     }
 }

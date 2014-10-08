@@ -1,10 +1,10 @@
 <div class="form-group">
     <div class="row">
         <div class="col-xs-4">
-            <formUtil:input command="${command}" field="name" required="true"/>
+            <formUtil:input command="${command}" field="name" required="true" autocomplete="off"/>
         </div>
         <div class="col-xs-4">
-            <formUtil:input command="${command}" field="email" type="email" required="true"/>
+            <formUtil:input command="${command}" field="email" type="email" required="true" autocomplete="off"/>
         </div>
         <div class="col-xs-4">
             <formUtil:input command="${command}" field="password" type="password" required="true"/>

@@ -92,7 +92,9 @@ class CustomRegisterController extends  ProfileController{
         log.info("Custom register paso4")
         Step4Command command = new Step4Command()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user, new Pagination(max:12))
+//        List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user, new Pagination(max:12))
+        List<KuorumUser> recommendedUsers = step4RecommendedUsers(user)
+
         [command: command, recommendedUsers:recommendedUsers]
     }
 
@@ -100,7 +102,8 @@ class CustomRegisterController extends  ProfileController{
     def step4Save(Step4Command command){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
-            List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user)
+//            List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user)
+            List<KuorumUser> recommendedUsers = step4RecommendedUsers(user)
             render view:"step4", model: [command: command, recommendedUsers:recommendedUsers]
             return
         }
@@ -109,6 +112,20 @@ class CustomRegisterController extends  ProfileController{
             kuorumUserService.createFollower(user, following)
         }
         redirect mapping:'customRegisterStep5'
+    }
+
+    private List<KuorumUser> step4RecommendedUsers(KuorumUser user){
+        List<KuorumUser> recommendedUsers = []
+        def organizations = kuorumUserService.recommendOrganizations(user, new Pagination(max:4))
+        def persons = kuorumUserService.recommendPersons(user, new Pagination(max:12))
+        def politicians = kuorumUserService.recommendPoliticians(user, new Pagination(max:4))
+        persons = persons.take(persons.size() - politicians.size())
+        persons = persons.take(persons.size() - organizations.size())
+
+        recommendedUsers += organizations
+        recommendedUsers += persons
+        recommendedUsers += politicians
+        recommendedUsers
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

@@ -2,6 +2,7 @@ package kuorum.users
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import grails.plugin.springsecurity.ui.RegistrationCode
 import kuorum.KuorumFile
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
@@ -28,8 +29,11 @@ class ProfileController {
     def kuorumMailService
 
     def beforeInterceptor ={
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        params.user = user
+        if (springSecurityService.isLoggedIn()){
+            //Este if es para la confirmacion del email
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            params.user = user
+        }
     }
     def afterInterceptor = [action: this.&prepareMenuData]
 
@@ -151,7 +155,78 @@ class ProfileController {
 
     def changeEmail() {
         KuorumUser user = params.user
-        [user:user]
+        [user:user, command: new ChangeEmailCommand(email: user.email)]
+    }
+
+    private static final DYNAMIC_ATTRIBUTE_NEW_EMAIL = 'newEmail'
+
+    def changeEmailSave(ChangeEmailCommand command) {
+        KuorumUser user = params.user
+        if (command.hasErrors()){
+            render view: "changeEmail", model:[user:user, command: command]
+        }
+        def registrationCode = new RegistrationCode(username: user.email)
+        registrationCode[DYNAMIC_ATTRIBUTE_NEW_EMAIL]=command.email
+        if (!registrationCode.save()) {
+            command.errors.reject("errorCreatingVerificationCode")
+            render view: "changeEmail", model:[user:user, command: command]
+        }
+        log.info("Solicitud de cambio de email del usuario ${user.email} con el tocken ${registrationCode.token}" )
+        String url = generateLink('profileChangeEmailConfirm', [t: registrationCode.token])
+
+        kuorumMailService.sendChangeEmailRequested(user, command.email)
+        kuorumMailService.sendChangeEmailVerification(user,url)
+        flash.chainedParams = [link:url, newEmail: command.email]
+        redirect mapping:"profileChangeEmailSent"
+    }
+
+    def changeEmailConfirmSent(){
+        if (!flash.chainedParams){
+            redirect mapping:"profileChangeEmail"
+            return;
+        }
+        [user:params.user, newEmail:flash.chainedParams.newEmail, confirmationLink:flash.chainedParams.link]
+    }
+    @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
+    def changeEmailConfirm(){
+
+        String token = params.t
+
+        RegistrationCode registrationCode = token ? RegistrationCode.findByToken(token) : null
+        if (!registrationCode) {
+            flash.error = message(code: 'spring.security.ui.register.badCode')
+            redirect mapping:"home"
+            return
+        }
+
+        KuorumUser user
+        // TODO to ui service
+        RegistrationCode.withTransaction { status ->
+            user = KuorumUser.findByEmail(registrationCode.username)
+            if (!user) {
+                flash.error = message(code: 'spring.security.ui.register.badCode')
+                redirect mapping:"home"
+                return
+            }
+            user.email = registrationCode[DYNAMIC_ATTRIBUTE_NEW_EMAIL]
+            user.save(flush:true)
+            registrationCode.delete()
+        }
+
+        if (!user) {
+            flash.error = message(code: 'spring.security.ui.register.badCode')
+            redirect mapping:"home"
+            return
+        }
+        springSecurityService.reauthenticate user.email
+        flash.message = message(code: 'profile.changeEmail.success', args: [user.email])
+        redirect mapping:"home"
+    }
+
+    private String generateLink(String urlMapping, linkParams) {
+        createLink(absolute: true,
+                mapping:urlMapping,
+                params: linkParams)
     }
 
     def socialNetworks() {

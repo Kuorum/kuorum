@@ -291,7 +291,6 @@ $(document).ready(function() {
         var postId = $(readLaterElement).parents("article").first().attr("data-cluck-postId");
         var html = $("article[data-cluck-postId='"+postId+"'] li.read-later").html()
         var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
-        console.log("Reading later"+postId);
         $.ajax({
             url:url,
             beforeSend:function(xhr){
@@ -362,6 +361,8 @@ $(document).ready(function() {
 	}, "#follow.disabled"); //pass the element as an argument to .on
 
 	$('body').on("click", "#follow", function(e) {
+        e.preventDefault()
+        e.stopPropagation()
         clickedButtonFollow($(this))
 	});
 
@@ -905,7 +906,6 @@ $(document).ready(function() {
 	$(function () {
         $('.allActivityMails').change(function() {
             var formGroup = $(this).parents(".form-group")
-            console.log(formGroup.length)
             if($(this).is(':checked')) {
                 formGroup.find('.checkbox input').prop('checked', true);
             } else {
@@ -976,7 +976,6 @@ $(document).ready(function() {
         var url = link.attr('href')
         ajaxFollow(url,link, function(data){
             link.addClass("active")
-            console.log()
             link.html(i18n.profile.kuorumStore.skillButton.active)
             $("#numEggs").html(data.numEggs)
             $("#numCorns").html(data.numCorns)
@@ -1055,7 +1054,9 @@ $(document).ready(function() {
                 element.siblings('span').html(q+1)
             });
         }
-    })
+    });
+
+    cookiesHelper.displayCookiesPolitics();
 
 });
 
@@ -1130,7 +1131,6 @@ var karma = {
     },
 
     _prepareKarma:function(){
-        console.log(this.title)
         $("#karma h2").html(this.title)
         var motivation = $("#karma p span")
         var motivationText = "<span class='"+motivation.attr('class')+"'>"+motivation.html()+"</span>"
@@ -1179,9 +1179,6 @@ function prepareArrowClucks(){
             $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fff8ed');
         }
     });
-
-    cookiesHelper.displayCookiesPolitics();
-
 }
 // funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)
 var display = {
@@ -1213,7 +1210,8 @@ var cookiesHelper = {
          var d = new Date();
          d.setTime(d.getTime() + (exdays*24*60*60*1000));
          var expires = "expires="+d.toGMTString();
-         document.cookie = cname + "=" + cvalue + "; " + expires;
+         var domain = document.domain;
+         document.cookie = cname + "=" + cvalue + "; " + expires+ ";domain="+domain+";path=/";
      },
     getCookie:function (cname) {
         var name = cname + "=";

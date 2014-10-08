@@ -160,6 +160,8 @@ class LawController {
             def max = [v.yes,v.no, v.abs].max()
             if (v.abs == max)
                 map.put(k,MAP_ABS)
+            else if(v.no == v.yes)
+                map.put(k, MAP_ABS)
             else if (v.no == max)
                 map.put(k,MAP_NO)
             else if (v.yes == max)

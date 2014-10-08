@@ -127,6 +127,7 @@ class LawService {
         }
         law.image.alt = law.hashtag
         law.image.save()
+        law.availableStats = law.availableStats?:Boolean.FALSE //Por si es nulo
         fileService.convertTemporalToFinalFile(law.image)
 
         calculateLawRelevance(law)
@@ -189,6 +190,7 @@ class LawService {
         //TODO: Improve
         def res = Law.createCriteria().list(max:pagination.max, offset:pagination.offset){
 //            eq("status", LawStatusType.OPEN)
+            eq("published", Boolean.TRUE)
             and{
                 order('relevance', 'desc')
                 order('id','desc')

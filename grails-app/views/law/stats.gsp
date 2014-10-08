@@ -115,9 +115,10 @@
                 </g:each>
             </dd>
             %{--<dt>Tipo de tramitación</dt> <dd>Por determinar</dd>--}%
-            <dt><g:message code="law.stats.columnC.infoLaw.pdf"/></dt>
-            <dd><a href="${law.urlPdf}" target="_blank"><g:message code="law.stats.columnC.infoLaw.pdf.download"/></a></dd>
-
+            <g:if test="${law.urlPdf}">
+                <dt><g:message code="law.stats.columnC.infoLaw.pdf"/></dt>
+                <dd><a href="${law.urlPdf}" target="_blank"><g:message code="law.stats.columnC.infoLaw.pdf.download"/></a></dd>
+            </g:if>
         </dl>
     </section>
 </content>

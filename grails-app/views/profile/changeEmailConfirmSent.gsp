@@ -17,14 +17,9 @@
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="profile.changeEmail.title"/></h1>
-    <formUtil:validateForm form="config2" bean="${command}"/>
-    <g:form method="POST" mapping="profileChangeEmail" name="config2" role="form">
-        <div class="form-group">
-            <formUtil:input type="email" command="${command}" field="email"/>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">
-        </div>
-    </g:form>
+    <h1><g:message code="profile.changeEmail.success.title"/></h1>
+    <p><g:message code="profile.changeEmail.success.description"  args="[newEmail]"/></p>
+    <g:if env="development">
+        <p><a href="${confirmationLink}">Link de confirmacion para desarrollo</a></p>
+    </g:if>
 </content>
