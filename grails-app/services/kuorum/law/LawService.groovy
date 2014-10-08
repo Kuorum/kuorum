@@ -111,6 +111,7 @@ class LawService {
             throw new KuorumException("Se ha intentado crear una ley sin imagen","error.law.withOutImage")
         }
         law.image.alt = law.hashtag
+        law.availableStats = law.availableStats?:false
         law.image.save()
         fileService.convertTemporalToFinalFile(law.image)
         calculateLawRelevance(law)

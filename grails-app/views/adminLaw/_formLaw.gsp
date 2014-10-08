@@ -21,10 +21,10 @@
 <div class="form-group">
     <div class="row">
         <div class="col-xs-6">
-            <formUtil:selectDomainObject command="${command}" field="institution" values="${institutions}" />
+            <formUtil:selectDomainObject command="${command}" field="region" values="${regions}" />
         </div>
         <div class="col-xs-6">
-            <formUtil:selectDomainObject command="${command}" field="parliamentaryGroup" values="${parliamentaryGroups}" />
+            <formUtil:selectDomainObject command="${command}" field="institution" values="${institutions}" />
         </div>
     </div>
 </div>

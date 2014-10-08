@@ -2,7 +2,7 @@ package kuorum.web.commands
 
 import grails.validation.Validateable
 import kuorum.Institution
-import kuorum.ParliamentaryGroup
+import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.LawStatusType
 import kuorum.law.Law
@@ -21,11 +21,11 @@ class LawCommand {
     Boolean availableStats
     URL urlPdf
     List<CommissionType> commissions  = new ArrayList<CommissionType>()
-//    Region region
+    Region region
     Institution institution
     String photoId
     LawStatusType status
-    ParliamentaryGroup parliamentaryGroup
+//    ParliamentaryGroup parliamentaryGroup
 
     static constraints = {
         importFrom Law
@@ -40,6 +40,8 @@ class LawCommand {
 //        }
 
         //Validator is not imported
+        region nullable:false
+        institution nullable: false
 //        region  nullable:false, validator: { val, obj ->
 //            if (obj.institution && val != obj.institution.region) {
 //                return ['notSameRegionAsInstitution']

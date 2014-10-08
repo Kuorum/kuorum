@@ -46,20 +46,12 @@ class Law {
         description nullable:false
         introduction nullable:false
         institution nullable:false
-        region  nullable:false, validator: { val, obj ->
-            if (obj.institution && val != obj.institution.region) {
-                return ['notSameRegionAsInstitution']
-            }
-        }
+        region  nullable:false
         urlPdf nullable:true, url:true
         //TODO: image no es nullable
         image nullable:true
         publishDate nullable:true
-        parliamentaryGroup nullable:false, validator:{val, obj ->
-            if (val && val.institution != obj.institution){
-                return "incorrectInstitution"
-            }
-        }
+        parliamentaryGroup nullable:true
     }
 
     static mapping = {
