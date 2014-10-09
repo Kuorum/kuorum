@@ -1058,7 +1058,11 @@ $(document).ready(function() {
 
     cookiesHelper.displayCookiesPolitics();
 
+    $(".dynamicList").dynamiclist();
+
 });
+
+// ***** End jQuey Init *********** //
 
 var modalDefend = {
     data:{},

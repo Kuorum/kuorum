@@ -23,6 +23,7 @@ modules = {
         resource url:'js/jquery.touchSwipe.min.js'
         resource url:'js/jquery.autocomplete.js'
         resource url:'js/jquery.bgswitcher.js' //HOME
+        resource url:'js/jquery.dynamiclist.min.js' //Dynamic input
         resource url:'js/custom.js'
     }
 

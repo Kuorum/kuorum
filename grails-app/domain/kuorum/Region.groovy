@@ -8,7 +8,7 @@ class Region {
     String name
     Region superRegion
     String iso3166_2
-    String postalCode
+    List<String> postalCodes
 
     static constraints = {
         iso3166_2 blank: false,
@@ -20,7 +20,7 @@ class Region {
                       }
                   }
         superRegion nullable:true
-        postalCode nullable:true
+        postalCodes nullable:true
     }
 
     String toString(){

@@ -166,6 +166,9 @@ class UrlMappings {
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
         name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
+        name adminCreateRegion:     "/admin/regiones/crear-region"  (controller:"adminRegion"){action =[GET:"createRegion", POST:"saveRegion"]}
+        name adminEditRegion:       "/admin/regiones/editar-region"  (controller:"adminRegion"){action =[GET:"editRegion", POST:"saveRegion"]}
+        name adminListRegions:      "/admin/regiones"                (controller:"adminRegion", action:"listRegions")
 
 
         "/sitemap"{
