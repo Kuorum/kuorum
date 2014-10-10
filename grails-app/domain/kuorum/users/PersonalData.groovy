@@ -12,6 +12,7 @@ class PersonalData {
     Gender gender
 
     String postalCode
+    //TODO: Refactor province to Region
     String provinceCode  // this code is Region.iso3166_2
     Region province
     Date birthday

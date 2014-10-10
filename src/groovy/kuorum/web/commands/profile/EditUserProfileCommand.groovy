@@ -66,7 +66,7 @@ class EditUserProfileCommand extends BirthdayCommad{
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         def regionService = appContext.regionService
         obj.postalCode = source['postalCode'].padLeft( 5, '0' )
-        obj.province = regionService.findProvinceByPostalCode(country, obj.postalCode)
+        obj.province = regionService.findRegionOrProvinceByPostalCode(country, obj.postalCode)
 
     }
 }
