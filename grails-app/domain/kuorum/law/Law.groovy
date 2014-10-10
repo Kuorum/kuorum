@@ -45,8 +45,12 @@ class Law {
         realName nullable:false
         description nullable:false
         introduction nullable:false
-        institution nullable:false
         region  nullable:false
+        institution nullable:false, validator: { val, obj ->
+            if (obj.region && obj.region != val.region) {
+                return ['notSameRegionAsInstitution']
+            }
+        }
         urlPdf nullable:true, url:true
         //TODO: image no es nullable
         image nullable:true

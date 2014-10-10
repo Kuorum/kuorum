@@ -40,8 +40,12 @@ class LawCommand {
 //        }
 
         //Validator is not imported
-        region nullable:false
-        institution nullable: false
+//        region nullable:false
+//        institution nullable:false, validator: { val, obj ->
+//            if (obj.region && obj.region != val.region) {
+//                return ['notSameRegionAsInstitution']
+//            }
+//        }
 //        region  nullable:false, validator: { val, obj ->
 //            if (obj.institution && val != obj.institution.region) {
 //                return ['notSameRegionAsInstitution']
