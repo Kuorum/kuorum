@@ -31,4 +31,12 @@ class Institution {
                 name && name.equals(object.name) && region && region.equals(object.region)
         )
     }
+
+    //Overrides dynamic finder because not works properly with embedded object
+    // -- Fast approach --: There will be few institution per region
+    static def findAllByRegion(Region region) {
+        def res = Institution.collection.find(['region._id':region.id],[_id:1])
+        List<Region> regions = res.collect{Institution.get(it._id)}
+        regions
+    }
 }

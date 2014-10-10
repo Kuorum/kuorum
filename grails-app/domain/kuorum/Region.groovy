@@ -22,7 +22,9 @@ class Region {
         superRegion nullable:true
         postalCodes nullable:true
     }
-
+    static mapping = {
+        sort name: "desc"
+    }
     String toString(){
         name
     }

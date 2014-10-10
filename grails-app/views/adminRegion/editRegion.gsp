@@ -15,9 +15,9 @@
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="admin.createLaw.title"/></h1>
+    <h1><g:message code="admin.editRegion.title"/></h1>
     <formUtil:validateForm bean="${command}" form="createLaw"/>
-    <g:form method="POST" mapping="adminCreateRegion" name="createLaw" role="form">
+    <g:form method="POST" mapping="adminEditRegion" name="createLaw" role="form">
         <g:hiddenField name="id" value="${command.id}"/>
         <g:render template="formRegion" model="[command:command, regions:regions]"/>
         <div class="form-group">
@@ -25,4 +25,5 @@
             <a href="#" class="cancel" tabindex="19">Cancelar</a>
         </div>
     </g:form>
+    <g:render template="institutionList" model="[institutions:institutions, region:command]"/>
 </content>

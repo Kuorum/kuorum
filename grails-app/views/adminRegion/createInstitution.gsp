@@ -7,18 +7,18 @@
 
 <content tag="leftMenu">
     <h1>
-        <g:message code="admin.createLaw.title"/>,
+        <g:message code="admin.createInstitution.title"/>,
     </h1>
     %{--<p><g:message code="profile.changeEmail.description"/></p>--}%
-    <g:render template="/admin/adminMenu" model="[activeMapping:'adminCreateRegion', menu:menu]"/>
+    <g:render template="/admin/adminMenu" model="[activeMapping:'adminCreateInstitution', menu:menu]"/>
 
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="admin.createRegion.title"/></h1>
+    <h1><g:message code="admin.createInstitution.title"/></h1>
     <formUtil:validateForm bean="${command}" form="createLaw"/>
-    <g:form method="POST" mapping="adminCreateRegion" name="createLaw" role="form">
-        <g:render template="formRegion" model="[command:command, regions:regions]"/>
+    <g:form method="POST" mapping="adminCreateInstitution" name="createLaw" role="form">
+        <g:render template="formInstitution" model="[command:command, regions:regions]"/>
         <div class="form-group">
             <input type="submit" value="${message(code:'admin.createLaw.submit')}" class="btn btn-grey btn-lg">
             <a href="#" class="cancel" tabindex="19">Cancelar</a>

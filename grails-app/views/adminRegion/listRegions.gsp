@@ -15,10 +15,10 @@
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="admin.createLaw.title"/></h1>
+    <h1><g:message code="admin.listRegion.title"/></h1>
     <ul>
         <g:each in="${regions}" var="region">
-            <li><g:link controller="adminRegion" action="editRegion" params="[iso3166_2:region.iso3166_2]">${region.name}</g:link> </li>
+            <li><g:link  mapping="adminEditRegion" params="[iso3166_2:region.iso3166_2]">${region.name}</g:link> </li>
         </g:each>
     </ul>
 </content>
