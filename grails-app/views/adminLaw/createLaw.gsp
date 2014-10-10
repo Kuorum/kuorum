@@ -21,7 +21,7 @@
         <div class="form-group">
             <formUtil:input command="${command}" field="hashtag" required="true"/>
         </div>
-        <g:render template="formLaw" model="[command:command, regions:regions, institutions:institutions]"/>
+        <g:render template="/adminLaw/formLaw" model="[command:command, regions:regions, institutions:institutions]"/>
         <div class="form-group">
             <input type="submit" value="${message(code:'admin.createLaw.submit')}" class="btn btn-grey btn-lg">
             <a href="#" class="cancel" tabindex="19">Cancelar</a>

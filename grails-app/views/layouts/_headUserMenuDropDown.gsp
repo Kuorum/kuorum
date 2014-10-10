@@ -23,6 +23,9 @@
             %{--<span class="badge" role="log" aria-labelledby="messages-user" aria-live="assertive" aria-relevant="additions">${numMessages}</span>--}%
         %{--</g:link>--}%
     %{--</li>--}%
+    <sec:ifAnyGranted roles="ROLE_POLITICIAN">
+        <li><g:link mapping="politicianIndex" params="[regionName:sec.loggedInUserInfo([field:'regionName'])]"><sec:loggedInUserInfo field="regionName"/></g:link></li>
+    </sec:ifAnyGranted>
     <li><g:link mapping="logout"><g:message code="head.logged.logout"/></g:link></li>
     <sec:ifSwitched>
         <li>

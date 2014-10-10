@@ -13,6 +13,7 @@ import kuorum.solr.IndexSolrService
 import kuorum.solr.SearchSolrService
 import kuorum.users.GamificationService
 import kuorum.users.KuorumUser
+import kuorum.web.commands.LawCommand
 
 @Transactional
 class LawService {
@@ -102,6 +103,10 @@ class LawService {
         }
         law.refresh()
         lawVote
+    }
+
+    Law saveLawFromCommand(LawCommand lawCommand){
+
     }
 
     Law saveAndCreateNewLaw(Law law){

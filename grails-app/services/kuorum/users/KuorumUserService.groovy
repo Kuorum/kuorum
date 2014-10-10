@@ -424,4 +424,8 @@ class KuorumUserService {
             throw new KuorumException("Error desactivando un usuario")
         }
     }
+
+    Boolean checkIfIsPolititician(KuorumUser user){
+        user.institution!=null
+    }
 }

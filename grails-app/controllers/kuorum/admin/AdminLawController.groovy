@@ -1,5 +1,6 @@
 package kuorum.admin
 
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.KuorumFile
@@ -9,7 +10,7 @@ import kuorum.users.KuorumUser
 import kuorum.web.commands.LawCommand
 import org.bson.types.ObjectId
 
-@Secured(['ROLE_ADMIN'])
+@Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
 class AdminLawController  extends  AdminController{
 
     def lawService
@@ -17,11 +18,7 @@ class AdminLawController  extends  AdminController{
     def springSecurityService
 
     def createLaw() {
-        [
-                command:new LawCommand(),
-                institutions:Institution.findAll(),
-                regions:Region.findAll()
-        ]
+        lawModel(new LawCommand(), null)
     }
 
     def saveLaw(LawCommand command){
@@ -29,11 +26,7 @@ class AdminLawController  extends  AdminController{
             command.errors.rejectValue("hashtag","notUnique")
         }
         if (command.hasErrors()){
-            render view:'/adminLaw/createLaw', model:         [
-                    command:command,
-                    institutions:Institution.findAll(),
-                    regions:Region.findAll()
-            ]
+            render view:'/adminLaw/createLaw', model: lawModel(command, null)
             return
         }
         Law law = new Law(command.properties)
@@ -47,6 +40,26 @@ class AdminLawController  extends  AdminController{
         redirect mapping:"lawShow", params:law.encodeAsLinkProperties()
     }
 
+    private def lawModel(LawCommand command, Law law){
+        def model = []
+        if (SpringSecurityUtils.ifAnyGranted('ROLE_ADMIN')){
+            model = [
+                    institutions:Institution.findAll(),
+                    regions:Region.findAll()
+            ]
+        }else{
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            model = [
+                    institutions:[user.institution],
+                    regions:[user?.personalData?.province]
+            ]
+            command.institution = user.institution
+            command.region = model.regions[0]
+        }
+        model += [law:law, command: command]
+        model
+    }
+
     def editLaw(String hashtag){
         Law law = lawService.findLawByHashtag(params.hashtag.encodeAsHashtag())
         LawCommand command = new LawCommand()
@@ -55,12 +68,7 @@ class AdminLawController  extends  AdminController{
                 command."$k" = law."$k"
         }
         command.photoId = law.image.id
-        [
-                law:law,
-                command:command,
-                institutions:Institution.findAll(),
-                regions:Region.findAll()
-        ]
+        lawModel(command, law)
     }
 
     def updateLaw(LawCommand command){
@@ -68,12 +76,7 @@ class AdminLawController  extends  AdminController{
         command.hashtag = command.hashtag.encodeAsHashtag()
         command.validate()
         if (command.hasErrors()){
-            render view:'/adminLaw/editLaw', model:         [
-                    law:law,
-                    command:command,
-                    institutions:Institution.findAll(),
-                    regions:Region.findAll()
-            ]
+            render view:'/adminLaw/editLaw', model:lawModel(command, law)
             return
         }
         command.properties.each {k,v -> if (k!="class" && law.hasProperty(k)) {law."$k" = command."$k"}}

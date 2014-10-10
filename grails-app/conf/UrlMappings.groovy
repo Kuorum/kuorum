@@ -172,6 +172,9 @@ class UrlMappings {
         name adminCreateInstitution:"/admin/instituciones/crear"    (controller:"adminRegion"){action =[GET:"createInstitution", POST:"saveInstitution"]}
         name adminEditInstitution:  "/admin/instituciones/editar"   (controller:"adminRegion"){action =[GET:"editInstitution", POST:"saveInstitution"]}
 
+        name politicianIndex:       "/gestion/$regionName"                  (controller:"adminLaw", action: "index")
+        name politicianCreateLaw:   "/gestion/$regionName/iniciativas/crear"(controller:"adminLaw"){action =[GET:"createLaw", POST:"saveLaw"]}
+
 
         "/sitemap"{
             controller = 'siteMap'
