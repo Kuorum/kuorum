@@ -93,7 +93,12 @@ class AdminLawController  extends  AdminController{
     }
 
     def unpublishedLaws(){
-        [laws:Law.findAllByPublished(false)]
+        if (SpringSecurityUtils.ifAnyGranted('ROLE_ADMIN')){
+            return [laws:Law.findAllByPublished(false)]
+        }else if (SpringSecurityUtils.ifAnyGranted('ROLE_POLITICIAN')){
+            KuorumUser user = springSecurityService.currentUser
+            return [laws: Law.findAllByPublishedAndRegion(false, user.personalData.province)]
+        }
     }
 
     def publishLaw(String hashtag){
