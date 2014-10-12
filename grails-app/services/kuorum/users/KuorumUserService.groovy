@@ -3,7 +3,7 @@ package kuorum.users
 import com.mongodb.*
 import grails.transaction.Transactional
 import kuorum.Institution
-import kuorum.ParliamentaryGroup
+import kuorum.PoliticalParty
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.UserType
@@ -85,7 +85,7 @@ class KuorumUserService {
         user.userType = UserType.PERSON
         user.personalData.userType = UserType.PERSON
         user.institution = null
-        user.parliamentaryGroup = null
+        user.politicalParty = null
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.remove(rolePolitician)
         user.save()
@@ -95,20 +95,20 @@ class KuorumUserService {
         user.userType = UserType.ORGANIZATION
         user.personalData.userType = UserType.ORGANIZATION
         user.institution = null
-        user.parliamentaryGroup = null
+        user.politicalParty = null
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.remove(rolePolitician)
         user.save()
     }
 
-    KuorumUser convertAsPolitician(KuorumUser user, Institution institution,  ParliamentaryGroup parliamentaryGroup){
-        if (!institution || !parliamentaryGroup){
+    KuorumUser convertAsPolitician(KuorumUser user, Institution institution,  PoliticalParty politicalParty){
+        if (!institution || !politicalParty){
             throw new KuorumException("Un politico debe de tener institucion y grupo parlamentario","error.politician.politicianData")
         }
         user.userType = UserType.POLITICIAN
         user.personalData.userType = UserType.POLITICIAN
         user.institution = institution
-        user.parliamentaryGroup = parliamentaryGroup
+        user.politicalParty = politicalParty
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.add(rolePolitician)
         user.save()

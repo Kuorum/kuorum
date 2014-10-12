@@ -2,7 +2,7 @@ package kuorum.law
 
 import kuorum.Institution
 import kuorum.KuorumFile
-import kuorum.ParliamentaryGroup
+import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
@@ -22,7 +22,7 @@ class Law {
     @Updatable List<CommissionType> commissions = []
     @Updatable Region region
     @Updatable Institution institution
-    @Updatable ParliamentaryGroup parliamentaryGroup
+    @Updatable PoliticalParty politicalParty
     @Updatable KuorumFile image
     @Updatable LawStatusType status = LawStatusType.OPEN
     @Updatable URL urlPdf
@@ -55,7 +55,7 @@ class Law {
         //TODO: image no es nullable
         image nullable:true
         publishDate nullable:true
-        parliamentaryGroup nullable:true
+        politicalParty nullable:true
     }
 
     static List<Law> findAllByPublishedAndRegion(Boolean published, Region region){

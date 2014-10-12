@@ -43,6 +43,6 @@ Nuevo marco jurídico para la gestión de los Parques Naturales
         region = spain
         published = Boolean.TRUE
         institution = parliament
-        parliamentaryGroup = grupoSocialista
+        politicalParty = grupoSocialista
     }
 }

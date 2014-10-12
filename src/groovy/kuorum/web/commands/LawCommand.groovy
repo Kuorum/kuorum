@@ -25,7 +25,7 @@ class LawCommand {
     Institution institution
     String photoId
     LawStatusType status
-//    ParliamentaryGroup parliamentaryGroup
+//    PoliticalParty politicalParty
 
     static constraints = {
         importFrom Law

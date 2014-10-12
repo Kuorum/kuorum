@@ -2,7 +2,7 @@ package kuorum.users
 
 import grails.test.mixin.TestFor
 import kuorum.Institution
-import kuorum.ParliamentaryGroup
+import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.model.AvailableLanguage
 import kuorum.helper.Helper
@@ -32,9 +32,9 @@ class PoliticianSpec extends Specification {
     Institution senate = new Institution(name:"senate", region: europe, id:new ObjectId("52efd75c55ae2878c8f6e159"))
 
     @Shared
-    ParliamentaryGroup psoe = new ParliamentaryGroup(name:'psoe',region:europe,institution: parliament)
+    PoliticalParty psoe = new PoliticalParty(name:'psoe',region:europe,institution: parliament)
     @Shared
-    ParliamentaryGroup xxxx = new ParliamentaryGroup(name:'xxxx',region:europe,institution: senate)
+    PoliticalParty xxxx = new PoliticalParty(name:'xxxx',region:europe,institution: senate)
 
     def setup() {
         mockForConstraintsTests(KuorumUser, [new KuorumUser(institution:parliament)])
@@ -43,21 +43,21 @@ class PoliticianSpec extends Specification {
     def cleanup() {
     }
 
-    @Unroll("test POLITICIAN specific parliamentaryGroup constraints: Checking #field = #value expected #error")
-    def "test POLITICIAN specific parliamentaryGroup constraints"() {
+    @Unroll("test POLITICIAN specific politicalParty constraints: Checking #field = #value expected #error")
+    def "test POLITICIAN specific politicalParty constraints"() {
         when:
         def obj = new KuorumUser( params)
         obj.institution = parliament
-        obj.parliamentaryGroup = value
+        obj.politicalParty = value
         then:
         Helper.validateConstraints(obj, field, error)
 
         where:
         error                   | field                 | value
-        'OK'                    | 'parliamentaryGroup'  | psoe
-        'OK'                    | 'parliamentaryGroup'  | psoe
-        'notCorrectInstitution' | 'parliamentaryGroup'  | xxxx
-        'notParliamentaryGroup' | 'parliamentaryGroup'  | null
+        'OK'                    | 'politicalParty'  | psoe
+        'OK'                    | 'politicalParty'  | psoe
+        'notCorrectInstitution' | 'politicalParty'  | xxxx
+        'notParliamentaryGroup' | 'politicalParty'  | null
     }
 
 }

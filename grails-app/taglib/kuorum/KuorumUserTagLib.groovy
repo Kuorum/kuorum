@@ -177,7 +177,7 @@ class KuorumUserTagLib {
     def roleName={attrs ->
         KuorumUser user = attrs.user
         if (user.userType == UserType.POLITICIAN){
-            String rolePolitician = user.parliamentaryGroup.name
+            String rolePolitician = user.politicalParty.name
             if (!user.enabled)
                 rolePolitician = "${g.message(code:"kuorumUser.role.politicianInactive")} (${rolePolitician})"
             out << rolePolitician

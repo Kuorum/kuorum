@@ -38,6 +38,6 @@ Ley Orgánica de protección de la vida del concebido y derechos de la mujer emb
         region = spain
         published = Boolean.TRUE
         institution = parliament
-        parliamentaryGroup = grupoPopular
+        politicalParty = grupoPopular
     }
 }

@@ -18,7 +18,7 @@
     <h1><g:message code="admin.editUser.title" args="[user.name]"/></h1>
     <formUtil:validateForm bean="${command}" form="editUser"/>
     <g:form method="POST" mapping="adminEditUser" params="${user.encodeAsLinkProperties()}" name="editUser" role="form">
-        <g:render template="formUser" model="[command:command, institutions:institutions, parliamentaryGroups:parliamentaryGroups]"/>
+        <g:render template="formUser" model="[command:command, institutions:institutions, politicalParties:politicalParties]"/>
         <div class="form-group">
             <input type="submit" value="${message(code:'admin.createLaw.submit')}" class="btn btn-grey btn-lg">
             <a href="#" class="cancel" tabindex="19">Cancelar</a>

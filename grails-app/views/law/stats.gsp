@@ -105,7 +105,7 @@
         <dl class="infoVotation">
             <dt><g:message code="law.stats.columnC.infoLaw.status"/></dt><dd><g:message code="${kuorum.core.model.LawStatusType.name}.${law.status}"/> </dd>
             %{--<dt>Tipo de ley</dt><dd>Proyecto de ley</dd>--}%
-            <dt><g:message code="law.stats.columnC.infoLaw.proposalBy"/></dt><dd>${law.parliamentaryGroup.name}</dd>
+            <dt><g:message code="law.stats.columnC.infoLaw.proposalBy"/></dt><dd>${law.politicalParty.name}</dd>
             <dt><g:message code="law.stats.columnC.infoLaw.commissions"/></dt>
             <dd>
                 <g:set var="comma" value=""/>

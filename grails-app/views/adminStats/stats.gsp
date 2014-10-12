@@ -114,7 +114,7 @@
             <dt><g:message code="admin.stats.totalStats.columnC.numPosts"/></dt><dd>${totalStats.numPosts} </dd>
             <dt><g:message code="admin.stats.totalStats.columnC.numVictories"/></dt><dd>${totalStats.numVictories} </dd>
             %{--<dt>Tipo de ley</dt><dd>Proyecto de ley</dd>--}%
-            %{--<dt><g:message code="law.stats.columnC.infoLaw.proposalBy"/></dt><dd>${law.parliamentaryGroup.name}</dd>--}%
+            %{--<dt><g:message code="law.stats.columnC.infoLaw.proposalBy"/></dt><dd>${law.politicalParty.name}</dd>--}%
             %{--<dt><g:message code="law.stats.columnC.infoLaw.commissions"/></dt>--}%
             %{--<dd>--}%
                 %{--<g:set var="comma" value=""/>--}%

@@ -3,7 +3,7 @@ package kuorum.users
 import com.mongodb.WriteConcern
 import kuorum.Institution
 import kuorum.KuorumFile
-import kuorum.ParliamentaryGroup
+import kuorum.PoliticalParty
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
@@ -60,7 +60,7 @@ class KuorumUser {
     Date lastNotificationChecked = new Date()
 
     //Politician FIELDS
-    ParliamentaryGroup parliamentaryGroup
+    PoliticalParty politicalParty
     Institution institution
 
     //Spring fields
@@ -86,15 +86,7 @@ class KuorumUser {
         }
 
         //POLITICIAN VALIDATION
-        parliamentaryGroup nullable: true, validator: { val, obj ->
-            if (val  && val.institution != obj.institution) {
-                return ['notCorrectInstitution']
-            }
-            if (!val && obj.institution){
-                return ['notParliamentaryGroup']
-            }
-        }
-
+        politicalParty nullable: true
         institution nullable:true
         organization nullable: true
     }

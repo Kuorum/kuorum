@@ -18,7 +18,7 @@
             <formUtil:selectDomainObject command="${command}" field="institution" values="${institutions}" />
         </div>
         <div class="col-xs-6">
-            <formUtil:selectDomainObject command="${command}" field="parliamentaryGroup" values="${parliamentaryGroups}" />
+            <formUtil:selectDomainObject command="${command}" field="politicalParty" values="${politicalParties}" />
         </div>
     </div>
 </div>

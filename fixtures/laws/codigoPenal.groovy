@@ -39,6 +39,6 @@ Modificación de la Ley Orgánica del Código Penal
         region = madridCA
         published = Boolean.TRUE
         institution = madridParliament
-        parliamentaryGroup = grupoSocialistaMadrid
+        politicalParty = grupoSocialistaMadrid
     }
 }

@@ -3,7 +3,7 @@ package kuorum.admin
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.KuorumFile
-import kuorum.ParliamentaryGroup
+import kuorum.PoliticalParty
 import kuorum.core.model.UserType
 import kuorum.users.*
 import kuorum.web.commands.admin.AdminUserCommand
@@ -17,7 +17,7 @@ class AdminUserController extends AdminController {
     def fileService
 
     def createUser() {
-        [command:new AdminUserCommand(enabled:true), institutions:Institution.findAll(), parliamentaryGroups:ParliamentaryGroup.findAll()]
+        [command:new AdminUserCommand(enabled:true), institutions:Institution.findAll(), politicalParties:PoliticalParty.findAll()]
     }
 
     def saveUser(AdminUserCommand command){
@@ -25,7 +25,7 @@ class AdminUserController extends AdminController {
             command.errors.rejectValue("email","kuorum.web.commands.admin.AdminUserCommand.email.notUnique")
         }
         if (command.hasErrors()){
-            render view: 'createUser', model:[command:command, institutions:Institution.findAll(), parliamentaryGroups:ParliamentaryGroup.findAll()]
+            render view: 'createUser', model:[command:command, institutions:Institution.findAll(), politicalParties:PoliticalParty.findAll()]
             flash.error=message(code:'admin.createUser.error')
             return
         }
@@ -41,14 +41,14 @@ class AdminUserController extends AdminController {
     def editUser(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
         AdminUserCommand command = prepareCommand(user)
-        [user:user, command:command, institutions:Institution.findAll(), parliamentaryGroups:ParliamentaryGroup.findAll()]
+        [user:user, command:command, institutions:Institution.findAll(), politicalParties: PoliticalParty.findAll()]
     }
 
     def updateUser(AdminUserCommand command){
         command.imageProfile = params['imageProfile'] // no se por que no lo esta mapeando
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
         if (command.hasErrors()){
-            render view: 'editUser', model:[user:user,command:command, institutions:Institution.findAll(), parliamentaryGroups:ParliamentaryGroup.findAll()]
+            render view: 'editUser', model:[user:user,command:command, institutions:Institution.findAll(), politicalParties: PoliticalParty.findAll()]
             flash.error=message(code:'admin.createUser.error')
             return
         }
@@ -71,7 +71,7 @@ class AdminUserController extends AdminController {
         }else{
             personalData = new PersonData()
             if (command.userType==UserType.POLITICIAN){
-                kuorumUserService.convertAsPolitician(user, command.institution, command.parliamentaryGroup)
+                kuorumUserService.convertAsPolitician(user, command.institution, command.politicalParty)
             }else{
                 kuorumUserService.convertAsNormalUser(user)
             }
@@ -127,7 +127,7 @@ class AdminUserController extends AdminController {
             command.workingSector= user.personalData.workingSector
         }
         if (UserType.POLITICIAN.equals(user.userType)){
-            command.parliamentaryGroup = user.parliamentaryGroup
+            command.politicalParty = user.politicalParty
             command.institution = user.institution
         }
         command.year =  user.personalData?.birthday?user.personalData?.birthday[Calendar.YEAR]:null

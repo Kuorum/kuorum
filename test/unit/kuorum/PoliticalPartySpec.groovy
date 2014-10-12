@@ -9,8 +9,8 @@ import spock.lang.Unroll
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(ParliamentaryGroup)
-class ParliamentaryGroupSpec extends Specification {
+@TestFor(PoliticalParty)
+class PoliticalPartySpec extends Specification {
 
 
     @Shared
@@ -23,7 +23,7 @@ class ParliamentaryGroupSpec extends Specification {
     Institution parliament = new Institution(name:"parliament", region: europe)
 
     def setup() {
-        mockForConstraintsTests(ParliamentaryGroup, [new ParliamentaryGroup(name:"name", region:europe, institution: parliament)])
+        mockForConstraintsTests(PoliticalParty, [new PoliticalParty(name:"name", region:europe, institution: parliament)])
     }
 
     def cleanup() {
@@ -38,7 +38,7 @@ class ParliamentaryGroupSpec extends Specification {
                 institution: parliament
         ]
         params[field] = value
-        def obj = new ParliamentaryGroup()
+        def obj = new PoliticalParty()
         obj.institution = parliament
         obj."$field" = value
 

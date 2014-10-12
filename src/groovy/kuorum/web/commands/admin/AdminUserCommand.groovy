@@ -2,7 +2,7 @@ package kuorum.web.commands.admin
 
 import grails.validation.Validateable
 import kuorum.Institution
-import kuorum.ParliamentaryGroup
+import kuorum.PoliticalParty
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.web.commands.profile.EditUserProfileCommand
@@ -15,7 +15,7 @@ class AdminUserCommand extends EditUserProfileCommand{
     String email
     String password
     Institution institution
-    ParliamentaryGroup parliamentaryGroup
+    PoliticalParty politicalParty
     Boolean verified
     Boolean enabled
     UserType userType
@@ -29,11 +29,11 @@ class AdminUserCommand extends EditUserProfileCommand{
                 return "normalUserWithInstitution"
             }
         }
-        parliamentaryGroup nullable: true, validator:{val, obj ->
+        politicalParty nullable: true, validator:{val, obj ->
             if (obj.userType && obj.userType == UserType.POLITICIAN && !val){
-                return "politicianWithoutParliamentaryGroup"
+                return "politicianWithoutPoliticalParty"
             }else if(obj.userType && obj.userType != UserType.POLITICIAN && val){
-                return "normalUserWithParliamentaryGroup"
+                return "normalUserWithPoliticalParty"
             }
 
             if (val && obj.institution && val.institution != obj.institution){

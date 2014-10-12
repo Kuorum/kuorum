@@ -1,43 +1,43 @@
-import kuorum.ParliamentaryGroup
+import kuorum.PoliticalParty
 
 fixture {
 
-    grupoSocialista (ParliamentaryGroup, name :"Grupo Socialista",              institution : parliament, region : spain)
-    grupoPopular    (ParliamentaryGroup, name :"Grupo Popular",                 institution : parliament, region : spain)
-    grupoVasco      (ParliamentaryGroup, name :"Grupo Vasco",                   institution : parliament, region : spain)
-    grupoCatalan    (ParliamentaryGroup, name :"Grupo Catalán",                 institution : parliament, region : spain)
-    grupoMixto      (ParliamentaryGroup, name :"Grupo Mixto",                   institution : parliament, region : spain)
-    grupoIzqPlural  (ParliamentaryGroup, name :"Grupo de la Izquierda Plural",  institution : parliament, region : spain)
-    grupoUPyD       (ParliamentaryGroup, name :"Grupo UPyD",                    institution : parliament, region : spain)
+    grupoSocialista (PoliticalParty, name :"Partido Socialista"          )
+    grupoPopular    (PoliticalParty, name :"Partido Popular"             )
+    grupoVasco      (PoliticalParty, name :"Grupo Vasco"                 )
+    grupoCatalan    (PoliticalParty, name :"Grupo Catalán"               )
+    grupoMixto      (PoliticalParty, name :"Grupo Mixto"                 )
+    grupoIzqPlural  (PoliticalParty, name :"Grupo de la Izquierda Plural")
+    grupoUPyD       (PoliticalParty, name :"Grupo UPyD"                  )
 
-    grupoPopularMadrid    (ParliamentaryGroup, name :"Grupo Parlamentario Popular",                 institution : madridParliament, region : madridCA)
-    grupoSocialistaMadrid (ParliamentaryGroup, name :"Grupo Parlamentario Socialista",              institution : madridParliament, region : madridCA)
-    grupoIUMadrid         (ParliamentaryGroup, name :"Grupo Parlamentario Izquierda Unida",         institution : madridParliament, region : madridCA)
-    grupoUPyDMadrid       (ParliamentaryGroup, name :"Grupo Parlamentario Unión Progreso y Democracia",                 institution : madridParliament, region : madridCA)
+//    grupoPopularMadrid    (PoliticalParty, name :"Grupo Parlamentario Popular",                 institution : madridParliament, region : madridCA)
+//    grupoSocialistaMadrid (PoliticalParty, name :"Grupo Parlamentario Socialista",              institution : madridParliament, region : madridCA)
+//    grupoIUMadrid         (PoliticalParty, name :"Grupo Parlamentario Izquierda Unida",         institution : madridParliament, region : madridCA)
+//    grupoUPyDMadrid       (PoliticalParty, name :"Grupo Parlamentario Unión Progreso y Democracia",                 institution : madridParliament, region : madridCA)
 
 
-//    grupoPopular(ParliamentaryGroup){
+//    grupoPopular(PoliticalParty){
 //        name ="Grupo Popular"
 //        institution = parliament
 //        region = spain
 //    }
 //
-//    grupoMixto(ParliamentaryGroup){
+//    grupoMixto(PoliticalParty){
 //        name ="Grupo Mixto"
 //        institution = parliament
 //    }
 //
-//    grupoIzquierdaPlural(ParliamentaryGroup){
+//    grupoIzquierdaPlural(PoliticalParty){
 //        name ="Grupo de la Izquierda Plural"
 //        institution = parliament
 //    }
 //
-//    grupoUPyD(ParliamentaryGroup){
+//    grupoUPyD(PoliticalParty){
 //        name ="Grupo UPyD"
 //        institution = parliament
 //    }
 //
-//    grupoSocialista(ParliamentaryGroup){
+//    grupoSocialista(PoliticalParty){
 //        name ="Grupo Mixto"
 //        institution = parliament
 //    }
