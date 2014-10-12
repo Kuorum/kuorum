@@ -138,10 +138,11 @@ class LawController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        Region spain = Region.findByIso3166_2("EU-ES")
-        LawRegionStats stats = lawStatsService.calculateRegionStats(law, spain)
+//        Region region = Region.findByIso3166_2("EU-ES")
+        Region region = law.region
+        LawRegionStats stats = lawStatsService.calculateRegionStats(law, region)
         Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
-        [law:law, stats:stats, region:spain, necessaryVotesForKuorum:necessaryVotesForKuorum]
+        [law:law, stats:stats, region:region, necessaryVotesForKuorum:necessaryVotesForKuorum]
     }
 
     private static final int MAP_YES = 1

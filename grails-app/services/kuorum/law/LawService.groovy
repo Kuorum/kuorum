@@ -2,6 +2,7 @@ package kuorum.law
 
 import grails.transaction.Transactional
 import kuorum.Region
+import kuorum.RegionService
 import kuorum.ShortUrlService
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
@@ -24,6 +25,8 @@ class LawService {
     GamificationService gamificationService
     ShortUrlService shortUrlService
     FileService fileService
+    RegionService regionService
+
     def grailsApplication
 
     /**
@@ -69,21 +72,22 @@ class LawService {
             if (!lawVote.save()){
                 throw KuorumExceptionUtil.createExceptionFromValidatable(lawVote)
             }
+            if (isUserVoteRelevant(user, law)){
+                switch (orgVoteType){
+                    case VoteType.POSITIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.yes':-1]]); break;
+                    case VoteType.ABSTENTION:   Law.collection.update([_id:law.id],['$inc':['peopleVotes.abs':-1]]); break;
+                    case VoteType.NEGATIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.no':-1]]); break;
+                    default: break;
+                }
 
-            switch (orgVoteType){
-                case VoteType.POSITIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.yes':-1]]); break;
-                case VoteType.ABSTENTION:   Law.collection.update([_id:law.id],['$inc':['peopleVotes.abs':-1]]); break;
-                case VoteType.NEGATIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.no':-1]]); break;
-                default: break;
+                switch (voteType){
+                    case VoteType.POSITIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.yes':1]]); break;
+                    case VoteType.ABSTENTION:   Law.collection.update([_id:law.id],['$inc':['peopleVotes.abs':1]]); break;
+                    case VoteType.NEGATIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.no':1]]); break;
+                    default: break;
+                }
+                law.refresh()
             }
-
-            switch (voteType){
-                case VoteType.POSITIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.yes':1]]); break;
-                case VoteType.ABSTENTION:   Law.collection.update([_id:law.id],['$inc':['peopleVotes.abs':1]]); break;
-                case VoteType.NEGATIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.no':1]]); break;
-                default: break;
-            }
-            law.refresh()
         }
         lawVote
     }
@@ -96,14 +100,21 @@ class LawService {
         if (!lawVote.save()){
             throw KuorumExceptionUtil.createExceptionFromValidatable(lawVote)
         }
-        switch (voteType){
-            case VoteType.POSITIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.yes':1,'peopleVotes.total':1]]); break;
-            case VoteType.ABSTENTION:   Law.collection.update([_id:law.id],['$inc':['peopleVotes.abs':1,'peopleVotes.total':1]]); break;
-            case VoteType.NEGATIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.no':1,'peopleVotes.total':1]]); break;
-            default: break;
+        if (isUserVoteRelevant(user, law)){
+            switch (voteType){
+                case VoteType.POSITIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.yes':1,'peopleVotes.total':1]]); break;
+                case VoteType.ABSTENTION:   Law.collection.update([_id:law.id],['$inc':['peopleVotes.abs':1,'peopleVotes.total':1]]); break;
+                case VoteType.NEGATIVE:     Law.collection.update([_id:law.id],['$inc':['peopleVotes.no':1,'peopleVotes.total':1]]); break;
+                default: break;
+            }
+            law.refresh()
         }
-        law.refresh()
         lawVote
+    }
+
+    Boolean isUserVoteRelevant(KuorumUser user, Law law){
+        Region userRegion = regionService.findUserRegion(user)
+        userRegion.iso3166_2.startsWith(law.region.iso3166_2)
     }
 
     Law saveLawFromCommand(LawCommand lawCommand){

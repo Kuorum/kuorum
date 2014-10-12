@@ -204,6 +204,7 @@ class KuorumUserService {
     }
 
     KuorumUser updateUser(KuorumUser user){
+        user.personalData.provinceCode = user.personalData.province.iso3166_2
         if (!user.save()){
             log.error("No se ha podido actualizar el usuario ${user.email}(${user.id})")
             throw KuorumExceptionUtil.createExceptionFromValidatable(user)

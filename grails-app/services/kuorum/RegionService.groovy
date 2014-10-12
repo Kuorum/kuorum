@@ -46,12 +46,16 @@ class RegionService {
         res[0]
     }
 
-    List<Region> findUserRegions(KuorumUser user){
-        //The province is recovering on register, so it is not defined its most specific region
-        // In the future the userRegion will be recover from user
+    Region findUserRegion(KuorumUser user){
         Region province = user.personalData.province
         Region country = findCountry(province)
         Region userRegion = findRegionOrProvinceByPostalCode(country, user.personalData.postalCode)
+        userRegion
+    }
+    List<Region> findUserRegions(KuorumUser user){
+        //The province is recovering on register, so it is not defined its most specific region
+        // In the future the userRegion will be recover from user
+        Region userRegion = findUserRegion(user)
         List<Region> regions = [userRegion]
 
         while (userRegion.superRegion){
