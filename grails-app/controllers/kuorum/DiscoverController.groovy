@@ -24,13 +24,17 @@ class DiscoverController {
 
     def afterInterceptor = { model, modelAndView ->
         def dynamicDiscoverLaws = []
+        List<Region> regions =[]
         if (springSecurityService.isLoggedIn()){
-            List<Region> regions = regionService.findUserRegions(springSecurityService.currentUser)
-            regions.each {region ->
-                int numLaws = Law.countByPublishedAndRegion(true, region)
-                if (numLaws>0){
-                    dynamicDiscoverLaws << [numLaws:numLaws, region:region]
-                }
+            regions = regionService.findUserRegions(springSecurityService.currentUser)
+        }else{
+            //TODO: PEnsar cuando no sea solo para españa
+            regions << Region.findByIso3166_2("EU-ES")
+        }
+        regions.each {region ->
+            int numLaws = Law.countByPublishedAndRegion(true, region)
+            if (numLaws>0){
+                dynamicDiscoverLaws << [numLaws:numLaws, region:region]
             }
         }
         model.dynamicDiscoverLaws = dynamicDiscoverLaws
