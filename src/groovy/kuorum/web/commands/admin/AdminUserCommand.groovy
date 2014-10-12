@@ -35,10 +35,6 @@ class AdminUserCommand extends EditUserProfileCommand{
             }else if(obj.userType && obj.userType != UserType.POLITICIAN && val){
                 return "normalUserWithPoliticalParty"
             }
-
-            if (val && obj.institution && val.institution != obj.institution){
-                return "notSameInstitution"
-            }
         }
         userType nullable: false
         gender nullable:false, validator:{val, obj ->
