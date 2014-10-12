@@ -31,4 +31,10 @@
     <li class="${activeMapping=='adminListRegions'?'active':''}">
         <g:link mapping="adminListRegions"><g:message code="admin.menu.adminListRegions.link"/></g:link>
     </li>
+    <li class="${activeMapping=='adminCreatePoliticalParty'?'active':''}">
+        <g:link mapping="adminCreatePoliticalParty"><g:message code="admin.menu.adminCreatePoliticalParty.link"/></g:link>
+    </li>
+    <li class="${activeMapping=='adminCreatePoliticalParty'?'active':''}">
+        <g:link mapping="adminListPoliticalParty"><g:message code="admin.menu.adminListPoliticalParties.link"/></g:link>
+    </li>
 </ul>

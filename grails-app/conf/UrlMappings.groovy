@@ -172,6 +172,9 @@ class UrlMappings {
         name adminListRegions:      "/admin/regiones"               (controller:"adminRegion", action:"listRegions")
         name adminCreateInstitution:"/admin/instituciones/crear"    (controller:"adminRegion"){action =[GET:"createInstitution", POST:"saveInstitution"]}
         name adminEditInstitution:  "/admin/instituciones/editar"   (controller:"adminRegion"){action =[GET:"editInstitution", POST:"saveInstitution"]}
+        name adminCreatePoliticalParty:"/admin/partidos-politicos/crear"  (controller:"adminPoliticalParty"){action =[GET:"createPoliticalParty", POST:"savePoliticalParty"]}
+        name adminEditPoliticalParty:  "/admin/partidos-politicos/editar" (controller:"adminPoliticalParty"){action =[GET:"editPoliticalParty", POST:"savePoliticalParty"]}
+        name adminListPoliticalParty:  "/admin/partidos-politicos"               (controller:"adminPoliticalParty", action:"listPoliticalParties")
 
 
         "/sitemap"{

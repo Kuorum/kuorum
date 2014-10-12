@@ -51,7 +51,7 @@ class RegionService {
         // In the future the userRegion will be recover from user
         Region province = user.personalData.province
         Region country = findCountry(province)
-        Region userRegion = findRegionByPostalCode(country, user.personalData.postalCode)
+        Region userRegion = findRegionOrProvinceByPostalCode(country, user.personalData.postalCode)
         List<Region> regions = [userRegion]
 
         while (userRegion.superRegion){
