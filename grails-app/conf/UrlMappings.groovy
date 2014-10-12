@@ -14,6 +14,7 @@ class UrlMappings {
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
         name discover:                      "/descubre" (controller: "dashboard", action:"discover")
         name discoverLaws:                  "/descubre/leyes"         (controller: "discover", action:"discoverLaws")
+        name discoverLawsByRegion:          "/descubre/leyes/$regionName" (controller: "discover", action:"discoverLaws")
         name discoverPoliticians:           "/descubre/politicos"     (controller: "discover", action:"discoverPoliticians")
         name discoverRecentPosts:           "/descubre/publicaciones-recientes" (controller: "discover", action:"discoverRecentPosts")
         name discoverRecommendedPosts:      "/descubre/publicaciones-mas-impulsadas" (controller: "discover", action:"discoverRecommendedPosts")

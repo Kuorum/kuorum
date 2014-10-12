@@ -1,6 +1,7 @@
 package kuorum
 
 import grails.transaction.Transactional
+import kuorum.users.KuorumUser
 
 class RegionService {
 
@@ -43,5 +44,31 @@ class RegionService {
         java.util.regex.Pattern regex = java.util.regex.Pattern.compile("$regionName", java.util.regex.Pattern.CASE_INSENSITIVE)
         def res= Region.collection.find([name:regex])
         res[0]
+    }
+
+    List<Region> findUserRegions(KuorumUser user){
+        //The province is recovering on register, so it is not defined its most specific region
+        // In the future the userRegion will be recover from user
+        Region province = user.personalData.province
+        Region country = findCountry(province)
+        Region userRegion = findRegionByPostalCode(country, user.personalData.postalCode)
+        List<Region> regions = [userRegion]
+
+        while (userRegion.superRegion){
+            regions << userRegion.superRegion
+            userRegion = userRegion.superRegion
+        }
+        regions.reverse()
+    }
+
+    private static final int REGION_ISO31662_CODE_LENGTH = 2 // EU == 2
+    private static final int REGION_ISO31662_SEPARATOR_LENGTH = 1 // EU == 2
+    private static final int COUNTRY_ISO31662_CODE_LENGTH = REGION_ISO31662_CODE_LENGTH*2+REGION_ISO31662_SEPARATOR_LENGTH
+    Region findCountry(Region region){
+        Region country = region;
+        while (country.iso3166_2.length()>COUNTRY_ISO31662_CODE_LENGTH){
+            country = country.superRegion
+        }
+        country
     }
 }

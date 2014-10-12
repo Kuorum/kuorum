@@ -11,7 +11,7 @@
         <g:message code="discover.menu.discover"/>
     </h1>
     %{--<p><g:message code="discover.menu.recommendedPosts.description"/></p>--}%
-    <g:render template="discoverLeftMenu" model="[activeMapping:'discoverRecommendedPosts']"/>
+    <g:render template="discoverLeftMenu" model="[activeMapping:'discoverRecommendedPosts',dynamicDiscoverLaws:dynamicDiscoverLaws]"/>
 
 </content>
 

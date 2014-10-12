@@ -20,12 +20,29 @@ class DiscoverController {
 
     SpringSecurityService springSecurityService
 
+    RegionService regionService
+
+    def afterInterceptor = { model, modelAndView ->
+        def dynamicDiscoverLaws = []
+        if (springSecurityService.isLoggedIn()){
+            List<Region> regions = regionService.findUserRegions(springSecurityService.currentUser)
+            regions.each {region ->
+                int numLaws = Law.countByPublishedAndRegion(true, region)
+                if (numLaws>0){
+                    dynamicDiscoverLaws << [numLaws:numLaws, region:region]
+                }
+            }
+        }
+        model.dynamicDiscoverLaws = dynamicDiscoverLaws
+    }
+
     def discoverLaws(Pagination pagination) {
         KuorumUser user = null
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
         }
-        List<Law> laws = lawService.relevantLaws(user, pagination)
+        Region region = Region.findByIso3166_2(params.iso3166_2)
+        List<Law> laws = lawService.relevantLaws(user,region, pagination)
         if (request.isXhr()){
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${Law.count()-pagination.offset<=pagination.max}")
             render template: '/discover/discoverLawList', model:[laws:laws, pagination:pagination]

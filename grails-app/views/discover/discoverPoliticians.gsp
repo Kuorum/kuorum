@@ -11,7 +11,7 @@
         <g:message code="discover.menu.discover"/>
     </h1>
     %{--<p><g:message code="discover.menu.politicians.description"/></p>--}%
-    <g:render template="discoverLeftMenu" model="[activeMapping:'discoverPoliticians']"/>
+    <g:render template="discoverLeftMenu" model="[activeMapping:'discoverPoliticians', dynamicDiscoverLaws:dynamicDiscoverLaws]"/>
 
 </content>
 

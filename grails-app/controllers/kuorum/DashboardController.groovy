@@ -57,7 +57,9 @@ class DashboardController {
     }
 
     def discover(){
-        redirect mapping:'discoverLaws'
+        //TODO: QUE HACER SI NO ES ESPAÑA
+        Region region = Region.findByIso3166_2("EU-ES")
+        redirect mapping:'discoverLawsByRegion', params: region.encodeAsLinkProperties()
 //        List<Law> relevantLaws = lawService.relevantLaws(new Pagination(max:4))
 //        List<Law> recommendedLaws = lawService.relevantLaws(new Pagination(max:5))
 //        List<KuorumUser> mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7, new Pagination(max:24))

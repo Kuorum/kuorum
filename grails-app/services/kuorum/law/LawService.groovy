@@ -1,6 +1,7 @@
 package kuorum.law
 
 import grails.transaction.Transactional
+import kuorum.Region
 import kuorum.ShortUrlService
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
@@ -192,11 +193,17 @@ class LawService {
     }
 
     List<Law> relevantLaws( Pagination pagination){ relevantLaws(null, pagination) }
-    List<Law> relevantLaws(KuorumUser user = null, Pagination pagination = new Pagination()){
+    List<Law> relevantLaws(KuorumUser user, Pagination pagination = new Pagination()){
+        //TODO: Improve
+        //TODO: THINK IF IS POSSIBLE TO GET RELEVANT LAWS WITHOUT COUNTRY
+        relevantLaws(user, null, pagination)
+    }
+    List<Law> relevantLaws(KuorumUser user, Region region, Pagination pagination = new Pagination()){
         //TODO: Improve
         def res = Law.createCriteria().list(max:pagination.max, offset:pagination.offset){
 //            eq("status", LawStatusType.OPEN)
             eq("published", Boolean.TRUE)
+            if (region) eq("region._id", region.id)
             and{
                 order('relevance', 'desc')
                 order('id','desc')

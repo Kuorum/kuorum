@@ -62,6 +62,10 @@ class Law {
         Law.collection.find(['region._id':region.id, 'published':published],[_id:1]).collect{Law.get(it._id)}
     }
 
+    static Long countByPublishedAndRegion(Boolean published, Region region){
+        Law.collection.count(['region._id':region.id, 'published':published])
+    }
+
     static mapping = {
         hashtag index:true, indexAttributes: [unique:true]
     }

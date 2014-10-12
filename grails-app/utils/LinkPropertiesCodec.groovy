@@ -1,4 +1,5 @@
 import grails.util.Holders
+import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.PostType
 import kuorum.core.model.UserType
@@ -43,6 +44,9 @@ class LinkPropertiesCodec {
                 break;
             case UserType:
                 params = [userTypeUrl: transEnumToUrl(target)]
+                break;
+            case Region:
+                params = [regionName:target.name.encodeAsKuorumUrl(), iso3166_2:target.iso3166_2]
                 break;
             default:
                 params = [:]
