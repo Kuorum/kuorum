@@ -4,6 +4,7 @@ import com.mongodb.WriteConcern
 import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.PoliticalParty
+import kuorum.Region
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
@@ -52,7 +53,7 @@ class KuorumUser {
 
 //    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
 
-    static embedded = ['personalData', 'authorities','gamification','avatar', 'activity','imageProfile','socialLinks']
+    static embedded = ['personalData', 'authorities','gamification','avatar', 'activity','imageProfile','socialLinks','politicianOnRegion']
 
     /**
      * Represents the last time that the user checked the notifications
@@ -62,6 +63,7 @@ class KuorumUser {
     //Politician FIELDS
     PoliticalParty politicalParty
     Institution institution
+    Region politicianOnRegion
 
     //Spring fields
     transient springSecurityService

@@ -109,6 +109,7 @@ class KuorumUserService {
         user.personalData.userType = UserType.POLITICIAN
         user.institution = institution
         user.politicalParty = politicalParty
+        user.politicianOnRegion = institution.region
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.add(rolePolitician)
         user.save()
@@ -339,78 +340,123 @@ class KuorumUserService {
     }
 
     List<KuorumUser> bestPoliticiansSince(Date startDate, Pagination pagination = new Pagination(), Boolean isEnabled = null){
-        //TODO: CACHE THIS QUERY
-        //TODO: Use startDate. Now is getting best politicians ever
 
-        String mapPost = """
-            function() {
-                if (this.defender != undefined){
-                    emit(this.defender, 2)
-                }
-                if (this.debate != undefined) {
-                    this.debates.forEach( function(value) {
-                            emit(value.kuorumUserId, 1)
-                    });
-                }
-            }
-        """
+        DBCollection bestPoliticiansCollection = createUserScore(startDate)
 
-        String reducePost = """
-            function(key, values) {
-                var acc = 0;
-                values.forEach( function(value) {
-                    acc +=value;
-                });
-                return acc;
-            }
-        """
+        DBCursor cursor = bestPoliticiansCollection.find(new BasicDBObject('user.userType',UserType.POLITICIAN.toString()))
+        DBObject sort = new BasicDBObject('score',-1);
+        sort.append('numFollowers',-1)
+        cursor.sort(sort)
+        cursor.max(new BasicDBObject(pagination.max.intValue()))
+        cursor.skip(pagination.offset.intValue())
 
-        DBObject queryPost = new BasicDBObject();
-        DBObject existsDefender = new BasicDBObject(); existsDefender.put('$exists','1');
-        queryPost.put("defender",existsDefender);
-        DBObject sortResult = new BasicDBObject();
-        sortResult.put('value',-1)
+        cursor.collect {KuorumUser.get(it._id)}
 
-        DBCollection postCollection = Post.collection
+    }
+
+    private Date chapuSyncReloadScore = new Date() -1
+    private DBCollection createUserScore(Date startDate){
+
+        Boolean reloadScore = false
         def tempCollectionName = "bestPoliticians"
-        MapReduceCommand bestPoliticians = new MapReduceCommand(
-                postCollection,
-                mapPost,
-                reducePost ,
-                tempCollectionName,
-                MapReduceCommand.OutputType.REPLACE, null);
-//        bestPoliticians.sort = sortByValue
-        bestPoliticians.limit = pagination.max
-
-        DBCollection bestPoliticiansCollection = Post.collection.getDB().getCollection(tempCollectionName);
-        log.warn("Realizando un MAP REDUCE. Operación lenta que no se debe ejecturar muchas veces")
-        MapReduceOutput result = Post.collection.mapReduce(bestPoliticians)
-
-        List<KuorumUser> politicians = bestPoliticiansCollection.find()
-                .sort(sortResult)
-                .skip((int) pagination.offset)
-                .limit(pagination.max)
-                .collect{KuorumUser.load(it._id)}
-
-        if (politicians.size() < pagination.max){
-            log.info("Poniendo politicos en función del número de seguidores que tiene")
-            def userList = politicians.collect{it.id}
-            def politicianByFollowers = KuorumUser.createCriteria().list(max:pagination.max, offset:pagination.offset) {
-                'eq'("userType", UserType.POLITICIAN)
-                if (isEnabled != null) 'eq'("enabled", isEnabled)
-                if (userList)
-                    not {'in'("id",userList)}
-
-                and{
-                    order('enabled','desc')
-                    order("numFollowers","desc")
-                }
+        DBCollection userScoredCollection = Post.collection.getDB().getCollection(tempCollectionName);
+        //TODO: HACER ESTO MEJOR QUE CON ESTE SYNC CHAAAPUUU
+        synchronized (this){
+            reloadScore = chapuSyncReloadScore < new Date() -1
+            if (!reloadScore){
+                return userScoredCollection
             }
-            politicians.addAll(politicianByFollowers)
+            chapuSyncReloadScore = chapuSyncReloadScore.clearTime()+1
+
+            log.warn("Calculando SCORE. Operacion lenta. Hay que cachearla o hacerla por la noche")
+
+            //TODO: CACHE THIS QUERY
+            //TODO: Use startDate. Now is getting best politicians ever
+            String mapPost = """
+                function() {
+                    if (this.defender != undefined){
+                        emit(this.defender, 3)
+                    }
+                    if (this.debates != undefined) {
+                        this.debates.forEach( function(debate) {
+                            emit(debate.kuorumUserId, 2)
+                        });
+                    }
+                    emit(this.owner, 1)
+                }
+            """
+
+            String reducePost = """
+                function(key, values) {
+                    var acc = 0;
+                    values.forEach( function(value) {
+                        acc +=value;
+                    });
+                    return acc;
+                }
+            """
+
+            DBObject queryPost = new BasicDBObject();
+            DBObject existsDefender = new BasicDBObject(); existsDefender.put('$exists','1');
+            queryPost.put("defender",existsDefender);
+            DBObject sortResult = new BasicDBObject();
+            sortResult.put('value',-1)
+
+            DBCollection postCollection = Post.collection
+
+            MapReduceCommand bestPoliticians = new MapReduceCommand(
+                    postCollection,
+                    mapPost,
+                    reducePost ,
+                    tempCollectionName,
+                    MapReduceCommand.OutputType.MERGE,null);
+    //        bestPoliticians.sort = sortByValue
+    //        bestPoliticians.limit = pagination.max
+
+            MapReduceOutput result = Post.collection.mapReduce(bestPoliticians)
+
+
+            def cpUserData = """
+            function (){
+                db.${tempCollectionName}.find().forEach(function(score){
+                    var kuorumUser = db.kuorumUser.find({_id:score._id})[0]
+                    var numFollowers = kuorumUser.followers.length
+                    var newScore = {
+                        _id: score._id,
+                        score : score.value,
+                        numFollowers:numFollowers,
+                        user:kuorumUser
+                    };
+                    db.${tempCollectionName}.save(newScore);
+                });
+            }
+            """
+            userScoredCollection.getDB().eval(cpUserData)
+
+            def cpPoliticiansWithOutScore = """
+            function (){
+                db.kuorumUser.find({userType:'${UserType.POLITICIAN}'}).forEach(function(politician){
+                    var score = db.${tempCollectionName}.find({_id:politician._id})[0];
+                    if (score == undefined){
+                        var numFollowers = politician.followers.length
+                        var newScore = {
+                            _id: politician._id,
+                            score : 0,
+                            numFollowers:numFollowers,
+                            user:politician
+                        };
+                        db.${tempCollectionName}.save(newScore);
+                    }
+                });
+            }
+            """
+            userScoredCollection.getDB().eval(cpPoliticiansWithOutScore)
+            DBObject index = new BasicDBObject("score", -1)
+            userScoredCollection.ensureIndex(index)
+
+
+            return userScoredCollection
         }
-
-        politicians
-
     }
 
     void deleteAccount(KuorumUser user){

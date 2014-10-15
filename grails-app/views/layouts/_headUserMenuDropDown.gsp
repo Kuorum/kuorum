@@ -24,7 +24,7 @@
         %{--</g:link>--}%
     %{--</li>--}%
     <sec:ifAnyGranted roles="ROLE_POLITICIAN">
-        <li><g:link mapping="adminPrincipal" params="[regionName:sec.loggedInUserInfo([field:'regionName'])]"><sec:loggedInUserInfo field="regionName"/></g:link></li>
+        <li><g:link mapping="adminPrincipal" params="[regionName:sec.loggedInUserInfo([field:'politicianOnRegionName'])]"><sec:loggedInUserInfo field="politicianOnRegionName"/></g:link></li>
     </sec:ifAnyGranted>
     <li><g:link mapping="logout"><g:message code="head.logged.logout"/></g:link></li>
     <sec:ifSwitched>

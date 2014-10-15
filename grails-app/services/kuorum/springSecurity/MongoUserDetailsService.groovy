@@ -67,7 +67,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
     protected KuorumUserSession createUserDetails(KuorumUser user, Collection authorities) {
         new KuorumUserSession(user.email, user.password, user.enabled,
                 !user.accountExpired, !user.passwordExpired,
-                !user.accountLocked, authorities, user.id, user.name, user?.personalData?.province?.name)
+                !user.accountLocked, authorities, user.id, user.name, user?.personalData?.province?.name, user?.politicianOnRegion?.name)
     }
 
     UserDetails createUserDetails(KuorumUser user, Boolean loadRoles = Boolean.TRUE){
@@ -94,13 +94,15 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
 public class KuorumUserSession extends GrailsUser{
     String name
     String regionName
+    String politicianOnRegionName
 
     public KuorumUserSession(String username, String password, boolean enabled, boolean accountNonExpired,
                       boolean credentialsNonExpired, boolean accountNonLocked,
-                      Collection<GrantedAuthority> authorities, Object id, String name, String regionName) {
+                      Collection<GrantedAuthority> authorities, Object id, String name, String regionName, String politicianOnRegionName) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities, id);
         this.name = name;
         this.regionName = regionName;
+        this.politicianOnRegionName = politicianOnRegionName
 
     }
 }

@@ -51,7 +51,7 @@ class AdminLawController  extends  AdminController{
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             model = [
                     institutions:[user.institution],
-                    regions:[user?.personalData?.province]
+                    regions:[user?.politicianOnRegion]
             ]
             command.institution = user.institution
             command.region = model.regions[0]

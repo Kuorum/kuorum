@@ -24,6 +24,16 @@ dbDest.kuorumUser.find().forEach(function(user){
     }
 })
 
+dbDest.kuorumUser.find({userType:"POLITICIAN"}).forEach(function(user){
+    if (user.institution!= undefined){
+        var institution = dbDest.institution.find({_id:user.institution})[0]
+        user.politicianOnRegion = institution.region
+        dbDest.kuorumUser.save(user)
+    }else{
+        print("SKIPPED => _id: " + user._id +" - "+user.email)
+    }
+})
+
 dbDest.lawVote.find().forEach(function(vote){
     var user = dbDest.kuorumUser.find({_id:vote.kuorumUser})[0]
     if (user.personalData!= undefined && user.personalData.postalCode != undefined){
