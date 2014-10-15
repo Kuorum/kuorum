@@ -4,6 +4,7 @@ import com.mongodb.*
 import grails.transaction.Transactional
 import kuorum.Institution
 import kuorum.PoliticalParty
+import kuorum.Region
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.UserType
@@ -19,6 +20,7 @@ class KuorumUserService {
     def notificationService
     def indexSolrService
     def kuorumMailService
+    def regionService
 
     def createFollower(KuorumUser follower, KuorumUser following) {
         if (follower == following){
@@ -193,7 +195,7 @@ class KuorumUserService {
     }
 
     List<KuorumUser> recommendPoliticians(KuorumUser user, Pagination pagination = new Pagination()){
-        List<KuorumUser> politicians = bestPoliticiansSince(null, pagination, Boolean.TRUE);
+        List<KuorumUser> politicians = bestPoliticiansSince(user, null, pagination, Boolean.TRUE);
     }
 
     List<KuorumUser> recommendOrganizations(KuorumUser user, Pagination pagination = new Pagination()){
@@ -339,11 +341,18 @@ class KuorumUserService {
         bestSponsors
     }
 
-    List<KuorumUser> bestPoliticiansSince(Date startDate, Pagination pagination = new Pagination(), Boolean isEnabled = null){
+    List<KuorumUser> bestPoliticiansSince(KuorumUser user, Date startDate, Pagination pagination = new Pagination(), Boolean isEnabled = null){
 
         DBCollection bestPoliticiansCollection = createUserScore(startDate)
 
-        DBCursor cursor = bestPoliticiansCollection.find(new BasicDBObject('user.userType',UserType.POLITICIAN.toString()))
+        DBObject query = new BasicDBObject('user.userType',UserType.POLITICIAN.toString())
+        if (user){
+            List<Region> regions = regionService.findUserRegions(user)
+            DBObject inRegions = new BasicDBObject('$in',regions.collect{it.iso3166_2})
+            query.append('user.politicianOnRegion.iso3166_2',inRegions)
+        }
+
+        DBCursor cursor = bestPoliticiansCollection.find(query)
         DBObject sort = new BasicDBObject('score',-1);
         sort.append('numFollowers',-1)
         cursor.sort(sort)
@@ -357,12 +366,11 @@ class KuorumUserService {
     private Date chapuSyncReloadScore = new Date() -1
     private DBCollection createUserScore(Date startDate){
 
-        Boolean reloadScore = false
         def tempCollectionName = "bestPoliticians"
         DBCollection userScoredCollection = Post.collection.getDB().getCollection(tempCollectionName);
         //TODO: HACER ESTO MEJOR QUE CON ESTE SYNC CHAAAPUUU
         synchronized (this){
-            reloadScore = chapuSyncReloadScore < new Date() -1
+            Boolean reloadScore = chapuSyncReloadScore < new Date() -1
             if (!reloadScore){
                 return userScoredCollection
             }
@@ -452,7 +460,7 @@ class KuorumUserService {
             """
             userScoredCollection.getDB().eval(cpPoliticiansWithOutScore)
             DBObject index = new BasicDBObject("score", -1)
-            userScoredCollection.ensureIndex(index)
+            userScoredCollection.createIndex(index)
 
 
             return userScoredCollection
