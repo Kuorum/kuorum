@@ -346,17 +346,22 @@ class KuorumUserService {
         DBCollection bestPoliticiansCollection = createUserScore(startDate)
 
         DBObject query = new BasicDBObject('user.userType',UserType.POLITICIAN.toString())
+        List<Region> regions;
         if (user){
-            List<Region> regions = regionService.findUserRegions(user)
-            DBObject inRegions = new BasicDBObject('$in',regions.collect{it.iso3166_2})
-            query.append('user.politicianOnRegion.iso3166_2',inRegions)
+            regions = regionService.findUserRegions(user)
+        }else{
+            regions = [[iso3166_2:"EU-ES"]]
         }
+        DBObject inRegions = new BasicDBObject('$in',regions.collect{it.iso3166_2})
+        query.append('user.politicianOnRegion.iso3166_2',inRegions)
+
 
         DBCursor cursor = bestPoliticiansCollection.find(query)
         DBObject sort = new BasicDBObject('score',-1);
+        sort.append('user.enabled',-1)
         sort.append('numFollowers',-1)
         cursor.sort(sort)
-        cursor.max(new BasicDBObject(pagination.max.intValue()))
+        cursor.limit(pagination.max.intValue())
         cursor.skip(pagination.offset.intValue())
 
         cursor.collect {KuorumUser.get(it._id)}
