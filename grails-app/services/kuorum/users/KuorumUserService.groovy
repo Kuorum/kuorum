@@ -209,8 +209,9 @@ class KuorumUserService {
     KuorumUser updateUser(KuorumUser user){
         user.personalData.provinceCode = user.personalData.province.iso3166_2
         if (!user.save()){
-            log.error("No se ha podido actualizar el usuario ${user.email}(${user.id})")
-            throw KuorumExceptionUtil.createExceptionFromValidatable(user)
+            def msg = "No se ha podido actualizar el usuario ${user.email}(${user.id})"
+            log.error(msg)
+            throw KuorumExceptionUtil.createExceptionFromValidatable(user, msg)
         }
         indexSolrService.index(user)
         kuorumMailService.mailingListUpdateUser(user)
