@@ -93,6 +93,9 @@ class ProfileController {
             personalData = new PersonData()
             if (user.userType!=UserType.POLITICIAN)
                 user.userType = UserType.PERSON
+            else{
+                personalData.userType=UserType.POLITICIAN
+            }
         }
         personalData.birthday = command.date
         personalData.gender = command.gender
