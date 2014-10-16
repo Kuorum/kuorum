@@ -1,3 +1,11 @@
+var getKeys = function(obj){
+    var keys = [];
+    for(var key in obj){
+        keys.push(key);
+    }
+    return keys;
+}
+
 $(document).ready(function() {
     startPieStat(votes)
 	// inicializa mapa
@@ -48,6 +56,11 @@ $(document).ready(function() {
                 loadPieStats(selectedRegion)
 		    }
 		   });
+            //Selection subRegion of map
+            regions = getKeys(map.params.series.regions[0].values)
+            if ($.inArray(regionSelected, regions)!= -1){
+                map.setSelectedRegions(regionSelected)
+            }
 
 		});
 

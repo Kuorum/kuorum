@@ -8,6 +8,7 @@
     <script>
         var urlDataMap = '${createLink(mapping: 'lawStatsDataMap', params: law.encodeAsLinkProperties())}'
         var urlPieChart = '${createLink(mapping: 'lawStatsPieChart', params: law.encodeAsLinkProperties())}'
+        var regionSelected = '${region.iso3166_2}'
     </script>
 </head>
 
