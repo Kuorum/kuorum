@@ -163,7 +163,7 @@ class LawService {
                 break;
             case LawStatusType.APPROVED:
             case LawStatusType.REJECTED:
-                law.region = 0
+                law.relevance = 0
                 break;
         }
     }
