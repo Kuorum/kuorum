@@ -11,6 +11,7 @@ class LawTagLib {
     def postService
     def cluckService
     def postVoteService
+    RegionService regionService
 
     static namespace = "lawUtil"
 
@@ -26,6 +27,26 @@ class LawTagLib {
             if (isAdmin || isPoliticianAndSameRegion){
                 out << body()
             }
+        }
+    }
+
+    private static final String NAME_VAR_IF_LAW_IS_VOTABLE_ELSE = "ifLawIsVotableElse"
+    def ifLawIsVotable = {attrs, body ->
+        pageScope.setVariable(NAME_VAR_IF_LAW_IS_VOTABLE_ELSE, Boolean.FALSE)
+        if (springSecurityService.isLoggedIn()){
+            Law law = attrs.law
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (regionService.isRelevantRegionForUser(user,law.region)){
+                out << body()
+            }else{
+                pageScope.setVariable(NAME_VAR_IF_LAW_IS_VOTABLE_ELSE, Boolean.TRUE)
+            }
+        }
+    }
+
+    def elseLawIsVotable = {attrs, body ->
+        if (pageScope.getVariable(NAME_VAR_IF_LAW_IS_VOTABLE_ELSE)){
+            out << body()
         }
     }
 }

@@ -65,6 +65,11 @@ class RegionService {
         regions.reverse()
     }
 
+    Boolean isRelevantRegionForUser(KuorumUser user, Region region){
+        Region userRegion = findUserRegion(user);
+        userRegion && region && userRegion.iso3166_2.startsWith(region.iso3166_2)
+    }
+
     private static final int REGION_ISO31662_CODE_LENGTH = 2 // EU == 2
     private static final int REGION_ISO31662_SEPARATOR_LENGTH = 1 // EU == 2
     private static final int COUNTRY_ISO31662_CODE_LENGTH = REGION_ISO31662_CODE_LENGTH*2+REGION_ISO31662_SEPARATOR_LENGTH
