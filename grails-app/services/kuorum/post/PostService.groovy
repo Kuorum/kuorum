@@ -325,6 +325,7 @@ class PostService {
             if (comment.kuorumUser != post.owner){
                 //Is politician, so is stored on cluck
                 Cluck.collection.update([_id:post.firstCluck.id], ['$addToSet':['debateMembers':comment.kuorumUser.id]])
+                Cluck.collection.update([_id:post.firstCluck.id], ['$set':['lastUpdated':new Date()]])
                 post.firstCluck.refresh()
             }
             notificationService.sendDebateNotification(post)
@@ -445,6 +446,7 @@ class PostService {
         notificationService.sendVictoryNotification(post)
         post
     }
+
     List<Post> lawVictories(Law law, Pagination pagination = new Pagination()){
         Post.findAllByLawAndVictory(law,Boolean.TRUE,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
     }
