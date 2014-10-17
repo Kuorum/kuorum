@@ -24,6 +24,7 @@ class CluckService {
             or {
                 'in'("owner",userList)
                 'in'("defendedBy",userList)
+                'in'("debateMembers",userList)
                 'in'("sponsors.kuorumUserId",userList)
             }
             order("lastUpdated","desc")
@@ -44,6 +45,7 @@ class CluckService {
             or {
                 'eq'("owner",kuorumUser)
                 'eq'("defendedBy",kuorumUser)
+                'eq'("debateMembers",kuorumUser)
                 'eq'("sponsors.kuorumUserId",kuorumUser.id)
             }
             order("lastUpdated","desc")
