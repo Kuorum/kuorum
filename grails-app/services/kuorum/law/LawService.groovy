@@ -54,7 +54,7 @@ class LawService {
      * @return
      */
     LawVote voteLaw(Law law, KuorumUser user, VoteType voteType){
-        if (!regionService.isRelevantRegionForUser(law.region, user)){
+        if (!regionService.isRelevantRegionForUser(user, law.region)){
             throw new KuorumException("Votando una ley que no es de su region (user: ${user.id}, region:${law.region})")
         }
         LawVote lawVote = LawVote.findByKuorumUserAndLaw(user, law)
