@@ -234,51 +234,52 @@ class PostTagLib {
     }
 
 
-    def loggedAsPolitician
-    def loggedAsUser
-    def noLogged
-    def insideUserOption
+    private static final String NAME_VAR_LOGGED_AS_POLITICIAN = "loggedAsPolitician"
+    private static final String NAME_VAR_LOGGED_AS_USER = "loggedAsUser"
+    private static final String NAME_VAR_NO_LOGGED = "noLogged"
+    private static final String NAME_VAR_INSIDE_USER_OPTION = "insideUserOption"
     def userOption = {attrs, body->
 
         Post post = attrs.post
-        insideUserOption = true
+        pageScope.setVariable(NAME_VAR_INSIDE_USER_OPTION,true)
         if (springSecurityService.isLoggedIn()){
-            noLogged = false
+            pageScope.setVariable(NAME_VAR_NO_LOGGED,false)
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            loggedAsPolitician = postService.isAllowedToDefendAPost(post, user)
-            loggedAsUser = !loggedAsPolitician
+            Boolean loggedAsPolitician = postService.isAllowedToDefendAPost(post, user)
+            pageScope.setVariable(NAME_VAR_LOGGED_AS_POLITICIAN,loggedAsPolitician)
+            pageScope.setVariable(NAME_VAR_LOGGED_AS_USER,!loggedAsPolitician)
         }else{
-            noLogged = true
-            loggedAsPolitician = false
-            loggedAsUser = false
+            pageScope.setVariable(NAME_VAR_NO_LOGGED,true)
+            pageScope.setVariable(NAME_VAR_LOGGED_AS_POLITICIAN,false)
+            pageScope.setVariable(NAME_VAR_LOGGED_AS_USER,false)
         }
         out << body()
-        insideUserOption = false
+        pageScope.setVariable(NAME_VAR_INSIDE_USER_OPTION,false)
     }
     def asUser={attrs, body ->
-        if (!insideUserOption){
+        if (!pageScope.getVariable(NAME_VAR_INSIDE_USER_OPTION)){
             log.warn("El tag lib PostTagLib.asUser se ha ejecutado incorrectamente. Params: [insideUserOption:${insideUserOption}, attrs:$attrs ]")
             throw new Exception("Este taglib se debe ejecutar dentro de userOption")
         }
-        if (loggedAsUser){
+        if (pageScope.getVariable(NAME_VAR_LOGGED_AS_USER)){
             out << body()
         }
     }
     def asPolitician={attrs, body ->
-        if (!insideUserOption){
+        if (!pageScope.getVariable(NAME_VAR_INSIDE_USER_OPTION)){
             log.warn("El tag lib PostTagLib.asPolitician se ha ejecutado incorrectamente. Params: [insideUserOption:${insideUserOption}, attrs:$attrs ]")
             throw new Exception("Este taglib se debe ejecutar dentro de userOption")
         }
-        if (loggedAsPolitician){
+        if (pageScope.getVariable(NAME_VAR_LOGGED_AS_POLITICIAN)){
             out << body()
         }
     }
     def asNoLogged={attrs, body ->
-        if (!insideUserOption){
+        if (!pageScope.getVariable(NAME_VAR_INSIDE_USER_OPTION)){
             log.warn("El tag lib PostTagLib.asNoLogged se ha ejecutado incorrectamente. Params: [insideUserOption:${insideUserOption}, attrs:$attrs ]")
             throw new Exception("Este taglib se debe ejecutar dentro de userOption")
         }
-        if (noLogged){
+        if (pageScope.getVariable(NAME_VAR_NO_LOGGED)){
             out << body()
         }
     }
