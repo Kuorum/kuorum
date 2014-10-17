@@ -13,7 +13,7 @@ class PoliticalParty {
     }
 
     String toString(){
-        "$name (${region.name})"
+        "$name"
     }
 
     boolean equals(Object object){
