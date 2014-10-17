@@ -22,33 +22,33 @@
         <h2 class="pull-left"><g:message code="law.stats.introRegionName"/> <span>${region.name}</span></h2>
         <a id="allMap" class="pull-right"><g:message code="law.stats.restartParentRegion"/> </a>
         <div id="map"></div>
-        <dl class="moreInfo row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <dt><g:message code="law.stats.total.numVotes.total"/></dt>
-                <dd>${law.peopleVotes.total}</dd>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <dt><g:message code="law.stats.total.numVotes.abs"/></dt>
-                <dd>${law.peopleVotes.abs}</dd>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <dt><g:message code="law.stats.total.numVotes.yes"/></dt>
-                <dd>${law.peopleVotes.yes}</dd>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <dt><g:message code="law.stats.total.numVotes.no"/></dt>
-                <dd>${law.peopleVotes.no}</dd>
-            </div>
-         </dl>
-        <small><g:message code="law.stats.total.description"/> </small>
+        %{--<dl class="moreInfo row">--}%
+            %{--<div class="col-xs-12 col-sm-6 col-md-6">--}%
+                %{--<dt><g:message code="law.stats.total.numVotes.total"/></dt>--}%
+                %{--<dd>${law.peopleVotes.total}</dd>--}%
+            %{--</div>--}%
+            %{--<div class="col-xs-12 col-sm-6 col-md-6">--}%
+                %{--<dt><g:message code="law.stats.total.numVotes.abs"/></dt>--}%
+                %{--<dd>${law.peopleVotes.abs}</dd>--}%
+            %{--</div>--}%
+            %{--<div class="col-xs-12 col-sm-6 col-md-6">--}%
+                %{--<dt><g:message code="law.stats.total.numVotes.yes"/></dt>--}%
+                %{--<dd>${law.peopleVotes.yes}</dd>--}%
+            %{--</div>--}%
+            %{--<div class="col-xs-12 col-sm-6 col-md-6">--}%
+                %{--<dt><g:message code="law.stats.total.numVotes.no"/></dt>--}%
+                %{--<dd>${law.peopleVotes.no}</dd>--}%
+            %{--</div>--}%
+         %{--</dl>--}%
+         %{--<small><g:message code="law.stats.total.description"/> </small>--}%
     </article><!-- /article -->
 </content>
 
 <content tag="cColumn">
     <div class="back">
-        <g:link mapping="lawShow" class="btn btn-blue" params="${law.encodeAsLinkProperties()}">
-            <g:message code="law.stats.backToLaw"/>
-        </g:link>
+        %{--<g:link mapping="lawShow" class="btn btn-blue" params="${law.encodeAsLinkProperties()}">--}%
+            %{--<g:message code="law.stats.backToLaw"/>--}%
+        %{--</g:link>--}%
     </div>
     <section class="boxes vote votation" id="votation">
         <h1><g:message code="law.stats.columnC.title"/> </h1>
