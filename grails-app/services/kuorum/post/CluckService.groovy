@@ -60,7 +60,6 @@ class CluckService {
             Cluck cluck = new Cluck(
                     owner: kuorumUser,
                     postOwner: post.owner,
-                    post: post,
                     law: post.law,
             )
             Cluck firstCluck = null
@@ -70,6 +69,7 @@ class CluckService {
             }else{
                 firstCluck = post.firstCluck
             }
+            cluck.post = post
             if (!cluck.save()){
                 KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
             }
