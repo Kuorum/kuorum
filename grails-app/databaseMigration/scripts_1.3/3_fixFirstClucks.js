@@ -1,6 +1,6 @@
 var dbDest = dbDest || connect("localhost:27017/Kuorum");
 
-dbDest.post.find({published:true, "_id" : ObjectId("543e68c9e4b0fe769015ceb7")}).forEach(function(post){
+dbDest.post.find({published:true}).forEach(function(post){
     dbDest.cluck.update({post:post._id},{$set:{debateMembers:[], firstCluck:false}}, {multi:true})
    var firstCluck = dbDest.cluck.find({post:post._id, owner:post.owner})[0]
     if (firstCluck == undefined){
