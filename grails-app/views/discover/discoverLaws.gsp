@@ -27,6 +27,7 @@
 
     <nav:loadMoreLink
             mapping="discoverLaws"
+            mappingParams="[iso3166_2:params.iso3166_2]"
             parentId="law-list-id"
             pagination="${pagination}"
             numElements="${laws.size()}"

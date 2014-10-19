@@ -781,15 +781,19 @@ $(document).ready(function() {
 		var link = $(that)
 		var url = link.attr('href')
         var formId = link.attr('data-form-id')
-        url += '?'+$('#'+formId).serialize()
+        var paramAppender = "?";
+        if (url.indexOf("?")>-1){
+            paramAppender = "&"
+        }
+
+        var offset = $.parseJSON(link.attr('data-offset') || 10 ) //Para que sea un integer
+        url += paramAppender+"offset="+offset+"&"+$('#'+formId).serialize()
 		var parentId = link.attr('data-parent-id')
-		var offset = $.parseJSON(link.attr('data-offset') || 10 ) //Para que sea un integer
 		var loadingId = parentId+"-loading"
 		var parent = $("#"+parentId)
 		parent.append('<div class="loading" id="'+loadingId+'"><span class="sr-only">Cargando...</span></div>')
 		$.ajax( {
 			url:url,
-			data:"offset="+offset,
 			statusCode: {
 				401: function() {
 					location.reload();
