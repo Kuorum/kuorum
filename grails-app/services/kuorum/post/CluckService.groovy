@@ -59,7 +59,7 @@ function(key, values){
     values.forEach(function(newRelevantCluck){
         if (newRelevantCluck.val > relevantDataCluck.val){
             relevantDataCluck = newRelevantCluck
-        }else if (newRelevantCluck.val = relevantDataCluck.val){
+        }else if (newRelevantCluck.val == relevantDataCluck.val){
             if (newRelevantCluck.lastUpdated < relevantDataCluck.lastUpdated){
                 relevantDataCluck = newRelevantCluck
             }
