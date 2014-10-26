@@ -63,7 +63,6 @@ class PostServiceIntegrationSpec extends Specification{
         def expectedData = [
                 published:post.published,
                 debates:post.debates,
-                firstCluck:post.firstCluck,
                 title: "TITULO",
                 text:"TEXT",
                 postType: PostType.QUESTION,
@@ -72,7 +71,6 @@ class PostServiceIntegrationSpec extends Specification{
                 numVotes: post.numVotes
 
         ]
-        post.firstCluck = null
         post.title = expectedData.title
         post.text = expectedData.text
         post.postType = expectedData.postType
@@ -85,7 +83,6 @@ class PostServiceIntegrationSpec extends Specification{
         then: "Post created but not published"
         savedPost.id != null
         savedPost.published == expectedData.published
-        savedPost.firstCluck == expectedData.firstCluck
         savedPost.title == expectedData.title
         savedPost.text == expectedData.text
         savedPost.postType == expectedData.postType
@@ -94,7 +91,6 @@ class PostServiceIntegrationSpec extends Specification{
         Post.withNewSession {
             Post  recoveredPost = Post.findByOwnerAndLaw(user,law)
             recoveredPost.published == expectedData.published
-            recoveredPost.firstCluck == expectedData.firstCluck
             recoveredPost.title == expectedData.title
             recoveredPost.text == expectedData.text
             recoveredPost.postType == expectedData.postType
@@ -133,7 +129,6 @@ class PostServiceIntegrationSpec extends Specification{
         cluck != null
         cluck.post == savedPost
         cluck.postOwner == savedPost.owner
-        cluck.isFirstCluck == Boolean.TRUE
 
         PostVote.findAllByPostAndUser(post, post.owner).size() == 1
         PostVote postVote = PostVote.findByPostAndUser(post, post.owner)
@@ -141,38 +136,6 @@ class PostServiceIntegrationSpec extends Specification{
         postVote.user == post.owner
     }
 
-
-    @Unroll
-    void "test sponsoring a post by #email amount #amount => #total"(){
-        setup: "Dorp database and load data processed and creates sponsor"
-            KuorumUser.collection.getDB().dropDatabase()
-            fixtureLoader.load("testData")
-
-            KuorumUser user = KuorumUser.findByEmail("peter@example.com")
-            KuorumUser sponsorUser = KuorumUser.findByEmail(email)
-            Sponsor sponsor = new Sponsor(kuorumUser:sponsorUser , amount: amount)
-            Post post = Post.findByOwner(user)
-        when: "sponsoring the post"
-            postService.sponsorAPost(post, sponsor)
-        then: "The post has a sponsor"
-            Post recoveredPost = Post.get(post.id)
-            Cluck cluck = recoveredPost.firstCluck
-            recoveredPost.sponsors.find{it.kuorumUser == sponsorUser} != null
-            recoveredPost.sponsors.find{it.kuorumUser == sponsorUser}.amount == total
-            cluck.sponsors.find{it.kuorumUser == sponsorUser} != null
-            cluck.sponsors.find{it.kuorumUser == sponsorUser}.amount == total
-            Post.withNewSession {
-                //Check if is in DB
-                Post recoveredPostNewSession = Post.get(post.id)
-                recoveredPostNewSession.sponsors.find{it.kuorumUser == sponsorUser} != null
-                recoveredPostNewSession.sponsors.find{it.kuorumUser == sponsorUser}.amount == total
-            }
-        where:
-            email                       | amount | total
-            "equo@example.com"          | 5      | 10
-            "ecologistas@example.com"   | 5      | 12
-            "peter@example.com"         | 5      | 5
-    }
 
     void "test defending post"(){
         setup: "Given a post to defend"
@@ -188,13 +151,10 @@ class PostServiceIntegrationSpec extends Specification{
         newPost.defender.email          == "politician@example.com"
         post.defender.email             == "politician@example.com"
         post.defenderDate != null
-        newPost.firstCluck.defendedBy.email == "politician@example.com"
-        post.firstCluck.defendedBy.email   == "politician@example.com"
         post.commitmentType == commitmentType
         Post.withNewSession {
             Post newSessionPost = Post.get(post.id)
             newSessionPost.defender.email          == "politician@example.com"
-            newSessionPost.firstCluck.defendedBy.email   == "politician@example.com"
             newSessionPost.commitmentType == commitmentType
         }
     }
@@ -279,54 +239,6 @@ class PostServiceIntegrationSpec extends Specification{
             recoveredPostNewSession.comments[2].deleted == Boolean.FALSE
             recoveredPostNewSession.comments[2].moderated == Boolean.FALSE
         }
-    }
-
-    void "test adding debate"() {
-        given: "A post"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
-        KuorumUser politician = KuorumUser.findByEmail("politician@example.com")
-        KuorumUser voter1 = KuorumUser.findByEmail("carmen@example.com")
-        KuorumUser voter2 = KuorumUser.findByEmail("juanjoalvite@example.com")
-        Post post = Post.findByOwner(user)
-        postService.publishPost(post) //Creates first cluck
-        postVoteService.votePost(post,voter1)
-        postVoteService.votePost(post,voter2)
-
-        PostComment postComment1 = new PostComment(kuorumUser:politician, text:"1 -- Loren ipsum")
-        PostComment postComment2 = new PostComment(kuorumUser:user, text:"2 -- Loren ipsum")
-        PostComment postComment3 = new PostComment(kuorumUser:user, text:"3 -- Loren ipsum")
-
-        when: "Adding debates a post"
-        //"service" represents the grails service you are testing for
-        postService.addDebate(post, postComment1)
-        postService.addDebate(post, postComment2)
-        postService.addDebate(post, postComment3)
-
-        then: "Correct debates in correct order"
-        post.debates.size() == 3
-        post.debates[0].kuorumUser == politician
-        post.debates[0].text.startsWith("1")
-        post.debates[1].kuorumUser == user
-        post.debates[1].text.startsWith("2")
-        post.debates[2].kuorumUser == user
-        post.debates[2].text.startsWith("3")
-        Post.withNewSession {
-            //Check if is in DB
-            Post recoveredPostNewSession = Post.get(post.id)
-            recoveredPostNewSession.debates.size() == 3
-            recoveredPostNewSession.debates[0].kuorumUser == politician
-            recoveredPostNewSession.debates[0].text.startsWith("1")
-            recoveredPostNewSession.debates[1].kuorumUser == user
-            recoveredPostNewSession.debates[1].text.startsWith("2")
-            recoveredPostNewSession.debates[2].kuorumUser == user
-            recoveredPostNewSession.debates[2].text.startsWith("3")
-            post.firstCluck.debateMembers.contains(politician.id)
-            !post.firstCluck.debateMembers.contains(user.id)
-        }
-        post.debates[0].dateCreated != null
-        post.debates[0].dateCreated < new Date()
-        post.firstCluck.debateMembers.contains(politician.id)
-        !post.firstCluck.debateMembers.contains(user.id)
     }
 
     void "test adding debate by normal user"() {

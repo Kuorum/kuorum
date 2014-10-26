@@ -45,18 +45,12 @@ class Post {
     @Updatable
     KuorumFile multimedia
 
-    /**
-     * First firstCluck / owners firstCluck: Is going to be used to reference the sponsors and politician supports.
-     */
-    Cluck firstCluck
-
     //static hasMany = [sponsors:Sponsor]
     static embedded = ['sponsors', 'comments', 'debates','multimedia','ownerPersonalData', 'defenderPersonalData']
 
     static constraints = {
         numVotes min:0
         numClucks min:0
-        firstCluck nullable:true
         defender nullable:true
         defenderPersonalData nullable: true
         defenderDate nullable: true, validator:{val, obj ->

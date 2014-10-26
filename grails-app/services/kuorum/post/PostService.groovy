@@ -66,8 +66,7 @@ class PostService {
 
     Post publishPost(Post post){
         if (!post.published){
-            Cluck cluck = cluckService.createCluck(post, post.owner)
-            post.firstCluck = cluck  //Ref to first firstCluck
+            Cluck cluck = cluckService.createActionCluck(post, post.owner, CluckAction.CREATE)
             post.published = Boolean.TRUE
             post.shortUrl = shortUrlService.shortUrl(post)
             post.save()
@@ -175,21 +174,19 @@ class PostService {
         if (alreadySponsor){
             double amount = alreadySponsor.amount + sponsor.amount
             Post.collection.update ( [_id:post.id,        'sponsors.kuorumUserId':sponsor.kuorumUser.id],['$set':['sponsors.$.amount':amount]])
-            Cluck.collection.update ( [_id:post.firstCluck.id, 'sponsors.kuorumUserId':sponsor.kuorumUser.id],['$set':['sponsors.$.amount':amount]])
+            cluckService.createActionCluck(post, sponsor.kuorumUser, CluckAction.SPONSOR)
         }else{
             //NEW SPONSOR
             def sponsorData = [kuorumUserId:sponsor.kuorumUser.id, amount:sponsor.amount]
             //ATOMIC OPERATION
             Post.collection.update ( [_id:post.id],['$push':['sponsors':sponsorData]])
-            //ATOMIC OPERATION
-            Cluck.collection.update ( [_id:post.firstCluck.id],['$push':['sponsors':sponsorData]])
+            cluckService.createActionCluck(post, sponsor.kuorumUser, CluckAction.SPONSOR)
 
         }
         Post.collection.update ( [_id:post.id],['$push':['sponsors':[$each: [],$sort:[amount:1]]]])
 
         //Reloading data from DDBB
         post.refresh()
-        post.firstCluck.refresh()
 
         Integer numMails = calculateNumEmails(sponsor.amount)
         notificationService.sendSponsoredPostNotification(post, sponsor.kuorumUser, numMails)
@@ -322,12 +319,7 @@ class PostService {
                     deleted :comment.deleted ]
             Post.collection.update ( [_id:post.id],['$push':['debates':commentData]])
             post.refresh()
-            if (comment.kuorumUser != post.owner){
-                //Is politician, so is stored on cluck
-                Cluck.collection.update([_id:post.firstCluck.id], ['$addToSet':['debateMembers':comment.kuorumUser.id]])
-                Cluck.collection.update([_id:post.firstCluck.id], ['$set':['lastUpdated':new Date()]])
-                post.firstCluck.refresh()
-            }
+            cluckService.createActionCluck(post, comment.kuorumUser, CluckAction.DEBATE)
             notificationService.sendDebateNotification(post)
             post
         }else{
@@ -467,9 +459,8 @@ class PostService {
         }
         Date defenderDate = new Date()
         Post.collection.update ( [_id:post.id],['$set':[defender:politician.id,defenderDate:defenderDate, commitmentType:commitmentType.toString()]])
-        Cluck.collection.update([_id:post.firstCluck.id],['$set':[defendedBy:politician.id, lastUpdated:defenderDate]])
+        cluckService.createActionCluck(post, politician, CluckAction.DEFEND)
         post.refresh()
-        post.firstCluck.refresh()
         notificationService.sendPostDefendedNotification(post)
         post
     }

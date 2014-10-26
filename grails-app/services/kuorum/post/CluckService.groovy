@@ -1,5 +1,6 @@
 package kuorum.post
 
+import com.mongodb.*
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.search.Pagination
@@ -15,21 +16,69 @@ class CluckService {
         Cluck.findAllByLawAndIsFirstCluck(law, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
     }
 
+    private static Integer POOL_COLLECTIONS_MAX=10;
+    private Integer actualCollectionIdx = 0;
+    private synchronized getCollectionName(String prefixCollectionName){
+        //TODO: THINK THIS. IS SO HARDCORE
+        actualCollectionIdx++
+        if (actualCollectionIdx%POOL_COLLECTIONS_MAX==0){
+            actualCollectionIdx=0
+        }
+        "${prefixCollectionName}_$actualCollectionIdx"
+    }
+
     List<Cluck> dashboardClucks(KuorumUser kuorumUser, Pagination pagination = new Pagination()){
 
         def criteria = Cluck.createCriteria()
-        def userList = kuorumUser.following.collect{KuorumUser.load(it)}
-        userList << kuorumUser
-        def result = criteria.list(max:pagination.max, offset:pagination.offset) {
-            or {
-                'in'("owner",userList)
-                'in'("defendedBy",userList)
-                'in'("debateMembers",userList)
-                'in'("sponsors.kuorumUserId",userList)
+        def userList = kuorumUser.following
+        userList << kuorumUser.id
+        String mapDashboardClucks = """
+function(){
+    if (this.cluckAction == "${CluckAction.DEBATE}"){
+        emit(this.post,{val:2,cluck:this._id, lastUpdated:this.lastUpdated});
+    }else if (this.cluckAction == "${CluckAction.DEFEND}"){
+        emit(this.post,{val:3,cluck:this._id, lastUpdated:this.lastUpdated})
+    }else{
+        emit(this.post,{val:1,cluck:this._id, lastUpdated:this.lastUpdated})
+    }
+}
+        """
+
+        String reduceDashBoardClucks = """
+function(key, values){
+    var relevantDataCluck = values.pop()
+    values.forEach(function(newRelevantCluck){
+        if (newRelevantCluck.val > relevantDataCluck.val){
+            relevantDataCluck = newRelevantCluck
+        }else if (newRelevantCluck.val = relevantDataCluck.val){
+            if (newRelevantCluck.lastUpdated < relevantDataCluck.lastUpdated){
+                relevantDataCluck = newRelevantCluck
             }
-            order("lastUpdated","desc")
         }
-        result
+    })
+    return relevantDataCluck;
+
+}
+"""
+        String collectionName = getCollectionName("dashboard")
+        DBObject usersInList = new BasicDBObject('$in', userList)
+        DBObject filter = new BasicDBObject("owner", usersInList)
+        MapReduceCommand dashboardClucks = new MapReduceCommand(
+                Cluck.collection,
+                mapDashboardClucks,
+                reduceDashBoardClucks ,
+                collectionName,
+                MapReduceCommand.OutputType.REPLACE,filter);
+
+        MapReduceOutput result = Cluck.collection.mapReduce(dashboardClucks)
+        DBCursor cursor = result.getOutputCollection().find()
+
+        DBObject sort = new BasicDBObject('value.lastUpdated',-1);
+        cursor.sort(sort)
+        cursor.limit(pagination.max.intValue())
+        cursor.skip(pagination.offset.intValue())
+
+        cursor.collect {Cluck.get(it.value.cluck)}
 
     }
 
@@ -61,14 +110,10 @@ class CluckService {
                     owner: kuorumUser,
                     postOwner: post.owner,
                     law: post.law,
+                    region: post.law.region,
+                    cluckAction: CluckAction.CLUCK
             )
-            Cluck firstCluck = null
-            if (post.owner == kuorumUser){
-                cluck.isFirstCluck = Boolean.TRUE
-                firstCluck = cluck
-            }else{
-                firstCluck = post.firstCluck
-            }
+
             cluck.post = post
             if (!cluck.save()){
                 KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
@@ -76,7 +121,7 @@ class CluckService {
             notificationService.sendCluckNotification(cluck)
             //Atomic operation - non transactional
             post.save(flush:true)
-            Post.collection.update([_id:post.id],[$inc:[numClucks:1], $set:[firstCluck:firstCluck.id]]) //The first cluck is set again because GORM overwrite with the new cluck
+            Post.collection.update([_id:post.id],[$inc:[numClucks:1]])
             post.refresh()
 
             cluck
@@ -84,6 +129,26 @@ class CluckService {
             Cluck.findByPostAndOwner(post, kuorumUser)
         }
 
+    }
+
+    Cluck createActionCluck(Post post, KuorumUser kuorumUser, CluckAction cluckAction){
+
+        Cluck cluck = Cluck.findByOwnerAndCluckAction(kuorumUser, cluckAction)
+        if (!cluck){
+            cluck = new Cluck(
+                    owner: kuorumUser,
+                    postOwner: post.owner,
+                    law: post.law,
+                    region: post.law.region,
+                    cluckAction: cluckAction
+            )
+        }
+        cluck.lastUpdated(new Date());
+
+        if (!cluck.save()){
+            KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
+        }
+        cluck
     }
 
 

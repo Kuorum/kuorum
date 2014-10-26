@@ -1,5 +1,6 @@
 package kuorum.post
 
+import kuorum.Region
 import kuorum.law.Law
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
@@ -7,6 +8,8 @@ import org.bson.types.ObjectId
 class Cluck {
 
     ObjectId id
+
+    CluckAction cluckAction;
     /**
      * The user who has created the firstCluck
      */
@@ -19,38 +22,44 @@ class Cluck {
     /**
      *The politician user who has supported the Cluck
      */
-    KuorumUser defendedBy
+//    @Deprecated
+//    KuorumUser defendedBy
 
     /**
      * The sponsors who has financed any amount of money
      */
-    List<Sponsor> sponsors =[]
+//    @Deprecated
+//    List<Sponsor> sponsors =[]
 
     /**
      * The KuorumUser Ids that are involved in the  post debate
      */
-    List<ObjectId> debateMembers=[]
+//    @Deprecated
+//    List<ObjectId> debateMembers=[]
 
     /**
      * Represents if is the cluck created by the post owner
      */
-    Boolean isFirstCluck = Boolean.FALSE
+//    @Deprecated
+//    Boolean isFirstCluck = Boolean.FALSE
 
     Law law
 
     Post post
 
+    Region region;
+
     Date dateCreated
     Date lastUpdated
 
-    static hasMany = [sponsors:Sponsor]
-    static embedded = ['sponsors']
+//    static hasMany = [sponsors:Sponsor]
+    static embedded = ['region']
 
     static constraints = {
         owner index:true
         law index:true
         lastUpdated index:true
-        defendedBy nullable: true,  index:true
+//        defendedBy nullable: true,  index:true
     }
 
     static mapping = {
