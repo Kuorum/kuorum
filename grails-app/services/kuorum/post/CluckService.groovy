@@ -132,7 +132,7 @@ function(key, values){
 
     Cluck createActionCluck(Post post, KuorumUser kuorumUser, CluckAction cluckAction){
 
-        Cluck cluck = Cluck.findByOwnerAndCluckAction(kuorumUser, cluckAction)
+        Cluck cluck = Cluck.findByPostAndOwnerAndCluckAction(post, kuorumUser, cluckAction)
         if (!cluck){
             cluck = new Cluck(
                     owner: kuorumUser,
