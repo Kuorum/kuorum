@@ -1,8 +1,9 @@
+<%@ page import="kuorum.post.CluckAction" %>
 <g:set var="important" value="${false}"/>
 <postUtil:ifIsImportant post="${cluck.post}">
     <g:set var="important" value="${true}"/>
 </postUtil:ifIsImportant>
-<g:set var="recluck" value="${cluck.post.owner!=cluck.owner}"/>
+<g:set var="recluck" value="${cluck.cluckAction != CluckAction.CREATE}"/>
 
 <g:set var="liCss" value="author"/>
 <postUtil:ifHasMultimedia post="${cluck.post}">
