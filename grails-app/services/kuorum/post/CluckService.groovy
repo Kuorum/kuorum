@@ -2,6 +2,7 @@ package kuorum.post
 
 import com.mongodb.*
 import grails.transaction.Transactional
+import kuorum.RegionService
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.search.Pagination
 import kuorum.law.Law
@@ -12,11 +13,14 @@ class CluckService {
 
     def notificationService
 
+    RegionService regionService;
+
     List<Cluck> lawClucks(Law law, Pagination pagination = new Pagination()) {
         Cluck.findAllByLawAndIsFirstCluck(law, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
     }
 
     private static Integer POOL_COLLECTIONS_MAX=10;
+    private static Integer ELEMENTS_FOR_PROCESS_IN_MAPREDUCE=10000;
     private Integer actualCollectionIdx = 0;
     private synchronized getCollectionName(String prefixCollectionName){
         //TODO: THINK THIS. IS SO HARDCORE
@@ -29,14 +33,19 @@ class CluckService {
 
     List<Cluck> dashboardClucks(KuorumUser kuorumUser, Pagination pagination = new Pagination()){
 
-        def criteria = Cluck.createCriteria()
         def userList = kuorumUser.following
         userList << kuorumUser.id
+        DBObject usersInList = new BasicDBObject('$in', userList)
+        DBObject filter = new BasicDBObject("owner", usersInList)
+        DBObject regionInList = new BasicDBObject('$in',regionService.findUserRegions(kuorumUser).collect{it.iso3166_2});
+        filter.append("region.iso3166_2", regionInList)
         String mapDashboardClucks = """
 function(){
     if (this.cluckAction == "${CluckAction.DEBATE}"){
         emit(this.post,{val:2,cluck:this._id, lastUpdated:this.lastUpdated});
     }else if (this.cluckAction == "${CluckAction.DEFEND}"){
+        emit(this.post,{val:3,cluck:this._id, lastUpdated:this.lastUpdated})
+    }else if (this.cluckAction == "${CluckAction.VICTORY}"){
         emit(this.post,{val:3,cluck:this._id, lastUpdated:this.lastUpdated})
     }else{
         emit(this.post,{val:1,cluck:this._id, lastUpdated:this.lastUpdated})
@@ -61,14 +70,16 @@ function(key, values){
 }
 """
         String collectionName = getCollectionName("dashboard")
-        DBObject usersInList = new BasicDBObject('$in', userList)
-        DBObject filter = new BasicDBObject("owner", usersInList)
         MapReduceCommand dashboardClucks = new MapReduceCommand(
                 Cluck.collection,
                 mapDashboardClucks,
                 reduceDashBoardClucks ,
                 collectionName,
                 MapReduceCommand.OutputType.REPLACE,filter);
+
+        //Reduce de amount of initial data for reduce time processing only getting first ELEMENTS_FOR_PROCESS_IN_MAPREDUCE elements
+        dashboardClucks.setLimit(ELEMENTS_FOR_PROCESS_IN_MAPREDUCE)
+        dashboardClucks.setSort(new BasicDBObject('lastUpdated',-1))
 
         MapReduceOutput result = Cluck.collection.mapReduce(dashboardClucks)
         DBCursor cursor = result.getOutputCollection().find()
@@ -88,19 +99,7 @@ function(key, values){
     }
 
     List<Cluck> userClucks(KuorumUser kuorumUser, Pagination pagination = new Pagination()){
-
-        def criteria = Cluck.createCriteria()
-        def result = criteria.list(max:pagination.max, offset:pagination.offset) {
-            or {
-                'eq'("owner",kuorumUser)
-                'eq'("defendedBy",kuorumUser)
-                'eq'("debateMembers",kuorumUser)
-                'eq'("sponsors.kuorumUserId",kuorumUser.id)
-            }
-            order("lastUpdated","desc")
-        }
-        result
-
+        Cluck.findAllByOwner(kuorumUser,[max:pagination.max, offset:pagination.offset, sort: 'lastUpdated', order: 'desc'])
     }
 
     Cluck createCluck(Post post, KuorumUser kuorumUser){

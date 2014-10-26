@@ -8,5 +8,6 @@ public enum CluckAction {
     CLUCK,
     SPONSOR,
     DEBATE,
-    DEFEND;
+    DEFEND,
+    VICTORY;
 }
