@@ -67,6 +67,8 @@ class PostService {
     Post publishPost(Post post){
         if (!post.published){
             Cluck cluck = cluckService.createActionCluck(post, post.owner, CluckAction.CREATE)
+            cluck.isFirstCluck = Boolean.TRUE
+            cluck.save()
             post.published = Boolean.TRUE
             post.shortUrl = shortUrlService.shortUrl(post)
             post.save()

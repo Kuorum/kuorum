@@ -41,7 +41,7 @@ class Cluck {
      * Represents if is the cluck created by the post owner
      */
 //    @Deprecated
-//    Boolean isFirstCluck = Boolean.FALSE
+    Boolean isFirstCluck = Boolean.FALSE
 
     Law law
 

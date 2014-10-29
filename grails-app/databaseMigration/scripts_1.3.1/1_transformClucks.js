@@ -7,6 +7,7 @@ dbDest.cluck.find().forEach(function(cluck){
     var law = dbDest.law.find({_id:cluck.law})[0]
     var newCluck = {
         cluckAction:cluck.isFirstCluck?"CREATE":"CLUCK",
+        isFirstCluck:cluck.isFirstCluck,
         owner:cluck.owner,
         postOwner:cluck.postOwner,
         law:cluck.law,
@@ -22,6 +23,7 @@ dbDest.cluck.find().forEach(function(cluck){
         cluck.debateMembers.forEach(function(userId){
             var debateCluck = {
                 cluckAction:"DEBATE",
+                isFirstCluck:false,
                 owner:userId,
                 postOwner:cluck.postOwner,
                 law:cluck.law,
