@@ -139,10 +139,19 @@ function(key, values){
                     postOwner: post.owner,
                     law: post.law,
                     region: post.law.region,
-                    cluckAction: cluckAction
+                    cluckAction: cluckAction,
+                    post: post
             )
+            if (!cluck.save()){
+                KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
+            }
+            //Atomic operation - non transactional
+            post.save(flush:true)
+            Post.collection.update([_id:post.id],[$inc:[numClucks:1]])
+            post.refresh()
+
         }
-        cluck.lastUpdated(new Date());
+        cluck.lastUpdated = new Date();
 
         if (!cluck.save()){
             KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
