@@ -379,7 +379,7 @@ class KuorumUserService {
         synchronized (this){
             Boolean reloadScore = chapuSyncReloadScore < new Date() -1
             if (!reloadScore){
-//                return userScoredCollection
+                return userScoredCollection
             }
             chapuSyncReloadScore = chapuSyncReloadScore.clearTime()+1
 
