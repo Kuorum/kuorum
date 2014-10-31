@@ -358,7 +358,8 @@ class KuorumUserService {
 
 
         DBCursor cursor = bestPoliticiansCollection.find(query)
-        DBObject sort = new BasicDBObject('score',-1);
+        DBObject sort = new BasicDBObject('iso3166Length',-1);
+        sort.append('score',-1);
         sort.append('user.enabled',-1)
         sort.append('numFollowers',-1)
         cursor.sort(sort)
@@ -378,7 +379,7 @@ class KuorumUserService {
         synchronized (this){
             Boolean reloadScore = chapuSyncReloadScore < new Date() -1
             if (!reloadScore){
-                return userScoredCollection
+//                return userScoredCollection
             }
             chapuSyncReloadScore = chapuSyncReloadScore.clearTime()+1
 
@@ -435,10 +436,16 @@ class KuorumUserService {
                 db.${tempCollectionName}.find().forEach(function(score){
                     var kuorumUser = db.kuorumUser.find({_id:score._id})[0]
                     var numFollowers = kuorumUser.followers.length
+                    var iso3166Length = 0
+                    if (kuorumUser.politicianOnRegion != undefined){
+                        iso3166Length = kuorumUser.politicianOnRegion.iso3166_2.length
+                    }
+
                     var newScore = {
                         _id: score._id,
                         score : score.value,
                         numFollowers:numFollowers,
+                        iso3166Length : iso3166Length,
                         user:kuorumUser
                     };
                     db.${tempCollectionName}.save(newScore);
@@ -451,12 +458,17 @@ class KuorumUserService {
             function (){
                 db.kuorumUser.find({userType:'${UserType.POLITICIAN}'}).forEach(function(politician){
                     var score = db.${tempCollectionName}.find({_id:politician._id})[0];
+                    var iso3166Length = 0
+                    if (politician.politicianOnRegion != undefined){
+                        iso3166Length = politician.politicianOnRegion.iso3166_2.length
+                    }
                     if (score == undefined){
                         var numFollowers = politician.followers.length
                         var newScore = {
                             _id: politician._id,
                             score : 0,
                             numFollowers:numFollowers,
+                            iso3166Length : iso3166Length,
                             user:politician
                         };
                         db.${tempCollectionName}.save(newScore);
@@ -466,9 +478,8 @@ class KuorumUserService {
             """
             userScoredCollection.getDB().eval(cpPoliticiansWithOutScore)
             DBObject index = new BasicDBObject("score", -1)
+            index.append("iso3166Length", -1)
             userScoredCollection.createIndex(index)
-
-
             return userScoredCollection
         }
     }
