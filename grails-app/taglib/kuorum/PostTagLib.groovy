@@ -6,6 +6,7 @@ import kuorum.core.model.VoteType
 import kuorum.core.model.solr.SolrSubType
 import kuorum.core.model.solr.SolrType
 import kuorum.post.Cluck
+import kuorum.post.CluckAction
 import kuorum.post.Post
 import kuorum.post.PostComment
 import kuorum.users.KuorumUser
@@ -127,7 +128,7 @@ class PostTagLib {
         if (attrs.cluck){
             Cluck cluck = attrs.cluck
             post = cluck.post
-            showRecluckArrow = isPostImpotant(post) && cluck.owner !=post.owner
+            showRecluckArrow = cluck.cluckAction != CluckAction.CREATE
         }
 
         if (post.defender && post.victory){
