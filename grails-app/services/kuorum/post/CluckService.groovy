@@ -42,11 +42,13 @@ class CluckService {
         String mapDashboardClucks = """
 function(){
     if (this.cluckAction == "${CluckAction.DEBATE}"){
-        emit(this.post,{val:2,cluck:this._id, lastUpdated:this.lastUpdated});
+        emit(this.post,{val:3,cluck:this._id, lastUpdated:this.lastUpdated});
     }else if (this.cluckAction == "${CluckAction.DEFEND}"){
-        emit(this.post,{val:3,cluck:this._id, lastUpdated:this.lastUpdated})
+        emit(this.post,{val:4,cluck:this._id, lastUpdated:this.lastUpdated})
     }else if (this.cluckAction == "${CluckAction.VICTORY}"){
-        emit(this.post,{val:3,cluck:this._id, lastUpdated:this.lastUpdated})
+        emit(this.post,{val:4,cluck:this._id, lastUpdated:this.lastUpdated})
+    }else if (this.cluckAction == "${CluckAction.SPONSOR}"){
+        emit(this.post,{val:2,cluck:this._id, lastUpdated:this.lastUpdated})
     }else{
         emit(this.post,{val:1,cluck:this._id, lastUpdated:this.lastUpdated})
     }
