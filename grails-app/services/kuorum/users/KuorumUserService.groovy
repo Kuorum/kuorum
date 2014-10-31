@@ -351,7 +351,7 @@ class KuorumUserService {
         if (user){
             regions = regionService.findUserRegions(user)
         }else{
-            regions = [[iso3166_2:"EU-ES"]]
+            regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
         }
         DBObject inRegions = new BasicDBObject('$in',regions.collect{it.iso3166_2})
         query.append('user.politicianOnRegion.iso3166_2',inRegions)
