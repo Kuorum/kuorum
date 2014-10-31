@@ -19,7 +19,8 @@ class CluckService {
         Cluck.findAllByLawAndIsFirstCluck(law, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
     }
 
-    private static Integer POOL_COLLECTIONS_MAX=10;
+    private static String TEMPORAL_DB = "temporalDB"
+    private static Integer POOL_COLLECTIONS_MAX=100;
     private static Integer ELEMENTS_FOR_PROCESS_IN_MAPREDUCE=10000;
     private Integer actualCollectionIdx = 0;
     private synchronized getCollectionName(String prefixCollectionName){
@@ -78,6 +79,7 @@ function(key, values){
                 reduceDashBoardClucks ,
                 collectionName,
                 MapReduceCommand.OutputType.REPLACE,filter);
+        dashboardClucks.setOutputDB(TEMPORAL_DB)
 
         //Reduce de amount of initial data for reduce time processing only getting first ELEMENTS_FOR_PROCESS_IN_MAPREDUCE elements
         dashboardClucks.setLimit(ELEMENTS_FOR_PROCESS_IN_MAPREDUCE)
