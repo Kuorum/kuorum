@@ -6,6 +6,7 @@ import com.ecwid.mailchimp.method.v2_0.lists.Email
 import com.ecwid.mailchimp.method.v2_0.lists.SubscribeMethod
 import grails.transaction.Transactional
 import kuorum.core.model.CommissionType
+import kuorum.core.model.UserType
 import kuorum.users.KuorumUser
 import org.springframework.beans.factory.annotation.Value
 
@@ -38,7 +39,7 @@ class MailchimpService {
             subscribeMethod.send_welcome = false;
             subscribeMethod.replace_interests = true;
             subscribeMethod.merge_vars = createMergeVars(user)
-            mailChimpClient.execute(subscribeMethod);
+            def userMailChimpId = mailChimpClient.execute(subscribeMethod);
 
             log.info(" Se ha añadido correctamente el usuario $user con mail $user.email a MailChimp");
             mailChimpClient.close();
@@ -52,15 +53,19 @@ class MailchimpService {
 
     private MailChimpMergeVars createMergeVars(KuorumUser user){
         MailChimpMergeVars mergeVars = new MailChimpMergeVars();
-        mergeVars.POSTALCODE = user.personalData.postalCode
-        mergeVars.BIRTHDAY = user.personalData.birthday?.format(MAILCHIMP_DATE_FORMAT)
+        mergeVars.MC_POSTALCODE = user.personalData.postalCode
+        mergeVars.MC_BIRTHDAY = user.personalData.birthday?.format(MAILCHIMP_DATE_FORMAT)
         mergeVars.EMAIL = user.email
         mergeVars.FNAME = user.name
+        mergeVars.LNAME = user.name
         mergeVars.GENDER = user.personalData.gender.toString()
         mergeVars.PROVINCE = user.personalData.provinceCode
-        mergeVars.STUDIES = user.personalData.studies
-        mergeVars.WORKINGSEC = user.personalData.workingSector
+        if (user.userType != UserType.ORGANIZATION){
+            mergeVars.STUDIES = user.personalData.studies
+            mergeVars.WORKINGSEC = user.personalData.workingSector
+        }
         mergeVars.USERTYPE = user.userType.toString()
+        mergeVars.mc_language = user.language.locale.toString()
         mergeVars.groupings = createGroups(user)
         mergeVars
     }
