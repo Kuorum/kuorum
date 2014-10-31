@@ -10,7 +10,7 @@ import kuorum.core.model.LawStatusType
 import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.files.FileService
-import kuorum.post.Cluck
+import kuorum.post.Post
 import kuorum.solr.IndexSolrService
 import kuorum.solr.SearchSolrService
 import kuorum.users.GamificationService
@@ -195,7 +195,7 @@ class LawService {
     }
 
     List<KuorumUser> activePeopleOnLaw(Law law){
-        Cluck.collection.distinct('postOwner',[law:law.id]).collect{KuorumUser.get(it)}
+        Post.collection.distinct('owner',[law:law.id]).collect{KuorumUser.get(it)}
     }
 
     List<Law> recommendedLaws(Pagination pagination){ recommendedLaws(null,pagination)}
