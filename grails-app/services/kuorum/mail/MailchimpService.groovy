@@ -53,8 +53,8 @@ class MailchimpService {
 
     private MailChimpMergeVars createMergeVars(KuorumUser user){
         MailChimpMergeVars mergeVars = new MailChimpMergeVars();
-        mergeVars.MC_POSTALCODE = user.personalData.postalCode
-        mergeVars.MC_BIRTHDAY = user.personalData.birthday?.format(MAILCHIMP_DATE_FORMAT)
+        mergeVars.POSTALCODE = user.personalData.postalCode
+        mergeVars.BIRTHDAY = user.personalData.birthday?.format(MAILCHIMP_DATE_FORMAT)
         mergeVars.EMAIL = user.email
         mergeVars.FNAME = user.name
         mergeVars.LNAME = user.name

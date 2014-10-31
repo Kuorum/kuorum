@@ -11,9 +11,8 @@ class MailChimpMergeVars extends MailChimpObject {
     @Field public String EMAIL;
     @Field public String FNAME
     @Field public String LNAME
-    @Field public String MC_BIRTHDAY
-    @Field public String birthday
-    @Field public String MC_POSTALCODE
+    @Field public String BIRTHDAY
+    @Field public String POSTALCODE
     @Field public String GENDER
     @Field public String PROVINCE
     @Field public String STUDIES
