@@ -1,6 +1,7 @@
 package kuorum.mail
 
 import com.ecwid.mailchimp.MailChimpObject
+import com.ecwid.mailchimp.MailChimpObject.Field
 
 /**
  * Created by iduetxe on 16/02/14.
