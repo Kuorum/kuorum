@@ -358,9 +358,10 @@ class KuorumUserService {
 
 
         DBCursor cursor = bestPoliticiansCollection.find(query)
-        DBObject sort = new BasicDBObject('iso3166Length',-1);
-        sort.append('score',-1);
+        DBObject sort = new BasicDBObject();
         sort.append('user.enabled',-1)
+        sort.append('iso3166Length',-1);
+        sort.append('score',-1);
         sort.append('numFollowers',-1)
         cursor.sort(sort)
         cursor.limit(pagination.max.intValue())
