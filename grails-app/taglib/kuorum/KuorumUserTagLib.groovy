@@ -15,6 +15,8 @@ class KuorumUserTagLib {
 
     def springSecurityService
 
+    private Integer NUM_MAX_ON_USER_LIST = 100
+
     def loggedUserName = {attrs ->
         if (springSecurityService.isLoggedIn()){
             out << KuorumUser.get(springSecurityService.principal.id).name
@@ -108,8 +110,9 @@ class KuorumUserTagLib {
         if (!user){
             throw Exception("Si no est� logado el usuario es necesario indicar el usuario")
         }
-        List<KuorumUser> users = user.followers.collect{id -> KuorumUser.load(id)}
-        out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.follower.userList')
+        List<ObjectId> userIdsLimited = user.followers.size()>NUM_MAX_ON_USER_LIST? user.followers.take(NUM_MAX_ON_USER_LIST):user.followers
+        List<KuorumUser> users = userIdsLimited.collect{id -> KuorumUser.load(id)}
+        out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.follower.userList', total:user.followers.size())
     }
 
     def listFollowing={attrs ->
@@ -118,10 +121,11 @@ class KuorumUserTagLib {
             user = KuorumUser.get(springSecurityService.principal.id)
         }
         if (!user){
-            throw new Exception("Si no est� logado el usuario es necesario indicar el usuario")
+            throw new Exception("Si no esta logado el usuario es necesario indicar el usuario")
         }
-        List<KuorumUser> users = user.following.collect{id -> KuorumUser.load(id)}
-        out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.following.userList')
+        List<ObjectId> userIdsLimited = user.following.size()>NUM_MAX_ON_USER_LIST? user.following.take(NUM_MAX_ON_USER_LIST):user.following
+        List<KuorumUser> users = userIdsLimited.collect{id -> KuorumUser.load(id)}
+        out << showListUsers(users:users, visibleUsers:"13", messagesPrefix: 'kuorumUser.show.following.userList', total:user.following.size())
     }
 
     def counterUserLikes={attrs->
