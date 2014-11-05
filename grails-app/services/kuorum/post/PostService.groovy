@@ -462,8 +462,8 @@ class PostService {
         }
         Date defenderDate = new Date()
         Post.collection.update ( [_id:post.id],['$set':[defender:politician.id,defenderDate:defenderDate, commitmentType:commitmentType.toString()]])
-        cluckService.createActionCluck(post, politician, CluckAction.DEFEND)
         post.refresh()
+        cluckService.createActionCluck(post, politician, CluckAction.DEFEND)
         notificationService.sendPostDefendedNotification(post)
         post
     }
