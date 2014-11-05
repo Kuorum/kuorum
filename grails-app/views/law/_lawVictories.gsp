@@ -30,8 +30,8 @@
                             <img alt="${post.multimedia.alt}" src="${post.multimedia.url}" class="actor">
                         </g:if>
                         <div class="content">
-                            <p>Etiam vel lacus sed velit fringilla porta in id tortor. Donec libero eros, tristique id scelerisque eu, lobortis et est. Nlacus sed velitsas</p> <!-- 140 caracteres -->
-                            <p><strong>y 3 días después</strong></p>
+                            <p>${post.title}</p> <!-- 140 caracteres -->
+                            <p><strong>y <kuorumDate:humanDate date="${post.dateCreated}"/> </strong></p>
                             %{--<userUtil:showUser user="${post.defender}"/>--}%
                             <div class="user" itemscope itemtype="http://schema.org/Person">
                                 <img src="${image.userImgSrc(user:post.defender)}" alt="${post.defender.name}" class="user-img" itemprop="image">
