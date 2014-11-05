@@ -437,6 +437,7 @@ class PostService {
         post.victory = Boolean.TRUE
         Post.collection.update ( [_id:post.id],['$set':[victory:post.victory]])
         post.refresh()
+        cluckService.createActionCluck(post, owner, CluckAction.VICTORY)
         notificationService.sendVictoryNotification(post)
         post
     }
