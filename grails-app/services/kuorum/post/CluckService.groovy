@@ -156,6 +156,7 @@ function(key, values){
 
         }
         cluck.lastUpdated = new Date();
+        cluck.cluckAction = cluckAction;
 
         if (!cluck.save()){
             KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
