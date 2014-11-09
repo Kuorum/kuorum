@@ -9,5 +9,11 @@
     <span class="text-notification">
         ${text}
     </span>
-    <g:render template="/layouts/notifications/notificationAction" model="[answerLink:answerLink, notification:notification, modalVictory:modalVictory]"/>
+    <g:if test="${answerLink && notification.isActive}">
+        <span class="actions clearfix">
+            <span class="pull-right">
+                <g:render template="/layouts/notifications/notificationActionLink" model="[answerLink:answerLink, notification:notification, modalVictory:modalVictory]"/>
+            </span>
+        </span>
+    </g:if>
 </li>

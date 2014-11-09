@@ -1046,6 +1046,19 @@ $(document).ready(function() {
         $('#modalVictory').modal('hide');
     });
 
+    $('.modalVictoryAction').on("click", function (e) {
+        e.preventDefault()
+        var notificationId = $(this).attr("data-notificationId")
+        var link = $(this).attr("href")
+        $.ajax({
+            url:link
+        }).done(function(data){
+            $('#modalVictory').modal('hide');
+            modalVictory.hideNotificationActions(notificationId);
+            display.success(data)
+        })
+    });
+
     $('body').on("click",".votePostCommentLink", function(e){
         e.preventDefault()
         var element = $(this)
@@ -1103,8 +1116,11 @@ var modalVictory = {
         $("#modalVictoryDefender .action").html(modalData.post.action)
         $("#modalVictory .modal-body p").first().html(modalData.post.description)
         $("#modalVictory .modal-body p").last().html(modalData.post.lawLink)
-        $("#modalVictory .modal-footer a").first().attr('href',modalData.post.victoryLink)
-        $("#modalVictory .modal-footer a").last().attr('href',modalData.post.victoryLink)
+        $("#modalVictory .modal-footer a").attr('href',modalData.post.victoryLink)
+        $("#modalVictory .modal-footer a").attr('data-notificationId',notificationId)
+    },
+    hideNotificationActions:function(notificationId){
+        $("[data-notification-id="+notificationId+"]").hide();
     }
 }
 

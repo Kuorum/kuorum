@@ -391,7 +391,8 @@ class PostController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Post post = params.post
         postService.victory(post, user)
-        flash.message = message(code:'modalVictory.success', args:[post.defender.name])
-        redirect (mapping:"postShow", params:post.encodeAsLinkProperties())
+//        flash.message = message(code:'modalVictory.success', args:[post.defender.name])
+//        redirect (mapping:"postShow", params:post.encodeAsLinkProperties())
+        render message(code:'modalVictory.success', args:[post.defender.name])
     }
 }

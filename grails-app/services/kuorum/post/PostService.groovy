@@ -12,6 +12,7 @@ import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchUserPosts
 import kuorum.law.Law
+import kuorum.notifications.DefendedPostAlert
 import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
 
@@ -438,6 +439,8 @@ class PostService {
         Post.collection.update ( [_id:post.id],['$set':[victory:post.victory]])
         post.refresh()
         cluckService.createActionCluck(post, owner, CluckAction.VICTORY)
+        Notification notification = DefendedPostAlert.findByPostAndKuorumUser(post,owner);
+        notificationService.markAsInactive(owner, notification);
         notificationService.sendVictoryNotification(post)
         post
     }

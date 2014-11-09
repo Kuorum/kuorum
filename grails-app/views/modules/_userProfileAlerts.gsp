@@ -19,6 +19,7 @@
                     </g:set>
                     <g:set var="user" value="${alert.debateWriter}"/>
                     <g:set var="answerLink" value="${createLink(mapping: 'postShow', params: alert.post.encodeAsLinkProperties())}#debates"/>
+                    <g:set var="modalVictory" value="${false}"/>
                 </g:if>
                 <g:elseif test="${alert.instanceOf(DefendedPostAlert)}">
                     <g:set var="postType">
@@ -28,9 +29,10 @@
                         <g:message code="notifications.defendedPostAlert.text" args="[postType]"/>
                     </g:set>
                     <g:set var="user" value="${alert.defender}"/>
-                    <g:set var="answerLink" value="#"/>
+                    <g:set var="answerLink" value="${createLink(mapping: 'postAddVictory', params: alert.post.encodeAsLinkProperties())}"/>
+                    <g:set var="modalVictory" value="${true}"/>
                 </g:elseif>
-                <g:render template="/modules/userProfileAlerts/userProfileAlert" model="[user:user, message:message, alert:alert, answerLink:answerLink]"/>
+                <g:render template="/modules/userProfileAlerts/userProfileAlert" model="[user:user, message:message, alert:alert, answerLink:answerLink, modalVictory:modalVictory]"/>
             </g:each>
             <li class="text-center">
                 <small>

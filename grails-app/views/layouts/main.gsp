@@ -96,7 +96,7 @@
 </script>
 
 <!-- Modal -->
-<aside class="modal fade" id="modalVictory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<aside class="modal fade" id="modalVictory" tabindex="-1" role="dialog" aria-labelledby="Victoria" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header clearfix">
@@ -122,8 +122,8 @@
             </div>
             <div class="modal-footer">
                 <p><g:message code="modalVictory.argument"/> </p>
-                <a href="#" class="btn btn-grey btn-lg"><g:message code="modalVictory.yes" encodeAs="raw"/> </a>
-                <a href="#" class="btn btn-grey btn-lg"><g:message code="modalVictory.no" encodeAs="raw"/> </a>
+                <a href="#" class="btn btn-grey btn-lg modalVictoryAction" data-notificationId="XX"><g:message code="modalVictory.yes" encodeAs="raw"/> </a>
+                <a href="#" class="btn btn-grey btn-lg modalVictoryAction" data-notificationId="XX"><g:message code="modalVictory.no" encodeAs="raw"/> </a>
                 <a class="cancel modalVictoryClose" href="#"><g:message code="modalVictory.notYet" encodeAs="raw"/></a>
             </div>
         </div>
