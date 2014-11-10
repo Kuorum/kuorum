@@ -30,7 +30,8 @@
                             <img alt="${post.multimedia.alt}" src="${post.multimedia.url}" class="actor">
                         </g:if>
                         <div class="content">
-                            <p>${post.title}</p> <!-- 140 caracteres -->
+                            <h4>${post.title}</h4> <!-- 140 caracteres -->
+                            <p>${raw(post.text.size()>300?post.text.substring(0,300)+"...":post.text)}</p> <!-- 140 caracteres -->
                             <p><strong>y <kuorumDate:humanDate date="${post.dateCreated}"/> </strong></p>
                             %{--<userUtil:showUser user="${post.defender}"/>--}%
                             <div class="user" itemscope itemtype="http://schema.org/Person">
