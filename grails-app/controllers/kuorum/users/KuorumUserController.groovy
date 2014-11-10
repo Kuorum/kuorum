@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse
 
 class KuorumUserController {
 
-    static scaffold = true
     def springSecurityService
     def kuorumUserService
+    def kuorumUserStatsService
     def cluckService
     def searchSolrService
 
@@ -111,7 +111,7 @@ class KuorumUserController {
             Pagination pagination = new Pagination()
             List<Cluck> clucks = cluckService.userClucks(politician, pagination)
             List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(politician)
-            def politicianStats =[postDefended:0, victories:0, debates:0]
+            PoliticianActivity politicianStats =kuorumUserStatsService.calculatePoliticianActivity(politician)
             render (view:"show", model:[user:politician, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName,politicianStats:politicianStats, seeMore: clucks.size()==pagination.max])
         }else{
             render (view:"showInactivePolitician", model:[user:politician, provinceName:provinceName])

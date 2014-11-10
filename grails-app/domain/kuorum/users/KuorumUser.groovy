@@ -64,6 +64,7 @@ class KuorumUser {
     PoliticalParty politicalParty
     Institution institution
     Region politicianOnRegion
+    PoliticianActivity politicianActivity
 
     //Spring fields
     transient springSecurityService
@@ -92,6 +93,7 @@ class KuorumUser {
         institution nullable:true
         organization nullable: true
         politicianOnRegion nullable:true
+        politicianActivity nullable:true
     }
 
     static mapping = {

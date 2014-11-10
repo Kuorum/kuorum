@@ -218,7 +218,7 @@ class PostServiceSpec extends Specification{
             KuorumUser userGivenVictory = KuorumUser.findByEmail(emailUser)
             post.victory = stausVictoryPost
         when:
-            service.victory(post, userGivenVictory)
+            service.victory(post, userGivenVictory, true)
         then:
 //            final KuorumException exception = thrown()
 //            if (exceptionCode){

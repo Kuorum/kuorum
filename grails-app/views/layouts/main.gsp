@@ -122,8 +122,8 @@
             </div>
             <div class="modal-footer">
                 <p><g:message code="modalVictory.argument"/> </p>
-                <a href="#" class="btn btn-grey btn-lg modalVictoryAction" data-notificationId="XX"><g:message code="modalVictory.yes" encodeAs="raw"/> </a>
-                <a href="#" class="btn btn-grey btn-lg modalVictoryAction" data-notificationId="XX"><g:message code="modalVictory.no" encodeAs="raw"/> </a>
+                <a href="#" class="btn btn-grey btn-lg modalVictoryAction" data-notificationId="XX" data-victoryOk="true"><g:message code="modalVictory.yes" encodeAs="raw"/> </a>
+                <a href="#" class="btn btn-grey btn-lg modalVictoryAction" data-notificationId="XX" data-victoryOk="false"><g:message code="modalVictory.no" encodeAs="raw"/> </a>
                 <a class="cancel modalVictoryClose" href="#"><g:message code="modalVictory.notYet" encodeAs="raw"/></a>
             </div>
         </div>

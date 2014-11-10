@@ -12,6 +12,7 @@ import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchUserPosts
 import kuorum.law.Law
+import kuorum.mail.KuorumMailService
 import kuorum.notifications.DefendedPostAlert
 import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
@@ -27,6 +28,7 @@ class PostService {
     def gamificationService
     def fileService
     def shortUrlService
+    KuorumMailService kuorumMailService
 
     /**
      * Save a post and creates the first firstCluck and first vote (owner vote)
@@ -313,9 +315,10 @@ class PostService {
 
     Post addDebate(Post post, PostComment comment){
         if (isAllowedToAddDebate(post, comment.kuorumUser)){
+            KuorumUser user = comment.kuorumUser
             //Atomic operation
             def commentData = [
-                    kuorumUserId: comment.kuorumUser.id,
+                    kuorumUserId: user.id,
                     text:comment.text,
                     dateCreated: new Date(),
                     moderated:comment.moderated,
@@ -323,6 +326,10 @@ class PostService {
             Post.collection.update ( [_id:post.id],['$push':['debates':commentData]])
             post.refresh()
             cluckService.createActionCluck(post, comment.kuorumUser, CluckAction.DEBATE)
+            if (user.userType == UserType.POLITICIAN){
+                user.politicianActivity.numDebates +=1
+                user.save()
+            }
             notificationService.sendDebateNotification(post)
             post
         }else{
@@ -422,7 +429,7 @@ class PostService {
         posts
     }
 
-    Post victory(Post post, KuorumUser owner){
+    Post victory(Post post, KuorumUser owner, Boolean victoryOk){
 
         if (post.owner != owner){
             String message =  "Esta dando victoria el usuario ${owner} cuando el dueño del post es ${post.owner}"
@@ -442,6 +449,7 @@ class PostService {
         Notification notification = DefendedPostAlert.findByPostAndKuorumUser(post,owner);
         notificationService.markAsInactive(owner, notification);
         notificationService.sendVictoryNotification(post)
+        kuorumMailService.sendVictoryToAdmins(owner, post, victoryOk)
         post
     }
 
@@ -467,6 +475,8 @@ class PostService {
         Post.collection.update ( [_id:post.id],['$set':[defender:politician.id,defenderDate:defenderDate, commitmentType:commitmentType.toString()]])
         post.refresh()
         cluckService.createActionCluck(post, politician, CluckAction.DEFEND)
+        politician.politicianActivity.numDefends +=1
+        politician.save()
         notificationService.sendPostDefendedNotification(post)
         post
     }

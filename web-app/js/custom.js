@@ -1049,9 +1049,11 @@ $(document).ready(function() {
     $('.modalVictoryAction').on("click", function (e) {
         e.preventDefault()
         var notificationId = $(this).attr("data-notificationId")
+        var victoryOk = $(this).attr("data-victoryOk")
         var link = $(this).attr("href")
         $.ajax({
-            url:link
+            url:link,
+            data:{victoryOk:victoryOk}
         }).done(function(data){
             $('#modalVictory').modal('hide');
             modalVictory.hideNotificationActions(notificationId);

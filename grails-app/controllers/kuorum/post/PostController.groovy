@@ -386,11 +386,10 @@ class PostController {
     }
 
     @Secured('isAuthenticated()')
-    def addVictory() {
-
+    def addVictory(Boolean victoryOk) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Post post = params.post
-        postService.victory(post, user)
+        postService.victory(post, user, victoryOk)
 //        flash.message = message(code:'modalVictory.success', args:[post.defender.name])
 //        redirect (mapping:"postShow", params:post.encodeAsLinkProperties())
         render message(code:'modalVictory.success', args:[post.defender.name])

@@ -69,4 +69,19 @@ class KuorumUserStatsService {
         }
         res
     }
+
+    PoliticianActivity calculatePoliticianActivity(KuorumUser politician){
+        if (politician.userType!=UserType.POLITICIAN){
+            log.warn("Calculando actividad politica de alguien que no es político: "+politician)
+            return new PoliticianActivity()
+        }else {
+            if (!politician.politicianActivity){
+                log.warn("Político sin su actividad calculada previamente: "+politician)
+                politician.politicianActivity = new PoliticianActivity()
+                politician.save()
+            }
+            return politician.politicianActivity
+        }
+
+    }
 }

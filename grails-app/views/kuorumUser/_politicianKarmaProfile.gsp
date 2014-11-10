@@ -4,15 +4,15 @@
     <p><g:message code="kuorumUser.show.politiciankarma.description"/></p>
     <ul class="activity">
         <li>
-            <span class="counter">${politicianStats.postDefended}</span>
+            <span class="counter">${politicianStats.numDefends}</span>
             <br><g:message code="kuorumUser.show.politiciankarma.postDefended"/>
         </li>
         <li class="victories">
-            <span class="counter">${politicianStats.victories}</span>
+            <span class="counter">${politicianStats.numVictories}</span>
             <br><g:message code="kuorumUser.show.politiciankarma.vicotries"/>
         </li>
         <li>
-            <span class="counter">${politicianStats.debates}</span>
+            <span class="counter">${politicianStats.numDebates}</span>
             <br><g:message code="kuorumUser.show.politiciankarma.debates"/>
         </li>
     </ul>

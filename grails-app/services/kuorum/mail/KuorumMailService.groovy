@@ -36,6 +36,10 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
+    def sendVictoryToAdmins(KuorumUser user, Post post, Boolean vicotryType){
+        MailUserData mailUserData = new MailUserData(user:getFeedbackUser(), bindings:[])
+    }
+
     private KuorumUser getFeedbackUser(){
         //Chapu
         KuorumUser user = new KuorumUser(
