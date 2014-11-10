@@ -316,6 +316,10 @@ class PostService {
     Post addDebate(Post post, PostComment comment){
         if (isAllowedToAddDebate(post, comment.kuorumUser)){
             KuorumUser user = comment.kuorumUser
+            if (!post.debates.collect{it.kuorumUser.id}.contains(user.id) && user.userType == UserType.POLITICIAN){
+                user.politicianActivity.numDebates ++
+                user.save()
+            }
             //Atomic operation
             def commentData = [
                     kuorumUserId: user.id,
@@ -326,10 +330,7 @@ class PostService {
             Post.collection.update ( [_id:post.id],['$push':['debates':commentData]])
             post.refresh()
             cluckService.createActionCluck(post, comment.kuorumUser, CluckAction.DEBATE)
-            if (user.userType == UserType.POLITICIAN){
-                user.politicianActivity.numDebates +=1
-                user.save()
-            }
+
             notificationService.sendDebateNotification(post)
             post
         }else{
@@ -445,6 +446,9 @@ class PostService {
         post.victory = Boolean.TRUE
         Post.collection.update ( [_id:post.id],['$set':[victory:post.victory, victoryOk:victoryOk]])
         post.refresh()
+        KuorumUser defender = post.defender
+        defender.politicianActivity.numVictories +=1
+        defender.save()
         cluckService.createActionCluck(post, owner, CluckAction.VICTORY)
         Notification notification = DefendedPostAlert.findByPostAndKuorumUser(post,owner);
         notificationService.markAsInactive(owner, notification);

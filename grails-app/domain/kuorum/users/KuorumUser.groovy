@@ -53,7 +53,7 @@ class KuorumUser {
 
 //    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
 
-    static embedded = ['personalData', 'authorities','gamification','avatar', 'activity','imageProfile','socialLinks','politicianOnRegion']
+    static embedded = ['personalData', 'authorities','gamification','avatar', 'activity','politicianActivity','imageProfile','socialLinks','politicianOnRegion']
 
     /**
      * Represents the last time that the user checked the notifications
