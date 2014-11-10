@@ -443,13 +443,17 @@ class PostService {
         }
 
         post.victory = Boolean.TRUE
-        Post.collection.update ( [_id:post.id],['$set':[victory:post.victory]])
+        Post.collection.update ( [_id:post.id],['$set':[victory:post.victory, victoryOk:victoryOk]])
         post.refresh()
         cluckService.createActionCluck(post, owner, CluckAction.VICTORY)
         Notification notification = DefendedPostAlert.findByPostAndKuorumUser(post,owner);
         notificationService.markAsInactive(owner, notification);
         notificationService.sendVictoryNotification(post)
-        kuorumMailService.sendVictoryToAdmins(owner, post, victoryOk)
+        try{
+            kuorumMailService.sendVictoryToAdmins(owner, post, victoryOk)
+        }catch (Exception e){
+            log.error("No se ha podido enviar el email de notificacion de victoria a los administradores: "+e.getMessage())
+        }
         post
     }
 

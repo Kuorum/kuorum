@@ -36,8 +36,20 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
-    def sendVictoryToAdmins(KuorumUser user, Post post, Boolean vicotryType){
+    def sendVictoryToAdmins(KuorumUser user, Post post, Boolean victoryOk){
+        def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                defender:post.defender.name,
+                defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
+                postName:post.title,
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
+                postOwner: post.owner.name,
+                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties()),
+                victoryOk:victoryOk
+        ]
         MailUserData mailUserData = new MailUserData(user:getFeedbackUser(), bindings:[])
+        MailData mailData = new MailData(fromName:user.name, mailType: MailType.FEEDBACK_VICTORY, globalBindings: globalBindings, userBindings: [mailUserData])
+        mandrillAppService.sendTemplate(mailData)
     }
 
     private KuorumUser getFeedbackUser(){
