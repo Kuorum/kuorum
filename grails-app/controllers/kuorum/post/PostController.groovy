@@ -175,6 +175,8 @@ class PostController {
         redirect mapping:"postReview", params:post.encodeAsLinkProperties()
     }
 
+
+    private static final boolean WITH_POST_REVIEW = false;
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def review(){
         Post post = params.post
@@ -183,6 +185,10 @@ class PostController {
             return;
         }
         [post:post]
+        //TODO: EL proceso de review no queda claro y la gente no llega a publicar. Solo salva. Se hace de modo rápido
+        if (!WITH_POST_REVIEW){
+            redirect mapping:"postPublish", params:post.encodeAsLinkProperties()
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
