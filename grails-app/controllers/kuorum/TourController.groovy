@@ -49,6 +49,7 @@ class TourController {
                     lastUpdated:post.dateCreated
             )
             cluckFake.dateCreated = post.dateCreated
+            cluckFake.lastUpdated = post.dateCreated
             cluckFake.post = post
             cluckFake.law = post.law
             cluckFake
