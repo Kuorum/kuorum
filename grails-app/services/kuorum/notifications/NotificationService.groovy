@@ -135,21 +135,44 @@ class NotificationService {
     }
 
     void sendCommentNotifications(Post post, PostComment comment){
+        sendCommentNotificationsOwner(post, comment)
+        sendCommentNotificationsUsers(post, comment)
+    }
+    private void sendCommentNotificationsOwner(Post post, PostComment comment){
+        CommentMyPostNotification commentNotification = new CommentMyPostNotification(
+                kuorumUser: post.owner,
+                commentWriter: comment.kuorumUser,
+                post: post,
+                text: comment.text
+        )
+        commentNotification.save()
+        kuorumMailService.sendCommentedPostNotificationOwner(post, comment)
+    }
+    private void sendCommentNotificationsUsers(Post post, PostComment comment){
         List<KuorumUser> users = post.comments*.kuorumUser
         KuorumUser commentWriter = comment.kuorumUser
-        users.add(post.owner)
         users = users.unique()
+        users.remove(post.owner)
         users.remove(commentWriter)
+        Set<MailUserData> notificationUsers = []
         users.each {KuorumUser user ->
-            CommentNotification commentNotification = new CommentNotification(
+            CommentGenericNotification commentNotification = new CommentGenericNotification(
                     kuorumUser: user,
                     commentWriter: commentWriter,
                     post: post,
                     text: comment.text
             )
             commentNotification.save()
+            notificationUsers << new MailUserData(user:user, bindings:[:])
+            if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                kuorumMailService.sendCommentedPostNotificationUsers(post, comment, notificationUsers)
+                notificationUsers.clear()
+            }
         }
-
+        if (!notificationUsers.isEmpty()){
+            kuorumMailService.sendCommentedPostNotificationUsers(post, comment, notificationUsers)
+            notificationUsers.clear()
+        }
     }
 
     void sendMilestoneNotification(Post post){
@@ -229,29 +252,32 @@ class NotificationService {
 
         //All interested people for their vote
 
-        PostVote.findAllByPostAndUserNotEqual(post, post.owner).each{PostVote postVote ->
-            if (postVote.user != post.owner){
-                DebateNotification debateNotification = new DebateNotification()
-                debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
-                debateNotification.isFirstDebate=isFirstDebate
-                debateNotification.post = post
-                debateNotification.debateWriter = debateOwner
-                debateNotification.kuorumUser = postVote.user
-                debateNotification.idDebate = idDebate
-                debateNotification.save()
-                notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
-                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
-                    kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
-                    notificationUsers.clear()
-                }
+        List<KuorumUser> notGenericMail = post.debates.collect{it.kuorumUser}
+        notGenericMail.add(post.owner)
+
+        PostVote.findAllByPostAndUserNotInList(post, notGenericMail).each{PostVote postVote ->
+            DebateNotification debateNotification = new DebateNotification()
+            debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
+            debateNotification.isFirstDebate=isFirstDebate
+            debateNotification.post = post
+            debateNotification.debateWriter = debateOwner
+            debateNotification.kuorumUser = postVote.user
+            debateNotification.idDebate = idDebate
+            debateNotification.save()
+            notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
+            if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+                notificationUsers.clear()
             }
         }
         //All interested people for his followings
         def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
+        interestedUsers.minus(notGenericMail)
 
         interestedUsers.each {ObjectId userId ->
             KuorumUser user = KuorumUser.load(userId)
-            if (user != post.owner && !(DebateNotification.findByPostAndKuorumUserAndIdDebate(post,user,idDebate))){
+            DebateNotification alreadyNotified = DebateNotification.findByPostAndKuorumUserAndIdDebate(post,user,idDebate)
+            if (!alreadyNotified){
                 DebateNotification debateNotification = new DebateNotification()
                 debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
                 debateNotification.post = post
@@ -400,8 +426,13 @@ class NotificationService {
     private void sendPostDefendedNotificationInterestedUsers(Post post){
         Set<MailUserData> notificationUsers = []
 
+        List<KuorumUser> notGenericMail = post.debates.collect{it.kuorumUser}
+        notGenericMail.add(post.owner)
+        notGenericMail.add(post.defender)
+        notGenericMail = notGenericMail.unique()
+
         //All interested people for their vote
-        PostVote.findAllByPostAndUserNotEqual(post, post.owner).each{PostVote postVote ->
+        PostVote.findAllByPostAndUserNotInList(post, notGenericMail).each{PostVote postVote ->
             if (postVote.user != post.owner){
                 DefendedPostNotification debateNotification = new DefendedPostNotification()
                 debateNotification.mailType = MailType.NOTIFICATION_DEFENDED_USERS
@@ -416,13 +447,12 @@ class NotificationService {
                 }
             }
         }
-        //All interested people for his followings
-//        def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
-        def interestedUsers = post.defender.followers
 
+        def interestedUsers = (post.defender.followers + post.owner.followers).unique().minus(notGenericMail*.id)
         interestedUsers.each {ObjectId userId ->
             KuorumUser user = KuorumUser.load(userId)
-            if (user != post.owner && !(DefendedPostNotification.findByPostAndKuorumUser(post,user))){
+            DefendedPostNotification alreadyNotified = DefendedPostNotification.findByPostAndKuorumUser(post,user)
+            if (!alreadyNotified){
                 DefendedPostNotification debateNotification = new DefendedPostNotification()
                 debateNotification.mailType = MailType.NOTIFICATION_DEFENDED_USERS
                 debateNotification.post = post
@@ -489,12 +519,32 @@ class NotificationService {
                 }
             }
         }
-        //All interested people for his followings
-        def interestedUsers = post.defender.followers
-
+        //All interested people for his followings (USER WITH EMAIL)
+        def interestedUsers = post.owner.followers.minus(post.defender.id)
         interestedUsers.each {ObjectId userId->
             KuorumUser user = KuorumUser.load(userId)
-            if (user != post.owner && !(VictoryNotification.findByPostAndKuorumUser(post,user))){
+            VictoryNotification alreadyNotified = VictoryNotification.findByPostAndKuorumUser(post,user)
+            if (!alreadyNotified){
+                VictoryNotification victoryNotification = new VictoryNotification()
+                victoryNotification.mailType = MailType.NOTIFICATION_DEFENDED_USERS
+                victoryNotification.post = post
+                victoryNotification.kuorumUser = user
+                victoryNotification.politician=post.defender
+                victoryNotification.save()
+                notificationUsers << new MailUserData(user:user, bindings:[:])
+                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                    kuorumMailService.sendVictoryNotificationUsers(post, notificationUsers)
+                    notificationUsers.clear()
+                }
+            }
+        }
+
+        //All interested people for his followings (DEFENDER - NO MAIL)
+        interestedUsers = post.defender.followers.minus(post.owner.id)
+        interestedUsers.each {ObjectId userId->
+            KuorumUser user = KuorumUser.load(userId)
+            VictoryNotification alreadyNotified = VictoryNotification.findByPostAndKuorumUser(post,user)
+            if (!alreadyNotified){
                 VictoryNotification victoryNotification = new VictoryNotification()
                 victoryNotification.mailType = MailType.NOTIFICATION_DEFENDED_USERS
                 victoryNotification.post = post

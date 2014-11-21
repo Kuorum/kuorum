@@ -6,6 +6,7 @@ import kuorum.core.model.PostType
 import kuorum.law.Law
 import kuorum.post.Cluck
 import kuorum.post.Post
+import kuorum.post.PostComment
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
@@ -159,7 +160,7 @@ class KuorumMailService {
                 ]
 
         MailData mailNotificationsData = new MailData()
-        mailNotificationsData.mailType = MailType.NOTIFICATION_DEBATE_POLITICIAN
+        mailNotificationsData.mailType = MailType.NOTIFICATION_DEBATE_AUTHOR
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = [mailUserData]
         mailNotificationsData.fromName = prepareFromName(debateOwner.name)
@@ -277,7 +278,6 @@ class KuorumMailService {
                 postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 defender:post.defender.name,
                 defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
-                debateOwner:post.owner.name,
                 postName:post.title,
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
@@ -288,7 +288,7 @@ class KuorumMailService {
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEFENDED_USERS
         mailNotificationsData.globalBindings=globalBindings
         mailNotificationsData.userBindings = notificationUsers.asList()
-        mailNotificationsData.fromName = prepareFromName(post.defender.name)
+        mailNotificationsData.fromName = prepareFromName(post.owner.name)
         mandrillAppService.sendTemplate(mailNotificationsData)
     }
 
@@ -377,6 +377,46 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailNotificationsData)
     }
 
+    def sendCommentedPostNotificationUsers(Post post, PostComment postComment, Set<MailUserData> notificationUsers){
+        def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                comment:postComment.text,
+                commenterLink:generateLink("userShow",postComment.kuorumUser.encodeAsLinkProperties()),
+                commenter:postComment.kuorumUser.name,
+                postName:post.title,
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
+                postOwner: post.owner.name,
+                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties())
+        ]
+
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.NOTIFICATION_COMMENTED_POST_USERS
+        mailNotificationsData.globalBindings=globalBindings
+        mailNotificationsData.userBindings = notificationUsers.asList()
+        mailNotificationsData.fromName = prepareFromName(postComment.kuorumUser.name)
+        mandrillAppService.sendTemplate(mailNotificationsData)
+    }
+
+    def sendCommentedPostNotificationOwner(Post post, PostComment postComment){
+        def globalBindings = [
+                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                comment:postComment.text,
+                commenterLink:generateLink("userShow",postComment.kuorumUser.encodeAsLinkProperties()),
+                commenter:postComment.kuorumUser.name,
+                postName:post.title,
+                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
+                postOwner: post.owner.name,
+                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties())
+        ]
+
+        MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[:])
+        MailData mailNotificationsData = new MailData()
+        mailNotificationsData.mailType = MailType.NOTIFICATION_COMMENTED_POST_OWNER
+        mailNotificationsData.globalBindings=globalBindings
+        mailNotificationsData.userBindings = [mailUserData]
+        mailNotificationsData.fromName = prepareFromName(postComment.kuorumUser.name)
+        mandrillAppService.sendTemplate(mailNotificationsData)
+    }
 
     def verifyUser(KuorumUser user){
         mailingListUpdateUser(user)
