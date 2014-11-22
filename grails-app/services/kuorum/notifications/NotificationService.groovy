@@ -139,14 +139,16 @@ class NotificationService {
         sendCommentNotificationsUsers(post, comment)
     }
     private void sendCommentNotificationsOwner(Post post, PostComment comment){
-        CommentMyPostNotification commentNotification = new CommentMyPostNotification(
-                kuorumUser: post.owner,
-                commentWriter: comment.kuorumUser,
-                post: post,
-                text: comment.text
-        )
-        commentNotification.save()
-        kuorumMailService.sendCommentedPostNotificationOwner(post, comment)
+        if (post.owner != comment.kuorumUser){
+            CommentMyPostNotification commentNotification = new CommentMyPostNotification(
+                    kuorumUser: post.owner,
+                    commentWriter: comment.kuorumUser,
+                    post: post,
+                    text: comment.text
+            )
+            commentNotification.save()
+            kuorumMailService.sendCommentedPostNotificationOwner(post, comment)
+        }
     }
     private void sendCommentNotificationsUsers(Post post, PostComment comment){
         List<KuorumUser> users = post.comments*.kuorumUser
