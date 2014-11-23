@@ -23,7 +23,7 @@ public enum MailType {
     NOTIFICATION_DEFENDED_BY_POLITICIAN (MailGroupType.MAIL_RELATED_WITH_POLITICIANS,   "17_notificationDefendedByPolitician","notification",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_DEFENDED_POLITICIANS   (MailGroupType.POLITICIAN_MAIL,                 "18_notificationDefendedPoliticians", "notification",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_COMMENTED_POST_OWNER   (MailGroupType.MAIL_RELATED_WITH_ME,            "22_notificationCommentAuthor", "notification",[],["postType","commenter","commenterLink","comment", "postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_COMMENTED_POST_USERS   (MailGroupType.MAIL_RELATED_WITH_ME,            "23_notificationCommentCommenter", "notification",[],["postType","commenter","commenterLink","comment", "postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_COMMENTED_POST_USERS   (MailGroupType.MAIL_RELATED_WITH_OTHER_USERS,   "23_notificationCommentCommenter", "notification",[],["postType","commenter","commenterLink","comment", "postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_VICTORY_USERS          (MailGroupType.MAIL_RELATED_WITH_OTHER_USERS,   "21_notificationVictoryUsers","notification",[],  ["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_VICTORY_DEFENDER       (MailGroupType.POLITICIAN_MAIL,                 "20_notificationVictoryDefender","notification",[],  ["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
 
