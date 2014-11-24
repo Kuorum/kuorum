@@ -279,6 +279,7 @@ class PostService {
                 Post.collection.update([_id:post.id],['$push':dbObject])
                 post.refresh()
             }
+            notificationService.sendCommentVoteNotification(post, postComment, voteType, votedBy)
 
         }else{
             log.warn("Un usuario ha intentado votar 2 veces")

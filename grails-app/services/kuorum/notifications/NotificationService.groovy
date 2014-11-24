@@ -4,6 +4,7 @@ import grails.transaction.Transactional
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.LawStatusType
+import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchNotifications
 import kuorum.law.Law
@@ -102,6 +103,20 @@ class NotificationService {
      */
     List<Notification> findUserAlerts(KuorumUser user, Pagination pagination = new Pagination()){
         Notification.findAllByKuorumUserAndIsAlert(user, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
+    }
+
+    void sendCommentVoteNotification(Post post,  PostComment postComment,VoteType voteType, KuorumUser votingUser){
+        if (votingUser != postComment.kuorumUser && voteType.equals(VoteType.POSITIVE)){
+            CommentVotedNotification commentVotedNotification = new CommentVotedNotification()
+            commentVotedNotification.setVotingUser(votingUser)
+            commentVotedNotification.setVoteType(voteType)
+            commentVotedNotification.setPost(post)
+            commentVotedNotification.setCommentWriter(postComment.getKuorumUser())
+            commentVotedNotification.setText(postComment.getText())
+            commentVotedNotification.setKuorumUser(postComment.getKuorumUser())
+//            commentVotedNotification.setIsActive(Boolean.TRUE)
+            commentVotedNotification.save()
+        }
     }
 
     void sendCluckNotification(Cluck cluck) {
