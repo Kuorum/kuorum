@@ -64,7 +64,7 @@ class NotificationService {
      * @return
      */
     List<Notification> findActiveUserAlerts(KuorumUser user, Pagination pagination = new Pagination()){
-        Notification.findAllByKuorumUserAndIsAlertAndIsActive(user, Boolean.TRUE, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
+        Notification.findAllByKuorumUserAndIsAlertAndIsPostponed(user, Boolean.TRUE, Boolean.FALSE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
     }
 
     /**
@@ -82,7 +82,7 @@ class NotificationService {
         }
         if (isAlertNotification(notification)){
             // I don't know why is not saving on mongo with .save()
-            Notification.collection.update([_id:notification.id],[$set:[isActive:false]])
+            Notification.collection.update([_id:notification.id],[$set:[isPostponed:true]])
             notification.refresh();
         }else{
             log.warn("Se ha tratado de desactivar una notificación que no es alerta")

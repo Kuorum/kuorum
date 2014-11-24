@@ -24,6 +24,10 @@
 <g:elseif test="${notification.instanceOf(CommentMyPostNotification)}">
     <g:render template="/layouts/notifications/commentNotification"  model='[notification:notification,newNotification:newNotification,modalUser:modalUser]'/>
 </g:elseif>
+<g:elseif test="${notification.instanceOf(CommentNotification)}">
+%{--TODO: Este se eliminará con el futuro porque se ha sobreescrito con los otros tipos de notificacion de comentario--}%
+    <g:render template="/layouts/notifications/commentNotification"  model='[notification:notification,newNotification:newNotification,modalUser:modalUser]'/>
+</g:elseif>
 <g:else>
     NOT DONE ${notification.class.name}
 </g:else>

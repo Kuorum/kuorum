@@ -22,6 +22,11 @@ class Notification {
      */
     Boolean isActive = Boolean.FALSE
 
+    /**
+     * If notification is an alert and the user has marked as "Do later"
+     */
+    Boolean isPostponed = Boolean.FALSE
+
     //If no mailType, no send mail
     MailType mailType
     static constraints = {
