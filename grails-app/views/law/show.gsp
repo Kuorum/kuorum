@@ -23,6 +23,12 @@
 <content tag="cColumn">
 
     <modulesUtil:lawVotes law="${law}" social="true" title="true"/>
+%{--ÑAPA TEMPORAL para la venta de entradas de ticketea--}%
+    <g:if test="${law.hashtag == "#pobrezaInfantil"}">
+        <a href="https://www.ticketea.com/pobreza-infantil-kuorum-org/" title="Registrarse para el evento">
+            <img src="https://d18t9gwja9h9h.cloudfront.net/assets/images/buttons/es/registeronline.png" alt="Registrarse para el evento" />
+        </a>
+    </g:if>
     <modulesUtil:lawActivePeople law="${law}"/>
     <modulesUtil:recommendedPosts law="${law}" title="${message(code:"modules.recommendedLawPosts.title")}"/>
 
