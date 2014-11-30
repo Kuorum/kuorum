@@ -27,7 +27,7 @@ class NotificationController {
             return;
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        notificationService.markAsInactive(user, notification)
+        notificationService.markAsInactive(user, notification, Boolean.FALSE)
         render "Ok"
     }
 

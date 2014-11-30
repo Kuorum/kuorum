@@ -77,13 +77,24 @@ class NotificationService {
         Notification.countByKuorumUserAndIsAlertAndIsActive(user, Boolean.TRUE, Boolean.TRUE)
     }
 
-    Notification markAsInactive(KuorumUser user, Notification notification){
+    /**
+     * Marks a notification as postponed if the finished is false. And mark the notification as finished and deactiverd if
+     * finished is true
+     * @param user
+     * @param notification
+     * @param finished
+     * @return
+     */
+    Notification markAsInactive(KuorumUser user, Notification notification, Boolean finished){
         if (notification.kuorumUser != user){
             throw new KuorumException("Usuario ${user} no esta autorizado para modificar la notificacion ${notification.id}")
         }
         if (isAlertNotification(notification)){
             // I don't know why is not saving on mongo with .save()
             Notification.collection.update([_id:notification.id],[$set:[isPostponed:true]])
+            if (finished){
+                Notification.collection.update([_id:notification.id],[$set:[isActive:false]])
+            }
             notification.refresh();
         }else{
             log.warn("Se ha tratado de desactivar una notificación que no es alerta")
@@ -490,6 +501,8 @@ class NotificationService {
 
 
     void sendVictoryNotification(Post post){
+        Notification notification = DefendedPostAlert.findByPostAndKuorumUser(post,post.owner);
+        markAsInactive(post.owner, notification, Boolean.TRUE);
         //An async task is not possible to test (at least I don't know how), for that this trick
         Environment.executeForCurrentEnvironment {
             development{

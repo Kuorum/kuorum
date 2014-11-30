@@ -451,8 +451,6 @@ class PostService {
         defender.politicianActivity.numVictories +=1
         defender.save()
         cluckService.createActionCluck(post, owner, CluckAction.VICTORY)
-        Notification notification = DefendedPostAlert.findByPostAndKuorumUser(post,owner);
-        notificationService.markAsInactive(owner, notification);
         notificationService.sendVictoryNotification(post)
         try{
             kuorumMailService.sendVictoryToAdmins(owner, post, victoryOk)
