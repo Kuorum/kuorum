@@ -47,7 +47,13 @@ class PostController {
         List<Post> relatedPost = postService.relatedPosts(post,  user,  3 )
         List<KuorumUser> usersVotes = postVoteService.findVotedUsers(post, new Pagination(max:20))
 
-        [post:post,relatedPost:relatedPost, usersVotes:usersVotes, userVote:userVote]
+        def model = [post:post,relatedPost:relatedPost, usersVotes:usersVotes, userVote:userVote]
+        if (post.victory){
+            render view:'/post/showVictory', model : model
+            return
+        }else{
+            return model
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
