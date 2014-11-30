@@ -106,7 +106,7 @@
 
     <div class="col-xs-12 col-sm-6 col-md-3">
         <div class="wrapper">
-            <span class="fa fa-edit fa-3x"></span>
+            <span class="icon-CULTURE fa-3x"></span>
             <h2><g:message code="landingPage.complementary.voteLaws.title"/></h2>
             <p><g:message code="landingPage.complementary.voteLaws.description"/></p>
         </div>
@@ -114,7 +114,7 @@
 
     <div class="col-xs-12 col-sm-6 col-md-3">
         <div class="wrapper">
-            <span class="icon-TAXES fa-3x"></span>
+            <span class="fa fa-lightbulb-o fa-3x"></span>
             %{--<span class="icon-book fa-3x"></span>--}%
             <h2><g:message code="landingPage.complementary.editLaws.title"/></h2>
             <p><g:message code="landingPage.complementary.editLaws.description"/></p>
@@ -123,7 +123,7 @@
 
     <div class="col-xs-12 col-sm-6 col-md-3">
         <div class="wrapper">
-            <span class="icon-BUDGETS fa-3x"></span>
+            <span class="icon-TAXES fa-3x"></span>
             <h2><g:message code="landingPage.complementary.parliament.title"/></h2>
             <p><g:message code="landingPage.complementary.parliament.description"/></p>
         </div>
@@ -131,7 +131,7 @@
 
     <div class="col-xs-12 col-sm-6 col-md-3">
         <div class="wrapper">
-            <span class="icon-DEFENSE fa-3x"></span>
+            <span class="icon-EMPLOY_AND_HEALTH_SERVICE fa-3x"></span>
             <h2><g:message code="landingPage.complementary.people.title"/></h2>
             <p><g:message code="landingPage.complementary.people.description"/></p>
         </div>

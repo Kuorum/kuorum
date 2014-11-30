@@ -1980,7 +1980,7 @@ textarea.error,
 .homeSub {margin: 0 0 60px 0;}
 .homeSub h1 {text-align: center; padding: 0; margin: 0 0 20px 0; font-size: 22px; font-size: 2.2rem;}
 .homeSub h2 {font-size: 24px; font-size: 2.4rem; padding: 0 16%;}
-.homeSub > div > .wrapper {min-height: 364px; border-bottom: 1px solid #DADADA; border-top: 1px solid #DADADA; padding: 30px 10px 10px 10px; text-align: center;}
+.homeSub > div > .wrapper {min-height: 250px; border-bottom: 1px solid #DADADA; border-top: 1px solid #DADADA; padding: 30px 10px 10px 10px; text-align: center;}
 .homeSub > div > .wrapper span {color: #797979;}
 
 
