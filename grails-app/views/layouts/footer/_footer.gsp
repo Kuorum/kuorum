@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="col-xs-12 col-sm-3 col-md-12">
-                        <a href="mailto:info@kuorum.org" class="feedback" target="_blank">Contacta</a>
+                        <a href="mailto:info@kuorum.org" class="feedback" target="_blank">Contacta con nosotros</a>
                     </div>
 
                 </div>
