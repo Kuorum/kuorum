@@ -16,6 +16,9 @@ beans = {
    userDetailsService(MongoUserDetailsService)
 
 
+    localeChangeInterceptor(kuorum.web.interceptors.CustomLocaleInterceptor) {
+        paramName = "lang"
+    }
 
     def bb = new BeanBuilder()
     bb.beans{
