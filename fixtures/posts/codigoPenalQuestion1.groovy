@@ -8,6 +8,7 @@ fixture {
         numClucks=1
         numVotes=1
         owner=carmen
+        ownerPersonalData=carmenData
         postType=PostType.QUESTION
         title="Muy bien. Todos a la cárcel"
         text="""

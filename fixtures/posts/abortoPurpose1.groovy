@@ -8,6 +8,7 @@ fixture {
         numClucks=1
         numVotes=1
         owner=peter
+        ownerPersonalData=peterData
         postType=PostType.PURPOSE
         title="En contra de la nueva propuesta de ley para el abortoPurpose1_cluck1, pero en contra también de la actual ley"
         text="""

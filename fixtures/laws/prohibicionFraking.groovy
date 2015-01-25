@@ -2,6 +2,7 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.model.CommissionType
+import kuorum.core.model.LawStatusType
 import kuorum.law.Law
 
 fixture {
@@ -38,5 +39,9 @@ Prohibición de prospecciones y explotaciones de hidrocarburos mediante fractura
         published = Boolean.FALSE
         institution = parliament
         politicalParty = grupoVasco
+        status = LawStatusType.OPEN
+        availableStats = Boolean.FALSE
+        relevance = 0
+        publishDate = new Date()
     }
 }

@@ -2,6 +2,7 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.model.CommissionType
+import kuorum.core.model.LawStatusType
 import kuorum.law.Law
 
 fixture {
@@ -39,6 +40,10 @@ Modificación de la Ley Orgánica del Código Penal
         region = madridCA
         published = Boolean.TRUE
         institution = madridParliament
-        politicalParty = grupoSocialistaMadrid
+        politicalParty = grupoSocialista
+        status = LawStatusType.OPEN
+        availableStats = Boolean.FALSE
+        relevance = 0
+        publishDate = new Date()
     }
 }

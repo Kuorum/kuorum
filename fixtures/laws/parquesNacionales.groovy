@@ -2,6 +2,7 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.model.CommissionType
+import kuorum.core.model.LawStatusType
 import kuorum.law.Law
 
 fixture {
@@ -44,5 +45,9 @@ Nuevo marco jurídico para la gestión de los Parques Naturales
         published = Boolean.TRUE
         institution = parliament
         politicalParty = grupoSocialista
+        status = LawStatusType.OPEN
+        availableStats = Boolean.FALSE
+        relevance = 0
+        publishDate = new Date()
     }
 }

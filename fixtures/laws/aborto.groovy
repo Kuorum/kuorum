@@ -2,6 +2,7 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.model.CommissionType
+import kuorum.core.model.LawStatusType
 import kuorum.law.Law
 
 fixture {
@@ -39,5 +40,9 @@ Ley Orgánica de protección de la vida del concebido y derechos de la mujer emb
         published = Boolean.TRUE
         institution = parliament
         politicalParty = grupoPopular
+        status = LawStatusType.OPEN
+        availableStats = Boolean.FALSE
+        relevance = 0
+        publishDate = new Date()
     }
 }

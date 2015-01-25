@@ -8,6 +8,7 @@ fixture {
         numClucks=1
         numVotes=1
         owner=juanjoAlvite
+        ownerPersonalData=juanjoPersonalData
         postType=PostType.PURPOSE
         title="¿HA DE SER EL ABORTO UN DERECHO RECONOCIDO DE LA MUJER O UN HECHO DESPENALIZADO A EVITAR?"
         text="""

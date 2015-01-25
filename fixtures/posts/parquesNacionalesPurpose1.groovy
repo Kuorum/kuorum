@@ -9,6 +9,7 @@ fixture {
         numClucks=1
         numVotes=1
         owner=ecologistasEnAccion
+        ownerPersonalData=ecologistasData
         defender=politician
         defenderDate=new Date()-7
         postType=PostType.PURPOSE

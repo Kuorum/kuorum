@@ -9,6 +9,7 @@ fixture {
         numClucks=1
         numVotes=1
         owner=equo
+        ownerPersonalData=equoData
         postType=PostType.PURPOSE
         title="Parques Nacionales sometidos al mercadeo con propietarios y corporaciones"
         text="""

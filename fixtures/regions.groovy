@@ -25,19 +25,19 @@ fixture {
         name ="Araba"
         iso3166_2 = "EU-ES-PV-VI" //ES-VI
         superRegion = paisVasco
-        postalCode = "01"
+        postalCodes = "01"
     }
     vizcaya(Region){
         name ="Bizkaia"
         iso3166_2 = "EU-ES-PV-BI" // ES-BI
         superRegion = paisVasco
-        postalCode = "48"
+        postalCodes = "48"
     }
     guipuzcua(Region){
         name ="Guipuzkoa"
         iso3166_2 = "EU-ES-PV-SS" // ES-BI
         superRegion = paisVasco
-        postalCode = "20"
+        postalCodes = "20"
     }
 
     /****** CASTILLA LA MANCHA *******/
@@ -50,31 +50,31 @@ fixture {
         name ="Albacete"
         iso3166_2 = "EU-ES-CM-AB" // ES-AB
         superRegion = castillaMancha
-        postalCode = "02"
+        postalCodes = "02"
     }
     guadalajara(Region){
         name ="Guadalajara"
         iso3166_2 = "EU-ES-CM-GU" // ES-GU
         superRegion = castillaMancha
-        postalCode = "19"
+        postalCodes = "19"
     }
     cuenca(Region){
         name ="Cuenca"
         iso3166_2 = "EU-ES-CM-CU" // ES-CU
         superRegion = castillaMancha
-        postalCode = "16"
+        postalCodes = "16"
     }
     toledo(Region){
         name ="Toledo"
         iso3166_2 = "EU-ES-CM-TO" // ES-TO
         superRegion = castillaMancha
-        postalCode = "45"
+        postalCodes = "45"
     }
     ciudadReal(Region){
         name ="Ciudad Real"
         iso3166_2 = "EU-ES-CM-CR"
         superRegion = castillaMancha
-        postalCode = "13"
+        postalCodes = "13"
     }
 
     /****** C. Valenciana *******/
@@ -88,19 +88,19 @@ fixture {
         name ="Alicante"
         iso3166_2 = "EU-ES-CV-AC" // ES-A
         superRegion = cValenciana
-        postalCode = "03"
+        postalCodes = "03"
     }
     valencia(Region){
         name ="Valencia"
         iso3166_2 = "EU-ES-CV-VA" // ES-v
         superRegion = cValenciana
-        postalCode = "46"
+        postalCodes = "46"
     }
     castellon(Region){
         name ="Castellón"
         iso3166_2 = "EU-ES-CV-CS" //
         superRegion = cValenciana
-        postalCode = "12"
+        postalCodes = "12"
     }
 
     /****** Andalucia *******/
@@ -113,49 +113,49 @@ fixture {
         name ="Almería"
         iso3166_2 = "EU-ES-AN-AL" // ES-AL
         superRegion = andalucia
-        postalCode = "04"
+        postalCodes = "04"
     }
     granada(Region){
         name ="Granada"
         iso3166_2 = "EU-ES-AN-GR" // ES-GR
         superRegion = andalucia
-        postalCode = "18"
+        postalCodes = "18"
     }
     jaen(Region){
         name ="Jaen"
         iso3166_2 = "EU-ES-AN-JN" // ES-J
         superRegion = andalucia
-        postalCode = "23"
+        postalCodes = "23"
     }
     cordoba(Region){
         name ="Cordoba"
         iso3166_2 = "EU-ES-AN-CO" // ES-CO
         superRegion = andalucia
-        postalCode = "14"
+        postalCodes = "14"
     }
     malaga(Region){
         name ="Málaga"
         iso3166_2 = "EU-ES-AN-MA" // ES-MA
         superRegion = andalucia
-        postalCode = "29"
+        postalCodes = "29"
     }
     cadiz(Region){
         name ="Cádiz"
         iso3166_2 = "EU-ES-AN-CA" // ES-CA
         superRegion = andalucia
-        postalCode = "11"
+        postalCodes = "11"
     }
     sevilla(Region){
         name ="Sevilla"
         iso3166_2 = "EU-ES-AN-SE" // ES-SE
         superRegion = andalucia
-        postalCode = "41"
+        postalCodes = "41"
     }
     huelva(Region){
         name ="Huelva"
         iso3166_2 = "EU-ES-AN-HU" // ES-H
         superRegion = andalucia
-        postalCode = "21"
+        postalCodes = "21"
     }
 
 
@@ -169,13 +169,13 @@ fixture {
         name ="Badajoz"
         iso3166_2 = "EU-ES-EX-BA" // ES-BA
         superRegion = extremadura
-        postalCode = "06"
+        postalCodes = "06"
     }
     caceres(Region){
         name ="Cáceres"
         iso3166_2 = "EU-ES-EX-CC" // ES-CC
         superRegion = extremadura
-        postalCode = "10"
+        postalCodes = "10"
     }
     /****** Castilla y Leon *******/
     castillaLeon(Region){
@@ -187,55 +187,55 @@ fixture {
         name ="Ávila"
         iso3166_2 = "EU-ES-CL-AV" // ES-AV
         superRegion = castillaLeon
-        postalCode = "05"
+        postalCodes = "05"
     }
     segovia(Region){
         name ="Segovia"
         iso3166_2 = "EU-ES-CL-SG"
         superRegion = castillaLeon
-        postalCode = "40"
+        postalCodes = "40"
     }
     salamanca(Region){
         name ="Salamanca"
         iso3166_2 = "EU-ES-CL-SA" // ES-SA
         superRegion = castillaLeon
-        postalCode = "37"
+        postalCodes = "37"
     }
     valladolid(Region){
         name ="Valladolid"
         iso3166_2 = "EU-ES-CL-VA" // ES-VA
         superRegion = castillaLeon
-        postalCode = "47"
+        postalCodes = "47"
     }
     zamora(Region){
         name ="Zamora"
         iso3166_2 = "EU-ES-CL-ZA" // ES-ZA
         superRegion = castillaLeon
-        postalCode = "49"
+        postalCodes = "49"
     }
     leon(Region){
         name ="León"
         iso3166_2 = "EU-ES-CL-LE" // ES-LE
         superRegion = castillaLeon
-        postalCode = "24"
+        postalCodes = "24"
     }
     palencia(Region){
         name ="Palencia"
         iso3166_2 = "EU-ES-CL-PA" // ES-P
         superRegion = castillaLeon
-        postalCode = "34"
+        postalCodes = "34"
     }
     burgos(Region){
         name ="Burgos"
         iso3166_2 = "EU-ES-CL-BU" // ES-BU
         superRegion = castillaLeon
-        postalCode = "09"
+        postalCodes = "09"
     }
     soria(Region){
         name ="Soria"
         iso3166_2 = "EU-ES-CL-SO" // ES-SO
         superRegion = castillaLeon
-        postalCode = "42"
+        postalCodes = "42"
     }
 
     /****** Islas baleares*******/
@@ -248,7 +248,7 @@ fixture {
         name ="Baleares"
         iso3166_2 = "EU-ES-IB-IB" // ES-IB
         superRegion = iBaleares
-        postalCode = "07"
+        postalCodes = "07"
     }
     /****** Cataluña *******/
     catalonia(Region){
@@ -260,25 +260,25 @@ fixture {
         name ="Barcelona"
         iso3166_2 = "EU-ES-CT-BA" // ES-B
         superRegion = catalonia
-        postalCode = "08"
+        postalCodes = "08"
     }
     girona(Region){
         name ="Girona"
         iso3166_2 = "EU-ES-CT-GE" // ES-GE
         superRegion = catalonia
-        postalCode = "17"
+        postalCodes = "17"
     }
     tarragona(Region){
         name ="Tarragona"
         iso3166_2 = "EU-ES-CT-TA" // ES-T
         superRegion = catalonia
-        postalCode = "43"
+        postalCodes = "43"
     }
     lleida(Region){
         name ="Lleida" //Lerida
         iso3166_2 = "EU-ES-CT-LL" // ES-L
         superRegion = catalonia
-        postalCode = "25"
+        postalCodes = "25"
     }
     /****** Galicia *******/
     galicia(Region){
@@ -290,25 +290,25 @@ fixture {
         name ="A coruña"
         iso3166_2 = "EU-ES-GA-CO" // ES-C
         superRegion = galicia
-        postalCode = "15"
+        postalCodes = "15"
     }
     lugo(Region){
         name ="Lugo"
         iso3166_2 = "EU-ES-GA-LU" // ES-LU
         superRegion = galicia
-        postalCode = "27"
+        postalCodes = "27"
     }
     pontevedra(Region){
         name ="Pontevedra"
         iso3166_2 = "EU-ES-GA-PO" // ES-PO
         superRegion = galicia
-        postalCode = "36"
+        postalCodes = "36"
     }
     ourense(Region){
         name ="Ourense"
         iso3166_2 = "EU-ES-GA-OR" // ES-OR
         superRegion = galicia
-        postalCode = "32"
+        postalCodes = "32"
     }
 
     /****** ARAGON *******/
@@ -321,19 +321,19 @@ fixture {
         name ="Huesca"
         iso3166_2 = "EU-ES-AR-HU" // ES-HU
         superRegion = aragon
-        postalCode = "22"
+        postalCodes = "22"
     }
     zaragoza(Region){
         name ="Zaragoza"
         iso3166_2 = "EU-ES-AR-ZA" // ES-Z
         superRegion = aragon
-        postalCode = "50"
+        postalCodes = ["50"]
     }
     teruel(Region){
         name ="Teruel"
         iso3166_2 = "EU-ES-AR-TE" // ES-TE
         superRegion = aragon
-        postalCode = "44"
+        postalCodes = ["44"]
     }
     /****** La RIoja *******/
     riojaCA(Region){
@@ -345,7 +345,7 @@ fixture {
         name ="La Rioja"
         iso3166_2 = "EU-ES-RI-RI"
         superRegion = riojaCA
-        postalCode = "26"
+        postalCodes = ["26"]
     }
     /****** Madrid *******/
     madridCA(Region){
@@ -357,7 +357,7 @@ fixture {
         name ="Madrid"
         iso3166_2 = "EU-ES-MD-MD"
         superRegion = madridCA
-        postalCode = "28"
+        postalCodes = ["28"]
     }
 
     /****** Murcia *******/
@@ -370,7 +370,7 @@ fixture {
         name ="Murcia"
         iso3166_2 = "EU-ES-MU-MU"
         superRegion = murciaCA
-        postalCode = "30"
+        postalCodes = ["30"]
     }
     /****** Navarra *******/
     navarraCA(Region){
@@ -382,7 +382,7 @@ fixture {
         name ="Navarra"
         iso3166_2 = "EU-ES-NA-NA"
         superRegion = navarraCA
-        postalCode = "31"
+        postalCodes = ["31"]
     }
     /****** Asturias *******/
     asturiasCA(Region){
@@ -394,7 +394,7 @@ fixture {
         name ="Asturias"
         iso3166_2 = "EU-ES-AS-AS"
         superRegion = asturiasCA
-        postalCode = "33"
+        postalCodes = ["33"]
     }
 
     /****** Islas canarias *******/
@@ -407,13 +407,13 @@ fixture {
         name ="Las Palmas"
         iso3166_2 = "EU-ES-CN-GC" // ES-GC
         superRegion = canarias
-        postalCode = "35"
+        postalCodes = ["35"]
     }
     santaCruz(Region){
         name ="Santa Cruz De Tenerife"
         iso3166_2 = "EU-ES-CN-TF" // ES-TF
         superRegion = canarias
-        postalCode = "38"
+        postalCodes = ["38"]
     }
 
     /****** Cantabria *******/
@@ -426,7 +426,7 @@ fixture {
         name ="Cantabria"
         iso3166_2 = "EU-ES-CB-CB" // ES-GC
         superRegion = cantabriaCA
-        postalCode = "39"
+        postalCodes = ["39"]
     }
 
     /****** Ceuta *******/
@@ -439,7 +439,7 @@ fixture {
         name ="Ceuta"
         iso3166_2 = "EU-ES-CE-CE" // ES-CE
         superRegion = ceutaCA
-        postalCode = "51"
+        postalCodes = ["51"]
     }
 
     /****** Melilla *******/
@@ -452,6 +452,6 @@ fixture {
         name ="Melilla"
         iso3166_2 = "EU-ES-ML-ML" // ES-ML
         superRegion = melillaCA
-        postalCode = "52"
+        postalCodes = ["52"]
     }
 }
