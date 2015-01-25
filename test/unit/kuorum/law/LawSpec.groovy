@@ -16,7 +16,7 @@ class LawSpec extends Specification {
 
 
     @Shared Region europe = new Region(name:"Europe", iso3166_2: "EU")
-    @Shared Region spain = new Region(name:"Spain", iso3166_2: "EU_ES", superRegion: europe)
+    @Shared Region spain = new Region(name:"Spain", iso3166_2: "EU-ES", superRegion: europe)
 
     @Shared parliamentEurope = new Institution(name:"Parlamenteo Europeo", region: europe)
     @Shared parliamentSpain = new Institution(name:"Parlamenteo Europeo", region: spain)
@@ -59,6 +59,6 @@ class LawSpec extends Specification {
         'nullable'      | 'description' | null
         'nullable'      | 'commissions' | null
         'nullable'      | 'region'      | null
-        'notSameRegionAsInstitution'      | 'region'      | spain
+        'notSameRegionAsInstitution'      | 'institution'      | parliamentSpain
     }
 }
