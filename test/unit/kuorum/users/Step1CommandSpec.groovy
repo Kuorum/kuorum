@@ -44,7 +44,6 @@ class Step1CommandSpec extends Specification {
         where:
         error                   | field         | value      | month |year
         'OK'                    | 'postalCode'  | '28021'    | 1     |2001
-        'minSize'               | 'postalCode'  | '2802'     | 1     |2001
         'maxSize'               | 'postalCode'  | '280211'   | 1     |2001
         'min'                   | 'year'        | -1         | 1     |2001
         'OK'                    | 'month'       | 1          | 1     |2001
