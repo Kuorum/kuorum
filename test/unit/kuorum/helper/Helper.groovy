@@ -31,6 +31,7 @@ class Helper {
     public static final Post createDefaultPost(KuorumUser owner, Law law){
         new Post(
                 owner: owner,
+                ownerPersonalData: owner.personalData,
                 title:"title",
                 text: "Text",
                 law:law,
@@ -41,15 +42,9 @@ class Helper {
     }
 
     public static final Post createDefaultPost(){
-        new Post(
-                owner: createDefaultUser("postOwner@example.com"),
-                title:"title",
-                text: "Text",
-                law:createDefaultLaw("#hashTagLawDefault"),
-                numVotes: 1,
-                numClucks: 1,
-                postType: PostType.HISTORY,
-        )
+        KuorumUser owner = createDefaultUser("postOwner@example.com")
+        Law law = createDefaultLaw("#hashTagLawDefault")
+        return createDefaultPost(owner, law)
     }
 
     public static final KuorumUser createDefaultUser(String email){
