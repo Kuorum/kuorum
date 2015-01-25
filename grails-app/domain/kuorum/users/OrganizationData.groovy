@@ -9,6 +9,10 @@ class OrganizationData extends PersonalData{
     EnterpriseSector enterpriseSector
     Region country
 
+    Region getProvince(){
+        return this.country
+    }
+
     static constraints = {
         enterpriseSector nullable:true
     }

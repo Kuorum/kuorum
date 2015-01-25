@@ -19,10 +19,10 @@ fixture {
     noeData(PersonData){
         gender =  Gender.FEMALE
         userType = UserType.PERSON
-        postalCode = "08003"
-        provinceCode = "EU-ES-CT-BA"
-        province = barcelona
-        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
+        postalCode = "28003"
+        provinceCode = "EU-ES-MD-MD"
+        province = madrid
+        birthday = Date.parse("dd/MM/yyyy","21/04/1983")
     }
 
     noe(KuorumUser){
