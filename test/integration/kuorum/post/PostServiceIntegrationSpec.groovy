@@ -108,6 +108,7 @@ class PostServiceIntegrationSpec extends Specification{
 
         Post post = new Post(
                 owner : user,
+                ownerPersonalData: user.personalData,
                 law:law,
                 numClucks:0,
                 numVotes:0,

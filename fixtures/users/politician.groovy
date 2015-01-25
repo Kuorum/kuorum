@@ -5,6 +5,7 @@ import kuorum.core.model.gamification.GamificationAward
 import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
+import kuorum.users.PoliticianActivity
 
 fixture {
 
@@ -34,6 +35,7 @@ fixture {
         personalData = politicianData
         password = springSecurityService.encodePassword("test")
         politicalParty=grupoPopular
+        politicianActivity= new PoliticianActivity()
         verified = Boolean.FALSE
         institution=parliament
         relevantCommissions = [

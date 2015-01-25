@@ -69,7 +69,7 @@ post {
 
 
     postService.defendPost(codigoPenalQuestion1, CommitmentType.ASKED_ON_CONGRESS, politician)
-    postService.victory(codigoPenalQuestion1, codigoPenalQuestion1.owner)
+    postService.victory(codigoPenalQuestion1, codigoPenalQuestion1.owner, true)
 
     lawService.voteLaw(aborto,carmen,VoteType.NEGATIVE)
     lawService.voteLaw(codigoPenal,carmen,VoteType.NEGATIVE)
