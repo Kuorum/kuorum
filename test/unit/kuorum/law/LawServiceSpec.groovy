@@ -3,6 +3,7 @@ package kuorum.law
 import grails.converters.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import kuorum.RegionService
 import kuorum.core.model.VoteType
 import kuorum.helper.Helper
 import kuorum.law.LawService
@@ -21,9 +22,11 @@ class LawServiceSpec extends Specification {
 
 
     GamificationService gamificationServiceMock= Mock(GamificationService)
+    RegionService regionService = Mock(RegionService)
 
     def setup() {
         service.gamificationService = gamificationServiceMock
+        service.regionService = regionService
 
         Law.metaClass.static.getCollection = {->
             [findOne: {
@@ -45,6 +48,11 @@ class LawServiceSpec extends Specification {
         }
         Law.metaClass.refresh={->
             //REFRESH FAILS with null pointer
+        }
+
+        regionService.isRelevantRegionForUser(_,_) >> {user, region->true}
+        regionService.findUserRegion(_) >> {user->
+            return Helper.creteDefaultRegion();
         }
     }
 

@@ -54,10 +54,14 @@ class Helper {
 
     public static final KuorumUser createDefaultUser(String email){
         PersonData personalData = new PersonData(gender: Gender.MALE, studies: Studies.DOCTOR)
+        Region userRegion = creteDefaultRegion();
+        personalData.provinceCode = userRegion.iso3166_2
+        personalData.province = userRegion
         new KuorumUser(
                 name:email.split("@")[0],
                 email: email,
                 password: "XXXX",
+                region: creteDefaultRegion(),
                 personalData: personalData
         )
     }
@@ -73,6 +77,7 @@ class Helper {
                 region: creteDefaultRegion(),
                 institution: creteDefaultInstitution(),
                 politicalParty: createDefaultPoliticalParty(),
+                availableStats: Boolean.TRUE,
                 urlPdf:new URL('http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF'),
                 shortUrl:new URL('http://ow.ly')
 
