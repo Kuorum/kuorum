@@ -1,7 +1,7 @@
 package kuorum.notifications
 
 import kuorum.core.model.search.Pagination
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.users.KuorumUser
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -23,10 +23,10 @@ class NotificationServiceIntegrationSpec extends Specification{
     void "test find #numNotificationFound user notifications and notifications days are #rangeDate"(){
         given: "User and one notification per day"
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")
-        Law law = Law.findByHashtag("#codigoPenal")
+        Project project = Project.findByHashtag("#codigoPenal")
 
         rangeDate.each {
-            LawClosedNotification notification = new LawClosedNotification(law:law)
+            ProjectClosedNotification notification = new ProjectClosedNotification(project:project)
             notification.kuorumUser = user
             notification.save(flush: true, failOnError: true)
             notification.dateCreated = (new Date() + it)

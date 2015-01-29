@@ -2,7 +2,7 @@ package kuorum.solr
 
 import grails.test.spock.IntegrationSpec
 import kuorum.core.model.CommissionType
-import kuorum.core.model.search.SearchLaws
+import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.*
 import kuorum.users.KuorumUser
@@ -27,7 +27,7 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             [word:"parq",               subTypes:null],
             [word:"parques",            subTypes:null],
             [word:"parques na",         subTypes:null],
-            [word:"parques na",         subTypes:SolrType.LAW.solrSubTypes],
+            [word:"parques na",         subTypes:SolrType.PROJECT.solrSubTypes],
             [word:"parques na",         subTypes:SolrType.POST.solrSubTypes],
             [word:"juanjo",             subTypes:null],
             [word:"juanjo a",           subTypes:SolrType.KUORUM_USER.solrSubTypes],
@@ -78,13 +78,13 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             SolrAutocomplete solrAutocomplete = searchSolrService.suggest(searchParams)
         then:
             solrAutocomplete.numResults == numResults
-            solrAutocomplete.laws.size() == numLaws
+            solrAutocomplete.projects.size() == numProjects
             solrAutocomplete.kuorumUsers.size() == numUsers
             if (solrAutocomplete.suggests){
                 solrAutocomplete.suggests[0] == firstSuggest
             }
         where:
-            params          | numResults    | numLaws | numUsers | firstSuggest
+            params          | numResults    | numProjects | numUsers | firstSuggest
         params[10]          | 1             | 1       | 0        | null
             params[0]       | 0             | 0       | 0        | "parques"
             params[1]       | 1             | 1       | 0        | "parques"
@@ -101,13 +101,13 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
 
     @Unroll
     @Ignore //Se ignoran para que a Salenda no les de problemas al instalar el solr con bamboo
-    void "test list laws: #institutionName, #commission "(){
+    void "test list projects: #institutionName, #commission "(){
         given:"Region"
-        SearchLaws searchLaws = new SearchLaws(institutionName:institutionName, commissionType: commission)
+        SearchProjects searchProjects = new SearchProjects(institutionName:institutionName, commissionType: commission)
         when:"search for "
-        List<SolrLawsGrouped>  lawsGrouped = searchSolrService.listLaws(searchLaws)
+        List<SolrProjectsGrouped>  projectsGrouped = searchSolrService.listProjects(searchProjects)
         then:
-        lawsGrouped.size() == numGroups
+        projectsGrouped.size() == numGroups
         where:
         institutionName         | commission                | numGroups
         "parlamento espanol"    | CommissionType.JUSTICE    | 1

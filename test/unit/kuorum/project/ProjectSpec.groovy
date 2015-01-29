@@ -1,4 +1,4 @@
-package kuorum.law
+package kuorum.project
 
 import grails.test.mixin.TestFor
 import kuorum.Institution
@@ -11,8 +11,8 @@ import spock.lang.Unroll
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(Law)
-class LawSpec extends Specification {
+@TestFor(Project)
+class ProjectSpec extends Specification {
 
 
     @Shared Region europe = new Region(name:"Europe", iso3166_2: "EU")
@@ -22,7 +22,7 @@ class LawSpec extends Specification {
     @Shared parliamentSpain = new Institution(name:"Parlamenteo Europeo", region: spain)
 
     def setup() {
-        mockForConstraintsTests(Law, [new Law()])
+        mockForConstraintsTests(Project, [new Project()])
     }
 
     def cleanup() {
@@ -41,7 +41,7 @@ class LawSpec extends Specification {
                 commissions:[]
         ]
         params[field] = value
-        def obj = new Law( params)
+        def obj = new Project( params)
         then:
         Helper.validateConstraints(obj, field, error)
 

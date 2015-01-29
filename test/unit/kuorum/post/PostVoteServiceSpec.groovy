@@ -5,7 +5,7 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.core.exception.KuorumException
 import kuorum.helper.Helper
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.notifications.NotificationService
 import kuorum.users.GamificationService
 import kuorum.users.KuorumUser
@@ -16,7 +16,7 @@ import spock.lang.Unroll
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(PostVoteService)
-@Mock([Post, KuorumUser, Law,PostVote])
+@Mock([Post, KuorumUser, Project,PostVote])
 class PostVoteServiceSpec extends Specification {
 
     NotificationService notificationServiceMock = Mock(NotificationService)

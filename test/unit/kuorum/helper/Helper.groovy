@@ -7,8 +7,8 @@ import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
 import kuorum.core.model.PostType
 import kuorum.core.model.Studies
-import kuorum.law.Law
 import kuorum.post.Post
+import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.PersonData
 
@@ -28,13 +28,13 @@ class Helper {
         }
     }
 
-    public static final Post createDefaultPost(KuorumUser owner, Law law){
+    public static final Post createDefaultPost(KuorumUser owner, Project project){
         new Post(
                 owner: owner,
                 ownerPersonalData: owner.personalData,
                 title:"title",
                 text: "Text",
-                law:law,
+                project:project,
                 numVotes: 1,
                 numClucks: 1,
                 postType: PostType.HISTORY
@@ -43,8 +43,8 @@ class Helper {
 
     public static final Post createDefaultPost(){
         KuorumUser owner = createDefaultUser("postOwner@example.com")
-        Law law = createDefaultLaw("#hashTagLawDefault")
-        return createDefaultPost(owner, law)
+        Project project = createDefaultProject("#hashTagProjectDefault")
+        return createDefaultPost(owner, project)
     }
 
     public static final KuorumUser createDefaultUser(String email){
@@ -61,8 +61,8 @@ class Helper {
         )
     }
 
-    public static final Law createDefaultLaw(String hashtag){
-        new Law(
+    public static final Project createDefaultProject(String hashtag){
+        new Project(
                 hashtag: hashtag,
                 shortName: "shortName${hashtag}",
                 realName: "realName${hashtag}",
@@ -73,6 +73,7 @@ class Helper {
                 institution: creteDefaultInstitution(),
                 politicalParty: createDefaultPoliticalParty(),
                 availableStats: Boolean.TRUE,
+                deadline: new Date() +10,
                 urlPdf:new URL('http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF'),
                 shortUrl:new URL('http://ow.ly')
 

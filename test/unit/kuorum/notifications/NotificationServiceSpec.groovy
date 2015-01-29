@@ -3,11 +3,11 @@ package kuorum.notifications
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.core.exception.KuorumException
-import kuorum.core.model.LawStatusType
+import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.VoteType
 import kuorum.helper.Helper
-import kuorum.law.Law
-import kuorum.law.LawVote
+import kuorum.project.Project
+import kuorum.project.ProjectVote
 import kuorum.mail.KuorumMailService
 import kuorum.post.Cluck
 import kuorum.post.Post
@@ -22,7 +22,7 @@ import spock.lang.Unroll
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(NotificationService)
-@Mock([KuorumUser, Cluck, Law, Post,Notification,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification, LawClosedNotification, LawVote,PromotedMail, PostComment, CommentMyPostNotification, CommentGenericNotification])
+@Mock([KuorumUser, Cluck, Project, Post,Notification,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification, ProjectClosedNotification, ProjectVote,PromotedMail, PostComment, CommentMyPostNotification, CommentGenericNotification])
 class NotificationServiceSpec extends Specification {
 
     KuorumMailService kuorumMailService = Mock(KuorumMailService)
@@ -37,10 +37,10 @@ class NotificationServiceSpec extends Specification {
         given: "A cluck"
         KuorumUser user1 = Helper.createDefaultUser("user1@ex.com").save()
         KuorumUser user2 = Helper.createDefaultUser("user2@ex.com").save()
-        Law law  = Helper.createDefaultLaw("#law"); law.save()
-        Post post = Helper.createDefaultPost(user1,law); post.save()
+        Project project  = Helper.createDefaultProject("#project"); project.save()
+        Post post = Helper.createDefaultPost(user1,project); post.save()
         Cluck cluck = new Cluck(
-                law:law,
+                project:project,
                 owner: user2,
                 postOwner: user1,
                 post:post
@@ -77,8 +77,8 @@ class NotificationServiceSpec extends Specification {
     void "test sending notification to #numUsers users when there are #numDebates debates"(){
         given: "A post and #numUsers users"
         KuorumUser postOwner = Helper.createDefaultUser("postOwner@ex.com").save()
-        Law law = Helper.createDefaultLaw("#test")
-        Post post = Helper.createDefaultPost(postOwner, law)
+        Project project = Helper.createDefaultProject("#test")
+        Post post = Helper.createDefaultPost(postOwner, project)
         List<KuorumUser> users = (1..numUsers).collect{Helper.createDefaultUser("user${it}@ex.com").save()}
         users.add(postOwner)
         (0..numDebates-1).each{
@@ -409,33 +409,33 @@ class NotificationServiceSpec extends Specification {
         5           | 2              | 2            | 5
     }
 
-    void "test close law notification"(){
-        given: "A law"
-        Law law = Helper.createDefaultLaw("#law")
-        law.save()
+    void "test close project notification"(){
+        given: "A project"
+        Project project = Helper.createDefaultProject("#project")
+        project.save()
         def numVotes = 10
         (1..numVotes).each {
             KuorumUser user = Helper.createDefaultUser("email${it}@email.com").save()
-            LawVote lawVote = new LawVote(kuorumUser: user, law:law, personalData: user.personalData, voteType: VoteType.POSITIVE)
-            lawVote.save()
+            ProjectVote projectVote = new ProjectVote(kuorumUser: user, project:project, personalData: user.personalData, voteType: VoteType.POSITIVE)
+            projectVote.save()
         }
-        law.status = LawStatusType.APPROVED
-        law.save()
+        project.status = ProjectStatusType.APPROVED
+        project.save()
         when: "Sending closing notification"
-        service.sendLawClosedNotification(law)
+        service.sendProjectClosedNotification(project)
         then:"Same notifications as votes"
-        LawClosedNotification.findAllByLaw(law).size() == numVotes
+        ProjectClosedNotification.findAllByProject(project).size() == numVotes
     }
-    void "test close law notification with a law no closed"(){
-        given: "A law"
-        Law law = Helper.createDefaultLaw("#law")
-        law.status = LawStatusType.OPEN
-        law.save()
+    void "test close project notification with a project no closed"(){
+        given: "A project"
+        Project project = Helper.createDefaultProject("#project")
+        project.status = ProjectStatusType.OPEN
+        project.save()
         when: "Sending closing notification"
-        service.sendLawClosedNotification(law)
+        service.sendProjectClosedNotification(project)
         then:"Same notifications as votes"
         final KuorumException exception = thrown()
-        exception.errors[0].code == "error.law.notClosed"
+        exception.errors[0].code == "error.project.notClosed"
     }
 
 

@@ -1,4 +1,4 @@
-package kuorum.law
+package kuorum.project
 
 import grails.converters.JSON
 import grails.test.mixin.Mock
@@ -6,8 +6,6 @@ import grails.test.mixin.TestFor
 import kuorum.RegionService
 import kuorum.core.model.VoteType
 import kuorum.helper.Helper
-import kuorum.law.LawService
-import kuorum.notifications.NotificationService
 import kuorum.users.GamificationService
 import kuorum.users.KuorumUser
 import spock.lang.Specification
@@ -16,9 +14,9 @@ import spock.lang.Unroll
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(LawService)
-@Mock([Law, LawVote,KuorumUser])
-class LawServiceSpec extends Specification {
+@TestFor(ProjectService)
+@Mock([Project, ProjectVote,KuorumUser])
+class ProjectServiceSpec extends Specification {
 
 
     GamificationService gamificationServiceMock= Mock(GamificationService)
@@ -28,25 +26,25 @@ class LawServiceSpec extends Specification {
         service.gamificationService = gamificationServiceMock
         service.regionService = regionService
 
-        Law.metaClass.static.getCollection = {->
+        Project.metaClass.static.getCollection = {->
             [findOne: {
                 delegate.findWhere(it) as JSON
 
             },
                     update:{filter, updateData ->
-                        Law law = Law.get(filter._id)
+                        Project project = Project.get(filter._id)
                         def yesInc = updateData.'$inc'.'peopleVotes.yes'
                         def noInc = updateData.'$inc'.'peopleVotes.no'
                         def absInc = updateData.'$inc'.'peopleVotes.abs'
-                        if (yesInc)law.peopleVotes.yes ++
-                        if (noInc)law.peopleVotes.no ++
-                        if (absInc)law.peopleVotes.abs ++
-                        law.save()
+                        if (yesInc)project.peopleVotes.yes ++
+                        if (noInc)project.peopleVotes.no ++
+                        if (absInc)project.peopleVotes.abs ++
+                        project.save()
                         //post as JSON
                     }
             ]
         }
-        Law.metaClass.refresh={->
+        Project.metaClass.refresh={->
             //REFRESH FAILS with null pointer
         }
 
@@ -58,23 +56,23 @@ class LawServiceSpec extends Specification {
 
 
     @Unroll
-    void "test voteLaw voting #votes"() {
-        given: "A law and a user voting #votes"
-        Law law = Helper.createDefaultLaw("#law").save()
+    void "test voteProject voting #votes"() {
+        given: "A project and a user voting #votes"
+        Project project = Helper.createDefaultProject("#project").save()
         KuorumUser user = Helper.createDefaultUser("email@email.com").save()
-        when: "User votes the law"
-        LawVote lawVote
+        when: "User votes the project"
+        ProjectVote projectVote
         (0..numVotes-1).each {
-            lawVote = service.voteLaw(law, user, votes[it])
+            projectVote = service.voteProject(project, user, votes[it])
         }
         then: "All ok"
-        lawVote.voteType == votes.last()
-        LawVote.count() == 1
-        1 * gamificationServiceMock.lawVotedAward(user, law)
+        projectVote.voteType == votes.last()
+        ProjectVote.count() == 1
+        1 * gamificationServiceMock.projectVotedAward(user, project)
         switch (votes.last()){
-            case VoteType.ABSTENTION:   law.peopleVotes.abs = 1; break;
-            case VoteType.POSITIVE:     law.peopleVotes.abs = 1; break;
-            case VoteType.NEGATIVE:     law.peopleVotes.abs = 1; break;
+            case VoteType.ABSTENTION:   project.peopleVotes.abs = 1; break;
+            case VoteType.POSITIVE:     project.peopleVotes.abs = 1; break;
+            case VoteType.NEGATIVE:     project.peopleVotes.abs = 1; break;
         }
         where:
         numVotes | votes

@@ -18,7 +18,7 @@ import spock.lang.Unroll
 class GamificationServiceSpec extends Specification {
 
     def setup() {
-        grailsApplication.config.kuorum.gamification.voteLaw=[(GamificationElement.EGG):1]
+        grailsApplication.config.kuorum.gamification.voteProject=[(GamificationElement.EGG):1]
         grailsApplication.config.kuorum.gamification.newPost=[(GamificationElement.PLUME):1]
         grailsApplication.config.kuorum.gamification.votePost=[(GamificationElement.CORN):1]
     }

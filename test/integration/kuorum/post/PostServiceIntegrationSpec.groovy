@@ -3,7 +3,7 @@ package kuorum.post
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.users.KuorumUser
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -36,7 +36,7 @@ class PostServiceIntegrationSpec extends Specification{
     void "test create post with correct params"() {
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")
-        Law law = Law.findByHashtag("#leyAborto")
+        Project project = Project.findByHashtag("#leyAborto")
 
         Post post = new Post(
                 postType:PostType.PURPOSE,
@@ -46,7 +46,7 @@ class PostServiceIntegrationSpec extends Specification{
 
         when: "Saving a post"
         //"service" represents the grails service you are testing for
-        Post savedPost = postService.savePost(post,law,user)
+        Post savedPost = postService.savePost(post,project,user)
         Cluck cluck = Cluck.findByPostAndOwnerAndPostOwner(savedPost, user,user)
         then: "Post created but not published"
         cluck == null
@@ -58,8 +58,8 @@ class PostServiceIntegrationSpec extends Specification{
     void "test updating post"() {
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")
-        Law law = Law.findByHashtag("#leyAborto")
-        Post  post = Post.findByOwnerAndLaw(user,law)
+        Project project = Project.findByHashtag("#leyAborto")
+        Post  post = Post.findByOwnerAndProject(user,project)
         def expectedData = [
                 published:post.published,
                 debates:post.debates,
@@ -89,7 +89,7 @@ class PostServiceIntegrationSpec extends Specification{
         savedPost.numVotes == expectedData.numVotes
         savedPost.numClucks == expectedData.numClucks
         Post.withNewSession {
-            Post  recoveredPost = Post.findByOwnerAndLaw(user,law)
+            Post  recoveredPost = Post.findByOwnerAndProject(user,project)
             recoveredPost.published == expectedData.published
             recoveredPost.title == expectedData.title
             recoveredPost.text == expectedData.text
@@ -104,12 +104,12 @@ class PostServiceIntegrationSpec extends Specification{
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("peter@example.com")
         def numPurposes = user.activity.numPurposes
-        Law law = Law.findByHashtag("#leyAborto")
+        Project project = Project.findByHashtag("#leyAborto")
 
         Post post = new Post(
                 owner : user,
                 ownerPersonalData: user.personalData,
-                law:law,
+                project:project,
                 numClucks:0,
                 numVotes:0,
                 postType:PostType.PURPOSE,

@@ -1,6 +1,6 @@
 package kuorum.post
 
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.notifications.CluckNotification
 import kuorum.users.KuorumUser
 import spock.lang.Ignore
@@ -30,7 +30,7 @@ class CluckServiceIntegrationSpec extends Specification{
             long numClucks = post.numClucks
         when: "creating a firstCluck and check if notification is created"
             cluckService.createCluck(post,clucker)
-            Cluck cluck = Cluck.findByLawAndOwner(post.law,clucker)
+            Cluck cluck = Cluck.findByProjectAndOwner(post.project,clucker)
             CluckNotification cluckNotification = CluckNotification.findByKuorumUserAndClucker(user,clucker)
         then:
             post.numClucks == numClucks
@@ -40,7 +40,7 @@ class CluckServiceIntegrationSpec extends Specification{
             cluck.owner == clucker
             cluck.postOwner == user
             cluck.post == post
-            cluck.law == post.law
+            cluck.project == post.project
 
     }
 
@@ -94,12 +94,12 @@ class CluckServiceIntegrationSpec extends Specification{
 
     @Unroll
     @Ignore
-    void "test clucks for law #hashtag founding #numClucks clucks"() {
+    void "test clucks for project #hashtag founding #numClucks clucks"() {
         given: "A user"
-        Law law = Law.findByHashtag(hashtag)
+        Project project = Project.findByHashtag(hashtag)
 
         when: "Saving a post"
-        List<Cluck> clucks = cluckService.lawClucks(law)
+        List<Cluck> clucks = cluckService.projectClucks(project)
 
         then: "Check the results"
         clucks.size() == numClucks

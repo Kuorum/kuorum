@@ -4,11 +4,10 @@ import grails.converters.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.ShortUrlService
-import kuorum.core.exception.KuorumException
 import kuorum.core.model.search.Pagination
 import kuorum.helper.Helper
-import kuorum.law.Law
 import kuorum.notifications.NotificationService
+import kuorum.project.Project
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.PoliticianActivity
@@ -18,7 +17,7 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 @TestFor(PostService)
-@Mock([KuorumUser, Post, Law, RoleUser, Cluck])
+@Mock([KuorumUser, Post, Project, RoleUser, Cluck])
 class PostServiceSpec extends Specification{
 
     IndexSolrService indexSolrService = Mock(IndexSolrService)
@@ -57,8 +56,8 @@ class PostServiceSpec extends Specification{
             new Cluck(
                     owner: user,
                     postOwner: post.owner,
-                    law: post.law,
-                    region: post.law.region,
+                    project: post.project,
+                    region: post.project.region,
                     cluckAction: cluckAction,
                     post: post
             )
@@ -72,20 +71,20 @@ class PostServiceSpec extends Specification{
         given: "A post"
         //fixtureLoader.load("testData")
         Post post = Helper.createDefaultPost()
-        Law law = post.law
-        post.law = null
+        Project project = post.project
+        post.project = null
         KuorumUser user = Helper.createDefaultUser("otherUser@example.com")
 
         when: "Saving a post"
         //"service" represents the grails service you are testing for
-        Post postSaved = service.savePost(post,law, user)
+        Post postSaved = service.savePost(post,project, user)
 
         then: "Expected an exception"
         0 * indexSolrService.index(_)
         0 * cluckService.createActionCluck(_,_)
         0 * postVoteService.votePost(_,_)
         postSaved.owner == user
-        postSaved.law == law
+        postSaved.project == project
     }
 
     @Unroll
@@ -133,10 +132,10 @@ class PostServiceSpec extends Specification{
 
     void "test recomended post"(){
         given:"Some posts"
-        Law law = Helper.createDefaultLaw("#law").save()
+        Project project = Helper.createDefaultProject("#prject").save()
         KuorumUser user = Helper.createDefaultUser("email@email.com").save()
         (1..10).each{
-            Post post = Helper.createDefaultPost(user,law)
+            Post post = Helper.createDefaultPost(user,project)
             post.numVotes = (Math.random() *100) as Integer //Truncate
             post.title ="Title$it"
             post.published = Boolean.TRUE
@@ -144,7 +143,7 @@ class PostServiceSpec extends Specification{
         }
         Pagination pagination = new Pagination()
         when:"Recovering recommended posts"
-        List<Post> recommendedPost = service.recommendedPosts(user, law, pagination)
+        List<Post> recommendedPost = service.recommendedPosts(user, project, pagination)
         then:
         recommendedPost.first().numVotes>=recommendedPost.last().numVotes
         recommendedPost.size() <= pagination.max
@@ -153,10 +152,10 @@ class PostServiceSpec extends Specification{
     @Unroll
     void "test if comment in pos #commentPos is deletable by user #email (admin: #isAdmin )"(){
         given:"A user and a post"
-        Law law = Helper.createDefaultLaw("#law").save()
+        Project project = Helper.createDefaultProject("#project").save()
         KuorumUser owner = Helper.createDefaultUser("owner@email.com").save()
         KuorumUser user = Helper.createDefaultUser("user@email.com").save()
-        Post post = Helper.createDefaultPost(owner,law).save()
+        Post post = Helper.createDefaultPost(owner,project).save()
         post.comments = [new PostComment([text:"0", kuorumUser:user]),new PostComment([text:"0", kuorumUser:owner])]
         post.save()
         KuorumUser deletedBy = email==owner.email?owner:user
@@ -210,8 +209,8 @@ class PostServiceSpec extends Specification{
             KuorumUser user = Helper.createDefaultUser("user@email.com").save()
             KuorumUser politician = Helper.createDefaultUser("politician@email.com").save()
             politician.politicianActivity = new PoliticianActivity()
-            Law law = Helper.createDefaultLaw("#law").save()
-            Post post = Helper.createDefaultPost(user, law).save()
+            Project project = Helper.createDefaultProject("#project").save()
+            Post post = Helper.createDefaultPost(user, project).save()
             post.defender = politician
             KuorumUser userGivenVictory = KuorumUser.findByEmail(emailUser)
             post.victory = stausVictoryPost

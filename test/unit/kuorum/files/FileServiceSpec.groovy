@@ -135,7 +135,7 @@ class FileServiceSpec extends Specification {
                 storagePath:"/tmp",
                 fileName:"noExists.txt",
                 url:"http://url.com",
-                fileGroup:FileGroup.LAW_IMAGE)
+                fileGroup:FileGroup.PROJECT_IMAGE)
         file.save()
         when:"Is deleted"
         service.deleteFile(file)

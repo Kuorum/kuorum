@@ -9,7 +9,7 @@ class ProjectVote {
     ObjectId id
     KuorumUser kuorumUser
     PersonalData personalData
-    Project Project
+    Project project
     VoteType voteType
     Date dateCreated
     static embedded = ['personalData']
