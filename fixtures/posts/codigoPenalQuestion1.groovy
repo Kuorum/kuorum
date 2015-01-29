@@ -4,7 +4,7 @@ import kuorum.post.Post
 fixture {
 
     codigoPenalQuestion1(Post){
-        law=codigoPenal
+        project=codigoPenal
         numClucks=1
         numVotes=1
         owner=carmen

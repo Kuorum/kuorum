@@ -107,8 +107,8 @@
     <div class="col-xs-12 col-sm-6 col-md-3">
         <div class="wrapper">
             <span class="icon-CULTURE fa-3x"></span>
-            <h2><g:message code="landingPage.complementary.voteLaws.title"/></h2>
-            <p><g:message code="landingPage.complementary.voteLaws.description"/></p>
+            <h2><g:message code="landingPage.complementary.voteProjects.title"/></h2>
+            <p><g:message code="landingPage.complementary.voteProjects.description"/></p>
         </div>
     </div>
 
@@ -116,8 +116,8 @@
         <div class="wrapper">
             <span class="fa fa-lightbulb-o fa-3x"></span>
             %{--<span class="icon-book fa-3x"></span>--}%
-            <h2><g:message code="landingPage.complementary.editLaws.title"/></h2>
-            <p><g:message code="landingPage.complementary.editLaws.description"/></p>
+            <h2><g:message code="landingPage.complementary.editProjects.title"/></h2>
+            <p><g:message code="landingPage.complementary.editProjects.description"/></p>
         </div>
     </div>
 

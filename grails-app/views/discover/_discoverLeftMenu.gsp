@@ -1,15 +1,15 @@
 <ul>
-    %{--<li class="${activeMapping=='discoverLaws'?'active':''}">--}%
-        %{--<g:link mapping="discoverLaws"><g:message code="discover.menu.laws"/></g:link>--}%
+    %{--<li class="${activeMapping=='discoverProjects'?'active':''}">--}%
+        %{--<g:link mapping="discoverProjects"><g:message code="discover.menu.projects"/></g:link>--}%
     %{--</li>--}%
-    <g:each in="${dynamicDiscoverLaws}" var="dynamicDiscoverLaw">
-        <li class="${activeMapping=='discoverLaws' && params.iso3166_2==dynamicDiscoverLaw.region.iso3166_2?'active':''}">
-            <g:link mapping="discoverLawsByRegion" params="${dynamicDiscoverLaw.region.encodeAsLinkProperties()}">
+    <g:each in="${dynamicDiscoverProjects}" var="dynamicDiscoverProject">
+        <li class="${activeMapping=='discoverProjects' && params.iso3166_2==dynamicDiscoverProject.region.iso3166_2?'active':''}">
+            <g:link mapping="discoverProjectsByRegion" params="${dynamicDiscoverProject.region.encodeAsLinkProperties()}">
                 <span>
-                    <g:message code="page.title.discover.lawsByRegion" args="[dynamicDiscoverLaw.region.name]"/>
+                    <g:message code="page.title.discover.projectsByRegion" args="[dynamicDiscoverProject.region.name]"/>
                 </span>
-                <span aria-relevant="additions" aria-live="assertive" aria-labelledby="unpublished-laws" role="log" class="badge pull-right">
-                    ${dynamicDiscoverLaw.numLaws}
+                <span aria-relevant="additions" aria-live="assertive" aria-labelledby="unpublished-projects" role="log" class="badge pull-right">
+                    ${dynamicDiscoverProject.numProjects}
                 </span>
             </g:link>
 

@@ -1,7 +1,7 @@
 package kuorum.post
 
 import kuorum.Region
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
@@ -43,11 +43,11 @@ class Cluck {
 //    @Deprecated
     Boolean isFirstCluck = Boolean.FALSE
 
-    Law law
+    Project project
 
     Post post
 
-    Region region;
+    Region region
 
     Date dateCreated
     Date lastUpdated
@@ -57,7 +57,7 @@ class Cluck {
 
     static constraints = {
         owner index:true
-        law index:true
+        project index:true
         lastUpdated index:true
 //        defendedBy nullable: true,  index:true
     }

@@ -3,17 +3,17 @@ package kuorum.users
 import grails.transaction.Transactional
 import kuorum.Region
 import kuorum.core.model.Gender
-import kuorum.core.model.Law.LawRegionStats
+import kuorum.core.model.project.ProjectRegionStats
 import kuorum.core.model.UserType
-import kuorum.law.AcumulativeVotes
+import kuorum.project.AcumulativeVotes
 
 @Transactional
 class KuorumUserStatsService {
 
 
-    LawRegionStats calculateStats(Region region){
+    ProjectRegionStats calculateStats(Region region){
         //TODO: Cache this method
-        LawRegionStats stats = new LawRegionStats(region: region, genderVotes: [:], totalVotes: new AcumulativeVotes())
+        ProjectRegionStats stats = new ProjectRegionStats(region: region, genderVotes: [:], totalVotes: new AcumulativeVotes())
         Gender.values().each {gender ->
             AcumulativeVotes votes = calculateRegionStatsByGender(region, gender)
             stats.genderVotes.put(gender, votes)
@@ -72,11 +72,11 @@ class KuorumUserStatsService {
 
     PoliticianActivity calculatePoliticianActivity(KuorumUser politician){
         if (politician.userType!=UserType.POLITICIAN){
-            log.warn("Calculando actividad politica de alguien que no es político: "+politician)
+            log.warn("Calculando actividad politica de alguien que no es polï¿½tico: "+politician)
             return new PoliticianActivity()
         }else {
             if (!politician.politicianActivity){
-                log.warn("Político sin su actividad calculada previamente: "+politician)
+                log.warn("Polï¿½tico sin su actividad calculada previamente: "+politician)
                 politician.politicianActivity = new PoliticianActivity()
                 politician.save()
             }

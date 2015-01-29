@@ -1,15 +1,15 @@
 package kuorum
 
 import kuorum.core.model.search.Pagination
-import kuorum.law.Law
-import kuorum.law.LawVote
+import kuorum.project.Project
 import kuorum.post.Post
+import kuorum.project.ProjectVote
 import kuorum.users.KuorumUser
 
 class ModulesTagLib {
     static defaultEncodeAs = 'raw'
     //static encodeAsForTags = [tagName: 'raw']
-    def lawService
+    def projectService
     def springSecurityService
     def postService
 
@@ -17,35 +17,35 @@ class ModulesTagLib {
 
     static namespace = "modulesUtil"
 
-    def lawVotes={attrs ->
-        Law law = attrs.law
+    def projectVotes={attrs ->
+        Project project = attrs.project
         Boolean social = Boolean.parseBoolean(attrs.social?:"false")
         Boolean title = Boolean.parseBoolean(attrs.title?:"false")
-        LawVote userVote = null
+        ProjectVote userVote = null
         if (springSecurityService.isLoggedIn()){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            userVote = lawService.findLawVote(law,user)
+            userVote = projectService.findProjectVote(project,user)
         }
-        Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
-        out << render (template:"/law/lawVotesModule", model:[law:law,userVote:userVote,necessaryVotesForKuorum:necessaryVotesForKuorum, social:social, title:title])
+        Integer necessaryVotesForKuorum = projectService.necessaryVotesForKuorum(project)
+        out << render (template:"/project/projectVotesModule", model:[project:project,userVote:userVote,necessaryVotesForKuorum:necessaryVotesForKuorum, social:social, title:title])
     }
 
-    def lawActivePeople={attrs ->
-        Law law = attrs.law
-        List<KuorumUser> activePeopleOnLaw = lawService.activePeopleOnLaw(law)
-        if (activePeopleOnLaw)
-            out << render (template:'/modules/activePeopleOnLaw', model: [users: activePeopleOnLaw])
+    def projectActivePeople={attrs ->
+        Project project = attrs.project
+        List<KuorumUser> activePeopleOnProject = projectService.activePeopleOnProject(project)
+        if (activePeopleOnProject)
+            out << render (template:'/modules/activePeopleOnProject', model: [users: activePeopleOnProject])
     }
 
     def recommendedPosts={attrs ->
         KuorumUser user = null
         String specialCssClass = attrs.specialCssClass
-        Law law = attrs.law //Not necessary
+        Project project = attrs.project //Not necessary
         Pagination pagination = attrs.numPost?new Pagination(max:Long.parseLong(attrs.numPost)):new Pagination(max:NUM_RECOMMENDED_POST)
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
         }
-        List<Post> recommendedPost = postService.recommendedPosts(user, law, pagination)
+        List<Post> recommendedPost = postService.recommendedPosts(user, project, pagination)
         if (recommendedPost){
             String title = attrs.title?:message(code:"modules.recommendedPosts.title")
             out << render(template: '/modules/recommendedPosts', model:[recommendedPost:recommendedPost, title:title,specialCssClass:specialCssClass])
@@ -54,10 +54,10 @@ class ModulesTagLib {
 
     def lastCreatedPosts={attrs ->
         String specialCssClass = attrs.specialCssClass
-        Law law = attrs.law //Not necessary
+        Project project = attrs.project //Not necessary
         Pagination pagination = attrs.numPost?new Pagination(max:Long.parseLong(attrs.numPost)):new Pagination(max:NUM_RECOMMENDED_POST)
 
-        List<Post> lastCreatedPost = postService.lastCreatedPosts(pagination, law)
+        List<Post> lastCreatedPost = postService.lastCreatedPosts(pagination, project)
         if (lastCreatedPost){
             String title = attrs.title?:message(code:"modules.lastCreatedPost.title")
             out << render(template: '/modules/recommendedPosts', model:[recommendedPost:lastCreatedPost, title:title,specialCssClass:specialCssClass])

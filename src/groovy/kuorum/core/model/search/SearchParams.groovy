@@ -19,7 +19,7 @@ class SearchParams extends Pagination implements Serializable{
     String word
 
     /**
-     * Filter by type: LAW, POST, USER
+     * Filter by type: PROJECT, POST, USER
      */
     SolrType type
 

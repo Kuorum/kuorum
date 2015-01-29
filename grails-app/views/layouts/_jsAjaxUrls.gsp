@@ -6,7 +6,7 @@
         search:'<g:createLink mapping="searcherSearch" absolute="true"/>',
         tour:{
             tour_dashboard:'<g:createLink mapping="tour_dashboard"/>',
-            tour_law:'<g:createLink mapping="tour_law"/>',
+            tour_project:'<g:createLink mapping="tour_project"/>',
             tour_post:'<g:createLink mapping="tour_post"/>'
         }
     }
@@ -70,11 +70,11 @@
                 step7_title:    '<g:message code="tour.tour_dashboard.step7_title"/>'    ,
                 step7_content:  '<g:message code="tour.tour_dashboard.step7_content"/>'
             },
-            tour_law:{
-                step1_title:    '<g:message code="tour.tour_law.step1_title"/>'    ,
-                step1_content:  '<g:message code="tour.tour_law.step1_content"/>'  ,
-                step2_title:    '<g:message code="tour.tour_law.step2_title"/>'    ,
-                step2_content:  '<g:message code="tour.tour_law.step2_content"/>'
+            tour_project:{
+                step1_title:    '<g:message code="tour.tour_project.step1_title"/>'    ,
+                step1_content:  '<g:message code="tour.tour_project.step1_content"/>'  ,
+                step2_title:    '<g:message code="tour.tour_project.step2_title"/>'    ,
+                step2_content:  '<g:message code="tour.tour_project.step2_content"/>'
             },
             tour_post:{
                 step1_title:    '<g:message code="tour.tour_post.step1_title"/>'    ,

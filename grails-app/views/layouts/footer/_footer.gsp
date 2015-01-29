@@ -48,7 +48,7 @@
                         <h1 class="map"><g:message code="layout.footer.webMap"/> </h1>
                         <ul>
                             <li><g:link mapping="users" params="${kuorum.core.model.UserType.POLITICIAN.encodeAsLinkProperties()}"><g:message code="list.citizens.POLITICIAN.title"/></g:link></li>
-                            <li><g:link mapping="laws"><g:message code="list.laws.title"/></g:link></li>
+                            <li><g:link mapping="projects"><g:message code="list.projects.title"/></g:link></li>
                         </ul>
                     </div>
 

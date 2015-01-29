@@ -21,7 +21,7 @@
         %{--<a data-target="#" href="#" class="dropdown-toggle" id="open-filter-search" data-toggle="dropdown" role="button"><span class="sr-only">Filtra tu búsqueda</span> <span class="fa fa-caret-down fa-lg"></span></a>--}%
         %{--<ul id="filters" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-filter-search" role="menu">--}%
             %{--<li><a href="#" class="entodo">${message(code:'search.head.placeHolder')}</a></li>--}%
-            %{--<li><a href="#" class="enleyes">${message(code:'search.head.placeHolder.laws')}<span class="fa fa-briefcase"></span></a></li>--}%
+            %{--<li><a href="#" class="enleyes">${message(code:'search.head.placeHolder.projects')}<span class="fa fa-briefcase"></span></a></li>--}%
             %{--<li><a href="#" class="enpersonas">${message(code:'search.head.placeHolder.users')}<span class="fa fa-user"></span></a></li>--}%
         %{--</ul>--}%
     </div>
@@ -52,8 +52,8 @@
                     format = "<img class='user-img' alt='"+suggestion.data.name+"' src='"+suggestion.data.urlAvatar+"'>"
                     format +="<span class='name'>"+suggestion.data.name+"</span>"
                     format +="<span class='user-type'>"+suggestion.data.role.i18n+"</span>"
-                }else if(suggestion.type=="LAW"){
-                    format = "<span class='statusLaw'>"+suggestion.data.status.i18n+"</span>"
+                }else if(suggestion.type=="PROJECT"){
+                    format = "<span class='statusProject'>"+suggestion.data.status.i18n+"</span>"
                     format += suggestion.data.title
                     format += " <strong>"+suggestion.data.hashtag+"</strong>"
                 }
@@ -65,7 +65,7 @@
             onSelect: function(suggestion){
                 if(suggestion.type=="USER"){
                     window.location = suggestion.data.url
-                }else if(suggestion.type=="LAW"){
+                }else if(suggestion.type=="PROJECT"){
                     window.location = suggestion.data.url
                 }else{
                     window.location = urls.search+"?word="+encodeURIComponent(suggestion.value)

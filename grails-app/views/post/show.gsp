@@ -38,10 +38,10 @@
 
 <content tag="footerStats">
 
-    %{--<modulesUtil:delayedModule mapping="ajaxModuleLawBottomStats" params="[hashtag:law.hashtag.decodeHashtag()]" elementId="idAjaxModuleLawBottomStats"/>--}%
-    %{--<g:include controller="modules" action="bottomLawStats" params="[law:law]"/>--}%
+    %{--<modulesUtil:delayedModule mapping="ajaxModuleProjectBottomStats" params="[hashtag:project.hashtag.decodeHashtag()]" elementId="idAjaxModuleProjectBottomStats"/>--}%
+    %{--<g:include controller="modules" action="bottomProjectStats" params="[project:project]"/>--}%
     <a href="#main" class="smooth top">
         <span class="fa fa-caret-up fa-lg"></span>
-        <g:message code="law.up"/>
+        <g:message code="project.up"/>
     </a>
 </content>

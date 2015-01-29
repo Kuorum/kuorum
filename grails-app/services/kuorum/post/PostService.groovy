@@ -11,9 +11,8 @@ import kuorum.core.model.UserType
 import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchUserPosts
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.mail.KuorumMailService
-import kuorum.notifications.DefendedPostAlert
 import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
 
@@ -33,21 +32,21 @@ class PostService {
     /**
      * Save a post and creates the first firstCluck and first vote (owner vote)
      * @param post post data
-     * @param law law's post
+     * @param project project's post
      * @param owner The persona who has created the post
      * @return
      */
-    Post savePost(Post post, Law law, KuorumUser owner) {
+    Post savePost(Post post, Project project, KuorumUser owner) {
 
-        if (!law || !owner){
-            KuorumException exception = new KuorumException("No se ha indicado el dieño ${owner} o la ley ${law}", "error.post.saving.data")
-            log.error("No se ha indicado el dieño ${owner} o la ley ${law}")
+        if (!project || !owner){
+            KuorumException exception = new KuorumException("No se ha indicado el dieño ${owner} o la ley ${project}", "error.post.saving.data")
+            log.error("No se ha indicado el dieño ${owner} o la ley ${project}")
             throw exception
         }
         post.numVotes = 0
         post.numClucks = 0
         post.owner = owner
-        post.law =  law
+        post.project =  project
         post.text = removeCustomCrossScripting(post.text)
         post.ownerPersonalData = owner.personalData
 
@@ -385,11 +384,11 @@ class PostService {
         Post.countByOwnerAndPublished(user, false)
     }
 
-    List<Post> recommendedPosts(KuorumUser user = null, Law law = null, Pagination pagination = new Pagination()){
+    List<Post> recommendedPosts(KuorumUser user = null, Project project = null, Pagination pagination = new Pagination()){
         //TODO: Improve algorithm
         Integer votesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
-        if (law){
-            Post.findAllByLawAndPublished(law,true,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
+        if (project){
+            Post.findAllByProjectAndPublished(project,true,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
         }else{
             Post.findAllByPublished(true, [max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
 //        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
@@ -397,9 +396,9 @@ class PostService {
     }
 
 
-    List<Post> lastCreatedPosts(Pagination pagination = new Pagination(), Law law = null){
-        if (law){
-            Post.findAllByLawAndPublished(law, true,[max: pagination.max, sort: "id", order: "desc", offset: pagination.offset])
+    List<Post> lastCreatedPosts(Pagination pagination = new Pagination(), Project project = null){
+        if (project){
+            Post.findAllByProjectAndPublished(project, true,[max: pagination.max, sort: "id", order: "desc", offset: pagination.offset])
         }else{
             Post.findAllByPublished(true, [max: pagination.max, sort: "id", order: "desc", offset: pagination.offset])
 //        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
@@ -416,8 +415,8 @@ class PostService {
     List<Post> relatedPosts(Post post,KuorumUser user, Integer max){
         //TODO: Improve algorithm
 
-        //Post of the law
-        List<Post> posts = Post.findAllByLawAndIdNotEqual(post.law, post.id, [max: max, sort: "numVotes", order: "desc", offset: 0])
+        //Post of the project
+        List<Post> posts = Post.findAllByProjectAndIdNotEqual(post.project, post.id, [max: max, sort: "numVotes", order: "desc", offset: 0])
 
         //If not enough post then => Post with the same owner
         if (posts.size() < max){
@@ -460,8 +459,8 @@ class PostService {
         post
     }
 
-    List<Post> lawVictories(Law law, Pagination pagination = new Pagination()){
-        Post.findAllByLawAndVictory(law,Boolean.TRUE,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
+    List<Post> projectVictories(Project project, Pagination pagination = new Pagination()){
+        Post.findAllByProjectAndVictory(project,Boolean.TRUE,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
     }
 
     Post defendPost(Post post, CommitmentType commitmentType, KuorumUser politician){
@@ -501,7 +500,7 @@ class PostService {
      */
     Boolean isAllowedToDefendAPost(Post post, KuorumUser politician){
         politician.userType == UserType.POLITICIAN &&
-        politician.institution.region == post.law.region
+        politician.institution.region == post.project.region
     }
 
     def getPostConfiguration(){

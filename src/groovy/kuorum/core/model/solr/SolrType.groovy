@@ -1,9 +1,9 @@
 package kuorum.core.model.solr
 
-import kuorum.core.model.LawStatusType
+import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.PostType
 import kuorum.core.model.UserType
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 
@@ -19,11 +19,11 @@ enum SolrType {
             case PostType.QUESTION: SolrSubType.QUESTION; break;
         }
     }),
-    LAW({Law law->
-        switch (law.status){
-            case LawStatusType.OPEN: SolrSubType.OPEN; break;
-            case LawStatusType.APPROVED: SolrSubType.APPROVED; break;
-            case LawStatusType.REJECTED: SolrSubType.REJECTED; break;
+    PROJECT({Project project->
+        switch (project.status){
+            case ProjectStatusType.OPEN: SolrSubType.OPEN; break;
+            case ProjectStatusType.APPROVED: SolrSubType.APPROVED; break;
+            case ProjectStatusType.REJECTED: SolrSubType.REJECTED; break;
         }
     }),
     KUORUM_USER({KuorumUser kuorumUser ->

@@ -4,7 +4,7 @@ import kuorum.post.Post
 fixture {
 
     abortoPurpose2(Post){
-        law=aborto
+        project=aborto
         numClucks=1
         numVotes=1
         owner=juanjoAlvite

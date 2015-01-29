@@ -38,6 +38,7 @@ covertura.ser
 
 # "temporary" build files
 /target
+/out
 
 # other
 *.iws

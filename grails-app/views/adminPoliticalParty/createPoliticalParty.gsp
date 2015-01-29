@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="admin.createLaw.title"/> </title>
+    <title><g:message code="admin.createProject.title"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="config" />
 </head>
@@ -16,11 +16,11 @@
 
 <content tag="mainContent">
     <h1><g:message code="admin.createPoliticalParty.title"/></h1>
-    <formUtil:validateForm bean="${command}" form="createLaw"/>
+    <formUtil:validateForm bean="${command}" form="createProject"/>
     <g:form method="POST" mapping="adminCreatePoliticalParty" name="createPoliticalParty" role="form">
         <g:render template="/adminPoliticalParty/formPoliticalParty" model="[command:command]"/>
         <div class="form-group">
-            <input type="submit" value="${message(code:'admin.createLaw.submit')}" class="btn btn-grey btn-lg">
+            <input type="submit" value="${message(code:'admin.createProject.submit')}" class="btn btn-grey btn-lg">
             <a href="#" class="cancel" tabindex="19">Cancelar</a>
         </div>
     </g:form>

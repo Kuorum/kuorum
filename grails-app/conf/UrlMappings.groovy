@@ -6,28 +6,28 @@ class UrlMappings {
 
 	static mappings = {
 
-        //TODO Hacer esta ñapa en BBDD
+        //TODO Hacer esta ï¿½apa en BBDD
 //        name tempmoralLink: "/$customLink" (controller: "dashboard", action:"customPostMapping")
         name tempmoralLink: "/medidasvalientes" (controller: "dashboard", action:"customPostMapping")
 
         name home:             "/" (controller: "dashboard", action:"index")
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
         name discover:                      "/descubre" (controller: "dashboard", action:"discover")
-        name discoverLaws:                  "/descubre/leyes"         (controller: "discover", action:"discoverLaws")
-        name discoverLawsByRegion:          "/descubre/leyes/$regionName" (controller: "discover", action:"discoverLaws")
+        name discoverProjects:                  "/descubre/leyes"         (controller: "discover", action:"discoverProjects")
+        name discoverProjectsByRegion:          "/descubre/leyes/$regionName" (controller: "discover", action:"discoverProjects")
         name discoverPoliticians:           "/descubre/politicos"     (controller: "discover", action:"discoverPoliticians")
         name discoverRecentPosts:           "/descubre/publicaciones-recientes" (controller: "discover", action:"discoverRecentPosts")
         name discoverRecommendedPosts:      "/descubre/publicaciones-mas-impulsadas" (controller: "discover", action:"discoverRecommendedPosts")
 
-        name lawCreate:     "/leyes/nueva"(controller: "law"){action = [GET:"create", POST:"save"]}
-        name laws:          "/leyes/$institutionName?/$commission?" (controller: "law", action:"index")
-        name lawShow:       "/leyes/$institutionName/$commission/$hashtag" (controller: "law", action:"show")
-        name lawStats:      "/leyes/$institutionName/$commission/$hashtag/ficha-tecnica" (controller: "law", action:"stats")
-        name lawStatsDataMap:"/ajax/leyes/$institutionName/$commission/$hashtag/ficha-tecnica/datos-mapa" (controller: "law", action:"statsDataMap")
-        name lawStatsPieChart:"/ajax/leyes/$institutionName/$commission/$hashtag/ficha-tecnica/datos-pieChart" (controller: "law", action:"statsDataPieChart")
-        name lawShowSec:    "/sec/leyes/$institutionName/$commission/$hashtag" (controller: "law", action:"showSecured")
-        name lawVote:       "/ajax/leyes/$institutionName/$commission/$hashtag/votar"(controller: "law", action:"voteLaw")
-        name lawListClucks: "/ajax/leyes/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "law", action:"listClucksLaw")
+        name projectCreate: "/proyectos/nueva"(controller: "project"){action = [GET:"create", POST:"save"]}
+        name projects:      "/proyectos/$institutionName?/$commission?" (controller: "project", action:"index")
+        name projectShow:   "/proyectos/$institutionName/$commission/$hashtag" (controller: "project", action:"show")
+        name projectStats:  "/proyectos/$institutionName/$commission/$hashtag/ficha-tecnica" (controller: "project", action:"stats")
+        name projectStatsDataMap:"/ajax/proyectos/$institutionName/$commission/$hashtag/ficha-tecnica/datos-mapa" (controller: "project", action:"statsDataMap")
+        name projectStatsPieChart:"/ajax/proyectos/$institutionName/$commission/$hashtag/ficha-tecnica/datos-pieChart" (controller: "project", action:"statsDataPieChart")
+        name projectShowSec:    "/sec/proyectos/$institutionName/$commission/$hashtag" (controller: "project", action:"showSecured")
+        name projectVote:       "/ajax/proyectos/$institutionName/$commission/$hashtag/votar"(controller: "project", action:"voteProject")
+        name projectListClucks: "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
 
         name postCreate:    "/leyes/$institutionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
 //        name postSave:      "/leyes/$institutionName/$commission/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
@@ -134,7 +134,7 @@ class UrlMappings {
 
         name tourStart:           "/tour" (controller:"tour", action: "index")
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
-        name tour_law:            "/tour/ley"       (controller:"tour", action: "tour_law")
+        name tour_project:        "/tour/proyectos"       (controller:"tour", action: "tour_project")
         name tour_post:           "/tour/publicacion" (controller:"tour", action: "tour_post")
 
         name ajaxHeadNotificationsChecked: "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")
@@ -146,19 +146,19 @@ class UrlMappings {
         name ajaxCropImage: "/ajax/file/crop"(controller:"file", action:"cropImage")
         name ajaxUploadFile: "/ajax/file/upload" (controller:'file', action:"uploadImage")
 
-        name ajaxModuleLawBottomStats: '/ajax/law/bottomLawStats' (controller:'modules', action: 'bottomLawStats')
+        name ajaxModuleProjectBottomStats: '/ajax/project/bottomProjectStats' (controller:'modules', action: 'bottomProjectStats')
 
         name login:     "/entrar"       (controller:"login", action:"index")
         name loginAuth: "/autenticarse" (controller:"login", action:"auth")
         name loginFull: "/confirmar-usuario" (controller:"login", action:"full")
         name logout:    "/salir"        (controller:"logout", action:"index")
 
-        name adminPrincipal:        "/admin"                        (controller:"adminLaw", action: "index")
-        name adminCreateLaw:        "/admin/leyes/crear-ley"        (controller:"adminLaw"){action =[GET:"createLaw", POST:"saveLaw"]}
-        name adminEditLaw:          "/admin/leyes/editar-ley/$hashtag" (controller:"adminLaw"){action =[GET:"editLaw", POST:"updateLaw"]}
-        name adminPublishLaw:       "/admin/leyes/editar-ley/$hashtag/publicar"     (controller:"adminLaw", action: "publishLaw")
-        name adminUnpublishLaw:     "/admin/leyes/editar-ley/$hashtag/despublicar"  (controller:"adminLaw", action: "unPublishLaw")
-        name adminUnpublishedLaws:  "/admin/leyes/no-publicadas"    (controller:"adminLaw", action: "unpublishedLaws")
+        name adminPrincipal:        "/admin"                        (controller:"adminProject", action: "index")
+        name adminCreateProject:        "/admin/leyes/crear-ley"        (controller:"adminProject"){action =[GET:"createProject", POST:"saveProject"]}
+        name adminEditProject:          "/admin/leyes/editar-ley/$hashtag" (controller:"adminProject"){action =[GET:"editProject", POST:"updateProject"]}
+        name adminPublishProject:       "/admin/leyes/editar-ley/$hashtag/publicar"     (controller:"adminProject", action: "publishProject")
+        name adminUnpublishProject:     "/admin/leyes/editar-ley/$hashtag/despublicar"  (controller:"adminProject", action: "unPublishProject")
+        name adminUnpublishedProjects:  "/admin/leyes/no-publicadas"    (controller:"adminProject", action: "unpublishedProjects")
         name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")

@@ -9,7 +9,7 @@
     <article class="kakareo" role="article" data-cluck-postId="${post.id}">
         <div class="link-wrapper">
             <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
-            <h1>${post.title} <g:link mapping="lawShow" params="${post.law.encodeAsLinkProperties()}">${post.law.hashtag}</g:link></h1>
+            <h1>${post.title} <g:link mapping="projectShow" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link></h1>
             <div class="main-kakareo row">
                 <!-- cambia la clase col-md era 5 y pasa a ser 6 -->
                 <div class="col-md-6 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">

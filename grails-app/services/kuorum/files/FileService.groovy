@@ -57,7 +57,7 @@ class FileService {
 
 //        burningImageService.doWith("${kuorumFile.storagePath}/${kuorumFile.fileName}", kuorumFile.storagePath)
 //                .execute {
-//            //Pensar este 558 que es el tamaño del lightbox
+//            //Pensar este 558 que es el tamaï¿½o del lightbox
 //            Integer withLightBox = 558
 //            Float ratio = withLightBox / it.loadedImage.getSize().width
 ////            if (it.loadedImage.getSize().width > withLightBox){
@@ -70,7 +70,7 @@ class FileService {
     }
 
     /**
-     * Recorta la imagen según las medidas indicadas
+     * Recorta la imagen segï¿½n las medidas indicadas
      * @param kuorumFile
      * @param x1
      * @param y1
@@ -175,9 +175,9 @@ class FileService {
      * Returns the relative path for an ID. Prefixed by the fileGroup.
      * The returned path is without slashes
      *
-     * Exapmle: ID = 123, GROUP=LAW_FILE
+     * Exapmle: ID = 123, GROUP=PROJECT_FILE
      *
-     * LawsFiles/00/00/00/01/23
+     * ProjectsFiles/00/00/00/01/23
      *
      * @param fileGroup
      * @param id

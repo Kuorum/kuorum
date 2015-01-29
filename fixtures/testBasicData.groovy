@@ -1,6 +1,6 @@
 include "basicData"
 include "users/*"
-include "laws/*"
+include "projects/*"
 include "posts/*"
 
 fixture{

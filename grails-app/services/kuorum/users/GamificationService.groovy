@@ -4,7 +4,7 @@ import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.core.model.gamification.GamificationElement
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.post.Post
 
 @Transactional
@@ -18,15 +18,15 @@ class GamificationService {
     }
 
     def gamificationConfigVotePost(){ gamificationConfig().votePost }
-    def gamificationConfigVoteLaw(){ gamificationConfig().voteLaw }
+    def gamificationConfigVoteProject(){ gamificationConfig().voteProject }
     def gamificationConfigCreatePost(){ gamificationConfig().newPost }
     def postCreatedAward(KuorumUser user, Post post) {
         def config = gamificationConfig().newPost
         updateGamificationUser(user,config)
     }
 
-    def lawVotedAward(KuorumUser user, Law law){
-        def config = gamificationConfig().voteLaw
+    def projectVotedAward(KuorumUser user, Project project){
+        def config = gamificationConfig().voteProject
         updateGamificationUser(user,config)
     }
 

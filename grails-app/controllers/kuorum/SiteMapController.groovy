@@ -1,7 +1,7 @@
 package kuorum
 
 import kuorum.core.model.CommissionType
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.post.Post
 
 class SiteMapController {
@@ -71,7 +71,7 @@ class SiteMapController {
                 Institution.list().each {institution ->
                     String institutionName = institution.name.encodeAsKuorumUrl()
                     url {
-                        loc(g.createLink(absolute: true, mapping: 'laws', params:[institutionName:institutionName]))
+                        loc(g.createLink(absolute: true, mapping: 'projects', params:[institutionName:institutionName]))
                         changefreq('weekly')
                         priority(0.9)
                     }
@@ -79,19 +79,19 @@ class SiteMapController {
                         String commissionUrl = message(code:"${CommissionType.canonicalName}.${commission}")
                         commissionUrl = commissionUrl.toLowerCase().encodeAsKuorumUrl() //toLowerCase is necessary because ... I don't know. If is not present, codec doesn't work
                         url {
-                            loc(g.createLink(absolute: true, mapping: 'laws', params:[institutionName:institutionName, commission:commissionUrl]))
+                            loc(g.createLink(absolute: true, mapping: 'projects', params:[institutionName:institutionName, commission:commissionUrl]))
                             changefreq('weekly')
                             priority(0.9)
                         }
                     }
                 }
                 //DYNAMIC ENTRIES
-                Law.list().each {law->
+                Project.list().each {project->
                     url {
-                        loc(g.createLink(absolute: true, mapping:'lawShow', params:law.encodeAsLinkProperties()))
+                        loc(g.createLink(absolute: true, mapping:'projectShow', params:project.encodeAsLinkProperties()))
                         changefreq('weekly')
                         priority(0.8)
-                        lastmod(law.dateCreated.format(FORMAT_DATE_SITEMAP))
+                        lastmod(project.dateCreated.format(FORMAT_DATE_SITEMAP))
                     }
                 }
 

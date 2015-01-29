@@ -3,6 +3,6 @@
 <g:link mapping="home" class="btn btn-lg">
     <g:message code="error.genericFooter.backHome"/>
 </g:link>
-<g:link mapping="laws" class="btn btn-lg btn-blue">
-    <g:message code="error.genericFooter.showLaws"/>
+<g:link mapping="projects" class="btn btn-lg btn-blue">
+    <g:message code="error.genericFooter.showProjects"/>
 </g:link>

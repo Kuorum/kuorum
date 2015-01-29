@@ -1,8 +1,8 @@
 package kuorum
 
-import kuorum.core.model.LawStatusType
+import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.search.Pagination
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.users.KuorumUser
@@ -12,7 +12,7 @@ class TourController {
     def springSecurityService
     def postService
     def cluckService
-    def lawService
+    def projectService
     def postVoteService
 
     def beforeInterceptor ={
@@ -43,7 +43,7 @@ class TourController {
 //                    sponsors:[],
 //                    debateMembers:[],
 //                    isFirstCluck:Boolean.FALSE,
-                    law:post.law,
+                    project:post.project,
                     post:post,
                     dateCreated:post.dateCreated,
                     lastUpdated:post.dateCreated
@@ -51,19 +51,19 @@ class TourController {
             cluckFake.dateCreated = post.dateCreated
             cluckFake.lastUpdated = post.dateCreated
             cluckFake.post = post
-            cluckFake.law = post.law
+            cluckFake.project = post.project
             cluckFake
         }
         def recommendedUsers = posts.owner
         [fakeClucks:fakeClucks, user:user, favorites:posts,recommendedUsers:recommendedUsers]
     }
-    def tour_law() {
+    def tour_project() {
         KuorumUser user = params.user
-        Law law = Law.findByStatus(LawStatusType.OPEN)
-        List<Post> victories = postService.lawVictories(law)
-        def clucks = cluckService.lawClucks(law,new Pagination(max:4))
-        Integer necessaryVotesForKuorum = lawService.necessaryVotesForKuorum(law)
-        [user:user, law:law,victories:victories,clucks:clucks,necessaryVotesForKuorum:necessaryVotesForKuorum]
+        Project project = Project.findByStatus(ProjectStatusType.OPEN)
+        List<Post> victories = postService.projectVictories(project)
+        def clucks = cluckService.projectClucks(project,new Pagination(max:4))
+        Integer necessaryVotesForKuorum = projectService.necessaryVotesForKuorum(project)
+        [user:user, project:project,victories:victories,clucks:clucks,necessaryVotesForKuorum:necessaryVotesForKuorum]
     }
 
     def tour_post() {

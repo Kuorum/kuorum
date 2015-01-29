@@ -5,7 +5,7 @@ import grails.util.Environment
 import groovyx.net.http.ContentType
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.Method
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.post.Post
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.beans.factory.annotation.Value
@@ -69,8 +69,8 @@ class ShortUrlService {
         checkEnviromentShortUrl(link)
     }
 
-    URL shortUrl(Law law) {
-        String link = grailsLinkGenerator.link(mapping: 'lawShow', params:law.encodeAsLinkProperties(), absolute: true)
+    URL shortUrl(Project project) {
+        String link = grailsLinkGenerator.link(mapping: 'projectShow', params:project.encodeAsLinkProperties(), absolute: true)
         checkEnviromentShortUrl(link)
     }
 

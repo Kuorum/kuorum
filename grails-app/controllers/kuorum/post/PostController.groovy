@@ -11,7 +11,7 @@ import kuorum.core.model.UserType
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
 import kuorum.core.model.search.Pagination
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.web.commands.PostCommand
 import kuorum.web.commands.post.CommentPostCommand
@@ -26,7 +26,7 @@ class PostController {
     def postService
     def postVoteService
     def springSecurityService
-    def lawService
+    def projectService
     def cluckService
     def gamificationService
     def grailsApplication
@@ -143,8 +143,8 @@ class PostController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create(String hashtag){
-        Law law = lawService.findLawByHashtag(hashtag.encodeAsHashtag())
-        if (!law){
+        Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
+        if (!project){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
@@ -153,18 +153,18 @@ class PostController {
             postType = PostType.valueOf(params.postType)
         }
         PostCommand command = new PostCommand(postType: postType)
-        [command:command, law:law]
+        [command:command, project:project]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def save(PostCommand command){
-        Law law = lawService.findLawByHashtag(params.hashtag.encodeAsHashtag())
-        if (!law){
+        Project project = projectService.findProjectByHashtag(params.hashtag.encodeAsHashtag())
+        if (!project){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
+            return
         }
         if (command.hasErrors()){
-            render view: "create", model:[command:command,law:law]
+            render view: "create", model:[command:command,project:project]
             return;
         }
 
@@ -177,7 +177,7 @@ class PostController {
         post.title = command.title
         post.pdfPage = command.numberPage
 
-        postService.savePost(post, law, user)
+        postService.savePost(post, project, user)
         redirect mapping:"postReview", params:post.encodeAsLinkProperties()
     }
 
@@ -191,7 +191,7 @@ class PostController {
             return;
         }
         [post:post]
-        //TODO: EL proceso de review no queda claro y la gente no llega a publicar. Solo salva. Se hace de modo rápido
+        //TODO: EL proceso de review no queda claro y la gente no llega a publicar. Solo salva. Se hace de modo rï¿½pido
         if (!WITH_POST_REVIEW){
             redirect mapping:"postPublish", params:post.encodeAsLinkProperties()
         }

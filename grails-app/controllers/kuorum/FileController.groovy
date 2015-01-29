@@ -19,7 +19,7 @@ class FileController {
     def uploadImage() {
         def fileData = getFileData(request)
 //        FileGroup fileGroup = FileGroup.valueOf(params.fileGroup)
-        FileGroup fileGroup = FileGroup.LAW_IMAGE
+        FileGroup fileGroup = FileGroup.PROJECT_IMAGE
         if(!fileGroup){
             //TODO: ESTO ESTA MAL (Por defecto no es POST_IMAGE)
             fileGroup = FileGroup.POST_IMAGE
@@ -29,6 +29,16 @@ class FileController {
         KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
         render ([absolutePathImg:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def uploadPDF() {
+        def fileData = getFileData(request)
+        FileGroup fileGroup = FileGroup.PDF
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
+
+        render ([absolutePathPdf:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

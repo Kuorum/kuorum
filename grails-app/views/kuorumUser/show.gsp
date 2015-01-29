@@ -90,15 +90,15 @@
         </div>
     </section>
 
-    <g:if test="${activeLaws}">
-        <section class="boxes laws">
+    <g:if test="${activeProjects}">
+        <section class="boxes projects">
             <h1><span class="fa fa-briefcase"></span>
-                <g:message code="kuorumUser.show.module.activeLaws.title"/> </h1>
+                <g:message code="kuorumUser.show.module.activeProjects.title"/> </h1>
             <ul>
-                <g:each in="${activeLaws}" var="activity">
+                <g:each in="${activeProjects}" var="activity">
                     <li>
-                        <g:link mapping="lawShow" params="${activity.law.encodeAsLinkProperties()}">
-                            ${activity.law.hashtag}
+                        <g:link mapping="projectShow" params="${activity.project.encodeAsLinkProperties()}">
+                            ${activity.project.hashtag}
                         </g:link>
                         <span class="counter">${activity.numTimes}</span>
                     </li>
@@ -106,7 +106,7 @@
             </ul>
             %{--<div class="text-center" id="load-more">--}%
                 %{--<a href="#">--}%
-                    %{--<g:message code="kuorumUser.show.module.activeLaws.seeMore"/>--}%
+                    %{--<g:message code="kuorumUser.show.module.activeProjects.seeMore"/>--}%
                 %{--</a>--}%
             %{--</div>--}%
         </section>

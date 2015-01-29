@@ -11,7 +11,7 @@
             <g:each in="${relatedPosts}" var="relatedPost">
                 <article class="item user link-wrapper" data-cluck-postId="${relatedPost.id}">
                     <g:link mapping="postShow" params="${relatedPost.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
-                    <p>${relatedPost.title} <g:link mapping="lawShow" params="${relatedPost.law.encodeAsLinkProperties()}">${relatedPost.law.hashtag}</g:link> </p>
+                    <p>${relatedPost.title} <g:link mapping="projectShow" params="${relatedPost.project.encodeAsLinkProperties()}">${relatedPost.project.hashtag}</g:link> </p>
                     <userUtil:showUser user="${relatedPost.owner}" withPopover="false"/>
 
 

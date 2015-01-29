@@ -1500,7 +1500,7 @@ textarea.error,
 .kakareo.post.ley h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 32px; font-size: 3.2rem; text-transform: uppercase; padding: 0; border-bottom: solid 1px #dadada; margin-bottom: 10px;}
 .kakareo.post.ley .laley {font-size: 24px; font-size: 2.4rem; margin: 10px 0 0 0;}
 .kakareo.post.ley .photo {position: relative;}
-.kakareo.post.ley .photo .aboutLaw {
+.kakareo.post.ley .photo .aboutProject {
   padding: 4px;
   background-color: #fff;
   position: absolute;
@@ -2011,11 +2011,11 @@ textarea.error,
 .boxes.userkarma .activity li span {color: #545454; font-size: 32px; font-size: 3.2rem;}
 .boxes.userkarma h1 span,
 .boxes.follow h1 span,
-.boxes.laws h1 span {font-size: 18px; font-size: 1.8rem; margin-bottom: 4px; color: #545454;}
+.boxes.projects h1 span {font-size: 18px; font-size: 1.8rem; margin-bottom: 4px; color: #545454;}
 .boxes.follow h1 small span {font-size: 14px; font-size: 1.4rem;}
-.boxes.laws > ul > li {display: block; padding: 10px 0; border-bottom: 1px solid #DADADA;}
-.boxes.laws > ul > li:last-child {border: 0;}
-.boxes.laws > ul > li > .counter {display: inline-block; float: right;}
+.boxes.projects > ul > li {display: block; padding: 10px 0; border-bottom: 1px solid #DADADA;}
+.boxes.projects > ul > li:last-child {border: 0;}
+.boxes.projects > ul > li > .counter {display: inline-block; float: right;}
 
 .userprofile .kakareo.post.ley .user > .user-name small {color: #BFD9F5; font-size: 65%;}
 .boxes.userkarma .activity li.victories {padding-bottom: 20px;}
@@ -2056,17 +2056,17 @@ textarea.error,
 .discover .user-list-followers {margin: 0 0 10px 0;}
 .discover .moreActives .user-list-followers li {margin-right: 7px;}
 .discover .others {margin-bottom: 60px; margin-top: 0px;}
-.discover .others .laws > ul  {margin: 0; padding: 0;}
-.discover .others .laws > ul > li {list-style: none; margin: 34px 0 0 0;}
-.discover .others .laws > ul > li:first-child {margin-top: 20px;}
-.discover .others .laws .kakareo.post.ley {margin: 0;}
-.discover .others .laws .kakareo.post.ley .photo {width: 100px; float: left; margin: 0 8px 8px 0;}
+.discover .others .projects > ul  {margin: 0; padding: 0;}
+.discover .others .projects > ul > li {list-style: none; margin: 34px 0 0 0;}
+.discover .others .projects > ul > li:first-child {margin-top: 20px;}
+.discover .others .projects .kakareo.post.ley {margin: 0;}
+.discover .others .projects .kakareo.post.ley .photo {width: 100px; float: left; margin: 0 8px 8px 0;}
 .discover .others .kakareo.post.ley .laley {font-size: 13px; font-size: 1.3rem; margin: 0 0 2px 0;}
 .discover .others .kakareo.post.ley h1 {border: none; font-size: 19px; font-size: 1.9rem; margin-bottom: 0; line-height: 1;}
 .discover .others .kakareo.post.ley p {font-size: 12px; font-size: 1.2rem; line-height: 1.2;}
 .discover .others .kakareo.post .wrapper {padding: 0;}
 .discover .others .boxes {background: none;}
-.discover .kakareo.post.ley .photo .aboutLaw {top: 7px;}
+.discover .kakareo.post.ley .photo .aboutProject {top: 7px;}
 
 
 /* autocompletado =========== */
@@ -2092,7 +2092,7 @@ textarea.error,
 .autocomplete-suggestion:hover,
 .autocomplete-suggestion:focus,
 .autocomplete-suggestion:active {cursor: pointer;}
-.autocomplete-suggestion .statusLaw {
+.autocomplete-suggestion .statusProject {
   display: block;
   font-size: 11px;
   font-size: 1.1rem;
@@ -2129,8 +2129,8 @@ textarea.error,
 
 /* páginas de info, listados y errores =========== */
 /* ====================================================== */
-#all-laws {margin-bottom: 20px;}
-#all-laws select {
+#all-projects {margin-bottom: 20px;}
+#all-projects select {
   margin: 0 5px;
   background-color: #fbfbfb;
   border-color: #dadada;
@@ -2357,7 +2357,7 @@ textarea.error,
 }
 
 .config .list-post.pending > li > .text-notification {color: #545454; display: inline;}
-.config .list-post.pending > li .law {padding: 0; font-size: 24px; font-size: 2.4rem; line-height: 1.2;}
+.config .list-post.pending > li .project {padding: 0; font-size: 24px; font-size: 2.4rem; line-height: 1.2;}
 
 .config #config11 p {color: #a8a8a8;}
 .config #config11 .btn.btn-lg {
@@ -2594,7 +2594,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .controls {width: auto;}
   .seeVictory .sliderItem img.actor {width: 152px;}
   .seeVictory .sliderItem h1 {font-size: 1.8rem;padding: 10px;}
-  .kakareo.post.ley .photo .aboutLaw {
+  .kakareo.post.ley .photo .aboutProject {
     width: 74px;
     height: 178px;
     padding: 4px;
@@ -2659,9 +2659,9 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .userprofile .kakareo.post.ley .user > .mark + .infoActivity {margin: 10px 0 17px 0;}
   .userprofile .kakareo.post.ley .socialContact li {display: inline; margin-right: 30px; padding: 0;}
   .userprofile .boxes .btn.btn-lg {font-size: 1.4rem !important; padding: 18px !important;}
-  .discover .kakareo.post.ley .photo .aboutLaw {top: 5%;}
+  .discover .kakareo.post.ley .photo .aboutProject {top: 5%;}
   .discover .boxes.vote {margin-top: 46px; padding: 10px;}
-  .discover .others .laws .kakareo.post.ley .photo {width: 100%;}
+  .discover .others .projects .kakareo.post.ley .photo {width: 100%;}
   .discover .others .kakareo.post.ley h1 {margin-bottom: 0;}
   .introDiscover .steps li {margin: 0 0 0 5px;}
   .pre {margin: 5px 20px 5px 0;}
@@ -2746,7 +2746,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .seeVictory .sliderItem h1 {padding: 15px; font-size: 24px; font-size: 2.4rem;}
   .seeVictory .sliderItem img.actor {width: 273px; float: left; margin: 0 20px 12px 8px;}
   .kakareo.post.ley h1 {font-size: 52px; font-size: 5.2rem;}
-  .kakareo.post.ley .photo .aboutLaw {width: 90px; top: 15%;}
+  .kakareo.post.ley .photo .aboutProject {width: 90px; top: 15%;}
   .kakareo.post.ley .photo .info {bottom: 20px; left: 25px;}
   .vote .activity span {font-size: 36px; font-size: 3.6rem;}
   .boxes.vote > h1 {margin-top: 20px; font-size: 28px; font-size: 2.8rem;}
@@ -2770,7 +2770,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .introDiscover {margin: 30px 0;}
   .othersPost #postNav {height: 70px;}
   .discover .others {margin-bottom: 60px; margin-top: 20px;}
-  .discover .others .laws .kakareo.post.ley .photo {width: 160px;}
+  .discover .others .projects .kakareo.post.ley .photo {width: 160px;}
   .promo-options > div > .link-wrapper {min-height: 295px;}
   .promo-options > div > .link-wrapper > h2 {font-size: 20px; font-size: 2rem;}
   .promo-options > div > .link-wrapper > p {font-size: 12px; font-size: 1.2rem;}

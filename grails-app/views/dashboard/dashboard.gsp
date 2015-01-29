@@ -32,6 +32,6 @@
 %{--<content tag="footerStats">--}%
     %{--<a href="#main" class="smooth top">--}%
         %{--<span class="fa fa-caret-up fa-lg"></span>--}%
-        %{--<g:message code="law.up"/>--}%
+        %{--<g:message code="project.up"/>--}%
     %{--</a>--}%
 %{--</content>--}%

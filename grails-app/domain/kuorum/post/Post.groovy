@@ -5,7 +5,7 @@ import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
 import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.PersonalData
 import org.bson.types.ObjectId
@@ -26,7 +26,7 @@ class Post {
      * Date when the defender defends the post
      */
     Date defenderDate
-    Law law
+    Project project
     @Updatable String title
     @Updatable String text
     @Updatable Integer pdfPage

@@ -23,7 +23,7 @@
         <g:each in="${favorites}" var="post">
         <li id="pendingPost_${post.id}">
             ${post.title}
-            <g:link mapping="lawShow" class="law" params="${post.law.encodeAsLinkProperties()}">${post.law.hashtag}</g:link>
+            <g:link mapping="projectShow" class="project" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link>
             <ul class="actions">
                 <li>
                     <g:remoteLink

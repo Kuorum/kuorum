@@ -36,5 +36,5 @@
 %{--<meta property="article:published_time" content="${formatDate(date:user.dateCreated, format:'yyyy-MM-dd')}" />--}%
 %{--<meta property="article:modified_time" content="${formatDate(date:user.dateCreated, format:'yyyy-MM-dd')}" />--}%
 %{--<meta property="article:section" content="User Section" />--}%
-%{--<meta property="article:tag" content="${post.law.hashtag}" />--}%
+%{--<meta property="article:tag" content="${post.project.hashtag}" />--}%
 %{--<meta property="fb:admins" content="Facebook numberic ID" />--}%

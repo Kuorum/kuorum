@@ -15,22 +15,22 @@
         %{--<p class="pre">Las leyes más polémicas en debate</p>--}%
         %{--<ul class="steps">--}%
             %{--<li class="active"><a href="#" class="badge">1</a></li>--}%
-            %{--<g:each in="${2..relevantLaws.size()}" var="i">--}%
+            %{--<g:each in="${2..relevantProjects.size()}" var="i">--}%
                 %{--<li><a href="#" class="badge">${i}</a></li>--}%
             %{--</g:each>--}%
         %{--</ul>--}%
     %{--</div>--}%
 
-    %{--<g:each in="${relevantLaws}" var="law" status="i">--}%
-        %{--<div class="row" style="display:${i!=0?'none':'block'}" id="relevantLaw_${i}">--}%
+    %{--<g:each in="${relevantProjects}" var="project" status="i">--}%
+        %{--<div class="row" style="display:${i!=0?'none':'block'}" id="relevantProject_${i}">--}%
             %{--<section id="main" class="col-xs-12 col-sm-8 col-md-8" role="main">--}%
-                %{--<g:render template="/law/lawInfo" model="[law:law, linkToLaw:true, hideCallMobileVoteButton:true]"/>--}%
+                %{--<g:render template="/project/projectInfo" model="[project:project, linkToProject:true, hideCallMobileVoteButton:true]"/>--}%
             %{--</section>--}%
 
             %{--<aside class="col-xs-12 col-sm-4 col-md-4" role="complementary">--}%
-                %{--<modulesUtil:lawVotes law="${law}"/>--}%
-                %{--<modulesUtil:lawActivePeople law="${law}"/>--}%
-                %{--<modulesUtil:recommendedPosts law="${law}" title="${message(code:"modules.recommendedLawPosts.title")}"/>--}%
+                %{--<modulesUtil:projectotes project="${project}"/>--}%
+                %{--<modulesUtil:projectActivePeople project="${project}"/>--}%
+                %{--<modulesUtil:recommendedPosts project="${project}" title="${message(code:"modules.recommendedProjectPosts.title")}"/>--}%
             %{--</aside>--}%
         %{--</div>--}%
     %{--</g:each>--}%
@@ -43,7 +43,7 @@
         %{--<p><g:message code="discover.module.mostActiveUsers.footerText"/></p>--}%
     %{--</aside>--}%
     <aside class="row others">
-        <g:render template="discover/recommendedLaws" model="[recommendedLaws:recommendedLaws]"/>
+        <g:render template="discover/recommendedProjects" model="[recommendedProjects:recommendedProjects]"/>
         <modulesUtil:lastCreatedPosts numPost="3" specialCssClass="col-xs-12 col-sm-4 col-md-4"/>
 
 

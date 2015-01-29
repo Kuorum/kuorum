@@ -8,7 +8,7 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6 leerLey">
         <g:if test="${post.pdfPage}">
-            <a target="_blank" href="${post.law.urlPdf}#page=${post.pdfPage}"><g:message code="post.show.pdfLink"/></a>
+            <a target="_blank" href="${post.project.urlPdf}#page=${post.pdfPage}"><g:message code="post.show.pdfLink"/></a>
         </g:if>
     </div>
 </div>

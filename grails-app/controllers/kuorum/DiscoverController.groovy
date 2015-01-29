@@ -2,8 +2,8 @@ package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.model.search.Pagination
-import kuorum.law.Law
-import kuorum.law.LawService
+import kuorum.project.Project
+import kuorum.project.ProjectService
 import kuorum.post.Post
 import kuorum.post.PostService
 import kuorum.users.KuorumUser
@@ -12,7 +12,7 @@ import kuorum.web.constants.WebConstants
 
 class DiscoverController {
 
-    LawService lawService
+    ProjectService projectService
 
     KuorumUserService kuorumUserService
 
@@ -23,35 +23,35 @@ class DiscoverController {
     RegionService regionService
 
     def afterInterceptor = { model, modelAndView ->
-        def dynamicDiscoverLaws = []
+        def dynamicDiscoverProjects = []
         List<Region> regions =[]
         if (springSecurityService.isLoggedIn()){
             regions = regionService.findUserRegions(springSecurityService.currentUser)
         }else{
-            //TODO: PEnsar cuando no sea solo para españa
+            //TODO: PEnsar cuando no sea solo para espaï¿½a
             regions << Region.findByIso3166_2("EU-ES")
         }
         regions.each {region ->
-            int numLaws = Law.countByPublishedAndRegion(true, region)
-            if (numLaws>0){
-                dynamicDiscoverLaws << [numLaws:numLaws, region:region]
+            int numProjects = Project.countByPublishedAndRegion(true, region)
+            if (numProjects>0){
+                dynamicDiscoverProjects << [numProjects:numProjects, region:region]
             }
         }
-        model.dynamicDiscoverLaws = dynamicDiscoverLaws
+        model.dynamicDiscoverProjects = dynamicDiscoverProjects
     }
 
-    def discoverLaws(Pagination pagination) {
+    def discoverProjects(Pagination pagination) {
         KuorumUser user = null
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
         }
         Region region = Region.findByIso3166_2(params.iso3166_2)
-        List<Law> laws = lawService.relevantLaws(user,region, pagination)
+        List<Project> projects = projectService.relevantProjects(user,region, pagination)
         if (request.isXhr()){
-            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${Law.count()-pagination.offset<=pagination.max}")
-            render template: '/discover/discoverLawList', model:[laws:laws, pagination:pagination]
+            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${Project.count()-pagination.offset<=pagination.max}")
+            render template: '/discover/discoverProjectList', model:[projects:projects, pagination:pagination]
         }else{
-            [laws:laws, pagination: pagination]
+            [projects:projects, pagination: pagination]
         }
 
     }

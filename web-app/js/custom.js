@@ -191,8 +191,8 @@ $(document).ready(function() {
 			var nextId = $(this).html() -1;
             $(this).addClass("disabled");
             $(this).parent("li").addClass("active");
-            $("#relevantLaw_"+activeId).fadeOut(1000);
-            $("#relevantLaw_"+nextId).fadeIn(3000);
+            $("#relevantProject_"+activeId).fadeOut(1000);
+            $("#relevantProject_"+nextId).fadeIn(3000);
 		});
 	});
 
@@ -438,9 +438,9 @@ $(document).ready(function() {
 	// Si voto desaparecen los botones y aparece el enlace de cambio de opinión
 	$('body').on("click", ".voting li a", function(e) {
 		e.preventDefault();
-        var lawId = $(this).attr("data-lawId")
-		$('section[data-lawId='+lawId+'] .voting ul').css('display', 'none');
-		$('section[data-lawId='+lawId+'] .changeOpinion').css('display', 'block');
+        var projectId = $(this).attr("data-projectId")
+		$('section[data-projectId='+projectId+'] .voting ul').css('display', 'none');
+		$('section[data-projectId='+projectId+'] .changeOpinion').css('display', 'block');
         $.ajax( {
             url:$(this).attr("href"),
             statusCode: {
@@ -450,12 +450,12 @@ $(document).ready(function() {
                 }
             }
         }).done(function(data, status, xhr) {
-            $('section[data-lawId='+lawId+']  ul.activity li').removeClass("active")
-            $('section[data-lawId='+lawId+']  ul.activity li.'+data.voteType).addClass("active")
-            $('section[data-lawId='+lawId+']  ul.activity li.POSITIVE span').html(data.votes.yes)
-            $('section[data-lawId='+lawId+']  ul.activity li.NEGATIVE span').html(data.votes.no)
-            $('section[data-lawId='+lawId+']  ul.activity li.ABSTENTION span').html(data.votes.abs)
-            $('section[data-lawId='+lawId+']  .kuorum span.counter').html(data.necessaryVotesForKuorum)
+            $('section[data-projectId='+projectId+']  ul.activity li').removeClass("active")
+            $('section[data-projectId='+projectId+']  ul.activity li.'+data.voteType).addClass("active")
+            $('section[data-projectId='+projectId+']  ul.activity li.POSITIVE span').html(data.votes.yes)
+            $('section[data-projectId='+projectId+']  ul.activity li.NEGATIVE span').html(data.votes.no)
+            $('section[data-projectId='+projectId+']  ul.activity li.ABSTENTION span').html(data.votes.abs)
+            $('section[data-projectId='+projectId+']  .kuorum span.counter').html(data.necessaryVotesForKuorum)
             if (data.newVote){
                 karma.open(data.gamification)
             }
@@ -463,26 +463,26 @@ $(document).ready(function() {
 	});
 
 	$('body').on("click", ".voting li .yes", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId")
-		$('section[data-lawId='+lawId+'] .activity .favor').addClass('active');
+        var projectId = $(this).parents("section").attr("data-projectId")
+		$('section[data-projectId='+projectId+'] .activity .favor').addClass('active');
 	});
 	$('body').on("click", ".voting li .no", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId")
-        $('section[data-lawId='+lawId+'] .activity .contra').addClass('active');
+        var projectId = $(this).parents("section").attr("data-projectId")
+        $('section[data-projectId='+projectId+'] .activity .contra').addClass('active');
 	});
 	$('body').on("click", ".voting li .neutral", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId")
-        $('section[data-lawId='+lawId+'] .activity .abstencion').addClass('active');
+        var projectId = $(this).parents("section").attr("data-projectId")
+        $('section[data-projectId='+projectId+'] .activity .abstencion').addClass('active');
 	});
 
 
 	// Si hago click en cambio de opinión vuelven los botones
 	$('body').on("click", ".changeOpinion", function(e) {
 		e.preventDefault();
-        var lawId = $(this).parents("section").attr("data-lawId")
-		$('section[data-lawId='+lawId+'] .activity li').removeClass('active');
+        var projectId = $(this).parents("section").attr("data-projectId")
+		$('section[data-projectId='+projectId+'] .activity li').removeClass('active');
 		$(this).css('display', 'none');
-		$('section[data-lawId='+lawId+']  .voting ul').css('display', 'block');
+		$('section[data-projectId='+projectId+']  .voting ul').css('display', 'block');
 	});
 
 	// Buscador: cambia el placeholder según el filtro elegido
@@ -1117,7 +1117,7 @@ var modalVictory = {
         $("#modalVictoryDefender .name").html(modalData.defender.name)
         $("#modalVictoryDefender .action").html(modalData.post.action)
         $("#modalVictory .modal-body p").first().html(modalData.post.description)
-        $("#modalVictory .modal-body p").last().html(modalData.post.lawLink)
+        $("#modalVictory .modal-body p").last().html(modalData.post.projectLink)
         $("#modalVictory .modal-footer a").attr('href',modalData.post.victoryLink)
         $("#modalVictory .modal-footer a").attr('data-notificationId',notificationId)
     },

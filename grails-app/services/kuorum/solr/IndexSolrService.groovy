@@ -10,7 +10,7 @@ import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.core.model.solr.*
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 import org.apache.solr.client.solrj.SolrServer
@@ -24,7 +24,7 @@ class IndexSolrService {
 
     def grailsApplication
 
-    private final def CLASSNAMES_TO_INDEX = [KuorumUser.name, Law.name, Post.name]
+    private final def CLASSNAMES_TO_INDEX = [KuorumUser.name, Project.name, Post.name]
 
     SolrServer server
 
@@ -72,17 +72,17 @@ class IndexSolrService {
         indexDomainObject(user)
     }
 
-    SolrLaw index(Law law){
-        log.info("Indexing law: ${law}")
-        indexDomainObject(law)
+    SolrProject index(Project project){
+        log.info("Indexing project: ${project}")
+        indexDomainObject(project)
     }
 
     private void deleteDocument(String id){
         server.deleteByQuery("id:${id}")
         server.commit()
     }
-    void delete(Law law){
-        deleteDocument(law.id.toString())
+    void delete(Project project){
+        deleteDocument(project.id.toString())
     }
     void delete(Post post){
         deleteDocument(post.id.toString())
@@ -152,14 +152,14 @@ class IndexSolrService {
             subType:SolrType.POST.generateSubtype(post),
             text:post.text,
             dateCreated:post.dateCreated,
-            hashtagLaw:post.law.hashtag,
+            hashtagProject:post.project.hashtag,
             owner:"${post.owner.name}",
             ownerId: "${post.owner.id.toString()}",
             victory: post.victory,
-            commissions: post.law.commissions,
-            regionName: post.law.region.name,
-            institutionName:post.law.institution.name,
-            regionIso3166_2: post.law.region.iso3166_2,
+            commissions: post.project.commissions,
+            regionName: post.project.region.name,
+            institutionName:post.project.institution.name,
+            regionIso3166_2: post.project.region.iso3166_2,
             urlImage: post.multimedia?.url
         )
     }
@@ -172,7 +172,7 @@ class IndexSolrService {
                 subType:SolrSubType.valueOf(solrDocument.subType),
                 text:solrDocument.text,
                 dateCreated:solrDocument.dateCreated,
-                hashtagLaw:solrDocument.hashtagLaw,
+                hashtagProject:solrDocument.hashtagProject,
                 owner:solrDocument.owner,
                 ownerId:solrDocument.ownerId,
                 victory:solrDocument.victory,
@@ -248,31 +248,31 @@ class IndexSolrService {
         )
     }
 
-    SolrLaw createSolrElement(Law law){
-        if (!law.published){
-            log.info("No se indexa el post ${law.hashtag} porque no está publicada")
+    SolrProject createSolrElement(Project project){
+        if (!project.published){
+            log.info("No se indexa el post ${project.hashtag} porque no está publicada")
             return null // Skipping because is not published
         }
-        SolrLaw solrLaw = new SolrLaw(
-            id:law.id.toString(),
-            name:law.shortName,
-            type:SolrType.LAW,
-            subType:SolrType.LAW.generateSubtype(law),
-            text:"${law.introduction} ${law.description}",
-            dateCreated:law.dateCreated,
-            hashtag:law.hashtag,
-            commissions:law.commissions,
-            institutionName:law.institution.name,
-            regionName: law.region.name,
-            regionIso3166_2: law.region.iso3166_2,
-            urlImage: law.image?.url
+        SolrProject solrProject = new SolrProject(
+            id:project.id.toString(),
+            name:project.shortName,
+            type:SolrType.PROJECT,
+            subType:SolrType.PROJECT.generateSubtype(project),
+            text:"${project.introduction} ${project.description}",
+            dateCreated:project.dateCreated,
+            hashtag:project.hashtag,
+            commissions:project.commissions,
+            institutionName:project.institution.name,
+            regionName: project.region.name,
+            regionIso3166_2: project.region.iso3166_2,
+            urlImage: project.image?.url
         )
-        solrLaw.metaClass.commission_group = law.commissions[0]
-        solrLaw
+        solrProject.metaClass.commission_group = project.commissions[0]
+        solrProject
     }
 
-    SolrLaw recoverLawFromSolr(SolrDocument solrDocument){
-        new SolrLaw(
+    SolrProject recoverProjectFromSolr(SolrDocument solrDocument){
+        new SolrProject(
                 id:new ObjectId(solrDocument.id),
                 name:solrDocument.name,
                 type:SolrType.valueOf(solrDocument.type),
@@ -291,7 +291,7 @@ class IndexSolrService {
     SolrElement recoverSolrElementFromSolr(SolrDocument solrDocument){
         switch (SolrType.valueOf(solrDocument.type)){
             case SolrType.KUORUM_USER:  return recoverKuorumUserFromSolr(solrDocument); break;
-            case SolrType.LAW:          return recoverLawFromSolr(solrDocument); break;
+            case SolrType.PROJECT:          return recoverProjectFromSolr(solrDocument); break;
             case SolrType.POST:         return recoverPostFromSolr(solrDocument); break;
             default: throw new KuorumException("No se ha reconocido el tipo ${solrDocument.type}")
         }

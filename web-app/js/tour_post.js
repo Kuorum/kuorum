@@ -44,7 +44,7 @@ $(document).ready(function() {
 
         // enlazar con el tour3
         $('body').on('click', '#totour3', function() {
-            window.location.href = urls.tour.tour_law;
+            window.location.href = urls.tour.tour_project;
         });
 
     });

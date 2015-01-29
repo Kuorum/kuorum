@@ -10,7 +10,7 @@ import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.post.Cluck
 import kuorum.post.Post
 
@@ -231,14 +231,14 @@ class KuorumUserService {
         user
     }
 
-    List<UserParticipating> listUserActivityPerLaw(KuorumUser user){
+    List<UserParticipating> listUserActivityPerProject(KuorumUser user){
         def userActivity = Post.collection.aggregate(
                 [$match : ['$or':[[owner:user.id], [defender:user.id]]]],
-                [$group :[_id:'$law',quantity:[$sum:1]]]
+                [$group :[_id:'$project',quantity:[$sum:1]]]
         )
         List<UserParticipating> activity = []
         userActivity.results().each{
-            UserParticipating userParticipating = new UserParticipating(law:Law.get(it._id), numTimes: it.quantity)
+            UserParticipating userParticipating = new UserParticipating(project: Project.get(it._id), numTimes: it.quantity)
             activity << userParticipating
         }
         activity

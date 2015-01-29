@@ -3,7 +3,7 @@ package kuorum.solr
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.CommissionType
-import kuorum.core.model.search.SearchLaws
+import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.search.SearchPolitician
 import kuorum.core.model.solr.*
@@ -86,7 +86,7 @@ class SearchSolrService {
         solrAutocomplete.suggests = prepareAutocompleteSuggestions(rsp)
         def elements = prepareSolrElements(rsp)
         solrAutocomplete.kuorumUsers = elements.kuorumUsers
-        solrAutocomplete.laws = elements.laws
+        solrAutocomplete.projects = elements.projects
         solrAutocomplete.numResults =rsp.results.numFound
 
         solrAutocomplete
@@ -127,14 +127,14 @@ class SearchSolrService {
 
     private def prepareSolrElements(QueryResponse rsp){
         ArrayList<SolrKuorumUser> kuorumUsers = []
-        ArrayList<SolrLaw> laws = []
+        ArrayList<SolrProject> projects = []
         rsp.results.each{ SolrDocument solrDocument ->
             switch (SolrType.valueOf(solrDocument.type)){
                 case SolrType.KUORUM_USER:
                     kuorumUsers.add(indexSolrService.recoverKuorumUserFromSolr(solrDocument))
                     break
-                case SolrType.LAW:
-                    laws.add(indexSolrService.recoverLawFromSolr(solrDocument))
+                case SolrType.PROJECT:
+                    projects.add(indexSolrService.recoverProjectFromSolr(solrDocument))
                     break
                 case SolrType.POST:
                     break
@@ -142,10 +142,10 @@ class SearchSolrService {
                     log.warn("No se ha podido recuperar el elemento de sorl ${solrDocument}")
             }
         }
-        [laws:laws, kuorumUsers:kuorumUsers]
+        [projects:projects, kuorumUsers:kuorumUsers]
     }
 
-    List<SolrLawsGrouped> listLaws(SearchLaws params){
+    List<SolrProjectsGrouped> listProjects(SearchProjects params){
         if (!params.validate()){
             KuorumExceptionUtil.createExceptionFromValidatable(params, "Se necesita una region para buscar por ella")
         }
@@ -154,10 +154,10 @@ class SearchSolrService {
         query.setParam(CommonParams.ROWS, "${params.max}");
         query.setParam(CommonParams.Q, "institutionName:\"${params.institutionName}\"")
         query.setParam("q.op", "AND")
-        def fq = ["type:${SolrType.LAW}"]
+        def fq = ["type:${SolrType.PROJECT}"]
 
-        if (params.lawStatusType){
-            fq << "subType:${SolrSubType.fromOriginalType(params.lawStatusType)}"
+        if (params.projectStatusType){
+            fq << "subType:${SolrSubType.fromOriginalType(params.projectStatusType)}"
         }
         if (params.commissionType){
             fq << "commissions:${params.commissionType}"
@@ -173,13 +173,13 @@ class SearchSolrService {
 
         QueryResponse rsp = server.query( query );
         SolrDocumentList docs = rsp.getResults();
-        List<SolrLawsGrouped> groupedElements= []
+        List<SolrProjectsGrouped> groupedElements= []
 
         rsp.groupResponse.values[0].values.each{Group group ->
 
-            SolrLawsGrouped element = new SolrLawsGrouped()
+            SolrProjectsGrouped element = new SolrProjectsGrouped()
             element.commission = CommissionType.valueOf(group.groupValue)
-            element.elements = group.result.collect{doc ->indexSolrService.recoverLawFromSolr(doc)}
+            element.elements = group.result.collect{doc ->indexSolrService.recoverProjectFromSolr(doc)}
             groupedElements.add(element)
         }
 

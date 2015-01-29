@@ -1,5 +1,5 @@
 
-<h2><g:message code="admin.createLaw.title"/></h2>
+<h2><g:message code="admin.createProject.title"/></h2>
 <ul>
     <g:each in="${institutions}" var="institution">
         <li><g:link mapping="adminEditInstitution" params="[id:institution.id]">${institution.name}</g:link> </li>

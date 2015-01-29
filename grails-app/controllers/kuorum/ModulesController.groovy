@@ -1,9 +1,9 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.core.model.Law.LawBasicStats
+import kuorum.core.model.project.ProjectBasicStats
 import kuorum.core.model.search.Pagination
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 
@@ -11,17 +11,17 @@ class ModulesController {
 
     def springSecurityService
     def postService
-    def lawService
-    def lawStatsService
+    def projectService
+    def projectStatsService
     def notificationService
     def kuorumUserService
 
     private static final Long NUM_RELEVANT_FOOTER_USERS = 23
 
-    def bottomLawStats(String hashtag){
-        Law law = Law.findByHashtag(hashtag.encodeAsHashtag())
-        LawBasicStats lawStats = lawStatsService.calculateLawStats(law)
-        [lawStats:lawStats]
+    def bottomProjectStats(String hashtag){
+        Project project = Project.findByHashtag(hashtag.encodeAsHashtag())
+        ProjectBasicStats projectStats = projectStatsService.calculateProjectStats(project)
+        [projectStats:projectStats]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

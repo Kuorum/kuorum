@@ -2,11 +2,11 @@ package kuorum.admin
 
 import grails.converters.JSON
 import kuorum.Region
-import kuorum.core.model.Law.LawRegionStats
-import kuorum.core.model.LawStatusType
+import kuorum.core.model.project.ProjectRegionStats
+import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
-import kuorum.law.AcumulativeVotes
-import kuorum.law.Law
+import kuorum.project.AcumulativeVotes
+import kuorum.project.Project
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 
@@ -17,7 +17,7 @@ class AdminStatsController {
     def stats(String hashtag){
 
         Region spain = Region.findByIso3166_2("EU-ES")
-        LawRegionStats stats = kuorumUserStatsService.calculateStats(spain)
+        ProjectRegionStats stats = kuorumUserStatsService.calculateStats(spain)
         def totalStats = [
             totalUsers:KuorumUser.count(),
             activeUsers:KuorumUser.countByAccountLockedAndEnabledAndUserTypeNotEqual(false, true, UserType.POLITICIAN),
@@ -25,9 +25,9 @@ class AdminStatsController {
             deleteUsers :KuorumUser.countByAccountLockedAndEnabledAndUserTypeNotEqual(false, false, UserType.POLITICIAN),
             activePoliticians:KuorumUser.countByAccountLockedAndEnabledAndUserType(false, true, UserType.POLITICIAN),
             inactivePoliticians:KuorumUser.countByAccountLockedAndEnabledAndUserType(false, true, UserType.POLITICIAN),
-            totalLaws: Law.count(),
-            openLaws: Law.countByStatus(LawStatusType.OPEN),
-            closeLaws: Law.countByStatusNotEqual(LawStatusType.OPEN),
+            totalProjects: Project.count(),
+            openProjects: Project.countByStatus(ProjectStatusType.OPEN),
+            closeProjects: Project.countByStatusNotEqual(ProjectStatusType.OPEN),
             numPosts:Post.count(),
             numVictories:Post.countByVictory(true)
         ]
@@ -53,7 +53,7 @@ class AdminStatsController {
 
     def statsDataPieChart(){
         Region region = Region.findByIso3166_2(params.regionIso3166)
-        LawRegionStats stats = kuorumUserStatsService.calculateStats(region)
+        ProjectRegionStats stats = kuorumUserStatsService.calculateStats(region)
         render stats as JSON
     }
 }

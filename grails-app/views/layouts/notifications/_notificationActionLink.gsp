@@ -5,7 +5,7 @@
     </a>
     <g:set var="action" value="${g.message(code:"modalVictory.action.${notification.post.commitmentType}")}"/>
     <g:set var="postType" value="${g.message(code:"${PostType.class.name}.${notification.post.postType}")}"/>
-    <g:set var="lawLink" value="${g.createLink(mapping:"lawShow", params:notification.post.law.encodeAsLinkProperties())}"/>
+    <g:set var="projectLink" value="${g.createLink(mapping:"projectShow", params:notification.post.project.encodeAsLinkProperties())}"/>
     <script>
         //Data for modalVictory
         $(function(){
@@ -22,7 +22,7 @@
                     title:"${notification.post.title}",
                     action:"${action}",
                     description:"${g.message(code:'modalVictory.description', args:[postType, notification.post.defender.name,action,notification.post.numVotes])}",
-                    lawLink:"${notification.post.title.trim()} <a href='${lawLink}'>${notification.post.law.hashtag}</a>",
+                    projectLink:"${notification.post.title.trim()} <a href='${projectLink}'>${notification.post.project.hashtag}</a>",
                     victoryLink:"${g.createLink(mapping: 'postAddVictory', params:notification.post.encodeAsLinkProperties())}"
                 }
             }

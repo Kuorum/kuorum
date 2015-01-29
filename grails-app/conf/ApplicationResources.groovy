@@ -46,11 +46,11 @@ modules = {
         resource url:'js/bootstrap-tour.min.js'
         resource url:'css/bootstrap-tour.min.css'
         resource url:'js/tour_dashboard.js'
-        resource url:'js/tour_law.js'
+        resource url:'js/tour_project.js'
         resource url:'js/tour_post.js'
     }
 
-    lawStats{
+    projectStats{
         dependsOn 'basic'
         resource url:'js/chart.min.js'
         resource url:'js/jquery-jvectormap-1.2.2.min.js'

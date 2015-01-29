@@ -1,7 +1,7 @@
 package kuorum
 
 import kuorum.core.FileGroup
-import kuorum.law.Law
+import kuorum.project.Project
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
 
@@ -57,8 +57,8 @@ class FormTagLib {
     private static final Integer NUM_EXTRA_SPACE = 2 // Between text and hastag, and between hastag and shortUrl
 
     def postTitleLimitChars = {attrs->
-        Law law = attrs.law
-        out << grailsApplication.config.kuorum.post.titleSize - law.hashtag.size() - NUM_CHARS_TWITTER_URL -NUM_EXTRA_SPACE
+        Project project = attrs.project
+        out << grailsApplication.config.kuorum.post.titleSize - project.hashtag.size() - NUM_CHARS_TWITTER_URL -NUM_EXTRA_SPACE
 
     }
 

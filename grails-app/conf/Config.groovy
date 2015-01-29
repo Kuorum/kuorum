@@ -270,7 +270,7 @@ kuorum {
         mailPrice = 0.15
     }
     gamification{
-        voteLaw=[(GamificationElement.EGG):1]
+        voteProject=[(GamificationElement.EGG):1]
         newPost=[(GamificationElement.PLUME):1]
         votePost=[(GamificationElement.CORN):1]
     }

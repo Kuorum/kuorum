@@ -41,12 +41,12 @@ class SearchController{
             it.registerObjectMarshaller( SolrType)          { SolrType solrType             -> messageEnumJson(solrType)}
             it.registerObjectMarshaller( SolrSubType)       { SolrSubType solrSubType       -> messageEnumJson(solrSubType)}
             it.registerObjectMarshaller( CommissionType )   { CommissionType commissionType -> messageEnumJson(commissionType)}
-            it.registerObjectMarshaller( SolrLaw )   { SolrLaw solrLaw ->
+            it.registerObjectMarshaller( SolrProject )   { SolrProject solrProject ->
                 [
-                    status:solrLaw.subType,
-                    title:solrLaw.name,
-                    hashtag:solrLaw.hashtag,
-                    url:g.createLink(mapping: 'lawShow', params:solrLaw.encodeAsLinkProperties())
+                    status:solrProject.subType,
+                    title:solrProject.name,
+                    hashtag:solrProject.hashtag,
+                    url:g.createLink(mapping: 'projectShow', params:solrProject.encodeAsLinkProperties())
                 ]
             }
             it.registerObjectMarshaller( SolrKuorumUser )   { SolrKuorumUser solrKuorumUser ->
@@ -71,15 +71,15 @@ class SearchController{
                     suggestions << [type:"USER", value:it.name, data:it]
                 }
 
-                solrAutocomplete.laws.each {
-                    suggestions << [type:"LAW", value:it.name, data:it]
+                solrAutocomplete.projects.each {
+                    suggestions << [type:"PROJECT", value:it.name, data:it]
                 }
 
                 [suggestions:suggestions]
 //                [
 //                    suggests : solrAutocomplete.suggests,
 //                    users: solrAutocomplete.kuorumUsers,
-//                    laws: solrAutocomplete.laws
+//                    projects: solrAutocomplete.projects
 //                ]
             }
         }

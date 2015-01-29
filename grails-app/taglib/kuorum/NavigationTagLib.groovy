@@ -14,7 +14,7 @@ class NavigationTagLib {
 
     def ACTIVE_ACTIONIS=[
             [mappingName: "discover",  onlyLogged:false],
-            [mappingName: "discoverLaws",  onlyLogged:false],
+            [mappingName: "discoverProjects",  onlyLogged:false],
             [mappingName: "discoverPoliticians",  onlyLogged:false],
             [mappingName: "discoverRecentPosts",  onlyLogged:false],
             [mappingName: "discoverRecommendedPosts",  onlyLogged:false],

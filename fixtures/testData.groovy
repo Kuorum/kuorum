@@ -13,7 +13,7 @@ post {
     postService.publishPost(parquesNacionalesPurpose1)
     postService.publishPost(codigoPenalQuestion1)
 
-    postService.savePost(abortoPurpose1, abortoPurpose1.law, abortoPurpose1.owner)
+    postService.savePost(abortoPurpose1, abortoPurpose1.project, abortoPurpose1.owner)
     postService.publishPost(abortoPurpose1)
 
     PostComment deabate1_abortoPurpose1 = new PostComment(
@@ -43,7 +43,7 @@ post {
     postService.sponsorAPost(abortoPurpose1, sponsor2)
 
 
-    postService.savePost(parquesNacionalesPurpose2, parquesNacionalesPurpose2.law, parquesNacionalesPurpose2.owner)
+    postService.savePost(parquesNacionalesPurpose2, parquesNacionalesPurpose2.project, parquesNacionalesPurpose2.owner)
     postService.publishPost(parquesNacionalesPurpose2)
     parquesNacionalesPurpose2.refresh()
     cluckService.createCluck(parquesNacionalesPurpose2, juanjoAlvite)
@@ -71,23 +71,23 @@ post {
     postService.defendPost(codigoPenalQuestion1, CommitmentType.ASKED_ON_CONGRESS, politician)
     postService.victory(codigoPenalQuestion1, codigoPenalQuestion1.owner, true)
 
-    lawService.voteLaw(aborto,carmen,VoteType.NEGATIVE)
-    lawService.voteLaw(codigoPenal,carmen,VoteType.NEGATIVE)
-    lawService.voteLaw(parquesNacionales,carmen,VoteType.POSITIVE)
-    lawService.voteLaw(prohibicionFraking,carmen,VoteType.NEGATIVE)
+    projectService.voteProject(aborto,carmen,VoteType.NEGATIVE)
+    projectService.voteProject(codigoPenal,carmen,VoteType.NEGATIVE)
+    projectService.voteProject(parquesNacionales,carmen,VoteType.POSITIVE)
+    projectService.voteProject(prohibicionFraking,carmen,VoteType.NEGATIVE)
 
-    lawService.voteLaw(aborto,noe,VoteType.NEGATIVE)
-    lawService.voteLaw(codigoPenal,noe,VoteType.POSITIVE)
-    lawService.voteLaw(parquesNacionales,noe,VoteType.POSITIVE)
-    lawService.voteLaw(prohibicionFraking,noe,VoteType.POSITIVE)
+    projectService.voteProject(aborto,noe,VoteType.NEGATIVE)
+    projectService.voteProject(codigoPenal,noe,VoteType.POSITIVE)
+    projectService.voteProject(parquesNacionales,noe,VoteType.POSITIVE)
+    projectService.voteProject(prohibicionFraking,noe,VoteType.POSITIVE)
 
-    lawService.voteLaw(aborto,equo,VoteType.NEGATIVE)
-    lawService.voteLaw(codigoPenal,equo,VoteType.POSITIVE)
-    lawService.voteLaw(parquesNacionales,equo,VoteType.POSITIVE)
-    lawService.voteLaw(prohibicionFraking,equo,VoteType.NEGATIVE)
+    projectService.voteProject(aborto,equo,VoteType.NEGATIVE)
+    projectService.voteProject(codigoPenal,equo,VoteType.POSITIVE)
+    projectService.voteProject(parquesNacionales,equo,VoteType.POSITIVE)
+    projectService.voteProject(prohibicionFraking,equo,VoteType.NEGATIVE)
 
-    lawService.voteLaw(aborto,ecologistasEnAccion,VoteType.ABSTENTION)
-    lawService.voteLaw(codigoPenal,ecologistasEnAccion,VoteType.ABSTENTION)
-    lawService.voteLaw(parquesNacionales,ecologistasEnAccion,VoteType.POSITIVE)
-    lawService.voteLaw(prohibicionFraking,ecologistasEnAccion,VoteType.NEGATIVE)
+    projectService.voteProject(aborto,ecologistasEnAccion,VoteType.ABSTENTION)
+    projectService.voteProject(codigoPenal,ecologistasEnAccion,VoteType.ABSTENTION)
+    projectService.voteProject(parquesNacionales,ecologistasEnAccion,VoteType.POSITIVE)
+    projectService.voteProject(prohibicionFraking,ecologistasEnAccion,VoteType.NEGATIVE)
 }

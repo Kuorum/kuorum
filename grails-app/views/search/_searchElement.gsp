@@ -6,8 +6,8 @@
         <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrPost}">
             <g:render template="searchPostElement" model="[solrPost:solrElement]"/>
         </g:elseif>
-        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrLaw}">
-            <g:render template="searchLawElement" model="[solrLaw:solrElement]"/>
+        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrProject}">
+            <g:render template="searchProjectElement" model="[solrProject:solrElement]"/>
         </g:elseif>
         <g:else>
             <sec:ifAllGranted roles="ROLE_ADMIN">

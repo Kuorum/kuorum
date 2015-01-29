@@ -5,7 +5,7 @@ import grails.transaction.Transactional
 import kuorum.RegionService
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.search.Pagination
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.users.KuorumUser
 
 @Transactional
@@ -15,8 +15,8 @@ class CluckService {
 
     RegionService regionService;
 
-    List<Cluck> lawClucks(Law law, Pagination pagination = new Pagination()) {
-        Cluck.findAllByLawAndIsFirstCluck(law, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
+    List<Cluck> projectClucks(Project project, Pagination pagination = new Pagination()) {
+        Cluck.findAllByProjectAndIsFirstCluck(project, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
     }
 
     private static String TEMPORAL_DB = "temporalDB"
@@ -112,8 +112,8 @@ function(key, values){
             Cluck cluck = new Cluck(
                     owner: kuorumUser,
                     postOwner: post.owner,
-                    law: post.law,
-                    region: post.law.region,
+                    project: post.project,
+                    region: post.project.region,
                     cluckAction: CluckAction.CLUCK
             )
 
@@ -141,8 +141,8 @@ function(key, values){
             cluck = new Cluck(
                     owner: kuorumUser,
                     postOwner: post.owner,
-                    law: post.law,
-                    region: post.law.region,
+                    project: post.project,
+                    region: post.project.region,
                     cluckAction: cluckAction,
                     post: post
             )

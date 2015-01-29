@@ -3,18 +3,18 @@ package kuorum.notifications
 import grails.transaction.Transactional
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
-import kuorum.core.model.LawStatusType
+import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchNotifications
-import kuorum.law.Law
-import kuorum.law.LawVote
+import kuorum.project.Project
 import kuorum.mail.MailType
 import kuorum.mail.MailUserData
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostComment
 import kuorum.post.PostVote
+import kuorum.project.ProjectVote
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
@@ -589,39 +589,39 @@ class NotificationService {
     }
 
 
-    void sendLawOpenNotification(Law law){
+    void sendProjectOpenNotification(Project project){
 
     }
 
-    void sendLawClosedNotification(Law law){
+    void sendProjectClosedNotification(Project project){
         Environment.executeForCurrentEnvironment {
             development{
                 grails.async.Promises.task{
-                    syncSendLawClosedNotification(law)
+                    syncSendProjectClosedNotification(project)
                 }
             }
             test{
-                syncSendLawClosedNotification(law)
+                syncSendProjectClosedNotification(project)
             }
             production{
                 grails.async.Promises.task{
-                    syncSendLawClosedNotification(law)
+                    syncSendProjectClosedNotification(project)
                 }
             }
         }
     }
 
-    void syncSendLawClosedNotification(Law law){
+    void syncSendProjectClosedNotification(Project project){
 
-        if (law.status ==LawStatusType.OPEN){
-            throw new KuorumException("La ley debe de estar cerrada para que se notifique su cierre","error.law.notClosed")
+        if (project.status == ProjectStatusType.OPEN){
+            throw new KuorumException("La ley debe de estar cerrada para que se notifique su cierre","error.project.notClosed")
         }
 
-        LawVote.findAllByLaw(law).each{LawVote lawVote->
-            LawClosedNotification lawClosedNotification = new LawClosedNotification()
-            lawClosedNotification.law = law
-            lawClosedNotification.kuorumUser = lawVote.kuorumUser
-            lawClosedNotification.save()
+        ProjectVote.findAllByProject(project).each{ProjectVote projectVote->
+            ProjectClosedNotification projectClosedNotification = new ProjectClosedNotification()
+            projectClosedNotification.project = project
+            projectClosedNotification.kuorumUser = projectVote.kuorumUser
+            projectClosedNotification.save()
         }
 
     }

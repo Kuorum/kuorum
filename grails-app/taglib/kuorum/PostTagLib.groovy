@@ -106,7 +106,7 @@ class PostTagLib {
         SolrType solrType= attrs.solrType
 
         switch (solrType){
-            case SolrType.LAW:  out << "fa-briefcase"; break;
+            case SolrType.PROJECT:  out << "fa-briefcase"; break;
             case SolrType.KUORUM_USER: out << "fa-user"; break;
             case SolrType.POST:  out << "fa-paperclip"; break;
         }

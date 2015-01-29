@@ -7,13 +7,13 @@
             code="post.social.twitter.shareMessage"
             args="[
                     post.title.encodeAsURL(),
-                    post.law.hashtag.encodeAsURL()
+                    post.project.hashtag.encodeAsURL()
             ]"
             encodeAs="HTML"/></g:set>
-    <g:set var="twitterLink">https://twitter.com/share?url=${socialPostLink}&text=${twitterShareText}&hashtags=${post.law.hashtag}</g:set>
+    <g:set var="twitterLink">https://twitter.com/share?url=${socialPostLink}&text=${twitterShareText}&hashtags=${post.project.hashtag}</g:set>
 
     <a href="${twitterLink}" class="social-share twitter">
-        <span class="${textClass}"><g:message code="law.social.twitter"/></span>
+        <span class="${textClass}"><g:message code="project.social.twitter"/></span>
         <g:if test="${showIcon}">
             <span class="fa-stack fa-lg">
                 <span class="fa fa-circle fa-stack-2x"></span>
@@ -27,7 +27,7 @@
         %{--$(function(){--}%
             %{--facebookData["post_${post.id}"]={--}%
                 %{--name: '${post.title.trim().replaceAll('\'', '\\\'')}',--}%
-                %{--caption: '${post.law.hashtag}',--}%
+                %{--caption: '${post.project.hashtag}',--}%
                 %{--description: '${post.text.trim().replaceAll('\'', '\\\'').replaceAll('\n', ' ')}',--}%
                 %{--link: '${socialPostLink?:createLink(mapping: 'postShow', params:post.encodeAsLinkProperties(), absolute:true)}',--}%
                 %{--picture: '${post.multimedia?.url}'--}%
@@ -36,7 +36,7 @@
     %{--</script>--}%
     <g:set var="facebookLink">https://www.facebook.com/sharer/sharer.php?u=${socialPostLink}</g:set>
     <a href="${facebookLink}" class="social-share facebook" title="Share on Facebook">
-        <span class="${textClass}"><g:message code="law.social.facebook"/></span>
+        <span class="${textClass}"><g:message code="project.social.facebook"/></span>
         <g:if test="${showIcon}">
             <span class="fa-stack fa-lg">
                 <span class="fa fa-circle fa-stack-2x"></span>
@@ -49,7 +49,7 @@
 <li>
     <g:set var="shortUrl" value="${socialPostLink}"/>
     <a href="https://plus.google.com/share?url=${shortUrl}" class="social-share google">
-        <span class="${textClass}"><g:message code="law.social.googlePlus"/></span>
+        <span class="${textClass}"><g:message code="project.social.googlePlus"/></span>
         <g:if test="${showIcon}">
             <span class="fa-stack fa-lg">
                 <span class="fa fa-circle fa-stack-2x"></span>

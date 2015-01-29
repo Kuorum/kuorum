@@ -1,7 +1,7 @@
 package kuorum.core.model
 
 /**
- * Represents the different commission of each law
+ * Represents the different commission of each project
  */
 enum CommissionType {
     JUSTICE,

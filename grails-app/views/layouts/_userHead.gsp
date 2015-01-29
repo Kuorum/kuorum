@@ -19,5 +19,5 @@
 
 %{--<sec:username/>--}%
 %{--<sec:ifAnyGranted roles="ROLE_ADMIN">--}%
-    %{--<g:link mapping="lawCreate" > Crear ley</g:link>--}%
+    %{--<g:link mapping="projectCreate" > Crear ley</g:link>--}%
 %{--</sec:ifAnyGranted>--}%

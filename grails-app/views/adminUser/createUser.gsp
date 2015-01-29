@@ -19,7 +19,7 @@
     <g:form method="POST" mapping="adminCreateUser" name="createUser" role="form">
         <g:render template="formUser" model="[command:command, institutions:institutions, politicalParties:politicalParties]"/>
         <div class="form-group">
-            <input type="submit" value="${message(code:'admin.createLaw.submit')}" class="btn btn-grey btn-lg">
+            <input type="submit" value="${message(code:'admin.createProject.submit')}" class="btn btn-grey btn-lg">
             <a href="#" class="cancel" tabindex="19">Cancelar</a>
         </div>
     </g:form>

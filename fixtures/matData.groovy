@@ -19,7 +19,7 @@ post {
 
     // COSAS QUE QUIERES HACER
 
-//    postService.savePost(abortoPurpose1, abortoPurpose1.law, abortoPurpose1.owner)
+//    postService.savePost(abortoPurpose1, abortoPurpose1.project, abortoPurpose1.owner)
 //    postService.publishPost(abortoPurpose1)
 //    postService.addDebate(abortoPurpose1, deabatePolitician)
 //
@@ -30,7 +30,7 @@ post {
 //    postService.sponsorAPost(abortoPurpose1, sponsor)
 //
 //
-//    postService.savePost(parquesNacionalesPurpose2, parquesNacionalesPurpose2.law, parquesNacionalesPurpose2.owner)
+//    postService.savePost(parquesNacionalesPurpose2, parquesNacionalesPurpose2.project, parquesNacionalesPurpose2.owner)
 //    postService.publishPost(parquesNacionalesPurpose2)
 //    parquesNacionalesPurpose2.refresh()
 //    cluckService.createCluck(parquesNacionalesPurpose2, juanjoAlvite)

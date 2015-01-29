@@ -45,9 +45,9 @@
 
 <content tag="cColumn">
     <section class="boxes noted">
-        <g:link mapping="lawShow" target="_blank" params="${post.law.encodeAsLinkProperties()}">${post.law.hashtag}</g:link>
-        <h1>${post.law.shortName}</h1>
-        <p>${post.law.realName}</p>
+        <g:link mapping="projectShow" target="_blank" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link>
+        <h1>${post.project.shortName}</h1>
+        <p>${post.project.realName}</p>
     </section>
     <section class="boxes btns">
         <g:link mapping="postPublish" class="btn btn-blue btn-lg btn-block" params="${post.encodeAsLinkProperties()}">

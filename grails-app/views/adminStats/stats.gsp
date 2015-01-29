@@ -3,7 +3,7 @@
 <head>
     <title><g:message code="admin.stats.title"/> </title>
     <meta name="layout" content="columnCLayout">
-    <r:require module="lawStats"/>
+    <r:require module="projectStats"/>
     <script>
         var urlDataMap = '${createLink(mapping: 'adminStatsMap')}'
         var urlPieChart = '${createLink(mapping: 'adminStatsPieChart')}'
@@ -16,8 +16,8 @@
         <a  href="#" itemprop="keywords" class="laley">Volver</a>
         <h1><g:message code="admin.stats.title"/></h1>
         <p class="cl-ntral-dark"><g:message code="admin.stats.subTitle"/></p>
-        <h2><g:message code="law.stats.introRegionName"/> <span>${region.name}</span></h2>
-        <a id="allMap" class="pull-right"><g:message code="law.stats.restartParentRegion"/> </a>
+        <h2><g:message code="project.stats.introRegionName"/> <span>${region.name}</span></h2>
+        <a id="allMap" class="pull-right"><g:message code="project.stats.restartParentRegion"/> </a>
         <div id="map"></div>
         <dl class="moreInfo row">
             <div class="col-xs-12 col-sm-6 col-md-6">
@@ -46,18 +46,18 @@
             </div>
 
         </dl>
-        <small><g:message code="law.stats.total.description"/> </small>
+        <small><g:message code="project.stats.total.description"/> </small>
     </article><!-- /article -->
 </content>
 
 <content tag="cColumn">
     <div class="back">
         <g:link mapping="adminPrincipal" class="btn btn-blue">
-            <g:message code="law.stats.backToLaw"/>
+            <g:message code="project.stats.backToProject"/>
         </g:link>
     </div>
     <section class="boxes vote votation" id="votation">
-        <h1><g:message code="law.stats.columnC.title"/> </h1>
+        <h1><g:message code="project.stats.columnC.title"/> </h1>
         <div class="graphContainer">
             <h2><g:message code="admin.stats.totalStats.columnC.pieChart.title"/></h2>
             <p>
@@ -81,7 +81,7 @@
             <li class="abstencion"><span>${stats.totalVotes.abs}</span> <g:message code="admin.stats.totalStats.columnC.inactiveUsers"/></li>
         </ul>
         <table class="segmentation">
-            <caption class="sr-only"><g:message code="law.stats.columnC.byGender.title"/> </caption>
+            <caption class="sr-only"><g:message code="project.stats.columnC.byGender.title"/> </caption>
             <thead>
             <tr>
                 <th class="hombre"><span><span class="sr-only"><g:message code="kuorum.core.model.Gender.MALE"/> </span></span></th>
@@ -108,17 +108,17 @@
             </tbody>
         </table>
         <dl class="infoVotation">
-            <dt><g:message code="admin.stats.totalStats.columnC.totalLaws"/></dt><dd>${totalStats.totalLaws} </dd>
-            <dt><g:message code="admin.stats.totalStats.columnC.openLaws"/></dt><dd>${totalStats.openLaws} </dd>
-            <dt><g:message code="admin.stats.totalStats.columnC.closeLaws"/></dt><dd>${totalStats.closeLaws} </dd>
+            <dt><g:message code="admin.stats.totalStats.columnC.totalProjects"/></dt><dd>${totalStats.totalProjects} </dd>
+            <dt><g:message code="admin.stats.totalStats.columnC.openProjects"/></dt><dd>${totalStats.openProjects} </dd>
+            <dt><g:message code="admin.stats.totalStats.columnC.closeProjects"/></dt><dd>${totalStats.closeProjects} </dd>
             <dt><g:message code="admin.stats.totalStats.columnC.numPosts"/></dt><dd>${totalStats.numPosts} </dd>
             <dt><g:message code="admin.stats.totalStats.columnC.numVictories"/></dt><dd>${totalStats.numVictories} </dd>
             %{--<dt>Tipo de ley</dt><dd>Proyecto de ley</dd>--}%
-            %{--<dt><g:message code="law.stats.columnC.infoLaw.proposalBy"/></dt><dd>${law.politicalParty.name}</dd>--}%
-            %{--<dt><g:message code="law.stats.columnC.infoLaw.commissions"/></dt>--}%
+            %{--<dt><g:message code="project.stats.columnC.infoProject.proposalBy"/></dt><dd>${project.politicalParty.name}</dd>--}%
+            %{--<dt><g:message code="project.stats.columnC.infoProject.commissions"/></dt>--}%
             %{--<dd>--}%
                 %{--<g:set var="comma" value=""/>--}%
-                %{--<g:each in="${law.commissions}" var="commission">--}%
+                %{--<g:each in="${project.commissions}" var="commission">--}%
                     %{--<g:message code="${kuorum.core.model.CommissionType.name}.${commission}"/>${comma}--}%
                     %{--<g:set var="comma" value=", "/>--}%
                 %{--</g:each>--}%

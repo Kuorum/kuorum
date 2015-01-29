@@ -13,8 +13,8 @@
 
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="createPost"/>
-    <g:form mapping="postCreate" params="${law.encodeAsLinkProperties()}" role="form" name="createPost">
-        <g:render template="form" model="[command:command,law:law]"/>
+    <g:form mapping="postCreate" params="${project.encodeAsLinkProperties()}" role="form" name="createPost">
+        <g:render template="form" model="[command:command,project:project]"/>
         <fieldset class="btns">
             <div class="form-group">
                 <input type="submit" class="btn btn-grey btn-lg" tabindex="18" value="Guardar y continuar"/>
@@ -25,5 +25,5 @@
 </content>
 
 <content tag="cColumn">
-    <g:render template="/post/editPostColumnC" model="[law:law]"/>
+    <g:render template="/post/editPostColumnC" model="[project:project]"/>
 </content>

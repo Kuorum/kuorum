@@ -13,7 +13,7 @@ class SolrElement {
     Date dateCreated
     String regionName
     String regionIso3166_2
-    String institutionName //Law, Post and Politicians (Normal user and Organizations will be null)
+    String institutionName //Project, Post and Politicians (Normal user and Organizations will be null)
     List<CommissionType> commissions
     String urlImage
 

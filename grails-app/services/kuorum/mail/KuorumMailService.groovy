@@ -3,7 +3,7 @@ package kuorum.mail
 import grails.transaction.Transactional
 import kuorum.core.model.CommissionType
 import kuorum.core.model.PostType
-import kuorum.law.Law
+import kuorum.project.Project
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostComment
@@ -341,8 +341,8 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailNotificationsData)
     }
     private def globalBindingsForPromotedMails(Post post, KuorumUser sponsor){
-        Law law = post.law
-        String commissionName = messageSource.getMessage("${CommissionType.canonicalName}.${law.commissions.first()}",null,"otros", new Locale("ES_es"))
+        Project project = post.project
+        String commissionName = messageSource.getMessage("${CommissionType.canonicalName}.${project.commissions.first()}",null,"otros", new Locale("ES_es"))
         String postTypeName =   messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es"))
         [
                 postType:postTypeName,
@@ -352,8 +352,8 @@ class KuorumMailService {
                 promoterLink:generateLink("userShow",sponsor.encodeAsLinkProperties()),
                 postOwner: post.owner.name,
                 postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties()),
-                hashtag:post.law.hashtag,
-                hashtagLink:generateLink("lawShow",law.encodeAsLinkProperties())
+                hashtag:post.project.hashtag,
+                hashtagLink:generateLink("projectShow",project.encodeAsLinkProperties())
         ]
     }
 

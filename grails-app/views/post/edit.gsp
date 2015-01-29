@@ -15,7 +15,7 @@
     <formUtil:validateForm bean="${command}" form="editPost"/>
     <g:form mapping="postEdit" params="${post.encodeAsLinkProperties()}" role="form" name="editPost">
     %{--<form action="#" method="POST" role="form" id="editPost">--}%
-        <g:render template="form" model="[command:command, law:post.law]"/>
+        <g:render template="form" model="[command:command, project:post.project]"/>
         <fieldset class="btns">
             <div class="form-group">
                 <input type="submit" class="btn btn-grey btn-lg" tabindex="18" value="Guardar y continuar"/>
@@ -27,5 +27,5 @@
 </content>
 
 <content tag="cColumn">
-    <g:render template="/post/editPostColumnC" model="[law:post.law]"/>
+    <g:render template="/post/editPostColumnC" model="[project:post.project]"/>
 </content>

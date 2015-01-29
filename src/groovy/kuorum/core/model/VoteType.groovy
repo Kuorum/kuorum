@@ -1,7 +1,7 @@
 package kuorum.core.model
 
 /**
- * Represents the possible vote types when users vote laws
+ * Represents the possible vote types when users vote projects
  *
  * NOT_VOTED actually is not used. Is here for ... just in case
  */

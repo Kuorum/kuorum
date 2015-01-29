@@ -1,11 +1,11 @@
 package kuorum.core.model.kuorumUser
 
-import kuorum.law.Law
+import kuorum.project.Project
 
 /**
- * Represents the participation of an user on a law
+ * Represents the participation of an user on a project
  */
 class UserParticipating {
-    Law law
+    Project project
     Long numTimes
 }

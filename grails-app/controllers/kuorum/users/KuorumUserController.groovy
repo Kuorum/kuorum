@@ -82,9 +82,9 @@ class KuorumUserController {
         }
         Pagination pagination = new Pagination()
         List<Cluck> clucks = cluckService.userClucks(user, pagination)
-        List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(user)
+        List<UserParticipating> activeProjects = kuorumUserService.listUserActivityPerProject(user)
         String provinceName = user.personalData.province?.name
-        render (view:"show", model:[user:user, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName, seeMore: clucks.size()==pagination.max])
+        render (view:"show", model:[user:user, clucks:clucks, activeProjects:activeProjects, provinceName:provinceName, seeMore: clucks.size()==pagination.max])
     }
 
     def showOrganization(String id){
@@ -95,9 +95,9 @@ class KuorumUserController {
         }
         Pagination pagination = new Pagination()
         List<Cluck> clucks = cluckService.userClucks(user, pagination)
-        List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(user)
+        List<UserParticipating> activeProjects = kuorumUserService.listUserActivityPerProject(user)
         String provinceName = user.personalData.country.name
-        render (view:"show", model:[user:user, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName, seeMore: clucks.size()==pagination.max])
+        render (view:"show", model:[user:user, clucks:clucks, activeProjects:activeProjects, provinceName:provinceName, seeMore: clucks.size()==pagination.max])
     }
 
     def showPolitician(String id){
@@ -110,9 +110,9 @@ class KuorumUserController {
         if (politician.enabled){
             Pagination pagination = new Pagination()
             List<Cluck> clucks = cluckService.userClucks(politician, pagination)
-            List<UserParticipating> activeLaws = kuorumUserService.listUserActivityPerLaw(politician)
+            List<UserParticipating> activeProjects = kuorumUserService.listUserActivityPerProject(politician)
             PoliticianActivity politicianStats =kuorumUserStatsService.calculatePoliticianActivity(politician)
-            render (view:"show", model:[user:politician, clucks:clucks, activeLaws:activeLaws, provinceName:provinceName,politicianStats:politicianStats, seeMore: clucks.size()==pagination.max])
+            render (view:"show", model:[user:politician, clucks:clucks, activeProjects:activeProjects, provinceName:provinceName,politicianStats:politicianStats, seeMore: clucks.size()==pagination.max])
         }else{
             render (view:"showInactivePolitician", model:[user:politician, provinceName:provinceName])
         }

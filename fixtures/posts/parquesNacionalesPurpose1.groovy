@@ -4,7 +4,7 @@ import kuorum.post.Post
 fixture {
 
     parquesNacionalesPurpose1(Post){
-        law=parquesNacionales
+        project=parquesNacionales
         pdfPage=5
         numClucks=1
         numVotes=1

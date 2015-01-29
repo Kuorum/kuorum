@@ -29,9 +29,9 @@
             <g:if test="${hasErrors(bean: command, field: 'title', 'error')}">
                 <span for="titlePost" class="error">${g.fieldError(bean: command, field: 'title')}</span>
             </g:if>
-            <span class="hashtag">${law.hashtag}</span>
+            <span class="hashtag">${project.hashtag}</span>
         </div>
-        <div id="charInit" class="hidden"><g:message code="post.edit.step1.postTitle.chars.limitCharacters"/> <span>${formUtil.postTitleLimitChars(law:law)}</span></div>
+        <div id="charInit" class="hidden"><g:message code="post.edit.step1.postTitle.chars.limitCharacters"/> <span>${formUtil.postTitleLimitChars(project:project)}</span></div>
         <div id="charNum"><g:message code="post.edit.step1.postTitle.chars.leftCharacters"/> <span></span> <g:message code="post.edit.step1.postTitle.chars.characters"/></div>
     </div>
 </fieldset>
