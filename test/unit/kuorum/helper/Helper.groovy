@@ -1,8 +1,10 @@
 package kuorum.helper
 
 import kuorum.Institution
+import kuorum.KuorumFile
 import kuorum.PoliticalParty
 import kuorum.Region
+import kuorum.core.FileGroup
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
 import kuorum.core.model.PostType
@@ -62,6 +64,25 @@ class Helper {
     }
 
     public static final Project createDefaultProject(String hashtag){
+        //Creates the new objects related with project: urlYoutube and pdfFile and a user which is related with the files.
+        KuorumUser owner = createDefaultUser("projectOwner@example.com")
+        KuorumFile pdfFile = new KuorumFile(
+                fileGroup: FileGroup.PDF,
+                temporal: true,
+                user: owner,
+                url: "http://kuorum.org",
+                local: true,
+                storagePath: "/tmp",
+                fileName: "test.pdf"
+        )
+        KuorumFile urlYoutube = new KuorumFile(
+                fileGroup: FileGroup.PROJECT_IMAGE,
+                temporal: true,
+                user: owner,
+                url: "http://kuorum.org",
+                local: false
+        )
+
         new Project(
                 hashtag: hashtag,
                 shortName: "shortName${hashtag}",
@@ -74,7 +95,8 @@ class Helper {
                 politicalParty: createDefaultPoliticalParty(),
                 availableStats: Boolean.TRUE,
                 deadline: new Date() +10,
-                urlPdf:new URL('http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF'),
+                pdfFile: pdfFile,
+                urlYoutube: urlYoutube,
                 shortUrl:new URL('http://ow.ly')
 
         )

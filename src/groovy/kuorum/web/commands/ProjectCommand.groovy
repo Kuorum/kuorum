@@ -2,6 +2,7 @@ package kuorum.web.commands
 
 import grails.validation.Validateable
 import kuorum.Institution
+import kuorum.KuorumFile
 import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
@@ -19,12 +20,16 @@ class ProjectCommand {
     String description
     String introduction
     Boolean availableStats
-    URL urlPdf
     List<CommissionType> commissions  = new ArrayList<CommissionType>()
     Region region
     Institution institution
     String photoId
     ProjectStatusType status
+
+    //New fields for Project
+    Date deadline
+    String urlYoutubeId
+    String pdfFileId
 //    PoliticalParty politicalParty
 
     static constraints = {
@@ -32,6 +37,7 @@ class ProjectCommand {
         commissions nullable: false, minSize: 1
         photoId nullable: false
         status nullable:false
+        pdfFileId nullable: false
 
 //        hashtag validator: {val, obj ->
 //            if (Project.findByHashtag(val)){

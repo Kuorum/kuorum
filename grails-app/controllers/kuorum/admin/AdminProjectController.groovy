@@ -32,7 +32,11 @@ class AdminProjectController  extends  AdminController{
         Project project = new Project(command.properties)
         project.region = command.region
         KuorumFile image = KuorumFile.get(new ObjectId(command.photoId))
+        KuorumFile pdfFile = KuorumFile.get(new ObjectId(command.pdfFileId))
+        KuorumFile urlYoutube = KuorumFile.get(new ObjectId(command.urlYoutubeId))
         project.image = image
+        project.pdfFile = pdfFile
+        project.urlYoutube = urlYoutube
         project = projectService.saveAndCreateNewProject(project)
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         fileService.deleteTemporalFiles(user)

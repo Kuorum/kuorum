@@ -19,6 +19,23 @@ fixture {
         fileType = FileType.IMAGE
 
     }
+    //Creates the new objects related with project: urlYoutube and pdfFile
+    urlYoutubeTest(KuorumFile){
+        user = admin
+        local = Boolean.FALSE
+        temporal = Boolean.FALSE
+        url= "http://kuorum.org"
+        fileGroup = FileGroup.PROJECT_IMAGE
+    }
+
+    pdfFileTest(KuorumFile){
+        user = admin
+        local = Boolean.FALSE
+        temporal =Boolean.FALSE
+        fileName = "test.pdf"
+        url= "http://kuorum.org"
+        fileGroup = FileGroup.PDF
+    }
 
     aborto(Project){
         hashtag = "#leyAborto"
@@ -44,6 +61,8 @@ Ley Orgánica de protección de la vida del concebido y derechos de la mujer emb
         availableStats = Boolean.FALSE
         relevance = 0
         publishDate = new Date()
-        deadline = new Date()
+        deadline = new Date() + 10
+        pdfFile = pdfFileTest
+        urlYoutube = urlYoutubeTest
     }
 }

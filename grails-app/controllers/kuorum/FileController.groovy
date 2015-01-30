@@ -38,7 +38,7 @@ class FileController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup)
 
-        render ([absolutePathPdf:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
+        render ([absolutePathPDF:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

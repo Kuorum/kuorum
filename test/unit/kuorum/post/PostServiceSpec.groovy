@@ -13,6 +13,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.PoliticianActivity
 import kuorum.users.RoleUser
 import spock.lang.Ignore
+import spock.lang.IgnoreRest
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -132,7 +133,7 @@ class PostServiceSpec extends Specification{
 
     void "test recomended post"(){
         given:"Some posts"
-        Project project = Helper.createDefaultProject("#prject").save()
+        Project project = Helper.createDefaultProject("#project").save()
         KuorumUser user = Helper.createDefaultUser("email@email.com").save()
         (1..10).each{
             Post post = Helper.createDefaultPost(user,project)

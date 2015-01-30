@@ -1,5 +1,6 @@
 package kuorum.users
 
+import spock.lang.IgnoreRest
 import spock.lang.Specification
 import spock.lang.Unroll
 

@@ -20,6 +20,23 @@ fixture {
         fileType = FileType.IMAGE
 
     }
+    //Creates the new objects related with project: urlYoutube and pdfFile
+    urlYoutubeTest(KuorumFile){
+        user = admin
+        local = Boolean.FALSE
+        temporal = Boolean.FALSE
+        url= "http://kuorum.org"
+        fileGroup = FileGroup.PROJECT_IMAGE
+    }
+
+    pdfFileTest(KuorumFile){
+        user = admin
+        local = Boolean.FALSE
+        temporal =Boolean.FALSE
+        fileName = "test.pdf"
+        url= "http://kuorum.org"
+        fileGroup = FileGroup.PDF
+    }
 
     prohibicionFraking(Project){
         hashtag = "#prohibicionFraking"
@@ -43,6 +60,8 @@ Prohibición de prospecciones y explotaciones de hidrocarburos mediante fractura
         availableStats = Boolean.FALSE
         relevance = 0
         publishDate = new Date()
-        deadline = new Date()
+        deadline = new Date() + 10
+        pdfFile = pdfFileTest
+        urlYoutube = urlYoutubeTest
     }
 }

@@ -35,7 +35,6 @@ class Project {
     AcumulativeVotes peopleVotes = new AcumulativeVotes()
 
     //New fields for Project
-    //TODO: It must be @Updatable, but fails when is updated
     @Updatable Date deadline
     @Updatable KuorumFile urlYoutube
     @Updatable KuorumFile pdfFile
@@ -56,15 +55,28 @@ class Project {
                 return ['notSameRegionAsInstitution']
             }
         }
-        //TODO: ¿image no es nullable?
-        image nullable:true
+        image nullable:true, validator: { val, obj ->
+            if (!val && !obj.urlYoutube) {
+                return ['imageOrUrlYoutubeRequired']
+            }
+        }
         publishDate nullable:true
         politicalParty nullable:true
 
         //New validations for Project
-        deadline nullable: false
-        urlYoutube nullable: true
-        pdfFile nullable: true
+        deadline nullable: false, validator: { val, obj ->
+            if (val < new Date().clearTime()) {
+                return ['deadlineLessThanToday']
+            } else if (val.clearTime() > new Date().clearTime() + 120) {
+                return ['deadlineGreaterThan120Days']
+            }
+        }
+        urlYoutube nullable: true, validator: { val, obj ->
+            if (!val && !obj.image) {
+                return ['imageOrUrlYoutubeRequired']
+            }
+        }
+        pdfFile nullable: false
     }
 
     static List<Project> findAllByPublishedAndRegion(Boolean published, Region region){
