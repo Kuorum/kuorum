@@ -55,15 +55,27 @@ body {
   color: #545454;
   font-size: 15px;
   font-size: 1.5rem;
-  padding-top: 65px;
+  padding-top: 55px;
+  background-color: #fff;
 }
+.main {background-color: #fcfcfc;}
 .form-group-short {margin-bottom:10px;}
 .form-group-xshort {margin-bottom:0px;}
 .form-control,
 input[type="text"],
-input[type="number"] {color: #545454; font-size: 14px; font-size:  1.4rem; border: 1px solid #EFEFEF;}
-input[type="text"],
-input[type="number"] {padding: 6px 6px 6px 8px;}
+input[type="number"],
+input[type="email"],
+select {color: #545454; font-size: 14px; font-size:  1.4rem; border: 1px solid #efefef; box-shadow: 0 0 0 rgba(0, 0, 0, 0);}
+/*input[type="text"],
+input[type="number"],
+input[type="email"],
+select {padding: 6px 6px 6px 8px !important;}*/
+.form-control:focus {box-shadow: 0 0 0 rgba(0,0,0,0);}
+
+.add-on.input-group-addon label {margin-bottom: 0; color: #a8a8a8;}
+.add-on.input-group-addon label input {margin-right: 2px;}
+.input-group-addon {border: 1px solid #efefef; background-color: #efefef; outline: 0;}
+
 img {width: 100%;}
 small, .small {font-size: 75%;}
 .main { font-size: 15px; font-size:  1.5rem; padding: 0;}
@@ -74,7 +86,11 @@ small, .small {font-size: 75%;}
 .disabled {cursor: default !important;}
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {opacity: 0.25;}
 .normalize {font-size: 15px; font-size: 1.5rem;}
-.fa {vertical-align: middle;}
+
+.fa-lightbulb-o.fa-lg {font-size: 1.5em;}
+.icon2-estado.fa-lg {font-size: 1.7em;}
+.icon2-region.fa-lg {font-size: 1.5em;}
+
 .tooltip {z-index: 999;}
 .popover:hover, .popover:active, .popover:focus {cursor: default;}
 .disabled.allow {cursor: pointer !important; pointer-events: auto;}
@@ -83,7 +99,7 @@ small, .small {font-size: 75%;}
   background-color: rgba(0, 0, 0, 0);
   border-bottom: medium none;
   border-radius: 0;
-  padding: 2px 4px;
+  padding: 12px;
 }
 .loading {
   color: #a8a8a8;
@@ -117,10 +133,27 @@ label {font-weight: normal;}
 #sign .checkbox-inline, #sign1 .checkbox-inline, #sign2 .checkbox-inline, #sign3 .checkbox-inline {position: relative; margin-bottom: 22px !important; color: #a8a8a8;}
 #sign .checkbox-inline.pull-right, #sign1 .checkbox-inline.pull-right, #sign2 .checkbox-inline.pull-right, #sign3 .checkbox-inline.pull-right {margin-bottom: 4px !important;}
 
+#sign .radio-inline + .radio-inline,
+#sign .checkbox-inline + .checkbox-inline {margin-left: 5px;}
+
+.boxes.vote.signin > h1 {font-size: 15px; font-size: 1.5rem; margin-bottom: 15px;}
+.boxes.vote.signin > h1 span {font-size: 24px; font-size: 2.4rem;}
+.boxes.vote.signin #sign {margin-bottom: 40px;}
+.boxes.vote.signin #sign > .row {margin-bottom: 10px;}
+.boxes.vote.signin #sign > .groupRadio {text-align: center;}
+#sign .voting > ul > li > a {width: 60px; color: #bcbcbc; font-size: 12px; font-size: 1.2rem;}
+#sign .voting > ul > li > a:hover,
+#sign .voting > ul > li > a:focus,
+#sign .voting > ul > li > a:active {color: #20a2ea; text-decoration: none;}
+#sign .voting > ul > li:last-child > a:hover,
+#sign .voting > ul > li:last-child > a:focus,
+#sign .voting > ul > li:last-child > a:active {color: #ff9431;}
+
 p {margin: 0 0 20px 0;}
 .help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic;}
 .mb20 {margin-bottom: 20px !important;}
 a:hover, a:focus {outline: 0;}
+
 
 /* Estilos generales =========== */
 /* ====================================================== */
@@ -135,7 +168,6 @@ a:focus {color: #20a2ea;}
 .tooltip.right .tooltip-arrow {border-right-color: #dadada !important;}
 .tooltip.bottom .tooltip-arrow {border-bottom-color: #dadada !important;}
 .tooltip-inner {background-color: #dadada; color: #545454; font-size: 11px; font-size: 1.1rem;}
-
 .boxes.likes .progress {background-color: #8ac2fc; border-radius: 0; width: 70%; margin: 0 auto 35px;}
 .likesContainer {position: relative; padding-top: 84px;}
 .likesContainer #m-callback-done {
@@ -172,20 +204,20 @@ a:focus {color: #20a2ea;}
   width: 0;
   z-index: 11;
 }
-
 .main > .container-fluid,
 .main > .home > .images > .container-fluid,
 #footer > .container-fluid,
 .preFooter > .container-fluid,
 #footer .more > .container-fluid,
-.navbar > .container-fluid {max-width: 1140px; margin: 0 auto;}
+.navbar > .container-fluid,
+#otros-proyectos > .container-fluid,
+#info-sup-scroll > .container-fluid {max-width: 1140px; margin: 0 auto;}
 .navbar > .container-fluid {padding-right: 30px; padding-left: 30px;}
 .main > .container-fluid > .row {position: relative;}
-.main > .container-fluid > .row > section:first-child {padding-top: 37px;}
-#main {padding-bottom: 40px;}
-
-.navbar-fixed-top {border-bottom: solid 1px #efefef;}
+#main {padding-bottom: 40px; padding-top: 24px;}
+.navbar-fixed-top {border-bottom: solid 1px #e5e5e5;}
 #header h1 {margin: 4px 0 0 5px;}
+.navbar-nav .user-area .user-img {width: 25px; height: 25px; margin: 0;}
 .navbar-brand {
   width: 130px;
   height: 38px;
@@ -214,6 +246,14 @@ a:focus {color: #20a2ea;}
     background: none;
     left: 15px;
 }
+.navbar-nav .form .dropdown-menu {padding: 15px;}
+
+.login .form-group:last-child {color: #a8a8a8; margin-bottom: 0;}
+.login .form-group:last-child a {color: #545454; text-decoration: underline;}
+.login .btn.btn-lg {padding-left: 40px !important;padding-right: 40px !important;}
+
+#registro.modal .modal-header {border: none;}
+
 
 .container-fluid.userprofile #adminActions{left:inherit; right:20px; top: 5px; z-index: 1000;}
 .container-fluid.userprofile #adminActions a{color: #a8a8a8;}
@@ -271,11 +311,12 @@ a:focus {color: #20a2ea;}
     margin: 0 !important;
     padding: 18px !important;
 }
-
+.btn.btn-white {background-color: #fff !important; border: solid 1px #e5e5e5; color: #a8a8a8 !important;}
+.btn.btn-white:hover, .btn.btn-white:active, .btn.btn-white:focus {box-shadow: 0 0 0 rgba(0,0,0,0); background-color: #fff !important; border: solid 1px #66afe9}
 .btn.btn-grey.cancel {background-color: #fff !important; color:#a8a8a8 !important; font-size: 1.7rem !important;}
 .btn.btn-grey.cancel:hover {background-color: #fff !important; color:#a8a8a8 !important; text-decoration:underline !important; font-size: 1.7rem !important;}
 .btn.btn-grey.cancel:active {background-color: #fff !important; color:#a8a8a8 !important; text-decoration:underline !important; font-size: 1.7rem !important;}
-.btn.btn-grey {background-color: #a8a8a8 !important;}
+.btn.btn-grey {background-color: #bcbcbc !important;}
 .btn.btn-grey:hover,
 .btn.btn-grey:active,
 .btn.btn-grey:focus {background-color: #797979 !important;}
@@ -321,39 +362,42 @@ a:focus {color: #20a2ea;}
 .btn:hover, .btn:active, .btn:focus {color: #fff;}
 .btn.search {
   height: 34px;
-  padding: 0 7px 0 5px !important;
+  padding: 0 10px !important;
   background-color: #fff !important;
-  border-top: 3px solid #dbdbdb;
-  border-bottom: 3px solid #dbdbdb;
-  border-left: 3px solid #dbdbdb;
-  border-right: 0;
+  border-top: 2px solid #dbdbdb;
+  border-bottom: 2px solid #dbdbdb;
+  border-right: 2px solid #dbdbdb;
+  border-left: 0;
   -moz-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
   -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
   box-shadow: inset 0 0 0 rgba(0,0,0,.9);
   color: #a8a8a8 !important;
   margin: 0 !important;
+  font-size: 18px;
+  line-height: 0.6;
 }
 .navbar-form .input-group > .form-control {
-  border: 3px solid #dbdbdb;
+  border: 2px solid #dbdbdb;
+  border-right: none;
   -moz-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
   -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
   box-shadow: inset 0 0 0 rgba(0,0,0,.9);
-  padding: 6px 22px 6px 27px;
+  padding: 6px 6px 6px 10px;
   border-radius: 3px !important;
   font-family: 'FontAwesome', Georgia, serif;
   -webkit-appearance: none;
 }
 #search-form .input-group {width: 100%;}
 #search-form .input-group > #filterSign {position: absolute; right: 28px; top: 9px; z-index: 99; color: #a8a8a8;}
-#search-form .input-group-btn {left: 0; position: absolute; top: 0; z-index: 9;}
+#search-form .input-group-btn {right: 29px; position: absolute; top: 0; z-index: 9;}
 
 .nav > li > .navbar-link {
-    color: #545454;
-    padding: 12px 8px;
-    background-color: transparent;
-    line-height: 1.6;
-    display: block;
-    position: relative;}
+  color: #545454;
+  padding: 8px;
+  background-color: transparent;
+  display: block;
+  position: relative;
+}
 .nav > li > .navbar-link:hover,
 .nav > li > .navbar-link:focus,
 .nav .open > a,
@@ -369,9 +413,11 @@ a:focus {color: #20a2ea;}
 .navbar-collapse.collapse.in {border-bottom: 6px solid #ff9431;}
 .nav > li > .navbar-link:hover .badge,
 .nav > li > .navbar-link:focus .badge {background-color: #fff; color: #ff9431;}
-.nav > li > .discover {padding-top: 8px; padding-bottom: 0;}
-.nav > li > .discover .icon-Flaticon_9296 {font-size: 48px; padding: 0; line-height: 0.65;}
-.nav > li > .discover .text-normalize {display: inline-block; vertical-align: top; margin-top: 5px;}
+.nav > li > .navbar-link.new-project {background-color: #ff9431; color: #fff;}
+.nav > li > .navbar-link.new-project:hover,
+.nav > li > .navbar-link.new-project:focus,
+.nav > li > .navbar-link.new-project:active {background-color: #ee7612 !important; color: #fff;}
+.nav > li > .navbar-link.new-project .symbol {font-size: 22px;}
 .navbar-form .dropdown-menu {
     font-family: 'FontAwesome', Georgia, serif;
     font-size: 14px;
@@ -400,6 +446,14 @@ a:focus {color: #20a2ea;}
 .dropdown-menu > li:first-child,
 .box .dropdown-menu > li {padding: 6px 14px; margin: 0; border-bottom: solid 1px #d9d9d9;}
 .dropdown-menu > li:first-child {font-weight: bold;}
+
+#detailsInfoVotes .dropdown-menu > li:first-child {font-weight: normal;}
+#detailsInfoVotes .dropdown-menu > li:first-child {
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+}
+#detailsInfoVotes .open > .dropdown-menu {width: 100%;}
 .box .dropdown-menu {padding-bottom: 0;}
 .box .dropdown-menu > li:last-child {border-bottom: none;}
 .box .dropdown-menu > li > ul >li {list-style: none; padding: 0;}
@@ -412,65 +466,59 @@ a:focus {color: #20a2ea;}
   color: #545454;
 }
 .box .fecha,
-.text-message,
-span + .text-notification {padding: 0 0 0 33px;}
+.text-message {padding: 0 0 0 33px;}
+span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .box .fecha {display: block; color: #A8A8A8; margin: -15px 0 0 0;}
 .text-message {line-height: 17px; display: block;}
 .text-notification {line-height: 17px; display: block; padding: 0;}
 .box .dropdown-menu > li a {color: #ff9431; text-decoration: none;}
 .box .dropdown-menu > li a:hover {text-decoration: underline;}
-.badge {background-color: #ff9431; padding: 2px 6px 4px; line-height: 1.2;}
+.badge {background-color: #ff9431; padding: 4px 6px;}
 .navbar-nav .visible-xs {display: inline-block !important;}
 .user-img {
   border-radius: 20px;
   width: 38px;
   height: 38px;
-  margin: 0 10px 4px 0;
+  margin: 0 6px 4px 0;
 }
 .boxes.alerts .user-img,
 .boxes.guays .user-img,
 .boxes.follow .user-img {display: inline-block;}
-#footer {background-color: #313131; color: #fff;}
+#otros-proyectos {background-color: #f5f5f5;}
+#otros-proyectos > .container-fluid > ul {margin: 0; padding: 0;}
+#otros-proyectos > .container-fluid > ul > li {margin: 0; padding: 0; list-style: none;}
+#otros-proyectos > .container-fluid > ul > li > article {margin: 0 auto; width: 95%;}
+#otros-proyectos > .container-fluid > ul > li > article p {font-size: 12px; font-size: 1.2rem;}
+#otros-proyectos .kakareo.post.ley.actualizacion .author {margin: 0 10px 10px 10px;}
+#footer {background-color: #f5f5f5; color: #fff;}
 #footer ul, #footer ol {padding: 0}
 #footer li {list-style: none;}
 #footer a {color: #a8a8a8;}
 #footer a:hover {color: #fff;}
-#footer .more {background-color: #373737; padding: 20px 0;}
+#footer .more {background-color: #373737; padding: 10px 0 15px; margin: 0;}
+#footer .more .licenses li {display: inline-block; float: right;}
+#footer .social {text-align: center;}
 #footer .social li:first-child  {font-size: 15px; font-size: 1.5rem;}
-#footer .links section {padding-bottom: 10px;}
-#footer .links section h1 {margin: 30px 0 10px;}
-#footer .links section .feedback {
-  margin: 10px 0;
-  border-radius: 4px;
-  font-weight: 400;
-  line-height: 1.42857;
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  white-space: nowrap;
-  color: #fff;
-  border: 3px solid #fff;
-  padding: 8px;
-  width: 100%;
-}
-#footer .links section .feedback:hover,
-#footer .links section .feedback:active,
-#footer .links section .feedback:focus {text-decoration: none; color: #ff9431; border: 3px solid #ff9431;}
-#footer .links section h1 {font-size: 19px; font-size: 1.9rem; color: #fff;}
-#footer .links section .btn + h1 {font-size: 15px; font-size: 1.5rem;}
-#footer .links section a {font-size: 15px; font-size: 1.5rem;}
-#footer .links section li {margin-bottom: 4px; margin-bottom: 0.4rem;}
-#footer .links section li:last-child {margin-right: 0;}
-#footer .links section h1.collabor {font-size: 14px; font-size: 1.4rem; margin: 10px 0;}
+#footer .links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding: 0 2px;}
+#footer .links ul {width: 100%; margin: 10px auto; text-align: center;}
+#footer .links li {display: inline; text-align: center; color: #a8a8a8;}
+#footer .links ul li + li:before {content: "|";}
+#footer .links li:last-child {margin-right: 0;}
+#footer .licenses {margin: 0 auto; width: 150px;}
+#footer .licenses li {margin: 0;}
+#footer .licenses li:last-child {margin-right: 10px;}
 .collabor li,
 .social li {display: inline-block;}
-.licenses li {float: right; margin-left: 14px;}
 .collabor li {margin-right: 8px;}
 .social li {margin-right: 5px; font-size: 18.5px; font-size: 1.85rem;}
 .social li:last-child {margin-right: 0;}
 .ethz, .delhap {display: block; background-size: 95px 65px !important; text-indent: -9999em;}
 .ethz {width: 50px; height: 30px; background: url('../images/colaboramos@2x.png') 0 0 no-repeat transparent;}
 .delhap {width:48px; height: 30px; background: url('../images/colaboramos@2x.png') -50px 0 no-repeat transparent;}
+.agpl {display: block; margin-top: 4px; width: 100px; height: 42px; background: url('../images/logo-agpl@2x.png') 0 0 no-repeat transparent; background-size: 100% auto; text-indent: -9999em;}
+.agpl:hover,
+.agpl:active,
+.agpl:focus {background-position: 0 -48px;}
 .ethz:hover,
 .ethz:active,
 .ethz:focus {background-position: 0 -34px}
@@ -492,6 +540,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 
 /* dashboard */
 .kakareo-list {list-style: none; margin: 0; padding: 0;}
+.kakareo-list .kakareo {margin-bottom: 20px;}
 .boxes .kakareo-list {font-size: 70%;} /* hacemos más pequeño el texto en la lista de kakareos en el sidebar */
 
 /* flechita que indica al user de kakareo */
@@ -518,9 +567,13 @@ span + .text-notification {padding: 0 0 0 33px;}
   width: 0;
   z-index: 11;
 }
+
+.kakareo .open-menu {color: #dbdbdb; position: absolute; top: 2px; right: 8px;}
 .kakareo .link-wrapper,
 .kakareo .wrapper,
-.edit-post .kakareo.post .wrapper {padding: 0 15px 15px;}
+.edit-post .kakareo.post .wrapper,
+.kakareo.post {padding: 22px 10px 0 10px;}
+#otros-proyectos .kakareo .link-wrapper {padding: 10px 0 8px;}
 .kakareo.post .wrapper {padding: 0 0 15px 0;}
 .kakareo .link-wrapper:hover,
 .kakareo .link-wrapper:active,
@@ -533,20 +586,48 @@ span + .text-notification {padding: 0 0 0 33px;}
 .navbar-nav .dropdown-menu .user-img {width: 25px; height: 25px; margin: 4px 8px 4px 0;}
 .user > a {color: #545454 !important;} /* el enlace del nombre de ususario */
 .user-type,
-.kakareo.follow {display: block; padding: 0 0 0 49px; color: #A8A8A8;}
+.kakareo.follow {display: block; padding: 0 0 0 45px; color: #A8A8A8;}
 .personal .user-type {padding: 0;}
 
 /*Prueba kakareos fondo transparente (MAT 04/06/2014)*/
 .container-fluid .discover .kakareo {background-color: transparent;}
-
 .config .list-notification > li.user.answerLink {padding: 10px 0 40px 0;}
-
-.kakareo {background-color: #fcfcfc; border-top: solid 1px #20a2ea; padding: 0; margin: 7px 0 40px; position: relative;}
+.list-updates {margin: 0; padding: 0;}
+.list-updates > li {list-style: none; margin-bottom: 20px;}
+.kakareo {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
 .kakareo.follow {padding: 5px 15px;}
-.kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 10px 0; margin: 0; line-height: 1.3;}
-.kakareo.post {background-color: transparent; border: 0; margin: 0; color: #545454;}
+.kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 0; margin: 0 0 15px 0; line-height: 1.3;}
+/*.kakareo.post {margin: 0; color: #545454;}*/
+
+#detailsInfoVotes.autor {background-color: #fff; border: solid 1px #ff9431; padding: 15px; margin: 0 0 15px 0; position: relative;}
+#detailsInfoVotes.autor > .row {margin-bottom: 20px;}
+#detailsInfoVotes.autor > .row:first-child > .col-md-4 {margin-bottom: 10px;}
+#detailsInfoVotes.autor > .infoUpdates {margin-bottom: 0;}
+#detailsInfoVotes.autor > .row:last-child {margin-bottom: 0;}
+#detailsInfoVotes.autor > .row .btn {text-align: left; position: relative; margin: 0 !important;}
+#detailsInfoVotes.autor > .row .btn .caret {position: absolute; top: 50%; right: 8px;}
+#detailsInfoVotes.autor > .total {color: #545454; font-size: 20px; font-size: 2rem;}
+#detailsInfoVotes.autor > .infoUpdates > ul li {list-style: none;}
+#detailsInfoVotes.autor > .infoUpdates > ul:first-child {font-size: 13px; font-size: 1.3rem; color: #bcbcbc;}
+#detailsInfoVotes.autor > .infoUpdates > ul:first-child li {height: auto;}
+#detailsInfoVotes.autor > .infoUpdates > .infoVotes {text-align: right;}
+
+.kakareo.post.ley.actualizacion {padding: 0;}
+.kakareo.post.ley.actualizacion .author {margin: 10px;}
+.kakareo.post.ley.actualizacion .user-img {width: 25px; height: 25px;}
+.kakareo.post.ley.actualizacion .ico-info {position: absolute; top: 4px; right: 4px; color: #e5e5e5;}
+.kakareo.post.ley.actualizacion .photo,
+.kakareo.post.ley.actualizacion .video {margin: 10px 0;}
+.kakareo.post.ley.actualizacion p {margin: 10px;}
+
+.kakareo.actualizacion .user,
+.kakareo.actualizacion .user .popover-trigger {font-size: 12px !important; font-size: 1.2rem !important;}
+.kakareo.actualizacion .user time {color: #a8a8a8;}
+
 .kakareo.post h2 {font-size: 27px; font-size: 2.7rem;}
 .kakareo.post .main-kakareo {padding-bottom: 15px;}
+.kakareo .photo,
+.kakareo .video {margin: 15px 0 8px;}
 .kakareo.post footer {background-color: transparent; margin-bottom: 10px;}
 .kakareo.post.sponsor {background-color: #fafafa; border: 0; margin-top: -37px; color: #545454;}
 .kakareo.post.sponsor footer {margin-bottom: 0;}
@@ -577,9 +658,10 @@ span + .text-notification {padding: 0 0 0 33px;}
 .user-list-images,
 .user-list-followers {margin: 0; padding: 0; display: inline-block;}
 .user-list-images li,
-.user-list-followers li {list-style: none; display: inline !important; margin: 0;}
+.user-list-followers li {list-style: none; display: inline-block !important; margin: 0;}
 .user-list-images li:last-child,
 .user-list-followers li:last-child {margin-right: 0;}
+
 /*.user-list-images li a,*/
 .user-list-followers li a {text-decoration: none;}
 .user .popover-trigger:hover,
@@ -589,9 +671,9 @@ span + .text-notification {padding: 0 0 0 33px;}
 .edit-user .user .popover-trigger:active,
 .edit-user .user .popover-trigger:focus {text-decoration: none;}
 .user-list-images li .popover-trigger .user-img,
-.user-list-followers li .popover-trigger .user-img {margin-left:0; margin-right: 0;}
+.user-list-followers li .popover-trigger .user-img {margin:0;}
 .author.important .user.actor.politic .user-list-images li .popover-trigger .user-img {margin: 0;}
-.popover {width: 370px; border-radius: 0;}
+.popover {width: 260px; max-width: 260px; border-radius: 0;}
 .popover-content {padding: 9px;}
 .more-users + .popover,
 .more-actions + .popover {width: 225px;}
@@ -677,7 +759,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-user-list li.link a:hover,
 .popover-user-list li.link a:active,
 .popover-user-list li.link a:focus {color: #545454;}
-.popover-more-actions ul {margin: 20px 0 0 0; padding: 0;}
+.popover-more-actions ul {margin: 20px 0 5px 0; padding: 0;}
 .popover-more-actions ul li {list-style: none;}
 .popover-more-actions ul li a {padding: 4px; display: block; color: #a8a8a8;}
 .popover-more-actions ul li a span {color: #a8a8a8 !important;}
@@ -693,6 +775,17 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-more-actions ul li.mark a.disabled:hover,
 .popover-more-actions ul li.mark a.disabled:active,
 .popover-more-actions ul li.mark a.disabled:focus {color: #a8a8a8 !important;}
+
+.popover-more-actions.edition li:last-child {border: none; margin: 0; padding: 0;}
+.popover-more-actions.edition li a {padding: 4px;}
+.popover-more-actions.edition ul {margin: 30px 0 0;}
+
+.open-menu + .popover .popover-more-actions.edition ul {margin: 0;}
+
+.open-menu + .popover {width: 200px; max-width: 200px; margin-top: 0;}
+.open-menu + .popover .popover-content {padding: 0;}
+.open-menu + .popover > .arrow {display: none;}
+.popover-more-actions.edition li a {padding: 4px 14px;}
 
 /* popover-box son las cajas de usuarios similares a las de los popover para la ley participantes */
 .kakareo.post.ley.participants .group {margin: 40px 0 0 0;}
@@ -723,29 +816,30 @@ span + .text-notification {padding: 0 0 0 33px;}
 .popover-box .infoActivity .fa-check {color: #bfd9f5;}
 /* fin popover-box*/
 
-.kakareo .main-kakareo {margin-top: 20px; color: #545454;}
+.kakareo .main-kakareo {color: #545454;}
 .kakareo.follow .main-kakareo {margin-top: 8px; margin-bottom: 4px;}
 .kakareo footer {
   font-size: 12px;
   font-size: 1.2rem;
-  background-color: #efefef;
-  color: #a8a8a8;
-  margin: 0;
-  border-top: 1px solid #dadada;
+  color: #bcbcbc;
+  margin-top: 10px;
+  padding: 0 0 5px 0;
 }
-.kakareo footer > ul > li {padding: 11px 0 11px 6px !important;}
-.kakareo footer > ul.info-kak > li,
-.kakareo footer > ul.actions-kak > li {list-style: disc outside none; margin: 0 15px 0 0; padding: 0;}
+.kakareo footer > ul > li {padding: 5px 0;}
+.kakareo footer > ul.actions-kak > li {list-style: none; margin: 0 15px 0 0;}
+.kakareo footer > ul > li.read-later {margin-right: 40px !important;}
+
+.kakareo footer > ul.info-kak > li {list-style: none; margin: 0;}
 .kakareo footer > ul.info-kak > li {float: left;}
 .kakareo footer > ul.actions-kak >li {float: right;}
-.kakareo footer > ul.info-kak > li:last-child {margin: 0;}
+.kakareo footer > ul.info-kak > li:last-child {margin: 0 0 0 5px;}
 .kakareo footer > ul.info-kak > li:first-child,
 .kakareo footer > ul > li.kakareo-number,
-.kakareo footer > ul > li.more-actions {list-style: none !important; padding-left: 0 !important;}
-.kakareo footer > ul > li.read-later {margin-right: 28px !important;}
-.kakareo footer > ul > li .counter {margin: 0 4px 0 0;}
+.kakareo footer > ul > li.more-actions {padding-left: 0 !important;}
+
+.kakareo footer > ul > li .counter {margin: 0 2px 0 0;}
 .kakareo footer > ul > li > a span:first-child {margin: 0 6px 0 0;}
-.kakareo footer > ul > li > a {color: #797979;}
+.kakareo footer > ul > li > a {color: #bcbcbc;}
 .kakareo footer > ul > li a:hover,
 .kakareo footer > ul > li a:focus,
 .kakareo footer > ul > li a:active,
@@ -779,16 +873,13 @@ span + .text-notification {padding: 0 0 0 33px;}
 .kakareo footer > ul > li.read-later a.disabled:hover .hidden-xs,
 .kakareo footer > ul > li.read-later a.disabled:focus .hidden-xs,
 .kakareo footer > ul > li.read-later a.disabled:active .hidden-xs {color: #20a2ea !important; text-decoration: underline !important; cursor: pointer !important;}
-.kakareo footer > ul > li.more-actions {margin: 0 !important; position: absolute; right: 0;}
-.kakareo footer > ul > li.more-actions > span {background-color: #a8a8a8; padding: 12px 14px; color: #fff; margin: 0;}
-.kakareo footer > ul > li.more-actions > span:hover,
-.kakareo footer > ul > li.more-actions > span:active,
-.kakareo footer > ul > li.more-actions > span:focus {background-color: #545454;}
-.kakareo footer > ul > li.more-actions > span .fa-plus {margin: 0; color: #fff;}
+.kakareo footer > ul > li.more-actions {position: absolute; right: 6px;}
+.kakareo footer > ul > li.more-actions .popover-trigger {font-size: 24px; font-size: 2.4rem; font-weight: bold; line-height: .2;}
+.kakareo footer > ul > li.more-actions .popover-trigger:hover {color: #20a2ea;}
+
 .user-list-images .more-users,
 .user-list-followers .more-users {
-  background-color: #a8a8a8;
-  color: #fff !important;
+  background-color: #e5e5e5;
   display: inline-block;
   width: 38px;
   height: 38px;
@@ -804,7 +895,7 @@ span + .text-notification {padding: 0 0 0 33px;}
 .user-list-images .more-users:focus,
 .user-list-followers .more-users:hover,
 .user-list-followers .more-users:active,
-.user-list-followers .more-users:focus {background-color: #545454;}
+.user-list-followers .more-users:focus {background-color: #a8a8a8; color: #fff;}
 
 /* kakareos destacados */
 .important .kakareo .link-wrapper:hover,
@@ -888,16 +979,17 @@ span + .text-notification {padding: 0 0 0 33px;}
 #videoHome .modal-dialog .modal-body {padding: 0;}
 #videoHome .modal-dialog .modal-header {border-bottom: 0; padding: 0;}
 
+
 /* DOS BOTONES IGUALES PERO SU FUNCIONAMIENTO ES DIFERENTE A NIVEL INTERNO */
 
 /* este es para la carga real */
 #load-more {
-  border-top: solid 1px #dadada;
+  border-top: solid 1px #e5e5e5;
   padding: 10px 0 0;
 }
 /*para quitarle el borde al ver más en las notificaciones*/
 .container-fluid.config #load-more{border-top: none; padding: 10px 0 0;}
-#load-more a {color: #545454;}
+#load-more a {color: #a8a8a8;}
 #load-more a:hover,
 #load-more a:active,
 #load-more a:focus {text-decoration: underline;}
@@ -913,20 +1005,10 @@ span + .text-notification {padding: 0 0 0 33px;}
 #ver-mas a:focus {text-decoration: underline;}
 
 /***************************************************************************/
+/***************************************************************************/
 
 
 /* ajustes kakareos en el sidebar */
-.boxes .important .kakareo .link-wrapper:hover,
-.boxes .important .kakareo .link-wrapper:active,
-.boxes .important .kakareo .link-wrapper:focus {background-color: #efefef;}
-.boxes .kakareo footer > ul > li {padding: 6px 0 6px 6px !important;}
-.boxes .kakareo footer > ul.info-kak > li,
-.boxes .kakareo footer > ul.actions-kak > li {margin: 0 0 0 2px;}
-.boxes .kakareo footer > ul > li.read-later {margin-right: 45px !important;}
-.boxes .kakareo footer ul li.read-later + li.like-number {margin: 0 0 0 2px;}
-.boxes .kakareo footer ul li.like-number {margin: 0 40px 0 2px;}
-
-
 .boxes .author.important .user.actor.politic .popover-trigger .user-img {float: right; margin-top: 0; margin-bottom: 0;}
 .boxes .author.important .user.actor.politic {
   height: 35px;
@@ -936,43 +1018,36 @@ span + .text-notification {padding: 0 0 0 33px;}
   color: #545454;
 }
 .boxes .important .kakareo {background-color: transparent;}
-
-.boxes.guay .kakareo {border: none; padding: 0; margin: 0 0 15px;}
-.boxes.guay .kakareo .link-wrapper {padding: 5px;}
+.boxes.guay .kakareo {border: none; padding: 0; margin: 0;}
+.boxes.guay .kakareo .link-wrapper {padding: 15px 10px 0;}
 .others .boxes.guay .kakareo .link-wrapper {padding: 10px;}
-.boxes.guay .kakareo h1 {font-size: 13px; font-size: 1.3rem; line-height: 1.4; margin: 0 0 10px 0; padding-top: 0;}
-.boxes.guay .kakareo .main-kakareo {margin-top: 0; margin-bottom: 5px;}
+.boxes.guay .kakareo h1 {font-size: 13px; font-size: 1.3rem; line-height: 1.4; margin: 0 0 10px 0;}
 .boxes.guay .user-img {width: 25px; height: 25px; float: none; margin-right: 5px;}
+.boxes .victory .user-img {margin: 0 0 0 5px;}
 .boxes.guay .user-list-images li .popover-trigger.more-users {margin-bottom: 4px;}
 .boxes.guay .important > .user-list-images {display: block; text-align: right;}
 .boxes.guay .kakareo .user-list-images li .user-img {margin: 0 0 0 5px !important;}
-.boxes.guay .kakareo footer {
-  background-color: transparent;
-  border-top: 1px solid #dadada;
-  border-bottom: 1px solid #dadada;
-}
-.boxes.guay .kakareo footer > ul {height: auto; padding: 5px 0; margin-bottom: 0;}
-.boxes.guay .kakareo footer ul li.more-actions > span {color: #a8a8a8; background-color: transparent; border-left: 1px solid #DADADA;}
 .boxes.guay .kakareo footer ul li.more-actions > span .fa-plus {color: #a8a8a8;}
-
-.boxes.guay .kakareo footer ul li.more-actions > span:hover,
-.boxes.guay .kakareo footer ul li.more-actions > span:active,
-.boxes.guay .kakareo footer ul li.more-actions > span:focus {background-color: #a8a8a8;}
-
 .boxes.guay .important .kakareo footer ul li.more-actions > span:hover,
 .boxes.guay .important .kakareo footer ul li.more-actions > span:active,
 .boxes.guay .important .kakareo footer ul li.more-actions > span:focus {background-color: #ff9431 !important;}
-
 .boxes.guay .kakareo footer ul li.more-actions > span:hover .fa-plus,
 .boxes.guay .kakareo footer ul li.more-actions > span:active .fa-plus,
 .boxes.guay .kakareo footer ul li.more-actions > span:focus .fa-plus {color: #fff;}
-
-.boxes.follow .kakareo {background-color: transparent; border: none; padding: 0; margin: 15px 0 0;}
+.boxes.follow .kakareo {background-color: transparent; border: none; padding: 0 6px; margin: 15px 0 0;}
 .boxes.follow .kakareo > ul > li {float: left; margin-right: 3px;}
 .boxes.follow .kakareo > ul > li:last-child {margin: 0;}
 
 /* boxes columna derecha dashboard */
-.boxes {background-color: #fcfcfc; padding: 10px 20px; margin: 0 0 20px 0; position: relative;}
+#aside-ppal {padding-top: 24px;}
+.boxes {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  margin: 0 0 20px;
+  padding: 0;
+  position: relative;
+}
+.boxes.vote {padding: 0 20px;}
 .boxes.noted {background-color: #eff5fd; margin: 0;}
 .boxes .edit {font-size: 12px; font-size: 1.2rem; display: inline-block; color: #A8A8A8; position: absolute; top: 10px; right: 10px;}
 .boxes.edit-user .name {
@@ -996,7 +1071,8 @@ span + .text-notification {padding: 0 0 0 33px;}
 .boxes .actions {margin: 0; padding: 0;}
 .boxes > ul > li,
 .boxes .actions li {list-style: none; display: inline-block;}
-.boxes .kakareo-list li {display: block;}
+.boxes .kakareo-list > li {display: block; border-bottom: 1px solid #dadada;}
+.boxes .kakareo-list > li:last-child {border: none;}
 .activity {margin: 0; padding: 0;}
 .activity > li {
   width: 32%;
@@ -1013,16 +1089,15 @@ span + .text-notification {padding: 0 0 0 33px;}
 .activity > li.posts span {line-height: 1.1; font-size: 31px; font-size: 3.1rem; display: block;}
 .activity .popover-trigger {color: #545454; line-height: 1.1;}
 .activity .popover-trigger:hover {color: #a8a8a8;}
-
 .activity > li a:hover,
 .activity > li a:active,
 .activity > li a:focus {text-decoration: none; color: #A8A8A8;}
 
-.boxes > h1 {font-size: 16px; font-size: 1.6rem; border-bottom: 1px solid #dadada; color: #545454; margin-top: 10px; padding: 0 0 8px 0;}
+.boxes > h1 {font-size: 19px; font-size: 1.9rem; color: #545454; margin: 0; padding: 14px; border-bottom: 1px solid #dadada;}
+.boxes.vote > h1 {border: none; padding-left: 0; padding-right: 0;}
 .boxes > h2 {font-size: 19px; font-size: 1.9rem; color: #545454;}
 .boxes.noted {min-height: 200px;}
 .boxes.noted h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 33px; font-size: 3.3rem; text-transform: uppercase; border: none;}
-
 .boxes.noted.likes {text-align: center; color: #407ab7;}
 .boxes.noted.likes h1 {
   text-align: left;
@@ -1042,7 +1117,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .boxes.noted.likes .social li a:hover .fa-circle,
 .boxes.noted.likes .social li a:active .fa-circle,
 .boxes.noted.likes .social li a:focus .fa-circle {color: #20a2ea !important;}
-
 .boxes.alerts h1,
 .boxes.pending h1 {font-size: 15px; font-size: 1.5rem;}
 .boxes h1 .bigger {font-size: 150%;}
@@ -1075,8 +1149,11 @@ span + .text-notification {padding: 0 0 0 33px;}
   color: #ff9431;
 }
 .boxes.alerts li a {color: #ff9431;}
+.boxes .form-group {margin-bottom: 8px;}
 
-/* Edit Post */
+
+/*********************** Edit Post *************************************/
+/***********************************************************************/
 .edit-post form, .edit-post .boxes, .edit-post > h1 + p {color: #a8a8a8;}
 .edit-post > h1 {
   font-family: 'League Gothic', Arial, sans-serif;
@@ -1105,7 +1182,6 @@ span + .text-notification {padding: 0 0 0 33px;}
 .edit-post fieldset {padding: 25px 0;}
 .edit-post fieldset.type {margin: 0 0 25px 0; border-bottom: solid 1px #efefef;}
 #charNum {text-align: right; padding: 2px 0 0 0;}
-
 .custom-select-types {
   cursor: pointer;
   background: url("../images/select-arrow@2x.png") no-repeat scroll 240px 27px / 13px auto #efefef;
@@ -1156,15 +1232,6 @@ span + .text-notification {padding: 0 0 0 33px;}
   box-shadow: 0 0 0 rgba(0, 0, 0, 0.075) inset;
   font-family: 'FontAwesome', 'icomoon', Georgia, serif;
   text-transform: capitalize;
-}
-select.form-control {
-  padding: 8px 14px;
-  height: 44px;
-}
-select.form-control option {
-  background-color: #fcfcfc;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0.075) inset;
-  padding: 15px 15px 15px 60px;
 }
 select.form-control,
 select.form-control option {cursor: pointer;}
@@ -1226,7 +1293,10 @@ textarea.error,
     height: auto;
 }
 
-/* karma */
+
+
+/**************************** karma ************************************/
+/***********************************************************************/
 #karma {
   width: 93%;
   max-width: 375px;
@@ -1495,37 +1565,13 @@ textarea.error,
 .callMobile {position: fixed; top: 76px; left: 24px; display: block; width: 68px; height: 68px; border-radius: 34px; padding: 15px 0; margin-bottom: 10px; background-color: rgba(32, 162, 234, 0.6); z-index: 999; text-align: center;}
 .callMobile a, .callMobile a:hover, .callMobile a:focus, .callMobile a:active {color: #fff; text-decoration: none; font-family: 'League Gothic', Arial, sans-serif; text-transform: uppercase; font-size: 30px; font-size: 30px;}
 
-.kakareo.post.ley {margin: -37px 0 50px 0;}
 .kakareo.post.ley.participants {margin: 0 0 50px 0;}
-.kakareo.post.ley h1 {font-family: 'League Gothic', Arial, sans-serif; font-size: 32px; font-size: 3.2rem; text-transform: uppercase; padding: 0; border-bottom: solid 1px #dadada; margin-bottom: 10px;}
-.kakareo.post.ley .laley {font-size: 24px; font-size: 2.4rem; margin: 10px 0 0 0;}
-.kakareo.post.ley .photo {position: relative;}
-.kakareo.post.ley .photo .aboutProject {
-  padding: 4px;
-  background-color: #fff;
-  position: absolute;
-  right: 0;
-  top: 5%;
-  box-shadow: -5px 3px 5px rgba(0, 0, 0, 0.05);
-}
-.kakareo.post.ley .photo .phase,
-.kakareo.post.ley .photo .country {
-  font-family: 'League Gothic', Arial, sans-serif;
-  padding: 6px 4px;
-  text-align: center;
-}
-.kakareo.post.ley .photo .circle {
-  display: block;
-  margin: 0 auto;
-  width: 25px;
-  height: 25px;
-  border-radius: 25px;
-  border: 3px solid #545454;
-  font-size: 12px; font-size: 1.2rem;
-  text-align: center;
-  padding: 2px 4px;
-}
-.kakareo.post.ley .photo .text {text-transform: uppercase; font-size: 13px; font-size: 1.3rem;}
+/*.kakareo.post.ley h1,
+.kakareo.post.ley .laley {font-size: 20px; font-size: 2rem;}*/
+.kakareo.post.ley h1 {padding: 0; margin-bottom: 15px;}
+#otros-proyectos .kakareo.post.ley .laley {font-size: 16px; font-size: 1.6rem;}
+h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-bottom: 20px; font-size: 25px; font-size: 2.5rem;}
+.kakareo.post.ley .photo {position: relative; margin-top: 20px;}
 .kakareo.post.ley .photo .info {position: absolute; bottom: 5px; left: 5px;}
 .kakareo.post.ley .photo .tooltip.in {opacity: 1;}
 .kakareo.post.ley .photo .info .tooltip-arrow {border-right-color: #fff !important;}
@@ -1542,16 +1588,85 @@ textarea.error,
 }
 .kakareo.post.ley .photo .info .icon-flag2 {line-height: 2;}
 .kakareo.post.ley .photo .info .fa-circle {color: #ff9431;}
+.options {padding: 10px 0; margin-bottom: 20px; border-bottom: 1px solid #e5e5e5;}
+.options > .typeTime {color: #bcbcbc; margin: 0 0 10px 0; font-size: 14px; font-size: 1.4rem;}
+.options > ul {margin: 0;}
+.options > .typeTime li {list-style: none; display: inline-block; height: 28px;}
+.options > .infoVotes {text-align: right;}
+.infoVotes > li,
+.infoVotes > span {display: inline-block; width: 54px; background-color: #e5e5e5; padding: 5px; font-size: 12px; font-size: 1.2rem; text-align: center;}
+article #detailsInfoVotes .infoVotes > li,
+article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
+.infoVotes > li:first-child {margin-left: 0;}
+.infoVotes > li.arrow {background: transparent; width: 24px; margin: 0;}
+.infoVotes > li:last-child a {color: #bcbcbc;}
+#otros-proyectos > .container-fluid > ul > li > article {margin-bottom: 15px;}
+#otros-proyectos > .container-fluid > ul > li:last-child > article {margin-bottom: 0;}
+#otros-proyectos {padding-bottom: 20px;}
+#otros-proyectos .more-info {padding: 0 10px;}
+#otros-proyectos .kakareo.post footer .voting {text-align: right;}
+#otros-proyectos .kakareo.post footer .voting ul {margin: 0; padding: 0;}
+#otros-proyectos .kakareo.post footer .voting ul li {background-color: transparent; width: auto; height: auto; font-size: 13px; font-size: 1.3rem; margin: 0 0 0 8px;}
+#otros-proyectos .kakareo.post footer .voting > ul > li > a {text-decoration: none; color: #bcbcbc; display: inline; width: auto; height: auto; font-size: 18px; font-size: 1.8rem; padding: 0 !important;}
+#otros-proyectos .kakareo.post footer .voting > ul > li > a > span {display: inline;}
+#otros-proyectos .kakareo.post footer .voting > ul > li > a:hover,
+#otros-proyectos .kakareo.post footer .voting > ul > li > a:focus,
+#otros-proyectos .kakareo.post footer .voting > ul > li > a:active {color: #20a2ea;}
+#otros-proyectos .kakareo.post footer .voting > ul > li:last-child > a:hover,
+#otros-proyectos .kakareo.post footer .voting > ul > li:last-child > a:active,
+#otros-proyectos .kakareo.post footer .voting > ul > li:last-child > a:focus {color: #ff9431;}
+#otros-proyectos .kakareo.post footer .voting > li,
+#otros-proyectos .kakareo.post footer .voting > span {margin-left: 2px;}
+#otros-proyectos .kakareo.post footer .info-kak > li {font-size: 15px; font-size: 1.5rem; display: inline-block;}
+#otros-proyectos .kakareo.post footer .info-kak > li time {font-size: 12px; font-size: 1.2rem;}
+#otros-proyectos .kakareo.post footer {margin-top: 0; margin-bottom: 0; padding: 0 10px; font-size: 14px; font-size: 1.4rem;}
+#otros-proyectos .kakareo.post footer ul {list-style: none;}
+#otros-proyectos .kakareo.post footer ul li {display: inline-block;}
+article #detailsInfoVotes .infoVotes > li,
+article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
+#detailsInfoVotes .icons {margin: 5px 0; padding: 0 5px; width: 100%; float: left;}
+#detailsInfoVotes .icons li {list-style: none; display: block; float: left; margin: 0 10px 10px 0;}
+#detailsInfoVotes .icons li:last-child {margin-top: -3px;}
+#detailsInfoVotes .icons.subject li:last-child {margin-top: 0;}
+#detailsInfoVotes .icons li .fa-file-pdf-o.fa-2x {font-size: 2.2em;}
+#detailsInfoVotes .icons.subject {margin: 0;}
+#detailsInfoVotes .icons a,
+#detailsInfoVotes .icons.subject a.active:hover {color: #bcbcbc; display: block; text-decoration: none;}
+#detailsInfoVotes .icons a:hover,
+#detailsInfoVotes .icons.subject a.active {color: #ff9431;}
+#detailsInfoVotes .table {width: 84%;}
+#detailsInfoVotes.autor .table {width: 100%;}
+#detailsInfoVotes.autor .icons li {list-style: none; display: block; float: left; margin: 0 14px 5px 0;}
+#detailsInfoVotes.autor .icons.subject li {margin: 0 20px 10px 0;}
 
-.options {margin-bottom: 20px;}
+#detailsInfoVotes .table > thead > tr > th,
+#detailsInfoVotes .table > tbody > tr > th,
+#detailsInfoVotes .table > tfoot > tr > th,
+#detailsInfoVotes .table > thead > tr > td,
+#detailsInfoVotes .table > tbody > tr > td,
+#detailsInfoVotes .table > tfoot > tr > td {border: none;}
+#detailsInfoVotes .table tr:last-child {color: #a8a8a8;}
+#detailsInfoVotes .table tbody th {font-weight: normal; width: 26px;}
+#detailsInfoVotes .table tbody tr td {padding: 5px; text-align: center;}
+
+#widget .modal-dialog,
+#ya-no .modal-dialog,
+#registro .modal-dialog  {margin-top: 20%;}
+#myWidgetLabel {font-weight: bold;}
+#widget pre {color: #a8a8a8; font-size: 15px; height: 50px;}
+#widget .modal-header {padding: 15px 15px 5px;}
+#widget .modal-body {padding: 10px 20px;}
+#widget .close {font-size: 30px;}
+#widget .modal-header .close {margin-top: -6px;}
+
+#registro .modal-dialog {width: 410px;}
+
 .leerLey {text-align: right;}
 .leerLey a {padding: 3px 22px 3px 0; background: url('../images/pdf.png') no-repeat right center transparent;}
 .leerLey a, .leerLey a:hover, .leerLey a:active, .leerLey a:focus,
 .editPost a, .editPost a:hover, .editPost a:active, .editPost a:focus {color: #a8a8a8;}
-
 .leerLey a:hover span, .leerLey a:active span, .leerLey a:focus span,
 .editPost a:hover span, .editPost a:active span, .editPost a:focus span {text-decoration: none;}
-
 .leerLey span {margin: 0 0 0 4px;}
 .editPost span {margin: 0 4px 2px 0;}
 
@@ -1584,7 +1699,6 @@ textarea.error,
 .participate a:hover,
 .participate a:active,
 .participate a:focus {color: #2e6bab; /*border: solid 1px #2e6bab;*/}
-
 .participate .row p {text-align: center; padding: 0 20px;}
 
 .seeVictory .counter {font-size: 200%;}
@@ -1610,36 +1724,36 @@ textarea.error,
 
 .roleOrganization{margin-left: 6px;}
 
-.boxes.vote > h1 {margin-top: 0; font-size: 24px; font-size: 2.4rem;}
+.boxes.vote > h1 {text-align: center;}
+.boxes.vote > .btn-lg {font-size: 14px; font-size: 1.45rem !important; line-height: 1.4 !important; padding: 12px !important;}
+
 .vote .activity > li {border-right: none; color: #545454; font-size: 13px; font-size: 1.3rem; padding: 0 8px 8px 8px;}
 .vote .activity > li.active {background-color: #aed4fb;}
 .vote .activity span {font-size: 32px; font-size: 3.2rem; display: block;}
 .vote .activity  {line-height: 1.3;}
 .kuorum {text-align: center; margin: 20px 0; font-size: 13px; font-size: 1.3rem;}
 .kuorum .counter {font-size: 24px; font-size: 2.4rem;}
-.boxes.vote .voting {text-align: center;}
-.boxes.vote .voting > ul {margin: 0 0 10px 0; padding: 0;}
-.boxes.vote .voting > ul > li {list-style: none; display: inline-block; margin-right: 4px;}
-.boxes.vote .voting > ul > li:last-child {margin: 0;}
-.boxes.vote .voting > ul > li > a > span {display: block; margin-bottom: 5px;}
-.boxes.vote .voting > ul > li > a {font-size: 13px; font-size: 1.3rem; width: 72px; height: 60px; margin: 0 !important; padding: 7px 0 0 0 !important; border-radius: 4px !important; display: block;}
+.voting {text-align: center;}
+.voting > ul {margin: 0 0 10px 0; padding: 0;}
+.voting > ul > li {list-style: none; display: inline-block; margin-right: 4px;}
+.voting > ul > li:last-child {margin: 0;}
+.voting > ul > li > a > span {display: block; margin-bottom: 5px;}
+.voting > ul > li > a {font-size: 13px; font-size: 1.3rem; width: 72px; height: 60px; margin: 0 !important; padding: 7px 0 0 0 !important; border-radius: 4px !important; display: block;}
 
-.boxes.vote .voting .changeOpinion {display: block; font-size: 16px; font-size: 1.6rem; padding: 20px 0; display: none;}
+.voting .changeOpinion {display: block; font-size: 16px; font-size: 1.6rem; padding: 20px 0; display: none;}
 
-.boxes.vote div.social {text-align: center; margin: 40px 0;}
+.boxes.vote div.social {text-align: center; margin: 20px 0;}
 .boxes.vote ul.social {margin: 0; padding: 0;}
-.boxes.vote ul.social li a {color: #20a2ea !important;}
+.boxes.vote ul.social li {margin: 0 15% 0 0;}
+.boxes.vote ul.social li:last-child {margin: 0;}
+.boxes.vote ul.social li a {color: #bcbcbc !important;}
 .boxes.vote ul.social li a:hover,
 .boxes.vote ul.social li a:active,
-.boxes.vote ul.social li a:focus {color: #fff !important;}
-.boxes.vote ul.social li .fa-circle {color: #fff !important;}
-.boxes.vote ul.social li a:hover .fa-circle,
-.boxes.vote ul.social li a:active .fa-circle,
-.boxes.vote ul.social li a:focus .fa-circle {color: #20a2ea !important;}
+.boxes.vote ul.social li a:focus {color: #20a2ea !important;}
 
-.boxes.vote .voting .vote {margin: 0 0 10px 0 !important; font-size: 32px; font-size: 3.2rem; line-height: 0.7; height: 72px; padding: 14px !important;}
-.boxes.vote .voting .vote.disabled {padding: 15px !important;}
-.boxes.vote .voting .vote small {font-weight: normal; font-size: 16px; font-size: 1.6rem;}
+.voting .vote {margin: 0 0 10px 0 !important; font-size: 32px; font-size: 3.2rem; line-height: 0.7; height: 72px; padding: 14px !important;}
+.voting .vote.disabled {padding: 15px !important;}
+.voting .vote small {font-weight: normal; font-size: 16px; font-size: 1.6rem;}
 
 .popover-kuorum .text-center {font-size: 19px; font-size: 1.9rem; margin: 10px 0;}
 
@@ -1662,13 +1776,16 @@ textarea.error,
 }
 .readMore a.collapsed {background-position: right top;}
 .top {font-size: 15px; font-size: 1.5rem;}
-
-
+.filters {margin: 0 0 20px 0;}
+.filters .btn {background-color: #fff !important; border-radius: 0 !important; border: 1px solid #e5e5e5; color: #5d5d5d !important; font-size: 12px; font-size: 1.2rem; border-radius: 0; padding: 6px 2px !important;}
+.filters .btn .badge {font-size: 10px; font-size: 1rem; font-weight: normal; background-color: #797979; border-radius: 14px; padding: 4px 6px 5px;}
+.filters .btn:hover,
+.filters .btn.active {background-color: #f8f8f8 !important; box-shadow: 0 0 0 rgba(0, 0, 0, 0) inset;}
 
 /* post =========== */
 /* ====================================================== */
 
-.kakareo.post h1 {font-size: 32px; font-size: 3.2rem; line-height: 1.2; padding: 0; margin: 0 0 25px 0;}
+.kakareo.post h1 {font-size: 29px; font-size: 2.9rem; line-height: 1.2; padding: 0; margin: 0 0 25px 0;}
 .listComments {margin: 0; padding: 0;}
 .listComments > li {list-style: none; background-color: #fafafa; color: #a8a8a8; margin: 0 0 40px 0;}
 .listComments > li .wrapper {padding: 20px 20px 0 20px;}
@@ -2011,11 +2128,11 @@ textarea.error,
 .boxes.userkarma .activity li span {color: #545454; font-size: 32px; font-size: 3.2rem;}
 .boxes.userkarma h1 span,
 .boxes.follow h1 span,
-.boxes.projects h1 span {font-size: 18px; font-size: 1.8rem; margin-bottom: 4px; color: #545454;}
+.boxes.laws h1 span {font-size: 18px; font-size: 1.8rem; margin-bottom: 4px; color: #545454;}
 .boxes.follow h1 small span {font-size: 14px; font-size: 1.4rem;}
-.boxes.projects > ul > li {display: block; padding: 10px 0; border-bottom: 1px solid #DADADA;}
-.boxes.projects > ul > li:last-child {border: 0;}
-.boxes.projects > ul > li > .counter {display: inline-block; float: right;}
+.boxes.laws > ul > li {display: block; padding: 10px 0; border-bottom: 1px solid #DADADA;}
+.boxes.laws > ul > li:last-child {border: 0;}
+.boxes.laws > ul > li > .counter {display: inline-block; float: right;}
 
 .userprofile .kakareo.post.ley .user > .user-name small {color: #BFD9F5; font-size: 65%;}
 .boxes.userkarma .activity li.victories {padding-bottom: 20px;}
@@ -2056,17 +2173,16 @@ textarea.error,
 .discover .user-list-followers {margin: 0 0 10px 0;}
 .discover .moreActives .user-list-followers li {margin-right: 7px;}
 .discover .others {margin-bottom: 60px; margin-top: 0px;}
-.discover .others .projects > ul  {margin: 0; padding: 0;}
-.discover .others .projects > ul > li {list-style: none; margin: 34px 0 0 0;}
-.discover .others .projects > ul > li:first-child {margin-top: 20px;}
-.discover .others .projects .kakareo.post.ley {margin: 0;}
-.discover .others .projects .kakareo.post.ley .photo {width: 100px; float: left; margin: 0 8px 8px 0;}
+.discover .others .laws > ul  {margin: 0; padding: 0;}
+.discover .others .laws > ul > li {list-style: none; margin: 34px 0 0 0;}
+.discover .others .laws > ul > li:first-child {margin-top: 20px;}
+.discover .others .laws .kakareo.post.ley {margin: 0;}
+.discover .others .laws .kakareo.post.ley .photo {width: 100px; float: left; margin: 0 8px 8px 0;}
 .discover .others .kakareo.post.ley .laley {font-size: 13px; font-size: 1.3rem; margin: 0 0 2px 0;}
 .discover .others .kakareo.post.ley h1 {border: none; font-size: 19px; font-size: 1.9rem; margin-bottom: 0; line-height: 1;}
 .discover .others .kakareo.post.ley p {font-size: 12px; font-size: 1.2rem; line-height: 1.2;}
 .discover .others .kakareo.post .wrapper {padding: 0;}
 .discover .others .boxes {background: none;}
-.discover .kakareo.post.ley .photo .aboutProject {top: 7px;}
 
 
 /* autocompletado =========== */
@@ -2092,7 +2208,7 @@ textarea.error,
 .autocomplete-suggestion:hover,
 .autocomplete-suggestion:focus,
 .autocomplete-suggestion:active {cursor: pointer;}
-.autocomplete-suggestion .statusProject {
+.autocomplete-suggestion .statusLaw {
   display: block;
   font-size: 11px;
   font-size: 1.1rem;
@@ -2129,8 +2245,8 @@ textarea.error,
 
 /* páginas de info, listados y errores =========== */
 /* ====================================================== */
-#all-projects {margin-bottom: 20px;}
-#all-projects select {
+#all-laws {margin-bottom: 20px;}
+#all-laws select {
   margin: 0 5px;
   background-color: #fbfbfb;
   border-color: #dadada;
@@ -2332,19 +2448,16 @@ textarea.error,
   cursor: not-allowed;
   pointer-events: none;
 }
-
 .config .item ul {margin: 0; padding: 0;}
 .config .item ul li {list-style: none; border-bottom: solid 1px #dadada;}
 .config .item ul li h3 span {color: #ff9431; font-size: 130%;}
 .config .item ul li p {color: #a8a8a8; font-size: 13px; font-size: 1.3rem;}
-
 .config #config7 p {margin: 20px 0 0 0; line-height: 1.2;}
 .config #config9 .checkbox label,
 .config #config9 .checkbox-inline {font-weight: normal; font-size: 13px; font-size: 1.3rem;}
 .config #config9 .checkbox {margin-top: 15px; margin-bottom: 15px;}
 .config #config9 .interestContainer {width: 530px}
 .config .interestContainer label {font-weight: normal;}
-
 .config #config9 .icheckbox_line-orange,
 .config #config9 .iradio_line-orange {color: #545454;}
 .config #config9 .icheckbox_line-orange.hover,
@@ -2355,10 +2468,8 @@ textarea.error,
     background: url("../images/checked-black.png") no-repeat scroll right top #545454;
     color: #FFFFFF;
 }
-
 .config .list-post.pending > li > .text-notification {color: #545454; display: inline;}
-.config .list-post.pending > li .project {padding: 0; font-size: 24px; font-size: 2.4rem; line-height: 1.2;}
-
+.config .list-post.pending > li .law {padding: 0; font-size: 24px; font-size: 2.4rem; line-height: 1.2;}
 .config #config11 p {color: #a8a8a8;}
 .config #config11 .btn.btn-lg {
   font-size: 19px; font-size: 1.95rem !important;
@@ -2421,6 +2532,45 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 .moreInfo {margin: 30px 0 20px 0; border-top: solid 1px #dadada; padding: 30px 0 0 0;}
 .moreInfo dt {font-size: 18px; font-size: 1.8rem; font-weight: normal;}
 .moreInfo dd {font-size: 36px; font-size: 3.6rem; margin-bottom: 20px;}
+
+/*  FRANJA CON INFO QUE APARECE AL HACER SCROLL  */
+#info-sup-scroll {
+    top: 57px;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 999;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 8px 5px;
+    display: none;
+}
+#info-sup-scroll .laley,
+#info-sup-scroll .voting > .closed {font-size: 14px; font-size: 1.4rem;}
+#info-sup-scroll .voting {text-align: right;}
+#info-sup-scroll .voting > ul > li > a {font-size: 9px; font-size: .9rem; height: auto; width: auto; margin: 0; padding: 0 !important; color: #bcbcbc;}
+#info-sup-scroll .voting > ul > li {
+    display: block;
+    float: left;
+    margin-left: 0;
+    margin-right: 8px;
+}
+#info-sup-scroll .voting > ul > li:last-child {margin: 0;}
+#info-sup-scroll .voting > ul > li > a:hover,
+#info-sup-scroll .voting > ul > li > a:focus,
+#info-sup-scroll .voting > ul > li > a:active {text-decoration: none; color: #20a2ea;}
+#info-sup-scroll .voting > ul > li:last-child > a:hover,
+#info-sup-scroll .voting > ul > li:last-child > a:focus,
+#info-sup-scroll .voting > ul > li:last-child > a:active {color: #ff9431;}
+#info-sup-scroll .voting > ul > li > a > span {margin-bottom: 0;}
+#info-sup-scroll  .infoVotes {text-align: center;}
+#info-sup-scroll  .infoVotes,
+#info-sup-scroll .voting > ul {margin: 0; padding: 0;}
+#info-sup-scroll .voting > .closed {display: block; text-align: right;}
+#info-sup-scroll .voting > .closed a {color: #bcbcbc;}
+#info-sup-scroll .voting > .closed a:hover,
+#info-sup-scroll .voting > .closed a:focus,
+#info-sup-scroll .voting > .closed a:active {color: #ff9431;}
 
 
 /* clases especiales accesibilidad =========== */
@@ -2495,6 +2645,26 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 @media only screen and (min-width: 480px) {
   .pre {margin: 75px 20px 5px 0;}
   .preFooter .user-list li .user-img {margin-right: 10px;}
+  #detailsInfoVotes .table {width: 95%;}
+  #detailsInfoVotes .table tbody th {width: 148px; text-align: right; padding-right: 10px;}
+  #detailsInfoVotes .icons {padding: 0 15px;}
+  #detailsInfoVotes.autor .table tbody th {width: 170px;}
+  #sign .checkbox-inline + .checkbox-inline {margin-left: 10px;}
+}
+
+@media only screen and (min-width: 533px) {
+  #detailsInfoVotes .table tbody th {width: 205px;}
+  #detailsInfoVotes.autor .table tbody th {width: 230px;}
+}
+
+@media only screen and (min-width: 600px) {
+  #detailsInfoVotes .table tbody th {width: 270px;}
+  #detailsInfoVotes.autor .table tbody th {width: 295px;}
+}
+
+@media only screen and (min-width: 640px) {
+  #detailsInfoVotes .table tbody th {width: 300px;}
+  #detailsInfoVotes.autor .table tbody th {width: 335px;}
 }
 
 @media only screen and (min-width: 640px) {
@@ -2516,14 +2686,35 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   #modalSponsor .modal-header .user {margin: 16px 0 0 0;}
   #modalSponsor .modal-header .user {width: 100%;}
   #modalSponsor .modal-body .btn {display: inline-block; float: left; font-size: 15px !important; font-size: 1.5rem !important; width: 165px; height: 80px; margin: 0 10px 0 0 !important; padding: 22px 10px !important;}
-
+  #myWidgetLabel {font-size: 34px;}
+  #widget pre {height: 80px; font-size: 20px;}
 }
-
 /*botones video o foto en la edición del post*/
 .multimedia ul.nav.nav-pills.nav-justified li a{margin-right: 10px;}
 
+
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .nav > li > .navbar-link.new-project {
+    background-color: #ff9431;
+    color: #fff;
+    height: auto;
+    margin: 4px 0 0;
+    padding: 6px 8px 3px;
+  }
+  #info-sup-scroll {top: 55px; padding: 10px;}
+  #info-sup-scroll .voting {margin-top: 15px;}
+  #info-sup-scroll .voting > ul > li {margin-right: 25px;}
+  #info-sup-scroll .voting > ul > li > a {font-size: 11px; font-size: 1.1rem;}
+  #info-sup-scroll  .infoVotes,
+  #info-sup-scroll .voting > ul {margin: 0;}
+  #info-sup-scroll .voting {margin-top: 0;}
+  #info-sup-scroll .laley,
+  #info-sup-scroll .voting > .closed {font-size: 17px; font-size: 1.7rem; line-height: 1.6;}
+  #info-sup-scroll .infoVotes > li,
+  #info-sup-scroll .infoVotes > span {font-size: 14px; font-size: 1.4rem; width: 64px; height: 33px; padding-top: 7px;}
+  #info-sup-scroll .infoVotes > li {margin-left: 4px;}
+  #info-sup-scroll .infoVotes > li:first-child {margin-left: 0;}
   .callMobile {display: none !important;}
   .btn .btn-xs {
     border-radius: 2px !important;
@@ -2539,10 +2730,9 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   }
   .btn-custom-gray {background-color: #a8a8a8 !important; border-color: #a8a8a8 !important;}
   .navbar-collapse.collapse.in {border-bottom: 0;}
-  .navbar-form {width: 263px; margin: 0; padding: 0;}
   #header h1 {margin: 0;}
-  .navbar-form {width: 196px; margin: 0; padding: 4px 4px 4px 10px;}
-  .nav > li > .navbar-link {background-color: transparent; border-bottom: 4px solid #fff; padding: 11px 5px 14px;}
+  .navbar-form {width: 245px; margin: 4px 4px 4px 4%;}
+  .nav > li > .navbar-link {background-color: transparent; border-bottom: 4px solid #fff; padding: 10px; height: 48px;}
   .nav > li > .navbar-link:hover,
   .nav > li > .navbar-link:focus {background-color: transparent; color: #ff9431;}
   .nav > .underline > .navbar-link:hover,
@@ -2557,11 +2747,10 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
     transition: all .15s ease-in-out;
   }
   .nav > li > a.btn {padding: 10px !important; border: 0; margin: 2px 0 0 4px !important;}
-  .nav > li > .discover {padding-top: 6px; padding-bottom: 1px;}
-  .nav > li > .user-area {padding-top: 4px; padding-bottom: 3px;}
   .nav > li > .user-area > .user-img {margin-right: 0;}
+  .nav > li > .navbar-link.new-project .symbol {font-size: 28px;}
   .navbar-btn {margin-top: 6px;}
-  .box .badge {position: absolute; top: 2px; right: -2px;}
+  .box .badge {position: absolute; top: 2px; right: 0;}
   .navbar-nav .visible-xs {display: none !important;}
   .nav .open > a,
   .nav .open > a:hover,
@@ -2572,13 +2761,12 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .nav > li > .navbar-link:hover .badge,
   .nav > li > .navbar-link:focus .badge {background-color: #ff9431; color: #fff;}
   .box .dropdown-menu > li {width: 340px;}
-  .social li {margin-right: 4px; font-size: 16px; font-size: 1.6rem;}
-  #footer .links section .feedback {width: auto; padding: 8px 10px;}
-  #footer .links section h1.map {margin-top: 0;}
-  .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 20px 0 10px;}
+
+  .navbar-nav .form .dropdown-menu {width: 340px;}
+
+  #footer .social li {margin-right: 4px; font-size: 16px; font-size: 1.6rem;}
+  #footer .social {text-align: left; margin: 4px 0 0 0;}
   .kakareo .main-kakareo {margin-top: 10px;}
-  .kakareo footer > ul > li.read-later {margin-right: 28px !important;}
-  .boxes .kakareo footer ul li.like-number {margin: 0 35px 0 2px;}
   .multimedia .video .fa {left: 44%; top: 40%;}
   .activity .popover-trigger span {font-size: 28px; font-size: 2.6rem;}
   #main .user .popover-trigger,
@@ -2587,54 +2775,37 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .intro {margin: 40px 0 60px;}
   .intro h1 {font-size: 48px; font-style: 4.8rem;}
   .intro.confirm {margin: 60px 0 40px;}
-  .btn.btn-lg {padding: 18px 50px !important; font-size: 20px !important; font-size: 2rem !important;}
+  .btn.btn-lg {font-size: 20px !important; font-size: 2rem !important;}
   .links.simple {padding: 40px;}
   .links.simple .legal li {display: inline; margin: 0 14px 0 0; border-right: solid 1px #a8a8a8; border-bottom: none; padding: 0 14px 0 0;}
   .onecol form .cancel {font-size: 16px !important; font-size: 1.6rem; margin: 0 20px 0 0;}
   .controls {width: auto;}
   .seeVictory .sliderItem img.actor {width: 152px;}
   .seeVictory .sliderItem h1 {font-size: 1.8rem;padding: 10px;}
-  .kakareo.post.ley .photo .aboutProject {
-    width: 74px;
-    height: 178px;
-    padding: 4px;
-    left: 0;
-    top: 4%;
-    right: auto;
-    box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.05);
-  }
-  .kakareo.post.ley .photo .circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    font-size: 28px; font-size: 2.8rem;
-    padding: 3px 5px;
-  }
-  .kakareo.post.ley .photo .text {font-size: 18px; font-size: 1.8rem;}
   .kakareo.post.ley .photo .info {bottom: 5px; left: 15px;}
-  .kakareo.post.ley .laley {font-size: 34px; font-size: 3.4rem; margin: 15px 0 0 0;}
-  .kakareo.post.ley h1 {font-size: 40px; font-size: 4rem;}
   .participate > h1, .participAll > h1, .seeVictory > h1, .comments > h1 {font-size: 48px; font-size: 4.8rem;}
   .seeVictory .sliderItem .content a {font-size: 22px; font-size: 2.2rem;}
   .vote .activity span {font-size: 22px; font-size: 2.2rem;}
   .vote .activity > li {font-size: 12px; font-size: 1.2rem; padding: 0 2px 6px;}
-  /*.boxes {padding: 10px;}
-  .boxes.guay .kakareo footer > ul {padding: 0;}*/
-  .boxes.vote .voting > ul > li {margin-right: 2px;}
-  .boxes.vote .voting > ul > li > a {font-size: 1.1rem; height: 53px; margin: 0 !important; width: 62px;}
+  .boxes.vote {padding: 0 20px;}
+  .voting > ul > li {margin-right: 2px;}
+  .voting > ul > li > a {font-size: 1.1rem; height: 53px; margin: 0 !important; width: 62px;}
+  .boxes.vote > .btn-lg {font-size: 11px; font-size: 1.15rem !important; padding: 8px !important;}
+  .boxes.follow .kakareo > ul > li {margin-right: 15px;}
   .participate .row p {padding: 0;}
   .stats {position: absolute; bottom: 40px; right: 0;}
   .stats a {padding: 10px 0 0 0;}
   .stats span {display: inline-block; margin: 0 8px 4px 0;}
   .popover-box {width: 47%; float: left; margin: 0 20px 20px 0;}
   .config .list-notification > li.user.answerLink {padding: 10px 0 20px 0;}
+  #detailsInfoVotes .table {width: 88%; margin-bottom: 0;}
+  #detailsInfoVotes .table tbody th {width: 26px; padding-right: 5px;}
+  #detailsInfoVotes .table tbody tr td {text-align: center;}
+  #detailsInfoVotes > .infoUpdates {margin-bottom: 0;}
+  #detailsInfoVotes.autor .table tbody th {width: 45px;}
 
   /* karma */
-  #karma {
-    right: 4%;
-    top: 69px;
-    padding: 10px 20px 20px;
-  }
+  #karma {right: 4%; top: 69px; padding: 10px 20px 20px;}
   #karma  h1 {font-size: 36px; font-size: 3.6rem;}
   #karma h2 {font-size: 23px; font-size: 2.3rem;}
   .karma li {font-size: 26px; font-size: 2.6rem; padding: 0 10px;}
@@ -2650,7 +2821,6 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .signContainer {padding: 20px; margin-bottom: 0;}
   .signContainer h2 small {font-size: 18px; font-size: 1.8rem;}
   .signContainer h3 {font-size: 15px; font-size: 1.5rem; margin-bottom: 10px;}
-  /*.home .socialGo li a {width: 170px;}*/
   .homeSub h1 {margin: 0 0 40px 0; font-size: 36px; font-size: 3.6rem;}
   .userprofile .kakareo.post.ley .user > .user-name {display: inline-block;}
   .userprofile .kakareo.post.ley .user > .user-type {margin: -20px 0 20px 150px;}
@@ -2659,9 +2829,8 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .userprofile .kakareo.post.ley .user > .mark + .infoActivity {margin: 10px 0 17px 0;}
   .userprofile .kakareo.post.ley .socialContact li {display: inline; margin-right: 30px; padding: 0;}
   .userprofile .boxes .btn.btn-lg {font-size: 1.4rem !important; padding: 18px !important;}
-  .discover .kakareo.post.ley .photo .aboutProject {top: 5%;}
   .discover .boxes.vote {margin-top: 46px; padding: 10px;}
-  .discover .others .projects .kakareo.post.ley .photo {width: 100%;}
+  .discover .others .laws .kakareo.post.ley .photo {width: 100%;}
   .discover .others .kakareo.post.ley h1 {margin-bottom: 0;}
   .introDiscover .steps li {margin: 0 0 0 5px;}
   .pre {margin: 5px 20px 5px 0;}
@@ -2676,9 +2845,8 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .preFooter .btn {display: inline-block; margin: 0 5px !important;}
   .othersPost #postNav {height: 110px;}
   .othersPost #postNav > a {padding: 34px 18px;}
-  .form-promo h4 {font-size: 23px; font-size: 2.38rem; /*margin-right: 40px;*/}
+  .form-promo h4 {font-size: 23px; font-size: 2.38rem;}
   .form-promo form .form-group {float: none;}
-  /*.form-promo form .btn {margin: 0 0 0 10px !important;}*/
   .promo-options > div > .link-wrapper {min-height: 270px;}
   .promo-options > div:hover {margin: 0;}
   .promo-options > div:hover  > .link-wrapper {min-height: 290px;}
@@ -2707,54 +2875,59 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   #map {width: 475px; height: 405px;}
   .popover.tour {width: 385px; max-width: 385px !important; padding: 10px;}
   .popover.tour .popover-title {font-family: 'League Gothic', Arial, sans-serif; font-size: 46px; font-size: 4.6rem; line-height: 1; text-transform: uppercase;}
+  .kakareo footer > ul.actions-kak > li {list-style: none; margin: 0 10px 0 0;}
+  .kakareo footer > ul > li.read-later {margin-right: 32px !important;}
+  #footer .licenses {margin: 0; width: auto;}
 }
+
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  .navbar-brand {width: 180px; height: 53px; margin-top: 4px; margin-bottom: 0;}
-  .navbar {font-size: 15px; font-size: 1.5rem;}
-  .navbar-form {width: 278px; margin: 0; padding: 6px 15px;}
-  .navbar-form .input-group > .form-control, .btn.search {height: 37px;}
+  #info-sup-scroll .laley,
+  #info-sup-scroll .voting > .closed {font-size: 2px; font-size: 2.2rem; line-height: 1.4;}
+  #info-sup-scroll .voting {font-size: 12px; font-size: 1.2rem; float: right;}
+  #info-sup-scroll .voting > ul > li > a {font-size: 12px; font-size: 1.2rem;}
+  .infoVotes > li, .infoVotes > span {width: 70px; height: 34px; margin-left: 5px; font-size: 15px;  font-size: 1.5rem;}
+  #info-sup-scroll .infoVotes > li,
+  #info-sup-scroll .infoVotes > span {padding: 6px; width: 70px; height: 33px; font-size: 16px; font-size: 1.6rem;}
+  #info-sup-scroll .voting > ul > li {margin-right: 35px;}
+  #info-sup-scroll .infoVotes > li {margin-left: 15px;}
+
+  #detailsInfoVotes .table tbody th {font-size: 14px; font-size: 1.4rem; width: 110px;}
+  #detailsInfoVotes .table tbody th {width: 115px;}
+  #detailsInfoVotes .table {width: 92%;}
+  #detailsInfoVotes.autor .table tbody th {width: 115px;}
+  #detailsInfoVotes.autor .icons.subject li {margin: 0 18px 10px 0;}
+
+  .navbar-brand {width: 170px; height: 47px; margin-top: -4px;}
   .btn.search {line-height: 0.7;}
-  .navbar-collapse {padding: 7px 0 0 0;}
-  .nav > li > .navbar-link {padding: 9px 15px 16px 15px;}
+  .navbar-form {width: 340px; margin: 5px 4px 4px 12%;}
+
+  .nav > li > .navbar-link {padding-bottom: 15px;}
+  .nav > li > .navbar-link.user-area {padding-bottom: 9px;}
+
   .navbar-btn {margin-left: 12px !important; padding: 4px 14px !important;}
-  .nav > li > .discover {margin: -2px 0 0 0; padding-bottom: 2px;}
-  .nav > li > .user-area {padding-top: 4px; padding-bottom: 3px;}
   .nav > li > a.btn {margin-top: -2px !important;}
-  .navbar-right {margin-top: 2px;}
-  .box .badge {right: 4px;}
   #footer .links section h1.map {margin: 30px 0 10px; margin: 3rem 0 1rem;}
-  .kakareo footer {font-size: 12px; font-size: 1.2rem;}
-  .kakareo footer > ul {height: auto; padding: 0 0 0 15px; margin-bottom: 0;}
-  .kakareo footer > ul.info-kak > li,
-  .kakareo footer > ul.actions-kak > li {margin: 0 21px 0 0; padding: 0;}
-  .kakareo footer > ul.actions-kak > li .loading {display: inline-block;}
-  .kakareo footer > ul > li.read-later {margin-right: 50px !important;}
-  .kakareo footer ul.actions-kak {border: 0;}
-  .kakareo footer ul li.more-actions > span {padding: 13px 16px 12px;}
-  .kakareo footer ul.actions-kak {border: none !important;}
+  .kakareo.post {padding: 24px;}
+  .kakareo footer {font-size: 13px; font-size: 1.3rem;}
   .activity > li {font-size: 15px; font-size: 1.5rem;}
   .activity .popover-trigger span {font-size: 34px; font-size: 3.4rem;}
   .boxes > h1 {font-size: 22px; font-size: 2.2rem;}
   .boxes .personal {padding: 30px 0;}
-  .boxes .kakareo footer ul li.read-later {margin-right: 48px !important;}
-  .boxes .kakareo footer > ul.actions-kak > li {margin: 0 0 0 4px;}
   .boxes .kakareo footer > ul.actions-kak > li .label-cluckAction {display:none;}
-  .multimedia .video .fa {left: 47%; top: 40%;}
   #victory {margin: 20px 0 0 0;}
   .seeVictory .sliderItem h1 {padding: 15px; font-size: 24px; font-size: 2.4rem;}
   .seeVictory .sliderItem img.actor {width: 273px; float: left; margin: 0 20px 12px 8px;}
-  .kakareo.post.ley h1 {font-size: 52px; font-size: 5.2rem;}
-  .kakareo.post.ley .photo .aboutProject {width: 90px; top: 15%;}
   .kakareo.post.ley .photo .info {bottom: 20px; left: 25px;}
   .vote .activity span {font-size: 36px; font-size: 3.6rem;}
-  .boxes.vote > h1 {margin-top: 20px; font-size: 28px; font-size: 2.8rem;}
-  .boxes.vote .voting > ul > li > a {font-size: 14px; font-size: 1.4rem; width: 82px; height: 64px;}
-  .boxes.vote .voting > ul > li {margin-right: 10px;}
-  .boxes.vote .voting .changeOpinion {font-size: 18px; font-size: 1.8rem; padding: 26px;}
-  .boxes.guay .kakareo footer > ul {padding: 5px 0;}
-  .boxes .kakareo footer ul li.like-number {margin: 0 50px 0 2px;}
+  .boxes.vote > h1 {margin-top: 16px; font-size: 25px; font-size: 2.5rem;}
+  .boxes.vote > .btn-lg {padding: 12px !important;}
+  .boxes.follow .kakareo > ul > li {margin-right: 9px;}
+  .voting > ul > li > a {font-size: 14px; font-size: 1.4rem; width: 82px; height: 64px;}
+  .voting > ul > li {margin-right: 2px;}
+  .voting .changeOpinion {font-size: 18px; font-size: 1.8rem; padding: 26px;}
+  .boxes.vote > .btn-lg {font-size: 15px !important; font-size: 1.5rem !important;}
   .participate .row p {padding: 0 20px;}
   .controls {float: right; width: 277px;}
   .popover-box {width: 30%; margin: 0 30px 20px 0;}
@@ -2770,28 +2943,22 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .introDiscover {margin: 30px 0;}
   .othersPost #postNav {height: 70px;}
   .discover .others {margin-bottom: 60px; margin-top: 20px;}
-  .discover .others .projects .kakareo.post.ley .photo {width: 160px;}
+  .discover .others .laws .kakareo.post.ley .photo {width: 160px;}
   .promo-options > div > .link-wrapper {min-height: 295px;}
   .promo-options > div > .link-wrapper > h2 {font-size: 20px; font-size: 2rem;}
   .promo-options > div > .link-wrapper > p {font-size: 12px; font-size: 1.2rem;}
   .promo-options > div > .link-wrapper > p small {font-size: 10px; font-size: 1rem;}
   .promo-options > div:hover {margin: -20px 0 0 0;}
   .promo-options > div:hover  > .link-wrapper {min-height: 330px;}
-
   .boxes.plan h1 .pull-right {font-size: 18px; font-size: 1.8rem;}
   .kakareo.post.promo.tks .invite li a {width: 200px;}
-
   .config .noti-filters > li > a {padding: 10px 20px;}
-
   .othersPost #postNav .item {min-height: 89px;}
   .othersPost #postNav > a {padding: 35px 18px;}
-
   .config #config7 p {margin: 10px 0 0 0;}
   .config .saldo .activity {margin: 30px 0 0 0;}
-
   #map {width: 650px; height: 554px;}
   aside .back {margin: 36px 0 14px;}
-
   .columns2 {
     -moz-column-count: 2;
     -moz-column-gap: 20px;
@@ -2816,37 +2983,35 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
     column-count: 4;
     column-gap: 20px;
   }
-
+  .list-updates > li {width: 50%; float: left;}
+  .list-updates > li .kakareo.post {width: 95%; margin: 0 auto;}
+  .filters .btn {font-size: 18px; font-size: 1.8rem; padding: 6px 4px !important;}
+  .filters .btn .badge {font-size: 17px; font-size: 1.7rem; border-radius: 15px; padding: 2px 8px 6px;}
+  #otros-proyectos .kakareo.post footer .voting ul li {margin: 0 0 0 4px;}
 }
+
+@media (min-width: 1152px) {
+  #detailsInfoVotes.autor .table tbody th {width: 180px;}
+}
+
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+  #info-sup-scroll .laley {font-size: 25px; font-size: 2.5rem;}
+  .navbar-form {margin: 5px 4px 4px 22%;}
   .btn {margin: 6px 0 0 8px !important;}
-  .navbar-brand {margin-right: 40px; width: 188px; height: 49px; margin-top: 3px;}
-  .navbar-form {width: 360px; margin: 1px 0 3px;}
-
   .container-fluid.userprofile #adminActions{top: 15px;}
-
   .kakareo footer {font-size: 14px; font-size: 1.4rem;}
-  .kakareo footer > ul > li.read-later {margin-right: 57px !important;}
-  .kakareo footer > ul.info-kak > li,
-  .kakareo footer > ul.actions-kak > li {margin: 0 23px 0 0; padding: 0 0 0 4px;}
-
-  .nav > li > .navbar-link {padding-top: 13px; padding-bottom: 20px;}
-  .nav > li > .discover {padding-bottom: 6px;}
-  .nav > li > .user-area {padding-top: 5px; padding-bottom: 10px;}
-
+  .kakareo h1 {font-size: 20px; font-size: 2rem;}
   .nav > li > a.btn {margin-top: 0 !important; margin-bottom: 11px !important; padding: 14px !important;}
-  .box .badge {right: 6px; top: 6px;}
-  .boxes.vote .voting > ul > li > a {font-size: 15px; font-size: 1.5rem; width: 90px; height: 68px;}
-  .boxes .kakareo footer ul li.read-later {margin-right: 48px !important;}
-  .boxes .kakareo footer ul li.read-later + li.like-number {margin: 0 0 0 4px;}
-  .boxes .kakareo footer ul li.like-number {margin: 0 50px 0 4px;}
-
-
+  .box .badge {top: 2px;}
+  .voting > ul > li > a {font-size: 14px; font-size: 1.4rem; width: 90px; height: 68px;}
+  .boxes.vote > .btn-lg {font-size: 16px; font-size: 1.66rem !important;}
+  .boxes.vote .voting > ul > li {margin-right: 15px;}
+  .boxes.vote .voting > ul > li:last-child {margin-right: 0;}
+  .boxes.follow .kakareo > ul > li {margin-right: 10px;}
   .home .socialGo li {display: inline-block; float: left; margin: 10px 12px 0 0; width: 180px;}
   .home .socialGo li:last-child {margin-right: 0;}
-
   .promo-options > div > .link-wrapper {min-height: 270px;}
   .promo-options > div > .link-wrapper > h2 {font-size: 24px; font-size: 2.4rem;}
   .promo-options > div > .link-wrapper > p {font-size: 15px; font-size: 1.5rem;}
@@ -2854,8 +3019,20 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .promo-options > div:hover {margin: -20px 0 0 0;}
   .promo-options > div:hover  > .link-wrapper {min-height: 290px;}
   .kakareo.post.promo.tks .invite li a {width: 236px;}
-  aside .back {margin: 30px 0 14px; }
-
+  aside .back {margin: 30px 0 14px;}
+  .infoVotes > li,
+  .infoVotes > span {/*font-size: 18px; font-size: 1.8rem;*/ width: 78px; height: 36px;}
+  #detailsInfoVotes .table {width: 95%;}
+  #detailsInfoVotes .table tbody th {width: 160px; font-size: 15px; font-size: 1.5rem;}
+  #detailsInfoVotes .icons {padding: 0;}
+  #detailsInfoVotes .icons li {margin-right: 14px; font-size: 13px; font-size: 1.3rem;}
+  #detailsInfoVotes.autor .table {width: 100%;}
+  #detailsInfoVotes.autor .table tbody th {width: 145px;}
+  #detailsInfoVotes.autor .icons.subject li {margin: 0 22px 10px 0;}
+  #detailsInfoVotes.autor .icons li {font-size: 15px; font-size: 1.5rem; margin: 0 18px 5px 0;}
+  .filters .btn {font-size: 20px; font-size: 2rem; padding: 6px 4px !important;}
+  #footer .links li a {font-size: 12px; font-size: 1.2rem;}
+  #otros-proyectos .kakareo.post footer .voting ul li {margin: 0 0 0 8px;}
 }
 .kakareo.post p {line-height: 1.6; font-size: 1.5rem;}
 

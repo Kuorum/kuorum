@@ -48,10 +48,55 @@ $(document).tooltip({
 });
 
 
+
+// aparece la info en la franja superior bajo el header al hacer scroll
 $(document).ready(function() {
+    var headerTop = $('#header').offset().top;
+    var headerBottom = headerTop + 300; // Sub-menu should appear after this distance from top.
+    $(window).scroll(function () {
+        var scrollTop = $(window).scrollTop(); // Current vertical scroll position from the top
+        if (scrollTop > headerBottom) { // Check to see if we have scrolled more than headerBottom
+            if (($("#info-sup-scroll").is(":visible") === false)) {
+                $('#info-sup-scroll').fadeIn('fast');
+            }
+        } else {
+            if ($("#info-sup-scroll").is(":visible")) {
+                $('#info-sup-scroll').fadeOut('fast');
+            }
+        }
+    });
+});
+
+
+
+$(document).ready(function() {
+
+    $('#show-pass-header').on('change', function () {
+      $('#pass-header').hideShowPassword($(this).prop('checked'));
+    });
+    $('#show-pass-modal').on('change', function () {
+      $('#pass-modal').hideShowPassword($(this).prop('checked'));
+    });
+
 
     // inicializa formato fechas
     $("time.timeago").timeago();
+
+    // inicializa el scroll dentro del popover
+    $('.popover-trigger.more-users').on('shown.bs.popover', function () {
+
+        $(this).next('.popover').find($('.scroll')).slimScroll({
+            size: '10px',
+            height: '145px',
+            distance: '0',
+            railVisible: true,
+            alwaysVisible: true,
+            disableFadeOut: true
+        });
+
+    })
+
+
 
     prepareArrowClucks();
 
@@ -191,8 +236,8 @@ $(document).ready(function() {
 			var nextId = $(this).html() -1;
             $(this).addClass("disabled");
             $(this).parent("li").addClass("active");
-            $("#relevantProject_"+activeId).fadeOut(1000);
-            $("#relevantProject_"+nextId).fadeIn(3000);
+            $("#relevantLaw_"+activeId).fadeOut(1000);
+            $("#relevantLaw_"+nextId).fadeIn(3000);
 		});
 	});
 
@@ -335,6 +380,37 @@ $(document).ready(function() {
 	});
 
 
+/*********************************** NUEVO ENERO 2015 **************************************************************/
+
+    // Activar/desactivar materia que me interesa en el proyecto -> lo dejo comentado porque sólo debe ocurrir cuando estás logado. Falta programar esto.
+
+/*    $('body').on("click", ".icons.subject a", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if ( $(this).hasClass('active') ){
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active');
+        }
+    });*/
+
+    // Activar/desactivar filtros propuestas ciudadanas
+    $('body').on("click", ".filters .btn", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if ( $(this).hasClass('active') ){
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active');
+        }
+    });
+
+/*********************************** FIN NUEVO ENERO 2015 **********************************************************/
+
+
+
+
+
 	// añade la flechita al span de los mensajes de error de los formularios
 	if ( $('.error').length > 0 ) {
 		$('span.error').prepend('<span class="tooltip-arrow"></span>');
@@ -438,9 +514,9 @@ $(document).ready(function() {
 	// Si voto desaparecen los botones y aparece el enlace de cambio de opinión
 	$('body').on("click", ".voting li a", function(e) {
 		e.preventDefault();
-        var projectId = $(this).attr("data-projectId")
-		$('section[data-projectId='+projectId+'] .voting ul').css('display', 'none');
-		$('section[data-projectId='+projectId+'] .changeOpinion').css('display', 'block');
+        var lawId = $(this).attr("data-lawId")
+		$('section[data-lawId='+lawId+'] .voting ul').css('display', 'none');
+		$('section[data-lawId='+lawId+'] .changeOpinion').css('display', 'block');
         $.ajax( {
             url:$(this).attr("href"),
             statusCode: {
@@ -450,12 +526,12 @@ $(document).ready(function() {
                 }
             }
         }).done(function(data, status, xhr) {
-            $('section[data-projectId='+projectId+']  ul.activity li').removeClass("active")
-            $('section[data-projectId='+projectId+']  ul.activity li.'+data.voteType).addClass("active")
-            $('section[data-projectId='+projectId+']  ul.activity li.POSITIVE span').html(data.votes.yes)
-            $('section[data-projectId='+projectId+']  ul.activity li.NEGATIVE span').html(data.votes.no)
-            $('section[data-projectId='+projectId+']  ul.activity li.ABSTENTION span').html(data.votes.abs)
-            $('section[data-projectId='+projectId+']  .kuorum span.counter').html(data.necessaryVotesForKuorum)
+            $('section[data-lawId='+lawId+']  ul.activity li').removeClass("active")
+            $('section[data-lawId='+lawId+']  ul.activity li.'+data.voteType).addClass("active")
+            $('section[data-lawId='+lawId+']  ul.activity li.POSITIVE span').html(data.votes.yes)
+            $('section[data-lawId='+lawId+']  ul.activity li.NEGATIVE span').html(data.votes.no)
+            $('section[data-lawId='+lawId+']  ul.activity li.ABSTENTION span').html(data.votes.abs)
+            $('section[data-lawId='+lawId+']  .kuorum span.counter').html(data.necessaryVotesForKuorum)
             if (data.newVote){
                 karma.open(data.gamification)
             }
@@ -463,26 +539,26 @@ $(document).ready(function() {
 	});
 
 	$('body').on("click", ".voting li .yes", function(e) {
-        var projectId = $(this).parents("section").attr("data-projectId")
-		$('section[data-projectId='+projectId+'] .activity .favor').addClass('active');
+        var lawId = $(this).parents("section").attr("data-lawId")
+		$('section[data-lawId='+lawId+'] .activity .favor').addClass('active');
 	});
 	$('body').on("click", ".voting li .no", function(e) {
-        var projectId = $(this).parents("section").attr("data-projectId")
-        $('section[data-projectId='+projectId+'] .activity .contra').addClass('active');
+        var lawId = $(this).parents("section").attr("data-lawId")
+        $('section[data-lawId='+lawId+'] .activity .contra').addClass('active');
 	});
 	$('body').on("click", ".voting li .neutral", function(e) {
-        var projectId = $(this).parents("section").attr("data-projectId")
-        $('section[data-projectId='+projectId+'] .activity .abstencion').addClass('active');
+        var lawId = $(this).parents("section").attr("data-lawId")
+        $('section[data-lawId='+lawId+'] .activity .abstencion').addClass('active');
 	});
 
 
 	// Si hago click en cambio de opinión vuelven los botones
 	$('body').on("click", ".changeOpinion", function(e) {
 		e.preventDefault();
-        var projectId = $(this).parents("section").attr("data-projectId")
-		$('section[data-projectId='+projectId+'] .activity li').removeClass('active');
+        var lawId = $(this).parents("section").attr("data-lawId")
+		$('section[data-lawId='+lawId+'] .activity li').removeClass('active');
 		$(this).css('display', 'none');
-		$('section[data-projectId='+projectId+']  .voting ul').css('display', 'block');
+		$('section[data-lawId='+lawId+']  .voting ul').css('display', 'block');
 	});
 
 	// Buscador: cambia el placeholder según el filtro elegido
@@ -926,19 +1002,7 @@ $(document).ready(function() {
 			}
 	});
 
-	// inicializa el scroll dentro del popover
-	$('.popover-trigger.more-users').on('shown.bs.popover', function () {
 
-		$(this).next('.popover').find($('.scroll')).slimScroll({
-			size: '10px',
-			height: '145px',
-			distance: '0',
-			railVisible: true,
-			alwaysVisible: true,
-			disableFadeOut: true
-		});
-
-	})
     $('.ajax.popover-trigger.more-users').on('shown.bs.popover', function () {
         var that = $(this)
         var content = $(this).next().children(".popover-content")
@@ -1117,7 +1181,7 @@ var modalVictory = {
         $("#modalVictoryDefender .name").html(modalData.defender.name)
         $("#modalVictoryDefender .action").html(modalData.post.action)
         $("#modalVictory .modal-body p").first().html(modalData.post.description)
-        $("#modalVictory .modal-body p").last().html(modalData.post.projectLink)
+        $("#modalVictory .modal-body p").last().html(modalData.post.lawLink)
         $("#modalVictory .modal-footer a").attr('href',modalData.post.victoryLink)
         $("#modalVictory .modal-footer a").attr('data-notificationId',notificationId)
     },

@@ -7,17 +7,22 @@
         method="get"
 >
     <div class="input-group">
-        <div class="loadingSearch"><span class="sr-only">Cargando...</span></div>
+
+        <input type="text" class="form-control" placeholder="${message(code:'search.head.placeHolder')}" name="srch-term" id="srch-term">
         <div class="input-group-btn">
             <button class="btn search" type="submit"><span class="fa fa-search"></span></button>
         </div>
-        <input type="text" name="word" class="form-control" placeholder="${message(code:'search.head.placeHolder')}" id="srch-term"/>
-        <div id="filterSign"></div>
-        <input type="hidden" name="type" id="srch-type" value="${params.type?:''}"/>
-        <input type="hidden" name="wordOrg" id="srch-orgTerm" value="${params.word}"/>
-        <g:each in="${kuorum.core.model.solr.SolrSubType.values()}" var="subType">
-            <input name="subTypes" type="checkbox" value="${subType}" class="hidden" data-type="${subType.solrType}" ${searchParams?.subTypes?.contains(subType)?'checked':''}/>
-        </g:each>
+
+
+        %{--<div id="filterSign"></div>--}%
+        %{--<input type="hidden" name="type" id="srch-type" value="${params.type?:''}"/>--}%
+        %{--<input type="hidden" name="wordOrg" id="srch-orgTerm" value="${params.word}"/>--}%
+        %{--<g:each in="${kuorum.core.model.solr.SolrSubType.values()}" var="subType">--}%
+            %{--<input name="subTypes" type="checkbox" value="${subType}" class="hidden" data-type="${subType.solrType}" ${searchParams?.subTypes?.contains(subType)?'checked':''}/>--}%
+        %{--</g:each>--}%
+
+
+
         %{--<a data-target="#" href="#" class="dropdown-toggle" id="open-filter-search" data-toggle="dropdown" role="button"><span class="sr-only">Filtra tu búsqueda</span> <span class="fa fa-caret-down fa-lg"></span></a>--}%
         %{--<ul id="filters" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-filter-search" role="menu">--}%
             %{--<li><a href="#" class="entodo">${message(code:'search.head.placeHolder')}</a></li>--}%

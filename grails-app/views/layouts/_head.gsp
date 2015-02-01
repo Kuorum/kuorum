@@ -8,12 +8,12 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <g:render template="/layouts/searchHeadForm"/>
-                <g:render template="/layouts/discoverHead"/>
+                %{--<g:render template="/layouts/discoverHead"/>--}%
                 <sec:ifLoggedIn>
                     <g:include controller="layouts" action="userHead"/>
                 </sec:ifLoggedIn>
                 <sec:ifNotLoggedIn>
-                    <g:render template="/layouts/noLoggedHead"/>
+                    <g:include controller="login" action="headAuth"/>
                 </sec:ifNotLoggedIn>
 
             </div><!-- /.navbar-collapse -->

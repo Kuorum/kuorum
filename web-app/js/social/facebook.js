@@ -25,12 +25,12 @@ $(function (){
         e.preventDefault();
         window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600')
 //        var facebookDataId = $(this).attr("data-facebookDataId")
-//        shareProject(facebookDataId)
+//        shareLaw(facebookDataId)
     })
 });
 
 //var facebookData={}
-//function shareProject(facebookDataId){
+//function shareLaw(facebookDataId){
 //    var data =facebookData[facebookDataId]
 //    console.log(data)
 //    FB.ui(
