@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.core.model.RegionType
 import org.bson.types.ObjectId
 
 class Region {
@@ -9,6 +10,7 @@ class Region {
     Region superRegion
     String iso3166_2
     List<String> postalCodes
+    RegionType regionType
 
     static constraints = {
         iso3166_2 blank: false,
@@ -21,6 +23,7 @@ class Region {
                   }
         superRegion nullable:true
         postalCodes nullable:true
+        regionType nullable:false
     }
     static mapping = {
         sort name: "desc"
