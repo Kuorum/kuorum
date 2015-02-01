@@ -158,6 +158,7 @@ a:hover, a:focus {outline: 0;}
 /* Estilos generales =========== */
 /* ====================================================== */
 .modal-content {border-radius: 3px;}
+.modal-title {font-weight: bold;}
 a,
 a:hover,
 a:active,
@@ -249,7 +250,7 @@ a:focus {color: #20a2ea;}
 .navbar-nav .form .dropdown-menu {padding: 15px;}
 
 .login .form-group:last-child {color: #a8a8a8; margin-bottom: 0;}
-.login .form-group:last-child a {color: #545454; text-decoration: underline;}
+.login .form-group:last-child a {color: #545454;}
 .login .btn.btn-lg {padding-left: 40px !important;padding-right: 40px !important;}
 
 #registro.modal .modal-header {border: none;}
@@ -309,7 +310,7 @@ a:focus {color: #20a2ea;}
     font-size: 1.65rem !important;
     line-height: 1.1 !important;
     margin: 0 !important;
-    padding: 18px !important;
+    padding: 15px !important;
 }
 .btn.btn-white {background-color: #fff !important; border: solid 1px #e5e5e5; color: #a8a8a8 !important;}
 .btn.btn-white:hover, .btn.btn-white:active, .btn.btn-white:focus {box-shadow: 0 0 0 rgba(0,0,0,0); background-color: #fff !important; border: solid 1px #66afe9}
@@ -594,7 +595,9 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .config .list-notification > li.user.answerLink {padding: 10px 0 40px 0;}
 .list-updates {margin: 0; padding: 0;}
 .list-updates > li {list-style: none; margin-bottom: 20px;}
-.kakareo {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
+.kakareo,
+.box-ppal {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
+.box-ppal {padding: 22px 10px 0;}
 .kakareo.follow {padding: 5px 15px;}
 .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 0; margin: 0 0 15px 0; line-height: 1.3;}
 /*.kakareo.post {margin: 0; color: #545454;}*/
@@ -611,6 +614,8 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 #detailsInfoVotes.autor > .infoUpdates > ul:first-child {font-size: 13px; font-size: 1.3rem; color: #bcbcbc;}
 #detailsInfoVotes.autor > .infoUpdates > ul:first-child li {height: auto;}
 #detailsInfoVotes.autor > .infoUpdates > .infoVotes {text-align: right;}
+
+#detailsInfoVotes.autor .dropdown-menu {background-color: #fff;}
 
 .kakareo.post.ley.actualizacion {padding: 0;}
 .kakareo.post.ley.actualizacion .author {margin: 10px;}
@@ -706,7 +711,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .popover-content .close {position: absolute; top: 6px; right: 10px;}
 .popover-trigger {cursor: pointer;}
 .user-list-images .popover-trigger,
-.user-list-followers .popover-trigger {display: inline-block; z-index: 999; position: relative;}
+.user-list-followers .popover-trigger {display: inline-block; z-index: 998; position: relative;}
 #main .user .popover-trigger,
 #main .sponsor {font-size: 13px; font-size: 1.3rem;}
 
@@ -1040,6 +1045,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 
 /* boxes columna derecha dashboard */
 #aside-ppal {padding-top: 24px;}
+#aside-ppal > h1 {font-size: 25px; font-size: 2.5rem;}
 .boxes {
   background-color: #fff;
   border: 1px solid #e5e5e5;
@@ -1181,7 +1187,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .edit-post form .video label {font-size: 15px; font-size: 1.5rem; color: #a8a8a8;}
 .edit-post fieldset {padding: 25px 0;}
 .edit-post fieldset.type {margin: 0 0 25px 0; border-bottom: solid 1px #efefef;}
-#charNum {text-align: right; padding: 2px 0 0 0;}
+#charNum {text-align: right; padding: 8px 0 0 0; color: #a8a8a8;}
 .custom-select-types {
   cursor: pointer;
   background: url("../images/select-arrow@2x.png") no-repeat scroll 240px 27px / 13px auto #efefef;
@@ -1239,9 +1245,11 @@ select.form-control option {cursor: pointer;}
 .title textarea {font-size: 22px; font-size: 2.2rem; color: #a8a8a8; height: 125px}
 .text textarea {font-size: 19px; font-size: 1.9rem; color: #a8a8a8;}
 .textareaContainer {position: relative;}
-.hashtag {position: absolute; top: 90px; right: 35px; font-size: 22px; font-size: 2.2rem;}
+.textareaContainer .hashtag {position: absolute; top: 90px; right: 35px; font-size: 22px; font-size: 2.2rem;}
 .cancel {padding: 0; margin: 0 20px; color: #a8a8a8 !important; display: inline-block; font-size: 18px !important; font-size: 1.8rem !important;}
 .cancel:hover, .cancel:active, .cancel:focus {color: #a8a8a8;}
+.cancel a, .cancel a:hover, .cancel a:active, .cancel a:focus {color: #545454;}
+
 .btn + .cancel {margin: 15px 20px 0 40px;}
 .form-group.image {position: relative;}
 
@@ -1646,13 +1654,14 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 #detailsInfoVotes .table > tbody > tr > td,
 #detailsInfoVotes .table > tfoot > tr > td {border: none;}
 #detailsInfoVotes .table tr:last-child {color: #a8a8a8;}
-#detailsInfoVotes .table tbody th {font-weight: normal; width: 26px;}
+#detailsInfoVotes .table tbody th {font-weight: normal; width: 26px; text-align: center;}
 #detailsInfoVotes .table tbody tr td {padding: 5px; text-align: center;}
 
-#widget .modal-dialog,
+/*#widget .modal-dialog,
 #ya-no .modal-dialog,
-#registro .modal-dialog  {margin-top: 20%;}
-#myWidgetLabel {font-weight: bold;}
+#registro .modal-dialog,
+#eliminar-proyecto .modal-dialog  {margin-top: 20%;}*/
+
 #widget pre {color: #a8a8a8; font-size: 15px; height: 50px;}
 #widget .modal-header {padding: 15px 15px 5px;}
 #widget .modal-body {padding: 10px 20px;}
@@ -1739,6 +1748,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .voting > ul > li:last-child {margin: 0;}
 .voting > ul > li > a > span {display: block; margin-bottom: 5px;}
 .voting > ul > li > a {font-size: 13px; font-size: 1.3rem; width: 72px; height: 60px; margin: 0 !important; padding: 7px 0 0 0 !important; border-radius: 4px !important; display: block;}
+.voting > ul > li > a.active {color: #20a2ea !important;}
 
 .voting .changeOpinion {display: block; font-size: 16px; font-size: 1.6rem; padding: 20px 0; display: none;}
 
@@ -1777,7 +1787,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .readMore a.collapsed {background-position: right top;}
 .top {font-size: 15px; font-size: 1.5rem;}
 .filters {margin: 0 0 20px 0;}
-.filters .btn {background-color: #fff !important; border-radius: 0 !important; border: 1px solid #e5e5e5; color: #5d5d5d !important; font-size: 12px; font-size: 1.2rem; border-radius: 0; padding: 6px 2px !important;}
+.filters .btn {background-color: #fff !important; border-radius: 0 !important; border: 1px solid #e5e5e5; border-right: none; color: #5d5d5d !important; font-size: 12px; font-size: 1.2rem; border-radius: 0; padding: 6px 2px !important;}
+.filters .btn:last-child {border-right: 1px solid #e5e5e5;}
 .filters .btn .badge {font-size: 10px; font-size: 1rem; font-weight: normal; background-color: #797979; border-radius: 14px; padding: 4px 6px 5px;}
 .filters .btn:hover,
 .filters .btn.active {background-color: #f8f8f8 !important; box-shadow: 0 0 0 rgba(0, 0, 0, 0) inset;}
@@ -2573,6 +2584,13 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 #info-sup-scroll .voting > .closed a:active {color: #ff9431;}
 
 
+/* edición proyecto =========== */
+/* ====================================================== */
+.box-ppal h1 {font-size: 25px; font-size: 2.5rem; margin: 0 0 25px 0; padding: 0 40px 0 0; position: relative;}
+#edicion-proyecto .hashtag {font-size: 2em; line-height: .5; position: absolute; top: 0; right: 0;}
+#edicion-proyecto .input-group-addon a {color: #a8a8a8;}
+
+
 /* clases especiales accesibilidad =========== */
 /* ====================================================== */
 .sr-only,
@@ -2695,6 +2713,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .login .btn.btn-blue.btn-lg {padding-left: 50px !important; padding-right: 50px !important;}
   .nav > li > .navbar-link.new-project {
     background-color: #ff9431;
     color: #fff;
@@ -2788,6 +2807,10 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .vote .activity span {font-size: 22px; font-size: 2.2rem;}
   .vote .activity > li {font-size: 12px; font-size: 1.2rem; padding: 0 2px 6px;}
   .boxes.vote {padding: 0 20px;}
+  .boxes.vote .action a {color: #bcbcbc;}
+  .boxes.vote .action a:hover,
+  .boxes.vote .action a:focus,
+  .boxes.vote .action a:active {color: #ff9431;}
   .voting > ul > li {margin-right: 2px;}
   .voting > ul > li > a {font-size: 1.1rem; height: 53px; margin: 0 !important; width: 62px;}
   .boxes.vote > .btn-lg {font-size: 11px; font-size: 1.15rem !important; padding: 8px !important;}
@@ -2887,7 +2910,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   #info-sup-scroll .voting > .closed {font-size: 2px; font-size: 2.2rem; line-height: 1.4;}
   #info-sup-scroll .voting {font-size: 12px; font-size: 1.2rem; float: right;}
   #info-sup-scroll .voting > ul > li > a {font-size: 12px; font-size: 1.2rem;}
-  .infoVotes > li, .infoVotes > span {width: 70px; height: 34px; margin-left: 5px; font-size: 15px;  font-size: 1.5rem;}
+  .infoVotes > li, .infoVotes > span {width: 70px; height: 33px; margin-left: 5px; font-size: 15px;  font-size: 1.5rem;}
   #info-sup-scroll .infoVotes > li,
   #info-sup-scroll .infoVotes > span {padding: 6px; width: 70px; height: 33px; font-size: 16px; font-size: 1.6rem;}
   #info-sup-scroll .voting > ul > li {margin-right: 35px;}
@@ -2909,7 +2932,8 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .navbar-btn {margin-left: 12px !important; padding: 4px 14px !important;}
   .nav > li > a.btn {margin-top: -2px !important;}
   #footer .links section h1.map {margin: 30px 0 10px; margin: 3rem 0 1rem;}
-  .kakareo.post {padding: 24px;}
+  .kakareo.post,
+  .box-ppal {padding: 24px;}
   .kakareo footer {font-size: 13px; font-size: 1.3rem;}
   .activity > li {font-size: 15px; font-size: 1.5rem;}
   .activity .popover-trigger span {font-size: 34px; font-size: 3.4rem;}
@@ -3021,7 +3045,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   .kakareo.post.promo.tks .invite li a {width: 236px;}
   aside .back {margin: 30px 0 14px;}
   .infoVotes > li,
-  .infoVotes > span {/*font-size: 18px; font-size: 1.8rem;*/ width: 78px; height: 36px;}
+  .infoVotes > span {/*font-size: 18px; font-size: 1.8rem;*/ width: 78px; height: 33px;}
   #detailsInfoVotes .table {width: 95%;}
   #detailsInfoVotes .table tbody th {width: 160px; font-size: 15px; font-size: 1.5rem;}
   #detailsInfoVotes .icons {padding: 0;}

@@ -5,7 +5,7 @@
             <span class="icon-user"></span> Entrar
         </a>
         <div id="entry-user" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-entry-user" role="menu">
-            <form  action='${postUrl}' method="post" name="login-header" id="login-header" role="form">
+            <form  action='${postUrl}' method="post" name="login-header" id="login-header" role="form" class="login">
                 <div class="form-group">
                     <label for="j_username" class="sr-only"><g:message code="login.email.form.email.label"/></label>
                     <input type="email" name="j_username" class="form-control input-lg" id="j_username" required placeholder="Email" aria-required="true">
@@ -22,9 +22,12 @@
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-blue btn-lg" value="${g.message(code:'login.email.form.login')}">
-                    <g:link mapping="register" class="cancel">
-                        <g:message code="head.noLogged.register"/>
-                    </g:link>
+                    <p class="cancel">
+                        <g:message code="head.noLogged.register_or"/>
+                        <g:link mapping="register">
+                            <g:message code="head.noLogged.register"/>
+                        </g:link>
+                    </p>
                     %{--<a href="#" class="cancel">--}%
                         %{--o regístrate--}%
                     %{--</a>--}%

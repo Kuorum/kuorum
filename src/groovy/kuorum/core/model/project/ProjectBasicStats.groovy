@@ -5,6 +5,9 @@ package kuorum.core.model.project
  */
 class ProjectBasicStats {
     Integer numUsers
+    Double percentagePositiveVotes
+    Double percentageNegativeVotes
+    Double percentageAbsVotes
     Date lastActivity
     Integer numPublicPosts
     Integer nomVotesToBePublic

@@ -6,6 +6,15 @@
     </head>
     <body>
     <g:render template="/layouts/head"/>
+    <g:if test="${pageProperty(name:'page.subHeader')}">
+        <section id="info-sup-scroll">
+            <div class="container-fluid">
+                <div class="row">
+                    <g:pageProperty name="page.subHeader"/>
+                </div>
+            </div>
+        </section>
+    </g:if>
     <div class="row main">
         <div class="container-fluid ${pageProperty(name: 'page.specialContainerCssClass')}">
             <g:pageProperty name="page.intro"/>
@@ -14,7 +23,7 @@
                     <g:pageProperty name="page.mainContent"/>
                 </section>
 
-                <aside class="col-xs-12 col-sm-12 col-md-4" role="complementary">
+                <aside id="aside-ppal" class="col-xs-12 col-sm-12 col-md-4" role="complementary">
                     <g:pageProperty name="page.cColumn"/>
                 </aside>
 

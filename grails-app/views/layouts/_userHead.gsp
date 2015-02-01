@@ -1,10 +1,10 @@
 <ul class="nav navbar-nav navbar-right">
 
     <li class="underline" itemscope itemtype="http://schema.org/Person">
-        <a href="#" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "home")}">
+        <g:link mapping="home" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "home")}">
             <span itemprop="name">${user.name}</span>
             <img src="${image.userImgSrc(user:user)}" alt="${user.name}" class="user-img" itemprop="image">
-        </a>
+        </g:link>
     </li>
 
     %{--<g:render template="/layouts/userHeadMessages"/>--}%

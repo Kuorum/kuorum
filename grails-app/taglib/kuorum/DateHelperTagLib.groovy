@@ -18,4 +18,15 @@ class DateHelperTagLib {
 
         out << "<time class='timeago' datetime='${dateAsISO}'>${dateAsISO}</time>"
     }
+
+    def differenceDays={attrs->
+        Date initDate = attrs.initDate
+        Date endDate = attrs.endDate
+        use(groovy.time.TimeCategory) {
+            def duration = initDate - endDate
+//            print "Days: ${duration.days}, Hours: ${duration.hours}, etc."
+            out << duration.days
+        }
+
+    }
 }

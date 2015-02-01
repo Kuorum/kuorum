@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.Region
 import kuorum.core.model.CommissionType
+import kuorum.core.model.project.ProjectBasicStats
 import kuorum.core.model.project.ProjectRegionStats
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
@@ -79,10 +80,13 @@ class ProjectController {
         Pagination pagination = new Pagination()
         def clucks = cluckService.projectClucks(project,pagination)
         List<Post> victories = postService.projectVictories(project)
+        ProjectVote userVote = null;
         if (springSecurityService.isLoggedIn()){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            userVote = projectService.findProjectVote(project,user)
         }
-        [project:project, clucks: clucks,victories:victories, seeMore:clucks.size() == pagination.max]
+        ProjectBasicStats projectStats = projectStatsService.calculateProjectStats(project)
+        [project:project, clucks: clucks,victories:victories, seeMore:clucks.size() == pagination.max, projectStats:projectStats, userVote:userVote]
 
     }
 

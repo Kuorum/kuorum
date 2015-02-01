@@ -13,7 +13,8 @@
     <ul class="social">
         <li>
             <a href="${twitterLink}" class="social-share twitter">
-                <span class="sr-only"><g:message code="project.social.twitter"/> </span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-twitter fa-stack-1x"></span></span>
+                <span class="sr-only"><g:message code="project.social.twitter"/> </span>
+                <span class="fa-stack fa-lg"><span class="fa fa-twitter fa-stack-1x"></span></span>
             </a>
         </li>
         <li>
@@ -36,14 +37,14 @@
             %{--</a>--}%
             <g:set var="facebookLink">https://www.facebook.com/sharer/sharer.php?u=${shortUrl}</g:set>
             <a href="${facebookLink}" class="social-share facebook" data-facebookDataId="project_${project.id}">
-                <span class="sr-only"><g:message code="project.social.facebook"/></span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-facebook fa-stack-1x"></span></span>
+                <span class="sr-only"><g:message code="project.social.facebook"/></span><span class="fa-stack fa-lg"><span class="fa fa-facebook fa-stack-1x"></span></span>
             </a>
 
         </li>
         %{--<li><a href="#"><span class="sr-only">LinkedIn</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li>--}%
         <li>
             <a href="https://plus.google.com/share?url=${shortUrl}" class="social-share google">
-                <span class="sr-only"><g:message code="project.social.googlePlus"/></span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-google-plus fa-stack-1x"></span></span>
+                <span class="sr-only"><g:message code="project.social.googlePlus"/></span><span class="fa-stack fa-lg"><span class="fa fa-google-plus fa-stack-1x"></span></span>
             </a>
         </li>
     </ul>

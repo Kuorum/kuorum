@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}">
     <link rel="stylesheet" href="${resource(dir: 'fonts/font-awesome', file: 'styles.css')}">
     <link rel="stylesheet" href="${resource(dir: 'fonts/icomoon', file: 'styles.css')}">
+    <link rel="stylesheet" href="${resource(dir: 'fonts/icomoon2', file: 'styles.css')}">
     %{--<link rel="stylesheet" href="css/bootstrap-tour.min.css">--}%
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}">
     <!-- Estilos sólo para IE -->

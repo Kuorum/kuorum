@@ -501,4 +501,8 @@ class KuorumUserService {
     Boolean checkIfIsPolititician(KuorumUser user){
         user.institution!=null
     }
+
+    boolean isUserRegisteredCompletely(KuorumUser user){
+        user.personalData.provinceCode != null
+    }
 }

@@ -1,38 +1,52 @@
 <%@ page import="kuorum.core.model.VoteType; kuorum.core.model.ProjectStatusType" %>
-<div class="voting">
-    <g:if test="${project.status == kuorum.core.model.ProjectStatusType.OPEN}">
+<div class="${header?"":"form-group"} voting" data-projectId="${project.id}">
+    <g:if test="${project.deadline > new Date()}">
+        %{--OPEN PROJECT--}%
         <sec:ifLoggedIn>
-            <projectUtil:ifProjectIsVotable project="${project}">
-                <ul style="${userVote?'display: none;':''}">
-                    <!-- LOGADO NO VOTADO -->
-                    <li>
-                        <g:link mapping="projectVote" params="${project.encodeAsLinkProperties()+[voteType:VoteType.POSITIVE]}" class="btn btn-blue yes" data-projectId="${project.id}">
-                            <span class="icon-smiley fa-2x"></span>
-                            <g:message code="project.vote.yes"/>
+            <ul>
+                <projectUtil:ifUserAvailableForVoting project="${project}">
+                    <li class="${VoteType.POSITIVE}">
+                        <g:link mapping="projectVote" params="${project.encodeAsLinkProperties()+[voteType:VoteType.POSITIVE]}" role="button" class="${userVote?.voteType.equals(VoteType.POSITIVE)?"active":""}" data-projectId="${project.id}">
+                            <span class="icon-smiley fa-3x"></span>
+                            <span class="${header?'sr-only':''}"><g:message code="project.vote.yes"/></span>
                         </g:link>
                     </li>
-                    <li>
-                        <g:link mapping="projectVote" params="${project.encodeAsLinkProperties()+[voteType:VoteType.NEGATIVE]}" class="btn btn-blue no" data-projectId="${project.id}">
-                            <span class="icon-sad fa-2x"></span>
-                            <g:message code="project.vote.no"/>
+                    <li class="${VoteType.NEGATIVE}">
+                        <g:link mapping="projectVote" params="${project.encodeAsLinkProperties()+[voteType:VoteType.NEGATIVE]}" role="button" class="${userVote?.voteType.equals(VoteType.NEGATIVE)?"active":""}" data-projectId="${project.id}">
+                            <span class="icon-sad fa-3x"></span>
+                            <span class="${header?'sr-only':''}"><g:message code="project.vote.no"/></span>
                         </g:link>
 
                     </li>
-                    <li>
-                        <g:link mapping="projectVote" params="${project.encodeAsLinkProperties()+[voteType:VoteType.ABSTENTION]}" class="btn btn-blue neutral" data-projectId="${project.id}">
-                            <span class="icon-neutral fa-2x"></span>
-                            <g:message code="project.vote.abs"/>
+                    <li class="${VoteType.ABSTENTION}">
+                        <g:link mapping="projectVote" params="${project.encodeAsLinkProperties()+[voteType:VoteType.ABSTENTION]}" role="button" class="${userVote?.voteType.equals(VoteType.ABSTENTION)?"active":""}" data-projectId="${project.id}">
+                            <span class="icon-neutral fa-3x"></span>
+                            <span class="${header?'sr-only':''}"><g:message code="project.vote.abs"/></span>
                         </g:link>
                     </li>
-                </ul>
+                    <projectUtil:ifAllowedToAddPost project="${project}">
+                        <li>
+                            <a role="button" href="#">
+                                <span class="fa fa-lightbulb-o fa-3x"></span>
+                                <span class="${header?'sr-only':''}"><g:message code="project.vote.newPost"/></span>
+                            </a>
+                        </li>
+                    </projectUtil:ifAllowedToAddPost>
+                </projectUtil:ifUserAvailableForVoting>
+                <projectUtil:elseUserAvailableForVoting>
+                    %{--USUARIO NO REGISTRADO COMPLETAMENTE--}%
 
-                <!-- LOGADO VOTADO -->
-                <a href="#" class="changeOpinion" style="${userVote?'display: block;':''}"><g:message code="project.vote.changeVote"/></a>
-            </projectUtil:ifProjectIsVotable>
-            <projectUtil:elseProjectIsVotable>
-                <!-- LOGADO PERO NO ES DE LA REGION -->
-                <a href="#" class="btn btn-blue btn-block vote disabled"><g:message code="project.vote.notYourRegion" encodeAs="raw"/></a>
-            </projectUtil:elseProjectIsVotable>
+                </projectUtil:elseUserAvailableForVoting>
+
+                <projectUtil:ifAllowedToUpdateProject project="${project}">
+                    <li>
+                        <a role="button" href="#">
+                            <span class="icon2-update fa-3x"></span>
+                            <span class="${header?'sr-only':''}"><g:message code="project.vote.updateProject"/></span>
+                        </a>
+                    </li>
+                </projectUtil:ifAllowedToUpdateProject>
+            </ul>
         </sec:ifLoggedIn>
         <sec:ifNotLoggedIn>
             <g:link mapping="projectShowSec" params="${project.encodeAsLinkProperties()}" class="btn btn-blue btn-block vote">
@@ -41,12 +55,16 @@
         </sec:ifNotLoggedIn>
     </g:if> %{--FIN DE LA LEY ABIERTA--}%
     <g:else> %{-- LEY CERRADA--}%
-        <g:set var="statusProject" value="${message(code:"${ProjectStatusType.name}.${project.status}")}"/>
-        <a href="#" class="btn btn-blue btn-block vote disabled"><g:message code="project.vote.voteClosed" args="[statusProject.toLowerCase()]" encodeAs="raw"/></a><!-- al hacer click lo deshabilito y cambio el texto -->
+        <span class="closed">
+            <g:message code="project.subHeader.closedProject"/>
+            <projectUtil:ifAllowedToUpdateProject project="${project}">
+                <a href="#"><span class="fa icon2-update fa-lg"></span></a>
+            </projectUtil:ifAllowedToUpdateProject>
+        </span>
     </g:else>
-    <g:if test="${project.availableStats}">
-        <g:link mapping="projectStats" params="${project.encodeAsLinkProperties()}" class="hidden-xs">
-            <g:message code="project.vote.stats"/>
-        </g:link>
-    </g:if>
+    %{--<g:if test="${project.availableStats}">--}%
+        %{--<g:link mapping="projectStats" params="${project.encodeAsLinkProperties()}" class="hidden-xs">--}%
+            %{--<g:message code="project.vote.stats"/>--}%
+        %{--</g:link>--}%
+    %{--</g:if>--}%
 </div>

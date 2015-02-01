@@ -48,7 +48,6 @@ $(document).tooltip({
 });
 
 
-
 // aparece la info en la franja superior bajo el header al hacer scroll
 $(document).ready(function() {
     var headerTop = $('#header').offset().top;
@@ -68,9 +67,9 @@ $(document).ready(function() {
 });
 
 
-
 $(document).ready(function() {
 
+    // mostrar/ocultar pass en formulario de Entrar
     $('#show-pass-header').on('change', function () {
       $('#pass-header').hideShowPassword($(this).prop('checked'));
     });
@@ -514,9 +513,10 @@ $(document).ready(function() {
 	// Si voto desaparecen los botones y aparece el enlace de cambio de opinión
 	$('body').on("click", ".voting li a", function(e) {
 		e.preventDefault();
-        var lawId = $(this).attr("data-lawId")
-		$('section[data-lawId='+lawId+'] .voting ul').css('display', 'none');
-		$('section[data-lawId='+lawId+'] .changeOpinion').css('display', 'block');
+        var projectId = $(this).attr("data-projectId")
+        var votingDiv = $(this).parents(".voting");
+        var iconsHtml = votingDiv.html()
+        votingDiv.html('<div class="loading"><span class="sr-only">Cargando...</span></div>')
         $.ajax( {
             url:$(this).attr("href"),
             statusCode: {
@@ -526,12 +526,9 @@ $(document).ready(function() {
                 }
             }
         }).done(function(data, status, xhr) {
-            $('section[data-lawId='+lawId+']  ul.activity li').removeClass("active")
-            $('section[data-lawId='+lawId+']  ul.activity li.'+data.voteType).addClass("active")
-            $('section[data-lawId='+lawId+']  ul.activity li.POSITIVE span').html(data.votes.yes)
-            $('section[data-lawId='+lawId+']  ul.activity li.NEGATIVE span').html(data.votes.no)
-            $('section[data-lawId='+lawId+']  ul.activity li.ABSTENTION span').html(data.votes.abs)
-            $('section[data-lawId='+lawId+']  .kuorum span.counter').html(data.necessaryVotesForKuorum)
+            votingDiv.html(iconsHtml);
+            $('.voting[data-projectid='+projectId+'] ul li a').removeClass("active")
+            $('.voting[data-projectid='+projectId+'] ul li.'+data.voteType+' a').addClass("active")
             if (data.newVote){
                 karma.open(data.gamification)
             }
@@ -553,13 +550,13 @@ $(document).ready(function() {
 
 
 	// Si hago click en cambio de opinión vuelven los botones
-	$('body').on("click", ".changeOpinion", function(e) {
-		e.preventDefault();
-        var lawId = $(this).parents("section").attr("data-lawId")
-		$('section[data-lawId='+lawId+'] .activity li').removeClass('active');
-		$(this).css('display', 'none');
-		$('section[data-lawId='+lawId+']  .voting ul').css('display', 'block');
-	});
+//	$('body').on("click", ".changeOpinion", function(e) {
+//		e.preventDefault();
+//        var lawId = $(this).parents("section").attr("data-lawId")
+//		$('section[data-lawId='+lawId+'] .activity li').removeClass('active');
+//		$(this).css('display', 'none');
+//		$('section[data-lawId='+lawId+']  .voting ul').css('display', 'block');
+//	});
 
 	// Buscador: cambia el placeholder según el filtro elegido
 	$(function() {

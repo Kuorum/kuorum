@@ -7,6 +7,11 @@
 </head>
 
 
+<content tag="subHeader">
+    <g:render template="/project/projectSubHeader" model="[project: project, projectStats:projectStats, userVote:userVote]"/>
+</content>
+
+
 <content tag="mainContent">
     <g:render template="/project/projectInfo" model="[project:project, victories: victories, readMore:true]"/>
 
@@ -37,3 +42,5 @@
         <g:message code="project.up"/>
     </a>
 </content>
+
+

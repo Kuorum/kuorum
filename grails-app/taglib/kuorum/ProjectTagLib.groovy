@@ -1,8 +1,10 @@
 package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityUtils
+import kuorum.core.model.UserType
 import kuorum.project.Project
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 
 class ProjectTagLib {
     static defaultEncodeAs = 'raw'
@@ -12,7 +14,7 @@ class ProjectTagLib {
     def cluckService
     def postVoteService
     RegionService regionService
-
+    KuorumUserService kuorumUserService
     static namespace = "projectUtil"
 
     def ifProjectIsEditable={attrs, body ->
@@ -31,12 +33,12 @@ class ProjectTagLib {
     }
 
     private static final String NAME_VAR_IF_PROJECT_IS_VOTABLE_ELSE = "ifProjectIsVotableElse"
-    def ifProjectIsVotable = {attrs, body ->
+    def ifUserAvailableForVoting= {attrs, body ->
         pageScope.setVariable(NAME_VAR_IF_PROJECT_IS_VOTABLE_ELSE, Boolean.FALSE)
         if (springSecurityService.isLoggedIn()){
             Project project = attrs.project
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            if (regionService.isRelevantRegionForUser(user,project.region)){
+            if (kuorumUserService.isUserRegisteredCompletely(user)){
                 out << body()
             }else{
                 pageScope.setVariable(NAME_VAR_IF_PROJECT_IS_VOTABLE_ELSE, Boolean.TRUE)
@@ -44,9 +46,26 @@ class ProjectTagLib {
         }
     }
 
-    def elseProjectIsVotable = {attrs, body ->
+    def elseUserAvailableForVoting = {attrs, body ->
         if (pageScope.getVariable(NAME_VAR_IF_PROJECT_IS_VOTABLE_ELSE)){
             out << body()
+        }
+    }
+
+    def ifAllowedToUpdateProject = {attrs, body ->
+        Project project = attrs.project
+        if (springSecurityService.isLoggedIn() && springSecurityService.getCurrentUser().equals(project.owner)){
+            out << body()
+        }
+    }
+
+    def ifAllowedToAddPost = {attrs, body ->
+        Project project = attrs.project
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = springSecurityService.getCurrentUser();
+            if (!(user.userType.equals(UserType.POLITICIAN)  && project.owner.politicianOnRegion.equals(user.politicianOnRegion))){
+                out << body()
+            }
         }
     }
 }
