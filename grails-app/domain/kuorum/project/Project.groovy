@@ -8,6 +8,7 @@ import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
+import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
 @MongoUpdatable
@@ -38,6 +39,7 @@ class Project {
     @Updatable Date deadline
     @Updatable KuorumFile urlYoutube
     @Updatable KuorumFile pdfFile
+    KuorumUser owner
 
 
     static embedded = ['region','peopleVotes','image' ]
@@ -76,7 +78,8 @@ class Project {
                 return ['imageOrUrlYoutubeRequired']
             }
         }
-        pdfFile nullable: false
+        pdfFile nullable: true
+        owner nullable: false
     }
 
     static List<Project> findAllByPublishedAndRegion(Boolean published, Region region){
