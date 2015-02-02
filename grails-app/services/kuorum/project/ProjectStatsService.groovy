@@ -28,6 +28,10 @@ class ProjectStatsService {
         projectStats
     }
 
+    ProjectRegionStats calculateRegionStats(Project project){
+        calculateRegionStats(project, project.region)
+    }
+
     ProjectRegionStats calculateRegionStats(Project project, Region region){
         //TODO: Cache this method
         ProjectRegionStats stats = new ProjectRegionStats(region: region, genderVotes: [:], totalVotes: new AcumulativeVotes())
@@ -57,11 +61,15 @@ class ProjectStatsService {
             mapResults.put(VoteType.valueOf(it._id),it.quantity)
         }
 
-        new AcumulativeVotes(
+        AcumulativeVotes acumulativeVotes = new AcumulativeVotes(
                 abs : mapResults[VoteType.ABSTENTION]?:0,
                 yes : mapResults[VoteType.POSITIVE]?:0,
                 no : mapResults[VoteType.NEGATIVE]?:0
         )
+
+        def posts = Post.collection.count([project:project.id, 'ownerPersonalData.gender': gender.toString(),'ownerPersonalData.provinceCode': [$regex:regexPrvince]])
+        acumulativeVotes.numPosts = posts
+        acumulativeVotes
     }
 
     HashMap<String, AcumulativeVotes> calculateProjectStatsPerSubRegions(Project project, Region region){

@@ -8,7 +8,7 @@
 
 
 <content tag="subHeader">
-    <g:render template="/project/projectSubHeader" model="[project: project, projectStats:projectStats, userVote:userVote]"/>
+    <g:render template="/project/projectSubHeader" model="[project: project, projectStats:projectStats, regionStats:regionStats, userVote:userVote]"/>
 </content>
 
 

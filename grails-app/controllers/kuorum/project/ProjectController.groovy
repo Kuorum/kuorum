@@ -86,7 +86,8 @@ class ProjectController {
             userVote = projectService.findProjectVote(project,user)
         }
         ProjectBasicStats projectStats = projectStatsService.calculateProjectStats(project)
-        [project:project, clucks: clucks,victories:victories, seeMore:clucks.size() == pagination.max, projectStats:projectStats, userVote:userVote]
+        ProjectRegionStats regionStats = projectStatsService.calculateRegionStats(project)
+        [project:project, clucks: clucks,victories:victories, seeMore:clucks.size() == pagination.max, projectStats:projectStats, regionStats:regionStats, userVote:userVote]
 
     }
 

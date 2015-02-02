@@ -1,6 +1,7 @@
 package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityUtils
+import kuorum.core.model.RegionType
 import kuorum.core.model.UserType
 import kuorum.project.Project
 import kuorum.users.KuorumUser
@@ -67,5 +68,17 @@ class ProjectTagLib {
                 out << body()
             }
         }
+    }
+
+    def cssClassRegionType = {attrs, body ->
+        Project project = attrs.project
+        String cssClass= ""
+        switch (project.region.regionType){
+            case RegionType.LOCAL:          cssClass = "icon2-ciudad"; break;
+            case RegionType.STATE:          cssClass = "icon2-region"; break;
+            case RegionType.NATION:         cssClass = "icon2-estado"; break;
+            case RegionType.SUPRANATIONAL:  cssClass = "icon2-europe"; break;
+        }
+        out << cssClass
     }
 }

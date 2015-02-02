@@ -104,6 +104,7 @@ public class AcumulativeVotes {
     Long yes = 0
     Long no = 0
     Long abs = 0
+    Long numPosts = 0
 
     Long getTotal(){
         yes+no+abs

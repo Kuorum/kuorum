@@ -21,22 +21,16 @@
     <div class="row options">
         <ul class="col-xs-12 col-sm-4 col-md-4 typeTime">
             <li>
-                <span class="icon2-ciudad fa-lg" data-toggle="tooltip" data-placement="bottom" title="" rel="tooltip" data-original-title="Ámbito local"></span>
-                <span class="sr-only">Ámbito local</span>
-
-                <!-- <span class="fa icon2-region fa-lg" data-toggle="tooltip" data-placement="bottom" title="" rel="tooltip" data-original-title="Ámbito regional"></span>
-                                    <span class="sr-only">Ámbito regional</span> -->
-
-                <!-- <span class="fa icon2-estado fa-lg" data-toggle="tooltip" data-placement="bottom" title="" rel="tooltip" data-original-title="Ámbito estatal"></span>
-                                    <span class="sr-only">Ámbito estatal</span> -->
-
-                <!-- <span class="icon2-europe fa-lg" data-toggle="tooltip" data-placement="bottom" title="" rel="tooltip" data-original-title="Ámbito supranacional"></span>
-                                    <span class="sr-only">Ámbito supranacional</span> -->
+                <g:set var="icon" value="${projectUtil.cssClassRegionType(project: project)}"/>
+                <g:set var="regionTypeText" value="${message(code:'kuorum.core.model.RegionType.'+project.region.regionType)}"/>
+                <span class="${icon} fa-lg" data-toggle="tooltip" data-placement="bottom" title="" rel="tooltip" data-original-title="${regionTypeText}"></span>
+                <span class="sr-only">${regionTypeText}</span>
             </li>
             <li itemprop="datePublished">
                 <time>cerrado <span class="hidden-sm">hace 15 días</span></time>
             </li>
         </ul>
+        <g:render template="projectStats" model="[project:project, regionStats:regionStats]"/>
         %{--<div class="col-xs-12 col-sm-6 col-md-6 editPost">--}%
             %{--<!-- dejar la estructura aunque a veces esté vacío  -->--}%
             %{--<projectUtil:ifProjectIsEditable project="${project}">--}%
@@ -56,25 +50,8 @@
             %{--</div>--}%
         %{--</g:if>--}%
     </div>
-    <p class="cl-ntral-dark">${project.realName}</p>
+    %{--<p class="cl-ntral-dark">${project.realName}</p>--}%
     <p>
         ${raw(project.introduction.replaceAll('\n','</p><p>'))}
     </p>
-    <g:if test="${readMore}">
-        <div id="collapse" class="panel-collapse collapse">
-            <p>
-                ${raw(project.description.replaceAll('\n','</p><p>'))}
-            </p>
-        </div>
-        <div class="readMore">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse" class="collapsed">
-                <g:message code="project.text.seeMore"/>
-            </a>
-        </div>
-    </g:if>
-    <g:if test="${linkToProject}">
-        <p class="linkToProject">
-            <g:link mapping="projectShow" params="${project.encodeAsLinkProperties()}">[ver esta ley]</g:link>
-        </p>
-    </g:if>
 </article><!-- /article -->
