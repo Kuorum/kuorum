@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="${resource(dir: 'fonts/icomoon', file: 'styles.css')}">
     <link rel="stylesheet" href="${resource(dir: 'fonts/icomoon2', file: 'styles.css')}">
     %{--<link rel="stylesheet" href="css/bootstrap-tour.min.css">--}%
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'datepicker3.css')}">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}">
     <!-- Estilos sólo para IE -->
     <!--[if IE]><link rel="stylesheet" href="${resource(dir: 'css', file: 'style_ie.css')}" type="text/css" media="screen"><![endif]-->

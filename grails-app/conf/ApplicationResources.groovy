@@ -24,6 +24,8 @@ modules = {
         resource url:'js/jquery.autocomplete.js'
         resource url:'js/jquery.bgswitcher.js' //HOME
         resource url:'js/jquery.dynamiclist.min.js' //Dynamic input
+        resource url:'js/bootstrap-datepicker.js'
+        resource url:'js/bootstrap-datepicker.es.js'
         resource url:'js/hideShowPassword.min.js'
         resource url:'js/custom.js'
     }
