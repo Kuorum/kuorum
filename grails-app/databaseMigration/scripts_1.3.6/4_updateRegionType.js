@@ -14,3 +14,9 @@ dbDest.region.find().forEach(function(region){
     }
     dbDest.region.update({_id:region._id},{$set:{'regionType':regionType}})
 })
+
+dbDest.project.find().forEach(function(project){
+    var region = dbDest.region.find({_id:project.region._id}).next()
+    project.region = region;
+    dbDest.project.save(project);
+})
