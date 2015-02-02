@@ -158,6 +158,8 @@ grails.project.dependency.resolution = {
         test ":geb:$gebVersion"
         test ":code-coverage:1.2.7"
         compile ":codenarc:0.20"
+
+        compile ":quartz:1.0.2"
     }
 }
 

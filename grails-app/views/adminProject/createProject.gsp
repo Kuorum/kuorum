@@ -18,13 +18,14 @@
     <h1><g:message code="admin.createProject.title"/></h1>
     <formUtil:validateForm bean="${command}" form="createProject"/>
     <g:form method="POST" mapping="adminCreateProject" name="createProject" role="form">
-        <div class="form-group">
-            <formUtil:input command="${command}" field="hashtag" required="true"/>
-        </div>
+        <h1><g:message code='admin.createProject.region.label'/><span>${command.region}</span> <span class="hashtag pull-right">#</span></h1>
         <g:render template="/adminProject/formProject" model="[command:command, regions:regions, institutions:institutions]"/>
-        <div class="form-group">
-            <input type="submit" value="${message(code:'admin.createProject.submit')}" class="btn btn-grey btn-lg">
-            <a href="#" class="cancel" tabindex="19">Cancelar</a>
-        </div>
+        <fieldset class="btns text-right">
+            <div class="form-group">
+                <a href="#" class="cancel">${message(code:'admin.createProject.saveDraft')}</a>
+                <input type="submit" class="btn btn-lg" value="${message(code:'admin.createProject.publish')}">
+            </div>
+        </fieldset>
+
     </g:form>
 </content>

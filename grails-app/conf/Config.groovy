@@ -287,3 +287,6 @@ kuorum {
     }
 }
 
+//Added for date bindings
+grails.databinding.dateFormats = ["dd/MM/yyyy"]
+

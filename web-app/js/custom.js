@@ -513,10 +513,9 @@ $(document).ready(function() {
 	// Si voto desaparecen los botones y aparece el enlace de cambio de opinión
 	$('body').on("click", ".voting li a", function(e) {
 		e.preventDefault();
-        var projectId = $(this).attr("data-projectId")
-        var votingDiv = $(this).parents(".voting");
-        var iconsHtml = votingDiv.html()
-        votingDiv.html('<div class="loading"><span class="sr-only">Cargando...</span></div>')
+        var lawId = $(this).attr("data-lawId")
+		$('section[data-lawId='+lawId+'] .voting ul').css('display', 'none');
+		$('section[data-lawId='+lawId+'] .changeOpinion').css('display', 'block');
         $.ajax( {
             url:$(this).attr("href"),
             statusCode: {
@@ -526,9 +525,12 @@ $(document).ready(function() {
                 }
             }
         }).done(function(data, status, xhr) {
-            votingDiv.html(iconsHtml);
-            $('.voting[data-projectid='+projectId+'] ul li a').removeClass("active")
-            $('.voting[data-projectid='+projectId+'] ul li.'+data.voteType+' a').addClass("active")
+            $('section[data-lawId='+lawId+']  ul.activity li').removeClass("active")
+            $('section[data-lawId='+lawId+']  ul.activity li.'+data.voteType).addClass("active")
+            $('section[data-lawId='+lawId+']  ul.activity li.POSITIVE span').html(data.votes.yes)
+            $('section[data-lawId='+lawId+']  ul.activity li.NEGATIVE span').html(data.votes.no)
+            $('section[data-lawId='+lawId+']  ul.activity li.ABSTENTION span').html(data.votes.abs)
+            $('section[data-lawId='+lawId+']  .kuorum span.counter').html(data.necessaryVotesForKuorum)
             if (data.newVote){
                 karma.open(data.gamification)
             }
@@ -550,13 +552,13 @@ $(document).ready(function() {
 
 
 	// Si hago click en cambio de opinión vuelven los botones
-//	$('body').on("click", ".changeOpinion", function(e) {
-//		e.preventDefault();
-//        var lawId = $(this).parents("section").attr("data-lawId")
-//		$('section[data-lawId='+lawId+'] .activity li').removeClass('active');
-//		$(this).css('display', 'none');
-//		$('section[data-lawId='+lawId+']  .voting ul').css('display', 'block');
-//	});
+	$('body').on("click", ".changeOpinion", function(e) {
+		e.preventDefault();
+        var lawId = $(this).parents("section").attr("data-lawId")
+		$('section[data-lawId='+lawId+'] .activity li').removeClass('active');
+		$(this).css('display', 'none');
+		$('section[data-lawId='+lawId+']  .voting ul').css('display', 'block');
+	});
 
 	// Buscador: cambia el placeholder según el filtro elegido
 	$(function() {
@@ -765,7 +767,7 @@ $(document).ready(function() {
     });
 
 
-	// countdown textarea
+	// countdown textarea edición propuesta
 	$(function() {
 		var totalChars      = parseInt($('#charInit span').text());
 		var countTextBox    = $('.counted'); // Textarea input box
@@ -788,6 +790,82 @@ $(document).ready(function() {
 		});
 	});
 
+    $(function() {
+        var totalChars      = parseInt($('#charInitTit span').text());
+        var countTextBox    = $('#title-project.counted');
+        var charsCountEl    = $('#charNumTit span');
+
+        if (countTextBox.length> 0){
+            charsCountEl.text(totalChars - countTextBox.val().length);
+        }
+        countTextBox.keyup(function() {
+
+            var thisChars = this.value.replace(/{.*}/g, '').length;
+
+            if (thisChars > totalChars)
+            {
+                var CharsToDel = (thisChars-totalChars);
+                this.value = this.value.substring(0,this.value.length-CharsToDel);
+            } else {
+                charsCountEl.text( totalChars - thisChars );
+            }
+        });
+    });
+
+    $(function() {
+        var totalChars      = parseInt($('#charInitHash span').text());
+        var countTextBox    = $('#hashtag.counted');
+        var charsCountEl    = $('#charNumHash span');
+
+        if (countTextBox.length> 0){
+            charsCountEl.text(totalChars - countTextBox.val().length);
+        }
+        countTextBox.keyup(function() {
+
+            var thisChars = this.value.replace(/{.*}/g, '').length;
+
+            if (thisChars > totalChars)
+            {
+                var CharsToDel = (thisChars-totalChars);
+                this.value = this.value.substring(0,this.value.length-CharsToDel);
+            } else {
+                charsCountEl.text( totalChars - thisChars );
+            }
+        });
+    });
+
+    $(function() {
+        var totalChars      = parseInt($('#charInitTextProj span').text());
+        var countTextBox    = $('#textProject.counted');
+        var charsCountEl    = $('#charNumTextProj span');
+
+        if (countTextBox.length> 0){
+            charsCountEl.text(totalChars - countTextBox.val().length);
+        }
+        countTextBox.keyup(function() {
+
+            var thisChars = this.value.replace(/{.*}/g, '').length;
+
+            if (thisChars > totalChars)
+            {
+                var CharsToDel = (thisChars-totalChars);
+                this.value = this.value.substring(0,this.value.length-CharsToDel);
+            } else {
+                charsCountEl.text( totalChars - thisChars );
+            }
+        });
+    });
+
+
+    $('.input-group.date').datepicker({
+
+        language: "es",
+        autoclose: true,
+        todayHighlight: true
+
+    });
+
+
 	// textarea editor
 	$(".texteditor").jqte({
 		br: true,
@@ -799,7 +877,7 @@ $(document).ready(function() {
 		ol: false,
 		outdent: false,
 		p: false,
-		placeholder: "Escribe un texto que describa tu publicación",
+		placeholder: "Escribe un texto que lo describa",
 		linktypes: ["URL", "Email"],
 		remove: false,
 		right: false,

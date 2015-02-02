@@ -41,7 +41,7 @@ fixture {
     }
 
     parquesNacionales(Project){
-        hashtag = "#parquesNacionales"
+        hashtag = "#parqNacionales"
         image = parquesNacionalesImage
         //urlPdf = "http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF"
         shortUrl = "http://ow.ly/3jLTrs"
@@ -69,5 +69,6 @@ Nuevo marco jurídico para la gestión de los Parques Naturales
         deadline = new Date() + 10
         pdfFile = pdfFileTest
         urlYoutube = urlYoutubeTest
+        owner = admin
     }
 }

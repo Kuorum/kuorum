@@ -8,6 +8,7 @@ import kuorum.core.FileGroup
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
 import kuorum.core.model.PostType
+import kuorum.core.model.RegionType
 import kuorum.core.model.Studies
 import kuorum.post.Post
 import kuorum.project.Project
@@ -94,18 +95,19 @@ class Helper {
                 institution: creteDefaultInstitution(),
                 politicalParty: createDefaultPoliticalParty(),
                 availableStats: Boolean.TRUE,
-                deadline: new Date() +10,
+                deadline: new Date() + 10,
                 pdfFile: pdfFile,
                 urlYoutube: urlYoutube,
-                shortUrl:new URL('http://ow.ly')
-
+                shortUrl:new URL('http://ow.ly'),
+                owner: owner
         )
     }
 
     public static final Region creteDefaultRegion(){
         new Region(
                 name:"Europa",
-                iso3166_2:"EU"
+                iso3166_2:"EU",
+                regionType: RegionType.STATE
         )
     }
 

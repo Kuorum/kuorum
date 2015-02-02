@@ -65,5 +65,6 @@ Modificación de la Ley Orgánica del Código Penal
         deadline = new Date() + 10
         pdfFile = pdfFileTest
         urlYoutube = urlYoutubeTest
+        owner = admin
     }
 }

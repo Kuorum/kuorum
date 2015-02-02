@@ -6,6 +6,7 @@ import kuorum.KuorumFile
 import kuorum.Region
 import kuorum.core.FileGroup
 import kuorum.core.model.CommissionType
+import kuorum.core.model.RegionType
 import kuorum.helper.Helper
 import kuorum.users.KuorumUser
 import spock.lang.Shared
@@ -19,19 +20,20 @@ import spock.lang.Unroll
 class ProjectSpec extends Specification {
 
 
-    @Shared Region europe = new Region(name: "Europe", iso3166_2: "EU")
-    @Shared Region spain = new Region(name: "Spain", iso3166_2: "EU-ES", superRegion: europe)
+    @Shared Region europe = new Region(name: "Europe", iso3166_2: "EU", regionType: RegionType.STATE)
+    @Shared Region spain = new Region(name: "Spain", iso3166_2: "EU-ES", superRegion: europe, regionType: RegionType.NATION)
 
     @Shared Institution parliamentEurope = new Institution(name: "Parlamenteo Europeo", region: europe)
     @Shared Institution parliamentSpain = new Institution(name: "Parlamenteo Europeo", region: spain)
 
     @Shared KuorumFile pdfFile
     @Shared KuorumFile urlYoutube
+    @Shared KuorumUser user
 
     def setup() {
         mockForConstraintsTests(Project, [new Project()])
         mockForConstraintsTests(KuorumFile, [new KuorumFile()])
-        KuorumUser user = Helper.createDefaultUser("email@email.com")
+        user = Helper.createDefaultUser("email@email.com")
         pdfFile = new KuorumFile(
                 fileGroup: FileGroup.PDF,
                 temporal: true,
@@ -67,7 +69,8 @@ class ProjectSpec extends Specification {
                 availableStats: true,
                 shortUrl: 'http://short.url',
                 pdfFile: pdfFile,
-                urlYoutube: urlYoutube
+                urlYoutube: urlYoutube,
+                owner: user
         ]
         params[field] = value
         def obj = new Project(params)
@@ -78,23 +81,28 @@ class ProjectSpec extends Specification {
         Helper.validateConstraints(obj, field, error)
 
         where:
-        error                        | field         | value            || objValidate
-        'OK'                         | 'hashtag'     | '#nombre'        || true
-        'matches'                    | 'hashtag'     | '#'              || false
-        'nullable'                   | 'hashtag'     | ''               || false
-        'nullable'                   | 'hashtag'     | null             || false
-        'nullable'                   | 'shortName'   | ''               || false
-        'nullable'                   | 'shortName'   | null             || false
-        'nullable'                   | 'realName'    | ''               || false
-        'nullable'                   | 'realName'    | null             || false
-        'nullable'                   | 'description' | ''               || false
-        'nullable'                   | 'description' | null             || false
-        'nullable'                   | 'commissions' | null             || false
-        'nullable'                   | 'region'      | null             || false
-        'notSameRegionAsInstitution' | 'institution' | parliamentSpain  || false
-        'imageOrUrlYoutubeRequired'  | 'urlYoutube'  | null             || false
-        'deadlineLessThanToday'      | 'deadline'    | new Date() - 1   || false
-        'deadlineGreaterThan120Days' | 'deadline'    | new Date() + 121 || false
+        error                        | field         | value                                   || objValidate
+        'OK'                         | 'hashtag'     | '#nombre'                               || true
+        'maxSize'                    | 'hashtag'     | "#${'n' * 17}"                          || false
+        'matches'                    | 'hashtag'     | '#'                                     || false
+        'nullable'                   | 'hashtag'     | ''                                      || false
+        'nullable'                   | 'hashtag'     | null                                    || false
+        'nullable'                   | 'shortName'   | ''                                      || false
+        'nullable'                   | 'shortName'   | null                                    || false
+        'nullable'                   | 'realName'    | ''                                      || false
+        'nullable'                   | 'realName'    | null                                    || false
+        'nullable'                   | 'description' | ''                                      || false
+        'nullable'                   | 'description' | null                                    || false
+        'nullable'                   | 'commissions' | null                                    || false
+        'maxSize'                    | 'commissions' | [CommissionType.AGRICULTURE, CommissionType.BUDGETS,
+                CommissionType.CONSTITUTIONAL, CommissionType.DEFENSE, CommissionType.CULTURE] || false
+        'nullable'                   | 'region'      | null                                    || false
+        'notSameRegionAsInstitution' | 'institution' | parliamentSpain                         || false
+        'imageOrUrlYoutubeRequired'  | 'urlYoutube'  | null                                    || false
+        'deadlineLessThanToday'      | 'deadline'    | new Date() - 1                          || false
+        'deadlineGreaterThan120Days' | 'deadline'    | new Date() + 121                        || false
+        'maxSize'                    | 'shortName'   | 'a' * 108                                | false
+        'maxSize'                    | 'description' | 'a' * 5001                               | false
     }
 
     @Unroll("test PROJECT constraints: Checking #field = #value expected #error and validation #objValidate")
@@ -123,23 +131,28 @@ class ProjectSpec extends Specification {
         Helper.validateConstraints(obj, field, error)
 
         where:
-        error                        | field         | value            || objValidate
-        'OK'                         | 'hashtag'     | '#nombre'        || false
-        'matches'                    | 'hashtag'     | '#'              || false
-        'nullable'                   | 'hashtag'     | ''               || false
-        'nullable'                   | 'hashtag'     | null             || false
-        'nullable'                   | 'shortName'   | ''               || false
-        'nullable'                   | 'shortName'   | null             || false
-        'nullable'                   | 'realName'    | ''               || false
-        'nullable'                   | 'realName'    | null             || false
-        'nullable'                   | 'description' | ''               || false
-        'nullable'                   | 'description' | null             || false
-        'nullable'                   | 'commissions' | null             || false
-        'nullable'                   | 'region'      | null             || false
-        'notSameRegionAsInstitution' | 'institution' | parliamentSpain  || false
-        'imageOrUrlYoutubeRequired'  | 'image'       | null             || false
-        'imageOrUrlYoutubeRequired'  | 'urlYoutube'  | null             || false
-        'deadlineLessThanToday'      | 'deadline'    | new Date() - 1   || false
-        'deadlineGreaterThan120Days' | 'deadline'    | new Date() + 121 || false
+        error                        | field         | value                                   || objValidate
+        'OK'                         | 'hashtag'     | '#nombre'                               || false
+        'maxSize'                    | 'hashtag'     | "#${'n' * 17}"                          || false
+        'matches'                    | 'hashtag'     | '#'                                     || false
+        'nullable'                   | 'hashtag'     | ''                                      || false
+        'nullable'                   | 'hashtag'     | null                                    || false
+        'nullable'                   | 'shortName'   | ''                                      || false
+        'nullable'                   | 'shortName'   | null                                    || false
+        'nullable'                   | 'realName'    | ''                                      || false
+        'nullable'                   | 'realName'    | null                                    || false
+        'nullable'                   | 'description' | ''                                      || false
+        'nullable'                   | 'description' | null                                    || false
+        'nullable'                   | 'commissions' | null                                    || false
+        'maxSize'                    | 'commissions' | [CommissionType.AGRICULTURE, CommissionType.BUDGETS,
+                CommissionType.CONSTITUTIONAL, CommissionType.DEFENSE, CommissionType.CULTURE] || false
+        'nullable'                   | 'region'      | null                                    || false
+        'notSameRegionAsInstitution' | 'institution' | parliamentSpain                         || false
+        'imageOrUrlYoutubeRequired'  | 'image'       | null                                    || false
+        'imageOrUrlYoutubeRequired'  | 'urlYoutube'  | null                                    || false
+        'deadlineLessThanToday'      | 'deadline'    | new Date() - 1                          || false
+        'deadlineGreaterThan120Days' | 'deadline'    | new Date() + 121                        || false
+        'maxSize'                    | 'shortName'   | 'a' * 108                                | false
+        'maxSize'                    | 'description' | 'a' * 5001                               | false
     }
 }

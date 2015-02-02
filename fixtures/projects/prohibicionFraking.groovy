@@ -39,7 +39,7 @@ fixture {
     }
 
     prohibicionFraking(Project){
-        hashtag = "#prohibicionFraking"
+        hashtag = "#prohibFraking"
         image = frakingImage
         //urlPdf = "http://www.congreso.es/public_oficiales/L10/CONG/BOCG/A/BOCG-10-A-48-1.PDF"
         shortUrl = "http://ow.ly/3jLTrs"
@@ -63,5 +63,6 @@ Prohibición de prospecciones y explotaciones de hidrocarburos mediante fractura
         deadline = new Date() + 10
         pdfFile = pdfFileTest
         urlYoutube = urlYoutubeTest
+        owner = admin
     }
 }

@@ -13,9 +13,6 @@ class FileControllerIntegrationSpec extends Specification{
     @Shared
     FileController fileController
 
-    @Shared
-    def renderMap
-
     void setupSpec(){
         fileController = new FileController()
     }

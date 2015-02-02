@@ -16,15 +16,15 @@ import kuorum.project.Project
 class ProjectCommand {
     String hashtag
     String shortName
-    String realName
+//    String realName
     String description
-    String introduction
+//    String introduction
     Boolean availableStats
     List<CommissionType> commissions  = new ArrayList<CommissionType>()
     Region region
-    Institution institution
+//    Institution institution
     String photoId
-    ProjectStatusType status
+    ProjectStatusType status = ProjectStatusType.OPEN
 
     //New fields for Project
     Date deadline
@@ -37,7 +37,7 @@ class ProjectCommand {
         commissions nullable: false, minSize: 1
         photoId nullable: false
         status nullable:false
-        pdfFileId nullable: false
+        pdfFileId nullable: true
 
 //        hashtag validator: {val, obj ->
 //            if (Project.findByHashtag(val)){

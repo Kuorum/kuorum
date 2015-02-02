@@ -70,7 +70,11 @@ select {color: #545454; font-size: 14px; font-size:  1.4rem; border: 1px solid #
 input[type="number"],
 input[type="email"],
 select {padding: 6px 6px 6px 8px !important;}*/
-.form-control:focus {box-shadow: 0 0 0 rgba(0,0,0,0);}
+.form-control:focus,
+.jqte_focused {box-shadow: 0 0 0 rgba(0,0,0,0);}
+.form-group {margin-bottom: 20px;}
+.jqte_placeholder_text {color: #a8a8a8;}
+.jqte_editor, .jqte_source {height: 290px; min-height: 290px; max-height: 290px;}
 
 .add-on.input-group-addon label {margin-bottom: 0; color: #a8a8a8;}
 .add-on.input-group-addon label input {margin-right: 2px;}
@@ -787,7 +791,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 
 .open-menu + .popover .popover-more-actions.edition ul {margin: 0;}
 
-.open-menu + .popover {width: 200px; max-width: 200px; margin-top: 0;}
+.open-menu + .popover {width: 110px; max-width: 110px; margin-top: 0;}
 .open-menu + .popover .popover-content {padding: 0;}
 .open-menu + .popover > .arrow {display: none;}
 .popover-more-actions.edition li a {padding: 4px 14px;}
@@ -1160,7 +1164,9 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 
 /*********************** Edit Post *************************************/
 /***********************************************************************/
-.edit-post form, .edit-post .boxes, .edit-post > h1 + p {color: #a8a8a8;}
+.edit-post form,
+.edit-post .boxes,
+.edit-post > h1 + p {color: #a8a8a8;}
 .edit-post > h1 {
   font-family: 'League Gothic', Arial, sans-serif;
   font-size: 48px;
@@ -1187,7 +1193,8 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .edit-post form .video label {font-size: 15px; font-size: 1.5rem; color: #a8a8a8;}
 .edit-post fieldset {padding: 25px 0;}
 .edit-post fieldset.type {margin: 0 0 25px 0; border-bottom: solid 1px #efefef;}
-#charNum {text-align: right; padding: 8px 0 0 0; color: #a8a8a8;}
+#charNum,
+.charNum {text-align: right; padding: 8px 0 0 0; color: #a8a8a8; font-size: 14px; font-size: 1.4rem; margin: 0 0 20px;}
 .custom-select-types {
   cursor: pointer;
   background: url("../images/select-arrow@2x.png") no-repeat scroll 240px 27px / 13px auto #efefef;
@@ -1515,7 +1522,8 @@ textarea.error,
 }
 
 /* estilos para el resize upload image */
-.uploaderImageContainer > div {height: 390px; margin: 10px 0 0 0; position: relative;}
+.uploaderImageContainer > div {height: 170px; margin: 10px 0 0 0; position: relative;}
+
 /* avatar en config cuadrado */
 .container-fluid.config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
 .container-fluid.config .uploaderImageContainer.USER_PROFILE > div {height: 300px; margin: 10px 0 0 0; position: relative;}
@@ -1524,7 +1532,7 @@ textarea.error,
     text-align: center;
     color: #20a2ea;
     text-align: center;
-    padding: 8px 0px;
+    padding: 0;
     height: 34px;
 }
 .uploadImage {width:220px; height:220px; margin-right:20px;}
@@ -1533,15 +1541,15 @@ textarea.error,
 .qq-upload-drop-area {
   position: absolute;
   top: 0;
-  height: 372px;
+  height: 165px;
   left:0;
   z-index: 2;
   width: 100%;
   display: block !important;
   text-align: center;
   border: 1px solid #EFEFEF;
-  background: url('../images/fileUpload.png') center 90px no-repeat transparent;
-  padding: 195px 20px 20px 20px;
+  background: url('../images/fileUpload.png') center 10px no-repeat transparent;
+  padding: 95px 20px 20px 20px;
   display: block;
 }
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area{height:278px;}
@@ -1668,7 +1676,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 #widget .close {font-size: 30px;}
 #widget .modal-header .close {margin-top: -6px;}
 
-#registro .modal-dialog {width: 410px;}
+#registro .modal-dialog {width: 350px;}
 
 .leerLey {text-align: right;}
 .leerLey a {padding: 3px 22px 3px 0; background: url('../images/pdf.png') no-repeat right center transparent;}
@@ -2464,21 +2472,35 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config .item ul li h3 span {color: #ff9431; font-size: 130%;}
 .config .item ul li p {color: #a8a8a8; font-size: 13px; font-size: 1.3rem;}
 .config #config7 p {margin: 20px 0 0 0; line-height: 1.2;}
+
 .config #config9 .checkbox label,
-.config #config9 .checkbox-inline {font-weight: normal; font-size: 13px; font-size: 1.3rem;}
-.config #config9 .checkbox {margin-top: 15px; margin-bottom: 15px;}
+.config #config9 .checkbox-inline,
+#edit-project .checkbox label,
+#edit-project .checkbox-inline {font-weight: normal; font-size: 13px; font-size: 1.3rem;}
+.config #config9 .checkbox,
+#edit-project .checkbox {margin-top: 15px; margin-bottom: 15px;}
 .config #config9 .interestContainer {width: 530px}
-.config .interestContainer label {font-weight: normal;}
+.config .interestContainer label,
+#edit-project .interestContainer label {font-weight: normal;}
 .config #config9 .icheckbox_line-orange,
-.config #config9 .iradio_line-orange {color: #545454;}
+.config #config9 .iradio_line-orange,
+#edit-project .icheckbox_line-orange,
+#edit-project .iradio_line-orange {color: #545454;}
 .config #config9 .icheckbox_line-orange.hover,
-.config #config9 .iradio_line-orange.hover {background: #545454; color: #fff;}
+.config #config9 .iradio_line-orange.hover,
+#edit-project .icheckbox_line-orange.hover,
+#edit-project .iradio_line-orange.hover {background: #545454; color: #fff;}
 .config #config9 .icheckbox_line-orange.checked,
 .config #config9 .icheckbox_line-orange.checked.hover,
-.config #config9 .iradio_line-orange.checked {
+.config #config9 .iradio_line-orange.checked,
+#edit-project .icheckbox_line-orange.checked,
+#edit-project .icheckbox_line-orange.checked.hover,
+#edit-project .iradio_line-orange.checked {
     background: url("../images/checked-black.png") no-repeat scroll right top #545454;
     color: #FFFFFF;
 }
+#edit-project .interestContainer {width: 100%; background-color: transparent;}
+
 .config .list-post.pending > li > .text-notification {color: #545454; display: inline;}
 .config .list-post.pending > li .law {padding: 0; font-size: 24px; font-size: 2.4rem; line-height: 1.2;}
 .config #config11 p {color: #a8a8a8;}
@@ -2584,11 +2606,53 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 #info-sup-scroll .voting > .closed a:active {color: #ff9431;}
 
 
+
 /* edición proyecto =========== */
 /* ====================================================== */
 .box-ppal h1 {font-size: 25px; font-size: 2.5rem; margin: 0 0 25px 0; padding: 0 40px 0 0; position: relative;}
-#edicion-proyecto .hashtag {font-size: 2em; line-height: .5; position: absolute; top: 0; right: 0;}
-#edicion-proyecto .input-group-addon a {color: #a8a8a8;}
+#edit-project .hashtag {font-size: 2em; line-height: .5; position: absolute; top: 0; right: 0;}
+#edit-project .input-group-addon a {color: #a8a8a8;}
+#edit-project,
+#edit-project .form-control,
+#edit-project input[type="text"],
+#edit-project input[type="number"],
+#edit-project input[type="email"],
+#edit-project select {color: #a8a8a8;}
+#edit-project input,
+#edit-project .title textarea {font-size: 17px; font-size: 1.7rem;}
+.uploadPdf,
+.uploadPdf a,
+#edit-project label {font-size: 20px; font-size: 2rem; color: #a8a8a8;}
+#edit-project .interest {margin-top: 20px;}
+#edit-project .icheckbox_line-orange,
+#edit-project .iradio_line-orange {margin: 0 24px 12px 0; background-color: #fafafa; padding: 12px 6px 0; width: 110px;}
+#edit-project .uploadPdf .progress {margin-top: 10px;}
+.btn.btn-file {
+    position: relative;
+    overflow: hidden;
+    background-color: transparent !important;
+    color: #a8a8a8 !important;
+    font-size: 20px !important;
+    font-size: 2rem !important;
+}
+.btn.btn-file:hover {text-decoration: underline !important;}
+.btn.btn-file .fa {margin: 0 4px 0 0;}
+.btn.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
 
 
 /* clases especiales accesibilidad =========== */
@@ -2642,7 +2706,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 .cl-ntral-xxlight {color: #fcfcfc;}
 
 /*botones video o foto en la edición del post*/
-.multimedia ul.nav.nav-pills.nav-justified li a{margin-bottom: 15px;}
+.multimedia ul.nav.nav-pills.nav-justified li a {margin-bottom: 15px; background-color: #fff; border: 1px solid #efefef; color: #545454; font-size: 20px; font-size: 2rem;}
 
 
 #acceptCookies{
@@ -2708,11 +2772,14 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   #widget pre {height: 80px; font-size: 20px;}
 }
 /*botones video o foto en la edición del post*/
-.multimedia ul.nav.nav-pills.nav-justified li a{margin-right: 10px;}
+.multimedia ul.nav.nav-pills.nav-justified li.active a {background-color: #fafafa;}
+.multimedia ul.nav.nav-pills.nav-justified li a {margin-right: 10px; border-radius: 0; padding: 5px 15px;}
+.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right: 0;}
 
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .charNum {margin: 0;}
   .login .btn.btn-blue.btn-lg {padding-left: 50px !important; padding-right: 50px !important;}
   .nav > li > .navbar-link.new-project {
     background-color: #ff9431;

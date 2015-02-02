@@ -64,5 +64,6 @@ Ley Orgánica de protección de la vida del concebido y derechos de la mujer emb
         deadline = new Date() + 10
         pdfFile = pdfFileTest
         urlYoutube = urlYoutubeTest
+        owner = admin
     }
 }

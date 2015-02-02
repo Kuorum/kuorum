@@ -4,7 +4,9 @@ import kuorum.Institution
 import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.model.CommissionType
+import kuorum.core.model.ProjectStatusType
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
  * Created by iduetxe on 4/03/14.
@@ -62,6 +64,23 @@ class ProjectServiceIntegrationSpec extends Specification{
 //            projectRecovered.politicalParty == politicalParty
         }
 
+    }
+
+    @Unroll
+    void "check status project for date: #date and final status: #status"() {
+        given: "a project"
+        Project project = Project.findByHashtag("#leyAborto")
+
+        when: "check the status of the projects"
+        projectService.checkProjectsStatus(date)
+
+        then: "status has been changed or is the same"
+        project.status == status
+
+        where:
+        date            || status
+        new Date()      || ProjectStatusType.OPEN
+        new Date() + 11 || ProjectStatusType.CLOSE
     }
 
 }

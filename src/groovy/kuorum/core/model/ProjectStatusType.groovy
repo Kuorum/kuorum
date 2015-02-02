@@ -6,5 +6,6 @@ package kuorum.core.model
 enum ProjectStatusType {
     OPEN,
     REJECTED,
-    APPROVED
+    APPROVED,
+    CLOSE
 }

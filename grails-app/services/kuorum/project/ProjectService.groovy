@@ -225,4 +225,20 @@ class ProjectService {
         }
         res
     }
+
+    /**
+     * Check the status of a project by the giving date. If the deadline of the project is less than the giving date, the
+     * status of the project change to CLOSE.
+     * @param date The date to compare with the deadline.
+     */
+    void checkProjectsStatus(Date date){
+        List<Project> projectList = Project.where{
+            status == ProjectStatusType.OPEN
+            deadline < date
+        }.list()
+        projectList.each{
+            it.status = ProjectStatusType.CLOSE
+            it.save()
+        }
+    }
 }

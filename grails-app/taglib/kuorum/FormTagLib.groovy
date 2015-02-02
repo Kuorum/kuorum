@@ -73,7 +73,6 @@ class FormTagLib {
         def cssClass = attrs.cssClass?:'form-control input-lg'
         def labelCssClass = attrs.labelCssClass?:''
         def maxlength = attrs.maxlength?"maxlength='${attrs.maxlength}'":''
-
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = message(code: "${command.class.name}.${field}.label")
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
@@ -90,6 +89,49 @@ class FormTagLib {
 
         if (helpBlock){
             out << "<p class='help-block'>${helpBlock}</p>"
+        }
+    }
+
+    def date={attrs ->
+        def command = attrs.command
+        def field = attrs.field
+
+        def id = attrs.id?:field
+        def required = attrs.required?'required':''
+        def cssClass = attrs.cssClass?:'form-control input-lg'
+        def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
+
+        def error = hasErrors(bean: command, field: field,'error')
+        //TODO: ¿Internacionalizar el formato a mostrar de la fecha?
+        def value = command."${field}"?command."${field}".format('dd/MM/yyyy'):''
+        out <<"""
+            <div class="input-group date">
+            <input type="text" name="${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" required aria-required="${required}" value="${value}">
+            <span class="input-group-addon"><a href="#" class="datepicker"><span class="fa fa-calendar fa-lg"></span></a></span>
+        """
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+        }
+    }
+
+    def url={attrs->
+        def command = attrs.command
+        def field = attrs.field
+
+        def id = attrs.id?:field
+        def cssClass = attrs.cssClass?:'form-control input-lg'
+        def labelCssClass = attrs.labelCssClass?:''
+        def label = message(code: "${command.class.name}.${field}.label")
+        def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
+        def value = command."${field}"?:''
+
+        def error = hasErrors(bean: command, field: field,'error')
+        out <<"""
+            <label for="${id}" class="${labelCssClass}">${label}</label>
+            <input name="videoPost" type="url" value="${value}" class="${cssClass}" id="${id}" placeholder="${placeHolder}">
+        """
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }
 

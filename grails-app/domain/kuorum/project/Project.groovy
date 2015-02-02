@@ -45,11 +45,11 @@ class Project {
     static embedded = ['region','peopleVotes','image' ]
 
     static constraints = {
-        hashtag matches: '#[a-zA-Z0-9]+', nullable: false, unique: true
-        shortName nullable: false
-        commissions nullable: false, minSize:1
+        hashtag matches: '#[a-zA-Z0-9]+', nullable: false, unique: true, maxSize: 17
+        shortName nullable: false, maxSize: 107
+        commissions nullable: false, minSize:1, maxSize: 4
         realName nullable:false
-        description nullable:false
+        description nullable:false, maxSize: 5000
         introduction nullable:false
         region  nullable:false
         institution nullable:false, validator: { val, obj ->
