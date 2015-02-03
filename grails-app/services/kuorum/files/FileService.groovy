@@ -34,7 +34,7 @@ class FileService {
         kuorumFile.url ="$rootUrl/$fileLocation/$kuorumFile.fileName"
         kuorumFile.save()
 
-        log.info("Subiendo nueva imagen a ${kuorumFile.storagePath}")
+        log.info("Subiendo nuevo fichero a ${kuorumFile.storagePath}")
 
         def storagePathDirectory = new File(kuorumFile.storagePath)
         if (!storagePathDirectory.exists()) {
@@ -206,7 +206,7 @@ class FileService {
             if (file.exists()){
                 file.delete()
             }
-            log.info("Cargando imagen subida en :${file.absolutePath}")
+            log.info("Cargando fichero subido en :${file.absolutePath}")
             file << inputStream
         } catch (Exception e) {
             //TODO: Gestion Errores

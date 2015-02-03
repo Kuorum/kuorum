@@ -225,7 +225,7 @@ class KuorumUserService {
 
         if (!user.save()){
             log.error("No se ha podido actualizar el usuario ${user.email}(${user.id})")
-            throw KuorumExceptionUtil.createExceptionFromValidatable(user)
+            throw KuorumExceptionUtil.createExceptionFromValidatable(user, "No se ha podido actualizar el usuario ${user.email}(${user.id})")
         }
         indexSolrService.index(user)
         user

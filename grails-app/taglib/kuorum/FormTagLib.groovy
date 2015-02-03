@@ -52,6 +52,45 @@ class FormTagLib {
         out << g.render(template:'/layouts/form/uploadImage', model:model)
     }
 
+    def editPdf ={attrs ->
+        def command = attrs.command
+        def field = attrs.field
+        def kuorumPdfId = command."$field"
+
+        def labelCssClass = attrs.labelCssClass?:''
+        KuorumFile kuorumFile = null
+        FileGroup fileGroup = attrs.fileGroup
+        def label = message(code: "${command.class.name}.${field}.label")
+        def value = ""
+        def pdfUrl = ""
+        if (kuorumPdfId)
+            kuorumFile = KuorumFile.get(new ObjectId(kuorumPdfId))
+
+        if (!kuorumFile){
+            kuorumPdfId = "_${field}_NEW_"
+        }else{
+            value = kuorumPdfId
+            pdfUrl = kuorumFile.url
+        }
+
+        def error = hasErrors(bean: command, field: field,'error')
+        def errorMessage = ''
+        if(error){
+            errorMessage = g.fieldError(bean: command, field: field)
+        }
+        def model = [
+                pdfId: kuorumPdfId,
+                value:value,
+                fileGroup:fileGroup,
+                pdfUrl:pdfUrl,
+                name:field,
+                labelCssClass:labelCssClass,
+                label:label,
+                errorMessage:errorMessage
+        ]
+        out << g.render(template:'/layouts/form/uploadPdf', model:model)
+    }
+
 //    private static final Integer NUM_CHARS_SHORTEN_URL = 19 //OWLY
     private static final Integer NUM_CHARS_TWITTER_URL = 22 // Twitter change all urls to t.co and its size will be 22 (before february of 2014 was 20)
     private static final Integer NUM_EXTRA_SPACE = 2 // Between text and hastag, and between hastag and shortUrl
@@ -79,8 +118,13 @@ class FormTagLib {
 
         def value = command."${field}"?:''
         def error = hasErrors(bean: command, field: field,'error')
+
+        ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
+        MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
+        def maxSize = maxSizeConstraint?.maxSize?:0
+
+
         out <<"""
-            <label for="${id}" class="${labelCssClass}">${label}</label>
             <input type="${type}" name="${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}">
         """
         if(error){
@@ -89,6 +133,13 @@ class FormTagLib {
 
         if (helpBlock){
             out << "<p class='help-block'>${helpBlock}</p>"
+        }
+
+        if (maxSize){
+            out << """
+            <div id="charInit" class="hidden">${message(code:'form.textarea.limitChar')}<span>${maxSize}</span></div>
+            <div id="charNum" class="help-block">${message(code:'form.textarea.limitChar.left')} <span></span> ${message(code:'form.textarea.limitChar.characters')}</div>
+            """
         }
     }
 
@@ -326,19 +377,15 @@ class FormTagLib {
 
         def id = attrs.id?:field
         def value = command."$field"?:''
-//        def cssClass = attrs.cssClass
-        def label = message(code: "${command.class.name}.${field}.label")
-        def cssLabel = attrs.cssLabel?:''
         def placeHolder = message(code: "${command.class.name}.${field}.placeHolder")
         def error = hasErrors(bean: command, field: field,'error')
         ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
         MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
         def maxSize = maxSizeConstraint?.maxSize?:0
-
+        def texteditor = attrs.texteditor?:''
 
         out << """
-            <label class='${cssLabel}' for="${id}">${label}</label>
-            <textarea name='${field}' class="form-control counted ${error}" rows="${rows}" id="${id}" placeholder="${placeHolder}">${value}</textarea>
+            <textarea name='${field}' class="form-control counted ${texteditor} ${error}" rows="${rows}" id="${id}" placeholder="${placeHolder}">${value}</textarea>
         """
         if (error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"

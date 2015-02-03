@@ -48,9 +48,9 @@ class Project {
         hashtag matches: '#[a-zA-Z0-9]+', nullable: false, unique: true, maxSize: 17
         shortName nullable: false, maxSize: 107
         commissions nullable: false, minSize:1, maxSize: 4
-        realName nullable:false
+        realName nullable:true
         description nullable:false, maxSize: 5000
-        introduction nullable:false
+        introduction nullable:true
         region  nullable:false
         institution nullable:false, validator: { val, obj ->
             if (obj.region && obj.region != val.region) {

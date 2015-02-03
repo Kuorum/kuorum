@@ -7,6 +7,7 @@ import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
 import kuorum.project.Project
+import kuorum.users.KuorumUser
 
 /**
  * Created by iduetxe on 3/03/14.
@@ -22,7 +23,7 @@ class ProjectCommand {
     Boolean availableStats
     List<CommissionType> commissions  = new ArrayList<CommissionType>()
     Region region
-//    Institution institution
+    Institution institution
     String photoId
     ProjectStatusType status = ProjectStatusType.OPEN
 
@@ -30,6 +31,7 @@ class ProjectCommand {
     Date deadline
     String urlYoutubeId
     String pdfFileId
+    KuorumUser owner
 //    PoliticalParty politicalParty
 
     static constraints = {

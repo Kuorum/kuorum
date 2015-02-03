@@ -89,8 +89,6 @@ class ProjectSpec extends Specification {
         'nullable'                   | 'hashtag'     | null                                    || false
         'nullable'                   | 'shortName'   | ''                                      || false
         'nullable'                   | 'shortName'   | null                                    || false
-        'nullable'                   | 'realName'    | ''                                      || false
-        'nullable'                   | 'realName'    | null                                    || false
         'nullable'                   | 'description' | ''                                      || false
         'nullable'                   | 'description' | null                                    || false
         'nullable'                   | 'commissions' | null                                    || false
@@ -139,8 +137,6 @@ class ProjectSpec extends Specification {
         'nullable'                   | 'hashtag'     | null                                    || false
         'nullable'                   | 'shortName'   | ''                                      || false
         'nullable'                   | 'shortName'   | null                                    || false
-        'nullable'                   | 'realName'    | ''                                      || false
-        'nullable'                   | 'realName'    | null                                    || false
         'nullable'                   | 'description' | ''                                      || false
         'nullable'                   | 'description' | null                                    || false
         'nullable'                   | 'commissions' | null                                    || false

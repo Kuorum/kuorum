@@ -17,7 +17,7 @@
 
 <fieldset class="text">
     <div class="form-group">
-        <formUtil:textArea command="${command}" field="description" required="true"/>
+        <formUtil:textArea command="${command}" field="description" required="true" texteditor="texteditor"/>
     </div>
 </fieldset>
 
@@ -56,46 +56,6 @@
         <span class="btn btn-file">
             <span class="fa fa-paperclip fa-lg"></span><g:message code="admin.createProject.upload.pdf" /><span class="hidden-xs"> <g:message code="admin.createProject.upload.pdf.more" /></span> <g:message code="admin.createProject.upload.pdf.optional" /><input type="file">
         </span>
-        <div class="progress hidden" id="#">
-            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                0% Complete
-            </div>
-        </div>
+        <formUtil:editPdf command="${command}" field="pdfFileId" fileGroup="${kuorum.core.FileGroup.PDF}"/>
     </div>
 </fieldset>
-
-
-
-%{--<div class="form-group">--}%
-    %{--<formUtil:textArea command="${command}" field="description" required="true"/>--}%
-%{--</div>--}%
-
-%{--<div class="form-group">--}%
-    %{--<formUtil:checkBox command="${command}" field="availableStats"/>--}%
-%{--</div>--}%
-
-%{--<div class="form-group">--}%
-    %{--<div class="row">--}%
-        %{--<div class="col-xs-6">--}%
-            %{--<formUtil:selectDomainObject command="${command}" field="region" values="${regions}" />--}%
-        %{--</div>--}%
-        %{--<div class="col-xs-6">--}%
-            %{--<formUtil:selectDomainObject command="${command}" field="institution" values="${institutions}" />--}%
-        %{--</div>--}%
-    %{--</div>--}%
-%{--</div>--}%
-%{--<div class="form-group">--}%
-    %{--<formUtil:selectEnum command="${command}" field="status"/>--}%
-%{--</div>--}%
-
-%{--<div class="form-group">--}%
-    %{--<formUtil:selectMultipleCommissions command="${command}" field="commissions"/>--}%
-%{--</div>--}%
-
-%{--<div class="form-group">--}%
-    %{--<formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.PROJECT_IMAGE}"/>--}%
-%{--</div>--}%
-
-%{--<div class="form-group">--}%
-    %{--<formUtil:input command="${command}" field="urlPdf" required="true"/>--}%
-%{--</div>--}%
