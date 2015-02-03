@@ -7,7 +7,7 @@
 <fieldset class="hashtag-time">
     <div class="row form-group">
         <div class="col-xs-12 col-sm-8">
-            <formUtil:input command="${command}" field="hashtag" required="true"/>
+            <formUtil:input command="${command}" field="hashtag" required="true" maxlength="17"/>
         </div>
         <div class="col-xs-12 col-sm-4">
             <formUtil:date command="${command}" field="deadline" required="true"/>

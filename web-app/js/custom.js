@@ -812,51 +812,6 @@ $(document).ready(function() {
         });
     });
 
-    $(function() {
-        var totalChars      = parseInt($('#charInitHash span').text());
-        var countTextBox    = $('#hashtag.counted');
-        var charsCountEl    = $('#charNumHash span');
-
-        if (countTextBox.length> 0){
-            charsCountEl.text(totalChars - countTextBox.val().length);
-        }
-        countTextBox.keyup(function() {
-
-            var thisChars = this.value.replace(/{.*}/g, '').length;
-
-            if (thisChars > totalChars)
-            {
-                var CharsToDel = (thisChars-totalChars);
-                this.value = this.value.substring(0,this.value.length-CharsToDel);
-            } else {
-                charsCountEl.text( totalChars - thisChars );
-            }
-        });
-    });
-
-    $(function() {
-        var totalChars      = parseInt($('#charInitTextProj span').text());
-        var countTextBox    = $('#textProject.counted');
-        var charsCountEl    = $('#charNumTextProj span');
-
-        if (countTextBox.length> 0){
-            charsCountEl.text(totalChars - countTextBox.val().length);
-        }
-        countTextBox.keyup(function() {
-
-            var thisChars = this.value.replace(/{.*}/g, '').length;
-
-            if (thisChars > totalChars)
-            {
-                var CharsToDel = (thisChars-totalChars);
-                this.value = this.value.substring(0,this.value.length-CharsToDel);
-            } else {
-                charsCountEl.text( totalChars - thisChars );
-            }
-        });
-    });
-
-
     $('.input-group.date').datepicker({
 
         language: "es",
@@ -1219,6 +1174,28 @@ $(document).ready(function() {
     $(".dynamicList").dynamiclist();
 
 });
+
+function counterCharacters(idField) {
+    var totalChars      = parseInt($('#charInit_'+idField+' span').text());
+    var countTextBox    = $('#'+idField+'.counted');
+    var charsCountEl    = $('#charNum_'+idField+' span');
+
+    if (countTextBox.length> 0){
+        charsCountEl.text(totalChars - countTextBox.val().length);
+    }
+    countTextBox.keyup(function() {
+
+        var thisChars = this.value.replace(/{.*}/g, '').length;
+
+        if (thisChars > totalChars)
+        {
+            var CharsToDel = (thisChars-totalChars);
+            this.value = this.value.substring(0,this.value.length-CharsToDel);
+        } else {
+            charsCountEl.text( totalChars - thisChars );
+        }
+    });
+}
 
 // ***** End jQuey Init *********** //
 

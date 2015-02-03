@@ -40,6 +40,9 @@ class ProjectCommand {
         photoId nullable: false
         status nullable:false
         pdfFileId nullable: true
+        hashtag nullable: false, minSize: 1, maxSize: 7
+        shortName nullable:false, minSize: 1, maxSize: 124
+        description nullable: false, minSize: 1, maxSize: 1024
 
 //        hashtag validator: {val, obj ->
 //            if (Project.findByHashtag(val)){

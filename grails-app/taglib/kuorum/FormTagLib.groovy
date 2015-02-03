@@ -123,6 +123,9 @@ class FormTagLib {
         ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
         MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
         def maxSize = maxSizeConstraint?.maxSize?:0
+        if (maxSize > 0){
+            cssClass += " counted"
+        }
 
 
         out <<"""
@@ -138,8 +141,11 @@ class FormTagLib {
 
         if (maxSize){
             out << """
-            <div id="charInit" class="hidden">${message(code:'form.textarea.limitChar')}<span>${maxSize}</span></div>
-            <div id="charNum" class="help-block">${message(code:'form.textarea.limitChar.left')} <span></span> ${message(code:'form.textarea.limitChar.characters')}</div>
+            <script>
+                \$(function(){counterCharacters("${field}")});
+            </script>
+            <div id="charInit_${field}" class="hidden">${message(code:'form.textarea.limitChar')} <span>${maxSize}</span></div>
+            <div id="charNum_${field}" class="charNum">${message(code:'form.textarea.limitChar.left')} <span>${maxSize}</span> ${message(code:'form.textarea.limitChar.characters')}</div>
             """
         }
     }
@@ -386,16 +392,19 @@ class FormTagLib {
         def texteditor = attrs.texteditor?:''
 
         out << """
-            <textarea name='${field}' class="form-control counted ${texteditor} ${error}" rows="${rows}" id="${id}" placeholder="${placeHolder}">${value}</textarea>
+            <textarea name='${field}' class="form-control ${maxSize?"counted":""} ${texteditor} ${error}" rows="${rows}" id="${id}" placeholder="${placeHolder}">${value}</textarea>
         """
         if (error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
 
-        if (maxSize){
+        if (maxSize && !texteditor){
         out << """
-            <div id="charInit" class="hidden">${message(code:'form.textarea.limitChar')}<span>${maxSize}</span></div>
-            <div id="charNum" class="help-block">${message(code:'form.textarea.limitChar.left')} <span></span> ${message(code:'form.textarea.limitChar.characters')}</div>
+            <script>
+                \$(function(){counterCharacters("${field}")});
+            </script>
+            <div id="charInit_${field}" class="hidden">${message(code:'form.textarea.limitChar')}<span>${maxSize}</span></div>
+            <div id="charNum_${field}" class="charNum">${message(code:'form.textarea.limitChar.left')} <span>${maxSize}</span> ${message(code:'form.textarea.limitChar.characters')}</div>
             """
         }
     }
