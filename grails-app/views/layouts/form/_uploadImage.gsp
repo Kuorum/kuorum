@@ -1,14 +1,13 @@
 <r:require modules="customFileUploader" />
 
-<label for="input_${imageId}" class="${labelCssClass}">${label} </label>
 <script>
-    var typeErrorText = "${g.message(code:'uploader.error.typeError')}"
-    var sizeErrorText = "${g.message(code:'uploader.error.sizeError')}"
-    var minSizeErrorText = "${g.message(code:'uploader.error.minSizeError')}"
-    var emptyErrorText = "${g.message(code:'uploader.error.emptyError')}"
-    var onLeaveText = "${g.message(code:'uploader.error.onLeave')}"
-    var jcropApi
-    var fileId
+    var typeErrorText = "${g.message(code:'uploader.error.typeError')}";
+    var sizeErrorText = "${g.message(code:'uploader.error.sizeError')}";
+    var minSizeErrorText = "${g.message(code:'uploader.error.minSizeError')}";
+    var emptyErrorText = "${g.message(code:'uploader.error.emptyError')}";
+    var onLeaveText = "${g.message(code:'uploader.error.onLeave')}";
+    var jcropApi;
+    var fileId;
 </script>
 <div class="uploaderImageContainer ${fileGroup}">
     <uploader:uploader

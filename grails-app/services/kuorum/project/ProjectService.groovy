@@ -73,7 +73,7 @@ class ProjectService {
             projectVote.voteType = voteType
             projectVote.personalData = user.personalData
             if (!projectVote.save()){
-                throw KuorumExceptionUtil.createExceptionFromValidatable(projectVote)
+                throw KuorumExceptionUtil.createExceptionFromValidatable(projectVote, "Error salvando el projectVote")
             }
             if (isUserVoteRelevant(user, project)){
                 switch (orgVoteType){
@@ -101,7 +101,7 @@ class ProjectService {
         projectVote.voteType = voteType
         projectVote.personalData = user.personalData
         if (!projectVote.save()){
-            throw KuorumExceptionUtil.createExceptionFromValidatable(projectVote)
+            throw KuorumExceptionUtil.createExceptionFromValidatable(projectVote, "Error salvando el projectVote")
         }
         if (isUserVoteRelevant(user, project)){
             switch (voteType){
@@ -136,7 +136,7 @@ class ProjectService {
         fileService.convertTemporalToFinalFile(project.image)
         calculateProjectRelevance(project)
         if (!project.save()){
-           throw KuorumExceptionUtil.createExceptionFromValidatable(project)
+           throw KuorumExceptionUtil.createExceptionFromValidatable(project, "Error salvando el proyecto")
         }
         project
     }

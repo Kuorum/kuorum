@@ -31,12 +31,22 @@ class AdminProjectController  extends  AdminController{
         }
         Project project = new Project(command.properties)
         project.region = command.region
-        KuorumFile image = KuorumFile.get(new ObjectId(command.photoId))
-        KuorumFile pdfFile = KuorumFile.get(new ObjectId(command.pdfFileId))
-        KuorumFile urlYoutube = KuorumFile.get(new ObjectId(command.urlYoutubeId))
-        project.image = image
-        project.pdfFile = pdfFile
-        project.urlYoutube = urlYoutube
+
+        if(command.photoId){
+            KuorumFile image = KuorumFile.get(new ObjectId(command.photoId))
+            project.image = image
+        }
+
+        if(command.urlYoutubeId){
+            KuorumFile urlYoutube = KuorumFile.get(new ObjectId(command.urlYoutubeId))
+            project.urlYoutube = urlYoutube
+        }
+
+        if(command.pdfFileId){
+            KuorumFile pdfFile = KuorumFile.get(new ObjectId(command.pdfFileId))
+            project.pdfFile = pdfFile
+        }
+
         project = projectService.saveAndCreateNewProject(project)
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         fileService.deleteTemporalFiles(user)
@@ -46,18 +56,12 @@ class AdminProjectController  extends  AdminController{
 
     private def projectModel(ProjectCommand command, Project project){
         def model = []
-        if (SpringSecurityUtils.ifAnyGranted('ROLE_ADMIN')){
-            model = [
-                    institutions:Institution.findAll(),
-                    regions:Region.findAll()
-            ]
-        }else{
+        if (SpringSecurityUtils.ifAnyGranted('ROLE_POLITICIAN')){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             model = [
                     institutions:[user.institution],
                     regions:[user?.politicianOnRegion]
             ]
-            command.institution = user.institution
             command.region = model.regions[0]
         }
         model += [project:project, command: command]

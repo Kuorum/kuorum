@@ -251,7 +251,7 @@ var qq = qq || {};
 qq.FileUploaderBasic = function(o){
     this._options = {
         // set to true to see the server response
-        debug: false,
+        debug: true,
         action: '/server/upload',
         params: {},
         button: null,
