@@ -55,7 +55,7 @@ class AdminProjectController  extends  AdminController{
     }
 
     private def projectModel(ProjectCommand command, Project project){
-        def model = []
+        def model = [:]
         if (SpringSecurityUtils.ifAnyGranted('ROLE_POLITICIAN')){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             model = [
@@ -64,7 +64,7 @@ class AdminProjectController  extends  AdminController{
             ]
             command.region = model.regions[0]
         }
-        model += [project:project, command: command]
+        model << [project:project, command: command]
         model
     }
 

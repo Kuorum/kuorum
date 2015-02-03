@@ -57,12 +57,12 @@ class FormTagLib {
         def field = attrs.field
         def kuorumPdfId = command."$field"
 
-        def labelCssClass = attrs.labelCssClass?:''
         KuorumFile kuorumFile = null
         FileGroup fileGroup = attrs.fileGroup
         def label = message(code: "${command.class.name}.${field}.label")
         def value = ""
         def pdfUrl = ""
+        String fileName = ""
         if (kuorumPdfId)
             kuorumFile = KuorumFile.get(new ObjectId(kuorumPdfId))
 
@@ -71,6 +71,7 @@ class FormTagLib {
         }else{
             value = kuorumPdfId
             pdfUrl = kuorumFile.url
+            fileName = kuorumFile.originalName
         }
 
         def error = hasErrors(bean: command, field: field,'error')
@@ -84,7 +85,7 @@ class FormTagLib {
                 fileGroup:fileGroup,
                 pdfUrl:pdfUrl,
                 name:field,
-                labelCssClass:labelCssClass,
+                fileName:fileName,
                 label:label,
                 errorMessage:errorMessage
         ]

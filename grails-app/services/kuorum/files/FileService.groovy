@@ -24,6 +24,7 @@ class FileService {
         kuorumFile.temporal = Boolean.TRUE
         kuorumFile.fileGroup = fileGroup
         kuorumFile.fileName = "TEMPORAL"
+        kuorumFile.originalName = fileName
         kuorumFile.storagePath = "TEMPORAL"
         kuorumFile.url ="http://TEMPORAL.com"
         kuorumFile.save()//The ID is necessary

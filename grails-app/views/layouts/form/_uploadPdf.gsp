@@ -1,69 +1,49 @@
 <r:require modules="customFileUploader" />
+<g:set var="divId" value="file-uploader-${pdfId}"/>
+<g:set var="inputId" value="input_file_-${pdfId}"/>
+<g:set var="text">
+    <g:if test="${fileName}">
+        ${fileName}
+    </g:if>
+    <g:else>
+        Subir pdf <span class="hidden-xs">ampliando la información</span>(opcional)
+    </g:else>
+</g:set>
+<div id="${divId}">
+    <noscript>
+        <p>Please enable JavaScript to use file uploader.</p>
+        <!-- or put a simple form for upload here -->
+    </noscript>
+</div>
+<input type="hidden" name="${name}" id="${inputId}" value="${value}"/>
 
 <script>
-    var typeErrorText = "${g.message(code:'uploader.error.typeError')}";
-    var sizeErrorText = "${g.message(code:'uploader.error.sizeError')}";
-    var minSizeErrorText = "${g.message(code:'uploader.error.minSizeError')}";
-    var emptyErrorText = "${g.message(code:'uploader.error.emptyError')}";
-    var onLeaveText = "${g.message(code:'uploader.error.onLeave')}";
-    var jcropApi;
-    var fileId;
+    $(function(){
+
+
+        var pdfUploader = new qq.GenericFileUploader({
+            // pass the dom node (ex. $(selector)[0] for jQuery users)
+            elementID: '${divId}',
+            allowedExtensions: ['pdf'],
+            sizeLimit: 0, // max size
+            minSizeLimit: 0, // min size
+            abortOnFailure: true,
+            text:'${raw(text.trim())}',
+            messages:{
+                typeError: '${g.message(code:'uploader.error.typeError')}',
+                sizeError: '${g.message(code:'uploader.error.sizeError')}',
+                minSizeError: '${g.message(code:'uploader.error.minSizeError')}',
+                emptyError: '${g.message(code:'uploader.error.emptyError')}',
+                onLeave: '"${g.message(code:'uploader.error.onLeave')}"'
+            },
+            showMessage:function(message){
+                display.error(message);
+            },
+            action: '${raw(g.createLink(mapping:'ajaxUploadFilePDF'))}', // path to server-side upload script
+            onSuccess: function(id, fileName, responseJSON){
+                qq.GenericFileUploader.prototype._onComplete(id, fileName, responseJSON);
+                $("#${inputId}").val(responseJSON.fileId)
+            }
+        });
+    })
 </script>
-<div class="uploaderImageContainer ${fileGroup}">
-    <uploader:uploader
-            id="uploaderPdfId_${pdfId}"
-            multiple="false"
-            url="${[mapping:'ajaxUploadFilePDF']}"
-            sizeLimit="${fileGroup.maxSize}"
-            allowedExtensions='["\'pdf\'"]'
-            messages='{
-                    typeError: typeErrorText,
-                    sizeError: sizeErrorText,
-                    minSizeError: minSizeErrorText,
-                    emptyError: emptyErrorText,
-                    onLeave: onLeaveText
-                }'
-            params='[fileGroup:"\"${fileGroup}\""]' >
-        <uploader:onSubmit>
-            $("#${pdfId}").attr("alt","Cargando");
-            originalPdfPath = $("#${pdfId}").attr("src");
-            $("#${pdfId}").attr("src","${g.resource(dir: 'images', file: 'loading@2x.gif')}");
-            $("#progresBar_${pdfId}").removeClass("hidden").css("display","block");
-            var progressBar = $("#progresBar_${pdfId}").children(".progress-bar");
-            progressBar.attr("aria-valuenow",100);
-            progressBar.attr("aria-valuemax",0);
-            progressBar.css("width","0%");
-            progressBar.html("0%");
-        </uploader:onSubmit>
-        <uploader:onProgress>
-            var progressBar = $("#progresBar_${pdfId}").children(".progress-bar");
-            progressBar.attr("aria-valuenow",loaded);
-            progressBar.attr("aria-valuemax",total);
-            var percent = Math.floor(loaded/total * 100);
-            progressBar.css("width",percent+"%");
-            progressBar.html(percent+"%");
-
-            console.log(loaded+' of '+total+' done so far');
-        </uploader:onProgress>
-        <uploader:onComplete>
-            console.log(responseJSON.absolutePathPDF);
-            $("#progresBar_${pdfId}").hide();
-        </uploader:onComplete>
-        <uploader:showMessage>
-            display.error(message);
-            %{--notyError(message);--}%
-        </uploader:showMessage>
-        <uploader:onCancel> alert('you cancelled the upload'); </uploader:onCancel>
-    </uploader:uploader>
-</div>
-
-<input type="hidden" name="${name}" id="input_${pdfId}" value="${value}"/>
-<div class="progress hidden" id="progresBar_${pdfId}">
-    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-        0% Complete
-    </div>
-</div>
-
-<g:if test="${errorMessage}">
-    <span for='input_${pdfId}' class='error'>${errorMessage}</span>
-</g:if>

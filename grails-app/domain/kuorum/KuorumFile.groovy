@@ -31,6 +31,7 @@ class KuorumFile {
     String storagePath
     String alt
     String fileName
+    String originalName
     String url
     FileGroup fileGroup
     FileType fileType = FileType.IMAGE
@@ -38,6 +39,7 @@ class KuorumFile {
     static constraints = {
         storagePath nullable: true
         fileName nullable:true
+        originalName nullable: false
         url url: true
         alt nullable:true
         local validator: {val, obj-> // If local , storagePath and fileName can not be null

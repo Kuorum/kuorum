@@ -52,10 +52,5 @@
 </div>
 
 <fieldset class="uploadPdf">
-    <div class="form-group">
-        <span class="btn btn-file">
-            <span class="fa fa-paperclip fa-lg"></span><g:message code="admin.createProject.upload.pdf" /><span class="hidden-xs"> <g:message code="admin.createProject.upload.pdf.more" /></span> <g:message code="admin.createProject.upload.pdf.optional" /><input type="file">
-        </span>
-        <formUtil:editPdf command="${command}" field="pdfFileId" fileGroup="${kuorum.core.FileGroup.PDF}"/>
-    </div>
+    <formUtil:editPdf command="${command}" field="pdfFileId" fileGroup="${kuorum.core.FileGroup.PDF}"/>
 </fieldset>

@@ -666,6 +666,67 @@ qq.extend(qq.FileUploader.prototype, {
     }
 });
 
+qq.GenericFileUploader = function(o){
+    // call parent constructor
+    qq.FileUploaderBasic.apply(this, arguments);
+    this.prefixId= o.elementID;
+    var buttonId = this.prefixId+'-button';
+    var progressBarId = this.prefixId+'-progressBar';
+    var textId = this.prefixId+'-file-text';
+    // additional options
+    qq.extend(this._options, {
+        element: null,
+        // if set, will be used instead of qq-upload-list in template
+        template:
+            '<div class="form-group" id="'+buttonId+'">'+
+                '<span class="btn btn-file">'+
+                    '<span class="fa fa-paperclip fa-lg"></span>' +
+                    '<span id="'+textId+'">'+ o.text+'</span>'+
+                '</span>' +
+                '<div class="progress hidden" id="'+progressBarId+'">' +
+                    '<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">' +
+                        '0% Complete' +
+                    '</div>' +
+                '</div>' +
+            '</div>',
+        onSubmit: function(id, fileName){
+            qq.FileUploaderBasic.prototype._onSubmit.apply(this, arguments);
+            $("#"+progressBarId).show();
+            $("#"+progressBarId).removeClass("hidden");
+        },
+        onProgress: function(id, fileName, loaded, total){
+            qq.FileUploaderBasic.prototype._onProgress.apply(this, arguments);
+            var progressBar = $("#"+progressBarId).children(".progress-bar")
+            progressBar.attr("aria-valuenow",loaded)
+            progressBar.attr("aria-valuemax",total)
+            var percent = Math.floor(loaded/total * 100)
+            progressBar.css("width",percent+"%")
+            progressBar.html(percent+"%")
+            console.log(loaded+' of '+total+' done so far')
+        },
+        onComplete: function(id, fileName, responseJSON){
+            qq.FileUploaderBasic.prototype._onComplete.apply(this, arguments);
+            document.getElementById(textId).innerHTML=fileName;
+            $("#"+progressBarId).hide();
+            this.onSuccess(id, fileName,responseJSON);
+
+        },
+        onCancel: function(id, fileName){
+            qq.FileUploaderBasic.prototype._onCancel.apply(this, arguments);
+        },
+        onSuccess: function(id, fileName, responseJSON){
+        }
+    });
+    // overwrite options with user supplied
+    qq.extend(this._options, o);
+
+    this._element = document.getElementById(this._options.elementID);
+    this._element.innerHTML = this._options.template;
+
+    this._button = this._createUploadButton(document.getElementById(buttonId));
+};
+qq.extend(qq.GenericFileUploader.prototype, qq.FileUploaderBasic.prototype);
+
 qq.UploadDropZone = function(o){
     this._options = {
         element: null,
