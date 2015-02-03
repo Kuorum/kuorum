@@ -5,3 +5,21 @@
     <g:set var="urlLoadMore" value="${createLink(mapping: 'projectListClucks', params: project.encodeAsLinkProperties())}"/>
     <g:render template="/cluck/listClucks" model="[clucks:clucks, urlLoadMore:urlLoadMore, seeMore:seeMore]"/>
 </aside>
+
+
+<h2 class="underline"><g:message code="project.clucks.title"/> </h2>
+
+<div class="btn-group btn-group-justified filters" role="group" aria-label="Justified button group">
+    <a href="#" class="btn active" role="button">
+        <g:message code="project.clucks.newer"/>
+        <span aria-relevant="additions" aria-live="assertive" aria-labelledby="propuestas recientes" role="log" class="badge">23</span>
+    </a>
+    <a href="#" class="btn" role="button">
+        <g:message code="project.clucks.defended"/>
+        <span aria-relevant="additions" aria-live="assertive" aria-labelledby="propuestas apadrinadas" role="log" class="badge">5</span>
+    </a>
+    <a href="#" class="btn" role="button">
+        <g:message code="project.clucks.vicotries"/>
+        <span aria-relevant="additions" aria-live="assertive" aria-labelledby="victorias" role="log" class="badge">3</span>
+    </a>
+</div>

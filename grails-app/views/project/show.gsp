@@ -14,8 +14,7 @@
 
 <content tag="mainContent">
     <g:render template="/project/projectInfo" model="[project:project, victories: victories, readMore:true]"/>
-
-    <g:render template="/project/projectButtonsCreatePost" model="[project:project]"/>
+    <g:render template="/project/projectUpdates" model="[project:project]"/>
 
     <g:if test="${victories}">
         <g:render template="projectVictories" model="[project:project, victories:victories]"/>

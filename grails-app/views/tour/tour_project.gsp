@@ -11,7 +11,7 @@
             <div class="row" >
                 <section id="main" class="col-xs-12 col-sm-12 col-md-8" role="main">
                     <g:render template="/project/projectInfo" model="[project:project, victories: victories, readMore:true]"/>
-                    <g:render template="/project/projectButtonsCreatePost" model="[project:project]"/>
+                    %{--<g:render template="/project/projectButtonsCreatePost" model="[project:project]"/>--}%
                     <g:if test="${victories}">
                         <g:render template="/project/projectVictories" model="[project:project, victories:victories]"/>
                     </g:if>
