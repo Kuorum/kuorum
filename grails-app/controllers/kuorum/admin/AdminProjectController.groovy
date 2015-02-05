@@ -17,43 +17,6 @@ class AdminProjectController  extends  AdminController{
     def fileService
     def springSecurityService
 
-    def createProject() {
-        projectModel(new ProjectCommand(), null)
-    }
-
-    def saveProject(ProjectCommand command){
-        if (Project.findByHashtag(command.hashtag)){
-            command.errors.rejectValue("hashtag","notUnique")
-        }
-        if (command.hasErrors()){
-            render view:'/adminProject/createProject', model: projectModel(command, null)
-            return
-        }
-        Project project = new Project(command.properties)
-        project.region = command.region
-
-        if(command.photoId){
-            KuorumFile image = KuorumFile.get(new ObjectId(command.photoId))
-            project.image = image
-        }
-
-        if(command.urlYoutubeId){
-            KuorumFile urlYoutube = KuorumFile.get(new ObjectId(command.urlYoutubeId))
-            project.urlYoutube = urlYoutube
-        }
-
-        if(command.pdfFileId){
-            KuorumFile pdfFile = KuorumFile.get(new ObjectId(command.pdfFileId))
-            project.pdfFile = pdfFile
-        }
-
-        project = projectService.saveAndCreateNewProject(project)
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        fileService.deleteTemporalFiles(user)
-        flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
-        redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
-    }
-
     private def projectModel(ProjectCommand command, Project project){
         def model = [:]
         if (SpringSecurityUtils.ifAnyGranted('ROLE_POLITICIAN')){
@@ -63,6 +26,8 @@ class AdminProjectController  extends  AdminController{
                     regions:[user?.politicianOnRegion]
             ]
             command.region = model.regions[0]
+            command.owner = user
+            command.institution = user.institution
         }
         model << [project:project, command: command]
         model

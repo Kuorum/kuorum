@@ -1,8 +1,10 @@
 package kuorum.project
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
+import kuorum.KuorumFile
 import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.project.ProjectBasicStats
@@ -12,12 +14,15 @@ import kuorum.core.model.gamification.GamificationElement
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.solr.SolrProjectsGrouped
+import kuorum.files.FileService
 import kuorum.project.AcumulativeVotes
 import kuorum.project.Project
 import kuorum.project.ProjectVote
 import kuorum.post.Post
 import kuorum.users.KuorumUser
+import kuorum.web.commands.ProjectCommand
 import kuorum.web.constants.WebConstants
+import org.bson.types.ObjectId
 
 import javax.servlet.http.HttpServletResponse
 
@@ -30,6 +35,69 @@ class ProjectController {
     def springSecurityService
     def gamificationService
     def searchSolrService
+
+    FileService fileService
+
+    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
+    def create() {
+        projectModel(new ProjectCommand(), null)
+    }
+
+    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
+    def save(ProjectCommand command){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        projectService.assignUserRegionAndInstitutionToCommand(command, user)
+
+        if (Project.findByHashtag(command.hashtag)){
+            command.errors.rejectValue("hashtag","notUnique")
+        }
+        if (command.hasErrors() && !command.validate()){
+            render view:'/project/create', model: projectModel(command, null)
+            return
+        }
+        Project project = new Project(command.properties)
+        projectService.assignFilesToCommandAndProject(command, project)
+        project = projectService.saveAndCreateNewProject(project, false)
+        fileService.deleteTemporalFiles(user)
+        flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
+        redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
+    }
+
+    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
+    def publish(ProjectCommand command){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        projectService.assignUserRegionAndInstitutionToCommand(command, user)
+
+        if (Project.findByHashtag(command.hashtag)){
+            command.errors.rejectValue("hashtag","notUnique")
+        }
+        if (command.hasErrors() && !command.validate()){
+            render view:'/project/create', model: projectModel(command, null)
+            return
+        }
+        Project project = new Project(command.properties)
+        projectService.assignFilesToCommandAndProject(command, project)
+        project = projectService.saveAndCreateNewProject(project, true)
+        fileService.deleteTemporalFiles(user)
+        flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
+        redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
+    }
+
+    private def projectModel(ProjectCommand command, Project project){
+        def model = [:]
+        if (SpringSecurityUtils.ifAnyGranted('ROLE_POLITICIAN')){
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            model = [
+                    institutions:[user.institution],
+                    regions:[user?.politicianOnRegion]
+            ]
+            command.region = model.regions[0]
+//            command.owner = user
+//            command.institution = user.institution
+        }
+        model << [project:project, command: command]
+        model
+    }
 
     def index(){
         //TODO: Think pagination.This page is only for google and scrappers

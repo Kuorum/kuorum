@@ -22,7 +22,7 @@ class UrlMappings {
         name discoverRecentPosts:           "/descubre/publicaciones-recientes" (controller: "discover", action:"discoverRecentPosts")
         name discoverRecommendedPosts:      "/descubre/publicaciones-mas-impulsadas" (controller: "discover", action:"discoverRecommendedPosts")
 
-        name projectCreate:     "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"save"]}
+        name projectCreate:     "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"publish"]}
                                 "/leyes/nueva"(controller: "project"){action = [GET:"create", POST:"save"]}
         name projects:          "/proyectos/$institutionName?/$commission?" (controller: "project", action:"index")
                                 "/leyes/$institutionName?/$commission?" (controller: "project", action:"index")

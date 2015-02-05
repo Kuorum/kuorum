@@ -1,6 +1,8 @@
 package kuorum.project
 
 import grails.transaction.Transactional
+import kuorum.Institution
+import kuorum.KuorumFile
 import kuorum.Region
 import kuorum.RegionService
 import kuorum.ShortUrlService
@@ -16,6 +18,7 @@ import kuorum.solr.SearchSolrService
 import kuorum.users.GamificationService
 import kuorum.users.KuorumUser
 import kuorum.web.commands.ProjectCommand
+import org.bson.types.ObjectId
 
 @Transactional
 class ProjectService {
@@ -120,23 +123,26 @@ class ProjectService {
         userRegion.iso3166_2.startsWith(project.region.iso3166_2)
     }
 
-    Project saveProjectFromCommand(ProjectCommand projectCommand){
-
-    }
-
-    Project saveAndCreateNewProject(Project project){
+    Project saveAndCreateNewProject(Project project, Boolean published){
         project.shortUrl = shortUrlService.shortUrl(project)
-        project.published = Boolean.FALSE
-        if (!project.image){
-            throw new KuorumException("Se ha intentado crear una ley sin imagen","error.project.withOutImage")
+
+        if(project.image){
+            project.image.alt = project.hashtag
+            project.image.save()
+            fileService.convertTemporalToFinalFile(project.image)
         }
-        project.image.alt = project.hashtag
+
+        if(project.pdfFile){
+            fileService.convertTemporalToFinalFile(project.pdfFile)
+        }
+
         project.availableStats = project.availableStats?:false
-        project.image.save()
-        fileService.convertTemporalToFinalFile(project.image)
         calculateProjectRelevance(project)
         if (!project.save()){
            throw KuorumExceptionUtil.createExceptionFromValidatable(project, "Error salvando el proyecto")
+        }
+        if(published){
+            publish(project)
         }
         project
     }
@@ -172,8 +178,11 @@ class ProjectService {
     }
 
     Project publish(Project project){
-        Project.collection.update([_id:project.id], ['$set':[published:Boolean.TRUE, publishDate:new Date()]])
-        project.refresh()
+//        Project.collection.update([_id:project.id], ['$set':[published:Boolean.TRUE, publishDate:new Date()]])
+//        project.refresh()
+        project.published = true
+        project.publishDate = new Date()
+        project.save()
         indexSolrService.index(project)
         project
     }
@@ -239,6 +248,39 @@ class ProjectService {
         projectList.each{
             it.status = ProjectStatusType.CLOSE
             it.save()
+        }
+    }
+
+    /**
+     * Assign region, institution and owner to a ProjectCommand
+     * @param command The command to update
+     * @param user The user to assign with the information about region and institution
+     */
+    void assignUserRegionAndInstitutionToCommand(ProjectCommand command, KuorumUser user){
+        command.region = Region.get(user.politicianOnRegion.id)
+        command.institution = Institution.get(user.institution.id)
+        command.owner = user
+    }
+
+    /**
+     * Assign files (object KuorumFile) to a ProjectCommand and to a Project
+     * @param command The command to update
+     * @param project The project to update
+     */
+    void assignFilesToCommandAndProject(ProjectCommand command, Project project){
+        if(command.photoId){
+            KuorumFile image = KuorumFile.get(new ObjectId(command.photoId))
+            project.image = image
+        }
+
+        if(command.urlYoutubeId){
+            KuorumFile urlYoutube = KuorumFile.get(new ObjectId(command.urlYoutubeId))
+            project.urlYoutube = urlYoutube
+        }
+
+        if(command.pdfFileId){
+            KuorumFile pdfFile = KuorumFile.get(new ObjectId(command.pdfFileId))
+            project.pdfFile = pdfFile
         }
     }
 }

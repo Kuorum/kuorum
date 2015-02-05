@@ -1256,6 +1256,7 @@ select.form-control option {cursor: pointer;}
 .cancel {padding: 0; margin: 0 20px; color: #a8a8a8 !important; display: inline-block; font-size: 18px !important; font-size: 1.8rem !important;}
 .cancel:hover, .cancel:active, .cancel:focus {color: #a8a8a8;}
 .cancel a, .cancel a:hover, .cancel a:active, .cancel a:focus {color: #545454;}
+.cancel input {border: none;}
 
 .btn + .cancel {margin: 15px 20px 0 40px;}
 .form-group.image {position: relative;}

@@ -17,9 +17,7 @@ import kuorum.users.KuorumUser
 class ProjectCommand {
     String hashtag
     String shortName
-//    String realName
     String description
-//    String introduction
     Boolean availableStats
     List<CommissionType> commissions  = new ArrayList<CommissionType>()
     Region region
@@ -32,7 +30,6 @@ class ProjectCommand {
     String urlYoutubeId
     String pdfFileId
     KuorumUser owner
-//    PoliticalParty politicalParty
 
     static constraints = {
         importFrom Project
@@ -44,23 +41,5 @@ class ProjectCommand {
         shortName nullable:false, minSize: 1, maxSize: 124
         description nullable: false, minSize: 1, maxSize: 1024
 
-//        hashtag validator: {val, obj ->
-//            if (Project.findByHashtag(val)){
-//                return "notUnique"
-//            }
-//        }
-
-        //Validator is not imported
-//        region nullable:false
-//        institution nullable:false, validator: { val, obj ->
-//            if (obj.region && obj.region != val.region) {
-//                return ['notSameRegionAsInstitution']
-//            }
-//        }
-//        region  nullable:false, validator: { val, obj ->
-//            if (obj.institution && val != obj.institution.region) {
-//                return ['notSameRegionAsInstitution']
-//            }
-//        }
     }
 }
