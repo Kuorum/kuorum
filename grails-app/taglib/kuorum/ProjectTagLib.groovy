@@ -70,7 +70,7 @@ class ProjectTagLib {
         }
     }
 
-    def cssClassRegionType = {attrs, body ->
+    def showProjectRegionIcon={attrs ->
         Project project = attrs.project
         String cssClass= ""
         switch (project.region.regionType){
@@ -79,6 +79,10 @@ class ProjectTagLib {
             case RegionType.NATION:         cssClass = "icon2-estado"; break;
             case RegionType.SUPRANATIONAL:  cssClass = "icon2-europe"; break;
         }
-        out << cssClass
+        String regionTypeText = message(code:'kuorum.core.model.RegionType.'+project.region.regionType)
+        out << """
+                <span class="${cssClass} fa-lg" data-toggle="tooltip" data-placement="bottom" title="" rel="tooltip" data-original-title="${regionTypeText}"></span>
+                <span class="sr-only">${regionTypeText}</span>
+        """
     }
 }

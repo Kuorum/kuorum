@@ -21,10 +21,7 @@
     <div class="row options">
         <ul class="col-xs-12 col-sm-4 col-md-4 typeTime">
             <li>
-                <g:set var="icon" value="${projectUtil.cssClassRegionType(project: project)}"/>
-                <g:set var="regionTypeText" value="${message(code:'kuorum.core.model.RegionType.'+project.region.regionType)}"/>
-                <span class="${icon} fa-lg" data-toggle="tooltip" data-placement="bottom" title="" rel="tooltip" data-original-title="${regionTypeText}"></span>
-                <span class="sr-only">${regionTypeText}</span>
+                <projectUtil:showProjectRegionIcon project="${project}"/>
             </li>
             <li itemprop="datePublished">
                 <time>cerrado <span class="hidden-sm">hace 15 días</span></time>

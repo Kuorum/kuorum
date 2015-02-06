@@ -321,6 +321,7 @@ $(document).ready(function() {
 	// leer después
 	$('body').on('click', '.read-later a', function(e) {
         e.preventDefault();
+        e.stopPropagation();
         readLater($(this))
 
 	});

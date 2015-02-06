@@ -77,6 +77,15 @@ class KuorumUserTagLib {
         }
     }
 
+    def showDebateUsers={attrs->
+        Post post = attrs.post
+        Integer visibleUsers=Integer.parseInt(attrs.visibleUsers.toString())?:1
+        List<KuorumUser> debateUsers = post.debates.kuorumUser.unique().minus(post.owner)
+        if (debateUsers){
+            out << showListUsers(users:debateUsers, visibleUsers:visibleUsers, messagesPrefix: "cluck.debateUsers")
+        }
+    }
+
     def showListUsers={attrs->
         List<KuorumUser> users = attrs.users.unique()
         if (users){
