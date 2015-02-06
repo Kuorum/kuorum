@@ -2,7 +2,6 @@ package kuorum.users
 
 import grails.test.mixin.TestFor
 import kuorum.Region
-import kuorum.core.model.AvailableLanguage
 import kuorum.helper.Helper
 import spock.lang.Shared
 import spock.lang.Specification

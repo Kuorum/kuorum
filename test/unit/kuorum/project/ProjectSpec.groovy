@@ -7,6 +7,7 @@ import kuorum.Region
 import kuorum.core.FileGroup
 import kuorum.core.model.CommissionType
 import kuorum.core.model.RegionType
+import kuorum.core.model.project.ProjectUpdate
 import kuorum.helper.Helper
 import kuorum.users.KuorumUser
 import spock.lang.Shared
@@ -41,20 +42,54 @@ class ProjectSpec extends Specification {
                 url: "http://kuorum.org",
                 local: true,
                 storagePath: "/tmp",
-                fileName: "test.pdf"
+                fileName: "test.pdf",
+                originalName: 'test'
         )
         urlYoutube = new KuorumFile(
                 fileGroup: FileGroup.PROJECT_IMAGE,
                 temporal: true,
                 user: user,
                 url: "http://kuorum.org",
-                local: false
+                local: false,
+                originalName: 'test'
         )
 
     }
 
+    @Unroll
+    void "Add updates to a project"() {
+        when: "Create a project"
+        ProjectUpdate projectUpdate = new ProjectUpdate(description: description)
+        def params = [hashtag: '#nombre',
+                shortName: 'shortaname',
+                realName: "realname",
+                description: "desc",
+                region: europe,
+                institution: parliamentEurope,
+                commissions: [CommissionType.JUSTICE],
+                deadline: new Date() + 10,
+                introduction: 'introduction',
+                availableStats: true,
+                shortUrl: 'http://short.url',
+                pdfFile: pdfFile,
+                urlYoutube: urlYoutube,
+                owner: user,
+                updates: [projectUpdate]
+        ]
+        Project obj = new Project(params)
+
+        then:
+        projectUpdate.validate() == objValidate
+
+        where:
+        description | field     | error || objValidate
+        'a'         | 'updates' | 'OK'  || true
+        'a' * 501   | 'updates' | 'OK'  || false
+
+    }
+
     @Unroll("test PROJECT constraints: Checking #field = #value expected #error and validation #objValidate")
-    def "test PROJECT all constraints"() {
+    void "test PROJECT all constraints"() {
         when:
 
         def params = [hashtag: '#nombre',
@@ -73,7 +108,7 @@ class ProjectSpec extends Specification {
                 owner: user
         ]
         params[field] = value
-        def obj = new Project(params)
+        Project obj = new Project(params)
 
         then:
         //Object validation is added to check if all the fields validates, not only the field that is being checked
@@ -99,12 +134,12 @@ class ProjectSpec extends Specification {
         'imageOrUrlYoutubeRequired'  | 'urlYoutube'  | null                                    || false
         'deadlineLessThanToday'      | 'deadline'    | new Date() - 1                          || false
         'deadlineGreaterThan120Days' | 'deadline'    | new Date() + 121                        || false
-        'maxSize'                    | 'shortName'   | 'a' * 108                                | false
-        'maxSize'                    | 'description' | 'a' * 5001                               | false
+        'maxSize'                    | 'shortName'   | 'a' * 108                               || false
+        'maxSize'                    | 'description' | 'a' * 5001                              || false
     }
 
     @Unroll("test PROJECT constraints: Checking #field = #value expected #error and validation #objValidate")
-    def "test PROJECT all constraints without urlYoutube and image"() {
+    void "test PROJECT all constraints without urlYoutube and image"() {
         when:
 
         def params = [hashtag: '#nombre',
@@ -121,7 +156,7 @@ class ProjectSpec extends Specification {
                 pdfFile: pdfFile
         ]
         params[field] = value
-        def obj = new Project(params)
+        Project obj = new Project(params)
 
         then:
         //Object validation is added to check if all the fields validates, not only the field that is being checked
@@ -148,7 +183,7 @@ class ProjectSpec extends Specification {
         'imageOrUrlYoutubeRequired'  | 'urlYoutube'  | null                                    || false
         'deadlineLessThanToday'      | 'deadline'    | new Date() - 1                          || false
         'deadlineGreaterThan120Days' | 'deadline'    | new Date() + 121                        || false
-        'maxSize'                    | 'shortName'   | 'a' * 108                                | false
-        'maxSize'                    | 'description' | 'a' * 5001                               | false
+        'maxSize'                    | 'shortName'   | 'a' * 108                               || false
+        'maxSize'                    | 'description' | 'a' * 5001                              || false
     }
 }

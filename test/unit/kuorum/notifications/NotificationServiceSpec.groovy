@@ -227,7 +227,7 @@ class NotificationServiceSpec extends Specification {
         service.sendDebateNotification(post)
         then:
         activeAlertCreated
-        DebateAlertNotification.findAllByPostAndIsActive(post, false).size()>=1 //Debería ser solo 1, no se por que el test da 2 con el mismo ID.
+        DebateAlertNotification.findAllByPostAndIsActive(post, false).size()>=1 //Deberï¿½a ser solo 1, no se por que el test da 2 con el mismo ID.
         DebateAlertNotification.withNewSession {
             DebateAlertNotification.findAllByPostAndIsActive(post, false).size()>=1
 //            DebateAlertNotification.findAllByPostAndIsActive(post, false).isActive == false

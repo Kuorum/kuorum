@@ -185,7 +185,6 @@ class FormTagLib {
 
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
-            <label for="${id}" class="${labelCssClass}">${label}</label>
             <input name="videoPost" type="url" value="${value}" class="${cssClass}" id="${id}" placeholder="${placeHolder}">
         """
         if(error){

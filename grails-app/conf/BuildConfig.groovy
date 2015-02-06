@@ -97,15 +97,12 @@ grails.project.dependency.resolution = {
         test 'org.grails:grails-datastore-simple:3.1.0.RELEASE'
        // compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
 
-        //TEST
-        //test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
-
-        test "org.gebish:geb-spock:$gebVersion"
-        test("org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion")
-        test("org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion")
-        test("org.seleniumhq.selenium:selenium-support:$seleniumVersion") {
-            exclude "xml-apis"
-        }
+//        test "org.gebish:geb-spock:$gebVersion"
+//        test("org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion")
+//        test("org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion")
+//        test("org.seleniumhq.selenium:selenium-support:$seleniumVersion") {
+//            exclude "xml-apis"
+//        }
     }
 
     plugins {
@@ -152,11 +149,10 @@ grails.project.dependency.resolution = {
         //runtime ":cached-resources:1.1"
         //runtime ":yui-minify-resources:0.1.5"
 
-        //test ":spock:0.7"
         //test ':build-test-data:2.1.1'
         compile ':fixtures:1.2'
-        test ":geb:$gebVersion"
-        test ":code-coverage:1.2.7"
+//        test ":geb:$gebVersion"
+        compile ":code-coverage:1.2.7"
         compile ":codenarc:0.20"
 
         compile ":quartz:1.0.2"

@@ -13,7 +13,6 @@ import kuorum.users.KuorumUser
 import kuorum.users.PoliticianActivity
 import kuorum.users.RoleUser
 import spock.lang.Ignore
-import spock.lang.IgnoreRest
 import spock.lang.Specification
 import spock.lang.Unroll
 

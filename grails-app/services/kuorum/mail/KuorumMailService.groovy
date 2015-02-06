@@ -25,6 +25,14 @@ class KuorumMailService {
     IndexSolrService indexSolrService
     def grailsApplication
 
+
+    def sendSavedProjectToRelatedUsers(List <KuorumUser> listUsers, Project project){
+        MailUserData mailUserData
+        listUsers.each{
+            mailUserData = new MailUserData(user:it)
+        }
+    }
+
     def sendFeedbackMail(KuorumUser user, String feedback, boolean userDeleted = false){
         def bindings = [
                 feedbackUserLink:generateLink("userShow",user.encodeAsLinkProperties()),

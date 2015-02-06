@@ -3,11 +3,9 @@ package kuorum.files
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.KuorumFile
-import kuorum.Region
 import kuorum.core.FileGroup
 import kuorum.helper.Helper
 import kuorum.users.KuorumUser
-import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 

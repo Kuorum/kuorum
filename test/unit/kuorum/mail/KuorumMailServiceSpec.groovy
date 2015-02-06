@@ -1,6 +1,5 @@
 package kuorum.mail
 
-import com.ecwid.mailchimp.MailChimpClient
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import kuorum.helper.Helper
