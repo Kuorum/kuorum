@@ -165,6 +165,11 @@ class ProjectService {
         project
     }
 
+    Project addedNewPost(Project project, Post post){
+        Project.collection.update([_id:project.id],['$inc':['peopleVotes.numPosts':1]]);
+        project.refresh();
+    }
+
     private void calculateProjectRelevance(Project project){
         switch (project.status){
             case ProjectStatusType.OPEN:
