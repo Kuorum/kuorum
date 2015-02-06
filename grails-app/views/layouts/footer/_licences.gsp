@@ -1,15 +1,12 @@
-<ul class="licenses">
-    <li><span class="sr-only"><g:message code="layout.footer.licences"/> </span></li>
+<ul class="licenses clearfix">
+    <li><span class="sr-only"><g:message code="layout.footer.licences"/></span></li>
     <li>
-        <a href="https://github.com/Kuorum/kuorum" target="_blank">
+        <a href="#" hreflang="en" target="_blank">
             <span class="sr-only">Github</span>
             <span class="fa fa-github fa-3x"></span>
         </a>
     </li>
     <li>
-        <a href="https://www.gnu.org/copyleft/gpl.html" hreflang="en" target="_blank">
-            <span class="sr-only"><abbr lang="en" title="General Public License">GPLv3</abbr></span>
-            <span class="icon-gpl fa-3x"></span>
-        </a>
+        <a class="agpl" hreflang="en" href="#" target="_blank">AGPL (Affero General Public License)</a>
     </li>
 </ul>
