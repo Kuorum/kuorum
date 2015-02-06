@@ -126,8 +126,8 @@ class FacebookAuthService {
                     fileName:null,
                     url:"http://graph.facebook.com/${fbProfile.id}/picture?type=large",
                     fileGroup:FileGroup.USER_AVATAR,
-                    fileType: FileType.IMAGE
-                    //TODO: Añadir el atributo "originalName"
+                    fileType: FileType.IMAGE,
+                    originalName: fbProfile.id
             )
             if (kuorumFile.save()){
                 user.avatar = kuorumFile
