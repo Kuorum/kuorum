@@ -24,4 +24,5 @@
     </a>
 </div>
 <!-- COMIENZA LISTA DE KAKAREOS -->
+<g:set var="urlLoadMore" value="${g.createLink(mapping:'projectListClucks', params: project.encodeAsLinkProperties())}"/>
 <g:render template="/cluck/listClucks" model="[clucks:clucks, urlLoadMore:urlLoadMore, seeMore:seeMore]"/>

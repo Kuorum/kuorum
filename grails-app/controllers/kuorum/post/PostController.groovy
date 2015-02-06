@@ -284,7 +284,7 @@ class PostController {
             postService.favoriteAddPost(post,user)
             response.setHeader(WebConstants.AJAX_IS_FAVORITE, "true")
             response.setHeader(WebConstants.AJAX_NUM_LIST, "${user.favorites.size()}")
-            render template: "/modules/columnCPost/columnCPost", model: [post:post]
+            render template: "/cluck/cluck", model: [post:post]
         }
 
     }
