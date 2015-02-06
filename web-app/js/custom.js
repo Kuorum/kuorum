@@ -511,7 +511,7 @@ $(document).ready(function() {
 	});
 
 
-    $('body').on("click", ".voting li a", function(e) {
+    $('body').on("click", ".voting li a.ajaxVote", function(e) {
         e.preventDefault();
         var projectId = $(this).attr("data-projectId")
         var votingDiv = $(this).parents(".voting");
