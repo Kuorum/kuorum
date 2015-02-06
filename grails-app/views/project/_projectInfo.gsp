@@ -1,7 +1,8 @@
 <article class="kakareo post ley" role="article" itemtype="http://schema.org/Article">
-    <g:if test="${!hideCallMobileVoteButton}">
-        <div class="callMobile"><a href="#vote" class="smooth"><g:message code="project.vote.mobileButton"/> </a></div>
-    </g:if>
+    <g:render template="/project/projectOwnerMenu" model="[project:project]"/>
+    %{--<g:if test="${!hideCallMobileVoteButton}">--}%
+        %{--<div class="callMobile"><a href="#vote" class="smooth"><g:message code="project.vote.mobileButton"/> </a></div>--}%
+    %{--</g:if>--}%
     <h1>${project.shortName}</h1>
 
     <div class="row">
