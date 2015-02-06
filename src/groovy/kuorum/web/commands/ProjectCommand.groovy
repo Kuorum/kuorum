@@ -34,12 +34,8 @@ class ProjectCommand {
     static constraints = {
         importFrom Project
         commissions nullable: false, minSize: 1
-        photoId nullable: false
-        status nullable:false
+        photoId nullable: true
+        urlYoutubeId: nullable: true
         pdfFileId nullable: true
-        hashtag nullable: false, minSize: 1, maxSize: 7
-        shortName nullable:false, minSize: 1, maxSize: 124
-        description nullable: false, minSize: 1, maxSize: 1024
-
     }
 }

@@ -40,6 +40,11 @@ class UrlMappings {
                                 "/ajax/leyes/$institutionName/$commission/$hashtag/votar"(controller: "project", action:"voteProject")
         name projectListClucks: "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
                                 "/ajax/leyes/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
+        //TODO: Nuevas llamadas para el listado de proyectos, considerar si renombrarlas al alias "projects"
+        name projectList: "/proyectos"(controller: "project", action:"list")
+        name projectListOfUsers: "/ajax/proyectos"(controller: "project", action: "ajaxShowProjectListOfUsers")
+
+        name projectUpdate:  "/proyectos/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
         name postCreate:    "/proyectos/$institutionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
                             "/leyes/$institutionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}

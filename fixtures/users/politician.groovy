@@ -76,6 +76,6 @@ fixture {
         enabled = true
         lastUpdated = Date.parse("dd/MM/yyyy","01/11/2013")
         passwordExpired = false
-        politicianOnRegion = madridCA
+        politicianOnRegion = spain
     }
 }

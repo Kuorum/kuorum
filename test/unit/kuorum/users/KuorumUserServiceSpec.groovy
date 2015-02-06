@@ -6,7 +6,6 @@ import grails.test.mixin.TestFor
 import kuorum.core.exception.KuorumException
 import kuorum.helper.Helper
 import kuorum.notifications.NotificationService
-import kuorum.post.Post
 import spock.lang.Specification
 
 /**

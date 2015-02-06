@@ -20,6 +20,7 @@ fixture {
         url= "${grailsApplication.config.grails.serverURL}/static/images/img-post.jpg"
         fileGroup = FileGroup.PROJECT_IMAGE
         fileType = FileType.IMAGE
+        originalName = 'test'
 
     }
     //Creates the new objects related with project: urlYoutube and pdfFile
@@ -29,6 +30,7 @@ fixture {
         temporal = Boolean.FALSE
         url= "http://kuorum.org"
         fileGroup = FileGroup.PROJECT_IMAGE
+        originalName = 'test'
     }
 
     pdfFileTest(KuorumFile){
@@ -38,6 +40,7 @@ fixture {
         fileName = "test.pdf"
         url= "http://kuorum.org"
         fileGroup = FileGroup.PDF
+        originalName = 'test'
     }
 
     parquesNacionales(Project){

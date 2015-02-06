@@ -11,23 +11,23 @@ import kuorum.core.model.project.ProjectBasicStats
 import kuorum.core.model.project.ProjectRegionStats
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
+import kuorum.core.model.project.ProjectUpdate
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.solr.SolrProjectsGrouped
 import kuorum.files.FileService
-import kuorum.project.AcumulativeVotes
-import kuorum.project.Project
-import kuorum.project.ProjectVote
 import kuorum.post.Post
 import kuorum.users.KuorumUser
+import kuorum.util.Order
 import kuorum.web.commands.ProjectCommand
+import kuorum.web.commands.ProjectUpdateCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 
 import javax.servlet.http.HttpServletResponse
 
 class ProjectController {
-
+    def kuorumMailService
     def projectService
     def projectStatsService
     def postService
@@ -48,10 +48,15 @@ class ProjectController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         projectService.assignUserRegionAndInstitutionToCommand(command, user)
 
+        if(!command.validate()){
+            render view:'/project/create', model: projectModel(command, null)
+            return
+        }
+
         if (Project.findByHashtag(command.hashtag)){
             command.errors.rejectValue("hashtag","notUnique")
         }
-        if (command.hasErrors() && !command.validate()){
+        if (command.hasErrors()){
             render view:'/project/create', model: projectModel(command, null)
             return
         }
@@ -68,10 +73,15 @@ class ProjectController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         projectService.assignUserRegionAndInstitutionToCommand(command, user)
 
+        if(!command.validate()){
+            render view:'/project/create', model: projectModel(command, null)
+            return
+        }
+
         if (Project.findByHashtag(command.hashtag)){
             command.errors.rejectValue("hashtag","notUnique")
         }
-        if (command.hasErrors() && !command.validate()){
+        if (command.hasErrors()){
             render view:'/project/create', model: projectModel(command, null)
             return
         }
@@ -80,6 +90,9 @@ class ProjectController {
         project = projectService.saveAndCreateNewProject(project, true)
         fileService.deleteTemporalFiles(user)
         flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
+
+        List <KuorumUser> relatedUsers = projectService.searchRelatedUserToUserCommisions(project)
+        kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
         redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
     }
 
@@ -97,6 +110,50 @@ class ProjectController {
         }
         model << [project:project, command: command]
         model
+    }
+
+    def createProjectUpdate(String hashtag){
+        if(hashtag){
+            Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
+            if(project){
+                [projectUpdateCommand: new ProjectUpdateCommand(), project: project]
+            } else {
+                flash.message=message(code:'admin.createProjectUpdate.project.not.found', args: [hashtag])
+                redirect mapping:"home"
+            }
+        } else {
+            flash.message=message(code:'admin.createProjectUpdate.project.not.found', args: [hashtag])
+            redirect mapping:"home"
+        }
+    }
+
+    def addProjectUpdate(ProjectUpdateCommand projectUpdateCommand){
+        Project project = projectService.findProjectByHashtag(params.hashtag.encodeAsHashtag())
+        if (projectUpdateCommand.hasErrors()){
+            render view:'/project/createProjectUpdate', model: projectUpdateCommand
+            return
+        }
+
+        ProjectUpdate projectUpdate = new ProjectUpdate()
+        bindData(projectUpdate, projectUpdateCommand.properties)
+        if(projectUpdateCommand.photoId){
+            projectUpdate.image = KuorumFile.get(new ObjectId(projectUpdateCommand.photoId))
+
+        }
+
+        if(projectUpdateCommand.urlYoutubeId){
+            projectUpdate.urlYoutube = KuorumFile.get(new ObjectId(projectUpdateCommand.urlYoutubeId))
+        }
+
+        Map result = projectService.addProjectUpdate(projectUpdate, project)
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        fileService.deleteTemporalFiles(user)
+        if(result.message == 'OK'){
+            flash.message=message(code:'admin.createProjectUpdate.success', args: [project.hashtag])
+            redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
+        } else {
+            render view:'/project/createProjectUpdate', model: projectUpdate
+        }
     }
 
     def index(){
@@ -255,5 +312,23 @@ class ProjectController {
         }
         ProjectRegionStats stats = projectStatsService.calculateRegionStats(project, region)
         render stats as JSON
+    }
+
+    @Secured(['ROLE_POLITICIAN'])
+    def ajaxShowProjectListOfUsers(){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Map projectsOrderListOfUser = projectService.search(user, params.sort, Order.findByValue(params.order), params.published as Boolean, params.offset as Integer, params.max as Integer)
+        render template: "projects", model: [projects: projectsOrderListOfUser.projects, order: params.order, sort: params.sort, published: params.published, max: params.max, offset: params.offset]
+    }
+
+    @Secured(['ROLE_POLITICIAN'])
+    def list(){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        String sort = '', order = ''
+        Integer offset = 0
+        Integer max = 10
+        Map projectsOrderListOfUser = projectService.search(user, sort, Order.findByValue(order) , null, offset, max)
+
+        [projects: projectsOrderListOfUser.projects, order: order, sort: sort, published: '', max: max, offset: offset]
     }
 }

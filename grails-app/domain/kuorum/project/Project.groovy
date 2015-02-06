@@ -1,5 +1,6 @@
 package kuorum.project
 
+import groovy.time.TimeCategory
 import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.PoliticalParty
@@ -8,11 +9,15 @@ import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
+import kuorum.core.model.project.ProjectUpdate
+import kuorum.core.model.project.ProjectRegionStats
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
 @MongoUpdatable
 class Project {
+
+    def projectStatsService
 
     ObjectId id
     String hashtag
@@ -40,16 +45,17 @@ class Project {
     @Updatable KuorumFile urlYoutube
     @Updatable KuorumFile pdfFile
     KuorumUser owner
+    @Updatable List<ProjectUpdate> updates = []
 
 
     static embedded = ['region','peopleVotes','image' ]
 
     static constraints = {
-        hashtag matches: '#[a-zA-Z0-9]+', nullable: false, unique: true, maxSize: 17
-        shortName nullable: false, maxSize: 107
+        hashtag matches: '#[a-zA-Z0-9]+', nullable: false, unique: true, minSize: 1, maxSize: 17
+        shortName nullable: false, minSize: 1, maxSize: 107
         commissions nullable: false, minSize:1, maxSize: 4
         realName nullable:true
-        description nullable:false, maxSize: 5000
+        description nullable:false, minSize: 1, maxSize: 5000
         introduction nullable:true
         region  nullable:false
         institution nullable:false, validator: { val, obj ->
@@ -80,6 +86,7 @@ class Project {
         }
         pdfFile nullable: true
         owner nullable: false
+        updates nullable: true
     }
 
     static List<Project> findAllByPublishedAndRegion(Boolean published, Region region){
@@ -94,6 +101,21 @@ class Project {
         hashtag index:true, indexAttributes: [unique:true]
     }
 
+    static transients = ['votesInRegion','lastUpdate','timeToDeadline']
+
+    Long getVotesInRegion(){
+        ProjectRegionStats projectRegionStats = projectStatsService.calculateRegionStats(this)
+        projectRegionStats.totalVotes.total
+    }
+
+    String getLastUpdate(){
+        ProjectUpdate projectUpdate = this.updates.sort{it.dateCreated}.first()
+        TimeCategory.minus(new  Date(), projectUpdate.dateCreated.clearTime())
+    }
+
+    String getTimeToDeadline(){
+        TimeCategory.minus(this.deadline.clearTime(),this.dateCreated.clearTime())
+    }
 
     String toString(){
         "${hashtag} (${id})"
