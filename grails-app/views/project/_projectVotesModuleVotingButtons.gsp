@@ -40,10 +40,10 @@
 
                 <projectUtil:ifAllowedToUpdateProject project="${project}">
                     <li>
-                        <a role="button" href="#">
+                        <g:link mapping="projectUpdate" params="${project.encodeAsLinkProperties()}">
                             <span class="icon2-update fa-3x"></span>
                             <span class="${header?'sr-only':''}"><g:message code="project.vote.updateProject"/></span>
-                        </a>
+                        </g:link>
                     </li>
                 </projectUtil:ifAllowedToUpdateProject>
             </ul>
