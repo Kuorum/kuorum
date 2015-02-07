@@ -91,8 +91,8 @@ class ProjectController {
         fileService.deleteTemporalFiles(user)
         flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
 
-        List <KuorumUser> relatedUsers = projectService.searchRelatedUserToUserCommisions(project)
-        kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
+//        List <KuorumUser> relatedUsers = projectService.searchRelatedUserToUserCommisions(project)
+//        kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
         redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
     }
 
