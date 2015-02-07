@@ -7,12 +7,6 @@
 </head>
 
 <content tag="leftMenu">
-    <h1>
-        <g:message code="profile.emailNotifications.salutation"/>,
-        <br>
-        <span class="user-name">${user.name}</span>
-    </h1>
-    <p><g:message code="profile.emailNotifications.description"/></p>
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileEmailNotifications', menu:menu]"/>
 
 </content>

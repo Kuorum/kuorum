@@ -219,7 +219,7 @@ class PostController {
         }
         postService.deletePost(post, user)
         flash.message=message(code:'profile.profileMyPosts.post.success')
-        redirect( mapping:'profileMyPosts')
+        redirect( mapping:'toolsMyPosts')
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

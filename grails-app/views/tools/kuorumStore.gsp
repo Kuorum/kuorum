@@ -7,14 +7,7 @@
 </head>
 
 <content tag="leftMenu">
-    <h1>
-        <g:message code="profile.kuorumStore.salutation"/>,
-        <br>
-        <span class="user-name">${user.name}</span>
-    </h1>
-    <p><g:message code="profile.kuorumStore.description"/></p>
-    <g:render template="leftMenu" model="[user:user, activeMapping:'profileKuorumStore', menu:menu]"/>
-
+    <g:render template="leftMenu" model="[user:user, activeMapping:'toolsKuorumStore', menu:menu]"/>
 </content>
 <content tag="mainContent">
 

@@ -36,14 +36,14 @@ class GamificationTagLib {
         if (user.gamification.activeRole == role){
             return "<a href='#' class='roleButton btn btn-green active'>${message(code:'profile.kuorumStore.roleButton.active')}</a>"
         }else{
-            def link = createLink(mapping:"profileActivateAward",params:[award:role])
+            def link = createLink(mapping:"toolsActivateAward",params:[award:role])
             return "<a href='${link}' class='roleButton btn btn-green'>${message(code:'profile.kuorumStore.roleButton.activate')}</a>"
         }
     }
 
     private String roleButtonBuyRole(KuorumUser user, GamificationAward role){
         if (gamificationService.canBuyAward(user, role)){
-            def link = createLink(mapping:"profileBuyAward",params:[award:role])
+            def link = createLink(mapping:"toolsBuyAward",params:[award:role])
             return "<a href='${link}' class='roleButton btn'>${message(code:'profile.kuorumStore.roleButton.buy')}</a>"
         }else{
             return "<a href='#' class='roleButton btn disabled'>${message(code:'profile.kuorumStore.roleButton.buy')}</a>"
@@ -51,7 +51,7 @@ class GamificationTagLib {
     }
     private String skillButtonBuySkill(KuorumUser user, GamificationAward skill){
         if (gamificationService.canBuyAward(user, skill)){
-            def link = createLink(mapping:"profileBuyAward",params:[award:skill])
+            def link = createLink(mapping:"toolsBuyAward",params:[award:skill])
             return "<a href='${link}' class='skillButton btn'>${message(code:'profile.kuorumStore.skillButton.buy')}</a>"
         }else{
             return "<a href='#' class='skillButton btn disabled'>${message(code:'profile.kuorumStore.skillButton.buy')}</a>"

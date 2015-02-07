@@ -6,12 +6,6 @@
 </head>
 
 <content tag="leftMenu">
-    <h1>
-        <g:message code="profile.socialNetworks.salutation"/>,
-        <br>
-        <span class="user-name">${user.name}</span>
-    </h1>
-    <p><g:message code="profile.socialNetworks.description"/></p>
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileSocialNetworks', menu:menu]"/>
 
 </content>

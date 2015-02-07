@@ -20,7 +20,7 @@
         <li>
             <ul class="inline clearfix">
                 <li class="text-center">
-                    <g:link mapping="profileNotifications">
+                    <g:link mapping="toolsNotifications">
                         <g:message code="head.logged.notifications.showAll"/>
                     </g:link>
                 </li>

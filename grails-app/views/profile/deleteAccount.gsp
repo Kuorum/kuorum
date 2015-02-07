@@ -6,14 +6,7 @@
 </head>
 
 <content tag="leftMenu">
-    <h1>
-        <g:message code="profile.deleteAccount.salutation"/>,
-        <br>
-        <span class="user-name">${user.name}</span>
-    </h1>
-    <p><g:message code="profile.deleteAccount.description"/></p>
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileDeleteAccount', menu:menu]"/>
-
 </content>
 <content tag="mainContent">
     <h1><g:message code="profile.deleteAccount.title"/></h1>

@@ -6,14 +6,7 @@
 </head>
 
 <content tag="leftMenu">
-    <h1>
-        <g:message code="profile.menu.profileFavorites"/>,
-        <br>
-        <span class="user-name">${user.name}</span>
-    </h1>
-    <p><g:message code="profile.profileFavorites.description"/></p>
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileFavorites', menu:menu]"/>
-
 </content>
 
 <content tag="mainContent">

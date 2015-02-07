@@ -41,8 +41,8 @@ class UrlMappings {
         name projectListClucks: "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
                                 "/ajax/leyes/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
         //TODO: Nuevas llamadas para el listado de proyectos, considerar si renombrarlas al alias "projects"
-        name projectList: "/proyectos"(controller: "project", action:"list")
-        name projectListOfUsers: "/ajax/proyectos"(controller: "project", action: "ajaxShowProjectListOfUsers")
+        name projectList: "/configuracion-usuario/proyectos"(controller: "project", action:"list")
+        name projectListOfUsers: "/ajax/configuracion-usuario/proyectos"(controller: "project", action: "ajaxShowProjectListOfUsers")
 
         name projectUpdate:  "/proyectos/$institutionName/$commission/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
@@ -146,14 +146,15 @@ class UrlMappings {
         name profileChangeEmailConfirm: "/configuracion-usuario/cambiar-email/confirmar"    (controller: "profile", action: "changeEmailConfirm")
         name profileSocialNetworks:"/configuracion-usuario/redes-sociales"  (controller: "profile"){action=[GET:"socialNetworks",POST:"socialNetworksSave"]}
         name profileEmailNotifications:"/configuracion-usuario/notificaciones-por-email"(controller: "profile"){action=[GET:"configurationEmails",POST:"configurationEmailsSave"]}
-        name profileFavorites:    "/configuracion-usuario/pendientes-de-leer"(controller: "profile", action: "showFavoritesPosts")
-        name profileMyPosts:      "/configuracion-usuario/mis-posts"        (controller: "profile", action: "showUserPosts")
-        name profileKuorumStore:  "/configuracion-usuario/el-gallinero"     (controller: "profile", action: "kuorumStore")
-        name profileBuyAward:     "/ajax/configuracion-usuario/el-gallinero/comprar"     (controller: "profile", action: "kuorumStoreBuyAward")
-        name profileActivateAward:"/ajax/configuracion-usuario/el-gallinero/activar"     (controller: "profile", action: "kuorumStoreActivateAward")
-        name profileNotifications:"/configuracion-usuario/notificaciones"   (controller: "profile", action: "userNotifications")
         name profileMessages:     "/configuracion-usuario/mensajes"         (controller: "profile", action: "userMessages")
         name profileDeleteAccount:"/configuracion-usuario/eliminar-cuenta"  (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
+
+        name toolsNotifications:  "/configuracion-usuario/notificaciones"   (controller: "tools", action: "userNotifications")
+        name toolsFavorites:    "/configuracion-usuario/pendientes-de-leer"(controller: "tools", action: "showFavoritesPosts")
+        name toolsMyPosts:      "/configuracion-usuario/mis-posts"        (controller: "tools", action: "showUserPosts")
+        name toolsKuorumStore:  "/configuracion-usuario/el-gallinero"     (controller: "tools", action: "kuorumStore")
+        name toolsBuyAward:     "/ajax/configuracion-usuario/el-gallinero/comprar"     (controller: "tools", action: "kuorumStoreBuyAward")
+        name toolsActivateAward:"/ajax/configuracion-usuario/el-gallinero/activar"     (controller: "tools", action: "kuorumStoreActivateAward")
 
         name footerWhatIsKuorum:  "/kuorum"                     (controller:"footer", action: "whatIsKuorum" )
         name footerUsingMyVote:   "/kuorum/para-que-sirve-mi-voto"(controller:"footer", action: "usingMyVote" )

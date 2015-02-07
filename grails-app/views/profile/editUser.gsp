@@ -6,12 +6,6 @@
 </head>
 
 <content tag="leftMenu">
-    <h1>
-        <g:message code="profile.editUser.salutation"/>,
-        <br>
-        <span class="user-name">${user.name}</span>
-    </h1>
-    <p><g:message code="profile.editUser.description"/></p>
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileEditUser', menu:menu]"/>
 
 </content>

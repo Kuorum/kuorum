@@ -20,5 +20,5 @@
         <br>
         <span class="cl-ntral-xdark">¡Sigue así!</span>
     </p>
-    <g:link mapping="profileKuorumStore" class="pull-right">Ver tus recompensas</g:link>
+    <g:link mapping="toolsKuorumStore" class="pull-right">Ver tus recompensas</g:link>
 </aside><!-- /#karma -->

@@ -36,7 +36,7 @@
             </g:each>
             <li class="text-center">
                 <small>
-                    <g:link mapping="profileNotifications"><g:message code="notifications.showAll"/></g:link>
+                    <g:link mapping="toolsNotifications"><g:message code="notifications.showAll"/></g:link>
                 </small>
             </li>
         </ul>
