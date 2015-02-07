@@ -68,7 +68,6 @@ class ProjectSpec extends Specification {
                 institution: parliamentEurope,
                 commissions: [CommissionType.JUSTICE],
                 deadline: new Date() + 10,
-                introduction: 'introduction',
                 availableStats: true,
                 shortUrl: 'http://short.url',
                 pdfFile: pdfFile,
@@ -100,7 +99,6 @@ class ProjectSpec extends Specification {
                 institution: parliamentEurope,
                 commissions: [CommissionType.JUSTICE],
                 deadline: new Date() + 10,
-                introduction: 'introduction',
                 availableStats: true,
                 shortUrl: 'http://short.url',
                 pdfFile: pdfFile,
@@ -150,7 +148,6 @@ class ProjectSpec extends Specification {
                 institution: parliamentEurope,
                 commissions: [CommissionType.JUSTICE],
                 deadline: new Date() + 10,
-                introduction: 'introduction',
                 availableStats: true,
                 shortUrl: 'http://short.url',
                 pdfFile: pdfFile

@@ -186,8 +186,11 @@ class ProjectService {
     }
 
     Project publish(Project project){
-        Project.collection.update([_id:project.id], ['$set':[published:Boolean.TRUE, publishDate:new Date()]])
-        project.refresh()
+//        Project.collection.update([_id:project.id], ['$set':[published:Boolean.TRUE, publishDate:new Date()]])
+//        project.refresh()
+        project.published = Boolean.TRUE
+        project.publishDate = new Date();
+        project.save()
         indexSolrService.index(project)
         project
     }

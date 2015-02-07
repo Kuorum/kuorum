@@ -89,7 +89,6 @@ class Helper {
                 shortName: "shortName${hashtag}",
                 realName: "realName${hashtag}",
                 description: "description${hashtag}",
-                introduction: "introducction${hashtag}",
                 commissions: [CommissionType.OTHERS],
                 region: creteDefaultRegion(),
                 institution: creteDefaultInstitution(),

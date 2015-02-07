@@ -258,7 +258,7 @@ class IndexSolrService {
             name:project.shortName,
             type:SolrType.PROJECT,
             subType:SolrType.PROJECT.generateSubtype(project),
-            text:"${project.introduction} ${project.description}",
+            text:project.description,
             dateCreated:project.dateCreated,
             hashtag:project.hashtag,
             commissions:project.commissions,

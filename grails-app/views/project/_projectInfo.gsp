@@ -29,27 +29,8 @@
             </li>
         </ul>
         <g:render template="projectStats" model="[project:project, regionStats:regionStats]"/>
-        %{--<div class="col-xs-12 col-sm-6 col-md-6 editPost">--}%
-            %{--<!-- dejar la estructura aunque a veces esté vacío  -->--}%
-            %{--<projectUtil:ifProjectIsEditable project="${project}">--}%
-                %{--<div id="adminActions">--}%
-                    %{--<span class="text">--}%
-                        %{--<g:link mapping="adminEditProject" params="${project.encodeAsLinkProperties()}">--}%
-                            %{--<span class="fa fa-edit fa-lg"></span><g:message code="admin.menu.editProject.link"/></g:link>--}%
-                    %{--</span>--}%
-                %{--</div>--}%
-            %{--</projectUtil:ifProjectIsEditable>--}%
-        %{--</div>--}%
-        %{--<g:if test="${project.urlPdf}">--}%
-            %{--<div class="col-xs-12 col-sm-6 col-md-6 leerLey">--}%
-                %{--<a href="${project.urlPdf}" target="_blank">--}%
-                    %{--<g:message code="project.showCompleteProject"/>--}%
-                %{--</a>--}%
-            %{--</div>--}%
-        %{--</g:if>--}%
     </div>
-    %{--<p class="cl-ntral-dark">${project.realName}</p>--}%
     <p>
-        ${raw(project.introduction.replaceAll('\n','</p><p>'))}
+        ${raw(project.description.replaceAll('\n','</p><p>'))}
     </p>
 </article><!-- /article -->

@@ -12,6 +12,7 @@ import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.web.commands.ProjectCommand
 import org.codehaus.groovy.grails.commons.GrailsApplication
+import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -36,6 +37,7 @@ class AdminProjectControllerIntegrationSpec extends Specification{
         }
     }
 
+    @Ignore
     void "create new project" () {
         given: "A user"
         KuorumUser user = KuorumUser.findByEmail("politician@example.com")
@@ -53,6 +55,7 @@ class AdminProjectControllerIntegrationSpec extends Specification{
         response.command.region == user.politicianOnRegion
     }
 
+    @Ignore
     void "save a new project with a different region from the user" () {
         given: "A user"
         KuorumUser user = KuorumUser.findByEmail("politician@example.com")
@@ -71,6 +74,7 @@ class AdminProjectControllerIntegrationSpec extends Specification{
         }
     }
 
+    @Ignore
     void "save a new project" () {
         given: "A user"
         KuorumUser user = KuorumUser.findByEmail("politician@example.com")

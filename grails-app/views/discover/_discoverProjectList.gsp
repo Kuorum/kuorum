@@ -9,7 +9,7 @@
                 </div>
                 <div class="laley"><g:link mapping="projectShow" itemprop="keywords" params="${project.encodeAsLinkProperties()}">${project.hashtag}</g:link></div>
                 <h1>${project.shortName}</h1>
-                <g:set var="intro" value="${project.introduction.encodeAsRemovingHtmlTags()} ${project.description.encodeAsRemovingHtmlTags()}"/>
+                <g:set var="intro" value="${project.description.encodeAsRemovingHtmlTags()} ${project.description.encodeAsRemovingHtmlTags()}"/>
                 <p>${intro.substring(0,Math.min(300, intro.size()-1))}...</p>
             </div>
         </article>

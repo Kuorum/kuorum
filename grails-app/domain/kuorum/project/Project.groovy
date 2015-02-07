@@ -24,7 +24,6 @@ class Project {
     @Updatable String shortName
     @Updatable String realName
     @Updatable String description
-    @Updatable String introduction
     @Updatable List<CommissionType> commissions = []
     @Updatable Region region
     @Updatable Institution institution
@@ -56,7 +55,6 @@ class Project {
         commissions nullable: false, minSize:1, maxSize: 4
         realName nullable:true
         description nullable:false, minSize: 1, maxSize: 5000
-        introduction nullable:true
         region  nullable:false
         institution nullable:false, validator: { val, obj ->
             if (obj.region && obj.region != val.region) {

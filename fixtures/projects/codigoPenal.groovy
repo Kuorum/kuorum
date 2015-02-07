@@ -53,9 +53,6 @@ Condena de “prisión permanente revisable”: Este tipo de condena aplicaría 
 Medidas anticorrupción: Se revisan los tipos de prevaricación, malversación, cohecho o tráfico de influencias.
 Otras medidas: Incitar al desorden público con mensajes o consignas a través de cualquier medio será castigado con una pena de multa o prisión de tres meses a un año. La edad mínima de consentimiento sexual se eleva de los 13 a los 16 años. Se persigue robo digital de derechos de autor con fines lucrativos.
 """
-        introduction="""
-Modificación de la Ley Orgánica del Código Penal
-"""
         commissions = [CommissionType.JUSTICE]
         region = spain
         published = Boolean.TRUE

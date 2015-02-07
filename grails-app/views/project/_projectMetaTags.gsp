@@ -7,7 +7,7 @@
 
 <!-- Schema.org markup for Google+ -->
 <meta itemprop="name" content="${project.hashtag}">
-<meta itemprop="description" content="${project.introduction}">
+<meta itemprop="description" content="${project.description}">
 <meta itemprop="image" content="${project.image.url}">
 
 <!-- Twitter Card data -->
@@ -25,7 +25,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="${g.createLink(mapping:'projectShow', params:project.encodeAsLinkProperties())}" />
 <meta property="og:image" content="${project.image.url}" />
-<meta property="og:description" content="${project.introduction}" />
+<meta property="og:description" content="${project.description}" />
 <meta property="og:site_name" content="${message(code: 'kuorum.name')}" />
 <meta property="article:published_time" content="${formatDate(date:project.dateCreated, format:'yyyy-MM-dd')}" />
 <meta property="article:modified_time" content="${formatDate(date:project.dateCreated, format:'yyyy-MM-dd')}" />
