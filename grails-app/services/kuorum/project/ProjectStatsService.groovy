@@ -21,7 +21,7 @@ class ProjectStatsService {
 
         projectStats.numUsers = Post.collection.count([project:project.id,published:true])
         projectStats.nomVotesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
-        projectStats.numPublicPosts = Post.collection.count([project:project.id,published:true, numVotes:['$gt':projectStats.nomVotesToBePublic]])
+        projectStats.numPublicPosts = Post.collection.count([project:project.id,published:true])
         if (project.peopleVotes?.total >0){
             projectStats.percentagePositiveVotes = project.peopleVotes.yes / project.peopleVotes.total
             projectStats.percentageNegativeVotes = project.peopleVotes.no / project.peopleVotes.total
