@@ -40,14 +40,14 @@
     settings: {
       refreshMillis: 60000,
       allowPast: true,
-      allowFuture: false,
+      allowFuture: true,
       localeTitle: false,
       cutoff: 0,
       strings: {
         prefixAgo: "hace",
         prefixFromNow: null,
         suffixAgo: null,
-        suffixFromNow: null,
+        suffixFromNow: "restantes",
         inPast: null,
         seconds: "menos de 1 minuto",
         minute: "un minuto",
