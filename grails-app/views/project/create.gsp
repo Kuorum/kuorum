@@ -7,7 +7,7 @@
 
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="createProject"/>
-    <g:form method="POST" mapping="projectCreate" name="createProject" role="form">
+    <g:form method="POST" mapping="projectCreate" name="createProject" role="form" class="box-ppal">
         <h1><g:message code='admin.createProject.region.label'/><span> ${command.region}</span> <span class="hashtag pull-right">#</span></h1>
         <g:render template="/project/formProject" model="[command:command, regions:regions, institutions:institutions]"/>
         <fieldset class="btns text-right">
