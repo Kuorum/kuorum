@@ -12,9 +12,9 @@
 <content tag="mainContent">
     <h1><g:message code="profile.profileNotifications.title"/></h1>
     <ul class="noti-filters">
-        <li class="${searchNotificationsCommand.alerts==null?'active':''}"><g:link mapping="profileNotifications">Todas</g:link></li>
-        <li class="${searchNotificationsCommand.alerts==true?'active':''}"><g:link mapping="profileNotifications" params="[alerts:true]"> Alertas</g:link></li>
-        <li class="${searchNotificationsCommand.alerts==false?'active':''}"><g:link mapping="profileNotifications" params="[alerts:false]">Notificaciones</g:link></li>
+        <li class="${searchNotificationsCommand.alerts==null?'active':''}"><g:link mapping="toolsNotifications">Todas</g:link></li>
+        <li class="${searchNotificationsCommand.alerts==true?'active':''}"><g:link mapping="toolsNotifications" params="[alerts:true]"> Alertas</g:link></li>
+        <li class="${searchNotificationsCommand.alerts==false?'active':''}"><g:link mapping="toolsNotifications" params="[alerts:false]">Notificaciones</g:link></li>
         <li class="dropdown pull-right">
             %{--<a data-target="#" href="" class="dropdown-toggle text-center" id="open-order" data-toggle="dropdown" role="button">Ordenar <span class="fa fa-caret-down fa-lg"></span></a>--}%
             %{--<ul id="ordenar" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-order" role="menu">--}%
