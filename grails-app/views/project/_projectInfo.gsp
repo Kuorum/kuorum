@@ -28,7 +28,7 @@
                 <time>cerrado <span class="hidden-sm">hace 15 días</span></time>
             </li>
         </ul>
-        <g:render template="projectStats" model="[project:project, regionStats:regionStats]"/>
+        <g:render template="projectStats" model="[project:project, regionStats:regionStats, projectStats:projectStats]"/>
     </div>
     <p>
         ${raw(project.description.replaceAll('\n','</p><p>'))}

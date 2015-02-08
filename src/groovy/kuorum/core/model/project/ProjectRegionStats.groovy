@@ -11,4 +11,5 @@ class ProjectRegionStats {
     Region region
     AcumulativeVotes totalVotes
     HashMap<Gender, AcumulativeVotes> genderVotes
+    AcumulativeVotes noRegionVotes
 }

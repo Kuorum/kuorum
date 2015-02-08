@@ -51,6 +51,12 @@ class ProjectStatsService {
             total.abs += values.value.abs
             total
         }
+        AcumulativeVotes noRegionVotes = new AcumulativeVotes()
+        noRegionVotes.yes = project.peopleVotes.yes - stats.totalVotes.yes
+        noRegionVotes.no = project.peopleVotes.no - stats.totalVotes.no
+        noRegionVotes.abs = project.peopleVotes.abs - stats.totalVotes.abs
+        noRegionVotes.numPosts = project.peopleVotes.numPosts - stats.totalVotes.numPosts
+        stats.noRegionVotes = noRegionVotes
         stats
     }
 

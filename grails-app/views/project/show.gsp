@@ -13,7 +13,7 @@
 
 
 <content tag="mainContent">
-    <g:render template="/project/projectInfo" model="[project:project, victories: victories, readMore:true,regionStats:regionStats]"/>
+    <g:render template="/project/projectInfo" model="[project:project, victories: victories, readMore:true,projectStats:projectStats,regionStats:regionStats]"/>
     <g:render template="/project/projectUpdates" model="[project:project]"/>
 
     %{--<g:if test="${victories}">--}%
