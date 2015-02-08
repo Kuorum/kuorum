@@ -25,7 +25,12 @@
                 <projectUtil:showProjectRegionIcon project="${project}"/>
             </li>
             <li itemprop="datePublished">
-                <time>cerrado <span class="hidden-sm">hace 15 días</span></time>
+                %{--<time>cerrado <span class="hidden-sm">hace 15 días</span></time>--}%
+                <g:set var="statusText" value="${g.message(code:'kuorum.core.model.ProjectStatusType.OPEN')}"/>
+                <g:if test="${project.deadline < new Date()}">
+                    <g:set var="statusText" value="${g.message(code:'kuorum.core.model.ProjectStatusType.CLOSE')}"/>
+                </g:if>
+                <time>${statusText} <kuorumDate:humanDate date="${project.deadline}" cssClass="hidden-sm"/> </time>
             </li>
         </ul>
         <g:render template="projectStats" model="[project:project, regionStats:regionStats, projectStats:projectStats]"/>
