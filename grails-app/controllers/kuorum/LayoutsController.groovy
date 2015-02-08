@@ -23,8 +23,7 @@ class LayoutsController {
                 list: listNotifications,
                 numNews: numNewNotifications
         ]
-        Integer numUserPosts = postService.numUnpublishedUserPosts(user)
-        render template:'/layouts/userHead', model:[user:user, notifications:notifications,numUserPosts:numUserPosts]
+        render template:'/layouts/userHead', model:[user:user, notifications:notifications]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -35,7 +34,6 @@ class LayoutsController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userHeadNoLinks(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-//        Integer numUserPosts = postService.numUserPosts(user)
         [user:user]
     }
 }

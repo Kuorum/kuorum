@@ -16,7 +16,7 @@
             <span class="fa fa-gear fa-lg"></span>
             <span class="visible-xs"><g:message code="head.logged.option"/></span>
         </a>
-        <g:render template="/layouts/headUserMenuDropDown" model="[numFavorites:user.favorites.size(), numUserPosts:numUserPosts, numMessages:7]"/>
+        <g:render template="/layouts/headUserMenuDropDown" model="[user:user, numFavorites:user.favorites.size(), numMessages:7]"/>
     </li>
 
     <g:if test="${kuorum.core.model.UserType.POLITICIAN.equals(user.userType)}">
