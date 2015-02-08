@@ -356,6 +356,7 @@ class ProjectController {
 
     @Secured(['ROLE_POLITICIAN'])
     def ajaxShowProjectListOfUsers(){
+        //TODO: Pasar esta funcionalidad a ToolsController
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Map projectsOrderListOfUser = projectService.search(user, params.sort, Order.findByValue(params.order), params.published as Boolean, params.offset as Integer, params.max as Integer)
         render template: "projects", model: [projects: projectsOrderListOfUser.projects, order: params.order, sort: params.sort, published: params.published, max: params.max, offset: params.offset]
@@ -363,6 +364,7 @@ class ProjectController {
 
     @Secured(['ROLE_POLITICIAN'])
     def list(){
+        //TODO: Pasar esta funcionalidad a ToolsController
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         String sort = '', order = ''
         Integer offset = 0
