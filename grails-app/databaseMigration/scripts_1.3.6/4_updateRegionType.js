@@ -20,3 +20,11 @@ dbDest.project.find().forEach(function(project){
     project.region = region;
     dbDest.project.save(project);
 })
+
+
+dbDest.kuorumUser.find({'politicianOnRegion':{$exists:1}}).forEach(function(politician){
+    var region = dbDest.region.find({_id:politician.politicianOnRegion._id}).next()
+    politician.politicianOnRegion = region;
+    print(politician.name +"=> "+region.name + "("+region.regionType+")")
+    dbDest.kuorumUser.save(politician);
+})
