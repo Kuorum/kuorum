@@ -40,6 +40,8 @@ class UrlMappings {
                                 "/ajax/leyes/$institutionName/$commission/$hashtag/votar"(controller: "project", action:"voteProject")
         name projectListClucks: "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
                                 "/ajax/leyes/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
+        name projectListPostDefends:   "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
+        name projectListPostVictories: "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
         //TODO: Nuevas llamadas para el listado de proyectos, considerar si renombrarlas al alias "projects"
         name projectList: "/configuracion-usuario/proyectos"(controller: "project", action:"list")
         name projectListOfUsers: "/ajax/configuracion-usuario/proyectos"(controller: "project", action: "ajaxShowProjectListOfUsers")

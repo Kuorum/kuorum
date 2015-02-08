@@ -1167,6 +1167,16 @@ $(document).ready(function() {
         }
     });
 
+    $("#projectChangePostTypeButtonDiv a").click(function(e){
+        e.preventDefault()
+        e.stopPropagation()
+        $("#projectChangePostTypeButtonDiv a").removeClass("active")
+        $(this).addClass("active")
+        var showDivId = $(this).attr("data-showDivId")
+        $("div[data-name=listClucks]").addClass("hidden")
+        $("#"+showDivId).removeClass("hidden")
+    });
+
     cookiesHelper.displayCookiesPolitics();
 
     $(".dynamicList").dynamiclist();

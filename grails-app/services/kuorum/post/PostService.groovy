@@ -463,6 +463,18 @@ class PostService {
         Post.findAllByProjectAndVictory(project,Boolean.TRUE,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
     }
 
+    Long countProjectVictories(Project project){
+        Post.countByProjectAndVictory(project,Boolean.TRUE)
+    }
+
+    List<Post> projectDefends(Project project, Pagination pagination = new Pagination()){
+        Post.findAllByProjectAndDefenderIsNotNull(project,[max: pagination.max, sort: "defenderDate", order: "desc", offset: pagination.offset])
+    }
+
+    Long countProjectDefends(Project project){
+        Post.countByProjectAndDefenderIsNotNull(project)
+    }
+
     Post defendPost(Post post, CommitmentType commitmentType, KuorumUser politician){
         if (politician.userType != UserType.POLITICIAN){
             throw new KuorumException("El usuario ${politician.name} (${politician.id}) no es un político para defender la publicacion ${post.id}", "error.security.post.defend.isNotPolitician")

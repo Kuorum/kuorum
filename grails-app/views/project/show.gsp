@@ -16,11 +16,23 @@
     <g:render template="/project/projectInfo" model="[project:project, victories: victories, readMore:true,regionStats:regionStats]"/>
     <g:render template="/project/projectUpdates" model="[project:project]"/>
 
-    <g:if test="${victories}">
-        <g:render template="projectVictories" model="[project:project, victories:victories]"/>
-    </g:if>
+    %{--<g:if test="${victories}">--}%
+        %{--<g:render template="projectVictories" model="[project:project, victories:victories]"/>--}%
+    %{--</g:if>--}%
     <g:if test="${clucks}">
-        <g:render template="projectClucks" model="[project:project, clucks:clucks, seeMore:seeMore]"/>
+        <g:render
+                template="projectClucks"
+                model="[
+                        project:project,
+                        clucks:clucks,
+                        seeMoreClucks:seeMoreClucks,
+                        numClucks:numClucks,
+                        victories:victories,
+                        seeMoreVictories:seeMoreVictories,
+                        numVictories:numVictories,
+                        defends:defends,
+                        numDefends:numDefends,
+                        seeMoreDefends:seeMoreDefends]"/>
     </g:if>
 </content>
 

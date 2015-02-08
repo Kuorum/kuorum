@@ -204,7 +204,11 @@ class ProjectController {
         }
         Pagination pagination = new Pagination()
         def clucks = cluckService.projectClucks(project,pagination)
+        Long numClucks = cluckService.countProjectClucks(project)
         List<Post> victories = postService.projectVictories(project)
+        Long numVictories = postService.countProjectVictories(project)
+        List<Post> defends = postService.projectDefends(project)
+        Long numDefends = postService.countProjectDefends(project)
         ProjectVote userVote = null;
         if (springSecurityService.isLoggedIn()){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
@@ -212,7 +216,21 @@ class ProjectController {
         }
         ProjectBasicStats projectStats = projectStatsService.calculateProjectStats(project)
         ProjectRegionStats regionStats = projectStatsService.calculateRegionStats(project)
-        [project:project, clucks: clucks,victories:victories, seeMore:clucks.size() == pagination.max, projectStats:projectStats, regionStats:regionStats, userVote:userVote]
+        [
+                project:project,
+                projectStats:projectStats,
+                regionStats:regionStats,
+                clucks: clucks,
+                numClucks:numClucks,
+                seeMoreClucks:clucks.size() < numClucks,
+                victories:victories,
+                numVictories:numVictories,
+                seeMoreVictories:victories.size() < numVictories,
+                defends:defends,
+                numDefends:numDefends,
+                seeMoreDefends:defends.size() < numDefends,
+                userVote:userVote
+        ]
 
     }
 
@@ -226,6 +244,28 @@ class ProjectController {
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${clucks.size()<pagination.max}")
         render template: "/cluck/liClucks", model:[clucks:clucks]
 
+    }
+
+    def listClucksProjectDefends(Pagination pagination){
+        Project project = projectService.findProjectByHashtag(params.hashtag.encodeAsHashtag())
+        if (!project){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        def posts = postService.projectDefends(project,pagination)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${posts.size()<pagination.max}")
+        render template: "/cluck/liPosts", model:[posts:posts]
+    }
+
+    def listClucksProjectVictories(Pagination pagination){
+        Project project = projectService.findProjectByHashtag(params.hashtag.encodeAsHashtag())
+        if (!project){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        def posts = postService.projectVictories(project,pagination)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${posts.size()<pagination.max}")
+        render template: "/cluck/liPosts", model:[posts:posts]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

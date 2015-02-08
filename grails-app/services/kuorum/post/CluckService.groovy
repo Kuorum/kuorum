@@ -19,6 +19,10 @@ class CluckService {
         Cluck.findAllByProjectAndIsFirstCluck(project, Boolean.TRUE,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
     }
 
+    Long countProjectClucks(Project project) {
+        Cluck.countByProjectAndIsFirstCluck(project, Boolean.TRUE)
+    }
+
     private static String TEMPORAL_DB = "temporalDB"
     private static Integer POOL_COLLECTIONS_MAX=100;
     private static Integer ELEMENTS_FOR_PROCESS_IN_MAPREDUCE=10000;
