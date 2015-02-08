@@ -11,8 +11,8 @@
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="profile.socialNetworks.title"/></h1>
-    <g:form mapping="profileSocialNetworks" role="form">
+    <g:form mapping="profileSocialNetworks" role="form" class="box-ppal">
+        <h1><g:message code="profile.socialNetworks.title"/></h1>
         <div class="form-group">
             <formUtil:socialInput command="${command}" field="facebook" cssIcon="fa-facebook"/>
         </div>

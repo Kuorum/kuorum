@@ -12,8 +12,8 @@
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="profile.emailNotifications.title"/></h1>
-    <g:form method="POST" mapping="profileEmailNotifications" name="config9" role="form">
+    <g:form method="POST" mapping="profileEmailNotifications" name="config9" role="form" class="box-ppal">
+        <h1><g:message code="profile.emailNotifications.title"/></h1>
         <g:each in="${kuorum.mail.MailGroupType.values().findAll{it.editable}}" var="mailGroup">
             <div class="form-group activityMe">
                 <span class="span-label"><g:message code="profile.emailNotifications.${mailGroup}.label"/></span>

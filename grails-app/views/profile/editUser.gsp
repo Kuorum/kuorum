@@ -10,9 +10,9 @@
 
 </content>
 <content tag="mainContent">
-    <h1><g:message code="profile.editUser.title"/></h1>
-    <formUtil:validateForm bean="${command}" form="config1"/>
-    <g:form method="POST" mapping="profileEditUser" name="config1" role="form">
+    <formUtil:validateForm bean="${command}" form="config1" />
+    <g:form method="POST" mapping="profileEditUser" name="config1" role="form" class="box-ppal">
+        <h1><g:message code="profile.editUser.title"/></h1>
         <div class="form-group">
             <formUtil:input command="${command}" field="name" required="true"/>
         </div>

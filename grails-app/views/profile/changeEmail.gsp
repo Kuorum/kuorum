@@ -11,9 +11,9 @@
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="profile.changeEmail.title"/></h1>
     <formUtil:validateForm form="config2" bean="${command}"/>
-    <g:form method="POST" mapping="profileChangeEmail" name="config2" role="form">
+    <g:form method="POST" mapping="profileChangeEmail" name="config2" role="form" class="box-ppal">
+        <h1><g:message code="profile.changeEmail.title"/></h1>
         <div class="form-group">
             <formUtil:input type="email" command="${command}" field="email"/>
         </div>
