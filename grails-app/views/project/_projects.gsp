@@ -72,7 +72,7 @@
                             <g:else>
                                 <g:message code="project.list.project.no.updates" /> <br/>
                             </g:else>
-                            <span>${project.timeToDeadline} <g:message code="project.list.project.deadline" /></span>
+                            <kuorumDate:humanDate date="${project.deadline}"/>
                         </time>
                     </div>
                     <div class="col-xs-12 col-sm-7">
