@@ -13,9 +13,7 @@
             <div itemprop="keywords" class="laley">${project.hashtag}</div>
         </div>
     </div>
-    <div class="photo">
-        <img itemprop="image" alt="${project.hashtag}" src="${project.image.url}">
-    </div>
+    <g:render template="/project/projectMultimedia" model="[project:project]"/>
     %{--<g:if test="${project.image}">--}%
     %{--<g:render template="/project/projectPhoto" model="[project:project, victory:victories]"/>--}%
     %{--</g:if>--}%
