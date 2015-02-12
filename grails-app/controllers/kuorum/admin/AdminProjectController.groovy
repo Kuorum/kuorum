@@ -74,6 +74,7 @@ class AdminProjectController  extends  AdminController{
         }
     }
 
+    //TODO: Movido a ProjectController
     def publishProject(String hashtag){
         Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
         projectService.publish(project)

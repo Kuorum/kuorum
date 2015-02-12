@@ -5,8 +5,8 @@
     <parameter name="extraCssContainer" value="config" />
 </head>
 <content tag="mainContent">
-    <formUtil:validateForm bean="${projectUpdateCommand}" form="updateProject"/>
-    <g:form method="POST" mapping="projectUpdate" params="${project.encodeAsLinkProperties()}" role="form" name="updateProject" id="updateProject" class="box-ppal" >
+    <formUtil:validateForm bean="${projectUpdateCommand}" form="update-project"/>
+    <g:form method="POST" mapping="projectUpdate" params="${project.encodeAsLinkProperties()}" role="form" name="update-project" id="updateProject" class="box-ppal" >
         <h1><g:message code="projectUpdate.form.label" args="[project.hashtag, project.region]"/>  <span class="icon2-update pull-right"></span></h1>
         <fieldset class="title">
             <div class="form-group">
@@ -19,29 +19,29 @@
             <span class="span-label sr-only"><g:message code="projectUpdate.form.upload.imageOrVideoOrNothing" /></span>
             <input type="hidden" name="fileType" value="" id="fileType">
             <ul class="nav nav-pills nav-justified">
-                <li class="active">
+                <li class="${!projectUpdateCommand.photoId && !projectUpdateCommand.videoPost?'active':''}">
                     <a href="#projectMultimediaNone" data-toggle="tab" data-filetype=""><g:message code="projectUpdate.form.upload.nothing" /></a>
                 </li>
-                <li>
+                <li class="${projectUpdateCommand.photoId?'active':''}">
                     <a href="#projectUploadImage" data-toggle="tab" data-filetype="IMAGE"><g:message code="projectUpdate.form.upload.image" /></a>
                 </li>
-                <li>
+                <li class="${projectUpdateCommand.videoPost?'active':''}">
                     <a href="#projectUploadYoutube" data-toggle="tab" data-filetype="YOUTUBE"><g:message code="projectUpdate.form.upload.video" /></a>
                 </li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane in active" id="projectMultimediaNone">
+                <div class="tab-pane fade ${!projectUpdateCommand.photoId && !projectUpdateCommand.videoPost?'in active':''}" id="projectMultimediaNone">
                 </div>
 
-                <div class="tab-pane fade" id="projectUploadImage">
+                <div class="tab-pane fade ${projectUpdateCommand.photoId?'in active':''}" id="projectUploadImage">
                     <div class="form-group image" data-multimedia-switch="on" data-multimedia-type="IMAGE">
                         <formUtil:editImage command="${projectUpdateCommand}" field="photoId" fileGroup="${kuorum.core.FileGroup.PROJECT_IMAGE}"/>
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="projectUploadYoutube">
+                <div class="tab-pane fade ${projectUpdateCommand.videoPost?'in active':''}" id="projectUploadYoutube">
                     <div class="form-group video" data-multimedia-switch="on" data-multimedia-type="YOUTUBE">
-                        <formUtil:url command="${projectUpdateCommand}" field="urlYoutubeId" required="true"/>
+                        <formUtil:url command="${projectUpdateCommand}" field="videoPost" required="true"/>
                     </div>
                 </div>
 
@@ -49,8 +49,7 @@
         </fieldset>
         <fieldset class="btns text-right">
             <div class="form-group">
-                <a href="#" class="cancel" tabindex="24"><g:message code="projectUpdate.form.saveDraft" /></a>
-                <input type="submit" class="btn btn-lg" value="${message(code:'projectUpdate.form.publish')}">
+                <input type="submit" class="btn btn-lg" value="${message(code:'projectUpdate.form.save')}">
             </div>
         </fieldset>
     </g:form>

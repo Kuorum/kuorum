@@ -7,7 +7,6 @@ import kuorum.Region
 import kuorum.core.FileGroup
 import kuorum.core.model.CommissionType
 import kuorum.core.model.RegionType
-import kuorum.core.model.project.ProjectUpdate
 import kuorum.helper.Helper
 import kuorum.users.KuorumUser
 import spock.lang.Shared
@@ -57,25 +56,10 @@ class ProjectSpec extends Specification {
     }
 
     @Unroll
-    void "Add updates to a project"() {
+    void "Validate a project update. Check constraints: Checking desciption: #description, #field expected #error and validation #objValidate"() {
         when: "Create a project"
         ProjectUpdate projectUpdate = new ProjectUpdate(description: description)
-        def params = [hashtag: '#nombre',
-                shortName: 'shortaname',
-                realName: "realname",
-                description: "desc",
-                region: europe,
-                institution: parliamentEurope,
-                commissions: [CommissionType.JUSTICE],
-                deadline: new Date() + 10,
-                availableStats: true,
-                shortUrl: 'http://short.url',
-                pdfFile: pdfFile,
-                urlYoutube: urlYoutube,
-                owner: user,
-                updates: [projectUpdate]
-        ]
-        Project obj = new Project(params)
+        projectUpdate.dateCreated = new Date()
 
         then:
         projectUpdate.validate() == objValidate

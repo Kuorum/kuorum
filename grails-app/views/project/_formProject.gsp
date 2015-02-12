@@ -25,23 +25,23 @@
     <span class="span-label sr-only"><g:message code="admin.createProject.upload.imageOrVideo" /></span>
     <input type="hidden" name="fileType" value="" id="fileType">
     <ul class="nav nav-pills nav-justified">
-        <li class="">
+        <li class="${command.photoId?'active':''}">
             <a href="#projectUploadImage" data-toggle="tab" data-filetype="IMAGE"><g:message code="admin.createProject.upload.image" /></a>
         </li>
-        <li class="">
+        <li class="${command.videoPost?'active':''}">
             <a href="#projectUploadYoutube" data-toggle="tab" data-filetype="YOUTUBE"><g:message code="admin.createProject.upload.video" /></a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane fade" id="projectUploadImage">
+        <div class="tab-pane fade ${command.photoId?'in active':''}" id="projectUploadImage">
             <div class="form-group image" data-multimedia-switch="on" data-multimedia-type="IMAGE">
                 <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.PROJECT_IMAGE}"/>
             </div>
         </div>
 
-        <div class="tab-pane fade" id="projectUploadYoutube">
+        <div class="tab-pane fade ${command.videoPost?'in active':''}" id="projectUploadYoutube">
             <div class="form-group video" data-multimedia-switch="on" data-multimedia-type="YOUTUBE">
-                <formUtil:url command="${command}" field="urlYoutubeId" required="true"/>
+                <formUtil:url command="${command}" field="videoPost" required="true"/>
             </div>
         </div>
     </div>

@@ -6,12 +6,13 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.Region
+import kuorum.core.FileGroup
+import kuorum.core.FileType
 import kuorum.core.model.CommissionType
 import kuorum.core.model.project.ProjectBasicStats
 import kuorum.core.model.project.ProjectRegionStats
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
-import kuorum.core.model.project.ProjectUpdate
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.solr.SolrProjectsGrouped
@@ -61,7 +62,7 @@ class ProjectController {
             return
         }
         Project project = new Project(command.properties)
-        projectService.assignFilesToCommandAndProject(command, project)
+        projectService.assignFilesToCommandAndProject(command, project, user)
         project = projectService.saveAndCreateNewProject(project, false)
         fileService.deleteTemporalFiles(user)
         flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
@@ -86,13 +87,11 @@ class ProjectController {
             return
         }
         Project project = new Project(command.properties)
-        projectService.assignFilesToCommandAndProject(command, project)
+        projectService.assignFilesToCommandAndProject(command, project, user)
         project = projectService.saveAndCreateNewProject(project, true)
         fileService.deleteTemporalFiles(user)
         flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
 
-//        List <KuorumUser> relatedUsers = projectService.searchRelatedUserToUserCommisions(project)
-//        kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
         redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
     }
 
@@ -105,8 +104,6 @@ class ProjectController {
                     regions:[user?.politicianOnRegion]
             ]
             command.region = model.regions[0]
-//            command.owner = user
-//            command.institution = user.institution
         }
         model << [project:project, command: command]
         model
@@ -128,31 +125,40 @@ class ProjectController {
     }
 
     def addProjectUpdate(ProjectUpdateCommand projectUpdateCommand){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Project project = projectService.findProjectByHashtag(params.hashtag.encodeAsHashtag())
         if (projectUpdateCommand.hasErrors()){
-            render view:'/project/createProjectUpdate', model: projectUpdateCommand
+            render view:'/project/createProjectUpdate', model: [projectUpdateCommand: projectUpdateCommand, project: project]
             return
         }
 
         ProjectUpdate projectUpdate = new ProjectUpdate()
+        projectUpdate.dateCreated = new Date()
         bindData(projectUpdate, projectUpdateCommand.properties)
         if(projectUpdateCommand.photoId){
             projectUpdate.image = KuorumFile.get(new ObjectId(projectUpdateCommand.photoId))
 
         }
 
-        if(projectUpdateCommand.urlYoutubeId){
-            projectUpdate.urlYoutube = KuorumFile.get(new ObjectId(projectUpdateCommand.urlYoutubeId))
+        if(projectUpdateCommand.videoPost){
+            KuorumFile urlYoutubeFile = new KuorumFile(
+                    local: false,
+                    url: projectUpdateCommand.videoPost,
+                    originalName: projectUpdateCommand.videoPost,
+                    user: user,
+                    temporal: false,
+                    fileGroup: FileGroup.YOUTUBE,
+                    fileType: FileType.YOUTUBE).save()
+            project.urlYoutube = urlYoutubeFile
         }
 
         Map result = projectService.addProjectUpdate(projectUpdate, project)
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         fileService.deleteTemporalFiles(user)
         if(result.message == 'OK'){
             flash.message=message(code:'admin.createProjectUpdate.success', args: [project.hashtag])
             redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
         } else {
-            render view:'/project/createProjectUpdate', model: projectUpdate
+            render view:'/project/createProjectUpdate', model: [projectUpdateCommand: projectUpdateCommand, project: project]
         }
     }
 
@@ -352,25 +358,5 @@ class ProjectController {
         }
         ProjectRegionStats stats = projectStatsService.calculateRegionStats(project, region)
         render stats as JSON
-    }
-
-    @Secured(['ROLE_POLITICIAN'])
-    def ajaxShowProjectListOfUsers(){
-        //TODO: Pasar esta funcionalidad a ToolsController
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Map projectsOrderListOfUser = projectService.search(user, params.sort, Order.findByValue(params.order), params.published as Boolean, params.offset as Integer, params.max as Integer)
-        render template: "projects", model: [projects: projectsOrderListOfUser.projects, order: params.order, sort: params.sort, published: params.published, max: params.max, offset: params.offset]
-    }
-
-    @Secured(['ROLE_POLITICIAN'])
-    def list(){
-        //TODO: Pasar esta funcionalidad a ToolsController
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        String sort = '', order = ''
-        Integer offset = 0
-        Integer max = 10
-        Map projectsOrderListOfUser = projectService.search(user, sort, Order.findByValue(order) , null, offset, max)
-
-        [projects: projectsOrderListOfUser.projects, order: order, sort: sort, published: '', max: max, offset: offset]
     }
 }

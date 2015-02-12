@@ -22,7 +22,7 @@ class UrlMappings {
         name discoverRecentPosts:           "/descubre/publicaciones-recientes" (controller: "discover", action:"discoverRecentPosts")
         name discoverRecommendedPosts:      "/descubre/publicaciones-mas-impulsadas" (controller: "discover", action:"discoverRecommendedPosts")
 
-        name projectCreate:     "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"publish"]}
+        name projectCreate:     "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"save"]}
                                 "/leyes/nueva"(controller: "project"){action = [GET:"create", POST:"save"]}
         name projects:          "/proyectos/$institutionName?/$commission?" (controller: "project", action:"index")
                                 "/leyes/$institutionName?/$commission?" (controller: "project", action:"index")
@@ -43,8 +43,9 @@ class UrlMappings {
         name projectListPostDefends:   "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
         name projectListPostVictories: "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
         //TODO: Nuevas llamadas para el listado de proyectos, considerar si renombrarlas al alias "projects"
-        name projectList: "/configuracion-usuario/proyectos"(controller: "project", action:"list")
-        name projectListOfUsers: "/ajax/configuracion-usuario/proyectos"(controller: "project", action: "ajaxShowProjectListOfUsers")
+        name projectList: "/configuracion-usuario/proyectos"(controller: "tools", action:"listProjects")
+        name projectListOfUsers: "/ajax/configuracion-usuario/proyectos"(controller: "tools", action: "ajaxShowProjectListOfUsers")
+        name publishProject:   "/configuracion-usuario/proyectos/proyectos/$hashtag/publicar" (controller:"tools", action: "publishProject")
 
         name projectUpdate:  "/proyectos/$institutionName/$commission/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 

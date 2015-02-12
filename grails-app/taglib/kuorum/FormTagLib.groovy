@@ -1,6 +1,7 @@
 package kuorum
 
 import kuorum.core.FileGroup
+import kuorum.core.model.CommissionType
 import kuorum.project.Project
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
@@ -164,8 +165,9 @@ class FormTagLib {
         def value = command."${field}"?command."${field}".format('dd/MM/yyyy'):''
         out <<"""
             <div class="input-group date">
-            <input type="text" name="${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" required aria-required="${required}" value="${value}">
-            <span class="input-group-addon"><a href="#" class="datepicker"><span class="fa fa-calendar fa-lg"></span></a></span>
+                <input type="text" name="${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" required aria-required="${required}" value="${value}">
+                <span class="input-group-addon"><a href="#" class="datepicker"><span class="fa fa-calendar fa-lg"></span></a></span>
+            </div>
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
@@ -185,7 +187,7 @@ class FormTagLib {
 
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
-            <input name="videoPost" type="url" value="${value}" class="${cssClass}" id="${id}" placeholder="${placeHolder}">
+            <input name="videoPost" type="url" value="${value}" class="${cssClass} ${error?'error':''}" id="${id}" placeholder="${placeHolder}">
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
@@ -544,6 +546,14 @@ class FormTagLib {
 			\$(function (){
 				\$("#${formId}").validate({
                 errorClass:'error',
+                errorPlacement: function(error, element) {
+                    if(element.attr('id') == 'deadline')
+                        error.appendTo(element.parent("div").parent("div"));
+                    else if(element.attr('id') == '${CommissionType.JUSTICE}')
+                        error.appendTo(element.parent("div").parent("div").parent("div").parent("div"));
+                    else
+                        error.insertAfter(element);
+                },
                 errorElement:'span',
 """
 

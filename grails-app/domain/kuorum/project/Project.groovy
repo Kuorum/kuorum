@@ -1,5 +1,6 @@
 package kuorum.project
 
+import grails.validation.Validateable
 import groovy.time.TimeCategory
 import kuorum.Institution
 import kuorum.KuorumFile
@@ -9,7 +10,6 @@ import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
-import kuorum.core.model.project.ProjectUpdate
 import kuorum.core.model.project.ProjectRegionStats
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
@@ -46,8 +46,7 @@ class Project {
     KuorumUser owner
     @Updatable List<ProjectUpdate> updates = []
 
-
-    static embedded = ['region','peopleVotes','image' ]
+    static embedded = ['region','peopleVotes','image','updates' ]
 
     static constraints = {
         hashtag matches: '#[a-zA-Z0-9]+', nullable: false, unique: true, minSize: 1, maxSize: 17
@@ -99,20 +98,15 @@ class Project {
         hashtag index:true, indexAttributes: [unique:true]
     }
 
-    static transients = ['votesInRegion','lastUpdate','timeToDeadline']
+    static transients = ['votesInRegion','lastUpdate']
 
     Long getVotesInRegion(){
         ProjectRegionStats projectRegionStats = projectStatsService.calculateRegionStats(this)
         projectRegionStats.totalVotes.total
     }
 
-    String getLastUpdate(){
-        ProjectUpdate projectUpdate = this.updates.sort{it.dateCreated}.first()
-        TimeCategory.minus(new  Date(), projectUpdate.dateCreated.clearTime())
-    }
-
-    String getTimeToDeadline(){
-        TimeCategory.minus(this.deadline.clearTime(),this.dateCreated.clearTime())
+    Date getLastUpdate(){
+        this.updates.sort{it.dateCreated}.last().dateCreated
     }
 
     String toString(){
@@ -128,5 +122,21 @@ public class AcumulativeVotes {
 
     Long getTotal(){
         yes+no+abs
+    }
+}
+
+@Validateable
+class ProjectUpdate {
+
+    String description
+    KuorumFile image
+    KuorumFile urlYoutube
+    Date dateCreated
+
+    static constraints = {
+        description maxSize:500
+        image nullable: true
+        urlYoutube nullable: true
+        dateCreated nullable: false
     }
 }

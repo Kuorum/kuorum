@@ -148,7 +148,7 @@ class ProjectControllerIntegrationSpec extends Specification{
 
         when: "Add an update to the project"
         SpringSecurityUtils.doWithAuth(user.email) {
-            projectController.addProjectUpdate(projectUpdateCommand)
+            projectController.addProjectUpdate(projectUpdateCommand, user)
         }
 
         then: "The project update has not been added"
@@ -159,46 +159,6 @@ class ProjectControllerIntegrationSpec extends Specification{
         description || message
         'a' * 501   || ''
         null        || ''
-    }
-
-    @Unroll
-    void "order the projects by #sortAttr if the param published doesn't exist, so we will have all the projects in desc order"() {
-        given:"new projects. Inside is the user projectOwner@example.com"
-        List <Project> listProjects= [], resultProjectsOrderedByMethod= []
-        4.times{
-            listProjects << IntegrationHelper.createDefaultProject("#hashtag${it}").save(flush:true)
-        }
-        KuorumUser user = listProjects.first()?.owner
-
-        and:"params to order"
-        projectController.params.sort = "${sortAttr}"
-        projectController.params.order = 'desc'
-        projectController.params.offset = '0'
-        projectController.params.max = '10'
-
-        when:"search the projects in a user session"
-        SpringSecurityUtils.doWithAuth(user.email) {
-            resultProjectsOrderedByMethod = (projectController.ajaxShowProjectListOfUsers().model.projects).toArray().toList()
-        }
-
-        and:"order the projects by sort"
-        List <Project> projectsOrderedBySort = listProjects.sort{it."$sortAttr"}.reverse()
-
-        then:"we compare the result of ordering the issues by groovy method and by our created method giving it the params to the ajaxShowProjectListOfUsers method"
-        projectsOrderedBySort == resultProjectsOrderedByMethod
-        renderMap
-        renderMap.template
-        renderMap.template == 'projects'
-        renderMap.model
-        renderMap.model.projects
-        renderMap.model.projects.toArray().toList() == resultProjectsOrderedByMethod.toArray().toList()
-
-        cleanup:
-        listProjects*.delete(flush:true)
-        KuorumUser.findByEmail(user?.email)?.delete(flush:true)
-
-        where: "we give the value key to the sortAttr"
-        sortAttr  << ["dateCreated"/*, "peopleVotes"*/]
     }
 
     private createProjectCommand(KuorumUser kuorumUser){
@@ -237,44 +197,5 @@ class ProjectControllerIntegrationSpec extends Specification{
         projectCommand.pdfFileId = pdfFile.id
 
         projectCommand
-    }
-
-
-    void "order the projects by #sortAttr"() {
-        given:"new projects. Inside is the user projectOwner@example.com"
-        List <Project> listProjects= [], resultProjectsOrderedByMethod= []
-        4.times{
-            listProjects << IntegrationHelper.createDefaultProject("#hashtag${it}").save(flush:true)
-        }
-        KuorumUser user = listProjects.first()?.owner
-
-        and:"params to order"
-        projectController.params.sort = "${sortAttr}"
-        projectController.params.order = 'desc'
-        projectController.params.offset = '0'
-        projectController.params.max = '10'
-
-        when:"search the projects in a user session"
-        SpringSecurityUtils.doWithAuth(user.email) {
-            resultProjectsOrderedByMethod = (projectController.ajaxShowProjectListOfUsers().model.projects).toArray().toList()
-        }
-
-        and:"order the projects by sort"
-        List <Project> projectsOrderedBySort = listProjects.sort{it."$sortAttr"}.reverse()
-
-        then:"we compare the result of ordering the issues by groovy method and by our created method giving it the params to the ajaxShowProjectListOfUsers method"
-        projectsOrderedBySort == resultProjectsOrderedByMethod
-        renderMap
-        renderMap.template
-        renderMap.template == 'projects'
-        renderMap.model
-        renderMap.model.projects.toArray().toList() == resultProjectsOrderedByMethod.toArray().toList()
-
-        cleanup:
-        listProjects*.delete(flush:true)
-        KuorumUser.findByEmail(user?.email)?.delete(flush:true)
-
-        where: "we give the value key to the sortAttr"
-        sortAttr  << ["dateCreated"/*, "peopleVotes"*/]
     }
 }

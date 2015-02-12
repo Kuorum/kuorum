@@ -7,11 +7,12 @@ import kuorum.KuorumFile
 import kuorum.Region
 import kuorum.RegionService
 import kuorum.ShortUrlService
+import kuorum.core.FileGroup
+import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.VoteType
-import kuorum.core.model.project.ProjectUpdate
 import kuorum.core.model.search.Pagination
 import kuorum.files.FileService
 import kuorum.post.Post
@@ -186,11 +187,11 @@ class ProjectService {
     }
 
     Project publish(Project project){
-//        Project.collection.update([_id:project.id], ['$set':[published:Boolean.TRUE, publishDate:new Date()]])
-//        project.refresh()
-        project.published = Boolean.TRUE
-        project.publishDate = new Date();
-        project.save()
+        Project.collection.update([_id:project.id], ['$set':[published:Boolean.TRUE, publishDate:new Date()]])
+        project.refresh()
+//        project.published = Boolean.TRUE
+//        project.publishDate = new Date();
+//        project.save()
         indexSolrService.index(project)
         project
     }
@@ -271,7 +272,7 @@ class ProjectService {
     *
     * @return The projects of a user ordered by the sort and order chosen.
     */
-    Map search(KuorumUser user, String sort, Order orderProject, Boolean projectPublished = null, Integer offset = 0, Integer max = 10){
+    Map search(KuorumUser user, String sort, Order orderProject, Boolean projectPublished = null, Long offset = 0, Integer max = 10){
         List <Project> projects = Project.createCriteria().list() {
             if (projectPublished != null)  eq 'published', projectPublished
             eq 'owner', user
@@ -307,14 +308,13 @@ class ProjectService {
                 }
             }
         }
-        if(projects.size() > (offset + max)){
-            [projects: projects[offset..(offset + max)]]
+        if(projects.size() >= (offset + max)){
+            [projects: projects[offset..<(offset + max)]]
         }else if(projects.size() > offset){
             [projects: projects[offset..-1]]
         }else{
             [projects: null]
         }
-        [projects: projects]
     }
 
     /**
@@ -333,15 +333,23 @@ class ProjectService {
      * @param command The command to update
      * @param project The project to update
      */
-    void assignFilesToCommandAndProject(ProjectCommand command, Project project){
+    void assignFilesToCommandAndProject(ProjectCommand command, Project project, KuorumUser user){
         if(command.photoId){
             KuorumFile image = KuorumFile.get(new ObjectId(command.photoId))
             project.image = image
         }
 
-        if(command.urlYoutubeId){
-            KuorumFile urlYoutube = KuorumFile.get(new ObjectId(command.urlYoutubeId))
-            project.urlYoutube = urlYoutube
+        if(command.videoPost){
+            //KuorumFile urlYoutube = KuorumFile.get(new ObjectId(command.urlYoutubeId))
+            KuorumFile urlYoutubeFile = new KuorumFile(
+                    local: false,
+                    url: command.videoPost,
+                    originalName: command.videoPost,
+                    user: user,
+                    temporal: false,
+                    fileGroup: FileGroup.PDF,
+                    fileType: FileType.YOUTUBE).save()
+            project.urlYoutube = urlYoutubeFile
         }
 
         if(command.pdfFileId){
@@ -358,8 +366,9 @@ class ProjectService {
      */
     Map addProjectUpdate(ProjectUpdate projectUpdate, Project project){
         Map result = [message:'']
-        if(!projectUpdate.hasErrors() && projectUpdate.validate()){
+        if(projectUpdate.validate() && !projectUpdate.hasErrors()){
             project.updates.add(projectUpdate)
+            project.save()
             result.projectUpdate = projectUpdate
             result.message = 'OK'
         } else {

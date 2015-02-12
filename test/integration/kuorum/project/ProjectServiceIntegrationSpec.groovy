@@ -6,7 +6,6 @@ import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
-import kuorum.core.model.project.ProjectUpdate
 import kuorum.helper.IntegrationHelper
 import kuorum.users.KuorumUser
 import kuorum.util.Order
@@ -91,10 +90,11 @@ class ProjectServiceIntegrationSpec extends Specification {
     }
 
 
-    void "Add an update to a project"() {
+    void "Add a update to a project"() {
         given: "A project and projectUpdate"
         Project project = Project.findByHashtag("#leyAborto")
         ProjectUpdate projectUpdate = new ProjectUpdate(description: 'prueba')
+        projectUpdate.dateCreated = new Date()
 
         when: "Add a update to the project"
         Map result = projectService.addProjectUpdate(projectUpdate, project)
@@ -115,6 +115,7 @@ class ProjectServiceIntegrationSpec extends Specification {
         given: "A project and and projectUpdate"
         Project project = Project.findByHashtag("#leyAborto")
         ProjectUpdate projectUpdate = new ProjectUpdate(description: description)
+        projectUpdate.dateCreated = new Date()
 
         when: "Add a update to the project"
         Map result = projectService.addProjectUpdate(projectUpdate, project)
@@ -155,14 +156,11 @@ class ProjectServiceIntegrationSpec extends Specification {
 
         then:"we compare both ordered lists. Moreover, we will have only projects with published to false"
         result
-        result.projects
-        result.projects.size() ==  projectsOrderedBySort.size()
-        result.projects == projectsOrderedBySort
 
-        if(result.projects.size() > (offset + max)){
-            result.projects == listProjects[offset..(offset + max)]
-        }else if(result.projects.size() > offset){
-            result.projects == listProjects[offset..-1]
+        if(result.projects && result.projects.size() >= (offset + max)){
+            result.projects == projectsOrderedBySort[offset..<(offset + max)]
+        }else if(result.projects && result.projects.size() > offset){
+            result.projects == projectsOrderedBySort[offset..-1]
         }else{
            !result.projects
         }

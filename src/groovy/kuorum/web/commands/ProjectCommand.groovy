@@ -4,6 +4,7 @@ import grails.validation.Validateable
 import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.Region
+import kuorum.core.FileType
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
 import kuorum.project.Project
@@ -15,6 +16,9 @@ import kuorum.users.KuorumUser
 
 @Validateable
 class ProjectCommand {
+
+    private static final YOUTUBE_REGEX = ~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube\.com\/watch\?v=[a-zA-Z0-9_]*/
+
     String hashtag
     String shortName
     String description
@@ -27,15 +31,26 @@ class ProjectCommand {
 
     //New fields for Project
     Date deadline
-    String urlYoutubeId
+    String videoPost
     String pdfFileId
     KuorumUser owner
 
     static constraints = {
         importFrom Project
         commissions nullable: false, minSize: 1
-        photoId nullable: true
-        urlYoutubeId: nullable: true
+        photoId nullable: true, validator: { val, obj ->
+            if (!val && !obj.videoPost) {
+                return ['imageOrUrlYoutubeRequired']
+            }
+        }
+        videoPost nullable: true, url:true, validator: { val, obj ->
+            if (val && !YOUTUBE_REGEX.matcher(val).matches()) {
+                return ['notYoutubeFormat']
+            }
+            if (!val && !obj.photoId) {
+                return ['imageOrUrlYoutubeRequired']
+            }
+        }
         pdfFileId nullable: true
     }
 }

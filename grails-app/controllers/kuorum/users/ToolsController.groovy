@@ -2,13 +2,18 @@ package kuorum.users
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.gamification.GamificationAward
+import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchNotifications
 import kuorum.core.model.search.SearchUserPosts
 import kuorum.notifications.Notification
 import kuorum.notifications.NotificationService
 import kuorum.post.Post
 import kuorum.post.PostService
+import kuorum.project.Project
+import kuorum.project.ProjectService
+import kuorum.util.Order
 import kuorum.web.constants.WebConstants
 
 class ToolsController {
@@ -17,6 +22,7 @@ class ToolsController {
     PostService postService
     GamificationService gamificationService
     NotificationService notificationService
+    ProjectService projectService
 
     def beforeInterceptor ={
         if (springSecurityService.isLoggedIn()){
@@ -104,4 +110,79 @@ class ToolsController {
             render "AJAX  no hay dinerito"
         }
     }
+
+    @Secured(['ROLE_POLITICIAN'])
+    def ajaxShowProjectListOfUsers(Pagination pagination){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Map projectsOrderListOfUser = projectService.search(user, params.sort, Order.findByValue(params.order),
+                params.published?Boolean.parseBoolean(params.published):null, pagination.offset, pagination.max)
+        Integer totalProjects = Project.countByOwner(user)
+        Integer publishedProjects = Project.countByOwnerAndPublished(user, true)
+        Integer draftProjects = Project.countByOwnerAndPublished(user, false)
+        Boolean seeMore
+
+        if(params.published){
+            if(Boolean.parseBoolean(params.published)){
+                seeMore = projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < publishedProjects:false
+            } else {
+                seeMore = projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < draftProjects:false
+            }
+        } else {
+            seeMore = projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < totalProjects:false
+        }
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < pagination.max:true}")
+        render template: params.template?:"projects", model: [projects: projectsOrderListOfUser.projects, order: params.order,
+                sort: params.sort, published: params.published, max: pagination.max, offset: pagination.offset,
+                totalProjects: totalProjects, publishedProjects: publishedProjects, draftProjects: draftProjects,
+                seeMore: seeMore, urlLoadMore: params.urlLoadMore]
+    }
+
+    @Secured(['ROLE_POLITICIAN'])
+    def listProjects(){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        String sort = 'dateCreated'
+        Order order = Order.ASC
+        Pagination pagination = new Pagination()
+        Map projectsOrderListOfUser = projectService.search(user, sort, order, null, pagination.offset, pagination.max)
+        Integer totalProjects = Project.countByOwner(user)
+        Integer publishedProjects = Project.countByOwnerAndPublished(user, true)
+        Integer draftProjects = Project.countByOwnerAndPublished(user, false)
+        Boolean seeMore = projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < totalProjects:false
+
+        [projects: projectsOrderListOfUser.projects, order: order.value, sort: sort, published: '', max: pagination.max, offset: pagination.offset,
+                totalProjects: totalProjects, publishedProjects: publishedProjects, draftProjects: draftProjects,
+                seeMore: seeMore]
+    }
+
+    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
+    def publishProject(String hashtag){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
+        projectService.publish(project)
+
+
+        Map projectsOrderListOfUser = projectService.search(user, params.sort, Order.findByValue(params.order),
+                params.published?Boolean.parseBoolean(params.published):null, params.offset.toLong(), params.max.toInteger())
+        Integer totalProjects = Project.countByOwner(user)
+        Integer publishedProjects = Project.countByOwnerAndPublished(user, true)
+        Integer draftProjects = Project.countByOwnerAndPublished(user, false)
+        Boolean seeMore
+
+        if(params.published){
+            if(Boolean.parseBoolean(params.published)){
+                seeMore = projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < publishedProjects:false
+            } else {
+                seeMore = projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < draftProjects:false
+            }
+        } else {
+            seeMore = projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < totalProjects:false
+        }
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < params.max.toInteger():true}")
+        render template: "projects", model: [projects: projectsOrderListOfUser.projects, order: params.order,
+                sort: params.sort, published: params.published, max: params.max, offset: params.offset,
+                totalProjects: totalProjects, publishedProjects: publishedProjects, draftProjects: draftProjects,
+                seeMore: seeMore, urlLoadMore: params.urlLoadMore]
+    }
+
+
 }
