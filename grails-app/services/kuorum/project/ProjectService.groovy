@@ -341,14 +341,7 @@ class ProjectService {
 
         if(command.videoPost){
             //KuorumFile urlYoutube = KuorumFile.get(new ObjectId(command.urlYoutubeId))
-            KuorumFile urlYoutubeFile = new KuorumFile(
-                    local: false,
-                    url: command.videoPost,
-                    originalName: command.videoPost,
-                    user: user,
-                    temporal: false,
-                    fileGroup: FileGroup.PDF,
-                    fileType: FileType.YOUTUBE).save()
+            KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
             project.urlYoutube = urlYoutubeFile
         }
 

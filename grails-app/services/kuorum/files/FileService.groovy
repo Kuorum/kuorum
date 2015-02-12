@@ -3,6 +3,7 @@ package kuorum.files
 import grails.transaction.Transactional
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
+import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
 
@@ -133,6 +134,23 @@ class FileService {
             }
         }
         kuorumFile
+    }
+
+    public KuorumFile createYoutubeKuorumFile(String youtubeUrl, KuorumUser user){
+        def fileName = youtubeUrl.replaceAll(~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube.com\/watch\?v=([a-zA-Z0-9]*)/, '$2')
+        KuorumFile multimedia = new KuorumFile(
+                user:user,
+                local:Boolean.FALSE,
+                temporal:Boolean.FALSE,
+                storagePath:null,
+                alt:null,
+                fileName:fileName,
+                originalName: fileName,
+                url:youtubeUrl,
+                fileGroup:FileGroup.YOUTUBE,
+                fileType:FileType.YOUTUBE
+        )
+        multimedia.save()
     }
 
     /**

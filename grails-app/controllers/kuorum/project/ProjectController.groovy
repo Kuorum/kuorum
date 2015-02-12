@@ -141,14 +141,7 @@ class ProjectController {
         }
 
         if(projectUpdateCommand.videoPost){
-            KuorumFile urlYoutubeFile = new KuorumFile(
-                    local: false,
-                    url: projectUpdateCommand.videoPost,
-                    originalName: projectUpdateCommand.videoPost,
-                    user: user,
-                    temporal: false,
-                    fileGroup: FileGroup.YOUTUBE,
-                    fileType: FileType.YOUTUBE).save()
+            KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(projectUpdateCommand.videoPost, user)
             project.urlYoutube = urlYoutubeFile
         }
 

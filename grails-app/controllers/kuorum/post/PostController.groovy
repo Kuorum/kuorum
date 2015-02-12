@@ -11,6 +11,7 @@ import kuorum.core.model.UserType
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
 import kuorum.core.model.search.Pagination
+import kuorum.files.FileService
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.web.commands.PostCommand
@@ -113,32 +114,16 @@ class PostController {
         }else if (command.fileType == FileType.IMAGE && command.imageId){
             multimedia = KuorumFile.get(new ObjectId(command.imageId))
         }else if(command.fileType == FileType.YOUTUBE && command.videoPost && !post.multimedia){
-            multimedia = createKuorumFileFromYoutubeUrl(command.videoPost, user)
+            multimedia = fileService.createYoutubeKuorumFile(command.videoPost, user)
         }else if (command.fileType == FileType.YOUTUBE && command.videoPost && post.multimedia){
             if (command.videoPost == post.multimedia.url){
                 multimedia = KuorumFile.get(post.multimedia.id)
             }else{
                 fileService.deleteFile(post.multimedia)
-                multimedia = createKuorumFileFromYoutubeUrl(command.videoPost, user)
+                multimedia = fileService.createYoutubeKuorumFile(command.videoPost, user)
             }
         }
         multimedia
-    }
-
-    private KuorumFile createKuorumFileFromYoutubeUrl(String url, KuorumUser user){
-        def fileName = url.replaceAll(~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube.com\/watch\?v=([a-zA-Z0-9]*)/, '$2')
-        KuorumFile multimedia = new KuorumFile(
-                user:user,
-                local:Boolean.FALSE,
-                temporal:Boolean.FALSE,
-                storagePath:null,
-                alt:null,
-                fileName:fileName,
-                url:url,
-                fileGroup:FileGroup.POST_IMAGE,
-                fileType:FileType.YOUTUBE
-        )
-        multimedia.save()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
