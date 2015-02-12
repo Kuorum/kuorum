@@ -45,7 +45,7 @@ class UrlMappings {
         //TODO: Nuevas llamadas para el listado de proyectos, considerar si renombrarlas al alias "projects"
         name projectList: "/configuracion-usuario/proyectos"(controller: "tools", action:"listProjects")
         name projectListOfUsers: "/ajax/configuracion-usuario/proyectos"(controller: "tools", action: "ajaxShowProjectListOfUsers")
-        name publishProject:   "/configuracion-usuario/proyectos/proyectos/$hashtag/publicar" (controller:"tools", action: "publishProject")
+        name publishProject:   "/configuracion-usuario/proyectos/$hashtag/publicar" (controller:"tools", action: "publishProject")
 
         name projectUpdate:  "/proyectos/$institutionName/$commission/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 

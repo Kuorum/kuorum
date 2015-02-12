@@ -12,11 +12,13 @@
             <div class="popover">
                 <div class="popover-more-actions edition">
                     <ul>
-                        <li>
-                            <g:remoteLink role="button" url="[mapping:'publishProject', params:[hashtag: project.hashtag, order: order, sort: sort, published: published, max: max, offset: offset, seeMore: seeMore, urlLoadMore: urlLoadMore]]" update="projectsList">
-                                <span><g:message code="project.list.publish" /></span>
-                            </g:remoteLink>
-                        </li>
+                        <g:if test="${!project.published}">
+                            <li>
+                                <g:remoteLink role="button" url="[mapping:'publishProject', params:[hashtag: project.hashtag, order: order, sort: sort, published: published, max: max, offset: offset, seeMore: seeMore, urlLoadMore: urlLoadMore]]" update="projectsList">
+                                    <span><g:message code="project.list.publish" /></span>
+                                </g:remoteLink>
+                            </li>
+                        </g:if>
                         <li>
                             <a href="#">
                                 <span><g:message code="project.list.edit" /></span>

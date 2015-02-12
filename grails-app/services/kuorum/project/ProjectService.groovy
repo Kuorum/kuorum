@@ -187,11 +187,11 @@ class ProjectService {
     }
 
     Project publish(Project project){
-        Project.collection.update([_id:project.id], ['$set':[published:Boolean.TRUE, publishDate:new Date()]])
-        project.refresh()
-//        project.published = Boolean.TRUE
-//        project.publishDate = new Date();
-//        project.save()
+//        Project.collection.update([_id:project.id], ['$set':[published:Boolean.TRUE, publishDate:new Date()]])
+//        project.refresh()
+        project.published = true
+        project.publishDate = new Date()
+        project.save()
         indexSolrService.index(project)
         project
     }
@@ -368,7 +368,7 @@ class ProjectService {
         Map result = [message:'']
         if(projectUpdate.validate() && !projectUpdate.hasErrors()){
             project.updates.add(projectUpdate)
-            project.save()
+            project.save(failOnError: true)
             result.projectUpdate = projectUpdate
             result.message = 'OK'
         } else {
