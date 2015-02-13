@@ -65,19 +65,6 @@
                                    %{--required>--}%
                         </div>
 
-                        <div class="form-group-xshort clearfix">
-                              <formUtil:input
-                                    type="password"
-                                    command="${command}"
-                                    labelCssClass="sr-only"
-                                    placeHolder="${g.message(code:'springSecurity.KuorumRegisterCommand.password.label')}"
-                                    field="password"
-                                    required="true"/>
-                            <label class="checkbox-inline pull-left">
-                                <input type="checkbox" id="show-pass" value="mostrar">
-                                <g:message code="login.email.form.password.show"/>
-                            </label>
-                        </div>
                         <div class="form-group-short">
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="conditions" id="accept" value="true" class="${hasErrors(bean: command, field: 'conditions', 'error')}">

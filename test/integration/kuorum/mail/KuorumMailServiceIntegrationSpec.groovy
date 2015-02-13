@@ -1,9 +1,13 @@
 package kuorum.mail
 
 import kuorum.core.exception.KuorumException
+import kuorum.helper.IntegrationHelper
 import kuorum.post.Post
 import kuorum.post.PostComment
+import kuorum.project.Project
 import kuorum.users.KuorumUser
+import spock.lang.Ignore
+import spock.lang.IgnoreRest
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -72,4 +76,18 @@ class KuorumMailServiceIntegrationSpec extends Specification{
         Boolean.TRUE //An exception is not thrown (Is the best test that I can test)
     }
 
+    void "test send mail to related users when a project has been saved"() {
+        given: "A project"
+        Project project = IntegrationHelper.createDefaultProject("#relatedProyects").save()
+        List<KuorumUser> users = [ KuorumUser.findByEmail("carmen@example.com"), KuorumUser.findByEmail("noe@example.com")]
+
+        when: "Sending notifications"
+        kuorumMailService.sendSavedProjectToRelatedUsers(users, project)
+
+        then: "Expected an exception"
+        Boolean.TRUE //An exception is not thrown (Is the best test that I can test)
+
+        cleanup:
+        Project.findById(project?.id)?.delete(flush:true)
+    }
 }

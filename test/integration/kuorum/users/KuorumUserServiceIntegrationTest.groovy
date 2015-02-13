@@ -1,8 +1,12 @@
 package kuorum.users
 
+import kuorum.Region
+import kuorum.core.model.RegionType
+import kuorum.core.model.UserType
 import spock.lang.IgnoreRest
 import spock.lang.Specification
 import spock.lang.Unroll
+import kuorum.helper.IntegrationHelper
 
 /**
  * Created by iduetxe on 17/03/14.
@@ -118,6 +122,32 @@ class KuorumUserServiceIntegrationTest extends Specification {
         email                       | result
         "peter@example.com"         | true  //He has not the role yet
         "juanjoalvite@example.com"  | true  // He has already the role
+
+    }
+
+    void "Order users by the activity criteria"(){
+        given: "A user"
+        KuorumUser user= IntegrationHelper.createDefaultUser("user${new Date().getTime()}@ex.com").save(flush: true)
+
+        and: "All users, except the created user"
+        List<KuorumUser> userList = KuorumUser.findAllByIdNotEqual(user.id)
+
+        and: "The expected list of users sorted by the activity criteria"
+        List<KuorumUser> expectedUserList = [
+                KuorumUser.findByEmail('ecologistas@example.com'), KuorumUser.findByEmail('equo@example.com'),
+                KuorumUser.findByEmail('politicianinactive@example.com'), KuorumUser.findByEmail('politician@example.com'),
+                KuorumUser.findByEmail('carmen@example.com'), KuorumUser.findByEmail('juanjoalvite@example.com'),
+                KuorumUser.findByEmail('peter@example.com'), KuorumUser.findByEmail('admin@example.com'),
+                KuorumUser.findByEmail('noe@example.com'), KuorumUser.findByEmail('newuser@example.com')]
+
+        when: "Obtain the recommended users"
+        List<KuorumUser> recommended = kuorumUserService.orderUsersByActivity(user, userList)
+
+        then: "The expected list and the obtained recommended user are equals"
+        recommended == expectedUserList
+
+        cleanup:
+        user.delete(flush: true)
 
     }
 }

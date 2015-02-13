@@ -21,7 +21,6 @@ fixture {
         fileGroup = FileGroup.PROJECT_IMAGE
         fileType = FileType.IMAGE
         originalName = 'test'
-
     }
     //Creates the new objects related with project: urlYoutube and pdfFile
     urlYoutubeTest(KuorumFile){

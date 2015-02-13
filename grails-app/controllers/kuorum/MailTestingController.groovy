@@ -9,7 +9,7 @@ import kuorum.users.KuorumUser
 
 @Secured(['ROLE_ADMIN'])
 class MailTestingController {
-
+    
     def kuorumMailService
     def springSecurityService
 

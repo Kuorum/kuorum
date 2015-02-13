@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.Pagination
 import kuorum.users.KuorumUser
 import kuorum.users.ProfileController
+import kuorum.users.RoleUser
 import kuorum.web.commands.customRegister.Step1Command
 import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.customRegister.Step3Command
@@ -132,6 +133,8 @@ class CustomRegisterController extends  ProfileController{
     def step5(){
         log.info("Custom register finished")
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        user.authorities = [RoleUser.findByAuthority("ROLE_USER")]
+        user.save()
         kuorumMailService.verifyUser(user)
 //        redirect mapping:'home'
         redirect mapping:'tourStart'

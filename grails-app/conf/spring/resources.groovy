@@ -5,7 +5,7 @@ import kuorum.core.security.passwordEncoders.PasswordFixingDaoAuthenticationProv
 import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
 import kuorum.solr.IndexSolrService
 import kuorum.solr.SearchSolrService
-import kuorum.springSecurity.MongoUserDetailsService
+import kuorum.register.MongoUserDetailsService
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.apache.solr.core.CoreContainer

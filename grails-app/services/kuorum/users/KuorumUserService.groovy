@@ -1,7 +1,9 @@
 package kuorum.users
 
+import com.daureos.facebook.FacebookGraphService
 import com.mongodb.*
 import grails.transaction.Transactional
+import groovy.time.TimeCategory
 import kuorum.Institution
 import kuorum.PoliticalParty
 import kuorum.Region
@@ -10,9 +12,11 @@ import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
+import kuorum.post.PostComment
 import kuorum.project.Project
 import kuorum.post.Cluck
 import kuorum.post.Post
+import org.codehaus.groovy.grails.commons.GrailsApplication
 
 @Transactional
 class KuorumUserService {
@@ -21,6 +25,9 @@ class KuorumUserService {
     def indexSolrService
     def kuorumMailService
     def regionService
+    FacebookGraphService facebookGraphService
+
+    GrailsApplication grailsApplication
 
     def createFollower(KuorumUser follower, KuorumUser following) {
         if (follower == following){
@@ -147,27 +154,96 @@ class KuorumUserService {
     }
 
     /**
+     * TODO: Improve activity algorithm and test facebook algorithm
      * Returns the best users ever including organizations, normalUsers and politicians
      * @param user
      * @param pagination
      * @return
      */
     List<KuorumUser> recommendedUsers(KuorumUser user, Pagination pagination = new Pagination()){
+
         if (!user){
             return recommendedUsers(pagination)
         }
-        //TODO: Improve algorithm
-        List<KuorumUser> res = []
-//        List<KuorumUser> res = KuorumUser.findAllByNumFollowersGreaterThanAndEmailNotEqual(-1,user.email,[sort:"numFollowers",order: "desc", max:pagination.max])
-        def userList = user.following.collect{KuorumUser.load(it)}
-        userList << user
-        def result = KuorumUser.createCriteria().list(max:pagination.max, offset:pagination.offset) {
-            'gt'("numFollowers",0)
-            not {'in'("id",userList)}
-            order("numFollowers","desc")
+        List<KuorumUser> kuorumUsers = KuorumUser.findAllByIdNotEqual(user.id)
+//        List<KuorumUser> kuorumUsers = []
+        def facebookFriends = facebookGraphService.getFriends()
+
+        if(facebookFriends){
+            //Primer criterio
+            List<FacebookUser> facebookUsers = FacebookUser.findAllByIdNotEqual(user.id)
+            kuorumUsers = orderUserByFacebookFriends(user, facebookUsers, kuorumUsers, facebookFriends)
+        } else {
+            //Segundo criterio
+            kuorumUsers =  orderUsersByActivity(user, kuorumUsers)[pagination.offset..pagination.max]
         }
-        result as ArrayList<KuorumUser>
+
+        kuorumUsers as ArrayList<KuorumUser>
     }
+
+    /**
+     * TODO: Test facebook algorithm
+     * Obtain the users that are in the application and are not friends of the current user.
+     * @param user
+     * @param facebookUsers
+     * @param kuorumUsers
+     * @param facebookFriends
+     * @return
+     */
+    List<KuorumUser> orderUserByFacebookFriends(KuorumUser user, List<FacebookUser> facebookUsers, List<KuorumUser> kuorumUsers , facebookFriends){
+        List<FacebookUser> faceBookUsersInKuorumNotFriendOfUser = facebookUsers.findAll{!(it.id in facebookFriends.it.id)}
+        List<KuorumUser> kuorumUsersInKuorumNotFriendOfUser = faceBookUsersInKuorumNotFriendOfUser*.user
+
+        if(kuorumUsersInKuorumNotFriendOfUser < 5){
+            List<KuorumUser> kuorumUsersByActivity = orderUsersByActivity(user, kuorumUsers)[kuorumUsersInKuorumNotFriendOfUser.size()..<5]
+            return kuorumUsersInKuorumNotFriendOfUser + kuorumUsersByActivity
+        } else {
+            return kuorumUsersInKuorumNotFriendOfUser[0..<5]
+        }
+    }
+
+    /**
+     * TODO: Improve activity algorithm
+     * Sort users by the following criteria:
+     * A = Region + Organization + Politician + Total Post + Total Clucks  + D x Total of Post Comments + V x Total of victories
+     * Where:
+     *  - Region = Config value of kuorum.recommendedUser.regionValue if the users are in the same region.
+     *  - Organization = Config value of kuorum.recommendedUser.organizationValue if the user is Organization.
+     *  - Politician = Config value of kuorum.recommendedUser.politicianValue if the user is Organization.
+     *  - V = Config value of kuorum.recommendedUser.victoryValue.
+     *  - D = Config value of kuorum.recommendedUser.debateValue.
+     * @param user The user to compare with.
+     * @param kuorumUsers The list of users to compare with the user.
+     * @return A list of users sorted descending by the criteria.
+     */
+    List<KuorumUser> orderUsersByActivity(KuorumUser user, List<KuorumUser> kuorumUsers){
+        def start = new Date()
+        Integer formula = 0
+        kuorumUsers.each{
+            formula = 0
+            if(it.personalData.provinceCode && user.personalData.provinceCode && it.personalData.provinceCode == user.personalData.provinceCode){
+                formula += grailsApplication.config.kuorum.recommendedUser.regionValue
+            }
+            if(it.userType == UserType.POLITICIAN){
+                formula += grailsApplication.config.kuorum.recommendedUser.politicianValue
+            } else if(it.userType == UserType.ORGANIZATION){
+                formula += grailsApplication.config.kuorum.recommendedUser.organizationValue
+            }
+            formula += Post.countByOwner(it)
+            formula += Cluck.countByOwner(it)
+            formula += grailsApplication.config.kuorum.recommendedUser.debateValue * PostComment.countByKuorumUser(it)
+            formula += grailsApplication.config.kuorum.recommendedUser.victoryValue  * Post.countByOwnerAndVictory(it, true)
+            it.metaClass.formula = formula
+        }
+
+        kuorumUsers.sort{-it.formula}
+
+        def end = new Date()
+        println(" --------------> Tiempo: ${TimeCategory.minus(end,start)}")
+
+        kuorumUsers
+    }
+
 
     private List<KuorumUser> recommendedUsersByPostVotes(UserType userType, KuorumUser user = null, Pagination pagination = new Pagination()){
         def orderUsersByVotes = Post.collection.aggregate([

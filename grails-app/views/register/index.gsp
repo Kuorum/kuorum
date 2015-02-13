@@ -55,16 +55,16 @@
                     %{--helpBlock="${g.message(code:'register.email.form.email.why')}"--}%
                     %{--required="true"/>--}%
         </div>
-        <div class="form-group clearfix">
-            <label for="password"><g:message code="springSecurity.KuorumRegisterCommand.password.label"/></label>
-            <label class="checkbox-inline pull-right">
-                <input type="checkbox" id="show-pass" value="mostrar"><g:message code="login.email.form.password.show"/>
-            </label>
-            <input type="password" name="password" class="form-control input-lg ${hasErrors(bean: command, field: 'password', 'error')}" id="password" required>
-            <g:if test="${hasErrors(bean: command, field: 'password', 'error')}">
-                <span for="password" class="error">${g.fieldError(bean: command, field: 'password')}</span>
-            </g:if>
-        </div>
+        %{--<div class="form-group clearfix">--}%
+            %{--<label for="password"><g:message code="springSecurity.KuorumRegisterCommand.password.label"/></label>--}%
+            %{--<label class="checkbox-inline pull-right">--}%
+                %{--<input type="checkbox" id="show-pass" value="mostrar"><g:message code="login.email.form.password.show"/>--}%
+            %{--</label>--}%
+            %{--<input type="password" name="password" class="form-control input-lg ${hasErrors(bean: command, field: 'password', 'error')}" id="password" required>--}%
+            %{--<g:if test="${hasErrors(bean: command, field: 'password', 'error')}">--}%
+                %{--<span for="password" class="error">${g.fieldError(bean: command, field: 'password')}</span>--}%
+            %{--</g:if>--}%
+        %{--</div>--}%
         <div class="form-group">
             <label class="checkbox-inline">
                 <input type="checkbox" name="conditions" id="accept" value="true" class="${hasErrors(bean: command, field: 'conditions', 'error')}">

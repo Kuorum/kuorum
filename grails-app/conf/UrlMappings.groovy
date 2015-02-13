@@ -127,6 +127,7 @@ class UrlMappings {
 
         name register:            "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
         name registerSuccess:     "/registro/satisfactorio"(controller: "register",action:"registerSuccess")
+        name registerPassword: "/registro/establece-password"(controller: "register", action:"choosePassword")
         name registerResendMail:  "/registro/no-verificado"(controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"]}
         name resetPassword:       "/registro/password-olvidado"(controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"]}
         name resetPasswordSent:   "/registro/enviada-verificacion"(controller: "register", action:"forgotPasswordSuccess")

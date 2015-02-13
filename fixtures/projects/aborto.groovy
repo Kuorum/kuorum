@@ -17,7 +17,7 @@ fixture {
         url= "${grailsApplication.config.grails.serverURL}/static/images/img-post.jpg"
         fileGroup = FileGroup.PROJECT_IMAGE
         fileType = FileType.IMAGE
-        originalName = 'test'
+        originalName = "test"
 
     }
     //Creates the new objects related with project: urlYoutube and pdfFile

@@ -25,6 +25,25 @@ class KuorumMailService {
     IndexSolrService indexSolrService
     def grailsApplication
 
+    def sendSavedProjectToRelatedUsers(List <KuorumUser> listUsers, Project project){
+        def requiredBindings = [
+                projectName: project.shortName,
+                projectOwner: project.owner,
+                commissionType: project.commissions,
+        ]
+
+        def globalBindings=[
+                projectYoutube: project.urlYoutube?.url,
+                projectLink: generateLink('projectShow', project.encodeAsLinkProperties()),
+                projectImage: project.image?.url
+        ]
+
+        listUsers.each{
+            MailUserData mailUserData = new MailUserData(user:it, bindings:requiredBindings)
+            MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME , mailType: MailType.PROJECT_CREATED_NOTIFICATION, globalBindings: globalBindings, userBindings: [mailUserData])
+            mandrillAppService.sendTemplate(mailData)
+        }
+    }
 
     def sendFeedbackMail(KuorumUser user, String feedback, boolean userDeleted = false){
         def bindings = [

@@ -1,5 +1,4 @@
 // log4j configuration
-
 grails.logging.jul.usebridge = true
 grails.serverURL = "http://127.0.0.1:8080/kuorum"
 
@@ -21,4 +20,12 @@ log4j = {
             'org.springframework',
             'org.hibernate',
             'net.sf.ehcache.hibernate'
+}
+
+grails{
+    mail{
+        host = 'localhost'
+        port = 3026
+    }
+    serverURL = "http://localhost:8080/${appName}"
 }

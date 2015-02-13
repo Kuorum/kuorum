@@ -22,11 +22,7 @@
 
 <content tag="intro">
     <h1>Confirma tu cuenta de email</h1>
-    <p>estás sólo a un paso de completar tu registro
-        <g:if env="development" test="${flash.chainedParams?.link}">
-            <a href="${flash.chainedParams.link}">Link de confirmacion para desarrollo</a>
-        </g:if>
-    </p>
+    <p>estás sólo a un paso de completar tu registro</p>
 </content>
 
 

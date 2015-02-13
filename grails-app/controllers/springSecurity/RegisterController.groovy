@@ -9,10 +9,12 @@ import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
+import kuorum.register.RegisterService
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
     def kuorumMailService
+    RegisterService registerService
 
     def index() {
         def copy = [:] + (flash.chainedParams ?: [:])
@@ -22,21 +24,14 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     }
 
     def register(KuorumRegisterCommand command) {
-
         if (command.hasErrors()) {
             render view: 'index', model: [command: command]
             return
         }
 
-        def user = new KuorumUser(
-                email: command.email.toLowerCase(),
-                name: command.name,
-                accountLocked: true, enabled: true)
-        user.relevantCommissions = []
-//        user.relevantCommissions = CommissionType.values()
-        user.authorities = [RoleUser.findByAuthority("ROLE_USER")]
+        KuorumUser user = registerService.createUser(command)
 
-        RegistrationCode registrationCode = springSecurityUiService.register(user, command.password, null)
+        RegistrationCode registrationCode = registerService.registerUserCode(user)
         log.info("Usuario $user.name creado con el token  $registrationCode.token")
         if (registrationCode == null || registrationCode.hasErrors()) {
             // null means problem creating the user
@@ -47,9 +42,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         String url = generateLink('verifyRegistration', [t: registrationCode.token])
-
         kuorumMailService.sendRegisterUser(user,url)
-        flash.chainedParams = [link:url]
         redirect mapping:"registerSuccess"
     }
 
@@ -98,27 +91,42 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
 
-        KuorumUser user
-        // TODO to ui service
-        RegistrationCode.withTransaction { status ->
-            user = KuorumUser.findByEmail(registrationCode.username)
-            if (!user) {
-                return
-            }
-            user.accountLocked = false
-            user.save(flush:true)
-            registrationCode.delete()
-        }
+        KuorumUser user = registerService.createUserByRegistrationCode(registrationCode)
 
         if (!user) {
-            flash.error = message(code: 'spring.security.ui.register.badCode')
+            flash.error = message(code: 'spring.security.ui.register.userNotFound')
             redirect uri: defaultTargetUrl
             return
         }
+        render view:'choosePass', model:[userId:user.id]
+    }
 
-        springSecurityService.reauthenticate user.email
-        flash.message = message(code: 'spring.security.ui.register.complete')
-        redirect uri: conf.ui.register.postRegisterUrl ?: defaultTargetUrl
+
+    def choosePassword (){
+        KuorumUser user = KuorumUser.findById(params.userId)
+        def conf = SpringSecurityUtils.securityConfig
+        String defaultTargetUrl = conf.successHandler.defaultTargetUrl
+        if (!(params.password1 == params.password2)){
+            flash.message = message (code:'grails.plugin.springsecurity.ui.ResetPasswordCommand.password2.helpBlock')
+            flash.typeMessage= 'error'
+            render view: 'choosePass' , model:[userId:user.id]
+        }else{
+            user.password = params.password1
+            if(user.validate()){
+                RoleUser roleUser = RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")
+                user.authorities = [roleUser]
+                def renderMap = registerService.save(user)
+                if(renderMap.errorMsg){
+                    flash.message = renderMap.errorMsg
+                    flash.typeMessage = 'error'
+                    redirect action: 'index'
+                }else{
+                    springSecurityService.reauthenticate user.email
+                    flash.message = message(code: 'spring.security.ui.register.complete')
+                    redirect uri: conf.ui.register.postRegisterUrl ?: defaultTargetUrl
+                }
+            }
+        }
     }
 
     def forgotPassword(){
@@ -228,8 +236,8 @@ class KuorumRegisterCommand{
                 return 'registerCommand.username.notAllowed'
             }
         }
-        password blank: false, validator: RegisterController.passwordValidator
-        conditions nullable:false
+        password: nullable:true
+//      validator: RegisterController.passwordValidator
     }
 }
 

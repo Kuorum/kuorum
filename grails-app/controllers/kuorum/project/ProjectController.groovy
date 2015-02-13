@@ -19,7 +19,6 @@ import kuorum.core.model.solr.SolrProjectsGrouped
 import kuorum.files.FileService
 import kuorum.post.Post
 import kuorum.users.KuorumUser
-import kuorum.util.Order
 import kuorum.web.commands.ProjectCommand
 import kuorum.web.commands.ProjectUpdateCommand
 import kuorum.web.constants.WebConstants
@@ -28,6 +27,7 @@ import org.bson.types.ObjectId
 import javax.servlet.http.HttpServletResponse
 
 class ProjectController {
+
     def kuorumMailService
     def projectService
     def projectStatsService
@@ -66,6 +66,8 @@ class ProjectController {
         project = projectService.saveAndCreateNewProject(project, false)
         fileService.deleteTemporalFiles(user)
         flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
+        List <KuorumUser> relatedUsers = projectService.searchRelatedUserToUserCommisions(project)
+        kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
         redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
     }
 
@@ -91,7 +93,8 @@ class ProjectController {
         project = projectService.saveAndCreateNewProject(project, true)
         fileService.deleteTemporalFiles(user)
         flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
-
+        List <KuorumUser> relatedUsers = projectService.searchRelatedUserToUserCommisions(project)
+        kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
         redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
     }
 
@@ -267,7 +270,7 @@ class ProjectController {
         render template: "/cluck/liPosts", model:[posts:posts]
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    @Secured(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_PREMIUM', 'ROLE_POLITICIAN'])
     def voteProject(String hashtag){
         VoteType voteType = VoteType.valueOf(params.voteType)
         Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())

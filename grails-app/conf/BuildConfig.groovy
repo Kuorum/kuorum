@@ -75,7 +75,6 @@ grails.project.dependency.resolution = {
 //            excludes 'org.codehaus.jackson:jackson-mapper-asl'
         }
         compile 'com.mandrillapp.wrapper.lutung:lutung:0.0.4'
-
         compile 'org.apache.solr:solr-solrj:4.6.0'
         test ('org.apache.solr:solr-core:4.6.0'){
             excludes "org.slf4j:slf4j-log4j12"
@@ -119,7 +118,7 @@ grails.project.dependency.resolution = {
         //runtime ":hibernate:3.6.10.7" // or ":hibernate4:4.1.11.6"
         // runtime ":database-migration:1.3.8"
 
-        compile ":spring-security-core:2.0-RC2"
+        compile ":spring-security-core:2.0-RC4"
         compile ":spring-security-facebook:0.15.2-CORE2"
         compile ':spring-security-oauth:2.0.2'
         compile ':spring-security-oauth-google:0.2'
@@ -156,6 +155,8 @@ grails.project.dependency.resolution = {
         test ":codenarc:0.20"
 
         compile ":quartz:1.0.2"
+
+        compile ":facebook-graph:0.14"
     }
 }
 

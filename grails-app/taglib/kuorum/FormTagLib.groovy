@@ -128,7 +128,6 @@ class FormTagLib {
             cssClass += " counted"
         }
 
-
         out <<"""
             <input type="${type}" name="${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}">
         """
@@ -555,7 +554,7 @@ class FormTagLib {
                         error.insertAfter(element);
                 },
                 errorElement:'span',
-"""
+        """
 
         obj.constraints.each{fields ->
             String fieldName = fields.key.toString()

@@ -8,7 +8,6 @@ import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
-import kuorum.helper.IntegrationHelper
 import kuorum.users.KuorumUser
 import kuorum.web.commands.ProjectCommand
 import kuorum.web.commands.ProjectUpdateCommand
@@ -26,18 +25,16 @@ class ProjectControllerIntegrationSpec extends Specification{
     ProjectController projectController
 
     @Shared
-    def renderMap
+    def redirectMap, renderMap
 
-    @Shared
-    def redirectMap
-
-    def setup() {
+    void setupSpec(){
         projectController = new ProjectController()
-        ProjectController.metaClass.render = { Map map ->
-            renderMap = map
-        }
-        ProjectController.metaClass.redirect = { Map map ->
+        projectController.metaClass.redirect = { Map map ->
             redirectMap = map
+        }
+
+        projectController.metaClass.render = { Map map ->
+            renderMap = map
         }
     }
 
@@ -134,7 +131,7 @@ class ProjectControllerIntegrationSpec extends Specification{
         redirectMap.params.hashtag == 'leyAborto'
 
         cleanup:
-        project.updates.remove(project.updates.last())
+        project?.updates?.remove(project?.updates?.last())
     }
 
     @Ignore('Complete the test when the result message for errors is completed')

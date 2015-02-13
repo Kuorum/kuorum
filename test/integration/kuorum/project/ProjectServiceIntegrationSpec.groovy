@@ -1,24 +1,19 @@
 package kuorum.project
 
-import grails.plugin.springsecurity.SpringSecurityUtils
 import kuorum.Institution
 import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
+import kuorum.core.model.RegionType
 import kuorum.helper.IntegrationHelper
 import kuorum.users.KuorumUser
 import kuorum.util.Order
 import spock.lang.Ignore
-import spock.lang.IgnoreRest
 import spock.lang.Specification
 import spock.lang.Unroll
 
-/**
- * Created by iduetxe on 4/03/14.
- */
 class ProjectServiceIntegrationSpec extends Specification {
-
 
     def projectService
     def fixtureLoader
@@ -89,6 +84,71 @@ class ProjectServiceIntegrationSpec extends Specification {
         new Date() + 11 || ProjectStatusType.CLOSE
     }
 
+    @Unroll
+    void "search related users to a project by the searchRelatedUserToUserCommisions"() {
+        given:"users with different data"
+        List <KuorumUser> listUsers=[]
+        Region region = Region.findByNameAndRegionType("Ávila", RegionType.LOCAL)
+        4.times{
+           listUsers << IntegrationHelper.createDefaultUser("relatedUser${it}@example.com")
+        }
+        listUsers[0..2]*.relevantCommissions = [CommissionType.AGRICULTURE, CommissionType.ECONOMY, CommissionType.DEFENSE]
+        listUsers[1..3]*.politicianOnRegion = region
+        listUsers[3].relevantCommissions = [CommissionType.CONSTITUTIONAL]
+        listUsers[0].politicianOnRegion = Region.findByNameAndRegionType("Valladolid", RegionType.LOCAL)
+
+        and:"a project to search the related users"
+        Project project = IntegrationHelper.createDefaultProject("#relatedProyects")
+        project.commissions = [CommissionType.AGRICULTURE]
+        project.region = region
+
+        project.save(flush: true)
+        listUsers*.save(flush: true)
+
+        when:"we call the search method"
+        List result = projectService.searchRelatedUserToUserCommisions(project)
+
+        then:"the result will be 2 users, in position lisUsers[0] and lisUsers[1] because they have commisionType:AGRICULTURE and region:region, similar to the project"
+        result
+        result.size() == 2
+        result.each {
+            it in listUsers[1..2]
+        }
+
+        cleanup:
+        listUsers*.delete(flush:true)
+        Project.findById(project?.id)?.delete(flush:true)
+    }
+
+    @Unroll
+    void "search related users to a project but don't find any user"() {
+        given:"users with different data"
+        List <KuorumUser> listUsers=[]
+        Region region = Region.findByNameAndRegionType("Ávila", RegionType.LOCAL)
+        4.times{
+            listUsers << IntegrationHelper.createDefaultUser("relatedUser${it}@example.com")
+        }
+        listUsers[0..3]*.relevantCommissions = [CommissionType.ECONOMY, CommissionType.DEFENSE]
+        listUsers[0..3]*.politicianOnRegion = region
+
+        and:"a project to search the related users"
+        Project project = IntegrationHelper.createDefaultProject("#relatedProyects")
+        project.commissions = [CommissionType.AGRICULTURE]
+        project.region = region
+
+        project.save(flush: true)
+        listUsers*.save(flush: true)
+
+        when:"we call the search method"
+        List result = projectService.searchRelatedUserToUserCommisions(project)
+
+        then:
+        !result
+
+        cleanup:
+        listUsers*.delete(flush:true)
+        Project.findById(project?.id)?.delete(flush:true)
+    }
 
     void "Add a update to a project"() {
         given: "A project and projectUpdate"
@@ -212,7 +272,6 @@ class ProjectServiceIntegrationSpec extends Specification {
     @Unroll
     void "order the projects by sort:#sortAttr and order:#orderAttr. Published is #published, but there are not projects"() {
         given:"new projects. From position 0 to 2 will have published to true, because by default, it is false"
-        List <Project> listProjects= []
         Map params = [sort:sortAttr, order:orderAttr, published:published, offset:offset, max:max]
         KuorumUser user = KuorumUser.findByEmail("projectowner@example.com") ?: IntegrationHelper.createDefaultUser("projectOwner@example.com").save(flush:true)
 
@@ -225,46 +284,33 @@ class ProjectServiceIntegrationSpec extends Specification {
         !result.projects
 
         cleanup:
-        KuorumUser.findByEmail(user?.email)?.delete(flush:true)
+        KuorumUser.findById(user?.id)?.delete(flush:true)
 
         where: "we give the value key to the sortAttr"
-        sortAttr        | orderAttr  | published | sortInTest                                  | offset | max
-        'dateCreated'   | Order.ASC  | true      | { it.dateCreated }                          | 0      | 10
-        'dateCreated'   | Order.ASC  | false     | { it.dateCreated }                          | 3      | 5
-        'dateCreated'   | Order.ASC  | null      | { it.dateCreated }                          | 5      | 30
-        'dateCreated'   | Order.DESC | true      | { a, b -> b.dateCreated <=> a.dateCreated } | 0      | 10
-        'dateCreated'   | Order.DESC | false     | { a, b -> b.dateCreated <=> a.dateCreated } | 3      | 5
-        'dateCreated'   | Order.DESC | null      | { a, b -> b.dateCreated <=> a.dateCreated } | 5      | 30
-        'peopleVotes'   | Order.ASC  | true      | { it.peopleVotes.total }                    | 0      | 10
-        'peopleVotes'   | Order.ASC  | false     | { it.peopleVotes.total }                    | 3      | 5
-        'peopleVotes'   | Order.ASC  | null      | { it.peopleVotes.total }                    | 5      | 30
-        'peopleVotes'   | Order.DESC | true      | { -it.peopleVotes.total }                   | 0      | 10
-        'peopleVotes'   | Order.DESC | false     | { -it.peopleVotes.total }                   | 3      | 5
-        'peopleVotes'   | Order.DESC | null      | { -it.peopleVotes.total }                   | 5      | 30
-        'peopleVoteYes' | Order.ASC  | true      | {
-            it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0
-        }                                                                                      | 0      | 10
-        'peopleVoteYes' | Order.ASC  | false     | {
-            it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0
-        }                                                                                      | 3      | 5
-        'peopleVoteYes' | Order.ASC  | null      | {
-            it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0
-        }                                                                                      | 5      | 30
-        'peopleVoteYes' | Order.DESC | true      | {
-            -(it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0)
-        }                                                                                      | 0      | 10
-        'peopleVoteYes' | Order.DESC | false     | {
-            -(it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0)
-        }                                                                                      | 3      | 5
-        'peopleVoteYes' | Order.DESC | null      | {
-            -(it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0)
-        }                                                                                      | 5      | 30
-        'numPosts'      | Order.ASC  | true      | { it.peopleVotes.numPost }                  | 0      | 10
-        'numPosts'      | Order.ASC  | false     | { it.peopleVotes.numPost }                  | 3      | 5
-        'numPosts'      | Order.ASC  | null      | { it.peopleVotes.numPost }                  | 5      | 30
-        'numPosts'      | Order.DESC | true      | { -it.peopleVotes.numPost }                 | 0      | 10
-        'numPosts'      | Order.DESC | false     | { -it.peopleVotes.numPost }                 | 3      | 5
-        'numPosts'      | Order.DESC | null      | { -it.peopleVotes.numPost }                 | 5      | 30
+        sortAttr        | orderAttr  | published | offset | max
+        'dateCreated'   | Order.ASC  | true      | 0      | 10
+        'dateCreated'   | Order.ASC  | false     | 3      | 5
+        'dateCreated'   | Order.ASC  | null      | 5      | 30
+        'dateCreated'   | Order.DESC | true      | 0      | 10
+        'dateCreated'   | Order.DESC | false     | 3      | 5
+        'dateCreated'   | Order.DESC | null      | 5      | 30
+        'peopleVotes'   | Order.ASC  | true      | 0      | 10
+        'peopleVotes'   | Order.ASC  | false     | 3      | 5
+        'peopleVotes'   | Order.ASC  | null      | 5      | 30
+        'peopleVotes'   | Order.DESC | true      | 0      | 10
+        'peopleVotes'   | Order.DESC | false     | 3      | 5
+        'peopleVotes'   | Order.DESC | null      | 5      | 30
+        'peopleVoteYes' | Order.ASC  | true      | 0      | 10
+        'peopleVoteYes' | Order.ASC  | false     | 3      | 5
+        'peopleVoteYes' | Order.ASC  | null      | 5      | 30
+        'peopleVoteYes' | Order.DESC | true      | 0      | 10
+        'peopleVoteYes' | Order.DESC | false     | 3      | 5
+        'peopleVoteYes' | Order.DESC | null      | 5      | 30
+        'numPosts'      | Order.ASC  | true      | 0      | 10
+        'numPosts'      | Order.ASC  | false     | 3      | 5
+        'numPosts'      | Order.ASC  | null      | 5      | 30
+        'numPosts'      | Order.DESC | true      | 0      | 10
+        'numPosts'      | Order.DESC | false     | 3      | 5
+        'numPosts'      | Order.DESC | null      | 5      | 30
     }
-
 }

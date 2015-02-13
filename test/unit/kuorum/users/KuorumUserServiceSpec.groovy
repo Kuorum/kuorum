@@ -3,9 +3,13 @@ package kuorum.users
 import grails.converters.JSON
 import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
+import kuorum.Region
 import kuorum.core.exception.KuorumException
+import kuorum.core.model.RegionType
+import kuorum.core.model.UserType
 import kuorum.helper.Helper
 import kuorum.notifications.NotificationService
+import spock.lang.IgnoreRest
 import spock.lang.Specification
 
 /**

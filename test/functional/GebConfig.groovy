@@ -2,7 +2,8 @@
         This is the Geb configuration file.
 
         See: http://www.gebish.org/manual/current/configuration.html
-*/
+*//*
+
 
 
 import org.openqa.selenium.chrome.ChromeOptions
@@ -55,4 +56,4 @@ private void downloadDriver(File file, String path) {
         ant.delete(file: 'driver.zip')
         ant.chmod(file: file, perm: '700')
     }
-}
+}*/

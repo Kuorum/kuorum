@@ -1,6 +1,7 @@
 package kuorum.project
 
 import grails.gorm.DetachedCriteria
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import kuorum.Institution
 import kuorum.KuorumFile
@@ -52,6 +53,7 @@ class ProjectService {
     ProjectVote findProjectVote(Project project, KuorumUser user){
         ProjectVote.findByProjectAndKuorumUser(project, user)
     }
+
     /**
      * An user votes a project and generates all associated events
      *
@@ -60,6 +62,7 @@ class ProjectService {
      * @param voteType
      * @return
      */
+
     ProjectVote voteProject(Project project, KuorumUser user, VoteType voteType){
         if (!regionService.isRelevantRegionForUser(user, project.region)){
             throw new KuorumException("Votando una ley que no es de su region (user: ${user.id}, region:${project.region})")
@@ -259,6 +262,20 @@ class ProjectService {
             it.save()
         }
     }
+
+    List searchRelatedUserToUserCommisions(Project project){
+        KuorumUser.createCriteria().list(){
+            and{
+                eq("politicianOnRegion", project.region)
+                or{
+                    project.commissions.each{commision->
+                        inList("relevantCommissions", commision)
+                    }
+                }
+            }
+        }
+    }
+
 
     /*
     *

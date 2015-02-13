@@ -22,3 +22,23 @@ log4j = {
             'org.hibernate',
             'net.sf.ehcache.hibernate'
 }
+
+grails {
+    mail {
+        host = "bo51.e-goi.com"
+        port = 1587
+        username = "XXXXXXXXXXX"
+        password = "XXXXXXXX"
+        props =["kuorum.mail.smtp.auth":"true",
+                "kuorum.mail.smtp.debug":"true",
+                "kuorum.mail.smtp.starttls.enable":"true",
+                "kuorum.mail.smtp.socketFactory.port":"1587",
+                "kuorum.mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+//                "kuorum.mail.smtp.starttls.required" : 'true',
+                //"kuorum.mail.smtp.socketFactory.fallback":"false"
+        ]
+
+        //["kuorum.mail.smtp.starttls.enable":"true",
+        //"kuorum.mail.smtp.port":"1587"]
+    }
+}

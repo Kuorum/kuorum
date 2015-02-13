@@ -222,28 +222,6 @@ grails {
 //bi.imageMagickQuality = 100 //0 -100
 //bi.imageMagickCompression= 50 //0 -100
 
-
-grails {
-    mail {
-        host = "bo51.e-goi.com"
-        port = 1587
-        username = "XXXXXXXXXXX"
-        password = "XXXXXXXX"
-        props =["kuorum.mail.smtp.auth":"true",
-                "kuorum.mail.smtp.debug":"true",
-                "kuorum.mail.smtp.starttls.enable":"true",
-                "kuorum.mail.smtp.socketFactory.port":"1587",
-                "kuorum.mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-//                "kuorum.mail.smtp.starttls.required" : 'true',
-                //"kuorum.mail.smtp.socketFactory.fallback":"false"
-        ]
-
-                //["kuorum.mail.smtp.starttls.enable":"true",
-                //"kuorum.mail.smtp.port":"1587"]
-    }
-}
-
-
 kuorum {
     register{
         notAllowedTemporalDomainEmails=["@drdrb.net", "@sharklasers.com", "@guerrillamailblock.com", "@sharklasers.com", "@guerrillamail.net", "@guerrillamail.org", "@guerrillamail.biz", "@spam4.me", "@grr.la", "@guerrillamail.de", "@mailismagic.com", "@monumentmail.com", "@tradermail.info", "@mailtothis.com", "@reallymymail.com", "@devnullmail.com", "@mailinater.com", "@veryrealemail.com", "@letthemeatspam.com", "@fuck.trillianpro.com", "@must.resist.ratemysketa.com", "@cry-its.trillianpro.com", "@suck-ass.trillianpro.com", "@killspammers.cu.cc", "@go.trillianpro.com", "@unpentant.trillianpro.com", "@eyepaste.com", "@deadaddress.com", "@cuvox.de", "@armyspy.com","@cuvox.de","@dayrep.com", "@einrot.com", "@fleckens.hu", "@gustr.com", "@jourrapide.com", "@rhyta.com", "@superrito.com", "@teleworm.us", "@filzmail.com", "@incognitomail.org", "@mailcatch.com", "@mailme24.com", "@dunflimblag.mailexpire.com", "@mailnull.com", "@ce.mintemail.com", "@no-spam.ws", "@nowmymail.com", "@onewaymail.com", "@shitmail.org", "@crapmail.org", "@sofimail.com", "@uroid.com", "@kurzepost.de", "@objectmail.com", "@proxymail.eu", "@rcpt.at", "@trash-mail.at", "@trashmail.at", "@trashmail.com", "@trashmail.me", "@trashmail.net", "@wegwerfmail.de", "@wegwerfmail.net", "@wegwerfmail.org", "@yopmail.com", "@yopmail.fr", "@yopmail.net", "@jetable.fr.nf", "@nospam.ze.tc","@nomail.xl.cx", "@mega.zik.dj", "@speed.1s.fr", "@cool.fr.nf", "@courriel.fr.nf", "@moncourrier.fr.nf", "@monemail.fr.nf", "@monmail.fr.nf", "@mt2014.com", "@mt2015.com"]
@@ -284,6 +262,14 @@ kuorum {
 
     seo{
         maxElements = 1000 //El número de elementos que se van a mostrar en el mapa web para el scrapper
+    }
+
+    recommendedUser{
+        regionValue = 150I
+        organizationValue = 50I
+        politicianValue = 50I
+        debateValue = 100I
+        victoryValue = 50I
     }
 }
 

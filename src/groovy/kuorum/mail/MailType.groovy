@@ -12,6 +12,8 @@ public enum MailType {
     REGISTER_CHANGE_EMAIL_VERIFY        (MailGroupType.NOT_CONFIGURABLE,"03B_validationNewEmail",       "registerUser", ["confirmationLink"], []),
     REGISTER_CHANGE_EMAIL_REQUESTED     (MailGroupType.NOT_CONFIGURABLE,"03C_validationNewEmailSecurity","registerUser",["newEmailAccount"], []),
 
+    PROJECT_CREATED_NOTIFICATION        (MailGroupType.NOT_CONFIGURABLE, "24_projectCreatedNotification",  "notification", ["projectName", "projectOwner", "commissionType"], ["projectYoutube", "projectLink", "projectImage"]),
+
     NOTIFICATION_CLUCK                  (MailGroupType.MAIL_RELATED_WITH_ME,            "07_notificationCluck",         "notification", [],  ["postType", "clucker","cluckerLink","postName", "postLink"]),
     NOTIFICATION_FOLLOWER               (MailGroupType.MAIL_RELATED_WITH_ME,            "08_notificationFollower",      "notification", [],  ["follower","followerLink"]),
     NOTIFICATION_PUBLIC_MILESTONE       (MailGroupType.MAIL_RELATED_WITH_ME,            "09_notificationMilestone",     "notification",["postType"],["postName", "numVotes", "postLink"]),
