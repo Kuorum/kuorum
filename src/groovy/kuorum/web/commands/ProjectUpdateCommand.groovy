@@ -5,7 +5,7 @@ import grails.validation.Validateable
 @Validateable
 class ProjectUpdateCommand {
 
-    private static final YOUTUBE_REGEX = ~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube\.com\/watch\?v=[a-zA-Z0-9_]*/
+    private static final YOUTUBE_REGEX = ~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube\.com\/watch\?v=[a-zA-Z0-9_-]*/
 
     String description
     String photoId
