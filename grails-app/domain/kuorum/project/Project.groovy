@@ -53,7 +53,7 @@ class Project {
         shortName nullable: false, minSize: 1, maxSize: 107
         commissions nullable: false, minSize:1, maxSize: 4
         realName nullable:true
-        description nullable:false, minSize: 1, maxSize: 5000
+        description nullable:false, minSize: 1
         region  nullable:false
         institution nullable:false, validator: { val, obj ->
             if (obj.region && obj.region != val.region) {
