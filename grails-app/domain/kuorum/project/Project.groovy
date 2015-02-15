@@ -133,6 +133,8 @@ class ProjectUpdate {
     KuorumFile urlYoutube
     Date dateCreated
 
+    static embedded = ['image','urlYoutube' ]
+
     static constraints = {
         description maxSize:500
         image nullable: true

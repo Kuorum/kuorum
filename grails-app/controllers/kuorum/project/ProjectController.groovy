@@ -145,7 +145,7 @@ class ProjectController {
 
         if(projectUpdateCommand.videoPost){
             KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(projectUpdateCommand.videoPost, user)
-            project.urlYoutube = urlYoutubeFile
+            projectUpdate.urlYoutube = urlYoutubeFile
         }
 
         Map result = projectService.addProjectUpdate(projectUpdate, project)
