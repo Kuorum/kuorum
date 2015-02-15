@@ -141,7 +141,7 @@
             <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
         </fieldset>
 
-        <fieldset class="form-group image perfil" data-multimedia-switch="on" data-multimedia-type="IMAGE">
+        <fieldset class="form-group image" data-multimedia-switch="on" data-multimedia-type="IMAGE">
             <formUtil:editImage command="${command}" field="imageProfile" fileGroup="${kuorum.core.FileGroup.USER_PROFILE}"/>
         </fieldset>
 
