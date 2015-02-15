@@ -52,10 +52,13 @@ class ProfileController {
         EditUserProfileCommand command = new EditUserProfileCommand()
         command.gender = user.personalData?.gender
         command.postalCode = user.personalData?.postalCode
-        command.year =  user.personalData?.birthday?user.personalData.birthday[Calendar.YEAR]:null
-        command.month = user.personalData?.birthday?user.personalData.birthday[Calendar.MONTH]+1:null
-        command.day =   user.personalData?.birthday?user.personalData.birthday[Calendar.DAY_OF_MONTH]:null
+        command.year =  user.personalData?.year
+//        command.month = user.personalData?.birthday?user.personalData.birthday[Calendar.MONTH]+1:null
+//        command.day =   user.personalData?.birthday?user.personalData.birthday[Calendar.DAY_OF_MONTH]:null
+        command.commissions = user.relevantCommissions
+        command.alias = user.alias
         command.name = user.name
+        command.language = user.language
         if (user.userType == UserType.ORGANIZATION){
             command.enterpriseSector = user.personalData?.enterpriseSector
         }else{
@@ -74,8 +77,12 @@ class ProfileController {
             render view:"editUser", model: [command:command,user:user]
             return
         }
+        if (!user.alias){
+            user.alias = command.alias
+        }
         prepareUserStep1(user,command)
         prepareUserStep2(user,command)
+        user.language = command.language
         kuorumUserService.updateUser(user)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileEditUser'
@@ -83,7 +90,7 @@ class ProfileController {
 
     protected prepareUserStep1(KuorumUser user, def command){
         user.name = command.name
-        PersonalData personalData = null
+        PersonalData personalData = null;
         if (Gender.ORGANIZATION.equals(command.gender)){
             personalData = new OrganizationData()
             personalData.isPoliticalParty = false
@@ -97,11 +104,19 @@ class ProfileController {
                 personalData.userType=UserType.POLITICIAN
             }
         }
-        personalData.birthday = command.date
+        if (user.personalData){
+            //Datos no sobreescribibles
+            personalData.postalCode= user.personalData.postalCode
+            personalData.provinceCode= user.personalData.provinceCode
+            personalData.province= user.personalData.province
+        }
+        personalData.year = command.year
         personalData.gender = command.gender
-        personalData.postalCode = command.postalCode
-        personalData.provinceCode = command.province.iso3166_2
-        personalData.province = command.province
+        if (command.postalCode && !personalData.postalCode){
+            personalData.postalCode = command.postalCode
+            personalData.provinceCode = command.province.iso3166_2
+            personalData.province = command.province
+        }
         user.personalData = personalData
         if (Gender.ORGANIZATION.equals(command.gender)){
             user.personalData.userType = UserType.ORGANIZATION

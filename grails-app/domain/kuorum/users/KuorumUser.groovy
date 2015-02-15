@@ -23,6 +23,7 @@ class KuorumUser {
     ObjectId id
     String name
     String email
+    String alias
     String bio
 //    String username
     String password
@@ -80,6 +81,7 @@ class KuorumUser {
     static constraints = {
         name nullable:false //Limit size will be added
         email nullable: false, email: true
+        alias nullable:true
         password nullable:true
         bio nullable:true
         avatar nullable:true

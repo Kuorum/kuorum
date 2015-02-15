@@ -15,13 +15,14 @@ class PersonalData {
     //TODO: Refactor province to Region
     String provinceCode  // this code is Region.iso3166_2
     Region province
-    Date birthday
+//    Date birthday
+    Integer year
 
     static constraints = {
         gender nullable: true
         provinceCode nullable: true
         postalCode nullable: true
-        birthday nullable:true
+        year nullable:true
         province nullable: true
     }
 }

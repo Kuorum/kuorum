@@ -2,6 +2,8 @@ package kuorum.web.commands.profile
 
 import grails.validation.Validateable
 import kuorum.Region
+import kuorum.core.model.AvailableLanguage
+import kuorum.core.model.CommissionType
 import kuorum.core.model.EnterpriseSector
 import kuorum.core.model.Gender
 import kuorum.core.model.Studies
@@ -14,7 +16,7 @@ import org.grails.databinding.BindUsing
  * Created by iduetxe on 13/02/14.
  */
 @Validateable
-class EditUserProfileCommand extends BirthdayCommad{
+class EditUserProfileCommand{
 
 
     @BindUsing({obj, source ->
@@ -33,7 +35,12 @@ class EditUserProfileCommand extends BirthdayCommad{
     WorkingSector workingSector
     Studies studies
     EnterpriseSector enterpriseSector
+    AvailableLanguage language
     String bio
+
+    String alias
+    Integer year
+    List<CommissionType> commissions = []
 
     String imageProfile
     static constraints = {
@@ -41,10 +48,11 @@ class EditUserProfileCommand extends BirthdayCommad{
         //Step1
         gender nullable: false
         name nullable: false, maxSize: 17
+        alias nullable: true
         country nullable: false
         province nullable:true
         postalCode nullable: false, maxSize: 5, matches:"[0-9]+", validator: {val, command ->
-            if (command.gender != Gender.ORGANIZATION && !command.province){
+            if (command.postalCode && !command.province){
                 return "notExists"
             }
         }
@@ -55,6 +63,7 @@ class EditUserProfileCommand extends BirthdayCommad{
         studies nullable: true
         enterpriseSector nullable:true
         bio nullable: true, maxSize: 500
+        year nullable:true
 
         imageProfile nullable: true
     }
@@ -65,8 +74,10 @@ class EditUserProfileCommand extends BirthdayCommad{
         obj.country = country
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         def regionService = appContext.regionService
-        obj.postalCode = source['postalCode'].padLeft( 5, '0' )
-        obj.province = regionService.findRegionOrProvinceByPostalCode(country, obj.postalCode)
+        if (obj.postalCode){
+            obj.postalCode = source['postalCode'].padLeft( 5, '0' )
+            obj.province = regionService.findRegionOrProvinceByPostalCode(country, obj.postalCode)
+        }
 
     }
 }

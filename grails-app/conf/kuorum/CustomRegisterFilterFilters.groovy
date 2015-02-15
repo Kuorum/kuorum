@@ -7,7 +7,8 @@ class CustomRegisterFilterFilters {
 
     def springSecurityService
 
-    private static final STEP1_FIELDS=['birthday','postalCode','gender']
+//    private static final STEP1_FIELDS=['birthday','postalCode','gender']
+    private static final STEP1_FIELDS=[]
 
     def filters = {
         all(controller:'customRegister|logout|error', invert: true) {

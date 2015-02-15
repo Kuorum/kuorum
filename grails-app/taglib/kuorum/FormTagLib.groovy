@@ -113,6 +113,7 @@ class FormTagLib {
         def required = attrs.required?'required':''
         def cssClass = attrs.cssClass?:'form-control input-lg'
         def labelCssClass = attrs.labelCssClass?:''
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         def maxlength = attrs.maxlength?"maxlength='${attrs.maxlength}'":''
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = message(code: "${command.class.name}.${field}.label")
@@ -128,6 +129,9 @@ class FormTagLib {
             cssClass += " counted"
         }
 
+        if (showLabel){
+            out << "<label for='${field}'>${label}</label>"
+        }
         out <<"""
             <input type="${type}" name="${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}">
         """
@@ -309,6 +313,31 @@ class FormTagLib {
         }
     }
 
+    def selectBirdthYear = {attrs->
+        def command = attrs.command
+        def field = attrs.field
+
+        def id = attrs.id?:field
+        def cssClass = attrs.cssClass
+        def clazz = command.class
+        def label = message(code: "${clazz.name}.${field}.label")
+        def error = hasErrors(bean: command, field: field,'error')
+        out <<"""
+            <label for="${id}">${label}</label>
+            <select name="${field}" class="form-control ${error}" id="${id}">
+            """
+        out << "<option value=''> ${message(code:"${clazz.name}.${field}.empty")}</option>"
+        Integer startYear = 1900;
+        Integer endYear = Calendar.getInstance().get(Calendar.YEAR) - 18
+        (startYear..endYear).each{
+            out << "<option value='${it}' ${it==command."$field"?'selected':''}> ${it}</option>"
+        }
+        out << "</select>"
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+        }
+    }
+
     def checkBox = {attrs ->
         def command = attrs.command
         def field = attrs.field
@@ -363,6 +392,7 @@ class FormTagLib {
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = message(code: "${command.class.name}.${field}.label")
         def error = hasErrors(bean: command, field: field,'error')
+        out << "<div class='groupRadio'>"
         out << "<span class='span-label'>${label} </span>"
         clazz.values().each{
             out << "<label class='radio-inline'>"
@@ -375,6 +405,7 @@ class FormTagLib {
             }
             out << "</label>"
         }
+        out << "</div>"
     }
 
     def textArea = {attrs ->

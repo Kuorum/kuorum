@@ -13,96 +13,146 @@
     <formUtil:validateForm bean="${command}" form="config1" />
     <g:form method="POST" mapping="profileEditUser" name="config1" role="form" class="box-ppal">
         <h1><g:message code="profile.editUser.title"/></h1>
-        <div class="form-group">
-            <formUtil:input command="${command}" field="name" required="true"/>
-        </div>
 
-        <div class="form-group groupRadio">
-            <formUtil:radioEnum command="${command}" field="gender"/>
-            <div  class="pull-right">
-            <span class="popover-trigger fa fa-info-circle" data-toggle="popover" rel="popover" role="button"></span>
-            <!-- POPOVER KUORUM -->
-            <div class="popover">
-                <div class="popover-kuorum">
-                    <p class="text-center"><g:message code="profile.editUser.explanationPolitician.title" encodeAs="raw"/></p>
-                    <p><g:message code="profile.editUser.explanationPolitician"/></p>
-                </div><!-- /popover-more-kuorum -->
+        <fieldset class="row">
+            <div class="form-group col-md-6">
+                <formUtil:input command="${command}" field="name" required="true" showLabel="true"/>
             </div>
-            <span>¿Eres un político electo?</span>
+        </fieldset>
+
+        %{--TODO: HACER EL ALIAS--}%
+        <fieldset class="row">
+            <g:if test="${user.alias}">
+                <div class="form-group col-md-6">
+                    <span class="span-label">Alias</span>
+                    <!-- <input type="text" class="form-control input-lg" id="alias" placeholder="Establece un alias" aria-describedby="ayuda-alias" aria-required="true" required> -->
+                    <span class="disabled">
+                        kuorum.org/${user.alias}
+                        <span class="info-disabled">
+                            <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>
+                            <div class="popover">
+                                <div class="popover-kuorum">
+                                    <p><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.notChangeable"/> </p>
+                                </div>
+                            </div>
+                        </span>
+                    </span>
+                </div>
+            </g:if>
+            <g:else>
+                <div class="form-group col-md-6">
+                    <formUtil:input command="${command}" field="alias" showLabel="true"/>
+                </div>
+                <div class="form-group col-md-6">
+                    <p id="ayuda-alias" class="help-block"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.warning"/></p>
+                </div>
+            </g:else>
+        </fieldset>
+
+        <fieldset class="row">
+            <div class="form-group col-md-6">
+                <label for="pais">País</label>
+                <select name="pais" class="form-control input-lg" id="pais">
+                    <option value="Elige tu país">País</option>
+                    <option value="Alemania">Alemania</option>
+                    <option value="Austria">Austria</option>
+                    <option>...</option>
+                </select>
             </div>
-        </div>
-        <div class="form-group">
-            <span class="span-label"><g:message code="customRegister.step1.form.birthday.label"/></span>
-            <div class="row">
-                <div class="col-xs-4">
-                    <formUtil:input
-                            command="${command}"
-                            field="day"
-                            labelCssClass="sr-only"
-                            required="true"
-                            type="number"
-                            maxlength="2"
-                    />
-                </div>
-                <div class="col-xs-4">
-                    <formUtil:input
-                            command="${command}"
-                            field="month"
-                            labelCssClass="sr-only"
-                            required="true"
-                            type="number"
-                            maxlength="2"
-                    />
-                </div>
-                <div class="col-xs-4">
-                    <formUtil:input
-                            command="${command}"
-                            field="year"
-                            labelCssClass="sr-only"
-                            required="true"
-                            type="number"
-                            maxlength="4"
-                    />
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-xs-4">
+            <div class="form-group col-md-6 postal">
+                <g:if test="${user.personalData?.postalCode}">
+                    <span class="span-label"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.postalCode.label"/> </span>
+                    <span class="disabled">
+                        ${user.personalData.postalCode}
+                        <span class="info-disabled">
+                            <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>
+                            <div class="popover">
+                                <div class="popover-kuorum">
+                                    <p><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.postalCode.notChangeable"/> </p>
+                                </div>
+                            </div>
+                        </span>
+                    </span>
+                </g:if>
+                <g:else>
                     <formUtil:input
                             command="${command}"
                             field="postalCode"
                             required="true"
                             type="number"
                             maxlength="5"
+                            showLabel="true"
                     />
+                </g:else>
+            </div>
+        </fieldset>
+
+
+        <fieldset class="row">
+            <div class="form-group col-md-6">
+                <formUtil:radioEnum command="${command}" field="gender"/>
+            </div>
+            <div class="form-group col-md-6 nacimiento">
+                <formUtil:selectBirdthYear command="${command}" field="year"/>
+            </div>
+        </fieldset>
+
+        <fieldset class="row">
+            <div class="form-group col-md-6">
+                <formUtil:selectEnum command="${command}" field="language"/>
+            </div>
+        </fieldset>
+
+        <fieldset class="row">
+            <div class="form-group col-md-6">
+                <formUtil:selectEnum command="${command}" field="workingSector"/>
+            </div>
+        </fieldset>
+
+        <fieldset class="row">
+            <div class="form-group col-md-6">
+                <formUtil:selectEnum command="${command}" field="studies"/>
+            </div>
+        </fieldset>
+
+        <fieldset class="row">
+            <div class="form-group col-md-6">
+                <span class="span-label">Número de teléfono</span>
+                <div class="form-group pull-left prefix">
+                    <label for="phone-prefix" class="sr-only">Prefijo teléfono</label>
+                    <select name="phone-prefix" class="form-control input-lg" id="phone-prefix">
+                        <option value="+34">+34</option>
+                        <option value="+32">+32</option>
+                        <option value="+33">+33</option>
+                        <option>...</option>
+                    </select>
                 </div>
-                <div class="col-xs-4 userData">
-                    <formUtil:selectEnum command="${command}" field="workingSector"/>
+                <div class="form-group pull-left phone">
+                    <label for="phone" class="sr-only">Número de teléfono</label>
+                    <input type="number" name="phone" class="form-control input-lg" id="phone" placeholder="Número de teléfono">
                 </div>
-                <div class="col-xs-4 userData">
-                    <formUtil:selectEnum command="${command}" field="studies"/>
-                </div>
-                <div class="col-xs-4 organizationData">
-                    <formUtil:selectEnum command="${command}" field="enterpriseSector"/>
-                </div>
-            </div><!-- /.row -->
-        </div><!-- /.form-group -->
-        <div class="form-group">
-            <p class="help-block"><g:message code="profile.editUser.explanationUserData"/> </p>
-        </div>
-        <div class="form-group">
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
             <formUtil:textArea command="${command}" field="bio"/>
-        </div>
-        <div class="form-group">
+        </fieldset>
+        <fieldset class="form-group image perfil" data-multimedia-switch="on" data-multimedia-type="IMAGE">
             <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
-        </div>
-        <div class="form-group">
+        </fieldset>
+
+        <fieldset class="form-group image perfil" data-multimedia-switch="on" data-multimedia-type="IMAGE">
             <formUtil:editImage command="${command}" field="imageProfile" fileGroup="${kuorum.core.FileGroup.USER_PROFILE}"/>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">
+        </fieldset>
+
+
+        <fieldset class="form-group interest">
+            <formUtil:selectMultipleCommissions command="${command}" field="commissions"/>
+        </fieldset>
+
+        <fieldset class="form-group text-right">
             <a href="#" class="cancel" tabindex="19">Cancelar</a>
-        </div>
+            <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">
+        </fieldset>
     </g:form>
 </content>

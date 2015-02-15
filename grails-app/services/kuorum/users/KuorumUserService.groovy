@@ -175,7 +175,8 @@ class KuorumUserService {
             kuorumUsers = orderUserByFacebookFriends(user, facebookUsers, kuorumUsers, facebookFriends)
         } else {
             //Segundo criterio
-            kuorumUsers =  orderUsersByActivity(user, kuorumUsers)[pagination.offset..pagination.max]
+//            kuorumUsers =  orderUsersByActivity(user, kuorumUsers)[pagination.offset..pagination.max]
+            kuorumUsers =  user.followers[0..Math.min(5, user.followers.size())].collect{KuorumUser.get(it)}
         }
 
         kuorumUsers as ArrayList<KuorumUser>
