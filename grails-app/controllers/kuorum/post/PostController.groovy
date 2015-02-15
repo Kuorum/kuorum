@@ -126,23 +126,6 @@ class PostController {
         multimedia
     }
 
-    private KuorumFile createKuorumFileFromYoutubeUrl(String url, KuorumUser user){
-        def fileName = url.replaceAll(~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube.com\/watch\?v=([a-zA-Z0-9]*)/, '$2')
-        KuorumFile multimedia = new KuorumFile(
-                user:user,
-                local:Boolean.FALSE,
-                temporal:Boolean.FALSE,
-                storagePath:null,
-                alt:null,
-                fileName:fileName,
-                url:url,
-                fileGroup:FileGroup.POST_IMAGE,
-                fileType:FileType.YOUTUBE
-        )
-        multimedia.save()
-    }
-
-
     @Secured(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_PREMIUM', 'ROLE_POLITICIAN'])
     def create(String hashtag){
         Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
