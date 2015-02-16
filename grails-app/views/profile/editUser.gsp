@@ -50,7 +50,24 @@
 
         <fieldset class="row">
             <div class="form-group col-md-6">
-                <formUtil:selectNation command="${command}" field="country"/>
+                <g:if test="${user.personalData?.country}">
+                    <span class="span-label"><g:message code="kuorum.Region.label"/> </span>
+                    <g:hiddenField name="country" value="${command.country.id}"/>
+                    <span class="disabled">
+                        <g:message code="kuorum.Region.${user.personalData?.country.iso3166_2}"/>
+                        <span class="info-disabled">
+                            <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>
+                            <div class="popover">
+                                <div class="popover-kuorum">
+                                    <p><g:message code="kuorum.Region.notChangeable"/></p>
+                                </div>
+                            </div>
+                        </span>
+                    </span>
+                </g:if>
+                <g:else>
+                    <formUtil:selectNation command="${command}" field="country"/>
+                </g:else>
             </div>
             <div class="form-group col-md-6 postal">
                 <g:if test="${user.personalData?.postalCode}">
@@ -66,15 +83,7 @@
                             </div>
                         </span>
                     </span>
-                    <formUtil:input
-                            command="${command}"
-                            field="postalCode"
-                            required="true"
-                            type="number"
-                            maxlength="5"
-                            showLabel="false"
-                            cssClass="hidden"
-                    />
+                    <g:hiddenField name="postalCode" value="${command.postalCode}"/>
                 </g:if>
                 <g:else>
                     <formUtil:input

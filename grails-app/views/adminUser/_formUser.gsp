@@ -13,6 +13,22 @@
 </fieldset>
 
 <fieldset class="row">
+    <div class="form-group col-md-6">
+        <formUtil:selectNation command="${command}" field="country"/>
+    </div>
+    <div class="form-group col-md-6 postal">
+        <formUtil:input
+                command="${command}"
+                field="postalCode"
+                required="true"
+                type="number"
+                maxlength="5"
+                showLabel="true"
+        />
+    </div>
+</fieldset>
+
+<fieldset class="row">
     <div class="col-xs-6">
         <formUtil:selectDomainObject command="${command}" field="institution" values="${institutions}" />
     </div>
