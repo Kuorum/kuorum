@@ -20,6 +20,11 @@ dbDest.project.find().forEach(function(project){
     project.region = region;
     dbDest.project.save(project);
 })
+dbDest.institution.find().forEach(function(institution){
+    var region = dbDest.region.find({_id:institution.region._id}).next()
+    institution.region = region;
+    dbDest.institution.save(institution);
+})
 
 
 dbDest.kuorumUser.find({'politicianOnRegion':{$exists:1}}).forEach(function(politician){
@@ -28,6 +33,8 @@ dbDest.kuorumUser.find({'politicianOnRegion':{$exists:1}}).forEach(function(poli
     print(politician.name +"=> "+region.name + "("+region.regionType+")")
     dbDest.kuorumUser.save(politician);
 })
+
+
 
 dbDest.kuorumUser.find().forEach(function(user){
     var country = dbDest.region.find({iso3166_2:"EU-ES"}).next()

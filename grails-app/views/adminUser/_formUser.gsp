@@ -60,9 +60,6 @@
     <div class="form-group col-md-6">
         <formUtil:selectEnum command="${command}" field="studies"/>
     </div>
-</fieldset>
-
-<fieldset class="row userData">
     <div class="form-group col-md-6">
         <formUtil:selectEnum command="${command}" field="workingSector"/>
     </div>
@@ -76,9 +73,6 @@
 </fieldset>
 
 <fieldset class="row">
-    <div class="form-group col-md-6">
-        <formUtil:radioEnum command="${command}" field="gender"/>
-    </div>
     <div class="form-group col-md-6 nacimiento">
         <formUtil:selectBirdthYear command="${command}" field="year"/>
     </div>
