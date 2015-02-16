@@ -8,6 +8,7 @@ import kuorum.core.model.EnterpriseSector
 import kuorum.core.model.Gender
 import kuorum.core.model.Studies
 import kuorum.core.model.WorkingSector
+import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.grails.databinding.BindUsing
@@ -69,8 +70,7 @@ class EditUserProfileCommand{
     }
 
     public static void bindingPostalCode(obj, source){
-        //TODO: Mirar como hacer otro pais
-        Region country = Region.findByIso3166_2("EU-ES") //ESPAÑA
+        Region country = Region.get(new ObjectId(source['country']))
         obj.country = country
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         def regionService = appContext.regionService

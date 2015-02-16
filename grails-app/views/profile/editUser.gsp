@@ -20,11 +20,10 @@
             </div>
         </fieldset>
 
-        %{--TODO: HACER EL ALIAS--}%
         <fieldset class="row">
             <g:if test="${user.alias}">
                 <div class="form-group col-md-6">
-                    <span class="span-label">Alias</span>
+                    <span class="span-label"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.label"/></span>
                     <!-- <input type="text" class="form-control input-lg" id="alias" placeholder="Establece un alias" aria-describedby="ayuda-alias" aria-required="true" required> -->
                     <span class="disabled">
                         kuorum.org/${user.alias}
@@ -51,13 +50,7 @@
 
         <fieldset class="row">
             <div class="form-group col-md-6">
-                <label for="pais">País</label>
-                <select name="pais" class="form-control input-lg" id="pais">
-                    <option value="Elige tu país">País</option>
-                    <option value="Alemania">Alemania</option>
-                    <option value="Austria">Austria</option>
-                    <option>...</option>
-                </select>
+                <formUtil:selectNation command="${command}" field="country"/>
             </div>
             <div class="form-group col-md-6 postal">
                 <g:if test="${user.personalData?.postalCode}">
@@ -73,6 +66,15 @@
                             </div>
                         </span>
                     </span>
+                    <formUtil:input
+                            command="${command}"
+                            field="postalCode"
+                            required="true"
+                            type="number"
+                            maxlength="5"
+                            showLabel="false"
+                            cssClass="hidden"
+                    />
                 </g:if>
                 <g:else>
                     <formUtil:input

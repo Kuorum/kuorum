@@ -28,3 +28,13 @@ dbDest.kuorumUser.find({'politicianOnRegion':{$exists:1}}).forEach(function(poli
     print(politician.name +"=> "+region.name + "("+region.regionType+")")
     dbDest.kuorumUser.save(politician);
 })
+
+dbDest.kuorumUser.find().forEach(function(user){
+    var country = dbDest.region.find({iso3166_2:"EU-ES"}).next()
+    if (user.personalData != undefined){
+        user.personalData.country = country._id
+        dbDest.kuorumUser.save(user);
+    }else{
+        print("WARN: Usuario sin personalData: " + user.name +" "+user._id)
+    }
+})

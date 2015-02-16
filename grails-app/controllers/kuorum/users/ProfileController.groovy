@@ -53,6 +53,7 @@ class ProfileController {
         command.gender = user.personalData?.gender
         command.postalCode = user.personalData?.postalCode
         command.year =  user.personalData?.year
+        command.country =  user.personalData?.country
 //        command.month = user.personalData?.birthday?user.personalData.birthday[Calendar.MONTH]+1:null
 //        command.day =   user.personalData?.birthday?user.personalData.birthday[Calendar.DAY_OF_MONTH]:null
         command.commissions = user.relevantCommissions
@@ -94,7 +95,7 @@ class ProfileController {
         if (Gender.ORGANIZATION.equals(command.gender)){
             personalData = new OrganizationData()
             personalData.isPoliticalParty = false
-            personalData.country = command.country
+            personalData.nation = command.nation
             user.userType = UserType.ORGANIZATION
         }else{
             personalData = new PersonData()
@@ -109,9 +110,13 @@ class ProfileController {
             personalData.postalCode= user.personalData.postalCode
             personalData.provinceCode= user.personalData.provinceCode
             personalData.province= user.personalData.province
+            personalData.country= user.personalData.country
         }
         personalData.year = command.year
         personalData.gender = command.gender
+        if (command.country && !personalData.country){
+            personalData.country = command.country
+        }
         if (command.postalCode && !personalData.postalCode){
             personalData.postalCode = command.postalCode
             personalData.provinceCode = command.province.iso3166_2
