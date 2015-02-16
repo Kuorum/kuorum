@@ -4,10 +4,10 @@
     </div>
 </fieldset>
 <fieldset class="row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-6">
         <formUtil:input command="${command}" field="email" type="email" required="true" autocomplete="off" showLabel="true"/>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-6">
         <formUtil:input command="${command}" field="password" type="password" required="true" showLabel="true"/>
     </div>
 </fieldset>

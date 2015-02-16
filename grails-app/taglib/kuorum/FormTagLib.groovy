@@ -301,7 +301,7 @@ class FormTagLib {
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
             <label for="${id}">${label}</label>
-            <select name="${field}" class="form-control ${error}" id="${id}">
+            <select name="${field}" class="form-control input-lg ${error}" id="${id}">
             """
         out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
         clazz.values().each{
@@ -325,7 +325,7 @@ class FormTagLib {
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
             <label for="${id}">${label}</label>
-            <select name="${field}" class="form-control ${error}" id="${id}">
+            <select name="${field}" class="form-control input-lg ${error}" id="${id}">
             """
         out << "<option value=''> ${message(code:"${clazz.name}.${field}.empty")}</option>"
         Integer startYear = 1900;
