@@ -20,11 +20,10 @@
             </div>
         </fieldset>
 
-        %{--TODO: HACER EL ALIAS--}%
         <fieldset class="row">
             <g:if test="${user.alias}">
                 <div class="form-group col-md-6">
-                    <span class="span-label">Alias</span>
+                    <span class="span-label"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.label"/></span>
                     <!-- <input type="text" class="form-control input-lg" id="alias" placeholder="Establece un alias" aria-describedby="ayuda-alias" aria-required="true" required> -->
                     <span class="disabled">
                         kuorum.org/${user.alias}
@@ -51,13 +50,24 @@
 
         <fieldset class="row">
             <div class="form-group col-md-6">
-                <label for="pais">País</label>
-                <select name="pais" class="form-control input-lg" id="pais">
-                    <option value="Elige tu país">País</option>
-                    <option value="Alemania">Alemania</option>
-                    <option value="Austria">Austria</option>
-                    <option>...</option>
-                </select>
+                <g:if test="${user.personalData?.country}">
+                    <span class="span-label"><g:message code="kuorum.Region.label"/> </span>
+                    <g:hiddenField name="country" value="${command.country.id}"/>
+                    <span class="disabled">
+                        <g:message code="kuorum.Region.${user.personalData?.country.iso3166_2}"/>
+                        <span class="info-disabled">
+                            <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>
+                            <div class="popover">
+                                <div class="popover-kuorum">
+                                    <p><g:message code="kuorum.Region.notChangeable"/></p>
+                                </div>
+                            </div>
+                        </span>
+                    </span>
+                </g:if>
+                <g:else>
+                    <formUtil:selectNation command="${command}" field="country"/>
+                </g:else>
             </div>
             <div class="form-group col-md-6 postal">
                 <g:if test="${user.personalData?.postalCode}">
@@ -73,6 +83,7 @@
                             </div>
                         </span>
                     </span>
+                    <g:hiddenField name="postalCode" value="${command.postalCode}"/>
                 </g:if>
                 <g:else>
                     <formUtil:input

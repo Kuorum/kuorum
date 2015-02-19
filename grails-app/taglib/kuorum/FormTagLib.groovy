@@ -2,6 +2,7 @@ package kuorum
 
 import kuorum.core.FileGroup
 import kuorum.core.model.CommissionType
+import kuorum.core.model.RegionType
 import kuorum.project.Project
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
@@ -300,7 +301,7 @@ class FormTagLib {
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
             <label for="${id}">${label}</label>
-            <select name="${field}" class="form-control ${error}" id="${id}">
+            <select name="${field}" class="form-control input-lg ${error}" id="${id}">
             """
         out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
         clazz.values().each{
@@ -324,7 +325,7 @@ class FormTagLib {
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
             <label for="${id}">${label}</label>
-            <select name="${field}" class="form-control ${error}" id="${id}">
+            <select name="${field}" class="form-control input-lg ${error}" id="${id}">
             """
         out << "<option value=''> ${message(code:"${clazz.name}.${field}.empty")}</option>"
         Integer startYear = 1900;
@@ -337,6 +338,32 @@ class FormTagLib {
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
         }
     }
+
+    def selectNation = {attrs->
+        def command = attrs.command
+        def field = attrs.field
+
+        def id = attrs.id?:field
+        def cssClass = attrs.cssClass
+        def clazz = command.metaClass.properties.find{it.name == field}.type
+        def label = message(code: "${clazz.name}.label")
+        def error = hasErrors(bean: command, field: field,'error')
+        out <<"""
+            <label for="${id}">${label}</label>
+            <select name="${field}" class="form-control input-lg ${error}" id="${id}">
+            """
+        out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
+        List<Region> countries = Region.findAllByRegionType(RegionType.NATION)
+        countries.each{
+            String codeMessage = "${clazz.name}.${it.iso3166_2}"
+            out << "<option value='${it.id}' ${it.id==command."$field".id?'selected':''}> ${message(code:codeMessage)}</option>"
+        }
+        out << "</select>"
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+        }
+    }
+
 
     def checkBox = {attrs ->
         def command = attrs.command

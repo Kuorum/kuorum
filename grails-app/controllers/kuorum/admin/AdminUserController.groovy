@@ -65,7 +65,6 @@ class AdminUserController extends AdminController {
         if (UserType.ORGANIZATION.equals(command.userType)){
             personalData = new OrganizationData()
             personalData.isPoliticalParty = false
-            personalData.country = command.country
             personalData.enterpriseSector =  command.enterpriseSector
             kuorumUserService.convertAsOrganization(user)
         }else{
@@ -78,10 +77,11 @@ class AdminUserController extends AdminController {
             personalData.studies = command.studies
             personalData.workingSector = command.workingSector
         }
-        personalData.birthday = command.date
+        personalData.year = command.year
         personalData.gender = command.gender
         personalData.postalCode = command.postalCode
         personalData.provinceCode = command.province.iso3166_2
+        personalData.country = command.country
         personalData.province = command.province
         personalData.userType = command.userType
         user.personalData = personalData
@@ -119,7 +119,6 @@ class AdminUserController extends AdminController {
         //TODO: Pensar como unificar con el ProfileController
         AdminUserCommand command = new AdminUserCommand()
         if (UserType.ORGANIZATION.equals(user.userType)){
-            command.country = user.personalData.country
             command.enterpriseSector = user.personalData.enterpriseSector
         }else{
 
@@ -131,10 +130,11 @@ class AdminUserController extends AdminController {
             command.institution = user.institution
         }
         command.year =  user.personalData?.birthday?user.personalData?.birthday[Calendar.YEAR]:null
-        command.month = user.personalData?.birthday?user.personalData?.birthday[Calendar.MONTH] +1:null
-        command.day =   user.personalData?.birthday?user.personalData?.birthday[Calendar.DAY_OF_MONTH]:null
+//        command.month = user.personalData?.birthday?user.personalData?.birthday[Calendar.MONTH] +1:null
+//        command.day =   user.personalData?.birthday?user.personalData?.birthday[Calendar.DAY_OF_MONTH]:null
 
         command.gender = user.personalData.gender
+        command.country = user.personalData.country
         command.postalCode = user.personalData.postalCode
         command.province = user.personalData.province
         command.email = user.email

@@ -58,7 +58,7 @@ class FacebookAuthService {
             PersonData personData = new PersonData()
 
             personData.gender = overwriteFieldIfNotFilled(user.personalData, "gender", fbProfile,{data ->Gender.valueOf(data.toUpperCase())?:Gender.FEMALE})
-            personData.birthday =  overwriteFieldIfNotFilled(user.personalData, "birthday", fbProfile,{data ->(!data)?:Date.parse(FORMAT_BIRTHDAY_FACEBOOK,data)})
+            personData.year =  overwriteFieldIfNotFilled(user.personalData, "year", fbProfile,{data ->(!data)?:Date.parse(FORMAT_BIRTHDAY_FACEBOOK,data)?.year})
             personData.studies = (user.personalData.hasProperty("studies") && user.personalData.studies)?user.personalData.studies:studies
 
             user.personalData = personData
@@ -90,7 +90,7 @@ class FacebookAuthService {
             else
                 parseData(fbProfile."$field")
         }catch (Exception e){
-            log.warn("Eror recuperando los datos personales (${field}) de facebook del usuario ${fbProfile.email}. [Excpt: ${e.getMessage()}]")
+            log.warn("Error recuperando los datos personales (${field}) de facebook del usuario ${fbProfile.email}. [Excpt: ${e.getMessage()}]")
         }
     }
 

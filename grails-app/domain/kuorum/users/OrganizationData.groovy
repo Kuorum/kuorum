@@ -7,10 +7,9 @@ class OrganizationData extends PersonalData{
 
     Boolean isPoliticalParty
     EnterpriseSector enterpriseSector
-    Region country
 
     Region getProvince(){
-        return this.country
+        return this.nation
     }
 
     static constraints = {
