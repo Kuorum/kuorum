@@ -16,7 +16,8 @@
 
 <content tag="mainContent">
     <div id="projectsList">
-        <g:set var="urlLoadMore" value="${createLink(mapping: 'projectListOfUsers', params: [template: 'listProjects'])}" />
-        <g:render template="projects" model="[projects:projects, order: order, sort: sort, published: published, max: max, offset: offset, totalProjects: totalProjects, publishedProjects: publishedProjects, draftProjects: draftProjects, seeMore: seeMore, urlLoadMore: urlLoadMore]"/>
+        <g:render template="projects" model="[projects:projects, order: order, sort: sort, published: published,
+                max: max, offset: offset, totalProjects: totalProjects, publishedProjects: publishedProjects,
+                draftProjects: draftProjects, seeMore: seeMore]"/>
     </div>
 </content>

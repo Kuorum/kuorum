@@ -8,6 +8,7 @@ import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
+import kuorum.helper.IntegrationHelper
 import kuorum.users.KuorumUser
 import kuorum.web.commands.ProjectCommand
 import kuorum.web.commands.ProjectUpdateCommand
@@ -113,6 +114,7 @@ class ProjectControllerIntegrationSpec extends Specification{
         response.projectUpdateCommand
     }
 
+
     void "Add a update to a project" () {
         given: "A user, a project and a projectUpdateCommand"
         KuorumUser user = KuorumUser.findByEmail("politician@example.com")
@@ -157,6 +159,26 @@ class ProjectControllerIntegrationSpec extends Specification{
         'a' * 501   || ''
         null        || ''
     }
+
+
+    void " Try to show a project without being authenticated" () {
+        given: "a project with published to false"
+        Project project = IntegrationHelper.createDefaultProject("#PruebaSalenda")
+        project.published = false
+        project.save(flush:true)
+        when: "Add an update to the project"
+        projectController.show(project.hashtag)
+
+        then: "The project update has not been added"
+        projectController
+        projectController.response
+        projectController.response.status
+        projectController.response.status == 401
+
+        cleanup:
+        project?.delete(flush: true)
+    }
+
 
     private createProjectCommand(KuorumUser kuorumUser){
         ProjectCommand projectCommand = new ProjectCommand()

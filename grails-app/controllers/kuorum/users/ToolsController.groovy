@@ -162,7 +162,7 @@ class ToolsController {
 
 
         Map projectsOrderListOfUser = projectService.search(user, params.sort, Order.findByValue(params.order),
-                params.published?Boolean.parseBoolean(params.published):null, params.offset.toLong(), params.max.toInteger())
+                params.published?Boolean.parseBoolean(params.published):null, 0, params.max.toInteger())
         Integer totalProjects = Project.countByOwner(user)
         Integer publishedProjects = Project.countByOwnerAndPublished(user, true)
         Integer draftProjects = Project.countByOwnerAndPublished(user, false)
@@ -178,10 +178,11 @@ class ToolsController {
             seeMore = projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < totalProjects:false
         }
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < params.max.toInteger():true}")
+        String publishMessage = message(code:'admin.publishProject.success', args: [project.hashtag])
         render template: "projects", model: [projects: projectsOrderListOfUser.projects, order: params.order,
                 sort: params.sort, published: params.published, max: params.max, offset: params.offset,
                 totalProjects: totalProjects, publishedProjects: publishedProjects, draftProjects: draftProjects,
-                seeMore: seeMore, urlLoadMore: params.urlLoadMore]
+                seeMore: seeMore, urlLoadMore: params.urlLoadMore, publishMessage: publishMessage]
     }
 
 

@@ -2,6 +2,7 @@
     <g:render template="projectsResume" model="[order: order, sort: sort, published: published, max: max, offset: offset, totalProjects: totalProjects, publishedProjects: publishedProjects, draftProjects: draftProjects, seeMore: seeMore, urlLoadMore: urlLoadMore]"/>
 </div>
 
+<g:set var="urlLoadMore" value="${createLink(mapping: 'projectListOfUsers', params: [template: 'listProjects', sort: sort, order: order])}" />
 <div class="box-ppal">
     <ul class="filter-order">
         <li><g:message code="project.list.orderBy" /></li>
@@ -28,14 +29,15 @@
     </ul>
 
     <ul class="list-project" id="list-projects-id">
-        <g:render template="listProjects" model="[projects:projects, order: order, sort: sort, published: published, max: max, offset: offset, totalProjects: totalProjects, publishedProjects: publishedProjects, draftProjects: draftProjects, seeMore: seeMore, urlLoadMore: urlLoadMore]"/>
+        <g:render template="listProjects" model="[projects:projects, order: order, sort: sort, published: published,
+                max: max, offset: offset, totalProjects: totalProjects, publishedProjects: publishedProjects,
+                draftProjects: draftProjects, seeMore: seeMore, urlLoadMore: urlLoadMore, publishMessage: publishMessage]"/>
     </ul>
 
     <!-- ver más -->
     <g:if test="${seeMore}">
         <div id="load-more" class="text-center">
-            %{--<g:hiddenField name="urlLoadMore" value="${urlLoadMore}"/>--}%
-            <a href="${urlLoadMore}" class="loadMore" data-parent-id="list-projects-id">
+            <a href="${urlLoadMore}" class="loadMoreListProjects" data-parent-id="list-projects-id">
                 <g:message code="project.list.showMore" />
             </a>
         </div>

@@ -174,6 +174,7 @@ grails.plugin.springsecurity.facebook.secret='OVERWRITE_FROM_EXTERNAL_CONFIG'
 grails.plugin.springsecurity.facebook.permissions='email,user_about_me,user_birthday,user_education_history'
 grails.plugin.springsecurity.facebook.autoCreate.roles='ROLE_USER'
 grails.plugin.springsecurity.facebook.filter.type='redirect'
+grails.plugin.springsecurity.facebook.filter.redirect.successHandler='facebookSuccessHandler'
 //grails.plugins.springsecurity.facebook.filter.redirect.failureHandler = 'facebookHandler'
 grails.plugin.springsecurity.rememberMe.alwaysRemember=true
 grails.plugin.springsecurity.rememberMe.tokenValiditySeconds=60*60*24*365 //(one year)

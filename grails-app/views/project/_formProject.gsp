@@ -25,7 +25,7 @@
     <span class="span-label sr-only"><g:message code="admin.createProject.upload.imageOrVideo" /></span>
     <input type="hidden" name="fileType" value="" id="fileType">
     <ul class="nav nav-pills nav-justified">
-        <li class="${command.photoId?'active':''}">
+        <li class="${command.photoId || (command.errors?.getFieldError('photoId')?.codes?.contains('imageOrUrlYoutubeRequired') && command.errors?.getFieldError('videoPost')?.codes?.contains('imageOrUrlYoutubeRequired'))?'active':''}">
             <a href="#projectUploadImage" data-toggle="tab" data-filetype="IMAGE"><g:message code="admin.createProject.upload.image" /></a>
         </li>
         <li class="${command.videoPost?'active':''}">
@@ -33,7 +33,7 @@
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane fade ${command.photoId?'in active':''}" id="projectUploadImage">
+        <div class="tab-pane fade ${command.photoId || (command.errors?.getFieldError('photoId')?.codes?.contains('imageOrUrlYoutubeRequired') && command.errors?.getFieldError('videoPost')?.codes?.contains('imageOrUrlYoutubeRequired'))?'in active':''}" id="projectUploadImage">
             <div class="form-group image" data-multimedia-switch="on" data-multimedia-type="IMAGE">
                 <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.PROJECT_IMAGE}"/>
             </div>

@@ -1,12 +1,8 @@
 package kuorum.users
 
-import kuorum.Region
-import kuorum.core.model.RegionType
-import kuorum.core.model.UserType
-import spock.lang.IgnoreRest
+import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Unroll
-import kuorum.helper.IntegrationHelper
 
 /**
  * Created by iduetxe on 17/03/14.
@@ -16,7 +12,7 @@ class KuorumUserServiceIntegrationTest extends Specification {
     def kuorumUserService
     def fixtureLoader
 
-    def setup(){
+    def setup() {
         KuorumUser.collection.getDB().dropDatabase()
         fixtureLoader.load("testBasicData")
     }
@@ -26,13 +22,13 @@ class KuorumUserServiceIntegrationTest extends Specification {
         KuorumUser follower = KuorumUser.findByEmail(followerEmail)
         KuorumUser following = KuorumUser.findByEmail(followingEmail)
         Integer futureNumFollowers = following.numFollowers
-        if (!follower.following.contains(following.id)){
-            futureNumFollowers ++
+        if (!follower.following.contains(following.id)) {
+            futureNumFollowers++
         }
 
         when: "Adding a follower"
         //"service" represents the grails service you are testing for
-        kuorumUserService.createFollower(follower,following)
+        kuorumUserService.createFollower(follower, following)
         then: "All OK"
         follower.following.contains(following.id)
         following.followers.contains(follower.id)
@@ -45,9 +41,9 @@ class KuorumUserServiceIntegrationTest extends Specification {
             futureNumFollowers == followingNS.numFollowers
         }
         where:
-        followerEmail           | followingEmail
-        "peter@example.com"     | "equo@example.com"
-        "peter@example.com"     | "carmen@example.com"
+        followerEmail       | followingEmail
+        "peter@example.com" | "equo@example.com"
+        "peter@example.com" | "carmen@example.com"
     }
 
     @Unroll
@@ -57,16 +53,16 @@ class KuorumUserServiceIntegrationTest extends Specification {
         KuorumUser following = KuorumUser.findByEmail(followingEmail)
 
         if (createFollower)
-            kuorumUserService.createFollower(follower,following)
+            kuorumUserService.createFollower(follower, following)
 
         Integer futureNumFollowers = following.numFollowers
-        if (follower.following.contains(following.id)){
-            futureNumFollowers --
+        if (follower.following.contains(following.id)) {
+            futureNumFollowers--
         }
 
         when: "Deleting follower"
         //"service" represents the grails service you are testing for
-        kuorumUserService.deleteFollower(follower,following)
+        kuorumUserService.deleteFollower(follower, following)
         then: "All OK"
         !follower.following.contains(following.id)
         !following.followers.contains(follower.id)
@@ -79,9 +75,9 @@ class KuorumUserServiceIntegrationTest extends Specification {
             futureNumFollowers == followingNS.numFollowers
         }
         where:
-        followerEmail           | followingEmail        | createFollower
-        "peter@example.com"     | "equo@example.com"    | false
-        "peter@example.com"     | "carmen@example.com"  | true
+        followerEmail       | followingEmail       | createFollower
+        "peter@example.com" | "equo@example.com"   | false
+        "peter@example.com" | "carmen@example.com" | true
     }
 
     @Unroll
@@ -91,17 +87,17 @@ class KuorumUserServiceIntegrationTest extends Specification {
         when:
         kuorumUserService.convertAsPremium(user)
         then:
-        user.authorities.collect{it.authority}.contains("ROLE_PREMIUM")
+        user.authorities.collect { it.authority }.contains("ROLE_PREMIUM")
         user.authorities.size() == 2
         KuorumUser.withNewSession {
             KuorumUser userNS = KuorumUser.findByEmail(email)
-            userNS.authorities.collect{it.authority}.contains("ROLE_PREMIUM")
+            userNS.authorities.collect { it.authority }.contains("ROLE_PREMIUM")
             userNS.authorities.size() == 2
         }
         where:
-        email                       | result
-        "peter@example.com"         | true  //He has not the role yet
-        "juanjoalvite@example.com"  | true  // He has already the role
+        email                      | result
+        "peter@example.com"        | true  //He has not the role yet
+        "juanjoalvite@example.com" | true  // He has already the role
     }
 
     @Unroll
@@ -111,43 +107,76 @@ class KuorumUserServiceIntegrationTest extends Specification {
         when:
         kuorumUserService.convertAsNormalUser(user)
         then:
-        !user.authorities.collect{it.authority}.contains("ROLE_PREMIUM")
+        !user.authorities.collect { it.authority }.contains("ROLE_PREMIUM")
         user.authorities.size() == 1
         KuorumUser.withNewSession {
             KuorumUser userNS = KuorumUser.findByEmail(email)
-            !userNS.authorities.collect{it.authority}.contains("ROLE_PREMIUM")
+            !userNS.authorities.collect { it.authority }.contains("ROLE_PREMIUM")
             userNS.authorities.size() == 1
         }
         where:
-        email                       | result
-        "peter@example.com"         | true  //He has not the role yet
-        "juanjoalvite@example.com"  | true  // He has already the role
+        email                      | result
+        "peter@example.com"        | true  //He has not the role yet
+        "juanjoalvite@example.com" | true  // He has already the role
 
     }
 
-    void "Order users by the activity criteria"(){
+    @Ignore('Check this test when the fixtures are solved')
+    void "Calculate the activity between two users"() {
         given: "A user"
-        KuorumUser user= IntegrationHelper.createDefaultUser("user${new Date().getTime()}@ex.com").save(flush: true)
+        KuorumUser user = KuorumUser.findByEmail('politician@example.com')
 
         and: "All users, except the created user"
-        List<KuorumUser> userList = KuorumUser.findAllByIdNotEqual(user.id)
+        KuorumUser compareUser = KuorumUser.findByEmail('carmen@example.com')
 
-        and: "The expected list of users sorted by the activity criteria"
-        List<KuorumUser> expectedUserList = [
-                KuorumUser.findByEmail('ecologistas@example.com'), KuorumUser.findByEmail('equo@example.com'),
-                KuorumUser.findByEmail('politicianinactive@example.com'), KuorumUser.findByEmail('politician@example.com'),
-                KuorumUser.findByEmail('carmen@example.com'), KuorumUser.findByEmail('juanjoalvite@example.com'),
-                KuorumUser.findByEmail('peter@example.com'), KuorumUser.findByEmail('admin@example.com'),
-                KuorumUser.findByEmail('noe@example.com'), KuorumUser.findByEmail('newuser@example.com')]
-
-        when: "Obtain the recommended users"
-        List<KuorumUser> recommended = kuorumUserService.orderUsersByActivity(user, userList)
+        when: "Calculate the activity between the users"
+        Integer activity = kuorumUserService.calculateActivityClosure.call(user, compareUser)
 
         then: "The expected list and the obtained recommended user are equals"
-        recommended == expectedUserList
+        activity == 150
+    }
 
-        cleanup:
-        user.delete(flush: true)
+    @Ignore('Check this test when the fixtures are solved')
+    @Unroll
+    void "Calculate the recommended users by Facebook friends"() {
+        given: "A user"
+        KuorumUser user = KuorumUser.findByEmail('politician@example.com')
 
+        and: "A recommendeUserInfo for the user"
+        new RecommendedUserInfo(
+                user: user,
+                recommendedUsers: [KuorumUser.findByEmail('carmen@example.com').id]
+        ).save()
+
+        and: "A mock list of facebook friends"
+        Map facebookFriends = [data: []]
+
+        emails.each { String email ->
+            facebookFriends.data << [id: KuorumUser.findByEmail(email).id]
+        }
+
+        and: "A mock list of FacebookUsers"
+        List<FacebookUser> facebookUsers = []
+        emails.eachWithIndex { String email, int i ->
+            facebookUsers << new FacebookUser(
+                    user: KuorumUser.findByEmail(email),
+                    accessToken: 'accesToken',
+                    id: KuorumUser.findByEmail(email).id
+            ).save(flush: true)
+        }
+        //Change the maxSize constraint only for test mode
+        RecommendedUserInfo.constraints.recommendedUsers.maxSize = 2
+
+        when: "Calculate the recommended users by Facebook friends"
+        List<KuorumUser> recommendedUsersByFacebookFriends = kuorumUserService.recommendedUsersByFacebookFriends(user, facebookUsers, facebookFriends)
+
+        then: "The expected list and the obtained recommended user are equals"
+        recommendedUsersByFacebookFriends.size() == resultSize
+
+        where:
+        emails                                                                      | resultSize
+        ['ecologistas@example.com']                                                 | 2
+        ['ecologistas@example.com', 'equo@example.com']                             | 2
+        ['ecologistas@example.com', 'equo@example.com', 'juanjoalvite@example.com'] | 2
     }
 }

@@ -155,8 +155,6 @@ grails.project.dependency.resolution = {
         test ":codenarc:0.20"
 
         compile ":quartz:1.0.2"
-
-        compile ":facebook-graph:0.14"
     }
 }
 

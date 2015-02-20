@@ -118,7 +118,8 @@ class AdminProjectControllerIntegrationSpec extends Specification{
             fileName: "${grailsApplication.config.grails.serverURL}/static/images/img-post.jpg",
             url: "${grailsApplication.config.grails.serverURL}/static/images/img-post.jpg",
             fileGroup: FileGroup.PROJECT_IMAGE,
-            fileType: FileType.IMAGE
+            fileType: FileType.IMAGE,
+            originalName: 'test'
         ).save()
 
         KuorumFile pdfFile = new KuorumFile(
@@ -127,7 +128,8 @@ class AdminProjectControllerIntegrationSpec extends Specification{
             temporal: false,
             fileName: "test.pdf",
             url: "http://kuorum.org",
-            fileGroup: FileGroup.PDF
+            fileGroup: FileGroup.PDF ,
+            originalName: 'test'
         ).save()
 
         projectCommand.photoId = image.id

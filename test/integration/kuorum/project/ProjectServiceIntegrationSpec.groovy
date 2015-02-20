@@ -88,19 +88,19 @@ class ProjectServiceIntegrationSpec extends Specification {
     void "search related users to a project by the searchRelatedUserToUserCommisions"() {
         given:"users with different data"
         List <KuorumUser> listUsers=[]
-        Region region = Region.findByNameAndRegionType("Ávila", RegionType.LOCAL)
+        String provinceCode = Region.findByNameAndRegionType("Ávila", RegionType.LOCAL).iso3166_2
         4.times{
            listUsers << IntegrationHelper.createDefaultUser("relatedUser${it}@example.com")
         }
         listUsers[0..2]*.relevantCommissions = [CommissionType.AGRICULTURE, CommissionType.ECONOMY, CommissionType.DEFENSE]
-        listUsers[1..3]*.politicianOnRegion = region
+        listUsers[1..3]*.personalData*.provinceCode = provinceCode
         listUsers[3].relevantCommissions = [CommissionType.CONSTITUTIONAL]
-        listUsers[0].politicianOnRegion = Region.findByNameAndRegionType("Valladolid", RegionType.LOCAL)
+        listUsers[0].personalData.provinceCode = Region.findByNameAndRegionType("Valladolid", RegionType.LOCAL).iso3166_2
 
         and:"a project to search the related users"
         Project project = IntegrationHelper.createDefaultProject("#relatedProyects")
         project.commissions = [CommissionType.AGRICULTURE]
-        project.region = region
+        project.region.iso3166_2 = provinceCode
 
         project.save(flush: true)
         listUsers*.save(flush: true)
@@ -124,17 +124,16 @@ class ProjectServiceIntegrationSpec extends Specification {
     void "search related users to a project but don't find any user"() {
         given:"users with different data"
         List <KuorumUser> listUsers=[]
-        Region region = Region.findByNameAndRegionType("Ávila", RegionType.LOCAL)
+        String provinceCode = Region.findByNameAndRegionType("Ávila", RegionType.LOCAL).iso3166_2
         4.times{
             listUsers << IntegrationHelper.createDefaultUser("relatedUser${it}@example.com")
         }
         listUsers[0..3]*.relevantCommissions = [CommissionType.ECONOMY, CommissionType.DEFENSE]
-        listUsers[0..3]*.politicianOnRegion = region
-
+        listUsers[0..3]*.personalData*.provinceCode = provinceCode
         and:"a project to search the related users"
         Project project = IntegrationHelper.createDefaultProject("#relatedProyects")
         project.commissions = [CommissionType.AGRICULTURE]
-        project.region = region
+        project.region.iso3166_2 = provinceCode
 
         project.save(flush: true)
         listUsers*.save(flush: true)
@@ -230,43 +229,31 @@ class ProjectServiceIntegrationSpec extends Specification {
         KuorumUser.findByEmail(user?.email)?.delete(flush:true)
 
         where: "we give the value key to the sortAttr"
-        sortAttr        | orderAttr  | published | sortInTest                                  | offset | max
-        'dateCreated'   | Order.ASC  | true      | { it.dateCreated }                          | 0      | 10
-        'dateCreated'   | Order.ASC  | false     | { it.dateCreated }                          | 3      | 5
-        'dateCreated'   | Order.ASC  | null      | { it.dateCreated }                          | 5      | 30
-        'dateCreated'   | Order.DESC | true      | { a, b -> b.dateCreated <=> a.dateCreated } | 0      | 10
-        'dateCreated'   | Order.DESC | false     | { a, b -> b.dateCreated <=> a.dateCreated } | 3      | 5
-        'dateCreated'   | Order.DESC | null      | { a, b -> b.dateCreated <=> a.dateCreated } | 5      | 30
-        'peopleVotes'   | Order.ASC  | true      | { it.peopleVotes.total }                    | 0      | 10
-        'peopleVotes'   | Order.ASC  | false     | { it.peopleVotes.total }                    | 3      | 5
-        'peopleVotes'   | Order.ASC  | null      | { it.peopleVotes.total }                    | 5      | 30
-        'peopleVotes'   | Order.DESC | true      | { -it.peopleVotes.total }                   | 0      | 10
-        'peopleVotes'   | Order.DESC | false     | { -it.peopleVotes.total }                   | 3      | 5
-        'peopleVotes'   | Order.DESC | null      | { -it.peopleVotes.total }                   | 5      | 30
-        'peopleVoteYes' | Order.ASC  | true      | {
-            it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0
-        }                                                                                      | 0      | 10
-        'peopleVoteYes' | Order.ASC  | false     | {
-            it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0
-        }                                                                                      | 3      | 5
-        'peopleVoteYes' | Order.ASC  | null      | {
-            it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0
-        }                                                                                      | 5      | 30
-        'peopleVoteYes' | Order.DESC | true      | {
-            -(it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0)
-        }                                                                                      | 0      | 10
-        'peopleVoteYes' | Order.DESC | false     | {
-            -(it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0)
-        }                                                                                      | 3      | 5
-        'peopleVoteYes' | Order.DESC | null      | {
-            -(it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0)
-        }                                                                                      | 5      | 30
-        'numPosts'      | Order.ASC  | true      | { it.peopleVotes.numPosts }                 | 0      | 10
-        'numPosts'      | Order.ASC  | false     | { it.peopleVotes.numPosts }                 | 3      | 5
-        'numPosts'      | Order.ASC  | null      | { it.peopleVotes.numPosts }                 | 5      | 30
-        'numPosts'      | Order.DESC | true      | { -it.peopleVotes.numPosts }                | 0      | 10
-        'numPosts'      | Order.DESC | false     | { -it.peopleVotes.numPosts }                | 3      | 5
-        'numPosts'      | Order.DESC | null      | { -it.peopleVotes.numPosts }                | 5      | 30
+        sortAttr        | orderAttr  | published | sortInTest                                                                               | offset | max
+        'dateCreated'   | Order.ASC  | true      | { it.dateCreated }                                                                       | 0      | 10
+        'dateCreated'   | Order.ASC  | false     | { it.dateCreated }                                                                       | 3      | 5
+        'dateCreated'   | Order.ASC  | null      | { it.dateCreated }                                                                       | 5      | 30
+        'dateCreated'   | Order.DESC | true      | { a, b -> b.dateCreated <=> a.dateCreated }                                              | 0      | 10
+        'dateCreated'   | Order.DESC | false     | { a, b -> b.dateCreated <=> a.dateCreated }                                              | 3      | 5
+        'dateCreated'   | Order.DESC | null      | { a, b -> b.dateCreated <=> a.dateCreated }                                              | 5      | 30
+        'peopleVotes'   | Order.ASC  | true      | { it.peopleVotes.total }                                                                 | 0      | 10
+        'peopleVotes'   | Order.ASC  | false     | { it.peopleVotes.total }                                                                 | 3      | 5
+        'peopleVotes'   | Order.ASC  | null      | { it.peopleVotes.total }                                                                 | 5      | 30
+        'peopleVotes'   | Order.DESC | true      | { -it.peopleVotes.total }                                                                | 0      | 10
+        'peopleVotes'   | Order.DESC | false     | { -it.peopleVotes.total }                                                                | 3      | 5
+        'peopleVotes'   | Order.DESC | null      | { -it.peopleVotes.total }                                                                | 5      | 30
+        'peopleVoteYes' | Order.ASC  | true      | { it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0    }      | 0      | 10
+        'peopleVoteYes' | Order.ASC  | false     | { it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0    }      | 3      | 5
+        'peopleVoteYes' | Order.ASC  | null      | { it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0    }      | 5      | 30
+        'peopleVoteYes' | Order.DESC | true      | { -(it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0) }      | 0      | 10
+        'peopleVoteYes' | Order.DESC | false     | { -(it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0) }      | 3      | 5
+        'peopleVoteYes' | Order.DESC | null      | { -(it.peopleVotes.total ? (it.peopleVotes.yes * 100) / it.peopleVotes.total : 0) }      | 5      | 30
+        'numPosts'      | Order.ASC  | true      | { it.peopleVotes.numPosts }                                                              | 0      | 10
+        'numPosts'      | Order.ASC  | false     | { it.peopleVotes.numPosts }                                                              | 3      | 5
+        'numPosts'      | Order.ASC  | null      | { it.peopleVotes.numPosts }                                                              | 5      | 30
+        'numPosts'      | Order.DESC | true      | { -it.peopleVotes.numPosts }                                                             | 0      | 10
+        'numPosts'      | Order.DESC | false     | { -it.peopleVotes.numPosts }                                                             | 3      | 5
+        'numPosts'      | Order.DESC | null      | { -it.peopleVotes.numPosts }                                                             | 5      | 30
     }
 
     @Unroll
@@ -275,13 +262,11 @@ class ProjectServiceIntegrationSpec extends Specification {
         Map params = [sort:sortAttr, order:orderAttr, published:published, offset:offset, max:max]
         KuorumUser user = KuorumUser.findByEmail("projectowner@example.com") ?: IntegrationHelper.createDefaultUser("projectOwner@example.com").save(flush:true)
 
-
         when:"we call the search method without params"
         Map result = projectService.search(user, params.sort , params.order , params.published, params.offset, params.max)
 
         then:"we compare both ordered lists. Moreover, we will have only projects with published to false"
-        result
-        !result.projects
+        !result
 
         cleanup:
         KuorumUser.findById(user?.id)?.delete(flush:true)

@@ -10,6 +10,7 @@ import kuorum.core.model.UserType
 class PersonalData {
     UserType userType = UserType.PERSON
     Gender gender
+    String telephone
 
     String postalCode
     //TODO: Refactor province to Region
@@ -20,6 +21,7 @@ class PersonalData {
     Integer year
 
     static constraints = {
+        telephone nullable: true
         gender nullable: true
         provinceCode nullable: true
         postalCode nullable: true

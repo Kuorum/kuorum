@@ -1,9 +1,11 @@
 package kuorum.users
 
-import com.daureos.facebook.FacebookGraphService
 import com.mongodb.*
+import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
+import groovyx.gpars.GParsPool
 import kuorum.Institution
 import kuorum.PoliticalParty
 import kuorum.Region
@@ -16,7 +18,9 @@ import kuorum.post.PostComment
 import kuorum.project.Project
 import kuorum.post.Cluck
 import kuorum.post.Post
+import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
+import org.codehaus.groovy.grails.web.json.JSONElement
 
 @Transactional
 class KuorumUserService {
@@ -25,7 +29,7 @@ class KuorumUserService {
     def indexSolrService
     def kuorumMailService
     def regionService
-    FacebookGraphService facebookGraphService
+    SpringSecurityService springSecurityService
 
     GrailsApplication grailsApplication
 
@@ -154,10 +158,11 @@ class KuorumUserService {
     }
 
     /**
-     * TODO: Improve activity algorithm and test facebook algorithm
-     * Returns the best users ever including organizations, normalUsers and politicians
-     * @param user
-     * @param pagination
+     * Returns the recommended users by the giving user. The recommended user are stored in the collection
+     * RecommendedUserInfo as a list of user's ids. The final user recommended are the result of the list recommendedUsers
+     * minus deletedRecommendedUsers.
+     * @param user The user which obtain its recommended users
+     * @param pagination The pagination params
      * @return
      */
     List<KuorumUser> recommendedUsers(KuorumUser user, Pagination pagination = new Pagination()){
@@ -165,84 +170,149 @@ class KuorumUserService {
         if (!user){
             return recommendedUsers(pagination)
         }
-        List<KuorumUser> kuorumUsers = KuorumUser.findAllByIdNotEqual(user.id)
-//        List<KuorumUser> kuorumUsers = []
-        def facebookFriends = facebookGraphService.getFriends()
+        List<KuorumUser> kuorumUsers = []
+        List<ObjectId> recommendedUsers
 
-        if(facebookFriends){
-            //Primer criterio
-            List<FacebookUser> facebookUsers = FacebookUser.findAllByIdNotEqual(user.id)
-            kuorumUsers = orderUserByFacebookFriends(user, facebookUsers, kuorumUsers, facebookFriends)
-        } else {
-            //Segundo criterio
-//            kuorumUsers =  orderUsersByActivity(user, kuorumUsers)[pagination.offset..pagination.max]
-            kuorumUsers =  user.followers[0..Math.min(5, user.followers.size())].collect{KuorumUser.get(it)}
+        RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(user)
+        if(recommendedUserInfo){
+            recommendedUsers = recommendedUserInfo.recommendedUsers - recommendedUserInfo.deletedRecommendedUsers
+            kuorumUsers = recommendedUsers[pagination.offset..pagination.max].inject([]){ result, kuorumUser ->
+                result << KuorumUser.get(kuorumUser)
+                result
+            }
         }
 
         kuorumUsers as ArrayList<KuorumUser>
     }
 
     /**
-     * TODO: Test facebook algorithm
-     * Obtain the users that are in the application and are not friends of the current user.
-     * @param user
-     * @param facebookUsers
-     * @param kuorumUsers
-     * @param facebookFriends
-     * @return
+     * Obtain the Facebook friends of a user by its token (a valid access token for Facebook Graph API). With the
+     * obtained users, a new thread is created to execute the calculation of recommended users by Facebook friends in
+     * background.
+     * @param token A valid access token for a user.
      */
-    List<KuorumUser> orderUserByFacebookFriends(KuorumUser user, List<FacebookUser> facebookUsers, List<KuorumUser> kuorumUsers , facebookFriends){
-        List<FacebookUser> faceBookUsersInKuorumNotFriendOfUser = facebookUsers.findAll{!(it.id in facebookFriends.it.id)}
-        List<KuorumUser> kuorumUsersInKuorumNotFriendOfUser = faceBookUsersInKuorumNotFriendOfUser*.user
-
-        if(kuorumUsersInKuorumNotFriendOfUser < 5){
-            List<KuorumUser> kuorumUsersByActivity = orderUsersByActivity(user, kuorumUsers)[kuorumUsersInKuorumNotFriendOfUser.size()..<5]
-            return kuorumUsersInKuorumNotFriendOfUser + kuorumUsersByActivity
-        } else {
-            return kuorumUsersInKuorumNotFriendOfUser[0..<5]
+    void checkFacebookFriendsByUserToken(String token){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        String loadUrl = "https://graph.facebook.com/me/friends?access_token=${URLEncoder.encode(token, 'UTF-8')}"
+        URL url = new URL(loadUrl)
+        JSONElement facebookFriends = JSON.parse(url.readLines().first())
+        List<KuorumUser> recommendedUsers
+        Thread.start {
+            Date start = new Date()
+            log.debug "Start background execution of checkFacebookFriendsByUserToken on $start ..."
+            List<FacebookUser> facebookUsers = FacebookUser.findAllByIdNotEqual(user.id)
+            recommendedUsers = recommendedUsersByFacebookFriends(user, facebookUsers, facebookFriends)
+            RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(user)
+            if(!recommendedUserInfo){
+                new RecommendedUserInfo(recommendedUsers: recommendedUsers*.id, user: user).save()
+            } else {
+                if(recommendedUserInfo.recommendedUsers){
+                    recommendedUserInfo.recommendedUsers[0..<recommendedUsers.size()] = recommendedUsers*.id
+                } else {
+                    recommendedUserInfo.recommendedUsers = recommendedUsers*.id
+                }
+                recommendedUserInfo.save()
+            }
+            log.debug "... End background execution of checkFacebookFriendsByUserToken on ${new Date()} with total execution time ${TimeCategory.minus(new Date(),start)}"
         }
     }
 
     /**
-     * TODO: Improve activity algorithm
-     * Sort users by the following criteria:
-     * A = Region + Organization + Politician + Total Post + Total Clucks  + D x Total of Post Comments + V x Total of victories
+     * TODO: Improve algorithm with map-reduce?
+     * Obtain the users that are in the application and are not friends of the current user.
+     * - If the list of FacebookUsers that are not friends of the user is greater than the maxSize specified in
+     * RecommendedUserInfo, the result is the list of this FacebookUsers from 0 to the maximum specified in the
+     * constraint of RecommendedUserInfo.
+     * - If the list of FacebookUsers that are not friends of the user is less than thee maxSize specified in
+     * RecommendedUserInfo, the result is the list of FacebookUsers plus the recommended users that the user had
+     * previously (if existe the RecommendedUserInfo for the user).
+     * @param user The user which obtain its recommended users by facebook friends.
+     * @param facebookUsers The collection of FacebookUser in the application
+     * @param facebookFriends The collection of Faccebook friends of the user
+     * @return
+     */
+    List<KuorumUser> recommendedUsersByFacebookFriends(KuorumUser user, List<FacebookUser> facebookUsers, facebookFriends){
+        List<FacebookUser> faceBookUsersInKuorumNotFriendOfUser
+        List<KuorumUser> kuorumUsersInKuorumNotFriendOfUser = []
+        GParsPool.withPool{
+            faceBookUsersInKuorumNotFriendOfUser = facebookUsers.findAllParallel{!(it.uid in facebookFriends.data.id)}
+        }
+        if(faceBookUsersInKuorumNotFriendOfUser){
+            kuorumUsersInKuorumNotFriendOfUser = faceBookUsersInKuorumNotFriendOfUser*.user
+            if(kuorumUsersInKuorumNotFriendOfUser.size() > RecommendedUserInfo.constraints.recommendedUsers.maxSize){
+                return kuorumUsersInKuorumNotFriendOfUser[0..<RecommendedUserInfo.constraints.recommendedUsers.maxSize]
+            } else {
+                RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(user)
+                if(recommendedUserInfo && recommendedUserInfo.recommendedUsers){
+                    return kuorumUsersInKuorumNotFriendOfUser + recommendedUserInfo.recommendedUsers[0..<(recommendedUserInfo.recommendedUsers - kuorumUsersInKuorumNotFriendOfUser.size())]
+                } else {
+                    return kuorumUsersInKuorumNotFriendOfUser
+                }
+            }
+        } else {
+            return kuorumUsersInKuorumNotFriendOfUser
+        }
+    }
+
+    /**
+     * TODO: Improve algorithm with map-reduce?
+     * Obtain the recommended users list for all users by activity criteria. The users are looped by blocks and inside
+     * the loop, the recommended users for a user are calculated by the activity formula. Then, the recommended users
+     * are sort by the formula and stored in the RecommendedUserInfo collection for the user.
+     *
+     */
+    void recommendedUsersByActivity(){
+        Integer offset = 0
+        List<KuorumUser> kuorumUsers, otherUsers, kuorumUsersOrdered = []
+        RecommendedUserInfo recommendedUserInfo
+
+        for(offset=0; offset<100;offset+=100){
+            kuorumUsers = KuorumUser.list(offset: offset, max: 100)
+            kuorumUsers = KuorumUser.findAllByName('Miguel Ángel García Gómez')
+            kuorumUsers.each{ user ->
+                GParsPool.withPool{
+                    calculateActivityClosure.memoize()
+                    otherUsers = KuorumUser.findAllByIdNotEqual(user.id)
+                    otherUsers.collectParallel{ it.activityForRecommendation = calculateActivityClosure(it, user) }
+                    kuorumUsersOrdered = otherUsers.parallel.sort{-it.activityForRecommendation}.collection[0..<RecommendedUserInfo.constraints.recommendedUsers.maxSize]
+                    recommendedUserInfo = RecommendedUserInfo.findByUser(user)
+                    if(!recommendedUserInfo){
+                        recommendedUserInfo = new RecommendedUserInfo(recommendedUsers: kuorumUsersOrdered*.id, user: user).save()
+                    } else {
+                        recommendedUserInfo.recommendedUsers = kuorumUsersOrdered*.id
+                        recommendedUserInfo.save()
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Calculate the activity criteria for the giving two users. The formula used is:
+     *   A = Region + Organization + Politician + Total Post + Total Clucks  + D x Total of Post Comments + V x Total of victories
      * Where:
      *  - Region = Config value of kuorum.recommendedUser.regionValue if the users are in the same region.
      *  - Organization = Config value of kuorum.recommendedUser.organizationValue if the user is Organization.
      *  - Politician = Config value of kuorum.recommendedUser.politicianValue if the user is Organization.
      *  - V = Config value of kuorum.recommendedUser.victoryValue.
      *  - D = Config value of kuorum.recommendedUser.debateValue.
-     * @param user The user to compare with.
-     * @param kuorumUsers The list of users to compare with the user.
-     * @return A list of users sorted descending by the criteria.
      */
-    List<KuorumUser> orderUsersByActivity(KuorumUser user, List<KuorumUser> kuorumUsers){
-        def start = new Date()
+    def calculateActivityClosure = {KuorumUser activeUser, KuorumUser compareUser ->
         Integer formula = 0
-        kuorumUsers.each{
-            formula = 0
-            if(it.personalData.provinceCode && user.personalData.provinceCode && it.personalData.provinceCode == user.personalData.provinceCode){
-                formula += grailsApplication.config.kuorum.recommendedUser.regionValue
-            }
-            if(it.userType == UserType.POLITICIAN){
-                formula += grailsApplication.config.kuorum.recommendedUser.politicianValue
-            } else if(it.userType == UserType.ORGANIZATION){
-                formula += grailsApplication.config.kuorum.recommendedUser.organizationValue
-            }
-            formula += Post.countByOwner(it)
-            formula += Cluck.countByOwner(it)
-            formula += grailsApplication.config.kuorum.recommendedUser.debateValue * PostComment.countByKuorumUser(it)
-            formula += grailsApplication.config.kuorum.recommendedUser.victoryValue  * Post.countByOwnerAndVictory(it, true)
-            it.metaClass.formula = formula
+        if(compareUser.personalData.provinceCode && activeUser.personalData.provinceCode && compareUser.personalData.provinceCode == activeUser.personalData.provinceCode){
+            formula += grailsApplication.config.kuorum.recommendedUser.regionValue
         }
+        if(compareUser.userType == UserType.POLITICIAN){
+            formula += grailsApplication.config.kuorum.recommendedUser.politicianValue
+        } else if(compareUser.userType == UserType.ORGANIZATION){
+            formula += grailsApplication.config.kuorum.recommendedUser.organizationValue
+        }
+        formula += Post.countByOwner(compareUser)
+        formula += Cluck.countByOwner(compareUser)
+        formula += grailsApplication.config.kuorum.recommendedUser.debateValue * PostComment.countByKuorumUser(compareUser)
+        formula += grailsApplication.config.kuorum.recommendedUser.victoryValue  * Post.countByOwnerAndVictory(compareUser, true)
 
-        kuorumUsers.sort{-it.formula}
-
-        def end = new Date()
-        println(" --------------> Tiempo: ${TimeCategory.minus(end,start)}")
-
-        kuorumUsers
+        formula
     }
 
 

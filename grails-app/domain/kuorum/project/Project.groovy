@@ -10,6 +10,7 @@ import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
+import kuorum.core.model.project.ProjectBasicStats
 import kuorum.core.model.project.ProjectRegionStats
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
@@ -17,7 +18,7 @@ import org.bson.types.ObjectId
 @MongoUpdatable
 class Project {
 
-    def projectStatsService
+    ProjectStatsService projectStatsService
 
     ObjectId id
     String hashtag
@@ -98,7 +99,7 @@ class Project {
         hashtag index:true, indexAttributes: [unique:true]
     }
 
-    static transients = ['votesInRegion','lastUpdate']
+    static transients = ['votesInRegion','lastUpdate', 'percentagePositiveVotes', 'percentageNegativeVotes', 'percentageAbsVotes', 'numPublicPost']
 
     Long getVotesInRegion(){
         ProjectRegionStats projectRegionStats = projectStatsService.calculateRegionStats(this)
@@ -108,6 +109,28 @@ class Project {
     Date getLastUpdate(){
         this.updates.sort{it.dateCreated}.last().dateCreated
     }
+
+    Long getPercentageNegativeVote(){
+        ProjectBasicStats percentajeNegativeStats = projectStatsService.calculateProjectStats(this)
+        percentajeNegativeStats.percentageNegativeVotes
+    }
+
+    Long getPercentagePositiveVotes(){
+        ProjectBasicStats percentajePositiveStats = projectStatsService.calculateProjectStats(this)
+        percentajePositiveStats.percentagePositiveVotes
+    }
+
+    Long getPercentageAbsVotes(){
+        ProjectBasicStats percentajeAbsStats = projectStatsService.calculateProjectStats(this)
+        percentajeAbsStats.percentageAbsVotes
+    }
+
+    Long getPublicPost(){
+        ProjectBasicStats publicPost = projectStatsService.calculateProjectStats(this)
+        publicPost.numPublicPosts
+    }
+
+
 
     String toString(){
         "${hashtag} (${id})"

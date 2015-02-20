@@ -266,7 +266,9 @@ class ProjectService {
     List searchRelatedUserToUserCommisions(Project project){
         KuorumUser.createCriteria().list(){
             and{
-                eq("politicianOnRegion", project.region)
+                personalData{
+                    like('provinceCode',project.region?.iso3166_2 + '%')
+                }
                 or{
                     project.commissions.each{commision->
                         inList("relevantCommissions", commision)

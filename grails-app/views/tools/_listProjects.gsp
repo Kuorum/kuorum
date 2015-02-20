@@ -1,3 +1,4 @@
+<g:hiddenField name="publishMessage" value="${publishMessage}"/>
 <g:each in="${projects}" var="project">
     <li>
         <article itemtype="http://schema.org/Article" role="article" class="kakareo post ley">
@@ -14,7 +15,11 @@
                     <ul>
                         <g:if test="${!project.published}">
                             <li>
-                                <g:remoteLink role="button" url="[mapping:'publishProject', params:[hashtag: project.hashtag, order: order, sort: sort, published: published, max: max, offset: offset, seeMore: seeMore, urlLoadMore: urlLoadMore]]" update="projectsList">
+                                <g:remoteLink role="button"
+                                              url="[mapping:'publishProject',params:[hashtag: project.hashtag,
+                                                      order: order, sort: sort, published: published, max: max,
+                                                      offset: offset, seeMore: seeMore, urlLoadMore: urlLoadMore]]"
+                                              update="projectsList" onComplete="display.success(\$('#publishMessage').val())" >
                                     <span><g:message code="project.list.publish" /></span>
                                 </g:remoteLink>
                             </li>
@@ -35,7 +40,7 @@
 
             <div class="row">
                 <div class="col-xs-12 col-sm-5 laley">
-                    <a href="#" itemprop="keywords">${project.hashtag}</a>
+                    <g:link mapping="projectShow" itemprop="keywords" params="${project.encodeAsLinkProperties()}">${project.hashtag}</g:link>
                     <time>
                         <g:if test="${project.updates}">
                             <g:message code="project.list.project.updates" /><kuorumDate:humanDate date="${project.lastUpdate}"/><br/>
@@ -50,22 +55,22 @@
                     <p class="total-info text-right">${project.votesInRegion} <g:message code="project.list.project.region.votes.label" /></p>
                     <ul class="infoVotes text-right">
                         <li class="vote-yes">
-                            <span>${project.peopleVotes.yes}</span>
+                            <span><g:formatNumber number="${project.getPercentagePositiveVotes()}" type="percent"/> </span>
                             <span class="sr-only"><g:message code="project.list.project.votesInFavour" /></span>
                             <span class="icon-smiley fa-lg"></span>
                         </li>
                         <li class="vote-no">
-                            <span>${project.peopleVotes.no}</span>
+                            <span><g:formatNumber number="${project.getPercentageNegativeVote()}" type="percent"/></span>
                             <span class="sr-only"><g:message code="project.list.project.votesAgainst" /></span>
                             <span class="icon-sad fa-lg"></span>
                         </li>
                         <li class="vote-neutral">
-                            <span>${project.peopleVotes.abs}</span>
+                            <span><g:formatNumber number="${project.getPercentageAbsVotes()}" type="percent"/></span>
                             <span class="sr-only"><g:message code="project.list.project.abstentions" /></span>
                             <span class="icon-neutral fa-lg"></span>
                         </li>
                         <li>
-                            <span>${project.peopleVotes.numPosts}</span>
+                            <span>${project.getPublicPost()}</span>
                             <span class="sr-only"><g:message code="project.list.project.proposals" /></span>
                             <span class="fa fa-lightbulb-o fa-lg"></span>
                         </li>

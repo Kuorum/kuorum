@@ -14,6 +14,10 @@ class ErrorController {
     def notFound() {
         log.debug("Page not foung: ${((HttpServletRequest)request).getRequestURL()}")
     }
+    def notAuthorized() {
+        log.debug("Page not autorized: ${((HttpServletRequest)request).getRequestURL()}")
+    }
+
     def kuorumExceptionHandler(){
         KuorumException exception = request.exception.cause
         log.error("KuorumException: "+exception.message)

@@ -67,7 +67,9 @@ class ProjectController {
         fileService.deleteTemporalFiles(user)
         flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
         List <KuorumUser> relatedUsers = projectService.searchRelatedUserToUserCommisions(project)
-        kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
+        Thread.start {
+            kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
+        }
         redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
     }
 
@@ -92,9 +94,11 @@ class ProjectController {
         projectService.assignFilesToCommandAndProject(command, project, user)
         project = projectService.saveAndCreateNewProject(project, true)
         fileService.deleteTemporalFiles(user)
-        flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
+        flash.message=message(code:'admin.publishProject.success', args: [project.hashtag])
         List <KuorumUser> relatedUsers = projectService.searchRelatedUserToUserCommisions(project)
-        kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
+        Thread.start {
+            kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
+        }
         redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
     }
 
@@ -215,6 +219,10 @@ class ProjectController {
         if (springSecurityService.isLoggedIn()){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             userVote = projectService.findProjectVote(project,user)
+        } else {
+            if(!project.published){
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
+            }
         }
         ProjectBasicStats projectStats = projectStatsService.calculateProjectStats(project)
         ProjectRegionStats regionStats = projectStatsService.calculateRegionStats(project)

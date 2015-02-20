@@ -9,6 +9,10 @@ import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.mail.MailType
+import kuorum.notifications.Notice
+import kuorum.post.Cluck
+import kuorum.post.Post
+import kuorum.post.PostComment
 import org.bson.types.ObjectId
 
 /**
@@ -18,7 +22,6 @@ import org.bson.types.ObjectId
  * and is a nightmare handle it
  */
 class KuorumUser {
-
 
     ObjectId id
     String name
@@ -52,9 +55,11 @@ class KuorumUser {
     SocialLinks socialLinks = new SocialLinks()
     KuorumUser organization
 
+    Notice notice
+
 //    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
 
-    static embedded = ['personalData', 'authorities','gamification','avatar', 'activity','politicianActivity','imageProfile','socialLinks','politicianOnRegion']
+    static embedded = ['personalData', 'authorities','gamification','avatar', 'activity','politicianActivity','imageProfile','socialLinks','politicianOnRegion', 'notice']
 
     /**
      * Represents the last time that the user checked the notifications
@@ -78,6 +83,8 @@ class KuorumUser {
     Date lastUpdated
     Set<RoleUser> authorities
 
+    Integer activityForRecommendation = 0
+
     static constraints = {
         name nullable:false //Limit size will be added
         email nullable: false, email: true
@@ -89,6 +96,8 @@ class KuorumUser {
         userType nullable: false, validator:{val, obj ->
             obj.personalData.userType == val
         }
+        notice nullable: true
+
 
         //POLITICIAN VALIDATION
         politicalParty nullable: true
@@ -124,7 +133,7 @@ class KuorumUser {
         return true
     }
 
-    static transients = ["springSecurityService"]
+    static transients = ["springSecurityService", 'activityForRecommendation']
 
 //    static mapping = {
 //       password column: '`password`'

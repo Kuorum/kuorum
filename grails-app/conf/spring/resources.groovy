@@ -10,6 +10,7 @@ import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.apache.solr.core.CoreContainer
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder
+import kuorum.core.springSecurity.handlers.SuccessAuthenticationHandler
 
 // Place your Spring DSL code here
 beans = {
@@ -92,5 +93,9 @@ beans = {
 //        interchangeAuthenticationProvider = ref('interchangeAuthenticationProvider')
         securityMetadataSource = ref('objectDefinitionSource')
         springSecurityService = ref ('springSecurityService')
+    }
+
+    facebookSuccessHandler(SuccessAuthenticationHandler){
+        kuorumUserService = ref('kuorumUserService')
     }
 }
