@@ -9,6 +9,6 @@ dbDest.kuorumUser.find().forEach(function (user){
     }
 
     if (user.imageProfile != undefined){
-        dbDest.kuorumUser.update({_id:user._id},{$set:{'avatar.imageProfile':'XX'}})
+        dbDest.kuorumUser.update({_id:user._id},{$set:{'imageProfile.originalName':'XX'}})
     }
 })
