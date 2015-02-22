@@ -1,6 +1,7 @@
 package kuorum.users
 
 import com.mongodb.WriteConcern
+import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.PoliticalParty
@@ -73,7 +74,7 @@ class KuorumUser {
     PoliticianActivity politicianActivity
 
     //Spring fields
-    transient springSecurityService
+    SpringSecurityService springSecurityService
 
     boolean enabled = Boolean.TRUE
     boolean accountExpired = Boolean.FALSE

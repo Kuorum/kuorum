@@ -1,7 +1,6 @@
 package kuorum.project
 
 import grails.validation.Validateable
-import groovy.time.TimeCategory
 import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.PoliticalParty
@@ -15,12 +14,9 @@ import kuorum.core.model.project.ProjectRegionStats
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
-import javax.persistence.Transient
-
 @MongoUpdatable
 class Project {
 
-    @Transient
     ProjectStatsService projectStatsService
 
     ObjectId id
@@ -50,7 +46,6 @@ class Project {
     KuorumUser owner
     @Updatable List<ProjectUpdate> updates = []
 
-    @Transient
     ProjectBasicStats projectBasicStats;
 
     static embedded = ['region','peopleVotes','image','updates' ]
@@ -109,7 +104,7 @@ class Project {
         hashtag index:true, indexAttributes: [unique:true]
     }
 
-    static transients = ['votesInRegion','lastUpdate', 'percentagePositiveVotes', 'percentageNegativeVotes', 'percentageAbsVotes', 'numPublicPost']
+    static transients = ['votesInRegion','lastUpdate', 'percentagePositiveVotes', 'percentageNegativeVotes', 'percentageAbsVotes', 'numPublicPost', 'projectBasicStats', 'projectStatsService']
 
     Long getVotesInRegion(){
         ProjectRegionStats projectRegionStats = projectStatsService.calculateRegionStats(this)
