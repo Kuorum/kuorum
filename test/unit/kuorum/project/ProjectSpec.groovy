@@ -117,7 +117,7 @@ class ProjectSpec extends Specification {
         'deadlineLessThanToday'      | 'deadline'    | new Date() - 1                          || false
         'deadlineGreaterThan120Days' | 'deadline'    | new Date() + 121                        || false
         'maxSize'                    | 'shortName'   | 'a' * 108                               || false
-        'maxSize'                    | 'description' | 'a' * 5001                              || false
+//        'maxSize'                    | 'description' | 'a' * 5001                              || false // Se ha eliminado la restriccion de máximo numero de caracteress
     }
 
     @Unroll("test PROJECT constraints: Checking #field = #value expected #error and validation #objValidate")
