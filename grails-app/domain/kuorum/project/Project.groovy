@@ -15,9 +15,12 @@ import kuorum.core.model.project.ProjectRegionStats
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
+import javax.persistence.Transient
+
 @MongoUpdatable
 class Project {
 
+    @Transient
     ProjectStatsService projectStatsService
 
     ObjectId id
@@ -85,6 +88,9 @@ class Project {
         pdfFile nullable: true
         owner nullable: false
         updates nullable: true
+
+        //NO se por que es obligatorio meter este servicio en la constraints aunque sea transient
+        projectStatsService nullable: true
     }
 
     static List<Project> findAllByPublishedAndRegion(Boolean published, Region region){

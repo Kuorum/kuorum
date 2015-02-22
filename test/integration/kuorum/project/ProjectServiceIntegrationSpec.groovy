@@ -19,7 +19,7 @@ class ProjectServiceIntegrationSpec extends Specification {
     def fixtureLoader
 
     def setup() {
-        Region.collection.getDB().dropDatabase()
+        Project.collection.getDB().dropDatabase()
         fixtureLoader.load("testBasicData")
     }
 
