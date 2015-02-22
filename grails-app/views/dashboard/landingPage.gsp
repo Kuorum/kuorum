@@ -9,9 +9,11 @@
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
     <parameter name="showDefaultPreFooter" value="true"/>
 </head>
-
-
 <content tag="mainContent">
+    <g:render template="landingPageModules/videoAndRegister"/>
+</content>
+
+<content tag="mainContent_old">
     <h1><g:message code="landingPage.title"/> </h1>
 
     <div class="images">

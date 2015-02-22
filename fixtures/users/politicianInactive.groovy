@@ -23,7 +23,8 @@ fixture {
         provinceCode = "EU-ES-MD-MD"
         province = madrid
         userType = UserType.POLITICIAN
-        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
+//        birthday = Date.parse("dd/MM/yyyy","09/10/1983")
+        year = 1987
     }
 
     politicianInactive(KuorumUser){

@@ -8,7 +8,7 @@
     <body>
         <g:render template="/layouts/head"/>
     <div class="row main">
-        <section id="main" role="main" class="home">
+        <section id="main" role="main" class="sign home clearfix">
             <g:pageProperty name="page.mainContent"/>
         </section>
         <div class="container-fluid">

@@ -26,7 +26,8 @@ fixture {
         postalCode = "28001"
         provinceCode = "EU-ES-MD-MD"
         province = madrid
-        birthday = Date.parse("dd/MM/yyyy","09/10/1980")
+//        birthday = Date.parse("dd/MM/yyyy","09/10/1980")
+        year = 1980
     }
 
     juanjoSocial(SocialLinks){

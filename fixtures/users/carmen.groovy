@@ -22,7 +22,8 @@ fixture {
         postalCode = "28003"
         provinceCode = "EU-ES-MD-MD"
         province = madrid
-        birthday = Date.parse("dd/MM/yyyy","21/04/1983")
+//        birthday = Date.parse("dd/MM/yyyy","21/04/1983")
+        year = 1983
     }
 
     carmen(KuorumUser){
