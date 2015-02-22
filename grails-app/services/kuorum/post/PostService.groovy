@@ -388,9 +388,9 @@ class PostService {
         //TODO: Improve algorithm
         Integer votesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
         if (project){
-            Post.findAllByProjectAndPublished(project,true,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
+            Post.findAllByProjectAndPublishedAndDateCreatedGreaterThan(project,true,new Date()-180,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
         }else{
-            Post.findAllByPublished(true, [max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
+            Post.findAllByPublishedAndDateCreatedGreaterThan(true, new Date()-180, [max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
 //        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
         }
     }

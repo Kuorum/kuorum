@@ -40,15 +40,18 @@ class ModulesTagLib {
     def recommendedPosts={attrs ->
         KuorumUser user = null
         String specialCssClass = attrs.specialCssClass
+        Boolean showAsHome = attrs.showAsHome?:Boolean.FALSE;
         Project project = attrs.project //Not necessary
         Pagination pagination = attrs.numPost?new Pagination(max:Long.parseLong(attrs.numPost)):new Pagination(max:NUM_RECOMMENDED_POST)
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
         }
         List<Post> recommendedPost = postService.recommendedPosts(user, project, pagination)
-        if (recommendedPost){
+        if (recommendedPost && ! showAsHome){
             String title = attrs.title?:message(code:"modules.recommendedPosts.title")
             out << render(template: '/modules/recommendedPosts', model:[recommendedPost:recommendedPost, title:title,specialCssClass:specialCssClass])
+        }else if (recommendedPost && showAsHome){
+            out << render(template: '/dashboard/landingPageModules/relevantPosts', model:[recommendedPost:recommendedPost])
         }
     }
 

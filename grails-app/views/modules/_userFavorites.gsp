@@ -8,7 +8,7 @@
     </h1>
     <ul class="kakareo-list">
         <g:each in="${favorites}" var="post">
-            <g:render template="/cluck/cluck" model="[post:post]"/>
+            <g:render template="/cluck/liCluck" model="[post:post]"/>
         </g:each>
     </ul>
 </section>

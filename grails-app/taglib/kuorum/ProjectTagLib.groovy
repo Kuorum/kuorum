@@ -81,7 +81,7 @@ class ProjectTagLib {
         }
         String regionTypeText = message(code:'kuorum.core.model.RegionType.'+project.region.regionType)
         out << """
-                <span class="${cssClass} fa-lg" data-toggle="tooltip" data-placement="bottom" title="" rel="tooltip" data-original-title="${regionTypeText}"></span>
+                <span class="fa ${cssClass} fa-lg" data-toggle="tooltip" data-placement="bottom" title="" rel="tooltip" data-original-title="${regionTypeText}"></span>
                 <span class="sr-only">${regionTypeText}</span>
         """
     }
@@ -96,12 +96,12 @@ class ProjectTagLib {
         while (paintedChars < numCharsToShow){
             out << descriptions[it]
             out << " "
-            it++
-            if (it > descriptions.size()){
+            if (it >= descriptions.size()-1){
                 paintedChars = Integer.MAX_VALUE
             }else{
                 paintedChars += descriptions[it].size()
             }
+            it++
         }
         out << "..."
     }
