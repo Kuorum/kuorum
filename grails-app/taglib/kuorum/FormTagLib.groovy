@@ -356,7 +356,7 @@ class FormTagLib {
         List<Region> countries = Region.findAllByRegionType(RegionType.NATION)
         countries.each{
             String codeMessage = "${clazz.name}.${it.iso3166_2}"
-            out << "<option value='${it.id}' ${it.id==command."$field".id?'selected':''}> ${message(code:codeMessage)}</option>"
+            out << "<option value='${it.id}' ${it.id==command."$field"?.id?'selected':''}> ${message(code:codeMessage)}</option>"
         }
         out << "</select>"
         if(error){
