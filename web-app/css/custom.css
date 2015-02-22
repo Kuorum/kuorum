@@ -15,7 +15,10 @@ body {
   padding-top: 55px;
   background-color: #fff;
 }
-.main {background-color: #fcfcfc;}
+blockquote {border: none;}
+.main {background-color: #fbfbfb;}
+.main.embudo {background-color: #fff;}
+.main.special {background-color: #fff; margin-top: -90px; padding-top: 90px;}
 .form-group-short {margin-bottom:10px;}
 .form-group-xshort {margin-bottom:0px;}
 .form-control,
@@ -56,6 +59,23 @@ small, .small {font-size: 75%;}
 .tooltip {z-index: 999;}
 .popover:hover, .popover:active, .popover:focus {cursor: default;}
 .disabled.allow {cursor: pointer !important; pointer-events: auto;}
+
+/* Ajustes modal Bootstrap */
+.modal-backdrop.in {opacity: 0.8;}
+body {
+overflow-y: scroll;
+}
+
+body.modal-open {
+overflow-y: scroll;
+margin: 0;
+}
+
+.modal {
+overflow: auto;
+}
+
+
 .popover-title {
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0);
@@ -123,6 +143,8 @@ a:hover, a:focus {outline: 0;}
 
 /* Estilos generales =========== */
 /* ====================================================== */
+select.input-lg {padding: 10px 16px 10px 10px;}
+.input-lg {padding: 10px 12px;}
 .modal-content {border-radius: 3px;}
 .modal-title {font-weight: bold;}
 a,
@@ -182,6 +204,8 @@ a:focus {color: #20a2ea;}
 .navbar > .container-fluid {padding-right: 30px; padding-left: 30px;}
 .main > .container-fluid > .row {position: relative;}
 #main {padding-bottom: 40px; padding-top: 24px; min-height: 382px;}
+#main.home {margin: 0 0 40px 0; padding: 0;}
+#main.home, .full-video {min-height: 495px;}
 .navbar-fixed-top {border-bottom: solid 1px #e5e5e5;}
 #header h1 {margin: 4px 0 0 5px;}
 .navbar-nav .user-area .user-img {width: 25px; height: 25px; margin: 0;}
@@ -213,14 +237,19 @@ a:focus {color: #20a2ea;}
     background: none;
     left: 15px;
 }
-.navbar-nav .form .dropdown-menu {padding: 15px;}
+.navbar-nav .form .dropdown-menu {padding: 15px; height: 260px}
+.navbar-nav .form .dropdown-menu form,
+#registro.modal form  {position: absolute; width: 310px;}
+.navbar-nav .form .dropdown-menu #sign-header,
+.modal-dialog #sign-modal {display: none;}
 
-.login .form-group:last-child {color: #a8a8a8; margin-bottom: 0;}
+.login .form-group:last-child {color: #a8a8a8; margin-bottom: 0; font-size: 14px; font-size: 1.4rem;}
 .login .form-group:last-child a {color: #545454;}
 .login .btn.btn-lg {padding-left: 40px !important;padding-right: 40px !important;}
 .login.pass .btn.btn-lg {padding: 15px !important;}
 .login .form-group {margin-bottom: 20px;}
-#registro.modal .modal-header {border: none;}
+#registro.modal .modal-header,
+#entrar.modal .modal-header {border: none;}
 
 
 .container-fluid.userprofile #adminActions{left:inherit; right:20px; top: 5px; z-index: 1000;}
@@ -466,13 +495,14 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 #footer .social {text-align: center;}
 #footer .social li:first-child  {font-size: 15px; font-size: 1.5rem;}
 
+section.links {margin-top: 10px;}
 section.links ul {width: 100%; margin: 10px auto; text-align: center;}
 section.links li {display: inline; text-align: center; color: #a8a8a8;}
 section.links ul li + li:before {content: "| ";}
 section.links li:last-child {margin-right: 0;}
-section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding: 0 2px;}
+section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding: 0;}
 
-#footer .licenses {margin: 0 auto; width: 150px;}
+#footer .licenses {margin: 0 auto; width: 154px;}
 #footer .licenses li {margin: 0;}
 #footer .licenses li:last-child {margin-right: 10px;}
 
@@ -538,9 +568,9 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.condition .no-postalcode .form-group:last-child {width: 100%; text-align: right;}
 
 .box-ppal.condition .no-phone .form-group {margin-bottom: 10px;}
-.box-ppal.condition .no-phone .form-group:nth-child(2) {width: 28%; margin-right: 3%;}
-.box-ppal.condition .no-phone .form-group:nth-child(3) {width: 69%;}
-.box-ppal.condition .no-phone .form-group:last-child {width: 100%; text-align: right;}
+.no-phone .form-group:nth-child(2) {width: 28%; margin-right: 3%;}
+.no-phone .form-group:nth-child(3) {width: 69%;}
+.no-phone .form-group:last-child {width: 100%; text-align: right;}
 
 .box-ppal.condition form {margin-bottom: 20px;}
 .box-ppal.condition.politician .list-project {margin: 20px 0 0; padding: 0;}
@@ -586,7 +616,10 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .kakareo.post .wrapper {padding: 0 0 15px 0;}
 .kakareo .link-wrapper:hover,
 .kakareo .link-wrapper:active,
-.kakareo .link-wrapper:focus {background-color: #efefef;}
+.kakareo .link-wrapper:focus,
+.politician-list .box-ppal .link-wrapper:hover,
+.politician-list .box-ppal .link-wrapper:active,
+.politician-list .box-ppal .link-wrapper:focus {background-color: #efefef;}
 .user-list-images li a {display: inline-block;}
 .user.actor .action {color: #a8a8a8;}
 .user.actor .user-img {width: 25px; height: 25px; margin: 0 6px 6px 0;}
@@ -604,6 +637,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 /*.config .notifications-list > li.user.answerLink {padding: 10px 0 40px 0;}*/
 .list-updates {margin: 0; padding: 0;}
 .list-updates > li {list-style: none; margin-bottom: 20px;}
+.list-updates > li > .kakareo {margin: 0;}
 .kakareo,
 .box-ppal {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
 .box-ppal {padding: 22px 10px 0;}
@@ -647,7 +681,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 #otros-proyectos .kakareo.post.ley p,
 .kakareo-list.project .kakareo.post.ley p,
 .boxes.info .kakareo p {margin: 10px;}
-.boxes.info .kakareo p {line-height: 1.3;}
+.boxes.info .kakareo p {line-height: 1.3; font-size: 13px; font-size: 1.3rem;}
 
 .kakareo.actualizacion .user,
 .kakareo.actualizacion .user .popover-trigger,
@@ -725,6 +759,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .edit-user .user .popover-trigger:focus {text-decoration: none;}
 .user-list-images li .popover-trigger .user-img {margin: 0 2px 0 0;}
 .author.important .user.actor.politic .user-list-images li .popover-trigger .user-img {margin: 0;}
+
 .popover {width: 260px; max-width: 260px; border-radius: 0;}
 .popover-content {padding: 9px;}
 .popover-content p:last-child {margin: 0;}
@@ -762,6 +797,8 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .slimScrollRail,
 .slimScrollBar {border-radius: 4px !important;}
 .popover-content .close {position: absolute; top: 6px; right: 10px;}
+.popover-content .close,
+.modal-dialog .close {font-size: 22px; font-weight: 2.2rem;}
 .popover-trigger {cursor: pointer;}
 .user-list-images .popover-trigger,
 .user-list-followers .popover-trigger {display: inline-block; z-index: 998; position: relative;}
@@ -793,14 +830,14 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
     display: block !important;
 }
 .popover .scroll .user-type {margin-top: -15px !important;}
-.popover #follow {margin: 1px 0 0 49px !important;}
-.popover-box #follow {margin: 1px 0 0 90px !important;}
-#follow {width: 105px;}
-#follow span {margin: -2px 0 0 8px; display: inline-block;}
-#follow.disabled {background-color: #a8a8a8 !important;}
-#follow.disabled:hover,
-#follow.disabled:active,
-#follow.disabled:focus {background-color: #797979 !important; opacity: 1 !important;}
+.popover .follow {margin: 1px 0 0 49px !important;}
+.popover-box .follow {margin: 1px 0 0 90px !important;}
+.btn.follow {width: 105px;}
+.btn.follow span {margin: -2px 0 0 8px; display: inline-block;}
+.btn.follow.disabled {background-color: #a8a8a8 !important;}
+.btn.follow.disabled:hover,
+.btn.follow.disabled:active,
+.btn.follow.disabled:focus {background-color: #797979 !important; opacity: 1 !important;}
 .popover .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}
 .popover .infoActivity li {list-style: none; float: left; margin-right: 6px; font-size: 14px; font-size: 1.4rem; color: #797979;}
 .popover .infoActivity .fa-check {color: #bfd9f5;}
@@ -933,8 +970,8 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .kakareo footer > ul > li.read-later a.disabled:hover .hidden-xs,
 .kakareo footer > ul > li.read-later a.disabled:focus .hidden-xs,
 .kakareo footer > ul > li.read-later a.disabled:active .hidden-xs {color: #20a2ea !important; text-decoration: underline !important; cursor: pointer !important;}
-.kakareo footer > ul > li.more-actions {position: absolute; right: 6px;}
-.kakareo footer > ul > li.more-actions .popover-trigger {font-size: 24px; font-size: 2.4rem; font-weight: bold; line-height: .2;}
+.kakareo footer > ul > li.more-actions {position: absolute; right: 6px; padding: 0;}
+.kakareo footer > ul > li.more-actions .popover-trigger {font-size: 24px; font-size: 2.4rem; font-weight: bold; line-height: .8;}
 .kakareo footer > ul > li.more-actions .popover-trigger:hover {color: #20a2ea;}
 
 .user-list-images .more-users,
@@ -1028,29 +1065,46 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 /*.author.important .user.actor.politic a {color: #FFDB8D !important;}*/
 
 /* vídeo */
-.video {position: relative; z-index: 99;}
-.video > .front > .fa {margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; color: #fff; z-index: 998; width: 52px; height: 52px;}
+.video, .vimeo {position: relative; z-index: 99;}
+.video > .front > .fa,
+.vimeo > .front > .fa {margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; color: #fff; z-index: 998; width: 52px; height: 52px;}
 
-.video > .front {display: block; background-color: #000; position: relative; width: 100%; overflow: hidden;}
-.video > .front > img {opacity: 0.25;}
-.video > .youtube {width: 100%; display: none;}
+.video > .front,
+.vimeo > .front {display: block; background-color: #000; position: relative; width: 100%; overflow: hidden;}
+.video > .front > img,
+.vimeo > .front > img {opacity: 0.25;}
+.video > .youtube,
+.vimeo > .youtube {width: 100%; display: none;}
 
-/*.video > .front,
-.video > .youtube {height: 152px;}
+/* vídeo de fondo de la Home  */
+.full-video {overflow: hidden; position: relative; margin: 0; padding: 0 0 40px 0; background: url('../images/home-video.png') no-repeat center center; background-size: cover;}
+.full-video  .container-fluid {margin-top: 24px;}
+.full-video .socialGo {margin-bottom: 20px;}
 
-.list-updates .video > .front,
-.list-updates .video > .youtube {height: 185px;}*/
-
-
+video#bgvid {
+  left: 0;
+  top: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  background-image: url('../images/home-video.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: none;
+}
 #videoHome .modal-dialog {margin: 10% auto;}
+#videoHome .modal-dialog,
+#videoHome .modal-dialog .youtube {width: 320px;}
 #videoHome .modal-dialog .modal-content {background: transparent;}
-#videoHome .modal-dialog .close {opacity: 1; color: #fff; margin: 0; position: absolute; top: -25px; right: 5px;}
+#videoHome .modal-dialog .close {opacity: 1; color: #fff; margin: 0; position: absolute; top: -30px; right: 0;}
 #videoHome .modal-dialog .modal-body {padding: 0;}
 #videoHome .modal-dialog .modal-header {border-bottom: 0; padding: 0;}
 
 
 /* PARA EL QUIERO TRASTEAR MÁS DEL DASHBOARD */
-#trasteando {padding: 10px 0 20px; color: #a8a8a8;}
+#trasteando {padding: 0 0 40px; color: #a8a8a8;}
 #trasteando a {color: #545454;}
 
 
@@ -1063,7 +1117,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 }
 
 /*para quitarle el borde al ver más en las notificaciones*/
-.config #load-more{border-top: none; padding: 10px 0;}
+.config #load-more{padding: 20px 0; margin: -20px 0 0 0;}
 #load-more a {color: #a8a8a8;}
 #load-more a:hover,
 #load-more a:active,
@@ -1142,7 +1196,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .condition .user-type {display: block; margin-top: -36px;}
 .personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px;}
 .user-list-followers .user .actions {float: right; margin: -32px 0 0 0 !important;}
-.user-list-followers .user .actions #follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
+.user-list-followers .user .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
 .user-list-followers .user .actions .close {margin: 1px 0 0 0;}
 
 .boxes .user-img,
@@ -1235,7 +1289,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 }
 
 .boxes.guay .kakareo-list > li:last-child {display: block; padding: 0; margin: 0; border: none;}
-.boxes.guay .kakareo-list.project > li:last-child {padding: 10px 0;}
+.boxes.guay .kakareo-list > li.text-center {padding: 10px 0;}
 .boxes.guay .kakareo-list > li:last-child small a {font-size: 12px; font-size: 1.2rem; color: #a8a8a8;}
 
 .notifications-list {padding: 0; margin: 0;}
@@ -1505,14 +1559,16 @@ textarea.error,
 
 
 /* páginas de entrar y registro, con layout de 1 columna */
-.sign > div > h1 {font-size: 25px; font-size: 2.5rem; margin-top: 0;}
-.sign > div > h2 {font-size: 18px; font-size: 1.8rem; line-height: 1.4; padding: 0;}
-.sign > div > h3 {font-size: 18px; font-size: 1.8rem; text-align: left}
+.sign h1 {font-size: 25px; font-size: 2.5rem; margin-top: 0;}
+.sign h2 {font-size: 18px; font-size: 1.8rem; line-height: 1.4; padding: 0;}
+.sign h3 {font-size: 18px; font-size: 1.8rem; text-align: left;}
 .sign .login {margin-top: 20px; margin-bottom: 20px;}
 .sign .login .socialGo .btn.tw,
 .sign .login .socialGo .btn.fb {padding: 15px !important;}
 .sign .login {width: 305px;}
 .sign .login .form-group:last-child {font-size: 14px; font-size: 1.4rem;}
+
+.sign.purchase h2 {font-size: 16px; font-size: 1.6rem;}
 
 .container-fluid.onecol {max-width: 910px;}
 .onecol a {color: #ff9431;}
@@ -1629,7 +1685,12 @@ textarea.error,
 }
 
 /* estilos para el resize upload image */
-.uploaderImageContainer > div {height: 170px; margin: 10px 0 0 0; position: relative;}
+.uploaderImageContainer > div {margin: 0; position: relative;}
+.form-group.image {width: 100%; height: 424px;}
+.form-group.image.perfil {height: 320px;}
+.form-group.image.perfil .uploaderImageContainer > div {width: 284px;}
+.form-group.image.perfil .qq-upload-drop-area {padding: 52% 20px 20px 20px; height: 284px;}
+.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 26%;}
 
 /* avatar en config cuadrado */
 .config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
@@ -1646,23 +1707,23 @@ textarea.error,
 .qq-upload-button-hover {text-decoration: underline;}
 .qq-upload-button-focus {outline:1px dotted black;}
 .qq-upload-drop-area {
+  padding: 28% 20px 20px 20px;
   position: absolute;
   top: 0;
-  height: 165px;
+  height: 387px;
   left:0;
   z-index: 2;
   width: 100%;
   display: block !important;
   text-align: center;
   border: 1px solid #EFEFEF;
-  background: url('../images/fileUpload.png') center 10px no-repeat transparent;
-  padding: 95px 20px 20px 20px;
+  background: url('../images/fileUpload.png') center 32% no-repeat transparent;
   display: block;
 }
-.uploaderImageContainer.USER_PROFILE .qq-upload-drop-area{height:234px;}
-.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area{height:367px;}
-.uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area{height:353px;}
-.uploaderImageContainer.PROJECT_IMAGE > div{height:332px;}
+.uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:234px;}
+.uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {height:367px;}
+.uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:353px;}
+.uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
 .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 10px;}
 .qq-upload-drop-area-active {
     background-color:#FFF8ED;
@@ -1732,7 +1793,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 #otros-proyectos {padding-bottom: 20px;}
 .boxes.info .kakareo .more-info {padding: 0 10px;}
 
-.kakareo.post footer .voting {text-align: right;}
+.kakareo.post footer .voting {text-align: right; margin-bottom: 0;}
 .kakareo.post footer .voting ul,
 .boxes.info .kakareo footer .voting ul {margin: 0; padding: 0;}
 .kakareo.post footer .voting ul li,
@@ -1763,7 +1824,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .kakareo.post footer .info-kak > li time {font-size: 12px; font-size: 1.2rem;}
 .kakareo.post footer {margin-top: 0; margin-bottom: 0; padding: 0 10px; font-size: 14px; font-size: 1.4rem;}
 .kakareo.post .more-info {padding: 0 10px;}
-.boxes.info .kakareo footer a {pointer-events: none; cursor: default;}
+.boxes.info .kakareo footer a,
+.boxes.info .kakareo > h1 > a {pointer-events: none; cursor: default;}
 
 .kakareo.post footer ul li,
 .boxes.info .kakareo footer ul li {display: inline-block; list-style: none;}
@@ -1805,7 +1867,16 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 #widget .close {font-size: 30px;}
 #widget .modal-header .close {margin-top: -6px;}
 
-#registro .modal-dialog {width: 350px;}
+#registro .modal-dialog,
+#entrar .modal-dialog {width: 314px;}
+
+#registro .modal-dialog .modal-content {height: 300px;}
+
+.modal .input-group-addon,
+.dropdown .input-group-addon {width: 95px;}
+.modal .input-append,
+.dropdown .input-append {width: 100%;}
+.dropdown-menu form {width: 91%}
 
 .leerLey {text-align: right;}
 .leerLey a {padding: 3px 22px 3px 0; background: url('../images/pdf.png') no-repeat right center transparent;}
@@ -1911,18 +1982,18 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .stats a {display: block; text-align: center; color: #545454; border-top: 1px solid #dadada; padding: 10px 0;}
 .stats span {display: inline-block; margin: 0 10px 4px 0;}
 
-.readMore {text-align: right; margin-bottom: 20px;}
+/*.readMore {text-align: right; margin-bottom: 15px; margin-top: -25px;}*/
 .readMore span {display: inline-block; margin: 0 0 0 4px;}
 .readMore a {
     color: #545454;
     font-size: 13px; font-size: 1.3rem;
-    background-image: url('../images/ico-arrows.png');
-    padding: 0 20px 0 0;
+    /*background-image: url('../images/ico-arrows.png');*/
+    padding: 0;
     background-color: transparent;
     background-position: right bottom;
     background-repeat: no-repeat;
 }
-.readMore a.collapsed {background-position: right top;}
+/*.readMore a.collapsed {background-position: right top;}*/
 .top {font-size: 15px; font-size: 1.5rem;}
 .filters {margin: 0 0 20px 0;}
 .filters .btn {background-color: #fff !important; border-radius: 0 !important; border: 1px solid #e5e5e5; border-right: none; color: #5d5d5d !important; font-size: 12px; font-size: 1.2rem; border-radius: 0; padding: 6px 2px !important;}
@@ -1936,8 +2007,18 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .filters .btn.btn-blue:active,
 .filters .btn.btn-blue:focus {background-color: #2e6bab !important;}
 
+
 /* post =========== */
 /* ====================================================== */
+.boxes.vote.drive {text-align: center;}
+.boxes.vote.drive > h1 {font-size: 15px; font-size: 1.5rem; margin: 0; padding: 20px 0 15px;}
+.boxes.vote.drive > h1 > span {font-size: 25px; font-size: 2.5rem;}
+.boxes.vote.drive > h2 {font-size: 13px; font-size: 1.3rem; margin: 15px 0 25px;}
+.progress {height: 15px; border-radius: 0; margin: 0;}
+.progress-bar {background-color: #828282;}
+.boxes.vote.drive .user-list-images > li {display: block; float: left; margin-right: 5px;}
+.boxes.vote.drive .user-list-images > li:last-child {margin-right: 0;}
+
 .listComments {margin: 0; padding: 0;}
 .listComments > li {list-style: none; background-color: #fafafa; color: #a8a8a8; margin: 0 0 40px 0;}
 .listComments > li .wrapper {padding: 20px 20px 0 20px;}
@@ -1964,7 +2045,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.noted.likes .sponsor .user-list-images > li:last-child {margin: 0;}
 .boxes.noted.likes #drive {margin-bottom: 50px;}
 .boxes.noted.likes #drive .form-group {margin: 10px 0;}
-.boxes.noted .follow{display: block;position: relative;}
+.boxes.noted .follow {display: block; position: relative;}
 .boxes.noted .follow ul > li {float: left; margin-right: 3px;}
 
 .othersPost {margin: 60px 0 70px;}
@@ -2059,44 +2140,43 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
   border-bottom: 1px solid #DADADA;
 }
 
-.promo-options {margin: 10px 0 30px; height: 330px;}
+.promo-options {margin: 20px auto 50px; width: 80%; border-bottom: 1px solid #e5e5e5; padding-bottom: 20px;}
+.promo-options h3 {}
 .promo-options > div {
-  margin-bottom: 10px;
-  background-color: #efefef;
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  -webkit-transition: background-color .5s ease-in-out;
-  -moz-transition: background-color .5s ease-in-out;
-  -o-transition: background-color .5s ease-in-out;
-  transition: background-color .5s ease-in-out;
-}
-.promo-options > div:hover {
-  background-color: #ff9431;
-  color: #fff;
-  z-index: 9;
-  margin-top: -20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-}
-.promo-options > div:hover  > .link-wrapper {min-height: 300px; background-color: transparent; color: #fff;}
-.promo-options > div:hover > .link-wrapper > h3 {color: #545454; font-size: 22px; font-size: 2.2rem;}
-.promo-options > div:hover  > .link-wrapper > .euros  {color: #545454; font-size: 64px; font-size: 6.4rem;}
-
-.promo-options > div > .link-wrapper {
-  padding: 0;
   min-height: 250px;
+  margin-bottom: 20px;
+  background-color: #efefef;
+  padding: 0;
+/*  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;*/
 }
-.promo-options > div > .link-wrapper > .mails {font-size: 25px; font-size: 2.5rem;}
-.promo-options > div > .link-wrapper > h2 {font-size: 24px; font-size: 2.4rem; text-transform: uppercase;}
-.promo-options > div > .link-wrapper > h3 {font-size: 18px; font-size: 1.8rem; font-weight: bold;}
-.promo-options > div > .link-wrapper > .euros {font-size: 34px; font-size: 3.4rem; font-weight: bold;}
-.promo-options > div > .link-wrapper > p {margin: 0 0 5px 0;}
-.promo-options > div > .link-wrapper > p:last-child {
-  line-height: 1;
-  position: absolute;
-  bottom: 20px;
-  width: 90%;
-}
+.promo-options > div > .mails {font-size: 25px; font-size: 2.5rem;}
+.promo-options > div > h3 {margin: 0;}
+.promo-options > div > form {width: 88%; margin: 0 auto; padding-top: 20px;}
+.promo-options > div:first-child {margin-bottom: 45px;}
+.promo-options > div:last-child > form .radio label {cursor: default;}
+
+.promo-options > div > form ul {margin: 30px 0;}
+.promo-options > div > form ul li {margin-bottom: 10px;}
+.promo-options > div > form .radio {margin: 0 0 20px 0; padding-left: 50px;}
+.promo-options > div > form .radio:only-child {margin-top: 40px;}
+.promo-options > div > form .radio label {font-size: 19px; font-size: 1.9rem; line-height: 1.2;}
+.promo-options > div > form .radio input[type="radio"] {margin-top: 30px; margin-left: -25px;}
+.promo-options > div > form .radio label > span {font-size: 35px; font-size: 3.5rem;}
+.promo-options > div > form .radio label > span > span {font-size: 45px; font-size: 4.5rem;}
+.promo-options > div > form .btn {font-size: 25px !important; font-size: 2.5rem !important;}
+.promo-options > div > form .options-wrapper {min-height: 112px;}
+
+.promo-options > div.active {background-color: #ff9431; z-index: 9; margin-top: -20px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);}
+.promo-options > div.active > h3 {background-color: transparent;}
+.promo-options > div.active > form {border-top: #fff solid 1px;}
+.promo-options > div.active > form .btn {background-color: #20A2ea !important;}
+.promo-options > div.active > form .btn:hover,
+.promo-options > div.active > form .btn:focus {background-color: #2e6bab !important;}
+.promo-options > div.active > form ul {margin-bottom: 60px;}
+
 .form-promo,
 .form-promo-pay {min-height: 126px; padding: 30px 0 0 0; border-bottom: 1px solid #DADADA; border-top: 1px solid #DADADA;}
 .form-promo h4 {font-size: 18px; font-size: 1.8rem;}
@@ -2213,8 +2293,19 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 /* Home =========== */
 /* ====================================================== */
-.home {margin: -35px 0 0 0;}
-.home h1 {text-align: center; padding: 35px 5px 26px; margin-bottom: 0; background: url('../images/fdo-home.png') repeat-x 0 0 transparent; font-size: 22px; font-size: 2.2rem;}
+.home h1, .home h2, .home h3,
+.sign.home .login .cancel a,
+.sign.home .login .cancel a:hover,
+.sign.home .login .cancel a:active,
+.sign.home .login .cancel a:focus,
+.sign.home .login .form-group:last-child a {color: #fff;}
+
+.form-home-container {position: relative; margin: 0 auto; min-height: 410px; width: 305px;}
+.sign.home .form-home-container .login {position: absolute; top: 0; left: 0;}
+.sign.home .social-home-container {position: absolute; bottom: 0;}
+.sign.home form#sign {display: none;}
+
+
 .signContainer {background-color: rgba(0, 0, 0, 0.5); padding: 10px; margin-bottom: 10px;}
 .signContainer h2 {margin: 0 0 20px 0; color: #fff; font-size: 25px; font-size: 2.5rem; line-height: 2;}
 .signContainer h2 small {display: block; color: #fff; font-size: 17px; font-size: 1.7rem; font-weight: lighter; line-height: 1.3em;}
@@ -2222,32 +2313,128 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .signContainer h3 {color: #fff; font-size: 14px; font-size: 1.4rem; text-align: center; margin-bottom: 0;}
 .signContainer .checkbox-inline a {color: #fff;}
 .signContainer .btns {margin-top: 10px;}
-.home .images {
-  background-image: url('../images/home1.jpg');
-  background-repeat: no-repeat;
-  background-position: center 0;
-  background-size: cover;
-  background-color: transparent;
-      -webkit-transition: background .5s ease-in-out;
-    -moz-transition: background .5s ease-in-out;
-    -o-transition: background .5s ease-in-out;
-    transition: background .5s ease-in-out;
-}
 .home #sign .checkbox-inline {margin: 4px 0 !important; font-size: 13px; font-size: 1.3rem;}
-.home .socialGo {margin: 0;}
-.home .socialGo li {display: block; float: none; margin: 10px 0 0 0;}
-.home .socialGo li a {display: block; width: auto;}
-/*.home .youtube {margin: 20% 0;}*/
-.home .play {margin: 10% 0; color: #fff; font-size: 18px; font-size: 1.8rem; text-align: center;}
-.home .front {color: rgba(255, 255, 255, 0.9);}
-.home .front:hover,
-.home .front:focus,
-.home .front:active {color: rgba(0, 0, 0, 0.5);}
-.homeSub {margin: 0 0 60px 0;}
-.homeSub h1 {text-align: center; padding: 0; margin: 0 0 20px 0; font-size: 22px; font-size: 2.2rem;}
+.home .play {margin: 0; padding: 0; color: #fff; font-size: 15px; font-size: 1.5rem;}
+.home .play .fa {vertical-align: middle; margin-right: 10px;}
+.home .play > a {color: rgba(255, 255, 255, 0.9);}
+.home .play > a:hover,
+.home .play > a:focus,
+.home .play > a:active {color: rgba(32, 162, 234, 0.5);}
+.homeSub {margin: 0 0 40px 0;}
+.homeSub > .row > h1 {text-align: center; padding: 0 15px 10px 15px; margin: 0 0 20px 0; font-size: 28px; font-size: 2.8rem; border-bottom: 1px solid #e5e5e5;}
 .homeSub h2 {font-size: 24px; font-size: 2.4rem; padding: 0 16%;}
-.homeSub > div > .wrapper {min-height: 250px; border-bottom: 1px solid #DADADA; border-top: 1px solid #DADADA; padding: 30px 10px 10px 10px; text-align: center;}
-.homeSub > div > .wrapper span {color: #797979;}
+.homeSub .homeMore {width: 305px; margin: 0 auto;}
+.homeSub .homeMore.two .btn {width: 48%; margin-right: 2% !important;}
+.homeSub .homeMore.two .btn:last-child {margin: 0 !important;}
+
+.homeSub .kakareo h1 {font-size: 14px; font-size: 1.4rem;}
+.homeSub .kakareo .link-wrapper {padding: 15px 15px 0;}
+.homeSub .link-wrapper .popover-trigger {font-size: 13px; font-size: 1.3rem;}
+
+.politician-list {margin: 0; padding: 0; list-style: none;}
+.politician-list .box-ppal .user {margin: -75px 10px 20px 10px;}
+.politician-list .box-ppal .user .user-img {border: 5px solid #fff; width: 120px; height: 120px;}
+.politician-list .box-ppal .user .user-img + .btn.follow {margin: 85px 0 0 0 !important; float: right; padding: 10px 15px !important;}
+.politician-list .box-ppal .user .user-name {display: block; font-size: 32px; font-size: 3.2rem;}
+.politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
+.politician-list .box-ppal small {display: block; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
+.politician-list .box-ppal small .fa {opacity: .5;}
+.politician-list .box-ppal {padding: 0; margin: 0 0 20px 0;}
+.politician-list .box-ppal p {padding: 0 10px; font-size: 13px; font-size: 1.3rem;}
+
+.medios-list {margin: 40px 0 20px 0; padding: 0; list-style: none;}
+.medios-list:first-child {margin-top: 50px;}
+.medios-list blockquote {font-size: 21px; font-size: 2.1rem; font-style: italic; text-align: center; margin: 0 0 40px 0; padding: 0;}
+.medios-list blockquote p:before {content: "“";}
+.medios-list blockquote p:after {content: "”";}
+.medios-list blockquote footer {margin-bottom: 20px;}
+.medios-list blockquote footer:before {content: "";}
+
+.homeSub.medios {text-align: center;}
+.homeSub.medios h2 {font-size: 14px; font-size: 1.4rem; margin: 60px 0 20px 0;}
+.support-list {margin: 0; padding: 0; list-style: none;}
+.support-list li {display: inline-block; margin-right: 10px; margin-bottom: 10px;}
+.support-list li:last-child {margin-right: 0;}
+.support-list li.game img {width: 115px; height: 53px;}
+.support-list li.unltdspain img {width: 134px; height: 47px;}
+.support-list li.iebusiness img {width: 207px; height: 47px;}
+
+.embudo #aside-ppal {background-image: none; background-color: #f0f0f0; margin-bottom: 30px;}
+.embudo #aside-ppal h1.withArrow {color: #20A2ea; font-size: 32px; font-size: 3.2rem; text-align: center; position: relative; margin-top: 0;}
+.embudo #aside-ppal > .border > p {color: #20A2ea; font-size: 20px; font-size: 2rem; text-align: center; position: relative;}
+.embudo #aside-ppal p.first {padding: 0 0 0 18%; margin-bottom: 30px;}
+.embudo #aside-ppal p.second {padding: 0 20% 0 0; margin-top: 100px; margin-bottom: 70px;}
+.embudo #aside-ppal img.center-block {
+  margin-top: -20px;
+  margin-bottom: 20px;
+  border: 5px solid #fff;
+  box-shadow: 0 5px 7px rgba(0, 0, 0, .5);
+  border-radius: 100px;
+  width: 170px;
+  height: 170px;
+}
+.embudo .like-number a {color: #20A2ea;}
+
+.video-embudo-list {margin: 45px 0 0 0; padding: 0; list-style: none;}
+.video-embudo-list > li {position: relative; margin: 0 0 80px 0;}
+.video-embudo-list > li:last-child {margin-bottom: 0;}
+.video-embudo-list > li .icon2-comillas {color: #ff9431; position: absolute; top: -50px; left: -10px; z-index: 999; font-size: 80px; font-size: 8rem;}
+.video-embudo-list > li:nth-of-type(even) .icon2-comillas {left: auto; right: -10px;}
+
+.vimeo > .front {background: transparent;}
+.vimeo > .front > img {opacity: 1;}
+.vimeo > .front > .fa {position: absolute; top: auto; bottom: 15px; left: auto; right: 15px; margin: 0; width: auto; height: auto;}
+.vimeo > .front .text {color: #fff; position: absolute; top: 14%; left: 8%; width: 65%; font-size: 18px; font-size: 1.8rem; line-height: 1.2;}
+.vimeo > .front .who {color: #fff; position: absolute; bottom: 8%; left: 8%; width: 65%; font-size: 15px; font-size: 1.5rem; font-family: Arial, sans-serif; line-height: 1;}
+
+.video-embudo-list > li:nth-of-type(even) .vimeo > .front > .fa {left: 15px; right: auto;}
+.video-embudo-list > li:nth-of-type(even) .vimeo > .front .text,
+.video-embudo-list > li:nth-of-type(even) .vimeo > .front .who {text-align: right; left: auto; right: 8%;}
+
+.pide-cuenta h1 {text-align: center; font-size: 26px; font-size: 2.6rem; padding: 0 10%; margin-top: 0;}
+.pide-cuenta h2 {text-align: center; text-transform: uppercase; font-size: 18px; font-size: 1.8rem; padding: 0 10%; line-height: 1.2;}
+.pide-cuenta > ul {margin: 30px auto 60px; padding: 0; list-style: none; width: 80%;}
+.pide-cuenta > ul > li {margin-bottom: 20px;}
+.pide-cuenta > ul > li:last-child {margin-bottom: 0;}
+.pide-cuenta > ul > li span,
+.contratando > div:last-child h3,
+.promo-options > div > h3 {font-weight: normal; letter-spacing: 2px; background-color: #888888; display: block; padding: 30px 20px; text-align: center; font-size: 22px; font-size: 2.2rem; text-transform: uppercase; color: #fff;}
+.pide-cuenta > ul > li > ul > li,
+.contratando > div:last-child ul li {list-style: disc; margin-bottom: 10px;}
+.pide-cuenta > ul > li > ul > li:last-child {margin-bottom: 0;}
+.pide-cuenta > ul > li > ul,
+.contratando > div:last-child ul {background-color: #ededed; padding: 40px;}
+.embudoMore {width: 295px; margin: 0 auto 70px;}
+.embudoMore .btn {font-size: 14px !important; font-size: 1.4rem !important;}
+
+.condiciones-compra {width: 80%; margin: 0 auto;}
+
+.contratando > div > h1 {font-size: 30px; font-size: 3rem; margin: 0; padding: 0 0 10px 0; border-bottom: 1px solid #e5e5e5;}
+.contratando > div > h2 {font-size: 20px; font-size: 2rem; line-height: 1.4;}
+.contratando > div:last-child h3,
+.contratando > div:last-child ul {margin-bottom: 0;}
+.contratando > div:last-child h4 {background-color: #ededed; margin: -10px 0 0 0; text-align: center; font-size: 50px; font-size: 5rem; line-height: .6; padding-bottom: 40px;}
+.contratando > div:last-child h4 .decimals {font-size: 30px; font-style: 3rem;}
+.contratando > div:last-child h4 small {font-size: 19px; font-size: 1.9rem; color: #545454;}
+
+.contratando .form-group:last-child {margin-right: 0;}
+.contratando .nav-tabs,
+.contratando .nav-tabs > li.active > a,
+.contratando .nav-tabs > li.active > a:hover,
+.contratando .nav-tabs > li.active > a:focus {border: none;}
+.contratando .nav-tabs > li {padding: 20px 0;}
+.contratando .nav-tabs > li input[type="radio"] {margin-right: 8px;}
+.contratando .tab-content .form-inline .form-control {width: 100%;}
+
+.pago {border: #545454 solid 1px; height: 200px; position: relative; display: block; background-color: transparent; background-repeat: no-repeat; background-position: center 30px; background-size: 285px auto;}
+.pago:hover span {background-color: #797979;}
+.pago span {display: block; background-color: #bcbcbc; padding: 15px; font-size: 25px; font-size: 2.5rem; position: absolute; bottom: 0; left: 0; width: 100%; text-align: center; color: #fff;}
+.pago.tarjeta {background-image: url('../images/pago-tarjeta.png'); margin-bottom: 20px;}
+.pago.paypal {background-image: url('../images/pago-paypal.png');}
+.tipo-pago {margin-top: 30px;}
+
+#noTengoCuenta .form-group:last-child {margin: 30px 0 0 0; text-align: center;}
+#noTengoCuenta .form-group:last-child .btn {width: 100%; font-size: 25px !important; font-style: 2.5rem !important;}
 
 
 
@@ -2273,7 +2460,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .userprofile .kakareo.post.ley .socialContact li span {color: #545454; margin-right: 4px;}
 
 .boxes.userkarma .activity {margin-bottom: 40px;}
-.boxes.userkarma #follow {width: 100%;}
+.boxes.userkarma .follow {width: 100%;}
 .boxes.userkarma .activity li span {color: #545454; font-size: 32px; font-size: 3.2rem;}
 .boxes.userkarma h1 span,
 .boxes.follow h1 span,
@@ -2289,7 +2476,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .noprofile h1,
 .noprofile h2 {font-size: 24px; font-size: 2.4rem; margin-bottom: 20px;}
 .noprofile .btn {margin: 10px 0 40px !important; line-height: 1.4;}
-.noprofile #follow {width: 100%;}
+.noprofile .follow {width: 100%;}
 
 .userprofile .boxes.userkarma .activity li span {color: #a8a8a8;}
 .userprofile .boxes.noted {margin-bottom: 20px;}
@@ -2299,7 +2486,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 /* descubre =========== */
 /* ====================================================== */
-.introDiscover {margin: 10px 0 20px;}
+/*.introDiscover {margin: 10px 0 20px;}
 .introDiscover .pre {font-size: 17.5px; font-size: 1.75rem; margin-top: 0;}
 .introDiscover .steps {margin: 0 0 10px 0; padding: 0; display: inline-block;}
 .introDiscover .steps li {margin: 0 0 0 34px;}
@@ -2331,7 +2518,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .discover .others .kakareo.post.ley h1 {border: none; font-size: 19px; font-size: 1.9rem; margin-bottom: 0; line-height: 1;}
 .discover .others .kakareo.post.ley p {font-size: 12px; font-size: 1.2rem; line-height: 1.2;}
 .discover .others .kakareo.post .wrapper {padding: 0;}
-.discover .others .boxes {background: none;}
+.discover .others .boxes {background: none;}*/
 
 
 /* autocompletado =========== */
@@ -2488,7 +2675,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config > header .box-ppal {padding: 0;}
 .config > header h1 {border-bottom: 1px solid #dadada; padding: 20px 15px 18px; margin: 0;}
 .config > header ul {margin: 0; padding: 0;}
-.config > header ul > li {list-style: none; padding: 15px 20px; margin: 0; border-bottom: 1px solid #dadada; font-size: 20px; font-size: 2rem;}
+.config > header ul > li {list-style: none; padding: 15px 20px; margin: 0; border-bottom: 1px solid #dadada; font-size: 19px; font-size: 1.9rem;}
 .config > header ul > li:last-child {border: none;}
 .config > header ul > li > a {color: #545454; padding: 4px 8px; display: block;}
 .config > header ul > li > a:hover,
@@ -2505,10 +2692,10 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config > section .filter-order > li a {color: #bcbcbc;}
 .config > section .filter-order > li a span {margin: 0 0 0 4px;}
 .config > section .filter-order .dropdown-menu > li:first-child {font-weight: normal; border-bottom: none; margin: 0;padding: 0;}
-.config > section .list-project {margin: 0; padding: 0;}
-.config > section .list-project {margin: 0; padding: 0; list-style: none;}
+.config > section .list-project {margin: 0 0 20px 0; padding: 0; list-style: none;}
 .config > section .list-project .kakareo.post.ley {margin: 0; padding: 22px 10px 0 0; border-top: none; border-left: none; border-right: none;}
 .config > section .list-project .kakareo.post.ley .open-menu {top: 25px; right: 0; z-index: 998;}
+.config > section .list-project li:last-child .kakareo.post.ley {border: none;}
 
 .list-project .kakareo.post.ley .laley a {font-size: 22px; font-size: 2.2rem; display: block;}
 .list-project .kakareo.post.ley .laley time {font-size: 13px; font-size: 1.3rem; color: #bcbcbc;}
@@ -2643,6 +2830,32 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .input-group-addon:first-child {border-right: solid 1px #cccccc;}
 
 
+/* Info */
+.config.info > article {margin-bottom: 20px;}
+.config.info > article > .box-ppal {margin-bottom: 20px; padding: 22px 20px 0;}
+.config.info > article > .box-ppal > h1 {font-size: 28px; font-size: 2.8rem; padding: 0; margin: 5px 0 15px 0;}
+.config.info > article > .box-ppal > img {margin-bottom: 20px;}
+
+.list-team,
+.list-team ul {margin: 0; padding: 0; list-style: none;}
+.list-team {text-align: center;}
+.list-team > li {width: 100%; margin-bottom: 15px;}
+.list-team > li > .box-ppal > img {width: 140px; height: 140px; border-radius: 70px; border: solid 5px #fff; margin: 0 0 10px 0;}
+.list-team > li > .box-ppal {padding: 20px; margin: 0; /* min-height: 485px; margin: 0 0 10px;*/}
+.list-team > li > .box-ppal > h1 {padding: 0; font-size: 33px; font-size: 3.3rem; margin: 0 0 5px 0;}
+.list-team > li > .box-ppal > h2 {padding: 0; font-size: 20px; font-size: 2rem; margin: 0 0 20px 0; color: #a8a8a8;}
+.list-team > li > .box-ppal > p,
+.list-team > li > .box-ppal > .panel-collapse {text-align: left;}
+.list-team > li > .box-ppal > p:last-child {margin: 0;}
+.list-team > li > .box-ppal > .social {margin-top: 20px;}
+.list-team > li > .box-ppal > .social li {margin: 0 20px 0 0;}
+.list-team > li > .box-ppal > .social li:last-child {margin: 0;}
+.list-team > li > .box-ppal > .social a {color: #bababa !important;}
+.list-team > li > .box-ppal > .social a:hover,
+.list-team > li > .box-ppal > .social a:focus,
+.list-team > li > .box-ppal > .social a:active {color: #20A2ea !important;}
+.list-team > li > .box-ppal > .collapsed {color: #545454;}
+
 /* Ficha técnica */
 .kakareo.post.ley.ficha {
     margin: -12px 0 50px;
@@ -2770,7 +2983,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 #edit-project label {font-size: 20px; font-size: 2rem; color: #a8a8a8;}
 #edit-project .interest {margin-top: 20px;}
 .icheckbox_line-orange,
-.iradio_line-orange {margin: 0 24px 12px 0; background-color: #fafafa; padding: 12px 6px 0; width: 110px; color: #545454;}
+.iradio_line-orange {margin: 0 24px 24px 0; background-color: #fafafa; padding: 12px 6px 0; width: 110px; color: #545454;}
 
 .uploadPdf .progress-pdf {background-color: #f8f8f8; padding: 8px 10px; font-size: 17px; font-size: 1.7rem; line-height: 1.2; border: 1px solid #e5e5e5;}
 .uploadPdf .progress-pdf .progress {background-color: #fff; margin: 0; width: 100%; margin: 0 0 5px 0; height: 25px; float: left; border: 1px solid #e5e5e5;}
@@ -2809,6 +3022,7 @@ h1.withArrow {margin-bottom: 30px;}
 h2.withArrow {margin-top: 100px; margin-bottom: 80px; font-size: 20px; font-size: 2rem; text-align: center; position: relative; line-height: 1.4;}
 h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size: 2rem; text-align: center; position: relative; line-height: 1.4;}
 .arrow1, .arrow2, .arrow3, .arrow4, .arrow5 {position: absolute; opacity: .4; display: block; z-index: 9;}
+.embudo .arrow1, .embudo .arrow2, .embudo .arrow3, .embudo .arrow4, .embudo .arrow5 {opacity: 1;}
 .arrow1 {
   width: 76px;
   height: 96px;
@@ -2822,6 +3036,20 @@ h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size
     -o-transform: rotate(30deg);
     transform: rotate(30deg);
 }
+.embudo .arrow1 {
+  width: 92px;
+  height: 118px;
+  right: -15px;
+  top: 10px;
+  background-image: url('../images/arrow1-blue.png');
+  background-size: auto;
+  background-position: 0 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
 .arrow2 {
   width: 50px;
   height: 107px;
@@ -2830,6 +3058,7 @@ h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size
   right: 25px;
   bottom: -97px;
 }
+.embudo .arrow2 {width: 85px; height: 108px; background-image: url('../images/arrow2-blue.png'); right: auto; left: -12px; bottom: -14px;}
 .arrow3 {
   width: 65px;
   height: 90px;
@@ -2838,6 +3067,7 @@ h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size
   left: 60px;
   bottom: -70px;
 }
+.embudo .arrow3 {width: 70px; height: 107px; background-image: url('../images/arrow3-blue.png'); background-size: auto; left: auto; right: 78px; bottom: -90px;}
 .arrow4 {
   width: 95px;
   height: 100px;
@@ -2846,6 +3076,7 @@ h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size
   left: 90px;
   bottom: -40px;
 }
+.embudo .arrow4 {width: 66px; height: 91px; background-image: url('../images/arrow4-blue.png'); background-size: auto; left: 70px; bottom: -82px;}
 .arrow5 {
   width: 44px;
   height: 120px;
@@ -2854,6 +3085,7 @@ h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size
   right: 125px;
   bottom: -125px;
 }
+.embudo .arrow5 {width: 140px; height: 154px; background-image: url('../images/arrow5-blue.png'); background-size: auto; right: 95px;}
 
 /*botones video o foto en la edición del post*/
 fieldset.multimedia ul.nav.nav-pills.nav-justified li a {margin-bottom: 15px; background-color: #fff; border: 1px solid #efefef; color: #545454; font-size: 20px; font-size: 2rem;}
@@ -2870,6 +3102,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 /* boxes columna derecha actialización Proyecto */
 .boxes.performance p {margin: 20px;}
 .boxes.performance a.improve {width: 85%; margin: 0 auto 24px !important; display: block;}
+
 
 
 /* clases especiales accesibilidad =========== */
@@ -2945,6 +3178,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #detailsInfoVotes .icons {padding: 0 15px;}
   #detailsInfoVotes.autor .table tbody th {width: 170px;}
   #sign .checkbox-inline + .checkbox-inline {margin-left: 10px;}
+  .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 28%;}
 }
 
 @media only screen and (min-width: 533px) {
@@ -2986,31 +3220,60 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .pago {background-size: 320px auto;}
+  .form-home-container {width: 320px;}
+  .homeSub.medios h2 {margin-top: 100px;}
+  .config > header h1 {font-size: 22px; font-size: 2.2rem;}
+  .config.info > article > .box-ppal > h1 {margin: 5px 0 15px;}
+  #noTengoCuenta .form-group:last-child .btn {width: 40%;}
+  #noTengoCuenta .form-group:last-child {width: 82%;}
+  .contratando .form-group {margin-right: 20px; width: 46%;}
+  .contratando .nav-tabs > li:last-child {margin-right: 0;}
+  .contratando .nav-tabs > li {margin-right: 40px; padding: 20px;}
+  .contratando > div > h2 {font-size: 2.5rem;}
+  .contratando > div > h1 {font-size: 40px; font-size: 4rem; margin: 20px 0 10px; padding-bottom: 20px;}
+  .promo-options > div > form .options-wrapper {margin: 0 auto; width: 45%;}
+  .promo-options {padding-bottom: 20px;}
+  .embudoMore .btn {font-size: 25px !important; font-size: 2.5rem !important;}
+  .embudoMore {width: 500px;}
+  .pide-cuenta ul {width: 100%;}
+  .pide-cuenta > ul > li > ul {padding: 30px; min-height: 232px;}
+  .vimeo > .front .who {width: 50%; font-size: 22px; font-size: 2.2rem;}
+  .vimeo > .front .text {width: 50%; font-size: 35px; font-size: 3.5rem; top: 12%;}
+  .embudo #aside-ppal .border {width: 370px; margin: 0 auto;}
+  .medios-list blockquote {margin: 0;}
+  .support-list li {margin-right: 40px;}
+  #registro .modal-dialog,
+  #entrar .modal-dialog {width: 350px;}
+  #videoHome .modal-dialog,
+  #videoHome .modal-dialog .youtube {width: 600px;}
+  video#bgvid {display: block;}
   .icheckbox_line-orange,
   .iradio_line-orange {margin-right: 40px;}
-  .form-group.image.perfil {width: 55%;}
-  .box-ppal.condition .no-phone .form-group:nth-child(2) {width: 20%;}
-  .box-ppal.condition .no-phone .form-group:nth-child(3) {width: 77%;}
+  .no-phone .form-group:nth-child(2) {width: 20%;}
+  .no-phone .form-group:nth-child(3) {width: 77%;}
+  .sign.purchase .no-phone .form-group:nth-child(2) {width: 26%;}
+  .sign.purchase .no-phone .form-group:nth-child(3) {width: 70%;}
   .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
   .boxes.follow .user-list-followers .user .actions {float: none; margin: 8px 0 0 !important; text-align: right;}
   #aside-ppal {background-color: transparent;}
   #main {min-height: 898px;}
   #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
-  .sign > div > h1 {font-size: 30px; font-size: 3rem; margin-top: 30px;}
-  .sign > div > h2 {font-size: 22px; font-size: 2.2rem; line-height: 1.4; padding: 0;}
-  .sign .login {margin-top: 50px; margin-bottom: 50px;}
-  .sign > div > h3 {font-size: 18px; font-size: 1.8rem; text-align: center;}
+  .sign h1 {font-size: 30px; font-size: 3rem; margin-top: 30px;}
+  .sign h2 {font-size: 22px; font-size: 2.2rem; line-height: 1.4; padding: 0;}
+  .sign h3 {font-size: 17px; font-size: 1.7rem; text-align: center;}
+  .sign.purchase h2 {font-size: 22px; font-size: 2.2rem;}
   .socialGo {margin: 0 0 40px;}
   .socialGo {margin: 0; padding: 0; text-align: center;}
+  .sign .login {margin-top: 50px; margin-bottom: 50px;}
   .sign .login .socialGo .btn.tw,
   .sign .login .socialGo .btn.fb {padding: 15px 25px !important;}
   .sign .login {margin: 20px auto;}
   .sign .login .btn + .cancel {margin-left: 33px;}
-
+  .home .play {font-size: 16px; font-size: 1.6rem;}
   .list-project .kakareo.post.ley .laley a {font-size: 18px; font-size: 1.8rem;}
   .config > section .filter-order > li {display: inline; margin: 0 2% 0 0; font-size: 14px; font-size: 1.4rem; text-align: left;}
   .list-project .kakareo.post.ley .total-info {font-size: 18px; font-size: 1.8rem;}
-
   .arrow1 {top: 72px;}
   .arrow2 {right: 15px;}
   h1.withArrow {margin-bottom: 50px;}
@@ -3097,11 +3360,9 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #main .sponsor {font-size: 15px; font-size: 1.5rem;}
   #main .user.actor,
   #main .user.actor .popover-trigger {font-size: 13px; font-size: 1.3rem;}
-  /*.socialGo li a {width: 206px;}*/
   .intro {margin: 40px 0 60px;}
   .intro h1 {font-size: 48px; font-style: 4.8rem;}
   .intro.confirm {margin: 60px 0 40px;}
-  /*.btn.btn-lg {font-size: 20px !important; font-size: 2rem !important;}*/
   .links.simple {padding: 40px;}
   .links.simple .legal li {display: inline; margin: 0 14px 0 0; border-right: solid 1px #a8a8a8; border-bottom: none; padding: 0 14px 0 0;}
   .onecol form .cancel {font-size: 16px !important; font-size: 1.6rem; margin: 0 20px 0 0;}
@@ -3117,7 +3378,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .voting > ul > li > a {font-size: 1.1rem; height: 53px; margin: 0 !important; width: 62px;}
   .boxes.vote > .btn-lg {font-size: 11px; font-size: 1.15rem !important; padding: 8px !important;}
   .boxes.taking-part .user-list-followers li {margin-right: 7px;}
-
   .boxes.edit-user > .user > a {position: relative; display: block; text-align: center;}
   .boxes.edit-user .user-img.big {float: none; margin: 0;}
   .boxes.edit-user .personal {float: left; width: 100%; text-align: center; padding: 10px 0 0 0;}
@@ -3144,16 +3404,18 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #search-results .clearfix h1 {font-size: 25px; font-size: 2.5rem; width: 80%; float: left;}
   #search-results #results {float: right; width: 20%; margin: 25px 0 0 0; text-align: right;}
   #search-results .kakareo.post.ley .photo {width: 225px; float: left; margin: 0 10px 10px 0;}
-  #search-results .popover-box #follow {position: absolute; right: 0; top: 0; padding: 12px 0 !important; font-size: 18px !important; font-size: 1.8rem !important; width: 130px; margin: 0 !important;}
+  #search-results .popover-box .follow {position: absolute; right: 0; top: 0; padding: 12px 0 !important; font-size: 18px !important; font-size: 1.8rem !important; width: 130px; margin: 0 !important;}
   #search-results .popover-box .infoActivity {border: none; padding-left: 90px; margin: -5px 0 0; display: inline-block;}
   .popover-box .infoActivity li:last-child {margin: 0 0 0 20px;}
-  .home h1 {padding: 1.5em 0.5em 1em; font-size: 36px; font-size: 3.6rem;}
-  .home .play {margin: 36% 0 0 0; font-size: 25px; font-size: 2.5rem;}
-  .home .images {background-position: 0 0;}
+
   .signContainer {padding: 20px; margin-bottom: 0;}
   .signContainer h2 small {font-size: 18px; font-size: 1.8rem;}
   .signContainer h3 {font-size: 15px; font-size: 1.5rem; margin-bottom: 10px;}
-  .homeSub h1 {margin: 0 0 40px 0; font-size: 36px; font-size: 3.6rem;}
+  #main.home,
+  .homeSub {margin-bottom: 60px;}
+  .homeSub > .row > h1 {font-size: 31px; font-size: 3.1rem; margin: 0 auto 20px; width: 70%;}
+  .homeSub .homeMore {width: 410px;}
+  .homeSub .homeMore .btn-lg {font-size: 22px !important; font-size: 2.2rem !important;}
   .userprofile .kakareo.post.ley .user > .user-name {display: inline-block;}
   .userprofile .kakareo.post.ley .user > .user-type {margin: -20px 0 20px 150px;}
   .userprofile .kakareo.post.ley .user > .mark {margin: -70px 0 0 0;}
@@ -3179,9 +3441,10 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .othersPost #postNav > a {padding: 34px 18px;}
   .form-promo h4 {font-size: 23px; font-size: 2.38rem;}
   .form-promo form .form-group {float: none;}
-  .promo-options > div > .link-wrapper {min-height: 270px;}
-  .promo-options > div:hover {margin: 0;}
-  .promo-options > div:hover  > .link-wrapper {min-height: 290px;}
+  /*.promo-options > div > .link-wrapper {min-height: 270px;}*/
+  /*.promo-options > div.active  > .link-wrapper {min-height: 290px;}*/
+  .promo-options > div:first-child {margin-bottom: 30px;}
+  .promo-options > div.active {margin: 0 0 30px 0;}
   .form-promo-pay .link {line-height: 6.5;}
   .form-promo-pay p.secure {padding: 0 0 0 180px; background: url('../images/secure-payment.png') no-repeat 0 0 transparent;}
   .form-promo form .form-group {float: right; margin: 0 55px 10px 0;}
@@ -3192,16 +3455,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .kakareo.post.promo.tks h4 {font-size: 25px; font-size: 2.5rem;}
   .kakareo.post.promo.tks .invite li {display: inline; list-style: none; margin: 0 6px 0 0;}
   .kakareo.post.promo.tks .invite li a {width: 150px; padding: 12px 0 !important; display: inline-block;}
-  /*#config1 > .form-group {margin: 60px 0 40px 0;}
-  .config .noti-filters > li:last-child {border-left: 1px solid #DADADA; width: 160px; border-top: none;}
-  .config .noti-filters > li > a {padding: 10px 12px;}
-  .config .noti-filters > li {display: inline-block; border-bottom: none;}
-  .config .notifications-list > li > .text-notification,
-  .config .notifications-list > li.user > .text-notification {padding: 0 150px 0 0;}
-  .config .notifications-list > li > .time {position: absolute; top: 10px; right: 0;}
-  .config .notifications-list > li.user > .time {padding: 0;}
-  .config .notifications-list > li > .actions {position: absolute; top: 34px; right: 0;}*/
-  .steps li + li {background:url('../images/steps-sep.png') no-repeat center left; padding-left: 53px;}
+  .steps li + li {background: url('../images/steps-sep.png') no-repeat center left; padding-left: 53px;}
   .othersPost #postNav .item {min-height: 107px;}
   .othersPost #postNav > a {padding: 44px 18px;}
   #map {width: 475px; height: 405px;}
@@ -3215,7 +3469,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .boxes.info .kakareo footer .voting ul li {margin: 0;}
   .arrow4 {left: 40px; bottom: -48px;}
   .arrow3 {left: 50px;}
-
   .boxes.performance a.improve {font-size: 15px !important; font-size: 1.5rem !important;}
   .boxes.info .infoVotes > li,
   .boxes.info .infoVotes > span {padding: 4px;}
@@ -3225,11 +3478,47 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+  .list-team {width: 102%;}
+  .list-team > li {
+    width: 300px;
+    display: block;
+    float: left;
+    margin-right: 15px;
+  }
+  .list-team > li:nth-of-type(even) {margin-right: 0;}
+  .pago {background-size: 280px auto;}
+  .promo-options {padding-bottom: 40px; margin-top: 80px;}
+  .config > header h1 {font-size: 26px; font-size: 2.6rem;}
+  #noTengoCuenta .form-group:last-child {width: 94%;}
+  .contratando .nav-tabs > li {margin-right: 20px; padding: 20px 10px;}
+  .contratando .form-group {width: 45%;}
+  .promo-options > div > form .options-wrapper {width: 100%;}
+  .vimeo > .front .text {font-size: 3.2rem; top: 12%; width: 60%;}
+  .pide-cuenta > ul > li {display: inline-block; margin-bottom: 0;}
+  .pide-cuenta > ul {margin-top: 50px;}
+  .pide-cuenta > ul > li > ul {min-height: 188px;}
+  .pide-cuenta h2 {font-size: 25px; font-size: 2.5rem;}
+  .pide-cuenta h1 {font-size: 50px; font-size: 5rem; margin-top: 20px; padding: 0;}
+  .video-embudo-list > li:last-child {margin-bottom: 80px;}
+
+  .video-embudo-list > li:nth-of-type(even) .icon2-comillas {left: auto; right: -20px;}
+  .video-embudo-list > li .icon2-comillas {top: -60px; left: -20px; font-size: 100px; font-size: 10rem;}
+  .video-embudo-list {margin-left: -50px;}
+  .embudo #aside-ppal {margin-bottom: 60px;}
+  .embudo .arrow4 {bottom: -82px;}
+  .embudo .arrow1 {right: -35px;}
+  .embudo .arrow5 {right: 125px;}
+  .embudo #aside-ppal p.second {margin-bottom: 60px;}
+  .embudo #aside-ppal img.center-block {margin-top: -20px; margin-bottom: 30px; width: 200px; height: 200px;}
+  .embudo #aside-ppal h1.withArrow {font-size: 37px; font-size: 3.7rem; margin: 20px 0 30px;}
+  .embudo #aside-ppal .border {width: 80%; margin: 0;}
+  .embudo #aside-ppal {background: url('../images/recorte-dwn.png'), url('../images/recorte-rgt.png'); background-color: #f0f0f0; background-repeat: repeat-x, repeat-y; background-position: left bottom, right top; padding-top: 40px;}
+
   .help-block {margin: 30px 0 0 0;}
   .icheckbox_line-orange,
   .iradio_line-orange {margin-right: 35px;}
-  .box-ppal.condition .no-phone .form-group:nth-child(2) {width: 29%;}
-  .box-ppal.condition .no-phone .form-group:nth-child(3) {width: 68%;}
+  .no-phone .form-group:nth-child(2) {width: 29%;}
+  .no-phone .form-group:nth-child(3) {width: 68%;}
   .kakareo.post,
   .box-ppal,
   .kakareo .link-wrapper,
@@ -3239,6 +3528,10 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .box-ppal.condition .photo {margin-bottom: 15px;}
   .kakareo.post h1 {font-size: 29px; font-size: 2.9rem; line-height: 1.2; padding: 0; margin: 0 0 25px 0;}
 
+  .home .play {margin: 90px 0 0 0; padding: 0 0 0 30px; font-size: 22px; font-size: 2.2rem;}
+  .homeSub > .row > h1 {font-size: 36px; font-size: 3.6rem;}
+  .homeSub .homeMore {width: 440px; margin-bottom: 20px; margin-top: 10px;}
+  .homeSub .homeMore .btn-lg {font-size: 25px !important; font-size: 2.5rem !important;}
   /*.config .notifications-list > li > .text-notification,
   .config .notifications-list > li.user > .text-notification {padding: 0 240px 0 0;}*/
 
@@ -3252,14 +3545,15 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .condition .user-list-followers  > li:nth-child(2n) {float: right;}
 
   .user-list-followers .user .actions {float: right; margin: -30px 0 0 0 !important;}
-  .user-list-followers .user .actions #follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
+  .user-list-followers .user .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
 
   .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
   .arrow2 {right: 24px;}
-  .sign > div > h1 {font-size: 38px; font-size: 3.8rem; margin-top: 30px;}
-  .sign > div > h2 {font-size: 28px; font-size: 2.8rem; line-height: 1.4; padding: 0 30px; margin-top: 25px;}
+  .sign h1 {font-size: 36px; font-size: 3.6rem; margin-top: 30px;}
+  .sign h2 {font-size: 26px; font-size: 2.6rem; line-height: 1.4; padding: 0 30px; margin-top: 25px;}
   .sign .login {margin-top: 50px; margin-bottom: 50px;}
-  .socialGo li {margin: 10px 6px 0 0;}
+  .socialGo li {margin: 10px 4px 0 0;}
+  .socialGo .btn.btn-lg {padding: 15px 8px !important;}
 
   .list-project .kakareo.post.ley .total-info {padding-right: 10px;}
   .list-project .kakareo.post.ley .infoVotes {margin-right: 8px;}
@@ -3273,7 +3567,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #info-sup-scroll .voting > .closed {font-size: 2px; font-size: 2.2rem; line-height: 1.4;}
   #info-sup-scroll .voting {font-size: 12px; font-size: 1.2rem; float: right;}
   #info-sup-scroll .voting > ul > li > a {font-size: 12px; font-size: 1.2rem;}
-  .infoVotes > li, .infoVotes > span {width: 70px; height: 33px; margin-left: 5px; font-size: 15px;  font-size: 1.5rem;}
+  .infoVotes > li, .infoVotes > span {width: 70px; height: 33px; margin-left: 5px; font-size: 15px;  font-size: 1.5rem; padding: 6px;}
   #info-sup-scroll .infoVotes > li,
   #info-sup-scroll .infoVotes > span {padding: 6px; width: 70px; height: 33px; font-size: 16px; font-size: 1.6rem;}
   #info-sup-scroll .voting > ul > li {margin-right: 35px;}
@@ -3336,8 +3630,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .promo-options > div > .link-wrapper > h2 {font-size: 20px; font-size: 2rem;}
   .promo-options > div > .link-wrapper > p {font-size: 12px; font-size: 1.2rem;}
   .promo-options > div > .link-wrapper > p small {font-size: 10px; font-size: 1rem;}
-  .promo-options > div:hover {margin: -20px 0 0 0;}
-  .promo-options > div:hover  > .link-wrapper {min-height: 330px;}
+  .promo-options > div.active {margin: -20px 0 0 0;}
+  .promo-options > div.active  > .link-wrapper {min-height: 330px;}
   .boxes.plan h1 .pull-right {font-size: 18px; font-size: 1.8rem;}
   .kakareo.post.promo.tks .invite li a {width: 200px;}
   .config .noti-filters > li > a {padding: 10px 20px;}
@@ -3371,8 +3665,10 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     column-count: 4;
     column-gap: 20px;
   }
-  .list-updates > li {width: 50%; float: left;}
-  .list-updates > li .kakareo.post {width: 95%; margin: 0 auto;}
+  .list-updates {width: 104%;}
+  .list-updates > li {width: 302px; float: left; margin-right: 15px;}
+  .list-updates > li:nth-of-type(even) {margin-right: 0;}
+  /*.list-updates > li .kakareo.post {width: 95%; margin: 0 auto;}*/
   .filters .btn {font-size: 18px; font-size: 1.8rem; padding: 6px 4px !important;}
   .filters .btn .badge {font-size: 17px; font-size: 1.7rem; border-radius: 15px; padding: 2px 8px 6px;}
   .kakareo-list.project .kakareo.post.ley footer .voting ul li {margin: 0 0 0 4px;}
@@ -3392,8 +3688,12 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 }
 @media (min-width: 1024px) {
   #main {min-height: 642px;}
+    .list-team > li {width: 310px;}
+    .list-updates > li {width: 314px;}
 }
 @media (min-width: 1152px) {
+  .list-updates > li {width: 356px;}
+  .list-team > li {width: 350px;}
   #main {min-height: 738px;}
   .list-project .kakareo.post.ley .infoVotes {margin-right: 15px;}
   .list-project .kakareo.post.ley .total-info {padding-right: 15px;}
@@ -3407,6 +3707,15 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+  .pago {background-size: 342px auto; background-position: center 25px;}
+  .embudo #aside-ppal {padding-bottom: 46px;}
+  .config.info > article > .box-ppal > h1 {margin: 5px 0 25px;}
+  .contratando .nav-tabs > li {margin-right: 100px;}
+  .embudo .arrow4 {bottom: -72px;}
+  .embudo .arrow1 {right: -15px;}
+  .home .play {margin: 60px 0 0 0; padding: 0 0 0 30px; font-size: 26px; font-size: 2.6rem;}
+  .full-video {padding-bottom: 60px;}
+  .socialGo .btn.btn-lg {padding: 15px !important;}
   .icheckbox_line-orange,
   .iradio_line-orange {margin-right: 25px;}
   .box-ppal.condition .no-age .form-group:nth-child(2) {width: 172px;}
@@ -3414,8 +3723,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .condition .user-list-followers  > li {width: 47%; float: left;}
   .sign .login .btn + .cancel {margin-left: 34px;}
   #main {min-height: 674px;}
-  .sign > div > h1 {font-size: 44px; font-size: 4.4rem; margin-top: 30px;}
-  .sign > div > h2 {font-size: 32px; font-size: 3.2rem; margin-top: 30px;}
+  .sign h1 {font-size: 42px; font-size: 4.2rem; margin-top: 30px;}
+  .sign h2 {font-size: 30px; font-size: 3rem; margin-top: 30px;}
   .sign .login {margin-top: 60px; margin-bottom: 60px;}
   #karma {right: 2.8%;}
   fieldset.multimedia ul.nav.nav-pills.nav-justified li a {font-size: 20px; font-size: 2rem;}
@@ -3438,8 +3747,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .notifications-list > li > .user > .popover-trigger > img {margin: 0 6px 32px 10px;}
   .notifications-list > li > .user {padding: 0 15px 0 0;}
 
-  .home .socialGo li {display: inline-block; float: left; margin: 10px 12px 0 0; width: 180px;}
-  .home .socialGo li:last-child {margin-right: 0;}
+/*  .home .socialGo li {display: inline-block; float: left; margin: 10px 12px 0 0; width: 180px;}
+  .home .socialGo li:last-child {margin-right: 0;}*/
 
   .boxes.edit-user .user > a {text-align: left;}
   .boxes.edit-user .user-img.big {float: left; margin: 0 6px 6px 0;}
@@ -3449,12 +3758,12 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .promo-options > div > .link-wrapper > h2 {font-size: 24px; font-size: 2.4rem;}
   .promo-options > div > .link-wrapper > p {font-size: 15px; font-size: 1.5rem;}
   .promo-options > div > .link-wrapper > p small {font-size: 12px; font-size: 1.2rem;}
-  .promo-options > div:hover {margin: -20px 0 0 0;}
-  .promo-options > div:hover  > .link-wrapper {min-height: 290px;}
+  .promo-options > div.active {margin: -20px 0 0 0;}
+  .promo-options > div.active  > .link-wrapper {min-height: 290px;}
   .kakareo.post.promo.tks .invite li a {width: 236px;}
   aside .back {margin: 30px 0 14px;}
   .infoVotes > li,
-  .infoVotes > span {/*font-size: 18px; font-size: 1.8rem;*/ width: 78px; height: 33px;}
+  .infoVotes > span {/*font-size: 18px; font-size: 1.8rem;*/ width: 78px; padding: 7px;}
   #detailsInfoVotes .table {width: 95%;}
   #detailsInfoVotes .table tbody th {width: 160px; font-size: 15px; font-size: 1.5rem;}
   #detailsInfoVotes .icons {padding: 0;}
@@ -3482,9 +3791,9 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     only screen and (min-device-pixel-ratio: 1.5),
     only screen and (min-resolution: 192dpi) {
 
-    .readMore a {
+    /*.readMore a {
         background-image: url('../images/ico-arrows@2x.png');
         background-size: 15px 35px;
         background-repeat: no-repeat;
-    }
+    }*/
 }

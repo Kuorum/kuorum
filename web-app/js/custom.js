@@ -126,6 +126,22 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
+
+    // cmabio de formulario en la Home
+    $('body').on('click','.change-home-register', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $(this).closest('form').fadeOut('fast');
+        $(this).closest('form').parent().find('#sign').fadeIn('slow');
+    });
+
+    $('body').on('click','.change-home-login', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log("change to login")
+        $(this).closest('form').fadeOut('fast');
+        $(this).closest('form').parent().find('#login').fadeIn('slow');
+    });
     // button dentro del popover del kakareo no lanzan el enlace del bloque clicable
 //    $('body').on('click', '.link-wrapper .popover button', function(e) {
 //        e.preventDefault();

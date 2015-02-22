@@ -7,17 +7,15 @@
 
     <body>
         <g:render template="/layouts/head"/>
-    <div class="row main">
-        <section id="main" role="main" class="sign home clearfix">
-            <g:pageProperty name="page.mainContent"/>
-        </section>
-        <div class="container-fluid">
+        <div class="row main">
+            <section id="main" role="main" class="sign home clearfix">
+                <g:pageProperty name="page.mainContent"/>
+            </section>
 
-            <aside role="complementary" class="row homeSub">
+            <div class="container-fluid">
                 <g:pageProperty name="page.subHome"/>
-            </aside>
-        </div>
-    </div><!-- #main -->
+            </div>
+        </div><!-- #main -->
 
     <g:if test="${Boolean.parseBoolean(pageProperty(name:'page.showDefaultPreFooter').toString())}">
         <g:include controller="modules" action="registerFooterRelevantUsers"/>

@@ -66,6 +66,19 @@ class LoginController {
                 rememberMeParameter: config.rememberMe.parameter]
     }
 
+    def homeLogin = {
+        def config = SpringSecurityUtils.securityConfig
+
+        if (springSecurityService.isLoggedIn()) {
+            redirect uri: config.successHandler.defaultTargetUrl
+            return
+        }
+
+        String view = 'auth'
+        String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
+        render template:"/dashboard/landingPageModules/loginHome", model: [postUrl: postUrl]
+    }
+
 	/**
 	 * The redirect action for Ajax requests.
 	 */
