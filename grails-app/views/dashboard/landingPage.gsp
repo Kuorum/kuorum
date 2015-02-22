@@ -15,7 +15,7 @@
 
 
 <content tag="subHome">
-    <g:render template="landingPageModules/relevantProjects"/>
+    <g:include controller="modules" action="recommendedProjects"/>
     <g:render template="landingPageModules/relevantPoliticians"/>
     <g:render template="landingPageModules/relevantPosts"/>
     <g:render template="landingPageModules/pressAndNotices"/>

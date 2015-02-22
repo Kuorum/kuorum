@@ -17,6 +17,7 @@ class ModulesController {
     def kuorumUserService
 
     private static final Long NUM_RELEVANT_FOOTER_USERS = 23
+    private static final Long NUM_RELEVANT_PROJECT = 3
 
     def bottomProjectStats(String hashtag){
         Project project = Project.findByHashtag(hashtag.encodeAsHashtag())
@@ -53,6 +54,11 @@ class ModulesController {
     def registerFooterRelevantUsers(){
         List<KuorumUser> users = kuorumUserService.recommendedUsers(new Pagination(max: NUM_RELEVANT_FOOTER_USERS))
         render template: "/layouts/footer/footerRegisterRelevantUsers", model: [users:users]
+    }
+
+    def recommendedProjects(){
+        List<Project> projects = projectService.relevantProjects(new Pagination(max:NUM_RELEVANT_PROJECT))
+        render template: "/dashboard/landingPageModules/relevantProjects", model: [projects:projects]
     }
 
 }

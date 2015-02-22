@@ -85,4 +85,24 @@ class ProjectTagLib {
                 <span class="sr-only">${regionTypeText}</span>
         """
     }
+
+    def showFirstCharsFromDescription={attrs ->
+        Project project = attrs.project
+        Integer numCharsToShow = Integer.parseInt(attrs.numChars)
+        String description = project.description.encodeAsRemovingHtmlTags()
+        def descriptions = description.split()
+        Integer paintedChars = 0;
+        Integer it = 0;
+        while (paintedChars < numCharsToShow){
+            out << descriptions[it]
+            out << " "
+            it++
+            if (it > descriptions.size()){
+                paintedChars = Integer.MAX_VALUE
+            }else{
+                paintedChars += descriptions[it].size()
+            }
+        }
+        out << "..."
+    }
 }
