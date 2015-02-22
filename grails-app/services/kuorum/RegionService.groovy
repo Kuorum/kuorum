@@ -46,21 +46,32 @@ class RegionService {
         res[0]
     }
 
+    /**
+     * If user has not province defined, returns null
+     * @param user
+     * @return
+     */
     Region findUserRegion(KuorumUser user){
-        Region province = user.personalData.province
-        Region country = findCountry(province)
-        Region userRegion = findRegionOrProvinceByPostalCode(country, user.personalData.postalCode)
-        userRegion
+        Region userRegion = null;
+        if (user.personalData?.province){
+            Region province = user.personalData.province
+            Region country = findCountry(province)
+            userRegion = findRegionOrProvinceByPostalCode(country, user.personalData.postalCode)
+        }
+        return userRegion;
     }
     List<Region> findUserRegions(KuorumUser user){
         //The province is recovering on register, so it is not defined its most specific region
         // In the future the userRegion will be recover from user
         Region userRegion = findUserRegion(user)
-        List<Region> regions = [userRegion]
+        List<Region> regions = []
+        if (userRegion){
+            regions << userRegion
 
-        while (userRegion.superRegion){
-            regions << userRegion.superRegion
-            userRegion = userRegion.superRegion
+            while (userRegion.superRegion){
+                regions << userRegion.superRegion
+                userRegion = userRegion.superRegion
+            }
         }
         regions.reverse()
     }

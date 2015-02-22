@@ -27,5 +27,6 @@ class PersonalData {
         postalCode nullable: true
         year nullable:true
         province nullable: true
+        country nullable: true
     }
 }
