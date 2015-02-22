@@ -16,7 +16,8 @@
 
 <content tag="subHome">
     <g:include controller="modules" action="recommendedProjects"/>
-    <g:render template="landingPageModules/relevantPoliticians"/>
+    <g:include controller="modules" action="recommendedPoliticians"/>
+
     <g:render template="landingPageModules/relevantPosts"/>
     <g:render template="landingPageModules/pressAndNotices"/>
 </content>

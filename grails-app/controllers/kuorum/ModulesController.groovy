@@ -18,6 +18,7 @@ class ModulesController {
 
     private static final Long NUM_RELEVANT_FOOTER_USERS = 23
     private static final Long NUM_RELEVANT_PROJECT = 3
+    private static final Long NUM_RELEVANT_POLITICIANS = 3
 
     def bottomProjectStats(String hashtag){
         Project project = Project.findByHashtag(hashtag.encodeAsHashtag())
@@ -59,6 +60,15 @@ class ModulesController {
     def recommendedProjects(){
         List<Project> projects = projectService.relevantProjects(new Pagination(max:NUM_RELEVANT_PROJECT))
         render template: "/dashboard/landingPageModules/relevantProjects", model: [projects:projects]
+    }
+
+    def recommendedPoliticians(){
+        KuorumUser user = null;
+        if (springSecurityService.isLoggedIn()){
+            user = KuorumUser.get(springSecurityService.principal.id)
+        }
+        List<KuorumUser> politicians = kuorumUserService.recommendPoliticians(user, new Pagination(max:NUM_RELEVANT_POLITICIANS))
+        render template: "/dashboard/landingPageModules/relevantPoliticians", model: [politicians:politicians]
     }
 
 }
