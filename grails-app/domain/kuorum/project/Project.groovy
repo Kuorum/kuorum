@@ -50,6 +50,9 @@ class Project {
     KuorumUser owner
     @Updatable List<ProjectUpdate> updates = []
 
+    @Transient
+    ProjectBasicStats projectBasicStats;
+
     static embedded = ['region','peopleVotes','image','updates' ]
 
     static constraints = {
@@ -89,8 +92,9 @@ class Project {
         owner nullable: false
         updates nullable: true
 
-        //NO se por que es obligatorio meter este servicio en la constraints aunque sea transient
+        //NO se por que es obligatorio meter este estos valores en la constraints aunque sena transient
         projectStatsService nullable: true
+        projectBasicStats nullable: true
     }
 
     static List<Project> findAllByPublishedAndRegion(Boolean published, Region region){
@@ -116,26 +120,31 @@ class Project {
         this.updates.sort{it.dateCreated}.last().dateCreated
     }
 
+    @Deprecated
     Long getPercentageNegativeVote(){
-        ProjectBasicStats percentajeNegativeStats = projectStatsService.calculateProjectStats(this)
-        percentajeNegativeStats.percentageNegativeVotes
+        getProjectBasicStats().percentageNegativeVotes
     }
 
+    @Deprecated
     Long getPercentagePositiveVotes(){
-        ProjectBasicStats percentajePositiveStats = projectStatsService.calculateProjectStats(this)
-        percentajePositiveStats.percentagePositiveVotes
+        getProjectBasicStats().percentagePositiveVotes
     }
 
+    @Deprecated
     Long getPercentageAbsVotes(){
-        ProjectBasicStats percentajeAbsStats = projectStatsService.calculateProjectStats(this)
-        percentajeAbsStats.percentageAbsVotes
+        getProjectBasicStats().percentageAbsVotes
     }
 
+    @Deprecated
     Long getPublicPost(){
-        ProjectBasicStats publicPost = projectStatsService.calculateProjectStats(this)
-        publicPost.numPublicPosts
+        getProjectBasicStats().numPublicPosts
     }
 
+    ProjectBasicStats getProjectBasicStats(){
+        if (!projectBasicStats)
+            projectBasicStats = projectStatsService.calculateProjectStats(this)
+        projectBasicStats
+    }
 
 
     String toString(){
