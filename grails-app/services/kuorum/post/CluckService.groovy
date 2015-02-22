@@ -42,8 +42,11 @@ class CluckService {
         userList << kuorumUser.id
         DBObject usersInList = new BasicDBObject('$in', userList)
         DBObject filter = new BasicDBObject("owner", usersInList)
-        DBObject regionInList = new BasicDBObject('$in',regionService.findUserRegions(kuorumUser).collect{it.iso3166_2});
-        filter.append("region.iso3166_2", regionInList)
+        List<String> relevantUserRegions = regionService.findUserRegions(kuorumUser).collect{it.iso3166_2}
+        if (relevantUserRegions){
+            DBObject regionInList = new BasicDBObject('$in',relevantUserRegions);
+            filter.append("region.iso3166_2", regionInList)
+        }
         String mapDashboardClucks = """
 function(){
     if (this.cluckAction == "${CluckAction.DEBATE}"){
