@@ -8,6 +8,7 @@
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta itemprop="image" content="${resource(dir: 'images', file: 'home1.jpg')}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
+    <parameter name="hideFooter" value="true"/>
 </head>
 
 

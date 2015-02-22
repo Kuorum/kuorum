@@ -35,7 +35,9 @@
             </div>
         </div><!-- /.conatiner-fluid -->
     </div><!-- /#main -->
-    <g:render template="/layouts/footer/footer"/>
+    <g:if test="${!Boolean.parseBoolean(pageProperty(name:'page.hideFooter')?.toString())}">
+        <g:render template="/layouts/footer/footer"/>
+    </g:if>
     </body>
 
 </g:applyLayout>
