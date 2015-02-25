@@ -2,6 +2,7 @@ package kuorum.register
 
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.ui.RegistrationCode
+import kuorum.core.model.CommissionType
 import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
 import org.springframework.transaction.annotation.Transactional
@@ -41,7 +42,7 @@ class RegisterService {
                     email: command.email.toLowerCase(),
                     name: command.name,
                     accountLocked: true, enabled: true)
-            user.relevantCommissions = []
+            user.relevantCommissions = CommissionType.values()
             user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
             user
     }

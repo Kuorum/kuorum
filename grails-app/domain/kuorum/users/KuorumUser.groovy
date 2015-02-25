@@ -40,7 +40,7 @@ class KuorumUser {
     PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
 
-    List<CommissionType> relevantCommissions = []
+    List<CommissionType> relevantCommissions = CommissionType.values()
     List<ObjectId> following  = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
     List<ObjectId> followers = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
     List<ObjectId> subscribers = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
