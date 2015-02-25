@@ -38,8 +38,7 @@ class CluckService {
 
     List<Cluck> dashboardClucks(KuorumUser kuorumUser, Pagination pagination = new Pagination()){
 
-        def userList = kuorumUser.following
-        userList << kuorumUser.id
+        def userList = kuorumUser.following + [kuorumUser.id]
         DBObject usersInList = new BasicDBObject('$in', userList)
         DBObject filter = new BasicDBObject("owner", usersInList)
         List<String> relevantUserRegions = regionService.findUserRegions(kuorumUser).collect{it.iso3166_2}
