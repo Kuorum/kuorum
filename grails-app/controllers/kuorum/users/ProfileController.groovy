@@ -84,6 +84,7 @@ class ProfileController {
         prepareUserStep1(user,command)
         prepareUserStep2(user,command)
         user.language = command.language
+        user.relevantCommissions = command.commissions
         kuorumUserService.updateUser(user)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileEditUser'
