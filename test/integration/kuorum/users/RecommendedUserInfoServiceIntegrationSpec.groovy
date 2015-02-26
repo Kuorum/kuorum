@@ -27,8 +27,7 @@ class RecommendedUserInfoServiceIntegrationSpec extends Specification{
         recommendedUserInfo.deletedRecommendedUsers.contains(userToDelete.id)
 
         result
-        result.message
-        result.message == 'recommendedUserInfoService.addUserToDelete.savingDeleteUserSuccessfully'
+        !result.message
         !result.error
 
         cleanup:

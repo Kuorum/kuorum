@@ -28,7 +28,7 @@ class DashboardService {
         }
 
         switch (noticeType){
-            case {noticeType in [NoticeType.FOLLOWPOLITICIANS, NoticeType.NOPOLITICIANPHONE]}:
+            case {noticeType in [NoticeType.FOLLOWPEOPLE, NoticeType.NOPOLITICIANPHONE]}:
                 resultMessage = [notice: messageSource.getMessage("dashboard.warningsUserProfile.$noticeType", null, locale), errors:false]
                 break
             case {noticeType in [NoticeType.NOPOLITICIANINYOURCOUNTRY, NoticeType.NOPROVINCE, NoticeType.NOAGEANDGENDER]}:
@@ -62,10 +62,10 @@ class DashboardService {
         if (user.userType == UserType.POLITICIAN && !user.personalData.telephone){
             NoticeType.NOPOLITICIANPHONE
         }else if (!usersFollowingPolitician(user)){
-            NoticeType.FOLLOWPOLITICIANS
+            NoticeType.FOLLOWPEOPLE
         } else if (!user.personalData.province){
             NoticeType.NOPROVINCE
-        } else if (!user.personalData.gender || !user.personalData.birthday){
+        } else if (!user.personalData.gender || !user.personalData.year){
             NoticeType.NOAGEANDGENDER
         } else if(!politiciansInProvince(user)){
             NoticeType.NOPOLITICIANINYOURCOUNTRY
@@ -83,7 +83,7 @@ class DashboardService {
      */
     private String showNoticeAccordingToReloads(KuorumUser user, NoticeType noticeType, Locale locale){
         if (!(user.notice.reloadDashboard % 20) && (user.notice.timesInMonth < 2)){
-                messageSource.getMessage("dashboard.warningsUserProfile.$noticeType", null, locale)
+            messageSource.getMessage("dashboard.warningsUserProfile.$noticeType", null, locale)
         }
     }
 
@@ -97,7 +97,6 @@ class DashboardService {
     private usersFollowingPolitician(KuorumUser user){
         KuorumUser.createCriteria().list(){
             'in'("id", user.following)
-            eq("userType", UserType.POLITICIAN)
         }
     }
 
@@ -114,7 +113,9 @@ class DashboardService {
                 eq("userType", UserType.POLITICIAN)
                 isNotNull("politicianOnRegion")
                 politicianOnRegion{
-                    eq("iso3166_2", user.personalData?.provinceCode)
+                    //TODO: ¿Compara con 'eq' o con 'like'?
+//                    eq("iso3166_2", user.personalData?.provinceCode)
+                    like('iso3166_2',user.personalData?.provinceCode + '%')
                 }
             }
         }

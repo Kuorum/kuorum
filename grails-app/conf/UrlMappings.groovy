@@ -138,6 +138,10 @@ class UrlMappings {
         name customRegisterStep4: "/registro/paso4"(controller: "customRegister"){action = [GET:"step4", POST:"step4Save"]}
         name customRegisterStep5: "/registro/fin"(controller: "customRegister", action:"step5")
 
+        name customRegisterCountryAndPostalCode: "/registro/countryAndPostalCode"(controller: "customRegister", action:"countryAndPostalCode")
+        name customRegisterAgeAndGender: "/registro/ageAndGender"(controller: "customRegister", action:"ageAndGender")
+        name customRegisterTelephone: "/registro/telephone"(controller: "customRegister", action:"telephone")
+
         name searcherSearch:      "/buscar"(controller: "search", action:"search")
         name searcherSearchSeeMore:"/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
         name searcherSearchFilters:"/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
@@ -228,6 +232,7 @@ class UrlMappings {
         name adminEditPoliticalParty:  "/admin/partidos-politicos/editar" (controller:"adminPoliticalParty"){action =[GET:"editPoliticalParty", POST:"savePoliticalParty"]}
         name adminListPoliticalParty:  "/admin/partidos-politicos"               (controller:"adminPoliticalParty", action:"listPoliticalParties")
 
+        name ajaxDeleteRecommendedUser: "/ajax/kuorumUser/deleteRecommendedUser"(controller: 'recommendedUserInfo', action: 'deleteRecommendedUser')
 
         "/sitemap"{
             controller = 'siteMap'

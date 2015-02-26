@@ -84,6 +84,7 @@ class ProfileController {
         prepareUserStep1(user,command)
         prepareUserStep2(user,command)
         user.language = command.language
+        //TODO: Revisar si este cambio es correcto y si no afecta a más partes de la aplicación
         user.relevantCommissions = command.commissions
         kuorumUserService.updateUser(user)
         flash.message=message(code:'profile.editUser.success')

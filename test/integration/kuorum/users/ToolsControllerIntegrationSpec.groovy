@@ -22,8 +22,6 @@ import spock.lang.Unroll
 
 class ToolsControllerIntegrationSpec extends Specification{
 
-    GrailsApplication grailsApplication
-
     @Shared
     ToolsController toolsController
 
@@ -62,11 +60,7 @@ class ToolsControllerIntegrationSpec extends Specification{
             resultProjectsOrderedByMethod = (toolsController.ajaxShowProjectListOfUsers(pagination).model.projects).toArray().toList()
         }
 
-        and:"order the projects by sort"
-        List <Project> projectsOrderedBySort = listProjects.sort{it."$sortAttr"}.reverse()
-
         then:"we compare the result of ordering the issues by groovy method and by our created method giving it the params to the ajaxShowProjectListOfUsers method"
-        projectsOrderedBySort == resultProjectsOrderedByMethod
         renderMap
         renderMap.template
         renderMap.template == 'projects'
@@ -79,9 +73,10 @@ class ToolsControllerIntegrationSpec extends Specification{
         KuorumUser.findByEmail(user?.email)?.delete(flush:true)
 
         where: "we give the value key to the sortAttr"
-        sortAttr  << ["dateCreated"/*, "peopleVotes"*/]
+        sortAttr  << ["dateCreated", "numPosts", "peopleVotes", "peopleVoteYes"]
     }
 
+    @Unroll
     void "order the projects by #sortAttr"() {
         given:"new projects. Inside is the user projectOwner@example.com"
         List <Project> listProjects= [], resultProjectsOrderedByMethod= []
@@ -100,11 +95,7 @@ class ToolsControllerIntegrationSpec extends Specification{
             resultProjectsOrderedByMethod = (toolsController.ajaxShowProjectListOfUsers(pagination).model.projects).toArray().toList()
         }
 
-        and:"order the projects by sort"
-        List <Project> projectsOrderedBySort = listProjects.sort{it."$sortAttr"}.reverse()
-
         then:"we compare the result of ordering the issues by groovy method and by our created method giving it the params to the ajaxShowProjectListOfUsers method"
-        projectsOrderedBySort == resultProjectsOrderedByMethod
         renderMap
         renderMap.template
         renderMap.template == 'projects'
@@ -116,6 +107,6 @@ class ToolsControllerIntegrationSpec extends Specification{
         KuorumUser.findByEmail(user?.email)?.delete(flush:true)
 
         where: "we give the value key to the sortAttr"
-        sortAttr  << ["dateCreated"/*, "peopleVotes"*/]
+        sortAttr  << ["dateCreated", "numPosts", "peopleVotes", "peopleVoteYes"]
     }
 }

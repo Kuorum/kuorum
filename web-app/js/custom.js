@@ -501,6 +501,45 @@ $(document).ready(function() {
         })
     }
 
+    function clickedDeleteRecommendedUser(button, fadeElement){
+        var buttonDeleteRecommendedUser= $(button);
+        if (buttonDeleteRecommendedUser.hasClass('noLogged')){
+            var url = buttonDeleteRecommendedUser.attr("data-noLoggedUrl");
+            location.href =url;
+        } else {
+            var url = buttonDeleteRecommendedUser.attr("data-ajaxDeleteRecommendedUserUrl");
+            ajaxDeleteRecommendedUser(url, buttonDeleteRecommendedUser, function(data, status, xhr) {
+                var userId = buttonDeleteRecommendedUser.attr('data-userId');
+                buttonDeleteRecommendedUser.closest(fadeElement).fadeOut('slow', function(){
+                    $(this).remove();
+                });
+                if(data.error){
+                    display.warn(data.message);
+                }
+            });
+        }
+    }
+
+    function ajaxDeleteRecommendedUser(url, buttonFollow, doneFunction){
+        $.ajax( {
+            url:url,
+            statusCode: {
+                401: function() {
+                    display.info("Estás deslogado");
+                    setTimeout('location.reload()',5000);
+                }
+            },
+            beforeSend: function(){
+                buttonFollow.html('<div class="loading xs"><span class="sr-only">Cargando...</span></div>');
+            },
+            complete:function(){
+//                console.log("end")
+            }
+        }).done(function(data, status, xhr) {
+                doneFunction(data,status,xhr);
+        });
+    }
+
 
 	// Deshabilitar enlaces números (descubre)
 	$('.introDiscover .steps .active').find('a').addClass('disabled');
@@ -1202,6 +1241,20 @@ $(document).ready(function() {
 
     $(".dynamicList").dynamiclist();
 
+    // desvanecer y eliminar los usuario de la lista "A quién seguir"
+    $('body').on('click','ul.user-list-followers > li.user .close', function(e) {
+        clickedDeleteRecommendedUser(this, 'li.user');
+    });
+    $('body').on('click','ul.user-list-followers > li.user:only-child .close', function(e) {
+        clickedDeleteRecommendedUser(this, '.boxes.follow');
+    });
+
+    $('body').on('click','aside.condition > .close', function(e) {
+        $(this).parent('aside.condition').fadeOut('slow', function(){
+            $(this).remove();
+        });
+    });
+
 });
 
 function counterCharacters(idField) {
@@ -1359,6 +1412,7 @@ var display = {
     warn:function(text){this._notyGeneric(text, "warning")},
 
     _notyGeneric:function(text, type) {
+        var htmlText = $.parseHTML(text)
         var nW = noty({
             layout: 'top',
             dismissQueue: true,
@@ -1370,7 +1424,7 @@ var display = {
             },
             template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
             type: type,
-            text: text
+            text: htmlText
         });
     }
 }

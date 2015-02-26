@@ -324,7 +324,7 @@ class FormTagLib {
         def label = message(code: "${clazz.name}.${field}.label")
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
-            <label for="${id}">${label}</label>
+            <label for="${id}" class="${cssClass}">${label}</label>
             <select name="${field}" class="form-control input-lg ${error}" id="${id}">
             """
         out << "<option value=''> ${message(code:"${clazz.name}.${field}.empty")}</option>"
@@ -345,11 +345,12 @@ class FormTagLib {
 
         def id = attrs.id?:field
         def cssClass = attrs.cssClass
+
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = message(code: "${clazz.name}.label")
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
-            <label for="${id}">${label}</label>
+            <label for="${id}" class="${cssClass}">${label}</label>
             <select name="${field}" class="form-control input-lg ${error}" id="${id}">
             """
         out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
@@ -644,5 +645,20 @@ class FormTagLib {
 			});
 			</script>
 			"""
+    }
+
+    def telephoneWithPrefix = {attrs, body->
+        String codeLabel = attrs.codeLabel?:'dashboard.userProfile.incompleteDate.phonePrefix.label'
+        String selectName = attrs.selectName?:'phonePrefix'
+        String selectId = attrs.selectId?:'phonePrefix'
+        String selectCssClass = attrs.selectCssClass?:'form-control input-lg'
+        out << """
+                <label for="phone-prefix" class="sr-only">${message(code:codeLabel )}</label>
+                <select name="${selectName}" class="${selectCssClass}" id="${selectId}">
+                    <option value="+34">+34</option>
+                    <option value="+32">+32</option>
+                    <option value="+33">+33</option>
+                    <option>...</option>
+                </select>"""
     }
 }

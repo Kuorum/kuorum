@@ -1,9 +1,11 @@
 package kuorum
 
+import grails.plugin.springsecurity.ui.RegistrationCode
 import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.core.model.solr.SolrPost
 import kuorum.post.Post
+import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
@@ -14,7 +16,7 @@ class KuorumUserTagLib {
     static namespace = "userUtil"
 
     def springSecurityService
-
+    RegisterService registerService
     private Integer NUM_MAX_ON_USER_LIST = 100
 
     def loggedUserName = {attrs ->
@@ -49,6 +51,7 @@ class KuorumUserTagLib {
         }
         Boolean showRole = attrs.showRole?Boolean.parseBoolean(attrs.showRole):false
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
+        Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
 
 //        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
         def imgSrc = image.userImgSrc(user:user)
@@ -75,6 +78,13 @@ class KuorumUserTagLib {
                 </span>
                 """
         }
+        if(showActions){
+            out << """<div class="actions">
+                    ${userUtil.followButton(user: user, cssExtra: 'follow')}
+                    ${userUtil.deleteRecommendedUserButton(user: user)}
+                  </div>"""
+        }
+
     }
 
     def showDebateUsers={attrs->
@@ -240,6 +250,7 @@ class KuorumUserTagLib {
         def prefixMessages = attrs.prefixMessages?:"kuorumUser.follow"
         def text = "${g.message(code:"${prefixMessages}.follow", args:[user.name], codec:"raw")} "
         def cssClass = "enabled"
+        def cssExtra =  attrs.cssExtra?:''
         if (springSecurityService.isLoggedIn() && springSecurityService.principal.id != user.id){
             def isFollowing = user.followers.contains(springSecurityService.principal.id)
             if (isFollowing){
@@ -255,7 +266,7 @@ class KuorumUserTagLib {
             out << """
             <button
                     type="button"
-                    class="btn btn-blue ${cssSize} allow ${cssClass}"
+                    class="btn btn-blue ${cssSize} allow ${cssClass} ${cssExtra}"
                     id="follow"
                     data-noLoggedUrl="${linkNoLoggedFollow}"
                     data-ajaxFollowUrl="${linkAjaxFollow}"
@@ -270,5 +281,37 @@ class KuorumUserTagLib {
             """
         }
 
+    }
+
+    def showMailConfirm = {attrs ->
+        String token = registerService.findOrRegisterUserCode(KuorumUser.get(springSecurityService.principal.id)).token
+        String url = createLink(absolute: true, controller: 'register', action: 'sendConfirmationEmail',params: [t: token])
+        out <<  message(code: "register.confirmEmail.label", args:[url])
+    }
+
+
+    def deleteRecommendedUserButton={attrs ->
+
+        KuorumUser user = attrs.user
+        Boolean showNoLoggedButton = attrs.showNoLoggedButton?:Boolean.FALSE
+        def linkAjaxDeleteRecommendedUser = g.createLink(mapping:'ajaxDeleteRecommendedUser', params: [deletedUserId:user.id])
+        def linkNoLoggedFollow = g.createLink(mapping:'secUserShow', params: user.encodeAsLinkProperties())
+
+        def prefixMessages = attrs.prefixMessages?:"kuorumUser.follow"
+        def text = "${g.message(code:"${prefixMessages}.follow", args:[user.name], codec:"raw")} "
+
+
+        if (springSecurityService.isLoggedIn() || !springSecurityService.isLoggedIn() && showNoLoggedButton){
+            out << """
+            <button
+                    type="button"
+                    class="close"
+                    data-noLoggedUrl="${linkNoLoggedFollow}"
+                    data-ajaxDeleteRecommendedUserUrl="${linkAjaxDeleteRecommendedUser}"
+                    data-userId='${user.id}'>
+                <span class="fa fa-times-circle-o fa"></span><span class="sr-only">eliminar de la lista</span>
+            </button>
+            """
+        }
     }
 }

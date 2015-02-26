@@ -12,7 +12,7 @@ class RecommendedUserInfoService {
             recommendedUserInfo.deletedRecommendedUsers << deletedUser.id
             try {
                 if (recommendedUserInfo.save()) {
-                    [message: 'recommendedUserInfoService.addUserToDelete.savingDeleteUserSuccessfully', error:false]
+                    [message: '', error:false]
                 } else {
                     [message: 'recommendedUserInfoService.addUserToDelete.errorSavingDeleteUser', error:true]
                 }

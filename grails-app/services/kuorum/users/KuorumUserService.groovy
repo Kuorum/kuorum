@@ -244,7 +244,7 @@ class KuorumUserService {
             } else {
                 RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(user)
                 if(recommendedUserInfo && recommendedUserInfo.recommendedUsers){
-                    return kuorumUsersInKuorumNotFriendOfUser + recommendedUserInfo.recommendedUsers[0..<(recommendedUserInfo.recommendedUsers - kuorumUsersInKuorumNotFriendOfUser.size())]
+                    return kuorumUsersInKuorumNotFriendOfUser + recommendedUserInfo.recommendedUsers[0..<(recommendedUserInfo.recommendedUsers.size() - kuorumUsersInKuorumNotFriendOfUser.size())]
                 } else {
                     return kuorumUsersInKuorumNotFriendOfUser
                 }

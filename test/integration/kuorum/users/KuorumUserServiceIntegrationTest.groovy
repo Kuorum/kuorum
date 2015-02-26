@@ -1,6 +1,5 @@
 package kuorum.users
 
-import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -121,7 +120,6 @@ class KuorumUserServiceIntegrationTest extends Specification {
 
     }
 
-    @Ignore('Check this test when the fixtures are solved')
     void "Calculate the activity between two users"() {
         given: "A user"
         KuorumUser user = KuorumUser.findByEmail('politician@example.com')
@@ -133,10 +131,9 @@ class KuorumUserServiceIntegrationTest extends Specification {
         Integer activity = kuorumUserService.calculateActivityClosure.call(user, compareUser)
 
         then: "The expected list and the obtained recommended user are equals"
-        activity == 150
+        activity == 151
     }
 
-    @Ignore('Check this test when the fixtures are solved')
     @Unroll
     void "Calculate the recommended users by Facebook friends"() {
         given: "A user"
@@ -161,7 +158,9 @@ class KuorumUserServiceIntegrationTest extends Specification {
             facebookUsers << new FacebookUser(
                     user: KuorumUser.findByEmail(email),
                     accessToken: 'accesToken',
-                    id: KuorumUser.findByEmail(email).id
+                    id: KuorumUser.findByEmail(email).id,
+                    accessTokenExpires: new Date()+1,
+                    uid:i.toLong()
             ).save(flush: true)
         }
         //Change the maxSize constraint only for test mode
@@ -174,9 +173,9 @@ class KuorumUserServiceIntegrationTest extends Specification {
         recommendedUsersByFacebookFriends.size() == resultSize
 
         where:
-        emails                                                                      | resultSize
-        ['ecologistas@example.com']                                                 | 2
-        ['ecologistas@example.com', 'equo@example.com']                             | 2
-        ['ecologistas@example.com', 'equo@example.com', 'juanjoalvite@example.com'] | 2
+        emails                                                               | resultSize
+        ['ecologistas@example.com']                                          | 1
+        ['newuser@example.com', 'equo@example.com']                          | 3
+        ['noe@example.com', 'peter@example.com', 'juanjoalvite@example.com'] | 2
     }
 }

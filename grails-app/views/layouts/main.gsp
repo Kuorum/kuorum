@@ -89,14 +89,23 @@
     <g:if test="${flash.message}">
         $(function(){
             display.success('${flash.message}')
-        })
+        });
     </g:if>
     <g:if test="${flash.error}">
-    $(function(){
-        display.warn('${flash.error}')
-    })
+        $(function(){
+            display.warn('${flash.error}')
+        });
     </g:if>
+    <sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">
+        <g:if test="${actionName!='verifyRegistration'}">
+                $(function(){
+                    display.warn("<userUtil:showMailConfirm /> ${pageProperty(name:'page.hiddeMailConfirmMessage')}");
+                });
+        </g:if>
+    </sec:ifAnyGranted>
+
 </script>
+
 
 <!-- Modal -->
 <aside class="modal fade" id="modalVictory" tabindex="-1" role="dialog" aria-labelledby="Victoria" aria-hidden="true">

@@ -266,7 +266,7 @@ class ProjectServiceIntegrationSpec extends Specification {
         Map result = projectService.search(user, params.sort , params.order , params.published, params.offset, params.max)
 
         then:"we compare both ordered lists. Moreover, we will have only projects with published to false"
-        !result
+        !result.projects
 
         cleanup:
         KuorumUser.findById(user?.id)?.delete(flush:true)

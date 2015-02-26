@@ -16,6 +16,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     def kuorumMailService
     RegisterService registerService
 
+
     def index() {
         def copy = [:] + (flash.chainedParams ?: [:])
         copy.remove 'controller'
@@ -43,7 +44,13 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         String url = generateLink('verifyRegistration', [t: registrationCode.token])
         kuorumMailService.sendRegisterUser(user,url)
-        redirect mapping:"registerSuccess"
+
+        if (!user.password){
+            user.password = "*registerUser*${Math.random()}"
+            user.save()
+        }
+        springSecurityService.reauthenticate user.email
+        redirect mapping:"home"
     }
 
     def registerSuccess(){}
@@ -77,6 +84,16 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         redirect mapping:"registerSuccess"
     }
 
+
+
+    def sendConfirmationEmail(){
+        KuorumUser user = KuorumUser.findById(springSecurityService.principal.id)
+        String url=createLink(absolute: true, controller: 'register', action: 'verifyRegistration', params: [t: params.t])
+        kuorumMailService.sendRegisterUser(user,url)
+        redirect mapping:'home'
+    }
+
+
     def verifyRegistration() {
 
         def conf = SpringSecurityUtils.securityConfig
@@ -98,7 +115,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             redirect uri: defaultTargetUrl
             return
         }
-        render view:'choosePass', model:[userId:user.id]
+        render view:'selectMyPassword', model:[userId:user.id]
     }
 
 
@@ -109,12 +126,12 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         if (!(params.password1 == params.password2)){
             flash.message = message (code:'grails.plugin.springsecurity.ui.ResetPasswordCommand.password2.helpBlock')
             flash.typeMessage= 'error'
-            render view: 'choosePass' , model:[userId:user.id]
+            render view: 'selectMyPassword' , model:[userId:user.id]
         }else{
-            user.password = params.password1
+            String salt = saltSource instanceof NullSaltSource ? null : user.name
+            user.password = springSecurityUiService.encodePassword(params.password1, salt)
+
             if(user.validate()){
-                RoleUser roleUser = RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")
-                user.authorities = [roleUser]
                 def renderMap = registerService.save(user)
                 if(renderMap.errorMsg){
                     flash.message = renderMap.errorMsg
@@ -122,7 +139,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
                     redirect action: 'index'
                 }else{
                     springSecurityService.reauthenticate user.email
-                    flash.message = message(code: 'spring.security.ui.register.complete')
+                    flash.message = message(code: 'spring.security.ui.register.passwordComplete')
                     redirect uri: conf.ui.register.postRegisterUrl ?: defaultTargetUrl
                 }
             }

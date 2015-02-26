@@ -3797,3 +3797,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
         background-repeat: no-repeat;
     }*/
 }
+
+.resetTitle{
+    color:#545454 !important;
+}

@@ -136,7 +136,7 @@ class Project {
     }
 
     ProjectBasicStats getProjectBasicStats(){
-        if (!projectBasicStats)
+        if (!projectBasicStats && projectStatsService)
             projectBasicStats = projectStatsService.calculateProjectStats(this)
         projectBasicStats
     }

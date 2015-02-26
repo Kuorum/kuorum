@@ -11,6 +11,7 @@ fixture {
         roleQuestionStats   (RoleUser,authority: 'ROLE_QUESTION_STATS')
         rolePurposeStats    (RoleUser,authority: 'ROLE_PURPOSE_STATS')
         roleIncompleteUser  (RoleUser,authority: 'ROLE_INCOMPLETE_USER')
+        rolePasswordChanged  (RoleUser,authority: 'ROLE_PASSWORDCHANGED')
 //    }
 }
 

@@ -2,6 +2,9 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.Pagination
+import kuorum.dashboard.DashboardService
+import kuorum.notifications.Notice
+import kuorum.notifications.NoticeType
 import kuorum.users.KuorumUser
 import kuorum.users.ProfileController
 import kuorum.users.RoleUser
@@ -9,11 +12,14 @@ import kuorum.web.commands.customRegister.Step1Command
 import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.customRegister.Step3Command
 import kuorum.web.commands.customRegister.Step4Command
+import kuorum.web.commands.profile.PersonalDataCommand
 import org.bson.types.ObjectId
 
 class CustomRegisterController extends  ProfileController{
 
     def kuorumMailService
+    DashboardService dashboardService
+
 
     def afterInterceptor = {}
 
@@ -139,4 +145,74 @@ class CustomRegisterController extends  ProfileController{
 //        redirect mapping:'home'
         redirect mapping:'tourStart'
     }
+
+    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED'])
+    def countryAndPostalCode(PersonalDataCommand personalDataCommand){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        personalDataCommand.validate()
+
+        if (personalDataCommand.hasErrors()){
+            flash.error = message(code:'customRegister.countryAndPostalCode.fail')
+            redirect mapping: 'home'
+            return
+        }
+
+        if(user){
+            user.personalData.country = personalDataCommand.country
+            Region province = regionService.findRegionOrProvinceByPostalCode(personalDataCommand.country, personalDataCommand.postalCode)
+            user.personalData.province = province
+            user.personalData.provinceCode = province.iso3166_2
+            user.personalData.postalCode = personalDataCommand.postalCode
+            NoticeType noticeType = dashboardService.getNoticesByKuorumUser(user)
+            user.notice = new Notice(noticeType: noticeType)
+            user.save(flush: true)
+        }
+        flash.message = message(code:'customRegister.countryAndPostalCode.success')
+        redirect mapping: 'home'
+    }
+
+    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED'])
+    def ageAndGender(PersonalDataCommand personalDataCommand){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        personalDataCommand.validate()
+
+        if (personalDataCommand.hasErrors()){
+            flash.error = message(code:'customRegister.ageAndGender.fail')
+            redirect mapping: 'home'
+            return
+        }
+
+        if(user){
+            user.personalData.year = personalDataCommand.year
+            user.personalData.gender = personalDataCommand.gender
+            NoticeType noticeType = dashboardService.getNoticesByKuorumUser(user)
+            user.notice = new Notice(noticeType: noticeType)
+            user.save(flush: true)
+        }
+        flash.message = message(code:'customRegister.ageAndGender.success')
+        redirect mapping: 'home'
+    }
+
+    @Secured(['ROLE_POLITICIAN'])
+    def telephone(PersonalDataCommand personalDataCommand){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        personalDataCommand.validate()
+
+        if (personalDataCommand.hasErrors()){
+            flash.error = message(code:'customRegister.telephone.fail')
+            redirect mapping: 'home'
+            return
+        }
+
+        if(user){
+            user.personalData.telephone = "$params.phonePrefix $personalDataCommand.telephone"
+            NoticeType noticeType = dashboardService.getNoticesByKuorumUser(user)
+            user.notice = new Notice(noticeType: noticeType)
+            user.save(flush: true)
+        }
+        flash.message = message(code:'customRegister.telephone.success')
+        redirect mapping: 'home'
+    }
+
+
 }

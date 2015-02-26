@@ -8,6 +8,7 @@ import kuorum.core.model.search.Pagination
 import kuorum.helper.Helper
 import kuorum.notifications.NotificationService
 import kuorum.project.Project
+import kuorum.project.ProjectStatsService
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.PoliticianActivity
@@ -25,6 +26,7 @@ class PostServiceSpec extends Specification{
     NotificationService notificationService = Mock(NotificationService)
     CluckService cluckService = Mock(CluckService)
     ShortUrlService shortUrlService = Mock(ShortUrlService)
+    ProjectStatsService projectStatsService = Mock(ProjectStatsService)
 
     def setup() {
 

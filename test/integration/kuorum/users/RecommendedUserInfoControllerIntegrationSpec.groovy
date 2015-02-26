@@ -41,15 +41,15 @@ class RecommendedUserInfoControllerIntegrationSpec extends Specification{
         recommendedUserInfoController.params.deletedUserId = userToDelete.id
 
         when:
+        def result
         SpringSecurityUtils.doWithAuth(userInSession.email) {
-            recommendedUserInfoController.deleteRecommendedUser()
+            result = recommendedUserInfoController.deleteRecommendedUser()
         }
 
         then:
-        recommendedUserInfoController
-        recommendedUserInfoController.flash
-        recommendedUserInfoController.flash.message
-        recommendedUserInfoController.flash.message == messageSource.getMessage('recommendedUserInfoService.addUserToDelete.savingDeleteUserSuccessfully', null, recommendedUserInfoController.request.locale)
+        recommendedUserInfoController.response.json
+        !recommendedUserInfoController.response.json.error
+        !recommendedUserInfoController.response.json.message
 
         cleanup:
         userInSession?.delete(flush:true)
@@ -64,15 +64,15 @@ class RecommendedUserInfoControllerIntegrationSpec extends Specification{
         recommendedUserInfoController.params.deletedUserId = null
 
         when:
+        def result
         SpringSecurityUtils.doWithAuth(userInSession.email) {
-            recommendedUserInfoController.deleteRecommendedUser()
+            result = recommendedUserInfoController.deleteRecommendedUser()
         }
 
         then:
-        recommendedUserInfoController
-        recommendedUserInfoController.flash
-        recommendedUserInfoController.flash.error
-        recommendedUserInfoController.flash.error == messageSource.getMessage('recommendedUserInfoService.addUserToDelete.errorValidatingDeleteUser', null, recommendedUserInfoController.request.locale)
+        recommendedUserInfoController.response.json
+        recommendedUserInfoController.response.json.error
+        recommendedUserInfoController.response.json.message == messageSource.getMessage('recommendedUserInfoService.addUserToDelete.errorValidatingDeleteUser', null, recommendedUserInfoController.request.locale)
 
         cleanup:
         userInSession?.delete(flush:true)

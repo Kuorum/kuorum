@@ -1,6 +1,6 @@
 <g:if test="${(!errors) && (orderedNotice != null)}">
     <aside class="box-ppal condition clearfix">
-    <g:if test="${orderedNotice != message(code:'dashboard.warningsUserProfile.FOLLOWPOLITICIANS')}">
+    <g:if test="${orderedNotice != message(code:'dashboard.warningsUserProfile.FOLLOWPEOPLE')}">
         <button class="close" type="button"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">eliminar de la lista</span></button>
     </g:if>
 
@@ -16,99 +16,89 @@
         <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOAGEANDGENDER')}">
             <h1>${message(code:'dashboard.userProfile.incompleteDate.fillYourAgeAndGender.mainTitle')}</h1>
         </g:elseif>
-        <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.FOLLOWPOLITICIANS')}">
+        <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.FOLLOWPEOPLE')}">
             <h1>${message(code:'dashboard.userProfile.incompleteDate.notFollowingPoliticians.mainTitle')}</h1>
         </g:elseif>
 
-        <g:if test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANINYOURCOUNTRY') || orderedNotice == message(code:'dashboard.warningsUserProfile.FOLLOWPOLITICIANS') }">
+        <g:if test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANINYOURCOUNTRY') || orderedNotice == message(code:'dashboard.warningsUserProfile.FOLLOWPEOPLE') }">
             <g:if test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANINYOURCOUNTRY')}">
                 <h2>${message(code:'dashboard.userProfile.incompleteDate.fillPAPoliticianInYourCountry.leftTitle')}</h2>
             </g:if>
-            <g:if test="${orderedNotice == message(code:'dashboard.warningsUserProfile.FOLLOWPOLITICIANS')}">
+            <g:if test="${orderedNotice == message(code:'dashboard.warningsUserProfile.FOLLOWPEOPLE')}">
                 <h2>${message(code:'dashboard.userProfile.incompleteDate.notFollowingPoliticians.leftTitle')}</h2>
-                %{--//TODO por hacer esta parte de los usuarios--}%
                 <ul class="user-list-followers">
-                    <li class="user" itemscope itemtype="http://schema.org/Person">
-                    </li>
+                    <g:each in="${recommendedUsers}" var="user">
+                        <li itemtype="http://schema.org/Person" itemscope class="user">
+                            <userUtil:showUser user="${user}" showName="true" showRole="true" showActions="true"/>
+                        </li>
+                    </g:each>
                 </ul>
             </g:if>
         </g:if>
         <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPROVINCE') || orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANPHONE') || orderedNotice == message(code:'dashboard.warningsUserProfile.NOAGEANDGENDER')}">
             <div class="row">
-                <div class="col-md-6 col-lg-7">
-                    <g:if test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPROVINCE')}">
+                <g:if test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPROVINCE')}">
+                    <div class="col-md-6 col-lg-7">
                         <h2>${message(code:'dashboard.userProfile.incompleteDate.fillTheProvince.leftTitle')}</h2>
-                    </g:if>
-                    <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANPHONE')}">
-                        <h1>${message(code:'dashboard.userProfile.incompleteDate.fillThePhone.leftTitle')}</h1>
-                    </g:elseif>
-                    <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOAGEANDGENDER')}">
-                        <h1>${message(code:'dashboard.userProfile.incompleteDate.fillYourAgeAndGender.leftTitle')}</h1>
-                    </g:elseif>
-                </div>
-                <div class="col-md-6 col-lg-5">
+                    </div>
+                    <div class="col-md-6 col-lg-5">
+                </g:if>
+                <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANPHONE')}">
+                    <div class="col-md-6">
+                        <h2>${message(code:'dashboard.userProfile.incompleteDate.fillThePhone.leftTitle')}</h2>
+                    </div>
+                    <div class="col-md-6">
+                </g:elseif>
+                <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOAGEANDGENDER')}">
+                    <div class="col-md-6 col-lg-7">
+                        <h2>${message(code:'dashboard.userProfile.incompleteDate.fillYourAgeAndGender.leftTitle')}</h2>
+                    </div>
+                    <div class="col-md-6 col-lg-5">
+                </g:elseif>
                     <g:if test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPROVINCE')}">
                         <p>${message(code:'dashboard.userProfile.incompleteDate.fillTheProvince.rightTitle')}</p>
-                        <form action="#" method="post" name="sign" id="sign" role="form" class="no-postalcode">
+                        <g:form method="POST" name="sign" role="form" class="no-postalcode" mapping="customRegisterCountryAndPostalCode">
                             <div class="form-group pull-left">
-                                <label for="pais" class="sr-only">País</label>
-                                <select name="pais" class="form-control input-lg" id="pais">
-                                    <option value="Elige tu país">País</option>
-                                    <option value="Alemania">Alemania</option>
-                                    <option value="Austria">Austria</option>
-                                    <option>...</option>
-                                </select>
+                                <formUtil:selectNation command="${personalDataCommand}" field="country" cssClass="sr-only"/>
                             </div>
-                                <div class="form-group pull-left">
-                                    <label for="codigo-postal" class="sr-only">Código postal</label>
-                                    <input type="number" name="codpostal" class="form-control input-lg" id="codpostal" required placeholder="Código postal" aria-required="true">
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Guardar" class="btn btn-grey btn-lg">
-                                </div>
-                        </form>
+                            <div class="form-group pull-left">
+                                <label for="codigo-postal" class="sr-only"><g:message code="dashboard.userProfile.incompleteDate.postalCode.label"/></label>
+                                <input type="number" name="postalCode" class="form-control input-lg" id="codpostal" required placeholder="${message(code:'dashboard.userProfile.incompleteDate.postalCode.label')}" aria-required="true" value="${personalDataCommand?.postalCode}">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="${message(code:'dashboard.userProfile.incompleteDate.button.save')}" class="btn btn-grey btn-lg">
+                            </div>
+                        </g:form>
                     </g:if>
                     <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANPHONE')}">
                         <p>${message(code:'dashboard.userProfile.incompleteDate.fillThePhone.rightTitle')}</p>
-                        <form action="#" method="post" name="sign" id="sign" role="form" class="no-phone">
-                            <div class="form-group pull-left">
-                                <label for="phone-prefix" class="sr-only">Prefijo teléfono</label>
-                                <select name="phone-prefix" class="form-control input-lg" id="phone-prefix">
-                                    <option value="+34">+34</option>
-                                    <option value="+32">+32</option>
-                                    <option value="+33">+33</option>
-                                    <option>...</option>
-                                </select>
+                        <g:form method="POST" name="sign" role="form" class="no-phone" mapping="customRegisterTelephone">
+                            <div class="form-group">
+                                <formUtil:selectNation command="${personalDataCommand}" field="country" cssClass="sr-only"/>
                             </div>
                             <div class="form-group pull-left">
-                                <label for="phone" class="sr-only">Número de teléfono</label>
-                                <input type="number" name="phone" class="form-control input-lg" id="phone" required placeholder="Número de teléfono" aria-required="true">
+                                %{--//TODO: Completar el TagLib para mostrar los prefijos--}%
+                                <formUtil:telephoneWithPrefix />
+                            </div>
+                            <div class="form-group pull-left">
+                                <label for="phone" class="sr-only"><g:message code="dashboard.userProfile.incompleteDate.phone.label"/></label>
+                                <input type="number" name="telephone" class="form-control input-lg" id="telephone" required placeholder="${message(code:'dashboard.userProfile.incompleteDate.phone.label')}" aria-required="true" value="${personalDataCommand?.telephone?personalDataCommand.telephone.split().last():''}">
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Guardar" class="btn btn-grey btn-lg">
+                                <input type="submit" value="${message(code:'dashboard.userProfile.incompleteDate.button.save')}" class="btn btn-grey btn-lg">
                             </div>
-                        </form>
+                        </g:form>
                     </g:elseif>
                     <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOAGEANDGENDER')}">
-                        <form action="#" method="post" name="sign" id="sign" role="form" class="no-age">
-                            <div class="form-group groupRadio">
-                                <label class="radio-inline"><input type="radio" name="gender" value="MALE">Hombre</label>
-                                <label class="radio-inline"><input type="radio" name="gender" value="FEMALE">Mujer</label>
-                                <label class="radio-inline"><input type="radio" name="gender" value="ORGANIZATION">Organización</label>
+                        <g:form method="POST" name="sign" role="form" class="no-age" mapping="customRegisterAgeAndGender">
+                            <formUtil:radioEnum command="${personalDataCommand}" field="gender"/>
+                            <div class="form-group pull-left">
+                                <formUtil:selectBirdthYear command="${personalDataCommand}" field="year" cssClass="sr-only"/>
                             </div>
                             <div class="form-group pull-left">
-                                <label for="nacimiento" class="sr-only">Año de nacimiento</label>
-                                <select name="nacimiento" class="form-control input-lg" id="nacimiento">
-                                    <option value="Elige año de nacimiento">Año de nacimiento</option>
-                                    <option value="1910">1910</option>
-                                    <option value="1911">1911</option>
-                                    <option>...</option>
-                                </select>
+                                <input type="submit" value="${message(code:'dashboard.userProfile.incompleteDate.button.save')}" class="btn btn-grey btn-lg">
                             </div>
-                            <div class="form-group pull-left">
-                                <input type="submit" value="Guardar" class="btn btn-grey btn-lg">
-                            </div>
-                        </form>
+                        </g:form>
                     </g:elseif>
                 </div>
             </div>

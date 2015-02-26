@@ -64,6 +64,8 @@ class RegisterService {
 
     Map save(KuorumUser user) {
         def result
+        RoleUser roleUser = RoleUser.findByAuthority("ROLE_PASSWORDCHANGED")
+        user.authorities = [roleUser]
         if (user.validate()) {
             try {
                 if (user.save()) {
@@ -79,5 +81,9 @@ class RegisterService {
             result = [errorMsg: 'admin.createUser.error']
         }
         result
+    }
+
+    RegistrationCode findOrRegisterUserCode(KuorumUser user) {
+        RegistrationCode.findByUsername(user.email)?:registerUserCode(user)
     }
 }
