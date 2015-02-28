@@ -32,7 +32,7 @@ input[type="email"],
 select {padding: 6px 6px 6px 8px !important;}*/
 .form-control:focus,
 .jqte_focused {box-shadow: 0 0 0 rgba(0,0,0,0);}
-.form-group {margin-bottom: 30px;}
+.form-group {margin-bottom: 20px;}
 .jqte_placeholder_text {color: #a8a8a8;}
 .jqte * {font-size: 1.5rem;}
 .jqte_editor, .jqte_source {height: 290px; min-height: 290px; max-height: 290px;}
@@ -62,19 +62,15 @@ small, .small {font-size: 75%;}
 
 /* Ajustes modal Bootstrap */
 .modal-backdrop.in {opacity: 0.8;}
-body {
-overflow-y: scroll;
-}
+body {overflow-y: scroll;}
+body.modal-open {overflow-y: scroll; margin: 0;}
+.modal {overflow: auto;}
 
-body.modal-open {
-overflow-y: scroll;
-margin: 0;
-}
-
-.modal {
-overflow: auto;
-}
-
+p.warning {background-color: #f62121; color: #fff; font-size: 18px; font-size: 1.8rem; padding: 15px; margin: -6px 0 6px 0; display: none;}
+p.warning a,
+p.warning a:hover,
+p.warning a:active,
+p.warning a:focus {color: #fff;}
 
 .popover-title {
   background-color: rgb(0, 0, 0);
@@ -200,6 +196,7 @@ a:focus {color: #20a2ea;}
 #footer .more > .container-fluid,
 .navbar > .container-fluid,
 #otros-proyectos > .container-fluid,
+#otras-propuestas > .container-fluid,
 #info-sup-scroll > .container-fluid {max-width: 1140px; margin: 0 auto;}
 .navbar > .container-fluid {padding-right: 30px; padding-left: 30px;}
 .main > .container-fluid > .row {position: relative;}
@@ -247,7 +244,6 @@ a:focus {color: #20a2ea;}
 .login .form-group:last-child a {color: #545454;}
 .login .btn.btn-lg {padding-left: 40px !important;padding-right: 40px !important;}
 .login.pass .btn.btn-lg {padding: 15px !important;}
-.login .form-group {margin-bottom: 20px;}
 #registro.modal .modal-header,
 #entrar.modal .modal-header {border: none;}
 
@@ -475,16 +471,20 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .box .dropdown-menu > li a:hover {text-decoration: underline;}
 .badge {background-color: #ff9431; padding: 4px 6px;}
 .navbar-nav .visible-xs {display: inline-block !important;}
-.user-img {border-radius: 20px; width: 38px; height: 38px; margin: 0 6px 4px 0;}
+.user-img {border-radius: 20px; width: 38px; height: 38px; margin: 8px 6px 4px 0;}
 .boxes.alerts .user-img,
 .boxes.guays .user-img,
 .boxes.follow .user-img {display: inline-block;}
 
-#otros-proyectos {background-color: #f5f5f5;}
+#otros-proyectos,
+#otras-propuestas {background-color: #f5f5f5;}
 #otros-proyectos > .container-fluid > ul {margin: 0; padding: 0;}
 #otros-proyectos > .container-fluid > ul > li {margin: 0; padding: 0; list-style: none;}
 #otros-proyectos > .container-fluid > ul > li > article {margin: 0 auto; width: 95%;}
-#otros-proyectos > .container-fluid > ul > li > article p {font-size: 12px; font-size: 1.2rem;}
+.kakareo-list.project > li > article p,
+#otras-propuestas .kakareo-list .popover-trigger {font-size: 13px; font-size: 1.3rem;}
+#otras-propuestas .kakareo-list > li h1 {font-size: 14px; font-size: 1.4rem;}
+
 #footer {background-color: #f5f5f5; color: #fff;}
 #footer ul, #footer ol, section.links ul {padding: 0}
 #footer li {list-style: none;}
@@ -556,6 +556,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.condition .photo {margin-bottom: 10px;}
 .kakareo-list {list-style: none; margin: 0; padding: 0;}
 .kakareo-list .kakareo {margin-bottom: 20px;}
+.kakareo-list .user-type {margin-top: -24px;}
 
 .box-ppal.condition .no-age .form-group {margin-bottom: 0;}
 .box-ppal.condition .no-age .form-group:nth-child(2) {width: 180px; margin-right: 10px;}
@@ -606,7 +607,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
   width: 0;
   z-index: 11;
 }
-.kakareo .open-menu {color: #dbdbdb; position: absolute; top: 2px; right: 8px;}
+.open-menu {color: #dbdbdb; position: absolute !important; top: 2px; right: 8px;}
 .kakareo .link-wrapper,
 .kakareo .wrapper,
 .edit-post .kakareo.post .wrapper,
@@ -668,7 +669,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .kakareo.post.ley.actualizacion .user-img,
 #otros-proyectos .kakareo.post.ley .user-img,
 .kakareo-list.project .kakareo.post.ley .user-img,
-.boxes.info .kakareo .user-img {width: 25px; height: 25px;}
+.boxes.info .kakareo .user-img {width: 25px; height: 25px; margin-top: 0;}
 .kakareo.post.ley.actualizacion .ico-info,
 .kakareo.post.ley .ico-info {position: absolute; top: 4px; right: 4px; color: #bcbcbc;}
 .kakareo.post.ley.actualizacion .photo,
@@ -732,10 +733,11 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .btn.mail:hover,
 .btn.mail:active,
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
-.user-type {margin-top: -19px;}
+.user-type {margin-top: -22px;}
 
 .user-list-images,
-.boxes.taking-part .user-list-followers {margin: 0; padding: 0; display: inline-block; line-height: 1.2;}
+.boxes.taking-part .user-list-followers {margin: 0 0 20px 0; padding: 0; display: inline-block; line-height: 1.2;}
+.boxes.taking-part .user-list-followers {margin: 0;}
 .user-list-followers {padding: 10px !important;}
 
 .user-list-images li {list-style: none; display: inline-block !important; margin: 0; width: auto;}
@@ -745,7 +747,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .user-list-followers li a {text-decoration: none;}
 
 /* lista de usuarios participando en el proyecto -> en caja .boxes del aside  */
-.boxes.taking-part .user-list-followers li {list-style: none; display: block !important; float: left; margin: 0 3px 0 0; width: auto;}
+.boxes.taking-part .user-list-followers > li {list-style: none; display: block !important; float: left; margin: 0 3px 0 0; width: auto;}
 
 /* lista de a quién seguir al inicio del Dashboard */
 .condition .user-list-followers {margin: 0; padding: 0 !important;}
@@ -802,8 +804,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .popover-trigger {cursor: pointer;}
 .user-list-images .popover-trigger,
 .user-list-followers .popover-trigger {display: inline-block; z-index: 998; position: relative;}
-#main .user .popover-trigger,
-#main .sponsor { margin-bottom: 10px;}
+/*#main .user .popover-trigger { margin-bottom: 10px;}*/
 #main .user.actor {font-size: 12.5px; font-size: 1.25rem; margin-bottom: 10px;}
 
 /* popovers */
@@ -1083,7 +1084,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 
 video#bgvid {
   left: 0;
-  top: 0;
+  top: -8px;
   min-width: 100%;
   min-height: 100%;
   width: auto;
@@ -1114,6 +1115,7 @@ video#bgvid {
 #load-more {
   border-top: solid 1px #e5e5e5;
   padding: 10px 0 0;
+  margin: 0 0 20px 0;
 }
 
 /*para quitarle el borde al ver más en las notificaciones*/
@@ -1149,7 +1151,7 @@ video#bgvid {
 .boxes .important .kakareo {background-color: transparent;}
 .boxes.guay .kakareo {border: none; padding: 0; margin: 0;}
 .boxes.guay .kakareo .link-wrapper {padding: 10px 10px 0;}
-.boxes.guay .kakareo .link-wrapper .user {font-size: 13px; font-size: 1.3rem; color: #a8a8a8; margin: 0 0 10px 0;}
+.boxes.guay .kakareo .link-wrapper .user {font-size: 12px; font-size: 1.26rem; color: #a8a8a8; margin: 0;}
 .boxes.guay .kakareo .link-wrapper .user .popover-trigger {color: #545454;}
 .boxes.guay .kakareo .link-wrapper .ico-info {right: 8px; top: 6px;}
 .boxes.guay .kakareo .link-wrapper .laley {font-size: 21px; font-size: 2.1rem;}
@@ -1158,8 +1160,8 @@ video#bgvid {
 
 .others .boxes.guay .kakareo .link-wrapper {padding: 10px;}
 .boxes.guay .kakareo h1 {font-size: 13px; font-size: 1.3rem; line-height: 1.4; margin: 0 0 10px 0;}
-.boxes.guay .user-img {width: 25px; height: 25px; float: none; margin-right: 5px; margin-bottom: 0;}
-.boxes .victory .user-img {margin: 0 0 0 5px;}
+.boxes.guay .user-img {width: 25px; height: 25px; float: none; margin-right: 5px; margin-bottom: 0; margin-top: 0;}
+.boxes .victory .user-img {margin: 0 0 0 2px;}
 .boxes.guay .user-list-images li .popover-trigger.more-users {margin-bottom: 4px;}
 .boxes.guay .important > .user-list-images {display: block; text-align: right;}
 .boxes.guay .kakareo .user-list-images li .user-img {margin: 0 0 0 5px !important;}
@@ -1192,8 +1194,7 @@ video#bgvid {
 .boxes.edit-user .name {font-size: 21px; font-size: 2.1rem; padding-bottom: 8px; display: block; line-height: 1;}
 .boxes.info {background: transparent; border: none; margin: 0 0 40px 0;}
 .boxes .user-type {display: inline-block; color: #a8a8a8;}
-.boxes.follow .user-type {display: block; margin-top: -25px;}
-.condition .user-type {display: block; margin-top: -36px;}
+.boxes.follow .user-type {display: block; margin-top: -24px;}
 .personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px;}
 .user-list-followers .user .actions {float: right; margin: -32px 0 0 0 !important;}
 .user-list-followers .user .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
@@ -1201,6 +1202,7 @@ video#bgvid {
 
 .boxes .user-img,
 .condition .user-list-followers .user-img {float: left;}
+.user-list-followers .user-img {margin: 0 6px 0 0;}
 .boxes .user-img.big {margin: 0 6px 6px 0;}
 .boxes.info .user-img {float: none;}
 .boxes .popover .user-img {float: none;}
@@ -1223,7 +1225,7 @@ video#bgvid {
 .boxes.vote .action a:focus,
 .boxes.vote .action a:active {color: #ff9431;}
 
-.activity {margin: 0; padding: 0; text-align: center;}
+.activity {padding: 0; text-align: center;}
 .activity > li {
   width: 32%;
   text-align: center;
@@ -1586,7 +1588,7 @@ textarea.error,
 .socialGo li {display: inline-block; list-style: none; margin: 10px 10px 0 0;}
 .socialGo li:nth-child(2n) {margin-right: 0;}
 /*.socialGo li a {width: 276px; padding: 12px 0 !important; margin: 0 !important;}*/
-.onecol .form-group {margin-top: 20px; margin-bottom: 20px;}
+.onecol .form-group {margin-top: 20px;}
 .onecol .form-group.groupRadio {margin: 0;}
 .onecol .form-group.groupRadio + .form-group {margin-top: 0;}
 .onecol .checkbox-inline {margin: 4px 8px; font-size: 85%; line-height: 1.7;}
@@ -1707,7 +1709,8 @@ textarea.error,
 .qq-upload-button-hover {text-decoration: underline;}
 .qq-upload-button-focus {outline:1px dotted black;}
 .qq-upload-drop-area {
-  padding: 28% 20px 20px 20px;
+  background: url('../images/fileUpload.png') center 48% no-repeat transparent;
+  padding: 80px 20px 20px 20px;
   position: absolute;
   top: 0;
   height: 387px;
@@ -1717,7 +1720,6 @@ textarea.error,
   display: block !important;
   text-align: center;
   border: 1px solid #EFEFEF;
-  background: url('../images/fileUpload.png') center 32% no-repeat transparent;
   display: block;
 }
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:234px;}
@@ -1753,12 +1755,11 @@ textarea.error,
 .callMobile a, .callMobile a:hover, .callMobile a:focus, .callMobile a:active {color: #fff; text-decoration: none; text-transform: uppercase; font-size: 30px; font-size: 30px;}
 
 .kakareo.post.ley.participants {margin: 0 0 50px 0;}
-/*.kakareo.post.ley h1,
-.kakareo.post.ley .laley {font-size: 20px; font-size: 2rem;}*/
+.kakareo.post.ley .laley {font-size: 20px; font-size: 2rem;}
 .kakareo.post.ley h1 {padding: 0; margin-bottom: 15px;}
 .kakareo-list.project .kakareo.post.ley .laley,
 .boxes.info .kakareo .laley {font-size: 16px; font-size: 1.6rem; line-height: 27px;}
-h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-bottom: 20px; font-size: 25px; font-size: 2.5rem;}
+h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-bottom: 30px; font-size: 22px; font-size: 2.2rem;}
 .kakareo.post.ley .photo {position: relative; margin-top: 20px;}
 .kakareo.post.ley .photo .info {position: absolute; bottom: 5px; left: 5px;}
 .kakareo.post.ley .photo .tooltip.in {opacity: 1;}
@@ -1778,7 +1779,9 @@ h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-bott
 }
 .kakareo.post.ley .photo .info .icon-flag2 {line-height: 2;}
 .kakareo.post.ley .photo .info .fa-circle {color: #ff9431;}
-.options {padding: 10px 0; margin-bottom: 20px; border-bottom: 1px solid #e5e5e5;}
+.kakareo.post.ley .options + p {border-top: 1px solid #e5e5e5; padding-top: 20px;}
+.kakareo.post.ley .options {margin-bottom: 0;}
+.options {padding: 10px 0; margin-bottom: 20px;}
 .options > .typeTime {color: #bcbcbc; margin: 0 0 10px 0; font-size: 14px; font-size: 1.4rem;}
 .options > ul {margin: 0;}
 .options > .typeTime li {list-style: none; display: inline-block; height: 28px;}
@@ -1790,7 +1793,6 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .infoVotes > li:first-child {margin-left: 0;}
 .infoVotes > li.arrow {background: transparent; width: 24px; margin: 0;}
 .infoVotes > li:last-child a {color: #bcbcbc;}
-#otros-proyectos {padding-bottom: 20px;}
 .boxes.info .kakareo .more-info {padding: 0 10px;}
 
 .kakareo.post footer .voting {text-align: right; margin-bottom: 0;}
@@ -1820,15 +1822,17 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 .kakareo.post.ley footer .info-kak .icon2-ciudad,
 .kakareo.post.ley footer .voting > li {line-height: 27px;}
+.kakareo.post.ley footer .voting > li {list-style: none;}
 
 .kakareo.post footer .info-kak > li time {font-size: 12px; font-size: 1.2rem;}
-.kakareo.post footer {margin-top: 0; margin-bottom: 0; padding: 0 10px; font-size: 14px; font-size: 1.4rem;}
+.kakareo.post footer {margin-top: 0; margin-bottom: 0; padding: 0 10px;}
+.kakareo.post footer + p {border-top: 1px solid #e5e5e5; padding-top: 20px;}
 .kakareo.post .more-info {padding: 0 10px;}
 .boxes.info .kakareo footer a,
 .boxes.info .kakareo > h1 > a {pointer-events: none; cursor: default;}
 
-.kakareo.post footer ul li,
-.boxes.info .kakareo footer ul li {display: inline-block; list-style: none;}
+.kakareo.post footer > ul > li,
+.boxes.info .kakareo footer > ul > li {display: inline-block; list-style: none;}
 article #detailsInfoVotes .infoVotes > li,
 article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 #detailsInfoVotes .icons {margin: 5px 0; padding: 0 5px; width: 100%; float: left;}
@@ -1941,7 +1945,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .roleOrganization{margin-left: 6px;}
 
 .boxes.vote > h1 {text-align: center;}
-.boxes.vote > .btn-lg {font-size: 14px; font-size: 1.45rem !important; line-height: 1.4 !important; padding: 12px !important;}
+.boxes.vote > .btn-lg {font-size: 14px !important; font-size: 1.45rem !important; line-height: 1.4 !important; padding: 12px !important; display: block; margin: 10px auto 20px !important;}
 
 .vote .activity > li {border-right: none; color: #545454; font-size: 13px; font-size: 1.3rem; padding: 0 8px 8px 8px;}
 .vote .activity > li.active {background-color: #aed4fb;}
@@ -1961,7 +1965,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .voting > ul > li > a.update.active {color: #ff9431 !important;}
 .voting .changeOpinion {display: block; font-size: 16px; font-size: 1.6rem; padding: 20px 0; display: none;}
 
-.boxes.vote div.social {text-align: center; margin: 20px 0;}
+.boxes.vote div.social {text-align: center; margin-top: 20px !important; margin-bottom: 20px !important;}
 .boxes.vote ul.social {margin: 0; padding: 0;}
 .boxes.vote ul.social li {margin: 0 15% 0 0;}
 .boxes.vote ul.social li:last-child {margin: 0;}
@@ -2011,21 +2015,42 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 /* post =========== */
 /* ====================================================== */
 .boxes.vote.drive {text-align: center;}
+.boxes.vote.drive .checkbox-inline {text-align: left; font-size: 14px; font-size: 1.4rem;}
 .boxes.vote.drive > h1 {font-size: 15px; font-size: 1.5rem; margin: 0; padding: 20px 0 15px;}
 .boxes.vote.drive > h1 > span {font-size: 25px; font-size: 2.5rem;}
 .boxes.vote.drive > h2 {font-size: 13px; font-size: 1.3rem; margin: 15px 0 25px;}
 .progress {height: 15px; border-radius: 0; margin: 0;}
 .progress-bar {background-color: #828282;}
-.boxes.vote.drive .user-list-images > li {display: block; float: left; margin-right: 5px;}
+.boxes.vote.drive .user-list-images > li {display: block; float: left; margin-right: 6px;}
 .boxes.vote.drive .user-list-images > li:last-child {margin-right: 0;}
+.boxes.vote.drive form,
+.boxes.vote.drive .progress,
+.boxes.vote.drive .sponsor,
+.boxes.vote.drive .social,
+.boxes.vote.signin #sign,
+.boxes.vote div.social,
+.boxes.vote > .btn-lg,
+.activity,
+.boxes.performance a.improve {width: 273px; margin: 0 auto;}
+.boxes.vote.drive form  {margin: 10px auto 40px;}
+.boxes.vote.drive .btn {position: relative;}
+.boxes.vote.drive .btn.btn-lg {font-size: 17px !important; font-size: 1.7rem !important; padding-left: 50px !important; margin: 15px 0 !important;}
+.boxes.vote.drive .btn .fa {position: absolute; top: 15px; left: 15px;}
+.boxes.vote.drive .btn.disabled .fa {left: 35px;}
+.boxes.vote.drive .social {margin-bottom: 20px;}
+.boxes.vote.drive .social li {font-size: 16px; font-size: 1.6rem;}
 
+.sponsor .user-list-images {margin: 0;}
+
+.comments {margin-bottom: 20px;}
 .listComments {margin: 0; padding: 0;}
-.listComments > li {list-style: none; background-color: #fafafa; color: #a8a8a8; margin: 0 0 40px 0;}
-.listComments > li .wrapper {padding: 20px 20px 0 20px;}
-.listComments > li .wrapper p {margin: 10px 0 15px 48px;}
-.listComments > li .popover-trigger, .listComments > li .wrapper .say  {color: #545454;}
-.listComments > li .actions {background-color: #efefef; padding: 10px 20px; color: #545454;}
-.listComments > li .actions a {color: #545454;}
+.listComments > li {list-style: none; margin: 0 0 20px 0; border: 1px solid #e5e5e5; background-color: #fff; position: relative;}
+.listComments > li:last-child {margin-bottom: 0;}
+.listComments > li .popover-trigger {margin: 0 !important; line-height: 1.8;}
+.listComments > li time {color: #a8a8a8; display: block; text-align: right;}
+.listComments > li {padding: 24px 15px 15px 15px;}
+.listComments > li p {margin: 20px 0;}
+
 .listComments > li .actions ul {margin: 0; padding: 0;}
 .listComments > li .actions ul li {line-height: 1.2; list-style: none; display: inline-block; margin-left: 8px;}
 .listComments > li .actions ul li a {display: inline-block; text-align: center; width: 20px; height: 20px; background-color: #a8a8a8; color: #fff;}
@@ -2037,9 +2062,11 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .listComments > li .actions ul li a.disabled:active,
 .listComments > li .actions ul li a.disabled:focus {background-color: #dadada;}
 
+#addComment {margin: 20px 0 0 0;}
+#addComment .form-group:first-child {margin-bottom: 20px;}
 #addComment label {font-size: 20px; font-size: 2rem;}
 #addComment .form-group.btns {margin: 0;}
-.comments {margin-bottom: 33px;}
+
 .boxes.noted.likes .sponsor {margin: 0 0 20px 0;}
 .boxes.noted.likes .sponsor .user-list-images > li {margin: 0 8px 0 0; display: block; float: left; height: 40px;}
 .boxes.noted.likes .sponsor .user-list-images > li:last-child {margin: 0;}
@@ -2076,7 +2103,31 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .important .kakareo.post h1 {margin-top: 20px;}
 .important .kakareo.post h1 a {color: #ff9431;}
 .important .kakareo.post footer {background-color: transparent;}
-.debate {background-color:#efefef; padding: 20px;}
+
+.debate {margin-bottom: 40px;}
+.chat {margin: 0; padding: 0; list-style: none;}
+.chat > li {background-color: #f8f8f8; border-top: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5; border-left: 1px solid #e5e5e5; padding: 24px 15px 15px 15px; position: relative;}
+.chat > li:last-child {border-bottom: 1px solid #e5e5e5;}
+.chat > li .user.author {margin: 0 0 20px 0;}
+.chat > li:nth-of-type(odd) .user.author {text-align: right;}
+.chat > li:nth-of-type(odd) .user.author > .popover-trigger > .user-img {float: right; margin-right: 0; margin-left: 6px;}
+.chat > li .user.author .popover-trigger {margin: 0 !important; line-height: 3;}
+.chat > li:nth-of-type(odd) .user-type {margin-top: -20px;}
+.chat > li > div:first-child {margin-bottom: 15px;}
+.chat > li > p:last-child {margin-bottom: 0;}
+.chat > li .user.author + span {text-align: right;}
+.chat > li time {color: #a8a8a8; display: block;}
+.chat > li:nth-of-type(odd) time {text-align: left;}
+.chat > li:nth-of-type(even) time {text-align: right;}
+
+.chat > li:last-child time {text-align: right !important;}
+.chat > li:last-child .user.author {text-align: left !important;}
+.chat > li:last-child .user.author > .popover-trigger > .user-img {float: none; margin: 8px 6px 4px 0 !important;}
+.chat > li:last-child .user-type {margin-top: -22px;}
+.chat > li:last-child > form > .form-group:first-child {margin-bottom: 20px;}
+
+.debate p.no-debate {padding: 15px; background-color: #f8f8f8; border: 1px solid #e5e5e5;}
+
 .kakareo.post .debate h1 {margin: 0 10px 0 0; display: inline-block;}
 .kakareo.post .debate .chat {margin: 10px 0 20px; padding: 0;}
 .kakareo.post .debate .chat > li {list-style: none; padding: 20px; margin: 0 0 2px 0;}
@@ -2165,7 +2216,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .promo-options > div > form .radio label {font-size: 19px; font-size: 1.9rem; line-height: 1.2;}
 .promo-options > div > form .radio input[type="radio"] {margin-top: 30px; margin-left: -25px;}
 .promo-options > div > form .radio label > span {font-size: 35px; font-size: 3.5rem;}
-.promo-options > div > form .radio label > span > span {font-size: 45px; font-size: 4.5rem;}
+.promo-options > div > form .radio label > span > span.euro {font-size: 40px; font-size: 4rem;}
 .promo-options > div > form .btn {font-size: 25px !important; font-size: 2.5rem !important;}
 .promo-options > div > form .options-wrapper {min-height: 112px;}
 
@@ -2349,6 +2400,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .medios-list blockquote p:after {content: "”";}
 .medios-list blockquote footer {margin-bottom: 20px;}
 .medios-list blockquote footer:before {content: "";}
+.medios-list blockquote footer img {width: 90%;}
 
 .homeSub.medios {text-align: center;}
 .homeSub.medios h2 {font-size: 14px; font-size: 1.4rem; margin: 60px 0 20px 0;}
@@ -2414,7 +2466,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .contratando > div:last-child h3,
 .contratando > div:last-child ul {margin-bottom: 0;}
 .contratando > div:last-child h4 {background-color: #ededed; margin: -10px 0 0 0; text-align: center; font-size: 50px; font-size: 5rem; line-height: .6; padding-bottom: 40px;}
-.contratando > div:last-child h4 .decimals {font-size: 30px; font-style: 3rem;}
+.decimals {font-size: 25px !important; font-style: 2.5rem !important;}
 .contratando > div:last-child h4 small {font-size: 19px; font-size: 1.9rem; color: #545454;}
 
 .contratando .form-group:last-child {margin-right: 0;}
@@ -2959,6 +3011,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 /* ====================================================== */
 .box-ppal h1 {font-size: 25px; font-size: 2.5rem; margin: 0 0 35px 0; padding: 0 40px 0 0; position: relative; color: #545454;}
 #edit-project .hashtag,
+#edit-propuesta > h1 > .fa,
 #update-project .icon2-update {position: absolute; top: 0; right: 0;}
 #edit-project .hashtag {font-size: 2em; line-height: .5; }
 #update-project .icon2-update {font-size: 1.4em; line-height: .8;}
@@ -2972,8 +3025,10 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 #edit-project input[type="email"],
 #edit-project select {color: #a8a8a8;}
 #edit-project input,
+#edit-propuesta input,
 #update-project input,
 #edit-project .title textarea,
+#edit-propuesta .title textarea,
 #update-project .title textarea {font-size: 17px; font-size: 1.7rem;}
 #update-project fieldset:last-child .form-group {margin-top: 43px;}
 #update-project textarea {height: 300px; padding: 20px;}
@@ -2983,7 +3038,10 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 #edit-project label {font-size: 20px; font-size: 2rem; color: #a8a8a8;}
 #edit-project .interest {margin-top: 20px;}
 .icheckbox_line-orange,
-.iradio_line-orange {margin: 0 24px 24px 0; background-color: #fafafa; padding: 12px 6px 0; width: 110px; color: #545454;}
+.iradio_line-orange {margin: 0 30px 30px 0; background-color: #fafafa; padding: 12px 6px 0; width: 110px; color: #545454;}
+
+.config .icheckbox_line-orange,
+.config .iradio_line-orange {margin: 0 30px 30px 0;}
 
 .uploadPdf .progress-pdf {background-color: #f8f8f8; padding: 8px 10px; font-size: 17px; font-size: 1.7rem; line-height: 1.2; border: 1px solid #e5e5e5;}
 .uploadPdf .progress-pdf .progress {background-color: #fff; margin: 0; width: 100%; margin: 0 0 5px 0; height: 25px; float: left; border: 1px solid #e5e5e5;}
@@ -3058,6 +3116,7 @@ h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size
   right: 25px;
   bottom: -97px;
 }
+.arrow2.propuesta {right: 90px;}
 .embudo .arrow2 {width: 85px; height: 108px; background-image: url('../images/arrow2-blue.png'); right: auto; left: -12px; bottom: -14px;}
 .arrow3 {
   width: 65px;
@@ -3067,6 +3126,7 @@ h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size
   left: 60px;
   bottom: -70px;
 }
+.arrow3.propuesta {left: 45px;}
 .embudo .arrow3 {width: 70px; height: 107px; background-image: url('../images/arrow3-blue.png'); background-size: auto; left: auto; right: 78px; bottom: -90px;}
 .arrow4 {
   width: 95px;
@@ -3101,7 +3161,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* boxes columna derecha actialización Proyecto */
 .boxes.performance p {margin: 20px;}
-.boxes.performance a.improve {width: 85%; margin: 0 auto 24px !important; display: block;}
+.boxes.performance a.improve {margin: 0 auto 24px !important; display: block;}
 
 
 
@@ -3175,10 +3235,12 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .preFooter .user-list li .user-img {margin-right: 10px;}
   #detailsInfoVotes .table {width: 95%;}
   #detailsInfoVotes .table tbody th {width: 148px; text-align: right; padding-right: 10px;}
-  #detailsInfoVotes .icons {padding: 0 15px;}
+  /*#detailsInfoVotes .icons {padding: 0 15px;}*/
   #detailsInfoVotes.autor .table tbody th {width: 170px;}
   #sign .checkbox-inline + .checkbox-inline {margin-left: 10px;}
   .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 28%;}
+  .chat > li .user.author {margin-top: -32px;}
+  .listComments > li .user.author {margin-top: -32px;}
 }
 
 @media only screen and (min-width: 533px) {
@@ -3187,7 +3249,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 }
 
 @media only screen and (min-width: 600px) {
-  #main {min-height: 639px;}
+ /* #main {min-height: 639px;}*/
   #detailsInfoVotes .table tbody th {width: 270px;}
   #detailsInfoVotes.autor .table tbody th {width: 295px;}
 }
@@ -3220,6 +3282,9 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .config .icheckbox_line-orange,
+  .config .iradio_line-orange {margin: 0 5px 5px 0;}
+  h2.underline {font-size: 25px; font-size: 2.5rem;}
   .pago {background-size: 320px auto;}
   .form-home-container {width: 320px;}
   .homeSub.medios h2 {margin-top: 100px;}
@@ -3248,8 +3313,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #videoHome .modal-dialog,
   #videoHome .modal-dialog .youtube {width: 600px;}
   video#bgvid {display: block;}
-  .icheckbox_line-orange,
-  .iradio_line-orange {margin-right: 40px;}
+  /*.icheckbox_line-orange,
+  .iradio_line-orange {margin-right: 40px;}*/
   .no-phone .form-group:nth-child(2) {width: 20%;}
   .no-phone .form-group:nth-child(3) {width: 77%;}
   .sign.purchase .no-phone .form-group:nth-child(2) {width: 26%;}
@@ -3257,7 +3322,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
   .boxes.follow .user-list-followers .user .actions {float: none; margin: 8px 0 0 !important; text-align: right;}
   #aside-ppal {background-color: transparent;}
-  #main {min-height: 898px;}
+  /*#main {min-height: 898px;}*/
   #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
   .sign h1 {font-size: 30px; font-size: 3rem; margin-top: 30px;}
   .sign h2 {font-size: 22px; font-size: 2.2rem; line-height: 1.4; padding: 0;}
@@ -3274,7 +3339,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .list-project .kakareo.post.ley .laley a {font-size: 18px; font-size: 1.8rem;}
   .config > section .filter-order > li {display: inline; margin: 0 2% 0 0; font-size: 14px; font-size: 1.4rem; text-align: left;}
   .list-project .kakareo.post.ley .total-info {font-size: 18px; font-size: 1.8rem;}
-  .arrow1 {top: 72px;}
+  /*.arrow1 {top: 72px;}*/
   .arrow2 {right: 15px;}
   h1.withArrow {margin-bottom: 50px;}
   fieldset.multimedia ul.nav.nav-pills.nav-justified li a {margin-right: 10px; border-radius: 0; padding: 5px 15px;}
@@ -3287,6 +3352,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     margin: 4px 0 0;
     padding: 6px 8px 3px;
   }
+  #detailsInfoVotes .icons {margin: 10px 0;}
   #info-sup-scroll {top: 55px; padding: 10px;}
   #info-sup-scroll .voting {margin-top: 15px;}
   #info-sup-scroll .voting > ul > li {margin-right: 25px;}
@@ -3376,8 +3442,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .vote .activity > li {font-size: 12px; font-size: 1.2rem; padding: 0 2px 6px;}
   .voting > ul > li {margin-right: 2px;}
   .voting > ul > li > a {font-size: 1.1rem; height: 53px; margin: 0 !important; width: 62px;}
-  .boxes.vote > .btn-lg {font-size: 11px; font-size: 1.15rem !important; padding: 8px !important;}
-  .boxes.taking-part .user-list-followers li {margin-right: 7px;}
+  /*.boxes.vote > .btn-lg {font-size: 11px; font-size: 1.15rem !important; padding: 8px !important;}*/
+  .boxes.taking-part .user-list-followers li {margin-right: 1px;}
   .boxes.edit-user > .user > a {position: relative; display: block; text-align: center;}
   .boxes.edit-user .user-img.big {float: none; margin: 0;}
   .boxes.edit-user .personal {float: left; width: 100%; text-align: center; padding: 10px 0 0 0;}
@@ -3472,19 +3538,42 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .boxes.performance a.improve {font-size: 15px !important; font-size: 1.5rem !important;}
   .boxes.info .infoVotes > li,
   .boxes.info .infoVotes > span {padding: 4px;}
+  .condition .user-list-followers  > li {width: 48%; float: left;}
+  .condition .user-list-followers  > li:nth-child(2n) {float: right;}
 
 }
 
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+  #otros-proyectos .kakareo.post > .link-wrapper,
+  .homeSub .kakareo-list.project .kakareo.post > .link-wrapper,
+  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper {height: 398px;}
+  #otros-proyectos .kakareo.post > .link-wrapper p,
+  .homeSub .kakareo-list.project .kakareo.post > .link-wrapper p,
+  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper p {height: 78px; overflow: hidden; margin-bottom: 10px;}
+
+  #otras-propuestas .kakareo > .link-wrapper,
+  .homeSub .kakareo-list .kakareo > .link-wrapper {height: 182px; padding: 15px 15px 0 15px;}
+  #otras-propuestas .kakareo-list > li h1,
+  .homeSub .kakareo-list > li h1 {height: 76px; overflow: hidden; margin: 0;}
+  #otras-propuestas .kakareo-list .kakareo .main-kakareo,
+  .homeSub .kakareo-list .kakareo .main-kakareo {margin-top: 0;}
+  #otras-propuestas .kakareo-list .kakareo footer,
+  .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
+
+  .politician-list .box-ppal { height: 438px;}
+  .politician-list .box-ppal p {height: 58px;}
+
+  .config .icheckbox_line-orange,
+  .config .iradio_line-orange {margin: 0 7px 7px 0;}
+  .boxes.vote.drive form, .boxes.vote.drive .progress, .boxes.vote.drive .sponsor, .boxes.vote.drive .social {width: auto;}
+  .boxes.vote.drive .btn .fa {left: 15px;}
+  .boxes.vote.drive .btn.disabled .fa {left: 32px;}
+  .boxes.vote.drive .btn.btn-lg {font-size: 18px !important; font-size: 1.8rem !important; padding-left: 55px !important;}
+  .boxes.vote.drive {position: fixed; z-index: 999; width: 301px;}
   .list-team {width: 102%;}
-  .list-team > li {
-    width: 300px;
-    display: block;
-    float: left;
-    margin-right: 15px;
-  }
+  .list-team > li {width: 300px; display: block; float: left; margin-right: 15px;}
   .list-team > li:nth-of-type(even) {margin-right: 0;}
   .pago {background-size: 280px auto;}
   .promo-options {padding-bottom: 40px; margin-top: 80px;}
@@ -3516,7 +3605,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
   .help-block {margin: 30px 0 0 0;}
   .icheckbox_line-orange,
-  .iradio_line-orange {margin-right: 35px;}
+  .iradio_line-orange {margin-right: 8px; margin-bottom: 8px;}
   .no-phone .form-group:nth-child(2) {width: 29%;}
   .no-phone .form-group:nth-child(3) {width: 68%;}
   .kakareo.post,
@@ -3540,9 +3629,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .box-ppal.condition.politician > .row h1 {font-size: 29px; font-size: 2.9rem;}
 
   .config > section > .box-ppal {padding: 22px 20px 0 20px; margin-bottom: 60px;}
-
-  .condition .user-list-followers  > li {width: 48%; float: left;}
-  .condition .user-list-followers  > li:nth-child(2n) {float: right;}
 
   .user-list-followers .user .actions {float: right; margin: -30px 0 0 0 !important;}
   .user-list-followers .user .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
@@ -3581,6 +3667,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #detailsInfoVotes .table {width: 92%;}
   #detailsInfoVotes.autor .table tbody th {width: 115px;}
   #detailsInfoVotes.autor .icons.subject li {margin: 0 18px 10px 0;}
+  #detailsInfoVotes .icons {margin: 0;}
 
   .navbar-brand {width: 170px; height: 47px; margin-top: -4px;}
   .btn.search {line-height: 0.7;}
@@ -3688,8 +3775,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 }
 @media (min-width: 1024px) {
   #main {min-height: 642px;}
-    .list-team > li {width: 310px;}
-    .list-updates > li {width: 314px;}
+  .list-team > li {width: 310px;}
+  .list-updates > li {width: 314px;}
 }
 @media (min-width: 1152px) {
   .list-updates > li {width: 356px;}
@@ -3702,11 +3789,34 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .arrow3 {bottom: -90px;}
   .arrow4 {bottom: -55px; left: 120px;}
   h1.withArrow {margin-bottom: 70px;}
+  .boxes.vote.drive {width: 350px;}
+
+  #otros-proyectos .kakareo.post > .link-wrapper,
+  .homeSub .kakareo-list.project .kakareo.post > .link-wrapper,
+  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper {height: 420px;}
+  #otros-proyectos .kakareo.post > .link-wrapper p,
+  .homeSub .kakareo-list.project .kakareo.post > .link-wrapper p,
+  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper p {height: 78px; overflow: hidden; margin-bottom: 10px;}
+
+  #otras-propuestas .kakareo > .link-wrapper,
+  .homeSub .kakareo-list .kakareo > .link-wrapper {height: 182px; padding: 15px 15px 0 15px;}
+  #otras-propuestas .kakareo-list > li h1,
+  .homeSub .kakareo-list > li h1 {height: 76px; overflow: hidden; margin: 0;}
+  #otras-propuestas .kakareo-list .kakareo .main-kakareo,
+  .homeSub .kakareo-list .kakareo .main-kakareo {margin-top: 0;}
+  #otras-propuestas .kakareo-list .kakareo footer,
+  .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
+
+  .politician-list .box-ppal { height: 462px;}
+  .politician-list .box-ppal p {height: 58px;}
+
 }
 
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+  .boxes.vote.drive .btn .fa {left: 45px;}
+  .boxes.vote.drive .btn.disabled .fa {left: 55px;}
   .pago {background-size: 342px auto; background-position: center 25px;}
   .embudo #aside-ppal {padding-bottom: 46px;}
   .config.info > article > .box-ppal > h1 {margin: 5px 0 25px;}
@@ -3717,7 +3827,9 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .full-video {padding-bottom: 60px;}
   .socialGo .btn.btn-lg {padding: 15px !important;}
   .icheckbox_line-orange,
-  .iradio_line-orange {margin-right: 25px;}
+  .iradio_line-orange,
+  .config .icheckbox_line-orange,
+  .config .iradio_line-orange {margin-right: 26px; margin-bottom: 26px;}
   .box-ppal.condition .no-age .form-group:nth-child(2) {width: 172px;}
   .boxes.follow .user-list-followers .user .actions {float: right; margin: -30px 0 0 !important;}
   .condition .user-list-followers  > li {width: 47%; float: left;}
@@ -3740,7 +3852,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .voting > ul > li > a {font-size: 14px; font-size: 1.4rem; width: 90px; height: 68px;}
   .boxes > h1 {padding: 15px 10px;}
   .boxes.vote > .btn-lg {font-size: 16px; font-size: 1.66rem !important;}
-  .boxes.vote .voting > ul > li {margin-right: 15px;}
+  .boxes.vote .voting > ul > li {margin-right: 6px;}
   .boxes.vote .voting > ul > li:last-child {margin-right: 0;}
   .boxes.edit-user {padding: 20px;}
   .boxes.edit-user .name {font-size: 20px; font-size: 2rem; padding-bottom: 4px;}
@@ -3774,9 +3886,11 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #detailsInfoVotes.autor .icons li {font-size: 15px; font-size: 1.5rem; margin: 0 18px 5px 0;}
   .filters .btn {font-size: 20px; font-size: 2rem; padding: 6px 4px !important;}
   .kakareo-list.project .kakareo.post.ley footer .voting ul li {margin: 0 0 0 8px;}
-  .arrow1 {right: -20px; top: 55px;}
+  .arrow1 {right: -20px; top: 45px;}
   .arrow2 {right: 18px;}
+  .arrow2.propuesta {right: 80px;}
   .arrow3 {left: 30px; bottom: -90px;}
+  .arrow3.propuesta {left: 100px;}
   .arrow4 {left: 130px;}
   h1.withArrow {margin-bottom: 50px;}
   .boxes.info .kakareo footer .info-kak > li {font-size: 14px; font-size: 1.4rem;}

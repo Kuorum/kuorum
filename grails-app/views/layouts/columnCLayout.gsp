@@ -19,11 +19,11 @@
         <div class="container-fluid ${pageProperty(name: 'page.specialContainerCssClass')}">
             <g:pageProperty name="page.intro"/>
             <div class="row" >
-                <section id="main" class="col-xs-12 col-sm-12 col-md-8" role="main">
+                <section id="main" class="col-sm-12 col-md-8" role="main">
                     <g:pageProperty name="page.mainContent"/>
                 </section>
 
-                <aside id="aside-ppal" class="col-xs-12 col-sm-12 col-md-4" role="complementary">
+                <aside id="aside-ppal" class="col-sm-12 col-md-4" role="complementary">
                     <g:pageProperty name="page.cColumn"/>
                 </aside>
 
