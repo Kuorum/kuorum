@@ -115,6 +115,7 @@ class FormTagLib {
         def cssClass = attrs.cssClass?:'form-control input-lg'
         def labelCssClass = attrs.labelCssClass?:''
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
+        def showCharCounter = attrs.showCharCounter?Boolean.parseBoolean(attrs.showCharCounter):true
         def maxlength = attrs.maxlength?"maxlength='${attrs.maxlength}'":''
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = message(code: "${command.class.name}.${field}.label")
@@ -144,7 +145,7 @@ class FormTagLib {
             out << "<p class='help-block'>${helpBlock}</p>"
         }
 
-        if (maxSize){
+        if (maxSize && showCharCounter){
             out << """
             <script>
                 \$(function(){counterCharacters("${field}")});

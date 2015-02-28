@@ -247,10 +247,13 @@ class KuorumRegisterCommand{
                 obj.email = val.toLowerCase()
                 return 'registerCommand.username.unique'
             }
-            def domain = val.split("@")[1]
-            def notAllowed = obj.grailsApplication.config.kuorum.register.notAllowedTemporalDomainEmails.find{"@$domain".equalsIgnoreCase(it)}
-            if (notAllowed){
-                return 'registerCommand.username.notAllowed'
+            def mailParts = val.split("@")
+            if (mailParts.size() == 2){
+                def domain = mailParts[1]
+                def notAllowed = obj.grailsApplication.config.kuorum.register.notAllowedTemporalDomainEmails.find{"@$domain".equalsIgnoreCase(it)}
+                if (notAllowed){
+                    return 'registerCommand.username.notAllowed'
+                }
             }
         }
         password: nullable:true

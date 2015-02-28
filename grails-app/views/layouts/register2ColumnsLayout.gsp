@@ -22,26 +22,24 @@
             </nav>
         </header>
         <div class="row main">
-            <div class="container-fluid onecol">
-                <section id="main" role="main">
-                    <div class="intro">
-                        <g:pageProperty name="page.intro"/>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <section id="main" role="main" class="sign clearfix">
+                        <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-1 col-lg-6 col-lg-offset-1">
                             <content id="mainContent">
-                                <g:pageProperty name="page.mainContent"/>
-                            </content>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6">
-                            <content id="description">
                                 <g:pageProperty name="page.description"/>
                             </content>
                         </div>
-                    </div>
-                </section>
+                        <div class="col-sm-12 col-md-4">
+                            <content id="description">
+                                <g:pageProperty name="page.mainContent"/>
+                            </content>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div><!-- #main -->
-        <g:render template="/layouts/footer/footerRegister"/>
+        %{--<g:render template="/layouts/footer/footerRegister"/>--}%
     </body>
 </g:applyLayout>

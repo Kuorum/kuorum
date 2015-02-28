@@ -1,2 +1,2 @@
-<h2><g:message code="login.rrss.label"/> </h2>
+<h3><g:message code="login.rrss.label"/> </h3>
 <g:render template="/register/registerSocialButtons"/>
