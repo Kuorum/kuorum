@@ -70,14 +70,15 @@ class EditUserProfileCommand{
     }
 
     public static void bindingPostalCode(obj, source){
-        Region country = Region.get(new ObjectId(source['country']))
-        obj.country = country
-        Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
-        def regionService = appContext.regionService
-        if (obj.postalCode){
-            obj.postalCode = source['postalCode'].padLeft( 5, '0' )
-            obj.province = regionService.findRegionOrProvinceByPostalCode(country, obj.postalCode)
+        if (source['country']){
+            Region country = Region.get(new ObjectId(source['country']))
+            obj.country = country
+            Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
+            def regionService = appContext.regionService
+            if (obj.postalCode){
+                obj.postalCode = source['postalCode'].padLeft( 5, '0' )
+                obj.province = regionService.findRegionOrProvinceByPostalCode(country, obj.postalCode)
+            }
         }
-
     }
 }

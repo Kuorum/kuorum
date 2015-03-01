@@ -4,9 +4,9 @@
         <g:set var="numDays" value="${kuorumDate.differenceDays(initDate:  project.deadline, endDate: new Date())}"/>
         <h1><g:message code="project.vote.headTitle" args="[numDays]"/> </h1>
 
-        <form action="#" method="post" name="sign" role="form" autocomplete="off" id="sign">
-            <g:render template="/project/projectVotesModuleVotingButtons" model="[project:project, userVote: userVote, header:Boolean.FALSE]"/>
-        </form>
+        <div id="sign">
+            <g:render template="/project/projectVotesModuleVotingButtons" model="[project:project, userVote: userVote, header:Boolean.FALSE, basicPersonalDataCommand:basicPersonalDataCommand]"/>
+        </div>
     </g:if>
     <g:else>
         %{--PROYECTO CERRADO --}%

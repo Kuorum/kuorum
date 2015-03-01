@@ -36,7 +36,7 @@ class ProjectTagLib {
     private static final String NAME_VAR_IF_PROJECT_IS_VOTABLE_ELSE = "ifProjectIsVotableElse"
     def ifUserAvailableForVoting= {attrs, body ->
         pageScope.setVariable(NAME_VAR_IF_PROJECT_IS_VOTABLE_ELSE, Boolean.FALSE)
-        if ((springSecurityService.isLoggedIn()) && (SpringSecurityUtils.ifAnyGranted('ROLE_USER, ROLE_ADMIN, ROLE_PREMIUM, ROLE_POLITICIAN'))){
+        if (springSecurityService.isLoggedIn()){
             Project project = attrs.project
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             if (kuorumUserService.isUserRegisteredCompletely(user)){

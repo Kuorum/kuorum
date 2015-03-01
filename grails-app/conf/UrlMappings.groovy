@@ -38,6 +38,7 @@ class UrlMappings {
                                 "/sec/leyes/$institutionName/$commission/$hashtag" (controller: "project", action:"showSecured")
         name projectVote:       "/ajax/proyectos/$institutionName/$commission/$hashtag/votar"(controller: "project", action:"voteProject")
                                 "/ajax/leyes/$institutionName/$commission/$hashtag/votar"(controller: "project", action:"voteProject")
+        name projectVoteNoTotalUser:       "/sec/proyectos/$institutionName/$commission/$hashtag/salvarDatosUsuarioYvotar"(controller: "project", action:"voteProjectAsNonCompleteUser")
         name projectListClucks: "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
                                 "/ajax/leyes/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
         name projectListPostDefends:   "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")

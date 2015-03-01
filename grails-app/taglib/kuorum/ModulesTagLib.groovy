@@ -5,6 +5,7 @@ import kuorum.project.Project
 import kuorum.post.Post
 import kuorum.project.ProjectVote
 import kuorum.users.KuorumUser
+import kuorum.web.commands.profile.BasicPersonalDataCommand
 
 class ModulesTagLib {
     static defaultEncodeAs = 'raw'
@@ -21,13 +22,14 @@ class ModulesTagLib {
         Project project = attrs.project
         Boolean social = Boolean.parseBoolean(attrs.social?:"false")
         Boolean title = Boolean.parseBoolean(attrs.title?:"false")
+        BasicPersonalDataCommand basicPersonalDataCommand = attrs.basicPersonalDataCommand?:new BasicPersonalDataCommand()
         ProjectVote userVote = null
         if (springSecurityService.isLoggedIn()){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             userVote = projectService.findProjectVote(project,user)
         }
         Integer necessaryVotesForKuorum = projectService.necessaryVotesForKuorum(project)
-        out << render (template:"/project/projectVotesModule", model:[project:project,userVote:userVote,necessaryVotesForKuorum:necessaryVotesForKuorum, social:social, title:title])
+        out << render (template:"/project/projectVotesModule", model:[project:project,userVote:userVote,necessaryVotesForKuorum:necessaryVotesForKuorum, social:social, title:title, basicPersonalDataCommand:basicPersonalDataCommand])
     }
 
     def projectActivePeople={attrs ->

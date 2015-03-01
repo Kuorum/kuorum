@@ -7,66 +7,15 @@
     <g:if test="${project.deadline > new Date()}">
         %{--OPEN PROJECT--}%
         <sec:ifLoggedIn>
-            <ul>
-                <projectUtil:ifUserAvailableForVoting project="${project}">
-                    <li class="${VoteType.POSITIVE}">
-                        <g:link mapping="projectVote" params="${project.encodeAsLinkProperties()+[voteType:VoteType.POSITIVE]}" role="button" class="ajaxVote ${userVote?.voteType.equals(VoteType.POSITIVE)?"active":""}" data-projectId="${project.id}">
-                            <span class="icon-smiley ${cssIconSize}"></span>
-                            <span class="${header?'sr-only':''}"><g:message code="project.vote.yes"/></span>
-                        </g:link>
-                    </li>
-                    <li class="${VoteType.NEGATIVE}">
-                        <g:link mapping="projectVote" params="${project.encodeAsLinkProperties()+[voteType:VoteType.NEGATIVE]}" role="button" class="ajaxVote ${userVote?.voteType.equals(VoteType.NEGATIVE)?"active":""}" data-projectId="${project.id}">
-                            <span class="icon-sad ${cssIconSize}"></span>
-                            <span class="${header?'sr-only':''}"><g:message code="project.vote.no"/></span>
-                        </g:link>
-
-                    </li>
-                    <li class="${VoteType.ABSTENTION}">
-                        <g:link mapping="projectVote" params="${project.encodeAsLinkProperties()+[voteType:VoteType.ABSTENTION]}" role="button" class="ajaxVote ${userVote?.voteType.equals(VoteType.ABSTENTION)?"active":""}" data-projectId="${project.id}">
-                            <span class="icon-neutral ${cssIconSize}"></span>
-                            <span class="${header?'sr-only':''}"><g:message code="project.vote.abs"/></span>
-                        </g:link>
-                    </li>
-                    <projectUtil:ifAllowedToAddPost project="${project}">
-                        <li>
-                            <g:link mapping="postCreate" params="${project.encodeAsLinkProperties()}" role="button" class="update" data-projectId="${project.id}">
-                                <span class="fa fa-lightbulb-o ${cssIconSize}"></span>
-                                <span class="${header?'sr-only':''}"><g:message code="project.vote.newPost"/></span>
-                            </g:link>
-                        </li>
-                    </projectUtil:ifAllowedToAddPost>
-                </projectUtil:ifUserAvailableForVoting>
-                <projectUtil:elseUserAvailableForVoting>
-                    %{--USUARIO NO REGISTRADO COMPLETAMENTE--}%
-
-                </projectUtil:elseUserAvailableForVoting>
-
-                <projectUtil:ifAllowedToUpdateProject project="${project}">
-                    <li>
-                        <g:link mapping="projectUpdate" params="${project.encodeAsLinkProperties()}" class="update">
-                            <span class="icon2-update ${cssIconSize}"></span>
-                            <span class="${header?'sr-only':''}"><g:message code="project.vote.updateProject"/></span>
-                        </g:link>
-                    </li>
-                </projectUtil:ifAllowedToUpdateProject>
-            </ul>
+            <projectUtil:ifUserAvailableForVoting project="${project}">
+                <g:render template="projectVotesModuleVotingButtons_normalUser" model="[project:project, cssIconSize:cssIconSize, userVote:userVote, header:header, iconSmall:iconSmall]"/>
+            </projectUtil:ifUserAvailableForVoting>
+            <projectUtil:elseUserAvailableForVoting>
+                <g:render template="projectVotesModuleVotingButtons_PartialLoggedUser" model="[project:project, cssIconSize:cssIconSize, basicPersonalDataCommand:basicPersonalDataCommand, header:header, iconSmall:iconSmall]"/>
+            </projectUtil:elseUserAvailableForVoting>
         </sec:ifLoggedIn>
         <sec:ifNotLoggedIn>
-            <ul>
-                <li>
-                    <a role="button" href="#"><span class="icon-smiley ${cssIconSize}"></span> <span class="sr-only">Vota a favor</span></a>
-                </li>
-                <li>
-                    <a role="button" href="#"><span class="icon-sad ${cssIconSize}"></span> <span class="sr-only">Vota en contra</span></a>
-                </li>
-                <li>
-                    <a role="button" href="#"><span class="icon-neutral ${cssIconSize}"></span> <span class="sr-only">Vota abstención</span></a>
-                </li>
-                <li>
-                    <a role="button" href="#" class="design"><span class="fa fa-lightbulb-o ${cssIconSize}"></span> <span class="sr-only">Propón</span></a>
-                </li>
-            </ul>
+            <g:render template="/project/projectVotesModuleVotingButtons_noLogged" modle="[project:project, cssIconSize:cssIconSize, userVote:userVote, header:header, iconSmall:iconSmall]"/>
         </sec:ifNotLoggedIn>
     </g:if> %{--FIN DE LA LEY ABIERTA--}%
     <g:else> %{-- LEY CERRADA--}%

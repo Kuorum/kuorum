@@ -1,5 +1,6 @@
 package kuorum.project
 
+import com.sun.swing.internal.plaf.basic.resources.basic
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
@@ -21,6 +22,7 @@ import kuorum.post.Post
 import kuorum.users.KuorumUser
 import kuorum.web.commands.ProjectCommand
 import kuorum.web.commands.ProjectUpdateCommand
+import kuorum.web.commands.profile.BasicPersonalDataCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 
@@ -36,6 +38,7 @@ class ProjectController {
     def springSecurityService
     def gamificationService
     def searchSolrService
+    def kuorumUserService
 
     FileService fileService
 
@@ -226,6 +229,13 @@ class ProjectController {
         }
         ProjectBasicStats projectStats = projectStatsService.calculateProjectStats(project)
         ProjectRegionStats regionStats = projectStatsService.calculateRegionStats(project)
+
+        //Objeto usado para la creacion del formulario de datos básicos de una persona para que pueda votar
+        BasicPersonalDataCommand basicPersonalDataCommand = new BasicPersonalDataCommand();
+        if (flash?.basicPersonalDataCommand){
+            basicPersonalDataCommand = flash?.basicPersonalDataCommand
+        }
+
         [
                 project:project,
                 projectStats:projectStats,
@@ -239,7 +249,8 @@ class ProjectController {
                 defends:defends,
                 numDefends:numDefends,
                 seeMoreDefends:defends.size() < numDefends,
-                userVote:userVote
+                userVote:userVote,
+                basicPersonalDataCommand:basicPersonalDataCommand
         ]
 
     }
@@ -287,6 +298,7 @@ class ProjectController {
             return;
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        //Ñapilla para saber si el voto es nuevo
         Long numVotes = project.peopleVotes.total
         ProjectVote projectVote = projectService.voteProject(project, user, voteType)
 
@@ -310,6 +322,35 @@ class ProjectController {
                 votes:project.peopleVotes,
                 gamification:gamification
         ] as JSON)
+    }
+
+    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED'])
+    def voteProjectAsNonCompleteUser(BasicPersonalDataCommand basicPersonalDataCommand){
+        String hashtag = params.hashtag
+        Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
+        if (!project){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        if (basicPersonalDataCommand.hasErrors()){
+            flash.basicPersonalDataCommand = basicPersonalDataCommand
+            redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
+            return
+        }
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        user.personalData.year=basicPersonalDataCommand.year
+        user.personalData.country=basicPersonalDataCommand.country
+        user.personalData.gender=basicPersonalDataCommand.gender
+        user.personalData.province=basicPersonalDataCommand.province
+        kuorumUserService.updateUser(user)
+        if (basicPersonalDataCommand.voteType){
+            ProjectVote projectVote = projectService.voteProject(project, user, basicPersonalDataCommand.voteType)
+            flash.message = g.message(code: "project.vote.success")
+            redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
+        }else{
+            //NO hay voteProyect se ha clickado sobre la creacion de una propuesta
+            redirect mapping:"postCreate", params:project.encodeAsLinkProperties()
+        }
     }
 
     def stats(String hashtag){

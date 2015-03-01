@@ -114,6 +114,25 @@ class KuorumUserService {
         user.save()
     }
 
+    KuorumUser modifyRoleDependingOnUserData(KuorumUser user){
+        List<RoleUser> authorities = []
+        if (user.password.startsWith(springSecurity.RegisterController.PREFIX_PASSWORD)){
+            RoleUser rolePartialUser = RoleUser.findByAuthority("ROLE_INCOMPLETE_USER") //SALENDA HA PUESTO LOS NOMBRES AL REVES ¬¬
+            authorities.add(rolePartialUser)
+        }else if (isUserRegisteredCompletely(user)){
+            RoleUser roleNormalUser = RoleUser.findByAuthority("ROLE_USER")
+            authorities.add(roleNormalUser)
+        }else{
+            RoleUser rolePartialUser = RoleUser.findByAuthority("ROLE_PASSWORDCHANGED") //SALENDA HA PUESTO LOS NOMBRES RARUNOS
+            authorities.add(rolePartialUser)
+        }
+        if (UserType.POLITICIAN == user.userType){
+            RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
+        }
+        user.authorities = authorities
+        user
+    }
+
     KuorumUser convertAsPolitician(KuorumUser user, Institution institution,  PoliticalParty politicalParty){
         if (!institution || !politicalParty){
             throw new KuorumException("Un politico debe de tener institucion y grupo parlamentario","error.politician.politicianData")
@@ -355,11 +374,14 @@ class KuorumUserService {
 
     KuorumUser updateUser(KuorumUser user){
         user.personalData.provinceCode = user.personalData.province.iso3166_2
+        modifyRoleDependingOnUserData(user)
+        springSecurityService.reauthenticate user.email
         if (!user.save()){
             def msg = "No se ha podido actualizar el usuario ${user.email}(${user.id})"
             log.error(msg)
             throw KuorumExceptionUtil.createExceptionFromValidatable(user, msg)
         }
+
         indexSolrService.index(user)
         kuorumMailService.mailingListUpdateUser(user)
 

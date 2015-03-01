@@ -16,6 +16,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     def kuorumMailService
     RegisterService registerService
 
+    public static final PREFIX_PASSWORD = "*registerUser*"
+
 
     def index() {
         def copy = [:] + (flash.chainedParams ?: [:])
@@ -46,7 +48,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         kuorumMailService.sendRegisterUser(user,url)
 
         if (!user.password){
-            user.password = "*registerUser*${Math.random()}"
+            user.password = "${PREFIX_PASSWORD}${Math.random()}"
             user.save()
         }
         springSecurityService.reauthenticate user.email

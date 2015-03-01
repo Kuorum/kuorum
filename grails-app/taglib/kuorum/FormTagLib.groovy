@@ -417,12 +417,13 @@ class FormTagLib {
     def radioEnum = {attrs ->
         def command = attrs.command
         def field = attrs.field
+        def labelCssClass = attrs.labelCssClass?:""
 
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = message(code: "${command.class.name}.${field}.label")
         def error = hasErrors(bean: command, field: field,'error')
         out << "<div class='groupRadio'>"
-        out << "<span class='span-label'>${label} </span>"
+        out << "<span class='span-label ${labelCssClass}'>${label} </span>"
         clazz.values().each{
             out << "<label class='radio-inline'>"
             out << "<input type='radio' name='${field}' value='${it}' ${command."${field}"==it?'checked':''}>"
