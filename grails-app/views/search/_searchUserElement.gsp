@@ -13,7 +13,7 @@
                     <small>${userUtil.roleName(user:user)}</small>
                 </span>
             </div><!-- /user -->
-            <userUtil:followButton user="${user}"/>
+            <userUtil:followButton user="${user}" cssSize="btn-xs"/>
             <userUtil:isFollower user="${user}"/>
             <g:render template="/kuorumUser/userActivity" model="[user:user]"/>
         </div>

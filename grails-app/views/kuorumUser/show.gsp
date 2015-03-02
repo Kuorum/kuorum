@@ -55,12 +55,8 @@
 </content>
 
 <content tag="cColumn">
-    <g:if test="${user.userType==UserType.POLITICIAN}">
-        <g:render template="politicianKarmaProfile" model="[user:user, politicianStats:politicianStats]"/>
-    </g:if>
-    <g:else>
-        <g:render template="userKarmaProfile" model="[user:user]"/>
-    </g:else>
+
+    <g:render template="userKarmaProfile" model="[user:user]"/>
 
     <section class="boxes follow">
         <h1>

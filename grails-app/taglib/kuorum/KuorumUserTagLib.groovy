@@ -80,7 +80,7 @@ class KuorumUserTagLib {
         }
         if(showActions){
             out << """<div class="actions">
-                    ${userUtil.followButton(user: user, cssExtra: 'follow')}
+                    ${userUtil.followButton(user: user, cssExtra: 'follow',cssSize:"btn-xs" )}
                     ${userUtil.deleteRecommendedUserButton(user: user)}
                   </div>"""
         }
@@ -242,7 +242,7 @@ class KuorumUserTagLib {
 
     def followButton={attrs ->
         KuorumUser user = attrs.user
-        String cssSize = attrs.cssSize?:'btn-xs'
+        String cssSize = attrs.cssSize?:''
         def linkAjaxFollow = g.createLink(mapping:'ajaxFollow', params: [id:user.id])
         def linkAjaxUnFollow = g.createLink(mapping:'ajaxUnFollow', params: [id:user.id])
         def prefixMessages = attrs.prefixMessages?:"kuorumUser.follow"
