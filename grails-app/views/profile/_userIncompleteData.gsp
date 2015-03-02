@@ -26,13 +26,7 @@
             </g:if>
             <g:if test="${orderedNotice == message(code:'dashboard.warningsUserProfile.FOLLOWPEOPLE')}">
                 <h2>${message(code:'dashboard.userProfile.incompleteDate.notFollowingPoliticians.leftTitle')}</h2>
-                <ul class="user-list-followers">
-                    <g:each in="${recommendedUsers}" var="user">
-                        <li itemtype="http://schema.org/Person" itemscope class="user">
-                            <userUtil:showUser user="${user}" showName="true" showRole="true" showActions="true"/>
-                        </li>
-                    </g:each>
-                </ul>
+                <modulesUtil:recommendedUsersList user="${user}" numUsers="14"/>
             </g:if>
         </g:if>
         <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPROVINCE') || orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANPHONE') || orderedNotice == message(code:'dashboard.warningsUserProfile.NOAGEANDGENDER')}">

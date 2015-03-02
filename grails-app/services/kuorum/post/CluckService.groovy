@@ -112,6 +112,10 @@ function(key, values){
         Cluck.findAllByOwner(kuorumUser,[max:pagination.max, offset:pagination.offset, sort: 'lastUpdated', order: 'desc'])
     }
 
+    Long countUserClucks(KuorumUser kuorumUser){
+        Cluck.countByOwner(kuorumUser)
+    }
+
     Cluck createCluck(Post post, KuorumUser kuorumUser){
 
         if (isAllowedToCluck(post, kuorumUser)){

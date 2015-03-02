@@ -80,7 +80,7 @@ class KuorumUserTagLib {
         }
         if(showActions){
             out << """<div class="actions">
-                    ${userUtil.followButton(user: user, cssExtra: 'follow')}
+                    ${userUtil.followButton(user: user, cssExtra: 'follow',cssSize:"btn-xs" )}
                     ${userUtil.deleteRecommendedUserButton(user: user)}
                   </div>"""
         }
@@ -242,11 +242,9 @@ class KuorumUserTagLib {
 
     def followButton={attrs ->
         KuorumUser user = attrs.user
-        String cssSize = attrs.cssSize?:'btn-xs'
-        Boolean showNoLoggedButton = attrs.showNoLoggedButton?:Boolean.FALSE
+        String cssSize = attrs.cssSize?:''
         def linkAjaxFollow = g.createLink(mapping:'ajaxFollow', params: [id:user.id])
         def linkAjaxUnFollow = g.createLink(mapping:'ajaxUnFollow', params: [id:user.id])
-        def linkNoLoggedFollow = g.createLink(mapping:'secUserShow', params: user.encodeAsLinkProperties())
         def prefixMessages = attrs.prefixMessages?:"kuorumUser.follow"
         def text = "${g.message(code:"${prefixMessages}.follow", args:[user.name], codec:"raw")} "
         def cssClass = "enabled"
@@ -261,14 +259,12 @@ class KuorumUserTagLib {
             cssClass += " noLogged"
         }
 
-        if (springSecurityService.isLoggedIn() && springSecurityService.principal.id != user.id ||
-                !springSecurityService.isLoggedIn() && showNoLoggedButton){
+        if (springSecurityService.isLoggedIn() && springSecurityService.principal.id != user.id || !springSecurityService.isLoggedIn()){
             out << """
             <button
                     type="button"
                     class="btn btn-blue ${cssSize} allow ${cssClass} ${cssExtra}"
                     id="follow"
-                    data-noLoggedUrl="${linkNoLoggedFollow}"
                     data-ajaxFollowUrl="${linkAjaxFollow}"
                     data-ajaxUnFollowUrl="${linkAjaxUnFollow}"
                     data-message-follow_hover='${g.message(code:"${prefixMessages}.follow_hover", args:[user.name], codec:"raw")}'
@@ -293,6 +289,7 @@ class KuorumUserTagLib {
     def deleteRecommendedUserButton={attrs ->
 
         KuorumUser user = attrs.user
+        //TODO: Este código lo ha copiado y pegado Salenda. Ahora tengo que mirar para que sirve el showNoLoggedButton, que no se usa en ningun lado
         Boolean showNoLoggedButton = attrs.showNoLoggedButton?:Boolean.FALSE
         def linkAjaxDeleteRecommendedUser = g.createLink(mapping:'ajaxDeleteRecommendedUser', params: [deletedUserId:user.id])
         def linkNoLoggedFollow = g.createLink(mapping:'secUserShow', params: user.encodeAsLinkProperties())

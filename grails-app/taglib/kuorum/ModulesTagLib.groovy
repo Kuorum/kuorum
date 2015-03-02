@@ -6,6 +6,7 @@ import kuorum.post.Post
 import kuorum.project.ProjectVote
 import kuorum.users.KuorumUser
 import kuorum.web.commands.profile.BasicPersonalDataCommand
+import org.bson.types.ObjectId
 
 class ModulesTagLib {
     static defaultEncodeAs = 'raw'
@@ -13,6 +14,7 @@ class ModulesTagLib {
     def projectService
     def springSecurityService
     def postService
+    def kuorumUserService
 
     private static final Long NUM_RECOMMENDED_POST=3
 
@@ -67,6 +69,28 @@ class ModulesTagLib {
             String title = attrs.title?:message(code:"modules.lastCreatedPost.title")
             out << render(template: '/modules/recommendedPosts', model:[recommendedPost:lastCreatedPost, title:title,specialCssClass:specialCssClass])
         }
+    }
+
+    def ralatedUsersWithUser={attrs ->
+        KuorumUser user = attrs.user
+        List<KuorumUser> relatedUsers = []
+        int index = user.following.size()-1;
+        while (index  > 0 && user.following.size() - 4 < index){
+            relatedUsers.add(KuorumUser.get(user.following.get(index)))
+            index --
+        }
+
+        List<KuorumUser> recommendedUsers = user.following[user.following.size()]
+        if (relatedUsers){
+            out << render(template: '/modules/users/relatedUsers', model: [relatedUsers:relatedUsers])
+        }
+    }
+
+    def recommendedUsersList={attrs ->
+        Integer numUsers = attrs.numUsers
+        KuorumUser user = attrs.user
+        List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user, new Pagination(max:numUsers))
+        out << render(template: '/modules/users/recommendedUsersAsList', model: [users:recommendedUsers])
     }
 
     def delayedModule={attrs ->

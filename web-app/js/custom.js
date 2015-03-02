@@ -481,8 +481,7 @@ $(document).ready(function() {
     function clickedButtonFollow(button){
         var buttonFollow= $(button)
         if (buttonFollow.hasClass('noLogged')){
-            var url = buttonFollow.attr("data-noLoggedUrl");
-            location.href =url
+            $('#registro').modal('show');
         }
         else if ( buttonFollow.hasClass('disabled') ){
             var url = buttonFollow.attr("data-ajaxunfollowurl")

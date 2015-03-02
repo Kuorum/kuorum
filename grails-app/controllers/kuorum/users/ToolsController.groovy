@@ -68,7 +68,7 @@ class ToolsController {
     def showUserPosts(SearchUserPosts searchUserPosts) {
         KuorumUser user = params.user
         searchUserPosts.user =  user
-        List<Post> posts = postService.findUserPosts(searchUserPosts)
+        List<Post> posts = postService.userPosts(searchUserPosts)
         if (request.xhr){
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${posts.size()<searchUserPosts.max}")
             render template: "/tools/userPostsList", model:[posts:posts]

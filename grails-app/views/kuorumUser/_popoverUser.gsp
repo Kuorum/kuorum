@@ -13,7 +13,7 @@
                 <small><userUtil:roleName user="${user}"/></small>
             </span>
         </div><!-- /user -->
-        <userUtil:followButton user="${user}"/>
+        <userUtil:followButton user="${user}" cssSize="btn-xs"/>
         <userUtil:ifIsFollower user="${user}">
             <div class="pull-right">
                 <span class="fa fa-check-circle-o"></span>
