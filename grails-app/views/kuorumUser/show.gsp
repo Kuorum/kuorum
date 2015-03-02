@@ -48,7 +48,12 @@
     </div>
 
     <g:render template="userSocial" model="[user:user, provinceName:provinceName]"/>
-    <g:render template="/kuorumUser/userClucks" model="[user:user, clucks: clucks, numClucks:numClucks, userPosts:userPost, numUserPost:numUserPost, userVictoryPosts:userVictoryPost, numUserVictoryPosts:numUserVictoryPosts]"/>
+    <g:if test="${UserType.POLITICIAN == user.userType}">
+        <g:render template="/kuorumUser/politicianClucks" model="[user:user, userProjects: userProjects, numUserProjects:numUserProjects, defendedPosts:defendedPosts, numDefendedPosts:numDefendedPosts, userVictoryPosts:userVictoryPost, numUserVictoryPosts:numUserVictoryPost]"/>
+    </g:if>
+    <g:else>
+        <g:render template="/kuorumUser/userClucks" model="[user:user, clucks: clucks, numClucks:numClucks, userPosts:userPosts, numUserPost:numUserPosts, userVictoryPosts:userVictoryPosts, numUserVictoryPosts:numUserVictoryPosts]"/>
+    </g:else>
 </content>
 
 <content tag="cColumn">
