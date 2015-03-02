@@ -68,7 +68,28 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
+// isotope - plugin para apilar divs de diferente altura
+    if ( $('.list-team').length > 0 ) {
 
+        var $container = $('.list-team');
+        // init
+        $container.isotope({
+            // options
+            itemSelector: '.list-team > li'
+        });
+
+    }
+
+    if ( $('.list-updates').length > 0 ) {
+
+        var $container = $('.list-updates');
+        // init
+        $container.isotope({
+            // options
+            itemSelector: '.list-updates > li'
+        });
+
+    }
     // mostrar/ocultar pass en formulario de Entrar
     $('#show-pass-header').on('change', function () {
       $('#pass-header').hideShowPassword($(this).prop('checked'));

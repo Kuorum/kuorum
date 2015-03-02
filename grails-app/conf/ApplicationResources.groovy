@@ -27,6 +27,7 @@ modules = {
         resource url:'js/bootstrap-datepicker.js'
         resource url:'js/bootstrap-datepicker.es.js'
         resource url:'js/hideShowPassword.min.js'
+        resource url:'js/isotope.pkgd.min.js'
         resource url:'js/custom.js'
     }
 
