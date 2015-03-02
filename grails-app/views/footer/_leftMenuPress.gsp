@@ -10,6 +10,6 @@
         <a href="#" target="_blank"><g:message code="layout.footer.logo"/></a>
     </li>
     <li>
-        <a href="#" target="_blank"><g:message code="layout.footer.releases"/></a>
+        <a href="mailto:comunicacion@kuorum.org?subject=Quiero recibir notas de prensa" target="_blank"><g:message code="layout.footer.releases"/></a>
     </li>
 </ul>
