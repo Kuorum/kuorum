@@ -20,6 +20,5 @@
             user="${user}"
             prefixMessages="kuorumUser.follow.inactivePolitician.columnC"
             cssSize="btn-lg"
-            showNoLoggedButton="${java.lang.Boolean.TRUE}"
     />
 </section>
