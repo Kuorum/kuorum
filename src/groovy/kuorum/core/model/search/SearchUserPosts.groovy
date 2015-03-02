@@ -14,6 +14,13 @@ class SearchUserPosts extends Pagination{
      * If true => Only published
      * If false => Only drafts
      */
-    Boolean publishedPosts
+    Boolean publishedPosts = null
+
+    /**
+     * If null => All
+     * If true => Only victories
+     * If false => Only non victories
+     */
+    Boolean victory = null
 
 }

@@ -356,16 +356,34 @@ class PostService {
         user.refresh()
     }
 
-    List<Post> findUserPosts(SearchUserPosts searchUserPosts){
+    List<Post> userPosts(SearchUserPosts searchUserPosts){
         def criteria = Post.createCriteria()
         def result = criteria.list(max:searchUserPosts.max, offset:searchUserPosts.offset) {
             eq('owner', searchUserPosts.user)
-            if (searchUserPosts.publishedPosts==Boolean.TRUE) eq('published', true)
-            if (searchUserPosts.publishedPosts==Boolean.FALSE) eq('published', false)
+            if (searchUserPosts.publishedPosts!=null) eq('published', searchUserPosts.publishedPosts)
+            if (searchUserPosts.victory!=null) eq('victory', searchUserPosts.victory)
             order("dateCreated","desc")
         }
         result
     }
+
+    Long countUserPost(SearchUserPosts searchUserPosts){
+        def criteria = Post.createCriteria()
+        def result = criteria.count() {
+            eq('owner', searchUserPosts.user)
+            if (searchUserPosts.publishedPosts!=null) eq('published', searchUserPosts.publishedPosts)
+            if (searchUserPosts.victory!=null) eq('victory', searchUserPosts.victory)
+        }
+        result
+    }
+
+    Long countUserVictoryPosts(KuorumUser user){
+        Post.countByOwnerAndPublishedAndVictory(user, true, true)
+    }
+    List<Post> userVictoryPosts(KuorumUser user, Pagination pagination = new Pagination()){
+        Post.findAllByOwnerAndPublishedAndVictory(user,Boolean.TRUE,true,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
+    }
+
 
     List<Post> favoritesPosts(KuorumUser user){
         if (user?.favorites){
@@ -374,10 +392,6 @@ class PostService {
             []
         }
 
-    }
-
-    Integer numUserPosts(KuorumUser user){
-        Post.countByOwnerAndPublished(user, true)
     }
 
     Integer numUnpublishedUserPosts(KuorumUser user){

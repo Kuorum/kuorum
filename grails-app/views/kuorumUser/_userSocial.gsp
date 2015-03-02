@@ -1,4 +1,4 @@
-<ul class="socialContact">
+<ul class="box-ppal socialContact">
     <g:if test="${provinceName}">
         <li><span class="fa fa-map-marker fa-lg"></span> ${provinceName}</li>
     </g:if>

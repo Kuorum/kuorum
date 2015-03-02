@@ -6,8 +6,10 @@ import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchPolitician
+import kuorum.core.model.search.SearchUserPosts
 import kuorum.core.model.solr.SolrPoliticiansGrouped
 import kuorum.post.Cluck
+import kuorum.post.Post
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 
@@ -20,6 +22,7 @@ class KuorumUserController {
     def kuorumUserStatsService
     def cluckService
     def searchSolrService
+    def postService
 
 //    def beforeInterceptor = [action: this.&checkUser, except: 'login']
     def beforeInterceptor = [action: this.&checkUser, except: ['index', 'politicians']]
@@ -81,10 +84,29 @@ class KuorumUserController {
             return
         }
         Pagination pagination = new Pagination()
-        List<Cluck> clucks = cluckService.userClucks(user, pagination)
+        List<Cluck> clucks = cluckService.userClucks(user)
+        Long numClucks = cluckService.countUserClucks(user)
+        SearchUserPosts searchUserPosts = new SearchUserPosts(user:user, publishedPosts: true);
+        List<Post> userPost = postService.userPosts(searchUserPosts)
+        Long numUserPost = postService.countUserPost(searchUserPosts)
+        SearchUserPosts searchVictoryUserPosts = new SearchUserPosts(user:user, publishedPosts: true,  victory: true);
+        List<Post> userVictoryPost = postService.userPosts(searchVictoryUserPosts)
+        Long numUserVictoryPost = postService.countUserPost(searchVictoryUserPosts)
         List<UserParticipating> activeProjects = kuorumUserService.listUserActivityPerProject(user)
         String provinceName = user.personalData.province?.name
-        render (view:"show", model:[user:user, clucks:clucks, activeProjects:activeProjects, provinceName:provinceName, seeMore: clucks.size()==pagination.max])
+        render (
+                view:"show",
+                model:[
+                        user:user,
+                        activeProjects:activeProjects,
+                        provinceName:provinceName,
+                        clucks:clucks,
+                        numClucks:numClucks,
+                        userPost:userPost,
+                        numUserPost:numUserPost,
+                        userVictoryPost:userVictoryPost,
+                        numUserVictoryPost:numUserVictoryPost
+                ])
     }
 
     def showOrganization(String id){
@@ -128,6 +150,33 @@ class KuorumUserController {
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${clucks.size()<pagination.max}")
         render template: "/cluck/liClucks", model:[clucks:clucks]
     }
+    def userPosts(SearchUserPosts searchUserPosts){
+        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        if (!user){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        searchUserPosts.user = user
+        searchUserPosts.publishedPosts =  true
+        List<Post> userPost = postService.userPosts(searchUserPosts)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${userPost.size()<searchUserPosts.max}")
+        render template: "/cluck/liPosts", model:[posts:userPost]
+    }
+
+    def userVictories(SearchUserPosts searchUserPosts){
+        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        if (!user){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        searchUserPosts.user = user
+        searchUserPosts.publishedPosts =  true
+        searchUserPosts.victory = true
+        List<Post> userPost = postService.userPosts(searchUserPosts)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${userPost.size()<searchUserPosts.max}")
+        render template: "/cluck/liPosts", model:[posts:userPost]
+    }
+
 
     def userFollowers(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
