@@ -58,47 +58,48 @@
 
     <g:render template="userKarmaProfile" model="[user:user]"/>
 
-    <section class="boxes follow">
-        <h1>
-            <span class="fa fa-user"></span>
-            <small><span class="fa fa-forward"></span></small>
-            <g:message code="kuorumUser.show.module.following.title" args="[user.following?user.following.size():0]"/>
-        </h1>
-        <div class="kakareo follow">
-            <userUtil:listFollowing user="${user}"/>
-        </div>
-    </section>
+    <modulesUtil:ralatedUsersWithUser user="${user}"/>
+    %{--<section class="boxes follow">--}%
+        %{--<h1>--}%
+            %{--<span class="fa fa-user"></span>--}%
+            %{--<small><span class="fa fa-forward"></span></small>--}%
+            %{--<g:message code="kuorumUser.show.module.following.title" args="[user.following?user.following.size():0]"/>--}%
+        %{--</h1>--}%
+        %{--<div class="kakareo follow">--}%
+            %{--<userUtil:listFollowing user="${user}"/>--}%
+        %{--</div>--}%
+    %{--</section>--}%
 
-    <section class="boxes follow">
-        <h1>
-            <span class="fa fa-user"></span>
-            <small><span class="fa fa-backward"></span></small>
-            <g:message code="kuorumUser.show.module.followers.title" args="[user.followers?user.followers.size():0]"/>
-        </h1>
-        <div class="kakareo follow">
-            <userUtil:listFollowers user="${user}"/>
-        </div>
-    </section>
+    %{--<section class="boxes follow">--}%
+        %{--<h1>--}%
+            %{--<span class="fa fa-user"></span>--}%
+            %{--<small><span class="fa fa-backward"></span></small>--}%
+            %{--<g:message code="kuorumUser.show.module.followers.title" args="[user.followers?user.followers.size():0]"/>--}%
+        %{--</h1>--}%
+        %{--<div class="kakareo follow">--}%
+            %{--<userUtil:listFollowers user="${user}"/>--}%
+        %{--</div>--}%
+    %{--</section>--}%
 
-    <g:if test="${activeProjects}">
-        <section class="boxes projects">
-            <h1><span class="fa fa-briefcase"></span>
-                <g:message code="kuorumUser.show.module.activeProjects.title"/> </h1>
-            <ul>
-                <g:each in="${activeProjects}" var="activity">
-                    <li>
-                        <g:link mapping="projectShow" params="${activity.project.encodeAsLinkProperties()}">
-                            ${activity.project.hashtag}
-                        </g:link>
-                        <span class="counter">${activity.numTimes}</span>
-                    </li>
-                </g:each>
-            </ul>
+    %{--<g:if test="${activeProjects}">--}%
+        %{--<section class="boxes projects">--}%
+            %{--<h1><span class="fa fa-briefcase"></span>--}%
+                %{--<g:message code="kuorumUser.show.module.activeProjects.title"/> </h1>--}%
+            %{--<ul>--}%
+                %{--<g:each in="${activeProjects}" var="activity">--}%
+                    %{--<li>--}%
+                        %{--<g:link mapping="projectShow" params="${activity.project.encodeAsLinkProperties()}">--}%
+                            %{--${activity.project.hashtag}--}%
+                        %{--</g:link>--}%
+                        %{--<span class="counter">${activity.numTimes}</span>--}%
+                    %{--</li>--}%
+                %{--</g:each>--}%
+            %{--</ul>--}%
             %{--<div class="text-center" id="load-more">--}%
                 %{--<a href="#">--}%
                     %{--<g:message code="kuorumUser.show.module.activeProjects.seeMore"/>--}%
                 %{--</a>--}%
             %{--</div>--}%
-        </section>
-    </g:if>
+        %{--</section>--}%
+    %{--</g:if>--}%
 </content>
