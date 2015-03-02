@@ -10,88 +10,45 @@
 </content>
 
 <content tag="mainContent">
-    <article role="article" itemtype="http://schema.org/Article" itemscope>
-        <h1><g:message code="layout.footer.userGuide"/></h1>
-        <h2><g:message code="footer.menu.footerUserGuide.subtitle1"/></h2>
-        <div class="columns2">
-            <p>
-                <g:message code="footer.menu.footerUserGuide.description11"/>
-            </p>
-            <blockquote>
-                <span class="fa fa-quote-right fa-2x"></span>
-                <p><g:message code="footer.menu.footerUserGuide.description12"/></p>
-            </blockquote>
-            <p>
-                <g:message code="footer.menu.footerUserGuide.description13"/>
-            </p>
-        </div>
-
-        <h2 class="border"><g:message code="footer.menu.footerUserGuide.subtitle2"/></h2>
-        <div class="columns2">
-            <p>
-                <g:set var="linkHistories" value="${createLink(mapping:'footerHistories')}"/>
-                <g:set var="linkQuestions" value="${createLink(mapping:'footerQuestions')}"/>
-                <g:set var="linkPurposes" value="${createLink(mapping:'footerPurposes')}"/>
-                <g:message code="footer.menu.footerUserGuide.description21" args="[linkHistories, linkQuestions, linkPurposes]" encodeAs="raw"/>
-            </p>
-        </div>
-
-        <h2 class="border"><g:message code="footer.menu.footerUserGuide.subtitle3"/></h2>
-        <div class="columns1">
-            <p>
-                <g:message code="footer.menu.footerUserGuide.description31"/>
-            </p>
-            <blockquote>
-                <span class="fa fa-quote-right fa-2x"></span>
-                <p><g:message code="footer.menu.footerUserGuide.description32"/></p>
-            </blockquote>
-        </div>
-
-        <h2 class="border"><g:message code="footer.menu.footerUserGuide.subtitle4"/></h2>
-        <div class="columns1">
-            <p>
-                <g:message code="footer.menu.footerUserGuide.description41"/>
-            </p>
-        </div>
-
-        <img src="${resource(dir: 'images', file: 'image-info-estudiantes.jpg')}" alt="foto-estudiante-megafono" itemprop="image">
-
-        <h2 class="border"><g:message code="footer.menu.footerUserGuide.subtitle5"/></h2>
-        <div class="columns2">
-            <p>
-                <g:message code="footer.menu.footerUserGuide.description51"/>
-            </p>
-            <p>
-                <g:set var="linkTermsUse" value="${createLink(mapping:'footerTermsUse')}"/>
-                <g:message code="footer.menu.footerUserGuide.description52" args="[linkTermsUse]" encodeAs="raw"/>
-            </p>
-        </div>
-
-        <h2 class="border"><g:message code="footer.menu.footerUserGuide.subtitle6"/></h2>
-        <div class="columns2">
-            <p>
-                <g:message code="footer.menu.footerUserGuide.description61"/>
-            </p>
-            <blockquote>
-                <span class="fa fa-quote-right fa-2x"></span>
-                <p><g:message code="footer.menu.footerUserGuide.description62"/></p>
-            </blockquote>
-            <p>
-                <g:message code="footer.menu.footerUserGuide.description63"/>
-            </p>
-        </div>
-
-        <h2 class="border"><g:message code="footer.menu.footerUserGuide.subtitle7"/></h2>
-        <div class="columns2">
-            <p>
-                <g:message code="footer.menu.footerUserGuide.description71"/>
-            </p>
-            <p>
-                <g:set var="linkKuorumStore" value="${createLink(mapping:'footerKuorumStore')}"/>
-                <g:message code="footer.menu.footerUserGuide.description72" args="[linkKuorumStore]" encodeAs="raw"/>
-            </p>
-        </div>
-
-        <img src="${resource(dir: 'images', file: 'image-info-megafono.jpg')}" alt="foto-manifestante" itemprop="image">
-    </article>
+    <ul class="list-team">
+        <li itemscope itemtype="http://schema.org/Person">
+            <div class="box-ppal">
+                <img src="${resource(dir: 'images', file: 'foto-ceo.jpg')}" alt="Foto" itemprop="image">
+                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member1"/></h1>
+                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position1"/></h2>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description1"/></p>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description1b"/></p>
+                <ul class="social">
+                    <li><a href="https://twitter.com/matnso" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
+                    <li><a href="https://www.linkedin.com/in/mnsoroca" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                </ul>
+            </div>
+        </li>
+        <li itemscope itemtype="http://schema.org/Person">
+            <div class="box-ppal">
+                <img src="${resource(dir: 'images', file: 'foto-cfo.jpg')}" alt="Foto" itemprop="image">
+                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member3"/></h1>
+                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position3"/></h2>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description3"/></p>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description3b"/></p>
+                <ul class="social">
+                    <li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
+                    <li><a href="#" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                </ul>
+            </div>
+        </li>
+        <li itemscope itemtype="http://schema.org/Person">
+            <div class="box-ppal">
+                <img src="${resource(dir: 'images', file: 'foto-cto3.jpg')}" alt="Foto" itemprop="image">
+                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member2"/></h1>
+                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position2"/></h2>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description2"/></p>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description2b"/></p>
+                <ul class="social">
+                    <li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
+                    <li><a href="#" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
 </content>
