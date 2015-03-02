@@ -10,9 +10,9 @@
 </content>
 
 <content tag="mainContent">
-    <article role="article" itemtype="http://schema.org/Article" itemscope>
+    <div class="box-ppal">
         <h1><g:message code="layout.footer.termsUse"/></h1>
-        <h2><g:message code="footer.menu.footerTermsUse.subtitle01"/></h2>
+        <h4><g:message code="footer.menu.footerTermsUse.subtitle01"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description011"/>
@@ -22,7 +22,7 @@
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle02"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle02"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description021"/>
@@ -32,28 +32,28 @@
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle03"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle03"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description031"/>
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle04"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle04"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description041"/>
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle05"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle05"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description051"/>
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle06"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle06"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description0601"/>
@@ -115,7 +115,7 @@
             </li>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle07"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle07"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description071"/>
@@ -125,35 +125,35 @@
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle08"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle08"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description081"/>
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle09"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle09"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description091"/>
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle10"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle10"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description101"/>
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle11"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle11"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description111"/>
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle12"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle12"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description121"/>
@@ -169,40 +169,39 @@
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle13"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle13"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description131"/>
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle14"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle14"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description141"/>
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle15"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle15"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description151"/>
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle16"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle16"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description161"/>
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerTermsUse.subtitle17"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle17"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerTermsUse.description171"/>
             </p>
         </div>
-
-    </article>
+    </div>
 </content>

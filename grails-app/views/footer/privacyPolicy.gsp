@@ -1,8 +1,8 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.footer.privacyPolicy"/> </title>
-    <meta name="layout" content="leftMenuLayout">
-    <parameter name="extraCssContainer" value="info" />
+<meta name="layout" content="leftMenuLayout">
+<parameter name="extraCssContainer" value="info" />
 </head>
 
 <content tag="leftMenu">
@@ -10,9 +10,9 @@
 </content>
 
 <content tag="mainContent">
-    <article role="article" itemtype="http://schema.org/Article" itemscope>
+    <div class="box-ppal">
         <h1><g:message code="layout.footer.privacyPolicy"/></h1>
-        <h2><g:message code="footer.menu.footerPrivacyPolicy.subtitle01"/></h2>
+        <h4><g:message code="footer.menu.footerPrivacyPolicy.subtitle01"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerPrivacyPolicy.description0101"/>
@@ -49,7 +49,7 @@
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerPrivacyPolicy.subtitle02"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerPrivacyPolicy.subtitle02"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerPrivacyPolicy.description0201"/>
@@ -151,7 +151,7 @@
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerPrivacyPolicy.subtitle03"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerPrivacyPolicy.subtitle03"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerPrivacyPolicy.description0301"/>
@@ -257,7 +257,7 @@
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerPrivacyPolicy.subtitle04"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerPrivacyPolicy.subtitle04"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerPrivacyPolicy.description0401"/>
@@ -311,7 +311,7 @@
             </p>
         </div>
 
-        <h2  class="border"><g:message code="footer.menu.footerPrivacyPolicy.subtitle05"/></h2>
+        <h4  class="border"><g:message code="footer.menu.footerPrivacyPolicy.subtitle05"/></h4>
         <div class="columns1">
             <p>
                 <g:message code="footer.menu.footerPrivacyPolicy.description051"/>
@@ -320,5 +320,5 @@
                 <g:message code="footer.menu.footerPrivacyPolicy.description052"/>
             </p>
         </div>
-    </article>
+    </div>
 </content>
