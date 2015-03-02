@@ -6,31 +6,18 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="leftMenu" model="[activeMapping:'footerPoliticians']"/>
+    <g:render template="leftMenuGuide" model="[activeMapping:'footerPoliticians']"/>
 </content>
 
 <content tag="mainContent">
-    <article role="article" itemtype="http://schema.org/Article" itemscope>
+    <div class="box-ppal">
         <h1><g:message code="layout.footer.politicians"/></h1>
-        <h2><g:message code="footer.menu.footerPoliticians.subtitle"/></h2>
-        <div class="columns2">
-            <p>
-                <g:message code="footer.menu.footerPoliticians.description1"/>
-            </p>
-            <p>
-                <g:message code="footer.menu.footerPoliticians.description2"/>
-            </p>
-            <p>
-                <g:message code="footer.menu.footerPoliticians.description3"/>
-                <a href="mailto:info@kuorum.org">
-                    <g:message code="footer.menu.footerPoliticians.description4"/>
-                </a>
-            </p>
-            %{--<blockquote>--}%
-            %{--<span class="fa fa-quote-right fa-2x"></span>--}%
-            %{--<p><g:message code="footer.menu.footerCitizens.description3"/></p>--}%
-            %{--</blockquote>--}%
-        </div>
-        <img src="${resource(dir: 'images', file: 'image-info-mandela.jpg')}" alt="foto-madiba" itemprop="image">
-    </article>
+        <p>
+            <g:message code="footer.menu.footerPoliticians.description1"/>
+        </p>
+        <p>
+            <g:message code="footer.menu.footerPoliticians.description2"/>
+        </p>
+        %{--<img src="${resource(dir: 'images', file: 'info-quekuorum.jpg')}" alt="foto-debate" itemprop="image">--}%
+    </div>
 </content>

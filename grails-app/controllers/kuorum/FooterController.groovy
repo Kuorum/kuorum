@@ -5,16 +5,13 @@ class FooterController {
     def whatIsKuorum() {}
     def vision() {}
     def team() {}
-    def histories() {}
-    def questions() {}
-    def purposes() {}
+    def userGuide() {}
     def citizens() {}
     def organizations() {}
     def politicians() {}
     def developers() {}
-    def kuorumStore() {}
+    def information() {}
     def privacyPolicy(){}
     def termsUse(){}
-    def termsAds(){}
 
 }

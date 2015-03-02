@@ -32,8 +32,8 @@
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description3"/></p>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description3b"/></p>
                 <ul class="social">
-                    <li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
-                    <li><a href="#" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://twitter.com/chemafinca" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
+                    <li><a href="es.linkedin.com/in/josemariagarciadiaz/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
@@ -45,8 +45,8 @@
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description2"/></p>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description2b"/></p>
                 <ul class="social">
-                    <li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
-                    <li><a href="#" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://twitter.com/iduetxe" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
+                    <li><a href="es.linkedin.com/in/inakidominguez/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
