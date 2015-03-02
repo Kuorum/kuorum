@@ -61,15 +61,18 @@ class LoginController {
             return
         }
 
-        String view = 'auth'
-        String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
         KuorumRegisterCommand registerCommand = new KuorumRegisterCommand()
         render template:"/layouts/noLoggedHead",
                 model: [
-                        postUrl: postUrl,
                         registerCommand: registerCommand,
                         rememberMeParameter: config.rememberMe.parameter
                 ]
+    }
+
+    def loginForm = {
+        def config = SpringSecurityUtils.securityConfig
+        String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
+        render template: "/layouts/loginForm", model:[postUrl:postUrl]
     }
 
     def homeLogin = {

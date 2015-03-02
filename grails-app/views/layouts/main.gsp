@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="springSecurity.KuorumRegisterCommand; grails.plugin.springsecurity.ui.RegisterCommand" contentType="text/html;charset=UTF-8" %>
 <html class="no-js" lang="es">
 <head>
     <meta charset="UTF8-8">
@@ -184,6 +184,24 @@
     </div>
 </aside>
 
+<!-- Modal registro/login -->
+<div class="modal fade" id="registro" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                <h4 class="sr-only" id="registroLoginUsuario">Registro / Login usuario</h4>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario de Entrar -->
+                <g:render template="/layouts/loginForm" model="[postUrl:'#']"/>
+                <!-- Formulario de Registro -->
+                <g:include controller="login" action="loginForm"/>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fin modal -->
 %{--<script type="text/javascript" src="http://jira.kuorum.org/s/d41d8cd98f00b204e9800998ecf8427e/es_ES-ce14fm-1988229788/6264/13/1.4.7/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=132ad9a9"></script>--}%
 
 </body>
