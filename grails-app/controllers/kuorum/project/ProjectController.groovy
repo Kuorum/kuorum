@@ -343,7 +343,10 @@ class ProjectController {
         user.personalData.gender=basicPersonalDataCommand.gender
         user.personalData.province=basicPersonalDataCommand.province
         kuorumUserService.updateUser(user)
-        if (basicPersonalDataCommand.voteType){
+        if (SpringSecurityUtils.ifAnyGranted("ROLE_INCOMPLETE_USER")){
+            //El usuario no ha confirmado el email
+            redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
+        }else if (basicPersonalDataCommand.voteType){
             ProjectVote projectVote = projectService.voteProject(project, user, basicPersonalDataCommand.voteType)
             flash.message = g.message(code: "project.vote.success")
             redirect mapping:"projectShow", params:project.encodeAsLinkProperties()

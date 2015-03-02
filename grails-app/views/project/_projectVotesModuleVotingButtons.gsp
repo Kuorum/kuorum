@@ -7,12 +7,15 @@
     <g:if test="${project.deadline > new Date()}">
         %{--OPEN PROJECT--}%
         <sec:ifLoggedIn>
-            <projectUtil:ifUserAvailableForVoting project="${project}">
+            <projectUtil:ifUserAvailableForNormalVoting project="${project}">
                 <g:render template="projectVotesModuleVotingButtons_normalUser" model="[project:project, cssIconSize:cssIconSize, userVote:userVote, header:header, iconSmall:iconSmall]"/>
-            </projectUtil:ifUserAvailableForVoting>
-            <projectUtil:elseUserAvailableForVoting>
+            </projectUtil:ifUserAvailableForNormalVoting>
+            <projectUtil:ifUserAvailableForVotingWithoutPersonalData project="${project}">
                 <g:render template="projectVotesModuleVotingButtons_PartialLoggedUser" model="[project:project, cssIconSize:cssIconSize, basicPersonalDataCommand:basicPersonalDataCommand, header:header, iconSmall:iconSmall]"/>
-            </projectUtil:elseUserAvailableForVoting>
+            </projectUtil:ifUserAvailableForVotingWithoutPersonalData>
+            <projectUtil:ifUserAvailableForVotingWithoutConfirmedMail project="${project}">
+                <g:render template="projectVotesModuleVotingButtons_noMailConfirmed" model="[project:project, cssIconSize:cssIconSize, basicPersonalDataCommand:basicPersonalDataCommand, header:header, iconSmall:iconSmall]"/>
+            </projectUtil:ifUserAvailableForVotingWithoutConfirmedMail>
         </sec:ifLoggedIn>
         <sec:ifNotLoggedIn>
             <g:render template="/project/projectVotesModuleVotingButtons_noLogged" modle="[project:project, cssIconSize:cssIconSize, userVote:userVote, header:header, iconSmall:iconSmall]"/>

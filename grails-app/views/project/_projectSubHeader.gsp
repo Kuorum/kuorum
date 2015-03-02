@@ -9,10 +9,10 @@
 </div>
 
 <sec:ifLoggedIn>
-    <projectUtil:ifUserAvailableForVoting project="${project}">
+    <projectUtil:ifUserAvailableForNormalVoting project="${project}">
         <div class="col-xs-6 col-sm-4">
             <g:render template="/project/projectVotesModuleVotingButtons" model="[project:project, userVote:userVote, header:Boolean.TRUE]"/>
         </div>
-    </projectUtil:ifUserAvailableForVoting>
+    </projectUtil:ifUserAvailableForNormalVoting>
 </sec:ifLoggedIn>
 

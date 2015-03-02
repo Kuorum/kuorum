@@ -602,6 +602,12 @@ $(document).ready(function() {
         $('section[data-lawId='+lawId+'] .activity .abstencion').addClass('active');
 	});
 
+    $(".noMailConfirmedVoteDiv").on("click", function(e){
+        e.preventDefault()
+        //messageError has been defined on layout recovering data from flash.error
+        display.warn(i18n.showMailConfirm)
+    });
+
 
 	// Si hago click en cambio de opinión vuelven los botones
 	$('body').on("click", ".changeOpinion", function(e) {

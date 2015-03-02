@@ -87,13 +87,15 @@
 %{--<script src="${resource(dir: '/js', file: 'custom.js')}"></script>--}%
 <script>
     <g:if test="${flash.message}">
+    var messageDisplay = '${flash.message}'; // For resend this messages
         $(function(){
-            display.success('${flash.message}')
+            display.success(messageDisplay)
         });
     </g:if>
     <g:if test="${flash.error}">
+    var messageError = '${flash.error}'; // For resend this messages
         $(function(){
-            display.warn('${flash.error}')
+            display.warn(messageError)
         });
     </g:if>
     <sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">

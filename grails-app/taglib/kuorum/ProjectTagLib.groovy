@@ -33,23 +33,32 @@ class ProjectTagLib {
         }
     }
 
-    private static final String NAME_VAR_IF_PROJECT_IS_VOTABLE_ELSE = "ifProjectIsVotableElse"
-    def ifUserAvailableForVoting= {attrs, body ->
-        pageScope.setVariable(NAME_VAR_IF_PROJECT_IS_VOTABLE_ELSE, Boolean.FALSE)
+    def ifUserAvailableForNormalVoting = {attrs, body ->
         if (springSecurityService.isLoggedIn()){
             Project project = attrs.project
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            if (kuorumUserService.isUserRegisteredCompletely(user)){
+            if (kuorumUserService.isUserRegisteredCompletely(user) && kuorumUserService.isUserConfirmedMail(user)){
                 out << body()
-            }else{
-                pageScope.setVariable(NAME_VAR_IF_PROJECT_IS_VOTABLE_ELSE, Boolean.TRUE)
             }
         }
     }
 
-    def elseUserAvailableForVoting = {attrs, body ->
-        if (pageScope.getVariable(NAME_VAR_IF_PROJECT_IS_VOTABLE_ELSE)){
-            out << body()
+    def ifUserAvailableForVotingWithoutPersonalData = {attrs, body ->
+        if (springSecurityService.isLoggedIn()){
+            Project project = attrs.project
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (!kuorumUserService.isUserRegisteredCompletely(user)){
+                out << body()
+            }
+        }
+    }
+    def ifUserAvailableForVotingWithoutConfirmedMail = {attrs, body ->
+        if (springSecurityService.isLoggedIn()){
+            Project project = attrs.project
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (kuorumUserService.isUserRegisteredCompletely(user) && !kuorumUserService.isUserConfirmedMail(user)){
+                out << body()
+            }
         }
     }
 

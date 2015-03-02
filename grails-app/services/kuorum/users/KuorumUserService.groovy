@@ -3,6 +3,7 @@ package kuorum.users
 import com.mongodb.*
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
 import groovyx.gpars.GParsPool
@@ -673,5 +674,9 @@ class KuorumUserService {
 
     boolean isUserRegisteredCompletely(KuorumUser user){
         user.personalData.provinceCode != null
+    }
+
+    boolean isUserConfirmedMail(KuorumUser user){
+        !user.authorities.find{RoleUser role-> role.authority == "ROLE_INCOMPLETE_USER" }
     }
 }
