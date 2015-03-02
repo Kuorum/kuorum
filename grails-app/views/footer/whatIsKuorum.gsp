@@ -28,7 +28,7 @@
                 %{--<span class="fa fa-quote-right fa-2x"></span>--}%
                 %{--<p><g:message code="footer.menu.footerWhatIsKuorum.description4"/></p>--}%
             %{--</blockquote>--}%
-        <img src="${resource(dir: 'images', file: 'info-quekuorum.jpg')}" alt="foto-debate" itemprop="image">
+        <img src="${resource(dir: 'images', file: 'info4.png')}" alt="foto-debate" itemprop="image">
         </div>
 </content>
 

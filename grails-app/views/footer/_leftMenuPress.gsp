@@ -1,5 +1,5 @@
 <h1><g:message code="layout.footer.pressTitle"/></h1>
-<ul class="hidden-xs">
+<ul>
     <li class="${activeMapping=='footerInformation'?'active':''}">
         <g:link mapping="footerInformation"><g:message code="layout.footer.information"/></g:link>
     </li>

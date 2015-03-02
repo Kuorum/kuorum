@@ -18,6 +18,6 @@
         <p>
             <g:message code="footer.menu.footerOrganizations.description2"/>
         </p>
-        %{--<img src="${resource(dir: 'images', file: 'info-quekuorum.jpg')}" alt="foto-debate" itemprop="image">--}%
+        <img src="${resource(dir: 'images', file: 'info3.png')}" alt="foto-activistas" itemprop="image">
     </div>
 </content>

@@ -1,5 +1,5 @@
 <h1><g:message code="layout.footer.legal"/></h1>
-<ul class="hidden-xs">
+<ul>
     <li class="${activeMapping=='footerPrivacyPolicy'?'active':''}">
         <g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link>
     </li>
