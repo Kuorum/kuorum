@@ -166,8 +166,8 @@ class UrlMappings {
         name toolsActivateAward:"/ajax/configuracion-usuario/el-gallinero/activar"     (controller: "tools", action: "kuorumStoreActivateAward")
 
         name footerWhatIsKuorum:  "/kuorum"                     (controller:"footer", action: "whatIsKuorum" )
-        name footerUsingMyVote:   "/kuorum/para-que-sirve-mi-voto"(controller:"footer", action: "usingMyVote" )
-        name footerUserGuide:     "/kuorum/guia-del-usuario"    (controller:"footer", action: "userGuide" )
+        name footerVision:        "/kuorum/vision-y-valores"    (controller:"footer", action: "vision" )
+        name footerTeam:          "/kuorum/guia-del-usuario"    (controller:"footer", action: "team" )
         name footerHistories:     "/kuorum/historias"           (controller:"footer", action: "histories" )
         name footerPurposes:      "/kuorum/propuestas"          (controller:"footer", action: "purposes" )
         name footerQuestions:     "/kuorum/preguntas"           (controller:"footer", action: "questions" )

@@ -8,9 +8,9 @@
     <body>
         <g:render template="/layouts/head"/>
         <div class="row main">
-            <div class="container-fluid ${pageProperty(name:'page.extraCssContainer')}">
+            <div class="container-fluid">
                 <div class="row">
-                    <section id="main" role="main" class="config">
+                    <section id="main" role="main" class="config ${pageProperty(name:'page.extraCssContainer')}">
 
                         <header id="${pageProperty(name:'page.idLeftMenu')}" class="col-xs-12 col-sm-4 col-md-4">
                             <div class="box-ppal">
@@ -18,9 +18,9 @@
                             </div>
                         </header>
 
-                        <section id="${pageProperty(name:'page.idMainContent')}" class="col-xs-12 col-sm-8 col-md-8">
+                        <article id="${pageProperty(name:'page.idMainContent')}" class="col-xs-12 col-sm-8 col-md-8" role="article" itemtype="http://schema.org/Article" itemscope>
                             <g:pageProperty name="page.mainContent"/>
-                        </section>
+                        </article>
                     </section>
                 </div>
             </div>

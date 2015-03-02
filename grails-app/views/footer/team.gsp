@@ -6,7 +6,7 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="leftMenu" model="[activeMapping:'footerUserGuide']"/>
+    <g:render template="leftMenu" model="[activeMapping:'footerTeam']"/>
 </content>
 
 <content tag="mainContent">

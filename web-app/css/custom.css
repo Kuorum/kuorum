@@ -3628,7 +3628,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .box-ppal.condition h2 {font-size: 20px; font-size: 2rem;}
   .box-ppal.condition.politician > .row h1 {font-size: 29px; font-size: 2.9rem;}
 
-  .config > section > .box-ppal {padding: 22px 20px 0 20px; margin-bottom: 60px;}
+  .config > article .box-ppal {padding: 22px 20px 0 20px; margin-bottom: 60px;}
 
   .user-list-followers .user .actions {float: right; margin: -30px 0 0 0 !important;}
   .user-list-followers .user .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}

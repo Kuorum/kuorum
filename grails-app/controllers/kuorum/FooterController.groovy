@@ -3,8 +3,8 @@ package kuorum
 class FooterController {
 
     def whatIsKuorum() {}
-    def usingMyVote() {}
-    def userGuide() {}
+    def vision() {}
+    def team() {}
     def histories() {}
     def questions() {}
     def purposes() {}
