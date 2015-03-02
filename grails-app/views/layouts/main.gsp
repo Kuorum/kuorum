@@ -194,9 +194,9 @@
             </div>
             <div class="modal-body">
                 <!-- Formulario de Entrar -->
-                <g:render template="/layouts/loginForm" model="[postUrl:'#']"/>
-                <!-- Formulario de Registro -->
                 <g:include controller="login" action="loginForm"/>
+                <!-- Formulario de Registro -->
+                <g:render template="/layouts/registerForm" model="[registerCommand:new KuorumRegisterCommand(), formId:'sign-modal']"/>
             </div>
         </div>
     </div>
