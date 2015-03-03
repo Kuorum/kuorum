@@ -1,338 +1,27 @@
-
-var htmlLoading = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
-
-// inicializa los popover
-function preparePopover(){
-    $.fn.extend({
-        popoverClosable: function (options) {
-            var defaults = {
-                html: true,
-                placement: 'bottom',
-                content: function() {
-                    return $(this).next('.popover').html();
-                }
-            };
-            options = $.extend({}, defaults, options);
-            var $popover_togglers = this;
-            $popover_togglers.popover(options);
-            $popover_togglers.on('click', function (e) {
-                e.preventDefault();
-                $popover_togglers.not(this).popover('hide');
-            });
-            $('html').on('click', '[data-dismiss="popover"]', function (e) {
-                $popover_togglers.popover('hide');
-            });
-        }
-    });
-
-    $(function () {
-        $('[data-toggle="popover"]').popoverClosable();
-    });
-}
-preparePopover();
-// cierra los popover al hacer click fuera
-$('body').on('click', function (e) {
-    $('[data-toggle="popover"]').each(function () {
-        //the 'is' for buttons that trigger popups
-        //the 'has' for icons within a button that triggers a popup
-        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-            $(this).popover('hide');
-        }
-    });
-});
-
-
-// inicializa los tooltip
-$(document).tooltip({
-	selector: '[rel="tooltip"]'
-});
-
-
-// aparece la info en la franja superior bajo el header al hacer scroll
 $(document).ready(function() {
-    var headerTop = $('#header').offset().top;
-    var headerBottom = headerTop + 300; // Sub-menu should appear after this distance from top.
-    $(window).scroll(function () {
-        var scrollTop = $(window).scrollTop(); // Current vertical scroll position from the top
-        if (scrollTop > headerBottom) { // Check to see if we have scrolled more than headerBottom
-            if (($("#info-sup-scroll").is(":visible") === false)) {
-                $('#info-sup-scroll').fadeIn('fast');
-            }
-        } else {
-            if ($("#info-sup-scroll").is(":visible")) {
-                $('#info-sup-scroll').fadeOut('fast');
-            }
-        }
-    });
-});
 
-
-$(document).ready(function() {
-// isotope - plugin para apilar divs de diferente altura
-    if ( $('.list-team').length > 0 ) {
-
-        var $container = $('.list-team');
-        // init
-        $container.isotope({
-            // options
-            itemSelector: '.list-team > li'
-        });
-
+    // para los checkbox del formulario de registro
+    var texts= {
+        0: i18n.customRegister.step4.form.submit.description0,
+        1: i18n.customRegister.step4.form.submit.description1,
+        2: i18n.customRegister.step4.form.submit.description2,
+        ok:i18n.customRegister.step4.form.submit.descriptionOk
     }
 
-    if ( $('.list-updates').length > 0 ) {
-
-        var $container = $('.list-updates');
-        // init
-        $container.isotope({
-            // options
-            itemSelector: '.list-updates > li'
-        });
-
+    function changeDescriptionNumSelect(){
+        var numChecked = $("#sign4 input[type=checkbox]:checked").length
+        if (numChecked < 3){
+            $("#descNumSelect").html(texts[numChecked])
+            $("#sign4 input[type=submit]").addClass('disabled')
+        }else{
+            $("#descNumSelect").html(texts['ok'])
+            $("#sign4 input[type=submit]").removeClass('disabled')
+        }
     }
 
-    // controlando el video de Vimeo en la modal de la Home
+    cookiesHelper.displayCookiesPolitics();
 
-    $('.play a').click( function(e) {
-
-        var iframeHome = $('#vimeoplayer')[0];
-        var playerHome = $f(iframeHome);
-
-        $("#videoHome").on('hidden.bs.modal', function (e) {
-            playerHome.api('pause');
-        })
-        $("#videoHome").on('shown.bs.modal', function (e) {
-            playerHome.api('play');
-        })
-
-    });
-
-    // controlando el video de Vimeo en el Embudo1
-    $(function () {
-
-        $('.vimeo.uno .front').click( function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).next('iframe').css('display', 'block');
-            $(this).remove();
-
-            var iframe1 = $('#vimeoplayer1')[0];
-            var player1 = $f(iframe1);
-            player1.api('play');
-
-        });
-
-        $('.vimeo.dos .front').click( function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).next('iframe').css('display', 'block');
-            $(this).remove();
-
-            var iframe2 = $('#vimeoplayer2')[0];
-            var player2 = $f(iframe2);
-            player2.api('play');
-
-        });
-
-        $('.vimeo.tres .front').click( function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).next('iframe').css('display', 'block');
-            $(this).remove();
-
-            var iframe3 = $('#vimeoplayer3')[0];
-            var player3 = $f(iframe3);
-            player3.api('play');
-
-        });
-
-    });
-
-    // mostrar/ocultar pass en formulario de Entrar
-    $('#show-pass-header').on('change', function () {
-      $('#pass-header').hideShowPassword($(this).prop('checked'));
-    });
-    $('#show-pass-modal').on('change', function () {
-      $('#pass-modal').hideShowPassword($(this).prop('checked'));
-    });
-
-
-    // inicializa formato fechas
-    $("time.timeago").timeago();
-
-    // inicializa el scroll dentro del popover
-    $('.popover-trigger.more-users').on('shown.bs.popover', function () {
-
-        $(this).next('.popover').find($('.scroll')).slimScroll({
-            size: '10px',
-            height: '145px',
-            distance: '0',
-            railVisible: true,
-            alwaysVisible: true,
-            disableFadeOut: true
-        });
-
-    })
-
-
-
-    prepareArrowClucks();
-
-	// slider de las imágenes de fondo en la Home
-	$(".home .images").bgswitcher({
-		duration: 2000,
-	  	images: ['images/home1.jpg', 'images/home2.jpg', "images/home3.jpg"]
-	});
-
-
-	// hacer un bloque clicable y que tome que es su primer elemento la url del enlace a.hidden
-	$(function() {
-
-        $('body').on('click','.link-wrapper', function(e) {
-            //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
-            var target = $(e.target)
-            var popover = target.parents(".popover")
-            if (!popover.hasClass("popover")){
-                window.location = $(this).find('a.hidden').attr('href');
-            }
-        });
-
-	});
-
-    // popover-trigger dentro del kakareo no lanza el enlace del bloque clicable
-    $('.link-wrapper .popover-trigger').click(function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    });
-
-
-    // cambio de formulario Entrar/Registro
-    $('body').on('click','.change-home-register', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        $(this).closest('form').fadeOut('fast');
-        $(this).closest('form').next('form').fadeIn('slow');
-    });
-
-    $('body').on('click','.change-home-login', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        $(this).closest('form').fadeOut('fast');
-        $(this).closest('form').prev('form').fadeIn('slow');
-    });
-    // button dentro del popover del kakareo no lanzan el enlace del bloque clicable
-//    $('body').on('click', '.link-wrapper .popover button', function(e) {
-//        e.preventDefault();
-//        e.stopPropagation();
-//    });
-
-    //
-    $("#search-results .popover-box #follow").on('click', function() {
-        // e.preventDefault();
-        // e.stopPropagation();
-        /*If not stopPropagation -> .link-wrapper is fired -> el bloque anterior ya evita esto para los button dentro de popover*/
-        clickedButtonFollow($(this));
-    });
-
-	// scroll suave a hashtag
-    $(".smooth").click(function (event) {
-    	event.preventDefault();
-    	// calcular el destino
-    	var dest = 0;
-    	if ($(this.hash).offset().top > $(document).height() - $(window).height()) {
-    		dest = $(document).height() - $(window).height();
-    	} else {
-    		dest = $(this.hash).offset().top - 68;
-    	}
-    	// ir al destino
-    	$('html,body').animate({
-    		scrollTop: dest
-    	}, 600, 'swing');
-    });
-
-
-	// slider y su contador
-	$(function() {
-		$('.carousel').carousel('pause');
-		$('.carousel-inner .item').first().addClass('active');
-
-		var myCarousel = $(".carousel");
-		var indicators = $(".carousel-index");
-
-		var total = myCarousel.find(".carousel-inner").children(".item").length;
-		var actual = $('.carousel .active').index('.carousel .item') + 1;
-		$('.actual').html(actual);
-		$('.total').html(total);
-
-		$(".carousel").on('slid', function(e){
-			var actual = $(".active", e.target).index() + 1;
-			$('.actual').html(actual);
-		});
-	});
-
-
-	// touch swipe para el slider
-	$(".carousel-inner").swipe( {
-		//Generic swipe handler for all directions
-		swipeLeft:function(event, direction, distance, duration, fingerCount) {
-			$(this).parent().carousel('next');
-		},
-		swipeRight: function() {
-			$(this).parent().carousel('prev');
-		},
-		//Default is 75px, set to 0 for demo so any distance triggers swipe
-		threshold:0
-	});
-    setTimeout(prepareProgressBar, 500)
-    prepareProgressBar();
-
-	//tooltip visible sobre la progress bar
-	$('.progress-bar').tooltip({trigger: 'manual', placement: 'top'}).tooltip('show');
-
-
-    // cierre de la ventana del Karma
-    $('body').on('click', '#karma .close', function() {
-		karma.close()
- 	});
-
-
-	// al hacer clic en los badges vacía el contenido para que desaparezca
-	$(function() {
-        //Eventos del menu de cabecera
-        $('.nav .dropdown > a >.badge').closest('a').click(function(e) {
-            e.preventDefault()
-            var url = $(this).attr('href')
-            var element = $(this)
-            $.ajax(url).done(function(data){
-                element.find('.badge').delay(1000).fadeOut("slow").queue(function() {
-                    $(this).empty();
-                });
-                element.next('ul').find('li.new').delay(1000).queue(function() {
-                    $(this).removeClass('new', 1000);
-                });
-            });
-        });
-
-        //Eventos de los numeros del discover
-		$('.introDiscover .badge').closest('a').click(function(e) {
-            e.preventDefault()
-			$(this).find('.badge').delay(2000).fadeOut("slow").queue(function() {
-				$(this).empty();
-			});
-			$(this).next('ul').find('li.new').delay(2000).queue(function() {
-				$(this).removeClass('new');
-			});
-
-            var activeId = $('.introDiscover li.active .badge').closest('a').html() -1;
-            $('.introDiscover li.active .badge').removeClass("disabled");
-            $('.introDiscover li.active').removeClass("active");
-			var nextId = $(this).html() -1;
-            $(this).addClass("disabled");
-            $(this).parent("li").addClass("active");
-            $("#relevantLaw_"+activeId).fadeOut(1000);
-            $("#relevantLaw_"+nextId).fadeIn(3000);
-		});
-	});
+    $(".dynamicList").dynamiclist();
 
     $("#brand.disabled").on('click', function(e){e.preventDefault();})
     // links kakareo, impulsar
@@ -359,182 +48,31 @@ $(document).ready(function() {
         }
     });
 
-	// links kakareo, impulsar
-	$('body').on('click', '.action.drive', function(e) {
-		e.preventDefault();
-        e.stopPropagation();
-        if (!$(this).hasClass('disabled')){
-            var url = $(this).attr("href");
-            var postId = $(this).parents("article").first().attr("data-cluck-postId");
-            votePost(url, postId, false)
-
-        }
-	});
-
-    function votePost(url, postId, anonymous){
-        var html = $("article[data-cluck-postId='"+postId+"'] li.like-number").html()
-        var htmlDriveButton = $('#drive > a').html()
-        var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
-        $.ajax({
-            url:url,
-            data:{postId:postId, anonymous:anonymous},
-            beforeSend:function(xhr){
-                $("article[data-cluck-postId='"+postId+"'] li.like-number").html(loadingHtml)
-                $('#drive > a').html(loadingHtml)
-            }
-        }).done(function(data){
-            var numLikes = data.numLikes
-            var limitTo = data.limitTo
-            $("article[data-cluck-postId='"+postId+"'] li.like-number").html(html)
-            $("article[data-cluck-postId='"+postId+"'] li.like-number .action").addClass('disabled');
-            $("article[data-cluck-postId='"+postId+"'] li.like-number .counter").each(function(idx, element){
-                numLikes = parseInt($(element).text()) +1;
-                $(element).text(numLikes);
-            });
-
-            //If Page == Post
-            var progressBarNumLikes = $("section.boxes.noted.likes > .likesContainer > div > .likesCounter")
-            $('#m-callback-done').css('opacity', '0');
-            $('.likes .progress-bar').attr("aria-valuetransitiongoal",numLikes)
-            $('.likes .progress-bar').attr("aria-valuenow",numLikes)
-            $('.likes .progress-bar').attr("aria-valuemax",limitTo)
-            $('#drive > a').html(i18n.post.show.boxes.like.vote.buttonVoted).addClass('disabled');
-            $("#drive :input").attr("disabled", true);
-            $("#drive div.form-group").remove()
-            prepareProgressBar()
-            setTimeout(prepareProgressBar, 500)
-//                setTimeout(prepareProgressBar, 1000)
-
-//            console.log(data.gamification)
-            karma.open(data.gamification)
-
-        });
-    }
-
-
-	// leer después
-	$('body').on('click', '.read-later a', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        readLater($(this))
-
-	});
-    $('body').on('click', '#postNav .read-later a', function(e) {
-        readLater($(this));
-        e.preventDefault();
-        e.stopPropagation();
-    });
-
-    function readLater(readLaterElement){
-        var url = $(readLaterElement).attr("href");
-        var postId = $(readLaterElement).parents("article").first().attr("data-cluck-postId");
-        var html = $("article[data-cluck-postId='"+postId+"'] li.read-later").html()
-        var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
-        $.ajax({
-            url:url,
-            beforeSend:function(xhr){
-                $("article[data-cluck-postId='"+postId+"'] li.read-later").html(loadingHtml)
-            }
-        }).done(function(data, status, xhr){
-            var isFavorite = xhr.getResponseHeader('isFavorite');
-            var numFavorites = xhr.getResponseHeader('numList');
-            $("article[data-cluck-postId='"+postId+"'] li.read-later").html(html)
-            $(".pending h1 .badge").text(numFavorites);
-            if (isFavorite == "true"){
-                $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("disabled");
-                $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("enabled");
-                $("section.boxes.guay.pending ul.kakareo-list").prepend(data);
-            }else{
-                $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("disabled");
-                $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("enabled");
-                $("section.boxes.guay.pending article[data-cluck-postId='"+postId+"']").parent().remove();
-            }
-        });
-    }
-
-
-	// Cambio de flechita en el botón desplegar texto de la ley
-	$('body').on('click', '.readMore a', function() {
-		if ( $(this).hasClass('collapsed') ) {
-			$(this).html('Ocultar texto');
-		} else {
-			$(this).html('Leer más');
-		}
-	});
-
-
-	// Habilitar/deshabilitar link "Marcar como inapropiado"
-	$('body').on("click", ".mark a", function(e) {
-		e.preventDefault();
-		if ( $(this).hasClass('disabled') ){
-			$(this).removeClass('disabled');
-		} else {
-			$(this).addClass('disabled');
-		}
-	});
-
-
-/*********************************** NUEVO ENERO 2015 **************************************************************/
-
-    // Activar/desactivar materia que me interesa en el proyecto -> lo dejo comentado porque sólo debe ocurrir cuando estás logado. Falta programar esto.
-
-/*    $('body').on("click", ".icons.subject a", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if ( $(this).hasClass('active') ){
-            $(this).removeClass('active');
-        } else {
-            $(this).addClass('active');
-        }
-    });*/
-
-    // Activar/desactivar filtros propuestas ciudadanas
-    $('body').on("click", ".filters .btn", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if ( $(this).hasClass('active') ){
-            $(this).removeClass('active');
-        } else {
-            $(this).addClass('active');
-        }
-    });
-
-/*********************************** FIN NUEVO ENERO 2015 **********************************************************/
-
-
-
-
-
-	// añade la flechita al span de los mensajes de error de los formularios
-	if ( $('.error').length > 0 ) {
-		$('span.error').prepend('<span class="tooltip-arrow"></span>');
-	}
-
-
-	// botón Seguir de las cajas popover y página ley-participantes
-	$(document).on({
-	    mouseenter: function () {
+    // botón Seguir de las cajas popover y página ley-participantes
+    $(document).on({
+        mouseenter: function () {
             $(this).html($(this).attr('data-message-follow_hover'));
-	    },
-	    mouseleave: function () {
+        },
+        mouseleave: function () {
             $(this).html($(this).attr('data-message-follow'));
-	    }
-	}, "#follow.enabled"); //pass the element as an argument to .on
+        }
+    }, ".follow.enabled"); //pass the element as an argument to .on
 
-	$(document).on({
-	    mouseenter: function () {
-	        $(this).html($(this).attr('data-message-unfollow_hover'));
-	    },
-	    mouseleave: function () {
-	        $(this).html($(this).attr('data-message-unfollow'));
-	    }
-	}, "#follow.disabled"); //pass the element as an argument to .on
+    $(document).on({
+        mouseenter: function () {
+            $(this).html($(this).attr('data-message-unfollow_hover'));
+        },
+        mouseleave: function () {
+            $(this).html($(this).attr('data-message-unfollow'));
+        }
+    }, ".follow.disabled"); //pass the element as an argument to .on
 
-	$('body').on("click", "#follow", function(e) {
+
+    $('body').on("click", ".btn.follow", function(e) {
         e.preventDefault()
         e.stopPropagation()
         clickedButtonFollow($(this))
-	});
+    });
 
     function clickedButtonFollow(button){
         var buttonFollow= $(button)
@@ -571,7 +109,7 @@ $(document).ready(function() {
                 buttonFollow.html('<div class="loading xs"><span class="sr-only">Cargando...</span></div>')
             },
             complete:function(){
-//                console.log("end")
+            // console.log("end")
             }
         }).done(function(data, status, xhr) {
             doneFunction(data,status,xhr)
@@ -625,27 +163,28 @@ $(document).ready(function() {
 	});
 
     // Deshabilitar botón defender (Post)
-    $('body').on("click", "#drive-noLogged .btn", function(e) {
-        e.preventDefault();
-        $("#drive-noLogged").submit();
-    });
-
     $('body').on("click", "#driveDefend .btn", function(e) {
         e.preventDefault();
         var anonymous = $("#drive :input").is(":checked")
         var url = $(this).attr("href")
         var postId = $(this).attr("data-postId")
-//        votePost(url, postId, anonymous)
+        //votePost(url, postId, anonymous)
     });
 
-	// Deshabilitar botón Impulsar (Post)
-	$('body').on("click", "#drive .btn", function(e) {
-		e.preventDefault();
-		var anonymous = $("#drive :input").is(":checked")
-		var url = $(this).attr("href")
-		var postId = $(this).attr("data-postId")
-		votePost(url, postId, anonymous)
-	});
+    // Deshabilitar botón defender (Post)
+    $('body').on("click", "#drive-noLogged .btn", function(e) {
+        e.preventDefault();
+        $("#drive-noLogged").submit();
+    });
+
+    // Deshabilitar botón Impulsar (Post)
+    $('body').on("click", "#drive .btn", function(e) {
+        e.preventDefault();
+        var anonymous = $("#drive :input").is(":checked")
+        var url = $(this).attr("href")
+        var postId = $(this).attr("data-postId")
+        votePost(url, postId, anonymous)
+    });
 
 
     $('body').on("click", ".voting li a.ajaxVote", function(e) {
@@ -670,7 +209,7 @@ $(document).ready(function() {
                 karma.open(data.gamification)
             }
         })
-    });
+});
 
 	$('body').on("click", ".voting li .yes", function(e) {
         var lawId = $(this).parents("section").attr("data-lawId")
@@ -1018,53 +557,6 @@ $(document).ready(function() {
 	    }
 	});
 
-
-	// load more
-	$("a.loadMore").on("click", function(e){
-        loadMore(e, this);
-    });
-
-	function loadMore(e, that) {
-		e.preventDefault();
-		var link = $(that);
-		var url = link.attr('href');
-        var formId = link.attr('data-form-id');
-        var paramAppender = "?";
-        if (url.indexOf("?")>-1){
-            paramAppender = "&";
-        }
-
-        var offset = $.parseJSON(link.attr('data-offset') || 10 ); //Para que sea un integer
-        url += paramAppender+"offset="+offset+"&"+$('#'+formId).serialize();
-		var parentId = link.attr('data-parent-id');
-		var loadingId = parentId+"-loading";
-		var parent = $("#"+parentId);
-		parent.append('<div class="loading" id="'+loadingId+'"><span class="sr-only">Cargando...</span></div>');
-		$.ajax( {
-			url:url,
-			statusCode: {
-				401: function() {
-					location.reload();
-				}
-			}
-		})
-		.done(function(data, status, xhr) {
-			parent.append(data);
-			var moreResults = $.parseJSON(xhr.getResponseHeader('moreResults')); //Para que sea un bool
-			link.attr('data-offset', offset +10);
-			if (moreResults){
-				link.remove();
-			}
-		})
-		.fail(function(data) {
-			console.log(data);
-		})
-		.always(function(data) {
-			$("#"+loadingId).remove();
-			$("time.timeago").timeago();
-		});
-	}
-
     function prepareFormUsingGender(gender){
         if (gender == "ORGANIZATION"){
             $(".userData").hide()
@@ -1343,6 +835,51 @@ $(document).ready(function() {
         });
     });
 
+    // load more
+    $("a.loadMore").on("click", function(e){loadMore(e, this)})
+
+    function loadMore(e, that) {
+
+        e.preventDefault()
+        var link = $(that)
+        var url = link.attr('href')
+        var formId = link.attr('data-form-id')
+        var paramAppender = "?";
+        if (url.indexOf("?")>-1){
+            paramAppender = "&"
+        }
+
+        var offset = $.parseJSON(link.attr('data-offset') || 10 ) //Para que sea un integer
+        url += paramAppender+"offset="+offset+"&"+$('#'+formId).serialize()
+        var parentId = link.attr('data-parent-id')
+        var loadingId = parentId+"-loading"
+        var parent = $("#"+parentId)
+        parent.append('<div class="loading" id="'+loadingId+'"><span class="sr-only">Cargando...</span></div>')
+        $.ajax( {
+            url:url,
+            statusCode: {
+                401: function() {
+                    location.reload();
+                }
+            }
+        })
+            .done(function(data, status, xhr) {
+                parent.append(data)
+                var moreResults = $.parseJSON(xhr.getResponseHeader('moreResults')) //Para que sea un bool
+                link.attr('data-offset', offset +10)
+                if (moreResults){
+                    link.remove()
+                }
+            })
+            .fail(function(data) {
+                console.log(data)
+            })
+            .always(function(data) {
+                $("#"+loadingId).remove()
+                $("time.timeago").timeago();
+            });
+    }
+
 });
 
 function counterCharacters(idField) {
@@ -1561,6 +1098,73 @@ var cookiesHelper = {
     }
 }
 
+function votePost(url, postId, anonymous){
+    var html = $("article[data-cluck-postId='"+postId+"'] li.like-number").html()
+    var htmlDriveButton = $('#drive > a').html()
+    var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
+    $.ajax({
+        url:url,
+        data:{postId:postId, anonymous:anonymous},
+        beforeSend:function(xhr){
+            $("article[data-cluck-postId='"+postId+"'] li.like-number").html(loadingHtml)
+            $('#drive > a').html(loadingHtml)
+        }
+    }).done(function(data){
+        var numLikes = data.numLikes
+        var limitTo = data.limitTo
+        $("article[data-cluck-postId='"+postId+"'] li.like-number").html(html)
+        $("article[data-cluck-postId='"+postId+"'] li.like-number .action").addClass('disabled');
+        $("article[data-cluck-postId='"+postId+"'] li.like-number .counter").each(function(idx, element){
+            numLikes = parseInt($(element).text()) +1;
+            $(element).text(numLikes);
+        });
+
+        //If Page == Post
+        var progressBarNumLikes = $("section.boxes.noted.likes > .likesContainer > div > .likesCounter")
+        $('#m-callback-done').css('opacity', '0');
+        $('.likes .progress-bar').attr("aria-valuetransitiongoal",numLikes)
+        $('.likes .progress-bar').attr("aria-valuenow",numLikes)
+        $('.likes .progress-bar').attr("aria-valuemax",limitTo)
+        $('#drive > a').html(i18n.post.show.boxes.like.vote.buttonVoted).addClass('disabled');
+        $("#drive :input").attr("disabled", true);
+        $("#drive div.form-group").remove()
+        prepareProgressBar()
+        setTimeout(prepareProgressBar, 500)
+//                setTimeout(prepareProgressBar, 1000)
+
+//            console.log(data.gamification)
+        karma.open(data.gamification)
+
+    });
+}
+
+
+function readLater(readLaterElement){
+    var url = $(readLaterElement).attr("href");
+    var postId = $(readLaterElement).parents("article").first().attr("data-cluck-postId");
+    var html = $("article[data-cluck-postId='"+postId+"'] li.read-later").html()
+    var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
+    $.ajax({
+        url:url,
+        beforeSend:function(xhr){
+            $("article[data-cluck-postId='"+postId+"'] li.read-later").html(loadingHtml)
+        }
+    }).done(function(data, status, xhr){
+        var isFavorite = xhr.getResponseHeader('isFavorite');
+        var numFavorites = xhr.getResponseHeader('numList');
+        $("article[data-cluck-postId='"+postId+"'] li.read-later").html(html)
+        $(".pending h1 .badge").text(numFavorites);
+        if (isFavorite == "true"){
+            $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("disabled");
+            $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("enabled");
+            $("section.boxes.guay.pending ul.kakareo-list").prepend(data);
+        }else{
+            $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("disabled");
+            $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("enabled");
+            $("section.boxes.guay.pending article[data-cluck-postId='"+postId+"']").parent().remove();
+        }
+    });
+}
 
 $(document).ajaxStop(function () {
 

@@ -11,70 +11,78 @@
             <h2><g:message code="funnel.successfulStories.offers.subtitle"/></h2>
                     <div class="promo-options clearfix">
                         <div class="col-xs-12 col-sm-12 col-md-4">
-                            <h3><g:message code="funnel.successfulStories.offers.basicName"/></h3>
+                            <h3><g:message code="funnel.successfulStories.offers.basic.name"/></h3>
                             <g:form mapping="funnelPay" method="post" name="contratar-basica" role="form">
                                 <div class="options-wrapper">
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsBasica" id="optionsBasica1" value="9,99" checked>
-                                            <span><g:message code="funnel.successfulStories.offers.basicPrice1"/><span class="decimals"><g:message code="funnel.successfulStories.offers.basicPriceDec1"/></span> <span class="euro"><g:message code="funnel.successfulStories.offers.currency"/></span></span><g:message code="funnel.successfulStories.offers.month"/><br/><g:message code="funnel.successfulStories.offers.condition"/>
+                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.BASIC_YEARLY}" checked>
+                                            <funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.BASIC_YEARLY.price}"/>
+                                            <g:message code="funnel.successfulStories.offers.month"/><br/>
+                                            <g:message code="funnel.successfulStories.offers.condition"/>
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsBasica" id="optionsBasica2" value="14,99">
-                                            <span><g:message code="funnel.successfulStories.offers.basicPrice2"/><span class="decimals"><g:message code="funnel.successfulStories.offers.basicPriceDec2"/></span> <span class="euro"><g:message code="funnel.successfulStories.offers.currency"/></span></span><g:message code="funnel.successfulStories.offers.month"/>
+                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.BASIC_MONTHLY}">
+                                            <funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.BASIC_MONTHLY.price}"/>
+                                            <g:message code="funnel.successfulStories.offers.month"/>
                                         </label>
                                     </div>
                                 </div>
                                 <ul>
-                                    <li><g:message code="funnel.successfulStories.offers.basic1"/></li>
-                                    <li><g:message code="funnel.successfulStories.offers.basic2"/></li>
-                                    <li><g:message code="funnel.successfulStories.offers.basic3"/></li>
+                                    <li><g:message code="funnel.successfulStories.offers.basic.1"/></li>
+                                    <li><g:message code="funnel.successfulStories.offers.basic.2"/></li>
+                                    <li><g:message code="funnel.successfulStories.offers.basic.3"/></li>
                                 </ul>
                                 <input type="submit" value="Contratar" class="btn btn-grey btn-lg btn-block"></p>
                             </g:form>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 active">
-                            <h3><g:message code="funnel.successfulStories.offers.premiumName"/></h3>
+                            <h3><g:message code="funnel.successfulStories.offers.premium.name"/></h3>
                             <g:form mapping="funnelPay" method="post" name="contratar-premium" role="form">
                                 <div class="options-wrapper">
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsPremium" id="optionsPremium1" value="49,99" checked>
-                                            <span><g:message code="funnel.successfulStories.offers.premiumPrice1"/><span class="decimals"><g:message code="funnel.successfulStories.offers.premiumPriceDec1"/></span> <span class="euro"><g:message code="funnel.successfulStories.offers.currency"/></span></span><g:message code="funnel.successfulStories.offers.month"/><br/><g:message code="funnel.successfulStories.offers.condition"/>
+                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.PREMIUM_YEARLY}" checked>
+                                            <funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.PREMIUM_YEARLY.price}"/>
+                                            <g:message code="funnel.successfulStories.offers.month"/>
+                                            <br/>
+                                            <g:message code="funnel.successfulStories.offers.condition"/>
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsPremium" id="optionsPremium2" value="59,99">
-                                            <span><g:message code="funnel.successfulStories.offers.premiumPrice2"/><span class="decimals"><g:message code="funnel.successfulStories.offers.premiumPriceDec2"/></span> <span class="euro"><g:message code="funnel.successfulStories.offers.currency"/></span></span><g:message code="funnel.successfulStories.offers.month"/>
+                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.PREMIUM_MONTHLY}">
+                                            <funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.PREMIUM_MONTHLY.price}"/>
+                                            <g:message code="funnel.successfulStories.offers.month"/>
                                         </label>
                                     </div>
                                 </div>
                                 <ul>
-                                    <li><g:message code="funnel.successfulStories.offers.premium1"/></li>
-                                    <li><g:message code="funnel.successfulStories.offers.premium2"/></li>
-                                    <li><g:message code="funnel.successfulStories.offers.premium3"/></li>
+                                    <li><g:message code="funnel.successfulStories.offers.premium.1"/></li>
+                                    <li><g:message code="funnel.successfulStories.offers.premium.2"/></li>
+                                    <li><g:message code="funnel.successfulStories.offers.premium.3"/></li>
                                 </ul>
                                 <input type="submit" value="Contratar" class="btn btn-grey btn-lg btn-block"></p>
                             </g:form>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4">
-                            <h3><g:message code="funnel.successfulStories.offers.cityhallName"/></h3>
+                            <h3><g:message code="funnel.successfulStories.offers.cityHall.name"/></h3>
                             <g:form mapping="funnelPay" method="post" name="contratar-ayun" role="form">
                                 <div class="options-wrapper">
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="optionsAyun" id="optionsAyun1" value="1500" checked class="hidden">
-                                            <span><g:message code="funnel.successfulStories.offers.cityhallPrice"/><span><g:message code="funnel.successfulStories.offers.currency"/></span></span><g:message code="funnel.successfulStories.offers.year"/>
+                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.CITY_HALL}" checked class="hidden">
+                                        <funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.CITY_HALL.price}"/>
+                                        <g:message code="funnel.successfulStories.offers.year"/>
                                         </label>
                                     </div>
                                 </div>
                                 <ul>
-                                    <li><g:message code="funnel.successfulStories.offers.cityhall1"/></li>
-                                    <li><g:message code="funnel.successfulStories.offers.cityhall2"/></li>
-                                    <li><g:message code="funnel.successfulStories.offers.cityhall3"/></li>
+                                    <li><g:message code="funnel.successfulStories.offers.cityHall.1"/></li>
+                                    <li><g:message code="funnel.successfulStories.offers.cityHall.2"/></li>
+                                    <li><g:message code="funnel.successfulStories.offers.cityHall.3"/></li>
                                 </ul>
                                 <input type="submit" value="Contratar" class="btn btn-grey btn-lg btn-block"></p>
                             </g:form>

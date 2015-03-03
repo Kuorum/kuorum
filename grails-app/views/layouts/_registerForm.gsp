@@ -1,4 +1,4 @@
-%{--<formUtil:validateForm bean="${registerCommand}" form="sign-header" autocomplete="off"/>--}%
+
 <g:form mapping="register" autocomplete="off" method="post" name="${formId}" class="login" role="form" novalidate="novalidate">
 %{--<g:set var="registerLink" value="${g.createLink(mapping: 'register')}"/>--}%
 %{--<form action="${registerLink}" method="post" name="sign-header" id="sign-header" class="login" role="form">--}%
@@ -33,3 +33,4 @@
         <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
     </div>
 </g:form>
+<formUtil:validateForm bean="${registerCommand}" form="${formId}"/>

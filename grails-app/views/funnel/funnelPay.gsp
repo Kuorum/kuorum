@@ -73,13 +73,13 @@
             </div>
         </div>
         <div class="col-md-4 col-lg-3">
-            <h3>Básica</h3>
+            <h3><g:message code="funnel.successfulStories.offers.${offerType.group}.name"/></h3>
             <ul>
-                <li>Involucra a tus electores en la toma de decisiones.</li>
-                <li>Transparenta tu interacción con los grupos de presión.</li>
-                <li>Anticípate al cambio social.</li>
+                <li><g:message code="funnel.successfulStories.offers.${offerType.group}.1"/></li>
+                <li><g:message code="funnel.successfulStories.offers.${offerType.group}.2"/></li>
+                <li><g:message code="funnel.successfulStories.offers.${offerType.group}.3"/></li>
             </ul>
-            <h4>119,<span class="decimals">88</span> € <br/><small>por 1 año</small></h4>
+            <h4><funnel:formatAsElegantPrice value="${totalPrice}"/> <br/><small><g:message code="funnel.successfulStories.offers.yearly.${yearly}"/></small></h4>
         </div>
     </section>
 </content>
