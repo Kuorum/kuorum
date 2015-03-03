@@ -1,17 +1,86 @@
 <%@ page import="kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>TITULO PAGINA</title>
+    <title><g:message code="funnel.payment.title"/></title>
     <meta name="layout" content="normalLayout">
 </head>
 
 <content tag="mainContent">
-ZONA CON 2 columnas y mierdas varias
-</content>
-
-<content tag="preFooter">
-    ZONA DESPUES DE LAS VARIAS COLUMNAS
-
-TARJETAS
+    <section id="main" role="main" class="contratando">
+        <div class="col-md-8 col-lg-9">
+            <h1>Estás a punto de cambiar la política</h1>
+            <h2>Elige la forma de pago y te llevaremos a la página del servicio de cobro. Recuerda que te estamos llevando a una zona segura, volverás a la web de Kuorum.org una vez finalizado el pago.</h2>
+            <div role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <label data-target="#tengoCuenta"><input id="no-tengo" name="cuenta" type="radio" checked> Aún no tengo cuenta en kuorum.org</label>
+                    </li>
+                    <li role="presentation">
+                        <label data-target="#noTengoCuenta"><input id="tengo" name="cuenta" type="radio"> Ya tengo tengo una cuenta en kuorum.org</label>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="noTengoCuenta">
+                        <form role="form" class="form-inline" id="sign-comprar" name="sign-comprar" method="post" action="#">
+                            <div class="form-group">
+                                <label class="sr-only" for="nombre">Nombre</label>
+                                <input type="text" aria-required="true" placeholder="Dinos tu nombre" required id="nombre" name="nombre" class="form-control input-lg">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="email">Email</label>
+                                <input type="email" aria-required="true" placeholder="Introduce tu email" required id="email" name="email" class="form-control input-lg">
+                            </div>
+                            %{--<div class="row tipo-pago">--}%
+                                %{--<div class="col-sm-6">--}%
+                                    %{--<a href="#" class="pago tarjeta">--}%
+                                        %{--<span>Pagar con Tarjeta</span>--}%
+                                    %{--</a>--}%
+                                %{--</div>--}%
+                                %{--<div class="col-sm-6">--}%
+                                    %{--<a href="#" class="pago paypal">--}%
+                                        %{--<span>Pagar con Paypal</span>--}%
+                                    %{--</a>--}%
+                                %{--</div>--}%
+                            %{--</div>--}%
+                            <div class="form-group">
+                                <input type="submit" value="Domiciliar el pago" class="btn btn-lg">
+                            </div>
+                        </form>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="noTengoCuenta">
+                        <form role="form" class="form-inline" id="login-comprar" name="login-comprar" method="post" action="#">
+                            <div class="form-group">
+                                <label class="sr-only" for="email">Email</label>
+                                <input type="email" aria-required="true" placeholder="Introduce tu email" required id="email" name="email" class="form-control input-lg">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="pass">Contraseña</label>
+                                <div class="input-append input-group">
+                                    <input type="password" required aria-required="true" id="pass-home" name="pass-home" class="form-control input-lg" value="" placeholder="Contraseña">
+                                    <span tabindex="100" class="add-on input-group-addon">
+                                        <label><input type="checkbox" name="show-pass-home" id="show-pass-home"> Mostrar</label>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Domiciliar el pago" class="btn btn-lg">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-3">
+            <h3>Básica</h3>
+            <ul>
+                <li>Involucra a tus electores en la toma de decisiones.</li>
+                <li>Transparenta tu interacción con los grupos de presión.</li>
+                <li>Anticípate al cambio social.</li>
+            </ul>
+            <h4>119,<span class="decimals">88</span> € <br/><small>por 1 año</small></h4>
+        </div>
+    </section>
 </content>
 
