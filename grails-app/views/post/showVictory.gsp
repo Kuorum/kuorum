@@ -29,7 +29,7 @@
     <div class="sponsor">
         <userUtil:showListUsers users="${usersVotes}" visibleUsers="5" messagesPrefix="post.show.boxes.like.userList"/>
     </div>
-    <g:render template="/post/postVotePostButton" model="[post:post, userVote:userVote, important:important]"/>
+    <g:render template="/post/postVotePostButton" model="[post:post, userVote:userVote]"/>
     <g:render template="/post/postSocialShare" model="[post:post]"/>
 
 </section>

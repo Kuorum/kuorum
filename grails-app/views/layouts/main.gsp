@@ -64,6 +64,7 @@
     <!-- For everything else -->
     <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'favicon.ico')}">
 
+    <r:require modules="vimeo" />
     <g:layoutHead/>
     <g:javascript library="jquery" plugin="jquery"/>
     <g:javascript library="application"/>
