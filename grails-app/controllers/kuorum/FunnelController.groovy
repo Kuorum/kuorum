@@ -13,7 +13,13 @@ class FunnelController {
     /**
      * Funnel Step3
      */
-    def funnelPay() {}
+    def funnelPay() {
+
+        [
+                offerType:"PREMIUM",
+                amount:50
+        ]
+    }
     /**
      * Funnel Step4
      */
