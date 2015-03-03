@@ -10,7 +10,7 @@
         <a href="#" class="user-name" itemprop="name">${user.name}</a>
         <span class="user-type"><userUtil:roleName user="${user}"/> </span>
     </div>
-    <p>${user.bio}</p>
+    <p><kuorumDate:showShortedText text="${user.bio}" numChars="130"/> </p>
     <g:if test="${user.verified}">
         <small><g:message code="kuorumUser.verified"/><span class="fa fa-check"></span></small>
     </g:if>
