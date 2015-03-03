@@ -8,10 +8,10 @@
     <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
         <h1>${post.title} <g:link mapping="projectShow" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link> </h1>
         <div class="main-kakareo row">
-            <div class="col-xs-7 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <div class="col-xs-6 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
                 <userUtil:showUser user="${post.owner}" showRole="true"/>
             </div>
-            <div class="col-xs-5 text-right sponsor">
+            <div class="col-xs-6 text-right sponsor">
                 <userUtil:showDebateUsers post="${post}" visibleUsers="1"/>
             </div>
         </div>
