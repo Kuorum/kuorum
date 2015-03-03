@@ -44,9 +44,9 @@ class UrlMappings {
         name projectListPostDefends:   "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
         name projectListPostVictories: "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
 
-        name projectList: "/configuracion-usuario/proyectos"(controller: "tools", action:"listProjects")
-        name projectListOfUsers: "/ajax/configuracion-usuario/proyectos"(controller: "tools", action: "ajaxShowProjectListOfUsers")
-        name publishProject:   "/configuracion-usuario/proyectos/$hashtag/publicar" (controller:"tools", action: "publishProject")
+        name projectList: "/herramientas/proyectos"(controller: "tools", action:"listProjects")
+        name projectListOfUsers: "/ajax/herramientas/proyectos"(controller: "tools", action: "ajaxShowProjectListOfUsers")
+        name publishProject:   "/herramientas/proyectos/$hashtag/publicar" (controller:"tools", action: "publishProject")
 
         name projectUpdate:  "/proyectos/$institutionName/$commission/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
@@ -163,12 +163,12 @@ class UrlMappings {
         name profileMessages:     "/configuracion-usuario/mensajes"         (controller: "profile", action: "userMessages")
         name profileDeleteAccount:"/configuracion-usuario/eliminar-cuenta"  (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
 
-        name toolsNotifications:  "/configuracion-usuario/notificaciones"   (controller: "tools", action: "userNotifications")
-        name toolsFavorites:    "/configuracion-usuario/pendientes-de-leer"(controller: "tools", action: "showFavoritesPosts")
-        name toolsMyPosts:      "/configuracion-usuario/mis-posts"        (controller: "tools", action: "showUserPosts")
-        name toolsKuorumStore:  "/configuracion-usuario/el-gallinero"     (controller: "tools", action: "kuorumStore")
-        name toolsBuyAward:     "/ajax/configuracion-usuario/el-gallinero/comprar"     (controller: "tools", action: "kuorumStoreBuyAward")
-        name toolsActivateAward:"/ajax/configuracion-usuario/el-gallinero/activar"     (controller: "tools", action: "kuorumStoreActivateAward")
+        name toolsNotifications:  "/herramientas/notificaciones"   (controller: "tools", action: "userNotifications")
+        name toolsFavorites:    "/herramientas/pendientes-de-leer"(controller: "tools", action: "showFavoritesPosts")
+        name toolsMyPosts:      "/herramientas/mis-posts"        (controller: "tools", action: "showUserPosts")
+        name toolsKuorumStore:  "/herramientas/el-gallinero"     (controller: "tools", action: "kuorumStore")
+        name toolsBuyAward:     "/ajax/herramientas/el-gallinero/comprar"     (controller: "tools", action: "kuorumStoreBuyAward")
+        name toolsActivateAward:"/ajax/herramientas/el-gallinero/activar"     (controller: "tools", action: "kuorumStoreActivateAward")
 
         name footerWhatIsKuorum:  "/kuorum"                         (controller:"footer", action: "whatIsKuorum" )
         name footerVision:        "/kuorum/vision-y-valores"        (controller:"footer", action: "vision" )
