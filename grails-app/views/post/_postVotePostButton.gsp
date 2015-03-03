@@ -1,14 +1,41 @@
-<%@ page import="kuorum.core.model.PostType" %>
+<%@ page import="springSecurity.KuorumRegisterCommand; kuorum.core.model.PostType" %>
 <postUtil:userOption post="${post}">
     <postUtil:asNoLogged>
-        <form>
+        <g:set var="registerCommand" value="${new KuorumRegisterCommand()}"/>
+        <formUtil:validateForm bean="${registerCommand}" form="drive-noLogged"/>
+        <g:form mapping="register" autocomplete="off" method="post" name="drive-noLogged" class="login" role="form" novalidate="novalidate">
             <div class="form-group">
-                <g:link mapping="login" class="btn  btn-blue btn-lg btn-block" data-postId="${post.id}">
-                    <span class="fa fa-rocket fa-2x"></span>
-                    <g:message code="post.show.boxes.like.vote.button.noLogged" encodeAs="raw"/>
-                </g:link>
+                <formUtil:input
+                        command="${registerCommand}"
+                        field="name"
+                        cssClass="form-control input-lg"
+                        labelCssClass="sr-only"
+                        showCharCounter="false"
+                        required="true"/>
             </div>
-        </form>
+
+            <div class="form-group">
+                <formUtil:input
+                        command="${registerCommand}"
+                        field="email"
+                        type="email"
+                        id="email"
+                        cssClass="form-control input-lg"
+                        labelCssClass="sr-only"
+                        required="true"/>
+            </div>
+
+            <div class="form-group">
+                <a class="btn btn-blue btn-lg btn-block" href="#"><span class="fa fa-rocket fa-2x"></span> <g:message code="post.show.boxes.like.vote.button"/> </a>
+            </div>
+            <div class="form-group">
+                <label class="checkbox-inline"><input type="checkbox" value="public" id="publico"> <g:message code="post.show.boxes.like.vote.anonymousCheckBoxLabel"/> </label>
+            </div>
+            <div class="form-group">
+                <small><g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/></small>
+            </div>
+
+        </g:form>
     </postUtil:asNoLogged>
     <postUtil:asPolitician>
         <form id="driveDefend">
@@ -67,7 +94,15 @@
                     <span class="fa fa-rocket fa-2x"></span>
                     <g:message code="post.show.boxes.like.vote.${userVote ? 'buttonVoted' : 'button'}" encodeAs="raw"/>
                 </g:link>
-            </div>
+                <g:if test="${!userVote}">
+                    <div class="form-group">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="anonymous"
+                                   value="private"/>
+                            <g:message code="post.show.boxes.like.vote.anonymousCheckBoxLabel"/>
+                        </label>
+                    </div>
+                </g:if>
         </form>
     </postUtil:asUser>
 </postUtil:userOption>

@@ -625,6 +625,11 @@ $(document).ready(function() {
 	});
 
     // Deshabilitar botón defender (Post)
+    $('body').on("click", "#drive-noLogged .btn", function(e) {
+        e.preventDefault();
+        $("#drive-noLogged").submit();
+    });
+
     $('body').on("click", "#driveDefend .btn", function(e) {
         e.preventDefault();
         var anonymous = $("#drive :input").is(":checked")

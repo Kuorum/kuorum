@@ -7,6 +7,13 @@
 <div class="popover">
     <div class="popover-more-actions edition">
         <ul>
+            <postUtil:ifPostIsEditable post="${post}">
+                <li>
+                    <g:link mapping="postEdit" params="${post.encodeAsLinkProperties()}">
+                        <span class="fa fa-edit fa-lg"></span><g:message code="post.show.editLink.${post.postType}"/>
+                    </g:link>
+                </li>
+            </postUtil:ifPostIsEditable>
             <li>
                 <a href="#" data-toggle="modal" data-target="#ya-no">
                     <span class="">Ya no puedes editar</span>

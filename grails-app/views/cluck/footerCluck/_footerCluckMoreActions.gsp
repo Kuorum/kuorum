@@ -1,6 +1,7 @@
 <li class="more-actions">
     <span class="popover-trigger more-actions" rel="popover" role="button" data-toggle="popover">
-        <span class="fa fa-plus"></span> <span class="sr-only"><g:message code="cluck.footer.moreActions"/></span>
+        ...
+        <span class="sr-only"><g:message code="cluck.footer.moreActions"/></span>
     </span>
     <!-- POPOVER MÁS ACCIONES -->
     <div class="popover">

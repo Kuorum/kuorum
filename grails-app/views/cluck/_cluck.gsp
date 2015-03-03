@@ -1,5 +1,6 @@
 
 <g:set var="post" value="${post!=null?post:cluck.post}"/>
+<g:set var="displayingColumnC" value="${displayingColumnC?:false}"/>
 <article class="kakareo" itemscope itemtype="http://schema.org/Article" role="article" data-cluck-postId="${post.id}">
     <g:render template="/cluck/cluckMenuEditPost" model="[post:post]"/>
 
@@ -15,6 +16,6 @@
             </div>
         </div>
 
-        <g:render template="/cluck/footerCluck" model="[post:post, displayingColumnC:false]"/>
+        <g:render template="/cluck/footerCluck" model="[post:post, displayingColumnC:displayingColumnC]"/>
     </div>
 </article>

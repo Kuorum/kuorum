@@ -8,15 +8,33 @@
 
 
 <content tag="mainContent">
-    <g:set var="important" value=""/>
-    <postUtil:ifIsImportant post="${post}">
-        <g:set var="important" value="important"/>
-    </postUtil:ifIsImportant>
+    <article class="kakareo post" itemscope itemtype="http://schema.org/Article" role="article" data-cluck-postId="${post.id}">
+        <g:render template="/cluck/cluckMenuEditPost" model="[post:post]"/>
 
-    <g:render template="postHeadCluck" model="[post:post, important: important]"/>
-    <g:render template="relatedPosts" model="[relatedPosts:relatedPost]"/>
+        <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
+        <h1>${post.title} <g:link mapping="projectShow" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link> </h1>
+        <div class="main-kakareo row">
+            <div class="col-xs-5 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <userUtil:showUser user="${post.owner}" showRole="true"/>
+            </div>
+            <div class="col-xs-7 text-right sponsor">
+                <userUtil:showDebateUsers post="${post}" visibleUsers="1"/>
+            </div>
+        </div>
+        <postUtil:postShowMultimedia post="${post}"/>
+        <g:render template="/cluck/footerCluck" model="[post:post, displayingColumnC:false]"/>
+        <p>
+            ${raw(post.text.encodeAsRemovingScriptTags().replaceAll('<br>','</p><p>'))}
+        </p>
+    </article>
+    <g:render template="/post/debates/postDebates" model="[post:post]"/>
     <g:render template="postComments" model="[post:post]"/>
 
+</content>
+
+
+<content tag="preFooter">
+    <g:render template="relatedPosts" model="[relatedPosts:relatedPost]"/>
 </content>
 
 <content tag="cColumn">
@@ -29,19 +47,6 @@
 
         <g:render template="/post/postSocialShare" model="[post:post]"/>
     </section>
-    %{--<section class="boxes noted likes ${important}">--}%
-        %{--<h1><g:message code="post.show.boxes.like.title"/></h1>--}%
-        %{--<p class="text-left"><g:message code="post.show.boxes.like.description"/> </p>--}%
-        %{--<div class="sponsor">--}%
-            %{--<userUtil:showListUsers users="${usersVotes}" visibleUsers="5" messagesPrefix="post.show.boxes.like.userList"/>--}%
-        %{--</div>--}%
-        %{--<g:render template="/post/postVotePostButton" model="[post:post, userVote:userVote, important:important]"/>--}%
-
-        %{--<g:render template="/post/postSocialShare" model="[post:post]"/>--}%
-
-    %{--</section>--}%
-
-
 </content>
 
 %{--<content tag="footerStats">--}%
