@@ -44,14 +44,14 @@
 
 </content>
 
-<content tag="footerStats">
+%{--<content tag="footerStats">--}%
 
-    <modulesUtil:delayedModule mapping="ajaxModuleProjectBottomStats" params="[hashtag:project.hashtag.decodeHashtag()]" elementId="idAjaxModuleProjectBottomStats"/>
+    %{--<modulesUtil:delayedModule mapping="ajaxModuleProjectBottomStats" params="[hashtag:project.hashtag.decodeHashtag()]" elementId="idAjaxModuleProjectBottomStats"/>--}%
     %{--<g:include controller="modules" action="bottomProjectStats" params="[project:project]"/>--}%
-    <a href="#main" class="smooth top">
-        <span class="fa fa-caret-up fa-lg"></span>
-        <g:message code="project.up"/>
-    </a>
-</content>
+    %{--<a href="#main" class="smooth top">--}%
+        %{--<span class="fa fa-caret-up fa-lg"></span>--}%
+        %{--<g:message code="project.up"/>--}%
+    %{--</a>--}%
+%{--</content>--}%
 
 
