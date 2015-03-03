@@ -9,20 +9,19 @@
     <g:render template="/layouts/head"/>
     <div class="row main">
         <div class="container-fluid ${pageProperty(name:'page.extraCssContainer')}">
-            <section id="main" role="main">
+            <div class="row">
                 <g:pageProperty name="page.mainContent"/>
-            </section>
+            </div>
+            <g:if test="${pageProperty(name:'page.preFooter')}">
+                <div class="row">
+                    <g:pageProperty name="page.preFooter"/>
+                </div>
+            </g:if>
         </div>
     </div><!-- #main -->
 
-    <g:if test="${pageProperty(name:'page.preFooter')}">
-        <aside class="row preFooter" role="complementary">
-            <g:pageProperty name="page.preFooter"/>
-        </aside>
+    <g:if test="${!Boolean.parseBoolean(pageProperty(name:'page.hideFooter')?.toString())}">
+        <g:render template="/layouts/footer/footer"/>
     </g:if>
-    <g:if test="${Boolean.parseBoolean(pageProperty(name:'page.showDefaultPreFooter').toString())}">
-        <g:include controller="modules" action="registerFooterRelevantUsers"/>
-    </g:if>
-    <g:render template="/layouts/footer/footer"/>
     </body>
 </g:applyLayout>
