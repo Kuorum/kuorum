@@ -187,8 +187,15 @@ $(document).ready(function() {
     });
 
 
+    $('body').on("click", ".voting ul.noLoggedVoteDiv li a", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $('#registro').modal('show');
+    })
+
     $('body').on("click", ".voting li a.ajaxVote", function(e) {
         e.preventDefault();
+        e.stopPropagation();
         var projectId = $(this).attr("data-projectId")
         var votingDiv = $(this).parents(".voting");
         var iconsHtml = votingDiv.html()

@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <p><projectUtil:showFirstCharsFromDescription project="${project}" numChars="200"/></p>
+        <p><projectUtil:showFirstCharsFromDescription project="${project}" numChars="170"/></p>
         <footer>
             <div class="row">
                 <ul class="col-xs-5 col-sm-5 col-md-6 info-kak">
