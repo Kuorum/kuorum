@@ -27,13 +27,7 @@
         </div>
         <g:render template="/post/postVotePostButton" model="[post:post, userVote:userVote]"/>
 
-        <p>Comparte en las redes sociales</p>
-        <ul class="social">
-            <li><a href="#"><span class="sr-only">Twitter</span><span class="fa fa-twitter fa-2x"></span></a></li>
-            <li><a href="#"><span class="sr-only">Facebook</span><span class="fa fa-facebook fa-2x"></span></a></li>
-            <li><a href="#"><span class="sr-only">LinkedIn</span><span class="fa fa-linkedin fa-2x"></span></a></li>
-            <li><a href="#"><span class="sr-only">Google+</span><span class="fa fa-google-plus fa-2x"></span></a></li>
-        </ul>
+        <g:render template="/post/postSocialShare" model="[post:post]"/>
     </section>
     %{--<section class="boxes noted likes ${important}">--}%
         %{--<h1><g:message code="post.show.boxes.like.title"/></h1>--}%
