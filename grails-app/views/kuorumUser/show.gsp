@@ -17,7 +17,7 @@
         <!-- FLECHITA PARA ABRIR MENÚ -->
         <span class="popover-trigger open-menu" rel="popover" role="button" data-toggle="popover">
             <span class="fa fa-chevron-down"></span>
-            <span class="sr-only">Ver opciones edición</span>
+            <span class="sr-only"><g:message code="project.list.show.options"/></span>
         </span>
         <!-- POPOVER OPCIONES EDICIÓN -->
         <div class="popover">
@@ -25,7 +25,7 @@
                 <ul>
                     <li>
                         <a href="#">
-                            <span>Editar</span>
+                            <span><g:message code="project.editMenu.edit"/></span>
                         </a>
                     </li>
                 </ul>
