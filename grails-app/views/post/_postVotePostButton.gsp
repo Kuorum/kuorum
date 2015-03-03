@@ -2,19 +2,25 @@
 <postUtil:userOption post="${post}">
     <postUtil:asNoLogged>
         <form>
-            <g:link mapping="login" class="btn  ${important ?: 'btn-blue'} btn-lg btn-block" data-postId="${post.id}">
-                <g:message code="post.show.boxes.like.vote.button.noLogged" encodeAs="raw"/>
-            </g:link>
+            <div class="form-group">
+                <g:link mapping="login" class="btn  btn-blue btn-lg btn-block" data-postId="${post.id}">
+                    <span class="fa fa-rocket fa-2x"></span>
+                    <g:message code="post.show.boxes.like.vote.button.noLogged" encodeAs="raw"/>
+                </g:link>
+            </div>
         </form>
     </postUtil:asNoLogged>
     <postUtil:asPolitician>
         <form id="driveDefend">
-            <a href="#"
-                    class="${post.defender ? 'disabled' : ''} btn  ${important ?: 'btn-blue'} btn-lg btn-block openModalDefender"
-                    data-toggle="modal" data-target="#modalSponsor" params="${post.encodeAsLinkProperties()}"
-                    data-postId="${post.id}">
-                <g:message code="post.show.boxes.like.defend.${post.defender ? 'buttonDefended' : 'button'}" encodeAs="raw"/>
-            </a>
+            <div class="form-group">
+                <a href="#"
+                        class="${post.defender ? 'disabled' : ''} btn btn-blue btn-lg btn-block openModalDefender"
+                        data-toggle="modal" data-target="#modalSponsor" params="${post.encodeAsLinkProperties()}"
+                        data-postId="${post.id}">
+                    <span class="fa fa-trophy fa-2x">
+                    <g:message code="post.show.boxes.like.defend.${post.defender ? 'buttonDefended' : 'button'}" encodeAs="raw"/>
+                </a>
+            </div>
         </form>
         <g:set var="postType" value="${message(code: "${PostType.class.name}.${post.postType}")}"/>
         <script>
@@ -54,20 +60,14 @@
     </postUtil:asPolitician>
     <postUtil:asUser>
         <form id="drive">
-            <g:link mapping="postVoteIt"
-                    class="${userVote ? 'disabled' : ''} btn  ${important ?: 'btn-blue'} btn-lg btn-block"
-                    params="${post.encodeAsLinkProperties()}" data-postId="${post.id}">
-                <g:message code="post.show.boxes.like.vote.${userVote ? 'buttonVoted' : 'button'}" encodeAs="raw"/>
-            </g:link>
-            <g:if test="${!userVote}">
-                <div class="form-group">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" name="anonymous"
-                               value="private"/>
-                        <g:message code="post.show.boxes.like.vote.anonymousCheckBoxLabel"/>
-                    </label>
-                </div>
-            </g:if>
+            <div class="form-group">
+                <g:link mapping="postVoteIt"
+                        class="${userVote ? 'disabled' : ''} btn  btn-blue btn-lg btn-block"
+                        params="${post.encodeAsLinkProperties()}" data-postId="${post.id}">
+                    <span class="fa fa-rocket fa-2x"></span>
+                    <g:message code="post.show.boxes.like.vote.${userVote ? 'buttonVoted' : 'button'}" encodeAs="raw"/>
+                </g:link>
+            </div>
         </form>
     </postUtil:asUser>
 </postUtil:userOption>

@@ -31,6 +31,10 @@ modules = {
         resource url:'js/custom.js'
     }
 
+    vimeo {
+        resource url:'js/froogaloop2.min.js'
+    }
+
     customFileUploader{
         dependsOn 'application'
         resource url:'js/customFileUploader.js'

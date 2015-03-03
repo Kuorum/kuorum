@@ -10,6 +10,6 @@
         </ul>
     </div>
     <div class="homeMore">
-        <a href="#" class="btn btn-blue btn-lg btn-block">Descubre cómo ellos hacen política</a>
+        <g:link mapping="funnelSuccessfulStories"><g:message code="landingPage.recommendedPoliticians.button"/></g:link>
     </div>
 </section>

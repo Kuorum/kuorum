@@ -156,6 +156,13 @@ class PostTagLib {
         out << range.to +1
     }
 
+    def progressRemainingPoints={attrs ->
+        Post post = attrs.post
+        Range<Long> range = postVoteService.findPostRange(post)
+
+        out << range.to +1 - post.numVotes
+    }
+
     def ifPostIsEditable={attrs, body->
         Post post = attrs.post
         if (springSecurityService.isLoggedIn()){
