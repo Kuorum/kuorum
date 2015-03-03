@@ -1,5 +1,5 @@
 <h1><g:message code="layout.footer.aboutKuorum"/></h1>
-<ul class="hidden-xs">
+<ul>
     <li class="${activeMapping=='footerWhatIsKuorum'?'active':''}">
         <g:link mapping="footerWhatIsKuorum"><g:message code="layout.footer.whatIsKuorum"/></g:link>
     </li>

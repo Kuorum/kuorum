@@ -16,8 +16,9 @@
             <g:message code="footer.menu.footerPoliticians.description1"/>
         </p>
         <p>
-            <g:message code="footer.menu.footerPoliticians.description2"/>
+            <g:set var="linkNewPolitics" value="${createLink(mapping:'footerPoliticians')}"/>
+            <g:message code="footer.menu.footerPoliticians.description2" args="[linkNewPolitics]" encodeAs="raw"/>
         </p>
-        %{--<img src="${resource(dir: 'images', file: 'info-quekuorum.jpg')}" alt="foto-debate" itemprop="image">--}%
+        <img src="${resource(dir: 'images', file: 'info5.png')}" alt="foto-madiba" itemprop="image">
     </div>
 </content>

@@ -1,5 +1,5 @@
 <h1><g:message code="layout.footer.pressTitle"/></h1>
-<ul class="hidden-xs">
+<ul>
     <li class="${activeMapping=='footerInformation'?'active':''}">
         <g:link mapping="footerInformation"><g:message code="layout.footer.information"/></g:link>
     </li>
@@ -10,6 +10,6 @@
         <a href="#" target="_blank"><g:message code="layout.footer.logo"/></a>
     </li>
     <li>
-        <a href="#" target="_blank"><g:message code="layout.footer.releases"/></a>
+        <a href="mailto:comunicacion@kuorum.org?subject=Quiero recibir notas de prensa" target="_blank"><g:message code="layout.footer.releases"/></a>
     </li>
 </ul>
