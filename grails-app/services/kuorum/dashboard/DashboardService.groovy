@@ -108,17 +108,13 @@ class DashboardService {
      * @return Politicians who are in the same province as user
      */
     private politiciansInProvince(KuorumUser user){
-        KuorumUser.createCriteria().list(){
+        List<KuorumUser> kuorumUsers = KuorumUser.createCriteria().list(){
             and{
                 eq("userType", UserType.POLITICIAN)
                 isNotNull("politicianOnRegion")
-                politicianOnRegion{
-                    //TODO: ¿Compara con 'eq' o con 'like'?
-//                    eq("iso3166_2", user.personalData?.provinceCode)
-                    like('iso3166_2',user.personalData?.provinceCode + '%')
-                }
             }
         }
+        kuorumUsers.findAll{ user.personalData?.provinceCode?.startsWith(it.politicianOnRegion.iso3166_2) }
     }
 }
 

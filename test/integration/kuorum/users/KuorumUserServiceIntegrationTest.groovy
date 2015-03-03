@@ -1,5 +1,7 @@
 package kuorum.users
 
+import groovyx.gpars.GParsPool
+import org.bson.types.ObjectId
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -140,42 +142,58 @@ class KuorumUserServiceIntegrationTest extends Specification {
         KuorumUser user = KuorumUser.findByEmail('politician@example.com')
 
         and: "A recommendeUserInfo for the user"
-        new RecommendedUserInfo(
+        RecommendedUserInfo recommendedUserInfo = new RecommendedUserInfo(
                 user: user,
                 recommendedUsers: [KuorumUser.findByEmail('carmen@example.com').id]
-        ).save()
+        ).save(flush: true)
 
         and: "A mock list of facebook friends"
         Map facebookFriends = [data: []]
 
-        emails.each { String email ->
-            facebookFriends.data << [id: KuorumUser.findByEmail(email).id]
+        emailsFacebookFriends.each { String email ->
+            long id
+            GParsPool.withPool {
+                id = email.bytes.sumParallel()
+            }
+            facebookFriends.data << [id: id]
         }
 
         and: "A mock list of FacebookUsers"
         List<FacebookUser> facebookUsers = []
-        emails.eachWithIndex { String email, int i ->
+        emailsFacebookUsers.each { String email ->
+            long id
+            GParsPool.withPool {
+                id = email.bytes.sumParallel()
+            }
             facebookUsers << new FacebookUser(
                     user: KuorumUser.findByEmail(email),
                     accessToken: 'accesToken',
                     id: KuorumUser.findByEmail(email).id,
-                    accessTokenExpires: new Date()+1,
-                    uid:i.toLong()
+                    accessTokenExpires: new Date() + 1,
+                    uid: id
             ).save(flush: true)
         }
         //Change the maxSize constraint only for test mode
         RecommendedUserInfo.constraints.recommendedUsers.maxSize = 2
 
         when: "Calculate the recommended users by Facebook friends"
-        List<KuorumUser> recommendedUsersByFacebookFriends = kuorumUserService.recommendedUsersByFacebookFriends(user, facebookUsers, facebookFriends)
+        List<ObjectId> recommendedUsersByFacebookFriends = kuorumUserService.recommendedUsersByFacebookFriends(user, facebookUsers, facebookFriends, recommendedUserInfo)
 
         then: "The expected list and the obtained recommended user are equals"
         recommendedUsersByFacebookFriends.size() == resultSize
 
+        cleanup:
+        recommendedUserInfo.delete()
+        facebookUsers*.delete()
+
         where:
-        emails                                                               | resultSize
-        ['ecologistas@example.com']                                          | 1
-        ['newuser@example.com', 'equo@example.com']                          | 3
-        ['noe@example.com', 'peter@example.com', 'juanjoalvite@example.com'] | 2
+        emailsFacebookFriends                                                | emailsFacebookUsers                                                  || resultSize
+        ['ecologistas@example.com']                                          | ['ecologistas@example.com']                                          || 2
+        ['newuser@example.com', 'equo@example.com']                          | ['ecologistas@example.com', 'equo@example.com']                      || 2
+        ['noe@example.com', 'peter@example.com', 'juanjoalvite@example.com'] | ['ecologistas@example.com', 'equo@example.com']                      || 0
+        ['noe@example.com', 'peter@example.com', 'juanjoalvite@example.com'] | ['noe@example.com', 'peter@example.com', 'juanjoalvite@example.com'] || 2
+        []                                                                   | []                                                                   || 0
+        ['carmen@example.com']                                               | ['carmen@example.com']                                               || 0
+        ['carmen@example.com','ecologistas@example.com']                     | ['carmen@example.com','ecologistas@example.com']                     || 2
     }
 }
