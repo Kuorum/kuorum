@@ -30,6 +30,6 @@
         <input type="submit" class="btn btn-lg" value="Regístrate"> <p class="cancel">o <a href="#" class="change-home-login">entra</a></p>
     </div>
     <div class="form-group">
-        Al registrarte aceptas las <a href="#" target="_blank">condiciones del servicio</a>
+        <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
     </div>
 </g:form>
