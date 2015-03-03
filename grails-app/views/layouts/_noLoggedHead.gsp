@@ -2,7 +2,7 @@
 
     <li class="dropdown underline form">
         <a data-target="#" href="#" id="open-entry-user" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
-            <span class="icon-user"></span> Entrar
+            <span class="icon-user"></span><g:message code="head.noLogged.login"/>
         </a>
         <div id="entry-user" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-entry-user" role="menu">
             <g:include controller="login" action="loginForm"/>

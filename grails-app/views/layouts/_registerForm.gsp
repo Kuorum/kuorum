@@ -27,9 +27,10 @@
         %{--<input type="email" name="email-header" class="form-control input-lg" id="email-header" required placeholder="Introduce tu email" aria-required="true">--}%
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-lg" value="Regístrate"> <p class="cancel">o <a href="#" class="change-home-login">entra</a></p>
+        <input type="submit" class="btn btn-lg" value="Regístrate"> <p class="cancel"><g:message code="springSecurity.KuorumRegisterCommand.email.or"/> <a href="#" class="change-home-login"><g:message code="login.intro.login"/></a></p>
     </div>
     <div class="form-group">
-        Al registrarte aceptas las <a href="#" target="_blank">condiciones del servicio</a>
+        <g:set var="linkTermsUse" value="${createLink(mapping:'footerTermsUse')}"/>
+        <g:message code="register.conditions" args="[linkTermsUse]" encodeAs="raw"/>
     </div>
 </g:form>
