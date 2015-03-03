@@ -90,6 +90,64 @@ $(document).ready(function() {
         });
 
     }
+
+    // controlando el video de Vimeo en la modal de la Home
+
+    $('.play a').click( function(e) {
+
+        var iframeHome = $('#vimeoplayer')[0];
+        var playerHome = $f(iframeHome);
+
+        $("#videoHome").on('hidden.bs.modal', function (e) {
+            playerHome.api('pause');
+        })
+        $("#videoHome").on('shown.bs.modal', function (e) {
+            playerHome.api('play');
+        })
+
+    });
+
+    // controlando el video de Vimeo en el Embudo1
+    $(function () {
+
+        $('.vimeo.uno .front').click( function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $(this).next('iframe').css('display', 'block');
+            $(this).remove();
+
+            var iframe1 = $('#vimeoplayer1')[0];
+            var player1 = $f(iframe1);
+            player1.api('play');
+
+        });
+
+        $('.vimeo.dos .front').click( function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $(this).next('iframe').css('display', 'block');
+            $(this).remove();
+
+            var iframe2 = $('#vimeoplayer2')[0];
+            var player2 = $f(iframe2);
+            player2.api('play');
+
+        });
+
+        $('.vimeo.tres .front').click( function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $(this).next('iframe').css('display', 'block');
+            $(this).remove();
+
+            var iframe3 = $('#vimeoplayer3')[0];
+            var player3 = $f(iframe3);
+            player3.api('play');
+
+        });
+
+    });
+
     // mostrar/ocultar pass en formulario de Entrar
     $('#show-pass-header').on('change', function () {
       $('#pass-header').hideShowPassword($(this).prop('checked'));
