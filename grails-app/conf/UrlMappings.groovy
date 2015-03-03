@@ -182,6 +182,11 @@ class UrlMappings {
         name footerPrivacyPolicy: "/kuorum/politica-privacidad"     (controller:"footer", action: "privacyPolicy")
         name footerTermsUse:      "/kuorum/condiciones-de-uso"      (controller:"footer", action: "termsUse")
 
+        name funnelSuccessfulStories:      "/la-nueva-politica"  (controller:"funnel", action:"funnelSuccessfulStories")
+        name funnelOffers:                 "/ofertas"            (controller:"funnel", action:"funnelOffers")
+        name funnelPay:                    "/suscripcion"        (controller:"funnel", action:"funnelPay")
+        name funnelSubscriptionSuccess:    "/pago-satisfactorio" (controller:"funnel", action:"funnelSubscriptionPaid")
+
         name tourStart:           "/tour" (controller:"tour", action: "index")
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
         name tour_project:            "/tour/proyecto"       (controller:"tour", action: "tour_project")

@@ -1399,14 +1399,15 @@ var karma = {
 
 
 function prepareProgressBar(){
+    $('.progress-bar').progressbar();
     // animo la progress-bar de boxes.likes
-    $('.likes .progress-bar').progressbar({
-        done: function() {
-            var posTooltip = $('.progress-bar').width();
-            $('#m-callback-done').css('left', posTooltip).css('opacity', '1');
-            $('#m-callback-done > .likesCounter').html($('.likes .progress-bar').attr("aria-valuenow"))
-        }
-    });
+//    $('.likes .progress-bar').progressbar({
+//        done: function() {
+//            var posTooltip = $('.progress-bar').width();
+//            $('#m-callback-done').css('left', posTooltip).css('opacity', '1');
+//            $('#m-callback-done > .likesCounter').html($('.likes .progress-bar').attr("aria-valuenow"))
+//        }
+//    });
 }
 
 function prepareArrowClucks(){
