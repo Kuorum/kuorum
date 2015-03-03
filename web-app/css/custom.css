@@ -2457,7 +2457,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .vimeo > .front {background: transparent;}
 .vimeo > .front > img {opacity: 1;}
 .vimeo > .front > .fa {position: absolute; top: auto; bottom: 15px; left: auto; right: 15px; margin: 0; width: auto; height: auto;}
-.vimeo > .front .text {color: #fff; position: absolute; top: 14%; left: 8%; width: 65%; font-size: 18px; font-size: 1.8rem; line-height: 1.2;}
+.vimeo > .front .text {color: #fff; position: absolute; top: 14%; left: 8%; width: 40%; font-size: 18px; font-size: 1.8rem; line-height: 1.2;}
 .vimeo > .front .who {color: #fff; position: absolute; bottom: 8%; left: 8%; width: 65%; font-size: 15px; font-size: 1.5rem; font-family: Arial, sans-serif; line-height: 1;}
 
 .video-embudo-list > li:nth-of-type(even) .vimeo > .front > .fa {left: 15px; right: auto;}
@@ -3338,7 +3338,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .pide-cuenta ul {width: 100%;}
   .pide-cuenta > ul > li > ul {padding: 30px; min-height: 232px;}
   .vimeo > .front .who {width: 50%; font-size: 22px; font-size: 2.2rem;}
-  .vimeo > .front .text {width: 50%; font-size: 35px; font-size: 3.5rem; top: 12%;}
+  .vimeo > .front .text {width: 40%; font-size: 35px; font-size: 3.5rem; top: 12%;}
   .embudo #aside-ppal .border {width: 370px; margin: 0 auto;}
   .medios-list blockquote {margin: 0;}
   .support-list li {margin-right: 40px;}
@@ -3618,7 +3618,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .contratando .nav-tabs > li {margin-right: 20px; padding: 20px 10px;}
   .contratando .form-group {width: 45%;}
   .promo-options > div > form .options-wrapper {width: 100%;}
-  .vimeo > .front .text {font-size: 3.2rem; top: 12%; width: 60%;}
+  .vimeo > .front .text {font-size: 3.2rem; top: 12%; width: 40%;}
   .pide-cuenta > ul > li {display: inline-block; margin-bottom: 0;}
   .pide-cuenta > ul {margin-top: 50px;}
   .pide-cuenta > ul > li > ul {min-height: 188px;}
