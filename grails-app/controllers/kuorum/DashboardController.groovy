@@ -18,6 +18,9 @@ class DashboardController {
 
     def index(){
         if (springSecurityService.isLoggedIn()){
+            //TODO: Al ser el cálculo de la actividad de usuarios una operación lenta, habrá que ver dónde ponerlo para que no penalice el tiempo
+//          KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+//          kuorumUserService.recommendedUsersByActivityAndUser(user)
             render(view: "dashboard", model: dashboard())
             //redirect (mapping:"dashboard")
         }else{

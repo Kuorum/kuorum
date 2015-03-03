@@ -87,7 +87,7 @@ class ModulesTagLib {
     }
 
     def recommendedUsersList={attrs ->
-        Integer numUsers = attrs.numUsers
+        Integer numUsers = attrs.numUsers as Integer
         KuorumUser user = attrs.user
         List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user, new Pagination(max:numUsers))
         out << render(template: '/modules/users/recommendedUsersAsList', model: [users:recommendedUsers])

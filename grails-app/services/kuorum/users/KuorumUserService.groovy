@@ -180,7 +180,7 @@ class KuorumUserService {
     /**
      * Returns the recommended users by the giving user. The recommended user are stored in the collection
      * RecommendedUserInfo as a list of user's ids. The final user recommended are the result of the list recommendedUsers
-     * minus deletedRecommendedUsers.
+     * minus deletedRecommendedUsers and minus the following users of the current user.
      * @param user The user which obtain its recommended users
      * @param pagination The pagination params
      * @return
@@ -195,8 +195,9 @@ class KuorumUserService {
 
         RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(user)
         if(recommendedUserInfo){
-            recommendedUsers = recommendedUserInfo.recommendedUsers - recommendedUserInfo.deletedRecommendedUsers
-            kuorumUsers = recommendedUsers[pagination.offset..pagination.max].inject([]){ result, kuorumUser ->
+            recommendedUsers = recommendedUserInfo.recommendedUsers - recommendedUserInfo.deletedRecommendedUsers - user.following
+            Integer max = recommendedUsers.size()<pagination.max?recommendedUsers.size()-1:pagination.max
+            kuorumUsers = recommendedUsers[pagination.offset..max].inject([]){ result, kuorumUser ->
                 result << KuorumUser.get(kuorumUser)
                 result
             }
@@ -216,95 +217,106 @@ class KuorumUserService {
         String loadUrl = "https://graph.facebook.com/me/friends?access_token=${URLEncoder.encode(token, 'UTF-8')}"
         URL url = new URL(loadUrl)
         JSONElement facebookFriends = JSON.parse(url.readLines().first())
-        List<KuorumUser> recommendedUsers
+        List<ObjectId> recommendedUsers
         Thread.start {
             Date start = new Date()
             log.debug "Start background execution of checkFacebookFriendsByUserToken on $start ..."
             List<FacebookUser> facebookUsers = FacebookUser.findAllByIdNotEqual(user.id)
-            recommendedUsers = recommendedUsersByFacebookFriends(user, facebookUsers, facebookFriends)
             RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(user)
             if(!recommendedUserInfo){
-                new RecommendedUserInfo(recommendedUsers: recommendedUsers*.id, user: user).save()
-            } else {
-                if(recommendedUserInfo.recommendedUsers){
-                    recommendedUserInfo.recommendedUsers[0..<recommendedUsers.size()] = recommendedUsers*.id
-                } else {
-                    recommendedUserInfo.recommendedUsers = recommendedUsers*.id
-                }
-                recommendedUserInfo.save()
+                new RecommendedUserInfo(recommendedUsers: [], user: user).save()
             }
+            recommendedUsers = recommendedUsersByFacebookFriends(user, facebookUsers, facebookFriends, recommendedUserInfo)
+            if(recommendedUserInfo.recommendedUsers){
+                recommendedUserInfo.recommendedUsers[0..<recommendedUsers.size()] = recommendedUsers
+            } else {
+                recommendedUserInfo.recommendedUsers = recommendedUsers
+            }
+            recommendedUserInfo.save(flush: true)
             log.debug "... End background execution of checkFacebookFriendsByUserToken on ${new Date()} with total execution time ${TimeCategory.minus(new Date(),start)}"
         }
     }
 
     /**
      * TODO: Improve algorithm with map-reduce?
-     * Obtain the users that are in the application and are not friends of the current user.
-     * - If the list of FacebookUsers that are not friends of the user is greater than the maxSize specified in
+     * Obtain the users that are in the application and are friends of the current user.
+     * - If the list of FacebookUsers that are friends of the user is greater than the maxSize specified in
      * RecommendedUserInfo, the result is the list of this FacebookUsers from 0 to the maximum specified in the
      * constraint of RecommendedUserInfo.
-     * - If the list of FacebookUsers that are not friends of the user is less than thee maxSize specified in
+     * - If the list of FacebookUsers that are friends of the user is less than thee maxSize specified in
      * RecommendedUserInfo, the result is the list of FacebookUsers plus the recommended users that the user had
-     * previously (if existe the RecommendedUserInfo for the user).
+     * previously (if exists the RecommendedUserInfo for the user).
      * @param user The user which obtain its recommended users by facebook friends.
      * @param facebookUsers The collection of FacebookUser in the application
      * @param facebookFriends The collection of Faccebook friends of the user
      * @return
      */
-    List<KuorumUser> recommendedUsersByFacebookFriends(KuorumUser user, List<FacebookUser> facebookUsers, facebookFriends){
-        List<FacebookUser> faceBookUsersInKuorumNotFriendOfUser
-        List<KuorumUser> kuorumUsersInKuorumNotFriendOfUser = []
+    List<ObjectId> recommendedUsersByFacebookFriends(KuorumUser user, List<FacebookUser> facebookUsers, facebookFriends, RecommendedUserInfo recommendedUserInfo){
+        List<FacebookUser> faceBookUsersFriendsOfUser
+        List<ObjectId> kuorumUsersFriendsOfUser = []
+        List<Long> facebookFriendsId = facebookFriends.data.id.collect{it.toLong()}
         GParsPool.withPool{
-            faceBookUsersInKuorumNotFriendOfUser = facebookUsers.findAllParallel{!(it.uid in facebookFriends.data.id)}
+            faceBookUsersFriendsOfUser = facebookUsers.findAllParallel{(it.uid in facebookFriendsId && !(it.user.id in recommendedUserInfo.recommendedUsers))}
         }
-        if(faceBookUsersInKuorumNotFriendOfUser){
-            kuorumUsersInKuorumNotFriendOfUser = faceBookUsersInKuorumNotFriendOfUser*.user
-            if(kuorumUsersInKuorumNotFriendOfUser.size() > RecommendedUserInfo.constraints.recommendedUsers.maxSize){
-                return kuorumUsersInKuorumNotFriendOfUser[0..<RecommendedUserInfo.constraints.recommendedUsers.maxSize]
+        if(faceBookUsersFriendsOfUser){
+            kuorumUsersFriendsOfUser = faceBookUsersFriendsOfUser*.user
+            if(kuorumUsersFriendsOfUser.size() > RecommendedUserInfo.constraints.recommendedUsers.maxSize){
+                return kuorumUsersFriendsOfUser[0..<RecommendedUserInfo.constraints.recommendedUsers.maxSize]*.id
             } else {
-                RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(user)
                 if(recommendedUserInfo && recommendedUserInfo.recommendedUsers){
-                    return kuorumUsersInKuorumNotFriendOfUser + recommendedUserInfo.recommendedUsers[0..<(recommendedUserInfo.recommendedUsers.size() - kuorumUsersInKuorumNotFriendOfUser.size())]
+                    return kuorumUsersFriendsOfUser*.id + recommendedUserInfo.recommendedUsers[0..<(RecommendedUserInfo.constraints.recommendedUsers.maxSize - kuorumUsersFriendsOfUser.size())]
                 } else {
-                    return kuorumUsersInKuorumNotFriendOfUser
+                    return kuorumUsersFriendsOfUser*.id
                 }
             }
         } else {
-            return kuorumUsersInKuorumNotFriendOfUser
+            return kuorumUsersFriendsOfUser
         }
     }
 
     /**
      * TODO: Improve algorithm with map-reduce?
-     * Obtain the recommended users list for all users by activity criteria. The users are looped by blocks and inside
-     * the loop, the recommended users for a user are calculated by the activity formula. Then, the recommended users
-     * are sort by the formula and stored in the RecommendedUserInfo collection for the user.
-     *
+     * Obtain the recommended users list for all users by activity criteria. The users are looped by blocks.
      */
     void recommendedUsersByActivity(){
         Integer offset = 0
-        List<KuorumUser> kuorumUsers, otherUsers, kuorumUsersOrdered = []
-        RecommendedUserInfo recommendedUserInfo
+        List<KuorumUser> kuorumUsers
 
         for(offset=0; offset<100;offset+=100){
             kuorumUsers = KuorumUser.list(offset: offset, max: 100)
-            kuorumUsers = KuorumUser.findAllByName('Miguel Ángel García Gómez')
             kuorumUsers.each{ user ->
-                GParsPool.withPool{
-                    calculateActivityClosure.memoize()
-                    otherUsers = KuorumUser.findAllByIdNotEqual(user.id)
-                    otherUsers.collectParallel{ it.activityForRecommendation = calculateActivityClosure(it, user) }
-                    kuorumUsersOrdered = otherUsers.parallel.sort{-it.activityForRecommendation}.collection[0..<RecommendedUserInfo.constraints.recommendedUsers.maxSize]
-                    recommendedUserInfo = RecommendedUserInfo.findByUser(user)
-                    if(!recommendedUserInfo){
-                        recommendedUserInfo = new RecommendedUserInfo(recommendedUsers: kuorumUsersOrdered*.id, user: user).save()
-                    } else {
-                        recommendedUserInfo.recommendedUsers = kuorumUsersOrdered*.id
-                        recommendedUserInfo.save()
-                    }
-                }
+                recommendedUsersByActivityAndUser(user)
             }
         }
+    }
+
+    /**
+     * TODO: Improve algorithm with map-reduce? Currently this method has a total execution time about 1 minute 30 seconds for 1 user.
+     * The recommended users for a user are calculated by the activity formula. Then, the recommended users
+     * are sort by the formula and stored in the RecommendedUserInfo collection for the user.
+     * @param user the user which calculates the recommended users
+     */
+    void recommendedUsersByActivityAndUser(KuorumUser user){
+        List<KuorumUser> otherUsers, kuorumUsersOrdered = []
+        RecommendedUserInfo recommendedUserInfo
+
+        Date start = new Date()
+        println("Starting recommendedUsersByActivityAndUser...")
+        otherUsers = KuorumUser.findAllByIdNotEqual(user.id)
+        GParsPool.withPool{
+            calculateActivityClosure.memoize()
+            otherUsers = KuorumUser.findAllByIdNotEqual(user.id)
+            otherUsers.collectParallel{ it.activityForRecommendation = calculateActivityClosure(it, user) }
+            kuorumUsersOrdered = otherUsers.parallel.sort{-it.activityForRecommendation}.collection[0..<RecommendedUserInfo.constraints.recommendedUsers.maxSize]
+            recommendedUserInfo = RecommendedUserInfo.findByUser(user)
+            if(!recommendedUserInfo){
+                recommendedUserInfo = new RecommendedUserInfo(recommendedUsers: kuorumUsersOrdered*.id, user: user).save()
+            } else {
+                recommendedUserInfo.recommendedUsers = kuorumUsersOrdered*.id
+                recommendedUserInfo.save()
+            }
+        }
+        println("... End of recommendedUsersByActivityAndUser on ${new Date()} with total execution time ${TimeCategory.minus(new Date(),start)}")
     }
 
     /**
