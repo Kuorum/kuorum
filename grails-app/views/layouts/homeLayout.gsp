@@ -6,7 +6,7 @@
     </head>
 
     <body>
-        <g:render template="/layouts/head"/>
+        <g:render template="/layouts/headNoSearch"/>
         <div class="row main">
             <section id="main" role="main" class="sign home clearfix">
                 <g:pageProperty name="page.mainContent"/>

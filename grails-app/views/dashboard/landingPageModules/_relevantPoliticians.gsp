@@ -10,6 +10,6 @@
         </ul>
     </div>
     <div class="homeMore">
-        <g:link mapping="funnelSuccessfulStories"><g:message code="landingPage.recommendedPoliticians.button"/></g:link>
+        <g:link mapping="funnelSuccessfulStories" class="btn btn-blue btn-lg btn-block"><g:message code="landingPage.recommendedPoliticians.button"/></g:link>
     </div>
 </section>
