@@ -56,4 +56,22 @@ class CodecSpec extends Specification {
         "Estos:\rhttp://elpais.com/elpais/2014/06/23/media/1403547645_646044.html" | "Estos:\r<a href='http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html' target='_blank' rel='nofollow'>http://elpais.com/elpais/2014/06/23/media/1403547645_646044.html</a>"
         "pongo www.rae.es\nUn" | "pongo <a href='http://www.rae.es' target='_blank' rel='nofollow'>www.rae.es</a>\nUn"
     }
+
+    @Unroll
+    void "test deleting script tag #orgString == #tranformedString"() {
+        given:"The kuorumCodec"
+        when:
+        def res = RemovingScriptTagsCodec.encode(orgString)
+        then:
+        res == tranformedString
+        where:
+        orgString                                            | tranformedString
+        "hol <script> alert('') </script>"                   | "hol  alert('') "
+        "hol <ScripT> alert('') </script>"                   | "hol  alert('') "
+        "hol <SCRIPT> alert('') </scrip>"                    | "hol  alert('') </scrip>"
+        "hol <SCRIPT src=''/>"                               | "hol "
+        "hol <SCRIPT src='http://jsChungo.com/js'/>"         | "hol "
+        "hol <SCRIPT> alert('') </scripT> <B>BLACK</b>"      | "hol  alert('')  <B>BLACK</b>"
+
+    }
 }

@@ -185,13 +185,22 @@ class PostTagLib {
         }
     }
 
+    private static final String NAME_VAR_IF_USER_CAN_ADD_DEBATES = "elseIfUserCanAddDebates"
     def ifUserCanAddDebates={attrs, body ->
         Post post = attrs.post
         if (springSecurityService.isLoggedIn()){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             if (postService.isAllowedToAddDebate(post, user)){
+                pageScope.setVariable(NAME_VAR_IF_USER_CAN_ADD_DEBATES, false)
                 out << body()
+            }else{
+                pageScope.setVariable(NAME_VAR_IF_USER_CAN_ADD_DEBATES, true)
             }
+        }
+    }
+    def elsIfUserCanAddDebates={attrs, body ->
+        if (pageScope.getVariable(NAME_VAR_IF_USER_CAN_ADD_DEBATES)){
+            out << body()
         }
     }
 
