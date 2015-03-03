@@ -29,27 +29,8 @@
 
                     <!-- este bloque es para Entrar -->
                     <g:include controller="login" action="homeLogin"/>
-
                     <!-- este bloque es para Registro -->
-                    <formUtil:validateForm bean="${command}" form="sign"/>
-                    <g:form mapping="register" name="sign" role="form" method="POST" autocomplete="off" class="login">
-                        <div class="form-group">
-                            <label for="name" class="sr-only"><g:message code="springSecurity.KuorumRegisterCommand.name.placeHolder"/></label>
-                            <input type="text" name="name" class="form-control input-lg" id="name" required placeholder="Dinos tu nombre o el de tu organización" aria-required="true">
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="sr-only"><g:message code="springSecurity.KuorumRegisterCommand.email.placeHolder"/></label>
-                            <input type="email" name="email" class="form-control input-lg" id="email" required placeholder="Introduce tu email" aria-required="true">
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-lg" value="Regístrate"> <p class="cancel"><g:message code="springSecurity.KuorumRegisterCommand.email.or"/> <a href="#" class="change-home-login"><g:message code="login.intro.login"/></a></p>
-                        </div>
-                        <div class="form-group">
-                            <g:set var="linkTermsUse" value="${createLink(mapping:'footerTermsUse')}"/>
-                            <g:message code="register.conditions" args="[linkTermsUse]" encodeAs="raw"/>
-                        </div>
-                    </g:form>
-
+                    <g:render template="/layouts/registerForm" model="[registerCommand:command, formId:'sign']"/>
 
                     <div class="social-home-container">
                         <h3><g:message code="login.rrss.label"/> </h3>
