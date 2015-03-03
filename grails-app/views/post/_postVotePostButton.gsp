@@ -67,7 +67,15 @@
                     <span class="fa fa-rocket fa-2x"></span>
                     <g:message code="post.show.boxes.like.vote.${userVote ? 'buttonVoted' : 'button'}" encodeAs="raw"/>
                 </g:link>
-            </div>
+                <g:if test="${!userVote}">
+                    <div class="form-group">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="anonymous"
+                                   value="private"/>
+                            <g:message code="post.show.boxes.like.vote.anonymousCheckBoxLabel"/>
+                        </label>
+                    </div>
+                </g:if>
         </form>
     </postUtil:asUser>
 </postUtil:userOption>
