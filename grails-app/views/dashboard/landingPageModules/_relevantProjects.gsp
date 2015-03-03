@@ -9,7 +9,8 @@
     </g:each>
 </ul>
 </div>
-<div class="homeMore">
-    <a href="#" class="btn btn-blue btn-lg btn-block">Conoce otros proyectos</a>
-</div>
+%{-- DESCOMENTAR CUANDO ESTÉ LISTO EL DESCUBRE--}%
+%{--<div class="homeMore">--}%
+    %{--<a href="#" class="btn btn-blue btn-lg btn-block">Conoce otros proyectos</a>--}%
+%{--</div>--}%
 </section>
