@@ -1,4 +1,3 @@
-
 <g:include controller="modules" action="registerFooterRelevantUsers"/>
 
 <footer id="footer" class="row" role="contentinfo">
