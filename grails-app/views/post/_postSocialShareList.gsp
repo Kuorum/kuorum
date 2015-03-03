@@ -15,10 +15,7 @@
     <a href="${twitterLink}" class="social-share twitter">
         <span class="${textClass}"><g:message code="project.social.twitter"/></span>
         <g:if test="${showIcon}">
-            <span class="fa-stack fa-lg">
-                <span class="fa fa-circle fa-stack-2x"></span>
-                <span class="fa fa-twitter fa-stack-1x"></span>
-            </span>
+            <span class="fa fa-twitter fa-2x"></span>
         </g:if>
     </a>
 </li>
@@ -38,23 +35,16 @@
     <a href="${facebookLink}" class="social-share facebook" title="Share on Facebook">
         <span class="${textClass}"><g:message code="project.social.facebook"/></span>
         <g:if test="${showIcon}">
-            <span class="fa-stack fa-lg">
-                <span class="fa fa-circle fa-stack-2x"></span>
-                <span class="fa fa-facebook fa-stack-1x"></span>
-            </span>
+            <span class="fa fa-facebook fa-2x"></span>
         </g:if>
     </a>
 </li>
-%{--<li><a href="#"><span class="sr-only">LinkedIn</span><span class="fa-stack fa-lg"><span class="fa fa-circle fa-stack-2x"></span><span class="fa fa-linkedin fa-stack-1x"></span></span></a></li>--}%
 <li>
     <g:set var="shortUrl" value="${socialPostLink}"/>
     <a href="https://plus.google.com/share?url=${shortUrl}" class="social-share google">
         <span class="${textClass}"><g:message code="project.social.googlePlus"/></span>
         <g:if test="${showIcon}">
-            <span class="fa-stack fa-lg">
-                <span class="fa fa-circle fa-stack-2x"></span>
-                <span class="fa fa-google-plus fa-stack-1x"></span>
-            </span>
+            <span class="fa fa-google-plus fa-2x"></span>
         </g:if>
     </a>
 </li>
