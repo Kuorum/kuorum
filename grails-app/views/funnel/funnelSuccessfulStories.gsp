@@ -1,17 +1,17 @@
 <%@ page import="kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>TITULO PAGINA</title>
-    <meta name="layout" content="normalLayout">
+    <title><g:message code="funnel.successfulStories.title"/></title>
+    <meta name="layout" content="funnelLayout">
+    <parameter name="extraCssContainer" value="embudo" />
 </head>
 
 <content tag="mainContent">
-ZONA CON 2 columnas y mierdas varias
+    <g:render template="leftColumn"/>
+    <g:render template="successfulStories"/>
 </content>
 
 <content tag="preFooter">
-    ZONA DESPUES DE LAS VARIAS COLUMNAS
-
-    Eres alcalde, concejal o parlamentario
+    <g:render template="offersNoPrice"/>
 </content>
 
