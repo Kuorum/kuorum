@@ -82,9 +82,10 @@
                     </div>
 
                     <div class="condiciones-compra">
-                        <h3>Condiciones de compra</h3>
-                        <p>Lorem ipsum dolor sit amet, te fabellas euripidis expetendis vim, mei ut odio mucius scripserit. Timeam laoreet patrioque his ei, vel ea congue fastidii. Sit eleifend reformidans ei. Omnium euismod in pri, eam ei oblique numquam dignissim, vel et erant.</p>
-                        <p>Consul legendos expetendis id vis. Ne saperet civibus rationibus has. Enim semper maiestatis no quo, ius at erat tollit. Adhuc epicuri intellegam te est. Solet animal apeirian eu est, malis legendos dissentias te usu. Vim at sint meliore officiis, mucius epicurei vel et. Duo fastidii quaestio an. Vim at veri eripuit fabellas, prompta docendi ea mei. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus.</p>
+                        <h3><g:message code="funnel.offers.purchaseConditions.title"/></h3>
+                        <p><g:message code="funnel.offers.purchaseConditions.description1"/></p>
+                        <p><g:message code="funnel.offers.purchaseConditions.description2"/></p>
+                        <p><g:message code="funnel.offers.purchaseConditions.description3"/></p>
                     </div>
                 </section>
 </content>
