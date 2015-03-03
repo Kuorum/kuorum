@@ -29,8 +29,12 @@
     </article>
     <g:render template="/post/debates/postDebates" model="[post:post]"/>
     <g:render template="postComments" model="[post:post]"/>
-    <g:render template="relatedPosts" model="[relatedPosts:relatedPost]"/>
 
+</content>
+
+
+<content tag="preFooter">
+    <g:render template="relatedPosts" model="[relatedPosts:relatedPost]"/>
 </content>
 
 <content tag="cColumn">
