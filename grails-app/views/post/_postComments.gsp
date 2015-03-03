@@ -1,20 +1,7 @@
 <%@ page import="kuorum.web.commands.post.CommentPostCommand" %>
-<aside class="comments" id="comments">
+<h2 class="underline"><g:message code="post.show.comments.title"/> </h2>
+<aside class="comments">
     <g:set var="filteredComments" value="${post.comments.findAll{!(it.deleted || it.moderated)}}"/>
-    <g:if test="${!filteredComments}">
-        <sec:ifLoggedIn>
-            <h1><g:message code="post.show.comments.title.empty"/></h1>
-            <p><g:message code="post.show.comments.description"/> </p>
-        </sec:ifLoggedIn>
-    </g:if>
-    <g:elseif test="${filteredComments.size()==1}">
-        <h1><g:message code="post.show.comments.title.singular"/></h1>
-        <p><g:message code="post.show.comments.description"/> </p>
-    </g:elseif>
-    <g:else>
-        <h1><g:message code="post.show.comments.title.plural" args="[filteredComments.size()]"/></h1>
-        <p><g:message code="post.show.comments.description"/> </p>
-    </g:else>
     <ul class="listComments" id="listComments">
     <g:set var="displayedComments" value="${0}"/>
     <g:each in="${post.comments}" var="comment" status="i">
@@ -26,17 +13,27 @@
     </g:each>
 
     </ul>
-    <div class="text-center ${post.comments.size()>2?'':'hidden'}" id="ver-mas"><a href="#"><g:message code="post.show.comments.seeMore"/> </a></div>
-    <sec:ifLoggedIn>
-        <g:set var="commentCommand" value="${new CommentPostCommand()}"/>
-        <formUtil:validateForm bean="${commentCommand}" form="addComment"/>
-        <g:form mapping="postAddComment" params="${post.encodeAsLinkProperties()}" name="addComment" data-parent-id="listComments">
-            <div class="form-group">
-                <formUtil:textArea command="${commentCommand}" field="comment" rows="5"/>
-            </div>
-            <div class="form-group btns clearfix">
-                <input type="submit" class="btn btn-grey btn-lg pull-right" value="${message(code: 'post.show.comments.add.submit')}">
-            </div>
-        </g:form>
-    </sec:ifLoggedIn>
 </aside>
+<div class="text-center ${post.comments.size()>2?'':'hidden'}" id="ver-mas"><a href="#"><g:message code="post.show.comments.seeMore"/> </a></div>
+<sec:ifLoggedIn>
+    <aside class="comments">
+        <ul class="listComments">
+            <li>
+                <time datetime="2014-04-07T13:40:50+02:00" class="timeago" title="hace menos de 1 minuto">Hace 16 días</time>
+                <div class="user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                    <userUtil:showLoggedUser showRole="true"/>
+                </div>
+                <g:set var="commentCommand" value="${new CommentPostCommand()}"/>
+                <formUtil:validateForm bean="${commentCommand}" form="addComment"/>
+                <g:form mapping="postAddComment" params="${post.encodeAsLinkProperties()}" name="addComment" data-parent-id="listComments">
+                    <div class="form-group">
+                        <formUtil:textArea command="${commentCommand}" field="comment" rows="5"/>
+                    </div>
+                    <div class="form-group btns clearfix">
+                        <input type="submit" class="btn btn-grey btn-lg pull-right" value="${message(code: 'post.show.comments.add.submit')}">
+                    </div>
+                </g:form>
+            </li>
+        </ul>
+    </aside>
+</sec:ifLoggedIn>
