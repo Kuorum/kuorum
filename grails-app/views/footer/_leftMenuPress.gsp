@@ -4,10 +4,10 @@
         <g:link mapping="footerInformation"><g:message code="layout.footer.information"/></g:link>
     </li>
     <li>
-        <a href="#" target="_blank"><g:message code="layout.footer.press"/></a>
+        <a href="${resource(dir: 'resources/pdf', file: 'Dosier de Prensa - Kuorum esp.pdf')}" target="_blank"><g:message code="layout.footer.press"/></a>
     </li>
     <li>
-        <a href="#" target="_blank"><g:message code="layout.footer.logo"/></a>
+        <a href="${resource(dir: 'resources/zip', file: 'logos.zip')}" target="_blank"><g:message code="layout.footer.logo"/></a>
     </li>
     <li>
         <a href="mailto:comunicacion@kuorum.org?subject=Quiero recibir notas de prensa" target="_blank"><g:message code="layout.footer.releases"/></a>
