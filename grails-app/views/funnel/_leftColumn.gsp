@@ -14,7 +14,7 @@
                         </span>
                     </div><!-- /autor -->
                     <div class="col-xs-6 col-sm-12 col-md-6 text-right user victory">
-                        Apadrinada por
+                        <g:message code="funnel.successfulStories.leftColumn.supported"/>
                         <span>
                             <img class="user-img" alt="Federico Buyolo" src="images/buyolo.jpg">
                         </span>
