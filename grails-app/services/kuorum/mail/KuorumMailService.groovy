@@ -2,6 +2,7 @@ package kuorum.mail
 
 import grails.transaction.Transactional
 import kuorum.core.model.CommissionType
+import kuorum.core.model.OfferType
 import kuorum.core.model.PostType
 import kuorum.project.Project
 import kuorum.post.Cluck
@@ -54,6 +55,18 @@ class KuorumMailService {
         ]
         MailUserData mailUserData = new MailUserData(user:getFeedbackUser(), bindings:[])
         MailData mailData = new MailData(fromName:user.name, mailType: MailType.FEEDBACK, globalBindings: bindings, userBindings: [mailUserData])
+        mandrillAppService.sendTemplate(mailData)
+    }
+
+    def sendPoliticianSubscription(KuorumUser user, OfferType offerType){
+        def bindings = [
+                userLink:generateLink("userShow",user.encodeAsLinkProperties()),
+                user:user.name,
+                offerType:offerType.toString(),
+                totalPrice:offerType.finalPrice.toString()
+        ]
+        MailUserData mailUserData = new MailUserData(user:getFeedbackUser(), bindings:[])
+        MailData mailData = new MailData(fromName:user.name, mailType: MailType.POLITICIAN_SUBSCRIPTION, globalBindings: bindings, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
 

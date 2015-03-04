@@ -3,6 +3,7 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.OfferType
+import kuorum.mail.KuorumMailService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.web.commands.profile.PersonalDataCommand
@@ -13,6 +14,7 @@ class FunnelController {
 
     RegisterService registerService
     SpringSecurityService springSecurityService
+    KuorumMailService kuorumMailService
     /**
      * Funnel Step1
      */
@@ -63,7 +65,7 @@ class FunnelController {
             return
         }
         KuorumUser user = registerService.registerUser(command);
-
+        flash.offerType=offerType
         redirect mapping:"funnelPaySuccess"
     }
 
@@ -93,6 +95,7 @@ class FunnelController {
         }
         try{
             springSecurityService.reauthenticate(params.email,params.password)
+            flash.offerType=offerType
             redirect mapping:"funnelPaySuccess"
         }catch(UsernameNotFoundException e){
             KuorumRegisterCommand command = new KuorumRegisterCommand(email:command.email);
@@ -111,6 +114,18 @@ class FunnelController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def funnelSuccess(){
+        OfferType offerType = flash.offerType
+        if (!offerType){
+            try{
+                offerType= OfferType.valueOf(params.offerType)
+            }catch (Exception e){
+                flash.error="No se ha detectado la oferta"  //Por aqui no debería pasar nunca
+                redirect mapping:"funnelOffers"
+                return
+            }
+        }
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        kuorumMailService.sendPoliticianSubscription(user,offerType)
         log.info("Usuario registrado")
         [
                 command:new PersonalDataCommand()
