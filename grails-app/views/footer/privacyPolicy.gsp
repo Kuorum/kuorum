@@ -79,9 +79,6 @@
                 <g:message code="footer.menu.footerPrivacyPolicy.description0209"/>
             </p>
             <p>
-                <g:message code="footer.menu.footerPrivacyPolicy.description0210"/>
-            </p>
-            <p>
                 <g:message code="footer.menu.footerPrivacyPolicy.description0211"/>
             </p>
             <p>
@@ -104,32 +101,6 @@
             </p>
             <p>
                 <g:message code="footer.menu.footerPrivacyPolicy.description0218"/>
-            </p>
-            <li>
-                <g:message code="footer.menu.footerPrivacyPolicy.description0219"/>
-            </li>
-        </br>
-            <li>
-                <g:message code="footer.menu.footerPrivacyPolicy.description0220"/>
-            </li>
-        </br>
-            <li>
-                <g:message code="footer.menu.footerPrivacyPolicy.description0221"/>
-            </li>
-        </br>
-            <li>
-                <g:message code="footer.menu.footerPrivacyPolicy.description0222"/>
-            </li>
-        </br>
-            <li>
-                <g:message code="footer.menu.footerPrivacyPolicy.description0223"/>
-            </li>
-        </br>
-            <p>
-                <g:message code="footer.menu.footerPrivacyPolicy.description0224"/>
-            </p>
-            <p>
-                <g:message code="footer.menu.footerPrivacyPolicy.description0225"/>
             </p>
             <p>
                 <g:message code="footer.menu.footerPrivacyPolicy.description0226"/>

@@ -30,6 +30,9 @@
             <p>
                 <g:message code="footer.menu.footerTermsUse.description022"/>
             </p>
+            <p>
+                <g:message code="footer.menu.footerTermsUse.description023"/>
+            </p>
         </div>
 
         <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle03"/></h4>
