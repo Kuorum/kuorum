@@ -22,15 +22,15 @@
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="noTengoCuenta">
-                        <form role="form" class="form-inline" id="sign-comprar" name="sign-comprar" method="post" action="#">
+                    <div role="tabpanel" class="tab-pane fade in active" id="tengoCuenta">
+                        <formUtil:validateForm bean="${command}" form="sign-comprar"/>
+                        <g:form mapping="funnelSubscription" role="form" class="form-inline" name="sign-comprar" method="post">
+                            <input type="hidden" name="offerType" value="${offerType}"/>
                             <div class="form-group">
-                                <label class="sr-only" for="nombre"><g:message code="funnel.payment.name"/></label>
-                                <input type="text" aria-required="true" placeholder="Dinos tu nombre" required id="nombre" name="nombre" class="form-control input-lg">
+                                <formUtil:input command="${command}" field="name" labelCssClass="sr-only" showCharCounter="false"/>
                             </div>
                             <div class="form-group">
-                                <label class="sr-only" for="email"><g:message code="funnel.payment.email"/></label>
-                                <input type="email" aria-required="true" placeholder="Introduce tu email" required id="email" name="email" class="form-control input-lg">
+                                <formUtil:input command="${command}" field="email" labelCssClass="sr-only"/>
                             </div>
                             %{--<div class="row tipo-pago">--}%
                                 %{--<div class="col-sm-6">--}%
@@ -47,27 +47,22 @@
                             <div class="form-group">
                                 <input type="submit" value="Domiciliar el pago" class="btn btn-lg">
                             </div>
-                        </form>
+                        </g:form>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="noTengoCuenta">
-                        <form role="form" class="form-inline" id="login-comprar" name="login-comprar" method="post" action="#">
+                        <formUtil:validateForm bean="${command}" form="sign-comprar"/>
+                        <g:form mapping="funnelLoggin" role="form" class="form-inline" name="login-comprar" method="post">
+                            <input type="hidden" name="offerType" value="${offerType}"/>
                             <div class="form-group">
-                                <label class="sr-only" for="email"><g:message code="funnel.payment.email"/></label>
-                                <input type="email" aria-required="true" placeholder="Introduce tu email" required id="email" name="email" class="form-control input-lg">
+                                <formUtil:input command="${command}" field="email" labelCssClass="sr-only" showCharCounter="false"/>
                             </div>
                             <div class="form-group">
-                                <label class="sr-only" for="pass"><g:message code="funnel.payment.password"/></label>
-                                <div class="input-append input-group">
-                                    <input type="password" required aria-required="true" id="pass-home" name="pass-home" class="form-control input-lg" value="" placeholder="Contraseña">
-                                    <span tabindex="100" class="add-on input-group-addon">
-                                        <label><input type="checkbox" name="show-pass-home" id="show-pass-home"><g:message code="login.email.form.password.show"/></label>
-                                    </span>
-                                </div>
+                                <formUtil:password command="${command}" field="password" />
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Domiciliar el pago" class="btn btn-lg">
                             </div>
-                        </form>
+                        </g:form>
                     </div>
                 </div>
             </div>

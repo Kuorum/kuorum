@@ -16,8 +16,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     def kuorumMailService
     RegisterService registerService
 
-    public static final PREFIX_PASSWORD = "*registerUser*"
-
 
     def index() {
         def copy = [:] + (flash.chainedParams ?: [:])
@@ -32,26 +30,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
 
-        KuorumUser user = registerService.createUser(command)
-
-        RegistrationCode registrationCode = registerService.registerUserCode(user)
-        log.info("Usuario $user.name creado con el token  $registrationCode.token")
-        if (registrationCode == null || registrationCode.hasErrors()) {
-            // null means problem creating the user
-            flash.error = message(code: 'spring.security.ui.register.miscError')
-            flash.chainedParams = params
-            redirect action: 'index'
-            return
-        }
-
-        String url = generateLink('verifyRegistration', [t: registrationCode.token])
-        kuorumMailService.sendRegisterUser(user,url)
-
-        if (!user.password){
-            user.password = "${PREFIX_PASSWORD}${Math.random()}"
-            user.save()
-        }
-        springSecurityService.reauthenticate user.email
+        KuorumUser user = registerService.registerUser(command)
         redirect mapping:"home"
     }
 

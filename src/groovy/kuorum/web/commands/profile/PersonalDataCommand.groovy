@@ -12,7 +12,8 @@ import org.grails.databinding.BindUsing
 @Validateable
 class PersonalDataCommand {
     Gender gender
-    String telephone
+    String phonePrefix
+    Integer telephone
     String postalCode
     Region country
     Integer year

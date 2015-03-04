@@ -71,8 +71,7 @@
                                 <formUtil:selectNation command="${personalDataCommand}" field="country" cssClass="sr-only"/>
                             </div>
                             <div class="form-group pull-left">
-                                %{--//TODO: Completar el TagLib para mostrar los prefijos--}%
-                                <formUtil:telephoneWithPrefix />
+                                <formUtil:telephoneWithPrefix command="${personalDataCommand}" field="phonePrefix"/>
                             </div>
                             <div class="form-group pull-left">
                                 <label for="phone" class="sr-only"><g:message code="dashboard.userProfile.incompleteDate.phone.label"/></label>

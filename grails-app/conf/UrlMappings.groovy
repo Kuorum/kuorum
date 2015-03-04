@@ -185,7 +185,10 @@ class UrlMappings {
         name funnelSuccessfulStories:      "/la-nueva-politica"  (controller:"funnel", action:"funnelSuccessfulStories")
         name funnelOffers:                 "/ofertas"            (controller:"funnel", action:"funnelOffers")
         name funnelPay:                    "/suscripcion"        (controller:"funnel", action:"funnelPay")
-        name funnelSubscriptionSuccess:    "/pago-satisfactorio" (controller:"funnel", action:"funnelSubscriptionPaid")
+        name funnelSubscription:           "/registro-politico"  (controller:"funnel", action:"funnelSubscription")
+        name funnelLoggin:                 "/login-politico"     (controller:"funnel", action:"funnelLogin")
+        name funnelPaySuccess:    "/pago-satisfactorio" (controller:"funnel", action:"funnelSuccess")
+        name funnelUpdatePersonalData:    "/actualizar-tlf-politico" (controller:"funnel", action:"funnelUpdatePersonalData")
 
         name tourStart:           "/tour" (controller:"tour", action: "index")
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
