@@ -2457,7 +2457,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .vimeo > .front {background: transparent;}
 .vimeo > .front > img {opacity: 1;}
 .vimeo > .front > .fa {position: absolute; top: auto; bottom: 15px; left: auto; right: 15px; margin: 0; width: auto; height: auto;}
-.vimeo > .front .text {color: #fff; position: absolute; top: 14%; left: 8%; width: 40%; font-size: 18px; font-size: 1.8rem; line-height: 1.2;}
+.vimeo > .front .text {color: #fff; position: absolute; top: 14%; left: 8%; width: 40%; font-size: 14px; font-size: 1.4rem; line-height: 1.2;}
 .vimeo > .front .who {color: #fff; position: absolute; bottom: 8%; left: 8%; width: 65%; font-size: 15px; font-size: 1.5rem; font-family: Arial, sans-serif; line-height: 1;}
 
 .video-embudo-list > li:nth-of-type(even) .vimeo > .front > .fa {left: 15px; right: auto;}
