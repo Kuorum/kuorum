@@ -91,6 +91,7 @@
 
                     <div class="condiciones-compra">
                         <h3><g:message code="funnel.offers.purchaseConditions.title"/></h3>
+                        <p></p>
                         <p><strong><g:message code="funnel.offers.purchaseConditions.subtitle1"/></p></strong>
                         <p><g:message code="funnel.offers.purchaseConditions.description1"/></p>
                         <p><g:message code="funnel.offers.purchaseConditions.description2"/></p>
