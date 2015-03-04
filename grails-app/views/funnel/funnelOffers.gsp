@@ -91,9 +91,18 @@
 
                     <div class="condiciones-compra">
                         <h3><g:message code="funnel.offers.purchaseConditions.title"/></h3>
+                        <h4><g:message code="funnel.offers.purchaseConditions.subtitle1"/></h4>
                         <p><g:message code="funnel.offers.purchaseConditions.description1"/></p>
                         <p><g:message code="funnel.offers.purchaseConditions.description2"/></p>
+                        <h4><g:message code="funnel.offers.purchaseConditions.subtitle1"/></h4>
                         <p><g:message code="funnel.offers.purchaseConditions.description3"/></p>
+                        <p><g:message code="funnel.offers.purchaseConditions.description4"/></p>
+                        <h4><g:message code="funnel.offers.purchaseConditions.subtitle1"/></h4>
+                        <p><g:message code="funnel.offers.purchaseConditions.description5"/></p>
+                        <p><g:message code="funnel.offers.purchaseConditions.description6"/></p>
+                        <p><g:message code="funnel.offers.purchaseConditions.description7"/></p>
+                        <h4><g:message code="funnel.offers.purchaseConditions.subtitle1"/></h4>
+                        <p><g:message code="funnel.offers.purchaseConditions.description8"/></p>
                     </div>
                 </section>
 </content>
