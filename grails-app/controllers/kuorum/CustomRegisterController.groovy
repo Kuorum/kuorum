@@ -205,7 +205,8 @@ class CustomRegisterController extends  ProfileController{
         }
 
         if(user){
-            user.personalData.telephone = "$personalDataCommand.phonePrefix $personalDataCommand.telephone"
+            user.personalData.telephone = personalDataCommand.telephone
+            user.personalData.phonePrefix = personalDataCommand.phonePrefix
             NoticeType noticeType = dashboardService.getNoticesByKuorumUser(user)
             user.notice = new Notice(noticeType: noticeType)
             user.save(flush: true)

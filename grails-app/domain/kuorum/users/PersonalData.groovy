@@ -10,6 +10,7 @@ import kuorum.core.model.UserType
 class PersonalData {
     UserType userType = UserType.PERSON
     Gender gender
+    String phonePrefix
     String telephone
 
     String postalCode
@@ -28,5 +29,6 @@ class PersonalData {
         year nullable:true
         province nullable: true
         country nullable: true
+        phonePrefix nullable:true
     }
 }

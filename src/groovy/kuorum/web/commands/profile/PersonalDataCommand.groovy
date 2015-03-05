@@ -13,7 +13,7 @@ import org.grails.databinding.BindUsing
 class PersonalDataCommand {
     Gender gender
     String phonePrefix
-    Integer telephone
+    String telephone
     String postalCode
     Region country
     Integer year
