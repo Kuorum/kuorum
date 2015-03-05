@@ -13,7 +13,7 @@
     <ul class="list-team">
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-ceo3.png')}" alt="Foto" itemprop="image">
+                <img src="${resource(dir: 'images', file: 'foto-ceo.jpg')}" alt="Foto" itemprop="image">
                 <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member1"/></h1>
                 <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position1"/></h2>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description1"/></p>
