@@ -95,14 +95,14 @@
                         <p><strong><g:message code="funnel.offers.purchaseConditions.subtitle1"/></p></strong>
                         <p><g:message code="funnel.offers.purchaseConditions.description1"/></p>
                         <p><g:message code="funnel.offers.purchaseConditions.description2"/></p>
-                        <p><strong><g:message code="funnel.offers.purchaseConditions.subtitle1"/></p></strong>
+                        <p><strong><g:message code="funnel.offers.purchaseConditions.subtitle2"/></p></strong>
                         <p><g:message code="funnel.offers.purchaseConditions.description3"/></p>
                         <p><g:message code="funnel.offers.purchaseConditions.description4"/></p>
-                        <p><strong><g:message code="funnel.offers.purchaseConditions.subtitle1"/></p></strong>
+                        <p><strong><g:message code="funnel.offers.purchaseConditions.subtitle3"/></p></strong>
                         <p><g:message code="funnel.offers.purchaseConditions.description5"/></p>
                         <p><g:message code="funnel.offers.purchaseConditions.description6"/></p>
                         <p><g:message code="funnel.offers.purchaseConditions.description7"/></p>
-                        <p><strong><g:message code="funnel.offers.purchaseConditions.subtitle1"/></p></strong>
+                        <p><strong><g:message code="funnel.offers.purchaseConditions.subtitle4"/></p></strong>
                         <p><g:message code="funnel.offers.purchaseConditions.description8"/></p>
                     </div>
                 </section>
