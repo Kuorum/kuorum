@@ -11,29 +11,30 @@
 </content>
 
 <content tag="mainContent">
-    <g:set var="multimedia" value=""/>
-    <postUtil:ifHasMultimedia post="${post}">
-        <g:set var="multimedia" value="multimedia"/>
-    </postUtil:ifHasMultimedia>
+    <article class="kakareo post" itemscope itemtype="http://schema.org/Article" role="article" data-cluck-postId="${post.id}">
+        <g:render template="/cluck/cluckMenuEditPost" model="[post:post]"/>
 
-    <article class="kakareo post sponsor ${multimedia}" role="article" itemscope itemtype="http://schema.org/Article" data-cluck-postId="${post.id}">
-        <div class="wrapper">
-            <g:render template="/cluck/cluckMain" model="[post:post]"/>
+        <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
+        <h1>${post.title} <g:link mapping="projectShow" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link> </h1>
+        <div class="main-kakareo row">
+            <div class="col-xs-5 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <userUtil:showUser user="${post.owner}" showRole="true"/>
+            </div>
+            <div class="col-xs-7 text-right sponsor">
+                <userUtil:showDebateUsers post="${post}" visibleUsers="1"/>
+            </div>
         </div>
-        <g:render template="/cluck/footerCluck" model="[cluck:post,displayingColumnC:false]"/>
-    </article><!-- /article -->
+        <postUtil:postShowMultimedia post="${post}"/>
+        <g:render template="/cluck/footerCluck" model="[post:post, displayingColumnC:false]"/>
+        <p>
+            ${raw(post.text.encodeAsRemovingScriptTags().replaceAll('<br>','</p><p>'))}
+        </p>
+    </article>
 
     <h2><g:message code="post.edit.step3.info.title"/></h2>
     %{--<p class="lead"><g:message code="post.edit.step3.info.content.big"/></p>--}%
     <p><g:message code="post.edit.step3.info.content.big"/></p>
     <p><g:message code="post.edit.step3.info.content.small"/></p>
-
-    %{--<h2>Invita a tus amigos para que hagan crecer la propuesta</h2>--}%
-    %{--<ul class="socialSponsor clearfix">--}%
-        %{--<li><a class="btn tw" href="#"><span class="fa fa-twitter fa-lg"></span> Publicar</a></li>--}%
-        %{--<li><a class="btn fb" href="#"><span class="fa fa-facebook fa-lg"></span> Compartir</a></li>--}%
-        %{--<li><a class="btn gog" href="#"><span class="fa fa-google-plus fa-lg"></span> Buscar contactos</a></li>--}%
-    %{--</ul>--}%
 
     <ul class="btns">
         <g:if env="production">
@@ -69,10 +70,8 @@
 </content>
 
 <content tag="cColumn">
-    <section class="boxes noted likes">
-        <h1><g:message code="post.edit.step3.firstVoteTitle"/> </h1>
+    <section class="boxes vote drive">
         <g:render template="likesContainer" model="[post:post]"/>
         <g:render template="/post/postSocialShare" model="[post:post]"/>
-
     </section>
 </content>
