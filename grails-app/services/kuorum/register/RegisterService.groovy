@@ -1,14 +1,27 @@
 package kuorum.register
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.ui.RegistrationCode
+import kuorum.core.exception.KuorumException
 import kuorum.core.model.CommissionType
+import kuorum.mail.KuorumMailService
 import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
+import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.transaction.annotation.Transactional
 import springSecurity.KuorumRegisterCommand
 
 class RegisterService {
+
+
+    LinkGenerator grailsLinkGenerator
+
+    KuorumMailService kuorumMailService
+
+    SpringSecurityService springSecurityService
+
+    public static final PREFIX_PASSWORD = "*registerUser*"
 
     /*
         Action to register the name of a new user and generate the token to the Link
@@ -30,6 +43,26 @@ class RegisterService {
             }
             registrationCode
         }
+    }
+    @Transactional
+    KuorumUser registerUser(KuorumRegisterCommand command){
+        KuorumUser user = createUser(command)
+
+        RegistrationCode registrationCode = registerUserCode(user)
+        log.info("Usuario $user.name creado con el token  $registrationCode.token")
+        if (registrationCode == null || registrationCode.hasErrors()) {
+            throw new KuorumException("Error creando usuario")
+        }
+
+        String url = generateLink('verifyRegistration', [t: registrationCode.token])
+        kuorumMailService.sendRegisterUser(user,url)
+
+        if (!user.password){
+            user.password = "${PREFIX_PASSWORD}${Math.random()}"
+            user.save()
+        }
+        springSecurityService.reauthenticate user.email
+        user
     }
 
     /*
@@ -85,5 +118,11 @@ class RegisterService {
 
     RegistrationCode findOrRegisterUserCode(KuorumUser user) {
         RegistrationCode.findByUsername(user.email)?:registerUserCode(user)
+    }
+
+    protected String generateLink(String action, linkParams) {
+        grailsLinkGenerator.link(absolute: true,
+                controller: 'register', action: action,
+                params: linkParams)
     }
 }

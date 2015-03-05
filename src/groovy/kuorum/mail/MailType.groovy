@@ -39,7 +39,8 @@ public enum MailType {
     POST_CREATED_4                      (MailGroupType.NOT_CONFIGURABLE, "02C_timePublishedAuthor", "promotion",[],["postType"]),
 
     FEEDBACK_VICTORY              (MailGroupType.NOT_CONFIGURABLE, "00_feedbackVictory", "internal",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink", "victoryOk"]),
-    FEEDBACK                      (MailGroupType.NOT_CONFIGURABLE, "00_feedback", "internal",[],["feedbackText", "feedbackUser", "feedbackUserLink", "userDeleted"]);
+    FEEDBACK                      (MailGroupType.NOT_CONFIGURABLE, "00_feedback", "internal",[],["feedbackText", "feedbackUser", "feedbackUserLink", "userDeleted"]),
+    POLITICIAN_SUBSCRIPTION       (MailGroupType.NOT_CONFIGURABLE, "00_politicianSubscription", "internal",[],["userLink", "user", "offerType", "totalPrice"]);
 
 
     String nameTemplate

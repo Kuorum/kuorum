@@ -24,4 +24,22 @@ public enum OfferType {
     public String getGroup(){
         return group;
     }
+
+    public Boolean isYearlyPay(){
+        switch (this){
+            case OfferType.BASIC_YEARLY:
+            case OfferType.PREMIUM_YEARLY:
+                return true
+                break;
+            case OfferType.CITY_HALL:
+            case OfferType.BASIC_MONTHLY:
+            case OfferType.PREMIUM_MONTHLY:
+            default:
+                return false
+        }
+    }
+
+    public Double getFinalPrice(){
+        isYearlyPay()?this.price*12:this.price
+    }
 }

@@ -156,6 +156,31 @@ class FormTagLib {
         }
     }
 
+    def password={attrs ->
+        def command = attrs.command
+        def field = attrs.field
+
+        def id = attrs.id?:field
+        def label = message(code: "${command.class.name}.${field}.label")
+        def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
+
+        def value = command."${field}"?:''
+        def error = hasErrors(bean: command, field: field,'error')
+
+        out <<"""
+                <label class="sr-only" for="pass">${label}</label>
+                <div class="input-append input-group">
+                    <input type="password" required aria-required="true" id="${id}" name="${field}" class="form-control input-lg" value="" placeholder="${placeHolder}">
+                    <span tabindex="100" class="add-on input-group-addon">
+                        <label><input type="checkbox" name="show-${id}" id="show-${id}">${message(code:'login.email.form.password.show')}</label>
+                    </span>
+                </div>
+            """
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+        }
+    }
+
     def date={attrs ->
         def command = attrs.command
         def field = attrs.field
@@ -650,13 +675,16 @@ class FormTagLib {
     }
 
     def telephoneWithPrefix = {attrs, body->
+        def command = attrs.command
+        def field = attrs.field
+
+        def value = command."$field"?:''
         String codeLabel = attrs.codeLabel?:'dashboard.userProfile.incompleteDate.phonePrefix.label'
-        String selectName = attrs.selectName?:'phonePrefix'
         String selectId = attrs.selectId?:'phonePrefix'
         String selectCssClass = attrs.selectCssClass?:'form-control input-lg'
         out << """
                 <label for="phone-prefix" class="sr-only">${message(code:codeLabel )}</label>
-                <select name="${selectName}" class="${selectCssClass}" id="${selectId}">
+                <select name="${field}" class="${selectCssClass}" id="${selectId}">
                     <option value="+34">+34</option>
                     <option value="+32">+32</option>
                     <option value="+33">+33</option>
