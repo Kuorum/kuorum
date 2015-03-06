@@ -9,7 +9,12 @@
         <ul>
             <li>
                 <g:link mapping="projectUpdate" params="${project.encodeAsLinkProperties()}">
-                    <span><g:message code="project.editMenu.edit"/></span>
+                    <span><g:message code="project.editMenu.update"/></span>
+                </g:link>
+            </li>
+            <li>
+                <g:link mapping="projectUpdate" params="${project.encodeAsLinkProperties()}">
+                    <span><g:message code="project.editMenu.update"/></span>
                 </g:link>
             </li>
             <li>
