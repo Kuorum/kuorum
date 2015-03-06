@@ -1717,6 +1717,7 @@ textarea.error,
 /* avatar en config cuadrado */
 .config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
 .config .uploaderImageContainer.USER_PROFILE > div {height: 300px; margin: 10px 0 0 0; position: relative;}
+.uploaderImageContainer.uploaderImageContainer POST_IMAGE> div {height: 300px; margin: 10px 0 0 0; position: relative;}
 .qq-uploader {position: relative; width: 100%;}
 .qq-upload-button {
     text-align: center;
@@ -1744,6 +1745,7 @@ textarea.error,
 }
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:234px;}
 .uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {height:367px;}
+.uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:353px;}
 .uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
 .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 10px;}
@@ -2506,8 +2508,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .pago.paypal {background-image: url('../images/pago-paypal.png');}
 .tipo-pago {margin-top: 30px;}
 
-#noTengoCuenta .form-group:last-child {margin: 30px 0 0 0; text-align: center;}
-#noTengoCuenta .form-group:last-child .btn {width: 100%; font-size: 25px !important; font-style: 2.5rem !important;}
+.funnelFormDetectUser .form-group:last-child {margin: 30px 0 0 0; text-align: center;}
+.funnelFormDetectUser .form-group:last-child .btn {width: 100%; font-size: 25px !important; font-style: 2.5rem !important;}
 
 
 
@@ -3324,8 +3326,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .homeSub.medios h2 {margin-top: 100px;}
   .config > header h1 {font-size: 22px; font-size: 2.2rem;}
   .config.info > article > .box-ppal > h1 {margin: 5px 0 15px;}
-  #noTengoCuenta .form-group:last-child .btn {width: 40%;}
-  #noTengoCuenta .form-group:last-child {width: 82%;}
+  .funnelFormDetectUser .form-group:last-child .btn {width: 40%;}
+  .funnelFormDetectUser .form-group:last-child {width: 82%;}
   .contratando .form-group {margin-right: 20px; width: 46%;}
   .contratando .nav-tabs > li:last-child {margin-right: 0;}
   .contratando .nav-tabs > li {margin-right: 40px; padding: 20px;}
@@ -3614,7 +3616,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .pago {background-size: 280px auto;}
   .promo-options {padding-bottom: 40px; margin-top: 80px;}
   .config > header h1 {font-size: 26px; font-size: 2.6rem;}
-  #noTengoCuenta .form-group:last-child {width: 94%;}
+  .funnelFormDetectUser .form-group:last-child {width: 94%;}
   .contratando .nav-tabs > li {margin-right: 20px; padding: 20px 10px;}
   .contratando .form-group {width: 45%;}
   .promo-options > div > form .options-wrapper {width: 100%;}

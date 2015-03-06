@@ -100,7 +100,7 @@
         });
     </g:if>
     <sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">
-        <g:if test="${actionName!='verifyRegistration'}">
+        <g:if test="${actionName!='verifyRegistration' && controllerName!='funnel'}">
                 $(function(){
                     display.warn("<userUtil:showMailConfirm /> ${pageProperty(name:'page.hiddeMailConfirmMessage')}");
                 });

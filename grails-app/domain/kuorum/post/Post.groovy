@@ -29,10 +29,8 @@ class Post {
     Project project
     @Updatable String title
     @Updatable String text
-    @Updatable Integer pdfPage
     Integer numVotes
     Integer numClucks
-    @Updatable PostType postType
     @Updatable URL shortUrl
     Boolean victory = false
     CommitmentType commitmentType
@@ -65,9 +63,7 @@ class Post {
 //        }
         text nullable: false, blank: false
         title nullable:false, blank: false
-        postType nullable:false
         multimedia nullable:true
-        pdfPage nullable:true
         shortUrl nullable:true
         commitmentType nullable:true
     }

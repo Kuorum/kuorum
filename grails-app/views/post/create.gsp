@@ -3,24 +3,12 @@
 <head>
     <title><g:message code="kuorum.name"/> </title>
     <meta name="layout" content="columnCLayout">
-    <parameter name="specialContainerCssClass" value="edit-post" />
 </head>
-
-<content tag="intro">
-    <h1><g:message code="post.edit.step1.intro.head"/></h1>
-    <p><g:message code="post.edit.step1.intro.subHead"/></p>
-</content>
 
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="createPost"/>
-    <g:form mapping="postCreate" params="${project.encodeAsLinkProperties()}" role="form" name="createPost">
+    <g:form mapping="postCreate" params="${project.encodeAsLinkProperties()}" role="form" name="createPost" class="box-ppal">
         <g:render template="form" model="[command:command,project:project]"/>
-        <fieldset class="btns">
-            <div class="form-group">
-                <input type="submit" class="btn btn-grey btn-lg" tabindex="18" value="Guardar y continuar"/>
-                <a href="#" class="cancel" tabindex="19">Cancelar</a>
-            </div>
-        </fieldset>
     </g:form>
 </content>
 

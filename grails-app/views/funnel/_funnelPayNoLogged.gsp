@@ -12,7 +12,7 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="tengoCuenta">
             <formUtil:validateForm bean="${command}" form="sign-comprar"/>
-            <g:form mapping="funnelSubscription" role="form" class="form-inline" name="sign-comprar" method="post">
+            <g:form mapping="funnelSubscription" role="form" class="form-inline funnelFormDetectUser" name="sign-comprar" method="post">
                 <input type="hidden" name="offerType" value="${offerType}"/>
                 <div class="form-group">
                     <formUtil:input command="${command}" field="name" labelCssClass="sr-only" showCharCounter="false"/>
@@ -37,7 +37,7 @@
                 </div>
             </g:form>
         </div>
-        <div role="tabpanel" class="tab-pane fade" id="noTengoCuenta">
+        <div role="tabpanel" class="tab-pane fade funnelFormDetectUser" id="noTengoCuenta">
             <formUtil:validateForm bean="${command}" form="sign-comprar"/>
             <g:form mapping="funnelLoggin" role="form" class="form-inline" name="login-comprar" method="post">
                 <input type="hidden" name="offerType" value="${offerType}"/>

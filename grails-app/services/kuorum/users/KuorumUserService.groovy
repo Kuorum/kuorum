@@ -19,6 +19,7 @@ import kuorum.post.PostComment
 import kuorum.project.Project
 import kuorum.post.Cluck
 import kuorum.post.Post
+import kuorum.register.RegisterService
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
@@ -117,7 +118,7 @@ class KuorumUserService {
 
     KuorumUser modifyRoleDependingOnUserData(KuorumUser user){
         List<RoleUser> authorities = []
-        if (user.password.startsWith(springSecurity.RegisterController.PREFIX_PASSWORD)){
+        if (user.password.startsWith(RegisterService.PREFIX_PASSWORD)){
             RoleUser rolePartialUser = RoleUser.findByAuthority("ROLE_INCOMPLETE_USER") //SALENDA HA PUESTO LOS NOMBRES AL REVES ¬¬
             authorities.add(rolePartialUser)
         }else if (isUserRegisteredCompletely(user)){
@@ -386,7 +387,9 @@ class KuorumUserService {
     }
 
     KuorumUser updateUser(KuorumUser user){
-        user.personalData.provinceCode = user.personalData.province.iso3166_2
+        if (user.personalData.province){
+            user.personalData.provinceCode = user.personalData.province.iso3166_2
+        }
         modifyRoleDependingOnUserData(user)
         springSecurityService.reauthenticate user.email
         if (!user.save()){

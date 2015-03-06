@@ -6,23 +6,10 @@
     <parameter name="specialContainerCssClass" value="edit-post" />
 </head>
 
-<content tag="intro">
-    <h1><g:message code="post.edit.step1.intro.head"/></h1>
-    <p><g:message code="post.edit.step1.intro.subHead"/></p>
-</content>
-
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="editPost"/>
-    <g:form mapping="postEdit" params="${post.encodeAsLinkProperties()}" role="form" name="editPost">
-    %{--<form action="#" method="POST" role="form" id="editPost">--}%
+    <g:form mapping="postEdit" params="${post.encodeAsLinkProperties()}" role="form" name="editPost" class="box-ppal">
         <g:render template="form" model="[command:command, project:post.project]"/>
-        <fieldset class="btns">
-            <div class="form-group">
-                <input type="submit" class="btn btn-grey btn-lg" tabindex="18" value="Guardar y continuar"/>
-                <a href="#" class="cancel" tabindex="19">Cancelar</a>
-            </div>
-        </fieldset>
-    %{--</form>--}%
     </g:form>
 </content>
 

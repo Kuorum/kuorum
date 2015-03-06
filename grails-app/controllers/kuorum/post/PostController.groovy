@@ -71,10 +71,8 @@ class PostController {
         command.imageId = post.multimedia?.fileType == FileType.IMAGE?post.multimedia.id:null
         command.videoPost = post.multimedia?.fileType == FileType.YOUTUBE?post.multimedia.url:''
         command.fileType = post.multimedia?.fileType
-        command.postType = post.postType
         command.textPost = post.text
         command.title = post.title
-        command.numberPage = post.pdfPage
         [command:command,post:post ]
     }
 
@@ -95,17 +93,17 @@ class PostController {
             return
         }
         post.multimedia = preparePostFile(post, command,user)
-//        command.videoPost = post.multimedia?.fileType == FileType.VIDEO?post.multimedia.url:''
-        post.postType = command.postType
         post.text = command.textPost
         post.title = command.title
-        post.pdfPage = command.numberPage
 
         postService.updatePost(post)
-        if (post.published)
+        if (command.isDraft){
+            flash.message = message(code:"post.edit.step1.saveDraft.success")
+            redirect mapping:"toolsMyPosts"
+        }else{
+            flash.message = message(code:"post.edit.step1.update.success")
             redirect mapping:"postShow", params:post.encodeAsLinkProperties()
-        else
-            redirect mapping:"postReview", params:post.encodeAsLinkProperties()
+        }
     }
 
     private KuorumFile preparePostFile(Post post, PostCommand command, KuorumUser user){
@@ -134,11 +132,7 @@ class PostController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        PostType postType = PostType.HISTORY
-        if (params.postType){
-            postType = PostType.valueOf(params.postType)
-        }
-        PostCommand command = new PostCommand(postType: postType)
+        PostCommand command = new PostCommand()
         [command:command, project:project]
     }
 
@@ -158,13 +152,19 @@ class PostController {
         Post post = new Post()
 
         post.multimedia = preparePostFile(post, command, user)
-        post.postType = command.postType
         post.text = command.textPost
         post.title = command.title
-        post.pdfPage = command.numberPage
 
         postService.savePost(post, project, user)
-        redirect mapping:"postReview", params:post.encodeAsLinkProperties()
+        if (command.isDraft){
+            flash.message = message(code:"post.edit.step1.saveDraft.success")
+            redirect mapping:"projectShow", params:post.project.encodeAsLinkProperties()
+        }else{
+            postService.publishPost(post)
+            flash.message = message(code:"post.edit.step1.save.success")
+            redirect mapping:"postShow", params:post.encodeAsLinkProperties()
+
+        }
     }
 
 

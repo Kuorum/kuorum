@@ -165,7 +165,7 @@ class CustomRegisterController extends  ProfileController{
             user.personalData.postalCode = personalDataCommand.postalCode
             NoticeType noticeType = dashboardService.getNoticesByKuorumUser(user)
             user.notice = new Notice(noticeType: noticeType)
-            user.save(flush: true)
+            kuorumUserService.updateUser(user)
         }
         flash.message = message(code:'customRegister.countryAndPostalCode.success')
         redirect mapping: 'home'
@@ -187,7 +187,7 @@ class CustomRegisterController extends  ProfileController{
             user.personalData.gender = personalDataCommand.gender
             NoticeType noticeType = dashboardService.getNoticesByKuorumUser(user)
             user.notice = new Notice(noticeType: noticeType)
-            user.save(flush: true)
+            kuorumUserService.updateUser(user)
         }
         flash.message = message(code:'customRegister.ageAndGender.success')
         redirect mapping: 'home'
@@ -205,10 +205,11 @@ class CustomRegisterController extends  ProfileController{
         }
 
         if(user){
-            user.personalData.telephone = "$personalDataCommand.phonePrefix $personalDataCommand.telephone"
+            user.personalData.telephone = personalDataCommand.telephone
+            user.personalData.phonePrefix = personalDataCommand.phonePrefix
             NoticeType noticeType = dashboardService.getNoticesByKuorumUser(user)
             user.notice = new Notice(noticeType: noticeType)
-            user.save(flush: true)
+            kuorumUserService.updateUser(user)
         }
         flash.message = message(code:'customRegister.telephone.success')
         redirect mapping: 'home'

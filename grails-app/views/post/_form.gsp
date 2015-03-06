@@ -1,35 +1,14 @@
 <%@ page import="kuorum.core.FileType; kuorum.core.FileGroup" %>
-<fieldset class="type">
-    <div class="form-group">
-        <label for="selectType"><g:message code="post.edit.step1.postType.label"/></label>
-        <div class="row">
-
-            <!-- la siguiente lista está oculta; debe venir marcado con class="active" el <li> que corresponda pues ese aparecerá visible -->
-            <ul id="typePubli" class="hidden">
-                <li class="${command.postType == kuorum.core.model.PostType.HISTORY?'active':''}"><g:message code="post.edit.step1.postType.HISTORY.description"/></li>
-                <li class="${command.postType == kuorum.core.model.PostType.QUESTION?'active':''}"><g:message code="post.edit.step1.postType.QUESTION.description"/></li>
-                <li class="${command.postType == kuorum.core.model.PostType.PURPOSE?'active':''}"><g:message code="post.edit.step1.postType.PURPOSE.description"/></li>
-            </ul>
-            <p class="col-md-7" id="updateText"></p> <!-- aquí hago visible por js el texto que corresponde a la opción elegida por el usuario -->
-            <div class="col-md-5">
-                <select class="form-control" id="selectType" name="postType">
-                    <option value="${kuorum.core.model.PostType.HISTORY}" ${command.postType == kuorum.core.model.PostType.HISTORY?'selected':''}>&#xf075;  <g:message code="kuorum.core.model.PostType.HISTORY"/> </option> <!-- debe venir con la primera opción que sea la que el usuario ha seleccionado en el paso anterior -->
-                    <option value="${kuorum.core.model.PostType.QUESTION}" ${command.postType == kuorum.core.model.PostType.QUESTION?'selected':''}>&#xf059; <g:message code="kuorum.core.model.PostType.QUESTION"/></option>
-                    <option value="${kuorum.core.model.PostType.PURPOSE}" ${command.postType == kuorum.core.model.PostType.PURPOSE?'selected':''}>&#xf0eb;  <g:message code="kuorum.core.model.PostType.PURPOSE"/></option>
-                </select>
-            </div>
-        </div>
-    </div><!-- /.form-group -->
-</fieldset>
+<input type="hidden" name="isDraft" value="false"/>
+<h1><g:message code="post.edit.step1.intro.head" args="[project.hashtag, project.region.name]" encodeAs="raw"/> <span class="fa fa-lightbulb-o fa-lg pull-right"></span></h1>
 <fieldset class="title">
     <div class="form-group">
-        <label for="titlePost"><g:message code="post.edit.step1.postTitle.label"/> </label>
+        <label for="titlePost" class="sr-only"><g:message code="post.edit.step1.postTitle.label"/> </label>
         <div class="textareaContainer">
             <textarea name="title"  class="form-control counted  ${hasErrors(bean: command, field: 'title', 'error')}" rows="3" placeholder="${g.message(code:'post.edit.step1.postTitle.placeholder')}" id="titlePost" tabindex="13" required minlength="2">${command.title}</textarea>
             <g:if test="${hasErrors(bean: command, field: 'title', 'error')}">
                 <span for="titlePost" class="error">${g.fieldError(bean: command, field: 'title')}</span>
             </g:if>
-            <span class="hashtag">${project.hashtag}</span>
         </div>
         <div id="charInit" class="hidden"><g:message code="post.edit.step1.postTitle.chars.limitCharacters"/> <span>${formUtil.postTitleLimitChars(project:project)}</span></div>
         <div id="charNum"><g:message code="post.edit.step1.postTitle.chars.leftCharacters"/> <span></span> <g:message code="post.edit.step1.postTitle.chars.characters"/></div>
@@ -37,17 +16,26 @@
 </fieldset>
 <fieldset class="text">
     <div class="form-group">
-        <label for="textPost"><g:message code="post.edit.step1.postText.label"/> </label>
-        %{--<textarea name="textPost" data-placement="bottom" class="form-control texteditor ${hasErrors(bean: command, field: 'textPost', 'error')}" rows="10" placeholder="${g.message(code: 'post.edit.step1.postText.placeHolder')}" id="textPost" tabindex="14" required>${command.textPost}</textarea>--}%
-        <textarea name="textPost" data-placement="bottom" class="form-control texteditor ${hasErrors(bean: command, field: 'textPost', 'error')}" rows="10" id="textPost" tabindex="14" required>${command.textPost}</textarea>
-        <g:if test="${hasErrors(bean: command, field: 'textPost', 'error')}">
-            <span for="textPost" class="error">${g.fieldError(bean: command, field: 'textPost')}</span>
-        </g:if>
+        <label for="textPropuesta" class="sr-only"><g:message code="post.edit.step1.postText.label"/></label>
+        <div class="textareaContainer">
+            <textarea
+                    name="textPost"
+                    class="form-control counted texteditor ${hasErrors(bean: command, field: 'textPost', 'error')}"
+                    rows="8"
+                    placeholder="Explica tu propuesta"
+                    id="textPropuesta"
+                    required aria-required="true">${command.textPost}</textarea>
+            <g:if test="${hasErrors(bean: command, field: 'textPost', 'error')}">
+                <span for="textPost" class="error">${g.fieldError(bean: command, field: 'textPost')}</span>
+            </g:if>
+        </div>
+        %{--<div id="charInitTextProj" class="hidden">Tienes un límite de caracteres de <span>5000</span></div>--}%
+        %{--<div id="charNumTextProj" class="charNum">Quedan <span>5000</span> caracteres</div>--}%
     </div>
 </fieldset>
 
 <fieldset class="multimedia">
-    <span class="span-label">Añade una imagen o un vídeo a tu publicación </span>
+    <span class="span-label sr-only"><g:message code="post.edit.step1.multimedia.label"/></span>
     <g:hiddenField name="fileType" value="${command.fileType}"/>
     <script>
     $(function(){
@@ -88,29 +76,11 @@
             </div>
         </div>
     </div>
-    %{--<div class="form-group groupRadio">--}%
-        %{--<formUtil:radioEnum command="${command}" field="fileType"/>--}%
-        %{--<script>--}%
-            %{--$(function(){--}%
-                %{--$('[data-multimedia-switch="on"]').hide()--}%
-                %{--var multimediaType = "${command.fileType}";--}%
-                %{--$('[data-multimedia-type="'+multimediaType+'"]').show()--}%
-            %{--})--}%
-        %{--</script>--}%
-
-    %{--</div>--}%
-
 
 </fieldset>
-<fieldset class="page">
+<fieldset class="btns text-right">
     <div class="form-group">
-        <label for="numberPage"><g:message code="post.edit.step1.pdfPage.label"/> </label>
-        <div class="form-group">
-            <input name="numberPage" value="${command.numberPage}" type="number" id="numberPage" placeholder="0" tabindex="17" class="${hasErrors(bean: command, field: 'numberPage', 'error')}">
-            <g:if test="${hasErrors(bean: command, field: 'numberPage', 'error')}">
-                <span for="numberPage" class="error">${g.fieldError(bean: command, field: 'numberPage')}</span>
-            </g:if>
-            <p><g:message code="post.edit.step1.pdfPage.description"/></p>
-        </div>
+        <a href="#" class="cancel saveDraft"><g:message code="post.edit.step1.saveDraft"/> </a>
+        <input type="submit" class="btn btn-lg" value="${message(code:'post.edit.step1.save')}">
     </div>
 </fieldset>
