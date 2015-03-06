@@ -47,7 +47,7 @@
 			this.$message.css({
 				fontSize: '13px',
 				lineHeight: '16px',
-				textAlign: 'center',
+				textAlign: 'left',
 				padding: '12px',
 				width: 'auto',
 				position: 'relative'
