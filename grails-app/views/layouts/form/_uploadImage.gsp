@@ -148,8 +148,8 @@
 
     function changeImageBackground(urlImage, imageId){
         console.log("#uploaderImageId_"+imageId+" .qq-upload-drop-area")
-
-        $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-image",'url('+urlImage+')');
+        var timestampedUrlImage = urlImage +'?timestamp='+new Date().getTime();
+        $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-image",'url('+timestampedUrlImage+')');
         $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-size","100% auto")
         $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-position","0 0")
         $("#au-uploaderImageId_"+imageId+" .button-container").css("background-color","rgba(0, 0, 0, 0.7)")

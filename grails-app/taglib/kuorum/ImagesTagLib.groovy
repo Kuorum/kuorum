@@ -6,7 +6,7 @@ import kuorum.users.KuorumUser
 
 class ImagesTagLib {
     static defaultEncodeAs = 'html'
-    //static encodeAsForTags = [tagName: 'raw']
+    static encodeAsForTags = [showUserImage: 'raw']
     def springSecurityService
 
     static namespace = "image"
@@ -30,7 +30,7 @@ class ImagesTagLib {
 
     def solrUserImgSrc={attrs ->
         SolrKuorumUser user = attrs.user
-        if (user.urlImage){
+        if (user && user.urlImage){
             out << user.urlImage
         }else{
             out << getDefaultAvatar(user)
@@ -45,6 +45,21 @@ class ImagesTagLib {
         }else{
             out << getDefaultAvatar(null)
         }
+    }
+
+    def showUserImage={attrs ->
+        out << "<img src='"
+        KuorumUser user = null;
+        String userName = "Tu nombre"
+        if (springSecurityService.isLoggedIn()){
+            user = KuorumUser.get(springSecurityService.principal.id)
+            userName = user.name
+            out << userImgSrc(user:user)
+        }else{
+            out << getDefaultAvatar(null)
+        }
+        out <<"' class='user-img' alt='Tu fotografía'><span>${userName}</span>"
+
     }
 
 
