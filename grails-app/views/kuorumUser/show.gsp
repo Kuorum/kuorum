@@ -24,9 +24,9 @@
             <div class="popover-more-actions edition">
                 <ul>
                     <li>
-                        <a href="#">
+                        <g:link mapping="adminEditUser" params="${user.encodeAsLinkProperties()}">
                             <span><g:message code="project.editMenu.edit"/></span>
-                        </a>
+                        </g:link>
                     </li>
                 </ul>
             </div>
