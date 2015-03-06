@@ -813,6 +813,11 @@ $(document).ready(function() {
         $('.jqte_placeholder_text').css('display', 'none');
     }
 
+    $(".saveDraft").on("click", function(e){
+        e.preventDefault();
+        $("input[name=isDraft]").val(true);
+        $(this).parents("form").submit();
+    })
 
     // hacer visible la contraseña
     /*$('#show-pass').attr('checked', false);

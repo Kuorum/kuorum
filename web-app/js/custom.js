@@ -507,40 +507,6 @@ $(document).ready(function() {
 
     });
 
-
-	// textarea editor
-	$(".texteditor").jqte({
-		br: true,
-		center: false,
-		color: false,
-		format: false,
-		indent: false,
-		left: false,
-		ol: false,
-		outdent: false,
-		p: false,
-		placeholder: "Escribe un texto que lo describa",
-		linktypes: ["URL", "Email"],
-		remove: false,
-		right: false,
-		rule: false,
-		source: false,
-		sub: false,
-		strike: false,
-		sup: false,
-		ul: false,
-		unlink: false,
-		fsize: false,
-		title: false
-	});
-
-	if ( $('.jqte_editor').text() == "" ) {
-        $('.jqte_placeholder_text').css('display', 'block');
-    } else {
-    	$('.jqte_placeholder_text').css('display', 'none');
-    }
-
-
 	// hacer visible la contraseña
 	$('#show-pass').attr('checked', false);
 

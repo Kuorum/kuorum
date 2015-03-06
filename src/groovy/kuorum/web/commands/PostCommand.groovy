@@ -9,20 +9,18 @@ import kuorum.core.model.PostType
  */
 @Validateable
 class PostCommand {
-    private static final YOUTUBE_REGEX = ~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube\.com\/watch\?v=[a-zA-Z0-9_]*/
+    private static final YOUTUBE_REGEX = ~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube\.com\/watch\?v=[a-zA-Z0-9_-]*/
     String postId
     String title
     String textPost
     FileType fileType
     String imageId
     String videoPost
-    PostType postType
-    Integer numberPage
+    Boolean isDraft=false
     static constraints = {
         postId nullable: true, blank: true //Para reusar este command en la edición
         title nullable: false, blank: false
         textPost nullable: false, blank: false
-        postType nullable: false
         videoPost nullable: true,
                 url:true,
 //                matches: 'http[s]{0,1}://(w{3}.){0,1}youtube\\.com/watch\\?v=[a-zA-Z0-9_]*',
@@ -31,6 +29,5 @@ class PostCommand {
                         return ['notYoutubeFormat']
                     }
                 }
-        numberPage nullable:true
     }
 }
