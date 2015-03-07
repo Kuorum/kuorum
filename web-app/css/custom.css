@@ -1332,7 +1332,8 @@ video#bgvid {
 .boxes.profile-user > p {/*height: 130px; */overflow: hidden;}
 .boxes.profile-user .user-img.big {margin: 20px auto 0; width: 120px; height: 120px; float: none; display: block;}
 .boxes.profile-user h1 {text-align: center; margin: 15px 0 5px; padding: 0; border: none;}
-.boxes.profile-user h1 a {font-size: 30px; font-size: 3rem; color: #545454;}
+.boxes.profile-user h1 a,
+.boxes.profile-user h1 span {font-size: 30px; font-size: 3rem; color: #545454;}
 .boxes.profile-user .user-type {display: block; text-align: center; padding: 0; margin: 0 0 28px 0;}
 .boxes.profile-user > .actions {width: 280px; margin: 0 auto; display: block; text-align: center;}
 .boxes.profile-user > .actions .btn {margin-left: 0 !important; margin-top: 0 !important; width: 48%;}
