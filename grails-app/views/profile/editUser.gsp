@@ -130,17 +130,10 @@
             <div class="form-group col-md-6">
                 <span class="span-label">Número de teléfono</span>
                 <div class="form-group pull-left prefix">
-                    <label for="phone-prefix" class="sr-only">Prefijo teléfono</label>
-                    <select name="phone-prefix" class="form-control input-lg" id="phone-prefix">
-                        <option value="+34">+34</option>
-                        <option value="+32">+32</option>
-                        <option value="+33">+33</option>
-                        <option>...</option>
-                    </select>
+                    <formUtil:telephoneWithPrefix command="${command}" field="phonePrefix"/>
                 </div>
                 <div class="form-group pull-left phone">
-                    <label for="phone" class="sr-only">Número de teléfono</label>
-                    <input type="number" name="phone" class="form-control input-lg" id="phone" placeholder="Número de teléfono">
+                    <formUtil:input command="${command}" field="telephone"/>
                 </div>
             </div>
         </fieldset>

@@ -39,6 +39,9 @@ class EditUserProfileCommand{
     AvailableLanguage language
     String bio
 
+    String phonePrefix
+    String telephone
+
     String alias
     Integer year
     List<CommissionType> commissions = []
@@ -65,6 +68,8 @@ class EditUserProfileCommand{
         enterpriseSector nullable:true
         bio nullable: true, maxSize: 500
         year nullable:true
+
+        telephone nullable:true
 
         imageProfile nullable: true
     }
