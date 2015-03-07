@@ -58,15 +58,27 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
+    def sendPoliticianSubscriptionToAdmins(KuorumUser user, OfferType offerType){
+        def bindings = [
+                userLink:generateLink("userShow",user.encodeAsLinkProperties()),
+                user:user.name,
+                offerType:messageSource.getMessage("${OfferType.canonicalName}.${offerType}",null,"", new Locale("ES_es")),
+                totalPrice:offerType.finalPrice.toString()
+        ]
+        KuorumUser adminUser = getFeedbackUser()
+        MailUserData mailUserData = new MailUserData(user:adminUser, bindings:[])
+        MailData mailData = new MailData(fromName:adminUser.name, mailType: MailType.POLITICIAN_SUBSCRIPTION, globalBindings: bindings, userBindings: [mailUserData])
+        mandrillAppService.sendTemplate(mailData)
+    }
     def sendPoliticianSubscription(KuorumUser user, OfferType offerType){
         def bindings = [
                 userLink:generateLink("userShow",user.encodeAsLinkProperties()),
                 user:user.name,
-                offerType:offerType.toString(),
+                offerType:messageSource.getMessage("${OfferType.canonicalName}.${offerType}",null,"", new Locale("ES_es")),
                 totalPrice:offerType.finalPrice.toString()
         ]
-        MailUserData mailUserData = new MailUserData(user:getFeedbackUser(), bindings:[])
-        MailData mailData = new MailData(fromName:user.name, mailType: MailType.POLITICIAN_SUBSCRIPTION, globalBindings: bindings, userBindings: [mailUserData])
+        MailUserData mailUserData = new MailUserData(user:user, bindings:[])
+        MailData mailData = new MailData(fromName:user.name, mailType: MailType.NOTIFICATION_OFFER_PURCHASED, globalBindings: bindings, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
 

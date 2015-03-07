@@ -2,7 +2,7 @@
     <div class="col-xs-12 col-sm-6 col-md-6 editPost">
         <postUtil:ifPostIsEditable post="${post}">
             <g:link mapping="postEdit" params="${post.encodeAsLinkProperties()}">
-                <span class="fa fa-edit fa-lg"></span><g:message code="post.show.editLink.${post.postType}"/>
+                <span class="fa fa-edit fa-lg"></span><g:message code="post.show.editLink"/>
             </g:link>
         </postUtil:ifPostIsEditable>
     </div>

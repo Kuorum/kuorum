@@ -16,6 +16,11 @@
                 <g:pageProperty name="page.subHome"/>
             </div>
         </div><!-- #main -->
+        <div class="row main special">
+            <div class="container-fluid">
+                <g:pageProperty name="page.press"/>
+            </div>
+        </div>
 
     <g:if test="${Boolean.parseBoolean(pageProperty(name:'page.showDefaultPreFooter').toString())}">
         <g:include controller="modules" action="registerFooterRelevantUsers"/>

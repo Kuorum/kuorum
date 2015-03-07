@@ -683,13 +683,16 @@ class FormTagLib {
         String codeLabel = attrs.codeLabel?:'dashboard.userProfile.incompleteDate.phonePrefix.label'
         String selectId = attrs.selectId?:'phonePrefix'
         String selectCssClass = attrs.selectCssClass?:'form-control input-lg'
+        List<Region> regions = Region.findAllByRegionType(RegionType.NATION)
         out << """
-                <label for="phone-prefix" class="sr-only">${message(code:codeLabel )}</label>
+                <label for="${field}" class="sr-only">${message(code:codeLabel )}</label>
                 <select name="${field}" class="${selectCssClass}" id="${selectId}">
-                    <option value="+34">+34</option>
-                    <option value="+32">+32</option>
-                    <option value="+33">+33</option>
-                    <option>...</option>
-                </select>"""
+                """
+        regions.each {Region region ->
+            String prefixPhone = region['prefixPhone'] //Dynamic attribute
+            String checked = prefixPhone == value?"selected='selected'":'';
+            out << "<option value='${prefixPhone}' ${checked}>${prefixPhone}</option>"
+        }
+        out << "</select>"
     }
 }

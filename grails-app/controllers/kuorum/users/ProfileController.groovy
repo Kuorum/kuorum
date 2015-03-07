@@ -60,6 +60,8 @@ class ProfileController {
         command.alias = user.alias
         command.name = user.name
         command.language = user.language
+        command.phonePrefix = user.personalData?.phonePrefix
+        command.telephone = user.personalData?.telephone
         if (user.userType == UserType.ORGANIZATION){
             command.enterpriseSector = user.personalData?.enterpriseSector
         }else{
@@ -84,6 +86,8 @@ class ProfileController {
         prepareUserStep1(user,command)
         prepareUserStep2(user,command)
         user.language = command.language
+        user.personalData.phonePrefix = command.phonePrefix
+        user.personalData.telephone = command.telephone
         //TODO: Revisar si este cambio es correcto y si no afecta a más partes de la aplicación
         user.relevantCommissions = command.commissions
         kuorumUserService.updateUser(user)
