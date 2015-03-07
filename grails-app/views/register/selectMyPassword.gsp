@@ -21,15 +21,13 @@
                     </div>
                     <div class="col-sm-12 col-md-4">
                         %{--<form action="#" method="post" name="pass-go-for" id="pass-go-for" class="login pass" role="form">--}%
+                        <formUtil:validateForm bean="${command}" form="formResetPassword"/>
                         <g:form name="formResetPassword" mapping="registerPassword" class="login pass" role="form">
                             <div class="form-group">
-                                <label class="sr-only" for="password1"><g:message code="register.password.label"/></label>
-                                <g:passwordField required="" aria-required="true" name="password1" class="form-control input-lg" placeholder="Establece una contraseña" />
+                                <formUtil:input command="${command}" field="password" type="password" />
                             </div>
                             <div class="form-group">
-                                <label class="sr-only" for="password2"><g:message code="register.password.repeat"/></label>
-                                <g:passwordField required="" aria-required="true" name="password2" class="form-control input-lg" placeholder="Confirma la contraseña" />
-
+                                <formUtil:input command="${command}" field="password2" type="password"/>
                             </div>
                             <div class="form-group">
                                 <g:hiddenField name="userId" value="${userId}" />
