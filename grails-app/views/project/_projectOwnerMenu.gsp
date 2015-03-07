@@ -8,8 +8,8 @@
     <div class="popover-more-actions edition">
         <ul>
             <li>
-                <g:link mapping="projectUpdate" params="${project.encodeAsLinkProperties()}">
-                    <span><g:message code="project.editMenu.update"/></span>
+                <g:link mapping="projectEdit" params="${project.encodeAsLinkProperties()}">
+                    <span><g:message code="project.editMenu.edit"/></span>
                 </g:link>
             </li>
             <li>

@@ -22,10 +22,10 @@ class ProjectCommand {
     String hashtag
     String shortName
     String description
-    Boolean availableStats
+//    Boolean availableStats
     List<CommissionType> commissions  = new ArrayList<CommissionType>()
-    Region region
-    Institution institution
+//    Region region
+//    Institution institution
     String photoId
     ProjectStatusType status = ProjectStatusType.OPEN
 
@@ -33,7 +33,6 @@ class ProjectCommand {
     Date deadline
     String videoPost
     String pdfFileId
-    KuorumUser owner
 
     static constraints = {
         importFrom Project

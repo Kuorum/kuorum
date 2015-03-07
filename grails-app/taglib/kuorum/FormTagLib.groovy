@@ -108,6 +108,7 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
 
+        def disabled=attrs.disabled?"disabled":""
         def id = attrs.id?:field
         def helpBlock = attrs.helpBlock?:''
         def type = attrs.type?:'text'
@@ -135,7 +136,7 @@ class FormTagLib {
             out << "<label for='${field}'>${label}</label>"
         }
         out <<"""
-            <input type="${type}" name="${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}">
+            <input type="${type}" name="${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled}>
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"

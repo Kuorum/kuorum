@@ -24,6 +24,7 @@ class UrlMappings {
 
         name projectCreate:     "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"save"]}
                                 "/leyes/nueva"(controller: "project"){action = [GET:"create", POST:"save"]}
+        name projectEdit:       "/proyectos/$institutionName/$commission/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
         name projects:          "/proyectos/$institutionName?/$commission?" (controller: "project", action:"index")
                                 "/leyes/$institutionName?/$commission?" (controller: "project", action:"index")
         name projectShow:       "/proyectos/$institutionName/$commission/$hashtag" (controller: "project", action:"show")
