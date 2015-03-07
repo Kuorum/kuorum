@@ -16,6 +16,7 @@ import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
 import kuorum.files.FileService
+import kuorum.notifications.NotificationService
 import kuorum.post.Post
 import kuorum.solr.IndexSolrService
 import kuorum.solr.SearchSolrService
@@ -34,6 +35,7 @@ class ProjectService {
     ShortUrlService shortUrlService
     FileService fileService
     RegionService regionService
+    NotificationService notificationService
 
     def grailsApplication
 
@@ -46,6 +48,9 @@ class ProjectService {
      * @return Return null if not found
      */
     Project findProjectByHashtag(String hashtag) {
+        if (!hashtag){
+            return null;
+        }
         Project.findByHashtag(hashtag)
     }
 
@@ -130,7 +135,11 @@ class ProjectService {
         userRegion.iso3166_2.startsWith(project.region.iso3166_2)
     }
 
-    Project saveAndCreateNewProject(Project project, Boolean published){
+    Project saveAndCreateNewProject(Project project, KuorumUser user){
+        project.institution = user.institution
+        project.region = user.politicianOnRegion
+        project.owner = user
+
         project.shortUrl = shortUrlService.shortUrl(project)
 
         if(project.image){
@@ -147,9 +156,6 @@ class ProjectService {
         calculateProjectRelevance(project)
         if (!project.save()){
            throw KuorumExceptionUtil.createExceptionFromValidatable(project, "Error salvando el proyecto")
-        }
-        if(published){
-            publish(project)
         }
         project
     }
@@ -192,10 +198,13 @@ class ProjectService {
     Project publish(Project project){
 //        Project.collection.update([_id:project.id], ['$set':[published:Boolean.TRUE, publishDate:new Date()]])
 //        project.refresh()
-        project.published = true
-        project.publishDate = new Date()
-        project.save()
-        indexSolrService.index(project)
+        if (!project.published){
+            project.published = true
+            project.publishDate = new Date()
+            project.save()
+            indexSolrService.index(project)
+            notificationService.sendProjectPublishNotification(project)
+        }
         project
     }
 
@@ -263,21 +272,6 @@ class ProjectService {
         }
     }
 
-    List searchRelatedUserToUserCommisions(Project project){
-        KuorumUser.createCriteria().list(){
-            and{
-                personalData{
-                    like('provinceCode',project.region?.iso3166_2 + '%')
-                }
-                or{
-                    project.commissions.each{commision->
-                        inList("relevantCommissions", commision)
-                    }
-                }
-            }
-        }
-    }
-
     List<Project> politicianProjects(KuorumUser politician, Pagination pagination = new Pagination()){
         def resultProjectSearch = search(politician, 'dateCreated', Order.DESC, true, pagination.offset, pagination.max)
         resultProjectSearch.projects
@@ -341,17 +335,6 @@ class ProjectService {
         }else{
             [projects: null]
         }
-    }
-
-    /**
-     * Assign region, institution and owner to a ProjectCommand
-     * @param command The command to update
-     * @param user The user to assign with the information about region and institution
-     */
-    void assignUserRegionAndInstitutionToCommand(ProjectCommand command, KuorumUser user){
-        command.region = Region.get(user.politicianOnRegion.id)
-        command.institution = Institution.get(user.institution.id)
-        command.owner = user
     }
 
     /**

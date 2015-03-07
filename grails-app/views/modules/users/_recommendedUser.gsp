@@ -1,4 +1,4 @@
-<article itemtype="http://schema.org/Person" itemscope role="article" class="box-ppal">
+<article itemtype="http://schema.org/Person" itemscope role="article" class="box-ppal clearfix">
 
     <div class="photo">
         <img src="${image.userImgProfile(user:user)}" alt="${user.name}">

@@ -575,20 +575,6 @@ $(document).ready(function() {
 	    var checkAll = $('#selectAll');
 	    var checkboxes = $('input.check');
 
-	    $('input.check').each(function(){
-		    var self = $(this),
-		    label = self.next(),
-		    label_text = label.html();
-		    label.remove();
-		    self.iCheck({
-		      checkboxClass: 'icheckbox_line-orange',
-		      radioClass: 'iradio_line-orange',
-		      inheritID: true,
-		      aria: true,
-		      insert:  label_text
-		    });
-		});
-
 	    $('#selectAll').change(function() {
 		    if($(this).is(':checked')) {
 		        checkboxes.iCheck('check');
