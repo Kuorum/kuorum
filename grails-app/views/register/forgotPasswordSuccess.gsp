@@ -5,18 +5,7 @@
 </head>
 
 <content tag="headButtons">
-    <ul class="nav navbar-nav navbar-right">
-        %{--<li class="underline">--}%
-            %{--<g:link mapping="footerWhatIsKuorum" class="navbar-link">--}%
-                %{--<g:message code="page.title.footer.whatIsKuorum"/>--}%
-            %{--</g:link>--}%
-        %{--</li>--}%
-        <li class="underline">
-            <g:link mapping="login" class="navbar-link">
-                <g:message code="register.head.login"/>
-            </g:link>
-        </li>
-    </ul>
+    <g:include controller="login" action="headAuth"/>
 </content>
 
 <content tag="intro">
@@ -25,10 +14,10 @@
 </content>
 
 <content tag="mainContent">
-    <p class="lead"><g:message code="forgotPasswordSuccess.content"/> </p>
-    <p class="lead cl-primary">¡Gracias!</p>
+
 </content>
 
 <content tag="description">
-    <g:render template="registerSocial"/>
+    <h1><g:message code="forgotPasswordSuccess.intro.title"/> </h1>
+    <h2><g:message code="forgotPasswordSuccess.intro.subTitle"/> </h2>
 </content>

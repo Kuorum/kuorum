@@ -5,13 +5,7 @@
 </head>
 
 <content tag="headButtons">
-    <ul class="nav navbar-nav navbar-right">
-        <li class="underline">
-            <g:link mapping="login" class="navbar-link">
-                <g:message code="register.head.login"/>
-            </g:link>
-        </li>
-    </ul>
+    <g:include controller="login" action="headAuth"/>
 </content>
 
 <content tag="mainContent">
