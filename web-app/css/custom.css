@@ -614,7 +614,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .edit-post .kakareo.post .wrapper,
 .kakareo.post {padding: 22px 10px 0 10px;}
 #otros-proyectos .kakareo .link-wrapper,
-.kakareo-list.project .kakareo.post.ley .link-wrapper {padding: 10px 0 8px;}
+.kakareo-list.project .kakareo.post.ley .link-wrapper {padding: 10px 0;}
 .kakareo.post .wrapper {padding: 0 0 15px 0;}
 .kakareo .link-wrapper:hover,
 .kakareo .link-wrapper:active,
@@ -931,8 +931,8 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .kakareo footer > ul.actions-kak > li {list-style: none; margin: 0 15px 0 0;}
 .kakareo footer > ul > li.read-later {margin-right: 40px !important;}
 
-.kakareo footer > ul.info-kak > li {list-style: none; margin: 0;}
-.kakareo footer > ul.info-kak > li {float: left;}
+.kakareo footer > ul.info-kak > li {list-style: none; margin: 0; float: left;}
+.kakareo footer > ul.info-kak > li time {font-size: 12px; font-size: 1.2rem;}
 .kakareo footer > ul.actions-kak >li {float: right;}
 .kakareo footer > ul.info-kak > li:last-child {margin: 0 0 0 5px;}
 .kakareo footer > ul.info-kak > li:first-child,
@@ -2406,7 +2406,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .home .play > a:focus,
 .home .play > a:active {color: rgba(32, 162, 234, 0.5);}
 .homeSub {margin: 0 0 40px 0;}
-.homeSub > .row > h1 {text-align: center; padding: 0 15px 10px 15px; margin: 0 0 20px 0; font-size: 28px; font-size: 2.8rem; border-bottom: 1px solid #e5e5e5;}
+.homeSub > .row > h1 {text-align: center; padding: 0 15px 10px 15px; margin: 0 0 20px 0; font-size: 26px; font-size: 2.6rem; border-bottom: 1px solid #e5e5e5;}
 .homeSub h2 {font-size: 24px; font-size: 2.4rem; padding: 0 16%;}
 .homeSub .homeMore {width: 305px; margin: 0 auto;}
 .homeSub .homeMore.two .btn {width: 43%; margin-right: 2% !important;}
@@ -2420,7 +2420,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .politician-list .box-ppal .user {margin: -75px 10px 20px 10px;}
 .politician-list .box-ppal .user .user-img {border: 5px solid #fff; width: 120px; height: 120px;}
 .politician-list .box-ppal .user .user-img + .btn.follow {margin: 85px 0 0 0 !important; float: right; padding: 10px 15px !important;}
-.politician-list .box-ppal .user .user-name {display: block; font-size: 32px; font-size: 3.2rem;}
+.politician-list .box-ppal .user .user-name {display: block; font-size: 30px; font-size: 3rem;}
 .politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
 .politician-list .box-ppal > small {display: block; position: absolute; bottom: 0; left: 0; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
 .politician-list .box-ppal > small .fa {opacity: .5;}
@@ -3596,15 +3596,15 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .form-group.image {height: 400px;}
-  #otros-proyectos .kakareo.post > .link-wrapper,
+/*  #otros-proyectos .kakareo.post > .link-wrapper,
   .homeSub .kakareo-list.project .kakareo.post > .link-wrapper,
-  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper {height: 398px;}
+  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper {height: 398px;}*/
   #otros-proyectos .kakareo.post > .link-wrapper p,
   .homeSub .kakareo-list.project .kakareo.post > .link-wrapper p,
-  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper p {height: 78px; overflow: hidden; margin-bottom: 10px;}
+  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper p {height: 92px; overflow: hidden; margin-bottom: 10px;}
 
   #otras-propuestas .kakareo > .link-wrapper,
-  .homeSub .kakareo-list .kakareo > .link-wrapper {height: 182px; padding: 15px 15px 0 15px;}
+  .homeSub .kakareo-list .kakareo > .link-wrapper {/*height: 182px; */padding: 15px 15px 0 15px;}
   #otras-propuestas .kakareo-list > li h1,
   .homeSub .kakareo-list > li h1 {height: 76px; overflow: hidden; margin: 0;}
   #otras-propuestas .kakareo-list .kakareo .main-kakareo,
@@ -3841,15 +3841,15 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   h1.withArrow {margin-bottom: 70px;}
   .boxes.vote.drive {width: 350px;}
 
-  #otros-proyectos .kakareo.post > .link-wrapper,
+/*  #otros-proyectos .kakareo.post > .link-wrapper,
   .homeSub .kakareo-list.project .kakareo.post > .link-wrapper,
-  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper {height: 420px;}
+  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper {height: 420px;}*/
   #otros-proyectos .kakareo.post > .link-wrapper p,
   .homeSub .kakareo-list.project .kakareo.post > .link-wrapper p,
   .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper p {height: 78px; overflow: hidden; margin-bottom: 10px;}
 
   #otras-propuestas .kakareo > .link-wrapper,
-  .homeSub .kakareo-list .kakareo > .link-wrapper {height: 182px; padding: 15px 15px 0 15px;}
+  .homeSub .kakareo-list .kakareo > .link-wrapper {/*height: 182px;*/ padding: 15px 15px 0 15px;}
   #otras-propuestas .kakareo-list > li h1,
   .homeSub .kakareo-list > li h1 {height: 76px; overflow: hidden; margin: 0;}
   #otras-propuestas .kakareo-list .kakareo .main-kakareo,
