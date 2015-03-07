@@ -67,7 +67,8 @@ class ProjectController {
         projectService.assignFilesToCommandAndProject(command, project, user)
         project = projectService.saveAndCreateNewProject(project, user)
         fileService.deleteTemporalFiles(user)
-        if (params.isDraft){
+        Boolean isDraft =params.isDraft? Boolean.parseBoolean(params.isDraft):false
+        if (isDraft){
             flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
         }else{
             projectService.publish(project)
@@ -120,7 +121,8 @@ class ProjectController {
         projectService.assignFilesToCommandAndProject(command, project, owner)
         projectService.updateProject(project)
         fileService.deleteTemporalFiles(user)
-        if (params.isDraft){
+        Boolean isDraft =params.isDraft? Boolean.parseBoolean(params.isDraft):false
+        if (isDraft){
             flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
         }else{
             projectService.publish(project)
