@@ -15,7 +15,7 @@ class FunnelController {
 
     RegisterService registerService
     SpringSecurityService springSecurityService
-    KuorumMailService kuorumMailService
+    OfferService offerService
     KuorumUserService kuorumUserService
     /**
      * Funnel Step1
@@ -67,7 +67,7 @@ class FunnelController {
             return
         }
         KuorumUser user = registerService.registerUser(command);
-        kuorumMailService.sendPoliticianSubscription(user,offerType)
+        offerService.purchaseOffer(user, offerType)
         redirect mapping:"funnelPaySuccess"
     }
 
@@ -98,7 +98,7 @@ class FunnelController {
         try{
             springSecurityService.reauthenticate(params.email,params.password)
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            kuorumMailService.sendPoliticianSubscription(user,offerType)
+            offerService.purchaseOffer(user, offerType)
             redirect mapping:"funnelPaySuccess"
         }catch(UsernameNotFoundException e){
             KuorumRegisterCommand command = new KuorumRegisterCommand(email:params.email);

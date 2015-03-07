@@ -28,6 +28,7 @@ public enum MailType {
     NOTIFICATION_COMMENTED_POST_USERS   (MailGroupType.MAIL_RELATED_WITH_OTHER_USERS,   "23_notificationCommentCommenter", "notification",[],["postType","commenter","commenterLink","comment", "postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_VICTORY_USERS          (MailGroupType.MAIL_RELATED_WITH_OTHER_USERS,   "21_notificationVictoryUsers","notification",[],  ["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_VICTORY_DEFENDER       (MailGroupType.POLITICIAN_MAIL,                 "20_notificationVictoryDefender","notification",[],  ["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_OFFER_PURCHASED        (MailGroupType.NOT_CONFIGURABLE,                "24_notificationPoliticianSubscription","notification",[], ["userLink", "user", "offerType", "totalPrice"]),
 
     PROMOTION_OWNER                     (MailGroupType.MAIL_RELATED_WITH_ME,            "10_notificationPromotionAuthor",    "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]),
     PROMOTION_SPONSOR                   (MailGroupType.MAIL_RELATED_WITH_ME,            "11_notificationPromotionPromoter",  "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]),
