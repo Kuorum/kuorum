@@ -50,7 +50,6 @@ class ProjectController {
     @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
     def save(ProjectCommand command){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        projectService.assignUserRegionAndInstitutionToCommand(command, user)
 
         if(!command.validate()){
             render view:'/project/create', model: projectModel(command, null)
@@ -66,57 +65,81 @@ class ProjectController {
         }
         Project project = new Project(command.properties)
         projectService.assignFilesToCommandAndProject(command, project, user)
-        project = projectService.saveAndCreateNewProject(project, false)
+        project = projectService.saveAndCreateNewProject(project, user)
         fileService.deleteTemporalFiles(user)
-        flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
-        List <KuorumUser> relatedUsers = projectService.searchRelatedUserToUserCommisions(project)
-        Thread.start {
-            kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
+        Boolean isDraft =params.isDraft? Boolean.parseBoolean(params.isDraft):false
+        if (isDraft){
+            flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
+        }else{
+            projectService.publish(project)
+            flash.message=message(code:'admin.publishProject.success', args: [project.hashtag])
         }
         redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
     }
 
     @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
-    def publish(ProjectCommand command){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        projectService.assignUserRegionAndInstitutionToCommand(command, user)
+    def edit(String hashtag){
+        Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
+        if (!project){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        ProjectCommand projectCommand = new ProjectCommand()
+        projectCommand.commissions = project.commissions
+        projectCommand.hashtag = project.hashtag
+        projectCommand.photoId = project.image?.id
+        projectCommand.videoPost = project.urlYoutube?.id
+        projectCommand.pdfFileId = project.pdfFile?.id
+        projectCommand.description = project.description
+        projectCommand.deadline = project.deadline
+        projectCommand.shortName = project.shortName
 
+        projectModel(projectCommand, project)
+    }
+
+    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
+    def update(ProjectCommand command){
+        Project project = projectService.findProjectByHashtag(params.hashtag?.encodeAsHashtag())
+        if (!project){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        command.hashtag = project.hashtag //El parametro de la URL es más importante que el del formulario y lo sobreescribe
         if(!command.validate()){
-            render view:'/project/create', model: projectModel(command, null)
+            render view:'/project/edit', model: projectModel(command, project)
             return
         }
-
-        if (Project.findByHashtag(command.hashtag)){
-            command.errors.rejectValue("hashtag","notUnique")
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser owner = project.owner
+        if (owner != user && !SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")){
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
         }
-        if (command.hasErrors()){
-            render view:'/project/create', model: projectModel(command, null)
-            return
-        }
-        Project project = new Project(command.properties)
-        projectService.assignFilesToCommandAndProject(command, project, user)
-        project = projectService.saveAndCreateNewProject(project, true)
+        project.commissions = project.commissions
+        project.description = project.description
+        project.deadline = project.deadline
+        project.shortName = project.shortName
+        projectService.assignFilesToCommandAndProject(command, project, owner)
+        projectService.updateProject(project)
         fileService.deleteTemporalFiles(user)
-        flash.message=message(code:'admin.publishProject.success', args: [project.hashtag])
-        List <KuorumUser> relatedUsers = projectService.searchRelatedUserToUserCommisions(project)
-        Thread.start {
-            kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
+        Boolean isDraft =params.isDraft? Boolean.parseBoolean(params.isDraft):false
+        if (isDraft){
+            flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
+        }else{
+            projectService.publish(project)
+            flash.message=message(code:'admin.publishProject.success', args: [project.hashtag])
         }
         redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
     }
 
     private def projectModel(ProjectCommand command, Project project){
-        def model = [:]
-        if (SpringSecurityUtils.ifAnyGranted('ROLE_POLITICIAN')){
-            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            model = [
-                    institutions:[user.institution],
-                    regions:[user?.politicianOnRegion]
-            ]
-            command.region = model.regions[0]
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Region region = user.politicianOnRegion
+        if (!region){
+            region = Region.findByIso3166_2("EU-ES")
+            log.warn("Usuario ${user} sin region de politico. Se pone españa")
         }
-        model << [project:project, command: command]
-        model
+        [project:project, command:command, region:region]
+
     }
 
     def createProjectUpdate(String hashtag){

@@ -24,6 +24,7 @@ class UrlMappings {
 
         name projectCreate:     "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"save"]}
                                 "/leyes/nueva"(controller: "project"){action = [GET:"create", POST:"save"]}
+        name projectEdit:       "/proyectos/$institutionName/$commission/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
         name projects:          "/proyectos/$institutionName?/$commission?" (controller: "project", action:"index")
                                 "/leyes/$institutionName?/$commission?" (controller: "project", action:"index")
         name projectShow:       "/proyectos/$institutionName/$commission/$hashtag" (controller: "project", action:"show")
@@ -133,7 +134,7 @@ class UrlMappings {
 
         name register:            "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
         name registerSuccess:     "/registro/satisfactorio"(controller: "register",action:"registerSuccess")
-        name registerPassword: "/registro/establece-password"(controller: "register", action:"choosePassword")
+        name registerPassword: "/registro/establece-password"(controller: "register", action:"selectMyPassword")
         name registerResendMail:  "/registro/no-verificado"(controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"]}
         name resetPassword:       "/registro/password-olvidado"(controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"]}
         name resetPasswordSent:   "/registro/enviada-verificacion"(controller: "register", action:"forgotPasswordSuccess")

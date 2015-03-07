@@ -108,6 +108,7 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
 
+        def disabled=attrs.disabled?"disabled":""
         def id = attrs.id?:field
         def helpBlock = attrs.helpBlock?:''
         def type = attrs.type?:'text'
@@ -135,7 +136,7 @@ class FormTagLib {
             out << "<label for='${field}'>${label}</label>"
         }
         out <<"""
-            <input type="${type}" name="${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}">
+            <input type="${type}" name="${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled}>
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
@@ -682,13 +683,16 @@ class FormTagLib {
         String codeLabel = attrs.codeLabel?:'dashboard.userProfile.incompleteDate.phonePrefix.label'
         String selectId = attrs.selectId?:'phonePrefix'
         String selectCssClass = attrs.selectCssClass?:'form-control input-lg'
+        List<Region> regions = Region.findAllByRegionType(RegionType.NATION)
         out << """
-                <label for="phone-prefix" class="sr-only">${message(code:codeLabel )}</label>
+                <label for="${field}" class="sr-only">${message(code:codeLabel )}</label>
                 <select name="${field}" class="${selectCssClass}" id="${selectId}">
-                    <option value="+34">+34</option>
-                    <option value="+32">+32</option>
-                    <option value="+33">+33</option>
-                    <option>...</option>
-                </select>"""
+                """
+        regions.each {Region region ->
+            String prefixPhone = region['prefixPhone'] //Dynamic attribute
+            String checked = prefixPhone == value?"selected='selected'":'';
+            out << "<option value='${prefixPhone}' ${checked}>${prefixPhone}</option>"
+        }
+        out << "</select>"
     }
 }

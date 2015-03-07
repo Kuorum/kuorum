@@ -42,7 +42,7 @@
                             title: "${post.title}",
                             options: [
                                 %{-- Guarrerida para generar el js que se necesita para pintar la ventana modal --}%
-                                <g:each in="${kuorum.core.model.CommitmentType.recoverCommitmentTypesByPostType(post.postType)}" var="commitmentType">
+                                <g:each in="${kuorum.core.model.CommitmentType.recoverCommitmentTypesByPostType(PostType.PURPOSE)}" var="commitmentType">
                                 {
                                     textButton: "${message(code:"modalDefend.option.${commitmentType}.button")}",
                                     textDescription: "${message(code:"modalDefend.option.${commitmentType}.description")}",

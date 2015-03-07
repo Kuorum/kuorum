@@ -2,6 +2,7 @@ package kuorum.notifications
 
 import grails.transaction.Transactional
 import grails.util.Environment
+import kuorum.OfferPurchased
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.VoteType
@@ -589,8 +590,26 @@ class NotificationService {
     }
 
 
-    void sendProjectOpenNotification(Project project){
+    List searchRelatedUserToProject(Project project){
+        KuorumUser.createCriteria().list(){
+            and{
+                personalData{
+                    like('provinceCode',project.region?.iso3166_2 + '%')
+                }
+                or{
+                    project.commissions.each{commision->
+                        inList("relevantCommissions", commision)
+                    }
+                }
+            }
+        }
+    }
 
+    void sendProjectPublishNotification(Project project){
+        List <KuorumUser> relatedUsers = searchRelatedUserToProject(project)
+        Thread.start {
+            kuorumMailService.sendSavedProjectToRelatedUsers(relatedUsers,project)
+        }
     }
 
     void sendProjectClosedNotification(Project project){
@@ -675,5 +694,10 @@ class NotificationService {
         }
         if(notificationUsers)
             kuorumMailService.sendPromotedPostMailUsers(post,sponsor, notificationUsers)
+    }
+
+    void sendOfferPurchasedNotification(KuorumUser user, OfferPurchased offerPurchased){
+        kuorumMailService.sendPoliticianSubscription(user,offerPurchased.offerType)
+        kuorumMailService.sendPoliticianSubscriptionToAdmins(user,offerPurchased.offerType)
     }
 }

@@ -1,4 +1,4 @@
-<article itemtype="http://schema.org/Person" itemscope role="article" class="box-ppal">
+<article itemtype="http://schema.org/Person" itemscope role="article" class="box-ppal clearfix">
 
     <div class="photo">
         <img src="${image.userImgProfile(user:user)}" alt="${user.name}">
@@ -12,7 +12,7 @@
         </g:link>
         <span class="user-type"><userUtil:roleName user="${user}"/> </span>
     </div>
-    <p><kuorumDate:showShortedText text="${user.bio}" numChars="130"/> </p>
+    <p><kuorumDate:showShortedText text="${user.bio}" numChars="120"/> </p>
     <g:if test="${user.verified}">
         <small><g:message code="kuorumUser.verified"/><span class="fa fa-check"></span></small>
     </g:if>
