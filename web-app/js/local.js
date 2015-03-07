@@ -868,7 +868,7 @@ $(document).ready(function() {
     $(function () {
 
         // ESTO HAY QUE DESCOMENTARLO AL INTEGRAR **************************************************** //
-        changeDescriptionNumSelect()
+//        changeDescriptionNumSelect()
 
         var checkAll = $('#selectAll');
         var checkboxes = $('input.check');
@@ -914,7 +914,7 @@ $(document).ready(function() {
             checkAll.iCheck('update');
 
             // ESTO HAY QUE DESCOMENTARLO AL INTEGRAR **************************************************** //
-            changeDescriptionNumSelect();
+//            changeDescriptionNumSelect();
         });
     });
 

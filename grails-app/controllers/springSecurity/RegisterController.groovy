@@ -96,21 +96,23 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             redirect uri: defaultTargetUrl
             return
         }
-        render view:'selectMyPassword', model:[userId:user.id]
+        render view:'selectMyPassword', model:[userId:user.id, command:new ResetPasswordCommand()]
     }
 
 
-    def choosePassword (){
+    def selectMyPassword (ResetPasswordCommand command){
         KuorumUser user = KuorumUser.findById(params.userId)
+        if (!user){
+            redirect mapping:'home'
+            return;
+        }
         def conf = SpringSecurityUtils.securityConfig
         String defaultTargetUrl = conf.successHandler.defaultTargetUrl
-        if (!(params.password1 == params.password2)){
-            flash.message = message (code:'grails.plugin.springsecurity.ui.ResetPasswordCommand.password2.helpBlock')
-            flash.typeMessage= 'error'
-            render view: 'selectMyPassword' , model:[userId:user.id]
+        if (!command.validate()){
+            render view: 'selectMyPassword' , model:[userId:user.id, command:command]
         }else{
             String salt = saltSource instanceof NullSaltSource ? null : user.name
-            user.password = springSecurityUiService.encodePassword(params.password1, salt)
+            user.password = springSecurityUiService.encodePassword(command.password, salt)
 
             if(user.validate()){
                 def renderMap = registerService.save(user)
