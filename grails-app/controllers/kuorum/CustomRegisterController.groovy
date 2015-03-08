@@ -181,7 +181,7 @@ class CustomRegisterController extends  ProfileController{
         redirect mapping: 'home'
     }
 
-    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED'])
+    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED', 'ROLE_USER'])
     def ageAndGender(PersonalDataCommand personalDataCommand){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         personalDataCommand.validate()
