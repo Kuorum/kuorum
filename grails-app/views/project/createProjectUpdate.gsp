@@ -61,15 +61,16 @@
     <section class="boxes performance">
         <h1 class="text-center"><g:message code="projectUpdate.aside.improve.label" /></h1>
         <p class="text-center"><g:message code="projectUpdate.aside.improve.text" /></p>
-        <div class="video">
-            <a href="#" class="front">
-                <span class="fa fa-play-circle fa-4x"></span>
-                <img src="http://img.youtube.com/vi/fQDQO4VRpF8/hqdefault.jpg">
-            </a>
-            <iframe class="youtube" itemprop="video" height="360" src="//www.youtube.com/embed/fQDQO4VRpF8?fs=1&rel=0&showinfo=0&showsearch=0&autoplay=1" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <p class="text-center"><g:message code="projectUpdate.aside.improve.resume" /></p>
-        <a href="#" class="btn btn-blue btn-lg improve"><g:message code="projectUpdate.aside.improve.button" /></a>
+%{--DESCOMENTAR CUANDO OFREZCAMOS EL SERVICIO DE ASESORÍA EN COMUNICACIÓN POLÍTICA--}%
+        %{--<div class="video">--}%
+            %{--<a href="#" class="front">--}%
+                %{--<span class="fa fa-play-circle fa-4x"></span>--}%
+                %{--<img src="http://img.youtube.com/vi/fQDQO4VRpF8/hqdefault.jpg">--}%
+            %{--</a>--}%
+            %{--<iframe class="youtube" itemprop="video" height="360" src="//www.youtube.com/embed/fQDQO4VRpF8?fs=1&rel=0&showinfo=0&showsearch=0&autoplay=1" frameborder="0" allowfullscreen></iframe>--}%
+        %{--</div>--}%
+        %{--<p class="text-center"><g:message code="projectUpdate.aside.improve.resume" /></p>--}%
+        %{--<a href="#" class="btn btn-blue btn-lg improve"><g:message code="projectUpdate.aside.improve.button" /></a>--}%
     </section>
 </content>
 <!-- ********************************************************************************************************* -->
