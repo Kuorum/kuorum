@@ -8,11 +8,6 @@
     <g:include controller="login" action="headAuth"/>
 </content>
 
-%{--<content tag="intro">--}%
-    %{--<h1><g:message code="register.resetPassword.head.title"/></h1>--}%
-    %{--<p><g:link mapping="login"><g:message code="register.resetPassword.subtitle"/> </g:link></p>--}%
-%{--</content>--}%
-
 <content tag="mainContent">
     %{--<g:render template="/register/registerSocial"/>--}%
     %{--<h2><g:message code="register.resetPassword.form.title"/> </h2>--}%
