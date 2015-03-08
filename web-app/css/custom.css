@@ -2388,7 +2388,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
     margin: 0 0 0 26px;
     padding: 0;
 }
-.sign.home .social-home-container {position: absolute; bottom: 0;}
+.sign.home .social-home-container {position: absolute; bottom: 0; width: 100%;}
 .sign.home form#sign {display: none;}
 .sign.home .social-home-container > h3 {font-size: 17.6px; font-size: 1.76rem;}
 
