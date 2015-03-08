@@ -11,7 +11,8 @@
     <g:else>
         %{--PROYECTO CERRADO --}%
         <h1><g:message code="project.subHeader.closedProject"/></h1>
-        <a href="#" class="btn btn-grey btn-lg"><g:message code="project.subHeader.closedProject.seeMoreProjects" encodeAs="raw"/></a>
+        %{--DESCOMENTAR Y CONFIGURAR BOTÓN CUANDO ESTÉ HECHO EL DESCUBRE--}%
+        %{--<a href="#" class="btn btn-grey btn-lg"><g:message code="project.subHeader.closedProject.seeMoreProjects" encodeAs="raw"/></a>--}%
         <projectUtil:ifAllowedToUpdateProject project="${project}">
             <div class="action text-center"><a href="#" class="text-center"><span class="fa icon2-update fa-3x"></span></a></div>
         </projectUtil:ifAllowedToUpdateProject>
