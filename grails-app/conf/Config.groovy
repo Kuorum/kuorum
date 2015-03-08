@@ -232,6 +232,10 @@ kuorum {
         feedback="info@kuorum.org"
         workWithUs="empleo@kuorum.org"
     }
+    purchase{
+        email="info@kuorum.org"
+        userName="Compra"
+    }
     milestones{
         kuorum = 1000
         postVotes{
