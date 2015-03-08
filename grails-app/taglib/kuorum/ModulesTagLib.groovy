@@ -90,7 +90,7 @@ class ModulesTagLib {
         Integer numUsers = attrs.numUsers as Integer
         KuorumUser user = attrs.user
         List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user, new Pagination(max:numUsers))
-        out << render(template: '/modules/users/recommendedUsersAsList', model: [users:recommendedUsers])
+        out << render(template: '/modules/users/recommendedUsersAsList', model: [users:recommendedUsers, showDeleteRecommendation:'true'])
     }
 
     def delayedModule={attrs ->
