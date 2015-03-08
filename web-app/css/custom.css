@@ -1611,10 +1611,8 @@ textarea.error,
 .socialGo {margin: 0; padding: 0;}
 .socialGo li {display: inline-block; list-style: none; margin: 5px 10px 0 0;}
 .socialGo li:nth-child(2n) {margin-right: 0;}
-.sign.home .social-home-container .btn.btn-lg {
-    font-size: 1.5rem !important;
-    padding: 12px 10px !important;
-}
+/*.sign.home .social-home-container .btn.btn-lg {font-size: 1.5rem !important;padding: 12px 10px !important;}*/
+
 /*.socialGo li a {width: 276px; padding: 12px 0 !important; margin: 0 !important;}*/
 .onecol .form-group {margin-top: 20px;}
 .onecol .form-group.groupRadio {margin: 0;}
@@ -3380,6 +3378,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .sign.purchase h2 {font-size: 22px; font-size: 2.2rem;}
   .socialGo {margin: 0 0 40px;}
   .socialGo {margin: 0; padding: 0; text-align: center;}
+  .sign.home .social-home-container .btn.btn-lg {font-size: 1.6rem; padding: 14px;}
   .sign .login {margin-top: 50px; margin-bottom: 50px;}
   .sign .login .socialGo .btn.tw,
   .sign .login .socialGo .btn.fb {padding: 15px 25px !important;}
@@ -3693,6 +3692,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .sign .login {margin-top: 50px; margin-bottom: 50px;}
   .socialGo li {margin: 10px 4px 0 0;}
   .socialGo .btn.btn-lg {padding: 15px 8px !important;}
+  .sign.home .social-home-container .btn.btn-lg {font-size: 1.6rem; padding: 14px;}
 
   .list-project .kakareo.post.ley .total-info {padding-right: 10px;}
   .list-project .kakareo.post.ley .infoVotes {margin-right: 8px;}
@@ -3949,7 +3949,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .boxes.info .kakareo footer .info-kak > li {font-size: 14px; font-size: 1.4rem;}
   .boxes.info .kakareo footer .voting ul li {margin: 0 0 0 8px;}
 }
-.sign.home .social-home-container .btn.btn-lg {}
+.sign.home .social-home-container .btn.btn-lg {font-size: 1.6rem; padding: 14px;}
 
 /* Retina ready images */
 @media  only screen and (-webkit-min-device-pixel-ratio: 1.5),
