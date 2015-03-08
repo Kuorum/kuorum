@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-blue btn-lg" value="${g.message(code:'login.email.form.login')}"> <p class="cancel">o <a href="#" class="change-home-register"><g:message code="head.noLogged.register"/></a></p>
+        <input type="submit" class="btn btn-blue btn-lg" value="${g.message(code:'login.email.form.login')}"> <p class="cancel"><g:message code="head.noLogged.register_or"/> <a href="#" class="change-home-register"><g:message code="head.noLogged.register"/></a></p>
     </div>
     <div class="form-group">
         <g:link mapping="resetPassword">
