@@ -2401,7 +2401,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .signContainer .checkbox-inline a {color: #fff;}
 .signContainer .btns {margin-top: 10px;}
 .home #sign .checkbox-inline {margin: 4px 0 !important; font-size: 13px; font-size: 1.3rem;}
-.home .play {margin: 0; padding: 0; color: #fff; font-size: 15px; font-size: 1.5rem;}
+.home .play {margin: 0; padding: 0; color: #fff; font-size: 15px; font-size: 1.5rem;text-align: center;}
 .home .play .fa {vertical-align: middle; margin-right: 10px;}
 .home .play > a {color: rgba(255, 255, 255, 0.9);}
 .home .play > a:hover,
@@ -3670,7 +3670,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .box-ppal.condition .photo {margin-bottom: 15px;}
   .kakareo.post h1 {font-size: 29px; font-size: 2.9rem; line-height: 1.2; padding: 0; margin: 0 0 25px 0;}
 
-  .home .play {margin: 90px 0 0 0; padding: 0 0 0 30px; font-size: 22px; font-size: 2.2rem;}
+  .home .play {margin: 90px 0 0 0; padding: 0 0 0 30px; font-size: 22px; font-size: 2.2rem;text-align: left;}
   .homeSub > .row > h1 {font-size: 36px; font-size: 3.6rem;}
   .homeSub .homeMore {width: 440px; margin-bottom: 20px; margin-top: 10px;}
   .homeSub .homeMore .btn-lg {font-size: 25px !important; font-size: 2.5rem !important;}
