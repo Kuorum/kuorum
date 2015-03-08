@@ -1,6 +1,6 @@
 <section class="boxes follow">
     <h1><g:message code="modules.recommendedUsers.title"/></h1>
-    <ul class="user-list-followers">
+    <ul class="user-list-followers hide4">
         %{--<userUtil:showListUsers--}%
                 %{--users="${recommendedUsers}"--}%
                 %{--visibleUsers="${recommendedUsers.size()}"--}%

@@ -197,11 +197,20 @@ class KuorumUserService {
         RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(user)
         if(recommendedUserInfo){
             recommendedUsers = recommendedUserInfo.recommendedUsers - recommendedUserInfo.deletedRecommendedUsers - user.following
-            Integer max = recommendedUsers.size()<pagination.max?recommendedUsers.size()-1:pagination.max
-            kuorumUsers = recommendedUsers[pagination.offset..max].inject([]){ result, kuorumUser ->
-                result << KuorumUser.get(kuorumUser)
-                result
+            Integer max = Math.min(recommendedUsers.size(),pagination.max)
+            if (max > 0){
+                kuorumUsers = recommendedUsers[pagination.offset..max].inject([]){ result, kuorumUser ->
+                    result << KuorumUser.get(kuorumUser)
+                    result
+                }
             }
+        }
+
+        if (kuorumUsers.size()+1 < pagination.max){
+            Integer max = pagination.max - kuorumUsers.size();
+            List<KuorumUser> mostActiveUsers = mostActiveUsersSince(new Date() -7 , new Pagination(max: max))
+            mostActiveUsers = mostActiveUsers - recommendedUserInfo.deletedRecommendedUsers - user.following
+            kuorumUsers += mostActiveUsers
         }
 
         kuorumUsers as ArrayList<KuorumUser>
@@ -432,6 +441,7 @@ class KuorumUserService {
     List<KuorumUser> mostActiveUsersSince(Date startDate, Pagination pagination = new Pagination()){
         //MONGO QUERY
         // aggregate([ {$match:{isFirstCluck:false}}, {$group:{_id:'$owner',total:{$sum:1}}}, {$match:{total:{$gt:0}}}, {$sort:{total:-1}}, {$limit:2} ])
+        Integer max = pagination.max
         def postOwners = Cluck.collection.aggregate(
                 ['$match':[isFirstCluck:true, dateCreated:['$gt':startDate]] ],
                 ['$group':[_id:'$owner',total:['$sum':1]]],
@@ -443,23 +453,23 @@ class KuorumUserService {
         List<KuorumUser> mostActiveUsers = postOwners.results().collect{
             KuorumUser.load(it._id)
         }
-
+        max = pagination.max - mostActiveUsers.size()
         //Not enought posts this week
-        if (mostActiveUsers.size() < pagination.max){
+        if (max > 0){
             def postCluckers = Cluck.collection.aggregate(
                     ['$match':[isFirstCluck:false,dateCreated:['$gt':startDate]]],
                     ['$group':[_id:'$owner',total:['$sum':1]]],
                     ['$match':[total:['$gte':1]]],
                     ['$sort':[total:-1]],
-                    ['$limit':pagination.max]
+                    ['$limit':max]
             )
             postCluckers.results().each{
                 mostActiveUsers.add(KuorumUser.load(it._id))
             }
         }
-
+        max = pagination.max - mostActiveUsers.size()
         //Not enought activity
-        if (mostActiveUsers.size() < pagination.max){
+        if (max > 0){
             log.info("No hay suficiente actividad, se usa la actividad general de cualquier usuario")
             BasicDBObject alreadyUsers = new BasicDBObject('$nin', mostActiveUsers.collect{it.id});
             def postCluckers = Cluck.collection.aggregate(
@@ -467,7 +477,7 @@ class KuorumUserService {
                     ['$group':[_id:'$owner',total:['$sum':1]]],
                     ['$match':[total:['$gte':1]]],
                     ['$sort':[total:-1]],
-                    ['$limit':pagination.max]
+                    ['$limit':max]
             )
             postCluckers.results().each{
                 mostActiveUsers.add(KuorumUser.load(it._id))
