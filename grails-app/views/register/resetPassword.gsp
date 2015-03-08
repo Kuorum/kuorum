@@ -5,29 +5,17 @@
 </head>
 
 <content tag="headButtons">
-    <ul class="nav navbar-nav navbar-right">
-        %{--<li class="underline">--}%
-        %{--<g:link mapping="footerWhatIsKuorum" class="navbar-link">--}%
-        %{--<g:message code="page.title.footer.whatIsKuorum"/>--}%
-        %{--</g:link>--}%
-        %{--</li>--}%
-        <li class="underline">
-            <g:link mapping="login" class="navbar-link">
-                <g:message code="register.head.login"/>
-            </g:link>
-        </li>
-    </ul>
+    <g:include controller="login" action="headAuth"/>
 </content>
 
-<content tag="intro">
-    <h1><g:message code="register.resetPassword.head.title"/> </h1>
-    <p>o <g:link mapping="login"><g:message code="register.resetPassword.subtitle"/> </g:link></p>
-</content>
-
+%{--<content tag="intro">--}%
+    %{--<h1><g:message code="register.resetPassword.head.title"/></h1>--}%
+    %{--<p><g:link mapping="login"><g:message code="register.resetPassword.subtitle"/> </g:link></p>--}%
+%{--</content>--}%
 
 <content tag="mainContent">
-    <g:render template="/register/registerSocial"/>
-    <h2><g:message code="register.resetPassword.form.title"/> </h2>
+    %{--<g:render template="/register/registerSocial"/>--}%
+    %{--<h2><g:message code="register.resetPassword.form.title"/> </h2>--}%
     <formUtil:validateForm bean="${command}" form="sign"/>
     <g:form mapping="resetPasswordChange" name="sign" role="form" method="POST" autocomplete="off">
         <g:hiddenField name='t' value='${token}'/>
@@ -64,9 +52,8 @@
     </script>
 </content>
 
-
 <content tag="description">
-    <h3><g:message code="register.resetPassword.description.title"/></h3>
-    <p><g:message code="register.resetPassword.description.p1"/></p>
+    <h1><g:message code="register.resetPassword.description.title"/></h1>
+    <h2><g:message code="register.resetPassword.description.p1"/></h2>
 </content>
 
