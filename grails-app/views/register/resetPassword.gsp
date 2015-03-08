@@ -69,3 +69,4 @@
     <h3><g:message code="register.resetPassword.description.title"/></h3>
     <p><g:message code="register.resetPassword.description.p1"/></p>
 </content>
+

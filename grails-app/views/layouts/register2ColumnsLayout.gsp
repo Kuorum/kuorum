@@ -40,6 +40,6 @@
                 </div>
             </div>
         </div><!-- #main -->
-        %{--<g:render template="/layouts/footer/footerRegister"/>--}%
+        %{--<g:render template="/layouts/footer/footerNoScape"/>--}%
     </body>
 </g:applyLayout>
