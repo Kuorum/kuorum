@@ -1,6 +1,6 @@
 <section role="complementary" class="homeSub">
     <div class="row">
-        <h1>Sigue a tus representantes</h1>
+        <h1><g:message code="home.politicians.title"/></h1>
         <ul class="politician-list">
             <g:each in="${politicians}" var="politician">
                 <li class="col-md-4">
