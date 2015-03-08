@@ -478,8 +478,17 @@ class KuorumMailService {
     }
 
     def mailingListUpdateUser(KuorumUser user){
-        mailchimpService.addSubscriber(user)
-        indexSolrService.index(user)
+        try{
+            mailchimpService.addSubscriber(user)
+        }catch(Exception e){
+           log.error("Error actualizando usuario ${user} en MailChimp", e)
+        }
+
+        try{
+            indexSolrService.index(user)
+        }catch(Exception e){
+            log.error("Error indexando usuario",e)
+        }
     }
 
 

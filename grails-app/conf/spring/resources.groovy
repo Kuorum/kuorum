@@ -17,9 +17,13 @@ beans = {
    userDetailsService(MongoUserDetailsService)
 
 
+    localeResolver(org.springframework.web.servlet.i18n.CookieLocaleResolver){}
+
     localeChangeInterceptor(kuorum.web.interceptors.CustomLocaleInterceptor) {
         paramName = "lang"
     }
+
+
 
     def bb = new BeanBuilder()
     bb.beans{
