@@ -1585,9 +1585,9 @@ textarea.error,
 
 
 /* páginas de entrar y registro, con layout de 1 columna */
-.sign h1 {font-size: 25px; font-size: 2.5rem; margin-top: 0;}
-.sign h2 {font-size: 18px; font-size: 1.8rem; line-height: 1.4; padding: 0;}
-.sign h3 {font-size: 18px; font-size: 1.8rem; text-align: left;}
+.sign h1 {font-size: 25px; font-size: 2.2rem; margin-top: 0;text-align:center;}
+.sign h2 {font-size: 18px; font-size: 1.8rem; line-height: 1.4; padding: 0;text-align:center;}
+.sign h3 {font-size: 18px; font-size: 1.8rem;text-align:left;}
 .sign .login {margin-top: 20px; margin-bottom: 20px;}
 .sign .login .socialGo .btn.tw,
 .sign .login .socialGo .btn.fb {padding: 15px !important;}
@@ -2410,7 +2410,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub {margin: 0 0 40px 0;}
 .homeSub > .row > h1 {text-align: center; padding: 0 15px 10px 15px; margin: 0 0 20px 0; font-size: 26px; font-size: 2.6rem; border-bottom: 1px solid #e5e5e5;}
 .homeSub h2 {font-size: 24px; font-size: 2.4rem; padding: 0 16%;}
-.homeSub .homeMore {width: 305px; margin: 0 auto;}
+.homeSub .homeMore {width: 305px; margin: 0 auto;text-align: center;}
 .homeSub .homeMore.two .btn {width: 43%; margin-right: 2% !important;}
 .homeSub .homeMore.two .btn:last-child {margin: 0 !important;}
 
@@ -3374,8 +3374,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #aside-ppal {background-color: transparent;}
   /*#main {min-height: 898px;}*/
   #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
-  .sign h1 {font-size: 30px; font-size: 3rem; margin-top: 30px;}
-  .sign h2 {font-size: 22px; font-size: 2.2rem; line-height: 1.4; padding: 0;}
+  .sign h1 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: center;}
+  .sign h2 {font-size: 22px; font-size: 2.2rem; line-height: 1.4; padding: 0;text-align: center;}
   .sign h3 {font-size: 17px; font-size: 1.7rem; text-align: center;}
   .sign.purchase h2 {font-size: 22px; font-size: 2.2rem;}
   .socialGo {margin: 0 0 40px;}
@@ -3385,7 +3385,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .sign .login .socialGo .btn.fb {padding: 15px 25px !important;}
   .sign .login {margin: 20px auto;}
   .sign .login .btn + .cancel {margin-left: 33px;}
-  .home .play {font-size: 16px; font-size: 1.6rem;}
+  .home .play {font-size: 16px; font-size: 1.6rem;text-align: center;}
   .list-project .kakareo.post.ley .laley a {font-size: 18px; font-size: 1.8rem;}
   .config > section .filter-order > li {display: inline; margin: 0 2% 0 0; font-size: 14px; font-size: 1.4rem; text-align: left;}
   .list-project .kakareo.post.ley .total-info {font-size: 18px; font-size: 1.8rem;}
@@ -3688,8 +3688,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
   .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
   .arrow2 {right: 24px;}
-  .sign h1 {font-size: 36px; font-size: 3.6rem; margin-top: 30px;}
-  .sign h2 {font-size: 26px; font-size: 2.6rem; line-height: 1.4; padding: 0 30px; margin-top: 25px;}
+  .sign h1 {font-size: 36px; font-size: 3.6rem; margin-top: 30px;text-align: left;}
+  .sign h2 {font-size: 26px; font-size: 2.6rem; line-height: 1.4; padding: 0 30px; margin-top: 25px;text-align: left;}
   .sign .login {margin-top: 50px; margin-bottom: 50px;}
   .socialGo li {margin: 10px 4px 0 0;}
   .socialGo .btn.btn-lg {padding: 15px 8px !important;}
@@ -3876,7 +3876,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .contratando .nav-tabs > li {margin-right: 100px;}
   .embudo .arrow4 {bottom: -72px;}
   .embudo .arrow1 {right: -15px;}
-  .home .play {margin: 60px 0 0 0; padding: 0 0 0 30px; font-size: 26px; font-size: 2.6rem;}
+  .home .play {margin: 60px 0 0 0; padding: 0 0 0 30px; font-size: 26px; font-size: 2.6rem;text-align: left;}
   .full-video {padding-bottom: 60px;}
   .socialGo .btn.btn-lg {padding: 15px !important;}
   .icheckbox_line-orange,
@@ -3888,8 +3888,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .condition .user-list-followers  > li {width: 47%; float: left;}
   .sign .login .btn + .cancel {margin-left: 34px;}
   #main {min-height: 674px;}
-  .sign h1 {font-size: 42px; font-size: 4.2rem; margin-top: 30px;}
-  .sign h2 {font-size: 30px; font-size: 3rem; margin-top: 30px;}
+  .sign h1 {font-size: 42px; font-size: 4.2rem; margin-top: 30px;text-align: left;}
+  .sign h2 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: left;}
   .sign .login {margin-top: 60px; margin-bottom: 60px;}
   #karma {right: 2.8%;}
   fieldset.multimedia ul.nav.nav-pills.nav-justified li a {font-size: 20px; font-size: 2rem;}
