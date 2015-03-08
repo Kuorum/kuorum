@@ -4,19 +4,23 @@
     <meta name="layout" content="register2ColumnsLayout">
 </head>
 
-<content tag="headButtons">
-    <ul class="nav navbar-nav navbar-right">
+%{--<content tag="headButtons">--}%
+    %{--<ul class="nav navbar-nav navbar-right">--}%
         %{--<li class="underline">--}%
             %{--<g:link mapping="footerWhatIsKuorum" class="navbar-link">--}%
                 %{--<g:message code="page.title.footer.whatIsKuorum"/>--}%
             %{--</g:link>--}%
         %{--</li>--}%
-        <li class="underline">
-            <g:link mapping="login" class="navbar-link">
-                <g:message code="register.head.login"/>
-            </g:link>
-        </li>
-    </ul>
+        %{--<li class="underline">--}%
+            %{--<g:link mapping="login" class="navbar-link">--}%
+                %{--<g:message code="register.head.login"/>--}%
+            %{--</g:link>--}%
+        %{--</li>--}%
+    %{--</ul>--}%
+%{--</content>--}%
+
+<content tag="headButtons">
+    <g:include controller="login" action="headAuth"/>
 </content>
 
 <content tag="mainContent">

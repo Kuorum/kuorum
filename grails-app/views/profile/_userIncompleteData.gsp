@@ -97,12 +97,12 @@
             </div>
         </g:elseif>
 
-        <div class="photo">
-            <g:if test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPROVINCE')}"> <img alt="" src="images/img-nopostalcode.jpg"> </g:if>
-            <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANPHONE')}"> <img alt="" src="images/img-nophone.jpg"></g:elseif>
-            <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANINYOURCOUNTRY')}"> <img alt="" src="images/img-nopolitician.jpg"></g:elseif>
-            <g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOAGEANDGENDER')}"> <img alt="" src="images/img-noage.jpg"></g:elseif>
-        </div>
+        %{--<div class="photo">--}%
+            %{--<g:if test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPROVINCE')}"> <img alt="" src="images/img-nopostalcode.jpg"> </g:if>--}%
+            %{--<g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANPHONE')}"> <img alt="" src="images/img-nophone.jpg"></g:elseif>--}%
+            %{--<g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOPOLITICIANINYOURCOUNTRY')}"> <img alt="" src="images/img-nopolitician.jpg"></g:elseif>--}%
+            %{--<g:elseif test="${orderedNotice == message(code:'dashboard.warningsUserProfile.NOAGEANDGENDER')}"> <img alt="" src="images/img-noage.jpg"></g:elseif>--}%
+        %{--</div>--}%
     </aside>
 </g:if>
 
