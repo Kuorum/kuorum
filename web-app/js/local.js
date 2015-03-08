@@ -397,16 +397,21 @@ $(document).ready(function() {
 
 
     // leer después
-    $('body').on('click', '.read-later a', function(e) {
+    $('body').on('click', '.read-later.logged a', function(e) {
         e.preventDefault();
         e.stopPropagation();
         readLater($(this))
-
     });
     $('body').on('click', '#postNav .read-later a', function(e) {
         readLater($(this));
         e.preventDefault();
         e.stopPropagation();
+    });
+
+    $('body').on('click', "[data-toggle='modal'][data-target='#registro']", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $("#registro").modal("show")
     });
 
 

@@ -19,10 +19,6 @@ $(document).ready(function() {
         }
     }
 
-    cookiesHelper.displayCookiesPolitics();
-
-    $(".dynamicList").dynamiclist();
-
     $("#brand.disabled").on('click', function(e){e.preventDefault();})
     // links kakareo, impulsar
     $('body').on('click', '.action.cluck', function(e) {

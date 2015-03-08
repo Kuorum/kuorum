@@ -274,7 +274,7 @@ class ProjectService {
 
     List<Project> politicianProjects(KuorumUser politician, Pagination pagination = new Pagination()){
         def resultProjectSearch = search(politician, 'dateCreated', Order.DESC, true, pagination.offset, pagination.max)
-        resultProjectSearch.projects
+        resultProjectSearch.projects?:[] //Not returns null
     }
     Long countPoliticianProjects(KuorumUser politician){
         Project.countByOwnerAndPublished(politician,true)

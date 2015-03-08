@@ -209,7 +209,11 @@ class KuorumUserService {
         if (kuorumUsers.size()+1 < pagination.max){
             Integer max = pagination.max - kuorumUsers.size()-1;
             List<KuorumUser> mostActiveUsers = mostActiveUsersSince(new Date() -7 , new Pagination(max: max*2))
-            mostActiveUsers = mostActiveUsers - recommendedUserInfo.deletedRecommendedUsers - user.following -[user.id]
+            List<KuorumUser> deletedRecommendedUsers = []
+            if (recommendedUserInfo){
+                deletedRecommendedUsers = recommendedUserInfo.deletedRecommendedUsers
+            }
+            mostActiveUsers = mostActiveUsers - deletedRecommendedUsers - user.following -[user.id]
             max = Math.min(max, mostActiveUsers.size()-1)
             kuorumUsers += mostActiveUsers[0..max]
         }

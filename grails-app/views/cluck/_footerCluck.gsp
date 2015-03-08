@@ -8,12 +8,11 @@
             <kuorumDate:humanDate date="${post.dateCreated}"/>
         </li>
     </ul>
-    <sec:ifLoggedIn>
-        <ul class="col-xs-10 col-sm-10 col-md-7 actions-kak">
-            <g:render template="/cluck/footerCluck/footerCluckReadLater" model="[post:post, displayingColumnC:displayingColumnC]"/>
-            <g:render template="/cluck/footerCluck/footerCluckLikeButton" model="[post:post, displayingColumnC:displayingColumnC]"/>
-            <g:render template="/cluck/footerCluck/footerCluckKakareoButton" model="[post:post, displayingColumnC:displayingColumnC]"/>
-            <g:render template="/cluck/footerCluck/footerCluckMoreActions" model="[post:post]"/>
-        </ul>
-    </sec:ifLoggedIn>
+
+    <ul class="col-xs-10 col-sm-10 col-md-7 actions-kak">
+        <g:render template="/cluck/footerCluck/footerCluckReadLater" model="[post:post, displayingColumnC:displayingColumnC]"/>
+        <g:render template="/cluck/footerCluck/footerCluckLikeButton" model="[post:post, displayingColumnC:displayingColumnC]"/>
+        <g:render template="/cluck/footerCluck/footerCluckKakareoButton" model="[post:post, displayingColumnC:displayingColumnC]"/>
+        <g:render template="/cluck/footerCluck/footerCluckMoreActions" model="[post:post]"/>
+    </ul>
 </footer>
