@@ -16,7 +16,7 @@ import org.springframework.context.MessageSource
 @Transactional
 class KuorumMailService {
 
-    String DEFAULT_SENDER_NAME="Kuorum"
+    String DEFAULT_SENDER_NAME="Kuorum.org"
     String DEFAULT_VIA="via Kuorum.org"
 
     LinkGenerator grailsLinkGenerator
@@ -65,7 +65,7 @@ class KuorumMailService {
                 offerType:messageSource.getMessage("${OfferType.canonicalName}.${offerType}",null,"", new Locale("ES_es")),
                 totalPrice:offerType.finalPrice.toString()
         ]
-        KuorumUser adminUser = getFeedbackUser()
+        KuorumUser adminUser = getPurchaseUser();
         MailUserData mailUserData = new MailUserData(user:adminUser, bindings:[])
         MailData mailData = new MailData(fromName:adminUser.name, mailType: MailType.POLITICIAN_SUBSCRIPTION, globalBindings: bindings, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
@@ -78,7 +78,7 @@ class KuorumMailService {
                 totalPrice:offerType.finalPrice.toString()
         ]
         MailUserData mailUserData = new MailUserData(user:user, bindings:[])
-        MailData mailData = new MailData(fromName:user.name, mailType: MailType.NOTIFICATION_OFFER_PURCHASED, globalBindings: bindings, userBindings: [mailUserData])
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME, mailType: MailType.NOTIFICATION_OFFER_PURCHASED, globalBindings: bindings, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
 
@@ -103,6 +103,15 @@ class KuorumMailService {
         KuorumUser user = new KuorumUser(
                 name: "Feedback",
                 email: "${grailsApplication.config.kuorum.contact.feedback}",
+                availableMails: MailType.values()
+        )
+    }
+
+    private KuorumUser getPurchaseUser(){
+        //Chapu
+        KuorumUser user = new KuorumUser(
+                name: "${grailsApplication.config.kuorum.purchase.userName}",
+                email: "${grailsApplication.config.kuorum.purchase.email}",
                 availableMails: MailType.values()
         )
     }
