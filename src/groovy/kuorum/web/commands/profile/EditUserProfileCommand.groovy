@@ -78,11 +78,18 @@ class EditUserProfileCommand{
         if (source['country']){
             Region country = Region.get(new ObjectId(source['country']))
             obj.country = country
-            Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
-            def regionService = appContext.regionService
-            if (obj.postalCode){
-                obj.postalCode = source['postalCode'].padLeft( 5, '0' )
-                obj.province = regionService.findRegionOrProvinceByPostalCode(country, obj.postalCode)
+            if (country.iso3166_2 == "EU-ES"){
+                Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
+                def regionService = appContext.regionService
+                if (obj.postalCode){
+                    obj.postalCode = source['postalCode'].padLeft( 5, '0' )
+                    obj.province = regionService.findRegionOrProvinceByPostalCode(country, obj.postalCode)
+                }
+            }
+            else{
+                //CHAPU PARA QUE LOS PAISES QUE NO SON ESPAÑOLES PONGAN LO QUE LES DE LA GANA
+                obj.postalCode = source['postalCode']
+                obj.province = country
             }
         }
     }

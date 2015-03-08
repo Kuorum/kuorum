@@ -136,6 +136,7 @@ class FunnelController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         user.personalData.telephone = "${command.telephone}"
         user.personalData.phonePrefix = command.phonePrefix
+        user.personalData.country = command.country
         kuorumUserService.updateUser(user)
         flash.message = message(code:"funnel.subscriptionPaid.personalData.saved")
         redirect mapping:'home'
