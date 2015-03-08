@@ -22,9 +22,9 @@
         <g:set var="urlLoadMore" value="${createLink(mapping: 'dashboardSeeMore')}"/>
         <g:render template="/cluck/listClucks" model="[clucks:clucks, urlLoadMore:urlLoadMore, seeMore:seeMore]"/>
     </g:if>
-    <g:else>
-        <g:render template="emptyClucks" model="[mostActiveUsers:mostActiveUsers]"/>
-    </g:else>
+    %{--<g:else>--}%
+        %{--<g:render template="emptyClucks" model="[mostActiveUsers:mostActiveUsers]"/>--}%
+    %{--</g:else>--}%
 </content>
 
 <content tag="cColumn">

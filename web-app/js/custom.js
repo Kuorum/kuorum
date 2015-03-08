@@ -84,14 +84,14 @@ $(document).ready(function() {
             ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-follow');
                 var userId = buttonFollow.attr('data-userId');
-                $("button[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
+                $("button.follow[data-userId="+userId+"]").html(message).removeClass('disabled').addClass('enabled');
             });
         } else {
             var url = buttonFollow.attr("data-ajaxfollowurl")
             ajaxFollow(url, buttonFollow, function(data, status, xhr) {
                 var message = buttonFollow.attr('data-message-unfollow');
                 var userId = buttonFollow.attr('data-userId');
-                $("button[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
+                $("button.follow[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
             });
         }
     }

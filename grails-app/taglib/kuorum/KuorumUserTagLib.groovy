@@ -52,6 +52,7 @@ class KuorumUserTagLib {
         Boolean showRole = attrs.showRole?Boolean.parseBoolean(attrs.showRole):false
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
         Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
+        Boolean showDeleteRecommendation = attrs.showDeleteRecommendation?Boolean.parseBoolean(attrs.showDeleteRecommendation):false
 
 //        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
         def imgSrc = image.userImgSrc(user:user)
@@ -79,10 +80,12 @@ class KuorumUserTagLib {
                 """
         }
         if(showActions){
-            out << """<div class="actions">
-                    ${userUtil.followButton(user: user, cssExtra: 'follow',cssSize:"btn-xs" )}
-                    ${userUtil.deleteRecommendedUserButton(user: user)}
-                  </div>"""
+            out << "<div class='actions'>"
+            out << userUtil.followButton(user: user, cssExtra: 'follow',cssSize:"btn-xs" )
+            if (showDeleteRecommendation){
+                out << userUtil.deleteRecommendedUserButton(user: user)
+            }
+            out << "</div>"
         }
 
     }
@@ -98,6 +101,7 @@ class KuorumUserTagLib {
 
     def showListUsers={attrs->
         List<KuorumUser> users = attrs.users.unique()
+        String cssClass = attrs.cssClass?:'user-list-images'
         if (users){
             Integer visibleUsers=Integer.parseInt(attrs.visibleUsers.toString())?:1
             List<KuorumUser> visibleUsersList = users.take(visibleUsers)
@@ -105,10 +109,10 @@ class KuorumUserTagLib {
             Integer total = (attrs.total?:users.size() ) - visibleUsers
             String messagePrefix = attrs.messagesPrefix
             def messages = [
-                    intro:message(code:"${messagePrefix}.intro"),
-                    seeMore:message(code:"${messagePrefix}.seeMore"),
-                    showUserList:message(code:"${messagePrefix}.showUserList"),
-                    userListTitle:message(code:"${messagePrefix}.userListTitle")
+                    intro:message(code:"${messagePrefix}.intro", default: ''),
+                    seeMore:message(code:"${messagePrefix}.seeMore",default: ''),
+                    showUserList:message(code:"${messagePrefix}.showUserList",default: ''),
+                    userListTitle:message(code:"${messagePrefix}.userListTitle",default: '')
             ]
             out << render (template:'/kuorumUser/usersList', model:[
                     users:users,
@@ -116,6 +120,7 @@ class KuorumUserTagLib {
                     visibleUsersList:visibleUsersList,
                     hiddenUsersList:hiddenUsersList,
                     total:total,
+                    cssClass:cssClass,
                     messages:messages
             ])
         }

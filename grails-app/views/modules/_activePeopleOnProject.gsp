@@ -1,16 +1,10 @@
-<section class="boxes follow">
-    <h1>Participando en esta ley</h1>
-    <div class="kakareo follow">
-        <ul class="user-list-followers">
-            <g:each in="${users}" var="user">
-                <li itemscope itemtype="http://schema.org/Person">
-                    <userUtil:showUser user="${user}" showRole="false" showName="false"/>
-                    %{--<a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">--}%
-                        %{--<img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image">--}%
-                    %{--</a>--}%
-                </li>
-            </g:each>
+<section class="boxes taking-part">
+    <h1><g:message code="post.show.boxes.like.userList.title"/> </h1>
 
-        </ul><!-- /.user-list-followers -->
-    </div>
+    <userUtil:showListUsers
+            users="${users}"
+            visibleUsers="13"
+            total="${20}"
+            cssClass="user-list-followers"
+            messagesPrefix="post.show.boxes.like.userList"/>
 </section>

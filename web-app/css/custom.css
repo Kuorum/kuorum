@@ -747,6 +747,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .user-list-followers > li {list-style: none; margin: 0 0 20px; width: 100%;}
 .user-list-followers > li:last-child {margin: 0;}
 .user-list-followers li a {text-decoration: none;}
+.user-list-followers.hide4 > li + li + li +li +li {display: none;}
 
 /* lista de usuarios participando en el proyecto -> en caja .boxes del aside  */
 .boxes.taking-part .user-list-followers > li {list-style: none; display: block !important; float: left; margin: 0 3px 0 0; width: auto;}
@@ -837,7 +838,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .popover .follow {margin: 1px 0 0 49px !important;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
 .btn.follow {width: 105px;}
-.btn.follow span {margin: -2px 0 0 8px; display: inline-block;}
+.btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
 .btn.follow.disabled {background-color: #a8a8a8 !important;}
 .btn.follow.disabled:hover,
 .btn.follow.disabled:active,

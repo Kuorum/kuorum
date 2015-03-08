@@ -1,5 +1,5 @@
 <span class="state hidden-xs">${messages.intro}</span>
-<ul class="user-list-images">
+<ul class="${cssClass}">
     <g:each in="${visibleUsersList}" var="user">
         <li itemtype="http://schema.org/Person" itemscope="" itemprop="contributor">
             <userUtil:showUser user="${user}" showName="false"/>

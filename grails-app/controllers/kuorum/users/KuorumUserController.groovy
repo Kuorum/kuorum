@@ -81,7 +81,7 @@ class KuorumUserController {
 
     def showCitizen(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
-        if (user.userType != UserType.PERSON){
+        if (user.userType == UserType.POLITICIAN){
             redirect(mapping: "userShow", params: user.encodeAsLinkProperties())
             return
         }

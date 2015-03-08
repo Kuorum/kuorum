@@ -11,7 +11,7 @@
             </ul>
         </div>
         <div class="col-xs-12 col-sm-3">
-            <userUtil:followButton user="${user}" cssSize="btn-xs" cssExtra="follow"/>
+            <userUtil:followButton user="${user}" cssExtra="pull-right follow"/>
             %{--<button type="button" class="btn btn-blue pull-right follow allow">Seguir</button>--}%
         </div>
     </div>
