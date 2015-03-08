@@ -52,6 +52,7 @@ class KuorumUserTagLib {
         Boolean showRole = attrs.showRole?Boolean.parseBoolean(attrs.showRole):false
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
         Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
+        Boolean showDeleteRecommendation = attrs.showDeleteRecommendation?Boolean.parseBoolean(attrs.showDeleteRecommendation):false
 
 //        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
         def imgSrc = image.userImgSrc(user:user)
@@ -79,10 +80,12 @@ class KuorumUserTagLib {
                 """
         }
         if(showActions){
-            out << """<div class="actions">
-                    ${userUtil.followButton(user: user, cssExtra: 'follow',cssSize:"btn-xs" )}
-                    ${userUtil.deleteRecommendedUserButton(user: user)}
-                  </div>"""
+            out << "<div class='actions'>"
+            out << userUtil.followButton(user: user, cssExtra: 'follow',cssSize:"btn-xs" )
+            if (showDeleteRecommendation){
+                out << userUtil.deleteRecommendedUserButton(user: user)
+            }
+            out << "</div>"
         }
 
     }

@@ -207,10 +207,11 @@ class KuorumUserService {
         }
 
         if (kuorumUsers.size()+1 < pagination.max){
-            Integer max = pagination.max - kuorumUsers.size();
-            List<KuorumUser> mostActiveUsers = mostActiveUsersSince(new Date() -7 , new Pagination(max: max))
+            Integer max = pagination.max - kuorumUsers.size()-1;
+            List<KuorumUser> mostActiveUsers = mostActiveUsersSince(new Date() -7 , new Pagination(max: max*2))
             mostActiveUsers = mostActiveUsers - recommendedUserInfo.deletedRecommendedUsers - user.following
-            kuorumUsers += mostActiveUsers
+            max = Math.min(max, mostActiveUsers.size()-1)
+            kuorumUsers += mostActiveUsers[0..max]
         }
 
         kuorumUsers as ArrayList<KuorumUser>
