@@ -3400,6 +3400,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     height: auto;
     margin: 4px 0 0;
     padding: 6px 8px 3px;
+    border-radius:3px;
   }
   #detailsInfoVotes .icons {margin: 10px 0;}
   #info-sup-scroll {top: 55px; padding: 10px;}
@@ -3434,7 +3435,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .navbar-collapse.collapse.in {border-bottom: 0;}
   #header h1 {margin: 0;}
   .navbar-form {width: 245px; margin: 4px 4px 4px 4%;}
-  .nav > li > .navbar-link {background-color: transparent; border-bottom: 4px solid #fff; padding: 10px; height: 48px;}
+  .nav > li > .navbar-link {background-color: transparent; border-bottom: 0px solid #fff; padding: 10px; height: 48px;}
   .nav > li > .navbar-link:hover,
   .nav > li > .navbar-link:focus {background-color: transparent; color: #ff9431;}
   .nav > .underline > .navbar-link:hover,
