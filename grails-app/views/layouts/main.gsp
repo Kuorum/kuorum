@@ -69,13 +69,16 @@
     <g:javascript library="jquery" plugin="jquery"/>
     <g:javascript library="application"/>
     <r:layoutResources />
-    <g:render template="/layouts/googleAnalyticsRemarketing"/>
-    <g:render template="/layouts/facebookRemarketing"/>
-    <g:render template="/layouts/twitterRemarketing"/>
+    %{--<g:render template="/layouts/googleAnalyticsRemarketing"/>--}%
+    %{--<g:render template="/layouts/facebookRemarketing"/>--}%
+    %{--<g:render template="/layouts/twitterRemarketing"/>--}%
     <meta property="twitter:account_id" content="4503599627910348" />
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
+
+    <g:render template="/layouts/googleTagManager"/>
+
 
 <div class ="container-fluid">
     <a href="#main" accesskey="S" class="sr-only first"><g:message code="layout.mainContent.skipMenu"/></a>
