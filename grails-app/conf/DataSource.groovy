@@ -20,7 +20,7 @@ environments {
         grails{
             mongo {
                 host = "localhost"
-                port = "27017"
+                port = "27018"
                 username = ""
                 password = ""
                 databaseName = "KuorumDev"

@@ -18,7 +18,6 @@ package kuorum.users
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.oauth.OAuthToken
 import kuorum.register.IOAuthService
-import kuorum.springSecurity.IOAuthService
 import org.springframework.security.core.context.SecurityContextHolder
 
 /**
