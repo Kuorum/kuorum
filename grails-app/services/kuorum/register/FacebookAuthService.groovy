@@ -39,7 +39,8 @@ class FacebookAuthService {
         log.info("Nuevo usario con facebook con email: ${fbProfile.email}" )
 
 
-        Studies studies = recoverStudies(fbProfile)
+        //YA no pedimos los estudios
+//        Studies studies = recoverStudies(fbProfile)
 
 
 //        def hometown = fbProfile.hometown
@@ -53,16 +54,17 @@ class FacebookAuthService {
         user.accountExpired = false
         user.accountLocked = false
         user.enabled = true
-        if (user.userType == UserType.PERSON){
-            log.info("${fbProfile.email} es una persona")
-            PersonData personData = new PersonData()
-
-            personData.gender = overwriteFieldIfNotFilled(user.personalData, "gender", fbProfile,{data ->Gender.valueOf(data.toUpperCase())?:Gender.FEMALE})
-            personData.birthday =  overwriteFieldIfNotFilled(user.personalData, "birthday", fbProfile,{data ->(!data)?:Date.parse(FORMAT_BIRTHDAY_FACEBOOK,data)})
-            personData.studies = (user.personalData.hasProperty("studies") && user.personalData.studies)?user.personalData.studies:studies
-
-            user.personalData = personData
-        }
+        //Ya no pedimos datos personales
+//        if (user.userType == UserType.PERSON){
+//            log.info("${fbProfile.email} es una persona")
+//            PersonData personData = new PersonData()
+//
+//            personData.gender = overwriteFieldIfNotFilled(user.personalData, "gender", fbProfile,{data ->Gender.valueOf(data.toUpperCase())?:Gender.FEMALE})
+//            personData.birthday =  overwriteFieldIfNotFilled(user.personalData, "birthday", fbProfile,{data ->(!data)?:Date.parse(FORMAT_BIRTHDAY_FACEBOOK,data)})
+//            personData.studies = (user.personalData.hasProperty("studies") && user.personalData.studies)?user.personalData.studies:studies
+//
+//            user.personalData = personData
+//        }
 
         RoleUser roleUser = RoleUser.findByAuthority('ROLE_USER')
         user.authorities = [roleUser]
