@@ -8,6 +8,9 @@
     <meta itemprop="image" content="${resource(dir: 'images', file: 'home1.jpg')}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
     <parameter name="hideFooter" value="false"/>
+    <g:render template="/layouts/googleAnalyticsConversionCode"/>
+    <g:render template="/layouts/twitterConversionCode"/>
+    <g:render template="/layouts/facebookConversionCode"/>
 </head>
 
 <content tag="mainContent">
