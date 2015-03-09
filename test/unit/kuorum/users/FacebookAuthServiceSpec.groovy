@@ -8,7 +8,7 @@ import kuorum.KuorumFile
 import kuorum.core.model.Studies
 import kuorum.helper.Helper
 import kuorum.mail.KuorumMailService
-import kuorum.springSecurity.FacebookAuthService
+import kuorum.register.FacebookAuthService
 import org.springframework.social.facebook.api.*
 import org.springframework.social.facebook.api.impl.FacebookTemplate
 import org.springframework.util.MultiValueMap
