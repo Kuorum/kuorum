@@ -10,7 +10,7 @@
     <parameter name="hideFooter" value="false"/>
     <g:render template="/layouts/googleAnalyticsConversionCode"/>
     <g:render template="/layouts/twitterConversionCode"/>
-    <g:render template="/layouts/facebookConversionCode"/>
+    %{--<g:render template="/layouts/facebookConversionCode"/>--}%
 </head>
 
 <content tag="mainContent">
