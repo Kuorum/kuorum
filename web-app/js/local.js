@@ -120,6 +120,12 @@ $(document).ready(function() {
 
     }
 
+    $("#partialUserTryingToVote a").on("click", function(e){
+        e.preventDefault();
+        var voteType = $(this).attr("data-voteType");
+        $("#basicUserDataForm input[name=voteType]").val(voteType);
+        $("#basicUserDataForm").submit()
+    })
 
 
     // js que se ejecuta según width

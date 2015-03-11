@@ -33,13 +33,22 @@ class ProjectTagLib {
         }
     }
 
+    private static final String NAME_VAR_IF_USER_CAN_VOTE_PROEYET = "elseIfUserAvailableForNormalVoting"
     def ifUserAvailableForNormalVoting = {attrs, body ->
         if (springSecurityService.isLoggedIn()){
             Project project = attrs.project
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             if (kuorumUserService.isUserRegisteredCompletely(user) && kuorumUserService.isUserConfirmedMail(user)){
+                pageScope.setVariable(NAME_VAR_IF_USER_CAN_VOTE_PROEYET, false)
                 out << body()
+            }else{
+                pageScope.setVariable(NAME_VAR_IF_USER_CAN_VOTE_PROEYET, true)
             }
+        }
+    }
+    def elseUserAvailableForNormalVoting = {attrs, body ->
+        if (pageScope.getVariable(NAME_VAR_IF_USER_CAN_VOTE_PROEYET)){
+            out << body()
         }
     }
 

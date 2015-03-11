@@ -1,7 +1,7 @@
 
 var dbDest = dbDest || connect("localhost:27017/Kuorum");
 
-var userId = ObjectId("540f282de4b0c738693f13d8")
+var userId = ObjectId("52220293e4b047381ebea0cf")
 
 dbDest.kuorumUser.remove({_id:userId});
 
