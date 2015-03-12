@@ -347,7 +347,7 @@ class ProjectController {
         ] as JSON)
     }
 
-    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED'])
+    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED', 'ROLE_USER'])
     def voteProjectAsNonCompleteUser(BasicPersonalDataCommand basicPersonalDataCommand){
         String hashtag = params.hashtag
         Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
@@ -365,6 +365,7 @@ class ProjectController {
         user.personalData.country=basicPersonalDataCommand.country
         user.personalData.gender=basicPersonalDataCommand.gender
         user.personalData.province=basicPersonalDataCommand.province
+        user.personalData.postalCode=basicPersonalDataCommand.postalCode
         kuorumUserService.updateUser(user)
         if (SpringSecurityUtils.ifAnyGranted("ROLE_INCOMPLETE_USER")){
             //El usuario no ha confirmado el email

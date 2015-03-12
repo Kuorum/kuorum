@@ -69,9 +69,9 @@ class ProjectService {
      */
 
     ProjectVote voteProject(Project project, KuorumUser user, VoteType voteType){
-        if (!regionService.isRelevantRegionForUser(user, project.region)){
-            throw new KuorumException("Votando una ley que no es de su region (user: ${user.id}, region:${project.region})")
-        }
+//        if (!regionService.isRelevantRegionForUser(user, project.region)){
+//            throw new KuorumException("Votando una ley que no es de su region (user: ${user.id}, region:${project.region})")
+//        }
         ProjectVote projectVote = ProjectVote.findByKuorumUserAndProject(user, project)
         if (projectVote){
             projectVote = changeProjectVote(project, user, voteType, projectVote)

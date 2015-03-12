@@ -57,6 +57,10 @@ class RegionService {
             Region province = user.personalData.province
             Region country = findCountry(province)
             userRegion = findRegionOrProvinceByPostalCode(country, user.personalData.postalCode)
+            if (!userRegion){
+                //Para los paises metidos sin sus codigos postales :/
+                userRegion = country
+            }
         }
         return userRegion;
     }

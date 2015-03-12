@@ -10,12 +10,19 @@
             <projectUtil:ifUserAvailableForNormalVoting project="${project}">
                 <g:render template="/project/projectVotesModuleVotingButtons_normalUser" model="[project:project, cssIconSize:cssIconSize, userVote:userVote, header:header, iconSmall:iconSmall]"/>
             </projectUtil:ifUserAvailableForNormalVoting>
-            <projectUtil:ifUserAvailableForVotingWithoutPersonalData project="${project}">
-                <g:render template="/project/projectVotesModuleVotingButtons_PartialLoggedUser" model="[project:project, cssIconSize:cssIconSize, basicPersonalDataCommand:basicPersonalDataCommand, header:header, iconSmall:iconSmall]"/>
-            </projectUtil:ifUserAvailableForVotingWithoutPersonalData>
-            <projectUtil:ifUserAvailableForVotingWithoutConfirmedMail project="${project}">
-                <g:render template="/project/projectVotesModuleVotingButtons_noMailConfirmed" model="[project:project, cssIconSize:cssIconSize, basicPersonalDataCommand:basicPersonalDataCommand, header:header, iconSmall:iconSmall]"/>
-            </projectUtil:ifUserAvailableForVotingWithoutConfirmedMail>
+            <projectUtil:elseUserAvailableForNormalVoting>
+                <g:if test="${basicPersonalDataCommand}">
+                    <projectUtil:ifUserAvailableForVotingWithoutPersonalData project="${project}">
+                        <g:render template="/project/projectVotesModuleVotingButtons_PartialLoggedUser" model="[project:project, cssIconSize:cssIconSize, basicPersonalDataCommand:basicPersonalDataCommand, header:header, iconSmall:iconSmall]"/>
+                    </projectUtil:ifUserAvailableForVotingWithoutPersonalData>
+                    <projectUtil:ifUserAvailableForVotingWithoutConfirmedMail project="${project}">
+                        <g:render template="/project/projectVotesModuleVotingButtons_noMailConfirmed" model="[project:project, cssIconSize:cssIconSize, basicPersonalDataCommand:basicPersonalDataCommand, header:header, iconSmall:iconSmall]"/>
+                    </projectUtil:ifUserAvailableForVotingWithoutConfirmedMail>
+                </g:if>
+                <g:else>
+                    <g:render template="/project/projectVotesModuleVotingButtons_partialLoggedUserNoForm" model="[project:project, cssIconSize:cssIconSize, header:header, iconSmall:iconSmall]"/>
+                </g:else>
+            </projectUtil:elseUserAvailableForNormalVoting>
         </sec:ifLoggedIn>
         <sec:ifNotLoggedIn>
             <g:render template="/project/projectVotesModuleVotingButtons_noLogged" modle="[project:project, cssIconSize:cssIconSize, userVote:userVote, header:header, iconSmall:iconSmall]"/>
