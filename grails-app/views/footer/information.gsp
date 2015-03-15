@@ -24,7 +24,7 @@
         <div class="video">
             <a href="#" class="front">
                 <span class="fa fa-play-circle fa-4x"></span>
-                <img src="images/info-press.png">
+                <img src="https://i.vimeocdn.com/video/510864624_640x360.jpg">
                 <!-- servir esta otra si el video no es alta resolucion -->
                 <!-- <img src="http://img.youtube.com/vi/67cz-JGv5R4/mqdefault.jpg"> -->
             </a>
