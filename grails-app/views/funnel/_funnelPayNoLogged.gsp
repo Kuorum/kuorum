@@ -33,7 +33,7 @@
             %{--</div>--}%
             %{--</div>--}%
                 <div class="form-group">
-                    <input type="submit" value="Domiciliar el pago" class="btn btn-lg">
+                    <input type="submit" value="${g.message(code:'funnel.payment.button')}" class="btn btn-lg">
                 </div>
             </g:form>
         </div>
@@ -48,7 +48,7 @@
                     <formUtil:password command="${command}" field="password" />
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Domiciliar el pago" class="btn btn-lg">
+                    <input type="submit" value="${g.message(code:'funnel.payment.button')}" class="btn btn-lg">
                 </div>
             </g:form>
         </div>

@@ -35,7 +35,7 @@
                                     <li><g:message code="funnel.successfulStories.offers.basic.2"/></li>
                                     <li><g:message code="funnel.successfulStories.offers.basic.3"/></li>
                                 </ul>
-                                <input type="submit" value="Contratar" class="btn btn-grey btn-lg btn-block"></p>
+                                <input type="submit" value="${g.message(code:'funnel.offers.button')}" class="btn btn-grey btn-lg btn-block"></p>
                             </g:form>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4 active">
@@ -64,7 +64,7 @@
                                     <li><g:message code="funnel.successfulStories.offers.premium.2"/></li>
                                     <li><g:message code="funnel.successfulStories.offers.premium.3"/></li>
                                 </ul>
-                                <input type="submit" value="Contratar" class="btn btn-grey btn-lg btn-block"></p>
+                                <input type="submit" value="${g.message(code:'funnel.offers.button')}" class="btn btn-grey btn-lg btn-block"></p>
                             </g:form>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4">
@@ -84,7 +84,7 @@
                                     <li><g:message code="funnel.successfulStories.offers.cityHall.2"/></li>
                                     <li><g:message code="funnel.successfulStories.offers.cityHall.3"/></li>
                                 </ul>
-                                <input type="submit" value="Contratar" class="btn btn-grey btn-lg btn-block"></p>
+                                <input type="submit" value="${g.message(code:'funnel.offers.button')}" class="btn btn-grey btn-lg btn-block"></p>
                             </g:form>
                         </div>
                     </div>
