@@ -8,7 +8,7 @@ public enum OfferType {
     BASIC_YEARLY (9.99, "basic"),
     PREMIUM_MONTHLY(59.99, "premium"),
     PREMIUM_YEARLY(49.99, "premium"),
-    CITY_HALL(1500, "cityHall");
+    CITY_HALL(5000, "cityHall");
 
     Double price
     String group

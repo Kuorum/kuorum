@@ -12,14 +12,14 @@
                 %{--DESACTIVADO PROCESO PAGO EN PRODUCCION--}%
                 </g:if>
                 <g:else>
-                    <li><g:link mapping="postPayPost" params="${post.encodeAsLinkProperties()}"><g:message code="cluck.footer.promote"/></g:link></li>
+                    %{--<li><g:link mapping="postPayPost" params="${post.encodeAsLinkProperties()}"><g:message code="cluck.footer.promote"/></g:link></li>--}%
                 </g:else>
                 <g:render template="/post/postSocialShareList" model="[post:post,showText:true, showIcon:false]"/>
                 %{--<li><a href="#">Enviar por email</a></li>--}%
                 %{--<li class="kakareo-number"><a href="#" class="action cluck">Kakarear</a></li>--}%
                 %{--<li class="like-number"><a href="#" class="action drive">Impulsar</a></li>--}%
                 %{--<li class="read-later"><a href="#" class="enabled allow">Leer más tarde</a></li>--}%
-                <li class="mark"><a href="#" class="enabled allow">Marcar como inapropiado</a></li>
+                <li class="mark"><a href="#" class="enabled allow"><g:message code="project.social.report"/></a></li>
             </ul>
         </div><!-- /popover-more-actions -->
 
