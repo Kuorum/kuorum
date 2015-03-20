@@ -293,8 +293,9 @@ class IndexSolrService {
 
     SolrElement recoverSolrElementFromSolr(SolrDocument solrDocument){
         switch (SolrType.valueOf(solrDocument.type)){
-            case SolrType.KUORUM_USER:  return recoverKuorumUserFromSolr(solrDocument); break;
-            case SolrType.PROJECT:          return recoverProjectFromSolr(solrDocument); break;
+            case SolrType.KUORUM_USER:
+            case SolrType.POLITICIAN:   return recoverKuorumUserFromSolr(solrDocument); break;
+            case SolrType.PROJECT:      return recoverProjectFromSolr(solrDocument); break;
             case SolrType.POST:         return recoverPostFromSolr(solrDocument); break;
             default: throw new KuorumException("No se ha reconocido el tipo ${solrDocument.type}")
         }
