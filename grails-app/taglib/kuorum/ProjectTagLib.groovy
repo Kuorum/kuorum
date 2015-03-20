@@ -3,9 +3,13 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityUtils
 import kuorum.core.model.RegionType
 import kuorum.core.model.UserType
+import kuorum.core.model.solr.SolrPost
+import kuorum.core.model.solr.SolrProject
+import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import org.bson.types.ObjectId
 
 class ProjectTagLib {
     static defaultEncodeAs = 'raw'
@@ -31,6 +35,14 @@ class ProjectTagLib {
                 out << body()
             }
         }
+    }
+
+    def projectFromSolr={attrs ->
+        SolrProject solrProject = attrs.solrProject
+        String var=attrs.var
+        Project project= Project.get(new ObjectId(attrs.solrProject.id))
+        pageScope.setVariable(var, project)
+
     }
 
     private static final String NAME_VAR_IF_USER_CAN_VOTE_PROEYET = "elseIfUserAvailableForNormalVoting"

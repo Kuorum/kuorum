@@ -285,7 +285,9 @@ class IndexSolrService {
                 institutionName:solrDocument.institutionName,
                 regionName:solrDocument.regionName,
                 regionIso3166_2: solrDocument.regionIso3166_2,
-                urlImage: solrDocument.urlImage
+                urlImage: solrDocument.urlImage,
+                owner:solrDocument.owner,
+                ownerId: solrDocument.ownerId
         )
     }
 
