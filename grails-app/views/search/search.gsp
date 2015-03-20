@@ -24,17 +24,20 @@
     </g:if>
 
     <div class="row">
-        <ul class="kakareo-list">
+        <ul class="kakareo-list" id="search-list-id">
             <g:render template="searchElement" model="[docs:docs.elements]"/>
         </ul>
     </div>
     <nav:loadMoreLink
-            formId="search-form"
+            formId="search-form-loadMore"
             mapping="searcherSearchSeeMore"
             parentId="search-list-id"
         pagination="${searchParams}"
         numElements="${docs.numResults}"
-    />
+    >
+        <input type="hidden" name="word" value="${searchParams.word}" />
+        <input type="hidden" name="type" value="${searchParams.type}" />
+    </nav:loadMoreLink>
 </content>
 
 <content tag="leftMenu">
@@ -111,6 +114,6 @@
                 %{--</ul>--}%
             %{--</li>--}%
         %{--</ol>--}%
-        <input type="hidden" name="word" value="${searchParams.word}"/>
+        <input type="hidden" name="word" value="${searchParams.word}" />
     </g:form>
 </content>
