@@ -33,6 +33,14 @@ enum SolrType {
             case UserType.PERSON: SolrSubType.PERSON; break;
         }
 
+    }),
+    POLITICIAN({KuorumUser kuorumUser ->
+        switch (kuorumUser.userType){
+            case UserType.ORGANIZATION: SolrSubType.ORGANIZATION; break;
+            case UserType.POLITICIAN: SolrSubType.POLITICIAN; break;
+            case UserType.PERSON: SolrSubType.PERSON; break;
+        }
+
     })
 
     public def generateSubtype

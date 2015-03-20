@@ -95,14 +95,14 @@ class SearchSolrService {
     private void prepareFilter(SearchParams params, SolrQuery query){
         query.setParam(CommonParams.Q, params.word);
 //        if (params.type) query.setParam(CommonParams.FQ, "type:${params.type}")
-        if (params.subTypes){
+        if (params.type){
             def subTypesQuery = ""
             def OR = ""
-            params.subTypes.each {
+            params.type.each {
                 subTypesQuery += " ${OR} $it "
                 OR = "OR"
             }
-            query.setParam(CommonParams.FQ, "subType:(${subTypesQuery})")
+            query.setParam(CommonParams.FQ, "type:(${subTypesQuery})")
         }
     }
 

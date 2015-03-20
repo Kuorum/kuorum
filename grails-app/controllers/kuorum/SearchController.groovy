@@ -91,12 +91,6 @@ class SearchController{
             docs = new SolrResults(elements: [], numResults: 0, facets: [], suggest:null)
             searchParams.word=searchParams.word?:''
         }else{
-            if (searchParams.type){
-                searchParams.subTypes += searchParams.type.solrSubTypes
-            }
-            if (!searchParams.subTypes){
-                searchParams.subTypes = SolrSubType.values()
-            }
             docs = searchSolrService.search(searchParams)
         }
         [docs:docs, searchParams:searchParams]
@@ -104,7 +98,7 @@ class SearchController{
 
     def modifyFilters(SearchParams searchParams) {
         SolrResults docs
-        if (searchParams.hasErrors() || !searchParams.subTypes){
+        if (searchParams.hasErrors()){
             docs = new SolrResults(elements: [], numResults: 0, facets: [], suggest:null)
             searchParams.word=searchParams.word?:''
         }else{

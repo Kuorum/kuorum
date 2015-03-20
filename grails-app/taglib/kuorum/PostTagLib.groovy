@@ -3,6 +3,7 @@ package kuorum
 import kuorum.core.FileType
 import kuorum.core.model.PostType
 import kuorum.core.model.VoteType
+import kuorum.core.model.solr.SolrPost
 import kuorum.core.model.solr.SolrSubType
 import kuorum.core.model.solr.SolrType
 import kuorum.post.Cluck
@@ -10,6 +11,7 @@ import kuorum.post.CluckAction
 import kuorum.post.Post
 import kuorum.post.PostComment
 import kuorum.users.KuorumUser
+import org.bson.types.ObjectId
 
 class PostTagLib {
     static defaultEncodeAs = 'raw'
@@ -32,6 +34,14 @@ class PostTagLib {
                 out << "<a href='$link'>BORRAR</a>"
             }
         }
+    }
+
+    def postFromSolr={attrs ->
+        SolrPost solrPost = attrs.solrPost
+        String var=attrs.var
+        Post post = Post.get(new ObjectId(attrs.solrPost.id))
+        pageScope.setVariable(var, post)
+
     }
 
     def cssClassIfClucked = {attrs->
