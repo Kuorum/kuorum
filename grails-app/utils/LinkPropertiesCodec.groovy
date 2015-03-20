@@ -31,11 +31,9 @@ class LinkPropertiesCodec {
                 break;
             case Post:
                 params = prepareParams(target.project)
-                String postTypeName =   translate("${PostType.canonicalName}.${target.postType}")
                 params+= [
                         postId:target.id,
-                        postBrief:target.title[0..Math.min(NUM_CHARS_URL_POST_TITLE, target.title.size()-1)].encodeAsKuorumUrl(),
-                        postTypeUrl:postTypeName.encodeAsKuorumUrl(),
+                        postBrief:target.title[0..Math.min(NUM_CHARS_URL_POST_TITLE, target.title.size()-1)].encodeAsKuorumUrl()
                 ]
                 break;
             case KuorumUser:
@@ -102,15 +100,13 @@ class LinkPropertiesCodec {
 
     private static def prepareParams(SolrPost post){
         String commissionName = translate("${CommissionType.canonicalName}.${post.commissions.first()}")
-        String postTypeName =   translate("${PostType.canonicalName}.${post.subType}")
         [
                 hashtag: post.hashtagProject.decodeHashtag(),
 //                regionName:post.regionName.encodeAsKuorumUrl(),
                 institutionName:post.institutionName.encodeAsKuorumUrl(),
                 commission:commissionName.encodeAsKuorumUrl(),
                 postId:post.id,
-                postBrief:post.name[0..Math.min(NUM_CHARS_URL_POST_TITLE, post.name.size()-1)].encodeAsKuorumUrl(),
-                postTypeUrl:postTypeName.encodeAsKuorumUrl(),
+                postBrief:post.name[0..Math.min(NUM_CHARS_URL_POST_TITLE, post.name.size()-1)].encodeAsKuorumUrl()
         ]
     }
 

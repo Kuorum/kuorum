@@ -143,13 +143,13 @@ class IndexSolrService {
         if (!post.published){
             log.info("No se indexa el post ${post.id} porque no está publicado")
             return null // Skipping because is not published
+
         }
 
         new SolrPost(
             id:post.id.toString(),
             name:post.title,
             type:SolrType.POST,
-            subType:SolrType.POST.generateSubtype(post),
             text:post.text,
             dateCreated:post.dateCreated,
             hashtagProject:post.project.hashtag,
@@ -169,7 +169,6 @@ class IndexSolrService {
                 id:new ObjectId(solrDocument.id),
                 name:solrDocument.name,
                 type:SolrType.valueOf(solrDocument.type),
-                subType:SolrSubType.valueOf(solrDocument.subType),
                 text:solrDocument.text,
                 dateCreated:solrDocument.dateCreated,
                 hashtagProject:solrDocument.hashtagProject,
@@ -198,7 +197,7 @@ class IndexSolrService {
         }else{
             //User or Politicians
 //            if (!kuorumUser.personalData.postalCode || !kuorumUser.personalData.gender){
-            if (!kuorumUser.personalData.gender){
+            if (kuorumUser.authorities.find{it.authority=="ROLE_INCOMPLETE_USER"}){
                 log.info("No se indexa al usuario ${kuorumUser.email} porque no tenemos sus datos básicos")
                 return null // Skipping user because we don't have basic data
             }
@@ -214,11 +213,12 @@ class IndexSolrService {
                 postalCode = kuorumUser.personalData.postalCode
             }
         }
+        SolrType type = kuorumUser.userType==UserType.POLITICIAN?SolrType.POLITICIAN:SolrType.KUORUM_USER
         new SolrKuorumUser(
                 id:kuorumUser.id.toString(),
                 name: kuorumUser.toString(),
-                type:SolrType.KUORUM_USER,
-                subType:SolrType.KUORUM_USER.generateSubtype(kuorumUser),
+                type:type,
+                subType:type.generateSubtype(kuorumUser),
                 dateCreated:kuorumUser.dateCreated,
                 commissions: kuorumUser.relevantCommissions,
                 regionName: regionName,
@@ -254,20 +254,21 @@ class IndexSolrService {
             return null // Skipping because is not published
         }
         SolrProject solrProject = new SolrProject(
-            id:project.id.toString(),
-            name:project.shortName,
-            type:SolrType.PROJECT,
-            subType:SolrType.PROJECT.generateSubtype(project),
-            text:project.description,
-            dateCreated:project.dateCreated,
-            hashtag:project.hashtag,
-            commissions:project.commissions,
-            institutionName:project.institution.name,
-            regionName: project.region.name,
-            regionIso3166_2: project.region.iso3166_2,
-            urlImage: project.image?.url
+                id:project.id.toString(),
+                name:project.shortName,
+                type:SolrType.PROJECT,
+                subType:SolrType.PROJECT.generateSubtype(project),
+                text:project.description,
+                dateCreated:project.dateCreated,
+                hashtag:project.hashtag,
+                commissions:project.commissions,
+                institutionName:project.institution.name,
+                regionName: project.region.name,
+                regionIso3166_2: project.region.iso3166_2,
+                urlImage: project.image?.url,
+                owner:project.owner.name,
+                ownerId:project.owner.id
         )
-        solrProject.metaClass.commission_group = project.commissions[0]
         solrProject
     }
 

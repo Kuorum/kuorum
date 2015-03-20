@@ -8,4 +8,6 @@ import kuorum.core.model.CommissionType
 class SolrProject extends SolrElement{
     String hashtag
     String text
+    String owner
+    String ownerId
 }

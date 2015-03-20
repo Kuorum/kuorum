@@ -9,6 +9,7 @@ class SolrElement {
     String id
     String name
     SolrType type
+    @Deprecated
     SolrSubType subType
     Date dateCreated
     String regionName

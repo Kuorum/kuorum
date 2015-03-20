@@ -78,43 +78,6 @@
                 </div>
             </li>
         </ul>
-        %{--<ol class="list-unstyled">--}%
-            %{--<li>--}%
-                %{--<div class="checkbox">--}%
-                    %{--<label>--}%
-                        %{--<input type="checkbox" id="todo" ${searchParams.subTypes?.size()==kuorum.core.model.solr.SolrSubType.values().size()?'checked':''}>--}%
-                        %{--<span class="fa fa-search"></span>--}%
-                        %{--<g:message code="search.filters.all"/>--}%
-                    %{--</label>--}%
-                %{--</div>--}%
-                %{--<ul>--}%
-                    %{--<g:each in="${kuorum.core.model.solr.SolrType.values()}" var="solrType">--}%
-                        %{--<li>--}%
-                            %{--<div class="checkbox">--}%
-                                %{--<label>--}%
-                                    %{--<input value='${solrType}' type="checkbox" id="${solrType}" ${searchParams.subTypes.findAll{it.solrType==solrType}.size()==solrType.solrSubTypes.size()?'checked':''}>--}%
-                                    %{--<span class="fa ${postUtil.cssIconSolrType(solrType:solrType)}"></span>--}%
-                                    %{--<g:message code="search.filters.SolrType.${solrType}"/>--}%
-                                %{--</label>--}%
-                            %{--</div>--}%
-                            %{--<ul>--}%
-                                %{--<g:each in="${solrType.solrSubTypes}" var="solrSubType">--}%
-                                    %{--<li>--}%
-                                        %{--<div class="checkbox">--}%
-                                            %{--<label>--}%
-                                                %{--<input name="subTypes" value='${solrSubType}'type="checkbox" class="only" ${searchParams.subTypes?.contains(solrSubType)?'checked':''}>--}%
-                                                %{--<span class="fa ${postUtil.cssIconSolrSubType(solrSubType: solrSubType)}"></span>--}%
-                                                %{--<g:message code="search.filters.SolrSubType.${solrSubType}"/>--}%
-                                            %{--</label>--}%
-                                        %{--</div>--}%
-                                    %{--</li>--}%
-                                %{--</g:each>--}%
-                            %{--</ul>--}%
-                        %{--</li>--}%
-                    %{--</g:each>--}%
-                %{--</ul>--}%
-            %{--</li>--}%
-        %{--</ol>--}%
         <input type="hidden" name="word" value="${searchParams.word}" />
     </g:form>
 </content>
