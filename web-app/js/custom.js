@@ -263,79 +263,89 @@ $(document).ready(function() {
 
 	});
 
-
-	//search filters
+//
+//	//search filters
 	$('#searchFilters input:checked').css('display','block');
 	$('#searchFilters input:checked').closest('label').css('color','#545454');
 
-	$('#searchFilters #todo').change(function() {
-	    var checkboxes = $(this).closest('form').find(':checkbox');
-	    if($(this).is(':checked')) {
-	        checkboxes.prop('checked', true);
-	        checkboxes.css('display','block');
-	        $('#searchFilters label').css('color','#545454');
-	    } else {
-	        checkboxes.prop('checked', false);
-	        checkboxes.css('display','none');
-	        $('#searchFilters label').css('color','#a8a8a8');
-	    }
-	});
-
-	$('#searchFilters ol > li > ul > li > .checkbox input').change(function() {
-	    var checkboxes = $(this).closest('li').find(':checkbox');
-	    $('#searchFilters #todo').prop('checked', false).css('display','none');
-	    $('#searchFilters #todo').closest('label').css('color','#a8a8a8');
-	    if($(this).is(':checked')) {
-	        checkboxes.prop('checked', true);
-	        checkboxes.css('display','block');
-	        $(this).closest('label').css('color','#545454');
-	        $(this).closest('li').find('ul > li label').css('color','#545454');
-
-	    } else {
-	        checkboxes.prop('checked', false);
-	        checkboxes.css('display','none');
-	        $(this).closest('label').css('color','#a8a8a8');
-	        $(this).closest('li').find('ul > li label').css('color','#a8a8a8');
-	    }
-	});
-
-	$('#searchFilters .only').change(function() {
-		var inputSup = $(this).closest('.checkbox').closest('ul').prev('.checkbox');
-		inputSup.find('input').prop('checked', false).css('display','none');
-		inputSup.find('label').css('color','#a8a8a8');
-		$('#searchFilters #todo').prop('checked', false).css('display','none');
-	    $('#searchFilters #todo').closest('label').css('color','#a8a8a8');
-
-	    if($(this).is(':checked')) {
-	        $(this).css('display','block');
-	        $(this).closest('label').css('color','#545454');
-	    } else {
-	        $(this).css('display','none');
-	        $(this).closest('label').css('color','#a8a8a8');
-	    }
-        reloadSearchNewFilters()
-	});
-
-    $('#searchFilters input[type=checkbox]').change(function(){
-        if($(this).is(':checked')) {
-            $("#search-form input[value="+$(this).val()+"]").prop('checked', true);
-        } else {
-            $("#search-form input[value="+$(this).val()+"]").prop('checked', false);
-        }
-        reloadSearchNewFilters()
-    });
-
-    function reloadSearchNewFilters(){
+    $("#searchFilters li").on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $("#searchFilters input[type=checkbox]").attr('checked', false);
+        $(this).find("input[type=checkbox]").attr('checked', true);
         var form = $("#searchFilters")
-        var elementToUpdate=$("#"+form.attr('data-updateElementId'))
-        $.ajax( {
-            url:form.attr("action"),
-            data:form.serialize()
-        }).done(function(data, status, xhr) {
-            $(elementToUpdate).html(data)
-        })
+        form.submit()
+    })
 
-    }
+//
+//	$('#searchFilters #todo').change(function() {
+//	    var checkboxes = $(this).closest('form').find(':checkbox');
+//	    if($(this).is(':checked')) {
+//	        checkboxes.prop('checked', true);
+//	        checkboxes.css('display','block');
+//	        $('#searchFilters label').css('color','#545454');
+//	    } else {
+//	        checkboxes.prop('checked', false);
+//	        checkboxes.css('display','none');
+//	        $('#searchFilters label').css('color','#a8a8a8');
+//	    }
+//	});
+//
+//	$('#searchFilters ol > li > ul > li > .checkbox input').change(function() {
+//	    var checkboxes = $(this).closest('li').find(':checkbox');
+//	    $('#searchFilters #todo').prop('checked', false).css('display','none');
+//	    $('#searchFilters #todo').closest('label').css('color','#a8a8a8');
+//	    if($(this).is(':checked')) {
+//	        checkboxes.prop('checked', true);
+//	        checkboxes.css('display','block');
+//	        $(this).closest('label').css('color','#545454');
+//	        $(this).closest('li').find('ul > li label').css('color','#545454');
+//
+//	    } else {
+//	        checkboxes.prop('checked', false);
+//	        checkboxes.css('display','none');
+//	        $(this).closest('label').css('color','#a8a8a8');
+//	        $(this).closest('li').find('ul > li label').css('color','#a8a8a8');
+//	    }
+//	});
+//
+//	$('#searchFilters .only').change(function() {
+//		var inputSup = $(this).closest('.checkbox').closest('ul').prev('.checkbox');
+//		inputSup.find('input').prop('checked', false).css('display','none');
+//		inputSup.find('label').css('color','#a8a8a8');
+//		$('#searchFilters #todo').prop('checked', false).css('display','none');
+//	    $('#searchFilters #todo').closest('label').css('color','#a8a8a8');
+//
+//	    if($(this).is(':checked')) {
+//	        $(this).css('display','block');
+//	        $(this).closest('label').css('color','#545454');
+//	    } else {
+//	        $(this).css('display','none');
+//	        $(this).closest('label').css('color','#a8a8a8');
+//	    }
+//        reloadSearchNewFilters()
+//	});
+//
+//    $('#searchFilters input[type=checkbox]').change(function(){
+//        if($(this).is(':checked')) {
+//            $("#search-form input[value="+$(this).val()+"]").prop('checked', true);
+//        } else {
+//            $("#search-form input[value="+$(this).val()+"]").prop('checked', false);
+//        }
+//        reloadSearchNewFilters()
+//    });
+
+//    function reloadSearchNewFilters(){
+//        var form = $("#searchFilters")
+//        var elementToUpdate=$("#"+form.attr('data-updateElementId'))
+//        $.ajax( {
+//            url:form.attr("action"),
+//            data:form.serialize()
+//        }).done(function(data, status, xhr) {
+//            $(elementToUpdate).html(data)
+//        })
+//
+//    }
 
 	// el enlace callMobile (visible sólo en pantallas de hasta 767px, desaparece si le haces click o si llegas a la votación
 	if ( $('#vote').length > 0 ) {
