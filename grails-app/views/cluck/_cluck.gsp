@@ -15,7 +15,9 @@
                 <userUtil:showDebateUsers post="${post}" visibleUsers="1"/>
             </div>
         </div>
-
+        <g:if test="${!displayingColumnC}">
+            <g:render template="/cluck/cluckMultimedia" model="[post:post]"/>
+        </g:if>
         <g:render template="/cluck/footerCluck" model="[post:post, displayingColumnC:displayingColumnC]"/>
     </div>
 </article>
