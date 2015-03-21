@@ -11,6 +11,6 @@
 </div>
 %{-- DESCOMENTAR CUANDO ESTÉ LISTO EL DESCUBRE--}%
 %{--<div class="homeMore">--}%
-    %{--<a href="#" class="btn btn-blue btn-lg btn-block">Conoce otros proyectos</a>--}%
+    %{--<a href="#" class="btn btn-blue btn-lg btn-block"><g:message code="landingPage.recommendedProjects.button"/></a>--}%
 %{--</div>--}%
 </section>
