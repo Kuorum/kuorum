@@ -115,8 +115,8 @@
     </g:if>
     <g:else>
        <div class="box-ppal condition clearfix">
-            <h1>Esta combinación de filtros no ofrece resultados</h1>
-            <h2>Prueba a utilizar menos filtros.</h2>
+            <h1><g:message code="discover.projects.noResults.title"/> </h1>
+            <h2><g:message code="discover.projects.noResults.subTitle"/> </h2>
         </div>
     </g:else>
     <nav:loadMoreLink
