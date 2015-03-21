@@ -7,7 +7,7 @@
     </g:if>
     <g:if test="${numUserPost}">
         <a href="#" class="btn" role="button" data-showDivId="defends">
-            <g:message code="kuorumUser.show.userList.post.title"/>
+            <g:message code="kuorumUser.show.userList.ownPost.title"/>
             <span aria-relevant="additions" aria-live="assertive" aria-labelledby="${message(code:'kuorumUser.show.userList.post.title')}" role="log" class="badge">${numUserPost}</span>
         </a>
     </g:if>
