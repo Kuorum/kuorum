@@ -8,7 +8,7 @@
 >
     <div class="input-group">
 
-        <input type="text" class="form-control" placeholder="${message(code:'search.head.placeHolder')}" name="word" id="srch-term">
+        <input type="text" class="form-control" placeholder="${message(code:'search.head.placeHolder')}" name="word" id="srch-term" value="${params.word}">
         <div class="input-group-btn">
             <button class="btn search" type="submit"><span class="fa fa-search"></span></button>
         </div>
@@ -17,8 +17,8 @@
         %{--<div id="filterSign"></div>--}%
         <input type="hidden" name="type" id="srch-type" value="${params.type?:kuorum.core.model.solr.SolrType.POST}"/>
         %{--<input type="hidden" name="wordOrg" id="srch-orgTerm" value="${params.word}"/>--}%
-        %{--<g:each in="${kuorum.core.model.solr.SolrSubType.values()}" var="subType">--}%
-            %{--<input name="subTypes" type="checkbox" value="${subType}" class="hidden" data-type="${subType.solrType}" ${searchParams?.subTypes?.contains(subType)?'checked':''}/>--}%
+        %{--<g:each in="${kuorum.core.model.solr.SolrType.values()}" var="type">--}%
+            %{--<input name="subTypes" type="checkbox" value="${type}" class="hidden" data-type="${type}" ${searchParams?.type==type?'checked':''}/>--}%
         %{--</g:each>--}%
 
 
@@ -73,7 +73,7 @@
                 }else if(suggestion.type=="PROJECT"){
                     window.location = suggestion.data.url
                 }else{
-                    window.location = urls.search+"?word="+encodeURIComponent(suggestion.value)
+                    window.location = urls.search+"?word="+encodeURIComponent(suggestion.value)+"&type="+$("#srch-type").val();
                 }
             },
             triggerSelectOnValidInput:false,
