@@ -227,6 +227,7 @@ class IndexSolrService {
                 urlImage: kuorumUser.avatar?.url,
                 role:kuorumUser.gamification.activeRole,
                 gender:kuorumUser.personalData.gender,
+                text:kuorumUser.bio,
                 institutionName:kuorumUser.userType==UserType.POLITICIAN?kuorumUser.institution.name:null
         )
     }
@@ -244,6 +245,7 @@ class IndexSolrService {
                 gender: Gender.valueOf(solrDocument.gender),
                 regionName: solrDocument.regionName,
                 regionIso3166_2: solrDocument.regionIso3166_2,
+                text:solrDocument.text,
                 institutionName:solrDocument.institutionName
         )
     }

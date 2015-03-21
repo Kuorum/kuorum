@@ -26,11 +26,17 @@
 
     <g:set var="cssClassUL" value=""/>
     <g:if test="${searchParams.type == SolrType.PROJECT}">
-        <g:set var="cssClassUL" value="project clearfix"/>
+        <g:set var="cssClassUL" value="kakareo-list project clearfix"/>
     </g:if>
+    <g:elseif test="${searchParams.type == SolrType.KUORUM_USER || searchParams.type == SolrType.POLITICIAN}">
+        <g:set var="cssClassUL" value="politician-list clearfix"/>
+    </g:elseif>
+    <g:else>
+        <g:set var="cssClassUL" value="kakareo-list"/>
+    </g:else>
 
     <div class="row">
-        <ul class="kakareo-list ${cssClassUL}" id="search-list-id">
+        <ul class="${cssClassUL}" id="search-list-id">
             <g:render template="searchElement" model="[docs:docs.elements]"/>
         </ul>
     </div>

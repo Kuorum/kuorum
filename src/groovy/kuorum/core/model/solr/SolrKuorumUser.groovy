@@ -10,4 +10,5 @@ class SolrKuorumUser extends SolrElement{
     String postalCode
     GamificationAward role
     Gender gender
+    String text //bio
 }
