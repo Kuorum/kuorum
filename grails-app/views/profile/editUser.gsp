@@ -20,33 +20,34 @@
             </div>
         </fieldset>
 
-        <fieldset class="row">
-            <g:if test="${user.alias}">
-                <div class="form-group col-md-6">
-                    <span class="span-label"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.label"/></span>
-                    <!-- <input type="text" class="form-control input-lg" id="alias" placeholder="Establece un alias" aria-describedby="ayuda-alias" aria-required="true" required> -->
-                    <span class="disabled">
-                        kuorum.org/${user.alias}
-                        <span class="info-disabled">
-                            <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>
-                            <div class="popover">
-                                <div class="popover-kuorum">
-                                    <p><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.notChangeable"/> </p>
-                                </div>
-                            </div>
-                        </span>
-                    </span>
-                </div>
-            </g:if>
-            <g:else>
-                <div class="form-group col-md-6">
-                    <formUtil:input command="${command}" field="alias" showLabel="true"/>
-                </div>
-                <div class="form-group col-md-6">
-                    <p id="ayuda-alias" class="help-block"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.warning"/></p>
-                </div>
-            </g:else>
-        </fieldset>
+        %{--Alias--}%
+        %{--<fieldset class="row">--}%
+            %{--<g:if test="${user.alias}">--}%
+                %{--<div class="form-group col-md-6">--}%
+                    %{--<span class="span-label"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.label"/></span>--}%
+                    %{--<!-- <input type="text" class="form-control input-lg" id="alias" placeholder="Establece un alias" aria-describedby="ayuda-alias" aria-required="true" required> -->--}%
+                    %{--<span class="disabled">--}%
+                        %{--kuorum.org/${user.alias}--}%
+                        %{--<span class="info-disabled">--}%
+                            %{--<span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>--}%
+                            %{--<div class="popover">--}%
+                                %{--<div class="popover-kuorum">--}%
+                                    %{--<p><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.notChangeable"/> </p>--}%
+                                %{--</div>--}%
+                            %{--</div>--}%
+                        %{--</span>--}%
+                    %{--</span>--}%
+                %{--</div>--}%
+            %{--</g:if>--}%
+            %{--<g:else>--}%
+                %{--<div class="form-group col-md-6">--}%
+                    %{--<formUtil:input command="${command}" field="alias" showLabel="true"/>--}%
+                %{--</div>--}%
+                %{--<div class="form-group col-md-6">--}%
+                    %{--<p id="ayuda-alias" class="help-block"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.warning"/></p>--}%
+                %{--</div>--}%
+            %{--</g:else>--}%
+        %{--</fieldset>--}%
 
         <fieldset class="row">
             <div class="form-group col-md-6">
