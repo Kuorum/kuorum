@@ -9,7 +9,7 @@
             </span>
         </div>
         <g:render template="/project/projectMultimedia" model="[project:project]"/>
-        <g:render template="/modules/projects/projectOnListMoreInfo" model="[project:project]"/>
+        <g:render template="/modules/projects/projectOnListMoreInfo" model="[project:project,hashtag:solrProject?.highlighting?.hashtag]"/>
         %{--<p><projectUtil:showFirstCharsFromDescription project="${project}" numChars="170"/></p>--}%
         <p><searchUtil:highlightedField solrElement="${solrProject}" field="text"/></p>
         <g:render template="/modules/projects/projectOnListFooter" model="[project:project]"/>
