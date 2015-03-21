@@ -226,7 +226,7 @@ class IndexSolrService {
                 postalCode: postalCode,
                 urlImage: kuorumUser.avatar?.url,
                 role:kuorumUser.gamification.activeRole,
-                gender:kuorumUser.personalData.gender,
+                gender:kuorumUser.personalData.gender?:Gender.FEMALE,
                 text:kuorumUser.bio,
                 institutionName:kuorumUser.userType==UserType.POLITICIAN?kuorumUser.institution.name:null
         )
