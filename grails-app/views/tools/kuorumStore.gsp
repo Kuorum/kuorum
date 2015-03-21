@@ -86,7 +86,7 @@
             <li>
                 <h3><span class="icon-Flaticon_20188"></span> <g:message code="profile.kuorumStore.awards.explanation.corn"/></h3>
                 <p><g:message code="profile.kuorumStore.awards.explanation.corn.description1"/></p>
-                <p><g:message code="profile.kuorumStore.awards.explanation.corn.description2"/></p>
+                %{--<p><g:message code="profile.kuorumStore.awards.explanation.corn.description2"/></p>--}%
             </li>
         </ul>
     </div><!-- /.item -->
