@@ -108,10 +108,17 @@
             <g:message code="discover.title.discover.projects"/>
         </h1>
     </div>
-    <ul id="project-list-id" class="kakareo-list project clearfix">
-        <g:render template="discoverProjectList" model="[projects:projects]"/>
-    </ul>
-
+    <g:if test="${projects}">
+        <ul id="project-list-id" class="kakareo-list project clearfix">
+            <g:render template="discoverProjectList" model="[projects:projects]"/>
+        </ul>
+    </g:if>
+    <g:else>
+       <div class="box-ppal condition clearfix">
+            <h1>Esta combinación de filtros no ofrece resultados</h1>
+            <h2>Prueba a utilizar menos filtros.</h2>
+        </div>
+    </g:else>
     <nav:loadMoreLink
             mapping="discoverProjects"
             mappingParams="[iso3166_2:params.iso3166_2]"
