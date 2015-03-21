@@ -181,9 +181,8 @@ $(document).ready(function() {
         e.stopPropagation();
         e.preventDefault();
         $('p.warning').fadeOut('fast');
+        $('body').css('padding-top', '55px');
     });
-
-
 
     // cambio de formulario Entrar/Registro
     $('body').on('click','.change-home-register', function(e) {
@@ -206,14 +205,12 @@ $(document).ready(function() {
         $('form#sign-modal').fadeIn('fast');
     });
 
-
     // Funcionamiento de los radio button como nav-tabs
     $('input[name="cuenta"]').click(function () {
     //jQuery handles UI toggling correctly when we apply "data-target" attributes and call .tab('show')
     //on the <li> elements' immediate children, e.g the <label> elements:
         $(this).closest('label').tab('show');
     });
-
 
     // inicializamos la barra de progreso
     $('.progress-bar').progressbar();
@@ -226,7 +223,6 @@ $(document).ready(function() {
         });
 
     });
-
 
     // desvanecer y eliminar los usuario de la lista "A quién seguir"
     $('body').on('click','ul.user-list-followers > li.user .actions .close', function(e) {
@@ -243,7 +239,6 @@ $(document).ready(function() {
         });
 
     });
-
 
     // desvanecer y eliminar la caja que informa de "subida completada" del .pdf en EDICIÓN DE PROYECTO
     $('body').on('click','.progress-complete .close', function(e) {
@@ -266,8 +261,6 @@ $(document).ready(function() {
       $('#pass-home').hideShowPassword($(this).prop('checked'));
     });
 
-
-
     // inicializa formato fechas
     $("time.timeago").timeago();
 
@@ -284,7 +277,7 @@ $(document).ready(function() {
             disableFadeOut: true
         });
 
-    })
+    });
 
     prepareArrowClucks();
 
@@ -302,7 +295,6 @@ $(document).ready(function() {
         });
 
     });
-
 
     // popover-trigger dentro del kakareo no lanza el enlace del bloque clicable
     $('.link-wrapper .popover-trigger').click(function(e) {
@@ -511,49 +503,12 @@ $(document).ready(function() {
     });
 
 
-    // Si hago click en cambio de opinión vuelven los botones
-    /*$('body').on("click", ".changeOpinion", function(e) {
-        e.preventDefault();
-        var lawId = $(this).parents("section").attr("data-lawId")
-        $('section[data-lawId='+lawId+'] .activity li').removeClass('active');
-        $(this).css('display', 'none');
-        $('section[data-lawId='+lawId+']  .voting ul').css('display', 'block');
-    });
-*/
-    // el enlace callMobile (visible sólo en pantallas de hasta 767px, desaparece si le haces click o si llegas a la votación
-    /*if ( $('#vote').length > 0 ) {
-
-        $(function() {
-            var callMobile = $('.callMobile');
-            var eTop = $('#vote').offset().top;
-            var realPos = eTop - 80;
-            $(window).scroll(function() {
-                var scroll = $(window).scrollTop();
-                if (scroll >= realPos) {
-                    callMobile.fadeOut('slow');
-                } else {
-                    callMobile.fadeIn('slow');
-                }
-            });
-        });
-
-    }*/
-
-    // si boxes lleva foto pongo padding superior
-    /*if ( $('.boxes.noted.likes.important').children('img.actor').length > 0 ) {
-        $('.boxes.noted.likes.important').css('padding-top', '275px');
-
-    }*/
-
-
-    // oculta los comentarios
-//  $('.listComments > li:gt(2)').hide();
     $('#ver-mas a').click(function(e) {
         e.preventDefault();
-//      $('.listComments > li:gt(2)').fadeIn('slow');
         $('.listComments > li').fadeIn('slow');
         $('#ver-mas').hide();
     });
+
 
     ///////////////////// EDICIÓN PROPUESTA //////////////////////////
 
@@ -684,7 +639,6 @@ $(document).ready(function() {
             }
         });
     });
-
 
     // datepicker calendario
     if ( $('.input-group.date').length > 0 ) {
@@ -869,7 +823,6 @@ $(document).ready(function() {
 
 
     // controlando el video de Vimeo en la modal de la Home
-
     $('.play a').click( function(e) {
 
         var iframeHome = $('#vimeoplayer')[0];
@@ -883,8 +836,6 @@ $(document).ready(function() {
         })
 
     });
-
-
 
     // controlando el video de Vimeo en el Embudo1
     $(function () {
