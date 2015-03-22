@@ -14,4 +14,6 @@
 
 <content tag="preFooter">
     <g:render template="/error/errorFooter" model="[title:message(code: 'error.kuorumException.description', args:[errorMessage])]"/>
+    <div class="row" style="min-height: 50px;"></div>
+    <br/>
 </content>
