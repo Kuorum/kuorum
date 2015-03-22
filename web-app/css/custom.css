@@ -1443,7 +1443,7 @@ select.form-control option {cursor: pointer; color: #a8a8a8;}
 .cancel:hover, .cancel:active, .cancel:focus {color: #a8a8a8;}
 .cancel a, .cancel a:hover, .cancel a:active, .cancel a:focus {color: #545454;}
 
-.btn + .cancel {font-size: 16px; font-size: 1.65rem; line-height: 1.1; padding: 15px 0; margin-left: 44px;}
+.btn + .cancel {font-size: 16px; font-size: 1.65rem; line-height: 1.1; padding: 15px 0; margin-left: 36px;}
 .form-group.image {position: relative;}
 
 /* estilos mensajes error */
@@ -1616,7 +1616,7 @@ textarea.error,
 .socialGo {margin: 0; padding: 0;}
 .socialGo li {display: inline-block; list-style: none; margin: 5px 5px 0 0;}
 .socialGo li:nth-child(2n) {margin-right: 0;}
-.sign.home .social-home-container .btn.btn-lg {padding: 14px 10px !important;}
+.sign.home .social-home-container .btn.btn-lg {padding: 12px 8px !important;}
 
 /*.socialGo li a {width: 276px; padding: 12px 0 !important; margin: 0 !important;}*/
 .onecol .form-group {margin-top: 20px;}
@@ -2683,6 +2683,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .onecol.list .block-results li {list-style: none; margin: 0 0 4px 0; font-size: 14px; font-size: 1.4rem;}
 .onecol.list .block-results li a {color: #545454;}
 
+.noty_message {padding: 10px 10px 40px !important;}
 .noty_text {line-height:2rem;}
 .noty_text a {color:#ff9431;}
 
@@ -3264,7 +3265,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 #acceptCookies{
     position: absolute;
-    right:4%;
+    right: 10px;
+    bottom: 10px;
 }
 
 #switchUserLink{
