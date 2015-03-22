@@ -2066,7 +2066,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.vote div.social,
 .boxes.vote > .btn-lg,
 .activity,
-.boxes.performance a.improve {width: 273px; margin: 0 auto;}
+.boxes.performance a.improve {width: 240px; margin: 0 auto;}
 .boxes.vote.drive form  {margin: 10px auto 40px;}
 .boxes.vote.drive .btn {position: relative;}
 .boxes.vote.drive .btn.btn-lg {font-size: 17px !important; font-size: 1.7rem !important; padding-left: 50px !important; margin: 15px 0 !important;}
@@ -3652,7 +3652,13 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .boxes.vote.drive .btn .fa {left: 15px;}
   .boxes.vote.drive .btn.disabled .fa {left: 32px;}
   .boxes.vote.drive .btn.btn-lg {font-size: 18px !important; font-size: 1.8rem !important; padding-left: 55px !important;}
-  .boxes.vote.drive {position: fixed; z-index: 999; width: 301px;}
+  .boxes.vote.drive.fixed {position: fixed; z-index: 999; width: 301px; -webkit-transform: translateZ(0);}
+
+  /* Safari only override */
+  ::i-block-chrome, .boxes.vote.drive.fixed {
+    left: 66.66666667%;
+  }
+
   .list-team {width: 102%;}
   .list-team > li {width: 300px; display: block; float: left; margin-right: 15px;}
   .list-team > li:nth-of-type(even) {margin-right: 0;}
@@ -3870,7 +3876,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .arrow3 {bottom: -90px;}
   .arrow4 {bottom: -55px; left: 120px;}
   h1.withArrow {margin-bottom: 70px;}
-  .boxes.vote.drive {width: 350px;}
+  .boxes.vote.drive.fixed {width: 350px;}
   .config .kakareo-list.project .kakareo.post.ley .link-wrapper {min-height: 415px;}
 
 /*  #otros-proyectos .kakareo.post > .link-wrapper,

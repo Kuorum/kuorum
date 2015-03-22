@@ -136,14 +136,14 @@ $(document).ready(function() {
             $(window).scroll(function() {
                 var heightBottom = $('#otras-propuestas').height();
                 if ($(window).scrollTop() + $(window).height() > $(document).height() - heightBottom) {
-                       $('.boxes.vote.drive').css('position', 'relative');
+                       $('.boxes.vote.drive').removeClass('fixed');
                 } else {
-                        $('.boxes.vote.drive').css('position', 'fixed');
+                        $('.boxes.vote.drive').addClass('fixed');
                 }
             });
 
         } else {
-            $('.boxes.vote.drive').css('position', 'relative');
+            $('.boxes.vote.drive').removeClass('fixed');
         }
 
     });
