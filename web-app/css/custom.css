@@ -2991,7 +2991,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
     left: 0;
     width: 100%;
     background: #fff;
-    z-index: 999;
+    z-index: 9999;
     border-bottom: 1px solid #e5e5e5;
     padding: 8px 5px;
     display: none;
