@@ -128,43 +128,25 @@ $(document).ready(function() {
     })
 
 
-    // js que se ejecuta según width
-    /*$(function() {
+    // controla el comportamiento del módulo de la columna derecha en Propuestas
+    $(window).on("load resize",function(e){
 
-        var min_width;
-        if (Modernizr.mq('(min-width: 0px)')) {
-          // Browsers that support media queries
-          min_width = function (width) {
-            return Modernizr.mq('(min-width: ' + width + 'px)');
-          };
-        }
-        else {
-          // Fallback for browsers that does not support media queries
-          min_width = function (width) {
-            return $(window).width() >= width;
-          };
-        }
+        if ($(window).width() > 991) {
 
-        var resize = function() {
-          if (min_width(991)) {
-
-            // si estamos en Propuesta, controlo la posición fixed del módulo impular/apadrinar
             $(window).scroll(function() {
                 var heightBottom = $('#otras-propuestas').height();
-                if($(window).scrollTop() + $(window).height() > $(document).height() - heightBottom) {
-                   $('.boxes.vote.drive').css('position', 'relative');
+                if ($(window).scrollTop() + $(window).height() > $(document).height() - heightBottom) {
+                       $('.boxes.vote.drive').css('position', 'relative');
                 } else {
-                    $('.boxes.vote.drive').css('position', 'fixed');
+                        $('.boxes.vote.drive').css('position', 'fixed');
                 }
             });
 
-          }
-        };
+        } else {
+            $('.boxes.vote.drive').css('position', 'relative');
+        }
 
-        $(window).resize(resize);
-        resize();
-    });*/
-
+    });
 
 
     ////////////////////////////////////////////////  EDITAR ////////////////////////////////////////
@@ -279,7 +261,7 @@ $(document).ready(function() {
 
     });
 
-    prepareArrowClucks();
+    // prepareArrowClucks(); lo he pasado a custom.js
 
 
     // hacer un bloque clicable y que tome que es su primer elemento la url del enlace a.hidden
@@ -328,12 +310,8 @@ $(document).ready(function() {
     });
 
 
-    setTimeout(prepareProgressBar, 500)
-    prepareProgressBar();
-
-    //tooltip visible sobre la progress bar
-    $('.progress-bar').tooltip({trigger: 'manual', placement: 'top'}).tooltip('show');
-
+    // setTimeout(prepareProgressBar, 500)
+    // prepareProgressBar();  lo he pasado a custom.js
 
     // cierre de la ventana del Karma
     $('body').on('click', '#karma .close', function() {
@@ -357,27 +335,6 @@ $(document).ready(function() {
                 });
             });
         });
-
-        //Eventos de los numeros del discover
-        $('.introDiscover .badge').closest('a').click(function(e) {
-            e.preventDefault()
-            $(this).find('.badge').delay(2000).fadeOut("slow").queue(function() {
-                    $(this).empty();
-            });
-            $(this).next('ul').find('li.new').delay(2000).queue(function() {
-                    $(this).removeClass('new');
-            });
-
-            var activeId = $('.introDiscover li.active .badge').closest('a').html() -1;
-            $('.introDiscover li.active .badge').removeClass("disabled");
-            $('.introDiscover li.active').removeClass("active");
-            var nextId = $(this).html() -1;
-            $(this).addClass("disabled");
-            $(this).parent("li").addClass("active");
-            $("#relevantLaw_"+activeId).fadeOut(1000);
-            $("#relevantLaw_"+nextId).fadeIn(3000);
-        });
-
     });
 
 
@@ -406,12 +363,12 @@ $(document).ready(function() {
         e.stopPropagation();
     });
 
+    // modal registro
     $('body').on('click', "[data-toggle='modal'][data-target='#registro']", function(e) {
         e.preventDefault();
         e.stopPropagation();
         $("#registro").modal("show")
     });
-
 
     // Habilitar/deshabilitar link "Marcar como inapropiado"
     $('body').on("click", ".mark a", function(e) {
@@ -426,7 +383,7 @@ $(document).ready(function() {
 
     // Activar/desactivar materia que me interesa en el proyecto -> lo dejo comentado porque sólo debe ocurrir cuando estás logado. Falta programar esto.
 
-/*    $('body').on("click", ".icons.subject a", function(e) {
+    /* $('body').on("click", ".icons.subject a", function(e) {
         e.preventDefault();
         e.stopPropagation();
         if ( $(this).hasClass('active') ){
@@ -454,41 +411,7 @@ $(document).ready(function() {
         $('span.error').prepend('<span class="tooltip-arrow"></span>');
     }
 
-
-    // Deshabilitar enlaces números (descubre)
-    $('.introDiscover .steps .active').find('a').addClass('disabled');
-    $('body').on("click", ".introDiscover .steps .active a", function(e) {
-        e.preventDefault();
-    });
-
-
-    // Si voto desaparecen los botones y aparece el enlace de cambio de opinión
-    /*$('body').on("click", ".voting li a", function(e) {
-        e.preventDefault();
-        var lawId = $(this).attr("data-lawId")
-        $('section[data-lawId='+lawId+'] .voting ul').css('display', 'none');
-        $('section[data-lawId='+lawId+'] .changeOpinion').css('display', 'block');
-        $.ajax( {
-            url:$(this).attr("href"),
-            statusCode: {
-                401: function() {
-                    display.info("Estás deslogado")
-                    setTimeout('location.reload()',5000);
-                }
-            }
-        }).done(function(data, status, xhr) {
-            $('section[data-lawId='+lawId+']  ul.activity li').removeClass("active")
-            $('section[data-lawId='+lawId+']  ul.activity li.'+data.voteType).addClass("active")
-            $('section[data-lawId='+lawId+']  ul.activity li.POSITIVE span').html(data.votes.yes)
-            $('section[data-lawId='+lawId+']  ul.activity li.NEGATIVE span').html(data.votes.no)
-            $('section[data-lawId='+lawId+']  ul.activity li.ABSTENTION span').html(data.votes.abs)
-            $('section[data-lawId='+lawId+']  .kuorum span.counter').html(data.necessaryVotesForKuorum)
-            if (data.newVote){
-                karma.open(data.gamification)
-            }
-        })
-    });*/
-
+    // votaciones
     $('body').on("click", ".voting li .yes", function(e) {
         var lawId = $(this).parents("section").attr("data-lawId")
         $('section[data-lawId='+lawId+'] .activity .favor').addClass('active');
@@ -651,7 +574,6 @@ $(document).ready(function() {
 
     }
 
-
     // textarea editor
     $(".texteditor").jqte({
         br: true,
@@ -688,137 +610,6 @@ $(document).ready(function() {
         e.preventDefault();
         $("input[name=isDraft]").val(true);
         $(this).parents("form").submit();
-    })
-
-    // hacer visible la contraseña
-    /*$('#show-pass').attr('checked', false);
-
-    $('#show-pass').click(function(){
-
-        if ($(this).hasClass('checked')) {
-            $(this).removeClass('checked');
-        } else {
-            $(this).addClass('checked');
-        }
-
-        name = $('#password').attr('name');
-        value = $('#password').val();
-
-        if($(this).hasClass('checked')) {
-            html = '<input type="text" name="'+ name + '" value="' + value + '" id="password" class="form-control input-lg">';
-            $('#password').after(html).remove();
-        } else {
-            html = '<input type="password" name="'+ name + '" value="' + value + '" id="password" class="form-control input-lg">';
-            $('#password').after(html).remove();
-        }
-    });*/
-
-    function prepareFormUsingGender(gender){
-        if (gender == "ORGANIZATION"){
-            $(".userData").hide()
-            $(".organizationData").show()
-        }else{
-            $(".userData").show()
-            $(".organizationData").hide()
-        }
-
-    }
-
-    $("input[name=gender]").on("change", function(e){
-        prepareFormUsingGender($(this).val())
-    })
-
-    if ($("input[name=gender]:checked").val() != undefined){
-        prepareFormUsingGender($("input[name=gender]:checked").val())
-    }else{
-        prepareFormUsingGender("MALE")
-    }
-
-
-    // seleccionar todos los checkbox
-    $(function () {
-
-        // ESTO HAY QUE DESCOMENTARLO AL INTEGRAR **************************************************** //
-//        changeDescriptionNumSelect()
-
-        var checkAll = $('#selectAll');
-        var checkboxes = $('input.check');
-
-        $('input.check').each(function(){
-            var self = $(this),
-            label = self.next(),
-            label_text = label.html();
-            label.remove();
-            self.iCheck({
-              checkboxClass: 'icheckbox_line-orange',
-              radioClass: 'iradio_line-orange',
-              inheritID: true,
-              aria: true,
-              insert:  label_text
-            });
-        });
-
-        $('#selectAll').change(function() {
-            if($(this).is(':checked')) {
-                checkboxes.iCheck('check');
-                $('#others').prop('checked', true);
-            } else {
-                checkboxes.iCheck('uncheck');
-                $('#others').prop('checked', false);
-            }
-        });
-
-        checkAll.on('ifChecked ifUnchecked', function(event) {
-            if (event.type == 'ifChecked') {
-                checkboxes.iCheck('check');
-            } else {
-                checkboxes.iCheck('uncheck');
-            }
-        });
-
-        checkboxes.on('ifChanged', function(event){
-            if(checkboxes.filter(':checked').length == checkboxes.length) {
-                checkAll.prop('checked', 'checked');
-            } else {
-                checkAll.removeProp('checked');
-            }
-            checkAll.iCheck('update');
-
-            // ESTO HAY QUE DESCOMENTARLO AL INTEGRAR **************************************************** //
-//            changeDescriptionNumSelect();
-        });
-    });
-
-
-    // seleccionar todos los checkbox en configuración
-    $(function () {
-        $('.allActivityMails').change(function() {
-            var formGroup = $(this).parents(".form-group")
-            if($(this).is(':checked')) {
-                formGroup.find('.checkbox input').prop('checked', true);
-            } else {
-                formGroup.find('.checkbox input').prop('checked', false);
-            }
-        });
-    });
-
-
-    // le da la clase error al falso textarea
-    $(function () {
-        if ( $('#textPost').hasClass('error') ) {
-                $('#textPost').closest('.jqte').addClass('error');
-            }
-    });
-
-    $("#deleteAccountForm a").on("click", function(e){
-        e.preventDefault()
-        $("#deleteAccountForm input[name=forever]").val("true")
-        $("#deleteAccountForm").submit()
-    })
-    $("#deleteAccountForm button").on("click", function(e){
-        e.preventDefault()
-        $("#deleteAccountForm input[name=forever]").val("false")
-        $("#deleteAccountForm").submit()
     })
 
 
@@ -878,216 +669,16 @@ $(document).ready(function() {
 
     });
 
-
-    $(".multimedia .groupRadio input[type=radio]").on('click', function(e){
-        var multimediaType = $(this).val()
-        $('[data-multimedia-switch="on"]').hide()
-        $('[data-multimedia-type="'+multimediaType+'"]').show()
-
-    })
-
-
     // hacer clic en player falso del video (.front)
     $('.video').find('.front').click( function(e) {
         e.stopPropagation();
-        e.preventDefault();
-        var iframe = $(this).next('.youtube');
+        e.preventDefault()
+        var iframe = $(this).next('.youtube')
         iframe.css('display', 'block');
         iframe[0].src += "&autoplay=1";
         $(this).remove();
+        var func = 'playVideo';
+        iframe.get(0).contentWindow.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
     });
-
-
-    $('body').on("click", ".openModalVictory",function(e){
-        var notificationId = $(this).attr("data-notification-id")
-        modalVictory.openModal(notificationId)
-    });
-
-    $('body').on("click", ".openModalDefender",function(e){
-        e.preventDefault()
-        var postId = $(this).attr("data-postId")
-        modalDeafend.openModal(postId)
-    });
-
-    $('.modalVictoryClose').on("click", function (e) {
-        e.preventDefault()
-        $('#modalVictory').modal('hide');
-    });
-
-    $('.modalVictoryAction').on("click", function (e) {
-        e.preventDefault()
-        var notificationId = $(this).attr("data-notificationId")
-        var victoryOk = $(this).attr("data-victoryOk")
-        var link = $(this).attr("href")
-        $.ajax({
-            url:link,
-            data:{victoryOk:victoryOk}
-        }).done(function(data){
-            $('#modalVictory').modal('hide');
-            modalVictory.hideNotificationActions(notificationId);
-            display.success(data)
-        })
-    });
-
-});
-
-
-
-// ***** End jQuey Init *********** //
-
-var modalDefend = {
-    data:{},
-    openModal:function(postId){
-        var modalData = this.data['post_'+postId]
-        $("#modalDefenderPolitician img").attr('src',modalData.defender.imageUrl)
-        $("#modalDefenderPolitician img").attr('alt',modalData.defender.name)
-        $("#modalDefenderPolitician #sponsorLabel").html(modalData.post.sponsorLabel)
-        $("#modalDefenderPolitician h1").html(modalData.defender.name)
-        $("#modalDefenderOwner img").attr('src',modalData.owner.imageUrl)
-        $("#modalDefenderOwner img").attr('alt',modalData.owner.name)
-        $("#modalDefenderOwner .name").html(modalData.owner.name)
-        $("#modalDefenderOwner .what").html(modalData.post.what)
-        $("#modalDefenderOwner .action span").html(modalData.post.numVotes)
-        $("#modalSponsor .modal-body").children("p").html(modalData.post.description)
-        $("#modalSponsor .modal-body").children("div").each(function(i,buttonElement){
-            var dataButton = modalData.post.options[i]
-            $(buttonElement).children("a").html(dataButton.textButton)
-            $(buttonElement).children("a").attr('href',dataButton.defendLink)
-            $(buttonElement).children("p").html(dataButton.textDescription)
-        })
-    }
-}
-
-var modalVictory = {
-    data:{},
-    openModal:function(notificationId){
-        var modalData = this.data['notification_'+notificationId]
-        $("#modalVictoryUser img").attr('src',modalData.user.imageUrl)
-        $("#modalVictoryUser img").attr('alt',modalData.user.name)
-        $("#modalVictoryDefender img").attr('src',modalData.defender.imageUrl)
-        $("#modalVictoryDefender img").attr('alt',modalData.defender.name)
-        $("#modalVictoryDefender .name").html(modalData.defender.name)
-        $("#modalVictoryDefender .action").html(modalData.post.action)
-        $("#modalVictory .modal-body p").first().html(modalData.post.description)
-        $("#modalVictory .modal-body p").last().html(modalData.post.lawLink)
-        $("#modalVictory .modal-footer a").attr('href',modalData.post.victoryLink)
-        $("#modalVictory .modal-footer a").attr('data-notificationId',notificationId)
-    },
-    hideNotificationActions:function(notificationId){
-        $("[data-notification-id="+notificationId+"]").hide();
-    }
-}
-
-var karma = {
-    title:"",
-    text:"",
-
-    numEggs:0,
-    numPlumes:0,
-    numCorns:0,
-    open:function(options){
-        if (options != undefined){
-            this.numEggs = options.eggs || 0
-            this.numPlumes = options.plumes || 0
-            this.numCorns = options.corns || 0
-            this.text = options.text || ""
-            this.title = options.title || ""
-        }
-        this._open()
-    },
-
-    close:function(){
-        $('#karma').css('display','none').removeClass('in');
-    },
-
-    _idLiEggs:"karmaEggs",
-    _idLiPlumes:"karmaPlumes",
-    _idLiCorn:"karmaCorn",
-    _open:function(){
-        this._prepareKarma()
-        $('#karma').fadeIn().addClass('in');
-    },
-
-    _prepareKarma:function(){
-        $("#karma h2").html(this.title)
-        var motivation = $("#karma p span")
-        var motivationText = "<span class='"+motivation.attr('class')+"'>"+motivation.html()+"</span>"
-        $("#karma p").html(this.text +"<br>"+motivationText)
-
-        $("ul.karma li").removeClass("active");
-        this._prepareIcon(this._idLiEggs, this.numEggs)
-        this._prepareIcon(this._idLiPlumes, this.numPlumes)
-        this._prepareIcon(this._idLiCorn, this.numCorns)
-    },
-
-    _prepareIcon:function(liId, quantity){
-        $("#"+liId+" .counter").html("+"+quantity)
-        if (quantity > 0) $("#"+liId).addClass("active")
-    }
-}
-
-
-function prepareProgressBar(){
-    // animo la progress-bar de boxes.likes
-    $('.likes .progress-bar').progressbar({
-        done: function() {
-            var posTooltip = $('.progress-bar').width();
-            $('#m-callback-done').css('left', posTooltip).css('opacity', '1');
-            $('#m-callback-done > .likesCounter').html($('.likes .progress-bar').attr("aria-valuenow"))
-        }
-    });
-}
-
-function prepareArrowClucks(){
-// el hover sobre el kakareo que afecte al triángulo superior
-    $('.kakareo > .link-wrapper').on({
-        mouseenter: function () {
-            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #efefef');
-        },
-        mouseleave: function () {
-            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fafafa');
-        }
-    });
-
-    $('.important .kakareo > .link-wrapper').on({
-        mouseenter: function () {
-            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #feedce');
-        },
-        mouseleave: function () {
-            $(this).prev('.from').find('.inside').css('border-bottom', '8px solid #fff8ed');
-        }
-    });
-}
-// funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)
-var display = {
-    error:function(text){this._notyGeneric(text, "error")},
-    success:function(text){this._notyGeneric(text, "success")},
-    info:function(text){this._notyGeneric(text, "information")},
-    warn:function(text){this._notyGeneric(text, "warning")},
-
-    _notyGeneric:function(text, type) {
-        var nW = noty({
-            layout: 'top',
-            dismissQueue: true,
-            animation: {
-                open: {height: 'toggle'},
-                close: {height: 'toggle'},
-                easing: 'swing',
-                speed: 500 // opening & closing animation speed
-            },
-            template: '<div class="noty_message" role="alert"><span class="noty_text"></span><div class="noty_close"></div></div>',
-            type: type,
-            text: text
-        });
-    }
-}
-
-$(document).ajaxStop(function () {
-
-    // inicia el timeago
-    $("time.timeago").timeago();
-
-    prepareArrowClucks();
-    preparePopover();
 
 });

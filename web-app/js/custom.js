@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+    prepareArrowClucks();
+    setTimeout(prepareProgressBar, 500)
+    prepareProgressBar();
+
     // para los checkbox del formulario de registro
     var texts= {
         0: i18n.customRegister.step4.form.submit.description0,
@@ -516,9 +520,24 @@ $(document).ready(function() {
 
 	// seleccionar todos los checkbox
 	$(function () {
+
         changeDescriptionNumSelect()
 	    var checkAll = $('#selectAll');
 	    var checkboxes = $('input.check');
+
+        $('input.check').each(function(){
+            var self = $(this),
+            label = self.next(),
+            label_text = label.html();
+            label.remove();
+            self.iCheck({
+              checkboxClass: 'icheckbox_line-orange',
+              radioClass: 'iradio_line-orange',
+              inheritID: true,
+              aria: true,
+              insert:  label_text
+            });
+        });
 
 	    $('#selectAll').change(function() {
 		    if($(this).is(':checked')) {
@@ -633,20 +652,6 @@ $(document).ready(function() {
         $("#deleteAccountForm input[name=forever]").val("false")
         $("#deleteAccountForm").submit()
     })
-    $("#videoHome").on('hidden.bs.modal', function (e) {
-        var iframe = $("#iframeVideo")[0].contentWindow;
-        func = 'pauseVideo';
-        //this is posible for this option on youtube video : enablejsapi=1
-        iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
-    })
-
-    $("#videoHome").on('shown.bs.modal', function (e) {
-        var iframe = document.getElementById("iframeVideo").contentWindow;
-        func = 'playVideo';
-        //this is posible for this option on youtube video : enablejsapi=1
-        iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
-//        $('#iframeVideo')[0].src += '&autoplay=1';
-    })
 
     $(".multimedia .groupRadio input[type=radio]").on('click', function(e){
         var multimediaType = $(this).val()
@@ -654,17 +659,6 @@ $(document).ready(function() {
         $('[data-multimedia-type="'+multimediaType+'"]').show()
 
     })
-
-    // hacer clic en player falso del video (.front)
-    $('.kakareo .front').click( function(e) {
-        e.stopPropagation();
-        e.preventDefault()
-        var iframe = $(this).next('.youtube')
-        iframe.css('display', 'block');
-        $(this).remove();
-        var func = 'playVideo';
-        iframe.get(0).contentWindow.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
-    });
 
     $('body').on("click", ".openModalVictory",function(e){
         var notificationId = $(this).attr("data-notification-id")
