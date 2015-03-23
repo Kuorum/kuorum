@@ -3,8 +3,6 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchProjects
-import kuorum.core.model.search.SearchSolrProject
-import kuorum.core.model.solr.SolrProject
 import kuorum.core.model.solr.SolrResults
 import kuorum.project.Project
 import kuorum.project.ProjectService
