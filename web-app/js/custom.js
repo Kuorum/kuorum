@@ -292,6 +292,16 @@ $(document).ready(function() {
 
     }
 
+    $("#filter-menu ul.dropdown-menu li a").on('click', function(e){
+        e.preventDefault();
+        var element = $(this)
+        var field = element.attr("data-forminput")
+        var value = element.attr("data-value")
+        $("#discover-project-form input[name="+field+"]").val(value)
+        $(this).parent("button").html(element.html())
+        $("#discover-project-form").submit()
+    })
+
 	// el enlace callMobile (visible sólo en pantallas de hasta 767px, desaparece si le haces click o si llegas a la votación
 	if ( $('#vote').length > 0 ) {
 

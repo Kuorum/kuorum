@@ -10,4 +10,6 @@ class SolrProject extends SolrElement{
     String text
     String owner
     String ownerId
+    Date deadLine
+    Integer relevance
 }

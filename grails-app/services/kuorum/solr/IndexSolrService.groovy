@@ -259,7 +259,7 @@ class IndexSolrService {
                 id:project.id.toString(),
                 name:project.shortName,
                 type:SolrType.PROJECT,
-                subType:SolrType.PROJECT.generateSubtype(project),
+                subType:SolrType.PROJECT.generateSubtype(project.status),
                 text:project.description,
                 dateCreated:project.dateCreated,
                 hashtag:project.hashtag,
@@ -269,7 +269,9 @@ class IndexSolrService {
                 regionIso3166_2: project.region.iso3166_2,
                 urlImage: project.image?.url,
                 owner:project.owner.name,
-                ownerId:project.owner.id
+                ownerId:project.owner.id,
+                relevance: project.relevance,
+                deadLine:project.deadline
         )
         solrProject
     }
@@ -289,7 +291,9 @@ class IndexSolrService {
                 regionIso3166_2: solrDocument.regionIso3166_2,
                 urlImage: solrDocument.urlImage,
                 owner:solrDocument.owner,
-                ownerId: solrDocument.ownerId
+                ownerId: solrDocument.ownerId,
+                relevance: solrDocument.relevance,
+                deadLine:solrDocument.deadLine
         )
     }
 

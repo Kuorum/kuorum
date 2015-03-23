@@ -7,6 +7,7 @@ import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.search.SearchPolitician
 import kuorum.core.model.solr.*
+import kuorum.project.Project
 import org.apache.solr.client.solrj.SolrQuery
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.response.Group
@@ -143,6 +144,36 @@ class SearchSolrService {
             }
         }
         [projects:projects, kuorumUsers:kuorumUsers]
+    }
+
+    List<Project> searchProjects(SearchProjects params){
+        if (!params.validate()){
+            KuorumExceptionUtil.createExceptionFromValidatable(params, "Se necesita una region para buscar por ella")
+        }
+        SolrQuery query = new SolrQuery();
+        query.setParam(CommonParams.QT, "/select");
+        query.setParam(CommonParams.START, "${params.offset}");
+        query.setParam(CommonParams.SORT, "relevance desc, deadLine desc");
+        StringBuffer filterQuery = new StringBuffer("type:${SolrType.PROJECT}")
+        if (params.commissionType){
+            filterQuery.append(" AND ")
+            filterQuery.append("commissions:${params.commissionType}")
+        }
+        if (params.projectStatusType){
+            filterQuery.append(" AND ")
+            filterQuery.append("subType:${SolrType.PROJECT.generateSubtype(params.projectStatusType)}")
+        }
+        query.setParam(CommonParams.Q, filterQuery.toString())
+
+        QueryResponse rsp = server.query( query );
+        SolrDocumentList docs = rsp.getResults();
+
+//        SolrResults solrResults = new SolrResults()
+//        solrResults.elements = docs.collect{indexSolrService.recoverSolrElementFromSolr(it)}
+//        solrResults.numResults = docs.numFound
+//        solrResults.facets = prepareFacets(rsp)
+//        solrResults.elements
+        docs.collect{Project.get(it.id)}
     }
 
     List<SolrProjectsGrouped> listProjects(SearchProjects params){

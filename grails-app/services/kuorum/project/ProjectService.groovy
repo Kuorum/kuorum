@@ -217,7 +217,8 @@ class ProjectService {
     Project closeProject(Project project){
         Project.collection.update([_id:project.id], ['$set':[open:Boolean.FALSE]])
         project.refresh()
-        indexSolrService.delete(project)
+        calculateProjectRelevance(project)
+//        indexSolrService.delete(project)
     }
 
     Integer necessaryVotesForKuorum(Project project){
@@ -266,9 +267,11 @@ class ProjectService {
             status == ProjectStatusType.OPEN
             deadline < date
         }.list()
-        projectList.each{
-            it.status = ProjectStatusType.CLOSE
-            it.save()
+        projectList.each{Project project ->
+            project.status = ProjectStatusType.CLOSE
+            calculateProjectRelevance(project)
+            project.save()
+            indexSolrService.index(project)
         }
     }
 
