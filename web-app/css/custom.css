@@ -3649,7 +3649,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .config .icheckbox_line-orange,
   .config .iradio_line-orange {margin: 0 7px 7px 0;}
   .boxes.vote.drive form, .boxes.vote.drive .progress, .boxes.vote.drive .sponsor, .boxes.vote.drive .social {width: auto;}
-  .boxes.vote.drive .btn .fa {left: 15px;}
+  /*.boxes.vote.drive .btn .fa {left: 15px;}*/
   .boxes.vote.drive .btn.disabled .fa {left: 32px;}
   .boxes.vote.drive .btn.btn-lg {font-size: 18px !important; font-size: 1.8rem !important; padding-left: 55px !important;}
   .boxes.vote.drive.fixed {position: fixed; z-index: 999; width: 301px; -webkit-transform: translateZ(0);}
@@ -3900,7 +3900,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .boxes.vote.drive .btn .fa {left: 45px;}
+  .boxes.vote.drive .btn .fa {left: 30px;}
   .boxes.vote.drive .btn.disabled .fa {left: 55px;}
   .pago {background-size: 342px auto; background-position: center 25px;}
   .embudo #aside-ppal {padding-bottom: 46px;}
