@@ -6,6 +6,6 @@ package kuorum.core.model.solr
 class SolrResults {
     List<SolrElement> elements
     Long numResults
-    List<SolrFacets> facets
+    Map<String, List<SolrFacets>> facets
     SolrSuggest suggest
 }

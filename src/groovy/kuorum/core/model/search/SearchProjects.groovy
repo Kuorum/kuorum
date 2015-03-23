@@ -16,6 +16,8 @@ class SearchProjects extends Pagination implements Serializable{
 
     CommissionType commissionType
 
+    String regionName
+
 
     static constraints = {
         institutionName nullable: false

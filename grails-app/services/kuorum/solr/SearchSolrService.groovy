@@ -52,10 +52,15 @@ class SearchSolrService {
         solrSuggest
     }
 
-    private List<SolrFacets> prepareFacets(QueryResponse rsp){
-        rsp.facetFields.collect{it._values}.flatten().collect{
-            new SolrFacets(facetName: it.name, hits: it.count)
+    private Map<String, List<SolrFacets>> prepareFacets(QueryResponse rsp){
+        def res = [:]
+        rsp.facetFields.each{
+            res.put(it.name, it.values.collect{new SolrFacets(facetName: it.name, hits: it.count)})
         }
+        res
+//        rsp.facetFields.collect{it._values}.flatten().collect{
+//            new SolrFacets(facetName: it.name, hits: it.count)
+//        }
     }
 
     private prepareHighlighting(SolrResults solrResults, QueryResponse rsp){
@@ -146,7 +151,7 @@ class SearchSolrService {
         [projects:projects, kuorumUsers:kuorumUsers]
     }
 
-    List<Project> searchProjects(SearchProjects params){
+    SolrResults searchProjects(SearchProjects params){
         if (!params.validate()){
             KuorumExceptionUtil.createExceptionFromValidatable(params, "Se necesita una region para buscar por ella")
         }
@@ -154,6 +159,7 @@ class SearchSolrService {
         query.setParam(CommonParams.QT, "/select");
         query.setParam(CommonParams.START, "${params.offset}");
         query.setParam(CommonParams.SORT, "relevance desc, deadLine desc");
+        query.setFacet(true)
         StringBuffer filterQuery = new StringBuffer("type:${SolrType.PROJECT}")
         if (params.commissionType){
             filterQuery.append(" AND ")
@@ -163,17 +169,27 @@ class SearchSolrService {
             filterQuery.append(" AND ")
             filterQuery.append("subType:${SolrType.PROJECT.generateSubtype(params.projectStatusType)}")
         }
+        if (params.regionName){
+            filterQuery.append(" AND ")
+            filterQuery.append("regionName:${params.regionName}")
+        }
         query.setParam(CommonParams.Q, filterQuery.toString())
 
+        query.setFacet(true)
+        query.addFacetField("commissions")
+        query.addFacetField("regionName")
+        query.addFacetField("subType")
+        query.setFacetMinCount(1)
         QueryResponse rsp = server.query( query );
         SolrDocumentList docs = rsp.getResults();
 
-//        SolrResults solrResults = new SolrResults()
-//        solrResults.elements = docs.collect{indexSolrService.recoverSolrElementFromSolr(it)}
-//        solrResults.numResults = docs.numFound
-//        solrResults.facets = prepareFacets(rsp)
+        SolrResults solrResults = new SolrResults()
+        solrResults.elements = docs.collect{indexSolrService.recoverSolrElementFromSolr(it)}
+        solrResults.numResults = docs.numFound
+        solrResults.facets = prepareFacets(rsp)
 //        solrResults.elements
-        docs.collect{Project.get(it.id)}
+//        docs.collect{Project.get(it.id)}
+        solrResults
     }
 
     List<SolrProjectsGrouped> listProjects(SearchProjects params){

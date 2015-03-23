@@ -5,6 +5,7 @@ import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.search.SearchSolrProject
 import kuorum.core.model.solr.SolrProject
+import kuorum.core.model.solr.SolrResults
 import kuorum.project.Project
 import kuorum.project.ProjectService
 import kuorum.post.Post
@@ -53,12 +54,13 @@ class DiscoverController {
         }
         Region region = Region.findByIso3166_2(params.iso3166_2)
 //        List<Project> projects = projectService.relevantProjects(user,region, searchParams)
-        List<Project> projects = searchSolrService.searchProjects(searchParams);
+//        List<Project> projects = searchSolrService.searchProjects(searchParams);
+        SolrResults result= searchSolrService.searchProjects(searchParams);
         if (request.isXhr()){
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${Project.count()-searchParams.offset<=searchParams.max}")
-            render template: '/discover/discoverProjectList', model:[projects:projects, pagination:searchParams]
+            render template: '/discover/discoverProjectList', model:[projects:result.getElements(), pagination:searchParams]
         }else{
-            [projects:projects, searchParams: searchParams]
+            [ searchParams: searchParams, result:result]
         }
 
     }
