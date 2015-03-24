@@ -9,8 +9,9 @@
     </g:each>
 </ul>
 </div>
-%{-- DESCOMENTAR CUANDO ESTÉ LISTO EL DESCUBRE--}%
-%{--<div class="homeMore">--}%
-    %{--<a href="#" class="btn btn-blue btn-lg btn-block"><g:message code="landingPage.recommendedProjects.button"/></a>--}%
-%{--</div>--}%
+<div class="homeMore">
+    <g:link mapping="discoverProjects" class="btn btn-blue btn-lg btn-block">
+        <g:message code="home.projects.discover"/>
+    </g:link>
+</div>
 </section>

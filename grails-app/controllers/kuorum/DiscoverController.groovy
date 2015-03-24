@@ -2,10 +2,13 @@ package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchProjects
+import kuorum.core.model.solr.SolrResults
 import kuorum.project.Project
 import kuorum.project.ProjectService
 import kuorum.post.Post
 import kuorum.post.PostService
+import kuorum.solr.SearchSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.constants.WebConstants
@@ -21,6 +24,8 @@ class DiscoverController {
     SpringSecurityService springSecurityService
 
     RegionService regionService
+
+    SearchSolrService searchSolrService
 
     def afterInterceptor = { model, modelAndView ->
         def dynamicDiscoverProjects = []
@@ -40,18 +45,20 @@ class DiscoverController {
         model.dynamicDiscoverProjects = dynamicDiscoverProjects
     }
 
-    def discoverProjects(Pagination pagination) {
+    def discoverProjects(SearchProjects searchParams) {
         KuorumUser user = null
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
         }
         Region region = Region.findByIso3166_2(params.iso3166_2)
-        List<Project> projects = projectService.relevantProjects(user,region, pagination)
+//        List<Project> projects = projectService.relevantProjects(user,region, searchParams)
+//        List<Project> projects = searchSolrService.searchProjects(searchParams);
+        SolrResults result= searchSolrService.searchProjects(searchParams);
         if (request.isXhr()){
-            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${Project.count()-pagination.offset<=pagination.max}")
-            render template: '/discover/discoverProjectList', model:[projects:projects, pagination:pagination]
+            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${Project.count()-searchParams.offset<=searchParams.max}")
+            render template: '/discover/discoverProjectList', model:[projects:result.getElements(), pagination:searchParams]
         }else{
-            [projects:projects, pagination: pagination]
+            [ searchParams: searchParams, result:result]
         }
 
     }

@@ -19,8 +19,8 @@ enum SolrType {
             case PostType.QUESTION: SolrSubType.QUESTION; break;
         }
     }),
-    PROJECT({Project project->
-        switch (project.status){
+    PROJECT({ProjectStatusType projectStatusType->
+        switch (projectStatusType){
             case ProjectStatusType.OPEN: SolrSubType.OPEN; break;
             case ProjectStatusType.APPROVED: SolrSubType.APPROVED; break;
             case ProjectStatusType.REJECTED: SolrSubType.REJECTED; break;
