@@ -126,7 +126,7 @@ label {font-weight: normal;}
 .boxes.vote.signin #sign {margin-bottom: 40px;}
 .boxes.vote.signin #sign > .row {margin-bottom: 10px;}
 .boxes.vote.signin #sign > .groupRadio {text-align: center;}
-#sign .voting > ul > li > a {width: 60px; color: #bcbcbc; font-size: 12px; font-size: 1.2rem;}
+#sign .voting > ul > li > a {width: 50px; color: #bcbcbc; font-size: 12px; font-size: 1.2rem;}
 #sign .voting > ul > li > a:hover,
 #sign .voting > ul > li > a:focus,
 #sign .voting > ul > li > a:active {color: #20a2ea; text-decoration: none;}
