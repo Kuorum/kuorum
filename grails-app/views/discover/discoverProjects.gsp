@@ -83,11 +83,11 @@
 </content>
 
 <content tag="mainContent">
-    <div class="clearfix">
-        <h1>
-            <g:message code="discover.title.discover.projects"/>
-        </h1>
-    </div>
+    %{--<div class="clearfix">--}%
+        %{--<h1>--}%
+            %{--<g:message code="discover.title.discover.projects"/>--}%
+        %{--</h1>--}%
+    %{--</div>--}%
     <g:if test="${result.getNumResults()}">
         <ul id="project-list-id" class="kakareo-list project clearfix">
             <g:render template="discoverProjectList" model="[projects:result.getElements()]"/>
