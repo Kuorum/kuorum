@@ -29,7 +29,7 @@ blockquote {border: none;}
 input[type="text"],
 input[type="number"],
 input[type="email"],
-select {color: #545454; font-size: 14px; font-size:  1.4rem; border: 1px solid #efefef; box-shadow: 0 0 0 rgba(0, 0, 0, 0);}
+select {color: #545454; font-size: 12px; font-size:  1.2rem; border: 1px solid #efefef; box-shadow: 0 0 0 rgba(0, 0, 0, 0);}
 /*input[type="text"],
 input[type="number"],
 input[type="email"],
@@ -126,7 +126,7 @@ label {font-weight: normal;}
 .boxes.vote.signin #sign {margin-bottom: 40px;}
 .boxes.vote.signin #sign > .row {margin-bottom: 10px;}
 .boxes.vote.signin #sign > .groupRadio {text-align: center;}
-#sign .voting > ul > li > a {width: 50px; color: #bcbcbc; font-size: 12px; font-size: 1.2rem;}
+#sign .voting > ul > li > a {width: 56px; color: #bcbcbc; font-size: 12px; font-size: 1.2rem;}
 #sign .voting > ul > li > a:hover,
 #sign .voting > ul > li > a:focus,
 #sign .voting > ul > li > a:active {color: #20a2ea; text-decoration: none;}
@@ -1197,7 +1197,7 @@ video#bgvid {
   position: relative;
 }
 .boxes.info .kakareo.post.ley .photo {margin-top: 0;}
-.boxes.vote {padding: 0 15px;}
+.boxes.vote {padding: 5px 10px 0;}
 .boxes.noted {background-color: #eff5fd; margin: 0;}
 .boxes.profile-user {padding: 10px; /*min-height: 496px;*/}
 .boxes .edit {font-size: 12px; font-size: 1.2rem; display: inline-block; color: #A8A8A8; position: absolute; top: 10px; right: 10px;}
@@ -2066,11 +2066,11 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.vote div.social,
 .boxes.vote > .btn-lg,
 .activity,
-.boxes.performance a.improve {width: 240px; margin: 0 auto;}
+.boxes.performance a.improve {margin: 0 auto;}
 .boxes.vote.drive form  {margin: 10px auto 40px;}
 .boxes.vote.drive .btn {position: relative;}
 .boxes.vote.drive .btn.btn-lg {font-size: 17px !important; font-size: 1.7rem !important; padding-left: 50px !important; margin: 15px 0 !important;}
-.boxes.vote.drive .btn .fa {position: absolute; top: 15px; left: 15px;}
+.boxes.vote.drive .btn .fa {position: absolute; top: 15px; left: 5%;}
 .boxes.vote.drive .btn.disabled .fa {left: 35px;}
 .boxes.vote.drive .social {margin-bottom: 20px;}
 .boxes.vote.drive .social li {font-size: 16px; font-size: 1.6rem;}
@@ -2999,12 +2999,20 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 #info-sup-scroll .laley,
 #info-sup-scroll .voting > .closed {font-size: 14px; font-size: 1.4rem;}
 #info-sup-scroll .voting {text-align: right;}
-#info-sup-scroll .voting > ul > li > a {font-size: 9px; font-size: .9rem; height: auto; width: auto; margin: 0; padding: 0 !important; color: #bcbcbc;}
+#info-sup-scroll .voting > ul > li > a {
+  font-size: 9px;
+  font-size: .9rem;
+  height: auto;
+  width: auto;
+  margin: 0;
+  padding: 0 !important;
+  color: #bcbcbc;
+}
 #info-sup-scroll .voting > ul > li {
     display: block;
     float: left;
     margin-left: 0;
-    margin-right: 8px;
+    margin-right: 6px;
 }
 #info-sup-scroll .voting > ul > li:last-child {margin: 0;}
 #info-sup-scroll .voting > ul > li > a:hover,
@@ -3280,6 +3288,11 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 /* ====================================================== */
 
 @media only screen and (min-width: 480px) {
+  .form-control,
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  select {color: #545454; font-size: 14px; font-size:  1.4rem;}
   .pre {margin: 75px 20px 5px 0;}
   .preFooter .user-list li .user-img {margin-right: 10px;}
   #detailsInfoVotes .table {width: 95%;}
@@ -3290,6 +3303,15 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 28%;}
   .chat > li .user.author {margin-top: -32px;}
   .listComments > li .user.author {margin-top: -32px;}
+  .boxes.vote.drive form,
+  .boxes.vote.drive .progress,
+  .boxes.vote.drive .sponsor,
+  .boxes.vote.drive .social,
+  .boxes.vote.signin #sign,
+  .boxes.vote div.social,
+  .boxes.vote > .btn-lg,
+  .activity,
+  .boxes.performance a.improve {width: 272px; margin: 0 auto;}
 }
 
 @media only screen and (min-width: 533px) {
@@ -3510,7 +3532,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .vote .activity > li {font-size: 12px; font-size: 1.2rem; padding: 0 2px 6px;}
   .voting > ul > li {margin-right: 2px;}
   .voting > ul > li > a {font-size: 1.1rem; height: 53px; margin: 0 !important; width: 62px;}
-  /*.boxes.vote > .btn-lg {font-size: 11px; font-size: 1.15rem !important; padding: 8px !important;}*/
+  .boxes.vote {padding-top: 0;}
   .boxes.taking-part .user-list-followers li {margin-right: 1px;}
   .boxes.edit-user > .user > a {position: relative; display: block; text-align: center;}
   .boxes.edit-user .user-img.big {float: none; margin: 0;}
@@ -3641,15 +3663,12 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #otras-propuestas .kakareo-list .kakareo footer,
   .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
 
-  /*.politician-list .box-ppal { height: 364px;}*/
   .politician-list .box-ppal p {height: 56px; margin: 0 0 50px; overflow: hidden;}
   .politician-list .box-ppal > small {float: none; position: absolute; bottom: 0; left: 0;}
   .politician-list .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}
 
   .config .icheckbox_line-orange,
   .config .iradio_line-orange {margin: 0 7px 7px 0;}
-  .boxes.vote.drive form, .boxes.vote.drive .progress, .boxes.vote.drive .sponsor, .boxes.vote.drive .social {width: auto;}
-  /*.boxes.vote.drive .btn .fa {left: 15px;}*/
   .boxes.vote.drive .btn.disabled .fa {left: 32px;}
   .boxes.vote.drive .btn.btn-lg {font-size: 18px !important; font-size: 1.8rem !important; padding-left: 55px !important;}
   .boxes.vote.drive.fixed {position: fixed; z-index: 999; width: 301px; -webkit-transform: translateZ(0);}
@@ -3900,7 +3919,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .boxes.vote.drive .btn .fa {left: 30px;}
   .boxes.vote.drive .btn.disabled .fa {left: 55px;}
   .pago {background-size: 342px auto; background-position: center 25px;}
   .embudo #aside-ppal {padding-bottom: 46px;}
@@ -3936,7 +3954,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .box .badge {top: 2px;}
   .voting > ul > li > a {font-size: 14px; font-size: 1.4rem; width: 90px; height: 68px;}
   .boxes > h1 {padding: 15px 10px;}
-  .boxes.vote > .btn-lg {font-size: 16px; font-size: 1.66rem !important;}
+  .boxes.vote > .btn-lg {font-size: 16px; font-size: 1.6rem !important;}
   .boxes.vote .voting > ul > li {margin-right: 6px;}
   .boxes.vote .voting > ul > li:last-child {margin-right: 0;}
   .boxes.edit-user {padding: 20px;}
