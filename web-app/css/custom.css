@@ -1208,7 +1208,14 @@ video#bgvid {
 .boxes.follow .user-type {display: block; margin-left: 4px;}
 .personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px;}
 .user-list-followers .user .actions {float: right; margin: -32px 0 0 0 !important;}
-.user-list-followers .user .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
+.user-list-followers .user .actions .btn.follow {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+  margin: 0 5px 0 0 !important;
+  padding: 2px 6px !important;
+  width: 80px;
+}
 .user-list-followers .user .actions .close {margin: 1px 0 0 0;}
 
 .boxes .user-img,
@@ -1260,7 +1267,8 @@ video#bgvid {
 .box-ppal.profile .activity {width: 100%; margin: 10px 0;}
 .box-ppal.profile .activity > li {width: 30%; margin-bottom: 5px;}
 .box-ppal.profile .activity > li:nth-child(3) {border-right: none;}
-.box-ppal.profile .activity > li span {color: #545454; font-size: 30px; font-size: 3rem; font-weight: bold;}
+.box-ppal.profile .activity > li .popover-trigger .counter {color: #545454;}
+.box-ppal.profile .activity > li .counter {color: #a8a8a8; font-size: 30px; font-size: 3rem; font-weight: bold;}
 
 .boxes > h1 {font-size: 22px; font-size: 2.2rem; color: #545454; margin: 0; padding: 10px; border-bottom: 1px solid #dadada;}
 .boxes.vote > h1 {border: none; padding-left: 0; padding-right: 0;}
@@ -1341,7 +1349,7 @@ video#bgvid {
 .boxes.profile-user h1 a,
 .boxes.profile-user h1 span {font-size: 30px; font-size: 3rem; color: #545454;}
 .boxes.profile-user .user-type {display: block; text-align: center; padding: 0; margin: 0 0 28px 0;}
-.boxes.profile-user > .actions {width: 280px; margin: 0 auto; display: block; text-align: center;}
+.boxes.profile-user > .actions {margin: 0 auto; display: block; text-align: center;}
 .boxes.profile-user > .actions .btn {margin-left: 0 !important; margin-top: 0 !important; width: 48%;}
 .boxes.profile-user > .actions .btn.follow {margin-right: 2% !important;}
 .boxes.profile-user > small {display: block; float: left; width: 50%; margin: 0; padding: 0; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
@@ -1728,7 +1736,7 @@ textarea.error,
 /* avatar en config cuadrado */
 .config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
 .config .uploaderImageContainer.USER_PROFILE > div {height: 300px; margin: 10px 0 0 0; position: relative;}
-.uploaderImageContainer.uploaderImageContainer POST_IMAGE> div {height: 300px; margin: 10px 0 0 0; position: relative;}
+.uploaderImageContainer.uploaderImageContainer .POST_IMAGE> div {height: 300px; margin: 10px 0 0 0; position: relative;}
 .qq-uploader {position: relative; width: 100%;}
 .qq-upload-button {
     text-align: center;
@@ -3311,6 +3319,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .boxes.vote > .btn-lg,
   .activity,
   .boxes.performance a.improve {width: 272px; margin: 0 auto;}
+  .boxes.profile-user > .actions {width: 272px;}
   #info-sup-scroll .voting > ul > li {margin-right: 20px;}
 }
 
