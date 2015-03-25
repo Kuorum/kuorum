@@ -2997,7 +2997,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
     display: none;
 }
 #info-sup-scroll .laley,
-#info-sup-scroll .voting > .closed {font-size: 14px; font-size: 1.4rem;}
+#info-sup-scroll .voting > .closed {font-size: 14px; font-size: 1.4rem; line-height: 2;}
 #info-sup-scroll .voting {text-align: right;}
 #info-sup-scroll .voting > ul > li > a {
   font-size: 9px;
@@ -3009,10 +3009,9 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
   color: #bcbcbc;
 }
 #info-sup-scroll .voting > ul > li {
-    display: block;
-    float: left;
-    margin-left: 0;
-    margin-right: 6px;
+  margin-right: 2px;
+  display: inline-block;
+  margin-left: 0;
 }
 #info-sup-scroll .voting > ul > li:last-child {margin: 0;}
 #info-sup-scroll .voting > ul > li > a:hover,
@@ -3312,6 +3311,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .boxes.vote > .btn-lg,
   .activity,
   .boxes.performance a.improve {width: 272px; margin: 0 auto;}
+  #info-sup-scroll .voting > ul > li {margin-right: 20px;}
 }
 
 @media only screen and (min-width: 533px) {
@@ -3443,7 +3443,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #detailsInfoVotes .icons {margin: 10px 0;}
   #info-sup-scroll {top: 55px; padding: 10px;}
   #info-sup-scroll .voting {margin-top: 15px;}
-  #info-sup-scroll .voting > ul > li {margin-right: 25px;}
   #info-sup-scroll .voting > ul > li > a {font-size: 11px; font-size: 1.1rem;}
   #info-sup-scroll  .infoVotes,
   #info-sup-scroll .voting > ul {margin: 0;}
@@ -3451,7 +3450,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #info-sup-scroll .laley,
   #info-sup-scroll .voting > .closed {font-size: 17px; font-size: 1.7rem; line-height: 1.6;}
   #info-sup-scroll .infoVotes > li,
-  #info-sup-scroll .infoVotes > span {font-size: 14px; font-size: 1.4rem; width: 64px; height: 33px; padding-top: 7px;}
+  #info-sup-scroll .infoVotes > span {font-size: 14px; font-size: 1.4rem; width: 62px; height: 33px; padding-top: 7px;}
   #info-sup-scroll .infoVotes > li {margin-left: 4px;}
   #info-sup-scroll .infoVotes > li:first-child {margin-left: 0;}
 
@@ -3762,7 +3761,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .infoVotes > li, .infoVotes > span {width: 70px; height: 33px; margin-left: 5px; font-size: 15px;  font-size: 1.5rem; padding: 6px;}
   #info-sup-scroll .infoVotes > li,
   #info-sup-scroll .infoVotes > span {padding: 6px; width: 70px; height: 33px; font-size: 16px; font-size: 1.6rem;}
-  #info-sup-scroll .voting > ul > li {margin-right: 35px;}
   #info-sup-scroll .infoVotes > li {margin-left: 15px;}
 
   .kakareo-list.project .kakareo.post.ley .laley,
