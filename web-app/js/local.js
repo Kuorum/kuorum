@@ -364,11 +364,11 @@ $(document).ready(function() {
     });
 
     // modal registro
-    $('body').on('click', "[data-toggle='modal'][data-target='#registro']", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        $("#registro").modal("show")
-    });
+    // $('body').on('click', "[data-toggle='modal'][data-target='#registro']", function(e) {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     $("#registro").modal("show")
+    // });
 
     // Habilitar/deshabilitar link "Marcar como inapropiado"
     $('body').on("click", ".mark a", function(e) {
