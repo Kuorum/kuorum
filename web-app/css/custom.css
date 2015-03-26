@@ -1087,7 +1087,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .vimeo > .youtube {width: 100%; display: none;}
 
 /* vídeo de fondo de la Home  */
-.full-video {overflow: hidden; position: relative; margin: 0; padding: 0 0 40px 0; background: url('../images/home-video.png') no-repeat center center; background-size: cover;}
+.full-video {width: 100%; overflow: hidden; position: relative; margin: 0; padding: 0 0 40px 0; background: url('../images/home-video.png') no-repeat center center; background-size: cover;}
 .full-video  .container-fluid {margin-top: 24px;}
 .full-video .socialGo {margin-bottom: 20px;}
 
