@@ -29,7 +29,7 @@ blockquote {border: none;}
 input[type="text"],
 input[type="number"],
 input[type="email"],
-select {color: #545454; font-size: 14px; font-size:  1.4rem; border: 1px solid #efefef; box-shadow: 0 0 0 rgba(0, 0, 0, 0);}
+select {color: #545454; font-size: 12px; font-size:  1.2rem; border: 1px solid #efefef; box-shadow: 0 0 0 rgba(0, 0, 0, 0);}
 /*input[type="text"],
 input[type="number"],
 input[type="email"],
@@ -126,7 +126,7 @@ label {font-weight: normal;}
 .boxes.vote.signin #sign {margin-bottom: 40px;}
 .boxes.vote.signin #sign > .row {margin-bottom: 10px;}
 .boxes.vote.signin #sign > .groupRadio {text-align: center;}
-#sign .voting > ul > li > a {width: 50px; color: #bcbcbc; font-size: 12px; font-size: 1.2rem;}
+#sign .voting > ul > li > a {width: 56px; color: #bcbcbc; font-size: 12px; font-size: 1.2rem;}
 #sign .voting > ul > li > a:hover,
 #sign .voting > ul > li > a:focus,
 #sign .voting > ul > li > a:active {color: #20a2ea; text-decoration: none;}
@@ -562,7 +562,6 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.condition .photo {margin-bottom: 10px;}
 .kakareo-list {list-style: none; margin: 0; padding: 0;}
 .kakareo-list .kakareo {margin-bottom: 20px;}
-/*.kakareo-list .user-type {margin-top: -24px;}*/
 
 .box-ppal.condition .no-age .form-group {margin-bottom: 0;}
 .box-ppal.condition .no-age .form-group:nth-child(2) {width: 180px; margin-right: 10px;}
@@ -637,7 +636,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .user > a:focus .name,
 .user > a:active .name {text-decoration: underline;}
 .user-type,
-.kakareo.follow {display: block; padding: 0 0 0 42px; color: #A8A8A8;}
+.kakareo.follow {display: block; padding: 0 0 0 43px; color: #A8A8A8;}
 
 /*Prueba kakareos fondo transparente (MAT 04/06/2014)*/
 .container-fluid .discover .kakareo {background-color: #fff;}
@@ -836,11 +835,11 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .popover .user-type {
     color: #A8A8A8 !important;
     padding: 0 0 0 49px !important;
-    margin: -19px 0 0 0!important;
+    margin: -18px 0 0 0!important;
     display: block !important;
 }
 .popover .scroll .user-type {margin-top: -15px !important;}
-.popover .follow {margin: 1px 0 0 49px !important;}
+.popover .follow {margin: 1px 0 0 0 !important;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
 .btn.follow {width: 105px;}
 .btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
@@ -1185,6 +1184,7 @@ video#bgvid {
 .boxes.follow .kakareo {border: none; padding: 0; margin: 15px 10px 0;}
 .boxes.follow .kakareo > ul > li {margin-right: 10px;}
 .boxes.taking-part > ul > li:last-child {margin: 0;}
+.boxes.follow .user-list-followers > .user > .user-type {padding: 0 0 0 44px;}
 
 /* boxes columna derecha dashboard */
 #aside-ppal {padding-top: 24px;}
@@ -1197,20 +1197,31 @@ video#bgvid {
   position: relative;
 }
 .boxes.info .kakareo.post.ley .photo {margin-top: 0;}
-.boxes.vote {padding: 0 15px;}
+.boxes.vote {padding: 5px 10px 0;}
 .boxes.noted {background-color: #eff5fd; margin: 0;}
 .boxes.profile-user {padding: 10px; /*min-height: 496px;*/}
 .boxes .edit {font-size: 12px; font-size: 1.2rem; display: inline-block; color: #A8A8A8; position: absolute; top: 10px; right: 10px;}
 .boxes.edit-user {padding: 10px;}
 .boxes.edit-user .name {font-size: 21px; font-size: 2.1rem; padding-bottom: 8px; display: block; line-height: 1;}
 .boxes.info {background: transparent; border: none; margin: 0 0 40px 0;}
-.boxes .user-type {display: inline-block; color: #a8a8a8;}
-.boxes.follow .user-type {display: block; margin-left: 4px;}
+.boxes.edit-user .user-type {display: inline-block; color: #a8a8a8;}
+.boxes .kakareo .user-type {
+  display: block;
+  margin-top: -12px;
+  padding: 0 0 0 31px;
+}
+/*.boxes.follow .user-type {display: block; margin-left: 4px;}*/
 .personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px;}
-.user-list-followers .user .actions {float: right; margin: -32px 0 0 0 !important;}
-.user-list-followers .user .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
-.user-list-followers .user .actions .close {margin: 1px 0 0 0;}
-
+.user-list-followers > .user > .actions {float: right; margin: -14px 0 0 !important; width: 108px;}
+.user-list-followers > .user > .actions .btn.follow {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+  margin: 0 5px 0 0 !important;
+  padding: 2px 6px !important;
+  width: 80px;
+}
+.user-list-followers > .user > .actions .close {margin: 1px 0 0 0;}
 .boxes .user-img,
 .condition .user-list-followers .user-img {float: left;}
 .user-list-followers .user-img {margin: 0 6px 0 0;}
@@ -1260,7 +1271,8 @@ video#bgvid {
 .box-ppal.profile .activity {width: 100%; margin: 10px 0;}
 .box-ppal.profile .activity > li {width: 30%; margin-bottom: 5px;}
 .box-ppal.profile .activity > li:nth-child(3) {border-right: none;}
-.box-ppal.profile .activity > li span {color: #545454; font-size: 30px; font-size: 3rem; font-weight: bold;}
+.box-ppal.profile .activity > li .popover-trigger .counter {color: #545454;}
+.box-ppal.profile .activity > li .counter {color: #a8a8a8; font-size: 30px; font-size: 3rem; font-weight: bold;}
 
 .boxes > h1 {font-size: 22px; font-size: 2.2rem; color: #545454; margin: 0; padding: 10px; border-bottom: 1px solid #dadada;}
 .boxes.vote > h1 {border: none; padding-left: 0; padding-right: 0;}
@@ -1341,7 +1353,7 @@ video#bgvid {
 .boxes.profile-user h1 a,
 .boxes.profile-user h1 span {font-size: 30px; font-size: 3rem; color: #545454;}
 .boxes.profile-user .user-type {display: block; text-align: center; padding: 0; margin: 0 0 28px 0;}
-.boxes.profile-user > .actions {width: 280px; margin: 0 auto; display: block; text-align: center;}
+.boxes.profile-user > .actions {margin: 0 auto; display: block; text-align: center;}
 .boxes.profile-user > .actions .btn {margin-left: 0 !important; margin-top: 0 !important; width: 48%;}
 .boxes.profile-user > .actions .btn.follow {margin-right: 2% !important;}
 .boxes.profile-user > small {display: block; float: left; width: 50%; margin: 0; padding: 0; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
@@ -1728,7 +1740,7 @@ textarea.error,
 /* avatar en config cuadrado */
 .config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
 .config .uploaderImageContainer.USER_PROFILE > div {height: 300px; margin: 10px 0 0 0; position: relative;}
-.uploaderImageContainer.uploaderImageContainer POST_IMAGE> div {height: 300px; margin: 10px 0 0 0; position: relative;}
+.uploaderImageContainer.uploaderImageContainer .POST_IMAGE> div {height: 300px; margin: 10px 0 0 0; position: relative;}
 .qq-uploader {position: relative; width: 100%;}
 .qq-upload-button {
     text-align: center;
@@ -2056,7 +2068,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.vote.drive > h2 {font-size: 13px; font-size: 1.3rem; margin: 15px 0 25px;}
 .progress {height: 15px; border-radius: 0; margin: 0;}
 .progress-bar {background-color: #828282;}
-.boxes.vote.drive .user-list-images > li {display: block; float: left; margin-right: 6px;}
+.boxes.vote.drive .user-list-images > li {display: block; float: left; margin-right: 2px;}
 .boxes.vote.drive .user-list-images > li:last-child {margin-right: 0;}
 .boxes.vote.drive form,
 .boxes.vote.drive .progress,
@@ -2065,14 +2077,12 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.vote.signin #sign,
 .boxes.vote div.social,
 .boxes.vote > .btn-lg,
-.activity,
-.boxes.performance a.improve {width: 240px; margin: 0 auto;}
+.boxes.performance a.improve {margin: 0 auto;}
 .boxes.vote.drive form  {margin: 10px auto 20px;}
 .boxes.vote.drive .btn {position: relative;}
 .boxes.vote.drive .btn.btn-lg {font-size: 17px !important; font-size: 1.7rem !important; padding-left: 50px !important; margin: 15px 0 !important;}
-.boxes.vote.drive .btn .fa {position: absolute; top: 15px; left: 15px;}
-.boxes.vote.drive .btn.disabled .fa {left: 35px;}
-.boxes.vote.drive .social {margin-bottom: 20px;}
+.boxes.vote.drive .btn .fa {position: absolute; top: 15px; left: 5%;}
+.boxes.vote.drive .social {margin-bottom: 20px !important;}
 .boxes.vote.drive .social li {font-size: 16px; font-size: 1.6rem;}
 
 .sponsor .user-list-images {margin: 0;}
@@ -2991,20 +3001,27 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
     left: 0;
     width: 100%;
     background: #fff;
-    z-index: 9999;
+    z-index: 1040;
     border-bottom: 1px solid #e5e5e5;
     padding: 8px 5px;
     display: none;
 }
 #info-sup-scroll .laley,
-#info-sup-scroll .voting > .closed {font-size: 14px; font-size: 1.4rem;}
+#info-sup-scroll .voting > .closed {font-size: 14px; font-size: 1.4rem; line-height: 2;}
 #info-sup-scroll .voting {text-align: right;}
-#info-sup-scroll .voting > ul > li > a {font-size: 9px; font-size: .9rem; height: auto; width: auto; margin: 0; padding: 0 !important; color: #bcbcbc;}
+#info-sup-scroll .voting > ul > li > a {
+  font-size: 9px;
+  font-size: .9rem;
+  height: auto;
+  width: auto;
+  margin: 0;
+  padding: 0 !important;
+  color: #bcbcbc;
+}
 #info-sup-scroll .voting > ul > li {
-    display: block;
-    float: left;
-    margin-left: 0;
-    margin-right: 8px;
+  margin-right: 2px;
+  display: inline-block;
+  margin-left: 0;
 }
 #info-sup-scroll .voting > ul > li:last-child {margin: 0;}
 #info-sup-scroll .voting > ul > li > a:hover,
@@ -3175,7 +3192,14 @@ h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size
 .embudo .arrow5 {width: 140px; height: 154px; background-image: url('../images/arrow5-blue.png'); background-size: auto; right: 95px;}
 
 /*botones video o foto en la edición del post*/
-fieldset.multimedia ul.nav.nav-pills.nav-justified li a {margin-bottom: 15px; background-color: #fff; border: 1px solid #efefef; color: #545454; font-size: 20px; font-size: 2rem;}
+fieldset.multimedia ul.nav.nav-pills.nav-justified li a {
+  margin-bottom: 15px;
+  background-color: #fff;
+  border: 1px solid #efefef;
+  color: #545454;
+  font-size: 16px;
+  font-size: 1.6rem;
+}
 
 /*botones video o foto en la edición del proyecto*/
 fieldset.multimedia ul.nav.nav-pills.nav-justified li.active a,
@@ -3280,6 +3304,11 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 /* ====================================================== */
 
 @media only screen and (min-width: 480px) {
+  .form-control,
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  select {color: #545454; font-size: 14px; font-size:  1.4rem;}
   .pre {margin: 75px 20px 5px 0;}
   .preFooter .user-list li .user-img {margin-right: 10px;}
   #detailsInfoVotes .table {width: 95%;}
@@ -3290,6 +3319,17 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 28%;}
   .chat > li .user.author {margin-top: -32px;}
   .listComments > li .user.author {margin-top: -32px;}
+  .boxes.vote.drive form,
+  .boxes.vote.drive .progress,
+  .boxes.vote.drive .sponsor,
+  .boxes.vote.drive .social,
+  .boxes.vote.signin #sign,
+  .boxes.vote div.social,
+  .boxes.vote > .btn-lg,
+  .boxes.performance a.improve {width: 272px; margin: 0 auto;}
+  .boxes.profile-user > .actions {width: 272px;}
+  #info-sup-scroll .voting > ul > li {margin-right: 20px;}
+  .user-list-followers > .user > .actions {margin: -32px 0 0 !important;}
 }
 
 @media only screen and (min-width: 533px) {
@@ -3376,7 +3416,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .sign.purchase .no-phone .form-group:nth-child(2) {width: 26%;}
   .sign.purchase .no-phone .form-group:nth-child(3) {width: 70%;}
   .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
-  .boxes.follow .user-list-followers .user .actions {float: none; margin: 8px 0 0 !important; text-align: right;}
+  /*.boxes.follow .user-list-followers > .user > .actions {float: none; margin: 8px 0 0 !important; text-align: right;}*/
   #aside-ppal {background-color: transparent;}
   /*#main {min-height: 898px;}*/
   #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
@@ -3421,7 +3461,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #detailsInfoVotes .icons {margin: 10px 0;}
   #info-sup-scroll {top: 55px; padding: 10px;}
   #info-sup-scroll .voting {margin-top: 15px;}
-  #info-sup-scroll .voting > ul > li {margin-right: 25px;}
   #info-sup-scroll .voting > ul > li > a {font-size: 11px; font-size: 1.1rem;}
   #info-sup-scroll  .infoVotes,
   #info-sup-scroll .voting > ul {margin: 0;}
@@ -3429,7 +3468,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #info-sup-scroll .laley,
   #info-sup-scroll .voting > .closed {font-size: 17px; font-size: 1.7rem; line-height: 1.6;}
   #info-sup-scroll .infoVotes > li,
-  #info-sup-scroll .infoVotes > span {font-size: 14px; font-size: 1.4rem; width: 64px; height: 33px; padding-top: 7px;}
+  #info-sup-scroll .infoVotes > span {font-size: 14px; font-size: 1.4rem; width: 62px; height: 33px; padding-top: 7px;}
   #info-sup-scroll .infoVotes > li {margin-left: 4px;}
   #info-sup-scroll .infoVotes > li:first-child {margin-left: 0;}
 
@@ -3510,7 +3549,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .vote .activity > li {font-size: 12px; font-size: 1.2rem; padding: 0 2px 6px;}
   .voting > ul > li {margin-right: 2px;}
   .voting > ul > li > a {font-size: 1.1rem; height: 53px; margin: 0 !important; width: 62px;}
-  /*.boxes.vote > .btn-lg {font-size: 11px; font-size: 1.15rem !important; padding: 8px !important;}*/
+  .boxes.vote {padding-top: 0;}
   .boxes.taking-part .user-list-followers li {margin-right: 1px;}
   .boxes.edit-user > .user > a {position: relative; display: block; text-align: center;}
   .boxes.edit-user .user-img.big {float: none; margin: 0;}
@@ -3641,16 +3680,12 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #otras-propuestas .kakareo-list .kakareo footer,
   .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
 
-  /*.politician-list .box-ppal { height: 364px;}*/
   .politician-list .box-ppal p {height: 56px; margin: 0 0 50px; overflow: hidden;}
   .politician-list .box-ppal > small {float: none; position: absolute; bottom: 0; left: 0;}
   .politician-list .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}
 
   .config .icheckbox_line-orange,
   .config .iradio_line-orange {margin: 0 7px 7px 0;}
-  .boxes.vote.drive form, .boxes.vote.drive .progress, .boxes.vote.drive .sponsor, .boxes.vote.drive .social {width: auto;}
-  /*.boxes.vote.drive .btn .fa {left: 15px;}*/
-  .boxes.vote.drive .btn.disabled .fa {left: 32px;}
   .boxes.vote.drive .btn.btn-lg {font-size: 18px !important; font-size: 1.8rem !important; padding-left: 55px !important;}
   .boxes.vote.drive.fixed {position: fixed; z-index: 999; width: 301px; -webkit-transform: translateZ(0);}
 
@@ -3717,8 +3752,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
   .config > article > .box-ppal, .config > section > .box-ppal {padding: 22px 20px 0 20px; margin-bottom: 60px;}
 
-  .user-list-followers .user .actions {float: right; margin: -30px 0 0 0 !important;}
-  .user-list-followers .user .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
+  .user-list-followers > .user > .actions {float: right; margin: -30px 0 0 0 !important;}
+  .user-list-followers > .user > .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
 
   .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
   .arrow2 {right: 24px;}
@@ -3733,7 +3768,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .list-project .kakareo.post.ley .total-info {font-size: 20px; font-size: 2rem;}
   .list-project .kakareo.post.ley .laley a {font-size: 22px; font-size: 2.2rem;}
   .config > section .filter-order > li {margin: 0 2% 0 0; font-size: 18px; font-size: 1.8rem;}
-  fieldset.multimedia ul.nav.nav-pills.nav-justified li a {font-size: 17px; font-size: 1.7rem;}
 
   .boxes.performance a.improve {font-size: 20px; font-size: 2rem;}
   #info-sup-scroll .laley,
@@ -3743,7 +3777,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .infoVotes > li, .infoVotes > span {width: 70px; height: 33px; margin-left: 5px; font-size: 15px;  font-size: 1.5rem; padding: 6px;}
   #info-sup-scroll .infoVotes > li,
   #info-sup-scroll .infoVotes > span {padding: 6px; width: 70px; height: 33px; font-size: 16px; font-size: 1.6rem;}
-  #info-sup-scroll .voting > ul > li {margin-right: 35px;}
   #info-sup-scroll .infoVotes > li {margin-left: 15px;}
 
   .kakareo-list.project .kakareo.post.ley .laley,
@@ -3900,8 +3933,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .boxes.vote.drive .btn .fa {left: 30px;}
-  .boxes.vote.drive .btn.disabled .fa {left: 55px;}
   .pago {background-size: 342px auto; background-position: center 25px;}
   .embudo #aside-ppal {padding-bottom: 46px;}
   .config.info > article > .box-ppal > h1 {margin: 5px 0 25px;}
@@ -3916,7 +3947,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .config .icheckbox_line-orange,
   .config .iradio_line-orange {margin-right: 26px; margin-bottom: 26px;}
   .box-ppal.condition .no-age .form-group:nth-child(2) {width: 172px;}
-  .boxes.follow .user-list-followers .user .actions {float: right; margin: -30px 0 0 !important;}
+  .boxes.follow .user-list-followers > .user > .actions {float: right; margin: -30px 0 0 !important;}
   .condition .user-list-followers  > li {width: 47%; float: left;}
   .sign .login .btn + .cancel {margin-left: 34px;}
   #main {min-height: 674px;}
@@ -3924,7 +3955,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .sign h2 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: left;}
   .sign .login {margin-top: 60px; margin-bottom: 60px;}
   #karma {right: 2.8%;}
-  fieldset.multimedia ul.nav.nav-pills.nav-justified li a {font-size: 20px; font-size: 2rem;}
   .boxes.performance a.improve {font-size: 24px; font-size: 2.4rem;}
   #info-sup-scroll .laley {font-size: 25px; font-size: 2.5rem;}
   .navbar-form {margin: 5px 4px 4px 22%;}
@@ -3936,7 +3966,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .box .badge {top: 2px;}
   .voting > ul > li > a {font-size: 14px; font-size: 1.4rem; width: 90px; height: 68px;}
   .boxes > h1 {padding: 15px 10px;}
-  .boxes.vote > .btn-lg {font-size: 16px; font-size: 1.66rem !important;}
+  .boxes.vote > .btn-lg {font-size: 16px; font-size: 1.6rem !important;}
   .boxes.vote .voting > ul > li {margin-right: 6px;}
   .boxes.vote .voting > ul > li:last-child {margin-right: 0;}
   .boxes.edit-user {padding: 20px;}
