@@ -2078,7 +2078,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.vote div.social,
 .boxes.vote > .btn-lg,
 .boxes.performance a.improve {margin: 0 auto;}
-.boxes.vote.drive form  {margin: 10px auto 40px;}
+.boxes.vote.drive form  {margin: 10px auto 20px;}
 .boxes.vote.drive .btn {position: relative;}
 .boxes.vote.drive .btn.btn-lg {font-size: 17px !important; font-size: 1.7rem !important; padding-left: 50px !important; margin: 15px 0 !important;}
 .boxes.vote.drive .btn .fa {position: absolute; top: 15px; left: 5%;}
