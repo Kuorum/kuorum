@@ -835,7 +835,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .popover .user-type {
     color: #A8A8A8 !important;
     padding: 0 0 0 49px !important;
-    margin: -6px 0 0 0!important;
+    margin: -18px 0 0 0!important;
     display: block !important;
 }
 .popover .scroll .user-type {margin-top: -15px !important;}
@@ -3001,7 +3001,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
     left: 0;
     width: 100%;
     background: #fff;
-    z-index: 9999;
+    z-index: 1040;
     border-bottom: 1px solid #e5e5e5;
     padding: 8px 5px;
     display: none;
@@ -3192,7 +3192,14 @@ h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size
 .embudo .arrow5 {width: 140px; height: 154px; background-image: url('../images/arrow5-blue.png'); background-size: auto; right: 95px;}
 
 /*botones video o foto en la edición del post*/
-fieldset.multimedia ul.nav.nav-pills.nav-justified li a {margin-bottom: 15px; background-color: #fff; border: 1px solid #efefef; color: #545454; font-size: 20px; font-size: 2rem;}
+fieldset.multimedia ul.nav.nav-pills.nav-justified li a {
+  margin-bottom: 15px;
+  background-color: #fff;
+  border: 1px solid #efefef;
+  color: #545454;
+  font-size: 16px;
+  font-size: 1.6rem;
+}
 
 /*botones video o foto en la edición del proyecto*/
 fieldset.multimedia ul.nav.nav-pills.nav-justified li.active a,
@@ -3761,7 +3768,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .list-project .kakareo.post.ley .total-info {font-size: 20px; font-size: 2rem;}
   .list-project .kakareo.post.ley .laley a {font-size: 22px; font-size: 2.2rem;}
   .config > section .filter-order > li {margin: 0 2% 0 0; font-size: 18px; font-size: 1.8rem;}
-  fieldset.multimedia ul.nav.nav-pills.nav-justified li a {font-size: 17px; font-size: 1.7rem;}
 
   .boxes.performance a.improve {font-size: 20px; font-size: 2rem;}
   #info-sup-scroll .laley,
@@ -3949,7 +3955,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .sign h2 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: left;}
   .sign .login {margin-top: 60px; margin-bottom: 60px;}
   #karma {right: 2.8%;}
-  fieldset.multimedia ul.nav.nav-pills.nav-justified li a {font-size: 20px; font-size: 2rem;}
   .boxes.performance a.improve {font-size: 24px; font-size: 2.4rem;}
   #info-sup-scroll .laley {font-size: 25px; font-size: 2.5rem;}
   .navbar-form {margin: 5px 4px 4px 22%;}
