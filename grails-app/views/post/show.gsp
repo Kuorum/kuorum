@@ -41,7 +41,7 @@
     <section class="boxes vote drive">
         <g:render template="likesContainer" model="[post:post]"/>
         <div class="sponsor">
-            <userUtil:showListUsers users="${usersVotes}" visibleUsers="5" messagesPrefix="post.show.boxes.like.userList"/>
+            <userUtil:showListUsers users="${usersVotes}" visibleUsers="4" messagesPrefix="post.show.boxes.like.userList"/>
         </div>
         <g:render template="/post/postVotePostButton" model="[post:post, userVote:userVote]"/>
 
