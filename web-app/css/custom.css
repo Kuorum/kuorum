@@ -2068,7 +2068,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.vote.drive > h2 {font-size: 13px; font-size: 1.3rem; margin: 15px 0 25px;}
 .progress {height: 15px; border-radius: 0; margin: 0;}
 .progress-bar {background-color: #828282;}
-.boxes.vote.drive .user-list-images > li {display: block; float: left; margin-right: 6px;}
+.boxes.vote.drive .user-list-images > li {display: block; float: left; margin-right: 2px;}
 .boxes.vote.drive .user-list-images > li:last-child {margin-right: 0;}
 .boxes.vote.drive form,
 .boxes.vote.drive .progress,
@@ -2082,7 +2082,6 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.vote.drive .btn {position: relative;}
 .boxes.vote.drive .btn.btn-lg {font-size: 17px !important; font-size: 1.7rem !important; padding-left: 50px !important; margin: 15px 0 !important;}
 .boxes.vote.drive .btn .fa {position: absolute; top: 15px; left: 5%;}
-.boxes.vote.drive .btn.disabled .fa {left: 35px;}
 .boxes.vote.drive .social {margin-bottom: 20px !important;}
 .boxes.vote.drive .social li {font-size: 16px; font-size: 1.6rem;}
 
@@ -3680,7 +3679,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
   .config .icheckbox_line-orange,
   .config .iradio_line-orange {margin: 0 7px 7px 0;}
-  .boxes.vote.drive .btn.disabled .fa {left: 32px;}
   .boxes.vote.drive .btn.btn-lg {font-size: 18px !important; font-size: 1.8rem !important; padding-left: 55px !important;}
   .boxes.vote.drive.fixed {position: fixed; z-index: 999; width: 301px; -webkit-transform: translateZ(0);}
 
@@ -3929,7 +3927,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .boxes.vote.drive .btn.disabled .fa {left: 55px;}
   .pago {background-size: 342px auto; background-position: center 25px;}
   .embudo #aside-ppal {padding-bottom: 46px;}
   .config.info > article > .box-ppal > h1 {margin: 5px 0 25px;}
