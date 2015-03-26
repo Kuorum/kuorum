@@ -2083,7 +2083,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.vote.drive .btn.btn-lg {font-size: 17px !important; font-size: 1.7rem !important; padding-left: 50px !important; margin: 15px 0 !important;}
 .boxes.vote.drive .btn .fa {position: absolute; top: 15px; left: 5%;}
 .boxes.vote.drive .btn.disabled .fa {left: 35px;}
-.boxes.vote.drive .social {margin-bottom: 20px;}
+.boxes.vote.drive .social {margin-bottom: 20px !important;}
 .boxes.vote.drive .social li {font-size: 16px; font-size: 1.6rem;}
 
 .sponsor .user-list-images {margin: 0;}
