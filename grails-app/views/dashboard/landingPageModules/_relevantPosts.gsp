@@ -10,7 +10,7 @@
 </ul>
 </div>
 <div class="homeMore two">
-    <a href="#" class="btn btn-lg" data-toggle="modal" data-target="#registro"><g:message code="landingPage.register.form.submit"/> </a>
+    <a href="#" class="btn btn-lg open-sign-form" data-toggle="modal" data-target="#registro"><g:message code="landingPage.register.form.submit"/> </a>
     <a href="#" class="btn btn-blue btn-lg" data-toggle="modal" data-target="#registro"><g:message code="login.intro.login"/> </a>
 </div>
 </section>
