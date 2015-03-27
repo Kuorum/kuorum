@@ -2390,7 +2390,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .sign.home .login .cancel a:focus,
 .sign.home .login .form-group:last-child a {color: #fff;}
 
-.form-home-container {position: relative; margin: 0 auto; min-height: 410px; width: 274px;}
+.form-home-container {position: relative; margin: 0 auto; min-height: 410px; width: 100%;}
 .sign.home .form-home-container .login {position: absolute; top: 0; left: 0; width: 100%;}
 .sign.home .form-home-container .login .btn + .cancel {
     line-height: 2.4;
@@ -2419,7 +2419,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub {margin: 0 0 40px 0;}
 .homeSub > .row > h1 {text-align: center; padding: 0 15px 10px 15px; margin: 0 0 20px 0; font-size: 26px; font-size: 2.6rem; border-bottom: 1px solid #e5e5e5;}
 .homeSub h2 {font-size: 24px; font-size: 2.4rem; padding: 0 16%;}
-.homeSub .homeMore {width: 272px; margin: 0 auto;text-align: center;}
+.homeSub .homeMore {width: 100%; margin: 0 auto;text-align: center;}
 .homeSub .homeMore.two .btn {width: 43%; margin-right: 2% !important;}
 .homeSub .homeMore.two .btn:last-child {margin: 0 !important;}
 
@@ -3327,6 +3327,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .boxes.vote > .btn-lg,
   .boxes.performance a.improve {width: 272px; margin: 0 auto;}
   .boxes.profile-user > .actions {width: 272px;}
+  .form-home-container {width: 320px;}
+  .homeSub .homeMore {width: 320px;}
   #info-sup-scroll .voting > ul > li {margin-right: 20px;}
   .user-list-followers > .user > .actions {margin: -32px 0 0 !important;}
 }
@@ -3364,7 +3366,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #myWidgetLabel {font-size: 34px;}
   #detailsInfoVotes .table tbody th {width: 300px;}
   #detailsInfoVotes.autor .table tbody th {width: 335px;}
-  /*.video > .front {height: 310px;}*/
 
 }
 
@@ -3381,7 +3382,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .config .iradio_line-orange {margin: 0 5px 5px 0;}
   h2.underline {font-size: 25px; font-size: 2.5rem;}
   .pago {background-size: 320px auto;}
-  .form-home-container {width: 320px;}
   .homeSub.medios h2 {margin-top: 100px;}
   .config > header h1 {font-size: 22px; font-size: 2.2rem;}
   .config.info > article > .box-ppal > h1 {margin: 5px 0 15px;}
