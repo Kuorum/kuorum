@@ -2693,7 +2693,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .onecol.list .block-results li {list-style: none; margin: 0 0 4px 0; font-size: 14px; font-size: 1.4rem;}
 .onecol.list .block-results li a {color: #545454;}
 
-.noty_message {padding: 10px 10px 40px !important;}
+.noty_message {padding: 10px !important;}
 .noty_text {line-height:2rem;}
 .noty_text a {color:#ff9431;}
 
@@ -3288,9 +3288,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 .cl-ntral-xxlight {color: #fcfcfc;}
 
 #acceptCookies{
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
+    float: right;
+    margin: 6px 0 8px 6px !important;
 }
 
 #switchUserLink{
