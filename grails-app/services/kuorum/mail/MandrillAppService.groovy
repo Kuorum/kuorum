@@ -84,6 +84,10 @@ class MandrillAppService {
                         content: mailUserData.bindings[field]
                 )
             }
+            userVars.vars = userVars.vars.plus(new MandrillMessage.MergeVar(
+                    name:"language",
+                    content: mailUserData.user.language.locale.language
+            ))
             userVars
         }
     }

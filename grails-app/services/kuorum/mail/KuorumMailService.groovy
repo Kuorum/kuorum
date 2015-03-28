@@ -1,6 +1,7 @@
 package kuorum.mail
 
 import grails.transaction.Transactional
+import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.OfferType
 import kuorum.core.model.PostType
@@ -103,7 +104,8 @@ class KuorumMailService {
         KuorumUser user = new KuorumUser(
                 name: "Feedback",
                 email: "${grailsApplication.config.kuorum.contact.feedback}",
-                availableMails: MailType.values()
+                availableMails: MailType.values(),
+                language: AvailableLanguage.es_ES
         )
     }
 
@@ -112,7 +114,8 @@ class KuorumMailService {
         KuorumUser user = new KuorumUser(
                 name: "${grailsApplication.config.kuorum.purchase.userName}",
                 email: "${grailsApplication.config.kuorum.purchase.email}",
-                availableMails: MailType.values()
+                availableMails: MailType.values(),
+                language: AvailableLanguage.es_ES
         )
     }
 
