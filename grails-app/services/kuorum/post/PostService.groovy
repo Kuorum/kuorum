@@ -172,31 +172,6 @@ class PostService {
         text
     }
 
-    void sponsorAPost(Post post, Sponsor sponsor){
-
-        Sponsor alreadySponsor = post.sponsors.find{it == sponsor}
-        if (alreadySponsor){
-            double amount = alreadySponsor.amount + sponsor.amount
-            Post.collection.update ( [_id:post.id,        'sponsors.kuorumUserId':sponsor.kuorumUser.id],['$set':['sponsors.$.amount':amount]])
-            cluckService.createActionCluck(post, sponsor.kuorumUser, CluckAction.SPONSOR)
-        }else{
-            //NEW SPONSOR
-            def sponsorData = [kuorumUserId:sponsor.kuorumUser.id, amount:sponsor.amount]
-            //ATOMIC OPERATION
-            Post.collection.update ( [_id:post.id],['$push':['sponsors':sponsorData]])
-            cluckService.createActionCluck(post, sponsor.kuorumUser, CluckAction.SPONSOR)
-
-        }
-        Post.collection.update ( [_id:post.id],['$push':['sponsors':[$each: [],$sort:[amount:1]]]])
-
-        //Reloading data from DDBB
-        post.refresh()
-
-        Integer numMails = calculateNumEmails(sponsor.amount)
-        notificationService.sendSponsoredPostNotification(post, sponsor.kuorumUser, numMails)
-        gamificationService.sponsorAPostAward(sponsor.kuorumUser, numMails)
-    }
-
     Integer calculateNumEmails(Double price){
         Integer numMails
         Double mailPrice = grailsApplication.config.kuorum.promotion.mailPrice

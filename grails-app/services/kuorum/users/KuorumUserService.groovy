@@ -587,6 +587,7 @@ class KuorumUserService {
             if (!reloadScore){
                 return userScoredCollection
             }
+            userScoredCollection.drop();
             chapuSyncReloadScore = chapuSyncReloadScore.clearTime()+1
 
             log.warn("Calculando SCORE. Operacion lenta. Hay que cachearla o hacerla por la noche")

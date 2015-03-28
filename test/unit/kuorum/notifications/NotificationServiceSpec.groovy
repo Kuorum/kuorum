@@ -437,40 +437,4 @@ class NotificationServiceSpec extends Specification {
         final KuorumException exception = thrown()
         exception.errors[0].code == "error.project.notClosed"
     }
-
-
-    @Unroll
-    void "test promotion sending #numEmails mails when there are #numUsers users"(){
-        given: "Some Users and a post"
-        Post post = Helper.createDefaultPost()
-        KuorumUser sponsor = Helper.createDefaultUser("sponsor@email.com")
-        (1..numUsers).each {
-            KuorumUser user = Helper.createDefaultUser("user${it}@example.com")
-            user.save()
-        }
-        def min = numEmails > numUsers?numUsers:numEmails
-        def times = new Float((min)/service.BUFFER_NOTIFICATIONS_SIZE).trunc()
-        if ((min) % service.BUFFER_NOTIFICATIONS_SIZE>0)
-            times ++
-        times = times *numSponsors
-        times = times > numUsers? numUsers: times
-
-        when:"Sending promotion mail"
-        (1..numSponsors).each{
-            service.sendSponsoredPostNotification(post, sponsor, numEmails )
-        }
-        then:
-        numSponsors * kuorumMailService.sendPromotedPostMailSponsor(post,sponsor)
-        numSponsors * kuorumMailService.sendPromotedPostMailOwner(post,sponsor)
-        times * kuorumMailService.sendPromotedPostMailUsers(post, sponsor, { it.size()>0})
-        where:
-        numEmails   | numUsers  | numSponsors
-        1           |   10      |   1
-        1           |   10      |   2
-        5           |   10      | 1
-        5           |   10      | 2
-        10          |   10      |  1
-        10          |   10      |  2
-        15          |   10      | 1
-    }
 }

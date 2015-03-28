@@ -1,6 +1,8 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.model.PostType
+import kuorum.core.model.UserType
 import kuorum.mail.MailUserData
 import kuorum.post.Cluck
 import kuorum.post.Post
@@ -145,30 +147,6 @@ class MailTestingController {
         redirect action: "index", params:[email:email]
     }
 
-    def testPromotedOwner(String email){
-        def data = prepareMailTestEnviroment(email)
-        kuorumMailService.sendPromotedPostMailOwner(data.post, data.politician)
-
-        flash.message ="Se ha enviado el mail al email $email"
-        redirect action: "index", params:[email:email]
-    }
-
-    def testPromotedSponsor(String email){
-        def data = prepareMailTestEnviroment(email)
-        kuorumMailService.sendPromotedPostMailSponsor(data.post, data.politician)
-
-        flash.message ="Se ha enviado el mail al email $email"
-        redirect action: "index", params:[email:email]
-    }
-
-    def testPromotedUsers(String email){
-        def data = prepareMailTestEnviroment(email)
-        kuorumMailService.sendPromotedPostMailUsers(data.post, data.politician,data.peopleNotified)
-
-        flash.message ="Se ha enviado el mail al email $email"
-        redirect action: "index", params:[email:email]
-    }
-
 
     private String prepareEmail(String email, String userName){
         def parts = email.split("@")
@@ -179,18 +157,18 @@ class MailTestingController {
 
         /* NO SAVES PLEASE */
 
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        Post post = Post.findByNumClucksGreaterThan(1)
+        KuorumUser user = post.owner
         user.email = prepareEmail(email, "user")
-        KuorumUser politician = KuorumUser.findByEmail("politician@example.com")
+        KuorumUser politician = KuorumUser.findByUserType(UserType.POLITICIAN)
         politician.email = prepareEmail(email, "politician")
-        Post post = Post.findByOwner(user)
         post.debates = [new PostComment(text:"Debate molon", kuorumUser: politician)]
         post.defender = politician
 //        post.save(); //NO SAVES
         Set<MailUserData> peopleNotified = [
-                KuorumUser.findByEmail("carmen@example.com"),
-                KuorumUser.findByEmail("noe@example.com")
-        ].collect{KuorumUser userVoted -> new MailUserData(user: userVoted, bindings: [postType:post.postType.toString()])} as Set<MailUserData>
+                KuorumUser.findAllByEmailLike("info%@kuorum.org", [max:10])[0],
+                KuorumUser.findAllByEmailLike("info%@kuorum.org", [max:10])[1]
+        ].collect{KuorumUser userVoted -> new MailUserData(user: userVoted, bindings: [postType:"PROPUESTA A PELO POR TEST"])} as Set<MailUserData>
 
         peopleNotified.each {
             it.user.email = prepareEmail(email, it.user.email.split("@")[0])

@@ -5,60 +5,54 @@ package kuorum.mail
  */
 public enum MailType {
 
-    REGISTER_VERIFY_EMAIL               (MailGroupType.NOT_CONFIGURABLE,"03_validationEmail",           "registerUser", ["confirmationLink"], []),
-    REGISTER_RESET_PASSWORD             (MailGroupType.NOT_CONFIGURABLE,"03A_resetPassword",            "registerUser", ["resetPasswordLink"], []),
-    REGISTER_RRSS                       (MailGroupType.NOT_CONFIGURABLE,"04_validationEmailRRSS",       "registerUser", [], ["provider"]),
-    REGISTER_ACCOUNT_COMPLETED          (MailGroupType.NOT_CONFIGURABLE,"05_registerCompleted",         "registerUser", [], []),
-    REGISTER_CHANGE_EMAIL_VERIFY        (MailGroupType.NOT_CONFIGURABLE,"03B_validationNewEmail",       "registerUser", ["confirmationLink"], []),
-    REGISTER_CHANGE_EMAIL_REQUESTED     (MailGroupType.NOT_CONFIGURABLE,"03C_validationNewEmailSecurity","registerUser",["newEmailAccount"], []),
+    REGISTER_VERIFY_EMAIL               (MailGroupType.REGISTER,"register-validation",    ["confirmationLink"], []),
+    REGISTER_RESET_PASSWORD             (MailGroupType.REGISTER,"register-resetPassword", ["resetPasswordLink"], []),
+    REGISTER_RRSS                       (MailGroupType.REGISTER,"register-socialNetworks",[], ["provider"]),
+    REGISTER_ACCOUNT_COMPLETED          (MailGroupType.REGISTER,"register-completed",     [], []),
+    REGISTER_CHANGE_EMAIL_VERIFY        (MailGroupType.REGISTER,"register-emailChangeOld",["confirmationLink"], []),
+    REGISTER_CHANGE_EMAIL_REQUESTED     (MailGroupType.REGISTER,"register-emailChangeNew",["newEmailAccount"], []),
+    NOTIFICATION_OFFER_PURCHASED        (MailGroupType.REGISTER,"register-suscription",   [], ["userLink", "user", "offerType", "totalPrice"]),
 
-    PROJECT_CREATED_NOTIFICATION        (MailGroupType.NOT_CONFIGURABLE, "24_projectCreatedNotification",  "notification", ["projectName", "projectOwner", "commissionType"], ["projectYoutube", "projectLink", "projectImage"]),
+    PROJECT_CREATED_NOTIFICATION        (MailGroupType.EVENT_PROJECT, "project-new", ["projectName", "projectOwner", "commissionType"], ["projectYoutube", "projectLink", "projectImage"]),
 
-    NOTIFICATION_CLUCK                  (MailGroupType.MAIL_RELATED_WITH_ME,            "07_notificationCluck",         "notification", [],  ["postType", "clucker","cluckerLink","postName", "postLink"]),
-    NOTIFICATION_FOLLOWER               (MailGroupType.MAIL_RELATED_WITH_ME,            "08_notificationFollower",      "notification", [],  ["follower","followerLink"]),
-    NOTIFICATION_PUBLIC_MILESTONE       (MailGroupType.MAIL_RELATED_WITH_ME,            "09_notificationMilestone",     "notification",["postType"],["postName", "numVotes", "postLink"]),
-    NOTIFICATION_DEBATE_USERS           (MailGroupType.MAIL_RELATED_WITH_OTHER_USERS,   "15_notificationDebateUsers",   "notification",[],["postType","debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
-    NOTIFICATION_DEBATE_AUTHOR          (MailGroupType.MAIL_RELATED_WITH_ME,            "13_notificationDebateAuthor",  "notification",[],["postType","debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
-    NOTIFICATION_DEBATE_POLITICIAN      (MailGroupType.POLITICIAN_MAIL,                 "14_notificationDebatePolitician", "notification",[],["postType","debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
-    NOTIFICATION_DEFENDED_USERS         (MailGroupType.MAIL_RELATED_WITH_OTHER_USERS,   "19_notificationDefendedUsers", "notification",[],   ["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_DEFENDED_AUTHOR        (MailGroupType.MAIL_RELATED_WITH_ME,            "16_notificationDefendedAuthor","notification",[],   ["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_DEFENDED_BY_POLITICIAN (MailGroupType.MAIL_RELATED_WITH_POLITICIANS,   "17_notificationDefendedByPolitician","notification",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_DEFENDED_POLITICIANS   (MailGroupType.POLITICIAN_MAIL,                 "18_notificationDefendedPoliticians", "notification",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_COMMENTED_POST_OWNER   (MailGroupType.MAIL_RELATED_WITH_ME,            "22_notificationCommentAuthor", "notification",[],["postType","commenter","commenterLink","comment", "postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_COMMENTED_POST_USERS   (MailGroupType.MAIL_RELATED_WITH_OTHER_USERS,   "23_notificationCommentCommenter", "notification",[],["postType","commenter","commenterLink","comment", "postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_VICTORY_USERS          (MailGroupType.MAIL_RELATED_WITH_OTHER_USERS,   "21_notificationVictoryUsers","notification",[],  ["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_VICTORY_DEFENDER       (MailGroupType.POLITICIAN_MAIL,                 "20_notificationVictoryDefender","notification",[],  ["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_OFFER_PURCHASED        (MailGroupType.NOT_CONFIGURABLE,                "24_notificationPoliticianSubscription","notification",[], ["userLink", "user", "offerType", "totalPrice"]),
+    NOTIFICATION_CLUCK                  (MailGroupType.EVENT_ME,         "me-cluck",                    ["postType"],["clucker","cluckerLink","postName", "postLink"]),
+    NOTIFICATION_FOLLOWER               (MailGroupType.EVENT_ME,         "me-follower",                 [],["follower","followerLink"]),
+    NOTIFICATION_PUBLIC_MILESTONE       (MailGroupType.EVENT_ME,         "me-milestone",                ["postType"],["postName", "numVotes", "postLink"]),
+    NOTIFICATION_DEBATE_USERS           (MailGroupType.EVENT_PROPOSAL,   "proposal-debate",             ["postType"],["debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
+    NOTIFICATION_DEBATE_AUTHOR          (MailGroupType.EVENT_ME,         "me-proposalDebate",           ["postType"],["debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
+    NOTIFICATION_DEBATE_POLITICIAN      (MailGroupType.EVENT_POLITICIAN, "politician-debateOther",      ["postType"],["debateOwner","debateOwnerLink","postName","postOwner","postOwnerLink","message", "postLink"]),
+    NOTIFICATION_DEFENDED_USERS         (MailGroupType.EVENT_PROPOSAL,   "proposal-sponsorship",        ["postType"],["defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_DEFENDED_AUTHOR        (MailGroupType.EVENT_ME,         "me-proposalSponsorship",      ["postType"],["defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_DEFENDED_BY_POLITICIAN (MailGroupType.EVENT_POLITICIAN, "politician-sponsorshipMine",  ["postType"],["defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_DEFENDED_POLITICIANS   (MailGroupType.EVENT_POLITICIAN, "politician-sponsorshipOther", ["postType"],["defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_COMMENTED_POST_OWNER   (MailGroupType.EVENT_ME,         "me-proposalComment",          ["postType"],["commenter","commenterLink","comment", "postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_COMMENTED_POST_USERS   (MailGroupType.EVENT_ME,         "me-commentAnswer",            ["postType"],["commenter","commenterLink","comment", "postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_VICTORY_USERS          (MailGroupType.EVENT_PROPOSAL,   "proposal-victory",            ["postType"],["defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
+    NOTIFICATION_VICTORY_DEFENDER       (MailGroupType.EVENT_POLITICIAN, "politician-victoryMine",      ["postType"],["defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
 
-    PROMOTION_OWNER                     (MailGroupType.MAIL_RELATED_WITH_ME,            "10_notificationPromotionAuthor",    "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]),
-    PROMOTION_SPONSOR                   (MailGroupType.MAIL_RELATED_WITH_ME,            "11_notificationPromotionPromoter",  "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]),
-    PROMOTION_USERS                     (MailGroupType.MAIL_RELATED_WITH_OTHER_USERS,   "12_notificationPromotionList",      "promotion",[],["postType","postName","postLink", "promoter","promoterLink","postOwner","postOwnerLink","hashtag","hashtagLink"]),
+    POST_CREATED_1                      (MailGroupType.TIME, "time-proposalPublished-0", [],["postType"]),
+    POST_CREATED_2                      (MailGroupType.TIME, "time-proposalPublished-1", [],["postType"]),
+    POST_CREATED_3                      (MailGroupType.TIME, "time-proposalPublished-3", [],["postType"]),
+    POST_CREATED_4                      (MailGroupType.TIME, "time-proposalPublished-12",[],["postType"]),
 
-    POST_CREATED_1                      (MailGroupType.NOT_CONFIGURABLE, "02_publishedAuthor",      "promotion",[],["postType"]),
-    POST_CREATED_2                      (MailGroupType.NOT_CONFIGURABLE, "02A_timePublishedAuthor", "promotion",[],["postType"]),
-    POST_CREATED_3                      (MailGroupType.NOT_CONFIGURABLE, "02B_timePublishedAuthor", "promotion",[],["postType"]),
-    POST_CREATED_4                      (MailGroupType.NOT_CONFIGURABLE, "02C_timePublishedAuthor", "promotion",[],["postType"]),
-
-    FEEDBACK_VICTORY              (MailGroupType.NOT_CONFIGURABLE, "00_feedbackVictory", "internal",[],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink", "victoryOk"]),
-    FEEDBACK                      (MailGroupType.NOT_CONFIGURABLE, "00_feedback", "internal",[],["feedbackText", "feedbackUser", "feedbackUserLink", "userDeleted"]),
-    POLITICIAN_SUBSCRIPTION       (MailGroupType.NOT_CONFIGURABLE, "00_politicianSubscription", "internal",[],["userLink", "user", "offerType", "totalPrice"]);
+    FEEDBACK_VICTORY              (MailGroupType.ADMIN, "admin-victory",     [],["postType","defender","defenderLink","postName", "postOwner","postOwnerLink","postLink", "victoryOk"]),
+    FEEDBACK                      (MailGroupType.ADMIN, "admin-deletedUser", [],["feedbackText", "feedbackUser", "feedbackUserLink", "userDeleted"]),
+    POLITICIAN_SUBSCRIPTION       (MailGroupType.ADMIN, "admin-suscription", [],["userLink", "user", "offerType", "totalPrice"]);
 
 
     String nameTemplate
-    String tagTemplate
     List<String> requiredBindings
     List<String> globalBindings
     MailGroupType mailGroup
 
-    MailType(MailGroupType mailGroup, String nameTemplate, String tagTemplate, List<String> requiredBindings, List<String> globalBindings){
+    MailType(MailGroupType mailGroup, String nameTemplate, List<String> requiredBindings, List<String> globalBindings){
         this.nameTemplate = nameTemplate
-        this.tagTemplate = tagTemplate
         this.requiredBindings = requiredBindings
         this.globalBindings = globalBindings
         this.mailGroup = mailGroup
     }
 
     Boolean getConfigurable(){
-        mailGroup != MailGroupType.NOT_CONFIGURABLE
+        mailGroup.editable
     }
 }

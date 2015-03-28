@@ -84,8 +84,9 @@ class KuorumMailService {
     }
 
     def sendVictoryToAdmins(KuorumUser user, Post post, Boolean victoryOk){
+        KuorumUser admin = getFeedbackUser()
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", admin.language.locale),
                 defender:post.defender.name,
                 defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 postName:post.title,
@@ -94,7 +95,7 @@ class KuorumMailService {
                 postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties()),
                 victoryOk:victoryOk
         ]
-        MailUserData mailUserData = new MailUserData(user:getFeedbackUser(), bindings:[])
+        MailUserData mailUserData = new MailUserData(user:admin, bindings:[])
         MailData mailData = new MailData(fromName:user.name, mailType: MailType.FEEDBACK_VICTORY, globalBindings: globalBindings, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
@@ -164,15 +165,14 @@ class KuorumMailService {
     def sendCluckNotificationMail(Cluck cluck){
         String userLink = generateLink("userShow",cluck.owner.encodeAsLinkProperties())
         String postLink = generateLink("postShow",cluck.post.encodeAsLinkProperties())
-        MailUserData mailUserData = new MailUserData(user:cluck.postOwner)
+        MailUserData mailUserData = new MailUserData(user:cluck.postOwner,[postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", cluck.postOwner.language.locale)])
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_CLUCK
         mailData.globalBindings=[
                 clucker:cluck.owner.name,
                 cluckerLink:userLink,
                 postName:cluck.post.title,
-                postLink:postLink,
-                postType:messageSource.getMessage("${PostType.canonicalName}.${cluck.post.postType}",null,"", new Locale("ES_es")),]
+                postLink:postLink]
         mailData.userBindings = [mailUserData]
         mailData.fromName = prepareFromName(cluck.owner.name)
         mandrillAppService.sendTemplate(mailData)
@@ -191,7 +191,7 @@ class KuorumMailService {
 
     def sendPublicMilestoneNotificationMail(Post post){
         String postLink = generateLink("postShow", post.encodeAsLinkProperties())
-        def bindings = [postType: messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", post.owner.language.locale)]
+        def bindings = [postType: messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", post.owner.language.locale)]
         MailUserData mailUserData = new MailUserData(user:post.owner, bindings:bindings)
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_PUBLIC_MILESTONE
@@ -206,7 +206,7 @@ class KuorumMailService {
 
         MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[])
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", post.owner.language.locale),
                 debateOwner:debateOwner.name,
                 debateOwnerLink:generateLink("userShow",debateOwner.encodeAsLinkProperties()),
                 postName:post.title,
@@ -228,7 +228,7 @@ class KuorumMailService {
     def sendDebateNotificationMailPolitician(Post post,Set<MailUserData> politiciansData){
         KuorumUser debateOwner = post.debates.last().kuorumUser
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", debateOwner.language.locale),
                 debateOwner:debateOwner.name,
                 debateOwnerLink:generateLink("userShow", debateOwner.encodeAsLinkProperties()),
                 postName:post.title,
@@ -245,10 +245,9 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailNotificationsData)
     }
 
-    def sendDebateNotificationMailInterestedUsers(Post post, Set<MailUserData> notificationUsers){
+    def sendDebateNotificationMailInterestedUsers(final Post post, Set<MailUserData> notificationUsers){
         KuorumUser debateOwner = post.debates.last().kuorumUser
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 debateOwner:debateOwner.name,
                 debateOwnerLink:generateLink("userShow",debateOwner.encodeAsLinkProperties()),
                 postName:post.title,
@@ -261,7 +260,7 @@ class KuorumMailService {
         MailData mailNotificationsData = new MailData()
         mailNotificationsData.mailType = MailType.NOTIFICATION_DEBATE_USERS
         mailNotificationsData.globalBindings=globalBindings
-        mailNotificationsData.userBindings = notificationUsers.asList()
+        mailNotificationsData.userBindings = notificationUsers.collect{it.bindings.put("postType", messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", it.user.language.locale)); it}
         mailNotificationsData.fromName = prepareFromName(debateOwner.name)
         mandrillAppService.sendTemplate(mailNotificationsData)
     }
@@ -269,7 +268,7 @@ class KuorumMailService {
     def sendPostDefendedNotificationMailAuthor(Post post){
         MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[])
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", post.owner.language.locale),
                 defender:post.defender.name,
                 defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 debateOwner:post.owner.name,
@@ -290,7 +289,7 @@ class KuorumMailService {
 
     def sendPostDefendedNotificationMailPoliticians(Post post,Set<MailUserData> politiciansData){
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", new Locale("ES_es")),
                 defender:post.defender.name,
                 defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 debateOwner:post.owner.name,
@@ -312,7 +311,7 @@ class KuorumMailService {
     def sendPostDefendedNotificationMailDefender(Post post){
         MailUserData mailUserData = new MailUserData(user:post.defender, bindings:[])
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", post.defender.language.locale),
                 defender:post.defender.name,
                 defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 debateOwner:post.owner.name,
@@ -332,7 +331,7 @@ class KuorumMailService {
 
     def sendPostDefendedNotificationMailInterestedUsers(Post post, Set<MailUserData> notificationUsers){
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", new Locale("ES_es")),
                 defender:post.defender.name,
                 defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 postName:post.title,
@@ -351,7 +350,6 @@ class KuorumMailService {
 
     def sendVictoryNotificationUsers(Post post, Set<MailUserData> notificationUsers){
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 defender:post.defender.name,
                 defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 debateOwner:post.owner.name,
@@ -364,45 +362,15 @@ class KuorumMailService {
         MailData mailNotificationsData = new MailData()
         mailNotificationsData.mailType = MailType.NOTIFICATION_VICTORY_USERS
         mailNotificationsData.globalBindings=globalBindings
-        mailNotificationsData.userBindings = notificationUsers.asList()
+        mailNotificationsData.userBindings = notificationUsers.asList().collect{postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", it.user.language.locale)}
         mailNotificationsData.fromName = prepareFromName(post.owner.name)
         mandrillAppService.sendTemplate(mailNotificationsData)
     }
 
-    def sendPromotedPostMailUsers(Post post, KuorumUser sponsor, Set<MailUserData> notificationUsers){
-        MailData mailNotificationsData = new MailData()
-        mailNotificationsData.mailType = MailType.PROMOTION_USERS
-        mailNotificationsData.globalBindings=globalBindingsForPromotedMails(post,sponsor)
-        mailNotificationsData.userBindings = notificationUsers.asList()
-        mailNotificationsData.fromName = prepareFromName(sponsor.name)
-        mandrillAppService.sendTemplate(mailNotificationsData)
-    }
-
-    def sendPromotedPostMailOwner(Post post, KuorumUser sponsor){
-        MailUserData mailUserData = new MailUserData(user:post.owner, bindings:[:])
-        MailData mailNotificationsData = new MailData()
-        mailNotificationsData.mailType = MailType.PROMOTION_OWNER
-        mailNotificationsData.globalBindings=globalBindingsForPromotedMails(post,sponsor)
-        mailNotificationsData.userBindings = [mailUserData]
-        mailNotificationsData.fromName = prepareFromName(sponsor.name)
-        mandrillAppService.sendTemplate(mailNotificationsData)
-    }
-
-    def sendPromotedPostMailSponsor(Post post, KuorumUser sponsor){
-        MailUserData mailUserData = new MailUserData(user:sponsor, bindings:[:])
-        MailData mailNotificationsData = new MailData()
-        mailNotificationsData.mailType = MailType.PROMOTION_SPONSOR
-        mailNotificationsData.globalBindings=globalBindingsForPromotedMails(post,sponsor)
-        mailNotificationsData.userBindings = [mailUserData]
-        mailNotificationsData.fromName = DEFAULT_SENDER_NAME
-        mandrillAppService.sendTemplate(mailNotificationsData)
-    }
     private def globalBindingsForPromotedMails(Post post, KuorumUser sponsor){
         Project project = post.project
         String commissionName = messageSource.getMessage("${CommissionType.canonicalName}.${project.commissions.first()}",null,"otros", new Locale("ES_es"))
-        String postTypeName =   messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es"))
         [
-                postType:postTypeName,
                 postName:post.title,
                 postLink:generateLink("postShow", post.encodeAsLinkProperties()),
                 promoter:sponsor.name,
@@ -416,7 +384,7 @@ class KuorumMailService {
 
     def sendVictoryNotificationDefender(Post post){
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", post.defender.language.locale),
                 defender:post.defender.name,
                 defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
                 debateOwner:post.owner.name,
@@ -436,7 +404,6 @@ class KuorumMailService {
 
     def sendCommentedPostNotificationUsers(Post post, PostComment postComment, Set<MailUserData> notificationUsers){
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
                 comment:postComment.text,
                 commenterLink:generateLink("userShow",postComment.kuorumUser.encodeAsLinkProperties()),
                 commenter:postComment.kuorumUser.name,
@@ -449,14 +416,14 @@ class KuorumMailService {
         MailData mailNotificationsData = new MailData()
         mailNotificationsData.mailType = MailType.NOTIFICATION_COMMENTED_POST_USERS
         mailNotificationsData.globalBindings=globalBindings
-        mailNotificationsData.userBindings = notificationUsers.asList()
+        mailNotificationsData.userBindings = notificationUsers.asList().collect{postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", it.user.language.locale)}
         mailNotificationsData.fromName = prepareFromName(postComment.kuorumUser.name)
         mandrillAppService.sendTemplate(mailNotificationsData)
     }
 
     def sendCommentedPostNotificationOwner(Post post, PostComment postComment){
         def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${post.postType}",null,"", new Locale("ES_es")),
+                postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"",post.owner.language.locale),
                 comment:postComment.text,
                 commenterLink:generateLink("userShow",postComment.kuorumUser.encodeAsLinkProperties()),
                 commenter:postComment.kuorumUser.name,
