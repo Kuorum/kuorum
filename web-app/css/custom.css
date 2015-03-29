@@ -139,6 +139,7 @@ label {font-weight: normal;}
 
 p {margin: 0 0 20px 0;}
 .help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic; margin: -10px 0 0 0;}
+.activityMe p.help-block {margin: 10px 0 0 0;}
 .mb20 {margin-bottom: 20px !important;}
 a:hover, a:focus {outline: 0;}
 

@@ -10,7 +10,7 @@
 </content>
 <content tag="mainContent">
     <g:form mapping="profileDeleteAccount" role="form" name="deleteAccountForm" class="box-ppal">
-        <h1><g:message code="profile.deleteAccount.title"/></h1>
+        %{--<h1><g:message code="profile.deleteAccount.title"/></h1>--}%
         <input type="hidden" name="forever" value=""/>
         <p><g:message code="profile.deleteAccount.requestExplanation"/></p>
         <div class="form-group textarea">

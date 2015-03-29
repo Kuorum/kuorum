@@ -13,7 +13,7 @@
 <content tag="mainContent">
     <formUtil:validateForm form="config2" bean="${command}"/>
     <g:form method="POST" mapping="profileChangeEmail" name="config2" role="form" class="box-ppal">
-        <h1><g:message code="profile.changeEmail.title"/></h1>
+        %{--<h1><g:message code="profile.changeEmail.title"/></h1>--}%
         <fieldset class="form-group interest">
         <div class="form-group col-md-6">
             <formUtil:input type="email" command="${command}" field="email" showLabel="true"/>

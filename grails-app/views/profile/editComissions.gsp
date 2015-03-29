@@ -12,7 +12,7 @@
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="config1" />
     <g:form method="POST" mapping="profileEditUser" name="config1" role="form" class="box-ppal">
-        %{--<h1><g:message code="profile.editUser.title"/></h1>--}%
+        <h1><g:message code="profile.editUser.title"/></h1>
 
         <fieldset class="row">
             <div class="form-group col-md-6">
