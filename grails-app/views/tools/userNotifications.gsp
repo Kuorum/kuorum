@@ -10,30 +10,30 @@
 
 </content>
 <content tag="mainContent">
-    <h1><g:message code="profile.profileNotifications.title"/></h1>
-    <ul class="noti-filters">
-        <li class="${searchNotificationsCommand.alerts==null?'active':''}"><g:link mapping="toolsNotifications">Todas</g:link></li>
-        <li class="${searchNotificationsCommand.alerts==true?'active':''}"><g:link mapping="toolsNotifications" params="[alerts:true]"> Alertas</g:link></li>
-        <li class="${searchNotificationsCommand.alerts==false?'active':''}"><g:link mapping="toolsNotifications" params="[alerts:false]">Notificaciones</g:link></li>
-        <li class="dropdown pull-right">
-            %{--<a data-target="#" href="" class="dropdown-toggle text-center" id="open-order" data-toggle="dropdown" role="button">Ordenar <span class="fa fa-caret-down fa-lg"></span></a>--}%
-            %{--<ul id="ordenar" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-order" role="menu">--}%
-                %{--<li><a href="#">Opción 1</a></li>--}%
-                %{--<li><a href="#">Opción 2</a></li>--}%
-                %{--<li><a href="#">Opción 3</a></li>--}%
-            %{--</ul>--}%
-        </li>
-    </ul>
-    <ul class="list-notification" id="list-notifications-id">
-        <g:render template="usrNotificationsList" model="[notifications:notifications]"/>
-     </ul>
-    <nav:loadMoreLink
-            numElements="${notifications.size()}"
-            pagination="${searchNotificationsCommand}"
-            mapping="profileNotifications"
-            parentId="list-notifications-id"
-            formId="list-notifications-form"
-    >
-        <input type="hidden" name="alerts" value="${searchNotificationsCommand.alerts}"/>
-    </nav:loadMoreLink>
+    <div aria-label="button group" role="group" class="btn-group btn-group-justified filters">
+        <g:link mapping="toolsNotifications" role="button" class="btn ${searchNotificationsCommand.alerts==null?'active':''}">
+            Todas
+        </g:link>
+        <g:link mapping="toolsNotifications" role="button" class="btn ${searchNotificationsCommand.alerts==true?'active':''}">
+            Alertas
+        </g:link>
+        <g:link mapping="toolsNotifications" role="button" class="btn ${searchNotificationsCommand.alerts==false?'active':''}" href="#">
+            Notificaciones
+        </g:link>
+    </div>
+
+    <div class="box-ppal">
+        <ul class="notifications-list" id="list-notifications-id">
+            <g:render template="usrNotificationsList" model="[notifications:notifications]"/>
+         </ul>
+        <nav:loadMoreLink
+                numElements="${notifications.size()}"
+                pagination="${searchNotificationsCommand}"
+                mapping="profileNotifications"
+                parentId="list-notifications-id"
+                formId="list-notifications-form"
+        >
+            <input type="hidden" name="alerts" value="${searchNotificationsCommand.alerts}"/>
+        </nav:loadMoreLink>
+    </div>
 </content>
