@@ -2794,7 +2794,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config .form-group.postal,
 .config .form-group.nacimiento {width: 200px;}
 
-.config .list-post {margin: 50px 0 20px; padding: 0;}
+.config .list-post {margin: 0 0 20px; padding: 0;}
 .config .list-post > li {margin: 0; padding: 20px 0 0 0; list-style: none; position: relative; border-bottom: 1px solid #DADADA;}
 .config .list-post > li > .text-notification {padding: 0; font-size: 24px; font-size: 2.4rem; line-height: 1.2;}
 .config .list-post > li > .actions {margin: 20px 0 0; padding: 6px; border-top: 1px solid #DADADA; text-align: right;}
