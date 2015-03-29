@@ -150,11 +150,6 @@
             <formUtil:editImage command="${command}" field="imageProfile" fileGroup="${kuorum.core.FileGroup.USER_PROFILE}"/>
         </fieldset>
 
-
-        <fieldset class="form-group interest">
-            <formUtil:selectMultipleCommissions command="${command}" field="commissions"/>
-        </fieldset>
-
         <fieldset class="form-group text-right">
             <a href="#" class="cancel" tabindex="19"><g:message code="profile.emailNotifications.cancel"/></a>
             <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">

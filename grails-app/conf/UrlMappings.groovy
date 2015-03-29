@@ -139,6 +139,7 @@ class UrlMappings {
         name searcherSuggests:    "/ajax/buscar/sugerencias"(controller: "search", action:"suggest")
 
         name profileEditUser:     "/configuracion-usuario"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
+        name profileEditCommissions:     "/configuracion-usuario/cambiar-areas-interes"                  (controller: "profile"){action =[GET:"editCommissions", POST:"editCommissionsSave"]}
         name profileChangePass:   "/configuracion-usuario/cambiar-password" (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
         name profileChangeEmail:  "/configuracion-usuario/cambiar-email"    (controller: "profile"){action =[GET:"changeEmail", POST:"changeEmailSave"]}
         name profileChangeEmailSent:  "/configuracion-usuario/cambiar-email/solicitud-recivida"    (controller: "profile", action :"changeEmailConfirmSent")

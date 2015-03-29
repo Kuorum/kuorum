@@ -44,7 +44,6 @@ class EditUserProfileCommand{
 
     String alias
     Integer year
-    List<CommissionType> commissions = []
 
     String imageProfile
     static constraints = {
@@ -87,7 +86,7 @@ class EditUserProfileCommand{
                 }
             }
             else{
-                //CHAPU PARA QUE LOS PAISES QUE NO SON ESPAÑOLES PONGAN LO QUE LES DE LA GANA
+                //CHAPU PARA QUE LOS PAISES QUE NO SON ESPAï¿½OLES PONGAN LO QUE LES DE LA GANA
                 obj.postalCode = source['postalCode']
                 obj.province = country
             }

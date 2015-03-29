@@ -56,7 +56,6 @@ class ProfileController {
         command.country =  user.personalData?.country
 //        command.month = user.personalData?.birthday?user.personalData.birthday[Calendar.MONTH]+1:null
 //        command.day =   user.personalData?.birthday?user.personalData.birthday[Calendar.DAY_OF_MONTH]:null
-        command.commissions = user.relevantCommissions
         command.alias = user.alias
         command.name = user.name
         command.language = user.language
@@ -88,11 +87,28 @@ class ProfileController {
         user.language = command.language
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.telephone
-        //TODO: Revisar si este cambio es correcto y si no afecta a más partes de la aplicación
-        user.relevantCommissions = command.commissions
         kuorumUserService.updateUser(user)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileEditUser'
+    }
+
+    def editCommissions () {
+        KuorumUser user = params.user
+        EditCommissionsProfileCommand command = new EditCommissionsProfileCommand()
+        command.commissions = user.relevantCommissions
+        [command: command, user:user]
+    }
+
+    def editCommissionsSave (EditCommissionsProfileCommand command) {
+        KuorumUser user = params.user
+        if (command.hasErrors()){
+            render view:"editUser", model: [command:command,user:user]
+            return
+        }
+        user.relevantCommissions = command.commissions
+        kuorumUserService.updateUser(user)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profileEditCommissions'
     }
 
     protected prepareUserStep1(KuorumUser user, def command){

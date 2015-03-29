@@ -3,6 +3,7 @@ package kuorum.web.commands.admin
 import grails.validation.Validateable
 import kuorum.Institution
 import kuorum.PoliticalParty
+import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.web.commands.profile.EditUserProfileCommand
@@ -19,6 +20,7 @@ class AdminUserCommand extends EditUserProfileCommand{
     Boolean verified
     Boolean enabled
     UserType userType
+    List<CommissionType> commissions = []
 
     static constraints = {
         email nullable:false, email:true

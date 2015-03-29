@@ -3,6 +3,9 @@
     <li class="${activeMapping=='profileEditUser'?'active':''}">
         <g:link mapping="profileEditUser"><g:message code="profile.menu.editUser"/></g:link>
     </li>
+    <li class="${activeMapping=='profileEditCommissions'?'active':''}">
+        <g:link mapping="profileEditCommissions"><g:message code="profile.menu.editCommissions"/></g:link>
+    </li>
     <li class="${activeMapping=='profileChangePass'?'active':''}">
         <g:link mapping="profileChangePass"><g:message code="profile.menu.changePass"/></g:link>
     </li>
