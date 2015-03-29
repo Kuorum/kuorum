@@ -207,7 +207,7 @@ a:focus {color: #20a2ea;}
 #info-sup-scroll > .container-fluid {max-width: 1140px; margin: 0 auto;}
 .navbar > .container-fluid {padding-right: 30px; padding-left: 30px;}
 .main > .container-fluid > .row {position: relative;}
-#main {padding-bottom: 40px; padding-top: 24px; min-height: 382px;}
+#main {padding-top: 24px; min-height: 382px;}
 #main.home {margin: 0 0 40px 0; padding: 0;}
 #main.home, .full-video {min-height: 495px;}
 .navbar-fixed-top {border-bottom: solid 1px #e5e5e5;}
@@ -3655,6 +3655,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+  #main {padding-bottom: 40px;}
   .config .kakareo-list.project > li,
   .config .politician-list > li {width: 48%; float: left; margin: 0 2% 0 0;}
   .config .kakareo-list.project > li:nth-child(even),
