@@ -2426,6 +2426,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub .kakareo h1 {font-size: 14px; font-size: 1.4rem;}
 .homeSub .kakareo .link-wrapper {padding: 15px 15px 0;}
 .homeSub .link-wrapper .popover-trigger {font-size: 12px; font-size: 1.2rem;}
+.homeSub .kakareo-list .kakareo .link-wrapper .main-kakareo > div,
+#otras-propuestas .kakareo-list .kakareo .link-wrapper .main-kakareo > div {height: 43px;}
 
 .politician-list {margin: 0; padding: 0; list-style: none;}
 .politician-list .box-ppal .user {margin: -75px 10px 20px 10px;}
