@@ -11,7 +11,6 @@ import kuorum.mail.MailType
 class MailNotificationsCommand {
 
     List<MailType> availableMails
-    List<CommissionType> commissions = []
 
     static constraints = {
     }

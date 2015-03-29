@@ -12,7 +12,7 @@
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="config1" />
     <g:form method="POST" mapping="profileEditUser" name="config1" role="form" class="box-ppal">
-        %{--<h1><g:message code="profile.editUser.title"/></h1>--}%
+        <h1><g:message code="profile.editUser.title"/></h1>
 
         <fieldset class="row">
             <div class="form-group col-md-6">
@@ -129,7 +129,7 @@
 
         <fieldset class="row">
             <div class="form-group col-md-6">
-                <span class="span-label"><g:message code="dashboard.userProfile.incompleteDate.phone.label"/></span>
+                <span class="span-label">Número de teléfono</span>
                 <div class="form-group pull-left prefix">
                     <formUtil:telephoneWithPrefix command="${command}" field="phonePrefix"/>
                 </div>
@@ -146,7 +146,7 @@
             <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.USER_AVATAR}"/>
         </fieldset>
 
-        <fieldset class="form-group image fondoperfil" data-multimedia-switch="on" data-multimedia-type="IMAGE">
+        <fieldset class="form-group image" data-multimedia-switch="on" data-multimedia-type="IMAGE">
             <formUtil:editImage command="${command}" field="imageProfile" fileGroup="${kuorum.core.FileGroup.USER_PROFILE}"/>
         </fieldset>
 
@@ -156,7 +156,7 @@
         </fieldset>
 
         <fieldset class="form-group text-right">
-            <a href="#" class="cancel" tabindex="19"><g:message code="profile.emailNotifications.cancel"/></a>
+            <a href="#" class="cancel" tabindex="19">Cancelar</a>
             <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">
         </fieldset>
     </g:form>

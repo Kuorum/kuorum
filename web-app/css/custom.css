@@ -139,6 +139,7 @@ label {font-weight: normal;}
 
 p {margin: 0 0 20px 0;}
 .help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic; margin: -10px 0 0 0;}
+.activityMe p.help-block {margin: 10px 0 0 0;}
 .mb20 {margin-bottom: 20px !important;}
 a:hover, a:focus {outline: 0;}
 
@@ -3723,6 +3724,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .embudo #aside-ppal {background: url('../images/recorte-dwn.png'), url('../images/recorte-rgt.png'); background-color: #f0f0f0; background-repeat: repeat-x, repeat-y; background-position: left bottom, right top; padding-top: 40px;}
 
   .help-block {margin: 30px 0 0 0;}
+  .activityMe p.help-block {margin: 10px 0 0 0;}
   .icheckbox_line-orange,
   .iradio_line-orange {margin-right: 8px; margin-bottom: 8px;}
   .no-phone .form-group:nth-child(2) {width: 29%;}
