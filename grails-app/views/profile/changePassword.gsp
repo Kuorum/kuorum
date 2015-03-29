@@ -31,7 +31,7 @@
         </fieldset>
         <fieldset class="form-group text-right">
         <div class="form-group">
-            <a href="#" class="cancel" tabindex="19">Cancelar</a>
+            <a href="#" class="cancel" tabindex="19"><g:message code="profile.emailNotifications.cancel"/></a>
             <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">
         </div>
         </fieldset>
