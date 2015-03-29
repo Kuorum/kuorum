@@ -1,6 +1,14 @@
 <%@ page import="kuorum.web.commands.post.CommentPostCommand" %>
-<h2 class="underline"><g:message code="post.show.comments.title"/> </h2>
-<aside class="comments">
+<sec:ifLoggedIn>
+    <h2 class="underline"><g:message code="post.show.comments.title"/> </h2>
+</sec:ifLoggedIn>
+<sec:ifNotLoggedIn>
+    <g:if test="${post.comments}">
+        <h2 class="underline"><g:message code="post.show.comments.title"/> </h2>
+    </g:if>
+    <g:else></g:else>
+</sec:ifNotLoggedIn>
+    <aside class="comments">
     <g:set var="filteredComments" value="${post.comments.findAll{!(it.deleted || it.moderated)}}"/>
     <ul class="listComments" id="listComments">
     <g:set var="displayedComments" value="${0}"/>
