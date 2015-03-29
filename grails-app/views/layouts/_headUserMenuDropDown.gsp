@@ -2,8 +2,10 @@
     <li><g:message code="head.navigation.userMenu.title"/></li>
     <li><g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" itemprop="url"><g:message code="head.navigation.userMenu.myProfile"/></g:link></li>
     <li><g:link mapping="profileEditUser" itemprop="url"><g:message code="head.navigation.userMenu.editUser"/></g:link></li>
-
     <li><g:link mapping="toolsNotifications"><g:message code="head.navigation.userMenu.tools"/></g:link></li>
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+        <li><g:link mapping="adminPrincipal"><g:message code="admin.adminPrincipal.title"/></g:link></li>
+    </sec:ifAnyGranted>
     %{--<li>--}%
         %{--<g:link mapping="toolsFavorites">--}%
             %{--<span id="post-sin-leer"><g:message code="head.navigation.userMenu.showFavoritesPosts"/></span>--}%
@@ -35,8 +37,4 @@
         </li>
 
     </sec:ifSwitched>
-    <sec:ifAnyGranted roles="ROLE_ADMIN">
-        <li><hr/></li>
-        <li><g:link mapping="adminPrincipal"><g:message code="admin.adminPrincipal.title"/></g:link></li>
-    </sec:ifAnyGranted>
 </ul>
