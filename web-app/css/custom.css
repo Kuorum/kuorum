@@ -477,7 +477,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .box .dropdown-menu > li a:hover {text-decoration: underline;}
 .badge {background-color: #ff9431; padding: 4px 6px;}
 .navbar-nav .visible-xs {display: inline-block !important;}
-.user-img {border-radius: 19px; width: 38px; height: 38px; margin: 8px 4px 4px 0;}
+.user-img {border-radius: 19px; width: 38px; height: 38px; margin: 4px 4px 4px 0;}
 .boxes.alerts .user-img,
 .boxes.guays .user-img,
 .boxes.follow .user-img {display: inline-block;}
@@ -548,12 +548,11 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.condition {border: 1px solid #20a2ea; margin: 0 0 20px 0;}
 .box-ppal.condition p {margin-bottom: 10px;}
 .box-ppal.condition.politician {border: 1px solid #ff9431;}
-.box-ppal.condition h1 {padding: 0 30px 0 0;}
+.box-ppal.condition .close + h1 {padding: 0 25px 0 0;}
 .box-ppal.condition h1,
-.kakareo.post h1 {font-size: 22px; font-size: 2.2rem; margin-bottom: 20px;}
-.kakareo.post h1 {padding: 0;}
+.kakareo.post h1 {font-size: 20px; font-size: 2rem; margin-bottom: 20px; padding: 0;}
 
-.box-ppal.condition.politician > .row h1 {font-size: 2.15rem; line-height: 46px; margin: 0;}
+/*.box-ppal.condition.politician > .row h1 {font-size: 2.15rem; line-height: 46px; margin: 0;}*/
 
 .box-ppal.condition h2 {font-size: 16px; font-size: 1.6rem; margin: 0 0 30px 0; line-height: 1.4;}
 .box-ppal.condition > button.close {right: 10px; top: 10px; position: absolute;}
@@ -581,13 +580,13 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.condition form {margin-bottom: 20px;}
 .box-ppal.condition.politician .list-project {margin: 20px 0 0; padding: 0;}
 .box-ppal.condition.politician .list-project > li {list-style: none;}
-.box-ppal.condition.politician .list-project > li .kakareo {border-top: none; border-left: none; border-right: none; margin: 0;}
+.box-ppal.condition.politician .list-project > li .kakareo {border-top: none; border-left: none; border-right: none; margin: 0; padding: 0;}
 .box-ppal.condition.politician .list-project > li:last-child {padding: 20px 0;}
 .box-ppal.condition.politician .list-project > li:last-child a {color: #a8a8a8; font-size: 14px; font-size: 1.4rem;}
 
 .kakareo-list.project {margin: 0; list-style: none;}
 .kakareo-list.project .kakareo.post.ley {padding: 0;}
-
+.kakareo-list.project .kakareo footer {padding: 0 10px;}
 /* flechita que indica al user de kakareo */
 .from {
   width: 0;
@@ -766,8 +765,10 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .edit-user .user .popover-trigger:hover,
 .edit-user .user .popover-trigger:active,
 .edit-user .user .popover-trigger:focus {text-decoration: none;}
-.user-list-images li .popover-trigger .user-img {margin: 0 2px 0 0;}
-/*.sponsor .user-list-images li .popover-trigger .user-img {margin-top: 8px;}*/
+.user-list-images li .popover-trigger .user-img {margin: 4px 2px 0 0;}
+/*.sponsor .user-list-images li .popover-trigger .user-img {margin-top: 0;}*/
+.user-list-images .more-users,
+.user-list-followers .more-users {margin: 0;}
 .author.important .user.actor.politic .user-list-images li .popover-trigger .user-img {margin: 0;}
 
 .popover {width: 260px; max-width: 260px; border-radius: 0;}
@@ -839,7 +840,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
     display: block !important;
 }
 .popover .scroll .user-type {margin-top: -15px !important;}
-.popover .follow {margin: 1px 0 0 0 !important;}
+.popover .follow {margin: 0 0 0 49px !important;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
 .btn.follow {width: 105px;}
 .btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
@@ -996,7 +997,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
   font-size: 1.5rem;
   text-align: center;
 }
-.boxes.guay .user-list-images .more-users {width: 25px; height: 25px; padding: 4px 0 0 0; font-size: 10px; font-size: 1rem;}
+.boxes.guay .user-list-images .more-users {width: 25px; height: 25px; padding: 6px 0 0 0; font-size: 10px; font-size: 1rem;}
 .user-list-images .more-users:hover,
 .user-list-images .more-users:active,
 .user-list-images .more-users:focus,
@@ -1127,8 +1128,7 @@ video#bgvid {
   margin: 0 0 20px 0;
 }
 
-/*para quitarle el borde al ver más en las notificaciones*/
-.config #load-more{padding: 20px 0; margin: -20px 0 0 0;}
+.config #load-more{padding: 20px 0;}
 #load-more a {color: #a8a8a8;}
 #load-more a:hover,
 #load-more a:active,
@@ -1160,7 +1160,7 @@ video#bgvid {
 .boxes .important .kakareo {background-color: transparent;}
 .boxes.guay .kakareo {border: none; padding: 0; margin: 0;}
 .boxes.guay .kakareo .link-wrapper {padding: 10px 10px 0;}
-.boxes.guay .kakareo .link-wrapper .user {font-size: 12px; font-size: 1.26rem; color: #a8a8a8; margin: 0;}
+.boxes.guay .kakareo .link-wrapper .user {font-size: 12px; font-size: 1.2rem; color: #a8a8a8; margin: 0;}
 .boxes.guay .kakareo .link-wrapper .user .popover-trigger {color: #545454;}
 .boxes.guay .kakareo .link-wrapper .ico-info {right: 8px; top: 6px;}
 .boxes.guay .kakareo .link-wrapper .laley {font-size: 21px; font-size: 2.1rem;}
@@ -1169,11 +1169,11 @@ video#bgvid {
 
 .others .boxes.guay .kakareo .link-wrapper {padding: 10px;}
 .boxes.guay .kakareo h1 {font-size: 13px; font-size: 1.3rem; line-height: 1.4; margin: 0 0 10px 0;}
-.boxes.guay .user-img {width: 25px; height: 25px; float: none; margin-right: 5px; margin-bottom: 0; margin-top: 0;}
+.boxes.guay .user-img {width: 25px; height: 25px; float: none; margin-right: 3px; margin-bottom: 0; margin-top: 0;}
 .boxes .victory .user-img {margin: 0 0 0 2px;}
 .boxes.guay .user-list-images li .popover-trigger.more-users {margin-bottom: 4px;}
 .boxes.guay .important > .user-list-images {display: block; text-align: right;}
-.boxes.guay .kakareo .user-list-images li .user-img {margin: 0 0 0 5px !important;}
+/*.boxes.guay .kakareo .user-list-images li .user-img {margin: 0 0 0 5px !important;}*/
 .boxes.guay .kakareo footer ul li.more-actions > span .fa-plus {color: #a8a8a8;}
 .boxes.guay .important .kakareo footer ul li.more-actions > span:hover,
 .boxes.guay .important .kakareo footer ul li.more-actions > span:active,
@@ -1249,7 +1249,7 @@ video#bgvid {
 
 .activity {padding: 0; text-align: center;}
 .activity > li {
-  width: 30%;
+  width: 32%;
   text-align: center;
   color: #A8A8A8;
   border-right: solid 1px #dadada;
@@ -1325,6 +1325,7 @@ video#bgvid {
 .notifications-list {padding: 0; margin: 0;}
 .notifications-list li {list-style: none;}
 .notifications-list > li {margin: 0; border-bottom: solid 1px #dadada; padding: 15px 0; position: relative;}
+.notifications-list > li:last-child {border: none;}
 .notifications-list > li > .user > .popover-trigger {line-height: 1.2 !important; margin: 0 !important;}
 .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 32px 10px; display: inline-block; float: left;}
 .notifications-list > li > .user > .popover-trigger > span {font-size: 17px; font-size: 1.7rem;}
@@ -1332,7 +1333,7 @@ video#bgvid {
 .notifications-list > li .text-notification a,
 .notifications-list > li .text-notification strong {color: #545454 !important;}
 .notifications-list > li .text-notification strong {text-transform: uppercase; font-size: 16px; font-size: 1.6rem;}
-.notifications-list > li .actions {margin: 8px 0 0 13px; text-align: right;}
+.notifications-list > li .actions {margin: 8px 0 4px 13px; text-align: right;}
 .notifications-list > li .actions > li > a {font-size: 12px; font-size: 1.2rem; margin: 0 4px 0 0 !important; color: #ff9431;}
 .notifications-list > li .actions > li {display: inline-block;}
 .notifications-list > li .actions .time {color: #a8a8a8;}
@@ -1870,7 +1871,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .kakareo.post.ley footer .voting > li {list-style: none;}
 
 .kakareo.post footer .info-kak > li time {font-size: 12px; font-size: 1.2rem;}
-.kakareo.post footer {margin-top: 0; margin-bottom: 0; padding: 0 10px;}
+.kakareo.post footer {margin-top: 0; margin-bottom: 0; padding: 0;}
 .kakareo.post footer + p {border-top: 1px solid #e5e5e5; padding-top: 20px;}
 .kakareo.post .more-info {padding: 0 10px;}
 .boxes.info .kakareo footer a,
@@ -2154,17 +2155,15 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .chat > li {background-color: #f8f8f8; border-top: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5; border-left: 1px solid #e5e5e5; padding: 24px 15px 15px 15px; position: relative;}
 .chat > li:last-child {border-bottom: 1px solid #e5e5e5;}
 .chat > li .user.author {margin: 0 0 20px 0;}
-.chat > li:nth-of-type(odd) .user.author {text-align: right;}
-.chat > li:nth-of-type(odd) .user.author > .popover-trigger > .user-img {float: right; margin-right: 0; margin-left: 6px;}
+.chat > li.politician .user.author {text-align: right;}
+.chat > li.politician .user.author > .popover-trigger > .user-img {float: right; margin-right: 0; margin-left: 6px;}
 .chat > li .user.author .popover-trigger {margin: 0 !important; line-height: 3;}
-.chat > li:nth-of-type(odd) .user-type {margin-top: -20px;}
 .chat > li > div:first-child {margin-bottom: 15px;}
 .chat > li > p:last-child {margin-bottom: 0;}
 .chat > li .user.author + span {text-align: right;}
-.chat > li time {color: #a8a8a8; display: block;}
-.chat > li:nth-of-type(odd) time {text-align: left;}
-.chat > li:nth-of-type(even) time {text-align: right;}
-
+.chat > li time {text-align: right; color: #a8a8a8; display: block;}
+.chat > li.politician time {text-align: left;}
+.chat .user-type {margin-top: -20px;}
 .chat > li:last-child time {text-align: right !important;}
 .chat > li:last-child .user.author {text-align: left !important;}
 .chat > li:last-child .user.author > .popover-trigger > .user-img {float: none; margin: 8px 6px 4px 0 !important;}
@@ -3678,7 +3677,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .homeSub .kakareo-list .kakareo .main-kakareo {margin-top: 0;}
   #otras-propuestas .kakareo-list .kakareo footer,
   .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
-
   .politician-list .box-ppal p {height: 56px; margin: 0 0 50px; overflow: hidden;}
   .politician-list .box-ppal > small {float: none; position: absolute; bottom: 0; left: 0;}
   .politician-list .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}

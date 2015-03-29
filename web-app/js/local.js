@@ -181,8 +181,9 @@ $(document).ready(function() {
         $(this).closest('form').prev('form').fadeIn('slow');
     });
 
-    // al hacer clic en el botón "Regístrate" de la Home cambio el orden de aparición natural de los formularios
-    $('body').on('click','.open-sign-form', function(e) {
+    // al hacer clic en el botón "Regístrate" de la Home cambio el orden de aparición
+    // natural de los formularios
+    $('body').on('click','.open-sign-form', function() {
         $('form#login-modal').fadeOut('fast');
         $('form#sign-modal').fadeIn('fast');
     });
