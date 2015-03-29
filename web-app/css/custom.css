@@ -1325,7 +1325,7 @@ video#bgvid {
 
 .notifications-list {padding: 0; margin: 0;}
 .notifications-list li {list-style: none;}
-.notifications-list > li {margin: 0; border-bottom: solid 1px #dadada; padding: 15px 0; position: relative;}
+.notifications-list > li {margin: 0; border-bottom: solid 1px #dadada; padding: 15px 0; position: relative;min-height: 73px;}
 .notifications-list > li:last-child {border: none;}
 .notifications-list > li > .user > .popover-trigger {line-height: 1.2 !important; margin: 0 !important;}
 .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 32px 10px; display: inline-block; float: left;}
