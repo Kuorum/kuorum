@@ -6,9 +6,10 @@
     <li class="${activeMapping=='profileChangePass'?'active':''}">
         <g:link mapping="profileChangePass"><g:message code="profile.menu.changePass"/></g:link>
     </li>
-    <li class="${activeMapping=='profileChangeEmail'?'active':''}">
-        <g:link mapping="profileChangeEmail"><g:message code="profile.menu.changeMail"/></g:link>
-    </li>
+    %{--DESCOMENTAR CUANDO FUNCIONE EL CAMBIAR EMAIL--}%
+    %{--<li class="${activeMapping=='profileChangeEmail'?'active':''}">--}%
+        %{--<g:link mapping="profileChangeEmail"><g:message code="profile.menu.changeMail"/></g:link>--}%
+    %{--</li>--}%
     <li class="${activeMapping=='profileSocialNetworks'?'active':''}">
         <g:link mapping="profileSocialNetworks"><g:message code="profile.menu.profileSocialNetworks"/></g:link>
     </li>
