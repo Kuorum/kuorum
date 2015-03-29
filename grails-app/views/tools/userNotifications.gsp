@@ -7,8 +7,8 @@
 
 <content tag="leftMenu">
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileNotifications', menu:menu]"/>
-
 </content>
+
 <content tag="mainContent">
     <div aria-label="button group" role="group" class="btn-group btn-group-justified filters">
         <g:link mapping="toolsNotifications" role="button" class="btn ${searchNotificationsCommand.alerts==null?'active':''}">

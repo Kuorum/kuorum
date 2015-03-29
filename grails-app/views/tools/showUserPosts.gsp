@@ -7,24 +7,28 @@
 
 <content tag="leftMenu">
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileMyPosts', menu:menu]"/>
-
 </content>
-<content tag="mainContent">
-    <h1><g:message code="profile.profileMyPosts.title"/></h1>
-    <ul class="noti-filters">
-        <li class="${searchUserPosts.publishedPosts==null?'active':''}"><g:link mapping="toolsMyPosts"><g:message code="profile.profileMyPosts.listHead.all"/></g:link></li>
-        <li class="${searchUserPosts.publishedPosts==true?'active':''}"><g:link mapping="toolsMyPosts" params="[publishedPosts:true]"><g:message code="profile.profileMyPosts.listHead.published"/></g:link></li>
-        <li class="${searchUserPosts.publishedPosts==false?'active':''}"><g:link mapping="toolsMyPosts" params="[publishedPosts:false]"><g:message code="profile.profileMyPosts.listHead.drafts"/></g:link></li>
-        <li class="dropdown pull-right">
-            %{--<a data-target="#" href="" class="dropdown-toggle text-center" id="open-order" data-toggle="dropdown" role="button">Ordenar <span class="fa fa-caret-down fa-lg"></span></a>--}%
-            %{--<ul id="ordenar" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-order" role="menu">--}%
-                %{--<li><a href="#">Opción 1</a></li>--}%
-                %{--<li><a href="#">Opción 2</a></li>--}%
-                %{--<li><a href="#">Opción 3</a></li>--}%
-            %{--</ul>--}%
-        </li>
-    </ul>
 
+<content tag="mainContent">
+    <div aria-label="button group" role="group" class="btn-group btn-group-justified filters">
+        <g:link mapping="toolsMyPosts" role="button" class="btn ${searchUserPosts.publishedPosts==null?'active':''}">
+            <g:message code="profile.profileMyPosts.listHead.all"/>
+        </g:link>
+        <g:link mapping="toolsMyPosts" params="[publishedPosts:true]" role="button" class="btn ${searchUserPosts.publishedPosts==null?'active':''}">
+            <g:message code="profile.profileMyPosts.listHead.published"/>
+        </g:link>
+        <g:link mapping="toolsMyPosts" params="[publishedPosts:false]" role="button" class="btn ${searchUserPosts.publishedPosts==null?'active':''}">
+            <g:message code="profile.profileMyPosts.listHead.drafts"/>
+        </g:link>
+    </div>
+    %{--<ul class="noti-filters">--}%
+        %{--<li class="${searchUserPosts.publishedPosts==null?'active':''}"><g:link mapping="toolsMyPosts"><g:message code="profile.profileMyPosts.listHead.all"/></g:link></li>--}%
+        %{--<li class="${searchUserPosts.publishedPosts==true?'active':''}"><g:link mapping="toolsMyPosts" params="[publishedPosts:true]"><g:message code="profile.profileMyPosts.listHead.published"/></g:link></li>--}%
+        %{--<li class="${searchUserPosts.publishedPosts==false?'active':''}"><g:link mapping="toolsMyPosts" params="[publishedPosts:false]"><g:message code="profile.profileMyPosts.listHead.drafts"/></g:link></li>--}%
+        %{--<li class="dropdown pull-right"></li>--}%
+    %{--</ul>--}%
+
+    <div class="box-ppal">
     <ul class="list-post" id="list-post-id">
         <g:render template="userPostsList" model="[posts:posts]"/>
     </ul>
@@ -37,4 +41,5 @@
     >
         <input type="hidden" name="publishedPosts" value="${searchUserPosts.publishedPosts}"/>
     </nav:loadMoreLink>
+    </div>
 </content>

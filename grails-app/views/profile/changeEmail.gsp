@@ -21,7 +21,7 @@
         </fieldset>
         <fieldset class="form-group interest">
         <div class="form-group text-right">
-            <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">
+            <input type="submit" value="${g.message(code:'profile.emailNotifications.saveContinue')}" class="btn btn-grey btn-lg">
         </div>
         </fieldset>
     </g:form>

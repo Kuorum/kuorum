@@ -10,9 +10,8 @@
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="profile.profileFavorites.title"/></h1>
-
-    <ul class="list-post pending">
+    <div class="box-ppal">
+        <ul class="list-post pending">
         <g:each in="${favorites}" var="post">
         <li id="pendingPost_${post.id}">
             ${post.title}
@@ -30,5 +29,6 @@
             </ul>
         </li>
         </g:each>
-    </ul>
+        </ul>
+    </div>
 </content>
