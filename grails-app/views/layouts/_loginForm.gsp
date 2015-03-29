@@ -4,11 +4,11 @@
         <input type="email" name="j_username" class="form-control input-lg" id="j_username" required placeholder="Email" aria-required="true">
     </div>
     <div class="form-group">
-        <label for="j_password" class="sr-only"><g:message code="login.email.form.password.label"/></label>
+        <label for="pass-header" class="sr-only"><g:message code="login.email.form.password.label"/></label>
         <div class="input-append input-group">
-            <input type="password" placeholder="${g.message(code:"login.email.form.password.label")}" value="" class="form-control input-lg" name="j_password" id="j_password" aria-required="true" required>
+            <input type="password" placeholder="${g.message(code:"login.email.form.password.label")}" value="" class="form-control input-lg" name="j_password" id="pass-header" aria-required="true" required>
             <span class="add-on input-group-addon" tabindex="100">
-                <label><input type="checkbox" id="show-password" name="show-password"><g:message code="login.email.form.password.show"/></label>
+                <label><input type="checkbox" id="show-pass-header" name="show-password"><g:message code="login.email.form.password.show"/></label>
             </span>
         </div>
 
