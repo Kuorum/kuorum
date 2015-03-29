@@ -9,7 +9,7 @@ enum GamificationAward {
     ROLE_MILITANTE          (10,    5,   30, false),
     ROLE_ACTIVISTA          (20,   10,   50, false),
     ROLE_LIDER_OPINION      (30,   25,  500, false),
-    ROLE_MAESTRO_JEDI       (50,   50, 2000, false),
+//    ROLE_MAESTRO_JEDI       (50,   50, 2000, false),
 
     STATS_OWN_HISTORY       (20,   10,  100, true),
     STATS_OWN_QUESTION      (25,    5,  250, true),
