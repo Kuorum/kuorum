@@ -12,6 +12,7 @@ import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
@@ -577,6 +578,12 @@ class KuorumUserService {
     }
 
     private Date chapuSyncReloadScore = new Date() -1
+
+    private static  final Integer SCORE_POST_CREATED = 1;
+    private static  final Integer SCORE_POST_DEBATE = 2;
+    private static  final Integer SCORE_POST_DEFEND = 3;
+    private static  final Integer SCORE_PROJECT_OPEN = 15;
+    private static  final Integer SCORE_PROJECT_CLOSE = 0;
     private DBCollection createUserScore(Date startDate){
 
         def tempCollectionName = "bestPoliticians"
@@ -584,7 +591,7 @@ class KuorumUserService {
         //TODO: HACER ESTO MEJOR QUE CON ESTE SYNC CHAAAPUUU
         synchronized (this){
             Boolean reloadScore = chapuSyncReloadScore < new Date() -1
-            if (!reloadScore){
+            if (!reloadScore && userScoredCollection.count()>0){
                 return userScoredCollection
             }
             userScoredCollection.drop();
@@ -597,14 +604,14 @@ class KuorumUserService {
             String mapPost = """
                 function() {
                     if (this.defender != undefined){
-                        emit(this.defender, 3)
+                        emit(this.defender, ${SCORE_POST_DEFEND})
                     }
                     if (this.debates != undefined) {
                         this.debates.forEach( function(debate) {
-                            emit(debate.kuorumUserId, 2)
+                            emit(debate.kuorumUserId, ${SCORE_POST_DEBATE})
                         });
                     }
-                    emit(this.owner, 1)
+                    emit(this.owner, ${SCORE_POST_CREATED})
                 }
             """
 
@@ -638,12 +645,35 @@ class KuorumUserService {
             MapReduceOutput result = Post.collection.mapReduce(bestPoliticians)
 
 
+            def addProjectScore = """
+            function (){
+                db.project.find().forEach(function(project){
+                    var ownerScore = db.${tempCollectionName}.find({_id:project.owner})[0];
+                    var projectScore = ${SCORE_PROJECT_CLOSE};
+                    if (project.status=="${ProjectStatusType.OPEN}"){
+                        projectScore = ${SCORE_PROJECT_OPEN};
+                    }
+                    if (ownerScore == undefined || ownerScore == null){
+                        ownerScore = {
+                            _id: project.owner,
+                            value : 0
+                        };
+                    }
+                    ownerScore.value = ownerScore.value + projectScore;
+                    db.${tempCollectionName}.save(ownerScore);
+                });
+            }
+
+            """
+
+            userScoredCollection.getDB().eval(addProjectScore)
+
             def cpUserData = """
             function (){
                 db.${tempCollectionName}.find().forEach(function(score){
-                    var kuorumUser = db.kuorumUser.find({_id:score._id})[0]
-                    var numFollowers = kuorumUser.followers.length
-                    var iso3166Length = 0
+                    var kuorumUser = db.kuorumUser.find({_id:score._id})[0];
+                    var numFollowers = kuorumUser.followers.length;
+                    var iso3166Length = 0;
                     if (kuorumUser.politicianOnRegion != undefined){
                         iso3166Length = kuorumUser.politicianOnRegion.iso3166_2.length
                     }
