@@ -20,7 +20,7 @@
 </div>
 <!-- COMIENZA LISTA DE KAKAREOS -->
 <g:set var="urlLoadMoreProjects" value="${g.createLink(mapping: 'ajaxPoliticianProjects', params:user.encodeAsLinkProperties())}"/>
-<div id="clucks" data-name="listClucks">
+<div id="clucks" data-name="listClucks" class="row">
     <g:render template="/project/listProjects" model="[projects:userProjects, urlLoadMore:urlLoadMoreProjects, seeMore:userProjects.size()< numUserProjects]"/>
 </div>
 <g:set var="urlLoadMorePosts" value="${g.createLink(mapping: 'ajaxPoliticianDefendedPosts', params:user.encodeAsLinkProperties())}"/>
