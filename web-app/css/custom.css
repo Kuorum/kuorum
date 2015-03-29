@@ -2820,7 +2820,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config form .form-group .prefix {margin-right: 10px; width: 80px;}
 .config form .form-group .phone {width: 192px;}
 
-.config .saldo {background-color: #fefaf3; padding: 10px 0; color: #a8a8a8;}
+.config .saldo {padding: 10px 0; color: #a8a8a8;}
 .config .saldo h2 {margin-top: 0; color: #545454;}
 .config .saldo .activity li {color: #ff9431; border-right: 1px solid #ff9431; font-size: 15px; font-size: 1.5rem;}
 .config .saldo .activity li:last-child {border-right: 0;}
