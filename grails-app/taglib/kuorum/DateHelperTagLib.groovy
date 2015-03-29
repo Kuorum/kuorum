@@ -34,22 +34,27 @@ class DateHelperTagLib {
     def showShortedText={attrs->
         Integer numChars = attrs.numChars as Integer
         String text = attrs.text
-        text = text.encodeAsRemovingHtmlTags()
-        def words = text.split()
-        Integer paintedChars = 0;
-        Integer it = 0;
-        while (paintedChars < numChars){
-            out << words[it]
-            out << " "
-            if (it >= words.size()-1){
-                paintedChars = Integer.MAX_VALUE
-            }else{
-                paintedChars += words[it].size()
-            }
-            it++
+        if (text){
+            text = text.encodeAsRemovingHtmlTags()
         }
-        if (paintedChars != Integer.MAX_VALUE){
-            out << "..."
+        if (text){
+            def words = text.split()
+
+            Integer paintedChars = 0;
+            Integer it = 0;
+            while (paintedChars < numChars){
+                out << words[it]
+                out << " "
+                if (it >= words.size()-1){
+                    paintedChars = Integer.MAX_VALUE
+                }else{
+                    paintedChars += words[it].size()
+                }
+                it++
+            }
+            if (paintedChars != Integer.MAX_VALUE){
+                out << "..."
+            }
         }
     }
 }
