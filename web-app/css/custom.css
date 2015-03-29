@@ -841,7 +841,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
     display: block !important;
 }
 .popover .scroll .user-type {margin-top: -15px !important;}
-.popover .follow {margin: 0 0 0 49px !important;}
+.popover .follow {margin: 2px 0 0 49px !important;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
 .btn.follow {width: 105px;}
 .btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
