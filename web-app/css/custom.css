@@ -3470,7 +3470,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #info-sup-scroll .laley,
   #info-sup-scroll .voting > .closed {font-size: 17px; font-size: 1.7rem; line-height: 1.6;}
   #info-sup-scroll .infoVotes > li,
-  #info-sup-scroll .infoVotes > span {font-size: 14px; font-size: 1.4rem; width: 62px; height: 33px; padding-top: 7px;}
+  #info-sup-scroll .infoVotes > span {font-size: 13px; font-size: 1.3rem; width: 62px; height: 33px; padding: 8px 2px;}
   #info-sup-scroll .infoVotes > li {margin-left: 4px;}
   #info-sup-scroll .infoVotes > li:first-child {margin-left: 0;}
 
@@ -3779,8 +3779,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #info-sup-scroll .voting > ul > li > a {font-size: 12px; font-size: 1.2rem;}
   .infoVotes > li, .infoVotes > span {width: 70px; height: 33px; margin-left: 5px; font-size: 15px;  font-size: 1.5rem; padding: 6px;}
   #info-sup-scroll .infoVotes > li,
-  #info-sup-scroll .infoVotes > span {padding: 6px; width: 70px; height: 33px; font-size: 16px; font-size: 1.6rem;}
-  #info-sup-scroll .infoVotes > li {margin-left: 15px;}
+  #info-sup-scroll .infoVotes > span {padding: 6px; width: 78px; height: 33px; font-size: 16px; font-size: 1.6rem;}
+  #info-sup-scroll .infoVotes > li {margin-left: 10px;}
 
   .kakareo-list.project .kakareo.post.ley .laley,
   .boxes.info .kakareo .laley {line-height: 33px;}
