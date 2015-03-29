@@ -152,7 +152,7 @@
 
         <fieldset class="form-group text-right">
             <a href="#" class="cancel" tabindex="19"><g:message code="profile.emailNotifications.cancel"/></a>
-            <input type="submit" value="Guardar y continuar" class="btn btn-grey btn-lg">
+            <input type="submit" value="${g.message(code:'profile.emailNotifications.save')}" class="btn btn-grey btn-lg">
         </fieldset>
     </g:form>
 </content>
