@@ -21,7 +21,7 @@ class MailTestingController {
         if (!email)
             email = user.email
         if (!lang)
-            lang:user.language.locale.language
+            lang = user.language.locale.language
 
         [email:email, lang:lang]
     }
@@ -162,14 +162,14 @@ class MailTestingController {
         /* NO SAVES PLEASE */
 
         Post post = Post.findByNumClucksGreaterThan(1)
-        KuorumUser user = transformUserToTest(post.owner, lang)
-        KuorumUser politician = transformUserToTest(KuorumUser.findByUserType(UserType.POLITICIAN), lang)
+        KuorumUser user = transformUserToTest(post.owner, lang, email)
+        KuorumUser politician = transformUserToTest(KuorumUser.findByUserType(UserType.POLITICIAN), lang, email)
         post.debates = [new PostComment(text:"Debate molon", kuorumUser: politician)]
         post.defender = politician
 //        post.save(); //NO SAVES
         Set<MailUserData> peopleNotified = [
-                transformUserToTest(KuorumUser.findAllByUserType(UserType.PERSON, [max:10])[0], lang),
-                transformUserToTest(KuorumUser.findAllByUserType(UserType.PERSON, [max:10])[1], lang)
+                transformUserToTest(KuorumUser.findAllByUserType(UserType.PERSON, [max:10])[0], lang, email),
+                transformUserToTest(KuorumUser.findAllByUserType(UserType.PERSON, [max:10])[1], lang, email)
         ].collect{KuorumUser userVoted -> new MailUserData(user: userVoted, bindings: [postType:"PROPUESTA A PELO POR TEST"])} as Set<MailUserData>
 
 
@@ -180,8 +180,8 @@ class MailTestingController {
         [post: post, politician:politician, user:user, peopleNotified:peopleNotified, peopleAlerted:peopleAlerted]
     }
 
-    private KuorumUser transformUserToTest(KuorumUser user, String lang){
-        user.email = prepareEmail(user.email, user.userType.toString())
+    private KuorumUser transformUserToTest(KuorumUser user, String lang, String email="info@kuorum.org"){
+        user.email = prepareEmail(email, user.userType.toString())
         AvailableLanguage language = AvailableLanguage.fromLocaleParam(lang)
         if (!language) language = AvailableLanguage.es_ES
         user.language = language
