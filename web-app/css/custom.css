@@ -841,7 +841,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
     display: block !important;
 }
 .popover .scroll .user-type {margin-top: -15px !important;}
-.popover .follow {margin: 0 0 0 49px !important;}
+.popover .follow {margin: 2px 0 0 49px !important;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
 .btn.follow {width: 105px;}
 .btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
@@ -1325,7 +1325,7 @@ video#bgvid {
 
 .notifications-list {padding: 0; margin: 0;}
 .notifications-list li {list-style: none;}
-.notifications-list > li {margin: 0; border-bottom: solid 1px #dadada; padding: 15px 0; position: relative;min-height: 73px;}
+.notifications-list > li {margin: 0; border-bottom: solid 1px #dadada; padding: 15px 0; position: relative; min-height: 73px;}
 .notifications-list > li:last-child {border: none;}
 .notifications-list > li > .user > .popover-trigger {line-height: 1.2 !important; margin: 0 !important;}
 .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 32px 10px; display: inline-block; float: left;}
@@ -1737,7 +1737,7 @@ textarea.error,
 .form-group.image.perfil {height: 320px;}
 .form-group.image.perfil .uploaderImageContainer > div {width: 284px;}
 .form-group.image.perfil .qq-upload-drop-area {padding: 52% 20px 20px 20px; height: 284px;}
-.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 26%;}
+.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 88px auto; background-position: center 12%; padding-top: 26%;}
 
 /* avatar en config cuadrado */
 .config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
@@ -1766,11 +1766,12 @@ textarea.error,
   display: block !important;
   text-align: center;
   border: 1px solid #EFEFEF;
-  display: block;
+  font-size: 12px;
+  font-size: 1.2rem;
 }
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:234px;}
 .uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {height:367px;}
-.uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
+/*.uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}*/
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:353px;}
 .uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
 .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 10px;}
@@ -2426,6 +2427,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub .kakareo h1 {font-size: 14px; font-size: 1.4rem;}
 .homeSub .kakareo .link-wrapper {padding: 15px 15px 0;}
 .homeSub .link-wrapper .popover-trigger {font-size: 12px; font-size: 1.2rem;}
+.homeSub .kakareo-list .kakareo .link-wrapper .main-kakareo > div,
+#otras-propuestas .kakareo-list .kakareo .link-wrapper .main-kakareo > div {height: 43px;}
 
 .politician-list {margin: 0; padding: 0; list-style: none;}
 .politician-list .box-ppal .user {margin: -75px 10px 20px 10px;}
@@ -3885,7 +3888,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .notifications-list > li > .user > .actions > li {display: block;}
   .boxes.alerts .notifications-list > li > .user > .actions > li {display: inline-block;}
 
-  .notifications-list .text-notification {padding-right: 34%;}
+  .notifications-list > li .text-notification {display: block; padding-right: 20%;}
   .boxes.alerts .notifications-list > li > .user > .text-notification {padding-right: 0;}
 
   .box-ppal .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 6px 10px;}
