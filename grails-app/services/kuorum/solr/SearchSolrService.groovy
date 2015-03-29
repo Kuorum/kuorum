@@ -180,6 +180,8 @@ class SearchSolrService {
         query.addFacetField("regionName")
         query.addFacetField("subType")
         query.setFacetMinCount(1)
+        query.setStart(params.offset.toInteger())
+        query.setRows(params.max.toInteger())
         QueryResponse rsp = server.query( query );
         SolrDocumentList docs = rsp.getResults();
 

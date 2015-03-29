@@ -15,6 +15,9 @@ import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchPolitician
+import kuorum.core.model.search.SearchProjects
+import kuorum.core.model.solr.SolrResults
 import kuorum.files.FileService
 import kuorum.notifications.NotificationService
 import kuorum.post.Post
@@ -245,16 +248,22 @@ class ProjectService {
     }
     List<Project> relevantProjects(KuorumUser user, Region region, Pagination pagination = new Pagination()){
         //TODO: Improve
-        def res = Project.createCriteria().list(max:pagination.max, offset:pagination.offset){
-//            eq("status", ProjectStatusType.OPEN)
-            eq("published", Boolean.TRUE)
-            if (region) eq("region._id", region.id)
-            and{
-                order('relevance', 'desc')
-                order('id','desc')
-            }
-        }
-        res
+//        def res = Project.createCriteria().list(max:pagination.max, offset:pagination.offset){
+////            eq("status", ProjectStatusType.OPEN)
+//            eq("published", Boolean.TRUE)
+//            if (region) eq("region._id", region.id)
+//            and{
+//                order('relevance', 'desc')
+//                order('id','desc')
+//            }
+//        }
+//        res
+        SearchProjects searchProjects = new SearchProjects();
+        searchProjects.regionName = region?.name;
+        searchProjects.max = pagination.max
+        searchProjects.offset = pagination.offset
+        SolrResults solrResults = searchSolrService.searchProjects(searchProjects);
+        solrResults.elements.collect{Project.get(new ObjectId(it.id))}
     }
 
     /**
