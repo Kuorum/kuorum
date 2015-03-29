@@ -3,9 +3,6 @@
     <li class="${activeMapping=='profileEditUser'?'active':''}">
         <g:link mapping="profileEditUser"><g:message code="profile.menu.editUser"/></g:link>
     </li>
-    <li class="${activeMapping=='profileEditCommissions'?'active':''}">
-        <g:link mapping="profileEditCommissions"><g:message code="profile.menu.editCommissions"/></g:link>
-    </li>
     <li class="${activeMapping=='profileChangePass'?'active':''}">
         <g:link mapping="profileChangePass"><g:message code="profile.menu.changePass"/></g:link>
     </li>
@@ -15,6 +12,9 @@
     %{--</li>--}%
     <li class="${activeMapping=='profileSocialNetworks'?'active':''}">
         <g:link mapping="profileSocialNetworks"><g:message code="profile.menu.profileSocialNetworks"/></g:link>
+    </li>
+    <li class="${activeMapping=='profileEditCommissions'?'active':''}">
+        <g:link mapping="profileEditCommissions"><g:message code="profile.menu.editCommissions"/></g:link>
     </li>
     <li class="${activeMapping=='profileEmailNotifications'?'active':''}">
         <g:link mapping="profileEmailNotifications"><g:message code="profile.menu.profileEmailNotifications"/></g:link>

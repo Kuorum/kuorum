@@ -12,13 +12,13 @@
 <content tag="mainContent">
     <div aria-label="button group" role="group" class="btn-group btn-group-justified filters">
         <g:link mapping="toolsNotifications" role="button" class="btn ${searchNotificationsCommand.alerts==null?'active':''}">
-            Todas
+            <g:message code="notifications.menu.all"/>
         </g:link>
         <g:link mapping="toolsNotifications" role="button" class="btn ${searchNotificationsCommand.alerts==true?'active':''}">
-            Alertas
+            <g:message code="notifications.menu.alerts"/>
         </g:link>
         <g:link mapping="toolsNotifications" role="button" class="btn ${searchNotificationsCommand.alerts==false?'active':''}" href="#">
-            Notificaciones
+            <g:message code="notifications.menu.notifications"/>
         </g:link>
     </div>
 
