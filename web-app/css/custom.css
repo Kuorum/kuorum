@@ -1325,7 +1325,7 @@ video#bgvid {
 
 .notifications-list {padding: 0; margin: 0;}
 .notifications-list li {list-style: none;}
-.notifications-list > li {margin: 0; border-bottom: solid 1px #dadada; padding: 15px 0; position: relative;min-height: 73px;}
+.notifications-list > li {margin: 0; border-bottom: solid 1px #dadada; padding: 15px 0; position: relative; min-height: 73px;}
 .notifications-list > li:last-child {border: none;}
 .notifications-list > li > .user > .popover-trigger {line-height: 1.2 !important; margin: 0 !important;}
 .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 32px 10px; display: inline-block; float: left;}
@@ -3885,7 +3885,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .notifications-list > li > .user > .actions > li {display: block;}
   .boxes.alerts .notifications-list > li > .user > .actions > li {display: inline-block;}
 
-  .notifications-list .text-notification {padding-right: 34%;}
+  .notifications-list > li .text-notification {display: block; padding-right: 20%;}
   .boxes.alerts .notifications-list > li > .user > .text-notification {padding-right: 0;}
 
   .box-ppal .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 6px 10px;}
