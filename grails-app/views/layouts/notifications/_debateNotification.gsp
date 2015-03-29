@@ -33,6 +33,7 @@
 <g:render
         template="/layouts/notifications/notification"
         model="[
+                toolsList:toolsList?:false,
                 notification:notification,
                 user:notification.debateWriter,
                 newNotification:newNotification,

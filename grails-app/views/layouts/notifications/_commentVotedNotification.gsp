@@ -9,6 +9,7 @@
 <g:render
         template="/layouts/notifications/notification"
         model="[
+                toolsList:toolsList?:false,
                 notification:notification,
                 user:notification.votingUser,
                 text:text,
