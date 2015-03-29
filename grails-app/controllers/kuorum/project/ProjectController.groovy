@@ -114,10 +114,10 @@ class ProjectController {
         if (owner != user && !SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN")){
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
         }
-        project.commissions = project.commissions
-        project.description = project.description
-        project.deadline = project.deadline
-        project.shortName = project.shortName
+        project.commissions = command.commissions
+        project.description = command.description
+        project.deadline = command.deadline
+        project.shortName = command.shortName
         projectService.assignFilesToCommandAndProject(command, project, owner)
         projectService.updateProject(project)
         fileService.deleteTemporalFiles(user)
