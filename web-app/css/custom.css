@@ -1737,7 +1737,7 @@ textarea.error,
 .form-group.image.perfil {height: 320px;}
 .form-group.image.perfil .uploaderImageContainer > div {width: 284px;}
 .form-group.image.perfil .qq-upload-drop-area {padding: 52% 20px 20px 20px; height: 284px;}
-.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 26%;}
+.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 88px auto; background-position: center 12%; padding-top: 26%;}
 
 /* avatar en config cuadrado */
 .config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
@@ -1766,11 +1766,12 @@ textarea.error,
   display: block !important;
   text-align: center;
   border: 1px solid #EFEFEF;
-  display: block;
+  font-size: 12px;
+  font-size: 1.2rem;
 }
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:234px;}
 .uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {height:367px;}
-.uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
+/*.uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}*/
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:353px;}
 .uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
 .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 10px;}
