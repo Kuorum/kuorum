@@ -13,21 +13,31 @@
 <content tag="mainContent">
     <g:form mapping="profileSocialNetworks" role="form" class="box-ppal">
         <h1><g:message code="profile.socialNetworks.title"/></h1>
-        <div class="form-group">
+        <fieldset class="row">
+        <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="facebook" cssIcon="fa-facebook"/>
         </div>
-        <div class="form-group">
+        </fieldset>
+        <fieldset class="row">
+        <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="twitter" cssIcon="fa-twitter"/>
         </div>
-        <div class="form-group">
+        </fieldset>
+        <fieldset class="row">
+        <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="blog" cssIcon="fa-rss-square"/>
         </div>
-        <div class="form-group">
+        </fieldset>
+        <fieldset class="row">
+        <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="googlePlus" cssIcon="fa-google-plus"/>
         </div>
+        </fieldset>
+        <fieldset class="form-group text-right">
         <div class="form-group">
-            <input type="submit" value="Guardar" class="btn btn-grey btn-lg">
             <a href="#" class="cancel">Cancelar</a>
+            <input type="submit" value="Guardar" class="btn btn-grey btn-lg">
         </div>
+        </fieldset>
     </g:form>
 </content>

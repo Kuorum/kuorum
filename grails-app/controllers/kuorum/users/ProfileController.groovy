@@ -285,7 +285,7 @@ class ProfileController {
 
     def configurationEmails() {
         KuorumUser user = params.user
-        MailNotificationsCommand command = new MailNotificationsCommand(availableMails:user.availableMails, commissions: user.relevantCommissions)
+        MailNotificationsCommand command = new MailNotificationsCommand(availableMails:user.availableMails)
         command.availableMails = user.availableMails?:[]
         [user:user, command: command]
     }
@@ -296,7 +296,6 @@ class ProfileController {
             return
         }
         user.availableMails = command.availableMails
-        user.relevantCommissions = command.commissions
         kuorumUserService.updateUser(user)
         flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'
