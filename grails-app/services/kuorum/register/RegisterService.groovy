@@ -4,12 +4,15 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.ui.RegistrationCode
 import kuorum.core.exception.KuorumException
+import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.mail.KuorumMailService
 import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
+import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.servlet.LocaleResolver
 import springSecurity.KuorumRegisterCommand
 
 class RegisterService {
@@ -70,10 +73,13 @@ class RegisterService {
     */
 
     KuorumUser createUser (KuorumRegisterCommand command){
+        Locale locale = LocaleContextHolder.getLocale();
+        AvailableLanguage availableLanguage = AvailableLanguage.fromLocaleParam(locale.getLanguage());
         KuorumUser user
             user = new KuorumUser(
                     email: command.email.toLowerCase(),
                     name: command.name,
+                    availableLanguage:availableLanguage,
                     accountLocked: true, enabled: true)
             user.relevantCommissions = CommissionType.values()
             user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]

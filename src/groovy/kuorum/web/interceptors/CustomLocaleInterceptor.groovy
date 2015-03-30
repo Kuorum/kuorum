@@ -38,7 +38,6 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
         if (springSecurityService.isLoggedIn()){
             KuorumUser user = springSecurityService.getCurrentUser()
             userLanguage = user.language
-            localeResolver.setLocale(request, response, userLanguage.locale)
         }else{
             userLanguage = AvailableLanguage.fromLocaleParam(localeParam);
             if (!userLanguage){
