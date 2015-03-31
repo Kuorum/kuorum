@@ -142,6 +142,7 @@ class ProjectController {
 
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
     def createProjectUpdate(String hashtag){
         if(hashtag){
             Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
@@ -157,6 +158,7 @@ class ProjectController {
         }
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
     def addProjectUpdate(ProjectUpdateCommand projectUpdateCommand){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Project project = projectService.findProjectByHashtag(params.hashtag.encodeAsHashtag())

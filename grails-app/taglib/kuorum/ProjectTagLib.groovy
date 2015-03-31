@@ -85,7 +85,7 @@ class ProjectTagLib {
 
     def ifAllowedToUpdateProject = {attrs, body ->
         Project project = attrs.project
-        if (springSecurityService.isLoggedIn() && springSecurityService.getCurrentUser().equals(project.owner)){
+        if (springSecurityService.isLoggedIn() && (springSecurityService.getCurrentUser().equals(project.owner) || SpringSecurityUtils.ifAnyGranted('ROLE_ADMIN'))){
             out << body()
         }
     }
