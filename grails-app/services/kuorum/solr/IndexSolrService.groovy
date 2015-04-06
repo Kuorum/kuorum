@@ -277,11 +277,20 @@ class IndexSolrService {
     }
 
     SolrProject recoverProjectFromSolr(SolrDocument solrDocument){
+        SolrSubType solrSubType = null;
+        try{
+            solrSubType = SolrSubType.valueOf(solrDocument.subType)
+        }catch (Exception e){
+            //TODO: FIX Rápido para que a ABBY le funcione y no de nullPointer
+            log.error("No se ha reconocido el tipo de projecto: ${solrDocument.subType}. Hay algo mal indexado. Se supone que el proyecto está cerrado")
+            solrSubType = SolrSubType.REJECTED;
+
+        }
         new SolrProject(
                 id:new ObjectId(solrDocument.id),
                 name:solrDocument.name,
                 type:SolrType.valueOf(solrDocument.type),
-                subType:SolrSubType.valueOf(solrDocument.subType),
+                subType:solrSubType,
                 text:solrDocument.text,
                 dateCreated:solrDocument.dateCreated,
                 hashtag:solrDocument.hashtag,
