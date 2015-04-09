@@ -192,7 +192,7 @@ class KuorumUserService {
      * @param pagination The pagination params
      * @return
      */
-    List<KuorumUser> recommendedUsers(KuorumUser user, Pagination pagination = new Pagination()){
+    List<KuorumUser> recommendedUsers(KuorumUser user, Pagination pagination = new Pagination(), Boolean recalculateActivityIfEmpty = Boolean.TRUE){
 
         if (!user){
             return recommendedUsers(pagination)
@@ -221,7 +221,14 @@ class KuorumUserService {
             }
             mostActiveUsers = mostActiveUsers - deletedRecommendedUsers - user.following -[user.id]
             max = Math.min(max, mostActiveUsers.size()-1)
-            kuorumUsers += mostActiveUsers[0..max]
+            if (mostActiveUsers) {
+                kuorumUsers += mostActiveUsers[0..max]
+            }
+            if (!kuorumUsers && recalculateActivityIfEmpty){
+                log.warn("No se han detectado sugerencias para el usuario ${user}, se vuelven a calcular. ")
+                recommendedUsersByActivityAndUser(user);
+                return recommendedUsers(user, pagination, false);
+            }
         }
 
         kuorumUsers as ArrayList<KuorumUser>
