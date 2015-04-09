@@ -8,7 +8,7 @@ class UrlMappings {
 
         //TODO Hacer esta �apa en BBDD
 //        name tempmoralLink: "/$customLink" (controller: "dashboard", action:"customPostMapping")
-        name tempmoralLink: "/medidasvalientes" (controller: "dashboard", action:"customPostMapping")
+//        name tempmoralLink: "/medidasvalientes" (controller: "dashboard", action:"customPostMapping")
 
         //The URLs are duplicated because of the refactor of Law into Project. The name of aliases are changed.
         name home:             "/" (controller: "dashboard", action:"index")
@@ -82,6 +82,7 @@ class UrlMappings {
 
         //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
         name userShow:          "/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "show")
+        name userShowWithAlias: "/$userAlias"   (controller: "kuorumUser", action: "showWithAlias")
         name secUserShow:       "/sec/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "secShow")
         name users:             "/$userTypeUrl"     (controller: "kuorumUser", action: "index"){
             constraints {

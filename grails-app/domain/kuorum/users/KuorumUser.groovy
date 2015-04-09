@@ -152,6 +152,7 @@ class KuorumUser {
         log.debug("Se ha actualizado el usuario ${id}")
 //        username = username?.toLowerCase()
         email = email.toLowerCase()
+        alias = alias?.toLowerCase()
 //        def persisted = SecUser.collection.findOne(_id:id)?.password
 //        if(persisted != password)
 //            encodePassword()

@@ -27,7 +27,7 @@ class KuorumUserController {
     def projectService
 
 //    def beforeInterceptor = [action: this.&checkUser, except: 'login']
-    def beforeInterceptor = [action: this.&checkUser, except: ['index', 'politicians']]
+    def beforeInterceptor = [action: this.&checkUser, except: ['index', 'politicians', 'showWithAlias']]
 
     private checkUser(){
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
@@ -77,6 +77,22 @@ class KuorumUserController {
             case UserType.PERSON: return showCitizen(id); break;
             case UserType.POLITICIAN: return showPolitician(id); break;
         }
+    }
+
+    def showWithAlias(String userAlias){
+        KuorumUser user = KuorumUser.findByAlias(userAlias.toLowerCase())
+        if (!user) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return false
+        }
+        switch (user.userType){
+            case UserType.ORGANIZATION: return showCitizen(user.getId().toString()); break;
+            case UserType.PERSON: return showCitizen(user.getId().toString()); break;
+            case UserType.POLITICIAN: return showPolitician(user.getId().toString()); break;
+        }
+        log.error("User type (userType=${user.userType}) not found for user ${user.id} (${user})")
+        response.sendError(HttpServletResponse.SC_NOT_FOUND)
+        return false
     }
 
     def showCitizen(String id){
