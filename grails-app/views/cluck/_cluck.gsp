@@ -8,12 +8,19 @@
     <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
         <h1>${post.title} <g:link mapping="projectShow" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link> </h1>
         <div class="main-kakareo row">
-            <div class="col-xs-6 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <div class="col-sm-6 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
                 <userUtil:showUser user="${post.owner}" showRole="true"/>
             </div>
-            <div class="col-xs-6 text-right sponsor">
-                <userUtil:showDebateUsers post="${post}" visibleUsers="1"/>
-            </div>
+            <g:if test="${post.defender}">
+                <div class="col-sm-6 text-right sponsor">
+                    <userUtil:showListUsers users="${[post.defender]}" visibleUsers="1" messagesPrefix="cluck.defendUsers"/>
+                </div>
+            </g:if>
+            <g:else>
+                <div class="col-sm-6 text-right sponsor">
+                    <userUtil:showDebateUsers post="${post}" visibleUsers="1"/>
+                </div>
+            </g:else>
         </div>
         <g:if test="${!displayingColumnC}">
             <g:render template="/cluck/cluckMultimedia" model="[post:post]"/>
