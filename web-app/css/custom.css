@@ -2166,11 +2166,11 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .chat > li time {text-align: right; color: #a8a8a8; display: block;}
 .chat > li.politician time {text-align: left;}
 .chat .user-type {margin-top: -20px;}
-.chat > li:last-child time {text-align: right !important;}
-.chat > li:last-child .user.author {text-align: left !important;}
-.chat > li:last-child .user.author > .popover-trigger > .user-img {float: none; margin: 8px 6px 4px 0 !important;}
-.chat > li:last-child .user-type {margin-top: -22px;}
-.chat > li:last-child > form > .form-group:first-child {margin-bottom: 20px;}
+.chat > li.formDebate time {text-align: right;}
+.chat > li.formDebate .user.author {text-align: left !important;}
+.chat > li.formDebate .user.author > .popover-trigger > .user-img {float: none; margin: 8px 6px 4px 0 !important;}
+.chat > li.formDebate .user-type {margin-top: -22px;}
+.chat > li.formDebate > form > .form-group:first-child {margin-bottom: 20px;}
 
 .debate p.no-debate {padding: 15px; background-color: #f8f8f8; border: 1px solid #e5e5e5;}
 
