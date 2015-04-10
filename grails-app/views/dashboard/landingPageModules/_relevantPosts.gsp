@@ -4,7 +4,7 @@
 <ul class="kakareo-list">
     <g:each in="${recommendedPost}" var="post">
         <li itemscope itemtype="http://schema.org/Article" class="col-md-4">
-            <g:render template="/cluck/cluck" model="[post:post, displayingColumnC:true]"/>
+            <g:render template="/cluck/cluck" model="[post:post, displayingColumnC:true, displayingHorizontalModule:true]"/>
         </li>
     </g:each>
 </ul>
