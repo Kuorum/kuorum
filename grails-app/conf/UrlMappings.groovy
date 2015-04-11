@@ -82,7 +82,11 @@ class UrlMappings {
 
         //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
         name userShow:          "/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "show")
-        name userShowWithAlias: "/$userAlias"   (controller: "kuorumUser", action: "showWithAlias")
+        name userShowWithAlias: "/$userAlias"   (controller: "kuorumUser", action: "showWithAlias"){
+            constraints{
+                userAlias notEqual: "j_spring_security_facebook_redirect"
+            }
+        }
         name secUserShow:       "/sec/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "secShow")
         name users:             "/$userTypeUrl"     (controller: "kuorumUser", action: "index"){
             constraints {
