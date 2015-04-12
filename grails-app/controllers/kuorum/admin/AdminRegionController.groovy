@@ -16,6 +16,7 @@ class AdminRegionController extends  AdminController {
         String regionCode = region.iso3166_2.split("-").last()
         region.iso3166_2 = region.superRegion.iso3166_2+"-"+regionCode
         if (!region.save()){
+            region.iso3166_2 = region.iso3166_2.split("-").last()
             render view:'/adminRegion/createRegion', model: [
                     command:region,
                     regions:Region.findAll(),
