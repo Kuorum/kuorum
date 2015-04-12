@@ -18,9 +18,9 @@
                             </div>
                         </header>
 
-                        <article id="${pageProperty(name:'page.idMainContent')}" class="col-xs-12 col-sm-8 col-md-8" role="article" itemtype="http://schema.org/Article" itemscope>
+                        <section id="${pageProperty(name:'page.idMainContent')}" class="col-xs-12 col-sm-8 col-md-8" role="article" itemtype="http://schema.org/Article" itemscope>
                             <g:pageProperty name="page.mainContent"/>
-                        </article>
+                        </section>
                     </section>
                 </div>
             </div>

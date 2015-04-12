@@ -6,12 +6,7 @@
 </head>
 
 <content tag="leftMenu">
-    <h1>
-        <g:message code="admin.adminPrincipal.title"/>,
-    </h1>
-    %{--TODO: Menú lateral izquierdo "Herramientas"--}%
-    %{--<g:render template="/admin/adminMenu" model="[activeMapping:'adminPrincipal', menu:menu]"/>--}%
-
+    <g:render template="leftMenu" model="[user:user, activeMapping:'projectList', menu:menu]"/>
 </content>
 
 <content tag="mainContent">
