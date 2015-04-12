@@ -1,5 +1,5 @@
 <postUtil:ifUserCanAddDebates post="${post}">
-    <li>
+    <li class="formDebate">
         <time title="Ahora mismo" class="timeago" datetime="2015-02-21T13:40:50+02:00">Ahora mismo</time>
         <div itemtype="http://schema.org/Person" itemscope itemprop="author" class="user author">
             <userUtil:showLoggedUser showRole="true"/>

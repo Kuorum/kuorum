@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.PoliticalParty
+import kuorum.Region
 import kuorum.core.model.UserType
 import kuorum.users.*
 import kuorum.web.commands.admin.AdminUserCommand
@@ -17,15 +18,18 @@ class AdminUserController extends AdminController {
     def fileService
 
     def createUser() {
-        [command:new AdminUserCommand(enabled:true), institutions:Institution.findAll(), politicalParties:PoliticalParty.findAll()]
+        [command:new AdminUserCommand(enabled:true), regions:Region.findAll(), politicalParties:PoliticalParty.findAll()]
     }
 
     def saveUser(AdminUserCommand command){
         if(KuorumUser.findByEmail(command.email)){
             command.errors.rejectValue("email","kuorum.web.commands.admin.AdminUserCommand.email.notUnique")
         }
+        if(KuorumUser.findByAlias(command.alias)){
+            command.errors.rejectValue("alias","kuorum.web.commands.admin.AdminUserCommand.alias.notUnique")
+        }
         if (command.hasErrors()){
-            render view: 'createUser', model:[command:command, institutions:Institution.findAll(), politicalParties:PoliticalParty.findAll()]
+            render view: 'createUser', model:[command:command, regions:Region.findAll(), politicalParties:PoliticalParty.findAll()]
             flash.error=message(code:'admin.createUser.error')
             return
         }
@@ -41,14 +45,22 @@ class AdminUserController extends AdminController {
     def editUser(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
         AdminUserCommand command = prepareCommand(user)
-        [user:user, command:command, institutions:Institution.findAll(), politicalParties: PoliticalParty.findAll()]
+        [user:user, command:command, regions:Region.findAll(), politicalParties: PoliticalParty.findAll()]
     }
 
     def updateUser(AdminUserCommand command){
         command.imageProfile = params['imageProfile'] // no se por que no lo esta mapeando
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        KuorumUser testUser = KuorumUser.findByEmail(command.email);
+        if(testUser && testUser != user){
+            command.errors.rejectValue("email","kuorum.web.commands.admin.AdminUserCommand.email.notUnique")
+        }
+        testUser = KuorumUser.findByAlias(command.alias)
+        if(testUser && testUser != user){
+            command.errors.rejectValue("alias","kuorum.web.commands.admin.AdminUserCommand.alias.notUnique", [testUser.alias, testUser.name].toArray(),'Alias not unique')
+        }
         if (command.hasErrors()){
-            render view: 'editUser', model:[user:user,command:command, institutions:Institution.findAll(), politicalParties: PoliticalParty.findAll()]
+            render view: 'editUser', model:[user:user,command:command, regions:Region.findAll(), politicalParties: PoliticalParty.findAll()]
             flash.error=message(code:'admin.createUser.error')
             return
         }
@@ -70,7 +82,7 @@ class AdminUserController extends AdminController {
         }else{
             personalData = new PersonData()
             if (command.userType==UserType.POLITICIAN){
-                kuorumUserService.convertAsPolitician(user, command.institution, command.politicalParty)
+                kuorumUserService.convertAsPolitician(user, command.politicianOnRegion, command.politicalParty)
             }else{
                 kuorumUserService.convertAsNormalUser(user)
             }
@@ -86,11 +98,13 @@ class AdminUserController extends AdminController {
         personalData.userType = command.userType
         user.personalData = personalData
         user.email = command.email
+        user.alias = command.alias
         user.verified = command.verified?:false
         user.enabled = command.enabled?:false
         user.userType = command.userType
         user.bio = command.bio
         user.name = command.name
+        user.relevantCommissions = command.commissions
         if (user.password != command.password){
             user.password = springSecurityUiService.encodePassword(command.password, null)
         }
@@ -127,7 +141,7 @@ class AdminUserController extends AdminController {
         }
         if (UserType.POLITICIAN.equals(user.userType)){
             command.politicalParty = user.politicalParty
-            command.institution = user.institution
+            command.politicianOnRegion = user.politicianOnRegion
         }
         command.year =  user.personalData?.birthday?user.personalData?.birthday[Calendar.YEAR]:null
 //        command.month = user.personalData?.birthday?user.personalData?.birthday[Calendar.MONTH] +1:null
@@ -138,6 +152,7 @@ class AdminUserController extends AdminController {
         command.postalCode = user.personalData.postalCode
         command.province = user.personalData.province
         command.email = user.email
+        command.alias = user.alias
         command.verified = user.verified
         command.enabled = user.enabled
         command.userType = user.userType
@@ -146,6 +161,7 @@ class AdminUserController extends AdminController {
         command.password = user.password
         command.photoId = user.avatar?.id
         command.imageProfile = user.imageProfile?.id
+        command.commissions = user.relevantCommissions
 
         command
     }

@@ -139,7 +139,7 @@ class ProjectService {
     }
 
     Project saveAndCreateNewProject(Project project, KuorumUser user){
-        project.institution = user.institution
+//        project.institution = user.institution
         project.region = user.politicianOnRegion
         project.owner = user
 

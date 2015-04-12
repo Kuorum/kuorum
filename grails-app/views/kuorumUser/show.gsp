@@ -38,8 +38,8 @@
             <img src="${image.userImgProfile(user:user)}" alt="${user.imageProfile?user.imageProfile.originalName:user.name}">
         </div>
         <ul class="activity">
-            <li><span class="counter">${user.followers.size()}</span> <br><g:message code="kuorumUser.popover.followers"/></li>
-            <li><span class="counter">${user.following.size()}</span> <br><g:message code="kuorumUser.popover.following"/></li>
+            <li><userUtil:counterFollowers user="${user}"/></li>
+            <li><userUtil:counterFollowing user="${user}"/></li>
             <li><span class="counter">${user.activity}</span> <br><g:message code="kuorumUser.popover.post"/></li>
             <g:render template="/kuorumUser/userRecordsLi" model="[user:user]"/>
         </ul>

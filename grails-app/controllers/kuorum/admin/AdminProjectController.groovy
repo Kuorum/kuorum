@@ -22,12 +22,10 @@ class AdminProjectController  extends  AdminController{
         if (SpringSecurityUtils.ifAnyGranted('ROLE_POLITICIAN')){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             model = [
-                    institutions:[user.institution],
                     regions:[user?.politicianOnRegion]
             ]
             command.region = model.regions[0]
             command.owner = user
-            command.institution = user.institution
         }
         model << [project:project, command: command]
         model
@@ -57,7 +55,7 @@ class AdminProjectController  extends  AdminController{
             KuorumFile image = KuorumFile.get(new ObjectId(command.photoId))
             project.image = image
         }
-        project.region = command.institution.region
+//        project.region = command.institution.region
         projectService.updateProject(project)
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         fileService.deleteTemporalFiles(user)

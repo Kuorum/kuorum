@@ -91,7 +91,7 @@ class Helper {
                 description: "description${hashtag}",
                 commissions: [CommissionType.OTHERS],
                 region: creteDefaultRegion(),
-                institution: creteDefaultInstitution(),
+//                institution: creteDefaultInstitution(),
                 politicalParty: createDefaultPoliticalParty(),
                 availableStats: Boolean.TRUE,
                 deadline: new Date() + 10,

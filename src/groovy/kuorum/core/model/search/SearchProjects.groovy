@@ -20,7 +20,7 @@ class SearchProjects extends Pagination implements Serializable{
 
 
     static constraints = {
-        institutionName nullable: false
+        regionName nullable: false
         commissionType nullable: true
     }
 }

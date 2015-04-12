@@ -61,8 +61,8 @@ class LinkPropertiesCodec {
         String commissionName = translate("${CommissionType.canonicalName}.${project.commissions.first()}")
         [
                 hashtag: project.hashtag.decodeHashtag(),
-//                regionName:project.region.name.encodeAsKuorumUrl(),
-                institutionName:project.institution.name.encodeAsKuorumUrl(),
+                regionName:project.region.name.encodeAsKuorumUrl(),
+//                institutionName:project.institution.name.encodeAsKuorumUrl(),
                 commission:commissionName.encodeAsKuorumUrl(),
         ]
     }
@@ -92,8 +92,8 @@ class LinkPropertiesCodec {
         String commissionName = translate("${CommissionType.canonicalName}.${project.commissions.first()}")
         [
                 hashtag: project.hashtag.decodeHashtag(),
-//                regionName:project.regionName.encodeAsKuorumUrl(),
-                institutionName:project.institutionName.encodeAsKuorumUrl(),
+                regionName:project.regionName.encodeAsKuorumUrl(),
+//                institutionName:project.institutionName.encodeAsKuorumUrl(),
                 commission:commissionName.encodeAsKuorumUrl()
         ]
     }
@@ -102,8 +102,8 @@ class LinkPropertiesCodec {
         String commissionName = translate("${CommissionType.canonicalName}.${post.commissions.first()}")
         [
                 hashtag: post.hashtagProject.decodeHashtag(),
-//                regionName:post.regionName.encodeAsKuorumUrl(),
-                institutionName:post.institutionName.encodeAsKuorumUrl(),
+                regionName:post.regionName.encodeAsKuorumUrl(),
+//                institutionName:post.institutionName.encodeAsKuorumUrl(),
                 commission:commissionName.encodeAsKuorumUrl(),
                 postId:post.id,
                 postBrief:post.name[0..Math.min(NUM_CHARS_URL_POST_TITLE, post.name.size()-1)].encodeAsKuorumUrl()

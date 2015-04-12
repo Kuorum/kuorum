@@ -1,5 +1,5 @@
-<span class="ajax popover-trigger more-users counter" rel="popover" role="button" data-toggle="popover">
-    <span>${total}</span>
+<span class="ajax popover-trigger more-users" rel="popover" role="button" data-toggle="popover">
+    <span class="counter">${total}</span>
 </span>
 ${label}
 <!-- POPOVER PARA SACAR LISTAS DE USUARIOS -->

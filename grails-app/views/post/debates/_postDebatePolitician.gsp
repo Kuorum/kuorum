@@ -1,5 +1,5 @@
-<li>
-    <g:render template="/post/debates/postDebateEditMenu" model="[post:post, debate:debate]"/>
+<li class="${debate.kuorumUser.userType==kuorum.core.model.UserType.POLITICIAN?'politician':''}">
+    %{--<g:render template="/post/debates/postDebateEditMenu" model="[post:post, debate:debate]"/>--}%
 
     <kuorumDate:humanDate date="${debate.dateCreated}"/>
 

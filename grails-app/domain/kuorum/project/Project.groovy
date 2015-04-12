@@ -26,7 +26,7 @@ class Project {
     @Updatable String description
     @Updatable List<CommissionType> commissions = []
     @Updatable Region region
-    @Updatable Institution institution
+//    @Updatable Institution institution
     @Updatable PoliticalParty politicalParty
     @Updatable KuorumFile image
     @Updatable ProjectStatusType status = ProjectStatusType.OPEN
@@ -57,11 +57,11 @@ class Project {
         realName nullable:true
         description nullable:false, minSize: 1
         region  nullable:false
-        institution nullable:false, validator: { val, obj ->
-            if (obj.region && obj.region != val.region) {
-                return ['notSameRegionAsInstitution']
-            }
-        }
+//        institution nullable:false, validator: { val, obj ->
+//            if (obj.region && obj.region != val.region) {
+//                return ['notSameRegionAsInstitution']
+//            }
+//        }
         image nullable:true, validator: { val, obj ->
             if (!val && !obj.urlYoutube) {
                 return ['imageOrUrlYoutubeRequired']

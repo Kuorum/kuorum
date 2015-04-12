@@ -28,9 +28,11 @@
             </span>
         </g:link>
     </li>
-    <li class="${activeMapping=='toolsKuorumStore'?'active':''}">
-        <g:link mapping="toolsKuorumStore"><g:message code="tools.menu.profileKuorumStore"/></g:link>
-    </li>
+    <sec:ifNotGranted roles="ROLE_POLITICIAN">
+        <li class="${activeMapping=='toolsKuorumStore'?'active':''}">
+            <g:link mapping="toolsKuorumStore"><g:message code="tools.menu.profileKuorumStore"/></g:link>
+        </li>
+    </sec:ifNotGranted>
     %{--<li class="${activeMapping=='toolsKuorumStore'?'active':''}">--}%
         %{--<g:link mapping="toolsKuorumStore">--}%
             %{--<span id="mensajes">--}%
