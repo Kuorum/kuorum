@@ -158,7 +158,7 @@ class IndexSolrService {
             victory: post.victory,
             commissions: post.project.commissions,
             regionName: post.project.region.name,
-            institutionName:post.project.institution.name,
+//            institutionName:post.project.institution.name,
             regionIso3166_2: post.project.region.iso3166_2,
             urlImage: post.multimedia?.url
         )
@@ -227,8 +227,7 @@ class IndexSolrService {
                 urlImage: kuorumUser.avatar?.url,
                 role:kuorumUser.gamification.activeRole,
                 gender:kuorumUser.personalData.gender?:Gender.FEMALE,
-                text:kuorumUser.bio,
-                institutionName:kuorumUser.userType==UserType.POLITICIAN?kuorumUser.institution.name:null
+                text:kuorumUser.bio
         )
     }
 
@@ -264,7 +263,7 @@ class IndexSolrService {
                 dateCreated:project.dateCreated,
                 hashtag:project.hashtag,
                 commissions:project.commissions,
-                institutionName:project.institution.name,
+//                institutionName:project.institution.name,
                 regionName: project.region.name,
                 regionIso3166_2: project.region.iso3166_2,
                 urlImage: project.image?.url,

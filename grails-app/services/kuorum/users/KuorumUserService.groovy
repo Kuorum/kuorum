@@ -141,15 +141,14 @@ class KuorumUserService {
         user
     }
 
-    KuorumUser convertAsPolitician(KuorumUser user, Institution institution,  PoliticalParty politicalParty){
-        if (!institution || !politicalParty){
+    KuorumUser convertAsPolitician(KuorumUser user, Region politicianOnRegion,  PoliticalParty politicalParty){
+        if (!politicianOnRegion || !politicalParty){
             throw new KuorumException("Un politico debe de tener institucion y grupo parlamentario","error.politician.politicianData")
         }
         user.userType = UserType.POLITICIAN
         user.personalData.userType = UserType.POLITICIAN
-        user.institution = institution
         user.politicalParty = politicalParty
-        user.politicianOnRegion = institution.region
+        user.politicianOnRegion = politicianOnRegion
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.add(rolePolitician)
         user.save()
@@ -418,7 +417,9 @@ class KuorumUserService {
             user.personalData.provinceCode = user.personalData.province.iso3166_2
         }
         modifyRoleDependingOnUserData(user)
-        springSecurityService.reauthenticate user.email
+        if (springSecurityService.getCurrentUser().equals(user)){
+            springSecurityService.reauthenticate user.email
+        }
         if (!user.save()){
             def msg = "No se ha podido actualizar el usuario ${user.email}(${user.id})"
             log.error(msg)
@@ -739,10 +740,6 @@ class KuorumUserService {
             log.error("Error salvando usuario ${user.id}. ERRORS => ${user.errors}")
             throw new KuorumException("Error desactivando un usuario")
         }
-    }
-
-    Boolean checkIfIsPolititician(KuorumUser user){
-        user.institution!=null
     }
 
     boolean isUserRegisteredCompletely(KuorumUser user){

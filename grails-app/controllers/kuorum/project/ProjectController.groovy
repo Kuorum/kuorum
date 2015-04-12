@@ -195,19 +195,19 @@ class ProjectController {
         SearchProjects searchParams = new SearchProjects(max: 1000)
         searchParams.commissionType = recoverCommissionByTranslatedName(request.locale, params.commission)
         def groupProjects =[:]
-        if (params.institutionName){
-            searchParams.institutionName = params.institutionName.decodeKuorumUrl()
+        if (params.regionName){
+            searchParams.regionName = params.regionName.decodeKuorumUrl()
             List<SolrProjectsGrouped> projectsPerInstitution = searchSolrService.listProjects(searchParams)
             if (projectsPerInstitution){
-                searchParams.institutionName = projectsPerInstitution.elements[0][0].institutionName
+                searchParams.regionName = projectsPerInstitution.elements[0][0].regionName
             }
-            groupProjects.put(searchParams.institutionName  , projectsPerInstitution)
+            groupProjects.put(searchParams.regionName  , projectsPerInstitution)
         }else{
-            Institution.list().each {
-                searchParams.institutionName = it.name
-                List<SolrProjectsGrouped> projectsPerInstitution = searchSolrService.listProjects(searchParams)
-                if (projectsPerInstitution)
-                    groupProjects.put("${searchParams.institutionName}" , projectsPerInstitution)
+            Region.list().each {
+                searchParams.regionName = it.name
+                List<SolrProjectsGrouped> projectsPerRegion = searchSolrService.listProjects(searchParams)
+                if (projectsPerRegion)
+                    groupProjects.put("${searchParams.regionName}" , projectsPerRegion)
             }
         }
         [groupProjects:groupProjects]

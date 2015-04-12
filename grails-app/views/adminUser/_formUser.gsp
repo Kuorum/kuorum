@@ -2,7 +2,11 @@
     <div class="form-group col-md-6">
         <formUtil:input command="${command}" field="name" required="true" autocomplete="off" showLabel="true"/>
     </div>
+    <div class="form-group col-md-6">
+        <formUtil:input command="${command}" field="alias" required="true" autocomplete="off" showLabel="true"/>
+    </div>
 </fieldset>
+
 <fieldset class="row">
     <div class="form-group col-md-6">
         <formUtil:input command="${command}" field="email" type="email" required="true" autocomplete="off" showLabel="true"/>
@@ -30,7 +34,7 @@
 
 <fieldset class="row">
     <div class="col-xs-6">
-        <formUtil:selectDomainObject command="${command}" field="institution" values="${institutions}" />
+        <formUtil:selectDomainObject command="${command}" field="politicianOnRegion" values="${regions}" />
     </div>
     <div class="col-xs-6">
         <formUtil:selectDomainObject command="${command}" field="politicalParty" values="${politicalParties}" />

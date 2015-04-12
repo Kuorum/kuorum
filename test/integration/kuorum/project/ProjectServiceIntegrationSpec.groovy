@@ -36,7 +36,7 @@ class ProjectServiceIntegrationSpec extends Specification {
 
         project.shortName = shortName
         project.region = region
-        project.institution = institution
+//        project.institution = institution
         project.politicalParty = politicalParty
         project.realName = realName
         project.commissions = commissions

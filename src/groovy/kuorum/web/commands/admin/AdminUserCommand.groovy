@@ -3,6 +3,7 @@ package kuorum.web.commands.admin
 import grails.validation.Validateable
 import kuorum.Institution
 import kuorum.PoliticalParty
+import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
@@ -15,7 +16,7 @@ import kuorum.web.commands.profile.EditUserProfileCommand
 class AdminUserCommand extends EditUserProfileCommand{
     String email
     String password
-    Institution institution
+    Region politicianOnRegion
     PoliticalParty politicalParty
     Boolean verified
     Boolean enabled
@@ -24,18 +25,18 @@ class AdminUserCommand extends EditUserProfileCommand{
 
     static constraints = {
         email nullable:false, email:true
-        institution nullable: true, validator:{val, obj ->
-            if (obj.userType && obj.userType == UserType.POLITICIAN && !val){
-                return "politicianWithoutInstitution"
-            }else if(obj.userType && obj.userType != UserType.POLITICIAN && val){
-                return "normalUserWithInstitution"
-            }
-        }
         politicalParty nullable: true, validator:{val, obj ->
             if (obj.userType && obj.userType == UserType.POLITICIAN && !val){
                 return "politicianWithoutPoliticalParty"
             }else if(obj.userType && obj.userType != UserType.POLITICIAN && val){
                 return "normalUserWithPoliticalParty"
+            }
+        }
+        politicianOnRegion nullable:true, validator:{val, obj ->
+            if (obj.userType && obj.userType == UserType.POLITICIAN && !val){
+                return "politicianWithoutPoliticianRegion"
+            }else if(obj.userType && obj.userType != UserType.POLITICIAN && val){
+                return "normalUserWithPoliticianRegion"
             }
         }
         userType nullable: false

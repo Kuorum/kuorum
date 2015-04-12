@@ -69,7 +69,7 @@ class KuorumUser {
 
     //Politician FIELDS
     PoliticalParty politicalParty
-    Institution institution
+//    Institution institution
     Region politicianOnRegion
     PoliticianActivity politicianActivity
 
@@ -102,7 +102,7 @@ class KuorumUser {
 
         //POLITICIAN VALIDATION
         politicalParty nullable: true
-        institution nullable:true
+//        institution nullable:true
         organization nullable: true
         politicianOnRegion nullable:true
         politicianActivity nullable:true

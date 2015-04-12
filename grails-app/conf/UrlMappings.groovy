@@ -22,62 +22,57 @@ class UrlMappings {
         name discoverRecentPosts:           "/descubre/publicaciones-recientes" (controller: "discover", action:"discoverRecentPosts")
         name discoverRecommendedPosts:      "/descubre/publicaciones-mas-impulsadas" (controller: "discover", action:"discoverRecommendedPosts")
 
-        name projectCreate:     "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"save"]}
-                                "/leyes/nueva"(controller: "project"){action = [GET:"create", POST:"save"]}
-        name projectEdit:       "/proyectos/$institutionName/$commission/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
-        name projects:          "/proyectos/$institutionName?/$commission?" (controller: "project", action:"index")
-                                "/leyes/$institutionName?/$commission?" (controller: "project", action:"index")
-        name projectShow:       "/proyectos/$institutionName/$commission/$hashtag" (controller: "project", action:"show")
-                                "/leyes/$institutionName/$commission/$hashtag" (controller: "project", action:"show")
-        name projectStats:      "/proyectos/$institutionName/$commission/$hashtag/ficha-tecnica" (controller: "project", action:"stats")
-                                "/leyes/$institutionName/$commission/$hashtag/ficha-tecnica" (controller: "project", action:"stats")
-        name projectStatsDataMap:"/ajax/proyectos/$institutionName/$commission/$hashtag/ficha-tecnica/datos-mapa" (controller: "project", action:"statsDataMap")
-                                 "/ajax/leyes/$institutionName/$commission/$hashtag/ficha-tecnica/datos-mapa" (controller: "project", action:"statsDataMap")
-        name projectStatsPieChart:"/ajax/proyectos/$institutionName/$commission/$hashtag/ficha-tecnica/datos-pieChart" (controller: "project", action:"statsDataPieChart")
-                                  "/ajax/leyes/$institutionName/$commission/$hashtag/ficha-tecnica/datos-pieChart" (controller: "project", action:"statsDataPieChart")
-        name projectShowSec:    "/sec/proyectos/$institutionName/$commission/$hashtag" (controller: "project", action:"showSecured")
-                                "/sec/leyes/$institutionName/$commission/$hashtag" (controller: "project", action:"showSecured")
-        name projectVote:       "/ajax/proyectos/$institutionName/$commission/$hashtag/votar"(controller: "project", action:"voteProject")
-                                "/ajax/leyes/$institutionName/$commission/$hashtag/votar"(controller: "project", action:"voteProject")
-        name projectVoteNoTotalUser:       "/sec/proyectos/$institutionName/$commission/$hashtag/salvarDatosUsuarioYvotar"(controller: "project", action:"voteProjectAsNonCompleteUser")
-        name projectListClucks: "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
-                                "/ajax/leyes/$institutionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
-        name projectListPostDefends:   "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
-        name projectListPostVictories: "/ajax/proyectos/$institutionName/$commission/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
+        name projectCreate:             "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"save"]}
+                                        "/leyes/nueva"(controller: "project"){action = [GET:"create", POST:"save"]}
+        name projectEdit:               "/proyectos/$regionName/$commission/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
+        name projects:                  "/proyectos/$regionName?/$commission?" (controller: "project", action:"index")
+                                        "/leyes/$regionName?/$commission?" (controller: "project", action:"index")
+        name projectShow:               "/proyectos/$regionName/$commission/$hashtag" (controller: "project", action:"show")
+                                        "/leyes/$regionName/$commission/$hashtag" (controller: "project", action:"show")
+        name projectStats:              "/proyectos/$regionName/$commission/$hashtag/ficha-tecnica" (controller: "project", action:"stats")
+                                        "/leyes/$regionName/$commission/$hashtag/ficha-tecnica" (controller: "project", action:"stats")
+        name projectStatsDataMap:       "/ajax/proyectos/$regionName/$commission/$hashtag/ficha-tecnica/datos-mapa" (controller: "project", action:"statsDataMap")
+        name projectStatsPieChart:      "/ajax/proyectos/$regionName/$commission/$hashtag/ficha-tecnica/datos-pieChart" (controller: "project", action:"statsDataPieChart")
+        name projectShowSec:            "/sec/proyectos/$regionName/$commission/$hashtag" (controller: "project", action:"showSecured")
+        name projectVote:               "/ajax/proyectos/$regionName/$commission/$hashtag/votar"(controller: "project", action:"voteProject")
+        name projectVoteNoTotalUser:    "/sec/proyectos/$regionName/$commission/$hashtag/salvarDatosUsuarioYvotar"(controller: "project", action:"voteProjectAsNonCompleteUser")
+        name projectListClucks:         "/ajax/proyectos/$regionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
+        name projectListPostDefends:    "/ajax/proyectos/$regionName/$commission/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
+        name projectListPostVictories:  "/ajax/proyectos/$regionName/$commission/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
 
         name projectList: "/herramientas/proyectos"(controller: "tools", action:"listProjects")
         name projectListOfUsers: "/ajax/herramientas/proyectos"(controller: "tools", action: "ajaxShowProjectListOfUsers")
         name publishProject:   "/herramientas/proyectos/$hashtag/publicar" (controller:"tools", action: "publishProject")
 
-        name projectUpdate:  "/proyectos/$institutionName/$commission/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
+        name projectUpdate:  "/proyectos/$regionName/$commission/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
-        name postCreate:    "/proyectos/$institutionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-                            "/leyes/$institutionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-//        name postSave:      "/leyes/$institutionName/$commission/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-        name postShow:      "/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId"(controller: "post", action: "show")
-                            "/proyectos/$institutionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"(controller: "post", action: "show")
-                            "/leyes/$institutionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"(controller: "post", action: "show")
-        name postReview:    "/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/revisar"(controller: "post", action: "review")
-        name postPublish:   "/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/publicar"(controller: "post", action:"publish")
-        name postPublished: "/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/publicado"(controller: "post", action:"postPublished")
-        name postEdit:      "/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/editar"(controller: "post"){action = [GET:"edit", POST:"update"]}
-        name postDelete:    "/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/eliminar-post"(controller: "post", action: "deletePost")
-        name postToggleFavorite:"/ajax/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/favorito"(controller: "post",action: "favorite")
-        name postDelComment:"/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/borrarCommentario"(controller: "post",action: "deleteComment")
-        name postAddComment:"/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/nuevoComentario"(controller: "post",action: "addComment")
-        name postVoteComment:"/ajax/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/votar-comentario"(controller: "post",action: "voteComment")
-        name postCluckIt:   "/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/kakarear"(controller: "post",action: "cluckPost")
-        name postVoteIt:    "/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/impulsar"(controller: "post",action: "votePost")
-        name postVotesList: "/ajax/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/lista-impulsos"(controller: "post",action: "listVotes")
-        name postClucksList:"/ajax/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/lista-kakareos"(controller: "post",action: "listClucks")
-        name postPayPost:   "/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/promocionar"(controller: "post", action:"promotePost")
-                            "/leyes/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/promocionar"(controller: "post", action:"promotePost")
-        name postPaiment:   "/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/resumen-promocion"(controller: "post", action:"paimentPost")
-                            "/leyes/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/resumen-promocion"(controller: "post", action:"paimentPost")
-        name postSuccessPay:"/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/gracias"(controller: "post", action:"successPromotePost")
-        name postAddDebate: "/ajax/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
-        name postAddVictory:"/ajax/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/victoria"(controller: "post", action:"addVictory")
-        name postAddDefender:"/ajax/proyectos/$institutionName/$commission/$hashtag/propuesta/$postBrief-$postId/apadrinar"(controller: "post", action:"addDefender")
+        name postCreate:    "/proyectos/$regionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
+                            "/leyes/$regionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
+//        name postSave:      "/leyes/$regionName/$commission/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
+        name postShow:      "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"(controller: "post", action: "show")
+                            "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"(controller: "post", action: "show")
+                            "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"(controller: "post", action: "show")
+        name postReview:    "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/revisar"(controller: "post", action: "review")
+        name postPublish:   "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/publicar"(controller: "post", action:"publish")
+        name postPublished: "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/publicado"(controller: "post", action:"postPublished")
+        name postEdit:      "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/editar"(controller: "post"){action = [GET:"edit", POST:"update"]}
+        name postDelete:    "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/eliminar-post"(controller: "post", action: "deletePost")
+        name postToggleFavorite:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/favorito"(controller: "post",action: "favorite")
+        name postDelComment:"/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/borrarCommentario"(controller: "post",action: "deleteComment")
+        name postAddComment:"/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/nuevoComentario"(controller: "post",action: "addComment")
+        name postVoteComment:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/votar-comentario"(controller: "post",action: "voteComment")
+        name postCluckIt:   "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/kakarear"(controller: "post",action: "cluckPost")
+        name postVoteIt:    "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/impulsar"(controller: "post",action: "votePost")
+        name postVotesList: "/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/lista-impulsos"(controller: "post",action: "listVotes")
+        name postClucksList:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/lista-kakareos"(controller: "post",action: "listClucks")
+        name postPayPost:   "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/promocionar"(controller: "post", action:"promotePost")
+                            "/leyes/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/promocionar"(controller: "post", action:"promotePost")
+        name postPaiment:   "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/resumen-promocion"(controller: "post", action:"paimentPost")
+                            "/leyes/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/resumen-promocion"(controller: "post", action:"paimentPost")
+        name postSuccessPay:"/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/gracias"(controller: "post", action:"successPromotePost")
+        name postAddDebate: "/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
+        name postAddVictory:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/victoria"(controller: "post", action:"addVictory")
+        name postAddDefender:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/apadrinar"(controller: "post", action:"addDefender")
 
 
         //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow

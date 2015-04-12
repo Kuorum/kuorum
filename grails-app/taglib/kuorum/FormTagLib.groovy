@@ -422,7 +422,8 @@ class FormTagLib {
         def id = attrs.id?:"${field}.id"
         def cssClass = attrs.cssClass
         def clazz = command.metaClass.properties.find{it.name == field}.type
-        def label = message(code: "${clazz.name}.label")
+        def label = message(code: "${command.class.name}.${field}.label", default: '')
+        label = label?:message(code: "${clazz.name}.label")
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
         <label for="${id}">${label}</label>
