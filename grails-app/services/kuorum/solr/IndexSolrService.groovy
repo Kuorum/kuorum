@@ -273,6 +273,8 @@ class IndexSolrService {
                 relevance: project.relevance,
                 deadLine:project.deadline
         )
+        //Ñapilla para poder agrupar por comision que solr no puede agrupar con listados
+        solrProject.metaClass.commission_group = project.commissions[0]
         solrProject
     }
 
