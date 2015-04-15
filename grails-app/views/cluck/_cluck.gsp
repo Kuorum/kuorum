@@ -10,6 +10,13 @@
 
     <div class="link-wrapper">
     <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
+    <g:if test="${cluck}">
+        <div class="user actor" itemscope itemtype="http://schema.org/Person">
+            <userUtil:showUser user="${cluck.owner}" showRole="false"/>
+            <span class="action"><g:message code="cluck.header.action.${cluck.cluckAction}"/> <kuorumDate:humanDate date="${cluck.dateCreated}"/></span>
+        </div>
+    </g:if>
+
         <h1>${post.title} <g:link mapping="projectShow" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link> </h1>
         <div class="main-kakareo row">
             <div class="${classWidthUserModules} user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
