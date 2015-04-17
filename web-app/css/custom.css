@@ -2467,7 +2467,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .embudo #aside-ppal {background-image: none; background-color: #f0f0f0; margin-bottom: 30px;}
 .embudo #aside-ppal h1.withArrow {color: #20A2ea; font-size: 32px; font-size: 3.2rem; text-align: center; position: relative; margin-top: 0;}
 .embudo #aside-ppal > .border > p {color: #20A2ea; font-size: 20px; font-size: 2rem; text-align: center; position: relative;}
-.embudo #aside-ppal p.first {padding: 0 0 0 18%; margin-bottom: 30px;}
+.embudo #aside-ppal p.first {padding: 0 5% 0 18%; margin-bottom: 30px;}
 .embudo #aside-ppal p.second {padding: 0 20% 0 0; margin-top: 100px; margin-bottom: 70px;}
 .embudo #aside-ppal img.center-block {
   margin-top: -20px;
