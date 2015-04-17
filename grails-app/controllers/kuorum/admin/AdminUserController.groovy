@@ -55,9 +55,11 @@ class AdminUserController extends AdminController {
         if(testUser && testUser != user){
             command.errors.rejectValue("email","kuorum.web.commands.admin.AdminUserCommand.email.notUnique")
         }
-        testUser = KuorumUser.findByAlias(command.alias)
-        if(testUser && testUser != user){
-            command.errors.rejectValue("alias","kuorum.web.commands.admin.AdminUserCommand.alias.notUnique", [testUser.alias, testUser.name].toArray(),'Alias not unique')
+        if (command.alias){
+            testUser = KuorumUser.findByAlias(command.alias)
+            if(testUser && testUser != user){
+                command.errors.rejectValue("alias","kuorum.web.commands.admin.AdminUserCommand.alias.notUnique", [testUser.alias, testUser.name].toArray(),'Alias not unique')
+            }
         }
         if (command.hasErrors()){
             render view: 'editUser', model:[user:user,command:command, regions:Region.findAll(), politicalParties: PoliticalParty.findAll()]
