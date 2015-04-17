@@ -1213,7 +1213,11 @@ video#bgvid {
 }
 /*.boxes.follow .user-type {display: block; margin-left: 4px;}*/
 .personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px;}
-.user-list-followers > .user > .actions {float: right; margin: -14px 0 0 !important; width: 108px;}
+.user-list-followers > .user > .actions {
+  float: right;
+  margin: -14px 0 0 !important;
+  width: 108px;
+}
 .user-list-followers > .user > .actions .btn.follow {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
@@ -3418,9 +3422,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .sign.purchase .no-phone .form-group:nth-child(2) {width: 26%;}
   .sign.purchase .no-phone .form-group:nth-child(3) {width: 70%;}
   .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
-  /*.boxes.follow .user-list-followers > .user > .actions {float: none; margin: 8px 0 0 !important; text-align: right;}*/
   #aside-ppal {background-color: transparent;}
-  /*#main {min-height: 898px;}*/
   #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
   .sign h1 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: center;}
   .sign h2 {font-size: 22px; font-size: 2.2rem; line-height: 1.4; padding: 0;text-align: center;}
@@ -3754,10 +3756,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .box-ppal.condition.politician > .row h1 {font-size: 29px; font-size: 2.9rem;}
 
   .config > article > .box-ppal, .config > section > .box-ppal {padding: 22px 20px 0 20px; margin-bottom: 60px;}
-
-  .user-list-followers > .user > .actions {float: right; margin: -30px 0 0 0 !important;}
-  .user-list-followers > .user > .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
-
+  .user-list-followers > .user > .actions {margin: -30px 0 0 0 !important;}
   .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
   .arrow2 {right: 24px;}
   .sign h1 {font-size: 36px; font-size: 3.6rem; margin-top: 30px;text-align: left;}
@@ -3950,7 +3949,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .config .icheckbox_line-orange,
   .config .iradio_line-orange {margin-right: 26px; margin-bottom: 26px;}
   .box-ppal.condition .no-age .form-group:nth-child(2) {width: 172px;}
-  .boxes.follow .user-list-followers > .user > .actions {float: right; margin: -30px 0 0 !important;}
+  .boxes.follow .user-list-followers > .user > .actions {margin: -30px 0 0 !important;}
   .condition .user-list-followers  > li {width: 47%; float: left;}
   .sign .login .btn + .cancel {margin-left: 34px;}
   #main {min-height: 674px;}
