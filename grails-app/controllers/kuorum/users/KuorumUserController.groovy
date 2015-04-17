@@ -8,6 +8,7 @@ import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchPolitician
 import kuorum.core.model.search.SearchUserPosts
 import kuorum.core.model.solr.SolrPoliticiansGrouped
+import kuorum.core.model.solr.SolrType
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.project.Project
@@ -37,29 +38,11 @@ class KuorumUserController {
         }
     }
     def index(){
-        def maxElemens = grailsApplication.config.kuorum.seo.maxElements
-        [userType: params.userTypeUrl, users:KuorumUser.findAllByUserType(params.userTypeUrl,[max:1000])]
+        redirect(mapping:'searcherSearch',params: [type:SolrType.KUORUM_USER], permanent: true)
     }
 
     def politicians(){
-        SearchPolitician searchParams = new SearchPolitician(max: 1000, regionIso3166_2: params.regionIso3166_2)
-        def groupPoliticians =[:]
-        if (params.institutionName){
-            searchParams.institutionName = params.institutionName
-            List<SolrPoliticiansGrouped> politiciansPerInstitution = searchSolrService.listPoliticians(searchParams)
-            if (politiciansPerInstitution){
-                searchParams.institutionName = politiciansPerInstitution.politicians[0][0].institutionName
-            }
-            groupPoliticians.put(searchParams.institutionName  , politiciansPerInstitution)
-        }else{
-            Institution.list().each {
-                searchParams.institutionName = it.name
-                List<SolrPoliticiansGrouped> politiciansPerInstitution = searchSolrService.listPoliticians(searchParams)
-                if (politiciansPerInstitution)
-                    groupPoliticians.put("${it.name}" , politiciansPerInstitution)
-            }
-        }
-        [groupPoliticians:groupPoliticians]
+        redirect(mapping:'searcherSearch', params:[type:SolrType.POLITICIAN],permanent: true)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

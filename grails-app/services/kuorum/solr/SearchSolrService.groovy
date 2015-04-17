@@ -30,6 +30,9 @@ class SearchSolrService {
         query.setParam(CommonParams.START, "${params.offset}");
         prepareFilter(params, query)
 
+        if (!params.word){
+            query.setSort("dateCreated", SolrQuery.ORDER.desc)
+        }
         QueryResponse rsp = server.query( query );
         SolrDocumentList docs = rsp.getResults();
 
@@ -44,7 +47,7 @@ class SearchSolrService {
 
     private SolrSuggest prepareSuggestions(QueryResponse rsp){
         SolrSuggest solrSuggest = null
-        if (rsp._spellInfo.suggestions.get("collation")){
+        if (rsp._spellInfo?.suggestions?.get("collation")){
             solrSuggest = new SolrSuggest()
             solrSuggest.suggestedQuery = rsp._spellInfo.suggestions.collation.collationQuery
             solrSuggest.hits = rsp._spellInfo.suggestions.collation.hits
@@ -99,7 +102,11 @@ class SearchSolrService {
     }
 
     private void prepareFilter(SearchParams params, SolrQuery query){
-        query.setParam(CommonParams.Q, params.word);
+        String word = params.word
+        if (!word){
+            word = "*:*"
+        }
+        query.setParam(CommonParams.Q, word);
 //        if (params.type) query.setParam(CommonParams.FQ, "type:${params.type}")
         if (params.type){
             def subTypesQuery = ""
@@ -109,6 +116,10 @@ class SearchSolrService {
                 OR = "OR"
             }
             query.setParam(CommonParams.FQ, "type:(${subTypesQuery})")
+        }
+
+        if (params.commissionType){
+            query.setParam(CommonParams.FQ, "commissions:(${params.commissionType})")
         }
     }
 

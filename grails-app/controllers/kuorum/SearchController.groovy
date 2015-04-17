@@ -88,8 +88,8 @@ class SearchController{
     def search(SearchParams searchParams) {
         SolrResults docs
         if (searchParams.hasErrors()){
-            docs = new SolrResults(elements: [], numResults: 0, facets: [], suggest:null)
-            searchParams.word=searchParams.word?:''
+            searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.POST)
+            docs= searchSolrService.search(searchParams)
         }else{
             docs = searchSolrService.search(searchParams)
         }

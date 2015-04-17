@@ -79,7 +79,7 @@ class UrlMappings {
         name userShow:          "/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "show")
         name userShowWithAlias: "/$userAlias"   (controller: "kuorumUser", action: "showWithAlias"){
             constraints{
-                userAlias notEqual: "j_spring_security_facebook_redirect"
+                userAlias (validator: { !['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos'].contains(it) })
             }
         }
         name secUserShow:       "/sec/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "secShow")

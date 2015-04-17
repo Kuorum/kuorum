@@ -17,6 +17,7 @@ import kuorum.core.model.gamification.GamificationElement
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.solr.SolrProjectsGrouped
+import kuorum.core.model.solr.SolrType
 import kuorum.files.FileService
 import kuorum.post.Post
 import kuorum.users.KuorumUser
@@ -191,26 +192,16 @@ class ProjectController {
     }
 
     def index(){
-        //TODO: Think pagination.This page is only for google and scrappers
-        SearchProjects searchParams = new SearchProjects(max: 1000)
-        searchParams.commissionType = recoverCommissionByTranslatedName(request.locale, params.commission)
-        def groupProjects =[:]
-        if (params.regionName){
-            searchParams.regionName = params.regionName.decodeKuorumUrl()
-            List<SolrProjectsGrouped> projectsPerInstitution = searchSolrService.listProjects(searchParams)
-            if (projectsPerInstitution){
-                searchParams.regionName = projectsPerInstitution.elements[0][0].regionName
-            }
-            groupProjects.put(searchParams.regionName  , projectsPerInstitution)
-        }else{
-            Region.list().each {
-                searchParams.regionName = it.name
-                List<SolrProjectsGrouped> projectsPerRegion = searchSolrService.listProjects(searchParams)
-                if (projectsPerRegion)
-                    groupProjects.put("${searchParams.regionName}" , projectsPerRegion)
-            }
+        def paramsUrl = [type:SolrType.PROJECT]
+        if (params.commission){
+            CommissionType commissionType = recoverCommissionByTranslatedName(request.locale, params.commission)
+            paramsUrl.put('commissionType', commissionType)
         }
-        [groupProjects:groupProjects]
+        if (params.regionName){
+            paramsUrl.put('regionName',params.regionName)
+        }
+
+        redirect(mapping:'searcherSearch',params: paramsUrl, permanent: true)
     }
 
     private CommissionType recoverCommissionByTranslatedName(Locale locale, String searchedCommission){
