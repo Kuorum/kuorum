@@ -187,6 +187,10 @@ $(document).ready(function() {
         $('form#login-modal').fadeOut('fast');
         $('form#sign-modal').fadeIn('fast');
     });
+    $('body').on('click','.homeMore.two .btn-blue', function(e) {
+        $('form#login-modal').fadeIn('fast');
+        $('form#sign-modal').fadeOut('fast');
+    });
 
     // Funcionamiento de los radio button como nav-tabs
     $('input[name="cuenta"]').click(function () {
