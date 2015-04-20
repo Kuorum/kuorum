@@ -77,7 +77,7 @@
 
 <body itemscope itemtype="http://schema.org/WebPage">
 
-    <g:render template="/layouts/googleTagManager"/>
+    %{--<g:render template="/layouts/googleTagManager"/>--}%
 
 
 <div class ="container-fluid">
