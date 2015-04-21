@@ -689,7 +689,7 @@ $(document).ready(function() {
         e.preventDefault()
         var iframe = $(this).next('.youtube')
         iframe.css('display', 'block');
-        iframe[0].src += "&autoplay=1";
+//        iframe[0].src += "&autoplay=1";
         $(this).remove();
         var func = 'playVideo';
         iframe.get(0).contentWindow.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
