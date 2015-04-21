@@ -2442,7 +2442,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 }
 .embudo .like-number a {color: #20A2ea;}
 
-.video-embudo-list {margin: 45px 0 0 0; padding: 0; list-style: none;}
+.video-embudo-list {margin: 45px 0 20px 0; padding: 0; list-style: none;}
 .video-embudo-list > li {position: relative; margin: 0 0 80px 0;}
 .video-embudo-list > li:last-child {margin-bottom: 0;}
 .video-embudo-list > li .icon2-comillas {color: #ff9431; position: absolute; top: -50px; left: -10px; z-index: 999; font-size: 80px; font-size: 8rem;}
@@ -3272,6 +3272,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 /* ====================================================== */
 
 @media only screen and (min-width: 480px) {
+  .vimeo > .front .text {font-size: 20px; font-size: 2rem;}
   .form-control,
   input[type="text"],
   input[type="number"],
@@ -3670,7 +3671,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .contratando .nav-tabs > li {margin-right: 20px; padding: 20px 10px;}
   .contratando .form-group {width: 45%;}
   .promo-options > div > form .options-wrapper {width: 100%;}
-  .vimeo > .front .text {font-size: 3.2rem; top: 12%; width: 40%;}
+  .vimeo > .front .text {font-size: 3.2rem; top: 12%; width: 50%; line-height: 1.1;}
   .pide-cuenta > ul > li {display: inline-block; margin-bottom: 0;}
   .pide-cuenta > ul {margin-top: 50px;}
   .pide-cuenta > ul > li > ul {min-height: 188px;}
