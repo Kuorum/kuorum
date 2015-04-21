@@ -26,6 +26,7 @@ dbDest.region.save({
     "superRegion" : parentRegion._id,
     "version" : 0,
     "postalCodes" : [],
+    "prefixPhone" : "+57",
     "regionType": regionType
 });
 
