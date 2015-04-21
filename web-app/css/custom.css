@@ -2346,44 +2346,6 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .kakareo.post.promo.tks .invite li {display: block; list-style: none; margin: 0 0 10px 0;}
 .kakareo.post.promo.tks .invite li a {margin-left: 0 !important; padding: 12px 0 !important; display: block;}
 
-
-
-
-/* buscador =========== */
-/* ====================================================== */
-/*.container-fluid.search {padding-top: 20px;}
-#search-results {color: #a8a8a8;}
-#search-results .clearfix h1 {font-size: 22px; font-size: 2.2rem;}
-#search-results .clearfix h1 #term,
-#search-results #results .counter {color: #545454;}
-#search-results #results {margin: 0 0 5px;}
-#search-results .highlighted {background-color: rgba(251, 241, 87, 0.5);}
-
-#search-filters h1 {font-size: 17px; font-size: 1.7rem; font-weight: bold; margin-top: 0;}
-#search-results > ul {margin:0; padding: 0; border-top: 1px solid #DADADA;}
-#search-results > ul > li {list-style: none; padding: 0; border-bottom: 1px solid #DADADA;}
-#search-results .kakareo.post.ley .link-wrapper,
-#search-results .kakareo.post.ley .wrapper {padding: 15px; min-height: 140px;}
-#search-results .kakareo.post .link-wrapper,
-#search-results .kakareo.post .wrapper,
-#search-results .wrapper {padding: 15px;}
-#search-results .kakareo.post.ley .photo {margin: 0 10px 10px 0;}
-#search-results .kakareo.post.ley,
-#search-results .kakareo.post {margin: 0;}
-#search-results .kakareo.post.ley .laley {font-size: 16px; font-size: 1.6rem; margin: 0;}
-#search-results .kakareo.post.ley h1 {font-size: 21px; font-size: 2.1rem; border: none; margin-bottom: 0;}
-#search-results .kakareo p {color: #a8a8a8; font-size: 12px; font-size: 1.2rem; padding: 0; margin: 0;}
-#search-results .kakareo.post h1 {font-size: 22px; font-size: 2.2rem; margin: 0 0 10px;}
-#search-results .kakareo.post h1 a {color: #545454;}
-#search-results .kakareo.post .user.author {margin: 20px 0 0 0;}
-#search-results .popover-box {margin: 0; width: 100%; float: none; position: relative;}
-#search-results .popover-box .user {margin: 0 0 5px 0;}
-#search-results .popover-box .infoActivity {border: none;}
-#search-results .popover-box .user-img {vertical-align: top}
-#search-results .popover-box a > span {margin: 10px 0 0 0; display: inline-block;}
-#search-results .popover-box .user-type {margin-top: -54px;}
-*/
-
 .popover-box .infoActivity li:last-child {margin: 0;}
 
 /* Home =========== */
@@ -2438,7 +2400,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .politician-list .box-ppal .user {margin: -75px 10px 20px 10px;}
 .politician-list .box-ppal .user .user-img {border: 5px solid #fff; width: 120px; height: 120px;}
 .politician-list .box-ppal .user .user-img + .btn.follow {margin: 85px 0 0 0 !important; float: right; padding: 10px 15px !important;}
-.politician-list .box-ppal .user .user-name {display: block; font-size: 30px; font-size: 3rem;}
+.politician-list .box-ppal .user .user-name {display: block; font-size: 26px; font-size: 2.6rem;}
 .politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
 .politician-list .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
 .politician-list .box-ppal > small .fa {opacity: .5;}
