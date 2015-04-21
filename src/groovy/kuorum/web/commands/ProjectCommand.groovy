@@ -17,7 +17,7 @@ import kuorum.users.KuorumUser
 @Validateable
 class ProjectCommand {
 
-    private static final YOUTUBE_REGEX = ~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube\.com\/watch\?v=[a-zA-Z0-9_]*/
+    private static final YOUTUBE_REGEX = ~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube\.com\/watch\?v=[a-zA-Z0-9_-]*/
 
     String hashtag
     String shortName
@@ -28,6 +28,7 @@ class ProjectCommand {
 //    Institution institution
     String photoId
     ProjectStatusType status = ProjectStatusType.OPEN
+    FileType fileType
 
     //New fields for Project
     Date deadline

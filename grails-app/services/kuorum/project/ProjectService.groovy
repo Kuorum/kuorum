@@ -168,8 +168,10 @@ class ProjectService {
             //TODO: Quitar cuando todas las leyes de la antigua web hayan sido editadas.
             project.shortUrl = shortUrlService.shortUrl(project)
         }
-        project.image.alt = project.hashtag
-        project.image.save()
+        if (project.image){
+            project.image.alt = project.hashtag
+            project.image.save()
+        }
         project.availableStats = project.availableStats?:Boolean.FALSE //Por si es nulo
         fileService.convertTemporalToFinalFile(project.image)
 
@@ -355,15 +357,24 @@ class ProjectService {
      * @param project The project to update
      */
     void assignFilesToCommandAndProject(ProjectCommand command, Project project, KuorumUser user){
-        if(command.photoId){
+        if(command.photoId && (!command.fileType || command.fileType==FileType.IMAGE)){
             KuorumFile image = KuorumFile.get(new ObjectId(command.photoId))
             project.image = image
         }
 
-        if(command.videoPost){
+        if(command.videoPost && command.fileType==FileType.YOUTUBE){
             //KuorumFile urlYoutube = KuorumFile.get(new ObjectId(command.urlYoutubeId))
-            KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
-            project.urlYoutube = urlYoutubeFile
+            if (command.videoPost != project.urlYoutube?.url){
+                KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
+                project.urlYoutube = urlYoutubeFile
+            }
+        }
+        if (command.fileType==FileType.YOUTUBE){
+            fileService.convertFinalFileToTemporalFile(project.image)
+            project.image = null
+        }else{
+            fileService.convertFinalFileToTemporalFile(project.urlYoutube)
+            project.urlYoutube = null
         }
 
         if(command.pdfFileId){

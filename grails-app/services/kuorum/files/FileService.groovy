@@ -105,7 +105,7 @@ class FileService {
      * @return
      */
     KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile){
-        if (kuorumFile.temporal){
+        if (kuorumFile?.temporal){
             String serverPath = grailsApplication.config.kuorum.upload.serverPath
             String rootUrl = "${grailsApplication.config.grails.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}"
 
@@ -135,7 +135,18 @@ class FileService {
         }
         kuorumFile
     }
-
+    /**
+     * Converts a normal file to temporal file.
+     * @param KuorumFile
+     * @return
+     */
+    KuorumFile convertFinalFileToTemporalFile(KuorumFile kuorumFile){
+        if (kuorumFile){
+            kuorumFile.temporal = true;
+            kuorumFile.save();
+        }
+        kuorumFile
+    }
     public KuorumFile createYoutubeKuorumFile(String youtubeUrl, KuorumUser user){
         def fileName = youtubeUrl.replaceAll(~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube.com\/watch\?v=([a-zA-Z0-9_-]*)/, '$2')
         KuorumFile multimedia = new KuorumFile(
@@ -167,17 +178,19 @@ class FileService {
     }
 
     void deleteFile(KuorumFile kuorumFile){
-        File file = new File("${kuorumFile.storagePath}/${kuorumFile.fileName}")
-        if (!file.exists()){
-            kuorumFile.delete()
-        }else{
-            if (file.delete()){
+        if (kuorumFile.local){
+            File file = new File("${kuorumFile.storagePath}/${kuorumFile.fileName}")
+            if (!file.exists()){
                 kuorumFile.delete()
-                deleteParentIfEmpty(file)
             }else{
-                log.error("Error deleting file ${file.absolutePath}")
-                kuorumFile["errorDeleting"]=true
-                kuorumFile.save()
+                if (file.delete()){
+                    kuorumFile.delete()
+                    deleteParentIfEmpty(file)
+                }else{
+                    log.error("Error deleting file ${file.absolutePath}")
+                    kuorumFile["errorDeleting"]=true
+                    kuorumFile.save()
+                }
             }
         }
 

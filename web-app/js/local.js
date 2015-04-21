@@ -584,6 +584,10 @@ $(document).ready(function() {
 
     }
 
+    //Tipo de imagen o youtube seleccionado
+    $("form [data-fileType]").on("click", function(e){
+        $(this).closest("form").find("input[name=fileType]").val($(this).attr("data-fileType"));
+    })
     // textarea editor
     $(".texteditor").jqte({
         br: true,

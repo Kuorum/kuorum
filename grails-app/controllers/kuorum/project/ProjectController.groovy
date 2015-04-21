@@ -89,7 +89,7 @@ class ProjectController {
         projectCommand.commissions = project.commissions
         projectCommand.hashtag = project.hashtag
         projectCommand.photoId = project.image?.id
-        projectCommand.videoPost = project.urlYoutube?.id
+        projectCommand.videoPost = project.urlYoutube?.url
         projectCommand.pdfFileId = project.pdfFile?.id
         projectCommand.description = project.description
         projectCommand.deadline = project.deadline

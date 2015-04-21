@@ -40,7 +40,7 @@ class Cluck {
     /**
      * Represents if is the cluck created by the post owner
      */
-//    @Deprecated
+    @Deprecated
     Boolean isFirstCluck = Boolean.FALSE
 
     Project project
