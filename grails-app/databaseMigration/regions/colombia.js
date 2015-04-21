@@ -1,8 +1,9 @@
 var dbDest = dbDest || connect("localhost:27017/Kuorum");
 
+var parentRegionCode ="LA";
 
 dbDest.region.save({
-    "iso3166_2" : 'SA',
+    "iso3166_2" : parentRegionCode,
     "name" : 'Sudamérica',
     "version" : 0,
     "postalCodes" : [],
@@ -10,7 +11,6 @@ dbDest.region.save({
 });
 
 
-var parentRegionCode ="SA";
 var regionPostFixCode = "CO";
 var regionName="Colombia";
 var institutionName="Congreso de colombia";
