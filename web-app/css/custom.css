@@ -3267,6 +3267,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     font-size:11px;
     font-style: italic;
 }
+.resetTitle {color: #545454 !important;}
+
 
 /* media queries =========== */
 /* ====================================================== */
@@ -3840,28 +3842,26 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .list-updates {width: 104%;}
   .list-updates > li {width: 302px; float: left; margin-right: 15px;}
   .list-updates > li:nth-of-type(even) {margin-right: 0;}
-  /*.list-updates > li .kakareo.post {width: 95%; margin: 0 auto;}*/
   .filters .btn {font-size: 18px; font-size: 1.8rem; padding: 6px 4px !important;}
   .filters .btn .badge {font-size: 17px; font-size: 1.7rem; border-radius: 15px; padding: 2px 8px 6px;}
   .kakareo-list.project .kakareo.post.ley footer .voting ul li {margin: 0 0 0 4px;}
-
   .boxes.info .kakareo footer .info-kak > li {font-size: 12px; font-size: 1.2rem;}
-
   .box-ppal .notifications-list .actions {position: absolute; top: 10px; right: 0; margin: 0; padding: 0;}
   .notifications-list > li > .user > .actions > li {display: block;}
   .boxes.alerts .notifications-list > li > .user > .actions > li {display: inline-block;}
-
   .notifications-list > li .text-notification {display: block; padding-right: 20%;}
   .boxes.alerts .notifications-list > li > .user > .text-notification {padding-right: 0;}
-
   .box-ppal .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 6px 10px;}
   .box-ppal .notifications-list > li > .user > .actions > li > a {margin: 0 !important;}
-
 }
 @media (min-width: 1024px) {
   #main {min-height: 642px;}
   .list-team > li {width: 310px;}
   .list-updates > li {width: 314px;}
+}
+/* para iPad anterior a 4ª generación */
+@media only screen and (max-device-width: 1024px) {
+  .full-video {-webkit-background-size: 1024px 576px;}
 }
 @media (min-width: 1152px) {
   .list-updates > li {width: 356px;}
@@ -3876,14 +3876,9 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   h1.withArrow {margin-bottom: 70px;}
   .boxes.vote.drive.fixed {width: 350px;}
   .config .kakareo-list.project .kakareo.post.ley .link-wrapper {min-height: 415px;}
-
-/*  #otros-proyectos .kakareo.post > .link-wrapper,
-  .homeSub .kakareo-list.project .kakareo.post > .link-wrapper,
-  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper {height: 420px;}*/
   #otros-proyectos .kakareo.post > .link-wrapper p,
   .homeSub .kakareo-list.project .kakareo.post > .link-wrapper p,
   .kakareo-list.project .kakareo.post > .link-wrapper p {height: 76px; overflow: hidden; margin-bottom: 10px;}
-
   #otras-propuestas .kakareo > .link-wrapper,
   .homeSub .kakareo-list .kakareo > .link-wrapper {/*height: 182px;*/ padding: 15px 15px 0 15px;}
   #otras-propuestas .kakareo-list > li h1,
@@ -3892,9 +3887,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .homeSub .kakareo-list .kakareo .main-kakareo {margin-top: 0;}
   #otras-propuestas .kakareo-list .kakareo footer,
   .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
-
 }
-
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
@@ -3939,9 +3932,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .notifications-list > li > .user > .popover-trigger > img {margin: 0 6px 32px 10px;}
   .notifications-list > li > .user {padding: 0 15px 0 0;}
 
-/*  .home .socialGo li {display: inline-block; float: left; margin: 10px 12px 0 0; width: 180px;}
-  .home .socialGo li:last-child {margin-right: 0;}*/
-
   .boxes.edit-user .user > a {text-align: left;}
   .boxes.edit-user .user-img.big {float: left; margin: 0 6px 6px 0;}
   .boxes.edit-user .personal {width: auto; text-align: left; padding: 28px 0 30px 0;}
@@ -3975,23 +3965,4 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   h1.withArrow {margin-bottom: 50px;}
   .boxes.info .kakareo footer .info-kak > li {font-size: 14px; font-size: 1.4rem;}
   .boxes.info .kakareo footer .voting ul li {margin: 0 0 0 8px;}
-}
-/*.sign.home .social-home-container .btn.btn-lg {font-size: 1.6rem; padding: 14px;}*/
-
-/* Retina ready images */
-@media  only screen and (-webkit-min-device-pixel-ratio: 1.5),
-    only screen and (min--moz-device-pixel-ratio: 1.5),
-    only screen and (-o-min-device-pixel-ratio: 3/2),
-    only screen and (min-device-pixel-ratio: 1.5),
-    only screen and (min-resolution: 192dpi) {
-
-    /*.readMore a {
-        background-image: url('../images/ico-arrows@2x.png');
-        background-size: 15px 35px;
-        background-repeat: no-repeat;
-    }*/
-}
-
-.resetTitle{
-    color:#545454 !important;
 }
