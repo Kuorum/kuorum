@@ -24,7 +24,7 @@
 
 <fieldset class="multimedia">
     <span class="span-label sr-only"><g:message code="admin.createProject.upload.imageOrVideo" /></span>
-    <input type="hidden" name="fileType" value="" id="fileType">
+    <input type="hidden" name="fileType" value="${command.videoPost?'YOUTUBE':'IMAGE'}" id="fileType">
     <ul class="nav nav-pills nav-justified">
         <li class="${command.photoId || (command.errors?.getFieldError('photoId')?.codes?.contains('imageOrUrlYoutubeRequired') && command.errors?.getFieldError('videoPost')?.codes?.contains('imageOrUrlYoutubeRequired'))?'active':''}">
             <a href="#projectUploadImage" data-toggle="tab" data-filetype="IMAGE"><g:message code="admin.createProject.upload.image" /></a>
