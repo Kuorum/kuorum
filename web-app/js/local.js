@@ -211,6 +211,11 @@ $(document).ready(function() {
 
     });
 
+    // si el box de Usuarios de la columna C no lleva la X de cierre quito el hueco de la derecha del botón Follow
+    if ( !$('.user-list-followers .actions .close').length ) {
+        $('.user-list-followers > .user > .actions').css('width', 'auto');
+    }
+
     // desvanecer y eliminar los usuario de la lista "A quién seguir"
     $('body').on('click','ul.user-list-followers > li.user .actions .close', function(e) {
 

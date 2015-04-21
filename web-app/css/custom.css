@@ -362,24 +362,17 @@ a:focus {color: #20a2ea;}
 .box .dropdown-menu > li:focus a.btn {text-decoration: none;}
 .btn:hover, .btn:active, .btn:focus {color: #fff;}
 .btn.search {
-  height: 34px;
-  padding: 0 10px !important;
+  height: 28px;
+  width: 30px;
+  padding: 0 !important;
   background-color: #fff !important;
-  border-top: 2px solid #dbdbdb;
-  border-bottom: 2px solid #dbdbdb;
-  border-right: 2px solid #dbdbdb;
-  border-left: 0;
-  -moz-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
-  -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
-  box-shadow: inset 0 0 0 rgba(0,0,0,.9);
+  border: none;
   color: #a8a8a8 !important;
   margin: 0 !important;
   font-size: 18px;
-  line-height: 0.6;
 }
 .navbar-form .input-group > .form-control {
   border: 2px solid #dbdbdb;
-  border-right: none;
   -moz-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
   -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
   box-shadow: inset 0 0 0 rgba(0,0,0,.9);
@@ -390,7 +383,7 @@ a:focus {color: #20a2ea;}
 }
 #search-form .input-group {width: 100%;}
 #search-form .input-group > #filterSign {position: absolute; right: 28px; top: 9px; z-index: 99; color: #a8a8a8;}
-#search-form .input-group-btn {right: 29px; position: absolute; top: 0; z-index: 9;}
+#search-form .input-group-btn {right: 30px; position: absolute; top: 3px; z-index: 9;}
 
 .nav > li > .navbar-link {
   color: #545454;
@@ -1213,7 +1206,11 @@ video#bgvid {
 }
 /*.boxes.follow .user-type {display: block; margin-left: 4px;}*/
 .personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px;}
-.user-list-followers > .user > .actions {float: right; margin: -14px 0 0 !important; width: 108px;}
+.user-list-followers > .user > .actions {
+  float: right;
+  margin: -14px 0 0 !important;
+  width: 108px;
+}
 .user-list-followers > .user > .actions .btn.follow {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
@@ -2342,44 +2339,6 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .kakareo.post.promo.tks .invite li {display: block; list-style: none; margin: 0 0 10px 0;}
 .kakareo.post.promo.tks .invite li a {margin-left: 0 !important; padding: 12px 0 !important; display: block;}
 
-
-
-
-/* buscador =========== */
-/* ====================================================== */
-/*.container-fluid.search {padding-top: 20px;}
-#search-results {color: #a8a8a8;}
-#search-results .clearfix h1 {font-size: 22px; font-size: 2.2rem;}
-#search-results .clearfix h1 #term,
-#search-results #results .counter {color: #545454;}
-#search-results #results {margin: 0 0 5px;}
-#search-results .highlighted {background-color: rgba(251, 241, 87, 0.5);}
-
-#search-filters h1 {font-size: 17px; font-size: 1.7rem; font-weight: bold; margin-top: 0;}
-#search-results > ul {margin:0; padding: 0; border-top: 1px solid #DADADA;}
-#search-results > ul > li {list-style: none; padding: 0; border-bottom: 1px solid #DADADA;}
-#search-results .kakareo.post.ley .link-wrapper,
-#search-results .kakareo.post.ley .wrapper {padding: 15px; min-height: 140px;}
-#search-results .kakareo.post .link-wrapper,
-#search-results .kakareo.post .wrapper,
-#search-results .wrapper {padding: 15px;}
-#search-results .kakareo.post.ley .photo {margin: 0 10px 10px 0;}
-#search-results .kakareo.post.ley,
-#search-results .kakareo.post {margin: 0;}
-#search-results .kakareo.post.ley .laley {font-size: 16px; font-size: 1.6rem; margin: 0;}
-#search-results .kakareo.post.ley h1 {font-size: 21px; font-size: 2.1rem; border: none; margin-bottom: 0;}
-#search-results .kakareo p {color: #a8a8a8; font-size: 12px; font-size: 1.2rem; padding: 0; margin: 0;}
-#search-results .kakareo.post h1 {font-size: 22px; font-size: 2.2rem; margin: 0 0 10px;}
-#search-results .kakareo.post h1 a {color: #545454;}
-#search-results .kakareo.post .user.author {margin: 20px 0 0 0;}
-#search-results .popover-box {margin: 0; width: 100%; float: none; position: relative;}
-#search-results .popover-box .user {margin: 0 0 5px 0;}
-#search-results .popover-box .infoActivity {border: none;}
-#search-results .popover-box .user-img {vertical-align: top}
-#search-results .popover-box a > span {margin: 10px 0 0 0; display: inline-block;}
-#search-results .popover-box .user-type {margin-top: -54px;}
-*/
-
 .popover-box .infoActivity li:last-child {margin: 0;}
 
 /* Home =========== */
@@ -2434,7 +2393,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .politician-list .box-ppal .user {margin: -75px 10px 20px 10px;}
 .politician-list .box-ppal .user .user-img {border: 5px solid #fff; width: 120px; height: 120px;}
 .politician-list .box-ppal .user .user-img + .btn.follow {margin: 85px 0 0 0 !important; float: right; padding: 10px 15px !important;}
-.politician-list .box-ppal .user .user-name {display: block; font-size: 30px; font-size: 3rem;}
+.politician-list .box-ppal .user .user-name {display: block; font-size: 25px; font-size: 2.5rem;}
 .politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
 .politician-list .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
 .politician-list .box-ppal > small .fa {opacity: .5;}
@@ -2463,7 +2422,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .embudo #aside-ppal {background-image: none; background-color: #f0f0f0; margin-bottom: 30px;}
 .embudo #aside-ppal h1.withArrow {color: #20A2ea; font-size: 32px; font-size: 3.2rem; text-align: center; position: relative; margin-top: 0;}
 .embudo #aside-ppal > .border > p {color: #20A2ea; font-size: 20px; font-size: 2rem; text-align: center; position: relative;}
-.embudo #aside-ppal p.first {padding: 0 0 0 18%; margin-bottom: 30px;}
+.embudo #aside-ppal p.first {padding: 0 5% 0 18%; margin-bottom: 30px;}
 .embudo #aside-ppal p.second {padding: 0 20% 0 0; margin-top: 100px; margin-bottom: 70px;}
 .embudo #aside-ppal img.center-block {
   margin-top: -20px;
@@ -2476,7 +2435,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 }
 .embudo .like-number a {color: #20A2ea;}
 
-.video-embudo-list {margin: 45px 0 0 0; padding: 0; list-style: none;}
+.video-embudo-list {margin: 45px 0 20px 0; padding: 0; list-style: none;}
 .video-embudo-list > li {position: relative; margin: 0 0 80px 0;}
 .video-embudo-list > li:last-child {margin-bottom: 0;}
 .video-embudo-list > li .icon2-comillas {color: #ff9431; position: absolute; top: -50px; left: -10px; z-index: 999; font-size: 80px; font-size: 8rem;}
@@ -3301,11 +3260,14 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     font-size:11px;
     font-style: italic;
 }
+.resetTitle {color: #545454 !important;}
+
 
 /* media queries =========== */
 /* ====================================================== */
 
 @media only screen and (min-width: 480px) {
+  .vimeo > .front .text {font-size: 20px; font-size: 2rem;}
   .form-control,
   input[type="text"],
   input[type="number"],
@@ -3418,9 +3380,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .sign.purchase .no-phone .form-group:nth-child(2) {width: 26%;}
   .sign.purchase .no-phone .form-group:nth-child(3) {width: 70%;}
   .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
-  /*.boxes.follow .user-list-followers > .user > .actions {float: none; margin: 8px 0 0 !important; text-align: right;}*/
   #aside-ppal {background-color: transparent;}
-  /*#main {min-height: 898px;}*/
   #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
   .sign h1 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: center;}
   .sign h2 {font-size: 22px; font-size: 2.2rem; line-height: 1.4; padding: 0;text-align: center;}
@@ -3706,7 +3666,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .contratando .nav-tabs > li {margin-right: 20px; padding: 20px 10px;}
   .contratando .form-group {width: 45%;}
   .promo-options > div > form .options-wrapper {width: 100%;}
-  .vimeo > .front .text {font-size: 3.2rem; top: 12%; width: 40%;}
+  .vimeo > .front .text {font-size: 3.2rem; top: 12%; width: 50%; line-height: 1.1;}
   .pide-cuenta > ul > li {display: inline-block; margin-bottom: 0;}
   .pide-cuenta > ul {margin-top: 50px;}
   .pide-cuenta > ul > li > ul {min-height: 188px;}
@@ -3754,10 +3714,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .box-ppal.condition.politician > .row h1 {font-size: 29px; font-size: 2.9rem;}
 
   .config > article > .box-ppal, .config > section > .box-ppal {padding: 22px 20px 0 20px; margin-bottom: 60px;}
-
-  .user-list-followers > .user > .actions {float: right; margin: -30px 0 0 0 !important;}
-  .user-list-followers > .user > .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
-
+  .user-list-followers > .user > .actions {margin: -30px 0 0 0 !important;}
   .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
   .arrow2 {right: 24px;}
   .sign h1 {font-size: 36px; font-size: 3.6rem; margin-top: 30px;text-align: left;}
@@ -3793,7 +3750,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #detailsInfoVotes .icons {margin: 0;}
 
   .navbar-brand {width: 170px; height: 47px; margin-top: -4px;}
-  .btn.search {line-height: 0.7;}
   .navbar-form {width: 340px; margin: 5px 4px 4px 12%;}
 
   .nav > li > .navbar-link {padding-bottom: 15px;}
@@ -3878,28 +3834,26 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .list-updates {width: 104%;}
   .list-updates > li {width: 302px; float: left; margin-right: 15px;}
   .list-updates > li:nth-of-type(even) {margin-right: 0;}
-  /*.list-updates > li .kakareo.post {width: 95%; margin: 0 auto;}*/
   .filters .btn {font-size: 18px; font-size: 1.8rem; padding: 6px 4px !important;}
   .filters .btn .badge {font-size: 17px; font-size: 1.7rem; border-radius: 15px; padding: 2px 8px 6px;}
   .kakareo-list.project .kakareo.post.ley footer .voting ul li {margin: 0 0 0 4px;}
-
   .boxes.info .kakareo footer .info-kak > li {font-size: 12px; font-size: 1.2rem;}
-
   .box-ppal .notifications-list .actions {position: absolute; top: 10px; right: 0; margin: 0; padding: 0;}
   .notifications-list > li > .user > .actions > li {display: block;}
   .boxes.alerts .notifications-list > li > .user > .actions > li {display: inline-block;}
-
   .notifications-list > li .text-notification {display: block; padding-right: 20%;}
   .boxes.alerts .notifications-list > li > .user > .text-notification {padding-right: 0;}
-
   .box-ppal .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 6px 10px;}
   .box-ppal .notifications-list > li > .user > .actions > li > a {margin: 0 !important;}
-
 }
 @media (min-width: 1024px) {
   #main {min-height: 642px;}
   .list-team > li {width: 310px;}
   .list-updates > li {width: 314px;}
+}
+/* para iPad anterior a 4ª generación */
+@media only screen and (max-device-width: 1024px) {
+  .full-video {-webkit-background-size: 1024px 576px;}
 }
 @media (min-width: 1152px) {
   .list-updates > li {width: 356px;}
@@ -3914,14 +3868,9 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   h1.withArrow {margin-bottom: 70px;}
   .boxes.vote.drive.fixed {width: 350px;}
   .config .kakareo-list.project .kakareo.post.ley .link-wrapper {min-height: 415px;}
-
-/*  #otros-proyectos .kakareo.post > .link-wrapper,
-  .homeSub .kakareo-list.project .kakareo.post > .link-wrapper,
-  .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper {height: 420px;}*/
   #otros-proyectos .kakareo.post > .link-wrapper p,
   .homeSub .kakareo-list.project .kakareo.post > .link-wrapper p,
   .kakareo-list.project .kakareo.post > .link-wrapper p {height: 76px; overflow: hidden; margin-bottom: 10px;}
-
   #otras-propuestas .kakareo > .link-wrapper,
   .homeSub .kakareo-list .kakareo > .link-wrapper {/*height: 182px;*/ padding: 15px 15px 0 15px;}
   #otras-propuestas .kakareo-list > li h1,
@@ -3930,9 +3879,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .homeSub .kakareo-list .kakareo .main-kakareo {margin-top: 0;}
   #otras-propuestas .kakareo-list .kakareo footer,
   .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
-
 }
-
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
@@ -3950,7 +3897,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .config .icheckbox_line-orange,
   .config .iradio_line-orange {margin-right: 26px; margin-bottom: 26px;}
   .box-ppal.condition .no-age .form-group:nth-child(2) {width: 172px;}
-  .boxes.follow .user-list-followers > .user > .actions {float: right; margin: -30px 0 0 !important;}
+  .boxes.follow .user-list-followers > .user > .actions {margin: -30px 0 0 !important;}
   .condition .user-list-followers  > li {width: 47%; float: left;}
   .sign .login .btn + .cancel {margin-left: 34px;}
   #main {min-height: 674px;}
@@ -3976,9 +3923,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .boxes.edit-user .name {font-size: 20px; font-size: 2rem; padding-bottom: 4px;}
   .notifications-list > li > .user > .popover-trigger > img {margin: 0 6px 32px 10px;}
   .notifications-list > li > .user {padding: 0 15px 0 0;}
-
-/*  .home .socialGo li {display: inline-block; float: left; margin: 10px 12px 0 0; width: 180px;}
-  .home .socialGo li:last-child {margin-right: 0;}*/
 
   .boxes.edit-user .user > a {text-align: left;}
   .boxes.edit-user .user-img.big {float: left; margin: 0 6px 6px 0;}
@@ -4013,23 +3957,4 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   h1.withArrow {margin-bottom: 50px;}
   .boxes.info .kakareo footer .info-kak > li {font-size: 14px; font-size: 1.4rem;}
   .boxes.info .kakareo footer .voting ul li {margin: 0 0 0 8px;}
-}
-/*.sign.home .social-home-container .btn.btn-lg {font-size: 1.6rem; padding: 14px;}*/
-
-/* Retina ready images */
-@media  only screen and (-webkit-min-device-pixel-ratio: 1.5),
-    only screen and (min--moz-device-pixel-ratio: 1.5),
-    only screen and (-o-min-device-pixel-ratio: 3/2),
-    only screen and (min-device-pixel-ratio: 1.5),
-    only screen and (min-resolution: 192dpi) {
-
-    /*.readMore a {
-        background-image: url('../images/ico-arrows@2x.png');
-        background-size: 15px 35px;
-        background-repeat: no-repeat;
-    }*/
-}
-
-.resetTitle{
-    color:#545454 !important;
 }

@@ -9,6 +9,10 @@
         </ul>
     </g:if>
     <g:else>
+        <sec:ifNotLoggedIn>
+            <g:set var="gogoLink" value="${g.createLink(mapping: 'footerUserGuide')}"/>
+            <p class="no-debate"><g:message code="post.debate.empty" args="[gogoLink]" encodeAs="raw"/> </p>
+        </sec:ifNotLoggedIn>
         <postUtil:ifUserCanAddDebates post="${post}">
             <ul class="chat">
                 <g:render template="/post/debates/formAddDebate" model="[post:post]"/>
