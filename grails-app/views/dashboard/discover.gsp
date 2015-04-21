@@ -43,7 +43,7 @@
         %{--<p><g:message code="discover.module.mostActiveUsers.footerText"/></p>--}%
     %{--</aside>--}%
     <aside class="row others">
-        <g:render template="discover/recommendedProjects" model="[recommendedProjects:recommendedProjects]"/>
+        %{--<g:render template="discover/recommendedProjects" model="[recommendedProjects:recommendedProjects]"/>--}%
         <modulesUtil:lastCreatedPosts numPost="3" specialCssClass="col-xs-12 col-sm-4 col-md-4"/>
 
 

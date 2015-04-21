@@ -32,6 +32,7 @@
     <g:include controller="modules" action="userProfileAlerts"/>
     <g:include controller="modules" action="recommendedUsers"/>
     <modulesUtil:recommendedPosts title="${message(code:"modules.recommendedPosts.title")}"/>
+    <modulesUtil:recommendedProjects />
     <g:include controller="modules" action="userFavorites"/>
 </content>
 
