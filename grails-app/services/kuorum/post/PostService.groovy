@@ -513,8 +513,10 @@ class PostService {
      * @return
      */
     Boolean isAllowedToDefendAPost(Post post, KuorumUser politician){
-        politician.userType == UserType.POLITICIAN &&
-        politician.politicianOnRegion == post.project.region
+        return (
+                politician.userType == UserType.POLITICIAN &&
+                politician.politicianOnRegion == post.project.region
+        )
     }
 
     def getPostConfiguration(){

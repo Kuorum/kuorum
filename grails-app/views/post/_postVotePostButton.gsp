@@ -38,52 +38,17 @@
         </g:form>
     </postUtil:asNoLogged>
     <postUtil:asPolitician>
-        <form id="driveDefend">
+        <form id="drive" name="apadrina" id="apadrina" role="form">
             <div class="form-group">
                 <a href="#"
                         class="${post.defender ? 'disabled' : ''} btn btn-blue btn-lg btn-block openModalDefender"
-                        data-toggle="modal" data-target="#modalSponsor" params="${post.encodeAsLinkProperties()}"
+                        data-toggle="modal" data-target="#apadrina-propuesta"
                         data-postId="${post.id}">
-                    <span class="fa fa-trophy fa-2x">
+                    <span class="fa fa-trophy fa-2x"></span>
                     <g:message code="post.show.boxes.like.defend.${post.defender ? 'buttonDefended' : 'button'}" encodeAs="raw"/>
                 </a>
             </div>
         </form>
-        <g:set var="postType" value="${message(code: "${PostType.class.name}.${post.postType}")}"/>
-        <script>
-            $(function () {
-                modalDefend.data.post_${post.id} = {
-                    owner: {
-                        name: "${post.owner.name}",
-                        imageUrl: "${image.userImgSrc(user:post.owner)}"
-                    },
-                    defender: {
-                        name: "${sec.loggedInUserInfo(field:'name')}",
-                        imageUrl: "${image.loggedUserImgSrc()}"
-                    },
-                    post: {
-                        sponsorLabel: '${message(code:'modalDefend.defender.sponsorLabel', args:[postType])}',
-                        what: '${message(code:'modalDefend.owner.what', args:[postType])}',
-                        title: "${post.title}",
-                        options: [
-                            %{-- Guarrerida para generar el js que se necesita para pintar la ventana modal --}%
-                            <g:each in="${kuorum.core.model.CommitmentType.recoverCommitmentTypesByPostType(PostType.PURPOSE)}" var="commitmentType">
-                            {
-                                textButton: "${message(code:"modalDefend.option.${commitmentType}.button")}",
-                                textDescription: "${message(code:"modalDefend.option.${commitmentType}.description")}",
-                                defendLink: "${g.createLink(mapping: 'postAddDefender', params:post.encodeAsLinkProperties() + [commitmentType:commitmentType])}"
-                            },
-                            </g:each>
-                            {
-                                kk:'this js object is for not delete the las comma. Where it is used dont iterate over this array'
-                            }
-                        ],
-                        description: "${message(code:'modalDefend.description', args:[post.owner.name, postType, post.numVotes])}",
-                        numVotes:${post.numVotes}
-                    }
-                }
-            });
-        </script>
     </postUtil:asPolitician>
     <postUtil:asUser>
         <form id="drive">
