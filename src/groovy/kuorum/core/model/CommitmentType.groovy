@@ -3,6 +3,7 @@ package kuorum.core.model
 /**
  * Representa el compromiso al que se "compromete" el político al defender un post
  */
+@Deprecated
 public enum CommitmentType {
 
 

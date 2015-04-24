@@ -16,6 +16,7 @@ import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.web.commands.PostCommand
 import kuorum.web.commands.post.CommentPostCommand
+import kuorum.web.commands.post.PostDefendCommand
 import kuorum.web.commands.post.PromotePostCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
@@ -373,13 +374,16 @@ class PostController {
         }
     }
     @Secured("ROLE_POLITICIAN")
-    def addDefender() {
+    def addDefender(PostDefendCommand command) {
+        if (command.hasErrors()){
+            flash.error = message(code:'modalDefend.error')
+            redirect (mapping:"postShow", params:post.encodeAsLinkProperties())
+            return;
+        }
         Post post = params.post
         KuorumUser politician = KuorumUser.get(springSecurityService.principal.id)
-        CommitmentType commitmentType = CommitmentType.valueOf(params.commitmentType)
-        postService.defendPost(post, commitmentType, politician)
-        String postTypeText = message(code:"${PostType.class.name}.${post.postType}")
-        flash.message = message(code:'modalDefend.success', args:[postTypeText])
+        postService.defendPost(post, politician, command.text)
+        flash.message = message(code:'modalDefend.success')
         redirect (mapping:"postShow", params:post.encodeAsLinkProperties())
     }
 

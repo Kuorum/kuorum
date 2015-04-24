@@ -676,9 +676,11 @@ $(document).ready(function() {
     });
 
     $('body').on("click", ".openModalDefender",function(e){
-        e.preventDefault()
+        e.preventDefault();
+        e.stopPropagation();
         var postId = $(this).attr("data-postId")
-        modalDefend.openModal(postId)
+        $("#apadrinar").find("input[name=postId]").val(postId);
+        $('#apadrina-propuesta').modal('show');
     });
 
     $('.modalVictoryClose').on("click", function (e) {
@@ -813,29 +815,29 @@ function counterCharacters(idField) {
 }
 
 // ***** End jQuey Init *********** //
-
-var modalDefend = {
-    data:{},
-    openModal:function(postId){
-        var modalData = this.data['post_'+postId]
-        $("#modalDefenderPolitician img").attr('src',modalData.defender.imageUrl)
-        $("#modalDefenderPolitician img").attr('alt',modalData.defender.name)
-        $("#modalDefenderPolitician #sponsorLabel").html(modalData.post.sponsorLabel)
-        $("#modalDefenderPolitician h1").html(modalData.defender.name)
-        $("#modalDefenderOwner img").attr('src',modalData.owner.imageUrl)
-        $("#modalDefenderOwner img").attr('alt',modalData.owner.name)
-        $("#modalDefenderOwner .name").html(modalData.owner.name)
-        $("#modalDefenderOwner .what").html(modalData.post.what)
-        $("#modalDefenderOwner .action span").html(modalData.post.numVotes)
-        $("#modalSponsor .modal-body").children("p").html(modalData.post.description)
-        $("#modalSponsor .modal-body").children("div").each(function(i,buttonElement){
-            var dataButton = modalData.post.options[i]
-            $(buttonElement).children("a").html(dataButton.textButton)
-            $(buttonElement).children("a").attr('href',dataButton.defendLink)
-            $(buttonElement).children("p").html(dataButton.textDescription)
-        })
-    }
-}
+//
+//var modalDefend = {
+//    data:{},
+//    openModal:function(postId){
+//        var modalData = this.data['post_'+postId]
+//        $("#modalDefenderPolitician img").attr('src',modalData.defender.imageUrl)
+//        $("#modalDefenderPolitician img").attr('alt',modalData.defender.name)
+//        $("#modalDefenderPolitician #sponsorLabel").html(modalData.post.sponsorLabel)
+//        $("#modalDefenderPolitician h1").html(modalData.defender.name)
+//        $("#modalDefenderOwner img").attr('src',modalData.owner.imageUrl)
+//        $("#modalDefenderOwner img").attr('alt',modalData.owner.name)
+//        $("#modalDefenderOwner .name").html(modalData.owner.name)
+//        $("#modalDefenderOwner .what").html(modalData.post.what)
+//        $("#modalDefenderOwner .action span").html(modalData.post.numVotes)
+//        $("#modalSponsor .modal-body").children("p").html(modalData.post.description)
+//        $("#modalSponsor .modal-body").children("div").each(function(i,buttonElement){
+//            var dataButton = modalData.post.options[i]
+//            $(buttonElement).children("a").html(dataButton.textButton)
+//            $(buttonElement).children("a").attr('href',dataButton.defendLink)
+//            $(buttonElement).children("p").html(dataButton.textDescription)
+//        })
+//    }
+//}
 
 var modalVictory = {
     data:{},

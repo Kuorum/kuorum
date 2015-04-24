@@ -188,7 +188,7 @@ class PostService {
         numMails
     }
 
-    PostComment addComment(Post post, PostComment comment){
+    PostComment addComment(Post post, PostComment comment, Boolean sendNotification = true){
         log.info("Creating comment: ${comment.text}")
         if (!comment.validate()){
             throw KuorumExceptionUtil.createExceptionFromValidatable(comment)
@@ -203,7 +203,9 @@ class PostService {
                 deleted :comment.deleted ]
         Post.collection.update ( [_id:post.id],['$push':['comments':commentData]])
         post.refresh()
-        notificationService.sendCommentNotifications(post, comment)
+        if (sendNotification){
+            notificationService.sendCommentNotifications(post, comment)
+        }
         post.comments.last()
     }
 
@@ -477,26 +479,24 @@ class PostService {
         Post.countByProjectAndDefenderIsNotNull(project)
     }
 
-    Post defendPost(Post post, CommitmentType commitmentType, KuorumUser politician){
+    Post defendPost(Post post, KuorumUser politician, String text){
         if (politician.userType != UserType.POLITICIAN){
             throw new KuorumException("El usuario ${politician.name} (${politician.id}) no es un político para defender la publicacion ${post.id}", "error.security.post.defend.isNotPolitician")
         }
-        if (post.postType != commitmentType.associatedPostType){
-            String message =  "Se ha intentado defender con (${commitmentType}) que no se ajusta al tipo de post ${post.postType}"
-            log.error(message)
-            throw new KuorumException(message, 'error.security.post.defend.wrongCommitmentType')
-        }
+
         if (post.defender){
             String message =  "Se ha intentado apadrinar una ${post.portType} qua ya había sido defendida."
             log.error(message)
             throw new KuorumException(message, 'error.security.post.defend.alreadyDefended')
         }
         Date defenderDate = new Date()
-        Post.collection.update ( [_id:post.id],['$set':[defender:politician.id,defenderDate:defenderDate, commitmentType:commitmentType.toString()]])
+        Post.collection.update ( [_id:post.id],['$set':[defender:politician.id,defenderDate:defenderDate]])
         post.refresh()
         cluckService.createActionCluck(post, politician, CluckAction.DEFEND)
         politician.politicianActivity.numDefends +=1
         politician.save()
+        addComment(post, new PostComment(text:text, kuorumUser: politician), false)
+
         notificationService.sendPostDefendedNotification(post)
         post
     }

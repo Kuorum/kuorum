@@ -24,7 +24,6 @@
                         <g:message code="cluck.footer.${post.defender ? 'defended' : 'defend'}"/>
                     </span>
                 </a>
-
             </postUtil:asPolitician>
         </postUtil:userOption>
     </sec:ifLoggedIn>

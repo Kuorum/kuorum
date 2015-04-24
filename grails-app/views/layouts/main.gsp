@@ -198,15 +198,17 @@
             </div>
             <div class="modal-body clearfix">
                 <p>Al apadrinar esta propuesta te estas comprometiendo a defenderla y, si es posible, llevarla a cabo. Si el autor de la propuesta considera que has cumplido tu promesa obtendrás una victoria.</p>
-                <form id="apadrinar">
+                <formUtil:validateForm command="kuorum.web.commands.post.PostDefendCommand" form="apadrinar"/>
+                <g:form mapping="postAddDefender" name="apadrinar">
+                    <input type="hidden" name="postId" value=""/>
                     <div class="form-group">
                         <label for="explica-apadrinar" class="sr-only">Añade explicación:</label>
-                        <textarea id="explica-apadrinar" placeholder="Explica cómo piensas llevarla a cabo" rows="5" class="form-control"></textarea>
+                        <textarea id="explica-apadrinar" name="text" placeholder="Explica cómo piensas llevarla a cabo" rows="5" class="form-control"></textarea>
                     </div>
                     <div class="form-group btns clearfix">
                         <input type="submit" class="btn btn-grey pull-right" value="Apadrinar">
                     </div>
-                </form>
+                </g:form>
             </div>
         </div>
     </div>
