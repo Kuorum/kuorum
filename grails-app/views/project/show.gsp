@@ -19,14 +19,14 @@
     %{--<g:if test="${victories}">--}%
         %{--<g:render template="projectVictories" model="[project:project, victories:victories]"/>--}%
     %{--</g:if>--}%
-    <g:if test="${clucks}">
+    <g:if test="${posts}">
         <g:render
                 template="projectClucks"
                 model="[
                         project:project,
-                        clucks:clucks,
-                        seeMoreClucks:seeMoreClucks,
-                        numClucks:numClucks,
+                        posts:posts,
+                        seeMorePosts:seeMorePosts,
+                        numPosts:numPosts,
                         victories:victories,
                         seeMoreVictories:seeMoreVictories,
                         numVictories:numVictories,

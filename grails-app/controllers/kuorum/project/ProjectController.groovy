@@ -228,8 +228,8 @@ class ProjectController {
             return;
         }
         Pagination pagination = new Pagination()
-        def clucks = cluckService.projectClucks(project,pagination)
-        Long numClucks = cluckService.countProjectClucks(project)
+        List<Post> posts = postService.projectPosts(project,pagination)
+        Long numPosts = postService.countProjectPosts(project)
         List<Post> victories = postService.projectVictories(project)
         Long numVictories = postService.countProjectVictories(project)
         List<Post> defends = postService.projectDefends(project)
@@ -256,9 +256,9 @@ class ProjectController {
                 project:project,
                 projectStats:projectStats,
                 regionStats:regionStats,
-                clucks: clucks,
-                numClucks:numClucks,
-                seeMoreClucks:clucks.size() < numClucks,
+                posts: posts,
+                numPosts:numPosts,
+                seeMorePosts:posts.size() < numPosts,
                 victories:victories,
                 numVictories:numVictories,
                 seeMoreVictories:victories.size() < numVictories,
@@ -277,9 +277,9 @@ class ProjectController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        def clucks = cluckService.projectClucks(project,pagination)
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${clucks.size()<pagination.max}")
-        render template: "/cluck/liClucks", model:[clucks:clucks]
+        List<Post> posts = postService.projectPosts(project,pagination)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${posts.size()<pagination.max}")
+        render template: "/cluck/liPosts", model:[posts:posts]
 
     }
 

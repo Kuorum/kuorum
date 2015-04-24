@@ -1,10 +1,10 @@
 <h2 class="underline"><g:message code="project.clucks.title"/> </h2>
 
 <div id="projectChangePostTypeButtonDiv" class="btn-group btn-group-justified filters" role="group" aria-label="Justified button group">
-    <g:if test="${numClucks}">
+    <g:if test="${numPosts}">
         <a href="#" class="btn active" role="button" data-showDivId="clucks">
             <g:message code="project.clucks.newer"/>
-            <span aria-relevant="additions" aria-live="assertive" aria-labelledby="${message(code:'project.clucks.newer')}" role="log" class="badge">${numClucks}</span>
+            <span aria-relevant="additions" aria-live="assertive" aria-labelledby="${message(code:'project.clucks.newer')}" role="log" class="badge">${numPosts}</span>
         </a>
     </g:if>
     <g:if test="${numDefends}">
@@ -23,7 +23,7 @@
 <!-- COMIENZA LISTA DE KAKAREOS -->
 <g:set var="urlLoadMorePosts" value="${g.createLink(mapping:'projectListClucks', params: project.encodeAsLinkProperties())}"/>
 <div id="clucks" data-name="listClucks">
-    <g:render template="/cluck/listClucks" model="[clucks:clucks, urlLoadMore:urlLoadMorePosts, seeMore:seeMoreClucks]"/>
+    <g:render template="/cluck/listPosts" model="[posts: posts, urlLoadMore:urlLoadMorePosts, seeMore:seeMorePosts]"/>
 </div>
 <g:set var="urlLoadMoreDefends" value="${g.createLink(mapping:'projectListPostDefends', params: project.encodeAsLinkProperties())}"/>
 <div id="defends" class="hidden" data-name="listClucks">

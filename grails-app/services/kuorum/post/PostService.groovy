@@ -463,6 +463,17 @@ class PostService {
         post
     }
 
+    List<Post> projectPosts(Project project, Pagination pagination = new Pagination()){
+        List<Cluck> clucks = cluckService.projectClucks(project, pagination);
+        clucks.collect{it.post}
+    }
+
+
+    Long countProjectPosts(Project project) {
+        Post.countByProject(project)
+    }
+
+
     List<Post> projectVictories(Project project, Pagination pagination = new Pagination()){
         Post.findAllByProjectAndVictory(project,Boolean.TRUE,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
     }
