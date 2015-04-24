@@ -281,7 +281,10 @@ class ProjectService {
         projectList.each{Project project ->
             project.status = ProjectStatusType.CLOSE
             calculateProjectRelevance(project)
-            project.save()
+            if (!project.save()){
+                log.warn("No se ha podido actualizar datos del projecto ${project.hashtag} debido a: ${project.errors})");
+            }
+
             indexSolrService.index(project)
         }
     }

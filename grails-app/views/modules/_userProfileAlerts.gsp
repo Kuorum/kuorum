@@ -11,22 +11,16 @@
         <ul class="notifications-list">
             <g:each in="${alerts}" var="alert" status="i">
                 <g:if test="${alert.instanceOf(DebateAlertNotification)}">
-                    <g:set var="postType">
-                        <g:message code="${kuorum.core.model.PostType.name}.${alert.post.postType}"/>
-                    </g:set>
                     <g:set var="message">
-                        <g:message code="notifications.debateAlertNotification.text" args="[postType]"/>
+                        <g:message code="notifications.debateAlertNotification.text" args="[alert.post.project.hashtag]"/>
                     </g:set>
                     <g:set var="user" value="${alert.debateWriter}"/>
                     <g:set var="answerLink" value="${createLink(mapping: 'postShow', params: alert.post.encodeAsLinkProperties())}#debates"/>
                     <g:set var="modalVictory" value="${false}"/>
                 </g:if>
                 <g:elseif test="${alert.instanceOf(DefendedPostAlert)}">
-                    <g:set var="postType">
-                        <g:message code="${kuorum.core.model.PostType.name}.${alert.post.postType}"/>
-                    </g:set>
                     <g:set var="message">
-                        <g:message code="notifications.defendedPostAlert.text" args="[postType]"/>
+                        <g:message code="notifications.defendedPostAlert.text" args="[alert.post.project.hashtag]"/>
                     </g:set>
                     <g:set var="user" value="${alert.defender}"/>
                     <g:set var="answerLink" value="${createLink(mapping: 'postAddVictory', params: alert.post.encodeAsLinkProperties())}"/>
