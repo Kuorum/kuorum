@@ -52,5 +52,12 @@ class ProjectCommand {
             }
         }
         pdfFileId nullable: true
+        deadline nullable: false, validator: { val, obj ->
+            if (val < new Date().clearTime()) {
+                return ['deadlineLessThanToday']
+            } else if (val.clearTime() > new Date().clearTime() + 120) {
+                return ['deadlineGreaterThan120Days']
+            }
+        }
     }
 }

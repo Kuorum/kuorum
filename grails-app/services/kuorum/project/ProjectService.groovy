@@ -154,7 +154,29 @@ class ProjectService {
         if (!project.save()){
            throw KuorumExceptionUtil.createExceptionFromValidatable(project, "Error salvando el proyecto")
         }
+        createNewProjectEvent(project)
         project
+    }
+
+    ProjectEvent createNewProjectEvent(Project project){
+        ProjectEvent projectEvent = new ProjectEvent()
+        projectEvent.projectAction = ProjectAction.PROJECT_CREATED
+        projectEvent.project = project
+        projectEvent.owner = project.owner
+        projectEvent.region = project.region
+        projectEvent.dateCreated = new Date()
+        projectEvent.projectUpdatePos = null
+        projectEvent.save()
+    }
+    ProjectEvent createUpdateProjectEvent(Project project, Integer projectUpdatePos){
+        ProjectEvent projectEvent = new ProjectEvent()
+        projectEvent.projectAction = ProjectAction.PROJECT_UPDATE
+        projectEvent.project = project
+        projectEvent.owner = project.owner
+        projectEvent.region = project.region
+        projectEvent.dateCreated = new Date()
+        projectEvent.projectUpdatePos = projectUpdatePos
+        projectEvent.save();
     }
 
     Project updateProject(Project project){
@@ -402,7 +424,7 @@ class ProjectService {
         } else {
             result.message = projectUpdate.errors
         }
-
+        createUpdateProjectEvent(project, project.updates.size()-1);
         result
     }
 }

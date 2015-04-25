@@ -71,13 +71,13 @@ class Project {
         politicalParty nullable:true
 
         //New validations for Project
-        deadline nullable: false, validator: { val, obj ->
-            if (val < new Date().clearTime()) {
-                return ['deadlineLessThanToday']
-            } else if (val.clearTime() > new Date().clearTime() + 120) {
-                return ['deadlineGreaterThan120Days']
-            }
-        }
+//        deadline nullable: false, validator: { val, obj ->
+//            if (val < new Date().clearTime()) {
+//                return ['deadlineLessThanToday']
+//            } else if (val.clearTime() > new Date().clearTime() + 120) {
+//                return ['deadlineGreaterThan120Days']
+//            }
+//        }
         urlYoutube nullable: true, validator: { val, obj ->
             if (!val && !obj.image) {
                 return ['imageOrUrlYoutubeRequired']
