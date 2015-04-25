@@ -121,11 +121,4 @@ class ProjectTagLib {
                 <span class="sr-only">${regionTypeText}</span>
         """
     }
-
-    def showFirstCharsFromDescription={attrs ->
-        Project project = attrs.project
-        Integer numCharsToShow = Integer.parseInt(attrs.numChars)
-        String description = project.description
-        out << kuorumDate.showShortedText(text: description, numChars: numCharsToShow)
-    }
 }

@@ -20,7 +20,7 @@
 
     <g:if test="${clucks}">
         <g:set var="urlLoadMore" value="${createLink(mapping: 'dashboardSeeMore')}"/>
-        <g:render template="/cluck/listClucks" model="[clucks:clucks, urlLoadMore:urlLoadMore, seeMore:seeMore]"/>
+        <g:render template="/dashboard/listDashboardClucks" model="[clucks:clucks, projectEvents:projectEvents, urlLoadMore:urlLoadMore, seeMore:seeMore]"/>
     </g:if>
     %{--<g:else>--}%
         %{--<g:render template="emptyClucks" model="[mostActiveUsers:mostActiveUsers]"/>--}%

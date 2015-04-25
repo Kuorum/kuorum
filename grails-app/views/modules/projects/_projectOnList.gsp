@@ -7,9 +7,9 @@
                 <time><span class="hidden-xs hidden-md"><g:message code="cluck.header.action.CREATE"/> </span><kuorumDate:humanDate date="${project.dateCreated}"/></time>
             </span>
         </div>
-        <g:render template="/project/projectMultimedia" model="[project:project]"/>
+        <g:render template="/project/projectMultimedia" model="[hashtag:project.hashtag, image:project.image, youtube:project.urlYoutube]"/>
         <g:render template="/modules/projects/projectOnListMoreInfo" model="[project:project]"/>
-        <p><projectUtil:showFirstCharsFromDescription project="${project}" numChars="170"/></p>
+        <p><kuorumDate:showShortedText text="${project.description}" numChars="170"/></p>
         <g:render template="/modules/projects/projectOnListFooter" model="[project:project]"/>
     </div>
 </article>

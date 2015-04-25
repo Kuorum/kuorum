@@ -8,7 +8,7 @@
                 <time><span class="hidden-xs hidden-md"><g:message code="cluck.header.action.CREATE"/> </span><kuorumDate:humanDate date="${project.dateCreated}"/></time>
             </span>
         </div>
-        <g:render template="/project/projectMultimedia" model="[project:project]"/>
+        <g:render template="/project/projectMultimedia" model="[hashtag:project.hashtag, image:project.image, youtube:project.urlYoutube]"/>
         <g:render template="/modules/projects/projectOnListMoreInfo" model="[project:project,hashtag:solrProject?.highlighting?.hashtag]"/>
         %{--<p><projectUtil:showFirstCharsFromDescription project="${project}" numChars="170"/></p>--}%
         <p><searchUtil:highlightedField solrElement="${solrProject}" field="text"/></p>

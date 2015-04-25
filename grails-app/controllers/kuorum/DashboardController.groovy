@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.Pagination
 import kuorum.post.Cluck
 import kuorum.post.Post
+import kuorum.project.ProjectEvent
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
@@ -15,6 +16,8 @@ class DashboardController {
     def cluckService
     def projectService
     def kuorumUserService
+
+    private  static final Integer MAX_PROJECT_EVENTS = 2
 
     def index(){
         if (springSecurityService.isLoggedIn()){
@@ -36,19 +39,28 @@ class DashboardController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Pagination pagination = new Pagination()
         List<Cluck> clucks =  cluckService.dashboardClucks(user,pagination)
+        List<ProjectEvent> projectEvents = projectService.findRelevantProjectEvents(user, new Pagination(max: MAX_PROJECT_EVENTS))
         List<KuorumUser>mostActiveUsers=[]
         if (!clucks){
             mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7 , new Pagination(max: 20))
         }
-        [clucks: clucks,mostActiveUsers:mostActiveUsers, user:user,seeMore: clucks.size()==pagination.max]
+        [clucks: splitClucksInParts(clucks), projectEvents:projectEvents,mostActiveUsers:mostActiveUsers, user:user,seeMore: clucks.size()==pagination.max]
+    }
+
+    private def splitClucksInParts(List<Cluck> clucks){
+        if (clucks && clucks.size() > 2){
+            return [clucks_1:clucks[0..1], clucks_2:clucks[2..clucks.size()-1]]
+        }
+        return [clucks_1:clucks, clucks_2:[]]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def dashboardClucks(Pagination pagination){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        List<ProjectEvent> projectEvents = projectService.findRelevantProjectEvents(user, new Pagination(max: MAX_PROJECT_EVENTS, offset: pagination.offset))
         List<Cluck> clucks =  cluckService.dashboardClucks(user, pagination)
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${clucks.size()<pagination.max}")
-        render template: "/cluck/liClucks", model:[clucks:clucks]
+        render template: "/cluck/liClucks", model:[clucks:clucks, projectEvents:projectEvents]
     }
 
     def landingPage(){

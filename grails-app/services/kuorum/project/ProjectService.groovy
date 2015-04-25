@@ -1,21 +1,15 @@
 package kuorum.project
 
-import grails.gorm.DetachedCriteria
-import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
-import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.Region
 import kuorum.RegionService
 import kuorum.ShortUrlService
-import kuorum.core.FileGroup
 import kuorum.core.FileType
-import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
-import kuorum.core.model.search.SearchPolitician
 import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.solr.SolrResults
 import kuorum.files.FileService
@@ -295,6 +289,12 @@ class ProjectService {
     }
     Long countPoliticianProjects(KuorumUser politician){
         Project.countByOwnerAndPublished(politician,true)
+    }
+
+    List<ProjectEvent> findRelevantProjectEvents(KuorumUser user, Pagination pagination = new Pagination()){
+        List<String> relevantUserRegions = regionService.findUserRegions(user);
+        List<KuorumUser> following = user.following.collect{KuorumUser.load(it)}
+        ProjectEvent.findAllByOwnerInListOrRegionInList(following, relevantUserRegions, [max:pagination.max, offset: pagination.offset, sort: 'id', order: 'desc'])
     }
 
     /*
