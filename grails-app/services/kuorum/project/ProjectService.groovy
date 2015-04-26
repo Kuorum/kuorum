@@ -1,5 +1,6 @@
 package kuorum.project
 
+import com.mongodb.DBCursor
 import grails.transaction.Transactional
 import kuorum.KuorumFile
 import kuorum.Region
@@ -315,8 +316,15 @@ class ProjectService {
 
     List<ProjectEvent> findRelevantProjectEvents(KuorumUser user, Pagination pagination = new Pagination()){
         List<String> relevantUserRegions = regionService.findUserRegions(user);
-        List<KuorumUser> following = user.following.collect{KuorumUser.load(it)}
-        ProjectEvent.findAllByOwnerInListOrRegionInList(following, relevantUserRegions, [max:pagination.max, offset: pagination.offset, sort: 'id', order: 'desc'])
+//        List<KuorumUser> following = user.following.collect{KuorumUser.load(it)}
+//        ProjectEvent.findAllByOwnerInListOrRegionInList(following, relevantUserRegions, [max:pagination.max, offset: pagination.offset, sort: 'id', order: 'desc'])
+        def criteriaOr = [['region._id': ['$in':relevantUserRegions.id]],['owner':[$in:user.following]]]
+        DBCursor projectEvents = ProjectEvent.collection.find(['$or':criteriaOr])
+        projectEvents.limit(pagination.max)
+        projectEvents.skip(pagination.offset.toInteger())
+        projectEvents.sort([_id:-1])
+        List<ProjectEvent> result = projectEvents.collect{ProjectEvent.get(it._id)}
+        result
     }
 
     /*
