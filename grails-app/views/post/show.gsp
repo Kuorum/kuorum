@@ -18,7 +18,12 @@
                 <userUtil:showUser user="${post.owner}" showRole="true"/>
             </div>
             <div class="col-sm-6 text-right sponsor">
-                <userUtil:showDebateUsers post="${post}" visibleUsers="1"/>
+                <g:if test="${post.defender}">
+                    <userUtil:showListUsers users="${[post.defender]}" visibleUsers="1" messagesPrefix="cluck.defendUsers"/>
+                </g:if>
+                <g:elseif test="${post.debates}">
+                    <userUtil:showDebateUsers post="${post}" visibleUsers="1"/>
+                </g:elseif>
             </div>
         </div>
         <postUtil:postShowMultimedia post="${post}"/>
