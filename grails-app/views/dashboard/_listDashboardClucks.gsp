@@ -17,7 +17,9 @@
 </div>
 
 <!-- ver más -->
-<div id="trasteando" class="text-center">Quiero <a href="#">seguir trasteando</a> con otros proyectos que me atañen</div>
+<div id="trasteando" class="text-center">
+    <g:message code="dashboard.projects.seeMore" args="[g.createLink(mapping: 'discoverProjects')]"/>
+</div>
 <g:if test="${clucks.clucks_2}">
     <ul id="list-kakareos-id" class="kakareo-list" role="log" aria-live="assertive" aria-relevant="additions">
         <g:render template="/cluck/liClucks" model="[clucks:clucks.clucks_2]"/>
