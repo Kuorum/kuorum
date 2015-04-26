@@ -6,7 +6,11 @@
     <ul class="kakareo-list project" role="log" aria-relevant="additions" aria-live="assertive">
         <g:each in="${projectEvents}" var="projectEvent">
             <li class="col-md-6">
-                <g:render template="/modules/projects/projectOnList" model="[project: projectEvent.project]"/>
+                <g:set var="projectUpdate" value=""/>
+                <g:if test="${projectEvent.projectAction == kuorum.project.ProjectAction.PROJECT_UPDATE}">
+                    <g:set var="projectUpdate" value="${projectEvent.project.updates[projectEvent.projectUpdatePos]}"/>
+                </g:if>
+                <g:render template="/modules/projects/projectOnList" model="[project: projectEvent.project, projectUpdate:projectUpdate]"/>
             </li>
         </g:each>
     </ul>

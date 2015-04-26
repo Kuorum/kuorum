@@ -1,15 +1,27 @@
+<g:set var="imageToShow" value="${project.image?:''}"/>
+<g:set var="youtubeToShow" value="${project.urlYoutube?:''}"/>
+<g:set var="action" value="${g.message(code: 'projectEvent.header.projectAction.PROJECT_CREATED')}"/>
+<g:set var="dateCreated" value="${project.dateCreated}"/>
+<g:set var="description" value="${project.description}"/>
+<g:if test="${projectUpdate}">
+    <g:set var="imageToShow" value="${projectUpdate.image?:''}"/>
+    <g:set var="youtubeToShow" value="${projectUpdate.urlYoutube?:''}"/>
+    <g:set var="action" value="${g.message(code: 'projectEvent.header.projectAction.PROJECT_UPDATE')}"/>
+    <g:set var="dateCreated" value="${projectUpdate.dateCreated}"/>
+    <g:set var="description" value="${projectUpdate.description}"/>
+</g:if>
 <article class="kakareo post ley" role="article" itemtype="http://schema.org/Article">
     <div class="link-wrapper">
         <g:link mapping="projectShow" params="${project.encodeAsLinkProperties()}" class="hidden"/>
         <div class="user author" itemprop="author" itemtype="http://schema.org/Person">
             <userUtil:showUser user="${project.owner}"/>
             <span itemprop="datePublished">
-                <time><span class="hidden-xs hidden-md"><g:message code="cluck.header.action.CREATE"/> </span><kuorumDate:humanDate date="${project.dateCreated}"/></time>
+                <time><span class="hidden-xs hidden-md">${action}</span><kuorumDate:humanDate date="${dateCreated}"/></time>
             </span>
         </div>
-        <g:render template="/project/projectMultimedia" model="[hashtag:project.hashtag, image:project.image, youtube:project.urlYoutube]"/>
+        <g:render template="/project/projectMultimedia" model="[hashtag:project.hashtag, image:imageToShow, youtube:youtubeToShow]"/>
         <g:render template="/modules/projects/projectOnListMoreInfo" model="[project:project]"/>
-        <p><kuorumDate:showShortedText text="${project.description}" numChars="170"/></p>
+        <p><kuorumDate:showShortedText text="${description}" numChars="170"/></p>
         <g:render template="/modules/projects/projectOnListFooter" model="[project:project]"/>
     </div>
 </article>
