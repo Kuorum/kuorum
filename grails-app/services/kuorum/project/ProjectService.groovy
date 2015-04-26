@@ -16,6 +16,7 @@ import kuorum.core.model.solr.SolrResults
 import kuorum.files.FileService
 import kuorum.notifications.NotificationService
 import kuorum.post.Post
+import kuorum.post.PostService
 import kuorum.solr.IndexSolrService
 import kuorum.solr.SearchSolrService
 import kuorum.users.GamificationService
@@ -34,6 +35,7 @@ class ProjectService {
     FileService fileService
     RegionService regionService
     NotificationService notificationService
+    PostService postService
 
     def grailsApplication
 
@@ -137,6 +139,7 @@ class ProjectService {
 //        project.institution = user.institution
         project.region = user.politicianOnRegion
         project.owner = user
+        project.description = postService.removeCustomCrossScripting(project.description)
 
         project.shortUrl = shortUrlService.shortUrl(project)
 
@@ -424,6 +427,7 @@ class ProjectService {
      */
     Map addProjectUpdate(ProjectUpdate projectUpdate, Project project){
         Map result = [message:'']
+        projectUpdate.description = postService.removeCustomCrossScripting(projectUpdate.description)
         if(projectUpdate.validate() && !projectUpdate.hasErrors()){
             project.updates.add(projectUpdate)
             project.save(failOnError: true)
