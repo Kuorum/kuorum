@@ -19,7 +19,7 @@
             </div>
             <div class="col-sm-6 text-right sponsor">
                 <g:if test="${post.defender}">
-                    <userUtil:showListUsers users="${[post.defender]}" visibleUsers="1" messagesPrefix="cluck.defendUsers"/>
+                    <userUtil:showListUsers users="${[post.defender]}" visibleUsers="1" messagesPrefix="cluck.defendUsers.victory.${post.victory}"/>
                 </g:if>
                 <g:elseif test="${post.debates}">
                     <userUtil:showDebateUsers post="${post}" visibleUsers="1"/>
