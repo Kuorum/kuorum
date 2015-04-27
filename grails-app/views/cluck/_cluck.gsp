@@ -18,21 +18,7 @@
     </g:if>
 
         <h1>${post.title} <g:link mapping="projectShow" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link> </h1>
-        <div class="main-kakareo row">
-            <div class="${classWidthUserModules} user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                <userUtil:showUser user="${post.owner}" showRole="true"/>
-            </div>
-            <g:if test="${post.defender}">
-                <div class="${classWidthUserModules} text-right sponsor">
-                    <userUtil:showListUsers users="${[post.defender]}" visibleUsers="1" messagesPrefix="cluck.defendUsers"/>
-                </div>
-            </g:if>
-            <g:else>
-                <div class="${classWidthUserModules} text-right sponsor">
-                    <userUtil:showDebateUsers post="${post}" visibleUsers="1"/>
-                </div>
-            </g:else>
-        </div>
+        <g:render template="/post/postUsers" model="[post:post]"/>
         <g:if test="${!displayingColumnC}">
             <g:render template="/cluck/cluckMultimedia" model="[post:post]"/>
         </g:if>

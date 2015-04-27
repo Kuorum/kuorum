@@ -13,19 +13,7 @@
 
         <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"><g:message code="cluck.post.show"/></g:link>
         <h1>${post.title} <g:link mapping="projectShow" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link> </h1>
-        <div class="main-kakareo row">
-            <div class="col-sm-6 user author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                <userUtil:showUser user="${post.owner}" showRole="true"/>
-            </div>
-            <div class="col-sm-6 text-right sponsor">
-                <g:if test="${post.defender}">
-                    <userUtil:showListUsers users="${[post.defender]}" visibleUsers="1" messagesPrefix="cluck.defendUsers.victory.${post.victory}"/>
-                </g:if>
-                <g:elseif test="${post.debates}">
-                    <userUtil:showDebateUsers post="${post}" visibleUsers="1"/>
-                </g:elseif>
-            </div>
-        </div>
+        <g:render template="/post/postUsers" model="[post:post, owner:post.owner]"/>
         <postUtil:postShowMultimedia post="${post}"/>
         <g:render template="/cluck/footerCluck" model="[post:post, displayingColumnC:false]"/>
         <p>
