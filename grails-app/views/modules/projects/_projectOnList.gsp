@@ -16,9 +16,15 @@
         <div class="user author" itemprop="author" itemtype="http://schema.org/Person">
             <userUtil:showUser user="${project.owner}"/>
             <span itemprop="datePublished">
-                <time><span class="hidden-xs hidden-md">${action}</span><kuorumDate:humanDate date="${dateCreated}"/></time>
+                <time><span class="hidden-xs hidden-md">${action}</span> <kuorumDate:humanDate date="${dateCreated}"/></time>
             </span>
         </div>
+        <g:if test="${projectUpdate}">
+            <div class="ico-info">
+                <span data-original-title="Actualización" rel="tooltip" data-placement="left" data-toggle="tooltip" class="fa icon2-update fa-2x"></span>
+                <span class="sr-only"><g:message code="project.projectUpdate.label"/> </span>
+            </div>
+        </g:if>
         <g:render template="/project/projectMultimedia" model="[hashtag:project.hashtag, image:imageToShow, youtube:youtubeToShow]"/>
         <g:render template="/modules/projects/projectOnListMoreInfo" model="[project:project]"/>
         <p><kuorumDate:showShortedText text="${description}" numChars="170"/></p>
