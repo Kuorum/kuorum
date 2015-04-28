@@ -866,7 +866,11 @@ var karma = {
     numEggs:0,
     numPlumes:0,
     numCorns:0,
-    open:function(options){
+    //Open es la funcion que abriría el Karma. pero se ha comentado dejando la funcionalidad en realOpen
+    open:function(options){},
+    //Esta funcion no se llama. Se deja así para un futuro carma
+    realOpen:function(options){
+        console.log("Karma disabled")
         if (options != undefined){
             this.numEggs = options.eggs || 0
             this.numPlumes = options.plumes || 0

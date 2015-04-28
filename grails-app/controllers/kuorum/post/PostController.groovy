@@ -50,12 +50,6 @@ class PostController {
         List<KuorumUser> usersVotes = postVoteService.findVotedUsers(post, new Pagination(max:20))
 
         def model = [post:post,relatedPost:relatedPost, usersVotes:usersVotes, userVote:userVote]
-//        if (post.victory){
-//            render view:'/post/showVictory', model : model
-//            return
-//        }else{
-//            return model
-//        }
         model
     }
 

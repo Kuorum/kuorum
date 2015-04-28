@@ -290,7 +290,7 @@ class PostService {
                 (!postComment.positiveVotes || !postComment.positiveVotes.contains(user.id))
     }
 
-    Post addDebate(Post post, PostComment comment){
+    Post addDebate(Post post, PostComment comment,Boolean sendNotification = true){
         if (isAllowedToAddDebate(post, comment.kuorumUser)){
             KuorumUser user = comment.kuorumUser
             if (!post.debates.collect{it.kuorumUser.id}.contains(user.id) && user.userType == UserType.POLITICIAN){
@@ -306,9 +306,10 @@ class PostService {
                     deleted :comment.deleted ]
             Post.collection.update ( [_id:post.id],['$push':['debates':commentData]])
             post.refresh()
-            cluckService.createActionCluck(post, comment.kuorumUser, CluckAction.DEBATE)
-
-            notificationService.sendDebateNotification(post)
+            if (sendNotification){
+                cluckService.createActionCluck(post, comment.kuorumUser, CluckAction.DEBATE)
+                notificationService.sendDebateNotification(post)
+            }
             post
         }else{
             throw new KuorumException("El usuario no es el dueño o un político", "error.security.post.notDebateAllowed")
@@ -506,7 +507,7 @@ class PostService {
         cluckService.createActionCluck(post, politician, CluckAction.DEFEND)
         politician.politicianActivity.numDefends +=1
         politician.save()
-        addComment(post, new PostComment(text:text, kuorumUser: politician), false)
+        addDebate(post, new PostComment(text:text, kuorumUser: politician), false)
 
         notificationService.sendPostDefendedNotification(post)
         post
