@@ -25,7 +25,7 @@
                 <span class="sr-only"><g:message code="project.projectUpdate.label"/> </span>
             </div>
         </g:if>
-        <g:render template="/project/projectMultimedia" model="[hashtag:project.hashtag, image:imageToShow, youtube:youtubeToShow]"/>
+        <g:render template="/project/projectMultimedia" model="[hashtag:project.hashtag, projectImage:imageToShow, youtube:youtubeToShow]"/>
         <g:render template="/modules/projects/projectOnListMoreInfo" model="[project:project]"/>
         <p><kuorumDate:showShortedText text="${description}" numChars="170"/></p>
         <g:render template="/modules/projects/projectOnListFooter" model="[project:project]"/>

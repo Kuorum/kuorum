@@ -13,7 +13,7 @@
             <div itemprop="keywords" class="laley">${project.hashtag}</div>
         </div>
     </div>
-    <g:render template="/project/projectMultimedia" model="[hashtag:project.hashtag, image:project.image, youtube:project.urlYoutube]"/>
+    <g:render template="/project/projectMultimedia" model="[hashtag:project.hashtag, projectImage:project.image, youtube:project.urlYoutube]"/>
     %{--<g:if test="${project.image}">--}%
     %{--<g:render template="/project/projectPhoto" model="[project:project, victory:victories]"/>--}%
     %{--</g:if>--}%

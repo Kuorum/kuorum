@@ -1,6 +1,6 @@
-<g:if test="${image}">
+<g:if test="${projectImage}">
     <div class="photo">
-        <img itemprop="image" alt="${hashtag}" src="${image.url}">
+        <img itemprop="image" alt="${hashtag}" src="${projectImage.url}">
     </div>
 </g:if>
 <g:elseif test="${youtube}">
