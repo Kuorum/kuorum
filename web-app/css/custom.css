@@ -2392,9 +2392,9 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .politician-list {margin: 0; padding: 0; list-style: none;}
 .politician-list .box-ppal .user {margin: -75px 10px 20px 10px;}
 .politician-list .box-ppal .user .user-img {border: 5px solid #fff; width: 120px; height: 120px;}
-.politician-list .box-ppal .user .user-img + .btn.follow {margin: 85px 0 0 0 !important; float: right; padding: 10px 15px !important;}
-.politician-list .box-ppal .user .user-name {display: block; font-size: 25px; font-size: 2.5rem;}
-.politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
+.politician-list .box-ppal .user .user-img + .btn.follow {width: 120px; margin: 85px 0 0 0 !important; float: right; padding: 10px 15px !important;}
+.politician-list .box-ppal .user .user-name {display: block; font-size: 22px; font-size: 2.2rem;}
+.politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 18px; font-size: 1.8rem; line-height: .9;}
 .politician-list .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
 .politician-list .box-ppal > small .fa {opacity: .5;}
 .politician-list .box-ppal {padding: 0; margin: 0 0 20px 0;}
