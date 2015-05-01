@@ -1082,7 +1082,15 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .vimeo > .youtube {width: 100%; display: none;}
 
 /* vídeo de fondo de la Home  */
-.full-video {width: 100%; overflow: hidden; position: relative; margin: 0; padding: 0 0 40px 0; background: url('../images/home-video.png') no-repeat center center; background-size: cover;}
+.full-video {
+    width: 100%; 
+    overflow: hidden; 
+    position: relative; 
+    margin: 0; 
+    padding: 0 0 20px 0; 
+    background: url('../images/home-video.png') no-repeat center top; 
+    background-size: cover;
+}
 .full-video  .container-fluid {margin-top: 24px;}
 .full-video .socialGo {margin-bottom: 20px;}
 
@@ -2349,8 +2357,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .sign.home .login .cancel a:active,
 .sign.home .login .cancel a:focus,
 .sign.home .login .form-group:last-child a {color: #fff;}
-
-.form-home-container {position: relative; margin: 0 auto; min-height: 410px; width: 100%;}
+.sign.home h2 {margin-top: 10px;}
+.form-home-container {position: relative; margin: 0 auto; min-height: 350px; width: 100%;}
 .sign.home .form-home-container .login {position: absolute; top: 0; left: 0; width: 100%;}
 .sign.home .form-home-container .login .btn + .cancel {
     line-height: 2.4;
@@ -3336,12 +3344,12 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  .box-ppal.profile .activity > li:nth-child(3) {border-right: 1px solid #dadada;}
-  #info-sup-scroll .btn.follow {position: relative; top: 5px; right: auto;}
-  .box-ppal.profile .activity > li {width: 16%; margin-bottom: 0;}
-  .box-ppal.profile .activity > li:nth-child(2) {border-right: 1px solid #dadada;}
-  #info-sup-scroll .activity {margin: 0 auto;}
-
+    .form-home-container {min-height: 410px;}
+    .box-ppal.profile .activity > li:nth-child(3) {border-right: 1px solid #dadada;}
+    #info-sup-scroll .btn.follow {position: relative; top: 5px; right: auto;}
+    .box-ppal.profile .activity > li {width: 16%; margin-bottom: 0;}
+    .box-ppal.profile .activity > li:nth-child(2) {border-right: 1px solid #dadada;}
+    #info-sup-scroll .activity {margin: 0 auto;}
   .form-group.image {height: 350px;}
   .config .icheckbox_line-orange,
   .config .iradio_line-orange {margin: 0 5px 5px 0;}
@@ -3702,7 +3710,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .box-ppal.condition .photo {margin-bottom: 15px;}
   .kakareo.post h1 {font-size: 29px; font-size: 2.9rem; line-height: 1.2; padding: 0; margin: 0 0 25px 0;}
 
-  .home .play {margin: 90px 0 0 0; padding: 0 0 0 30px; font-size: 22px; font-size: 2.2rem;text-align: left;}
+  .home .play {margin: 20px 0 0 0; padding: 0 0 0 30px; font-size: 22px; font-size: 2.2rem;text-align: left;}
   .homeSub > .row > h1 {font-size: 36px; font-size: 3.6rem;}
   .homeSub .homeMore {width: 440px; margin-bottom: 20px; margin-top: 10px;}
   .homeSub .homeMore .btn-lg {font-size: 25px !important; font-size: 2.5rem !important;}
@@ -3845,16 +3853,20 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .boxes.alerts .notifications-list > li > .user > .text-notification {padding-right: 0;}
   .box-ppal .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 6px 10px;}
   .box-ppal .notifications-list > li > .user > .actions > li > a {margin: 0 !important;}
+    .sign.home h2 {margin-top: 25px;}
 }
 @media (min-width: 1024px) {
-  #main {min-height: 642px;}
-  .list-team > li {width: 310px;}
-  .list-updates > li {width: 314px;}
+    #main {min-height: 642px;}
+    .home .play {margin: 90px 0 0 0;}
+    .list-team > li {width: 310px;}
+    .list-updates > li {width: 314px;}
 }
+
 /* para iPad anterior a 4ª generación */
 @media only screen and (max-device-width: 1024px) {
   .full-video {-webkit-background-size: 1024px 576px;}
 }
+
 @media (min-width: 1152px) {
   .list-updates > li {width: 356px;}
   .list-team > li {width: 350px;}
