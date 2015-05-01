@@ -319,8 +319,21 @@ class ProjectService {
         List<String> relevantUserRegions = regionService.findUserRegions(user);
 //        List<KuorumUser> following = user.following.collect{KuorumUser.load(it)}
 //        ProjectEvent.findAllByOwnerInListOrRegionInList(following, relevantUserRegions, [max:pagination.max, offset: pagination.offset, sort: 'id', order: 'desc'])
-        def criteriaOr = [['region._id': ['$in':relevantUserRegions.id]],['owner':[$in:user.following]]]
-        DBCursor projectEvents = ProjectEvent.collection.find(['$or':criteriaOr])
+        def regionFilter = null
+        if (relevantUserRegions){
+            regionFilter = ['region._id': ['$in':relevantUserRegions.id]]
+        }
+        def followingFilter = null
+        if (user.following){
+            followingFilter = ['owner':[$in:user.following]]
+        }
+        def criteriaOr = [regionFilter,followingFilter].findAll{it} //Eliminamos nulls
+        DBCursor projectEvents
+        if (criteriaOr){
+            projectEvents = ProjectEvent.collection.find(['$or':criteriaOr])
+        }else{
+            projectEvents = ProjectEvent.collection.find()
+        }
         projectEvents.limit(pagination.max)
         projectEvents.skip(pagination.offset.toInteger())
         projectEvents.sort([_id:-1])
