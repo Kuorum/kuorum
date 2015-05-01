@@ -35,11 +35,10 @@
         <g:set var="cssClassUL" value="kakareo-list"/>
     </g:else>
 
-    <div class="row">
-        <ul class="${cssClassUL}" id="search-list-id">
-            <g:render template="searchElement" model="[docs:docs.elements]"/>
-        </ul>
-    </div>
+    <ul class="${cssClassUL}" id="search-list-id">
+        <g:render template="searchElement" model="[docs:docs.elements]"/>
+    </ul>
+
     <nav:loadMoreLink
             formId="search-form-loadMore"
             mapping="searcherSearchSeeMore"
