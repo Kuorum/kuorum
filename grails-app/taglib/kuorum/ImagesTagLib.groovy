@@ -6,7 +6,7 @@ import kuorum.users.KuorumUser
 
 class ImagesTagLib {
     static defaultEncodeAs = 'html'
-    static encodeAsForTags = [showUserImage: 'raw']
+    static encodeAsForTags = [showUserImage: 'raw', showYoutube:'raw']
     def springSecurityService
 
     static namespace = "image"
@@ -37,6 +37,19 @@ class ImagesTagLib {
         }
     }
 
+    def showYoutube ={attrs ->
+        KuorumFile youtube = attrs.youtube
+        String screenShot = "mqdefault.jpg" // Si es de alta resolucion se podr√≠a poner maxresdefault.jpg
+out << """
+    <div class="video">
+        <a href="#" class="front">
+            <span class="fa fa-play-circle fa-4x"></span>
+            <img src="http://img.youtube.com/vi/${youtube.fileName}/${screenShot}">
+        </a>
+        <iframe class="youtube" itemprop="video" src="https://www.youtube.com/embed/${youtube.fileName}?fs=1&rel=0&showinfo=0&autoplay=0&enablejsapi=1&showsearch=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+"""
+    }
 
     def loggedUserImgSrc={attrs ->
         if (springSecurityService.isLoggedIn()){
@@ -58,7 +71,7 @@ class ImagesTagLib {
         }else{
             out << getDefaultAvatar(null)
         }
-        out <<"' class='user-img' alt='Tu fotografÌa'><span>${userName}</span>"
+        out <<"' class='user-img' alt='Tu fotografÔøΩa'><span>${userName}</span>"
 
     }
 

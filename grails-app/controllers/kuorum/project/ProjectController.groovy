@@ -173,7 +173,7 @@ class ProjectController {
         bindData(projectUpdate, projectUpdateCommand.properties)
         if(projectUpdateCommand.photoId){
             projectUpdate.image = KuorumFile.get(new ObjectId(projectUpdateCommand.photoId))
-
+            fileService.convertTemporalToFinalFile(projectUpdate.image)
         }
 
         if(projectUpdateCommand.videoPost){

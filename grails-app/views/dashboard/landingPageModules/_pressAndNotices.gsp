@@ -56,7 +56,7 @@
                         </cite>
                     </footer>
                     <span itemprop="itemReviewed" class="sr-only">Kuorum.org</span>
-                    <p itemprop="reviewBody"><g:message code="landingPage.pressAndNotices.press.tve2.review"/> </p>
+                    <p itemprop="reviewBody"><g:message code="landingPage.pressAndNotices.press.tve2.review"/></p>
                 </blockquote>
             </li>
             <li class="col-sm-4">
