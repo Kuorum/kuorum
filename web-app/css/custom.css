@@ -2088,7 +2088,14 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.performance a.improve {margin: 0 auto;}
 .boxes.vote.drive form  {margin: 10px auto 20px;}
 .boxes.vote.drive .btn {position: relative;}
-.boxes.vote.drive .btn.btn-lg {font-size: 17px !important; font-size: 1.7rem !important; padding-left: 50px !important; margin: 15px 0 !important;}
+.boxes.vote.drive .btn.btn-lg {
+    font-size: 17px !important; 
+    font-size: 1.7rem !important; 
+    padding-left: 50px !important; 
+    margin: 15px 0 !important;
+    height: 65px !important;
+}
+.boxes.vote.drive .btn.btn-lg.disabled {line-height: 37px !important;}
 .boxes.vote.drive .btn .fa {position: absolute; top: 15px; left: 5%;}
 .boxes.vote.drive .social {margin-bottom: 20px !important;}
 .boxes.vote.drive .social li {font-size: 16px; font-size: 1.6rem;}
@@ -3657,7 +3664,11 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
   .config .icheckbox_line-orange,
   .config .iradio_line-orange {margin: 0 7px 7px 0;}
-  .boxes.vote.drive .btn.btn-lg {font-size: 18px !important; font-size: 1.8rem !important; padding-left: 55px !important;}
+  .boxes.vote.drive .btn.btn-lg {
+      font-size: 18px !important; 
+      font-size: 1.8rem !important; 
+      padding-left: 55px !important;
+  }
   .boxes.vote.drive.fixed {position: fixed; z-index: 999; width: 301px; -webkit-transform: translateZ(0);}
 
   /* Safari only override */
@@ -3864,9 +3875,9 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 }
 
 /* para iPad anterior a 4ª generación */
-@media only screen and (max-device-width: 1024px) {
+/*@media only screen and (max-device-width: 1024px) {
   .full-video {-webkit-background-size: 1024px 576px;}
-}
+}*/
 
 @media (min-width: 1152px) {
   .list-updates > li {width: 356px;}
