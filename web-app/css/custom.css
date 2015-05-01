@@ -2597,6 +2597,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 /* página resultados buscador =========== */
 /* ====================================================== */
+.config.search #results {margin-bottom: 10px;}
 .config.search > header form ul {list-style: none;}
 .config.search > header ul > li {padding: 15px;}
 .config.search > header form .checkbox {padding: 0; margin: 0; position: relative;}
@@ -2628,8 +2629,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config.search > article > .clearfix > #results .counter {color: #545454;}
 .config.search > article > .clearfix > #results {color: #a8a8a8;}
 
-.config.search > article .kakareo-list .kakareo .link-wrapper {padding: 22px 15px 15px 15px;}
-.config.search > article .kakareo-list .kakareo .link-wrapper > footer + p {margin: 0; padding: 10px 0 0 0; border-top: 1px solid #dadada;}
+.config.search .kakareo-list .kakareo .link-wrapper {padding: 22px 15px 15px 15px;}
+.config.search .kakareo-list .kakareo .link-wrapper > footer + p {margin: 0; padding: 10px 0 0 0; border-top: 1px solid #dadada;}
 
 
 /* páginas de info, listados y errores =========== */
