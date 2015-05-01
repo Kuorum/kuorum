@@ -188,7 +188,7 @@ class KuorumUserController {
         }
         List<Project> projects = projectService.politicianProjects(politician, pagination)
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${projects.size()<pagination.max}")
-        render template: "/project/liProjects2Columns", model:[clucks:clucks]
+        render template: "/project/liProjects2Columns", model:[projects:projects]
     }
     def politicianDefendedPosts(SearchUserPosts searchUserPosts){
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
