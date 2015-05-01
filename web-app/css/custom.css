@@ -210,7 +210,7 @@ a:focus {color: #20a2ea;}
 #main {padding-top: 24px; min-height: 382px;}
 #main.home {margin: 0 0 40px 0; padding: 0;}
 #main.home, .full-video {min-height: 495px;}
-.navbar-fixed-top {border-bottom: solid 1px #e5e5e5;}
+.navbar-fixed-top {border-bottom: solid 1px #e5e5e5; z-index: 1050;}
 #header h1 {margin: 4px 0 0 5px;}
 .navbar-nav .user-area .user-img {width: 25px; height: 25px; margin: 0;}
 .navbar-brand {
