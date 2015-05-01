@@ -1225,7 +1225,7 @@ video#bgvid {
 .user-list-followers .user-img {margin: 0 6px 0 0;}
 /*.boxes .user-img.big {margin: 0 6px 6px 0;}*/
 .boxes.info .user-img {float: none;}
-.boxes .popover .user-img {float: none;}
+.popover .user-img {float: none !important;}
 .boxes .personal {padding: 20px 0;}
 .user-img.big {
   border-radius: 60px;
