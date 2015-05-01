@@ -158,7 +158,6 @@ class ProjectService {
         if (!project.save()){
            throw KuorumExceptionUtil.createExceptionFromValidatable(project, "Error salvando el proyecto")
         }
-        createNewProjectEvent(project)
         project
     }
 
@@ -221,12 +220,11 @@ class ProjectService {
     }
 
     Project publish(Project project){
-//        Project.collection.update([_id:project.id], ['$set':[published:Boolean.TRUE, publishDate:new Date()]])
-//        project.refresh()
         if (!project.published){
             project.published = true
             project.publishDate = new Date()
             project.save()
+            createNewProjectEvent(project)
             indexSolrService.index(project)
             notificationService.sendProjectPublishNotification(project)
         }
