@@ -7,6 +7,9 @@ import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.mail.KuorumMailService
+import kuorum.post.Post
+import kuorum.post.PostService
+import kuorum.post.PostVoteService
 import kuorum.users.KuorumUser
 import kuorum.users.RoleUser
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
@@ -24,7 +27,13 @@ class RegisterService {
 
     SpringSecurityService springSecurityService
 
+    PostVoteService postVoteService
+
     public static final PREFIX_PASSWORD = "*registerUser*"
+
+    private static final String META_DATA_REGISTER_VOTING_POST="votingPost"
+    private static final String META_DATA_REGISTER_VOTING_POST_POST="postId"
+    private static final String META_DATA_REGISTER_VOTING_POST_ANONYMOUS="anonymousVote"
 
     /*
         Action to register the name of a new user and generate the token to the Link
@@ -68,6 +77,15 @@ class RegisterService {
         user
     }
 
+    @Transactional
+    KuorumUser registerUserVotingPost(KuorumRegisterCommand command, Post post, Boolean anonymousVote){
+        KuorumUser user = registerUser(command);
+        String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
+        RegistrationCode registrationCode = RegistrationCode.findByUsername(user."$usernameFieldName")
+        registrationCode[META_DATA_REGISTER_VOTING_POST] = ["$META_DATA_REGISTER_VOTING_POST_POST":post.id, "$META_DATA_REGISTER_VOTING_POST_ANONYMOUS":anonymousVote]
+        registrationCode.save()
+        user
+    }
     /*
         Convert the command object to User
     */
@@ -96,9 +114,17 @@ class RegisterService {
             }
             user.accountLocked = false
             user.save(flush:true)
+            processMetaDataRegistration(user, registrationCode)
             registrationCode.delete(flush:true)
         }
         user
+    }
+    private void processMetaDataRegistration(KuorumUser user, RegistrationCode registrationCode){
+        if(registrationCode[META_DATA_REGISTER_VOTING_POST]){
+            Post post = Post.get(registrationCode[META_DATA_REGISTER_VOTING_POST][META_DATA_REGISTER_VOTING_POST_POST])
+            Boolean anonymous = registrationCode[META_DATA_REGISTER_VOTING_POST][META_DATA_REGISTER_VOTING_POST_ANONYMOUS]
+            postVoteService.votePost(post, user, anonymous)
+        }
     }
 
     Map save(KuorumUser user) {

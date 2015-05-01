@@ -14,7 +14,7 @@ class PostVoteService {
     def gamificationService
 
     PostVote votePost(Post post, KuorumUser kuorumUser, Boolean anonymous = Boolean.FALSE){
-        if (post.id == null || kuorumUser.id == null){
+        if (post == null || post.id == null || kuorumUser.id == null){
             throw new KuorumException("El post o el usuario no se han salvado previamente en BBDD","error.postVoteService.paramsError")
         }
         PostVote postVote = PostVote.findByPostAndUser(post,kuorumUser)

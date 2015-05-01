@@ -3,7 +3,7 @@
     <postUtil:asNoLogged>
         <g:set var="registerCommand" value="${new KuorumRegisterCommand()}"/>
         <formUtil:validateForm bean="${registerCommand}" form="drive-noLogged"/>
-        <g:form mapping="register" autocomplete="off" method="post" name="drive-noLogged" class="login" role="form" novalidate="novalidate">
+        <g:form mapping="postVoteAndRegister" params="${post.encodeAsLinkProperties()}" autocomplete="off" method="post" name="drive-noLogged" class="login" role="form" novalidate="novalidate">
             <div class="form-group">
                 <formUtil:input
                         command="${registerCommand}"

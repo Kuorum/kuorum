@@ -20,6 +20,7 @@ import kuorum.web.commands.post.PostDefendCommand
 import kuorum.web.commands.post.PromotePostCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
+import springSecurity.KuorumRegisterCommand
 
 import javax.servlet.http.HttpServletResponse
 
@@ -33,6 +34,7 @@ class PostController {
     def gamificationService
     def grailsApplication
     def fileService
+    def registerService
 
     def index() {
         [postInstanceList:Post.list()]
@@ -306,7 +308,7 @@ class PostController {
     }
 
 
-        @Secured('isAuthenticated()')
+    @Secured('isAuthenticated()')
     def cluckPost() {
         KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
         Post post = params.post
@@ -330,6 +332,17 @@ class PostController {
                 corns:gamificationService.gamificationConfigVotePost()[GamificationElement.CORN]?:0
         ]
         render ([numLikes:post.numVotes, limitTo:range.to +1, gamification:gamification] as JSON)
+    }
+
+    def votePostWithRegister(KuorumRegisterCommand command) {
+        if (command.hasErrors()) {
+            render view: 'index', model: [command: command]
+            return redirect(mapping: 'register', params: command.properties)
+        }
+        Post post = params.post
+        Boolean anonymous = params.anonymous?Boolean.valueOf(params.anonymous):Boolean.FALSE
+        KuorumUser user = registerService.registerUserVotingPost(command, post, anonymous)
+        redirect mapping:"postShow", params: post.encodeAsLinkProperties()
     }
 
     def listVotes(){

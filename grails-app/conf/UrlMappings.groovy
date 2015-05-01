@@ -63,6 +63,7 @@ class UrlMappings {
         name postVoteComment:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/votar-comentario"(controller: "post",action: "voteComment")
         name postCluckIt:   "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/kakarear"(controller: "post",action: "cluckPost")
         name postVoteIt:    "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/impulsar"(controller: "post",action: "votePost")
+        name postVoteAndRegister:    "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/impulsar-registro"(controller: "post",action: "votePostWithRegister")
         name postVotesList: "/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/lista-impulsos"(controller: "post",action: "listVotes")
         name postClucksList:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/lista-kakareos"(controller: "post",action: "listClucks")
         name postPayPost:   "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/promocionar"(controller: "post", action:"promotePost")
