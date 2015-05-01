@@ -2500,7 +2500,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 /* user profile =========== */
 /* ====================================================== */
-.userprofile .kakareo.post.ley {border-bottom: 1px solid #DADADA;}
+/*.userprofile .kakareo.post.ley {border-bottom: 1px solid #DADADA;}
 .userprofile .kakareo.post.ley .user-img.big {border: solid 6px #fff; width: 140px; height: 140px; border-radius: 70px; vertical-align: bottom; margin: 0 5px 5px 0;}
 .userprofile .kakareo.post.ley .user {margin: -80px 0 0 0; position: relative; z-index: 999;}
 .userprofile .kakareo.post.ley .user > span {display: block;}
@@ -2510,7 +2510,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .userprofile .kakareo.post.ley .user > .infoActivity {margin: -40px 0 15px; padding: 0; text-align: right;}
 .userprofile .kakareo.post.ley .user > .mark + .infoActivity {margin: 5px 0 15px 0;}
 .userprofile .kakareo.post.ley .user > .infoActivity > li {list-style: none; display: inline; margin-left: 4px; color: #545454;}
-.userprofile .kakareo.post.ley .user > .infoActivity > li .counter {color: #a8a8a8;}
+.userprofile .kakareo.post.ley .user > .infoActivity > li .counter {color: #a8a8a8;}*/
 .socialContact {margin: 0 0 20px 0; padding: 10px !important;}
 .socialContact li {list-style: none; display: block; color: #a8a8a8; font-size: 13px; font-size: 1.3rem; margin: 0; padding: 5px 0;}
 .socialContact li a,
