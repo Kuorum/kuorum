@@ -598,7 +598,7 @@ $(document).ready(function() {
         left: false,
         ol: false,
         outdent: false,
-        p: false,
+        p: true,
         placeholder: "Escribe un texto que lo describa",
         linktypes: ["URL", "Email"],
         remove: false,
