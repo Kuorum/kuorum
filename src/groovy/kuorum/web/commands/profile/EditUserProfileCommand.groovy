@@ -49,19 +49,19 @@ class EditUserProfileCommand{
     static constraints = {
         importFrom BirthdayCommad
         //Step1
-        gender nullable: false
+        gender nullable: true
         name nullable: false, maxSize: 17
         alias nullable: true
-        country nullable: false
+        country nullable: true
         province nullable:true
-        postalCode nullable: false, maxSize: 5, matches:"[0-9]+", validator: {val, command ->
+        postalCode nullable: true, maxSize: 5, matches:"[0-9]+", validator: {val, command ->
             if (command.postalCode && !command.province){
                 return "notExists"
             }
         }
 
         //Step2
-        photoId nullable: false
+        photoId nullable: true
         workingSector nullable: true
         studies nullable: true
         enterpriseSector nullable:true
