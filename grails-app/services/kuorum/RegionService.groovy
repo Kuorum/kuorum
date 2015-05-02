@@ -1,7 +1,15 @@
 package kuorum
 
 import grails.transaction.Transactional
+import kuorum.postalCodeHandlers.FiveDigitPostalCodeHandlerService
+import kuorum.postalCodeHandlers.PostalCodeHandler
+import kuorum.postalCodeHandlers.PostalCodeHandlerType
 import kuorum.users.KuorumUser
+import org.apache.catalina.core.ApplicationContext
+import org.codehaus.groovy.grails.web.context.ServletContextHolder
+import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
+import org.springframework.beans.factory.InitializingBean
+import org.springframework.beans.factory.annotation.Autowired
 
 class RegionService {
 
@@ -13,7 +21,7 @@ class RegionService {
      */
     @Transactional(readOnly = true)
     Region findProvinceByPostalCode(Region country, String postalCode) {
-        String headPostalCode = postalCode[0..1]
+        String headPostalCode = getPostalCodeHandler(country).getPrefixProvincePostalCode(postalCode)
         Region province = findRegionByPostalCode(country, headPostalCode)
         province
     }
@@ -31,7 +39,7 @@ class RegionService {
         region
     }
 
-    Region findRegionOrProvinceByPostalCode(Region country, String postalCode){
+    Region findMostSpecificRegionByPostalCode(Region country, String postalCode){
         Region region = findRegionByPostalCode(country, postalCode);
         if (!region){
             region = findProvinceByPostalCode(country, postalCode);
@@ -56,7 +64,7 @@ class RegionService {
         if (user.personalData?.province){
             Region province = user.personalData.province
             Region country = findCountry(province)
-            userRegion = findRegionOrProvinceByPostalCode(country, user.personalData.postalCode)
+            userRegion = findMostSpecificRegionByPostalCode(country, user.personalData.postalCode)
             if (!userRegion){
                 //Para los paises metidos sin sus codigos postales :/
                 userRegion = country
@@ -94,5 +102,30 @@ class RegionService {
             country = country.superRegion
         }
         country
+    }
+
+    @Autowired
+    List<PostalCodeHandler> postalCodeHandlersList;
+
+    private Map<PostalCodeHandlerType, PostalCodeHandler> postalCodeHandlers = [:]
+
+    private void populateHandlers(){
+        if (!postalCodeHandlers){
+            for (PostalCodeHandler postalCodeHandler : postalCodeHandlersList){
+                postalCodeHandlers.put(postalCodeHandler.getType(), postalCodeHandler)
+            }
+        }
+    }
+
+    public PostalCodeHandler getPostalCodeHandler(Region country){
+        PostalCodeHandlerType postalCodeHandlerType = null
+        populateHandlers()
+        try{
+            postalCodeHandlerType = PostalCodeHandlerType.valueOf(country["postalCodeHandlerType"])
+        }catch (Exception e){
+            postalCodeHandlerType = PostalCodeHandlerType.STANDARD_FIVE_DIGITS;
+            log.warn("No se ha reconocido el handler del codigo postal del pais ${country}. Valor detectado: ${country?country["postalCodeHandlerType"]:'null'}")
+        }
+        postalCodeHandlers[postalCodeHandlerType]
     }
 }

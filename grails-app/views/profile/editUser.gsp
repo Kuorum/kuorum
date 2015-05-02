@@ -55,7 +55,7 @@
                     <span class="span-label"><g:message code="kuorum.Region.label"/> </span>
                     <g:hiddenField name="country" value="${command.country.id}"/>
                     <span class="disabled">
-                        <g:message code="kuorum.Region.${user.personalData?.country.iso3166_2}"/>
+                        <g:message code="kuorum.Region.${user.personalData?.country.iso3166_2}" default="${user.personalData?.country.name}"/>
                         <span class="info-disabled">
                             <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>
                             <div class="popover">
@@ -90,7 +90,6 @@
                             command="${command}"
                             field="postalCode"
                             required="true"
-                            type="number"
                             maxlength="5"
                             showLabel="true"
                     />

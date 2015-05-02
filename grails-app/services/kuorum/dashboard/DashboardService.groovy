@@ -29,15 +29,14 @@ class DashboardService {
 
         switch (noticeType){
             case {noticeType in [NoticeType.FOLLOWPEOPLE, NoticeType.NOPOLITICIANPHONE]}:
-                resultMessage = [notice: messageSource.getMessage("dashboard.warningsUserProfile.$noticeType", null, locale), errors:false]
+                resultMessage = [noticeType:noticeType,notice: messageSource.getMessage("dashboard.warningsUserProfile.$noticeType", null, locale), errors:false]
                 break
             case {noticeType in [NoticeType.NOPOLITICIANINYOURCOUNTRY, NoticeType.NOPROVINCE, NoticeType.NOAGEANDGENDER]}:
-                resultMessage = [notice: showNoticeAccordingToReloads(user, noticeType, locale), errors: false]
+                resultMessage = [noticeType:noticeType, notice: showNoticeAccordingToReloads(user, noticeType, locale), errors: false]
                 break
             default:
                 break
         }
-        resultMessage.put("noticeType",noticeType)
         if(resultMessage?.notice){
             ++user.notice.timesInMonth
         }

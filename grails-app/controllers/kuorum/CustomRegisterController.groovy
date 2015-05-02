@@ -169,7 +169,7 @@ class CustomRegisterController extends  ProfileController{
 
         if(user){
             user.personalData.country = personalDataCommand.country
-            Region province = regionService.findRegionOrProvinceByPostalCode(personalDataCommand.country, personalDataCommand.postalCode)
+            Region province = regionService.findMostSpecificRegionByPostalCode(personalDataCommand.country, personalDataCommand.postalCode)
             user.personalData.province = province
             user.personalData.provinceCode = province.iso3166_2
             user.personalData.postalCode = personalDataCommand.postalCode

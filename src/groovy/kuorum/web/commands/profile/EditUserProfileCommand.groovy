@@ -2,12 +2,13 @@ package kuorum.web.commands.profile
 
 import grails.validation.Validateable
 import kuorum.Region
+import kuorum.RegionService
 import kuorum.core.model.AvailableLanguage
-import kuorum.core.model.CommissionType
 import kuorum.core.model.EnterpriseSector
 import kuorum.core.model.Gender
 import kuorum.core.model.Studies
 import kuorum.core.model.WorkingSector
+import kuorum.postalCodeHandlers.PostalCodeHandler
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
@@ -20,14 +21,13 @@ import org.grails.databinding.BindUsing
 class EditUserProfileCommand{
 
 
+
     @BindUsing({obj, source ->
         EditUserProfileCommand.bindingPostalCode(obj, source)
-        //Returns gender because it assigns return value to gender. WHY??
-        source['gender']
     })
+    String postalCode
     Gender gender
     String name
-    String postalCode
     Region country
     Region province
 
@@ -73,23 +73,20 @@ class EditUserProfileCommand{
         imageProfile nullable: true
     }
 
-    public static void bindingPostalCode(obj, source){
+    public static String bindingPostalCode(obj, source){
         if (source['country']){
             Region country = Region.get(new ObjectId(source['country']))
             obj.country = country
-            if (country.iso3166_2 == "EU-ES"){
-                Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
-                def regionService = appContext.regionService
-                if (obj.postalCode){
-                    obj.postalCode = source['postalCode'].padLeft( 5, '0' )
-                    obj.province = regionService.findRegionOrProvinceByPostalCode(country, obj.postalCode)
-                }
+            Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
+            RegionService regionService = (RegionService)appContext.regionService
+            PostalCodeHandler postalCodeHandler = regionService.getPostalCodeHandler(country)
+            String postalCode = source["postalCode"]
+            if (postalCode){
+                postalCode = postalCodeHandler.standardizePostalCode(postalCode)
+                obj.province = regionService.findMostSpecificRegionByPostalCode(country, postalCode)
+                postalCode = postalCode?:source["postalCode"]
             }
-            else{
-                //CHAPU PARA QUE LOS PAISES QUE NO SON ESPA�OLES PONGAN LO QUE LES DE LA GANA
-                obj.postalCode = source['postalCode']
-                obj.province = country
-            }
+            postalCode
         }
     }
 }
