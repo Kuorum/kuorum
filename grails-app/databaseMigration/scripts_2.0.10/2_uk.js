@@ -24,11 +24,6 @@ dbDest.region.save({
 });
 
 var country = dbDest.region.find({iso3166_2:countryCode}).next()
-dbDest.institution.save({
-    "name" : institutionCountryName,
-    "region" : country,
-    "version" : 0
-});
 
 //PROVINCES
 
