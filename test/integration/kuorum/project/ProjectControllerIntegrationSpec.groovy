@@ -1,7 +1,6 @@
 package kuorum.project
 
 import grails.plugin.springsecurity.SpringSecurityUtils
-import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
@@ -88,7 +87,7 @@ class ProjectControllerIntegrationSpec extends Specification{
 
         and: "A command object of project. The institution is changed and is different from the user"
         ProjectCommand projectCommand = createProjectCommand(user)
-        projectCommand.institution = Institution.findByName("Parlamento europeo")
+//        projectCommand.institution = Institution.findByName("Parlamento europeo")
 
         expect: "Throws exception"
         SpringSecurityUtils.doWithAuth(user.email) {
@@ -188,7 +187,7 @@ class ProjectControllerIntegrationSpec extends Specification{
         projectCommand.description = 'test'
         projectCommand.commissions = [CommissionType.JUSTICE]
         projectCommand.deadline = new Date() + 10
-        projectCommand.institution = Institution.findByName("Parlamento Español (España)")
+//        projectCommand.institution = Institution.findByName("Parlamento Español (España)")
         projectCommand.owner = kuorumUser
 
         KuorumFile image = new KuorumFile(

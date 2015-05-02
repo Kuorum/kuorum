@@ -3,11 +3,9 @@ package kuorum.users
 import com.mongodb.*
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
 import groovyx.gpars.GParsPool
-import kuorum.Institution
 import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.exception.KuorumException
@@ -16,10 +14,10 @@ import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
-import kuorum.post.PostComment
-import kuorum.project.Project
 import kuorum.post.Cluck
 import kuorum.post.Post
+import kuorum.post.PostComment
+import kuorum.project.Project
 import kuorum.register.RegisterService
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
@@ -100,7 +98,6 @@ class KuorumUserService {
     KuorumUser convertAsUser(KuorumUser user){
         user.userType = UserType.PERSON
         user.personalData.userType = UserType.PERSON
-        user.institution = null
         user.politicalParty = null
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.remove(rolePolitician)
@@ -110,7 +107,6 @@ class KuorumUserService {
     KuorumUser convertAsOrganization(KuorumUser user){
         user.userType = UserType.ORGANIZATION
         user.personalData.userType = UserType.ORGANIZATION
-        user.institution = null
         user.politicalParty = null
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.remove(rolePolitician)

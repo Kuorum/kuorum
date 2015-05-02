@@ -1,14 +1,10 @@
 package kuorum.web.commands
 
 import grails.validation.Validateable
-import kuorum.Institution
-import kuorum.KuorumFile
-import kuorum.Region
 import kuorum.core.FileType
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
 import kuorum.project.Project
-import kuorum.users.KuorumUser
 
 /**
  * Created by iduetxe on 3/03/14.
@@ -25,7 +21,6 @@ class ProjectCommand {
 //    Boolean availableStats
     List<CommissionType> commissions  = new ArrayList<CommissionType>()
 //    Region region
-//    Institution institution
     String photoId
     ProjectStatusType status = ProjectStatusType.OPEN
     FileType fileType

@@ -1,7 +1,6 @@
 package kuorum.project
 
 import grails.test.mixin.TestFor
-import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.Region
 import kuorum.core.FileGroup
@@ -23,8 +22,8 @@ class ProjectSpec extends Specification {
     @Shared Region europe = new Region(name: "Europe", iso3166_2: "EU", regionType: RegionType.STATE)
     @Shared Region spain = new Region(name: "Spain", iso3166_2: "EU-ES", superRegion: europe, regionType: RegionType.NATION)
 
-    @Shared Institution parliamentEurope = new Institution(name: "Parlamenteo Europeo", region: europe)
-    @Shared Institution parliamentSpain = new Institution(name: "Parlamenteo Europeo", region: spain)
+//    @Shared Institution parliamentEurope = new Institution(name: "Parlamenteo Europeo", region: europe)
+//    @Shared Institution parliamentSpain = new Institution(name: "Parlamenteo Europeo", region: spain)
 
     @Shared KuorumFile pdfFile
     @Shared KuorumFile urlYoutube
@@ -80,7 +79,7 @@ class ProjectSpec extends Specification {
                 realName: "realname",
                 description: "desc",
                 region: europe,
-                institution: parliamentEurope,
+//                institution: parliamentEurope,
                 commissions: [CommissionType.JUSTICE],
                 deadline: new Date() + 10,
                 availableStats: true,
@@ -112,7 +111,7 @@ class ProjectSpec extends Specification {
         'maxSize'                    | 'commissions' | [CommissionType.AGRICULTURE, CommissionType.BUDGETS,
                 CommissionType.CONSTITUTIONAL, CommissionType.DEFENSE, CommissionType.CULTURE] || false
         'nullable'                   | 'region'      | null                                    || false
-        'notSameRegionAsInstitution' | 'institution' | parliamentSpain                         || false
+//        'notSameRegionAsInstitution' | 'institution' | parliamentSpain                         || false
         'imageOrUrlYoutubeRequired'  | 'urlYoutube'  | null                                    || false
         'deadlineLessThanToday'      | 'deadline'    | new Date() - 1                          || false
         'deadlineGreaterThan120Days' | 'deadline'    | new Date() + 121                        || false
@@ -128,7 +127,7 @@ class ProjectSpec extends Specification {
                 realName: "realname",
                 description: "desc",
                 region: europe,
-                institution: parliamentEurope,
+//                institution: parliamentEurope,
                 commissions: [CommissionType.JUSTICE],
                 deadline: new Date() + 10,
                 availableStats: true,
@@ -158,7 +157,7 @@ class ProjectSpec extends Specification {
         'maxSize'                    | 'commissions' | [CommissionType.AGRICULTURE, CommissionType.BUDGETS,
                 CommissionType.CONSTITUTIONAL, CommissionType.DEFENSE, CommissionType.CULTURE] || false
         'nullable'                   | 'region'      | null                                    || false
-        'notSameRegionAsInstitution' | 'institution' | parliamentSpain                         || false
+//        'notSameRegionAsInstitution' | 'institution' | parliamentSpain                         || false
         'imageOrUrlYoutubeRequired'  | 'image'       | null                                    || false
         'imageOrUrlYoutubeRequired'  | 'urlYoutube'  | null                                    || false
         'deadlineLessThanToday'      | 'deadline'    | new Date() - 1                          || false

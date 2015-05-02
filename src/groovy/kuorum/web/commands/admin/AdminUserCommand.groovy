@@ -1,7 +1,6 @@
 package kuorum.web.commands.admin
 
 import grails.validation.Validateable
-import kuorum.Institution
 import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.model.CommissionType

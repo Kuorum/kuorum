@@ -4,7 +4,6 @@ import com.sun.swing.internal.plaf.basic.resources.basic
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.Region
 import kuorum.core.FileGroup

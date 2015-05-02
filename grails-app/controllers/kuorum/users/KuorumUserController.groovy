@@ -1,13 +1,10 @@
 package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.Institution
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
-import kuorum.core.model.search.SearchPolitician
 import kuorum.core.model.search.SearchUserPosts
-import kuorum.core.model.solr.SolrPoliticiansGrouped
 import kuorum.core.model.solr.SolrType
 import kuorum.post.Cluck
 import kuorum.post.Post

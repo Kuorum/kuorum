@@ -1,21 +1,9 @@
 package kuorum.users
 
 import grails.plugin.springsecurity.SpringSecurityUtils
-import kuorum.Institution
-import kuorum.KuorumFile
-import kuorum.core.FileGroup
-import kuorum.core.FileType
-import kuorum.core.exception.KuorumException
-import kuorum.core.model.CommissionType
-import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.search.Pagination
 import kuorum.helper.IntegrationHelper
 import kuorum.project.Project
-import kuorum.project.ProjectController
-import kuorum.web.commands.ProjectCommand
-import kuorum.web.commands.ProjectUpdateCommand
-import org.codehaus.groovy.grails.commons.GrailsApplication
-import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll

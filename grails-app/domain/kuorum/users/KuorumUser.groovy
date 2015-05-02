@@ -2,7 +2,6 @@ package kuorum.users
 
 import com.mongodb.WriteConcern
 import grails.plugin.springsecurity.SpringSecurityService
-import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.PoliticalParty
 import kuorum.Region
@@ -11,9 +10,6 @@ import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.mail.MailType
 import kuorum.notifications.Notice
-import kuorum.post.Cluck
-import kuorum.post.Post
-import kuorum.post.PostComment
 import org.bson.types.ObjectId
 
 /**
