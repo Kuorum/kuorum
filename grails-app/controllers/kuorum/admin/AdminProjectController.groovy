@@ -2,9 +2,7 @@ package kuorum.admin
 
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.Institution
 import kuorum.KuorumFile
-import kuorum.Region
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.web.commands.ProjectCommand
