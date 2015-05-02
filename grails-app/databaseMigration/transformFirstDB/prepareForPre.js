@@ -1,6 +1,6 @@
 
 var dbOrigin = dbOrigin || connect("localhost:27017/KuorumWeb");
-var dbDest = dbDest || connect("localhost:27017/KuorumDev");
+var dbDest = dbDest || connect("localhost:27017/Kuorum");
 
 load("htmlDecoder.js")
 
