@@ -13,15 +13,15 @@ var countryCode=parentRegionCode+"-"+countryPostFixCode;
 var parentRegion = dbDest.region.find({iso3166_2:parentRegionCode}).next()
 
 
-dbDest.region.save({
-    "iso3166_2" : countryCode,
-    "name" : regionName,
-    "superRegion" : parentRegion._id,
-    "version" : 0,
-    "postalCodes" : [],
-    "prefixPhone" : "+44",
-    "regionType": countryType
-});
+//dbDest.region.save({
+//    "iso3166_2" : countryCode,
+//    "name" : regionName,
+//    "superRegion" : parentRegion._id,
+//    "version" : 0,
+//    "postalCodes" : [],
+//    "prefixPhone" : "+44",
+//    "regionType": countryType
+//});
 
 var country = dbDest.region.find({iso3166_2:countryCode}).next()
 
