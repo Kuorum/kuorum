@@ -1,6 +1,6 @@
 <section role="complementary" class="homeSub medios">
     <div class="row">
-        <h1><g:message code="landingPage.pressAndNotices.press.pressTitle"/> </h1>
+        <h1><g:message code="landingPage.pressAndNotices.press.pressTitle"/></h1>
         <ul class="medios-list clearfix">
             <li class="col-sm-4">
                 <blockquote itemscope itemtype="http://schema.org/Review">
@@ -32,7 +32,7 @@
                         </cite>
                     </footer>
                     <span itemprop="itemReviewed" class="sr-only">Kuorum.org</span>
-                    <p itemprop="reviewBody"><g:message code="landingPage.pressAndNotices.press.elPeriodico.review"/> </p>
+                    <p itemprop="reviewBody"><g:message code="landingPage.pressAndNotices.press.elPeriodico.review"/></p>
                 </blockquote>
             </li>
         </ul>
@@ -45,7 +45,7 @@
                         </cite>
                     </footer>
                     <span itemprop="itemReviewed" class="sr-only">Kuorum.org</span>
-                    <p itemprop="reviewBody"><g:message code="landingPage.pressAndNotices.press.elconfidencial.review"/> </p>
+                    <p itemprop="reviewBody"><g:message code="landingPage.pressAndNotices.press.elconfidencial.review"/></p>
                 </blockquote>
             </li>
             <li class="col-sm-4">
@@ -67,7 +67,7 @@
                         </cite>
                     </footer>
                     <span itemprop="itemReviewed" class="sr-only">Kuorum.org</span>
-                    <p itemprop="reviewBody"><g:message code="landingPage.pressAndNotices.press.laInformacion.review"/> </p>
+                    <p itemprop="reviewBody"><g:message code="landingPage.pressAndNotices.press.laInformacion.review"/></p>
                 </blockquote>
             </li>
         </ul>
