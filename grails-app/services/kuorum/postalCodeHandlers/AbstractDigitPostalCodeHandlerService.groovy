@@ -16,4 +16,8 @@ abstract class AbstractDigitPostalCodeHandlerService implements PostalCodeHandle
     String getPrefixProvincePostalCode(String postalCode) {
         postalCode[0..1]
     }
+
+    Boolean validate(String postalCode){
+        postalCode.isNumber()
+    }
 }

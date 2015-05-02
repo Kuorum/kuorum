@@ -8,6 +8,7 @@ import kuorum.Region
 public interface PostalCodeHandler {
     String standardizePostalCode(String postalCode)
     String getPrefixProvincePostalCode(String postalCode)
+    Boolean validate(String postalCode)
     PostalCodeHandlerType getType()
 
 

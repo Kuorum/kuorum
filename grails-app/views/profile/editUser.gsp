@@ -90,7 +90,7 @@
                             command="${command}"
                             field="postalCode"
                             required="true"
-                            maxlength="5"
+                            maxlength="10"
                             showLabel="true"
                     />
                 </g:else>

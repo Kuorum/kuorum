@@ -54,7 +54,7 @@ class EditUserProfileCommand{
         alias nullable: true
         country nullable: true
         province nullable:true
-        postalCode nullable: true, maxSize: 5, matches:"[0-9]+", validator: {val, command ->
+        postalCode nullable: true, validator: {val, command ->
             if (command.postalCode && !command.province){
                 return "notExists"
             }

@@ -1,17 +1,8 @@
 
 var dbDest = dbDest || connect("localhost:27017/Kuorum");
 
+dbDest.region.update({"regionType" : "NATION"},{$set:{postalCodeHandlerType:'STANDARD_FIVE_DIGITS'}}, {multi:true});
 
-dbDest.project.find().sort({dateCreated:1}).forEach(function(project){
-
-    dbDest.projectEvent.save(
-        {
-            project:project._id,
-            dateCreated:project.dateCreated,
-            owner:project.owner,
-            projectAction: "PROJECT_CREATED",
-            region:project.region
-        }
-    )
-});
+dbDest.region.update({"iso3166_2" : "UE-UK"},{$set:{postalCodeHandlerType:'UK'}} );
+dbDest.region.update({"iso3166_2" : "LA-CO"},{$set:{postalCodeHandlerType:'STANDARD_SIX_DIGITS'}} );
 

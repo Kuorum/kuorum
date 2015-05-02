@@ -40,9 +40,12 @@ class RegionService {
     }
 
     Region findMostSpecificRegionByPostalCode(Region country, String postalCode){
-        Region region = findRegionByPostalCode(country, postalCode);
-        if (!region){
-            region = findProvinceByPostalCode(country, postalCode);
+        Region region = null
+        if (getPostalCodeHandler(country).validate(postalCode)){
+            region = findRegionByPostalCode(country, postalCode);
+            if (!region){
+                region = findProvinceByPostalCode(country, postalCode);
+            }
         }
         region;
     }

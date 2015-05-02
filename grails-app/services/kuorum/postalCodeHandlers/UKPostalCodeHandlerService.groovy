@@ -28,4 +28,11 @@ class UKPostalCodeHandlerService implements PostalCodeHandler{
     @Override
     PostalCodeHandlerType getType() {
         return HANDLER_TYPE;
-    }}
+    }
+
+    @Override
+    Boolean validate(String postalCode) {
+        //TODO Estudiar el maldito modelo de UK
+        return true
+    }
+}
