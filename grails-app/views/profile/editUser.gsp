@@ -84,7 +84,6 @@
                             </div>
                         </span>
                     </span>
-                    <g:hiddenField name="postalCode" value="${command.postalCode}"/>
                 </g:if>
                 <g:else>
                     <formUtil:input
