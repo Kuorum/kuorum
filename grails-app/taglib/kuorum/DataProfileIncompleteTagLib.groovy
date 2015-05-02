@@ -25,6 +25,6 @@ class DataProfileIncompleteTagLib {
         personalDataCommand.telephone = user.personalData?.telephone
         personalDataCommand.year = user.personalData?.year
         if(orderedNotice)
-            out << g.render(template:'/profile/userIncompleteData', model:[user:user, orderedNotice:orderedNotice.notice, errors: orderedNotice.errors, personalDataCommand: personalDataCommand])
+            out << g.render(template:'/profile/userIncompleteData', model:[user:user, noticeType: orderedNotice.noticeType, orderedNotice:orderedNotice.notice, errors: orderedNotice.errors, personalDataCommand: personalDataCommand])
     }
 }

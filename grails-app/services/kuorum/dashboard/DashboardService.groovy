@@ -37,7 +37,7 @@ class DashboardService {
             default:
                 break
         }
-
+        resultMessage.put("noticeType",noticeType)
         if(resultMessage?.notice){
             ++user.notice.timesInMonth
         }
