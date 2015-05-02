@@ -342,6 +342,8 @@ class PostController {
         Post post = params.post
         Boolean anonymous = params.anonymous?Boolean.valueOf(params.anonymous):Boolean.FALSE
         KuorumUser user = registerService.registerUserVotingPost(command, post, anonymous)
+//        String referer = request.getHeader("Referer");
+//        response.sendRedirect(referer);
         redirect mapping:"postShow", params: post.encodeAsLinkProperties()
     }
 

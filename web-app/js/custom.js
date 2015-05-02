@@ -68,12 +68,17 @@ $(document).ready(function() {
     }, ".follow.disabled"); //pass the element as an argument to .on
 
 
-    $('body').on("click", ".btn.follow", function(e) {
+    $('body').on("click","[data-toggle=modal][data-target=#registro]", function(e) {
         e.preventDefault()
         e.stopPropagation()
         clickedButtonFollow($(this))
     });
 
+    $('body').on("click", ".btn.follow", function(e) {
+        e.preventDefault()
+        e.stopPropagation()
+        clickedButtonFollow($(this))
+    });
     function clickedButtonFollow(button){
         var buttonFollow= $(button)
         if (buttonFollow.hasClass('noLogged')){

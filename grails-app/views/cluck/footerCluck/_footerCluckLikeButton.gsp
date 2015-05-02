@@ -28,7 +28,7 @@
         </postUtil:userOption>
     </sec:ifLoggedIn>
     <sec:ifNotLoggedIn>
-        <a role="button" data-toggle="modal" data-target="#registro" href="#">
+        <a role="button" data-toggle="modal" data-target="#registro" class="noLogged" href="#">
            <span class="fa fa-rocket fa-lg"></span>
            <span class="${displayingColumnC?'sr-only':'hidden-xs'} label-cluckAction">
                 <g:message code="cluck.footer.vote"/>
