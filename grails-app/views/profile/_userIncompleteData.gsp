@@ -58,7 +58,7 @@
                             </div>
                             <div class="form-group pull-left">
                                 <label for="postalCode" class="sr-only"><g:message code="dashboard.userProfile.incompleteDate.postalCode.label"/></label>
-                                <input type="number" name="postalCode" class="form-control input-lg" id="postalCode" required placeholder="${message(code:'dashboard.userProfile.incompleteDate.postalCode.label')}" aria-required="true" value="${personalDataCommand?.postalCode}">
+                                <input name="postalCode" class="form-control input-lg" id="postalCode" required placeholder="${message(code:'dashboard.userProfile.incompleteDate.postalCode.label')}" aria-required="true" value="${personalDataCommand?.postalCode}">
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="${message(code:'dashboard.userProfile.incompleteDate.button.save')}" class="btn btn-grey btn-lg">
