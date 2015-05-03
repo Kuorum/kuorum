@@ -13,6 +13,7 @@ import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.customRegister.Step3Command
 import kuorum.web.commands.customRegister.Step4Command
 import kuorum.web.commands.profile.PersonalDataCommand
+import kuorum.web.commands.profile.UserRegionCommand
 import org.bson.types.ObjectId
 
 class CustomRegisterController extends  ProfileController{
@@ -157,22 +158,21 @@ class CustomRegisterController extends  ProfileController{
     }
 
     @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED'])
-    def countryAndPostalCode(PersonalDataCommand personalDataCommand){
+    def countryAndPostalCode(UserRegionCommand command){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        personalDataCommand.validate()
 
-        if (personalDataCommand.hasErrors()){
+        if (command.hasErrors()){
             flash.error = message(code:'customRegister.countryAndPostalCode.fail')
             redirect mapping: 'home'
             return
         }
 
         if(user){
-            user.personalData.country = personalDataCommand.country
-            Region province = regionService.findMostSpecificRegionByPostalCode(personalDataCommand.country, personalDataCommand.postalCode)
+            user.personalData.country = command.country
+            Region province = regionService.findMostSpecificRegionByPostalCode(command.country, command.postalCode)
             user.personalData.province = province
             user.personalData.provinceCode = province.iso3166_2
-            user.personalData.postalCode = personalDataCommand.postalCode
+            user.personalData.postalCode = command.postalCode
             NoticeType noticeType = dashboardService.getNoticesByKuorumUser(user)
             user.notice = new Notice(noticeType: noticeType)
             kuorumUserService.updateUser(user)
