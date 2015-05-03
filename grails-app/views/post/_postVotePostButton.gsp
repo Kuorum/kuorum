@@ -29,7 +29,10 @@
                 <a class="btn btn-blue btn-lg btn-block" href="#"><span class="fa fa-rocket fa-2x"></span> <g:message code="post.show.boxes.like.vote.button"/> </a>
             </div>
             <div class="form-group">
-                <label class="checkbox-inline"><input type="checkbox" value="public" id="publico"> <g:message code="post.show.boxes.like.vote.anonymousCheckBoxLabel"/> </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="anonymous" value="true"/>
+                    <g:message code="post.show.boxes.like.vote.anonymousCheckBoxLabel"/>
+                </label>
             </div>
             <div class="form-group">
                 <small><g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/></small>
@@ -62,8 +65,7 @@
                 <g:if test="${!userVote}">
                     <div class="form-group">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="anonymous"
-                                   value="private"/>
+                            <input type="checkbox" name="anonymous" value="private"/>
                             <g:message code="post.show.boxes.like.vote.anonymousCheckBoxLabel"/>
                         </label>
                     </div>
