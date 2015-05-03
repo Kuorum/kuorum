@@ -13,7 +13,7 @@ class UKPostalCodeHandlerService implements PostalCodeHandler{
 
     @Override
     String standardizePostalCode(String postalCode) {
-        return postalCode
+        return postalCode?.toUpperCase()
     }
 
     @Override
