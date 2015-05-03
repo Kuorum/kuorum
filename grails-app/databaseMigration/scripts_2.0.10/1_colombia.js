@@ -84,7 +84,7 @@ for (var i=0; i<provinces.length; i++) {
     dbDest.region.save({
         "iso3166_2" : provinceCode,
         "name" : province.name,
-        "superRegion" : parentRegion._id,
+        "superRegion" : country._id,
         "version" : 0,
         "postalCodes" : province.postalCodePrefix,
         "regionType": "STATE"
