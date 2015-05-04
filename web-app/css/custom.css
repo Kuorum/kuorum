@@ -1088,7 +1088,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
     position: relative; 
     margin: 0; 
     padding: 0 0 20px 0; 
-    background: url('../images/home-video.png') no-repeat center top; 
+    background: url('../images/home-video.png') no-repeat center top;
     background-size: cover;
 }
 .full-video  .container-fluid {margin-top: 24px;}
@@ -1102,11 +1102,10 @@ video#bgvid {
   width: auto;
   height: auto;
   position: absolute;
-  background-image: url('../images/home-video.png');
-  background-repeat: no-repeat;
-  background-size: cover;
   display: none;
 }
+.touch video#bgvid {display: none;}
+
 #videoHome .modal-dialog {margin: 10% auto;}
 #videoHome .modal-dialog,
 #videoHome .modal-dialog .youtube {width: 320px;}
@@ -3873,11 +3872,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .list-team > li {width: 310px;}
     .list-updates > li {width: 314px;}
 }
-
-/* para iPad anterior a 4ª generación */
-/*@media only screen and (max-device-width: 1024px) {
-  .full-video {-webkit-background-size: 1024px 576px;}
-}*/
 
 @media (min-width: 1152px) {
   .list-updates > li {width: 356px;}
