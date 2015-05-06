@@ -3307,6 +3307,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .boxes.performance a.improve {width: 272px; margin: 0 auto;}
   .boxes.profile-user > .actions {width: 272px;}
   .form-home-container {width: 320px;}
+    .full-video .form-home-container {width: 100%;}
   .homeSub .homeMore {width: 320px;}
   #info-sup-scroll .voting > ul > li {margin-right: 20px;}
   .user-list-followers > .user > .actions {margin: -32px 0 0 !important;}
@@ -3739,6 +3740,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .sign .login {margin-top: 50px; margin-bottom: 50px;}
   .socialGo li {margin: 10px 4px 0 0;}
   .sign.home .social-home-container .btn.btn-lg {padding: 14px 20px !important;}
+    .sign.home .full-video .social-home-container .btn.btn-lg {padding: 12px !important;}
 
   .list-project .kakareo.post.ley .total-info {padding-right: 10px;}
   .list-project .kakareo.post.ley .infoVotes {margin-right: 8px;}
