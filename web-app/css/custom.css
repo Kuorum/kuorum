@@ -3307,7 +3307,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .boxes.performance a.improve {width: 272px; margin: 0 auto;}
   .boxes.profile-user > .actions {width: 272px;}
   .form-home-container {width: 320px;}
-    .full-video .form-home-container {width: 100%;}
   .homeSub .homeMore {width: 320px;}
   #info-sup-scroll .voting > ul > li {margin-right: 20px;}
   .user-list-followers > .user > .actions {margin: -32px 0 0 !important;}
@@ -3876,6 +3875,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 /* ipad */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px)  {
     video#bgvid {display: none;}
+    .full-video .form-home-container {width: 100%;}
 }
 
 @media (min-width: 1152px) {
