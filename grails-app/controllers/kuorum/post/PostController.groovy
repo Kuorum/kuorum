@@ -76,6 +76,7 @@ class PostController {
     @Secured(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_PREMIUM', 'ROLE_POLITICIAN'])
     def update(PostCommand command){
         Post post = params.post
+        boolean wasPublised = post.published
         if (!post){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
@@ -98,6 +99,9 @@ class PostController {
             flash.message = message(code:"post.edit.step1.saveDraft.success")
             redirect mapping:"toolsMyPosts"
         }else{
+            if (!wasPublised){
+                postService.publishPost(post);
+            }
             flash.message = message(code:"post.edit.step1.update.success")
             redirect mapping:"postShow", params:post.encodeAsLinkProperties()
         }
@@ -155,7 +159,7 @@ class PostController {
         postService.savePost(post, project, user)
         if (command.isDraft){
             flash.message = message(code:"post.edit.step1.saveDraft.success")
-            redirect mapping:"projectShow", params:post.project.encodeAsLinkProperties()
+            redirect mapping:"toolsMyPosts"
         }else{
             postService.publishPost(post)
             flash.message = message(code:"post.edit.step1.save.success")
