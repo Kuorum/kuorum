@@ -33,7 +33,7 @@
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description2b"/></p>
                 <ul class="social">
                     <li><a href="https://twitter.com/iduetxe" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
-                    <li><a href="es.linkedin.com/in/inakidominguez/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://es.linkedin.com/in/inakidominguez/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
@@ -46,7 +46,7 @@
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description3b"/></p>
                 <ul class="social">
                     <li><a href="https://twitter.com/chemafinca" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
-                    <li><a href="es.linkedin.com/in/josemariagarciadiaz/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://es.linkedin.com/in/josemariagarciadiaz/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
@@ -59,7 +59,7 @@
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description4b"/></p>
                 <ul class="social">
                     <li><a href="https://twitter.com/abbyrodd" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
-                    <li><a href="es.linkedin.com/in/abbyrodd" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://es.linkedin.com/in/abbyrodd" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
@@ -72,7 +72,7 @@
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description5b"/></p>
                 <ul class="social">
                     %{--<li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    <li><a href="es.linkedin.com/pub/miguel-fernández-pérez/22/391/223" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://es.linkedin.com/pub/miguel-fernández-pérez/22/391/223" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
@@ -124,7 +124,7 @@
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description8b"/></p>
                 <ul class="social">
                     %{--<li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    <li><a href="uk.linkedin.com/pub/sara-nso/18/37a/652/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://uk.linkedin.com/pub/sara-nso/18/37a/652/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
@@ -137,7 +137,7 @@
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description9b"/></p>
                 <ul class="social">
                     %{--<li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    <li><a href="www.linkedin.com/pub/carmen-bernardo-garcía/5/b23/201/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://www.linkedin.com/pub/carmen-bernardo-garcía/5/b23/201/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
@@ -150,7 +150,7 @@
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description10b"/></p>
                 <ul class="social">
                     <li><a href="https://twitter.com/CarolinahCoach" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
-                    <li><a href="es.linkedin.com/pub/carolina-hernández/1a/56b/548" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                    <li><a href="https://es.linkedin.com/pub/carolina-hernández/1a/56b/548" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
                 </ul>
             </div>
         </li>
