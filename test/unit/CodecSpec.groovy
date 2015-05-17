@@ -1,3 +1,4 @@
+import kuorum.postalCodeHandlers.YoutubeNameCodec
 import org.codehaus.groovy.grails.plugins.codecs.HTMLEncoder
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -73,5 +74,29 @@ class CodecSpec extends Specification {
         "hol <SCRIPT src='http://jsChungo.com/js'/>"         | "hol "
         "hol <SCRIPT> alert('') </scripT> <B>BLACK</b>"      | "hol  alert('')  <B>BLACK</b>"
 
+    }
+
+    @Unroll
+    void "Test youtubeName encoder [youtubeUrl: #youtubeUrl]"(){
+        given:"The youtubeNameCodec"
+        when:
+        String ytbCode = YoutubeNameCodec.decode(youtubeUrl)
+        String ytbUrl = YoutubeNameCodec.encode(youtubeCode)
+        then:
+        resultEmpty?ytbCode =="":ytbCode == youtubeCode
+        resultEmpty?ytbUrl == "":ytbUrl == "https://www.youtube.com/watch?v=$youtubeCode"
+        where:
+        youtubeUrl                                      | youtubeCode   | resultEmpty
+        "https://youtu.be/5fTsCcUD8Kg"                  | "5fTsCcUD8Kg" | false
+        "http://youtu.be/5fTsCcUD8Kg"                   | "5fTsCcUD8Kg" | false
+        "http://youtu.be/5fTsC-UD8Kg"                   | "5fTsC-UD8Kg" | false
+        "http://youtube/5fTsC-UD8Kg"                    | ""            | true
+        "https://www.youtube.com/watch?v=5fTsCcUD8Kg"   | "5fTsCcUD8Kg" | false
+        "https://youtube.com/watch?v=5fTsCcUD8Kg"       | "5fTsCcUD8Kg" | false
+        "http://www.youtube.com/watch?v=5fTsCcUD8Kg"    | "5fTsCcUD8Kg" | false
+        "http://youtube.com/watch?v=5fTsCcUD8Kg"        | "5fTsCcUD8Kg" | false
+        "http://youtube.com/watch v=5fTsCcUD8Kg"        | ""            | true
+        ""                                              | ""            | true
+        "kkafuti"                                       | ""            | true
     }
 }
