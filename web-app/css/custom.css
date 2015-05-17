@@ -1088,7 +1088,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
     position: relative; 
     margin: 0; 
     padding: 0 0 20px 0; 
-    background: url('../images/home-video.png') no-repeat center top; 
+    background: url('../images/home-video.png') no-repeat center top;
     background-size: cover;
 }
 .full-video  .container-fluid {margin-top: 24px;}
@@ -1102,11 +1102,9 @@ video#bgvid {
   width: auto;
   height: auto;
   position: absolute;
-  background-image: url('../images/home-video.png');
-  background-repeat: no-repeat;
-  background-size: cover;
   display: none;
 }
+
 #videoHome .modal-dialog {margin: 10% auto;}
 #videoHome .modal-dialog,
 #videoHome .modal-dialog .youtube {width: 320px;}
@@ -3388,7 +3386,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #entrar .modal-dialog {width: 350px;}
   #videoHome .modal-dialog,
   #videoHome .modal-dialog .youtube {width: 600px;}
-  video#bgvid {display: block;}
   /*.icheckbox_line-orange,
   .iradio_line-orange {margin-right: 40px;}*/
   .no-phone .form-group:nth-child(2) {width: 20%;}
@@ -3726,8 +3723,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .homeSub > .row > h1 {font-size: 36px; font-size: 3.6rem;}
   .homeSub .homeMore {width: 440px; margin-bottom: 20px; margin-top: 10px;}
   .homeSub .homeMore .btn-lg {font-size: 25px !important; font-size: 2.5rem !important;}
-  /*.config .notifications-list > li > .text-notification,
-  .config .notifications-list > li.user > .text-notification {padding: 0 240px 0 0;}*/
+    
+    video#bgvid {display: block;}
 
   .box-ppal.condition h1 {font-size: 29px; font-size: 2.9rem;}
   .box-ppal.condition h2 {font-size: 20px; font-size: 2rem;}
@@ -3742,6 +3739,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .sign .login {margin-top: 50px; margin-bottom: 50px;}
   .socialGo li {margin: 10px 4px 0 0;}
   .sign.home .social-home-container .btn.btn-lg {padding: 14px 20px !important;}
+    .sign.home .full-video .social-home-container .btn.btn-lg {padding: 12px !important;}
 
   .list-project .kakareo.post.ley .total-info {padding-right: 10px;}
   .list-project .kakareo.post.ley .infoVotes {margin-right: 8px;}
@@ -3874,10 +3872,11 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .list-updates > li {width: 314px;}
 }
 
-/* para iPad anterior a 4ª generación */
-/*@media only screen and (max-device-width: 1024px) {
-  .full-video {-webkit-background-size: 1024px 576px;}
-}*/
+/* ipad */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px)  {
+    video#bgvid {display: none;}
+    .full-video .form-home-container {width: 100%;}
+}
 
 @media (min-width: 1152px) {
   .list-updates > li {width: 356px;}
