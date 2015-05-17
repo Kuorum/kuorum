@@ -57,7 +57,7 @@ class MandrillAppService {
                 recipient.type = MandrillMessage.Recipient.Type.BCC
                 recipients << recipient
             }else{
-                log.info("No se ha mandado el mail ${mailData.mailType} a ${mailUserData.user.email} debido a: [configurable: ${!mailData.mailType.configurable}, availableMailsNull:${!mailUserData.user.availableMails}, mailDesactivadoPorUser: ${mailUserData.user.availableMails?.contains(mailData.mailType)}]")
+                log.info("No se ha mandado el mail ${mailData.mailType} a ${mailUserData.user.email} debido a: [configurable: ${mailData.mailType.configurable}, availableMailsNull:${!mailUserData.user.availableMails}, mailDesactivadoPorUser: ${!mailUserData.user.availableMails?.contains(mailData.mailType)}]")
             }
         }
         recipients
