@@ -18,7 +18,7 @@
     </g:if>
 
         <h1>${post.title} <g:link mapping="projectShow" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link> </h1>
-        <g:render template="/post/postUsers" model="[post:post]"/>
+        <g:render template="/post/postUsers" model="[post:post, displayingHorizontalModule:displayingHorizontalModule]"/>
         <g:if test="${!displayingColumnC}">
             <g:render template="/cluck/cluckMultimedia" model="[post:post]"/>
         </g:if>
