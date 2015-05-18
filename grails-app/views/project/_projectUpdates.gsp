@@ -1,5 +1,5 @@
 <g:if test="${project.updates}">
-    <h2 class="underline">Actualizaciones de proyectos</h2>
+    <h2 class="underline"><g:message code="projectUpdate.updates.title"/></h2>
     <ul class="list-updates clearfix">
         <g:each in="${project.updates}" var="projectUpdate">
             <li>
