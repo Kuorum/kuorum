@@ -148,7 +148,7 @@ class FileService {
         kuorumFile
     }
     public KuorumFile createYoutubeKuorumFile(String youtubeUrl, KuorumUser user){
-        def fileName = youtubeUrl.replaceAll(~/http[s]{0,1}:\/\/(w{3}.){0,1}youtube.com\/watch\?v=([a-zA-Z0-9_-]*)/, '$2')
+        def fileName = youtubeUrl.decodeYoutubeName()
         KuorumFile multimedia = new KuorumFile(
                 local:Boolean.FALSE,
                 temporal:Boolean.FALSE,

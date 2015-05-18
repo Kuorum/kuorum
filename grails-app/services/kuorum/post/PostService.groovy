@@ -152,8 +152,8 @@ class PostService {
     private String removeCustomCrossScripting(String raw){
         String text
         if (raw){
-            def openTags = ~/<[^\/ibau]r{0,1} *[^>]*>/  // Only allow <a> <b> <i> <u> <br>
-            def closeTags = ~/<\/[^ibau] *[^>]*>/ // Only allow </a> </b> </i> </u>
+            def openTags = ~/<[^\/ibaup]r{0,1} *[^>]*>/  // Only allow <a> <b> <i> <u> <br>
+            def closeTags = ~/<\/[^ibaup] *[^>]*>/ // Only allow </a> </b> </i> </u>
             text = raw.replaceAll(openTags,'')
             text = text.replaceAll(closeTags,'')
 

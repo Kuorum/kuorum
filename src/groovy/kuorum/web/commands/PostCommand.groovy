@@ -25,7 +25,7 @@ class PostCommand {
                 url:true,
 //                matches: 'http[s]{0,1}://(w{3}.){0,1}youtube\\.com/watch\\?v=[a-zA-Z0-9_]*',
                 validator: { val, obj ->
-                    if (obj.fileType == FileType.YOUTUBE && val && !YOUTUBE_REGEX.matcher(val).matches()) {
+                    if (obj.fileType == FileType.YOUTUBE && val && !val.decodeYoutubeName()) {
                         return ['notYoutubeFormat']
                     }
                 }

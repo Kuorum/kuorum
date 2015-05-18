@@ -1,8 +1,5 @@
-<g:set var="postType">
-    <g:link mapping="postShow" params="${notification.post.encodeAsLinkProperties()}"><g:message code="${kuorum.core.model.PostType.name}.${notification.post.postType}"/></g:link>
-</g:set>
 <g:set var="text">
-    <g:message code="notifications.victoryNotification.text" args="[postType, notification.politician.name]" encodeAs="raw"/>
+    <g:message code="notifications.victoryNotification.text" args="[notification.politician.name]" encodeAs="raw"/>
 </g:set>
 
 <g:render

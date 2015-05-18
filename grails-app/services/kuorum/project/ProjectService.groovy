@@ -193,6 +193,10 @@ class ProjectService {
         }
         project.availableStats = project.availableStats?:Boolean.FALSE //Por si es nulo
         fileService.convertTemporalToFinalFile(project.image)
+        project.description = postService.removeCustomCrossScripting(project.description)
+        if(project.pdfFile){
+            fileService.convertTemporalToFinalFile(project.pdfFile)
+        }
 
         calculateProjectRelevance(project)
         //Transaction only with atomic operation on mongo
