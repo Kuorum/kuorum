@@ -13,7 +13,7 @@ class ProjectUpdateCommand {
         description maxSize:500
         photoId nullable: true
         videoPost nullable: true, url:true, validator: { val, obj ->
-            if (val && val.decodeYoutubeName()) {
+            if (val && !val.decodeYoutubeName()) {
                 return ['notYoutubeFormat']
             }
         }
