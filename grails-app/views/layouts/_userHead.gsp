@@ -7,6 +7,13 @@
         </g:link>
     </li>
 
+    <li class="underline">
+        <g:link mapping="discoverProjects" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "discoverProjects")}">
+            <span class="fa fa-briefcase fa-lg"></span>
+            <span class="visible-xs"><g:message code="search.filters.SolrType.PROJECT"/></span>
+        </g:link>
+    </li>
+
     %{--<g:render template="/layouts/userHeadMessages"/>--}%
     <g:render template="/layouts/userHeadNotifications" model="[user:user, notifications:notifications]"/>
 

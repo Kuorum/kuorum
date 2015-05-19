@@ -1,8 +1,17 @@
+%{--<g:render template="/layouts/discoverHead"/>--}%
 <ul class="nav navbar-nav navbar-right">
+
+    <li class="underline">
+        <g:link mapping="discoverProjects" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "discoverProjects")}">
+            <span class="fa fa-briefcase fa-lg"></span>
+            <span class="visible-xs"><g:message code="search.filters.SolrType.PROJECT"/></span>
+        </g:link>
+    </li>
 
     <li class="dropdown underline form">
         <a data-target="#" href="#" id="open-entry-user" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
-            <span class="icon-user"></span><g:message code="head.noLogged.login"/>
+            <span class="icon-user"></span>
+            <span><g:message code="head.noLogged.login"/></span>
         </a>
         <div id="entry-user" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-entry-user" role="menu">
             <g:include controller="login" action="loginForm"/>

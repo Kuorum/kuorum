@@ -8,7 +8,7 @@
 
 <content tag="leftMenu">
     <h1>
-        <g:message code="discover.menu.discover"/>
+        <g:message code="search.filters.SolrType.PROJECT"/>
     </h1>
     <ul id="filter-menu">
         <li>

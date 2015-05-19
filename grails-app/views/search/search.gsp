@@ -60,7 +60,7 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="type" id="propuestas" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>
-                        <span class="fa fa-lightbulb-o"></span> <g:message code="search.filters.SolrType.POST"/>
+                        &nbsp;<span class="fa fa-lightbulb-o"></span>&nbsp;&nbsp;<g:message code="search.filters.SolrType.POST"/>
                     </label>
                 </div>
             </li>
@@ -68,7 +68,7 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="type" id="proyectos" value="${kuorum.core.model.solr.SolrType.PROJECT}" ${searchParams.type == kuorum.core.model.solr.SolrType.PROJECT?'checked':''}>
-                        <span class="symbol">#</span> <g:message code="search.filters.SolrType.PROJECT"/>
+                        <span class="fa fa-briefcase"></span> <g:message code="search.filters.SolrType.PROJECT"/>
                     </label>
                 </div>
             </li>
