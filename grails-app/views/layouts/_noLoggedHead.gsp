@@ -1,4 +1,10 @@
 <ul class="nav navbar-nav navbar-right">
+    <li class="underline">
+        <g:link mapping="discoverProjects" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "discoverProjects")}">
+            <span class="fa fa-briefcase fa-lg"></span>
+            <span><g:message code="search.filters.SolrType.PROJECT"/></span>
+        </g:link>
+    </li>
 
     <li class="dropdown underline form">
         <a data-target="#" href="#" id="open-entry-user" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
