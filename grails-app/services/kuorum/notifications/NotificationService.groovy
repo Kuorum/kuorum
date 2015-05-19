@@ -127,7 +127,7 @@ class NotificationService {
             commentVotedNotification.setText(postComment.getText())
             commentVotedNotification.setKuorumUser(postComment.getKuorumUser())
 //            commentVotedNotification.setIsActive(Boolean.TRUE)
-            commentVotedNotification.save()
+            commentVotedNotification.save(flush:true)
         }
     }
 
@@ -138,7 +138,7 @@ class NotificationService {
                     kuorumUser: cluck.postOwner,
                     clucker: cluck.owner
             )
-            if (cluckNotification.save()){
+            if (cluckNotification.save(flush:true)){
                 kuorumMailService.sendCluckNotificationMail(cluck)
             }else{
                 log.error("No se ha podido salvar una notificacion de kakareo: ${cluckNotification.errors}")
@@ -153,7 +153,7 @@ class NotificationService {
                     kuorumUser: following,
                     follower: follower
             )
-            if (followerNotification.save()){
+            if (followerNotification.save(flush:true)){
                 kuorumMailService.sendFollowerNotificationMail(follower, following)
             }else{
                 log.error("No se ha podido salvar una notificacion de kakareo: ${followerNotification.errors}")
@@ -173,7 +173,7 @@ class NotificationService {
                     post: post,
                     text: comment.text
             )
-            commentNotification.save()
+            commentNotification.save(flush:true)
             kuorumMailService.sendCommentedPostNotificationOwner(post, comment)
         }
     }
@@ -191,7 +191,7 @@ class NotificationService {
                     post: post,
                     text: comment.text
             )
-            commentNotification.save()
+            commentNotification.save(flush:true)
             notificationUsers << new MailUserData(user:user, bindings:[:])
             if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
                 kuorumMailService.sendCommentedPostNotificationUsers(post, comment, notificationUsers)
@@ -210,7 +210,7 @@ class NotificationService {
                 post: post,
                 numVotes: post.numVotes
         )
-        milestoneNotification.save()
+        milestoneNotification.save(flush:true)
     }
 
     void sendPublicMilestoneNotification(Post post){
@@ -219,7 +219,7 @@ class NotificationService {
                 post: post,
                 numVotes: post.numVotes
         )
-        if (milestoneNotification.save()){
+        if (milestoneNotification.save(flush:true)){
             kuorumMailService.sendPublicMilestoneNotificationMail(post)
         }else{
             log.error("No se ha podido salvar una notificacion de que un hito a alcanzado apoyos para ser público: ${milestoneNotification.errors}")
@@ -292,7 +292,9 @@ class NotificationService {
             debateNotification.debateWriter = debateOwner
             debateNotification.kuorumUser = postVote.user
             debateNotification.idDebate = idDebate
-            debateNotification.save()
+            if (!debateNotification.save(flush: true)){
+                log.warn("No se ha salvado la notificación de debate para ${postVote.user} del post $post que se notificaba por haber impulsado el post")
+            }
             notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
             if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
                 kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
@@ -300,7 +302,7 @@ class NotificationService {
             }
         }
         //All interested people for his followings
-        def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten()
+        def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten().unique()
         interestedUsers.minus(notGenericMail)
 
         interestedUsers.each {ObjectId userId ->
@@ -313,7 +315,10 @@ class NotificationService {
                 debateNotification.debateWriter = debateOwner
                 debateNotification.kuorumUser = user
                 debateNotification.idDebate = idDebate
-                debateNotification.save()
+                //EL save no funciona sin flush ¬¬
+                if (!debateNotification.save(flush: true)){
+                    log.warn("No se ha salvado la notificación de debate para ${user} del post $post que se notificaba por seguir a algun politico o al usuario")
+                }
                 notificationUsers << new MailUserData(user:user, bindings:[:])
                 if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
                     kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
@@ -411,7 +416,7 @@ class NotificationService {
         defendedNotification.post = post
         defendedNotification.kuorumUser = post.owner
         defendedNotification.defender = post.defender
-        defendedNotification.save()
+        defendedNotification.save(flush:true)
         kuorumMailService.sendPostDefendedNotificationMailAuthor(post)
 
     }
@@ -430,7 +435,7 @@ class NotificationService {
                 defendedNotification.post = post
                 defendedNotification.kuorumUser = user
                 defendedNotification.defender = post.defender
-                defendedNotification.save()
+                defendedNotification.save(flush:true)
                 new MailUserData(user:user, bindings:[:])
             }
             kuorumMailService.sendPostDefendedNotificationMailPoliticians(post, politicianUsers)
@@ -468,7 +473,7 @@ class NotificationService {
                 debateNotification.post = post
                 debateNotification.kuorumUser = postVote.user
                 debateNotification.defender = post.defender
-                debateNotification.save()
+                debateNotification.save(flush:true)
                 notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
                 if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
                     kuorumMailService.sendPostDefendedNotificationMailInterestedUsers(post, notificationUsers)
@@ -487,7 +492,7 @@ class NotificationService {
                 debateNotification.post = post
                 debateNotification.kuorumUser = user
                 debateNotification.defender = post.defender
-                debateNotification.save()
+                debateNotification.save(flush:true)
                 notificationUsers << new MailUserData(user:user, bindings:[:])
                 if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
                     kuorumMailService.sendPostDefendedNotificationMailInterestedUsers(post, notificationUsers)
@@ -532,7 +537,7 @@ class NotificationService {
         victoryDefenderNotification.mailType = MailType.NOTIFICATION_VICTORY_DEFENDER
         victoryDefenderNotification.kuorumUser = post.defender
         victoryDefenderNotification.politician=post.defender
-        victoryDefenderNotification.save()
+        victoryDefenderNotification.save(flush:true)
         kuorumMailService.sendVictoryNotificationDefender(post)
 
         //All interested people for their vote
@@ -542,7 +547,7 @@ class NotificationService {
                 victoryNotification.post = post
                 victoryNotification.kuorumUser = postVote.user
                 victoryNotification.politician=post.defender
-                victoryNotification.save()
+                victoryNotification.save(flush:true)
                 notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
                 if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
                     kuorumMailService.sendVictoryNotificationUsers(post, notificationUsers)
@@ -561,7 +566,7 @@ class NotificationService {
                 victoryNotification.post = post
                 victoryNotification.kuorumUser = user
                 victoryNotification.politician=post.defender
-                victoryNotification.save()
+                victoryNotification.save(flush:true)
                 notificationUsers << new MailUserData(user:user, bindings:[:])
                 if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
                     kuorumMailService.sendVictoryNotificationUsers(post, notificationUsers)
@@ -581,7 +586,7 @@ class NotificationService {
                 victoryNotification.post = post
                 victoryNotification.kuorumUser = user
                 victoryNotification.politician=post.defender
-                victoryNotification.save()
+                victoryNotification.save(flush:true)
             }
         }
 
@@ -640,7 +645,7 @@ class NotificationService {
             ProjectClosedNotification projectClosedNotification = new ProjectClosedNotification()
             projectClosedNotification.project = project
             projectClosedNotification.kuorumUser = projectVote.kuorumUser
-            projectClosedNotification.save()
+            projectClosedNotification.save(flush:true)
         }
 
     }
