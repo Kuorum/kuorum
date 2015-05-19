@@ -18,7 +18,7 @@ class ProjectEvent {
 
     static constraints = {
         projectUpdatePos nullable: true, validator: {val, obj ->
-            if (obj.projectAction && obj.projectAction == ProjectAction.PROJECT_UPDATE && !val){
+            if (obj.projectAction && obj.projectAction == ProjectAction.PROJECT_UPDATE && val == null){
                 return "projectUpdateWithoutPos"
             }
         }

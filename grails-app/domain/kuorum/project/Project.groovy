@@ -42,7 +42,7 @@ class Project {
     @Updatable KuorumFile urlYoutube
     @Updatable KuorumFile pdfFile
     KuorumUser owner
-    @Updatable List<ProjectUpdate> updates = []
+    List<ProjectUpdate> updates = []
 
     ProjectBasicStats projectBasicStats;
 
