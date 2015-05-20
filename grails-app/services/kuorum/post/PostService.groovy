@@ -150,23 +150,34 @@ class PostService {
      * @return
      */
     private String removeCustomCrossScripting(String raw){
-        String text
-        if (raw){
-            def openTags = ~/<[^\/ibaup]r{0,1} *[^>]*>/  // Only allow <a> <b> <i> <u> <br>
-            def closeTags = ~/<\/[^ibaup] *[^>]*>/ // Only allow </a> </b> </i> </u>
-            text = raw.replaceAll(openTags,'')
-            text = text.replaceAll(closeTags,'')
-
-            def notAllowedAttributes = ~/(<[abiu]r{0,1})([^h>]*)(href=[^ >]*){0,1}([^h>]*)(>)/ //Delete all atributes that are not href
-            text = text.replaceAll(notAllowedAttributes, '$1 $3 $5')
-            text = text.replaceAll(~/( *)(>)/,'$2')
-            text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\' target=\'_blank\'>')
-            def brs = ~/<br><br>/
+        String text = raw
+        if (text){
+            text = text.replaceAll('<br/>','<br>')
+            def brs = ~/<br>\s*<br>/
             while(text.find(brs)){
                 text = text.replaceAll(brs,'<br>')
             }
-        }else{
-            text = raw
+            text = text.replaceAll('<br>','</p><p>')
+            text = text.replaceAll("&nbsp;", " ")
+            text = text.replaceAll(~/>\s*</, "> <")
+            def openTags = ~/<[^\/ibaup]r{0,1} *[^>]*>/  // Only allow <a> <b> <i> <u> <p>
+            def closeTags = ~/<\/[^ibaup] *[^>]*>/ // Only allow </a> </b> </i> </u> </p>
+            text = text.replaceAll(openTags,'')
+            text = text.replaceAll(closeTags,'')
+
+            def notAllowedAttributes = ~/(<[abiup]r{0,1})([^h>]*)(href=[^ >]*){0,1}([^h>]*)(>)/ //Delete all atributes that are not href
+            text = text.replaceAll(notAllowedAttributes, '$1 $3 $5')
+            text = text.replaceAll(~/( *)(>)/,'$2')
+            text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\' target=\'_blank\'>')
+
+            def emtpyTags = ~/<[abiup]>\s*<\/[abiup]>/
+            while(text.find(emtpyTags)){
+                text = text.replaceAll(emtpyTags,'')
+            }
+            text = text.replaceAll(~/>\s*</, "> <")
+            text = text.replaceAll(~/\s*<\s*/, " <")
+            text = text.replaceAll(~/\s*>\s*/, "> ")
+            text = text.trim()
         }
 
         text

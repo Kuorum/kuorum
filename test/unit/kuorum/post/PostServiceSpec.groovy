@@ -190,19 +190,25 @@ class PostServiceSpec extends Specification{
         where:
         raw                             | expectedText
         "<i> hola </i>"                 | "<i> hola </i>"
-        "<b> hola </b>"                 | "<b> hola </b>"
+        "<b>hola</b>"                 | "<b> hola </b>"
         "<u> hola </u>"                 | "<u> hola </u>"
         "<a href='dd'> hola </a>"                           | "<a href='dd' rel='nofollow' target='_blank'> hola </a>"
         "<a href='dd' style=''> hola </a>"                  | "<a href='dd' rel='nofollow' target='_blank'> hola </a>"
-        "<a class='' href='dd' style=''> hola </a>"         | "<a href='dd' rel='nofollow' target='_blank'> hola </a>"
-        "<script> hola </script>"                   | " hola "
-        "<strong class='dd'> hola </strong>"        | " hola "
+        "<a class='' href='dd' style=''>hola</a>"         | "<a href='dd' rel='nofollow' target='_blank'> hola </a>"
+        "txt<script> hola </script>txt"                   | "txt hola txt"
+        "<script> hola </script>"                   | "hola"
+        "<script conflorituras> hola </script>"                   | "hola"
+        "<strong class='dd'> hola </strong>"        | "hola"
         "<script>alert(\"hola\")</script>"          | "alert(\"hola\")"
 
-        "<br>hola<br>feo<br>"                                   | "<br>hola<br>feo<br>"
-        "<br>hola<br>feo<br><br>"                               | "<br>hola<br>feo<br>"
-        "<br>hola<br><br><br>feo<br>"                           | "<br>hola<br>feo<br>"
-        "<br><br>hola<br><br><br>feo<br><br><br><br><br><br>"   | "<br>hola<br>feo<br>"
+        "<p><br>hola<br>feo<br></p>"                                   | "<p> hola </p> <p> feo </p>"
+        "<p><br>hola<br>feo<br><br></p>"                               | "<p> hola </p> <p> feo </p>"
+        "<p><br>hola<br><br><br>feo<br></p>"                           | "<p> hola </p> <p> feo </p>"
+        "<p><br><br>hola<br><br><br>feo<br><br><br><br><br><br></p>"   | "<p> hola </p> <p> feo </p>"
+        "<p class='xx'>texto</p> <p>  <i> </i></p>"   | "<p> texto </p>"
+
+        "<p lang='es-ES' class='western' style='margin-bottom: 0cm'><font color='#222222'><font face='Calibri, serif'><span lang='es-ES'><i>ITALIC</i></span></font></font></p><p class='western' style='margin-bottom: 0cm'><br></p><p lang='es-ES' class='western' style='margin-bottom: 0cm'><font color='#222222'><font face='Calibri, serif'><span lang='es-ES'>NORMAL</span></font></font></p>" | "<p> <i> ITALIC </i> </p> <p> NORMAL </p>"
+        "<p lang='es-ES'>text<i>ITALIC</i>more text</p><p class='western' style='margin-bottom: 0cm'><br></p>" | "<p> text <i> ITALIC </i> more text </p>"
     }
 
     @Unroll
