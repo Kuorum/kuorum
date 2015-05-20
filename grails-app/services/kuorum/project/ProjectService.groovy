@@ -451,7 +451,7 @@ class ProjectService {
         } else {
             result.message = projectUpdate.errors
         }
-        createUpdateProjectEvent(project, project.updates.size()-1);
+        ProjectEvent projectEvent = createUpdateProjectEvent(project, project.updates.size()-1);
         result
     }
 }
