@@ -174,9 +174,6 @@ class PostService {
             while(text.find(emtpyTags)){
                 text = text.replaceAll(emtpyTags,'')
             }
-            text = text.replaceAll(~/>\s*</, "> <")
-            text = text.replaceAll(~/\s*<\s*/, " <")
-            text = text.replaceAll(~/\s*>\s*/, "> ")
             text = text.trim()
         }
 
