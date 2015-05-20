@@ -205,10 +205,10 @@ class PostServiceSpec extends Specification{
         "<p><br>hola<br>feo<br><br></p>"                               | "<p>hola</p> <p>feo</p>"
         "<p><br>hola<br><br><br>feo<br></p>"                           | "<p>hola</p> <p>feo</p>"
         "<p><br><br>hola<br><br><br>feo<br><br><br><br><br><br></p>"   | "<p>hola</p> <p>feo</p>"
-        "<p class='xx'>texto</p> <p>  <i> </i></p>"   | "<p> texto</p>"
+        "<p class='xx'>texto</p> <p>  <i> </i></p>"   | "<p>texto</p>"
 
-        "<p lang='es-ES' class='western' style='margin-bottom: 0cm'><font color='#222222'><font face='Calibri, serif'><span lang='es-ES'><i>ITALIC</i></span></font></font></p><p class='western' style='margin-bottom: 0cm'><br></p><p lang='es-ES' class='western' style='margin-bottom: 0cm'><font color='#222222'><font face='Calibri, serif'><span lang='es-ES'>NORMAL</span></font></font></p>" | "<p><i>ITALIC</i></p> <p>NORMAL</p>"
-        "<p lang='es-ES'>text<i>ITALIC</i>more text</p><p class='western' style='margin-bottom: 0cm'><br></p>" | "<p> text <i>ITALIC</i> more text </p>"
+        "<p lang='es-ES' class='western' style='margin-bottom: 0cm'><font color='#222222'><font face='Calibri, serif'><span lang='es-ES'><i>ITALIC</i></span></font></font></p><p class='western' style='margin-bottom: 0cm'><br></p><p lang='es-ES' class='western' style='margin-bottom: 0cm'><font color='#222222'><font face='Calibri, serif'><span lang='es-ES'>NORMAL</span></font></font></p>" | "<p>    <i>ITALIC</i>    </p>   <p>   NORMAL   </p>"
+        "<p lang='es-ES'>text<i>ITALIC</i>more text</p><p class='western' style='margin-bottom: 0cm'><br></p>" | "<p>text<i>ITALIC</i>more text</p>"
     }
 
     @Unroll
