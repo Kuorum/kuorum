@@ -59,7 +59,7 @@
                 <g:link mapping="postVoteIt"
                         class="${userVote ? 'disabled' : ''} btn  btn-blue btn-lg btn-block"
                         params="${post.encodeAsLinkProperties()}" data-postId="${post.id}">
-                    <span class="fa fa-rocket fa-2x"></span>
+                    <span class="fa fa-rocket fa-2x" data-textAlreadyVoted="${message(code:'post.show.boxes.like.vote.buttonVoted')}"></span>
                     <g:message code="post.show.boxes.like.vote.${userVote ? 'buttonVoted' : 'button'}" encodeAs="raw"/>
                 </g:link>
                 <g:if test="${!userVote}">
@@ -70,6 +70,7 @@
                         </label>
                     </div>
                 </g:if>
+            </div>
         </form>
     </postUtil:asUser>
 </postUtil:userOption>
