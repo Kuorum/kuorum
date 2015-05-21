@@ -7,6 +7,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
+import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
 import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
@@ -403,7 +404,8 @@ class PostService {
         if (project){
             Post.findAllByProjectAndPublishedAndDateCreatedGreaterThan(project,true,new Date()-180,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
         }else{
-            Post.findAllByPublishedAndDateCreatedGreaterThan(true, new Date()-180, [max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
+            List<Project> openProjects = Project.findAllByStatus(ProjectStatusType.OPEN);
+            Post.findAllByPublishedAndDateCreatedGreaterThanAndProjectInList(true, new Date()-180, openProjects,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
 //        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
         }
     }
