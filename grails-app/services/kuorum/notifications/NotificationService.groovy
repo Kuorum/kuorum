@@ -283,6 +283,7 @@ class NotificationService {
 
         List<KuorumUser> notGenericMail = post.debates.collect{it.kuorumUser}
         notGenericMail.add(post.owner)
+        notGenericMail = notGenericMail.unique()
 
         PostVote.findAllByPostAndUserNotInList(post, notGenericMail).each{PostVote postVote ->
             DebateNotification debateNotification = new DebateNotification()
