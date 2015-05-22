@@ -12,6 +12,7 @@ import org.apache.solr.client.solrj.SolrQuery
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.response.Group
 import org.apache.solr.client.solrj.response.QueryResponse
+import org.apache.solr.client.solrj.util.ClientUtils
 import org.apache.solr.common.SolrDocument
 import org.apache.solr.common.SolrDocumentList
 import org.apache.solr.common.params.CommonParams
@@ -182,7 +183,7 @@ class SearchSolrService {
         }
         if (params.regionName){
             filterQuery.append(" AND ")
-            filterQuery.append("regionName:${params.regionName}")
+            filterQuery.append("regionName:${ClientUtils.escapeQueryChars(params.regionName)}")
         }
         query.setParam(CommonParams.Q, filterQuery.toString())
 

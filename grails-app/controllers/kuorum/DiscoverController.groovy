@@ -50,7 +50,7 @@ class DiscoverController {
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
         }
-        Region region = Region.findByIso3166_2(params.iso3166_2)
+//        Region region = Region.findByIso3166_2(params.iso3166_2)
 //        List<Project> projects = projectService.relevantProjects(user,region, searchParams)
 //        List<Project> projects = searchSolrService.searchProjects(searchParams);
         SolrResults result= searchSolrService.searchProjects(searchParams);
