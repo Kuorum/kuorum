@@ -209,6 +209,29 @@ class PostServiceSpec extends Specification{
 
         "<p lang='es-ES' class='western' style='margin-bottom: 0cm'><font color='#222222'><font face='Calibri, serif'><span lang='es-ES'><i>ITALIC</i></span></font></font></p><p class='western' style='margin-bottom: 0cm'><br></p><p lang='es-ES' class='western' style='margin-bottom: 0cm'><font color='#222222'><font face='Calibri, serif'><span lang='es-ES'>NORMAL</span></font></font></p>" | "<p>    <i>ITALIC</i>    </p>   <p>   NORMAL   </p>"
         "<p lang='es-ES'>text<i>ITALIC</i>more text</p><p class='western' style='margin-bottom: 0cm'><br></p>" | "<p>text<i>ITALIC</i>more text</p>"
+
+        "<p> not closed p" | "not closed p"
+        "not closed </a>" | "not closed"
+        "not closed <a>" | "not closed"
+        "not <i> <u>closed</u>" | "not  <u>closed</u>"
+    }
+    @Unroll
+    void "test removeNotClosedTag processor #raw => #expectedText"(){
+        given:"A text written by user"
+
+        when:
+        String text  = service.removeNotClosedTag(raw, "a")
+        then:
+        expectedText == text
+        where:
+        raw                          | expectedText
+        "<a> hola </a>"              | "<a> hola </a>"
+        "<a>hola</a>"                | "<a>hola</a>"
+        "<a> hola </a>"              | "<a> hola </a>"
+        "<a href='dd'> hola </a>"    | "<a href='dd'> hola </a>"
+        "<a> not closed p"           | " not closed p"
+        "not closed </a>"            | "not closed "
+        "not closed <a>"             | "not closed "
     }
 
     @Unroll

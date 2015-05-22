@@ -10,7 +10,7 @@
         <userUtil:showUser user="${comment.kuorumUser}" showRole="true"/>
     </div>
 
-    <p>${raw(comment.text.encodeAsHtmlLinks())}</p>
+    <p>${raw(comment.text)}</p>
     <div class="actions clearfix">
         <postUtil:ifCommentIsDeletable post="${post}" commentPosition="${pos}">
             <g:remoteLink url="[mapping:'postDelComment', params:post.encodeAsLinkProperties() + [commentPosition:pos]]" onSuccess="removeComment('commentPos_${pos}')" class="pull-left">

@@ -255,9 +255,21 @@ class NotificationService {
 
     private void syncSendDebateNotification(Post post){
         Integer idDebate = post.debates.size() -1
-        sendDebateNotificationInterestedUsers(post, idDebate)
-        sendDebateNotificationPoliticians(post, idDebate)
-        sendDebateNotificationAuthor(post, idDebate)
+        try{
+            sendDebateNotificationInterestedUsers(post, idDebate)
+        }catch (Exception e){
+            log.error("Ha habido algun error notificando a los usuarios de que hay un nuevo debate en el post $post",e)
+        }
+        try{
+            sendDebateNotificationPoliticians(post, idDebate)
+        }catch (Exception e){
+            log.error("Ha habido algun error notificando a los políticos de que hay un nuevo debate en el post $post",e)
+        }
+        try{
+            sendDebateNotificationAuthor(post, idDebate)
+        }catch (Exception e){
+            log.error("Ha habido algun error notificando al autor de que hay un nuevo debate en el post $post",e)
+        }
         deactivateDebateUserAlertNotification(post,idDebate)
     }
 

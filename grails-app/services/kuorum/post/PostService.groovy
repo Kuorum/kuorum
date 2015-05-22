@@ -16,6 +16,9 @@ import kuorum.mail.KuorumMailService
 import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
 
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 @Transactional
 class PostService {
 
@@ -152,6 +155,9 @@ class PostService {
     private String removeCustomCrossScripting(String raw){
         String text = raw
         if (text){
+            text = text.replaceAll("\r\n","<br/>")
+            text = text.replaceAll("\n","<br/>")
+            text = text.replaceAll("\r","<br/>")
             text = text.replaceAll('<br/>','<br>')
             def brs = ~/<br>\s*<br>/
             while(text.find(brs)){
@@ -170,6 +176,11 @@ class PostService {
             text = text.replaceAll(~/( *)(>)/,'$2')
             text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\' target=\'_blank\'>')
 
+            //REMOVING NOT CLOSED TAGS
+            "abiup".each {
+                text = removeNotClosedTag(text, it)
+            }
+
             def emtpyTags = ~/<[abiup]>\s*<\/[abiup]>/
             while(text.find(emtpyTags)){
                 text = text.replaceAll(emtpyTags,'')
@@ -178,6 +189,26 @@ class PostService {
         }
 
         text
+    }
+
+    private String removeNotClosedTag(String text, String tag){
+        Pattern openPattern = Pattern.compile("<${tag}[^>]*>");
+        Matcher  openMatcher = openPattern.matcher(text);
+        int openCount = 0;
+        while (openMatcher.find())
+            openCount++;
+
+        Pattern closePattern = Pattern.compile("</${tag}[^>]*>");
+        Matcher  closeMatcher = closePattern.matcher(text);
+        int closeCount = 0;
+        while (closeMatcher.find())
+            closeCount ++;
+
+        if (openCount > closeCount || openCount < closeCount){
+            text = text.replaceAll(openPattern, "")
+            text = text.replaceAll(closePattern, "")
+        }
+        return text;
     }
 
     Integer calculateNumEmails(Double price){
@@ -205,7 +236,7 @@ class PostService {
         //Atomic operation
         def commentData = [
                 kuorumUserId: comment.kuorumUser.id,
-                text:comment.text,
+                text:removeCustomCrossScripting(comment.text.encodeAsHtmlLinks()),
                 dateCreated: comment.dateCreated,
                 moderated:comment.moderated,
                 deleted :comment.deleted ]
@@ -308,7 +339,7 @@ class PostService {
             //Atomic operation
             def commentData = [
                     kuorumUserId: user.id,
-                    text:comment.text,
+                    text:removeCustomCrossScripting(comment.text.encodeAsHtmlLinks()),
                     dateCreated: new Date(),
                     moderated:comment.moderated,
                     deleted :comment.deleted ]
