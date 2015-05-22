@@ -75,7 +75,6 @@ class GamificationService {
             case GamificationAward.ROLE_DEFAULT:
             case GamificationAward.ROLE_ACTIVISTA:
             case GamificationAward.ROLE_LIDER_OPINION:
-            case GamificationAward.ROLE_MAESTRO_JEDI:
             case GamificationAward.ROLE_MILITANTE:
                 user.gamification.activeRole = award
                 break
