@@ -13,7 +13,7 @@ class UrlMappings {
         //The URLs are duplicated because of the refactor of Law into Project. The name of aliases are changed.
         name home:             "/" (controller: "dashboard", action:"index")
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
-        name discover:                      "/descubre" (controller: "dashboard", action:"discoverProjects")
+        name discover:                      "/descubre" (controller: "discover", action:"discoverProjects")
         name discoverProjects:              "/descubre/proyectos"         (controller: "discover", action:"discoverProjects")
                                             "/descubre/leyes"         (controller: "discover", action:"discoverProjects")
         name discoverProjectsByRegion:      "/descubre/proyectos/$regionName" (controller: "discover", action:"discoverProjects")
@@ -78,7 +78,11 @@ class UrlMappings {
 
 
         //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
-        name userShow:          "/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "show")
+        name userShow:          "/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "show"){
+            constraints {
+                userTypeUrl inList: ["ciudadanos", "organizaciones", "politicos"]
+            }
+        }
         name userShowWithAlias: "/$userAlias"   (controller: "kuorumUser", action: "showWithAlias"){
             constraints{
                 userAlias (validator: { !['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos'].contains(it) })

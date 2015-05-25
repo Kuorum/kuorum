@@ -68,11 +68,6 @@ $(document).ready(function() {
     }, ".follow.disabled"); //pass the element as an argument to .on
 
 
-    $('body').on("click","[data-toggle=modal][data-target=#registro]", function(e) {
-        e.preventDefault()
-        e.stopPropagation()
-        clickedButtonFollow($(this))
-    });
 
     $('body').on("click", ".btn.follow", function(e) {
         e.preventDefault()
@@ -1046,7 +1041,10 @@ function votePost(url, postId, anonymous){
         $('.likes .progress-bar').attr("aria-valuemax",limitTo)
         $('#drive > a').html(i18n.post.show.boxes.like.vote.buttonVoted).addClass('disabled');
         $("#drive :input").attr("disabled", true);
-        $("#drive div.form-group").remove()
+        $("#drive div.form-group a").addClass("disabled")
+        var alreadyVotedText = $("#drive div.form-group a span").attr("data-textalreadyvoted");
+        var span= $("#drive div.form-group a span");
+        $("#drive div.form-group a").html(span.prop('outerHTML') + alreadyVotedText)
         prepareProgressBar()
         setTimeout(prepareProgressBar, 500)
 //                setTimeout(prepareProgressBar, 1000)

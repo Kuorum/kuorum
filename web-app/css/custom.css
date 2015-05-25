@@ -2823,15 +2823,13 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config .role section .options .activity.inactive li,
 .config .skill section .options .activity.inactive li {opacity: 0.2;}
 .config .role section .options .btn,
-.config .skill section .options .btn {float: right; margin: 0 !important; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; padding: 10px 22px !important;}
+.config .skill section .options .btn {float: right; margin: 0 !important; padding: 10px 22px !important;}
 .config .btn-green.active,
 .config .btn-green.active:hover,
 .config .btn.btn-green.active:active,
 .config .btn.btn-green.active:focus {
   background-color: #fff !important;
-  border-left: solid 1px #87ca47;
-  border-right: solid 1px #87ca47;
-  border-bottom: solid 1px #87ca47;
+  border: solid 1px #87ca47;
   color: #87ca47 !important;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0.125) inset;
   cursor: not-allowed;
@@ -2843,6 +2841,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config .role .btn.active:focus {
   background-color: #fff !important;
   border-left: solid 1px #ff9431;
+  border-top: solid 1px #ff9431;
   border-right: solid 1px #ff9431;
   border-bottom: solid 1px #ff9431;
   color: #ff9431 !important;

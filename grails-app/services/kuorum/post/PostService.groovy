@@ -7,6 +7,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.CommitmentType
 import kuorum.core.model.PostType
+import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
 import kuorum.core.model.VoteType
 import kuorum.core.model.search.Pagination
@@ -15,6 +16,9 @@ import kuorum.project.Project
 import kuorum.mail.KuorumMailService
 import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 @Transactional
 class PostService {
@@ -150,26 +154,62 @@ class PostService {
      * @return
      */
     private String removeCustomCrossScripting(String raw){
-        String text
-        if (raw){
-            def openTags = ~/<[^\/ibaup]r{0,1} *[^>]*>/  // Only allow <a> <b> <i> <u> <br>
-            def closeTags = ~/<\/[^ibaup] *[^>]*>/ // Only allow </a> </b> </i> </u>
-            text = raw.replaceAll(openTags,'')
-            text = text.replaceAll(closeTags,'')
-
-            def notAllowedAttributes = ~/(<[abiu]r{0,1})([^h>]*)(href=[^ >]*){0,1}([^h>]*)(>)/ //Delete all atributes that are not href
-            text = text.replaceAll(notAllowedAttributes, '$1 $3 $5')
-            text = text.replaceAll(~/( *)(>)/,'$2')
-            text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\' target=\'_blank\'>')
-            def brs = ~/<br><br>/
+        String text = raw
+        if (text){
+            text = text.replaceAll("\r\n","<br/>")
+            text = text.replaceAll("\n","<br/>")
+            text = text.replaceAll("\r","<br/>")
+            text = text.replaceAll('<br/>','<br>')
+            def brs = ~/<br>\s*<br>/
             while(text.find(brs)){
                 text = text.replaceAll(brs,'<br>')
             }
-        }else{
-            text = raw
+            text = text.replaceAll('<br>','</p><p>')
+            text = text.replaceAll("&nbsp;", " ")
+            text = text.replaceAll(~/>\s*</, "> <")
+            def openTags = ~/<[^\/ibaup]r{0,1} *[^>]*>/  // Only allow <a> <b> <i> <u> <p>
+            def closeTags = ~/<\/[^ibaup] *[^>]*>/ // Only allow </a> </b> </i> </u> </p>
+            text = text.replaceAll(openTags,'')
+            text = text.replaceAll(closeTags,'')
+
+            def notAllowedAttributes = ~/(<[abiup]r{0,1})([^h>]*)(href=[^ >]*){0,1}([^h>]*)(>)/ //Delete all atributes that are not href
+            text = text.replaceAll(notAllowedAttributes, '$1 $3 $5')
+            text = text.replaceAll(~/( *)(>)/,'$2')
+            text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\' target=\'_blank\'>')
+
+            //REMOVING NOT CLOSED TAGS
+            "abiup".each {
+                text = removeNotClosedTag(text, it)
+            }
+
+            def emtpyTags = ~/<[abiup]>\s*<\/[abiup]>/
+            while(text.find(emtpyTags)){
+                text = text.replaceAll(emtpyTags,'')
+            }
+            text = text.trim()
         }
 
         text
+    }
+
+    private String removeNotClosedTag(String text, String tag){
+        Pattern openPattern = Pattern.compile("<${tag}[^>]*>");
+        Matcher  openMatcher = openPattern.matcher(text);
+        int openCount = 0;
+        while (openMatcher.find())
+            openCount++;
+
+        Pattern closePattern = Pattern.compile("</${tag}[^>]*>");
+        Matcher  closeMatcher = closePattern.matcher(text);
+        int closeCount = 0;
+        while (closeMatcher.find())
+            closeCount ++;
+
+        if (openCount > closeCount || openCount < closeCount){
+            text = text.replaceAll(openPattern, "")
+            text = text.replaceAll(closePattern, "")
+        }
+        return text;
     }
 
     Integer calculateNumEmails(Double price){
@@ -197,7 +237,7 @@ class PostService {
         //Atomic operation
         def commentData = [
                 kuorumUserId: comment.kuorumUser.id,
-                text:comment.text,
+                text:removeCustomCrossScripting(comment.text.encodeAsHtmlLinks()),
                 dateCreated: comment.dateCreated,
                 moderated:comment.moderated,
                 deleted :comment.deleted ]
@@ -300,7 +340,7 @@ class PostService {
             //Atomic operation
             def commentData = [
                     kuorumUserId: user.id,
-                    text:comment.text,
+                    text:removeCustomCrossScripting(comment.text.encodeAsHtmlLinks()),
                     dateCreated: new Date(),
                     moderated:comment.moderated,
                     deleted :comment.deleted ]
@@ -395,7 +435,8 @@ class PostService {
         if (project){
             Post.findAllByProjectAndPublishedAndDateCreatedGreaterThan(project,true,new Date()-180,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
         }else{
-            Post.findAllByPublishedAndDateCreatedGreaterThan(true, new Date()-180, [max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
+            List<Project> openProjects = Project.findAllByStatus(ProjectStatusType.OPEN);
+            Post.findAllByPublishedAndDateCreatedGreaterThanAndProjectInList(true, new Date()-180, openProjects,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
 //        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
         }
     }

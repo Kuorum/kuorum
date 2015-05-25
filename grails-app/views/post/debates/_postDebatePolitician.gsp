@@ -6,5 +6,5 @@
     <div itemtype="http://schema.org/Person" itemscope itemprop="author" class="user author">
         <userUtil:showUser user="${debate.kuorumUser}" showRole="true"/>
     </div><!-- /autor -->
-    <p>${raw(debate.text.encodeAsRemovingScriptTags().replace("\n", "</p><p>"))}</p>
+    <p>${raw(debate.text)}</p>
 </li>
