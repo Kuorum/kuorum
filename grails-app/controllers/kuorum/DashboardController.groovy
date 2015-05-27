@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.Pagination
 import kuorum.post.Cluck
 import kuorum.post.Post
+import kuorum.project.Project
 import kuorum.project.ProjectEvent
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
@@ -94,8 +95,8 @@ class DashboardController {
 
     def customPostMapping(String customLink){
 
-        Post post = Post.get(new ObjectId("53c905bee4b0355ed79906c8"))
-        redirect mapping: "postShow" , params: post.encodeAsLinkProperties()
+        Project project = Project.findByHashtag("#losDatosCuentan")
+        redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
 
     }
 }
