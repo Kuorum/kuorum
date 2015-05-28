@@ -129,7 +129,7 @@ class MailTestingController {
 
     def testRegister(String email, String lang){
         def data = prepareMailTestEnviroment(email,lang)
-        kuorumMailService.sendRegisterUser(data.user, "http://kuorum.org")
+        kuorumMailService.sendRegisterUser(data.user, "https://kuorum.org")
 
         flash.message ="Se ha enviado el mail al email $email"
         redirect action: "index", params:[email:email]
