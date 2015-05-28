@@ -126,7 +126,7 @@ class FacebookAuthService {
                     temporal:Boolean.FALSE,
                     storagePath:null,
                     fileName:null,
-                    url:"http://graph.facebook.com/${fbProfile.id}/picture?type=large",
+                    url:"https://graph.facebook.com/${fbProfile.id}/picture?type=large",
                     fileGroup:FileGroup.USER_AVATAR,
                     fileType: FileType.IMAGE
             )

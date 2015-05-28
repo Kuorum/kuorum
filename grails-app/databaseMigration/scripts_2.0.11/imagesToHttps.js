@@ -9,6 +9,14 @@ dbDest.kuorumUser.find().forEach(function(user) {
         dbDest.kuorumUser.update({_id:user._id},{$set:{'avatar.url':URL}})
     }
 })
+dbDest.kuorumUser.find({'avatar.url':/facebook/}).forEach(function(user) {
+    if (user.avatar != undefined && user.avatar.url.indexOf("http://graph.facebook.com")>=0){
+        var URL = user.avatar.url.substring(7);
+        URL = "https://"+URL;
+        print(URL);
+        dbDest.kuorumUser.update({_id:user._id},{$set:{'avatar.url':URL}})
+    }
+})
 
 dbDest.kuorumUser.find({imageProfile:{$exists:1}}).forEach(function(user) {
     if (user.imageProfile != undefined && user.imageProfile.url.indexOf("http://kuorum.org")>=0){
@@ -25,5 +33,14 @@ dbDest.project.find({image:{$exists:1}}).forEach(function(project) {
         URL = "https://"+URL;
         print(URL);
         dbDest.project.update({_id:project._id},{$set:{'image.url':URL}})
+    }
+})
+
+dbDest.post.find({multimedia:{$exists:1}}).forEach(function(post) {
+    if (post.multimedia != undefined && post.multimedia.url.indexOf("http://kuorum.org")>=0){
+        var URL = post.multimedia.url.substring(7);
+        URL = "https://"+URL;
+        print(URL);
+        dbDest.post.update({_id:post._id},{$set:{'multimedia.url':URL}})
     }
 })
