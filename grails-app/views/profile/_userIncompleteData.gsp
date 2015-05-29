@@ -86,7 +86,7 @@
                     <g:elseif test="${noticeType == NoticeType.NOAGEANDGENDER}">
                         <g:form method="POST" name="sign" role="form" class="no-age" mapping="customRegisterAgeAndGender">
                             <formUtil:radioEnum command="${personalDataCommand}" field="gender"/>
-                            <div class="form-group pull-left">
+                            <div class="form-group pull-left userData">
                                 <formUtil:selectBirdthYear command="${personalDataCommand}" field="year" cssClass="sr-only"/>
                             </div>
                             <div class="form-group pull-left">

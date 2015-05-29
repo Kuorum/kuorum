@@ -65,7 +65,7 @@ class DashboardService {
             NoticeType.FOLLOWPEOPLE
         } else if (!user.personalData.province){
             NoticeType.NOPROVINCE
-        } else if (!user.personalData.gender || !(user.personalData.year && user.personalData!= Gender.ORGANIZATION)){
+        } else if (!user.personalData.gender || (!user.personalData.year && user.personalData.gender!= Gender.ORGANIZATION)){
             NoticeType.NOAGEANDGENDER
         } else if(!politiciansInProvince(user)){
             NoticeType.NOPOLITICIANINYOURCOUNTRY
