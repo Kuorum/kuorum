@@ -333,9 +333,12 @@ $(document).ready(function() {
 	$('#ver-mas a').click(function(e) {
 		e.preventDefault();
 //		$('.listComments > li:gt(2)').fadeIn('slow');
-		$('.listComments > li').fadeIn('slow');
-		$('#ver-mas').hide();
+        openComments()
 	});
+    $("#comment").focus(function(e){
+        openComments();
+        $("html, body").animate({ scrollTop: $(this).parents(".listComments").offset().top -100}, 1000);
+    });
     $("#addComment").on('submit', function(e){
         e.preventDefault()
         var form = $(this)
@@ -1055,6 +1058,10 @@ function votePost(url, postId, anonymous){
     });
 }
 
+function openComments(){
+    $('.listComments > li').fadeIn('slow');
+    $('#ver-mas').hide();
+}
 
 function readLater(readLaterElement){
     var url = $(readLaterElement).attr("href");
