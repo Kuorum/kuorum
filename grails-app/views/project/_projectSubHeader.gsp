@@ -8,11 +8,6 @@
     </ul>
 </div>
 
-<sec:ifLoggedIn>
-    <projectUtil:ifUserAvailableForNormalVoting project="${project}">
-        <div class="col-xs-6 col-sm-4">
-            <g:render template="/project/projectVotesModuleVotingButtons" model="[project:project, userVote:userVote, header:Boolean.TRUE]"/>
-        </div>
-    </projectUtil:ifUserAvailableForNormalVoting>
-</sec:ifLoggedIn>
+<g:render template="/project/projectVotesModuleVotingButtons" model="[project:project, userVote: userVote, header:Boolean.TRUE]"/>
+
 
