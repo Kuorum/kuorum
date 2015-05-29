@@ -113,15 +113,21 @@
             </div>
         </fieldset>
 
-        <fieldset class="row">
+        <fieldset class="row userData">
             <div class="form-group col-md-6">
                 <formUtil:selectEnum command="${command}" field="workingSector"/>
             </div>
         </fieldset>
 
-        <fieldset class="row">
+        <fieldset class="row userData">
             <div class="form-group col-md-6">
                 <formUtil:selectEnum command="${command}" field="studies"/>
+            </div>
+        </fieldset>
+
+        <fieldset class="row organizationData">
+            <div class="form-group col-md-6">
+                <formUtil:selectEnum command="${command}" field="enterpriseSector"/>
             </div>
         </fieldset>
 

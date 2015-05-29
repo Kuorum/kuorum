@@ -19,7 +19,6 @@ fixture {
     ecologistasData(OrganizationData){
         gender =  Gender.ORGANIZATION
         userType = UserType.ORGANIZATION
-        isPoliticalParty = Boolean.FALSE
         provinceCode = "EU-ES"
         country = spain
     }

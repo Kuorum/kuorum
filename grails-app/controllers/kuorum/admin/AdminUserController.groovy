@@ -78,7 +78,6 @@ class AdminUserController extends AdminController {
         PersonalData personalData = null
         if (UserType.ORGANIZATION.equals(command.userType)){
             personalData = new OrganizationData()
-            personalData.isPoliticalParty = false
             personalData.enterpriseSector =  command.enterpriseSector
             kuorumUserService.convertAsOrganization(user)
         }else{

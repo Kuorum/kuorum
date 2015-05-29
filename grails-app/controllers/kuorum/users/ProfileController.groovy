@@ -116,8 +116,7 @@ class ProfileController {
         PersonalData personalData = null;
         if (Gender.ORGANIZATION.equals(command.gender)){
             personalData = new OrganizationData()
-            personalData.isPoliticalParty = false
-            personalData.nation = command.nation
+            personalData.province = command.province
             user.userType = UserType.ORGANIZATION
         }else{
             personalData = new PersonData()
