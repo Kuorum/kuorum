@@ -1,5 +1,6 @@
 package kuorum.dashboard
 
+import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
@@ -64,7 +65,7 @@ class DashboardService {
             NoticeType.FOLLOWPEOPLE
         } else if (!user.personalData.province){
             NoticeType.NOPROVINCE
-        } else if (!user.personalData.gender || !user.personalData.year){
+        } else if (!user.personalData.gender || !(user.personalData.year && user.personalData!= Gender.ORGANIZATION)){
             NoticeType.NOAGEANDGENDER
         } else if(!politiciansInProvince(user)){
             NoticeType.NOPOLITICIANINYOURCOUNTRY

@@ -39,7 +39,11 @@ class BasicPersonalDataCommand {
                 return "notExists"
             }
         }
-        year nullable: false, min:1900, max:(Calendar.getInstance().get(Calendar.YEAR) - 18)
+        year nullable: true, min:1900, max:(Calendar.getInstance().get(Calendar.YEAR) - 18), validator: {val, command ->
+            if (command.gender != Gender.ORGANIZATION && !val){
+                return "nullable"
+            }
+        }
         voteType nullable:true
     }
 }

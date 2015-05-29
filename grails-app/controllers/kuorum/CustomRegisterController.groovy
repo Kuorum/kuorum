@@ -1,6 +1,7 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.model.Gender
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
 import kuorum.notifications.Notice
@@ -193,8 +194,10 @@ class CustomRegisterController extends  ProfileController{
         }
 
         if(user){
-            user.personalData.year = personalDataCommand.year
             user.personalData.gender = personalDataCommand.gender
+            if (user.personalData.gender != Gender.ORGANIZATION){
+                user.personalData.year = personalDataCommand.year
+            }
             NoticeType noticeType = dashboardService.getNoticesByKuorumUser(user)
             user.notice = new Notice(noticeType: noticeType)
             kuorumUserService.updateUser(user)

@@ -116,15 +116,16 @@ class ProfileController {
         PersonalData personalData = null;
         if (Gender.ORGANIZATION.equals(command.gender)){
             personalData = new OrganizationData()
-            personalData.province = command.province
+            personalData.enterpriseSector = command.enterpriseSector
             user.userType = UserType.ORGANIZATION
         }else{
-            personalData = new PersonData()
+            personalData = new PersonData(year: user.personalData?.year)
             if (user.userType!=UserType.POLITICIAN)
                 user.userType = UserType.PERSON
             else{
                 personalData.userType=UserType.POLITICIAN
             }
+            personalData.year = command.year
         }
         if (user.personalData){
             //Datos no sobreescribibles
@@ -133,7 +134,6 @@ class ProfileController {
             personalData.province= user.personalData.province
             personalData.country= user.personalData.country
         }
-        personalData.year = command.year
         personalData.gender = command.gender
         if (command.country && !personalData.country){
             personalData.country = command.country

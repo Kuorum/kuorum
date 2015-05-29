@@ -89,8 +89,8 @@ class AdminUserController extends AdminController {
             }
             personalData.studies = command.studies
             personalData.workingSector = command.workingSector
+            personalData.year = command.year
         }
-        personalData.year = command.year
         personalData.gender = command.gender
         personalData.postalCode = command.postalCode
         personalData.provinceCode = command.province.iso3166_2

@@ -19,14 +19,11 @@ class PersonalData {
     Region province
     Region country
 //    Date birthday
-    Integer year
-
     static constraints = {
         telephone nullable: true
         gender nullable: true
         provinceCode nullable: true
         postalCode nullable: true
-        year nullable:true
         province nullable: true
         country nullable: true
         phonePrefix nullable:true

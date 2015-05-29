@@ -7,7 +7,7 @@
         <div class="form-group col-xs-6">
             <formUtil:input command="${basicPersonalDataCommand}" field="postalCode" labelCssClass="sr-only" showCharCounter="false"/>
         </div>
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-6 userData">
             <formUtil:input command="${basicPersonalDataCommand}" field="year" labelCssClass="sr-only"/>
         </div>
     </div>
