@@ -419,7 +419,7 @@ class KuorumMailService {
         MailData mailNotificationsData = new MailData()
         mailNotificationsData.mailType = MailType.NOTIFICATION_COMMENTED_POST_USERS
         mailNotificationsData.globalBindings=globalBindings
-        mailNotificationsData.userBindings = notificationUsers.asList().collect{postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", it.user.language.locale)}
+        mailNotificationsData.userBindings = notificationUsers.asList().collect{it.bindings.put("postType",messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", it.user.language.locale)); it}
         mailNotificationsData.fromName = prepareFromName(postComment.kuorumUser.name)
         mandrillAppService.sendTemplate(mailNotificationsData)
     }

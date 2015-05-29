@@ -17,7 +17,8 @@ class MandrillAppService {
     void sendTemplate(MailData mailData, Boolean async = false) {
 
         if (!mailData.validate()){
-            throw KuorumExceptionUtil.createExceptionFromValidatable(mailData, "Faltan datos para mandar este email")
+            log.error("Faltan datos para mandar este email. Errors:  ${mailData.errors.allErrors}")
+            return;
         }
 
         List<MandrillMessage.Recipient> recipients = createRecipients(mailData)
