@@ -214,6 +214,8 @@ class PostServiceSpec extends Specification{
         "not closed </a>" | "not closed"
         "not closed <a>" | "not closed"
         "not <i> <u>closed</u>" | "not  <u>closed</u>"
+        "<p> Hay varias carencias no resueltas para   <b style=\"color: black; font-family: Arial, sans-serif; line-height: 115%;\">resolver los gravísimos problemas depobreza y desigualdad</b>  , y es la falta de análisis compartido, de voluntad políticay de coordinación de esfuerzos. </p>" | "<p> Hay varias carencias no resueltas para   <b>resolver los gravísimos problemas depobreza y desigualdad</b>  , y es la falta de análisis compartido, de voluntad políticay de coordinación de esfuerzos. </p>"
+        "<p> Hay varias carencias no resueltas para   <b style='color: black; font-family: Arial, sans-serif; line-height: 115%;'>resolver los gravísimos problemas depobreza y desigualdad</b>  , y es la falta de análisis compartido, de voluntad políticay de coordinación de esfuerzos. </p>" | "<p> Hay varias carencias no resueltas para   <b>resolver los gravísimos problemas depobreza y desigualdad</b>  , y es la falta de análisis compartido, de voluntad políticay de coordinación de esfuerzos. </p>"
     }
     @Unroll
     void "test removeNotClosedTag processor #raw => #expectedText"(){

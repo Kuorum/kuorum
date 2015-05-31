@@ -172,8 +172,8 @@ class PostService {
             text = text.replaceAll(openTags,'')
             text = text.replaceAll(closeTags,'')
 
-            def notAllowedAttributes = ~/(<[abiup]r{0,1})([^h>]*)(href=[^ >]*){0,1}([^h>]*)(>)/ //Delete all atributes that are not href
-            text = text.replaceAll(notAllowedAttributes, '$1 $3 $5')
+            def notAllowedAttributes = ~/(<[abiup]r{0,1})(style=["'][^"']*["']){0,1}([^h>]*)(href=[^ >]*){0,1}([^h>]*)(style=["'][^"']*["']){0,1}>/ //Delete all attributes that are not href
+            text = text.replaceAll(notAllowedAttributes, '$1 $4>')
             text = text.replaceAll(~/( *)(>)/,'$2')
             text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\' target=\'_blank\'>')
 
