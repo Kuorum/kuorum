@@ -46,6 +46,7 @@ class ToolsController {
     def index() {}
 
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userNotifications(SearchNotifications searchNotificationsCommand) {
         KuorumUser user = params.user
         searchNotificationsCommand.user = user
@@ -58,6 +59,7 @@ class ToolsController {
         }
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def showFavoritesPosts() {
         KuorumUser user = params.user
         List<Post> favorites = postService.favoritesPosts(user)
@@ -65,6 +67,7 @@ class ToolsController {
     }
 
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def showUserPosts(SearchUserPosts searchUserPosts) {
         KuorumUser user = params.user
         searchUserPosts.user =  user
@@ -77,10 +80,12 @@ class ToolsController {
         }
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def kuorumStore() {
         KuorumUser user = params.user
         [user:user]
     }
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def kuorumStoreActivateAward() {
         GamificationAward award = GamificationAward.valueOf(params.award)
         KuorumUser user = params.user
@@ -96,6 +101,7 @@ class ToolsController {
         }
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def kuorumStoreBuyAward() {
         GamificationAward award = GamificationAward.valueOf(params.award)
         KuorumUser user = params.user
