@@ -4,6 +4,8 @@ import kuorum.core.model.UserType
 
 class UrlMappings {
 
+    static excludes = ['/robots.txt']
+
 	static mappings = {
 
         //TODO Hacer esta �apa en BBDD
