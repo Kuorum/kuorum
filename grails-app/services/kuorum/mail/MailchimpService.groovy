@@ -4,6 +4,9 @@ import com.ecwid.mailchimp.MailChimpClient
 import com.ecwid.mailchimp.MailChimpException
 import com.ecwid.mailchimp.method.v2_0.lists.Email
 import com.ecwid.mailchimp.method.v2_0.lists.SubscribeMethod
+import com.mongodb.BasicDBObject
+import com.mongodb.DBCursor
+import com.mongodb.DBObject
 import grails.transaction.Transactional
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
@@ -20,6 +23,16 @@ class MailchimpService {
     String MAILCHIMP_LIST_ID
 
     private static final MAILCHIMP_DATE_FORMAT = "yyyy-MM-dd"
+
+    def updateAllUsers(){
+        DBObject query = new BasicDBObject('enabled', true)
+        DBCursor cursor = KuorumUser.collection.find(query)
+        cursor.limit(10)
+        cursor.each {
+            KuorumUser user = KuorumUser.get(it._id)
+            addSubscriber(user)
+        }
+    }
 
     def addSubscriber(KuorumUser user){
 // reuse the same MailChimpClient object whenever possible
@@ -76,6 +89,6 @@ class MailchimpService {
         for (CommissionType commissionType : user.relevantCommissions){
             relevantCommissions.add(commissionType.toString())
         }
-        [new MailChimpGroup( name:"Commissions", groups:relevantCommissions)]
+        [new MailChimpGroup( name:"relevantCommissions", groups:relevantCommissions)]
     }
 }

@@ -22,4 +22,7 @@
         <li><strong>${result.key}</strong>: ${result.value}</li>
     </g:each>
     </ul>
+    <h1>Reenviar info a MailChimp </h1>
+    <p>NO USAR SALVO NECESIDAD QUE FUNDE A MAILCHIMP</p>
+    <g:link controller="admin" action="updateMailChimp"> Actualizar Mailchimp </g:link>
 </content>

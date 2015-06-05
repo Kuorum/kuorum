@@ -1,7 +1,11 @@
 package kuorum.admin
 
+import com.mongodb.BasicDBObject
+import com.mongodb.DBObject
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.model.UserType
+import kuorum.mail.MailchimpService
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 
@@ -10,6 +14,7 @@ class AdminController {
 
     def indexSolrService
     def springSecurityService
+    MailchimpService mailchimpService
 
 //    def afterInterceptor = [action: this.&prepareMenuData]
 //    protected prepareMenuData = {model, modelAndView ->
@@ -35,6 +40,11 @@ class AdminController {
 
     def solrIndex(){
         [res:[:]]
+    }
+
+    def updateMailChimp(){
+        mailchimpService.updateAllUsers()
+        render "UPDATE ALL USERS TO MAILCHIMP"
     }
 
     def fullIndex(){
