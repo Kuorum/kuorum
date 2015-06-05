@@ -27,7 +27,6 @@ class MailchimpService {
     def updateAllUsers(){
         DBObject query = new BasicDBObject('enabled', true)
         DBCursor cursor = KuorumUser.collection.find(query)
-        cursor.limit(10)
         cursor.each {
             KuorumUser user = KuorumUser.get(it._id)
             addSubscriber(user)
