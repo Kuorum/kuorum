@@ -11,6 +11,7 @@ import kuorum.post.Post
 import kuorum.post.PostService
 import kuorum.post.PostVoteService
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.users.RoleUser
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.context.i18n.LocaleContextHolder
@@ -28,6 +29,8 @@ class RegisterService {
     SpringSecurityService springSecurityService
 
     PostVoteService postVoteService
+
+    KuorumUserService kuorumUserService
 
     public static final PREFIX_PASSWORD = "*registerUser*"
 
@@ -129,8 +132,7 @@ class RegisterService {
 
     Map save(KuorumUser user) {
         def result
-        RoleUser roleUser = RoleUser.findByAuthority("ROLE_PASSWORDCHANGED")
-        user.authorities = [roleUser]
+        kuorumUserService.modifyRoleDependingOnUserData(user)
         if (user.validate()) {
             try {
                 if (user.save()) {

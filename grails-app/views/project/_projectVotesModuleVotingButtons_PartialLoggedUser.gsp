@@ -1,19 +1,22 @@
 <formUtil:validateForm bean="${basicPersonalDataCommand}" form="basicUserDataForm"/>
-<g:form url="[mapping:'projectVoteNoTotalUser', params:project.encodeAsLinkProperties()]" method="post" name="basicUserDataForm" role="form" autocomplete="off" >
-    <div class="form-group">
-        <formUtil:selectNation command="${basicPersonalDataCommand}" field="country" cssClass="sr-only"/>
-    </div>
-    <div class="row">
-        <div class="form-group col-xs-6">
-            <formUtil:input command="${basicPersonalDataCommand}" field="postalCode" labelCssClass="sr-only" showCharCounter="false"/>
+<g:set var="formName" value="${header?'basicUserDataFormHeader':'basicUserDataForm'}"/>
+<g:form url="[mapping:'projectVoteNoTotalUser', params:project.encodeAsLinkProperties()]" method="post" name="${formName}" role="form" autocomplete="off" >
+    <g:if test="${!header}">
+        <div class="form-group">
+            <formUtil:selectNation command="${basicPersonalDataCommand}" field="country" cssClass="sr-only"/>
         </div>
-        <div class="form-group col-xs-6 userData">
-            <formUtil:input command="${basicPersonalDataCommand}" field="year" labelCssClass="sr-only"/>
+        <div class="row">
+            <div class="form-group col-xs-6">
+                <formUtil:input command="${basicPersonalDataCommand}" field="postalCode" labelCssClass="sr-only" showCharCounter="false"/>
+            </div>
+            <div class="form-group col-xs-6 userData">
+                <formUtil:input command="${basicPersonalDataCommand}" field="year" labelCssClass="sr-only"/>
+            </div>
         </div>
-    </div>
-    <div class="form-group groupRadio">
-        <formUtil:radioEnum command="${basicPersonalDataCommand}" field="gender" labelCssClass="sr-only"/>
-    </div>
+        <div class="form-group groupRadio">
+            <formUtil:radioEnum command="${basicPersonalDataCommand}" field="gender" labelCssClass="sr-only"/>
+        </div>
+    </g:if>
     <div class="form-group voting" id="partialUserTryingToVote">
         <ul>
             <li>

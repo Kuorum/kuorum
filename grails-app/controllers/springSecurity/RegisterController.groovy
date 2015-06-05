@@ -6,6 +6,7 @@ import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import grails.validation.Validateable
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.users.RoleUser
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
@@ -15,6 +16,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     def kuorumMailService
     RegisterService registerService
+
+    KuorumUserService kuorumUserService
 
 
     def index() {
@@ -179,6 +182,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             KuorumUser user = KuorumUser.findByEmail(registrationCode.username)
             user.accountLocked = false
             user.password = springSecurityUiService.encodePassword(command.password, salt)
+            kuorumUserService.modifyRoleDependingOnUserData(user)
             user.save()
             registrationCode.delete()
         }
