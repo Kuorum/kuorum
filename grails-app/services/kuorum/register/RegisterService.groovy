@@ -83,6 +83,11 @@ class RegisterService {
     @Transactional
     KuorumUser registerUserVotingPost(KuorumRegisterCommand command, Post post, Boolean anonymousVote){
         KuorumUser user = registerUser(command);
+        registerUserVotingPost(user, post, anonymousVote)
+    }
+
+    @Transactional
+    KuorumUser registerUserVotingPost(KuorumUser user, Post post, Boolean anonymousVote){
         String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
         RegistrationCode registrationCode = RegistrationCode.findByUsername(user."$usernameFieldName")
         registrationCode[META_DATA_REGISTER_VOTING_POST] = ["$META_DATA_REGISTER_VOTING_POST_POST":post.id, "$META_DATA_REGISTER_VOTING_POST_ANONYMOUS":anonymousVote]
