@@ -8,10 +8,6 @@
 <!-- Schema.org markup for Google+ -->
 <meta itemprop="name" content="${post.title}">
 <meta itemprop="description" content="${post.title}">
-%{--<meta itemprop="image" content="${post.multimedia?.url}">--}%
-<g:if test="${post.multimedia && post.multimedia.fileType == kuorum.core.FileType.IMAGE}">
-    <meta itemprop="image" content="${post.multimedia?.url}" />
-</g:if>
 
 <!-- Twitter Card data -->
 <meta name="twitter:card" content="summary_large_image">
@@ -31,9 +27,11 @@
 <meta property="og:url" content="${g.createLink(mapping:'postShow', params:post.encodeAsLinkProperties(), absolute:true)}" />
 <g:if test="${post.multimedia && post.multimedia.fileType == kuorum.core.FileType.IMAGE}">
     <meta property="og:image" content="${post.multimedia?.url}" />
+    <meta itemprop="image" content="${post.multimedia?.url}" />
 </g:if>
 <g:if test="${post.multimedia && post.multimedia.fileType == kuorum.core.FileType.YOUTUBE}">
-    <meta property="og:image" content="${image.generateYoutubeImageUrl(youtube:post.multimedia)}" />
+    <meta property="og:image" content="${image.generateYoutubeImageUrl(youtube:post.multimedia, big: true)}" />
+    <meta itemprop="image" content="${image.generateYoutubeImageUrl(youtube:post.multimedia, big: true)}" />
 </g:if>
 <meta name="description" content="${post.title}" />
 <meta name="title" content="${post.title}" />
