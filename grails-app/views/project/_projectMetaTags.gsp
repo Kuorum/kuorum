@@ -32,9 +32,9 @@
     <meta property="og:image" content="${project.image?.url}" />
 </g:if>
 <g:if test="${project.urlYoutube && project.urlYoutube.fileType == kuorum.core.FileType.YOUTUBE}">
-    <meta property="og:image" content="${image.generateYoutubeImageUrl(youtube:project.urlYoutube)}" />
-    <meta itemprop="image" content="${image.generateYoutubeImageUrl(youtube:project.urlYoutube)}">
-    <meta name="twitter:card" content="${image.generateYoutubeImageUrl(youtube:project.urlYoutube)}">
+    <meta property="og:image" content="${image.generateYoutubeImageUrl(youtube:project.urlYoutube, big:true)}" />
+    <meta itemprop="image" content="${image.generateYoutubeImageUrl(youtube:project.urlYoutube, big:true)}">
+    <meta name="twitter:card" content="${image.generateYoutubeImageUrl(youtube:project.urlYoutube, big:true)}">
 </g:if>
 
 <meta property="og:description" content="${project.description?.encodeAsRemovingHtmlTags()}" />
