@@ -25,7 +25,7 @@
 <!-- Open Graph data -->
 <meta property="og:title" content="${project.hashtag}" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="${g.createLink(mapping:'projectShow', params:project.encodeAsLinkProperties())}" />
+<meta property="og:url" content="${g.createLink(mapping:'projectShow', params:project.encodeAsLinkProperties(), absolute: true)}" />
 <g:if test="${project.image  && project.image.fileType == kuorum.core.FileType.IMAGE}">
     <meta itemprop="image" content="${project.image.url}">
     <meta name="twitter:card" content="${project.image.url}">
