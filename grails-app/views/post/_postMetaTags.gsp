@@ -32,6 +32,9 @@
 <g:if test="${post.multimedia && post.multimedia.fileType == kuorum.core.FileType.IMAGE}">
     <meta property="og:image" content="${post.multimedia?.url}" />
 </g:if>
+<g:if test="${post.multimedia && post.multimedia.fileType == kuorum.core.FileType.YOUTUBE}">
+    <meta property="og:image" content="${image.generateYoutubeImageUrl(youtube:post.multimedia)}" />
+</g:if>
 <meta name="description" content="${post.title}" />
 <meta name="title" content="${post.title}" />
 <meta property="og:description" content="${post.title}" />
