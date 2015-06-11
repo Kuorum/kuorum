@@ -8,7 +8,7 @@
             <searchUtil:highlightedField solrElement="${solrPost}" field="hashtagProject"/>
         </h1>
         <g:render template="/post/postUsers" model="[post:post, solrPost:solrPost]"/>
-        <g:render template="/cluck/cluckMultimedia" model="[post:post]"/>
+        <postUtil:postShowMultimedia post="${post}"/>
         <g:render template="/cluck/footerCluck" model="[post:post, displayingColumnC:false]"/>
         <p><searchUtil:highlightedField solrElement="${solrPost}" field="text"/></p>
     </div>

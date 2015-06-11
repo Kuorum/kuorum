@@ -20,7 +20,7 @@
         <h1>${post.title} <g:link mapping="projectShow" params="${post.project.encodeAsLinkProperties()}">${post.project.hashtag}</g:link> </h1>
         <g:render template="/post/postUsers" model="[post:post, displayingHorizontalModule:displayingHorizontalModule]"/>
         <g:if test="${!displayingColumnC}">
-            <g:render template="/cluck/cluckMultimedia" model="[post:post]"/>
+            <postUtil:postShowMultimedia post="${post}"/>
         </g:if>
         <g:render template="/cluck/footerCluck" model="[post:post, displayingColumnC:displayingColumnC]"/>
     </div>
