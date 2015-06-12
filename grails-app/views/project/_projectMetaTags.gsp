@@ -8,7 +8,7 @@
 <meta name="twitter:title" content="${project.hashtag}">
 %{--Page description less than 200 characters--}%
 <meta name="twitter:description" content="${project.hashtag}">
-<meta name="twitter:card" content="${project.hashtag}">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${project.shortName}">
 <g:if test="${project.owner.socialLinks?.twitter}">
     <meta name="twitter:creator" content="${project.owner.socialLinks?.twitter}">

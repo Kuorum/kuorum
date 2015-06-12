@@ -4,7 +4,7 @@
 <meta itemprop="description" content="${post.title}">
 
 <!-- Twitter Card data -->
-<meta name="twitter:card" content="${post.project.hashtag}">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@kuorumorg">
 <meta name="twitter:title" content="${post.project.hashtag}">
 %{--Page description less than 200 characters--}%
