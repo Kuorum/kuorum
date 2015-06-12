@@ -34,7 +34,7 @@
 <meta property="og:description" content="${project.description?.encodeAsRemovingHtmlTags()}" />
 <meta property="og:site_name" content="${message(code: 'kuorum.name')}" />
 <meta property="article:published_time" content="${formatDate(date:project.dateCreated, format:'yyyy-MM-dd')}" />
-<meta property="article:modified_time" content="${formatDate(date:project.lastUpdate, format:'yyyy-MM-dd')}" />
+<meta property="article:modified_time" content="${formatDate(date:project.dateCreated, format:'yyyy-MM-dd')}" />
 <g:if test="${project.commissions}">
     <meta property="article:section" content="${message(code:'kuorum.core.model.CommissionType.'+project.commissions.first())}" />
 </g:if>
