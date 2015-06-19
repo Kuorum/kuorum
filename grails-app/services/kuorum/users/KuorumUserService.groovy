@@ -681,15 +681,16 @@ class KuorumUserService {
                     if (kuorumUser.politicianOnRegion != undefined){
                         iso3166Length = kuorumUser.politicianOnRegion.iso3166_2.length
                     }
-
-                    var newScore = {
-                        _id: score._id,
-                        score : score.value,
-                        numFollowers:numFollowers,
-                        iso3166Length : iso3166Length,
-                        user:kuorumUser
-                    };
-                    db.${tempCollectionName}.save(newScore);
+                    db.${tempCollectionName}.update(
+                        {_id:score._id},
+                        {\$set:{
+                            numFollowers:numFollowers,
+                            iso3166Length : iso3166Length,
+                            user:kuorumUser,
+                            score:score.value
+                            }
+                        }
+                    );
                 });
             }
             """
