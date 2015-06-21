@@ -248,7 +248,7 @@ class NotificationService {
                     syncSendDebateNotification(post)
                 }
             }
-
+        }
     }
 
     private void syncSendDebateNotification(Post post){
