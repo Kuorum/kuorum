@@ -22,7 +22,7 @@
 
     </ul>
 </aside>
-<div class="text-center ${post.comments.size()>2?'':'hidden'}" id="ver-mas"><a href="#"><g:message code="post.show.comments.seeMore"/> </a></div>
+<div class="text-center ${filteredComments.size()>2?'':'hidden'}" id="ver-mas"><a href="#"><g:message code="post.show.comments.seeMore"/> </a></div>
 <sec:ifLoggedIn>
     <aside class="comments">
         <ul class="listComments">
