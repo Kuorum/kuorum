@@ -249,8 +249,6 @@ class NotificationService {
                 }
             }
 
-        }
-
     }
 
     private void syncSendDebateNotification(Post post){
@@ -297,26 +295,29 @@ class NotificationService {
         notGenericMail.add(post.owner)
         notGenericMail = notGenericMail.unique()
 
-        PostVote.findAllByPostAndUserNotInList(post, notGenericMail).each{PostVote postVote ->
-            DebateNotification debateNotification = new DebateNotification()
-            debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
-            debateNotification.isFirstDebate=isFirstDebate
-            debateNotification.post = post
-            debateNotification.debateWriter = debateOwner
-            debateNotification.kuorumUser = postVote.user
-            debateNotification.idDebate = idDebate
-            if (!debateNotification.save(flush: true)){
-                log.warn("No se ha salvado la notificación de debate para ${postVote.user} del post $post que se notificaba por haber impulsado el post")
-            }
-            notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
-            if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
-                kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
-                notificationUsers.clear()
+//        PostVote.findAllByPostAndUserNotInList(post, notGenericMail).each{PostVote postVote -> //No funciona el dynamicFinder NOT_IN_LIST. Lo transforma a IN_LIST
+        PostVote.findAllByPost(post).each{PostVote postVote ->
+            if (!notGenericMail.contains(postVote.user)){
+                DebateNotification debateNotification = new DebateNotification()
+                debateNotification.mailType = MailType.NOTIFICATION_DEBATE_USERS
+                debateNotification.isFirstDebate=isFirstDebate
+                debateNotification.post = post
+                debateNotification.debateWriter = debateOwner
+                debateNotification.kuorumUser = postVote.user
+                debateNotification.idDebate = idDebate
+                if (!debateNotification.save(flush: true)){
+                    log.warn("No se ha salvado la notificación de debate para ${postVote.user} del post $post que se notificaba por haber impulsado el post")
+                }
+                notificationUsers << new MailUserData(user:postVote.user, bindings:[:])
+                if (notificationUsers.size() >= BUFFER_NOTIFICATIONS_SIZE){
+                    kuorumMailService.sendDebateNotificationMailInterestedUsers(post, notificationUsers)
+                    notificationUsers.clear()
+                }
             }
         }
         //All interested people for his followings
         def interestedUsers = post.debates.collect{it.kuorumUser.followers}.flatten().unique()
-        interestedUsers.minus(notGenericMail)
+        interestedUsers = interestedUsers.minus(notGenericMail.collect{it.id})
 
         interestedUsers.each {ObjectId userId ->
             KuorumUser user = KuorumUser.load(userId)
