@@ -4,8 +4,8 @@
 <g:set var="dateCreated" value="${project.dateCreated}"/>
 <g:set var="description" value="${project.description}"/>
 <g:if test="${projectUpdate}">
-    <g:set var="imageToShow" value="${projectUpdate.image?:''}"/>
-    <g:set var="youtubeToShow" value="${projectUpdate.urlYoutube?:''}"/>
+    <g:set var="imageToShow" value="${projectUpdate.image?:projectUpdate.urlYoutube?'':project.image?:''}"/>
+    <g:set var="youtubeToShow" value="${projectUpdate.urlYoutube?:projectUpdate.image?'':project.urlYoutube?:''}"/>
     <g:set var="action" value="${g.message(code: 'projectEvent.header.projectAction.PROJECT_UPDATE')}"/>
     <g:set var="dateCreated" value="${projectUpdate.dateCreated}"/>
     <g:set var="description" value="${projectUpdate.description}"/>

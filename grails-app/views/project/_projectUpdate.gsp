@@ -12,7 +12,9 @@
         <span data-original-title="Actualización" rel="tooltip" data-placement="left" data-toggle="tooltip" class="fa icon2-update fa-2x"></span>
         <span class="sr-only"><g:message code="project.projectUpdate.label"/></span>
     </div>
-    <g:render template="projectUpdateMultimedia" model="[projectUpdate:projectUpdate]"/>
+    <g:set var="imageToShow" value="${projectUpdate.image?:projectUpdate.urlYoutube?'':project.image?:''}"/>
+    <g:set var="youtubeToShow" value="${projectUpdate.urlYoutube?:projectUpdate.image?'':project.urlYoutube?:''}"/>
+    <g:render template="/project/projectMultimedia" model="[hashtag:project.hashtag, projectImage:imageToShow, youtube:youtubeToShow]"/>
     <p>
         ${raw(projectUpdate.description.replaceAll('\n','</p><p>'))}
     </p>
