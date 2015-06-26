@@ -99,4 +99,11 @@ class DashboardController {
         redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
 
     }
+
+    def customPostMappingEmpleoJuvenil(){
+
+        Project project = Project.findByHashtag("#empleoJuvenil")
+        redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
+
+    }
 }

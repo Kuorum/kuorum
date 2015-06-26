@@ -11,7 +11,9 @@ class UrlMappings {
         //TODO Hacer esta �apa en BBDD
 //        name tempmoralLink: "/$customLink" (controller: "dashboard", action:"customPostMapping")
         name tempmoralLink: "/losdatoscuentan" (controller: "dashboard", action:"customPostMapping")
-        name tempmoralLink: "/losDatosCuentan" (controller: "dashboard", action:"customPostMapping")
+        "/losDatosCuentan" (controller: "dashboard", action:"customPostMapping")
+        "/empleoJuvenil" (controller: "dashboard", action:"customPostMappingEmpleoJuvenil")
+        "/empleojuvenil" (controller: "dashboard", action:"customPostMappingEmpleoJuvenil")
 
         //The URLs are duplicated because of the refactor of Law into Project. The name of aliases are changed.
         name home:             "/" (controller: "dashboard", action:"index")
