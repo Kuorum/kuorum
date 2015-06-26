@@ -36,7 +36,7 @@ class FileService {
         kuorumFile.url ="$rootUrl/$fileLocation/$kuorumFile.fileName"
         kuorumFile.save()
 
-        log.info("Subiendo nuevo fichero a ${kuorumFile.storagePath}")
+        log.info("Subiendo nuevo fichero a ${kuorumFile.storagePath}.  URL del exterior: ${kuorumFile.url}")
 
         def storagePathDirectory = new File(kuorumFile.storagePath)
         if (!storagePathDirectory.exists()) {
@@ -125,7 +125,7 @@ class FileService {
                     kuorumFile.storagePath = serverStoragePath
                     kuorumFile.url =finalUrl
                     kuorumFile.save()
-                    log.info("Se ha movido el fichero de '${org.absolutePath}' a '${dest.absolutePath}")
+                    log.info("Se ha movido el fichero de '${org.absolutePath}' a '${dest.absolutePath}. URL del exterior: ${kuorumFile.url}")
                 }else{
                     log.error("No se ha podido mover el fichero de '${org.absolutePath}' a '${dest.absolutePath}")
                 }
