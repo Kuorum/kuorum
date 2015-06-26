@@ -10,7 +10,7 @@
                 <g:if test="${projectEvent.projectAction == kuorum.project.ProjectAction.PROJECT_UPDATE}">
                     <g:set var="projectUpdate" value="${projectEvent.project.updates[projectEvent.projectUpdatePos]}"/>
                 </g:if>
-                <g:render template="/modules/projects/projectOnList" model="[project: projectEvent.project, projectUpdate:projectUpdate]"/>
+                <projectUtil:showProjectModule project="${projectEvent.project}" projectUpdate="${projectUpdate}"/>
             </li>
         </g:each>
     </ul>

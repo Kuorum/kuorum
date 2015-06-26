@@ -7,6 +7,8 @@ import kuorum.core.model.solr.SolrPost
 import kuorum.core.model.solr.SolrProject
 import kuorum.post.Post
 import kuorum.project.Project
+import kuorum.project.ProjectUpdate
+import kuorum.project.ProjectVote
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import org.bson.types.ObjectId
@@ -18,6 +20,7 @@ class ProjectTagLib {
     def postService
     def cluckService
     def postVoteService
+    def projectService
     RegionService regionService
     KuorumUserService kuorumUserService
     static namespace = "projectUtil"
@@ -120,5 +123,16 @@ class ProjectTagLib {
                 <span class="fa ${cssClass} fa-lg" data-toggle="tooltip" data-placement="bottom" title="" rel="tooltip" data-original-title="${regionTypeText}"></span>
                 <span class="sr-only">${regionTypeText}</span>
         """
+    }
+
+    def showProjectModule={attrs->
+        Project project = attrs.project
+        ProjectUpdate projectUpdate =attrs.projectUpdate?:null
+        ProjectVote userVote = null
+        if ((springSecurityService.isLoggedIn()) && (SpringSecurityUtils.ifAnyGranted('ROLE_USER, ROLE_ADMIN, ROLE_PREMIUM, ROLE_POLITICIAN'))){
+            KuorumUser user = springSecurityService.getCurrentUser();
+            userVote = projectService.findProjectVote(project, user);
+        }
+        out << render (template:'/modules/projects/projectOnList', model: [project: project,projectUpdate:projectUpdate, userVote:userVote])
     }
 }

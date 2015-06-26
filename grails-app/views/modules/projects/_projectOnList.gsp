@@ -28,6 +28,6 @@
         <g:render template="/project/projectMultimedia" model="[hashtag:project.hashtag, projectImage:imageToShow, youtube:youtubeToShow]"/>
         <g:render template="/modules/projects/projectOnListMoreInfo" model="[project:project]"/>
         <p><kuorumDate:showShortedText text="${description}" numChars="170"/></p>
-        <g:render template="/modules/projects/projectOnListFooter" model="[project:project]"/>
+        <g:render template="/modules/projects/projectOnListFooter" model="[project:project, userVote:userVote]"/>
     </div>
 </article>

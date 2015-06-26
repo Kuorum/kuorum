@@ -9,7 +9,7 @@
             </li>
         </ul>
         <div class="col-xs-7 col-sm-7 col-md-6 voting">
-            <g:render template="/project/projectVotesModuleVotingButtons" model="[project:project, iconSmall:true, header:Boolean.TRUE]"/>
+            <g:render template="/project/projectVotesModuleVotingButtons" model="[project:project, userVote:userVote, iconSmall:true, header:Boolean.TRUE]"/>
         </div>
     </div>
 </footer>

@@ -8,7 +8,7 @@
         %{--OPEN PROJECT--}%
         <sec:ifLoggedIn>
             <projectUtil:ifUserAvailableForNormalVoting project="${project}">
-                <g:render template="/project/projectVotesModuleVotingButtons_normalUser" model="[project:project, cssIconSize:cssIconSize, userVote:userVote, header:header, iconSmall:iconSmall]"/>
+                <g:render template="/project/projectVotesModuleVotingButtons_normalUser" model="[project:project, userVote:userVote, cssIconSize:cssIconSize, userVote:userVote, header:header, iconSmall:iconSmall]"/>
             </projectUtil:ifUserAvailableForNormalVoting>
             <projectUtil:elseUserAvailableForNormalVoting>
                 <g:if test="${basicPersonalDataCommand}">
