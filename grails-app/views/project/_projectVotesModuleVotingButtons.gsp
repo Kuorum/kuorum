@@ -32,7 +32,10 @@
         <span class="closed">
             <g:message code="project.subHeader.closedProject"/>
             <projectUtil:ifAllowedToUpdateProject project="${project}">
-                <a href="#"><span class="fa icon2-update fa-lg"></span></a>
+                <g:link mapping="projectUpdate" params="${project.encodeAsLinkProperties()}" class="update">
+                    <span class="fa icon2-update fa-lg"></span>
+                    <span class="${header?'sr-only':''}"><g:message code="project.vote.updateProject"/></span>
+                </g:link>
             </projectUtil:ifAllowedToUpdateProject>
         </span>
     </g:else>

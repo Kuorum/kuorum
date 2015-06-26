@@ -15,7 +15,11 @@
             <g:message code="project.subHeader.closedProject.seeMoreProjects" encodeAs="raw"/>
         </g:link>
         <projectUtil:ifAllowedToUpdateProject project="${project}">
-            <div class="action text-center"><a href="#" class="text-center"><span class="fa icon2-update fa-3x"></span></a></div>
+            <div class="action text-center">
+                <g:link mapping="projectUpdate" params="${project.encodeAsLinkProperties()}" class="text-center">
+                    <span class="fa icon2-update fa-3x"></span>
+                </g:link>
+            </div>
         </projectUtil:ifAllowedToUpdateProject>
     </g:else>
     <g:if test="${social}">
