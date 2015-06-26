@@ -44,3 +44,12 @@ dbDest.post.find({multimedia:{$exists:1}}).forEach(function(post) {
         dbDest.post.update({_id:post._id},{$set:{'multimedia.url':URL}})
     }
 })
+
+dbDest.kuorumFile.find({url:/^http:/}).forEach(function(file) {
+    if (file.url != undefined && file.url.indexOf("http://")>=0){
+        var URL = file.url.substring(7);
+        URL = "https://"+URL;
+        print(URL);
+        dbDest.kuorumFile.update({_id:file._id},{$set:{'url':URL}})
+    }
+})
