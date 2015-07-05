@@ -29,15 +29,21 @@
         </sec:ifNotLoggedIn>
     </g:if> %{--FIN DE LA LEY ABIERTA--}%
     <g:else> %{-- LEY CERRADA--}%
+        <ul>
+        <li>
         <span class="closed">
             <g:message code="project.subHeader.closedProject"/>
+        </span>
+        </li>
+        <li>
             <projectUtil:ifAllowedToUpdateProject project="${project}">
                 <g:link mapping="projectUpdate" params="${project.encodeAsLinkProperties()}" class="update">
                     <span class="fa icon2-update fa-lg"></span>
                     <span class="${header?'sr-only':''}"><g:message code="project.vote.updateProject"/></span>
                 </g:link>
             </projectUtil:ifAllowedToUpdateProject>
-        </span>
+        </li>
+        </ul>
     </g:else>
     %{--<g:if test="${project.availableStats}">--}%
         %{--<g:link mapping="projectStats" params="${project.encodeAsLinkProperties()}" class="hidden-xs">--}%
