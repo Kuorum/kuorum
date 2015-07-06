@@ -16,7 +16,7 @@
             </g:link>
         </li>
         <li>
-        <g:link mapping="projectVoteNoTotalUser" params="${project.encodeAsLinkProperties()}" role="button" class="design">
+        <g:link mapping="projectVoteNoTotalUser" params="${project.encodeAsLinkProperties()}" role="button" class="propose">
             <span class="fa fa-lightbulb-o ${cssIconSize}"></span> <span class="sr-only"><g:message code="project.vote.newPost"/></span>
         </g:link>
         </li>

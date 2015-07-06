@@ -136,6 +136,10 @@ label {font-weight: normal;}
 #sign .voting > ul > li > a.update:hover,
 #sign .voting > ul > li > a.update:focus,
 #sign .voting > ul > li > a.update:active {color: #ff9431;}
+#sign .voting > ul > li > a.propose {color: #ffffff; background-color: #ff9431;}
+#sign .voting > ul > li > a.propose:hover,
+#sign .voting > ul > li > a.propose:focus,
+#sign .voting > ul > li > a.propose:active {color: #ffffff; background-color: #f28d2f;}
 
 p {margin: 0 0 20px 0;}
 .help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic; margin: -10px 0 0 0;}
@@ -2012,7 +2016,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .voting > ul > li {list-style: none; display: inline-block; margin-right: 4px;}
 .voting > ul > li:last-child {margin: 0;}
 .voting > ul > li > a > span {display: block; margin-bottom: 5px;}
-.voting > ul > li > a {font-size: 13px; font-size: 1.3rem; width: 72px; height: 60px; margin: 0 !important; padding: 7px 0 0 0 !important; border-radius: 4px !important; display: block;}
+.voting > ul > li > a {font-size: 13px; font-size: 1.3rem; width: 72px; height: 68px; margin: 0 !important; padding: 7px 0 0 0 !important; border-radius: 4px !important; display: block;}
 .voting > ul > li > a.active {color: #20a2ea !important;}
 .voting > ul > li > a.design.active,
 .voting > ul > li > a.update.active {color: #ff9431 !important;}
@@ -3002,6 +3006,9 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 #info-sup-scroll .voting > ul > li > a:hover,
 #info-sup-scroll .voting > ul > li > a:focus,
 #info-sup-scroll .voting > ul > li > a:active {text-decoration: none; color: #20a2ea;}
+#info-sup-scroll .voting > ul > li > a.propose:hover,
+#info-sup-scroll .voting > ul > li > a.propose:focus,
+#info-sup-scroll .voting > ul > li > a.propose:active,
 #info-sup-scroll .voting > ul > li > a.design:hover,
 #info-sup-scroll .voting > ul > li > a.design:focus,
 #info-sup-scroll .voting > ul > li > a.design:active,

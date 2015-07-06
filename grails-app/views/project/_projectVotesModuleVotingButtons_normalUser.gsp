@@ -21,7 +21,7 @@
     </li>
     <projectUtil:ifAllowedToAddPost project="${project}">
         <li>
-            <g:link mapping="postCreate" params="${project.encodeAsLinkProperties()}" role="button" class="update" data-projectId="${project.id}">
+            <g:link mapping="postCreate" params="${project.encodeAsLinkProperties()}" role="button" class="propose" data-projectId="${project.id}">
                 <span class="fa fa-lightbulb-o ${cssIconSize}"></span>
                 <span class="${header?'sr-only':''}"><g:message code="project.vote.newPost"/></span>
             </g:link>

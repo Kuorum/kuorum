@@ -18,7 +18,7 @@
         </a>
     </li>
     <li>
-        <a role="button" data-toggle="modal" data-target="#registro" href="#" class="design">
+        <a role="button" data-toggle="modal" data-target="#registro" href="#" class="propose">
             <span class="fa fa-lightbulb-o ${cssIconSize}"></span>
             <span class="${header?'sr-only':''}"><g:message code="project.vote.newPost"/></span>
         </a>

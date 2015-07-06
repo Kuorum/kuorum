@@ -29,7 +29,7 @@
                 <a href="#" role="button" data-voteType="${kuorum.core.model.VoteType.ABSTENTION}"><span class="icon-neutral fa-3x"></span><g:message code="project.vote.abs"/></a>
             </li>
             <li>
-                <a href="#" role="button" data-voteType="" class="design"><span class="fa fa-lightbulb-o fa-3x"></span><g:message code="project.vote.newPost"/></a>
+                <a href="#" role="button" data-voteType="" class="propose"><span class="fa fa-lightbulb-o fa-3x"></span><g:message code="project.vote.newPost"/></a>
             </li>
         </ul>
     </div>
