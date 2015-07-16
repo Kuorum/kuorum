@@ -129,7 +129,7 @@ label {font-weight: normal;}
 #sign .voting > ul > li > a {width: 56px; color: #bcbcbc; font-size: 12px; font-size: 1.2rem;}
 #sign .voting > ul > li > a:hover,
 #sign .voting > ul > li > a:focus,
-#sign .voting > ul > li > a:active {color: #20a2ea; text-decoration: none;}
+#sign .voting > ul > li > a:active {color: #ff9431; text-decoration: none;}
 #sign .voting > ul > li > a.design:hover,
 #sign .voting > ul > li > a.design:focus,
 #sign .voting > ul > li > a.design:active,
@@ -1861,7 +1861,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.info .kakareo footer .voting > ul > li > a > span {display: inline;}
 .kakareo.post footer .voting > ul > li > a:hover,
 .kakareo.post footer .voting > ul > li > a:focus,
-.kakareo.post footer .voting > ul > li > a:active {color: #20a2ea;}
+.kakareo.post footer .voting > ul > li > a:active {color: #ff9431;}
 .kakareo.post footer .voting > ul > li > a.design:hover,
 .kakareo.post footer .voting > ul > li > a.design:active,
 .kakareo.post footer .voting > ul > li > a.design:focus,
@@ -2017,7 +2017,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .voting > ul > li:last-child {margin: 0;}
 .voting > ul > li > a > span {display: block; margin-bottom: 5px;}
 .voting > ul > li > a {font-size: 13px; font-size: 1.3rem; width: 72px; height: 68px; margin: 0 !important; padding: 7px 0 0 0 !important; border-radius: 4px !important; display: block;}
-.voting > ul > li > a.active {color: #20a2ea !important;}
+.voting > ul > li > a.active {color: #ff9431 !important;}
 .voting > ul > li > a.design.active,
 .voting > ul > li > a.update.active {color: #ff9431 !important;}
 .voting .changeOpinion {display: block; font-size: 16px; font-size: 1.6rem; padding: 20px 0; display: none;}
@@ -3470,7 +3470,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   .btn.btn-file {font-size: 17px !important; font-size: 1.7rem !important;}
   .navbar-collapse.collapse.in {border-bottom: 0;}
   #header h1 {margin: 0;}
-  .navbar-form {width: 245px; margin: 4px 4px 4px 4%;}
+  .navbar-form {width: 225px; margin: 4px 4px 4px 4%;}
   .nav > li > .navbar-link {background-color: transparent; border-bottom: 0px solid #fff; padding: 10px; height: 48px;}
   .nav > li > .navbar-link:hover,
   .nav > li > .navbar-link:focus {background-color: transparent; color: #ff9431;}
@@ -3758,6 +3758,9 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #info-sup-scroll .voting > .closed {font-size: 2px; font-size: 2.2rem; line-height: 1.4;}
   #info-sup-scroll .voting {font-size: 12px; font-size: 1.2rem; float: right;}
   #info-sup-scroll .voting > ul > li > a {font-size: 12px; font-size: 1.2rem;}
+  #info-sup-scroll .voting > ul > li > a:focus,
+  #info-sup-scroll .voting > ul > li > a:hover,
+  #info-sup-scroll .voting > ul > li > a:active {color:#ff9431;}
   .infoVotes > li, .infoVotes > span {width: 70px; height: 33px; margin-left: 5px; font-size: 15px;  font-size: 1.5rem; padding: 6px;}
   #info-sup-scroll .infoVotes > li,
   #info-sup-scroll .infoVotes > span {padding: 6px; width: 78px; height: 33px; font-size: 16px; font-size: 1.6rem;}
@@ -3774,7 +3777,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #detailsInfoVotes .icons {margin: 0;}
 
   .navbar-brand {width: 170px; height: 47px; margin-top: -4px;}
-  .navbar-form {width: 340px; margin: 5px 4px 4px 12%;}
+  .navbar-form {width: 320px; margin: 5px 4px 4px 12%;}
 
   .nav > li > .navbar-link {padding-bottom: 15px;}
   .nav > li > .navbar-link.user-area {padding-bottom: 9px;}
@@ -3938,7 +3941,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
   #karma {right: 2.8%;}
   .boxes.performance a.improve {font-size: 24px; font-size: 2.4rem;}
   #info-sup-scroll .laley {font-size: 25px; font-size: 2.5rem;}
-  .navbar-form {margin: 5px 4px 4px 22%;}
+  .navbar-form {margin: 5px 4px 4px 18%;}
   .btn {margin: 6px 0 0 8px !important;}
   .container-fluid.userprofile #adminActions{top: 15px;}
   .kakareo footer {font-size: 14px; font-size: 1.4rem;}

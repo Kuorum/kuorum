@@ -18,6 +18,7 @@ class NavigationTagLib {
             [mappingName: "discoverPoliticians",  onlyLogged:false],
             [mappingName: "discoverRecentPosts",  onlyLogged:false],
             [mappingName: "discoverRecommendedPosts",  onlyLogged:false],
+            [mappingName: "funnelSuccessfulStories",  onlyLogged:false],
             [mappingName: "home", onlyLogged:true],
             [mappingName: "footerWhatIsKuorum", onlyLogged:false]
     ]

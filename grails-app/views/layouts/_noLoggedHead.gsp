@@ -2,9 +2,16 @@
 <ul class="nav navbar-nav navbar-right">
 
     <li class="underline">
+        <g:link mapping="funnelSuccessfulStories" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "funnelSuccessfulStories")}" >
+        %{--<span class="fa fa-briefcase fa-lg"></span>--}%
+            <span class="text-normalize"><g:message code="head.noLogged.areYouAPolitician"/></span>
+        </g:link>
+    </li>
+
+    <li class="underline">
         <g:link mapping="discoverProjects" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "discoverProjects")}">
             <span class="fa fa-briefcase fa-lg"></span>
-            <span class="visible-xs"><g:message code="search.filters.SolrType.PROJECT"/></span>
+            <span class="visible"><g:message code="search.filters.SolrType.PROJECT.short"/></span>
         </g:link>
     </li>
 
