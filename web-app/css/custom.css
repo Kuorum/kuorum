@@ -2031,6 +2031,16 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.vote ul.social li a:active,
 .boxes.vote ul.social li a:focus {color: #f28d2f !important;}
 
+.boxes.vote div.socialBlue {text-align: center; margin-top: 20px !important; margin-bottom: 20px !important;}
+.boxes.vote ul.socialBlue {margin: 0; padding: 0;}
+.boxes.vote ul.socialBlue li {margin: 0 15% 0 0;}
+.boxes.vote ul.socialBlue li:last-child {margin: 0;}
+.boxes.vote ul.socialBlue li a {color: #20a2ea !important;}
+.boxes.vote ul.socialBlue li a:hover,
+.boxes.vote ul.socialBlue li a:active,
+.boxes.vote ul.socialBlue li a:focus {color: #2e6bab !important;}
+
+
 .voting .vote {margin: 0 0 10px 0 !important; font-size: 32px; font-size: 3.2rem; line-height: 0.7; height: 72px; padding: 14px !important;}
 .voting .vote.disabled {padding: 15px !important;}
 .voting .vote small {font-weight: normal; font-size: 16px; font-size: 1.6rem;}
@@ -2099,6 +2109,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 }
 .boxes.vote.drive .btn.btn-lg.disabled {line-height: 37px !important;}
 .boxes.vote.drive .btn .fa {position: absolute; top: 15px; left: 5%;}
+.boxes.vote.drive .socialBlue {margin-bottom: 20px !important;}
 .boxes.vote.drive .social {margin-bottom: 20px !important;}
 .boxes.vote.drive .social li {font-size: 16px; font-size: 1.6rem;}
 
