@@ -2026,10 +2026,10 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.vote ul.social {margin: 0; padding: 0;}
 .boxes.vote ul.social li {margin: 0 15% 0 0;}
 .boxes.vote ul.social li:last-child {margin: 0;}
-.boxes.vote ul.social li a {color: #bcbcbc !important;}
+.boxes.vote ul.social li a {color: #ff9431 !important;}
 .boxes.vote ul.social li a:hover,
 .boxes.vote ul.social li a:active,
-.boxes.vote ul.social li a:focus {color: #20a2ea !important;}
+.boxes.vote ul.social li a:focus {color: #f28d2f !important;}
 
 .voting .vote {margin: 0 0 10px 0 !important; font-size: 32px; font-size: 3.2rem; line-height: 0.7; height: 72px; padding: 14px !important;}
 .voting .vote.disabled {padding: 15px !important;}
