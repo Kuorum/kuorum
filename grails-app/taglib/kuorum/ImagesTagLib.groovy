@@ -51,16 +51,6 @@ out << """
 """
     }
 
-    def generateYoutubeImageUrl={attrs->
-        KuorumFile youtube = attrs.youtube
-        Boolean big = attrs.big?:false
-        String screenShot = "mqdefault.jpg" // Si es de alta resolucion se podría poner maxresdefault.jpg
-        if (big){
-            screenShot = "maxresdefault.jpg"
-        }
-        out << "https://img.youtube.com/vi/${youtube.fileName}/${screenShot}"
-    }
-
     def loggedUserImgSrc={attrs ->
         if (springSecurityService.isLoggedIn()){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)

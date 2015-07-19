@@ -33,6 +33,7 @@ class KuorumFile {
     String fileName
     String originalName
     String url
+    String urlThumb
     FileGroup fileGroup
     FileType fileType = FileType.IMAGE
 

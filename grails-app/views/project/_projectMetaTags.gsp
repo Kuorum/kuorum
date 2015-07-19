@@ -25,9 +25,9 @@
     <meta property="og:image" content="${project.image?.url}" />
 </g:if>
 <g:if test="${project.urlYoutube && project.urlYoutube.fileType == kuorum.core.FileType.YOUTUBE}">
-    <meta property="og:image" content="${image.generateYoutubeImageUrl(youtube:project.urlYoutube, big:true)}" />
-    <meta itemprop="image" content="${image.generateYoutubeImageUrl(youtube:project.urlYoutube, big:true)}">
-    <meta name="twitter:image:src" content="${image.generateYoutubeImageUrl(youtube:project.urlYoutube, big:true)}">
+    %{--<meta property="og:image" content="${project.urlYoutube.urlThumb}" />--}%
+    %{--<meta itemprop="image" content="${project.urlYoutube.urlThumb}">--}%
+    %{--<meta name="twitter:image:src" content="${project.urlYoutube.urlThumb}">--}%
 
 </g:if>
 
