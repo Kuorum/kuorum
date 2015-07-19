@@ -1099,7 +1099,7 @@ var youtubeHelper={
             var metaTagName = this.metaTags[i];
             var $metaTag = $("meta["+metaTagName+"]");
             var imageUrl = $metaTag.attr("content");
-            if (imageUrl.indexOf("img.youtube.com/vi/")>=0){
+            if (imageUrl!=undefined && imageUrl.indexOf("img.youtube.com/vi/")>=0){
                 $("<img data-meta-tag-name=\""+metaTagName+"\"/>")
                     .on('load', function() {
                         //ÑAPA Porque youtube no devuelve error si no una imagen gris
