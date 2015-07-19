@@ -792,6 +792,7 @@ $(document).ready(function() {
                 $("time.timeago").timeago();
             });
     }
+    youtubeHelper.replaceNonExistImage();
 
 });
 
@@ -1088,6 +1089,42 @@ function readLater(readLaterElement){
             $("section.boxes.guay.pending article[data-cluck-postId='"+postId+"']").parent().remove();
         }
     });
+}
+
+var youtubeHelper={
+
+    metaTags :["property='og:image'","itemprop=image", "name='twitter:image:src'"],
+    replaceNonExistImage:function(){
+        for (i = 0; i < this.metaTags.length; i++) {
+            var metaTagName = this.metaTags[i];
+            var $metaTag = $("meta["+metaTagName+"]");
+            var imageUrl = $metaTag.attr("content");
+            if (imageUrl.indexOf("img.youtube.com/vi/")>=0){
+                $("<img data-meta-tag-name=\""+metaTagName+"\"/>")
+                    .on('load', function() {
+                        //ÑAPA Porque youtube no devuelve error si no una imagen gris
+                        if (this.width == 120 && this.height == 90){
+                            var $metaTag = $("meta["+$(this).attr("data-meta-tag-name")+"]");
+                            var imageUrl = $metaTag.attr("content");
+                            var newImageUrl = youtubeHelper.replaceYoutubeImageType(imageUrl, "0.jpg");
+                            $metaTag.attr("content",newImageUrl);
+                        }
+                    }
+                )
+                    .on('error', function(response) { console.log("error loading image"); })
+                    .attr("src", imageUrl)
+                ;
+            }
+        }
+    },
+    replaceYoutubeImageType:function(completeUrl, newImageName){
+        var resultUrl = completeUrl.substring(0, completeUrl.lastIndexOf('/'));
+        resultUrl = resultUrl +"/" +newImageName;
+        return resultUrl;
+    }
+
+
+
 }
 
 $(document).ajaxStop(function () {
