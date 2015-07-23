@@ -23,9 +23,9 @@
     <meta name="twitter:image:src" content="${post.multimedia?.url}">
 </g:if>
 <g:if test="${post.multimedia && post.multimedia.fileType == kuorum.core.FileType.YOUTUBE}">
-    <meta property="og:image" content="${image.generateYoutubeImageUrl(youtube:post.multimedia, big: true)}" />
-    <meta itemprop="image" content="${image.generateYoutubeImageUrl(youtube:post.multimedia, big: true)}" />
-    <meta name="twitter:image:src" content="${image.generateYoutubeImageUrl(youtube:post.multimedia, big: true)}">
+    <meta property="og:image" content="${post.multimedia.urlThumb}" />
+    <meta itemprop="image" content="${post.multimedia.urlThumb}" />
+    <meta name="twitter:image:src" content="${post.multimedia.urlThumb}">
 </g:if>
 <meta property="og:description" content="${post.title}" />
 <meta property="og:site_name" content="${message(code: 'kuorum.name')}" />

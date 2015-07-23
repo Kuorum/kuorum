@@ -7,6 +7,8 @@ import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
 
+import javax.servlet.http.HttpServletResponse
+
 @Transactional
 class FileService {
 
@@ -28,12 +30,14 @@ class FileService {
         kuorumFile.originalName = fileName
         kuorumFile.storagePath = "TEMPORAL"
         kuorumFile.url ="http://TEMPORAL.com"
+        kuorumFile.urlThumb = kuorumFile.url
         kuorumFile.save()//The ID is necessary
 
         def fileLocation = generatePath(kuorumFile)
         kuorumFile.fileName = "${kuorumFile.id}.${getExtension(fileName)}".toLowerCase()
         kuorumFile.storagePath = "$temporalPath/$fileLocation"
         kuorumFile.url ="$rootUrl/$fileLocation/$kuorumFile.fileName"
+        kuorumFile.urlThumb = kuorumFile.url
         kuorumFile.save()
 
         log.info("Subiendo nuevo fichero a ${kuorumFile.storagePath}.  URL del exterior: ${kuorumFile.url}")
@@ -124,6 +128,7 @@ class FileService {
                     kuorumFile.temporal = Boolean.FALSE
                     kuorumFile.storagePath = serverStoragePath
                     kuorumFile.url =finalUrl
+                    kuorumFile.urlThumb = finalUrl
                     kuorumFile.save()
                     log.info("Se ha movido el fichero de '${org.absolutePath}' a '${dest.absolutePath}. URL del exterior: ${kuorumFile.url}")
                 }else{
@@ -149,6 +154,7 @@ class FileService {
     }
     public KuorumFile createYoutubeKuorumFile(String youtubeUrl, KuorumUser user){
         def fileName = youtubeUrl.decodeYoutubeName()
+        String urlThumb = this.recoverBestYoutubeQuality(fileName)
         KuorumFile multimedia = new KuorumFile(
                 local:Boolean.FALSE,
                 temporal:Boolean.FALSE,
@@ -157,6 +163,7 @@ class FileService {
                 fileName:fileName,
                 originalName: fileName,
                 url:youtubeUrl,
+                urlThumb: urlThumb,
                 fileGroup:FileGroup.YOUTUBE,
                 fileType:FileType.YOUTUBE
         )
@@ -164,7 +171,28 @@ class FileService {
         multimedia.save()
     }
 
-    /**
+    private static final List<String> YOUTUBE_THUMBS=["maxresdefault.jpg","mqdefault.jpg", "0.jpg"]
+    String recoverBestYoutubeQuality(String youtubeId) {
+        String baseUrl= "https://img.youtube.com/vi/${youtubeId}/";
+        for (String thumbName : YOUTUBE_THUMBS){
+            String thumbUrl = baseUrl + thumbName;
+            if (checkYoutubeThumb(thumbUrl)){
+                return thumbUrl;
+            }else{
+                log.info("No se ha encontrado imagen ${thumbUrl} asociada al video de youtube")
+            }
+        }
+        throw new KuorumException("No existe imagen de thumb para este video de youtube")
+    }
+
+    private boolean checkYoutubeThumb(String urlString){
+        URL u = new URL(urlString);
+        HttpURLConnection huc =  (HttpURLConnection)  u.openConnection();
+        huc.setRequestMethod("GET");
+        huc.connect();
+        return huc.getResponseCode() == HttpServletResponse.SC_OK;
+    }
+/**
      * Deletes all temporal files uploaded by the user @user.
      *
      * Deletes on DB and on file system
