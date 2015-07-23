@@ -17,7 +17,7 @@
                             <div class="modal-body">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="${g.message(code: 'default.close')}"><span aria-hidden="true" class="fa fa-times"></span><span class="sr-only"><g:message code="default.close"/> </span></button>
                                 <h3 class="sr-only modal-title" id="video"><g:message code="landingPage.youtube.label"/> </h3>
-                                <iframe id="vimeoplayer" class="youtube" itemprop="video" src="//player.vimeo.com/video/119323866?api=1&amp;player_id=vimeoplayer&amp;autoplay=0&amp;color=ff9933&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                <iframe id="vimeoplayer" class="youtube" itemprop="video" src="//player.vimeo.com/video/134306325?api=1&amp;player_id=vimeoplayer&amp;autoplay=0&amp;color=ff9933&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
