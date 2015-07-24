@@ -3,12 +3,11 @@
 <head>
     <title>${post.title}</title>
     <meta name="layout" content="columnCFloatingLayout">
-
+    <g:render template="postMetaTags" model="[post:post]"/>
 </head>
 
 
 <content tag="mainContent">
-    <g:render template="postMetaTags" model="[post:post]"/>
     <article class="kakareo post" itemscope itemtype="http://schema.org/Article" role="article" data-cluck-postId="${post.id}">
         <g:render template="/cluck/cluckMenuEditPost" model="[post:post]"/>
 
