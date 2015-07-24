@@ -3,9 +3,11 @@
 <head>
     <title>${post.title}</title>
     <meta name="layout" content="columnCFloatingLayout">
-    <g:render template="postMetaTags" model="[post:post]"/>
 </head>
 
+<content tag="metaData">
+    <g:render template="postMetaTags" model="[post:post]"/>
+</content>
 
 <content tag="mainContent">
     <article class="kakareo post" itemscope itemtype="http://schema.org/Article" role="article" data-cluck-postId="${post.id}">
