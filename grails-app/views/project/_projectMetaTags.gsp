@@ -26,6 +26,7 @@
 </g:if>
 <g:if test="${project.urlYoutube && project.urlYoutube.fileType == kuorum.core.FileType.YOUTUBE}">
     <meta property="og:image" content="${project.urlYoutube.urlThumb}" />
+    <meta property="og:video" content="http://www.youtube.com/v/${project.urlYoutube.fileName}?version=3&amp;autohide=1"/>
     <meta itemprop="image" content="${project.urlYoutube.urlThumb}">
     <meta name="twitter:image:src" content="${project.urlYoutube.urlThumb}">
 
