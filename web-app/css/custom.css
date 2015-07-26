@@ -1141,7 +1141,7 @@ video#bgvid {
 /* este es para hacer visible lo ya cargado */
 #ver-mas {
   border-top: solid 1px #dadada;
-  padding: 10px 0 0;
+  padding: 10px 0 25px;
 }
 #ver-mas a {color: #545454;}
 #ver-mas a:hover,
