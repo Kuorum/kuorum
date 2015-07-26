@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><g:layoutTitle default="${g.message(code:"layout.head.title.default")}"/></title>
+    <meta property="og:site_name" content="${g.message(code:"kuorum.name")}"/>
     <meta name="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta name="Keywords" content="${g.message(code:"layout.head.meta.keywords")}">
     <meta name="dcterms.rightsHolder" content="Kuorum.org">
@@ -126,8 +127,8 @@
                 </div>
                 <div class="col" id="modalVictoryDefender">
                     <span class="fdoDiagonal"></span>
-                    <div itemtype="http://schema.org/Person" itemscope class="user">
-                        <img itemprop="image" class="user-img big" alt="nombre" src="">
+                    <div class="user">
+                        <img class="user-img big" alt="nombre" src="">
                         <span class="name" itemprop="name">Nombre usuario</span>
                         <span class="what">se ha comprometido a</span>
                         <span class="action">llevarla al congreso</span>

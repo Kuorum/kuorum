@@ -24,6 +24,7 @@
 </g:if>
 <g:if test="${post.multimedia && post.multimedia.fileType == kuorum.core.FileType.YOUTUBE}">
     <meta property="og:image" content="${post.multimedia.urlThumb}" />
+    <meta property="og:video" content="http://www.youtube.com/v/${post.multimedia.fileName}?version=3&amp;autohide=1"/>
     <meta itemprop="image" content="${post.multimedia.urlThumb}" />
     <meta name="twitter:image:src" content="${post.multimedia.urlThumb}">
 </g:if>

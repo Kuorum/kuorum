@@ -3,9 +3,10 @@
 <head>
     <title>${project.shortName}</title>
     <meta name="layout" content="columnCLayout">
-    <g:render template="projectMetaTags" model="[project:project]"/>
 </head>
-
+<content tag="metaData">
+    <g:render template="projectMetaTags" model="[project:project]"/>
+</content>
 
 <content tag="subHeader">
     <g:render template="/project/projectSubHeader" model="[project: project, projectStats:projectStats, regionStats:regionStats, userVote:userVote]"/>
