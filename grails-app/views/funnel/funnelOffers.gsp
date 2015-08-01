@@ -16,17 +16,18 @@
                                 <div class="options-wrapper">
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.BASIC_YEARLY}" checked>
-                                            <funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.BASIC_YEARLY.price}"/>
-                                            <g:message code="funnel.successfulStories.offers.month"/><br/>
-                                            <g:message code="funnel.successfulStories.offers.condition"/>
+                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.BASIC_MONTHLY}" checked>
+                                            %{--<funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.BASIC_MONTHLY.price}"/>--}%
+                                            %{--<g:message code="funnel.successfulStories.offers.month"/><br/>--}%
+                                            <br/><g:message code="funnel.successfulStories.offers.month.trial"/>
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.BASIC_MONTHLY}">
-                                            <funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.BASIC_MONTHLY.price}"/>
-                                            <g:message code="funnel.successfulStories.offers.month"/>
+                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.BASIC_YEARLY}">
+                                            <funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.BASIC_YEARLY.price}"/>
+                                            <g:message code="funnel.successfulStories.offers.month"/><br/>
+                                            <g:message code="funnel.successfulStories.offers.condition"/>
                                         </label>
                                     </div>
                                 </div>
