@@ -45,7 +45,7 @@
                     <formUtil:input command="${command}" field="email" labelCssClass="sr-only" showCharCounter="false"/>
                 </div>
                 <div class="form-group">
-                    <formUtil:password command="${command}" field="password" />
+                    <formUtil:password command="${command}" field="password"/>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="${g.message(code:'funnel.payment.button')}" class="btn btn-lg">

@@ -14,20 +14,20 @@
                             <h3><g:message code="funnel.successfulStories.offers.basic.name"/></h3>
                             <g:form mapping="funnelPay" method="post" name="contratar-basica" role="form">
                                 <div class="options-wrapper">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.BASIC_MONTHLY}" checked>
+                                    %{--<div class="radio">--}%
+                                        %{--<label>--}%
+                                            %{--<input type="radio" name="offerType" value="${kuorum.core.model.OfferType.BASIC_MONTHLY}" checked>--}%
                                             %{--<funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.BASIC_MONTHLY.price}"/>--}%
                                             %{--<g:message code="funnel.successfulStories.offers.month"/><br/>--}%
-                                            <br/><g:message code="funnel.successfulStories.offers.month.trial"/>
-                                        </label>
-                                    </div>
-                                    <div class="radio">
+                                            %{--<br/><g:message code="funnel.successfulStories.offers.month.trial"/>--}%
+                                        %{--</label>--}%
+                                    %{--</div>--}%
+                                    <div class="radio noprice">
                                         <label>
-                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.BASIC_YEARLY}">
-                                            <funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.BASIC_YEARLY.price}"/>
-                                            <g:message code="funnel.successfulStories.offers.month"/><br/>
-                                            <g:message code="funnel.successfulStories.offers.condition"/>
+                                            <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.BASIC_YEARLY}" checked class="hidden">
+                                            %{--<funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.BASIC_YEARLY.price}"/>--}%
+                                            <span><g:message code="funnel.successfulStories.offers.free"/></span>
+                                            %{--<g:message code="funnel.successfulStories.offers.condition"/>--}%
                                         </label>
                                     </div>
                                 </div>
@@ -76,7 +76,9 @@
                                         <label>
                                             <input type="radio" name="offerType" value="${kuorum.core.model.OfferType.CITY_HALL}" checked class="hidden">
                                         <funnel:formatAsElegantPrice value="${kuorum.core.model.OfferType.CITY_HALL.price}"/>
-                                        <g:message code="funnel.successfulStories.offers.year"/>
+                                        <g:message code="funnel.successfulStories.offers.month"/>
+                                        <br/>
+                                        <g:message code="funnel.successfulStories.offers.condition"/>
                                         </label>
                                     </div>
                                 </div>

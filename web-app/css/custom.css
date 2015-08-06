@@ -2282,6 +2282,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 .promo-options > div > form ul {margin: 30px 0;}
 .promo-options > div > form ul li {margin-bottom: 10px;}
+.promo-options > div > form .radio.noprice {margin: 0 0 0px 0; padding-left: 0px; text-align: center;}
 .promo-options > div > form .radio {margin: 0 0 20px 0; padding-left: 50px;}
 .promo-options > div > form .radio:only-child {margin-top: 40px;}
 .promo-options > div > form .radio label {font-size: 19px; font-size: 1.9rem; line-height: 1.2;}
@@ -2289,7 +2290,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .promo-options > div > form .radio label > span {font-size: 35px; font-size: 3.5rem;}
 .promo-options > div > form .radio label > span > span.euro {font-size: 40px; font-size: 4rem;}
 .promo-options > div > form .btn {font-size: 25px !important; font-size: 2.5rem !important;}
-.promo-options > div > form .options-wrapper {min-height: 112px;}
+.promo-options > div > form .options-wrapper {min-height: 70px;}
 
 .promo-options > div.active {background-color: #ff9431; z-index: 9; margin-top: -20px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);}
 .promo-options > div.active > h3 {background-color: transparent;}
@@ -2502,7 +2503,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .contratando > div:last-child h3,
 .contratando > div:last-child ul {margin-bottom: 0;}
 .contratando > div:last-child h4 {background-color: #ededed; margin: -10px 0 0 0; text-align: center; font-size: 50px; font-size: 5rem; line-height: .6; padding-bottom: 40px;}
-.decimals {font-size: 25px !important; font-style: 2.5rem !important;}
+.decimals {font-size: 14px !important; font-style: 2.5rem !important;}
 .contratando > div:last-child h4 small {font-size: 19px; font-size: 1.9rem; color: #545454;}
 
 .contratando .form-group:last-child {margin-right: 0;}
