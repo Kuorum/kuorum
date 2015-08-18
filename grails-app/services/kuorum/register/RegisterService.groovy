@@ -125,6 +125,7 @@ class RegisterService {
             processMetaDataRegistration(user, registrationCode)
             registrationCode.delete(flush:true)
         }
+        kuorumMailService.mailingListUpdateUser(user)
         user
     }
     private void processMetaDataRegistration(KuorumUser user, RegistrationCode registrationCode){
