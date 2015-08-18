@@ -1,7 +1,7 @@
 <aside id="aside-ppal" class="col-xs-12 col-md-5" role="complementary">
     <div class="border">
         <h1 class="withArrow"><g:message code="funnel.successfulStories.leftColumn.title"/><span class="arrow1"></span></h1>
-        <img src="images/buyolo.jpg" alt="Federico Buyolo" class="center-block">
+        <img src="${resource(dir: 'images', file: 'buyolo.jpg')}" alt="Federico Buyolo" class="center-block">
         <p class="first"><g:message code="funnel.successfulStories.leftColumn.description1"/><span class="arrow2"></span></p>
         <section class="boxes info">
             <!-- ATENCIÓN: este article no lleva .link-wrapper ni el <a> hidden -->
@@ -10,13 +10,13 @@
                 <div class="main-kakareo row">
                     <div class="col-xs-6 col-sm-12 col-md-6 user author">
                         <span>
-                            <img src="images/user.jpg" class="user-img" alt="Tu fotografía"><span><g:message code="funnel.successfulStories.leftColumn.author"/></span>
+                            <img src="${resource(dir: 'images', file: 'user.jpg')}" class="user-img" alt="Tu fotografía"><span><g:message code="funnel.successfulStories.leftColumn.author"/></span>
                         </span>
                     </div><!-- /autor -->
                     <div class="col-xs-6 col-sm-12 col-md-6 text-right user victory">
                         <g:message code="funnel.successfulStories.leftColumn.supported"/>
                         <span>
-                            <img class="user-img" alt="Federico Buyolo" src="images/buyolo.jpg">
+                            <img class="user-img" alt="Federico Buyolo" src="${resource(dir: 'images', file: 'buyolo.jpg')}">
                         </span>
                     </div><!-- /patrocinadores -->
                 </div>
@@ -64,7 +64,7 @@
             <article role="article" class="kakareo post ley">
                 <div class="user author">
                     <span>
-                        <img src="images/buyolo.jpg" alt="Federico Buyolo" class="user-img"><span><g:message code="funnel.successfulStories.leftColumn.politician"/></span>
+                        <img src="${resource(dir: 'images', file: 'buyolo.jpg')}" alt="Federico Buyolo" class="user-img"><span><g:message code="funnel.successfulStories.leftColumn.politician"/></span>
                     </span>
                     <span>
                         <time><span class="hidden-xs"><g:message code="project.projectUpdate.timeElapsedPrefix"/></span><g:message code="funnel.successfulStories.leftColumn.time"/></time>
@@ -79,7 +79,7 @@
                 <div class="video">
                     <a href="#" class="front">
                         <span class="fa fa-play-circle fa-4x"></span>
-                        <img src="http://img.youtube.com/vi/67cz-JGv5R4/maxresdefault.jpg">
+                        <img src="https://img.youtube.com/vi/67cz-JGv5R4/maxresdefault.jpg">
                         <!-- servir esta otra si el video no es alta resolucion -->
                         <!-- <img src="http://img.youtube.com/vi/67cz-JGv5R4/mqdefault.jpg"> -->
                     </a>

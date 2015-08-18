@@ -5,7 +5,7 @@
             <div class="vimeo uno">
                 <a href="#" class="front">
                     <span class="fa fa-play-circle fa-4x"></span>
-                    <img src="images/embudo-porcausa.jpg">
+                    <img src="${resource(dir: 'images', file: 'embudo-porcausa.jpg')}">
                     <span class="text"><g:message code="funnel.successfulStories.vimeo1.description"/></span>
                     <span class="who"><g:message code="funnel.successfulStories.vimeo1.author"/><br/><small><g:message code="funnel.successfulStories.vimeo1.position"/></small></span>
                 </a>
@@ -17,7 +17,7 @@
             <div class="vimeo dos">
                 <a href="#" class="front">
                     <span class="fa fa-play-circle fa-4x"></span>
-                    <img src="images/embudo-campuzano.jpg">
+                    <img src="${resource(dir: 'images', file: 'embudo-campuzano.jpg')}">
                     <span class="text"><g:message code="funnel.successfulStories.vimeo2.description"/></span>
                     <span class="who"><g:message code="funnel.successfulStories.vimeo2.author"/><br/><small><g:message code="funnel.successfulStories.vimeo2.position"/></small></span>
                 </a>
@@ -29,7 +29,7 @@
             <div class="vimeo tres">
                 <a href="#" class="front">
                     <span class="fa fa-play-circle fa-4x"></span>
-                    <img src="images/embudo-cuenta.jpg">
+                    <img src="${resource(dir: 'images', file: 'embudo-cuenta.jpg')}">
                     <span class="text"><g:message code="funnel.successfulStories.vimeo3.description"/></span>
                     <span class="who"><g:message code="funnel.successfulStories.vimeo3.author"/><br/><small><g:message code="funnel.successfulStories.vimeo3.position"/></small></span>
                 </a>
