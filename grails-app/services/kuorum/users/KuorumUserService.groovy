@@ -200,7 +200,7 @@ class KuorumUserService {
             recommendedUsers = recommendedUserInfo.recommendedUsers - recommendedUserInfo.deletedRecommendedUsers - user.following -[user.id]
             Integer max = Math.min(recommendedUsers.size(),pagination.max)
             if (max > 0){
-                kuorumUsers = recommendedUsers[pagination.offset..max].inject([]){ result, kuorumUser ->
+                kuorumUsers = recommendedUsers[pagination.offset..max-1].inject([]){ result, kuorumUser ->
                     result << KuorumUser.get(kuorumUser)
                     result
                 }
