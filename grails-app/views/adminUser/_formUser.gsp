@@ -25,7 +25,6 @@
                 command="${command}"
                 field="postalCode"
                 required="true"
-                type="number"
                 maxlength="5"
                 showLabel="true"
         />
