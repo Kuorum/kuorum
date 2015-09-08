@@ -106,4 +106,11 @@ class DashboardController {
         redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
 
     }
+
+    def customPostMappingSayNoToFracking(){
+
+        Project project = Project.findByHashtag("#sayNoToFracking")
+        redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
+
+    }
 }
