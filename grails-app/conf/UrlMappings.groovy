@@ -14,6 +14,9 @@ class UrlMappings {
         "/losDatosCuentan" (controller: "dashboard", action:"customPostMapping")
         "/empleoJuvenil" (controller: "dashboard", action:"customPostMappingEmpleoJuvenil")
         "/empleojuvenil" (controller: "dashboard", action:"customPostMappingEmpleoJuvenil")
+        "/sayNoToFracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
+        "/SayNoToFracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
+        "/saynotofracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
 
         //The URLs are duplicated because of the refactor of Law into Project. The name of aliases are changed.
         name home:             "/" (controller: "dashboard", action:"index")
