@@ -587,7 +587,7 @@ class KuorumUserService {
     private static  final Integer SCORE_POST_DEBATE = 2;
     private static  final Integer SCORE_POST_DEFEND = 3;
     private static  final Integer SCORE_PROJECT_OPEN = 15;
-    private static  final Integer SCORE_PROJECT_CLOSE = 0;
+    private static  final Integer SCORE_PROJECT_CLOSE = 2;
     private DBCollection createUserScore(Date startDate){
 
         def tempCollectionName = "bestPoliticians"
