@@ -722,6 +722,10 @@ class KuorumUserService {
             DBObject index = new BasicDBObject("score", -1)
             index.append("iso3166Length", -1)
             userScoredCollection.createIndex(index)
+
+            DBObject removeFakePolitician = new BasicDBObject()
+            removeFakePolitician.append("_id", "54ce5269e4b0d335a40f5ee3");//Usuario congreso
+            userScoredCollection.remove(removeFakePolitician);
             return userScoredCollection
         }
     }
