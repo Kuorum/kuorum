@@ -94,23 +94,21 @@ class DashboardController {
 
 
     def customPostMapping(String customLink){
-
         Project project = Project.findByHashtag("#losDatosCuentan")
         redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
-
     }
 
     def customPostMappingEmpleoJuvenil(){
-
         Project project = Project.findByHashtag("#empleoJuvenil")
         redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
-
     }
 
     def customPostMappingSayNoToFracking(){
-
         Project project = Project.findByHashtag("#sayNoToFracking")
         redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
-
+    }
+    def customPostMappingImmigrationrc(){
+        Project project = Project.findByHashtag("#immigrationRC")
+        redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
     }
 }
