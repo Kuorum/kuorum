@@ -81,6 +81,8 @@ grails.project.dependency.resolution = {
         }
 	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
 
+        compile 'com.xlson.groovycsv:groovycsv:1.0' //Para poder leer CSV
+
         compile ('org.codehaus.groovy:groovy-xmlrpc:jar:0.7'){
             excludes "jivesoftware:smack"
         }

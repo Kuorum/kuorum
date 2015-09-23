@@ -8,6 +8,8 @@ import kuorum.core.model.UserType
 import kuorum.mail.MailchimpService
 import kuorum.project.Project
 import kuorum.users.KuorumUser
+import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.multipart.MultipartHttpServletRequest
 
 @Secured(['ROLE_ADMIN'])
 class AdminController {
@@ -50,5 +52,21 @@ class AdminController {
     def fullIndex(){
         def res = indexSolrService.fullIndex()
         render view: '/admin/solrIndex', model:[res:res]
+    }
+
+    def uploadPoliticianCsv(){
+        MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile('filecsv')
+        if (uploadedFile.empty) {
+            flash.message = 'file cannot be empty'
+            render(view: 'solrIndex')
+            return
+        }
+        Reader reader = new InputStreamReader(uploadedFile.inputStream);
+        def lines = com.xlson.groovycsv.CsvParser.parseCsv(reader)
+        for(line in lines) {
+            println "$line.Name $line.Lastname"
+        }
+        flash.message = "CSV ${uploadedFile.originalFilename} Processed"
+        redirect(mapping:"adminSearcherIndex")
     }
 }
