@@ -13,9 +13,9 @@ import spock.lang.Unroll
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(FileService)
+@TestFor(LocalFileService)
 @Mock([KuorumUser, KuorumFile])
-class FileServiceSpec extends Specification {
+class LocalFileServiceSpec extends Specification {
 
 
     def setup() {

@@ -3,6 +3,8 @@ import grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncode
 import grails.spring.BeanBuilder
 import kuorum.core.security.passwordEncoders.PasswordFixingDaoAuthenticationProvider
 import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
+import kuorum.files.AmazonFileService
+import kuorum.files.LocalFileService
 import kuorum.solr.IndexSolrService
 import kuorum.solr.SearchSolrService
 import kuorum.register.MongoUserDetailsService
@@ -11,6 +13,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.apache.solr.core.CoreContainer
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder
 import kuorum.core.springSecurity.handlers.SuccessAuthenticationHandler
+import grails.util.Environment
 
 // Place your Spring DSL code here
 beans = {
@@ -23,7 +26,25 @@ beans = {
         paramName = "lang"
     }
 
+    switch(Environment.current) {
+        case Environment.PRODUCTION:
+            fileService(AmazonFileService){
+                grailsApplication=grailsApplication
+                burningImageService=burningImageService
+            }
+            break
 
+        default:
+//            fileService(LocalFileService) {
+//                grailsApplication=grailsApplication
+//                burningImageService=burningImageService
+//            }
+            fileService(AmazonFileService){
+                grailsApplication=grailsApplication
+                burningImageService=burningImageService
+            }
+            break
+    }
 
     def bb = new BeanBuilder()
     bb.beans{
