@@ -4,6 +4,7 @@ import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.CompleteMultipartUploadResult
+import com.amazonaws.services.s3.model.DeleteObjectRequest
 import com.amazonaws.services.s3.model.PutObjectRequest
 import grails.transaction.Transactional
 import kuorum.KuorumFile
@@ -19,45 +20,39 @@ import com.amazonaws.services.s3.model.PartETag;
 import com.amazonaws.services.s3.model.UploadPartRequest
 import kuorum.core.FileType;
 
-@Transactional
-class AmazonFileService  extends LocalFileService{
+class AmazonFileService extends LocalFileService{
+
+    private static final String BUCKET_NAME = "kuorum.org"
+
+    private static final long UPLOAD_PART_SIZE = 5242880; // Set part size to 5 MB.
 
     KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile){
         if (kuorumFile?.temporal){
-            String serverPath = grailsApplication.config.kuorum.upload.serverPath
-            String rootUrl = "${grailsApplication.config.grails.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}"
-
-            def fileLocation = generatePath(kuorumFile)
-            def serverStoragePath = "$serverPath/$fileLocation"
-            String finalUrl ="$rootUrl/$fileLocation/${kuorumFile.fileName}"
+            String finalUrl;
 
             File org = new File("${kuorumFile.storagePath}/${kuorumFile.fileName}")
 
-            String user = "AKIAIZSHI3RG6BC4HZ4Q"
-            String pass = "u7+VfxLmiuv4Kgolunm1IqTZ8koqM6/Esh073mSu"
-            String existingBucketName  = "kuorum.org";
-            String keyName             = "${kuorumFile.fileGroup.folderPath}/${kuorumFile.fileName}";
-            String filePath            = "${kuorumFile.storagePath}/${kuorumFile.fileName}";
+            String accessKey = grailsApplication.config.kuorum.amazon.accessKey
+            String secretKey = grailsApplication.config.kuorum.amazon.secretKey
+            String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+            String keyName    = "${kuorumFile.fileGroup.folderPath}/${kuorumFile.fileName}";
+            String filePath   = "${kuorumFile.storagePath}/${kuorumFile.fileName}";
 
-            AWSCredentials credentials = new BasicAWSCredentials(user,pass);
+            AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
 
             AmazonS3 s3Client = new AmazonS3Client(credentials);
 
 
-            // Create a list of UploadPartResponse objects. You get one of these
-            // for each part upload.
+            // Create a list of UploadPartResponse objects. You get one of these for each part upload.
             List<PartETag> partETags = new ArrayList<PartETag>();
 
 
             File file = new File(filePath);
             long contentLength = file.length();
-            long partSize = 5242880; // Set part size to 5 MB.
-
-//            s3Client.putObject(new PutObjectRequest(existingBucketName, keyName,file)
-//                    .withCannedAcl(CannedAccessControlList.PublicRead));
+            long partSize = UPLOAD_PART_SIZE;
 
             // Step 1: Initialize.
-            InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(existingBucketName, keyName);
+            InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(bucketName, keyName);
             InitiateMultipartUploadResult initResponse = s3Client.initiateMultipartUpload(initRequest);
 
 
@@ -71,8 +66,10 @@ class AmazonFileService  extends LocalFileService{
 
                     // Create request to upload a part.
                     UploadPartRequest uploadRequest = new UploadPartRequest()
-                            .withBucketName(existingBucketName).withKey(keyName)
-                            .withUploadId(initResponse.getUploadId()).withPartNumber(i)
+                            .withBucketName(bucketName)
+                            .withKey(keyName)
+                            .withUploadId(initResponse.getUploadId())
+                            .withPartNumber(i)
                             .withFileOffset(filePosition)
                             .withFile(file)
                             .withPartSize(partSize);
@@ -86,7 +83,7 @@ class AmazonFileService  extends LocalFileService{
                 // Step 3: Complete.
                 CompleteMultipartUploadRequest compRequest = new
                 CompleteMultipartUploadRequest(
-                        existingBucketName,
+                        bucketName,
                         keyName,
                         initResponse.getUploadId(),
                         partETags);
@@ -94,34 +91,34 @@ class AmazonFileService  extends LocalFileService{
                 CompleteMultipartUploadResult uploadResult = s3Client.completeMultipartUpload(compRequest);
                 finalUrl = uploadResult.getLocation()
 
+                org.delete();
+                deleteParentIfEmpty(org);
+
+                kuorumFile.temporal = Boolean.FALSE
+                kuorumFile.storagePath = ""
+                kuorumFile.url =finalUrl
+                kuorumFile.urlThumb = finalUrl
+                kuorumFile.fileType = FileType.AMAZON_IMAGE
+                kuorumFile.local = Boolean.FALSE
+                kuorumFile.save(flush: true)
+                log.info("Se ha subido la imagen a Amazon. URL del exterior: ${kuorumFile.url}")
             } catch (Exception e) {
-                s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(
-                        existingBucketName, keyName, initResponse.getUploadId()));
-            }
-
-
-            File destDir = new File(serverStoragePath)
-            destDir.mkdirs()
-            File dest = new File("$serverStoragePath/${kuorumFile.fileName}")
-
-            try{
-                if(org.renameTo(dest)){
-                    deleteParentIfEmpty(org)
-                    kuorumFile.temporal = Boolean.FALSE
-                    kuorumFile.storagePath = ""
-                    kuorumFile.url =finalUrl
-                    kuorumFile.urlThumb = finalUrl
-                    kuorumFile.fileType = FileType.IMAGE
-                    kuorumFile.local = Boolean.FALSE
-                    kuorumFile.save()
-                    log.info("Se ha movido el fichero de '${org.absolutePath}' a '${dest.absolutePath}. URL del exterior: ${kuorumFile.url}")
-                }else{
-                    log.error("No se ha podido mover el fichero de '${org.absolutePath}' a '${dest.absolutePath}")
-                }
-            }catch (Exception e){
-                log.error("Hubo algun problema moviendo el fichero del temporal al final",e)
+                s3Client.abortMultipartUpload(new AbortMultipartUploadRequest(bucketName, keyName, initResponse.getUploadId()));
+                log.error("Ha habido un error subiendo el fichero a Amazon.",e);
             }
         }
         kuorumFile
+    }
+
+    protected void deleteAmazonFile(KuorumFile file){
+        if (file && file.fileType==FileType.AMAZON_IMAGE){
+            String accessKey = grailsApplication.config.kuorum.amazon.accessKey
+            String secretKey = grailsApplication.config.kuorum.amazon.secretKey
+            String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+            AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey)
+            AmazonS3 s3client = new AmazonS3Client(credentials);
+//            AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider());
+            s3client.deleteObject(new DeleteObjectRequest(BUCKET_NAME, file.fileName));
+        }
     }
 }

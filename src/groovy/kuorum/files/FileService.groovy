@@ -22,10 +22,21 @@ public interface FileService {
     public KuorumFile createYoutubeKuorumFile(String youtubeUrl, KuorumUser user);
 
 
+    public void deleteKuorumFile(KuorumFile file);
+
     /**
      * Converts a temporal file to normal file.
      * @param KuorumFile
      * @return
      */
     public KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile)
+
+    /**
+     * Deletes all temporal files uploaded by the user @user.
+     *
+     * Deletes on DB and on file system
+     *
+     * @param user
+     */
+    void deleteTemporalFiles(KuorumUser user);
 }

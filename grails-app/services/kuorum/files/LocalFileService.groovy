@@ -159,6 +159,21 @@ class LocalFileService implements FileService{
         multimedia.save()
     }
 
+    void deleteKuorumFile(KuorumFile file) {
+        if (file){
+            if (file.fileType == FileType.AMAZON_IMAGE){
+                deleteAmazonFile(file);
+            }else if (file.local){
+                deleteFile(file);
+            }
+
+        }
+    }
+
+    public String kk(){
+        return "kk";
+    }
+
     private static final List<String> YOUTUBE_THUMBS=["maxresdefault.jpg","mqdefault.jpg", "0.jpg"]
     String recoverBestYoutubeQuality(String youtubeId) {
         String baseUrl= "https://img.youtube.com/vi/${youtubeId}/";
@@ -193,7 +208,12 @@ class LocalFileService implements FileService{
         }
     }
 
-    void deleteFile(KuorumFile kuorumFile){
+    //TODO: Hacer bien las herenceias que esto es una castaña
+    protected void deleteAmazonFile(KuorumFile file){
+
+    }
+
+    protected void deleteFile(KuorumFile kuorumFile){
         if (kuorumFile.local){
             File file = new File("${kuorumFile.storagePath}/${kuorumFile.fileName}")
             if (!file.exists()){

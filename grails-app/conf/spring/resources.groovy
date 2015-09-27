@@ -29,8 +29,8 @@ beans = {
     switch(Environment.current) {
         case Environment.PRODUCTION:
             fileService(AmazonFileService){
-                grailsApplication=grailsApplication
-                burningImageService=burningImageService
+                grailsApplication=ref("grailsApplication")
+                burningImageService=ref("burningImageService")
             }
             break
 
@@ -40,8 +40,8 @@ beans = {
 //                burningImageService=burningImageService
 //            }
             fileService(AmazonFileService){
-                grailsApplication=grailsApplication
-                burningImageService=burningImageService
+                grailsApplication=ref("grailsApplication")
+                burningImageService=ref("burningImageService")
             }
             break
     }

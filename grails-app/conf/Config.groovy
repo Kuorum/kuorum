@@ -277,6 +277,12 @@ kuorum {
         debateValue = 100I
         victoryValue = 50I
     }
+
+    amazon{
+        accessKey = "XXXXX"
+        secretKey = "XXXXX"
+        bucketName = "kuorum.org"
+    }
 }
 
 //Added for date bindings

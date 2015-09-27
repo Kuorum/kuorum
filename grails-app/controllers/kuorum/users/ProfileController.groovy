@@ -9,6 +9,7 @@ import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.core.model.search.SearchNotifications
 import kuorum.core.model.search.SearchUserPosts
+import kuorum.files.FileService
 import kuorum.notifications.Notification
 import kuorum.post.Post
 import kuorum.web.commands.profile.*
@@ -19,7 +20,7 @@ import org.bson.types.ObjectId
 class ProfileController {
 
     def springSecurityService
-    def fileService
+    FileService fileService
     def passwordEncoder
     def regionService
     def kuorumUserService
@@ -161,9 +162,10 @@ class ProfileController {
         if (command.photoId){
             KuorumFile avatar = KuorumFile.get(new ObjectId(command.photoId))
             avatar.alt = user.name
-            avatar.save()
+            fileService.deleteKuorumFile(user.avatar)
+            avatar = fileService.convertTemporalToFinalFile(avatar)
+            avatar.save(flush: true)
             user.avatar = avatar
-            fileService.convertTemporalToFinalFile(avatar)
         }
         if (command.hasProperty('imageProfile') && command.imageProfile){
             KuorumFile imageProfile = KuorumFile.get(new ObjectId(command.imageProfile))

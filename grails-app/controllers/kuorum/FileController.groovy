@@ -3,6 +3,7 @@ package kuorum
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.FileGroup
+import kuorum.files.FileService
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 import org.springframework.web.multipart.MultipartFile
@@ -12,14 +13,14 @@ import javax.servlet.http.HttpServletRequest
 
 class FileController {
 
-    def fileService
+    FileService fileService
     def springSecurityService
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def uploadImage() {
         def fileData = getFileData(request)
-//        FileGroup fileGroup = FileGroup.valueOf(params.fileGroup)
-        FileGroup fileGroup = FileGroup.PROJECT_IMAGE
+        FileGroup fileGroup = FileGroup.valueOf(params.fileGroup)
+//        FileGroup fileGroup = FileGroup.PROJECT_IMAGE
         if(!fileGroup){
             //TODO: ESTO ESTA MAL (Por defecto no es POST_IMAGE)
             fileGroup = FileGroup.POST_IMAGE
