@@ -118,7 +118,7 @@ class AmazonFileService extends LocalFileService{
             AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey)
             AmazonS3 s3client = new AmazonS3Client(credentials);
 //            AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider());
-            s3client.deleteObject(new DeleteObjectRequest(BUCKET_NAME, file.fileName));
+            s3client.deleteObject(new DeleteObjectRequest(BUCKET_NAME, "${file.fileGroup.folderPath}/${file.fileName}"));
         }
     }
 }
