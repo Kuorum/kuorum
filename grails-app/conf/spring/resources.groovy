@@ -35,14 +35,14 @@ beans = {
             break
 
         default:
-//            fileService(LocalFileService) {
-//                grailsApplication=grailsApplication
-//                burningImageService=burningImageService
-//            }
-            fileService(AmazonFileService){
-                grailsApplication=ref("grailsApplication")
-                burningImageService=ref("burningImageService")
+            fileService(LocalFileService) {
+                grailsApplication=grailsApplication
+                burningImageService=burningImageService
             }
+//            fileService(AmazonFileService){
+//                grailsApplication=ref("grailsApplication")
+//                burningImageService=ref("burningImageService")
+//            }
             break
     }
 
