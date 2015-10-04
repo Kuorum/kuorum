@@ -357,7 +357,7 @@ class FormTagLib {
             """
         out << "<option value=''> ${message(code:"${clazz.name}.${field}.empty")}</option>"
         Integer startYear = 1900;
-        Integer endYear = Calendar.getInstance().get(Calendar.YEAR) - 18
+        Integer endYear = Calendar.getInstance().get(Calendar.YEAR) - 16
         (startYear..endYear).each{
             out << "<option value='${it}' ${it==command."$field"?'selected':''}> ${it}</option>"
         }
