@@ -342,7 +342,7 @@ class FormTagLib {
         }
     }
 
-    def selectBirdthYear = {attrs->
+    def selectBirthYear = {attrs->
         def command = attrs.command
         def field = attrs.field
 

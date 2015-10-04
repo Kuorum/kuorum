@@ -87,7 +87,7 @@
                         <g:form method="POST" name="sign" role="form" class="no-age" mapping="customRegisterAgeAndGender">
                             <formUtil:radioEnum command="${personalDataCommand}" field="gender"/>
                             <div class="form-group pull-left userData">
-                                <formUtil:selectBirdthYear command="${personalDataCommand}" field="year" cssClass="sr-only"/>
+                                <formUtil:selectBirthYear command="${personalDataCommand}" field="year" cssClass="sr-only"/>
                             </div>
                             <div class="form-group pull-left">
                                 <input type="submit" value="${message(code:'dashboard.userProfile.incompleteDate.button.save')}" class="btn btn-grey btn-lg">
