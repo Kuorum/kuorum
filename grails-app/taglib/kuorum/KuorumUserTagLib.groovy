@@ -61,13 +61,13 @@ class KuorumUserTagLib {
         if (showName){
             userName = "<span itemprop='name'>${name}</span>"
         }
-/*        def popOverSpanElements = """class="popover-trigger" rel="popover" role="button" data-toggle="popover" """
+        def popOverSpanElements = """class="popover-trigger" rel="popover" role="button" data-toggle="popover" """
         if (!withPopover){
             popOverSpanElements = ""
         }
-*/
+
         out << """
-                <span>
+                <span $popOverSpanElements>
                     <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image">${userName}
                 </span>
         """
