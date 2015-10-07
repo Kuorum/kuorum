@@ -38,6 +38,7 @@ class UrlMappings {
         name projects:                  "/proyectos/$regionName?/$commission?" (controller: "project", action:"index")
                                         "/leyes/$regionName?/$commission?" (controller: "project", action:"index")
         name projectShow:               "/proyectos/$regionName/$commission/$hashtag" (controller: "project", action:"show")
+        name projectShow:               "/hashtag/$hashtag" (controller: "project", action:"show")
                                         "/leyes/$regionName/$commission/$hashtag" (controller: "project", action:"show")
         name projectStats:              "/proyectos/$regionName/$commission/$hashtag/ficha-tecnica" (controller: "project", action:"stats")
                                         "/leyes/$regionName/$commission/$hashtag/ficha-tecnica" (controller: "project", action:"stats")

@@ -51,7 +51,18 @@ class ProjectService {
         if (!hashtag){
             return null;
         }
-        Project.findByHashtag(hashtag)
+        List<Project> projects = Project.collection.find( ['hashtag':['$regex':hashtag, '$options': 'i']]).collect({
+            it as Project
+        })
+        if (projects.size() > 2){
+            log.warn("Hay 2 proyectos con el mismo hashtag en lowercase: "+ projects.collect{it.hashtag})
+        }
+        if (!projects){
+            return null;
+        }else{
+            return projects.get(0)
+        }
+//        Project.findByHashtag(hashtag)
     }
 
 
