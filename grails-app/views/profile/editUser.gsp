@@ -103,7 +103,7 @@
                 <formUtil:radioEnum command="${command}" field="gender"/>
             </div>
             <div class="form-group col-md-6 nacimiento userData">
-                <formUtil:selectBirdthYear command="${command}" field="year"/>
+                <formUtil:selectBirthYear command="${command}" field="year"/>
             </div>
         </fieldset>
 

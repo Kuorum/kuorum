@@ -77,7 +77,7 @@
 
 <fieldset class="row">
     <div class="form-group col-md-6 nacimiento">
-        <formUtil:selectBirdthYear command="${command}" field="year"/>
+        <formUtil:selectBirthYear command="${command}" field="year"/>
     </div>
 </fieldset>
 
