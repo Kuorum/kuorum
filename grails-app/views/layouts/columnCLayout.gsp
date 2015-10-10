@@ -33,8 +33,18 @@
                     </div>
                 </g:if>
             </div>
+            <g:if test="${pageProperty(name:'page.extraRowData')}">
+                <div class="row">
+                    <div class="hidden-xs col-sm-12">
+                        <g:pageProperty name="page.extraRowData"/>
+                    </div>
+                </div>
+            </g:if>
         </div><!-- /.conatiner-fluid -->
     </div><!-- /#main -->
+    <g:if test="${pageProperty(name:'page.preFooterSections')}">
+        <g:pageProperty name="page.preFooterSections"/>
+    </g:if>
     <g:if test="${!Boolean.parseBoolean(pageProperty(name:'page.hideFooter')?.toString())}">
         <g:render template="/layouts/footer/footer"/>
     </g:if>

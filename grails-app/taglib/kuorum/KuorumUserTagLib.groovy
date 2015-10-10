@@ -247,7 +247,7 @@ class KuorumUserTagLib {
         }
     }
 
-    def followButton={attrs ->
+    def followButton={attrs, body ->
         KuorumUser user = attrs.user
         String cssSize = attrs.cssSize?:''
         def linkAjaxFollow = g.createLink(mapping:'ajaxFollow', params: [id:user.id])
@@ -279,6 +279,7 @@ class KuorumUserTagLib {
                     data-message-unfollow='${g.message(code:"${prefixMessages}.unfollow", args:[user.name], codec:"raw")}'
                     data-userId='${user.id}'>
                 ${text}
+            ${body()}
             </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
             """
         }

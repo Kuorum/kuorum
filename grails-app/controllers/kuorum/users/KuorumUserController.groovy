@@ -113,6 +113,10 @@ class KuorumUserController {
             redirect(mapping: "userShow", params: politician.encodeAsLinkProperties())
             return
         }
+
+        def model = showExtendedPolitician(politician)
+        render (view:"showExtendedPolitician", model:model)
+        return;
         String provinceName = politician.personalData.province.name
         if (politician.enabled){
             Pagination pagination = new Pagination()
@@ -138,6 +142,20 @@ class KuorumUserController {
         }else{
             render (view:"showInactivePolitician", model:[user:politician, provinceName:provinceName])
         }
+    }
+
+    def showExtendedPolitician(KuorumUser politician){
+        KuorumUser user = null;
+        if (springSecurityService.isLoggedIn()){
+            user = springSecurityService.currentUser
+        }
+        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(user, new Pagination(max:3))
+        List<Project> userProjects = projectService.politicianProjects(politician)
+        [
+                politician:politician,
+                userProjects:userProjects,
+                recommendPoliticians:recommendPoliticians
+        ]
     }
 
     def userClucks(Pagination pagination){
