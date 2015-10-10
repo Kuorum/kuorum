@@ -89,7 +89,7 @@ class AmazonFileService extends LocalFileService{
                         partETags);
 
                 CompleteMultipartUploadResult uploadResult = s3Client.completeMultipartUpload(compRequest);
-                finalUrl = uploadResult.getLocation()
+                finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
 
                 org.delete();
                 deleteParentIfEmpty(org);
