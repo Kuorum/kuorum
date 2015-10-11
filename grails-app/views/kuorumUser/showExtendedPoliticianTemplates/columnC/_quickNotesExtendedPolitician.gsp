@@ -14,19 +14,26 @@
             <tbody>
             <tr>
                 <th scope="row"><g:message code="politician.quickNotes.data.background.completeName"/></th>
-                <td>Barack Hussein Obama II</td>
+                <td>${politician?.politicianExtraInfo?.completeName?:"N/A"}</td>
             </tr>
             <tr>
                 <th scope="row"><g:message code="politician.quickNotes.data.background.age"/></th>
-                <td>54</td>
+                <td>
+                <g:if test="${politician?.politicianExtraInfo?.birthDate}">
+                    ${new Date()[Calendar.YEAR]-politician.politicianExtraInfo.birthDate[Calendar.YEAR]}</td>
+                </g:if>
             </tr>
             <tr>
                 <th scope="row"><g:message code="politician.quickNotes.data.background.dateOfBirth"/></th>
-                <td>4 Aug 1961</td>
+                <td>
+                    <g:if test="${politician?.politicianExtraInfo?.birthDate}">
+                        <g:formatDate date="${politician.politicianExtraInfo.birthDate}" format="dd MMM yyyy"/>
+                    </g:if>
+                </td>
             </tr>
             <tr>
                 <th scope="row"><g:message code="politician.quickNotes.data.background.placeOfBirth"/></th>
-                <td>Honolulu, Hawai, U.S</td>
+                <td>${politician?.politicianExtraInfo?.birthPlace}</td>
             </tr>
             </tbody>
             <tfoot>
@@ -45,16 +52,11 @@
             <tbody>
             <tr>
                 <th scope="row"><g:message code="politician.quickNotes.data.education.university"/></th>
-                <td>Havard Law School (J.D)
-                    <br>
-                    Columbia University (B.A)
-                    <br>
-                    Occidental College School
-                </td>
+                <td>${politician?.politicianExtraInfo?.university}</td>
             </tr>
             <tr>
                 <th scope="row"><g:message code="politician.quickNotes.data.education.school"/></th>
-                <td>Punahou School</td>
+                <td>${politician?.politicianExtraInfo?.school}</td>
             </tr>
             </tbody>
             <tfoot>
@@ -73,16 +75,33 @@
             <tbody>
             <tr>
                 <th scope="row"><g:message code="politician.quickNotes.data.moreInfo.webSite"/></th>
-                <td><a href="#">barackobama.com</a></td>
+                <td>
+                    <g:if test="${politician?.politicianExtraInfo?.webSite}">
+                        <a href="${politician?.politicianExtraInfo?.webSite}" target="_blank"> ${politician?.politicianExtraInfo?.webSite} </a>
+                    </g:if>
+                </td>
             </tr>
             </tbody>
         </table>
         <hr/>
         <ul class="panel-share-buttons">
-            <li><a href="https://twitter.com/intent/tweet?source=&text=:%20" target="_blank" title="Tweet"><i class="fa fa-twitter-square fa-2x"></i></a></li>
-            <li><a href="https://www.facebook.com/sharer/sharer.php?u=&t=" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square fa-2x"></i></a></li>
-            <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=&source=" target="_blank" title="Share on LinkedIn"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
-            <li><a href="http://www.reddit.com/submit?url=&title=" target="_blank" title="Submit to Reddit"><i class="fa fa-youtube-square fa-2x"></i></a></li>
+
+            <g:if test="${politician.socialLinks?.twitter}">
+                <li><a href="https://twitter.com/${politician.socialLinks.twitter - '@'}" target="_blank" title="${message(code:"kuorum.web.commands.profile.SocialNetworkCommand.twitter.label")}"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+            </g:if>
+            <g:if test="${politician.socialLinks?.facebook}">
+                <li><a href="${politician.socialLinks.facebook}" target="_blank" title="${message(code:"kuorum.web.commands.profile.SocialNetworkCommand.facebook.label")}"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+            </g:if>
+            <g:if test="${politician.socialLinks?.googlePlus}">
+                <li><a href="${politician.socialLinks?.googlePlus}" target="_blank" title="${message(code:"kuorum.web.commands.profile.SocialNetworkCommand.googlePlus.label")}"><i class="fa fa-google-plus fa-2x"></i></a></li>
+            </g:if>
+            <g:if test="${politician.socialLinks?.linkedIn}">
+                <li><a href="${politician.socialLinks?.linkedIn}" target="_blank" title="${message(code:"kuorum.web.commands.profile.SocialNetworkCommand.linkedIn.label")}"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
+            </g:if>
+            <g:if test="${politician.socialLinks?.blog}">
+                <li><a href="${politician.socialLinks?.blog}" target="_blank" title="${message(code:"kuorum.web.commands.profile.SocialNetworkCommand.blog.label")}"><i class="fa fa-rss-square fa-2x"></i></a></li>
+            </g:if>
+            %{--<li><a href="http://www.reddit.com/submit?url=&title=" target="_blank" title="Submit to Reddit"><i class="fa fa-youtube-square fa-2x"></i></a></li>--}%
         </ul>
     </div>
 </section>

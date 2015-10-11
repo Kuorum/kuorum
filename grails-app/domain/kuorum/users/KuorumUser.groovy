@@ -11,6 +11,7 @@ import kuorum.core.model.UserType
 import kuorum.mail.MailType
 import kuorum.notifications.Notice
 import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
+import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
 import kuorum.users.extendedPoliticianData.PoliticianLeaning
 import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
 import kuorum.users.extendedPoliticianData.PoliticianTimeLine
@@ -78,7 +79,8 @@ class KuorumUser {
             'timeLine',
             'relevantEvents',
             'politicianLeaning',
-            'professionalDetails'
+            'professionalDetails',
+            'politicianExtraInfo'
     ]
 
     /**
@@ -97,6 +99,8 @@ class KuorumUser {
     List<PoliticianTimeLine> timeLine
     PoliticianLeaning politicianLeaning
     ProfessionalDetails professionalDetails;
+    PoliticianExtraInfo politicianExtraInfo;
+
 
 
     //Spring fields
