@@ -10,6 +10,8 @@ import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.mail.MailType
 import kuorum.notifications.Notice
+import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
+import kuorum.users.extendedPoliticianData.PoliticianTimeLine
 import org.bson.types.ObjectId
 
 /**
@@ -52,11 +54,25 @@ class KuorumUser {
     SocialLinks socialLinks = new SocialLinks()
     KuorumUser organization
 
+    List<String> tags
+
     Notice notice
 
 //    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
 
-    static embedded = ['personalData', 'authorities','gamification','avatar', 'activity','politicianActivity','imageProfile','socialLinks','politicianOnRegion', 'notice']
+    static embedded = [
+            'personalData',
+            'authorities',
+            'gamification',
+            'avatar',
+            'activity',
+            'politicianActivity',
+            'imageProfile',
+            'socialLinks',
+            'politicianOnRegion',
+            'notice',
+            'externalPoliticianActivities',
+            'timeLine']
 
     /**
      * Represents the last time that the user checked the notifications
@@ -68,6 +84,10 @@ class KuorumUser {
 //    Institution institution
     Region politicianOnRegion
     PoliticianActivity politicianActivity
+
+    List<ExternalPoliticianActivity> externalPoliticianActivities
+    List<PoliticianTimeLine> timeLine
+
 
     //Spring fields
     SpringSecurityService springSecurityService
