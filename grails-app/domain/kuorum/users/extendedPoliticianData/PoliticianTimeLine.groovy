@@ -7,4 +7,5 @@ class PoliticianTimeLine {
     Date date
     String title
     String text
+    Boolean important
 }
