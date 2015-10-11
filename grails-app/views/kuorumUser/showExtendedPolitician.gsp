@@ -34,7 +34,7 @@
                 </div>
                 <div class='col-xs-7 col-sm-5 profile-title'>
                     <h2>${politician.name}</h2>
-                    <cite>President, United States</cite>
+                    <cite>${politician?.professionalDetails?.position?:"N/A"}, ${politician?.professionalDetails?.region?.name?:"N/A"}</cite>
                     <p class='party'>${userUtil.roleName(user:politician)}</p>
                 </div>
                 <div class="col-xs-5 col-sm-4 following">

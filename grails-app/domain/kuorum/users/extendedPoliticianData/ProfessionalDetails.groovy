@@ -9,4 +9,7 @@ class ProfessionalDetails {
     String position;
     String institution;
     String profession;
+    Region constituency
+    Region region
+    static embedded = ['constituency', 'region']
 }

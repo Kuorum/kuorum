@@ -7,19 +7,19 @@
             <tbody>
             <tr>
                 <th scope="row"><g:message code="politician.professionalDetails.data.position"/></th>
-                <td>President</td>
+                <td>${politician?.professionalDetails?.position?:"N/A"}</td>
             </tr>
             <tr>
                 <th scope="row"><g:message code="politician.professionalDetails.data.institution"/></th>
-                <td>The White House</td>
+                <td>${politician?.professionalDetails?.institution?:"N/A"}</td>
             </tr>
             <tr>
                 <th scope="row"><g:message code="politician.professionalDetails.data.constituency"/></th>
-                <td>N/A</td>
+                <td>${politician?.professionalDetails?.constituency?.name?:"N/A"}</td>
             </tr>
             <tr>
                 <th scope="row"><g:message code="politician.professionalDetails.data.region"/></th>
-                <td>United States</td>
+                <td>${politician?.professionalDetails?.region?.name?:"N/A"}</td>
             </tr>
             </tbody>
         </table>
@@ -28,7 +28,7 @@
             <tbody>
             <tr>
                 <th scope="row"><g:message code="politician.professionalDetails.data.profession"/></th>
-                <td>Professor</td>
+                <td>${politician?.professionalDetails?.profession?:"N/A"}</td>
             </tr>
             <tr>
                 <th scope="row"><g:message code="politician.professionalDetails.data.cv"/></th>
