@@ -1,4 +1,4 @@
-<g:set var="leaningIndex" value="10"/>
+<g:set var="leaningIndex" value="${politician?.politicianLeaning?.liberalIndex?:50}"/>
 <section class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title"><g:message code="politician.leaningIndex.title"/> </h3>
@@ -15,8 +15,8 @@
             </div>
         </div>
         <div class="clearfix">
-            <span class="pull-left">left</span>
-            <span class="pull-right">right</span>
+            <span class="pull-left"><g:message code="politician.leaningIndex.left"/></span>
+            <span class="pull-right"><g:message code="politician.leaningIndex.right"/></span>
         </div>
         <div class="text-right">
             <a href="#">

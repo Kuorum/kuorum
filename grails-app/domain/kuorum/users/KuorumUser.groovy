@@ -11,6 +11,8 @@ import kuorum.core.model.UserType
 import kuorum.mail.MailType
 import kuorum.notifications.Notice
 import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
+import kuorum.users.extendedPoliticianData.PoliticianLeaning
+import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
 import kuorum.users.extendedPoliticianData.PoliticianTimeLine
 import org.bson.types.ObjectId
 
@@ -72,7 +74,9 @@ class KuorumUser {
             'politicianOnRegion',
             'notice',
             'externalPoliticianActivities',
-            'timeLine']
+            'timeLine',
+            'relevantEvents',
+            'politicianLeaning']
 
     /**
      * Represents the last time that the user checked the notifications
@@ -86,7 +90,9 @@ class KuorumUser {
     PoliticianActivity politicianActivity
 
     List<ExternalPoliticianActivity> externalPoliticianActivities
+    List<PoliticianRelevantEvent> relevantEvents
     List<PoliticianTimeLine> timeLine
+    PoliticianLeaning politicianLeaning
 
 
     //Spring fields

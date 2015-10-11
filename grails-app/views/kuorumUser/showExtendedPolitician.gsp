@@ -52,17 +52,22 @@
                     <h4><g:message code="politician.causes"/> </h4>
                     <ul class='causes-tags'>
                         <g:each in="${politician.tags}" var="tag">
-                            <li><a href="#">${tag}</a></li>
+                            <li>
+                                <g:link mapping="searcherSearch" params="[type:UserType.POLITICIAN, word:tag]">
+                                    ${tag}
+                                </g:link>
+                            </li>
                         </g:each>
                     </ul>
                 </g:if>
-                <h4><g:message code="politician.knownFor"/></h4>
-                <ul class='known-for'>
-                    <li><a href="#">Higher Education Opportunity Through Pell Grant Expansion Act</a></li>
-                    <li><a href="#">E-85 Fuel Utilization and Infrastructure Development Incentives Act of 2005</a></li>
-                    <li><a href="#">Hurricane Katrina Fast-Track Refunds for Working Families Act of 2005</a></li>
-                    <li><a href="#">Innovation Districts for School Improvement Act</a></li>
-                </ul>
+                <g:if test="${politician.relevantEvents}">
+                    <h4><g:message code="politician.knownFor"/></h4>
+                    <ul class='known-for'>
+                        <g:each in="${politician.relevantEvents}" var="relevantEvent">
+                            <li><a href="${relevantEvent.url}" _target="blank">${relevantEvent.title}</a></li>
+                        </g:each>
+                    </ul>
+                </g:if>
                 <h4><g:message code="politician.bio"/></h4>
                 <p>${politician.bio}</p>
             </div><!--/.extra-padding -->

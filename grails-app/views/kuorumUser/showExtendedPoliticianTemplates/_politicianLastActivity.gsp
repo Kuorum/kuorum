@@ -20,7 +20,7 @@
                     <g:set var="cssVote" value="text-success"/>
                 </g:if>
                 <g:if test="${externalPoliticianActivity.actionType==PoliticalActivityActionType.VOTED_AGAINST}">
-                    <g:set var="cssVote" value="text-warning"/>
+                    <g:set var="cssVote" value="text-danger"/>
                 </g:if>
                 <tr>
                     <td><g:formatDate format="dd MMM yyyy" date="${externalPoliticianActivity.date}"/></td>
