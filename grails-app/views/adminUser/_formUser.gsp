@@ -35,9 +35,6 @@
     <div class="col-xs-6">
         <formUtil:selectDomainObject command="${command}" field="politicianOnRegion" values="${regions}" />
     </div>
-    <div class="col-xs-6">
-        <formUtil:selectDomainObject command="${command}" field="politicalParty" values="${politicalParties}" />
-    </div>
 </fieldset>
 
 <div class="form-group clearfix">

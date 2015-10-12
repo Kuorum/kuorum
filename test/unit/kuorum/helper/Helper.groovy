@@ -92,7 +92,6 @@ class Helper {
                 commissions: [CommissionType.OTHERS],
                 region: creteDefaultRegion(),
 //                institution: creteDefaultInstitution(),
-                politicalParty: createDefaultPoliticalParty(),
                 availableStats: Boolean.TRUE,
                 deadline: new Date() + 10,
                 pdfFile: pdfFile,
@@ -118,8 +117,6 @@ class Helper {
     }
 
     public static final PoliticalParty createDefaultPoliticalParty(){
-        new PoliticalParty(
-                name:"Parlamento europer"
-        )
+        "Parlamento europer"
     }
 }

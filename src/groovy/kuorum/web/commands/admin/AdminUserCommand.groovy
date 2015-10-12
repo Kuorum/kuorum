@@ -16,7 +16,7 @@ class AdminUserCommand extends EditUserProfileCommand{
     String email
     String password
     Region politicianOnRegion
-    PoliticalParty politicalParty
+    String politicalParty
     Boolean verified
     Boolean enabled
     UserType userType

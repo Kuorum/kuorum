@@ -89,7 +89,7 @@ class KuorumUser {
     Date lastNotificationChecked = new Date()
 
     //Politician FIELDS
-    PoliticalParty politicalParty
+//    PoliticalParty politicalParty
 //    Institution institution
     Region politicianOnRegion
     PoliticianActivity politicianActivity
@@ -131,7 +131,6 @@ class KuorumUser {
 
 
         //POLITICIAN VALIDATION
-        politicalParty nullable: true
 //        institution nullable:true
         organization nullable: true
         politicianOnRegion nullable:true

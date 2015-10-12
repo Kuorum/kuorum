@@ -98,7 +98,6 @@ class KuorumUserService {
     KuorumUser convertAsUser(KuorumUser user){
         user.userType = UserType.PERSON
         user.personalData.userType = UserType.PERSON
-        user.politicalParty = null
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.remove(rolePolitician)
         user.save()
@@ -107,7 +106,6 @@ class KuorumUserService {
     KuorumUser convertAsOrganization(KuorumUser user){
         user.userType = UserType.ORGANIZATION
         user.personalData.userType = UserType.ORGANIZATION
-        user.politicalParty = null
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.remove(rolePolitician)
         user.save()

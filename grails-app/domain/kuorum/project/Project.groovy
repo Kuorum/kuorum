@@ -2,7 +2,6 @@ package kuorum.project
 
 import grails.validation.Validateable
 import kuorum.KuorumFile
-import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.annotations.MongoUpdatable
 import kuorum.core.annotations.Updatable
@@ -25,7 +24,6 @@ class Project {
     @Updatable String description
     @Updatable List<CommissionType> commissions = []
     @Updatable Region region
-    @Updatable PoliticalParty politicalParty
     @Updatable KuorumFile image
     @Updatable ProjectStatusType status = ProjectStatusType.OPEN
     @Updatable URL shortUrl
@@ -62,7 +60,6 @@ class Project {
             }
         }
         publishDate nullable:true
-        politicalParty nullable:true
 
         //New validations for Project
 //        deadline nullable: false, validator: { val, obj ->

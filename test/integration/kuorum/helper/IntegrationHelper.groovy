@@ -88,7 +88,6 @@ class IntegrationHelper {
                 commissions: [CommissionType.OTHERS],
                 region: region,
 //                institution: creteDefaultInstitution(),
-                politicalParty: createDefaultPoliticalParty(),
                 availableStats: Boolean.TRUE,
                 deadline: new Date() + 10,
                 pdfFile: pdfFile,

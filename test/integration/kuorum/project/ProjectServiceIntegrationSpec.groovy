@@ -36,7 +36,6 @@ class ProjectServiceIntegrationSpec extends Specification {
         project.shortName = shortName
         project.region = region
 //        project.institution = institution
-        project.politicalParty = politicalParty
         project.realName = realName
         project.commissions = commissions
         Project projectSaved = projectService.updateProject(project)
@@ -48,7 +47,7 @@ class ProjectServiceIntegrationSpec extends Specification {
         projectSaved.region.id == region.id
         projectSaved.realName == realName
         projectSaved.commissions == commissions
-        projectSaved.politicalParty == politicalParty
+//        projectSaved.politicalParty == politicalParty
 //        projectSaved.institution == institution
 //        projectSaved.institution.name == institution.name
         Project.withNewSession {

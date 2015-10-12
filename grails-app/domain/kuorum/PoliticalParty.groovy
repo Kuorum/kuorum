@@ -2,6 +2,7 @@ package kuorum
 
 import org.bson.types.ObjectId
 
+@Deprecated
 class PoliticalParty {
 
     ObjectId id
