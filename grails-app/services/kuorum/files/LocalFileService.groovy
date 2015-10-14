@@ -283,4 +283,21 @@ class LocalFileService implements FileService{
         }
 
     }
+
+    @Override
+    public KuorumFile createExternalFile(KuorumUser owner, String url, FileGroup fileGroup, FileType fileType){
+        KuorumFile file = new KuorumFile()
+        String fileName = url.split("/").last()
+        file.setFileName(fileName)
+        file.setFileGroup(fileGroup)
+        file.setFileType(fileType)
+        file.setTemporal(false)
+        file.setAlt(fileName)
+        file.setLocal(false)
+        file.setUrl(url)
+        file.setUser(owner)
+        file.setOriginalName(fileName)
+        file.setUrlThumb(url)
+        file.save()
+    }
 }

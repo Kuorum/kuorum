@@ -135,6 +135,12 @@ class KuorumUser {
         organization nullable: true
         politicianOnRegion nullable:true
         politicianActivity nullable:true
+        externalPoliticianActivities nullable: true
+        relevantEvents nulable:true
+        timeLine nulable:true
+        politicianLeaning nulable:true
+        professionalDetails nulable:true
+        politicianExtraInfo nulable:true
     }
 
     static mapping = {

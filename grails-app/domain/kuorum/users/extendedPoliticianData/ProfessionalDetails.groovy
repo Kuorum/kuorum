@@ -13,4 +13,12 @@ class ProfessionalDetails {
     Region constituency
     Region region
     static embedded = ['constituency', 'region']
+
+    static constraints = {
+        position nullable:true
+        institution nullable:true
+        profession nullable:true
+        constituency nullable:true
+        region nullable:true
+    }
 }

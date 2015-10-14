@@ -2,6 +2,7 @@ package kuorum.files
 
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
+import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
 
@@ -39,4 +40,11 @@ public interface FileService {
      * @param user
      */
     void deleteTemporalFiles(KuorumUser user);
+
+    /**
+     * Creates a KuorumFile that points to an external source populated with all data
+     * @param url
+     * @return
+     */
+    public KuorumFile createExternalFile(KuorumUser owner, String url, FileGroup fileGroup, FileType fileType)
 }
