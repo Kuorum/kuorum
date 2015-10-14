@@ -1077,9 +1077,12 @@ function readLater(readLaterElement){
     }).done(function(data, status, xhr){
         var isFavorite = xhr.getResponseHeader('isFavorite');
         var numFavorites = xhr.getResponseHeader('numList');
-        $("article[data-cluck-postId='"+postId+"'] li.read-later").html(html)
+        $("article[data-cluck-postId='"+postId+"'] li.read-later").html(html);
         $(".pending h1 .badge").text(numFavorites);
-        if (isFavorite == "true"){
+        $("section.boxes.guay.pending").addClass(numFavorites==0 ? "hide" : "");
+        $("section.boxes.guay.pending").removeClass(numFavorites!=0 ? "hide" : "");
+
+        if (isFavorite == 'true'){
             $("article[data-cluck-postId='"+postId+"'] li.read-later a").addClass("disabled");
             $("article[data-cluck-postId='"+postId+"'] li.read-later a").removeClass("enabled");
             $("section.boxes.guay.pending ul.kakareo-list").prepend(data);
