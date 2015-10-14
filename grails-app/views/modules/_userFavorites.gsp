@@ -1,4 +1,7 @@
-<section class="boxes guay pending">
+
+<g:set var="cssHide" value="${favorites ? '' : 'hide'}"></g:set>
+
+<section class="boxes guay pending ${cssHide}">
     <h1>
         <span class="badgeContainer">
             <span class="fa fa-bookmark"></span>
@@ -12,3 +15,5 @@
         </g:each>
     </ul>
 </section>
+
+
