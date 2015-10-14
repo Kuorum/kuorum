@@ -1,5 +1,5 @@
 
-<g:set var="cssHide" value="${favorites ? '' : 'hide'}"></g:set>
+<g:set var="cssHide" value="${favorites ? '' : 'hide'}"/>
 
 <section class="boxes guay pending ${cssHide}">
     <h1>
