@@ -98,8 +98,8 @@ class KuorumUser {
     List<PoliticianRelevantEvent> relevantEvents
     List<PoliticianTimeLine> timeLine
     PoliticianLeaning politicianLeaning
-    ProfessionalDetails professionalDetails;
-    PoliticianExtraInfo politicianExtraInfo;
+    ProfessionalDetails professionalDetails
+    PoliticianExtraInfo politicianExtraInfo
 
 
 
@@ -138,9 +138,9 @@ class KuorumUser {
         externalPoliticianActivities nullable: true
         relevantEvents nulable:true
         timeLine nulable:true
-        politicianLeaning nulable:true
-        professionalDetails nulable:true
-        politicianExtraInfo nulable:true
+        politicianLeaning nullable:true
+        professionalDetails nullable:true
+        politicianExtraInfo nullable:true
     }
 
     static mapping = {
