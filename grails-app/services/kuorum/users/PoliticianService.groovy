@@ -80,7 +80,7 @@ class PoliticianService {
         }
         politician.bio = line."bio"
         politician.userType = UserType.POLITICIAN
-        politician.email = line."email"?:politician.email?:"info+${line.id}-${politician.name.replaceAll(" ","_")}@kuorum.org"
+        politician.email = line."email"?:politician.email?:"info+${line.id}-${politician.name.encodeAsMD5()}@kuorum.org"
         politician.password = "CSV ${Math.random()}"
         politician.verified = true
         politician.personalData = politician.personalData ?: new PersonData()
