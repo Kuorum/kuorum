@@ -22,7 +22,7 @@ import spock.lang.Unroll
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(NotificationService)
-@Mock([KuorumUser, Cluck, Project, Post,Notification,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification, ProjectClosedNotification, ProjectVote,PromotedMail, PostComment, CommentMyPostNotification, CommentGenericNotification])
+@Mock([KuorumUser, Cluck, Project, Post,Notification,CluckNotification, FollowerNotification, CommentNotification, PostVote,PublicMilestoneNotification,DebateAlertNotification,DebateNotification, DefendedPostAlert, DefendedPostNotification, VictoryNotification, ProjectClosedNotification, ProjectVote,PostComment, CommentMyPostNotification, CommentGenericNotification])
 class NotificationServiceSpec extends Specification {
 
     KuorumMailService kuorumMailService = Mock(KuorumMailService)
