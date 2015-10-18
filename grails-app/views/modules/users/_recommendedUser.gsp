@@ -18,7 +18,7 @@
         <p class="party"><userUtil:roleName user="${user}"/></p>
         %{--<span class="user-type"><userUtil:roleName user="${user}"/> </span>--}%
     </div>
-    <p><kuorumDate:showShortedText text="${user.bio}" numChars="120"/> </p>
+    <p><kuorumDate:showShortedText text="${user.bio}" numChars="165"/> </p>
     <div class='card-footer'>
         <userUtil:ifIsFollower user="${user}">
             <span class="fa fa-check-circle-o"></span>

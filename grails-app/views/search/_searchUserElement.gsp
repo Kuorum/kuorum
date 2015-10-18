@@ -2,23 +2,33 @@
 
 <g:set var="user" value="${KuorumUser.get(new ObjectId(solrUser.id))}"/>
 <article itemtype="http://schema.org/Person" itemscope role="article" class="box-ppal clearfix">
-
-    <div class="photo">
+    <div class="card-header-photo">
         <img src="${image.userImgProfile(user:user)}" alt="${user.name}">
     </div>
+
     <div class="user">
-        <img itemprop="image" class="user-img big" alt="nombre" src="${image.userImgSrc(user:user)}">
+        <div class='profile-pic-div'>
+            <img itemprop="image" class="user-img big" alt="nombre" src="${image.userImgSrc(user:user)}">
+            <g:if test="${user.verified}">
+                <i class="fa fa-check"></i>
+            </g:if>
+        </div>
         %{--<button type="button" class="btn btn-blue btn-lg follow allow">Seguir</button>--}%
-        <userUtil:followButton user="${user}" cssSize="btn-lg" cssExtra="cssExtra"/>
+        <userUtil:followButton user="${user}" cssSize="btn-lg"/>
         <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" class="user-name" itemprop="name">
             <searchUtil:highlightedField solrElement="${solrUser}" field="name"/>
         </g:link>
-        <span class="user-type"><userUtil:roleName user="${user}"/> </span>
+        <cite><userUtil:politicianPosition user="${user}"/></cite>
+        <p class="party"><userUtil:roleName user="${user}"/></p>
     </div>
-    <p><searchUtil:highlightedField solrElement="${solrUser}" field="text"/> </p>
-    <g:if test="${user.verified}">
-        <small><g:message code="kuorumUser.verified"/><span class="fa fa-check"></span></small>
-    </g:if>
+    %{--<p><searchUtil:highlightedField solrElement="${solrUser}" field="text" numChars="120"/> </p>--}%
+    <p><kuorumDate:showShortedText text="${user.bio}" numChars="165"/> </p>
+    <div class='card-footer'>
+        <userUtil:ifIsFollower user="${user}">
+            <span class="fa fa-check-circle-o"></span>
+            <g:message code="kuorumUser.popover.follower"/>
+        </userUtil:ifIsFollower>
+    </div>
 </article>
 
 
