@@ -19,7 +19,7 @@
         <div class="container-fluid ${pageProperty(name: 'page.specialContainerCssClass')}">
             <g:pageProperty name="page.intro"/>
             <div class="row" >
-                <section id="main" class="col-sm-12 col-md-8" role="main">
+                <section id="main" class="${pageProperty(name: 'page.specialMainContentCssClass')} col-sm-12 col-md-8" role="main">
                     <g:pageProperty name="page.mainContent"/>
                 </section>
 
@@ -35,7 +35,7 @@
             </div>
             <g:if test="${pageProperty(name:'page.extraRowData')}">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="hidden-xs col-sm-12">
                         <g:pageProperty name="page.extraRowData"/>
                     </div>
                 </div>

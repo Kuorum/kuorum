@@ -1,5 +1,5 @@
 <g:if test="${userProjects}">
-    <section id="otros-proyectos" role="complementary" class="row main">
+    <section id="otros-proyectos" role="complementary" class="row main normal-bg">
         <div class="container-fluid">
             <h2 class="underline"><g:message code="modules.lastCreatedPost.title"/></h2>
             <div class="row">

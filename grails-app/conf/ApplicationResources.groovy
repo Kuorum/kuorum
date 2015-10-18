@@ -1,9 +1,5 @@
 modules = {
 
-    newStyle{
-        resource url:'css/custom-override.css'
-    }
-
     basic {
         resource url:'js/jquery.min.js'
         resource url:'js/bootstrap.min.js'

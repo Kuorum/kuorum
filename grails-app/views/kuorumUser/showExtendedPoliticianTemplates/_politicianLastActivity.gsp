@@ -1,5 +1,5 @@
 <g:if test="${politician.externalPoliticianActivities}">
-    <div class="panel panel-default">
+    <div class="hidden-xs panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title"><g:message code="politician.latestActivity.title"/></h3>
         </div>
@@ -35,7 +35,7 @@
                 <tfoot>
                 <tr>
                     <td colspan="4" class="text-center">
-                        <a href="#" class="btn-primary btn-sm" role="button">
+                        <a href="#" class="btn btn-sm btn-blue" role="button">
                             <g:message code="search.list.seeMore"/>
                         </a>
                     </td>

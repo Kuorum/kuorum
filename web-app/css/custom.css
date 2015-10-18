@@ -1,17 +1,18 @@
 /*
-Hoja de estilos para kuorum.org V2
+kuorum.org Stylesheet V3
 Base Bootstrap 3.1.1 mobile first
 Responsive
 */
 
-/* tipos =========== */
+/* Typography (tipos) =========== */
 /* ====================================================== */
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {font-weight: normal;}
 body {
     font-family: 'Georgia', 'Times New Roman', Times, serif;
     color: #545454;
-    font-size: 15px;
-    font-size: 1.5rem;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 24px;
     padding-top: 55px;
     background-color: #fff;
     -webkit-transition: all .15s ease-in-out;
@@ -19,7 +20,22 @@ body {
     -o-transition: all .15s ease-in-out;
     transition: all .15s ease-in-out;
 }
+h4{
+    font-variant: small-caps;
+    color: #333333;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 12px;
+}
 blockquote {border: none;}
+cite{
+    font-size: 18px;
+    color: #a8a8a8;
+    font-weight: lighter;
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 3px;
+}
 .main {background-color: #fbfbfb;}
 .main.embudo {background-color: #fff;}
 .main.special {background-color: #fff; margin-top: -90px; padding-top: 90px;}
@@ -45,9 +61,20 @@ select {padding: 6px 6px 6px 8px !important;}*/
 .add-on.input-group-addon label input {margin-right: 2px;}
 .input-group-addon {border: 1px solid #efefef; background-color: #efefef; outline: 0;}
 
+/* different colour text */
+.text-brand-dark{
+    color: #e3891e
+}
+.text-success{
+    color:#00c746;
+}
+.text-danger{
+    color:#ff0000;
+}
+
 img {width: 100%;}
 small, .small {font-size: 75%;}
-.main { font-size: 15px; font-size:  1.5rem; padding: 0;}
+.main { padding: 0;}
 .navbar-toggle:hover {background-color: #ee7612;}
 .link-wrapper {cursor: pointer; z-index: 9;}
 .link-wrapper a,
@@ -65,7 +92,7 @@ small, .small {font-size: 75%;}
 .disabled.allow {cursor: pointer !important; pointer-events: auto;}
 .highlighted {background-color: #fefea5;}
 
-/* Ajustes modal Bootstrap */
+/* Settings modal in Bootstrap */
 .modal-backdrop.in {opacity: 0.8;}
 body {overflow-y: scroll;}
 body.modal-open {overflow-y: scroll; margin: 0;}
@@ -137,13 +164,13 @@ label {font-weight: normal;}
 #sign .voting > ul > li > a.update:focus,
 #sign .voting > ul > li > a.update:active {color: #ff9431;}
 
-p {margin: 0 0 20px 0;}
+p { margin: 0 0 20px 0;}
 .help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic; margin: -10px 0 0 0;}
 .mb20 {margin-bottom: 20px !important;}
 a:hover, a:focus {outline: 0;}
 
 
-/* Estilos generales =========== */
+/* General Styles (Estilos generales) =========== */
 /* ====================================================== */
 select.input-lg {padding: 10px 16px 10px 10px;}
 .input-lg {padding: 10px 12px;}
@@ -152,7 +179,7 @@ select.input-lg {padding: 10px 16px 10px 10px;}
 a,
 a:hover,
 a:active,
-a:focus {color: #20a2ea;}
+a:focus {color: #e3981e;}
 *[rel="tooltip"] {cursor: pointer;}
 .tooltip.top .tooltip-arrow {border-top-color: #dadada !important;}
 .tooltip.left .tooltip-arrow {border-left-color: #dadada !important;}
@@ -271,9 +298,12 @@ a:focus {color: #20a2ea;}
   outline-offset: -2px;
 }*/
 
-/* botón por defecto: naranja */
+/* Buttons =========== */
+/* Default button : orange (botón por defecto: naranja) */
 .btn {
     color: #fff !important;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    letter-spacing: 0.4px;
     font-size: 15px;
     font-size: 1.5rem;
     background-color: #ff9431 !important;
@@ -284,9 +314,12 @@ a:focus {color: #20a2ea;}
 }
 .btn:hover,
 .btn:active,
-.btn:focus {background-color: #ee7612 !important;}
+.btn:focus {
+    background-color: #ee7612 !important;
+    text-decoration: none;
+}
 
-/* botón pequeño */
+/* small button (botón pequeño) */
 .btn.btn-sm {
     border-radius: 2px !important;
     font-size: 14px !important;
@@ -295,7 +328,7 @@ a:focus {color: #20a2ea;}
     padding: 4px 10px !important;
     margin: 0 !important;
 }
-/* botón muy pequeño */
+/* extra small button (botón muy pequeño) */
 .btn.btn-xs {
     border-radius: 3px !important;
     font-size: 12px !important;
@@ -303,13 +336,21 @@ a:focus {color: #20a2ea;}
     padding: 1px 15px 2px !important;
     margin: 0 !important;
 }
-/* botón grande */
+/* large button (botón grande) */
 .btn.btn-lg {
     font-size: 16px !important;
     font-size: 1.6rem !important;
     line-height: 1.1 !important;
     margin: 0 !important;
     padding: 14px !important;
+}
+/* Extra large button */
+.btn.btn-xl {
+    font-size: 20px !important;
+    font-size: 2rem !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+    padding: 14px 35px !important;
 }
 .btn.btn-white {background-color: #fff !important; border: solid 1px #e5e5e5; color: #a8a8a8 !important;}
 .btn.btn-white:hover, .btn.btn-white:active, .btn.btn-white:focus {box-shadow: 0 0 0 rgba(0,0,0,0); background-color: #fff !important; border: solid 1px #66afe9}
@@ -341,6 +382,10 @@ a:focus {color: #20a2ea;}
     border-left: solid 1px #578c25;
     border-right: solid 1px #578c25;
     border-bottom: solid 1px #578c25;
+}
+.btn-contact{
+    text-transform: uppercase;
+    font-weight: 500;
 }
 .popover .btn.btn-blue.disabled {background-color: #a8a8a8 !important;}
 .boxes .btn {margin-bottom: 20px !important;}
@@ -483,7 +528,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .boxes.follow .user-img {display: inline-block;}
 
 #otros-proyectos,
-#otras-propuestas {background-color: #f5f5f5;}
+#otras-propuestas{background-color: #f5f5f5;  padding: 30px 0;}
 #otros-proyectos > .container-fluid > ul {margin: 0; padding: 0;}
 #otros-proyectos > .container-fluid > ul > li {margin: 0; padding: 0; list-style: none;}
 #otros-proyectos > .container-fluid > ul > li > article {margin: 0 auto; width: 95%;}
@@ -842,7 +887,10 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .popover .scroll .user-type {margin-top: -15px !important;}
 .popover .follow {margin: 0 0 0 49px !important;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
-.btn.follow {width: 105px;}
+.btn.follow {
+    width: 105px;
+    padding: 8px 8px !important;
+}
 .btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
 .btn.follow.disabled {background-color: #a8a8a8 !important;}
 .btn.follow.disabled:hover,
@@ -1805,7 +1853,7 @@ textarea.error,
 .kakareo.post.ley h1 {padding: 0; margin-bottom: 15px;}
 .kakareo-list.project .kakareo.post.ley .laley,
 .boxes.info .kakareo .laley {font-size: 16px; font-size: 1.6rem; line-height: 27px;}
-h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-bottom: 30px; font-size: 22px; font-size: 2.2rem;}
+h2.underline {border-bottom: 1px solid #dadada; padding: 0 0 10px 0; margin-top: 0; margin-bottom: 30px; font-size: 22px; font-size: 2.2rem;}
 .kakareo.post.ley .photo {position: relative; margin-top: 20px;}
 .kakareo.post.ley .photo .info {position: absolute; bottom: 5px; left: 5px;}
 .kakareo.post.ley .photo .tooltip.in {opacity: 1;}
@@ -2426,19 +2474,69 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub .kakareo .link-wrapper {padding: 15px 15px 0;}
 .homeSub .link-wrapper .popover-trigger {font-size: 12px; font-size: 1.2rem;}
 
+/* politician-card-sm */
 .politician-list {margin: 0; padding: 0; list-style: none;}
-.politician-list .box-ppal .user {margin: -75px 10px 20px 10px;}
-.politician-list .box-ppal .user .user-img {border: 5px solid #fff; width: 120px; height: 120px;}
-.politician-list .box-ppal .user .user-img + .btn.follow {margin: 85px 0 0 0 !important; float: right; padding: 10px 15px !important;}
-.politician-list .box-ppal .user .user-name {display: block; font-size: 30px; font-size: 3rem;}
+.card-header-photo img{
+    height: 160px;
+}
+.politician-list .box-ppal .user {margin: -60px 15px 0px 15px;}
+.profile-pic-div{
+    position: relative;
+    display: inline-block;
+}
+.politician-list .box-ppal .user .user-img {
+    border: 4px solid #fff;
+    width: 96px;
+    height: 96px;
+}
+.politician-list .box-ppal .user .fa-check{
+    position: absolute;
+    bottom: 0px;
+    right: 7px;
+    background-color: #1e84e3;
+    border-radius: 100%;
+    color: #fff;
+    padding-top: 9px;
+    text-align: center;
+    font-size: 10px;
+    width: 24px;
+    height: 24px;
+    padding-top: 4px;
+    border: #fff solid 2px;
+}
+.politician-list .box-ppal .user .btn.follow{
+    margin: 70px 0 0 0 !important;
+    float: right;
+}
+.politician-list .box-ppal .user .user-name {
+    display: block;
+    margin-top: 3px;
+    margin-bottom: 0px;
+    font-size: 24px;
+    font-size: 2.5rem;
+    font-weight: normal;
+}
+.politician-list .box-ppal cite{
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
 .politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
 .politician-list .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
 .politician-list .box-ppal > small .fa {opacity: .5;}
-.politician-list .box-ppal {padding: 0; margin: 0 0 20px 0;}
-.politician-list .box-ppal > p {padding: 0 10px; font-size: 13px; font-size: 1.3rem; margin: 0 0 10px 0;}
+.politician-list .box-ppal {height: 440px; padding: 0; margin: 0 0 20px 0;}
+.politician-list .box-ppal > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0 0 10px 0;}
 .politician-list .box-ppal > .pull-right {width: 42%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; text-align: right;}
+.politician-list .box-ppal .card-footer{
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+}
+.politician-list .box-ppal .card-footer .fa-check-circle-o{
+    margin-right: 3px;
+}
 
-.medios-list {margin: 40px 0 20px 0; padding: 0; list-style: none;}
+
 .medios-list:first-child {margin-top: 50px;}
 .medios-list blockquote {font-size: 21px; font-size: 2.1rem; font-style: italic; text-align: center; margin: 0 0 40px 0; padding: 0;}
 .medios-list blockquote p:before {content: "“";}
@@ -2450,7 +2548,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub.medios {text-align: center;}
 .homeSub.medios h2 {font-size: 14px; font-size: 1.4rem; margin: 60px 0 20px 0;}
 .support-list {margin: 0; padding: 0; list-style: none;}
-.support-list li {display: inline-block; margin-right: 10px; margin-bottom: 10px;}
+.support-list li {displya: inline-block; margin-right: 10px; margin-bottom: 10px;}
 .support-list li:last-child {margin-right: 0;}
 .support-list li.game img {width: 115px; height: 53px;}
 .support-list li.unltdspain img {width: 134px; height: 47px;}
@@ -3677,7 +3775,11 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .homeSub .kakareo-list .kakareo .main-kakareo {margin-top: 0;}
     #otras-propuestas .kakareo-list .kakareo footer,
     .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
-    .politician-list .box-ppal p {height: 56px; margin: 0 0 50px; overflow: hidden;}
+    .politician-list .box-ppal p {height: 102px; margin: 0 0 5px; overflow: hidden;}
+    .politician-list .box-ppal p.party{
+        font-size: 12px;
+        height: auto;
+    }
     .politician-list .box-ppal > small {float: none; position: absolute; bottom: 0; left: 0;}
     .politician-list .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}
 
@@ -4026,4 +4128,566 @@ only screen and (min-resolution: 192dpi) {
 
 .resetTitle{
     color:#545454 !important;
+}
+
+/* Politician Profile Page */
+/* ====================================================== */
+/* Panel */
+.panel{
+    margin-bottom: 24px;
+}
+.panel-default{
+    border-radius: 0;
+    border-color: #dadada;
+    box-shadow: 0 0 2px rgba(200,200,200,0.6)
+}
+.panel-default > .panel-heading{
+    background-color: #666;
+    color: #fff;
+    border-radius: 0;
+    border: none;
+}
+.panel-default > .panel-heading .panel-title{
+    font-size: 18px;
+    font-family: 'Georgia';
+    letter-spacing: 0.4px;
+    font-weight: normal;
+}
+.panel-default .panel-body h3{
+    margin: 5px 0 16px;
+    font-style: italic;
+    line-height: 30px;
+    color: #666;
+}
+/* Profile Card ----------------*/
+.politician-card p{
+    text-align: justify;
+}
+.profile-header{
+    position: relative;
+}
+.profile-header img{
+    min-height: 285px;
+}
+.profile-header .btn.follow{
+    position: absolute;
+    bottom: 16px;
+    right: 20px;
+}
+.btn.follow .fa-plus{
+    font-size: 14px;
+    margin-left: 8px;
+}
+.profile-pic {
+    position: relative;
+    float: left;
+}
+.profile-pic .img-circle {
+    width: 144px;
+    height: 144px;
+    border: solid 5px #fff;
+    margin-top: -65%;
+}
+.profile-pic .fa-check {
+    position: absolute;
+    bottom: 0px;
+    right: 7px;
+    background-color: #1e84e3;
+    border-radius: 100%;
+    border: #fff solid 3px;
+    height: 40px;
+    width: 40px;
+    color: #fff;
+    font-size: 16px;
+    padding-top: 9px;
+    text-align: center;
+}
+.profile-title{
+    margin-left: -25px;
+}
+.profile-title h2{
+    margin-top: 0;
+    margin-bottom: 6px;
+}
+.following{
+    text-align: right;
+}
+.following .fa-check-circle-o{
+    margin-top: 10px;
+    margin-right: 6px;
+    font-size: 16px;
+}
+p.party{
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+@media only screen and (max-width: 767px){
+    .profile-header img{
+        min-height: 200px;
+    }
+    .profile-title{
+        float: left;
+        margin-left: 0px;
+    }
+    .profile-pic-col{
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .profile-pic{
+        width: 96px;
+        float: none;
+    }
+    .profile-pic .img-circle{
+        width: 96px;
+        height: 96px;
+        border: solid 3px #fff;
+    }
+    .profile-pic .fa-check{
+        font-size: 10px;
+        width: 24px;
+        height: 24px;
+        padding-top: 4px;
+        border: #fff solid 2px;
+    }
+    .profile-title h2{
+        font-size: 24px;
+        margin-bottom: 3px;
+    }
+    .following{
+        text-align: right;
+        font-size: 12px;
+    }
+    cite{
+        font-size: 14px;
+        margin-bottom: 0px;
+    }
+    p.party{
+        font-size: 12px;
+    }
+}
+.extra-padding{
+    padding: 0 45px;
+}
+.causes-tags{
+    padding: 0;
+    margin-bottom: 20px;
+}
+.causes-tags li{
+    display: inline-block;
+    background: #e3981e;
+    border-radius: 5px;
+    padding: 3px 10px;
+    margin: 0px 10px 10px 0;
+}
+.causes-tags li:hover,
+.causes-tags li:active,
+.causes-tags li:focus{
+    background-color: #b77a17;
+}
+.causes-tags li a{
+    font-size: 14px;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    letter-spacing: 0.4px;
+    color: #fff;
+}
+.causes-tags li a:hover,
+.causes-tags li a:focus,
+.causes-tags li a:active{
+    text-decoration: none;
+}
+@media screen and (max-width: 767px){
+    .extra-padding{
+        padding: 0 5px;
+    }
+    .causes-tags li{
+        padding: 1px 6px;
+    }
+    .causes-tags li a{
+        font-size: 12px;
+    }
+}
+.known-for{
+    padding: 0;
+    margin-bottom: 20px;
+}
+.known-for li{
+    display: inline-block;
+    margin-bottom: 6px;
+}
+/* Share buttons bar =========== */
+.share-buttons {
+    background-color: #333;
+    overflow: hidden;
+    padding-left: 0;
+    margin-bottom: 24px;
+}
+.share-buttons li {
+    float: left;
+    margin-left: 20px;
+    list-style-type: none;
+    padding: 10px 0;
+}
+.share-buttons li a {
+    color: #fff;
+}
+.share-buttons li a i{
+    font-size: 24px;
+}
+.share-buttons li a i:hover,
+.share-buttons li a i:active,
+.share-buttons li a i:focus{
+    color: #e3981e;
+}
+.share-buttons > li:first-child {
+    margin-left: 0;
+    padding: 0;
+    vertical-align: top;
+}
+.share-buttons .tooltip {
+    border-radius: 0;
+    margin-left: -5px;
+    margin-top: 0;
+    opacity: 1;
+    position: relative;
+}
+.tooltip.left .tooltip-arrow{
+    border-left-color: #666 !important;
+}
+.share-buttons .tooltip-inner {
+    background-color: #666;
+    border-radius: 0;
+    height: 48px;
+    padding: 14px 14px 10px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    color: #fff;
+}
+/* Contact Card =========== */
+.btn-contact{
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.contact-politician .panel-body{
+    padding-bottom: 25px;
+}
+/* Political Leaning Index=========== */
+.progress-bar-warning {
+    background-color: #e3981e;
+}
+.panel-default .progress{
+    height: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/* Political Table ===========*/
+.panel-default .table-condensed th, .panel-default .table-condensed td{
+    border:none;
+    text-align: left;
+}
+.panel-default .table-condensed th {
+    width: 35%;
+    font-size: 13px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.panel-default .table-condensed td{
+    font-size: 14px;
+}
+.panel-default .table-condensed thead th {
+    text-transform: uppercase;
+    color: #999;
+    font-weight: 500;
+}
+.panel-default .table-condensed .text-right {
+    text-align: right;
+}
+.panel-body > table + hr {
+    margin-left: -15px;
+    width: 110%;
+}
+.panel-share-buttons {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.panel-share-buttons > li {
+    display: inline-block;
+    margin-right: 20px;
+}
+.panel-share-buttons > li > a:hover{
+    color:#b77a17;
+}
+.panel-table{
+    margin: 0;
+}
+.panel-table td{
+    font-weight: normal;
+    font-size: 14px;
+}
+.panel-table thead th{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.panel-table > thead > tr > th{
+    border-width: 1px;
+}
+.panel-table > tbody > tr > td{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.panel-table tfoot .text-center {
+    padding-bottom: 0;
+    padding-top: 15px;
+}
+/* Latest Political Activity Card =========== */
+.panel-table .political-activity-title{
+    width: 46%;
+}
+
+/* Political Experience Card =========== */
+#political-experience-timeline .panel-body{
+    padding: 35px 35px 0px;
+}
+
+.timeline {
+    list-style: none;
+    padding: 20px 0 20px;
+    position: relative;
+}
+
+.timeline:before {
+    top: 55px;
+    bottom: -11px;
+    position: absolute;
+    content: " ";
+    width: 6px;
+    background-color: #9299a1;
+    left: 50%;
+    margin-left: -3px;
+}
+
+.timeline > li {
+    margin-bottom: 20px;
+    position: relative;
+    text-align: left;
+}
+
+.timeline > li:before,
+.timeline > li:after {
+    content: " ";
+    display: table;
+}
+
+.timeline > li:after {
+    clear: both;
+}
+
+.timeline > li:before,
+.timeline > li:after {
+    content: " ";
+    display: table;
+}
+
+.timeline > li:after {
+    clear: both;
+}
+
+.timeline > li > .timeline-panel {
+    width: 38%;
+    float: left;
+    border: 1px solid #f7e0bb;
+    border-radius: 2px;
+    padding: 20px;
+    position: relative;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    background-color: #f7e0bb;
+}
+
+.timeline > li > .timeline-panel:before {
+    position: absolute;
+    top: 26px;
+    right: -15px;
+    display: inline-block;
+    border-top: 15px solid transparent;
+    border-left: 15px solid #f7e0bb;
+    border-right: 0 solid #f7e0bb;
+    border-bottom: 15px solid transparent;
+    content: " ";
+}
+
+.timeline > li > .timeline-panel:after {
+    position: absolute;
+    top: 27px;
+    right: -14px;
+    display: inline-block;
+    border-top: 14px solid transparent;
+    border-left: 14px solid #f7e0bb;
+    border-right: 0 solid #f7e0bb;
+    border-bottom: 14px solid transparent;
+    content: " ";
+}
+
+.timeline > li > .timeline-badge {
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    line-height: 50px;
+    font-size: 1.4em;
+    text-align: center;
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    margin-left: -15px;
+    background-color: #999999;
+    z-index: 100;
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.timeline > li > .timeline-badge.small {
+    top: 33px;
+    width: 18px;
+    height: 18px;
+    margin-left: -9px;
+}
+.timeline > li > .date {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 3%;
+    margin-top: 2.7%;
+    float: left;
+}
+.timeline > li.timeline-inverted > .date {
+    float: right;
+    margin-right: 3%;
+    margin-top: 2.7%;
+}
+
+.timeline > li.timeline-inverted > .timeline-panel {
+    float: right;
+}
+
+.timeline > li.timeline-inverted > .timeline-panel:before {
+    border-left-width: 0;
+    border-right-width: 15px;
+    left: -15px;
+    right: auto;
+}
+
+.timeline > li.timeline-inverted > .timeline-panel:after {
+    border-left-width: 0;
+    border-right-width: 14px;
+    left: -14px;
+    right: auto;
+}
+
+.timeline-badge.primary {
+    background-color: #2e6da4 !important;
+}
+
+.timeline-badge.success {
+    background-color: #3f903f !important;
+}
+
+.timeline-badge.warning {
+    background-color: #f0ad4e !important;
+}
+
+.timeline-badge.danger {
+    background-color: #d9534f !important;
+}
+
+.timeline-badge.info {
+    background-color: #5bc0de !important;
+}
+
+.timeline-title {
+    margin-top: 0;
+    color: inherit;
+}
+.timeline-heading .updates-meta{
+    margin-bottom: 10px;
+    color: #e3891e;
+}
+.timeline-body > p{
+    text-align: justify;
+}
+.timeline-body > p,
+.timeline-body > ul {
+    margin-bottom: 0;
+}
+
+.timeline-body > p + p {
+    margin-top: 5px;
+}
+
+.timeline hr{
+    border-top: 1px solid #9e9e9e;
+}
+
+@media (max-width: 767px) {
+    #political-experience .panel-body{
+        padding: 20px 40px 0 60px;
+    }
+    ul.timeline:before {
+        left: 50px;
+    }
+
+    ul.timeline > li > .timeline-panel {
+        width: calc(100% - 90px);
+        width: -moz-calc(100% - 90px);
+        width: -webkit-calc(100% - 90px);
+    }
+
+    ul.timeline > li > .timeline-badge {
+        left: 35px;
+        margin-left: 0;
+        top: 16px;
+    }
+    ul.timeline > li > .timeline-badge.small{
+        left : 50px;
+    }
+    ul.timeline > li > .timeline-panel {
+        float: right;
+    }
+
+    ul.timeline > li > .timeline-panel:before {
+        border-left-width: 0;
+        border-right-width: 15px;
+        left: -15px;
+        right: auto;
+    }
+
+    ul.timeline > li > .timeline-panel:after {
+        border-left-width: 0;
+        border-right-width: 14px;
+        left: -14px;
+        right: auto;
+    }
+
+    .timeline > li > .date {
+        margin-left: -4%;
+        margin-top: 4.2%;
+
+    }
+    .timeline > li.timeline-inverted > .date {
+        float: left;
+        margin-top: 4.3%;
+
+    }
+}
+/* Latest Projects=========== */
+#otros-proyectos.normal-bg{
+    background-color: #fbfbfb;
+}
+
+/* Other Profiles =========== */
+#suggested-politicians{
+    background-color: #f5f5f5;
+    padding: 40px 0;
 }
