@@ -111,6 +111,7 @@ p.party{
 .known-for li{
     display: inline-block;
     margin-bottom: 6px;
+    width: 100%;
 }
 
 .panel-default > .panel-heading{
