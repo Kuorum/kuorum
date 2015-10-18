@@ -31,10 +31,23 @@ class PoliticianService {
         populateSocialLinks(politician, line)
         populateExternalPoliticianActivity(politician, line)
         populateTimeLine(politician, line)
+        populateTags(politician, line)
         populateRelevantEvents(politician, line)
         populateExtraInfo(politician, line)
 
         politician.save(failOnError: true)
+    }
+
+    private void populateTags(KuorumUser politician, def line) {
+        String prefix = "cause"
+        List<String> tags = []
+        (1..5).each{i->
+            String tag = line."${prefix}${i}"
+            if (tag){
+                tags << tag
+            }
+        }
+        politician.tags= tags
     }
 
     private void populateTimeLine(KuorumUser politician, def line) {
