@@ -149,7 +149,8 @@ class KuorumUserController {
         if (springSecurityService.isLoggedIn()){
             user = springSecurityService.currentUser
         }
-        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(user, new Pagination(max:3))
+//        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(user, new Pagination(max:3))
+        List<KuorumUser> recommendPoliticians = []
         List<Project> userProjects = projectService.politicianProjects(politician)
         [
                 politician:politician,
