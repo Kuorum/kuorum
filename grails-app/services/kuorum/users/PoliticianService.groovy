@@ -115,16 +115,8 @@ class PoliticianService {
                 epa.date = Date.parse("dd/MM/yyyy HH:mm",line."${prefix}${i}Date")
                 epa.title =title
                 epa.link ="#"
-                epa.actionType =line."${prefix}${i}Action"=="Participate"?PoliticalActivityActionType.VOTED_FOR:PoliticalActivityActionType.VOTED_AGAINST
-                epa.outcomeType =
-                        line."${prefix}${i}Outcome"=="Became Law"?PoliticalActivityOutcomeType.APPROVED:
-                        line."${prefix}${i}Outcome"=="Became Private Law"?PoliticalActivityOutcomeType.APPROVED:
-                        line."${prefix}${i}Outcome"=="Passed House"?PoliticalActivityOutcomeType.APPROVED:
-                        line."${prefix}${i}Outcome"=="Passed Senate"?PoliticalActivityOutcomeType.APPROVED:
-                        line."${prefix}${i}Outcome"=="Failed House"?PoliticalActivityOutcomeType.DENIED:
-                        line."${prefix}${i}Outcome"=="Failed House"?PoliticalActivityOutcomeType.DENIED:
-                        line."${prefix}${i}Outcome"=="Introduced"?PoliticalActivityOutcomeType.PENDING:
-                        PoliticalActivityOutcomeType.PENDING
+                epa.actionType =line."${prefix}${i}Action"
+                epa.outcomeType =line."${prefix}${i}Outcome"
                 timeLines << epa
             }
         }
@@ -162,6 +154,8 @@ class PoliticianService {
         politician.professionalDetails.institution = line."institution"
         politician.professionalDetails.constituency = findConstituency(line)
         politician.professionalDetails.region =findRegion(line)
+        politician.professionalDetails.cvLink =line."cvLink"
+        politician.professionalDetails.declarationLink =line."declarationLink"
 
     }
 
