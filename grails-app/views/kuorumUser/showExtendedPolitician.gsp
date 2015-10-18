@@ -11,9 +11,9 @@
 <content tag="mainContent">
     <div class="panel panel-default">
         <div id='obama-header' style="background: url(${image.userImgProfile(user:politician)}) 50% 50% no-repeat;">
-            <userUtil:followButton user="${politician}">
-                <i class="fa fa-plus"></i>
-            </userUtil:followButton>
+            %{--<userUtil:followButton user="${politician}">--}%
+                %{--<i class="fa fa-plus"></i>--}%
+            %{--</userUtil:followButton>--}%
         </div>
         <div class="panel-body">
             <div class="row">
