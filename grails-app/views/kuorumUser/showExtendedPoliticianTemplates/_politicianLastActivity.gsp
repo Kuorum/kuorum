@@ -1,4 +1,3 @@
-<%@ page import="kuorum.users.extendedPoliticianData.PoliticalActivityActionType" %>
 <g:if test="${politician.externalPoliticianActivities}">
     <div class="panel panel-default">
         <div class="panel-heading">
