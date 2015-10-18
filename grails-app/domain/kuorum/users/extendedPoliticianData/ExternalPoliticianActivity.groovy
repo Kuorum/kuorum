@@ -7,6 +7,6 @@ class ExternalPoliticianActivity {
     Date date;
     String title;
     String link;
-    PoliticalActivityActionType actionType;
-    PoliticalActivityOutcomeType outcomeType;
+    String actionType;
+    String outcomeType;
 }

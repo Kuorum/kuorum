@@ -8,21 +8,17 @@
     <r:require modules="newStyle" />
 </head>
 
-
-<content tag="subHeader">
-</content>
-
 <content tag="mainContent">
     <div class="panel panel-default">
-        <div class='card-header' id='obama-header' style="background: url(${image.userImgProfile(user:politician)}) 50% 50% no-repeat;">
+        <div id='obama-header' style="background: url(${image.userImgProfile(user:politician)}) 50% 50% no-repeat;">
             <userUtil:followButton user="${politician}">
                 <i class="fa fa-plus"></i>
             </userUtil:followButton>
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-xs-12 col-sm-3 profile-pic-col">
-                    <div class="profile-pic">
+                <div class="col-md-3">
+                    <div class="profile-pic pull-left">
                         <img alt="${politician.name}"
                              class="img-circle"
                              data-src="holder.js/140x140"
@@ -32,18 +28,18 @@
                     </div>
 
                 </div>
-                <div class='col-xs-7 col-sm-5 profile-title'>
+                <div class='col-md-6 profile-title'>
                     <h2>${politician.name}</h2>
                     <cite>${politician?.professionalDetails?.position?:"N/A"}, ${politician?.professionalDetails?.region?.name?:"N/A"}</cite>
                     <p class='party'>${userUtil.roleName(user:politician)}</p>
                 </div>
-                <div class="col-xs-5 col-sm-4 following">
-                    %{--<strong>Followers 58K</strong><br/>--}%
-                    <strong><g:message code="kuorumUser.show.module.followers.title" args="[politician.numFollowers]"/></strong><br/>
+                <div class="col-md-3 text-right">
                     <userUtil:ifIsFollower user="${politician}">
-                        <i class="fa fa-check-circle-o"></i>
+                        <i class="fa fa-check-square-o"></i>
                         <g:message code="kuorumUser.popover.follower"/>
+                        <br/>
                     </userUtil:ifIsFollower>
+                    <g:message code="kuorumUser.show.module.followers.title" args="[politician.numFollowers]"/>
                 </div>
             </div><!--/.row -->
 

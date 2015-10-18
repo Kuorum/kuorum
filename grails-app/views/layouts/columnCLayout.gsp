@@ -35,7 +35,7 @@
             </div>
             <g:if test="${pageProperty(name:'page.extraRowData')}">
                 <div class="row">
-                    <div class="hidden-xs col-sm-12">
+                    <div class="col-sm-12">
                         <g:pageProperty name="page.extraRowData"/>
                     </div>
                 </div>

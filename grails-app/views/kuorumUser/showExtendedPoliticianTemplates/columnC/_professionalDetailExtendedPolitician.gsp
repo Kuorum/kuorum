@@ -26,18 +26,24 @@
         <hr/>
         <table class="table table-condensed">
             <tbody>
-            <tr>
-                <th scope="row"><g:message code="politician.professionalDetails.data.profession"/></th>
-                <td>${politician?.professionalDetails?.profession?:"N/A"}</td>
-            </tr>
-            <tr>
-                <th scope="row"><g:message code="politician.professionalDetails.data.cv"/></th>
-                <td><a class="pdf" href="#">cv.pdf</a></td>
-            </tr>
-            <tr>
-                <th scope="row"><g:message code="politician.professionalDetails.data.declaration"/></th>
-                <td><a href="#">example.com/declaration.pdf</a></td>
-            </tr>
+            <g:if test="${politician?.professionalDetails?.profession}">
+                <tr>
+                    <th scope="row"><g:message code="politician.professionalDetails.data.profession"/></th>
+                    <td>${politician?.professionalDetails?.profession?:"N/A"}</td>
+                </tr>
+            </g:if>
+            <g:if test="${politician?.professionalDetails?.cvLink}">
+                <tr>
+                    <th scope="row"><g:message code="politician.professionalDetails.data.cv"/></th>
+                    <td><a class="pdf" href="${politician?.professionalDetails?.cvLink}" target="_blank">cv.pdf</a></td>
+                </tr>
+            </g:if>
+            <g:if test="${politician?.professionalDetails?.cvLink}">
+                <tr>
+                    <th scope="row"><g:message code="politician.professionalDetails.data.declaration"/></th>
+                    <td><a href="${politician?.professionalDetails?.declarationLink}" target="_blank">declaration.pdf</a></td>
+                </tr>
+            </g:if>
             </tbody>
         </table>
     </div>

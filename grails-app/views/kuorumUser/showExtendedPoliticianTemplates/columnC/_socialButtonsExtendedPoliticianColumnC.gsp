@@ -1,4 +1,4 @@
-<ul class="share-buttons hidden-xs">
+<ul class="share-buttons">
     <li>
         <div class="tooltip left" role="tooltip">
             <div class="tooltip-arrow"></div>

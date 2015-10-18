@@ -1,5 +1,4 @@
-/* Typography =========== */
-/* ====================================================== */
+/*Typography*/
 h4{
     font-variant: small-caps;
     color: #333333;
@@ -36,38 +35,6 @@ a:hover{
 .text-danger{
     color:#ff0000;
 }
-/* Buttons =========== */
-/* ====================================================== */
-.btn-primary{
-    background-color: #1e84e3;
-    /*background-color: #20a2ea;*/
-    text-transform: uppercase;
-    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: 0.4px;
-    text-shadow: 0 0 1px #fff;
-    display: inline-block;
-    padding: 3px 14px;
-}
-.btn-primary:hover,
-.btn-primary:active,
-.btn-primary:visited,
-.btn-primary:focus{
-    text-decoration: none;
-}
-.btn-primary:hover{
-    /*background-color: #176ab7;*/
-    background-color: #2e6bab;
-}
-.btn-sm{
-    font-size: 14px;
-}
-/* Global Layout =========== */
-/* ====================================================== */
-
-
-
 /*Panel*/
 .panel{
     margin-bottom: 24px;
@@ -80,22 +47,21 @@ a:hover{
 #obama-header{
     min-height: 285px;
     width: 100%;
-    background-size: cover;
+    background: url(../images/barack-obama-header.jpg) 0 0 no-repeat;
 }
 .profile-pic {
     position: relative;
-    float: left;
 }
 .profile-pic .img-circle {
     width: 144px;
     height: 144px;
     border: solid 5px #fff;
-    margin-top: -65%;
+    margin-top: -60%;
 }
 .profile-pic .fa-check {
     position: absolute;
-    bottom: 0px;
-    right: 7px;
+    bottom: 5px;
+    right: 11px;
     background-color: #1e84e3;
     border-radius: 100%;
     border: #fff solid 3px;
@@ -103,7 +69,8 @@ a:hover{
     width: 40px;
     color: #fff;
     font-size: 16px;
-    padding-top: 9px;
+    padding-top: 2px;
+    line-height: 30px;
     text-align: center;
 }
 
@@ -114,71 +81,11 @@ a:hover{
     margin-top: 0;
     margin-bottom: 6px;
 }
-.following{
-    text-align: right;
-
-}
-.following .fa-check-circle-o{
-    margin-top: 10px;
-    margin-right: 6px;
-    font-size: 16px;
-}
-@media (max-width: 767px){
-    #obama-header{
-        min-height: 200px;
-    }
-    .profile-title{
-        float: left;
-        margin-left: 0px;
-    }
-    .profile-pic-col{
-        text-align: center;
-        margin-bottom: 10px;
-    }
-    .profile-pic{
-        width: 96px;
-        float: none;
-    }
-    .profile-pic .img-circle{
-        width: 96px;
-        height: 96px;
-        border: solid 3px #fff;
-    }
-    .profile-pic .fa-check{
-        font-size: 10px;
-        width: 24px;
-        height: 24px;
-        padding-top: 4px;
-        border: #fff solid 2px;
-    }
-    .profile-title h2{
-        font-size: 24px;
-        margin-bottom: 3px;
-    }
-    .following{
-        text-align: right;
-        font-size: 12px;
-    }
-
-    cite{
-        font-size: 14px;
-        margin-bottom: 0px;
-    }
-    p.party{
-        font-size: 12px;
-    }
-}
 p.party{
     margin-bottom: 5px;
 }
 .extra-padding{
     padding: 0 45px;
-}
-@media only screen and (max-width: 767px){
-    .extra-padding{
-        padding: 0 5px;
-    }
-
 }
 .causes-tags{
     padding: 0;
@@ -191,29 +98,11 @@ p.party{
     padding: 3px 10px;
     margin: 0px 10px 10px 0;
 }
-.causes-tags li:hover,
-.causes-tags li:active,
-.causes-tags li:focus{
-    background-color: #b77a17;
-}
 .causes-tags li a{
     font-size: 14px;
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
     letter-spacing: 0.4px;
     color: #fff;
-}
-.causes-tags li a:hover,
-.causes-tags li a:focus,
-.causes-tags li a:active{
-    text-decoration: none;
-}
-@media screen and (max-width: 767px){
-    .causes-tags li{
-        padding: 1px 6px;
-    }
-    .causes-tags li a{
-        font-size: 12px;
-    }
 }
 .known-for{
     padding: 0;
@@ -243,27 +132,28 @@ p.party{
     color: #666;
     margin-bottom: 24px;
 }
+.panel-default .btn-primary{
+    background-color: #1e84e3;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+    text-shadow: 0 0 1px #fff;
+    display: inline-block;
+}
 .panel-default .btn-lg{
     width: 75%;
     margin-bottom: 15px;
 }
-.card-header{
-    position: relative;
+.panel-default .btn-primary:hover,
+.panel-default .btn-primary:active,
+.panel-default .btn-primary:visited,
+.panel-default .btn-primary:focus{
+    text-decoration: none;
 }
-.panel-default .btn.follow{
-    float: right;
-    position: absolute;
-    bottom: 16px;
-    right: 20px;
-    width: 146px;
-    height: 34px;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-.btn.follow .fa-plus{
-    margin-left: 3px;
+.panel-default .btn-primary:hover{
+    background-color: #176ab7;
 }
 .share-buttons {
     background-color: #333;
@@ -273,7 +163,7 @@ p.party{
 }
 .share-buttons li {
     float: left;
-    margin-left: 20px;
+    margin-left: 22px;
     list-style-type: none;
     padding: 10px 0;
 }
@@ -282,11 +172,6 @@ p.party{
 }
 .share-buttons li a i{
     font-size: 24px;
-}
-.share-buttons li a i:hover,
-.share-buttons li a i:active,
-.share-buttons li a i:focus{
-    color: #e3981e;
 }
 .share-buttons > li:first-child {
     margin-left: 0;
@@ -320,8 +205,6 @@ p.party{
 }
 .panel-default .progress{
     height: 10px;
-    margin-top: 10px;
-    margin-bottom: 5px;
 }
 .panel-default .table-condensed th, .panel-default .table-condensed td{
     border:none;
@@ -384,7 +267,9 @@ p.party{
     padding-bottom: 0;
     padding-top: 15px;
 }
-
+.panel-default .btn-sm{
+    font-size: 14px;
+}
 
 #political-experience .panel-body{
     padding: 35px 35px 0px;
@@ -397,8 +282,8 @@ p.party{
 }
 
 .timeline:before {
-    top: 55px;
-    bottom: -11px;
+    top: 0;
+    bottom: 0;
     position: absolute;
     content: " ";
     width: 6px;
@@ -440,8 +325,8 @@ p.party{
     border-radius: 2px;
     padding: 20px;
     position: relative;
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
     background-color: #f7e0bb;
 }
 
@@ -477,7 +362,7 @@ p.party{
     font-size: 1.4em;
     text-align: center;
     position: absolute;
-    top: 28px;
+    top: 33px;
     left: 50%;
     margin-left: -15px;
     background-color: #999999;
@@ -489,7 +374,6 @@ p.party{
 }
 
 .timeline > li > .timeline-badge.small {
-    top: 33px;
     width: 18px;
     height: 18px;
     margin-left: -9px;
@@ -567,11 +451,8 @@ p.party{
 }
 
 @media (max-width: 767px) {
-    #political-experience .panel-body{
-        padding: 20px 40px 0 60px;
-    }
     ul.timeline:before {
-        left: 50px;
+        left: 40px;
     }
 
     ul.timeline > li > .timeline-panel {
@@ -581,13 +462,11 @@ p.party{
     }
 
     ul.timeline > li > .timeline-badge {
-        left: 35px;
+        left: 15px;
         margin-left: 0;
         top: 16px;
     }
-    ul.timeline > li > .timeline-badge.small{
-        left : 50px;
-    }
+
     ul.timeline > li > .timeline-panel {
         float: right;
     }
@@ -605,102 +484,4 @@ p.party{
         left: -14px;
         right: auto;
     }
-
-    .timeline > li > .date {
-        margin-left: -4%;
-        margin-top: 4.2%;
-
-    }
-    .timeline > li.timeline-inverted > .date {
-        float: left;
-        margin-top: 4.3%;
-
-    }
-}
-
-/* Latest projects =========== */
-/* ====================================================== */
-
-#otros-proyectos{
-    padding: 30px 0;
-    background-color: #fbfbfb;
-}
-h2.underline{
-    margin-top: 0;
-}
-
-/* Other Profiles =========== */
-/* ====================================================== */
-#suggested-politicians{
-    background-color: #f5f5f5;
-    padding: 40px 0;
-}
-.politician-list .box-ppal{
-    min-height: 440px;
-}
-
-.card-header-photo img{
-    height: 160px;
-}
-#suggested-politicians cite{
-    font-size: 14px;
-    margin-bottom: 0;
-}
-.politician-list .box-ppal p.party{
-    font-weight: bold;
-    font-size: 12px;
-}
-.politician-list .box-ppal p{
-    margin-bottom:5px;
-    height: auto;
-}
-.politician-list .box-ppal .user{
-    margin-bottom: 0px;
-    margin-top: -60px;
-}
-.profile-pic-sm{
-    width: 96px;
-    position: relative;
-    display: inline-block;
-}
-.politician-list .box-ppal .user .user-img{
-    width: 96px;
-    height: 96px;
-    border: solid #fff 4px;
-}
-.politician-list .box-ppal .user .fa-check{
-    position: absolute;
-    bottom: 0px;
-    right: 7px;
-    background-color: #1e84e3;
-    border-radius: 100%;
-    color: #fff;
-    padding-top: 9px;
-    text-align: center;
-    font-size: 10px;
-    width: 24px;
-    height: 24px;
-    padding-top: 4px;
-    border: #fff solid 2px;
-}
-.politician-list .box-ppal .user .btn.follow{
-    margin: 70px 0 0 0 !important;
-    float: right;
-    padding: 8px 8px !important;
-}
-#suggested-politicians .user-name{
-    margin-top: 0;
-    margin-bottom: 0px;
-    font-size: 24px;
-    font-weight: normal;
-}
-.politician-list .box-ppal .card-footer{
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-
-}
-
-.politician-list .box-ppal .card-footer .fa-check-circle-o{
-    margin-right: 3px;
 }

@@ -1,6 +1,6 @@
 <%@ page import="kuorum.users.extendedPoliticianData.PoliticalActivityActionType" %>
 <g:if test="${politician.externalPoliticianActivities}">
-    <div class="hidden-xs panel panel-default">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title"><g:message code="politician.latestActivity.title"/></h3>
         </div>
@@ -17,10 +17,10 @@
                 <tbody>
                 <g:each in="${politician.externalPoliticianActivities}" var="externalPoliticianActivity">
                     <g:set var="cssVote" value=""/>
-                    <g:if test="${externalPoliticianActivity.actionType==PoliticalActivityActionType.VOTED_FOR}">
+                    <g:if test="${externalPoliticianActivity.actionType=='Voted for'}">
                         <g:set var="cssVote" value="text-success"/>
                     </g:if>
-                    <g:if test="${externalPoliticianActivity.actionType==PoliticalActivityActionType.VOTED_AGAINST}">
+                    <g:if test="${externalPoliticianActivity.actionType=='Voted against'}">
                         <g:set var="cssVote" value="text-danger"/>
                     </g:if>
                     <tr>
@@ -28,8 +28,8 @@
                         <td class='political-activity-title'>
                             <a href="${externalPoliticianActivity.link}">${externalPoliticianActivity.title}</a>
                         </td>
-                        <td class="${cssVote}"><g:message code="kuorum.users.extendedPoliticianData.PoliticalActivityActionType.${externalPoliticianActivity.actionType}"/></td>
-                        <td><g:message code="kuorum.users.extendedPoliticianData.PoliticalActivityOutcomeType.${externalPoliticianActivity.outcomeType}"/></td>
+                        <td class="${cssVote}">${externalPoliticianActivity.actionType}</td>
+                        <td>${externalPoliticianActivity.outcomeType}</td>
                     </tr>
                 </g:each>
                 </tbody>

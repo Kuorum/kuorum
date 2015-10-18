@@ -12,29 +12,32 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row"><g:message code="politician.quickNotes.data.background.completeName"/></th>
-                <td>${politician?.politicianExtraInfo?.completeName?:"N/A"}</td>
-            </tr>
-            <tr>
-                <th scope="row"><g:message code="politician.quickNotes.data.background.age"/></th>
-                <td>
-                <g:if test="${politician?.politicianExtraInfo?.birthDate}">
-                    ${new Date()[Calendar.YEAR]-politician.politicianExtraInfo.birthDate[Calendar.YEAR]}</td>
-                </g:if>
-            </tr>
-            <tr>
-                <th scope="row"><g:message code="politician.quickNotes.data.background.dateOfBirth"/></th>
-                <td>
-                    <g:if test="${politician?.politicianExtraInfo?.birthDate}">
-                        <g:formatDate date="${politician.politicianExtraInfo.birthDate}" format="dd MMM yyyy"/>
-                    </g:if>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row"><g:message code="politician.quickNotes.data.background.placeOfBirth"/></th>
-                <td>${politician?.politicianExtraInfo?.birthPlace}</td>
-            </tr>
+            <g:if test="${politician?.politicianExtraInfo?.completeName}">
+                <tr>
+                    <th scope="row"><g:message code="politician.quickNotes.data.background.completeName"/></th>
+                    <td>${politician?.politicianExtraInfo?.completeName?:"N/A"}</td>
+                </tr>
+            </g:if>
+            <g:if test="${politician?.politicianExtraInfo?.birthDate}">
+                <tr>
+                    <th scope="row"><g:message code="politician.quickNotes.data.background.age"/></th>
+                    <td>${new Date()[Calendar.YEAR]-politician.politicianExtraInfo.birthDate[Calendar.YEAR]}</td>
+                </tr>
+            </g:if>
+            <g:if test="${politician?.politicianExtraInfo?.birthDate}">
+                <tr>
+                    <th scope="row"><g:message code="politician.quickNotes.data.background.dateOfBirth"/></th>
+                    <td>
+                        <g:formatDate date="${politician.politicianExtraInfo.birthDate}" format="yyyy"/>
+                    </td>
+                </tr>
+            </g:if>
+            <g:if test="${politician?.politicianExtraInfo?.birthPlace}">
+                <tr>
+                    <th scope="row"><g:message code="politician.quickNotes.data.background.placeOfBirth"/></th>
+                    <td>${politician?.politicianExtraInfo?.birthPlace}</td>
+                </tr>
+            </g:if>
             </tbody>
             <tfoot>
             <tr>
@@ -50,14 +53,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row"><g:message code="politician.quickNotes.data.education.university"/></th>
-                <td>${politician?.politicianExtraInfo?.university}</td>
-            </tr>
-            <tr>
-                <th scope="row"><g:message code="politician.quickNotes.data.education.school"/></th>
-                <td>${politician?.politicianExtraInfo?.school}</td>
-            </tr>
+            <g:if test="${politician?.politicianExtraInfo?.university}">
+                <tr>
+                    <th scope="row"><g:message code="politician.quickNotes.data.education.university"/></th>
+                    <td>${politician?.politicianExtraInfo?.university}</td>
+                </tr>
+            </g:if>
+            <g:if test="${politician?.politicianExtraInfo?.university}">
+                <tr>
+                    <th scope="row"><g:message code="politician.quickNotes.data.education.school"/></th>
+                    <td>${politician?.politicianExtraInfo?.school}</td>
+                </tr>
+            </g:if>
             </tbody>
             <tfoot>
             <tr>
