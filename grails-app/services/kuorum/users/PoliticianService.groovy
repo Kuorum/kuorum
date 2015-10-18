@@ -10,8 +10,6 @@ import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
-import kuorum.users.extendedPoliticianData.PoliticalActivityActionType
-import kuorum.users.extendedPoliticianData.PoliticalActivityOutcomeType
 import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
 import kuorum.users.extendedPoliticianData.PoliticianLeaning
 import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
@@ -32,10 +30,31 @@ class PoliticianService {
         populateProfessionalDetails(politician, line)
         populateSocialLinks(politician, line)
         populateExternalPoliticianActivity(politician, line)
+        populateTimeLine(politician, line)
         populateRelevantEvents(politician, line)
         populateExtraInfo(politician, line)
 
         politician.save(failOnError: true)
+    }
+
+    private void populateTimeLine(KuorumUser politician, def line) {
+        List<PoliticianTimeLine> timeLine = []
+        if (politician.timeLine){
+            timeLine = politician.timeLine
+        }
+        String prefix = "political_experience"
+        (1..5).each{i->
+            if (line."${prefix}${i}"){
+                PoliticianTimeLine event = new PoliticianTimeLine();
+                event.title = line."${prefix}${i}_content"
+                event.date = Date.parse("dd/MM/yyyy HH:mm",line."${prefix}${i}_date")
+                event.important = false
+                if (!timeLine.find{it.title == event.title}){
+                    timeLine.add(event)
+                }
+            }
+        }
+        politician.timeLine = timeLine.sort{a,b-> b.date<=>a.date}
     }
 
     private void populateRelevantEvents(KuorumUser politician, def line) {
@@ -103,10 +122,7 @@ class PoliticianService {
     }
 
     private void populateExternalPoliticianActivity(KuorumUser politician, def line){
-        if (!politician.timeLine){
-
-        }
-        List<ExternalPoliticianActivity> timeLines = [];
+        List<ExternalPoliticianActivity> externalPoliticianActivities = [];
         String prefix = "lastActivity"
         (1..5).each{i->
             ExternalPoliticianActivity epa = new ExternalPoliticianActivity()
@@ -117,11 +133,11 @@ class PoliticianService {
                 epa.link ="#"
                 epa.actionType =line."${prefix}${i}Action"
                 epa.outcomeType =line."${prefix}${i}Outcome"
-                timeLines << epa
+                externalPoliticianActivities << epa
             }
         }
-        timeLines.sort{a,b-> b.date<=>a.date}
-        politician.externalPoliticianActivities = timeLines
+        externalPoliticianActivities.sort{a,b-> b.date<=>a.date}
+        politician.externalPoliticianActivities = externalPoliticianActivities
     }
 
     private void populateLeaning(KuorumUser politician, def line){
