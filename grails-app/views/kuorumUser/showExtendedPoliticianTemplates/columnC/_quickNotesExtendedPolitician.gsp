@@ -8,7 +8,7 @@
         <table class="table table-condensed">
             <thead>
             <tr>
-                <th colspan="2"><g:message code="politician.quickNotes.data.background.title"/></th>
+                <th><g:message code="politician.quickNotes.data.background.title"/></th>
             </tr>
             </thead>
             <tbody>
@@ -49,7 +49,7 @@
         <table class="table table-condensed">
             <thead>
             <tr>
-                <th colspan="2"><g:message code="politician.quickNotes.data.education.title"/></th>
+                <th><g:message code="politician.quickNotes.data.education.title"/></th>
             </tr>
             </thead>
             <tbody>
@@ -76,7 +76,7 @@
         <table class="table table-condensed">
             <thead>
             <tr>
-                <th colspan="2"><g:message code="politician.quickNotes.data.moreInfo.title"/></th>
+                <th><g:message code="politician.quickNotes.data.moreInfo.title"/></th>
             </tr>
             </thead>
             <tbody>
@@ -84,7 +84,7 @@
                 <th scope="row"><g:message code="politician.quickNotes.data.moreInfo.webSite"/></th>
                 <td>
                     <g:if test="${politician?.politicianExtraInfo?.webSite}">
-                        <a href="${politician?.politicianExtraInfo?.webSite}" target="_blank"> ${politician?.politicianExtraInfo?.webSite} </a>
+                        <a class="ellipsis" href="${politician?.politicianExtraInfo?.webSite}" target="_blank"> ${politician?.politicianExtraInfo?.webSite} </a>
                     </g:if>
                 </td>
             </tr>
