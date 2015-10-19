@@ -2525,7 +2525,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .politician-list .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
 .politician-list .box-ppal > small .fa {opacity: .5;}
 .politician-list .box-ppal {height: 440px; padding: 0; margin: 0 0 20px 0;}
-.politician-list .box-ppal > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0 0 10px 0;}
+.politician-list .box-ppal .link-wrapper{height: 440px;}
+.politician-list .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0 0 10px 0;}
 .politician-list .box-ppal > .pull-right {width: 42%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; text-align: right;}
 .politician-list .box-ppal .card-footer{
     position: absolute;
