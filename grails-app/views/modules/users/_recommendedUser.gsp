@@ -1,5 +1,6 @@
 <article itemtype="http://schema.org/Person" itemscope role="article" class="box-ppal clearfix">
     <div class="link-wrapper">
+        <a href="" class="hidden"></a>
         <div class="card-header-photo">
             <img src="${image.userImgProfile(user:user)}" alt="${user.name}">
         </div>
