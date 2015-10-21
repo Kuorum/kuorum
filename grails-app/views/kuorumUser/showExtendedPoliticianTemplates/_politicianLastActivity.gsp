@@ -40,13 +40,13 @@
                 </g:each>
                 </tbody>
                 <tfoot>
-                <tr>
-                    <td colspan="4" class="text-center">
-                        <a href="#" class="btn btn-sm btn-blue" role="button">
-                            <g:message code="search.list.seeMore"/>
-                        </a>
-                    </td>
-                </tr>
+                %{--<tr>--}%
+                    %{--<td colspan="4" class="text-center">--}%
+                        %{--<a href="#" class="btn btn-sm btn-blue" role="button">--}%
+                            %{--<g:message code="search.list.seeMore"/>--}%
+                        %{--</a>--}%
+                    %{--</td>--}%
+                %{--</tr>--}%
                 </tfoot>
             </table>
         </div><!--/.panel-body -->
