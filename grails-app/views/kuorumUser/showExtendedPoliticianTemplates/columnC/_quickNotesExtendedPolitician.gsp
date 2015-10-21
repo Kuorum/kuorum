@@ -40,9 +40,15 @@
             </g:if>
             </tbody>
             <tfoot>
-            <tr>
-                <td colspan="2"class="text-right"><a href="#"><g:message code="politician.quickNotes.readMore"/></a></td>
-            </tr>
+            <g:if test="${politician?.professionalDetails?.sourceWebsite}">
+                <tr>
+                    <td colspan="2"class="text-right">
+                        <a href="${politician.professionalDetails.sourceWebsite}">
+                            <g:message code="politician.quickNotes.readMore"/>
+                        </a>
+                    </td>
+                </tr>
+            </g:if>
             </tfoot>
         </table>
         <hr/>
@@ -67,9 +73,15 @@
             </g:if>
             </tbody>
             <tfoot>
-            <tr>
-                <td colspan="2"class="text-right"><a href="#"><g:message code="politician.quickNotes.readMore"/></a></td>
-            </tr>
+            <g:if test="${politician?.professionalDetails?.sourceWebsite}">
+                <tr>
+                    <td colspan="2"class="text-right">
+                        <a href="${politician.professionalDetails.sourceWebsite}" target="_blank">
+                            <g:message code="politician.quickNotes.readMore"/>
+                        </a>
+                    </td>
+                </tr>
+            </g:if>
             </tfoot>
         </table>
         <hr/>

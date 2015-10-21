@@ -25,7 +25,14 @@
                     <tr>
                         <td><g:formatDate format="dd MMM yyyy" date="${externalPoliticianActivity.date}"/></td>
                         <td class='political-activity-title'>
-                            <a href="${externalPoliticianActivity.link}">${externalPoliticianActivity.title}</a>
+                            <g:if test="${externalPoliticianActivity.link}">
+                                <a href="${externalPoliticianActivity.link}" target="_blank">
+                                    ${externalPoliticianActivity.title}
+                                </a>
+                            </g:if>
+                            <g:else>
+                                ${externalPoliticianActivity.title}
+                            </g:else>
                         </td>
                         <td class="${cssVote}">${externalPoliticianActivity.actionType}</td>
                         <td>${externalPoliticianActivity.outcomeType}</td>

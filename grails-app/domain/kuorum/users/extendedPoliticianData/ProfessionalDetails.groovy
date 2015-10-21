@@ -10,6 +10,7 @@ class ProfessionalDetails {
     String institution;
     String profession;
     String politicalParty
+    String sourceWebsite
     String cvLink
     String declarationLink
     Region constituency
@@ -22,5 +23,6 @@ class ProfessionalDetails {
         profession nullable:true
         constituency nullable:true
         region nullable:true
+        sourceWebsite nullable: true
     }
 }

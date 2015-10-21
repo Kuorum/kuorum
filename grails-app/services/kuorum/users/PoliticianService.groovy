@@ -185,6 +185,7 @@ class PoliticianService {
         politician.professionalDetails.region =findRegion(line)
         politician.professionalDetails.cvLink =line."cvLink"
         politician.professionalDetails.declarationLink =line."declarationLink"
+        politician.professionalDetails.sourceWebsite =line."sourceWebsite"
 
     }
 
