@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="date text-brand-dark">
-                            <g:formatDate date="${timeEvent.date}" format="dd-MM-yyyy"/>
+                            <g:formatDate date="${timeEvent.date}" format="yyyy"/>
                         </div>
                     </li>
                 </g:each>
