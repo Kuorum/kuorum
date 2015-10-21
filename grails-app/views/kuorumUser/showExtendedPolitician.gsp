@@ -77,7 +77,7 @@
 </content>
 
 <content tag="cColumn">
-    <g:render template="showExtendedPoliticianTemplates/columnC/socialButtonsExtendedPoliticianColumnC" model="[politician:politician]"/>
+    <g:render template="showExtendedPoliticianTemplates/columnC/socialButtonsExtendedPoliticianColumnC" model="[user:politician]"/>
     <g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>
     <g:render template="showExtendedPoliticianTemplates/columnC/leaningIndex" model="[politician:politician]"/>
     <g:render template="showExtendedPoliticianTemplates/columnC/professionalDetailExtendedPolitician" model="[politician:politician]"/>
