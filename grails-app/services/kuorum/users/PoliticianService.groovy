@@ -24,7 +24,7 @@ class PoliticianService {
 
     KuorumUser createPoliticianFromCSV(def line) {
 
-        KuorumUser politician = findOrRecoverPolitician(line.id)
+        KuorumUser politician = findOrRecoverPolitician(line.email, line.id)
         populateBasicData(politician, line)
         populateLeaning(politician, line)
         populateProfessionalDetails(politician, line)
@@ -85,18 +85,29 @@ class PoliticianService {
         politician.relevantEvents = relevantEvents
     }
 
-    private KuorumUser findOrRecoverPolitician(String ipdbId){
-        findOrRecoverPolitician(Long.parseLong(ipdbId))
+    private KuorumUser findOrRecoverPolitician(String email, String ipdbId){
+        findOrRecoverPolitician(email, ipdbId?Long.parseLong(ipdbId):null)
     }
-    private KuorumUser findOrRecoverPolitician(Long ipdbId){
-        DBCursor result = KuorumUser.collection.find(['politicianExtraInfo.ipdbId':ipdbId],[_id:1])
+    private KuorumUser findOrRecoverPolitician(String email, Long ipdbId){
+
+        //Search politician by email
         KuorumUser politician;
+        if (email){
+            politician = KuorumUser.findByEmail(email);
+            if (politician){
+                return politician;
+            }
+        }
+
+        // Search politician by IPDB id
+        DBCursor result = KuorumUser.collection.find(['politicianExtraInfo.ipdbId':ipdbId],[_id:1])
         if (result.hasNext()){
             ObjectId userId = result.next()._id
             politician = KuorumUser.findById(userId)
             log.debug("Updating ${politician.name} with ipdbId: ${ipdbId}")
         }else{
             politician = new KuorumUser()
+            politician.enabled = false
             politician.setPoliticianExtraInfo(new PoliticianExtraInfo(ipdbId: ipdbId))
             log.debug("Creating politician with ipdbId ${ipdbId}")
         }
