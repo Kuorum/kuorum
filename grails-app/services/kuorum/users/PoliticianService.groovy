@@ -121,6 +121,11 @@ class PoliticianService {
             KuorumFile avatar = fileService.createExternalFile(politician, avatarUrl,FileGroup.USER_AVATAR, FileType.IMAGE)
             politician.avatar = avatar
         }
+        String profileUrl = line."politicalPartyImage"
+        if (profileUrl.startsWith("http")){
+            KuorumFile imageProfile = fileService.createExternalFile(politician, avatarUrl,FileGroup.USER_PROFILE, FileType.IMAGE)
+            politician.imageProfile= imageProfile
+        }
         politician.bio = line."bio"
         politician.userType = UserType.POLITICIAN
         politician.email = line."email"?:politician.email?:"info+${line.id}-${politician.name.encodeAsMD5()}@kuorum.org"
