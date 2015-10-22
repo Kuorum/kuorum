@@ -154,7 +154,7 @@ class PoliticianService {
             if (title){
                 epa.date = Date.parse("dd/MM/yyyy HH:mm",line."${prefix}${i}Date")
                 epa.title =title
-                epa.link ="#"
+                epa.link =line."${prefix}${i}Link"
                 epa.actionType =line."${prefix}${i}Action"
                 epa.outcomeType =line."${prefix}${i}Outcome"
                 externalPoliticianActivities << epa
