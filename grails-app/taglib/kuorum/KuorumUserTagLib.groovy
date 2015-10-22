@@ -1,6 +1,5 @@
 package kuorum
 
-import grails.plugin.springsecurity.ui.RegistrationCode
 import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.core.model.solr.SolrPost
@@ -214,9 +213,7 @@ class KuorumUserTagLib {
     def roleName={attrs ->
         KuorumUser user = attrs.user
         if (user.userType == UserType.POLITICIAN){
-            String rolePolitician = user.professionalDetails.politicalParty
-            if (!user.enabled)
-                rolePolitician = "${g.message(code:"kuorumUser.role.politicianInactive")} (${rolePolitician})"
+            String rolePolitician = user.professionalDetails?.politicalParty?:""
             out << rolePolitician
         }else{
             out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")
