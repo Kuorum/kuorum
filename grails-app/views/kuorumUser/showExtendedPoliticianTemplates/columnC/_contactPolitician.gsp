@@ -4,7 +4,8 @@
     </div>
     <div class="panel-body text-center">
         <h3><g:message code="politician.contact.tellSomething" args="[politician.name]"/> </h3>
-        <a href="mailto:${politician.email}" class="btn btn-xl btn-blue btn-contact" role="button">
+        <g:set var="politicianMail" value="${politician.enabled?'info@kuorum.org':politician.email}"/>
+        <a href="mailto:${politicianMail}" class="btn btn-xl btn-blue btn-contact" role="button">
             <g:message code="politician.contact.button"/>
         </a>
     </div>
