@@ -8,7 +8,7 @@ class Page<T> {
     public Page(List<T> data, Pagination pagination, Long totalElements){
         this.data = data
         this.totalElements = totalElements
-        this.numPages = Math.round(totalElements / pagination.max)
+        this.numPages = Math.round( (totalElements/pagination.max)+0.5)
         this.currentPage = pagination.offset
     }
 
