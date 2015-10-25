@@ -2521,6 +2521,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
     float: right;
 }
 .politician-list .box-ppal .user .user-name {
+    text-decoration: none;
     display: block;
     margin-top: 3px;
     margin-bottom: 0px;
