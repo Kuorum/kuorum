@@ -706,6 +706,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .config .box-ppal {padding: 10px;}
 .kakareo.follow {padding: 5px 15px;}
 .kakareo h1 {font-size: 18px; font-size: 1.8rem; padding: 0; margin: 0 0 15px 0; line-height: 1.3;}
+.kakareo h1 a {color: #428bca;}
 
 #detailsInfoVotes.autor {background-color: #fff; border: solid 1px #ff9431; padding: 15px; margin: 0 0 15px 0; position: relative;}
 #detailsInfoVotes.autor > .row {margin-bottom: 20px;}
@@ -2548,7 +2549,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
     margin-right: 3px;
 }
 
-
+.medios-list li {list-style-type:none;}
 .medios-list:first-child {margin-top: 50px;}
 .medios-list blockquote {font-size: 21px; font-size: 2.1rem; font-style: italic; text-align: center; margin: 0 0 40px 0; padding: 0;}
 .medios-list blockquote p:before {content: "“";}
@@ -3871,7 +3872,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .sign h1 {font-size: 36px; font-size: 3.6rem; margin-top: 30px;text-align: left;}
     .sign h2 {font-size: 26px; font-size: 2.6rem; line-height: 1.4; padding: 0 30px; margin-top: 25px;text-align: left;}
     .sign .login {margin-top: 50px; margin-bottom: 50px;}
-    .socialGo li {margin: 10px 4px 0 0;}
+    .socialGo li {margin: 10px 45px 0 0;    width: 40%;}
     .sign.home .social-home-container .btn.btn-lg {padding: 14px 20px !important;}
 
     .list-project .kakareo.post.ley .total-info {padding-right: 10px;}
