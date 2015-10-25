@@ -73,8 +73,8 @@
         </ul>
         <h2><g:message code="landingPage.pressAndNotices.supportedBy.title"/> </h2>
         <ul class="support-list">
-            <li class="game"><img src="images/logo-game.jpg" alt="Game Changers"></li>
-            <li class="unltdspain"><img src="images/logo-unltdspain.jpg" alt="UNLTD Spain"></li>
+            %{--<li class="game"><img src="images/logo-game.jpg" alt="Game Changers"></li>--}%
+            %{--<li class="unltdspain"><img src="images/logo-unltdspain.jpg" alt="UNLTD Spain"></li>--}%
             <li class="iebusiness"><img src="images/logo-iebusiness.jpg" alt="IE Business School"></li>
         </ul>
     </div>

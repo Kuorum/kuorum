@@ -59,8 +59,8 @@
             <li>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="type" id="propuestas" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>
-                        &nbsp;<span class="fa fa-lightbulb-o"></span>&nbsp;&nbsp;<g:message code="search.filters.SolrType.POST"/>
+                        <input type="checkbox" name="type" id="politicos" value="${kuorum.core.model.solr.SolrType.POLITICIAN}" ${searchParams.type == kuorum.core.model.solr.SolrType.POLITICIAN?'checked':''}>
+                        <span class="icon-user"></span> <g:message code="search.filters.SolrType.POLITICIAN"/>
                     </label>
                 </div>
             </li>
@@ -75,16 +75,16 @@
             <li>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="type" id="politicos" value="${kuorum.core.model.solr.SolrType.POLITICIAN}" ${searchParams.type == kuorum.core.model.solr.SolrType.POLITICIAN?'checked':''}>
-                        <span class="icon-user"></span> <g:message code="search.filters.SolrType.POLITICIAN"/>
+                        <input type="checkbox" name="type" id="ciudadanos" value="${kuorum.core.model.solr.SolrType.KUORUM_USER}" ${searchParams.type == kuorum.core.model.solr.SolrType.KUORUM_USER?'checked':''}>
+                        <span class="icon-user"></span> <g:message code="search.filters.SolrType.KUORUM_USER"/>
                     </label>
                 </div>
             </li>
             <li>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="type" id="ciudadanos" value="${kuorum.core.model.solr.SolrType.KUORUM_USER}" ${searchParams.type == kuorum.core.model.solr.SolrType.KUORUM_USER?'checked':''}>
-                        <span class="icon-user"></span> <g:message code="search.filters.SolrType.KUORUM_USER"/>
+                        <input type="checkbox" name="type" id="propuestas" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>
+                        &nbsp;<span class="fa fa-lightbulb-o"></span>&nbsp;&nbsp;<g:message code="search.filters.SolrType.POST"/>
                     </label>
                 </div>
             </li>
