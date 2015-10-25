@@ -173,8 +173,13 @@ class PoliticianService {
         if (!politician.politicianLeaning){
             politician.politicianLeaning = new PoliticianLeaning()
         }
-        Double dli = Double.parseDouble(line."political_leaning_index")
+        String leanindIndex = line."political_leaning_index";
+        Double dli = 0.5
+        if (leanindIndex){
+            dli = Double.parseDouble(leanindIndex)
+        }
         politician.politicianLeaning.liberalIndex = Math.round(dli * 100)
+
     }
 
     private void populateExtraInfo(KuorumUser politician, def line){
@@ -186,7 +191,7 @@ class PoliticianService {
         politician.politicianExtraInfo.school = line."school"
         politician.politicianExtraInfo.completeName = line."completeName"?:line."name"
         String dateOfBirth = line."dateOfBirth"
-        politician.politicianExtraInfo.birthDate = dateOfBirth?Date.parse("dd/MM/yyyy",dateOfBirth):""
+        politician.politicianExtraInfo.birthDate = dateOfBirth?Date.parse("dd/MM/yyyy",dateOfBirth):null
         politician.politicianExtraInfo.birthPlace = line."placeOfBirth"
     }
 

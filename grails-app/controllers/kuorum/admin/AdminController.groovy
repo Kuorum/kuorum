@@ -65,14 +65,21 @@ class AdminController {
             return
         }
         Reader reader = new InputStreamReader(uploadedFile.inputStream);
-        List<KuorumUser> politicians = []
+        List<KuorumUser> politiciansOk = []
+        List politiciansWrong = []
         def lines = com.xlson.groovycsv.CsvParser.parseCsv(reader)
         for(line in lines) {
-            KuorumUser user = politicianService.createPoliticianFromCSV(line)
-            politicians << user
+            try {
+                KuorumUser user = politicianService.createPoliticianFromCSV(line)
+                politiciansOk << user
+            }catch (Exception e){
+                log.warn("Error parseando el político ${line.name}", e)
+                politiciansWrong << [id:line.id, name:line.name, error: e.getMessage()]
+            }
+
         }
-        flash.message = "CSV ${uploadedFile.originalFilename} with ${politicians.size()} politicians has been processed"
+        flash.message = "CSV ${uploadedFile.originalFilename} with ${politiciansOk.size()} politicians has been processed and ${politiciansWrong.size()} have had problems"
 //        redirect(mapping:"adminSearcherIndex")
-        render view: "csvPoliticiansLoaded", model: [politicians:politicians, fileName:uploadedFile.getOriginalFilename()]
+        render view: "csvPoliticiansLoaded", model: [politiciansOk:politiciansOk,politiciansWrong:politiciansWrong, fileName:uploadedFile.getOriginalFilename()]
     }
 }
