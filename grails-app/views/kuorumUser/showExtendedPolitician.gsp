@@ -12,9 +12,7 @@
     <div class="panel panel-default">
         <div class='profile-header'>
             <img src="${image.userImgProfile(user:politician)}" alt="${politician.name}">
-            <userUtil:followButton user="${politician}">
-                <i class="fa fa-plus"></i>
-            </userUtil:followButton>
+            <userUtil:followButton user="${politician}"/>
         </div>
         <div class="panel-body">
             <div class="row">
