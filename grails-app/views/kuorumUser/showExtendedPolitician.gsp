@@ -11,6 +11,26 @@
 <content tag="mainContent">
     <div class="panel panel-default">
         <div class='profile-header'>
+            <sec:ifAnyGranted roles="ROLE_ADMIN">
+                <!-- FLECHITA PARA ABRIR MENÚ -->
+                <span class="popover-trigger open-menu" rel="popover" role="button" data-toggle="popover">
+                    <span class="fa fa-chevron-down"></span>
+                    <span class="sr-only"><g:message code="project.list.show.options"/></span>
+                </span>
+                <!-- POPOVER OPCIONES EDICIÓN -->
+                <div class="popover">
+                    <div class="popover-more-actions edition">
+                        <ul>
+                            <li>
+                                <g:link mapping="adminEditUser" params="${politician.encodeAsLinkProperties()}">
+                                    <span><g:message code="project.editMenu.edit"/></span>
+                                </g:link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- FIN POPOVER OPCIONES EDICIÓN -->
+            </sec:ifAnyGranted>
             <img src="${image.userImgProfile(user:politician)}" alt="${politician.name}">
             <userUtil:followButton user="${politician}"/>
         </div>
