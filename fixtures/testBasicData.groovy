@@ -1,7 +1,7 @@
 include "basicData"
-include "users/*"
-include "projects/*"
-include "posts/*"
+include "users/patxi"
+//include "projects/*"
+//include "posts/*"
 
 fixture{
 

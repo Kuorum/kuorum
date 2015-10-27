@@ -24,7 +24,7 @@ class CluckServiceIntegrationSpec extends Specification{
     @Ignore
     void "test create clucks"(){
         given: "A user and a Post"
-            KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+            KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
             KuorumUser clucker = KuorumUser.findByEmail("equo@example.com")
             Post post = Post.findByOwner(user)
             long numClucks = post.numClucks
@@ -62,7 +62,7 @@ class CluckServiceIntegrationSpec extends Specification{
         where:
             email                           | numClucks
             "juanjoalvite@example.com"      | 8
-            "peter@example.com"             | 6
+            "patxi@example.com"             | 6
             "equo@example.com"              | 2
             "politician@example.com"        | 2
             "admin@example.com"             | 0
@@ -86,7 +86,7 @@ class CluckServiceIntegrationSpec extends Specification{
         where:
             email                           | numClucks
             "juanjoalvite@example.com"      | 3
-            "peter@example.com"             | 1
+            "patxi@example.com"             | 1
             "equo@example.com"              | 2
             "politician@example.com"        | 2
             "admin@example.com"             | 0

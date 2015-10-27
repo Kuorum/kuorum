@@ -35,7 +35,7 @@ class PostServiceIntegrationSpec extends Specification{
 
     void "test create post with correct params"() {
         given: "A post"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
         Project project = Project.findByHashtag("#leyAborto")
 
         Post post = new Post(
@@ -57,7 +57,7 @@ class PostServiceIntegrationSpec extends Specification{
 
     void "test updating post"() {
         given: "A post"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
         Project project = Project.findByHashtag("#leyAborto")
         Post  post = Post.findByOwnerAndProject(user,project)
         def expectedData = [
@@ -102,7 +102,7 @@ class PostServiceIntegrationSpec extends Specification{
 
     void "test publish a post with correct params"() {
         given: "A post"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
         def numPurposes = user.activity.numPurposes
         Project project = Project.findByHashtag("#leyAborto")
 
@@ -140,7 +140,7 @@ class PostServiceIntegrationSpec extends Specification{
 
     void "test defending post"(){
         setup: "Given a post to defend"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
         KuorumUser politician = KuorumUser.findByEmail("politician@example.com")
         Post post = Post.findByOwner(user)
         CommitmentType commitmentType = CommitmentType.recoverCommitmentTypesByPostType(post.postType).first()
@@ -162,7 +162,7 @@ class PostServiceIntegrationSpec extends Specification{
 
     void "test adding comments"() {
         given: "A post"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
         KuorumUser noe = KuorumUser.findByEmail("noe@example.com")
         Post post = Post.findByOwner(user)
         PostComment postComment1 = new PostComment(kuorumUser:noe, text:"1 -- Loren ipsum")
@@ -198,7 +198,7 @@ class PostServiceIntegrationSpec extends Specification{
 
     void "test deleting comments"() {
         given: "A post"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
         KuorumUser noe = KuorumUser.findByEmail("noe@example.com")
         KuorumUser carmen = KuorumUser.findByEmail("carmen@example.com")
         Post post = Post.findByOwner(user)
@@ -244,7 +244,7 @@ class PostServiceIntegrationSpec extends Specification{
 
     void "test adding debate by normal user"() {
         given: "A post"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
         KuorumUser noe = KuorumUser.findByEmail("noe@example.com")
         Post post = Post.findByOwner(user)
         PostComment postComment1 = new PostComment(kuorumUser:noe, text:"1 -- Loren ipsum")
@@ -261,7 +261,7 @@ class PostServiceIntegrationSpec extends Specification{
     @Unroll
     void "test user #user is allowed to write debates = #isAllowedToWriteDebate"(){
         given: "A post"
-        KuorumUser owner = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser owner = KuorumUser.findByEmail("patxi@example.com")
         KuorumUser userDebate = KuorumUser.findByEmail(user)
         Post post = Post.findByOwner(owner)
 
@@ -271,7 +271,7 @@ class PostServiceIntegrationSpec extends Specification{
 
         where:
         user                    || isAllowedToWriteDebate
-        "peter@example.com"     || false
+        "patxi@example.com"     || false
         "politician@example.com"|| true
         "NONE"                  || false
         "noe@example.com"       || false

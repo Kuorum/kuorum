@@ -26,7 +26,7 @@ class NotificationServiceIntegrationSpec extends Specification{
     @Unroll
     void "test find #numNotificationFound user notifications and notifications days are #rangeDate"(){
         given: "User and one notification per day"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
         Project project = Project.findByHashtag("#codigoPenal")
 
         rangeDate.each {
@@ -57,7 +57,7 @@ class NotificationServiceIntegrationSpec extends Specification{
     void "search related users to a project by the searchRelatedUserToUserCommisions"() {
         given:"users with different data"
         List <KuorumUser> listUsers=[]
-        String provinceCode = Region.findByNameAndRegionType("Ávila", RegionType.LOCAL).iso3166_2
+        String provinceCode = Region.findByNameAndRegionType("ï¿½vila", RegionType.LOCAL).iso3166_2
         4.times{
             listUsers << IntegrationHelper.createDefaultUser("relatedUser${it}@example.com")
         }
@@ -93,7 +93,7 @@ class NotificationServiceIntegrationSpec extends Specification{
     void "search related users to a project but don't find any user"() {
         given:"users with different data"
         List <KuorumUser> listUsers=[]
-        String provinceCode = Region.findByNameAndRegionType("Ávila", RegionType.LOCAL).iso3166_2
+        String provinceCode = Region.findByNameAndRegionType("ï¿½vila", RegionType.LOCAL).iso3166_2
         4.times{
             listUsers << IntegrationHelper.createDefaultUser("relatedUser${it}@example.com")
         }

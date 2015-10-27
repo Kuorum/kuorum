@@ -43,8 +43,8 @@ class KuorumUserServiceIntegrationTest extends Specification {
         }
         where:
         followerEmail       | followingEmail
-        "peter@example.com" | "equo@example.com"
-        "peter@example.com" | "carmen@example.com"
+        "patxi@example.com" | "equo@example.com"
+        "patxi@example.com" | "carmen@example.com"
     }
 
     @Unroll
@@ -77,8 +77,8 @@ class KuorumUserServiceIntegrationTest extends Specification {
         }
         where:
         followerEmail       | followingEmail       | createFollower
-        "peter@example.com" | "equo@example.com"   | false
-        "peter@example.com" | "carmen@example.com" | true
+        "patxi@example.com" | "equo@example.com"   | false
+        "patxi@example.com" | "carmen@example.com" | true
     }
 
     @Unroll
@@ -97,7 +97,7 @@ class KuorumUserServiceIntegrationTest extends Specification {
         }
         where:
         email                      | result
-        "peter@example.com"        | true  //He has not the role yet
+        "patxi@example.com"        | true  //He has not the role yet
         "juanjoalvite@example.com" | true  // He has already the role
     }
 
@@ -117,7 +117,7 @@ class KuorumUserServiceIntegrationTest extends Specification {
         }
         where:
         email                      | result
-        "peter@example.com"        | true  //He has not the role yet
+        "patxi@example.com"        | true  //He has not the role yet
         "juanjoalvite@example.com" | true  // He has already the role
 
     }
@@ -190,8 +190,8 @@ class KuorumUserServiceIntegrationTest extends Specification {
         emailsFacebookFriends                                                | emailsFacebookUsers                                                  || resultSize
         ['ecologistas@example.com']                                          | ['ecologistas@example.com']                                          || 2
         ['newuser@example.com', 'equo@example.com']                          | ['ecologistas@example.com', 'equo@example.com']                      || 2
-        ['noe@example.com', 'peter@example.com', 'juanjoalvite@example.com'] | ['ecologistas@example.com', 'equo@example.com']                      || 0
-        ['noe@example.com', 'peter@example.com', 'juanjoalvite@example.com'] | ['noe@example.com', 'peter@example.com', 'juanjoalvite@example.com'] || 2
+        ['noe@example.com', 'patxi@example.com', 'juanjoalvite@example.com'] | ['ecologistas@example.com', 'equo@example.com']                      || 0
+        ['noe@example.com', 'patxi@example.com', 'juanjoalvite@example.com'] | ['noe@example.com', 'patxi@example.com', 'juanjoalvite@example.com'] || 2
         []                                                                   | []                                                                   || 0
         ['carmen@example.com']                                               | ['carmen@example.com']                                               || 0
         ['carmen@example.com','ecologistas@example.com']                     | ['carmen@example.com','ecologistas@example.com']                     || 2

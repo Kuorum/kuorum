@@ -26,7 +26,7 @@ class KuorumMailServiceIntegrationSpec extends Specification{
 
     void "test send mail of debate notification" () {
         given: "A post"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
         KuorumUser politician = KuorumUser.findByEmail("politician@example.com")
         Post post = Post.findByOwner(user)
         post.debates = [new PostComment(text:"kk", kuorumUser: politician)]
@@ -51,7 +51,7 @@ class KuorumMailServiceIntegrationSpec extends Specification{
 
     void "test send mail of defending post notification" () {
         given: "A post"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
         KuorumUser politician = KuorumUser.findByEmail("politician@example.com")
         Post post = Post.findByOwner(user)
         post.debates = [new PostComment(text:"kk", kuorumUser: politician)]

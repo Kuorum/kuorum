@@ -23,7 +23,7 @@ class FileControllerIntegrationSpec extends Specification{
         fileController.request.addFile(testFile)
 
         and: "a user"
-        KuorumUser user = KuorumUser.findByEmail("peter@example.com")
+        KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
 
         when: "upload a PDF file"
         SpringSecurityUtils.doWithAuth(user.email) {
