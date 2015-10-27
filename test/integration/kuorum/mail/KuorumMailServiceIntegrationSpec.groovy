@@ -1,16 +1,12 @@
 package kuorum.mail
 
-import kuorum.core.exception.KuorumException
 import kuorum.helper.IntegrationHelper
 import kuorum.post.Post
 import kuorum.post.PostComment
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import spock.lang.Ignore
-import spock.lang.IgnoreRest
 import spock.lang.Specification
-import spock.lang.Unroll
-
 /**
  * Created by iduetxe on 28/02/14.
  */
@@ -24,6 +20,7 @@ class KuorumMailServiceIntegrationSpec extends Specification{
         fixtureLoader.load("testBasicData")
     }
 
+    @Ignore
     void "test send mail of debate notification" () {
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
@@ -49,6 +46,7 @@ class KuorumMailServiceIntegrationSpec extends Specification{
         Boolean.TRUE //An exception is not thrown (Is the best test that I can test)
     }
 
+    @Ignore
     void "test send mail of defending post notification" () {
         given: "A post"
         KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
@@ -76,6 +74,7 @@ class KuorumMailServiceIntegrationSpec extends Specification{
         Boolean.TRUE //An exception is not thrown (Is the best test that I can test)
     }
 
+    @Ignore
     void "test send mail to related users when a project has been saved"() {
         given: "A project"
         Project project = IntegrationHelper.createDefaultProject("#relatedProyects").save()
