@@ -21,7 +21,7 @@ fixture {
         postalCode = "28220"
         province = guipuzcua
         provinceCode = "EU-ES-PV-SS"
-        userType = "PERSON"
+        userType = UserType.PERSON
     }
 
     patxiGamification(Gamification){
@@ -134,6 +134,6 @@ fixture {
         activity = patxiActivity
         socialLinks = patxiSocialLinks
         notice = patxiNotice
-        alias = "iduetxe"
+        alias = "patxi"
     }
 }

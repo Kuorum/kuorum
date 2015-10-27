@@ -1,37 +1,87 @@
 import kuorum.core.model.CommissionType
+import kuorum.core.model.EnterpriseSector
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
+import kuorum.mail.MailType
+import kuorum.notifications.Notice
+import kuorum.notifications.NoticeType
+import kuorum.users.Activity
 import kuorum.users.Gamification
 import kuorum.users.KuorumUser
 import kuorum.users.OrganizationData
+import kuorum.users.PersonData
+import kuorum.users.SocialLinks
 
 fixture {
 
-    log.info "Creando usuario 'equo' "
-
     equoGamification(Gamification){
-        numEggs = 1
-        numPlumes =5
-        numCorns = 20
-        activeRole = GamificationAward.ROLE_LIDER_OPINION
-        boughtAwards = [GamificationAward.ROLE_DEFAULT,  GamificationAward.ROLE_LIDER_OPINION]
+        numEggs = 0
+        numPlumes =0
+        numCorns = 0
+        activeRole = GamificationAward.ROLE_DEFAULT
+        boughtAwards = [GamificationAward.ROLE_DEFAULT]
     }
 
     equoData(OrganizationData){
-        gender =  Gender.ORGANIZATION
-        userType = UserType.ORGANIZATION
-        provinceCode = "EU-ES"
         country = spain
+        gender = Gender.ORGANIZATION
+        phonePrefix = "+34"
+        postalCode = "EU-ES-MD-MD"
+        province = madrid
+        provinceCode = "EU-ES-PV-SS"
+        userType = UserType.ORGANIZATION
+        enterpriseSector = EnterpriseSector.NGO
+    }
+
+    equoActivity(Activity){
+        numQuestions = 0
+        questions = []
+        numPurposes = 0
+        purposes = []
+        numHistories = 0
+        histories = []
+    }
+
+    equoSocialLinks(SocialLinks){
+        facebook = ""
+        twitter = ""
+        googlePlus = ""
+        linkedIn = ""
+        youtube = ""
+        blog = ""
+        instagram = ""
+    }
+
+    equoNotice(Notice){
+        firstDashboard = Date.parse("dd/MM/yyyy","20/11/2013")
+        noticeType = NoticeType.NOAGEANDGENDER
+        reloadDashboard = 28
+        timesInMonth = 2
+
     }
 
     equo(KuorumUser){
-//        username = "ecologistasEnAccion"
+        accountExpired = false
+        accountLocked = false
+        authorities = [roleUser]
+        dateCreated = Date.parse("dd/MM/yyyy","20/11/2013")
         email = "equo@example.com"
-        name ="Equo"
+        verified = false
+        userType = UserType.ORGANIZATION
+        avatar = null
+        enabled = true
+        followers = []
+        following = []
+        favorites = []
+        numFollowers = 0
+        language = "en_EN"
+        lastUpdated = Date.parse("dd/MM/yyyy","20/11/2013")
+        lastNotificationChecked = Date.parse("dd/MM/yyyy","20/11/2013")
+        name = "equo"
+        password =  springSecurityService.encodePassword("test")
+        passwordExpired = false
         personalData = equoData
-        verified = Boolean.TRUE
-        password = springSecurityService.encodePassword("test")
         relevantCommissions = [
                 CommissionType.JUSTICE,
                 CommissionType.CONSTITUTIONAL,
@@ -53,22 +103,39 @@ fixture {
                 CommissionType.EUROPE_UNION,
                 CommissionType.DISABILITY,
                 CommissionType.ROAD_SAFETY,
-//                CommissionType.SUSTAINABLE_MOBILITY,
                 CommissionType.OTHERS
         ]
-        language ="es_ES"
-        userType = UserType.ORGANIZATION
-        favorites = []
-        numFollowers = 0
+        availableMails = [
+                MailType.REGISTER_VERIFY_EMAIL,
+                MailType.REGISTER_RESET_PASSWORD,
+                MailType.REGISTER_RRSS,
+                MailType.REGISTER_ACCOUNT_COMPLETED,
+                MailType.NOTIFICATION_CLUCK,
+                MailType.NOTIFICATION_FOLLOWER,
+                MailType.NOTIFICATION_PUBLIC_MILESTONE,
+                MailType.NOTIFICATION_DEBATE_USERS,
+                MailType.NOTIFICATION_DEBATE_AUTHOR,
+                MailType.NOTIFICATION_DEBATE_POLITICIAN,
+                MailType.NOTIFICATION_DEFENDED_USERS,
+                MailType.NOTIFICATION_DEFENDED_AUTHOR,
+                MailType.NOTIFICATION_DEFENDED_BY_POLITICIAN,
+                MailType.NOTIFICATION_DEFENDED_POLITICIANS,
+                MailType.NOTIFICATION_VICTORY_USERS,
+                MailType.NOTIFICATION_VICTORY_DEFENDER,
+                MailType.POST_CREATED_1,
+                MailType.POST_CREATED_2,
+                MailType.POST_CREATED_3,
+                MailType.POST_CREATED_4,
+                MailType.NOTIFICATION_COMMENTED_POST_OWNER,
+                MailType.NOTIFICATION_VICTORY_USERS,
+                MailType.NOTIFICATION_COMMENTED_POST_USERS,
+                MailType.PROJECT_CREATED_NOTIFICATION,
+        ]
         gamification = equoGamification
-        lastNotificationChecked = Date.parse("dd/MM/yyyy","09/09/2012")
-
-        accountExpired = false
-        accountLocked = false
-        authorities = [roleUser]
-        dateCreated = Date.parse("dd/MM/yyyy","20/11/2013")
-        enabled = true
-        lastUpdated = Date.parse("dd/MM/yyyy","01/11/2013")
-        passwordExpired = false
+        subscribers = []
+        activity = equoActivity
+        socialLinks = equoSocialLinks
+        notice = equoNotice
     }
 }
+
