@@ -1,5 +1,4 @@
 package kuorum.dashboard
-
 import grails.plugin.fixtures.FixtureLoader
 import grails.test.spock.IntegrationSpec
 import kuorum.Region
@@ -39,6 +38,8 @@ class DashboardServiceIntegrationSpec extends IntegrationSpec{
     }
 
     @Unroll
+
+
     void "test to get all the incomplete user's notices "(){
         given:"a user who has incomplete his profile"
         KuorumUser user = KuorumUser.findByEmail(email)

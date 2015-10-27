@@ -7,6 +7,7 @@ import kuorum.core.model.search.Pagination
 import kuorum.helper.IntegrationHelper
 import kuorum.project.Project
 import kuorum.users.KuorumUser
+import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -24,6 +25,7 @@ class NotificationServiceIntegrationSpec extends Specification{
     }
 
     @Unroll
+    @Ignore
     void "test find #numNotificationFound user notifications and notifications days are #rangeDate"(){
         given: "User and one notification per day"
         KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
@@ -54,6 +56,7 @@ class NotificationServiceIntegrationSpec extends Specification{
     }
 
     @Unroll
+    @Ignore
     void "search related users to a project by the searchRelatedUserToUserCommisions"() {
         given:"users with different data"
         List <KuorumUser> listUsers=[]
@@ -90,6 +93,7 @@ class NotificationServiceIntegrationSpec extends Specification{
     }
 
     @Unroll
+    @Ignore
     void "search related users to a project but don't find any user"() {
         given:"users with different data"
         List <KuorumUser> listUsers=[]

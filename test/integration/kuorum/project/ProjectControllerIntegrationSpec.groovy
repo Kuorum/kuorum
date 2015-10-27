@@ -38,6 +38,7 @@ class ProjectControllerIntegrationSpec extends Specification{
         }
     }
 
+    @Ignore
     void "create new project" () {
         given: "A user"
         KuorumUser user = KuorumUser.findByEmail("politician@example.com")
@@ -55,6 +56,7 @@ class ProjectControllerIntegrationSpec extends Specification{
         response.command.region == user.politicianOnRegion
     }
 
+    @Ignore
     void "save a new project" () {
         given: "A user"
         KuorumUser user = KuorumUser.findByEmail("politician@example.com")
@@ -97,6 +99,7 @@ class ProjectControllerIntegrationSpec extends Specification{
         }
     }
 
+    @Ignore
     void "create new projectUpdate" () {
         given: "A user and a project"
         KuorumUser user = KuorumUser.findByEmail("politician@example.com")
@@ -114,6 +117,7 @@ class ProjectControllerIntegrationSpec extends Specification{
     }
 
 
+    @Ignore
     void "Add a update to a project" () {
         given: "A user, a project and a projectUpdateCommand"
         KuorumUser user = KuorumUser.findByEmail("politician@example.com")
@@ -160,6 +164,7 @@ class ProjectControllerIntegrationSpec extends Specification{
     }
 
 
+    @Ignore
     void " Try to show a project without being authenticated" () {
         given: "a project with published to false"
         Project project = IntegrationHelper.createDefaultProject("#PruebaSalenda")

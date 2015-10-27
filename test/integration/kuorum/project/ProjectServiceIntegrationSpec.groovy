@@ -1,10 +1,8 @@
 package kuorum.project
 
-import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
-import kuorum.core.model.RegionType
 import kuorum.helper.IntegrationHelper
 import kuorum.users.KuorumUser
 import kuorum.util.Order
@@ -22,6 +20,7 @@ class ProjectServiceIntegrationSpec extends Specification {
         fixtureLoader.load("testBasicData")
     }
 
+    @Ignore
     void "test update a project"() {
         given: "A project"
         Project project = Project.findByHashtag("#leyAborto")
@@ -66,6 +65,7 @@ class ProjectServiceIntegrationSpec extends Specification {
     }
 
     @Unroll
+    @Ignore
     void "check status project for date: #date and final status: #status"() {
         given: "a project"
         Project project = Project.findByHashtag("#leyAborto")
@@ -82,6 +82,7 @@ class ProjectServiceIntegrationSpec extends Specification {
         new Date() + 11 || ProjectStatusType.CLOSE
     }
 
+    @Ignore
     void "Add a update to a project"() {
         given: "A project and projectUpdate"
         Project project = Project.findByHashtag("#leyAborto")
@@ -190,6 +191,7 @@ class ProjectServiceIntegrationSpec extends Specification {
     }
 
     @Unroll
+    @Ignore
     void "order the projects by sort:#sortAttr and order:#orderAttr. Published is #published, but there are not projects"() {
         given:"new projects. From position 0 to 2 will have published to true, because by default, it is false"
         Map params = [sort:sortAttr, order:orderAttr, published:published, offset:offset, max:max]
