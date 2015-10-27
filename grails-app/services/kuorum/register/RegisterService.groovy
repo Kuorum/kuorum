@@ -1,5 +1,4 @@
 package kuorum.register
-
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.ui.RegistrationCode
@@ -8,7 +7,6 @@ import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.mail.KuorumMailService
 import kuorum.post.Post
-import kuorum.post.PostService
 import kuorum.post.PostVoteService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -16,7 +14,6 @@ import kuorum.users.RoleUser
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.servlet.LocaleResolver
 import springSecurity.KuorumRegisterCommand
 
 class RegisterService {
@@ -125,7 +122,9 @@ class RegisterService {
             processMetaDataRegistration(user, registrationCode)
             registrationCode.delete(flush:true)
         }
-        kuorumMailService.mailingListUpdateUser(user)
+        if (user) {
+            kuorumMailService.mailingListUpdateUser(user)
+        }
         user
     }
     private void processMetaDataRegistration(KuorumUser user, RegistrationCode registrationCode){

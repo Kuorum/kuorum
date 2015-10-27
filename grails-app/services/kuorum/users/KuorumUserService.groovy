@@ -113,7 +113,7 @@ class KuorumUserService {
 
     KuorumUser modifyRoleDependingOnUserData(KuorumUser user){
         List<RoleUser> authorities = []
-        if (user.password.startsWith(RegisterService.PREFIX_PASSWORD)){
+        if (!user.password || user.password.startsWith(RegisterService.PREFIX_PASSWORD)){
             RoleUser rolePartialUser = RoleUser.findByAuthority("ROLE_INCOMPLETE_USER") //SALENDA HA PUESTO LOS NOMBRES AL REVES ¬¬
             authorities.add(rolePartialUser)
         }else if (isUserRegisteredCompletely(user)){

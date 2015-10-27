@@ -21,6 +21,7 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
     def renderMap
 
     def setup() {
+        KuorumUser.collection.getDB().dropDatabase()
         RegisterController.metaClass.redirect = { Map map ->
             redirectMap = map
         }
@@ -40,20 +41,20 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         then:"go to the correct page"
         redirectMap
         redirectMap.mapping
-        redirectMap.mapping == 'registerSuccess'
+        redirectMap.mapping == 'home'
         KuorumUser.findByEmail(kuorumRegisterCommand.email).authorities.id.contains(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER").id)
 
         cleanup:
         KuorumUser.findByEmail(kuorumRegisterCommand.email)?.delete(flush:true)
     }
 
-    void "test choosePassword with different passwords"() {
+    void "test selectMyPassword with different passwords"() {
         given:"a user to assign the password and different passwords in the params"
         KuorumUser user = IntegrationHelper.createDefaultUser("alberto.baron@salenda.es")
         user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
         user.password = null
         user.save(flush:true)
-        registerController.params.password1 = 'password1'
+        registerController.params.password = 'password1'
         registerController.params.password2 = 'another_pass'
         registerController.params.userId = user.id
 
@@ -65,20 +66,17 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         !userInDatabase.password
 
         when:"call to the action"
-        registerController.choosePassword()
+        registerController.selectMyPassword()
 
         then:"check that goes to the correct view giving it the user to get it and show a flash message, so the password is not saved"
         renderMap
         renderMap.view
-        renderMap.view == 'choosePass'
+        renderMap.view == 'selectMyPassword'
         renderMap.model
         renderMap.model.userId
         renderMap.model.userId == registerController.params.userId
-        registerController
-        registerController.flash
-        registerController.flash.typeMessage
-        registerController.flash.message
-        registerController.flash.message.contains('La contraseña ha de ser identica a la primera para comprobar que se ha escrito correctamente')
+        renderMap.model.command
+        renderMap.model.command.errors
         KuorumUser.findByEmail(user.email)
         user.authorities.id.contains(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER").id)
         !userInDatabase.password
@@ -87,13 +85,15 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         KuorumUser.get(user.id)?.delete(flush:true)
     }
 
-    void "test choosePassword with the same password"() {
+    void "test selectMyPassword with the same password"() {
         given:"a user to assign the password and the same password by params"
         KuorumUser user = IntegrationHelper.createDefaultUser("alberto.baron@salenda.es")
+        user.personalData.provinceCode = null
+        user.personalData.province = null
         user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
         user.password = null
         user.save(flush: true)
-        registerController.params.password1 = 'password1'
+        registerController.params.password = 'password1'
         registerController.params.password2 = 'password1'
         registerController.params.userId = user.id
 
@@ -104,17 +104,15 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         !userInDatabase.password
 
         when:"call to the action"
-        registerController.choosePassword()
+        registerController.selectMyPassword()
 
         then:"Check that the user has a new password, the role is incomplete and show a successfully message"
         redirectMap
         registerController.flash
         registerController.flash.message
-        registerController.flash.message.contains('Your registration is complete')
         redirectMap.uri
         userInDatabase.password
-        userInDatabase.password == registerController.params.password1
-        userInDatabase.authorities.id.contains(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER").id)
+        userInDatabase.authorities.id.contains(RoleUser.findByAuthority("ROLE_PASSWORDCHANGED").id)
 
         cleanup:
         KuorumUser.get(user.id)?.delete(flush:true)
@@ -135,7 +133,6 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         registerController
         registerController.flash
         registerController.flash.error
-        registerController.flash.error == 'Código incorrecto o ya utilizado'
         redirectMap
         redirectMap.uri
         redirectMap.uri == defaultTarget
@@ -159,7 +156,7 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         then:"The user will be saved with accountLocked to false, the registrationCode will be deleted, and the user will be redirect to a new view"
         renderMap
         renderMap.view
-        renderMap.view == 'choosePass'
+        renderMap.view == 'selectMyPassword'
         renderMap.model
         renderMap.model.userId
         !RegistrationCode.get(registrationCode.id)
@@ -182,7 +179,6 @@ class RegisterControllerIntegrationSpec extends IntegrationSpec {
         registerController
         registerController.flash
         registerController.flash.error
-        registerController.flash.error == 'El usuario no ha sido encontrado'
         redirectMap
         redirectMap.uri
         redirectMap.uri == "/"
