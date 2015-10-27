@@ -1,13 +1,13 @@
 package kuorum.register
-
 import com.the6hours.grails.springsecurity.facebook.FacebookAuthToken
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
-import kuorum.core.model.Gender
 import kuorum.core.model.Studies
-import kuorum.core.model.UserType
-import kuorum.users.*
+import kuorum.users.FacebookUser
+import kuorum.users.KuorumUser
+import kuorum.users.PersonalData
+import kuorum.users.RoleUser
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.social.facebook.api.Facebook
 import org.springframework.social.facebook.api.FacebookProfile
@@ -120,13 +120,16 @@ class FacebookAuthService {
 //    }
     private void createAvatar(KuorumUser user, FacebookProfile fbProfile){
         if (!user.avatar){
+            String imageUrl = "https://graph.facebook.com/${fbProfile.id}/picture?type=large"
             KuorumFile kuorumFile = new KuorumFile(
                     user:user,
+                    originalName: user.name,
+                    urlThumb: imageUrl,
                     local:Boolean.FALSE,
                     temporal:Boolean.FALSE,
                     storagePath:null,
                     fileName:null,
-                    url:"https://graph.facebook.com/${fbProfile.id}/picture?type=large",
+                    url:imageUrl,
                     fileGroup:FileGroup.USER_AVATAR,
                     fileType: FileType.IMAGE
             )
