@@ -1,6 +1,5 @@
 package kuorum.users
 import kuorum.helper.IntegrationHelper
-import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -15,7 +14,6 @@ class RecommendedUserInfoIntegrationSpec extends Specification{
     }
 
     @Unroll
-    @Ignore
     void "Integration test to check the recommendedUserInfo object"(){
         given:
         RecommendedUserInfo recommendedUserInfo = new RecommendedUserInfo(inputData)
