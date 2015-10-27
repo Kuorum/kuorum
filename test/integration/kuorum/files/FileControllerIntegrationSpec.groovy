@@ -1,10 +1,11 @@
 package kuorum.files
 
+import grails.plugin.fixtures.FixtureLoader
 import grails.plugin.springsecurity.SpringSecurityUtils
 import kuorum.FileController
+import kuorum.Region
 import kuorum.users.KuorumUser
 import org.springframework.mock.web.MockMultipartFile
-import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -13,7 +14,11 @@ class FileControllerIntegrationSpec extends Specification{
     @Shared
     FileController fileController
 
+    @Shared
+    FixtureLoader fixtureLoader
+
     void setupSpec(){
+        Region.collection.getDB().dropDatabase()
         fileController = new FileController()
     }
 
@@ -21,6 +26,8 @@ class FileControllerIntegrationSpec extends Specification{
         given: "a mock multipart file"
         MockMultipartFile testFile = new MockMultipartFile('qqfile', 'testPDF.pdf', 'application/pdf', '123' as byte[])
         fileController.request.addFile(testFile)
+        and:"A DDBB loaded"
+        fixtureLoader.load("testBasicData")
 
         and: "a user"
         KuorumUser user = KuorumUser.findByEmail("patxi@example.com")
