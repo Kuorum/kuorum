@@ -1,9 +1,7 @@
 package kuorum
 
-import kuorum.users.KuorumUser
 import spock.lang.Specification
 import spock.lang.Unroll
-
 /**
  * Created by iduetxe on 17/03/14.
  */
@@ -15,7 +13,7 @@ class RegionServiceIntegrationSpec extends Specification{
 
     def setup(){
         Region.collection.getDB().dropDatabase()
-        fixtureLoader.load("testBasicData")
+        fixtureLoader.load("basicData")
     }
 
     @Unroll

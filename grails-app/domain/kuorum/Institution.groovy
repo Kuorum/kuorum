@@ -9,6 +9,7 @@ import org.bson.types.ObjectId
  * Parlament of Catalonia, Parlament of Spain, Senate of spain
  *
  */
+@Deprecated
 class Institution {
 
     ObjectId id

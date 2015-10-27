@@ -76,12 +76,12 @@ class BootStrap {
 //                indexSolrService.fullIndex()
             }
         }
-        if (RoleUser.count() == 0){
-            //EMPTY DB
-            RoleUser.collection.getDB().dropDatabase()
-            log.info("Empty Database: loading basicData")
-            fixtureLoader.load("basicData")
-        }
+//        if (RoleUser.count() == 0){
+//            //EMPTY DB
+//            RoleUser.collection.getDB().dropDatabase()
+//            log.info("Empty Database: loading basicData")
+//            fixtureLoader.load("basicData")
+//        }
     }
     def destroy = {
     }
