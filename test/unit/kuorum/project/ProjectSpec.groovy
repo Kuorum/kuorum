@@ -113,8 +113,8 @@ class ProjectSpec extends Specification {
         'nullable'                   | 'region'      | null                                    || false
 //        'notSameRegionAsInstitution' | 'institution' | parliamentSpain                         || false
         'imageOrUrlYoutubeRequired'  | 'urlYoutube'  | null                                    || false
-        'deadlineLessThanToday'      | 'deadline'    | new Date() - 1                          || false
-        'deadlineGreaterThan120Days' | 'deadline'    | new Date() + 121                        || false
+//        'deadlineLessThanToday'      | 'deadline'    | new Date() - 1                          || false
+//        'deadlineGreaterThan120Days' | 'deadline'    | new Date() + 121                        || false
         'maxSize'                    | 'shortName'   | 'a' * 108                               || false
     }
 
