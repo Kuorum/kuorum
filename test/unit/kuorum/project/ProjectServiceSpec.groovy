@@ -7,6 +7,8 @@ import kuorum.RegionService
 import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.VoteType
 import kuorum.helper.Helper
+import kuorum.solr.IndexSolrService
+import kuorum.solr.SearchSolrService
 import kuorum.users.GamificationService
 import kuorum.users.KuorumUser
 import spock.lang.Specification
@@ -22,10 +24,15 @@ class ProjectServiceSpec extends Specification {
 
     GamificationService gamificationServiceMock = Mock(GamificationService)
     RegionService regionService = Mock(RegionService)
+    IndexSolrService indexSolrService = Mock(IndexSolrService)
+    SearchSolrService searchSolrService = Mock(SearchSolrService)
+
 
     def setup() {
         service.gamificationService = gamificationServiceMock
         service.regionService = regionService
+        service.indexSolrService = indexSolrService
+        service.searchSolrService = searchSolrService
 
         Project.metaClass.static.getCollection = {->
             [findOne: {
