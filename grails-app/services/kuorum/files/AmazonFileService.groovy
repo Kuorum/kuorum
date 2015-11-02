@@ -18,24 +18,50 @@ import com.amazonaws.services.s3.model.InitiateMultipartUploadRequest;
 import com.amazonaws.services.s3.model.InitiateMultipartUploadResult;
 import com.amazonaws.services.s3.model.PartETag;
 import com.amazonaws.services.s3.model.UploadPartRequest
-import kuorum.core.FileType;
+import kuorum.core.FileGroup
+import kuorum.core.FileType
+import kuorum.core.exception.KuorumException
+import kuorum.users.KuorumUser;
 
 class AmazonFileService extends LocalFileService{
 
-    private static final String BUCKET_NAME = "kuorum.org"
+    private static final String BUCKET_TMP_FOLDER= "tmp"
 
     private static final long UPLOAD_PART_SIZE = 5242880; // Set part size to 5 MB.
 
+
+    public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
+        KuorumFile kuorumFile = uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup)
+        uploadAmazonFile(kuorumFile, Boolean.TRUE)
+        kuorumFile
+    }
+
     KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile){
         if (kuorumFile?.temporal){
-            String finalUrl;
-
             File org = new File("${kuorumFile.storagePath}/${kuorumFile.fileName}")
+            uploadAmazonFile(kuorumFile, Boolean.FALSE)
 
+            org.delete();
+            deleteParentIfEmpty(org);
+            deleteAmazonFile(kuorumFile, true)
+
+            kuorumFile.temporal = Boolean.FALSE
+            kuorumFile.storagePath = ""
+            kuorumFile.fileType = FileType.AMAZON_IMAGE
+            kuorumFile.local = Boolean.FALSE
+            kuorumFile.save(flush: true)
+            log.info("Se ha subido la imagen a Amazon. URL del exterior: ${kuorumFile.url}")
+
+        }
+        kuorumFile
+    }
+
+    protected void uploadAmazonFile(KuorumFile kuorumFile, Boolean asTemporal){
+        if (kuorumFile.fileType == FileType.IMAGE){
             String accessKey = grailsApplication.config.kuorum.amazon.accessKey
             String secretKey = grailsApplication.config.kuorum.amazon.secretKey
             String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
-            String keyName    = "${kuorumFile.fileGroup.folderPath}/${kuorumFile.fileName}";
+            String keyName    = "${asTemporal?BUCKET_TMP_FOLDER:kuorumFile.fileGroup.folderPath}/${kuorumFile.fileName}";
             String filePath   = "${kuorumFile.storagePath}/${kuorumFile.fileName}";
 
             AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
@@ -89,17 +115,13 @@ class AmazonFileService extends LocalFileService{
                         partETags);
 
                 CompleteMultipartUploadResult uploadResult = s3Client.completeMultipartUpload(compRequest);
-                finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
+                String finalUrl = uploadResult.getLocation().replaceAll("%2F", "/")
 
-                org.delete();
-                deleteParentIfEmpty(org);
-
-                kuorumFile.temporal = Boolean.FALSE
-                kuorumFile.storagePath = ""
+                kuorumFile.temporal = asTemporal
                 kuorumFile.url =finalUrl
                 kuorumFile.urlThumb = finalUrl
-                kuorumFile.fileType = FileType.AMAZON_IMAGE
-                kuorumFile.local = Boolean.FALSE
+                kuorumFile.fileType = asTemporal?FileType.IMAGE:FileType.AMAZON_IMAGE
+                kuorumFile.local = !asTemporal;
                 kuorumFile.save(flush: true)
                 log.info("Se ha subido la imagen a Amazon. URL del exterior: ${kuorumFile.url}")
             } catch (Exception e) {
@@ -107,10 +129,15 @@ class AmazonFileService extends LocalFileService{
                 log.error("Ha habido un error subiendo el fichero a Amazon.",e);
             }
         }
-        kuorumFile
     }
 
-    protected void deleteAmazonFile(KuorumFile file){
+    protected KuorumFile postProcessCroppingImage(KuorumFile  kuorumFile){
+        deleteAmazonFile(kuorumFile, true)
+        uploadAmazonFile(kuorumFile, true)
+        return kuorumFile
+    }
+
+    protected void deleteAmazonFile(KuorumFile file, boolean temporal = false){
         if (file && file.fileType==FileType.AMAZON_IMAGE){
             String accessKey = grailsApplication.config.kuorum.amazon.accessKey
             String secretKey = grailsApplication.config.kuorum.amazon.secretKey
@@ -118,7 +145,7 @@ class AmazonFileService extends LocalFileService{
             AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey)
             AmazonS3 s3client = new AmazonS3Client(credentials);
 //            AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider());
-            s3client.deleteObject(new DeleteObjectRequest(BUCKET_NAME, "${file.fileGroup.folderPath}/${file.fileName}"));
+            s3client.deleteObject(new DeleteObjectRequest(bucketName, "${temporal?BUCKET_TMP_FOLDER:file.fileGroup.folderPath}/${file.fileName}"));
         }
     }
 }

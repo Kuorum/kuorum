@@ -18,6 +18,22 @@ class LocalFileService implements FileService{
     private static final MODAL_BOX_WIDTH=558
 
     public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
+        return uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup)
+    }
+
+    /**
+     * This class saves the inputStream in a local storage.
+     *
+     * NOTE: The option super.uploadTemporalFile not works properly
+     *
+     * @param inputStream
+     * @param kuorumUser
+     * @param fileName
+     * @param fileGroup
+     * @return
+     * @throws KuorumException
+     */
+    protected KuorumFile uploadLocalTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
         String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}${TMP_PATH}"
         String rootUrl = "${grailsApplication.config.grails.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}${TMP_PATH}"
 
@@ -79,6 +95,7 @@ class LocalFileService implements FileService{
             it.crop(x,y,w,h)
 //            it.crop(x,y,h,w)
         }
+        postProcessCroppingImage(kuorumFile)
 //        def imageWidth = fileGroup.imageWidth
 //        burningImageService.doWith("${kuorumFile.storagePath}/${kuorumFile.fileName}", kuorumFile.storagePath)
 //                .execute {
@@ -91,6 +108,9 @@ class LocalFileService implements FileService{
         return kuorumFile
     }
 
+    protected KuorumFile postProcessCroppingImage(KuorumFile kuorumFile){
+
+    }
     /**
      * Converts a temporal file to normal file.
      * @param KuorumFile
