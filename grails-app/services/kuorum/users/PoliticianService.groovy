@@ -123,7 +123,7 @@ class PoliticianService {
         }
         String profileUrl = line."politicalPartyImage"
         if (profileUrl.startsWith("http")){
-            KuorumFile imageProfile = fileService.createExternalFile(politician, avatarUrl,FileGroup.USER_PROFILE, FileType.IMAGE)
+            KuorumFile imageProfile = fileService.createExternalFile(politician, profileUrl,FileGroup.USER_PROFILE, FileType.IMAGE)
             politician.imageProfile= imageProfile
         }
         politician.bio = line."bio"
