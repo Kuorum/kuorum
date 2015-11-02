@@ -19,6 +19,7 @@ import kuorum.post.Post
 import kuorum.post.PostComment
 import kuorum.project.Project
 import kuorum.register.RegisterService
+import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
@@ -141,7 +142,8 @@ class KuorumUserService {
         }
         user.userType = UserType.POLITICIAN
         user.personalData.userType = UserType.POLITICIAN
-        user.politicalParty = politicalParty
+        if (!user.professionalDetails) user.professionalDetails = new ProfessionalDetails()
+        user.professionalDetails.politicalParty = politicalParty.name
         user.politicianOnRegion = politicianOnRegion
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.add(rolePolitician)
