@@ -1,7 +1,7 @@
 <div class="full-video">
     <video autoplay loop poster="images/home-video.png" id="bgvid">
-        <source src="https://s3-eu-west-1.amazonaws.com/kuorum.org/static/video/kuorum.webm" type="video/webm">
-        <source src="https://s3-eu-west-1.amazonaws.com/kuorum.org/static/video/kuorum.mp4" type="video/mp4">
+        <source src="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/kuorum.webm" type="video/webm">
+        <source src="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/kuorum.mp4" type="video/mp4">
     </video>
     <div class="container-fluid">
         <div class="row">
