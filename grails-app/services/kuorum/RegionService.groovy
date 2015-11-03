@@ -1,6 +1,7 @@
 package kuorum
 
 import grails.transaction.Transactional
+import kuorum.core.model.RegionType
 import kuorum.postalCodeHandlers.FiveDigitPostalCodeHandlerService
 import kuorum.postalCodeHandlers.PostalCodeHandler
 import kuorum.postalCodeHandlers.PostalCodeHandlerType
@@ -21,8 +22,18 @@ class RegionService {
      */
     @Transactional(readOnly = true)
     Region findProvinceByPostalCode(Region country, String postalCode) {
-        String headPostalCode = getPostalCodeHandler(country).getPrefixProvincePostalCode(postalCode)
-        Region province = findRegionByPostalCode(country, headPostalCode)
+        Region region = findRegionByPostalCode(country, postalCode)
+        Region province = null;
+        if (region){
+            province = region.superRegion;
+            while (province.regionType != RegionType.COUNTY && province){
+                province = province.superRegion
+            };
+
+        }else{
+            String headPostalCode = getPostalCodeHandler(country).getPrefixProvincePostalCode(postalCode)
+            province = findRegionByPostalCode(country, headPostalCode)
+        }
         province
     }
 
