@@ -59,7 +59,7 @@ beans = {
             solrServer(EmbeddedSolrServer,container,container.allCoreNames[0])
         }else{
             def env = System.getenv()
-            String solrUrl =env['SOLR_SERVER']?:application.config.solr.solrUrl
+            String solrUrl = application.config.solr.solrUrl
             solrServer(HttpSolrServer,solrUrl)
         }
     }
