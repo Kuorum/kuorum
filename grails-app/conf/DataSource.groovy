@@ -50,6 +50,23 @@ environments {
         }
     }
 
+    preproduction {
+        grails{
+            mongo {
+                host = "172.31.40.27"
+                port = "27017"
+                username = ""
+                password = ""
+                databaseName = "Kuorum"
+                //                options {
+                //                    w = 1
+                //                    wtimeout = 0
+                //                    fsync = true
+                //                }
+            }
+        }
+    }
+
     production {
         grails{
             mongo {
