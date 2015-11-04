@@ -59,7 +59,8 @@ class PoliticianService {
         (1..5).each{i->
             if (line."${prefix}${i}"){
                 PoliticianTimeLine event = new PoliticianTimeLine();
-                event.title = line."${prefix}${i}_content"
+                event.title = line."${prefix}${i}"
+                event.text = line."${prefix}${i}_content"
                 event.date = Date.parse("dd/MM/yyyy HH:mm",line."${prefix}${i}_date")
                 event.important = false
                 if (!timeLine.find{it.title == event.title}){
@@ -134,7 +135,6 @@ class PoliticianService {
         politician.personalData = politician.personalData ?: new PersonData()
         politician.personalData.gender = line."gender"?Gender.valueOf(line."gender"):Gender.MALE
         politician.personalData.userType = politician.userType
-
     }
 
     private void populateSocialLinks(KuorumUser politician, def line){
