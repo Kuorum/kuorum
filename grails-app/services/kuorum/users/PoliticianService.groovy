@@ -52,9 +52,6 @@ class PoliticianService {
 
     private void populateTimeLine(KuorumUser politician, def line) {
         List<PoliticianTimeLine> timeLine = []
-        if (politician.timeLine){
-            timeLine = politician.timeLine
-        }
         String prefix = "political_experience"
         (1..5).each{i->
             if (line."${prefix}${i}"){
