@@ -12,7 +12,7 @@ hibernate {
 }
 
 // environment specific settings
-
+def env = System.getenv()
 
 environments {
     development {
@@ -53,7 +53,8 @@ environments {
     production {
         grails{
             mongo {
-                host = "localhost"
+                //host = "172.31.40.27"
+                host = "${env['MONGO_SERVER']}"
                 port = "27017"
                 username = ""
                 password = ""

@@ -35,14 +35,14 @@ beans = {
             break
 
         default:
-            fileService(LocalFileService) {
-                grailsApplication=grailsApplication
-                burningImageService=burningImageService
-            }
-//            fileService(AmazonFileService){
-//                grailsApplication=ref("grailsApplication")
-//                burningImageService=ref("burningImageService")
+//            fileService(LocalFileService) {
+//                grailsApplication=grailsApplication
+//                burningImageService=burningImageService
 //            }
+            fileService(AmazonFileService){
+                grailsApplication=ref("grailsApplication")
+                burningImageService=ref("burningImageService")
+            }
             break
     }
 
@@ -58,7 +58,8 @@ beans = {
 //            EmbeddedSolrServer server = new EmbeddedSolrServer( container, "core name as defined in solr.xml" );
             solrServer(EmbeddedSolrServer,container,container.allCoreNames[0])
         }else{
-            String solrUrl =application.config?.solr.solrUrl
+            def env = System.getenv()
+            String solrUrl =env['SOLR_SERVER']?:application.config.solr.solrUrl
             solrServer(HttpSolrServer,solrUrl)
         }
     }
