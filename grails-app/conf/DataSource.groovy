@@ -71,7 +71,7 @@ environments {
         grails{
             mongo {
                 //host = "172.31.40.27"
-                host = "${env['MONGO_SERVER']}"
+                host = "localhost"
                 port = "27017"
                 username = ""
                 password = ""
