@@ -19,9 +19,10 @@
         </a>
     </li>
     <li>
+        <g:set var="twitterName" value="${user?.socialLinks?.twitter?:user.name}"/>
         <g:set var="twitterShareText"><g:message
                 code="kuorumUser.social.twitter.text"
-                args="[user.name]"
+                args="[twitterName]"
                 encodeAs="HTML"/></g:set>
         <g:set var="twitterLink">https://twitter.com/share?url=${userLink}&text=${twitterShareText}&hashtags=${user.alias?:""}</g:set>
 
