@@ -142,4 +142,12 @@ class RegionService {
         }
         postalCodeHandlers[postalCodeHandlerType]
     }
+
+    public List<Region> findPoliticianRegions(){
+//        def regexCondition = ['$regex': "^${country.iso3166_2}"]
+//        def criteria = ['iso3166_2': regexCondition,'regionType':RegionType.COUNTY.toString()]
+//        def regionIds = Region.collection.find(criteria,[_id:1])
+//        regionIds.collect{Region.get(it)}
+        Region.findAllByRegionType(RegionType.STATE);
+    }
 }

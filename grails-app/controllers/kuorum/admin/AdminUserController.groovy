@@ -5,6 +5,7 @@ import kuorum.Institution
 import kuorum.KuorumFile
 import kuorum.PoliticalParty
 import kuorum.Region
+import kuorum.RegionService
 import kuorum.core.model.UserType
 import kuorum.users.*
 import kuorum.web.commands.admin.AdminUserCommand
@@ -16,9 +17,10 @@ class AdminUserController extends AdminController {
     def kuorumUserService
     def springSecurityUiService
     def fileService
+    RegionService regionService
 
     def createUser() {
-        [command:new AdminUserCommand(enabled:true), regions:Region.findAll(), politicalParties:PoliticalParty.findAll()]
+        [command:new AdminUserCommand(enabled:true), regions:regionService.findPoliticianRegions(), politicalParties:PoliticalParty.findAll()]
     }
 
     def saveUser(AdminUserCommand command){
@@ -29,7 +31,7 @@ class AdminUserController extends AdminController {
             command.errors.rejectValue("alias","kuorum.web.commands.admin.AdminUserCommand.alias.notUnique")
         }
         if (command.hasErrors()){
-            render view: 'createUser', model:[command:command, regions:Region.findAll(), politicalParties:PoliticalParty.findAll()]
+            render view: 'createUser', model:[command:command, regions:regionService.findPoliticianRegions(), politicalParties:PoliticalParty.findAll()]
             flash.error=message(code:'admin.createUser.error')
             return
         }
@@ -45,7 +47,8 @@ class AdminUserController extends AdminController {
     def editUser(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
         AdminUserCommand command = prepareCommand(user)
-        [user:user, command:command, regions:Region.findAll(), politicalParties: PoliticalParty.findAll()]
+        List<Region> regions = regionService.findPoliticianRegions()
+        [user:user, command:command, regions:regions, politicalParties: PoliticalParty.findAll()]
     }
 
     def updateUser(AdminUserCommand command){
@@ -62,7 +65,7 @@ class AdminUserController extends AdminController {
             }
         }
         if (command.hasErrors()){
-            render view: 'editUser', model:[user:user,command:command, regions:Region.findAll(), politicalParties: PoliticalParty.findAll()]
+            render view: 'editUser', model:[user:user,command:command, regions:regionService.findPoliticianRegions(), politicalParties: PoliticalParty.findAll()]
             flash.error=message(code:'admin.createUser.error')
             return
         }
