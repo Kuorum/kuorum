@@ -206,7 +206,10 @@ class KuorumUserTagLib {
     def politicianPosition={attrs->
         KuorumUser user = attrs.user
         if (user.userType == UserType.POLITICIAN){
-            out << "${user?.professionalDetails?.position?:"N/A"}, ${user?.professionalDetails?.region?.name?:"N/A"}"
+            String position = user?.professionalDetails?.position?:""
+            String regionName = user?.professionalDetails?.region?.name?:""
+            String coma = position?", ":""
+            out << "${position}${coma}${regionName}"
         }
     }
 
