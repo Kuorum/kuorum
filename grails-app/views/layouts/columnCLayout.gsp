@@ -1,8 +1,8 @@
 <g:applyLayout name="main">
-    <g:pageProperty name="page.metaData"/>
     <head>
         <title><g:layoutTitle/></title>
         <g:layoutHead/>
+        <g:pageProperty name="page.metaData"/>
     </head>
     <body>
     <g:render template="/layouts/head"/>
