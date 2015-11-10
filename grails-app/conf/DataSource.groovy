@@ -53,7 +53,7 @@ environments {
     preproduction {
         grails{
             mongo {
-                host = "172.31.40.27"
+                host = "172.31.17.196"
                 port = "27017"
                 username = ""
                 password = ""
@@ -70,8 +70,8 @@ environments {
     production {
         grails{
             mongo {
-                //host = "172.31.40.27"
-                host = "localhost"
+                host = "172.31.40.27"
+//                host = "localhost"
                 port = "27017"
                 username = ""
                 password = ""
