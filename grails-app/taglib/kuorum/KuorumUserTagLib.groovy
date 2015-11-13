@@ -60,15 +60,14 @@ class KuorumUserTagLib {
         if (showName){
             userName = "<span itemprop='name'>${name}</span>"
         }
-        def popOverSpanElements = """class="popover-trigger" rel="popover" role="button" data-toggle="popover" """
+        def popOverSpanElements = """class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" """
         if (!withPopover){
             popOverSpanElements = ""
         }
-
+        String userLink = g.createLink(mapping: "userShow", params: user.encodeAsLinkProperties())
         out << """
-                <span $popOverSpanElements>
-                    <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image">${userName}
-                </span>
+                <a href="${userLink}" $popOverSpanElements>
+                    <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image">${userName}</a>
         """
         if (withPopover){
             out << g.render(template: '/kuorumUser/popoverUser', model:[user:user])

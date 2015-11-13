@@ -25,7 +25,26 @@ function preparePopover(){
     });
 
     $(function () {
+        //Gestionamos manualmente la aparicion y desaparición de los popover
+        $('[data-toggle="popover"][data-trigger="manual"]')
+            //En el mousenter sacamos el popover
+            .on("mouseenter",function(e){
+                console.log("enter")
+                if ($(this).siblings(".in").length ==0){
+                    $(this).popover('show')
+                }
+            })
+            //En el click ejecutamos el link normal. El framework the popover lo está bloqueando
+            .on("click", function(e){
+                var href = $(this).attr("href")
+                window.location=href;
+            });
+
         $('[data-toggle="popover"]').popoverClosable();
+        $('[data-toggle="popover"][data-trigger="manual"]').parent()
+            .on("mouseleave", function(e){
+                $(this).children('[data-toggle="popover"]').popover('hide')
+            });
     });
 }
 preparePopover();
