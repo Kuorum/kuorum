@@ -43,7 +43,7 @@
                              data-src="holder.js/140x140"
                              src="${image.userImgSrc(user:politician)}"
                              data-holder-rendered="true">
-                        <i class="fa fa-check"></i>
+                        %{--<i class="fa fa-check"></i>--}%
                     </div>
 
                 </div>
