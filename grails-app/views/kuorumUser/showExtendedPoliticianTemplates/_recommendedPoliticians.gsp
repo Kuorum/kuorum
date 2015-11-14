@@ -11,6 +11,9 @@
                     </g:each>
                 </ul>
             </div>
+            <div class="text-center">
+                <a href="#" class="btn btn-sm btn-blue">See More Politicians</a>
+            </div>
         </div>
     </section>
 </g:if>
