@@ -32,7 +32,7 @@
                 <!-- FIN POPOVER OPCIONES EDICIÓN -->
             </sec:ifAnyGranted>
             <img src="${image.userImgProfile(user:politician)}" alt="${politician.name}">
-            <userUtil:followButton user="${politician}"/>
+
         </div>
         <div class="panel-body">
             <div class="row">
@@ -53,6 +53,7 @@
                     <p class='party'>${userUtil.roleName(user:politician)}</p>
                 </div>
                 <div class="col-xs-5 col-sm-4 following">
+                    <userUtil:followButton user="${politician}"/><br/>
                     <strong>
                         <g:message code="kuorumUser.show.module.followers.title" args="[politician.numFollowers]"/>
                     </strong>

@@ -245,6 +245,11 @@ a:focus {color: #e3981e;}
 .navbar > .container-fluid {padding-right: 30px; padding-left: 30px;}
 .main > .container-fluid > .row {position: relative;}
 #main {padding-bottom: 40px; padding-top: 24px; min-height: 382px;}
+@media only screen and (max-width: 768px) {
+    #main{
+        padding-bottom: 0;
+    }
+}
 #main.home {margin: 0 0 40px 0; padding: 0;}
 #main.home, .full-video {min-height: 495px;}
 .navbar-fixed-top {border-bottom: solid 1px #e5e5e5;}
@@ -1250,6 +1255,11 @@ video#bgvid {
 
 /* boxes columna derecha dashboard */
 #aside-ppal {padding-top: 24px;}
+@media only screen and (max-width: 768px) {
+    #aside-ppal {
+        padding-top: 0px;
+    }
+}
 #aside-ppal > h1 {font-size: 23px; font-size: 2.3rem;}
 .boxes {
     background-color: #fff;
