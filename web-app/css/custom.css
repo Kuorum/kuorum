@@ -552,7 +552,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 #otras-propuestas .kakareo-list .popover-trigger {font-size: 13px; font-size: 1.3rem;}
 #otras-propuestas .kakareo-list > li h1 {font-size: 14px; font-size: 1.4rem;}
 
-#footer {background-color: #f5f5f5; color: #fff;}
+#footer {background-color: #666666; color: #fff;}
 #footer ul, #footer ol, section.links ul {padding: 0}
 #footer li {list-style: none;}
 #footer a {color: #a8a8a8;}
