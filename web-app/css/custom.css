@@ -326,7 +326,7 @@ a:focus {color: #e3981e;}
     padding: 6px 12px !important;
     border-radius: 3px;
     border: none;
-    margin: 0 !important;
+    margin: 0;
 }
 .btn:hover,
 .btn:active,
@@ -342,7 +342,7 @@ a:focus {color: #e3981e;}
     font-size: 1.4rem !important;
     line-height: 1.2 !important;
     padding: 4px 10px !important;
-    margin: 0 !important;
+    margin: 0;
 }
 /* extra small button (botón muy pequeño) */
 .btn.btn-xs {
@@ -350,14 +350,14 @@ a:focus {color: #e3981e;}
     font-size: 12px !important;
     line-height: 1.6 !important;
     padding: 1px 15px 2px !important;
-    margin: 0 !important;
+    margin: 0;
 }
 /* large button (botón grande) */
 .btn.btn-lg {
     font-size: 16px !important;
     font-size: 1.6rem !important;
     line-height: 1.1 !important;
-    margin: 0 !important;
+    margin: 0;
     padding: 14px !important;
 }
 /* Extra large button */
@@ -365,7 +365,7 @@ a:focus {color: #e3981e;}
     font-size: 20px !important;
     font-size: 2rem !important;
     line-height: 1.1 !important;
-    margin: 0 !important;
+    margin: 0;
     padding: 14px 35px !important;
 }
 .btn.btn-white {background-color: #fff !important; border: solid 1px #e5e5e5; color: #a8a8a8 !important;}
