@@ -911,6 +911,18 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
     padding: 8px 8px !important;
 }
 .btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
+.btn.follow.inverted {
+    background-color: #fff !important;
+    border: 1px solid #20a2ea ;
+    color: #20a2ea !important;
+    margin-bottom: 14px;
+}
+.btn.follow.inverted:hover,
+.btn.follow.inverted:active,
+.btn.follow.inverted:focus {
+    background-color: #20a2ea !important;
+    color: #fff !important;
+}
 .btn.follow.disabled {background-color: #a8a8a8 !important;}
 .btn.follow.disabled:hover,
 .btn.follow.disabled:active,
@@ -4193,28 +4205,28 @@ only screen and (min-resolution: 192dpi) {
     position: relative;
 }
 .profile-header img{
-    min-height: 285px;
+    min-height: 200px;
 }
-.profile-header .btn.follow{
+/*.profile-header .btn.follow{
     position: absolute;
     bottom: 16px;
     right: 20px;
-}
+}*/
 .btn.follow .fa-plus{
     font-size: 14px;
     margin-left: 8px;
 }
 .profile-pic {
     position: relative;
-    float: left;
+    /* float: left;*/
 }
 .profile-pic .img-circle {
     width: 144px;
     height: 144px;
     border: solid 5px #fff;
-    margin-top: -65%;
+    margin-top: -14%;
 }
-.profile-pic .fa-check {
+/*.profile-pic .fa-check {
     position: absolute;
     bottom: 0px;
     right: 7px;
@@ -4227,32 +4239,38 @@ only screen and (min-resolution: 192dpi) {
     font-size: 16px;
     padding-top: 9px;
     text-align: center;
-}
-.profile-title{
+}*/
+/*.profile-title{
     margin-left: -25px;
+}*/
+p.party{
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 .profile-title h2{
     margin-top: 0;
     margin-bottom: 6px;
 }
-.following{
+.follow-btn-group{
     text-align: right;
 }
+.following{
+    margin-bottom: 20px;
+}
 .following .fa-check-circle-o{
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     margin-right: 6px;
     font-size: 16px;
 }
-p.party{
-    font-weight: bold;
-    margin-bottom: 5px;
+.following .fa-check-circle-o:before{
+    content: " | \f05d";
 }
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 480px){
     .profile-header img{
-        min-height: 200px;
+        min-height: 120px;
     }
     .profile-title{
-        float: left;
+        text-align: center;
         margin-left: 0px;
     }
     .profile-pic-col{
@@ -4260,39 +4278,51 @@ p.party{
         margin-bottom: 10px;
     }
     .profile-pic{
-        width: 96px;
-        float: none;
+        /*  width: 96px;*/
     }
     .profile-pic .img-circle{
-        width: 96px;
-        height: 96px;
+        width: 84px;
+        height: 84px;
         border: solid 3px #fff;
+        margin-top: -24%;
     }
-    .profile-pic .fa-check{
+    /*.profile-pic .fa-check{
         font-size: 10px;
         width: 24px;
         height: 24px;
         padding-top: 4px;
         border: #fff solid 2px;
-    }
+    }*/
     .profile-title h2{
         font-size: 24px;
         margin-bottom: 3px;
-    }
-    .following{
-        text-align: right;
-        font-size: 12px;
     }
     cite{
         font-size: 14px;
         margin-bottom: 0px;
     }
     p.party{
+        text-align: center;
         font-size: 12px;
+    }
+    .box-ppal p.party{
+        text-align: left;
+    }
+    .follow-btn-group{
+        text-align: center;
+    }
+    .btn.follow.inverted{
+        margin-right: 12px;
+        margin-bottom: 6px;
+        width: 84px;
+    }
+    .following{
+        font-size: 12px;
+        text-align: center;
     }
 }
 .extra-padding{
-    padding: 0 45px;
+    padding: 0 30px;
 }
 .causes-tags{
     padding: 0;
