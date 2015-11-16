@@ -289,7 +289,24 @@ class KuorumUserTagLib {
             </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
             """
         }
+    }
 
+    def contactButton={attrs, body ->
+        KuorumUser user = attrs.user
+        String cssSize = attrs.cssSize?:''
+        def prefixMessages = attrs.prefixMessages?:"kuorumUser.contact"
+        def text = "${g.message(code:"${prefixMessages}", args:[user.name])} "
+        def cssClass = "enabled"
+        def cssExtra =  attrs.cssExtra?:''
+        out << """
+        <button
+                type="button"
+                class="contact btn btn-blue ${cssSize} allow ${cssClass} ${cssExtra}"
+                data-userId='${user.id}'>
+            ${text}
+        ${body()}
+        </button>
+        """
     }
 
     def showMailConfirm = {attrs ->

@@ -54,8 +54,8 @@
                     <p class='party'>${userUtil.roleName(user:politician)}</p>
                 </div>
                 <div class="col-xs-12 col-sm-4 follow-btn-group">
-                    <userUtil:followButton user="${politician}"/>
-                    <userUtil:followButton user="${politician}"/>
+                    <userUtil:followButton user="${politician}" cssExtra="inverted"/>
+                    <userUtil:contactButton user="${politician}" cssExtra="inverted"/>
                 </div>
             </div>
             <div class="extra-padding text-left following">
