@@ -1,4 +1,4 @@
-<section class="contact-politician panel panel-default">
+<section class="hidden-xs contact-politician panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title"><g:message code="politician.contact.title"/></h3>
     </div>

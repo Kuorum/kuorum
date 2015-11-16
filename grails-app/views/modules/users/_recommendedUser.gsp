@@ -8,7 +8,7 @@
             <div class='profile-pic-div'>
                 <img itemprop="image" class="user-img big" alt="nombre" src="${image.userImgSrc(user:user)}">
                 <g:if test="${user.verified}">
-                    <i class="fa fa-check"></i>
+                    %{--<i class="fa fa-check"></i>--}%
                 </g:if>
             </div>
             %{--<button type="button" class="btn btn-blue btn-lg follow allow">Seguir</button>--}%

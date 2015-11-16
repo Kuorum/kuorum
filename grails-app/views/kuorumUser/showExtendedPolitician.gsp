@@ -32,38 +32,38 @@
                 <!-- FIN POPOVER OPCIONES EDICIÓN -->
             </sec:ifAnyGranted>
             <img src="${image.userImgProfile(user:politician)}" alt="${politician.name}">
-            <userUtil:followButton user="${politician}"/>
+
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-xs-12 col-sm-3 profile-pic-col">
-                    <div class="profile-pic">
+                <div class="col-xs-12 profile-pic-col">
+                    <div class="profile-pic text-center">
                         <img alt="${politician.name}"
                              class="img-circle"
                              data-src="holder.js/140x140"
                              src="${image.userImgSrc(user:politician)}"
                              data-holder-rendered="true">
-                        <i class="fa fa-check"></i>
+                        %{--<i class="fa fa-check"></i>--}%
                     </div>
-
                 </div>
-                <div class='col-xs-7 col-sm-5 profile-title'>
+            </div><!--/.row -->
+            <div class="row extra-padding">
+                <div class='col-xs-12 col-sm-8 profile-title'>
                     <h2>${politician.name}</h2>
                     <cite><userUtil:politicianPosition user="${politician}"/></cite>
                     <p class='party'>${userUtil.roleName(user:politician)}</p>
                 </div>
-                <div class="col-xs-5 col-sm-4 following">
-                    <strong>
-                        <g:message code="kuorumUser.show.module.followers.title" args="[politician.numFollowers]"/>
-                    </strong>
-                    <br/>
-                    <userUtil:ifIsFollower user="${politician}">
-                        <i class="fa fa-check-circle-o"></i>
-                        <g:message code="kuorumUser.popover.follower"/>
-                    </userUtil:ifIsFollower>
+                <div class="col-xs-12 col-sm-4 follow-btn-group">
+                    <userUtil:followButton user="${politician}"/>
+                    <userUtil:followButton user="${politician}"/>
                 </div>
-            </div><!--/.row -->
-
+            </div>
+            <div class="extra-padding text-left following">
+                <g:message code="kuorumUser.show.module.followers.title" args="[politician.numFollowers]"/>
+                <userUtil:ifIsFollower user="${politician}">
+                    <i class="fa fa-check-circle-o"></i><g:message code="kuorumUser.popover.follower"/>
+                </userUtil:ifIsFollower>
+            </div>
             <div class="extra-padding">
                 <g:if test="${politician.tags}">
                     <h4><g:message code="politician.causes"/> </h4>

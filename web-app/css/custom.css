@@ -245,6 +245,11 @@ a:focus {color: #e3981e;}
 .navbar > .container-fluid {padding-right: 30px; padding-left: 30px;}
 .main > .container-fluid > .row {position: relative;}
 #main {padding-bottom: 40px; padding-top: 24px; min-height: 382px;}
+@media only screen and (max-width: 768px) {
+    #main{
+        padding-bottom: 0;
+    }
+}
 #main.home {margin: 0 0 40px 0; padding: 0;}
 #main.home, .full-video {min-height: 495px;}
 .navbar-fixed-top {border-bottom: solid 1px #e5e5e5;}
@@ -321,7 +326,7 @@ a:focus {color: #e3981e;}
     padding: 6px 12px !important;
     border-radius: 3px;
     border: none;
-    margin: 0 !important;
+    margin: 0;
 }
 .btn:hover,
 .btn:active,
@@ -337,7 +342,7 @@ a:focus {color: #e3981e;}
     font-size: 1.4rem !important;
     line-height: 1.2 !important;
     padding: 4px 10px !important;
-    margin: 0 !important;
+    margin: 0;
 }
 /* extra small button (botón muy pequeño) */
 .btn.btn-xs {
@@ -345,14 +350,14 @@ a:focus {color: #e3981e;}
     font-size: 12px !important;
     line-height: 1.6 !important;
     padding: 1px 15px 2px !important;
-    margin: 0 !important;
+    margin: 0;
 }
 /* large button (botón grande) */
 .btn.btn-lg {
     font-size: 16px !important;
     font-size: 1.6rem !important;
     line-height: 1.1 !important;
-    margin: 0 !important;
+    margin: 0;
     padding: 14px !important;
 }
 /* Extra large button */
@@ -360,7 +365,7 @@ a:focus {color: #e3981e;}
     font-size: 20px !important;
     font-size: 2rem !important;
     line-height: 1.1 !important;
-    margin: 0 !important;
+    margin: 0;
     padding: 14px 35px !important;
 }
 .btn.btn-white {background-color: #fff !important; border: solid 1px #e5e5e5; color: #a8a8a8 !important;}
@@ -547,7 +552,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 #otras-propuestas .kakareo-list .popover-trigger {font-size: 13px; font-size: 1.3rem;}
 #otras-propuestas .kakareo-list > li h1 {font-size: 14px; font-size: 1.4rem;}
 
-#footer {background-color: #f5f5f5; color: #fff;}
+#footer {background-color: #666666; color: #fff;}
 #footer ul, #footer ol, section.links ul {padding: 0}
 #footer li {list-style: none;}
 #footer a {color: #a8a8a8;}
@@ -906,6 +911,18 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
     padding: 8px 8px !important;
 }
 .btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
+.btn.follow.inverted {
+    background-color: #fff !important;
+    border: 1px solid #20a2ea ;
+    color: #20a2ea !important;
+    margin-bottom: 14px;
+}
+.btn.follow.inverted:hover,
+.btn.follow.inverted:active,
+.btn.follow.inverted:focus {
+    background-color: #20a2ea !important;
+    color: #fff !important;
+}
 .btn.follow.disabled {background-color: #a8a8a8 !important;}
 .btn.follow.disabled:hover,
 .btn.follow.disabled:active,
@@ -1250,6 +1267,11 @@ video#bgvid {
 
 /* boxes columna derecha dashboard */
 #aside-ppal {padding-top: 24px;}
+@media only screen and (max-width: 768px) {
+    #aside-ppal {
+        padding-top: 0px;
+    }
+}
 #aside-ppal > h1 {font-size: 23px; font-size: 2.3rem;}
 .boxes {
     background-color: #fff;
@@ -4183,28 +4205,28 @@ only screen and (min-resolution: 192dpi) {
     position: relative;
 }
 .profile-header img{
-    min-height: 285px;
+    min-height: 200px;
 }
-.profile-header .btn.follow{
+/*.profile-header .btn.follow{
     position: absolute;
     bottom: 16px;
     right: 20px;
-}
+}*/
 .btn.follow .fa-plus{
     font-size: 14px;
     margin-left: 8px;
 }
 .profile-pic {
     position: relative;
-    float: left;
+    /* float: left;*/
 }
 .profile-pic .img-circle {
     width: 144px;
     height: 144px;
     border: solid 5px #fff;
-    margin-top: -65%;
+    margin-top: -14%;
 }
-.profile-pic .fa-check {
+/*.profile-pic .fa-check {
     position: absolute;
     bottom: 0px;
     right: 7px;
@@ -4217,32 +4239,38 @@ only screen and (min-resolution: 192dpi) {
     font-size: 16px;
     padding-top: 9px;
     text-align: center;
-}
-.profile-title{
+}*/
+/*.profile-title{
     margin-left: -25px;
+}*/
+p.party{
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 .profile-title h2{
     margin-top: 0;
     margin-bottom: 6px;
 }
-.following{
+.follow-btn-group{
     text-align: right;
 }
+.following{
+    margin-bottom: 20px;
+}
 .following .fa-check-circle-o{
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     margin-right: 6px;
     font-size: 16px;
 }
-p.party{
-    font-weight: bold;
-    margin-bottom: 5px;
+.following .fa-check-circle-o:before{
+    content: " | \f05d";
 }
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 480px){
     .profile-header img{
-        min-height: 200px;
+        min-height: 120px;
     }
     .profile-title{
-        float: left;
+        text-align: center;
         margin-left: 0px;
     }
     .profile-pic-col{
@@ -4250,39 +4278,51 @@ p.party{
         margin-bottom: 10px;
     }
     .profile-pic{
-        width: 96px;
-        float: none;
+        /*  width: 96px;*/
     }
     .profile-pic .img-circle{
-        width: 96px;
-        height: 96px;
+        width: 84px;
+        height: 84px;
         border: solid 3px #fff;
+        margin-top: -24%;
     }
-    .profile-pic .fa-check{
+    /*.profile-pic .fa-check{
         font-size: 10px;
         width: 24px;
         height: 24px;
         padding-top: 4px;
         border: #fff solid 2px;
-    }
+    }*/
     .profile-title h2{
         font-size: 24px;
         margin-bottom: 3px;
-    }
-    .following{
-        text-align: right;
-        font-size: 12px;
     }
     cite{
         font-size: 14px;
         margin-bottom: 0px;
     }
     p.party{
+        text-align: center;
         font-size: 12px;
+    }
+    .box-ppal p.party{
+        text-align: left;
+    }
+    .follow-btn-group{
+        text-align: center;
+    }
+    .btn.follow.inverted{
+        margin-right: 12px;
+        margin-bottom: 6px;
+        width: 84px;
+    }
+    .following{
+        font-size: 12px;
+        text-align: center;
     }
 }
 .extra-padding{
-    padding: 0 45px;
+    padding: 0 30px;
 }
 .causes-tags{
     padding: 0;
@@ -4710,5 +4750,5 @@ p.party{
 /* Other Profiles =========== */
 #suggested-politicians{
     background-color: #f5f5f5;
-    padding: 40px 0;
+    padding: 40px 0 20px;
 }
