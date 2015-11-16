@@ -14,7 +14,7 @@ class ProfessionalDetails {
     String cvLink
     String declarationLink
     Region constituency
-    Region region
+    Region region //Place where the politician has "power" :P
     static embedded = ['constituency', 'region']
 
     static constraints = {

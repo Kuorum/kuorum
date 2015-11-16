@@ -67,7 +67,7 @@ class MongoUserDetailsService  implements GrailsUserDetailsService {
     protected KuorumUserSession createUserDetails(KuorumUser user, Collection authorities) {
         new KuorumUserSession(user.email, user.password, user.enabled,
                 !user.accountExpired, !user.passwordExpired,
-                !user.accountLocked, authorities, user.id, user.name, user?.personalData?.province?.name, user?.politicianOnRegion?.name)
+                !user.accountLocked, authorities, user.id, user.name, user?.personalData?.province?.name, user?.professionalDetails?.region?.name)
     }
 
     UserDetails createUserDetails(KuorumUser user, Boolean loadRoles = Boolean.TRUE){

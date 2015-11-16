@@ -133,7 +133,10 @@ class ProjectController {
 
     private def projectModel(ProjectCommand command, Project project){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Region region = user.politicianOnRegion
+        Region region = user?.professionalDetails?.region
+        if (!region){
+            region = project?.region
+        }
         if (!region){
             region = Region.findByIso3166_2("EU-ES")
             log.warn("Usuario ${user} sin region de politico. Se pone españa")

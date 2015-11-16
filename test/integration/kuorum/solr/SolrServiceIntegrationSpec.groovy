@@ -98,23 +98,4 @@ class SolrServiceIntegrationSpec extends IntegrationSpec{
             params[9]       | 0             | 0       | 0        | "#parquesnacionales"
 
     }
-
-    @Unroll
-    @Ignore //Se ignoran para que a Salenda no les de problemas al instalar el solr con bamboo
-    void "test list projects: #institutionName, #commission "(){
-        given:"Region"
-        SearchProjects searchProjects = new SearchProjects(regionName: regionName, commissionType: commission)
-        when:"search for "
-        List<SolrProjectsGrouped>  projectsGrouped = searchSolrService.listProjects(searchProjects)
-        then:
-        projectsGrouped.size() == numGroups
-        where:
-        regionName  | commission                | numGroups
-        "espana"    | CommissionType.JUSTICE    | 1
-        "espana"    | CommissionType.ECONOMY    | 1
-        "espana"    | CommissionType.DEFENSE    | 0
-        "espana"    | null                      | 2
-        "madrid"    | CommissionType.DEFENSE    | 0
-        "madrid"    | null                      | 1
-    }
 }

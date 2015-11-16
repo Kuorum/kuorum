@@ -1,5 +1,12 @@
 package kuorum.solr
 
+import com.mongodb.BasicDBList
+import com.mongodb.BasicDBObject
+import com.mongodb.DBCollection
+import com.mongodb.DBCursor
+import com.mongodb.DBObject
+import com.mongodb.MapReduceCommand
+import com.mongodb.MapReduceOutput
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
 import groovy.time.TimeDuration
@@ -7,12 +14,14 @@ import kuorum.Region
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
+import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.core.model.solr.*
 import kuorum.project.Project
 import kuorum.post.Post
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.common.SolrDocument
 import org.apache.solr.common.SolrInputDocument
@@ -42,19 +51,22 @@ class IndexSolrService {
     }
 
     def fullIndex() {
+
+        Date start = new Date()
+        createUserScore(start)
         clearIndex()
 
         def res = [:]
         log.warn("Reindexing all mongo")
-        Date start = new Date()
         Integer numIndexed = 0;
         log.info("BulkUpdates: $solrBulkUpdateQuantity")
+
         CLASSNAMES_TO_INDEX.each{className ->
             Integer numPartialIndexed = indexByClassName(className)
             res.put(className, numPartialIndexed)
             numIndexed += numPartialIndexed
+            System.gc()
         }
-
         TimeDuration td = TimeCategory.minus( new Date(), start )
 
         log.info("Indexed $numIndexed docs. Time indexing: ${td}" )
@@ -105,17 +117,25 @@ class IndexSolrService {
         Integer numIndexed = 0
         log.info("Indexing $className")
         Date start = new Date()
+
         java.util.ArrayList<SolrInputDocument> solrDocuments = new ArrayList<SolrInputDocument>(solrBulkUpdateQuantity)
-        grailsApplication.getClassForName(className).list().each {kuorumUser ->
-            SolrElement solrElement = createSolrElement(kuorumUser)
+        DBCollection collectionToIndex = grailsApplication.getClassForName(className).collection
+        DBCursor cursor = collectionToIndex.find()
+        cursor.batchSize(solrBulkUpdateQuantity)
+        while (cursor.hasNext()){
+            DBObject id = cursor.next()
+            def mongoData = grailsApplication.getClassForName(className).get(id.get("_id"));
+            SolrElement solrElement = createSolrElement(mongoData )
             if(solrElement){
                 SolrInputDocument solrInputDocument = createSolrInputDocument(solrElement)
                 solrDocuments.add(solrInputDocument)
                 if (solrDocuments.size() == solrBulkUpdateQuantity){
                     server.add(solrDocuments)
                     server.commit()
+                    log.info("Commited ${solrBulkUpdateQuantity} documents")
                     numIndexed += solrDocuments.size()
                     solrDocuments.clear()
+                    System.gc()
                 }
             }
         }
@@ -161,7 +181,10 @@ class IndexSolrService {
             regionName: post.project.region.name,
 //            institutionName:post.project.institution.name,
             regionIso3166_2: post.project.region.iso3166_2,
-            urlImage: post.multimedia?.url
+            urlImage: post.multimedia?.url,
+            kuorumRelevance: 0,
+            numberPeopleInterestedFor: post.numVotes,
+            regionIso3166_2Length: post.project.region.iso3166_2.length()
         )
     }
 
@@ -180,7 +203,10 @@ class IndexSolrService {
                 regionName:solrDocument.regionName,
                 institutionName:solrDocument.institutionName,
                 regionIso3166_2: solrDocument.regionIso3166_2,
-                urlImage: solrDocument.urlImage
+                urlImage: solrDocument.urlImage,
+                kuorumRelevance: solrDocument.kuorumRelevance,
+                numberPeopleInterestedFor: solrDocument.numberPeopleInterestedFor,
+                regionIso3166_2Length: solrDocument.regionIso3166_2Length
         )
     }
 
@@ -203,7 +229,11 @@ class IndexSolrService {
                 return null // Skipping user because we don't have basic data
             }
 
-            if (!kuorumUser.personalData.postalCode){
+            if (kuorumUser?.professionalDetails?.region){
+                regionName = kuorumUser.professionalDetails.region.name
+                regionIso = kuorumUser.professionalDetails.region.iso3166_2
+                postalCode = kuorumUser?.personalData?.postalCode?:"00000"
+            }else if (!kuorumUser.personalData.postalCode){
                 //Usuarios de antigua web que se indexen
                 regionName = "España"
                 regionIso = "EU-ES"
@@ -214,6 +244,18 @@ class IndexSolrService {
                 postalCode = kuorumUser.personalData.postalCode
             }
         }
+        DBCollection bestUsersCollection = createUserScore(new Date());
+        Map<String, Object> bestUserData = [:]
+        DBObject limitFields = new BasicDBObject();
+        limitFields.put("score",1)
+        limitFields.put("numFollowers",1)
+        DBObject mongoData = bestUsersCollection.findOne(new BasicDBObject("_id", kuorumUser.id), limitFields)
+        if (mongoData){
+            bestUserData = mongoData.toMap()
+        }else{
+            bestUserData = ["score":0, "numFollowers":0]
+        }
+
         SolrType type = kuorumUser.userType==UserType.POLITICIAN?SolrType.POLITICIAN:SolrType.KUORUM_USER
         new SolrKuorumUser(
                 id:kuorumUser.id.toString(),
@@ -229,7 +271,10 @@ class IndexSolrService {
                 urlImage: kuorumUser.avatar?.url,
                 role:kuorumUser.gamification.activeRole,
                 gender:kuorumUser.personalData.gender?:Gender.FEMALE,
-                text:kuorumUser.bio
+                text:kuorumUser.bio,
+                kuorumRelevance: bestUserData.score,
+                numberPeopleInterestedFor: bestUserData.numFollowers,
+                regionIso3166_2Length: regionIso.length()
         )
     }
 
@@ -248,7 +293,10 @@ class IndexSolrService {
                 regionName: solrDocument.regionName,
                 regionIso3166_2: solrDocument.regionIso3166_2,
                 text:solrDocument.text,
-                institutionName:solrDocument.institutionName
+                institutionName:solrDocument.institutionName,
+                kuorumRelevance: solrDocument.kuorumRelevance,
+                numberPeopleInterestedFor: solrDocument.numberPeopleInterestedFor,
+                regionIso3166_2Length: solrDocument.regionIso3166_2Length
         )
     }
 
@@ -274,7 +322,10 @@ class IndexSolrService {
                 owner:project.owner.name,
                 ownerId:project.owner.id,
                 relevance: project.relevance,
-                deadLine:project.deadline
+                deadLine:project.deadline,
+                kuorumRelevance: 0,
+                numberPeopleInterestedFor: project.peopleVotes.total,
+                regionIso3166_2Length:project.region.iso3166_2.length()
         )
         //Ñapilla para poder agrupar por comision que solr no puede agrupar con listados
         solrProject.metaClass.commission_group = project.commissions[0]
@@ -307,7 +358,10 @@ class IndexSolrService {
                 owner:solrDocument.owner,
                 ownerId: solrDocument.ownerId,
                 relevance: solrDocument.relevance,
-                deadLine:solrDocument.deadLine
+                deadLine:solrDocument.deadLine,
+                kuorumRelevance: solrDocument.kuorumRelevance,
+                numberPeopleInterestedFor: solrDocument.numberPeopleInterestedFor,
+                regionIso3166_2Length: solrDocument.regionIso3166_2Length
         )
     }
 
@@ -318,6 +372,155 @@ class IndexSolrService {
             case SolrType.PROJECT:      return recoverProjectFromSolr(solrDocument); break;
             case SolrType.POST:         return recoverPostFromSolr(solrDocument); break;
             default: throw new KuorumException("No se ha reconocido el tipo ${solrDocument.type}")
+        }
+    }
+
+    private Date chapuSyncReloadScore = new Date() -1
+
+    private static  final Integer SCORE_POST_CREATED = 1;
+    private static  final Integer SCORE_POST_DEBATE = 2;
+    private static  final Integer SCORE_POST_DEFEND = 3;
+    private static  final Integer SCORE_PROJECT_OPEN = 15;
+    private static  final Integer SCORE_PROJECT_CLOSE = 2;
+    public DBCollection createUserScore(Date startDate){
+
+        def tempCollectionName = "bestPoliticians"
+        DBCollection userScoredCollection = Post.collection.getDB().getCollection(tempCollectionName);
+        //TODO: HACER ESTO MEJOR QUE CON ESTE SYNC CHAAAPUUU
+        synchronized (this){
+            Boolean reloadScore = chapuSyncReloadScore < new Date() -1
+            if (!reloadScore && userScoredCollection.count()>0){
+                return userScoredCollection
+            }
+            userScoredCollection.drop();
+            chapuSyncReloadScore = chapuSyncReloadScore.clearTime()+1
+
+            log.warn("Calculando SCORE. Operacion lenta. Hay que cachearla o hacerla por la noche")
+
+            //TODO: CACHE THIS QUERY
+            //TODO: Use startDate. Now is getting best politicians ever
+            String mapPost = """
+                function() {
+                    if (this.defender != undefined){
+                        emit(this.defender, ${SCORE_POST_DEFEND})
+                    }
+                    if (this.debates != undefined) {
+                        this.debates.forEach( function(debate) {
+                            emit(debate.kuorumUserId, ${SCORE_POST_DEBATE})
+                        });
+                    }
+                    emit(this.owner, ${SCORE_POST_CREATED})
+                }
+            """
+
+            String reducePost = """
+                function(key, values) {
+                    var acc = 0;
+                    values.forEach( function(value) {
+                        acc +=value;
+                    });
+                    return acc;
+                }
+            """
+
+            DBObject queryPost = new BasicDBObject();
+            DBObject existsDefender = new BasicDBObject(); existsDefender.put('$exists','1');
+            queryPost.put("defender",existsDefender);
+            DBObject sortResult = new BasicDBObject();
+            sortResult.put('value',-1)
+
+            DBCollection postCollection = Post.collection
+
+            MapReduceCommand bestPoliticians = new MapReduceCommand(
+                    postCollection,
+                    mapPost,
+                    reducePost ,
+                    tempCollectionName,
+                    MapReduceCommand.OutputType.MERGE,null);
+            //        bestPoliticians.sort = sortByValue
+            //        bestPoliticians.limit = pagination.max
+
+            MapReduceOutput result = Post.collection.mapReduce(bestPoliticians)
+
+
+            def addProjectScore = """
+            function (){
+                db.project.find().forEach(function(project){
+                    var ownerScore = db.${tempCollectionName}.find({_id:project.owner})[0];
+                    var projectScore = ${SCORE_PROJECT_CLOSE};
+                    if (project.status=="${ProjectStatusType.OPEN}"){
+                        projectScore = ${SCORE_PROJECT_OPEN};
+                    }
+                    if (ownerScore == undefined || ownerScore == null){
+                        ownerScore = {
+                            _id: project.owner,
+                            value : 0
+                        };
+                    }
+                    ownerScore.value = ownerScore.value + projectScore;
+                    db.${tempCollectionName}.save(ownerScore);
+                });
+            }
+
+            """
+
+            userScoredCollection.getDB().eval(addProjectScore)
+
+            def cpUserData = """
+            function (){
+                db.${tempCollectionName}.find().forEach(function(score){
+                    var kuorumUser = db.kuorumUser.find({_id:score._id})[0];
+                    var numFollowers = kuorumUser.followers.length;
+                    var iso3166Length = 0;
+                    if (kuorumUser.politicianOnRegion != undefined){
+                        iso3166Length = kuorumUser.politicianOnRegion.iso3166_2.length
+                    }
+                    db.${tempCollectionName}.update(
+                        {_id:score._id},
+                        {\$set:{
+                            numFollowers:numFollowers,
+                            iso3166Length : iso3166Length,
+                            user:kuorumUser,
+                            score:score.value
+                            }
+                        }
+                    );
+                });
+            }
+            """
+            userScoredCollection.getDB().eval(cpUserData)
+
+            def cpPoliticiansWithOutScore = """
+            function (){
+                db.kuorumUser.find({userType:'${UserType.POLITICIAN}'}).forEach(function(politician){
+                    var score = db.${tempCollectionName}.find({_id:politician._id})[0];
+                    var iso3166Length = 0
+                    if (politician.politicianOnRegion != undefined){
+                        iso3166Length = politician.politicianOnRegion.iso3166_2.length
+                    }
+                    if (score == undefined){
+                        var numFollowers = politician.followers.length
+                        var newScore = {
+                            _id: politician._id,
+                            score : 0,
+                            numFollowers:numFollowers,
+                            iso3166Length : iso3166Length,
+                            user:politician
+                        };
+                        db.${tempCollectionName}.save(newScore);
+                    }
+                });
+            }
+            """
+            userScoredCollection.getDB().eval(cpPoliticiansWithOutScore)
+            DBObject index = new BasicDBObject("score", -1)
+            index.append("iso3166Length", -1)
+            userScoredCollection.createIndex(index)
+
+            DBObject removeFakePolitician = new BasicDBObject()
+            removeFakePolitician.append("_id", new ObjectId("54ce5269e4b0d335a40f5ee3"));//Usuario congreso
+            userScoredCollection.remove(removeFakePolitician);
+            return userScoredCollection
         }
     }
 }

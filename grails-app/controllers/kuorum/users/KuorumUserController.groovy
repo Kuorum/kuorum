@@ -145,11 +145,7 @@ class KuorumUserController {
     }
 
     def showExtendedPolitician(KuorumUser politician){
-        KuorumUser user = null;
-        if (springSecurityService.isLoggedIn()){
-            user = springSecurityService.currentUser
-        }
-        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(user, new Pagination(max:3))
+        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(politician, new Pagination(max:3))
         List<Project> userProjects = projectService.politicianProjects(politician)
         [
                 politician:politician,

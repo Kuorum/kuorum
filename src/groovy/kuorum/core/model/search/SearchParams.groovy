@@ -26,13 +26,13 @@ class SearchParams extends Pagination implements Serializable{
 
     CommissionType commissionType
 
-    String regionName;
+    List<String> regionIsoCodes;
 
 
     static constraints = {
         word nullable:true
         commissionType nullable: true
         offset min: 0L
-        regionName nullable:true
+        regionIsoCodes nullable:true
     }
 }

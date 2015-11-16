@@ -31,7 +31,7 @@ class DashboardServiceIntegrationSpec extends IntegrationSpec{
 
         politician = KuorumUser.findByEmail('politician@example.com')
         userToFollow = KuorumUser.findByEmail('patxi@example.com')
-        regionCodeName = politician.politicianOnRegion.iso3166_2
+        regionCodeName = politician.professionalDetails.region.iso3166_2
         salendaRegularUser = IntegrationHelper.createDefaultUser('salendaRegularUser@example.com' )
         salendaRegularUser.personalData.provinceCode = regionCodeName
         salendaRegularUser.save(flush: true)

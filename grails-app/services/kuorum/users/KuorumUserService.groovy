@@ -14,11 +14,16 @@ import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchParams
+import kuorum.core.model.solr.SolrElement
+import kuorum.core.model.solr.SolrResults
+import kuorum.core.model.solr.SolrType
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostComment
 import kuorum.project.Project
 import kuorum.register.RegisterService
+import kuorum.solr.SearchSolrService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
@@ -32,6 +37,7 @@ class KuorumUserService {
     def kuorumMailService
     def regionService
     SpringSecurityService springSecurityService
+    SearchSolrService searchSolrService;
 
     GrailsApplication grailsApplication
 
@@ -144,7 +150,7 @@ class KuorumUserService {
         user.personalData.userType = UserType.POLITICIAN
         if (!user.professionalDetails) user.professionalDetails = new ProfessionalDetails()
         user.professionalDetails.politicalParty = politicalParty.name
-        user.politicianOnRegion = politicianOnRegion
+        user.professionalDetails.region = politicianOnRegion
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.add(rolePolitician)
         user.save()
@@ -553,181 +559,30 @@ class KuorumUserService {
     }
 
     List<KuorumUser> bestPoliticiansSince(KuorumUser user, Date startDate, Pagination pagination = new Pagination(), Boolean isEnabled = null){
-
-        DBCollection bestPoliticiansCollection = createUserScore(startDate)
-
-        DBObject query = new BasicDBObject('user.userType',UserType.POLITICIAN.toString())
+        SearchParams searchParams = new SearchParams(pagination.getProperties());
+        searchParams.max +=1
         List<Region> regions;
-        if (user){
+        if (user && user.userType != UserType.POLITICIAN){
             regions = regionService.findUserRegions(user)
+        }else if(user){
+            regions = regionService.findRegionsList(user.professionalDetails.region)
         }else{
             regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
         }
-        DBObject inRegions = new BasicDBObject('$in',regions.collect{it.iso3166_2})
-        query.append('user.politicianOnRegion.iso3166_2',inRegions)
-
-
-        DBCursor cursor = bestPoliticiansCollection.find(query)
-        DBObject sort = new BasicDBObject();
-        sort.append('user.enabled',-1)
-        sort.append('iso3166Length',-1);
-        sort.append('score',-1);
-        sort.append('numFollowers',-1)
-        cursor.sort(sort)
-        cursor.limit(pagination.max.intValue())
-        cursor.skip(pagination.offset.intValue())
-
-        cursor.collect {KuorumUser.get(it._id)}
-
-    }
-
-    private Date chapuSyncReloadScore = new Date() -1
-
-    private static  final Integer SCORE_POST_CREATED = 1;
-    private static  final Integer SCORE_POST_DEBATE = 2;
-    private static  final Integer SCORE_POST_DEFEND = 3;
-    private static  final Integer SCORE_PROJECT_OPEN = 15;
-    private static  final Integer SCORE_PROJECT_CLOSE = 2;
-    private DBCollection createUserScore(Date startDate){
-
-        def tempCollectionName = "bestPoliticians"
-        DBCollection userScoredCollection = Post.collection.getDB().getCollection(tempCollectionName);
-        //TODO: HACER ESTO MEJOR QUE CON ESTE SYNC CHAAAPUUU
-        synchronized (this){
-            Boolean reloadScore = chapuSyncReloadScore < new Date() -1
-            if (!reloadScore && userScoredCollection.count()>0){
-                return userScoredCollection
-            }
-            userScoredCollection.drop();
-            chapuSyncReloadScore = chapuSyncReloadScore.clearTime()+1
-
-            log.warn("Calculando SCORE. Operacion lenta. Hay que cachearla o hacerla por la noche")
-
-            //TODO: CACHE THIS QUERY
-            //TODO: Use startDate. Now is getting best politicians ever
-            String mapPost = """
-                function() {
-                    if (this.defender != undefined){
-                        emit(this.defender, ${SCORE_POST_DEFEND})
-                    }
-                    if (this.debates != undefined) {
-                        this.debates.forEach( function(debate) {
-                            emit(debate.kuorumUserId, ${SCORE_POST_DEBATE})
-                        });
-                    }
-                    emit(this.owner, ${SCORE_POST_CREATED})
-                }
-            """
-
-            String reducePost = """
-                function(key, values) {
-                    var acc = 0;
-                    values.forEach( function(value) {
-                        acc +=value;
-                    });
-                    return acc;
-                }
-            """
-
-            DBObject queryPost = new BasicDBObject();
-            DBObject existsDefender = new BasicDBObject(); existsDefender.put('$exists','1');
-            queryPost.put("defender",existsDefender);
-            DBObject sortResult = new BasicDBObject();
-            sortResult.put('value',-1)
-
-            DBCollection postCollection = Post.collection
-
-            MapReduceCommand bestPoliticians = new MapReduceCommand(
-                    postCollection,
-                    mapPost,
-                    reducePost ,
-                    tempCollectionName,
-                    MapReduceCommand.OutputType.MERGE,null);
-    //        bestPoliticians.sort = sortByValue
-    //        bestPoliticians.limit = pagination.max
-
-            MapReduceOutput result = Post.collection.mapReduce(bestPoliticians)
-
-
-            def addProjectScore = """
-            function (){
-                db.project.find().forEach(function(project){
-                    var ownerScore = db.${tempCollectionName}.find({_id:project.owner})[0];
-                    var projectScore = ${SCORE_PROJECT_CLOSE};
-                    if (project.status=="${ProjectStatusType.OPEN}"){
-                        projectScore = ${SCORE_PROJECT_OPEN};
-                    }
-                    if (ownerScore == undefined || ownerScore == null){
-                        ownerScore = {
-                            _id: project.owner,
-                            value : 0
-                        };
-                    }
-                    ownerScore.value = ownerScore.value + projectScore;
-                    db.${tempCollectionName}.save(ownerScore);
-                });
-            }
-
-            """
-
-            userScoredCollection.getDB().eval(addProjectScore)
-
-            def cpUserData = """
-            function (){
-                db.${tempCollectionName}.find().forEach(function(score){
-                    var kuorumUser = db.kuorumUser.find({_id:score._id})[0];
-                    var numFollowers = kuorumUser.followers.length;
-                    var iso3166Length = 0;
-                    if (kuorumUser.politicianOnRegion != undefined){
-                        iso3166Length = kuorumUser.politicianOnRegion.iso3166_2.length
-                    }
-                    db.${tempCollectionName}.update(
-                        {_id:score._id},
-                        {\$set:{
-                            numFollowers:numFollowers,
-                            iso3166Length : iso3166Length,
-                            user:kuorumUser,
-                            score:score.value
-                            }
-                        }
-                    );
-                });
-            }
-            """
-            userScoredCollection.getDB().eval(cpUserData)
-
-            def cpPoliticiansWithOutScore = """
-            function (){
-                db.kuorumUser.find({userType:'${UserType.POLITICIAN}'}).forEach(function(politician){
-                    var score = db.${tempCollectionName}.find({_id:politician._id})[0];
-                    var iso3166Length = 0
-                    if (politician.politicianOnRegion != undefined){
-                        iso3166Length = politician.politicianOnRegion.iso3166_2.length
-                    }
-                    if (score == undefined){
-                        var numFollowers = politician.followers.length
-                        var newScore = {
-                            _id: politician._id,
-                            score : 0,
-                            numFollowers:numFollowers,
-                            iso3166Length : iso3166Length,
-                            user:politician
-                        };
-                        db.${tempCollectionName}.save(newScore);
-                    }
-                });
-            }
-            """
-            userScoredCollection.getDB().eval(cpPoliticiansWithOutScore)
-            DBObject index = new BasicDBObject("score", -1)
-            index.append("iso3166Length", -1)
-            userScoredCollection.createIndex(index)
-
-            DBObject removeFakePolitician = new BasicDBObject()
-            removeFakePolitician.append("_id", new ObjectId("54ce5269e4b0d335a40f5ee3"));//Usuario congreso
-            userScoredCollection.remove(removeFakePolitician);
-            return userScoredCollection
+        searchParams.regionIsoCodes = regions.collect{it.iso3166_2}
+        searchParams.setType(SolrType.POLITICIAN)
+        if (user?.userType == UserType.POLITICIAN && user?.tags){
+            String searchTag = user.tags.join(" ")
+            //Se busca a todos los politicos con el *:* pero se ordena por score aquellos que compartan tag
+            searchParams.word = "(${searchTag} OR (*:*)"
         }
+        SolrResults results = searchSolrService.search(searchParams)
+
+        List<KuorumUser> politicians = results.elements.collect{SolrElement solrElement ->
+            KuorumUser.get(solrElement.getId())
+        }
+        if(user) politicians = politicians.findAll{it.id != user.id}
+        return politicians?politicians[0..Math.min(pagination.max-1, politicians.size())]:[]
     }
 
     void deleteAccount(KuorumUser user){

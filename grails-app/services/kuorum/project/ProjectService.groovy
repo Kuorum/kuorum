@@ -148,7 +148,7 @@ class ProjectService {
 
     Project saveAndCreateNewProject(Project project, KuorumUser user){
 //        project.institution = user.institution
-        project.region = user.politicianOnRegion
+        project.region = user.professionalDetails.region
         project.owner = user
         project.description = postService.removeCustomCrossScripting(project.description)
 

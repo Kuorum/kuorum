@@ -145,7 +145,7 @@ class AdminUserController extends AdminController {
         }
         if (UserType.POLITICIAN.equals(user.userType)){
             command.politicalParty = user.professionalDetails.politicalParty
-            command.politicianOnRegion = user.politicianOnRegion
+            command.politicianOnRegion = user.professionalDetails.region
         }
         command.year =  user.personalData?.birthday?user.personalData?.birthday[Calendar.YEAR]:null
 //        command.month = user.personalData?.birthday?user.personalData?.birthday[Calendar.MONTH] +1:null

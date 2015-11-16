@@ -90,13 +90,18 @@ class RegionService {
         //The province is recovering on register, so it is not defined its most specific region
         // In the future the userRegion will be recover from user
         Region userRegion = findUserRegion(user)
-        List<Region> regions = []
-        if (userRegion){
-            regions << userRegion
+        findRegionsList(userRegion)
 
-            while (userRegion.superRegion){
-                regions << userRegion.superRegion
-                userRegion = userRegion.superRegion
+    }
+
+    List<Region> findRegionsList(Region region){
+        List<Region> regions = []
+        if (region){
+            regions << region
+
+            while (region.superRegion){
+                regions << region.superRegion
+                region = region.superRegion
             }
         }
         regions.reverse()

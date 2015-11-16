@@ -114,7 +114,7 @@ class DashboardService {
                 isNotNull("politicianOnRegion")
             }
         }
-        kuorumUsers.findAll{ user.personalData?.provinceCode?.startsWith(it.politicianOnRegion.iso3166_2) }
+        kuorumUsers.findAll{ user.personalData?.provinceCode?.startsWith(it.professionalDetails.region.iso3166_2) }
     }
 }
 

@@ -97,7 +97,7 @@ class ProjectTagLib {
         Project project = attrs.project
         if ((springSecurityService.isLoggedIn()) && (SpringSecurityUtils.ifAnyGranted('ROLE_USER, ROLE_ADMIN, ROLE_PREMIUM, ROLE_POLITICIAN'))){
             KuorumUser user = springSecurityService.getCurrentUser();
-            if (!(user.userType.equals(UserType.POLITICIAN)  && project.owner.politicianOnRegion.equals(user.politicianOnRegion))){
+            if (!(user.userType.equals(UserType.POLITICIAN)  && project.owner.professionalDetails.region.equals(user.politicianOnRegion))){
                 out << body()
             }
         }

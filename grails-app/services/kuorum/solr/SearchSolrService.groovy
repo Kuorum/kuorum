@@ -29,11 +29,15 @@ class SearchSolrService {
         SolrQuery query = new SolrQuery();
         query.setParam(CommonParams.QT, "/query");
         query.setParam(CommonParams.START, "${params.offset}");
+        query.setParam(CommonParams.ROWS, "${params.max}");
         prepareFilter(params, query)
 
-        if (!params.word){
-            query.setSort("dateCreated", SolrQuery.ORDER.desc)
-        }
+        query.setSort("score", SolrQuery.ORDER.desc)
+        query.addSort("regionIso3166_2Length", SolrQuery.ORDER.desc)
+        query.addSort("kuorumRelevance", SolrQuery.ORDER.desc)
+        query.addSort("numberPeopleInterestedFor", SolrQuery.ORDER.desc)
+        query.addSort("dateCreated", SolrQuery.ORDER.desc)
+
         QueryResponse rsp = server.query( query );
         SolrDocumentList docs = rsp.getResults();
 
@@ -108,20 +112,39 @@ class SearchSolrService {
             word = "*:*"
         }
         query.setParam(CommonParams.Q, word);
-//        if (params.type) query.setParam(CommonParams.FQ, "type:${params.type}")
+        StringBuffer filterQuery = new StringBuffer("");
+        String separator = ""
         if (params.type){
-            def subTypesQuery = ""
-            def OR = ""
-            params.type.each {
-                subTypesQuery += " ${OR} $it "
-                OR = "OR"
-            }
-            query.setParam(CommonParams.FQ, "type:(${subTypesQuery})")
+            filterQuery.append(separator)
+            filterQuery.append("type:(${params.type})")
+        }
+
+        if (params.regionIsoCodes){
+            separator = " AND "
+            filterQuery.append(separator)
+            String subQuery = convertToOrList(params.regionIsoCodes)
+            filterQuery.append("regionIso3166_2:(${subQuery})")
         }
 
         if (params.commissionType){
-            query.setParam(CommonParams.FQ, "commissions:(${params.commissionType})")
+            separator = " AND "
+            filterQuery.append(separator)
+            filterQuery.append("commissions:(${params.commissionType})")
         }
+
+        if (filterQuery.length()){
+            query.setParam(CommonParams.FQ, filterQuery.toString())
+        }
+    }
+
+    private String convertToOrList(List data){
+        def subTypeQuery = ""
+        def OR = ""
+        data.each {
+            subTypeQuery += " ${OR} $it "
+            OR = "OR"
+        }
+        return subTypeQuery
     }
 
     private ArrayList<String> prepareAutocompleteSuggestions(QueryResponse rsp){

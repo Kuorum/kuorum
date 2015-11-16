@@ -73,7 +73,6 @@ class KuorumUser {
             'politicianActivity',
             'imageProfile',
             'socialLinks',
-            'politicianOnRegion',
             'notice',
             'externalPoliticianActivities',
             'timeLine',
@@ -91,7 +90,8 @@ class KuorumUser {
     //Politician FIELDS
 //    PoliticalParty politicalParty
 //    Institution institution
-    Region politicianOnRegion
+    @Deprecated //Use ProfesionalDetails.region
+//    Region politicianOnRegion
     PoliticianActivity politicianActivity
 
     List<ExternalPoliticianActivity> externalPoliticianActivities
@@ -133,7 +133,6 @@ class KuorumUser {
         //POLITICIAN VALIDATION
 //        institution nullable:true
         organization nullable: true
-        politicianOnRegion nullable:true
         politicianActivity nullable:true
         externalPoliticianActivities nullable: true
         relevantEvents nulable:true

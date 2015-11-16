@@ -20,7 +20,7 @@ class AdminProjectController  extends  AdminController{
         if (SpringSecurityUtils.ifAnyGranted('ROLE_POLITICIAN')){
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             model = [
-                    regions:[user?.politicianOnRegion]
+                    regions:[user?.professionalDetails.region]
             ]
             command.region = model.regions[0]
             command.owner = user
