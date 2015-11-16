@@ -58,11 +58,19 @@ environments {
                 username = ""
                 password = ""
                 databaseName = "Kuorum"
-                //                options {
-                //                    w = 1
-                //                    wtimeout = 0
-                //                    fsync = true
-                //                }
+                options {
+                    w = 1
+                    wtimeout = 0
+                    fsync = true
+                    autoConnectRetry = true
+                    connectTimeout = 3000
+                    socketTimeout = 60000
+                    maxWaitTime = 5000
+                    socketKeepAlive= true
+                    connectionsPerHost = 100
+                    threadsAllowedToBlockForConnectionMultiplier = 50
+                    maxAutoConnectRetryTime = 5
+                }
             }
         }
     }
@@ -70,17 +78,25 @@ environments {
     production {
         grails{
             mongo {
-                host = "172.31.40.27"
-//                host = "localhost"
+//                host = "172.31.40.27"
+                host = "localhost"
                 port = "27017"
                 username = ""
                 password = ""
                 databaseName = "Kuorum"
-    //                options {
-    //                    w = 1
-    //                    wtimeout = 0
-    //                    fsync = true
-    //                }
+                    options {
+                        w = 1
+                        wtimeout = 0
+                        fsync = true
+                        autoConnectRetry = true
+                        connectTimeout = 3000
+                        socketTimeout = 60000
+                        maxWaitTime = 5000
+                        socketKeepAlive= true
+                        connectionsPerHost = 100
+                        threadsAllowedToBlockForConnectionMultiplier = 50
+                        maxAutoConnectRetryTime = 5
+                    }
             }
         }
     }
