@@ -178,3 +178,8 @@ codenarc.reports = {
         title = 'HtmlReport'
     }
 }
+
+grails.war.resources = { stagingDir, args ->
+    copy(file: ".ebextensions/HTTPtoHTTPS.config",
+            tofile: "${stagingDir}/.ebextensions/HTTPtoHTTPS.config")
+}
