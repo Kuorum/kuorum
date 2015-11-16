@@ -24,5 +24,7 @@ class ProfessionalDetails {
         constituency nullable:true
         region nullable:true
         sourceWebsite nullable: true
+        cvLink nullable:true
+        declarationLink nullable:true
     }
 }
