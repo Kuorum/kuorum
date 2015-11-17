@@ -5,7 +5,7 @@ package kuorum.core
 public enum FileGroup {
 
     USER_AVATAR("UsersFiles", 1024 * 1000 *1 /*1 MB */, '1', 110),
-    USER_PROFILE("UsersFiles", 1024 * 1000 *1/*1 MB */, '16/9', 110),
+    USER_PROFILE("UsersFiles", 1024 * 1000 *1/*1 MB */, '728/328', 110),
     PROJECT_IMAGE("ProjectsFiles", 1024 * 1000 *2 /*1 MB */, '16/9', 738),
     POST_IMAGE("PoliticianFiles", 1024 *1000 *1 /*1 MB */,'16/9',738),
     PDF("PDFFiles", 1024 * 1000 *10 /*10 MB */,'',0),
