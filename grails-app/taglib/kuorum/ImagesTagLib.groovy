@@ -84,7 +84,7 @@ out << """
     private String getDefaultImgProfile(KuorumUser user){
         //User can be null
         def defaultImage = g.resource(dir:'images', file: 'img-userprofile.jpg')
-        if (user && user.userType==UserType.POLITICIAN && !user.enabled){
+        if (user && user.userType==UserType.POLITICIAN){
             //Inactive politician
             defaultImage = g.resource(dir:'images', file: 'img-politicianprofile.jpg')
         }
