@@ -51,39 +51,41 @@
             </g:if>
             </tfoot>
         </table>
-        <hr/>
-        <table class="table table-condensed">
-            <thead>
-            <tr>
-                <th><g:message code="politician.quickNotes.data.education.title"/></th>
-            </tr>
-            </thead>
-            <tbody>
-            <g:if test="${politician?.politicianExtraInfo?.university}">
+        <g:if test="${['university', 'school', 'declarationLink', 'sourceWebsite'].find{politician?.politicianExtraInfo?."${it}"}}">
+            <hr/>
+            <table class="table table-condensed">
+                <thead>
                 <tr>
-                    <th scope="row"><g:message code="politician.quickNotes.data.education.university"/></th>
-                    <td>${politician?.politicianExtraInfo?.university}</td>
+                    <th><g:message code="politician.quickNotes.data.education.title"/></th>
                 </tr>
-            </g:if>
-            <g:if test="${politician?.politicianExtraInfo?.university}">
-                <tr>
-                    <th scope="row"><g:message code="politician.quickNotes.data.education.school"/></th>
-                    <td>${politician?.politicianExtraInfo?.school}</td>
-                </tr>
-            </g:if>
-            </tbody>
-            <tfoot>
-            <g:if test="${politician?.professionalDetails?.sourceWebsite}">
-                <tr>
-                    <td colspan="2"class="text-right">
-                        <a href="${politician.professionalDetails.sourceWebsite}" target="_blank">
-                            <g:message code="politician.quickNotes.readMore"/>
-                        </a>
-                    </td>
-                </tr>
-            </g:if>
-            </tfoot>
-        </table>
+                </thead>
+                <tbody>
+                <g:if test="${politician?.politicianExtraInfo?.university}">
+                    <tr>
+                        <th scope="row"><g:message code="politician.quickNotes.data.education.university"/></th>
+                        <td>${politician?.politicianExtraInfo?.university}</td>
+                    </tr>
+                </g:if>
+                <g:if test="${politician?.politicianExtraInfo?.university}">
+                    <tr>
+                        <th scope="row"><g:message code="politician.quickNotes.data.education.school"/></th>
+                        <td>${politician?.politicianExtraInfo?.school}</td>
+                    </tr>
+                </g:if>
+                </tbody>
+                <tfoot>
+                <g:if test="${politician?.professionalDetails?.sourceWebsite}">
+                    <tr>
+                        <td colspan="2"class="text-right">
+                            <a href="${politician.professionalDetails.sourceWebsite}" target="_blank">
+                                <g:message code="politician.quickNotes.readMore"/>
+                            </a>
+                        </td>
+                    </tr>
+                </g:if>
+                </tfoot>
+            </table>
+        </g:if>
         <hr/>
         <table class="table table-condensed">
             <thead>
