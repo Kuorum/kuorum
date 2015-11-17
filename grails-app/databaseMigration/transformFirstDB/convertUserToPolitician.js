@@ -7,6 +7,7 @@ var userId = ObjectId("564982d0e4b0ed5e68e19d31")
 dbDest.kuorumUser.update(
     {_id:userId},
     {$set:{
+        'alias':'jbaixauli',
         'professionalDetails.region':sedaviRegion,
         'professionalDetails.constituency':sedaviRegion,
         'verified' : true,
