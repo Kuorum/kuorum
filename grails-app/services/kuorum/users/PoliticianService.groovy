@@ -198,6 +198,7 @@ class PoliticianService {
         }
         politician.professionalDetails.politicalParty = line."politicalParty"
         politician.professionalDetails.profession = line."profession"
+        politician.professionalDetails.position = line."position"
         politician.professionalDetails.institution = line."institution"
         politician.professionalDetails.constituency = findConstituency(line)
         politician.professionalDetails.region =findRegion(line)
