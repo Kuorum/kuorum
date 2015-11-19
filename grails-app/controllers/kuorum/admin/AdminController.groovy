@@ -71,6 +71,7 @@ class AdminController {
         for(line in lines) {
             try {
                 KuorumUser user = politicianService.createPoliticianFromCSV(line)
+                log.info("Uploaded ${user.name}")
                 politiciansOk << user
             }catch (Exception e){
                 log.warn("Error parseando el político ${line.name}", e)
