@@ -13,8 +13,8 @@
 </content>
 
 <content tag="mainContent">
-    <h1>Politicos cargados en el csv ${fileName}</h1>
-    <h2>Políticos erróneos</h2>
+    <h1>CSV politicians loaded from ${fileName}</h1>
+    <h2>Wrong politicians</h2>
     <ul>
         <g:each in="${politiciansWrong}" var="data">
             <li>
@@ -22,13 +22,11 @@
             </li>
         </g:each>
     </ul>
-    <h2>Politicos cargados bien</h2>
+    <h2>Correct politicians</h2>
     <ul>
     <g:each in="${politiciansOk}" var="politician">
         <li>
-            <g:link mapping="userShow" params="${politician.encodeAsLinkProperties()}">
-                ${politician.name}
-            </g:link>
+            <a href="${politician.link}">${politician.name}</a>
         </li>
     </g:each>
     </ul>
