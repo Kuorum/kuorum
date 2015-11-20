@@ -64,23 +64,9 @@ class AdminController {
             render(view: 'solrIndex')
             return
         }
-        Reader reader = new InputStreamReader(uploadedFile.inputStream);
-        List politiciansOk = []
-        List politiciansWrong = []
-        def lines = com.xlson.groovycsv.CsvParser.parseCsv(reader)
-        for(line in lines) {
-            try {
-                KuorumUser user = politicianService.createPoliticianFromCSV(line)
-                log.info("Uploaded ${user.name}")
-                politiciansOk << [name: user.name, link:g.createLink(mapping: 'userShow', params:user.encodeAsLinkProperties())]
-            }catch (Exception e){
-                log.warn("Error parseando el político ${line.name}", e)
-                politiciansWrong << [id:line.id, name:line.name, error: e.getMessage()]
-            }
-
-        }
-        flash.message = "CSV ${uploadedFile.originalFilename} with ${politiciansOk.size()} politicians has been processed and ${politiciansWrong.size()} have had problems"
-//        redirect(mapping:"adminSearcherIndex")
-        render view: "csvPoliticiansLoaded", model: [politiciansOk:politiciansOk,politiciansWrong:politiciansWrong, fileName:uploadedFile.getOriginalFilename()]
+        politicianService.asyncUploadPoliticianCSV(springSecurityService.currentUser,uploadedFile.inputStream)
+        flash.message = "CSV ${uploadedFile.originalFilename} uploaded. An email will be sent at the end of the process"
+        redirect(mapping:"adminSearcherIndex")
+//        render view: "csvPoliticiansLoaded", model: [politiciansOk:politiciansOk,politiciansWrong:politiciansWrong, fileName:uploadedFile.getOriginalFilename()]
     }
 }

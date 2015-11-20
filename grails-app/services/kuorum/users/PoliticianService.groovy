@@ -1,6 +1,7 @@
 package kuorum.users
 
 import com.mongodb.DBCursor
+import grails.plugin.mail.MailService
 import grails.transaction.Transactional
 import kuorum.KuorumFile
 import kuorum.Region
@@ -9,6 +10,7 @@ import kuorum.core.FileType
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
+import kuorum.mail.KuorumMailService
 import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
 import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
 import kuorum.users.extendedPoliticianData.PoliticianLeaning
@@ -16,11 +18,46 @@ import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
 import kuorum.users.extendedPoliticianData.PoliticianTimeLine
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import org.bson.types.ObjectId
+import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 
 @Transactional
 class PoliticianService {
 
     FileService fileService;
+    KuorumMailService kuorumMailService
+    LinkGenerator grailsLinkGenerator
+
+    void asyncUploadPoliticianCSV(KuorumUser executorUser, InputStream data){
+        byte[] buffer = new byte[data.available()];
+        data.read(buffer)
+        File csv = File.createTempFile("temp-file-name-${new Date().time}", ".csv");
+        OutputStream outStream = new FileOutputStream(csv);
+        outStream.write(buffer);
+        outStream.close()
+        Thread.start {
+            InputStream csvStream = new FileInputStream(csv);
+            Reader reader = new InputStreamReader(csvStream)
+            def lines = com.xlson.groovycsv.CsvParser.parseCsv(reader)
+            String politiciansOk = "<h1>Politician OK</h1><UL>"
+            String politiciansWrong = "<h1>Politician Wrong</h1><UL>"
+            for(line in lines) {
+                try {
+                    KuorumUser user = createPoliticianFromCSV(line)
+                    log.info("Uploaded ${user.name}")
+                    politiciansOk += "<li> <a href='${grailsLinkGenerator.link(mapping: 'userShow', params:user.encodeAsLinkProperties())}'> $user.name </a></li>"
+                }catch (Exception e){
+                    log.warn("Error parseando el político ${line.name}", e)
+                    politiciansWrong +=  "<li>${line.name} (${line.id}): <i>${e.getMessage()}</i></li>"
+                }
+            }
+            politiciansOk += "</UL>"
+            politiciansWrong += "</UL>"
+            log.info("Enviando mail de fin de procesado de email a ${executorUser.name} (${executorUser.email})")
+            kuorumMailService.sendBatchMail(executorUser, politiciansWrong + politiciansOk, "CSV Loaded")
+            csv.delete()
+        }
+
+    }
 
     KuorumUser createPoliticianFromCSV(def line) {
 

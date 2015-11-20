@@ -46,6 +46,11 @@ class KuorumMailService {
             mandrillAppService.sendTemplate(mailData)
         }
     }
+    def sendBatchMail(KuorumUser user, String rawMail, String subject){
+        MailUserData mailUserData = new MailUserData(user:user)
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME , mailType: MailType.BATCH_PROCESS, globalBindings: [rawMail: rawMail, SUBJECT:subject], userBindings: [mailUserData])
+        mandrillAppService.sendTemplate(mailData)
+    }
 
     def sendFeedbackMail(KuorumUser user, String feedback, boolean userDeleted = false){
         def bindings = [
