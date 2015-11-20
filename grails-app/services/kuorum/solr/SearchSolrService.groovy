@@ -52,7 +52,7 @@ class SearchSolrService {
 
     private SolrSuggest prepareSuggestions(QueryResponse rsp){
         SolrSuggest solrSuggest = null
-        if (rsp._spellInfo?.suggestions?.get("collation")){
+        if (rsp?._spellInfo?.suggestions?.get("collation")){
             solrSuggest = new SolrSuggest()
             solrSuggest.suggestedQuery = rsp._spellInfo.suggestions.collation.collationQuery
             solrSuggest.hits = rsp._spellInfo.suggestions.collation.hits
@@ -158,7 +158,7 @@ class SearchSolrService {
 //            }
 //        }
 //        suggests
-        if (rsp._spellInfo.suggestions.size()>0){
+        if (rsp?._spellInfo?.suggestions && rsp._spellInfo.suggestions.size()>0){
             rsp._spellInfo.suggestions.first().value.suggestion
         }else{
             []
