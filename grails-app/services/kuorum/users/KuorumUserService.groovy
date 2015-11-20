@@ -200,10 +200,12 @@ class KuorumUserService {
         }
         List<KuorumUser> kuorumUsers = []
         List<ObjectId> recommendedUsers
+        List<ObjectId> notValidUsers = user.following +[user.id]
 
         RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(user)
         if(recommendedUserInfo){
-            recommendedUsers = recommendedUserInfo.recommendedUsers - recommendedUserInfo.deletedRecommendedUsers - user.following -[user.id]
+            notValidUsers = recommendedUserInfo.deletedRecommendedUsers + user.following +[user.id]
+            recommendedUsers = recommendedUserInfo.recommendedUsers - notValidUsers
             Integer max = Math.min(recommendedUsers.size(),pagination.max)
             if (max > 0){
                 kuorumUsers = recommendedUsers[pagination.offset..max-1].inject([]){ result, kuorumUser ->
@@ -216,19 +218,17 @@ class KuorumUserService {
         if (kuorumUsers.size()+1 < pagination.max){
             Integer max = pagination.max - kuorumUsers.size()-1;
             List<KuorumUser> mostActiveUsers = mostActiveUsersSince(new Date() -7 , new Pagination(max: max*2))
-            List<KuorumUser> deletedRecommendedUsers = []
-            if (recommendedUserInfo){
-                deletedRecommendedUsers = recommendedUserInfo.deletedRecommendedUsers
-            }
-            mostActiveUsers = mostActiveUsers - deletedRecommendedUsers - user.following -[user.id]
+            mostActiveUsers = mostActiveUsers - notValidUsers
             max = Math.min(max, mostActiveUsers.size()-1)
             if (mostActiveUsers) {
                 kuorumUsers += mostActiveUsers[0..max]
             }
             if (!kuorumUsers && recalculateActivityIfEmpty){
-                log.warn("No se han detectado sugerencias para el usuario ${user}, se vuelven a calcular. ")
-                recommendedUsersByActivityAndUser(user);
-                return recommendedUsers(user, pagination, false);
+                log.warn("No se han detectado sugerencias para el usuario ${user}")
+//                recommendedUsersByActivityAndUser(user);
+//                return recommendedUsers(user, pagination, false);
+                log.info("Se cojen los últimos usuarios que no sean ya seguidores de ${user}")
+                kuorumUsers = KuorumUser.findAllByIdNotInList(notValidUsers, [sort:"numFollowers",order: "desc", max:pagination.max])
             }
         }
 
@@ -334,7 +334,7 @@ class KuorumUserService {
         otherUsers = KuorumUser.findAllByIdNotEqual(user.id)
         GParsPool.withPool{
             calculateActivityClosure.memoize()
-            otherUsers = KuorumUser.findAllByIdNotEqual(user.id)
+            otherUsers = KuorumUser.findAllByIdNotInList(user.following + user.id)
             otherUsers.collectParallel{ it.activityForRecommendation = calculateActivityClosure(it, user) }
             kuorumUsersOrdered = otherUsers.parallel.sort{-it.activityForRecommendation}.collection[0..<RecommendedUserInfo.constraints.recommendedUsers.maxSize]
             recommendedUserInfo = RecommendedUserInfo.findByUser(user)
