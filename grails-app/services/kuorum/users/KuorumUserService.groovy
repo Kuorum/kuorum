@@ -582,7 +582,7 @@ class KuorumUserService {
             KuorumUser.get(solrElement.getId())
         }
         if(user) politicians = politicians.findAll{it.id != user.id}
-        return politicians?politicians[0..Math.min(pagination.max-1, politicians.size())]:[]
+        return politicians?politicians[0..Math.min(pagination.max-1, politicians.size()-1)]:[]
     }
 
     void deleteAccount(KuorumUser user){
