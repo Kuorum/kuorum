@@ -63,7 +63,7 @@ environments {
 //                    wtimeout = 0
 //                    fsync = true
                     autoConnectRetry = true
-                    connectTimeou1t = 3000
+                    connectTimeout = 3000
                     socketTimeout = 60000
                     maxWaitTime = 5000
                     socketKeepAlive= true
