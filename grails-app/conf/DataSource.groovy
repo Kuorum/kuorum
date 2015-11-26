@@ -59,11 +59,11 @@ environments {
                 password = ""
                 databaseName = "Kuorum"
                 options {
-                    w = 1
-                    wtimeout = 0
-                    fsync = true
+//                    w = 1
+//                    wtimeout = 0
+//                    fsync = true
                     autoConnectRetry = true
-                    connectTimeout = 3000
+                    connectTimeou1t = 3000
                     socketTimeout = 60000
                     maxWaitTime = 5000
                     socketKeepAlive= true
