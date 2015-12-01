@@ -1,4 +1,4 @@
-<g:if test="${politician?.professionalDetails}">
+<g:if test="${['region','constituency','institution','position','profession', 'cvLink', 'declarationLink'].find{politician?.professionalDetails?."${it}"}}">
     <section class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title"><g:message code="politician.professionalDetails.title"/> </h3>

@@ -227,6 +227,7 @@ class PoliticianService {
         String dateOfBirth = line."dateOfBirth"
         politician.politicianExtraInfo.birthDate = dateOfBirth?Date.parse("dd/MM/yyyy",dateOfBirth):null
         politician.politicianExtraInfo.birthPlace = line."placeOfBirth"
+        politician.politicianExtraInfo.family = line."family"
     }
 
     private void populateProfessionalDetails(KuorumUser politician, def line){

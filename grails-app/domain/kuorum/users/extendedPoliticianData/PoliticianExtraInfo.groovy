@@ -9,8 +9,10 @@ class PoliticianExtraInfo {
     Date birthDate
     String birthPlace
     String university
+    String studies
     String school
     String webSite
+    String family
 
     static constraints = {
         birthDate nullable:true
@@ -18,5 +20,7 @@ class PoliticianExtraInfo {
         university nullable: true
         school nullable: true
         webSite nullable: true
+        family nullable: true
+        studies nullable: true
     }
 }
