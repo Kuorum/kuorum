@@ -19,11 +19,11 @@ environments {
         logSql = true
         grails{
             mongo {
-                host = "localhost"
+                host = "172.31.17.196"
                 port = "27017"
                 username = ""
                 password = ""
-                databaseName = "KuorumDev"
+                databaseName = "Kuorum"
     //                options {
     //                    w = 1
     //                    wtimeout = 0
