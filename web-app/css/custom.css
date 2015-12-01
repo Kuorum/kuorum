@@ -322,7 +322,7 @@ a:focus {color: #e3981e;}
     letter-spacing: 0.4px;
     font-size: 15px;
     font-size: 1.5rem;
-    background-color: #ff9431 !important;
+    background-color: #e3981e !important;
     padding: 6px 12px !important;
     border-radius: 3px;
     border: none;
@@ -331,7 +331,7 @@ a:focus {color: #e3981e;}
 .btn:hover,
 .btn:active,
 .btn:focus {
-    background-color: #ee7612 !important;
+    background-color: #b77a17 !important;
     text-decoration: none;
 }
 

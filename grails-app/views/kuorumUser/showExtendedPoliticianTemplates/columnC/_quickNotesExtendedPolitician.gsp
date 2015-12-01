@@ -48,8 +48,8 @@
             <tfoot>
             <g:if test="${politician?.professionalDetails?.sourceWebsite}">
                 <tr>
-                    <td colspan="2"class="text-right">
-                        <a href="${politician.professionalDetails.sourceWebsite}" target="_blank">
+                    <td colspan="2"class="text-center">
+                        <a href="${politician.professionalDetails.sourceWebsite}" class="btn btn-xs btn-blue" target="_blank">
                             <g:message code="politician.quickNotes.readMore"/>
                         </a>
                     </td>
@@ -88,8 +88,8 @@
                 <tfoot>
                 <g:if test="${politician?.professionalDetails?.sourceWebsite}">
                     <tr>
-                        <td colspan="2"class="text-right">
-                            <a href="${politician.professionalDetails.sourceWebsite}" target="_blank">
+                        <td colspan="2"class="text-center">
+                            <a href="${politician.professionalDetails.sourceWebsite}" class="btn btn-xs btn-blue"target="_blank">
                                 <g:message code="politician.quickNotes.readMore"/>
                             </a>
                         </td>
