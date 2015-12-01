@@ -44,7 +44,7 @@ class PoliticianService {
                 try {
                     KuorumUser user = createPoliticianFromCSV(line)
                     log.info("Uploaded ${user.name}")
-                    politiciansOk += "<li> <a href='${grailsLinkGenerator.link(mapping: 'userShow', params:user.encodeAsLinkProperties())}'> $user.name </a></li>"
+                    politiciansOk += "<li> <a href='${grailsLinkGenerator.link(mapping: 'userShow', params:user.encodeAsLinkProperties(), absolute: true)}'> $user.name </a></li>"
                 }catch (Exception e){
                     log.warn("Error parseando el político ${line.name}", e)
                     politiciansWrong +=  "<li>${line.name} (${line.id}): <i>${e.getMessage()}</i></li>"
