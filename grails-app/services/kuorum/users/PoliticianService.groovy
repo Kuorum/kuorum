@@ -133,6 +133,7 @@ class PoliticianService {
                 if (!politician.politicianExtraInfo){
                     politician.setPoliticianExtraInfo(new PoliticianExtraInfo(ipdbId: ipdbId))
                 }
+                politician.politicianExtraInfo.ipdbId = ipdbId;
                 return politician;
             }
         }
