@@ -1,11 +1,13 @@
 <g:if test="${politician.timeLine}">
-    <div class="panel panel-default" id="political-experience-timeline">
+    <div class="panel panel-default collapsable" id="political-experience-timeline" data-toggle="collapse" data-target="#political-experience-timeline .panel-body">
         <div class="panel-heading">
             <h3 class="panel-title">
                 <g:message code="politician.timeLine.title"/>
+                <span class="fa fa-chevron-down"></span>
+                <span class="fa fa-chevron-up"></span>
             </h3>
         </div>
-        <div class="panel-body text-center">
+        <div class="panel-body text-center" data-toggle="collapse">
             <ul class="timeline">
                 <g:each in="${politician.timeLine}" var="timeEvent" status="i">
                     <g:set var="cssPos" value=""/>

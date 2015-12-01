@@ -4209,6 +4209,13 @@ only screen and (min-resolution: 192dpi) {
     line-height: 30px;
     color: #666;
 }
+
+.panel.collapsable .panel-title .fa-chevron-down {float:right}
+.panel.collapsable .panel-title .fa-chevron-up {float:right}
+.panel.collapsable:not(.collapsed) .panel-title .fa-chevron-down {display:block}
+.panel.collapsable:not(.collapsed) .panel-title .fa-chevron-up {display:none}
+.panel.collapsable.collapsed .panel-title .fa-chevron-down {display:none}
+.panel.collapsable.collapsed .panel-title .fa-chevron-up {display:block}
 /* Profile Card ----------------*/
 .politician-card p{
     text-align: justify;
