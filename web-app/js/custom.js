@@ -950,15 +950,16 @@ function prepareArrowClucks(){
 }
 // funciones que llaman a las diferentes notificacones (salen en la parte superior de la pantalla)
 var display = {
-    error:function(text){this._notyGeneric(text, "error")},
-    success:function(text){this._notyGeneric(text, "success")},
-    info:function(text){this._notyGeneric(text, "information")},
-    warn:function(text){this._notyGeneric(text, "warning")},
+    error:function(text){this._notyGeneric(text, "error", "top")},
+    success:function(text){this._notyGeneric(text, "success", "top")},
+    info:function(text){this._notyGeneric(text, "information", "top")},
+    warn:function(text){this._notyGeneric(text, "warning", "top")},
+    cookie:function(text){this._notyGeneric(text, "information", "bottom")},
 
-    _notyGeneric:function(text, type) {
+    _notyGeneric:function(text, type, notyLayout) {
         var htmlText = $.parseHTML(text)
         var nW = noty({
-            layout: 'top',
+            layout: notyLayout,
             dismissQueue: true,
             animation: {
                 open: {height: 'toggle'},
@@ -1007,7 +1008,7 @@ var cookiesHelper = {
             function(cName){
                 var button = "<button id='acceptCookies' class='btn btn-xs' onclick='cookiesHelper.acceptedCookiesPolitics()'>"+i18n.cookies.accept+"</button>";
                 var message = i18n.cookies.message + button;
-                display.warn(message);
+                display.cookie(message);
             }
         )
     },
