@@ -954,7 +954,7 @@ var display = {
     success:function(text){this._notyGeneric(text, "success", "top")},
     info:function(text){this._notyGeneric(text, "information", "top")},
     warn:function(text){this._notyGeneric(text, "warning", "top")},
-    cookie:function(text){this._notyGeneric(text, "information", "bottom")},
+    cookie:function(text){this._notyGeneric(text, "warning", "bottomRight")},
 
     _notyGeneric:function(text, type, notyLayout) {
         var htmlText = $.parseHTML(text)
