@@ -348,8 +348,8 @@ a:focus {color: #e3981e;}
 .btn.btn-xs {
     border-radius: 3px !important;
     font-size: 12px !important;
-    line-height: 1.6 !important;
-    padding: 1px 15px 2px !important;
+    /*line-height: 1.6 !important;*/
+    padding: 2px 10px 2px !important;
     margin: 0;
 }
 /* large button (botón grande) */
@@ -4237,6 +4237,7 @@ only screen and (min-resolution: 192dpi) {
     height: 144px;
     border: solid 5px #fff;
     margin-top: -14%;
+    background-color: #fff;
 }
 /*.profile-pic .fa-check {
     position: absolute;
@@ -4262,6 +4263,10 @@ p.party{
 .profile-title h2{
     margin-top: 0;
     margin-bottom: 6px;
+}
+.follow i{
+    margin-right: 6px;
+    font-weight:
 }
 .follow-btn-group{
     text-align: right;
@@ -4453,6 +4458,9 @@ p.party{
 }
 
 /* Political Table ===========*/
+.table{
+    margin-bottom: 10px;
+}
 .panel-default .table.table-condensed{
     table-layout: fixed;
     width: 100%;
@@ -4460,6 +4468,9 @@ p.party{
 .panel-default .table-condensed th, .panel-default .table-condensed td{
     border:none;
     text-align: left;
+}
+.panel-default .table-condensed td.text-center{
+    text-align: center;
 }
 .panel-default .table-condensed th {
     width: 35%;
@@ -4481,6 +4492,10 @@ p.party{
 .panel-body > table + hr {
     margin-left: -15px;
     width: 110%;
+}
+hr{
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 .panel-share-buttons {
     margin: 0;
@@ -4764,4 +4779,113 @@ p.party{
 #suggested-politicians{
     background-color: #f5f5f5;
     padding: 40px 0 20px;
+}
+/* PSOE modal =========== */
+header h6{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    background-color: #990000;
+    margin: -6px 0 6px 0;
+    color: white;
+    height: 36px;
+    line-height: 36px;
+}
+header .header-msg:hover{
+    text-decoration: none;
+}
+header .header-msg h6:hover{
+    background-color: #B20000;
+}
+#causes-modal .modal-dialog{
+    margin-top: 10px;
+}
+#causes-modal .modal-header{
+    border-bottom: none;
+}
+#causes-modal .modal-body{
+    padding: 0px 30px;
+}
+#causes-modal .modal-body h1{
+    margin-top: 0;
+    font-size: 18px;
+}
+#causes-modal .modal-body h3{
+    font-size: 14px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+}
+#causes-modal .modal-body h4{
+    font-size: 14px;
+    margin-bottom: 0px;
+    font-family: 'Helvetica Neue';
+    font-variant: normal;
+}
+#causes-modal .modal-body .causes-icon button{
+    height: 40px;
+    width: 168px;
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #acacac;
+    margin-bottom: 8px;
+}
+#causes-modal .modal-body .causes-icon button:hover{
+    background-color: #cdcdcd;
+}
+#causes-modal .modal-body .causes-icon img{
+    height: 64px;
+    width: 64px;
+    margin-bottom: 3px;
+}
+
+#causes-modal .form-group{
+    margin-bottom: 12px;
+}
+.input-lg{
+    height: 36px;
+}
+@media screen and (min-width: 768px){
+    #causes-modal .modal-body h1{
+        font-size: 24px;
+    }
+    #causes-modal .modal-body h3{
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    #causes-modal .modal-body h4{
+        font-size: 14px;
+    }
+    .causes-icon{
+        margin-bottom: 18px;
+    }
+    #causes-modal .modal-body .causes-icon button{
+        height: 138px;
+        width: 138px;
+        margin-right: 12px;
+    }
+    #causes-modal .modal-body .causes-icon img{
+        height: 84px;
+        width: 84px;
+    }
+    #causes-modal .form-group{
+        margin-bottom: 14px;
+    }
+    .input-lg{
+        height: 36px;
+    }
+}
+
+/* contact modal =========== */
+#contact-modal .modal-body{
+    padding-bottom: 6px;
+}
+#contact-modal h5{
+    font-size: 18px;
+    margin: 0;
+}
+#contact-modal .form-group{
+    margin-bottom: 10px;
+}
+#contact-modal textarea{
+    resize: none;
+    height: 120px;
 }
