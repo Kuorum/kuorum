@@ -4381,6 +4381,7 @@ p.party{
 .known-for li{
     display: inline-block;
     margin-bottom: 6px;
+    width: 100%;
 }
 /* Share buttons bar =========== */
 .share-buttons {
