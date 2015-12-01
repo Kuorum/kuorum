@@ -130,6 +130,9 @@ class PoliticianService {
         if (email){
             politician = KuorumUser.findByEmail(email);
             if (politician){
+                if (!politician.politicianExtraInfo){
+                    politician.setPoliticianExtraInfo(new PoliticianExtraInfo(ipdbId: ipdbId))
+                }
                 return politician;
             }
         }
