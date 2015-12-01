@@ -53,7 +53,7 @@ class IndexSolrService {
     def fullIndex() {
 
         Date start = new Date()
-        createUserScore(start)
+//        createUserScore(start)
         clearIndex()
 
         def res = [:]
