@@ -4801,6 +4801,11 @@ header h6{
 header .header-msg:hover{
     text-decoration: none;
 }
+
+header a.header-msg {
+    width: 100%;
+}
+
 header .header-msg h6:hover{
     background-color: #B20000;
 }

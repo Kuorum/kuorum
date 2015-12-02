@@ -955,6 +955,8 @@ var display = {
     info:function(text){this._notyGeneric(text, "information", "top")},
     warn:function(text){this._notyGeneric(text, "warning", "top")},
     cookie:function(text){this._notyGeneric(text, "warning", "bottomRight")},
+    blockAdvise:function(text, eventClick){this._slideDown(text, eventClick)},
+    hideAdvise:function(){this._slideUp()},
 
     _notyGeneric:function(text, type, notyLayout) {
         var htmlText = $.parseHTML(text)
@@ -971,6 +973,18 @@ var display = {
             type: type,
             text: htmlText
         });
+    },
+    _slideDown:function(text, clickEvent){
+        var clickEventFunction = typeof clickEvent !== 'undefined'?clickEvent : function (e){e.preventDefault(); console.log(e)};
+        $("#head-navigation a.header-msg").remove();
+        var template = "<a class='header-msg' style='display:none' href=''><h6 class='text-center'>"+text+"</h6></a>";
+        $("#head-navigation").prepend(template);
+        $("#head-navigation a.header-msg").slideDown();
+        $("#head-navigation a.header-msg").on("click",clickEventFunction)
+    },
+
+    _slideUp:function(){
+        $("#head-navigation a.header-msg").slideUp();
     }
 }
 

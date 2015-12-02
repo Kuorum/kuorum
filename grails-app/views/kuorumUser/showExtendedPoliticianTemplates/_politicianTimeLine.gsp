@@ -1,5 +1,5 @@
 <g:if test="${politician.timeLine}">
-    <div class="panel panel-default collapsable" id="political-experience-timeline" data-toggle="collapse" data-target="#political-experience-timeline .panel-body">
+    <div class="panel panel-default collapsable collapsed" id="political-experience-timeline" data-toggle="collapse" data-target="#political-experience-timeline .panel-body">
         <div class="panel-heading">
             <h3 class="panel-title">
                 <g:message code="politician.timeLine.title"/>

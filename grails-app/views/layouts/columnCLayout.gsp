@@ -48,6 +48,10 @@
     <g:if test="${!Boolean.parseBoolean(pageProperty(name:'page.hideFooter')?.toString())}">
         <g:render template="/layouts/footer/footer"/>
     </g:if>
+    <g:if test="${pageProperty(name:'page.modals')}">
+        <g:pageProperty name="page.modals"/>
+    </g:if>
+
     </body>
 
 </g:applyLayout>

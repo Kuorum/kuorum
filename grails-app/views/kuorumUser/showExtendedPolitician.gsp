@@ -112,3 +112,7 @@
     <g:render template="showExtendedPoliticianTemplates/recommendedPoliticians" model="[politician:politician, recommendPoliticians:recommendPoliticians]"/>
 
 </content>
+
+<content tag="modals">
+    <g:render template="showExtendedPoliticianTemplates/modals/modalElection" model="[politician:politician, userProjects:userProjects]"/>
+</content>

@@ -149,46 +149,6 @@
     </div>
 </aside>
 
-%{--<aside class="modal fade" id="modalSponsor" tabindex="-1" role="dialog" aria-labelledby="sponsorLabel" aria-hidden="true">--}%
-    %{--<div class="modal-dialog">--}%
-        %{--<div class="modal-content">--}%
-            %{--<div class="modal-header clearfix">--}%
-                %{--<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/> </span></button>--}%
-                %{--<div class="col" id="modalDefenderPolitician">--}%
-                    %{--<img class="user-img big" alt="nombre" src="">--}%
-                    %{--<h1>Nombre del político</h1>--}%
-                    %{--<h2>Tú puedes darles voz</h2>--}%
-                    %{--<h3 id="sponsorLabel">Apadrina esta historia</h3>--}%
-                %{--</div>--}%
-                %{--<div class="col" id="modalDefenderOwner">--}%
-                    %{--<span class="fdoDiagonal"></span>--}%
-                    %{--<div itemtype="http://schema.org/Person" itemscope class="user">--}%
-                        %{--<img itemprop="image" class="user-img big" alt="nombre" src="">--}%
-                        %{--<span class="name" itemprop="name">Nombreeeee usuuuario</span>--}%
-                        %{--<span class="what">escribió esta historia</span>--}%
-                        %{--<span class="action">y <span>1245</span> personas la impulsaron</span>--}%
-                    %{--</div>--}%
-                %{--</div>--}%
-            %{--</div><!-- /.modal-header -->--}%
-            %{--<div class="modal-body">--}%
-                %{--<p><strong>Fulanito de tal</strong> escribió esta historia y <strong>876 personas</strong> la impulsaron. El compromiso con los electores es tu mayor activo político, elige una de las siguientes opciones para ayudar a tus representados.</p>--}%
-                %{--<div>--}%
-                    %{--<a href="#" class="btn btn-grey btn-lg">Llévala <br>a tu institución</a>--}%
-                    %{--<p>Te comprometes a ...hora te toca a ti decir si ese compromiso se ha llevado a fin o no. Si lo tienes claro da la victoria a Fulanito porque nos ha escuchado y se lo merece en caso contrario puedes esperar un tiempo mas o rechazar la victoria. Porque tú sabes si se hizo realidad.</p>--}%
-                %{--</div>--}%
-                %{--<div>--}%
-                    %{--<a href="#" class="btn btn-grey btn-lg">Invita al autor<br> a comparecer</a>--}%
-                    %{--<p>Te comprometes a ...hora te toca a ti decir si ese compromiso se ha llevado a fin o no. Si lo tienes claro da la victoria a Fulanito porque nos ha escuchado y se lo merece en caso contrario puedes esperar un tiempo mas o rechazar la victoria. Porque tú sabes si se hizo realidad..</p>--}%
-                %{--</div>--}%
-                %{--<div>--}%
-                    %{--<a href="#" class="btn btn-grey btn-lg">Cita al autor<br> para una audiencia</a>--}%
-                    %{--<p>Te comprometes a ...hora te toca a ti decir si ese compromiso se ha llevado a fin o no. Si lo tienes claro da la victoria a Fulanito porque nos ha escuchado y se lo merece en caso contrario puedes esperar un tiempo mas o rechazar la victoria. Porque tú sabes si se hizo realidad.</p>--}%
-                %{--</div>--}%
-            %{--</div>--}%
-        %{--</div>--}%
-    %{--</div>--}%
-%{--</aside>--}%
-
 <!-- Modal apadrina-propuesta -->
 <div class="modal fade" id="apadrina-propuesta" tabindex="-1" role="dialog" aria-labelledby="apadrinarPropuesta" aria-hidden="true">
     <div class="modal-dialog">
@@ -232,6 +192,70 @@
         </div>
     </div>
 </div>
+
+%{--<!-- MODAL CONTACT -->--}%
+%{--<div class="modal fade in" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="false" style="display: block;">--}%
+    %{--<div class="modal-dialog ">--}%
+        %{--<div class="modal-content">--}%
+            %{--<div class="modal-header">--}%
+                %{--<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>--}%
+                %{--<h4 class="sr-only" id="registroLoginUsuario">Registro / Login usuario</h4>--}%
+                %{--<h5>Message to Barack Obama</h5>--}%
+            %{--</div>--}%
+            %{--<div class="modal-body">--}%
+                %{--<!-- email subscription form -->--}%
+                %{--<form action="https://kuorum.org/j_spring_security_check" method="post" name="login-header" id="login-modal" role="form" class="login">--}%
+                    %{--<div class="form-group">--}%
+                        %{--<label for="message-text" class="control-label">Which cause is this message related to?</label>--}%
+                        %{--<select class="form-control">--}%
+                            %{--<option>#Economía</option>--}%
+                            %{--<option>#Innovación</option>--}%
+                            %{--<option>#Transparencia</option>--}%
+                            %{--<option>#EstadodelBienestar</option>--}%
+                            %{--<option>#Cooperación</option>--}%
+                            %{--<option>#Igualdad</option>--}%
+                        %{--</select>--}%
+                    %{--</div>--}%
+                    %{--<div class="form-group">--}%
+                        %{--<label for="message-text" class="control-label">Message:</label>--}%
+                        %{--<textarea class="form-control" id="message-text" placeholder="Type your message here..."></textarea>--}%
+                    %{--</div>--}%
+                    %{--<div class="form-group">--}%
+                        %{--<label for="recipient-name" class="control-label">Leave us your email to get updates on this message!</label>--}%
+                        %{--<input type="text" name="name" class="form-control counted " id="name" required="" placeholder="Tell us your name" value="" aria-required="true">--}%
+                    %{--</div>--}%
+                    %{--<div class="form-group">--}%
+                        %{--<input type="email" name="email" class="form-control center-block" id="email" required="" placeholder="Introduce your email" value="" aria-required="true">--}%
+                    %{--</div>--}%
+
+                    %{--<div class="form-group">--}%
+                        %{--<input type="submit" class="btn" value="Send Message!">--}%
+                    %{--</div>--}%
+                    %{--<div class="form-group">--}%
+                        %{--You are accepting the <a href="https://kuorum.org/kuorum/politica-privacidad" target="_blank">service conditions</a>--}%
+                    %{--</div>--}%
+                %{--</form>--}%
+                %{--<script type="text/javascript">--}%
+                    %{--$(function (){--}%
+                        %{--$("#sign-modal").validate({--}%
+                            %{--errorClass:'error',--}%
+                            %{--errorPlacement: function(error, element) {--}%
+                                %{--if(element.attr('id') == 'deadline')--}%
+                                    %{--error.appendTo(element.parent("div").parent("div"));--}%
+                                %{--else if(element.attr('id') == 'JUSTICE')--}%
+                                    %{--error.appendTo(element.parent("div").parent("div").parent("div").parent("div"));--}%
+                                %{--else--}%
+                                    %{--error.insertAfter(element);--}%
+                            %{--},--}%
+                            %{--errorElement:'span',--}%
+                            %{--rules: {'name':{required: true ,maxlength: 17},'email':{required: true ,email: true}} ,  messages: {'name':{required: 'We need a name to address you',maxlength: 'The username must have a maximum of 17 characters'},'email':{required: 'We need an email to communicate with you',email: 'Wrong email format'}}--}%
+                        %{--});--}%
+                    %{--});--}%
+                %{--</script>--}%
+            %{--</div>--}%
+        %{--</div>--}%
+    %{--</div>--}%
+%{--</div>--}%
 <!-- fin modal -->
 %{--<script type="text/javascript" src="http://jira.kuorum.org/s/d41d8cd98f00b204e9800998ecf8427e/es_ES-ce14fm-1988229788/6264/13/1.4.7/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=132ad9a9"></script>--}%
 
