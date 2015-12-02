@@ -45,7 +45,7 @@ cite{
 input[type="text"],
 input[type="number"],
 input[type="email"],
-select {color: #545454; font-size: 12px; font-size:  1.2rem; border: 1px solid #efefef; box-shadow: 0 0 0 rgba(0, 0, 0, 0);}
+select {color: #545454; font-size: 12px; font-size:  1.2rem; border: 1px solid #a3a3a3; box-shadow: 0 0 0 rgba(0, 0, 0, 0);}
 /*input[type="text"],
 input[type="number"],
 input[type="email"],
@@ -389,7 +389,7 @@ a:focus {color: #e3981e;}
     background-color: #fff !important;
     border: 1px solid #20a2ea ;
     color: #20a2ea !important;
-    margin-bottom: 14px;
+    margin: 0 0 6px 0;
 }
 .btn.btn-blue.inverted:hover,
 .btn.btn-blue.inverted:active,
@@ -3635,7 +3635,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     }
     .btn {
         padding: 6px 8px !important;
-        margin: 0 !important;
+        margin: 0;
         color: #fff !important;
         border-radius: 3px !important;
         text-decoration: none !important;
@@ -4116,7 +4116,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .boxes.performance a.improve {font-size: 24px; font-size: 2.4rem;}
     #info-sup-scroll .laley {font-size: 25px; font-size: 2.5rem;}
     .navbar-form {margin: 5px 4px 4px 22%;}
-    .btn {margin: 6px 0 0 8px !important;}
+    .btn {margin: 6px 0 0 8px;}
     .container-fluid.userprofile #adminActions{top: 15px;}
     .kakareo footer {font-size: 14px; font-size: 1.4rem;}
     .kakareo h1 {font-size: 20px; font-size: 2rem;}
@@ -4831,32 +4831,36 @@ header .header-msg h6:hover{
     margin-bottom: 12px;
 }
 #causes-modal .modal-body h4{
-    font-size: 14px;
+    font-size: 12px;
     margin-bottom: 0px;
     font-family: 'Helvetica Neue';
     font-variant: normal;
 }
 
-#causes-modal .modal-body .causes-icon button{
-    height: 40px;
+#causes-modal .modal-body .causes-icon .causes-checkbox{
+    height: 36px;
     width: 168px;
+    padding: 10px 0;
     border-radius: 5px;
     background-color: #fff;
     border: 1px solid #acacac;
     margin-bottom: 8px;
+    vertical-align: top;
+    display: inline-block;
     position: relative;
+}
+#causes-modal .modal-body .causes-icon .causes-checkbox:hover{
+    background-color: #cdcdcd;
 }
 #causes-modal .modal-body .causes-icon input[type=checkbox]{
     position: absolute;
     top:0;
     left:0;
-    opacity: 1;
+    opacity: 0;
     height: 40px;
     width: 168px;
 }
-#causes-modal .modal-body .causes-icon button:hover{
-    background-color: #cdcdcd;
-}
+
 #causes-modal .modal-body .causes-icon img{
     height: 64px;
     width: 64px;
@@ -4883,7 +4887,7 @@ header .header-msg h6:hover{
     .causes-icon{
         margin-bottom: 18px;
     }
-    #causes-modal .modal-body .causes-icon button{
+    #causes-modal .modal-body .causes-icon .causes-checkbox{
         height: 138px;
         width: 138px;
         margin-right: 12px;

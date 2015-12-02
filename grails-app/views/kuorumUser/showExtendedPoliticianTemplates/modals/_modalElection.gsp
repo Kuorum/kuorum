@@ -21,33 +21,38 @@
                 <h3><g:message code="modal.election.header.subtitle"/></h3>
                 <div class='row causes-icon'>
 
-                    <button>
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
                         <input type="checkbox" value="kk"/>
-                        <img class='img-circle' src="images/transparencia.svg" alt="">
-                        <h4>#Economía</h4>
-                    </button>
-                    <button>
-                        <img class='img-circle' src="images/transparencia.svg" alt="">
-                        <h4>#Innovación</h4>
-                    </button>
-                    <button>
-                        <img class='img-circle' src="images/transparencia.svg" alt="">
-                        <h4>#Transparencia</h4>
-                    </button>
+                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}" alt="">
+                        <h4>#Recuperacion Justa</h4>
+                    </div>
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" value="kk"/>
+                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}" alt="">
+                        <h4>#Educación & Innovación</h4>
+                    </div>
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" value="kk"/>
+                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}" alt="">
+                        <h4>#Democracia</h4>
+                    </div>
                 </div>
                 <div class="row causes-icon">
-                    <button>
-                        <img class='img-circle' src="images/transparencia.svg" alt="">
-                        <h4>#Estadodel<br>Bienestar</h4>
-                    </button>
-                    <button>
-                        <img class='img-circle' src="images/transparencia.svg" alt="">
-                        <h4>#Cooperación</h4>
-                    </button>
-                    <button>
-                        <img class='img-circle' src="images/transparencia.svg" alt="">
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" value="kk"/>
+                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}" alt="">
                         <h4>#Igualdad</h4>
-                    </button>
+                    </div>
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" value="kk"/>
+                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}">
+                        <h4>#Reforma Constitucional</h4>
+                    </div>
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" value="kk"/>
+                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}" alt="">
+                        <h4>#Politica Exterior</h4>
+                    </div>
                 </div>
                 <!-- email subscription form -->
                 <form action="https://kuorum.org/j_spring_security_check" method="post" name="login-header" id="login-modal" role="form" class="login">
@@ -84,28 +89,34 @@
                 <h1>Let Spain hear your voice!</h1>
                 <h3>Pick the top 3 causes you support:</h3>
                 <div class='row causes-icon'>
-                    <button>
-                        <h4>#Economía</h4>
-                    </button>
-                    <button>
-                        <h4>#Innovación</h4>
-                    </button>
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" value="kk"/>
+                        <h4>#Recuperacion Justa</h4>
+                    </div>
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" value="kk"/>
+                        <h4>#Educación & Innovación</h4>
+                    </div>
                 </div>
                 <div class='row causes-icon'>
-                    <button>
-                        <h4>#Transparencia</h4>
-                    </button>
-                    <button>
-                        <h4>#EstadodelBienestar</h4>
-                    </button>
-                </div>
-                <div class='row causes-icon'>
-                    <button>
-                        <h4>#Cooperación</h4>
-                    </button>
-                    <button>
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" value="kk"/>
+                        <h4>#Democracia</h4>
+                    </div>
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" value="kk"/>
                         <h4>#Igualdad</h4>
-                    </button>
+                    </div>
+                </div>
+                <div class='row causes-icon'>
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" value="kk"/>
+                        <h4>#Reforma Constitucional</h4>
+                    </div>
+                    <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
+                        <input type="checkbox" value="kk"/>
+                        <h4>#Politica Exterior</h4>
+                    </div>
                 </div>
                 <!-- email subscription form -->
                 <form action="https://kuorum.org/j_spring_security_check" method="post" name="login-header" id="login-modal" role="form" class="login">
