@@ -423,7 +423,9 @@ a:focus {color: #e3981e;}
     padding: 8px 8px !important;
 }
 .btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
-
+.btn.follow i{
+    margin-right: 6px;
+}
 
 .btn.follow.disabled {
     background-color: #20a2ea !important;
@@ -437,7 +439,11 @@ a:focus {color: #e3981e;}
 }
 .btn.contact {
     width: 105px;
-    padding: 8px 8px !important;
+    padding: 8px 8px !important
+}
+.btn.contact i{
+    margin-right: 6px;
+    font-weight: bold;
 }
 .popover .btn.btn-blue.disabled {background-color: #a8a8a8 !important;}
 .boxes .btn {margin-bottom: 20px !important;}
@@ -4235,10 +4241,7 @@ only screen and (min-resolution: 192dpi) {
     bottom: 16px;
     right: 20px;
 }*/
-.btn.follow .fa-plus{
-    font-size: 14px;
-    margin-left: 8px;
-}
+
 .profile-pic {
     position: relative;
     /* float: left;*/
@@ -4275,10 +4278,7 @@ p.party{
     margin-top: 0;
     margin-bottom: 6px;
 }
-.follow i{
-    margin-right: 6px;
-    font-weight:
-}
+
 .follow-btn-group{
     text-align: right;
 }
