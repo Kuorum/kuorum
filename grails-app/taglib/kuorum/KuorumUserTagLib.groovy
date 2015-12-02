@@ -276,7 +276,7 @@ class KuorumUserTagLib {
             out << """
             <button
                     type="button"
-                    class="follow btn btn-blue ${cssSize} allow ${cssClass} ${cssExtra}"
+                    class="follow btn btn-blue inverted ${cssSize} allow ${cssClass} ${cssExtra}"
                     data-ajaxFollowUrl="${linkAjaxFollow}"
                     data-ajaxUnFollowUrl="${linkAjaxUnFollow}"
                     data-message-follow_hover='${g.message(code:"${prefixMessages}.follow_hover", args:[user.name], codec:"raw")}'
