@@ -3,7 +3,7 @@
 <header id="header" class="row" role="banner">
 
     <nav class="navbar navbar-fixed-top" role="navigation">
-        <a class='header-msg' href=""><h6 class='text-center'>2015 Spaingit Election: Tell us the causes your are supporting!</h6></a>
+        <a class='header-msg' href=""><h6 class='text-center'>2015 Spain Election: Tell us the causes your are supporting!</h6></a>
         <div class="container-fluid">
             <g:render template="/layouts/brandAndLogo"/>
 
