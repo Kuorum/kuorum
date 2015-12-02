@@ -418,6 +418,27 @@ a:focus {color: #e3981e;}
     text-transform: uppercase;
     font-weight: 500;
 }
+.btn.follow {
+    width: 105px;
+    padding: 8px 8px !important;
+}
+.btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
+
+
+.btn.follow.disabled {
+    background-color: #20a2ea !important;
+    color: #fff !important;
+}
+.btn.follow.disabled:hover,
+.btn.follow.disabled:active{
+    background-color: #990000 !important;
+    border: solid 1px #990000;
+    opacity: 1 !important;
+}
+.btn.contact {
+    width: 105px;
+    padding: 8px 8px !important;
+}
 .popover .btn.btn-blue.disabled {background-color: #a8a8a8 !important;}
 .boxes .btn {margin-bottom: 20px !important;}
 .boxes .cancel {margin: 0 !important; float: right;}
@@ -921,24 +942,6 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .popover .scroll .user-type {margin-top: -15px !important;}
 .popover .follow {margin: 0 0 0 49px !important;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
-
-.btn.follow {
-    width: 105px;
-    padding: 8px 8px !important;
-}
-.btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
-
-
-.btn.follow.disabled {background-color: #a8a8a8 !important;}
-.btn.follow.disabled:hover,
-.btn.follow.disabled:active,
-.btn.follow.disabled:focus {background-color: #797979 !important; opacity: 1 !important;}
-
-.btn.contact {
-    width: 105px;
-    padding: 8px 8px !important;
-}
-
 .popover .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}
 .popover .infoActivity li {list-style: none; float: left; margin-right: 6px; font-size: 14px; font-size: 1.4rem; color: #797979;}
 .popover .infoActivity .fa-check {color: #bfd9f5;}
@@ -4833,6 +4836,7 @@ header .header-msg h6:hover{
     font-family: 'Helvetica Neue';
     font-variant: normal;
 }
+
 #causes-modal .modal-body .causes-icon button{
     height: 40px;
     width: 168px;
@@ -4840,6 +4844,15 @@ header .header-msg h6:hover{
     background-color: #fff;
     border: 1px solid #acacac;
     margin-bottom: 8px;
+    position: relative;
+}
+#causes-modal .modal-body .causes-icon input[type=checkbox]{
+    position: absolute;
+    top:0;
+    left:0;
+    opacity: 1;
+    height: 40px;
+    width: 168px;
 }
 #causes-modal .modal-body .causes-icon button:hover{
     background-color: #cdcdcd;
@@ -4875,6 +4888,11 @@ header .header-msg h6:hover{
         width: 138px;
         margin-right: 12px;
     }
+    #causes-modal .modal-body .causes-icon input[type=checkbox]{
+        height: 138px;
+        width: 138px;
+    }
+
     #causes-modal .modal-body .causes-icon img{
         height: 84px;
         width: 84px;

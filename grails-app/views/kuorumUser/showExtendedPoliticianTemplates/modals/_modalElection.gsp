@@ -20,8 +20,9 @@
                 <h1><g:message code="modal.election.header.title"/> </h1>
                 <h3><g:message code="modal.election.header.subtitle"/></h3>
                 <div class='row causes-icon'>
-                    <input type="checkbox" value="kk"/>
+
                     <button>
+                        <input type="checkbox" value="kk"/>
                         <img class='img-circle' src="images/transparencia.svg" alt="">
                         <h4>#Economía</h4>
                     </button>
