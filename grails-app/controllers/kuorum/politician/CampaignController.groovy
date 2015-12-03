@@ -1,23 +1,25 @@
 package kuorum.politician
 
+import kuorum.campaign.Campaign
 import kuorum.campaign.CampaignService
 import kuorum.campaign.PollCampaignVote
 import kuorum.users.KuorumUser
 import kuorum.web.commands.campaign.CampaignPollCommand
+import org.bson.types.ObjectId
 
 class CampaignController {
 
     CampaignService campaignService;
 
     def saveCitizenPriorities(CampaignPollCommand campaignPollCommand) {
-        KuorumUser politician = KuorumUser.get(campaignPollCommand.politicianId)
         if (!campaignPollCommand.validate()){
             flash.error="Not saved"
         }else{
             PollCampaignVote pollCampaign = new PollCampaignVote(
-                    politician: politician,
+                    politician: campaignPollCommand.politician,
                     userEmail: campaignPollCommand.email,
-                    values: campaignPollCommand.causes
+                    values: campaignPollCommand.causes,
+                    campaign: campaignPollCommand.campaign
             )
             try{
                 campaignService.savePollResponse(pollCampaign)
@@ -27,7 +29,6 @@ class CampaignController {
             }
 
         }
-
-        redirect mapping:"userShow", params:politician.encodeAsLinkProperties()
+        redirect mapping:"userShow", params:campaignPollCommand.politician.encodeAsLinkProperties()
     }
 }

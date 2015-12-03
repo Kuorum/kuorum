@@ -189,16 +189,17 @@ class KuorumMailService {
 
     def sendPollCampaignMail(PollCampaignVote pollCampaing){
         String politicianLink = generateLink("userShow",pollCampaing.politician.encodeAsLinkProperties())
-        MailUserData mailUserData = new MailUserData(politician:pollCampaing.politician.name,politicianLink:politicianLink)
+        Map<String, String> bindings = [politician:pollCampaing.politician.name,politicianLink:politicianLink]
+        for (String value : pollCampaing.campaign.values){
+            bindings.put(value, pollCampaing.values.contains(value))
+        }
+        MailUserData mailUserData = new MailUserData()
+        mailUserData.user = new KuorumUser(name:"", email: pollCampaing.userEmail)
         MailData mailData = new MailData()
-        mailData.mailType = MailType.NOTIFICATION_CLUCK
-        mailData.globalBindings=[
-                clucker:cluck.owner.name,
-                cluckerLink:userLink,
-                postName:cluck.post.title,
-                postLink:postLink]
+        mailData.mailType = MailType.CAMPAIGN_POLL_THANK_YOU
+        mailData.globalBindings=bindings
         mailData.userBindings = [mailUserData]
-        mailData.fromName = prepareFromName(cluck.owner.name)
+        mailData.fromName = DEFAULT_SENDER_NAME
         mandrillAppService.sendTemplate(mailData)
     }
 
