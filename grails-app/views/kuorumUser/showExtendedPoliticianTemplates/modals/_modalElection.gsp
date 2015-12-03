@@ -56,7 +56,7 @@
                 </div>
                 <!-- email subscription form -->
                 <form action="https://kuorum.org/j_spring_security_check" method="post" name="login-header" id="login-modal" role="form" class="login">
-                    <h3>Leave us your email if you want to see the secret PSOE video!</h3>
+                    <h3><g:message code="modal.election.hook"/></h3>
                     <div class="form-group">
                         <input type="email" name="email" class="form-control input-lg center-block" id="email" required="" placeholder="name@example.com" value="" aria-required="true">
                     </div>
