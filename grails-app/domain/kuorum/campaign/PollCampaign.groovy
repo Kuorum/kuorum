@@ -7,7 +7,6 @@ class PollCampaign {
     KuorumUser politician;
     List<String> values;
     String userEmail;
-    String userName;
 
     static constraints = {
         userEmail email:true;

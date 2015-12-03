@@ -10,7 +10,6 @@ class CampaignPollCommand {
 
     List<String> causes
     String email
-    String name
     String politicianId
 
     static constraints = {

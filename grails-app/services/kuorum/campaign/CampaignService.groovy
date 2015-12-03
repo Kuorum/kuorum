@@ -12,7 +12,7 @@ class CampaignService {
     def savePollResponse(PollCampaign pollCampaing) {
 
         if (pollCampaing.save()){
-            notificationService.sendCommentNotifications()
+            notificationService.sendPollCampaingNotification(pollCampaing);
         }else{
             throw new KuorumException("Error saving poll");
         }

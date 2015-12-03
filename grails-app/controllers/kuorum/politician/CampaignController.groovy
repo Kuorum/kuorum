@@ -17,7 +17,6 @@ class CampaignController {
             PollCampaign pollCampaign = new PollCampaign(
                     politician: politician,
                     userEmail: campaignPollCommand.email,
-                    userName: campaignPollCommand.name,
                     values: campaignPollCommand.causes
             )
             try{
