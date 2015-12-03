@@ -25,7 +25,8 @@ class CampaignController {
                 campaignService.savePollResponse(pollCampaign)
                 flash.message = "Thank you"
             }catch (Exception e){
-               flash.error = "Internal error"
+                log.error("Error saving vote on the campaign ${campaignPollCommand.campaign}.", e)
+                flash.error = "Internal error"
             }
 
         }
