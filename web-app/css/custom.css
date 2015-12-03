@@ -3831,7 +3831,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .config .kakareo-list.project .kakareo.post footer {position: absolute; bottom: 6px; width: 100%;}
 
     .config.search > article > .clearfix > h1 {width: 70%; float: left;}
-    .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
+    .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 20px 0; text-align: right;}
+    .config.search > article > .clearfix > .results {margin:0 0 20px 0 !important;}
 
     .form-group.image {height: 400px;}
     /*  #otros-proyectos .kakareo.post > .link-wrapper,
