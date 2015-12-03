@@ -25,9 +25,9 @@
                     <input type="hidden" name="politicianId" value="${politician.id}"/>
                     <div class="interestContainer all clearfix">
                         <g:set var="causes" value="${[
-                                '#Recuperacion Justa'       :[icon:'icon-JUSTICE',        value: 'recovery'], //business.png
-                                '#Educación & Innovación'   :[icon:'icon-JUSTICE',        value: 'education'],  //<!--lightbulb.svg -->
-                                '#Democracia'               :[icon:'icon-JUSTICE',        value: 'democracy'],  //democracy.svg
+                                '#Recuperacion Justa'       :[icon:'fa fa-suitcase',      value: 'recovery'], 
+                                '#Educación & Innovación'   :[icon:'icon3-lightbulb',     value: 'education'],
+                                '#Democracia'               :[icon:'icon3-ballotbox',     value: 'democracy'],
                                 '#Igualdad'                 :[icon:'icon-JUSTICE',        value: 'equalty'],
                                 '#Reforma Constitucional'   :[icon:'icon-CONSTITUTIONAL', value: 'constitution'],
                                 '#Politica Exterior'        :[icon:'icon-FOREIGN_AFFAIRS',value: 'foreign']
@@ -40,8 +40,7 @@
                             </label>
                         </g:each>
                     </div><!-- /.all -->
-                    <!-- email subscription form -->
-
+                <!-- email subscription form -->
                     <h3><g:message code="modal.election.hook"/></h3>
                     <div class="form-group">
                         <input type="email" name="email" class="form-control input-lg center-block" id="email" required="" placeholder="name@example.com" value="" aria-required="true">

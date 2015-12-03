@@ -13,8 +13,8 @@
 <content tag="mainContent">
     <div class="clearfix">
         <g:if test="${searchParams.word}">
-            <h1><g:message code="search.head.title.filterType.${searchParams.type}" args="[searchParams.word?.encodeAsHTML()]"/> </h1>
-            <div id="results"><g:message code="search.head.title.numResults" args="[docs.numResults]"/> </div>
+            <h5><g:message code="search.head.title.filterType.${searchParams.type}" args="[searchParams.word?.encodeAsHTML()]"/> </h5>
+            <h5 id="results"><g:message code="search.head.title.numResults" args="[docs.numResults]"/> </h5>
         </g:if>
         <g:else>
             <h1><g:message code="search.head.title.noWord"/> </h1>
