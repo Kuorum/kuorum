@@ -4892,10 +4892,13 @@ header .header-msg h6:hover{
     width: 168px;
 }
 
-#causes-modal .modal-body .causes-icon img{
-    height: 64px;
-    width: 64px;
+#causes-modal .modal-body .causes-icon img, #causes-modal .modal-body .causes-icon span{
+    height: 60px;
+    width: 60px;
     margin-bottom: 3px;
+    vertical-align: top;
+    font-size: 56px;
+    color: #990000
 }
 
 #causes-modal .form-group{
@@ -4914,6 +4917,7 @@ header .header-msg h6:hover{
     }
     #causes-modal .modal-body h4{
         font-size: 14px;
+        margin-top: 8px;
     }
     .causes-icon{
         margin-bottom: 18px;
@@ -4922,15 +4926,20 @@ header .header-msg h6:hover{
         height: 138px;
         width: 138px;
         margin-right: 12px;
+        padding: 20px 0;
     }
     #causes-modal .modal-body .causes-icon input[type=checkbox]{
         height: 138px;
         width: 138px;
     }
 
-    #causes-modal .modal-body .causes-icon img{
-        height: 84px;
-        width: 84px;
+    #causes-modal .modal-body .causes-icon img, #causes-modal .modal-body .causes-icon span{
+        height: 64px;
+        width: 64px;
+        font-size: 60px;
+    }
+    #causes-modal .modal-body .causes-icon .icon-FOREIGN_AFFAIRS{
+        font-size: 54px;
     }
     #causes-modal .form-group{
         margin-bottom: 14px;
