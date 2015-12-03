@@ -59,6 +59,8 @@ class CampaignService {
     def savePollResponse(PollCampaignVote pollCampaing) {
 
         if (pollCampaing.save()){
+            Map<String, Long> incremental = pollCampaing.values.collectEntries{["results.$it", 1]}
+            Campaign.collection.update([_id:pollCampaing.campaign.id],['$inc':incremental])
             notificationService.sendPollCampaignNotification(pollCampaing);
         }else{
             throw new KuorumException("Error saving poll");

@@ -2,7 +2,7 @@ package kuorum.campaign
 
 import kuorum.users.KuorumUser
 
-class PollCampaignVote {
+class PollCampaignVote extends CampaignVote{
 
     PollCampaign campaign;
     KuorumUser politician;

@@ -1,6 +1,5 @@
 package kuorum.campaign
 
-import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
 class Campaign {
@@ -9,6 +8,7 @@ class Campaign {
   then showing _class, cast the object to de corresponding class.
  */
 
+    ObjectId id;
     List<ObjectId> politicianIds
     Date startDate;
     Date endDate;
