@@ -49,7 +49,7 @@
                     <div class="form-group">
                         You are accepting the <a href="https://kuorum.org/kuorum/politica-privacidad" target="_blank">service conditions</a>
                     </div>
-                </form>
+                </g:form>
             </div>
             <!-- BODY FOR MOBILE DEVICES-->
 

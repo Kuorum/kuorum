@@ -3,6 +3,7 @@ package kuorum.notifications
 import grails.transaction.Transactional
 import grails.util.Environment
 import kuorum.OfferPurchased
+import kuorum.campaign.PollCampaign
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.VoteType
@@ -159,6 +160,10 @@ class NotificationService {
                 log.error("No se ha podido salvar una notificacion de kakareo: ${followerNotification.errors}")
             }
         }
+    }
+
+    public void sendPollCampaingNotification(PollCampaign pollCampaing){
+
     }
 
     void sendCommentNotifications(Post post, PostComment comment){
