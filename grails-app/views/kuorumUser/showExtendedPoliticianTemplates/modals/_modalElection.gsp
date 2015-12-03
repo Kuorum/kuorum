@@ -22,9 +22,9 @@
                 <h3><g:message code="modal.election.header.subtitle"/></h3>
                 <div class="interestContainer all clearfix">
                     <g:set var="causes" value="${[
-                            '#Recuperacion Justa'       :'icon-JUSTICE', //business.png
-                            '#Educación & Innovación'   :'icon-JUSTICE', //<!--lightbulb.svg -->
-                            '#Democracia'               :'icon-JUSTICE', //democracy.svg
+                            '#Recuperacion Justa'       :'fa fa-suitcase', //business.png
+                            '#Educación & Innovación'   :'icon3-lightbulb', //<!--lightbulb.svg -->
+                            '#Democracia'               :'icon3-ballotbox', //democracy.svg
                             '#Igualdad'                 :'icon-JUSTICE',
                             '#Reforma Constitucional'   :'icon-CONSTITUTIONAL',
                             '#Politica Exterior'        :'icon-FOREIGN_AFFAIRS'
