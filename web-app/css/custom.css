@@ -4809,7 +4809,7 @@ hr{
 /* PSOE modal =========== */
 header h6{
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 16px;
+    font-size: 12px;
     background-color: #990000;
     margin: -6px 0 6px 0;
     color: white;
@@ -4853,24 +4853,29 @@ header .header-msg h6:hover{
 }
 
 #causes-modal .modal-body .interestContainer {
-    margin: 0 0 8px 40px;
-    padding-right:60px;
+    margin-bottom: 8px;
 }
 
-#causes-modal .modal-body .causes-icon .causes-checkbox{
+#causes-modal .modal-body .icheckbox_line-orange{
     height: 36px;
-    width: 168px;
+    width: 226px;
     padding: 10px 0;
     border-radius: 5px;
     background-color: #fff;
-    border: 1px solid #acacac;
+    color: #990000;
+    border: 1px solid #990000;
     margin-bottom: 8px;
     vertical-align: top;
     display: inline-block;
     position: relative;
+    float: none;
 }
-#causes-modal .modal-body .causes-icon .causes-checkbox:hover{
-    background-color: #cdcdcd;
+#causes-modal .modal-body .icheckbox_line-orange:hover{
+    background-color: #DAC1C1;
+}
+#causes-modal .modal-body .icheckbox_line-orange.checked, #causes-modal .modal-body .icheckbox_line-orange.checked span{
+    background-color: #990000;
+    color: #fff;
 }
 #causes-modal .modal-body .causes-icon input[type=checkbox]{
     position: absolute;
@@ -4878,10 +4883,10 @@ header .header-msg h6:hover{
     left:0;
     opacity: 0;
     height: 36px;
-    width: 168px;
+    width: 226px;
 }
 
-#causes-modal .modal-body .causes-icon img, #causes-modal .modal-body .causes-icon span{
+#causes-modal .modal-body .icheckbox_line-orange span{
     height: 60px;
     width: 60px;
     margin-bottom: 3px;
@@ -4897,6 +4902,9 @@ header .header-msg h6:hover{
     height: 36px;
 }
 @media screen and (min-width: 768px){
+    header h6{
+        font-size: 16px;
+    }
     #causes-modal .modal-body h1{
         font-size: 24px;
     }
@@ -4911,21 +4919,21 @@ header .header-msg h6:hover{
     .causes-icon{
         margin-bottom: 18px;
     }
-    #causes-modal .modal-body .causes-icon .causes-checkbox{
+    #causes-modal .modal-body .icheckbox_line-orange{
         height: 138px;
         width: 138px;
-        margin-right: 12px;
         padding: 20px 0;
     }
     #causes-modal .modal-body .causes-icon input[type=checkbox]{
         height: 138px;
         width: 138px;
     }
-
-    #causes-modal .modal-body .causes-icon img, #causes-modal .modal-body .causes-icon span{
+    #causes-modal .modal-body .icheckbox_line-orange span{
         height: 64px;
         width: 64px;
         font-size: 60px;
+        margin: 0 auto;
+        margin-bottom: 8px;
     }
     #causes-modal .modal-body .causes-icon .icon-FOREIGN_AFFAIRS{
         font-size: 54px;
