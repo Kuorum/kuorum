@@ -98,6 +98,7 @@
     <g:render template="showExtendedPoliticianTemplates/columnC/socialButtonsExtendedPoliticianColumnC" model="[user:politician]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
     <g:render template="showExtendedPoliticianTemplates/columnC/leaningIndex" model="[politician:politician]"/>
+    <g:render template="/modules/recommendedUsers" model="[recommendedUsers:recommendPoliticians]"/>
     <g:render template="showExtendedPoliticianTemplates/columnC/professionalDetailExtendedPolitician" model="[politician:politician]"/>
     <g:render template="showExtendedPoliticianTemplates/columnC/quickNotesExtendedPolitician" model="[politician:politician]"/>
 </content>
@@ -114,5 +115,5 @@
 </content>
 
 <content tag="modals">
-    <g:render template="showExtendedPoliticianTemplates/modals/modalElection" model="[politician:politician, userProjects:userProjects]"/>
+    <g:render template="showExtendedPoliticianTemplates/modals/modalElection" model="[politician:politician]"/>
 </content>
