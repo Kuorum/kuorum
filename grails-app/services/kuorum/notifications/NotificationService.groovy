@@ -3,7 +3,7 @@ package kuorum.notifications
 import grails.transaction.Transactional
 import grails.util.Environment
 import kuorum.OfferPurchased
-import kuorum.campaign.PollCampaign
+import kuorum.campaign.PollCampaignVote
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.VoteType
@@ -162,8 +162,8 @@ class NotificationService {
         }
     }
 
-    public void sendPollCampaingNotification(PollCampaign pollCampaing){
-
+    public void sendPollCampaignNotification(PollCampaignVote pollCampaign){
+        kuorumMailService.sendPollCampaignMail(pollCampaign)
     }
 
     void sendCommentNotifications(Post post, PostComment comment){

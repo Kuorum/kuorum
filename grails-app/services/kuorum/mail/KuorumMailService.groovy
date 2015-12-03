@@ -1,6 +1,7 @@
 package kuorum.mail
 
 import grails.transaction.Transactional
+import kuorum.campaign.PollCampaignVote
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.OfferType
@@ -174,6 +175,21 @@ class KuorumMailService {
                 postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", cluck.postOwner.language.locale)
         ]
         MailUserData mailUserData = new MailUserData(user:cluck.postOwner,bindings:bindings)
+        MailData mailData = new MailData()
+        mailData.mailType = MailType.NOTIFICATION_CLUCK
+        mailData.globalBindings=[
+                clucker:cluck.owner.name,
+                cluckerLink:userLink,
+                postName:cluck.post.title,
+                postLink:postLink]
+        mailData.userBindings = [mailUserData]
+        mailData.fromName = prepareFromName(cluck.owner.name)
+        mandrillAppService.sendTemplate(mailData)
+    }
+
+    def sendPollCampaignMail(PollCampaignVote pollCampaing){
+        String politicianLink = generateLink("userShow",pollCampaing.politician.encodeAsLinkProperties())
+        MailUserData mailUserData = new MailUserData(politician:pollCampaing.politician.name,politicianLink:politicianLink)
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_CLUCK
         mailData.globalBindings=[

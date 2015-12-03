@@ -1,14 +1,11 @@
 package kuorum.campaign
 
-import kuorum.users.KuorumUser
+class PollCampaign extends Campaign{
 
-class PollCampaign {
-
-    KuorumUser politician;
+    String name;
     List<String> values;
-    String userEmail;
+    Map<String, Long> results;
 
     static constraints = {
-        userEmail email:true;
     }
 }

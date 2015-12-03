@@ -1,6 +1,8 @@
 package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.campaign.Campaign
+import kuorum.campaign.CampaignService
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
@@ -23,6 +25,8 @@ class KuorumUserController {
     def searchSolrService
     def postService
     def projectService
+
+    CampaignService campaignService
 
 //    def beforeInterceptor = [action: this.&checkUser, except: 'login']
     def beforeInterceptor = [action: this.&checkUser, except: ['index', 'politicians', 'showWithAlias']]
@@ -147,10 +151,17 @@ class KuorumUserController {
     def showExtendedPolitician(KuorumUser politician){
         List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(politician, new Pagination(max:3))
         List<Project> userProjects = projectService.politicianProjects(politician)
+        Campaign campaign = campaignService.findActiveCampaign(politician)
+        if (!campaign && politician?.professionalDetails?.politicalParty == 'PSOE'){
+            // FIX. ONLY FOR PSOE. IT IS A FAST FIX
+            campaignService.createPSOEFakeCampaign()
+            campaign = campaignService.findActiveCampaign(politician)
+        }
         [
                 politician:politician,
                 userProjects:userProjects,
-                recommendPoliticians:recommendPoliticians
+                recommendPoliticians:recommendPoliticians,
+                campaign:campaign
         ]
     }
 

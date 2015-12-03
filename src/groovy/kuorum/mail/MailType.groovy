@@ -12,6 +12,7 @@ public enum MailType {
     REGISTER_CHANGE_EMAIL_VERIFY        (MailGroupType.REGISTER,"register-emailChangeOld",["confirmationLink"], []),
     REGISTER_CHANGE_EMAIL_REQUESTED     (MailGroupType.REGISTER,"register-emailChangeNew",["newEmailAccount"], []),
     NOTIFICATION_OFFER_PURCHASED        (MailGroupType.REGISTER,"register-suscription",   [], ["userLink", "user", "offerType", "totalPrice"]),
+    CAMPAIGN_POLL_THANK_YOU             (MailGroupType.REGISTER,"register-modalelections",[],["recovery", "education", "democracy", "equalty", "constitution", "foreign", "politician", "politicianLink"]),
 
     PROJECT_CREATED_NOTIFICATION        (MailGroupType.EVENT_PROJECT, "project-new", ["projectName", "projectOwner", "commissionType"], ["projectYoutube", "projectLink", "projectImage"]),
 

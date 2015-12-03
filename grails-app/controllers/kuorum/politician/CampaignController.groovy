@@ -1,7 +1,7 @@
 package kuorum.politician
 
 import kuorum.campaign.CampaignService
-import kuorum.campaign.PollCampaign
+import kuorum.campaign.PollCampaignVote
 import kuorum.users.KuorumUser
 import kuorum.web.commands.campaign.CampaignPollCommand
 
@@ -14,7 +14,7 @@ class CampaignController {
         if (!campaignPollCommand.validate()){
             flash.error="Not saved"
         }else{
-            PollCampaign pollCampaign = new PollCampaign(
+            PollCampaignVote pollCampaign = new PollCampaignVote(
                     politician: politician,
                     userEmail: campaignPollCommand.email,
                     values: campaignPollCommand.causes
