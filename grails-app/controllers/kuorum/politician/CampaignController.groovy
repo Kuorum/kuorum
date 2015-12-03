@@ -34,6 +34,7 @@ class CampaignController {
             }
 
         }
-        redirect mapping:"userShow", params:campaignPollCommand.politician.encodeAsLinkProperties()
+//        redirect mapping:"userShow", params:campaignPollCommand.politician.encodeAsLinkProperties()
+        render flash.message;
     }
 }

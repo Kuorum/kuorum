@@ -53,6 +53,31 @@
                         You are accepting the <a href="https://kuorum.org/kuorum/politica-privacidad" target="_blank">service conditions</a>
                     </div>
                 </g:form>
+                <script>
+                    $(function(){
+                        $( "#causes-modal-form" ).on( "submit", function( e ) {
+                            e.preventDefault();
+                            if ($(this).valid()){
+                                var url = $(this).attr("action")
+                                var data = $( this ).serialize();
+                                $.ajax({
+                                    type: "POST",
+                                    url: url,
+                                    data: data,
+                                    beforeSend: (function(){
+                                        $( "#causes-modal-form input[type=submit]").addClass("spinner")
+                                    })
+                                })
+                                .done(function( data ) {
+                                    display.success( data );
+                                    display.hideAdvise();
+                                    $("#causes-modal").modal("hide")
+                                    $( "#causes-modal-form input[type=submit]").removeClass("spinner")
+                                });
+                            }
+                        });
+                    })
+                </script>
             </div>
             <!-- BODY FOR MOBILE DEVICES-->
 
