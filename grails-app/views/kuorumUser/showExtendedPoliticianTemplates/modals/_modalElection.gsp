@@ -20,27 +20,26 @@
             <div class="modal-body text-center">
                 <h1><g:message code="modal.election.header.title"/> </h1>
                 <h3><g:message code="modal.election.header.subtitle"/></h3>
-                <g:form mapping="campaignPoll" id="causes-modal-form" role="form" method="post" name="causes-modal-form">
-                    <input type="hidden" name="politicianId" value="${politician.id}"/>
+            <g:form mapping="campaignPoll" id="causes-modal-form" role="form" method="post" name="causes-modal-form">
+                <input type="hidden" name="politicianId" value="${politician.id}"/>`
                     <div class="interestContainer all clearfix">
-                        <g:set var="causes" value="${[
-                                '#Recuperacion Justa'       :[icon:'icon-JUSTICE',        value: 'recovery'], //business.png
-                                '#Educación & Innovación'   :[icon:'icon-JUSTICE',        value: 'education'],  //<!--lightbulb.svg -->
-                                '#Democracia'               :[icon:'icon-JUSTICE',        value: 'democracy'],  //democracy.svg
-                                '#Igualdad'                 :[icon:'icon-JUSTICE',        value: 'equalty'],
-                                '#Reforma Constitucional'   :[icon:'icon-CONSTITUTIONAL', value: 'constitution'],
-                                '#Politica Exterior'        :[icon:'icon-FOREIGN_AFFAIRS',value: 'foreign']
-                        ]}"/>
-                        <g:each in="${causes}" var="commissionType">
-                            <input type="checkbox" name="causes" id="${commissionType.key}" value="${commissionType.value.value}" class="check" />
-                            <label for="${commissionType.key}">
-                                <span class="${commissionType.value.icon} hidden-xs"></span>
-                                ${commissionType.key}
-                            </label>
-                        </g:each>
+                    <g:set var="causes" value="${[
+                            '#Recuperacion Justa'       :'fa fa-suitcase', //business.png
+                            '#Educación & Innovación'   :'icon3-lightbulb', //<!--lightbulb.svg -->
+                            '#Democracia'               :'icon3-ballotbox', //democracy.svg
+                            '#Igualdad'                 :'icon-JUSTICE',
+                            '#Reforma Constitucional'   :'icon-CONSTITUTIONAL',
+                            '#Politica Exterior'        :'icon-FOREIGN_AFFAIRS'
+                    ]}"/>
+                    <g:each in="${causes}" var="commissionType">
+                        <input type="checkbox" name="causes" id="${commissionType.key}" value="${commissionType.key}" class="check" />
+                        <label for="${commissionType.key}">
+                            <span class="${commissionType.value.icon} hidden-xs"></span>
+                            ${commissionType.key}
+                        </label>
+                    </g:each>
                     </div><!-- /.all -->
-                    <!-- email subscription form -->
-
+                <!-- email subscription form -->
                     <h3><g:message code="modal.election.hook"/></h3>
                     <div class="form-group">
                         <input type="email" name="email" class="form-control input-lg center-block" id="email" required="" placeholder="name@example.com" value="" aria-required="true">
