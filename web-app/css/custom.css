@@ -3071,23 +3071,11 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config #config9 .checkbox,
 #edit-project .checkbox {margin-top: 15px; margin-bottom: 15px;}
 .config #config9 .interestContainer {width: 530px}
-/*.config .interestContainer label,
-#edit-project .interestContainer label {font-weight: normal;}
-.config .icheckbox_line-orange,
-.config .iradio_line-orange {color: #545454;}*/
 .config #config9 .icheckbox_line-orange.hover,
 .config #config9 .iradio_line-orange.hover,
-#edit-project .icheckbox_line-orange.hover,
-#edit-project .iradio_line-orange.hover {background: #545454; color: #fff;}
 .config #config9 .icheckbox_line-orange.checked,
 .config #config9 .icheckbox_line-orange.checked.hover,
 .config #config9 .iradio_line-orange.checked,
-#edit-project .icheckbox_line-orange.checked,
-#edit-project .icheckbox_line-orange.checked.hover,
-#edit-project .iradio_line-orange.checked {
-    background: url("../images/checked-black.png") no-repeat scroll right top #545454;
-    color: #FFFFFF;
-}
 
 .config .list-post.pending > li > .text-notification {color: #545454; display: inline;}
 .config .list-post.pending > li .law {padding: 0; font-size: 24px; font-size: 2.4rem; line-height: 1.2;}
