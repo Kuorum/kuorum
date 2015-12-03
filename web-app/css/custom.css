@@ -2573,6 +2573,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
     border: 4px solid #fff;
     width: 96px;
     height: 96px;
+    background-color: #fff;
 }
 .politician-list .box-ppal .user .fa-check{
     position: absolute;
