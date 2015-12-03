@@ -20,25 +20,27 @@
             <div class="modal-body text-center">
                 <h1><g:message code="modal.election.header.title"/> </h1>
                 <h3><g:message code="modal.election.header.subtitle"/></h3>
-                <div class="interestContainer all clearfix">
-                    <g:set var="causes" value="${[
-                            '#Recuperacion Justa'       :'icon-JUSTICE', //business.png
-                            '#Educación & Innovación'   :'icon-JUSTICE', //<!--lightbulb.svg -->
-                            '#Democracia'               :'icon-JUSTICE', //democracy.svg
-                            '#Igualdad'                 :'icon-JUSTICE',
-                            '#Reforma Constitucional'   :'icon-CONSTITUTIONAL',
-                            '#Politica Exterior'        :'icon-FOREIGN_AFFAIRS'
-                    ]}"/>
-                    <g:each in="${causes}" var="commissionType">
-                        <input type="checkbox" name="fieldName" id="${commissionType.key}" value="${commissionType.key}" class="check" />
-                        <label for="${commissionType.key}">
-                            <span class="${commissionType.value} hidden-xs"></span>
-                            ${commissionType.key}
-                        </label>
-                    </g:each>
-                </div><!-- /.all -->
-                <!-- email subscription form -->
-                <form action="https://kuorum.org/j_spring_security_check" method="post" name="login-header" id="login-modal" role="form" class="login">
+                <g:form mapping="campaignPoll" id="causes-modal-form" role="form" method="post" name="causes-modal-form">
+                    <input type="hidden" name="politicianId" value="${politician.id}"/>
+                    <div class="interestContainer all clearfix">
+                        <g:set var="causes" value="${[
+                                '#Recuperacion Justa'       :[icon:'icon-JUSTICE',        value: 'recovery'], //business.png
+                                '#Educación & Innovación'   :[icon:'icon-JUSTICE',        value: 'education'],  //<!--lightbulb.svg -->
+                                '#Democracia'               :[icon:'icon-JUSTICE',        value: 'democracy'],  //democracy.svg
+                                '#Igualdad'                 :[icon:'icon-JUSTICE',        value: 'equalty'],
+                                '#Reforma Constitucional'   :[icon:'icon-CONSTITUTIONAL', value: 'constitution'],
+                                '#Politica Exterior'        :[icon:'icon-FOREIGN_AFFAIRS',value: 'foreign']
+                        ]}"/>
+                        <g:each in="${causes}" var="commissionType">
+                            <input type="checkbox" name="causes" id="${commissionType.key}" value="${commissionType.value.value}" class="check" />
+                            <label for="${commissionType.key}">
+                                <span class="${commissionType.value.icon} hidden-xs"></span>
+                                ${commissionType.key}
+                            </label>
+                        </g:each>
+                    </div><!-- /.all -->
+                    <!-- email subscription form -->
+
                     <h3><g:message code="modal.election.hook"/></h3>
                     <div class="form-group">
                         <input type="email" name="email" class="form-control input-lg center-block" id="email" required="" placeholder="name@example.com" value="" aria-required="true">
@@ -49,7 +51,7 @@
                     <div class="form-group">
                         You are accepting the <a href="https://kuorum.org/kuorum/politica-privacidad" target="_blank">service conditions</a>
                     </div>
-                </form>
+                </g:form>
             </div>
             <!-- BODY FOR MOBILE DEVICES-->
 

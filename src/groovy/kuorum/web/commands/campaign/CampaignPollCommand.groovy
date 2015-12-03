@@ -8,13 +8,14 @@ import grails.validation.Validateable
 @Validateable
 class CampaignPollCommand {
 
-    List<String> selections
+    List<String> causes
     String email
+    String name
     String politicianId
 
     static constraints = {
         email nullable: false, email: true
-        selections minSize: 1
+        causes minSize: 1
         politicianId nullable:false, blank: false
     }
 }

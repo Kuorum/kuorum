@@ -1,15 +1,34 @@
 package kuorum.politician
 
+import kuorum.campaign.CampaignService
+import kuorum.campaign.PollCampaign
 import kuorum.users.KuorumUser
 import kuorum.web.commands.campaign.CampaignPollCommand
 
 class CampaignController {
 
-    def saveCitizenPriorities(CampaignPollCommand campaignPollCommand) {
-        if (!campaignPollCommand.validate()){
-            KuorumUser politician = KuorumUser.get(campaignPollCommand.politicianId)
+    CampaignService campaignService;
 
+    def saveCitizenPriorities(CampaignPollCommand campaignPollCommand) {
+        KuorumUser politician = KuorumUser.get(campaignPollCommand.politicianId)
+        if (!campaignPollCommand.validate()){
+            flash.error="Not saved"
+        }else{
+            PollCampaign pollCampaign = new PollCampaign(
+                    politician: politician,
+                    userEmail: campaignPollCommand.email,
+                    userName: campaignPollCommand.name,
+                    values: campaignPollCommand.causes
+            )
+            try{
+                campaignService.savePollResponse(pollCampaign)
+                flash.message = "Thank you"
+            }catch (Exception e){
+               flash.error = "Internal error"
+            }
 
         }
+
+        redirect mapping:"userShow", params:politician.encodeAsLinkProperties()
     }
 }
