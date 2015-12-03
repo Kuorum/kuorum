@@ -23,6 +23,7 @@
                 <formUtil:validateForm form="causes-modal-form" command="kuorum.web.commands.campaign.CampaignPollCommand"/>
                 <g:form mapping="campaignPoll" id="causes-modal-form" role="form" method="post" name="causes-modal-form">
                     <input type="hidden" name="politicianId" value="${politician.id}"/>
+                    <input type="hidden" name="campaignId" value="${campaign.id}"/>
                     <div class="interestContainer all clearfix">
                         <g:set var="causes" value="${[
                                 '#Recuperacion Justa'       :[icon:'fa fa-suitcase',      value: 'recovery'], 

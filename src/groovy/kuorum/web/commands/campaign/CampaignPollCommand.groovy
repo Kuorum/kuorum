@@ -11,6 +11,7 @@ class CampaignPollCommand {
     List<String> causes
     String email
     String politicianId
+    String campaignId
 
     static constraints = {
         email nullable: false, email: true
