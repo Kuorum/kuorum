@@ -635,12 +635,13 @@ class FormTagLib {
 				\$("#${formId}").validate({
                 errorClass:'error',
                 errorPlacement: function(error, element) {
-                    if(element.attr('id') == 'deadline')
+                    if(element.attr('id') == 'deadline'){
                         error.appendTo(element.parent("div").parent("div"));
-                    else if(element.attr('id') == '${CommissionType.JUSTICE}')
-                        error.appendTo(element.parent("div").parent("div").parent("div").parent("div"));
-                    else
+                    }else if(stringStartsWith(element.attr('id'), 'pretty-check-')){
+                        error.appendTo(element.parents(".interestContainer"));
+                    }else{
                         error.insertAfter(element);
+                    }
                 },
                 errorElement:'span',
         """

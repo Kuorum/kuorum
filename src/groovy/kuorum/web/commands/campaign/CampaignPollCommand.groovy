@@ -14,7 +14,7 @@ class CampaignPollCommand {
 
     static constraints = {
         email nullable: false, email: true
-        causes minSize: 1
+        causes minSize: 3, maxSize: 3, nullable:false
         politicianId nullable:false, blank: false
     }
 }

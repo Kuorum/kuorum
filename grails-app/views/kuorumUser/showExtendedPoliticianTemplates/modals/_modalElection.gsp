@@ -33,7 +33,7 @@
                                 '#Politica Exterior'        :[icon:'icon-FOREIGN_AFFAIRS',value: 'foreign']
                         ]}"/>
                         <g:each in="${causes}" var="commissionType">
-                            <input type="checkbox" name="causes" id="${commissionType.key}" value="${commissionType.value.value}" class="check" />
+                            <input type="checkbox" name="causes" id="pretty-check-${commissionType.key}" value="${commissionType.value.value}" class="check" />
                             <label for="${commissionType.key}">
                                 <span class="${commissionType.value.icon} hidden-xs"></span>
                                 ${commissionType.key}

@@ -721,3 +721,7 @@ $(document).ready(function() {
     }
     window.setTimeout(displayPolicianCausesModal, 5*1000);
 });
+
+function stringStartsWith (string, prefix) {
+    return string.slice(0, prefix.length) == prefix;
+}
