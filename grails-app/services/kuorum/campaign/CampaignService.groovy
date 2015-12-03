@@ -4,14 +4,18 @@ import com.mongodb.DBCursor
 import com.mongodb.DBObject
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
+import kuorum.core.exception.KuorumExceptionData
+import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.UserType
 import kuorum.notifications.NotificationService
+import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 
 @Transactional
 class CampaignService {
 
     NotificationService notificationService;
+    RegisterService registerService
 
     PollCampaign createPollCampaign(String name, List<String> values, List<KuorumUser> politicians, startDate, endDate ){
         PollCampaign pollCampaign = new PollCampaign(
@@ -58,12 +62,18 @@ class CampaignService {
 
     def savePollResponse(PollCampaignVote pollCampaing) {
 
+        if (registerService.checkValidEmail(pollCampaing.userEmail)){
+
+        }else{
+            throw new KuorumException("Not valid email: ${pollCampaing.userEmail}", new KuorumExceptionData(code: 'campaignService.email.notValid'))
+        }
+
         if (pollCampaing.save()){
             Map<String, Long> incremental = pollCampaing.values.collectEntries{["results.$it", 1]}
             Campaign.collection.update([_id:pollCampaing.campaign.id],['$inc':incremental])
             notificationService.sendPollCampaignNotification(pollCampaing);
         }else{
-            throw new KuorumException("Error saving poll");
+            KuorumExceptionUtil.createExceptionFromValidatable(pollCampaing)
         }
 
     }

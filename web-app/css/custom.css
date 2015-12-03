@@ -4968,3 +4968,8 @@ header .header-msg h6:hover{
     resize: none;
     height: 120px;
 }
+
+.spinner{
+    background: url('../images/loading@2x.gif') center center / 17px auto no-repeat transparent;
+    color: transparent !important;
+}

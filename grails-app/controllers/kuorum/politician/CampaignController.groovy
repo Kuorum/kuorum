@@ -3,6 +3,7 @@ package kuorum.politician
 import kuorum.campaign.Campaign
 import kuorum.campaign.CampaignService
 import kuorum.campaign.PollCampaignVote
+import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
 import kuorum.web.commands.campaign.CampaignPollCommand
 import org.bson.types.ObjectId
@@ -24,12 +25,16 @@ class CampaignController {
             try{
                 campaignService.savePollResponse(pollCampaign)
                 flash.message = "Thank you"
+            }catch (KuorumException ke){
+                log.error("Error saving vote on the campaign ${campaignPollCommand.campaign}.", ke)
+                flash.error = g.message(code: ke.errors.get(0).code)
             }catch (Exception e){
                 log.error("Error saving vote on the campaign ${campaignPollCommand.campaign}.", e)
-                flash.error = "Internal error"
+                flash.error = "Internal error: ${e.getMessage()}"
             }
 
         }
-        redirect mapping:"userShow", params:campaignPollCommand.politician.encodeAsLinkProperties()
+//        redirect mapping:"userShow", params:campaignPollCommand.politician.encodeAsLinkProperties()
+        render flash.message;
     }
 }
