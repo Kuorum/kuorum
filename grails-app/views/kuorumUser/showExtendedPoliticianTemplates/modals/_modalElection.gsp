@@ -23,34 +23,34 @@
 
                     <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
                         <input type="checkbox" value="kk"/>
-                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}" alt="">
+                        <img  src="${resource(dir: 'images', file: 'business.png')}" alt="">
                         <h4>#Recuperacion Justa</h4>
                     </div>
                     <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
                         <input type="checkbox" value="kk"/>
-                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}" alt="">
+                        <img  src="${resource(dir: 'images', file: 'lightbulb.svg')}" alt="">
                         <h4>#Educación & Innovación</h4>
                     </div>
                     <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
                         <input type="checkbox" value="kk"/>
-                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}" alt="">
+                        <img  src="${resource(dir: 'images', file: 'democracy.svg')}" alt="">
                         <h4>#Democracia</h4>
                     </div>
                 </div>
                 <div class="row causes-icon">
                     <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
                         <input type="checkbox" value="kk"/>
-                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}" alt="">
+                        <span class="icon-JUSTICE"></span>
                         <h4>#Igualdad</h4>
                     </div>
                     <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
                         <input type="checkbox" value="kk"/>
-                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}">
+                        <span class='icon-CONSTITUTIONAL'></span>
                         <h4>#Reforma Constitucional</h4>
                     </div>
                     <div class="causes-checkbox" role="checkbox" id="iCheck-Recovery" aria-checked="false" aria-disabled="false">
                         <input type="checkbox" value="kk"/>
-                        <img class='img-circle' src="${resource(dir: 'images', file: 'atom-nuclear.svg')}" alt="">
+                        <span class="icon-FOREIGN_AFFAIRS"></span>
                         <h4>#Politica Exterior</h4>
                     </div>
                 </div>
