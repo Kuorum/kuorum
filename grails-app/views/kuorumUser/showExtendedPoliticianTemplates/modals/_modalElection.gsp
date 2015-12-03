@@ -47,7 +47,7 @@
                         <input type="email" name="email" class="form-control input-lg center-block" id="email" required="" placeholder="name@example.com" value="" aria-required="true">
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btn" value="Submit my choice!">
+                        <input type="submit" class="btn btn-maroon" value="Submit my choice!">
                     </div>
                     <div class="form-group">
                         You are accepting the <a href="https://kuorum.org/kuorum/politica-privacidad" target="_blank">service conditions</a>

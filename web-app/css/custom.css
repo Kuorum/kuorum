@@ -4895,6 +4895,13 @@ header .header-msg h6:hover{
     color: #990000
 }
 
+#causes-modal .btn.btn-maroon{background-color:#990000 !important; padding: 15px !important;}
+#causes-modal .btn.btn-maroon:hover,
+#causes-modal .btn.btn-maroon:active,
+#causes-modal .btn.btn-maroon:focus {background-color:#dac1c1 !important;}
+
+#causes-modal-form .form-group a {color:#990000;}
+
 #causes-modal .form-group{
     margin-bottom: 12px;
 }
