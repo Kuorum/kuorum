@@ -22,12 +22,12 @@
                 <h3><g:message code="modal.election.header.subtitle"/></h3>
                 <div class="interestContainer all clearfix">
                     <g:set var="causes" value="${[
-                            '#Recuperacion Justa'       :'icon-JUSTICE',
-                            '#Educación & Innovación'   :'icon-JUSTICE',
-                            '#Democracia'               :'icon-JUSTICE',
+                            '#Recuperacion Justa'       :'icon-JUSTICE', //business.png
+                            '#Educación & Innovación'   :'icon-JUSTICE', //<!--lightbulb.svg -->
+                            '#Democracia'               :'icon-JUSTICE', //democracy.svg
                             '#Igualdad'                 :'icon-JUSTICE',
-                            '#Reforma Constitucional'   :'icon-JUSTICE',
-                            '#Politica Exterior'        :'icon-JUSTICE'
+                            '#Reforma Constitucional'   :'icon-CONSTITUTIONAL',
+                            '#Politica Exterior'        :'icon-FOREIGN_AFFAIRS'
                     ]}"/>
                     <g:each in="${causes}" var="commissionType">
                         <input type="checkbox" name="fieldName" id="${commissionType.key}" value="${commissionType.key}" class="check" />
