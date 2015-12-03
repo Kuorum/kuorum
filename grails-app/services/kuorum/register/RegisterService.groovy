@@ -18,6 +18,7 @@ import springSecurity.KuorumRegisterCommand
 
 class RegisterService {
 
+    def grailsApplication
 
     LinkGenerator grailsLinkGenerator
 
@@ -109,6 +110,19 @@ class RegisterService {
             user
     }
 
+    Boolean checkValidEmail(String email){
+        def mailParts = email.split("@")
+        if (mailParts.size() == 2){
+            def domain = mailParts[1]
+            def notAllowed = grailsApplication.config.kuorum.register.notAllowedTemporalDomainEmails.find{"@$domain".equalsIgnoreCase(it)}
+            if (notAllowed){
+                return false
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     KuorumUser createUserByRegistrationCode (RegistrationCode registrationCode){
         KuorumUser user
