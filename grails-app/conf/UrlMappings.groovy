@@ -199,6 +199,8 @@ class UrlMappings {
                                   "/tour/ley"       (controller:"tour", action: "tour_project")
         name tour_post:           "/tour/publicacion" (controller:"tour", action: "tour_post")
 
+        name campaignPoll:        "/campaign/poll" (controller: "campaign", action: "saveCitizenPriorities")
+
         name ajaxHeadNotificationsChecked: "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")
         name ajaxPostponeAlert: "/ajax/notificaiones/posponer/$id"(controller:"notification", action:"postponeAlert")
         name ajaxHeadMessagesChecked: "/ajax/mensajes/check"(controller:"layouts", action:"headNotificationsChecked")

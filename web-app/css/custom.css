@@ -1776,9 +1776,35 @@ textarea.error,
     padding: 0;
     margin: 10px 0 0 0;
 }
-.interestContainer span {font-size: 48px; font-size: 4.8rem; display: block; margin-bottom: 8px;}
+.interestContainer .icheckbox_line-orange span {font-size: 6rem; display: block; margin-bottom: 8px; color:#5e5e5e}
 
 .usersContainer .user-img.big {width: 80px; height: 80px; margin: 0 0 5px 0;}
+.icheckbox_line-orange,
+.iradio_line-orange {
+    position: relative;
+    display: block;
+    float: left;
+    margin: 0 6px 6px 0;
+    padding: 12px 2px 0 2px;
+    width: 138px;
+    height: 138px;
+    font-size: 12px;
+    line-height: 1.2;
+    background-color: #fff;
+    text-align: center;
+    border: 1px solid #acacac;
+    border-radius: 15px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    /*color: #ff9431;*/
+    color: #5e5e5e;
+    font-family: 'Helvetica Neue';
+    font-variant: normal;
+    font-size:14px;
+    font-weight: bold;
+}
 .usersContainer .rol {
     bottom: 2px;
     color: #545454;
@@ -1788,42 +1814,21 @@ textarea.error,
     text-align: center;
     width: 94px;
 }
-.usersContainer .icheckbox_line-orange, .iradio_line-orange {height: 145px;}
 
+.usersContainer .icheckbox_line-orange, .iradio_line-orange {height: 145px;}
 /* iCheck plugin Line skin, orange
 ----------------------------------- */
-.icheckbox_line-orange,
-.iradio_line-orange {
-    position: relative;
-    display: block;
-    float: left;
-    margin: 0 6px 6px 0;
-    padding: 12px 2px 0 2px;
-    width: 98px;
-    height: 114px;
-    font-size: 12px;
-    line-height: 1.2;
-    color: #ff9431;
-    background: #fff;
-    text-align: center;
-    border: none;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    cursor: pointer;
-}
+
 /*.icheckbox_line-orange:first-letter {font-size: 200%;}*/
 
 .icheckbox_line-orange.hover,
 .iradio_line-orange.hover {
-    background: #545454;
-    color: #fff;
+    background-color: #cdcdcd;
 }
 .icheckbox_line-orange.checked,
 .icheckbox_line-orange.checked.hover,
 .iradio_line-orange.checked {
-    background: url('../images/checked-black.png') no-repeat top right #545454;
-    color: #fff;
+    background: url('../images/checked-black.png') no-repeat top right  #cdcdcd;
 }
 .icheckbox_line-orange.disabled,
 .iradio_line-orange.disabled {
@@ -1835,6 +1840,29 @@ textarea.error,
     background: #ffc998;
 }
 
+
+@media only screen and (max-width: 768px) {
+
+    .icheckbox_line-orange,
+    .iradio_line-orange {
+        width: 100%;
+    }
+    .icheckbox_line-orange span{
+        display:none;
+    }
+    .icheckbox_line-orange, .iradio_line-orange{
+        height:30px;
+        padding:8px 6px 0 !important;
+    }
+
+    .icheckbox_line-orange.checked,
+    .icheckbox_line-orange.checked.hover,
+    .iradio_line-orange.checked {
+        /*background: url('../images/checked-black.png') no-repeat top right #545454;*/
+        background: #545454;
+        color: #fff;
+    }
+}
 /* estilos para el resize upload image */
 .uploaderImageContainer > div {margin: 0; position: relative;}
 .form-group.image {width: 100%; height: 415px;}
@@ -3043,23 +3071,11 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config #config9 .checkbox,
 #edit-project .checkbox {margin-top: 15px; margin-bottom: 15px;}
 .config #config9 .interestContainer {width: 530px}
-/*.config .interestContainer label,
-#edit-project .interestContainer label {font-weight: normal;}
-.config .icheckbox_line-orange,
-.config .iradio_line-orange {color: #545454;}*/
 .config #config9 .icheckbox_line-orange.hover,
 .config #config9 .iradio_line-orange.hover,
-#edit-project .icheckbox_line-orange.hover,
-#edit-project .iradio_line-orange.hover {background: #545454; color: #fff;}
 .config #config9 .icheckbox_line-orange.checked,
 .config #config9 .icheckbox_line-orange.checked.hover,
 .config #config9 .iradio_line-orange.checked,
-#edit-project .icheckbox_line-orange.checked,
-#edit-project .icheckbox_line-orange.checked.hover,
-#edit-project .iradio_line-orange.checked {
-    background: url("../images/checked-black.png") no-repeat scroll right top #545454;
-    color: #FFFFFF;
-}
 
 .config .list-post.pending > li > .text-notification {color: #545454; display: inline;}
 .config .list-post.pending > li .law {padding: 0; font-size: 24px; font-size: 2.4rem; line-height: 1.2;}
@@ -3237,8 +3253,6 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 .uploadPdf a,
 #edit-project label {font-size: 20px; font-size: 2rem; color: #a8a8a8;}
 #edit-project .interest {margin-top: 20px;}
-.icheckbox_line-orange,
-.iradio_line-orange {margin: 0 30px 30px 0; background-color: #fafafa; padding: 12px 6px 0; width: 110px; color: #545454;}
 
 .config .icheckbox_line-orange,
 .config .iradio_line-orange {margin: 0 30px 30px 0;}
@@ -4103,7 +4117,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .icheckbox_line-orange,
     .iradio_line-orange,
     .config .icheckbox_line-orange,
-    .config .iradio_line-orange {margin-right: 26px; margin-bottom: 26px;}
+    .config .iradio_line-orange {margin-right: 16px; margin-bottom: 18px;}
     .box-ppal.condition .no-age .form-group:nth-child(2) {width: 172px;}
     .boxes.follow .user-list-followers > .user > .actions {float: right; margin: -30px 0 0 !important;}
     .condition .user-list-followers  > li {width: 47%; float: left;}
@@ -4837,6 +4851,11 @@ header .header-msg h6:hover{
     font-variant: normal;
 }
 
+#causes-modal .modal-body .interestContainer {
+    margin: 0 0 8px 40px;
+    padding-right:60px;
+}
+
 #causes-modal .modal-body .causes-icon .causes-checkbox{
     height: 36px;
     width: 168px;
@@ -4857,7 +4876,7 @@ header .header-msg h6:hover{
     top:0;
     left:0;
     opacity: 0;
-    height: 40px;
+    height: 36px;
     width: 168px;
 }
 
