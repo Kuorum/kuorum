@@ -17,7 +17,7 @@
             </div>
             <!-- BODY FOR COMPUTER-->
             <div class="modal-body text-center">
-                <h1><g:message code="modal.election.header.title"/> </h1>
+                <h1 class="hidden-xs"><g:message code="modal.election.header.title"/> </h1>
                 <h3><g:message code="modal.election.header.subtitle"/></h3>
                 <formUtil:validateForm form="causes-modal-form" command="kuorum.web.commands.campaign.CampaignPollCommand"/>
                 <g:form mapping="campaignPoll" id="causes-modal-form" role="form" method="post" name="causes-modal-form">
@@ -51,7 +51,7 @@
                         <input type="email" name="email" class="hide" id="email" placeholder="name@example.com" value="${sec.username()}">
                     </sec:ifLoggedIn>
                     <div class="form-group">
-                        <input type="submit" class="btn" value="Submit my choice!">
+                        <input type="submit" class="btn btn-maroon" value="Submit my choice!">
                     </div>
                     <sec:ifNotLoggedIn>
                         <div class="form-group">
