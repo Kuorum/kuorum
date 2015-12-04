@@ -4806,6 +4806,18 @@ hr{
     background-color: #f5f5f5;
     padding: 40px 0 20px;
 }
+/*extendedPolitician - who to follow*/
+#extendedPolitician .boxes.follow h1 {
+    background-color: #666;
+    color: #fff;
+    border-radius: 0;
+    border: none;
+    font-size: 18px;
+    padding: 10px 15px;
+}
+#extendedPolitician .boxes.follow {box-shadow: 0 0 2px rgba(200,200,200,0.6);
+}
+
 /* PSOE modal =========== */
 header h6{
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;

@@ -94,11 +94,11 @@
     <g:render template="showExtendedPoliticianTemplates/politicianLastActivity" model="[politician: politician]"/>
 </content>
 
-<content tag="cColumn" id="extendedPolitician">
+<content tag="cColumn">
     <g:render template="showExtendedPoliticianTemplates/columnC/socialButtonsExtendedPoliticianColumnC" model="[user:politician]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
     <g:render template="showExtendedPoliticianTemplates/columnC/leaningIndex" model="[politician:politician]"/>
-    <g:render template="/modules/recommendedUsers" model="[recommendedUsers:recommendPoliticians]"/>
+    <div id="extendedPolitician"><g:render template="/modules/recommendedUsers" model="[recommendedUsers:recommendPoliticians]"/></div>
     <g:render template="showExtendedPoliticianTemplates/columnC/professionalDetailExtendedPolitician" model="[politician:politician]"/>
     <g:render template="showExtendedPoliticianTemplates/columnC/quickNotesExtendedPolitician" model="[politician:politician]"/>
 </content>
