@@ -13,8 +13,9 @@ class CampaignController {
     CampaignService campaignService;
 
     def saveCitizenPriorities(CampaignPollCommand campaignPollCommand) {
+        String message = "";
         if (!campaignPollCommand.validate()){
-            flash.error="Not saved"
+            message="Invalid parameters"
         }else{
             PollCampaignVote pollCampaign = new PollCampaignVote(
                     politician: campaignPollCommand.politician,
@@ -24,17 +25,17 @@ class CampaignController {
             )
             try{
                 campaignService.savePollResponse(pollCampaign)
-                flash.message = "Thank you"
+                message = g.message(code: 'campaign.vote.successful')
             }catch (KuorumException ke){
                 log.error("Error saving vote on the campaign ${campaignPollCommand.campaign}.", ke)
-                flash.error = g.message(code: ke.errors.get(0).code)
+                message = g.message(code: ke.errors.get(0).code)
             }catch (Exception e){
                 log.error("Error saving vote on the campaign ${campaignPollCommand.campaign}.", e)
-                flash.error = "Internal error: ${e.getMessage()}"
+                message = "Internal error: ${e.getMessage()}"
             }
 
         }
 //        redirect mapping:"userShow", params:campaignPollCommand.politician.encodeAsLinkProperties()
-        render flash.message;
+        render message;
     }
 }

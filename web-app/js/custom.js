@@ -981,10 +981,12 @@ var display = {
         $("#header nav.navbar").prepend(template);
         $("#header nav.navbar a.header-msg").slideDown();
         $("#header nav.navbar a.header-msg").on("click",clickEventFunction)
+        $("div.row.main").animate({ marginTop: '20px'}, 500);
     },
 
     _slideUp:function(){
         $("#header nav.navbar a.header-msg").slideUp();
+        $("div.row.main").animate({ marginTop: '0px'}, 500);
     }
 }
 
