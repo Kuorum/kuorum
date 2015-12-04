@@ -2,7 +2,7 @@
 <script>
     var campaign;
     $(function(){
-        campaign = new Campaign("${campaign.id}", "${campaign.name}", "${g.message(code:'modal.election.main.header')}", 5*1000)
+        campaign = new Campaign("${campaign.id}", "${campaign.name}", "${g.message(code:'modal.election.main.header')}", 3*1000)
         campaign.preparePageForCampaign()
     });
 </script>
