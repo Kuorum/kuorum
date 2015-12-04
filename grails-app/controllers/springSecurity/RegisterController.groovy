@@ -42,7 +42,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     def contactRegister(ContactRegister contactRegister){
         if (!contactRegister.validate()){
-
+            flash.message = g.message(code: 'register.contactRegister.error.validation', args: [contactRegister.politician.name])
+            redirect mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties()
         }
 
         if (springSecurityService.isLoggedIn()){
