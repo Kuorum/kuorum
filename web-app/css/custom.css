@@ -4886,6 +4886,12 @@ header .header-msg h6:hover{
     width: 226px;
 }
 
+#causes-modal .modal-body .icheckbox_line-orange.checked,
+#causes-modal .modal-body .icheckbox_line-orange.checked.hover,
+#causes-modal .modal-body .iradio_line-orange.checked {
+    background: url('../images/checked-maroon.png') no-repeat top right  #990000;
+}
+
 #causes-modal .modal-body .icheckbox_line-orange span{
     height: 60px;
     width: 60px;
@@ -4895,10 +4901,10 @@ header .header-msg h6:hover{
     color: #990000
 }
 
-#causes-modal .btn.btn-maroon{background-color:#990000 !important; padding: 15px !important;}
-#causes-modal .btn.btn-maroon:hover,
-#causes-modal .btn.btn-maroon:active,
-#causes-modal .btn.btn-maroon:focus {background-color:#dac1c1 !important;}
+#causes-modal .btn.btn-maroon{padding: 15px !important;}
+/*#causes-modal .btn.btn-maroon:hover,*/
+/*#causes-modal .btn.btn-maroon:active,*/
+/*#causes-modal .btn.btn-maroon:focus {background-color:#e3981e !important;}*/
 
 #causes-modal-form .form-group a {color:#990000;}
 

@@ -18,7 +18,7 @@
             </div>
             <!-- BODY FOR COMPUTER-->
             <div class="modal-body text-center">
-                <h1><g:message code="modal.election.header.title"/> </h1>
+                <h1 class="hidden-xs"><g:message code="modal.election.header.title"/> </h1>
                 <h3><g:message code="modal.election.header.subtitle"/></h3>
                 <formUtil:validateForm form="causes-modal-form" command="kuorum.web.commands.campaign.CampaignPollCommand"/>
                 <g:form mapping="campaignPoll" id="causes-modal-form" role="form" method="post" name="causes-modal-form">
