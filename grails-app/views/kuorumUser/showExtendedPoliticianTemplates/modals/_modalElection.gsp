@@ -56,7 +56,8 @@
                     </div>
                     <sec:ifNotLoggedIn>
                         <div class="form-group">
-                            <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>                        </div>
+                            <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
+                        </div>
                     </sec:ifNotLoggedIn>
                 </g:form>
                 <script>
