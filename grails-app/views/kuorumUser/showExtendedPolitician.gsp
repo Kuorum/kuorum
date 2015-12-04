@@ -86,8 +86,8 @@
                     </ul>
                 </g:if>
                 <h4><g:message code="politician.bio"/></h4>
-                <p>${politician.bio}</p>
-            </div><!--/.extra-padding -->
+                <p class="limit-height-bio">${politician.bio}</p>
+                </div><!--/.extra-padding -->
         </div><!--/.panel-body-->
     </div><!--/.panel panel-default -->
 

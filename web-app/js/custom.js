@@ -759,6 +759,22 @@ $(document).ready(function() {
         });
     });
 
+    // HIDE SECTIONS
+    $('.limit-height-bio').readmore({
+        speed: 100,
+        collapsedHeight: 50,
+        heightMargin: 16,
+        moreLink: '<a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a>',
+        lessLink: '<a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a>',
+        embedCSS: true,
+        blockCSS: 'display: block; width: auto; float:right;',
+        startOpen: false,
+
+// callbacks
+        beforeToggle: function(){},
+        afterToggle: function(){}
+    });
+
     // load more
     $("a.loadMore").on("click", function(e){loadMore(e, this)})
 
