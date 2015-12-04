@@ -191,7 +191,9 @@ class KuorumMailService {
         String politicianLink = generateLink("userShow",pollCampaing.politician.encodeAsLinkProperties())
         Map<String, String> bindings = [politician:pollCampaing.politician.name,politicianLink:politicianLink]
         for (String value : pollCampaing.campaign.values){
-            bindings.put(value, pollCampaing.values.contains(value))
+            if (pollCampaing.values.contains(value)){
+                bindings.put(value, "OK")
+            }
         }
         MailUserData mailUserData = new MailUserData()
         mailUserData.user = new KuorumUser(name:"", email: pollCampaing.userEmail)
