@@ -13,7 +13,8 @@
             <div class="modal-body">
                 <!-- email subscription form -->
                 <formUtil:validateForm form="contact-modal-form" bean="${command}"/>
-                <g:form mapping="campaignPoll" id="contact-modal-form" role="form" method="post" name="contact-modal-form">
+                <g:form mapping="ajaxRegisterContact" id="contact-modal-form" role="form" method="post" name="contact-modal-form">
+                    <input type="hidden" name="politician" value="${politician.id}"/>
                     <div class="form-group">
                         <label for="cause" class="control-label">Which cause is this message related to?</label>
                         <select class="form-control" name="cause" id="cause">
@@ -29,7 +30,7 @@
                     </div>
 
                     <div class="form-group">
-                        <formUtil:input field="name" command="${command}" showLabel="true"/>
+                        <formUtil:input field="name" command="${command}" showLabel="true" showCharCounter="false"/>
                     </div>
 
                     <div class="form-group">

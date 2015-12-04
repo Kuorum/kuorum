@@ -166,6 +166,10 @@ class NotificationService {
         kuorumMailService.sendPollCampaignMail(pollCampaign)
     }
 
+    public void sendPoliticianContactNotification(KuorumUser politician, KuorumUser user, String message, String cause){
+
+    }
+
     void sendCommentNotifications(Post post, PostComment comment){
         sendCommentNotificationsOwner(post, comment)
         sendCommentNotificationsUsers(post, comment)
