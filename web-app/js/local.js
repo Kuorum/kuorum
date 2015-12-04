@@ -713,13 +713,6 @@ $(document).ready(function() {
         var func = 'playVideo';
         iframe.get(0).contentWindow.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
     });
-
-
-    // Launch the election modal (if exists) after 5 seconds
-    function displayPolicianCausesModal(){
-        $("#causes-modal").modal("show");
-    }
-    window.setTimeout(displayPolicianCausesModal, 5*1000);
 });
 
 function stringStartsWith (string, prefix) {

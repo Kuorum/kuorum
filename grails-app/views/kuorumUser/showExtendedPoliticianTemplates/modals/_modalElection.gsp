@@ -1,10 +1,9 @@
 <!-- Launchs the header to clickable to open the modal -->
 <script>
+    var campaign;
     $(function(){
-        display.blockAdvise("${g.message(code:'modal.election.main.header')}", function(e){
-            e.preventDefault();
-            $("#causes-modal").modal("show");
-        })
+        campaign = new Campaign("${campaign.id}", "${campaign.name}", "${g.message(code:'modal.election.main.header')}", 5*1000)
+        campaign.preparePageForCampaign()
     });
 </script>
 
@@ -42,22 +41,29 @@
                         </g:each>
                     </div><!-- /.all -->
                 <!-- email subscription form -->
+                    <sec:ifNotLoggedIn>
                     <h3><g:message code="modal.election.hook"/></h3>
                     <div class="form-group">
                         <input type="email" name="email" class="form-control input-lg center-block" id="email" required="" placeholder="name@example.com" value="" aria-required="true">
                     </div>
+                    </sec:ifNotLoggedIn>
+                    <sec:ifLoggedIn>
+                        <input type="email" name="email" class="hide" id="email" placeholder="name@example.com" value="${sec.username()}">
+                    </sec:ifLoggedIn>
                     <div class="form-group">
                         <input type="submit" class="btn btn-maroon" value="Submit my choice!">
                     </div>
-                    <div class="form-group">
-                        <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
-                    </div>
+                    <sec:ifNotLoggedIn>
+                        <div class="form-group">
+                            You are accepting the <a href="https://kuorum.org/kuorum/politica-privacidad" target="_blank">service conditions</a>
+                        </div>
+                    </sec:ifNotLoggedIn>
                 </g:form>
                 <script>
                     $(function(){
                         $( "#causes-modal-form" ).on( "submit", function( e ) {
                             e.preventDefault();
-                            if ($(this).valid()){
+                            if ($(this).valid() && !$(this).hasClass("disabled")){
                                 var url = $(this).attr("action")
                                 var data = $( this ).serialize();
                                 $.ajax({
@@ -65,7 +71,9 @@
                                     url: url,
                                     data: data,
                                     beforeSend: (function(){
-                                        $( "#causes-modal-form input[type=submit]").addClass("spinner")
+                                        $( "#causes-modal-form input[type=submit]")
+                                                .addClass("spinner")
+                                                .addClass("disabled")
                                     })
                                 })
                                 .done(function( data ) {
@@ -76,9 +84,11 @@
                                     if (msgs.error != ""){
                                         display.error( msgs.error );
                                     }
-                                    display.hideAdvise();
-                                    $("#causes-modal").modal("hide")
-                                    $( "#causes-modal-form input[type=submit]").removeClass("spinner")
+                                    campaign.hideCampaign();
+                                    campaign.notShowCampaignAgain();
+                                    $( "#causes-modal-form input[type=submit]")
+                                            .removeClass("spinner")
+                                            .removeClass("disabled");
                                 }).fail(function() {
                                     display.error( "Error" );
                                 });

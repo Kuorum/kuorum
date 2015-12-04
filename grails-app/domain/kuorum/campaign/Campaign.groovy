@@ -9,6 +9,7 @@ class Campaign {
  */
 
     ObjectId id;
+    String name;
     List<ObjectId> politicianIds
     Date startDate;
     Date endDate;

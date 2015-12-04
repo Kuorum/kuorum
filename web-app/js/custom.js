@@ -96,6 +96,17 @@ $(document).ready(function() {
         }
     }
 
+    function clickedButtonContact(button){
+        var buttonContact= $(button)
+        $('#contact-modal').modal('show');
+    }
+
+    $('body').on("click", ".btn.contact", function(e) {
+        e.preventDefault()
+        e.stopPropagation()
+        clickedButtonContact($(this))
+    });
+
     function ajaxFollow(url, buttonFollow, doneFunction){
         $.ajax( {
             url:url,
@@ -1161,3 +1172,51 @@ $(document).ajaxStop(function () {
     preparePopover();
 
 });
+
+
+function Campaign(id, name, headText, modalDelay){
+    var _id = id;
+    var _name = name;
+    var _headText = headText;
+    var _cookieElectionName="Election-"+id;
+    var _modalDelay=modalDelay;
+    var _modalId="#causes-modal";
+
+    var _showModal = function(){
+        $(_modalId).modal("show");
+    }
+
+    this.showModal = _showModal
+    this.hideModal = function(){
+        $(_modalId).modal("hide");
+    }
+    this.preparePageForCampaign = function() {
+        cookiesHelper.checkCookie(
+            _cookieElectionName,
+            function(cookieValue){
+                //ALREADY VOTED THIS CAMPAIGN
+            },
+            function(cookieName){
+                display.blockAdvise(_headText, function(e){
+                    e.preventDefault();
+                    _showModal()
+                })
+
+                // Launch the election modal (if exists) after delay seconds
+                window.setTimeout(_showModal, _modalDelay);
+            }
+        );
+    };
+
+    this.hideCampaign = function(){
+        this.hideModal();
+        display.hideAdvise();
+    }
+
+    this.notShowCampaignAgain = function(){
+        console.log("NO MORE COOKIES")
+        cookiesHelper.setCookie(_cookieElectionName,true, 99999);
+    }
+
+    return this;
+}
