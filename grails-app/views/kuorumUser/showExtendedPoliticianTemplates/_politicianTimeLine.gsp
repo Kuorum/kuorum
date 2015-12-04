@@ -7,7 +7,7 @@
                 <span class="fa fa-chevron-up"></span>
             </h3>
         </div>
-        <div class="panel-body text-center" data-toggle="collapse">
+        <div class="panel-body text-center collapse" data-toggle="collapse">
             <ul class="timeline">
                 <g:each in="${politician.timeLine}" var="timeEvent" status="i">
                     <g:set var="cssPos" value=""/>
