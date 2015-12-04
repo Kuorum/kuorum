@@ -81,7 +81,7 @@
                     <h4><g:message code="politician.knownFor"/></h4>
                     <ul class='known-for'>
                         <g:each in="${politician.relevantEvents}" var="relevantEvent">
-                            <li><a href="${relevantEvent.url}" _target="blank">${relevantEvent.title}</a></li>
+                            <li><a href="${relevantEvent.url}" target="_blank">${relevantEvent.title}</a></li>
                         </g:each>
                     </ul>
                 </g:if>
