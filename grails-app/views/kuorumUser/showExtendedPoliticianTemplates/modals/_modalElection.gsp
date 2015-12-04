@@ -52,7 +52,7 @@
                         <input type="email" name="email" class="hide" id="email" placeholder="name@example.com" value="${sec.username()}">
                     </sec:ifLoggedIn>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-maroon" value="Submit my choice!">
+                        <input type="submit" class="btn btn-maroon" value="${g.message(code: 'modal.election.submit')}">
                     </div>
                     <sec:ifNotLoggedIn>
                         <div class="form-group">
