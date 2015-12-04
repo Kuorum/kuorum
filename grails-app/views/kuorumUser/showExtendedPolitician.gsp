@@ -94,7 +94,7 @@
     <g:render template="showExtendedPoliticianTemplates/politicianLastActivity" model="[politician: politician]"/>
 </content>
 
-<content tag="cColumn">
+<content tag="cColumn" id="extendedPolitician">
     <g:render template="showExtendedPoliticianTemplates/columnC/socialButtonsExtendedPoliticianColumnC" model="[user:politician]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
     <g:render template="showExtendedPoliticianTemplates/columnC/leaningIndex" model="[politician:politician]"/>

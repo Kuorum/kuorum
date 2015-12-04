@@ -4827,6 +4827,9 @@ header a.header-msg {
 header .header-msg h6:hover{
     background-color: #B20000;
 }
+#causes-modal .modal-content{
+    padding-bottom: 10px;
+}
 #causes-modal .modal-dialog{
     margin-top: 10px;
 }
