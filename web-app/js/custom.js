@@ -1174,10 +1174,11 @@ $(document).ajaxStop(function () {
 });
 
 
-function Campaign(id, name, headText, modalDelay){
+function Campaign(id, name, headText,headVotedText,  modalDelay){
     var _id = id;
     var _name = name;
     var _headText = headText;
+    var _headVotedText = headVotedText;
     var _cookieElectionName="Election-"+id;
     var _modalDelay=modalDelay;
     var _modalId="#causes-modal";
@@ -1194,14 +1195,16 @@ function Campaign(id, name, headText, modalDelay){
         cookiesHelper.checkCookie(
             _cookieElectionName,
             function(cookieValue){
-                //ALREADY VOTED THIS CAMPAIGN
+                display.blockAdvise(_headVotedText, function(e){
+                    e.preventDefault();
+                    _showModal()
+                });
             },
             function(cookieName){
                 display.blockAdvise(_headText, function(e){
                     e.preventDefault();
                     _showModal()
-                })
-
+                });
                 // Launch the election modal (if exists) after delay seconds
                 window.setTimeout(_showModal, _modalDelay);
             }
@@ -1214,7 +1217,6 @@ function Campaign(id, name, headText, modalDelay){
     }
 
     this.notShowCampaignAgain = function(){
-        console.log("NO MORE COOKIES")
         cookiesHelper.setCookie(_cookieElectionName,true, 99999);
     }
 
