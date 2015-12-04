@@ -14,6 +14,7 @@ class CampaignController {
 
     def saveCitizenPriorities(CampaignPollCommand campaignPollCommand) {
         String message = "";
+        String error = ""
         if (!campaignPollCommand.validate()){
             message="Invalid parameters"
         }else{
@@ -28,14 +29,14 @@ class CampaignController {
                 message = g.message(code: 'campaign.vote.successful')
             }catch (KuorumException ke){
                 log.error("Error saving vote on the campaign ${campaignPollCommand.campaign}.", ke)
-                message = g.message(code: ke.errors.get(0).code)
+                error = g.message(code: ke.errors.get(0).code)
             }catch (Exception e){
                 log.error("Error saving vote on the campaign ${campaignPollCommand.campaign}.", e)
-                message = "Internal error: ${e.getMessage()}"
+                error = "Internal error: ${e.getMessage()}"
             }
 
         }
 //        redirect mapping:"userShow", params:campaignPollCommand.politician.encodeAsLinkProperties()
-        render message;
+        render """{"message": "${message}", "error": "${error}"}"""
     }
 }
