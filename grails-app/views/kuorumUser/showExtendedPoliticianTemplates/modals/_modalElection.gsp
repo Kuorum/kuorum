@@ -1,10 +1,9 @@
 <!-- Launchs the header to clickable to open the modal -->
 <script>
+    var campaign;
     $(function(){
-        display.blockAdvise("${g.message(code:'modal.election.main.header')}", function(e){
-            e.preventDefault();
-            $("#causes-modal").modal("show");
-        })
+        campaign = new Campaign("${campaign.id}", "${campaign.name}", "${g.message(code:'modal.election.main.header')}", 5*1000)
+        campaign.preparePageForCampaign()
     });
 </script>
 
@@ -76,9 +75,9 @@
                                     if (msgs.error != ""){
                                         display.error( msgs.error );
                                     }
-                                    display.hideAdvise();
-                                    $("#causes-modal").modal("hide")
-                                    $( "#causes-modal-form input[type=submit]").removeClass("spinner")
+                                    campaign.hideCampaign();
+                                    campaign.notShowCampaignAgain();
+                                    $( "#causes-modal-form input[type=submit]").removeClass("spinner");
                                 }).fail(function() {
                                     display.error( "Error" );
                                 });
