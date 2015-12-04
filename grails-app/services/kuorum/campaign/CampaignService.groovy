@@ -62,12 +62,17 @@ class CampaignService {
 
     def savePollResponse(PollCampaignVote pollCampaing) {
 
-        if (registerService.checkValidEmail(pollCampaing.userEmail)){
-
-        }else{
-            throw new KuorumException("Not valid email: ${pollCampaing.userEmail}", new KuorumExceptionData(code: 'campaignService.email.notValid'))
+        if (!registerService.checkValidEmail(pollCampaing.userEmail)){
+            throw new KuorumException("Not valid email: ${pollCampaing.userEmail}", new KuorumExceptionData(code: 'campaignService.email.notValid', field:"email"))
         }
 
+        PollCampaignVote alreadyVoted = PollCampaignVote.findByCampaignAndUserEmail(pollCampaing.campaign, pollCampaing.userEmail);
+        if (alreadyVoted){
+            Map<String, Long> decremental = alreadyVoted.values.collectEntries{["results.$it", -1]}
+            Campaign.collection.update([_id:alreadyVoted.campaign.id],['$inc':decremental])
+            alreadyVoted.values = pollCampaing.values
+            pollCampaing = alreadyVoted
+        }
         if (pollCampaing.save()){
             Map<String, Long> incremental = pollCampaing.values.collectEntries{["results.$it", 1]}
             Campaign.collection.update([_id:pollCampaing.campaign.id],['$inc':incremental])

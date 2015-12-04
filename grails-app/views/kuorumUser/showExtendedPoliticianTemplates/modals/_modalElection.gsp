@@ -69,10 +69,18 @@
                                     })
                                 })
                                 .done(function( data ) {
-                                    display.success( data );
+                                    var msgs = JSON.parse(data);
+                                    if (msgs.message != ""){
+                                        display.success( msgs.message);
+                                    }
+                                    if (msgs.error != ""){
+                                        display.error( msgs.error );
+                                    }
                                     display.hideAdvise();
                                     $("#causes-modal").modal("hide")
                                     $( "#causes-modal-form input[type=submit]").removeClass("spinner")
+                                }).fail(function() {
+                                    display.error( "Error" );
                                 });
                             }
                         });
