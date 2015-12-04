@@ -55,8 +55,7 @@
                     </div>
                     <sec:ifNotLoggedIn>
                         <div class="form-group">
-                            You are accepting the <a href="https://kuorum.org/kuorum/politica-privacidad" target="_blank">service conditions</a>
-                        </div>
+                            <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>                        </div>
                     </sec:ifNotLoggedIn>
                 </g:form>
                 <script>
