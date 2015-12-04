@@ -78,7 +78,7 @@ class PoliticianService {
     private void populateTags(KuorumUser politician, def line) {
         String prefix = "cause"
         List<String> tags = []
-        (1..5).each{i->
+        (1..6).each{i->
             String tag = line."${prefix}${i}"
             if (tag){
                 tags << tag
