@@ -50,7 +50,7 @@
                         <input type="submit" class="btn btn-maroon" value="Submit my choice!">
                     </div>
                     <div class="form-group">
-                        You are accepting the <a href="https://kuorum.org/kuorum/politica-privacidad" target="_blank">service conditions</a>
+                        <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
                     </div>
                 </g:form>
                 <script>
