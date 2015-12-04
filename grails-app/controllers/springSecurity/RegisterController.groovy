@@ -1,16 +1,18 @@
 package springSecurity
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import grails.validation.Validateable
+import kuorum.notifications.NotificationService
+import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
-import kuorum.users.RoleUser
+import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
-import kuorum.register.RegisterService
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
@@ -19,6 +21,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     KuorumUserService kuorumUserService
 
+    NotificationService notificationService
 
     def index() {
         def copy = [:] + (flash.chainedParams ?: [:])
@@ -35,6 +38,37 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
         KuorumUser user = registerService.registerUser(command)
         redirect mapping:"home"
+    }
+
+    def contactRegister(ContactRegister contactRegister){
+        if (!contactRegister.validate()){
+            flash.message = g.message(code: 'register.contactRegister.error.validation')
+            if (contactRegister.politician){
+                redirect mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties()
+            }else{
+                redirect mapping:"politicians"
+            }
+            return;
+        }
+
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = springSecurityService.getCurrentUser();
+            notificationService.sendPoliticianContactNotification(contactRegister.politician, user, contactRegister.message, contactRegister.cause)
+            flash.message = g.message(code: 'register.contactRegister.success.userLogged', args: [contactRegister.politician.name])
+            redirect mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties()
+        }else{
+            KuorumUser user = KuorumUser.findByEmail(contactRegister.email)
+            if (user){
+                //ERROR: User should log in
+                flash.error = g.message(code: 'register.contactRegister.success.userNotLogged', args: [contactRegister.politician.name])
+                redirect mapping:"secUserShow", params: contactRegister.politician.encodeAsLinkProperties()
+            }else{
+                //REGISTER USER
+                user = registerService.registerUserContactingPolitician(contactRegister)
+                flash.message = g.message(code: 'register.contactRegister.success.userJustRegisted', args: [contactRegister.politician.name], encodeAs: 'raw' )
+                redirect mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties()
+            }
+        }
     }
 
     def registerSuccess(){}

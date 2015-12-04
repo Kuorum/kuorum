@@ -132,6 +132,7 @@ class UrlMappings {
         name ajaxPoliticianProjects:         "/ajax/$userTypeUrl/$urlName-$id/politicianProjects"   (controller: "kuorumUser", action: "politicianProjects")
         name ajaxPoliticianDefendedPosts:    "/ajax/$userTypeUrl/$urlName-$id/defendedPosts"        (controller: "kuorumUser", action: "politicianDefendedPosts")
         name ajaxPoliticianVictoryPosts:     "/ajax/$userTypeUrl/$urlName-$id/defendedVictoryPosts" (controller: "kuorumUser", action: "politicianDefendedVictories")
+        name ajaxRegisterContact:            "/ajax/contact"(controller: "register", action: "contactRegister");
 
         name register:            "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
         name registerSuccess:     "/registro/satisfactorio"(controller: "register",action:"registerSuccess")

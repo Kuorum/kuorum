@@ -759,6 +759,22 @@ $(document).ready(function() {
         });
     });
 
+    // HIDE SECTIONS
+    $('.limit-height-bio').readmore({
+        speed: 100,
+        collapsedHeight: 50,
+        heightMargin: 16,
+        moreLink: '<a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a>',
+        lessLink: '<a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a>',
+        embedCSS: true,
+        blockCSS: 'display: block; width: auto; float:right;',
+        startOpen: false,
+
+// callbacks
+        beforeToggle: function(){},
+        afterToggle: function(){}
+    });
+
     // load more
     $("a.loadMore").on("click", function(e){loadMore(e, this)})
 
@@ -1174,10 +1190,11 @@ $(document).ajaxStop(function () {
 });
 
 
-function Campaign(id, name, headText, modalDelay){
+function Campaign(id, name, headText,headVotedText,  modalDelay){
     var _id = id;
     var _name = name;
     var _headText = headText;
+    var _headVotedText = headVotedText;
     var _cookieElectionName="Election-"+id;
     var _modalDelay=modalDelay;
     var _modalId="#causes-modal";
@@ -1194,14 +1211,16 @@ function Campaign(id, name, headText, modalDelay){
         cookiesHelper.checkCookie(
             _cookieElectionName,
             function(cookieValue){
-                //ALREADY VOTED THIS CAMPAIGN
+                display.blockAdvise(_headVotedText, function(e){
+                    e.preventDefault();
+                    _showModal()
+                });
             },
             function(cookieName){
                 display.blockAdvise(_headText, function(e){
                     e.preventDefault();
                     _showModal()
-                })
-
+                });
                 // Launch the election modal (if exists) after delay seconds
                 window.setTimeout(_showModal, _modalDelay);
             }
@@ -1214,7 +1233,6 @@ function Campaign(id, name, headText, modalDelay){
     }
 
     this.notShowCampaignAgain = function(){
-        console.log("NO MORE COOKIES")
         cookiesHelper.setCookie(_cookieElectionName,true, 99999);
     }
 

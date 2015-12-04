@@ -4530,7 +4530,7 @@ hr{
 }
 .panel-share-buttons > li {
     display: inline-block;
-    margin-right: 20px;
+    margin-right: 18px;
 }
 .panel-share-buttons > li > a:hover{
     color:#b77a17;

@@ -6,11 +6,13 @@ import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.mail.KuorumMailService
+import kuorum.notifications.NotificationService
 import kuorum.post.Post
 import kuorum.post.PostVoteService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.RoleUser
+import kuorum.web.commands.customRegister.ContactRegister
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.transaction.annotation.Transactional
@@ -30,11 +32,18 @@ class RegisterService {
 
     KuorumUserService kuorumUserService
 
+    NotificationService notificationService
+
     public static final PREFIX_PASSWORD = "*registerUser*"
 
     private static final String META_DATA_REGISTER_VOTING_POST="votingPost"
     private static final String META_DATA_REGISTER_VOTING_POST_POST="postId"
     private static final String META_DATA_REGISTER_VOTING_POST_ANONYMOUS="anonymousVote"
+
+    private static final String META_DATA_REGISTER_CONCATC_POLITICIAN="contactPolitician"
+    private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_ID="politicianId"
+    private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE="politicianMessage"
+    private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_CAUSE="politicianCause"
 
     /*
         Action to register the name of a new user and generate the token to the Link
@@ -48,8 +57,10 @@ class RegisterService {
                 status.setRollbackOnly()
                 return null
             }
-
-            def registrationCode = new RegistrationCode(username: user."$usernameFieldName")
+            RegistrationCode registrationCode = RegistrationCode.findByUsername(user."$usernameFieldName")
+            if (!registrationCode){
+                registrationCode = new RegistrationCode(username: user."$usernameFieldName")
+            }
             if (!registrationCode.save()) {
                 log.error "Error saving a registrationCode : ${registrationCode}"
                 status.setRollbackOnly()
@@ -92,6 +103,20 @@ class RegisterService {
         registrationCode.save()
         user
     }
+    @Transactional
+    KuorumUser registerUserContactingPolitician(ContactRegister command){
+        KuorumUser user = registerUser(command);
+        String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
+        RegistrationCode registrationCode = RegistrationCode.findByUsername(user."$usernameFieldName")
+        registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN] = [
+                "$META_DATA_REGISTER_CONCATC_POLITICIAN_ID":command.politician.id,
+                "$META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE":command.message,
+                "$META_DATA_REGISTER_CONCATC_POLITICIAN_CAUSE":command.cause
+        ]
+        registrationCode.save()
+        user
+    }
+
     /*
         Convert the command object to User
     */
@@ -146,6 +171,12 @@ class RegisterService {
             Post post = Post.get(registrationCode[META_DATA_REGISTER_VOTING_POST][META_DATA_REGISTER_VOTING_POST_POST])
             Boolean anonymous = registrationCode[META_DATA_REGISTER_VOTING_POST][META_DATA_REGISTER_VOTING_POST_ANONYMOUS]
             postVoteService.votePost(post, user, anonymous)
+        }
+        if(registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN]){
+            KuorumUser politician = KuorumUser.get(registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN][META_DATA_REGISTER_CONCATC_POLITICIAN_ID])
+            String message = registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN][META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE]
+            String cause = registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN][META_DATA_REGISTER_CONCATC_POLITICIAN_CAUSE]
+            notificationService.sendPoliticianContactNotification(politician, user, message, cause)
         }
     }
 

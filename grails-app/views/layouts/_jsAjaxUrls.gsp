@@ -86,6 +86,10 @@
         cookies:{
             message: '<g:message code="cookies.message" args="[createLink(mapping: 'footerPrivacyPolicy', absolute: true)]" encodeAs="raw"/>',
             accept:'<g:message code="cookies.accept"/>'
+        },
+        read:{
+            more:'<g:message code="read.more"/>',
+            less:'<g:message code="read.less"/>'
         }
     }
 

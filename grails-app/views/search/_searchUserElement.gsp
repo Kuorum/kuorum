@@ -16,9 +16,7 @@
                 </g:if>
             </div>
         %{--<button type="button" class="btn btn-blue btn-lg follow allow">Seguir</button>--}%
-            <userUtil:followButton user="${user}" cssSize="btn-lg">
-                <i class="fa fa-plus"></i>
-            </userUtil:followButton>
+            <userUtil:followButton user="${user}" cssSize="btn-lg"/>
             <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" class="user-name" itemprop="name">
                 <searchUtil:highlightedField solrElement="${solrUser}" field="name"/>
             </g:link>

@@ -2,7 +2,12 @@
 <script>
     var campaign;
     $(function(){
-        campaign = new Campaign("${campaign.id}", "${campaign.name}", "${g.message(code:'modal.election.main.header')}", 5*1000)
+        campaign = new Campaign(
+                "${campaign.id}",
+                "${campaign.name}",
+                "${g.message(code:'modal.election.main.header')}",
+                "${g.message(code:'modal.election.main.headerVoted')}",
+                3*1000)
         campaign.preparePageForCampaign()
     });
 </script>
@@ -87,6 +92,7 @@
                                     }
                                     campaign.hideCampaign();
                                     campaign.notShowCampaignAgain();
+                                    campaign.preparePageForCampaign()
                                     $( "#causes-modal-form input[type=submit]")
                                             .removeClass("spinner")
                                             .removeClass("disabled");
