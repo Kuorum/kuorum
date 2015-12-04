@@ -285,7 +285,6 @@ class KuorumUserTagLib {
                     data-message-unfollow='${g.message(code:"${prefixMessages}.unfollow", args:[user.name], codec:"raw")}'
                     data-userId='${user.id}'>
                 ${text}
-            ${body()}
             </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
             """
         }
