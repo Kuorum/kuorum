@@ -9,7 +9,7 @@
     <li>
         <div class="tooltip left" role="tooltip">
             <div class="tooltip-arrow"></div>
-            <div class="tooltip-inner">Share</div>
+            <div class="tooltip-inner"><g:message code="politician.sharebuttons"/></div>
         </div>
     </li>
     <li>
