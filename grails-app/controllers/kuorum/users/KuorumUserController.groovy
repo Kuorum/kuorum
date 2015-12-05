@@ -149,7 +149,7 @@ class KuorumUserController {
     }
 
     def showExtendedPolitician(KuorumUser politician){
-        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(politician, new Pagination(max:3))
+        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(politician, new Pagination(max:12))
         List<Project> userProjects = projectService.politicianProjects(politician)
         Campaign campaign = campaignService.findActiveCampaign(politician)
         if (!campaign && politician?.professionalDetails?.politicalParty == 'PSOE'){

@@ -775,6 +775,22 @@ $(document).ready(function() {
         afterToggle: function(){}
     });
 
+    // HIDE SECTIONS
+    $('.limit-height-recommendedUsers').readmore({
+        speed: 500,
+        collapsedHeight: 450,
+        heightMargin: 16,
+        moreLink: '<a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a>',
+        lessLink: '<a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a>',
+        embedCSS: true,
+        blockCSS: 'display: block; width: auto; float:right;',
+        startOpen: false,
+
+// callbacks
+        beforeToggle: function(){},
+        afterToggle: function(){}
+    });
+
     // load more
     $("a.loadMore").on("click", function(e){loadMore(e, this)})
 
