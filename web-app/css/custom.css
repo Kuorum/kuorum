@@ -4818,6 +4818,9 @@ hr{
 #extendedPolitician .boxes.follow {box-shadow: 0 0 2px rgba(200,200,200,0.6);
 }
 
+#politician-bio .center-button {text-align:center;}
+#suggested-politicians .container-fluid .center-button {text-align:center;}
+
 /* PSOE modal =========== */
 header h6{
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;

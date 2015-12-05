@@ -764,10 +764,10 @@ $(document).ready(function() {
         speed: 100,
         collapsedHeight: 50,
         heightMargin: 16,
-        moreLink: '<a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a>',
-        lessLink: '<a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a>',
+        moreLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a></div>',
+        lessLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a></div>',
         embedCSS: true,
-        blockCSS: 'display: block; width: auto; float:right;',
+        blockCSS: 'display: block; width: auto;',
         startOpen: false,
 
 // callbacks
@@ -780,10 +780,10 @@ $(document).ready(function() {
         speed: 500,
         collapsedHeight: 450,
         heightMargin: 16,
-        moreLink: '<a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a>',
-        lessLink: '<a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a>',
+        moreLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a></div>',
+        lessLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a></div>',
         embedCSS: true,
-        blockCSS: 'display: block; width: auto; float:right;',
+        blockCSS: 'display: block; width: auto;',
         startOpen: false,
 
 // callbacks

@@ -64,7 +64,7 @@
                     <i class="fa fa-check-circle-o"></i><g:message code="kuorumUser.popover.follower"/>
                 </userUtil:ifIsFollower>
             </div>
-            <div class="extra-padding">
+            <div class="extra-padding" id="politician-bio">
                 <g:if test="${politician.tags}">
                     <h4><g:message code="politician.causes"/> </h4>
                     <ul class='causes-tags'>
