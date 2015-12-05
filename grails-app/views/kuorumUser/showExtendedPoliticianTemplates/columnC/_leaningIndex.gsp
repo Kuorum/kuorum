@@ -19,9 +19,12 @@
             <span class="pull-right"><g:message code="politician.leaningIndex.right"/></span>
         </div>
         <div class="text-right">
-            <a href="#">
+            <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" data-original-title="" title="">
                 <g:message code="politician.leaningIndex.link"/>
             </a>
+            <div class="popover">
+                <g:message code="politician.leaningIndex.description"/>
+            </div>
         </div>
     </div>
 </section>
