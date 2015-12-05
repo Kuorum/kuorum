@@ -11,9 +11,9 @@
                     </g:each>
                 </ul>
             </div>
-            <div class="text-center">
-                <a href="#" class="btn btn-sm btn-blue"><g:message code="politician.quickNotes.readMore"/></a>
-            </div>
+            %{--<div class="text-center">--}%
+                %{--<a href="#" class="btn btn-sm btn-blue"><g:message code="politician.quickNotes.readMore"/></a>--}%
+            %{--</div>--}%
         </div>
     </section>
 </g:if>
