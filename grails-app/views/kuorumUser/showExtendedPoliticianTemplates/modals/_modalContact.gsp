@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span
                         class="sr-only"><g:message code="default.close"/></span></button>
                 <h4 class="sr-only" id="registroLoginUsuario"><g:message code="login.head.register"/></h4>
-                <h5><g:message code="modal.contact.header"/></h5>
+                <h5><g:message code="modal.contact.header" args="[politician.name]"/></h5>
             </div>
 
             <div class="modal-body">
