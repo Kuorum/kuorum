@@ -5,9 +5,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span
-                        class="sr-only">Cerrar</span></button>
-                <h4 class="sr-only" id="registroLoginUsuario">Registro / Login usuario</h4>
-                <h5>Message to Barack Obamasss</h5>
+                        class="sr-only"><g:message code="default.close"/></span></button>
+                <h4 class="sr-only" id="registroLoginUsuario"><g:message code="login.head.register"/></h4>
+                <h5><g:message code="modal.contact.header"/></h5>
             </div>
 
             <div class="modal-body">
@@ -16,7 +16,7 @@
                 <g:form mapping="ajaxRegisterContact" id="contact-modal-form" role="form" method="post" name="contact-modal-form">
                     <input type="hidden" name="politician" value="${politician.id}"/>
                     <div class="form-group">
-                        <label for="cause" class="control-label">Which cause is this message related to?</label>
+                        <label for="cause" class="control-label"><g:message code="modal.contact.causeSelect"/></label>
                         <select class="form-control" name="cause" id="cause">
                             <g:each in="${politician.tags}" var="tag">
                                 <option>${tag}</option>
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="message" class="control-label">Message:</label>
+                        <label for="message" class="control-label"><g:message code="modal.contact.message"/></label>
                         <formUtil:textArea field="message" rows="10" command="${command}" texteditor="true" />
                     </div>
 
@@ -37,12 +37,12 @@
                         <formUtil:input field="email" command="${command}"/>
                     </div>
 
-                    <div class="form-group">
-                        <input type="submit" class="btn" value="Send Message!">
+                    <div class="form-group button">
+                        <input type="submit" class="btn" value="${g.message(code:'modal.contact.send')}">
                     </div>
 
-                    <div class="form-group">
-                        You are accepting the <a href="https://kuorum.org/kuorum/politica-privacidad" target="_blank">service conditions</a>
+                    <div class="form-group button">
+                        <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
                     </div>
                 </g:form>
             </div>

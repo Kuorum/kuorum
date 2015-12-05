@@ -12,7 +12,7 @@
                 </ul>
             </div>
             <div class="text-center">
-                <a href="#" class="btn btn-sm btn-blue">See More Politicians</a>
+                <a href="#" class="btn btn-sm btn-blue"><g:message code="politician.quickNotes.readMore"/></a>
             </div>
         </div>
     </section>

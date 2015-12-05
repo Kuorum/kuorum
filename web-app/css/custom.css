@@ -4423,7 +4423,7 @@ p.party{
 }
 .share-buttons li {
     float: left;
-    margin-left: 20px;
+    margin-left: 27px;
     list-style-type: none;
     padding: 10px 0;
 }
@@ -4527,6 +4527,7 @@ hr{
     margin: 0;
     padding: 0;
     text-align: left;
+    margin-top: 18px;
 }
 .panel-share-buttons > li {
     display: inline-block;
@@ -4807,16 +4808,16 @@ hr{
     padding: 40px 0 20px;
 }
 /*extendedPolitician - who to follow*/
-#extendedPolitician .boxes.follow h1 {
-    background-color: #666;
-    color: #fff;
-    border-radius: 0;
-    border: none;
-    font-size: 18px;
-    padding: 10px 15px;
-}
-#extendedPolitician .boxes.follow {box-shadow: 0 0 2px rgba(200,200,200,0.6);
-}
+/*#extendedPolitician .boxes.follow h1 {*/
+    /*background-color: #666;*/
+    /*color: #fff;*/
+    /*border-radius: 0;*/
+    /*border: none;*/
+    /*font-size: 18px;*/
+    /*padding: 10px 15px;*/
+/*}*/
+/*#extendedPolitician .boxes.follow {box-shadow: 0 0 2px rgba(200,200,200,0.6);*/
+/*}*/
 
 /* PSOE modal =========== */
 header h6{
@@ -4982,9 +4983,18 @@ header .header-msg h6:hover{
 #contact-modal .form-group{
     margin-bottom: 10px;
 }
+#contact-modal-form .form-group.button{
+    text-align:center;
+}
+#contact-modal-form .form-group .btn{
+    padding:15px !important;
+}
 #contact-modal textarea{
     resize: none;
     height: 120px;
+}
+#contact-modal .form-group .btn {
+    align:center;
 }
 
 .spinner{
