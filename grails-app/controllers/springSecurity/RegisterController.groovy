@@ -59,7 +59,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }else{
             KuorumUser user = KuorumUser.findByEmail(contactRegister.email)
             if (user){
-                //ERROR: User should log in
+                //ERROR: User should be logged in
                 flash.error = g.message(code: 'register.contactRegister.success.userNotLogged', args: [contactRegister.politician.name])
                 redirect mapping:"secUserShow", params: contactRegister.politician.encodeAsLinkProperties()
             }else{

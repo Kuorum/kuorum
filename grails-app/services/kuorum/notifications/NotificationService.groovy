@@ -167,7 +167,7 @@ class NotificationService {
     }
 
     public void sendPoliticianContactNotification(KuorumUser politician, KuorumUser user, String message, String cause){
-
+        kuorumMailService.sendPoliticianContact(politician, user, message, cause)
     }
 
     void sendCommentNotifications(Post post, PostComment comment){

@@ -29,13 +29,19 @@
                         <formUtil:textArea field="message" rows="10" command="${command}" texteditor="true" />
                     </div>
 
-                    <div class="form-group">
-                        <formUtil:input field="name" command="${command}" showLabel="true" showCharCounter="false"/>
-                    </div>
+                    <sec:ifNotLoggedIn>
+                        <div class="form-group">
+                            <formUtil:input field="name" command="${command}" showLabel="true" showCharCounter="false"/>
+                        </div>
 
-                    <div class="form-group">
-                        <formUtil:input field="email" command="${command}"/>
-                    </div>
+                        <div class="form-group">
+                            <formUtil:input field="email" command="${command}"/>
+                        </div>
+                    </sec:ifNotLoggedIn>
+                    <sec:ifLoggedIn>
+                        <input type="hidden" name="name" value="LOGGED USER NAME"/>
+                        <input type="hidden" name="email" value="not-existing-mail@not-mail.com"/>
+                    </sec:ifLoggedIn>
 
                     <div class="form-group button">
                         <input type="submit" class="btn" value="${g.message(code:'modal.contact.send')}">

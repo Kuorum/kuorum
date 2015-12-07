@@ -187,6 +187,26 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
+    def sendPoliticianContact(KuorumUser politician, KuorumUser user, String message, String cause){
+        String contactLink = generateLink("userShow",user.encodeAsLinkProperties())
+        String politicianLink = generateLink("userShow",politician.encodeAsLinkProperties())
+        def bindings = [:]
+        MailUserData mailUserData = new MailUserData(user:politician,bindings:bindings)
+        MailData mailData = new MailData()
+        mailData.mailType = MailType.NOTIFICATION_CONTACT
+        mailData.globalBindings=[
+                "politician":politician.name,
+                "politicianLink":politicianLink,
+                "contact":user.name,
+                "contactLink":contactLink,
+                "message":message,
+                "cause":cause
+        ]
+        mailData.userBindings = [mailUserData]
+        mailData.fromName = prepareFromName(user.name)
+        mandrillAppService.sendTemplate(mailData)
+    }
+
     def sendPollCampaignMail(PollCampaignVote pollCampaing){
         String politicianLink = generateLink("userShow",pollCampaing.politician.encodeAsLinkProperties())
         Map<String, String> bindings = [politician:pollCampaing.politician.name,politicianLink:politicianLink]
