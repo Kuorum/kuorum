@@ -117,6 +117,6 @@
 <content tag="modals">
     <g:if test="${campaign}">
         <g:render template="showExtendedPoliticianTemplates/modals/modalElection" model="[politician:politician, campaign:campaign]"/>
-        <g:render template="showExtendedPoliticianTemplates/modals/modalContact" model="[politician:politician]"/>
     </g:if>
+    <g:render template="showExtendedPoliticianTemplates/modals/modalContact" model="[politician:politician]"/>
 </content>
