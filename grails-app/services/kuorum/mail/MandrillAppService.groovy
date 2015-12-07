@@ -3,6 +3,7 @@ package kuorum.mail
 import com.microtripit.mandrillapp.lutung.MandrillApi
 import com.microtripit.mandrillapp.lutung.controller.MandrillMessagesApi
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage
+import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
 import org.springframework.beans.factory.annotation.Value
@@ -12,6 +13,9 @@ class MandrillAppService {
 
     @Value('${mail.mandrillapp.key}')
     String MANDRIL_APIKEY
+
+    @Value('${mail.mandrillapp.key2}')
+    String MANDRIL_APIKEY2
 
     //UNTESTED - Is not possible to test if the mail has been sent. Only if not fails
     void sendTemplate(MailData mailData, Boolean async = false) {
@@ -37,7 +41,26 @@ class MandrillAppService {
 
         MandrillApi mandrillApi = new MandrillApi(MANDRIL_APIKEY);
         MandrillMessagesApi messagesApi = mandrillApi.messages()
-        messagesApi.sendTemplate(mailData.mailType.nameTemplate,[:],message, async)
+        MandrillMessageStatus[] statuses =  messagesApi.sendTemplate(mailData.mailType.nameTemplate,[:],message, async)
+        statuses.each { MandrillMessageStatus status ->
+            switch (status.status){
+                case "queued":
+                    log.warn("Switching mandrillApp key");
+                    synchronized (MANDRIL_APIKEY){
+                        String tmpApiKey = MANDRIL_APIKEY;
+                        MANDRIL_APIKEY = MANDRIL_APIKEY2;
+                        MANDRIL_APIKEY2 = tmpApiKey;
+                    }
+                    break;
+                case "sent":
+                    break;
+                case "rejected":
+                case "invalid":
+                default:
+                    log.warn("Mandrillapp not sent the email ${status.email}. Cause ${status.status}: ${status.rejectReason}")
+                    break;
+            }
+        }
 
 
 
