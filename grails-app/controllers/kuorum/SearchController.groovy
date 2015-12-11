@@ -1,8 +1,10 @@
 package kuorum
 
 import grails.converters.JSON
+import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.search.SearchParams
+import kuorum.core.model.search.SuggestRegion
 import kuorum.core.model.solr.*
 import kuorum.web.constants.WebConstants
 
@@ -10,6 +12,7 @@ class SearchController{
 
     def searchSolrService
     def indexSolrService
+    RegionService regionService
 //    def messageSource
 
     private messageEnumJson(def type){
@@ -129,5 +132,12 @@ class SearchController{
         JSON.use('suggest') {
             render res as JSON
         }
+    }
+
+    def suggestRegions(SuggestRegion suggestRegion){
+        AvailableLanguage language = AvailableLanguage.fromLocaleParam(request.getLocale().language)
+        List<Region> regions = regionService.suggestRegions(suggestRegion.word, language)
+        Map suggestions =[suggestions:regions.collect{[type:"SUGGESTION", value:it.name, data:it]}]
+        render suggestions as JSON
     }
 }

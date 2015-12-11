@@ -17,23 +17,25 @@
 </fieldset>
 
 <fieldset class="row">
-    <div class="form-group col-md-6">
-        <formUtil:selectNation command="${command}" field="country"/>
-    </div>
-    <div class="form-group col-md-6 postal">
-        <formUtil:input
+    %{--<div class="form-group col-md-6">--}%
+        %{--<formUtil:selectNation command="${command}" field="country"/>--}%
+    %{--</div>--}%
+    %{--<div class="form-group col-md-6 postal">--}%
+        %{--<formUtil:input--}%
+                %{--command="${command}"--}%
+                %{--field="postalCode"--}%
+                %{--required="true"--}%
+                %{--maxlength="5"--}%
+                %{--showLabel="true"--}%
+        %{--/>--}%
+    %{--</div>--}%
+    <div class="form-group col-xs-6">
+        <formUtil:regionInput
                 command="${command}"
-                field="postalCode"
+                field="homeRegion"
                 required="true"
-                maxlength="5"
                 showLabel="true"
         />
-    </div>
-</fieldset>
-
-<fieldset class="row">
-    <div class="col-xs-6">
-        <formUtil:selectDomainObject command="${command}" field="politicianOnRegion" values="${regions}" />
     </div>
 </fieldset>
 
@@ -55,8 +57,35 @@
         <formUtil:radioEnum command="${command}" field="gender"/>
     </div>
 </fieldset>
+<fieldset class="row politicianData">
+    <hr/>
+    <h3 class="h3">Policial data</h3>
+    <div class="col-xs-6">
+        %{--<formUtil:selectDomainObject command="${command}" field="politicianOnRegion" values="${regions}" />--}%
+        <formUtil:regionInput
+                command="${command}"
+                field="politicianOnRegion"
+                required="true"
+                showLabel="true"
+        />
+    </div>
+    <div class="col-xs-6">
+        %{--<formUtil:selectDomainObject command="${command}" field="politicianOnRegion" values="${regions}" />--}%
+        <formUtil:regionInput
+                command="${command}"
+                field="constituency"
+                required="true"
+                showLabel="true"
+        />
+    </div>
+    <div class="form-group col-md-6">
+        <formUtil:input command="${command}" field="politicalParty" showLabel="true"/>
+    </div>
+</fieldset>
 
 <fieldset class="row userData">
+    <hr/>
+    <h3 class="h3">User data</h3>
     <div class="form-group col-md-6">
         <formUtil:selectEnum command="${command}" field="studies"/>
     </div>
@@ -67,6 +96,8 @@
 
 
 <fieldset class="row organizationData">
+    <hr/>
+    <h3 class="h3">Organization data</h3>
     <div class="form-group col-md-6">
         <formUtil:selectEnum command="${command}" field="enterpriseSector"/>
     </div>

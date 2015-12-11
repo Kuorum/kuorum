@@ -17,6 +17,7 @@ class PersonalData {
     //TODO: Refactor province to Region
     String provinceCode  // this code is Region.iso3166_2
     Region province
+    @Deprecated
     Region country
 //    Date birthday
     static constraints = {

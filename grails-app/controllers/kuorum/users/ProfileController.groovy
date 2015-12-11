@@ -53,8 +53,9 @@ class ProfileController {
         EditUserProfileCommand command = new EditUserProfileCommand()
         command.gender = user.personalData?.gender
         command.postalCode = user.personalData?.postalCode
+        command.homeRegion = user.personalData.province
         command.year =  user.personalData?.year
-        command.country =  user.personalData?.country
+//        command.country =  user.personalData?.country
 //        command.month = user.personalData?.birthday?user.personalData.birthday[Calendar.MONTH]+1:null
 //        command.day =   user.personalData?.birthday?user.personalData.birthday[Calendar.DAY_OF_MONTH]:null
         command.alias = user.alias
@@ -136,13 +137,10 @@ class ProfileController {
             personalData.country= user.personalData.country
         }
         personalData.gender = command.gender
-        if (command.country && !personalData.country){
-            personalData.country = command.country
-        }
-        if (command.postalCode && !personalData.postalCode){
-            personalData.postalCode = command.postalCode
-            personalData.provinceCode = command.province.iso3166_2
-            personalData.province = command.province
+
+        if (command.homeRegion && !personalData.province){
+            personalData.provinceCode = command.homeRegion.iso3166_2
+            personalData.province = command.homeRegion
         }
         user.personalData = personalData
         if (Gender.ORGANIZATION.equals(command.gender)){

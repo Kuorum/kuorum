@@ -142,15 +142,16 @@ class KuorumUserService {
         user
     }
 
-    KuorumUser convertAsPolitician(KuorumUser user, Region politicianOnRegion,  PoliticalParty politicalParty){
+    KuorumUser convertAsPolitician(KuorumUser user, Region politicianOnRegion, Region constituency,  String politicalParty){
         if (!politicianOnRegion || !politicalParty){
             throw new KuorumException("Un politico debe de tener institucion y grupo parlamentario","error.politician.politicianData")
         }
         user.userType = UserType.POLITICIAN
         user.personalData.userType = UserType.POLITICIAN
         if (!user.professionalDetails) user.professionalDetails = new ProfessionalDetails()
-        user.professionalDetails.politicalParty = politicalParty.name
+        user.professionalDetails.politicalParty = politicalParty
         user.professionalDetails.region = politicianOnRegion
+        user.professionalDetails.constituency = constituency
         RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
         user.authorities.add(rolePolitician)
         user.save()

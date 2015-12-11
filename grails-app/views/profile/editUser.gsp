@@ -50,31 +50,31 @@
         %{--</fieldset>--}%
 
         <fieldset class="row">
-            <div class="form-group col-md-6">
-                <g:if test="${user.personalData?.country}">
-                    <span class="span-label"><g:message code="kuorum.Region.label"/> </span>
-                    <g:hiddenField name="country" value="${command.country.id}"/>
-                    <span class="disabled">
-                        <g:message code="kuorum.Region.${user.personalData?.country.iso3166_2}" default="${user.personalData?.country.name}"/>
-                        <span class="info-disabled">
-                            <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>
-                            <div class="popover">
-                                <div class="popover-kuorum">
-                                    <p><g:message code="kuorum.Region.notChangeable"/></p>
-                                </div>
-                            </div>
-                        </span>
-                    </span>
-                </g:if>
-                <g:else>
-                    <formUtil:selectNation command="${command}" field="country"/>
-                </g:else>
-            </div>
+            %{--<div class="form-group col-md-6">--}%
+                %{--<g:if test="${user.personalData?.country}">--}%
+                    %{--<span class="span-label"><g:message code="kuorum.Region.label"/> </span>--}%
+                    %{--<g:hiddenField name="country" value="${command.country.id}"/>--}%
+                    %{--<span class="disabled">--}%
+                        %{--<g:message code="kuorum.Region.${user.personalData?.country.iso3166_2}" default="${user.personalData?.country.name}"/>--}%
+                        %{--<span class="info-disabled">--}%
+                            %{--<span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>--}%
+                            %{--<div class="popover">--}%
+                                %{--<div class="popover-kuorum">--}%
+                                    %{--<p><g:message code="kuorum.Region.notChangeable"/></p>--}%
+                                %{--</div>--}%
+                            %{--</div>--}%
+                        %{--</span>--}%
+                    %{--</span>--}%
+                %{--</g:if>--}%
+                %{--<g:else>--}%
+                    %{--<formUtil:selectNation command="${command}" field="country"/>--}%
+                %{--</g:else>--}%
+            %{--</div>--}%
             <div class="form-group col-md-6 postal">
-                <g:if test="${user.personalData?.postalCode}">
+                <g:if test="${user.personalData?.province}">
                     <span class="span-label"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.postalCode.label"/> </span>
                     <span class="disabled">
-                        ${user.personalData.postalCode}
+                        ${user.personalData.province.name}
                         <span class="info-disabled">
                             <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>
                             <div class="popover">
@@ -84,13 +84,19 @@
                             </div>
                         </span>
                     </span>
+                    <formUtil:regionInput
+                            command="${command}"
+                            field="homeRegion"
+                            required="false"
+                            showLabel="false"
+                            extraCss="hide"
+                    />
                 </g:if>
                 <g:else>
-                    <formUtil:input
+                    <formUtil:regionInput
                             command="${command}"
-                            field="postalCode"
+                            field="homeRegion"
                             required="true"
-                            maxlength="10"
                             showLabel="true"
                     />
                 </g:else>

@@ -19,17 +19,16 @@ import org.grails.databinding.BindUsing
  */
 @Validateable
 class EditUserProfileCommand{
-
-
-
-    @BindUsing({obj, source ->
-        EditUserProfileCommand.bindingPostalCode(obj, source)
+    @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
+        EditUserProfileCommand.bindingRegion(obj, source, "homeRegion")
     })
+    Region homeRegion
+    @Deprecated
     String postalCode
     Gender gender
     String name
-    Region country
-    Region province
+//    Region country
+//    Region province
 
     //Step2
     String photoId
@@ -52,13 +51,10 @@ class EditUserProfileCommand{
         gender nullable: true
         name nullable: false, maxSize: 17
         alias nullable: true
-        country nullable: true
-        province nullable:true
-        postalCode nullable: true, validator: {val, command ->
-            if (command.postalCode && !command.province){
-                return "notExists"
-            }
-        }
+//        country nullable: true
+//        province nullable:true
+        postalCode nullable: true
+        homeRegion nullable: false
 
         //Step2
         photoId nullable: true
@@ -73,8 +69,9 @@ class EditUserProfileCommand{
         imageProfile nullable: true
     }
 
-    public static String bindingPostalCode(obj, source){
-        if (source['country']){
+    @Deprecated
+    public static Region bindingPostalCode(obj,  org.grails.databinding.DataBindingSource source){
+        if (source['homeRegionId']){
             Region country = Region.get(new ObjectId(source['country']))
             obj.country = country
             Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
@@ -86,7 +83,17 @@ class EditUserProfileCommand{
                 obj.province = regionService.findMostSpecificRegionByPostalCode(country, postalCode)
                 postalCode = postalCode?:source["postalCode"]
             }
-            postalCode
+            return new Region(name:"inventada", iso3166_2: "EU-ES-IN")
+        }
+    }
+
+    public static Region bindingRegion(obj,  org.grails.databinding.DataBindingSource source, String field){
+        String fieldId = field+".id"
+        if (source[fieldId]){
+            Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
+            RegionService regionService = (RegionService)appContext.regionService
+            Region region = regionService.findRegionBySuggestedId(source[fieldId])
+            return region;
         }
     }
 }

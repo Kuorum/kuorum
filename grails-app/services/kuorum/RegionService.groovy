@@ -1,18 +1,29 @@
 package kuorum
 
 import grails.transaction.Transactional
+import groovyx.net.http.RESTClient
+import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.RegionType
-import kuorum.postalCodeHandlers.FiveDigitPostalCodeHandlerService
 import kuorum.postalCodeHandlers.PostalCodeHandler
 import kuorum.postalCodeHandlers.PostalCodeHandlerType
 import kuorum.users.KuorumUser
-import org.apache.catalina.core.ApplicationContext
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
-import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
-import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 
 class RegionService {
+
+
+    @Value('${kuorum.rest.url}')
+    String kuorumRestServices
+
+    @Value('${kuorum.rest.apiPath}')
+    String apiPath
+
+    @Value('${kuorum.rest.apiKey}')
+    String kuorumRestApiKey
+
+    String SUGGEST_REGIONS_ENDPOINT="/geolocation/suggest"
+    String GET_REGION="/geolocation/get"
 
     /**
      *
@@ -78,7 +89,8 @@ class RegionService {
         if (user.personalData?.province){
             Region province = user.personalData.province
             Region country = findCountry(province)
-            userRegion = findMostSpecificRegionByPostalCode(country, user.personalData.postalCode)
+            userRegion = user.personalData.province
+//            userRegion = findMostSpecificRegionByPostalCode(country, user.personalData.postalCode)
             if (!userRegion){
                 //Para los paises metidos sin sus codigos postales :/
                 userRegion = country
@@ -112,15 +124,25 @@ class RegionService {
         userRegion && region && userRegion.iso3166_2.startsWith(region.iso3166_2)
     }
 
-    private static final int REGION_ISO31662_CODE_LENGTH = 2 // EU == 2
-    private static final int REGION_ISO31662_SEPARATOR_LENGTH = 1 // EU == 2
-    private static final int COUNTRY_ISO31662_CODE_LENGTH = REGION_ISO31662_CODE_LENGTH*2+REGION_ISO31662_SEPARATOR_LENGTH
+    private static final Integer COUNTRY_CODE_LENGTH = 3*2-1
     Region findCountry(Region region){
-        Region country = region;
-        while (country.iso3166_2.length()>COUNTRY_ISO31662_CODE_LENGTH){
-            country = country.superRegion
+        if (region?.iso3166_2){
+            String countryCode = region.iso3166_2.subSequence(0,COUNTRY_CODE_LENGTH);
+            return Region.findByIso3166_2(countryCode)
+        }else{
+            return null
         }
-        country
+    }
+
+
+    private static final Integer STATE_CODE_LENGTH = 3*3-1
+    Region findState(Region region){
+        if (region?.iso3166_2){
+            String stateCode = region.iso3166_2.subSequence(0,STATE_CODE_LENGTH);
+            return Region.findByIso3166_2(stateCode)
+        }else{
+            return null
+        }
     }
 
     @Autowired
@@ -154,5 +176,49 @@ class RegionService {
 //        def regionIds = Region.collection.find(criteria,[_id:1])
 //        regionIds.collect{Region.get(it)}
         Region.findAllByRegionType(RegionType.STATE);
+    }
+
+    /**
+     *
+     * When it is used the suggester region, it returns a special ID. It is necessary to transform it to a Region
+     *
+     * @param suggestedId
+     * @return
+     */
+    public Region findRegionBySuggestedId(String isoCode){
+
+        RESTClient geolocationKuorum = new RESTClient( kuorumRestServices)
+//        basecamp.auth.basic userName, password
+
+        def response = geolocationKuorum.get(
+                path: apiPath+GET_REGION,
+                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                query:[
+                        isoCode:isoCode
+                ]
+        )
+
+        Region.findByIso3166_2(response.data.iso3166)
+
+    }
+
+    public List<Region> suggestRegions(String prefixRegionName, AvailableLanguage language){
+        RESTClient geolocationKuorum = new RESTClient( kuorumRestServices)
+//        basecamp.auth.basic userName, password
+
+        def response = geolocationKuorum.get(
+                path: apiPath+SUGGEST_REGIONS_ENDPOINT,
+                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                query:[
+                        regionName:prefixRegionName,
+                        lang: language.getLocale().language
+                ]
+        )
+        List regions = response.data.collect{val ->
+            Region region = new Region(val);
+            region.iso3166_2=val.iso3166;
+            region
+        }
+        return regions;
     }
 }

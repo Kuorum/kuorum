@@ -151,10 +151,11 @@ class UrlMappings {
         name customRegisterAgeAndGender: "/registro/ageAndGender"(controller: "customRegister", action:"ageAndGender")
         name customRegisterTelephone: "/registro/telephone"(controller: "customRegister", action:"telephone")
 
-        name searcherSearch:      "/buscar"(controller: "search", action:"search")
-        name searcherSearchSeeMore:"/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
-        name searcherSearchFilters:"/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
-        name searcherSuggests:    "/ajax/buscar/sugerencias"(controller: "search", action:"suggest")
+        name searcherSearch:        "/buscar"(controller: "search", action:"search")
+        name searcherSearchSeeMore: "/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
+        name searcherSearchFilters: "/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
+        name searcherSuggests:      "/ajax/buscar/sugerencias"(controller: "search", action:"suggest")
+        name suggestRegions:        "/ajax/buscar/regiones/sugerencias"(controller: "search", action:"suggestRegions")
 
         name profileEditUser:     "/configuracion-usuario"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
         name profileEditCommissions:     "/configuracion-usuario/cambiar-areas-interes"                  (controller: "profile"){action =[GET:"editCommissions", POST:"editCommissionsSave"]}

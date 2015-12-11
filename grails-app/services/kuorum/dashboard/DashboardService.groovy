@@ -1,5 +1,7 @@
 package kuorum.dashboard
 
+import kuorum.Region
+import kuorum.RegionService
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.notifications.Notice
@@ -11,6 +13,8 @@ import groovy.time.*
 class DashboardService {
 
     MessageSource messageSource
+
+    RegionService regionService
 
     /**
      * Method to show notices if the user's data profile is incomplete
@@ -107,14 +111,16 @@ class DashboardService {
      * @param user The user who starts its session
      * @return Politicians who are in the same province as user
      */
-    private politiciansInProvince(KuorumUser user){
-        List<KuorumUser> kuorumUsers = KuorumUser.createCriteria().list(){
-            and{
-                eq("userType", UserType.POLITICIAN)
-                isNotNull("politicianOnRegion")
+    private boolean politiciansInProvince(KuorumUser user){
+        Region country = regionService.findCountry(user.personalData.province)
+        Region state = regionService.findState(user.personalData.province)
+        long numPoliticiansForUser = KuorumUser.createCriteria().count(){
+            or{
+                eq("professionalDetails.region.iso3166_2", country.iso3166_2)
+                eq("professionalDetails.region.iso3166_2", state.iso3166_2)
             }
         }
-        kuorumUsers.findAll{ user.personalData?.provinceCode?.startsWith(it.professionalDetails.region.iso3166_2) }
+        numPoliticiansForUser > 0
     }
 }
 

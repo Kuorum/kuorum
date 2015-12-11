@@ -86,7 +86,7 @@ class AdminUserController extends AdminController {
         }else{
             personalData = new PersonData()
             if (command.userType==UserType.POLITICIAN){
-                kuorumUserService.convertAsPolitician(user, command.politicianOnRegion, command.politicalParty)
+                kuorumUserService.convertAsPolitician(user, command.politicianOnRegion,command.constituency, command.politicalParty)
             }else{
                 kuorumUserService.convertAsNormalUser(user)
             }
@@ -96,9 +96,9 @@ class AdminUserController extends AdminController {
         }
         personalData.gender = command.gender
         personalData.postalCode = command.postalCode
-        personalData.provinceCode = command.province.iso3166_2
-        personalData.country = command.country
-        personalData.province = command.province
+        personalData.provinceCode = command.homeRegion.iso3166_2
+        personalData.country = regionService.findCountry(command.homeRegion)
+        personalData.province = command.homeRegion
         personalData.userType = command.userType
         user.personalData = personalData
         user.email = command.email
@@ -143,18 +143,18 @@ class AdminUserController extends AdminController {
             command.studies = user.personalData.studies
             command.workingSector= user.personalData.workingSector
         }
-        if (UserType.POLITICIAN.equals(user.userType)){
-            command.politicalParty = user.professionalDetails.politicalParty
-            command.politicianOnRegion = user.professionalDetails.region
-        }
-        command.year =  user.personalData?.birthday?user.personalData?.birthday[Calendar.YEAR]:null
-//        command.month = user.personalData?.birthday?user.personalData?.birthday[Calendar.MONTH] +1:null
-//        command.day =   user.personalData?.birthday?user.personalData?.birthday[Calendar.DAY_OF_MONTH]:null
 
+        if (UserType.POLITICIAN.equals(user.userType)){
+            command.politicalParty = user?.professionalDetails?.politicalParty?:"";
+            command.politicianOnRegion = user?.professionalDetails?.region?:null;
+            command.constituency = user?.professionalDetails?.constituency?:null;
+        }
+        command.year =  user.personalData?.year
         command.gender = user.personalData.gender
-        command.country = user.personalData.country
+//        command.country = user.personalData.country
         command.postalCode = user.personalData.postalCode
-        command.province = user.personalData.province
+        command.homeRegion = user.personalData.province
+//        command.province = user.personalData.province
         command.email = user.email
         command.alias = user.alias
         command.verified = user.verified

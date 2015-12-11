@@ -205,6 +205,33 @@ class FormTagLib {
         }
     }
 
+    def regionInput={attrs->
+
+        def command = attrs.command
+        def field = attrs.field
+        def id = attrs.id?:field
+        def fieldId = field +".id"//Same as EditUserProfileCommand.bindingRegion
+        String extraCss = attrs.extraCss?:""
+        def showLabel = attrs.showLabel?:false
+        Region regionValue = command."${field}"?:null
+        def value = regionValue?.iso3166_2?:''
+        def showedValue = regionValue?.name?:""
+
+        def label = message(code: "${command.class.name}.${field}.label")
+        def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
+
+        if (showLabel){
+            out << "<label for='${field}'>${label}</label>"
+        }
+        def error = hasErrors(bean: command, field: field, 'error')
+        def cssClass ="form-control input-lg";
+        out << "<input type='text' class='${extraCss} ${cssClass} input-region ${error?'error':''}' placeholder='${placeHolder}' name='${field}' value='${showedValue}' data-real-input-id='${fieldId}'>"
+        out << "<input type='hidden' class='' name='${fieldId}' value='${value}' id=${fieldId}>"
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+        }
+    }
+
     def url={attrs->
         def command = attrs.command
         def field = attrs.field

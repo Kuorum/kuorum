@@ -283,6 +283,13 @@ kuorum {
         secretKey = "XXXXX"
         bucketName = "kuorum.org"
     }
+    rest{
+        url = "http://api.kuorum.org"
+        apiPath = "/api"
+//        url = "http://localhost:8181"
+//        apiPath = "/kuorumRest/api"
+        apiKey = "XXXX"
+    }
 }
 
 //Added for date bindings

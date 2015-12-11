@@ -170,6 +170,6 @@ class DashboardServiceIntegrationSpec extends IntegrationSpec{
 
     def cleanupSpec(){
         salendaRegularUser.delete(flush: true)
-        politician.politicianOnRegion.iso3166_2 = Region.findByNameAndRegionType('España', RegionType.NATION).iso3166_2
+        politician.professionalDetails.region.iso3166_2 = Region.findByNameAndRegionType('España', RegionType.NATION).iso3166_2
     }
 }

@@ -502,24 +502,30 @@ $(document).ready(function() {
 	    }
 	});
 
-    function prepareFormUsingGender(gender){
-        if (gender == "ORGANIZATION"){
+    function prepareFormUsingGender(userType){
+        if (userType == "ORGANIZATION"){
             $(".userData").hide()
+            $(".politicianData").hide()
             $(".organizationData").show()
+        }else if (userType == "POLITICIAN"){
+            $(".userData").show()
+            $(".politicianData").show()
+            $(".organizationData").hide()
         }else{
             $(".userData").show()
+            $(".politicianData").hide()
             $(".organizationData").hide()
         }
 
     }
-    $("input[name=gender]").on("change", function(e){
+    $("input[name=userType]").on("change", function(e){
         prepareFormUsingGender($(this).val())
     })
 
-    if ($("input[name=gender]:checked").val() != undefined){
-        prepareFormUsingGender($("input[name=gender]:checked").val())
+    if ($("input[name=userType]:checked").val() != undefined){
+        prepareFormUsingGender($("input[name=userType]:checked").val())
     }else{
-        prepareFormUsingGender("MALE")
+        prepareFormUsingGender("PERSON")
     }
 
 	// para los checkbox del formulario de registro
@@ -837,6 +843,53 @@ $(document).ready(function() {
     }
     youtubeHelper.replaceNonExistImage();
 
+
+    $(".input-region").autocomplete({
+        paramName:"word",
+        params:{country:""},
+        serviceUrl:urls.suggestRegion,
+        minChars:3,
+        width:330,
+        noCache: false, //default is false, set to true to disable caching
+        onSearchStart: function (query) {
+            var realInputId = $(this).attr('data-real-input-id');
+            $("#"+realInputId).val("");
+        },
+        onSearchComplete: function (query, suggestions) {
+            $('.loadingSearch').hide()
+        },
+        formatResult:function (suggestion, currentValue) {
+            var format = ""
+            if (suggestion.type=="NATION"){
+                //AD ICONS DEPENDING ONT REGION TYPE || EXAMPLE COMMENTED
+//                format = "<img class='user-img' alt='"+suggestion.data.name+"' src='"+suggestion.data.urlAvatar+"'>"
+//                format +="<span class='name'>"+suggestion.data.name+"</span>"
+//                format +="<span class='user-type'>"+suggestion.data.role.i18n+"</span>"
+            }else{
+                format =  suggestion.value
+            }
+            return format
+        },
+        searchUserText:function(userText){
+            $(this).val(userText)
+        },
+        onSelect: function(suggestion){
+            if(suggestion.type=="NATION"){
+                console.log("NATION")
+            }
+            $(this).val(suggestion.data.name)
+            var realInputId = $(this).attr('data-real-input-id');
+            realInputId = realInputId.replace(".", "\\.")
+            $("#"+realInputId).val(suggestion.data.iso3166_2);
+            $("#"+realInputId).valid()
+        },
+        triggerSelectOnValidInput:false,
+        deferRequestBy: 100 //miliseconds
+    }).focusout(function(e){
+        var realInputId = $(this).attr('data-real-input-id');
+        realInputId = realInputId.replace(".", "\\.")
+        $("#"+realInputId).valid()
+    });
 });
 
 function counterCharacters(idField) {
