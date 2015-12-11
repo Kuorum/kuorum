@@ -284,7 +284,7 @@ kuorum {
         bucketName = "kuorum.org"
     }
     rest{
-        url = "http://api.kuorum.org"
+        url = "http://api.test.kuorum.org"
         apiPath = "/api"
 //        url = "http://localhost:8181"
 //        apiPath = "/kuorumRest/api"
