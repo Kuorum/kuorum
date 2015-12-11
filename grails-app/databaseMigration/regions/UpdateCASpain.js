@@ -1,7 +1,5 @@
 var dbDest = dbDest || connect("localhost:27017/Kuorum");
 
-var spain = dbDest.region.find({iso3166_2:"EU-ES"}).next()
-
 dbDest.region.update({postalCodes:null},{$set:{postalCodes:[]}},{multi:true})
 
 var updateRegionsData = [
@@ -19,16 +17,19 @@ function updateRegionsProcess(updateRegions){
         dbDest.region.update    ({iso3166_2:region.oldIso},
             {$set:{iso3166_2:region.newIso, name:region.name}})
         dbDest.kuorumUser.update({'personalData.provinceCode':region.oldIso},
-            {$set:{'personalData.provinceCode':region.newIso}})
+            {$set:{'personalData.provinceCode':region.newIso}},
+            {multi:true})
         dbDest.kuorumUser.update({'professionalDetails.region.iso3166_2':region.oldIso},
-            {$set:{'professionalDetails.region.iso3166_2':region.newIso, 'professionalDetails.region.name':region.name}})
+            {$set:{'professionalDetails.region.iso3166_2':region.newIso, 'professionalDetails.region.name':region.name}},
+            {multi:true})
         dbDest.kuorumUser.update({'professionalDetails.constituency.iso3166_2':region.oldIso},
-            {$set:{'professionalDetails.constituency.iso3166_2':region.newIso, 'professionalDetails.region.name':region.name}})
+            {$set:{'professionalDetails.constituency.iso3166_2':region.newIso, 'professionalDetails.constituency.name':region.name}},
+            {multi:true})
         dbDest.project.update({'region.iso3166_2':region.oldIso},
-            {$set:{'region.iso3166_2':region.newIso, 'region.name':region.name}})
+            {$set:{'region.iso3166_2':region.newIso, 'region.name':region.name}},
+            {multi:true})
 
         dbDest.region.find({iso3166_2:{$regex:"^"+region.oldIso+"-"}}).forEach(function(childRegion){
-            print(childRegion.iso3166_2.substr(region.oldIso.length));
             var newChildCode = region.newIso + childRegion.iso3166_2.substr(region.oldIso.length);
             childRegion.iso3166_2 = newChildCode;
             dbDest.region.save(childRegion);
@@ -38,39 +39,3 @@ function updateRegionsProcess(updateRegions){
 
 updateRegionsProcess(updateRegionsData);
 
-
-/// NEW COUNTRIES
-var germany = {
-    "iso3166_2" : "EU-DE",
-    "name" : "Germany",
-    "superRegion" : ObjectId("538f3467e4b0f5aaca4edca9"),
-    "postalCodes" : [ ],
-    "regionType" : "NATION",
-    "prefixPhone" : "+49",
-    "postalCodeHandlerType" : "STANDARD_FIVE_DIGITS"
-}
-
-dbDest.region.save(germany);
-
-var lithuania = {
-    "iso3166_2" : "EU-LT",
-    "name" : "Lithuania",
-    "superRegion" : ObjectId("538f3467e4b0f5aaca4edca9"),
-    "postalCodes" : [ ],
-    "regionType" : "NATION",
-    "prefixPhone" : "+370",
-    "postalCodeHandlerType" : "STANDARD_FIVE_DIGITS"
-}
-dbDest.region.save(lithuania);
-
-var italia = {
-    "iso3166_2" : "EU-IT",
-    "name" : "Italia",
-    "superRegion" : ObjectId("538f3467e4b0f5aaca4edca9"),
-    "postalCodes" : [ ],
-    "regionType" : "NATION",
-    "prefixPhone" : "+39",
-    "postalCodeHandlerType" : "STANDARD_FIVE_DIGITS"
-}
-
-dbDest.region.save(italia);
