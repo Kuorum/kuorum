@@ -168,6 +168,8 @@ class UrlMappings {
         name profileMessages:     "/configuracion-usuario/mensajes"         (controller: "profile", action: "userMessages")
         name profileDeleteAccount:"/configuracion-usuario/eliminar-cuenta"  (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
 
+        name profilePoliticianExtraInfo:"/configuracion-politico/extra-info"  (controller: "profile"){action=[GET:"editPoliticianDataPoliticianExtraInfo", POST:"updatePoliticianDataPoliticianExtraInfo"]}
+
         name toolsNotifications:  "/herramientas/notificaciones"   (controller: "tools", action: "userNotifications")
         name toolsFavorites:    "/herramientas/pendientes-de-leer"(controller: "tools", action: "showFavoritesPosts")
         name toolsMyPosts:      "/herramientas/mis-posts"        (controller: "tools", action: "showUserPosts")

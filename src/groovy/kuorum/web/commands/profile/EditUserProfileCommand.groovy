@@ -61,7 +61,7 @@ class EditUserProfileCommand{
         workingSector nullable: true
         studies nullable: true
         enterpriseSector nullable:true
-        bio nullable: true, maxSize: 270
+        bio nullable: true, maxSize: 1000
         year nullable:true
 
         telephone nullable:true

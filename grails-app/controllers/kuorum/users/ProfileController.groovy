@@ -12,6 +12,8 @@ import kuorum.core.model.search.SearchUserPosts
 import kuorum.files.FileService
 import kuorum.notifications.Notification
 import kuorum.post.Post
+import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
+import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
@@ -341,5 +343,29 @@ class ProfileController {
             flash.message=message(code:'profile.deleteAccount.oneChance.success')
             redirect(mapping: 'home')
         }
+    }
+
+    def editPoliticianDataPoliticianExtraInfo(){
+        KuorumUser user = params.user
+        PoliticianExtraInfo politicianExtraInfo = user.politicianExtraInfo?:new PoliticianExtraInfo()
+        [command:politicianExtraInfo, user:user]
+    }
+
+    def updatePoliticianDataPoliticianExtraInfo(PoliticianExtraInfo politicianExtraInfo){
+        KuorumUser user = params.user
+        if (politicianExtraInfo.hasErrors()){
+            render view: "editPoliticianDataProfessionalDetails", model:[command:politicianExtraInfo, user:user]
+        }
+        if (user.politicianExtraInfo){
+            politicianExtraInfo.properties.each { key, value ->
+                if (user.politicianExtraInfo.hasProperty(key) && !(key in ['class', 'metaClass']))
+                    user.politicianExtraInfo[key] = value
+            }
+        }else{
+            user.politicianExtraInfo = politicianExtraInfo
+            user.politicianExtraInfo.ipdbId = -1 // Ñapa
+        }
+        user.save()
+        redirect mapping:"profilePoliticianExtraInfo"
     }
 }
