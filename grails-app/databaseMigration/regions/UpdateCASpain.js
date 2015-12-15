@@ -6,7 +6,8 @@ var updateRegionsData = [
     {"oldIso":"EU-ES-MD", "newIso":"EU-ES-CO", "name":"Comunidad de Madrid"},
     {"oldIso":"EU-ES-CO-MD", "newIso":"EU-ES-CO-MA", "name":"Madrid"},
     {"oldIso":"EU-ES-CO-MA-MD", "newIso":"EU-ES-CO-MA-MA", "name":"Madrid"},
-    {"oldIso":"EU-ES-PV", "newIso":"EU-ES-PV", "name":"Pais Vasco"}
+    {"oldIso":"EU-ES-PV", "newIso":"EU-ES-PV", "name":"Pais Vasco"},
+    {"oldIso":"EU-UK", "newIso":"EU-GB", "name":"Great Britain"}
 ]
 
 function updateRegionsProcess(updateRegions){
