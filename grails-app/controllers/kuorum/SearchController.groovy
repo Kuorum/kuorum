@@ -7,6 +7,7 @@ import kuorum.core.model.search.SearchParams
 import kuorum.core.model.search.SuggestRegion
 import kuorum.core.model.solr.*
 import kuorum.web.constants.WebConstants
+import org.springframework.web.servlet.LocaleResolver
 
 class SearchController{
 
@@ -14,6 +15,7 @@ class SearchController{
     def indexSolrService
     RegionService regionService
 //    def messageSource
+    LocaleResolver localeResolver
 
     private messageEnumJson(def type){
         [
@@ -135,7 +137,8 @@ class SearchController{
     }
 
     def suggestRegions(SuggestRegion suggestRegion){
-        AvailableLanguage language = AvailableLanguage.fromLocaleParam(request.getLocale().language)
+        Locale locale = localeResolver.resolveLocale(request)
+        AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
         List<Region> regions = regionService.suggestRegions(suggestRegion.word, language)
         Map suggestions =[suggestions:regions.collect{[type:"SUGGESTION", value:it.name, data:it]}]
         render suggestions as JSON
