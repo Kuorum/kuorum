@@ -27,6 +27,12 @@ class PoliticianService {
     KuorumMailService kuorumMailService
     LinkGenerator grailsLinkGenerator
 
+    KuorumUser updatePoliticianExternalActivity(KuorumUser politician, List<ExternalPoliticianActivity> externalPoliticianActivities){
+        politician.externalPoliticianActivities = externalPoliticianActivities
+        sortExternalPoliticianActivity(politician)
+        politician.save()
+    }
+
     void asyncUploadPoliticianCSV(KuorumUser executorUser, InputStream data){
         byte[] buffer = new byte[data.available()];
         data.read(buffer)
@@ -120,6 +126,10 @@ class PoliticianService {
         politician.relevantEvents = relevantEvents
     }
 
+    private void sortExternalPoliticianActivity(KuorumUser politician){
+        politician.externalPoliticianActivities = politician.externalPoliticianActivities.sort{a,b-> b.date<=>a.date}
+    }
+
     private KuorumUser findOrRecoverPolitician(String email, String ipdbId){
         findOrRecoverPolitician(email, ipdbId?Long.parseLong(ipdbId):null)
     }
@@ -203,8 +213,7 @@ class PoliticianService {
                 externalPoliticianActivities << epa
             }
         }
-        externalPoliticianActivities.sort{a,b-> b.date<=>a.date}
-        politician.externalPoliticianActivities = externalPoliticianActivities
+        sortExternalPoliticianActivity(politician)
     }
 
     private void populateLeaning(KuorumUser politician, def line){

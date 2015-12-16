@@ -17,8 +17,8 @@
         <li class="${activeMapping=='profilePoliticianExtraInfo'?'active':''}">
             <g:link mapping="profilePoliticianExtraInfo"><g:message code="profile.menu.profilePoliticianExtraInfo"/></g:link>
         </li>
-        <li class="${activeMapping=='profilePoliticianKnownFor'?'active':''}">
-            <g:link mapping="profilePoliticianKnownFor"><g:message code="profile.menu.profilePoliticianKnownFor"/></g:link>
+        <li class="${activeMapping=='profilePoliticianExternalActivity'?'active':''}">
+            <g:link mapping="profilePoliticianExternalActivity"><g:message code="profile.menu.profilePoliticianExternalActivity"/></g:link>
         </li>
     </sec:ifAnyGranted>
     <li class="${activeMapping=='profileEditCommissions'?'active':''}">

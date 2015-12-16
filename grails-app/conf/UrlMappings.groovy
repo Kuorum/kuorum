@@ -169,7 +169,7 @@ class UrlMappings {
         name profileDeleteAccount:"/configuracion-usuario/eliminar-cuenta"  (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
 
         name profilePoliticianExtraInfo:"/configuracion-politico/extra-info"  (controller: "profile"){action=[GET:"editPoliticianDataPoliticianExtraInfo", POST:"updatePoliticianDataPoliticianExtraInfo"]}
-        name profilePoliticianKnownFor: "/configuracion-politico/known-for"  (controller: "politicianProfile"){action=[GET:"editKnownFor", POST:"updateKnownFor"]}
+        name profilePoliticianExternalActivity: "/configuracion-politico/external-activity"  (controller: "politicianProfile"){action=[GET:"editExternalActivity", POST:"updateExternalActivity"]}
 
         name toolsNotifications:  "/herramientas/notificaciones"   (controller: "tools", action: "userNotifications")
         name toolsFavorites:    "/herramientas/pendientes-de-leer"(controller: "tools", action: "showFavoritesPosts")

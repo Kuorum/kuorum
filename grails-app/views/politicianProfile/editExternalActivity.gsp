@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.profile.knownFor"/> </title>
+    <title><g:message code="page.title.profile.profilePoliticianExternalActivity"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="config" />
     <r:require modules="forms"/>
@@ -13,8 +13,8 @@
 
 <content tag="mainContent">
     <formUtil:validateForm form="knownForForm" bean="${command}"/>
-    <g:form method="POST" mapping="profilePoliticianKnownFor" name="knownForForm" role="form" class="box-ppal">
-
+    <g:form method="POST" mapping="profilePoliticianExternalActivity" name="knownForForm" role="form" class="box-ppal">
+        <input type="hidden" name="politicianId" value="${command.politicianId}"/>
         <formUtil:dynamicComplexInputs
             command="${command}"
             field="externalPoliticianActivities"
