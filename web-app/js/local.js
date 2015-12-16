@@ -716,5 +716,8 @@ $(document).ready(function() {
 });
 
 function stringStartsWith (string, prefix) {
+    if (string == undefined || string.length < prefix.length){
+        return false;
+    }
     return string.slice(0, prefix.length) == prefix;
 }

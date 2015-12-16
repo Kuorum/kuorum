@@ -31,6 +31,10 @@ modules = {
         resource url:'js/local.js'
     }
 
+    forms{
+        resource url:'js/jquery-plugin/duplicateFields.min.js'
+    }
+
     vimeo {
         resource url:'js/froogaloop2.min.js'
     }

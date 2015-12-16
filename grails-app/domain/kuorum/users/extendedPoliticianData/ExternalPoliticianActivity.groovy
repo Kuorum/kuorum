@@ -9,4 +9,11 @@ class ExternalPoliticianActivity {
     String link;
     String actionType;
     String outcomeType;
+    static constraints = {
+        date nullable:true
+        title nullable:false
+        actionType nullable: false
+        outcomeType nullable:true
+        link nullable:true
+    }
 }

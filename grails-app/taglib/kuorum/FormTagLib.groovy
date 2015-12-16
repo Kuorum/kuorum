@@ -108,8 +108,9 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
 
+        def prefixFieldName=attrs.prefixFieldName?:""
         def disabled=attrs.disabled?"disabled":""
-        def id = attrs.id?:field
+        def id = "${prefixFieldName}${attrs.id?:field}"
         def helpBlock = attrs.helpBlock?:''
         def type = attrs.type?:'text'
         def required = attrs.required?'required':''
@@ -133,10 +134,10 @@ class FormTagLib {
         }
 
         if (showLabel){
-            out << "<label for='${field}'>${label}</label>"
+            out << "<label for='${prefixFieldName}${field}'>${label}</label>"
         }
         out <<"""
-            <input type="${type}" name="${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled}>
+            <input type="${type}" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled}>
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
@@ -182,21 +183,77 @@ class FormTagLib {
         }
     }
 
+    def dynamicComplexInputs={attrs, body ->
+        def command = attrs.command
+        def field = attrs.field
+        def listClassName = attrs.listClassName
+        def formId = attrs.formId
+        def id = attrs.id?:field
+
+        List listCommands = command."${field}"
+
+
+        Integer idx = 0;
+        listCommands.each{
+            out <<"<div class='dynamic-fieldset'>"
+            out << body([listCommand:it, prefixField:"${field}[${idx}].", ])
+            out <<"</div>"
+            idx ++;
+        }
+        def obj= Class.forName(listClassName, true, Thread.currentThread().getContextClassLoader()).newInstance()
+
+        def fields = obj.properties.collect{prop,val -> if(!(prop in ["metaClass","class"])) return prop}.findAll{it}
+
+        def rulesAndMessages = generateRulesAndMessages(obj)
+        String validationDataVarName = "validationRules_${field}"
+        String validationDataVarIndex = "validationIndex_${field}"
+        out << render(
+                template: "/layouts/form/dynamicInputs/dynamicInputsJs",
+                model:[
+                        validationDataVarName:validationDataVarName,
+                        validationDataVarNameValue:"{${rulesAndMessages.rules}, ${rulesAndMessages.message}}",
+                        validationDataVarIndex:validationDataVarIndex,
+                        validationDataVarIndexValue: idx,
+                        templateId : "${id}-template",
+                        fields:fields,
+                        parentField:field,
+                        formId:formId
+                ])
+        out << "<div class='hide container-dynamic-fields' id='${id}-template'>"
+        out << body([listCommand:obj, prefixField:""])
+        out << "</div>"
+        out << """
+        <fieldset>
+            <div class="form-group">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+        </fieldset>
+        """
+    }
+
     def date={attrs ->
         def command = attrs.command
         def field = attrs.field
 
+        def prefixFieldName=attrs.prefixFieldName?:""
         def id = attrs.id?:field
         def required = attrs.required?'required':''
         def cssClass = attrs.cssClass?:'form-control input-lg'
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
+        def label = message(code: "${command.class.name}.${field}.label")
 
         def error = hasErrors(bean: command, field: field,'error')
         //TODO: ¿Internacionalizar el formato a mostrar de la fecha?
         def value = command."${field}"?command."${field}".format('dd/MM/yyyy'):''
+        if (showLabel){
+            out << "<label for='${prefixFieldName}${field}'>${label}</label>"
+        }
         out <<"""
             <div class="input-group date">
-                <input type="text" name="${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" required aria-required="${required}" value="${value}">
+                <input type="text" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" required aria-required="${required}" value="${value}">
                 <span class="input-group-addon"><a href="#" class="datepicker"><span class="fa fa-calendar fa-lg"></span></a></span>
             </div>
         """
@@ -237,15 +294,20 @@ class FormTagLib {
         def field = attrs.field
 
         def id = attrs.id?:field
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
+        def prefixFieldName=attrs.prefixFieldName?:""
         def cssClass = attrs.cssClass?:'form-control input-lg'
         def labelCssClass = attrs.labelCssClass?:''
         def label = message(code: "${command.class.name}.${field}.label")
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         def value = command."${field}"?:''
 
+        if (showLabel){
+            out << "<label for='${prefixFieldName}${field}'>${label}</label>"
+        }
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
-            <input name="videoPost" type="url" value="${value}" class="${cssClass} ${error?'error':''}" id="${id}" placeholder="${placeHolder}">
+            <input name="${prefixFieldName}${field}" type="url" value="${value}" class="${cssClass} ${error?'error':''}" id="${id}" placeholder="${placeHolder}">
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
@@ -653,9 +715,6 @@ class FormTagLib {
         }
 
 
-
-        def rules = new StringBuffer("rules: {")
-        def message = new StringBuffer(" messages: {")
         out << """
 		<script type="text/javascript">
 			\$(function (){
@@ -672,7 +731,18 @@ class FormTagLib {
                 },
                 errorElement:'span',
         """
+        def rulesAndMessages = generateRulesAndMessages(obj)
+        out <<
+                """ ${rulesAndMessages.rules} , ${rulesAndMessages.message}
+				});
+			});
+			</script>
+			"""
+    }
 
+    private Map generateRulesAndMessages(def obj){
+        def rules = new StringBuffer("rules: {")
+        def message = new StringBuffer(" messages: {")
         obj.constraints.each{fields ->
             String fieldName = fields.key.toString()
             ConstrainedProperty constraint = fields.value
@@ -697,12 +767,7 @@ class FormTagLib {
         message.deleteCharAt(message.length() - 1);
         rules.append("}")
         message.append("}")
-        out <<
-                """ ${rules} , ${message}
-				});
-			});
-			</script>
-			"""
+        return [rules:rules, message:message]
     }
 
     def telephoneWithPrefix = {attrs, body->

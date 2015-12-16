@@ -40,7 +40,7 @@ class ProfileController {
     }
     def afterInterceptor = [action: this.&prepareMenuData]
 
-    private prepareMenuData(model) {
+    protected prepareMenuData(model) {
         KuorumUser user = params.user
         model.menu = [
                 activeNotifications:Notification.countByKuorumUserAndIsAlertAndIsActive(user, true, true),

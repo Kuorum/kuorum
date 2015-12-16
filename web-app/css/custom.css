@@ -5004,3 +5004,8 @@ header .header-msg h6:hover{
     background: url('../images/loading@2x.gif') center center / 17px auto no-repeat transparent;
     color: transparent !important;
 }
+
+.dynamic-fieldset{
+    padding:10px;
+    border: 1px solid;
+}
