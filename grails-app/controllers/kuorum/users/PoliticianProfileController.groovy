@@ -1,7 +1,9 @@
 package kuorum.users
 
+import grails.plugin.springsecurity.annotation.Secured
 import kuorum.web.commands.profile.politician.ExternalPoliticianActivityCommand
 
+@Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
 class PoliticianProfileController extends ProfileController{
 
     def editKnownFor() {
