@@ -22,6 +22,7 @@
                         $('#${formId}').find('[name="${parentField}[' + ${validationDataVarIndex} + '].${field}"]').rules('add', ${validationDataVarName}.rules.${field})
                     }
                 </g:each>
+                prepareForms();
             })
 
         // Remove button click handler

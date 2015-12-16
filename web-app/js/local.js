@@ -592,17 +592,6 @@ $(document).ready(function() {
         });
     });
 
-    // datepicker calendario
-    if ( $('.input-group.date').length > 0 ) {
-
-        $('.input-group.date').datepicker({
-            language: "es",
-            autoclose: true,
-            todayHighlight: true
-        });
-
-    }
-
     //Tipo de imagen o youtube seleccionado
     $("form [data-fileType]").on("click", function(e){
         $(this).closest("form").find("input[name=fileType]").val($(this).attr("data-fileType"));
@@ -713,7 +702,22 @@ $(document).ready(function() {
         var func = 'playVideo';
         iframe.get(0).contentWindow.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
     });
+
+    prepareForms()
 });
+
+function prepareForms(){
+    // datepicker calendario
+    if ( $('.input-group.date').length > 0 ) {
+
+        $('.input-group.date').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+
+    }
+}
 
 function stringStartsWith (string, prefix) {
     if (string == undefined || string.length < prefix.length){

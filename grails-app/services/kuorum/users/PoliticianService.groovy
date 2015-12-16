@@ -28,7 +28,7 @@ class PoliticianService {
     LinkGenerator grailsLinkGenerator
 
     KuorumUser updatePoliticianExternalActivity(KuorumUser politician, List<ExternalPoliticianActivity> externalPoliticianActivities){
-        politician.externalPoliticianActivities = externalPoliticianActivities
+        politician.externalPoliticianActivities = externalPoliticianActivities.findAll{it && it.validate()}
         sortExternalPoliticianActivity(politician)
         politician.save()
     }
