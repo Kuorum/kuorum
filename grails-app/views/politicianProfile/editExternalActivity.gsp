@@ -12,14 +12,14 @@
 </content>
 
 <content tag="mainContent">
-    <formUtil:validateForm form="knownForForm" bean="${command}"/>
-    <g:form method="POST" mapping="profilePoliticianExternalActivity" name="knownForForm" role="form" class="box-ppal">
+    <formUtil:validateForm form="externalActivitiesForm" bean="${command}"/>
+    <g:form method="POST" mapping="profilePoliticianExternalActivity" name="externalActivitiesForm" role="form" class="box-ppal">
         <input type="hidden" name="politicianId" value="${command.politicianId}"/>
         <formUtil:dynamicComplexInputs
             command="${command}"
             field="externalPoliticianActivities"
             listClassName="kuorum.users.extendedPoliticianData.ExternalPoliticianActivity"
-            formId="knownForForm">
+            formId="externalActivitiesForm">
             <fieldset class="row">
                 <div class="form-group col-md-12">
                     <formUtil:input field="title" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>

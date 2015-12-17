@@ -1,6 +1,22 @@
 <script>
     var ${validationDataVarName} = ${raw(validationDataVarNameValue)};
     var ${validationDataVarIndex} = ${validationDataVarIndexValue}
+    $(function(){
+        <g:each in="${0..validationDataVarIndexValue-1}" var="i">
+            <g:each in="${fields}" var="field" >
+            // Update the name attributes
+            if ($('#${formId}').find('[name="${parentField}[${i}].${field}"]').length!= 0){
+                $('#${formId}').find('[name="${parentField}[${i}].${field}"]').attr('name', '${parentField}[${i}].${field}').end()
+                // Note that we also pass the validator rules for new field as the third parameter
+                var rule = ${validationDataVarName}.rules.${field};
+                rule.messages = ${validationDataVarName}.messages.${field};
+                console.log('[name="${parentField}[${i}].${field}"]');
+                console.log(rule);
+                $('#${formId}').find('[name="${parentField}[${i}].${field}"]').rules('add', rule)
+            }
+            </g:each>
+        </g:each>
+    })
 
     $('#${formId}')
         // Add button click handler
@@ -19,7 +35,11 @@
                     if ($clone.find('[name="${field}"]').length!= 0){
                         $clone.find('[name="${field}"]').attr('name', '${parentField}[' + ${validationDataVarIndex} + '].${field}').end()
                         // Note that we also pass the validator rules for new field as the third parameter
-                        $('#${formId}').find('[name="${parentField}[' + ${validationDataVarIndex} + '].${field}"]').rules('add', ${validationDataVarName}.rules.${field})
+                        var rule = ${validationDataVarName}.rules.${field};
+                        rule.messages = ${validationDataVarName}.messages.${field};
+                        console.log("----[name=\"${parentField}['" + ${validationDataVarIndex} + "'].${field}\"]");
+                        console.log(rule);
+                        $('#${formId}').find('[name="${parentField}[' + ${validationDataVarIndex} + '].${field}"]').rules('add', rule)
                     }
                 </g:each>
                 prepareForms();

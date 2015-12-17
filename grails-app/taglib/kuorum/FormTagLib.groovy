@@ -262,7 +262,7 @@ class FormTagLib {
         }
         out <<"""
             <div class="input-group date">
-                <input type="text" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" required aria-required="${required}" value="${value}">
+                <input type="text" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" aria-required="${required}" value="${value}">
                 <span class="input-group-addon"><a href="#" class="datepicker"><span class="fa fa-calendar fa-lg"></span></a></span>
             </div>
         """
@@ -315,8 +315,9 @@ class FormTagLib {
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
         }
         def error = hasErrors(bean: command, field: field,'error')
+        def stringError = message(code: "${command.class.name}.${field}.wrongFormat") //It is for fix a problem on dynamic list inputs
         out <<"""
-            <input name="${prefixFieldName}${field}" type="url" value="${value}" class="${cssClass} ${error?'error':''}" id="${id}" placeholder="${placeHolder}">
+            <input name="${prefixFieldName}${field}" type="url" data-msg-url="${stringError}" value="${value}" class="${cssClass} ${error?'error':''}" id="${id}" placeholder="${placeHolder}">
         """
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
