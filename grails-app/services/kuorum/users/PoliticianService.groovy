@@ -33,6 +33,11 @@ class PoliticianService {
         politician.save()
     }
 
+    KuorumUser updatePoliticianRelevantEvents(KuorumUser politician, List<PoliticianRelevantEvent> relevantEvents){
+        politician.relevantEvents = relevantEvents.findAll{it && it.validate()}
+        politician.save()
+    }
+
     void asyncUploadPoliticianCSV(KuorumUser executorUser, InputStream data){
         byte[] buffer = new byte[data.available()];
         data.read(buffer)

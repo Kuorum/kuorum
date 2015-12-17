@@ -14,6 +14,6 @@ class ExternalPoliticianActivity {
         title nullable:false
         actionType nullable: true
         outcomeType nullable:true
-        link nullable:true
+        link nullable:true, url: true
     }
 }

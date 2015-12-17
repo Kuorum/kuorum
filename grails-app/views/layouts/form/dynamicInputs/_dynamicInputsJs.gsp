@@ -27,9 +27,9 @@
 
         // Remove button click handler
             .on('click', '.removeButton', function() {
-                var $row  = $(this).parents('.dynamic-fieldset'),
-                        index = $row.attr('data-dynamic-list-index');
-
+                var $row  = $(this).parents('.dynamic-fieldset');
+                var index = $row.attr('data-dynamic-list-index');
+                console.log($row)
                 // Remove fields
                 // Remove fields
                 <g:each in="${fields}" var="field">

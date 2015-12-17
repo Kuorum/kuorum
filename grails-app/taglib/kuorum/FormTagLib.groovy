@@ -192,17 +192,25 @@ class FormTagLib {
 
         List listCommands = command."${field}"
 
+        String removeButton = """
+            <fieldset class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
+                </div>
+            </fieldset>
+"""
 
         Integer idx = 0;
         listCommands.each{
-            out <<"<div class='dynamic-fieldset'>"
+            out <<"<div class='dynamic-fieldset' data-dynamic-list-index='${idx}' >"
             out << body([listCommand:it, prefixField:"${field}[${idx}].", ])
+            out << removeButton
             out <<"</div>"
             idx ++;
         }
         def obj= Class.forName(listClassName, true, Thread.currentThread().getContextClassLoader()).newInstance()
 
-        def fields = obj.properties.collect{prop,val -> if(!(prop in ["metaClass","class"])) return prop}.findAll{it}
+        def fields = obj.properties.collect{prop,val -> if(!(prop in ["metaClass","class", "dbo"])) return prop}.findAll{it}
 
         def rulesAndMessages = generateRulesAndMessages(obj)
         String validationDataVarName = "validationRules_${field}"
@@ -219,8 +227,9 @@ class FormTagLib {
                         parentField:field,
                         formId:formId
                 ])
-        out << "<div class='hide container-dynamic-fields' id='${id}-template'>"
+        out << "<div class='hide dynamic-fieldset' id='${id}-template'>"
         out << body([listCommand:obj, prefixField:""])
+        out << removeButton
         out << "</div>"
         out << """
         <fieldset>

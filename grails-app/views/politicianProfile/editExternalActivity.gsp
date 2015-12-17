@@ -39,11 +39,6 @@
                     <formUtil:input field="outcomeType" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
                 </div>
             </fieldset>
-            <fieldset class="row">
-                <div class="col-md-12 text-right">
-                    <button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
-                </div>
-            </fieldset>
         </formUtil:dynamicComplexInputs>
 
 
