@@ -12,14 +12,11 @@ class PoliticianProfileController extends ProfileController{
     def editExternalActivity() {
         KuorumUser user = params.user
 
-        [command:new ExternalPoliticianActivityCommand(politicianId:user.id, externalPoliticianActivities: user.externalPoliticianActivities)]
+        [command:new ExternalPoliticianActivityCommand(politician:user, externalPoliticianActivities: user.externalPoliticianActivities)]
     }
 
     def updateExternalActivity(ExternalPoliticianActivityCommand command){
         KuorumUser user = params.user
-        if (request.isUserInRole("ROLE_ADMIN")){
-            user  = KuorumUser.get(command.politicianId)
-        }
         if (command.hasErrors() || !user ){
             render view:"editExternalActivity", model:[command:command]
             return;
@@ -36,9 +33,6 @@ class PoliticianProfileController extends ProfileController{
 
     def updateRelevantEvents(RelevantEventsCommand command){
         KuorumUser user = params.user
-        if (request.isUserInRole("ROLE_ADMIN")){
-            user  = KuorumUser.get(command.politicianId)
-        }
         if (command.hasErrors() || !user ){
             render view:"editRelevantEvents", model:[command:command]
             return;

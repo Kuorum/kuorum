@@ -32,9 +32,13 @@ class ProfileController {
     def kuorumMailService
 
     def beforeInterceptor ={
-        if (springSecurityService.isLoggedIn()){
-            //Este if es para la confirmacion del email
-            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if (springSecurityService.isLoggedIn()){//Este if es para la confirmacion del email
+            KuorumUser user
+            if (params.userId){
+                user = KuorumUser.get(params.userId)
+            }else{
+                user = KuorumUser.get(springSecurityService.principal.id)
+            }
             params.user = user
         }
     }

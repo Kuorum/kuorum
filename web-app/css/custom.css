@@ -3464,12 +3464,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     margin: 6px 1px 8px 6px !important;
 }
 
-#switchUserLink{
-    cursor: pointer;
-    color: #a8a8a8;
-    font-size:11px;
-    font-style: italic;
-}
 
 /* media queries =========== */
 /* ====================================================== */
@@ -5009,3 +5003,11 @@ header .header-msg h6:hover{
     padding:10px;
     border: 1px solid;
 }
+
+.config .admin-user-options{ padding-left:10px; font-size:1rem;    border-bottom: 1px solid #ccc; padding-bottom: 10px;}
+.config .admin-user-options label{ padding: 0 0 0 10px; margin:0px}
+.config .admin-user-options > ul{margin: -10px 0 0 25px}
+.config .admin-user-options > ul > li{padding:0px;border:none;font-size:1rem;height: 1.2rem;}
+.config .admin-user-options > ul > li a{padding:0px;}
+.config .admin-user-options > ul > li #switchUserLink{ font-style: italic; }
+

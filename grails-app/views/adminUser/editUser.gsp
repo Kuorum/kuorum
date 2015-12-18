@@ -9,7 +9,8 @@
     <h1>
         <g:message code="admin.editUser.title" args="[user.name]"/>,
     </h1>
-    <p><g:render template="switchUser" model="[user:user]"/></p>
+    <g:render template="adminUserMenu" model="[user:user]"/>
+
     %{--<p><g:message code="profile.changeEmail.description"/></p>--}%
     <g:render template="/admin/adminMenu" model="[activeMapping:'', menu:menu]"/>
 </content>
