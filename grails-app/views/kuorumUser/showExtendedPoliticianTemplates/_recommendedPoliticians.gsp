@@ -2,7 +2,7 @@
     <section role="complementary" class="row main" id="suggested-politicians">
         <div class="container-fluid">
             <h2 class="underline"><g:message code="home.politicians.title"/></h2>
-            <div class="row limit-height-recommendedUsers">
+            <div class="row limit-height" data-collapsedHeight="450">
                 <ul class="politician-list">
                     <g:each in="${recommendPoliticians}" var="politician">
                         <li class="col-xs-12 col-sm-4 col-md-4">

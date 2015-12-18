@@ -765,37 +765,25 @@ $(document).ready(function() {
         });
     });
 
-    // HIDE SECTIONS
-    $('.limit-height-bio').readmore({
-        speed: 100,
-        collapsedHeight: 50,
-        heightMargin: 16,
-        moreLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a></div>',
-        lessLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a></div>',
-        embedCSS: true,
-        blockCSS: 'display: block; width: auto;',
-        startOpen: false,
-
+    function preapreReadMore(){
+        $('.limit-height').each(function (idx){
+            var collapsedHeight = parseInt($(this).attr("data-collapsedHeight"));
+            $(this).readmore({
+                speed: 100,
+                collapsedHeight: parseInt($(this).attr("data-collapsedHeight")),
+                heightMargin: 16,
+                moreLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a></div>',
+                lessLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a></div>',
+                embedCSS: true,
+                blockCSS: 'display: block; width: auto;',
+                startOpen: false,
 // callbacks
-        beforeToggle: function(){},
-        afterToggle: function(){}
-    });
-
-    // HIDE SECTIONS
-    $('.limit-height-recommendedUsers').readmore({
-        speed: 500,
-        collapsedHeight: 450,
-        heightMargin: 16,
-        moreLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a></div>',
-        lessLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a></div>',
-        embedCSS: true,
-        blockCSS: 'display: block; width: auto;',
-        startOpen: false,
-
-// callbacks
-        beforeToggle: function(){},
-        afterToggle: function(){}
-    });
+                beforeToggle: function(){},
+                afterToggle: function(){}
+            });
+        })
+    }
+    preapreReadMore();
 
     // load more
     $("a.loadMore").on("click", function(e){loadMore(e, this)})
