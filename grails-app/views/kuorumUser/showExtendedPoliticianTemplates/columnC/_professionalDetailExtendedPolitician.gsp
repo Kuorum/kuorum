@@ -48,10 +48,10 @@
                             <td><a class="ellipsis" href="${politician?.professionalDetails?.cvLink}" target="_blank">cv.pdf</a></td>
                         </tr>
                     </g:if>
-                    <g:if test="${politician?.professionalDetails?.cvLink}">
+                    <g:if test="${politician?.professionalDetails?.declarationLink}">
                         <tr>
                             <th scope="row"><g:message code="politician.professionalDetails.data.declaration"/></th>
-                            <td><a class="ellipsis"href="${politician?.professionalDetails?.declarationLink}" target="_blank">declaration.pdf</a></td>
+                            <td><a class="ellipsis" href="${politician?.professionalDetails?.declarationLink}" target="_blank">declaration.pdf</a></td>
                         </tr>
                     </g:if>
                     </tbody>
