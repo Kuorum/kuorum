@@ -1,6 +1,7 @@
 package kuorum.web.commands.profile.politician
 
 import grails.validation.Validateable
+import kuorum.users.KuorumUser
 import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
 
 /**
@@ -8,10 +9,10 @@ import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
  */
 @Validateable
 class RelevantEventsCommand {
-    String politicianId
+    KuorumUser politician
     List<PoliticianRelevantEvent> politicianRelevantEvents
     static constraints = {
-        politicianId nullable: false;
+        politician nullable: false;
 
     }
 }

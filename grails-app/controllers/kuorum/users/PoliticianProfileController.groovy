@@ -28,7 +28,7 @@ class PoliticianProfileController extends ProfileController{
 
     def editRelevantEvents(){
         KuorumUser user = params.user
-        [command:new RelevantEventsCommand(politicianId:user.id, politicianRelevantEvents: user.relevantEvents)]
+        [command:new RelevantEventsCommand(politician:user, politicianRelevantEvents: user.relevantEvents)]
     }
 
     def updateRelevantEvents(RelevantEventsCommand command){

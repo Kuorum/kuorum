@@ -25,4 +25,19 @@ class AdminPoliticianController extends AdminController{
         redirect mapping:'adminEditPoliticianExternalActivity', params: command.politician.encodeAsLinkProperties()
     }
 
+    def editRelevantEvents(){
+        KuorumUser politician = KuorumUser.get(params.id)
+        [command:new RelevantEventsCommand(politician:politician, politicianRelevantEvents: politician.relevantEvents)]
+    }
+
+    def updateRelevantEvents(RelevantEventsCommand command){
+        if (command.hasErrors()){
+            render view:"editRelevantEvents", model:[command:command]
+            return;
+        }
+        politicianService.updatePoliticianRelevantEvents(command.politician, command.politicianRelevantEvents)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'adminEditPoliticianRelevantEvents', params: command.politician.encodeAsLinkProperties()
+    }
+
 }
