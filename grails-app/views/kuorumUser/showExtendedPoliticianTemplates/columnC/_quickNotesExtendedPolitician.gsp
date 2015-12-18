@@ -12,38 +12,27 @@
             </tr>
             </thead>
             <tbody>
-            <g:if test="${politician?.politicianExtraInfo?.completeName}">
-                <tr>
-                    <th scope="row"><g:message code="politician.quickNotes.data.background.completeName"/></th>
-                    <td>${politician?.politicianExtraInfo?.completeName?:"N/A"}</td>
-                </tr>
-            </g:if>
-            <g:if test="${politician?.politicianExtraInfo?.birthDate}">
-                <tr>
-                    <th scope="row"><g:message code="politician.quickNotes.data.background.age"/></th>
-                    <td>${new Date()[Calendar.YEAR]-politician.politicianExtraInfo.birthDate[Calendar.YEAR]}</td>
-                </tr>
-            </g:if>
-            <g:if test="${politician?.politicianExtraInfo?.birthDate}">
-                <tr>
-                    <th scope="row"><g:message code="politician.quickNotes.data.background.dateOfBirth"/></th>
-                    <td>
-                        <g:formatDate date="${politician.politicianExtraInfo.birthDate}" format="yyyy"/>
-                    </td>
-                </tr>
-            </g:if>
-            <g:if test="${politician?.politicianExtraInfo?.birthPlace}">
-                <tr>
-                    <th scope="row"><g:message code="politician.quickNotes.data.background.placeOfBirth"/></th>
-                    <td>${politician?.politicianExtraInfo?.birthPlace}</td>
-                </tr>
-            </g:if>
-            <g:if test="${politician?.politicianExtraInfo?.family}">
-                <tr>
-                    <th scope="row"><g:message code="politician.quickNotes.data.background.family"/></th>
-                    <td>${politician?.politicianExtraInfo?.family}</td>
-                </tr>
-            </g:if>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.quickNotes.data.background.completeName'),
+                        text:politician?.politicianExtraInfo?.completeName
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.quickNotes.data.background.age'),
+                        text:(politician?.politicianExtraInfo?.birthDate?new Date()[Calendar.YEAR]-politician.politicianExtraInfo.birthDate[Calendar.YEAR]:'')
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.quickNotes.data.background.dateOfBirth'),
+                        text:(politician?.politicianExtraInfo?.birthDate?g.formatDate(format: 'yyyy', date: politician.politicianExtraInfo.birthDate):'')
+                ]"/>
+
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.quickNotes.data.background.placeOfBirth'),
+                        text:politician?.politicianExtraInfo?.birthPlace
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.quickNotes.data.background.family'),
+                        text:politician?.politicianExtraInfo?.family
+                ]"/>
             </tbody>
             <tfoot>
             <g:if test="${politician?.professionalDetails?.sourceWebsite}">
