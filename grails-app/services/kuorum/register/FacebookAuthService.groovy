@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.social.facebook.api.Facebook
 import org.springframework.social.facebook.api.FacebookProfile
 import org.springframework.social.facebook.api.impl.FacebookTemplate
+import springSecurity.KuorumRegisterCommand
 
 class FacebookAuthService {
 
@@ -19,6 +20,7 @@ class FacebookAuthService {
 
     def mongoUserDetailsService
     def kuorumMailService
+    RegisterService registerService
 
     private static final PROVIDER = "Facebook"
     /**
@@ -45,12 +47,12 @@ class FacebookAuthService {
 
 //        def hometown = fbProfile.hometown
 
-
-        KuorumUser user = KuorumUser.findByEmail(fbProfile.email)?:new KuorumUser(
+        KuorumRegisterCommand registerCommand = new KuorumRegisterCommand(
+                email:fbProfile.email,
                 name: fbProfile.name,
-                email: fbProfile.email,
                 password: "*facebook*${Math.random()}"
         )
+        KuorumUser user = KuorumUser.findByEmail(fbProfile.email)?:registerService.createUser(registerCommand)
         user.accountExpired = false
         user.accountLocked = false
         user.enabled = true
