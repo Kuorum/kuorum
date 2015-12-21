@@ -1,5 +1,5 @@
 <g:set var="leaningIndex" value="${politician?.politicianLeaning?.liberalIndex?:50}"/>
-<section class="panel panel-default">
+<section class="panel panel-default" id="right-panel-politicalLeaningIndex">
     <div class="panel-heading">
         <h3 class="panel-title"><g:message code="politician.leaningIndex.title"/> </h3>
     </div>
@@ -19,7 +19,7 @@
             <span class="pull-right"><g:message code="politician.leaningIndex.right"/></span>
         </div>
         <div class="text-right">
-            <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" data-original-title="" title="">
+            <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" data-original-title="" title="" id="seeMore-politicalLeaningIndex">
                 <g:message code="politician.leaningIndex.link"/>
             </a>
             <div class="popover">
