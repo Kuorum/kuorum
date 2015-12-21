@@ -12,6 +12,7 @@ import kuorum.core.model.UserType
 import kuorum.users.*
 import kuorum.util.LookUpEnumUtil
 import org.springframework.security.core.userdetails.UserDetails
+import springSecurity.KuorumRegisterCommand
 
 @Transactional
 class GoogleOAuthService implements IOAuthService{
@@ -19,6 +20,7 @@ class GoogleOAuthService implements IOAuthService{
     def oauthService
     def mongoUserDetailsService
     def kuorumMailService
+    RegisterService registerService
 
     private static final String GOOLE_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v1/userinfo'
     private static final String PROVIDER = 'Google+'
@@ -60,17 +62,16 @@ class GoogleOAuthService implements IOAuthService{
     }
 
     private KuorumUser createUser(def googleUser){
-        KuorumUser user = new KuorumUser(
+        KuorumRegisterCommand registerCommand = new KuorumRegisterCommand(
+                email:googleUser.email,
                 name: googleUser.name,
-
-//                username:fbProfile.username,
-                email: googleUser.email,
-                password: "*google*${Math.random()}",
-                accountExpired: false,
-                enabled:true
+                password: "*google*${Math.random()}"
         )
+        KuorumUser user = registerService.createUser(registerCommand)
+        user.accountExpired = false;
+        user.enabled = true;
 
-        if (user.userType == UserType.PERSON){
+//        if (user.userType == UserType.PERSON){
             PersonData personData = new PersonData()
 
             personData.gender = overwriteFieldIfNotFilled(
@@ -81,7 +82,7 @@ class GoogleOAuthService implements IOAuthService{
 //            personData.studies = (user.personalData.hasProperty("studies") && user.personalData.studies)?user.personalData.studies:studies
 
             user.personalData = personData
-        }
+//        }
 
 
         RoleUser roleUser = RoleUser.findByAuthority('ROLE_USER')
@@ -94,7 +95,7 @@ class GoogleOAuthService implements IOAuthService{
         if (user.save()){
             return user
         }else{
-            log.error("El usuario ${user} se ha logado usando faceboook y no se ha podido crear debido a estos errores: ${user.errors}" )
+            log.error("El usuario ${user} se ha logado usando google y no se ha podido crear debido a estos errores: ${user.errors}" )
         }
     }
 
