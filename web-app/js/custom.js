@@ -768,19 +768,21 @@ $(document).ready(function() {
     function preapreReadMore(){
         $('.limit-height').each(function (idx){
             var collapsedHeight = parseInt($(this).attr("data-collapsedHeight"));
-            $(this).readmore({
-                speed: 100,
-                collapsedHeight: parseInt($(this).attr("data-collapsedHeight")),
-                heightMargin: 16,
-                moreLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a></div>',
-                lessLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a></div>',
-                embedCSS: true,
-                blockCSS: 'display: block; width: auto;',
-                startOpen: false,
-// callbacks
-                beforeToggle: function(){},
-                afterToggle: function(){}
-            });
+            if ($(this).height() > collapsedHeight){
+                $(this).readmore({
+                    speed: 100,
+                    collapsedHeight: collapsedHeight,
+                    heightMargin: 16,
+                    moreLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.more+'</a></div>',
+                    lessLink: '<div class="center-button"><a href="#" class="btn btn-xs btn-blue">'+i18n.read.less+'</a></div>',
+                    embedCSS: true,
+                    blockCSS: 'display: block; width: auto;',
+                    startOpen: false,
+    // callbacks
+                    beforeToggle: function(){},
+                    afterToggle: function(){}
+                });
+            }
         })
     }
     preapreReadMore();

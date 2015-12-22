@@ -5,107 +5,58 @@
         </h3>
     </div>
     <div class="panel-body text-center">
-        <table class="table table-condensed">
-            <thead>
-            <tr>
-                <th><g:message code="politician.quickNotes.data.background.title"/></th>
-            </tr>
-            </thead>
-            <tbody>
-                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
-                        message:g.message(code:'politician.quickNotes.data.background.completeName'),
-                        text:politician?.politicianExtraInfo?.completeName
-                ]"/>
-                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
-                        message:g.message(code:'politician.quickNotes.data.background.age'),
-                        text:(politician?.politicianExtraInfo?.birthDate?new Date()[Calendar.YEAR]-politician.politicianExtraInfo.birthDate[Calendar.YEAR]:'')
-                ]"/>
-                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
-                        message:g.message(code:'politician.quickNotes.data.background.dateOfBirth'),
-                        text:(politician?.politicianExtraInfo?.birthDate?g.formatDate(format: 'yyyy', date: politician.politicianExtraInfo.birthDate):'')
-                ]"/>
-
-                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
-                        message:g.message(code:'politician.quickNotes.data.background.placeOfBirth'),
-                        text:politician?.politicianExtraInfo?.birthPlace
-                ]"/>
-                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
-                        message:g.message(code:'politician.quickNotes.data.background.family'),
-                        text:politician?.politicianExtraInfo?.family
-                ]"/>
-            </tbody>
-            <tfoot>
-            <g:if test="${politician?.professionalDetails?.sourceWebsite}">
-                <tr>
-                    <td colspan="2"class="text-center">
-                        <a href="${politician.professionalDetails.sourceWebsite}" class="btn btn-xs btn-blue" target="_blank">
-                            <g:message code="politician.quickNotes.readMore"/>
-                        </a>
-                    </td>
-                </tr>
-            </g:if>
-            </tfoot>
-        </table>
+        <div class="table table-condensed limit-height" data-collapsedHeight="95">
+            <div class="thead"><g:message code="politician.quickNotes.data.background.title"/></div>
+            <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                    message:g.message(code:'politician.quickNotes.data.background.completeName'),
+                    text:politician?.politicianExtraInfo?.completeName
+            ]"/>
+            <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                    message:g.message(code:'politician.quickNotes.data.background.age'),
+                    text:(politician?.politicianExtraInfo?.birthDate?new Date()[Calendar.YEAR]-politician.politicianExtraInfo.birthDate[Calendar.YEAR]:'')
+            ]"/>
+            <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                    message:g.message(code:'politician.quickNotes.data.background.placeOfBirth'),
+                    text:politician?.politicianExtraInfo?.birthPlace
+            ]"/>
+            <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                    message:g.message(code:'politician.quickNotes.data.background.dateOfBirth'),
+                    text:(politician?.politicianExtraInfo?.birthDate?g.formatDate(format: 'yyyy', date: politician.politicianExtraInfo.birthDate):'')
+            ]"/>
+            <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                    message:g.message(code:'politician.quickNotes.data.background.family'),
+                    text:politician?.politicianExtraInfo?.family
+            ]"/>
+        </div>
         <g:if test="${['university', 'school', 'studies', 'profession', 'declarationLink', 'sourceWebsite'].find{politician?.politicianExtraInfo?."${it}"}}">
-            <hr/>
-            <table class="table table-condensed">
-                <thead>
-                <tr>
-                    <th><g:message code="politician.quickNotes.data.education.title"/></th>
-                </tr>
-                </thead>
-                <tbody>
-                <g:if test="${politician?.politicianExtraInfo?.university}">
-                    <tr>
-                        <th scope="row"><g:message code="politician.quickNotes.data.education.university"/></th>
-                        <td>${politician?.politicianExtraInfo?.university}</td>
-                    </tr>
-                </g:if>
-                <g:if test="${politician?.politicianExtraInfo?.school}">
-                    <tr>
-                        <th scope="row"><g:message code="politician.quickNotes.data.education.school"/></th>
-                        <td>${politician?.politicianExtraInfo?.school}</td>
-                    </tr>
-                </g:if>
-                <g:if test="${politician?.politicianExtraInfo?.studies}">
-                    <tr>
-                        <th scope="row"><g:message code="politician.quickNotes.data.education.studies"/></th>
-                        <td>${politician?.politicianExtraInfo?.studies}</td>
-                    </tr>
-                </g:if>
-                </tbody>
-                <tfoot>
-                <g:if test="${politician?.professionalDetails?.sourceWebsite}">
-                    <tr>
-                        <td colspan="2"class="text-center">
-                            <a href="${politician.professionalDetails.sourceWebsite}" class="btn btn-xs btn-blue"target="_blank">
-                                <g:message code="politician.quickNotes.readMore"/>
-                            </a>
-                        </td>
-                    </tr>
-                </g:if>
-                </tfoot>
-            </table>
+            <div class="table table-condensed limit-height" data-collapsedHeight="105">
+                <div class="thead"><g:message code="politician.quickNotes.data.education.title"/></div>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.quickNotes.data.education.university'),
+                        text:politician?.politicianExtraInfo?.university
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.quickNotes.data.education.school'),
+                        text:politician?.politicianExtraInfo?.school
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.quickNotes.data.education.studies'),
+                        text:politician?.politicianExtraInfo?.studies?:''
+                ]"/>
+            </div>
         </g:if>
-        <g:if test="${['webSite'].find{politician?.politicianExtraInfo?."${it}"}}">
-            <hr/>
-            <table class="table table-condensed">
-                <thead>
-                <tr>
-                    <th><g:message code="politician.quickNotes.data.moreInfo.title"/></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row"><g:message code="politician.quickNotes.data.moreInfo.webSite"/></th>
-                    <td>
-                        <g:if test="${politician?.politicianExtraInfo?.webSite}">
-                            <a class="ellipsis" href="${politician?.politicianExtraInfo?.webSite}" target="_blank"> ${politician?.politicianExtraInfo?.webSite} </a>
-                        </g:if>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <g:if test="${['webSite'].find{politician?.politicianExtraInfo?."${it}"} || ['sourceWebsite'].find{politician?.professionalDetails?."${it}"}}">
+            <div class="table table-condensed limit-height" data-collapsedHeight="95">
+                <div class="thead"><g:message code="politician.quickNotes.data.moreInfo.title"/></div>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.quickNotes.data.moreInfo.webSite'),
+                        link:politician?.politicianExtraInfo?.webSite
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.quickNotes.readMore'),
+                        link:politician?.professionalDetails?.sourceWebsite
+                ]"/>
+            </div>
         </g:if>
         <g:if test="${['twitter', 'facebook', 'googlePlus', 'linkedIn', 'blog', 'instagram', 'youtube'].find{politician?.socialLinks?."${it}"}}">
             <hr/>

@@ -4485,31 +4485,42 @@ p.party{
     table-layout: fixed;
     width: 100%;
 }
-.panel-default .table-condensed th, .panel-default .table-condensed td{
+.panel-default .table-condensed .th, .panel-default .table-condensed .td{
     border:none;
     text-align: left;
 }
-.panel-default .table-condensed td.text-center{
+.panel-default .table-condensed .td.text-center{
     text-align: center;
 }
-.panel-default .table-condensed th {
+.panel-default .table-condensed .th {
     width: 35%;
     font-size: 13px;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    float:left;
+    font-weight: bold;
 }
-.panel-default .table-condensed td{
+.panel-default .table-condensed .td{
     width: 65%;
     font-size: 14px;
+    margin-left: 35%;
 }
-.panel-default .table-condensed thead th {
+.panel-default .table-condensed .thead {
     text-transform: uppercase;
     color: #999;
     font-weight: 500;
+    text-align:left;
+    font-size: 13px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.panel-default .center-button + .table-condensed, .panel-default .table-condensed + .table-condensed{
+    border-top: 1px solid #CCCCCC;
+    margin-top: 14px;
+    padding-top: 10px;
 }
 .panel-default .table-condensed .text-right {
     text-align: right;
 }
-.panel-body > table + hr {
+.panel-body > .table + hr {
     margin-left: -15px;
     width: 110%;
 }
@@ -4533,17 +4544,17 @@ hr{
 .panel-table{
     margin: 0;
 }
-.panel-table td{
+.panel-table .td{
     font-weight: normal;
     font-size: 14px;
 }
-.panel-table thead th{
+.panel-table .thead .th{
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-.panel-table > thead > tr > th{
+.panel-table > .thead > .tr > .th{
     border-width: 1px;
 }
-.panel-table > tbody > tr > td{
+.panel-table > .tbody > .tr > .td{
     padding-top: 20px;
     padding-bottom: 20px;
 }
@@ -5010,4 +5021,5 @@ header .header-msg h6:hover{
 .config .admin-user-options > ul > li{padding:0px;border:none;font-size:1rem;height: 1.2rem;}
 .config .admin-user-options > ul > li a{padding:0px;}
 .config .admin-user-options > ul > li #switchUserLink{ font-style: italic; }
+
 

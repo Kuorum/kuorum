@@ -96,7 +96,7 @@
                 </g:if>
                 <h4><g:message code="politician.bio"/></h4>
                 <p class="limit-height" data-collapsedHeight="50">${politician.bio}</p>
-                </div><!--/.extra-padding -->
+            </div><!--/.extra-padding -->
         </div><!--/.panel-body-->
     </div><!--/.panel panel-default -->
 
