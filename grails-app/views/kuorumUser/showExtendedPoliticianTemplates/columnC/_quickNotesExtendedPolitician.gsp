@@ -28,25 +28,58 @@
                     text:politician?.politicianExtraInfo?.family
             ]"/>
         </div>
-        <g:if test="${['university', 'school', 'studies', 'profession', 'declarationLink', 'sourceWebsite'].find{politician?.politicianExtraInfo?."${it}"}}">
-            <div class="table table-condensed limit-height" data-collapsedHeight="105">
-                <div class="thead"><g:message code="politician.quickNotes.data.education.title"/></div>
+        <g:if test="${['address','telephone', 'mobile','fax', 'assistants'].find{politician?.institutionalOffice?."${it}"}}">
+            <div class="table table-condensed limit-height" data-collapsedHeight="110">
+                <div class="thead"><g:message code="politician.institutionalOffice.title"/> </div>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
-                        message:g.message(code:'politician.quickNotes.data.education.university'),
-                        text:politician?.politicianExtraInfo?.university
+                        message:g.message(code:'politician.officeDetails.data.address'),
+                        text:politician?.institutionalOffice?.address
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
-                        message:g.message(code:'politician.quickNotes.data.education.school'),
-                        text:politician?.politicianExtraInfo?.school
+                        message:g.message(code:'politician.officeDetails.data.telephone'),
+                        text:politician?.institutionalOffice?.telephone
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
-                        message:g.message(code:'politician.quickNotes.data.education.studies'),
-                        text:politician?.politicianExtraInfo?.studies?:''
+                        message:g.message(code:'politician.officeDetails.data.mobile'),
+                        text:politician?.institutionalOffice?.mobile
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.officeDetails.data.fax'),
+                        text:politician?.institutionalOffice?.fax
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.officeDetails.data.assistants'),
+                        text:politician?.institutionalOffice?.assistants
+                ]"/>
+            </div>
+        </g:if>
+        <g:if test="${['address','telephone', 'mobile','fax', 'assistants'].find{politician?.politicalOffice?."${it}"}}">
+            <div class="table table-condensed limit-height" data-collapsedHeight="110">
+                <div class="thead"><g:message code="politician.politicalOffice.title"/> </div>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.officeDetails.data.address'),
+                        text:politician?.politicalOffice?.address
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.officeDetails.data.telephone'),
+                        text:politician?.politicalOffice?.telephone
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.officeDetails.data.mobile'),
+                        text:politician?.politicalOffice?.mobile
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.officeDetails.data.fax'),
+                        text:politician?.politicalOffice?.fax
+                ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'politician.officeDetails.data.assistants'),
+                        text:politician?.politicalOffice?.assistants
                 ]"/>
             </div>
         </g:if>
         <g:if test="${['webSite'].find{politician?.politicianExtraInfo?."${it}"} || ['sourceWebsite'].find{politician?.professionalDetails?."${it}"}}">
-            <div class="table table-condensed limit-height" data-collapsedHeight="95">
+            <div class="table table-condensed limit-height" data-collapsedHeight="60">
                 <div class="thead"><g:message code="politician.quickNotes.data.moreInfo.title"/></div>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.quickNotes.data.moreInfo.webSite'),

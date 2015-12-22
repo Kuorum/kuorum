@@ -10,7 +10,9 @@ import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.mail.MailType
 import kuorum.notifications.Notice
+import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
+import kuorum.users.extendedPoliticianData.OfficeDetails
 import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
 import kuorum.users.extendedPoliticianData.PoliticianLeaning
 import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
@@ -79,7 +81,8 @@ class KuorumUser {
             'relevantEvents',
             'politicianLeaning',
             'professionalDetails',
-            'politicianExtraInfo'
+            'politicianExtraInfo',
+            'careerDetails'
     ]
 
     /**
@@ -100,6 +103,10 @@ class KuorumUser {
     PoliticianLeaning politicianLeaning
     ProfessionalDetails professionalDetails
     PoliticianExtraInfo politicianExtraInfo
+    CareerDetails careerDetails
+    OfficeDetails institutionalOffice
+    OfficeDetails politicalOffice
+
 
 
 
@@ -139,7 +146,8 @@ class KuorumUser {
         timeLine nulable:true
         politicianLeaning nullable:true
         professionalDetails nullable:true
-        politicianExtraInfo nullable:true
+        institutionalOffice nullable:true
+        politicalOffice nullable:true
     }
 
     static mapping = {

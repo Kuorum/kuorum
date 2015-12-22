@@ -8,11 +8,8 @@ import kuorum.Region
 class ProfessionalDetails {
     String position;
     String institution;
-    String profession;
     String politicalParty
     String sourceWebsite
-    String cvLink
-    String declarationLink
     Region constituency
     Region region //Place where the politician has "power" :P
     static embedded = ['constituency', 'region']
@@ -20,11 +17,8 @@ class ProfessionalDetails {
     static constraints = {
         position nullable:true
         institution nullable:true
-        profession nullable:true
         constituency nullable:true
         region nullable:true
         sourceWebsite nullable: true
-        cvLink nullable:true
-        declarationLink nullable:true
     }
 }

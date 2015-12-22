@@ -11,6 +11,7 @@ import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailService
+import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
 import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
 import kuorum.users.extendedPoliticianData.PoliticianLeaning
@@ -76,6 +77,7 @@ class PoliticianService {
         populateBasicData(politician, line)
         populateLeaning(politician, line)
         populateProfessionalDetails(politician, line)
+        populateCareerDetails(politician, line)
         populateSocialLinks(politician, line)
         populateExternalPoliticianActivity(politician, line)
         populateTimeLine(politician, line)
@@ -239,8 +241,6 @@ class PoliticianService {
             throw RuntimeException("Este politico no tiene el id de la BBDD")
         }
         politician.politicianExtraInfo.webSite = line."officialWebsite"
-        politician.politicianExtraInfo.university = line."university"
-        politician.politicianExtraInfo.school = line."school"
         politician.politicianExtraInfo.completeName = line."completeName"?:line."name"
         String dateOfBirth = line."dateOfBirth"
         politician.politicianExtraInfo.birthDate = dateOfBirth?Date.parse("dd/MM/yyyy",dateOfBirth):null
@@ -253,15 +253,23 @@ class PoliticianService {
             politician.professionalDetails = new ProfessionalDetails()
         }
         politician.professionalDetails.politicalParty = line."politicalParty"
-        politician.professionalDetails.profession = line."profession"
         politician.professionalDetails.position = line."position"
         politician.professionalDetails.institution = line."institution"
         politician.professionalDetails.constituency = findConstituency(line)
         politician.professionalDetails.region =findRegion(line)
-        politician.professionalDetails.cvLink =line."cvLink"
-        politician.professionalDetails.declarationLink =line."declarationLink"
         politician.professionalDetails.sourceWebsite =line."sourceWebsite"
 
+    }
+
+    private void populateCareerDetails(KuorumUser politician, def line){
+        if (!politician.careerDetails){
+            politician.careerDetails = new CareerDetails()
+        }
+        politician.careerDetails.profession = line."profession"
+        politician.careerDetails.cvLink =line."cvLink"
+        politician.careerDetails.declarationLink =line."declarationLink"
+        politician.careerDetails.university = line."university"
+        politician.careerDetails.school = line."school"
     }
 
     private Region findRegion(def line){
