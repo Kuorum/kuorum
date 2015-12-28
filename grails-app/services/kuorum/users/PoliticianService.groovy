@@ -11,6 +11,7 @@ import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailService
+import kuorum.solr.IndexSolrService
 import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
 import kuorum.users.extendedPoliticianData.OfficeDetails
@@ -28,6 +29,7 @@ class PoliticianService {
     FileService fileService;
     KuorumMailService kuorumMailService
     LinkGenerator grailsLinkGenerator
+    IndexSolrService indexSolrService
 
     KuorumUser updatePoliticianExternalActivity(KuorumUser politician, List<ExternalPoliticianActivity> externalPoliticianActivities){
         politician.externalPoliticianActivities = externalPoliticianActivities.findAll{it && it.validate()}
@@ -52,6 +54,14 @@ class PoliticianService {
         politician.institutionalOffice= institutionalOffice
         politician.politicalOffice= politicalOffice
         politician.save()
+    }
+
+    KuorumUser updatePoliticianCauses(KuorumUser politician, List<String> causes){
+        politician.tags = causes.findAll({it}).collect({it.encodeAsHashtag()})
+        if (politician.save()){
+            indexSolrService.index(politician)
+        }
+        politician
     }
 
     void asyncUploadPoliticianCSV(KuorumUser executorUser, InputStream data){

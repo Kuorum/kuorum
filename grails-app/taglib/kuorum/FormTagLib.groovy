@@ -332,7 +332,7 @@ class FormTagLib {
         def helpBlock = attrs.helpBlock?:''
         def type = attrs.type?:'text'
         def required = attrs.required?'required':''
-        def cssClass = attrs.cssClass?:'form-control input-lg'
+        def cssClass = attrs.cssClass?:'input-lg'
         def labelCssClass = attrs.labelCssClass?:''
         def maxlength = attrs.maxlength?"maxlength='${attrs.maxlength}'":''
 
@@ -361,13 +361,13 @@ class FormTagLib {
             if (helpBlock){
                 out << "<p class='help-block'>${helpBlock}</p>"
             }
-            out <<"<a href='#' class='list-remove'>${labelRemove}</a></div>"
+            out <<"<a href='#' class='list-remove' title='${labelRemove}'><span class='fa fa-minus'></span></a></div>"
             count++
         }
         out << """
-            <a href="#" class="list-add">${labelAdd}</a>
-             </div>
-                """
+                <a href="#" class="list-add"><span class='fa fa-plus'>${labelAdd}</span></a>
+        </div>
+               """
     }
 
     def socialInput={attrs ->
