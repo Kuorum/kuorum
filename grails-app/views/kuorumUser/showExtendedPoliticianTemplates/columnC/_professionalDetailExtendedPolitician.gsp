@@ -44,11 +44,13 @@
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.professionalDetails.data.cvLink'),
-                            link:politician?.careerDetails?.cvLink
+                            link:politician?.careerDetails?.cvLink?:'',
+                            text:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.professionalDetails.data.declaration'),
-                            link:politician?.careerDetails?.declarationLink
+                            link:politician?.careerDetails?.declarationLink?:'',
+                            text:''
                     ]"/>
                 </div>
             </g:if>
