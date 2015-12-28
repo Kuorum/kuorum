@@ -3,6 +3,7 @@ package kuorum.admin
 import kuorum.users.KuorumUser
 import kuorum.users.PoliticianProfileController
 import kuorum.users.PoliticianService
+import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.politician.ExternalPoliticianActivityCommand
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
@@ -44,11 +45,8 @@ class AdminPoliticianController extends AdminController{
 
     def editProfessionalDetails(){
         KuorumUser politician = KuorumUser.get(params.id)
-        ProfessionalDetails professionalDetails = politician.professionalDetails
-        if (!professionalDetails){
-            professionalDetails = new ProfessionalDetails()
-        }
-        [command:new ProfessionalDetailsCommand(politician:politician, professionalDetails: professionalDetails)]
+        ProfessionalDetailsCommand command = new ProfessionalDetailsCommand(politician)
+        [command:command]
     }
 
     def updateProfessionalDetails(ProfessionalDetailsCommand command){
@@ -56,7 +54,7 @@ class AdminPoliticianController extends AdminController{
             render view:"editProfessionalDetails", model:[command:command]
             return;
         }
-        politicianService.updatePoliticianProfessionalDetails(command.politician, command.professionalDetails)
+        politicianService.updatePoliticianProfessionalDetails(command.politician, command.professionalDetails, command.careerDetails)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'adminEditPoliticianProfessionalDetails', params: command.politician.encodeAsLinkProperties()
     }

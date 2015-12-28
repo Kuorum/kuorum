@@ -1,6 +1,7 @@
 package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.politician.ExternalPoliticianActivityCommand
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
@@ -45,8 +46,9 @@ class PoliticianProfileController extends ProfileController{
     }
 
     def editProfessionalDetails(){
-        KuorumUser user = params.user
-        [command:new ProfessionalDetailsCommand(politician:user, professionalDetails: user.professionalDetails)]
+        KuorumUser politician = params.user
+        ProfessionalDetailsCommand command = new ProfessionalDetailsCommand(politician)
+        [command:command]
     }
 
     def updateProfessionalDetails(ProfessionalDetailsCommand command){
@@ -55,7 +57,7 @@ class PoliticianProfileController extends ProfileController{
             render view:"editRelevantEvents", model:[command:command]
             return;
         }
-        politicianService.updatePoliticianProfessionalDetails(user, command.professionalDetails)
+        politicianService.updatePoliticianProfessionalDetails(user, command.professionalDetails, command.careerDetails)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profilePoliticianProfessionalDetails', params: user.encodeAsLinkProperties()
     }

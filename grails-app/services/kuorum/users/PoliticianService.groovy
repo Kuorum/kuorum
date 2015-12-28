@@ -39,8 +39,9 @@ class PoliticianService {
         politician.save()
     }
 
-    KuorumUser updatePoliticianProfessionalDetails(KuorumUser politician, ProfessionalDetails professionalDetails){
+    KuorumUser updatePoliticianProfessionalDetails(KuorumUser politician, ProfessionalDetails professionalDetails, CareerDetails careerDetails){
         politician.professionalDetails = professionalDetails
+        politician.careerDetails= careerDetails
         politician.save()
     }
 

@@ -3,6 +3,7 @@ package kuorum.web.commands.profile.politician
 import grails.validation.Validateable
 import kuorum.Region
 import kuorum.users.KuorumUser
+import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.EditUserProfileCommand
 import org.grails.databinding.BindUsing
@@ -14,6 +15,7 @@ import org.grails.databinding.BindUsing
 class ProfessionalDetailsCommand {
     KuorumUser politician
     ProfessionalDetails professionalDetails
+    CareerDetails careerDetails
 
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
         EditUserProfileCommand.bindingRegion(obj, source, "region")
@@ -29,6 +31,13 @@ class ProfessionalDetailsCommand {
         politician nullable: false;
         region nullable: true
         constituency nullable: true
+    }
+
+    public ProfessionalDetailsCommand(){}
+    public ProfessionalDetailsCommand(KuorumUser politician){
+        this.politician = politician
+        this.professionalDetails = politician.professionalDetails?:new ProfessionalDetails()
+        this.careerDetails = politician.careerDetails?:new CareerDetails()
     }
 
     public void setRegion(Region region){
