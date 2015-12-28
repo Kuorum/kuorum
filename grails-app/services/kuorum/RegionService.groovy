@@ -187,18 +187,23 @@ class RegionService {
      */
     public Region findRegionBySuggestedId(String isoCode){
 
-        RESTClient geolocationKuorum = new RESTClient( kuorumRestServices)
-//        basecamp.auth.basic userName, password
+        try{
+            RESTClient geolocationKuorum = new RESTClient( kuorumRestServices)
+    //        basecamp.auth.basic userName, password
 
-        def response = geolocationKuorum.get(
-                path: apiPath+GET_REGION,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
-                query:[
-                        isoCode:isoCode
-                ]
-        )
+            def response = geolocationKuorum.get(
+                    path: apiPath+GET_REGION,
+                    headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                    query:[
+                            isoCode:isoCode
+                    ]
+            )
 
-        Region.findByIso3166_2(response.data.iso3166)
+            return Region.findByIso3166_2(response.data.iso3166)
+        }catch (Exception e){
+            log.error("Error recovering region '${isoCode}'",e)
+            return null
+        }
 
     }
 

@@ -23,6 +23,9 @@
         <li class="${activeMapping=='profilePoliticianRelevantEvents'?'active':''}">
             <g:link mapping="profilePoliticianRelevantEvents"><g:message code="profile.menu.profilePoliticianRelevantEvents"/></g:link>
         </li>
+        <li class="${activeMapping=='profilePoliticianProfessionalDetails'?'active':''}">
+            <g:link mapping="profilePoliticianProfessionalDetails"><g:message code="profile.menu.profilePoliticianProfessionalDetails"/></g:link>
+        </li>
     </sec:ifAnyGranted>
     <li class="${activeMapping=='profileEditCommissions'?'active':''}">
         <g:link mapping="profileEditCommissions"><g:message code="profile.menu.editCommissions"/></g:link>

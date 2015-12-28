@@ -120,7 +120,7 @@ class FormTagLib {
         def showCharCounter = attrs.showCharCounter?Boolean.parseBoolean(attrs.showCharCounter):true
         def maxlength = attrs.maxlength?"maxlength='${attrs.maxlength}'":''
         def clazz = command.metaClass.properties.find{it.name == field}.type
-        def label = message(code: "${command.class.name}.${field}.label")
+        def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
 
         def value = command."${field}"?:''
@@ -283,7 +283,7 @@ class FormTagLib {
         def value = regionValue?.iso3166_2?:''
         def showedValue = regionValue?.name?:""
 
-        def label = message(code: "${command.class.name}.${field}.label")
+        def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
 
         if (showLabel){

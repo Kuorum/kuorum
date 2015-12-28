@@ -842,8 +842,9 @@ $(document).ready(function() {
         width:330,
         noCache: false, //default is false, set to true to disable caching
         onSearchStart: function (query) {
-            var realInputId = $(this).attr('data-real-input-id');
-            $("#"+realInputId).val("");
+//            var realInputId = $(this).attr('data-real-input-id');
+//            realInputId = realInputId.replace(".", "\\.")
+//            $("#"+realInputId).val("");
         },
         onSearchComplete: function (query, suggestions) {
             $('.loadingSearch').hide()
@@ -879,6 +880,11 @@ $(document).ready(function() {
         var realInputId = $(this).attr('data-real-input-id');
         realInputId = realInputId.replace(".", "\\.")
         $("#"+realInputId).valid()
+    }).keypress(function(e){
+        console.log("keyPress")
+        var realInputId = $(this).attr('data-real-input-id');
+        realInputId = realInputId.replace(".", "\\.")
+        $("#"+realInputId).val("")
     });
 });
 

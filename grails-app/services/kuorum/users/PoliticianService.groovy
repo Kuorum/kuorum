@@ -39,6 +39,11 @@ class PoliticianService {
         politician.save()
     }
 
+    KuorumUser updatePoliticianProfessionalDetails(KuorumUser politician, ProfessionalDetails professionalDetails){
+        politician.professionalDetails = professionalDetails
+        politician.save()
+    }
+
     void asyncUploadPoliticianCSV(KuorumUser executorUser, InputStream data){
         byte[] buffer = new byte[data.available()];
         data.read(buffer)
