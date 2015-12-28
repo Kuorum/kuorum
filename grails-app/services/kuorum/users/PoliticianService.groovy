@@ -49,7 +49,7 @@ class PoliticianService {
     }
 
     KuorumUser updatePoliticianQuickNotes(KuorumUser politician, PoliticianExtraInfo politicianExtraInfo, OfficeDetails institutionalOffice, OfficeDetails politicalOffice){
-        politicianExtraInfo.ipdbId = politician?.politicianExtraInfo?.ipdbId
+        politicianExtraInfo.ipdbId = politician?.politicianExtraInfo?.ipdbId?:-1 // Ñapa
         politician.politicianExtraInfo = politicianExtraInfo
         politician.institutionalOffice= institutionalOffice
         politician.politicalOffice= politicalOffice
