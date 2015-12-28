@@ -12,8 +12,8 @@
 </content>
 
 <content tag="mainContent">
-    <formUtil:validateForm form="professionalDetailsForm" bean="${command}"/>
-    <g:form method="POST" mapping="profilePoliticianProfessionalDetails" name="professionalDetailsForm" role="form" class="box-ppal">
+    <formUtil:validateForm form="quickNotesForm" bean="${command}"/>
+    <g:form method="POST" mapping="profilePoliticianQuickNotes" name="quickNotesForm" role="form" class="box-ppal">
         <g:render template="formQuickNotes" model="[command:command]"/>
     </g:form>
 </content>
