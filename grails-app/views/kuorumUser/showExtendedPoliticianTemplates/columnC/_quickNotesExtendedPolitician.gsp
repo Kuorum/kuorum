@@ -33,23 +33,23 @@
                 <div class="thead"><g:message code="politician.institutionalOffice.title"/> </div>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.address.label'),
-                        text:politician?.institutionalOffice?.address
+                        text:politician?.institutionalOffice?.address?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.telephone.label'),
-                        text:politician?.institutionalOffice?.telephone
+                        text:politician?.institutionalOffice?.telephone?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.mobile.label'),
-                        text:politician?.institutionalOffice?.mobile
+                        text:politician?.institutionalOffice?.mobile?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.fax.label'),
-                        text:politician?.institutionalOffice?.fax
+                        text:politician?.institutionalOffice?.fax?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.assistants.label'),
-                        text:politician?.institutionalOffice?.assistants
+                        text:politician?.institutionalOffice?.assistants?:''
                 ]"/>
             </div>
         </g:if>
@@ -58,23 +58,23 @@
                 <div class="thead"><g:message code="politician.politicalOffice.title"/> </div>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.address.label'),
-                        text:politician?.politicalOffice?.address
+                        text:politician?.politicalOffice?.address?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.telephone.label'),
-                        text:politician?.politicalOffice?.telephone
+                        text:politician?.politicalOffice?.telephone?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.mobile.label'),
-                        text:politician?.politicalOffice?.mobile
+                        text:politician?.politicalOffice?.mobile?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.fax.label'),
-                        text:politician?.politicalOffice?.fax
+                        text:politician?.politicalOffice?.fax?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.assistants.label'),
-                        text:politician?.politicalOffice?.assistants
+                        text:politician?.politicalOffice?.assistants?:''
                 ]"/>
             </div>
         </g:if>
