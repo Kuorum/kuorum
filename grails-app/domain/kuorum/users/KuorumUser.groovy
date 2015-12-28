@@ -82,7 +82,9 @@ class KuorumUser {
             'politicianLeaning',
             'professionalDetails',
             'politicianExtraInfo',
-            'careerDetails'
+            'careerDetails',
+            'institutionalOffice',
+            'politicalOffice'
     ]
 
     /**
@@ -102,8 +104,8 @@ class KuorumUser {
     List<PoliticianTimeLine> timeLine
     PoliticianLeaning politicianLeaning
     ProfessionalDetails professionalDetails
-    PoliticianExtraInfo politicianExtraInfo
     CareerDetails careerDetails
+    PoliticianExtraInfo politicianExtraInfo
     OfficeDetails institutionalOffice
     OfficeDetails politicalOffice
 

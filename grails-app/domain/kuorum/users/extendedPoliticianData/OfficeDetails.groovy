@@ -12,9 +12,9 @@ class OfficeDetails {
 
     static constraints = {
         address nullable: true
-        address telephone: true
-        address mobile: true
-        address fax: true
-        address assistants: true
+        telephone nullable: true
+        mobile nullable: true
+        fax nullable: true
+        assistants nullable: true
     }
 }

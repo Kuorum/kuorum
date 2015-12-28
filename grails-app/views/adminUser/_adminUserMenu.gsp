@@ -5,5 +5,6 @@
         <li><g:link mapping="adminEditPoliticianExternalActivity" params="${user.encodeAsLinkProperties()}"> Edit External activity</g:link></li>
         <li><g:link mapping="adminEditPoliticianRelevantEvents" params="${user.encodeAsLinkProperties()}"> Edit Relevant events</g:link></li>
         <li><g:link mapping="adminEditPoliticianProfessionalDetails" params="${user.encodeAsLinkProperties()}"> Edit Professional details</g:link></li>
+        <li><g:link mapping="adminEditPoliticianQuickNotes" params="${user.encodeAsLinkProperties()}"> Edit Quick notes</g:link></li>
     </ul>
 </div>

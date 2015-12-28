@@ -5,6 +5,7 @@ import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.politician.ExternalPoliticianActivityCommand
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
+import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.commands.profile.politician.RelevantEventsCommand
 
 @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
@@ -60,5 +61,22 @@ class PoliticianProfileController extends ProfileController{
         politicianService.updatePoliticianProfessionalDetails(user, command.professionalDetails, command.careerDetails)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profilePoliticianProfessionalDetails', params: user.encodeAsLinkProperties()
+    }
+
+    def editQuickNotes(){
+        KuorumUser politician = params.user
+        QuickNotesCommand command = new QuickNotesCommand(politician)
+        [command:command]
+    }
+
+    def updateQuickNotes(QuickNotesCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors() || !user ){
+            render view:"editQuickNotes", model:[command:command]
+            return;
+        }
+        politicianService.updatePoliticianQuickNotes(user, command.politicianExtraInfo, command.institutionalOffice, command.politicalOffice)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profilePoliticianQuickNotes', params: user.encodeAsLinkProperties()
     }
 }

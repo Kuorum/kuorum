@@ -14,7 +14,7 @@ class PoliticianExtraInfo {
     static constraints = {
         birthDate nullable:true
         birthPlace nullable: true
-        webSite nullable: true
+        webSite nullable: true, url:true
         family nullable: true
     }
 }

@@ -13,6 +13,7 @@ import kuorum.files.FileService
 import kuorum.mail.KuorumMailService
 import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
+import kuorum.users.extendedPoliticianData.OfficeDetails
 import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
 import kuorum.users.extendedPoliticianData.PoliticianLeaning
 import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
@@ -42,6 +43,14 @@ class PoliticianService {
     KuorumUser updatePoliticianProfessionalDetails(KuorumUser politician, ProfessionalDetails professionalDetails, CareerDetails careerDetails){
         politician.professionalDetails = professionalDetails
         politician.careerDetails= careerDetails
+        politician.save()
+    }
+
+    KuorumUser updatePoliticianQuickNotes(KuorumUser politician, PoliticianExtraInfo politicianExtraInfo, OfficeDetails institutionalOffice, OfficeDetails politicalOffice){
+        politicianExtraInfo.ipdbId = politician?.politicianExtraInfo?.ipdbId
+        politician.politicianExtraInfo = politicianExtraInfo
+        politician.institutionalOffice= institutionalOffice
+        politician.politicalOffice= politicalOffice
         politician.save()
     }
 
