@@ -57,6 +57,6 @@ class PoliticianProfileController extends ProfileController{
         }
         politicianService.updatePoliticianProfessionalDetails(user, command.professionalDetails)
         flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'adminEditPoliticianProfessionalDetails', params: user.encodeAsLinkProperties()
+        redirect mapping:'profilePoliticianProfessionalDetails', params: user.encodeAsLinkProperties()
     }
 }
