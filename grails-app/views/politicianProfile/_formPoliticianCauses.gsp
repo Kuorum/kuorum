@@ -1,5 +1,4 @@
 <input type="hidden" name="politician.id" value="${command.politician.id}"/>
-<h4><g:message code="kuorum.users.extendedPoliticianData.ProfessionalDetails.title"/> </h4>
 <fieldset class="row">
     <div class="form-group col-md-6">
         <formUtil:dynamicListInput command="${command}" field="causes" showLabel="true"/>

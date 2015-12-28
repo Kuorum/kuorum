@@ -7,7 +7,7 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profilePoliticianProfessionalDetails', menu:menu]"/>
+    <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profilePoliticianQuickNotes', menu:menu]"/>
 
 </content>
 

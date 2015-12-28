@@ -7,13 +7,13 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profilePoliticianExternalActivity', menu:menu]"/>
+    <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profilePoliticianCauses', menu:menu]"/>
 
 </content>
 
 <content tag="mainContent">
     <formUtil:validateForm form="causesForm" bean="${command}"/>
-    <g:form method="POST" mapping="profilePoliticianExternalActivity" name="causesForm" role="form" class="box-ppal">
+    <g:form method="POST" mapping="profilePoliticianCauses" name="causesForm" role="form" class="box-ppal">
         <g:render template="formPoliticianCauses" model="[command:command]"/>
     </g:form>
 </content>

@@ -29,6 +29,9 @@
         <li class="${activeMapping=='profilePoliticianQuickNotes'?'active':''}">
             <g:link mapping="profilePoliticianQuickNotes"><g:message code="profile.menu.profilePoliticianQuickNotes"/></g:link>
         </li>
+        <li class="${activeMapping=='profilePoliticianCauses'?'active':''}">
+            <g:link mapping="profilePoliticianCauses"><g:message code="profile.menu.profilePoliticianCauses"/></g:link>
+        </li>
     </sec:ifAnyGranted>
     <li class="${activeMapping=='profileEditCommissions'?'active':''}">
         <g:link mapping="profileEditCommissions"><g:message code="profile.menu.editCommissions"/></g:link>
