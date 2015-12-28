@@ -14,9 +14,6 @@
         <g:link mapping="profileSocialNetworks"><g:message code="profile.menu.profileSocialNetworks"/></g:link>
     </li>
     <sec:ifAnyGranted roles="ROLE_POLITICIAN">
-        <li class="${activeMapping=='profilePoliticianExtraInfo'?'active':''}">
-            <g:link mapping="profilePoliticianExtraInfo"><g:message code="profile.menu.profilePoliticianExtraInfo"/></g:link>
-        </li>
         <li class="${activeMapping=='profilePoliticianExternalActivity'?'active':''}">
             <g:link mapping="profilePoliticianExternalActivity"><g:message code="profile.menu.profilePoliticianExternalActivity"/></g:link>
         </li>
