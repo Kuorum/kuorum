@@ -3,6 +3,7 @@ package kuorum.admin
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
+import kuorum.files.FileService
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.web.commands.ProjectCommand
@@ -12,7 +13,7 @@ import org.bson.types.ObjectId
 class AdminProjectController  extends  AdminController{
 
     def projectService
-    def fileService
+    FileService fileService
     def springSecurityService
 
     private def projectModel(ProjectCommand command, Project project){

@@ -7,6 +7,7 @@ import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.RegionService
 import kuorum.core.model.UserType
+import kuorum.files.FileService
 import kuorum.users.*
 import kuorum.web.commands.admin.AdminUserCommand
 import org.bson.types.ObjectId
@@ -16,7 +17,7 @@ class AdminUserController extends AdminController {
 
     def kuorumUserService
     def springSecurityUiService
-    def fileService
+    FileService fileService
     RegionService regionService
 
     def createUser() {

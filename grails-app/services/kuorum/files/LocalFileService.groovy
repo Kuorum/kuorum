@@ -44,6 +44,7 @@ class LocalFileService implements FileService{
         kuorumFile.fileGroup = fileGroup
         kuorumFile.fileName = "TEMPORAL"
         kuorumFile.originalName = fileName
+        kuorumFile.alt = fileName
         kuorumFile.storagePath = "TEMPORAL"
         kuorumFile.url ="http://TEMPORAL.com"
         kuorumFile.urlThumb = kuorumFile.url

@@ -12,6 +12,8 @@ class PoliticianExtraInfo {
     String family
 
     static constraints = {
+        ipdbId nullable: true
+        completeName nullable:true
         birthDate nullable:true
         birthPlace nullable: true
         webSite nullable: true, url:true
