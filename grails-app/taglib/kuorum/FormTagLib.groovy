@@ -572,6 +572,7 @@ class FormTagLib {
         def rows = attrs.rows?:5
 
         def id = attrs.id?:field
+        def prefixFieldName=attrs.prefixFieldName?:""
         def value = command."$field"?:''
         def placeHolder = message(code: "${command.class.name}.${field}.placeHolder")
         def error = hasErrors(bean: command, field: field,'error')
@@ -581,10 +582,10 @@ class FormTagLib {
         def texteditor = attrs.texteditor?:''
 
         out << """
-            <textarea name='${field}' class="form-control ${maxSize?"counted":""} ${texteditor} ${error}" rows="${rows}" id="${id}" placeholder="${placeHolder}">${value}</textarea>
+            <textarea name='${prefixFieldName}${field}' class="form-control ${maxSize?"counted":""} ${texteditor} ${error}" rows="${rows}" id="${prefixFieldName}${id}" placeholder="${placeHolder}">${value}</textarea>
         """
         if (error){
-            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+            out << "<span for='${prefixFieldName}${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
 
         if (maxSize && !texteditor){
@@ -592,8 +593,8 @@ class FormTagLib {
             <script>
                 \$(function(){counterCharacters("${field}")});
             </script>
-            <div id="charInit_${field}" class="hidden">${message(code:'form.textarea.limitChar')}<span>${maxSize}</span></div>
-            <div id="charNum_${field}" class="charNum">${message(code:'form.textarea.limitChar.left')} <span>${maxSize}</span> ${message(code:'form.textarea.limitChar.characters')}</div>
+            <div id="charInit_${prefixFieldName}${field}" class="hidden">${message(code:'form.textarea.limitChar')}<span>${maxSize}</span></div>
+            <div id="charNum_${prefixFieldName}${field}" class="charNum">${message(code:'form.textarea.limitChar.left')} <span>${maxSize}</span> ${message(code:'form.textarea.limitChar.characters')}</div>
             """
         }
     }
