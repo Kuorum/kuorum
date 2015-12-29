@@ -48,6 +48,12 @@ class PoliticianService {
         politician.save()
     }
 
+    KuorumUser updatePoliticianExperience(KuorumUser politician, List<PoliticianTimeLine> timeLine){
+        politician.timeLine = timeLine.findAll{it && it.validate()}
+        sortPoliticalExperience(politician)
+        politician.save()
+    }
+
     KuorumUser updatePoliticianQuickNotes(KuorumUser politician, PoliticianExtraInfo politicianExtraInfo, OfficeDetails institutionalOffice, OfficeDetails politicalOffice){
         politicianExtraInfo.ipdbId = politician?.politicianExtraInfo?.ipdbId?:-1 // Ñapa
         politician.politicianExtraInfo = politicianExtraInfo
@@ -64,6 +70,11 @@ class PoliticianService {
         politician
     }
 
+    /**
+     * Read a csv and create politicians asynchronously
+     * @param executorUser
+     * @param data
+     */
     void asyncUploadPoliticianCSV(KuorumUser executorUser, InputStream data){
         byte[] buffer = new byte[data.available()];
         data.read(buffer)
@@ -140,7 +151,8 @@ class PoliticianService {
                 }
             }
         }
-        politician.timeLine = timeLine.sort{a,b-> b.date<=>a.date}
+        politician.timeLine = timeLine
+        sortPoliticalExperience(politician)
     }
 
     private void populateRelevantEvents(KuorumUser politician, def line) {
@@ -160,6 +172,9 @@ class PoliticianService {
 
     private void sortExternalPoliticianActivity(KuorumUser politician){
         politician.externalPoliticianActivities = politician.externalPoliticianActivities.sort{a,b-> b.date<=>a.date}
+    }
+    private void sortPoliticalExperience(KuorumUser politician){
+        politician.timeLine = politician.timeLine.sort{a,b-> b.date<=>a.date}
     }
 
     private KuorumUser findOrRecoverPolitician(String email, String ipdbId){

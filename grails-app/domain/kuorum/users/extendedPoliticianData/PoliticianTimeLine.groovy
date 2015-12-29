@@ -8,4 +8,11 @@ class PoliticianTimeLine {
     String title
     String text
     Boolean important
+
+    static constraints = {
+        date nullable:false
+        title nullable:false
+        text nullable: true
+        important nullable:true
+    }
 }

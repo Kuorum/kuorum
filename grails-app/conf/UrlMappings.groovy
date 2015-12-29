@@ -173,6 +173,7 @@ class UrlMappings {
         name profilePoliticianProfessionalDetails: "/configuracion-politico/professional-details"     (controller: "politicianProfile"){action=[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
         name profilePoliticianQuickNotes: "/configuracion-politico/quick-notes"     (controller: "politicianProfile"){action=[GET:"editQuickNotes", POST:"updateQuickNotes"]}
         name profilePoliticianCauses: "/configuracion-politico/causas"     (controller: "politicianProfile"){action=[GET:"editCauses", POST:"updateCauses"]}
+        name profilePoliticianExperience: "/configuracion-politico/experiencia"     (controller: "politicianProfile"){action=[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
 
         name toolsNotifications:  "/herramientas/notificaciones"   (controller: "tools", action: "userNotifications")
         name toolsFavorites:    "/herramientas/pendientes-de-leer"(controller: "tools", action: "showFavoritesPosts")
@@ -249,6 +250,7 @@ class UrlMappings {
         name adminEditPoliticianProfessionalDetails: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/professionalDetails" (controller:"adminPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
         name adminEditPoliticianQuickNotes: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/quick-notes" (controller:"adminPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
         name adminEditPoliticianCauses: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/causes" (controller:"adminPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
+        name adminEditPoliticianExperience: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/experiencia" (controller:"adminPolitician"){action =[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
         name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")

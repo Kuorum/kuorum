@@ -6,6 +6,7 @@ import kuorum.users.PoliticianService
 import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.politician.ExternalPoliticianActivityCommand
+import kuorum.web.commands.profile.politician.PoliticalExperienceCommand
 import kuorum.web.commands.profile.politician.PoliticianCausesCommand
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import kuorum.web.commands.profile.politician.QuickNotesCommand
@@ -93,6 +94,23 @@ class AdminPoliticianController extends AdminController{
         politicianService.updatePoliticianCauses(command.politician, command.causes)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'adminEditPoliticianCauses', params: command.politician.encodeAsLinkProperties()
+    }
+
+
+    def editPoliticalExperience(){
+        KuorumUser politician = KuorumUser.get(params.id)
+        PoliticalExperienceCommand command = new PoliticalExperienceCommand(politician)
+        [command:command]
+    }
+
+    def updatePoliticalExperience(PoliticalExperienceCommand command){
+        if (command.hasErrors()){
+            render view:"editPoliticalExperience", model:[command:command]
+            return;
+        }
+        politicianService.updatePoliticianExperience(command.politician, command.timeLine)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'adminEditPoliticianExperience', params: command.politician.encodeAsLinkProperties()
     }
 
 }
