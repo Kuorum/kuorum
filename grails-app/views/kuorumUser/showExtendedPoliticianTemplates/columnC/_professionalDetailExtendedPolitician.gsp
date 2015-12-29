@@ -8,19 +8,19 @@
                 <div class="thead"><g:message code="politician.professionalDetails.title.political"/> </div>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.professionalDetails.data.position'),
-                        text:politician?.professionalDetails?.position
+                        text:politician?.professionalDetails?.position?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.professionalDetails.data.institution'),
-                        text:politician?.professionalDetails?.institution
+                        text:politician?.professionalDetails?.institution?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.professionalDetails.data.constituency'),
-                        text:politician?.professionalDetails?.constituency?.name
+                        text:politician?.professionalDetails?.constituency?.name?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.professionalDetails.data.region'),
-                        text:politician?.professionalDetails?.region?.name
+                        text:politician?.professionalDetails?.region?.name?:''
                 ]"/>
             </div>
             <g:if test="${['profession','university', 'school','studies', 'cvLink', 'declarationLink'].find{politician?.careerDetails?."${it}"}}">
@@ -28,7 +28,7 @@
                     <div class="thead"><g:message code="politician.professionalDetails.title.career"/> </div>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.professionalDetails.data.profession'),
-                            text:politician?.careerDetails?.profession
+                            text:politician?.careerDetails?.profession?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.education.university'),
@@ -36,7 +36,7 @@
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.education.school'),
-                            text:politician?.careerDetails?.school
+                            text:politician?.careerDetails?.school?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.education.studies'),

@@ -9,7 +9,7 @@
             <div class="thead"><g:message code="politician.quickNotes.data.background.title"/></div>
             <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                     message:g.message(code:'politician.quickNotes.data.background.completeName'),
-                    text:politician?.politicianExtraInfo?.completeName
+                    text:politician?.politicianExtraInfo?.completeName?:''
             ]"/>
             <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                     message:g.message(code:'politician.quickNotes.data.background.age'),
@@ -17,7 +17,7 @@
             ]"/>
             <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                     message:g.message(code:'politician.quickNotes.data.background.placeOfBirth'),
-                    text:politician?.politicianExtraInfo?.birthPlace
+                    text:politician?.politicianExtraInfo?.birthPlace?:''
             ]"/>
             <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                     message:g.message(code:'politician.quickNotes.data.background.dateOfBirth'),
@@ -25,7 +25,7 @@
             ]"/>
             <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                     message:g.message(code:'politician.quickNotes.data.background.family'),
-                    text:politician?.politicianExtraInfo?.family
+                    text:politician?.politicianExtraInfo?.family?:''
             ]"/>
         </div>
         <g:if test="${['address','telephone', 'mobile','fax', 'assistants'].find{politician?.institutionalOffice?."${it}"}}">
@@ -83,11 +83,11 @@
                 <div class="thead"><g:message code="politician.quickNotes.data.moreInfo.title"/></div>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.quickNotes.data.moreInfo.webSite'),
-                        link:politician?.politicianExtraInfo?.webSite
+                        link:politician?.politicianExtraInfo?.webSite?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.quickNotes.readMore'),
-                        link:politician?.professionalDetails?.sourceWebsite
+                        link:politician?.professionalDetails?.sourceWebsite?:''
                 ]"/>
             </div>
         </g:if>
