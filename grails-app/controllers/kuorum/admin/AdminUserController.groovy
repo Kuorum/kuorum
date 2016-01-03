@@ -8,17 +8,21 @@ import kuorum.Region
 import kuorum.RegionService
 import kuorum.core.model.UserType
 import kuorum.files.FileService
+import kuorum.mail.KuorumMailAccountService
 import kuorum.users.*
 import kuorum.web.commands.admin.AdminUserCommand
+import kuorum.web.commands.admin.KuorumAccountCommand
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 
 @Secured(['ROLE_ADMIN'])
 class AdminUserController extends AdminController {
 
-    def kuorumUserService
+    KuorumUserService kuorumUserService
     def springSecurityUiService
     FileService fileService
     RegionService regionService
+    KuorumMailAccountService kuorumMailAccountService;
 
     def createUser() {
         [command:new AdminUserCommand(enabled:true), regions:regionService.findPoliticianRegions(), politicalParties:PoliticalParty.findAll()]
@@ -49,7 +53,7 @@ class AdminUserController extends AdminController {
         KuorumUser user = KuorumUser.get(new ObjectId(id))
         AdminUserCommand command = prepareCommand(user)
         List<Region> regions = regionService.findPoliticianRegions()
-        [user:user, command:command, regions:regions, politicalParties: PoliticalParty.findAll()]
+        [user:user, command:command]
     }
 
     def updateUser(AdminUserCommand command){
@@ -169,5 +173,32 @@ class AdminUserController extends AdminController {
         command.commissions = user.relevantCommissions
 
         command
+    }
+
+    def editKuorumEmailAccount(){
+        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        KuorumAccountCommand command = new KuorumAccountCommand();
+        KuorumMailAccountDetailsRSDTO account = kuorumMailAccountService.getAccountDetails(user)
+        command.user = user
+        command.alias = user.alias
+        command.active = account?.active?:false;
+        [user:user,command:command]
+    }
+
+    def updateKuorumEmailAccount(KuorumAccountCommand command){
+        if (command.hasErrors()){
+            render view: 'editKuorumEmailAccount', model:[command:command, user:command.user]
+            flash.error=message(code:'admin.createUser.error')
+            return
+        }
+        command.user.alias = command.alias
+        kuorumUserService.updateUser(command.user)
+        if (command.active){
+            kuorumMailAccountService.activateAccount(command.user)
+        }else{
+            kuorumMailAccountService.deleteAccount(command.user)
+        }
+        flash.message =message(code:'admin.editUser.success', args: [command.user.name])
+        redirect(mapping:'adminKuorumAccountEdit', params:command.user.encodeAsLinkProperties())
     }
 }

@@ -93,6 +93,8 @@ grails.project.dependency.resolution = {
         compile 'org.igniterealtime.smack:smack:3.1.0'
         compile 'com.ecwid:ecwid-mailchimp:jar:2.0.0.1'
 
+        compile 'kuorumServices:kuorumRestModel:jar:1.0-SNAPSHOT'
+
         //For burning-image plugin
 //        compile 'org.im4java:im4java:1.4.0'
         //        compile 'javax.media:jai_core:1.1.2_01'

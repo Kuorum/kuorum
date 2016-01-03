@@ -8,7 +8,7 @@ class UrlMappings {
 
 	static mappings = {
 
-        //TODO Hacer esta �apa en BBDD
+        //TODO Hacer esta chapu en BBDD
 //        name tempmoralLink: "/$customLink" (controller: "dashboard", action:"customPostMapping")
         name tempmoralLink: "/losdatoscuentan" (controller: "dashboard", action:"customPostMapping")
         "/losDatosCuentan" (controller: "dashboard", action:"customPostMapping")
@@ -175,6 +175,8 @@ class UrlMappings {
         name profilePoliticianCauses: "/configuracion-politico/causas"     (controller: "politicianProfile"){action=[GET:"editCauses", POST:"updateCauses"]}
         name profilePoliticianExperience: "/configuracion-politico/experiencia"     (controller: "politicianProfile"){action=[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
 
+        name profileMailing : "/notifications/mailing" (controller: "profile", action:"showUserEmails")
+
         name toolsNotifications:  "/herramientas/notificaciones"   (controller: "tools", action: "userNotifications")
         name toolsFavorites:    "/herramientas/pendientes-de-leer"(controller: "tools", action: "showFavoritesPosts")
         name toolsMyPosts:      "/herramientas/mis-posts"        (controller: "tools", action: "showUserPosts")
@@ -251,6 +253,7 @@ class UrlMappings {
         name adminEditPoliticianQuickNotes: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/quick-notes" (controller:"adminPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
         name adminEditPoliticianCauses: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/causes" (controller:"adminPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
         name adminEditPoliticianExperience: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/experiencia" (controller:"adminPolitician"){action =[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
+        name adminKuorumAccountEdit: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/email-account" (controller:"adminUser"){action =[GET:"editKuorumEmailAccount", POST:"updateKuorumEmailAccount"]}
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
         name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")

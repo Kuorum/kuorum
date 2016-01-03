@@ -10,6 +10,7 @@ import kuorum.core.model.gamification.GamificationAward
 import kuorum.core.model.search.SearchNotifications
 import kuorum.core.model.search.SearchUserPosts
 import kuorum.files.FileService
+import kuorum.mail.KuorumMailAccountService
 import kuorum.notifications.Notification
 import kuorum.post.Post
 import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
@@ -17,6 +18,7 @@ import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.notification.MailsMessageRSDTO
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ProfileController {
@@ -30,6 +32,7 @@ class ProfileController {
     def gamificationService
     def notificationService
     def kuorumMailService
+    KuorumMailAccountService kuorumMailAccountService
 
     def beforeInterceptor ={
         if (springSecurityService.isLoggedIn()){//Este if es para la confirmacion del email
@@ -347,5 +350,10 @@ class ProfileController {
             flash.message=message(code:'profile.deleteAccount.oneChance.success')
             redirect(mapping: 'home')
         }
+    }
+
+    def showUserEmails(){
+        MailsMessageRSDTO mails = kuorumMailAccountService.getUserMails(params.user)
+        [mails:mails]
     }
 }

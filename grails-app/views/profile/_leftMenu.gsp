@@ -33,6 +33,11 @@
             <g:link mapping="profilePoliticianExperience"><g:message code="profile.menu.profilePoliticianExperience"/></g:link>
         </li>
     </sec:ifAnyGranted>
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+        <li class="${activeMapping=='profileMailing'?'active':''}">
+            <g:link mapping="profileMailing">EMAILS</g:link>
+        </li>
+    </sec:ifAnyGranted>
     <li class="${activeMapping=='profileEditCommissions'?'active':''}">
         <g:link mapping="profileEditCommissions"><g:message code="profile.menu.editCommissions"/></g:link>
     </li>
