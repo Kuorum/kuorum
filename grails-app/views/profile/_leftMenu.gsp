@@ -1,5 +1,8 @@
 <h1><g:message code="profile.leftMenu.title"/></h1>
 <ul>
+    <li class="${activeMapping=='profileEditAccountDetails'?'active':''}">
+        <g:link mapping="profileEditAccountDetails"><g:message code="profile.menu.profileEditAccountDetails"/></g:link>
+    </li>
     <li class="${activeMapping=='profileEditUser'?'active':''}">
         <g:link mapping="profileEditUser"><g:message code="profile.menu.editUser"/></g:link>
     </li>

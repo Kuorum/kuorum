@@ -886,7 +886,18 @@ $(document).ready(function() {
         realInputId = realInputId.replace(".", "\\.")
         $("#"+realInputId).val("")
     });
+
+
+    $("form.submitOrangeButton input").change(function(){
+        var submitButtons = $(this).parents("form").find("input[type=submit]");
+        submitButtons.removeClass("btn-grey");
+        submitButtons.addClass("btn-orange");
+    })
+
 });
+
+// ***** End jQuey Init *********** //
+
 
 function counterCharacters(idField) {
     var totalChars      = parseInt($('#charInit_'+idField+' span').text());
@@ -910,7 +921,6 @@ function counterCharacters(idField) {
     });
 }
 
-// ***** End jQuey Init *********** //
 //
 //var modalDefend = {
 //    data:{},

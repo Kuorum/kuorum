@@ -12,7 +12,7 @@
 </content>
 
 <content tag="mainContent">
-    <g:form method="POST" mapping="profileEmailNotifications" name="config9" role="form" class="box-ppal">
+    <g:form method="POST" mapping="profileEmailNotifications" name="config9" role="form">
         %{--<h1><g:message code="profile.emailNotifications.title"/></h1>--}%
         <g:each in="${kuorum.mail.MailGroupType.values().findAll{it.editable}}" var="mailGroup">
             <div class="form-group activityMe">

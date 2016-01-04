@@ -10,14 +10,12 @@
 </content>
 
 <content tag="mainContent">
-    <div class="box-ppal">
-        <h1><g:message code="layout.footer.organizations"/></h1>
-        <p>
-            <g:message code="footer.menu.footerOrganizations.description1"/>
-        </p>
-        <p>
-            <g:message code="footer.menu.footerOrganizations.description2"/>
-        </p>
-        <img src="${resource(dir: 'images', file: 'info3.png')}" alt="foto-activistas" itemprop="image">
-    </div>
+    <h1><g:message code="layout.footer.organizations"/></h1>
+    <p>
+        <g:message code="footer.menu.footerOrganizations.description1"/>
+    </p>
+    <p>
+        <g:message code="footer.menu.footerOrganizations.description2"/>
+    </p>
+    <img src="${resource(dir: 'images', file: 'info3.png')}" alt="foto-activistas" itemprop="image">
 </content>

@@ -17,7 +17,7 @@
 <content tag="mainContent">
     <h1>External Activity ${command.politician.name}</h1>
     <formUtil:validateForm form="externalActivitiesForm" bean="${command}"/>
-    <g:form method="POST" mapping="adminEditPoliticianExternalActivity" params="${command.politician.encodeAsLinkProperties()}" name="externalActivitiesForm" role="form" class="box-ppal">
+    <g:form method="POST" mapping="adminEditPoliticianExternalActivity" params="${command.politician.encodeAsLinkProperties()}" name="externalActivitiesForm" role="form">
         <g:render template="/politicianProfile/formExternalActivity" model="[command:command]"/>
     </g:form>
 </content>

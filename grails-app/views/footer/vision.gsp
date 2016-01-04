@@ -10,17 +10,15 @@
 </content>
 
 <content tag="mainContent">
-    <div class="box-ppal">
-        <h1><g:message code="layout.footer.vision"/></h1>
-        <p>
-            <g:message code="footer.menu.footerVision.description1"/>
-        </p>
-        <p>
-            <g:message code="footer.menu.footerVision.description2"/>
-        </p>
-        <p>
-            <g:message code="footer.menu.footerVision.description3"/>
-        </p>
-        <img src="${resource(dir: 'images', file: 'info2.png')}" alt="foto-multitud" itemprop="image">
-    </div>
+    <h1><g:message code="layout.footer.vision"/></h1>
+    <p>
+        <g:message code="footer.menu.footerVision.description1"/>
+    </p>
+    <p>
+        <g:message code="footer.menu.footerVision.description2"/>
+    </p>
+    <p>
+        <g:message code="footer.menu.footerVision.description3"/>
+    </p>
+    <img src="${resource(dir: 'images', file: 'info2.png')}" alt="foto-multitud" itemprop="image">
 </content>

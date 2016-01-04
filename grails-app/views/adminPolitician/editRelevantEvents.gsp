@@ -17,7 +17,7 @@
 <content tag="mainContent">
     <h1>Relevant events for ${command.politician.name}</h1>
     <formUtil:validateForm form="relevantEventsForm" bean="${command}"/>
-    <g:form method="POST" mapping="adminEditPoliticianRelevantEvents" params="${command.politician.encodeAsLinkProperties()}" name="relevantEventsForm" role="form" class="box-ppal">
+    <g:form method="POST" mapping="adminEditPoliticianRelevantEvents" params="${command.politician.encodeAsLinkProperties()}" name="relevantEventsForm" role="form">
         <g:render template="/politicianProfile/formRelevantEvents" model="[command:command]"/>
     </g:form>
 </content>

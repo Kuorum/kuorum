@@ -13,7 +13,7 @@
 
 <content tag="mainContent">
     <formUtil:validateForm form="relevantEventsForm" bean="${command}"/>
-    <g:form method="POST" mapping="profilePoliticianRelevantEvents" name="relevantEventsForm" role="form" class="box-ppal">
+    <g:form method="POST" mapping="profilePoliticianRelevantEvents" name="relevantEventsForm" role="form">
         <g:render template="formRelevantEvents" model="[command:command]"/>
     </g:form>
 </content>

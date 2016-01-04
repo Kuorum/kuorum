@@ -1,22 +1,14 @@
 package kuorum.users
 
-import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.ui.RegistrationCode
 import kuorum.KuorumFile
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
-import kuorum.core.model.gamification.GamificationAward
-import kuorum.core.model.search.SearchNotifications
-import kuorum.core.model.search.SearchUserPosts
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
 import kuorum.notifications.Notification
-import kuorum.post.Post
-import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
-import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
-import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
 
@@ -55,6 +47,25 @@ class ProfileController {
                 favorites: postService.favoritesPosts(user).size(),
                 unreadMessages:3
         ]
+    }
+
+    @Secured("IS_AUTHENTICATED_FULLY")
+    def editAccountDetails(){
+        KuorumUser user = params.user
+        AccountDetailsCommand command = new AccountDetailsCommand()
+        command.alias = user.alias
+        command.email = user.email
+        command.language = user.language
+        [command:command]
+    }
+
+    @Secured(["IS_AUTHENTICATED_FULLY"])
+    def updateAccountDetails(AccountDetailsCommand command){
+        if (command.hasErrors()){
+            render view: "editAccountDetails", model:[command:command]
+            return;
+        }
+        render "TODO UPDATE"
     }
 
     def editUser() {

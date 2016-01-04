@@ -11,7 +11,7 @@
 </content>
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="config1" />
-    <g:form method="POST" mapping="profileEditCommissions" name="config1" role="form" class="box-ppal">
+    <g:form method="POST" mapping="profileEditCommissions" name="config1" role="form">
 
         <fieldset class="form-group interest">
             <formUtil:selectMultipleCommissions command="${command}" field="commissions"/>

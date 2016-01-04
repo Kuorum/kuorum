@@ -11,7 +11,7 @@
 </content>
 
 <content tag="mainContent">
-    <g:form mapping="profileSocialNetworks" role="form" class="box-ppal">
+    <g:form mapping="profileSocialNetworks" role="form">
         %{--<h1><g:message code="profile.socialNetworks.title"/></h1>--}%
         <fieldset class="row">
         <div class="form-group col-md-6">

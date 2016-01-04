@@ -11,7 +11,7 @@
 </content>
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="config1" />
-    <g:form method="POST" mapping="profileEditUser" name="config1" role="form" class="box-ppal">
+    <g:form method="POST" mapping="profileEditUser" name="config1" role="form">
         %{--<h1><g:message code="profile.editUser.title"/></h1>--}%
 
         <fieldset class="row">

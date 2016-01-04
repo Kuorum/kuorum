@@ -9,7 +9,7 @@
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileDeleteAccount', menu:menu]"/>
 </content>
 <content tag="mainContent">
-    <g:form mapping="profileDeleteAccount" role="form" name="deleteAccountForm" class="box-ppal">
+    <g:form mapping="profileDeleteAccount" role="form" name="deleteAccountForm">
         %{--<h1><g:message code="profile.deleteAccount.title"/></h1>--}%
         <input type="hidden" name="forever" value=""/>
         <p><g:message code="profile.deleteAccount.requestExplanation"/></p>
