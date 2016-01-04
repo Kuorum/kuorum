@@ -84,7 +84,9 @@ grails.project.dependency.resolution = {
         compile 'com.xlson.groovycsv:groovycsv:1.0' //Para poder leer CSV
         compile ('com.amazonaws:aws-java-sdk:1.10.20'){ //Amazon S3
             excludes "org.apache.httpcomponents:httpclient"
+            excludes "joda-time:joda-time"
         }
+        compile 'joda-time:joda-time:2.9.1' // Actualizacion de libreria para amazon
         compile 'org.apache.httpcomponents:httpclient:4.5' //Actualizacion librería para Amazon
 
         compile ('org.codehaus.groovy:groovy-xmlrpc:jar:0.7'){
