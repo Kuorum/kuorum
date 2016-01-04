@@ -48,18 +48,22 @@ class KuorumMailAccountService {
     }
 
     KuorumMailAccountDetailsRSDTO getAccountDetails(KuorumUser user){
-        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        String path = buildUrl(ACCOUNT_INFO, [userAlias:user.alias]);
-        def response = mailKuorumServices.get(
-                path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
-                query:[:]
-        )
-        KuorumMailAccountDetailsRSDTO account = null;
-        if (response.data){
-            account = new KuorumMailAccountDetailsRSDTO(response.data)
+        if (user.alias){
+            RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+            String path = buildUrl(ACCOUNT_INFO, [userAlias:user.alias]);
+            def response = mailKuorumServices.get(
+                    path: path,
+                    headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                    query:[:]
+            )
+            KuorumMailAccountDetailsRSDTO account = null;
+            if (response.data){
+                account = new KuorumMailAccountDetailsRSDTO(response.data)
+            }
+            return account;
+        }else{
+            return null;
         }
-        return account;
     }
 
     KuorumMailAccountDetailsRSDTO activateAccount(KuorumUser user){
