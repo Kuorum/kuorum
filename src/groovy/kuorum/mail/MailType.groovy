@@ -9,8 +9,8 @@ public enum MailType {
     REGISTER_RESET_PASSWORD             (MailGroupType.REGISTER,"register-resetPassword", ["resetPasswordLink"], []),
     REGISTER_RRSS                       (MailGroupType.REGISTER,"register-socialNetworks",[], ["provider"]),
     REGISTER_ACCOUNT_COMPLETED          (MailGroupType.REGISTER,"register-completed",     [], []),
-    REGISTER_CHANGE_EMAIL_VERIFY        (MailGroupType.REGISTER,"register-emailChangeOld",["confirmationLink"], []),
-    REGISTER_CHANGE_EMAIL_REQUESTED     (MailGroupType.REGISTER,"register-emailChangeNew",["newEmailAccount"], []),
+    REGISTER_CHANGE_EMAIL_VERIFY        (MailGroupType.REGISTER,"register-emailChangeNew",["confirmationLink"], []),
+    REGISTER_CHANGE_EMAIL_REQUESTED     (MailGroupType.REGISTER,"register-emailChangeOld",["newEmailAccount"], []),
     NOTIFICATION_OFFER_PURCHASED        (MailGroupType.REGISTER,"register-suscription",   [], ["userLink", "user", "offerType", "totalPrice"]),
     CAMPAIGN_POLL_THANK_YOU             (MailGroupType.REGISTER,"register-modalelections",[],["recovery", "education", "democracy", "equalty", "constitution", "foreign", "politician", "politicianLink"]),
 

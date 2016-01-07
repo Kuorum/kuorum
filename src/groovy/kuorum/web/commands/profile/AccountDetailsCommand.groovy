@@ -15,14 +15,29 @@ import org.springframework.security.authentication.dao.SaltSource
  */
 @Validateable
 class AccountDetailsCommand {
+
+    public AccountDetailsCommand(){}
+    public AccountDetailsCommand(KuorumUser user){
+        this.user = user
+        this.name = user.name
+        this.alias = user.alias
+        this.email = user.email
+        this.phone = user.personalData?.telephone?:''
+        this.phonePrefix = user.personalData?.phonePrefix?:''
+        this.language = user.language
+    }
     KuorumUser user;
+    String name;
     String alias;
     String email;
+    String phonePrefix;
+    String phone;
     AvailableLanguage language;
     String password;
 
 
     static constraints = {
+        name nullable: false
         user nullable: false
         password nullable: false,  validator: {val, obj ->
             if (val && obj.user && !isPasswordValid(val, obj.user)){
@@ -40,6 +55,8 @@ class AccountDetailsCommand {
             }
         }
         language nullable:false
+        phonePrefix nullable:true
+        phone nullable: true
     }
 
     private static Boolean isPasswordValid(String inputPassword, KuorumUser user){

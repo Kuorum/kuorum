@@ -176,7 +176,7 @@ label {font-weight: normal;}
 #sign .voting > ul > li > a.update:active {color: #ff9431;}
 
 p { margin: 0 0 20px 0;}
-.help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic; margin: -10px 0 0 0;}
+.help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic;}
 .mb20 {margin-bottom: 20px !important;}
 a:hover, a:focus {outline: 0;}
 
@@ -753,7 +753,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal-title h3 { color: #a8a8a8; margin:0px;font-size:1.4rem;}
 .box-ppal {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
 .box-ppal {padding: 22px 10px 0;}
-.box-ppal-title + .box-ppal {padding-left: 40px}
+.box-ppal .box-ppal-section{padding-left: 20px}
 .box-ppal.profile {padding: 0; margin-bottom: 10px;}
 .config .box-ppal {padding: 10px;}
 .kakareo.follow {padding: 5px 15px;}
@@ -3897,7 +3897,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .embudo #aside-ppal .border {width: 80%; margin: 0;}
     .embudo #aside-ppal {background: url('../images/recorte-dwn.png'), url('../images/recorte-rgt.png'); background-color: #f0f0f0; background-repeat: repeat-x, repeat-y; background-position: left bottom, right top; padding-top: 40px;}
 
-    .help-block {margin: 30px 0 0 0;}
+    .help-block {margin: 0 0 0 0;}
     .icheckbox_line-orange,
     .iradio_line-orange {margin-right: 8px; margin-bottom: 8px;}
     .no-phone .form-group:nth-child(2) {width: 29%;}
@@ -3923,7 +3923,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .box-ppal.condition.politician > .row h1 {font-size: 29px; font-size: 2.9rem;}
 
     .config > article > .box-ppal, .config > section > .box-ppal {padding: 22px 20px 0 20px; margin-bottom: 60px;}
-    .config > article > .box-ppal-title + .box-ppal, .config > section > .box-ppal-title + .box-ppal {padding-left:40px;}
 
     .user-list-followers > .user > .actions {float: right; margin: -30px 0 0 0 !important;}
     .user-list-followers > .user > .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}

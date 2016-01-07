@@ -30,7 +30,6 @@
                     type="password"
                     id="email"
                     cssClass="form-control input-lg"
-                    helpBlock="${g.message(code:'grails.plugin.springsecurity.ui.ResetPasswordCommand.password2.helpBlock')}"
                     required="true"/>
         </div>
         <div class="form-group">

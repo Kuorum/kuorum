@@ -72,14 +72,7 @@ class RegisterService {
     KuorumUser registerUser(KuorumRegisterCommand command){
         KuorumUser user = createUser(command)
 
-        RegistrationCode registrationCode = registerUserCode(user)
-        log.info("Usuario $user.name creado con el token  $registrationCode.token")
-        if (registrationCode == null || registrationCode.hasErrors()) {
-            throw new KuorumException("Error creando usuario")
-        }
-
-        String url = generateLink('verifyRegistration', [t: registrationCode.token])
-        kuorumMailService.sendRegisterUser(user,url)
+        sendVerificationMail(user, 'verifyRegistration')
 
         if (!user.password){
             user.password = "${PREFIX_PASSWORD}${Math.random()}"
@@ -87,6 +80,21 @@ class RegisterService {
         }
         springSecurityService.reauthenticate user.email
         user
+    }
+
+    public void sendVerificationMail(KuorumUser user, String actionLink){
+        RegistrationCode registrationCode = registerUserCode(user)
+        log.info("Usuario $user.name creado con el token  $registrationCode.token")
+        if (registrationCode == null || registrationCode.hasErrors()) {
+            throw new KuorumException("Error creando usuario")
+        }
+
+        String url = generateLink(actionLink, [t: registrationCode.token])
+        kuorumMailService.sendRegisterUser(user,url)
+    }
+
+    def changeEmail(KuorumUser user, String newEmail){
+
     }
 
     @Transactional

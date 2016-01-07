@@ -111,7 +111,6 @@ class FormTagLib {
         def prefixFieldName=attrs.prefixFieldName?:""
         def disabled=attrs.disabled?"disabled":""
         def id = "${prefixFieldName}${attrs.id?:field}"
-        def helpBlock = attrs.helpBlock?:''
         def type = attrs.type?:'text'
         def required = attrs.required?'required':''
         def cssClass = attrs.cssClass?:'form-control input-lg'
@@ -122,6 +121,7 @@ class FormTagLib {
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
+        String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
 
         def value = command."${field}"?:''
         def error = hasErrors(bean: command, field: field,'error')

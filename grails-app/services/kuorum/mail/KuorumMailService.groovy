@@ -154,9 +154,11 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
-    def sendChangeEmailVerification(KuorumUser user, String resetLink){
+    def sendChangeEmailVerification(KuorumUser user, String resetLink, String newMail){
         def bindings = [confirmationLink:resetLink]
-        MailUserData mailUserData = new MailUserData(user:user, bindings:bindings)
+        KuorumUser futureUser = new KuorumUser(user.properties)
+        futureUser.email = newMail
+        MailUserData mailUserData = new MailUserData(user:futureUser, bindings:bindings)
         MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_CHANGE_EMAIL_VERIFY, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
