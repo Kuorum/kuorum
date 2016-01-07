@@ -10,6 +10,7 @@ import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
@@ -18,6 +19,7 @@ import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.SolrElement
 import kuorum.core.model.solr.SolrResults
 import kuorum.core.model.solr.SolrType
+import kuorum.mail.KuorumMailAccountService
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostComment
@@ -25,9 +27,11 @@ import kuorum.project.Project
 import kuorum.register.RegisterService
 import kuorum.solr.SearchSolrService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
+import org.apache.tools.ant.taskdefs.Available
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
+import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 
 @Transactional
 class KuorumUserService {
@@ -38,6 +42,8 @@ class KuorumUserService {
     def regionService
     SpringSecurityService springSecurityService
     SearchSolrService searchSolrService;
+    KuorumMailAccountService kuorumMailAccountService;
+
 
     GrailsApplication grailsApplication
 
@@ -434,6 +440,34 @@ class KuorumUserService {
 
         user
     }
+
+    KuorumUser updateAlias(KuorumUser user, String newAlias){
+        String currentAlias = user.alias
+        if (user.alias != newAlias){
+            try{
+                log.info("Updating alias ${user.alias} -> ${newAlias}")
+                def res = KuorumUser.collection.update([_id:user.id],['$set':[alias:newAlias]])
+                user.refresh()
+                kuorumMailAccountService.changeAliasAccount(currentAlias, newAlias)
+            }catch (Exception e){
+                log.error("Erro updating user alias ${user.alias} -> ${newAlias}",e)
+                def res = KuorumUser.collection.update([_id:user.id],['$set':[alias:currentAlias]])
+                user.refresh()
+                return null;
+            }
+        }
+        return user;
+    }
+    KuorumUser updateLanguage(KuorumUser user, AvailableLanguage language){
+        user.language = language;
+        user.save()
+    }
+
+    KuorumUser updateEmail(KuorumUser user, String email){
+        user.email = email;
+        user.save()
+    }
+
 
     KuorumUser createUser(KuorumUser user){
 

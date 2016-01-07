@@ -191,14 +191,18 @@ class AdminUserController extends AdminController {
             flash.error=message(code:'admin.createUser.error')
             return
         }
-        command.user.alias = command.alias
-        kuorumUserService.updateUser(command.user)
-        if (command.active){
-            kuorumMailAccountService.activateAccount(command.user)
-        }else{
-            kuorumMailAccountService.deleteAccount(command.user)
+        KuorumUser updatedUser = kuorumUserService.updateAlias(command.user, command.alias)
+        if (!updatedUser){
+            render view: 'editKuorumEmailAccount', model:[command:command, user:command.user]
+            flash.error=message(code:'admin.createUser.error')
+            return
         }
-        flash.message =message(code:'admin.editUser.success', args: [command.user.name])
-        redirect(mapping:'adminKuorumAccountEdit', params:command.user.encodeAsLinkProperties())
+        if (command.active){
+            kuorumMailAccountService.activateAccount(updatedUser)
+        }else{
+            kuorumMailAccountService.deleteAccount(updatedUser)
+        }
+        flash.message =message(code:'admin.editUser.success', args: [updatedUser.name])
+        redirect(mapping:'adminKuorumAccountEdit', params:updatedUser.encodeAsLinkProperties())
     }
 }

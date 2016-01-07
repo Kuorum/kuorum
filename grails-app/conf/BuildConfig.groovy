@@ -104,7 +104,7 @@ grails.project.dependency.resolution = {
         compile 'org.grails:grails-datastore-gorm:3.1.0.RELEASE'
         compile 'org.grails:grails-datastore-core:3.1.0.RELEASE'
         test 'org.grails:grails-datastore-simple:3.1.0.RELEASE'
-       // compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
+       compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
 
 //        test "org.gebish:geb-spock:$gebVersion"
 //        test("org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion")

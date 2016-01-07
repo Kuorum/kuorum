@@ -49,17 +49,18 @@ class ProfileController {
         ]
     }
 
-    @Secured("IS_AUTHENTICATED_FULLY")
+//    @Secured("IS_AUTHENTICATED_FULLY")
     def editAccountDetails(){
         KuorumUser user = params.user
         AccountDetailsCommand command = new AccountDetailsCommand()
+        command.user = user
         command.alias = user.alias
         command.email = user.email
         command.language = user.language
         [command:command]
     }
 
-    @Secured(["IS_AUTHENTICATED_FULLY"])
+//    @Secured(["IS_AUTHENTICATED_FULLY"])
     def updateAccountDetails(AccountDetailsCommand command){
         if (command.hasErrors()){
             render view: "editAccountDetails", model:[command:command]

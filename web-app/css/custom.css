@@ -749,8 +749,8 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .list-updates > li > .kakareo {margin: 0;}
 .kakareo,
 .box-ppal-title {background-color: #fff; border-width: 1px 1px 0 1px; border-color: #e5e5e5; border-style:solid; padding:20px 15px}
-.box-ppal-title h1 { margin-bottom:15px;margin:0 0 10px 0;}
-.box-ppal-title h3 { color: #b1b1b1; margin:0px;}
+.box-ppal-title h1 { margin-bottom:15px;margin:0 0 10px 0;font-size: 2.5rem}
+.box-ppal-title h3 { color: #a8a8a8; margin:0px;font-size:1.4rem;}
 .box-ppal {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
 .box-ppal {padding: 22px 10px 0;}
 .box-ppal-title + .box-ppal {padding-left: 40px}

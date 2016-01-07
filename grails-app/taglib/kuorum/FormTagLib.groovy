@@ -165,12 +165,16 @@ class FormTagLib {
         def id = attrs.id?:field
         def label = message(code: "${command.class.name}.${field}.label")
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
-
+        def prefixFieldName=attrs.prefixFieldName?:""
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         def value = command."${field}"?:''
         def error = hasErrors(bean: command, field: field,'error')
-
+        if (showLabel){
+            out << "<label for='${prefixFieldName}${field}'>${label}</label>"
+        }else{
+            out << "<label class='sr-only' for='${prefixFieldName}${field}'>${label}</label>"
+        }
         out <<"""
-                <label class="sr-only" for="pass">${label}</label>
                 <div class="input-append input-group">
                     <input type="password" required aria-required="true" id="${id}" name="${field}" class="form-control input-lg" placeholder="${g.message(code:"login.email.form.password.label")}" value="">
                     <span tabindex="100" class="add-on input-group-addon">

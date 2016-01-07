@@ -17,6 +17,7 @@
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="accountDetailsForm" />
     <g:form method="POST" mapping="profileEditAccountDetails" name="accountDetailsForm" role="form" class="submitOrangeButton">
+        <input type="hidden" name="user.id" value="${command.user.id}"/>
         <fieldset class="row">
             <div class="form-group col-md-6">
                 <formUtil:input command="${command}" field="alias" required="true" showLabel="true"/>
@@ -28,6 +29,11 @@
                 <formUtil:input command="${command}" field="email" required="true" showLabel="true"/>
             </div>
         </fieldset>
+        <fieldset class="row">
+            <div class="form-group col-md-6">
+                <formUtil:password command="${command}" field="password" required="true" showLabel="true"/>
+            </div>
+        </fieldset>
 
         <fieldset class="row">
             <div class="form-group col-md-6">
@@ -35,9 +41,7 @@
             </div>
         </fieldset>
         <fieldset class="form-group text-center">
-            <div class="form-group">
-                <input type="submit" value="${g.message(code:'profile.emailNotifications.save')}" class="btn btn-grey btn-lg">
-            </div>
+            <input type="submit" value="${g.message(code:'profile.emailNotifications.save')}" class="btn btn-orange btn-lg">
         </fieldset>
     </g:form>
 </content>

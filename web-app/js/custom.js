@@ -888,11 +888,14 @@ $(document).ready(function() {
     });
 
 
-    $("form.submitOrangeButton input").change(function(){
-        var submitButtons = $(this).parents("form").find("input[type=submit]");
-        submitButtons.removeClass("btn-grey");
-        submitButtons.addClass("btn-orange");
-    })
+//    $("form.submitOrangeButton input.form-control").on('keyup paste',function(){
+//        console.log("change")
+//        var submitButtons = $(this).parents("form").find("input[type=submit]");
+//        submitButtons.removeClass("btn-grey");
+//        submitButtons.removeClass("disabled");
+//        submitButtons.addClass("btn-orange");
+//    })
+//    $("form.submitOrangeButton input[type=submit]").addClass("disabled")
 
 });
 

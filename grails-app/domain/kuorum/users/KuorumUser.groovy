@@ -128,7 +128,7 @@ class KuorumUser {
     static constraints = {
         name nullable:false //Limit size will be added
         email nullable: false, email: true
-        alias nullable:true
+        alias nullable:true, unique:true
         password nullable:true
         bio nullable:true
         avatar nullable:true
@@ -156,6 +156,7 @@ class KuorumUser {
 
     static mapping = {
         email index:true, indexAttributes: [unique:true]
+        alias index:true, indexAttributes: [unique:true, sparse:true]
 //        following cascade:"refresh"
 //        followers cascade:"refresh"
 //        subscribers cascade:"refresh"
