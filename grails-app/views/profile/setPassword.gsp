@@ -16,13 +16,8 @@
 
 <content tag="mainContent">
     <formUtil:validateForm form="changePassword" bean="${command}"/>
-    <g:form method="POST" mapping="profileChangePass" name="changePassword" role="form" class="submitOrangeButton">
+    <g:form method="POST" mapping="profileSetPass" name="changePassword" role="form" class="submitOrangeButton">
         <div class="box-ppal-section">
-            <fieldset class="row">
-                <div class="form-group col-md-6">
-                    <formUtil:input type="password" command="${command}" field="originalPassword" showLabel="true"/>
-                </div>
-            </fieldset>
             <fieldset class="row">
                 <div class="form-group col-md-6">
                     <formUtil:input type="password" command="${command}" field="password" showLabel="true"/>

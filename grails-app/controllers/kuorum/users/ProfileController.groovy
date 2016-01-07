@@ -2,12 +2,15 @@ package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.ui.RegistrationCode
+import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import kuorum.KuorumFile
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
 import kuorum.notifications.Notification
+import kuorum.register.FacebookAuthService
+import kuorum.register.GoogleOAuthService
 import kuorum.web.commands.profile.*
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
@@ -275,6 +278,10 @@ class ProfileController {
 
     def changePassword() {
         KuorumUser user = params.user
+        if (!user.password || user.password.startsWith(FacebookAuthService.PASSWORD_PREFIX) || user.password.startsWith(GoogleOAuthService.PASSWORD_PREFIX)){
+            redirect mapping:"profileSetPass";
+            return;
+        }
         [user:user, command: new ChangePasswordCommand()]
     }
     def changePasswordSave(ChangePasswordCommand command) {
@@ -294,6 +301,22 @@ class ProfileController {
         redirect mapping:'profileChangePass'
     }
 
+    def setPassword() {
+        KuorumUser user = params.user
+        [user:user, command: new ResetPasswordCommand()]
+    }
+
+    def setPasswordSave(ResetPasswordCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors()){
+            render view:"setPassword", model: [command:command,user:user]
+            return
+        }
+        user.password = springSecurityService.encodePassword(command.password)
+        kuorumUserService.updateUser(user)
+        flash.message=message(code:'profile.changePassword.success')
+        redirect mapping:'profileChangePass'
+    }
 
     def socialNetworks() {
         KuorumUser user = params.user

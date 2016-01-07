@@ -161,6 +161,7 @@ class UrlMappings {
         name profileEditAccountDetails:     "/config/account-details"                  (controller: "profile"){action =[GET:"editAccountDetails", POST:"updateAccountDetails"]}
         name profileEditCommissions:     "/configuracion-usuario/cambiar-areas-interes"                  (controller: "profile"){action =[GET:"editCommissions", POST:"editCommissionsSave"]}
         name profileChangePass:   "/configuracion-usuario/cambiar-password" (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
+        name profileSetPass:      "/configuracion-usuario/crear-password" (controller: "profile"){action =[GET:"setPassword", POST:"setPasswordSave"]}
         name profileChangeEmail:  "/configuracion-usuario/cambiar-email"    (controller: "profile"){action =[GET:"changeEmail", POST:"changeEmailSave"]}
         name profileChangeEmailSent:  "/configuracion-usuario/cambiar-email/solicitud-recivida"    (controller: "profile", action :"changeEmailConfirmSent")
         name profileChangeEmailConfirm: "/configuracion-usuario/cambiar-email/confirmar"    (controller: "profile", action: "changeEmailConfirm")

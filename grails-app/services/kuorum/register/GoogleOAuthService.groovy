@@ -8,7 +8,6 @@ import grails.transaction.Transactional
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.model.Gender
-import kuorum.core.model.UserType
 import kuorum.users.*
 import kuorum.util.LookUpEnumUtil
 import org.springframework.security.core.userdetails.UserDetails
@@ -24,6 +23,7 @@ class GoogleOAuthService implements IOAuthService{
 
     private static final String GOOLE_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v1/userinfo'
     private static final String PROVIDER = 'Google+'
+    public static final String PASSWORD_PREFIX = "*google*"
 
     OAuthToken createAuthToken(accessToken) {
         def response = oauthService.getGoogleResource(accessToken, GOOLE_USER_INFO_URL)
@@ -65,7 +65,7 @@ class GoogleOAuthService implements IOAuthService{
         KuorumRegisterCommand registerCommand = new KuorumRegisterCommand(
                 email:googleUser.email,
                 name: googleUser.name,
-                password: "*google*${Math.random()}"
+                password: "${PASSWORD_PREFIX}${Math.random()}"
         )
         KuorumUser user = registerService.createUser(registerCommand)
         user.accountExpired = false;

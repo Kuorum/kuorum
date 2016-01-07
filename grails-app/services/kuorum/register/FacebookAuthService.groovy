@@ -22,6 +22,8 @@ class FacebookAuthService {
     def kuorumMailService
     RegisterService registerService
 
+    public static final String PASSWORD_PREFIX = "*facebook*"
+
     private static final PROVIDER = "Facebook"
     /**
      * Called first time an user register with facebook
@@ -50,7 +52,7 @@ class FacebookAuthService {
         KuorumRegisterCommand registerCommand = new KuorumRegisterCommand(
                 email:fbProfile.email,
                 name: fbProfile.name,
-                password: "*facebook*${Math.random()}"
+                password: "${PASSWORD_PREFIX}${Math.random()}"
         )
         KuorumUser user = KuorumUser.findByEmail(fbProfile.email)?:registerService.createUser(registerCommand)
         user.accountExpired = false
