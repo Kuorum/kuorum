@@ -254,7 +254,7 @@ class UrlMappings {
         name adminEditPoliticianQuickNotes: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/quick-notes" (controller:"adminPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
         name adminEditPoliticianCauses: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/causes" (controller:"adminPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
         name adminEditPoliticianExperience: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/experiencia" (controller:"adminPolitician"){action =[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
-        name adminKuorumAccountEdit: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/email-account" (controller:"adminUser"){action =[GET:"editKuorumEmailAccount", POST:"updateKuorumEmailAccount"]}
+        name adminKuorumAccountEdit: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/account-details" (controller:"adminUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
         name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")

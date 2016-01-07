@@ -27,6 +27,7 @@ import kuorum.project.Project
 import kuorum.register.RegisterService
 import kuorum.solr.SearchSolrService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
+import kuorum.web.commands.profile.AccountDetailsCommand
 import org.apache.tools.ant.taskdefs.Available
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication

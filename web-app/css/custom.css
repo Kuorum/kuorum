@@ -754,6 +754,10 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
 .box-ppal {padding: 22px 10px 0;}
 .box-ppal .box-ppal-section{padding-left: 20px}
+.box-ppal .box-ppal-section .box-ppal-section-title{margin:0 0 10px -20px; font-variant:small-caps;}
+.box-ppal .box-ppal-section + .box-ppal-section{border-top: 1px #e5e5e5 solid; padding-top: 20px;}
+.box-ppal .box-ppal-section:last-of-type{border:none}
+
 .box-ppal.profile {padding: 0; margin-bottom: 10px;}
 .config .box-ppal {padding: 10px;}
 .kakareo.follow {padding: 5px 15px;}

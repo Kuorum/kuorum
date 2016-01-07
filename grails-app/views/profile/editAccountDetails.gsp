@@ -15,48 +15,20 @@
     <h3><g:message code="profile.menu.profileEditAccountDetails.subtitle"/></h3>
 </content>
 <content tag="mainContent">
-    <div class="box-ppal-section">
-        <formUtil:validateForm bean="${command}" form="accountDetailsForm" />
-        <g:form method="POST" mapping="profileEditAccountDetails" name="accountDetailsForm" role="form" class="submitOrangeButton">
-            <input type="hidden" name="user.id" value="${command.user.id}"/>
-            <fieldset class="row">
-                <div class="form-group col-md-6">
-                    <formUtil:input command="${command}" field="name" required="true" showLabel="true"/>
-                </div>
-            </fieldset>
-            <fieldset class="row">
-                <div class="form-group col-md-6">
-                    <formUtil:input command="${command}" field="alias" showLabel="true" helpBlock="https://kuorum.org/${command.alias?:'alias'}"/>
-                </div>
-            </fieldset>
-
-            <fieldset class="row">
-                <div class="form-group col-md-6">
-                    <formUtil:input command="${command}" field="email" required="true" showLabel="true"/>
-                </div>
-            </fieldset>
+    <formUtil:validateForm bean="${command}" form="accountDetailsForm" />
+    <g:form method="POST" mapping="profileEditAccountDetails" name="accountDetailsForm" role="form" class="submitOrangeButton">
+        <div class="box-ppal-section">
+            <g:render template="accountDetailsForm" model="[command:command]"/>
             <fieldset class="row">
                 <div class="form-group col-md-6">
                     <formUtil:password command="${command}" field="password" required="true" showLabel="true"/>
                 </div>
             </fieldset>
-
-            <fieldset class="row">
-                <div class="form-group col-md-6">
-                    <formUtil:selectEnum command="${command}" field="language"/>
-                </div>
-            </fieldset>
-            <fieldset class="row">
-                <div class="form-group col-md-2">
-                    <formUtil:input command="${command}" field="phonePrefix" showLabel="true"/>
-                </div>
-                <div class="form-group col-md-4">
-                    <formUtil:input command="${command}" field="phone" showLabel="true"/>
-                </div>
-            </fieldset>
+        </div>
+        <div class="box-ppal-section">
             <fieldset class="form-group text-center">
                 <input type="submit" value="${g.message(code:'profile.emailNotifications.save')}" class="btn btn-orange btn-lg">
             </fieldset>
-        </g:form>
-    </div>
+        </div>
+    </g:form>
 </content>

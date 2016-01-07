@@ -175,17 +175,14 @@ class AdminUserController extends AdminController {
         command
     }
 
-    def editKuorumEmailAccount(){
+    def editAdminAccountDetails(){
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
-        KuorumAccountCommand command = new KuorumAccountCommand();
         KuorumMailAccountDetailsRSDTO account = kuorumMailAccountService.getAccountDetails(user)
-        command.user = user
-        command.alias = user.alias
-        command.active = account?.active?:false;
+        KuorumAccountCommand command = new KuorumAccountCommand(user, account?.active?:false);
         [user:user,command:command]
     }
 
-    def updateKuorumEmailAccount(KuorumAccountCommand command){
+    def updateAdminAccountDetails(KuorumAccountCommand command){
         if (command.hasErrors()){
             render view: 'editKuorumEmailAccount', model:[command:command, user:command.user]
             flash.error=message(code:'admin.createUser.error')
@@ -193,15 +190,28 @@ class AdminUserController extends AdminController {
         }
         KuorumUser updatedUser = kuorumUserService.updateAlias(command.user, command.alias)
         if (!updatedUser){
-            render view: 'editKuorumEmailAccount', model:[command:command, user:command.user]
+            flash.error = g.message(code:'kuorum.web.commands.profile.AccountDetailsCommand.logic.aliasError')
             flash.error=message(code:'admin.createUser.error')
             return
         }
-        if (command.active){
+        if (command.emailAccountActive){
             kuorumMailAccountService.activateAccount(updatedUser)
         }else{
             kuorumMailAccountService.deleteAccount(updatedUser)
         }
+        updatedUser.email = command.email
+        updatedUser.language = command.language
+        updatedUser.name = command.name
+        if (!updatedUser.personalData){
+            updatedUser.personalData = new  PersonData();
+        }
+        updatedUser.personalData.phonePrefix = command.phonePrefix
+        updatedUser.personalData.telephone = command.phone
+        updatedUser.userType = command.userType
+        updatedUser.personalData.userType = command.userType
+        updatedUser.enabled = command.active
+        updatedUser = kuorumUserService.updateUser(updatedUser);
+
         flash.message =message(code:'admin.editUser.success', args: [updatedUser.name])
         redirect(mapping:'adminKuorumAccountEdit', params:updatedUser.encodeAsLinkProperties())
     }
