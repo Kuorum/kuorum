@@ -97,13 +97,30 @@ class AdminController {
                 "#abdicacion",
                 "#tabaco",
                 "#despidoIRPF",
-                "#reformaFiscal"]
+                "#reformaFiscal",
+                "#perrosYGatos",
+                "#biblioNacional",
+                "#PGE2015",
+                "#fundaciones",
+                "#sefardies",
+                "#movSostenible",
+                "#pobrezaInfantil",
+                "#partidos",
+                "#altoCargo",
+                "#normaTributaria",
+                "#SDG",
+                "#solucionesjustas",
+                "#participacion",
+                "#antiConsultas",
+                "#sayNoToFracking"]
+
+
         def wrongProjects = []
-        Project.findAllByHashtag(hashtags).each{Project it ->
+        Project.findAllByHashtagInList(hashtags).each{Project it ->
             try{
                 if (it.image){
                     log.info("Moving avatar ${it.hashtag} => ${it.image.url}")
-                    it.image = moveLocalImageToAmazon(it.image)
+                    it.image = moveLocalImageToAmazon(it.image, it.hashtag)
                 }
 
                 if (!it.save()){
@@ -118,10 +135,10 @@ class AdminController {
     }
 
     FileService fileService
-    private KuorumFile moveLocalImageToAmazon(KuorumFile kuorumFile){
+    private KuorumFile moveLocalImageToAmazon(KuorumFile kuorumFile, String hashtag){
         try{
             if (kuorumFile.local){
-                URL url = new URL(kuorumFile.url);
+                URL url = new URL(kuorumFile.url.replaceAll("https://kuorum.org","http://51.254.117.194"));
                 BufferedImage image = ImageIO.read(url);
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 ImageIO.write(image, "jpg", os);
@@ -134,7 +151,7 @@ class AdminController {
                 return kuorumFile
             }
         }catch (Exception e){
-            log.info("No se ha podido mover la imagen ${kuorumFile.id} del usuario ${kuorumFile.user.email} a amazon")
+            log.info("No se ha podido mover la imagen ${kuorumFile.id} del projecto ${hashtag} a amazon: ${e.getMessage()}")
             fileService.deleteKuorumFile(kuorumFile);
             return null
         }
