@@ -156,7 +156,7 @@ class KuorumUser {
 
     static mapping = {
         email index:true, indexAttributes: [unique:true]
-        alias index:true
+        alias index:true, indexAttributes: [unique:true, sparse:true]
 //        following cascade:"refresh"
 //        followers cascade:"refresh"
 //        subscribers cascade:"refresh"
