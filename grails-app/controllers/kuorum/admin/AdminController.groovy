@@ -77,4 +77,68 @@ class AdminController {
 //        render view: "csvPoliticiansLoaded", model: [politiciansOk:politiciansOk,politiciansWrong:politiciansWrong, fileName:uploadedFile.getOriginalFilename()]
     }
 
+    def putImagesOnAmazon(){
+        List<String> hashtags = [
+                "#evalAmbiental",
+                "#losToros",
+                "#antiFracking",
+                "#accionExterior",
+                "#transparencia",
+                "#seguridadPrivada",
+                "#trabajoDiscap",
+                "#autoridadFiscal",
+                "#cajasAhorros",
+                "#sectorElectrico",
+                "#codigoPenal",
+                "#pensiones",
+                "#ecografias",
+                "#empresassociales",
+                "#aborto",
+                "#abdicacion",
+                "#tabaco",
+                "#despidoIRPF",
+                "#reformaFiscal"]
+        def wrongProjects = []
+        Project.findAllByHashtag(hashtags).each{Project it ->
+            try{
+                if (it.image){
+                    log.info("Moving avatar ${it.hashtag} => ${it.image.url}")
+                    it.image = moveLocalImageToAmazon(it.image)
+                }
+
+                if (!it.save()){
+                    wrongProjects << [mail:it.hashtag, errors:it.errors]
+                }
+            }catch (Exception e){
+                log.error("Execption moving images to Amazon",e)
+                wrongProjects << [mail:it.hashtag, errors:[exception:e.getMessage()]]
+            }
+        }
+        render wrongProjects as JSON
+    }
+
+    FileService fileService
+    private KuorumFile moveLocalImageToAmazon(KuorumFile kuorumFile){
+        try{
+            if (kuorumFile.local){
+                URL url = new URL(kuorumFile.url);
+                BufferedImage image = ImageIO.read(url);
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                ImageIO.write(image, "jpg", os);
+                InputStream is = new ByteArrayInputStream(os.toByteArray());
+                KuorumFile rest = fileService.uploadTemporalFile(is, kuorumFile.user, kuorumFile.fileName, kuorumFile.fileGroup)
+                rest = fileService.convertTemporalToFinalFile(rest);
+                fileService.deleteKuorumFile(kuorumFile);
+                return rest;
+            }else{
+                return kuorumFile
+            }
+        }catch (Exception e){
+            log.info("No se ha podido mover la imagen ${kuorumFile.id} del usuario ${kuorumFile.user.email} a amazon")
+            fileService.deleteKuorumFile(kuorumFile);
+            return null
+        }
+
+    }
+
 }
