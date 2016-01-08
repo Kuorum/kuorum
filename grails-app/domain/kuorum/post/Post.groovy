@@ -68,6 +68,26 @@ class Post {
         commitmentType nullable:true
     }
 
+
+    def beforeInsert() {
+        prepareIndexMetaData()
+    }
+
+    def beforeUpdate() {
+        prepareIndexMetaData()
+    }
+
+    private static final String INDEX_META_DATA_FIELD = "indexMetaData"
+    private void prepareIndexMetaData(){
+        def indexMetaData = [:]
+        indexMetaData.put("hashtag",this.project.hashtag)
+        indexMetaData.put("ownerName",this.owner.name)
+        indexMetaData.put("commissions",this.project.commissions.collect{it.toString()}) //Serializing error if not "toString"
+        indexMetaData.put("regionName",this.project.region.name)
+        indexMetaData.put("regionIso3166_2",this.project.region.iso3166_2)
+        this[INDEX_META_DATA_FIELD] = indexMetaData
+    }
+
     String toString(){
         "${title} (${id})"
     }

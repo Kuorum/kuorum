@@ -8,8 +8,11 @@ import com.mongodb.DBObject
 import com.mongodb.MapReduceCommand
 import com.mongodb.MapReduceOutput
 import grails.transaction.Transactional
+import groovy.json.JsonSlurper
 import groovy.time.TimeCategory
 import groovy.time.TimeDuration
+import groovyx.net.http.HttpResponseDecorator
+import groovyx.net.http.RESTClient
 import kuorum.Region
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.CommissionType
@@ -23,10 +26,13 @@ import kuorum.post.Post
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import org.apache.solr.client.solrj.SolrServer
+import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.apache.solr.common.SolrDocument
 import org.apache.solr.common.SolrInputDocument
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpMethod
+import org.springsource.loaded.ri.GetMethodLookup
 
 @Transactional
 class IndexSolrService {
@@ -54,10 +60,54 @@ class IndexSolrService {
 
         Date start = new Date()
 //        createUserScore(start)
-        clearIndex()
-
         def res = [:]
         log.warn("Reindexing all mongo")
+        Integer numIndexed = solrFullIndex()
+        TimeDuration td = TimeCategory.minus( new Date(), start )
+
+        log.info("Indexed $numIndexed docs. Time indexing: ${td}" )
+        res.put("total", numIndexed)
+        res.put("time", td)
+        res
+    }
+
+    private Integer solrFullIndex(){
+        if (server instanceof HttpSolrServer){
+            Integer numIndexed = 0;
+            HttpSolrServer httpSolrServer = (HttpSolrServer) server
+            String baseUrl = httpSolrServer.getBaseURL()
+            String path = "/dataimport"
+            RESTClient mailKuorumServices = new RESTClient( baseUrl +path)
+            def response = mailKuorumServices.get(
+                    headers: ["User-Agent": "Kuorum Web"],
+                    query:[command:'full-import', clean:'true', commit:'true', optimize:'true', wt:'json'],
+                    requestContentType : groovyx.net.http.ContentType.JSON
+            )
+            boolean importing = true;
+            def jsonSlurper = new JsonSlurper()
+            while (importing){
+                HttpResponseDecorator responseStatus = mailKuorumServices.get(
+                        headers: ["User-Agent": "Kuorum Web"],
+                        query:[command:'status', wt:'json'],
+                        requestContentType : groovyx.net.http.ContentType.JSON
+                )
+
+                def responseStatusData = jsonSlurper.parse(responseStatus.data)
+                Thread.sleep(1000)
+                if (responseStatusData."status" != "busy"){
+                    importing = false;
+                    numIndexed = Integer.parseInt(responseStatusData."statusMessages"."Total Rows Fetched")
+                }
+            }
+            return numIndexed
+        }else{
+            log.warn("Trying to index via solr but the server is not http it is ${server.class.name}")
+            return programaticFullIndex()
+        }
+    }
+
+    private Integer programaticFullIndex(){
+        clearIndex()
         Integer numIndexed = 0;
         log.info("BulkUpdates: $solrBulkUpdateQuantity")
 
@@ -67,12 +117,7 @@ class IndexSolrService {
             numIndexed += numPartialIndexed
             System.gc()
         }
-        TimeDuration td = TimeCategory.minus( new Date(), start )
-
-        log.info("Indexed $numIndexed docs. Time indexing: ${td}" )
-        res.put("total", numIndexed)
-        res.put("time", td)
-        res
+        return numIndexed;
     }
 
     SolrPost index(Post post){

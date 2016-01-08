@@ -132,6 +132,20 @@ class Project {
         projectBasicStats
     }
 
+    def beforeInsert() {
+        prepareIndexMetaData()
+    }
+
+    def beforeUpdate() {
+        prepareIndexMetaData()
+    }
+
+    private static final String INDEX_META_DATA_FIELD = "indexMetaData"
+    private void prepareIndexMetaData(){
+        def indexMetaData = [:]
+        indexMetaData.put("ownerName",this.owner.name)
+        this[INDEX_META_DATA_FIELD] = indexMetaData
+    }
 
     String toString(){
         "${hashtag} (${id})"
