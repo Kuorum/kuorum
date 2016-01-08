@@ -748,16 +748,15 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .list-updates > li {list-style: none; margin-bottom: 20px;}
 .list-updates > li > .kakareo {margin: 0;}
 .kakareo,
-.box-ppal-title {background-color: #fff; border-width: 1px 1px 0 1px; border-color: #e5e5e5; border-style:solid; padding:20px 15px}
-.box-ppal-title h1 { margin-bottom:15px;margin:0 0 10px 0;font-size: 2.5rem}
-.box-ppal-title h3 { color: #a8a8a8; margin:0px;font-size:1.4rem;}
 .box-ppal {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
 .box-ppal {padding: 22px 10px 0;}
 .box-ppal .box-ppal-section{padding-left: 20px}
 .box-ppal .box-ppal-section .box-ppal-section-title{margin:0 0 10px -20px; font-variant:small-caps;}
 .box-ppal .box-ppal-section + .box-ppal-section{border-top: 1px #e5e5e5 solid; padding-top: 20px;}
 .box-ppal .box-ppal-section:last-of-type{border:none}
-
+.box-ppal-title {background-color: #fff; border-width: 1px 1px 0 1px; border-color: #e5e5e5; border-style:solid; padding:20px 15px}
+.box-ppal-title h1 { margin-bottom:15px;margin:0 0 10px 0;font-size: 2.5rem}
+.box-ppal-title h3 { color: #a8a8a8; margin:0px;font-size:1.4rem;}
 .box-ppal.profile {padding: 0; margin-bottom: 10px;}
 .config .box-ppal {padding: 10px;}
 .kakareo.follow {padding: 5px 15px;}
@@ -3831,7 +3830,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .config .kakareo-list.project > li:nth-child(even),
     .config .politician-list > li:nth-child(even) {margin-right: 0;}
     .config .kakareo-list.project .kakareo.post.ley .link-wrapper {height: 410px;}
-    .config .kakareo-list.project .kakareo.post footer {position: absolute; bottom: 6px; width: 100%;}
+    .config .kakareo-list.project .kakareo.post footer {position: absolute;}
 
     .config.search > article > .clearfix > h1 {width: 70%; float: left;}
     .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
@@ -3927,6 +3926,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .box-ppal.condition.politician > .row h1 {font-size: 29px; font-size: 2.9rem;}
 
     .config > article > .box-ppal, .config > section > .box-ppal {padding: 22px 20px 0 20px; margin-bottom: 60px;}
+    .config.search > section > .box-ppal {background-color:transparent; border:none;}
 
     .user-list-followers > .user > .actions {float: right; margin: -30px 0 0 0 !important;}
     .user-list-followers > .user > .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
