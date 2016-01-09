@@ -143,4 +143,10 @@ class SearchController{
         Map suggestions =[suggestions:regions.collect{[type:"SUGGESTION", value:it.name, data:it]}]
         render suggestions as JSON
     }
+
+    def suggestTags(String query){
+        SearchParams searchParams = new SearchParams(word:query)
+        List<String> suggestions = searchSolrService.suggestTags(searchParams)
+        render ([suggestions:suggestions] as JSON)
+    }
 }

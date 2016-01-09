@@ -10,7 +10,10 @@
     <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profilePoliticianCauses', menu:menu]"/>
 
 </content>
-
+<content tag="titleContent">
+    <h1><g:message code="profile.menu.profilePoliticianCauses"/></h1>
+    <h3><g:message code="profile.menu.profilePoliticianCauses.subtitle"/></h3>
+</content>
 <content tag="mainContent">
     <formUtil:validateForm form="causesForm" bean="${command}"/>
     <g:form method="POST" mapping="profilePoliticianCauses" name="causesForm" role="form">

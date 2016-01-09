@@ -310,4 +310,19 @@ class SearchSolrService {
 
         groupedElements
     }
+
+    public List<String> suggestTags(SearchParams params){
+        if (!params.validate()){
+            throw KuorumExceptionUtil.createExceptionFromValidatable(params,"Parametros de búsqueda erroneos")
+        }
+        SolrQuery query = new SolrQuery();
+        query.setParam(CommonParams.QT, "/suggestTags");
+        query.setParam("spellcheck.q", params.word);
+        //query.setParam(TermsParams.TERMS_FIELD, "name", "username");
+        prepareFilter(params, query)
+        query.setParam("facet.prefix",params.word)
+        QueryResponse rsp = server.query( query );
+        List<String> suggestions = prepareAutocompleteSuggestions(rsp)
+        suggestions
+    }
 }

@@ -332,46 +332,66 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
 
-        def id = attrs.id?:field
-        def helpBlock = attrs.helpBlock?:''
+        def prefixFieldName=attrs.prefixFieldName?:""
+        def disabled=attrs.disabled?"disabled":""
+        def id = "${prefixFieldName}${attrs.id?:field}"
         def type = attrs.type?:'text'
         def required = attrs.required?'required':''
-        def cssClass = attrs.cssClass?:'input-lg'
+        def cssClass = attrs.cssClass?:'form-control input-lg'
         def labelCssClass = attrs.labelCssClass?:''
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         def maxlength = attrs.maxlength?"maxlength='${attrs.maxlength}'":''
-
         def clazz = command.metaClass.properties.find{it.name == field}.type
-        def label = message(code: "${command.class.name}.${field}.label")
-        def labelAdd = message(code: "${command.class.name}.${field}.add")
-        def labelRemove = message(code: "${command.class.name}.${field}.remove")
+        def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
+        String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
 
-        def listVals = command."${field}"?:[]
+        def value = command."${field}"?.join(",")?:''
         def error = hasErrors(bean: command, field: field,'error')
-        out << "<div class='dynamicList'>"
-        out << """<label for="${id}" class="${labelCssClass}">${label}</label>"""
-        def count = 0;
-        listVals?:listVals << ""
-        listVals.each{value ->
-            def fieldList = "${field}[$count]"
-            out <<"<div class='list-item'>"
-            out <<"""
-                <input type="${type}" name="${fieldList}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}">
-            """
-            if(error){
-                out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: fieldList)}</span>"
-            }
 
-            if (helpBlock){
-                out << "<p class='help-block'>${helpBlock}</p>"
-            }
-            out <<"<a href='#' class='list-remove' title='${labelRemove}'><span class='fa fa-minus'></span></a></div>"
-            count++
+        if (showLabel){
+            out << "<label for='${prefixFieldName}${field}'>${label}</label>"
         }
+        out <<"""
+            <input type="${type}" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled}>
+        """
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+        }
+
+        if (helpBlock){
+            out << "<p class='help-block'>${helpBlock}</p>"
+        }
+
         out << """
-                <a href="#" class="list-add"><span class='fa fa-plus'>${labelAdd}</span></a>
-        </div>
-               """
+            <script>
+            \$(function(){
+                \$('#${id}').tagsInput(
+                        {
+                            'autocomplete_url':"http://127.0.0.1:8080/kuorum/search/suggestTags",
+                            'autocomplete':{
+                                width:'100%',
+                                delay:'300',
+                                onSelect: function( event ) {
+                                    if (!\$("#${id}").tagExist(event.value)){
+                                        \$('#${id}').addTag(event.value)
+                                        \$('#${id}_tag').focus()
+                                    }else{
+                                        \$('#${id}_tag').addClass('not_valid');
+                                    }
+                                }},
+                            'width':'auto',
+                            'height':'inherit',
+                            'delimiter': [',',';',' '],
+                            'defaultText':'Añadir Causas',
+                            onChange: function(elem, elem_tags)
+                            {
+
+                            }
+                        })
+            })
+        </script>
+            """
     }
 
     def socialInput={attrs ->

@@ -32,6 +32,10 @@ modules = {
     }
 
     forms{
+        resource url:'js/jquery-ui/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js'
+//        resource url:'js/jquery-ui/jquery-ui-1.10.4.custom/css/base/jquery-ui-1.10.4.custom.min.css'
+        resource url:'js/jquery-plugin/tagsinput/jquery.tagsinput.css'
+        resource url:'js/jquery-plugin/tagsinput/jquery.tagsinput.js'
         resource url:'js/jquery-plugin/duplicateFields.min.js'
     }
 
