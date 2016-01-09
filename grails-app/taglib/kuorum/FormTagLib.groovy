@@ -332,6 +332,7 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
 
+        def autocompleteUrl = attrs.autocompleteUrl?:""
         def prefixFieldName=attrs.prefixFieldName?:""
         def disabled=attrs.disabled?"disabled":""
         def id = "${prefixFieldName}${attrs.id?:field}"
@@ -368,7 +369,7 @@ class FormTagLib {
             \$(function(){
                 \$('#${id}').tagsInput(
                         {
-                            'autocomplete_url':"http://127.0.0.1:8080/kuorum/search/suggestTags",
+                            'autocomplete_url':"${autocompleteUrl}",
                             'autocomplete':{
                                 width:'100%',
                                 delay:'300',
