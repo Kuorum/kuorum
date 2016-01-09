@@ -15,10 +15,8 @@ class PoliticianCausesCommand {
         normalizedCauses.split(' ').findAll({it}).collect{it.encodeAsHashtag()}.unique { a, b -> a <=> b }
     })
     List<String> causes
-    String prueba
     static constraints = {
         politician nullable: false;
-        prueba nullable: true
     }
 
     public PoliticianCausesCommand(){}
