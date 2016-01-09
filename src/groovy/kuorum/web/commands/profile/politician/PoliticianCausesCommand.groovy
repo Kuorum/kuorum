@@ -12,7 +12,7 @@ class PoliticianCausesCommand {
     KuorumUser politician
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
         String normalizedCauses = source['causes'].replaceAll(';', ' ').replaceAll(',', ' ')
-        normalizedCauses.split(' ').findAll({it})
+        normalizedCauses.split(' ').findAll({it}).collect{it.encodeAsHashtag()}.unique { a, b -> a <=> b }
     })
     List<String> causes
     String prueba
