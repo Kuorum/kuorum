@@ -267,14 +267,14 @@
                     for (attrname in settings.autocomplete) {
                         autocomplete_options[attrname] = settings.autocomplete[attrname];
                     }
-                    if (jQuery.Autocompleter !== undefined) {
-                        $(data.fake_input).autocomplete(settings.autocomplete_url, settings.autocomplete);
-                        $(data.fake_input).bind('result',data,function(event,data,formatted) {
-                            if (data) {
-                                $('#'+id).addTag(data[0] + "",{focus:true,unique:(settings.unique)});
-                            }
-                        });
-                    } else if (jQuery.ui.autocomplete !== undefined) {
+//                    if (jQuery.Autocompleter !== undefined) {
+//                        $(data.fake_input).autocomplete(settings.autocomplete_url, settings.autocomplete);
+//                        $(data.fake_input).bind('result',data,function(event,data,formatted) {
+//                            if (data) {
+//                                $('#'+id).addTag(data[0] + "",{focus:true,unique:(settings.unique)});
+//                            }
+//                        });
+//                    } else if (jQuery.ui.autocomplete !== undefined) {
                         autocomplete_options['serviceUrl'] = autocomplete_options['source']
                         console.log(autocomplete_options)
                         $(data.fake_input).autocomplete(autocomplete_options);
@@ -282,7 +282,7 @@
                             $(event.data.real_input).addTag(ui.item.value,{focus:true,unique:(settings.unique)});
                             return false;
                         });
-                    }
+//                    }
 
 
                 } else {
