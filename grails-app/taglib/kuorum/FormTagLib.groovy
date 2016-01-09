@@ -371,6 +371,7 @@ class FormTagLib {
                         {
                             'autocomplete_url':"${autocompleterUrl}",
                             'autocomplete':{
+                                paramName:'word',
                                 width:'100%',
                                 delay:'300',
                                 onSelect: function( event ) {

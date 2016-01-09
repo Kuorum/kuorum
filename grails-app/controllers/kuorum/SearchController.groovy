@@ -144,8 +144,8 @@ class SearchController{
         render suggestions as JSON
     }
 
-    def suggestTags(String query){
-        SearchParams searchParams = new SearchParams(word:query)
+    def suggestTags(String word){
+        SearchParams searchParams = new SearchParams(word:word)
         List<String> suggestions = searchSolrService.suggestTags(searchParams)
         render ([suggestions:suggestions] as JSON)
     }
