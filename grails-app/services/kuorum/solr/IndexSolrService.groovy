@@ -1,12 +1,6 @@
 package kuorum.solr
 
-import com.mongodb.BasicDBList
-import com.mongodb.BasicDBObject
-import com.mongodb.DBCollection
-import com.mongodb.DBCursor
-import com.mongodb.DBObject
-import com.mongodb.MapReduceCommand
-import com.mongodb.MapReduceOutput
+import com.mongodb.*
 import grails.transaction.Transactional
 import groovy.json.JsonSlurper
 import groovy.time.TimeCategory
@@ -21,18 +15,15 @@ import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
 import kuorum.core.model.gamification.GamificationAward
 import kuorum.core.model.solr.*
-import kuorum.project.Project
 import kuorum.post.Post
+import kuorum.project.Project
 import kuorum.users.KuorumUser
-import kuorum.users.KuorumUserService
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.apache.solr.common.SolrDocument
 import org.apache.solr.common.SolrInputDocument
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.HttpMethod
-import org.springsource.loaded.ri.GetMethodLookup
 
 @Transactional
 class IndexSolrService {
