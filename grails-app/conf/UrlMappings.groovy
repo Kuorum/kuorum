@@ -156,6 +156,7 @@ class UrlMappings {
         name searcherSearchFilters: "/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
         name searcherSuggests:      "/ajax/buscar/sugerencias"(controller: "search", action:"suggest")
         name suggestRegions:        "/ajax/buscar/regiones/sugerencias"(controller: "search", action:"suggestRegions")
+        name suggestTags:           "/ajax/buscar/tags/sugerencias"(controller: "search", action:"suggestTags")
 
         name profileEditUser:     "/configuracion-usuario"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
         name profileEditAccountDetails:     "/config/account-details"                  (controller: "profile"){action =[GET:"editAccountDetails", POST:"updateAccountDetails"]}
