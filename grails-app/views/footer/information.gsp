@@ -11,15 +11,12 @@
 
 <content tag="mainContent">
     <h1><g:message code="layout.footer.information"/></h1>
-    <p>
-        <g:message code="footer.menu.footerInformation.description1"/>
-    </p>
-    <p>
-        <g:message code="footer.menu.footerInformation.description2"/>
-    </p>
-    <p>
-        <g:message code="footer.menu.footerInformation.description3"/>
-    </p>
+    <p><g:message code="footer.menu.footerInformation.description"/></p>
+    <ul>
+        <li><g:message code="footer.menu.footerInformation.journalistRelation1"/></li>
+        <li><g:message code="footer.menu.footerInformation.journalistRelation2"/></li>
+        <li><g:message code="footer.menu.footerInformation.journalistRelation3"/></li>
+    </ul>
     <div class="video">
         <a href="#" class="front">
             <span class="fa fa-play-circle fa-4x"></span>

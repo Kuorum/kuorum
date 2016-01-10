@@ -10,23 +10,30 @@
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="layout.footer.whatIsKuorum"/></h1>
-        <p>
-            <g:message code="footer.menu.footerWhatIsKuorum.description1"/>
-        </p>
-        <p>
-            <g:message code="footer.menu.footerWhatIsKuorum.description2"/>
-        </p>
-        %{--<p>--}%
-            %{--<g:set var="linkPurposes" value="${createLink(mapping:'footerPurposes')}"/>--}%
-            %{--<g:set var="linkQuestions" value="${createLink(mapping:'footerQuestions')}"/>--}%
-            %{--<g:set var="linkHistories" value="${createLink(mapping:'footerHistories')}"/>--}%
-            %{--<g:message code="footer.menu.footerWhatIsKuorum.description2" args="[linkPurposes, linkQuestions, linkHistories]" encodeAs="raw"/>--}%
-        %{--</p>--}%
-        %{--<blockquote>--}%
-            %{--<span class="fa fa-quote-right fa-2x"></span>--}%
-            %{--<p><g:message code="footer.menu.footerWhatIsKuorum.description4"/></p>--}%
-        %{--</blockquote>--}%
+    <h1><g:message code="layout.footer.whatIsKuorum" encodeAs="raw"/></h1>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.description" encodeAs="raw"/></p>
+    <h4><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians" encodeAs="raw"/></h4>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.description" encodeAs="raw"/></p>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features" encodeAs="raw"/></p>
+    <ul>
+        <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature1" encodeAs="raw"/></li>
+        <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature2" encodeAs="raw"/></li>
+        <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature3" encodeAs="raw"/></li>
+        <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature4" encodeAs="raw"/></li>
+    </ul>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.brief" encodeAs="raw" args="[g.createLink(mapping:'register'),g.createLink(mapping:'register')]"/></p>
+
+    <h4><g:message code="footer.menu.footerWhatIsKuorum.forCitizen" encodeAs="raw"/></h4>
+    <ul>
+        <li><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.features.feature1" encodeAs="raw"/></li>
+        <li><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.features.feature2" encodeAs="raw"/></li>
+        <li><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.features.feature3" encodeAs="raw"/></li>
+    </ul>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.brief" encodeAs="raw" args="[g.createLink(mapping:'register')]"/></p>
+    <h4><g:message code="footer.menu.footerWhatIsKuorum.forEditors" encodeAs="raw"/></h4>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forEditors.description1" encodeAs="raw"/></p>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forEditors.description2" encodeAs="raw" args="['mailto:info@kuorum.org']"/></p>
+
     <img src="${resource(dir: 'images', file: 'info4.png')}" alt="foto-debate" itemprop="image">
 </content>
 
