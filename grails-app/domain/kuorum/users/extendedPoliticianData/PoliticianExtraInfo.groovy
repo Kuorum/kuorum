@@ -8,7 +8,6 @@ class PoliticianExtraInfo {
     String completeName
     Date birthDate
     String birthPlace
-    String webSite
     String family
 
     static constraints = {
@@ -16,7 +15,6 @@ class PoliticianExtraInfo {
         completeName nullable:true
         birthDate nullable:true
         birthPlace nullable: true
-        webSite nullable: true, url:true
         family nullable: true
     }
 }

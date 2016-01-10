@@ -78,12 +78,12 @@
                 ]"/>
             </div>
         </g:if>
-        <g:if test="${['webSite'].find{politician?.politicianExtraInfo?."${it}"} || ['sourceWebsite'].find{politician?.professionalDetails?."${it}"}}">
+        <g:if test="${['officialWebSite'].find{politician?.socialLinks?."${it}"} || ['sourceWebsite'].find{politician?.professionalDetails?."${it}"}}">
             <div class="table table-condensed limit-height" data-collapsedHeight="60">
                 <div class="thead"><g:message code="politician.quickNotes.data.moreInfo.title"/></div>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.quickNotes.data.moreInfo.webSite'),
-                        link:politician?.politicianExtraInfo?.webSite?:''
+                        link:politician?.socialLinks?.officialWebSite?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.quickNotes.readMore'),

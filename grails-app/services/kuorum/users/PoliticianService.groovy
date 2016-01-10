@@ -243,6 +243,7 @@ class PoliticianService {
         politician.socialLinks.googlePlus= line."googlePlus"
         politician.socialLinks.instagram = line."instagram"
         politician.socialLinks.youtube= line."youtubeChannel"
+        politician.socialLinks.webSite = line."officialWebsite"
     }
 
     private void populateExternalPoliticianActivity(KuorumUser politician, def line){
@@ -280,7 +281,6 @@ class PoliticianService {
         if (!politician.politicianExtraInfo){
             throw RuntimeException("Este politico no tiene el id de la BBDD")
         }
-        politician.politicianExtraInfo.webSite = line."officialWebsite"
         politician.politicianExtraInfo.completeName = line."completeName"?:line."name"
         String dateOfBirth = line."dateOfBirth"
         politician.politicianExtraInfo.birthDate = dateOfBirth?Date.parse("dd/MM/yyyy",dateOfBirth):null
