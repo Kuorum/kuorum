@@ -1,17 +1,17 @@
 
 
-<div class="modal fade" id="dynamicInputOverflow" tabindex="-1" role="dialog" aria-labelledby="dynamicInputOverflow" aria-hidden="true">
+<div class="modal fade" id="dynamicInputOverflow_${formId}" tabindex="-1" role="dialog" aria-labelledby="dynamicInputOverflow_${formId}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
-                <h4 class="modal-title" id="apadrinarPropuesta">Apadrinar esta propuesta</h4>
+                <h4 class="modal-title"><g:message code="dynamicInput.modal.constraint.maxSize.title" args="[validationDataMaxSize]"/> </h4>
             </div>
             <div class="modal-body clearfix">
-                <p>Al apadrinar esta propuesta te estas comprometiendo a defenderla y, si es posible, llevarla a cabo. Si el autor de la propuesta considera que has cumplido tu promesa obtendrás una victoria.</p>
+                <p><g:message code="dynamicInput.modal.constraint.maxSize.description" args="[validationDataMaxSize]"/></p>
                 <div class="form-group btns clearfix">
-                    <a href="#" class="btn btn-default pull-right modalDeleteOldest">Delete oldest</a>
-                    <a href="#" class="btn btn-transparent pull-right" data-dismiss="modal">Cancel</a>
+                    <a href="#" class="btn btn-default pull-right modalDeleteOldest"><g:message code="dynamicInput.modal.constraint.maxSize.addNew"/> </a>
+                    <a href="#" class="btn btn-transparent pull-right" data-dismiss="modal"><g:message code="dynamicInput.modal.constraint.maxSize.cancel"/></a>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
             .on('click', '.addButton', function() {
                 var numElementsOnList = $('#relevantEventsForm div.dynamic-fieldset').length -1
                 if (numElementsOnList >=  ${validationDataMaxSize}){
-                    $("#dynamicInputOverflow").modal("show")
+                    $("#dynamicInputOverflow_${formId}").modal("show")
                 }else{
                     addLine_${formId}()
                 }
@@ -79,7 +79,6 @@
                 // Remove fields
                 <g:each in="${fields}" var="field">
                 // Update the name attributes
-                console.log('[name="${parentField}[' + index + '].${field}"]')
                 if ($('#${formId}').find('[name="${parentField}[' + index + '].${field}"]').length!= 0){
                     $('#${formId}').find('[name="${parentField}[' + index + '].${field}"]').rules('remove');
                 }
