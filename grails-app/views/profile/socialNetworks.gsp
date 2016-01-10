@@ -10,6 +10,10 @@
 
 </content>
 
+<content tag="titleContent">
+    <h1><g:message code="profile.menu.profileSocialNetworks"/></h1>
+    <h3><g:message code="profile.menu.profileSocialNetworks.subtitle"/></h3>
+</content>
 <content tag="mainContent">
     <g:form mapping="profileSocialNetworks" role="form">
         %{--<h1><g:message code="profile.socialNetworks.title"/></h1>--}%
@@ -17,8 +21,6 @@
         <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="facebook" cssIcon="fa-facebook"/>
         </div>
-        </fieldset>
-        <fieldset class="row">
         <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="twitter" cssIcon="fa-twitter"/>
         </div>
@@ -27,17 +29,12 @@
         <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="blog" cssIcon="fa-rss-square"/>
         </div>
-        </fieldset>
-        <fieldset class="row">
         <div class="form-group col-md-6">
             <formUtil:socialInput command="${command}" field="googlePlus" cssIcon="fa-google-plus"/>
         </div>
         </fieldset>
-        <fieldset class="form-group text-right">
-        <div class="form-group">
-            <a href="#" class="cancel"><g:message code="profile.emailNotifications.cancel"/></a>
-            <input type="submit" value="${g.message(code:'profile.emailNotifications.save')}" class="btn btn-grey btn-lg">
-        </div>
+        <fieldset class="form-group text-center">
+            <input type="submit" value="${g.message(code:'profile.emailNotifications.save')}" class="btn btn-orange btn-lg">
         </fieldset>
     </g:form>
 </content>
