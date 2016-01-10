@@ -231,8 +231,14 @@ class FormTagLib {
             out <<"</div>"
         }
 
-        def fields = obj.properties.collect{prop,val -> if(!(prop in ["metaClass","class", "dbo"])) return prop}.findAll{it}
+        ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}?.value
+        def maxSize = 0
+        if (constraints){
+            MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
+            maxSize = maxSizeConstraint?.maxSize?:0
+        }
 
+        def fields = obj.properties.collect{prop,val -> if(!(prop in ["metaClass","class", "dbo"])) return prop}.findAll{it}
         def rulesAndMessages = generateRulesAndMessages(obj)
         String validationDataVarName = "validationRules_${field}"
         String validationDataVarIndex = "validationIndex_${field}"
@@ -243,6 +249,7 @@ class FormTagLib {
                         validationDataVarNameValue:"{${rulesAndMessages.rules}, ${rulesAndMessages.message}}",
                         validationDataVarIndex:validationDataVarIndex,
                         validationDataVarIndexValue: listCommands.size(),
+                        validationDataMaxSize:maxSize,
                         templateId : "${id}-template",
                         fields:fields,
                         parentField:field,
