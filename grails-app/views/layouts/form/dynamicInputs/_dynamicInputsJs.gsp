@@ -19,9 +19,29 @@
 </div>
 
 
+<div class="modal fade" id="dynamicRemoveRow_${formId}" tabindex="-1" role="dialog" aria-labelledby="dynamicRemoveRow_${formId}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title"><g:message code="dynamicInput.modal.remove.row.title" args="[validationDataMaxSize]"/> </h4>
+            </div>
+            <div class="modal-body clearfix">
+                <p><g:message code="dynamicInput.modal.remove.row.description" args="[validationDataMaxSize]"/></p>
+                <div class="form-group btns clearfix">
+                    <a href="#" class="btn btn-default pull-right modalDeleteRow"><g:message code="dynamicInput.modal.remove.row.delete"/> </a>
+                    <a href="#" class="btn btn-transparent pull-right" data-dismiss="modal"><g:message code="dynamicInput.modal.remove.row.cancel"/></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     var ${validationDataVarName} = ${raw(validationDataVarNameValue)};
     var ${validationDataVarIndex} = ${validationDataVarIndexValue}
+    var removableRow_${formId};
     $(function(){
         <g:each in="${0..validationDataVarIndexValue-1}" var="i">
             <g:each in="${fields}" var="field" >
@@ -74,6 +94,12 @@
         // Remove button click handler
             .on('click', '.removeButton', function() {
                 var $row  = $(this).parents('.dynamic-fieldset');
+                removableRow_${formId} = $row
+                $("#dynamicRemoveRow_${formId}").modal("show")
+            })
+            .on('click', '.modalDeleteRow', function() {
+                $("#dynamicRemoveRow_${formId}").modal("hide")
+                var $row  = removableRow_${formId}
                 var index = $row.attr('data-dynamic-list-index');
                 // Remove fields
                 // Remove fields
