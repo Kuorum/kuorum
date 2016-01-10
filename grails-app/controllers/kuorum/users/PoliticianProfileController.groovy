@@ -43,7 +43,7 @@ class PoliticianProfileController extends ProfileController{
             render view:"editRelevantEvents", model:[command:command]
             return;
         }
-        politicianService.updatePoliticianRelevantEvents(params.user, command.politicianRelevantEvents)
+        politicianService.updatePoliticianRelevantEvents(params.user, command.politicianRelevantEvents.reverse())
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profilePoliticianRelevantEvents'
     }

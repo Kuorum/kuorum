@@ -197,7 +197,7 @@ class FormTagLib {
 
         List listCommands = command."${field}"
 
-        String removeButton = """
+        String removeButton = customRemoveButton?'':"""""
             <fieldset class="row">
                 <div class="col-md-12 text-right">
                     <button type="button" class="btn btn-default removeButton"><i class="fa fa-trash"></i></button>
@@ -205,15 +205,31 @@ class FormTagLib {
             </fieldset>
 """
 
-        Integer idx = 0;
+        String addButton =  """
+        <fieldset>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+        </fieldset>
+        """
+        out << addButton
+
+        def obj= Class.forName(listClassName, true, Thread.currentThread().getContextClassLoader()).newInstance()
+        out << "<div class='hide dynamic-fieldset' id='${id}-template'>"
+        out << removeButton
+        out << body([listCommand:obj, prefixField:""])
+        out << "</div>"
+
+        Integer idx = listCommands.size();
         listCommands.each{
+            idx --;
             out <<"<div class='dynamic-fieldset' data-dynamic-list-index='${idx}' >"
             out << body([listCommand:it, prefixField:"${field}[${idx}].", ])
             out << removeButton
             out <<"</div>"
-            idx ++;
         }
-        def obj= Class.forName(listClassName, true, Thread.currentThread().getContextClassLoader()).newInstance()
 
         def fields = obj.properties.collect{prop,val -> if(!(prop in ["metaClass","class", "dbo"])) return prop}.findAll{it}
 
@@ -226,27 +242,12 @@ class FormTagLib {
                         validationDataVarName:validationDataVarName,
                         validationDataVarNameValue:"{${rulesAndMessages.rules}, ${rulesAndMessages.message}}",
                         validationDataVarIndex:validationDataVarIndex,
-                        validationDataVarIndexValue: idx,
+                        validationDataVarIndexValue: listCommands.size(),
                         templateId : "${id}-template",
                         fields:fields,
                         parentField:field,
                         formId:formId
                 ])
-        out << """
-        <fieldset>
-            <div class="form-group">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
-                </div>
-            </div>
-        </fieldset>
-        """
-        out << "<div class='hide dynamic-fieldset' id='${id}-template'>"
-        if (!customRemoveButton){
-            out << removeButton
-        }
-        out << body([listCommand:obj, prefixField:""])
-        out << "</div>"
 
     }
 
