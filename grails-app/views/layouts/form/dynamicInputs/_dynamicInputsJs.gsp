@@ -10,8 +10,6 @@
                 // Note that we also pass the validator rules for new field as the third parameter
                 var rule = ${validationDataVarName}.rules.${field};
                 rule.messages = ${validationDataVarName}.messages.${field};
-                console.log('[name="${parentField}[${i}].${field}"]');
-                console.log(rule);
                 $('#${formId}').find('[name="${parentField}[${i}].${field}"]').rules('add', rule)
             }
             </g:each>
