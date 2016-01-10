@@ -3,13 +3,17 @@
         command="${command}"
         field="politicianRelevantEvents"
         listClassName="kuorum.users.extendedPoliticianData.PoliticianRelevantEvent"
+        customRemoveButton="true"
         formId="relevantEventsForm">
     <fieldset class="row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-5">
             <formUtil:input field="title" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-5">
             <formUtil:url field="url" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
+        </div>
+        <div class="form-group col-md-1 form-group-remove">
+            <button type="button" class="btn btn-transparent removeButton"><i class="fa fa-trash"></i></button>
         </div>
     </fieldset>
 </formUtil:dynamicComplexInputs>

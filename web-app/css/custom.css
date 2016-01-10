@@ -399,6 +399,14 @@ a:focus {color: #e3981e;}
     color: #fff !important;
 }
 
+.btn.btn-transparent{
+    background-color: transparent !important;
+    color: #8e8e8c !important;
+}
+.btn.btn-transparent:hover{
+    background-color: #EEE !important;
+}
+
 
 .btn.btn-green {
     background-color: #87ca47 !important;
@@ -5021,19 +5029,12 @@ header .header-msg h6:hover{
 
 .dynamic-fieldset{
     padding:10px;
-    border: 1px solid;
 }
+.dynamic-fieldset .form-group-remove{padding-top:23px;}
 
-.dynamicList .list-item {
-    display:block;
-    width: 100%;
-}
-.dynamicList .list-item input{
-    width: 70%;
-}
-.dynamicList .list-item a{
-    width:25%;
-}
+.dynamicList .list-item { display:block; width: 100%;}
+.dynamicList .list-item input{ width: 70%;}
+.dynamicList .list-item a{ width:25%;}
 
 .config .admin-user-options{ padding-left:10px; font-size:1rem;    border-bottom: 1px solid #ccc; padding-bottom: 10px;}
 .config .admin-user-options label{ padding: 0 0 0 10px; margin:0px}

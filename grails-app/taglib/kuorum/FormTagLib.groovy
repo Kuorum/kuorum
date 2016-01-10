@@ -193,13 +193,14 @@ class FormTagLib {
         def listClassName = attrs.listClassName
         def formId = attrs.formId
         def id = attrs.id?:field
+        def customRemoveButton=attrs.customRemoveButton?Boolean.parseBoolean(attrs.customRemoveButton):false
 
         List listCommands = command."${field}"
 
         String removeButton = """
             <fieldset class="row">
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn btn-default removeButton"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-default removeButton"><i class="fa fa-trash"></i></button>
                 </div>
             </fieldset>
 """
@@ -231,19 +232,22 @@ class FormTagLib {
                         parentField:field,
                         formId:formId
                 ])
-        out << "<div class='hide dynamic-fieldset' id='${id}-template'>"
-        out << body([listCommand:obj, prefixField:""])
-        out << removeButton
-        out << "</div>"
         out << """
         <fieldset>
             <div class="form-group">
-                <div class="col-md-12 text-right">
+                <div class="col-md-12">
                     <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
                 </div>
             </div>
         </fieldset>
         """
+        out << "<div class='hide dynamic-fieldset' id='${id}-template'>"
+        if (!customRemoveButton){
+            out << removeButton
+        }
+        out << body([listCommand:obj, prefixField:""])
+        out << "</div>"
+
     }
 
     def date={attrs ->

@@ -28,7 +28,7 @@
                                 .removeClass('hide')
                                 .removeAttr('id')
                                 .attr('data-dynamic-list-index', ${validationDataVarIndex})
-                                .insertBefore($template);
+                                .insertAfter($template);
 
                 <g:each in="${fields}" var="field">
                     // Update the name attributes
