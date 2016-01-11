@@ -45,7 +45,7 @@ cite{
 input[type="text"],
 input[type="number"],
 input[type="email"],
-select {color: #545454; font-size: 12px; font-size:  1.2rem; border: 1px solid #a3a3a3; box-shadow: 0 0 0 rgba(0, 0, 0, 0);}
+select {color: #545454; font-size: 12px; font-size:  1.2rem; border: 1px solid #DDDDDD; box-shadow: 0 0 0 rgba(0, 0, 0, 0);}
 /*input[type="text"],
 input[type="number"],
 input[type="email"],
@@ -183,7 +183,7 @@ a:hover, a:focus {outline: 0;}
 
 /* General Styles (Estilos generales) =========== */
 /* ====================================================== */
-select.input-lg {padding: 10px 16px 10px 10px;}
+select.input-lg {padding: 0px 16px 0px 10px;height:36px;}
 .input-lg {padding: 10px 12px;}
 .modal-content {border-radius: 3px;}
 .modal-title {font-weight: bold;}
