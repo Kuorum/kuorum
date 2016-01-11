@@ -80,6 +80,20 @@
         prepareForms();
     }
 
+    function removeLine_${formId}($row){
+        var index = $row.attr('data-dynamic-list-index');
+        // Remove fields
+        // Remove fields
+        <g:each in="${fields}" var="field">
+        // Update the name attributes
+        if ($('#${formId}').find('[name="${parentField}[' + index + '].${field}"]').length!= 0){
+            $('#${formId}').find('[name="${parentField}[' + index + '].${field}"]').rules('remove');
+        }
+        </g:each>
+        // Remove element containing the fields
+        $row.remove();
+    }
+
     $('#${formId}')
         // Add button click handler
             .on('click', '.addButton', function() {
@@ -100,17 +114,7 @@
             .on('click', '.modalDeleteRow', function() {
                 $("#dynamicRemoveRow_${formId}").modal("hide")
                 var $row  = removableRow_${formId}
-                var index = $row.attr('data-dynamic-list-index');
-                // Remove fields
-                // Remove fields
-                <g:each in="${fields}" var="field">
-                // Update the name attributes
-                if ($('#${formId}').find('[name="${parentField}[' + index + '].${field}"]').length!= 0){
-                    $('#${formId}').find('[name="${parentField}[' + index + '].${field}"]').rules('remove');
-                }
-                </g:each>
-                // Remove element containing the fields
-                $row.remove();
+                removeLine_${formId}($row)
             })
             .on('click', '.modalDeleteOldest', function(e){
                 e.preventDefault()
@@ -122,7 +126,7 @@
                     element = $('#${formId} div[data-dynamic-list-index="'+i+'"]');
                     i++;
                 }
-                element.find('.removeButton').click()
+                removeLine_${formId}(element)
                 addLine_${formId}();
 
             })

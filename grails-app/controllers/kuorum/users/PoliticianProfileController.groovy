@@ -38,8 +38,9 @@ class PoliticianProfileController extends ProfileController{
     }
 
     def updateRelevantEvents(RelevantEventsCommand command){
+        command.politicianRelevantEvents = command.politicianRelevantEvents.findAll{it}
         KuorumUser user = params.user
-        if (command.hasErrors() || !user ){
+        if (!command.validate() || !user ){
             render view:"editRelevantEvents", model:[command:command]
             return;
         }

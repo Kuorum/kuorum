@@ -3,6 +3,7 @@ package kuorum.web.commands.profile.politician
 import grails.validation.Validateable
 import kuorum.users.KuorumUser
 import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
+import org.grails.databinding.BindUsing
 
 /**
  * Created by iduetxe on 17/12/15.
