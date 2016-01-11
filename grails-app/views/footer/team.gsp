@@ -76,19 +76,19 @@
                 </ul>
             </div>
         </li>
-        <li itemscope itemtype="http://schema.org/Person">
-            <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-irene.jpg')}" alt="Foto" itemprop="image">
-                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member11"/></h1>
-                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position11"/></h2>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description11"/></p>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description11b"/></p>
+        %{--<li itemscope itemtype="http://schema.org/Person">--}%
+            %{--<div class="box-ppal">--}%
+                %{--<img src="${resource(dir: 'images', file: 'foto-irene.jpg')}" alt="Foto" itemprop="image">--}%
+                %{--<h1 itemprop="name"><g:message code="footer.menu.footerTeam.member11"/></h1>--}%
+                %{--<h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position11"/></h2>--}%
+                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description11"/></p>--}%
+                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description11b"/></p>--}%
                 %{--<ul class="social">--}%
                     %{--<li><a href="https://twitter.com/" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
                     %{--<li><a href="https://www.linkedin.com/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>--}%
                 %{--</ul>--}%
-            </div>
-        </li>
+            %{--</div>--}%
+        %{--</li>--}%
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
                 <img src="${resource(dir: 'images', file: 'foto-jackie.jpg')}" alt="Foto" itemprop="image">

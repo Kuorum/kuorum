@@ -1,10 +1,13 @@
-<h1><g:message code="layout.footer.aboutKuorum"/></h1>
+<h1><g:message code="layout.footer.about"/></h1>
 <ul>
-    <li class="${activeMapping=='footerWhatIsKuorum'?'active':''}">
-        <g:link mapping="footerWhatIsKuorum"><g:message code="layout.footer.whatIsKuorum"/></g:link>
+    <li class="${activeMapping=='footerAboutUs'?'active':''}">
+        <g:link mapping="footerAboutUs"><g:message code="layout.footer.aboutUs"/></g:link>
     </li>
     <li class="${activeMapping=='footerVision'?'active':''}">
         <g:link mapping="footerVision"><g:message code="layout.footer.vision"/></g:link>
+    </li>
+    <li class="${activeMapping=='footerImpact'?'active':''}">
+        <g:link mapping="footerImpact"><g:message code="layout.footer.impact"/></g:link>
     </li>
     <li class="${activeMapping=='footerTeam'?'active':''}">
         <g:link mapping="footerTeam"><g:message code="layout.footer.team"/></g:link>

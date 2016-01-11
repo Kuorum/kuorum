@@ -2,13 +2,13 @@
     <div class="container-fluid">
         <section class="links">
             <ul>
-                <li><g:link mapping="footerWhatIsKuorum"><g:message code="layout.footer.whatIsKuorum"/></g:link> </li>
-                <li><a href="http://kuorumorg.tumblr.com" target="_blank"><g:message code="layout.footer.blog"/></a></li>
-                <li><g:link mapping="footerUserGuide"><g:message code="layout.footer.userGuide"/></g:link></li>
-                <li><g:link mapping="footerInformation"><g:message code="layout.footer.pressTitle"/></g:link></li>
-                <li><g:link mapping="footerOrganizations"><g:message code="layout.footer.organizations"/></g:link></li>
+                <li><g:link mapping="footerTechnology"><g:message code="layout.footer.whatIsKuorum"/></g:link> </li>
                 <li><g:link mapping="footerPoliticians"><g:message code="layout.footer.politicians"/></g:link></li>
+                <li><g:link mapping="footerCitizens"><g:message code="layout.footer.citizens"/></g:link></li>
                 <li><g:link mapping="footerDevelopers"><g:message code="layout.footer.developers"/></g:link></li>
+                <li><g:link mapping="footerAboutUs"><g:message code="layout.footer.aboutUs"/></g:link></li>
+                <li><g:link mapping="footerInformation"><g:message code="layout.footer.pressTitle"/></g:link></li>
+                <li><a href="http://kuorumorg.tumblr.com" target="_blank"><g:message code="layout.footer.blog"/></a></li>
                 <li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
                 <li><g:link mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>
             </ul>

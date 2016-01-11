@@ -2,12 +2,12 @@ package kuorum
 
 class FooterController {
 
-    def whatIsKuorum() {}
+    def aboutUs() {}
     def vision() {}
     def team() {}
-    def userGuide() {}
+    def technology() {}
     def citizens() {}
-    def organizations() {}
+    def impact() {}
     def politicians() {}
     def developers() {}
     def information() {}
