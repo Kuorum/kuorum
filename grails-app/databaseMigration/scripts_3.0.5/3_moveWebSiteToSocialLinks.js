@@ -6,9 +6,21 @@ dbDest.kuorumUser.find({'politicianExtraInfo.officialWebSite': {$exists: 1}}).fo
     dbDest.kuorumUser.update(
         {_id: user._id},
         {
-            $set: {'socialLinks.webSite': user.politicianExtraInfo.webSite},
+            $set: {'socialLinks.officialWebSite': user.politicianExtraInfo.webSite},
             $unset: {'politicianExtraInfo.webSite': ''}
         })
     }
 );
+
+dbDest.kuorumUser.find({'professionalDetails.sourceWebsite': {$exists: 1}}).forEach(function (user) {
+
+        dbDest.kuorumUser.update(
+            {_id: user._id},
+            {
+                $set: {'socialLinks.institutionalWebSite': user.professionalDetails.sourceWebsite},
+                $unset: {'professionalDetails.sourceWebsite': ''}
+            })
+    }
+);
+
 
