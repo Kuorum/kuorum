@@ -339,7 +339,7 @@ class ProfileController {
                 user.socialLinks."${it.key}" = it.value
         }
         kuorumUserService.updateUser(user)
-        flash.message = "OK"
+        flash.message = g.message(code: 'kuorum.web.commands.profile.SocialNetworkCommand.save.success')
         redirect mapping:'profileSocialNetworks'
     }
 
