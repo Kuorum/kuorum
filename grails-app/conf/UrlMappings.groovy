@@ -190,7 +190,7 @@ class UrlMappings {
         name footerAboutUs:       "/kuorum"                         (controller:"footer", action: "aboutUs" )
         name footerVision:        "/kuorum/vision-y-valores"        (controller:"footer", action: "vision" )
         name footerTeam:          "/kuorum/nuestro-equipo"          (controller:"footer", action: "team" )
-        name footerTechnology:    "/kuorum/what-is-kuorum"          (controller:"footer", action: "technology" )
+        name footerTechnology:    "/kuorum/what-is-kuorum"          (controller:"footer", action: "tech" )
         name footerCitizens:      "/kuorum/ciudadanos"              (controller:"footer", action: "citizens" )
         name footerImpact:        "/kuorum/impact-measurement"      (controller:"footer", action: "impact" )
         name footerPoliticians:   "/kuorum/politicos"               (controller:"footer", action: "politicians" )

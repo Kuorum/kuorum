@@ -5,7 +5,7 @@ class FooterController {
     def aboutUs() {}
     def vision() {}
     def team() {}
-    def technology() {}
+    def tech() {}
     def citizens() {}
     def impact() {}
     def politicians() {}
