@@ -9,7 +9,6 @@ class ProfessionalDetails {
     String position;
     String institution;
     String politicalParty
-    String sourceWebsite
     Region constituency
     Region region //Place where the politician has "power" :P
     static embedded = ['constituency', 'region']
@@ -19,6 +18,5 @@ class ProfessionalDetails {
         institution nullable:true
         constituency nullable:true
         region nullable:true
-        sourceWebsite nullable: true
     }
 }

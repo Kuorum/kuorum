@@ -243,7 +243,8 @@ class PoliticianService {
         politician.socialLinks.googlePlus= line."googlePlus"
         politician.socialLinks.instagram = line."instagram"
         politician.socialLinks.youtube= line."youtubeChannel"
-        politician.socialLinks.webSite = line."officialWebsite"
+        politician.socialLinks.officialWebSite = line."officialWebsite"
+        politician.socialLinks.institutionalWebSite = line."sourceWebsite"
     }
 
     private void populateExternalPoliticianActivity(KuorumUser politician, def line){
@@ -297,7 +298,6 @@ class PoliticianService {
         politician.professionalDetails.institution = line."institution"
         politician.professionalDetails.constituency = findConstituency(line)
         politician.professionalDetails.region =findRegion(line)
-        politician.professionalDetails.sourceWebsite =line."sourceWebsite"
 
     }
 

@@ -42,7 +42,7 @@
                 <tfoot>
                 <tr>
                     <td colspan="4" class="text-center">
-                        <a href="${politician?.professionalDetails?.sourceWebsite}" class="btn btn-xs btn-blue" role="button" target="_blank">
+                        <a href="${politician?.socialLinks?.institutionalWebSite}" class="btn btn-xs btn-blue" role="button" target="_blank">
                             <g:message code="search.list.seeMore"/>
                         </a>
                     </td>
