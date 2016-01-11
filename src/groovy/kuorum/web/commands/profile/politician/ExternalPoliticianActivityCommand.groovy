@@ -13,6 +13,7 @@ class ExternalPoliticianActivityCommand {
     List<ExternalPoliticianActivity> externalPoliticianActivities
     static constraints = {
         politician nullable: false;
+        externalPoliticianActivities maxSize: 5;
 
     }
 }

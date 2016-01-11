@@ -23,7 +23,8 @@ class PoliticianProfileController extends ProfileController{
 
     def updateExternalActivity(ExternalPoliticianActivityCommand command){
         KuorumUser user = params.user
-        if (command.hasErrors() || !user ){
+        command.externalPoliticianActivities = command.externalPoliticianActivities.findAll{it}.reverse()
+        if (!command.validate()|| !user ){
             render view:"editExternalActivity", model:[command:command]
             return;
         }
