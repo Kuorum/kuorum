@@ -14,7 +14,7 @@ class PoliticalExperienceCommand {
     List<PoliticianTimeLine> timeLine
     static constraints = {
         politician nullable: false;
-
+        timeLine maxSize: 20
     }
 
     public PoliticalExperienceCommand(){}

@@ -99,7 +99,7 @@
     $('#${formId}')
         // Add button click handler
             .on('click', '.addButton', function() {
-                var numElementsOnList = $('#relevantEventsForm div.dynamic-fieldset').length -1
+                var numElementsOnList = $('#${formId} div.dynamic-fieldset').length -1
                 if (numElementsOnList >=  ${validationDataMaxSize}){
                     $("#dynamicInputOverflow_${formId}").modal("show")
                 }else{
