@@ -176,7 +176,7 @@ label {font-weight: normal;}
 #sign .voting > ul > li > a.update:active {color: #ff9431;}
 
 p { margin: 0 0 20px 0;}
-.help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic;}
+.help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic;line-height: 1.3em;}
 .mb20 {margin-bottom: 20px !important;}
 a:hover, a:focus {outline: 0;}
 
@@ -3909,7 +3909,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .embudo #aside-ppal .border {width: 80%; margin: 0;}
     .embudo #aside-ppal {background: url('../images/recorte-dwn.png'), url('../images/recorte-rgt.png'); background-color: #f0f0f0; background-repeat: repeat-x, repeat-y; background-position: left bottom, right top; padding-top: 40px;}
 
-    .help-block {margin: 0 0 0 0;}
+    .help-block {margin: 5px 0 0 0;}
     .icheckbox_line-orange,
     .iradio_line-orange {margin-right: 8px; margin-bottom: 8px;}
     .no-phone .form-group:nth-child(2) {width: 29%;}

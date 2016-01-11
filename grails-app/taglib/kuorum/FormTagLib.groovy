@@ -301,6 +301,7 @@ class FormTagLib {
 
         def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
+        String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
 
         if (showLabel){
             out << "<label for='${field}'>${label}</label>"
@@ -311,6 +312,9 @@ class FormTagLib {
         out << "<input type='hidden' class='' name='${fieldId}' value='${value}' id=${fieldId}>"
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+        }
+        if (helpBlock){
+            out << "<p class='help-block'>${helpBlock}</p>"
         }
     }
 
