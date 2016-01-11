@@ -8,6 +8,10 @@
 <content tag="leftMenu">
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileDeleteAccount', menu:menu]"/>
 </content>
+<content tag="titleContent">
+    <h1><g:message code="profile.menu.profileDeleteAccount"/></h1>
+    <h3><g:message code="profile.menu.profileDeleteAccount.subtitle"/></h3>
+</content>
 <content tag="mainContent">
     <g:form mapping="profileDeleteAccount" role="form" name="deleteAccountForm">
         %{--<h1><g:message code="profile.deleteAccount.title"/></h1>--}%
