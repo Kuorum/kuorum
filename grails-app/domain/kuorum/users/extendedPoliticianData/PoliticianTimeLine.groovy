@@ -12,7 +12,7 @@ class PoliticianTimeLine {
     static constraints = {
         date nullable:false
         title nullable:false
-        text nullable: true
+        text nullable: true, maxSize: 200
         important nullable:true
     }
 }

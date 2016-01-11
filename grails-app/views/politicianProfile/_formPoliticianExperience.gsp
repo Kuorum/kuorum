@@ -5,17 +5,19 @@
         listClassName="kuorum.users.extendedPoliticianData.PoliticianTimeLine"
         formId="politicianExperienceForm">
     <fieldset class="row">
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-6">
             <formUtil:input field="title" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
         </div>
-        <div class="form-group col-md-12">
-            <formUtil:textArea field="text" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
-        </div>
-    </fieldset>
-    <fieldset class="row">
         <div class="form-group col-md-6">
             <formUtil:date field="date" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
         </div>
+    </fieldset>
+    <fieldset class="row">
+        <div class="form-group col-md-12">
+            <formUtil:textArea field="text" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true" />
+        </div>
+    </fieldset>
+    <fieldset class="row">
         <div class="form-group col-md-6">
             <formUtil:checkBox field="important" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
         </div>

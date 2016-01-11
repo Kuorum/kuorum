@@ -149,9 +149,6 @@ class FormTagLib {
 
         if (maxSize && showCharCounter){
             out << """
-            <script>
-                \$(function(){counterCharacters("${field}")});
-            </script>
             <div id="charInit_${field}" class="hidden">${message(code:'form.textarea.limitChar')} <span>${maxSize}</span></div>
             <div id="charNum_${field}" class="charNum">${message(code:'form.textarea.limitChar.left')} <span>${maxSize}</span> ${message(code:'form.textarea.limitChar.characters')}</div>
             """
@@ -632,9 +629,6 @@ class FormTagLib {
 
         if (maxSize && !texteditor){
         out << """
-            <script>
-                \$(function(){counterCharacters("${field}")});
-            </script>
             <div id="charInit_${prefixFieldName}${field}" class="hidden">${message(code:'form.textarea.limitChar')}<span>${maxSize}</span></div>
             <div id="charNum_${prefixFieldName}${field}" class="charNum">${message(code:'form.textarea.limitChar.left')} <span>${maxSize}</span> ${message(code:'form.textarea.limitChar.characters')}</div>
             """

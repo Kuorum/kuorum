@@ -717,7 +717,39 @@ function prepareForms(){
         });
 
     }
+    $(".counted").each(function(input){
+        counterCharacters($(this).attr("name"))
+    })
 }
+
+function counterCharacters(idField) {
+    // idField puede ser ID o name
+    var idFieldEscaped = idField.replace('[','\\[').replace(']','\\]').replace('\.','\\.')
+    var input = $("[name='"+idFieldEscaped+"']");
+    if (input == undefined){
+        var input = $("[id='"+idFieldEscaped+"']");
+    }
+    var totalCharsText = input.parents(".form-group").find("div[id*='charInit']").find("span").text()
+    var totalChars      = parseInt(totalCharsText);
+    var countTextBox    = input
+    var charsCountEl    = input.parents(".form-group").find("div[id*='charNum']").find("span")
+    if (countTextBox.length> 0){
+        charsCountEl.text(totalChars - countTextBox.val().length);
+    }
+    countTextBox.keyup(function() {
+
+        var thisChars = this.value.replace(/{.*}/g, '').length;
+
+        if (thisChars > totalChars)
+        {
+            var CharsToDel = (thisChars-totalChars);
+            this.value = this.value.substring(0,this.value.length-CharsToDel);
+        } else {
+            charsCountEl.text( totalChars - thisChars );
+        }
+    });
+}
+
 
 function stringStartsWith (string, prefix) {
     if (string == undefined || string.length < prefix.length){
