@@ -197,16 +197,16 @@ class FormTagLib {
 
         List listCommands = command."${field}"
 
-        String removeButton = customRemoveButton?'':"""""
+        String removeButton = customRemoveButton?'':"""
             <fieldset class="row">
                 <div class="col-md-12 text-right">
-                    <button type="button" class="btn btn-default removeButton"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-transparent removeButton"><i class="fa fa-trash"></i></button>
                 </div>
             </fieldset>
 """
 
         String addButton =  """
-        <fieldset>
+        <fieldset class="row dynamic-fieldset-addbutton">
             <div class="form-group">
                 <div class="col-md-12">
                     <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>

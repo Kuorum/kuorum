@@ -62,10 +62,12 @@
         var $template = $('#${templateId}'),
                 $clone    = $template
                         .clone()
-                        .removeClass('hide')
+                        .removeClass("hide")
                         .removeAttr('id')
                         .attr('data-dynamic-list-index', ${validationDataVarIndex})
+                        .css("display","none") // For the higlight
                         .insertAfter($template);
+                $clone.toggle( "highlight" );
 
         <g:each in="${fields}" var="field">
         // Update the name attributes

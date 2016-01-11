@@ -8,10 +8,10 @@
         <div class="form-group col-md-12">
             <formUtil:input field="title" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <formUtil:date field="date" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
         </div>
-        <div class="form-group col-md-8">
+        <div class="form-group col-md-6">
             <formUtil:url field="link" command="${listCommand}" prefixFieldName="${prefixField}" showLabel="true"/>
         </div>
     </fieldset>
@@ -27,9 +27,7 @@
 
 
 <fieldset>
-    <div class="form-group">
-        <div class="col-xs-5 col-xs-offset-1">
-            <button type="submit" class="btn btn-default"><g:message code="admin.createUser.submit"/> </button>
-        </div>
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-default"><g:message code="admin.createUser.submit"/></button>
     </div>
 </fieldset>
