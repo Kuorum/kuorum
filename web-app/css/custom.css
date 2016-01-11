@@ -761,8 +761,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal {padding: 22px 10px 0;}
 .box-ppal .box-ppal-section{padding-left: 20px}
 .box-ppal .box-ppal-section .box-ppal-section-title{margin:0 0 10px -20px; font-variant:small-caps;}
-.box-ppal .box-ppal-section + .box-ppal-section{border-top: 1px #e5e5e5 solid; padding-top: 20px;}
-.box-ppal .box-ppal-section:last-of-type{border:none}
+.box-ppal-section + .box-ppal-section{border-top: 1px #e5e5e5 solid; padding-top: 20px;}
 .box-ppal-title {background-color: #fff; border-width: 1px 1px 0 1px; border-color: #e5e5e5; border-style:solid; padding:20px 15px}
 .box-ppal-title h1 { margin-bottom:15px;margin:0 0 10px 0;font-size: 2.5rem}
 .box-ppal-title h3 { color: #a8a8a8; margin:0px;font-size:1.4rem;}

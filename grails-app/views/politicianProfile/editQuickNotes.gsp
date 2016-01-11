@@ -11,6 +11,10 @@
 
 </content>
 
+<content tag="titleContent">
+    <h1><g:message code="profile.menu.profilePoliticianQuickNotes"/></h1>
+    <h3><g:message code="profile.menu.profilePoliticianQuickNotes.subtitle"/></h3>
+</content>
 <content tag="mainContent">
     <formUtil:validateForm form="quickNotesForm" bean="${command}"/>
     <g:form method="POST" mapping="profilePoliticianQuickNotes" name="quickNotesForm" role="form">
