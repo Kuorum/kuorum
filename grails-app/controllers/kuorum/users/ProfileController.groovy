@@ -151,7 +151,7 @@ class ProfileController {
 
     def editUser() {
         KuorumUser user = params.user
-        EditUserProfileCommand command = new EditUserProfileCommand()
+        EditUserProfileCommand command = new EditUserProfileCommand(user)
 
         [command: command, user:user]
     }
@@ -163,7 +163,7 @@ class ProfileController {
             return
         }
         prepareUserEditProfile(user,command)
-        prepareUserImages(user,command)
+        prepareUserImages(user,command, fileService)
         kuorumUserService.updateUser(user)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileEditUser'
@@ -188,7 +188,7 @@ class ProfileController {
         redirect mapping:'profileEditCommissions'
     }
 
-    protected prepareUserEditProfile(KuorumUser user, EditUserProfileCommand command){
+    public static void prepareUserEditProfile(KuorumUser user, EditUserProfileCommand command){
         PersonalData personalData = null;
         user.bio = command.bio
         if (Gender.ORGANIZATION.equals(command.gender)){
@@ -201,13 +201,13 @@ class ProfileController {
             if (user.userType==UserType.POLITICIAN){
                 user.professionalDetails.position = command.position
                 user.professionalDetails.politicalParty = command.politicalParty
-                user.politicianLeaning.liberalIndex = command.politicalParty*100
+                user.politicianLeaning.liberalIndex = command.politicalLeaningIndex
             }else{
                 personalData.birthday = command.birthday
                 personalData.studies =  command.studies
                 personalData.workingSector =  command.workingSector
+                user.userType = UserType.PERSON
             }
-            user.userType = UserType.PERSON
             personalData.gender = command.gender
         }
         if (user.personalData){
@@ -219,7 +219,7 @@ class ProfileController {
         user.personalData = personalData
     }
 
-    protected prepareUserImages(KuorumUser user, EditUserProfileCommand command){
+    public static  void prepareUserImages(KuorumUser user, EditUserProfileCommand command, FileService fileService){
 
         if (command.photoId){
             KuorumFile avatar = KuorumFile.get(new ObjectId(command.photoId))

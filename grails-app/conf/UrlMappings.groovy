@@ -250,7 +250,7 @@ class UrlMappings {
         name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
-        name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
+//        name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
         name adminEditUser:         "/admin/usuarios/$userTypeUrl/$urlName-$id/editar" (controller:"adminUser"){action =[GET:"editUser", POST:"updateUser"]}
         name adminEditPoliticianExternalActivity: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/externalActivity" (controller:"adminPolitician"){action =[GET:"editExternalActivity", POST:"updateExternalActivity"]}
         name adminEditPoliticianRelevantEvents: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/relevantEvents" (controller:"adminPolitician"){action =[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}

@@ -64,9 +64,6 @@
                     <g:elseif test="${noticeType == NoticeType.NOPOLITICIANPHONE}">
                         <p>${message(code:'dashboard.userProfile.incompleteDate.fillThePhone.rightTitle')}</p>
                         <g:form method="POST" name="sign" role="form" class="no-phone" mapping="customRegisterTelephone">
-                            <div class="form-group">
-                                <formUtil:selectNation command="${personalDataCommand}" field="country" cssClass="sr-only"/>
-                            </div>
                             <div class="form-group pull-left">
                                 <formUtil:telephoneWithPrefix command="${personalDataCommand}" field="phonePrefix"/>
                             </div>
