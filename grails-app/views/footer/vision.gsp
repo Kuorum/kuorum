@@ -10,7 +10,7 @@
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="layout.footer.vision"/></h1>
+    <h1><g:message code="layout.footer.mision"/></h1>
     <p><g:message code="footer.menu.footerVision.vision.description"/></p>
     <ul>
         <li><g:message code="footer.menu.footerVision.vision.description.outcome1"/></li>

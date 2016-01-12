@@ -10,12 +10,12 @@
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="layout.footer.developers"/></h1>
+    <h1><g:message code="layout.footer.editors"/></h1>
     <p>
-        <g:message code="footer.menu.footerDevelopers.description1"/>
+        <g:message code="footer.menu.footerWhatIsKuorum.forEditors.description1"/>
     </p>
     <p>
-        <g:message code="footer.menu.footerDevelopers.description2"/>
+        <g:message code="footer.menu.footerWhatIsKuorum.forEditors.description2"/>
     </p>
     <p><img src="${resource(dir: 'images', file: 'ipdb-kuorum.png')}" alt="we-build-transparency" itemprop="image"></p>
 </content>
