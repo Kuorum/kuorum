@@ -27,5 +27,4 @@
         %{--<iframe class="youtube" itemprop="video" src="//player.vimeo.com/video/122122045?api=1&amp;player_id=vimeoplayer1&amp;autoplay=0&amp;color=ff9933&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>--}%
     %{--</div>--}%
     %{--<img src="${resource(dir: 'images', file: 'info-quekuorum.jpg')}" alt="foto-debate" itemprop="image">--}%
-    <br>
 </content>

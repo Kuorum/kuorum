@@ -1,7 +1,7 @@
 <h1><g:message code="layout.footer.userGuide"/></h1>
 <ul>
     <li class="${activeMapping=='footerTechnology'?'active':''}">
-        <g:link mapping="footerTechnology"><g:message code="layout.footer.whatIsKuorum"/></g:link>
+        <g:link mapping="footerTechnology"><g:message code="layout.footer.Technology"/></g:link>
     </li>
     <li class="${activeMapping=='footerPoliticians'?'active':''}">
         <g:link mapping="footerPoliticians"><g:message code="layout.footer.politicians"/></g:link>

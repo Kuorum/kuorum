@@ -13,8 +13,7 @@
     <h1><g:message code="layout.footer.aboutUs" encodeAs="raw"/></h1>
     <p><g:message code="footer.menu.aboutUs.description1" encodeAs="raw"/></p>
     <p><g:message code="footer.menu.aboutUs.description2" encodeAs="raw"/></p>
-    %{--<img src="${resource(dir: 'images', file: 'info4.png')}" alt="foto-debate" itemprop="image">--}%
-    <br>
+    %{--<p><img src="${resource(dir: 'images', file: 'info4.png')}" alt="foto-debate" itemprop="image"></p>--}%
 </content>
 
 

@@ -17,6 +17,5 @@
     <p>
         <g:message code="footer.menu.footerDevelopers.description2"/>
     </p>
-    %{--<img src="${resource(dir: 'images', file: 'info8.png')}" alt="foto-teclado" itemprop="image">--}%
-    <br>
+    <p><img src="${resource(dir: 'images', file: 'ipdb-kuorum.png')}" alt="we-build-transparency" itemprop="image"></p>
 </content>
