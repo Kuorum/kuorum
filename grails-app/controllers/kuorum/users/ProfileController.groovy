@@ -79,6 +79,7 @@ class ProfileController {
         }
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
+        user.personalData.province = command.homeRegion
         kuorumUserService.updateUser(user);
         if (user.email != command.email){
             def changeMailData = changeEmail(user, command.email)
@@ -151,18 +152,7 @@ class ProfileController {
     def editUser() {
         KuorumUser user = params.user
         EditUserProfileCommand command = new EditUserProfileCommand()
-        command.gender = user.personalData?.gender
-        command.homeRegion = user.personalData.province
-        command.birthday= user.personalData?.birthday
-        if (user.userType == UserType.ORGANIZATION){
-            command.enterpriseSector = user.personalData?.enterpriseSector
-        }else{
-            command.workingSector = user.personalData?.workingSector
-            command.studies = user.personalData?.studies
-        }
-        command.bio = user.bio
-        command.photoId = user.avatar?.id?.toString()
-        command.imageProfile = user.imageProfile?.id?.toString()
+
         [command: command, user:user]
     }
 
@@ -208,14 +198,16 @@ class ProfileController {
             personalData.gender = Gender.ORGANIZATION
         }else{
             personalData = new PersonData(year: user.personalData?.year)
-            if (user.userType!=UserType.POLITICIAN)
-                user.userType = UserType.PERSON
-            else{
-                personalData.userType=UserType.POLITICIAN
+            if (user.userType==UserType.POLITICIAN){
+                user.professionalDetails.position = command.position
+                user.professionalDetails.politicalParty = command.politicalParty
+                user.politicianLeaning.liberalIndex = command.politicalParty*100
+            }else{
+                personalData.birthday = command.birthday
+                personalData.studies =  command.studies
+                personalData.workingSector =  command.workingSector
             }
-            personalData.birthday = command.birthday
-            personalData.studies =  command.studies
-            personalData.workingSector =  command.workingSector
+            user.userType = UserType.PERSON
             personalData.gender = command.gender
         }
         if (user.personalData){
@@ -223,11 +215,6 @@ class ProfileController {
             personalData.provinceCode= user.personalData.provinceCode
             personalData.province= user.personalData.province
             personalData.country= user.personalData.country
-        }
-
-        if (command.homeRegion && !personalData.province){
-            personalData.provinceCode = command.homeRegion.iso3166_2
-            personalData.province = command.homeRegion
         }
         user.personalData = personalData
     }

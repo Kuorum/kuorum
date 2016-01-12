@@ -586,12 +586,14 @@ class FormTagLib {
         def field = attrs.field
         def labelCssClass = attrs.labelCssClass?:""
 
+        def deleteOptions = attrs.deleteOptions?:[]
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = message(code: "${command.class.name}.${field}.label")
         def error = hasErrors(bean: command, field: field,'error')
+        def values = clazz.values() - deleteOptions
         out << "<div class='groupRadio'>"
         out << "<span class='span-label ${labelCssClass}'>${label} </span>"
-        clazz.values().each{
+        values.each{
             out << "<label class='radio-inline'>"
             out << "<input type='radio' name='${field}' value='${it}' ${command."${field}"==it?'checked':''}>"
             String codeMessage = "${clazz.name}.$it"

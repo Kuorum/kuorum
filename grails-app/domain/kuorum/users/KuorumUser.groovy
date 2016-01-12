@@ -191,6 +191,10 @@ class KuorumUser {
         if (!followers) followers = []
         numFollowers = followers.size()
         personalData.userType = userType
+        if (politicianLeaning?.liberalIndex){
+            politicianLeaning?.liberalIndex = Math.min(100, politicianLeaning.liberalIndex) // MAX 100
+            politicianLeaning?.liberalIndex = Math.max(0, politicianLeaning.liberalIndex) // min 0
+        }
     }
 
     def beforeUpdate() {

@@ -21,6 +21,11 @@
     </div>
 </fieldset>
 <fieldset class="row">
+    <div class="form-group col-md-6">
+        <formUtil:regionInput command="${command}" field="homeRegion" showLabel="true"/>
+    </div>
+</fieldset>
+<fieldset class="row">
     <div class="form-group col-md-2">
         <formUtil:input command="${command}" field="phonePrefix" showLabel="true"/>
     </div>

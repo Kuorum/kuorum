@@ -5,6 +5,7 @@ import kuorum.Region
 import kuorum.RegionService
 import kuorum.core.model.*
 import kuorum.postalCodeHandlers.PostalCodeHandler
+import kuorum.users.KuorumUser
 import kuorum.web.binder.RegionBinder
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
@@ -17,34 +18,56 @@ import org.grails.databinding.BindingFormat
  */
 @Validateable
 class EditUserProfileCommand{
-    @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
-        RegionBinder.bindRegion(obj, "homeRegion", source)
-    })
-    Region homeRegion
-    @BindingFormat("dd/MM/yyyy")
-    Date birthday
+
+    public EditUserProfileCommand(){}
+    public EditUserProfileCommand(KuorumUser user){
+        this.gender = user.personalData?.gender
+        this.bio = user.bio
+        this.photoId = user.avatar?.id?.toString()
+        this.imageProfile = user.imageProfile?.id?.toString()
+        if (user.userType == UserType.ORGANIZATION){
+            this.enterpriseSector = user.personalData?.enterpriseSector
+        }else if (user.userType == UserType.POLITICIAN){
+            this.position = user.professionalDetails.position
+            this.politicalParty = user.professionalDetails.politicalParty
+            this.politicalParty = user.politicianLeaning.liberalIndex / 100
+        }else{
+            this.birthday= user.personalData?.birthday
+            this.workingSector = user.personalData?.workingSector
+            this.studies = user.personalData?.studies
+        }
+    }
+
+
     String bio
     Gender gender
-//    Region country
-//    Region province
-
-    WorkingSector workingSector
-    Studies studies
-    EnterpriseSector enterpriseSector
-
     String photoId
     String imageProfile
+
+    //Citizen
+    @BindingFormat("dd/MM/yyyy")
+    Date birthday
+    Studies studies
+    EnterpriseSector enterpriseSector
+    WorkingSector workingSector
+
+    //Politician
+    String position
+    String politicalParty
+    Double politicalLeaningIndex
+
     static constraints = {
         gender nullable: true
-        homeRegion nullable: true
         birthday nullable:true
-        //Step2
         photoId nullable: true
         workingSector nullable: true
         studies nullable: true
         enterpriseSector nullable:true
         bio nullable: true, maxSize: 1000
         imageProfile nullable: true
+        politicalLeaningIndex nullable:true
+        politicalParty nullable:true
+        position nullable:true
     }
 
     @Deprecated
