@@ -13,6 +13,7 @@
     <h1><g:message code="layout.footer.politicians"/></h1>
     <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.description" encodeAs="raw"/></p>
     <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features" encodeAs="raw"/></p>
+    <img src="${resource(dir: 'images', file: 'features.png')}" alt="features-kuorum" itemprop="image">
     <ul>
         <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature1" encodeAs="raw"/></li>
         <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature2" encodeAs="raw"/></li>
@@ -20,6 +21,4 @@
         <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature4" encodeAs="raw"/></li>
     </ul>
     <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.brief" encodeAs="raw" args="[g.createLink(mapping:'register'),g.createLink(mapping:'register')]"/></p>
-    %{--<img src="${resource(dir: 'images', file: 'info5.png')}" alt="foto-madiba" itemprop="image">--}%
-    <br>
 </content>
