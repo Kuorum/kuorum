@@ -2,7 +2,7 @@
 <head>
     <title><g:message code="page.title.footer.userGuide"/> </title>
     <meta name="layout" content="leftMenuLayout">
-    <parameter name="extraCssContainer" value="info" />
+    <parameter name="extraCssContainer" value="info team" />
 </head>
 
 <content tag="leftMenu">
