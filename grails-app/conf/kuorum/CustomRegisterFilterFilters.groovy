@@ -16,7 +16,8 @@ class CustomRegisterFilterFilters {
                 if (springSecurityService.isLoggedIn()){
                     KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
                     if (kuorumUser.userType != UserType.ORGANIZATION && STEP1_FIELDS.find{field -> kuorumUser.personalData."$field" == null}){
-                        redirect(mapping: 'customRegisterStep1')
+                        //OLD ACTION - DEPRECATED. It is for redirect when the user has not complete profile
+                        redirect(mapping: 'home')
                         return false
                     }
                 }
