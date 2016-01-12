@@ -291,7 +291,7 @@ class FormTagLib {
         def id = attrs.id?:field
         def fieldId = field +".id"//Same as EditUserProfileCommand.bindingRegion
         String extraCss = attrs.extraCss?:""
-        def showLabel = attrs.showLabel?:false
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         Region regionValue = command."${field}"?:null
         def value = regionValue?.iso3166_2?:''
         def showedValue = regionValue?.name?:""
@@ -619,7 +619,11 @@ class FormTagLib {
         MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
         def maxSize = maxSizeConstraint?.maxSize?:0
         def texteditor = attrs.texteditor?:''
-
+        def label = message(code: "${command.class.name}.${field}.label")
+        def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
+        if (showLabel){
+            out << "<label for='${prefixFieldName}${field}'>${label}</label>"
+        }
         out << """
             <textarea name='${prefixFieldName}${field}' class="form-control ${maxSize?"counted":""} ${texteditor} ${error}" rows="${rows}" id="${prefixFieldName}${id}" placeholder="${placeHolder}">${value}</textarea>
         """

@@ -1,14 +1,9 @@
 package kuorum.web.commands.profile.politician
 
 import grails.validation.Validateable
-import kuorum.Region
 import kuorum.users.KuorumUser
-import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.OfficeDetails
 import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
-import kuorum.users.extendedPoliticianData.ProfessionalDetails
-import kuorum.web.commands.profile.EditUserProfileCommand
-import org.grails.databinding.BindUsing
 
 /**
  * Created by iduetxe on 28/12/15.

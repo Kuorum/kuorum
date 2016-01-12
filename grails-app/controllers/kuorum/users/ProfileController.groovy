@@ -153,15 +153,7 @@ class ProfileController {
         EditUserProfileCommand command = new EditUserProfileCommand()
         command.gender = user.personalData?.gender
         command.homeRegion = user.personalData.province
-        command.year =  user.personalData?.year
-//        command.country =  user.personalData?.country
-//        command.month = user.personalData?.birthday?user.personalData.birthday[Calendar.MONTH]+1:null
-//        command.day =   user.personalData?.birthday?user.personalData.birthday[Calendar.DAY_OF_MONTH]:null
-        command.alias = user.alias
-        command.name = user.name
-        command.language = user.language
-        command.phonePrefix = user.personalData?.phonePrefix
-        command.telephone = user.personalData?.telephone
+        command.birthday= user.personalData?.birthday
         if (user.userType == UserType.ORGANIZATION){
             command.enterpriseSector = user.personalData?.enterpriseSector
         }else{
@@ -180,14 +172,8 @@ class ProfileController {
             render view:"editUser", model: [command:command,user:user]
             return
         }
-        if (!user.alias){
-            user.alias = command.alias
-        }
-        prepareUserStep1(user,command)
-        prepareUserStep2(user,command)
-        user.language = command.language
-        user.personalData.phonePrefix = command.phonePrefix
-        user.personalData.telephone = command.telephone
+        prepareUserEditProfile(user,command)
+        prepareUserImages(user,command)
         kuorumUserService.updateUser(user)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileEditUser'
@@ -212,13 +198,14 @@ class ProfileController {
         redirect mapping:'profileEditCommissions'
     }
 
-    protected prepareUserStep1(KuorumUser user, def command){
-        user.name = command.name
+    protected prepareUserEditProfile(KuorumUser user, EditUserProfileCommand command){
         PersonalData personalData = null;
+        user.bio = command.bio
         if (Gender.ORGANIZATION.equals(command.gender)){
             personalData = new OrganizationData()
             personalData.enterpriseSector = command.enterpriseSector
             user.userType = UserType.ORGANIZATION
+            personalData.gender = Gender.ORGANIZATION
         }else{
             personalData = new PersonData(year: user.personalData?.year)
             if (user.userType!=UserType.POLITICIAN)
@@ -226,7 +213,10 @@ class ProfileController {
             else{
                 personalData.userType=UserType.POLITICIAN
             }
-            personalData.year = command.year
+            personalData.birthday = command.birthday
+            personalData.studies =  command.studies
+            personalData.workingSector =  command.workingSector
+            personalData.gender = command.gender
         }
         if (user.personalData){
             //Datos no sobreescribibles
@@ -234,27 +224,16 @@ class ProfileController {
             personalData.province= user.personalData.province
             personalData.country= user.personalData.country
         }
-        personalData.gender = command.gender
 
         if (command.homeRegion && !personalData.province){
             personalData.provinceCode = command.homeRegion.iso3166_2
             personalData.province = command.homeRegion
         }
         user.personalData = personalData
-        if (Gender.ORGANIZATION.equals(command.gender)){
-            user.personalData.userType = UserType.ORGANIZATION
-            kuorumUserService.convertAsOrganization(user)
-        }
     }
 
-    protected prepareUserStep2(KuorumUser user, def command){
-        user.bio = command.bio
-        if (user.userType!=UserType.ORGANIZATION){
-            user.personalData.studies =  command.studies
-            user.personalData.workingSector =  command.workingSector
-        }else{
-            user.personalData.enterpriseSector =  command.enterpriseSector
-        }
+    protected prepareUserImages(KuorumUser user, EditUserProfileCommand command){
+
         if (command.photoId){
             KuorumFile avatar = KuorumFile.get(new ObjectId(command.photoId))
             avatar.alt = user.name
@@ -263,7 +242,7 @@ class ProfileController {
             avatar.save(flush: true)
             user.avatar = avatar
         }
-        if (command.hasProperty('imageProfile') && command.imageProfile){
+        if (command.imageProfile){
             KuorumFile imageProfile = KuorumFile.get(new ObjectId(command.imageProfile))
             imageProfile.alt = user.name
             imageProfile.save()

@@ -1,6 +1,5 @@
 package springSecurity
 
-import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
 import grails.plugin.springsecurity.ui.RegistrationCode
@@ -12,7 +11,6 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
-import kuorum.web.commands.profile.EditUserProfileCommand
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
@@ -262,7 +260,7 @@ class KuorumRegisterCommand{
 
     public String getUsername(){ email }// RegisterController.passwordValidator uses username
     static constraints = {
-        importFrom EditUserProfileCommand, include:["name"]
+        importFrom KuorumUser, include:["name"]
         email nullable:false, email:true, validator: { val, obj ->
             if (val && KuorumUser.findByEmail(val.toLowerCase())) {
                 obj.email = val.toLowerCase()

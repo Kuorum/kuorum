@@ -10,6 +10,7 @@ import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 import org.grails.databinding.BindUsing
+import org.grails.databinding.BindingFormat
 
 /**
  * Created by iduetxe on 13/02/14.
@@ -20,46 +21,29 @@ class EditUserProfileCommand{
         RegionBinder.bindRegion(obj, "homeRegion", source)
     })
     Region homeRegion
+    @BindingFormat("dd/MM/yyyy")
+    Date birthday
+    String bio
     Gender gender
-    String name
 //    Region country
 //    Region province
 
-    //Step2
-    String photoId
     WorkingSector workingSector
     Studies studies
     EnterpriseSector enterpriseSector
-    AvailableLanguage language
-    String bio
 
-    String phonePrefix
-    String telephone
-
-    String alias
-    Integer year
-
+    String photoId
     String imageProfile
     static constraints = {
-        importFrom BirthdayCommad
-        //Step1
         gender nullable: true
-        name nullable: false, maxSize: 17
-        alias nullable: true
-//        country nullable: true
-//        province nullable:true
-        homeRegion nullable: false
-
+        homeRegion nullable: true
+        birthday nullable:true
         //Step2
         photoId nullable: true
         workingSector nullable: true
         studies nullable: true
         enterpriseSector nullable:true
         bio nullable: true, maxSize: 1000
-        year nullable:true
-
-        telephone nullable:true
-
         imageProfile nullable: true
     }
 

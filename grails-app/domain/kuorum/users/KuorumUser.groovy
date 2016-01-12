@@ -126,16 +126,14 @@ class KuorumUser {
     Integer activityForRecommendation = 0
 
     static constraints = {
-        name nullable:false //Limit size will be added
+        name nullable:false, maxSize: 17
         email nullable: false, email: true
         alias nullable:true, unique:true
         password nullable:true
         bio nullable:true
         avatar nullable:true
         imageProfile nullable:true
-        userType nullable: false, validator:{val, obj ->
-            obj.personalData.userType == val
-        }
+        userType nullable: false
         notice nullable: true
 
 
@@ -188,23 +186,23 @@ class KuorumUser {
 //    }
 
     def beforeInsert() {
-//        username = username?.toLowerCase()
         email = email.toLowerCase()
 
         if (!followers) followers = []
         numFollowers = followers.size()
+        personalData.userType = userType
     }
 
     def beforeUpdate() {
         log.debug("Se ha actualizado el usuario ${id}")
-//        username = username?.toLowerCase()
         email = email.toLowerCase()
         alias = alias?.toLowerCase()
-//        def persisted = SecUser.collection.findOne(_id:id)?.password
-//        if(persisted != password)
-//            encodePassword()
         if (!followers) followers = []
         numFollowers = followers.size()
+        if (!personalData){
+            this.personalData = new PersonalData()
+        }
+        personalData.userType = userType
     }
 
     int hashCode() {

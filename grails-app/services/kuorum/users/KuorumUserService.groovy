@@ -11,6 +11,7 @@ import kuorum.Region
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.AvailableLanguage
+import kuorum.core.model.Gender
 import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
@@ -425,6 +426,7 @@ class KuorumUserService {
     KuorumUser updateUser(KuorumUser user){
         if (user.personalData.province){
             user.personalData.provinceCode = user.personalData.province.iso3166_2
+            user.personalData.country = regionService.findCountry(user.personalData.province)
         }
         modifyRoleDependingOnUserData(user)
         if (springSecurityService.getCurrentUser().equals(user)){

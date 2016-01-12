@@ -518,7 +518,7 @@ $(document).ready(function() {
         }
 
     }
-    $("input[name=userType]").on("change", function(e){
+    $("input[name=userType], input[name=gender]").on("change", function(e){
         prepareFormUsingGender($(this).val())
     })
 
@@ -526,6 +526,12 @@ $(document).ready(function() {
         prepareFormUsingGender($("input[name=userType]:checked").val())
     }else{
         prepareFormUsingGender("PERSON")
+    }
+
+    if ($("input[name=gender]:checked").val() != undefined){
+        prepareFormUsingGender($("input[name=gender]:checked").val())
+    }else{
+        prepareFormUsingGender("FEMALE")
     }
 
 	// para los checkbox del formulario de registro

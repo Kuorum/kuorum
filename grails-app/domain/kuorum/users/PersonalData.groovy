@@ -20,8 +20,9 @@ class PersonalData {
     Region province
     @Deprecated
     Region country
-//    Date birthday
+    Date birthday
     static constraints = {
+        userType nullable:false
         telephone nullable: true
         gender nullable: true
         provinceCode nullable: true
@@ -29,5 +30,6 @@ class PersonalData {
         province nullable: true
         country nullable: true
         phonePrefix nullable:true
+        birthday nullable:true
     }
 }

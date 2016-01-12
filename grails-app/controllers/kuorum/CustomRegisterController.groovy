@@ -2,20 +2,13 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.Gender
-import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
 import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
 import kuorum.users.KuorumUser
 import kuorum.users.ProfileController
-import kuorum.users.RoleUser
-import kuorum.web.commands.customRegister.Step1Command
-import kuorum.web.commands.customRegister.Step2Command
-import kuorum.web.commands.customRegister.Step3Command
-import kuorum.web.commands.customRegister.Step4Command
 import kuorum.web.commands.profile.PersonalDataCommand
 import kuorum.web.commands.profile.UserRegionCommand
-import org.bson.types.ObjectId
 
 class CustomRegisterController extends  ProfileController{
 
