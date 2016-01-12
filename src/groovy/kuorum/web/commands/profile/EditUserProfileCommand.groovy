@@ -20,8 +20,6 @@ class EditUserProfileCommand{
         RegionBinder.bindRegion(obj, "homeRegion", source)
     })
     Region homeRegion
-    @Deprecated
-    String postalCode
     Gender gender
     String name
 //    Region country
@@ -50,7 +48,6 @@ class EditUserProfileCommand{
         alias nullable: true
 //        country nullable: true
 //        province nullable:true
-        postalCode nullable: true
         homeRegion nullable: false
 
         //Step2

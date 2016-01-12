@@ -152,7 +152,6 @@ class ProfileController {
         KuorumUser user = params.user
         EditUserProfileCommand command = new EditUserProfileCommand()
         command.gender = user.personalData?.gender
-        command.postalCode = user.personalData?.postalCode
         command.homeRegion = user.personalData.province
         command.year =  user.personalData?.year
 //        command.country =  user.personalData?.country
@@ -231,7 +230,6 @@ class ProfileController {
         }
         if (user.personalData){
             //Datos no sobreescribibles
-            personalData.postalCode= user.personalData.postalCode
             personalData.provinceCode= user.personalData.provinceCode
             personalData.province= user.personalData.province
             personalData.country= user.personalData.country

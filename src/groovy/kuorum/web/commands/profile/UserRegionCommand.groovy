@@ -2,6 +2,7 @@ package kuorum.web.commands.profile
 
 import kuorum.Region
 import kuorum.core.model.Gender
+import kuorum.web.binder.RegionBinder
 import org.codehaus.groovy.grails.validation.Validateable
 import org.grails.databinding.BindUsing
 
@@ -10,13 +11,11 @@ import org.grails.databinding.BindUsing
  */
 @Validateable
 class UserRegionCommand {
-    @BindUsing({obj, source ->
-        EditUserProfileCommand.bindingPostalCode(obj, source)
+    @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
+        RegionBinder.bindRegion(obj, "province", source)
     })
-    String postalCode
-    Region country
     Region province
     static constraints = {
-        importFrom EditUserProfileCommand, include: ["postalCode","country", "province"]
+        province nullable: false
     }
 }

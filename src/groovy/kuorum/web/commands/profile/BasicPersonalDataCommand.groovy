@@ -18,11 +18,9 @@ class BasicPersonalDataCommand {
 //TODO: Copiadas muchas cosas de EditUserProfileCommand - Mirar como compartir este codigo entre ambos command
     @BindUsing({obj, source ->
         EditUserProfileCommand.bindingPostalCode(obj, source)
-        //Returns gender because it assigns return value to gender. WHY??
-        source['gender']
     })
-    Gender gender
     String postalCode
+    Gender gender
     Region country
     Region province
     Integer year

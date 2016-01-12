@@ -100,7 +100,6 @@ class AdminUserController extends AdminController {
             personalData.year = command.year
         }
         personalData.gender = command.gender
-        personalData.postalCode = command.postalCode
         personalData.provinceCode = command.homeRegion.iso3166_2
         personalData.country = regionService.findCountry(command.homeRegion)
         personalData.province = command.homeRegion
@@ -157,7 +156,6 @@ class AdminUserController extends AdminController {
         command.year =  user.personalData?.year
         command.gender = user.personalData.gender
 //        command.country = user.personalData.country
-        command.postalCode = user.personalData.postalCode
         command.homeRegion = user.personalData.province
 //        command.province = user.personalData.province
         command.email = user.email

@@ -23,7 +23,7 @@ class CustomRegisterController extends  ProfileController{
 
     def afterInterceptor = {}
 
-    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED'])
+//    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED'])
     def countryAndPostalCode(UserRegionCommand command){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 
@@ -34,11 +34,10 @@ class CustomRegisterController extends  ProfileController{
         }
 
         if(user){
-            user.personalData.country = command.country
-            Region province = regionService.findMostSpecificRegionByPostalCode(command.country, command.postalCode)
+            user.personalData.country = regionService.findCountry(command.province)
+            Region province = command.province
             user.personalData.province = province
             user.personalData.provinceCode = province.iso3166_2
-            user.personalData.postalCode = command.postalCode
             NoticeType noticeType = dashboardService.getNoticesByKuorumUser(user)
             user.notice = new Notice(noticeType: noticeType)
             kuorumUserService.updateUser(user)

@@ -19,9 +19,8 @@ class DataProfileIncompleteTagLib {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Map orderedNotice = dashboardService.showNotice(user, request.locale)
         PersonalDataCommand personalDataCommand = new PersonalDataCommand()
-        personalDataCommand.country = user.personalData?.country
         personalDataCommand.gender = user.personalData?.gender
-        personalDataCommand.postalCode = user.personalData?.postalCode
+        personalDataCommand.province = user.personalData?.province
         personalDataCommand.telephone = user.personalData?.telephone
         personalDataCommand.year = user.personalData?.year
         if(orderedNotice)

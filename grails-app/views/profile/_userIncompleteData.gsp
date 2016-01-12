@@ -54,11 +54,7 @@
                         <p>${message(code:'dashboard.userProfile.incompleteDate.fillTheProvince.rightTitle')}</p>
                         <g:form method="POST" name="sign" role="form" class="no-postalcode" mapping="customRegisterCountryAndPostalCode">
                             <div class="form-group pull-left">
-                                <formUtil:selectNation command="${personalDataCommand}" field="country" cssClass="sr-only"/>
-                            </div>
-                            <div class="form-group pull-left">
-                                <label for="postalCode" class="sr-only"><g:message code="dashboard.userProfile.incompleteDate.postalCode.label"/></label>
-                                <input name="postalCode" class="form-control input-lg" id="postalCode" required placeholder="${message(code:'dashboard.userProfile.incompleteDate.postalCode.label')}" aria-required="true" value="${personalDataCommand?.postalCode}">
+                                <formUtil:regionInput command="${personalDataCommand}" field="province"/>
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="${message(code:'dashboard.userProfile.incompleteDate.button.save')}" class="btn btn-grey btn-lg">

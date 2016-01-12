@@ -303,7 +303,6 @@ class IndexSolrService {
                 regionName: regionName,
                 tags:kuorumUser.tags,
                 regionIso3166_2: regionIso,
-                postalCode: postalCode,
                 urlImage: kuorumUser.avatar?.url,
                 role:kuorumUser.gamification.activeRole,
                 gender:kuorumUser.personalData.gender?:Gender.FEMALE,

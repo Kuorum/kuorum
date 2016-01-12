@@ -13,6 +13,7 @@ class PersonalData {
     String phonePrefix
     String telephone
 
+    @Deprecated
     String postalCode
     //TODO: Refactor province to Region
     String provinceCode  // this code is Region.iso3166_2
