@@ -7,7 +7,7 @@
         <a href="${resource(dir: 'resources/pdf', file: 'Kuorum Press Kit 201601.pdf')}" target="_blank"><g:message code="layout.footer.press"/></a>
     </li>
     <li>
-        <a href="${resource(dir: 'resources/zip', file: 'logos.zip')}" target="_blank"><g:message code="layout.footer.logo"/></a>
+        <a href="${resource(dir: 'resources/zip', file: 'logos_kuorum.zip')}" target="_blank"><g:message code="layout.footer.logo"/></a>
     </li>
     <li>
         <a href="mailto:comunicacion@kuorum.org?subject=Quiero recibir notas de prensa" target="_blank"><g:message code="layout.footer.releases"/></a>
