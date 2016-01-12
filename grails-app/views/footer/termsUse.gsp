@@ -205,4 +205,5 @@
             <g:message code="footer.menu.footerTermsUse.description171"/>
         </p>
     </div>
+    <br>
 </content>

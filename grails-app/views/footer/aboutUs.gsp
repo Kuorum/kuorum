@@ -14,6 +14,7 @@
     <p><g:message code="footer.menu.aboutUs.description1" encodeAs="raw"/></p>
     <p><g:message code="footer.menu.aboutUs.description2" encodeAs="raw"/></p>
     %{--<img src="${resource(dir: 'images', file: 'info4.png')}" alt="foto-debate" itemprop="image">--}%
+    <br>
 </content>
 
 

@@ -15,4 +15,5 @@
         <g:message code="footer.menu.tech.description1"/>
     </p>
     %{--<img src="${resource(dir: 'images', file: 'info1.png')}" alt="foto-tribuna-eu" itemprop="image">--}%
+    <br>
 </content>

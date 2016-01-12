@@ -290,4 +290,5 @@
             <g:message code="footer.menu.footerPrivacyPolicy.description052"/>
         </p>
     </div>
+<br>
 </content>

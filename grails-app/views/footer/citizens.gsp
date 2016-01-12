@@ -16,4 +16,5 @@
     <p><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.features.feature3" encodeAs="raw"/></p>
     <p><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.brief" encodeAs="raw" args="[g.createLink(mapping:'register')]"/></p>
     %{--<img src="${resource(dir: 'images', file: 'info6.png')}" alt="foto-manos" itemprop="image">--}%
+    <br>
 </content>

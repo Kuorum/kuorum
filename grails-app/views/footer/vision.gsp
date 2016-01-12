@@ -18,4 +18,5 @@
         <li><g:message code="footer.menu.footerVision.vision.description.outcome3"/></li>
     </ul>
     %{--<img src="${resource(dir: 'images', file: 'info2.png')}" alt="foto-multitud" itemprop="image">--}%
+    <br>
 </content>
