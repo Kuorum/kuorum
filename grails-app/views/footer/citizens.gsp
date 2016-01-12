@@ -11,11 +11,9 @@
 
 <content tag="mainContent">
     <h1><g:message code="layout.footer.citizens"/></h1>
-    <ul>
-        <li><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.features.feature1" encodeAs="raw"/></li>
-        <li><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.features.feature2" encodeAs="raw"/></li>
-        <li><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.features.feature3" encodeAs="raw"/></li>
-    </ul>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.features.feature1" encodeAs="raw"/></p>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.features.feature2" encodeAs="raw"/></p>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.features.feature3" encodeAs="raw"/></p>
     <p><g:message code="footer.menu.footerWhatIsKuorum.forCitizen.brief" encodeAs="raw" args="[g.createLink(mapping:'register')]"/></p>
-    <img src="${resource(dir: 'images', file: 'info6.png')}" alt="foto-manos" itemprop="image">
+    %{--<img src="${resource(dir: 'images', file: 'info6.png')}" alt="foto-manos" itemprop="image">--}%
 </content>

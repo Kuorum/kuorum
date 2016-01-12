@@ -11,11 +11,7 @@
 
 <content tag="mainContent">
     <h1><g:message code="layout.footer.impact"/></h1>
-    <p>
-        <g:message code="footer.menu.footerOrganizations.description1"/>
-    </p>
-    <p>
-        <g:message code="footer.menu.footerOrganizations.description2"/>
-    </p>
-    <img src="${resource(dir: 'images', file: 'info3.png')}" alt="foto-activistas" itemprop="image">
+    <p><g:message code="footer.menu.footerVision.impact.description1"/></p>
+    <p><g:message code="footer.menu.footerVision.impact.description2"/></p>
+    %{--<img src="${resource(dir: 'images', file: 'info3.png')}" alt="foto-activistas" itemprop="image">--}%
 </content>

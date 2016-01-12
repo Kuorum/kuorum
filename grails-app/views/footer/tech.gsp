@@ -10,12 +10,9 @@
 </content>
 
 <content tag="mainContent">
-    <h1><g:message code="layout.footer.projects"/></h1>
+    <h1><g:message code="layout.footer.tech"/></h1>
     <p>
-        <g:message code="footer.menu.footerProjects.description1"/>
+        <g:message code="footer.menu.tech.description1"/>
     </p>
-    <p>
-        <g:message code="footer.menu.footerProjects.description2"/>
-    </p>
-    <img src="${resource(dir: 'images', file: 'info1.png')}" alt="foto-tribuna-eu" itemprop="image">
+    %{--<img src="${resource(dir: 'images', file: 'info1.png')}" alt="foto-tribuna-eu" itemprop="image">--}%
 </content>

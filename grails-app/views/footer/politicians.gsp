@@ -21,5 +21,5 @@
     </ul>
     <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.brief" encodeAs="raw" args="[g.createLink(mapping:'register'),g.createLink(mapping:'register')]"/></p>
 
-    <img src="${resource(dir: 'images', file: 'info5.png')}" alt="foto-madiba" itemprop="image">
+    %{--<img src="${resource(dir: 'images', file: 'info5.png')}" alt="foto-madiba" itemprop="image">--}%
 </content>
