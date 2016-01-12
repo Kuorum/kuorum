@@ -3,12 +3,9 @@ package kuorum.web.commands.profile
 import grails.validation.Validateable
 import kuorum.Region
 import kuorum.RegionService
-import kuorum.core.model.AvailableLanguage
-import kuorum.core.model.EnterpriseSector
-import kuorum.core.model.Gender
-import kuorum.core.model.Studies
-import kuorum.core.model.WorkingSector
+import kuorum.core.model.*
 import kuorum.postalCodeHandlers.PostalCodeHandler
+import kuorum.web.binder.RegionBinder
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
@@ -20,7 +17,7 @@ import org.grails.databinding.BindUsing
 @Validateable
 class EditUserProfileCommand{
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
-        EditUserProfileCommand.bindingRegion(obj, source, "homeRegion")
+        RegionBinder.bindRegion(obj, "homeRegion", source)
     })
     Region homeRegion
     @Deprecated
@@ -84,16 +81,6 @@ class EditUserProfileCommand{
                 postalCode = postalCode?:source["postalCode"]
             }
             return new Region(name:"inventada", iso3166_2: "EU-ES-IN")
-        }
-    }
-
-    public static Region bindingRegion(obj,  org.grails.databinding.DataBindingSource source, String field){
-        String fieldId = field+".id"
-        if (source[fieldId]){
-            Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
-            RegionService regionService = (RegionService)appContext.regionService
-            Region region = regionService.findRegionBySuggestedId(source[fieldId])
-            return region;
         }
     }
 }

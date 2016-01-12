@@ -5,7 +5,7 @@ import kuorum.Region
 import kuorum.users.KuorumUser
 import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
-import kuorum.web.commands.profile.EditUserProfileCommand
+import kuorum.web.binder.RegionBinder
 import org.grails.databinding.BindUsing
 
 /**
@@ -18,12 +18,12 @@ class ProfessionalDetailsCommand {
     CareerDetails careerDetails
 
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
-        EditUserProfileCommand.bindingRegion(obj, source, "region")
+        RegionBinder.bindRegion(obj, "region", source)
     })
     Region region
 
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
-        EditUserProfileCommand.bindingRegion(obj, source, "constituency")
+        RegionBinder.bindRegion(obj, "constituency", source)
     })
     Region constituency
 

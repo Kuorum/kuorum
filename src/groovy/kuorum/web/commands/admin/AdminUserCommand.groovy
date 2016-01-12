@@ -1,11 +1,11 @@
 package kuorum.web.commands.admin
 
 import grails.validation.Validateable
-import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
+import kuorum.web.binder.RegionBinder
 import kuorum.web.commands.profile.EditUserProfileCommand
 import org.grails.databinding.BindUsing
 
@@ -22,12 +22,12 @@ class AdminUserCommand extends EditUserProfileCommand{
     List<CommissionType> commissions = []
 
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
-        EditUserProfileCommand.bindingRegion(obj, source, "politicianOnRegion")
+        RegionBinder.bindRegion(obj, "politicianOnRegion", source)
     })
     Region politicianOnRegion
 
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
-        EditUserProfileCommand.bindingRegion(obj, source, "constituency")
+        RegionBinder.bindRegion(obj, "constituency", source)
     })
     Region constituency
 
