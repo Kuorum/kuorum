@@ -7,7 +7,10 @@
 
 <content tag="leftMenu">
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileEditUser', menu:menu]"/>
-
+</content>
+<content tag="titleContent">
+    <h1><g:message code="profile.menu.editUser"/></h1>
+    <h3><g:message code="profile.menu.editUser.subtitle"/></h3>
 </content>
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="config1" />
@@ -15,61 +18,6 @@
         %{--<h1><g:message code="profile.editUser.title"/></h1>--}%
 
         <fieldset class="row">
-            <div class="form-group col-md-6">
-                <formUtil:input command="${command}" field="name" required="true" showLabel="true"/>
-            </div>
-        </fieldset>
-
-        %{--Alias--}%
-        %{--<fieldset class="row">--}%
-            %{--<g:if test="${user.alias}">--}%
-                %{--<div class="form-group col-md-6">--}%
-                    %{--<span class="span-label"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.label"/></span>--}%
-                    %{--<!-- <input type="text" class="form-control input-lg" id="alias" placeholder="Establece un alias" aria-describedby="ayuda-alias" aria-required="true" required> -->--}%
-                    %{--<span class="disabled">--}%
-                        %{--kuorum.org/${user.alias}--}%
-                        %{--<span class="info-disabled">--}%
-                            %{--<span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>--}%
-                            %{--<div class="popover">--}%
-                                %{--<div class="popover-kuorum">--}%
-                                    %{--<p><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.notChangeable"/> </p>--}%
-                                %{--</div>--}%
-                            %{--</div>--}%
-                        %{--</span>--}%
-                    %{--</span>--}%
-                %{--</div>--}%
-            %{--</g:if>--}%
-            %{--<g:else>--}%
-                %{--<div class="form-group col-md-6">--}%
-                    %{--<formUtil:input command="${command}" field="alias" showLabel="true"/>--}%
-                %{--</div>--}%
-                %{--<div class="form-group col-md-6">--}%
-                    %{--<p id="ayuda-alias" class="help-block"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.alias.warning"/></p>--}%
-                %{--</div>--}%
-            %{--</g:else>--}%
-        %{--</fieldset>--}%
-
-        <fieldset class="row">
-            %{--<div class="form-group col-md-6">--}%
-                %{--<g:if test="${user.personalData?.country}">--}%
-                    %{--<span class="span-label"><g:message code="kuorum.Region.label"/> </span>--}%
-                    %{--<g:hiddenField name="country" value="${command.country.id}"/>--}%
-                    %{--<span class="disabled">--}%
-                        %{--<g:message code="kuorum.Region.${user.personalData?.country.iso3166_2}" default="${user.personalData?.country.name}"/>--}%
-                        %{--<span class="info-disabled">--}%
-                            %{--<span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>--}%
-                            %{--<div class="popover">--}%
-                                %{--<div class="popover-kuorum">--}%
-                                    %{--<p><g:message code="kuorum.Region.notChangeable"/></p>--}%
-                                %{--</div>--}%
-                            %{--</div>--}%
-                        %{--</span>--}%
-                    %{--</span>--}%
-                %{--</g:if>--}%
-                %{--<g:else>--}%
-                    %{--<formUtil:selectNation command="${command}" field="country"/>--}%
-                %{--</g:else>--}%
-            %{--</div>--}%
             <div class="form-group col-md-6 postal">
                 <g:if test="${user.personalData?.province}">
                     <span class="span-label"><g:message code="kuorum.web.commands.profile.EditUserProfileCommand.postalCode.label"/> </span>
