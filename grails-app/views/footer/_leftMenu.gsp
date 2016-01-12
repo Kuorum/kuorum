@@ -4,7 +4,7 @@
         <g:link mapping="footerAboutUs"><g:message code="layout.footer.aboutUs"/></g:link>
     </li>
     <li class="${activeMapping=='footerVision'?'active':''}">
-        <g:link mapping="footerVision"><g:message code="layout.footer.vision"/></g:link>
+        <g:link mapping="footerVision"><g:message code="layout.footer.mision"/></g:link>
     </li>
     <li class="${activeMapping=='footerImpact'?'active':''}">
         <g:link mapping="footerImpact"><g:message code="layout.footer.impact"/></g:link>

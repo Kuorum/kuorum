@@ -1,7 +1,7 @@
-<h1><g:message code="layout.footer.userGuide"/></h1>
+<h1><g:message code="layout.footer.technology"/></h1>
 <ul>
     <li class="${activeMapping=='footerTechnology'?'active':''}">
-        <g:link mapping="footerTechnology"><g:message code="layout.footer.Technology"/></g:link>
+        <g:link mapping="footerTechnology"><g:message code="layout.footer.tech"/></g:link>
     </li>
     <li class="${activeMapping=='footerPoliticians'?'active':''}">
         <g:link mapping="footerPoliticians"><g:message code="layout.footer.politicians"/></g:link>
@@ -10,6 +10,6 @@
         <g:link mapping="footerCitizens"><g:message code="layout.footer.citizens"/></g:link>
     </li>
     <li class="${activeMapping=='footerDevelopers'?'active':''}">
-        <g:link mapping="footerDevelopers"><g:message code="layout.footer.developers"/></g:link>
+        <g:link mapping="footerDevelopers"><g:message code="layout.footer.editors"/></g:link>
     </li>
 </ul>
