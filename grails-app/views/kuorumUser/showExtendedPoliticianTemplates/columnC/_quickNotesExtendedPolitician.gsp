@@ -96,7 +96,7 @@
             <ul class="panel-share-buttons">
 
                 <g:if test="${politician.socialLinks?.twitter}">
-                    <li><a href="https://twitter.com/${politician.socialLinks.twitter - '@'}" target="_blank" title="${message(code:"kuorum.web.commands.profile.SocialNetworkCommand.twitter.label")}"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+                    <li><a href="${politician.socialLinks.twitter}" target="_blank" title="${message(code:"kuorum.web.commands.profile.SocialNetworkCommand.twitter.label")}"><i class="fa fa-twitter-square fa-2x"></i></a></li>
                 </g:if>
                 <g:if test="${politician.socialLinks?.facebook}">
                     <li><a href="${politician.socialLinks.facebook}" target="_blank" title="${message(code:"kuorum.web.commands.profile.SocialNetworkCommand.facebook.label")}"><i class="fa fa-facebook-square fa-2x"></i></a></li>
