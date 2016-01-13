@@ -398,7 +398,7 @@ class FormTagLib {
                             'width':'auto',
                             'height':'inherit',
                             'delimiter': [',',';',' '],
-                            'defaultText':'Añadir Causas',
+                            'defaultText':'',
                             onChange: function(elem, elem_tags)
                             {
 
