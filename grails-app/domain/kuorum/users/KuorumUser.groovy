@@ -128,7 +128,7 @@ class KuorumUser {
     static constraints = {
         name nullable:false, maxSize: 17
         email nullable: false, email: true
-        alias nullable:true, unique:true
+        alias nullable:true, unique:true, maxSize: 15
         password nullable:true
         bio nullable:true
         avatar nullable:true
