@@ -18,5 +18,6 @@ class ProfessionalDetails {
         institution nullable:true
         constituency nullable:true
         region nullable:true
+        politicalParty nullable:true
     }
 }
