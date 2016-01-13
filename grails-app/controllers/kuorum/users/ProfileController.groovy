@@ -69,7 +69,7 @@ class ProfileController {
         user = kuorumUserService.updateAlias(user, command.alias)
         if (!user){
             flash.error = g.message(code:'kuorum.web.commands.profile.AccountDetailsCommand.logic.aliasError')
-            render view: "editAccountDetails", model:[command:new AccountDetailsCommand(user)]
+            redirect mapping:'profileEditAccountDetails'
             return
         }
         user.language = command.language
