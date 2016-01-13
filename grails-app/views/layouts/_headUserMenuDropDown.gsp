@@ -1,7 +1,7 @@
 <ul id="user-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
     <li><g:message code="head.navigation.userMenu.title"/></li>
     <li><g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" itemprop="url"><g:message code="head.navigation.userMenu.myProfile"/></g:link></li>
-    <li><g:link mapping="profileEditUser" itemprop="url"><g:message code="head.navigation.userMenu.editUser"/></g:link></li>
+    <li><g:link mapping="profileEditAccountDetails" itemprop="url"><g:message code="head.navigation.userMenu.editUser"/></g:link></li>
     <li><g:link mapping="toolsNotifications"><g:message code="head.navigation.userMenu.tools"/></g:link></li>
     <sec:ifAnyGranted roles="ROLE_ADMIN">
         <li><g:link mapping="adminPrincipal"><g:message code="admin.adminPrincipal.title"/></g:link></li>
