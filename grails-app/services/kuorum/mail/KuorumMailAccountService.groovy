@@ -45,7 +45,7 @@ class KuorumMailAccountService {
     }
 
     KuorumMailAccountDetailsRSDTO changeAliasAccount(String currentAlias, String newAlias){
-        KuorumMailAccountDetailsRSDTO account = getAccountDetails(currentAlias);
+        KuorumMailAccountDetailsRSDTO account = getAccountDetailsWithAlias(currentAlias);
         if (account){
             RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
             String path = buildUrl(ACCOUNT_INFO, [userAlias:currentAlias]);
@@ -63,10 +63,10 @@ class KuorumMailAccountService {
     }
 
     public KuorumMailAccountDetailsRSDTO getAccountDetails(KuorumUser user){
-        return getAccountDetails(user.alias)
+        return getAccountDetailsWithAlias(user.alias)
     }
 
-    public KuorumMailAccountDetailsRSDTO getAccountDetails(String userAlias){
+    public KuorumMailAccountDetailsRSDTO getAccountDetailsWithAlias(String userAlias){
         if (userAlias){
             RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
             String path = buildUrl(ACCOUNT_INFO, [userAlias:userAlias]);
