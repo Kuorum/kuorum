@@ -15,7 +15,7 @@
     <h3><g:message code="profile.menu.profilePoliticianKnownFor.subtitle"/></h3>
 </content>
 <content tag="mainContent">
-    <formUtil:validateForm form="relevantEventsForm" bean="${command}"/>
+    <formUtil:validateForm form="relevantEventsForm" bean="${command}" dirtyControl="true"/>
     <g:form method="POST" mapping="profilePoliticianRelevantEvents" name="relevantEventsForm" role="form">
         <g:render template="formRelevantEvents" model="[command:command]"/>
     </g:form>

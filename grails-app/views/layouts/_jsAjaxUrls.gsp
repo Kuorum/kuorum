@@ -54,34 +54,9 @@
                 }
             }
         },
-        tour:{
-            tour_dashboard:{
-                step1_title:    '<g:message code="tour.tour_dashboard.step1_title"/>'    ,
-                step1_content:  '<g:message code="tour.tour_dashboard.step1_content"/>'  ,
-                step2_title:    '<g:message code="tour.tour_dashboard.step2_title"/>'    ,
-                step2_content:  '<g:message code="tour.tour_dashboard.step2_content"/>'  ,
-                step3_title:    '<g:message code="tour.tour_dashboard.step3_title"/>'    ,
-                step3_content:  '<g:message code="tour.tour_dashboard.step3_content"/>'  ,
-                step4_title:    '<g:message code="tour.tour_dashboard.step4_title"/>'    ,
-                step4_content:  '<g:message code="tour.tour_dashboard.step4_content"/>'  ,
-                step5_title:    '<g:message code="tour.tour_dashboard.step5_title"/>'    ,
-                step5_content:  '<g:message code="tour.tour_dashboard.step5_content"/>'  ,
-                step6_title:    '<g:message code="tour.tour_dashboard.step6_title"/>'    ,
-                step6_content:  '<g:message code="tour.tour_dashboard.step6_content"/>'  ,
-                step7_title:    '<g:message code="tour.tour_dashboard.step7_title"/>'    ,
-                step7_content:  '<g:message code="tour.tour_dashboard.step7_content"/>'
-            },
-            tour_project:{
-                step1_title:    '<g:message code="tour.tour_project.step1_title"/>'    ,
-                step1_content:  '<g:message code="tour.tour_project.step1_content"/>'  ,
-                step2_title:    '<g:message code="tour.tour_project.step2_title"/>'    ,
-                step2_content:  '<g:message code="tour.tour_project.step2_content"/>'
-            },
-            tour_post:{
-                step1_title:    '<g:message code="tour.tour_post.step1_title"/>'    ,
-                step1_content:  '<g:message code="tour.tour_post.step1_content"/>'  ,
-                step2_title:    '<g:message code="tour.tour_post.step2_title"/>'    ,
-                step2_content:  '<g:message code="tour.tour_post.step2_content"/>'
+        form:{
+            warn:{
+                leavingEditedForm: '<g:message code="form.warn.leavingEditedForm"/>'
             }
         },
         cookies:{

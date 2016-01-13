@@ -758,6 +758,7 @@ class FormTagLib {
         def formId = attrs.form
         def className = attrs.command
         def bean = attrs.bean
+        def dirtyControl = Boolean.parseBoolean(attrs.dirtyControl)
         def obj
 
         if (!bean)
@@ -792,6 +793,15 @@ class FormTagLib {
 			});
 			</script>
 			"""
+        if (dirtyControl){
+            out << """
+            <script>
+                \$(function(){
+                    formHelper.dirtyFormControl.prepare(\$("#${formId}"))
+                })
+            </script>
+            """
+        }
     }
 
     private Map generateRulesAndMessages(def obj){

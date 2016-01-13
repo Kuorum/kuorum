@@ -3,6 +3,7 @@
     <title><g:message code="page.title.profile.editUser"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="config" />
+    <r:require module="forms"/>
 </head>
 
 <content tag="leftMenu">
@@ -13,7 +14,7 @@
     <h3><g:message code="profile.menu.editUser.subtitle"/></h3>
 </content>
 <content tag="mainContent">
-    <formUtil:validateForm bean="${command}" form="config1" />
+    <formUtil:validateForm bean="${command}" form="config1" dirtyControl="true"/>
     <g:form method="POST" mapping="profileEditUser" name="config1" role="form">
         <g:render template="formEditUser" model="[user:user, command:command]"/>
     </g:form>
