@@ -15,7 +15,7 @@
     <h3><g:message code="profile.menu.profileEditAccountDetails.subtitle"/></h3>
 </content>
 <content tag="mainContent">
-    <formUtil:validateForm bean="${command}" form="accountDetailsForm" />
+    <formUtil:validateForm bean="${command}" form="accountDetailsForm" dirtyControl="true"/>
     <g:form method="POST" mapping="profileEditAccountDetails" name="accountDetailsForm" role="form" class="submitOrangeButton">
         <div class="box-ppal-section">
             <g:render template="accountDetailsForm" model="[command:command]"/>

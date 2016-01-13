@@ -15,7 +15,7 @@
     <h3><g:message code="profile.menu.profilePoliticianProfessionalDetails.subtitle"/></h3>
 </content>
 <content tag="mainContent">
-    <formUtil:validateForm form="professionalDetailsForm" bean="${command}"/>
+    <formUtil:validateForm form="professionalDetailsForm" bean="${command}" dirtyControl="true"/>
     <g:form method="POST" mapping="profilePoliticianProfessionalDetails" name="professionalDetailsForm" role="form">
         <g:render template="formProfessionalDetails" model="[command:command]"/>
     </g:form>

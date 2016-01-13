@@ -15,7 +15,7 @@
     <h3><g:message code="profile.menu.profileSocialNetworks.subtitle"/></h3>
 </content>
 <content tag="mainContent">
-    <g:form mapping="profileSocialNetworks" role="form">
+    <g:form mapping="profileSocialNetworks" role="form" dirtyControl="true">
         <sec:ifAnyGranted roles="ROLE_POLITICIAN, ROLE_ADMIN">
             <fieldset class="row">
                 <div class="form-group col-md-6">
