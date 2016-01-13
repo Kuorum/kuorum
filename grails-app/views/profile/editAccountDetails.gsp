@@ -7,7 +7,7 @@
 
 <content tag="leftMenu">
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileEditAccountDetails', menu:menu]"/>
-
+    <r:require modules="forms"/>
 </content>
 
 <content tag="titleContent">
