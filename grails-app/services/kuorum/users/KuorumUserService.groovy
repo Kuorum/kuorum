@@ -432,6 +432,7 @@ class KuorumUserService {
         if (springSecurityService.getCurrentUser().equals(user)){
             springSecurityService.reauthenticate user.email
         }
+        user.updateDenormalizedData()
         if (!user.save()){
             def msg = "No se ha podido actualizar el usuario ${user.email}(${user.id})"
             log.error(msg)

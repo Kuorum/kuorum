@@ -186,19 +186,17 @@ class KuorumUser {
 //    }
 
     def beforeInsert() {
-        email = email.toLowerCase()
+        updateDenormalizedData()
 
-        if (!followers) followers = []
-        numFollowers = followers.size()
-        personalData.userType = userType
-        if (politicianLeaning?.liberalIndex){
-            politicianLeaning?.liberalIndex = Math.min(100, politicianLeaning.liberalIndex) // MAX 100
-            politicianLeaning?.liberalIndex = Math.max(0, politicianLeaning.liberalIndex) // min 0
-        }
     }
 
     def beforeUpdate() {
         log.debug("Se ha actualizado el usuario ${id}")
+        updateDenormalizedData()
+    }
+
+    //Is not private for call it from service. I'm not proud for that
+    void updateDenormalizedData(){
         email = email.toLowerCase()
         alias = alias?.toLowerCase()
         if (!followers) followers = []
@@ -207,8 +205,14 @@ class KuorumUser {
             this.personalData = new PersonalData()
         }
         personalData.userType = userType
+        if (UserType.POLITICIAN.equals(userType) && politicianLeaning.liberalIndex==null){
+            politicianLeaning.liberalIndex = 50
+        }
+        if (politicianLeaning?.liberalIndex){
+            politicianLeaning?.liberalIndex = Math.min(100, politicianLeaning.liberalIndex) // MAX 100
+            politicianLeaning?.liberalIndex = Math.max(0, politicianLeaning.liberalIndex) // min 0
+        }
     }
-
     int hashCode() {
         return id?id.hashCode():email.hashCode()
     }
