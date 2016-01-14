@@ -126,7 +126,7 @@ class KuorumUser {
     Integer activityForRecommendation = 0
 
     static constraints = {
-        name nullable:false, maxSize: 17
+        name nullable:false
         email nullable: false, email: true
         alias nullable:true, unique:true, maxSize: 15
         password nullable:true

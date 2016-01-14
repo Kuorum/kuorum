@@ -31,6 +31,8 @@ class PoliticianService {
     LinkGenerator grailsLinkGenerator
     IndexSolrService indexSolrService
 
+    private static final String IPDB_DATE_FORMAT = "dd/MM/yyyy HH:mm"
+
     KuorumUser updatePoliticianExternalActivity(KuorumUser politician, List<ExternalPoliticianActivity> externalPoliticianActivities){
         politician.externalPoliticianActivities = externalPoliticianActivities.findAll{it && it.validate()}
         sortExternalPoliticianActivity(politician)
@@ -144,7 +146,7 @@ class PoliticianService {
                 PoliticianTimeLine event = new PoliticianTimeLine();
                 event.title = line."${prefix}${i}"
                 event.text = line."${prefix}${i}_content"
-                event.date = Date.parse("dd/MM/yyyy HH:mm",line."${prefix}${i}_date")
+                event.date = parseDate(line."${prefix}${i}_date", IPDB_DATE_FORMAT)
                 event.important = false
                 if (!timeLine.find{it.title == event.title}){
                     timeLine.add(event)
@@ -254,7 +256,7 @@ class PoliticianService {
             ExternalPoliticianActivity epa = new ExternalPoliticianActivity()
             String title = line."${prefix}${i}"
             if (title){
-                epa.date = Date.parse("dd/MM/yyyy HH:mm",line."${prefix}${i}Date")
+                epa.date = parseDate(line."${prefix}${i}Date", IPDB_DATE_FORMAT)
                 epa.title =title
                 epa.link =line."${prefix}${i}Link"
                 epa.actionType =line."${prefix}${i}Action"
@@ -262,6 +264,7 @@ class PoliticianService {
                 externalPoliticianActivities << epa
             }
         }
+        politician.externalPoliticianActivities = externalPoliticianActivities
         sortExternalPoliticianActivity(politician)
     }
 
@@ -283,8 +286,7 @@ class PoliticianService {
             throw RuntimeException("Este politico no tiene el id de la BBDD")
         }
         politician.politicianExtraInfo.completeName = line."completeName"?:line."name"
-        String dateOfBirth = line."dateOfBirth"
-        politician.politicianExtraInfo.birthDate = dateOfBirth?Date.parse("dd/MM/yyyy",dateOfBirth):null
+        politician.politicianExtraInfo.birthDate = parseDate(line."dateOfBirth", "dd/MM/yyyy")
         politician.politicianExtraInfo.birthPlace = line."placeOfBirth"
         politician.politicianExtraInfo.family = line."family"
     }
@@ -343,4 +345,7 @@ class PoliticianService {
         Region.findByIso3166_2(regionCode)
     }
 
+    private Date parseDate(String dateText, String format){
+        dateText?Date.parse(format,dateText):null
+    }
 }

@@ -45,7 +45,8 @@ class AccountDetailsCommand {
 
 
     static constraints = {
-        importFrom KuorumUser, include:["name", "alias"]
+        importFrom KuorumUser, include:["alias"]
+        name nullable:false, maxSize: 17
         user nullable: false
         password nullable: false,  validator: {val, obj ->
             if (val && obj.user && !isPasswordValid(val, obj.user)){
