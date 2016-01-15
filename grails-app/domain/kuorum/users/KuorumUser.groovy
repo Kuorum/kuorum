@@ -102,7 +102,7 @@ class KuorumUser {
     List<ExternalPoliticianActivity> externalPoliticianActivities
     List<PoliticianRelevantEvent> relevantEvents
     List<PoliticianTimeLine> timeLine
-    PoliticianLeaning politicianLeaning
+    PoliticianLeaning politicianLeaning = new PoliticianLeaning()
     ProfessionalDetails professionalDetails
     CareerDetails careerDetails
     PoliticianExtraInfo politicianExtraInfo
@@ -205,7 +205,7 @@ class KuorumUser {
             this.personalData = new PersonalData()
         }
         personalData.userType = userType
-        if (UserType.POLITICIAN.equals(userType) && politicianLeaning.liberalIndex==null){
+        if (UserType.POLITICIAN.equals(userType) && politicianLeaning?.liberalIndex==null){
             politicianLeaning.liberalIndex = 50
         }
         if (politicianLeaning?.liberalIndex){

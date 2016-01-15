@@ -124,6 +124,7 @@ class PoliticianService {
         populateTags(politician, line)
         populateRelevantEvents(politician, line)
         populateExtraInfo(politician, line)
+        populateAddress(politician, line)
 
         politician.save(failOnError: true)
     }
@@ -222,6 +223,7 @@ class PoliticianService {
         politician.personalData = politician.personalData ?: new PersonData()
         politician.personalData.gender = line."gender"?Gender.valueOf(line."gender"):Gender.MALE
         politician.personalData.userType = politician.userType
+        politician.personalData.telephone = line."phone"
         if (!politician.save()){
             throw new KuorumException("Basic data not porvided, ${politician.errors}")
         }
@@ -293,6 +295,25 @@ class PoliticianService {
 
     }
 
+    private void populateAddress(KuorumUser politician, def line){
+        if (!politician.institutionalOffice){
+            politician.institutionalOffice = new OfficeDetails()
+        }
+        politician.institutionalOffice.address = line."institutionalAddress"
+        politician.institutionalOffice.fax = line."institutionalFax"
+        politician.institutionalOffice.assistants = line."assistants"
+        politician.institutionalOffice.mobile = line."institutionalMobilePhone"
+        politician.institutionalOffice.telephone = line."institutionalTelephone"
+
+        if (!politician.politicalOffice){
+            politician.politicalOffice = new OfficeDetails()
+        }
+        politician.politicalOffice.address = line."electoralAddress"
+        politician.politicalOffice.fax = line."electoralFax"
+        politician.politicalOffice.assistants = ""
+        politician.politicalOffice.mobile = line."electoralMobile"
+        politician.politicalOffice.telephone = line."electoralTelephone"
+    }
     private void populateExtraInfo(KuorumUser politician, def line){
         if (!politician.politicianExtraInfo){
             throw RuntimeException("Este politico no tiene el id de la BBDD")
