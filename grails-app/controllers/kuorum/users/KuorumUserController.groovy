@@ -55,11 +55,16 @@ class KuorumUserController {
 
     def show(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
-        log.warn("Executing show user")
-        switch (user.userType){
-            case UserType.ORGANIZATION: return showCitizen(id); break;
-            case UserType.PERSON: return showCitizen(id); break;
-            case UserType.POLITICIAN: return showPolitician(id); break;
+        if (!user){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return false
+        }else {
+            log.warn("Executing show user")
+            switch (user.userType){
+                case UserType.ORGANIZATION: return showCitizen(id); break;
+                case UserType.PERSON: return showCitizen(id); break;
+                case UserType.POLITICIAN: return showPolitician(id); break;
+            }
         }
     }
 
@@ -81,6 +86,10 @@ class KuorumUserController {
 
     def showCitizen(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
+        if (!user) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return false
+        }
         if (user.userType == UserType.POLITICIAN){
             redirect(mapping: "userShow", params: user.encodeAsLinkProperties())
             return
@@ -113,6 +122,10 @@ class KuorumUserController {
 
     def showPolitician(String id){
         KuorumUser politician = KuorumUser.get(new ObjectId(id))
+        if (!politician) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return false
+        }
         if (politician.userType != UserType.POLITICIAN){
             redirect(mapping: "userShow", params: politician.encodeAsLinkProperties())
             return
