@@ -7,6 +7,7 @@ import kuorum.KuorumFile
 import kuorum.Region
 import kuorum.core.FileGroup
 import kuorum.core.FileType
+import kuorum.core.exception.KuorumException
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
@@ -111,8 +112,9 @@ class PoliticianService {
 
     KuorumUser createPoliticianFromCSV(def line) {
 
-        KuorumUser politician = findOrRecoverPolitician(line.email, line.id)
+        KuorumUser politician = findOrRecoverPolitician(line)
         populateBasicData(politician, line)
+        populateImages(politician, line)
         populateLeaning(politician, line)
         populateProfessionalDetails(politician, line)
         populateCareerDetails(politician, line)
@@ -179,11 +181,9 @@ class PoliticianService {
         politician.timeLine = politician.timeLine.sort{a,b-> b.date<=>a.date}
     }
 
-    private KuorumUser findOrRecoverPolitician(String email, String ipdbId){
-        findOrRecoverPolitician(email, ipdbId?Long.parseLong(ipdbId):null)
-    }
-    private KuorumUser findOrRecoverPolitician(String email, Long ipdbId){
-
+    private KuorumUser findOrRecoverPolitician(def line){
+        String email = line.email
+        Long ipdbId = line.id?Long.parseLong(line.id):null
         //Search politician by email
         KuorumUser politician;
         if (email){
@@ -214,16 +214,6 @@ class PoliticianService {
 
     private void populateBasicData(KuorumUser politician, def line){
         politician.name = line."name"
-        String avatarUrl = line."picture"
-        if (avatarUrl.startsWith("http")){
-            KuorumFile avatar = fileService.createExternalFile(politician, avatarUrl,FileGroup.USER_AVATAR, FileType.IMAGE)
-            politician.avatar = avatar
-        }
-        String profileUrl = line."politicalPartyImage"
-        if (profileUrl.startsWith("http")){
-            KuorumFile imageProfile = fileService.createExternalFile(politician, profileUrl,FileGroup.USER_PROFILE, FileType.IMAGE)
-            politician.imageProfile= imageProfile
-        }
         politician.bio = line."bio"
         politician.userType = UserType.POLITICIAN
         politician.email = line."email"?:politician.email?:"info+${line.id}-${politician.name.encodeAsMD5()}@kuorum.org"
@@ -232,6 +222,28 @@ class PoliticianService {
         politician.personalData = politician.personalData ?: new PersonData()
         politician.personalData.gender = line."gender"?Gender.valueOf(line."gender"):Gender.MALE
         politician.personalData.userType = politician.userType
+        if (!politician.save()){
+            throw new KuorumException("Basic data not porvided, ${politician.errors}")
+        }
+    }
+
+    private void populateImages(KuorumUser politician, def line){
+        String avatarUrl = line."picture"
+        if (avatarUrl.startsWith("http")){
+            KuorumFile avatar = fileService.createExternalFile(politician, avatarUrl,FileGroup.USER_AVATAR, FileType.IMAGE)
+            if (politician.avatar && avatar){
+                fileService.deleteKuorumFile(politician.avatar)
+            }
+            politician.avatar = avatar
+        }
+        String profileUrl = line."politicalPartyImage"
+        if (profileUrl.startsWith("http")){
+            KuorumFile imageProfile = fileService.createExternalFile(politician, profileUrl,FileGroup.USER_PROFILE, FileType.IMAGE)
+            if (politician.imageProfile && imageProfile){
+                fileService.deleteKuorumFile(politician.imageProfile)
+            }
+            politician.imageProfile= imageProfile
+        }
     }
 
     private void populateSocialLinks(KuorumUser politician, def line){
