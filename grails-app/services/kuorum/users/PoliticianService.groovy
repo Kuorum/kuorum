@@ -176,7 +176,7 @@ class PoliticianService {
     }
 
     private void sortExternalPoliticianActivity(KuorumUser politician){
-        politician.externalPoliticianActivities = politician.externalPoliticianActivities.sort{a,b-> b.date<=>a.date}
+        politician.externalPoliticianActivities = politician.externalPoliticianActivities.sort{a,b-> !a.date?-1:!b.date?1:b.date<=>a.date}
     }
     private void sortPoliticalExperience(KuorumUser politician){
         politician.timeLine = politician.timeLine.sort{a,b-> b.date<=>a.date}
