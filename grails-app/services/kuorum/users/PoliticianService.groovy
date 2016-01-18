@@ -21,6 +21,7 @@ import kuorum.users.extendedPoliticianData.PoliticianLeaning
 import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
 import kuorum.users.extendedPoliticianData.PoliticianTimeLine
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
+import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 
@@ -45,9 +46,16 @@ class PoliticianService {
         politician.save()
     }
 
-    KuorumUser updatePoliticianProfessionalDetails(KuorumUser politician, ProfessionalDetails professionalDetails, CareerDetails careerDetails){
-        politician.professionalDetails = professionalDetails
-        politician.careerDetails= careerDetails
+    KuorumUser updatePoliticianProfessionalDetails(KuorumUser politician, ProfessionalDetailsCommand command){
+        if (!politician.professionalDetails ){
+            politician.professionalDetails = new ProfessionalDetails()
+        }
+
+
+        politician.professionalDetails.constituency = command.constituency
+        politician.professionalDetails.institution = command.institution
+        politician.professionalDetails.region= command.region
+        politician.careerDetails= command.careerDetails
         politician.save()
     }
 
