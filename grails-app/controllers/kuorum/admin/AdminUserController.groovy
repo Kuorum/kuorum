@@ -140,14 +140,14 @@ class AdminUserController extends AdminController {
 
     def updateAdminAccountDetails(KuorumAccountCommand command){
         if (command.hasErrors()){
-            render view: 'editKuorumEmailAccount', model:[command:command, user:command.user]
             flash.error=message(code:'admin.createUser.error')
+            render view: 'editAdminAccountDetails', model:[command:command, user:command.user]
             return
         }
         KuorumUser updatedUser = kuorumUserService.updateAlias(command.user, command.alias)
         if (!updatedUser){
             flash.error = g.message(code:'kuorum.web.commands.profile.AccountDetailsCommand.logic.aliasError')
-            flash.error=message(code:'admin.createUser.error')
+            render view: 'editAdminAccountDetails', model:[command:command, user:command.user]
             return
         }
         if (command.emailAccountActive){
@@ -165,7 +165,7 @@ class AdminUserController extends AdminController {
         updatedUser.personalData.telephone = command.phone
         updatedUser.userType = command.userType
         updatedUser.personalData.userType = command.userType
-        updatedUser.enabled = command.active
+        updatedUser.enabled = command.active?:false
         updatedUser = kuorumUserService.updateUser(updatedUser);
 
         flash.message =message(code:'admin.editUser.success', args: [updatedUser.name])
