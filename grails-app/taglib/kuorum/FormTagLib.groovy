@@ -397,7 +397,7 @@ class FormTagLib {
                                 }},
                             'width':'auto',
                             'height':'inherit',
-                            'delimiter': [',',';',' '],
+                            'delimiter': [',',';'],
                             'defaultText':'',
                             onChange: function(elem, elem_tags)
                             {

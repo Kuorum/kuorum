@@ -74,7 +74,7 @@ class PoliticianService {
     }
 
     KuorumUser updatePoliticianCauses(KuorumUser politician, List<String> causes){
-        politician.tags = causes.findAll({it}).collect({it.encodeAsHashtag()})
+        politician.tags = causes.findAll({it}).collect({it.decodeHashtag()})
         if (politician.save()){
             indexSolrService.index(politician)
         }
