@@ -53,9 +53,12 @@ class AccountDetailsCommand {
                 return "notValid"
             }
         }
-        alias nullable: true, validator: {val, obj ->
+        alias nullable: false, validator: {val, obj ->
             if (val && obj.user && val != obj.user.alias && KuorumUser.findByAlias(val)){
                 return "unique"
+            }
+            if (!val && obj.user && obj.user.enabled){
+                return "nullable"
             }
         }
         email nullable: false, email:true, validator: {val, obj ->
