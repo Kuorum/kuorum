@@ -117,7 +117,6 @@ class FormTagLib {
         def labelCssClass = attrs.labelCssClass?:''
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         def showCharCounter = attrs.showCharCounter?Boolean.parseBoolean(attrs.showCharCounter):true
-        def maxlength = attrs.maxlength?"maxlength='${attrs.maxlength}'":''
         def clazz = command.metaClass.properties.find{it.name == field}.type
         def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
@@ -129,6 +128,7 @@ class FormTagLib {
         ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
         MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
         def maxSize = maxSizeConstraint?.maxSize?:0
+        def maxlength = maxSize?"maxlength='${attrs.maxlength}'":''
         if (maxSize > 0){
             cssClass += " counted"
         }
@@ -397,8 +397,8 @@ class FormTagLib {
                                 }},
                             'width':'auto',
                             'height':'inherit',
-                            'delimiter': [',',';',' '],
-                            'defaultText':'Añadir Causas',
+                            'delimiter': [',',';'],
+                            'defaultText':'',
                             onChange: function(elem, elem_tags)
                             {
 
@@ -758,6 +758,7 @@ class FormTagLib {
         def formId = attrs.form
         def className = attrs.command
         def bean = attrs.bean
+        def dirtyControl = Boolean.parseBoolean(attrs.dirtyControl)
         def obj
 
         if (!bean)
@@ -792,6 +793,15 @@ class FormTagLib {
 			});
 			</script>
 			"""
+        if (dirtyControl){
+            out << """
+            <script>
+                \$(function(){
+                    formHelper.dirtyFormControl.prepare(\$("#${formId}"))
+                })
+            </script>
+            """
+        }
     }
 
     private Map generateRulesAndMessages(def obj){

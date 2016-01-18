@@ -1,12 +1,16 @@
 <r:require modules="forms"/>
 <input type="hidden" name="politician.id" value="${command.politician.id}"/>
-<fieldset class="row">
-    <div class="form-group col-md-12">
-        <formUtil:dynamicListInput command="${command}" field="causes" showLabel="true" autocompleteUrl="${g.createLink(mapping: 'suggestTags', absolute: true)}"/>
-    </div>
-</fieldset>
-<fieldset>
-    <div class="form-group text-center">
-        <button type="submit" class="btn btn-default"><g:message code="admin.createUser.submit"/></button>
-    </div>
-</fieldset>
+<div class="box-ppal-section">
+    <fieldset class="row">
+        <div class="form-group col-md-12">
+            <formUtil:dynamicListInput command="${command}" field="causes" showLabel="true" autocompleteUrl="${g.createLink(mapping: 'suggestTags', absolute: true)}"/>
+        </div>
+    </fieldset>
+</div>
+<div class="box-ppal-section">
+    <fieldset>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-default"><g:message code="admin.createUser.submit"/></button>
+        </div>
+    </fieldset>
+</div>

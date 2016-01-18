@@ -11,8 +11,8 @@ import org.grails.databinding.BindUsing
 class PoliticianCausesCommand {
     KuorumUser politician
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
-        String normalizedCauses = source['causes'].replaceAll(';', ' ').replaceAll(',', ' ')
-        normalizedCauses.split(' ').findAll({it}).collect{it.encodeAsHashtag()}.unique { a, b -> a <=> b }
+        String normalizedCauses = source['causes'].replaceAll(';', ',')
+        normalizedCauses.split(',').findAll({it}).collect{it.decodeHashtag().trim()}.unique { a, b -> a <=> b }
     })
     List<String> causes
     static constraints = {

@@ -40,9 +40,9 @@
             <g:link mapping="profilePoliticianExperience"><g:message code="profile.menu.profilePoliticianExperience"/></g:link>
         </li>
     </sec:ifAnyGranted>
-    <li class="${activeMapping=='profileEditCommissions'?'active':''}">
-        <g:link mapping="profileEditCommissions"><g:message code="profile.menu.editCommissions"/></g:link>
-    </li>
+    %{--<li class="${activeMapping=='profileEditCommissions'?'active':''}">--}%
+        %{--<g:link mapping="profileEditCommissions"><g:message code="profile.menu.editCommissions"/></g:link>--}%
+    %{--</li>--}%
     <li class="${activeMapping=='profileEmailNotifications'?'active':''}">
         <g:link mapping="profileEmailNotifications"><g:message code="profile.menu.profileEmailNotifications"/></g:link>
     </li>

@@ -15,7 +15,7 @@
     <h3><g:message code="profile.menu.profilePoliticianExternalActivity.subtitle"/></h3>
 </content>
 <content tag="mainContent">
-    <formUtil:validateForm form="externalActivitiesForm" bean="${command}"/>
+    <formUtil:validateForm form="externalActivitiesForm" bean="${command}" dirtyControl="true"/>
     <g:form method="POST" mapping="profilePoliticianExternalActivity" name="externalActivitiesForm" role="form">
         <g:render template="formExternalActivity" model="[command:command]"/>
     </g:form>
