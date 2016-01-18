@@ -22,6 +22,10 @@
                         message:g.message(code:'politician.professionalDetails.data.region'),
                         text:politician?.professionalDetails?.region?.name?:''
                 ]"/>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                        message:g.message(code:'kuorum.users.extendedPoliticianData.ProfessionalDetails.politicalParty.label'),
+                        text:politician?.professionalDetails?.politicalParty?:''
+                ]"/>
             </div>
             <g:if test="${['profession','university', 'school','studies', 'cvLink', 'declarationLink'].find{politician?.careerDetails?."${it}"}}">
                 <div class="table table-condensed limit-height" data-collapsedHeight="110">
