@@ -885,9 +885,11 @@ $(document).ready(function() {
     }).focusout(function(e){
         var realInputId = $(this).attr('data-real-input-id');
         realInputId = realInputId.replace(".", "\\.")
+        if ($(this).val().length ===0){
+            $("#"+realInputId).val("")
+        }
         $("#"+realInputId).valid()
     }).keypress(function(e){
-        console.log("keyPress")
         var realInputId = $(this).attr('data-real-input-id');
         realInputId = realInputId.replace(".", "\\.")
         $("#"+realInputId).val("")
