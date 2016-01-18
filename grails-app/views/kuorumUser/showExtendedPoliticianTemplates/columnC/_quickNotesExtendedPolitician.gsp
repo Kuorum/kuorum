@@ -41,6 +41,10 @@
                 <div class="table table-condensed limit-height" data-collapsedHeight="110">
                     <div class="thead"><g:message code="politician.institutionalOffice.title"/> </div>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                            message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.assistants.label'),
+                            text:politician?.institutionalOffice?.assistants?:''
+                    ]"/>
+                    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.address.label'),
                             text:politician?.institutionalOffice?.address?:''
                     ]"/>
@@ -56,15 +60,15 @@
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.fax.label'),
                             text:politician?.institutionalOffice?.fax?:''
                     ]"/>
-                    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
-                            message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.assistants.label'),
-                            text:politician?.institutionalOffice?.assistants?:''
-                    ]"/>
                 </div>
             </g:if>
             <g:if test="${['address','telephone', 'mobile','fax', 'assistants'].find{politician?.politicalOffice?."${it}"}}">
                 <div class="table table-condensed limit-height" data-collapsedHeight="110">
                     <div class="thead"><g:message code="politician.politicalOffice.title"/> </div>
+                    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                            message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.assistants.label'),
+                            text:politician?.politicalOffice?.assistants?:''
+                    ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.address.label'),
                             text:politician?.politicalOffice?.address?:''
@@ -80,10 +84,6 @@
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.fax.label'),
                             text:politician?.politicalOffice?.fax?:''
-                    ]"/>
-                    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
-                            message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.assistants.label'),
-                            text:politician?.politicalOffice?.assistants?:''
                     ]"/>
                 </div>
             </g:if>
