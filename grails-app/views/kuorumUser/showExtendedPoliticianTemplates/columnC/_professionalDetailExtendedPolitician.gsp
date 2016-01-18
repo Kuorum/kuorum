@@ -35,16 +35,16 @@
                             text:politician?.careerDetails?.profession?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                            message:g.message(code:'politician.quickNotes.data.education.studies'),
+                            text:politician?.careerDetails?.studies?:''
+                    ]"/>
+                    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.education.university'),
                             text:politician?.careerDetails?.university
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.education.school'),
                             text:politician?.careerDetails?.school?:''
-                    ]"/>
-                    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
-                            message:g.message(code:'politician.quickNotes.data.education.studies'),
-                            text:politician?.careerDetails?.studies?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.professionalDetails.data.cvLink'),
