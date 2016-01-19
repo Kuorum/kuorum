@@ -173,14 +173,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Recorta tu foto</h4>
+                <h4 class="modal-title"><g:message code="profile.modal.cropImage.title"/></h4>
             </div>
             <div class="modal-body">
                 <img class="upload-modal-image" src="" id="${imageId}"/>
             </div>
             <div class="modal-footer">
-                <a href="#" class="cancel" data-dismiss="modal">Cancelar</a>
-                <button type="button" class="btn" onclick="cropImage('${imageId}')">Recortar</button>
+                <a href="#" class="cancel" data-dismiss="modal"><g:message code="profile.modal.cropImage.cancel"/> </a>
+                <button type="button" class="btn" onclick="cropImage('${imageId}')"><g:message code="profile.modal.cropImage.cropButton"/></button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
