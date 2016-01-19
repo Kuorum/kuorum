@@ -30,6 +30,6 @@
         <formUtil:input command="${command}" field="phonePrefix" showLabel="true"/>
     </div>
     <div class="form-group col-md-4">
-        <formUtil:input command="${command}" field="phone" showLabel="true"/>
+        <formUtil:input command="${command}" field="phone" showLabel="true" type="number"/>
     </div>
 </fieldset>
