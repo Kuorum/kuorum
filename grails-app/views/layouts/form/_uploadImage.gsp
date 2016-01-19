@@ -143,6 +143,7 @@
             changeImageBackground(data.absolutePathImg,imageId)
             $("#modal_"+imageId).modal('hide');
             $("#input_"+imageId).val(data.fileId)
+            formHelper.dirtyFormControl.dirty($("#input_"+imageId).parents("form"))
         });
     }
 
