@@ -83,12 +83,28 @@ class ProfileController {
         kuorumUserService.updateUser(user);
         if (user.email != command.email){
             def changeMailData = changeEmail(user, command.email)
-            flash.error = g.message(code:'kuorum.web.commands.profile.AccountDetailsCommand.logic.confirmationMailChanged')
+            String urlResend = g.createLink(mapping: 'profileChangeEmailResend', params: [email:command.email])
+            flash.error = g.message(code:'kuorum.web.commands.profile.AccountDetailsCommand.logic.confirmationMailChanged', args: [urlResend], encodeAs: "raw")
         }else{
             flash.message=g.message(code:'kuorum.web.commands.profile.AccountDetailsCommand.logic.updateSuccess')
         }
         redirect mapping:"profileEditAccountDetails"
 
+    }
+
+    def updateUserEmail(){
+        KuorumUser user = params.user
+        String email = params.email
+        def emailPattern = /[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})/
+        if (email ==~ emailPattern){
+            if (user.email != email){
+                def changeMailData = changeEmail(user, email)
+                flash.error = g.message(code:'kuorum.web.commands.profile.AccountDetailsCommand.logic.confirmationMailChanged', encodeAs: "raw")
+            }
+            redirect mapping:"profileEditAccountDetails"
+        }else{
+            render "Not valid email"
+        }
     }
 
     private def changeEmail(KuorumUser user, String email){
@@ -97,7 +113,7 @@ class ProfileController {
         if (!registrationCode.save()) {
             return null;
         }
-        log.info("Solicitud de cambio de email del usuario ${user.email} con el tocken ${registrationCode.token}" )
+        log.info("Solicitud de cambio de email del usuario ${user.email} con el token ${registrationCode.token}" )
         String url = generateLink('profileChangeEmailConfirm', [t: registrationCode.token])
 
         kuorumMailService.sendChangeEmailRequested(user, email)
