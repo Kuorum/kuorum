@@ -64,6 +64,6 @@
 </div>
 <fieldset>
     <div class="form-group text-center">
-        <button type="submit" class="btn btn-default"><g:message code="admin.createUser.submit"/></button>
+        <button type="submit" class="btn btn-default btn-lg"><g:message code="admin.createUser.submit"/></button>
     </div>
 </fieldset>
