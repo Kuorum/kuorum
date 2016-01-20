@@ -11,31 +11,31 @@
 
 </content>
 
+<content tag="titleContent">
+    <h1><g:message code="profile.menu.profileEmailNotifications"/></h1>
+    <h3><g:message code="profile.menu.profileEmailNotifications.subtitle"/></h3>
+</content>
+
+
 <content tag="mainContent">
     <g:form method="POST" mapping="profileEmailNotifications" name="config9" role="form">
-        %{--<h1><g:message code="profile.emailNotifications.title"/></h1>--}%
-        <g:each in="${kuorum.mail.MailGroupType.values().findAll{it.editable}}" var="mailGroup">
+        <div class="box-ppal-section">
             <div class="form-group activityMe">
-                <span class="span-label"><g:message code="profile.emailNotifications.${mailGroup}.label"/></span>
-                <p class="help-block"><g:message code="profile.emailNotifications.${mailGroup}.helpBlock"/></p>
+                <span class="span-label"><g:message code="profile.emailNotifications.basic.title"/></span>
+                %{--<span class="span-label"><g:message code="profile.emailNotifications.${mailGroup}.label"/></span>--}%
+                <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
                 <label class="checkbox-inline pull-right"><input type="checkbox" class="allActivityMails" value=""><g:message code="profile.emailNotifications.checkAll"/></label>
-                <g:each in="${kuorum.mail.MailType.values().findAll{it.mailGroup==mailGroup}}" var="mailType">
+                <g:each in="${kuorum.mail.MailGroupType.values().findAll{it.editable}}" var="mailGroup">
                     <div class="checkbox">
-                        <label><input type="checkbox" name="availableMails"  value="${mailType}" ${command.availableMails.contains(mailType)?'checked':''}><g:message code="${kuorum.mail.MailType.name}.${mailType}"/></label>
+                        <label><input type="checkbox" name="availableMails"  value="${mailGroup}" ${command.availableMails.contains(mailGroup)?'checked':''}><g:message code="profile.emailNotifications.${mailGroup}.label"/></label>
                     </div>
                 </g:each>
             </div>
-        </g:each>
-
-        %{--<div class="form-group">--}%
-            %{--<formUtil:selectMultipleCommissions command="${command}" field="commissions"/>--}%
-        %{--</div>--}%
-
-        <fieldset class="form-group text-right">
-        <div class="form-group">
-            <a href="#" class="cancel">${message(code:'profile.emailNotifications.cancel')}</a>
-            <input type="submit" value="${message(code:'profile.emailNotifications.save')}" class="btn btn-grey btn-lg">
         </div>
-        </fieldset>
+        <div class="box-ppal-section">
+            <fieldset class="form-group text-center">
+                <input type="submit" value="${g.message(code:'profile.emailNotifications.save')}" class="btn btn-orange btn-lg">
+            </fieldset>
+        </div>
     </g:form>
 </content>

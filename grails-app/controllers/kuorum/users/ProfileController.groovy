@@ -8,6 +8,7 @@ import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
+import kuorum.mail.MailType
 import kuorum.notifications.Notification
 import kuorum.register.FacebookAuthService
 import kuorum.register.GoogleOAuthService
@@ -325,8 +326,8 @@ class ProfileController {
 
     def configurationEmails() {
         KuorumUser user = params.user
-        MailNotificationsCommand command = new MailNotificationsCommand(availableMails:user.availableMails)
-        command.availableMails = user.availableMails?:[]
+        MailNotificationsCommand command = new MailNotificationsCommand()
+        command.availableMails = user.availableMails?.collect{it.mailGroup}.unique()?:[]
         [user:user, command: command]
     }
     def configurationEmailsSave(MailNotificationsCommand command) {
@@ -335,7 +336,7 @@ class ProfileController {
             render view:"configurationEmails", model: [command:command,user:user]
             return
         }
-        user.availableMails = command.availableMails
+        user.availableMails = MailType.values().findAll{command.availableMails.contains(it.mailGroup)}
         kuorumUserService.updateUser(user)
         flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'
