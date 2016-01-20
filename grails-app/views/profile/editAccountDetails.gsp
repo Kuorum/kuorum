@@ -21,7 +21,7 @@
             <g:render template="accountDetailsForm" model="[command:command]"/>
             <fieldset class="row">
                 <div class="form-group col-md-6">
-                    <input type="text" name="autocompleteNameOff" style="display:none"/>
+                    <input type="text" name="autocompleteNameOff" style="display:none" data-ays-ignore="true"/>
                     <formUtil:password command="${command}" field="password" required="true" showLabel="true"/>
                 </div>
             </fieldset>
