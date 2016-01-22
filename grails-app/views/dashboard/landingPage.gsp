@@ -27,16 +27,30 @@
     %{--<parameter name="showDefaultPreFooter" value="true"/>--}%
 </head>
 
-<content tag="mainContent">
-    <g:render template="landingPageModules/videoAndRegister" model="[command:command]"/>
+<content tag="videoAndRegister">
+    <g:render template="landingPageModules/videoAndRegister"/>
 </content>
 
-<content tag="subHome">
-    <g:include controller="modules" action="recommendedProjects"/>
-    <g:include controller="modules" action="recommendedPoliticians"/>
-    <modulesUtil:recommendedPosts numPost="3" showAsHome="${true}"/>
+<content tag="logos">
+    <g:render template="landingPageModules/landingLogos"/>
 </content>
 
-<content tag="press">
-    <g:render template="landingPageModules/pressAndNotices"/>
+<content tag="features">
+    <g:render template="landingPageModules/landingKuorumFeautres"/>
 </content>
+
+<content tag="testimonies">
+    <g:render template="landingPageModules/landingTestimonies"/>
+</content>
+
+<content tag="pressKit">
+    <g:render template="landingPageModules/pressKit"/>
+</content>
+
+<content tag="fastRegister">
+    <section class="homeSub" role="complementary">
+        <h1>Create your profile in less than 1 minut</h1>
+        <a href="#" class="btn btn-lg">Start your free trial</a>
+    </section>
+</content>
+
