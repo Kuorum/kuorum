@@ -28,7 +28,7 @@
 </head>
 
 <content tag="videoAndRegister">
-    <g:render template="landingPageModules/videoAndRegister"/>
+    <g:render template="landingPageModules/videoAndRegister" model="[command:command]"/>
 </content>
 
 <content tag="logos">

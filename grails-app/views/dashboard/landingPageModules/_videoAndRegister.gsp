@@ -8,29 +8,37 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <h1>A NEW AGE IN POLITICS</h1>
+                    <h1><g:message code="landingPage.videoAndRegister.title"/></h1>
+                    <h2><g:message code="landingPage.videoAndRegister.subtitle"/></h2>
 
-                    <h2>Manage all communications with electors from one single platform.</h2>
-                    <a href="#saveTime" class="btn btn-white smooth">How it works</a>
+                    <a href="#saveTime" class="btn btn-white smooth"><g:message code="landingPage.videoAndRegister.howItWorks"/></a>
 
-                    <form action="" method="post" name="freeTrial" id="freeTrial" class="form-inline" role="form">
+                    <formUtil:validateForm bean="${command}" form="freeTrial"/>
+                    <g:form mapping="register" autocomplete="off" method="post" name="freeTrial" class="form-inline" role="form" novalidate="novalidate">
                         <fieldset>
                             <div class="form-group">
-                                <label for="name" class="sr-only">Name</label>
-                                <input type="text" name="name" class="form-control input-lg" id="name" required placeholder="Name" aria-required="true">
+                                <formUtil:input
+                                        command="${command}"
+                                        field="name"
+                                        labelCssClass="sr-only"
+                                        showCharCounter="false"
+                                        required="true"/>
                             </div>
 
                             <div class="form-group">
-                                <label for="email" class="sr-only">Email</label>
-                                <input type="email" name="email" class="form-control input-lg" id="email" required placeholder="Email" aria-required="true">
+                                <formUtil:input
+                                        command="${command}"
+                                        field="email"
+                                        type="email"
+                                        labelCssClass="sr-only"
+                                        required="true"/>
                             </div>
                             <!-- para el botón, lo que prefieras, <button> o <input>-->
-                            <button type="submit" class="btn">Start your free trial</button>
+                            <button type="submit" class="btn"><g:message code="landingPage.videoAndRegister.startFreeTrial"/></button>
                             <!--                                <input type="submit" class="btn" value="Start your free trial">-->
                         </fieldset>
-
-                        <p>You are accepting the <a href="#" target="_blank">service conditions</a></p>
-                    </form>
+                        <p><g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse')]"/></p>
+                    </g:form>
                 </div>
             </div>
         </div>
