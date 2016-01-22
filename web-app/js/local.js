@@ -69,12 +69,10 @@ $(document).tooltip({
 
 // controla el alto del iframe de Youtube cuando cambia de ancho en los diferentes tamaños de pantalla
 $(window).on('resize',function() {
-
     $('.youtube').each(function() {
         var width = $(this).width();
         $(this).css("height", width / 1.77777778);
     });
-
 });
 $(document).ready(function() {
     $(window).trigger('resize');
@@ -83,12 +81,10 @@ $(document).ready(function() {
 
 // controla el alto del cuadro de subir imagen con formato 16:9
 $(window).on('resize',function() {
-
     $('.fondoperfil .qq-upload-drop-area').each(function() {
         var width = $(this).width();
         $(this).css("height", width / 1.77777778);
     });
-
 });
 $(document).ready(function() {
     $(window).trigger('resize');
@@ -116,27 +112,44 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 
+    // oscurecer el header de la Landing cuando se hace scroll
+    if ($('#header.transp').length) {
+        $(window).on("load scroll",function(){
+            var top = $(document).scrollTop();
+            if (top >= 50) {
+                $('#header.transp').addClass('scrolled');
+            } else {
+                $('#header.transp').removeClass('scrolled');
+            }
+        });
+    }
+
+    // desplegar logos en Landing
+    $('body').on('click','.homeSub.logos a.open', function(e) {
+        e.preventDefault();
+        if ( !$('.homeSub.logos').hasClass('opened') ) {
+            $('.homeSub.logos').addClass('opened');
+            $(this).find('span').removeClass('fa-angle-down').addClass('fa-angle-up');
+        } else {
+            $('.homeSub.logos').removeClass('opened');
+            $(this).find('span').removeClass('fa-angle-up').addClass('fa-angle-down');
+        }
+    });
+
+
     // isotope - plugin para apilar divs de diferente altura
     if ( $('.list-team').length > 0 ) {
-
         var $container = $('.list-team');
-        // init
         $container.isotope({
-          // options
-          itemSelector: '.list-team > li'
+            itemSelector: '.list-team > li'
         });
-
     }
 
     if ( $('.list-updates').length > 0 ) {
-
         var $container = $('.list-updates');
-        // init
         $container.isotope({
-          // options
-          itemSelector: '.list-updates > li'
+            itemSelector: '.list-updates > li'
         });
-
     }
 
     $("#partialUserTryingToVote a").on("click", function(e){
@@ -155,9 +168,9 @@ $(document).ready(function() {
             $(window).scroll(function() {
                 var heightBottom = $('#otras-propuestas').height();
                 if ($(window).scrollTop() + $(window).height() > $(document).height() - heightBottom) {
-                       $('.boxes.vote.drive').removeClass('fixed');
+                    $('.boxes.vote.drive').removeClass('fixed');
                 } else {
-                        $('.boxes.vote.drive').addClass('fixed');
+                    $('.boxes.vote.drive').addClass('fixed');
                 }
             });
 
@@ -213,8 +226,8 @@ $(document).ready(function() {
 
     // Funcionamiento de los radio button como nav-tabs
     $('input[name="cuenta"]').click(function () {
-    //jQuery handles UI toggling correctly when we apply "data-target" attributes and call .tab('show')
-    //on the <li> elements' immediate children, e.g the <label> elements:
+        //jQuery handles UI toggling correctly when we apply "data-target" attributes and call .tab('show')
+        //on the <li> elements' immediate children, e.g the <label> elements:
         $(this).closest('label').tab('show');
     });
 
@@ -225,7 +238,7 @@ $(document).ready(function() {
     $('body').on('click','aside.condition > .close', function(e) {
 
         $(this).parent('aside.condition').fadeOut('slow', function(){
-          $(this).remove();
+            $(this).remove();
         });
 
     });
@@ -239,14 +252,14 @@ $(document).ready(function() {
     $('body').on('click','ul.user-list-followers > li.user .actions .close', function(e) {
 
         $(this).closest('li.user').fadeOut('slow', function(){
-          $(this).remove();
+            $(this).remove();
         });
 
     });
     $('body').on('click','ul.user-list-followers > li.user:only-child .actions .close', function(e) {
 
         $(this).closest('.boxes.follow').fadeOut('slow', function(){
-          $(this).remove();
+            $(this).remove();
         });
 
     });
@@ -255,7 +268,7 @@ $(document).ready(function() {
     $('body').on('click','.progress-complete .close', function(e) {
 
         $(this).closest('.progress-complete').fadeOut('slow', function(){
-          $(this).remove();
+            $(this).remove();
         });
 
     });
@@ -263,13 +276,13 @@ $(document).ready(function() {
 
     // mostrar/ocultar pass en formulario de Entrar
     $('#show-pass-header').on('change', function () {
-      $('#pass-header').hideShowPassword($(this).prop('checked'));
+        $('#pass-header').hideShowPassword($(this).prop('checked'));
     });
     $('#show-pass-modal').on('change', function () {
-      $('#pass-modal').hideShowPassword($(this).prop('checked'));
+        $('#pass-modal').hideShowPassword($(this).prop('checked'));
     });
     $('#show-pass-home').on('change', function () {
-      $('#pass-home').hideShowPassword($(this).prop('checked'));
+        $('#pass-home').hideShowPassword($(this).prop('checked'));
     });
 
     // inicializa formato fechas
@@ -413,14 +426,14 @@ $(document).ready(function() {
     // Activar/desactivar materia que me interesa en el proyecto -> lo dejo comentado porque sólo debe ocurrir cuando estás logado. Falta programar esto.
 
     /* $('body').on("click", ".icons.subject a", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if ( $(this).hasClass('active') ){
-            $(this).removeClass('active');
-        } else {
-            $(this).addClass('active');
-        }
-    });*/
+     e.preventDefault();
+     e.stopPropagation();
+     if ( $(this).hasClass('active') ){
+     $(this).removeClass('active');
+     } else {
+     $(this).addClass('active');
+     }
+     });*/
 
 
     // Activar/desactivar filtros propuestas ciudadanas

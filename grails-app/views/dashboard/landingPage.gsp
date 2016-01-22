@@ -1,19 +1,17 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="kuorum.name"/></title>
-    <meta name="layout" content="homeLayout">
+    <meta name="layout" content="homePoliticianLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta itemprop="image" content="${resource(dir: 'images', file: 'home-video.png')}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
-    <meta itemprop="image" content="${resource(dir: 'images', file: 'img-userprofile.jpg')}" />
     <!-- for Facebook -->
     <meta property="og:title" content="${g.message(code:"kuorum.name")}" />
     <meta property="og:type" content="article" />
     <meta property="og:image" content="${resource(dir: 'images', file: 'home-video.png')}" />
     <meta property="og:image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
-    <meta property="og:image" content="${resource(dir: 'images', file: 'img-userprofile.jpg')}" />
     <meta property="og:url" content="Kuorum.org" />
     <meta property="og:description" content="${g.message(code:"layout.head.meta.description")}" />
     <!-- for Google -->
@@ -26,7 +24,6 @@
     <meta name="twitter:description" content="${g.message(code:"layout.head.meta.description")}" />
     <meta name="twitter:image" content="${resource(dir: 'images', file: 'home-video.png')}" />
     <meta name="twitter:image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
-    <meta name="twitter:image" content="${resource(dir: 'images', file: 'img-userprofile.jpg')}" />
     %{--<parameter name="showDefaultPreFooter" value="true"/>--}%
 </head>
 
