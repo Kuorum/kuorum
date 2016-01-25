@@ -1,5 +1,5 @@
 <!-- Header landing transparente -->
-<header id="header" class="row landing transp" role="banner">
+<header id="header" class="row landing ${extraHeadCss}" role="banner">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <g:render template="/layouts/brandAndLogo"/>
@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="politicians.html" class="navbar-link active">
+                        <a href="politicians.html" class="navbar-link ${nav.activeMenuCss(mappingName: 'politicians')}">
                             <span>Politicians</span>
                         </a>
                     </li>
@@ -29,9 +29,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="sign-in.html" class="navbar-link btn btn-transparent">
-                            <span>Sign in</span>
-                        </a>
+                        <g:link mapping="loginAuth" class="navbar-link btn btn-transparent ${nav.activeMenuCss(mappingName: 'loginAuth')}">
+                            <span><g:message code="head.noLogged.login"/></span>
+                        </g:link>
                     </li>
                 </ul>
             </div>

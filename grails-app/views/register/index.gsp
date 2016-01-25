@@ -4,25 +4,6 @@
     <meta name="layout" content="register2ColumnsLayout">
 </head>
 
-%{--<content tag="headButtons">--}%
-    %{--<ul class="nav navbar-nav navbar-right">--}%
-        %{--<li class="underline">--}%
-            %{--<g:link mapping="footerWhatIsKuorum" class="navbar-link">--}%
-                %{--<g:message code="page.title.footer.whatIsKuorum"/>--}%
-            %{--</g:link>--}%
-        %{--</li>--}%
-        %{--<li class="underline">--}%
-            %{--<g:link mapping="login" class="navbar-link">--}%
-                %{--<g:message code="register.head.login"/>--}%
-            %{--</g:link>--}%
-        %{--</li>--}%
-    %{--</ul>--}%
-%{--</content>--}%
-
-<content tag="headButtons">
-    <g:include controller="login" action="headAuth"/>
-</content>
-
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="sign" autocomplete="off"/>
     <g:form mapping="register" name="sign" role="form" method="POST" autocomplete="off" class="login">

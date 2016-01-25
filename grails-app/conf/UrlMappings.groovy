@@ -134,7 +134,8 @@ class UrlMappings {
         name ajaxPoliticianVictoryPosts:     "/ajax/$userTypeUrl/$urlName-$id/defendedVictoryPosts" (controller: "kuorumUser", action: "politicianDefendedVictories")
         name ajaxRegisterContact:            "/ajax/contact"(controller: "register", action: "contactRegister");
 
-        name register:            "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
+        name register:            "/sing-up"(controller: "register"){action = [GET:"index", POST:"register"]}
+                                  "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
         name registerSuccess:     "/registro/satisfactorio"(controller: "register",action:"registerSuccess")
         name registerPassword: "/registro/establece-password"(controller: "register", action:"selectMyPassword")
         name registerResendMail:  "/registro/no-verificado"(controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"]}
@@ -232,8 +233,10 @@ class UrlMappings {
         name ajaxModuleProjectBottomStats: '/ajax/project/bottomProjectStats' (controller:'modules', action: 'bottomProjectStats')
                                        '/ajax/law/bottomLawStats' (controller:'modules', action: 'bottomProjectStats')
 
-        name login:     "/entrar"       (controller:"login", action:"index")
-        name loginAuth: "/autenticarse" (controller:"login", action:"auth")
+        name login:     "/log-in"       (controller:"login", action:"index")
+                        "/entrar"       (controller:"login", action:"index")
+        name loginAuth: "/sign-in" (controller:"login", action:"auth")
+                        "/autenticarse" (controller:"login", action:"auth")
         name loginFull: "/confirmar-usuario" (controller:"login", action:"full")
         name logout:    "/salir"        (controller:"logout", action:"index")
 

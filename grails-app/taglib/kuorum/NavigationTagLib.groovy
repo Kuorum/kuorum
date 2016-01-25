@@ -12,28 +12,14 @@ class NavigationTagLib {
     def springSecurityService
     LinkGenerator grailsLinkGenerator
 
-    def ACTIVE_ACTIONIS=[
-            [mappingName: "discover",  onlyLogged:false],
-            [mappingName: "discoverProjects",  onlyLogged:false],
-            [mappingName: "discoverPoliticians",  onlyLogged:false],
-            [mappingName: "discoverRecentPosts",  onlyLogged:false],
-            [mappingName: "discoverRecommendedPosts",  onlyLogged:false],
-            [mappingName: "funnelSuccessfulStories",  onlyLogged:false],
-            [mappingName: "home", onlyLogged:true],
-            [mappingName: "footerWhatIsKuorum", onlyLogged:false]
-    ]
-
     /**
-     * Returns the css "ACTIVE" if the page
+     * Returns the css "ACTIVE" if the mapping is the same as the url loaded
      */
     def activeMenuCss = { attrs ->
         String mappingName = attrs.mappingName
         String url = grailsLinkGenerator.link(mapping:mappingName,absolute: true)
-        def activeMenu = ACTIVE_ACTIONIS.find{it.mappingName == mappingName}
         if (request.getRequestURL().toString() == url){
-            if (!activeMenu.logged || activeMenu.logged && springSecurityService.isLoggedIn()){
-                out << "active"
-            }
+            out << "active"
         }
 
 

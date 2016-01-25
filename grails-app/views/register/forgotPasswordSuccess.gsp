@@ -4,10 +4,6 @@
     <meta name="layout" content="register2ColumnsLayout">
 </head>
 
-<content tag="headButtons">
-    <g:include controller="login" action="headAuth"/>
-</content>
-
 <content tag="intro">
     <h1><g:message code="forgotPasswordSuccess.intro.login"/> </h1>
     <p><g:message code="forgotPasswordSuccess.intro.description"/></p>

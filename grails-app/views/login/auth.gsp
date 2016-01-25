@@ -4,10 +4,6 @@
     <meta name="layout" content="register2ColumnsLayout">
 </head>
 
-<content tag="headButtons">
-    <g:include controller="login" action="headAuth"/>
-</content>
-
 <content tag="mainContent">
     <form id="login" role="form" action='${postUrl}' method='POST' class="login">
         <div class="form-group">

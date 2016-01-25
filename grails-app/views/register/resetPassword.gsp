@@ -4,10 +4,6 @@
     <meta name="layout" content="register2ColumnsLayout">
 </head>
 
-<content tag="headButtons">
-    <g:include controller="login" action="headAuth"/>
-</content>
-
 <content tag="mainContent">
     %{--<g:render template="/register/registerSocial"/>--}%
     %{--<h2><g:message code="register.resetPassword.form.title"/> </h2>--}%

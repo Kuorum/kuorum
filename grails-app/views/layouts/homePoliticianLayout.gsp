@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<g:render template="/layouts/headLanding"/>
+    <g:render template="/layouts/headNoLogged" model="[extraHeadCss:'transp']"/>
     <div class="row main landing">
         <g:pageProperty name="page.videoAndRegister"/>
     </div><!-- .main -->

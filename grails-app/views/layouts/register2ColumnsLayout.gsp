@@ -6,21 +6,7 @@
     </head>
 
     <body>
-
-        <header id="header" class="row" role="banner">
-            <nav class="navbar navbar-fixed-top" role="navigation">
-                <div class="container-fluid">
-                    <g:render template="/layouts/brandAndLogo"/>
-
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="navbar-collapse">
-                    <content id="headButtons">
-                        <g:pageProperty name="page.headButtons"/>
-                    </content>
-                    </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
-            </nav>
-        </header>
+        <g:render template="/layouts/headNoLogged"/>
         <div class="row main">
             <div class="container-fluid">
                 <div class="row">
