@@ -50,7 +50,9 @@
 <content tag="fastRegister">
     <section class="homeSub" role="complementary">
         <h1><g:message code="landingPage.fastRegister.title"/> </h1>
-        <a href="#" class="btn btn-lg"><g:message code="landingPage.fastRegister.start"/></a>
+        <g:link mapping="register" class="btn btn-lg">
+            <g:message code="landingPage.fastRegister.start"/>
+        </g:link>
     </section>
 </content>
 
