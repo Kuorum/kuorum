@@ -1,6 +1,6 @@
 <section role="complementary" class="homeSub logos">
-    <h1>Alredy trusted by</h1>
-    <ul class="clearfix">
+    <h1><g:message code="landingPage.logos.title"/> </h1>
+    <ul class="clearfix limit-height" data-collapsedHeight="300" data-collapsedButtonCss="open">
         <li itemscope itemtype="http://schema.org/Organization">
             <img itemprop="logo" src="images/organizations/logo-ibm.png" alt="IBM">
             <span itemprop="name" class="sr-only">IBM</span>
@@ -42,9 +42,6 @@
             <img itemprop="logo" src="images/organizations/logo-unltd.png" alt="UnLtd">
             <span itemprop="name" class="sr-only">UnLtd</span>
         </li>
-    </ul>
-    <a href="#" class="open">Show more <span class="fa fa-angle-down"></span></a>
-    <ul class="clearfix">
         <li itemscope itemtype="http://schema.org/Organization">
             <img itemprop="logo" src="images/organizations/logo-lacaixa.png" alt="LaCaixa">
             <span itemprop="name" class="sr-only">LaCaixa</span>
