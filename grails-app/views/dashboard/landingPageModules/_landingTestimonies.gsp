@@ -6,8 +6,8 @@
         model="[
                 image:g.resource(dir:'images', file:'manuelaCarmena.jpg'),
                 name:'Manuela Carmena',
-                testimony:'I had a dream that something like Kuorum could exist',
-                position:'Manuela Carmena - MAYOR OF MADRID'
+                testimony:g.message(code: 'landingPage.testimonies.manuelaCarmena.testimony'),
+                position:g.message(code: 'landingPage.testimonies.manuelaCarmena.position')
         ]"/>
     </li>
     <li>
@@ -15,8 +15,8 @@
                   model="[
                           image:g.resource(dir:'images', file:'davidBurrowes.jpg'),
                           name:'David Burrowes',
-                          testimony:'Kuorum closes the gap between citizens and politicians',
-                          position:'David Burrowes - CONGRESMAN'
+                          testimony:g.message(code: 'landingPage.testimonies.davidBurrowes.testimony'),
+                          position:g.message(code: 'landingPage.testimonies.davidBurrowes.position')
                   ]"/>
     </li>
     <li>
@@ -24,8 +24,8 @@
                   model="[
                           image:g.resource(dir:'images', file:'catSmith.jpg'),
                           name:'Cat Smith',
-                          testimony:'Nobody believed that we could win that campaign but we did',
-                          position:'Cat Smith - MEMBER OF PARLIAMENT'
+                          testimony:g.message(code: 'landingPage.testimonies.catSmith.testimony'),
+                          position:g.message(code: 'landingPage.testimonies.catSmith.position')
                   ]"/>
     </li>
 </ul>
