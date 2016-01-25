@@ -20,7 +20,7 @@
             <div class="input-append input-group">
                 <input type="password" placeholder="Contraseña" name="j_password" class="form-control input-lg" id="password" required>
                 <span tabindex="100" class="add-on input-group-addon">
-                    <label><input type="checkbox" name="show-pass-header" id="show-pass-header"> <g:message code="login.email.form.password.show"/></label>
+                    <label><input type="checkbox" class="show-hide-pass" name="show-pass-header" id="show-pass-header"> <g:message code="login.email.form.password.show"/></label>
                 </span>
             </div>
         </div>
