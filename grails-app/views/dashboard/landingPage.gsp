@@ -49,8 +49,8 @@
 
 <content tag="fastRegister">
     <section class="homeSub" role="complementary">
-        <h1>Create your profile in less than 1 minut</h1>
-        <a href="#" class="btn btn-lg">Start your free trial</a>
+        <h1><g:message code="landingPage.fastRegister.title"/> </h1>
+        <a href="#" class="btn btn-lg"><g:message code="landingPage.fastRegister.start"/></a>
     </section>
 </content>
 
