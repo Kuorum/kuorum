@@ -31,7 +31,11 @@
                     required="true"/>
         </div>
         <div class="form-group">
-            <input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}"> <p class="cancel">o  <g:link mapping="login"><g:message code="register.email.form.alreadyRegister"/></g:link></p>
+            <input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}">
+            <p class="cancel">
+                <g:message code="head.noLogged.register_or"/>
+                <g:link mapping="login"><g:message code="login.intro.loginAfter"/></g:link>
+            </p>
         </div>
         <div class="form-group">
             <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
