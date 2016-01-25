@@ -5,17 +5,19 @@
         </div>
 
         <div class="col-md-7 col-lg-6">
-            <form action="" method="post" name="freeTrial" id="freeTrial" class="form-inline" role="form">
+            <formUtil:validateForm command="springSecurity.ResendVerificationMailCommand" form="pressKit-form"/>
+            <g:form mapping="registerPressKit" name="pressKit-form" method="POST" class="form-inline" role="form">
                 <fieldset>
                     <div class="form-group">
-                        <label for="email-press" class="sr-only">Email</label>
-                        <input type="email" name="email-press" class="form-control input-lg" id="email-press" required placeholder="Email" aria-required="true">
+                        <formUtil:input command="${command}" field="email" type="email" cssClass="form-control input-lg"/>
+                        %{--<label for="email-press" class="sr-only">Email</label>--}%
+                        %{--<input type="email" name="email-press" class="form-control input-lg" id="email-press" required placeholder="Email" aria-required="true">--}%
                     </div>
                     <!-- para el botón, lo que prefieras, <button> o <input>-->
                     <button type="submit" class="btn btn-blue btn-lg"><g:message code="landingPage.pressKit.download"/></button>
                     <!--                        <input type="submit" class="btn" value="Download press kit">-->
                 </fieldset>
-            </form>
+            </g:form>
         </div>
     </div>
 </section>

@@ -47,4 +47,7 @@ public interface FileService {
      * @return
      */
     public KuorumFile createExternalFile(KuorumUser owner, String url, FileGroup fileGroup, FileType fileType)
+
+
+    public InputStream readFile(KuorumFile kuorumFile)
 }

@@ -5,7 +5,9 @@ import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.CompleteMultipartUploadResult
 import com.amazonaws.services.s3.model.DeleteObjectRequest
+import com.amazonaws.services.s3.model.GetObjectRequest
 import com.amazonaws.services.s3.model.PutObjectRequest
+import com.amazonaws.services.s3.model.S3Object
 import grails.transaction.Transactional
 import kuorum.KuorumFile
 
@@ -122,6 +124,7 @@ class AmazonFileService extends LocalFileService{
                 kuorumFile.urlThumb = finalUrl
                 kuorumFile.fileType = asTemporal?FileType.IMAGE:FileType.AMAZON_IMAGE
                 kuorumFile.local = !asTemporal;
+                kuorumFile.storagePath = keyName
                 kuorumFile.save(flush: true)
                 log.info("Se ha subido la imagen a Amazon. URL del exterior: ${kuorumFile.url}")
             } catch (Exception e) {
@@ -147,5 +150,18 @@ class AmazonFileService extends LocalFileService{
 //            AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider());
             s3client.deleteObject(new DeleteObjectRequest(bucketName, "${temporal?BUCKET_TMP_FOLDER:file.fileGroup.folderPath}/${file.fileName}"));
         }
+    }
+
+    @Override
+    InputStream readFile(KuorumFile kuorumFile) {
+        String accessKey = grailsApplication.config.kuorum.amazon.accessKey
+        String secretKey = grailsApplication.config.kuorum.amazon.secretKey
+        String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey)
+        AmazonS3 s3Client = new AmazonS3Client(credentials);
+        S3Object object = s3Client.getObject( new GetObjectRequest(bucketName, kuorumFile.storagePath));
+        InputStream objectData = object.getObjectContent();
+//        objectData.close();
+        return objectData
     }
 }

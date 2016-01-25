@@ -22,6 +22,9 @@ class MailchimpService {
     @Value('${mail.mailChimp.listId}')
     String MAILCHIMP_LIST_ID
 
+    @Value('${mail.mailChimp.listPressId}')
+    String MAILCHIMP_PRESS_LIST_ID
+
     private static final MAILCHIMP_DATE_FORMAT = "yyyy-MM-dd"
 
     def updateAllUsers(){
@@ -89,5 +92,37 @@ class MailchimpService {
             relevantCommissions.add(commissionType.toString())
         }
         [new MailChimpGroup( name:"relevantCommissions", groups:relevantCommissions)]
+    }
+
+    public void addPress(String name, String email, Locale locale){
+        try {
+            MailChimpClient mailChimpClient = new MailChimpClient();
+
+            Email mailChimpEmail = new Email()
+            mailChimpEmail.email = email
+
+            // Subscribe a person
+            SubscribeMethod subscribeMethod = new SubscribeMethod();
+            subscribeMethod.apikey = MAILCHIMP_APIKEY;
+            subscribeMethod.id = MAILCHIMP_PRESS_LIST_ID;
+            subscribeMethod.email = mailChimpEmail
+            subscribeMethod.double_optin = false;
+            subscribeMethod.update_existing = true;
+            subscribeMethod.send_welcome = false;
+            subscribeMethod.replace_interests = true;
+
+            MailChimpMergeVars mergeVars = new MailChimpMergeVars();
+            mergeVars.mc_language = locale.toString()
+            mergeVars.FNAME = name
+            subscribeMethod.merge_vars = mergeVars
+            def userMailChimpId = mailChimpClient.execute(subscribeMethod);
+
+            log.info(" Se ha añadido correctamente el usuario email $email a MailChimp");
+            mailChimpClient.close();
+        }catch(MailChimpException mailChimpException){
+            log.error("No se ha podido añadir al usuario ${email} a mailchimp debido a que MailChimp se ha negado",mailChimpException)
+        }catch(Exception e){
+            log.error("No se ha podido añadir al usuario ${email} a mailchimp debido a una excepcion",e)
+        }
     }
 }

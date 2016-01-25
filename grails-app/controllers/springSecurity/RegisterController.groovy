@@ -5,12 +5,17 @@ import grails.plugin.springsecurity.authentication.dao.NullSaltSource
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import grails.validation.Validateable
+import kuorum.KuorumFile
+import kuorum.core.model.AvailableLanguage
+import kuorum.files.FileService
+import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
+import org.springframework.context.i18n.LocaleContextHolder
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
@@ -20,6 +25,9 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     KuorumUserService kuorumUserService
 
     NotificationService notificationService
+
+    FileService fileService
+    MailchimpService mailchimpService
 
     def index() {
         def copy = [:] + (flash.chainedParams ?: [:])
@@ -226,6 +234,31 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         def conf = SpringSecurityUtils.securityConfig
         String postResetUrl = conf.ui.register.postResetUrl ?: conf.successHandler.defaultTargetUrl
         redirect uri: postResetUrl
+    }
+
+    def downloadPressKit(ResendVerificationMailCommand command){
+        if (command.hasErrors()){
+            return "Not valid mail";
+        }
+        Locale locale = LocaleContextHolder.getLocale();
+        mailchimpService.addPress(command.email.split("@")[0], command.email, locale)
+        String preFileName = "KuorumPressKit"
+        String year = "2016"
+        String ext = "zip"
+        String langPressKit = "en"
+        if (locale.getLanguage() == "es"){
+            langPressKit = "es"
+        }
+
+        KuorumFile kuorumFile = new KuorumFile()
+        String fileName = "${preFileName}_${year}_${langPressKit}.${ext}"
+        kuorumFile.storagePath="static/press/${fileName}"
+        InputStream fileData = fileService.readFile(kuorumFile)
+        response.setContentType("application/zip")
+        response.setHeader("Content-disposition", "attachment; filename=\"${fileName}\"")
+        response.outputStream << fileData
+        fileData.close()
+        return
     }
 
     /**

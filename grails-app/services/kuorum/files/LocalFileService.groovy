@@ -321,4 +321,10 @@ class LocalFileService implements FileService{
         file.setUrlThumb(url)
         file.save()
     }
+
+    @Override
+    InputStream readFile(KuorumFile kuorumFile) {
+        //TODO: Read LOCAL FILE
+        return null
+    }
 }
