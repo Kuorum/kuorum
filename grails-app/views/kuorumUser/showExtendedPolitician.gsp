@@ -71,6 +71,7 @@
                         <g:each in="${politician.tags}" var="tag">
                             <li>
                                 <g:link mapping="searcherSearch" params="[type:UserType.POLITICIAN, word:tag]">
+                                    <span class="fa fa-tag"/>
                                     ${tag}
                                 </g:link>
                             </li>

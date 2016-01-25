@@ -16,7 +16,7 @@
     <h3><g:message code="profile.menu.profilePoliticianQuickNotes.subtitle"/></h3>
 </content>
 <content tag="mainContent">
-    <formUtil:validateForm form="quickNotesForm" bean="${command}"/>
+    <formUtil:validateForm form="quickNotesForm" bean="${command}" dirtyControl="true"/>
     <g:form method="POST" mapping="profilePoliticianQuickNotes" name="quickNotesForm" role="form">
         <g:render template="formQuickNotes" model="[command:command]"/>
     </g:form>

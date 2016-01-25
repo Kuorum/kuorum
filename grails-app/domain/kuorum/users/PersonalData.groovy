@@ -13,14 +13,16 @@ class PersonalData {
     String phonePrefix
     String telephone
 
+    @Deprecated
     String postalCode
     //TODO: Refactor province to Region
     String provinceCode  // this code is Region.iso3166_2
     Region province
     @Deprecated
     Region country
-//    Date birthday
+    Date birthday
     static constraints = {
+        userType nullable:false
         telephone nullable: true
         gender nullable: true
         provinceCode nullable: true
@@ -28,5 +30,6 @@ class PersonalData {
         province nullable: true
         country nullable: true
         phonePrefix nullable:true
+        birthday nullable:true
     }
 }

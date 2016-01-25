@@ -16,7 +16,7 @@
 </content>
 
 <content tag="mainContent">
-    <formUtil:validateForm form="politicianExperienceForm" bean="${command}"/>
+    <formUtil:validateForm form="politicianExperienceForm" bean="${command}" dirtyControl="true"/>
     <g:form method="POST" mapping="profilePoliticianExperience" name="politicianExperienceForm" role="form">
         <g:render template="formPoliticianExperience" model="[command:command]"/>
     </g:form>

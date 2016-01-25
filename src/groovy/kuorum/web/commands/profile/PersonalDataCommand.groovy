@@ -14,8 +14,7 @@ class PersonalDataCommand {
     Gender gender
     String phonePrefix
     String telephone
-    String postalCode
-    Region country
+    Region province
     Integer year
 
 

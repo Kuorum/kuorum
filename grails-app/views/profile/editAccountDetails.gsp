@@ -7,7 +7,7 @@
 
 <content tag="leftMenu">
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileEditAccountDetails', menu:menu]"/>
-
+    <r:require modules="forms"/>
 </content>
 
 <content tag="titleContent">
@@ -15,12 +15,13 @@
     <h3><g:message code="profile.menu.profileEditAccountDetails.subtitle"/></h3>
 </content>
 <content tag="mainContent">
-    <formUtil:validateForm bean="${command}" form="accountDetailsForm" />
-    <g:form method="POST" mapping="profileEditAccountDetails" name="accountDetailsForm" role="form" class="submitOrangeButton">
+    <formUtil:validateForm bean="${command}" form="accountDetailsForm" dirtyControl="true"/>
+    <g:form method="POST" mapping="profileEditAccountDetails" name="accountDetailsForm" role="form" class="submitOrangeButton" autocomplete="noFill">
         <div class="box-ppal-section">
             <g:render template="accountDetailsForm" model="[command:command]"/>
             <fieldset class="row">
                 <div class="form-group col-md-6">
+                    <input type="text" name="autocompleteNameOff" style="display:none" data-ays-ignore="true"/>
                     <formUtil:password command="${command}" field="password" required="true" showLabel="true"/>
                 </div>
             </fieldset>

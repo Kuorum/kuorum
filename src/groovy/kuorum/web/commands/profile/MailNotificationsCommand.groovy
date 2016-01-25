@@ -2,6 +2,7 @@ package kuorum.web.commands.profile
 
 import grails.validation.Validateable
 import kuorum.core.model.CommissionType
+import kuorum.mail.MailGroupType
 import kuorum.mail.MailType
 
 /**
@@ -10,7 +11,7 @@ import kuorum.mail.MailType
 @Validateable
 class MailNotificationsCommand {
 
-    List<MailType> availableMails
+    List<MailGroupType> availableMails
 
     static constraints = {
     }

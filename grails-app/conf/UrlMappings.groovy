@@ -141,11 +141,6 @@ class UrlMappings {
         name resetPassword:       "/registro/password-olvidado"(controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"]}
         name resetPasswordSent:   "/registro/enviada-verificacion"(controller: "register", action:"forgotPasswordSuccess")
         name resetPasswordChange: "/registro/cambiar-password"(controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"]}
-        name customRegisterStep1: "/registro/paso1"(controller: "customRegister"){action = [GET:"step1", POST:"step1Save"]}
-        name customRegisterStep2: "/registro/paso2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
-        name customRegisterStep3: "/registro/paso3"(controller: "customRegister"){action = [GET:"step3", POST:"step3Save"]}
-        name customRegisterStep4: "/registro/paso4"(controller: "customRegister"){action = [GET:"step4", POST:"step4Save"]}
-        name customRegisterStep5: "/registro/fin"(controller: "customRegister", action:"step5")
 
         name customRegisterCountryAndPostalCode: "/registro/countryAndPostalCode"(controller: "customRegister", action:"countryAndPostalCode")
         name customRegisterAgeAndGender: "/registro/ageAndGender"(controller: "customRegister", action:"ageAndGender")
@@ -165,6 +160,7 @@ class UrlMappings {
         name profileSetPass:      "/configuracion-usuario/crear-password" (controller: "profile"){action =[GET:"setPassword", POST:"setPasswordSave"]}
         name profileChangeEmail:  "/configuracion-usuario/cambiar-email"    (controller: "profile"){action =[GET:"changeEmail", POST:"changeEmailSave"]}
         name profileChangeEmailSent:  "/configuracion-usuario/cambiar-email/solicitud-recivida"    (controller: "profile", action :"changeEmailConfirmSent")
+        name profileChangeEmailResend:  "/configuracion-usuario/cambiar-email/resend-email" (controller: "profile", action :"updateUserEmail")
         name profileChangeEmailConfirm: "/configuracion-usuario/cambiar-email/confirmar"    (controller: "profile", action: "changeEmailConfirm")
         name profileSocialNetworks:"/configuracion-usuario/redes-sociales"  (controller: "profile"){action=[GET:"socialNetworks",POST:"socialNetworksSave"]}
         name profileEmailNotifications:"/configuracion-usuario/notificaciones-por-email"(controller: "profile"){action=[GET:"configurationEmails",POST:"configurationEmailsSave"]}
@@ -255,7 +251,7 @@ class UrlMappings {
         name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
-        name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
+//        name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
         name adminEditUser:         "/admin/usuarios/$userTypeUrl/$urlName-$id/editar" (controller:"adminUser"){action =[GET:"editUser", POST:"updateUser"]}
         name adminEditPoliticianExternalActivity: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/externalActivity" (controller:"adminPolitician"){action =[GET:"editExternalActivity", POST:"updateExternalActivity"]}
         name adminEditPoliticianRelevantEvents: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/relevantEvents" (controller:"adminPolitician"){action =[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}

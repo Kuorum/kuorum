@@ -35,6 +35,7 @@ class Post {
     Boolean victory = false
     CommitmentType commitmentType
     Date dateCreated
+    Date lastUpdated
     List<Sponsor> sponsors = []
     List<PostComment> comments = []
     List<PostComment> debates = []

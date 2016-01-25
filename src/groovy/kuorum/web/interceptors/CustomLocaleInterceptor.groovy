@@ -45,7 +45,7 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
                 if (SPANISH_LANGS.contains(local.language)){
                     userLanguage = AvailableLanguage.es_ES
                 }else{
-                    userLanguage = AvailableLanguage.en_EN
+                    userLanguage = AvailableLanguage.fromLocaleParam(local.getLanguage())?:AvailableLanguage.en_EN
                 }
             }
         }

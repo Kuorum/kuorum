@@ -5,7 +5,7 @@ import kuorum.Region
 import kuorum.users.KuorumUser
 import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
-import kuorum.web.commands.profile.EditUserProfileCommand
+import kuorum.web.binder.RegionBinder
 import org.grails.databinding.BindUsing
 
 /**
@@ -14,16 +14,17 @@ import org.grails.databinding.BindUsing
 @Validateable
 class ProfessionalDetailsCommand {
     KuorumUser politician
-    ProfessionalDetails professionalDetails
     CareerDetails careerDetails
 
+    String institution;
+
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
-        EditUserProfileCommand.bindingRegion(obj, source, "region")
+        RegionBinder.bindRegion(obj, "region", source)
     })
     Region region
 
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
-        EditUserProfileCommand.bindingRegion(obj, source, "constituency")
+        RegionBinder.bindRegion(obj, "constituency", source)
     })
     Region constituency
 
@@ -31,35 +32,15 @@ class ProfessionalDetailsCommand {
         politician nullable: false;
         region nullable: true
         constituency nullable: true
+        institution nullable:true
     }
 
     public ProfessionalDetailsCommand(){}
     public ProfessionalDetailsCommand(KuorumUser politician){
         this.politician = politician
-        this.professionalDetails = politician.professionalDetails?:new ProfessionalDetails()
         this.careerDetails = politician.careerDetails?:new CareerDetails()
-    }
-
-    public void setRegion(Region region){
-        this.region = region
-        if (!this.professionalDetails){
-            this.professionalDetails = new ProfessionalDetails()
-        }
-        this.professionalDetails.region = region
-    }
-    public void setConstituency(Region constituency){
-        this.constituency = constituency
-        if (!this.professionalDetails){
-            this.professionalDetails = new ProfessionalDetails()
-        }
-        this.professionalDetails.constituency = constituency
-    }
-
-    public Region getRegion(){
-        this?.professionalDetails?.region
-    }
-
-    public Region getConstituency(){
-        this?.professionalDetails?.constituency
+        this.region = politician?.professionalDetails?.region
+        this.constituency = politician?.professionalDetails?.constituency
+        this.institution = politician?.professionalDetails?.institution
     }
 }

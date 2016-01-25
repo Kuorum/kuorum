@@ -57,7 +57,7 @@ class AdminPoliticianController extends AdminController{
             render view:"editProfessionalDetails", model:[command:command]
             return;
         }
-        politicianService.updatePoliticianProfessionalDetails(command.politician, command.professionalDetails, command.careerDetails)
+        politicianService.updatePoliticianProfessionalDetails(command.politician, command)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'adminEditPoliticianProfessionalDetails', params: command.politician.encodeAsLinkProperties()
     }

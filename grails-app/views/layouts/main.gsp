@@ -99,7 +99,7 @@
         });
     </g:if>
     <g:if test="${flash.error}">
-    var messageError = '${flash.error}'; // For resend this messages
+    var messageError = '${raw(flash.error)}'; // For resend this messages
         $(function(){
             display.warn(messageError)
         });

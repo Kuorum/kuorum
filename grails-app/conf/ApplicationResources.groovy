@@ -36,7 +36,9 @@ modules = {
 //        resource url:'js/jquery-ui/jquery-ui-1.10.4.custom/css/base/jquery-ui-1.10.4.custom.min.css'
         resource url:'js/jquery-plugin/tagsinput/jquery.tagsinput.css'
         resource url:'js/jquery-plugin/tagsinput/jquery.tagsinput.js'
+        resource url:'js/jquery-plugin/jquery.are-you-sure.js'
         resource url:'js/jquery-plugin/duplicateFields.min.js'
+        resource url:'js/customForm.js'
     }
 
     vimeo {

@@ -3,11 +3,14 @@ package kuorum.web.commands.profile
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
 import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import grails.validation.Validateable
+import kuorum.Region
 import kuorum.RegionService
 import kuorum.core.model.AvailableLanguage
 import kuorum.users.KuorumUser
+import kuorum.web.binder.RegionBinder
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
+import org.grails.databinding.BindUsing
 import org.springframework.security.authentication.dao.SaltSource
 
 /**
@@ -25,8 +28,13 @@ class AccountDetailsCommand {
         this.phone = user.personalData?.telephone?:''
         this.phonePrefix = user.personalData?.phonePrefix?:''
         this.language = user.language
+        this.homeRegion = user.personalData?.province
     }
     KuorumUser user;
+    @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
+        RegionBinder.bindRegion(obj, "homeRegion", source)
+    })
+    Region homeRegion
     String name;
     String alias;
     String email;
@@ -37,16 +45,20 @@ class AccountDetailsCommand {
 
 
     static constraints = {
-        name nullable: false
+        importFrom KuorumUser, include:["alias"]
+        name nullable:false, maxSize: 17
         user nullable: false
         password nullable: false,  validator: {val, obj ->
             if (val && obj.user && !isPasswordValid(val, obj.user)){
                 return "notValid"
             }
         }
-        alias nullable: true, validator: {val, obj ->
+        alias nullable: false, validator: {val, obj ->
             if (val && obj.user && val != obj.user.alias && KuorumUser.findByAlias(val)){
                 return "unique"
+            }
+            if (!val && obj.user && obj.user.enabled){
+                return "nullable"
             }
         }
         email nullable: false, email:true, validator: {val, obj ->
@@ -57,6 +69,7 @@ class AccountDetailsCommand {
         language nullable:false
         phonePrefix nullable:true
         phone nullable: true
+        homeRegion nullable: true
     }
 
     private static Boolean isPasswordValid(String inputPassword, KuorumUser user){

@@ -17,18 +17,6 @@
 </fieldset>
 
 <fieldset class="row">
-    %{--<div class="form-group col-md-6">--}%
-        %{--<formUtil:selectNation command="${command}" field="country"/>--}%
-    %{--</div>--}%
-    %{--<div class="form-group col-md-6 postal">--}%
-        %{--<formUtil:input--}%
-                %{--command="${command}"--}%
-                %{--field="postalCode"--}%
-                %{--required="true"--}%
-                %{--maxlength="5"--}%
-                %{--showLabel="true"--}%
-        %{--/>--}%
-    %{--</div>--}%
     <div class="form-group col-xs-6">
         <formUtil:regionInput
                 command="${command}"

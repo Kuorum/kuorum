@@ -79,6 +79,7 @@
             $('#${formId}').find('[name="${parentField}[' + ${validationDataVarIndex} + '].${field}"]').rules('add', rule)
         }
         </g:each>
+        formHelper.dirtyFormControl.restart($('#${formId}'))
         prepareForms();
     }
 
@@ -94,6 +95,8 @@
         </g:each>
         // Remove element containing the fields
         $row.remove();
+        //Set form as dirty
+        formHelper.dirtyFormControl.dirty($('#${formId}'))
     }
 
     $('#${formId}')

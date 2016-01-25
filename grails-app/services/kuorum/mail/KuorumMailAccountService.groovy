@@ -45,7 +45,7 @@ class KuorumMailAccountService {
     }
 
     KuorumMailAccountDetailsRSDTO changeAliasAccount(String currentAlias, String newAlias){
-        KuorumMailAccountDetailsRSDTO account = getAccountDetails(currentAlias);
+        KuorumMailAccountDetailsRSDTO account = getAccountDetailsWithAlias(currentAlias);
         if (account){
             RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
             String path = buildUrl(ACCOUNT_INFO, [userAlias:currentAlias]);
@@ -63,10 +63,10 @@ class KuorumMailAccountService {
     }
 
     public KuorumMailAccountDetailsRSDTO getAccountDetails(KuorumUser user){
-        return getAccountDetails(user.alias)
+        return getAccountDetailsWithAlias(user.alias)
     }
 
-    public KuorumMailAccountDetailsRSDTO getAccountDetails(String userAlias){
+    public KuorumMailAccountDetailsRSDTO getAccountDetailsWithAlias(String userAlias){
         if (userAlias){
             RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
             String path = buildUrl(ACCOUNT_INFO, [userAlias:userAlias]);
@@ -87,29 +87,33 @@ class KuorumMailAccountService {
     }
 
     KuorumMailAccountDetailsRSDTO activateAccount(KuorumUser user){
-        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        String path = buildUrl(ACCOUNT_INFO, [userAlias:user.alias]);
-        def response = mailKuorumServices.put(
-                path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
-                query:[:],
-                requestContentType : groovyx.net.http.ContentType.JSON
-        )
-        KuorumMailAccountDetailsRSDTO account = new KuorumMailAccountDetailsRSDTO(response.data)
-        account
+        if (user.alias){
+            RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+            String path = buildUrl(ACCOUNT_INFO, [userAlias:user.alias]);
+            def response = mailKuorumServices.put(
+                    path: path,
+                    headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                    query:[:],
+                    requestContentType : groovyx.net.http.ContentType.JSON
+            )
+            KuorumMailAccountDetailsRSDTO account = new KuorumMailAccountDetailsRSDTO(response.data)
+            return account
+        }else{
+            return null;
+        }
     }
 
-    KuorumMailAccountDetailsRSDTO deleteAccount(KuorumUser user){
-        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        String path = buildUrl(ACCOUNT_INFO, [userAlias:user.alias]);
-        def response = mailKuorumServices.delete(
-                path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
-                query:[:],
-                requestContentType : groovyx.net.http.ContentType.JSON
-        )
-        KuorumMailAccountDetailsRSDTO account = new KuorumMailAccountDetailsRSDTO(response.data)
-        account
+    void deleteAccount(KuorumUser user){
+        if (user.alias){
+            RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+            String path = buildUrl(ACCOUNT_INFO, [userAlias:user.alias]);
+            def response = mailKuorumServices.delete(
+                    path: path,
+                    headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                    query:[:],
+                    requestContentType : groovyx.net.http.ContentType.JSON
+            )
+        }
     }
 
     private String buildUrl(String path, Map<String,String> params){

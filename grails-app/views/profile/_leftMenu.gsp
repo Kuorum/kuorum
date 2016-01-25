@@ -26,7 +26,7 @@
     <li class="${activeMapping=='profileSocialNetworks'?'active':''}">
         <g:link mapping="profileSocialNetworks"><g:message code="profile.menu.profileSocialNetworks"/></g:link>
     </li>
-    <sec:ifAnyGranted roles="ROLE_ADMIN">
+    <sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_POLITICIAN">
         <li class="${activeMapping=='profilePoliticianProfessionalDetails'?'active':''}">
             <g:link mapping="profilePoliticianProfessionalDetails"><g:message code="profile.menu.profilePoliticianProfessionalDetails"/></g:link>
         </li>
@@ -40,9 +40,9 @@
             <g:link mapping="profilePoliticianExperience"><g:message code="profile.menu.profilePoliticianExperience"/></g:link>
         </li>
     </sec:ifAnyGranted>
-    <li class="${activeMapping=='profileEditCommissions'?'active':''}">
-        <g:link mapping="profileEditCommissions"><g:message code="profile.menu.editCommissions"/></g:link>
-    </li>
+    %{--<li class="${activeMapping=='profileEditCommissions'?'active':''}">--}%
+        %{--<g:link mapping="profileEditCommissions"><g:message code="profile.menu.editCommissions"/></g:link>--}%
+    %{--</li>--}%
     <li class="${activeMapping=='profileEmailNotifications'?'active':''}">
         <g:link mapping="profileEmailNotifications"><g:message code="profile.menu.profileEmailNotifications"/></g:link>
     </li>

@@ -3,13 +3,7 @@
     <h4 class="box-ppal-section-title"><g:message code="kuorum.users.extendedPoliticianData.ProfessionalDetails.title"/> </h4>
     <fieldset class="row">
         <div class="form-group col-md-6">
-            <formUtil:input command="${command.professionalDetails}" field="position" showLabel="true" prefixFieldName="professionalDetails."/>
-        </div>
-        <div class="form-group col-md-6">
-            <formUtil:input command="${command.professionalDetails}" field="institution" showLabel="true" prefixFieldName="professionalDetails."/>
-        </div>
-        <div class="form-group col-md-6">
-            <formUtil:input command="${command.professionalDetails}" field="politicalParty" showLabel="true" prefixFieldName="professionalDetails." />
+            <formUtil:input command="${command}" field="institution" showLabel="true"/>
         </div>
     </fieldset>
 
@@ -67,10 +61,8 @@
 </div>
 <div class="box-ppal-section">
     <fieldset>
-        <div class="form-group">
-            <div class="col-xs-5 col-xs-offset-1">
-                <button type="submit" class="btn btn-default"><g:message code="admin.createUser.submit"/></button>
-            </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-default btn-lg"><g:message code="admin.createUser.submit"/></button>
         </div>
     </fieldset>
 </div>

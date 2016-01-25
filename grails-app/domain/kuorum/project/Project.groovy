@@ -33,6 +33,7 @@ class Project {
     Date dateCreated
     Boolean published = Boolean.FALSE
     Date publishDate
+    Date lastUpdated
     AcumulativeVotes peopleVotes = new AcumulativeVotes()
 
     //New fields for Project

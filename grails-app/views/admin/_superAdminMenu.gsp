@@ -13,11 +13,6 @@
         </g:link>
     </li>
 
-    <li class="${activeMapping=='adminCreateUser'?'active':''}">
-        <g:link mapping="adminCreateUser"><g:message code="admin.menu.createUser.link"/></g:link>
-    </li>
-
-
     <li class="${activeMapping=='adminSearcherIndex'?'active':''}">
         <g:link mapping="adminSearcherIndex"><g:message code="admin.menu.fullIndex.link"/></g:link>
     </li>

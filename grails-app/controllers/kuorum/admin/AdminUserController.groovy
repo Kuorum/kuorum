@@ -12,6 +12,7 @@ import kuorum.mail.KuorumMailAccountService
 import kuorum.users.*
 import kuorum.web.commands.admin.AdminUserCommand
 import kuorum.web.commands.admin.KuorumAccountCommand
+import kuorum.web.commands.profile.EditUserProfileCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 
@@ -24,59 +25,22 @@ class AdminUserController extends AdminController {
     RegionService regionService
     KuorumMailAccountService kuorumMailAccountService;
 
-    def createUser() {
-        [command:new AdminUserCommand(enabled:true), regions:regionService.findPoliticianRegions(), politicalParties:PoliticalParty.findAll()]
-    }
-
-    def saveUser(AdminUserCommand command){
-        if(KuorumUser.findByEmail(command.email)){
-            command.errors.rejectValue("email","kuorum.web.commands.admin.AdminUserCommand.email.notUnique")
-        }
-        if(KuorumUser.findByAlias(command.alias)){
-            command.errors.rejectValue("alias","kuorum.web.commands.admin.AdminUserCommand.alias.notUnique")
-        }
-        if (command.hasErrors()){
-            render view: 'createUser', model:[command:command, regions:regionService.findPoliticianRegions(), politicalParties:PoliticalParty.findAll()]
-            flash.error=message(code:'admin.createUser.error')
-            return
-        }
-        RoleUser roleUser = RoleUser.findByAuthority("ROLE_USER")
-        KuorumUser user = new KuorumUser()
-        user.authorities = [roleUser]
-        user = prepareUser(user, command)
-        user = kuorumUserService.createUser(user)
-        flash.message =message(code:'admin.createUser.success', args: [user.name])
-        redirect(mapping:'userShow', params:user.encodeAsLinkProperties())
-    }
-
     def editUser(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
-        AdminUserCommand command = prepareCommand(user)
-        List<Region> regions = regionService.findPoliticianRegions()
+        EditUserProfileCommand command = new EditUserProfileCommand(user)
         [user:user, command:command]
     }
 
-    def updateUser(AdminUserCommand command){
-        command.imageProfile = params['imageProfile'] // no se por que no lo esta mapeando
+    def updateUser(EditUserProfileCommand command){
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
-        KuorumUser testUser = KuorumUser.findByEmail(command.email);
-        if(testUser && testUser != user){
-            command.errors.rejectValue("email","kuorum.web.commands.admin.AdminUserCommand.email.notUnique")
-        }
-        if (command.alias){
-            testUser = KuorumUser.findByAlias(command.alias)
-            if(testUser && testUser != user){
-                command.errors.rejectValue("alias","kuorum.web.commands.admin.AdminUserCommand.alias.notUnique", [testUser.alias, testUser.name].toArray(),'Alias not unique')
-            }
-        }
         if (command.hasErrors()){
-            render view: 'editUser', model:[user:user,command:command, regions:regionService.findPoliticianRegions(), politicalParties: PoliticalParty.findAll()]
-            flash.error=message(code:'admin.createUser.error')
+            render view:"editUser", model: [command:command,user:user]
             return
         }
-        user = prepareUser(user, command)
-        kuorumUserService.updateUser(user)
 
+        ProfileController.prepareUserEditProfile(user,command) //Chapu for generic process
+        ProfileController.prepareUserImages(user,command, fileService)//Chapu for generic process
+        kuorumUserService.updateUser(user)
         flash.message =message(code:'admin.editUser.success', args: [user.name])
         redirect(mapping:'userShow', params:user.encodeAsLinkProperties())
     }
@@ -100,7 +64,6 @@ class AdminUserController extends AdminController {
             personalData.year = command.year
         }
         personalData.gender = command.gender
-        personalData.postalCode = command.postalCode
         personalData.provinceCode = command.homeRegion.iso3166_2
         personalData.country = regionService.findCountry(command.homeRegion)
         personalData.province = command.homeRegion
@@ -154,19 +117,12 @@ class AdminUserController extends AdminController {
             command.politicianOnRegion = user?.professionalDetails?.region?:null;
             command.constituency = user?.professionalDetails?.constituency?:null;
         }
-        command.year =  user.personalData?.year
         command.gender = user.personalData.gender
-//        command.country = user.personalData.country
-        command.postalCode = user.personalData.postalCode
-        command.homeRegion = user.personalData.province
-//        command.province = user.personalData.province
         command.email = user.email
-        command.alias = user.alias
         command.verified = user.verified
         command.enabled = user.enabled
         command.userType = user.userType
         command.bio = user.bio
-        command.name = user.name
         command.password = user.password
         command.photoId = user.avatar?.id
         command.imageProfile = user.imageProfile?.id
@@ -184,14 +140,14 @@ class AdminUserController extends AdminController {
 
     def updateAdminAccountDetails(KuorumAccountCommand command){
         if (command.hasErrors()){
-            render view: 'editKuorumEmailAccount', model:[command:command, user:command.user]
             flash.error=message(code:'admin.createUser.error')
+            render view: 'editAdminAccountDetails', model:[command:command, user:command.user]
             return
         }
         KuorumUser updatedUser = kuorumUserService.updateAlias(command.user, command.alias)
         if (!updatedUser){
             flash.error = g.message(code:'kuorum.web.commands.profile.AccountDetailsCommand.logic.aliasError')
-            flash.error=message(code:'admin.createUser.error')
+            render view: 'editAdminAccountDetails', model:[command:command, user:command.user]
             return
         }
         if (command.emailAccountActive){
@@ -209,7 +165,7 @@ class AdminUserController extends AdminController {
         updatedUser.personalData.telephone = command.phone
         updatedUser.userType = command.userType
         updatedUser.personalData.userType = command.userType
-        updatedUser.enabled = command.active
+        updatedUser.enabled = command.active?:false
         updatedUser = kuorumUserService.updateUser(updatedUser);
 
         flash.message =message(code:'admin.editUser.success', args: [updatedUser.name])
