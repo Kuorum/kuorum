@@ -1,7 +1,7 @@
 <section role="complementary">
     <div class="row">
         <div class="col-md-5 col-lg-6">
-            <h1>Discover how pioneers are shaping politics of the future with Kuorum.</h1>
+            <h1><g:message code="landingPage.pressKit.title"/> </h1>
         </div>
 
         <div class="col-md-7 col-lg-6">
@@ -12,7 +12,7 @@
                         <input type="email" name="email-press" class="form-control input-lg" id="email-press" required placeholder="Email" aria-required="true">
                     </div>
                     <!-- para el botón, lo que prefieras, <button> o <input>-->
-                    <button type="submit" class="btn btn-blue btn-lg">Download press kit</button>
+                    <button type="submit" class="btn btn-blue btn-lg"><g:message code="landingPage.pressKit.download"/></button>
                     <!--                        <input type="submit" class="btn" value="Download press kit">-->
                 </fieldset>
             </form>
