@@ -20,12 +20,12 @@
         <div class="box-ppal-section">
             <fieldset class="row">
                 <div class="form-group col-md-6">
-                    <formUtil:input type="password" command="${command}" field="password" showLabel="true"/>
+                    <formUtil:password command="${command}" field="password" required="true" showLabel="true"/>
                 </div>
             </fieldset>
             <fieldset class="row">
                 <div class="form-group col-md-6">
-                    <formUtil:input type="password" command="${command}" field="password2" showLabel="true"/>
+                    <formUtil:password command="${command}" field="password2" required="true" showLabel="true"/>
                 </div>
             </fieldset>
         </div>

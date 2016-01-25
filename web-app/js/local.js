@@ -274,16 +274,14 @@ $(document).ready(function() {
     });
 
 
-    // mostrar/ocultar pass en formulario de Entrar
-    $('#show-pass-header').on('change', function () {
-        $('#pass-header').hideShowPassword($(this).prop('checked'));
+    // mostrar/ocultar pass en formulario de password
+    $('.show-hide-pass').on('change', function () {
+        var div_parent  = $(this).closest('div');
+        var input_id    = div_parent.children('input:first').attr('id');
+
+        $('#'+input_id).hideShowPassword($(this).prop('checked'));
     });
-    $('#show-pass-modal').on('change', function () {
-        $('#pass-modal').hideShowPassword($(this).prop('checked'));
-    });
-    $('#show-pass-home').on('change', function () {
-        $('#pass-home').hideShowPassword($(this).prop('checked'));
-    });
+
 
     // inicializa formato fechas
     $("time.timeago").timeago();

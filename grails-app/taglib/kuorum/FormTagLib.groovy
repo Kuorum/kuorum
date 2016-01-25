@@ -175,7 +175,7 @@ class FormTagLib {
                 <div class="input-append input-group">
                     <input type="password" required aria-required="true" id="${id}" name="${field}" class="form-control input-lg" placeholder="${g.message(code:"login.email.form.password.label")}" value="" data-ays-ignore="true">
                     <span tabindex="100" class="add-on input-group-addon">
-                        <label><input type="checkbox" name="show-${id}" id="show-${id}" data-ays-ignore="true">${message(code:'login.email.form.password.show')}</label>
+                        <label><input type="checkbox" name="show-${id}" class="show-hide-pass" id="show-${id}" data-ays-ignore="true">${message(code:'login.email.form.password.show')}</label>
                     </span>
                 </div>
             """
