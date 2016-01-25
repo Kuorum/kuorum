@@ -1,9 +1,12 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.login"/> </title>
-    <meta name="layout" content="register2ColumnsLayout">
+    <meta name="layout" content="register1ColumnLayout">
 </head>
 
+<content tag="title">
+    <g:message code="register.head.login"/>
+</content>
 <content tag="mainContent">
     <form id="login" role="form" action='${postUrl}' method='POST' class="login">
         <div class="form-group">
@@ -35,11 +38,5 @@
         })();
     </script>
     <g:render template="/register/registerSocial"/>
-</content>
-
-
-<content tag="description">
-    <h1><g:message code="login.description.title"/></h1>
-    <h2><g:message code="login.description.p1"/></h2>
 </content>
 
