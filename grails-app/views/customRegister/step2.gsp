@@ -58,13 +58,24 @@
 
         <div class="form-group">
             <label><g:message code="customRegister.step2.choseUserType.label"/> </label>
-            <input type="submit" value="${g.message(code:'customRegister.step2.choseUserType.politician')}" class="btn btn-lg">
-            <input type="submit" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">
+            <input type="hidden" name="userType" value="${kuorum.core.model.UserType.PERSON}"/>
+            <input type="submit" id="submitPolitician" value="${g.message(code:'customRegister.step2.choseUserType.politician')}" class="btn btn-lg">
+            <input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">
         </div>
     </g:form>
     <script>
         $(document).ready(function() {
-            $('input[name=name]').focus();
+            $('input[name=alias]').focus();
+            $('#submitPolitician').on("click", function(e){
+                e.preventDefault()
+                $('input[name=userType]').val("${kuorum.core.model.UserType.POLITICIAN}")
+                $(this).parents("form").submit()
+            })
+            $('#submitCitizen').on("click", function(e){
+                e.preventDefault()
+                $('input[name=userType]').val("${kuorum.core.model.UserType.PERSON}")
+                $(this).parents("form").submit()
+            })
         });
     </script>
 </content>

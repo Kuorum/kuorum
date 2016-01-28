@@ -2,6 +2,7 @@ package kuorum.web.commands.customRegister
 
 import grails.validation.Validateable
 import kuorum.core.model.AvailableLanguage
+import kuorum.core.model.UserType
 
 /**
  * Commands for the steps after the first login
@@ -15,11 +16,13 @@ class Step2Command {
     AvailableLanguage language;
     String phonePrefix;
     String phone;
+    UserType userType;
     static constraints = {
         alias nullable:false, unique:true, maxSize: 15
         password nullable:false;
         language nullable:false;
         phonePrefix nullable:true
         phone nullable:true
+        userType nullable:false;
     }
 }
