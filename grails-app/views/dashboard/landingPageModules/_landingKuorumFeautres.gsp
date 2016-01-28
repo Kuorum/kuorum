@@ -3,7 +3,7 @@
 
     <div class="row">
         <ul class="saveTime">
-            <li class="col-sm-6 col-md-3">
+            <li class="col-sm-5 col-md-3">
                 <a href="#">
                     <img src="${resource(dir: 'images', file: 'dashboard.gif')}" alt="${g.message(code:'landingPage.features.socialAnalytics.title')}">
                 </a>
@@ -13,7 +13,7 @@
                     <g:message code="landingPage.features.socialAnalytics.learnMore" encodeAs="raw"/> <span class="fa fa-angle-right"></span>
                 </a>
             </li>
-            <li class="col-sm-6 col-md-3">
+            <li class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-0">
                 <a href="#">
                     <img src="${resource(dir: 'images', file: 'semantic.gif')}" alt="${g.message(code:'landingPage.features.semanticAnalytics.title')}">
                 </a>
@@ -23,7 +23,7 @@
                     <g:message code="landingPage.features.semanticAnalytics.learnMore" encodeAs="raw"/> <span class="fa fa-angle-right"></span>
                 </a>
             </li>
-            <li class="col-sm-6 col-md-3">
+            <li class="col-sm-5 col-md-3">
                 <a href="#">
                     <img src="${resource(dir: 'images', file: 'organizer.gif')}" alt="${g.message(code:'landingPage.features.massMailing.title')}">
                 </a>
@@ -33,7 +33,7 @@
                     <g:message code="landingPage.features.massMailing.learnMore" encodeAs="raw"/> <span class="fa fa-angle-right"></span>
                 </a>
             </li>
-            <li class="col-sm-6 col-md-3">
+            <li class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-0">
                 <a href="#">
                     <img src="${resource(dir: 'images', file: 'docman.gif')}" alt="${g.message(code:'landingPage.features.teamManagement.title')}">
                 </a>
