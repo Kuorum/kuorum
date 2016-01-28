@@ -259,7 +259,7 @@ a:focus {color: #ff9431;}
     }
 }
 #main.home {margin: 0 0 40px 0; padding: 0;}
-#main.home, .full-video {min-height: 495px;}
+#main.home, #main.home .full-video {min-height: 495px;}
 .navbar-fixed-top {border-bottom: solid 1px #e5e5e5;}
 #header h1 {margin: 4px 0 0 5px;}
 .navbar-nav .user-area .user-img {width: 25px; height: 25px; margin: 0;}
@@ -274,7 +274,7 @@ a:focus {color: #ff9431;}
 .navbar {
     font-size: 15px;
     font-size: 1.5rem;
-    padding: 6px 0 0;
+    padding: 9px 0 0;
     margin: 0;
     background-color: #fff;
 }
@@ -328,9 +328,9 @@ header.landing .nav > li > .navbar-link.btn-transparent:focus,
 header.landing .nav > li > .navbar-link.btn-transparent.active {background-color: #545454 !important; color: #fff !important; font-weight: normal;}
 
 header.landing.transp .nav > li > .navbar-link.btn-transparent:hover,
-header.landing.transp .nav > li > .navbar-link.btn-transparent:focus {background-color: #000 !important;}
+header.landing.transp .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #545454 !important;}
 
-header.landing .nav > li > .navbar-link.active {font-weight: bold;}
+header.landing .nav > li > .navbar-link.active {font-weight: bold; cursor: default; pointer-events: none;}
 
 header.landing .nav > li > .navbar-link.active:hover,
 header.landing .nav > li > .navbar-link.active:focus {text-decoration: none;}
@@ -1331,21 +1331,27 @@ video#bgvid {
 
 /* NUEVOS ESTILOS LANDING 2016 */
 /* vídeo */
-#main.landing {padding: 0; color: #fff;}
-#main.landing .full-video {padding: 0; background: url('../images/background.png') no-repeat center center; background-size: 1360px auto;}
-#main.landing .full-video video#bgvid {background-image: url('../images/background.png');}
+#main.landing {padding: 0; color: #fff; min-height: 0;}
+#main.landing .full-video {padding: 0; background-image: url('../images/background.png');}
+#main.landing .full-video video#bgvid {
+    background-image: url('../images/background.png');
+    background-size: 100% auto;
+    width: 100%;
+    min-height: none;
+    min-width: none;
+}
 #main.landing .full-video h1,
-#main.landing .full-video h2 {font-family: Arial,Helvetica,sans-serif; font-weight: bold;}
-#main.landing .full-video h1 {font-size: 34px;}
+#main.landing .full-video h2 {font-family: Arial,Helvetica,sans-serif;}
+#main.landing .full-video h1 {font-size: 34px; margin-top: 70px; font-weight: bold;}
 #main.landing .full-video h2 {margin-top: 12px; margin-bottom: 25px;}
 #main.landing .full-video h2,
-#main.landing .full-video .btn.btn-white {font-size: 25px;}
+#main.landing .full-video .btn.btn-white {font-size: 16px;}
 #main.landing .full-video .btn.btn-white {font-weight: bold; border: none; background-color: rgba(255,255,255,.4) !important; color: #fff !important; margin: 0 0 34px 0; padding: 6px 42px !important;}
 #main.landing .full-video .btn.btn-white:hover,
 #main.landing .full-video .btn.btn-white:focus {background-color: rgba(255,255,255,.8) !important;}
-#main.landing .full-video .container-fluid {text-align: center; margin-top: 55px;}
+#main.landing .full-video .container-fluid {text-align: center; margin-top: 0;}
 #main.landing .full-video .container-fluid form {width: 100%; max-width: 1010px; margin: 0 auto;}
-#main.landing .full-video .container-fluid form fieldset {background-color: rgba(0,0,0,.4); padding: 10px; margin-bottom: 8px;}
+#main.landing .full-video .container-fluid form fieldset {background-color: rgba(0,0,0,.4); padding: 20px; margin-bottom: 8px;}
 #main.landing .full-video .container-fluid form fieldset + p {color: #c6c6c6;}
 #main.landing .full-video .container-fluid form fieldset + p a {color: #fff;}
 #main.landing .full-video .container-fluid .form-inline .form-group {width: 100%;}
@@ -1353,7 +1359,23 @@ video#bgvid {
 #main.landing .full-video .container-fluid form .form-control:-ms-input-placeholder{color:#a8a8a8}
 #main.landing .full-video .container-fluid form .form-control::-webkit-input-placeholder{color:#a8a8a8}
 #main.landing .full-video .container-fluid form input.input-lg {font-size: 14px; font-size: 1.4rem; height: 48px; width: 100%; max-width: 250px; margin: 0 auto;}
-#main.landing .full-video .container-fluid form .btn {font-size: 21px; font-size: 2.1rem; font-family: Arial,Helvetica,sans-serif; padding: 9px 35px !important; margin: 0;}
+#main.landing .full-video .container-fluid form .btn {font-size: 21px; font-size: 2.1rem; font-family: Arial,Helvetica,sans-serif; padding: 9px 28px !important; margin: 0;}
+
+/* search */
+#main.landing.search .full-video {padding: 0; background-image: url('../images/background-search.jpg'); background-position: center 0;} 
+#main.landing.no-results h1 {background: url(../images/alert.jpg) 0 0 no-repeat transparent;}
+.landing.editors .full-video {padding: 0; background-image: url('../images/background-search2.jpg'); background-position: center 0; text-align: center; color: #fff;}
+.landing.editors .full-video h1 {font-size: 33px; font-size: 3.3rem; padding-left: 30%;}
+
+#main.landing.search .full-video .container-fluid .form-inline.searchRep .form-group {width: calc(100% - 294px); margin-right: 0;}
+#main.landing.search .full-video .container-fluid .form-inline.searchRep .form-group input {width: 100%; line-height: 48px; height: 48px;}
+#main.landing.search .full-video .container-fluid .form-inline.searchRep .btn {width: 290px; margin-left: -10px; border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important;}
+
+.main.special.noResults::after {content: ""; display: block; width: 0; height: 0; border-style: solid; border-width: 74px 150px 0 150px; border-color: #ffffff transparent transparent transparent;}
+.main.special .no-results {text-align: center;}
+.main.special .no-results h1 {padding: 35px 0 35px 20px; background: url(../images/alert.jpg) 0 center no-repeat transparent; background-size: 120px auto; }
+
+
 
 /* PARA EL QUIERO TRASTEAR MÁS DEL DASHBOARD */
 #trasteando {padding: 0 0 40px; color: #a8a8a8;}
@@ -1861,7 +1883,8 @@ textarea.error,
 .sign.purchase h2 {font-size: 16px; font-size: 1.6rem;}
 
 /* entrar /registro landing */
-.landing + .row.main .onecol #main {margin-top: 20px; text-align: center;}
+.landing + .row.main .onecol #main {text-align: center;}
+.landing + .row.main .onecol #main h1 {margin-bottom: 25px;}
 .landing + .row.main .onecol .login,
 .landing + .row.main .onecol .socialGo {width: 100%; max-width: 380px; margin: 0 auto 30px; }
 .landing + .row.main .onecol .login {background-color: rgba(0,0,0,.4); padding: 15px 25px 25px 25px;}
@@ -1873,6 +1896,29 @@ textarea.error,
 .landing + .row.main .onecol .socialGo .btn {width: 155px;}
 .landing + .row.main .onecol .socialGo li {margin: 10px;}
 .landing + .row.main .onecol .login .form-group:last-child {color: #c6c6c6;}
+
+/* Sign in - Sign up */
+.onecol #main .stepsSign {font-size: 24px; font-size: 2.4rem; line-height: 30px; color: #fff; margin: 40px 0 30px; padding: 0;} 
+.onecol #main .stepsSign li {position: relative; list-style: none; display: inline-block; width: 36px; height: 36px; line-height: 36px; border-radius: 18px; background-color: rgba(255,148,49,.5); margin: 0 27px; font-family: 'League Gothic',Arial,sans-serif; font-size: 24px; font-weight: normal;}
+.onecol #main .stepsSign li::before {content:""; display: block; width: 38px; height: 2px; background-color: rgba(255,148,49,.5); position: absolute; left: -45px; top: 18px;}
+.onecol #main .stepsSign li:last-child::after {content:""; display: block; width: 38px; height: 2px; background-color: rgba(255,148,49,.5); position: absolute; right: -45px; top: 18px;}
+.onecol #main .stepsSign li.active,
+.onecol #main .stepsSign li.active::before {background-color: rgba(0,0,0,.2);}
+.onecol #main .stepsSign li.active::after {content:""; display: block; width: 38px; height: 2px; background-color: rgba(0,0,0,.2); position: absolute; right: -45px; top: 18px;}
+
+.onecol #main .signup {font-size: 17px; font-size: 1.7rem; text-align: left; max-width: 320px; margin: 0 auto;}
+.onecol #main .signup .input-group-addon {background-color: #f3f3f3;}
+.onecol #main .signup > fieldset + fieldset {margin-top: -20px;}
+.onecol #main .signup .prefix {margin-right: 12px; width: 80px;}
+.onecol #main .signup .phone {width: calc(100% - 92px);}
+.onecol #main .signup .phone + .help-block {float: left;}
+.onecol #main .signup > .form-group:last-child {text-align: center; width: 100%; max-width: 205px; margin: 25px auto 0;}
+.onecol #main .signup > .form-group:last-child label {display: block; margin-bottom: 10px;}
+.onecol #main .signup > .form-group:last-child .btn.btn-lg {margin-bottom: 10px; font-weight: normal; width: 100%;}
+
+.onecol #main .signup.final {background: url(../images/screen.png) center 135px no-repeat transparent; background-size: 285px auto; text-align: center;}
+.onecol #main .signup.final h3 {font-size: 21px; font-size: 2.1rem; margin-bottom: 250px; padding: 0 5%; line-height: 1.4;}
+
 
 .container-fluid.onecol {max-width: 910px;}
 .onecol a {color: #ff9431;}
@@ -2717,16 +2763,32 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub .link-wrapper .popover-trigger {font-size: 12px; font-size: 1.2rem;}
 
 .main.special.landing .homeSub.logos {text-align: center;}
-.main.special.landing .homeSub.logos a.open {font-size: 25px; font-family: Arial, Helvetica, sans-serif; margin: 20px 0 40px; color: #fff; display: inline-block;}
-.main.special.landing .homeSub.logos a.open + ul,
-.main.special.landing .homeSub.logos a.open + ul li,
-.main.special.landing .homeSub.logos a.open + ul li img {opacity: 0; height: 0; transition: all .5s ease-in-out;}
-.main.special.landing .homeSub.logos a.open + ul li {margin: 0;}
+.main.special.landing .homeSub.logos .openLogos,
+.main.special.landing .homeSub.logos .closeLogos {font-size: 25px; font-family: Arial, Helvetica, sans-serif; margin: 0; color: #fff; display: inline-block; cursor: pointer;}
 
-.main.special.landing .homeSub.logos.opened a.open + ul,
-.main.special.landing .homeSub.logos.opened a.open + ul li,
-.main.special.landing .homeSub.logos.opened a.open + ul li img {opacity: 1; height: auto;}
-.main.special.landing .homeSub.logos.opened a.open + ul li {margin: 20px 0;}
+.main.special.landing .homeSub.logos .openLogos:hover,
+.main.special.landing .homeSub.logos .openLogos:focus,
+.main.special.landing .homeSub.logos .closeLogos:hover,
+.main.special.landing .homeSub.logos .closeLogos:focus {text-decoration: underline;}
+
+.main.special.landing .homeSub.logos .openLogos.on {margin: 20px 0 40px;}
+.main.special.landing .homeSub.logos .openLogos + ul,
+.main.special.landing .homeSub.logos .openLogos + ul li,
+.main.special.landing .homeSub.logos .openLogos + ul li img,
+.main.special.landing .homeSub.logos .closeLogos,
+.main.special.landing .homeSub.logos .openLogos {opacity: 0; height: 0; transition: all .5s ease-in-out;}
+
+.main.special.landing .homeSub.logos .openLogos + ul li {margin: 0;}
+
+.main.special.landing .homeSub.logos.opened .openLogos + ul,
+.main.special.landing .homeSub.logos.opened .openLogos + ul li,
+.main.special.landing .homeSub.logos.opened .openLogos + ul li img,
+.main.special.landing .homeSub.logos.opened .openLogos + ul + .close,
+.main.special.landing .homeSub.logos .openLogos.on,
+.main.special.landing .homeSub.logos .closeLogos.on {opacity: 1; height: auto;}
+.main.special.landing .homeSub.logos .closeLogos.on {margin-top: 20px;}
+.main.special.landing .homeSub.logos.opened .openLogos + ul li {margin: 20px 0;}
+
 
 .homeSub > .row > h1, .homeSub > h1 { border-bottom: 1px solid #e5e5e5; }
 .main.special.landing .homeSub h1 { border-bottom: 1px solid rgba(255,255,255,.2); }
@@ -2735,7 +2797,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub > .row > h1, .homeSub > h1 {font-size: 26px; font-size: 2.6rem; max-width: 650px; margin: 0 auto 10px; text-align: center; padding-bottom: 18px;}
 .main.special.landing .homeSub ul {padding: 0; margin: 0; list-style: none;}
 .main.special.landing .homeSub ul li {width: 100%; list-style: none; float: left; text-align: center; margin: 20px 0;}
-.main.special.landing .homeSub ul li img {width: 145px;}
+.main.special.landing .homeSub ul li img {max-width: 145px;}
+.main.special.landing .homeSub ul li.square img {max-width: 105px;}
 
 .main.special.profile .homeSub { min-height: 422px; background: url("../images/screens-trans.png") no-repeat scroll center 165px; background-size: 100%;}
 .main.special.profile .btn.btn-lg {
@@ -2750,7 +2813,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 #saveTime {margin: 0;}
 .saveTime {padding: 0 0 20px;}
-.saveTime, .saveTime li {list-style: none; text-align: center;}
+.saveTime, .saveTime li {list-style: none; text-align: center; margin-bottom: 20px;}
 .saveTime li h2 {font-size: 25px; font-size: 2.5rem; font-family: Arial, Helvetica, sans-serif; color: #ff9431; padding: 0; margin-bottom: 15px;}
 .saveTime li > a img {max-width: 385px;}
 .saveTime li > a:first-child {display: block; position: relative;}
@@ -2775,15 +2838,18 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .testimonies-list li:nth-child(even) footer,
 .testimonies-list li:nth-child(even) .body {float: right;}
 .testimonies-list li blockquote {padding: 0; margin: 0; position: relative;}
+.testimonies-list li:first-child blockquote footer {margin-top: -25px;}
 .testimonies-list li blockquote footer,
 .testimonies-list li blockquote .body {text-align: center; color: #fff;}
 .testimonies-list li blockquote footer cite {margin-bottom: 0;}
 .testimonies-list li blockquote .body {padding: 20px;}
 .testimonies-list li blockquote .body p {font-size: 25px; font-size: 2.5rem; margin-bottom: 15px; line-height: 1.2;}
-.testimonies-list li blockquote .body p:last-child {font-size: 18px; font-size: 1.8rem; margin: 0;}
+.testimonies-list li blockquote .body p:last-child {font-size: 22px; font-size: 2.2rem; margin: 0;}
+.testimonies-list li blockquote footer::after,
 .testimonies-list li blockquote footer::before {
     content: "";
 }
+.testimonies-list li blockquote .body p:last-child small {display: inline; color: #fff; font-size: 75%;}
 
 /* politician-card-sm */
 .politician-list {margin: 0; padding: 0; list-style: none;}
@@ -3725,9 +3791,9 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     
     /* LANDING */
     .main.special.landing .homeSub ul li {width: 50%; height: 110px; line-height: 110px; margin-bottom: 45px;}
-    .main.special.landing .homeSub.logos a.open {margin-bottom: 60px;}
-    .main.special.landing .homeSub.logos.opened a.open + ul {opacity: 1; height: auto;}
-    .main.special.landing .homeSub.logos.opened a.open + ul li {opacity: 1; height: 110px; margin-bottom: 45px;}
+    .main.special.landing .homeSub.logos .openLogos.on {margin-bottom: 60px;}
+    .main.special.landing .homeSub.logos.opened .openLogos + ul {opacity: 1; height: auto;}
+    .main.special.landing .homeSub.logos.opened .openLogos + ul li {opacity: 1; height: 110px; margin-bottom: 45px;}
     .main.special.profile .homeSub { min-height: 420px; background-position: center 170px; background-size: 420px auto;}
     .landing + .row.main .onecol .login .btn.btn-lg {margin-right: 20px;}
 
@@ -4047,14 +4113,17 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .condition .user-list-followers  > li:nth-child(2n) {float: right;}
 
     /* LANDING */
-    #main.landing .full-video .container-fluid {margin-top: 185px;}
-    #main.landing .full-video h1 {font-size: 67px;}
+/*    #main.landing .full-video .container-fluid {margin-top: 185px;}*/
+    #main.landing .full-video h1 {font-size: 47px; margin-top: 10%;}
+    #main.landing .full-video .container-fluid form {margin-bottom: 7%;}
     #main.landing .full-video .container-fluid form fieldset {padding: 25px;}
     #main.landing .full-video .container-fluid .form-inline .form-group {margin-right: 2.5%; width: 28%;}
     #main.landing .full-video .container-fluid form input.input-lg {max-width: none;}
-    #main.landing .full-video .btn.btn-white {margin-bottom: 68px;}
+    #main.landing .full-video .btn.btn-white {margin-bottom: 22px;}
+/*
     #main.landing .full-video,
     #main.landing {height: 715px;}
+*/
     .main.special.landing .homeSub h1,
     .homeSub > .row > h1, .homeSub > h1 {font-size: 34px; font-size: 3.4rem; margin-bottom: 54px;}
     #saveTime {margin-bottom: 40px;}
@@ -4062,8 +4131,10 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .testimonies-list li blockquote footer,
     .testimonies-list li blockquote .body {width: 50%; float: left;}
     .testimonies-list li blockquote .body {color: #fff; padding: 20px 10px;}
+/*
     .testimonies-list li blockquote .body p {font-size: 24px; font-size: 2.4rem; margin-bottom: 30px;}
     .testimonies-list li blockquote .body p:last-child {font-size: 16px; font-size: 1.6rem;}
+*/
     .row.main.presskit {background-position: center -190px;}
     .row.main.presskit section {padding: 60px 0;}
     .row.main.presskit h1 {font-size: 27px; font-size: 2.7rem; margin: 0; line-height: 1.6;}
@@ -4071,6 +4142,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .row.main.presskit form {width: auto; max-width: none; margin-top: 25px;}
     .row.main.presskit .btn.btn-lg {width: auto; display: inline-block;}
     .main.special.profile .homeSub { min-height: 480px; background-position: center 210px; background-size: 420px auto;}
+    .landing + .row.main .onecol #main {margin-top: 20px;}
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -4082,10 +4154,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .config .politician-list > li:nth-child(even) {margin-right: 0;}
     .config .kakareo-list.project .kakareo.post.ley .link-wrapper {height: 410px;}
     .config .kakareo-list.project .kakareo.post footer {position: absolute;}
-
     .config.search > article > .clearfix > h1 {width: 70%; float: left;}
     .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
-
     .form-group.image {height: 400px;}
     /*  #otros-proyectos .kakareo.post > .link-wrapper,
       .homeSub .kakareo-list.project .kakareo.post > .link-wrapper,
@@ -4093,7 +4163,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     #otros-proyectos .kakareo.post > .link-wrapper p,
     .homeSub .kakareo-list.project .kakareo.post > .link-wrapper p,
     .kakareo-list.project .kakareo.post > .link-wrapper p {height: 92px; overflow: hidden; margin-bottom: 10px;}
-
     #otras-propuestas .kakareo > .link-wrapper,
     .homeSub .kakareo-list .kakareo > .link-wrapper {/*height: 182px; */padding: 15px 15px 0 15px;}
     #otras-propuestas .kakareo-list > li h1,
@@ -4109,7 +4178,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     }
     .politician-list .box-ppal > small {float: none; position: absolute; bottom: 0; left: 0;}
     .politician-list .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}
-
     .config .icheckbox_line-orange,
     .config .iradio_line-orange {margin: 0 7px 7px 0;}
     .boxes.vote.drive .btn.btn-lg {font-size: 18px !important; font-size: 1.8rem !important; padding-left: 55px !important;}
@@ -4151,7 +4219,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .embudo #aside-ppal .border {width: 80%; margin: 0;}
     .embudo #aside-ppal {background: url('../images/recorte-dwn.png'), url('../images/recorte-rgt.png'); background-color: #f0f0f0; background-repeat: repeat-x, repeat-y; background-position: left bottom, right top; padding-top: 40px;}
 
-    .help-block {margin: 5px 0 0 0;}
+    .help-block {margin: 8px 0 0 0;}
     .icheckbox_line-orange,
     .iradio_line-orange {margin-right: 8px; margin-bottom: 8px;}
     .no-phone .form-group:nth-child(2) {width: 29%;}
@@ -4329,6 +4397,14 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .row.main.presskit h1 { font-size: 2.2rem; line-height: 1.2;}
     .row.main.presskit form { margin: 0; }
     .main.special.profile .homeSub { min-height: 520px; background-position: center 220px; background-size: 498px auto;}
+        
+    #main.landing .full-video h1 {font-size: 67px;}
+    #main.landing .full-video h2,
+    #main.landing .full-video .btn.btn-white {font-size: 25px;}
+    #main.landing .full-video .btn.btn-white {margin-bottom: 68px;}
+    .onecol #main .signup {max-width: 680px;}
+    .onecol #main .signup.final {background-position: center 90px;}
+    .onecol #main .signup.final h3 {margin-bottom: 280px;}
     
 }
 
@@ -4341,6 +4417,14 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .testimonies-list li {height: 188px;}
     .testimonies-list li blockquote .body {padding: 30px 20px;}
     .row.main.presskit { background-position: center -240px; }
+    
+    #main.landing .full-video h1 {margin-top: 16%;}
+    #main.landing .full-video .container-fluid form {margin-bottom: 2.5%;}
+    
+    .saveTime, .saveTime li {padding: 0 30px;}
+    .saveTime li p {font-size: 18px; font-size: 1.8rem;}
+    .saveTime li h2 {font-size: 20px; font-size: 2rem;}
+
 }
 
 @media only screen and (min-width: 1152px) {
@@ -4455,17 +4539,28 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .boxes.info .kakareo footer .info-kak > li {font-size: 14px; font-size: 1.4rem;}
     .boxes.info .kakareo footer .voting ul li {margin: 0 0 0 8px;}
     
-    .testimonies-list li blockquote .body {color: #fff; padding: 40px 30px 0;}
+    .testimonies-list li blockquote .body {color: #fff; padding: 40px 110px 0;}
+    .testimonies-list li blockquote .body p {margin-bottom: 45px;}
+/*
     .testimonies-list li blockquote .body p {font-size: 33px; font-size: 3.3rem; margin-bottom: 45px;}
     .testimonies-list li blockquote .body p:last-child {font-size: 24px; font-size: 2.4rem;}
+*/
     .testimonies-list li {height: 240px;}
     .row.main.presskit { background-position: center -300px; }
     .row.main.presskit h1 {font-size: 2.7rem; line-height: 1.6;}
     .row.main.presskit form {margin: 20px 0 0;}
+    
+    #main.landing .full-video h1 {margin-top: 15%;}
+    #main.landing .full-video .container-fluid form {margin-bottom: 9.2%;}
 
     
 }
-/*.sign.home .social-home-container .btn.btn-lg {font-size: 1.6rem; padding: 14px;}*/
+@media only screen and (min-width: 1280px) {
+    #main.landing .full-video h1 {margin-top: 17%;}
+}
+@media only screen and (min-width: 1366px) {
+    #main.landing .full-video .container-fluid form {margin-bottom: 11%;}
+}
 
 /* Retina ready images */
 @media  only screen and (-webkit-min-device-pixel-ratio: 1.5),

@@ -7,13 +7,13 @@ import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
 import kuorum.users.KuorumUser
 import kuorum.users.ProfileController
+import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.profile.PersonalDataCommand
 import kuorum.web.commands.profile.UserRegionCommand
 
 class CustomRegisterController extends  ProfileController{
 
     DashboardService dashboardService
-
     def afterInterceptor = {}
 
 //    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED'])
@@ -85,5 +85,13 @@ class CustomRegisterController extends  ProfileController{
         redirect mapping: 'home'
     }
 
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def step2(){
+        KuorumUser user = springSecurityService.currentUser
+        [command:new Step2Command(language: user.language)]
+    }
+    def step2Save(){
+        render "Not done yet"
+    }
 
 }

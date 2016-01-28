@@ -8,6 +8,7 @@
     <body>
 
         <g:render template="/layouts/headNoLogged"/>
+        <!-- IMPORTANTE este div debe estar justo después del header; no poner nada entre ellos -->
         <div class="row main">
             <div class="container-fluid onecol">
                 <section id="main" role="main" class="homeSub">

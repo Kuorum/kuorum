@@ -1,22 +1,25 @@
 package kuorum.web.commands.customRegister
 
 import grails.validation.Validateable
-import kuorum.core.model.EnterpriseSector
-import kuorum.core.model.Studies
-import kuorum.core.model.WorkingSector
+import kuorum.core.model.AvailableLanguage
 
 /**
- * Created by iduetxe on 17/03/14.
+ * Commands for the steps after the first login
+ * This is for second step
  */
 @Validateable
-@Deprecated
 class Step2Command {
-    String photoId
-    WorkingSector workingSector
-    Studies studies
-    EnterpriseSector enterpriseSector
-    String bio
-    static constraints = {
 
+    String alias
+    String password;
+    AvailableLanguage language;
+    String phonePrefix;
+    String phone;
+    static constraints = {
+        alias nullable:false, unique:true, maxSize: 15
+        password nullable:false;
+        language nullable:false;
+        phonePrefix nullable:true
+        phone nullable:true
     }
 }

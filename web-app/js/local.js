@@ -124,19 +124,6 @@ $(document).ready(function() {
         });
     }
 
-    // desplegar logos en Landing
-    $('body').on('click','.homeSub.logos a.open', function(e) {
-        e.preventDefault();
-        if ( !$('.homeSub.logos').hasClass('opened') ) {
-            $('.homeSub.logos').addClass('opened');
-            $(this).find('span').removeClass('fa-angle-down').addClass('fa-angle-up');
-        } else {
-            $('.homeSub.logos').removeClass('opened');
-            $(this).find('span').removeClass('fa-angle-up').addClass('fa-angle-down');
-        }
-    });
-
-
     // isotope - plugin para apilar divs de diferente altura
     if ( $('.list-team').length > 0 ) {
         var $container = $('.list-team');
