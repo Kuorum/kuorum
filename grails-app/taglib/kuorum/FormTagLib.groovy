@@ -129,6 +129,9 @@ class FormTagLib {
         MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
         def maxSize = maxSizeConstraint?.maxSize?:0
         def maxlength = maxSize?"maxlength='${attrs.maxlength}'":''
+        // Exclusión campos de editAccountDetails
+        def exclude = !(prefixFieldName == "name" || prefixFieldName == "alias")
+
         if (maxSize > 0){
             cssClass += " counted"
         }
@@ -147,7 +150,7 @@ class FormTagLib {
             out << "<p class='help-block'>${helpBlock}</p>"
         }
 
-        if (maxSize && showCharCounter){
+        if (maxSize && showCharCounter && exclude){
             out << """
             <div id="charInit_${field}" class="hidden">${message(code:'form.textarea.limitChar')} <span>${maxSize}</span></div>
             <div id="charNum_${field}" class="charNum">${message(code:'form.textarea.limitChar.left')} <span>${maxSize}</span> ${message(code:'form.textarea.limitChar.characters')}</div>
