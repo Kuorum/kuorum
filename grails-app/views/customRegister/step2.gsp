@@ -5,7 +5,7 @@
 </head>
 
 <content tag="title">
-    Sign up
+    <g:message code="customRegister.step2.title"/>
 </content>
 
 <content tag="mainContent">
@@ -15,7 +15,8 @@
         <li class="active">3</li>
     </ol>
     <formUtil:validateForm bean="${command}" form="sign" autocomplete="off"/>
-    <g:form mapping="register" name="sign" role="form" method="POST" autocomplete="off"  class="signup">
+    <g:form mapping="registerStep2" name="sign" role="form" method="POST" autocomplete="off"  class="signup">
+        <input type="hidden" name="user.id" value="${command?.user?.id}"/>
         <fieldset class="row">
             <div class="form-group col-md-6">
                 <formUtil:input

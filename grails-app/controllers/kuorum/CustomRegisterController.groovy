@@ -88,10 +88,23 @@ class CustomRegisterController extends  ProfileController{
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def step2(){
         KuorumUser user = springSecurityService.currentUser
-        [command:new Step2Command(language: user.language)]
+        [command:new Step2Command(user)]
     }
-    def step2Save(){
-        render "Not done yet"
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def step2Save(Step2Command  command){
+        KuorumUser user = springSecurityService.currentUser
+        if (command.hasErrors()){
+            render view: "step2", model:[command:command]
+            return;
+        }
+
+        redirect mapping:"registerStep3"
+    }
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def step3(){
+
     }
 
 }
