@@ -2,9 +2,12 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.Gender
+import kuorum.core.model.OfferType
+import kuorum.core.model.UserType
 import kuorum.dashboard.DashboardService
 import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
+import kuorum.notifications.NotificationService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.ProfileController
@@ -17,6 +20,8 @@ class CustomRegisterController {
     def springSecurityService
     KuorumUserService kuorumUserService;
     DashboardService dashboardService
+    NotificationService notificationService
+
     def afterInterceptor = {}
 
 //    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED'])
@@ -107,6 +112,9 @@ class CustomRegisterController {
         user.personalData.telephone = command.phone
         user.language = command.language
         kuorumUserService.updateUser(user)
+        if (command.userType == UserType.POLITICIAN){
+            notificationService.sendOfferPurchasedNotification(user, new OfferPurchased(user:user, offerType: OfferType.BASIC_MONTHLY, dateCreated: new Date()))
+        }
         redirect mapping:"registerStep3"
     }
 
