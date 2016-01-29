@@ -22,6 +22,7 @@ class UrlMappings {
 
         //The URLs are duplicated because of the refactor of Law into Project. The name of aliases are changed.
         name home:             "/" (controller: "dashboard", action:"index")
+        name dashboard:             "/dashboard" (controller: "dashboard", action:"dashboard")
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
         name discover:                      "/descubre" (controller: "discover", action:"discoverProjects")
         name discoverProjects:              "/descubre/proyectos"         (controller: "discover", action:"discoverProjects")
