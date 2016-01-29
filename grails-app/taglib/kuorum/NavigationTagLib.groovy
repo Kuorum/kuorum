@@ -25,6 +25,15 @@ class NavigationTagLib {
 
     }
 
+
+    def ifActiveMapping = {attrs, body ->
+        String mappingName = attrs.mappingName
+        String url = grailsLinkGenerator.link(mapping:mappingName,absolute: true)
+        if (request.getRequestURL().toString() == url){
+            out << body()
+        }
+    }
+
     def loadMoreLink = {attrs, body ->
         def numElements = attrs.numElements
         Pagination pagination = attrs.pagination

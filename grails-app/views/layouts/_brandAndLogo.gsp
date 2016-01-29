@@ -8,7 +8,12 @@
     </button>
     <h1>
         <g:link mapping="home" class="navbar-brand ${disabledLogoLink}" elementId="brand">
-            <img src="${resource(dir: 'images', file: 'logo@2x.png')}" alt="${g.message(code:'head.logo.alt')}">
+
+            <g:set var="imageBrand" value="logo@2x.png"/>
+            <nav:ifActiveMapping mappingName="home">
+                <g:set var="imageBrand" value="logo-white@2x.png"/>
+            </nav:ifActiveMapping>
+            <img src="${resource(dir: 'images', file: imageBrand)}" alt="${g.message(code:'head.logo.alt')}">
             <span class="hidden"><g:message code="kuorum.name"/> </span>
         </g:link>
     </h1>
