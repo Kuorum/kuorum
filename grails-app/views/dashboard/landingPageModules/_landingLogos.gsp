@@ -1,6 +1,6 @@
 <section role="complementary" class="homeSub logos">
     <h1><g:message code="landingPage.logos.title"/> </h1>
-    <ul class="clearfix limit-height" data-collapsedHeight="300" data-collapsedButtonCss="open">
+    <ul class="clearfix limit-height" data-collapsedHeight="320" data-collapsedButtonCss="openLogos">
         <li itemscope itemtype="http://schema.org/Organization">
             <img itemprop="logo" src="images/organizations/logo-ibm.png" alt="IBM">
             <span itemprop="name" class="sr-only">IBM</span>

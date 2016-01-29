@@ -2763,31 +2763,11 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub .link-wrapper .popover-trigger {font-size: 12px; font-size: 1.2rem;}
 
 .main.special.landing .homeSub.logos {text-align: center;}
-.main.special.landing .homeSub.logos .openLogos,
-.main.special.landing .homeSub.logos .closeLogos {font-size: 25px; font-family: Arial, Helvetica, sans-serif; margin: 0; color: #fff; display: inline-block; cursor: pointer;}
+.main.special.landing .homeSub.logos .openLogos{font-size: 25px; font-family: Arial, Helvetica, sans-serif; margin: 0; color: #fff; display: inline-block; cursor: pointer;}
 
 .main.special.landing .homeSub.logos .openLogos:hover,
-.main.special.landing .homeSub.logos .openLogos:focus,
-.main.special.landing .homeSub.logos .closeLogos:hover,
-.main.special.landing .homeSub.logos .closeLogos:focus {text-decoration: underline;}
+.main.special.landing .homeSub.logos .openLogos:focus {text-decoration: underline;}
 
-.main.special.landing .homeSub.logos .openLogos.on {margin: 20px 0 40px;}
-.main.special.landing .homeSub.logos .openLogos + ul,
-.main.special.landing .homeSub.logos .openLogos + ul li,
-.main.special.landing .homeSub.logos .openLogos + ul li img,
-.main.special.landing .homeSub.logos .closeLogos,
-.main.special.landing .homeSub.logos .openLogos {opacity: 0; height: 0; transition: all .5s ease-in-out;}
-
-.main.special.landing .homeSub.logos .openLogos + ul li {margin: 0;}
-
-.main.special.landing .homeSub.logos.opened .openLogos + ul,
-.main.special.landing .homeSub.logos.opened .openLogos + ul li,
-.main.special.landing .homeSub.logos.opened .openLogos + ul li img,
-.main.special.landing .homeSub.logos.opened .openLogos + ul + .close,
-.main.special.landing .homeSub.logos .openLogos.on,
-.main.special.landing .homeSub.logos .closeLogos.on {opacity: 1; height: auto;}
-.main.special.landing .homeSub.logos .closeLogos.on {margin-top: 20px;}
-.main.special.landing .homeSub.logos.opened .openLogos + ul li {margin: 20px 0;}
 
 
 .homeSub > .row > h1, .homeSub > h1 { border-bottom: 1px solid #e5e5e5; }
@@ -3792,9 +3772,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     
     /* LANDING */
     .main.special.landing .homeSub ul li {width: 50%; height: 110px; line-height: 110px; margin-bottom: 45px;}
-    .main.special.landing .homeSub.logos .openLogos.on {margin-bottom: 60px;}
-    .main.special.landing .homeSub.logos.opened .openLogos + ul {opacity: 1; height: auto;}
-    .main.special.landing .homeSub.logos.opened .openLogos + ul li {opacity: 1; height: 110px; margin-bottom: 45px;}
     .main.special.profile .homeSub { min-height: 420px; background-position: center 170px; background-size: 420px auto;}
     .landing + .row.main .onecol .login .btn.btn-lg {margin-right: 20px;}
 
