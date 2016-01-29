@@ -1,15 +1,11 @@
 package kuorum.admin
 
-import com.mongodb.BasicDBObject
-import com.mongodb.DBObject
 import grails.converters.deep.JSON
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
-import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
-import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.PoliticianService
