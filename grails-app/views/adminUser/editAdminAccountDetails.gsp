@@ -7,12 +7,13 @@
 
 <content tag="leftMenu">
     <h1>
-        <g:message code="admin.editUser.title" args="[user.name]"/>,
+        <g:message code="admin.editUser.title" args="[user.name]"/>
     </h1>
     <g:render template="adminUserMenu" model="[user:user]"/>
 
-    %{--<p><g:message code="profile.changeEmail.description"/></p>--}%
-    <g:render template="/admin/adminMenu" model="[activeMapping:'', menu:menu]"/>
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+        <g:render template="/admin/adminMenu" model="[activeMapping:'', menu:menu]"/>
+    </sec:ifAnyGranted>
 </content>
 
 <content tag="titleContent">

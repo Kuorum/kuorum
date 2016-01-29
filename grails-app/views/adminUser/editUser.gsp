@@ -7,7 +7,7 @@
 
 <content tag="leftMenu">
     <h1>
-        <g:message code="admin.editUser.title" args="[user.name]"/>,
+        <g:message code="admin.editUser.title" args="[user.name]"/>
     </h1>
     <g:render template="adminUserMenu" model="[user:user]"/>
 
