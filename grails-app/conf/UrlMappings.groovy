@@ -270,15 +270,6 @@ class UrlMappings {
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
         name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
-        name adminCreateRegion:     "/admin/regiones/crear-region"  (controller:"adminRegion"){action =[GET:"createRegion", POST:"saveRegion"]}
-        name adminEditRegion:       "/admin/regiones/editar-region" (controller:"adminRegion"){action =[GET:"editRegion", POST:"saveRegion"]}
-        name adminListRegions:      "/admin/regiones"               (controller:"adminRegion", action:"listRegions")
-        name adminCreateInstitution:"/admin/instituciones/crear"    (controller:"adminRegion"){action =[GET:"createInstitution", POST:"saveInstitution"]}
-        name adminEditInstitution:  "/admin/instituciones/editar"   (controller:"adminRegion"){action =[GET:"editInstitution", POST:"saveInstitution"]}
-        name adminCreatePoliticalParty:"/admin/partidos-politicos/crear"  (controller:"adminPoliticalParty"){action =[GET:"createPoliticalParty", POST:"savePoliticalParty"]}
-        name adminEditPoliticalParty:  "/admin/partidos-politicos/editar" (controller:"adminPoliticalParty"){action =[GET:"editPoliticalParty", POST:"savePoliticalParty"]}
-        name adminListPoliticalParty:  "/admin/partidos-politicos"               (controller:"adminPoliticalParty", action:"listPoliticalParties")
-
         name ajaxDeleteRecommendedUser: "/ajax/kuorumUser/deleteRecommendedUser"(controller: 'recommendedUserInfo', action: 'deleteRecommendedUser')
 
         "/sitemap"{

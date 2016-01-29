@@ -19,17 +19,4 @@
     <li class="${activeMapping=='adminStats'?'active':''}">
         <g:link mapping="adminStats"><g:message code="admin.menu.stats.link"/></g:link>
     </li>
-
-    <li class="${activeMapping=='adminCreateRegion'?'active':''}">
-        <g:link mapping="adminCreateRegion"><g:message code="admin.menu.adminCreateRegion.link"/></g:link>
-    </li>
-    <li class="${activeMapping=='adminListRegions'?'active':''}">
-        <g:link mapping="adminListRegions"><g:message code="admin.menu.adminListRegions.link"/></g:link>
-    </li>
-    <li class="${activeMapping=='adminCreatePoliticalParty'?'active':''}">
-        <g:link mapping="adminCreatePoliticalParty"><g:message code="admin.menu.adminCreatePoliticalParty.link"/></g:link>
-    </li>
-    <li class="${activeMapping=='adminCreatePoliticalParty'?'active':''}">
-        <g:link mapping="adminListPoliticalParty"><g:message code="admin.menu.adminListPoliticalParties.link"/></g:link>
-    </li>
 </ul>
