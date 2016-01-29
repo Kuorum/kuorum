@@ -6,13 +6,16 @@ import kuorum.dashboard.DashboardService
 import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.users.ProfileController
 import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.profile.PersonalDataCommand
 import kuorum.web.commands.profile.UserRegionCommand
 
-class CustomRegisterController extends  ProfileController{
+class CustomRegisterController {
 
+    def springSecurityService
+    KuorumUserService kuorumUserService;
     DashboardService dashboardService
     def afterInterceptor = {}
 
@@ -98,7 +101,12 @@ class CustomRegisterController extends  ProfileController{
             render view: "step2", model:[command:command]
             return;
         }
-
+        kuorumUserService.updateAlias(user, command.alias)
+        user.personalData = user.personalData?:new kuorum.users.PersonData()
+        user.personalData.phonePrefix = command.phonePrefix
+        user.personalData.telephone = command.phone
+        user.language = command.language
+        kuorumUserService.updateUser(user)
         redirect mapping:"registerStep3"
     }
 
