@@ -25,12 +25,12 @@
             </fieldset>
             <fieldset class="row">
                 <div class="form-group col-md-6">
-                    <formUtil:password command="${command}" field="password" required="true" showLabel="true"/>
+                    <formUtil:input type="password" command="${command}" field="password" required="true" showLabel="true"/>
                 </div>
             </fieldset>
             <fieldset class="row">
                 <div class="form-group col-md-6">
-                    <formUtil:password command="${command}" field="password2" required="true" showLabel="true"/>
+                    <formUtil:input type="password" command="${command}" field="password2" required="true" showLabel="true"/>
                 </div>
             </fieldset>
         </div>
