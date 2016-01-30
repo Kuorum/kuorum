@@ -43,7 +43,7 @@ cite{
 /*    margin-top: -90px; */
     padding-top: 40px;
 }
-.main.special.landing {background-color: #858585; padding: 33px 0 0; margin-top: 0; color: #fff;}
+.main.special.landing {background-color: #666; padding: 33px 0 0; margin-top: 0; color: #fff;}
 .main.special.profile {background-color: #fbfbfb;}
 
 .form-group-short {margin-bottom:10px;}
@@ -2814,7 +2814,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .saveTime li p {font-size: 20px; font-size: 2rem; color: #545454; padding: 0 6px; margin-bottom: 10px;}
 .saveTime li > a:last-child {font-size: 21px; font-size: 2.1rem; color: #5fa1e7;}
 
-.testimonies-list {margin: 0; padding: 0; background-color: #858585;}
+.testimonies-list {margin: 0; padding: 0; background-color: #666;}
 .testimonies-list li{list-style-type:none;}
 .testimonies-list li:nth-child(even) footer,
 .testimonies-list li:nth-child(even) .body {float: right;}
