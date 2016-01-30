@@ -2794,7 +2794,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 #saveTime {margin: 0;}
 .saveTime {padding: 0 0 20px;}
 .saveTime, .saveTime li {list-style: none; text-align: center; margin-bottom: 20px;}
-.saveTime li h2 {font-size: 25px; font-size: 2.5rem; font-family: Arial, Helvetica, sans-serif; color: #373737; padding: 0; margin-bottom: 15px;}
+.saveTime li h2 {text-transform: uppercase; font-size: 25px; font-size: 2.2rem; font-family: Arial, Helvetica, sans-serif; color: #373737; padding: 0; margin-bottom: 15px;}
 .saveTime li > a img {max-width: 385px;}
 .saveTime li > a:first-child {display: block; position: relative;}
 .saveTime li > a:first-child:hover::before {
@@ -4401,7 +4401,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     
     .saveTime, .saveTime li {padding: 0 30px;}
     .saveTime li p {font-size: 18px; font-size: 1.7rem;}
-    .saveTime li h2 {font-size: 20px; font-size: 2rem;}
+    .saveTime li h2 {font-size: 20px; font-size: 1.7rem;}
 
 }
 
