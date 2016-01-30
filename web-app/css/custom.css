@@ -4737,7 +4737,7 @@ p.party{
 .causes-tags li:hover,
 .causes-tags li:active,
 .causes-tags li:focus{
-    background-color: #b77a17;
+    background-color: #ee7612;
 }
 .causes-tags li a{
     font-size: 14px;
@@ -4902,7 +4902,7 @@ hr{
     margin-right: 18px;
 }
 .panel-share-buttons > li > a:hover{
-    color:#b77a17;
+    color:#ee7612;
 }
 .panel-table{
     margin: 0;
