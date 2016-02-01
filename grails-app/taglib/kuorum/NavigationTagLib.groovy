@@ -48,7 +48,7 @@ class NavigationTagLib {
         if (numElements>=pagination.max){
             out <<"""
                 <div id="load-more" class="text-center ${cssClass}">
-                    <a href="${link}" class="loadMore" data-parent-id="${parentId}" ${dataFormId}>
+                    <a href="${link}" class="loadMore" data-parent-id="${parentId}" ${dataFormId} data-offset="${pagination.max}">
                         ${message(code:"search.list.seeMore")}
                     </a>
                 </div>
@@ -57,6 +57,7 @@ class NavigationTagLib {
         out <<"""
     <div class="hidden">
         <form id="${formId}">
+            <input type='hidden' name='max' value='${pagination.max}'/>
             """
         out << body()
         out <<"""

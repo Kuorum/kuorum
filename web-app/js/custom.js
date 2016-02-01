@@ -810,8 +810,8 @@ $(document).ready(function() {
         if (url.indexOf("?")>-1){
             paramAppender = "&"
         }
-
-        var offset = $.parseJSON(link.attr('data-offset') || 10 ) //Para que sea un integer
+        var max = $.parseJSON($("#"+formId).find('input[name=max]').val() || 10)
+        var offset = $.parseJSON(link.attr('data-offset') || max ) //Para que sea un integer
         url += paramAppender+"offset="+offset+"&"+$('#'+formId).serialize()
         var parentId = link.attr('data-parent-id')
         var loadingId = parentId+"-loading"
@@ -828,7 +828,7 @@ $(document).ready(function() {
             .done(function(data, status, xhr) {
                 parent.append(data)
                 var moreResults = $.parseJSON(xhr.getResponseHeader('moreResults')) //Para que sea un bool
-                link.attr('data-offset', offset +10)
+                link.attr('data-offset', offset +max)
                 if (moreResults){
                     link.remove()
                 }
