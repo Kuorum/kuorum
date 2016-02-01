@@ -2,7 +2,7 @@
 <!-- Le quitamos las clases underline, etc a estos enlaces -->
 <ul class="nav navbar-nav navbar-right">
     <li>
-        <g:link mapping="searcherSearch" class="navbar-link" params="[type:SolrType.POLITICIAN]">
+        <g:link mapping="searcherSearch" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherSearch')}" params="[type:SolrType.POLITICIAN]">
             <span><g:message code="head.noLogged.search"/></span>
         </g:link>
     </li>
