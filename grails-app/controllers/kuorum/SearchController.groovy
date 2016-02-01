@@ -97,6 +97,7 @@ class SearchController{
             searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.POLITICIAN)
             docs = searchSolrService.search(searchParams)
         }else{
+            searchParams.max = 12
             docs = searchSolrService.search(searchParams)
         }
         if (springSecurityService.isLoggedIn()){

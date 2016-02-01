@@ -1433,6 +1433,9 @@ video#bgvid {
 #load-more a:active,
 #load-more a:focus {text-decoration: underline;}
 
+#load-more.searchNoLogged{border-top: none; font-size:2.5rem;}
+#load-more.searchNoLogged a{color:#545454}
+
 /* este es para hacer visible lo ya cargado */
 #ver-mas {
     border-top: solid 1px #dadada;

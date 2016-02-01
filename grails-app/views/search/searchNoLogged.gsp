@@ -6,38 +6,41 @@
 </head>
 
 <content tag="videoAndRegister">
-    <g:render template="/search/searchNoLoggedLanding"/>
+    <g:render template="/search/searchNoLoggedLanding" model="[searchParams:searchParams]"/>
 </content>
 
 
 <content tag="mainContent">
-    <div class="order-options">
-        Order by <span data-toggle="popover" role="button" rel="popover" class="popover-trigger">relevance</span>
-        <div class="popover">
-            <ul>
-                <li><a href="#" class="active">relevance</a></li>
-                <li><a href="#">proximity</a></li>
-                <li><a href="#">followers</a></li>
+    <div class="container-fluid">
+        <div class="order-options">
+            Order by <span data-toggle="popover" role="button" rel="popover" class="popover-trigger">relevance</span>
+            <div class="popover">
+                <ul>
+                    <li><a href="#" class="active">relevance</a></li>
+                    <li><a href="#">proximity</a></li>
+                    <li><a href="#">followers</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <ul class="politician-list clearfix" id="search-list-id">
+                <g:render template="searchElement" model="[docs:docs.elements]"/>
             </ul>
         </div>
+
+        <nav:loadMoreLink
+                formId="search-form-loadMore"
+                mapping="searcherSearchSeeMore"
+                parentId="search-list-id"
+                class="searchNoLogged"
+                pagination="${searchParams}"
+                numElements="${docs.numResults}"
+        >
+            <input type="hidden" name="word" value="${searchParams.word}" />
+            <input type="hidden" name="type" value="${searchParams.type}" />
+        </nav:loadMoreLink>
     </div>
-
-    <div class="row">
-
-        <ul class="politician-list clearfix" id="search-list-id">
-            <g:render template="searchElement" model="[docs:docs.elements]"/>
-        </ul>
-    </div>
-
-    <nav:loadMoreLink
-            formId="search-form-loadMore"
-            mapping="searcherSearchSeeMore"
-            parentId="search-list-id"
-            pagination="${searchParams}"
-            numElements="${docs.numResults}"
-    >
-        <input type="hidden" name="word" value="${searchParams.word}" />
-        <input type="hidden" name="type" value="${searchParams.type}" />
-    </nav:loadMoreLink>
 </content>
 </html>
