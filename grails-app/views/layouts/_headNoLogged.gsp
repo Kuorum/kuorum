@@ -10,22 +10,22 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="search.html" class="navbar-link">
-                            <span>Search</span>
+                            <span><g:message code="head.noLogged.search"/></span>
                         </a>
                     </li>
                     <li>
                         <a href="editors.html" class="navbar-link">
-                            <span>Editors</span>
+                            <span><g:message code="head.noLogged.editors"/></span>
                         </a>
                     </li>
                     <li>
-                        <a href="politicians.html" class="navbar-link ${nav.activeMenuCss(mappingName: 'politicians')}">
-                            <span>Politicians</span>
-                        </a>
+                        <g:link mapping="home" class="navbar-link ${nav.activeMenuCss(mappingName: 'home')}">
+                            <span><g:message code="head.noLogged.politicians"/> </span>
+                        </g:link>
                     </li>
                     <li>
                         <a href="prices.html" class="navbar-link">
-                            <span>Prices</span>
+                            <span><g:message code="head.noLogged.prices"/></span>
                         </a>
                     </li>
                     <li>
