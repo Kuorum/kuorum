@@ -5,7 +5,7 @@
         <ul class="saveTime">
             <li class="col-sm-5 col-md-3">
                 <a href="#">
-                    <img src="${resource(dir: 'images', file: 'dashboard.gif')}" alt="${g.message(code:'landingPage.features.socialAnalytics.title')}">
+                    <img src="${resource(dir: 'images', file: 'dashboard_bw.png')}" alt="${g.message(code:'landingPage.features.socialAnalytics.title')}">
                 </a>
                 <h2><g:message code="landingPage.features.socialAnalytics.title"/></h2>
                 <p><g:message code="landingPage.features.socialAnalytics.description"/></p>
@@ -15,7 +15,7 @@
             </li>
             <li class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-0">
                 <a href="#">
-                    <img src="${resource(dir: 'images', file: 'semantic.gif')}" alt="${g.message(code:'landingPage.features.semanticAnalytics.title')}">
+                    <img src="${resource(dir: 'images', file: 'semantic_bw.png')}" alt="${g.message(code:'landingPage.features.semanticAnalytics.title')}">
                 </a>
                 <h2><g:message code="landingPage.features.semanticAnalytics.title"/></h2>
                 <p><g:message code="landingPage.features.semanticAnalytics.description"/></p>
@@ -25,7 +25,7 @@
             </li>
             <li class="col-sm-5 col-md-3">
                 <a href="#">
-                    <img src="${resource(dir: 'images', file: 'organizer.gif')}" alt="${g.message(code:'landingPage.features.massMailing.title')}">
+                    <img src="${resource(dir: 'images', file: 'organizer_bw.png')}" alt="${g.message(code:'landingPage.features.massMailing.title')}">
                 </a>
                 <h2><g:message code="landingPage.features.massMailing.title"/></h2>
                 <p><g:message code="landingPage.features.massMailing.description"/></p>
@@ -35,7 +35,7 @@
             </li>
             <li class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-0">
                 <a href="#">
-                    <img src="${resource(dir: 'images', file: 'docman.gif')}" alt="${g.message(code:'landingPage.features.teamManagement.title')}">
+                    <img src="${resource(dir: 'images', file: 'docman_bw.png')}" alt="${g.message(code:'landingPage.features.teamManagement.title')}">
                 </a>
                 <h2><g:message code="landingPage.features.teamManagement.title"/></h2>
                 <p><g:message code="landingPage.features.teamManagement.description"/></p>
