@@ -9,9 +9,9 @@
                 <!-- Le quitamos las clases underline, etc a estos enlaces -->
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="search.html" class="navbar-link">
+                        <g:link mapping="searcherSearch" class="navbar-link">
                             <span><g:message code="head.noLogged.search"/></span>
-                        </a>
+                        </g:link>
                     </li>
                     <li>
                         <a href="editors.html" class="navbar-link">

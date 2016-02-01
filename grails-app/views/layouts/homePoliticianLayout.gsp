@@ -33,12 +33,7 @@
         </div>
     </div>
 
-    <div class="row main special profile">
-        <div class="container-fluid">
-            <g:pageProperty name="page.fastRegister"/>
-        </div>
-    </div>
-
+    <g:render template="/layouts/fastRegisterSection"/>
     <g:render template="/layouts/footer/footer"/>
 </div><!-- .container-fluid -->
 </body>

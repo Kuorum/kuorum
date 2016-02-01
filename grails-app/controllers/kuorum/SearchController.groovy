@@ -16,6 +16,7 @@ class SearchController{
     RegionService regionService
 //    def messageSource
     LocaleResolver localeResolver
+    def springSecurityService
 
     private messageEnumJson(def type){
         [
@@ -93,12 +94,16 @@ class SearchController{
     def search(SearchParams searchParams) {
         SolrResults docs
         if (searchParams.hasErrors()){
-            searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.POST)
-            docs= searchSolrService.search(searchParams)
+            searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.POLITICIAN)
+            docs = searchSolrService.search(searchParams)
         }else{
             docs = searchSolrService.search(searchParams)
         }
-        [docs:docs, searchParams:searchParams]
+        if (springSecurityService.isLoggedIn()){
+            render view:"search", model:[docs:docs, searchParams:searchParams]
+        }else{
+            render view:"searchNoLogged", model:[docs:docs, searchParams:searchParams]
+        }
     }
 
     def modifyFilters(SearchParams searchParams) {

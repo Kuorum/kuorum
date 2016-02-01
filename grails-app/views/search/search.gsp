@@ -92,3 +92,4 @@
         <input type="hidden" name="word" value="${searchParams.word}" />
     </g:form>
 </content>
+</html>

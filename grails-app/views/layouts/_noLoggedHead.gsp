@@ -1,61 +1,35 @@
-%{--<g:render template="/layouts/discoverHead"/>--}%
+<%@ page import="kuorum.core.model.solr.SolrType" %>
+<!-- Le quitamos las clases underline, etc a estos enlaces -->
 <ul class="nav navbar-nav navbar-right">
-
-    <li class="underline">
-        <g:link mapping="funnelSuccessfulStories" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "funnelSuccessfulStories")}" >
-        %{--<span class="fa fa-briefcase fa-lg"></span>--}%
-            <span class="text-normalize"><g:message code="head.noLogged.areYouAPolitician"/></span>
+    <li>
+        <g:link mapping="searcherSearch" class="navbar-link" params="[type:SolrType.POLITICIAN]">
+            <span><g:message code="head.noLogged.search"/></span>
         </g:link>
     </li>
-
-    <li class="underline">
-        <g:link mapping="discoverProjects" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "discoverProjects")}">
-            <span class="fa fa-briefcase fa-lg"></span>
-            <span class="visible"><g:message code="search.filters.SolrType.PROJECT.short"/></span>
-        </g:link>
-    </li>
-
-    <li class="dropdown underline form">
-        <a data-target="#" href="#" id="open-entry-user" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
-            <span class="icon-user"></span>
-            <span><g:message code="head.noLogged.login"/></span>
+    <li>
+        <a href="editors.html" class="navbar-link">
+            <span><g:message code="head.noLogged.editors"/></span>
         </a>
-        <div id="entry-user" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-entry-user" role="menu">
-            <g:include controller="login" action="loginForm"/>
-            <g:render template="/layouts/registerForm" model="[registerCommand:registerCommand, formId:'sign-header']"/>
-        </div>
     </li>
-
-    %{--<form id="login" role="form" action='${postUrl}' method='POST'>--}%
-        %{--<div class="form-group">--}%
-            %{--<label for="j_username"><g:message code="login.email.form.email.label"/></label>--}%
-            %{--<input type="email" name="j_username" class="form-control input-lg" id="j_username" required>--}%
-            %{--<g:if test="${flash.message}">--}%
-                %{--<span for="titlePost" class="error">${flash.message}</span>--}%
-            %{--</g:if>--}%
-        %{--</div>--}%
-        %{--<div class="form-group clearfix">--}%
-            %{--<label for="password"><g:message code="login.email.form.password.label"/></label>--}%
-            %{--<label class="checkbox-inline pull-right"><input type="checkbox" id="show-pass" value="mostrar"><g:message code="login.email.form.password.show"/> </label>--}%
-            %{--<input type="password" name="j_password" class="form-control input-lg" id="password" required>--}%
-        %{--</div>--}%
-        %{--<div class="form-group">--}%
-            %{--<g:link mapping="resetPassword" class="cancel">--}%
-                %{--<g:message  code="login.email.form.password.forgotten"/>--}%
-            %{--</g:link>--}%
-            %{--<input type="submit" class="btn btn-grey btn-lg" value="${g.message(code:'login.email.form.login')}"/>--}%
-        %{--</div>--}%
-    %{--</form>--}%
-
-
-    %{--<li class="underline">--}%
-        %{--<g:link mapping="login" class="navbar-link">--}%
-            %{--<g:message code="head.noLogged.login"/>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
-    %{--<li>--}%
-        %{--<g:link mapping="register" class="btn btn-custom-primary">--}%
-            %{--<g:message code="head.noLogged.register"/>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
+    <li>
+        <g:link mapping="home" class="navbar-link ${nav.activeMenuCss(mappingName: 'home')}">
+            <span><g:message code="head.noLogged.politicians"/> </span>
+        </g:link>
+    </li>
+    <li>
+        <a href="prices.html" class="navbar-link">
+            <span><g:message code="head.noLogged.prices"/></span>
+        </a>
+    </li>
+    <li>
+        <g:set var="logInMapping" value="loginAuth"/>
+        <g:set var="logInText" value="${g.message(code:"head.noLogged.login")}"/>
+        <nav:ifActiveMapping mappingName="loginAuth">
+            <g:set var="logInMapping" value="register"/>
+            <g:set var="logInText" value="${g.message(code:"login.head.register")}"/>
+        </nav:ifActiveMapping>
+        <g:link mapping="${logInMapping}" class="navbar-link btn btn-transparent">
+            <span>${logInText}</span>
+        </g:link>
+    </li>
 </ul>

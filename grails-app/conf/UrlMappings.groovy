@@ -151,7 +151,8 @@ class UrlMappings {
         name customRegisterAgeAndGender: "/registro/ageAndGender"(controller: "customRegister", action:"ageAndGender")
         name customRegisterTelephone: "/registro/telephone"(controller: "customRegister", action:"telephone")
 
-        name searcherSearch:        "/buscar"(controller: "search", action:"search")
+        name searcherSearch:        "/search"(controller: "search", action:"search")
+                                    "/buscar"(controller: "search", action:"search")
         name searcherSearchSeeMore: "/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
         name searcherSearchFilters: "/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
         name searcherSuggests:      "/ajax/buscar/sugerencias"(controller: "search", action:"suggest")

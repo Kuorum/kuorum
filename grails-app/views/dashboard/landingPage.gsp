@@ -47,12 +47,4 @@
     <g:render template="landingPageModules/pressKit"/>
 </content>
 
-<content tag="fastRegister">
-    <section class="homeSub" role="complementary">
-        <h1><g:message code="landingPage.fastRegister.title"/> </h1>
-        <g:link mapping="register" class="btn btn-lg">
-            <g:message code="landingPage.fastRegister.start"/>
-        </g:link>
-    </section>
-</content>
 

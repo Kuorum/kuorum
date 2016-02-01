@@ -1,24 +1,17 @@
-
-
-<header id="header" class="row" role="banner">
-
+<header id="header" class="row landing ${extraHeadCss}" role="banner">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="container-fluid">
-            <g:render template="/layouts/brandAndLogo"/>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
+            <g:render template="/layouts/brandAndLogo" />
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <g:render template="/layouts/searchHeadForm"/>
-                %{--<g:render template="/layouts/discoverHead"/>--}%
+
                 <sec:ifLoggedIn>
                     <g:include controller="layouts" action="userHead"/>
                 </sec:ifLoggedIn>
                 <sec:ifNotLoggedIn>
                     <g:include controller="login" action="headAuth"/>
                 </sec:ifNotLoggedIn>
-
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+            </div>
+        </div>
     </nav>
 </header>
-<g:render template="/layouts/karma"/>
