@@ -1,5 +1,5 @@
 <section role="complementary" class="homeSub logos">
-    <h1>With academic partners in </h1>
+    <h1><g:message code="landingEditors.logos.title"/> </h1>
     <ul class="clearfix limit-height" data-collapsedHeight="320" data-collapsedButtonCss="openLogos">
         <li itemscope itemtype="http://schema.org/Organization">
             <img itemprop="logo" src="images/universities/logo-upf.png" alt="Universitat Pompeu Fabra Barcelona">
