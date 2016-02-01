@@ -1,7 +1,7 @@
 <section role="complementary" class="homeSub logos">
     <h1><g:message code="landingPage.logos.title"/> </h1>
     <ul class="clearfix limit-height" data-collapsedHeight="320" data-collapsedButtonCss="openLogos">
-        <li itemscope itemtype="http://schema.org/Organization">
+        <li itemscope itemtype="http://schema.org/Organization" >
             <img itemprop="logo" src="images/organizations/logo-ibm.png" alt="IBM">
             <span itemprop="name" class="sr-only">IBM</span>
         </li>
@@ -42,23 +42,23 @@
             <img itemprop="logo" src="images/organizations/logo-unltd.png" alt="UnLtd">
             <span itemprop="name" class="sr-only">UnLtd</span>
         </li>
-        <li itemscope itemtype="http://schema.org/Organization">
+        <li itemscope itemtype="http://schema.org/Organization"  class="square">
             <img itemprop="logo" src="images/organizations/logo-lacaixa.png" alt="LaCaixa">
             <span itemprop="name" class="sr-only">LaCaixa</span>
         </li>
-        <li itemscope itemtype="http://schema.org/Organization">
+        <li itemscope itemtype="http://schema.org/Organization"  class="square">
             <img itemprop="logo" src="images/organizations/logo-centralworking.png" alt="Central Working">
             <span itemprop="name" class="sr-only">Central Working</span>
         </li>
-        <li itemscope itemtype="http://schema.org/Organization">
+        <li itemscope itemtype="http://schema.org/Organization"  class="square">
             <img itemprop="logo" src="images/organizations/logo-cesie.png" alt="Cesie">
             <span itemprop="name" class="sr-only">Cesie</span>
         </li>
-        <li itemscope itemtype="http://schema.org/Organization">
+        <li itemscope itemtype="http://schema.org/Organization"  class="square">
             <img itemprop="logo" src="images/organizations/logo-techcity.png" alt="TechCityUK">
             <span itemprop="name" class="sr-only">TechCityUK</span>
         </li>
-        <li itemscope itemtype="http://schema.org/Organization">
+        <li itemscope itemtype="http://schema.org/Organization"  class="square">
             <img itemprop="logo" src="images/organizations/logo-impacthub.png" alt="Impact Hub">
             <span itemprop="name" class="sr-only">Impact Hub</span>
         </li>
