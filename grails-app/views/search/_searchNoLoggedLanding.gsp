@@ -9,7 +9,7 @@
                     <g:form mapping="searcherSearch" method="GET" name="findRepresentatives" id="findRepresentatives" class="form-inline searchRep" role="search">
                         <input type="hidden" value="POLITICIAN" name="type"/>
                         <div class="form-group">
-                            <formUtil:input cssClass="form-control" labelCssClass="sr-only" command="${searchParams}" field="word"/>
+                            <formUtil:input field="word" cssClass="form-control" command="${searchParams}" />
                         </div>
                         <button type="submit" class="btn btn-blue"><g:message code="search.noLogged.landing.search"/></button>
                     </g:form>

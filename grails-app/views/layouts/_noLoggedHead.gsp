@@ -7,9 +7,9 @@
         </g:link>
     </li>
     <li>
-        <a href="editors.html" class="navbar-link">
+        <g:link mapping="landingEditors" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingEditors')}">
             <span><g:message code="head.noLogged.editors"/></span>
-        </a>
+        </g:link>
     </li>
     <li>
         <g:link mapping="home" class="navbar-link ${nav.activeMenuCss(mappingName: 'home')}">

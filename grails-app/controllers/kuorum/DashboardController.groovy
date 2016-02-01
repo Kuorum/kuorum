@@ -108,4 +108,8 @@ class DashboardController {
         Project project = Project.findByHashtag("#immigrationRC")
         redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
     }
+
+    def landingEditors(){
+        [command: new KuorumRegisterCommand()]
+    }
 }
