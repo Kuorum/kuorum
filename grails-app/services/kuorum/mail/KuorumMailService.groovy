@@ -60,7 +60,7 @@ class KuorumMailService {
                 feedbackText:feedback,
                 userDeleted:userDeleted
         ]
-        MailUserData mailUserData = new MailUserData(user:getFeedbackUser())
+        MailUserData mailUserData = new MailUserData(user:getPurchaseUser())
         MailData mailData = new MailData(fromName:user.name, mailType: MailType.FEEDBACK, globalBindings: bindings, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
@@ -86,6 +86,16 @@ class KuorumMailService {
         ]
         MailUserData mailUserData = new MailUserData(user:user)
         MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME, mailType: MailType.NOTIFICATION_OFFER_PURCHASED, globalBindings: bindings, userBindings: [mailUserData])
+        mandrillAppService.sendTemplate(mailData)
+    }
+
+    def sendNewEditorRequestToAdmins(KuorumUser editor){
+        def bindings = [
+                userLink:generateLink("userShow",editor.encodeAsLinkProperties()),
+                user:editor.name
+        ]
+        MailUserData mailUserData = new MailUserData(user:getFeedbackUser())
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME, mailType: MailType.EDITOR_SUBSCRIPTION, globalBindings: bindings, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
 

@@ -134,7 +134,7 @@ class FormTagLib {
         }
 
         if (showLabel){
-            out << "<label for='${prefixFieldName}${field}'>${label}</label>"
+            out << "<label for='${prefixFieldName}${field}' class='${labelCssClass}'>${label}</label>"
         }
         out <<"""
             <input type="${type}" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled}>

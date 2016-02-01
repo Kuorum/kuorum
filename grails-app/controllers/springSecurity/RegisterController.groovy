@@ -43,6 +43,10 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
 
         KuorumUser user = registerService.registerUser(command)
+        if (params.editor){
+            //If the registrations comes from editorLandingPage
+            notificationService.sendEditorPurchaseNotification(user)
+        }
         redirect mapping:"home"
     }
 

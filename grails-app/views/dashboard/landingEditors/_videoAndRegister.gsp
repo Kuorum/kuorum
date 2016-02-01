@@ -5,23 +5,36 @@
                 <div class="col-sm-12">
                     <h1><g:message code="landingEditors.videoAndRegister.title"/></h1>
                     <h2><g:message code="landingEditors.videoAndRegister.subTitle"/> </h2>
-                    <a href="#ipdb-description" class="btn btn-white">What’s <abbr title="Internet Politician Database">IPDB</abbr></a>
-                    <form action="" method="post" name="joinEditors" id="joinEditors" class="form-inline" role="form">
+                    <a href="#ipdb-description" class="btn btn-white"><g:message code="landingEditors.videoAndRegister.whatsIPDB" encodeAs="RAW"/> </a>
+                    <formUtil:validateForm bean="${command}" form="joinEditors"/>
+                    <g:form mapping="register" autocomplete="off" method="post" name="joinEditors" class="form-inline" role="form" novalidate="novalidate">
+                        <input type="hidden" name="editor" value="true"/>
                         <fieldset>
                             <div class="form-group">
-                                <label for="name" class="sr-only">Name</label>
-                                <input type="text" name="name" class="form-control input-lg" id="name" required placeholder="Name" aria-required="true">
+                                <formUtil:input
+                                        command="${command}"
+                                        field="name"
+                                        labelCssClass="sr-only"
+                                        showLabel="true"
+                                        showCharCounter="false"
+                                        required="true"/>
                             </div>
+
                             <div class="form-group">
-                                <label for="email" class="sr-only">Email</label>
-                                <input type="email" name="email" class="form-control input-lg" id="email" required placeholder="Email" aria-required="true">
+                                <formUtil:input
+                                        command="${command}"
+                                        field="email"
+                                        type="email"
+                                        showLabel="true"
+                                        labelCssClass="sr-only"
+                                        required="true"/>
                             </div>
                             <!-- para el botón, lo que prefieras, <button> o <input>-->
-                            <button type="submit" class="btn">Join the editors team</button>
+                            <button type="submit" class="btn"><g:message code="landingEditors.videoAndRegister.form.submit"/> </button>
                             <!--                                <input type="submit" class="btn" value="Start your free trial">-->
                         </fieldset>
-                        <p>You are accepting the <a href="#" target="_blank">service conditions</a></p>
-                    </form>
+                        <p><g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse')]"/></p>
+                    </g:form>
                 </div>
             </div>
         </div>

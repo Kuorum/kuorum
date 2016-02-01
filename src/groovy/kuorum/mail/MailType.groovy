@@ -40,6 +40,7 @@ public enum MailType {
     FEEDBACK_VICTORY              (MailGroupType.ADMIN, "admin-victory",     [],["defender","defenderLink","postName", "postOwner","postOwnerLink","postLink", "victoryOk"]),
     FEEDBACK                      (MailGroupType.ADMIN, "admin-deletedUser", [],["feedbackText", "feedbackUser", "feedbackUserLink", "userDeleted"]),
     POLITICIAN_SUBSCRIPTION       (MailGroupType.ADMIN, "admin-suscription", [],["userLink", "user", "offerType", "totalPrice"]),
+    EDITOR_SUBSCRIPTION           (MailGroupType.ADMIN, "admin-suscription-editor", [],["userLink", "user"]),
     BATCH_PROCESS                 (MailGroupType.ADMIN, "admin-batchProcess",[],["rawMail", "SUBJECT"]);
 
 
