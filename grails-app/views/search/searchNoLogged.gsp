@@ -2,9 +2,12 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.search"/> </title>
-    <meta name="layout" content="searchNoLoggedLayout">
+    <meta name="layout" content="landingLayout">
 </head>
 
+<content tag="videoAndRegister">
+    <g:render template="/search/searchNoLoggedLanding"/>
+</content>
 
 
 <content tag="mainContent">

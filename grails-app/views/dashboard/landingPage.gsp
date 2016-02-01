@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="kuorum.name"/></title>
-    <meta name="layout" content="homePoliticianLayout">
+    <meta name="layout" content="landingLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
@@ -39,7 +39,7 @@
     <g:render template="landingPageModules/landingKuorumFeautres"/>
 </content>
 
-<content tag="testimonies">
+<content tag="mainContent">
     <g:render template="landingPageModules/landingTestimonies"/>
 </content>
 

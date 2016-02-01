@@ -1,7 +1,7 @@
 <header id="header" class="row landing ${extraHeadCss}" role="banner">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="container-fluid">
-            <g:render template="/layouts/brandAndLogo" />
+            <g:render template="/layouts/brandAndLogo" model="[whiteLogo:extraHeadCss=='transp']"/>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <g:render template="/layouts/searchHeadForm"/>
 

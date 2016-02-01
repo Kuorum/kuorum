@@ -10,9 +10,9 @@
         <g:link mapping="home" class="navbar-brand ${disabledLogoLink}" elementId="brand">
 
             <g:set var="imageBrand" value="logo@2x.png"/>
-            <nav:ifActiveMapping mappingName="home">
+            <g:if test="${whiteLogo}">
                 <g:set var="imageBrand" value="logo-white@2x.png"/>
-            </nav:ifActiveMapping>
+            </g:if>
             <img src="${resource(dir: 'images', file: imageBrand)}" alt="${g.message(code:'head.logo.alt')}">
             <span class="hidden"><g:message code="kuorum.name"/> </span>
         </g:link>
