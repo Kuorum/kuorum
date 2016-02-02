@@ -9,6 +9,7 @@ import kuorum.core.model.search.SuggestRegion
 import kuorum.core.model.solr.*
 import kuorum.web.constants.WebConstants
 import org.springframework.web.servlet.LocaleResolver
+import springSecurity.KuorumRegisterCommand
 
 class SearchController{
 
@@ -101,7 +102,11 @@ class SearchController{
         Long maxElements = 12;
         searchParams.type = SolrType.POLITICIAN
         SolrResults docs = searchDocs(searchParams, maxElements)
-        [docs:docs, searchParams:searchParams]
+        if (docs.elements){
+            render view:"searchLanding", model:[docs:docs, searchParams:searchParams]
+        }else{
+            render view:"searchLandingNoResults", model:[searchParams:searchParams, command: new KuorumRegisterCommand()]
+        }
     }
 
     private SolrResults searchDocs(SearchParams searchParams, Long max){

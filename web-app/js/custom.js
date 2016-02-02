@@ -901,6 +901,10 @@ $(document).ready(function() {
 
 
     moveToHash(window.location.hash)
+    $("a.anchor-link").on("click", function(e){
+        e.preventDefault();
+        moveToHash($(this).attr("href"))
+    })
 
 //    $("form.submitOrangeButton input.form-control").on('keyup paste',function(){
 //        console.log("change")
@@ -1317,7 +1321,7 @@ function moveToHash(hash){
         } else {
             dest = $(hash).offset().top;
         }
-        dest = dest - 100
+        dest = dest - 60
         //go to destination
         $('html,body').animate({
             scrollTop: dest

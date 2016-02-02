@@ -35,7 +35,7 @@
     <g:render template="landingPageModules/landingLogos"/>
 </content>
 
-<content tag="features">
+<content tag="special">
     <g:render template="landingPageModules/landingKuorumFeautres"/>
 </content>
 

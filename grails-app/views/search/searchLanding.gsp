@@ -4,12 +4,12 @@
     <title><g:message code="page.title.search"/> </title>
     <meta name="layout" content="landingLayout"/>
     <parameter name="showHeadSearch" value="false"/>
+    <parameter name="special-cssClass" value="noResults"/>
 </head>
 
 <content tag="videoAndRegister">
     <g:render template="/search/searchNoLoggedLanding" model="[searchParams:searchParams]"/>
 </content>
-
 
 <content tag="mainContent">
     <div class="container-fluid" id="results-tag">

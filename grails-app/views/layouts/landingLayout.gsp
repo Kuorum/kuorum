@@ -19,17 +19,19 @@
         </div>
     </g:if>
 
-    <g:if test="${pageProperty(name:"page.features")}">
-        <div class="row main special">
+    <g:if test="${pageProperty(name:"page.special")}">
+        <div class="row main special ${pageProperty(name:"page.special-cssClass")}">
             <div class="container-fluid">
-                <g:pageProperty name="page.features"/>
+                <g:pageProperty name="page.special"/>
             </div>
         </div>
     </g:if>
 
-    <div class="row main">
-        <g:pageProperty name="page.mainContent"/>
-    </div>
+    <g:if test="${pageProperty(name:"page.mainContent")}">
+        <div class="row main">
+            <g:pageProperty name="page.mainContent"/>
+        </div>
+    </g:if>
 
     <g:if test="${pageProperty(name:"page.pressKit")}">
         <div class="row main presskit">

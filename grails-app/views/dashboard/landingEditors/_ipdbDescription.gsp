@@ -1,5 +1,5 @@
 <%@ page import="kuorum.core.model.UserType; kuorum.users.KuorumUser" %>
-<section role="complementary" class="landing ipdb clearfix" id="ipdb-description">
+<section role="complementary" class="landing ipdb clearfix" id="ipdb-description-tag">
     <div class="full-video">
         <div class="container-fluid">
             <div class="row">
