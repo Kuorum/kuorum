@@ -1317,6 +1317,7 @@ function moveToHash(hash){
         } else {
             dest = $(hash).offset().top;
         }
+        dest = dest - 100
         //go to destination
         $('html,body').animate({
             scrollTop: dest

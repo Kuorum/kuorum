@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <h1><g:message code="search.noLogged.landing.title"/></h1>
-                    <h2 id="results-tag"><g:message code="search.noLogged.landing.subTitle"/></h2>
+                    <h2><g:message code="search.noLogged.landing.subTitle"/></h2>
 
                     <g:link mapping="login" class="btn btn-white"><g:message code="login.head.register"/> </g:link>
                     <g:form mapping="searcherLanding" method="GET" name="findRepresentatives" id="findRepresentatives" class="form-inline searchRep" role="search" fragment="results">

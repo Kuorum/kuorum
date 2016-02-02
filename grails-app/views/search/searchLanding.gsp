@@ -11,7 +11,7 @@
 
 
 <content tag="mainContent">
-    <div class="container-fluid">
+    <div class="container-fluid" id="results-tag">
         <div class="order-options">
             Order by <span data-toggle="popover" role="button" rel="popover" class="popover-trigger">relevance</span>
             <div class="popover">
