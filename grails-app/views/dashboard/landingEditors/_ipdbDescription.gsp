@@ -8,7 +8,7 @@
                     <p><g:message code="landingEditors.ipdb.p1"/></p>
                     <p><g:message code="landingEditors.ipdb.p2"/></p>
                     <p><g:message code="landingEditors.ipdb.p3" args="[Math.floor(KuorumUser.countByUserType(UserType.POLITICIAN)/100)*100]"/></p>
-                    <a href="#main" class="btn btn-lg"><g:message code="landingEditors.videoAndRegister.form.submit"/> </a>
+                    <g:link mapping="register" class="btn btn-lg"><g:message code="landingEditors.videoAndRegister.form.submit"/> </g:link>
                 </div>
             </div>
         </div>
