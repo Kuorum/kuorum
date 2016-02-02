@@ -4,13 +4,14 @@
             <g:render template="/layouts/brandAndLogo" model="[whiteLogo:extraHeadCss=='transp']"/>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <g:render template="/layouts/searchHeadForm"/>
-
-                <sec:ifLoggedIn>
-                    <g:include controller="layouts" action="userHead"/>
-                </sec:ifLoggedIn>
-                <sec:ifNotLoggedIn>
-                    <g:include controller="login" action="headAuth"/>
-                </sec:ifNotLoggedIn>
+                <nav:ifPageProperty pageProperty="showNavBar">
+                    <sec:ifLoggedIn>
+                        <g:include controller="layouts" action="userHead"/>
+                    </sec:ifLoggedIn>
+                    <sec:ifNotLoggedIn>
+                        <g:include controller="login" action="headAuth"/>
+                    </sec:ifNotLoggedIn>
+                </nav:ifPageProperty>
             </div>
         </div>
     </nav>

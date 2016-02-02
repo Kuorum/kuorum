@@ -1,5 +1,6 @@
 package kuorum
 
+import com.opensymphony.module.sitemesh.RequestConstants
 import kuorum.core.model.search.Pagination
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 
@@ -64,5 +65,17 @@ class NavigationTagLib {
         </form>
     </div>
     """
+    }
+
+    def ifPageProperty={attrs, body ->
+        String pageProperty = "page." + attrs.pageProperty
+        String value = getPage().getProperty(pageProperty)
+        if (!value || Boolean.parseBoolean(value)){
+            out << body()
+        }
+    }
+
+    protected getPage() {
+        return getRequest().getAttribute(RequestConstants.PAGE)
     }
 }

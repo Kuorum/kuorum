@@ -2,6 +2,8 @@
 <head>
     <title><g:message code="page.title.login"/> </title>
     <meta name="layout" content="register1ColumnLayout">
+    <parameter name="showHeadSearch" value="false"/>
+    <parameter name="showNavBar" value="false"/>
 </head>
 
 <content tag="title">

@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.search"/> </title>
-    <meta name="layout" content="landingLayout">
+    <meta name="layout" content="landingLayout"/>
+    <parameter name="showHeadSearch" value="false"/>
 </head>
 
 <content tag="videoAndRegister">
