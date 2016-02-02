@@ -3,6 +3,7 @@ package kuorum
 import grails.converters.JSON
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
+import kuorum.core.model.UserType
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.search.SuggestRegion
 import kuorum.core.model.solr.*
@@ -98,6 +99,7 @@ class SearchController{
     }
     def searchLanding(SearchParams searchParams){
         Long maxElements = 12;
+        searchParams.type = SolrType.POLITICIAN
         SolrResults docs = searchDocs(searchParams, maxElements)
         [docs:docs, searchParams:searchParams]
     }
