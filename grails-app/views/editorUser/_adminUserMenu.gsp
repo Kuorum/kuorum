@@ -2,7 +2,7 @@
     %{--<label>User actions</label>--}%
     <ul>
         <sec:ifAnyGranted roles="ROLE_ADMIN">
-            <li><g:render template="/adminUser/switchUser" model="[user:user]"/></li>
+            <li><g:render template="/editorUser/switchUser" model="[user:user]"/></li>
         </sec:ifAnyGranted>
         <li><g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}"><g:message code="admin.menu.user.editAccount" args="[user.name]"/></g:link></li>
         <li><g:link mapping="editorEditPoliticianCauses" params="${user.encodeAsLinkProperties()}"> <g:message code="admin.menu.user.editCauses" args="[user.name]"/></g:link></li>
