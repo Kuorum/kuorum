@@ -9,7 +9,7 @@
                     <g:link mapping="login" class="btn btn-white"><g:message code="login.head.register"/> </g:link>
                     <g:form mapping="searcherLanding" method="GET" name="findRepresentatives" id="findRepresentatives" class="form-inline searchRep" role="search" fragment="results">
                         <div class="form-group">
-                            <formUtil:input field="word" cssClass="form-control" command="${searchParams}"/>
+                            <formUtil:input field="word" cssClass="form-control" command="${searchParams}" labelCssClass="sr-only" showLabel="true"/>
                         </div>
                         <button type="submit" class="btn btn-blue"><g:message code="search.noLogged.landing.search"/></button>
                     </g:form>
