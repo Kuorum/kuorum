@@ -262,14 +262,14 @@ class UrlMappings {
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
 //        name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
-        name adminEditUser:         "/admin/usuarios/$userTypeUrl/$urlName-$id/editar" (controller:"adminUser"){action =[GET:"editUser", POST:"updateUser"]}
-        name adminEditPoliticianExternalActivity: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/externalActivity" (controller:"adminPolitician"){action =[GET:"editExternalActivity", POST:"updateExternalActivity"]}
-        name adminEditPoliticianRelevantEvents: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/relevantEvents" (controller:"adminPolitician"){action =[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}
-        name adminEditPoliticianProfessionalDetails: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/professionalDetails" (controller:"adminPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
-        name adminEditPoliticianQuickNotes: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/quick-notes" (controller:"adminPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
-        name adminEditPoliticianCauses: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/causes" (controller:"adminPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
-        name adminEditPoliticianExperience: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/experiencia" (controller:"adminPolitician"){action =[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
-        name adminKuorumAccountEdit: "/admin/usuarios/$userTypeUrl/$urlName-$id/editar/account-details" (controller:"adminUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
+        name editorEditUserProfile:                         "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/profile" (controller:"adminUser"){action =[GET:"editUser", POST:"updateUser"]}
+        name editorEditPoliticianExternalActivity:          "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/externalActivity" (controller:"editorPolitician"){action =[GET:"editExternalActivity", POST:"updateExternalActivity"]}
+        name editorEditPoliticianRelevantEvents:            "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/relevantEvents" (controller:"editorPolitician"){action =[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}
+        name editorEditPoliticianProfessionalDetails:       "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/professionalDetails" (controller:"editorPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
+        name editorEditPoliticianQuickNotes:                "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/quick-notes" (controller:"editorPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
+        name editorEditPoliticianCauses:                    "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/causes" (controller:"editorPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
+        name editorEditPoliticianExperience:                "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/experiencia" (controller:"editorPolitician"){action =[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
+        name editorKuorumAccountEdit:                       "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/account-details" (controller:"adminUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
         name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")

@@ -10,14 +10,14 @@
         <g:message code="admin.editUser.title" args="[command.politician.name]"/>,
     </h1>
     <g:render template="/adminUser/adminUserMenu" model="[user:command.politician]"/>
-    <g:render template="/admin/adminMenu" model="[activeMapping:'adminEditPoliticianExperience', menu:menu]"/>
+    <g:render template="/admin/adminMenu" model="[activeMapping:'editorEditPoliticianExperience', menu:menu]"/>
 
 </content>
 
 <content tag="mainContent">
-    <h1>External Activity ${command.politician.name}</h1>
+    <h1><g:message code="admin.menu.user.editPoliticianExperience" args="[command.politician.name]"/></h1>
     <formUtil:validateForm form="politicianExperienceForm" bean="${command}"/>
-    <g:form method="POST" mapping="adminEditPoliticianExperience" params="${command.politician.encodeAsLinkProperties()}" name="politicianExperienceForm" role="form">
+    <g:form method="POST" mapping="editorEditPoliticianExperience" params="${command.politician.encodeAsLinkProperties()}" name="politicianExperienceForm" role="form">
         <g:render template="/politicianProfile/formPoliticianExperience" model="[command:command]"/>
     </g:form>
 </content>

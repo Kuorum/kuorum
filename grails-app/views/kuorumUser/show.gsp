@@ -14,7 +14,7 @@
 
 <content tag="mainContent">
     <div class="box-ppal profile" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <sec:ifAnyGranted roles="ROLE_ADMIN">
+        <sec:ifAnyGranted roles="ROLE_EDITOR">
             <!-- FLECHITA PARA ABRIR MENÚ -->
             <span class="popover-trigger open-menu" rel="popover" role="button" data-toggle="popover">
                 <span class="fa fa-chevron-down"></span>
@@ -25,7 +25,7 @@
                 <div class="popover-more-actions edition">
                     <ul>
                         <li>
-                            <g:link mapping="adminEditUser" params="${user.encodeAsLinkProperties()}">
+                            <g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}">
                                 <span><g:message code="project.editMenu.edit"/></span>
                             </g:link>
                         </li>

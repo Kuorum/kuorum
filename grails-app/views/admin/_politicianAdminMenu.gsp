@@ -8,7 +8,7 @@
                 <g:message code="admin.menu.adminUnpublishedProjects.link"/>
             </span>
             <span aria-relevant="additions" aria-live="assertive" aria-labelledby="unpublished-projects" role="log" class="badge pull-right">
-                ${menu.unpublishedProjects}
+                0
             </span>
         </g:link>
     </li>

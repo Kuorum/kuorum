@@ -18,12 +18,12 @@
 
 <content tag="titleContent">
     <h1><g:message code="admin.editUser.title" args="[user.name]"/></h1>
-    <h3>Account</h3>
+    <h3><g:message code="admin.menu.user.editAccount" args="[user.name]"/></h3>
 </content>
 
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="accountForm"/>
-    <g:form method="POST" mapping="adminKuorumAccountEdit" params="${user.encodeAsLinkProperties()}" name="accountForm" role="form" class="submitOrangeButton">
+    <g:form method="POST" mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}" name="accountForm" role="form" class="submitOrangeButton">
         <div class="box-ppal-section">
             <g:render template="/profile/accountDetailsForm" model="[command:command]"/>
         </div>

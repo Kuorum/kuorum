@@ -169,6 +169,6 @@ class AdminUserController extends AdminController {
         updatedUser = kuorumUserService.updateUser(updatedUser);
 
         flash.message =message(code:'admin.editUser.success', args: [updatedUser.name])
-        redirect(mapping:'adminKuorumAccountEdit', params:updatedUser.encodeAsLinkProperties())
+        redirect(mapping:'editorKuorumAccountEdit', params:updatedUser.encodeAsLinkProperties())
     }
 }

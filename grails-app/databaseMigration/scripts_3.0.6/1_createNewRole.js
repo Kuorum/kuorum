@@ -9,3 +9,6 @@ var role = {
 
 
 dbDest.roleUser.save(role)
+
+var roleEditor = dbDest.roleUser.find({"authority" : "ROLE_EDITOR"}).next()
+dbDest.kuorumUser.update({"authorities.authority":"ROLE_ADMIN"}, {$addToSet:{authorities:roleEditor}}, {multi:true})

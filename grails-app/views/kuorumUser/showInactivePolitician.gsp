@@ -8,10 +8,10 @@
 
 
 <content tag="mainContent">
-    <sec:ifAnyGranted roles="ROLE_ADMIN">
+    <sec:ifAnyGranted roles="ROLE_EDITOR">
         <div id="adminActions">
             <span class="text">
-                <g:link mapping="adminEditUser" params="${user.encodeAsLinkProperties()}">
+                <g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}">
                     <span class="fa fa-edit fa-lg"></span>Editar perfil</g:link>
             </span>
         </div>

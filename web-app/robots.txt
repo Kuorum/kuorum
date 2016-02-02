@@ -4,6 +4,7 @@ User-agent: *
 Disallow: /login/auth
 Disallow: /ajax/*
 Disallow: /admin/*
+Disallow: /editor/*
 Disallow: /mi-perfil/*
 Disallow: /buscar/*
 Disallow: /sec/*

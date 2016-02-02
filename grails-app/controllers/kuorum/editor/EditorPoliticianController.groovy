@@ -1,19 +1,12 @@
-package kuorum.admin
+package kuorum.editor
 
+import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
-import kuorum.users.PoliticianProfileController
 import kuorum.users.PoliticianService
-import kuorum.users.extendedPoliticianData.CareerDetails
-import kuorum.users.extendedPoliticianData.ProfessionalDetails
-import kuorum.web.commands.profile.politician.ExternalPoliticianActivityCommand
-import kuorum.web.commands.profile.politician.PoliticalExperienceCommand
-import kuorum.web.commands.profile.politician.PoliticianCausesCommand
-import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
-import kuorum.web.commands.profile.politician.QuickNotesCommand
-import kuorum.web.commands.profile.politician.RelevantEventsCommand
+import kuorum.web.commands.profile.politician.*
 
-class AdminPoliticianController extends AdminController{
-
+@Secured(['ROLE_EDITOR'])
+class EditorPoliticianController {
     PoliticianService politicianService
 
     def editExternalActivity(){
@@ -28,7 +21,7 @@ class AdminPoliticianController extends AdminController{
         }
         politicianService.updatePoliticianExternalActivity(command.politician, command.externalPoliticianActivities)
         flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'adminEditPoliticianExternalActivity', params: command.politician.encodeAsLinkProperties()
+        redirect mapping:'editorEditPoliticianExternalActivity', params: command.politician.encodeAsLinkProperties()
     }
 
     def editRelevantEvents(){
@@ -43,7 +36,7 @@ class AdminPoliticianController extends AdminController{
         }
         politicianService.updatePoliticianRelevantEvents(command.politician, command.politicianRelevantEvents)
         flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'adminEditPoliticianRelevantEvents', params: command.politician.encodeAsLinkProperties()
+        redirect mapping:'editorEditPoliticianRelevantEvents', params: command.politician.encodeAsLinkProperties()
     }
 
     def editProfessionalDetails(){
@@ -59,7 +52,7 @@ class AdminPoliticianController extends AdminController{
         }
         politicianService.updatePoliticianProfessionalDetails(command.politician, command)
         flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'adminEditPoliticianProfessionalDetails', params: command.politician.encodeAsLinkProperties()
+        redirect mapping:'editorEditPoliticianProfessionalDetails', params: command.politician.encodeAsLinkProperties()
     }
 
 
@@ -76,7 +69,7 @@ class AdminPoliticianController extends AdminController{
         }
         politicianService.updatePoliticianQuickNotes(command.politician, command.politicianExtraInfo, command.institutionalOffice, command.politicalOffice)
         flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'adminEditPoliticianQuickNotes', params: command.politician.encodeAsLinkProperties()
+        redirect mapping:'editorEditPoliticianQuickNotes', params: command.politician.encodeAsLinkProperties()
     }
 
 
@@ -93,7 +86,7 @@ class AdminPoliticianController extends AdminController{
         }
         politicianService.updatePoliticianCauses(command.politician, command.causes)
         flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'adminEditPoliticianCauses', params: command.politician.encodeAsLinkProperties()
+        redirect mapping:'editorEditPoliticianCauses', params: command.politician.encodeAsLinkProperties()
     }
 
 
@@ -110,7 +103,7 @@ class AdminPoliticianController extends AdminController{
         }
         politicianService.updatePoliticianExperience(command.politician, command.timeLine)
         flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'adminEditPoliticianExperience', params: command.politician.encodeAsLinkProperties()
+        redirect mapping:'editorEditPoliticianExperience', params: command.politician.encodeAsLinkProperties()
     }
 
 }

@@ -11,7 +11,7 @@
 <content tag="mainContent">
     <div class="panel panel-default">
         <div class='profile-header'>
-            <sec:ifAnyGranted roles="ROLE_ADMIN">
+            <sec:ifAnyGranted roles="ROLE_EDITOR">
                 <!-- FLECHITA PARA ABRIR MENÚ -->
                 <span class="popover-trigger open-menu" rel="popover" role="button" data-toggle="popover">
                     <span class="fa fa-chevron-down"></span>
@@ -22,7 +22,7 @@
                     <div class="popover-more-actions edition">
                         <ul>
                             <li>
-                                <g:link mapping="adminEditUser" params="${politician.encodeAsLinkProperties()}">
+                                <g:link mapping="editorKuorumAccountEdit" params="${politician.encodeAsLinkProperties()}">
                                     <span><g:message code="project.editMenu.edit"/></span>
                                 </g:link>
                             </li>
