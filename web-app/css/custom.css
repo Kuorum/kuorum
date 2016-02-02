@@ -2814,7 +2814,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub > h1,
 .landing.ipdb .full-video h1 {font-size: 26px; font-size: 2.6rem; max-width: 650px; margin: 0 auto 20px; text-align: center; padding-bottom: 18px;}
 .main.special.landing .homeSub ul {padding: 0; margin: 0; list-style: none;}
-.main.special.landing .homeSub ul li {width: 100%; list-style: none; float: left; text-align: center; margin: 20px 0;}
+.main.special.landing .homeSub ul li {width: 100%; list-style: none; float: left; text-align: center; margin: 20px 0; height: 65px;}
 .main.special.landing .homeSub ul li img {max-width: 145px;}
 .main.special.landing .homeSub ul li.square img {max-width: 105px;}
 
@@ -4447,7 +4447,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .box-ppal .notifications-list > li > .user > .actions > li > a {margin: 0 !important;}
 
     /* LANDING */
-    .main.special.landing .homeSub ul li { width: 20%; }
+    .main.special.landing .homeSub ul li { width: 20%; height:85px; }
     .landing .full-video .container-fluid .form-inline .form-group { width: 33%; }
     .row.main.presskit section { padding: 120px 0; }
     .row.main.presskit { background-position: center -240px; }
