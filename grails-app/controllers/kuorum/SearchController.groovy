@@ -103,7 +103,7 @@ class SearchController{
         if (springSecurityService.isLoggedIn()){
             render view:"search", model:[docs:docs, searchParams:searchParams]
         }else{
-            render view:"searchNoLogged", model:[docs:docs, searchParams:searchParams]
+            render view:"searchLanding", model:[docs:docs, searchParams:searchParams]
         }
     }
 
