@@ -7,7 +7,7 @@
                     <h2 id="results-tag"><g:message code="search.noLogged.landing.subTitle"/></h2>
 
                     <g:link mapping="login" class="btn btn-white"><g:message code="login.head.register"/> </g:link>
-                    <g:form mapping="searcherSearch" method="GET" name="findRepresentatives" id="findRepresentatives" class="form-inline searchRep" role="search" fragment="results">
+                    <g:form mapping="searcherLanding" method="GET" name="findRepresentatives" id="findRepresentatives" class="form-inline searchRep" role="search" fragment="results">
                         <input type="hidden" value="POLITICIAN" name="type"/>
                         <div class="form-group">
                             <formUtil:input field="word" cssClass="form-control" command="${searchParams}"/>

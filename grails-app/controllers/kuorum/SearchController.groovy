@@ -92,19 +92,26 @@ class SearchController{
     }
 
     def search(SearchParams searchParams) {
+        Long maxElements = 10;
+        SolrResults docs = searchDocs(searchParams, maxElements)
+        [docs:docs, searchParams:searchParams]
+    }
+    def searchLanding(SearchParams searchParams){
+        Long maxElements = 12;
+        SolrResults docs = searchDocs(searchParams, maxElements)
+        [docs:docs, searchParams:searchParams]
+    }
+
+    private SolrResults searchDocs(SearchParams searchParams, Long max){
         SolrResults docs
         if (searchParams.hasErrors()){
             searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.POLITICIAN)
             docs = searchSolrService.search(searchParams)
         }else{
-            searchParams.max = 12
+            searchParams.max = max
             docs = searchSolrService.search(searchParams)
         }
-        if (springSecurityService.isLoggedIn()){
-            render view:"search", model:[docs:docs, searchParams:searchParams]
-        }else{
-            render view:"searchLanding", model:[docs:docs, searchParams:searchParams]
-        }
+        return docs;
     }
 
     def modifyFilters(SearchParams searchParams) {
