@@ -1,8 +1,7 @@
-<%@ page import="kuorum.core.model.solr.SolrType" %>
 <!-- Le quitamos las clases underline, etc a estos enlaces -->
 <ul class="nav navbar-nav navbar-right">
     <li>
-        <g:link mapping="searcherLanding" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherLanding')}" params="[type:SolrType.POLITICIAN]">
+        <g:link mapping="searcherLanding" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherLanding')}">
             <span><g:message code="head.noLogged.search"/></span>
         </g:link>
     </li>
