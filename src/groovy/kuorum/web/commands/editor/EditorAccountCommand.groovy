@@ -1,4 +1,4 @@
-package kuorum.web.commands.admin
+package kuorum.web.commands.editor
 
 import grails.validation.Validateable
 import kuorum.core.model.UserType
@@ -6,9 +6,9 @@ import kuorum.users.KuorumUser
 import kuorum.web.commands.profile.AccountDetailsCommand
 
 @Validateable
-class KuorumAccountCommand extends AccountDetailsCommand{
-    public KuorumAccountCommand(){};
-    public KuorumAccountCommand(KuorumUser user, Boolean emailAccountActive){
+class EditorAccountCommand extends AccountDetailsCommand{
+    public EditorAccountCommand(){};
+    public EditorAccountCommand(KuorumUser user, Boolean emailAccountActive){
         super(user)
         this.active = user.enabled
         this.userType = user.userType

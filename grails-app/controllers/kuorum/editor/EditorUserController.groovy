@@ -1,18 +1,11 @@
 package kuorum.editor
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.Institution
-import kuorum.KuorumFile
-import kuorum.PoliticalParty
-import kuorum.Region
 import kuorum.RegionService
-import kuorum.admin.AdminController
-import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
 import kuorum.users.*
-import kuorum.web.commands.admin.AdminUserCommand
-import kuorum.web.commands.admin.KuorumAccountCommand
+import kuorum.web.commands.editor.EditorAccountCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
@@ -49,11 +42,11 @@ class EditorUserController {
     def editAdminAccountDetails(){
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
         KuorumMailAccountDetailsRSDTO account = kuorumMailAccountService.getAccountDetails(user)
-        KuorumAccountCommand command = new KuorumAccountCommand(user, account?.active?:false);
+        EditorAccountCommand command = new EditorAccountCommand(user, account?.active?:false);
         [user:user,command:command]
     }
 
-    def updateAdminAccountDetails(KuorumAccountCommand command){
+    def updateAdminAccountDetails(EditorAccountCommand command){
         if (command.hasErrors()){
             flash.error=message(code:'admin.createUser.error')
             render view: 'editAdminAccountDetails', model:[command:command, user:command.user]
