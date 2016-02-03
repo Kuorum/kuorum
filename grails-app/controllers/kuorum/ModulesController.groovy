@@ -52,6 +52,7 @@ class ModulesController {
         render template:'/modules/recommendedUsers', model:[recommendedUsers:recommendedUsers]
     }
 
+    @Deprecated
     def registerFooterRelevantUsers(){
         List<KuorumUser> users = kuorumUserService.recommendedUsers(new Pagination(max: NUM_RELEVANT_FOOTER_USERS))
         render template: "/layouts/footer/footerRegisterRelevantUsers", model: [users:users]
