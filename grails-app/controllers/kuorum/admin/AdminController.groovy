@@ -93,8 +93,8 @@ class AdminController {
         user.personalData.userType = command.userType
         user.enabled = command.active?:false
         user.authorities = command.authorities
-        user = kuorumUserService.updateUser(user);
         kuorumUserService.updateUserRelevance(user, command.relevance)
+        user = kuorumUserService.updateUser(user);
 
         flash.message =message(code:'admin.editUser.success', args: [user.name])
 

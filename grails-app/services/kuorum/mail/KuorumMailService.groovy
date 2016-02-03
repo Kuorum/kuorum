@@ -501,22 +501,11 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailNotificationsData)
     }
 
-    def verifyUser(KuorumUser user){
-        mailingListUpdateUser(user)
-        sendUserAccountConfirmed(user)
-    }
-
     def mailingListUpdateUser(KuorumUser user){
         try{
             mailchimpService.addSubscriber(user)
         }catch(Exception e){
            log.error("Error actualizando usuario ${user} en MailChimp", e)
-        }
-
-        try{
-            indexSolrService.index(user)
-        }catch(Exception e){
-            log.error("Error indexando usuario",e)
         }
     }
 
