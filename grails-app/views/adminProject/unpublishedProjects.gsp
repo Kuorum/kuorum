@@ -10,7 +10,7 @@
         <g:message code="admin.unpublishedProjects.title"/>,
     </h1>
     %{--<p><g:message code="profile.changeEmail.description"/></p>--}%
-    <g:render template="/admin/adminMenu" model="[activeMapping:'adminUnpublishedProjects, menu:menu]"/>
+    <g:render template="/admin/adminMenu" model="[activeMapping:'adminUnpublishedProjects']"/>
 
 </content>
 
