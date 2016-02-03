@@ -73,6 +73,7 @@ class AdminController {
         KuorumMailAccountDetailsRSDTO account = kuorumMailAccountService.getAccountDetails(user)
         command.emailAccountActive = account?.active?:false
         command.authorities = user.authorities
+        command.relevance = kuorumUserService.getUserRelevance(user)
         [command:command]
     }
 
@@ -93,6 +94,7 @@ class AdminController {
         user.enabled = command.active?:false
         user.authorities = command.authorities
         user = kuorumUserService.updateUser(user);
+        kuorumUserService.updateUserRelevance(user, command.relevance)
 
         flash.message =message(code:'admin.editUser.success', args: [user.name])
 

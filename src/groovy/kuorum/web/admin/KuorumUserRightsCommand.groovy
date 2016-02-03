@@ -16,10 +16,11 @@ class KuorumUserRightsCommand {
     Set<RoleUser> authorities
     Boolean emailAccountActive;
     Boolean active
+    Long relevance
 
     static constraints = {
         user nullable: false
         userType nullable: false
-        authorities nullable: false, minSize: 1
+        relevance nullable: false
     }
 }

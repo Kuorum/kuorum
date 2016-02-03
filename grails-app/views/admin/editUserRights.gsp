@@ -38,11 +38,14 @@
                 <div class="form-group col-md-6">
                     <formUtil:radioEnum command="${command}" field="userType" showLabel="true"/>
                 </div>
+                <div class="form-group col-md-6">
+                    <formUtil:input type="number" command="${command}" field="relevance" showLabel="true"/>
+                </div>
             </fieldset>
         </div>
         <div class="box-ppal-section">
             <h4 class="box-ppal-section-title">
-                Rights
+                Rights / Role
             </h4>
             <fieldset class="row">
                 <div class="form-group col-md-12">

@@ -449,6 +449,14 @@ class KuorumUserService {
         user
     }
 
+    KuorumUser updateUserRelevance(KuorumUser user, Long relevance){
+        user["relevance"] = relevance
+        user.save()
+    }
+
+    Long getUserRelevance(KuorumUser user){
+        user["relevance"]?:0
+    }
     KuorumUser updateAlias(KuorumUser user, String newAlias){
         String currentAlias = user.alias
         if (user.alias != newAlias){
