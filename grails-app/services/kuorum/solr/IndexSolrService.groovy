@@ -43,10 +43,6 @@ class IndexSolrService {
         server.commit()
     }
 
-    def solrIndex(){
-
-    }
-
     def fullIndex() {
 
         Date start = new Date()
@@ -63,6 +59,13 @@ class IndexSolrService {
     }
 
     private Integer solrFullIndex(){
+        solrIndex([command:'full-import', clean:'true', commit:'true', optimize:'true', wt:'json'])
+    }
+
+    private Integer solrDeltaIndex(){
+        solrIndex([command:'delta-import', commit:'true', wt:'json'])
+    }
+    private Integer solrIndex(Map options){
         if (server instanceof HttpSolrServer){
             Integer numIndexed = 0;
             HttpSolrServer httpSolrServer = (HttpSolrServer) server
@@ -71,7 +74,7 @@ class IndexSolrService {
             RESTClient mailKuorumServices = new RESTClient( baseUrl +path)
             def response = mailKuorumServices.get(
                     headers: ["User-Agent": "Kuorum Web"],
-                    query:[command:'full-import', clean:'true', commit:'true', optimize:'true', wt:'json'],
+                    query:options,
                     requestContentType : groovyx.net.http.ContentType.JSON
             )
             boolean importing = true;
@@ -111,18 +114,18 @@ class IndexSolrService {
         return numIndexed;
     }
 
-    SolrPost index(Post post){
+    void index(Post post){
         log.info("Indexing post: ${post}")
-        indexDomainObject(post)
+        solrDeltaIndex()
     }
-    SolrKuorumUser index(KuorumUser user){
+    void index(KuorumUser user){
         log.info("Indexing user:${user}")
-        indexDomainObject(user)
+        solrDeltaIndex()
     }
 
-    SolrProject index(Project project){
+    void index(Project project){
         log.info("Indexing project: ${project}")
-        indexDomainObject(project)
+        solrDeltaIndex()
     }
 
     private void deleteDocument(String id){
@@ -139,6 +142,7 @@ class IndexSolrService {
         deleteDocument(user.id.toString())
     }
 
+    @Deprecated
     private SolrElement indexDomainObject(element){
         SolrElement solrElement = createSolrElement(element)
         if (solrElement){//Si es null es que no se indexa por alguna razon
