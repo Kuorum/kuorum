@@ -118,7 +118,7 @@ class FormTagLib {
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         def showCharCounter = attrs.showCharCounter?Boolean.parseBoolean(attrs.showCharCounter):true
         def clazz = command.metaClass.properties.find{it.name == field}.type
-        def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
+        def label = buildLabel(command, field, attrs.label)
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
 
@@ -160,7 +160,8 @@ class FormTagLib {
         def field = attrs.field
 
         def id = attrs.id?:field
-        def label = message(code: "${command.class.name}.${field}.label")
+        def label = buildLabel(command,field,attrs.label)
+
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         def prefixFieldName=attrs.prefixFieldName?:""
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
@@ -265,7 +266,7 @@ class FormTagLib {
         def cssClass = attrs.cssClass?:'form-control input-lg'
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
-        def label = message(code: "${command.class.name}.${field}.label")
+        def label = buildLabel(command,field, attrs.label)
 
         def error = hasErrors(bean: command, field: field,'error')
         //TODO: ¿Internacionalizar el formato a mostrar de la fecha?
@@ -324,7 +325,7 @@ class FormTagLib {
         def prefixFieldName=attrs.prefixFieldName?:""
         def cssClass = attrs.cssClass?:'form-control input-lg'
         def labelCssClass = attrs.labelCssClass?:''
-        def label = message(code: "${command.class.name}.${field}.label")
+        def label = buildLabel(command,field, attrs.label)
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         def value = command."${field}"?:''
 
@@ -463,7 +464,7 @@ class FormTagLib {
         def cssClass = attrs.cssClass
         def cssLabel=attrs.cssLabel?:""
         def clazz = command.metaClass.properties.find{it.name == field}.type
-        def label = message(code: "${clazz.name}.label")
+        def label ="${message(code: "${clazz.name}.label")}${isRequired(command,field)?'*':''}"
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
             <label for="${id}" class="${cssLabel}">${label}</label>
@@ -620,7 +621,7 @@ class FormTagLib {
 
         def deleteOptions = attrs.deleteOptions?:[]
         def clazz = command.metaClass.properties.find{it.name == field}.type
-        def label = message(code: "${command.class.name}.${field}.label")
+        def label = buildLabel(command, field, attrs.label)
         def error = hasErrors(bean: command, field: field,'error')
         def values = clazz.values() - deleteOptions
         out << "<div class='groupRadio'>"
@@ -653,7 +654,7 @@ class FormTagLib {
         MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
         def maxSize = maxSizeConstraint?.maxSize?:0
         def texteditor = attrs.texteditor?:''
-        def label = message(code: "${command.class.name}.${field}.label")
+        def label = buildLabel(command, field, attrs.label)
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         if (showLabel){
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
@@ -885,5 +886,16 @@ class FormTagLib {
             out << "<option value='${prefixPhone}' ${checked}>${prefixPhone}</option>"
         }
         out << "</select>"
+    }
+
+    private String buildLabel(def command, String field, String customLabel){
+        def label = customLabel?:message(code: "${command.class.name}.${field}.label")
+        "${label}${isRequired(command,field)?'*':''}"
+    }
+
+    private boolean isRequired(def command, String field){
+        ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
+        NullableConstraint nullableConstraint = constraints.appliedConstraints.find{it instanceof NullableConstraint}
+        !(nullableConstraint?.nullable?:false)
     }
 }
