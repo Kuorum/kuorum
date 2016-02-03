@@ -105,11 +105,11 @@
         });
     </g:if>
     <sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">
-        <g:if test="${actionName!='verifyRegistration' && controllerName!='funnel' && controllerName!='register'}">
+        <nav:ifActiveMapping mappingNames="registerStep2, registerStep3" equals="false">
                 $(function(){
                     display.warn("<userUtil:showMailConfirm /> ${pageProperty(name:'page.hiddeMailConfirmMessage')}");
                 });
-        </g:if>
+        </nav:ifActiveMapping>
     </sec:ifAnyGranted>
 
 </script>

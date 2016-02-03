@@ -28,9 +28,12 @@ class NavigationTagLib {
 
 
     def ifActiveMapping = {attrs, body ->
-        String mappingName = attrs.mappingName
-        String url = grailsLinkGenerator.link(mapping:mappingName,absolute: true)
-        if (request.getRequestURL().toString() == url){
+        String mappingName = attrs.mappingName?:''
+        List<String> mappingNames = attrs.mappingNames?attrs.mappingNames.split(",").collect{it.trim()}.findAll{it}:[mappingName]
+        Boolean equals = attrs.equals?Boolean.parseBoolean(attrs.equals): true;
+        List<String> urls = mappingNames.collect{grailsLinkGenerator.link(mapping:it,absolute: true)}
+
+        if (equals && urls.contains(request.getRequestURL().toString()) || !equals && !urls.contains(request.getRequestURL().toString())){
             out << body()
         }
     }
