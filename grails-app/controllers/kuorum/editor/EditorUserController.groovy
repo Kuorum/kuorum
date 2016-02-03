@@ -41,8 +41,7 @@ class EditorUserController {
 
     def editAdminAccountDetails(){
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
-        KuorumMailAccountDetailsRSDTO account = kuorumMailAccountService.getAccountDetails(user)
-        EditorAccountCommand command = new EditorAccountCommand(user, account?.active?:false);
+        EditorAccountCommand command = new EditorAccountCommand(user);
         [user:user,command:command]
     }
 
@@ -58,11 +57,6 @@ class EditorUserController {
             render view: 'editAdminAccountDetails', model:[command:command, user:command.user]
             return
         }
-        if (command.emailAccountActive){
-            kuorumMailAccountService.activateAccount(updatedUser)
-        }else{
-            kuorumMailAccountService.deleteAccount(updatedUser)
-        }
         updatedUser.email = command.email
         updatedUser.language = command.language
         updatedUser.name = command.name
@@ -71,9 +65,8 @@ class EditorUserController {
         }
         updatedUser.personalData.phonePrefix = command.phonePrefix
         updatedUser.personalData.telephone = command.phone
-        updatedUser.userType = command.userType
-        updatedUser.personalData.userType = command.userType
-        updatedUser.enabled = command.active?:false
+        updatedUser.personalData.province = command.homeRegion
+        updatedUser.personalData.provinceCode = command.homeRegion.iso3166_2
         updatedUser = kuorumUserService.updateUser(updatedUser);
 
         flash.message =message(code:'admin.editUser.success', args: [updatedUser.name])

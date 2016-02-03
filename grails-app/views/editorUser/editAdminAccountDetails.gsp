@@ -28,24 +28,6 @@
             <g:render template="/profile/accountDetailsForm" model="[command:command]"/>
         </div>
         <div class="box-ppal-section">
-            <h4 class="box-ppal-section-title">
-                Admin
-            </h4>
-            <fieldset class="row">
-                <div class="form-group col-md-6">
-                    <formUtil:checkBox command="${command}" field="active" showLabel="true"/>
-                </div>
-                <div class="form-group col-md-6">
-                    <formUtil:checkBox command="${command}" field="emailAccountActive" showLabel="true"/>
-                </div>
-            </fieldset>
-            <fieldset class="row">
-                <div class="form-group col-md-6">
-                    <formUtil:radioEnum command="${command}" field="userType" showLabel="true"/>
-                </div>
-            </fieldset>
-        </div>
-        <div class="box-ppal-section">
             <fieldset class="form-group text-center">
                 <input type="submit" value="${g.message(code:'profile.emailNotifications.save')}" class="btn btn-orange btn-lg">
             </fieldset>
