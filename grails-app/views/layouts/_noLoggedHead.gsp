@@ -15,11 +15,11 @@
             <span><g:message code="head.noLogged.politicians"/> </span>
         </g:link>
     </li>
-    <li>
-        <a href="prices.html" class="navbar-link">
-            <span><g:message code="head.noLogged.prices"/></span>
-        </a>
-    </li>
+    %{--<li>--}%
+        %{--<a href="prices.html" class="navbar-link">--}%
+            %{--<span><g:message code="head.noLogged.prices"/></span>--}%
+        %{--</a>--}%
+    %{--</li>--}%
     <li>
         <g:set var="logInMapping" value="loginAuth"/>
         <g:set var="logInText" value="${g.message(code:"head.noLogged.login")}"/>
