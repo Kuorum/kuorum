@@ -8,23 +8,23 @@
                 <div class="thead"><g:message code="politician.professionalDetails.title.political"/> </div>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.professionalDetails.data.position'),
-                        text:politician?.professionalDetails?.position?:''
+                        data:politician?.professionalDetails?.position?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.professionalDetails.data.institution'),
-                        text:politician?.professionalDetails?.institution?:''
+                        data:politician?.professionalDetails?.institution?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.professionalDetails.data.constituency'),
-                        text:politician?.professionalDetails?.constituency?.name?:''
+                        data:politician?.professionalDetails?.constituency?.name?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.professionalDetails.data.region'),
-                        text:politician?.professionalDetails?.region?.name?:''
+                        data:politician?.professionalDetails?.region?.name?:''
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'kuorum.users.extendedPoliticianData.ProfessionalDetails.politicalParty.label'),
-                        text:politician?.professionalDetails?.politicalParty?:''
+                        data:politician?.professionalDetails?.politicalParty?:''
                 ]"/>
             </div>
             <g:if test="${['profession','university', 'school','studies', 'cvLink', 'declarationLink'].find{politician?.careerDetails?."${it}"}}">
@@ -32,29 +32,29 @@
                     <div class="thead"><g:message code="politician.professionalDetails.title.career"/> </div>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.professionalDetails.data.profession'),
-                            text:politician?.careerDetails?.profession?:''
+                            data:politician?.careerDetails?.profession?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.education.studies'),
-                            text:politician?.careerDetails?.studies?:''
+                            data:politician?.careerDetails?.studies?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.education.university'),
-                            text:politician?.careerDetails?.university
+                            data:politician?.careerDetails?.university
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.education.school'),
-                            text:politician?.careerDetails?.school?:''
+                            data:politician?.careerDetails?.school?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.professionalDetails.data.cvLink'),
                             link:politician?.careerDetails?.cvLink?:'',
-                            text:''
+                            data:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.professionalDetails.data.declaration'),
                             link:politician?.careerDetails?.declarationLink?:'',
-                            text:''
+                            data:''
                     ]"/>
                 </div>
             </g:if>

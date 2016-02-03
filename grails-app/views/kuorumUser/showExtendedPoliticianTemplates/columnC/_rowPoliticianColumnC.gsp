@@ -1,4 +1,4 @@
-<g:if test='${text || link}'>
+<g:if test='${data || link}'>
     <div class="tr">
         <div class="th" scope="row"><g:message code="${message}"/></div>
         <div class="td">
@@ -6,7 +6,7 @@
                 <a class="ellipsis" href="${link}" target="_blank">${link}</a>
             </g:if>
             <g:else>
-                ${text}
+                ${data}
             </g:else>
         </div>
     </div>

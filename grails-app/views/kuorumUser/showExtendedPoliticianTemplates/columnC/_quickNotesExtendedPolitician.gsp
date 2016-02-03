@@ -17,23 +17,23 @@
                     <div class="thead"><g:message code="politician.quickNotes.data.background.title"/></div>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.background.completeName'),
-                            text:politician?.politicianExtraInfo?.completeName?:''
+                            data:politician?.politicianExtraInfo?.completeName?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.background.age'),
-                            text:(politician?.politicianExtraInfo?.birthDate?new Date()[Calendar.YEAR]-politician.politicianExtraInfo.birthDate[Calendar.YEAR]:'')
+                            data:(politician?.politicianExtraInfo?.birthDate?new Date()[Calendar.YEAR]-politician.politicianExtraInfo.birthDate[Calendar.YEAR]:'')
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.background.placeOfBirth'),
-                            text:politician?.politicianExtraInfo?.birthPlace?:''
+                            data:politician?.politicianExtraInfo?.birthPlace?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.background.dateOfBirth'),
-                            text:(politician?.politicianExtraInfo?.birthDate?g.formatDate(format: 'yyyy', date: politician.politicianExtraInfo.birthDate):'')
+                            data:(politician?.politicianExtraInfo?.birthDate?g.formatDate(format: 'yyyy', date: politician.politicianExtraInfo.birthDate):'')
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.background.family'),
-                            text:politician?.politicianExtraInfo?.family?:''
+                            data:politician?.politicianExtraInfo?.family?:''
                     ]"/>
                 </div>
             </g:if>
@@ -42,23 +42,23 @@
                     <div class="thead"><g:message code="politician.institutionalOffice.title"/> </div>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.assistants.label'),
-                            text:politician?.institutionalOffice?.assistants?:''
+                            data:politician?.institutionalOffice?.assistants?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.address.label'),
-                            text:politician?.institutionalOffice?.address?:''
+                            data:politician?.institutionalOffice?.address?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.telephone.label'),
-                            text:politician?.institutionalOffice?.telephone?:''
+                            data:politician?.institutionalOffice?.telephone?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.mobile.label'),
-                            text:politician?.institutionalOffice?.mobile?:''
+                            data:politician?.institutionalOffice?.mobile?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.fax.label'),
-                            text:politician?.institutionalOffice?.fax?:''
+                            data:politician?.institutionalOffice?.fax?:''
                     ]"/>
                 </div>
             </g:if>
@@ -67,23 +67,23 @@
                     <div class="thead"><g:message code="politician.politicalOffice.title"/> </div>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.assistants.label'),
-                            text:politician?.politicalOffice?.assistants?:''
+                            data:politician?.politicalOffice?.assistants?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.address.label'),
-                            text:politician?.politicalOffice?.address?:''
+                            data:politician?.politicalOffice?.address?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.telephone.label'),
-                            text:politician?.politicalOffice?.telephone?:''
+                            data:politician?.politicalOffice?.telephone?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.mobile.label'),
-                            text:politician?.politicalOffice?.mobile?:''
+                            data:politician?.politicalOffice?.mobile?:''
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'kuorum.users.extendedPoliticianData.OfficeDetails.fax.label'),
-                            text:politician?.politicalOffice?.fax?:''
+                            data:politician?.politicalOffice?.fax?:''
                     ]"/>
                 </div>
             </g:if>
