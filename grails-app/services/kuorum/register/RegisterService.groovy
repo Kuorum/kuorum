@@ -9,6 +9,7 @@ import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
 import kuorum.post.Post
 import kuorum.post.PostVoteService
+import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.RoleUser
@@ -33,6 +34,8 @@ class RegisterService {
     KuorumUserService kuorumUserService
 
     NotificationService notificationService
+
+    IndexSolrService indexSolrService
 
     public static final PREFIX_PASSWORD = "*registerUser*"
 
@@ -171,6 +174,11 @@ class RegisterService {
         }
         if (user) {
             kuorumMailService.mailingListUpdateUser(user)
+        }
+        try{
+            indexSolrService.index(user)
+        }catch(Exception e){
+            log.error("Error indexando usuario",e)
         }
         user
     }

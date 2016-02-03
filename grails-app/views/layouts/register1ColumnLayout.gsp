@@ -7,7 +7,7 @@
 
     <body>
 
-        <g:render template="/layouts/headNoLogged"/>
+    <g:render template="/layouts/head"/>
         <!-- IMPORTANTE este div debe estar justo después del header; no poner nada entre ellos -->
         <div class="row main">
             <div class="container-fluid onecol">

@@ -39,6 +39,7 @@ class EditorUserController {
         redirect(mapping:'userShow', params:user.encodeAsLinkProperties())
     }
 
+    @Secured(['ROLE_EDITOR'])
     def editAdminAccountDetails(){
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
         EditorAccountCommand command = new EditorAccountCommand(user);
