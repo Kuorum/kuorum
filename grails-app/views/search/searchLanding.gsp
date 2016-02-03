@@ -13,18 +13,21 @@
 
 <content tag="mainContent">
     <div class="container-fluid" id="results-tag">
-        <g:if env="development">
             <div class="order-options">
-                Order by <span data-toggle="popover" role="button" rel="popover" class="popover-trigger">relevance</span>
+                <g:message code="landingSearch.orderBy.text"/>
+                <span data-toggle="popover" role="button" rel="popover" class="popover-trigger">
+                    <g:message code="landingSearch.orderBy.option.relevance"/>
+                </span>
                 <div class="popover">
                     <ul>
-                        <li><a href="#" class="active">relevance</a></li>
-                        <li><a href="#">proximity</a></li>
-                        <li><a href="#">followers</a></li>
+                        <li><a href="#" class="active"><g:message code="landingSearch.orderBy.option.relevance"/></a></li>
+                        <g:if env="development">
+                            <li><a href="#"><g:message code="landingSearch.orderBy.option.proximity"/></a></li>
+                            <li><a href="#"><g:message code="landingSearch.orderBy.option.followers"/></a></li>
+                        </g:if>
                     </ul>
                 </div>
             </div>
-        </g:if>
 
         <div class="row">
 
