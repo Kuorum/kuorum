@@ -8,14 +8,7 @@
 
 
 <content tag="mainContent">
-    <sec:ifAnyGranted roles="ROLE_EDITOR">
-        <div id="adminActions">
-            <span class="text">
-                <g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}">
-                    <span class="fa fa-edit fa-lg"></span>Editar perfil</g:link>
-            </span>
-        </div>
-    </sec:ifAnyGranted>
+    <g:render template="editUserOptionsProfile" model="[user:user]"/>
     <article itemtype="http://schema.org/Person" itemscope role="article" class="kakareo post ley">
         <div class="photo">
             <img src="${image.userImgProfile(user:user)}" alt="${user.name}">

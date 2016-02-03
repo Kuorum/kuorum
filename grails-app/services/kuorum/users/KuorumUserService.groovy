@@ -146,6 +146,10 @@ class KuorumUserService {
             RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_ADMIN")
             authorities.add(rolePolitician)
         }
+        if (user.authorities.find{it.authority == "ROLE_EDITOR"}){
+            RoleUser roleEditor = RoleUser.findByAuthority("ROLE_EDITOR")
+            authorities.add(roleEditor)
+        }
         user.authorities = authorities
         user
     }
