@@ -551,6 +551,38 @@ class FormTagLib {
         }
     }
 
+    def checkBoxDomainList = {attrs->
+        def command = attrs.command
+        def field = attrs.field
+        def values = attrs.values
+        def valueName=attrs.valueName?:'name'
+
+        def cssClass = attrs.cssClass
+        def clazz = values.first().class
+        def label = message(code: "${command.class.name}.${field}.label", default: '')
+        label = label?:message(code: "${clazz.name}.label")
+        def error = hasErrors(bean: command, field: field,'error')
+        out << "<label>${label}</label>"
+        out << "<ul class=clearfix>"
+        values.eachWithIndex{ it, idx ->
+            def valName = it."${valueName}"
+            def checked = command."$field"?.contains(it)?'checked':''
+            //TODO: LA CLASE DEL LI ES DE OTRA COSA. HACER UNA CUSTOM
+            out <<"""
+                <li class="politician-list">
+                <label class="checkbox-inline">
+                    <input class="${error}" type="checkbox" name='${field}[${idx}].id' id="${field}" ${checked} value='${it.id}' >
+                    ${message(code: "${clazz.name}.${valName}.label", default: valName)}
+                </label>
+                </li>
+                """
+        }
+        out << "</ul>"
+        if(error){
+            out << "<span for='${field}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
+        }
+    }
+
     def selectDomainObject = {attrs->
         def command = attrs.command
         def field = attrs.field

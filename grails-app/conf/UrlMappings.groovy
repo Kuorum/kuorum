@@ -270,6 +270,7 @@ class UrlMappings {
         name editorEditPoliticianCauses:                    "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/causes" (controller:"editorPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
         name editorEditPoliticianExperience:                "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/experiencia" (controller:"editorPolitician"){action =[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
         name editorKuorumAccountEdit:                       "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/account-details" (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
+        name editorAdminUserRights:                         "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/rights" (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
         name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")

@@ -2,10 +2,15 @@ package kuorum.admin
 
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailchimpService
 import kuorum.project.Project
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.users.PoliticianService
+import kuorum.web.admin.KuorumUserRightsCommand
+import org.bson.types.ObjectId
+import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 
@@ -15,6 +20,9 @@ class AdminController {
     def indexSolrService
     def springSecurityService
     MailchimpService mailchimpService
+
+    KuorumMailAccountService kuorumMailAccountService
+    KuorumUserService kuorumUserService
 
     PoliticianService politicianService
 
@@ -54,6 +62,41 @@ class AdminController {
         flash.message = "CSV ${uploadedFile.originalFilename} uploaded. An email will be sent at the end of the process"
         redirect(mapping:"adminSearcherIndex")
 //        render view: "csvPoliticiansLoaded", model: [politiciansOk:politiciansOk,politiciansWrong:politiciansWrong, fileName:uploadedFile.getOriginalFilename()]
+    }
+
+    def editUserRights(String id){
+        KuorumUser user = KuorumUser.get(new ObjectId(id))
+        KuorumUserRightsCommand command = new KuorumUserRightsCommand()
+        command.user = user
+        command.active = user.enabled
+        command.userType = user.userType
+        KuorumMailAccountDetailsRSDTO account = kuorumMailAccountService.getAccountDetails(user)
+        command.emailAccountActive = account?.active?:false
+        command.authorities = user.authorities
+        [command:command]
+    }
+
+    def updateUserRights( KuorumUserRightsCommand command){
+
+        if (command.hasErrors()){
+            render view:"editUserRights", model:[command:command]
+            return
+        }
+        KuorumUser user = command.user
+        if (command.emailAccountActive){
+            kuorumMailAccountService.activateAccount(user)
+        }else{
+            kuorumMailAccountService.deleteAccount(user)
+        }
+        user.userType = command.userType
+        user.personalData.userType = command.userType
+        user.enabled = command.active?:false
+        user.authorities = command.authorities
+        user = kuorumUserService.updateUser(user);
+
+        flash.message =message(code:'admin.editUser.success', args: [user.name])
+
+        redirect(mapping:'editorAdminUserRights', params:user.encodeAsLinkProperties())
     }
 
 

@@ -1,36 +1,31 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="admin.editUser.title" args="[user.name]"/> </title>
+    <title><g:message code="admin.editUser.title" args="[command.user.name]"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="config" />
 </head>
 
 <content tag="leftMenu">
     <h1>
-        <g:message code="admin.editUser.title" args="[user.name]"/>
+        <g:message code="admin.editUser.title" args="[command.user.name]"/>
     </h1>
-    <g:render template="editorUserMenu" model="[user:user]"/>
+    <g:render template="/editorUser/editorUserMenu" model="[user:command.user]"/>
 
     <sec:ifAnyGranted roles="ROLE_ADMIN">
-        <g:render template="/admin/adminMenu" model="[activeMapping:'', menu:menu]"/>
+        <g:render template="/admin/adminMenu" model="[activeMapping:'']"/>
     </sec:ifAnyGranted>
 </content>
 
 <content tag="titleContent">
-    <h1><g:message code="admin.editUser.title" args="[user.name]"/></h1>
-    <h3><g:message code="admin.menu.user.editAccount" args="[user.name]"/></h3>
+    <h1><g:message code="admin.editUser.title" args="[command.user.name]"/></h1>
+    <h3><g:message code="admin.menu.user.editAccount" args="[command.user.name]"/></h3>
 </content>
 
 <content tag="mainContent">
-    <formUtil:validateForm bean="${command}" form="accountForm"/>
-    <g:form method="POST" mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}" name="accountForm" role="form" class="submitOrangeButton">
+    <formUtil:validateForm bean="${command}" form="userRightsForm"/>
+    <g:form method="POST" mapping="editorAdminUserRights" params="${command.user.encodeAsLinkProperties()}" name="userRightsForm" role="form" class="submitOrangeButton">
+        <input type="hidden" name="user.id" value="${command.user.id}"/>
         <div class="box-ppal-section">
-            <g:render template="/profile/accountDetailsForm" model="[command:command]"/>
-        </div>
-        <div class="box-ppal-section">
-            <h4 class="box-ppal-section-title">
-                Admin
-            </h4>
             <fieldset class="row">
                 <div class="form-group col-md-6">
                     <formUtil:checkBox command="${command}" field="active" showLabel="true"/>
@@ -42,6 +37,16 @@
             <fieldset class="row">
                 <div class="form-group col-md-6">
                     <formUtil:radioEnum command="${command}" field="userType" showLabel="true"/>
+                </div>
+            </fieldset>
+        </div>
+        <div class="box-ppal-section">
+            <h4 class="box-ppal-section-title">
+                Rights
+            </h4>
+            <fieldset class="row">
+                <div class="form-group col-md-12">
+                    <formUtil:checkBoxDomainList field="authorities" command="${command}" valueName="authority" values="${kuorum.users.RoleUser.findAll()}"/>
                 </div>
             </fieldset>
         </div>
