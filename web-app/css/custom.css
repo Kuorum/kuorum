@@ -2840,7 +2840,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub .link-wrapper .popover-trigger {font-size: 12px; font-size: 1.2rem;}
 
 .homeSub.logos {text-align: center;}
-.homeSub.logos .openLogos {font-size: 25px; font-family: Arial, Helvetica, sans-serif; margin: 0; color: #fff; display: inline-block; cursor: pointer;}
+.homeSub.logos .openLogos {font-size: 25px; font-family: Arial, Helvetica, sans-serif; margin: 40px 0 0 0; color: #fff; display: inline-block; cursor: pointer;}
 .homeSub.logos .openLogos:hover,
 .homeSub.logos .openLogos:focus {text-decoration: underline;}
 .homeSub.logos ul li {height:85px;}
