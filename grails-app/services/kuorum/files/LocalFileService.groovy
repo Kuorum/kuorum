@@ -91,9 +91,11 @@ class LocalFileService implements FileService{
      */
     KuorumFile cropImage(KuorumFile kuorumFile, def x, def y, def h, def w){
 
-        burningImageService.doWith("${kuorumFile.storagePath}/${kuorumFile.fileName}", kuorumFile.storagePath)
+        String folderPath = calculateLocalStoragePath(kuorumFile)
+        String filePath = "${folderPath}/${kuorumFile.fileName}"
+        burningImageService.doWith(filePath, folderPath)
                 .execute {
-            it.crop(x,y,w,h)
+            it.crop(x,y,w-2,h-2) // HEIGHT COMES WITH AN ERROR. Deleting 2 pixels, the proportion is the same and fix the problem
 //            it.crop(x,y,h,w)
         }
         postProcessCroppingImage(kuorumFile)
@@ -107,6 +109,13 @@ class LocalFileService implements FileService{
 //
 //        }
         return kuorumFile
+    }
+
+    protected String calculateLocalStoragePath(KuorumFile kuorumFile){
+        String serverPath = grailsApplication.config.kuorum.upload.serverPath
+        String temporalPath = "${serverPath}${TMP_PATH}"
+        def fileLocation = generatePath(kuorumFile)
+        "${kuorumFile.temporal?temporalPath:serverPath}/${fileLocation}"
     }
 
     protected KuorumFile postProcessCroppingImage(KuorumFile kuorumFile){

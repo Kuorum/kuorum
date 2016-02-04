@@ -40,7 +40,8 @@ class AmazonFileService extends LocalFileService{
 
     KuorumFile convertTemporalToFinalFile(KuorumFile kuorumFile){
         if (kuorumFile?.temporal){
-            File org = new File("${kuorumFile.storagePath}/${kuorumFile.fileName}")
+            String localTempPath = calculateLocalStoragePath(kuorumFile)
+            File org = new File("${localTempPath}/${kuorumFile.fileName}")
             uploadAmazonFile(kuorumFile, Boolean.FALSE)
 
             org.delete();
@@ -48,7 +49,6 @@ class AmazonFileService extends LocalFileService{
             deleteAmazonFile(kuorumFile, true)
 
             kuorumFile.temporal = Boolean.FALSE
-            kuorumFile.storagePath = ""
             kuorumFile.fileType = FileType.AMAZON_IMAGE
             kuorumFile.local = Boolean.FALSE
             kuorumFile.save(flush: true)
@@ -64,7 +64,7 @@ class AmazonFileService extends LocalFileService{
             String secretKey = grailsApplication.config.kuorum.amazon.secretKey
             String bucketName = grailsApplication.config.kuorum.amazon.bucketName;
             String keyName    = "${asTemporal?BUCKET_TMP_FOLDER:kuorumFile.fileGroup.folderPath}/${kuorumFile.fileName}";
-            String filePath   = "${kuorumFile.storagePath}/${kuorumFile.fileName}";
+            String filePath   = "${calculateLocalStoragePath(kuorumFile)}/${kuorumFile.fileName}";
 
             AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
 
@@ -149,6 +149,7 @@ class AmazonFileService extends LocalFileService{
             AmazonS3 s3client = new AmazonS3Client(credentials);
 //            AmazonS3 s3client = new AmazonS3Client(new ProfileCredentialsProvider());
             s3client.deleteObject(new DeleteObjectRequest(bucketName, "${temporal?BUCKET_TMP_FOLDER:file.fileGroup.folderPath}/${file.fileName}"));
+//            s3client.deleteObject(new DeleteObjectRequest(bucketName, file.storagePath)); //OLD IMAGES NOT HAS storagePath
         }
     }
 
