@@ -300,7 +300,8 @@ a:focus {color: #ff9431;}
 
 /* NUEVOS ESTILOS LANDING 2016 */
 /* hay dos tipos de header: transparente y fondo blanco; añadimos clase al <header> para diferenciar el transparente */
-header.landing.transp .navbar {background-color: transparent; border: none; color: #fff; transition: background-color 500ms ease-out;}
+/* EN movil el header en vez de transparente es negro porque el desplegable es negro */
+header.landing.transp .navbar {background-color: #000; border: none; color: #fff; transition: background-color 500ms ease-out;}
 header.landing.transp.scrolled .navbar {background-color: #000;}
 header.landing.transp.scrolled .nav > li > .navbar-link.btn-transparent:hover,
 header.landing.transp.scrolled .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #000 !important;}
@@ -342,6 +343,7 @@ header.landing.transp .nav > li > .navbar-link:hover,
 header.landing.transp .nav > li > .navbar-link:focus {color: #fff;}
 
 header + .row.main.landing {margin-top: -55px;}
+header.landing.transp + .row.main.landing {margin-top:0}
 header.landing .navbar-form {margin: 3px 0 4px; width: 100%;}
 header.landing .form-control,
 header.landing .btn.search {background-color: transparent !important;}
@@ -3941,6 +3943,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    header.landing.transp .navbar {background-color: transparent;}
+    header.landing.transp + .row.main.landing {margin-top:-55px}
     header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 195px;}
     .box-ppal.profile .activity > li:nth-child(3) {border-right: 1px solid #dadada;}
     #info-sup-scroll .btn.follow {position: relative; top: 5px; right: auto;}
@@ -4258,6 +4262,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 /* Medium devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+    header.landing.transp .navbar {background-color: transparent;}
+    header.landing.transp + .row.main.landing {margin-top:-55px}
     header.landing .navbar-form {margin: 3px 4px 4px 72px; width: 285px;}
     .config .kakareo-list.project > li,
     .config .politician-list > li {width: 48%; float: left; margin: 0 2% 0 0;}
@@ -4531,6 +4537,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 }
 
 @media only screen and (min-width: 1024px) {
+    header.landing.transp .navbar {background-color: transparent;}
+    header.landing.transp + .row.main.landing {margin-top:-55px}
     header.landing .navbar-form {margin: 3px 4px 4px 120px;}
     #main {min-height: 642px;}
     .list-team > li {width: 310px;}
