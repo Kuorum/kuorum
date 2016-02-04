@@ -113,7 +113,7 @@ small, .small {font-size: 75%;}
 
 /* Settings modal in Bootstrap */
 .modal-backdrop.in {opacity: 0.8;}
-body {overflow-y: scroll;}
+body {overflow-y: scroll; overflow-x: hidden;}
 body.modal-open {overflow-y: scroll; margin: 0;}
 .modal {overflow: auto;}
 
@@ -1391,24 +1391,62 @@ video#bgvid {
     bottom:-70px;
     left:0;
     z-index: 2;
-    border-left:49.4vw solid transparent;
-    border-right:49.4vw solid transparent;
+    border-left:50vw solid transparent;
+    border-right:50vw solid transparent;
     border-top:70px solid #fff;
 }
 
 
-/* editors */
+/* editors y prices */
 #main.landing.mainEditors .full-video {background-image: url('../images/background-editors.jpg'); background-position: right 0;}
-.landing.ipdb {color: #fff; text-align: center;}
+.landing.ipdb,
+.landing.prices {color: #fff; text-align: center;}
 .landing.ipdb .full-video {background-image: url('../images/background-ipdb.jpg'); padding-top: 50px;}
-.landing.ipdb .full-video h1 {font-size: 33px; font-size: 3rem;}
+.landing.ipdb .full-video h1,
+.landing.prices .full-video h1 {font-size: 33px; font-size: 3rem;}
 .landing.ipdb .full-video p,
-.landing.ipdb .full-video .btn-lg {font-size: 22px !important; font-size: 2.2rem !important;}
-.landing.ipdb .full-video p {margin: 0 auto 40px; width: 90%; max-width: 520px; font-family: 'Georgia', 'Times New Roman', Times, serif;}
+.landing.ipdb .full-video .btn-lg,
+.landing.prices .full-video p,
+.landing.prices .full-video .btn-lg {font-size: 22px !important; font-size: 2.2rem !important;}
+.landing.ipdb .full-video p,
+.landing.prices .full-video p {margin: 0 auto 40px; width: 90%; max-width: 520px; font-family: 'Georgia', 'Times New Roman', Times, serif;}
+.landing.prices .full-video p {max-width: 600px;}
 
-/* Prices */
+
 .main.prices {padding-top: 50px;}
+.landing.prices .full-video {background-image: url('../images/background-prices.jpg'); padding-top: 50px;}
+.landing.prices .full-video a {color: #5fa1e7; font-size: 21px; font-size: 2.1rem;}
+.landing.prices .full-video h2 {font-size: 120px; font-size: 12rem; font-family: Arial,Helvetica,sans-serif; font-weight: bold; margin: 0 auto;}
+.main.prices .promo-options {width: 100%; padding-bottom: 0; margin-bottom: 0; border-bottom: none;}
+.main.prices .promo-options > div {border: 1px solid #545454; background: transparent;}
+.main.prices .promo-options > div h2 {background-color: #545454; color: #fff; font-size: 27px; font-size: 2.7rem; text-align: center; margin: 0 0 70px 0; line-height: 2;}
+.main.prices .promo-options > div h3,
+.main.prices .promo-options > div ul li {font-size: 18px; font-size: 1.8rem;}
+.main.prices .promo-options > div p.price {font-family: Arial,Helvetica,sans-serif; font-size: 21px; font-size: 2.1rem; color: #545454; text-align: center; position: relative; margin-bottom: 30px;}
+.main.prices .promo-options > div p.price .amount {font-size: 100px; font-size: 10rem;}
+.main.prices .promo-options > div p.price .currency {position: absolute; top: -30px; left: 60px;}
+.main.prices .promo-options > div > form {position: relative; padding-top: 65px; width: calc(100% - 40px);}
+.main.prices .promo-options > div > form .btn {position: absolute; top: 0; margin: 0; font-size: 21px !important; font-size: 2.1rem !important;}
+.main.prices .promo-options > div > form .wrap-select {border-top: 1px solid #545454; border-bottom: 1px solid #545454; margin: 0 -20px; padding: 10px 20px;}
+.main.prices .promo-options > div > form .wrap-select label {font-size: 18px; font-size: 1.8rem; line-height: 2.4;}
+.main.prices .promo-options > div > form select {height: 48px;}
+.main.prices .promo-options > div ul {list-style: none; padding: 0;}
+.main.prices .promo-options > div ul li {position: relative; margin-left: 25px;}
+.main.prices .promo-options > div ul li:before {
+    content: ""; /* FontAwesome Unicode */
+    font-family: FontAwesome;
+    display: inline-block;
+    width: 18px;
+    left: -25px;
+    position: absolute;
+}
 
+.main.prices .promo-options > div.recomended {margin-top: -32px;}
+.main.prices .promo-options > div.recomended h2 {margin-top: -10px;}
+.main.prices .promo-options > div.recomended h2,
+.main.prices .promo-options > div.recomended .tag {background-color: #6e6e6e;}
+.main.prices .promo-options > div.recomended .tag {color: #fff; font-size: 14px; font-size: 1.4rem; text-transform: uppercase; font-family: Arial,Helvetica,sans-serif; text-align: center; line-height: 2.5; display: block; letter-spacing: 1px;}
+.main.prices .promo-options > div.recomended .tag:first-letter {font-size: 120%;}
 
 
 
@@ -1432,6 +1470,9 @@ video#bgvid {
 #load-more a:hover,
 #load-more a:active,
 #load-more a:focus {text-decoration: underline;}
+
+#load-more.searchNoLogged{border-top: none; font-size:2.5rem;}
+#load-more.searchNoLogged a{color:#545454}
 
 /* este es para hacer visible lo ya cargado */
 #ver-mas {
@@ -2802,17 +2843,19 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub.logos .openLogos {font-size: 25px; font-family: Arial, Helvetica, sans-serif; margin: 0; color: #fff; display: inline-block; cursor: pointer;}
 .homeSub.logos .openLogos:hover,
 .homeSub.logos .openLogos:focus {text-decoration: underline;}
-
+.homeSub.logos ul li {height:85px;}
 
 .homeSub > .row > h1,
 .homeSub > h1 { border-bottom: 1px solid #e5e5e5; }
 .main.special.landing .homeSub h1,
-.landing.ipdb .full-video h1 { border-bottom: 1px solid rgba(255,255,255,.2); }
+.landing.ipdb .full-video h1,
+.landing.prices .full-video h1 { border-bottom: 1px solid rgba(255,255,255,.2); }
 
 .main.special.landing .homeSub h1,
 .homeSub > .row > h1,
 .homeSub > h1,
-.landing.ipdb .full-video h1 {font-size: 26px; font-size: 2.6rem; max-width: 650px; margin: 0 auto 20px; text-align: center; padding-bottom: 18px;}
+.landing.ipdb .full-video h1,
+.landing.prices .full-video h1 {font-size: 26px; font-size: 2.6rem; max-width: 650px; margin: 0 auto 20px; text-align: center; padding-bottom: 18px;}
 .main.special.landing .homeSub ul {padding: 0; margin: 0; list-style: none;}
 .main.special.landing .homeSub ul li {width: 100%; list-style: none; float: left; text-align: center; margin: 20px 0; height: 65px;}
 .main.special.landing .homeSub ul li img {max-width: 145px;}
@@ -2873,7 +2916,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 #saveTime {margin: 0;}
 .saveTime {padding: 0 0 20px;}
 .saveTime, .saveTime li {list-style: none; text-align: center; margin-bottom: 20px;}
-.saveTime li h2 {text-transform: uppercase;font-size: 25px; font-size: 2.2rem; font-family: Arial, Helvetica, sans-serif; color: #373737; padding: 0; margin-bottom: 15px;}
+.saveTime li h2 {text-transform: uppercase; font-size: 2.2rem; font-family: Arial, Helvetica, sans-serif; color: #373737; padding: 0; margin-bottom: 15px;}
 .saveTime li > a img {max-width: 385px;}
 .saveTime li > a:first-child {display: block; position: relative;}
 .saveTime li > a:first-child:hover::before {
@@ -3297,7 +3340,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config > header .box-ppal {padding: 0;}
 .config > header h1 {border-bottom: 1px solid #dadada; padding: 20px 15px 18px; margin: 0;}
 .config > header ul {margin: 0; padding: 0;}
-.config > header ul > li {list-style: none; padding: 15px 20px; margin: 0; border-bottom: 1px solid #dadada; font-size: 19px; font-size: 1.9rem;}
+.config > header ul > li {list-style: none; padding: 15px 20px; margin: 0; border-bottom: 1px solid #dadada; font-size: 1.9rem;}
 .config > header ul > li:last-child {border: none;}
 .config > header ul > li > a {color: #545454; padding: 4px 8px; display: block;}
 .config > header ul > li > a:hover,
@@ -3381,7 +3424,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config .role section .options .activity,
 .config .skill section .options .activity {padding: 10px 0; width: 60%; float: left;}
 .config .role section .options .activity li,
-.config .skill section .options .activity li {border-right: none; font-size: 19px; font-size: 1.9rem; color: #545454; width: 30%;}
+.config .skill section .options .activity li {border-right: none; font-size: 1.9rem; color: #545454; width: 30%;}
 .config .role section .options .activity.inactive li,
 .config .skill section .options .activity.inactive li {opacity: 0.2;}
 .config .role section .options .btn,
@@ -3855,6 +3898,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .main.special.profile .homeSub { background-position: center 170px; background-size: 420px auto;}
     .landing + .row.main .onecol .login .btn.btn-lg {margin-right: 20px;}
 
+    .main.prices .promo-options > div p.price .currency {left: 95px;}
+
 }
 
 @media only screen and (min-width: 533px) {
@@ -3866,6 +3911,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     /* #main {min-height: 639px;}*/
     #detailsInfoVotes .table tbody th {width: 270px;}
     #detailsInfoVotes.autor .table tbody th {width: 295px;}
+    .main.prices .promo-options > div p.price .currency {left: 155px;}
 }
 
 @media only screen and (min-width: 640px) {
@@ -4108,6 +4154,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .signContainer h3 {font-size: 15px; font-size: 1.5rem; margin-bottom: 10px;}
     #main.home,
     .homeSub {margin-bottom: 60px;}
+    .main.prices .homeSub {margin-bottom: 0;}
     .homeSub > .row > h1 {font-size: 31px; font-size: 3.1rem; margin: 0 auto 20px; width: 70%;}
     .homeSub .homeMore {width: 410px;}
     .homeSub .homeMore .btn-lg {font-size: 22px !important; font-size: 2.2rem !important;}
@@ -4185,7 +4232,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .main.special.landing .homeSub h1,
     .homeSub > .row > h1,
     .homeSub > h1,
-    .landing.ipdb .full-video h1 {font-size: 34px; font-size: 3.4rem; margin-bottom: 54px;}
+    .landing.ipdb .full-video h1,
+    .landing.prices .full-video h1 {font-size: 34px; font-size: 3.4rem; margin-bottom: 54px;}
     #saveTime {margin-bottom: 40px;}
     .testimonies-list li {height: 158px; overflow: hidden;}
     .testimonies-list li blockquote footer,
@@ -4200,6 +4248,12 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .row.main.presskit .btn.btn-lg {width: auto; display: inline-block;}
     .main.special.profile .homeSub { min-height: 480px; background-position: center 210px; background-size: 420px auto;}
     .landing + .row.main .onecol #main {margin-top: 20px;}
+
+    .main.prices .promo-options > div p.price .currency {left: 245px;}
+
+    .landing.prices .full-video h2 {margin: 180px auto 0; padding-right: 70%;}
+    .landing.prices .full-video p {padding-left: 25%;}
+    .landing.prices .full-video p:first-of-type {margin-top: -250px;}
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -4466,6 +4520,14 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .main.special .no-results h1 {padding-left: 130px; background-size: 120px auto; margin-bottom: 40px; font-size: 36px;}
     .landing.editors .full-video h1 {padding-left: 50%;}
 
+    .main.prices .promo-options > div {min-height: 696px;}
+    .main.prices .promo-options > div p.price .currency {left: 25px;}
+    .main.prices .promo-options > div p.price .amount {font-size: 80px; font-size: 8rem;}
+
+    .landing.prices .full-video h2 {padding-right: 54%;}
+    .landing.prices .full-video p {padding-left: 18%;}
+    .landing.prices .full-video p {max-width: 660px;}
+
 }
 
 @media only screen and (min-width: 1024px) {
@@ -4480,6 +4542,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
     #main.landing .full-video h1 {margin-top: 16%;}
     .landing .full-video .container-fluid form {margin-bottom: 6.5%;}
+    #main.landing.mainEditors .full-video {background-position: right -22px;}
 
     .saveTime, .saveTime li {padding: 0 30px;}
     .saveTime li p {font-size: 18px; font-size: 1.8rem;}
@@ -4519,6 +4582,15 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .homeSub .kakareo-list .kakareo .main-kakareo {margin-top: 0;}
     #otras-propuestas .kakareo-list .kakareo footer,
     .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
+
+    #main.landing.mainEditors .full-video {background-position: right -38px;}
+
+    .main.prices .promo-options > div p.price .currency {left: 35px; top: -35px;}
+    .main.prices .promo-options > div p.price .amount {font-size: 90px; font-size: 9rem;}
+    .main.prices .promo-options > div {min-height: 700px;}
+
+    .landing.prices .full-video h2 {font-size: 140px; font-size: 14rem;}
+    .landing.prices .full-video p {max-width: 720px;}
 
 }
 

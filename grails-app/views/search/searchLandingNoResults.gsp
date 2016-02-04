@@ -5,6 +5,7 @@
     <meta name="layout" content="landingLayout"/>
     <parameter name="showHeadSearch" value="false"/>
     <parameter name="special-cssClass" value="noResults"/>
+    <parameter name="transparentHead" value="true"/>
 </head>
 
 <content tag="videoAndRegister">

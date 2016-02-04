@@ -2,6 +2,7 @@
 <head>
     <title><g:message code="kuorum.name"/></title>
     <meta name="layout" content="landingLayout">
+    <parameter name="transparentHead" value="true"/>
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
