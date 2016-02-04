@@ -35,7 +35,7 @@ class SearchSolrService {
         query.setSort("score", SolrQuery.ORDER.desc)
         query.addSort("kuorumRelevance", SolrQuery.ORDER.desc)
         query.addSort("numberPeopleInterestedFor", SolrQuery.ORDER.desc)
-        query.addSort("regionIso3166_2Length", SolrQuery.ORDER.desc)
+        query.addSort("regionIso3166_2Length", SolrQuery.ORDER.asc)
         query.addSort("dateCreated", SolrQuery.ORDER.desc)
 
         QueryResponse rsp = server.query( query );
