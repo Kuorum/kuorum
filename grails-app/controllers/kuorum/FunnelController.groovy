@@ -11,6 +11,7 @@ import kuorum.web.commands.profile.PersonalDataCommand
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import springSecurity.KuorumRegisterCommand
 
+@Deprecated
 class FunnelController {
 
     RegisterService registerService
@@ -33,7 +34,7 @@ class FunnelController {
         try{
             offerType= OfferType.valueOf(params.offerType)
         }catch (Exception e){
-            flash.error="No se ha detectado la oferta"  //Por aqui no debería pasar nunca
+            flash.error="No se ha detectado la oferta"  //Por aqui no deberï¿½a pasar nunca
             redirect mapping:"funnelOffers"
             return
         }
@@ -52,7 +53,7 @@ class FunnelController {
         try{
             offerType= OfferType.valueOf(params.offerType)
         }catch (Exception e){
-            flash.error="No se ha detectado la oferta"  //Por aqui no debería pasar nunca
+            flash.error="No se ha detectado la oferta"  //Por aqui no deberï¿½a pasar nunca
             redirect mapping:"funnelOffers"
             return
         }
@@ -79,7 +80,7 @@ class FunnelController {
         try{
             offerType= OfferType.valueOf(params.offerType)
         }catch (Exception e){
-            flash.error="No se ha detectado la oferta"  //Por aqui no debería pasar nunca
+            flash.error="No se ha detectado la oferta"  //Por aqui no deberï¿½a pasar nunca
             redirect mapping:"funnelOffers"
             return
         }
