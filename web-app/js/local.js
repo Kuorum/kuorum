@@ -323,19 +323,11 @@ $(document).ready(function() {
     // scroll suave a hashtag
     $('.smooth').click(function (event) {
         event.preventDefault();
-        // calcular el destino
-        var dest = 0;
-        if ($(this.hash).offset().top > $(document).height() - $(window).height()) {
-            dest = $(document).height() - $(window).height();
-        } else {
-            dest = $(this.hash).offset().top - 68;
-        }
-        // ir al destino
-        $('html,body').animate({
-            scrollTop: dest
-        }, 600, 'swing');
+        event.stopPropagation();
+        $(this).blur()
+        moveToHash($(this).attr("href"))
     });
-
+    moveToHash(window.location.hash)
 
     // setTimeout(prepareProgressBar, 500)
     // prepareProgressBar();  lo he pasado a custom.js
@@ -754,4 +746,22 @@ function stringStartsWith (string, prefix) {
         return false;
     }
     return string.slice(0, prefix.length) == prefix;
+}
+
+function moveToHash(hash){
+    var dest = 0;
+    console.log("Moving to "+hash)
+    hash = hash + "-tag"
+    if ($(hash).length){ //If the element exists
+        if ($(hash).offset().top > $(document).height() - $(window).height()) {
+            dest = $(document).height() - $(window).height();
+        } else {
+            dest = $(hash).offset().top;
+        }
+        dest = dest - 70
+        //go to destination
+        $('html,body').animate({
+            scrollTop: dest
+        }, 1000, 'swing');
+    }
 }

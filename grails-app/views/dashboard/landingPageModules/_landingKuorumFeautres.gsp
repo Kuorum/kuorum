@@ -1,4 +1,4 @@
-<section role="complementary" class="homeSub" id="saveTime">
+<section role="complementary" class="homeSub" id="saveTime-tag">
     <h1><g:message code="landingPage.features.title"/> </h1>
 
     <div class="row">

@@ -5,7 +5,7 @@
                 <div class="col-sm-12">
                     <h1><g:message code="landingEditors.videoAndRegister.title"/></h1>
                     <h2><g:message code="landingEditors.videoAndRegister.subTitle"/> </h2>
-                    <a href="#ipdb-description" class="btn btn-white anchor-link"><g:message code="landingEditors.videoAndRegister.whatsIPDB" encodeAs="RAW"/> </a>
+                    <a href="#ipdb-description" class="btn btn-white smooth"><g:message code="landingEditors.videoAndRegister.whatsIPDB" encodeAs="RAW"/> </a>
                     <formUtil:validateForm bean="${command}" form="joinEditors"/>
                     <g:form mapping="register" autocomplete="off" method="post" name="joinEditors" class="form-inline" role="form" novalidate="novalidate">
                         <input type="hidden" name="editor" value="true"/>

@@ -899,13 +899,6 @@ $(document).ready(function() {
         $("#"+realInputId).val("")
     });
 
-
-    moveToHash(window.location.hash)
-    $("a.anchor-link").on("click", function(e){
-        e.preventDefault();
-        moveToHash($(this).attr("href"))
-    })
-
 //    $("form.submitOrangeButton input.form-control").on('keyup paste',function(){
 //        console.log("change")
 //        var submitButtons = $(this).parents("form").find("input[type=submit]");
@@ -1312,19 +1305,3 @@ function Campaign(id, name, headText,headVotedText,  modalDelay){
     return this;
 }
 
-function moveToHash(hash){
-    var dest = 0;
-    var hash = hash+"-tag";
-    if ($(hash).length){ //If the element exists
-        if ($(hash).offset().top > $(document).height() - $(window).height()) {
-            dest = $(document).height() - $(window).height();
-        } else {
-            dest = $(hash).offset().top;
-        }
-        dest = dest - 60
-        //go to destination
-        $('html,body').animate({
-            scrollTop: dest
-        }, 1000, 'swing');
-    }
-}
