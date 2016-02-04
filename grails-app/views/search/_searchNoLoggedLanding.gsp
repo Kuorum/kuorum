@@ -3,7 +3,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <h1><g:message code="search.noLogged.landing.title"/></h1>
+                    <h1 class="hidden-xs"><g:message code="search.noLogged.landing.title"/></h1>
+                    <h1 class="hidden-sm hidden-md hidden-lg"><g:message code="search.noLogged.landing.title.short"/></h1>
                     <h2><g:message code="search.noLogged.landing.subTitle"/></h2>
 
                     <g:link mapping="login" class="btn btn-white"><g:message code="login.head.register"/> </g:link>
