@@ -4266,7 +4266,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     header.landing.transp + .row.main.landing {margin-top:-55px}
     header.landing .navbar-form {margin: 3px 4px 4px 72px; width: 285px;}
     .config .kakareo-list.project > li,
-    .config .politician-list > li {width: 48%; float: left; margin: 0 2% 0 0;}
+    .config .politician-list > li {width: 48%; float: left; margin: 0 2% 0 0;padding:0}
     .config .kakareo-list.project > li:nth-child(even),
     .config .politician-list > li:nth-child(even) {margin-right: 0;}
     .config .kakareo-list.project .kakareo.post.ley .link-wrapper {height: 410px;}
