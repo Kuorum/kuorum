@@ -774,7 +774,10 @@ $(document).ready(function() {
     function preapreReadMore(){
         $('.limit-height').each(function (idx){
             var collapsedHeight = parseInt($(this).attr("data-collapsedHeight"));
-            var buttonCss = $(this).attr("data-collapsedButtonCss")
+            var buttonCss = "btn btn-xs btn-blue"
+            if ($(this)[0].hasAttribute("data-collapsedButtonCss")){
+                buttonCss = $(this).attr("data-collapsedButtonCss")
+            }
             if (typeof buttonCss === typeof undefined && buttonCss === false){
                 buttonCss = "btn btn-xs btn-blue"
             }
