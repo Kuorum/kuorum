@@ -138,7 +138,6 @@ class CustomRegisterController {
         [command:command]
     }
 
-    @Secured('IS_AUTHENTICATED_REMEMBERED')
     def subscriptionStep1Save(SubscriptionStep1Command command){
         if (command.hasErrors()){
             render view:"subscriptionStep1", model:[command:command]
