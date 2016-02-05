@@ -62,7 +62,7 @@ class AccountDetailsCommand {
             }
         }
         email nullable: false, email:true, validator: {val, obj ->
-            if (val && obj.user && val != obj.user.alias && KuorumUser.findByAlias(val)){
+            if (val && obj.user && val != obj.user.email && KuorumUser.findByEmail(val)){
                 return "unique"
             }
         }

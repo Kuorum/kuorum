@@ -139,9 +139,12 @@ class UrlMappings {
 
         name register:            "/sing-up"(controller: "register"){action = [GET:"index", POST:"register"]}
                                   "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
-        name registerPressKit:    "/sing-up/pressKit"(controller: "register",action:"downloadPressKit")
-        name registerStep2:       "/sing-up/step2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
-        name registerStep3:       "/sing-up/step3"(controller: "customRegister", action:"step3")
+        name registerPressKit:          "/sing-up/pressKit"(controller: "register",action:"downloadPressKit")
+        name registerStep2:             "/sing-up/step2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
+        name registerStep3:             "/sing-up/step3"(controller: "customRegister", action:"step3")
+        name registerSubscriptionStep1:  "/subscribe/step1" (controller: "customRegister", action:"subscriptionStep1")
+        name registerSubscriptionStep1Save:  "/subscribe/step1-save" (controller: "customRegister"){action = [GET:"subscriptionStep1", POST:"subscriptionStep1Save"]}
+        name registerSubscriptionStep3:  "/subscribe/step3" (controller: "customRegister", action:"subscriptionStep3")
         name registerSuccess:     "/registro/satisfactorio"(controller: "register",action:"registerSuccess")
         name registerPassword: "/registro/establece-password"(controller: "register", action:"selectMyPassword")
         name registerResendMail:  "/registro/no-verificado"(controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"]}

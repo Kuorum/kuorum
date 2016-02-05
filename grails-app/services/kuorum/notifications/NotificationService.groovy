@@ -674,8 +674,8 @@ class NotificationService {
     }
 
     void sendOfferPurchasedNotification(KuorumUser user, OfferPurchased offerPurchased){
-        kuorumMailService.sendPoliticianSubscription(user,offerPurchased.offerType)
-        kuorumMailService.sendPoliticianSubscriptionToAdmins(user,offerPurchased.offerType)
+        kuorumMailService.sendPoliticianSubscription(user,offerPurchased)
+        kuorumMailService.sendPoliticianSubscriptionToAdmins(user,offerPurchased)
     }
 
     void sendEditorPurchaseNotification(KuorumUser editor){

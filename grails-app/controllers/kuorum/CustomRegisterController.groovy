@@ -1,6 +1,7 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.Gender
 import kuorum.core.model.OfferType
 import kuorum.core.model.UserType
@@ -8,12 +9,14 @@ import kuorum.dashboard.DashboardService
 import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
 import kuorum.notifications.NotificationService
+import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
-import kuorum.users.ProfileController
 import kuorum.web.commands.customRegister.Step2Command
+import kuorum.web.commands.customRegister.SubscriptionStep1Command
 import kuorum.web.commands.profile.PersonalDataCommand
 import kuorum.web.commands.profile.UserRegionCommand
+import org.springframework.web.servlet.LocaleResolver
 
 class CustomRegisterController {
 
@@ -21,6 +24,9 @@ class CustomRegisterController {
     KuorumUserService kuorumUserService;
     DashboardService dashboardService
     NotificationService notificationService
+    LocaleResolver localeResolver
+    RegisterService registerService
+    OfferService offerService
 
     def afterInterceptor = {}
 
@@ -113,7 +119,7 @@ class CustomRegisterController {
         user.language = command.language
         kuorumUserService.updateUser(user)
         if (command.userType == UserType.POLITICIAN){
-            notificationService.sendOfferPurchasedNotification(user, new OfferPurchased(user:user, offerType: OfferType.BASIC_MONTHLY, dateCreated: new Date()))
+            offerService.purchaseOffer(user, OfferType.BASIC, 0)
         }
         redirect mapping:"registerStep3"
     }
@@ -123,4 +129,38 @@ class CustomRegisterController {
 
     }
 
+    def subscriptionStep1(){
+        OfferType offerType = params.offerType?OfferType.valueOf(params.offerType):OfferType.BASIC
+        Long kpeople = params.kpeople?Long.parseLong(params.kpeople):1;
+        Locale locale = localeResolver.resolveLocale(request)
+        AvailableLanguage availableLanguage = AvailableLanguage.fromLocaleParam(locale.getLanguage())
+        SubscriptionStep1Command command = new SubscriptionStep1Command([kpeople:kpeople, offerType:offerType,language:availableLanguage])
+        [command:command]
+    }
+
+    @Secured('IS_AUTHENTICATED_REMEMBERED')
+    def subscriptionStep1Save(SubscriptionStep1Command command){
+        if (command.hasErrors()){
+            render view:"subscriptionStep1", model:[command:command]
+            return;
+        }
+
+        KuorumUser user = registerService.registerUser(command)
+        kuorumUserService.updateAlias(user, command.alias)
+        user.personalData = user.personalData?:new kuorum.users.PersonData()
+        user.personalData.phonePrefix = command.phonePrefix
+        user.personalData.telephone = command.phone
+        user.language = command.language
+        kuorumUserService.updateUser(user)
+        if (command.userType == UserType.POLITICIAN){
+            offerService.purchaseOffer(user, command.offerType, command.kpeople)
+        }
+        springSecurityService.reauthenticate(user.email)
+        redirect mapping:"registerSubscriptionStep3"
+
+    }
+
+    def subscriptionStep3(){
+
+    }
 }
