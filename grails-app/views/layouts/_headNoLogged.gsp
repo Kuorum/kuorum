@@ -23,11 +23,11 @@
                             <span><g:message code="head.noLogged.politicians"/> </span>
                         </g:link>
                     </li>
-                    %{--<li>--}%
-                        %{--<g:link mapping="landingPrices" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingPrices')}">--}%
-                            %{--<span><g:message code="head.noLogged.prices"/></span>--}%
-                        %{--</g:link>--}%
-                    %{--</li>--}%
+                    <li>
+                        <g:link mapping="landingPrices" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingPrices')}">
+                            <span><g:message code="head.noLogged.prices"/></span>
+                        </g:link>
+                    </li>
                     <li>
                         <g:set var="logInMapping" value="loginAuth"/>
                         <g:set var="logInText" value="${g.message(code:"head.noLogged.login")}"/>
