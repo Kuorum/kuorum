@@ -337,7 +337,7 @@ header.landing .nav > li > .navbar-link.active:hover,
 header.landing .nav > li > .navbar-link.active:focus {text-decoration: none;}
 
 header.landing .nav > li > .navbar-link:hover,
-header.landing .nav > li > .navbar-link:focus {color: #545454; text-decoration: underline;}
+header.landing .nav > li > .navbar-link:focus {color: #545454; text-decoration: none;}
 
 header.landing.transp .nav > li > .navbar-link:hover,
 header.landing.transp .nav > li > .navbar-link:focus {color: #fff;}
