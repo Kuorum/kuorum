@@ -7,33 +7,33 @@
         </g:link>
     </li>
 
-    <li class="underline">
-        <g:link mapping="discoverProjects" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "discoverProjects")}">
-            <span class="fa fa-briefcase fa-lg"></span>
-            <span class="visible-xs"><g:message code="search.filters.SolrType.PROJECT"/></span>
-        </g:link>
-    </li>
+    %{--<li class="underline">--}%
+        %{--<g:link mapping="discoverProjects" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "discoverProjects")}">--}%
+            %{--<span class="fa fa-briefcase fa-lg"></span>--}%
+            %{--<span class="visible-xs"><g:message code="search.filters.SolrType.PROJECT"/></span>--}%
+        %{--</g:link>--}%
+    %{--</li>--}%
 
     %{--<g:render template="/layouts/userHeadMessages"/>--}%
     <g:render template="/layouts/userHeadNotifications" model="[user:user, notifications:notifications]"/>
 
 
     <li class="dropdown underline" itemscope itemtype="http://schema.org/Person">
-        <a data-target="#" href="#" id="open-user-options" class="dropdown-toggle dropdown-menu-right navbar-link" data-toggle="dropdown" role="button">
+        <a data-target="#" href="#" id="open-user-options" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "home")}" data-toggle="dropdown" role="button">
             <span class="fa fa-gear fa-lg"></span>
             <span class="visible-xs"><g:message code="head.logged.option"/></span>
         </a>
         <g:render template="/layouts/headUserMenuDropDown" model="[user:user, numFavorites:user.favorites.size(), numMessages:7]"/>
     </li>
 
-    <g:if test="${kuorum.core.model.UserType.POLITICIAN.equals(user.userType)}">
-        <li>
-            <g:link mapping="projectCreate" class="navbar-link new-project">
-                <span class="symbol">&#35;</span>
-                <span class="visible-xs"><g:message code="head.navigation.userMenu.project.new"/></span>
-            </g:link>
-        </li>
-    </g:if>
+    %{--<g:if test="${kuorum.core.model.UserType.POLITICIAN.equals(user.userType)}">--}%
+        %{--<li>--}%
+            %{--<g:link mapping="projectCreate" class="navbar-link new-project">--}%
+                %{--<span class="symbol">&#35;</span>--}%
+                %{--<span class="visible-xs"><g:message code="head.navigation.userMenu.project.new"/></span>--}%
+            %{--</g:link>--}%
+        %{--</li>--}%
+    %{--</g:if>--}%
 </ul>
 
 
