@@ -85,9 +85,9 @@
             <div class="form-group col-md-12 text-center">
                 <input type="hidden" name="userType" value="${kuorum.core.model.UserType.POLITICIAN}"/>
                 <input type="submit" id="submitPolitician" value="${g.message(code:'customRegister.step2.choseUserType.politician')}" class="btn btn-lg">
-                <span class="help-block"><g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse')]"/></span>
             </div>
         </fieldset>
+        <p class="terms-use"><g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse')]"/></p>
     </g:form>
 </content>
 
