@@ -26,14 +26,14 @@
         <g:render template="/layouts/headUserMenuDropDown" model="[user:user, numFavorites:user.favorites.size(), numMessages:7]"/>
     </li>
 
-    <g:if test="${kuorum.core.model.UserType.POLITICIAN.equals(user.userType)}">
-        <li>
-            <g:link mapping="projectCreate" class="navbar-link new-project">
-                <span class="symbol">&#35;</span>
-                <span class="visible-xs"><g:message code="head.navigation.userMenu.project.new"/></span>
-            </g:link>
-        </li>
-    </g:if>
+    %{--<g:if test="${kuorum.core.model.UserType.POLITICIAN.equals(user.userType)}">--}%
+        %{--<li>--}%
+            %{--<g:link mapping="projectCreate" class="navbar-link new-project">--}%
+                %{--<span class="symbol">&#35;</span>--}%
+                %{--<span class="visible-xs"><g:message code="head.navigation.userMenu.project.new"/></span>--}%
+            %{--</g:link>--}%
+        %{--</li>--}%
+    %{--</g:if>--}%
 </ul>
 
 
