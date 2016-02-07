@@ -357,6 +357,7 @@ header.landing.transp .navbar-form .input-group > .form-control {
     box-shadow: inset 0 0 0 rgba(0,0,0,0);
     color: #fff;
 }
+header.landing .navbar-collapse.collapse {background-color: #ffffff}
 header.landing .navbar-form .input-group > .form-control {border: 3px solid rgba(153,153,153,.4);}
 header.landing #search-form .input-group-btn {right: 34px;}
 header.landing.transp .form-control::-moz-placeholder {color:#fff; opacity:1}
@@ -1997,6 +1998,8 @@ textarea.error,
 
 .onecol #main .signup.final {background: url(../images/screen.png) center 135px no-repeat transparent; background-size: 285px auto; text-align: center;}
 .onecol #main .signup.final h3 {font-size: 21px; font-size: 2.1rem; margin-bottom: 250px; padding: 0 5%; line-height: 1.4;}
+.onecol #main .signup .terms-use {color:#A8A8A8; font-size:1.4rem; text-align: center;}
+.onecol #main .signup .terms-use a{color:#545454}
 
 
 .container-fluid.onecol {max-width: 910px;}
@@ -2959,7 +2962,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 /* politician-card-sm */
 .politician-list {margin: 0; padding: 0; list-style: none;}
 .card-header-photo {
-    height: 160px;
+    height: 145px;
     overflow: hidden;
 }
 .politician-list .box-ppal .user {margin: -60px 15px 0px 15px;}

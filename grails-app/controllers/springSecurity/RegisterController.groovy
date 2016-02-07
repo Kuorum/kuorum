@@ -249,7 +249,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         mailchimpService.addPress(command.email.split("@")[0], command.email, locale)
         String preFileName = "KuorumPressKit"
         String year = "2016"
-        String ext = "zip"
+        String ext = "pdf"
         String langPressKit = "en"
         if (locale.getLanguage() == "es"){
             langPressKit = "es"

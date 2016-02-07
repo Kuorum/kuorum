@@ -1,6 +1,7 @@
 package kuorum.mail
 
 import grails.transaction.Transactional
+import kuorum.OfferPurchased
 import kuorum.campaign.PollCampaignVote
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
@@ -65,24 +66,24 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
-    def sendPoliticianSubscriptionToAdmins(KuorumUser user, OfferType offerType){
+    def sendPoliticianSubscriptionToAdmins(KuorumUser user, OfferPurchased offerPurchased){
         def bindings = [
                 userLink:generateLink("userShow",user.encodeAsLinkProperties()),
                 user:user.name,
-                offerType:messageSource.getMessage("${OfferType.canonicalName}.${offerType}",null,"", new Locale("ES_es")),
-                totalPrice:offerType.finalPrice.toString()
+                offerType:messageSource.getMessage("${OfferType.canonicalName}.${offerPurchased.offerType}",null,"", new Locale("ES_es")),
+                totalPrice:offerPurchased.offerType.price * offerPurchased.kPeople
         ]
         KuorumUser adminUser = getPurchaseUser();
         MailUserData mailUserData = new MailUserData(user:adminUser)
         MailData mailData = new MailData(fromName:adminUser.name, mailType: MailType.POLITICIAN_SUBSCRIPTION, globalBindings: bindings, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
-    def sendPoliticianSubscription(KuorumUser user, OfferType offerType){
+    def sendPoliticianSubscription(KuorumUser user, OfferPurchased offerPurchased){
         def bindings = [
                 userLink:generateLink("userShow",user.encodeAsLinkProperties()),
                 user:user.name,
-                offerType:messageSource.getMessage("${OfferType.canonicalName}.${offerType}",null,"", new Locale("ES_es")),
-                totalPrice:offerType.finalPrice.toString()
+                offerType:messageSource.getMessage("${OfferType.canonicalName}.${offerPurchased.offerType}",null,"", user.getLanguage().locale),
+                totalPrice:offerPurchased.offerType.price * offerPurchased.kPeople
         ]
         MailUserData mailUserData = new MailUserData(user:user)
         MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME, mailType: MailType.NOTIFICATION_OFFER_PURCHASED, globalBindings: bindings, userBindings: [mailUserData])

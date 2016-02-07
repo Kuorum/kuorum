@@ -8,6 +8,7 @@ import kuorum.users.KuorumUser
  */
 class OfferPurchased {
     OfferType offerType
+    Long kPeople
     KuorumUser user
     Date dateCreated
 }
