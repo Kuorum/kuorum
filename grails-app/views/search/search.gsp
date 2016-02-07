@@ -64,14 +64,14 @@
                     </label>
                 </div>
             </li>
-            <li>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="type" id="proyectos" value="${kuorum.core.model.solr.SolrType.PROJECT}" ${searchParams.type == kuorum.core.model.solr.SolrType.PROJECT?'checked':''}>
-                        <span class="fa fa-briefcase"></span> <g:message code="search.filters.SolrType.PROJECT"/>
-                    </label>
-                </div>
-            </li>
+            %{--<li>--}%
+                %{--<div class="checkbox">--}%
+                    %{--<label>--}%
+                        %{--<input type="checkbox" name="type" id="proyectos" value="${kuorum.core.model.solr.SolrType.PROJECT}" ${searchParams.type == kuorum.core.model.solr.SolrType.PROJECT?'checked':''}>--}%
+                        %{--<span class="fa fa-briefcase"></span> <g:message code="search.filters.SolrType.PROJECT"/>--}%
+                    %{--</label>--}%
+                %{--</div>--}%
+            %{--</li>--}%
             <li>
                 <div class="checkbox">
                     <label>
@@ -80,14 +80,14 @@
                     </label>
                 </div>
             </li>
-            <li>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="type" id="propuestas" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>
-                        &nbsp;<span class="fa fa-lightbulb-o"></span>&nbsp;&nbsp;<g:message code="search.filters.SolrType.POST"/>
-                    </label>
-                </div>
-            </li>
+            %{--<li>--}%
+                %{--<div class="checkbox">--}%
+                    %{--<label>--}%
+                        %{--<input type="checkbox" name="type" id="propuestas" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>--}%
+                        %{--&nbsp;<span class="fa fa-lightbulb-o"></span>&nbsp;&nbsp;<g:message code="search.filters.SolrType.POST"/>--}%
+                    %{--</label>--}%
+                %{--</div>--}%
+            %{--</li>--}%
         </ul>
         <input type="hidden" name="word" value="${searchParams.word}" />
     </g:form>
