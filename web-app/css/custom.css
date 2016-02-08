@@ -358,6 +358,7 @@ header.landing.transp .navbar-form .input-group > .form-control {
     color: #fff;
 }
 header.landing .navbar-collapse.collapse {background-color: #ffffff}
+header.landing.transp .navbar-collapse.collapse {background-color: transparent}
 header.landing .navbar-form .input-group > .form-control {border: 3px solid rgba(153,153,153,.4);}
 header.landing #search-form .input-group-btn {right: 34px;}
 header.landing.transp .form-control::-moz-placeholder {color:#fff; opacity:1}
