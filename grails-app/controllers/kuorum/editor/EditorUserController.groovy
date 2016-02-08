@@ -66,8 +66,10 @@ class EditorUserController {
         }
         updatedUser.personalData.phonePrefix = command.phonePrefix
         updatedUser.personalData.telephone = command.phone
-        updatedUser.personalData.province = command.homeRegion
-        updatedUser.personalData.provinceCode = command.homeRegion.iso3166_2
+        if (command.homeRegion){
+            updatedUser.personalData.province = command.homeRegion
+            updatedUser.personalData.provinceCode = command.homeRegion.iso3166_2
+        }
         updatedUser = kuorumUserService.updateUser(updatedUser);
 
         flash.message =message(code:'admin.editUser.success', args: [updatedUser.name])
