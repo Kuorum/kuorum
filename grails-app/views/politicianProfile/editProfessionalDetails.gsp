@@ -3,7 +3,6 @@
     <title><g:message code="page.title.profile.profilePoliticianProfessionalDetails"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="config" />
-    <r:require modules="forms"/>
 </head>
 
 <content tag="leftMenu">

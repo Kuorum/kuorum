@@ -1,3 +1,4 @@
+<r:require modules="forms"/>
 <input type="hidden" name="politician.id" value="${command.politician.id}"/>
 <div class="box-ppal-section">
     <h4 class="box-ppal-section-title"><g:message code="politician.quickNotes.data.background.title"/> </h4>

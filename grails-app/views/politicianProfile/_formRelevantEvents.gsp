@@ -1,3 +1,4 @@
+<r:require modules="forms"/>
 <input type="hidden" name="politician.id" value="${command.politician.id}"/>
 <formUtil:dynamicComplexInputs
         command="${command}"
