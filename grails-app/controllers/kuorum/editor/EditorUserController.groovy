@@ -2,10 +2,13 @@ package kuorum.editor
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.RegionService
+import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
+import kuorum.register.RegisterService
 import kuorum.users.*
 import kuorum.web.commands.editor.EditorAccountCommand
+import kuorum.web.commands.editor.EditorCreateUserCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
@@ -18,6 +21,30 @@ class EditorUserController {
     FileService fileService
     RegionService regionService
     KuorumMailAccountService kuorumMailAccountService;
+
+    RegisterService registerService;
+
+    def createPolitician(){
+        [command:new EditorCreateUserCommand()]
+    }
+
+    def saveCreatePolitician(EditorCreateUserCommand command){
+        if (command.hasErrors()){
+            render view: "createPolitician", model:[command:command]
+            return;
+        }
+        String pass = registerService.generateNotSetUserPassword("EDITOR")
+        KuorumUser newPolitician = registerService.createUser(command.name, pass, command.email,command.alias, command.language, UserType.POLITICIAN)
+        newPolitician.personalData.phonePrefix = command.phonePrefix
+        newPolitician.personalData.telephone = command.phone
+        if (command.homeRegion){
+            newPolitician.personalData.province = command.homeRegion
+            newPolitician.personalData.provinceCode = command.homeRegion.iso3166_2
+        }
+        newPolitician = kuorumUserService.updateUser(newPolitician);
+        redirect(mapping:'userShow', params:newPolitician.encodeAsLinkProperties())
+
+    }
 
     def editUser(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
@@ -39,7 +66,6 @@ class EditorUserController {
         redirect(mapping:'userShow', params:user.encodeAsLinkProperties())
     }
 
-    @Secured(['ROLE_EDITOR'])
     def editAdminAccountDetails(){
         KuorumUser user = KuorumUser.get(new ObjectId(params.id))
         EditorAccountCommand command = new EditorAccountCommand(user);

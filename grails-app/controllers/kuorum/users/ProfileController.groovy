@@ -12,6 +12,7 @@ import kuorum.mail.MailType
 import kuorum.notifications.Notification
 import kuorum.register.FacebookAuthService
 import kuorum.register.GoogleOAuthService
+import kuorum.register.RegisterService
 import kuorum.web.commands.profile.*
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
@@ -29,6 +30,7 @@ class ProfileController {
     def notificationService
     def kuorumMailService
     KuorumMailAccountService kuorumMailAccountService
+    RegisterService registerService
 
     def beforeInterceptor ={
         if (springSecurityService.isLoggedIn()){//Este if es para la confirmacion del email
@@ -259,7 +261,7 @@ class ProfileController {
 
     def changePassword() {
         KuorumUser user = params.user
-        if (!user.password || user.password.startsWith(FacebookAuthService.PASSWORD_PREFIX) || user.password.startsWith(GoogleOAuthService.PASSWORD_PREFIX)){
+        if (!registerService.isPasswordSetByUser(user)){
             redirect mapping:"profileSetPass";
             return;
         }

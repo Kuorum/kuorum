@@ -619,7 +619,7 @@ class KuorumUserService {
         if (user && user.userType != UserType.POLITICIAN){
             regions = regionService.findUserRegions(user)
         }else if(user){
-            regions = regionService.findRegionsList(user.professionalDetails.region)
+            regions = regionService.findRegionsList(user.professionalDetails?.region)
         }else{
             regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
         }

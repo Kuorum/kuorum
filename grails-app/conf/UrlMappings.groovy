@@ -266,6 +266,7 @@ class UrlMappings {
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
 //        name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
+        name editorCreatePolitician:                        "/editor/usuarios/politician/create-politician" (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
         name editorEditUserProfile:                         "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/profile" (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
         name editorEditPoliticianExternalActivity:          "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/externalActivity" (controller:"editorPolitician"){action =[GET:"editExternalActivity", POST:"updateExternalActivity"]}
         name editorEditPoliticianRelevantEvents:            "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/relevantEvents" (controller:"editorPolitician"){action =[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}

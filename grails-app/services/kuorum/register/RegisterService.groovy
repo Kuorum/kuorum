@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.ui.RegistrationCode
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
+import kuorum.core.model.UserType
 import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
 import kuorum.post.Post
@@ -48,6 +49,7 @@ class RegisterService {
     private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE="politicianMessage"
     private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_CAUSE="politicianCause"
 
+    public static final String NOT_USER_PASSWORD = "NO_VALID_PASS"
     /*
         Action to register the name of a new user and generate the token to the Link
      */
@@ -144,6 +146,43 @@ class RegisterService {
             user.relevantCommissions = CommissionType.values()
             user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
             user
+    }
+
+    KuorumUser createUser(String name, String password, String email, String alias, AvailableLanguage lang, UserType userType){
+        KuorumUser user
+        KuorumUser.withNewTransaction {status->
+
+            user = new KuorumUser(
+                    email: email.toLowerCase(),
+                    name: name,
+                    language: lang,
+                    password: password,
+                    alias:alias,
+                    accountLocked: false, enabled: false)
+            user.relevantCommissions = CommissionType.values()
+            user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
+            if (userType == UserType.POLITICIAN){
+                user.authorities << RoleUser.findByAuthority("ROLE_POLITICIAN")
+            }
+            user.userType = userType
+            user.save();
+        }
+        user;
+    }
+
+    String generateNotSetUserPassword(String prefix){
+        "${NOT_USER_PASSWORD}_${prefix}_${Math.random()}"
+    }
+
+    boolean isPasswordSetByUser(KuorumUser user){
+        isPasswordSetByUser(user.password)
+    }
+    boolean isPasswordSetByUser(String encodedPassword){
+        return !(!encodedPassword
+                || encodedPassword.startsWith(FacebookAuthService.NOT_USER_PASSWORD)
+                || encodedPassword.startsWith(FacebookAuthService.PASSWORD_PREFIX)
+                || encodedPassword.startsWith(GoogleOAuthService.PASSWORD_PREFIX))
+
     }
 
     Boolean checkValidEmail(String email){

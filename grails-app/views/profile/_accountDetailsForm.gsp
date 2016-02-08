@@ -1,4 +1,4 @@
-<input type="hidden" name="user.id" value="${command.user.id}"/>
+<input type="hidden" name="user.id" value="${command?.user?.id}"/>
 <fieldset class="row">
     <div class="form-group col-md-6">
         <formUtil:input command="${command}" field="name" required="true" showLabel="true" showCharCounter="false"/>
