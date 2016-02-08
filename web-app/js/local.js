@@ -83,7 +83,7 @@ $(document).ready(function() {
 $(window).on('resize',function() {
     $('.fondoperfil .qq-upload-drop-area').each(function() {
         var width = $(this).width();
-        $(this).css("height", width / 1.77777778);
+        $(this).css("height", width * 328 /728);
     });
 });
 $(document).ready(function() {

@@ -2150,11 +2150,11 @@ textarea.error,
 
 /* estilos para el resize upload image */
 .uploaderImageContainer > div {margin: 0; position: relative;}
-.form-group.image {width: 100%; height: 415px;}
+.form-group.image {width: 100%; height: 290px;}
 .form-group.image.perfil {height: 320px;}
 .form-group.image.perfil .uploaderImageContainer > div {width: 284px;}
 .form-group.image.perfil .qq-upload-drop-area {padding: 52% 20px 20px 20px; height: 284px;}
-.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 26%;}
+.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 9%;}
 
 /* avatar en config cuadrado */
 .config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
@@ -3882,7 +3882,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     /*#detailsInfoVotes .icons {padding: 0 15px;}*/
     #detailsInfoVotes.autor .table tbody th {width: 170px;}
     #sign .checkbox-inline + .checkbox-inline {margin-left: 10px;}
-    .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 28%;}
+    .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 17%;}
     .chat > li .user.author {margin-top: -32px;}
     .listComments > li .user.author {margin-top: -32px;}
     .boxes.vote.drive form,
@@ -3955,7 +3955,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .box-ppal.profile .activity > li {width: 16%; margin-bottom: 0;}
     .box-ppal.profile .activity > li:nth-child(2) {border-right: 1px solid #dadada;}
     #info-sup-scroll .activity {margin: 0 auto;}
-    .form-group.image {height: 350px;}
+    .form-group.image {height: 250px;}
     .config .icheckbox_line-orange,
     .config .iradio_line-orange {margin: 0 5px 5px 0;}
     h2.underline {font-size: 25px; font-size: 2.5rem;}
@@ -4277,7 +4277,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .config .kakareo-list.project .kakareo.post footer {position: absolute;}
     .config.search > article > .clearfix > h1 {width: 70%; float: left;}
     .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
-    .form-group.image {height: 400px;}
+    .form-group.image {height: 325px;}
     /*  #otros-proyectos .kakareo.post > .link-wrapper,
       .homeSub .kakareo-list.project .kakareo.post > .link-wrapper,
       .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper {height: 398px;}*/

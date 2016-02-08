@@ -78,7 +78,8 @@
                     bgOpacity:   .4,
                 %{--minSize:[boxWidth,0],--}%
                     %{--maxSize:[boxWidth,0],--}%
-                    boxWidth: boxWidth, boxHeight: 0,
+                    boxWidth: boxWidth,
+                    boxHeight: 0,
                     setSelect:   [ 200, 200, 1001, 100 ],
                     aspectRatio: ${fileGroup.aspectRatio}
                 },
