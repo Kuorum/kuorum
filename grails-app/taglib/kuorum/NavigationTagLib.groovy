@@ -54,6 +54,7 @@ class NavigationTagLib {
                 <div id="load-more" class="text-center ${cssClass}">
                     <a href="${link}" class="loadMore" data-parent-id="${parentId}" ${dataFormId} data-offset="${pagination.max}">
                         ${message(code:"search.list.seeMore")}
+                        <span class="fa fa-angle-down"></span>
                     </a>
                 </div>
                 """
