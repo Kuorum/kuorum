@@ -1,4 +1,4 @@
-<section role="complementary" class="homeSub" id="saveTime-tag">
+<section role="complementary" class="homeSub" id="saveTime-tag" data-smoothOffset="-105">
     <h1><g:message code="landingPage.features.title"/> </h1>
 
     <div class="row">

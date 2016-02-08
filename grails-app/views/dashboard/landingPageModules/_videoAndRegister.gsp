@@ -11,7 +11,7 @@
                     <h1><g:message code="landingPage.videoAndRegister.title"/></h1>
                     <h2><g:message code="landingPage.videoAndRegister.subtitle"/></h2>
 
-                    <a href="#saveTime" class="btn btn-white smooth" data-somothOffset="-65"><g:message code="landingPage.videoAndRegister.howItWorks"/></a>
+                    <a href="#saveTime" class="btn btn-white smooth"><g:message code="landingPage.videoAndRegister.howItWorks"/></a>
 
                     <formUtil:validateForm bean="${command}" form="freeTrial"/>
                     <g:form mapping="register" autocomplete="off" method="post" name="freeTrial" class="form-inline" role="form" novalidate="novalidate">

@@ -750,7 +750,6 @@ function stringStartsWith (string, prefix) {
 
 function moveToHash(hash){
     var dest = 0;
-    console.log("Moving to "+hash)
     hash = hash + "-tag"
     if ($(hash).length){ //If the element exists
         if ($(hash).offset().top > $(document).height() - $(window).height()) {
@@ -758,7 +757,12 @@ function moveToHash(hash){
         } else {
             dest = $(hash).offset().top;
         }
-        dest = dest - 70
+        var extraOffset = -70;
+        if ($(hash)[0].hasAttribute("data-smoothOffset")){
+            extraOffset = parseInt($(hash).attr("data-smoothOffset"))
+        }
+        console.log("Moving to "+hash + " offset: "+extraOffset)
+        dest = dest + extraOffset
         //go to destination
         $('html,body').animate({
             scrollTop: dest
