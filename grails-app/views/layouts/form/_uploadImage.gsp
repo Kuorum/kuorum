@@ -150,7 +150,8 @@
 
     function changeImageBackground(urlImage, imageId){
         console.log("#uploaderImageId_"+imageId+" .qq-upload-drop-area")
-        var timestampedUrlImage = urlImage +'?timestamp='+new Date().getTime();
+//        var timestampedUrlImage = urlImage +'?timestamp='+new Date().getTime();
+        var timestampedUrlImage = urlImage
         $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-image",'url('+timestampedUrlImage+')');
         $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-size","100% auto")
         $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-position","0 0")
