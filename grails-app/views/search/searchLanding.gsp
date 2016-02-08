@@ -33,7 +33,7 @@
         <div class="row">
 
             <ul class="politician-list clearfix" id="search-list-id">
-                <g:render template="searchElement" model="[docs:docs.elements]"/>
+                <g:render template="searchElement" model="[docs:docs.elements, columnsCss:'col-xs-12 col-sm-6 col-md-4']"/>
             </ul>
         </div>
 

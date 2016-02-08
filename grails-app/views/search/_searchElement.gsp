@@ -1,6 +1,10 @@
+<g:if test="${!columnsCss}">
+    <g:set var="columnsCss" value="col-sm-12 col-md-6"/>
+</g:if>
+
 <g:each in="${docs}" var="solrElement">
         <g:if test="${solrElement instanceof kuorum.core.model.solr.SolrKuorumUser}">
-            <li class="col-xs-12 col-sm-6 col-md-4">
+            <li class="${columnsCss}">
                 <g:render template="searchUserElement" model="[solrUser:solrElement]"/>
             </li>
         </g:if>
@@ -10,7 +14,7 @@
             </li>
         </g:elseif>
         <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrProject}">
-            <li class="col-xs-12 col-sm-6 col-md-4">
+            <li class="${columnsCss}">
                 <g:render template="searchProjectElement" model="[solrProject:solrElement]"/>
             </li>
         </g:elseif>
