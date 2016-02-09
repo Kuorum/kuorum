@@ -43,8 +43,8 @@
             <span itemprop="name" class="sr-only">UnLtd</span>
         </li>
         <li itemscope itemtype="http://schema.org/Organization"  class="square">
-            <img itemprop="logo" src="images/organizations/logo-lacaixa.png" alt="LaCaixa">
-            <span itemprop="name" class="sr-only">LaCaixa</span>
+            <img itemprop="logo" src="images/organizations/logo-sif.png" alt="Socialiniu Inovaciju Fondas">
+            <span itemprop="name" class="sr-only">SIF</span>
         </li>
         <li itemscope itemtype="http://schema.org/Organization"  class="square">
             <img itemprop="logo" src="images/organizations/logo-centralworking.png" alt="Central Working">
@@ -72,8 +72,8 @@
             <span itemprop="name" class="sr-only">Santander</span>
         </li>
         <li itemscope itemtype="http://schema.org/Organization">
-            <img itemprop="logo" src="images/organizations/logo-unicef.png" alt="Socialiniu Inovaciju Fondas">
-            <span itemprop="name" class="sr-only">Socialiniu Inovaciju Fondas</span>
+            <img itemprop="logo" src="images/organizations/logo-vmw.png" alt="Verein Multikulturell">
+            <span itemprop="name" class="sr-only">Verein Multikulturell</span>
         </li>
         <li itemscope itemtype="http://schema.org/Organization">
             <img itemprop="logo" src="images/organizations/logo-dotforge.png" alt="DOTFORGE">
