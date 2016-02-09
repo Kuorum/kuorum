@@ -4,44 +4,44 @@
     <div class="row">
         <ul class="saveTime">
             <li class="col-sm-5 col-md-3">
-                <a href="#">
+                <g:link mapping="footerPoliticians">
                     <img src="${resource(dir: 'images', file: 'dashboard_bw.png')}" alt="${g.message(code:'landingPage.features.socialAnalytics.title')}">
-                </a>
+                </g:link>
                 <h2><g:message code="landingPage.features.socialAnalytics.title"/></h2>
                 <p><g:message code="landingPage.features.socialAnalytics.description"/></p>
-                <a href="#">
+                <g:link mapping="footerPoliticians">
                     <g:message code="landingPage.features.socialAnalytics.learnMore" encodeAs="raw"/> <span class="fa fa-angle-right"></span>
-                </a>
+                </g:link>
             </li>
             <li class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-0">
-                <a href="#">
+                <g:link mapping="footerPoliticians">
                     <img src="${resource(dir: 'images', file: 'semantic_bw.png')}" alt="${g.message(code:'landingPage.features.semanticAnalytics.title')}">
-                </a>
+                </g:link>
                 <h2><g:message code="landingPage.features.semanticAnalytics.title"/></h2>
                 <p><g:message code="landingPage.features.semanticAnalytics.description"/></p>
-                <a href="#">
+                <g:link mapping="footerPoliticians">
                     <g:message code="landingPage.features.semanticAnalytics.learnMore" encodeAs="raw"/> <span class="fa fa-angle-right"></span>
-                </a>
+                </g:link>
             </li>
             <li class="col-sm-5 col-md-3">
-                <a href="#">
+                <g:link mapping="footerPoliticians">
                     <img src="${resource(dir: 'images', file: 'organizer_bw.png')}" alt="${g.message(code:'landingPage.features.massMailing.title')}">
-                </a>
+                </g:link>
                 <h2><g:message code="landingPage.features.massMailing.title"/></h2>
                 <p><g:message code="landingPage.features.massMailing.description"/></p>
-                <a href="#">
+                <g:link mapping="footerPoliticians">
                     <g:message code="landingPage.features.massMailing.learnMore" encodeAs="raw"/> <span class="fa fa-angle-right"></span>
-                </a>
+                </g:link>
             </li>
             <li class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-0">
-                <a href="#">
+                <g:link mapping="footerPoliticians">
                     <img src="${resource(dir: 'images', file: 'docman_bw.png')}" alt="${g.message(code:'landingPage.features.teamManagement.title')}">
-                </a>
+                </g:link>
                 <h2><g:message code="landingPage.features.teamManagement.title"/></h2>
                 <p><g:message code="landingPage.features.teamManagement.description"/></p>
-                <a href="#">
+                <g:link mapping="footerPoliticians">
                     <g:message code="landingPage.features.teamManagement.learnMore" encodeAs="raw"/> <span class="fa fa-angle-right"></span>
-                </a>
+                </g:link>
             </li>
         </ul>
     </div>
