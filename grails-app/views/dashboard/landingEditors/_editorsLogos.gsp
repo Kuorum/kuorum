@@ -4,8 +4,8 @@
         <li itemscope itemtype="http://schema.org/Organization">
             <img itemprop="logo" src="images/universities/logo-upf.png" alt="Universitat Pompeu Fabra Barcelona">
         </li>
-        <li itemscope itemtype="http://schema.org/Organization">
-            <img itemprop="logo" src="images/universities/logo-eth.png" alt="ETH zürich">
+        <li itemscope itemtype="http://schema.org/Organization" class="square">
+            <img itemprop="logo" src="images/universities/logo-accessinfo.png" alt="Access Info Europe">
         </li>
         <li itemscope itemtype="http://schema.org/Organization">
             <img itemprop="logo" src="images/universities/logo-harvard.png" alt="Harvard University">
