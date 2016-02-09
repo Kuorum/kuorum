@@ -135,11 +135,11 @@ class SearchController{
     def searchSeeMore(SearchParams searchParams){
         if (searchParams.hasErrors()){
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "false")
-            render template: '/search/searchElement', model:[docs:[], searchParams:searchParams]
+            render template: '/search/searchElement', model:[docs:[], searchParams:searchParams, columnsCss:params.columnsCss?:'']
         }else{
             SolrResults docs = searchSolrService.search(searchParams)
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${docs.numResults-searchParams.offset<=searchParams.max}")
-            render template: '/search/searchElement', model:[docs:docs.elements, searchParams:searchParams]
+            render template: '/search/searchElement', model:[docs:docs.elements, searchParams:searchParams, columnsCss:params.columnsCss?:'']
         }
     }
 

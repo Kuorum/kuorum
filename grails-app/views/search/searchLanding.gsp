@@ -32,6 +32,7 @@
 
         <div class="row">
 
+            <g:set var="columnsCss" value="col-xs-12 col-sm-6 col-md-4"/>
             <ul class="politician-list clearfix" id="search-list-id">
                 <g:render template="searchElement" model="[docs:docs.elements, columnsCss:'col-xs-12 col-sm-6 col-md-4']"/>
             </ul>
@@ -47,6 +48,7 @@
         >
             <input type="hidden" name="word" value="${searchParams.word}" />
             <input type="hidden" name="type" value="${searchParams.type}" />
+            <input type="hidden" name="columnsCss" value="${columnsCss}" />
         </nav:loadMoreLink>
     </div>
 </content>
