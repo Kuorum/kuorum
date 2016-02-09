@@ -117,6 +117,7 @@
         </li>
     </div>
 
+    <br/>
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle07"/></h4>
     <div class="columns1">
         <p>
