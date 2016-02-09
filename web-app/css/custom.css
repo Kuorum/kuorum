@@ -1335,14 +1335,14 @@ video#bgvid {
 
 /* NUEVOS ESTILOS LANDING 2016 */
 /* vídeo */
-#main.landing {padding: 0; color: #fff; min-height: 0;}
+#main.landing {padding: 0; color: #fff; min-height: auto;}
 #main.landing .full-video {padding: 0; background-image: url('../images/background.png');}
 #main.landing .full-video video#bgvid {
     background-image: url('../images/background.png');
     background-size: 100% auto;
     width: 100%;
-    min-height: none;
-    min-width: none;
+    min-height: auto;
+    min-width: auto;
 }
 #main.landing .full-video h1,
 #main.landing .full-video h2 {font-family: Arial,Helvetica,sans-serif;}
@@ -1426,9 +1426,12 @@ video#bgvid {
 .main.prices .promo-options > div h2 {background-color: #545454; color: #fff; font-size: 27px; font-size: 2.7rem; text-align: center; margin: 0 0 70px 0; line-height: 2;}
 .main.prices .promo-options > div h3,
 .main.prices .promo-options > div ul li {font-size: 18px; font-size: 1.8rem;}
-.main.prices .promo-options > div p.price {font-family: Arial,Helvetica,sans-serif; font-size: 21px; font-size: 2.1rem; color: #545454; text-align: center; position: relative; margin-bottom: 30px;}
-.main.prices .promo-options > div p.price .amount {font-size: 100px; font-size: 10rem;}
-.main.prices .promo-options > div p.price .currency {position: absolute; top: -30px; left: 60px;}
+.main.prices .promo-options > div p.price,
+.subscribeForm p.price {font-family: Arial,Helvetica,sans-serif; font-size: 21px; font-size: 2.1rem; color: #545454; text-align: center; position: relative; margin-bottom: 30px;}
+.main.prices .promo-options > div p.price .amount,
+.subscribeForm p.price .amount {font-size: 100px; font-size: 10rem;}
+.main.prices .promo-options > div p.price .currency,
+.subscribeForm p.price .currency {position: absolute; top: -30px; left: 60px;}
 .main.prices .promo-options > div > form {position: relative; padding-top: 65px; width: calc(100% - 40px);}
 .main.prices .promo-options > div > form .btn {position: absolute; top: 0; margin: 0; font-size: 21px !important; font-size: 2.1rem !important;}
 .main.prices .promo-options > div > form .wrap-select {border-top: 1px solid #545454; border-bottom: 1px solid #545454; margin: 0 -20px; padding: 10px 20px;}
@@ -2001,6 +2004,35 @@ textarea.error,
 .onecol #main .signup.final h3 {font-size: 21px; font-size: 2.1rem; margin-bottom: 250px; padding: 0 5%; line-height: 1.4;}
 .onecol #main .signup .terms-use {color:#A8A8A8; font-size:1.4rem; text-align: center;}
 .onecol #main .signup .terms-use a{color:#545454}
+
+/* Subscribe */
+.onecol .subscribe > p {fon-size: 25px; font-size: 2.5rem; margin-top: 45px;}
+.onecol .subscribeForm fieldset {width: calc(100% - 192px); float: left; border: 1px solid #545454;}
+.onecol .subscribeForm fieldset .form-group {margin: 0; padding: 0;}
+.onecol .subscribeForm fieldset .form-group:last-child {border-left: 1px solid #545454; padding: 20px;}
+.onecol .subscribeForm fieldset .form-group > select {background-color: #666; color: #fff; font-size: 27px; font-size: 2.7rem; text-align: center; border-radius: 0;}
+.onecol .subscribeForm fieldset p.price {margin-top: 65px;}
+.subscribeForm p.price .currency {left: 45px;}
+.subscribeForm .wrap-select {border-top: 1px solid #545454; padding: 10px 20px;}
+.subscribeForm .wrap-select select {height: 48px;}
+.subscribeForm .radio.discount {display: block; width: 110px; height: 45px; float: left; padding: 0;}
+.subscribeForm .radio.discount label {background-color: #545454; position: relative; color: #fff; font-size: 21px; font-size: 2.1rem; family: Arial, Helvetica, sans-serif; display: block; width: 110px; height: 45px;}
+.subscribeForm .radio.discount input {position: absolute; top: 0; left: 30px; z-index: -1;}
+.onecol .subscribeForm fieldset ul {padding: 0; margin: 12px 20px; list-style: none; text-align: left; font-size: 18px; font-size: 1.8rem;}
+.onecol .subscribeForm fieldset ul li {position: relative; margin-left: 25px; margin-bottom: 10px;}
+.onecol .subscribeForm fieldset ul li::before {
+    content: "";
+    font-family: FontAwesome;
+    display: inline-block;
+    width: 18px;
+    left: -25px;
+    position: absolute;
+}
+.onecol .subscribeForm .buttons {width: 190px; float: right; margin: 0;}
+.onecol .subscribeForm .buttons input {width: 100%; display: block; background-color: #ff9431; padding-top: 70px; color: #fff; font-size: 16px; font-family: Arial, Helvetica, sans-serif; background-repeat: no-repeat; border: 1px solid #ff9431; background-image: url(../images/payment-methods.gif); margin-bottom: 15px;}
+.onecol .subscribeForm .buttons input.card {background-position: 0 0;}
+.onecol .subscribeForm .buttons input.paypal {background-position: -190px 0;}
+.onecol .subscribeForm .buttons input.bank {background-position: -376px 0;}
 
 
 .container-fluid.onecol {max-width: 910px;}
@@ -2770,7 +2802,6 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 #search-results #results .counter {color: #545454;}
 #search-results #results {margin: 0 0 5px;}
 #search-results .highlighted {background-color: rgba(251, 241, 87, 0.5);}
-
 #search-filters h1 {font-size: 17px; font-size: 1.7rem; font-weight: bold; margin-top: 0;}
 #search-results > ul {margin:0; padding: 0; border-top: 1px solid #DADADA;}
 #search-results > ul > li {list-style: none; padding: 0; border-bottom: 1px solid #DADADA;}
@@ -3248,6 +3279,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .config.search > article .kakareo-list .kakareo .link-wrapper {padding: 22px 15px 15px 15px;}
 .config.search > article .kakareo-list .kakareo .link-wrapper > footer + p {margin: 0; padding: 10px 0 0 0; border-top: 1px solid #dadada;}
 
+.config.search > section > .box-ppal {background-color:transparent; border:none;}
 
 /* páginas de info, listados y errores =========== */
 /* ====================================================== */
@@ -4366,7 +4398,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .box-ppal.condition.politician > .row h1 {font-size: 29px; font-size: 2.9rem;}
 
     .config > article > .box-ppal, .config > section > .box-ppal {padding: 22px 20px 0 20px; margin-bottom: 60px;}
-    .config.search > section > .box-ppal {background-color:transparent; border:none;}
 
     .team > section > .box-ppal{padding:0; margin:0; background-color: transparent; border:0}
 
@@ -4553,7 +4584,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .row.main.presskit { background-position: center -240px; }
 
     #main.landing .full-video h1 {margin-top: 16%;}
-    .landing .full-video .container-fluid form {margin-bottom: 6.5%;}
+    .landing .full-video .container-fluid form {margin-bottom: 3%;}
     #main.landing.mainEditors .full-video {background-position: right -22px;}
 
     .saveTime, .saveTime li {padding: 0 30px;}
@@ -5553,4 +5584,3 @@ header .header-msg h6:hover{
 .config .admin-user-options > ul > li{padding:0px;border:none;font-size:1rem;height: 1.2rem;}
 .config .admin-user-options > ul > li a{padding:0px;}
 .config .admin-user-options > ul > li #switchUserLink{ font-style: italic; }
-
