@@ -49,12 +49,20 @@
                 <g:if test="${politician.tags}">
                     <h4><g:message code="politician.causes"/> </h4>
                     <ul class='causes-tags'>
-                        <g:each in="${politician.tags}" var="tag">
-                            <li>
-                                <g:link mapping="searcherSearch" params="[type:UserType.POLITICIAN, word:tag]">
-                                    <span class="fa fa-tag"/>
-                                    ${tag}
-                                </g:link>
+                        <g:each in="${causes}" var="cause">
+                            <li class="link-wrapper">
+                                <g:link mapping="searcherSearch" params="[type:UserType.POLITICIAN, word:cause.name]"></g:link>
+                                <span class="cause-name">
+                                    <span class="fa fa-tag"></span>
+                                    ${cause.name}
+                                </span>
+                                <span class="cause-support active">
+                                    <a href="#">
+                                        <span class="fa fa-heart"></span>
+                                        <span class="fa fa-heart-o"></span>
+                                        ${cause.politicianVotes}
+                                    </a>
+                                </span>
                             </li>
                         </g:each>
                     </ul>

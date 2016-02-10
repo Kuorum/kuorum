@@ -3,6 +3,7 @@ package kuorum.users
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.campaign.Campaign
 import kuorum.campaign.CampaignService
+import kuorum.causes.CausesService
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
@@ -13,6 +14,7 @@ import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.tag.CauseRSDTO
 
 import javax.servlet.http.HttpServletResponse
 
@@ -25,6 +27,8 @@ class KuorumUserController {
     def searchSolrService
     def postService
     def projectService
+
+    CausesService causesService
 
     CampaignService campaignService
 
@@ -164,12 +168,14 @@ class KuorumUserController {
     def showExtendedPolitician(KuorumUser politician){
         List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(politician, new Pagination(max:12))
         List<Project> userProjects = projectService.politicianProjects(politician)
+        List<CauseRSDTO> causes = causesService.findUserCauses(politician)
         Campaign campaign = campaignService.findActiveCampaign(politician)
         [
                 politician:politician,
                 userProjects:userProjects,
                 recommendPoliticians:recommendPoliticians,
-                campaign:campaign
+                campaign:campaign,
+                causes:causes
         ]
     }
 

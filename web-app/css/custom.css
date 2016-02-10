@@ -4922,12 +4922,15 @@ p.party{
 .causes-tags{
     padding: 0;
     margin-bottom: 20px;
+    font-size: 14px;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    letter-spacing: 0.4px;
+    color: #fff;
 }
 .causes-tags li{
     display: inline-block;
     background: #ff9431;
     border-radius: 5px;
-    padding: 3px 10px;
     margin: 0px 10px 10px 0;
 }
 .causes-tags li:hover,
@@ -4935,12 +4938,24 @@ p.party{
 .causes-tags li:focus{
     background-color: #ee7612;
 }
-.causes-tags li a{
-    font-size: 14px;
-    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-    letter-spacing: 0.4px;
-    color: #fff;
-}
+.causes-tags li .cause-name {padding: 3px 10px;}
+.causes-tags li .cause-support {
+    background-color: #ffffff;
+    color: #ee7612;
+    padding: 3px 10px;
+    /*border-radius: 5px;*/
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-right: 1px;}
+.causes-tags li:hover .cause-support .fa-heart{display:inline}
+.causes-tags li:hover .cause-support .fa-heart-o{display:none}
+.causes-tags li .cause-support .fa-heart{display:none}
+.causes-tags li .cause-support .fa-heart-o{display:inline}
+
 .causes-tags li a:hover,
 .causes-tags li a:focus,
 .causes-tags li a:active{
