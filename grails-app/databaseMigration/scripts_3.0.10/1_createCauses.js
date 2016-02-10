@@ -3,6 +3,7 @@
 var dbDest = dbDest || connect("localhost:27017/Kuorum");
 
 
+dbDest.cause.drop()
 
 dbDest.kuorumUser.aggregate([
         {$match:{tags:{$exists:1}}},
