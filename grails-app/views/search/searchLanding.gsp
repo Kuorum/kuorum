@@ -42,7 +42,7 @@
                 formId="search-form-loadMore"
                 mapping="searcherSearchSeeMore"
                 parentId="search-list-id"
-                class="searchNoLogged"
+                class="landingSearch"
                 pagination="${searchParams}"
                 numElements="${docs.numResults}"
         >
