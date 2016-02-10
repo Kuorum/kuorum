@@ -115,9 +115,9 @@
         <li>
             <g:message code="footer.menu.footerTermsUse.description0615"/>
         </li>
+    <br/>
     </div>
 
-    <br/>
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle07"/></h4>
     <div class="columns1">
         <p>
@@ -152,7 +152,7 @@
     <h4  class="border"><g:message code="footer.menu.footerTermsUse.subtitle11"/></h4>
     <div class="columns1">
         <p>
-            <g:message code="footer.menu.footerTermsUse.description111"/>
+            <g:message code="footer.menu.footerTermsUse.description111" args="[g.createLink(mapping:'footerPrivacyPolicy', absolute: true)]"/>
         </p>
     </div>
 
