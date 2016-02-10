@@ -15,8 +15,8 @@ dbDest.kuorumUser.aggregate([
     if (causeName.substring(0, 1) == "#"){
         causeName = orgCauseName.substring(1)
         print("Chnging  "+orgCauseName +" to "+causeName)
-        dbDest.kuorumUser.update({tags:orgCauseName},{$pull:{tags:orgCauseName}},{multi:true})
         dbDest.kuorumUser.update({tags:orgCauseName},{$addToSet:{tags:causeName}},{multi:true})
+        dbDest.kuorumUser.update({tags:orgCauseName},{$pull:{tags:orgCauseName}},{multi:true})
     }
 
     var cause = {
