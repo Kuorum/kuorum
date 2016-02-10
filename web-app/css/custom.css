@@ -1478,8 +1478,8 @@ video#bgvid {
 #load-more a:active,
 #load-more a:focus {text-decoration: underline;}
 
-#load-more.searchNoLogged{border-top: none; font-size:2.5rem;}
-#load-more.searchNoLogged a{color:#545454}
+#load-more.landingSearch{border-top: none; font-size:2.5rem; font-family: Arial, Helvetica, sans-serif;}
+#load-more.landingSearch a{color:#545454}
 
 /* este es para hacer visible lo ya cargado */
 #ver-mas {
