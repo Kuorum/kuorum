@@ -4951,10 +4951,10 @@ p.party{
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     margin-right: 1px;}
-.causes-tags li:hover .cause-support .fa-heart{display:inline}
-.causes-tags li:hover .cause-support .fa-heart-o{display:none}
-.causes-tags li .cause-support .fa-heart{display:none}
-.causes-tags li .cause-support .fa-heart-o{display:inline}
+.causes-tags li.cause.active .cause-support .fa-heart{display:inline}
+.causes-tags li.cause.active .cause-support .fa-heart-o{display:none}
+.causes-tags li.cause .cause-support .fa-heart{display:none}
+.causes-tags li.cause .cause-support .fa-heart-o{display:inline}
 
 .causes-tags li a:hover,
 .causes-tags li a:focus,

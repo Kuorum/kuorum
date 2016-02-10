@@ -195,6 +195,8 @@ class UrlMappings {
         name toolsBuyAward:     "/ajax/herramientas/el-gallinero/comprar"     (controller: "tools", action: "kuorumStoreBuyAward")
         name toolsActivateAward:"/ajax/herramientas/el-gallinero/activar"     (controller: "tools", action: "kuorumStoreActivateAward")
 
+        name causeSupport:         "/ajax/cause/$causeName/support" (controller:"causes", action: "supportCause")
+
         name footerAboutUs:       "/kuorum"                         (controller:"footer", action: "aboutUs" )
         name footerVision:        "/kuorum/mision-and-vision"        (controller:"footer", action: "vision" )
                                   "/kuorum/vision-y-valores"        (controller:"footer", action: "vision" )

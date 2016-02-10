@@ -36,6 +36,11 @@ class CausesService {
         return account;
     }
 
+    CauseRSDTO supportCause(KuorumUser user){
+
+    }
+
+
     private String buildUrl(String path, Map<String,String> params){
         params.each{ k, v -> path = path.replaceAll("\\{${k}}", v) }
         apiPath+path

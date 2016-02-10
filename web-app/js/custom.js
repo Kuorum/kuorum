@@ -902,6 +902,30 @@ $(document).ready(function() {
         $("#"+realInputId).val("")
     });
 
+
+    // SUPPORT CAUSES
+    $(".cause-support").on("click", "a", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("click heart");
+        $a = $(this)
+        $(this).parents(".cause").addClass("active")
+        hearBeat(2,  $a.find(".fa"));
+        $.get(  $a .attr("href"), function( data ) {
+            $a.find(".cause-counter").html("3")
+        });
+    })
+    function hearBeat(numHeartBeats, $element){
+        if (numHeartBeats <0){
+            return;
+        }
+        var back = numHeartBeats % 2 == 0
+        $element.animate(
+            {
+                'font-size': (back) ? '14px' : '20px',
+                'opacity': (back) ? 1 : 0.5
+            }, 100, function(){hearBeat(numHeartBeats -1, $element)});
+    }
 //    $("form.submitOrangeButton input.form-control").on('keyup paste',function(){
 //        console.log("change")
 //        var submitButtons = $(this).parents("form").find("input[type=submit]");

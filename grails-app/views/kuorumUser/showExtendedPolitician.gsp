@@ -50,18 +50,18 @@
                     <h4><g:message code="politician.causes"/> </h4>
                     <ul class='causes-tags'>
                         <g:each in="${causes}" var="cause">
-                            <li class="link-wrapper">
-                                <g:link mapping="searcherSearch" params="[type:UserType.POLITICIAN, word:cause.name]"></g:link>
+                            <li class="cause link-wrapper">
+                                <g:link mapping="searcherSearch" params="[type:UserType.POLITICIAN, word:cause.name]" class="hidden"> Search cause ${cause.name}</g:link>
                                 <span class="cause-name">
                                     <span class="fa fa-tag"></span>
                                     ${cause.name}
                                 </span>
-                                <span class="cause-support active">
-                                    <a href="#">
+                                <span class="cause-support">
+                                    <g:link mapping="causeSupport" params="[causeName:cause.name]" absolute="true">
                                         <span class="fa fa-heart"></span>
                                         <span class="fa fa-heart-o"></span>
-                                        ${cause.politicianVotes}
-                                    </a>
+                                        <span class="cause-counter">${cause.politicianVotes}</span>
+                                    </g:link>
                                 </span>
                             </li>
                         </g:each>
