@@ -909,7 +909,7 @@ $(document).ready(function() {
         e.stopPropagation();
         console.log("click heart");
         $a = $(this)
-        $(this).parents(".cause").addClass("active")
+        $(this).parents(".cause").toggleClass("active")
         hearBeat(2,  $a.find(".fa"));
         $.get(  $a .attr("href"), function( data ) {
             $a.find(".cause-counter").html("3")

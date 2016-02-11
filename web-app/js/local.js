@@ -111,7 +111,7 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-
+    
     // oscurecer el header de la Landing cuando se hace scroll
     if ($('#header.transp').length) {
         $(window).on("load scroll",function(){
@@ -123,19 +123,29 @@ $(document).ready(function() {
             }
         });
     }
-
+    
+    // custom radio option en formulario Subscribe2
+    if ($('.subscribeForm').length) {
+        var inputOption = $('.subscribeForm input[type=radio]');
+        $(inputOption).click(function(){
+            $(this).closest('.radioOptions').find('label').removeClass();
+            $(this).closest('label').addClass('selected');
+        });
+    }
+    
+    
     // isotope - plugin para apilar divs de diferente altura
     if ( $('.list-team').length > 0 ) {
         var $container = $('.list-team');
         $container.isotope({
-            itemSelector: '.list-team > li'
+          itemSelector: '.list-team > li'
         });
     }
 
     if ( $('.list-updates').length > 0 ) {
         var $container = $('.list-updates');
         $container.isotope({
-            itemSelector: '.list-updates > li'
+          itemSelector: '.list-updates > li'
         });
     }
 
@@ -150,14 +160,20 @@ $(document).ready(function() {
     // controla el comportamiento del módulo de la columna derecha en Propuestas
     $(window).on("load resize",function(e){
 
+        // elimina el vídeo de la landing por debajo de 1025px
+        if (window.matchMedia('only screen and (max-width: 1024px)').matches) {
+            $('.landing .full-video').find('video').remove();
+        }
+        
+        // controla el comportamiento del módulo de la columna derecha en Propuestas
         if ($(window).width() > 991) {
 
             $(window).scroll(function() {
                 var heightBottom = $('#otras-propuestas').height();
                 if ($(window).scrollTop() + $(window).height() > $(document).height() - heightBottom) {
-                    $('.boxes.vote.drive').removeClass('fixed');
+                       $('.boxes.vote.drive').removeClass('fixed');
                 } else {
-                    $('.boxes.vote.drive').addClass('fixed');
+                        $('.boxes.vote.drive').addClass('fixed');
                 }
             });
 
@@ -213,8 +229,8 @@ $(document).ready(function() {
 
     // Funcionamiento de los radio button como nav-tabs
     $('input[name="cuenta"]').click(function () {
-        //jQuery handles UI toggling correctly when we apply "data-target" attributes and call .tab('show')
-        //on the <li> elements' immediate children, e.g the <label> elements:
+    //jQuery handles UI toggling correctly when we apply "data-target" attributes and call .tab('show')
+    //on the <li> elements' immediate children, e.g the <label> elements:
         $(this).closest('label').tab('show');
     });
 
@@ -225,7 +241,7 @@ $(document).ready(function() {
     $('body').on('click','aside.condition > .close', function(e) {
 
         $(this).parent('aside.condition').fadeOut('slow', function(){
-            $(this).remove();
+          $(this).remove();
         });
 
     });
@@ -239,14 +255,14 @@ $(document).ready(function() {
     $('body').on('click','ul.user-list-followers > li.user .actions .close', function(e) {
 
         $(this).closest('li.user').fadeOut('slow', function(){
-            $(this).remove();
+          $(this).remove();
         });
 
     });
     $('body').on('click','ul.user-list-followers > li.user:only-child .actions .close', function(e) {
 
         $(this).closest('.boxes.follow').fadeOut('slow', function(){
-            $(this).remove();
+          $(this).remove();
         });
 
     });
@@ -255,7 +271,7 @@ $(document).ready(function() {
     $('body').on('click','.progress-complete .close', function(e) {
 
         $(this).closest('.progress-complete').fadeOut('slow', function(){
-            $(this).remove();
+          $(this).remove();
         });
 
     });
@@ -403,14 +419,14 @@ $(document).ready(function() {
     // Activar/desactivar materia que me interesa en el proyecto -> lo dejo comentado porque sólo debe ocurrir cuando estás logado. Falta programar esto.
 
     /* $('body').on("click", ".icons.subject a", function(e) {
-     e.preventDefault();
-     e.stopPropagation();
-     if ( $(this).hasClass('active') ){
-     $(this).removeClass('active');
-     } else {
-     $(this).addClass('active');
-     }
-     });*/
+        e.preventDefault();
+        e.stopPropagation();
+        if ( $(this).hasClass('active') ){
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active');
+        }
+    });*/
 
 
     // Activar/desactivar filtros propuestas ciudadanas
