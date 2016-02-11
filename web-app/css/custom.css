@@ -5012,11 +5012,14 @@ p.party{
     margin-right: 1px;
 }
 
-.causes-tags li.cause .cause-support:hover .fa{background-color: #ee7612;}
 .causes-tags li.cause.active .cause-support .fa-heart{display:inline}
 .causes-tags li.cause.active .cause-support .fa-heart-o{display:none}
+.causes-tags li.cause.active .cause-support:hover .fa-heart{display:none}
+.causes-tags li.cause.active .cause-support:hover .fa-heart-o{display:inline}
 .causes-tags li.cause .cause-support .fa-heart{display:none}
 .causes-tags li.cause .cause-support .fa-heart-o{display:inline}
+.causes-tags li.cause .cause-support:hover .fa-heart{display:inline}
+.causes-tags li.cause .cause-support:hover .fa-heart-o{display:none}
 
 .causes-tags li a:hover,
 .causes-tags li a:focus,
