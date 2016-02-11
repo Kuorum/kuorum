@@ -52,17 +52,17 @@
                         <g:each in="${causes}" var="cause">
                             <li class="cause link-wrapper">
                                 <g:link mapping="searcherSearch" params="[type:UserType.POLITICIAN, word:cause.name]" class="hidden"> Search cause ${cause.name}</g:link>
-                                <span class="cause-name">
+                                <div class="cause-name">
                                     <span class="fa fa-tag"></span>
                                     ${cause.name}
-                                </span>
-                                <span class="cause-support">
+                                </div>
+                                <div class="cause-support">
                                     <g:link mapping="causeSupport" params="[causeName:cause.name]" absolute="true">
                                         <span class="fa fa-heart"></span>
                                         <span class="fa fa-heart-o"></span>
                                         <span class="cause-counter">${cause.politicianVotes}</span>
                                     </g:link>
-                                </span>
+                                </div>
                             </li>
                         </g:each>
                     </ul>

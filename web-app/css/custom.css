@@ -4996,8 +4996,9 @@ p.party{
 .causes-tags li:focus{
     background-color: #ee7612;
 }
-.causes-tags li .cause-name {padding: 3px 10px;}
+.causes-tags li .cause-name {padding: 3px 10px; display: inline;}
 .causes-tags li .cause-support {
+    display: inline;
     background-color: #ffffff;
     color: #ee7612;
     padding: 3px 10px;
@@ -5008,7 +5009,10 @@ p.party{
     -moz-border-radius-bottomright: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    margin-right: 1px;}
+    margin-right: 1px;
+}
+
+.causes-tags li.cause .cause-support:hover .fa{background-color: #ee7612;}
 .causes-tags li.cause.active .cause-support .fa-heart{display:inline}
 .causes-tags li.cause.active .cause-support .fa-heart-o{display:none}
 .causes-tags li.cause .cause-support .fa-heart{display:none}
