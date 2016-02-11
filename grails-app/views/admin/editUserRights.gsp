@@ -42,6 +42,11 @@
                     <formUtil:input type="number" command="${command}" field="relevance" showLabel="true"/>
                 </div>
             </fieldset>
+            <fieldset class="row">
+                <div class="form-group col-md-6">
+                    <formUtil:password command="${command}" field="password" showLabel="true"/>
+                </div>
+            </fieldset>
         </div>
         <div class="box-ppal-section">
             <h4 class="box-ppal-section-title">

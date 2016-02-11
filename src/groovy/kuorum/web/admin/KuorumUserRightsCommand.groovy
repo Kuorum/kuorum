@@ -17,10 +17,11 @@ class KuorumUserRightsCommand {
     Boolean emailAccountActive;
     Boolean active
     Long relevance
-
+    String password
     static constraints = {
         user nullable: false
         userType nullable: false
         relevance nullable: false
+        password nullable:true
     }
 }

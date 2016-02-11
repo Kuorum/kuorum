@@ -1,6 +1,7 @@
 package kuorum.causes
 
 import groovyx.net.http.RESTClient
+import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
@@ -18,7 +19,9 @@ class CausesService {
     @Value('${kuorum.rest.apiKey}')
     String kuorumRestApiKey
 
-    String CAUSE_INFO="/cause/{causeName}"
+    IndexSolrService indexSolrService;
+
+    String CAUSE_OPERATIONS="/cause/{causeName}"
     String USER_CAUSES="/cause/support/{userId}"
     String USER_CAUSE_OPERATIONS="/cause/support/{causeName}/{userId}"
 
@@ -36,6 +39,23 @@ class CausesService {
             account = (List<CauseRSDTO>)response.data
         }
         return account;
+    }
+
+    CauseRSDTO createCause(String causeName){
+        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+        String path = buildUrl(CAUSE_OPERATIONS, [ causeName:causeName]);
+        def response = mailKuorumServices.put(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                query:[:],
+                body:[],
+                requestContentType : groovyx.net.http.ContentType.JSON
+        )
+        CauseRSDTO cause = null;
+        if (response.data){
+            cause = new CauseRSDTO(response.data)
+        }
+        return cause;
     }
 
     SupportedCauseRSDTO supportCause(KuorumUser user, String causeName){
@@ -97,6 +117,7 @@ class CausesService {
         }
         return cause
     }
+
     private String buildUrl(String path, Map<String,String> params){
         params.each{ k, v -> path = path.replaceAll("\\{${k}}", v) }
         apiPath+path

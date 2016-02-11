@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailchimpService
 import kuorum.project.Project
+import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.PoliticianService
@@ -25,6 +26,8 @@ class AdminController {
     KuorumUserService kuorumUserService
 
     PoliticianService politicianService
+
+    RegisterService registerService
 
 //    def afterInterceptor = [action: this.&prepareMenuData]
 //    protected prepareMenuData = {model, modelAndView ->
@@ -93,6 +96,9 @@ class AdminController {
         user.personalData.userType = command.userType
         user.enabled = command.active?:false
         user.authorities = command.authorities
+        if (command.password){
+            user.password = registerService.encodePassword(user, command.password)
+        }
         kuorumUserService.updateUserRelevance(user, command.relevance)
         user = kuorumUserService.updateUser(user);
 

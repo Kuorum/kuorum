@@ -5,6 +5,7 @@ import grails.plugin.mail.MailService
 import grails.transaction.Transactional
 import kuorum.KuorumFile
 import kuorum.Region
+import kuorum.causes.CausesService
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
@@ -32,6 +33,7 @@ class PoliticianService {
     KuorumMailService kuorumMailService
     LinkGenerator grailsLinkGenerator
     IndexSolrService indexSolrService
+    CausesService causesService
 
     private static final String IPDB_DATE_FORMAT = "dd/MM/yyyy HH:mm"
 
@@ -74,9 +76,16 @@ class PoliticianService {
     }
 
     KuorumUser updatePoliticianCauses(KuorumUser politician, List<String> causes){
+        politician.tags.each {cause ->
+            causesService.unsupportCause(politician, cause)
+        }
         politician.tags = causes.findAll({it}).collect({it.decodeHashtag()})
         if (politician.save()){
             indexSolrService.index(politician)
+        }
+        politician.tags.each {cause ->
+            causesService.createCause(cause)
+            causesService.supportCause(politician, cause)
         }
         politician
     }
@@ -105,7 +114,7 @@ class PoliticianService {
                     log.info("Uploaded ${user.name}")
                     politiciansOk += "<li> <a href='${grailsLinkGenerator.link(mapping: 'userShow', params:user.encodeAsLinkProperties(), absolute: true)}'> $user.name </a></li>"
                 }catch (Exception e){
-                    log.warn("Error parseando el político ${line.name}", e)
+                    log.warn("Error parseando el polï¿½tico ${line.name}", e)
                     politiciansWrong +=  "<li>${line.name} (${line.id}): <i>${e.getMessage()}</i></li>"
                 }
             }
