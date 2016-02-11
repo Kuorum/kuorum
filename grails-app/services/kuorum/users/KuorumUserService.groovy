@@ -126,34 +126,7 @@ class KuorumUserService {
         user.save()
     }
 
-    KuorumUser modifyRoleDependingOnUserData(KuorumUser user){
-        List<RoleUser> authorities = []
-        if (!user.password || user.password.startsWith(RegisterService.PREFIX_PASSWORD)){
-            RoleUser rolePartialUser = RoleUser.findByAuthority("ROLE_INCOMPLETE_USER") //SALENDA HA PUESTO LOS NOMBRES AL REVES ¬¬
-            authorities.add(rolePartialUser)
-        }else if (isUserRegisteredCompletely(user)){
-            RoleUser roleNormalUser = RoleUser.findByAuthority("ROLE_USER")
-            authorities.add(roleNormalUser)
-        }else{
-            RoleUser rolePartialUser = RoleUser.findByAuthority("ROLE_PASSWORDCHANGED") //SALENDA HA PUESTO LOS NOMBRES RARUNOS
-            authorities.add(rolePartialUser)
-        }
-        if (UserType.POLITICIAN == user.userType){
-            RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
-            authorities.add(rolePolitician)
-        }
-        if (user.authorities.find{it.authority == "ROLE_ADMIN"}){
-            RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_ADMIN")
-            authorities.add(rolePolitician)
-        }
-        if (user.authorities.find{it.authority == "ROLE_EDITOR"}){
-            RoleUser roleEditor = RoleUser.findByAuthority("ROLE_EDITOR")
-            authorities.add(roleEditor)
-        }
-        user.authorities = authorities
-        user
-    }
-
+    @Deprecated
     KuorumUser convertAsPolitician(KuorumUser user, Region politicianOnRegion, Region constituency,  String politicalParty){
         if (!politicianOnRegion || !politicalParty){
             throw new KuorumException("Un politico debe de tener institucion y grupo parlamentario","error.politician.politicianData")
@@ -433,7 +406,6 @@ class KuorumUserService {
                 user.personalData.provinceCode = user.personalData.province.iso3166_2
                 user.personalData.country = regionService.findCountry(user.personalData.province)
             }
-            modifyRoleDependingOnUserData(user)
             if (springSecurityService.getCurrentUser().equals(user)){
                 springSecurityService.reauthenticate user.email
             }
@@ -652,6 +624,7 @@ class KuorumUserService {
         }
     }
 
+    @Deprecated
     boolean isUserRegisteredCompletely(KuorumUser user){
         user.personalData.provinceCode != null
     }

@@ -1,7 +1,9 @@
 package kuorum.register
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.plugin.springsecurity.authentication.dao.NullSaltSource
 import grails.plugin.springsecurity.ui.RegistrationCode
+import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
@@ -37,6 +39,10 @@ class RegisterService {
     NotificationService notificationService
 
     IndexSolrService indexSolrService
+
+    def saltSource
+
+    SpringSecurityUiService springSecurityUiService
 
     public static final PREFIX_PASSWORD = "*registerUser*"
 
@@ -199,6 +205,11 @@ class RegisterService {
         }
     }
 
+    String encodePassword(KuorumUser user, String rawPass){
+        String salt = saltSource instanceof NullSaltSource ? null : user.name
+        springSecurityUiService.encodePassword(rawPass, salt)
+    }
+
     KuorumUser createUserByRegistrationCode (RegistrationCode registrationCode){
         KuorumUser user
         RegistrationCode.withTransaction { status ->
@@ -207,7 +218,12 @@ class RegisterService {
                 return
             }
             user.accountLocked = false
+            RoleUser incompleteRoleUser = RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")
+            RoleUser normalRoleUser = RoleUser.findByAuthority("ROLE_USER")
+            user.authorities.remove(incompleteRoleUser)
+            user.authorities.add(normalRoleUser)
             user.save(flush:true)
+            springSecurityService.reauthenticate user.email
             processMetaDataRegistration(user, registrationCode)
             registrationCode.delete(flush:true)
         }
@@ -237,7 +253,6 @@ class RegisterService {
 
     Map save(KuorumUser user) {
         def result
-        kuorumUserService.modifyRoleDependingOnUserData(user)
         if (user.validate()) {
             try {
                 if (user.save()) {

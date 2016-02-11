@@ -159,8 +159,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         if (!command.validate()){
             render view: 'selectMyPassword' , model:[userId:user.id, command:command]
         }else{
-            String salt = saltSource instanceof NullSaltSource ? null : user.name
-            user.password = springSecurityUiService.encodePassword(command.password, salt)
+            user.password = registerService.encodePassword(user, command.password)
 
             if(user.validate()){
                 def renderMap = registerService.save(user)
@@ -227,7 +226,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             KuorumUser user = KuorumUser.findByEmail(registrationCode.username)
             user.accountLocked = false
             user.password = springSecurityUiService.encodePassword(command.password, salt)
-            kuorumUserService.modifyRoleDependingOnUserData(user)
             user.save()
             registrationCode.delete()
         }

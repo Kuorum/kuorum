@@ -117,6 +117,7 @@ class CustomRegisterController {
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
         user.language = command.language
+        user.password = registerService.encodePassword(user, command.password)
         kuorumUserService.updateUser(user)
         if (command.userType == UserType.POLITICIAN){
             offerService.purchaseOffer(user, OfferType.BASIC, 0)
@@ -150,6 +151,7 @@ class CustomRegisterController {
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
         user.language = command.language
+        user.password = registerService.encodePassword(user, command.password)
         kuorumUserService.updateUser(user)
         if (command.userType == UserType.POLITICIAN){
             offerService.purchaseOffer(user, command.offerType, command.kpeople)
