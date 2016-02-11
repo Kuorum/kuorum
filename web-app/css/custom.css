@@ -4980,15 +4980,14 @@ p.party{
 .causes-tags{
     padding: 0;
     margin-bottom: 20px;
-    font-size: 14px;
+    font-size: 12px;
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-    letter-spacing: 0.4px;
     color: #fff;
 }
 .causes-tags li{
     display: inline-block;
     background: #ff9431;
-    border-radius: 5px;
+    border-radius: 6px;
     margin: 0px 10px 10px 0;
 }
 .causes-tags li:hover,
@@ -5001,7 +5000,7 @@ p.party{
     display: inline;
     background-color: #ffffff;
     color: #ee7612;
-    padding: 3px 10px;
+    padding: 4px 10px;
     /*border-radius: 5px;*/
     -webkit-border-top-right-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
@@ -5031,9 +5030,7 @@ p.party{
     .extra-padding{
         padding: 0 5px;
     }
-    .causes-tags li{
-        padding: 1px 6px;
-    }
+    .causes-tags li{}
     .causes-tags li a{
         font-size: 12px;
     }
