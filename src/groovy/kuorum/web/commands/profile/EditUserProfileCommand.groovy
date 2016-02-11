@@ -28,9 +28,9 @@ class EditUserProfileCommand{
         if (user.userType == UserType.ORGANIZATION){
             this.enterpriseSector = user.personalData?.enterpriseSector
         }else if (user.userType == UserType.POLITICIAN){
-            this.position = user.professionalDetails.position
-            this.politicalParty = user.professionalDetails.politicalParty
-            this.politicalLeaningIndex = user.politicianLeaning.liberalIndex
+            this.position = user.professionalDetails?.position
+            this.politicalParty = user.professionalDetails?.politicalParty
+            this.politicalLeaningIndex = user.politicianLeaning?.liberalIndex
         }else{
             this.birthday= user.personalData?.birthday
             this.workingSector = user.personalData?.workingSector

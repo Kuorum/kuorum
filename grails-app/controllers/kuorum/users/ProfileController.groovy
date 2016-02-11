@@ -13,6 +13,7 @@ import kuorum.notifications.Notification
 import kuorum.register.FacebookAuthService
 import kuorum.register.GoogleOAuthService
 import kuorum.register.RegisterService
+import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
@@ -218,6 +219,9 @@ class ProfileController {
         }else{
             personalData = new PersonData(year: user.personalData?.year)
             if (user.userType==UserType.POLITICIAN){
+                if (!user.professionalDetails){
+                    user.professionalDetails = new ProfessionalDetails()
+                }
                 user.professionalDetails.position = command.position
                 user.professionalDetails.politicalParty = command.politicalParty
                 user.politicianLeaning.liberalIndex = command.politicalLeaningIndex
