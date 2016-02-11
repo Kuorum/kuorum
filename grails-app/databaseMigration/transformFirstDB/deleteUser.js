@@ -12,3 +12,5 @@ dbDest.cluck.remove({owner:userId})
 dbDest.cluck.remove({defendedBy:userId})
 
 //TODO SI TIENE POST ES UNA MIERDA QUE NO ESTA HECHA
+dbDest.post.remove({owner:userId})
+dbDest.post.update({'comments.kuorumUserId':userId},{$pull:{'comments':{kuorumUserId:userId}}}, {multi:true})
