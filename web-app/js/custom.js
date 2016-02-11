@@ -907,12 +907,13 @@ $(document).ready(function() {
     $(".cause-support").on("click", "a", function(e){
         e.preventDefault();
         e.stopPropagation();
-        console.log("click heart");
         $a = $(this)
         $(this).parents(".cause").toggleClass("active")
         hearBeat(2,  $a.find(".fa"));
-        $.get(  $a .attr("href"), function( data ) {
-            $a.find(".cause-counter").html("3")
+        $.get(  $a.attr('href'), function( data ) {
+            console.log(data)
+            var citizenVotes = data.citizenVotes
+            $a.find(".cause-counter").html(citizenVotes)
         });
     })
     function hearBeat(numHeartBeats, $element){
