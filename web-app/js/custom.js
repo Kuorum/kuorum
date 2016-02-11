@@ -907,14 +907,19 @@ $(document).ready(function() {
     $(".cause-support").on("click", "a", function(e){
         e.preventDefault();
         e.stopPropagation();
-        $a = $(this)
-        $(this).parents(".cause").toggleClass("active")
-        hearBeat(2,  $a.find(".fa"));
-        $.get(  $a.attr('href'), function( data ) {
-            console.log(data)
-            var citizenVotes = data.citizenVotes
-            $a.find(".cause-counter").html(citizenVotes)
-        });
+        var $parent = $(this).parents(".cause")
+        if ( $parent.hasClass("noLogged")){
+            $('#registro').modal('show');
+        }else{
+            $a = $(this)
+            $parent.toggleClass("active")
+            hearBeat(2,  $a.find(".fa"));
+            $.get(  $a.attr('href'), function( data ) {
+                console.log(data)
+                var citizenVotes = data.citizenVotes
+                $a.find(".cause-counter").html(citizenVotes)
+            });
+        }
     })
     function hearBeat(numHeartBeats, $element){
         if (numHeartBeats <0){

@@ -22,6 +22,8 @@ class CausesTagLib {
             if (supportedCauseRSDTO.supported){
                 causeSupportClass = "active"
             }
+        }else{
+            causeSupportClass = "noLogged"
         }
         String searchLink = g.createLink(mapping:"searcherSearch", params:[type:UserType.POLITICIAN, word:cause.name])
         String supportCause = g.createLink(mapping:"causeSupport", params:[causeName:cause.name], absolute: true)
