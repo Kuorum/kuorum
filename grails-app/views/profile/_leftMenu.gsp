@@ -6,7 +6,7 @@
     <li class="${activeMapping=='profileChangePass'?'active':''}">
         <g:link mapping="profileChangePass"><g:message code="profile.menu.changePass"/></g:link>
     </li>
-    <sec:ifAnyGranted roles="ROLE_POLITICIAN, ROLE_ADMIN">
+    <sec:ifAnyGranted roles="ROLE_POLITICIAN">
         <li class="${activeMapping=='profilePoliticianCauses'?'active':''}">
             <g:link mapping="profilePoliticianCauses"><g:message code="profile.menu.profilePoliticianCauses"/></g:link>
         </li>
@@ -14,7 +14,7 @@
     <li class="${activeMapping=='profileEditUser'?'active':''}">
         <g:link mapping="profileEditUser"><g:message code="profile.menu.editUser"/></g:link>
     </li>
-    <sec:ifAnyGranted roles="ROLE_POLITICIAN, ROLE_ADMIN">
+    <sec:ifAnyGranted roles="ROLE_POLITICIAN">
         <li class="${activeMapping=='profilePoliticianRelevantEvents'?'active':''}">
             <g:link mapping="profilePoliticianRelevantEvents"><g:message code="profile.menu.profilePoliticianRelevantEvents"/></g:link>
         </li>
@@ -26,7 +26,7 @@
     <li class="${activeMapping=='profileSocialNetworks'?'active':''}">
         <g:link mapping="profileSocialNetworks"><g:message code="profile.menu.profileSocialNetworks"/></g:link>
     </li>
-    <sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_POLITICIAN">
+    <sec:ifAnyGranted roles="ROLE_POLITICIAN">
         <li class="${activeMapping=='profilePoliticianProfessionalDetails'?'active':''}">
             <g:link mapping="profilePoliticianProfessionalDetails"><g:message code="profile.menu.profilePoliticianProfessionalDetails"/></g:link>
         </li>
