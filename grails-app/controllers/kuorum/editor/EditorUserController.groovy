@@ -12,7 +12,6 @@ import kuorum.users.PersonData
 import kuorum.users.ProfileController
 import kuorum.web.commands.editor.EditorAccountCommand
 import kuorum.web.commands.editor.EditorCreateUserCommand
-import kuorum.web.commands.editor.EditorSocialNetworkCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
 import org.bson.types.ObjectId
