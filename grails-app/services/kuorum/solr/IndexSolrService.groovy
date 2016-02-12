@@ -59,13 +59,13 @@ class IndexSolrService {
     }
 
     private Integer solrFullIndex(){
-        solrIndex([command:'full-import', clean:'true', commit:'true', optimize:'true', wt:'json'])
+        solrIndex([command:'full-import', clean:'true', commit:'true', optimize:'true', wt:'json'], true)
     }
 
     private Integer solrDeltaIndex(){
         solrIndex([command:'delta-import', commit:'true', wt:'json'])
     }
-    private Integer solrIndex(Map options){
+    private Integer solrIndex(Map options, Boolean waitEnd = false){
         if (server instanceof HttpSolrServer){
             Integer numIndexed = 0;
             HttpSolrServer httpSolrServer = (HttpSolrServer) server
@@ -77,25 +77,28 @@ class IndexSolrService {
                     query:options,
                     requestContentType : groovyx.net.http.ContentType.JSON
             )
-            // ESPERAR A QUE TERMINE LA IMPORTACION - NO LO QUEREMOS
-//            boolean importing = true;
-//            def jsonSlurper = new JsonSlurper()
-//            while (importing){
-//                HttpResponseDecorator responseStatus = mailKuorumServices.get(
-//                        headers: ["User-Agent": "Kuorum Web"],
-//                        query:[command:'status', wt:'json'],
-//                        requestContentType : groovyx.net.http.ContentType.JSON
-//                )
-//
-//                def responseStatusData = jsonSlurper.parse(responseStatus.data)
-//                Thread.sleep(1000)
-//                if (responseStatusData."status" != "busy"){
-//                    importing = false;
-//                    numIndexed = Integer.parseInt(responseStatusData."statusMessages"."Total Rows Fetched")
-//                }
-//            }
-//            return numIndexed
-            return 1;
+            if (waitEnd){
+                // ESPERAR A QUE TERMINE LA IMPORTACION - NO LO QUEREMOS
+                boolean importing = true;
+                def jsonSlurper = new JsonSlurper()
+                while (importing){
+                    HttpResponseDecorator responseStatus = mailKuorumServices.get(
+                            headers: ["User-Agent": "Kuorum Web"],
+                            query:[command:'status', wt:'json'],
+                            requestContentType : groovyx.net.http.ContentType.JSON
+                    )
+
+                    def responseStatusData = jsonSlurper.parse(responseStatus.data)
+                    Thread.sleep(1000)
+                    if (responseStatusData."status" != "busy"){
+                        importing = false;
+                        numIndexed = Integer.parseInt(responseStatusData."statusMessages"."Total Rows Fetched")
+                    }
+                }
+                return numIndexed
+            }else{
+                return -1;
+            }
         }else{
             log.warn("Trying to index via solr but the server is not http it is ${server.class.name}")
             return programaticFullIndex()
