@@ -99,7 +99,9 @@ class AdminController {
         if (command.password){
             user.password = registerService.encodePassword(user, command.password)
         }
-        kuorumUserService.updateUserRelevance(user, command.relevance)
+        if (command.relevance){
+            kuorumUserService.updateUserRelevance(user, command.relevance)
+        }
         user = kuorumUserService.updateUser(user);
 
         flash.message =message(code:'admin.editUser.success', args: [user.name])

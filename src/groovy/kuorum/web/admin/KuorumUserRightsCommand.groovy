@@ -21,7 +21,7 @@ class KuorumUserRightsCommand {
     static constraints = {
         user nullable: false
         userType nullable: false
-        relevance nullable: false
+        relevance nullable: true
         password nullable:true
     }
 }
