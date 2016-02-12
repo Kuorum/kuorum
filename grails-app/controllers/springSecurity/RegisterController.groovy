@@ -6,7 +6,6 @@ import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import grails.validation.Validateable
 import kuorum.KuorumFile
-import kuorum.core.model.AvailableLanguage
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
