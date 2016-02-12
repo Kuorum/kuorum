@@ -270,6 +270,7 @@ class UrlMappings {
 //        name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
         name editorCreatePolitician:                        "/editor/usuarios/politician/create-politician" (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
         name editorEditUserProfile:                         "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/profile" (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
+        name editorEditSocialNetwork:                       "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/social-network" (controller:"editorUser"){action =[GET:"editUserSocialNetwork", POST:"updateUserSocialNetwork"]}
         name editorEditPoliticianExternalActivity:          "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/externalActivity" (controller:"editorPolitician"){action =[GET:"editExternalActivity", POST:"updateExternalActivity"]}
         name editorEditPoliticianRelevantEvents:            "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/relevantEvents" (controller:"editorPolitician"){action =[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}
         name editorEditPoliticianProfessionalDetails:       "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/professionalDetails" (controller:"editorPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}

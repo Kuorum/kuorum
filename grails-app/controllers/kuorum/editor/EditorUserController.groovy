@@ -9,7 +9,9 @@ import kuorum.register.RegisterService
 import kuorum.users.*
 import kuorum.web.commands.editor.EditorAccountCommand
 import kuorum.web.commands.editor.EditorCreateUserCommand
+import kuorum.web.commands.editor.EditorSocialNetworkCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
+import kuorum.web.commands.profile.SocialNetworkCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 
@@ -100,5 +102,26 @@ class EditorUserController {
 
         flash.message =message(code:'admin.editUser.success', args: [updatedUser.name])
         redirect(mapping:'editorKuorumAccountEdit', params:updatedUser.encodeAsLinkProperties())
+    }
+
+    def editUserSocialNetwork(){
+        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        SocialNetworkCommand command = new SocialNetworkCommand(user);
+        [user:user,command:command]
+    }
+
+    def updateUserSocialNetwork(SocialNetworkCommand command){
+        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        if (command.hasErrors()){
+            render (view:'socialNetworks', model:[user:user, command: command])
+            return
+        }
+        command.properties.each {
+            if (it.key!= "class" && user.socialLinks.hasProperty(it.key))
+                user.socialLinks."${it.key}" = it.value
+        }
+        kuorumUserService.updateUser(user)
+        flash.message = g.message(code: 'kuorum.web.commands.profile.SocialNetworkCommand.save.success')
+        redirect mapping:'editorEditSocialNetwork', params: user.encodeAsLinkProperties()
     }
 }

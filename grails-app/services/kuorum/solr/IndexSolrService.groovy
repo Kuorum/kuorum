@@ -77,23 +77,25 @@ class IndexSolrService {
                     query:options,
                     requestContentType : groovyx.net.http.ContentType.JSON
             )
-            boolean importing = true;
-            def jsonSlurper = new JsonSlurper()
-            while (importing){
-                HttpResponseDecorator responseStatus = mailKuorumServices.get(
-                        headers: ["User-Agent": "Kuorum Web"],
-                        query:[command:'status', wt:'json'],
-                        requestContentType : groovyx.net.http.ContentType.JSON
-                )
-
-                def responseStatusData = jsonSlurper.parse(responseStatus.data)
-                Thread.sleep(1000)
-                if (responseStatusData."status" != "busy"){
-                    importing = false;
-                    numIndexed = Integer.parseInt(responseStatusData."statusMessages"."Total Rows Fetched")
-                }
-            }
-            return numIndexed
+            // ESPERAR A QUE TERMINE LA IMPORTACION - NO LO QUEREMOS
+//            boolean importing = true;
+//            def jsonSlurper = new JsonSlurper()
+//            while (importing){
+//                HttpResponseDecorator responseStatus = mailKuorumServices.get(
+//                        headers: ["User-Agent": "Kuorum Web"],
+//                        query:[command:'status', wt:'json'],
+//                        requestContentType : groovyx.net.http.ContentType.JSON
+//                )
+//
+//                def responseStatusData = jsonSlurper.parse(responseStatus.data)
+//                Thread.sleep(1000)
+//                if (responseStatusData."status" != "busy"){
+//                    importing = false;
+//                    numIndexed = Integer.parseInt(responseStatusData."statusMessages"."Total Rows Fetched")
+//                }
+//            }
+//            return numIndexed
+            return 1;
         }else{
             log.warn("Trying to index via solr but the server is not http it is ${server.class.name}")
             return programaticFullIndex()

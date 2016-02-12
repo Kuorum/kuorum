@@ -18,6 +18,10 @@
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="socialForm" dirtyControl="true"/>
     <g:form mapping="profileSocialNetworks" role="form" dirtyControl="true" name="socialForm">
-        <g:render template="formSocialNetworks" model="[user:user, command:command]"/>
+        <g:set var="showPoliticianFields" value="${false}"/>
+        <sec:ifAnyGranted roles="ROLE_POLITICIAN">
+            <g:set var="showPoliticianFields" value="${true}"/>
+        </sec:ifAnyGranted>
+        <g:render template="formSocialNetworks" model="[user:user, command:command,showPoliticianFields:showPoliticianFields]"/>
     </g:form>
 </content>

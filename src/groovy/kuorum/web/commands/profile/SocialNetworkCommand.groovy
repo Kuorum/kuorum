@@ -1,12 +1,21 @@
 package kuorum.web.commands.profile
 
 import grails.validation.Validateable
+import kuorum.users.KuorumUser
 
 /**
  * Created by iduetxe on 22/05/14.
  */
 @Validateable
 class SocialNetworkCommand {
+
+    public SocialNetworkCommand(){}
+    public SocialNetworkCommand(KuorumUser user){
+        this.properties.each {
+            if (it.key!= "class" && user.socialLinks.hasProperty(it.key))
+                this."$it.key" = user.socialLinks."${it.key}"
+        }
+    }
     String facebook
     String twitter
     String googlePlus

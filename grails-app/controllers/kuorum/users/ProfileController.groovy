@@ -307,11 +307,8 @@ class ProfileController {
 
     def socialNetworks() {
         KuorumUser user = params.user
-        SocialNetworkCommand command = new SocialNetworkCommand()
-        command.properties.each {
-            if (it.key!= "class" && user.socialLinks.hasProperty(it.key))
-                command."$it.key" = user.socialLinks."${it.key}"
-        }
+        SocialNetworkCommand command = new SocialNetworkCommand(user)
+
         [user:user, command: command]
     }
 
