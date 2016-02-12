@@ -31,7 +31,7 @@ class EditorPoliticianController {
 
     def editRelevantEvents(){
         KuorumUser politician = KuorumUser.get(params.id)
-        [command:new RelevantEventsCommand(politician:politician, politicianRelevantEvents: politician.relevantEvents)]
+        [command:new RelevantEventsCommand(politician:politician, politicianRelevantEvents: politician.relevantEvents?.reverse()?:[])]
     }
 
     def updateRelevantEvents(RelevantEventsCommand command){

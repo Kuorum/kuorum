@@ -35,7 +35,7 @@ class PoliticianProfileController extends ProfileController{
 
     def editRelevantEvents(){
         KuorumUser user = params.user
-        [command:new RelevantEventsCommand(politician:user, politicianRelevantEvents: user.relevantEvents)]
+        [command:new RelevantEventsCommand(politician:user, politicianRelevantEvents: user.relevantEvents?.reverse()?:[])]
     }
 
     def updateRelevantEvents(RelevantEventsCommand command){
@@ -45,7 +45,7 @@ class PoliticianProfileController extends ProfileController{
             render view:"editRelevantEvents", model:[command:command]
             return;
         }
-        politicianService.updatePoliticianRelevantEvents(params.user, command.politicianRelevantEvents.reverse())
+        politicianService.updatePoliticianRelevantEvents(params.user, command.politicianRelevantEvents)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profilePoliticianRelevantEvents'
     }

@@ -58,7 +58,6 @@
     })
 
     function addLine_${formId}(){
-        ${validationDataVarIndex}++;
         var $template = $('#${templateId}'),
                 $clone    = $template
                         .clone()
@@ -79,6 +78,7 @@
             $('#${formId}').find('[name="${parentField}[' + ${validationDataVarIndex} + '].${field}"]').rules('add', rule)
         }
         </g:each>
+        ${validationDataVarIndex}++;
         formHelper.dirtyFormControl.restart($('#${formId}'))
         prepareForms();
     }
