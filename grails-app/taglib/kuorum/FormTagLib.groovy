@@ -128,7 +128,7 @@ class FormTagLib {
         ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
         MaxSizeConstraint maxSizeConstraint = constraints.appliedConstraints.find{it instanceof MaxSizeConstraint}
         def maxSize = maxSizeConstraint?.maxSize?:0
-        def maxlength = maxSize?"maxlength='${attrs.maxlength}'":''
+        def maxlength = maxSize?"maxlength='${maxSize}'":''
         if (maxSize > 0){
             cssClass += " counted"
         }
