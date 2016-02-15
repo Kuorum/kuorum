@@ -19,8 +19,8 @@ environments {
         logSql = true
         grails{
             mongo {
-//                host = "172.31.17.196"
-                host = "localhost"
+                host = "172.31.17.196"
+//                host = "localhost"
                 port = "27017"
                 username = ""
                 password = ""

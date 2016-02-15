@@ -4025,7 +4025,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
     header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 195px;}
-    .box-ppal.profile .activity > li:nth-child(3) {border-right: 1px solid #dadada;}
+    .box-ppal.profile .activity > li:nth-child(3) {border-right: none;}
     #info-sup-scroll .btn.follow {position: relative; top: 5px; right: auto;}
     .box-ppal.profile .activity > li {width: 16%; margin-bottom: 0;}
     .box-ppal.profile .activity > li:nth-child(2) {border-right: 1px solid #dadada;}
@@ -4860,6 +4860,8 @@ only screen and (min-resolution: 192dpi) {
 .profile-header img{
     min-height: 200px;
 }
+.popover-trigger.open-menu span{font-size: 2.2rem; margin: 5px 0px; color: #666;}
+.popover-trigger.open-menu span:hover{color:#ffffff;}
 /*.profile-header .btn.follow{
     position: absolute;
     bottom: 16px;

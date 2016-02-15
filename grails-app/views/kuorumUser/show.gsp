@@ -8,9 +8,9 @@
 </head>
 
 
-<content tag="subHeader">
-    <g:render template="/kuorumUser/userSubHeader" model="[user: user]"/>
-</content>
+%{--<content tag="subHeader">--}%
+    %{--<g:render template="/kuorumUser/userSubHeader" model="[user: user]"/>--}%
+%{--</content>--}%
 
 <content tag="mainContent">
     <div class="box-ppal profile" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -21,8 +21,8 @@
         <ul class="activity">
             <li><userUtil:counterFollowers user="${user}"/></li>
             <li><userUtil:counterFollowing user="${user}"/></li>
-            <li><span class="counter">${user.activity}</span> <br><g:message code="kuorumUser.popover.post"/></li>
-            <g:render template="/kuorumUser/userRecordsLi" model="[user:user]"/>
+            <li><span class="counter">${user.activity}</span> <br><g:message code="kuorumUser.popover.cause"/></li>
+            %{--<g:render template="/kuorumUser/userRecordsLi" model="[user:user]"/>--}%
         </ul>
     </div>
 
