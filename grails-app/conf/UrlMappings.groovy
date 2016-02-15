@@ -1,6 +1,7 @@
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.UserType
+import org.springframework.security.access.AccessDeniedException
 
 class UrlMappings {
 
@@ -303,6 +304,7 @@ class UrlMappings {
         Environment.executeForCurrentEnvironment {
             development {
                 "500" (controller: "error", action: "kuorumExceptionHandler", exception: KuorumException)
+                "500" (controller: "error", action: "notAuthorized", exception: AccessDeniedException)
                 "500" (controller: "error", action: "internalError")
 //                "500"(view:'/error')
             }
@@ -319,4 +321,12 @@ class UrlMappings {
         }
 //        "500"(view:'/error')
 	}
+
+    static exceptionMappings = {
+        "Access is denied" org.springframework.security.access.AccessDeniedException { ex ->
+            controller = "error"
+            action = "notAuthorized"
+            exception = ex
+        }
+    }
 }

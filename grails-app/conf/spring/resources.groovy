@@ -5,6 +5,7 @@ import kuorum.core.security.passwordEncoders.PasswordFixingDaoAuthenticationProv
 import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
 import kuorum.files.AmazonFileService
 import kuorum.files.LocalFileService
+import kuorum.security.permission.KuorumPermissionEvaluator
 import kuorum.solr.IndexSolrService
 import kuorum.solr.SearchSolrService
 import kuorum.register.MongoUserDetailsService
@@ -123,5 +124,12 @@ beans = {
 
     facebookSuccessHandler(SuccessAuthenticationHandler){
         kuorumUserService = ref('kuorumUserService')
+    }
+
+
+    // ACL
+    permissionEvaluator(KuorumPermissionEvaluator) {
+        grailsApplication     = ref('grailsApplication')
+        springSecurityService = ref('springSecurityService')
     }
 }

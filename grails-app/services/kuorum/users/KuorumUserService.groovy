@@ -3,6 +3,7 @@ package kuorum.users
 import com.mongodb.*
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
 import groovyx.gpars.GParsPool
@@ -34,6 +35,7 @@ import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
+import org.springframework.security.access.prepost.PreAuthorize
 
 @Transactional
 class KuorumUserService {
@@ -400,6 +402,21 @@ class KuorumUserService {
         recommendedUsersByPostVotes(UserType.PERSON, user, pagination)
     }
 
+
+
+    @PreAuthorize("hasPermission(#userId, 'kuorum.users.KuorumUser','edit')")
+    KuorumUser findEditableUser(String userId){
+        findEditableUser(new ObjectId(userId))
+    }
+
+    @PreAuthorize("hasPermission(#userId, 'kuorum.users.KuorumUser','edit')")
+    KuorumUser findEditableUser(ObjectId userId){
+        KuorumUser.get(userId)
+    }
+
+
+
+    @PreAuthorize("hasPermission(#user, 'edit')")
     KuorumUser updateUser(KuorumUser user){
         KuorumUser.withNewTransaction {
             if (user.personalData.province){

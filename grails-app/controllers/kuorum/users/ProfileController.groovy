@@ -244,7 +244,7 @@ class ProfileController {
 
     public static  void prepareUserImages(KuorumUser user, EditUserProfileCommand command, FileService fileService){
 
-        if (command.photoId){
+        if (command.photoId && (!user.avatar || user.avatar.id.toString() != command.photoId)){
             KuorumFile avatar = KuorumFile.get(new ObjectId(command.photoId))
             avatar.alt = user.name
             fileService.deleteKuorumFile(user.avatar)
@@ -252,7 +252,7 @@ class ProfileController {
             avatar.save(flush: true)
             user.avatar = avatar
         }
-        if (command.imageProfile){
+        if (command.imageProfile && (!user.imageProfile  || user.imageProfile.id.toString() != command.imageProfile)){
             KuorumFile imageProfile = KuorumFile.get(new ObjectId(command.imageProfile))
             imageProfile.alt = user.name
             imageProfile.save()

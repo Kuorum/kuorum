@@ -19,4 +19,8 @@ class SecurityService {
         Post post = Post.get(new ObjectId(id))
         post.owner == kuorumUser
     }
+
+    Boolean canEditUser(String id){
+        return true;
+    }
 }

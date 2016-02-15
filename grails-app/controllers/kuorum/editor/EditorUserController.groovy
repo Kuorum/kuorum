@@ -14,7 +14,6 @@ import kuorum.web.commands.editor.EditorAccountCommand
 import kuorum.web.commands.editor.EditorCreateUserCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
-import org.bson.types.ObjectId
 
 @Secured(['ROLE_EDITOR'])
 class EditorUserController {
@@ -50,13 +49,13 @@ class EditorUserController {
     }
 
     def editUser(String id){
-        KuorumUser user = KuorumUser.get(new ObjectId(id))
+        KuorumUser user = kuorumUserService.findEditableUser(id)
         EditUserProfileCommand command = new EditUserProfileCommand(user)
         [user:user, command:command]
     }
 
     def updateUser(EditUserProfileCommand command){
-        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        KuorumUser user = kuorumUserService.findEditableUser(params.id)
         if (command.hasErrors()){
             render view:"editUser", model: [command:command,user:user]
             return
@@ -70,21 +69,22 @@ class EditorUserController {
     }
 
     def editAdminAccountDetails(){
-        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        KuorumUser user = kuorumUserService.findEditableUser(params.id)
         EditorAccountCommand command = new EditorAccountCommand(user);
         [user:user,command:command]
     }
 
     def updateAdminAccountDetails(EditorAccountCommand command){
+        KuorumUser user = kuorumUserService.findEditableUser(command.user.id)
         if (command.hasErrors()){
             flash.error=message(code:'admin.createUser.error')
-            render view: 'editAdminAccountDetails', model:[command:command, user:command.user]
+            render view: 'editAdminAccountDetails', model:[command:command, user:user]
             return
         }
-        KuorumUser updatedUser = kuorumUserService.updateAlias(command.user, command.alias)
+        KuorumUser updatedUser = kuorumUserService.updateAlias(user, command.alias)
         if (!updatedUser){
             flash.error = g.message(code:'kuorum.web.commands.profile.AccountDetailsCommand.logic.aliasError')
-            render view: 'editAdminAccountDetails', model:[command:command, user:command.user]
+            render view: 'editAdminAccountDetails', model:[command:command, user:updatedUser]
             return
         }
         updatedUser.email = command.email
@@ -106,13 +106,13 @@ class EditorUserController {
     }
 
     def editUserSocialNetwork(){
-        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        KuorumUser user = kuorumUserService.findEditableUser(params.id)
         SocialNetworkCommand command = new SocialNetworkCommand(user);
         [user:user,command:command]
     }
 
     def updateUserSocialNetwork(SocialNetworkCommand command){
-        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        KuorumUser user = kuorumUserService.findEditableUser(params.id)
         if (command.hasErrors()){
             render (view:'socialNetworks', model:[user:user, command: command])
             return
