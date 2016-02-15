@@ -10,9 +10,6 @@
         <g:message code="admin.editUser.title" args="[user.name]"/>
     </h1>
     <g:render template="editorUserMenu" model="[user:user]"/>
-
-    %{--<p><g:message code="profile.changeEmail.description"/></p>--}%
-    <g:render template="/admin/adminMenu" model="[activeMapping:'editorEditUserProfile', menu:menu]"/>
 </content>
 
 <content tag="mainContent">

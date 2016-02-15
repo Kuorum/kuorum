@@ -10,10 +10,6 @@
         <g:message code="admin.editUser.title" args="[command.user.name]"/>
     </h1>
     <g:render template="/editorUser/editorUserMenu" model="[user:command.user]"/>
-
-    <sec:ifAnyGranted roles="ROLE_ADMIN">
-        <g:render template="/admin/adminMenu" model="[activeMapping:'']"/>
-    </sec:ifAnyGranted>
 </content>
 
 <content tag="titleContent">

@@ -11,10 +11,6 @@
         <g:message code="admin.editSocialNetwork.title" args="[user.name]"/>
     </h1>
     <g:render template="editorUserMenu" model="[user:user]"/>
-
-    <sec:ifAnyGranted roles="ROLE_ADMIN">
-        <g:render template="/admin/adminMenu" model="[activeMapping:'']"/>
-    </sec:ifAnyGranted>
 </content>
 
 <content tag="titleContent">
