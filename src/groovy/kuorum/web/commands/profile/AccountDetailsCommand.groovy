@@ -53,7 +53,7 @@ class AccountDetailsCommand {
                 return "notValid"
             }
         }
-        alias nullable: false, validator: {val, obj ->
+        alias nullable: false, maxSize: 15, matches: KuorumUser.ALIAS_REGEX, validator: {val, obj ->
             if (val && obj.user && val != obj.user.alias && KuorumUser.findByAlias(val)){
                 return "unique"
             }

@@ -125,10 +125,12 @@ class KuorumUser {
 
     Integer activityForRecommendation = 0
 
+
+    public static final transient ALIAS_REGEX = "[a-zA-Z0-9_]{1,15}"
     static constraints = {
         name nullable:false
         email nullable: false, email: true
-        alias nullable:true, unique:true, maxSize: 15
+        alias nullable:true, unique:true, maxSize: 15, matches: ALIAS_REGEX
         password nullable:true
         bio nullable:true
         avatar nullable:true
