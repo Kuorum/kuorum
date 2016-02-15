@@ -75,12 +75,6 @@
     %{--<g:render template="/layouts/facebookRemarketing"/>--}%
     %{--<g:render template="/layouts/twitterRemarketing"/>--}%
     <meta property="twitter:account_id" content="4503599627910348" />
-    <script type="text/javascript">
-        setTimeout(function(){var a=document.createElement("script");
-            var b=document.getElementsByTagName("script")[0];
-            a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0046/1579.js?"+Math.floor(new Date().getTime()/3600000);
-            a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
-    </script>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
