@@ -121,6 +121,7 @@ class FormTagLib {
         def label = buildLabel(command, field, attrs.label)
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
+        String extraInfo = message(code: "${command.class.name}.${field}.extraInfo", default: '')
 
         def value = command."${field}"?:''
         def error = hasErrors(bean: command, field: field,'error')
@@ -135,6 +136,18 @@ class FormTagLib {
 
         if (showLabel){
             out << "<label for='${prefixFieldName}${field}' class='${labelCssClass}'>${label}</label>"
+        }
+        if (extraInfo){
+            out << """
+                <span class="info-disabled">
+                    <span role="button" rel="popover" data-toggle="popover" class="popover-trigger fa fa-info-circle"></span>
+                    <div class="popover">
+                        <div class="popover-kuorum">
+                            <p>${extraInfo} </p>
+                        </div>
+                    </div>
+                </span>
+            """
         }
         out <<"""
             <input type="${type}" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" id="${id}" ${required} ${maxlength} placeholder="${placeHolder}" value="${value}" ${disabled}>
