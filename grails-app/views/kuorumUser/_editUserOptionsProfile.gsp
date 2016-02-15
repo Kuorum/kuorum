@@ -1,7 +1,7 @@
 <sec:ifAnyGranted roles="ROLE_EDITOR, ROLE_ADMIN">
     <!-- FLECHITA PARA ABRIR MENÚ -->
     <span class="popover-trigger open-menu" rel="popover" role="button" data-toggle="popover">
-        <span class="fa fa-chevron-down"></span>
+        <span class="fa fa-chevron-circle-down"></span>
         <span class="sr-only"><g:message code="project.list.show.options"/></span>
     </span>
     <!-- POPOVER OPCIONES EDICIÓN -->
