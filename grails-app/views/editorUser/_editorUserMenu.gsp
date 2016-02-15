@@ -2,7 +2,6 @@
     %{--<label>User actions</label>--}%
 <ul>
     <sec:ifAnyGranted roles="ROLE_ADMIN">
-        <li><g:link mapping="editorCreatePolitician"><g:message code="admin.createPolitician.title" /></g:link></li>
         <g:if test="${user}">
                 <g:if test="${user.enabled}">
                     <li><g:render template="/editorUser/switchUser" model="[user:user]"/></li>

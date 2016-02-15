@@ -10,8 +10,6 @@
         <g:message code="admin.createPolitician.title" />,
     </h1>
     <g:render template="/editorUser/editorUserMenu" model="[user:null, activeMapping:'editorCreatePolitician']"/>
-    <g:render template="/admin/adminMenu" model="[activeMapping:'editorCreatePolitician']"/>
-
 </content>
 
 <content tag="mainContent">

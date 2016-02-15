@@ -10,8 +10,6 @@
         <g:message code="admin.editUser.title" args="[command.politician.name]"/>,
     </h1>
     <g:render template="/editorUser/editorUserMenu" model="[user:command.politician]"/>
-    <g:render template="/admin/adminMenu" model="[activeMapping:'editorEditPoliticianQuickNotes', menu:menu]"/>
-
 </content>
 
 <content tag="mainContent">
