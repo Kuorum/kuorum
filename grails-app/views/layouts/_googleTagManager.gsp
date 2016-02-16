@@ -1,5 +1,5 @@
 <!-- Google Tag Manager -->
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-MN2J4F"
+<noscript><iframe name="GooleTagManagerFrame" src="//www.googletagmanager.com/ns.html?id=GTM-MN2J4F"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
