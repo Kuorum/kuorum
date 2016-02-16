@@ -7,9 +7,8 @@
 
 <content tag="leftMenu">
     <h1>
-        <g:message code="admin.createPolitician.title" />,
+        <g:message code="admin.createPolitician.title" />
     </h1>
-    <g:render template="/editorUser/editorUserMenu" model="[user:null, activeMapping:'editorCreatePolitician']"/>
 </content>
 
 <content tag="mainContent">
