@@ -5146,7 +5146,7 @@ p.party{
     font-size: 14px; 
     font-size: 1.4rem;
     display: block;
-    min-width: 46px;
+    /*min-width: 46px;*/
     background-color: #ffffff;
     color: #ee7612;
     padding: 0 10px;

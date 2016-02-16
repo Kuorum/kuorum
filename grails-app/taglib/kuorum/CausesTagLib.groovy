@@ -29,8 +29,16 @@ class CausesTagLib {
         }
         String searchLink = g.createLink(mapping:"searcherSearch", params:[type:UserType.POLITICIAN, word:cause.name])
         String supportCause = g.createLink(mapping:"causeSupport", params:[causeName:cause.name], absolute: true)
-        out << """
 
+        String showCounter = ""
+        if (springSecurityService.isLoggedIn()){
+            showCounter = """
+                            <span class="sr-only">Cause support counter:</span>
+                            <span class="cause-counter">${cause.citizenVotes}</span>
+                          """
+        }
+
+        out << """
                 <li class="cause link-wrapper ${causeSupportClass}">
                     <a href='${searchLink}' class="sr-only hidden"> Search cause ${cause.name}</a>
                     <div class="cause-name" aria-hidden="true" tabindex="104">
@@ -41,8 +49,7 @@ class CausesTagLib {
                         <a href='${supportCause}' role="button" tabindex="105" aria-pressed="${ariaPressed}" aria-labelledby="cause-support cause-counter">
                             <span class="fa fa-heart"></span>
                             <span class="fa fa-heart-o"></span>
-                            <span class="sr-only">Cause support counter:</span>
-                            <span class="cause-counter">${cause.citizenVotes}</span>
+                            ${showCounter}
                         </a>
                     </div>
                 </li>
