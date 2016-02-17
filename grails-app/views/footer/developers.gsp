@@ -15,7 +15,7 @@
         <g:message code="footer.menu.footerWhatIsKuorum.forEditors.description1"/>
     </p>
     <p>
-        <g:message code="footer.menu.footerWhatIsKuorum.forEditors.description2"/>
+        <g:message code="footer.menu.footerWhatIsKuorum.forEditors.description2" args="[g.createLink(mapping:'footerDevelopers', absolute: true)]"/>
     </p>
     <p><img src="${resource(dir: 'images', file: 'ipdb-kuorum.png')}" alt="we-build-transparency" itemprop="image"></p>
 </content>
