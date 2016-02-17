@@ -4,7 +4,6 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
-import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.solr.SolrResults
@@ -15,9 +14,8 @@ import kuorum.project.ProjectEvent
 import kuorum.solr.SearchSolrService
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
-import org.bson.types.ObjectId
+import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
-import org.kuorum.rest.model.tag.UsersSupportingCauseRSDTO
 import springSecurity.KuorumRegisterCommand
 
 class DashboardController {
@@ -64,7 +62,8 @@ class DashboardController {
     def userDashboard(KuorumUser user){
         SuggestedCausesRSDTO suggestions = causesService.suggestCauses(user, new Pagination(max:6))
         SolrResults politicians = searchSolrService.search(new SearchParams(type: SolrType.POLITICIAN))
-        render view: 'userDashboard', model:[suggestions:suggestions, politicians:politicians.elements]
+        List<CauseRSDTO> supportedCauses = causesService.findUserCauses(user)
+        render view: 'userDashboard', model:[loggedUser:user,suggestions:suggestions, politicians:politicians.elements, supportedCauses:supportedCauses]
     }
 
     private def splitClucksInParts(List<Cluck> clucks){

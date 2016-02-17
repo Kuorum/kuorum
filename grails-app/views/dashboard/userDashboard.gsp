@@ -32,4 +32,8 @@
 
 <content tag="cColumn">
     <g:include controller="modules" action="userProfile"/>
+    <g:render template="dashboardModules/ipdbRequitmentCard"/>
+    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex" model="[user:loggedUser]"/>
+    <g:render template="dashboardModules/supportedCauses" model="[user:loggedUser, supportedCauses:supportedCauses]"/>
+    %{--<g:include controller="modules" action="recommendedUsers"/>--}%
 </content>
