@@ -44,11 +44,11 @@ class DashboardController {
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-//        if (SpringSecurityUtils.ifAnyGranted("ROLE_POLITICIAN")){
-//
-//        }else{
-//            return userDashboard(user)
-//        }
+        if (SpringSecurityUtils.ifAnyGranted("ROLE_POLITICIAN")){
+
+        }else{
+            return userDashboard(user)
+        }
         Pagination pagination = new Pagination()
         List<Cluck> clucks =  cluckService.dashboardClucks(user,pagination)
         List<ProjectEvent> projectEvents = projectService.findRelevantProjectEvents(user, new Pagination(max: MAX_PROJECT_EVENTS))
