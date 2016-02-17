@@ -23,12 +23,12 @@ class CausesService {
 
     IndexSolrService indexSolrService;
 
-    String CAUSE_OPERATIONS="/cause/{causeName}"
-    String CAUSE_SUPPORT ="/cause/support/{userId}"
-    String CAUSE_SUPPORT_OPERATIONS ="/cause/support/{causeName}/{userId}"
-    String CAUSE_SUGGESTIONS ="/cause/suggest"
-    String CAUSE_SUGGESTIONS_USER ="/cause/suggest/{userId}"
-    String CAUSE_POLITICIANS ="/cause/{causeName}/politicians"
+    private String CAUSE_OPERATIONS="/cause/{causeName}"
+    private String CAUSE_SUPPORT ="/cause/support/{userId}"
+    private String CAUSE_SUPPORT_OPERATIONS ="/cause/support/{causeName}/{userId}"
+    private String CAUSE_SUGGESTIONS ="/cause/suggest"
+    private String CAUSE_SUGGESTIONS_USER ="/cause/suggest/{userId}"
+    private String CAUSE_POLITICIANS ="/cause/{causeName}/politicians"
 
     List<CauseRSDTO> findUserCauses(KuorumUser user) {
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
@@ -129,6 +129,15 @@ class CausesService {
         return suggestions;
     }
 
+    SupportedCauseRSDTO toggleSupportCause(KuorumUser user, String causeName){
+        SupportedCauseRSDTO cause = statusCause(user, causeName)
+        if (cause.supported){
+            cause = unsupportCause(user,causeName)
+        }else{
+            cause = supportCause(user, causeName)
+        }
+        return cause
+    }
 
     UsersSupportingCauseRSDTO mostRelevantPoliticianForCause(String causeName){
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
