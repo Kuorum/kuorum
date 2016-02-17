@@ -1,8 +1,10 @@
 package kuorum
 
 import kuorum.core.model.UserType
+import kuorum.users.KuorumUser
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SupportedCauseRSDTO
+import org.kuorum.rest.model.tag.UsersSupportingCauseRSDTO
 
 class CausesTagLib {
     static defaultEncodeAs = [taglib: 'raw']
@@ -55,5 +57,23 @@ class CausesTagLib {
                 </li>
 
 """
+    }
+
+    def card = {attrs ->
+        CauseRSDTO cause = attrs.cause
+
+        UsersSupportingCauseRSDTO politiciansPage = causesService.mostRelevantPoliticianForCause(cause.name)
+
+        List<KuorumUser> politicians = politiciansPage.data.collect{KuorumUser.get(it.id)}
+
+        out << g.render(
+                template:"/dashboard/dashboardModules/causeCard",
+                model:[
+                        cause:cause,
+                        mainPolitician:politicians.get(0),
+                        politcians:politicians,
+                        total:politiciansPage.total
+                ])
+
     }
 }

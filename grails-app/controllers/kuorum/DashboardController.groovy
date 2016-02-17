@@ -1,22 +1,27 @@
 package kuorum
 
+import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
 import kuorum.post.Cluck
-import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.project.ProjectEvent
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
+import org.kuorum.rest.model.tag.UsersSupportingCauseRSDTO
 import springSecurity.KuorumRegisterCommand
 
 class DashboardController {
 
-    def springSecurityService
+    SpringSecurityService springSecurityService
     def cluckService
     def projectService
     def kuorumUserService
+    CausesService causesService
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -35,6 +40,11 @@ class DashboardController {
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if (SpringSecurityUtils.ifAnyGranted("ROLE_POLITICIAN")){
+
+        }else{
+            return userDashboard(user)
+        }
         Pagination pagination = new Pagination()
         List<Cluck> clucks =  cluckService.dashboardClucks(user,pagination)
         List<ProjectEvent> projectEvents = projectService.findRelevantProjectEvents(user, new Pagination(max: MAX_PROJECT_EVENTS))
@@ -43,6 +53,11 @@ class DashboardController {
             mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7 , new Pagination(max: 20))
         }
         [clucks: splitClucksInParts(clucks), projectEvents:projectEvents,mostActiveUsers:mostActiveUsers, user:user,seeMore: clucks.size()==pagination.max]
+    }
+
+    def userDashboard(KuorumUser user){
+        SuggestedCausesRSDTO suggestions = causesService.suggestCauses(user, new Pagination(max:6))
+        render view: 'userDashboard', model:[suggestions:suggestions]
     }
 
     private def splitClucksInParts(List<Cluck> clucks){

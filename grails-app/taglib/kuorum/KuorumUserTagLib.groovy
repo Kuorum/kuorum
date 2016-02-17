@@ -8,6 +8,7 @@ import kuorum.post.Post
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 
 class KuorumUserTagLib {
     static defaultEncodeAs = 'raw'
@@ -45,6 +46,9 @@ class KuorumUserTagLib {
         }else if (attrs.user instanceof SolrPost || attrs.user instanceof SolrProject ){
             user = KuorumUser.get(new ObjectId(attrs.user.ownerId))
             name = attrs.user.highlighting.owner?:user.name
+        }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){
+            user = KuorumUser.get(new ObjectId(attrs.user.id))
+            name = user.name
         }else{
             user = attrs.user
             name = user.name
