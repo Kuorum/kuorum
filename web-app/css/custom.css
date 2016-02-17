@@ -4787,6 +4787,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 /* especial ipad horizontal */
 @media only screen and (width: 1024px) and (height: 768px) {
     .full-video {background-size: 1024px auto;}
+    #main.landing .full-video {height: 575px;}
 }
 /* especial ipad vertical */
 @media only screen and (width: 768px) and (height: 1024px) {
