@@ -5,17 +5,17 @@
 <g:each in="${docs}" var="solrElement">
         <g:if test="${solrElement instanceof kuorum.core.model.solr.SolrKuorumUser}">
             <li class="${columnsCss}">
-                <g:render template="searchUserElement" model="[solrUser:solrElement]"/>
+                <g:render template="/search/searchUserElement" model="[solrUser:solrElement]"/>
             </li>
         </g:if>
         <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrPost}">
             <li>
-                <g:render template="searchPostElement" model="[solrPost:solrElement]"/>
+                <g:render template="/search/searchPostElement" model="[solrPost:solrElement]"/>
             </li>
         </g:elseif>
         <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrProject}">
             <li class="${columnsCss}">
-                <g:render template="searchProjectElement" model="[solrProject:solrElement]"/>
+                <g:render template="/search/searchProjectElement" model="[solrProject:solrElement]"/>
             </li>
         </g:elseif>
         <g:else>

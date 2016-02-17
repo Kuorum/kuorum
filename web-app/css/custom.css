@@ -4714,6 +4714,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .row.main.presskit form { margin: 0; }
     .main.special.profile .homeSub { min-height: 520px; background-position: center 220px; background-size: 498px auto;}
 
+    .main.special.landing .homeSub ul li.square {height: 85px;}
+
     #main.landing .full-video h1 {font-size: 67px;}
     #main.landing .full-video h2,
     .landing .full-video .btn.btn-white {font-size: 25px;}

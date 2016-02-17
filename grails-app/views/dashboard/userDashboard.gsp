@@ -20,8 +20,20 @@
         </g:each>
     </ul>
 
+    <!-- ver más -->
+    <div class="load-more"><a href="#">Show more <span class="fa fa-angle-down"></span></a></div>
+
+    <h2 class="underline">Politicians who recently joined</h2>
+    <!-- LISTA DE POLÍTICOS -->
+    <ul class="politician-list row">
+        <g:render template="/search/searchElement" model="[docs:politicians, columnsCss:'col-sm-6']"/>
+    </ul>
 </content>
 
 <content tag="cColumn">
     <g:include controller="modules" action="userProfile"/>
+    <g:render template="dashboardModules/ipdbRequitmentCard"/>
+    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex" model="[user:loggedUser]"/>
+    <g:render template="dashboardModules/supportedCauses" model="[user:loggedUser, supportedCauses:supportedCauses]"/>
+    %{--<g:include controller="modules" action="recommendedUsers"/>--}%
 </content>

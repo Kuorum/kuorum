@@ -1,10 +1,10 @@
-<g:set var="leaningIndex" value="${politician?.politicianLeaning?.liberalIndex?:50}"/>
+<%@ page import="kuorum.core.model.UserType" %>
+<g:set var="leaningIndex" value="${user?.politicianLeaning?.liberalIndex?:50}"/>
 <section class="panel panel-default" id="right-panel-politicalLeaningIndex">
     <div class="panel-heading">
         <h3 class="panel-title"><g:message code="politician.leaningIndex.title"/> </h3>
     </div>
     <div class="panel-body text-center">
-        <!-- <span class="badge badge-default">60%</span> -->
         <div class="tooltip top" role="tooltip" style="position:relative;opacity:1;left:${leaningIndex}%;width: 3em;margin-left: -1.5em;margin-bottom: 2px;">
             <div class="tooltip-arrow"></div>
             <div class="tooltip-inner">${leaningIndex}%</div>
@@ -18,13 +18,20 @@
             <span class="pull-left"><g:message code="politician.leaningIndex.left"/></span>
             <span class="pull-right"><g:message code="politician.leaningIndex.right"/></span>
         </div>
-        <div class="text-right">
-            <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" data-original-title="" title="" id="seeMore-politicalLeaningIndex">
-                <g:message code="politician.leaningIndex.link"/>
-            </a>
-            <div class="popover">
-                <g:message code="politician.leaningIndex.description"/>
+        <g:if test="${user.userType == UserType.POLITICIAN}">
+            <div class="text-right">
+                <a href="javascript:return false" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" data-original-title="" title="" id="seeMore-politicalLeaningIndex">
+                    <g:message code="politician.leaningIndex.link"/>
+                </a>
+                <div class="popover">
+                    <g:message code="politician.leaningIndex.description"/>
+                </div>
             </div>
-        </div>
+        </g:if>
+        <g:else>
+            <div class="info-text">
+                This information won’t be showed
+            </div>
+        </g:else>
     </div>
 </section>
