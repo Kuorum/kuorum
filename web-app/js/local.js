@@ -29,7 +29,6 @@ function preparePopover(){
         $('[data-toggle="popover"][data-trigger="manual"]')
             //En el mousenter sacamos el popover
             .on("mouseenter",function(e){
-                console.log("enter")
                 if ($(this).siblings(".in").length ==0){
                     $(this).popover('show')
                 }
@@ -112,6 +111,15 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     
+    // botón de cierre de las causas del dashboard
+    if ($('.causes-list').length) {
+        $('body').on('click','.causes-list .close', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $(this).closest('li').fadeOut('fast');
+        });
+    }
+
     // oscurecer el header de la Landing cuando se hace scroll
     if ($('#header.transp').length) {
         $(window).on("load scroll",function(){

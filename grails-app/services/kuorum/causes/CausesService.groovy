@@ -1,11 +1,13 @@
 package kuorum.causes
 
 import groovyx.net.http.RESTClient
+import kuorum.core.model.search.Pagination
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
-import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
+import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 import org.kuorum.rest.model.tag.SupportedCauseRSDTO
+import org.kuorum.rest.model.tag.UsersSupportingCauseRSDTO
 import org.springframework.beans.factory.annotation.Value
 
 class CausesService {
@@ -22,12 +24,15 @@ class CausesService {
     IndexSolrService indexSolrService;
 
     String CAUSE_OPERATIONS="/cause/{causeName}"
-    String USER_CAUSES="/cause/support/{userId}"
-    String USER_CAUSE_OPERATIONS="/cause/support/{causeName}/{userId}"
+    String CAUSE_SUPPORT ="/cause/support/{userId}"
+    String CAUSE_SUPPORT_OPERATIONS ="/cause/support/{causeName}/{userId}"
+    String CAUSE_SUGGESTIONS ="/cause/suggest"
+    String CAUSE_SUGGESTIONS_USER ="/cause/suggest/{userId}"
+    String CAUSE_POLITICIANS ="/cause/{causeName}/politicians"
 
     List<CauseRSDTO> findUserCauses(KuorumUser user) {
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        String path = buildUrl(USER_CAUSES, [userId:user.id.toString()]);
+        String path = buildUrl(CAUSE_SUPPORT, [userId:user.id.toString()]);
         def response = mailKuorumServices.get(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
@@ -60,7 +65,7 @@ class CausesService {
 
     SupportedCauseRSDTO supportCause(KuorumUser user, String causeName){
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        String path = buildUrl(USER_CAUSE_OPERATIONS, [userId:user.id.toString(), causeName:causeName]);
+        String path = buildUrl(CAUSE_SUPPORT_OPERATIONS, [userId:user.id.toString(), causeName:causeName]);
         def response = mailKuorumServices.post(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
@@ -77,7 +82,7 @@ class CausesService {
 
     SupportedCauseRSDTO unsupportCause(KuorumUser user, String causeName){
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        String path = buildUrl(USER_CAUSE_OPERATIONS, [userId:user.id.toString(), causeName:causeName]);
+        String path = buildUrl(CAUSE_SUPPORT_OPERATIONS, [userId:user.id.toString(), causeName:causeName]);
         def response = mailKuorumServices.delete(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
@@ -93,7 +98,7 @@ class CausesService {
 
     SupportedCauseRSDTO statusCause(KuorumUser user, String causeName){
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        String path = buildUrl(USER_CAUSE_OPERATIONS, [userId:user.id.toString(), causeName:causeName]);
+        String path = buildUrl(CAUSE_SUPPORT_OPERATIONS, [userId:user.id.toString(), causeName:causeName]);
         def response = mailKuorumServices.get(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
@@ -108,15 +113,39 @@ class CausesService {
     }
 
 
-    SupportedCauseRSDTO toggleSupportCause(KuorumUser user, String causeName){
-        SupportedCauseRSDTO cause = statusCause(user, causeName)
-        if (cause.supported){
-            cause = unsupportCause(user,causeName)
-        }else{
-            cause = supportCause(user, causeName)
+    SuggestedCausesRSDTO suggestCauses(KuorumUser user, Pagination pagination = new Pagination()){
+        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+        String path = buildUrl(CAUSE_SUGGESTIONS_USER, [userId:user.id.toString()]);
+        def response = mailKuorumServices.get(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                query:[page:Math.round(pagination.offset/pagination.max), size:pagination.max],
+                requestContentType : groovyx.net.http.ContentType.JSON
+        )
+        SuggestedCausesRSDTO suggestions = null;
+        if (response.data){
+            suggestions = new SuggestedCausesRSDTO(response.data)
         }
-        return cause
+        return suggestions;
     }
+
+
+    UsersSupportingCauseRSDTO mostRelevantPoliticianForCause(String causeName){
+        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+        String path = buildUrl(CAUSE_POLITICIANS, [causeName:causeName]);
+        def response = mailKuorumServices.get(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                query:[:],
+                requestContentType : groovyx.net.http.ContentType.JSON
+        )
+        UsersSupportingCauseRSDTO supportingCauseRSDTO = null;
+        if (response.data){
+            supportingCauseRSDTO = new UsersSupportingCauseRSDTO(response.data)
+        }
+        return supportingCauseRSDTO;
+    }
+
 
     private String buildUrl(String path, Map<String,String> params){
         params.each{ k, v -> path = path.replaceAll("\\{${k}}", v) }

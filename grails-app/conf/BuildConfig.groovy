@@ -189,4 +189,6 @@ grails.war.resources = { stagingDir, args ->
             tofile: "${stagingDir}/.ebextensions/HTTPtoHTTPS.config")
     copy(file: ".ebextensions/installJava8.config",
             tofile: "${stagingDir}/.ebextensions/installJava8.config")
+
+    delete { fileset(dir: "${stagingDir}", includes: '*.html') }
 }

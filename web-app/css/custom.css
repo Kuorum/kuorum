@@ -186,7 +186,17 @@ label {font-weight: normal;}
 p { margin: 0 0 20px 0;}
 .help-block {color: #a8a8a8; font-size: 13px; font-size: 1.3rem; font-style: italic;line-height: 1.3em;}
 .mb20 {margin-bottom: 20px !important;}
-a:hover, a:focus {outline: 0;}
+a:hover { outline: 0;}
+a:focus,
+.form-control:focus,
+.navbar-link:focus,
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+/*    outline: 1px dashed #bac2cc;*/
+    outline: 0 !important;
+}
 
 
 /* General Styles (Estilos generales) =========== */
@@ -249,7 +259,8 @@ a:focus {color: #ff9431;}
 .navbar > .container-fluid,
 #otros-proyectos > .container-fluid,
 #otras-propuestas > .container-fluid,
-#info-sup-scroll > .container-fluid {max-width: 1140px; margin: 0 auto;}
+#info-sup-scroll > .container-fluid,
+.dropdown-menu.politician > .container-fluid {max-width: 1140px; margin: 0 auto;}
 .navbar > .container-fluid {padding-right: 30px; padding-left: 30px;}
 .main > .container-fluid > .row {position: relative;}
 #main {padding-bottom: 40px; padding-top: 24px; min-height: 382px;}
@@ -331,7 +342,7 @@ header.landing .nav > li > .navbar-link.btn-transparent.active {background-color
 header.landing.transp .nav > li > .navbar-link.btn-transparent:hover,
 header.landing.transp .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #545454 !important;}
 
-header.landing .nav > li > .navbar-link.active {font-weight: bold; cursor: default; pointer-events: none;}
+header.landing .nav > li > .navbar-link.active {font-weight: bold; cursor: default; pointer-events: none; margin-top: -2px;}
 
 header.landing .nav > li > .navbar-link.active:hover,
 header.landing .nav > li > .navbar-link.active:focus {text-decoration: none;}
@@ -621,18 +632,25 @@ header.landing.transp .form-control::-webkit-input-placeholder{color:#fff}
 .nav > li > a.btn:focus {background-color: #ee7612 !important;}
 .navbar-collapse.collapse.in {
     border-bottom: 6px solid #ff9431;
-    background-color: #000;
     -webkit-transition: background-color .3s ease;
     -moz-transition: background-color .3s ease;
     -o-transition: background-color .3s ease;
     transition: background-color .3s ease;
 }
+header.transp .navbar-collapse.collapse.in {background-color: #000;}
 .nav > li > .navbar-link:hover .badge,
 .nav > li > .navbar-link:focus .badge {background-color: #fff; color: #ff9431;}
-.nav > li > .navbar-link.new-project {background-color: #ff9431; color: #fff;}
+.nav > li > .navbar-link.new-project,
+.nav > li > .navbar-link.special {background-color: #ff9431; color: #fff;}
+
+.nav > li.tools  > .navbar-link.special {background-image: url("../images/ico-tools.png"); background-position: 5px center; background-repeat: no-repeat; padding-left: 32px; background-size: 22px auto;}
+
 .nav > li > .navbar-link.new-project:hover,
 .nav > li > .navbar-link.new-project:focus,
-.nav > li > .navbar-link.new-project:active {background-color: #ee7612 !important; color: #fff;}
+.nav > li > .navbar-link.new-project:active,
+.nav > li > .navbar-link.special:hover,
+.nav > li > .navbar-link.special:focus,
+.nav > li > .navbar-link.special:active{background-color: #ee7612 !important; color: #fff;}
 .nav > li > .navbar-link.new-project .symbol {font-size: 22px;}
 .navbar-form .dropdown-menu {
     font-family: 'FontAwesome', Georgia, serif;
@@ -1377,10 +1395,11 @@ video#bgvid {
 #main.landing.search .form-inline.searchRep .btn {width: 290px; border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important;}
 
 .main.special .no-results {text-align: center;}
-.main.special .no-results h1 {
-    padding: 35px 0 35px 85px;
-    background: url(../images/alert.jpg) 0 center no-repeat transparent;
-    background-size: 80px auto;
+.main.special .no-results h1,
+.box-ppal.politician-messages h1.alert {
+    padding: 35px 0 40px 95px;
+    background: url(../images/alert.jpg) 2% center no-repeat transparent;
+    background-size: 70px auto;
     font-size: 24px;
     display: inline-block;
 }
@@ -1481,6 +1500,9 @@ video#bgvid {
 #load-more.landingSearch{border-top: none; font-size:2.5rem; font-family: Arial, Helvetica, sans-serif;}
 #load-more.landingSearch a{color:#545454}
 
+.load-more {text-align: center; margin: 20px 0 30px;}
+.load-more a {color: #545454; font-size: 18px; font-size: 1.8rem;}
+
 /* este es para hacer visible lo ya cargado */
 #ver-mas {
     border-top: solid 1px #dadada;
@@ -1541,6 +1563,22 @@ video#bgvid {
     }
 }
 #aside-ppal > h1 {font-size: 23px; font-size: 2.3rem;}
+#aside-ppal .panel .social {margin: 0; padding: 0; text-align: center;}
+#aside-ppal .panel .social li a {color: #fff !important;}
+#aside-ppal .panel .social li a:hover .fa-inverse,
+#aside-ppal .panel .social li a:focus .fa-inverse {color: #ff9431 !important;}
+#aside-ppal .panel .social li .fa-circle {color: #ff9431 !important;}
+#aside-ppal .panel .social li a:hover .fa-circle,
+#aside-ppal .panel .social li a:focus .fa-circle {color: #fff !important;}
+
+#aside-ppal .panel.collaborate .panel-body {font-size: 15px; font-size: 1.5rem;}
+#aside-ppal .panel.collaborate .panel-body ul {margin: 0; padding: 0; text-align: center;}
+#aside-ppal .panel.collaborate .panel-body ul li {list-style: none; display: inline; margin-right: 20px;}
+#aside-ppal .panel.collaborate .panel-body ul li a.btn {margin: 0 0 6px 0; min-width: 90px;}
+#aside-ppal .panel.collaborate .panel-body ul li:last-child {margin: 0;}
+#aside-ppal .panel.collaborate .panel-body ul li a {color: #545454;}
+
+
 .boxes {
     background-color: #fff;
     border: 1px solid #e5e5e5;
@@ -1562,6 +1600,37 @@ video#bgvid {
     margin-top: -12px;
     padding: 0 0 0 31px;
 }
+.boxes.edit-user .ico-info {position: absolute; top: 10px; right: 10px; font-size: 32px; font-size: 3.2rem; color: #20a2ea; z-index: 9;}
+
+.boxes.edit-user .ico-info .fa.shadow {
+  position: relative; 
+  left: .025em; 
+  top: .025em; 
+  color: #333; 
+}
+.boxes.edit-user .ico-info .fa.border{
+    left: .01em; 
+    top: .01em;
+    position: absolute;
+    z-index: 1;
+    color: #fff;
+}
+.boxes.edit-user .ico-info .fa.front {
+  position: absolute;
+  z-index: 2;
+}
+
+
+.boxes.edit-user .ico-info .popover {font-size: 16px; font-size: 1.6rem; color: #bac2cc;}
+.boxes.edit-user .popover {left: -230px !important; top: 30px !important;}
+.boxes.edit-user .popover.bottom >.arrow {left: auto !important; right: 8px;}
+
+.boxes.edit-user .activity {margin: 0;}
+.boxes.edit-user .activity .following {margin: 0;}
+.panel .info-text {font-size: 12px; font-size: 1.2rem; color: #bac2cc; text-align: right;}
+
+
+
 /*.boxes.follow .user-type {display: block; margin-left: 4px;}*/
 .personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px;}
 .user-list-followers > .user > .actions {float: right; margin: -14px 0 0 !important; width: 108px;}
@@ -3087,9 +3156,9 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
 .politician-list .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
 .politician-list .box-ppal > small .fa {opacity: .5;}
-.politician-list .box-ppal {height: 440px; padding: 0; margin: 0 0 20px 0;}
-.politician-list .box-ppal .link-wrapper{height: 440px;}
-.politician-list .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0 0 10px 0;}
+.politician-list .box-ppal {padding: 0; margin: 0 0 20px 0;}
+.politician-list .box-ppal .link-wrapper {padding-bottom: 10px;}
+.politician-list .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0;}
 .politician-list .box-ppal > .pull-right {width: 42%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; text-align: right;}
 .politician-list .box-ppal .card-footer{
     position: absolute;
@@ -3099,6 +3168,25 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .politician-list .box-ppal .card-footer .fa-check-circle-o{
     margin-right: 3px;
 }
+
+.causes-list {margin-top: 0; margin-bottom: 0; padding: 0;}
+.causes-list .link-wrapper .close {margin-top: -2px;}
+.causes-list .box-ppal {padding: 15px 15px 10px 15px; margin-bottom: 20px;}
+.causes-list .causes-tags {margin-bottom: 10px;}
+.causes-list .cause-footer {border-top: 1px solid #e5e5e5; margin-top: 10px; padding: 10px 0 0 0; color: #a8a8a8; font-size: 13px; font-size: 1.3rem;}
+.causes-list .cause-footer .politicians-counter .fa-user {font-size: 16px; font-size: 1.6rem; margin-right: 2px;}
+.causes-list li {list-style: none; display: inline-block;}
+.causes-list li .cause {padding-right: 1px;}
+.cause-footer .politicians-counter {width: 50%; float: left;}
+.cause-footer .politicians-counter a {color: #a8a8a8;}
+.cause-footer .politicians-counter .popover-user-list ul {margin: 0 !important;}
+
+.cause-footer .cause {width: 50%; float: right; text-align: right;}
+.cause-footer .cause-support {color: #ff9431;}
+
+.cause-footer .popover-trigger:hover,
+.cause-footer .popover-trigger:focus {text-decoration: none;}
+
 
 .medios-list li {list-style-type:none;}
 .medios-list:first-child {margin-top: 50px;}
@@ -3884,6 +3972,9 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 .config.search #load-more {margin: 0;}
 .config.discover > article > .box-ppal {padding: 22px 15px 0;}
 
+.box-ppal.politician-messages {text-align: center; margin-top: 50px; padding-bottom: 40px;}
+.box-ppal.politician-messages h1 {padding: 0; margin: 0;}
+
 
 /* clases especiales accesibilidad =========== */
 /* ====================================================== */
@@ -3891,19 +3982,22 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 .sr-only:hover,
 .sr-only:visited {
     position: absolute;
-    top: -100px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
     font-size: x-small;
+    z-index: -1;
+    display: inline-block;
 } /* oculta de la vista pero es accesible a los lectores de pantalla */
 .sr-only.first:active,
 .sr-only.first:focus {
     position: static;
-    width: auto;
     height: auto;
-    text-align: center;
-    margin: 0 auto;
+    width: 100%;
+    display: block;
+    background-color: #ff9431;
+    text-align: left;
+    color: #fff;
+    font-size: 16px;
+    font-size: 1.6rem;
+    padding: 10px;
 } /* en el caso del .first (enlace que va directamente a los contenidos) lo hacemos visible y activo para los que navegan con teclado */
 
 
@@ -4101,7 +4195,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     fieldset.multimedia ul.nav.nav-pills.nav-justified li a {margin-right: 10px; border-radius: 0; padding: 5px 15px;}
     .charNum {margin: 0;}
     .login .btn.btn-blue.btn-lg {padding-left: 50px !important; padding-right: 50px !important;}
-    .nav > li > .navbar-link.new-project {
+    .nav > li > .navbar-link.new-project,
+    .nav > li > .navbar-link.special {
         background-color: #ff9431;
         color: #fff;
         height: auto;
@@ -4109,6 +4204,27 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
         padding: 6px 8px 3px;
         border-radius:3px;
     }
+    .nav > li > .navbar-link.special {
+        padding: 6px 5px 3px;
+        border-radius: 0;
+    }
+    .nav > li.tools {height: 48px;}
+    .nav > li.tools  > .navbar-link.special {background-image: url("../images/ico-tools.png"); background-position: center center; display: inline-block; width: 45px; height: 61px; background-repeat: no-repeat; margin-top: -13px;}
+    .nav > li.tools.open .navbar-link.special,
+    .navbar-nav > li.tools.open .dropdown-menu {background-color: #666 !important;}
+    .navbar-nav > li.tools.open .dropdown-menu {
+        width: 100%;
+        position: fixed;
+        left: auto;
+        display: block;
+        height: 50px;
+        top: 56px;
+    }
+
+    .box.tools.open .dropdown-menu li {background-color: #666 !important; display: inline-block; width: 19%; text-align: center; }
+    .box.tools.open .dropdown-menu li a {font-size: 14px; font-size: 1.4rem; line-height: 3.3; color: #fff; border: none;}
+    .box.tools.open .dropdown-menu li a.active {text-decoration: underline; cursor: default; pointer-events: none;}
+    
     #detailsInfoVotes .icons {margin: 10px 0;}
     #info-sup-scroll {top: 55px; padding: 10px;}
     #info-sup-scroll .voting {margin-top: 15px;}
@@ -4157,7 +4273,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     }
     .nav > li > a.btn {padding: 10px !important; border: 0; margin: 2px 0 0 4px !important;}
     .nav > li > .user-area > .user-img {margin-right: 0;}
-    .nav > li > .navbar-link.new-project .symbol {font-size: 28px;}
+    .nav > li > .navbar-link.new-project .symbol {font-size: 28px; font-size: 2.8rem;}
+    .nav > li > .navbar-link.special {font-size: 18px; font-size: 1.8rem;}
     .navbar-btn {margin-top: 6px;}
     .box .badge {position: absolute; top: 2px; right: 0;}
     .navbar-nav .visible-xs {display: none !important;}
@@ -4300,6 +4417,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .condition .user-list-followers  > li {width: 48%; float: left;}
     .condition .user-list-followers  > li:nth-child(2n) {float: right;}
 
+    .politician-list .box-ppal .link-wrapper {height: 410px;}
+    
     /* LANDING */
     #main.landing .full-video h1 {font-size: 47px; margin-top: 10%;}
     .landing .full-video .container-fluid form {margin-bottom: 7%;}
@@ -4369,7 +4488,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .homeSub .kakareo-list .kakareo .main-kakareo {margin-top: 0;}
     #otras-propuestas .kakareo-list .kakareo footer,
     .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
-    .politician-list .box-ppal p {height: 102px; margin: 0 0 7px; overflow: hidden;}
+    .politician-list .box-ppal p {height: 116px; margin: 0 0 7px; overflow: hidden;}
     .politician-list .box-ppal p.party{
         font-size: 12px;
         height: auto;
@@ -4603,7 +4722,15 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .onecol #main .signup.final {background-position: center 90px;}
     .onecol #main .signup.final h3 {margin-bottom: 280px;}
     .main.special.noResults {padding-top: 40px;}
-    .main.special .no-results h1 {padding-left: 130px; background-size: 120px auto; margin-bottom: 40px; font-size: 36px;}
+    .main.special .no-results h1,
+    .box-ppal.politician-messages h1.alert {padding-left: 150px; padding-right: 50px; background-size: 120px auto; margin-bottom: 40px; font-size: 36px;}
+    .box-ppal.politician-messages h1.alert {margin-bottom: 10px; padding-right:7%;}
+    .box-ppal.politician-messages h1 {font-size: 36px; font-size: 3.6rem; line-height: 1.6; padding: 0 20%;}
+
+
+    .box-ppal.politician-messages .btn.btn-lg {font-size: 25px !important; font-size: 2.5rem !important; padding: 14px 25px !important;}
+    
+    
     .landing.editors .full-video h1 {padding-left: 50%;}
 
     .main.prices .promo-options > div {min-height: 696px;}
@@ -4617,6 +4744,11 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .onecol .subscribeForm fieldset {width: calc(100% - 192px); float: left; margin-left: -15px; margin-right: -15px;}
     .onecol .subscribeForm .buttons {float: right; margin: 0;}
     .landing + .row.main .onecol #main.subscribe {margin-bottom: 0;}
+    
+    #aside-ppal .panel.collaborate .panel-body ul li {margin-right: 10px;}
+    #aside-ppal .panel.collaborate .panel-body ul li a.btn {min-width: 74px;}
+    
+    .box.tools.open .dropdown-menu li a {font-size: 18px; font-size: 1.8rem; line-height: 2.6;}
 
 }
 
@@ -4693,6 +4825,11 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
     .landing.prices .full-video h2 {font-size: 140px; font-size: 14rem;}
     .landing.prices .full-video p {max-width: 720px;}
+    
+    #aside-ppal .panel.collaborate .panel-body ul li {margin-right: 20px;}
+    #aside-ppal .panel.collaborate .panel-body ul li a.btn {min-width: 90px;}
+    
+    .box.tools.open .dropdown-menu li a {font-size: 20px; font-size: 2rem; line-height: 2.3;}
 
 }
 
@@ -4842,6 +4979,8 @@ only screen and (min-resolution: 192dpi) {
     line-height: 30px;
     color: #666;
 }
+#aside-ppal .panel.causes .panel-body ,
+#aside-ppal .panel.pol-leaning .panel-body  {padding-bottom: 5px;}
 
 .panel.collapsable{cursor: pointer}
 .panel.collapsable .panel-title .fa-chevron-down {float:right}
@@ -4987,23 +5126,30 @@ p.party{
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #fff;
 }
-.causes-tags li{
+#aside-ppal .causes-tags {margin: 0;}
+.causes-tags .cause {
+    position: relative;
     display: inline-block;
     background: #ff9431;
     border-radius: 6px;
     margin: 0px 10px 10px 0;
+    padding: 1px 50px 1px 0;
 }
-.causes-tags li:hover,
-.causes-tags li:active,
-.causes-tags li:focus{
+.causes-tags .cause:hover,
+.causes-tags .cause:active,
+.causes-tags .cause:focus{
     background-color: #ee7612;
 }
-.causes-tags li .cause-name {padding: 3px 10px; display: inline;}
-.causes-tags li .cause-support {
-    display: inline;
+.causes-tags .cause .cause-name {padding: 0 10px 0 26px; display: inline-block; position: relative;}
+.causes-tags .cause .cause-name .fa-tag {font-size: 18px; font-size: 1.8rem; position: absolute; left: 5px; top: 4px;}
+.cause .cause-support {
+    font-size: 14px; 
+    font-size: 1.4rem;
+    display: block;
+    /*min-width: 46px;*/
     background-color: #ffffff;
     color: #ee7612;
-    padding: 4px 10px;
+    padding: 0 10px;
     /*border-radius: 5px;*/
     -webkit-border-top-right-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
@@ -5011,21 +5157,30 @@ p.party{
     -moz-border-radius-bottomright: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    margin-right: 1px;
+}
+.cause .cause-support {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+}
+.cause-footer .cause .cause-support {
+    position: relative;
+    right: auto;
+    top: auto;
 }
 
-.causes-tags li.cause.active .cause-support .fa-heart{display:inline}
-.causes-tags li.cause.active .cause-support .fa-heart-o{display:none}
-.causes-tags li.cause.active .cause-support:hover .fa-heart{display:none}
-.causes-tags li.cause.active .cause-support:hover .fa-heart-o{display:inline}
-.causes-tags li.cause .cause-support .fa-heart{display:none}
-.causes-tags li.cause .cause-support .fa-heart-o{display:inline}
-.causes-tags li.cause .cause-support:hover .fa-heart{display:inline}
-.causes-tags li.cause .cause-support:hover .fa-heart-o{display:none}
+.cause.active .cause-support .fa-heart{display:inline}
+.cause.active .cause-support .fa-heart-o{display:none}
+.cause.active .cause-support:hover .fa-heart{display:none}
+.cause.active .cause-support:hover .fa-heart-o{display:inline}
+.cause .cause-support .fa-heart{display:none}
+.cause .cause-support .fa-heart-o{display:inline}
+.cause .cause-support:hover .fa-heart{display:inline}
+.cause .cause-support:hover .fa-heart-o{display:none}
 
-.causes-tags li a:hover,
-.causes-tags li a:focus,
-.causes-tags li a:active{
+.causes-tags .cause a:hover,
+.causes-tags .cause a:focus,
+.causes-tags .cause a:active{
     text-decoration: none;
 }
 
@@ -5033,8 +5188,7 @@ p.party{
     .extra-padding{
         padding: 0 5px;
     }
-    .causes-tags li{}
-    .causes-tags li a{
+    .causes-tags .cause a{
         font-size: 12px;
     }
 }
