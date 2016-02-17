@@ -4,10 +4,15 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
+import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchParams
+import kuorum.core.model.solr.SolrResults
+import kuorum.core.model.solr.SolrType
 import kuorum.post.Cluck
 import kuorum.project.Project
 import kuorum.project.ProjectEvent
+import kuorum.solr.SearchSolrService
 import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
@@ -22,6 +27,7 @@ class DashboardController {
     def projectService
     def kuorumUserService
     CausesService causesService
+    SearchSolrService searchSolrService
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -57,7 +63,8 @@ class DashboardController {
 
     def userDashboard(KuorumUser user){
         SuggestedCausesRSDTO suggestions = causesService.suggestCauses(user, new Pagination(max:6))
-        render view: 'userDashboard', model:[suggestions:suggestions]
+        SolrResults politicians = searchSolrService.search(new SearchParams(type: SolrType.POLITICIAN))
+        render view: 'userDashboard', model:[suggestions:suggestions, politicians:politicians.elements]
     }
 
     private def splitClucksInParts(List<Cluck> clucks){

@@ -20,6 +20,14 @@
         </g:each>
     </ul>
 
+    <!-- ver más -->
+    <div class="load-more"><a href="#">Show more <span class="fa fa-angle-down"></span></a></div>
+
+    <h2 class="underline">Politicians who recently joined</h2>
+    <!-- LISTA DE POLÍTICOS -->
+    <ul class="politician-list row">
+        <g:render template="/search/searchElement" model="[docs:politicians, columnsCss:'col-sm-6']"/>
+    </ul>
 </content>
 
 <content tag="cColumn">
