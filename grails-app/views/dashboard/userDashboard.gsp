@@ -27,9 +27,20 @@
 
     <h2 class="underline">Politicians who recently joined</h2>
     <!-- LISTA DE POLÍTICOS -->
-    <ul class="politician-list row">
-        <g:render template="/search/searchElement" model="[docs:politicians, columnsCss:'col-sm-6']"/>
+    <ul class="politician-list row" id="search-list-id">
+        <g:render template="/search/searchElement" model="[docs:politicians.elements, columnsCss:'col-sm-6']"/>
     </ul>
+
+    <nav:loadMoreLink
+            formId="search-form-loadMore"
+            mapping="searcherSearchSeeMore"
+            parentId="search-list-id"
+            pagination="${searchPoliticiansPagination}"
+            numElements="${politicians.numResults}"
+    >
+        <input type="hidden" name="word" value="${searchPoliticiansPagination.word}" />
+        <input type="hidden" name="type" value="${searchPoliticiansPagination.type}" />
+    </nav:loadMoreLink>
 </content>
 
 <content tag="cColumn">
