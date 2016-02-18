@@ -253,24 +253,22 @@
                     <ul class="causes-list row">
                         <li class="col-xs-12 col-sm-6">
                             <article itemtype="http://schema.org/Article" itemscope role="article" class="box-ppal clearfix">
-                                <div class="link-wrapper">
-                                    <a href="#" class="hidden">Go to this cause</a>
-                                    <button type="button" class="close">
-                                        <span class="fa fa-times-circle-o fa"></span>
-                                        <span class="sr-only">remove from the list</span>
-                                    </button>
-                                    <div class="causes-tags">
-                                        <div class="cause">
-                                            <div class="cause-name"><span class="fa fa-tag"></span> Madrid Limpio</div>
-                                        </div>
+                                <button type="button" class="close">
+                                    <span class="fa fa-times-circle-o fa"></span>
+                                    <span class="sr-only">remove from the list</span>
+                                </button>
+                                <div class="causes-tags">
+                                    <div class="cause">
+                                        <a href="#" class="cause-name"><span class="fa fa-tag"></span> Madrid Limpio</a>
                                     </div>
-                                    <div class="user author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-                                        <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover">
-                                            <img src="images/user.jpg" alt="Manuela Carmena" class="user-img" itemprop="image">
-                                            <span itemprop="name">Manuela Carmena</span>
-                                        </a>
-                                        <!-- POPOVER PARA IMÁGENES USUARIOS -->
-                                        <div class="popover">
+                                </div>
+                                <div class="user author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                                    <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover">
+                                        <img src="images/user.jpg" alt="Manuela Carmena" class="user-img" itemprop="image">
+                                        <span itemprop="name">Manuela Carmena</span>
+                                    </a>
+                                    <!-- POPOVER PARA IMÁGENES USUARIOS -->
+                                    <div class="popover">
                                             <button type="button" class="close" aria-hidden="true" data-dismiss="popover"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">close</span></button>
                                             <div class="popover-user">
                                                 <div class="user" itemscope="" itemtype="http://schema.org/Person">
@@ -316,17 +314,17 @@
                                                 </ul>
                                             </div><!-- /popover-user -->
                                         </div>
-                                        <span class="user-type">
-                                            <small>Ciudadana</small>
-                                        </span>
-                                    </div>
-                                    <div class="cause-footer clearfix">
-                                        <div class="politicians-counter">
-                                            <a class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                                                <span class="fa fa-user"></span> <span>13 politicians</span>
-                                            </a>
-                                            <!-- POPOVER PARA SACAR LISTAS DE POLÍTICOS -->
-                                            <div class="popover">
+                                    <span class="user-type">
+                                        <small>Ciudadana</small>
+                                    </span>
+                                </div>
+                                <div class="cause-footer clearfix">
+                                    <div class="politicians-counter">
+                                        <a class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                                            <span class="fa fa-user"></span> <span>13 politicians</span>
+                                        </a>
+                                        <!-- POPOVER PARA SACAR LISTAS DE POLÍTICOS -->
+                                        <div class="popover">
                                                 <a href="#" class="hidden" rel="nofollow">Mostrar lista de políticos</a>
                                                 <button type="button" class="close" aria-hidden="true" data-dismiss="popover"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">cerrar</span></button>
                                                 <div class="popover-user-list">
@@ -369,20 +367,18 @@
                                                     </div><!-- /.contenedor scroll -->
                                                 </div><!-- /popover-user-list -->
                                             </div>
-                                        </div>
-                                        <div class="cause">
-                                            <div class="cause-support">
-                                                <a class="popover-trigger" rel="popover" role="button" data-toggle="popover">
-                                                    <!-- el atributo aria-pressed debe estar en false si la causa está a 0, y en "true" si no -->
-                                                    <span role="button" aria-pressed="false" aria-labelledby="cause-support cause-counter">
-                                                        <span class="fa fa-heart"></span>
-                                                        <span class="fa fa-heart-o"></span>
-                                                        <span id="cause-support" class="sr-only">Cause support counter:</span>
-                                                        <span id="cause-counter" class="cause-counter">42</span>
-                                                    </span>
-                                                </a>
-                                                <!-- POPOVER PARA SACAR LISTAS DE USUARIOS QUE APOYAN LA CAUSA -->
-                                                <div class="popover">
+                                    </div>
+                                    <div class="cause">
+                                        <a href="#" class="cause-support" role="button" aria-pressed="false">
+                                            <span class="fa fa-heart"></span>
+                                            <span class="fa fa-heart-o"></span>
+                                        </a>
+                                        <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                                            <span class="sr-only">Cause support counter:</span>
+                                            <span class="cause-counter">0</span>
+                                        </a>
+                                        <!-- POPOVER PARA SACAR LISTAS DE USUARIOS QUE APOYAN LA CAUSA -->
+                                        <div class="popover">
                                                     <a href="#" class="hidden" rel="nofollow">Mostrar lista de usuarios que apoyan esta causa</a>
                                                     <button type="button" class="close" aria-hidden="true" data-dismiss="popover"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">cerrar</span></button>
                                                     <div class="popover-user-list">
@@ -424,13 +420,12 @@
                                                             </ul>
                                                         </div><!-- /.contenedor scroll -->
                                                     </div><!-- /popover-user-list -->
-                                                </div>
-                                            </div>
-                                        </div>
+                                                </div> 
                                     </div>
                                 </div>
                             </article>
                         </li>
+                        
                         <li class="col-xs-12 col-sm-6">
                             <article itemtype="http://schema.org/Article" itemscope role="article" class="box-ppal clearfix">
                                 <div class="link-wrapper">
@@ -502,19 +497,62 @@
                                     </div>
                                     <div class="cause-footer clearfix">
                                         <div class="politicians-counter">
-                                            <span class="fa fa-user"></span> <span>216 politicians</span>
+                                            <span class="fa fa-user"></span> <span>26 politicians</span>
                                         </div>
                                         <div class="cause">
-                                            <div class="cause-support">
-                                                <!-- el atributo aria-pressed debe estar en false si la causa está a 0, y en "true" si no -->
-                                                <span role="button" aria-pressed="false" aria-labelledby="cause-support cause-counter">
-                                                    <span class="fa fa-heart"></span>
-                                                    <span class="fa fa-heart-o"></span>
-                                                    <span id="cause-support" class="sr-only">Cause support counter:</span>
-                                                    <span id="cause-counter" class="cause-counter">75</span>
-                                                </span>
-                                            </div>
-                                        </div>
+                                        <a href="#" class="cause-support" role="button" aria-pressed="false">
+                                            <span class="fa fa-heart"></span>
+                                            <span class="fa fa-heart-o"></span>
+                                        </a>
+                                        <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
+                                            <span class="sr-only">Cause support counter:</span>
+                                            <span class="cause-counter">65</span>
+                                        </a>
+                                        <!-- POPOVER PARA SACAR LISTAS DE USUARIOS QUE APOYAN LA CAUSA -->
+                                        <div class="popover">
+                                            <a href="#" class="hidden" rel="nofollow">Mostrar lista de usuarios que apoyan esta causa</a>
+                                            <button type="button" class="close" aria-hidden="true" data-dismiss="popover"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">cerrar</span></button>
+                                            <div class="popover-user-list">
+                                                <p>Usuarios que apoyan esta causa</p>
+                                                <div class="scroll">
+                                                    <ul>
+                                                        <li class="user" itemscope itemtype="http://schema.org/Person">
+                                                            <a href="#" itemprop="url">
+                                                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Diecisiete Caract</span>
+                                                            </a>
+                                                            <span class="user-type">
+                                                                <small>Activista digital</small>
+                                                            </span>
+                                                        </li><!-- /.user -->
+                                                        <li class="user" itemscope itemtype="http://schema.org/Person">
+                                                            <a href="#" itemprop="url">
+                                                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Usuario Otro</span>
+                                                            </a>
+                                                            <span class="user-type">
+                                                                <small>Activista digital</small>
+                                                            </span>
+                                                        </li><!-- /.user -->
+                                                        <li class="user" itemscope itemtype="http://schema.org/Person">
+                                                            <a href="#" itemprop="url">
+                                                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Diecisiete Caract</span>
+                                                            </a>
+                                                            <span class="user-type">
+                                                                <small>Activista digital</small>
+                                                            </span>
+                                                        </li><!-- /.user -->
+                                                        <li class="user" itemscope itemtype="http://schema.org/Person">
+                                                            <a href="#" itemprop="url">
+                                                                <img src="images/user.jpg" alt="nombre" class="user-img" itemprop="image"><span itemprop="name">Nombreeee Deusur</span>
+                                                            </a>
+                                                            <span class="user-type">
+                                                                <small>Activista digital</small>
+                                                            </span>
+                                                        </li><!-- /.user -->
+                                                    </ul>
+                                                </div><!-- /.contenedor scroll -->
+                                            </div><!-- /popover-user-list -->
+                                        </div> 
+                                    </div>
                                     </div>
                                 </div>
                             </article>
@@ -1016,7 +1054,7 @@
                                     </div>
                                 </article>
                             </li>
-</ul>
+                    </ul>
                     <!-- ver más -->
                     <div class="load-more"><a href="#">Show more <span class="fa fa-angle-down"></span></a></div>
                 </section>
@@ -1197,49 +1235,42 @@
                                     <div class="cause-name" aria-hidden="true" tabindex="107">
                                         <span class="fa fa-tag"></span> Igualdad
                                     </div>
-                                    <div class="cause-support">
-                                        <!-- el atributo aria-pressed debe estar en false si la causa está a 0, y en "true" si no -->
-                                        <span role="button" tabindex="108" aria-pressed="false" aria-labelledby="cause-support cause-counter">
-                                            <span class="fa fa-heart"></span>
-                                            <span class="fa fa-heart-o"></span>
-                                            <span id="cause-support" class="sr-only">Cause support counter:</span>
-                                            <span id="cause-counter" class="cause-counter">0</span>
-                                        </span>
-                                    </div>
+                                    <a href="#" class="cause-support" role="button" tabindex="108" aria-pressed="false">
+                                        <span class="fa fa-heart"></span>
+                                        <span class="fa fa-heart-o"></span>
+                                        <span class="sr-only">Cause support counter:</span>
+                                        <span class="cause-counter">0</span>
+                                    </a>
                                 </li>
                                 <li class="cause link-wrapper">
                                     <a href="#" class="sr-only">Search cause Madrid Limpio</a>
                                     <div class="cause-name" aria-hidden="true" tabindex="109">
                                         <span class="fa fa-tag"></span> Madrid Limpio
                                     </div>
-                                    <div class="cause-support">
-                                        <span role="button" tabindex="110" aria-pressed="true" aria-labelledby="cause-support cause-counter">
-                                            <span class="fa fa-heart"></span>
-                                            <span class="fa fa-heart-o"></span>
-                                            <span id="cause-support" class="sr-only">Cause support counter:</span>
-                                            <span id="cause-counter" class="cause-counter">3</span>
-                                        </span>
-                                    </div>
+                                    <a href="#" class="cause-support" role="button" tabindex="110" aria-pressed="true">
+                                        <span class="fa fa-heart"></span>
+                                        <span class="fa fa-heart-o"></span>
+                                        <span class="sr-only">Cause support counter:</span>
+                                        <span class="cause-counter">1</span>
+                                    </a>
                                 </li>
                                 <li class="cause link-wrapper">
-                                    <a href="#" class="sr-only">Search cause Transporte Sostenible</a>
+                                    <a href="#" class="sr-only">Search cause Transporte sostenible</a>
                                     <div class="cause-name" aria-hidden="true" tabindex="111">
-                                        <span class="fa fa-tag"></span> Transporte Sostenible
+                                        <span class="fa fa-tag"></span> Transporte sostenible
                                     </div>
-                                    <div class="cause-support">
-                                        <span role="button" tabindex="112" aria-pressed="true" aria-labelledby="cause-support cause-counter">
-                                            <span class="fa fa-heart"></span>
-                                            <span class="fa fa-heart-o"></span>
-                                            <span id="cause-support" class="sr-only">Cause support counter:</span>
-                                            <span id="cause-counter" class="cause-counter">23</span>
-                                        </span>
-                                    </div>
+                                    <a href="#" class="cause-support" role="button" tabindex="112" aria-pressed="true">
+                                        <span class="fa fa-heart"></span>
+                                        <span class="fa fa-heart-o"></span>
+                                        <span class="sr-only">Cause support counter:</span>
+                                        <span class="cause-counter">1</span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
                     </section>
                     
-                    <div id="extendedPolitician">
+                    <div class="extendedPolitician">
                         <section class="boxes follow">
                             <h1>Politicians you may like</h1>
                             <ul class="user-list-followers hide4">
@@ -1391,7 +1422,7 @@
                         </section>
                     </div>
 
-                    <div id="extendedPolitician">
+                    <div class="extendedPolitician">
                         <section class="boxes follow">
                             <h1>Influencers you make like</h1>
                             <ul class="user-list-followers hide4">
@@ -1657,7 +1688,6 @@
 <script src="js/jquery.touchSwipe.min.js"></script>
 <script src="js/jquery.slimscroll.min.js"></script>
 <script src="js/hideShowPassword.min.js"></script>
-<script src="js/tour_dash_user.js"></script>
 <script src="js/local.js"></script>
 <!-- el siguiente cargar al integrar -->
 <!-- <script src="js/custom.js"></script> -->

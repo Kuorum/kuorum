@@ -5149,7 +5149,7 @@ p.party{
 .causes-tags .cause:focus{
     background-color: #ee7612;
 }
-.causes-tags .cause .cause-name {padding: 0 10px 0 26px; display: inline-block; position: relative;}
+.causes-tags .cause .cause-name {padding: 0 10px 0 26px; display: inline-block; position: relative; color: #fff;}
 .causes-tags .cause .cause-name .fa-tag {font-size: 18px; font-size: 1.8rem; position: absolute; left: 5px; top: 4px;}
 .cause .cause-support {
     font-size: 14px; 
@@ -5176,7 +5176,12 @@ p.party{
     position: relative;
     right: auto;
     top: auto;
+    display: inline;
+    padding: 0 5px 0 0;
 }
+.cause-footer .cause .cause-support:hover,
+.cause-footer .cause .cause-support:focus {text-decoration: none;}
+.cause-footer .cause .popover-trigger {font-size: 16px; font-size: 1.6rem;}
 
 .cause.active .cause-support .fa-heart{display:inline}
 .cause.active .cause-support .fa-heart-o{display:none}
@@ -5617,7 +5622,7 @@ hr{
     padding: 40px 0 20px;
 }
 /*extendedPolitician - who to follow*/
-#extendedPolitician .boxes.follow h1 {
+.extendedPolitician .boxes.follow h1 {
     background-color: #666;
     color: #fff;
     border-radius: 0;
@@ -5625,7 +5630,7 @@ hr{
     font-size: 18px;
     padding: 10px 15px;
 }
-#extendedPolitician .boxes.follow {box-shadow: 0 0 2px rgba(200,200,200,0.6);
+.extendedPolitician .boxes.follow {box-shadow: 0 0 2px rgba(200,200,200,0.6);
 }
 
 #politician-bio .center-button {text-align:center;}
