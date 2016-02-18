@@ -2,10 +2,10 @@
 <article itemtype="http://schema.org/Article" itemscope role="article" class="box-ppal clearfix">
     <div class="link-wrapper">
         <a href="#" class="hidden"><g:message code="cause.card.linkWrapper.text" args="[cause.name]"/> </a>
-        <button type="button" class="close">
+        <g:link mapping="causeDiscard" params="${cause.encodeAsLinkProperties()}" type="button" class="close">
             <span class="fa fa-times-circle-o fa"></span>
             <span class="sr-only"><g:message code="cause.card.discard.text" args="[cause.name]"/></span>
-        </button>
+        </g:link>
         <div class="causes-tags">
             <div class="cause">
                 <div class="cause-name"><span class="fa fa-tag"></span>${cause.name}</div>

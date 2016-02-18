@@ -64,9 +64,31 @@ class RestKuorumApiService {
         return response
     }
 
+    def post(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body) {
+        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+        String path = apiMethod.buildUrl(apiPath,params);
+        def response = mailKuorumServices.put(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                query:query,
+                body:body,
+                requestContentType : groovyx.net.http.ContentType.JSON
+        )
+        return response
+    }
+
 
     public enum ApiMethod{
         USER_STATS_LEANING_INDEX('/user/{userId}/stats/leaning-index'),
+        CAUSE_OPERATIONS("/cause/{causeName}"),
+        CAUSE_SUPPORT ("/cause/support/{userId}"),
+        CAUSE_SUPPORT_OPERATIONS ("/cause/support/{causeName}/{userId}"),
+        CAUSE_SUGGESTIONS ("/cause/suggest"),
+        CAUSE_SUGGESTIONS_USER ("/cause/suggest/{userId}"),
+        CAUSE_SUGGESTIONS_USER_DISCARD('/cause/suggest/{userId}/{causeName}'),
+
+        CAUSE_POLITICIANS ("/cause/{causeName}/politicians"),
+
         ACCOUNT_INFO("/notification/mailing/{userAlias}"),
         ACCOUNT_MAILS("/notification/mailing/{userAlias}/emails");
 

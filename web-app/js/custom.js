@@ -903,6 +903,10 @@ $(document).ready(function() {
     });
 
 
+    /*******************************
+     *********** CAUSES ************
+     *******************************/
+
     // SUPPORT CAUSES
     $(".cause-support").on("click", "a", function(e){
         e.preventDefault();

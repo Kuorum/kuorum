@@ -112,10 +112,19 @@ $(document).ready(function() {
 $(document).ready(function() {
     
     // botón de cierre de las causas del dashboard
+    // DISCARD CAUSE
     if ($('.causes-list').length) {
-        $('body').on('click','.causes-list .close', function(e) {
-            e.stopPropagation();
+        $(".causes-list").on("click","li article a.close", function(e){
             e.preventDefault();
+            e.stopPropagation();
+            var link = $(this).attr("href");
+            var appendUl = $(this).parents("ul.causes-list");
+            var offset = appendUl.next().children("a.loadMore").attr("data-offset");
+            $.get( link,{ offset: offset })
+                .done(function(data) {
+                    console.log(data)
+                    appendUl.append(data)
+            });
             $(this).closest('li').fadeOut('fast');
         });
     }
