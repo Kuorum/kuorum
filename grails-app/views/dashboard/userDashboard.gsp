@@ -13,15 +13,17 @@
 
 <content tag="mainContent">
     <h2 class="underline">Suggested causes for you</h2>
-    <ul class="causes-list row">
-        <g:each in="${suggestions.data}" var="suggestion">
-            <li class="col-xs-12 col-sm-6">
-                <cause:card cause="${suggestion}"/>
-        </g:each>
+    <ul class="causes-list row" id="cause-card-list-id">
+       <g:render template="/dashboard/dashboardModules/causeCardList" model="[causes:causesSuggested.data]"/>
     </ul>
 
     <!-- ver más -->
-    <div class="load-more"><a href="#">Show more <span class="fa fa-angle-down"></span></a></div>
+    <nav:loadMoreLink
+            mapping="dashboardCausesSeeMore"
+            parentId="cause-card-list-id"
+            pagination="${causesPagination}"
+            numElements="${causesSuggested.total}"/>
+
 
     <h2 class="underline">Politicians who recently joined</h2>
     <!-- LISTA DE POLÍTICOS -->

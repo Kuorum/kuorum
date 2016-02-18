@@ -63,17 +63,27 @@ class DashboardController {
     }
 
     def userDashboard(KuorumUser user){
-        SuggestedCausesRSDTO suggestions = causesService.suggestCauses(user, new Pagination(max:6))
+        Pagination causesPagination = new Pagination(max:6)
+        SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
         SolrResults politicians = searchSolrService.search(new SearchParams(type: SolrType.POLITICIAN))
         List<CauseRSDTO> supportedCauses = causesService.findUserCauses(user)
         LeaningIndexRSDTO userLeaningIndex = kuorumUserStatsService.findLeaningIndex(user)
         render view: 'userDashboard', model:[
                 loggedUser:user,
-                suggestions:suggestions,
+                causesSuggested:causesSuggested,
+                causesPagination:causesPagination,
                 politicians:politicians.elements,
                 supportedCauses:supportedCauses,
                 userLeaningIndex:userLeaningIndex
         ]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def dashboardCauses(Pagination pagination){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, pagination)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${causesSuggested.total <= pagination.offset}")
+        render template: "/dashboard/dashboardModules/causeCardList", model:[causes:causesSuggested.data]
     }
 
     private def splitClucksInParts(List<Cluck> clucks){
