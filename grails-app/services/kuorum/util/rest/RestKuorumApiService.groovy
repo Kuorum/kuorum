@@ -67,7 +67,7 @@ class RestKuorumApiService {
     def post(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body) {
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
         String path = apiMethod.buildUrl(apiPath,params);
-        def response = mailKuorumServices.put(
+        def response = mailKuorumServices.post(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
                 query:query,

@@ -1,11 +1,15 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.causes.CausesService
 import kuorum.core.model.project.ProjectBasicStats
 import kuorum.core.model.search.Pagination
 import kuorum.project.Project
 import kuorum.post.Post
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserStatsService
+import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
+import org.kuorum.rest.model.tag.CauseRSDTO
 
 class ModulesController {
 
@@ -15,6 +19,8 @@ class ModulesController {
     def projectStatsService
     def notificationService
     def kuorumUserService
+    CausesService causesService;
+    KuorumUserStatsService kuorumUserStatsService
 
     private static final Long NUM_RELEVANT_FOOTER_USERS = 23
     private static final Long NUM_RELEVANT_PROJECT = 3
@@ -77,6 +83,19 @@ class ModulesController {
         }
         List<KuorumUser> politicians = kuorumUserService.recommendPoliticians(user, new Pagination(max:NUM_RELEVANT_POLITICIANS))
         render template: "/dashboard/landingPageModules/relevantPoliticians", model: [politicians:politicians]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def userLeaningIndex() {
+        KuorumUser user = springSecurityService.currentUser
+        LeaningIndexRSDTO userLeaningIndex = kuorumUserStatsService.findLeaningIndex(user)
+        render template: "/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex", model:[user:user, leaningIndex: userLeaningIndex]
+    }
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def userCauses() {
+        KuorumUser user = springSecurityService.currentUser
+        List<CauseRSDTO> supportedCauses = causesService.findUserCauses(user)
+        render template: "/dashboard/dashboardModules/supportedCauses", model:[user:user, supportedCauses:supportedCauses]
     }
 
 }

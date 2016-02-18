@@ -903,6 +903,13 @@ $(document).ready(function() {
     });
 
 
+    /*****************
+     * Delayed modules
+     *****************/
+    $(".delayed").each(function(){
+        reloadDynamicDiv($(this))
+    })
+
     /*******************************
      *********** CAUSES ************
      *******************************/
@@ -919,9 +926,9 @@ $(document).ready(function() {
             $parent.toggleClass("active")
             hearBeat(2,  $a.find(".fa"));
             $.get(  $a.attr('href'), function( data ) {
-                console.log(data)
                 var citizenVotes = data.citizenVotes
                 $a.find(".cause-counter").html(citizenVotes)
+                relaodAllDynamicDivs()
             });
         }
     })
@@ -1342,3 +1349,20 @@ function Campaign(id, name, headText,headVotedText,  modalDelay){
     return this;
 }
 
+function relaodAllDynamicDivs(){
+    if ($(".reload").length){
+        $(".reload").each(function(){
+            reloadDynamicDiv($(this))
+        })
+    }
+}
+
+function reloadDynamicDiv($div){
+    var link = $div.attr("data-link")
+    var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
+    $div.html(loadingHtml)
+    $.get( link)
+        .done(function(data) {
+            $div.html(data)
+        });
+}

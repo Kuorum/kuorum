@@ -67,16 +67,12 @@ class DashboardController {
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
         SearchParams searchPoliticiansPagination = new SearchParams(type: SolrType.POLITICIAN)
         SolrResults politicians = searchSolrService.search(searchPoliticiansPagination)
-        List<CauseRSDTO> supportedCauses = causesService.findUserCauses(user)
-        LeaningIndexRSDTO userLeaningIndex = kuorumUserStatsService.findLeaningIndex(user)
         render view: 'userDashboard', model:[
                 loggedUser:user,
                 causesSuggested:causesSuggested,
                 causesPagination:causesPagination,
                 politicians:politicians,
-                searchPoliticiansPagination:searchPoliticiansPagination,
-                supportedCauses:supportedCauses,
-                userLeaningIndex:userLeaningIndex
+                searchPoliticiansPagination:searchPoliticiansPagination
         ]
     }
 

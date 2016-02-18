@@ -248,6 +248,8 @@ class UrlMappings {
 
         name ajaxModuleProjectBottomStats: '/ajax/project/bottomProjectStats' (controller:'modules', action: 'bottomProjectStats')
                                        '/ajax/law/bottomLawStats' (controller:'modules', action: 'bottomProjectStats')
+        name ajaxModuleUserCauses:        "/ajax/module/user/causes" (controller:"modules", action: "userCauses")
+        name ajaxModuleUserLeaningIndex:  "/ajax/module/user/leaning-index" (controller:"modules", action: "userLeaningIndex")
 
         name login:     "/log-in"       (controller:"login", action:"index")
                         "/entrar"       (controller:"login", action:"index")
