@@ -48,8 +48,8 @@
     <g:render template="dashboardModules/ipdbRequitmentCard"/>
     %{--<g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex" model=""/>--}%
     %{--<g:render template="dashboardModules/supportedCauses" model="[user:loggedUser, supportedCauses:supportedCauses]"/>--}%
-    <nav:reloadableSection divId="user-leainingIndex-wrapper-id" mapping="ajaxModuleUserLeaningIndex" params="${[]}"/>
-    <nav:reloadableSection divId="user-causes-wrapper-id" mapping="ajaxModuleUserCauses" params="${[]}"/>
+    <nav:delayedSection divId="user-leainingIndex-wrapper-id" mapping="ajaxModuleUserLeaningIndex" params="${[]}"/>
+    <nav:delayedSection divId="user-causes-wrapper-id" mapping="ajaxModuleUserCauses" params="${[]}"/>
     <g:include controller="modules" action="recommendedUsers"/>
     <g:include controller="modules" action="recommendedPoliticiansUserDashboard"/>
 </content>

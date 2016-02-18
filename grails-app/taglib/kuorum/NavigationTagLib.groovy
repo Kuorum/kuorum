@@ -79,13 +79,14 @@ class NavigationTagLib {
         }
     }
 
-    def reloadableSection={attrs ->
+    def delayedSection ={attrs ->
         String divId = attrs.divId
+        String reloadableClass=attrs.reload?"reload":""
         String urlLink = g.createLink(mapping: attrs.mapping, params: attrs.params)
 
         out <<
                 """
-            <div id='${divId}' class='delayed reload' data-link='${urlLink}'>
+            <div id='${divId}' class='delayed ${reloadableClass}' data-link='${urlLink}'>
             </div>
             """
 

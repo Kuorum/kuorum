@@ -928,7 +928,6 @@ $(document).ready(function() {
             $.get(  $a.attr('href'), function( data ) {
                 var citizenVotes = data.cause.citizenVotes
                 $a.find(".cause-counter").html(citizenVotes)
-//                relaodAllDynamicDivs()
                 if($("#right-panel-politicalLeaningIndex").length){
                     var barWidth= data.leaningIndex.liberalIndex+'%';
                     $("#right-panel-politicalLeaningIndex").find(".progress-bar").css('width',barWidth);
