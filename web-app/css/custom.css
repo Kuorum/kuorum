@@ -129,7 +129,7 @@ p.warning button.close {position: absolute; top: 8px; right: 20px; opacity: 1; c
     background-color: rgba(0, 0, 0, 0);
     border-bottom: medium none;
     border-radius: 0;
-    padding: 12px;
+    padding: 8px 0;
 }
 .loading {
     color: #a8a8a8;
@@ -1029,24 +1029,29 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .more-actions + .popover {width: 225px;}
 .popover.tour {width: 300px; max-width: 300px !important; padding: 8px;}
 .popover.tour .popover-title {
-    font-size: 30px;
-    font-size: 3rem;
+    font-size: 20px;
+    font-size: 2rem;
     line-height: 1;
     text-transform: uppercase;
 }
-.popover.tour .popover-navigation > button {
+.popover.tour .popover-navigation > .btn,
+.popover.tour .popover-navigation > .btn:hover,
+.popover.tour .popover-navigation > .btn:focus {
     margin: 0 !important;
     display: block;
+    font-size: 20px !important;
+    font-size: 2rem !important;
 }
-.popover[class*=tour-] .popover-navigation [data-role=end] {float: left !important; width: 45%;}
-.popover[class*=tour-] .popover-navigation [data-role=next],
+.popover[class*=tour-] .popover-navigation button:first-child {float: left !important; width: 45%;}
+.popover[class*=tour-] .popover-navigation button:last-child,
 .popover[class*=tour-] .popover-navigation #totour2,
 .popover[class*=tour-] .popover-navigation #totour3 {float: right !important; width: 45%;}
+.popover.tour .popover-content {font-size: 16px; font-size: 1.6rem;}
 .popover.tour .popover-content,
 .popover.tour .popover-navigation {padding: 4px !important;}
 .popover.tour .popover-navigation {width: 100%; height: 50px;}
 .tour-step-background {background: none !important;}
-.tour-backdrop {background: #fff !important;}
+/*.tour-backdrop {background: #fff !important;}*/
 .popover[class*="tour-"] {z-index: 1200 !important;}
 
 .slimScrollBar {z-index: 9999 !important;}
@@ -4402,7 +4407,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .othersPost #postNav > a {padding: 44px 18px;}
     #map {width: 475px; height: 405px;}
     .popover.tour {width: 385px; max-width: 385px !important; padding: 10px;}
-    .popover.tour .popover-title {font-size: 46px; font-size: 4.6rem; line-height: 1; text-transform: uppercase;}
+    .popover.tour .popover-title {font-size: 28px; font-size: 2.8rem; line-height: 1;}
     .kakareo footer > ul.actions-kak > li {list-style: none; margin: 0 10px 0 0;}
     .kakareo footer > ul > li.read-later {margin-right: 32px !important;}
     #footer .licenses {margin: 0; width: auto;}
@@ -4782,6 +4787,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 /* especial ipad horizontal */
 @media only screen and (width: 1024px) and (height: 768px) {
     .full-video {background-size: 1024px auto;}
+    #main.landing .full-video {height: 575px;}
 }
 /* especial ipad vertical */
 @media only screen and (width: 768px) and (height: 1024px) {
@@ -4961,7 +4967,8 @@ only screen and (min-resolution: 192dpi) {
 .panel-default{
     border-radius: 0;
     border-color: #dadada;
-    box-shadow: 0 0 2px rgba(200,200,200,0.6)
+    box-shadow: 0 0 2px rgba(200,200,200,0.6);
+    background-color: #fff;
 }
 .panel-default > .panel-heading{
     background-color: #666;

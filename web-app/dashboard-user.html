@@ -1155,9 +1155,9 @@
                         <div class="panel-body">
                            <p>Kuorum hosts the world's largest politician database thanks to everyday heroes like you. Wanna become an editor?</p>
                             <ul>
-                                <li><a href="#">Never ask me</a></li>
-                                <li><a href="#" class="btn btn-blue inverted">Not now</a></li>
-                                <li><a href="#" class="btn btn-blue">Yes</a></li>
+                                <li><a href="#" tabindex="104">Never ask me</a></li>
+                                <li><a href="#" class="btn btn-blue inverted" tabindex="105">Not now</a></li>
+                                <li><a href="#" class="btn btn-blue" tabindex="106">Yes</a></li>
                             </ul>
                         </div>
                     </section>
@@ -1194,12 +1194,12 @@
                             <ul class="causes-tags">
                                 <li class="cause link-wrapper">
                                     <a href="#" class="sr-only">Search cause Igualdad</a>
-                                    <div class="cause-name" aria-hidden="true" tabindex="104">
+                                    <div class="cause-name" aria-hidden="true" tabindex="107">
                                         <span class="fa fa-tag"></span> Igualdad
                                     </div>
                                     <div class="cause-support">
                                         <!-- el atributo aria-pressed debe estar en false si la causa está a 0, y en "true" si no -->
-                                        <span role="button" tabindex="105" aria-pressed="false" aria-labelledby="cause-support cause-counter">
+                                        <span role="button" tabindex="108" aria-pressed="false" aria-labelledby="cause-support cause-counter">
                                             <span class="fa fa-heart"></span>
                                             <span class="fa fa-heart-o"></span>
                                             <span id="cause-support" class="sr-only">Cause support counter:</span>
@@ -1209,11 +1209,11 @@
                                 </li>
                                 <li class="cause link-wrapper">
                                     <a href="#" class="sr-only">Search cause Madrid Limpio</a>
-                                    <div class="cause-name" aria-hidden="true" tabindex="106">
+                                    <div class="cause-name" aria-hidden="true" tabindex="109">
                                         <span class="fa fa-tag"></span> Madrid Limpio
                                     </div>
                                     <div class="cause-support">
-                                        <span role="button" tabindex="107" aria-pressed="true" aria-labelledby="cause-support cause-counter">
+                                        <span role="button" tabindex="110" aria-pressed="true" aria-labelledby="cause-support cause-counter">
                                             <span class="fa fa-heart"></span>
                                             <span class="fa fa-heart-o"></span>
                                             <span id="cause-support" class="sr-only">Cause support counter:</span>
@@ -1223,11 +1223,11 @@
                                 </li>
                                 <li class="cause link-wrapper">
                                     <a href="#" class="sr-only">Search cause Transporte Sostenible</a>
-                                    <div class="cause-name" aria-hidden="true" tabindex="108">
+                                    <div class="cause-name" aria-hidden="true" tabindex="111">
                                         <span class="fa fa-tag"></span> Transporte Sostenible
                                     </div>
                                     <div class="cause-support">
-                                        <span role="button" tabindex="109" aria-pressed="true" aria-labelledby="cause-support cause-counter">
+                                        <span role="button" tabindex="112" aria-pressed="true" aria-labelledby="cause-support cause-counter">
                                             <span class="fa fa-heart"></span>
                                             <span class="fa fa-heart-o"></span>
                                             <span id="cause-support" class="sr-only">Cause support counter:</span>
@@ -1244,78 +1244,6 @@
                             <h1>Politicians you may like</h1>
                             <ul class="user-list-followers hide4">
                                 <li itemtype="http://schema.org/Person" itemscope="" class="user">
-                                    <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" tabindex="110">
-                                        <img src="images/user.jpg" alt="Manuela Carmena" class="user-img" itemprop="image"> 
-                                        <span itemprop="name">Manuela Carmena</span>
-                                    </a>
-                                    <!-- POPOVER PARA IMÁGENES USUARIOS -->
-                                    <div class="popover">
-                                        <button type="button" class="close" data-dismiss="popover" aria-label="Close">
-                                            <span class="fa fa-times-circle-o fa"></span>
-                                        </button>
-                                        <div class="popover-user">
-                                            <div class="user" itemscope="" itemtype="http://schema.org/Person">
-                                                <a href="#" itemprop="url">
-                                                    <img src="images/user.jpg" alt="Manuela Carmena" class="user-img" itemprop="image"><span itemprop="name">Manuela Carmena</span>
-                                                </a>
-                                                <span class="user-type">
-                                                    <small>Ahora Madrid</small>
-                                                </span>
-                                            </div><!-- /user -->
-                                            <button type="button" class="follow btn btn-blue inverted btn-xs allow enabled " data-ajaxfollowurl="#" data-ajaxunfollowurl="#" data-message-follow_hover="<span class=&quot;fa fa-plus&quot;></span> Seguir" data-message-follow="<span class=&quot;fa fa-plus&quot;></span> Seguir" data-message-unfollow_hover="No seguir" data-message-unfollow="Siguiendo" data-userid="#">
-                                                <span class="fa fa-plus"></span> Follow
-                                            </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
-                                            <ul class="infoActivity clearfix">
-                                                <li>
-                                                    <span class="fa fa-question-circle"></span>
-                                                    <span class="counter">0</span>
-                                                    <span class="sr-only">propuestas</span>
-                                                </li>
-                                                <li>
-                                                    <span class="fa fa-comment"></span>
-                                                    <span class="counter">0</span>
-                                                    <span class="sr-only">propuestas</span>
-                                                </li>
-                                                <li>
-                                                    <span class="fa fa-lightbulb-o"></span>
-                                                    <span class="counter">0</span>
-                                                    <span class="sr-only">propuestas</span>
-                                                </li>
-                                                <li>
-                                                    <span class="fa fa-user"></span>
-                                                    <small><span class="fa fa-forward"></span></small>
-                                                    <span class="counter">0</span>
-                                                    <span class="sr-only">siguiendo</span>
-                                                </li>
-                                                <li>
-                                                    <span class="fa fa-user"></span>
-                                                    <small><span class="fa fa-backward"></span></small>
-                                                    <span class="counter">0</span>
-                                                    <span class="sr-only">seguidores</span>
-                                                </li>
-                                                <li class="pull-right">
-                                                    <span class="sr-only">Verificada</span>
-                                                    <span class="fa fa-check"></span>
-                                                </li>
-                                            </ul>
-                                        </div><!-- /popover-user -->
-                                    </div>
-                                    <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
-                                    
-                                    <span class="user-type">
-                                        <small>Ahora Madrid</small>
-                                    </span>
-                                    <div class="actions">
-                                        <button type="button" class="follow btn btn-blue inverted btn-xs allow enabled follow" data-ajaxfollowurl="#" data-ajaxunfollowurl="#" data-message-follow_hover="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-follow="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-unfollow_hover="Stop following" data-message-unfollow="Following" data-userid="#" tabindex="111">
-                                            <span class="fa fa-plus"></span> Follow 
-                                        </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
-                                        <button type="button" class="close" data-nologgedurl="#" data-ajaxdeleterecommendeduserurl="#" data-userid="#" tabindex="112">
-                                            <span class="fa fa-times-circle-o fa"></span>
-                                            <span class="sr-only">remove from the list</span>
-                                        </button>
-                                    </div>
-                                </li>
-                                <li itemtype="http://schema.org/Person" itemscope="" class="user">
                                     <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" tabindex="113">
                                         <img src="images/user.jpg" alt="Manuela Carmena" class="user-img" itemprop="image"> 
                                         <span itemprop="name">Manuela Carmena</span>
@@ -1382,6 +1310,78 @@
                                             <span class="fa fa-plus"></span> Follow 
                                         </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
                                         <button type="button" class="close" data-nologgedurl="#" data-ajaxdeleterecommendeduserurl="#" data-userid="#" tabindex="115">
+                                            <span class="fa fa-times-circle-o fa"></span>
+                                            <span class="sr-only">remove from the list</span>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li itemtype="http://schema.org/Person" itemscope="" class="user">
+                                    <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" tabindex="116">
+                                        <img src="images/user.jpg" alt="Manuela Carmena" class="user-img" itemprop="image"> 
+                                        <span itemprop="name">Manuela Carmena</span>
+                                    </a>
+                                    <!-- POPOVER PARA IMÁGENES USUARIOS -->
+                                    <div class="popover">
+                                        <button type="button" class="close" data-dismiss="popover" aria-label="Close">
+                                            <span class="fa fa-times-circle-o fa"></span>
+                                        </button>
+                                        <div class="popover-user">
+                                            <div class="user" itemscope="" itemtype="http://schema.org/Person">
+                                                <a href="#" itemprop="url">
+                                                    <img src="images/user.jpg" alt="Manuela Carmena" class="user-img" itemprop="image"><span itemprop="name">Manuela Carmena</span>
+                                                </a>
+                                                <span class="user-type">
+                                                    <small>Ahora Madrid</small>
+                                                </span>
+                                            </div><!-- /user -->
+                                            <button type="button" class="follow btn btn-blue inverted btn-xs allow enabled " data-ajaxfollowurl="#" data-ajaxunfollowurl="#" data-message-follow_hover="<span class=&quot;fa fa-plus&quot;></span> Seguir" data-message-follow="<span class=&quot;fa fa-plus&quot;></span> Seguir" data-message-unfollow_hover="No seguir" data-message-unfollow="Siguiendo" data-userid="#">
+                                                <span class="fa fa-plus"></span> Follow
+                                            </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                                            <ul class="infoActivity clearfix">
+                                                <li>
+                                                    <span class="fa fa-question-circle"></span>
+                                                    <span class="counter">0</span>
+                                                    <span class="sr-only">propuestas</span>
+                                                </li>
+                                                <li>
+                                                    <span class="fa fa-comment"></span>
+                                                    <span class="counter">0</span>
+                                                    <span class="sr-only">propuestas</span>
+                                                </li>
+                                                <li>
+                                                    <span class="fa fa-lightbulb-o"></span>
+                                                    <span class="counter">0</span>
+                                                    <span class="sr-only">propuestas</span>
+                                                </li>
+                                                <li>
+                                                    <span class="fa fa-user"></span>
+                                                    <small><span class="fa fa-forward"></span></small>
+                                                    <span class="counter">0</span>
+                                                    <span class="sr-only">siguiendo</span>
+                                                </li>
+                                                <li>
+                                                    <span class="fa fa-user"></span>
+                                                    <small><span class="fa fa-backward"></span></small>
+                                                    <span class="counter">0</span>
+                                                    <span class="sr-only">seguidores</span>
+                                                </li>
+                                                <li class="pull-right">
+                                                    <span class="sr-only">Verificada</span>
+                                                    <span class="fa fa-check"></span>
+                                                </li>
+                                            </ul>
+                                        </div><!-- /popover-user -->
+                                    </div>
+                                    <!-- FIN POPOVER PARA IMÁGENES USUARIOS -->
+                                    
+                                    <span class="user-type">
+                                        <small>Ahora Madrid</small>
+                                    </span>
+                                    <div class="actions">
+                                        <button type="button" class="follow btn btn-blue inverted btn-xs allow enabled follow" data-ajaxfollowurl="#" data-ajaxunfollowurl="#" data-message-follow_hover="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-follow="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-unfollow_hover="Stop following" data-message-unfollow="Following" data-userid="#" tabindex="117">
+                                            <span class="fa fa-plus"></span> Follow 
+                                        </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                                        <button type="button" class="close" data-nologgedurl="#" data-ajaxdeleterecommendeduserurl="#" data-userid="#" tabindex="118">
                                             <span class="fa fa-times-circle-o fa"></span>
                                             <span class="sr-only">remove from the list</span>
                                         </button>
@@ -1396,7 +1396,7 @@
                             <h1>Influencers you make like</h1>
                             <ul class="user-list-followers hide4">
                                 <li itemtype="http://schema.org/Person" itemscope="" class="user">
-                                    <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" tabindex="110">
+                                    <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" tabindex="119">
                                         <img src="images/user.jpg" alt="Manuela Carmena" class="user-img" itemprop="image"> 
                                         <span itemprop="name">Manuela Carmena</span>
                                     </a>
@@ -1458,17 +1458,17 @@
                                         <small>Ahora Madrid</small>
                                     </span>
                                     <div class="actions">
-                                        <button type="button" class="follow btn btn-blue inverted btn-xs allow enabled follow" data-ajaxfollowurl="#" data-ajaxunfollowurl="#" data-message-follow_hover="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-follow="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-unfollow_hover="Stop following" data-message-unfollow="Following" data-userid="#" tabindex="111">
+                                        <button type="button" class="follow btn btn-blue inverted btn-xs allow enabled follow" data-ajaxfollowurl="#" data-ajaxunfollowurl="#" data-message-follow_hover="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-follow="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-unfollow_hover="Stop following" data-message-unfollow="Following" data-userid="#" tabindex="120">
                                             <span class="fa fa-plus"></span> Follow 
                                         </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
-                                        <button type="button" class="close" data-nologgedurl="#" data-ajaxdeleterecommendeduserurl="#" data-userid="#" tabindex="112">
+                                        <button type="button" class="close" data-nologgedurl="#" data-ajaxdeleterecommendeduserurl="#" data-userid="#" tabindex="121">
                                             <span class="fa fa-times-circle-o fa"></span>
                                             <span class="sr-only">remove from the list</span>
                                         </button>
                                     </div>
                                 </li>
                                 <li itemtype="http://schema.org/Person" itemscope="" class="user">
-                                    <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" tabindex="113">
+                                    <a href="#" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" tabindex="122">
                                         <img src="images/user.jpg" alt="Manuela Carmena" class="user-img" itemprop="image"> 
                                         <span itemprop="name">Manuela Carmena</span>
                                     </a>
@@ -1530,10 +1530,10 @@
                                         <small>Ahora Madrid</small>
                                     </span>
                                     <div class="actions">
-                                        <button type="button" class="follow btn btn-blue inverted btn-xs allow enabled follow" data-ajaxfollowurl="#" data-ajaxunfollowurl="#" data-message-follow_hover="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-follow="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-unfollow_hover="Stop following" data-message-unfollow="Following" data-userid="#" tabindex="114">
+                                        <button type="button" class="follow btn btn-blue inverted btn-xs allow enabled follow" data-ajaxfollowurl="#" data-ajaxunfollowurl="#" data-message-follow_hover="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-follow="<span class=&quot;fa fa-plus&quot;></span> Follow" data-message-unfollow_hover="Stop following" data-message-unfollow="Following" data-userid="#" tabindex="123">
                                             <span class="fa fa-plus"></span> Follow 
                                         </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
-                                        <button type="button" class="close" data-nologgedurl="#" data-ajaxdeleterecommendeduserurl="#" data-userid="#" tabindex="115">
+                                        <button type="button" class="close" data-nologgedurl="#" data-ajaxdeleterecommendeduserurl="#" data-userid="#" tabindex="124">
                                             <span class="fa fa-times-circle-o fa"></span>
                                             <span class="sr-only">remove from the list</span>
                                         </button>
@@ -1657,6 +1657,7 @@
 <script src="js/jquery.touchSwipe.min.js"></script>
 <script src="js/jquery.slimscroll.min.js"></script>
 <script src="js/hideShowPassword.min.js"></script>
+<script src="js/tour_dash_user.js"></script>
 <script src="js/local.js"></script>
 <!-- el siguiente cargar al integrar -->
 <!-- <script src="js/custom.js"></script> -->
