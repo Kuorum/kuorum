@@ -994,6 +994,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .user-list-followers > li:last-child {margin: 0;}
 .user-list-followers li a {text-decoration: none;}
 .user-list-followers.hide4 > li + li + li +li +li {display: none;}
+.user-list-followers.hide2 > li + li + li {display: none;}
 
 .user-list-followers .popover{margin-top:3px;}
 
