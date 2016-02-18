@@ -91,7 +91,7 @@
         %{--</li>--}%
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-jackie.jpg')}" alt="Foto" itemprop="image">
+                <img src="${resource(dir: 'images', file: 'foto-rachel.jpg')}" alt="Foto" itemprop="image">
                 <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member6"/></h1>
                 <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position6"/></h2>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description6"/></p>
@@ -104,7 +104,7 @@
         </li>
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-tamara.jpg')}" alt="Foto" itemprop="image">
+                <img src="${resource(dir: 'images', file: 'foto-serae.jpg')}" alt="Foto" itemprop="image">
                 <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member7"/></h1>
                 <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position7"/></h2>
                 <p itemprop="description"><g:message code="footer.menu.footerTeam.description7"/></p>
