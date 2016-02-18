@@ -36,4 +36,5 @@
     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex" model="[user:loggedUser, leaningIndex: userLeaningIndex]"/>
     <g:render template="dashboardModules/supportedCauses" model="[user:loggedUser, supportedCauses:supportedCauses]"/>
     <g:include controller="modules" action="recommendedUsers"/>
+    <g:include controller="modules" action="recommendedPoliticiansUserDashboard"/>
 </content>

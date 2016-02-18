@@ -52,6 +52,13 @@ class ModulesController {
         render template:'/modules/recommendedUsers', model:[recommendedUsers:recommendedUsers]
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def recommendedPoliticiansUserDashboard() {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:14))
+        render template:'/modules/recommendedUsers', model:[recommendedUsers:recommendedUsers]
+    }
+
     @Deprecated
     def registerFooterRelevantUsers(){
         List<KuorumUser> users = kuorumUserService.recommendedUsers(new Pagination(max: NUM_RELEVANT_FOOTER_USERS))

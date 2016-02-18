@@ -390,8 +390,34 @@ class KuorumUserService {
         res as ArrayList<KuorumUser>
     }
 
+    /**
+     * Recommend politicians similar to user and that the user is not following
+     * @param user
+     * @param pagination
+     * @return
+     */
     List<KuorumUser> recommendPoliticians(KuorumUser user, Pagination pagination = new Pagination()){
         List<KuorumUser> politicians = bestPoliticiansSince(user, null, pagination, Boolean.TRUE);
+
+        KuorumUser loggedUser = springSecurityService.getCurrentUser();
+        RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
+        List<KuorumUser> filterPoliticians = politicians
+        if(recommendedUserInfo){
+            filterPoliticians = politicians.findAll({
+                !recommendedUserInfo.deletedRecommendedUsers.contains(it.id) &&
+                        !user.following.contains(it.id) &&
+                        loggedUser.id!=it.id
+            })
+
+            List<KuorumUser> nextPoliticians = []
+            if (filterPoliticians.size() < pagination.max){
+                nextPoliticians = recommendedUsers(user, new Pagination(max:pagination.max, offset: pagination.offset+pagination.max))
+            }
+            filterPoliticians.addAll(nextPoliticians)
+        }else{
+            log.warn("User ${user.name} (${user.id}) has not calculated recommendedUserInfo")
+        }
+        filterPoliticians
     }
 
     List<KuorumUser> recommendOrganizations(KuorumUser user, Pagination pagination = new Pagination()){
