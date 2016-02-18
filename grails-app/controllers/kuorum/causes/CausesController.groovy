@@ -5,6 +5,8 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.search.Pagination
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserStatsService
+import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 import org.kuorum.rest.model.tag.SupportedCauseRSDTO
@@ -15,11 +17,14 @@ class CausesController {
 
     SpringSecurityService springSecurityService;
 
+    KuorumUserStatsService kuorumUserStatsService
+
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def supportCause(String causeName) {
         KuorumUser user = springSecurityService.currentUser
         SupportedCauseRSDTO causeRSDTO = causesService.toggleSupportCause(user, causeName)
-        render causeRSDTO as JSON
+        LeaningIndexRSDTO leaningIndex = kuorumUserStatsService.findLeaningIndex(user)
+        render ([cause:causeRSDTO, leaningIndex:leaningIndex] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

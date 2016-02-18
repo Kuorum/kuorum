@@ -915,7 +915,7 @@ $(document).ready(function() {
      *******************************/
 
     // SUPPORT CAUSES
-    $(".cause-support").on("click", "a", function(e){
+    $("body").on("click", ".cause-support a", function(e){
         e.preventDefault();
         e.stopPropagation();
         var $parent = $(this).parents(".cause")
@@ -926,9 +926,15 @@ $(document).ready(function() {
             $parent.toggleClass("active")
             hearBeat(2,  $a.find(".fa"));
             $.get(  $a.attr('href'), function( data ) {
-                var citizenVotes = data.citizenVotes
+                var citizenVotes = data.cause.citizenVotes
                 $a.find(".cause-counter").html(citizenVotes)
-                relaodAllDynamicDivs()
+//                relaodAllDynamicDivs()
+                if($("#right-panel-politicalLeaningIndex").length){
+                    var barWidth= data.leaningIndex.liberalIndex+'%';
+                    $("#right-panel-politicalLeaningIndex").find(".progress-bar").css('width',barWidth);
+                    $("#right-panel-politicalLeaningIndex").find(".tooltip").css('left',barWidth);
+                    $("#right-panel-politicalLeaningIndex").find(".tooltip-inner").html(barWidth);
+                }
             });
         }
     })
