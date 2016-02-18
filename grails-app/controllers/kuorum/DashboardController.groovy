@@ -13,7 +13,9 @@ import kuorum.project.Project
 import kuorum.project.ProjectEvent
 import kuorum.solr.SearchSolrService
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserStatsService
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 import springSecurity.KuorumRegisterCommand
@@ -24,6 +26,7 @@ class DashboardController {
     def cluckService
     def projectService
     def kuorumUserService
+    KuorumUserStatsService kuorumUserStatsService
     CausesService causesService
     SearchSolrService searchSolrService
 
@@ -63,7 +66,14 @@ class DashboardController {
         SuggestedCausesRSDTO suggestions = causesService.suggestCauses(user, new Pagination(max:6))
         SolrResults politicians = searchSolrService.search(new SearchParams(type: SolrType.POLITICIAN))
         List<CauseRSDTO> supportedCauses = causesService.findUserCauses(user)
-        render view: 'userDashboard', model:[loggedUser:user,suggestions:suggestions, politicians:politicians.elements, supportedCauses:supportedCauses]
+        LeaningIndexRSDTO userLeaningIndex = kuorumUserStatsService.findLeaningIndex(user)
+        render view: 'userDashboard', model:[
+                loggedUser:user,
+                suggestions:suggestions,
+                politicians:politicians.elements,
+                supportedCauses:supportedCauses,
+                userLeaningIndex:userLeaningIndex
+        ]
     }
 
     private def splitClucksInParts(List<Cluck> clucks){

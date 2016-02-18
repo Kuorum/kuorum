@@ -14,6 +14,7 @@ import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
 import javax.servlet.http.HttpServletResponse
@@ -170,8 +171,10 @@ class KuorumUserController {
         List<Project> userProjects = projectService.politicianProjects(politician)
         List<CauseRSDTO> causes = causesService.findUserCauses(politician)
         Campaign campaign = campaignService.findActiveCampaign(politician)
+        LeaningIndexRSDTO politicianLeaningIndex = kuorumUserStatsService.findLeaningIndex(politician)
         [
                 politician:politician,
+                politicianLeaningIndex:politicianLeaningIndex,
                 userProjects:userProjects,
                 recommendPoliticians:recommendPoliticians,
                 campaign:campaign,
