@@ -92,6 +92,7 @@ $(document).ready(function() {
                 var message = buttonFollow.attr('data-message-unfollow');
                 var userId = buttonFollow.attr('data-userId');
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
+                $("#user-list-followers-"+userId).fadeOut('slow').remove()
             });
         }
     }
