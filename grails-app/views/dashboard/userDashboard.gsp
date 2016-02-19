@@ -45,7 +45,7 @@
 
 <content tag="cColumn">
     <g:include controller="modules" action="userProfile"/>
-    <g:render template="dashboardModules/ipdbRequitmentCard"/>
+    <g:render template="dashboardModules/ipdbRecruitmentCard" model="[user:loggedUser]"/>
     %{--<g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex" model=""/>--}%
     %{--<g:render template="dashboardModules/supportedCauses" model="[user:loggedUser, supportedCauses:supportedCauses]"/>--}%
     <nav:delayedSection divId="user-leainingIndex-wrapper-id" mapping="ajaxModuleUserLeaningIndex" params="${[]}"/>
