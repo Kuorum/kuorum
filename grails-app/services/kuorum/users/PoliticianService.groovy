@@ -13,6 +13,7 @@ import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailService
+import kuorum.notifications.NotificationService
 import kuorum.solr.IndexSolrService
 import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
@@ -34,6 +35,7 @@ class PoliticianService {
     LinkGenerator grailsLinkGenerator
     IndexSolrService indexSolrService
     CausesService causesService
+    NotificationService notificationService
 
     private static final String IPDB_DATE_FORMAT = "dd/MM/yyyy HH:mm"
 
@@ -94,6 +96,8 @@ class PoliticianService {
         }
         user.requestedPoliticianBetaTester = true
         user.save()
+        notificationService.sendBetaTesterPurchaseNotification(user)
+        user
     }
 
     /**

@@ -1,9 +1,12 @@
 package kuorum.users
 
 import grails.transaction.Transactional
+import kuorum.notifications.NotificationService
 
 @Transactional
 class EditorService {
+
+    NotificationService notificationService
 
     KuorumUser requestEditorRights(KuorumUser user) {
 
@@ -12,6 +15,8 @@ class EditorService {
         }
         user.editorRules.requestedEditor = true;
         user.save()
+        notificationService.sendEditorPurchaseNotification(user)
+        user
     }
 
     KuorumUser discardEditorWarns(KuorumUser user) {

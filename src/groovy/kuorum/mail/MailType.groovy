@@ -41,6 +41,7 @@ public enum MailType {
     FEEDBACK                      (MailGroupType.ADMIN, "admin-deletedUser", [],["feedbackText", "feedbackUser", "feedbackUserLink", "userDeleted"]),
     POLITICIAN_SUBSCRIPTION       (MailGroupType.ADMIN, "admin-suscription", [],["userLink", "user", "offerType", "totalPrice"]),
     EDITOR_SUBSCRIPTION           (MailGroupType.ADMIN, "admin-suscription-editor", [],["userLink", "user"]),
+    POLITICIAN_SUBSCRIPTION_TESTER(MailGroupType.ADMIN, "admin-suscription-beta-tester", [],["userLink", "user"]),
     BATCH_PROCESS                 (MailGroupType.ADMIN, "admin-batchProcess",[],["rawMail", "SUBJECT"]);
 
 
