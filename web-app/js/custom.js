@@ -945,11 +945,11 @@ $(document).ready(function() {
             $parent.toggleClass("active");
             $parent.find(".cause-counter").html(citizenVotes);
 
-            if($("#right-panel-politicalLeaningIndex").length){
+            if($("#user-logged-leaning-index-panel-id").length){
                 var barWidth= data.leaningIndex.liberalIndex+'%';
-                $("#right-panel-politicalLeaningIndex").find(".progress-bar").css('width',barWidth);
-                $("#right-panel-politicalLeaningIndex").find(".tooltip").css('left',barWidth);
-                $("#right-panel-politicalLeaningIndex").find(".tooltip-inner").html(barWidth);
+                $("#user-logged-leaning-index-panel-id").find(".progress-bar").css('width',barWidth);
+                $("#user-logged-leaning-index-panel-id").find(".tooltip").css('left',barWidth);
+                $("#user-logged-leaning-index-panel-id").find(".tooltip-inner").html(barWidth);
             }
             relaodAllDynamicDivs()
         });

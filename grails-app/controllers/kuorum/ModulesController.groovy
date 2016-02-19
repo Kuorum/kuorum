@@ -100,7 +100,13 @@ class ModulesController {
     def userLeaningIndex() {
         KuorumUser user = springSecurityService.currentUser
         LeaningIndexRSDTO userLeaningIndex = kuorumUserStatsService.findLeaningIndex(user)
-        render template: "/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex", model:[user:user, leaningIndex: userLeaningIndex]
+        render template: "/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex",
+                model:[
+                        user:user,
+                        leaningIndex: userLeaningIndex,
+                        panelId:"user-logged-leaning-index-panel-id"
+
+                ]
     }
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userCauses() {

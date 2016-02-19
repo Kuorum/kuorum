@@ -1,5 +1,5 @@
 <%@ page import="kuorum.core.model.UserType" %>
-<section class="panel panel-default" id="right-panel-politicalLeaningIndex">
+<section class="panel panel-default" id="${panelId?:''}">
     <div class="panel-heading">
         <h3 class="panel-title"><g:message code="politician.leaningIndex.title"/> </h3>
     </div>
