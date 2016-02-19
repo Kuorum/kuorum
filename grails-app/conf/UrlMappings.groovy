@@ -288,7 +288,12 @@ class UrlMappings {
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
         name ajaxDeleteRecommendedUser: "/ajax/kuorumUser/deleteRecommendedUser"(controller: 'recommendedUserInfo', action: 'deleteRecommendedUser')
 
-        name politicianRequestBetaTester:               "/politician/request-beta-tester-account" (controller:"politician", action: "requestAPoliticianBetaTester")
+        name politicianRequestBetaTester:               "/account/request-beta-tester-account" (controller:"politician", action: "requestAPoliticianBetaTester")
+        name politicianAnalytics:                       "/account/data-analytics" (controller:"politician", action: "betaTesterPage")
+        name politicianContactProfiling:                "/account/contact-profiling" (controller:"politician", action: "betaTesterPage")
+        name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
+        name politicianMassMailing:                     "/account/mass-mailing" (controller:"politician", action: "betaTesterPage")
+        name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
 
         "/sitemap"{
             controller = 'siteMap'

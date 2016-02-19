@@ -16,4 +16,9 @@ class PoliticianController {
         politicianService.requestABetaTesterAccount(loggedUser)
         redirect mapping:'dashboard'
     }
+
+    def betaTesterPage(){
+        KuorumUser loggedUser = springSecurityService.currentUser
+        [user:loggedUser]
+    }
 }

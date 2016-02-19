@@ -47,31 +47,11 @@ class DashboardController {
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        if (SpringSecurityUtils.ifAnyGranted("ROLE_POLITICIAN")){
-            return politicianDashboard(user)
-        }else{
-            return userDashboard(user)
-        }
-        Pagination pagination = new Pagination()
-        List<Cluck> clucks =  cluckService.dashboardClucks(user,pagination)
-        List<ProjectEvent> projectEvents = projectService.findRelevantProjectEvents(user, new Pagination(max: MAX_PROJECT_EVENTS))
-        List<KuorumUser>mostActiveUsers=[]
-        if (!clucks){
-            mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7 , new Pagination(max: 20))
-        }
-        [clucks: splitClucksInParts(clucks), projectEvents:projectEvents,mostActiveUsers:mostActiveUsers, user:user,seeMore: clucks.size()==pagination.max]
-    }
-
-    def politicianDashboard(KuorumUser user){
-        render view: 'politicianDashboard', model:[user:user]
-    }
-
-    def userDashboard(KuorumUser user){
         Pagination causesPagination = new Pagination(max:6)
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
         SearchParams searchPoliticiansPagination = new SearchParams(type: SolrType.POLITICIAN)
         SolrResults politicians = searchSolrService.search(searchPoliticiansPagination)
-        render view: 'userDashboard', model:[
+        [
                 loggedUser:user,
                 causesSuggested:causesSuggested,
                 causesPagination:causesPagination,

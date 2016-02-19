@@ -32,14 +32,11 @@ class TourController {
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        if (SpringSecurityUtils.ifAnyGranted("ROLE_POLITICIAN")){
-            redirect(mapping:"dashboard")
-        }
         Pagination causesPagination = new Pagination(max:6)
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
         SearchParams searchPoliticiansPagination = new SearchParams(type: SolrType.POLITICIAN)
         SolrResults politicians = searchSolrService.search(searchPoliticiansPagination)
-        render view: '/dashboard/userDashboard', model:[
+        render view: '/dashboard/dashboard', model:[
                 loggedUser:user,
                 causesSuggested:causesSuggested,
                 causesPagination:causesPagination,
@@ -47,5 +44,6 @@ class TourController {
                 searchPoliticiansPagination:searchPoliticiansPagination,
                 tour:true
         ]
+
     }
 }
