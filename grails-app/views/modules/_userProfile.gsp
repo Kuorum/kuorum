@@ -19,7 +19,7 @@
             <li class="following">
                 <userUtil:counterFollowing user="${user}"/>
             </li>
-            <li class="posts"><span>${numPosts}</span> <g:message code="dashboard.userProfile.posts"/></li>
+            <li class="posts"><span>${numCauses}</span> <g:message code="dashboard.userProfile.causes"/></li>
         </ul>
     </div>
 </section>

@@ -35,8 +35,8 @@ class ModulesController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userProfile() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Integer numPosts = Post.countByOwner(user)
-        render template:'/modules/userProfile', model:[user:user, numPosts:numPosts]
+        Integer numCauses = causesService.findUserCauses(user).size()
+        render template:'/modules/userProfile', model:[user:user, numCauses:numCauses]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
