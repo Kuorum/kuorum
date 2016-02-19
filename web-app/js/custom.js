@@ -913,9 +913,18 @@ $(document).ready(function() {
     /*******************************
      *********** CAUSES ************
      *******************************/
+    // SUPPORT DASHBOARD CARDS CAUSES
+    $("body").on("click", ".causes-list .cause-support", function(e){
+        e.preventDefault();
+        clickSupportCause($(this))
+        var $liCause = $(this).closest("li")
+        $liCause.fadeOut('fast');
+        var appendUl = $(this).parents("ul.causes-list");
+        addNewCauseToList(appendUl);
+    })
 
-    // SUPPORT CAUSES
-    $("body").on("click", ".cause-support", function(e){
+    // SUPPORT CAUSES SMALL
+    $("body").on("click", ".causes-tags .cause-support", function(e){
         e.preventDefault();
         e.stopPropagation();
         var $parent = $(this).parents(".cause")
@@ -923,21 +932,26 @@ $(document).ready(function() {
             $('#registro').modal('show');
         }else{
             $a = $(this).find("a")
-            $parent.toggleClass("active")
-            hearBeat(2,  $a.find(".fa"));
-            $.get(  $a.attr('href'), function( data ) {
-                var citizenVotes = data.cause.citizenVotes
-                $a.find(".cause-counter").html(citizenVotes)
-                if($("#right-panel-politicalLeaningIndex").length){
-                    var barWidth= data.leaningIndex.liberalIndex+'%';
-                    $("#right-panel-politicalLeaningIndex").find(".progress-bar").css('width',barWidth);
-                    $("#right-panel-politicalLeaningIndex").find(".tooltip").css('left',barWidth);
-                    $("#right-panel-politicalLeaningIndex").find(".tooltip-inner").html(barWidth);
-                }
-            });
+            clickSupportCause($a)
         }
     })
-    // SUPORT CAUSES ON A CARD
+
+    function clickSupportCause($a){
+        hearBeat(2,  $a.find(".fa"));
+        $.get(  $a.attr('href'), function( data ) {
+            var citizenVotes = data.cause.citizenVotes
+            var $parent = $a.parents(".cause");
+            $parent.toggleClass("active");
+            $parent.find(".cause-counter").html(citizenVotes);
+
+            if($("#right-panel-politicalLeaningIndex").length){
+                var barWidth= data.leaningIndex.liberalIndex+'%';
+                $("#right-panel-politicalLeaningIndex").find(".progress-bar").css('width',barWidth);
+                $("#right-panel-politicalLeaningIndex").find(".tooltip").css('left',barWidth);
+                $("#right-panel-politicalLeaningIndex").find(".tooltip-inner").html(barWidth);
+            }
+        });
+    }
 
     function hearBeat(numHeartBeats, $element){
         if (numHeartBeats <0){
@@ -950,6 +964,34 @@ $(document).ready(function() {
                 'opacity': (back) ? 1 : 0.5
             }, 100, function(){hearBeat(numHeartBeats -1, $element)});
     }
+
+    // botón de cierre de las causas del dashboard
+    // DISCARD CAUSE DASHBOARD
+    if ($('.causes-list').length) {
+        $(".causes-list").on("click","li article a.close", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            var link = $(this).attr("href");
+            var $liCause = $(this).closest('li')
+            $.get( link)
+                .done(function(data) {
+                    var appendUl = $liCause.parents("ul.causes-list");
+                    addNewCauseToList(appendUl);
+                });
+            $liCause.fadeOut('fast');
+        });
+    }
+
+    function addNewCauseToList($ul){
+        var offset = $ul.next().children("a.loadMore").attr("data-offset");
+        var linkNewCause = $ul.next().children("a.loadMore").attr("href");
+        $.get(linkNewCause, { offset: offset, max:1})
+            .done(function(data){
+                $ul.append(data)
+            })
+    }
+
+
 //    $("form.submitOrangeButton input.form-control").on('keyup paste',function(){
 //        console.log("change")
 //        var submitButtons = $(this).parents("form").find("input[type=submit]");
