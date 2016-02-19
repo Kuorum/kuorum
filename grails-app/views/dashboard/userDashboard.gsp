@@ -49,7 +49,7 @@
     %{--<g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex" model=""/>--}%
     %{--<g:render template="dashboardModules/supportedCauses" model="[user:loggedUser, supportedCauses:supportedCauses]"/>--}%
     <nav:delayedSection divId="user-leainingIndex-wrapper-id" mapping="ajaxModuleUserLeaningIndex" params="${[]}"/>
-    <nav:delayedSection divId="user-causes-wrapper-id" mapping="ajaxModuleUserCauses" params="${[]}"/>
+    <nav:delayedSection divId="user-causes-wrapper-id" mapping="ajaxModuleUserCauses" params="${[]}" reload="true"/>
     <g:include controller="modules" action="recommendedUsers"/>
     <g:include controller="modules" action="recommendedPoliticiansUserDashboard"/>
 </content>

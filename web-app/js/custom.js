@@ -950,6 +950,7 @@ $(document).ready(function() {
                 $("#right-panel-politicalLeaningIndex").find(".tooltip").css('left',barWidth);
                 $("#right-panel-politicalLeaningIndex").find(".tooltip-inner").html(barWidth);
             }
+            relaodAllDynamicDivs()
         });
     }
 
