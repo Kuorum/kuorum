@@ -55,14 +55,22 @@ class ModulesController {
     def recommendedUsers() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user, new Pagination(max:14))
-        render template:'/modules/recommendedUsers', model:[recommendedUsers:recommendedUsers]
+        render template:'/modules/recommendedUsers',
+                model:[
+                        recommendedUsers:recommendedUsers,
+                        boxTitle:g.message(code:'modules.recommendedUsers.title')
+                ]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def recommendedPoliticiansUserDashboard() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:14))
-        render template:'/modules/recommendedUsers', model:[recommendedUsers:recommendedUsers]
+        render template:'/modules/recommendedUsers',
+                model:[
+                        recommendedUsers:recommendedUsers,
+                        boxTitle:g.message(code:'modules.recommendedPoliticians.title')
+                ]
     }
 
     @Deprecated
