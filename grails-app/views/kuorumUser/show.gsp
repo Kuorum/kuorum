@@ -21,7 +21,7 @@
         <ul class="activity">
             <li><userUtil:counterFollowers user="${user}"/></li>
             <li><userUtil:counterFollowing user="${user}"/></li>
-            <li><span class="counter">${user.activity}</span> <br><g:message code="kuorumUser.popover.cause"/></li>
+            <li><span class="counter">${numCauses}</span> <br><g:message code="kuorumUser.popover.cause"/></li>
             %{--<g:render template="/kuorumUser/userRecordsLi" model="[user:user]"/>--}%
         </ul>
     </div>

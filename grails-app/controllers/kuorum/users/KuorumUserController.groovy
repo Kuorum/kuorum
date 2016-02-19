@@ -105,6 +105,8 @@ class KuorumUserController {
         SearchUserPosts searchUserPosts = new SearchUserPosts(user:user, publishedPosts: true);
         List<Post> userPosts = postService.userPosts(searchUserPosts)
         Long numUserPosts = postService.countUserPost(searchUserPosts)
+        List<CauseRSDTO> causes = causesService.findUserCauses(user)
+        Integer numCauses = causes.size()
         SearchUserPosts searchVictoryUserPosts = new SearchUserPosts(user:user, publishedPosts: true,  victory: true);
         List<Post> userVictoryPosts = postService.userPosts(searchVictoryUserPosts)
         Long numUserVictoryPosts = postService.countUserPost(searchVictoryUserPosts)
@@ -121,6 +123,7 @@ class KuorumUserController {
                         userPosts:userPosts,
                         numUserPosts:numUserPosts,
                         userVictoryPosts:userVictoryPosts,
+                        numCauses:numCauses,
                         numUserVictoryPosts:numUserVictoryPosts
                 ])
     }
