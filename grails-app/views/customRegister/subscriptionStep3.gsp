@@ -18,7 +18,7 @@
     </ol>
     <div class="signup final">
         <h3><g:message code="subscriber.step3.congratulations"/> </h3>
-        <g:link mapping="home" class="btn btn-lg">
+        <g:link mapping="tourStart" class="btn btn-lg">
             <g:message code="customRegister.step3.goToDashboard"/>
         </g:link>
     </div>
