@@ -69,7 +69,8 @@ class ModulesController {
         render template:'/modules/recommendedUsers',
                 model:[
                         recommendedUsers:recommendedUsers,
-                        boxTitle:g.message(code:'modules.recommendedPoliticians.title')
+                        boxTitle:g.message(code:'modules.recommendedPoliticians.title'),
+                        id:"extendedPolitician"
                 ]
     }
 

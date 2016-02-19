@@ -143,7 +143,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
 //        render view:'selectMyPassword', model:[userId:user.id, command:new ResetPasswordCommand()]
-        redirect mapping:'dashboard'
+        redirect mapping:'tour'
     }
 
 
