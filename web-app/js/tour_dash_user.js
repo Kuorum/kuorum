@@ -9,7 +9,7 @@ $(document).ready(function() {
             backdrop: true,
             template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey cancel" data-role="end">Skip tour</button><button class="btn" data-role="next">Next</button></div></div>',
             onEnd : function(tour_dash_user){
-//                window.location.href = urls.home;
+                window.location.href = urls.home;
             }
         });
 
