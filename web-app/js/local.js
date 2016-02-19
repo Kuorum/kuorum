@@ -236,6 +236,11 @@ $(document).ready(function() {
     // inicializamos la barra de progreso
     $('.progress-bar').progressbar();
 
+    $("#module-card-ipdb-recruitment-hideWarnButton").on("click", function(e){
+        e.preventDefault()
+        $("#module-card-ipdb-recruitment").fadeOut('fast')
+    })
+
     // desvanecer y eliminar la caja primera del Dashboard (.condition)
     $('body').on('click','aside.condition > .close', function(e) {
 

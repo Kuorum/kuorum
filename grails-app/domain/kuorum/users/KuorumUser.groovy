@@ -145,6 +145,7 @@ class KuorumUser {
 
         //POLITICIAN VALIDATION
 //        institution nullable:true
+        requestedPolitician nullable:true
         organization nullable: true
         politicianActivity nullable:true
         externalPoliticianActivities nullable: true
