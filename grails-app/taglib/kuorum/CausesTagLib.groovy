@@ -41,7 +41,7 @@ class CausesTagLib {
         }
 
         out << """
-                <li class="cause link-wrapper ${causeSupportClass}">
+                <li class="cause link-wrapper ${causeSupportClass}" id="cause-${cause.name.encodeAsKuorumUrl()}">
                     <a href='${searchLink}' class="sr-only hidden"> Search cause ${cause.name}</a>
                     <div class="cause-name" aria-hidden="true" tabindex="104">
                         <span class="fa fa-tag"></span>
@@ -62,9 +62,11 @@ class CausesTagLib {
     def card = {attrs ->
         CauseRSDTO cause = attrs.cause
 
-        UsersSupportingCauseRSDTO politiciansPage = causesService.mostRelevantPoliticianForCause(cause.name)
+        UsersSupportingCauseRSDTO politiciansPage = causesService.mostRelevantUsersForCause(cause.name, UserType.POLITICIAN)
+        UsersSupportingCauseRSDTO citizensPage = causesService.mostRelevantUsersForCause(cause.name, UserType.PERSON)
 
         List<KuorumUser> politicians = politiciansPage.data.collect{KuorumUser.get(it.id)}
+        List<KuorumUser> citizens = citizensPage.data.collect{KuorumUser.get(it.id)}
 
         out << g.render(
                 template:"/dashboard/dashboardModules/causeCard",
@@ -72,6 +74,7 @@ class CausesTagLib {
                         cause:cause,
                         mainPolitician:politicians.get(0),
                         politcians:politicians,
+                        citizens:citizens,
                         total:politiciansPage.total
                 ])
 

@@ -1,5 +1,6 @@
 package kuorum.causes
 
+import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
@@ -101,11 +102,11 @@ class CausesService {
         return cause
     }
 
-    UsersSupportingCauseRSDTO mostRelevantPoliticianForCause(String causeName){
+    UsersSupportingCauseRSDTO mostRelevantUsersForCause(String causeName, UserType userType){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.CAUSE_POLITICIANS,
                 [causeName:causeName],
-                [:])
+                [userType:userType.toString()])
         UsersSupportingCauseRSDTO supportingCauseRSDTO = null;
         if (response.data){
             supportingCauseRSDTO = new UsersSupportingCauseRSDTO(response.data)

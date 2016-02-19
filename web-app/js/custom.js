@@ -915,14 +915,14 @@ $(document).ready(function() {
      *******************************/
 
     // SUPPORT CAUSES
-    $("body").on("click", ".cause-support a", function(e){
+    $("body").on("click", ".cause-support", function(e){
         e.preventDefault();
         e.stopPropagation();
         var $parent = $(this).parents(".cause")
         if ( $parent.hasClass("noLogged")){
             $('#registro').modal('show');
         }else{
-            $a = $(this)
+            $a = $(this).find("a")
             $parent.toggleClass("active")
             hearBeat(2,  $a.find(".fa"));
             $.get(  $a.attr('href'), function( data ) {
@@ -937,6 +937,8 @@ $(document).ready(function() {
             });
         }
     })
+    // SUPORT CAUSES ON A CARD
+
     function hearBeat(numHeartBeats, $element){
         if (numHeartBeats <0){
             return;
