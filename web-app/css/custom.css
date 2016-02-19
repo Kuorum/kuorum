@@ -5182,7 +5182,7 @@ p.party{
 }
 .cause-footer .cause .cause-support:hover,
 .cause-footer .cause .cause-support:focus {text-decoration: none;}
-.cause-footer .cause .popover-trigger {font-size: 16px; font-size: 1.6rem;}
+.cause-footer .cause .popover-trigger {font-size: 14px; font-size: 1.4rem; color: #e6933c;}
 
 .cause.active .cause-support .fa-heart{display:inline}
 .cause.active .cause-support .fa-heart-o{display:none}
