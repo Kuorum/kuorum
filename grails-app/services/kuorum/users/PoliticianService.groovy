@@ -52,8 +52,6 @@ class PoliticianService {
         if (!politician.professionalDetails ){
             politician.professionalDetails = new ProfessionalDetails()
         }
-
-
         politician.professionalDetails.constituency = command.constituency
         politician.professionalDetails.institution = command.institution
         politician.professionalDetails.region= command.region
@@ -88,6 +86,14 @@ class PoliticianService {
             causesService.supportCause(politician, cause)
         }
         politician
+    }
+
+    KuorumUser requestABetaTesterAccount(KuorumUser user){
+        if (user.userType!= UserType.POLITICIAN){
+            throw new KuorumException("This user is not a politician")
+        }
+        user.requestedPoliticianBetaTester = true
+        user.save()
     }
 
     /**

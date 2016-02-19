@@ -9,10 +9,17 @@
 <content tag="mainContent">
     <div class="container-fluid">
         <section id="main" class="col-xs-12" role="main">
-            <div class="container-fluid politician-messages box-ppal">
-                <h1 class="alert">We are working on your premium dashboard. Wanna test it before anybody else?</h1>
-                <a href="#" class="btn btn-lg">Apply to become a tester</a>
-            </div>
+            <g:if test="${user.requestedPoliticianBetaTester}">
+                <div class="container-fluid politician-messages box-ppal">
+                    <h1><g:message code="dashboard.politician.temporal.betaTester.thanks"/> </h1>
+                </div>
+            </g:if>
+            <g:else>
+                <div class="container-fluid politician-messages box-ppal">
+                    <h1 class="alert"><g:message code="dashboard.politician.temporal.betaTester.request.title"/></h1>
+                    <g:link mapping="politicianRequestBetaTester" class="btn btn-lg"><g:message code="dashboard.politician.temporal.betaTester.request.button"/></g:link>
+                </div>
+            </g:else>
         </section>
     </div>
 </content>

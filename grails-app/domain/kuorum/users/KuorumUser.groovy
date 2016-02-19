@@ -45,6 +45,7 @@ class KuorumUser {
     UserType userType = UserType.PERSON
 
     Boolean requestedPolitician = Boolean.FALSE
+    Boolean requestedPoliticianBetaTester = Boolean.FALSE
     EditorRules editorRules
 
     List<CommissionType> relevantCommissions = CommissionType.values()
@@ -146,6 +147,7 @@ class KuorumUser {
         //POLITICIAN VALIDATION
 //        institution nullable:true
         requestedPolitician nullable:true
+        requestedPoliticianBetaTester nullable:true
         organization nullable: true
         politicianActivity nullable:true
         externalPoliticianActivities nullable: true

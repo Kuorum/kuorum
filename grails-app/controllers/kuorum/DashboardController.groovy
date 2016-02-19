@@ -63,7 +63,7 @@ class DashboardController {
     }
 
     def politicianDashboard(KuorumUser user){
-        render view: 'politicianDashboard', model:[]
+        render view: 'politicianDashboard', model:[user:user]
     }
 
     def userDashboard(KuorumUser user){
