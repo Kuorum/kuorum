@@ -5145,6 +5145,7 @@ p.party{
     margin: 0px 10px 10px 0;
     padding: 1px 50px 1px 0;
 }
+.causes-tags.hide4 > li + li +li +li +li {display:none;}
 .causes-tags .cause:hover,
 .causes-tags .cause:active,
 .causes-tags .cause:focus{

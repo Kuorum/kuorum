@@ -51,7 +51,7 @@
                 <a href="#" class="hidden" rel="nofollow">Mostrar lista de usuarios que apoyan esta causa</a>
                 <button type="button" class="close" aria-hidden="true" data-dismiss="popover"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">cerrar</span></button>
                 <div class="popover-user-list">
-                    <p>Usuarios que apoyan esta causa</p>
+                    <p><g:message code="cause.card.support.citizens.text"/> </p>
                     <div class="scroll">
                         <ul>
                             <g:render template="/kuorumUser/embebedUsersList" model="[users:citizens]"/>
