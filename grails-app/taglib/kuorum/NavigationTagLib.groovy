@@ -45,13 +45,13 @@ class NavigationTagLib {
         def mappingParams = attrs.mappingParams?:[]
         String parentId = attrs.parentId
         String formId = attrs.formId?:''
-        String cssClass = attrs.class?:''
+        String cssClass = attrs.cssClass?:''
         String dataFormId = formId?"data-form-id='${formId}'":''
 
         def link = createLink(mapping: mapping, params:mappingParams)
         if (numElements>=pagination.max){
             out <<"""
-                <div id="load-more" class="text-center ${cssClass}">
+                <div class="load-more ${cssClass}">
                     <a href="${link}" class="loadMore" data-parent-id="${parentId}" ${dataFormId} data-offset="${pagination.max}">
                         ${message(code:"search.list.seeMore")}
                         <span class="fa fa-angle-down"></span>
