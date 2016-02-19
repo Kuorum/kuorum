@@ -8,6 +8,9 @@
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta itemprop="image" content="${resource(dir: 'images', file: 'home1.jpg')}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
+    <g:if test="${tour}">
+        <r:require module="tour"/>
+    </g:if>
 </head>
 
 
@@ -45,7 +48,7 @@
 
 <content tag="cColumn">
     <g:include controller="modules" action="userProfile"/>
-    <g:render template="dashboardModules/ipdbRecruitmentCard" model="[user:loggedUser]"/>
+    <g:render template="/dashboard/dashboardModules/ipdbRecruitmentCard" model="[user:loggedUser]"/>
     %{--<g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex" model=""/>--}%
     %{--<g:render template="dashboardModules/supportedCauses" model="[user:loggedUser, supportedCauses:supportedCauses]"/>--}%
     <nav:delayedSection divId="user-leainingIndex-wrapper-id" mapping="ajaxModuleUserLeaningIndex" params="${[]}"/>

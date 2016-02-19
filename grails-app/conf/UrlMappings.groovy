@@ -229,9 +229,6 @@ class UrlMappings {
 
         name tourStart:           "/tour" (controller:"tour", action: "index")
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
-        name tour_project:            "/tour/proyecto"       (controller:"tour", action: "tour_project")
-                                  "/tour/ley"       (controller:"tour", action: "tour_project")
-        name tour_post:           "/tour/publicacion" (controller:"tour", action: "tour_post")
 
         name campaignPoll:        "/campaign/poll" (controller: "campaign", action: "saveCitizenPriorities")
 
