@@ -71,11 +71,13 @@ class ModulesController {
         render template: "/layouts/footer/footerRegisterRelevantUsers", model: [users:users]
     }
 
+    @Deprecated
     def recommendedProjects(){
         List<Project> projects = projectService.relevantProjects(new Pagination(max:NUM_RELEVANT_PROJECT))
         render template: "/dashboard/landingPageModules/relevantProjects", model: [projects:projects]
     }
 
+    @Deprecated
     def recommendedPoliticians(){
         KuorumUser user = null;
         if (springSecurityService.isLoggedIn()){

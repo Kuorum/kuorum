@@ -7,6 +7,24 @@
         </g:link>
     </li>
 
+
+    <sec:ifAnyGranted roles="ROLE_ADMIN, ROLE_POLITICIAN">
+        <li class="dropdown box tools">
+            <a href="#" class="dropdown-toggle navbar-link special" id="open-politician-tools" tabindex="7" data-toggle="dropdown" role="button">
+                <span class="sr-only">Tools</span>
+                <span class="visible-xs">Tools</span>
+            </a>
+            <ul class="dropdown-menu politician" aria-labelledby="open-politician-tools" role="menu">
+                <div class="container-fluid">
+                    <li><a href="#">Social Data Analytics</a></li>
+                    <li><a href="#">Contact Profiling</a></li>
+                    <li><a href="#" class="active">Inbox</a></li>
+                    <li><a href="#">Mass Mailing</a></li>
+                    <li><a href="#">Team Management</a></li>
+                </div>
+            </ul>
+        </li>
+    </sec:ifAnyGranted>
     %{--<li class="underline">--}%
         %{--<g:link mapping="discoverProjects" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "discoverProjects")}">--}%
             %{--<span class="fa fa-briefcase fa-lg"></span>--}%

@@ -48,7 +48,7 @@ class DashboardController {
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         if (SpringSecurityUtils.ifAnyGranted("ROLE_POLITICIAN")){
-
+            return politicianDashboard(user)
         }else{
             return userDashboard(user)
         }
@@ -60,6 +60,10 @@ class DashboardController {
             mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7 , new Pagination(max: 20))
         }
         [clucks: splitClucksInParts(clucks), projectEvents:projectEvents,mostActiveUsers:mostActiveUsers, user:user,seeMore: clucks.size()==pagination.max]
+    }
+
+    def politicianDashboard(KuorumUser user){
+        render view: 'politicianDashboard', model:[]
     }
 
     def userDashboard(KuorumUser user){
