@@ -210,31 +210,32 @@ class PoliticianService {
 
     private KuorumUser findOrRecoverPolitician(def line){
         String email = line.email
-        Long ipdbId = line.id?Long.parseLong(line.id):null
+        String externalId = line.id?:null
         //Search politician by email
         KuorumUser politician;
         if (email){
             politician = KuorumUser.findByEmail(email);
             if (politician){
                 if (!politician.politicianExtraInfo){
-                    politician.setPoliticianExtraInfo(new PoliticianExtraInfo(ipdbId: ipdbId))
+                    politician.setPoliticianExtraInfo(new PoliticianExtraInfo(externalId: externalId))
                 }
-                politician.politicianExtraInfo.ipdbId = ipdbId;
+                politician.politicianExtraInfo.externalId = externalId;
+                log.info("Updating ${politician.name} with externalId: ${externalId}")
                 return politician;
             }
         }
 
-        // Search politician by IPDB id
-        DBCursor result = KuorumUser.collection.find(['politicianExtraInfo.ipdbId':ipdbId],[_id:1])
+        // Search politician by externalId id
+        DBCursor result = KuorumUser.collection.find(['politicianExtraInfo.externalId':externalId],[_id:1])
         if (result.hasNext()){
             ObjectId userId = result.next()._id
             politician = KuorumUser.findById(userId)
-            log.debug("Updating ${politician.name} with ipdbId: ${ipdbId}")
+            log.info("Updating ${politician.name} with externalId: ${externalId}")
         }else{
             politician = new KuorumUser()
             politician.enabled = false
-            politician.setPoliticianExtraInfo(new PoliticianExtraInfo(ipdbId: ipdbId))
-            log.debug("Creating politician with ipdbId ${ipdbId}")
+            politician.setPoliticianExtraInfo(new PoliticianExtraInfo(externalId: externalId))
+            log.info("Creating politician with ipdbId ${externalId}")
         }
         return politician
     }
