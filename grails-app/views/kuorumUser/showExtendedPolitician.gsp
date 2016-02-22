@@ -83,8 +83,8 @@
 <content tag="cColumn">
     <g:render template="showExtendedPoliticianTemplates/columnC/socialButtonsExtendedPoliticianColumnC" model="[user:politician]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
-    <g:render template="showExtendedPoliticianTemplates/columnC/leaningIndex" model="[user:politician]"/>
-    <div id="extendedPolitician"><g:render template="/modules/recommendedUsers" model="[recommendedUsers:recommendPoliticians]"/></div>
+    <g:render template="showExtendedPoliticianTemplates/columnC/leaningIndex" model="[user:politician, leaningIndex:politicianLeaningIndex]"/>
+    <g:render template="/modules/recommendedUsers" model="[recommendedUsers:recommendPoliticians, boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
     <g:render template="showExtendedPoliticianTemplates/columnC/professionalDetailExtendedPolitician" model="[politician:politician]"/>
     <g:render template="showExtendedPoliticianTemplates/columnC/quickNotesExtendedPolitician" model="[politician:politician]"/>
 </content>
@@ -104,5 +104,5 @@
     <g:if test="${campaign}">
         <g:render template="showExtendedPoliticianTemplates/modals/modalElection" model="[politician:politician, campaign:campaign]"/>
     </g:if>
-    <g:render template="showExtendedPoliticianTemplates/modals/modalContact" model="[politician:politician]"/>
+    <g:render template="showExtendedPoliticianTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>
 </content>

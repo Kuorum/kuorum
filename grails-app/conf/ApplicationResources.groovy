@@ -62,10 +62,8 @@ modules = {
     tour{
         dependsOn 'basic'
         resource url:'js/bootstrap-tour.min.js'
-        resource url:'css/bootstrap-tour.min.css'
-        resource url:'js/tour_dashboard.js'
-        resource url:'js/tour_project.js'
-        resource url:'js/tour_post.js'
+//        resource url:'css/bootstrap-tour.min.css'
+        resource url:'js/tour_dash_user.js'
     }
 
     projectStats{

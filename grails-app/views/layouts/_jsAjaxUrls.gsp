@@ -6,9 +6,7 @@
         search:'<g:createLink mapping="searcherSearch" absolute="true"/>',
         suggestRegion:'<g:createLink mapping="suggestRegions" absolute="true"/>',
         tour:{
-            tour_dashboard:'<g:createLink mapping="tour_dashboard"/>',
-            tour_project:'<g:createLink mapping="tour_project"/>',
-            tour_post:'<g:createLink mapping="tour_post"/>'
+            tour_dashboard:'<g:createLink mapping="tour_dashboard"/>'
         }
     }
     var ajaxHeadNotificationsChecked='<g:createLink mapping="ajaxHeadNotificationsChecked" absolute="true"/>'
@@ -66,6 +64,24 @@
         read:{
             more:'<g:message code="read.more"/>',
             less:'<g:message code="read.less"/>'
+        },
+        tour:{
+            step1:{
+                title:'<g:message code="tour.dashboard.step1.title"/>',
+                content:'<g:message code="tour.dashboard.step1.content"/>'
+            },
+            step2:{
+                title:'<g:message code="tour.dashboard.step2.title"/>',
+                content:'<g:message code="tour.dashboard.step2.content"/>'
+            },
+            step3:{
+                title:'<g:message code="tour.dashboard.step3.title"/>',
+                content:'<g:message code="tour.dashboard.step3.content"/>'
+            },
+            step4:{
+                title:'<g:message code="tour.dashboard.step4.title"/>',
+                content:'<g:message code="tour.dashboard.step4.content"/>'
+            }
         }
     }
 

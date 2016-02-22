@@ -7,6 +7,24 @@
         </g:link>
     </li>
 
+
+    <sec:ifAnyGranted roles="ROLE_POLITICIAN">
+        <li class="dropdown box tools">
+            <a href="#" class="dropdown-toggle navbar-link special" id="open-politician-tools" tabindex="7" data-toggle="dropdown" role="button">
+                <span class="sr-only"><g:message code="head.logged.account.tools"/></span>
+                <span class="visible-xs"><g:message code="head.logged.account.tools"/></span>
+            </a>
+            <ul class="dropdown-menu politician" aria-labelledby="open-politician-tools" role="menu">
+                <div class="container-fluid">
+                    <li><g:link mapping="politicianInbox" class="${nav.activeMenuCss(mappingName: "politicianAnalytics")}"><g:message code="head.logged.account.tools.analytics"/></g:link></li>
+                    <li><g:link mapping="politicianInbox" class="${nav.activeMenuCss(mappingName: "politicianContactProfiling")}"><g:message code="head.logged.account.tools.contactProfiling"/></g:link></li>
+                    <li><g:link mapping="politicianInbox" class="${nav.activeMenuCss(mappingName: "politicianInbox")}"><g:message code="head.logged.account.tools.inbox"/></g:link></li>
+                    <li><g:link mapping="politicianInbox" class="${nav.activeMenuCss(mappingName: "politicianMassMailing")}"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
+                    <li><g:link mapping="politicianInbox" class="${nav.activeMenuCss(mappingName: "politicianTeamManagement")}"><g:message code="head.logged.account.tools.teamManagement"/></g:link></li>
+                </div>
+            </ul>
+        </li>
+    </sec:ifAnyGranted>
     %{--<li class="underline">--}%
         %{--<g:link mapping="discoverProjects" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "discoverProjects")}">--}%
             %{--<span class="fa fa-briefcase fa-lg"></span>--}%

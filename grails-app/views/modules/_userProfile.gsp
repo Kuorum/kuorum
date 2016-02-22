@@ -1,4 +1,6 @@
 <section class="boxes edit-user">
+    <g:render template="/modules/userProfileAlerts/userPoliticianRequestWarn" model="[user:user]"/>
+    <g:render template="/modules/userProfileAlerts/userEditorRequest" model="[user:user]"/>
     <h1 class="sr-only"><g:message code="dashboard.userProfile.user"/> </h1>
     %{--<a href="" class="text-right edit">Editar</a>--}%
     <div class="user" itemscope itemtype="http://schema.org/Person">
@@ -17,7 +19,7 @@
             <li class="following">
                 <userUtil:counterFollowing user="${user}"/>
             </li>
-            <li class="posts"><span>${numPosts}</span> <g:message code="dashboard.userProfile.posts"/></li>
+            <li class="posts"><span>${numCauses}</span> <g:message code="dashboard.userProfile.causes"/></li>
         </ul>
     </div>
 </section>

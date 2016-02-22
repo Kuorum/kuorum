@@ -14,6 +14,7 @@ import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
 import javax.servlet.http.HttpServletResponse
@@ -104,6 +105,8 @@ class KuorumUserController {
         SearchUserPosts searchUserPosts = new SearchUserPosts(user:user, publishedPosts: true);
         List<Post> userPosts = postService.userPosts(searchUserPosts)
         Long numUserPosts = postService.countUserPost(searchUserPosts)
+        List<CauseRSDTO> causes = causesService.findSupportedCauses(user)
+        Integer numCauses = causes.size()
         SearchUserPosts searchVictoryUserPosts = new SearchUserPosts(user:user, publishedPosts: true,  victory: true);
         List<Post> userVictoryPosts = postService.userPosts(searchVictoryUserPosts)
         Long numUserVictoryPosts = postService.countUserPost(searchVictoryUserPosts)
@@ -120,6 +123,7 @@ class KuorumUserController {
                         userPosts:userPosts,
                         numUserPosts:numUserPosts,
                         userVictoryPosts:userVictoryPosts,
+                        numCauses:numCauses,
                         numUserVictoryPosts:numUserVictoryPosts
                 ])
     }
@@ -168,10 +172,12 @@ class KuorumUserController {
     def showExtendedPolitician(KuorumUser politician){
         List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(politician, new Pagination(max:12))
         List<Project> userProjects = projectService.politicianProjects(politician)
-        List<CauseRSDTO> causes = causesService.findUserCauses(politician)
+        List<CauseRSDTO> causes = causesService.findSupportedCauses(politician)
         Campaign campaign = campaignService.findActiveCampaign(politician)
+        LeaningIndexRSDTO politicianLeaningIndex = kuorumUserStatsService.findLeaningIndex(politician)
         [
                 politician:politician,
+                politicianLeaningIndex:politicianLeaningIndex,
                 userProjects:userProjects,
                 recommendPoliticians:recommendPoliticians,
                 campaign:campaign,

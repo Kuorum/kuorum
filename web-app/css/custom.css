@@ -994,6 +994,8 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .user-list-followers > li:last-child {margin: 0;}
 .user-list-followers li a {text-decoration: none;}
 .user-list-followers.hide4 > li + li + li +li +li {display: none;}
+.user-list-followers.hide3 > li + li + li +li {display: none;}
+.user-list-followers.hide2 > li + li + li {display: none;}
 
 .user-list-followers .popover{margin-top:3px;}
 
@@ -1496,17 +1498,11 @@ video#bgvid {
     margin: 0 0 20px 0;
 }
 
-.config #load-more{padding: 20px 0;}
-#load-more a {color: #a8a8a8;}
-#load-more a:hover,
-#load-more a:active,
-#load-more a:focus {text-decoration: underline;}
-
-#load-more.landingSearch{border-top: none; font-size:2.5rem; font-family: Arial, Helvetica, sans-serif;}
-#load-more.landingSearch a{color:#545454}
-
-.load-more {text-align: center; margin: 20px 0 30px;}
+.load-more {text-align: center; margin: 20px 0 30px; font-family: Arial, Helvetica, sans-serif;}
 .load-more a {color: #545454; font-size: 18px; font-size: 1.8rem;}
+
+.load-more.landingSearch{border-top: none; font-size:2.5rem;}
+.load-more.landingSearch a{color:#545454}
 
 /* este es para hacer visible lo ya cargado */
 #ver-mas {
@@ -5230,6 +5226,7 @@ p.party{
     margin: 0px 10px 10px 0;
     padding: 1px 50px 1px 0;
 }
+.causes-tags.hide4 > li + li +li +li +li {display:none;}
 .causes-tags .cause:hover,
 .causes-tags .cause:active,
 .causes-tags .cause:focus{

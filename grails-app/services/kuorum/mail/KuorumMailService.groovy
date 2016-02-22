@@ -100,6 +100,16 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
+    def sendNewBetaTesterRequestToAdmins(KuorumUser politicianBetaTester){
+        def bindings = [
+                userLink:generateLink("userShow",politicianBetaTester.encodeAsLinkProperties()),
+                user:politicianBetaTester.name
+        ]
+        MailUserData mailUserData = new MailUserData(user:getFeedbackUser())
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME, mailType: MailType.POLITICIAN_SUBSCRIPTION_TESTER, globalBindings: bindings, userBindings: [mailUserData])
+        mandrillAppService.sendTemplate(mailData)
+    }
+
     def sendVictoryToAdmins(KuorumUser user, Post post, Boolean victoryOk){
         KuorumUser admin = getFeedbackUser()
         def globalBindings = [

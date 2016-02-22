@@ -1,11 +1,15 @@
 package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.causes.CausesService
 import kuorum.core.model.project.ProjectBasicStats
 import kuorum.core.model.search.Pagination
 import kuorum.project.Project
-import kuorum.post.Post
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserStatsService
+import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
+import org.kuorum.rest.model.tag.CauseRSDTO
+import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 
 class ModulesController {
 
@@ -15,6 +19,8 @@ class ModulesController {
     def projectStatsService
     def notificationService
     def kuorumUserService
+    CausesService causesService;
+    KuorumUserStatsService kuorumUserStatsService
 
     private static final Long NUM_RELEVANT_FOOTER_USERS = 23
     private static final Long NUM_RELEVANT_PROJECT = 3
@@ -29,8 +35,8 @@ class ModulesController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userProfile() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Integer numPosts = Post.countByOwner(user)
-        render template:'/modules/userProfile', model:[user:user, numPosts:numPosts]
+        Integer numCauses = causesService.findSupportedCauses(user).size()
+        render template:'/modules/userProfile', model:[user:user, numCauses:numCauses]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -49,7 +55,23 @@ class ModulesController {
     def recommendedUsers() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<KuorumUser> recommendedUsers = kuorumUserService.recommendedUsers(user, new Pagination(max:14))
-        render template:'/modules/recommendedUsers', model:[recommendedUsers:recommendedUsers]
+        render template:'/modules/recommendedUsers',
+                model:[
+                        recommendedUsers:recommendedUsers,
+                        boxTitle:g.message(code:'modules.recommendedUsers.title')
+                ]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def recommendedPoliticiansUserDashboard() {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:14))
+        render template:'/modules/recommendedUsers',
+                model:[
+                        recommendedUsers:recommendedUsers,
+                        boxTitle:g.message(code:'modules.recommendedPoliticians.title'),
+                        id:"extendedPolitician"
+                ]
     }
 
     @Deprecated
@@ -58,11 +80,13 @@ class ModulesController {
         render template: "/layouts/footer/footerRegisterRelevantUsers", model: [users:users]
     }
 
+    @Deprecated
     def recommendedProjects(){
         List<Project> projects = projectService.relevantProjects(new Pagination(max:NUM_RELEVANT_PROJECT))
         render template: "/dashboard/landingPageModules/relevantProjects", model: [projects:projects]
     }
 
+    @Deprecated
     def recommendedPoliticians(){
         KuorumUser user = null;
         if (springSecurityService.isLoggedIn()){
@@ -70,6 +94,29 @@ class ModulesController {
         }
         List<KuorumUser> politicians = kuorumUserService.recommendPoliticians(user, new Pagination(max:NUM_RELEVANT_POLITICIANS))
         render template: "/dashboard/landingPageModules/relevantPoliticians", model: [politicians:politicians]
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def userLeaningIndex() {
+        KuorumUser user = springSecurityService.currentUser
+        LeaningIndexRSDTO userLeaningIndex = kuorumUserStatsService.findLeaningIndex(user)
+        render template: "/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex",
+                model:[
+                        user:user,
+                        leaningIndex: userLeaningIndex,
+                        panelId:"user-logged-leaning-index-panel-id"
+
+                ]
+    }
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def userCauses() {
+        KuorumUser user = springSecurityService.currentUser
+        List<CauseRSDTO> supportedCauses = causesService.findSupportedCauses(user)
+
+        if (supportedCauses.size()>10){
+            supportedCauses = supportedCauses[0..9]
+        }
+        render template: "/dashboard/dashboardModules/supportedCauses", model:[user:user, supportedCauses:supportedCauses]
     }
 
 }

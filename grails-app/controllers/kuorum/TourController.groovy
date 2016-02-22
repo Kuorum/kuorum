@@ -1,76 +1,49 @@
 package kuorum
 
+import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.SpringSecurityUtils
+import kuorum.causes.CausesService
 import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.search.Pagination
+import kuorum.core.model.search.SearchParams
+import kuorum.core.model.solr.SolrResults
+import kuorum.core.model.solr.SolrType
 import kuorum.project.Project
 import kuorum.post.Cluck
 import kuorum.post.Post
+import kuorum.solr.SearchSolrService
 import kuorum.users.KuorumUser
+import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 
 class TourController {
 
-    def springSecurityService
-    def postService
-    def cluckService
-    def projectService
-    def postVoteService
+    SpringSecurityService springSecurityService
+    CausesService causesService
+    SearchSolrService searchSolrService
 
-    def beforeInterceptor ={
-        KuorumUser user
-        if (springSecurityService.isLoggedIn()){
-            user = KuorumUser.get(springSecurityService.principal.id)
-        }else{
-            user = KuorumUser.list(max:1, sort:'id', order:'asc').first()
-            user.name = "Nombre Usuario"
-            user.avatar = null
-
-        }
-        params.user = user
-    }
 
     def index(){
         redirect(mapping:'tour_dashboard')
     }
 
     def tour_dashboard() {
-        KuorumUser user = params.user
-        List<Post> posts = Post.findAllByOwnerNotEqual(user,[max:5, sort:'id', order:'asc'])
-        List<Cluck> fakeClucks = posts.collect{post ->
-            Cluck cluckFake = new Cluck(
-                    owner:user,
-                    postOwner:post.owner,
-                    defendedBy:null,
-//                    sponsors:[],
-//                    debateMembers:[],
-//                    isFirstCluck:Boolean.FALSE,
-                    project:post.project,
-                    post:post,
-                    dateCreated:post.dateCreated,
-                    lastUpdated:post.dateCreated
-            )
-            cluckFake.dateCreated = post.dateCreated
-            cluckFake.lastUpdated = post.dateCreated
-            cluckFake.post = post
-            cluckFake.project = post.project
-            cluckFake
+        if (!springSecurityService.isLoggedIn()){
+            redirect(mapping:"home")
+            return
         }
-        def recommendedUsers = posts.owner
-        [fakeClucks:fakeClucks, user:user, favorites:posts,recommendedUsers:recommendedUsers]
-    }
-    def tour_project() {
-        KuorumUser user = params.user
-        Project project = Project.findByStatus(ProjectStatusType.OPEN)
-        List<Post> victories = postService.projectVictories(project)
-        def clucks = cluckService.projectClucks(project,new Pagination(max:4))
-        Integer necessaryVotesForKuorum = projectService.necessaryVotesForKuorum(project)
-        [user:user, project:project,victories:victories,clucks:clucks,necessaryVotesForKuorum:necessaryVotesForKuorum]
-    }
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Pagination causesPagination = new Pagination(max:6)
+        SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
+        SearchParams searchPoliticiansPagination = new SearchParams(type: SolrType.POLITICIAN)
+        SolrResults politicians = searchSolrService.search(searchPoliticiansPagination)
+        render view: '/dashboard/dashboard', model:[
+                loggedUser:user,
+                causesSuggested:causesSuggested,
+                causesPagination:causesPagination,
+                politicians:politicians,
+                searchPoliticiansPagination:searchPoliticiansPagination,
+                tour:true
+        ]
 
-    def tour_post() {
-        KuorumUser user = params.user
-        Post post = Post.findByDefenderIsNull()
-        List<Post> relatedPost = postService.relatedPosts(post,  user,  3 )
-        List<KuorumUser> usersVotes = postVoteService.findVotedUsers(post, new Pagination(max:20))
-        [user:user, post:post,relatedPost:relatedPost,usersVotes:usersVotes]
     }
 }

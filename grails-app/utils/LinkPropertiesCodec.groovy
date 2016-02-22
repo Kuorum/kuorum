@@ -9,6 +9,7 @@ import kuorum.core.model.solr.SolrPost
 import kuorum.project.Project
 import kuorum.post.Post
 import kuorum.users.KuorumUser
+import org.kuorum.rest.model.tag.CauseRSDTO
 
 /**
  * Created by iduetxe on 24/03/14.
@@ -21,6 +22,9 @@ class LinkPropertiesCodec {
 
         def params = [:]
         switch (target){
+            case CauseRSDTO:
+                params = prepareParams(target);
+                break
             case Project:
             case SolrProject:
 //                Project project = (Project) target
@@ -56,6 +60,9 @@ class LinkPropertiesCodec {
         //TODO
     }
 
+    private static def prepareParams(CauseRSDTO cause){
+        [causeName:cause.getName()]
+    }
 
     private static def prepareParams(Project project){
         String commissionName = translate("${CommissionType.canonicalName}.${project.commissions.first()}")

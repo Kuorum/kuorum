@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="${resource(dir: 'fonts/icomoon3', file: 'styles.css')}">
     %{--<link rel="stylesheet" href="css/bootstrap-tour.min.css">--}%
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'datepicker3.css')}">
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-tour.min.css')}">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}">
     <!-- Estilos sólo para IE -->
     <!--[if IE]><link rel="stylesheet" href="${resource(dir: 'css', file: 'style_ie.css')}" type="text/css" media="screen"><![endif]-->
@@ -105,7 +106,7 @@
         });
     </g:if>
     <sec:ifAnyGranted roles="ROLE_INCOMPLETE_USER">
-        <nav:ifActiveMapping mappingNames="registerStep2, registerStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3" equals="false">
+        <nav:ifActiveMapping mappingNames="registerStep2, registerStep3, registerSubscriptionStep1, registerSubscriptionStep1Save, registerSubscriptionStep3, tour_dashboard" equals="false">
                 $(function(){
                     display.warn("<userUtil:showMailConfirm /> ${pageProperty(name:'page.hiddeMailConfirmMessage')}");
                 });

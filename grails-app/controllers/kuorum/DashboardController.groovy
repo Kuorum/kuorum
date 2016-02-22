@@ -13,7 +13,9 @@ import kuorum.project.Project
 import kuorum.project.ProjectEvent
 import kuorum.solr.SearchSolrService
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserStatsService
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 import springSecurity.KuorumRegisterCommand
@@ -24,6 +26,7 @@ class DashboardController {
     def cluckService
     def projectService
     def kuorumUserService
+    KuorumUserStatsService kuorumUserStatsService
     CausesService causesService
     SearchSolrService searchSolrService
 
@@ -44,26 +47,25 @@ class DashboardController {
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-//        if (SpringSecurityUtils.ifAnyGranted("ROLE_POLITICIAN")){
-//
-//        }else{
-//            return userDashboard(user)
-//        }
-        Pagination pagination = new Pagination()
-        List<Cluck> clucks =  cluckService.dashboardClucks(user,pagination)
-        List<ProjectEvent> projectEvents = projectService.findRelevantProjectEvents(user, new Pagination(max: MAX_PROJECT_EVENTS))
-        List<KuorumUser>mostActiveUsers=[]
-        if (!clucks){
-            mostActiveUsers = kuorumUserService.mostActiveUsersSince(new Date() -7 , new Pagination(max: 20))
-        }
-        [clucks: splitClucksInParts(clucks), projectEvents:projectEvents,mostActiveUsers:mostActiveUsers, user:user,seeMore: clucks.size()==pagination.max]
+        Pagination causesPagination = new Pagination(max:6)
+        SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
+        SearchParams searchPoliticiansPagination = new SearchParams(type: SolrType.POLITICIAN)
+        SolrResults politicians = searchSolrService.search(searchPoliticiansPagination)
+        [
+                loggedUser:user,
+                causesSuggested:causesSuggested,
+                causesPagination:causesPagination,
+                politicians:politicians,
+                searchPoliticiansPagination:searchPoliticiansPagination
+        ]
     }
 
-    def userDashboard(KuorumUser user){
-        SuggestedCausesRSDTO suggestions = causesService.suggestCauses(user, new Pagination(max:6))
-        SolrResults politicians = searchSolrService.search(new SearchParams(type: SolrType.POLITICIAN))
-        List<CauseRSDTO> supportedCauses = causesService.findUserCauses(user)
-        render view: 'userDashboard', model:[loggedUser:user,suggestions:suggestions, politicians:politicians.elements, supportedCauses:supportedCauses]
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def dashboardCauses(Pagination pagination){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, pagination)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${causesSuggested.total < pagination.offset}")
+        render template: "/dashboard/dashboardModules/causeCardList", model:[causes:causesSuggested.data]
     }
 
     private def splitClucksInParts(List<Cluck> clucks){

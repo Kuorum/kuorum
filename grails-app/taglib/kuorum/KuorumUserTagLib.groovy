@@ -219,7 +219,7 @@ class KuorumUserTagLib {
     def roleName={attrs ->
         KuorumUser user = attrs.user
         if (user.userType == UserType.POLITICIAN){
-            String rolePolitician = user.professionalDetails?.politicalParty?:""
+            String rolePolitician = user.professionalDetails?.politicalParty?:message(code:'kuorum.core.model.UserType.POLITICIAN')
             out << rolePolitician
         }else{
             out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")

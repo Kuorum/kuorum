@@ -681,4 +681,7 @@ class NotificationService {
     void sendEditorPurchaseNotification(KuorumUser editor){
         kuorumMailService.sendNewEditorRequestToAdmins(editor)
     }
+    void sendBetaTesterPurchaseNotification(KuorumUser politician){
+        kuorumMailService.sendNewBetaTesterRequestToAdmins(politician)
+    }
 }

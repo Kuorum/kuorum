@@ -160,7 +160,7 @@
 
     <g:if test="${imageUrl}">
     $(function(){
-        changeImageBackground('${imageUrl}', '${imageId}')
+        changeImageBackground('${raw(imageUrl)}', '${imageId}')
     })
     </g:if>
 </script>

@@ -27,6 +27,7 @@ class UrlMappings {
         name landingEditors:   "/editors" (controller: "dashboard", action:"landingEditors")
         name landingPrices:    "/prices" (controller: "dashboard", action:"landingPrices")
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
+        name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
         name discover:                      "/descubre" (controller: "discover", action:"discoverProjects")
         name discoverProjects:              "/descubre/proyectos"         (controller: "discover", action:"discoverProjects")
                                             "/descubre/leyes"         (controller: "discover", action:"discoverProjects")
@@ -197,6 +198,7 @@ class UrlMappings {
         name toolsActivateAward:"/ajax/herramientas/el-gallinero/activar"     (controller: "tools", action: "kuorumStoreActivateAward")
 
         name causeSupport:         "/ajax/cause/$causeName/support" (controller:"causes", action: "supportCause")
+        name causeDiscard:         "/ajax/cause/$causeName/discard" (controller:"causes", action: "discardCause")
 
         name footerAboutUs:       "/kuorum"                         (controller:"footer", action: "aboutUs" )
         name footerVision:        "/kuorum/mision-and-vision"        (controller:"footer", action: "vision" )
@@ -227,9 +229,6 @@ class UrlMappings {
 
         name tourStart:           "/tour" (controller:"tour", action: "index")
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
-        name tour_project:            "/tour/proyecto"       (controller:"tour", action: "tour_project")
-                                  "/tour/ley"       (controller:"tour", action: "tour_project")
-        name tour_post:           "/tour/publicacion" (controller:"tour", action: "tour_post")
 
         name campaignPoll:        "/campaign/poll" (controller: "campaign", action: "saveCitizenPriorities")
 
@@ -246,6 +245,8 @@ class UrlMappings {
 
         name ajaxModuleProjectBottomStats: '/ajax/project/bottomProjectStats' (controller:'modules', action: 'bottomProjectStats')
                                        '/ajax/law/bottomLawStats' (controller:'modules', action: 'bottomProjectStats')
+        name ajaxModuleUserCauses:        "/ajax/module/user/causes" (controller:"modules", action: "userCauses")
+        name ajaxModuleUserLeaningIndex:  "/ajax/module/user/leaning-index" (controller:"modules", action: "userLeaningIndex")
 
         name login:     "/log-in"       (controller:"login", action:"index")
                         "/entrar"       (controller:"login", action:"index")
@@ -280,10 +281,19 @@ class UrlMappings {
         name editorEditPoliticianExperience:                "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/experiencia" (controller:"editorPolitician"){action =[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
         name editorKuorumAccountEdit:                       "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/account-details" (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
         name editorAdminUserRights:                         "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/rights" (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
+        name editorRequestRights:                           "/editor/request" (controller:"editorRecruitment", action: "requestEditor")
+        name editorDiscardWarns:                            "/editor/discard" (controller:"editorRecruitment", action: "discardEditor")
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
         name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
         name ajaxDeleteRecommendedUser: "/ajax/kuorumUser/deleteRecommendedUser"(controller: 'recommendedUserInfo', action: 'deleteRecommendedUser')
+
+        name politicianRequestBetaTester:               "/account/request-beta-tester-account" (controller:"politician", action: "requestAPoliticianBetaTester")
+        name politicianAnalytics:                       "/account/data-analytics" (controller:"politician", action: "betaTesterPage")
+        name politicianContactProfiling:                "/account/contact-profiling" (controller:"politician", action: "betaTesterPage")
+        name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
+        name politicianMassMailing:                     "/account/mass-mailing" (controller:"politician", action: "betaTesterPage")
+        name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
 
         "/sitemap"{
             controller = 'siteMap'

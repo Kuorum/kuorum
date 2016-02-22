@@ -92,6 +92,7 @@ $(document).ready(function() {
                 var message = buttonFollow.attr('data-message-unfollow');
                 var userId = buttonFollow.attr('data-userId');
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
+                $("#user-list-followers-"+userId).fadeOut('slow').remove()
             });
         }
     }
@@ -903,24 +904,60 @@ $(document).ready(function() {
     });
 
 
-    // SUPPORT CAUSES
-    $(".cause-support").on("click", "a", function(e){
+    /*****************
+     * Delayed modules
+     *****************/
+    $(".delayed").each(function(){
+        reloadDynamicDiv($(this))
+    })
+
+    /*******************************
+     *********** CAUSES ************
+     *******************************/
+    // SUPPORT DASHBOARD CARDS CAUSES
+    $("body").on("click", ".causes-list .cause-support", function(e){
+        e.preventDefault();
+        var $liCause = $(this).closest("li")
+        var appendUl = $(this).parents("ul.causes-list");
+        clickSupportCause($(this), function(){
+            $liCause.fadeOut('fast');
+            addNewCauseToList(appendUl);
+        })
+
+    })
+
+    // SUPPORT CAUSES SMALL
+    $("body").on("click", ".causes-tags .cause-support", function(e){
         e.preventDefault();
         e.stopPropagation();
         var $parent = $(this).parents(".cause")
         if ( $parent.hasClass("noLogged")){
             $('#registro').modal('show');
         }else{
-            $a = $(this)
-            $parent.toggleClass("active")
-            hearBeat(2,  $a.find(".fa"));
-            $.get(  $a.attr('href'), function( data ) {
-                console.log(data)
-                var citizenVotes = data.citizenVotes
-                $a.find(".cause-counter").html(citizenVotes)
-            });
+            $a = $(this).find("a")
+            clickSupportCause($a, function(){})
         }
     })
+
+    function clickSupportCause($a, actionAfterSupport){
+        hearBeat(2,  $a.find(".fa"));
+        $.get(  $a.attr('href'), function( data ) {
+            var citizenSupports = data.cause.citizenSupports
+            var $parent = $a.parents(".cause");
+            $parent.toggleClass("active");
+            $parent.find(".cause-counter").html(citizenSupports);
+
+            if($("#user-logged-leaning-index-panel-id").length){
+                var barWidth= data.leaningIndex.liberalIndex+'%';
+                $("#user-logged-leaning-index-panel-id").find(".progress-bar").css('width',barWidth);
+                $("#user-logged-leaning-index-panel-id").find(".tooltip").css('left',barWidth);
+                $("#user-logged-leaning-index-panel-id").find(".tooltip-inner").html(barWidth);
+            }
+            relaodAllDynamicDivs()
+            actionAfterSupport()
+        });
+    }
+
     function hearBeat(numHeartBeats, $element){
         if (numHeartBeats <0){
             return;
@@ -932,6 +969,34 @@ $(document).ready(function() {
                 'opacity': (back) ? 1 : 0.5
             }, 100, function(){hearBeat(numHeartBeats -1, $element)});
     }
+
+    // botón de cierre de las causas del dashboard
+    // DISCARD CAUSE DASHBOARD
+    if ($('.causes-list').length) {
+        $(".causes-list").on("click","li article a.close", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            var link = $(this).attr("href");
+            var $liCause = $(this).closest('li')
+            $.get( link)
+                .done(function(data) {
+                    var appendUl = $liCause.parents("ul.causes-list");
+                    addNewCauseToList(appendUl);
+                });
+            $liCause.fadeOut('fast');
+        });
+    }
+
+    function addNewCauseToList($ul){
+        var offset = $ul.next().children("a.loadMore").attr("data-offset");
+        var linkNewCause = $ul.next().children("a.loadMore").attr("href");
+        $.get(linkNewCause, { offset: offset, max:1})
+            .done(function(data){
+                $ul.append(data)
+            })
+    }
+
+
 //    $("form.submitOrangeButton input.form-control").on('keyup paste',function(){
 //        console.log("change")
 //        var submitButtons = $(this).parents("form").find("input[type=submit]");
@@ -1338,3 +1403,20 @@ function Campaign(id, name, headText,headVotedText,  modalDelay){
     return this;
 }
 
+function relaodAllDynamicDivs(){
+    if ($(".reload").length){
+        $(".reload").each(function(){
+            reloadDynamicDiv($(this))
+        })
+    }
+}
+
+function reloadDynamicDiv($div){
+    var link = $div.attr("data-link")
+    var loadingHtml = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
+    $div.html(loadingHtml)
+    $.get( link)
+        .done(function(data) {
+            $div.html(data)
+        });
+}

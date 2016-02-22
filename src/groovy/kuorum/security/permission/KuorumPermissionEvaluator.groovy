@@ -25,7 +25,7 @@ class KuorumPermissionEvaluator implements PermissionEvaluator {
         def loggedUser = springSecurityService.getCurrentUser();
         return  editedUser == loggedUser ||
                 SpringSecurityUtils.ifAnyGranted("ROLE_ADMIN") ||
-                SpringSecurityUtils.ifAnyGranted("ROLE_EDITOR")  && editedUser.userType == UserType.POLITICIAN
+                SpringSecurityUtils.ifAnyGranted("ROLE_EDITOR")  && editedUser.userType == UserType.POLITICIAN && !editedUser.enabled
 
     }
 

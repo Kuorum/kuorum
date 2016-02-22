@@ -20,8 +20,8 @@ class PoliticianCausesCommand {
     }
 
     public PoliticianCausesCommand(){}
-    public PoliticianCausesCommand(KuorumUser politician){
+    public PoliticianCausesCommand(KuorumUser politician, List<String> causes){
         this.politician = politician
-        this.causes = politician.tags?:[]
+        this.causes = causes?:[]
     }
 }

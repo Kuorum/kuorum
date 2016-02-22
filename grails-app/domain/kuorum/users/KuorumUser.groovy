@@ -44,6 +44,10 @@ class KuorumUser {
     PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
 
+    Boolean requestedPolitician = Boolean.FALSE
+    Boolean requestedPoliticianBetaTester = Boolean.FALSE
+    EditorRules editorRules
+
     List<CommissionType> relevantCommissions = CommissionType.values()
     List<ObjectId> following  = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
     List<ObjectId> followers = [] // KuorumUsersId => Is an id instead a KuorumUser because gorm updates all the following users
@@ -84,7 +88,8 @@ class KuorumUser {
             'politicianExtraInfo',
             'careerDetails',
             'institutionalOffice',
-            'politicalOffice'
+            'politicalOffice',
+            'editorRules'
     ]
 
     /**
@@ -137,10 +142,12 @@ class KuorumUser {
         imageProfile nullable:true
         userType nullable: false
         notice nullable: true
-
+        editorRules nullable:true
 
         //POLITICIAN VALIDATION
 //        institution nullable:true
+        requestedPolitician nullable:true
+        requestedPoliticianBetaTester nullable:true
         organization nullable: true
         politicianActivity nullable:true
         externalPoliticianActivities nullable: true

@@ -6,10 +6,13 @@ import kuorum.core.model.Gender
 import kuorum.core.model.project.ProjectRegionStats
 import kuorum.core.model.UserType
 import kuorum.project.AcumulativeVotes
+import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 
-@Transactional
+@Transactional(readOnly = true)
 class KuorumUserStatsService {
 
+    RestKuorumApiService restKuorumApiService
 
     ProjectRegionStats calculateStats(Region region){
         //TODO: Cache this method
@@ -76,12 +79,23 @@ class KuorumUserStatsService {
             return new PoliticianActivity()
         }else {
             if (!politician.politicianActivity){
-                log.warn("Pol�tico sin su actividad calculada previamente: "+politician)
+                log.warn("Politico sin su actividad calculada previamente: "+politician)
                 politician.politicianActivity = new PoliticianActivity()
                 politician.save()
             }
             return politician.politicianActivity
         }
 
+    }
+
+    LeaningIndexRSDTO findLeaningIndex(KuorumUser user){
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_STATS_LEANING_INDEX,
+                [userId:user.id.toString()],
+                [:]
+        )
+        LeaningIndexRSDTO leaningIndexRSDTO =  new LeaningIndexRSDTO(response.data)
+
+        return leaningIndexRSDTO;
     }
 }

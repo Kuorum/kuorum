@@ -36,12 +36,12 @@ class CausesTagLib {
         if (springSecurityService.isLoggedIn()){
             showCounter = """
                             <span class="sr-only">Cause support counter:</span>
-                            <span class="cause-counter">${cause.citizenVotes}</span>
+                            <span class="cause-counter">${cause.citizenSupports}</span>
                           """
         }
 
         out << """
-                <li class="cause link-wrapper ${causeSupportClass}">
+                <li class="cause link-wrapper ${causeSupportClass}" id="cause-${cause.name.encodeAsKuorumUrl()}">
                     <a href='${searchLink}' class="sr-only hidden"> Search cause ${cause.name}</a>
                     <div class="cause-name" aria-hidden="true" tabindex="104">
                         <span class="fa fa-tag"></span>
@@ -62,16 +62,19 @@ class CausesTagLib {
     def card = {attrs ->
         CauseRSDTO cause = attrs.cause
 
-        UsersSupportingCauseRSDTO politiciansPage = causesService.mostRelevantPoliticianForCause(cause.name)
+        UsersSupportingCauseRSDTO politiciansPage = causesService.mostRelevantDefenders(cause.name)
+        UsersSupportingCauseRSDTO citizensPage = causesService.mostRelevantSupporters(cause.name)
 
         List<KuorumUser> politicians = politiciansPage.data.collect{KuorumUser.get(it.id)}
+        List<KuorumUser> citizens = citizensPage.data.collect{KuorumUser.get(it.id)}
 
         out << g.render(
                 template:"/dashboard/dashboardModules/causeCard",
                 model:[
                         cause:cause,
-                        mainPolitician:politicians.get(0),
+                        mainPolitician:politicians?politicians.get(0):null,
                         politcians:politicians,
+                        citizens:citizens,
                         total:politiciansPage.total
                 ])
 

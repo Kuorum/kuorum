@@ -18,8 +18,8 @@
                     <div class="form-group">
                         <label for="cause" class="control-label"><g:message code="modal.contact.causeSelect"/></label>
                         <select class="form-control" name="cause" id="cause">
-                            <g:each in="${politician.tags}" var="tag">
-                                <option>${tag}</option>
+                            <g:each in="${causes}" var="cause">
+                                <option>${cause.name}</option>
                             </g:each>
                         </select>
                     </div>

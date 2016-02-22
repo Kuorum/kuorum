@@ -4,14 +4,14 @@ package kuorum.users.extendedPoliticianData
  * Created by iduetxe on 11/10/15.
  */
 class PoliticianExtraInfo {
-    Long ipdbId
+    String externalId
     String completeName
     Date birthDate
     String birthPlace
     String family
 
     static constraints = {
-        ipdbId nullable: true
+        externalId nullable: true
         completeName nullable:true
         birthDate nullable:true
         birthPlace nullable: true

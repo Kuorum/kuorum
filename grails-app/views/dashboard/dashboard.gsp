@@ -8,38 +8,52 @@
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta itemprop="image" content="${resource(dir: 'images', file: 'home1.jpg')}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
+    <g:if test="${tour}">
+        <r:require module="tour"/>
+    </g:if>
 </head>
 
 
 <content tag="mainContent">
+    <h2 class="underline">Suggested causes for you</h2>
+    <ul class="causes-list row" id="cause-card-list-id">
+        <g:render template="/dashboard/dashboardModules/causeCardList" model="[causes:causesSuggested.data]"/>
+    </ul>
 
-    <sec:ifLoggedIn>
-        <showNoticesDataIncomplete:showWarningsDataProfileIncomplete />
-    </sec:ifLoggedIn>
-
-    <g:if test="${clucks}">
-        <g:set var="urlLoadMore" value="${createLink(mapping: 'dashboardSeeMore')}"/>
-        <g:render template="/dashboard/listDashboardClucks" model="[clucks:clucks, projectEvents:projectEvents, urlLoadMore:urlLoadMore, seeMore:seeMore]"/>
-    </g:if>
-    %{--<g:else>--}%
-        %{--<g:render template="emptyClucks" model="[mostActiveUsers:mostActiveUsers]"/>--}%
-    %{--</g:else>--}%
+    <!-- ver más -->
+    <nav:loadMoreLink
+            formId="cause-card-list-loadMore"
+            mapping="dashboardCausesSeeMore"
+            parentId="cause-card-list-id"
+            pagination="${causesPagination}"
+            numElements="${causesSuggested.total}"/>
 
 
+    <h2 class="underline">Politicians who recently joined</h2>
+    <!-- LISTA DE POLÍTICOS -->
+    <ul class="politician-list row" id="search-list-id">
+        <g:render template="/search/searchElement" model="[docs:politicians.elements, columnsCss:'col-sm-6']"/>
+    </ul>
+
+    <nav:loadMoreLink
+            formId="search-form-loadMore"
+            mapping="searcherSearchSeeMore"
+            parentId="search-list-id"
+            pagination="${searchPoliticiansPagination}"
+            numElements="${politicians.numResults}"
+    >
+        <input type="hidden" name="word" value="${searchPoliticiansPagination.word}" />
+        <input type="hidden" name="type" value="${searchPoliticiansPagination.type}" />
+    </nav:loadMoreLink>
 </content>
 
 <content tag="cColumn">
     <g:include controller="modules" action="userProfile"/>
-    <g:include controller="modules" action="userProfileAlerts"/>
+    <g:render template="/dashboard/dashboardModules/ipdbRecruitmentCard" model="[user:loggedUser]"/>
+    %{--<g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex" model=""/>--}%
+    %{--<g:render template="dashboardModules/supportedCauses" model="[user:loggedUser, supportedCauses:supportedCauses]"/>--}%
+    <nav:delayedSection divId="user-leainingIndex-wrapper-id" mapping="ajaxModuleUserLeaningIndex" params="${[]}"/>
+    <nav:delayedSection divId="user-causes-wrapper-id" mapping="ajaxModuleUserCauses" params="${[]}" reload="true"/>
+    <g:include controller="modules" action="recommendedPoliticiansUserDashboard"/>
     <g:include controller="modules" action="recommendedUsers"/>
-    <modulesUtil:recommendedProjects />
-    <modulesUtil:recommendedPosts title="${message(code:"modules.recommendedPosts.title")}"/>
-    <g:include controller="modules" action="userFavorites"/>
 </content>
-
-%{--<content tag="footerStats">--}%
-    %{--<a href="#main" class="smooth top">--}%
-        %{--<span class="fa fa-caret-up fa-lg"></span>--}%
-        %{--<g:message code="project.up"/>--}%
-    %{--</a>--}%
-%{--</content>--}%

@@ -9,7 +9,7 @@ $(document).ready(function() {
             backdrop: true,
             template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey cancel" data-role="end">Skip tour</button><button class="btn" data-role="next">Next</button></div></div>',
             onEnd : function(tour_dash_user){
-                window.location.href = "dashboard-user.html";
+                window.location.href = urls.home;
             }
         });
 
@@ -24,11 +24,11 @@ $(document).ready(function() {
                         return 'right';
                     }
                 },
-                title: '1/4 SUPPORT CAUSES',
-                content: 'Wellcome to your dashboard. Here we’ll show you the causes that politicians around the world are defending. You can show your support by clicking in the heart icon.'
+                title: i18n.tour.step1.title,
+                content: i18n.tour.step1.content
             },
             {
-                element: '.pol-leaning',
+                element: '#user-leainingIndex-wrapper-id',
                 placement: function() {
                     if ($(window).width() < 769) {
                         return 'top';
@@ -37,8 +37,8 @@ $(document).ready(function() {
                         return 'left';
                     }
                 },
-                title: '2/4 MONITOR IDEOLOGY',
-                content: 'We’ll calculate your political leaning index depending on the causes you support. This will help us to put you in contact with politicians and influencers that match your ideology.'
+                title: i18n.tour.step2.title,
+                content: i18n.tour.step2.content
             },
             {
                 element: '#extendedPolitician',
@@ -50,11 +50,11 @@ $(document).ready(function() {
                         return 'left';
                     }
                 },
-                title: '3/4 FOLLOW POLITICIANS',
-                content: 'Follow politicians and decide what kind of events to be nitified aobut. You can also follow influencers and coordinate the next lobbying campaign. There’s no more excuses to change the world.'
+                title: i18n.tour.step3.title,
+                content: i18n.tour.step3.content
             },
             {
-                element: '.panel.collaborate',
+                element: '#module-card-ipdb-recruitment',
                 placement: function() {
                     if ($(window).width() < 769) {
                         return 'top';
@@ -63,8 +63,8 @@ $(document).ready(function() {
                         return 'left';
                     }
                 },
-                title: '4/4 BECOME AN EDITOR',
-                content: 'Some politicians don’t know yet about Kuorum. While they discover the advantages of transparency, we’ll monitor their activity for them. Want to become part of our team? Apply here ;)',
+                title: i18n.tour.step4.title,
+                content: i18n.tour.step4.content,
                 template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey cancel" data-role="next">Repeat</button><button class="btn" data-role="end">Got it!</button></div></div>',
                 next: 0
             }

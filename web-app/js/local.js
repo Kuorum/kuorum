@@ -110,15 +110,6 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-    
-    // botón de cierre de las causas del dashboard
-    if ($('.causes-list').length) {
-        $('body').on('click','.causes-list .close', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).closest('li').fadeOut('fast');
-        });
-    }
 
     // oscurecer el header de la Landing cuando se hace scroll
     if ($('#header.transp').length) {
@@ -244,6 +235,11 @@ $(document).ready(function() {
 
     // inicializamos la barra de progreso
     $('.progress-bar').progressbar();
+
+    $("#module-card-ipdb-recruitment-hideWarnButton").on("click", function(e){
+        e.preventDefault()
+        $("#module-card-ipdb-recruitment").fadeOut('fast')
+    })
 
     // desvanecer y eliminar la caja primera del Dashboard (.condition)
     $('body').on('click','aside.condition > .close', function(e) {

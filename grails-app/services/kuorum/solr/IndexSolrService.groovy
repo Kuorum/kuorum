@@ -310,7 +310,7 @@ class IndexSolrService {
                 dateCreated:kuorumUser.dateCreated,
                 commissions: kuorumUser.relevantCommissions,
                 regionName: regionName,
-                tags:kuorumUser.tags,
+//                tags:kuorumUser.tags,
                 regionIso3166_2: regionIso,
                 urlImage: kuorumUser.avatar?.url,
                 role:kuorumUser.gamification.activeRole,
