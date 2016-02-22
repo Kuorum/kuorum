@@ -12,5 +12,9 @@ dbDest.kuorumUser.aggregate(
         }}
     ]
 ).forEach(function(causeLeaning){
-    dbDest.cause.update({name:causeLeaning._id},{$set:{'leaningIndex.liberalIndex':causeLeaning.avg}});
+    dbDest.cause.update({name:causeLeaning._id},{
+        $set:{
+            'leaningIndex.liberalIndex':causeLeaning.avg
+        }
+    });
 })

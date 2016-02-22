@@ -9,6 +9,7 @@ import groovy.time.TimeCategory
 import groovyx.gpars.GParsPool
 import kuorum.PoliticalParty
 import kuorum.Region
+import kuorum.causes.CausesService
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.AvailableLanguage
@@ -35,6 +36,7 @@ import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
+import org.kuorum.rest.model.tag.CauseRSDTO
 import org.springframework.security.access.prepost.PreAuthorize
 
 @Transactional
@@ -47,6 +49,7 @@ class KuorumUserService {
     SpringSecurityService springSecurityService
     SearchSolrService searchSolrService;
     KuorumMailAccountService kuorumMailAccountService;
+    CausesService causesService
 
 
     GrailsApplication grailsApplication
@@ -640,10 +643,11 @@ class KuorumUserService {
         }
         searchParams.regionIsoCodes = regions.collect{it.iso3166_2}
         searchParams.setType(SolrType.POLITICIAN)
-        if (user?.userType == UserType.POLITICIAN && user?.tags){
-            String searchTag = user.tags.join(" ")
+        List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
+        if (user?.userType == UserType.POLITICIAN && causes){
+            String searchCauses = causes*.name.join(" ")
             //Se busca a todos los politicos con el *:* pero se ordena por score aquellos que compartan tag
-            searchParams.word = "(${searchTag} OR (*:*)"
+            searchParams.word = "(${searchCauses} OR (*:*)"
         }
         SolrResults results = searchSolrService.search(searchParams)
 

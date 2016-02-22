@@ -104,5 +104,5 @@
     <g:if test="${campaign}">
         <g:render template="showExtendedPoliticianTemplates/modals/modalElection" model="[politician:politician, campaign:campaign]"/>
     </g:if>
-    <g:render template="showExtendedPoliticianTemplates/modals/modalContact" model="[politician:politician]"/>
+    <g:render template="showExtendedPoliticianTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>
 </content>

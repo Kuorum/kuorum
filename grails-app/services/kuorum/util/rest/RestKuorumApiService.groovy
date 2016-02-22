@@ -80,14 +80,14 @@ class RestKuorumApiService {
 
     public enum ApiMethod{
         USER_STATS_LEANING_INDEX('/user/{userId}/stats/leaning-index'),
-        CAUSE_OPERATIONS("/cause/{causeName}"),
-        CAUSE_SUPPORT ("/cause/support/{userId}"),
-        CAUSE_SUPPORT_OPERATIONS ("/cause/support/{causeName}/{userId}"),
+        USER_CAUSES_SUPPORTED   ('/user/{userId}/causes/support'),
+        USER_CAUSES_SUPPORT     ('/user/{userId}/causes/support/{causeName}'),
+        USER_CAUSES_DEFENDED    ('/user/{userId}/causes/defend'),
+        USER_CAUSES_DEFEND      ('/user/{userId}/causes/defend/{causeName}'),
+        CAUSE_OPERATIONS        ("/cause/{causeName}"),
+        CAUSE_USERS_DEFENDING   ("/cause/{causeName}/defending"),
+        CAUSE_USERS_SUPPORTING  ("/cause/{causeName}/supporting"),
         CAUSE_SUGGESTIONS ("/cause/suggest"),
-        CAUSE_SUGGESTIONS_USER ("/cause/suggest/{userId}"),
-        CAUSE_SUGGESTIONS_USER_DISCARD('/cause/suggest/{userId}/{causeName}'),
-
-        CAUSE_POLITICIANS ("/cause/{causeName}/politicians"),
 
         ACCOUNT_INFO("/notification/mailing/{userAlias}"),
         ACCOUNT_MAILS("/notification/mailing/{userAlias}/emails");

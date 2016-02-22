@@ -36,7 +36,7 @@ class CausesTagLib {
         if (springSecurityService.isLoggedIn()){
             showCounter = """
                             <span class="sr-only">Cause support counter:</span>
-                            <span class="cause-counter">${cause.citizenVotes}</span>
+                            <span class="cause-counter">${cause.citizenSupports}</span>
                           """
         }
 
@@ -62,8 +62,8 @@ class CausesTagLib {
     def card = {attrs ->
         CauseRSDTO cause = attrs.cause
 
-        UsersSupportingCauseRSDTO politiciansPage = causesService.mostRelevantUsersForCause(cause.name, UserType.POLITICIAN)
-        UsersSupportingCauseRSDTO citizensPage = causesService.mostRelevantUsersForCause(cause.name, UserType.PERSON)
+        UsersSupportingCauseRSDTO politiciansPage = causesService.mostRelevantDefenders(cause.name)
+        UsersSupportingCauseRSDTO citizensPage = causesService.mostRelevantSupporters(cause.name)
 
         List<KuorumUser> politicians = politiciansPage.data.collect{KuorumUser.get(it.id)}
         List<KuorumUser> citizens = citizensPage.data.collect{KuorumUser.get(it.id)}

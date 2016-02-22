@@ -26,6 +26,7 @@ import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
+import org.kuorum.rest.model.tag.CauseRSDTO
 
 @Transactional
 class PoliticianService {
@@ -76,17 +77,15 @@ class PoliticianService {
     }
 
     KuorumUser updatePoliticianCauses(KuorumUser politician, List<String> causes){
-        politician.tags.each {cause ->
-            causesService.unsupportCause(politician, cause)
+
+        List<CauseRSDTO> oldCauses = causesService.findDefendedCauses(politician);
+        oldCauses.each {cause ->
+            causesService.withdrawCause(politician, cause.name)
         }
-        politician.tags = causes.findAll({it}).collect({it.decodeHashtag()})
-        if (politician.save()){
-            indexSolrService.index(politician)
+        causes.findAll({it?.trim()}).collect({it.decodeHashtag()}).each {cause ->
+            causesService.defendCause(politician, cause)
         }
-        politician.tags.each {cause ->
-            causesService.createCause(cause)
-            causesService.supportCause(politician, cause)
-        }
+        indexSolrService.index(politician)
         politician
     }
 
@@ -165,7 +164,7 @@ class PoliticianService {
                 tags << tag
             }
         }
-        politician.tags= tags
+        updatePoliticianCauses(politician, tags)
     }
 
     private void populateTimeLine(KuorumUser politician, def line) {
@@ -279,15 +278,15 @@ class PoliticianService {
         if (!politician.socialLinks){
             politician.socialLinks = new SocialLinks()
         }
-        politician.socialLinks.blog = line."blog"
-        politician.socialLinks.facebook = line."facebook"
-        politician.socialLinks.twitter = line."twitter"
-        politician.socialLinks.linkedIn = line."linkedin"
-        politician.socialLinks.googlePlus= line."googlePlus"
-        politician.socialLinks.instagram = line."instagram"
-        politician.socialLinks.youtube= line."youtubeChannel"
-        politician.socialLinks.officialWebSite = line."officialWebsite"
-        politician.socialLinks.institutionalWebSite = line."sourceWebsite"
+        politician.socialLinks.blog = line."blog"?.trim()
+        politician.socialLinks.facebook = line."facebook"?.trim()
+        politician.socialLinks.twitter = line."twitter"?.trim()
+        politician.socialLinks.linkedIn = line."linkedin"?.trim()
+        politician.socialLinks.googlePlus= line."googlePlus"?.trim()
+        politician.socialLinks.instagram = line."instagram"?.trim()
+        politician.socialLinks.youtube= line."youtubeChannel"?.trim()
+        politician.socialLinks.officialWebSite = line."officialWebsite"?.trim()
+        politician.socialLinks.institutionalWebSite = line."sourceWebsite"?.trim()
     }
 
     private void populateExternalPoliticianActivity(KuorumUser politician, def line){
@@ -299,9 +298,9 @@ class PoliticianService {
             if (title){
                 epa.date = parseDate(line."${prefix}${i}Date", IPDB_DATE_FORMAT)
                 epa.title =title
-                epa.link =line."${prefix}${i}Link"
-                epa.actionType =line."${prefix}${i}Action"
-                epa.outcomeType =line."${prefix}${i}Outcome"
+                epa.link =line."${prefix}${i}Link"?.trim()
+                epa.actionType =line."${prefix}${i}Action"?.trim()
+                epa.outcomeType =line."${prefix}${i}Outcome"?.trim()
                 externalPoliticianActivities << epa
             }
         }
@@ -313,7 +312,7 @@ class PoliticianService {
         if (!politician.politicianLeaning){
             politician.politicianLeaning = new PoliticianLeaning()
         }
-        String leanindIndex = line."political_leaning_index";
+        String leanindIndex = line."political_leaning_index"?.trim();
         Double dli = 0.5
         if (leanindIndex){
             dli = Double.parseDouble(leanindIndex)
@@ -326,29 +325,29 @@ class PoliticianService {
         if (!politician.institutionalOffice){
             politician.institutionalOffice = new OfficeDetails()
         }
-        politician.institutionalOffice.address = line."institutionalAddress"
-        politician.institutionalOffice.fax = line."institutionalFax"
-        politician.institutionalOffice.assistants = line."assistants"
-        politician.institutionalOffice.mobile = line."institutionalMobilePhone"
-        politician.institutionalOffice.telephone = line."institutionalTelephone"
+        politician.institutionalOffice.address = line."institutionalAddress"?.trim()
+        politician.institutionalOffice.fax = line."institutionalFax"?.trim()
+        politician.institutionalOffice.assistants = line."assistants"?.trim()
+        politician.institutionalOffice.mobile = line."institutionalMobilePhone"?.trim()
+        politician.institutionalOffice.telephone = line."institutionalTelephone"?.trim()
 
         if (!politician.politicalOffice){
             politician.politicalOffice = new OfficeDetails()
         }
-        politician.politicalOffice.address = line."electoralAddress"
-        politician.politicalOffice.fax = line."electoralFax"
+        politician.politicalOffice.address = line."electoralAddress"?.trim()
+        politician.politicalOffice.fax = line."electoralFax"?.trim()
         politician.politicalOffice.assistants = ""
-        politician.politicalOffice.mobile = line."electoralMobile"
-        politician.politicalOffice.telephone = line."electoralTelephone"
+        politician.politicalOffice.mobile = line."electoralMobile"?.trim()
+        politician.politicalOffice.telephone = line."electoralTelephone"?.trim()
     }
     private void populateExtraInfo(KuorumUser politician, def line){
         if (!politician.politicianExtraInfo){
             throw RuntimeException("Este politico no tiene el id de la BBDD")
         }
-        politician.politicianExtraInfo.completeName = line."completeName"?:line."name"
+        politician.politicianExtraInfo.completeName = line."completeName"?.trim()?:line."name"?.trim()
         politician.politicianExtraInfo.birthDate = parseDate(line."dateOfBirth", "dd/MM/yyyy")
-        politician.politicianExtraInfo.birthPlace = line."placeOfBirth"
-        politician.politicianExtraInfo.family = line."family"
+        politician.politicianExtraInfo.birthPlace = line."placeOfBirth"?.trim()
+        politician.politicianExtraInfo.family = line."family"?.trim()
     }
 
     private void populateProfessionalDetails(KuorumUser politician, def line){

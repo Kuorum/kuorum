@@ -1,6 +1,7 @@
 package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.causes.CausesService
 import kuorum.users.extendedPoliticianData.CareerDetails
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.politician.ExternalPoliticianActivityCommand
@@ -9,11 +10,13 @@ import kuorum.web.commands.profile.politician.PoliticianCausesCommand
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.commands.profile.politician.RelevantEventsCommand
+import org.kuorum.rest.model.tag.CauseRSDTO
 
 @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
 class PoliticianProfileController extends ProfileController{
 
     PoliticianService politicianService
+    CausesService causesService
 
     def editExternalActivity() {
         KuorumUser user = params.user
@@ -86,7 +89,8 @@ class PoliticianProfileController extends ProfileController{
 
     def editCauses(){
         KuorumUser politician = params.user
-        PoliticianCausesCommand command = new PoliticianCausesCommand(politician)
+        List<CauseRSDTO> causes = causesService.findDefendedCauses(politician)
+        PoliticianCausesCommand command = new PoliticianCausesCommand(politician, causes.collect{it.name})
         [command:command]
     }
 

@@ -5,7 +5,6 @@ import kuorum.causes.CausesService
 import kuorum.core.model.project.ProjectBasicStats
 import kuorum.core.model.search.Pagination
 import kuorum.project.Project
-import kuorum.post.Post
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserStatsService
 import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
@@ -35,7 +34,7 @@ class ModulesController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userProfile() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Integer numCauses = causesService.findUserCauses(user).size()
+        Integer numCauses = causesService.findSupportedCauses(user).size()
         render template:'/modules/userProfile', model:[user:user, numCauses:numCauses]
     }
 
@@ -111,7 +110,7 @@ class ModulesController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userCauses() {
         KuorumUser user = springSecurityService.currentUser
-        List<CauseRSDTO> supportedCauses = causesService.findUserCauses(user)
+        List<CauseRSDTO> supportedCauses = causesService.findSupportedCauses(user)
         render template: "/dashboard/dashboardModules/supportedCauses", model:[user:user, supportedCauses:supportedCauses]
     }
 

@@ -940,10 +940,10 @@ $(document).ready(function() {
     function clickSupportCause($a){
         hearBeat(2,  $a.find(".fa"));
         $.get(  $a.attr('href'), function( data ) {
-            var citizenVotes = data.cause.citizenVotes
+            var citizenSupports = data.cause.citizenSupports
             var $parent = $a.parents(".cause");
             $parent.toggleClass("active");
-            $parent.find(".cause-counter").html(citizenVotes);
+            $parent.find(".cause-counter").html(citizenSupports);
 
             if($("#user-logged-leaning-index-panel-id").length){
                 var barWidth= data.leaningIndex.liberalIndex+'%';

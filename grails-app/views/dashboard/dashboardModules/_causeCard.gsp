@@ -43,7 +43,7 @@
             </g:link>
             <a href="#" class="popover-trigger" rel="popover" role="button" data-toggle="popover">
                 <span class="sr-only"><g:message code="cause.card.support.citizens.text"/></span>
-                <span class="cause-counter">${cause.citizenVotes}</span>
+                <span class="cause-counter">${cause.citizenSupports}</span>
             </a>
 
         <!-- POPOVER PARA SACAR LISTAS DE USUARIOS QUE APOYAN LA CAUSA -->
