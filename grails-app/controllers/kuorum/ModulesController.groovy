@@ -9,6 +9,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserStatsService
 import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
+import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 
 class ModulesController {
 
@@ -111,7 +112,11 @@ class ModulesController {
     def userCauses() {
         KuorumUser user = springSecurityService.currentUser
         List<CauseRSDTO> supportedCauses = causesService.findSupportedCauses(user)
-        render template: "/dashboard/dashboardModules/supportedCauses", model:[user:user, supportedCauses:supportedCauses[0..Math.min(10, supportedCauses.size()-1)]]
+
+        if (supportedCauses.size()>10){
+            supportedCauses = supportedCauses[0..9]
+        }
+        render template: "/dashboard/dashboardModules/supportedCauses", model:[user:user, supportedCauses:supportedCauses]
     }
 
 }

@@ -28,7 +28,7 @@ $(document).ready(function() {
                 content: i18n.tour.step1.content
             },
             {
-                element: '#right-panel-politicalLeaningIndex',
+                element: '#user-leainingIndex-wrapper-id',
                 placement: function() {
                     if ($(window).width() < 769) {
                         return 'top';
