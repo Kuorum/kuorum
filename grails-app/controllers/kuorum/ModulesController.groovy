@@ -111,7 +111,7 @@ class ModulesController {
     def userCauses() {
         KuorumUser user = springSecurityService.currentUser
         List<CauseRSDTO> supportedCauses = causesService.findSupportedCauses(user)
-        render template: "/dashboard/dashboardModules/supportedCauses", model:[user:user, supportedCauses:supportedCauses]
+        render template: "/dashboard/dashboardModules/supportedCauses", model:[user:user, supportedCauses:supportedCauses[0..10]]
     }
 
 }

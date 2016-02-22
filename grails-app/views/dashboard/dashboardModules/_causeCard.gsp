@@ -12,9 +12,11 @@
             </div>
         </div>
     </div>
-    <div class="user author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-        <userUtil:showUser user="${mainPolitician}" showRole="true"/>
-    </div>
+    <g:if  test="${mainPolitician}">
+        <div class="user author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            <userUtil:showUser user="${mainPolitician}" showRole="true"/>
+        </div>
+    </g:if>
     <div class="cause-footer clearfix">
         <div class="politicians-counter">
             <a class="popover-trigger" rel="popover" role="button" data-toggle="popover">

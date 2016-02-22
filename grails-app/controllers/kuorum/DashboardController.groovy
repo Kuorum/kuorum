@@ -64,7 +64,7 @@ class DashboardController {
     def dashboardCauses(Pagination pagination){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, pagination)
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${causesSuggested.total <= pagination.offset}")
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${causesSuggested.total < pagination.offset}")
         render template: "/dashboard/dashboardModules/causeCardList", model:[causes:causesSuggested.data]
     }
 

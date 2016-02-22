@@ -917,11 +917,13 @@ $(document).ready(function() {
     // SUPPORT DASHBOARD CARDS CAUSES
     $("body").on("click", ".causes-list .cause-support", function(e){
         e.preventDefault();
-        clickSupportCause($(this))
         var $liCause = $(this).closest("li")
-        $liCause.fadeOut('fast');
         var appendUl = $(this).parents("ul.causes-list");
-        addNewCauseToList(appendUl);
+        clickSupportCause($(this), function(){
+            $liCause.fadeOut('fast');
+            addNewCauseToList(appendUl);
+        })
+
     })
 
     // SUPPORT CAUSES SMALL
@@ -933,11 +935,11 @@ $(document).ready(function() {
             $('#registro').modal('show');
         }else{
             $a = $(this).find("a")
-            clickSupportCause($a)
+            clickSupportCause($a, function(){})
         }
     })
 
-    function clickSupportCause($a){
+    function clickSupportCause($a, actionAfterSupport){
         hearBeat(2,  $a.find(".fa"));
         $.get(  $a.attr('href'), function( data ) {
             var citizenSupports = data.cause.citizenSupports
@@ -952,6 +954,7 @@ $(document).ready(function() {
                 $("#user-logged-leaning-index-panel-id").find(".tooltip-inner").html(barWidth);
             }
             relaodAllDynamicDivs()
+            actionAfterSupport()
         });
     }
 

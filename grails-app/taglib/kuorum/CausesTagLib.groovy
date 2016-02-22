@@ -72,7 +72,7 @@ class CausesTagLib {
                 template:"/dashboard/dashboardModules/causeCard",
                 model:[
                         cause:cause,
-                        mainPolitician:politicians.get(0),
+                        mainPolitician:politicians?politicians.get(0):null,
                         politcians:politicians,
                         citizens:citizens,
                         total:politiciansPage.total

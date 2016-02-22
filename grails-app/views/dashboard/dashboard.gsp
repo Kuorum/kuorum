@@ -22,6 +22,7 @@
 
     <!-- ver más -->
     <nav:loadMoreLink
+            formId="cause-card-list-loadMore"
             mapping="dashboardCausesSeeMore"
             parentId="cause-card-list-id"
             pagination="${causesPagination}"
