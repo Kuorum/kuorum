@@ -7,9 +7,6 @@
 </head>
 
 <content tag="leftMenu">
-    <h1>
-        <g:message code="admin.editSocialNetwork.title" args="[user.name]"/>
-    </h1>
     <g:render template="editorUserMenu" model="[user:user]"/>
 </content>
 

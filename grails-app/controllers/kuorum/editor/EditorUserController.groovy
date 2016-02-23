@@ -65,7 +65,7 @@ class EditorUserController {
         ProfileController.prepareUserImages(user,command, fileService)//Chapu for generic process
         kuorumUserService.updateUser(user)
         flash.message =message(code:'admin.editUser.success', args: [user.name])
-        redirect(mapping:'userShow', params:user.encodeAsLinkProperties())
+        redirect(mapping:'editorEditUserProfile', params:user.encodeAsLinkProperties())
     }
 
     def editAdminAccountDetails(){
