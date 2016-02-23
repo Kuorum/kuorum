@@ -49,7 +49,7 @@
                 </a>
             </li>
             <li>
-                <a href="https://plus.google.com/share?url=${sharedLink}" class="social-share google" title="${g.message(code:'dashboard.social.googlePlus.label')}">
+                <a href="https://plus.google.com/share?url=${sharedLink}" class="social-share google" title="${g.message(code:'dashboard.social.googlePlus.label')}" target="_blank">
                     <span class="fa-stack fa-lg">
                         <span class="fa fa-circle fa-stack-2x"></span>
                         <span class="fa fa-google-plus fa-stack-1x fa-inverse"></span>
