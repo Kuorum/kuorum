@@ -2,6 +2,7 @@ package kuorum.admin
 
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.model.UserType
 import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailchimpService
 import kuorum.project.Project
@@ -72,7 +73,6 @@ class AdminController {
         KuorumUserRightsCommand command = new KuorumUserRightsCommand()
         command.user = user
         command.active = user.enabled
-        command.userType = user.userType
         KuorumMailAccountDetailsRSDTO account = kuorumMailAccountService.getAccountDetails(user)
         command.emailAccountActive = account?.active?:false
         command.authorities = user.authorities
@@ -92,8 +92,6 @@ class AdminController {
         }else{
             kuorumMailAccountService.deleteAccount(user)
         }
-        user.userType = command.userType
-        user.personalData.userType = command.userType
         user.enabled = command.active?:false
         user.authorities = command.authorities
         if (command.password){

@@ -32,9 +32,6 @@
             </fieldset>
             <fieldset class="row">
                 <div class="form-group col-md-6">
-                    <formUtil:radioEnum command="${command}" field="userType" showLabel="true"/>
-                </div>
-                <div class="form-group col-md-6">
                     <formUtil:input type="number" command="${command}" field="relevance" showLabel="true"/>
                 </div>
             </fieldset>
