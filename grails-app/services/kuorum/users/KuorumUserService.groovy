@@ -452,13 +452,6 @@ class KuorumUserService {
                 user.personalData.provinceCode = user.personalData.province.iso3166_2
                 user.personalData.country = regionService.findCountry(user.personalData.province)
             }
-            if (user.authorities.collect{it.authority}.contains("ROLE_POLITICIAN")){
-                user.userType = UserType.POLITICIAN
-                user.personalData.userType = UserType.POLITICIAN
-            }else{
-                user.userType = UserType.PERSON
-                user.personalData.userType = UserType.PERSON
-            }
             if (springSecurityService.getCurrentUser().equals(user)){
                 springSecurityService.reauthenticate user.email
             }
