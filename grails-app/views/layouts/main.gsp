@@ -76,7 +76,7 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-
+    <span class="hidden" itemprop="name"><g:layoutTitle default="${g.message(code:"layout.head.title.default")}"/></span>
     <g:render template="/layouts/googleTagManager"/>
 
 
