@@ -10,7 +10,7 @@
               model="[
                       kuorumTitle:g.message(code:'search.noLogged.landing.title'),
                       kuorumDescription:g.message(code:'search.noLogged.landing.subTitle'),
-                      kuorumImage:request.siteUrl +r.resource(dir:'images', file:'background-search.png')
+                      kuorumImage:request.siteUrl +r.resource(dir:'images', file:'background-search.jpg')
               ]"/>
 </head>
 
