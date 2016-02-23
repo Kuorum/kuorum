@@ -1,10 +1,6 @@
 
 %{--Page description. No longer than 155 characters.--}%
-<g:set var="kuorumDescription" value="${message(code: 'layout.head.meta.description')}"/>
-<g:set var="kuorumTitle" value="${message(code: 'layout.head.meta.title')}"/>
 <g:set var="kuorumName" value="${message(code: 'kuorum.name')}"/>
-<g:set var="kuorumImage" value="${r.resource(dir:'images', file:'logo@2x.png', absolute:true)}"/>
-<g:set var="kuorumImage2" value="${r.resource(dir:'images', file:'home-video.png', absolute:true)}"/>
 
 <meta name="description" content="${kuorumDescription}" />
 
@@ -12,14 +8,12 @@
 <meta name="title" content="${kuorumTitle}" />
 <meta name="description" content="${kuorumDescription}" />
 <meta name="image" content="${kuorumImage}" />
-<meta name="image" content="${kuorumImage2}" />
 <meta name="keywords" content="${g.message(code:"layout.head.meta.keywords")}" />
 <meta name="application-name" content="${kuorumName}" />
 
 <meta itemprop="name" content="${kuorumName}">
 <meta itemprop="description" content="${kuorumDescription}">
 <meta itemprop="image" content="${kuorumImage}" />
-<meta itemprop="image" content="${kuorumImage2}" />
 
 
 <!-- Twitter Card data -->
@@ -29,13 +23,11 @@
 %{--Page description less than 200 characters--}%
 <meta name="twitter:description" content="${kuorumDescription}">
 <meta name="twitter:image" content="${kuorumImage}">
-<meta name="twitter:image" content="${kuorumImage2}">
+<meta property="twitter:account_id" content="4503599627910348" />
 <!-- Open Graph data -->
 <meta property="og:title" content="${kuorumTitle}" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="${request.forwardURI}" />
 <meta property="og:image" content="${kuorumImage}" />
-<meta property="og:image" content="${kuorumImage2}" />
 <meta property="og:description" content="${kuorumDescription}" />
 <meta property="og:site_name" content="${kuorumName}" />
 

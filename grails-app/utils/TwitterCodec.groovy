@@ -9,7 +9,7 @@ class TwitterCodec {
         else if (target.startsWith("@"))
             nickName = target.substring(1)
 
-        "@${nickName.trim()}"
+        "@${nickName.trim()}".toLowerCase()
     }
 
     static decode = {target->
@@ -19,6 +19,6 @@ class TwitterCodec {
         else if (target.startsWith("http")){
             nickName = target.split("/").last()
         }
-        "https://twitter.com/${nickName.trim()}"
+        "https://twitter.com/${nickName.trim()}".toLowerCase()
     }
 }

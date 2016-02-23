@@ -111,14 +111,14 @@ class CodecSpec extends Specification {
         twitterUrl == url
         where:
         twitterString                   | twitter     | url
-        "@nickName"                     | "@nickName" | "https://twitter.com/nickName"
-        "nickName"                      | "@nickName" | "https://twitter.com/nickName"
-        "http://twitter/nickName"       | "@nickName" | "https://twitter.com/nickName"
-        "http://twitter/nickName "      | "@nickName" | "https://twitter.com/nickName"
-        "https://twitter/nickName"      | "@nickName" | "https://twitter.com/nickName"
-        "https://twitter/nickName "     | "@nickName" | "https://twitter.com/nickName"
-        "http://XXXX/nickName"          | "@nickName" | "https://twitter.com/nickName"
-        "https://XXXX/nickName"         | "@nickName" | "https://twitter.com/nickName"
-        "httpNOT_VALID_URL/nickName"    | "@nickName" | "https://twitter.com/nickName"
+        "@nickName"                     | "@nickname" | "https://twitter.com/nickname"
+        "nickName"                      | "@nickname" | "https://twitter.com/nickname"
+        "http://twitter/nickName"       | "@nickname" | "https://twitter.com/nickname"
+        "http://twitter/nickName "      | "@nickname" | "https://twitter.com/nickname"
+        "https://twitter/nickName"      | "@nickname" | "https://twitter.com/nickname"
+        "https://twitter/nickName "     | "@nickname" | "https://twitter.com/nickname"
+        "http://XXXX/nickName"          | "@nickname" | "https://twitter.com/nickname"
+        "https://XXXX/nickName"         | "@nickname" | "https://twitter.com/nickname"
+        "httpNOT_VALID_URL/nickName"    | "@nickname" | "https://twitter.com/nickname"
     }
 }

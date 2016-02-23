@@ -72,9 +72,6 @@
     <g:javascript library="jquery" plugin="jquery"/>
     <g:javascript library="application"/>
     <r:layoutResources />
-    %{--<g:render template="/layouts/googleAnalyticsRemarketing"/>--}%
-    %{--<g:render template="/layouts/facebookRemarketing"/>--}%
-    %{--<g:render template="/layouts/twitterRemarketing"/>--}%
     <meta property="twitter:account_id" content="4503599627910348" />
 </head>
 

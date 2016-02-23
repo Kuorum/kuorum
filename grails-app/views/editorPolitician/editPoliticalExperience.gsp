@@ -6,9 +6,6 @@
 </head>
 
 <content tag="leftMenu">
-    <h1>
-        <g:message code="admin.editUser.title" args="[command.politician.name]"/>,
-    </h1>
     <g:render template="/editorUser/editorUserMenu" model="[user:command.politician]"/>
 </content>
 

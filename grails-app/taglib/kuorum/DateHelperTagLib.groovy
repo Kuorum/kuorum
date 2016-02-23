@@ -33,7 +33,7 @@ class DateHelperTagLib {
 
     def showShortedText={attrs->
         Integer numChars = attrs.numChars as Integer
-        String text = attrs.text
+        String text = attrs.text?.trim()
         if (text){
             text = text.encodeAsRemovingHtmlTags()
         }

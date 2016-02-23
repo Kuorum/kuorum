@@ -1,9 +1,14 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="kuorum.name"/></title>
+    <title><g:message code="kuorum.name"/>-<g:message code="landingPage.videoAndRegister.title"/></title>
     <meta name="layout" content="landingLayout">
     <parameter name="transparentHead" value="true"/>
-    <g:render template="/dashboard/landingMetaTags"/>
+    <g:render template="/dashboard/landingMetaTags"
+              model="[
+                      kuorumTitle:g.message(code:'landingPage.videoAndRegister.title'),
+                      kuorumDescription:g.message(code:'landingPage.videoAndRegister.subtitle'),
+                      kuorumImage:request.siteUrl +r.resource(dir:'images', file:'background.png')
+              ]"/>
 </head>
 
 <content tag="videoAndRegister">
