@@ -3,6 +3,7 @@
     <title><g:message code="kuorum.name"/></title>
     <meta name="layout" content="landingLayout">
     <parameter name="special-cssClass" value="prices"/>
+    <g:render template="/dashboard/landingMetaTags"/>
 </head>
 
 <content tag="special">

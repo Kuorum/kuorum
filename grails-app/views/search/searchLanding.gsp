@@ -6,6 +6,7 @@
     <parameter name="showHeadSearch" value="false"/>
     <parameter name="special-cssClass" value="noResults"/>
     <parameter name="transparentHead" value="true"/>
+    <g:render template="/dashboard/landingMetaTags"/>
 </head>
 
 <content tag="videoAndRegister">

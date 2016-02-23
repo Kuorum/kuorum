@@ -3,6 +3,7 @@
     <title><g:message code="kuorum.name"/></title>
     <meta name="layout" content="landingLayout">
     <parameter name="transparentHead" value="true"/>
+    <g:render template="/dashboard/landingMetaTags"/>
 </head>
 
 <content tag="videoAndRegister">
