@@ -917,13 +917,16 @@ $(document).ready(function() {
     // SUPPORT DASHBOARD CARDS CAUSES
     $("body").on("click", ".causes-list .cause-support", function(e){
         e.preventDefault();
-        var $liCause = $(this).closest("li")
-        var appendUl = $(this).parents("ul.causes-list");
-        clickSupportCause($(this), function(){
-            $liCause.fadeOut('fast');
-            addNewCauseToList(appendUl);
-        })
-
+        if ($(this).hasClass("disabled")){
+            //The cause card is disappearing and will be removed
+        }else{
+            $(this).addClass("disabled")
+            var $liCause = $(this).closest("li")
+            var appendUl = $(this).parents("ul.causes-list");
+            clickSupportCause($(this), function(){
+                addNewCauseToList(appendUl, $liCause);
+            })
+        }
     })
 
     // SUPPORT CAUSES SMALL
@@ -981,18 +984,26 @@ $(document).ready(function() {
             $.get( link)
                 .done(function(data) {
                     var appendUl = $liCause.parents("ul.causes-list");
-                    addNewCauseToList(appendUl);
+                    addNewCauseToList(appendUl, $liCause);
                 });
-            $liCause.fadeOut('fast');
         });
     }
 
-    function addNewCauseToList($ul){
+    function addNewCauseToList($ul, $li){
         var offset = $ul.next().children("a.loadMore").attr("data-offset");
         var linkNewCause = $ul.next().children("a.loadMore").attr("href");
         $.get(linkNewCause, { offset: offset, max:1})
             .done(function(data){
-                $ul.append(data)
+//                $ul.append(data)
+                var newCause = $(data).hide();
+                console.log(newCause)
+                $li.css('width',$li.width())
+                $li.children('article').fadeOut('fast', function(){
+                    $li.html(newCause)
+                    newCause.unwrap();
+                    newCause.fadeIn('fast')
+                    $li.css('width','')
+                });
             })
     }
 
