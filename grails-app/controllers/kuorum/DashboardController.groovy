@@ -49,7 +49,7 @@ class DashboardController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Pagination causesPagination = new Pagination(max:6)
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
-        SearchParams searchPoliticiansPagination = new SearchParams(type: SolrType.POLITICIAN)
+        SearchParams searchPoliticiansPagination = new SearchParams(type: SolrType.POLITICIAN, max:6)
         SolrResults politicians = searchSolrService.search(searchPoliticiansPagination)
         [
                 loggedUser:user,
