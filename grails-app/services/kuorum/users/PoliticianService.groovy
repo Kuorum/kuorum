@@ -123,7 +123,7 @@ class PoliticianService {
                     log.info("Uploaded ${user.name}")
                     politiciansOk += "<li> <a href='${grailsLinkGenerator.link(mapping: 'userShow', params:user.encodeAsLinkProperties(), absolute: true)}'> $user.name </a></li>"
                 }catch (Exception e){
-                    log.warn("Error parseando el pol�tico ${line.name}", e)
+                    log.warn("Error parseando el politico ${line.name}", e)
                     politiciansWrong +=  "<li>${line.name} (${line.id}): <i>${e.getMessage()}</i></li>"
                 }
             }
@@ -209,7 +209,7 @@ class PoliticianService {
     }
 
     private KuorumUser findOrRecoverPolitician(def line){
-        String email = line.email
+        String email = line.email?:generateEmail(null, line)
         String externalId = line.id?:null
         //Search politician by email
         KuorumUser politician;
@@ -242,18 +242,23 @@ class PoliticianService {
 
     private void populateBasicData(KuorumUser politician, def line){
         politician.name = line."name"
-        politician.bio = politician.bio?:line."bio"
+        politician.bio = politician.bio?:line."bio"?.trim()
         politician.userType = UserType.POLITICIAN
-        politician.email = line."email"?:politician.email?:"info+${line.id}-${politician.name.encodeAsMD5()}@kuorum.org"
+        politician.email = generateEmail(politician, line)
         politician.password = !politician.password?.startsWith("CSV")?"CSV ${Math.random()}":politician.password
         politician.verified = true
         politician.personalData = politician.personalData ?: new PersonData()
         politician.personalData.gender = line."gender"?Gender.valueOf(line."gender"):Gender.MALE
         politician.personalData.userType = politician.userType
-        politician.personalData.telephone = politician?.personalData?.telephone?:line."phone"
+        politician.personalData.telephone = politician?.personalData?.telephone?:line."phone"?.trim()
         if (!politician.save()){
             throw new KuorumException("Basic data not porvided, ${politician.errors}")
         }
+    }
+
+    private String generateEmail(KuorumUser politician, def line){
+        String twitterAlias = line."twitter"?.trim()?.encodeAsTwitter()?.substring(1)
+        politician?.email?:line."email"?:"info+${twitterAlias?:line."name"?.encodeAsMD5()}@kuorum.org"
     }
 
     private void populateImages(KuorumUser politician, def line){
