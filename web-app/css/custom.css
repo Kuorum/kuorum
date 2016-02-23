@@ -4532,7 +4532,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .row.main.presskit {background-position: center -190px;}
     .row.main.presskit section {padding: 60px 0;}
     .row.main.presskit h1 {font-size: 27px; font-size: 2.7rem; margin: 0; line-height: 1.6;}
-    .row.main.presskit input[type="email"] {width: 295px; height: 48px; margin-right: 25px;}
+    .row.main.presskit input[type="email"] {width: 255px; height: 48px; margin-right: 25px;}
     .row.main.presskit form {width: auto; max-width: none; margin-top: 25px;}
     .row.main.presskit .btn.btn-lg {width: auto; display: inline-block;}
     .main.special.profile .homeSub { min-height: 480px; background-position: center 210px; background-size: 420px auto;}
