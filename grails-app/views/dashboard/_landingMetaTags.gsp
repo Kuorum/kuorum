@@ -23,6 +23,7 @@
 %{--Page description less than 200 characters--}%
 <meta name="twitter:description" content="${kuorumDescription}">
 <meta name="twitter:image" content="${kuorumImage}">
+<meta property="twitter:account_id" content="4503599627910348" />
 <!-- Open Graph data -->
 <meta property="og:title" content="${kuorumTitle}" />
 <meta property="og:type" content="article" />
