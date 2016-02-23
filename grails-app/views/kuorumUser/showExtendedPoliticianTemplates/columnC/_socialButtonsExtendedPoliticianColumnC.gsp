@@ -19,7 +19,7 @@
         </a>
     </li>
     <li>
-        <g:set var="twitterName" value="${user?.socialLinks?.twitter?:user.name}"/>
+        <g:set var="twitterName" value="${user?.socialLinks?.twitter?.encodeAsTwitter()?:user.name}"/>
         <g:set var="twitterShareText"><g:message
                 code="kuorumUser.social.twitter.text"
                 args="[twitterName]"

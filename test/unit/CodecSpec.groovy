@@ -99,4 +99,26 @@ class CodecSpec extends Specification {
         ""                                              | ""            | true
         "kkafuti"                                       | ""            | true
     }
+
+    @Unroll
+    void "Test twitter encoder [twitterString: #twitterString]"(){
+        given:"The twitterString"
+        when:
+        String twitterNickname = TwitterCodec.encode(twitterString)
+        String twitterUrl = TwitterCodec.decode(twitterString)
+        then:
+        twitterNickname == twitter
+        twitterUrl == url
+        where:
+        twitterString                   | twitter     | url
+        "@nickName"                     | "@nickName" | "https://twitter.com/nickName"
+        "nickName"                      | "@nickName" | "https://twitter.com/nickName"
+        "http://twitter/nickName"       | "@nickName" | "https://twitter.com/nickName"
+        "http://twitter/nickName "      | "@nickName" | "https://twitter.com/nickName"
+        "https://twitter/nickName"      | "@nickName" | "https://twitter.com/nickName"
+        "https://twitter/nickName "     | "@nickName" | "https://twitter.com/nickName"
+        "http://XXXX/nickName"          | "@nickName" | "https://twitter.com/nickName"
+        "https://XXXX/nickName"         | "@nickName" | "https://twitter.com/nickName"
+        "httpNOT_VALID_URL/nickName"    | "@nickName" | "https://twitter.com/nickName"
+    }
 }

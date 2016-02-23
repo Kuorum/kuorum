@@ -121,6 +121,7 @@ class EditorUserController {
             if (it.key!= "class" && user.socialLinks.hasProperty(it.key))
                 user.socialLinks."${it.key}" = it.value
         }
+        user.socialLinks.twitter =user.socialLinks.twitter?.decodeTwitter()
         kuorumUserService.updateUser(user)
         flash.message = g.message(code: 'kuorum.web.commands.profile.SocialNetworkCommand.save.success')
         redirect mapping:'editorEditSocialNetwork', params: user.encodeAsLinkProperties()

@@ -281,7 +281,7 @@ class PoliticianService {
         }
         politician.socialLinks.blog = politician.socialLinks.blog?:line."blog"?.trim()
         politician.socialLinks.facebook = politician.socialLinks.facebook?:line."facebook"?.trim()
-        politician.socialLinks.twitter = politician.socialLinks.twitter?:line."twitter"?.trim()
+        politician.socialLinks.twitter = politician.socialLinks.twitter?.decodeTwitter()?:line."twitter"?.trim()?.decodeTwitter()
         politician.socialLinks.linkedIn = politician.socialLinks.linkedIn?:line."linkedin"?.trim()
         politician.socialLinks.googlePlus= politician.socialLinks.googlePlus?:line."googlePlus"?.trim()
         politician.socialLinks.instagram = politician.socialLinks.instagram?:line."instagram"?.trim()
