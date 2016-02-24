@@ -1623,8 +1623,8 @@ video#bgvid {
 
 
 .boxes.edit-user .ico-info .popover {font-size: 16px; font-size: 1.6rem; color: #bac2cc;}
-.boxes.edit-user .popover {left: -230px !important; top: 30px !important;}
-.boxes.edit-user .popover.bottom >.arrow {left: auto !important; right: 8px;}
+.boxes.edit-user .ico-info .popover {left: -230px !important; top: 30px !important;}
+.boxes.edit-user .ico-info .popover.bottom >.arrow {left: auto !important; right: 8px;}
 
 .boxes.edit-user .activity {margin: 0;}
 .boxes.edit-user .activity .following {margin: 0;}
