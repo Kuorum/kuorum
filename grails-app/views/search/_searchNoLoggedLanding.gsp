@@ -1,5 +1,7 @@
 <section id="main" role="main" class="landing search clearfix">
     <div class="full-video">
+        <!-- Linkedin is not recovering properly the image -->
+        <img src="${r.resource(dir:'images', file:'background-search.jpg')}" class="hide" itemprop="image"/>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
