@@ -12,7 +12,6 @@ import kuorum.users.RoleUser
 class KuorumUserRightsCommand {
 
     KuorumUser user
-    UserType userType
     Set<RoleUser> authorities
     Boolean emailAccountActive;
     Boolean active
@@ -20,7 +19,6 @@ class KuorumUserRightsCommand {
     String password
     static constraints = {
         user nullable: false
-        userType nullable: false
         relevance nullable: true
         password nullable:true
     }

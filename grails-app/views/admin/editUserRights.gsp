@@ -6,9 +6,6 @@
 </head>
 
 <content tag="leftMenu">
-    <h1>
-        <g:message code="admin.editUser.title" args="[command.user.name]"/>
-    </h1>
     <g:render template="/editorUser/editorUserMenu" model="[user:command.user]"/>
 </content>
 
@@ -31,9 +28,6 @@
                 </div>
             </fieldset>
             <fieldset class="row">
-                <div class="form-group col-md-6">
-                    <formUtil:radioEnum command="${command}" field="userType" showLabel="true"/>
-                </div>
                 <div class="form-group col-md-6">
                     <formUtil:input type="number" command="${command}" field="relevance" showLabel="true"/>
                 </div>

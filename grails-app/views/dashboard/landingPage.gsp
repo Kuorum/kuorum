@@ -1,31 +1,14 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="kuorum.name"/></title>
+    <title><g:message code="kuorum.name"/>-<g:message code="landingPage.videoAndRegister.title"/></title>
     <meta name="layout" content="landingLayout">
     <parameter name="transparentHead" value="true"/>
-    <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
-    <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
-    <meta itemprop="image" content="${resource(dir: 'images', file: 'home-video.png')}" />
-    <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
-    <!-- for Facebook -->
-    <meta property="og:title" content="${g.message(code:"kuorum.name")}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:image" content="${resource(dir: 'images', file: 'home-video.png')}" />
-    <meta property="og:image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
-    <meta property="og:url" content="Kuorum.org" />
-    <meta property="og:description" content="${g.message(code:"layout.head.meta.description")}" />
-    <!-- for Google -->
-    <meta name="description" content="${g.message(code:"layout.head.meta.description")}" />
-    <meta name="keywords" content="${g.message(code:"layout.head.meta.keywords")}" />
-    <meta name="application-name" content="${g.message(code:"kuorum.name")}" />
-    <!-- for Twitter -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="${g.message(code:"kuorum.name")}" />
-    <meta name="twitter:description" content="${g.message(code:"layout.head.meta.description")}" />
-    <meta name="twitter:image" content="${resource(dir: 'images', file: 'home-video.png')}" />
-    <meta name="twitter:image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
-    %{--<parameter name="showDefaultPreFooter" value="true"/>--}%
+    <g:render template="/dashboard/landingMetaTags"
+              model="[
+                      kuorumTitle:g.message(code:'landingPage.videoAndRegister.title'),
+                      kuorumDescription:g.message(code:'landingPage.videoAndRegister.subtitle'),
+                      kuorumImage:request.siteUrl +r.resource(dir:'images', file:'background.png')
+              ]"/>
 </head>
 
 <content tag="videoAndRegister">

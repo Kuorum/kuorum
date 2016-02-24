@@ -17,13 +17,19 @@ class NavigationTagLib {
      * Returns the css "ACTIVE" if the mapping is the same as the url loaded
      */
     def activeMenuCss = { attrs ->
-        String mappingName = attrs.mappingName
-        String url = grailsLinkGenerator.link(mapping:mappingName,absolute: true)
-        if (request.getRequestURL().toString() == url){
-            out << "active"
+        String activeCss =  attrs.activeCss?:"active"
+        List<String> mappings = []
+        if (attrs.mappingName){
+            mappings << attrs.mappingName
+        }else{
+            mappings = attrs.mappingNames
         }
 
+        List<String> urls = mappings.collect{mappingName ->grailsLinkGenerator.link(mapping:mappingName,absolute: true)}
 
+        if (urls.contains(request.getRequestURL().toString())){
+            out << activeCss
+        }
     }
 
 

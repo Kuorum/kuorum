@@ -1,5 +1,13 @@
 %{--<div class="admin-user-options">--}%
     %{--<label>User actions</label>--}%
+
+<h1>
+    <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}">
+        %{--<g:message code="admin.editUser.title" args="[user.name]"/>--}%
+        ${user.name}
+    </g:link>
+</h1>
+
 <ul>
     <sec:ifAnyGranted roles="ROLE_ADMIN">
         <g:if test="${user.enabled}">

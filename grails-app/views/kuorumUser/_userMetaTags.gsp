@@ -13,7 +13,8 @@
 
 
 <!-- Twitter Card data -->
-<meta name="twitter:card" content="${image.userImgSrc(user:user)}">
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="${image.userImgSrc(user:user)}">
 <meta name="twitter:site" content="@kuorumorg">
 <meta name="twitter:title" content="${user.name}">
 %{--Page description less than 200 characters--}%

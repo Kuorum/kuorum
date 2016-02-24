@@ -244,7 +244,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         }
         Locale locale = LocaleContextHolder.getLocale();
         mailchimpService.addPress(command.email.split("@")[0], command.email, locale)
-        String preFileName = "KuorumPressKit"
+        String preFileName = "KuorumCaseStudy"
         String year = "2016"
         String ext = "pdf"
         String langPressKit = "en"

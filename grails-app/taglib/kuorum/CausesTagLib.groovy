@@ -1,6 +1,7 @@
 package kuorum
 
 import kuorum.core.model.UserType
+import kuorum.core.model.search.Pagination
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SupportedCauseRSDTO
@@ -62,8 +63,8 @@ class CausesTagLib {
     def card = {attrs ->
         CauseRSDTO cause = attrs.cause
 
-        UsersSupportingCauseRSDTO politiciansPage = causesService.mostRelevantDefenders(cause.name)
-        UsersSupportingCauseRSDTO citizensPage = causesService.mostRelevantSupporters(cause.name)
+        UsersSupportingCauseRSDTO politiciansPage = causesService.mostRelevantDefenders(cause.name, new Pagination(max:4))
+        UsersSupportingCauseRSDTO citizensPage = causesService.mostRelevantSupporters(cause.name, new Pagination(max:4))
 
         List<KuorumUser> politicians = politiciansPage.data.collect{KuorumUser.get(it.id)}
         List<KuorumUser> citizens = citizensPage.data.collect{KuorumUser.get(it.id)}

@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><g:layoutTitle default="${g.message(code:"layout.head.title.default")}"/></title>
-    <meta property="og:site_name" content="${g.message(code:"kuorum.name")}"/>
+    <g:layoutHead/>
     <meta name="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta name="Keywords" content="${g.message(code:"layout.head.meta.keywords")}">
     <meta name="dcterms.rightsHolder" content="Kuorum.org">
@@ -72,14 +72,11 @@
     <g:javascript library="jquery" plugin="jquery"/>
     <g:javascript library="application"/>
     <r:layoutResources />
-    %{--<g:render template="/layouts/googleAnalyticsRemarketing"/>--}%
-    %{--<g:render template="/layouts/facebookRemarketing"/>--}%
-    %{--<g:render template="/layouts/twitterRemarketing"/>--}%
     <meta property="twitter:account_id" content="4503599627910348" />
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-
+    <span class="hidden" itemprop="name"><g:layoutTitle default="${g.message(code:"layout.head.title.default")}"/></span>
     <g:render template="/layouts/googleTagManager"/>
 
 

@@ -134,22 +134,22 @@ class CausesService {
         return cause
     }
 
-    UsersSupportingCauseRSDTO mostRelevantDefenders(String causeName){
+    UsersSupportingCauseRSDTO mostRelevantDefenders(String causeName, Pagination page = new Pagination()){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.CAUSE_USERS_DEFENDING,
                 [causeName:causeName],
-                [:])
+                [page:page.offset/page.max, size: page.max])
         UsersSupportingCauseRSDTO supportingCauseRSDTO = null;
         if (response.data){
             supportingCauseRSDTO = new UsersSupportingCauseRSDTO(response.data)
         }
         return supportingCauseRSDTO;
     }
-    UsersSupportingCauseRSDTO mostRelevantSupporters(String causeName){
+    UsersSupportingCauseRSDTO mostRelevantSupporters(String causeName, Pagination page = new Pagination()){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.CAUSE_USERS_SUPPORTING,
                 [causeName:causeName],
-                [:])
+                [page:page.offset/page.max, size: page.max])
         UsersSupportingCauseRSDTO supportingCauseRSDTO = null;
         if (response.data){
             supportingCauseRSDTO = new UsersSupportingCauseRSDTO(response.data)
