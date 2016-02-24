@@ -15,7 +15,9 @@ function preparePopover(){
             var $popover_togglers = this;
             $popover_togglers.popover(options);
             $popover_togglers.on('click', function (e) {
-                e.preventDefault();
+                if ( !$(this).hasClass('rating') ) {
+                    e.preventDefault();
+                }
                 $popover_togglers.not(this).popover('hide');
             });
             $('html').on('click', '[data-dismiss="popover"]', function (e) {
@@ -35,8 +37,10 @@ function preparePopover(){
             })
             //En el click ejecutamos el link normal. El framework the popover lo está bloqueando
             .on("click", function(e){
-                var href = $(this).attr("href")
-                window.location=href;
+                if ( !$(this).hasClass('rating') ) {
+                    var href = $(this).attr("href")
+                    window.location=href;
+                }
             });
 
         $('[data-toggle="popover"]').popoverClosable();
@@ -110,6 +114,7 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
+    
 
     // oscurecer el header de la Landing cuando se hace scroll
     if ($('#header.transp').length) {
