@@ -394,7 +394,6 @@ class PoliticianService {
             def consituencyFields = ["constituency_code_alliance","constituency_code_nation", "constituency_code_state","constituency_code_county","constituency_code_city"]
             constituency = findRegionCombiningRegionCodes(consituencyFields, line)
         }
-        constituency.save()
         constituency
     }
 
