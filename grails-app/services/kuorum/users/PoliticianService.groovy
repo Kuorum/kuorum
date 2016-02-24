@@ -5,10 +5,12 @@ import grails.plugin.mail.MailService
 import grails.transaction.Transactional
 import kuorum.KuorumFile
 import kuorum.Region
+import kuorum.RegionService
 import kuorum.causes.CausesService
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
+import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
@@ -37,6 +39,7 @@ class PoliticianService {
     IndexSolrService indexSolrService
     CausesService causesService
     NotificationService notificationService
+    RegionService regionService
 
     private static final String IPDB_DATE_FORMAT = "dd/MM/yyyy HH:mm"
 
@@ -385,18 +388,24 @@ class PoliticianService {
     }
 
     private Region findConstituency(def line){
-        String constituencyCode = line."constituency"?.trim()
-        Region constituency
-        if (constituencyCode){
-            constituency = Region.findByIso3166_2(constituencyCode)
-        }
+        String constituencyName = line."constituency"?.trim()
+        Region constituency = findRegionByName(constituencyName)
         if (!constituency){
             def consituencyFields = ["constituency_code_alliance","constituency_code_nation", "constituency_code_state","constituency_code_county","constituency_code_city"]
             constituency = findRegionCombiningRegionCodes(consituencyFields, line)
         }
+        constituency.save()
         constituency
     }
-    
+
+    private Region findRegionByName(String regionName){
+        if (regionName){
+            return regionService.findMostAccurateRegion(regionName)
+        }else{
+            return null
+        }
+    }
+
     private Region findRegionCombiningRegionCodes(List<String> fieldNamesInOrder, line){
         String separator = ""
         String regionCode = "";

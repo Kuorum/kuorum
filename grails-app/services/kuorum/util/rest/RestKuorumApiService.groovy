@@ -87,7 +87,11 @@ class RestKuorumApiService {
         CAUSE_OPERATIONS        ("/cause/{causeName}"),
         CAUSE_USERS_DEFENDING   ("/cause/{causeName}/defending"),
         CAUSE_USERS_SUPPORTING  ("/cause/{causeName}/supporting"),
-        CAUSE_SUGGESTIONS ("/cause/suggest"),
+        CAUSE_SUGGESTIONS       ("/cause/suggest"),
+
+        REGION_GET      ("/geolocation/get"),
+        REGION_SUGGEST  ("/geolocation/suggest"),
+        REGION_FIND     ("/geolocation/find"),
 
         ACCOUNT_INFO("/notification/mailing/{userAlias}"),
         ACCOUNT_MAILS("/notification/mailing/{userAlias}/emails");

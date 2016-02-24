@@ -7,23 +7,13 @@ import kuorum.core.model.RegionType
 import kuorum.postalCodeHandlers.PostalCodeHandler
 import kuorum.postalCodeHandlers.PostalCodeHandlerType
 import kuorum.users.KuorumUser
+import kuorum.util.rest.RestKuorumApiService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 
 class RegionService {
 
-
-    @Value('${kuorum.rest.url}')
-    String kuorumRestServices
-
-    @Value('${kuorum.rest.apiPath}')
-    String apiPath
-
-    @Value('${kuorum.rest.apiKey}')
-    String kuorumRestApiKey
-
-    String SUGGEST_REGIONS_ENDPOINT="/geolocation/suggest"
-    String GET_REGION="/geolocation/get"
+    RestKuorumApiService restKuorumApiService
 
     /**
      *
@@ -188,17 +178,11 @@ class RegionService {
     public Region findRegionBySuggestedId(String isoCode){
 
         try{
-            RESTClient geolocationKuorum = new RESTClient( kuorumRestServices)
-    //        basecamp.auth.basic userName, password
-
-            def response = geolocationKuorum.get(
-                    path: apiPath+GET_REGION,
-                    headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
-                    query:[
-                            isoCode:isoCode
-                    ]
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.REGION_GET,
+                    [:],
+                    [isoCode:isoCode]
             )
-
             return Region.findByIso3166_2(response.data.iso3166)
         }catch (Exception e){
             log.error("Error recovering region '${isoCode}'",e)
@@ -208,16 +192,10 @@ class RegionService {
     }
 
     public List<Region> suggestRegions(String prefixRegionName, AvailableLanguage language){
-        RESTClient geolocationKuorum = new RESTClient( kuorumRestServices)
-//        basecamp.auth.basic userName, password
-
-        def response = geolocationKuorum.get(
-                path: apiPath+SUGGEST_REGIONS_ENDPOINT,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
-                query:[
-                        regionName:prefixRegionName,
-                        lang: language.getLocale().language
-                ]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.REGION_SUGGEST,
+                [:],
+                [regionName:prefixRegionName,lang: language.getLocale().language]
         )
         List regions = response.data.collect{val ->
             Region region = new Region(val);
@@ -225,5 +203,14 @@ class RegionService {
             region
         }
         return regions;
+    }
+
+    public Region findMostAccurateRegion(String regionName){
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.REGION_FIND,
+                [:],
+                [regionName:regionName]
+        )
+        return Region.findByIso3166_2(response.data.iso3166)
     }
 }
