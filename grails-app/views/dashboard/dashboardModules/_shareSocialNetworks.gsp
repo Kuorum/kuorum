@@ -6,7 +6,7 @@
 
         <g:set var="sharedLink"><g:createLink
                 mapping="searcherLanding"
-                params="[lang:user?.language?.locale?.language]"
+                params="[:]"
                 absolute="true"/></g:set>
 
         <ul class="social">
