@@ -194,7 +194,7 @@ class PoliticianService {
         String prefixTitle = "known_for"
         String prefixLink = "known_for_link"
         (1..5).each{i->
-            if (line."${prefixLink}${i}"){
+            if (line."${prefixTitle}${i}"){
                 PoliticianRelevantEvent relevantEvent = new PoliticianRelevantEvent();
                 relevantEvent.title = line."${prefixTitle}${i}"
                 relevantEvent.url = line."${prefixLink}${i}"
