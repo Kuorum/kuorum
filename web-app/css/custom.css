@@ -3213,6 +3213,8 @@ fieldset.rating:hover > input + label:hover:before {
   content: "★ ";
   color: #ff9431;
 }
+.rating label:hover > .rate-message {position: absolute; bottom: -.8em; color: #c6c6c6; font-size: .5em; left: 1em;}
+
 /* la capa popover de la votación */
 .rating-over {padding: 0 10px;}
 .rating-over ul{
