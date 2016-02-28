@@ -3177,47 +3177,43 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
    follow these rules. Every browser that supports :checked also supports :not(), so
    it doesn’t make the test unnecessarily selective */
-.rating:not(:checked) > input {
+fieldset.rating:not(:checked) > input {
     position:absolute;
     top:-9999px;
     clip:rect(0,0,0,0);
 }
-.rating:not(:checked) > label {
+fieldset.rating:not(:checked) > label {
     float:right;
-    width:25px;
-    width:2.5rem;
+    width:1.2em;
     padding:0 4px;
     overflow:hidden;
     white-space:nowrap;
     cursor:pointer;
-    font-size:22px;
-    font-size:2.2rem;
+    font-size:38px;
+    font-size:3.8rem;
     line-height:1.2;
     color:#e1e1e1;
 }
-.rating:not(:checked) > label:before {
-    content: '★ ';
+fieldset.rating:not(:checked) > label:before {
+    content: "☆ ";
+    color: #e1e1e1;
 }
-.rating > input:checked ~ label {
-    color: #ff9431;
+fieldset.rating > input:checked ~ label:before, 
+fieldset.rating > input + label:hover ~ label:before, 
+fieldset.rating > input + label:hover:before {
+  content: "★ ";
+  color: #ff9431;
 }
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
-    color: #ff9431;
+fieldset.rating:hover > input + label:before {
+  content: "★ ";
+  color: #e1e1e1;
 }
-.rating > input:checked + label:hover,
-.rating > input:checked + label:hover ~ label,
-.rating > input:checked ~ label:hover,
-.rating > input:checked ~ label:hover ~ label,
-.rating > label:hover ~ input:checked ~ label {
-    color: #ff9431;
+fieldset.rating:hover > input + label:hover ~ label:before, 
+fieldset.rating:hover > input + label:hover:before {
+  content: "★ ";
+  color: #ff9431;
 }
-.rating label:hover > .rate-message {position: absolute; bottom: -10px; color: #c6c6c6; font-size: 12px; font-size: 1.2rem; left: 15px;}
-.rating > label:active {
-    position:relative;
-    top:2px;
-    left:2px;
-}
+/* la capa popover de la votación */
 .rating-over {padding: 0 10px;}
 .rating-over ul{
     list-style: none;
@@ -3248,7 +3244,6 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .rating-over .rate-number.three {background-position: -165px bottom;}
 .rating-over .rate-number.two {background-position: -260px bottom;}
 .rating-over .rate-number.one {background-position: -345px bottom;}
-
 .rating-over .progress {background: transparent; box-shadow: inset 0 0 0 rgba(0,0,0,0); height: 25px;}
 .rating-over .progress-bar {background-color: #ff9431;}
 

@@ -114,7 +114,6 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-    
 
     // oscurecer el header de la Landing cuando se hace scroll
     if ($('#header.transp').length) {
