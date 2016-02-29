@@ -15,7 +15,7 @@ class PersonalData {
 
     @Deprecated
     String postalCode
-    //TODO: Refactor province to Region
+    //TODO: Refactor province to location
     String provinceCode  // this code is Region.iso3166_2
     Region province
     @Deprecated

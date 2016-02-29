@@ -25,7 +25,7 @@ class MailchimpService {
     @Value('${mail.mailChimp.listPressId}')
     String MAILCHIMP_PRESS_LIST_ID
 
-    private static final MAILCHIMP_DATE_FORMAT = "yyyy-MM-dd"
+    private static final MAILCHIMP_DATE_FORMAT = "dd-MM-yyyy"
 
     def updateAllUsers(){
         DBObject query = new BasicDBObject('enabled', true)
@@ -74,13 +74,16 @@ class MailchimpService {
         mergeVars.FNAME = user.name
         mergeVars.LNAME = user.name
         mergeVars.GENDER = user.personalData.gender.toString()
-        mergeVars.PROVINCE = user.personalData.provinceCode
+        if (user.personalData?.provinceCode){
+            mergeVars.LOCATION_C = user.personalData.province?.iso3166_2
+            mergeVars.COUNTRY_C = user.personalData.country?.iso3166_2
+        }
         if (user.userType != UserType.ORGANIZATION){
             mergeVars.STUDIES = user.personalData.studies
             mergeVars.WORKINGSEC = user.personalData.workingSector
         }
         mergeVars.USERTYPE = user.userType.toString()
-        mergeVars.mc_language = user.language.locale.toString()
+        mergeVars.mc_language = user.language.locale.language.toString()
         mergeVars.groupings = createGroups(user)
         mergeVars
     }
