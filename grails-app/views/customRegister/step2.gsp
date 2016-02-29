@@ -17,7 +17,7 @@
         <li class="active">3</li>
     </ol>
     <formUtil:validateForm bean="${command}" form="sign" autocomplete="off"/>
-    <g:form mapping="registerStep2" name="sign" role="form" method="POST" autocomplete="off"  class="signup">
+    <g:form mapping="registerStep2" name="sign" role="form" method="POST" autocomplete="off"  class="signup step2">
         <input type="hidden" name="user.id" value="${command?.user?.id}"/>
         <fieldset class="row">
             <div class="form-group col-md-6">
@@ -59,12 +59,14 @@
             </div>
         </fieldset>
 
-        <div class="form-group">
-            <label><g:message code="customRegister.step2.choseUserType.label"/> </label>
-            <input type="hidden" name="userType" value="${kuorum.core.model.UserType.PERSON}"/>
-            <input type="submit" id="submitPolitician" value="${g.message(code:'customRegister.step2.choseUserType.politician')}" class="btn btn-lg">
-            <input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">
-        </div>
+        <fieldset class="row">
+            <div class="form-group text-center option-buttons">
+                <label><g:message code="customRegister.step2.choseUserType.label"/> </label>
+                <input type="hidden" name="userType" value="${kuorum.core.model.UserType.PERSON}"/>
+                <input type="submit" id="submitPolitician" value="${g.message(code:'customRegister.step2.choseUserType.politician')}" class="btn btn-lg">
+                <input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">
+            </div>
+        </fieldset>
     </g:form>
     <script>
         $(document).ready(function() {
