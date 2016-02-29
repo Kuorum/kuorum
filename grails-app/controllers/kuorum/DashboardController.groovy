@@ -49,14 +49,14 @@ class DashboardController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Pagination causesPagination = new Pagination(max:6)
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
-        SearchParams searchPoliticiansPagination = new SearchParams(type: SolrType.POLITICIAN, max:6)
-        SolrResults politicians = searchSolrService.search(searchPoliticiansPagination)
+        Pagination politiciansDashboardPagination = new Pagination(max:6)
+        List<KuorumUser> politicians = kuorumUserService.recommendPoliticians(user,politiciansDashboardPagination)
         [
                 loggedUser:user,
                 causesSuggested:causesSuggested,
                 causesPagination:causesPagination,
                 politicians:politicians,
-                searchPoliticiansPagination:searchPoliticiansPagination
+                politiciansDashboardPagination:politiciansDashboardPagination
         ]
     }
 
@@ -73,6 +73,15 @@ class DashboardController {
             return [clucks_1:clucks[0..1], clucks_2:clucks[2..clucks.size()-1]]
         }
         return [clucks_1:clucks, clucks_2:[]]
+    }
+
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def dashboardPoliticians(Pagination pagination){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        List<KuorumUser> suggesterPoliticians=  kuorumUserService.recommendPoliticians(user, pagination)
+        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${suggesterPoliticians.size() < pagination.max}")
+        render template: "/dashboard/listDashboardPoliticians", model:[politicians:suggesterPoliticians]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

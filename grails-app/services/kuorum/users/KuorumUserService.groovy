@@ -404,19 +404,21 @@ class KuorumUserService {
 
         KuorumUser loggedUser = springSecurityService.getCurrentUser();
         RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
-        List<KuorumUser> filterPoliticians = politicians
-        if(recommendedUserInfo){
+        List<KuorumUser> filterPoliticians = []
+        if(recommendedUserInfo && politicians){
             filterPoliticians = politicians.findAll({
                 !recommendedUserInfo.deletedRecommendedUsers.contains(it.id) &&
                         !user.following.contains(it.id) &&
-                        loggedUser.id!=it.id
+                        loggedUser.id!=it.id &&
+                        it.userType == UserType.POLITICIAN
             })
 
             List<KuorumUser> nextPoliticians = []
             if (filterPoliticians.size() < pagination.max){
-                nextPoliticians = recommendedUsers(user, new Pagination(max:pagination.max, offset: pagination.offset+pagination.max))
+                nextPoliticians = recommendPoliticians(user, new Pagination(max:pagination.max, offset: pagination.offset+pagination.max))
             }
             filterPoliticians.addAll(nextPoliticians)
+            filterPoliticians = filterPoliticians[0..Math.min(filterPoliticians.size() -1, pagination.max-1)]
         }else{
             log.warn("User ${user.name} (${user.id}) has not calculated recommendedUserInfo")
         }
