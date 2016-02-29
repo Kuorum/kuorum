@@ -27,17 +27,44 @@ class MailchimpService {
 
     private static final MAILCHIMP_DATE_FORMAT = "dd-MM-yyyy"
 
-    def updateAllUsers(){
-        DBObject query = new BasicDBObject('enabled', true)
-        DBCursor cursor = KuorumUser.collection.find(query)
-        cursor.each {
-            KuorumUser user = KuorumUser.get(it._id)
-            addSubscriber(user)
+    KuorumMailService kuorumMailService;
+
+    def updateAllUsers(KuorumUser executorUser){
+
+        Thread.start {
+            String politiciansOk = "<h1>Politician OK</h1>"
+            String politiciansWrong = "<h1>Politician Wrong</h1><UL>"
+
+            DBObject query = new BasicDBObject('enabled', true)
+            DBCursor cursor = KuorumUser.collection.find(query)
+            Long usersOk= 0L;
+            Long usersError= 0L;
+
+            cursor.each {
+                KuorumUser user = KuorumUser.get(it._id)
+                try{
+                    log.info("Updating mailchimp ${user.name}")
+                    addSubscriber(user)
+                    usersOk++
+                }catch(Exception e){
+                    politiciansWrong +=  "<li>${user.name} (${user.id}): <i>${e.getMessage()}</i></li>"
+                    usersError++
+                }
+            }
+            log.info("Enviando mail de fin de procesado de email a ${executorUser.name} (${executorUser.email})")
+            politiciansOk += "<br/> Counter ${usersOk}"
+            politiciansWrong += "<br/> Counter ${usersError}</UL>"
+            log.info("Enviando mail de fin de procesado de email a ${executorUser.name} (${executorUser.email})")
+            kuorumMailService.sendBatchMail(executorUser, politiciansWrong + politiciansOk, "Mailchimp updated")
         }
     }
 
     def addSubscriber(KuorumUser user){
 // reuse the same MailChimpClient object whenever possible
+        if (user.email =~ /^[^\+]*+[^@]*@kuorum.org$/){
+            log.info("User not updated on mandrillapp because is a fake user [${user.email}]")
+            return;
+        }
         try {
             MailChimpClient mailChimpClient = new MailChimpClient();
 
