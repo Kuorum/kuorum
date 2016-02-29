@@ -4,7 +4,7 @@
         <g:link mapping="footerInformation"><g:message code="layout.footer.information"/></g:link>
     </li>
     <li>
-        <a href="${resource(dir: 'resources/pdf', file: 'Kuorum Press Kit 201601.pdf')}" target="_blank"><g:message code="layout.footer.press"/></a>
+        <a href="${resource(dir: 'resources/pdf', file: 'KuorumPressKit_2016_en.pdf')}" target="_blank"><g:message code="layout.footer.press"/></a>
     </li>
     <li>
         <a href="${resource(dir: 'resources/zip', file: 'logos_kuorum.zip')}" target="_blank"><g:message code="layout.footer.logo"/></a>
