@@ -139,7 +139,7 @@ class UrlMappings {
         name ajaxPoliticianVictoryPosts:     "/ajax/$userTypeUrl/$urlName-$id/defendedVictoryPosts" (controller: "kuorumUser", action: "politicianDefendedVictories")
         name ajaxRegisterContact:            "/ajax/contact"(controller: "register", action: "contactRegister");
 
-        name register:            "/sing-up"(controller: "register"){action = [GET:"index", POST:"register"]}
+        name register:            "/sign-up"(controller: "register"){action = [GET:"index", POST:"register"]}
                                   "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
         name registerPressKit:          "/sing-up/pressKit"(controller: "register",action:"downloadPressKit")
         name registerStep2:             "/sing-up/step2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
