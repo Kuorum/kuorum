@@ -28,11 +28,14 @@ class SearchParams extends Pagination implements Serializable{
 
     List<String> regionIsoCodes;
 
+    List<String> filteredUserIds;
+
 
     static constraints = {
         word nullable:true
         commissionType nullable: true
         offset min: 0L
         regionIsoCodes nullable:true
+        filteredUserIds nullable:true
     }
 }

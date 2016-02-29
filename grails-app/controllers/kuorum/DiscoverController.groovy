@@ -95,7 +95,7 @@ class DiscoverController {
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
         }
-        List<KuorumUser> politicians = kuorumUserService.bestPoliticiansSince(user, new Date() -7, pagination)
+        List<KuorumUser> politicians = kuorumUserService.bestPoliticiansSince(user, pagination)
         if (request.isXhr()){
             //TODO: Si es multiplo de 10, hara un true cuando es false
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${politicians.size()-pagination.max!=0}")
