@@ -46,8 +46,9 @@ class AdminController {
     }
 
     def updateMailChimp(){
-        mailchimpService.updateAllUsers()
-        render "UPDATE ALL USERS TO MAILCHIMP"
+        mailchimpService.updateAllUsers(springSecurityService.currentUser)
+        flash.message="Se ha puesto en marcha el proceso de actualización de mail chimp. Recibirá un email cuando termine"
+        redirect mapping:"adminPrincipal"
     }
 
     def fullIndex(){

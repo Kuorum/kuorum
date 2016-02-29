@@ -28,6 +28,7 @@ class UrlMappings {
         name landingPrices:    "/prices" (controller: "dashboard", action:"landingPrices")
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
         name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
+        name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
         name discover:                      "/descubre" (controller: "discover", action:"discoverProjects")
         name discoverProjects:              "/descubre/proyectos"         (controller: "discover", action:"discoverProjects")
                                             "/descubre/leyes"         (controller: "discover", action:"discoverProjects")
@@ -139,11 +140,11 @@ class UrlMappings {
         name ajaxPoliticianVictoryPosts:     "/ajax/$userTypeUrl/$urlName-$id/defendedVictoryPosts" (controller: "kuorumUser", action: "politicianDefendedVictories")
         name ajaxRegisterContact:            "/ajax/contact"(controller: "register", action: "contactRegister");
 
-        name register:            "/sing-up"(controller: "register"){action = [GET:"index", POST:"register"]}
+        name register:            "/sign-up"(controller: "register"){action = [GET:"index", POST:"register"]}
                                   "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
-        name registerPressKit:          "/sing-up/pressKit"(controller: "register",action:"downloadPressKit")
-        name registerStep2:             "/sing-up/step2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
-        name registerStep3:             "/sing-up/step3"(controller: "customRegister", action:"step3")
+        name registerPressKit:          "/sign-up/pressKit"(controller: "register",action:"downloadPressKit")
+        name registerStep2:             "/sign-up/step2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
+        name registerStep3:             "/sign-up/step3"(controller: "customRegister", action:"step3")
         name registerSubscriptionStep1:  "/subscribe/step1" (controller: "customRegister", action:"subscriptionStep1")
         name registerSubscriptionStep1Save:  "/subscribe/step1-save" (controller: "customRegister"){action = [GET:"subscriptionStep1", POST:"subscriptionStep1Save"]}
         name registerSubscriptionStep3:  "/subscribe/step3" (controller: "customRegister", action:"subscriptionStep3")

@@ -10,6 +10,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.users.PersonData
 import kuorum.users.ProfileController
+import kuorum.users.RoleUser
 import kuorum.web.commands.editor.EditorAccountCommand
 import kuorum.web.commands.editor.EditorCreateUserCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
@@ -43,6 +44,7 @@ class EditorUserController {
             newPolitician.personalData.province = command.homeRegion
             newPolitician.personalData.provinceCode = command.homeRegion.iso3166_2
         }
+        newPolitician.authorities.remove(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER"))
         newPolitician = kuorumUserService.updateUser(newPolitician);
         redirect(mapping:'userShow', params:newPolitician.encodeAsLinkProperties())
 

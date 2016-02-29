@@ -395,32 +395,24 @@ class KuorumUserService {
 
     /**
      * Recommend politicians similar to user and that the user is not following
+     *
      * @param user
      * @param pagination
      * @return
      */
-    List<KuorumUser> recommendPoliticians(KuorumUser user, Pagination pagination = new Pagination()){
-        List<KuorumUser> politicians = bestPoliticiansSince(user, null, pagination, Boolean.TRUE);
+    List<KuorumUser> recommendPoliticians(KuorumUser user, Pagination pagination = new Pagination()) {
 
         KuorumUser loggedUser = springSecurityService.getCurrentUser();
+        List<ObjectId> filterPoliticians = loggedUser.following?:[]
+        filterPoliticians << loggedUser.id
         RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
-        List<KuorumUser> filterPoliticians = politicians
         if(recommendedUserInfo){
-            filterPoliticians = politicians.findAll({
-                !recommendedUserInfo.deletedRecommendedUsers.contains(it.id) &&
-                        !user.following.contains(it.id) &&
-                        loggedUser.id!=it.id
-            })
-
-            List<KuorumUser> nextPoliticians = []
-            if (filterPoliticians.size() < pagination.max){
-                nextPoliticians = recommendedUsers(user, new Pagination(max:pagination.max, offset: pagination.offset+pagination.max))
-            }
-            filterPoliticians.addAll(nextPoliticians)
+            filterPoliticians.addAll(recommendedUserInfo.deletedRecommendedUsers)
         }else{
-            log.warn("User ${user.name} (${user.id}) has not calculated recommendedUserInfo")
+            log.warn("User ${loggedUser.name} (${loggedUser.id}) has not calculated recommendedUserInfo")
         }
-        filterPoliticians
+
+        bestPoliticiansSince(user, filterPoliticians, pagination);
     }
 
     List<KuorumUser> recommendOrganizations(KuorumUser user, Pagination pagination = new Pagination()){
@@ -630,7 +622,7 @@ class KuorumUserService {
         bestSponsors
     }
 
-    List<KuorumUser> bestPoliticiansSince(KuorumUser user, Date startDate, Pagination pagination = new Pagination(), Boolean isEnabled = null){
+    List<KuorumUser> bestPoliticiansSince(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){
         SearchParams searchParams = new SearchParams(pagination.getProperties());
         searchParams.max +=1
         List<Region> regions;
@@ -643,6 +635,7 @@ class KuorumUserService {
         }
         searchParams.regionIsoCodes = regions.collect{it.iso3166_2}
         searchParams.setType(SolrType.POLITICIAN)
+        searchParams.filteredUserIds = userFiltered.collect{it.toString()}
         List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
         if (user?.userType == UserType.POLITICIAN && causes){
             String searchCauses = causes*.name.join(" ")
