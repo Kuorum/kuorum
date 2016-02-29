@@ -997,12 +997,10 @@ $(document).ready(function() {
 //                $ul.append(data)
                 var newCause = $(data).hide();
                 console.log(newCause)
-                $li.css('width',$li.width())
                 $li.children('article').fadeOut('fast', function(){
-                    $li.html(newCause)
                     newCause.unwrap();
+                    $li.replaceWith(newCause)
                     newCause.fadeIn('fast')
-                    $li.css('width','')
                 });
             })
     }
