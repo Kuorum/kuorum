@@ -3497,8 +3497,8 @@ fieldset.rating:hover > input + label:hover:before {
 .config.search > article .kakareo-list .kakareo .link-wrapper {padding: 22px 15px 15px 15px;}
 .config.search > article .kakareo-list .kakareo .link-wrapper > footer + p {margin: 0; padding: 10px 0 0 0; border-top: 1px solid #dadada;}
 
-.config.search > section {padding:0px;}
 .config.search > section > .box-ppal {background-color:transparent; border:none; padding:0px;}
+.config.search > section > .box-ppal > ul.politician-list li {padding:0px;}
 
 /* páginas de info, listados y errores =========== */
 /* ====================================================== */
