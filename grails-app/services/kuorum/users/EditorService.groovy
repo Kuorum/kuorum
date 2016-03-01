@@ -13,6 +13,9 @@ class EditorService {
         if (!user.editorRules){
             user.editorRules = new EditorRules();
         }
+        if (user.editorRules.requestedEditor){
+            return user;
+        }
         user.editorRules.requestedEditor = true;
         user.save()
         notificationService.sendEditorPurchaseNotification(user)

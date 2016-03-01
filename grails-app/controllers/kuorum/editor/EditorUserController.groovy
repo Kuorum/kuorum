@@ -4,13 +4,8 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.RegionService
 import kuorum.core.model.UserType
 import kuorum.files.FileService
-import kuorum.mail.KuorumMailAccountService
 import kuorum.register.RegisterService
-import kuorum.users.KuorumUser
-import kuorum.users.KuorumUserService
-import kuorum.users.PersonData
-import kuorum.users.ProfileController
-import kuorum.users.RoleUser
+import kuorum.users.*
 import kuorum.web.commands.editor.EditorAccountCommand
 import kuorum.web.commands.editor.EditorCreateUserCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
@@ -20,10 +15,8 @@ import kuorum.web.commands.profile.SocialNetworkCommand
 class EditorUserController {
 
     KuorumUserService kuorumUserService
-    def springSecurityUiService
     FileService fileService
     RegionService regionService
-    KuorumMailAccountService kuorumMailAccountService;
 
     RegisterService registerService;
 
