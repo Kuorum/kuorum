@@ -403,8 +403,11 @@ class KuorumUserService {
     List<KuorumUser> recommendPoliticians(KuorumUser user, Pagination pagination = new Pagination()) {
 
         KuorumUser loggedUser = springSecurityService.getCurrentUser();
-        List<ObjectId> filterPoliticians = loggedUser.following?:[]
-        filterPoliticians << loggedUser.id
+        List<ObjectId> filterPoliticians = []
+        if (loggedUser){
+            filterPoliticians  = loggedUser.following?:[]
+            filterPoliticians << loggedUser.id
+        }
         RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
         if(recommendedUserInfo){
             filterPoliticians.addAll(recommendedUserInfo.deletedRecommendedUsers)
