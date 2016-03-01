@@ -95,49 +95,52 @@ class UrlMappings {
 
 
         //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
-        name userShow:          "/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "show"){
-            constraints {
-                userTypeUrl inList: ["ciudadanos", "organizaciones", "politicos"]
-            }
+                             "/$userTypeUrl/$urlName-$id" {
+                                    controller="redirect";
+                                    action= "redirect301User";
+                                    newMapping='userShow';
+                                    constraints {
+                                        userTypeUrl inList: ["ciudadanos", "organizaciones", "politicos"]
+                                    }
         }
-        name userShowWithAlias: "/$userAlias"   (controller: "kuorumUser", action: "showWithAlias"){
+        name userShow: "/$userAlias"   (controller: "kuorumUser", action: "showWithAlias"){
             constraints{
                 userAlias (validator: { !['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos'].contains(it) })
             }
         }
-        name secUserShow:       "/sec/$userTypeUrl/$urlName-$id"   (controller: "kuorumUser", action: "secShow")
+        name secUserShow:       "/sec/$userAlias"   (controller: "kuorumUser", action: "secShow")
         name users:             "/$userTypeUrl"     (controller: "kuorumUser", action: "index"){
             constraints {
                 userTypeUrl inList: ["ciudadanos", "organizaciones", "politicos"]
             }
         }
 
-        name citizenShow:       "/ciudadanos/$urlName-$id"     (controller: "kuorumUser", action: "showCitizen")
         name citizens:          "/ciudadanos"     {
             controller = "kuorumUser"
             action ="index"
             userTypeUrl = UserType.PERSON
         }
-        name organizacionShow:  "/organizaciones/$urlName-$id" (controller: "kuorumUser", action: "showCitizen")
         name organizations:     "/organizaciones"  {
             controller = "kuorumUser"
             action ="index"
             userTypeUrl = UserType.ORGANIZATION
         }
-        name politicianShow:    "/politicos/$urlName-$id"      (controller: "kuorumUser", action: "showPolitician")
+
         name politicians:       "/politicos"  {
             controller = "kuorumUser"
             action ="politicians"
             userTypeUrl = UserType.POLITICIAN
         }
-        name userFollowers:     "/$userTypeUrl/$urlName-$id/seguidores" (controller: "kuorumUser", action: "userFollowers")
-        name userFollowing:     "/$userTypeUrl/$urlName-$id/siguiendo"  (controller: "kuorumUser", action: "userFollowing")
-        name userClucks:        "/ajax/$userTypeUrl/$urlName-$id/clucks"  (controller: "kuorumUser", action: "userClucks")
-        name userPost:          "/ajax/$userTypeUrl/$urlName-$id/posts"  (controller: "kuorumUser", action: "userPosts")
-        name userVictories:     "/ajax/$userTypeUrl/$urlName-$id/victories"  (controller: "kuorumUser", action: "userVictories")
-        name ajaxPoliticianProjects:         "/ajax/$userTypeUrl/$urlName-$id/politicianProjects"   (controller: "kuorumUser", action: "politicianProjects")
-        name ajaxPoliticianDefendedPosts:    "/ajax/$userTypeUrl/$urlName-$id/defendedPosts"        (controller: "kuorumUser", action: "politicianDefendedPosts")
-        name ajaxPoliticianVictoryPosts:     "/ajax/$userTypeUrl/$urlName-$id/defendedVictoryPosts" (controller: "kuorumUser", action: "politicianDefendedVictories")
+        name userFollowers:     "/$userAlias/seguidores" (controller: "kuorumUser", action: "userFollowers")
+                                "/$userTypeUrl/$urlName-$id/seguidores" {controller="redirect"; action= "redirect301User"; newMapping:'userFollowers'}
+        name userFollowing:     "/$userAlias/siguiendo"  (controller: "kuorumUser", action: "userFollowing")
+                                "/$userTypeUrl/$urlName-$id/siguiendo"  {controller="redirect"; action= "redirect301User"; newMapping:'userFollowing'}
+        name userClucks:        "/ajax/$userAlias/clucks"  (controller: "kuorumUser", action: "userClucks")
+        name userPost:          "/ajax/$userAlias/posts"  (controller: "kuorumUser", action: "userPosts")
+        name userVictories:     "/ajax/$userAlias/victories"  (controller: "kuorumUser", action: "userVictories")
+        name ajaxPoliticianProjects:         "/ajax/$userAlias/politicianProjects"   (controller: "kuorumUser", action: "politicianProjects")
+        name ajaxPoliticianDefendedPosts:    "/ajax/$userAlias/defendedPosts"        (controller: "kuorumUser", action: "politicianDefendedPosts")
+        name ajaxPoliticianVictoryPosts:     "/ajax/$userAlias/defendedVictoryPosts" (controller: "kuorumUser", action: "politicianDefendedVictories")
         name ajaxRegisterContact:            "/ajax/contact"(controller: "register", action: "contactRegister");
 
         name register:            "/sign-up"(controller: "register"){action = [GET:"index", POST:"register"]}
@@ -254,7 +257,8 @@ class UrlMappings {
         name loginAuth: "/sign-in" (controller:"login", action:"auth")
                         "/autenticarse" (controller:"login", action:"auth")
         name loginFull: "/confirmar-usuario" (controller:"login", action:"full")
-        name logout:    "/salir"        (controller:"logout", action:"index")
+        name logout:    "/logout"        (controller:"logout", action:"index")
+                        "/salir"        (controller:"logout", action:"index")
 
         name adminPrincipal:        "/admin"                          (controller:"adminProject", action: "index")
         name adminCreateProject:    "/admin/proyectos/crear-proyecto" (controller:"adminProject"){action =[GET:"createProject", POST:"saveProject"]}
@@ -272,16 +276,16 @@ class UrlMappings {
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
 //        name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
         name editorCreatePolitician:                        "/editor/usuarios/politician/create-politician" (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
-        name editorEditUserProfile:                         "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/profile" (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
-        name editorEditSocialNetwork:                       "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/social-network" (controller:"editorUser"){action =[GET:"editUserSocialNetwork", POST:"updateUserSocialNetwork"]}
-        name editorEditPoliticianExternalActivity:          "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/externalActivity" (controller:"editorPolitician"){action =[GET:"editExternalActivity", POST:"updateExternalActivity"]}
-        name editorEditPoliticianRelevantEvents:            "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/relevantEvents" (controller:"editorPolitician"){action =[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}
-        name editorEditPoliticianProfessionalDetails:       "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/professionalDetails" (controller:"editorPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
-        name editorEditPoliticianQuickNotes:                "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/quick-notes" (controller:"editorPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
-        name editorEditPoliticianCauses:                    "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/causes" (controller:"editorPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
-        name editorEditPoliticianExperience:                "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/experiencia" (controller:"editorPolitician"){action =[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
-        name editorKuorumAccountEdit:                       "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/account-details" (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
-        name editorAdminUserRights:                         "/editor/usuarios/$userTypeUrl/$urlName-$id/editar/rights" (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
+        name editorEditUserProfile:                         "/editor/usuarios/$userAlias/editar/profile" (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
+        name editorEditSocialNetwork:                       "/editor/usuarios/$userAlias/editar/social-network" (controller:"editorUser"){action =[GET:"editUserSocialNetwork", POST:"updateUserSocialNetwork"]}
+        name editorEditPoliticianExternalActivity:          "/editor/usuarios/$userAlias/editar/externalActivity" (controller:"editorPolitician"){action =[GET:"editExternalActivity", POST:"updateExternalActivity"]}
+        name editorEditPoliticianRelevantEvents:            "/editor/usuarios/$userAlias/editar/relevantEvents" (controller:"editorPolitician"){action =[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}
+        name editorEditPoliticianProfessionalDetails:       "/editor/usuarios/$userAlias/editar/professionalDetails" (controller:"editorPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
+        name editorEditPoliticianQuickNotes:                "/editor/usuarios/$userAlias/editar/quick-notes" (controller:"editorPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
+        name editorEditPoliticianCauses:                    "/editor/usuarios/$userAlias/editar/causes" (controller:"editorPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
+        name editorEditPoliticianExperience:                "/editor/usuarios/$userAlias/editar/experiencia" (controller:"editorPolitician"){action =[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
+        name editorKuorumAccountEdit:                       "/editor/usuarios/$userAlias/editar/account-details" (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
+        name editorAdminUserRights:                         "/editor/usuarios/$userAlias/editar/rights" (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
         name editorRequestRights:                           "/editor/request" (controller:"editorRecruitment", action: "requestEditor")
         name editorDiscardWarns:                            "/editor/discard" (controller:"editorRecruitment", action: "discardEditor")
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")

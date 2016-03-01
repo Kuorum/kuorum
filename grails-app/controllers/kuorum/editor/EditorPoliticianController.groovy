@@ -21,12 +21,12 @@ class EditorPoliticianController {
     CausesService causesService
 
     def editExternalActivity(){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         [command:new ExternalPoliticianActivityCommand(politician:politician, externalPoliticianActivities: politician.externalPoliticianActivities)]
     }
 
     def updateExternalActivity(ExternalPoliticianActivityCommand command){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             render view:"editExternalActivity", model:[command:command]
             return;
@@ -37,12 +37,12 @@ class EditorPoliticianController {
     }
 
     def editRelevantEvents(){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         [command:new RelevantEventsCommand(politician:politician, politicianRelevantEvents: politician.relevantEvents?.reverse()?:[])]
     }
 
     def updateRelevantEvents(RelevantEventsCommand command){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             render view:"editRelevantEvents", model:[command:command]
             return;
@@ -53,13 +53,13 @@ class EditorPoliticianController {
     }
 
     def editProfessionalDetails(){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         ProfessionalDetailsCommand command = new ProfessionalDetailsCommand(politician)
         [command:command]
     }
 
     def updateProfessionalDetails(ProfessionalDetailsCommand command){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             render view:"editProfessionalDetails", model:[command:command]
             return;
@@ -71,13 +71,13 @@ class EditorPoliticianController {
 
 
     def editQuickNotes(){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         QuickNotesCommand command = new QuickNotesCommand(politician)
         [command:command]
     }
 
     def updateQuickNotes(QuickNotesCommand command){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             render view:"editQuickNotes", model:[command:command]
             return;
@@ -89,14 +89,14 @@ class EditorPoliticianController {
 
 
     def editCauses(){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         List<CauseRSDTO> causes = causesService.findDefendedCauses(politician)
         PoliticianCausesCommand command = new PoliticianCausesCommand(politician, causes.collect{it.name})
         [command:command]
     }
 
     def updateCauses(PoliticianCausesCommand command){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             render view:"editCauses", model:[command:command]
             return;
@@ -108,13 +108,13 @@ class EditorPoliticianController {
 
 
     def editPoliticalExperience(){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         PoliticalExperienceCommand command = new PoliticalExperienceCommand(politician)
         [command:command]
     }
 
     def updatePoliticalExperience(PoliticalExperienceCommand command){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.id)
+        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             render view:"editPoliticalExperience", model:[command:command]
             return;

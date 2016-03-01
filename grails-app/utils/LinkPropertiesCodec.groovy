@@ -76,22 +76,28 @@ class LinkPropertiesCodec {
 
     private static def prepareParams(KuorumUser user){
         //userTypeUrl is the name that match with UrlMappings to redirect to correct action
-        String userTypeUrl = transEnumToUrl(user.userType)
+//        String userTypeUrl = transEnumToUrl(user.userType)
+//        [
+//                id: user.id.toString(),
+//                urlName:user.name.encodeAsKuorumUrl(),
+//                userTypeUrl:userTypeUrl.encodeAsKuorumUrl(),
+//        ]
         [
-                id: user.id.toString(),
-                urlName:user.name.encodeAsKuorumUrl(),
-                userTypeUrl:userTypeUrl.encodeAsKuorumUrl(),
+                userAlias:user.alias
         ]
     }
 
     private static def prepareParams(SolrKuorumUser user){
         //userTypeUrl is the name that match with UrlMappings to redirect to correct action
-        UserType userType = UserType.valueOf(user.subType.toString())
-        String userTypeUrl = transEnumToUrl(userType)
+//        UserType userType = UserType.valueOf(user.subType.toString())
+//        String userTypeUrl = transEnumToUrl(userType)
+//        [
+//                id: user.id.toString(),
+//                urlName:user.name.encodeAsKuorumUrl(),
+//                userTypeUrl:userTypeUrl.encodeAsKuorumUrl(),
+//        ]
         [
-                id: user.id.toString(),
-                urlName:user.name.encodeAsKuorumUrl(),
-                userTypeUrl:userTypeUrl.encodeAsKuorumUrl(),
+                userAlias:user.name
         ]
     }
 

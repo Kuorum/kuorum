@@ -3,6 +3,7 @@ package kuorum.security.permission
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import kuorum.core.model.UserType
+import kuorum.project.Project
 import kuorum.users.KuorumUser
 import org.springframework.security.core.Authentication
 import org.springframework.security.access.PermissionEvaluator
@@ -44,7 +45,14 @@ class KuorumPermissionEvaluator implements PermissionEvaluator {
 
         if (domainClass == kuorum.users.KuorumUser){
             KuorumUser user = domainClass.get(targetId)
+            if (!user){
+                //Using alias which is the other possible id
+                user = KuorumUser.findByAlias(targetId)
+            }
             return hasPermission(authentication, user, permission)
+        }else if (domainClass == kuorum.project.Project){
+            Project project = domainClass.get(targetId)
+            return hasPermission(authentication, project, permission)
         }
         return false;
     }

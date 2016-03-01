@@ -428,17 +428,10 @@ class KuorumUserService {
 
 
 
-    @PreAuthorize("hasPermission(#userId, 'kuorum.users.KuorumUser','edit')")
-    KuorumUser findEditableUser(String userId){
-        findEditableUser(new ObjectId(userId))
+    @PreAuthorize("hasPermission(#userAlias, 'kuorum.users.KuorumUser','edit')")
+    KuorumUser findEditableUser(String userAlias){
+        KuorumUser.findByAlias(userAlias)
     }
-
-    @PreAuthorize("hasPermission(#userId, 'kuorum.users.KuorumUser','edit')")
-    KuorumUser findEditableUser(ObjectId userId){
-        KuorumUser.get(userId)
-    }
-
-
 
     @PreAuthorize("hasPermission(#user, 'edit')")
     KuorumUser updateUser(KuorumUser user){
@@ -639,18 +632,18 @@ class KuorumUserService {
         searchParams.regionIsoCodes = regions.collect{it.iso3166_2}
         searchParams.setType(SolrType.POLITICIAN)
         searchParams.filteredUserIds = userFiltered.collect{it.toString()}
+        if (user) searchParams.filteredUserIds << user.id.toString()
         List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
         if (user?.userType == UserType.POLITICIAN && causes){
             String searchCauses = causes*.name.join(" ")
             //Se busca a todos los politicos con el *:* pero se ordena por score aquellos que compartan tag
-            searchParams.word = "(${searchCauses} OR (*:*)"
+            searchParams.word = "${searchCauses} OR (*:*)"
         }
         SolrResults results = searchSolrService.search(searchParams)
 
         List<KuorumUser> politicians = results.elements.collect{SolrElement solrElement ->
             KuorumUser.get(solrElement.getId())
         }
-        if(user) politicians = politicians.findAll{it.id != user.id}
         return politicians?politicians[0..Math.min(pagination.max-1, politicians.size()-1)]:[]
     }
 

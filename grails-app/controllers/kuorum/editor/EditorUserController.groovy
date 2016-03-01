@@ -43,14 +43,14 @@ class EditorUserController {
 
     }
 
-    def editUser(String id){
-        KuorumUser user = kuorumUserService.findEditableUser(id)
+    def editUser(String userAlias){
+        KuorumUser user = kuorumUserService.findEditableUser(userAlias)
         EditUserProfileCommand command = new EditUserProfileCommand(user)
         [user:user, command:command]
     }
 
     def updateUser(EditUserProfileCommand command){
-        KuorumUser user = kuorumUserService.findEditableUser(params.id)
+        KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             render view:"editUser", model: [command:command,user:user]
             return
@@ -64,13 +64,13 @@ class EditorUserController {
     }
 
     def editAdminAccountDetails(){
-        KuorumUser user = kuorumUserService.findEditableUser(params.id)
+        KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
         EditorAccountCommand command = new EditorAccountCommand(user);
         [user:user,command:command]
     }
 
     def updateAdminAccountDetails(EditorAccountCommand command){
-        KuorumUser user = kuorumUserService.findEditableUser(command.user.id)
+        KuorumUser user = kuorumUserService.findEditableUser(command.user.userAlias)
         if (command.hasErrors()){
             flash.error=message(code:'admin.createUser.error')
             render view: 'editAdminAccountDetails', model:[command:command, user:user]
@@ -101,13 +101,13 @@ class EditorUserController {
     }
 
     def editUserSocialNetwork(){
-        KuorumUser user = kuorumUserService.findEditableUser(params.id)
+        KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
         SocialNetworkCommand command = new SocialNetworkCommand(user);
         [user:user,command:command]
     }
 
     def updateUserSocialNetwork(SocialNetworkCommand command){
-        KuorumUser user = kuorumUserService.findEditableUser(params.id)
+        KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             render (view:'socialNetworks', model:[user:user, command: command])
             return

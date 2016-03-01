@@ -117,25 +117,26 @@ class SearchSolrService {
         if (params.type){
             filterQuery.append(separator)
             filterQuery.append("type:(${params.type})")
+            separator = " AND "
         }
 
         if (params.regionIsoCodes){
-            separator = separator?" AND ": ""
             filterQuery.append(separator)
             String subQuery = convertToOrList(params.regionIsoCodes)
             filterQuery.append("regionIso3166_2:(${subQuery})")
+            separator = " AND "
         }
 
         if (params.commissionType){
-            separator = separator?" AND ": ""
             filterQuery.append(separator)
             filterQuery.append("commissions:(${params.commissionType})")
+            separator = " AND "
         }
 
         if (params.filteredUserIds){
-            separator = separator?" AND ": ""
             filterQuery.append(separator)
             filterQuery.append("-id:(${params.filteredUserIds.join(" ")})")
+            separator = " AND "
         }
 
         if (filterQuery.length()){
