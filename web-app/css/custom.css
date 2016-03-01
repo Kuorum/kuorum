@@ -4800,7 +4800,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
     .main.special.landing .homeSub ul li.square {height: 85px;}
 
-    #main.landing .full-video h1 {font-size: 67px;}
+    #main.landing .full-video h1 {font-size: 62px; font-size: 6.2rem;}
     #main.landing .full-video h2,
     .landing .full-video .btn.btn-white {font-size: 25px;}
     .landing .full-video .btn.btn-white {margin-bottom: 68px;}
@@ -4850,7 +4850,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .testimonies-list li blockquote .body {padding: 30px 20px;}
     .row.main.presskit { background-position: center -240px; }
 
-    #main.landing .full-video h1 {margin-top: 16%;}
+    #main.landing .full-video h1 {margin-top: 12%;}
     .landing .full-video .container-fluid form {margin-bottom: 3%;}
     #main.landing.mainEditors .full-video {background-position: right -22px;}
 
