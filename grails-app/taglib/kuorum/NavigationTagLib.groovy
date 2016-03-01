@@ -18,6 +18,7 @@ class NavigationTagLib {
      */
     def activeMenuCss = { attrs ->
         String activeCss =  attrs.activeCss?:"active"
+        def urlParams = attrs.urlParams?:[]
         List<String> mappings = []
         if (attrs.mappingName){
             mappings << attrs.mappingName
@@ -25,9 +26,9 @@ class NavigationTagLib {
             mappings = attrs.mappingNames
         }
 
-        List<String> urls = mappings.collect{mappingName ->grailsLinkGenerator.link(mapping:mappingName,absolute: true)}
+        List<String> urls = mappings.collect{mappingName ->grailsLinkGenerator.link(mapping:mappingName, params: urlParams)}
 
-        if (urls.contains(request.getRequestURL().toString())){
+        if (urls.contains(request.forwardURI.toString())){
             out << activeCss
         }
     }

@@ -120,16 +120,22 @@ class SearchSolrService {
         }
 
         if (params.regionIsoCodes){
-            separator = " AND "
+            separator = separator?" AND ": ""
             filterQuery.append(separator)
             String subQuery = convertToOrList(params.regionIsoCodes)
             filterQuery.append("regionIso3166_2:(${subQuery})")
         }
 
         if (params.commissionType){
-            separator = " AND "
+            separator = separator?" AND ": ""
             filterQuery.append(separator)
             filterQuery.append("commissions:(${params.commissionType})")
+        }
+
+        if (params.filteredUserIds){
+            separator = separator?" AND ": ""
+            filterQuery.append(separator)
+            filterQuery.append("-id:(${params.filteredUserIds.join(" ")})")
         }
 
         if (filterQuery.length()){

@@ -236,7 +236,7 @@ class PoliticianService {
             log.info("Updating ${politician.name} with externalId: ${externalId}")
         }else{
             politician = new KuorumUser()
-            politician.enabled = politician.enabled?:false
+            politician.enabled = false
             politician.setPoliticianExtraInfo(new PoliticianExtraInfo(externalId: externalId))
             log.info("Creating politician with ipdbId ${externalId}")
         }
