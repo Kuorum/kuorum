@@ -407,12 +407,12 @@ class KuorumUserService {
         if (loggedUser){
             filterPoliticians  = loggedUser.following?:[]
             filterPoliticians << loggedUser.id
-        }
-        RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
-        if(recommendedUserInfo){
-            filterPoliticians.addAll(recommendedUserInfo.deletedRecommendedUsers)
-        }else{
-            log.warn("User ${loggedUser.name} (${loggedUser.id}) has not calculated recommendedUserInfo")
+            RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
+            if(recommendedUserInfo){
+                filterPoliticians.addAll(recommendedUserInfo.deletedRecommendedUsers)
+            }else{
+                log.warn("User ${loggedUser.name} (${loggedUser.id}) has not calculated recommendedUserInfo")
+            }
         }
 
         bestPoliticiansSince(user, filterPoliticians, pagination);
