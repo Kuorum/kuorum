@@ -110,15 +110,16 @@ class CodecSpec extends Specification {
         twitterNickname == twitter
         twitterUrl == url
         where:
-        twitterString                   | twitter     | url
-        "@nickName"                     | "@nickname" | "https://twitter.com/nickname"
-        "nickName"                      | "@nickname" | "https://twitter.com/nickname"
-        "http://twitter/nickName"       | "@nickname" | "https://twitter.com/nickname"
-        "http://twitter/nickName "      | "@nickname" | "https://twitter.com/nickname"
-        "https://twitter/nickName"      | "@nickname" | "https://twitter.com/nickname"
-        "https://twitter/nickName "     | "@nickname" | "https://twitter.com/nickname"
-        "http://XXXX/nickName"          | "@nickname" | "https://twitter.com/nickname"
-        "https://XXXX/nickName"         | "@nickname" | "https://twitter.com/nickname"
-        "httpNOT_VALID_URL/nickName"    | "@nickname" | "https://twitter.com/nickname"
+        twitterString                       | twitter     | url
+        "@nick-Name_23"                     | "@nick-name_23" | "https://twitter.com/nick-name_23"
+        "nick-Name_23"                      | "@nick-name_23" | "https://twitter.com/nick-name_23"
+        "http://twitter/nick-Name_23"       | "@nick-name_23" | "https://twitter.com/nick-name_23"
+        "http://twitter/nick-Name_23 "      | "@nick-name_23" | "https://twitter.com/nick-name_23"
+        "https://twitter/nick-Name_23"      | "@nick-name_23" | "https://twitter.com/nick-name_23"
+        "https://twitter/nick-Name_23 "     | "@nick-name_23" | "https://twitter.com/nick-name_23"
+        "http://XXXX/nick-Name_23"          | "@nick-name_23" | "https://twitter.com/nick-name_23"
+        "https://XXXX/nick-Name_23"         | "@nick-name_23" | "https://twitter.com/nick-name_23"
+        "httpNOT_VALID_URL/nick-Name_23 "   | "@nick-name_23" | "https://twitter.com/nick-name_23"
+        " https://twitter.com/nick-Name_23" | "@nick-name_23" | "https://twitter.com/nick-name_23" //El primer espacio no es un espacio
     }
 }
