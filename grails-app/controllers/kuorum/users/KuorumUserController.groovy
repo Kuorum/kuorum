@@ -37,7 +37,7 @@ class KuorumUserController {
     def beforeInterceptor = [action: this.&checkUser, except: ['index', 'politicians']]
 
     private checkUser(){
-        KuorumUser user = KuorumUser.findByAlias(params.userAlias)
+        KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
         if (!user) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
@@ -58,6 +58,7 @@ class KuorumUserController {
         redirect (mapping:'userShow', params:user.encodeAsLinkProperties())
     }
 
+    @Deprecated
     def show(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
         if (!user){
@@ -66,31 +67,30 @@ class KuorumUserController {
         }else {
             log.warn("Executing show user")
             switch (user.userType){
-                case UserType.ORGANIZATION: return showCitizen(id); break;
-                case UserType.PERSON: return showCitizen(id); break;
-                case UserType.POLITICIAN: return showPolitician(id); break;
+                case UserType.ORGANIZATION: return showCitizen(user); break;
+                case UserType.PERSON: return showCitizen(user); break;
+                case UserType.POLITICIAN: return showPolitician(user); break;
             }
         }
     }
 
     def showWithAlias(String userAlias){
-        KuorumUser user = KuorumUser.findByAlias(userAlias.toLowerCase())
+        KuorumUser user = kuorumUserService.findByAlias(userAlias)
         if (!user) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
         switch (user.userType){
-            case UserType.ORGANIZATION: return showCitizen(user.getId().toString()); break;
-            case UserType.PERSON: return showCitizen(user.getId().toString()); break;
-            case UserType.POLITICIAN: return showPolitician(user.getId().toString()); break;
+            case UserType.ORGANIZATION: return showCitizen(user); break;
+            case UserType.PERSON: return showCitizen(user); break;
+            case UserType.POLITICIAN: return showPolitician(user); break;
         }
         log.error("User type (userType=${user.userType}) not found for user ${user.id} (${user})")
         response.sendError(HttpServletResponse.SC_NOT_FOUND)
         return false
     }
 
-    def showCitizen(String id){
-        KuorumUser user = KuorumUser.get(new ObjectId(id))
+    def showCitizen(KuorumUser user){
         if (!user) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
@@ -128,8 +128,7 @@ class KuorumUserController {
                 ])
     }
 
-    def showPolitician(String id){
-        KuorumUser politician = KuorumUser.get(new ObjectId(id))
+    def showPolitician(KuorumUser politician){
         if (!politician) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
@@ -186,7 +185,7 @@ class KuorumUserController {
     }
 
     def userClucks(Pagination pagination){
-        KuorumUser user = KuorumUser.findByAlias(params.userAlias)
+        KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
         if (!user){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
@@ -196,7 +195,7 @@ class KuorumUserController {
         render template: "/cluck/liClucks", model:[clucks:clucks]
     }
     def userPosts(SearchUserPosts searchUserPosts){
-        KuorumUser user = KuorumUser.findByAlias(params.userAlias)
+        KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
         if (!user){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
@@ -209,7 +208,7 @@ class KuorumUserController {
     }
 
     def userVictories(SearchUserPosts searchUserPosts){
-        KuorumUser user = KuorumUser.findByAlias(params.userAlias)
+        KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
         if (!user){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
@@ -223,7 +222,7 @@ class KuorumUserController {
     }
 
     def politicianProjects(Pagination pagination){
-        KuorumUser user = KuorumUser.findByAlias(params.userAlias)
+        KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
         if (!politician){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
@@ -246,7 +245,7 @@ class KuorumUserController {
     }
 
     def politicianDefendedVictories(SearchUserPosts searchUserPosts){
-        KuorumUser user = KuorumUser.findByAlias(params.userAlias)
+        KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
         if (!user){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
@@ -261,7 +260,7 @@ class KuorumUserController {
 
 
     def userFollowers(String userAlias){
-        KuorumUser user = KuorumUser.findByAlias(userAlias)
+        KuorumUser user = kuorumUserService.findByAlias(userAlias)
         List<KuorumUser> followers = kuorumUserService.findFollowers(user, new Pagination())
         if (request.xhr){
             render (template:'/kuorumUser/embebedUsersList', model:[users:followers])
@@ -271,7 +270,7 @@ class KuorumUserController {
     }
 
     def userFollowing(String userAlias){
-        KuorumUser user = KuorumUser.findByAlias(userAlias)
+        KuorumUser user = kuorumUserService.findByAlias(userAlias)
         List<KuorumUser> following = kuorumUserService.findFollowing(user, new Pagination())
         if (request.xhr){
             render (template:'/kuorumUser/embebedUsersList', model:[users:following])
@@ -282,7 +281,7 @@ class KuorumUserController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def follow(String userAlias){
-        KuorumUser following = KuorumUser.findByAlias(userAlias)
+        KuorumUser following = kuorumUserService.findByAlias(userAlias)
         if (!following){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
@@ -295,7 +294,7 @@ class KuorumUserController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def unFollow(String userAlias){
-        KuorumUser following = KuorumUser.findByAlias(userAlias)
+        KuorumUser following = kuorumUserService.findByAlias(userAlias)
         if (!following){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;

@@ -70,7 +70,7 @@ class AdminController {
     }
 
     def editUserRights(String userAlias){
-        KuorumUser user = KuorumUser.findByAlias(userAlias)
+        KuorumUser user = kuorumUserService.findByAlias(userAlias)
         KuorumUserRightsCommand command = new KuorumUserRightsCommand()
         command.user = user
         command.active = user.enabled

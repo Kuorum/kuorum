@@ -430,7 +430,14 @@ class KuorumUserService {
 
     @PreAuthorize("hasPermission(#userAlias, 'kuorum.users.KuorumUser','edit')")
     KuorumUser findEditableUser(String userAlias){
-        KuorumUser.findByAlias(userAlias)
+        findByAlias(userAlias)
+    }
+
+    KuorumUser findByAlias(String userAlias){
+        if (!userAlias)
+            return null
+        else
+            return KuorumUser.findByAlias(userAlias.toLowerCase())
     }
 
     @PreAuthorize("hasPermission(#user, 'edit')")
@@ -468,6 +475,7 @@ class KuorumUserService {
         String currentAlias = user.alias
         if (user.alias != newAlias){
             try{
+                newAlias = newAlias.toLowerCase()
                 log.info("Updating alias ${user.alias} -> ${newAlias}")
                 def res = KuorumUser.collection.update([_id:user.id],['$set':[alias:newAlias]])
                 user.refresh()
