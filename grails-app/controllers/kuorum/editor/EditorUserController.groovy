@@ -70,7 +70,7 @@ class EditorUserController {
     }
 
     def updateAdminAccountDetails(EditorAccountCommand command){
-        KuorumUser user = kuorumUserService.findEditableUser(command.user.userAlias)
+        KuorumUser user = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             flash.error=message(code:'admin.createUser.error')
             render view: 'editAdminAccountDetails', model:[command:command, user:user]
