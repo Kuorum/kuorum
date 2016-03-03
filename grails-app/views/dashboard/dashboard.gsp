@@ -4,10 +4,6 @@
     <title><g:message code="kuorum.name"/> </title>
     <meta name="layout" content="columnCLayout">
     <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
-    <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
-    <meta itemprop="image" content="${resource(dir: 'images', file: 'home1.jpg')}" />
-    <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
     <g:if test="${tour}">
         <r:require module="tour"/>
     </g:if>

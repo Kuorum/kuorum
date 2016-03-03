@@ -13,13 +13,14 @@ import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.solr.SearchSolrService
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 
 class TourController {
 
     SpringSecurityService springSecurityService
     CausesService causesService
-    SearchSolrService searchSolrService
+    KuorumUserService kuorumUserService
 
 
     def index(){
@@ -34,16 +35,15 @@ class TourController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Pagination causesPagination = new Pagination(max:6)
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
-        SearchParams searchPoliticiansPagination = new SearchParams(type: SolrType.POLITICIAN)
-        SolrResults politicians = searchSolrService.search(searchPoliticiansPagination)
+        Pagination politiciansDashboardPagination = new Pagination(max:6)
+        List<KuorumUser> politicians = kuorumUserService.recommendPoliticians(user,politiciansDashboardPagination)
         render view: '/dashboard/dashboard', model:[
                 loggedUser:user,
                 causesSuggested:causesSuggested,
                 causesPagination:causesPagination,
                 politicians:politicians,
-                searchPoliticiansPagination:searchPoliticiansPagination,
+                politiciansDashboardPagination:politiciansDashboardPagination,
                 tour:true
         ]
-
     }
 }
