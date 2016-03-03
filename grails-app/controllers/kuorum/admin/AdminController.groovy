@@ -69,8 +69,8 @@ class AdminController {
 //        render view: "csvPoliticiansLoaded", model: [politiciansOk:politiciansOk,politiciansWrong:politiciansWrong, fileName:uploadedFile.getOriginalFilename()]
     }
 
-    def editUserRights(String id){
-        KuorumUser user = KuorumUser.get(new ObjectId(id))
+    def editUserRights(String userAlias){
+        KuorumUser user = KuorumUser.findByAlias(userAlias)
         KuorumUserRightsCommand command = new KuorumUserRightsCommand()
         command.user = user
         command.active = user.enabled
