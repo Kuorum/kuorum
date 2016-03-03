@@ -6,7 +6,7 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="leftMenuPress" model="[activeMapping:'footerInformation']"/>
+    <g:render template="leftMenuPress" model="[activeMapping:'footerInformation', langPressKit:langPressKit]"/>
 </content>
 
 <content tag="mainContent">
