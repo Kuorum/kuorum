@@ -653,11 +653,14 @@ class KuorumUserService {
         String domain = user.email.split("@")[1]
         String email = "BORRADO_${nombreEmail}@NO_EMAIL_${domain}"
         user.email = email
+        user.authorities.remove(RoleUser.findByAuthority("ROLE_USER"));
+        user.authorities.add(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER"));
         if (!user.save(flush: true)) {
             //TODO: Gestion errores
             log.error("Error salvando usuario ${user.id}. ERRORS => ${user.errors}")
             throw new KuorumException("Error desactivando un usuario")
         }
+        indexSolrService.delete(user);
     }
 
     @Deprecated
