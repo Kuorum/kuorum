@@ -2076,7 +2076,7 @@ textarea.error,
 .onecol #main .signup .terms-use a{color:#545454}
 
 .onecol #main .signup.step2 .option-buttons label{width: 100%;}
-.onecol #main .signup.step2 .option-buttons .btn.btn-lg{margin-right: 24px; margin-bottom:10px;}
+.onecol #main .signup.step2 .option-buttons .btn.btn-lg{margin-right: 24px; margin-bottom:10px; margin-top: 15px;}
 
 /* Subscribe */
 .landing + .row.main .onecol #main.subscribe {min-height: auto; margin-bottom: 40px;}
