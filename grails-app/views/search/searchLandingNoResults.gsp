@@ -27,35 +27,46 @@
                         <h1><g:message code="landingSearch.noResults.title"/></h1>
                         <h2><g:message code="landingEditors.videoAndRegister.subTitle"/></h2>
                         <g:link mapping="landingEditors" class="btn btn-white" fragment="ipdb-description"><g:message code="landingEditors.videoAndRegister.whatsIPDB" encodeAs="RAW"/> </g:link>
-                        <formUtil:validateForm bean="${command}" form="joinEditors"/>
-                        <g:form mapping="register" autocomplete="off" method="post" name="joinEditors" class="form-inline" role="form" novalidate="novalidate">
-                            <input type="hidden" name="editor" value="true"/>
-                            <fieldset>
-                                <div class="form-group">
-                                    <formUtil:input
-                                            command="${command}"
-                                            field="name"
-                                            labelCssClass="sr-only"
-                                            showLabel="true"
-                                            showCharCounter="false"
-                                            required="true"/>
-                                </div>
+                        <sec:ifNotLoggedIn>
+                            <formUtil:validateForm bean="${command}" form="joinEditors"/>
+                            <g:form mapping="register" autocomplete="off" method="post" name="joinEditors" class="form-inline" role="form" novalidate="novalidate">
+                                <input type="hidden" name="editor" value="true"/>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <formUtil:input
+                                                command="${command}"
+                                                field="name"
+                                                labelCssClass="sr-only"
+                                                showLabel="true"
+                                                showCharCounter="false"
+                                                required="true"/>
+                                    </div>
 
-                                <div class="form-group">
-                                    <formUtil:input
-                                            command="${command}"
-                                            field="email"
-                                            type="email"
-                                            showLabel="true"
-                                            labelCssClass="sr-only"
-                                            required="true"/>
-                                </div>
-                                <!-- para el botón, lo que prefieras, <button> o <input>-->
-                                <button type="submit" class="btn"><g:message code="landingEditors.videoAndRegister.form.submit"/> </button>
-                                <!--                                <input type="submit" class="btn" value="Start your free trial">-->
-                            </fieldset>
-                            <p><g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse')]"/></p>
-                        </g:form>
+                                    <div class="form-group">
+                                        <formUtil:input
+                                                command="${command}"
+                                                field="email"
+                                                type="email"
+                                                showLabel="true"
+                                                labelCssClass="sr-only"
+                                                required="true"/>
+                                    </div>
+                                    <!-- para el botón, lo que prefieras, <button> o <input>-->
+                                    <button type="submit" class="btn"><g:message code="landingEditors.videoAndRegister.form.submit"/> </button>
+                                    <!--                                <input type="submit" class="btn" value="Start your free trial">-->
+                                </fieldset>
+                                <p><g:message code="register.conditions" args="[g.createLink(mapping: 'footerTermsUse')]"/></p>
+                            </g:form>
+                        </sec:ifNotLoggedIn>
+                        <sec:ifLoggedIn>
+                            <g:form mapping="editorRequestRights" autocomplete="off" method="POST" name="joinEditors" class="form-inline" role="form" novalidate="novalidate">
+                            %{--Chapu para centrar--}%
+                                <div class="col-sm-3"></div>
+                                <fieldset class="col-sm-6">
+                                    <button type="submit" class="btn"><g:message code="landingEditors.videoAndRegister.form.submit"/> </button>
+                                </fieldset>
+                            </g:form>
+                        </sec:ifLoggedIn>
                     </div>
                 </div>
             </div>
