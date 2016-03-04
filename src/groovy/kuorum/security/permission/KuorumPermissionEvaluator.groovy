@@ -47,7 +47,7 @@ class KuorumPermissionEvaluator implements PermissionEvaluator {
             KuorumUser user = domainClass.get(targetId)
             if (!user){
                 //Using alias which is the other possible id
-                user = KuorumUser.findByAlias(targetId)
+                user = KuorumUser.findByAlias(targetId.toLowerCase())
             }
             return hasPermission(authentication, user, permission)
         }else if (domainClass == kuorum.project.Project){

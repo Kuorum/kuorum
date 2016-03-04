@@ -83,7 +83,7 @@ class LinkPropertiesCodec {
 //                userTypeUrl:userTypeUrl.encodeAsKuorumUrl(),
 //        ]
         [
-                userAlias:user.alias
+                userAlias:user.alias.toLowerCase()
         ]
     }
 
