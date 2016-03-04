@@ -58,6 +58,7 @@ class FacebookAuthService {
         user.accountExpired = false
         user.accountLocked = false
         user.enabled = true
+        user.alias = fbProfile.username
         //Ya no pedimos datos personales
 //        if (user.userType == UserType.PERSON){
 //            log.info("${fbProfile.email} es una persona")
