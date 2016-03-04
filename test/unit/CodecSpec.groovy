@@ -114,7 +114,7 @@ class CodecSpec extends Specification {
         "@nick-Name_23"                     | "@nick-name_23" | "https://twitter.com/nick-name_23"
         "nick-Name_23"                      | "@nick-name_23" | "https://twitter.com/nick-name_23"
         "http://twitter/nick-Name_23"       | "@nick-name_23" | "https://twitter.com/nick-name_23"
-        "http://twitter/nick-Name_23 "      | "@nick-name_23" | "https://twitter.com/nick-name_23"
+        "http://twitter/nick-Name_23 ?pp=kk"| "@nick-name_23" | "https://twitter.com/nick-name_23"
         "https://twitter/nick-Name_23"      | "@nick-name_23" | "https://twitter.com/nick-name_23"
         "https://twitter/nick-Name_23 "     | "@nick-name_23" | "https://twitter.com/nick-name_23"
         "http://XXXX/nick-Name_23"          | "@nick-name_23" | "https://twitter.com/nick-name_23"

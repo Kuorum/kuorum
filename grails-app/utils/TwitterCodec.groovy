@@ -3,19 +3,24 @@
  */
 class TwitterCodec {
     static encode = {String target->
-        String nickName=target.replaceAll(/[^\w:\-_\/\d]/,"")
-        if (nickName.startsWith("http"))
-            nickName = nickName.split("/").last()
-
-        "@${nickName.trim()}".toLowerCase()
+        String nickName=getNormalizedNickName(target)
+        "@${nickName.trim()}"
     }
 
     static decode = {target->
-        String nickName=target.replaceAll(/[^\w:\-_\/\d]/,"")
+        String nickName=getNormalizedNickName(target)
+        "https://twitter.com/${nickName.trim()}"
+    }
+
+    static String getNormalizedNickName(def target){
+        //Remove url params
+        String nickName = target.replaceAll(/\?.*$/,"")
+        //Remove special chars
+        nickName = nickName.replaceAll(/[^\w:\-_\/\d]/,"")
 
         if (nickName.startsWith("http")){
-            nickName = target.split("/").last()
+            nickName = nickName.split("/").last()
         }
-        "https://twitter.com/${nickName.trim()}".toLowerCase()
+        return nickName.toLowerCase();
     }
 }
