@@ -26,6 +26,7 @@ import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
 import kuorum.users.extendedPoliticianData.PoliticianTimeLine
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
+import org.apache.commons.lang.WordUtils
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.kuorum.rest.model.tag.CauseRSDTO
@@ -244,7 +245,7 @@ class PoliticianService {
     }
 
     private void populateBasicData(KuorumUser politician, def line){
-        politician.name = line."name"
+        politician.name = WordUtils.capitalizeFully(line."name")
         politician.bio = politician.bio?:line."bio"?.trim()
         politician.userType = UserType.POLITICIAN
         politician.email = generateEmail(politician, line)
@@ -254,6 +255,7 @@ class PoliticianService {
         politician.personalData.gender = line."gender"?Gender.valueOf(line."gender"):Gender.MALE
         politician.personalData.userType = politician.userType
         politician.personalData.telephone = politician?.personalData?.telephone?:line."phone"?.trim()
+        politician.alias = generateAlias(politician, line)
         if (!politician.save()){
             throw new KuorumException("Basic data not porvided, ${politician.errors}")
         }
@@ -262,6 +264,15 @@ class PoliticianService {
     private String generateEmail(KuorumUser politician, def line){
         String twitterAlias = line."twitter"?.trim()?.encodeAsTwitter()?.substring(1)
         politician?.email?:line."email"?:"info+${twitterAlias?:line."name"?.encodeAsMD5()}@kuorum.org"
+    }
+
+    private String generateAlias(KuorumUser politician, def line){
+        String twitterAlias = line."twitter"?.trim()?.encodeAsTwitter()?.substring(1)
+        String id = politician.id?.toString()
+        if (!id){
+            id = ObjectId.get().toString()
+        }
+        politician?.alias?:twitterAlias?:id.substring(id.length() - 15)
     }
 
     private void populateImages(KuorumUser politician, def line){
@@ -353,7 +364,8 @@ class PoliticianService {
         if (!politician.politicianExtraInfo){
             throw RuntimeException("Este politico no tiene el id de la BBDD")
         }
-        politician.politicianExtraInfo.completeName =politician?.politicianExtraInfo?.completeName?: line."completeName"?.trim()?:line."name"?.trim()
+        politician.politicianExtraInfo.completeName =politician.politicianExtraInfo?.completeName?: line."completeName"?.trim()?:line."name"?.trim()
+        politician.politicianExtraInfo.completeName =WordUtils.capitalizeFully(politician.politicianExtraInfo.completeName)
         politician.politicianExtraInfo.birthDate = politician.politicianExtraInfo.birthDate?:parseDate(line."dateOfBirth", "dd/MM/yyyy")
         politician.politicianExtraInfo.birthPlace = politician.politicianExtraInfo.birthPlace?:line."placeOfBirth"?.trim()
         politician.politicianExtraInfo.family = politician.politicianExtraInfo.family?:line."family"?.trim()
