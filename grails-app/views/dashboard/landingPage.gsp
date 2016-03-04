@@ -7,7 +7,7 @@
               model="[
                       kuorumTitle:g.message(code:'landingPage.videoAndRegister.title'),
                       kuorumDescription:g.message(code:'landingPage.videoAndRegister.subtitle'),
-                      kuorumImage:request.siteUrl +r.resource(dir:'images', file:'background.png')
+                      kuorumImage:request.siteUrl +r.resource(dir:'images', file:'background-capitol.png')
               ]"/>
 </head>
 
