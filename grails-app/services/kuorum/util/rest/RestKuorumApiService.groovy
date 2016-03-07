@@ -84,6 +84,8 @@ class RestKuorumApiService {
         USER_CAUSES_SUPPORT     ('/user/{userId}/causes/support/{causeName}'),
         USER_CAUSES_DEFENDED    ('/user/{userId}/causes/defend'),
         USER_CAUSES_DEFEND      ('/user/{userId}/causes/defend/{causeName}'),
+        USER_REPUTATION         ('/user/{userId}/reputation'),
+
         CAUSE_OPERATIONS        ("/cause/{causeName}"),
         CAUSE_USERS_DEFENDING   ("/cause/{causeName}/defending"),
         CAUSE_USERS_SUPPORTING  ("/cause/{causeName}/supporting"),
