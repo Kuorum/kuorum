@@ -213,7 +213,7 @@ class PoliticianService {
     }
 
     private KuorumUser findOrRecoverPolitician(def line){
-        String email = line.email?:generateEmail(null, line)
+        String email = generateEmail(null, line)
         String externalId = line.id?:null
         //Search politician by email
         KuorumUser politician;
@@ -262,17 +262,19 @@ class PoliticianService {
     }
 
     private String generateEmail(KuorumUser politician, def line){
-        String twitterAlias = line."twitter"?.trim()?.encodeAsTwitter()?.substring(1)
-        politician?.email?:line."email"?:"info+${twitterAlias?:line."name"?.encodeAsMD5()}@kuorum.org"
+        String twitterAlias = generateAlias(politician, line)
+        String email = politician?.email?:line."email"?:"info+${twitterAlias?:line."name"?.encodeAsMD5()}@kuorum.org"
+        email.toLowerCase();
     }
 
     private String generateAlias(KuorumUser politician, def line){
         String twitterAlias = line."twitter"?.trim()?.encodeAsTwitter()?.substring(1)
-        String id = politician.id?.toString()
+        String id = politician?.id?.toString()
         if (!id){
             id = ObjectId.get().toString()
         }
-        politician?.alias?:twitterAlias?:id.substring(id.length() - 15)
+        String alias = politician?.alias?:twitterAlias?:id.substring(id.length() - 15)
+        alias.toLowerCase()
     }
 
     private void populateImages(KuorumUser politician, def line){
