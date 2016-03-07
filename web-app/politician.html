@@ -552,35 +552,84 @@
                 </div>
             </div><!--/.row -->
             <div class="row extra-padding">
-                <div class='col-xs-12 col-sm-8 profile-title'>
+                <div class='col-sm-7 profile-title'>
                     <h2>Hillary Clinton</h2>
                     <cite>Presidential Candidate 2016, United States of America</cite>
                     <p class='party'>Democratic</p>
                 </div>
-                <div class="col-xs-12 col-sm-4 follow-btn-group">
+                <div class="col-sm-5">
+                    <!-- politician valuation -->
+                    <form class="popover-trigger rating" data-trigger="manual" rel="popover" role="button" data-toggle="popover">
+                        <fieldset class="rating">
+                            <legend class="sr-only">Please rate:</legend>
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5">5 stars <span class="rate-message">Me gusta mucho</span></label>
+
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4">4 stars <span class="rate-message">Me gusta bastante</span></label>
+
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3">3 stars <span class="rate-message">No está mal.</span></label>
+
+                            <input type="radio" id="star2" name="rating" value="2" checked>
+                            <label for="star2">2 stars <span class="rate-message">No me gusta mucho</span></label>
+
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1">1 star <span class="rate-message">No me gusta nada</span></label>
+                        </fieldset>
+                    </form>
+                    <!-- POPOVER PARA VOTACIÓN -->
+                    <div class="popover">
+                        <div class="rating-over">
+                            <!-- indicar la clase de la puntuación: one, two, three, four, five -->
+                            <div class="rate-number two"><span class="sr-only">Average: </span> 2 </div>
+                        <span class="sr-only">Distribution:</span>
+                        <ul>
+                            <li><span class="star">5 <span>★</span></span></li>
+                            <li><span class="star">4 <span>★</span></span></li>
+                            <li>
+                                <span class="star">3 <span>★</span></span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuetransitiongoal="10" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">10%</span></div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="star">2 <span>★</span></span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuetransitiongoal="80" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">80%</span></div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="star">1 <span>★</span></span>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuetransitiongoal="50" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">50%</span></div>
+                                </div>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
                     
-            <button
-                    type="button"
-                    class="follow btn btn-blue inverted  allow enabled inverted"
-                    data-ajaxFollowUrl="/kuorum/ajax/kuorumUser/follow?id=562897aae4b04fc5e3d80a37"
-                    data-ajaxUnFollowUrl="/kuorum/ajax/kuorumUser/unFollow?id=562897aae4b04fc5e3d80a37"
-                    data-message-follow_hover='<i class="fa fa-plus"></i> Seguir'
-                    data-message-follow='<i class="fa fa-plus"></i>Seguir'
-                    data-message-unfollow_hover='No seguir'
-                    data-message-unfollow='Siguiendo'
-                    data-userId='562897aae4b04fc5e3d80a37'>
-                <i class="fa fa-plus"></i>Seguir 
-            </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
-            
-                    
-        <button
-                type="button"
-                class="contact btn btn-blue  allow enabled inverted"
-                data-userId='562897aae4b04fc5e3d80a37'>
-            <i class="fa fa-envelope-o"></i>Contacta 
-        
-        </button>
-        
+                    <div class="follow-btn-group">
+                        <button
+                            type="button"
+                            class="follow btn btn-blue inverted  allow enabled inverted"
+                            data-ajaxFollowUrl="/kuorum/ajax/kuorumUser/follow?id=562897aae4b04fc5e3d80a37"
+                            data-ajaxUnFollowUrl="/kuorum/ajax/kuorumUser/unFollow?id=562897aae4b04fc5e3d80a37"
+                            data-message-follow_hover='<i class="fa fa-plus"></i> Seguir'
+                            data-message-follow='<i class="fa fa-plus"></i>Seguir'
+                            data-message-unfollow_hover='No seguir'
+                            data-message-unfollow='Siguiendo'
+                            data-userId='562897aae4b04fc5e3d80a37'>
+                            <i class="fa fa-plus"></i>Seguir 
+                        </button> <!-- ESTADO NORMAL permite cambiar de estado al clickar  -->
+                        <button
+                                type="button"
+                                class="contact btn btn-blue  allow enabled inverted"
+                                data-userId='562897aae4b04fc5e3d80a37'>
+                            <i class="fa fa-envelope-o"></i>Contacta 
+
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="extra-padding text-left following">
@@ -3039,21 +3088,13 @@ The State Department, under Clinton&#39;s leadership, came under investigation a
         </div>
     </div>
 </article>
-                        </li>
-                    
-                </ul>
-            </div>
-            
-                
-            
+            </li>   
+            </ul>
         </div>
-    </section>
-
-
-
+    </div>
+</section>
     
-    
-        <footer id="footer" class="row" role="contentinfo">
+<footer id="footer" class="row" role="contentinfo">
     <div class="container-fluid">
         <section class="links">
             <ul>
@@ -3101,12 +3142,7 @@ The State Department, under Clinton&#39;s leadership, came under investigation a
     </section>
 </footer>
 
-    
-    
-        
-    
-    <!-- MODAL CONTACT -->
-
+<!-- MODAL CONTACT -->
 <div class="modal fade in" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="false">
     <div class="modal-dialog ">
         <div class="modal-content">
@@ -3185,9 +3221,6 @@ The State Department, under Clinton&#39;s leadership, came under investigation a
 </div>
 <!-- fin modal -->
 
-    
-
-    
 </div>
 
 
@@ -3261,44 +3294,11 @@ The State Department, under Clinton&#39;s leadership, came under investigation a
         }
     }
 
-
 </script>
 <script src="bundle-bundle_basic_defer.js" type="text/javascript" ></script>
-
 <script src="bundle-bundle_application_defer.js" type="text/javascript" ></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script src="bundle-bundle_social_defer.js" type="text/javascript" ></script>
-
-
 <script src="js/froogaloop2.min.js" type="text/javascript" ></script>
-
-
-
-<script>
-    
-    
-    
-
-</script>
 
 
 <!-- Modal -->
@@ -3420,25 +3420,15 @@ The State Department, under Clinton&#39;s leadership, came under investigation a
         </a>
     </div>
 </form>
-                <!-- Formulario de Registro -->
-                
+
+<!-- Formulario de Registro --> 
 <form action="/kuorum/sing-up" method="post" autocomplete="off" name="sign-modal" class="login" role="form" novalidate="novalidate" id="sign-modal" >
 
-
     <div class="form-group">
-        
-            <input type="text" name="name" class="form-control input-lg " id="name" required  placeholder="Dinos tu nombre" value="" >
-        
-        
-        
+        <input type="text" name="name" class="form-control input-lg " id="name" required  placeholder="Dinos tu nombre" value="" >  
     </div>
-
     <div class="form-group">
-        
-            <input type="email" name="email" class="form-control input-lg " id="email" required  placeholder="Introduce tu email" value="" >
-        
-        
-        
+        <input type="email" name="email" class="form-control input-lg " id="email" required  placeholder="Introduce tu email" value="" >
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-lg" value="Regístrate"> <p class="cancel">o <a href="#" class="change-home-login">entra</a></p>
@@ -3472,6 +3462,20 @@ The State Department, under Clinton&#39;s leadership, came under investigation a
         </div>
     </div>
 </div>
+    
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-progressbar.min.js"></script>
+<script src="js/jquery-te-1.4.0.min.js"></script>
+<script src="js/jquery.timeago.js"></script>
+<script src="js/jquery.timeago.es.js"></script>
+<script src="js/jquery.bgswitcher.js"></script>
+<script src="js/jquery.touchSwipe.min.js"></script>
+<script src="js/jquery.slimscroll.min.js"></script>
+<script src="js/hideShowPassword.min.js"></script>
+<script src="js/local.js"></script>
+<!-- el siguiente cargar al integrar -->
+<!-- <script src="js/custom.js"></script> -->
 
 </body>
 </html>
