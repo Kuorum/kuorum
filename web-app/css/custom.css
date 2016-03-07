@@ -650,7 +650,7 @@ header.transp .navbar-collapse.collapse.in {background-color: #000;}
 .nav > li > .navbar-link.new-project:active,
 .nav > li > .navbar-link.special:hover,
 .nav > li > .navbar-link.special:focus,
-.nav > li > .navbar-link.special:active{background-color: #ee7612 !important; color: #fff;}
+.nav > li > .navbar-link.special:active{background-color: #666 !important; color: #fff;}
 .nav > li > .navbar-link.new-project .symbol {font-size: 22px;}
 .navbar-form .dropdown-menu {
     font-family: 'FontAwesome', Georgia, serif;
