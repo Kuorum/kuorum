@@ -100,7 +100,7 @@ class KuorumUser {
     //Politician FIELDS
 //    PoliticalParty politicalParty
 //    Institution institution
-    @Deprecated //Use ProfesionalDetails.region
+//    @Deprecated //Use ProfesionalDetails.region
 //    Region politicianOnRegion
     PoliticianActivity politicianActivity
 
