@@ -24,7 +24,9 @@
                              data-src="holder.js/140x140"
                              src="${image.userImgSrc(user:politician)}"
                              data-holder-rendered="true">
-                        %{--<i class="fa fa-check"></i>--}%
+                            <g:if test="${politician.enabled}">
+                                <i class="fa fa-check"></i>
+                            </g:if>
                     </div>
                 </div>
             </div><!--/.row -->

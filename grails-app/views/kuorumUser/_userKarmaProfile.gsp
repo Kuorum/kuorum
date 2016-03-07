@@ -1,5 +1,10 @@
 <section class="boxes profile-user clearfix" itemtype="http://schema.org/Person" itemscope>
-    <img itemprop="image" class="user-img big" alt="${user.name}" src="${image.userImgSrc(user: user)}">
+    <div class="profile-pic text-center">
+        <img itemprop="image" class="user-img big" alt="${user.name}" src="${image.userImgSrc(user: user)}">
+        <g:if test="${user.authorities*.authority.contains('ROLE_EDITOR')}">
+            <i class="fa fa-binoculars"></i>
+        </g:if>
+    </div>
     <h1><span href="#" class="user-name" itemprop="name">${user.name}</span></h1>
     <h2 class="user-type"><userUtil:roleName user="${user}"/></h2>
     <div class="actions">

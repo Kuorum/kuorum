@@ -5110,10 +5110,10 @@ only screen and (min-resolution: 192dpi) {
     margin-top: -14%;
     background-color: #fff;
 }
-/*.profile-pic .fa-check {
+.profile-pic .fa {
     position: absolute;
     bottom: 0px;
-    right: 7px;
+    left:55%;
     background-color: #1e84e3;
     border-radius: 100%;
     border: #fff solid 3px;
@@ -5123,10 +5123,10 @@ only screen and (min-resolution: 192dpi) {
     font-size: 16px;
     padding-top: 9px;
     text-align: center;
-}*/
-/*.profile-title{
-    margin-left: -25px;
-}*/
+}
+/*.profile-title{*/
+    /*margin-left: -25px;*/
+/*}*/
 p.party{
     font-weight: bold;
     margin-bottom: 5px;
@@ -5172,13 +5172,18 @@ p.party{
         border: solid 3px #fff;
         margin-top: -24%;
     }
-    /*.profile-pic .fa-check{
-        font-size: 10px;
-        width: 24px;
-        height: 24px;
-        padding-top: 4px;
+    .profile-pic .fa{
+        font-size: 12px;
+        width: 30px;
+        height: 30px;
+        padding-top: 7px;
         border: #fff solid 2px;
-    }*/
+
+    }
+    .profile-pic .img-circle +.fa {
+        top:-10px;
+    }
+
     .profile-title h2{
         font-size: 24px;
         margin-bottom: 3px;
