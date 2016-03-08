@@ -2,7 +2,7 @@ package kuorum.users
 
 import grails.transaction.Transactional
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.kuorumUser.UserReputationRSDTO
+import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 
 @Transactional
 class UserReputationService {

@@ -15,7 +15,7 @@ import kuorum.project.Project
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
-import org.kuorum.rest.model.kuorumUser.UserReputationRSDTO
+import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
 import javax.servlet.http.HttpServletResponse
