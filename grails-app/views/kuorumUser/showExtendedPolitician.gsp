@@ -25,20 +25,26 @@
                              src="${image.userImgSrc(user:politician)}"
                              data-holder-rendered="true">
                             <g:if test="${politician.enabled}">
-                                <i class="fa fa-check"></i>
+                                <abbr title="${message(code:'politician.image.icon.enabled.text')}"><i class="fa fa-check"></i></abbr>
                             </g:if>
+                            <g:else>
+                                <abbr title="${message(code:'politician.image.icon.notEnabled.text')}"><i class="fa fa-binoculars"></i></abbr>
+                            </g:else>
                     </div>
                 </div>
             </div><!--/.row -->
             <div class="row extra-padding">
-                <div class='col-xs-12 col-sm-8 profile-title'>
+                <div class='col-sm-7 profile-title'>
                     <h2>${politician.name}</h2>
                     <cite><userUtil:politicianPosition user="${politician}"/></cite>
                     <p class='party'>${userUtil.roleName(user:politician)}</p>
                 </div>
-                <div class="col-xs-12 col-sm-4 follow-btn-group">
-                    <userUtil:followButton user="${politician}" cssExtra="inverted"/>
-                    <userUtil:contactButton user="${politician}" cssExtra="inverted"/>
+                <div class="col-sm-5">
+                    <g:render template="politicianValuation" model="[user:politician]"/>
+                    <div class="follow-btn-group">
+                        <userUtil:followButton user="${politician}" cssExtra="inverted"/>
+                        <userUtil:contactButton user="${politician}" cssExtra="inverted"/>
+                    </div>
                 </div>
             </div>
             <div class="extra-padding text-left following">

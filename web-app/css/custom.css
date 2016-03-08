@@ -1782,6 +1782,7 @@ video#bgvid {
 .boxes.profile-user > small {display: block; float: left; width: 50%; margin: 0; padding: 0; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
 .boxes.profile-user > .pull-right {width: 40%; margin: 0; padding: 0; font-size: 20px; font-size: 2rem; text-align: right;}
 .boxes.profile-user > small .fa {opacity: .5;}
+.boxes.profile-user .profile-pic abbr .fa {background-color:#ff9431}
 
 
 /*********************** Edit Post *************************************/

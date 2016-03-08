@@ -2,7 +2,7 @@
     <div class="profile-pic text-center">
         <img itemprop="image" class="user-img big" alt="${user.name}" src="${image.userImgSrc(user: user)}">
         <g:if test="${user.authorities*.authority.contains('ROLE_EDITOR')}">
-            <i class="fa fa-binoculars"></i>
+            <abbr title="${message(code:'editor.image.icon.text')}"><i class="fa fa-binoculars"></i></abbr>
         </g:if>
     </div>
     <h1><span href="#" class="user-name" itemprop="name">${user.name}</span></h1>
