@@ -15,6 +15,7 @@ import kuorum.project.Project
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
+import org.kuorum.rest.model.kuorumUser.UserReputationRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
 import javax.servlet.http.HttpServletResponse
@@ -32,6 +33,8 @@ class KuorumUserController {
     CausesService causesService
 
     CampaignService campaignService
+
+    UserReputationService userReputationService;
 
 //    def beforeInterceptor = [action: this.&checkUser, except: 'login']
     def beforeInterceptor = [action: this.&checkUser, except: ['index', 'politicians']]
@@ -174,13 +177,15 @@ class KuorumUserController {
         List<CauseRSDTO> causes = causesService.findSupportedCauses(politician)
         Campaign campaign = campaignService.findActiveCampaign(politician)
         LeaningIndexRSDTO politicianLeaningIndex = kuorumUserStatsService.findLeaningIndex(politician)
+        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician, springSecurityService.currentUser)
         [
                 politician:politician,
                 politicianLeaningIndex:politicianLeaningIndex,
                 userProjects:userProjects,
                 recommendPoliticians:recommendPoliticians,
                 campaign:campaign,
-                causes:causes
+                causes:causes,
+                userReputation: userReputationRSDTO
         ]
     }
 

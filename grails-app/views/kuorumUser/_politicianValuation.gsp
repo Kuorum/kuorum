@@ -2,19 +2,19 @@
 <form class="popover-trigger rating" data-trigger="manual" rel="popover" role="button" data-toggle="popover">
     <fieldset class="rating">
         <legend class="sr-only">Please rate:</legend>
-        <input type="radio" id="star5" name="rating" value="5">
+        <input type="radio" id="star5" name="rating" value="5" ${userReputation.userReputation==5?'checked':''}>
         <label for="star5">5 stars <span class="rate-message">Me gusta mucho</span></label>
 
-        <input type="radio" id="star4" name="rating" value="4">
+        <input type="radio" id="star4" name="rating" value="4" ${userReputation.userReputation==4?'checked':''}>
         <label for="star4">4 stars <span class="rate-message">Me gusta bastante</span></label>
 
-        <input type="radio" id="star3" name="rating" value="3">
+        <input type="radio" id="star3" name="rating" value="3" ${userReputation.userReputation==3?'checked':''}>
         <label for="star3">3 stars <span class="rate-message">No está mal.</span></label>
 
-        <input type="radio" id="star2" name="rating" value="2" checked>
+        <input type="radio" id="star2" name="rating" value="2" ${userReputation.userReputation==2?'checked':''}>
         <label for="star2">2 stars <span class="rate-message">No me gusta mucho</span></label>
 
-        <input type="radio" id="star1" name="rating" value="1">
+        <input type="radio" id="star1" name="rating" value="1" ${userReputation.userReputation==1?'checked':''}>
         <label for="star1">1 star <span class="rate-message">No me gusta nada</span></label>
     </fieldset>
 </form>

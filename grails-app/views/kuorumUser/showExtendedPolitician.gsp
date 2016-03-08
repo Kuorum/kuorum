@@ -40,7 +40,7 @@
                     <p class='party'>${userUtil.roleName(user:politician)}</p>
                 </div>
                 <div class="col-sm-5">
-                    <g:render template="politicianValuation" model="[user:politician]"/>
+                    <g:render template="politicianValuation" model="[user:politician, userReputation:userReputation]"/>
                     <div class="follow-btn-group">
                         <userUtil:followButton user="${politician}" cssExtra="inverted"/>
                         <userUtil:contactButton user="${politician}" cssExtra="inverted"/>

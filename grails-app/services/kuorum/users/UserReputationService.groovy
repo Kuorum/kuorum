@@ -16,7 +16,7 @@ class UserReputationService {
         if (citizen){
             query.put("evaluatorId", citizen.getId().toString())
         }
-        def response = restKuorumApiService.put(RestKuorumApiService.ApiMethod.USER_REPUTATION, params, query)
+        def response = restKuorumApiService.put(RestKuorumApiService.ApiMethod.USER_STATS_REPUTATION, params, query)
         UserReputationRSDTO userReputation = null
         if (response.data){
             userReputation = (UserReputationRSDTO)response.data
@@ -30,7 +30,7 @@ class UserReputationService {
         if (citizen){
             query.put("evaluatorId", citizen.getId().toString())
         }
-        def response = restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_REPUTATION, params, query)
+        def response = restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_STATS_REPUTATION, params, query)
         UserReputationRSDTO userReputation = null
         if (response.data){
             userReputation = (UserReputationRSDTO)response.data
