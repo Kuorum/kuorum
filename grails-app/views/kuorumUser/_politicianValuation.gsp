@@ -1,10 +1,10 @@
 <!-- politician valuation -->
-<form class="popover-trigger rating" data-trigger="manual" rel="popover" role="button" data-toggle="popover">
+<form action="${g.createLink(mapping:'userRate', params:user.encodeAsLinkProperties())}" id="user-rating-form" method="post" class="popover-trigger rating" data-trigger="manual" rel="popover" role="button" data-toggle="popover">
     <fieldset class="rating">
         <legend class="sr-only"><g:message code="politician.valuation.rate"/></legend>
         <g:each in="${(1..5).reverse()}" var="i">
-            <input type="radio" name="rating" value="${i}" ${Math.round(userReputation.userReputation)==i?'checked':''}>
-            <label for="star5">
+            <input id="star${i}" type="radio" name="rating" value="${i}" ${Math.round(userReputation.userReputation)==i?'checked':''}>
+            <label for="star${i}">
                 <g:message code="politician.valuation.rate.value.starts" args="[i]"/>
                 <span class="rate-message"><g:message code="politician.valuation.rate.value.text.${i}"/></span>
             </label>

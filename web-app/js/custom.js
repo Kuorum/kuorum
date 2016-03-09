@@ -1005,6 +1005,13 @@ $(document).ready(function() {
             })
     }
 
+    /*******************************************/
+    /******* USER RATES ************************/
+    /*******************************************/
+    $("#user-rating-form input[type=radio]").on("click", function(e){
+
+        $("#rating-social-share-modal").modal("show")
+    })
 
 //    $("form.submitOrangeButton input.form-control").on('keyup paste',function(){
 //        console.log("change")

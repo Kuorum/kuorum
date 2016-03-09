@@ -1,5 +1,6 @@
 package kuorum.users
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.campaign.Campaign
 import kuorum.campaign.CampaignService
@@ -307,6 +308,17 @@ class KuorumUserController {
         KuorumUser follower = KuorumUser.get(springSecurityService.principal.id)
         kuorumUserService.deleteFollower(follower, following)
         render follower.following.size()
+    }
+
+    def ratePolitician(String userAlias){
+        KuorumUser politician = kuorumUserService.findByAlias(userAlias)
+        if (!politician || politician.userType != UserType.POLITICIAN){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        Integer rate = Integer.parseInt(params.rate)
+        UserReputationRSDTO userReputationRSDTO = userReputationService.addReputation(politician, springSecurityService.currentUser,rate)
+        render userReputationRSDTO as JSON
     }
 
 }
