@@ -3175,7 +3175,29 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 }
 
 /* politician valuation */
-.rating {margin: 10px auto 20px; width: 12em;}
+.user-rating {
+    margin: 10px auto 20px;
+    width: 12em;
+    font-size:28px;
+    font-size:2.8rem;
+    text-align:center;
+}
+
+.user-rating label:before {
+    content: "★ ";
+    color: #ff9431;
+}
+.user-rating label.active + label:before,
+.user-rating label.active + label +label:before,
+.user-rating label.active + label +label+label:before,
+.user-rating label.active + label +label+label+label:before{
+    content: "☆ ";
+    color: #e1e1e1;
+}
+
+.user-rating label span{display:none}
+
+.rating {margin: 10px auto 10px; width: 12em;}
 .rating fieldset {position: relative;}
 .rating legend {border: none;}
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
@@ -3199,7 +3221,7 @@ fieldset.rating:not(:checked) > label {
     color:#e1e1e1;
 }
 fieldset.rating:not(:checked) > label:before {
-    content: "☆ ";
+    content: "★ ";
     color: #e1e1e1;
 }
 fieldset.rating > input:checked ~ label:before, 
@@ -3224,34 +3246,29 @@ fieldset.rating:hover > input + label:hover:before {
 .rating-over {padding: 0 10px;}
 .rating-over ul{
     list-style: none;
-    margin: 0;
+    margin: 0 0 10px 0;
     padding: 0;
 }
 .rating-over ul> li {
     list-style: none;
     display: block;
-    height: 30px;
+    height: 21px;
     color: #c6c6c6;
 }
-.rating-over ul> li .star {display: block; width: 25px; float: left; margin-right: 10px;}
+.rating-over ul> li .star {display: block; width: 25px; float: left; margin-right: 10px; height:100%; line-height: 15px;}
 .rating-over ul> li .star span {font-size: 10px; font-size: 1rem;}
-.rating-over .rate-number {
+
+.rate-number {
     display: block;
-    width: 100px;
     margin: 10px auto 0;
     font-size: 40px;
-    font-size: 4rem;
+    font-size: 2rem;
     color: #ff9431;
     text-align: center;
-    padding-bottom: 35px;
-    background: url(../images/stars-sprite.gif) 100px -100px no-repeat #fff;
 }
-.rating-over .rate-number.show5 {background-position: 15px bottom;}
-.rating-over .rate-number.show4 {background-position: -75px bottom;}
-.rating-over .rate-number.show3 {background-position: -165px bottom;}
-.rating-over .rate-number.show2 {background-position: -260px bottom;}
-.rating-over .rate-number.show1 {background-position: -345px bottom;}
-.panel-default .rating-over .progress {background: transparent; box-shadow: inset 0 0 0 rgba(0,0,0,0); height: 25px; margin: 0;}
+.rate-number label {font-size:1.5rem;}
+
+.panel-default .rating-over .progress {pading-top:1px;background: transparent; box-shadow: inset 0 0 0 rgba(0,0,0,0); height: 20px; margin: 0;}
 .panel-default .rating-over .progress-bar {background-color: #ff9431;}
 
 

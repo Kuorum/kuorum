@@ -37,7 +37,7 @@ function preparePopover(){
             })
             //En el click ejecutamos el link normal. El framework the popover lo está bloqueando
             .on("click", function(e){
-                if ( !$(this).hasClass('rating') ) {
+                if ( !($(this).hasClass('user-rating') || $(this).hasClass('rating'))) {
                     var href = $(this).attr("href")
                     window.location=href;
                 }

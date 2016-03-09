@@ -19,6 +19,7 @@ import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
+import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
 
 class KuorumUserController {
@@ -310,6 +311,7 @@ class KuorumUserController {
         render follower.following.size()
     }
 
+    private static final String COOKIE_EVALUATOR_NAME='EVALUATOR_ID_RATING'
     def ratePolitician(String userAlias){
         KuorumUser politician = kuorumUserService.findByAlias(userAlias)
         if (!politician || politician.userType != UserType.POLITICIAN){
@@ -317,11 +319,15 @@ class KuorumUserController {
             return;
         }
         Integer rate = Integer.parseInt(params.rate)
-        String evaluatorId = g.cookie(name: 'EVALUATOR_ID_RATING')
+        String evaluatorId = g.cookie(name: COOKIE_EVALUATOR_NAME)
         if (springSecurityService.isLoggedIn()){
             evaluatorId = springSecurityService.currentUser.id.toString()
         }
         UserReputationRSDTO userReputationRSDTO = userReputationService.addReputation(politician, evaluatorId,rate)
+
+        Cookie cookie = new Cookie(COOKIE_EVALUATOR_NAME,userReputationRSDTO.evaluatorId)
+        cookie.maxAge = 100
+        response.addCookie(cookie)
         render userReputationRSDTO as JSON
     }
 

@@ -1009,17 +1009,15 @@ $(document).ready(function() {
     /******* USER RATES ************************/
     /*******************************************/
     $("#user-rating-form input[type=radio]").on("click", function(e){
-
+        console.log("CLIKC")
         var $parent =$(this).parents("form")
         var url = $parent.attr("action")
         var rate = $(this).val()
         var politicianId = $parent.find("input[name=politicianId]").val()
-        cookiesHelper.getCookie()
         $.ajax({
             url:url,
             data:{rate:rate}
         }).done(function(data){
-            cookiesHelper.setCookie("EVALUATOR_ID_RATING", data.evaluatorId);
             $("#rating-social-share-modal").modal("show")
         })
     })
