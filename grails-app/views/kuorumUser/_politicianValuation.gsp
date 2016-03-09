@@ -32,3 +32,5 @@
         </ul>
     </div>
 </div>
+
+<g:render template="/kuorumUser/showExtendedPoliticianTemplates/modals/modalRatingShare" model="[user:user]"/>
