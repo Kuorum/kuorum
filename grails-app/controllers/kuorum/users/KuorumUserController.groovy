@@ -317,7 +317,11 @@ class KuorumUserController {
             return;
         }
         Integer rate = Integer.parseInt(params.rate)
-        UserReputationRSDTO userReputationRSDTO = userReputationService.addReputation(politician, springSecurityService.currentUser,rate)
+        String evaluatorId = g.cookie(name: 'EVALUATOR_ID_RATING')
+        if (springSecurityService.isLoggedIn()){
+            evaluatorId = springSecurityService.currentUser.id.toString()
+        }
+        UserReputationRSDTO userReputationRSDTO = userReputationService.addReputation(politician, evaluatorId,rate)
         render userReputationRSDTO as JSON
     }
 

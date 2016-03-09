@@ -9,14 +9,14 @@ class UserReputationService {
 
     RestKuorumApiService restKuorumApiService;
 
-    UserReputationRSDTO addReputation(KuorumUser politician, KuorumUser citizen = null, Integer reputation) {
+    UserReputationRSDTO addReputation(KuorumUser politician, String evaluatorId = null, Integer evaluation) {
 
         Map<String, String> params = [userId:politician.id.toString()]
-        Map<String, String> query = [reputation:reputation]
-        if (citizen){
-            query.put("evaluatorId", citizen.getId().toString())
+        Map<String, String> query = [evaluation:evaluation]
+        if (evaluatorId){
+            query.put("evaluatorId", evaluatorId)
         }
-        def response = restKuorumApiService.put(RestKuorumApiService.ApiMethod.USER_STATS_REPUTATION, params, query)
+        def response = restKuorumApiService.post(RestKuorumApiService.ApiMethod.USER_STATS_REPUTATION, params, query, null)
         UserReputationRSDTO userReputation = null
         if (response.data){
             userReputation = (UserReputationRSDTO)response.data

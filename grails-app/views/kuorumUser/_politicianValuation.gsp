@@ -1,5 +1,6 @@
 <!-- politician valuation -->
-<form action="${g.createLink(mapping:'userRate', params:user.encodeAsLinkProperties())}" id="user-rating-form" method="post" class="popover-trigger rating" data-trigger="manual" rel="popover" role="button" data-toggle="popover">
+<form action="${g.createLink(mapping:'userRate', params:user.encodeAsLinkProperties(), absolute:true)}" id="user-rating-form" method="post" class="popover-trigger rating" data-trigger="manual" rel="popover" role="button" data-toggle="popover">
+    <input type="hidden" name="politicianId" value="${user.id}"/>
     <fieldset class="rating">
         <legend class="sr-only"><g:message code="politician.valuation.rate"/></legend>
         <g:each in="${(1..5).reverse()}" var="i">
