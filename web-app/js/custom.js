@@ -1024,6 +1024,9 @@ $(document).ready(function() {
             $("#rating-social-share-modal").modal("show")
             $("#user-rating-form .counter").html(rate)
             $(".popover-content > .rating-over .counter").html(data.userReputation.toFixed(2))
+            var newRate = Math.round(data.userReputation)
+            $(".user-rating label").removeClass("active")
+            $(".user-rating label[for=star"+newRate+"]").addClass("active")
             $([1,2,3,4,5]).each(function(i){
                 var pos = i+1;
                 $(".rate-progress-bar-"+pos).attr("aria-valuetransitiongoal",data.evaluationPercentages[pos]*100)
