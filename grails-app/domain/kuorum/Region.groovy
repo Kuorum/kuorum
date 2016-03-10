@@ -44,6 +44,6 @@ class Region {
     }
 
     int hashCode() {
-        return iso3166_2.hashCode()
+        return this.id.hashCode()
     }
 }
