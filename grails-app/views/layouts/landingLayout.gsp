@@ -6,10 +6,10 @@
 </head>
 
 <body>
-    <g:set var="extraHeadCss" value=""/>
+    <g:set var="extraHeadCss" value="landing"/>
     <g:set var="cssVideoAndRegister" value=""/>
     <g:ifPageProperty name="page.transparentHead" equals="true">
-        <g:set var="extraHeadCss" value="transp"/>
+        <g:set var="extraHeadCss" value="landing transp"/>
         <g:set var="cssVideoAndRegister" value="main"/>
     </g:ifPageProperty>
     <g:render template="/layouts/head" model="[extraHeadCss:extraHeadCss]"/>

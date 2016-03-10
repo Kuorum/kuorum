@@ -57,8 +57,8 @@
         %{--</li>--}%
     %{--</g:if>--}%
     <sec:ifAnyGranted roles="ROLE_EDITOR">
-        <li class="underline">
-            <g:link mapping="editorCreatePolitician" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "editorCreatePolitician")}">
+        <li>
+            <g:link mapping="editorCreatePolitician" class="navbar-link special ${nav.activeMenuCss(mappingName: "editorCreatePolitician")}">
                 <span class="icon-user-add fa-lg"></span>
                 <span class="visible-xs"><g:message code="admin.createPolitician.title"/></span>
             </g:link>
