@@ -1,5 +1,6 @@
 package kuorum
 
+import kuorum.core.model.UserType
 import kuorum.users.KuorumUser
 import org.apache.http.HttpStatus
 import org.bson.types.ObjectId
@@ -23,9 +24,14 @@ class RedirectController {
             response.setHeader "Location", link
             response.status = HttpStatus.SC_MOVED_PERMANENTLY
             render('')
-        return false
+            return false
         }else{
-            response.status = HttpStatus.SC_NOT_FOUND
+            def link = g.createLink(mapping: 'searcherLanding', params: [word:params.urlName])
+            link = link + "#results"
+            response.setHeader "Location", link
+            response.status = HttpStatus.SC_MOVED_PERMANENTLY
+            flash.message=g.message(code:'redirect.user.notFound')
+            render('')
             return false
         }
     }
