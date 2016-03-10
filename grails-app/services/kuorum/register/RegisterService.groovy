@@ -223,7 +223,6 @@ class RegisterService {
             user.authorities.remove(incompleteRoleUser)
             user.authorities.add(normalRoleUser)
             user.save(flush:true)
-            springSecurityService.reauthenticate user.email
             processMetaDataRegistration(user, registrationCode)
             registrationCode.delete(flush:true)
         }
@@ -235,6 +234,7 @@ class RegisterService {
         }catch(Exception e){
             log.error("Error indexando usuario",e)
         }
+        springSecurityService.reauthenticate user.email
         user
     }
     private void processMetaDataRegistration(KuorumUser user, RegistrationCode registrationCode){
