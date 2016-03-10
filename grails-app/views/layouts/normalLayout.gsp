@@ -6,7 +6,7 @@
     </head>
 
     <body>
-    <g:render template="/layouts/head" model="[extraHeadCss:'landing']"/>
+    <g:render template="/layouts/head"/>
     <div class="row main">
         <div class="container-fluid ${pageProperty(name:'page.extraCssContainer')}">
             <div class="row">
