@@ -24,12 +24,9 @@ class UserReputationService {
         return userReputation;
     }
 
-    UserReputationRSDTO getReputation(KuorumUser politician, KuorumUser citizen = null) {
+    UserReputationRSDTO getReputation(KuorumUser politician, String evaluatorId) {
         Map<String, String> params = [userId:politician.id.toString()]
-        Map<String, String> query = [:]
-        if (citizen){
-            query.put("evaluatorId", citizen.getId().toString())
-        }
+        Map<String, String> query = [evaluatorId:evaluatorId]
         def response = restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_STATS_REPUTATION, params, query)
         UserReputationRSDTO userReputation = null
         if (response.data){

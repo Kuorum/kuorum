@@ -179,7 +179,7 @@ class KuorumUserController {
         List<CauseRSDTO> causes = causesService.findSupportedCauses(politician)
         Campaign campaign = campaignService.findActiveCampaign(politician)
         LeaningIndexRSDTO politicianLeaningIndex = kuorumUserStatsService.findLeaningIndex(politician)
-        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician, springSecurityService.currentUser)
+        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician, getEvaluatorUserId())
         [
                 politician:politician,
                 politicianLeaningIndex:politicianLeaningIndex,
@@ -296,7 +296,6 @@ class KuorumUserController {
         KuorumUser follower = KuorumUser.get(springSecurityService.principal.id)
         kuorumUserService.createFollower(follower, following)
         render follower.following.size()
-
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -312,6 +311,22 @@ class KuorumUserController {
     }
 
     private static final String COOKIE_EVALUATOR_NAME='EVALUATOR_ID_RATING'
+
+    private String getEvaluatorUserId(){
+        String evaluatorId = g.cookie(name: COOKIE_EVALUATOR_NAME)
+        if (springSecurityService.isLoggedIn()){
+            evaluatorId = springSecurityService.currentUser.id.toString()
+        }
+        return evaluatorId;
+    }
+
+    private void setEvaluatorUserId(String evaluatorId){
+        Cookie cookie = new Cookie(COOKIE_EVALUATOR_NAME,evaluatorId)
+        cookie.maxAge = Integer.MAX_VALUE
+        cookie.path = "/${grailsApplication.metadata['app.name']}/"
+        response.addCookie(cookie)
+    }
+
     def ratePolitician(String userAlias){
         KuorumUser politician = kuorumUserService.findByAlias(userAlias)
         if (!politician || politician.userType != UserType.POLITICIAN){
@@ -319,15 +334,9 @@ class KuorumUserController {
             return;
         }
         Integer rate = Integer.parseInt(params.rate)
-        String evaluatorId = g.cookie(name: COOKIE_EVALUATOR_NAME)
-        if (springSecurityService.isLoggedIn()){
-            evaluatorId = springSecurityService.currentUser.id.toString()
-        }
+        String evaluatorId =getEvaluatorUserId()
         UserReputationRSDTO userReputationRSDTO = userReputationService.addReputation(politician, evaluatorId,rate)
-
-        Cookie cookie = new Cookie(COOKIE_EVALUATOR_NAME,userReputationRSDTO.evaluatorId)
-        cookie.maxAge = 100
-        response.addCookie(cookie)
+        setEvaluatorUserId(userReputationRSDTO.evaluatorId)
         render userReputationRSDTO as JSON
     }
 

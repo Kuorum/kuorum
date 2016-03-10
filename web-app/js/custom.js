@@ -1008,17 +1008,30 @@ $(document).ready(function() {
     /*******************************************/
     /******* USER RATES ************************/
     /*******************************************/
-    $("#user-rating-form input[type=radio]").on("click", function(e){
-        console.log("CLIKC")
-        var $parent =$(this).parents("form")
-        var url = $parent.attr("action")
+    $(".user-rating-container").on("click", "#user-rating-form fieldset.rating input",function(e){
+        var $form =$(this).parents("form")
+        var url = $form.attr("action")
+        var $input = $(this)
+        var $popover = $input.parents("popover")
         var rate = $(this).val()
-        var politicianId = $parent.find("input[name=politicianId]").val()
+        $("input[name=rating]").removeAttr("checked");
+        $("input[name=rating][value="+rate+"]").attr('checked', true);
+        $("input[name=rating][value="+rate+"]").prop("checked",true)
         $.ajax({
             url:url,
             data:{rate:rate}
         }).done(function(data){
             $("#rating-social-share-modal").modal("show")
+            $("#user-rating-form .counter").html(rate)
+            $(".popover-content > .rating-over .counter").html(data.userReputation.toFixed(2))
+            $([1,2,3,4,5]).each(function(i){
+                var pos = i+1;
+                $(".rate-progress-bar-"+pos).attr("aria-valuetransitiongoal",data.evaluationPercentages[pos]*100)
+                $(".rate-progress-bar-"+pos).find("span").html(data.evaluationPercentages[pos]*100 +"%")
+                $(".rate-progress-bar-"+pos).css("width",data.evaluationPercentages[pos]*100 +"%")
+            })
+
+//            $(".user-rating").popover("show")
         })
     })
 

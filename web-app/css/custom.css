@@ -3176,13 +3176,14 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 /* politician valuation */
 .user-rating {
-    margin: 10px auto 20px;
-    width: 12em;
+    margin: 10px auto 10px;
+    /*width: 12em;*/
     font-size:28px;
     font-size:2.8rem;
     text-align:center;
+    padding-bottom:10px;
 }
-
+.user-rating-container .popover{margin-top:0px;}
 .user-rating label:before {
     content: "★ ";
     color: #ff9431;
@@ -3205,7 +3206,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
    it doesn’t make the test unnecessarily selective */
 fieldset.rating:not(:checked) > input {
     position:absolute;
-    top:-9999px;
+    left:-9999px;
     clip:rect(0,0,0,0);
 }
 fieldset.rating:not(:checked) > label {
@@ -3217,7 +3218,7 @@ fieldset.rating:not(:checked) > label {
     cursor:pointer;
     font-size:28px;
     font-size:2.8rem;
-    line-height:1.2;
+    line-height:1;
     color:#e1e1e1;
 }
 fieldset.rating:not(:checked) > label:before {
