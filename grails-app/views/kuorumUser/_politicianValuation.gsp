@@ -24,7 +24,7 @@
             </fieldset>
             <div class="rating-over">
                 <div class="rate-number show${Math.round(userReputation.userReputation)}">
-                    <label>My valuation: </label>
+                    <label><g:message code="politician.valuation.rate.myRate"/>: </label>
                     <span class="counter">${userReputation.evaluation?:'-'}</span>
                 </div>
             </div>
@@ -36,7 +36,7 @@
 
             <!-- indicar la clase de la puntuación: show1, show2, show3, show4, show5 -->
             <div class="rate-number show${Math.round(userReputation.userReputation)}">
-                <label>Average: </label>
+                <label><g:message code="politician.valuation.rate.average"/>:</label>
                 <span class="counter">
                     <g:formatNumber number="${userReputation.userReputation}" maxFractionDigits="2"/>
                 </span>
