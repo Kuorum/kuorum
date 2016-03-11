@@ -37,8 +37,8 @@
             <!-- indicar la clase de la puntuación: show1, show2, show3, show4, show5 -->
             <div class="rate-number show${Math.round(userReputation.userReputation)}">
                 <label><g:message code="politician.valuation.rate.average"/>:</label>
-                <span class="counter">
-                    <g:formatNumber number="${userReputation.userReputation}" maxFractionDigits="2"/>
+                <span class="counter user-reputation">
+                    <g:formatNumber number="${userReputation.userReputation}" maxFractionDigits="2" minFractionDigits="2"/>
                 </span>
             </div>
             <span class="sr-only"><g:message code="politician.valuation.distribution"/>:</span>

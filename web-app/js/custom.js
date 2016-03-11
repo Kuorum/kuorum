@@ -1023,7 +1023,7 @@ $(document).ready(function() {
         }).done(function(data){
             $("#rating-social-share-modal").modal("show")
             $("#user-rating-form .counter").html(rate)
-            $(".popover-content > .rating-over .counter").html(data.userReputation.toFixed(2))
+            $(".counter.user-reputation").html(data.userReputation.toFixed(2))
             var newRate = Math.round(data.userReputation)
             $(".user-rating label").removeClass("active")
             $(".user-rating label[for=star"+newRate+"]").addClass("active")
