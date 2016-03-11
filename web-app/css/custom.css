@@ -647,6 +647,7 @@ header.transp .navbar-collapse.collapse.in {background-color: #000;}
 .nav > li > .navbar-link.special {background-color: #ff9431; color: #fff;}
 
 .nav > li.tools  > .navbar-link.special {background-image: url("../images/ico-tools.png"); background-position: 5px center; background-repeat: no-repeat; padding-left: 32px; background-size: 22px auto;}
+.nav > li.tools  .dropdown-menu.politician {box-shadow: none;}
 
 .nav > li > .navbar-link.new-project:hover,
 .nav > li > .navbar-link.new-project:focus,
