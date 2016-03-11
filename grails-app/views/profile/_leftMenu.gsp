@@ -12,7 +12,7 @@
         </li>
     </sec:ifAnyGranted>
     <li class="${activeMapping=='profileEditUser'?'active':''}">
-        <g:link mapping="profileEditUser"><g:message code="profile.menu.editUser"/></g:link>
+        <g:link mapping="profileEditUser"><g:message code="profile.menu.profileEditUser"/></g:link>
     </li>
     <sec:ifAnyGranted roles="ROLE_POLITICIAN">
         <li class="${activeMapping=='profilePoliticianRelevantEvents'?'active':''}">

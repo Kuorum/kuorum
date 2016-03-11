@@ -640,6 +640,8 @@ header.landing.transp .form-control::-webkit-input-placeholder{color:#fff}
 header.transp .navbar-collapse.collapse.in {background-color: #000;}
 .nav > li > .navbar-link:hover .badge,
 .nav > li > .navbar-link:focus .badge {background-color: #fff; color: #ff9431;}
+.nav > li > .navbar-link:hover .badge-small,
+.nav > li > .navbar-link:focus .badge-small {background-color: transparent; color: #ff9431;}
 .nav > li > .navbar-link.new-project,
 .nav > li > .navbar-link.special {background-color: #ff9431; color: #fff;}
 
@@ -683,6 +685,9 @@ header.transp .navbar-collapse.collapse.in {background-color: #000;}
 
 .navbar .text-notification {display: block;}
 
+.empty-profile-menu ul.dropdown-menu > li span.counter{float:right;}
+.empty-profile-menu ul.dropdown-menu > li span.text{margin-right: 1em;}
+
 #detailsInfoVotes .dropdown-menu > li:first-child {font-weight: normal;}
 #detailsInfoVotes .dropdown-menu > li:first-child {
     border-bottom: none;
@@ -710,6 +715,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .box .dropdown-menu > li a {color: #ff9431; text-decoration: none;}
 .box .dropdown-menu > li a:hover {text-decoration: underline;}
 .badge {background-color: #ff9431; padding: 4px 6px;}
+.badge-small {background-color: transparent; color:#ff9431;}
 .navbar-nav .visible-xs {display: inline-block !important;}
 .user-img {border-radius: 19px; width: 38px; height: 38px; margin: 4px 4px 4px 0;}
 .boxes.alerts .user-img,
@@ -4385,6 +4391,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .nav > li > .navbar-link.special {font-size: 18px; font-size: 1.8rem;}
     .navbar-btn {margin-top: 6px;}
     .box .badge {position: absolute; top: 2px; right: 0;}
+    .badge-small {position: absolute; top: 2px; right: 0;}
     .navbar-nav .visible-xs {display: none !important;}
     .nav .open > a,
     .nav .open > a:hover,
@@ -4977,6 +4984,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .kakareo h1 {font-size: 20px; font-size: 2rem;}
     .nav > li > a.btn {margin-top: 0 !important; margin-bottom: 11px !important; padding: 14px !important;}
     .box .badge {top: 2px;}
+    .box .badge-small {top: 2px;right:0px;}
     .voting > ul > li > a {font-size: 14px; font-size: 1.4rem; width: 90px; height: 68px;}
     .boxes > h1 {padding: 15px 10px;}
     .boxes.vote > .btn-lg {font-size: 16px; font-size: 1.6rem !important;}

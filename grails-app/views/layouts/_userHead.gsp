@@ -38,6 +38,7 @@
 
     %{--<g:render template="/layouts/userHeadMessages"/>--}%
     <g:render template="/layouts/userHeadNotifications" model="[user:user, notifications:notifications]"/>
+    <g:render template="/layouts/headPolitician/userHeadIncompleteUserData" model="[user:user, emptyFields:emptyFields]"/>
 
 
     <li class="dropdown underline" itemscope itemtype="http://schema.org/Person">

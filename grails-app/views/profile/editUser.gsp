@@ -10,8 +10,8 @@
     <g:render template="leftMenu" model="[user:user, activeMapping:'profileEditUser', menu:menu]"/>
 </content>
 <content tag="titleContent">
-    <h1><g:message code="profile.menu.editUser"/></h1>
-    <h3><g:message code="profile.menu.editUser.subtitle"/></h3>
+    <h1><g:message code="profile.menu.profileEditUser"/></h1>
+    <h3><g:message code="profile.menu.profileEditUser.subtitle"/></h3>
 </content>
 <content tag="mainContent">
     <formUtil:validateForm bean="${command}" form="config1" dirtyControl="true"/>
