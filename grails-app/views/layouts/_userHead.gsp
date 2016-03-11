@@ -9,6 +9,7 @@
 
 
     <sec:ifAnyGranted roles="ROLE_POLITICIAN">
+
         <g:set var="openNavCss"
                value="${nav.activeMenuCss(
                        mappingNames:['politicianAnalytics', 'politicianContactProfiling','politicianInbox','politicianMassMailing','politicianTeamManagement'],
@@ -28,6 +29,9 @@
                 </div>
             </ul>
         </li>
+
+        <g:render template="/layouts/headPolitician/userHeadIncompleteUserData" model="[user:user, emptyFields:emptyFields]"/>
+
     </sec:ifAnyGranted>
     %{--<li class="underline">--}%
         %{--<g:link mapping="discoverProjects" class="navbar-link user-area ${nav.activeMenuCss(mappingName: "discoverProjects")}">--}%
@@ -37,8 +41,8 @@
     %{--</li>--}%
 
     %{--<g:render template="/layouts/userHeadMessages"/>--}%
+
     <g:render template="/layouts/userHeadNotifications" model="[user:user, notifications:notifications]"/>
-    <g:render template="/layouts/headPolitician/userHeadIncompleteUserData" model="[user:user, emptyFields:emptyFields]"/>
 
 
     <li class="dropdown underline" itemscope itemtype="http://schema.org/Person">

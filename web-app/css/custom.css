@@ -343,6 +343,7 @@ header.landing.transp .nav > li > .navbar-link.btn-transparent:hover,
 header.landing.transp .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #545454 !important;}
 
 header.landing .nav > li > .navbar-link.active {font-weight: bold; cursor: default; pointer-events: none; margin-top: -2px;}
+header.landing .nav > li > .navbar-link.special.active {margin-top: 0px;background-color: #fff; color:#ccc; margin-top: 2px;}
 
 header.landing .nav > li > .navbar-link.active:hover,
 header.landing .nav > li > .navbar-link.active:focus {text-decoration: none;}
