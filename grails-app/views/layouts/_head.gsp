@@ -1,7 +1,3 @@
-<sec:ifNotLoggedIn>
-    <g:set var="extraHeadCss" value="landing ${extraHeadCss}"/>
-</sec:ifNotLoggedIn>
-
 <header id="header" class="row landing ${extraHeadCss}" role="banner">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="container-fluid">
