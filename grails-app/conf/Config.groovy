@@ -27,6 +27,7 @@ grails.serverURL = "http://127.0.0.1:8080/kuorum"
 log4j = {
     appenders {
         console name:'stdout', layout:pattern(conversionPattern: '%d{yyyy MM dd HH:mm:ss,SSS} [%c] # %-5p %m  %n' )
+        rollingFile name:'stacktrace', maxFileSize:"5MB", maxBackupIndex: 10, file:"${System.getProperty('catalina.home')}/logs/kuorum_stacktrace.log", 'append':true, threshold:org.apache.log4j.Level.ALL
     }
 
     info    'grails.app'
