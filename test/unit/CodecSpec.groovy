@@ -121,5 +121,6 @@ class CodecSpec extends Specification {
         "https://XXXX/nick-Name_23"         | "@nick-name_23" | "https://twitter.com/nick-name_23"
         "httpNOT_VALID_URL/nick-Name_23 "   | "@nick-name_23" | "https://twitter.com/nick-name_23"
         " https://twitter.com/nick-Name_23" | "@nick-name_23" | "https://twitter.com/nick-name_23" //El primer espacio no es un espacio
+        "    "                              | ""              | ""
     }
 }

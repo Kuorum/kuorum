@@ -4,12 +4,13 @@
 class TwitterCodec {
     static encode = {String target->
         String nickName=getNormalizedNickName(target)
-        "@${nickName.trim()}"
+
+        nickName?"@${nickName.trim()}":""
     }
 
     static decode = {target->
         String nickName=getNormalizedNickName(target)
-        "https://twitter.com/${nickName.trim()}"
+        nickName?"https://twitter.com/${nickName.trim()}":""
     }
 
     static String getNormalizedNickName(def target){
