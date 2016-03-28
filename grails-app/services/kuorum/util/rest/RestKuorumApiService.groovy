@@ -1,6 +1,7 @@
 package kuorum.util.rest
 
 import groovyx.net.http.RESTClient
+import kuorum.core.exception.KuorumException
 import org.springframework.beans.factory.annotation.Value
 
 class RestKuorumApiService {
@@ -63,6 +64,9 @@ class RestKuorumApiService {
 
     def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query) {
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+        mailKuorumServices.handler.failure = { resp, data ->
+            throw new KuorumException("No region found")
+        }
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.get(
                 path: path,

@@ -27,15 +27,19 @@ class SearchSolrService {
     SolrResults search(SearchParams params) {
 
         SolrQuery query = new SolrQuery();
-        query.setParam(CommonParams.QT, "/query");
+        query.setRequestHandler("/query")
+//        query.setParam(CommonParams.QT, "query");
         query.setParam(CommonParams.START, "${params.offset}");
         query.setParam(CommonParams.ROWS, "${params.max}");
+        prepareWord(params, query)
         prepareFilter(params, query)
+        prepareBoosted(params, query)
 
         query.setSort("score", SolrQuery.ORDER.desc)
         query.addSort("kuorumRelevance", SolrQuery.ORDER.desc)
-        query.addSort("numberPeopleInterestedFor", SolrQuery.ORDER.desc)
+        query.addSort("constituencyIso3166_2Length", SolrQuery.ORDER.asc)
         query.addSort("regionIso3166_2Length", SolrQuery.ORDER.asc)
+        query.addSort("numberPeopleInterestedFor", SolrQuery.ORDER.desc)
         query.addSort("dateCreated", SolrQuery.ORDER.desc)
 
         QueryResponse rsp = server.query( query );
@@ -106,12 +110,25 @@ class SearchSolrService {
         solrAutocomplete
     }
 
-    private void prepareFilter(SearchParams params, SolrQuery query){
+    private void prepareBoosted(SearchParams params, SolrQuery query){
+        if (params.boostedRegions){
+            String boost = params.boostedRegions.collect{"regionIso3166_2:${it.replace('-', '')}^${Math.pow(it.length(),2)}"}.join(" ")
+            query.setParam("bq", boost)
+        }
+    }
+
+    private void prepareWord(SearchParams params, SolrQuery query){
         String word = params.word
+        if (params.boostedRegions){
+            word = "${word} ${params.boostedRegions.collect{it.replace('-', '')}join(" ")}"
+        }
         if (!word){
             word = "*:*"
         }
         query.setParam(CommonParams.Q, word);
+    }
+
+    private void prepareFilter(SearchParams params, SolrQuery query){
         StringBuffer filterQuery = new StringBuffer("");
         String separator = ""
         if (params.type){
@@ -326,6 +343,7 @@ class SearchSolrService {
         query.setParam(CommonParams.QT, "/suggestTags");
         query.setParam("spellcheck.q", params.word);
         //query.setParam(TermsParams.TERMS_FIELD, "name", "username");
+        prepareWord(params,query)
         prepareFilter(params, query)
         query.setParam("facet.prefix",params.word)
         QueryResponse rsp = server.query( query );

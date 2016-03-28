@@ -115,6 +115,16 @@ class SearchController{
             searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.POLITICIAN)
             docs = searchSolrService.search(searchParams)
         }else{
+            Locale locale = localeResolver.resolveLocale(request)
+            AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
+            Region suggestedRegion = regionService.findMostAccurateRegion(searchParams.word, language)
+            List<Region> regions = []
+            if (suggestedRegion){
+               regions = regionService.findRegionsList(suggestedRegion)
+            }
+            if (regions){
+                searchParams.boostedRegions = regions.collect{it.iso3166_2}
+            }
             searchParams.max = max
             docs = searchSolrService.search(searchParams)
         }

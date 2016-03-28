@@ -2,6 +2,7 @@ package kuorum
 
 import grails.transaction.Transactional
 import groovyx.net.http.RESTClient
+import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.RegionType
 import kuorum.postalCodeHandlers.PostalCodeHandler
@@ -205,12 +206,16 @@ class RegionService {
         return regions;
     }
 
-    public Region findMostAccurateRegion(String regionName){
-        def response = restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.REGION_FIND,
-                [:],
-                [regionName:regionName]
-        )
-        return Region.findByIso3166_2(response.data.iso3166)
+    public Region findMostAccurateRegion(String regionName, AvailableLanguage language){
+        try{
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.REGION_FIND,
+                    [:],
+                    [regionName:regionName, lang: language.getLocale().language]
+            )
+            return Region.findByIso3166_2(response.data.iso3166)
+        }catch (KuorumException kuorumException){
+            return null;
+        }
     }
 }

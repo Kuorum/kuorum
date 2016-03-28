@@ -30,6 +30,8 @@ class SearchParams extends Pagination implements Serializable{
 
     List<String> filteredUserIds;
 
+    List<String> boostedRegions;
+
 
     static constraints = {
         word nullable:true

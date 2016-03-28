@@ -630,10 +630,12 @@ class KuorumUserService {
         SearchParams searchParams = new SearchParams(pagination.getProperties());
         searchParams.max +=1
         List<Region> regions;
+        String politicalParty = ""
         if (user && user.userType != UserType.POLITICIAN){
             regions = regionService.findUserRegions(user)
         }else if(user){
             regions = regionService.findRegionsList(user.professionalDetails?.region)
+            politicalParty = user?.professionalDetails?.politicalParty?:''
         }else{
             regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
         }
@@ -646,6 +648,9 @@ class KuorumUserService {
             String searchCauses = causes*.name.join(" ")
             //Se busca a todos los politicos con el *:* pero se ordena por score aquellos que compartan tag
             searchParams.word = "${searchCauses} OR (*:*)"
+        }
+        if (politicalParty){
+            searchParams.word = "${politicalParty} ${searchParams.word}"
         }
         SolrResults results = searchSolrService.search(searchParams)
 
