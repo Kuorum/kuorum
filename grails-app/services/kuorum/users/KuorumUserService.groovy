@@ -637,21 +637,25 @@ class KuorumUserService {
             regions = regionService.findRegionsList(user.professionalDetails?.region)
             politicalParty = user?.professionalDetails?.politicalParty?:''
         }else{
-            regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
+//            regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
         }
-        searchParams.regionIsoCodes = regions.collect{it.iso3166_2}
+        if (regions){
+            searchParams.boostedRegions = regions.collect{it.iso3166_2}
+//        searchParams.regionIsoCodes = regions.collect{it.iso3166_2}
+        }
         searchParams.setType(SolrType.POLITICIAN)
         searchParams.filteredUserIds = userFiltered.collect{it.toString()}
         if (user) searchParams.filteredUserIds << user.id.toString()
         List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
         if (user?.userType == UserType.POLITICIAN && causes){
             String searchCauses = causes*.name.join(" ")
-            //Se busca a todos los politicos con el *:* pero se ordena por score aquellos que compartan tag
-            searchParams.word = "${searchCauses} OR (*:*)"
+            //Se busca a todos los politicos con el * pero se ordena por score aquellos que compartan tag
+            searchParams.word = "${searchCauses}"
         }
         if (politicalParty){
             searchParams.word = "${politicalParty} ${searchParams.word}"
         }
+        searchParams.word = "${searchParams.word} *"
         SolrResults results = searchSolrService.search(searchParams)
 
         List<KuorumUser> politicians = results.elements.collect{SolrElement solrElement ->
