@@ -192,7 +192,7 @@ class RegionService {
 
     }
 
-    public List<Region> suggestRegions(String prefixRegionName, AvailableLanguage language){
+    public List<Region> suggestRegions(String prefixRegionName, AvailableLanguage language = AvailableLanguage.en_EN){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.REGION_SUGGEST,
                 [:],
@@ -206,12 +206,16 @@ class RegionService {
         return regions;
     }
 
-    public Region findMostAccurateRegion(String regionName, AvailableLanguage language){
+    public Region findMostAccurateRegion(String regionName, Region country = null, AvailableLanguage language= AvailableLanguage.en_EN){
         try{
+            Map params = [regionName:regionName, lang: language.getLocale().language]
+            if (country){
+                params.put("countryCode", country.iso3166_2.substring(3,5))
+            }
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.REGION_FIND,
                     [:],
-                    [regionName:regionName, lang: language.getLocale().language]
+                    params
             )
             return Region.findByIso3166_2(response.data.iso3166)
         }catch (KuorumException kuorumException){

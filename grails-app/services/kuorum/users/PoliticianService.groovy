@@ -256,7 +256,7 @@ class PoliticianService {
         politician.personalData.userType = politician.userType
         politician.personalData.telephone = politician?.personalData?.telephone?:line."phone"?.trim()
         politician.alias = generateAlias(politician, line)
-        if (!politician.save()){
+        if (!politician.save(flush: true)){
             throw new KuorumException("Basic data not porvided, ${politician.errors}")
         }
     }
@@ -268,7 +268,10 @@ class PoliticianService {
     }
 
     private String generateAlias(KuorumUser politician, def line){
-        String twitterAlias = line."twitter"?.trim()?.encodeAsTwitter()?.substring(1)
+        String twitterAlias = line."twitter"?.trim()?.encodeAsTwitter()
+        if (twitterAlias){
+            twitterAlias = twitterAlias.substring(1)
+        }
         String id = politician?.id?.toString()
         if (!id){
             id = ObjectId.get().toString()
@@ -380,8 +383,8 @@ class PoliticianService {
         politician.professionalDetails.politicalParty = politician.professionalDetails.politicalParty?:line."politicalParty"?.trim()
         politician.professionalDetails.position = politician.professionalDetails.position?:line."position"?.trim()
         politician.professionalDetails.institution = politician.professionalDetails.institution?:line."institution"?.trim()
-        politician.professionalDetails.constituency = politician.professionalDetails.constituency?:findConstituency(line)
         politician.professionalDetails.region = politician.professionalDetails.region?:findRegion(line)
+        politician.professionalDetails.constituency = politician.professionalDetails.constituency?:findConstituency(line,politician.professionalDetails.region)
 
     }
 
@@ -401,19 +404,20 @@ class PoliticianService {
         findRegionCombiningRegionCodes(regionFields, line)
     }
 
-    private Region findConstituency(def line){
-        String constituencyName = line."constituency"?.trim()
-        Region constituency = findRegionByName(constituencyName)
+    private Region findConstituency(def line, Region country){
+        def consituencyFields = ["constituency_code_alliance","constituency_code_nation", "constituency_code_state","constituency_code_county","constituency_code_city"]
+        Region constituency = findRegionCombiningRegionCodes(consituencyFields, line)
+
         if (!constituency){
-            def consituencyFields = ["constituency_code_alliance","constituency_code_nation", "constituency_code_state","constituency_code_county","constituency_code_city"]
-            constituency = findRegionCombiningRegionCodes(consituencyFields, line)
+            String constituencyName = line."constituency"?.trim()
+            constituency = findRegionByName(constituencyName, country)
         }
         constituency
     }
 
-    private Region findRegionByName(String regionName){
+    private Region findRegionByName(String regionName, Region country){
         if (regionName){
-            return regionService.findMostAccurateRegion(regionName)
+            return regionService.findMostAccurateRegion(regionName, country)
         }else{
             return null
         }

@@ -65,7 +65,7 @@ class RestKuorumApiService {
     def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query) {
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
         mailKuorumServices.handler.failure = { resp, data ->
-            throw new KuorumException("No region found")
+            throw new KuorumException("No found - ${apiMethod}")
         }
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.get(
