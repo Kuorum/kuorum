@@ -117,7 +117,7 @@ class SearchController{
         }else{
             Locale locale = localeResolver.resolveLocale(request)
             AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
-            Region suggestedRegion = regionService.findMostAccurateRegion(searchParams.word, language)
+            Region suggestedRegion = regionService.findMostAccurateRegion(searchParams.word,null, language)
             List<Region> regions = []
             if (suggestedRegion){
                regions = regionService.findRegionsList(suggestedRegion)
