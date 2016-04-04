@@ -128,6 +128,7 @@ class SearchController{
             }
             searchParams.max = max
             docs = searchSolrService.search(searchParams)
+            searchParams.word = params.word
         }
         return docs;
     }
