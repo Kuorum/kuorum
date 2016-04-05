@@ -14,9 +14,6 @@ class MandrillAppService {
     @Value('${mail.mandrillapp.key}')
     String MANDRIL_APIKEY
 
-    @Value('${mail.mandrillapp.key2}')
-    String MANDRIL_APIKEY2
-
     //UNTESTED - Is not possible to test if the mail has been sent. Only if not fails
     void sendTemplate(MailData mailData, Boolean async = false) {
 
@@ -45,12 +42,7 @@ class MandrillAppService {
         statuses.each { MandrillMessageStatus status ->
             switch (status.status){
                 case "queued":
-                    log.warn("Switching mandrillApp key");
-                    synchronized (MANDRIL_APIKEY){
-                        String tmpApiKey = MANDRIL_APIKEY;
-                        MANDRIL_APIKEY = MANDRIL_APIKEY2;
-                        MANDRIL_APIKEY2 = tmpApiKey;
-                    }
+                    log.warn("The mail was queued");
                     break;
                 case "sent":
                     break;

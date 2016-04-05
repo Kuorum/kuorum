@@ -276,6 +276,7 @@ class UrlMappings {
         name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
+        name adminEditorsMonitoring:"/admin/editors/monitoring"    (controller:"admin", action:"editorsMonitoring")
 //        name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
         name editorCreatePolitician:                        "/editor/usuarios/politician/create-politician" (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
         name editorEditUserProfile:                         "/editor/usuarios/$userAlias/editar/profile" (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}

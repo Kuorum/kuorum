@@ -8,6 +8,7 @@ import kuorum.mail.MailchimpService
 import kuorum.project.Project
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserAudit
 import kuorum.users.KuorumUserService
 import kuorum.users.PoliticianService
 import kuorum.web.admin.KuorumUserRightsCommand
@@ -113,6 +114,10 @@ class AdminController {
         flash.message =message(code:'admin.editUser.success', args: [user.name])
 
         redirect(mapping:'editorAdminUserRights', params:user.encodeAsLinkProperties())
+    }
+
+    def editorsMonitoring(){
+        [audits: KuorumUserAudit.findAllByDateCreatedGreaterThan(new Date()-31, [sort: "id", order: "desc"])]
     }
 
 
