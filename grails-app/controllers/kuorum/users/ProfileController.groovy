@@ -217,7 +217,7 @@ class ProfileController {
             user.userType = UserType.ORGANIZATION
             personalData.gender = Gender.ORGANIZATION
         }else{
-            personalData = new PersonData(year: user.personalData?.year)
+            personalData = new PersonData(user.personalData?.properties)
             if (user.userType==UserType.POLITICIAN){
                 if (!user.professionalDetails){
                     user.professionalDetails = new ProfessionalDetails()
