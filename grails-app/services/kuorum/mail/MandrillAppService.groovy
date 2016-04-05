@@ -6,6 +6,7 @@ import com.microtripit.mandrillapp.lutung.view.MandrillMessage
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.AvailableLanguage
 import org.springframework.beans.factory.annotation.Value
 
 @Transactional
@@ -100,9 +101,14 @@ class MandrillAppService {
                         content: mailUserData.bindings[field]
                 )
             }
+            String lang = "en" //All mails are in english or spanish
+            if (mailUserData.user.language == AvailableLanguage.es_ES){
+                lang = "es"
+            }
             userVars.vars = userVars.vars.plus(new MandrillMessage.MergeVar(
                     name:"language",
-                    content: mailUserData.user.language.locale.language
+//                    content: mailUserData.user.language.locale.language
+                    content: lang
             ))
             userVars
         }
