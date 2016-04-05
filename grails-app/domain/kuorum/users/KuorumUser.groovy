@@ -3,21 +3,12 @@ package kuorum.users
 import com.mongodb.WriteConcern
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.KuorumFile
-import kuorum.PoliticalParty
-import kuorum.Region
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.mail.MailType
 import kuorum.notifications.Notice
-import kuorum.users.extendedPoliticianData.CareerDetails
-import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
-import kuorum.users.extendedPoliticianData.OfficeDetails
-import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
-import kuorum.users.extendedPoliticianData.PoliticianLeaning
-import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
-import kuorum.users.extendedPoliticianData.PoliticianTimeLine
-import kuorum.users.extendedPoliticianData.ProfessionalDetails
+import kuorum.users.extendedPoliticianData.*
 import org.bson.types.ObjectId
 
 /**
@@ -119,6 +110,7 @@ class KuorumUser {
 
     //Spring fields
     SpringSecurityService springSecurityService
+    def grailsApplication
 
     boolean enabled = Boolean.TRUE
     boolean accountExpired = Boolean.FALSE
@@ -188,7 +180,7 @@ class KuorumUser {
         return true
     }
 
-    static transients = ["springSecurityService", 'activityForRecommendation']
+    static transients = ["springSecurityService", 'activityForRecommendation', 'grailsApplication']
 
 //    static mapping = {
 //       password column: '`password`'
@@ -196,12 +188,14 @@ class KuorumUser {
 
     def beforeInsert() {
         updateDenormalizedData()
+        audit()
 
     }
 
     def beforeUpdate() {
         log.debug("Se ha actualizado el usuario ${id}")
         updateDenormalizedData()
+        audit()
     }
 
     //Is not private for call it from service. I'm not proud for that
@@ -222,6 +216,80 @@ class KuorumUser {
             politicianLeaning?.liberalIndex = Math.max(0, politicianLeaning.liberalIndex) // min 0
         }
     }
+
+    private void audit(){
+        try{
+            KuorumUserAudit kuorumUserAudit = new KuorumUserAudit()
+            if (springSecurityService.isLoggedIn()){
+                kuorumUserAudit.editor = springSecurityService.currentUser
+            }
+            kuorumUserAudit.user = this
+//            kuorumUserAudit.snapshotUser = this
+            kuorumUserAudit.dateCreated = new Date()
+            Map<String, String>  res= getPropertyValues(this, listPropertyNames(this), "")
+            def obj = this
+            embedded.each {fieldName ->
+                if (obj."${fieldName}" instanceof java.util.List || obj."${fieldName}" instanceof java.util.Set ) {
+                    obj."${fieldName}".eachWithIndex { listObj, idx ->
+                        res.putAll(getPropertyValues(listObj, listPropertyNames(listObj), "${fieldName}[$idx]."))
+                    }
+                }else if(obj."${fieldName}" != null) {
+                    res.putAll(getPropertyValues(obj."${fieldName}",listPropertyNames(obj."${fieldName}"), "${fieldName}."))
+                }
+            }
+            kuorumUserAudit.snapshot = res
+                    .inject( [:] ) {
+                        map, v -> map << [ (v.key.toString().replaceAll("\\.", "_")): v.value?.toString() ]
+                    }.findAll{
+                        it.key != "lastUpdated"
+                    }
+            def audits = KuorumUserAudit.findAllByUser(this, [max: 1, sort: "dateCreated", order: "desc"])
+            if (audits){
+                //Filter not edited fields
+                kuorumUserAudit.updates = [:]
+                Map prevSnapshot = audits.first().snapshot
+                kuorumUserAudit.snapshot.each {k,v ->
+                    if (prevSnapshot.get(k)!=v){
+                        kuorumUserAudit.updates.put(k,v)
+                    }
+                }
+            }else{
+                kuorumUserAudit.updates = kuorumUserAudit.snapshot
+            }
+            if (kuorumUserAudit.updates){
+                kuorumUserAudit.save()
+            }
+        }catch (Throwable e){
+            log.warn("Not audit save for user ${this}", e)
+        }
+    }
+
+    Map<String,String> getPropertyValues(def obj, def properties, String prefix){
+        def res = [:]
+        properties.each{ fieldName ->
+            if (embedded.contains(fieldName) &&
+                    (obj."${fieldName}" instanceof java.util.List || obj."${fieldName}" instanceof java.util.Set )) {
+                obj."${fieldName}".eachWithIndex { listObj, idx ->
+                    res.putAll(getPropertyValues(listObj,listPropertyNames(listObj), "${prefix}${fieldName}[$idx]."))
+                }
+            }else if (embedded.contains(fieldName) && obj."${fieldName}" && grailsApplication.isDomainClass(obj."${fieldName}".class)) {
+                res.putAll(getPropertyValues(obj."${fieldName}", listPropertyNames(obj."${fieldName}"), "${prefix}${fieldName}."))
+            }else {
+                //Basic Data
+                res << ["${prefix}${fieldName}":obj."${fieldName}"?.toString()?:null]
+            }
+        }
+        res
+    }
+
+    private def listPropertyNames(def obj){
+        if (obj){
+            new org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass(obj.class).persistentProperties.collect{it.name}
+        }else{
+            []
+        }
+    }
+
     int hashCode() {
         return id?id.hashCode():email.hashCode()
     }
