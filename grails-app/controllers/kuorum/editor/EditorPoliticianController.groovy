@@ -26,6 +26,8 @@ class EditorPoliticianController {
     }
 
     def updateExternalActivity(ExternalPoliticianActivityCommand command){
+        command.externalPoliticianActivities = command.externalPoliticianActivities.grep()
+        command.validate()
         KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             render view:"editExternalActivity", model:[command:command]
@@ -42,6 +44,8 @@ class EditorPoliticianController {
     }
 
     def updateRelevantEvents(RelevantEventsCommand command){
+        command.politicianRelevantEvents = command.politicianRelevantEvents.grep()
+        command.validate()
         KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             render view:"editRelevantEvents", model:[command:command]
@@ -114,6 +118,8 @@ class EditorPoliticianController {
     }
 
     def updatePoliticalExperience(PoliticalExperienceCommand command){
+        command.timeLine = command.timeLine.grep()
+        command.validate()
         KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
             render view:"editPoliticalExperience", model:[command:command]
