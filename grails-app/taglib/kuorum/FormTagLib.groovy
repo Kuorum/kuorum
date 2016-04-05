@@ -235,11 +235,13 @@ class FormTagLib {
 
         Integer idx = listCommands.size();
         listCommands.each{
-            idx --;
-            out <<"<div class='dynamic-fieldset' data-dynamic-list-index='${idx}' >"
-            out << body([listCommand:it, prefixField:"${field}[${idx}].", ])
-            out << removeButton
-            out <<"</div>"
+            if (it){
+                idx --;
+                out <<"<div class='dynamic-fieldset' data-dynamic-list-index='${idx}' >"
+                out << body([listCommand:it, prefixField:"${field}[${idx}].", ])
+                out << removeButton
+                out <<"</div>"
+            }
         }
 
         ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}?.value
