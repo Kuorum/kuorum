@@ -171,6 +171,7 @@ class KuorumUser {
 
     boolean equals(o) {
         if (this.is(o)) return true
+        if (o==null) return false
         if (!(o instanceof KuorumUser)) return false
 
         KuorumUser that = (KuorumUser) o
@@ -223,41 +224,47 @@ class KuorumUser {
             if (springSecurityService.isLoggedIn()){
                 kuorumUserAudit.editor = springSecurityService.currentUser
             }
-            kuorumUserAudit.user = this
-//            kuorumUserAudit.snapshotUser = this
-            kuorumUserAudit.dateCreated = new Date()
-            Map<String, String>  res= getPropertyValues(this, listPropertyNames(this), "")
-            def obj = this
-            embedded.each {fieldName ->
-                if (obj."${fieldName}" instanceof java.util.List || obj."${fieldName}" instanceof java.util.Set ) {
-                    obj."${fieldName}".eachWithIndex { listObj, idx ->
-                        res.putAll(getPropertyValues(listObj, listPropertyNames(listObj), "${fieldName}[$idx]."))
+            if (this != kuorumUserAudit.editor) {
+
+                kuorumUserAudit.user = this
+                //            kuorumUserAudit.snapshotUser = this
+                kuorumUserAudit.dateCreated = new Date()
+                Map<String, String> res = getPropertyValues(this, listPropertyNames(this), "")
+                def obj = this
+                embedded.each { fieldName ->
+                    if (obj."${fieldName}" instanceof java.util.List || obj."${fieldName}" instanceof java.util.Set) {
+                        obj."${fieldName}".eachWithIndex { listObj, idx ->
+                            res.putAll(getPropertyValues(listObj, listPropertyNames(listObj), "${fieldName}[$idx]."))
+                        }
+                    } else if (obj."${fieldName}" != null) {
+                        res.putAll(getPropertyValues(obj."${fieldName}", listPropertyNames(obj."${fieldName}"), "${fieldName}."))
                     }
-                }else if(obj."${fieldName}" != null) {
-                    res.putAll(getPropertyValues(obj."${fieldName}",listPropertyNames(obj."${fieldName}"), "${fieldName}."))
                 }
-            }
-            kuorumUserAudit.snapshot = res
-                    .inject( [:] ) {
-                        map, v -> map << [ (v.key.toString().replaceAll("\\.", "_")): v.value?.toString() ]
-                    }.findAll{
-                        it.key != "lastUpdated"
+                kuorumUserAudit.snapshot = res
+                        .inject([:]) {
+                    map, v -> map << [(v.key.toString().replaceAll("\\.", "_")): v.value?.toString()]
+                }.findAll {
+                    it.key != "lastUpdated"
+                }
+                def audits = KuorumUserAudit.findAllByUser(this, [max: 1, sort: "dateCreated", order: "desc"])
+                if (audits) {
+                    //Filter not edited fields
+                    kuorumUserAudit.updates = [:]
+                    Map prevSnapshot = audits.first().snapshot
+                    kuorumUserAudit.snapshot.each { k, v ->
+                        if (prevSnapshot.get(k) != v) {
+                            kuorumUserAudit.updates.put(k, v)
+                        }
                     }
-            def audits = KuorumUserAudit.findAllByUser(this, [max: 1, sort: "dateCreated", order: "desc"])
-            if (audits){
-                //Filter not edited fields
-                kuorumUserAudit.updates = [:]
-                Map prevSnapshot = audits.first().snapshot
-                kuorumUserAudit.snapshot.each {k,v ->
-                    if (prevSnapshot.get(k)!=v){
-                        kuorumUserAudit.updates.put(k,v)
-                    }
+                } else {
+                    kuorumUserAudit.updates = kuorumUserAudit.snapshot
+                }
+                if (kuorumUserAudit.updates) {
+                    kuorumUserAudit.save()
                 }
             }else{
-                kuorumUserAudit.updates = kuorumUserAudit.snapshot
-            }
-            if (kuorumUserAudit.updates){
-                kuorumUserAudit.save()
+                //The user is editing himself
+                log.debug("The user ${this} is editing himself. No audit save.")
             }
         }catch (Throwable e){
             log.warn("Not audit save for user ${this}", e)
