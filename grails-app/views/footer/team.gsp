@@ -89,19 +89,19 @@
                 %{--</ul>--}%
             %{--</div>--}%
         %{--</li>--}%
-        %{--<li itemscope itemtype="http://schema.org/Person">--}%
-            %{--<div class="box-ppal">--}%
-                %{--<img src="${resource(dir: 'images', file: 'foto-rachel.jpg')}" alt="Foto" itemprop="image">--}%
-                %{--<h1 itemprop="name"><g:message code="footer.menu.footerTeam.member6"/></h1>--}%
-                %{--<h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position6"/></h2>--}%
-                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description6"/></p>--}%
-                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description6b"/></p>--}%
-                %{--<ul class="social">--}%
+        <li itemscope itemtype="http://schema.org/Person">
+            <div class="box-ppal">
+                <img src="${resource(dir: 'images', file: 'foto-arnolds.jpg')}" alt="Foto" itemprop="image">
+                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member6"/></h1>
+                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position6"/></h2>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description6"/></p>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description6b"/></p>
+                <ul class="social">
                     %{--<li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    %{--<li><a href="https://www.linkedin.com/in/floresjacqueline" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>--}%
-                %{--</ul>--}%
-            %{--</div>--}%
-        %{--</li>--}%
+                    <li><a href="https://www.linkedin.com/in/arnolds-eizensmits-1a4b5b40?trk=hp-identity-name" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                </ul>
+            </div>
+        </li>
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
                 <img src="${resource(dir: 'images', file: 'foto-serae.jpg')}" alt="Foto" itemprop="image">
