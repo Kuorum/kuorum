@@ -143,6 +143,9 @@ class RegisterService {
     KuorumUser createUser (KuorumRegisterCommand command){
         Locale locale = LocaleContextHolder.getLocale();
         AvailableLanguage availableLanguage = AvailableLanguage.fromLocaleParam(locale.getLanguage());
+        if (!availableLanguage ){
+            availableLanguage = AvailableLanguage.en_EN
+        }
         KuorumUser user
             user = new KuorumUser(
                     email: command.email.toLowerCase(),

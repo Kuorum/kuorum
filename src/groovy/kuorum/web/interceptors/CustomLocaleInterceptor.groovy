@@ -35,19 +35,25 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
         def localeParam = params?.get(paramName)
         AvailableLanguage userLanguage
         LocaleResolver localeResolver = org.springframework.web.servlet.support.RequestContextUtils.getLocaleResolver(request)
-        if (springSecurityService.isLoggedIn()){
-            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-            userLanguage = user.language
-        }else{
-            userLanguage = AvailableLanguage.fromLocaleParam(localeParam);
-            if (!userLanguage){
-                Locale local = localeResolver.resolveLocale(request)
-                if (SPANISH_LANGS.contains(local.language)){
-                    userLanguage = AvailableLanguage.es_ES
-                }else{
-                    userLanguage = AvailableLanguage.fromLocaleParam(local.getLanguage())?:AvailableLanguage.en_EN
+        try{
+            if (springSecurityService.isLoggedIn()){
+                KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+                userLanguage = user.language
+            }else{
+                userLanguage = AvailableLanguage.fromLocaleParam(localeParam);
+                if (!userLanguage){
+                    Locale local = localeResolver.resolveLocale(request)
+                    if (SPANISH_LANGS.contains(local.language)){
+                        userLanguage = AvailableLanguage.es_ES
+                    }else{
+                        userLanguage = AvailableLanguage.fromLocaleParam(local.getLanguage())?:AvailableLanguage.en_EN
+                    }
                 }
             }
+            throw new Exception("")
+        }catch(Throwable t){
+            log.warn("Not language discover due to exception. ${webRequest.baseUrl} ${webRequest.getParams()}", t)
+            userLanguage = AvailableLanguage.en_EN
         }
         localeResolver?.setLocale request, response, userLanguage.locale
         return true;
