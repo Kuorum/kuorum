@@ -24,7 +24,7 @@
                 <div class="panel-heading">
                     <h4 class="panel-title" style="font-size: 14px;">
                         <g:link mapping="userShow" params="${audit.editor.encodeAsLinkProperties()}">${audit.editor.name}</g:link>
-                        has edited
+                        <small> has edited </small>
                         <g:link mapping="userShow" params="${audit.user.encodeAsLinkProperties()}">${audit.user.name}</g:link>
                         <a data-toggle="collapse" style="float:right" href="#collapse_${audit.id}">Open changes</a>
                     </h4>
