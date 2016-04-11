@@ -50,7 +50,6 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
                     }
                 }
             }
-            throw new Exception("")
         }catch(Throwable t){
             log.warn("Not language discover due to exception. ${webRequest.baseUrl} ${webRequest.getParams()}", t)
             userLanguage = AvailableLanguage.en_EN
