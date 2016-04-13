@@ -38,9 +38,9 @@
             <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-psoe.png')}" alt="PSOE">
             <span itemprop="name" class="sr-only">PSOE</span>
         </li>
-        <li itemscope itemtype="http://schema.org/Organization">
-            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-unltd.png')}" alt="UnLtd">
-            <span itemprop="name" class="sr-only">UnLtd</span>
+        <li itemscope itemtype="http://schema.org/Organization" class="square">
+            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-telefonica-of.png')}" alt="Telefónica">
+            <span itemprop="name" class="sr-only">Telefónica Open Future</span>
         </li>
         <li itemscope itemtype="http://schema.org/Organization"  class="square">
             <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-sif.png')}" alt="Socialiniu Inovaciju Fondas">
@@ -58,9 +58,9 @@
             <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-techcity.png')}" alt="TechCityUK">
             <span itemprop="name" class="sr-only">TechCityUK</span>
         </li>
-        <li itemscope itemtype="http://schema.org/Organization"  class="square">
-            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-impacthub.png')}" alt="Impact Hub">
-            <span itemprop="name" class="sr-only">Impact Hub</span>
+        <li itemscope itemtype="http://schema.org/Organization">
+            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-oxfam.png')}" alt="Impact Hub">
+            <span itemprop="name" class="sr-only">Oxfam Intermon</span>
         </li>
 
         <li itemscope itemtype="http://schema.org/Organization">
@@ -79,9 +79,9 @@
             <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-dotforge.png')}" alt="DOTFORGE">
             <span itemprop="name" class="sr-only">DOTFORGE</span>
         </li>
-        <li itemscope itemtype="http://schema.org/Organization">
-            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-telefonica.png')}" alt="Telefónica">
-            <span itemprop="name" class="sr-only">Telefónica</span>
+        <li itemscope itemtype="http://schema.org/Organization"  class="square">
+            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-impacthub.png')}" alt="Impact Hub">
+            <span itemprop="name" class="sr-only">Impact Hub</span>
         </li>
     </ul>
 </section>
