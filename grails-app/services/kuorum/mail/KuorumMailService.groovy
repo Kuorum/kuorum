@@ -49,9 +49,6 @@ class KuorumMailService {
         }
     }
 
-    def sendRawMailToKuorum(String rawMail, String subject){
-        sendBatchMail(getFeedbackUser(), rawMail, subject)
-    }
     def sendBatchMail(KuorumUser user, String rawMail, String subject){
         MailUserData mailUserData = new MailUserData(user:user)
         MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME , mailType: MailType.BATCH_PROCESS, globalBindings: [rawMail: rawMail, SUBJECT:subject], userBindings: [mailUserData])
@@ -214,6 +211,17 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
+    def sendPoliticianContactKuorumNotification(KuorumUser politician, KuorumUser user, String message, String cause){
+        // FAST FIX FOR CONTROLING CONTACT BUTTON (Sending an email to Kuorum)
+        String userLink = generateLink('userShow',user.encodeAsLinkProperties())
+        String politicianLink = generateLink('userShow',politician.encodeAsLinkProperties())
+        String rawMessage = """
+        <h1> <a href='${userLink}'>${user.name}</a> has sent a contact mail to <a href="${politicianLink}">${politician.name}</a> </h1>
+        <h2> Message related with ${cause}</h2>
+        <p> ${message} </p>
+        """
+        sendBatchMail(getFeedbackUser(), rawMessage, "${user.name} has been contacted with ${politician.name}")
+    }
     def sendPoliticianContact(KuorumUser politician, KuorumUser user, String message, String cause){
         String contactLink = generateLink("userShow",user.encodeAsLinkProperties())
         String politicianLink = generateLink("userShow",politician.encodeAsLinkProperties())

@@ -19,11 +19,14 @@ import kuorum.post.PostVote
 import kuorum.project.ProjectVote
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
+import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 
 @Transactional
 class NotificationService {
 
     def kuorumMailService
+
+    LinkGenerator grailsLinkGenerator
 
     private static Integer BUFFER_NOTIFICATIONS_SIZE = 1000
 
@@ -168,14 +171,7 @@ class NotificationService {
 
     public void sendPoliticianContactNotification(KuorumUser politician, KuorumUser user, String message, String cause){
         kuorumMailService.sendPoliticianContact(politician, user, message, cause)
-
-        // FAST FIX FOR CONTROLING CONTACT BUTTON (Sending an email to Kuorum)
-        String rawMessage = """
-        <h1> User ${user.name} has been contacted with ${politician.name} </h1>
-        <h2> Message related with ${cause}</h2>
-        <p> ${message} </p>
-        """
-        kuorumMailService.sendRawMailToKuorum(rawMessage, "${user.name} has been contacted with ${politician.name}")
+        kuorumMailService.sendPoliticianContactKuorumNotification(politician, user, message, cause)
     }
 
     void sendCommentNotifications(Post post, PostComment comment){
