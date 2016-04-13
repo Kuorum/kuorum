@@ -41,18 +41,19 @@ class PoliticianService {
     CausesService causesService
     NotificationService notificationService
     RegionService regionService
+    KuorumUserService kuorumUserService
 
     private static final String IPDB_DATE_FORMAT = "dd/MM/yyyy HH:mm"
 
     KuorumUser updatePoliticianExternalActivity(KuorumUser politician, List<ExternalPoliticianActivity> externalPoliticianActivities){
         politician.externalPoliticianActivities = externalPoliticianActivities.findAll{it && it.validate()}
         sortExternalPoliticianActivity(politician)
-        politician.save()
+        kuorumUserService.updateUser(politician)
     }
 
     KuorumUser updatePoliticianRelevantEvents(KuorumUser politician, List<PoliticianRelevantEvent> relevantEvents){
         politician.relevantEvents = relevantEvents.findAll{it && it.validate()}
-        politician.save()
+        kuorumUserService.updateUser(politician)
     }
 
     KuorumUser updatePoliticianProfessionalDetails(KuorumUser politician, ProfessionalDetailsCommand command){
@@ -63,13 +64,13 @@ class PoliticianService {
         politician.professionalDetails.institution = command.institution
         politician.professionalDetails.region= command.region
         politician.careerDetails= command.careerDetails
-        politician.save()
+        kuorumUserService.updateUser(politician)
     }
 
     KuorumUser updatePoliticianExperience(KuorumUser politician, List<PoliticianTimeLine> timeLine){
         politician.timeLine = timeLine.findAll{it && it.validate()}
         sortPoliticalExperience(politician)
-        politician.save()
+        kuorumUserService.updateUser(politician)
     }
 
     KuorumUser updatePoliticianQuickNotes(KuorumUser politician, PoliticianExtraInfo politicianExtraInfo, OfficeDetails institutionalOffice, OfficeDetails politicalOffice){
@@ -77,7 +78,7 @@ class PoliticianService {
         politician.politicianExtraInfo = politicianExtraInfo
         politician.institutionalOffice= institutionalOffice
         politician.politicalOffice= politicalOffice
-        politician.save()
+        kuorumUserService.updateUser(politician)
     }
 
     KuorumUser updatePoliticianCauses(KuorumUser politician, List<String> causes){
@@ -90,7 +91,7 @@ class PoliticianService {
             causesService.defendCause(politician, cause)
         }
         indexSolrService.index(politician)
-        politician
+        kuorumUserService.updateUser(politician)
     }
 
     KuorumUser requestABetaTesterAccount(KuorumUser user){

@@ -82,49 +82,6 @@ class KuorumUserServiceIntegrationTest extends Specification {
         "patxi@example.com" | "carmen@example.com" | true
     }
 
-    @Unroll
-    @Ignore
-    void "test converting as premium on #email"() {
-        given: "1 users"
-        KuorumUser user = KuorumUser.findByEmail(email)
-        when:
-        kuorumUserService.convertAsPremium(user)
-        then:
-        user.authorities.collect { it.authority }.contains("ROLE_PREMIUM")
-        user.authorities.size() == 2
-        KuorumUser.withNewSession {
-            KuorumUser userNS = KuorumUser.findByEmail(email)
-            userNS.authorities.collect { it.authority }.contains("ROLE_PREMIUM")
-            userNS.authorities.size() == 2
-        }
-        where:
-        email                      | result
-        "patxi@example.com"        | true  //He has not the role yet
-        "juanjoalvite@example.com" | true  // He has already the role
-    }
-
-    @Unroll
-    @Ignore
-    void "test deleting premium roles on user #email"() {
-        given: "1 premium users"
-        KuorumUser user = KuorumUser.findByEmail(email)
-        when:
-        kuorumUserService.convertAsNormalUser(user)
-        then:
-        !user.authorities.collect { it.authority }.contains("ROLE_PREMIUM")
-        user.authorities.size() == 1
-        KuorumUser.withNewSession {
-            KuorumUser userNS = KuorumUser.findByEmail(email)
-            !userNS.authorities.collect { it.authority }.contains("ROLE_PREMIUM")
-            userNS.authorities.size() == 1
-        }
-        where:
-        email                      | result
-        "patxi@example.com"        | true  //He has not the role yet
-        "juanjoalvite@example.com" | true  // He has already the role
-
-    }
-
     @Ignore
     void "Calculate the activity between two users"() {
         given: "A user"

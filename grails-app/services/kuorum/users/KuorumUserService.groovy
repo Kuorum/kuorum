@@ -50,6 +50,7 @@ class KuorumUserService {
     SearchSolrService searchSolrService;
     KuorumMailAccountService kuorumMailAccountService;
     CausesService causesService
+    KuorumUserAuditService kuorumUserAuditService
 
 
     GrailsApplication grailsApplication
@@ -115,43 +116,12 @@ class KuorumUserService {
         following
     }
 
-    KuorumUser convertAsUser(KuorumUser user){
-        user.userType = UserType.PERSON
-        user.personalData.userType = UserType.PERSON
-        RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
-        user.authorities.remove(rolePolitician)
-        user.save()
-    }
-
-    KuorumUser convertAsOrganization(KuorumUser user){
-        user.userType = UserType.ORGANIZATION
-        user.personalData.userType = UserType.ORGANIZATION
-        RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
-        user.authorities.remove(rolePolitician)
-        user.save()
-    }
-
-    @Deprecated
-    KuorumUser convertAsPolitician(KuorumUser user, Region politicianOnRegion, Region constituency,  String politicalParty){
-        if (!politicianOnRegion || !politicalParty){
-            throw new KuorumException("Un politico debe de tener institucion y grupo parlamentario","error.politician.politicianData")
-        }
-        user.userType = UserType.POLITICIAN
-        user.personalData.userType = UserType.POLITICIAN
-        if (!user.professionalDetails) user.professionalDetails = new ProfessionalDetails()
-        user.professionalDetails.politicalParty = politicalParty
-        user.professionalDetails.region = politicianOnRegion
-        user.professionalDetails.constituency = constituency
-        RoleUser rolePolitician = RoleUser.findByAuthority("ROLE_POLITICIAN")
-        user.authorities.add(rolePolitician)
-        user.save()
-    }
-
     /**
      * Adds premium roles to @user
      * @param user
      * @return
      */
+    @Deprecated
     KuorumUser convertAsPremium(KuorumUser user){
         RoleUser rolePremium = RoleUser.findByAuthority("ROLE_PREMIUM")
         addRole(user, rolePremium)
@@ -169,6 +139,7 @@ class KuorumUserService {
      * @param user
      * @return
      */
+    @Deprecated
     KuorumUser convertAsNormalUser(KuorumUser user){
         RoleUser rolePremium = RoleUser.findByAuthority("ROLE_PREMIUM")
         user.lastUpdated = new Date() //Mongo is not detecting changes on list, and is not updating the user roles. Modifying a root field, object is detected as dirty and it saves the changes
@@ -458,6 +429,7 @@ class KuorumUserService {
             }
         }
         indexSolrService.index(user)
+        kuorumUserAuditService.auditEditUser(user)
         kuorumMailService.mailingListUpdateUser(user)
 
         user
@@ -465,7 +437,8 @@ class KuorumUserService {
 
     KuorumUser updateUserRelevance(KuorumUser user, Long relevance){
         user["relevance"] = relevance
-        user.save()
+        kuorumUserAuditService.auditEditUser(user)
+        user.save() //Not user updateUser because relevance is a little special
     }
 
     Long getUserRelevance(KuorumUser user){
@@ -487,11 +460,8 @@ class KuorumUserService {
                 return null;
             }
         }
+        kuorumUserAuditService.auditEditUser(user)
         return user;
-    }
-    KuorumUser updateLanguage(KuorumUser user, AvailableLanguage language){
-        user.language = language;
-        user.save()
     }
 
     KuorumUser updateEmail(KuorumUser user, String email){
@@ -511,6 +481,7 @@ class KuorumUserService {
             }
         }
         indexSolrService.index(user)
+        kuorumUserAuditService.auditEditUser(user)
         user
     }
 
