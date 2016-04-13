@@ -12,7 +12,57 @@
                     <g:link mapping="register" class="btn btn-white"><g:message code="login.head.register"/> </g:link>
                     <g:form mapping="searcherLanding" method="GET" name="findRepresentatives" id="findRepresentatives" class="form-inline searchRep" role="search" fragment="results">
                         <div class="form-group">
-                            <formUtil:input field="word" cssClass="form-control" command="${searchParams}" labelCssClass="sr-only" showLabel="true"/>
+                            <formUtil:input field="word" id="suggestDiscoverWord" cssClass="form-control" command="${searchParams}" labelCssClass="sr-only" showLabel="true"/>
+
+
+                            <script>
+                                $(function(){
+                                    var a = $('#suggestDiscoverWord').autocomplete({
+                                        paramName:"word",
+                                        params:{type:'POLITICIAN'},
+                                        serviceUrl:urls.searchSuggest,
+                                        minChars:1,
+                                        width:330,
+                                        noCache: false, //default is false, set to true to disable caching
+                                        onSearchStart: function (query) {
+                                            $('.loadingSearch').show()
+                                        },
+                                        onSearchComplete: function (query, suggestions) {
+                                            $('.loadingSearch').hide()
+                                        },
+                                        formatResult:function (suggestion, currentValue) {
+                                            var format = ""
+                                            if (suggestion.type=="SUGGESTION"){
+                                                format =  suggestion.value
+                                            }else if(suggestion.type=="USER"){
+                                                format = "<img class='user-img' alt='"+suggestion.data.name+"' src='"+suggestion.data.urlAvatar+"'>"
+                                                format +="<span class='name'>"+suggestion.data.name+"</span>"
+                                                format +="<span class='user-type'>"+suggestion.data.role.i18n+"</span>"
+                                            }else if(suggestion.type=="PROJECT"){
+                                                format = "<span class='statusProject'>"+suggestion.data.status.i18n+"</span>"
+                                                format += suggestion.data.title
+                                                format += " <strong>"+suggestion.data.hashtag+"</strong>"
+                                            }
+                                            return format
+                                        },
+                                        searchUserText:function(userText){
+                                            window.location = location.protocol + '//' + location.host + location.pathname+"?type=POLITICIAN&word="+encodeURIComponent(userText)+"#results"
+                                        },
+                                        onSelect: function(suggestion){
+                                            if(suggestion.type=="USER"){
+                                                window.location = suggestion.data.url
+                                            }else if(suggestion.type=="PROJECT"){
+                                                window.location = suggestion.data.url
+                                            }else{
+                                                window.location = location.protocol + '//' + location.host + location.pathname+"?type=POLITICIAN&word="+encodeURIComponent(suggestion.value)+"#results"
+                                            }
+                                        },
+                                        triggerSelectOnValidInput:false,
+                                        deferRequestBy: 100 //miliseconds
+                                    });
+                                });
+
+                            </script>
                         </div>
                         <button type="submit" class="btn btn-blue"><g:message code="search.noLogged.landing.search"/></button>
                     </g:form>

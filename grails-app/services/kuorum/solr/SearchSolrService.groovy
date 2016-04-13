@@ -93,7 +93,7 @@ class SearchSolrService {
         }
         SolrQuery query = new SolrQuery();
         query.setParam(CommonParams.QT, "/suggest");
-        query.setParam("spellcheck.q", params.word);
+        query.setParam("spellcheck.q", params.word.split(" ").last());
         //query.setParam(TermsParams.TERMS_FIELD, "name", "username");
         prepareFilter(params, query)
         query.setParam("facet.prefix",params.word)
@@ -102,6 +102,10 @@ class SearchSolrService {
 
         SolrAutocomplete solrAutocomplete = new SolrAutocomplete()
         solrAutocomplete.suggests = prepareAutocompleteSuggestions(rsp)
+        if (params.word.split(" ").size()>1){
+            String prevWords = params.word.split(" ")[0..params.word.split(" ").size()-2].join(" ")
+            solrAutocomplete.suggests = solrAutocomplete.suggests.collect{prevWords +" "+it}
+        }
         def elements = prepareSolrElements(rsp)
         solrAutocomplete.kuorumUsers = elements.kuorumUsers
         solrAutocomplete.projects = elements.projects
