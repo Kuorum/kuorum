@@ -40,7 +40,7 @@
                     </sec:ifNotLoggedIn>
                     <sec:ifLoggedIn>
                         <input type="hidden" name="name" value="LOGGED USER NAME"/>
-                        <input type="hidden" name="email" value="not-existing-mail@not-mail.com"/>
+                        <input type="hidden" name="email" value="notExistingMail@notMail.com"/>
                     </sec:ifLoggedIn>
 
                     <div class="form-group button">

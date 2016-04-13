@@ -168,6 +168,14 @@ class NotificationService {
 
     public void sendPoliticianContactNotification(KuorumUser politician, KuorumUser user, String message, String cause){
         kuorumMailService.sendPoliticianContact(politician, user, message, cause)
+
+        // FAST FIX FOR CONTROLING CONTACT BUTTON (Sending an email to Kuorum)
+        String rawMessage = """
+        <h1> User ${user.name} has been contacted with ${politician.name} </h1>
+        <h2> Message related with ${cause}</h2>
+        <p> ${message} </p>
+        """
+        kuorumMailService.sendRawMailToKuorum(rawMessage, "${user.name} has been contacted with ${politician.name}")
     }
 
     void sendCommentNotifications(Post post, PostComment comment){
