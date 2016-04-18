@@ -55,6 +55,10 @@
         form:{
             warn:{
                 leavingEditedForm: '<g:message code="form.warn.leavingEditedForm"/>'
+            },
+            image:{
+                dragImage: '<g:message code="form.image.dragImage"/>',
+                openBrowser: '<g:message code="form.image.openBrowser"/>',
             }
         },
         cookies:{
