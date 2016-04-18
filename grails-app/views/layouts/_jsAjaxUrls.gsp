@@ -35,8 +35,8 @@
                 boxes:{
                     like:{
                         vote:{
-                            button:'<g:message code="post.show.boxes.like.vote.button"/>',
-                            buttonVoted:'<g:message code="post.show.boxes.like.vote.buttonVoted"/>'
+                            button:"<g:message code="post.show.boxes.like.vote.button"/>",
+                            buttonVoted:"<g:message code="post.show.boxes.like.vote.buttonVoted"/>"
                         }
                     }
                 }
@@ -45,50 +45,50 @@
         profile:{
             kuorumStore:{
                 skillButton:{
-                    active:'<g:message code="profile.kuorumStore.skillButton.active"/>'
+                    active:"<g:message code="profile.kuorumStore.skillButton.active"/>"
                 },
                 roleButton:{
-                    active:'<g:message code="profile.kuorumStore.roleButton.active"/>'
+                    active:"<g:message code="profile.kuorumStore.roleButton.active"/>"
                 }
             }
         },
         form:{
             warn:{
-                leavingEditedForm: '<g:message code="form.warn.leavingEditedForm"/>'
+                leavingEditedForm: "<g:message code="form.warn.leavingEditedForm"/>"
             },
             image:{
-                dragImage: '<g:message code="form.image.dragImage"/>',
-                openBrowser: '<g:message code="form.image.openBrowser"/>',
+                dragImage: "<g:message code="form.image.dragImage"/>",
+                openBrowser: "<g:message code="form.image.openBrowser"/>",
             }
         },
         cookies:{
             message: '<g:message code="cookies.message" args="[createLink(mapping: 'footerPrivacyPolicy', absolute: true)]" encodeAs="raw"/>',
-            accept:'<g:message code="cookies.accept"/>'
+            accept:"<g:message code="cookies.accept"/>"
         },
         read:{
-            more:'<g:message code="read.more"/>',
-            less:'<g:message code="read.less"/>'
+            more:"<g:message code="read.more"/>",
+            less:"<g:message code="read.less"/>"
         },
         tour:{
-            next:'<g:message code="tour.dashboard.next"/>',
-            skip:'<g:message code="tour.dashboard.skip"/>',
-            repeat:'<g:message code="tour.dashboard.repeat"/>',
-            gotIt:'<g:message code="tour.dashboard.gotIt"/>',
+            next:"<g:message code="tour.dashboard.next"/>",
+            skip:"<g:message code="tour.dashboard.skip"/>",
+            repeat:"<g:message code="tour.dashboard.repeat"/>",
+            gotIt:"<g:message code="tour.dashboard.gotIt"/>",
             step1:{
-                title:'<g:message code="tour.dashboard.step1.title"/>',
-                content:'<g:message code="tour.dashboard.step1.content"/>'
+                title:"<g:message code="tour.dashboard.step1.title"/>",
+                content:"<g:message code="tour.dashboard.step1.content"/>"
             },
             step2:{
-                title:'<g:message code="tour.dashboard.step2.title"/>',
-                content:'<g:message code="tour.dashboard.step2.content"/>'
+                title:"<g:message code="tour.dashboard.step2.title"/>",
+                content:"<g:message code="tour.dashboard.step2.content"/>"
             },
             step3:{
-                title:'<g:message code="tour.dashboard.step3.title"/>',
-                content:'<g:message code="tour.dashboard.step3.content"/>'
+                title:"<g:message code="tour.dashboard.step3.title"/>",
+                content:"<g:message code="tour.dashboard.step3.content"/>"
             },
             step4:{
-                title:'<g:message code="tour.dashboard.step4.title"/>',
-                content:'<g:message code="tour.dashboard.step4.content"/>'
+                title:"<g:message code="tour.dashboard.step4.title"/>",
+                content:"<g:message code="tour.dashboard.step4.content"/>"
             }
         }
     }
