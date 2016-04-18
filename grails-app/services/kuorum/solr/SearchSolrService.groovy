@@ -31,6 +31,7 @@ class SearchSolrService {
 //        query.setParam(CommonParams.QT, "query");
         query.setParam(CommonParams.START, "${params.offset}");
         query.setParam(CommonParams.ROWS, "${params.max}");
+        query.setParam("tie", "0");
         prepareWord(params, query)
         prepareFilter(params, query)
         prepareBoosted(params, query)
