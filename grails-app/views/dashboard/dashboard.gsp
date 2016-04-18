@@ -11,7 +11,7 @@
 
 
 <content tag="mainContent">
-    <h2 class="underline">Suggested causes for you</h2>
+    <h2 class="underline"><g:message code="dashboard.causes.title"/> </h2>
     <ul class="causes-list row" id="cause-card-list-id">
         <g:render template="/dashboard/dashboardModules/causeCardList" model="[causes:causesSuggested.data]"/>
     </ul>
