@@ -25,6 +25,7 @@ covertura.ser
 /stacktrace.log
 /test/reports
 /logs
+/null
 
 # project release file
 /*.war
