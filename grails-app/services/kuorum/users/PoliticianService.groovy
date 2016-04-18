@@ -42,6 +42,7 @@ class PoliticianService {
     NotificationService notificationService
     RegionService regionService
     KuorumUserService kuorumUserService
+    KuorumUserAuditService kuorumUserAuditService
 
     private static final String IPDB_DATE_FORMAT = "dd/MM/yyyy HH:mm"
 
@@ -81,7 +82,7 @@ class PoliticianService {
         kuorumUserService.updateUser(politician)
     }
 
-    KuorumUser updatePoliticianCauses(KuorumUser politician, List<String> causes){
+    KuorumUser updatePoliticianCauses(KuorumUser politician, List<String> causes, Boolean audit=true){
 
         List<CauseRSDTO> oldCauses = causesService.findDefendedCauses(politician);
         oldCauses.each {cause ->
@@ -91,7 +92,10 @@ class PoliticianService {
             causesService.defendCause(politician, cause)
         }
         indexSolrService.index(politician)
-        kuorumUserService.updateUser(politician)
+        if(audit){
+            // If politician.save() will override the ideologic field that is defined on service, but not on kuorum.
+            kuorumUserAuditService.auditEditUser(politician)
+        }
     }
 
     KuorumUser requestABetaTesterAccount(KuorumUser user){
@@ -169,7 +173,7 @@ class PoliticianService {
                 tags << tag
             }
         }
-        updatePoliticianCauses(politician, tags)
+        updatePoliticianCauses(politician, tags, false)
     }
 
     private void populateTimeLine(KuorumUser politician, def line) {
