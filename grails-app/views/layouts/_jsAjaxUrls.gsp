@@ -66,6 +66,10 @@
             less:'<g:message code="read.less"/>'
         },
         tour:{
+            next:'<g:message code="tour.dashboard.next"/>',
+            skip:'<g:message code="tour.dashboard.skip"/>',
+            repeat:'<g:message code="tour.dashboard.repeat"/>',
+            gotIt:'<g:message code="tour.dashboard.gotIt"/>',
             step1:{
                 title:'<g:message code="tour.dashboard.step1.title"/>',
                 content:'<g:message code="tour.dashboard.step1.content"/>'

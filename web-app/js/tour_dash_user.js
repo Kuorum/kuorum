@@ -7,7 +7,7 @@ $(document).ready(function() {
             storage: false,
             keyboard: true,
             backdrop: true,
-            template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey cancel" data-role="end">Skip tour</button><button class="btn" data-role="next">Next</button></div></div>',
+            template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey cancel" data-role="end">'+i18n.tour.skip+'</button><button class="btn" data-role="next">'+i18n.tour.next+'</button></div></div>',
             onEnd : function(tour_dash_user){
                 window.location.href = urls.home;
             }
@@ -65,7 +65,7 @@ $(document).ready(function() {
                 },
                 title: i18n.tour.step4.title,
                 content: i18n.tour.step4.content,
-                template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey cancel" data-role="next">Repeat</button><button class="btn" data-role="end">Got it!</button></div></div>',
+                template: '<div class="popover tour"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div><div class="popover-navigation"><button class="btn btn-grey cancel" data-role="next">'+i18n.tour.repeat+'</button><button class="btn" data-role="end">'+i18n.tour.gotIt+'</button></div></div>',
                 next: 0
             }
         ]);
