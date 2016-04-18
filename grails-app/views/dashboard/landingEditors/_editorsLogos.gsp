@@ -1,11 +1,11 @@
 <section role="complementary" class="homeSub logos">
     <h1><g:message code="landingEditors.logos.title"/> </h1>
     <ul class="clearfix limit-height" data-collapsedHeight="320" data-collapsedButtonCss="openLogos">
-        <li itemscope itemtype="http://schema.org/Organization">
-            <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-upf.png')}" alt="Universitat Pompeu Fabra Barcelona">
-        </li>
         <li itemscope itemtype="http://schema.org/Organization" class="square">
             <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-accessinfo.png')}" alt="Access Info Europe">
+        </li>
+        <li itemscope itemtype="http://schema.org/Organization">
+            <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-mysociety.png')}" alt="MySociety">
         </li>
         <li itemscope itemtype="http://schema.org/Organization">
             <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-harvard.png')}" alt="Harvard University">
@@ -27,10 +27,10 @@
             <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-deusto.png')}" alt="Universidad de Deusto">
         </li>
         <li itemscope itemtype="http://schema.org/Organization">
-            <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-neu.png')}" alt="Northeastern">
+            <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-unimcr.png')}" alt="The University of Manchester">
         </li>
         <li itemscope itemtype="http://schema.org/Organization">
-            <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-boston.png')}" alt="Boston University">
+            <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-upf.png')}" alt="Universitat Pompeu Fabra Barcelona">
         </li>
     </ul>
 </section>
