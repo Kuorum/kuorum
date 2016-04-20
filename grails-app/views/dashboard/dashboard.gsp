@@ -25,7 +25,7 @@
             numElements="${causesSuggested.total}"/>
 
 
-    <h2 class="underline">Politicians who recently joined</h2>
+    <h2 class="underline"><g:message code="dashboard.newPoliticians.title"/> </h2>
     <!-- LISTA DE POLÍTICOS -->
     <ul class="politician-list row" id="search-list-id">
         <g:render template="/dashboard/listDashboardPoliticians" model="[politicians:politicians]"/>
