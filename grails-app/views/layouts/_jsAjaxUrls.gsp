@@ -59,6 +59,9 @@
             image:{
                 dragImage: "<g:message code="form.image.dragImage"/>",
                 openBrowser: "<g:message code="form.image.openBrowser"/>",
+            },
+            textEditor:{
+                textAreaPlaceHolder:"<g:message code="form.textEditor.textAreaPlaceHolder"/>"
             }
         },
         cookies:{

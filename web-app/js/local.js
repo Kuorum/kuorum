@@ -621,7 +621,7 @@ $(document).ready(function() {
         ol: false,
         outdent: false,
         p: true,
-        placeholder: "Escribe un texto que lo describa",
+        placeholder: i18n.form.textEditor.textAreaPlaceHolder,
         linktypes: ["URL", "Email"],
         remove: false,
         right: false,
