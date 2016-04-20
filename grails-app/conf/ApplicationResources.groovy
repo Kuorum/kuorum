@@ -5,11 +5,37 @@ modules = {
         resource url:'js/bootstrap.min.js'
     }
 
+
+    lang_es{
+        dependsOn 'application'
+        resource url:'js/timeago/jquery.timeago.es.js'
+    }
+
+    lang_en{
+        dependsOn 'application'
+        resource url:'js/timeago/jquery.timeago.en.js'
+    }
+
+    lang_de{
+        dependsOn 'application'
+        resource url:'js/timeago/jquery.timeago.de.js'
+    }
+
+    lang_it{
+        dependsOn 'application'
+        resource url:'js/timeago/jquery.timeago.it.js'
+    }
+
+    lang_lt{
+        dependsOn 'application'
+        resource url:'js/timeago/jquery.timeago.lt.js'
+    }
+
     application {
         dependsOn "basic"
         resource url:'js/jquery.validate.min.js'
         resource url:'js/readmore.min.js'
-        resource url:'js/jquery.timeago.es.js'
+        resource url:'js/jquery.timeago.js'
         resource url:'js/jquery-te-1.4.0.min.js'
         resource url:'css/jquery-te-1.4.0.css'
         resource url:'js/jquery.noty.packaged.min.js'

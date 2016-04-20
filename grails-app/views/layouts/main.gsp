@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ page import="springSecurity.KuorumRegisterCommand; grails.plugin.springsecurity.ui.RegisterCommand" contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.springframework.web.servlet.support.RequestContextUtils; org.springframework.context.i18n.LocaleContextHolder; springSecurity.KuorumRegisterCommand; grails.plugin.springsecurity.ui.RegisterCommand" contentType="text/html;charset=UTF-8" %>
 <html class="no-js" lang="es">
 <head>
     <meta charset="UTF8-8">
@@ -68,6 +68,8 @@
     <link rel="shortcut icon" href="${resource(dir: 'images/icons', file: 'favicon.ico')}">
 
     <r:require modules="vimeo" />
+    <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
+    <r:require modules="lang_${lang}" />
     <g:layoutHead/>
     <g:javascript library="jquery" plugin="jquery"/>
     <g:javascript library="application"/>

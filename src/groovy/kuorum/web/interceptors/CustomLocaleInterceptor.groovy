@@ -6,6 +6,7 @@ import kuorum.users.KuorumUser
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.propertyeditors.LocaleEditor
+import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.web.servlet.LocaleResolver
 import org.springframework.web.servlet.i18n.CookieLocaleResolver
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor
