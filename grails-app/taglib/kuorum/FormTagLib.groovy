@@ -62,6 +62,7 @@ class FormTagLib {
         KuorumFile kuorumFile = null
         FileGroup fileGroup = attrs.fileGroup
         def label = message(code: "${command.class.name}.${field}.label")
+        def placeHolder = message(code: "${command.class.name}.${field}.placeHolder", default: message(code:'form.uploadFile.placeHolder', default: 'Upload file'))
         def value = ""
         def pdfUrl = ""
         String fileName = ""
@@ -89,6 +90,7 @@ class FormTagLib {
                 name:field,
                 fileName:fileName,
                 label:label,
+                placeHolder:placeHolder,
                 errorMessage:errorMessage
         ]
         out << g.render(template:'/layouts/form/uploadPdf', model:model)
