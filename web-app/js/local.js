@@ -112,6 +112,102 @@ $(document).ready(function() {
     });
 });
 
+// valuation chart
+$(function () {
+
+    Highcharts.setOptions({
+        colors: ['#ff9431', '#999999', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
+        global: {
+            useUTC: false
+          }
+    });
+
+    $.getJSON('mock//valpol.json', function (activity) {
+        $.each(activity.datasets, function (i, dataset) {
+
+            $('<div class="chart">')
+                .appendTo('#polValChart')
+                .highcharts('StockChart', {
+                    chart: {
+                        spacingBottom: 20,
+                        zoomType: 'x',
+                        height: 300
+                    },
+                    title: {
+                        text: dataset.name,
+                        align: 'left',
+                        margin: 5,
+                        color: '#666666',
+                        x: 0
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        tickInterval: 24 * 1000 * 3600, // intervalo cada 24h
+                        range: 7 * 24 * 3600 * 1000 // mostramos 1 semana
+                    },
+                    yAxis: {
+                        title: {
+                            text: null
+                        },
+                        allowDecimals: false,
+                        crosshair: true,
+                        minTickInterval: 1,
+                        minorGridLineColor: '#F0F0F0',
+                        minorTickInterval: '0.1',
+                        offset: 20
+                    },
+                    tooltip: {
+                        positioner: function () {
+                            return {
+                                x: this.chart.chartWidth - this.label.width,
+                                y: -1
+                            };
+                        },
+                        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+                        borderWidth: 0,
+                        pointFormat: '{point.y}',
+                        headerFormat: '',
+                        shadow: false,
+                        style: {
+                            fontSize: '15px'
+                        },
+                        valueDecimals: dataset.valueDecimals
+                    },
+                    rangeSelector: {
+                        enabled: false
+                    },
+                    scrollbar: {
+                        enabled: false
+                    },
+                    navigator: {
+                        height: 20,
+                        margin: 10,
+                        maskFill: 'rgba(0, 0, 0, 0.05)',
+                        maskInside: false
+                    },
+                    series: [{
+                        data: dataset.data,
+                        name: dataset.name,
+                        type: dataset.type,
+                        pointInterval: 24 * 3600 * 1000, // cada 24h
+                        color: Highcharts.getOptions().colors[i],
+                        fillOpacity: 0.3,
+                        tooltip: {
+                            valueSuffix: ' ' + dataset.unit
+                        }
+                    }]
+                });
+        });
+    });
+
+});
+
 
 $(document).ready(function() {
 
@@ -126,7 +222,7 @@ $(document).ready(function() {
             }
         });
     }
-    
+
     // custom radio option en formulario Subscribe2
     if ($('.subscribeForm').length) {
         var inputOption = $('.subscribeForm input[type=radio]');
@@ -135,8 +231,8 @@ $(document).ready(function() {
             $(this).closest('label').addClass('selected');
         });
     }
-    
-    
+
+
     // isotope - plugin para apilar divs de diferente altura
     if ( $('.list-team').length > 0 ) {
         var $container = $('.list-team');
@@ -167,7 +263,7 @@ $(document).ready(function() {
         if (window.matchMedia('only screen and (max-width: 1024px)').matches) {
             $('.landing .full-video').find('video').remove();
         }
-        
+
         // controla el comportamiento del módulo de la columna derecha en Propuestas
         if ($(window).width() > 991) {
 
