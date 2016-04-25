@@ -1368,14 +1368,14 @@ video#bgvid {
 
 /* NUEVOS ESTILOS LANDING 2016 */
 /* vídeo */
-#main.landing {padding: 0; color: #fff; min-height: auto;}
+#main.landing {padding: 0; color: #fff; min-height: 0;}
 #main.landing .full-video {padding: 0; background-image: url('../images/background.png');}
 #main.landing .full-video video#bgvid {
     background-image: url('../images/background.png');
     background-size: 100% auto;
     width: 100%;
-    min-height: auto;
-    min-width: auto;
+    min-height: 0;
+    min-width: 0;
 }
 #main.landing .full-video h1,
 #main.landing .full-video h2 {font-family: Arial,Helvetica,sans-serif;}
@@ -2089,7 +2089,7 @@ textarea.error,
 .onecol #main .signup.step2 .option-buttons .btn.btn-lg{margin-right: 24px; margin-bottom:10px; margin-top: 15px;}
 
 /* Subscribe */
-.landing + .row.main .onecol #main.subscribe {min-height: auto; margin-bottom: 40px;}
+.landing + .row.main .onecol #main.subscribe {min-height: 0; margin-bottom: 40px;}
 .onecol .subscribe > p {font-size: 25px; font-size: 2.5rem; margin-top: 45px;}
 .onecol .subscribeForm fieldset {width: 100%; margin: 0; border: 1px solid #545454;}
 .onecol .subscribeForm fieldset .form-group {margin: 0; padding: 0;}
@@ -4271,7 +4271,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     #entrar .modal-dialog {width: 350px;}
     #videoHome .modal-dialog,
     #videoHome .modal-dialog .youtube {width: 600px;}
-    video#bgvid {display: block;}
     /*.icheckbox_line-orange,
     .iradio_line-orange {margin-right: 40px;}*/
     .no-phone .form-group:nth-child(2) {width: 20%;}
@@ -4831,7 +4830,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .row.main.presskit h1 { font-size: 2.2rem; line-height: 1.2;}
     .row.main.presskit form { margin: 0; }
     .main.special.profile .homeSub { min-height: 520px; background-position: center 220px; background-size: 498px auto;}
-
     .main.special.landing .homeSub ul li.square {height: 85px;}
 
     #main.landing .full-video h1 {font-size: 62px; font-size: 6.2rem;}
@@ -4884,6 +4882,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .testimonies-list li blockquote .body {padding: 30px 20px;}
     .row.main.presskit { background-position: center -240px; }
 
+    video#bgvid {display: block;}
     #main.landing .full-video h1 {margin-top: 12%;}
     .landing .full-video .container-fluid form {margin-bottom: 3%;}
     #main.landing.mainEditors .full-video {background-position: right -22px;}
