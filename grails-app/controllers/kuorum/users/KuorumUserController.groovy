@@ -323,7 +323,8 @@ class KuorumUserController {
     private void setEvaluatorUserId(String evaluatorId){
         Cookie cookie = new Cookie(COOKIE_EVALUATOR_NAME,evaluatorId)
         cookie.maxAge = Integer.MAX_VALUE
-        cookie.path = "/${grailsApplication.metadata['app.name']}/"
+//        cookie.path = "/${grailsApplication.metadata['app.name']}/"
+        cookie.path = "/"
         response.addCookie(cookie)
     }
 

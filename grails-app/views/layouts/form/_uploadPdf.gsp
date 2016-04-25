@@ -6,7 +6,7 @@
         ${fileName}
     </g:if>
     <g:else>
-        Subir pdf <span class="hidden-xs">ampliando la información</span>(opcional)
+        ${placeHolder}
     </g:else>
 </g:set>
 <div id="${divId}">

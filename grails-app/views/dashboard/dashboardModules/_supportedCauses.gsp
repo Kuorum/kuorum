@@ -1,7 +1,7 @@
 <g:if test="${supportedCauses}">
     <section class="panel panel-default causes">
         <div class="panel-heading">
-            <h3 class="panel-title">Your top causes </h3>
+            <h3 class="panel-title"><g:message code="modules.causes.topCauses.title"/> </h3>
         </div>
         <div class="panel-body">
             <ul class="causes-tags hide4">

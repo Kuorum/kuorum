@@ -62,6 +62,7 @@ class FormTagLib {
         KuorumFile kuorumFile = null
         FileGroup fileGroup = attrs.fileGroup
         def label = message(code: "${command.class.name}.${field}.label")
+        def placeHolder = message(code: "${command.class.name}.${field}.placeHolder", default: message(code:'form.uploadFile.placeHolder', default: 'Upload file'))
         def value = ""
         def pdfUrl = ""
         String fileName = ""
@@ -89,6 +90,7 @@ class FormTagLib {
                 name:field,
                 fileName:fileName,
                 label:label,
+                placeHolder:placeHolder,
                 errorMessage:errorMessage
         ]
         out << g.render(template:'/layouts/form/uploadPdf', model:model)
@@ -716,7 +718,7 @@ class FormTagLib {
 //            restrictions.append("blank: ${constraint.nullable},")
             String code = prefixMessage + ".${filedName}.nullable"
             String text = g.message(code:code)
-            messages.append("required: '${text}',")
+            messages.append("required: \"${text}\",")
 //            messages.append("blank: '${text}',")
 //        }else if (constraint instanceof BlankConstraint){
 //            restrictions.append("blank: ${constraint.blank},")
@@ -727,12 +729,12 @@ class FormTagLib {
             restrictions.append("min: ${constraint.minValue},")
             String code = prefixMessage + ".${filedName}.min"
             String text = g.message(code:code,args:[constraint.minValue])
-            messages.append("min: '${text}',")
+            messages.append("min: \"${text}\",")
         }else if (constraint instanceof MinSizeConstraint){
             restrictions.append("minlength: ${constraint.minSize},")
             String code = prefixMessage + ".${filedName}.min.size"
             String text = g.message(code:code,args:[constraint.minSize])
-            messages.append("minlength: '${text}',")
+            messages.append("minlength: \"${text}\",")
 //        }else if (constraint instanceof MatchesConstraint){
 //            restrictions.append("regex: /${constraint.regex}/,")
 //            String code = prefixMessage + ".${filedName}.matches"
@@ -742,17 +744,17 @@ class FormTagLib {
             restrictions.append("maxlength: ${constraint.maxSize},")
             String code = prefixMessage + ".${filedName}.max.size"
             String text = g.message(code:code,args:[constraint.maxSize])
-            messages.append("maxlength: '${text}',")
+            messages.append("maxlength: \"${text}\",")
         }else if (constraint instanceof EmailConstraint){
             restrictions.append("email: true,")
             String code = prefixMessage + ".${filedName}.wrongFormat"
             String text = g.message(code:code)
-            messages.append("email: '${text}',")
+            messages.append("email: \"${text}\",")
         }else if (constraint instanceof UrlConstraint && constraint.url){
             restrictions.append("url: true,")
             String code = prefixMessage + ".${filedName}.wrongFormat"
             String text = g.message(code:code)
-            messages.append("url: '${text}',")
+            messages.append("url: \"${text}\",")
         }
     }
 
@@ -773,7 +775,7 @@ class FormTagLib {
                     """
             errors.each{error ->
                 String msg = tranlateErrorCode(error.codes)
-                out << "display.error('', '${msg}');"
+                out << "display.error('', \"${msg}\");"
             }
             out <<"""
                 });
@@ -863,8 +865,8 @@ class FormTagLib {
                 if (grailsApplication.isDomainClass(constraint.propertyType)){
                     fieldName = "${fieldName}.id"
                 }
-                rules.append("'${fieldName}':{")
-                message.append("'${fieldName}':{")
+                rules.append("\"${fieldName}\":{")
+                message.append("\"${fieldName}\":{")
                 constraint.appliedConstraints.each{c ->
                     printValidation(rules, message,c,fieldName)
                     printValidationType(rules, message,c, fieldName)

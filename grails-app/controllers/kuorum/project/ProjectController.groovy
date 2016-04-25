@@ -1,21 +1,16 @@
 package kuorum.project
 
-import com.sun.swing.internal.plaf.basic.resources.basic
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.Region
-import kuorum.core.FileGroup
-import kuorum.core.FileType
 import kuorum.core.model.CommissionType
-import kuorum.core.model.project.ProjectBasicStats
-import kuorum.core.model.project.ProjectRegionStats
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
+import kuorum.core.model.project.ProjectBasicStats
+import kuorum.core.model.project.ProjectRegionStats
 import kuorum.core.model.search.Pagination
-import kuorum.core.model.search.SearchProjects
-import kuorum.core.model.solr.SolrProjectsGrouped
 import kuorum.core.model.solr.SolrType
 import kuorum.files.FileService
 import kuorum.post.Post
