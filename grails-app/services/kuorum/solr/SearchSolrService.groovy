@@ -117,9 +117,9 @@ class SearchSolrService {
 
     private void prepareBoosted(SearchParams params, SolrQuery query){
         if (params.boostedRegions){
-            String boost = params.boostedRegions.collect{"regionIso3166_2:${it.replace('-', '')}^${Math.pow(it.length(),2)}"}.join(" ")
-            boost = "${boost} name^1000 hashtag^800.0"
-            query.setParam("bq", boost)
+//            String boost = params.boostedRegions.collect{"regionIso3166_2:${it.replace('-', '')}^${Math.pow(it.length(),2)}"}.join(" ")
+//            boost = "${boost} name^1000 hashtag^800.0"
+//            query.setParam("bq", boost)
         }
     }
 

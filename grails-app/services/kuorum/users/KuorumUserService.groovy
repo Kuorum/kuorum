@@ -617,16 +617,16 @@ class KuorumUserService {
         searchParams.setType(SolrType.POLITICIAN)
         searchParams.filteredUserIds = userFiltered.collect{it.toString()}
         if (user) searchParams.filteredUserIds << user.id.toString()
-        List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
-        if (user?.userType == UserType.POLITICIAN && causes){
-            String searchCauses = causes*.name.join(" ")
-            //Se busca a todos los politicos con el * pero se ordena por score aquellos que compartan tag
-            searchParams.word = "${searchCauses}"
-        }
-        if (politicalParty){
-            searchParams.word = "${politicalParty} ${searchParams.word}"
-        }
-        searchParams.word = "${searchParams.word}"
+//        List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
+//        if (user?.userType == UserType.POLITICIAN && causes){
+//            String searchCauses = causes*.name.join(" ")
+//            //Se busca a todos los politicos con el * pero se ordena por score aquellos que compartan tag
+//            searchParams.word = "${searchCauses}"
+//        }
+//        if (politicalParty){
+//            searchParams.word = "${politicalParty} ${searchParams.word}"
+//        }
+//        searchParams.word = "${searchParams.word}"
         SolrResults results = searchSolrService.search(searchParams)
 
         List<KuorumUser> politicians = results.elements.collect{SolrElement solrElement ->
