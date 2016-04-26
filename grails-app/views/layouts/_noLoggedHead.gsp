@@ -1,7 +1,7 @@
 <!-- Le quitamos las clases underline, etc a estos enlaces -->
 <ul class="nav navbar-nav navbar-right">
     <li>
-        <g:link mapping="searcherLanding" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherLanding')}">
+        <g:link mapping="searcherLanding" class="navbar-link ${nav.activeMenuCss(mappingName: 'searcherLanding')} ${nav.activeMenuCss(mappingName: 'home')}">
             <span><g:message code="head.noLogged.search"/></span>
         </g:link>
     </li>
@@ -11,7 +11,7 @@
         </g:link>
     </li>
     <li>
-        <g:link mapping="home" class="navbar-link ${nav.activeMenuCss(mappingName: 'home')}">
+        <g:link mapping="landingPoliticians" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingPoliticians')}">
             <span><g:message code="head.noLogged.politicians"/> </span>
         </g:link>
     </li>

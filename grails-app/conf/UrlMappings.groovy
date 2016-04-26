@@ -22,10 +22,11 @@ class UrlMappings {
         "/immigrationRC" (controller: "dashboard", action:"customPostMappingImmigrationrc")
 
         //The URLs are duplicated because of the refactor of Law into Project. The name of aliases are changed.
-        name home:             "/" (controller: "dashboard", action:"index")
+        name home:             "/" (controller: "search", action:"searchLanding")
         name dashboard:             "/dashboard" (controller: "dashboard", action:"dashboard")
         name landingEditors:   "/editors" (controller: "dashboard", action:"landingEditors")
         name landingPrices:    "/prices" (controller: "dashboard", action:"landingPrices")
+        name landingPoliticians:    "/politicians" (controller: "dashboard", action:"landingPoliticians")
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
         name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")

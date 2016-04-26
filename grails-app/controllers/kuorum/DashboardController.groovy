@@ -1,13 +1,9 @@
 package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
-import kuorum.core.model.search.SearchParams
-import kuorum.core.model.solr.SolrResults
-import kuorum.core.model.solr.SolrType
 import kuorum.post.Cluck
 import kuorum.project.Project
 import kuorum.project.ProjectEvent
@@ -15,8 +11,6 @@ import kuorum.solr.SearchSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserStatsService
 import kuorum.web.constants.WebConstants
-import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
-import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 import springSecurity.KuorumRegisterCommand
 
@@ -37,8 +31,7 @@ class DashboardController {
 //            render(view: "dashboard", model: dashboard())
             redirect (mapping:"dashboard")
         }else{
-            render(view: "landingPage", model: landingPage())
-            //redirect (mapping:"landingPage")
+            render(view: "landingPoliticians", model: landingPoliticians())
         }
     }
     def dashboard() {
@@ -93,11 +86,7 @@ class DashboardController {
         render template: "/cluck/liClucks", model:[clucks:clucks, projectEvents:projectEvents]
     }
 
-    def landingPage(){
-        if (springSecurityService.isLoggedIn()){
-            redirect(mapping:"home")
-            return
-        }
+    def landingPoliticians(){
         [command: new KuorumRegisterCommand()]
     }
 

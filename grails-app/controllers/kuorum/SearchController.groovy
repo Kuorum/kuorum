@@ -99,6 +99,11 @@ class SearchController{
         [docs:docs, searchParams:searchParams]
     }
     def searchLanding(SearchParams searchParams){
+        if (springSecurityService.isLoggedIn()){
+            redirect (mapping:"dashboard")
+            return;
+        }
+
         Long maxElements = 12;
         searchParams.type = SolrType.POLITICIAN
         SolrResults docs = searchDocs(searchParams, maxElements)

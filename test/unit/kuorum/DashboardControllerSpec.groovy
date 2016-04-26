@@ -47,7 +47,7 @@ class DashboardControllerSpec extends Specification {
             view == expectedView
         where:
             expectedView                | logged
-            "/dashboard/landingPage"    | false
+            "/dashboard/landingPoliticians"    | false
             "/dashboard/dashboard"      | true
     }
 }
