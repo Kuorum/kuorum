@@ -19,6 +19,6 @@
         <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature3" encodeAs="raw"/></li>
         <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature4" encodeAs="raw"/></li>
     </ul>
-    <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.brief" encodeAs="raw" args="[g.createLink(mapping:'register'),g.createLink(mapping:'register')]"/></p>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.brief" encodeAs="raw" args="[g.createLink(mapping:'landingPrices'),g.createLink(mapping:'register')]"/></p>
     <img src="${resource(dir: 'images', file: 'features.png')}" alt="features-kuorum" itemprop="image">
 </content>
