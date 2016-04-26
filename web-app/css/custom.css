@@ -1368,14 +1368,14 @@ video#bgvid {
 
 /* NUEVOS ESTILOS LANDING 2016 */
 /* vídeo */
-#main.landing {padding: 0; color: #fff; min-height: auto;}
+#main.landing {padding: 0; color: #fff; min-height: 0;}
 #main.landing .full-video {padding: 0; background-image: url('../images/background.png');}
 #main.landing .full-video video#bgvid {
     background-image: url('../images/background.png');
     background-size: 100% auto;
     width: 100%;
-    min-height: auto;
-    min-width: auto;
+    min-height: 0;
+    min-width: 0;
 }
 #main.landing .full-video h1,
 #main.landing .full-video h2 {font-family: Arial,Helvetica,sans-serif;}
@@ -1612,13 +1612,13 @@ video#bgvid {
 .boxes.edit-user .ico-info {position: absolute; top: 10px; right: 10px; font-size: 32px; font-size: 3.2rem; color: #20a2ea; z-index: 9;}
 
 .boxes.edit-user .ico-info .fa.shadow {
-  position: relative; 
-  left: .025em; 
-  top: .025em; 
-  color: #333; 
+  position: relative;
+  left: .025em;
+  top: .025em;
+  color: #333;
 }
 .boxes.edit-user .ico-info .fa.border{
-    left: .01em; 
+    left: .01em;
     top: .01em;
     position: absolute;
     z-index: 1;
@@ -1791,6 +1791,7 @@ video#bgvid {
 .boxes.profile-user > .pull-right {width: 40%; margin: 0; padding: 0; font-size: 20px; font-size: 2rem; text-align: right;}
 .boxes.profile-user > small .fa {opacity: .5;}
 .boxes.profile-user .profile-pic abbr .fa {background-color:#ff9431}
+
 
 
 /*********************** Edit Post *************************************/
@@ -2088,7 +2089,7 @@ textarea.error,
 .onecol #main .signup.step2 .option-buttons .btn.btn-lg{margin-right: 24px; margin-bottom:10px; margin-top: 15px;}
 
 /* Subscribe */
-.landing + .row.main .onecol #main.subscribe {min-height: auto; margin-bottom: 40px;}
+.landing + .row.main .onecol #main.subscribe {min-height: 0; margin-bottom: 40px;}
 .onecol .subscribe > p {font-size: 25px; font-size: 2.5rem; margin-top: 45px;}
 .onecol .subscribeForm fieldset {width: 100%; margin: 0; border: 1px solid #545454;}
 .onecol .subscribeForm fieldset .form-group {margin: 0; padding: 0;}
@@ -3209,7 +3210,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .rating {margin: 10px auto 10px; width: 12em;}
 .rating fieldset {position: relative;}
 .rating legend {border: none;}
-/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
    follow these rules. Every browser that supports :checked also supports :not(), so
    it doesn’t make the test unnecessarily selective */
 fieldset.rating:not(:checked) > input {
@@ -3233,8 +3234,8 @@ fieldset.rating:not(:checked) > label:before {
     content: "★ ";
     color: #e1e1e1;
 }
-fieldset.rating > input:checked ~ label:before, 
-fieldset.rating > input + label:hover ~ label:before, 
+fieldset.rating > input:checked ~ label:before,
+fieldset.rating > input + label:hover ~ label:before,
 fieldset.rating > input + label:hover:before {
   content: "★ ";
   color: #ff9431;
@@ -3243,7 +3244,7 @@ fieldset.rating:hover > input + label:before {
   content: "★ ";
   color: #e1e1e1;
 }
-fieldset.rating:hover > input + label:hover ~ label:before, 
+fieldset.rating:hover > input + label:hover ~ label:before,
 fieldset.rating:hover > input + label:hover:before {
   content: "★ ";
   color: #ff9431;
@@ -4270,7 +4271,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     #entrar .modal-dialog {width: 350px;}
     #videoHome .modal-dialog,
     #videoHome .modal-dialog .youtube {width: 600px;}
-    video#bgvid {display: block;}
     /*.icheckbox_line-orange,
     .iradio_line-orange {margin-right: 40px;}*/
     .no-phone .form-group:nth-child(2) {width: 20%;}
@@ -4340,7 +4340,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .box.tools.open .dropdown-menu li {background-color: #666 !important; display: inline-block; width: 19%; text-align: center; }
     .box.tools.open .dropdown-menu li a {font-size: 14px; font-size: 1.4rem; line-height: 3.3; color: #fff; border: none;}
     .box.tools.open .dropdown-menu li a.active {text-decoration: underline; cursor: default; pointer-events: none;}
-    
+
     #detailsInfoVotes .icons {margin: 10px 0;}
     #info-sup-scroll {top: 55px; padding: 10px;}
     #info-sup-scroll .voting {margin-top: 15px;}
@@ -4535,7 +4535,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .condition .user-list-followers  > li:nth-child(2n) {float: right;}
 
     .politician-list .box-ppal .link-wrapper {height: 410px;}
-    
+
     /* LANDING */
     #main.landing .full-video h1 {font-size: 47px; margin-top: 10%;}
     .landing .full-video .container-fluid form {margin-bottom: 7%;}
@@ -4573,7 +4573,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .landing.prices .full-video h2 {margin: 180px auto 0; padding-right: 70%;}
     .landing.prices .full-video p {padding-left: 25%;}
     .landing.prices .full-video p:first-of-type {margin-top: -250px;}
-    
+
     .onecol .subscribeForm fieldset .form-group:last-child {border-left: 1px solid #545454;}
 }
 
@@ -4830,7 +4830,6 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .row.main.presskit h1 { font-size: 2.2rem; line-height: 1.2;}
     .row.main.presskit form { margin: 0; }
     .main.special.profile .homeSub { min-height: 520px; background-position: center 220px; background-size: 498px auto;}
-
     .main.special.landing .homeSub ul li.square {height: 85px;}
 
     #main.landing .full-video h1 {font-size: 62px; font-size: 6.2rem;}
@@ -4848,8 +4847,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 
     .box-ppal.politician-messages .btn.btn-lg {font-size: 25px !important; font-size: 2.5rem !important; padding: 14px 25px !important;}
-    
-    
+
+
     .landing.editors .full-video h1 {padding-left: 50%;}
 
     .main.prices .promo-options > div {min-height: 696px;}
@@ -4859,14 +4858,14 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .landing.prices .full-video h2 {padding-right: 54%;}
     .landing.prices .full-video p {padding-left: 18%;}
     .landing.prices .full-video p {max-width: 660px;}
-    
+
     .onecol .subscribeForm fieldset {width: calc(100% - 192px); float: left; margin-left: -15px; margin-right: -15px;}
     .onecol .subscribeForm .buttons {float: right; margin: 0;}
     .landing + .row.main .onecol #main.subscribe {margin-bottom: 0;}
-    
+
     #aside-ppal .panel.collaborate .panel-body ul li {margin-right: 10px;}
     #aside-ppal .panel.collaborate .panel-body ul li a.btn {min-width: 74px;}
-    
+
     .box.tools.open .dropdown-menu li a {font-size: 18px; font-size: 1.8rem; line-height: 2.6;}
 
 }
@@ -4883,6 +4882,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
     .testimonies-list li blockquote .body {padding: 30px 20px;}
     .row.main.presskit { background-position: center -240px; }
 
+    video#bgvid {display: block;}
     #main.landing .full-video h1 {margin-top: 12%;}
     .landing .full-video .container-fluid form {margin-bottom: 3%;}
     #main.landing.mainEditors .full-video {background-position: right -22px;}
@@ -4945,10 +4945,10 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
     .landing.prices .full-video h2 {font-size: 140px; font-size: 14rem;}
     .landing.prices .full-video p {max-width: 720px;}
-    
+
     #aside-ppal .panel.collaborate .panel-body ul li {margin-right: 20px;}
     #aside-ppal .panel.collaborate .panel-body ul li a.btn {min-width: 90px;}
-    
+
     .box.tools.open .dropdown-menu li a {font-size: 20px; font-size: 2rem; line-height: 2.3;}
 
 }
@@ -5273,7 +5273,7 @@ p.party{
 .causes-tags .cause .cause-name {padding: 0 10px 0 26px; display: inline-block; position: relative; color: #fff;}
 .causes-tags .cause .cause-name .fa-tag {font-size: 18px; font-size: 1.8rem; position: absolute; left: 5px; top: 4px;}
 .cause .cause-support {
-    font-size: 14px; 
+    font-size: 14px;
     font-size: 1.4rem;
     display: block;
     /*min-width: 46px;*/
@@ -5766,6 +5766,14 @@ hr{
 }
 .extendedPolitician .boxes.follow {box-shadow: 0 0 2px rgba(200,200,200,0.6);
 }
+
+/* Módulo evaluación político =========== */
+.polValChart {
+    width: 100%;
+    height: 300px;
+}
+.highcharts-title {font-family: 'Georgia', Times, serif;}
+
 
 #politician-bio .center-button {text-align:center;}
 #suggested-politicians .container-fluid .center-button {text-align:center;}
