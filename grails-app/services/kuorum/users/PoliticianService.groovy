@@ -108,6 +108,11 @@ class PoliticianService {
         user
     }
 
+    KuorumUser requestAPoliticianAccount(KuorumUser user){
+        user.requestedPolitician = true
+        user.save()
+    }
+
     /**
      * Read a csv and create politicians asynchronously
      * @param executorUser

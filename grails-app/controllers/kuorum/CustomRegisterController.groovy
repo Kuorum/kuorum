@@ -12,6 +12,7 @@ import kuorum.notifications.NotificationService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.users.PoliticianService
 import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.customRegister.SubscriptionStep1Command
 import kuorum.web.commands.profile.PersonalDataCommand
@@ -27,6 +28,7 @@ class CustomRegisterController {
     LocaleResolver localeResolver
     RegisterService registerService
     OfferService offerService
+    PoliticianService politicianService
 
     def afterInterceptor = {}
 
@@ -121,7 +123,7 @@ class CustomRegisterController {
         user.password = registerService.encodePassword(user, command.password)
         if (command.userType == UserType.POLITICIAN){
             offerService.purchaseOffer(user, OfferType.BASIC, 0)
-            user.requestedPolitician = true
+            politicianService.requestAPoliticianAccount(user)
         }
         kuorumUserService.updateUser(user)
         redirect mapping:"registerStep3"
@@ -135,6 +137,22 @@ class CustomRegisterController {
     def subscriptionStep1(){
         OfferType offerType = params.offerType?OfferType.valueOf(params.offerType):OfferType.BASIC
         Long kpeople = params.kpeople?Long.parseLong(params.kpeople):1;
+
+        // THE USER WAS DOING SOME WIRED AND TRY TO SUBSCRIBE AN ACCOUNT ALREADY LOGGED
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user = springSecurityService.currentUser
+            offerService.purchaseOffer(user, offerType, kpeople)
+            flash.message = message(code: 'dashboard.userProfile.advise.politicianRequest.text')
+            if(user.userType == UserType.POLITICIAN){
+                redirect mapping:'politicianInbox'
+            }else{
+                politicianService.requestAPoliticianAccount(user)
+                redirect mapping:'dashboard'
+            }
+            return
+        }
+        //ELSE
+        // REAL NEW USER
         Locale locale = localeResolver.resolveLocale(request)
         AvailableLanguage availableLanguage = AvailableLanguage.fromLocaleParam(locale.getLanguage())
         SubscriptionStep1Command command = new SubscriptionStep1Command([kpeople:kpeople, offerType:offerType,language:availableLanguage])
@@ -157,7 +175,7 @@ class CustomRegisterController {
         user.userType = UserType.PERSON
         if (command.userType == UserType.POLITICIAN){
             offerService.purchaseOffer(user, command.offerType, command.kpeople)
-            user.requestedPolitician = true
+            politicianService.requestAPoliticianAccount(user)
         }
         kuorumUserService.updateUser(user)
         springSecurityService.reauthenticate(user.email)
