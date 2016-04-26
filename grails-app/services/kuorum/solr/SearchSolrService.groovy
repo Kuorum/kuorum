@@ -125,9 +125,9 @@ class SearchSolrService {
 
     private void prepareWord(SearchParams params, SolrQuery query){
         String word = params.word
-//        if (params.boostedRegions){
-//            word = "${word} ${params.boostedRegions.collect{it.replace('-', '')}join(" ")}"
-//        }
+        if (params.boostedRegions){
+            word = "${word} regionIso3166_2:${params.boostedRegions.collect{it.replace('-', '')}.join(" regionIso3166_2:")}"
+        }
         if (!word){
             word = "*"
         }

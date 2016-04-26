@@ -124,7 +124,7 @@ class SearchController{
             }
             if (regions){
                 searchParams.boostedRegions = regions.collect{it.iso3166_2}
-                searchParams.word= "${searchParams.word} ${regions.collect{it.iso3166_2.replace('-', '')}.join(" ")}"
+//                searchParams.word= "${searchParams.word} ${regions.collect{it.iso3166_2.replace('-', '')}.join(" ")}"
             }
             searchParams.max = max
             docs = searchSolrService.search(searchParams)
