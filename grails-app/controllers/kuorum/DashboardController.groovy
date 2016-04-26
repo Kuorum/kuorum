@@ -29,6 +29,7 @@ class DashboardController {
     def index(){
         if (springSecurityService.isLoggedIn()){
 //            render(view: "dashboard", model: dashboard())
+            flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
             render(view: "landingPoliticians", model: landingPoliticians())

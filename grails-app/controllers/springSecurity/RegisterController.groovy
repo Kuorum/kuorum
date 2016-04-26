@@ -32,6 +32,13 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         def copy = [:] + (flash.chainedParams ?: [:])
         copy.remove 'controller'
         copy.remove 'action'
+        def config = SpringSecurityUtils.securityConfig
+
+        if (springSecurityService.isLoggedIn()) {
+            redirect uri: config.successHandler.defaultTargetUrl
+            flash.message = message(code:'register.alreadyRegistered')
+            return
+        }
         [command: new KuorumRegisterCommand(copy)]
     }
 
