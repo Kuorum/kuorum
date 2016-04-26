@@ -626,7 +626,7 @@ class KuorumUserService {
         if (politicalParty){
             searchParams.word = "${politicalParty} ${searchParams.word}"
         }
-        searchParams.word = "${searchParams.word} *"
+        searchParams.word = "${searchParams.word}"
         SolrResults results = searchSolrService.search(searchParams)
 
         List<KuorumUser> politicians = results.elements.collect{SolrElement solrElement ->
