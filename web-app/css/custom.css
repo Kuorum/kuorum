@@ -1399,7 +1399,7 @@ video#bgvid {
 .landing .full-video .container-fluid form .btn {font-size: 21px; font-size: 2.1rem; font-family: Arial,Helvetica,sans-serif; padding: 9px 28px !important; margin: 0;}
 
 /* search */
-#main.landing.search .full-video {padding: 0; background-image: url('../images/background-search.jpg'); background-position: center 0;}
+#main.landing.search .full-video {padding: 0; background-image: url('https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/landingSearch.png'); background-position: center 0;}
 #main.landing.no-results h1 {background: url(../images/alert.jpg) 0 0 no-repeat transparent;}
 .landing.editors .full-video {padding: 0; background-image: url('../images/background-search2.jpg'); background-position: center 0; text-align: center; color: #fff;}
 .landing.editors .full-video h1 {font-size: 33px; font-size: 3.3rem; padding-right: 5%; line-height: 1.4; font-family: Arial,Helvetica,sans-serif; margin-bottom: 50px; margin-top: 100px;}

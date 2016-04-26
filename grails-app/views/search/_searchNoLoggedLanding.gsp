@@ -1,7 +1,7 @@
 <section id="main" role="main" class="landing search clearfix">
     <div class="full-video">
         <!-- Linkedin is not recovering properly the image -->
-        <video autoplay loop poster="${r.resource(dir:'images', file:'background-search-video.png')}" id="bgvid">
+        <video autoplay loop poster="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/landingSearch.png" id="bgvid">
             <source src="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/landingSearch.webm" type="video/webm">
             <source src="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/landingSearch.mp4" type="video/mp4">
         </video>
