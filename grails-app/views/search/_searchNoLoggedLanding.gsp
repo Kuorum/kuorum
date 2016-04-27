@@ -14,7 +14,8 @@
                     <h1 class="hidden-sm hidden-md hidden-lg"><g:message code="search.noLogged.landing.title.short"/></h1>
                     <h2><g:message code="search.noLogged.landing.subTitle"/></h2>
 
-                    <g:link mapping="register" class="btn btn-white"><g:message code="login.head.register"/> </g:link>
+                    %{--<g:link mapping="register" class="btn btn-white"><g:message code="login.head.register"/> </g:link>--}%
+                    <a href="#results" class="btn btn-white smooth"><g:message code="search.noLogged.landing.examplesButton"/></a>
                     <g:form mapping="searcherLanding" method="GET" name="findRepresentatives" id="findRepresentatives" class="form-inline searchRep" role="search" fragment="results">
                         <div class="form-group">
                             <formUtil:input field="word" id="suggestDiscoverWord" cssClass="form-control" command="${searchParams}" labelCssClass="sr-only" showLabel="true"/>
