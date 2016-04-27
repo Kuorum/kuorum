@@ -156,7 +156,21 @@ function printChart(){
                     spacingBottom: 10,
                     spacingTop: -23,
                     zoomType: 'x',
-                    height: 300
+                    height: 300,
+                    events : {
+                        load : function () {
+                            // set up the updating of the chart each second
+                            var series = this.series;
+                            setInterval(function () {
+                                $.getJSON(urlHighchart, function (activity) {
+                                    $.each(activity.datasets, function (i, dataset) {
+                                        series[i].setData(dataset.data);
+                                    });
+                                });
+
+                            }, 1000);
+                        }
+                    }
                 },
                 title: {
                     text: null,
@@ -187,7 +201,7 @@ function printChart(){
                     type: 'datetime',
                     //minTickInterval: 24 * 1000 * 3600, // intervalo cada 1h
                     //minorTickInterval: 24 * 1000 * 3600, // intervalo cada 1h
-                    range: 7 * 24 * 3600 * 1000, // mostramos 1 semana
+                    range: 3 * 24 * 3600 * 1000, // mostramos 1 semana
                     dateTimeLabelFormats:{
                         millisecond: '%H:%M:%S.%L',
                         second: '%H:%M:%S',
