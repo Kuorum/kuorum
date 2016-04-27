@@ -2,6 +2,7 @@ package kuorum.users
 
 import grails.transaction.Transactional
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 
 @Transactional
@@ -33,5 +34,15 @@ class UserReputationService {
             userReputation = (UserReputationRSDTO)response.data
         }
         return userReputation;
+    }
+
+    UserReputationEvolutionRSDTO getReputationEvoulution(KuorumUser politician){
+        Map<String, String> params = [userId:politician.id.toString()]
+        def response = restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_STATS_REPUTATION_EVOLUTION, params, null)
+        UserReputationEvolutionRSDTO userReputationEvolution = null
+        if (response.data){
+            userReputationEvolution = (UserReputationEvolutionRSDTO)response.data
+        }
+        return userReputationEvolution;
     }
 }

@@ -16,6 +16,8 @@ import kuorum.project.Project
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
+import org.kuorum.rest.model.kuorumUser.reputation.ReputationSnapshotRSDTO
+import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
@@ -339,6 +341,40 @@ class KuorumUserController {
         UserReputationRSDTO userReputationRSDTO = userReputationService.addReputation(politician, evaluatorId,rate)
         setEvaluatorUserId(userReputationRSDTO.evaluatorId)
         render userReputationRSDTO as JSON
+    }
+
+    def historicPoliticianRate(String userAlias){
+        KuorumUser politician = kuorumUserService.findByAlias(userAlias)
+        if (!politician || politician.userType != UserType.POLITICIAN){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
+        UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician)
+        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician, null)
+        def data=  [
+            "title":"Valoracion de ${politician.name}",
+            "average":userReputationRSDTO.userReputation,
+            "datasets": [
+                [
+                     "name": "Tiempo real",
+                     "data": [],
+                     "unit": "",
+                     "type": "line"
+                ], [
+                    "name": "Media movil",
+                     "data": [],
+                     "unit": "",
+                     "type": "spline"
+                ]
+            ]
+        ]
+
+        evolutionRSDTO.reputationSnapshots.each {def reputationSnapshot ->
+            data.datasets[0].data << reputationSnapshot.stockValue
+            data.datasets[1].data << reputationSnapshot.runningAverage
+        }
+
+        render data as JSON
     }
 
 }
