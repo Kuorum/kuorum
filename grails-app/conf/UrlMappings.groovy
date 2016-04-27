@@ -92,6 +92,10 @@ class UrlMappings {
         name postAddDebate: "/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
         name postAddVictory:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/victoria"(controller: "post", action:"addVictory")
         name postAddDefender:"/ajax/proyectos/propuesta/apadrinar"(controller: "post", action:"addDefender")
+
+
+        name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
+        name widget:        "/widget/small"(controller: "widget", action:"smallPoliticianInfo")
 //        name postAddDefender:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/apadrinar"(controller: "post", action:"addDefender")
 
 
