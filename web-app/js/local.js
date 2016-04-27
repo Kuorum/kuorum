@@ -188,7 +188,16 @@ function printChart(){
                     //minTickInterval: 24 * 1000 * 3600, // intervalo cada 1h
                     //minorTickInterval: 24 * 1000 * 3600, // intervalo cada 1h
                     range: 7 * 24 * 3600 * 1000, // mostramos 1 semana
-                    endOnTick:true
+                    dateTimeLabelFormats:{
+                        millisecond: '%H:%M:%S.%L',
+                        second: '%H:%M:%S',
+                        minute: '%H:%M',
+                        hour: '%H:%M',
+                        day: '%e/%m',
+                        week: '%e/%m',
+                        month: '%b \'%y',
+                        year: '%Y'
+                    }
                 },
                 yAxis: {
                     title: {
@@ -206,7 +215,7 @@ function printChart(){
                         color: '#666666',
                         dashStyle: 'dash',
                         label: {
-                            text: 'Average',
+                            text: activity.averageLabel,
                             align: 'left',
                             y: 0,
                             x: -2,

@@ -352,16 +352,17 @@ class KuorumUserController {
         UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician, null)
         def data=  [
-            "title":"Valoracion de ${politician.name}",
+            "title":"",
             "average":userReputationRSDTO.userReputation,
+            "averageLabel":"${message(code:'politician.valuation.chart.module.average')}",
             "datasets": [
                 [
-                     "name": "Tiempo real",
+                     "name": "${message(code:'politician.valuation.chart.module.realTime')}",
                      "data": [],
                      "unit": "",
                      "type": "spline"
                 ], [
-                    "name": "Media movil",
+                     "name": "${message(code:'politician.valuation.chart.module.runningAverage')}",
                      "data": [],
                      "unit": "",
                      "type": "spline"
