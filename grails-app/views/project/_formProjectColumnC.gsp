@@ -135,7 +135,7 @@
                 </span>
             </div><!-- /autor -->
             <div class="col-xs-6 col-sm-12 col-md-6 text-right user victory">
-                Victoria de
+                <g:message code="createProject.rigthColumn.project.cluck.victoryText"/>
                 <span>
                     <img class="user-img" alt="${message(code: "createProject.rigthColumn.project.cluck.photo.citizen")}" src="${image.loggedUserImgSrc()}">
                 </span>
