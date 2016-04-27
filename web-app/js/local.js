@@ -185,8 +185,10 @@ function printChart(){
                 },
                 xAxis: {
                     type: 'datetime',
-                    tickInterval: 1 * 1000 * 3600, // intervalo cada 24h
-                    range: 7 * 24 * 3600 * 1000 // mostramos 1 semana
+                    //minTickInterval: 24 * 1000 * 3600, // intervalo cada 1h
+                    //minorTickInterval: 24 * 1000 * 3600, // intervalo cada 1h
+                    range: 7 * 24 * 3600 * 1000, // mostramos 1 semana
+                    endOnTick:true
                 },
                 yAxis: {
                     title: {

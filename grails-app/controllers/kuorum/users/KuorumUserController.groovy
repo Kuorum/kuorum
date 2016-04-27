@@ -359,7 +359,7 @@ class KuorumUserController {
                      "name": "Tiempo real",
                      "data": [],
                      "unit": "",
-                     "type": "line"
+                     "type": "spline"
                 ], [
                     "name": "Media movil",
                      "data": [],
@@ -370,8 +370,8 @@ class KuorumUserController {
         ]
 
         evolutionRSDTO.reputationSnapshots.each {def reputationSnapshot ->
-            data.datasets[0].data << reputationSnapshot.stockValue
-            data.datasets[1].data << reputationSnapshot.runningAverage
+            data.datasets[0].data << [reputationSnapshot.timestamp, reputationSnapshot.stockValue]
+            data.datasets[1].data << [reputationSnapshot.timestamp, reputationSnapshot.runningAverage]
         }
 
         render data as JSON
