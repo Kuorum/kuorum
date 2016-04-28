@@ -1,10 +1,9 @@
 package kuorum
 
 import com.mongodb.DBCursor
-import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
-import kuorum.project.Project
 import kuorum.post.Post
+import kuorum.project.Project
 import kuorum.users.KuorumUser
 
 class SiteMapController {
@@ -26,20 +25,19 @@ class SiteMapController {
                 }
 
                 def footerMappings = [
-                        'footerWhatIsKuorum',
-                        'footerUsingMyVote',
-                        'footerUserGuide',
-                        'footerHistories',
-                        'footerPurposes',
-                        'footerQuestions',
+                        'footerAboutUs',
+                        'footerVision',
+                        'footerTeam',
+                        'footerTechnology',
                         'footerCitizens',
-                        'footerOrganizations',
+                        'footerImpact',
                         'footerPoliticians',
                         'footerDevelopers',
-                        'footerKuorumStore',
+                        'footerInformation',
                         'footerPrivacyPolicy',
                         'footerTermsUse',
-                        'footerTermsAds'
+                        'landingEditors',
+                        'landingPoliticians',
                 ]
                 footerMappings.each{mapping ->
                     url {
@@ -50,20 +48,10 @@ class SiteMapController {
                 }
 
                 url {
-                    loc(g.createLink(absolute: true, mapping: 'politicians'))
-                    changefreq('yearly')
-                    priority(0.6)
-                }
-                url {
                     loc(g.createLink(absolute: true, mapping: 'register'))
                     changefreq('yearly')
                     priority(0.7)
                 }
-//                url {
-//                    loc(g.createLink(absolute: true, mapping: 'tourStart'))
-//                    changefreq('yearly')
-//                    priority(0.4)
-//                }
 
                 url {
                     loc(g.createLink(absolute: true, mapping: 'discover'))
@@ -71,23 +59,6 @@ class SiteMapController {
                     priority(0.9)
                 }
 
-//                Region.list().each {region ->
-//                    String regionName = region.name.encodeAsKuorumUrl()
-//                    url {
-//                        loc(g.createLink(absolute: true, mapping: 'projects', params:[regionName:regionName]))
-//                        changefreq('weekly')
-//                        priority(0.9)
-//                    }
-//                    CommissionType.values().each { commission ->
-//                        String commissionUrl = message(code:"${CommissionType.canonicalName}.${commission}")
-//                        commissionUrl = commissionUrl.toLowerCase().encodeAsKuorumUrl() //toLowerCase is necessary because ... I don't know. If is not present, codec doesn't work
-//                        url {
-//                            loc(g.createLink(absolute: true, mapping: 'projects', params:[regionName:regionName, commission:commissionUrl]))
-//                            changefreq('weekly')
-//                            priority(0.9)
-//                        }
-//                    }
-//                }
                 //DYNAMIC ENTRIES
                 Project.list().each {project->
                     url {
