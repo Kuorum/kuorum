@@ -1,8 +1,11 @@
 package kuorum
 
+import com.mongodb.DBCursor
 import kuorum.core.model.CommissionType
+import kuorum.core.model.UserType
 import kuorum.project.Project
 import kuorum.post.Post
+import kuorum.users.KuorumUser
 
 class SiteMapController {
 
@@ -108,6 +111,37 @@ class SiteMapController {
                         priority(0.7)
                         lastmod(lastModified?.format(FORMAT_DATE_SITEMAP))
                         log.info("Creada la URL del post (${post.id}): ${post.title}")
+                    }
+                }
+            }
+        }
+    }
+
+    def siteMapCountry() {
+
+        String countryCode = params.countryCode
+        render(contentType: 'text/xml', encoding: 'UTF-8') {
+            mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
+            urlset(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
+                    'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance",
+                    'xsi:schemaLocation': "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd") {
+                url {
+                    loc(g.createLink(absolute: true, mapping: 'home'))
+                    changefreq('monthly')
+                    priority(1.0)
+                }
+
+                DBCursor cursor = KuorumUser.collection.find([
+                    userType:UserType.POLITICIAN.toString(),
+                    'professionalDetails.region.iso3166_2':['$regex':"^${countryCode}"]
+                ],[_id:1, alias: 1, lastUpdated:1])
+                while(cursor.hasNext()){
+                    def politicianData = cursor.next()
+                    url {
+                        loc(g.createLink(absolute: true, mapping:'userShow', params:[userAlias:politicianData.alias]))
+                        changefreq('weekly')
+                        priority(0.8)
+                        lastmod(politicianData.lastUpdated.format(FORMAT_DATE_SITEMAP))
                     }
                 }
             }
