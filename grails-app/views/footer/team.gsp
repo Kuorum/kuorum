@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.footer.userGuide"/> </title>
+    <title><g:message code="page.title.footer.team"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="info team" />
 </head>
