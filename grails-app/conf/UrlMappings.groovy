@@ -95,7 +95,8 @@ class UrlMappings {
 
 
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
-        name widget:        "/widget/small"(controller: "widget", action:"smallPoliticianInfo")
+        name widgetRatePolitician:     "/widget/ratePolitician" (controller: "widget", action:"ratePolitician")
+        name widgetComparative:        "/widget/comparation"    (controller: "widget", action:"comparativePoliticianInfo")
 //        name postAddDefender:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/apadrinar"(controller: "post", action:"addDefender")
 
 
@@ -149,10 +150,12 @@ class UrlMappings {
         name ajaxRegisterContact:            "/ajax/contact"(controller: "register", action: "contactRegister");
 
         name userRate:           "/ajax/$userAlias/rate"(controller: "kuorumUser", action:"ratePolitician")
-        name userHistoricRate:   "/ajax/$userAlias/historicRate"(controller: "kuorumUser", action:"historicPoliticianRate")
+        name userHistoricRate:   "/ajax/$userAlias/historicRate"(controller: "widget", action:"historicPoliticianRate")
+        name comparingPoliticianRate:   "/ajax/user/compareRate"(controller: "widget", action:"comparingPoliticianRateData")
 
         name register:            "/sign-up"(controller: "register"){action = [GET:"index", POST:"register"]}
                                   "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
+        name registerPressKit:          "/sign-up/pressKit"(controller: "register",action:"downloadPressKit")
         name registerPressKit:          "/sign-up/pressKit"(controller: "register",action:"downloadPressKit")
         name registerStep2:             "/sign-up/step2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
         name registerStep3:             "/sign-up/step3"(controller: "customRegister", action:"step3")

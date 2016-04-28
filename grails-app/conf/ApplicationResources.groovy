@@ -86,6 +86,11 @@ modules = {
         resource url:'js/social/googlePlus.js'
     }
 
+    comparativeChart{
+        dependsOn 'basic'
+        resource url:'js/local_comparationChart.js'
+    }
+
     tour{
         dependsOn 'basic'
         resource url:'js/bootstrap-tour.min.js'
