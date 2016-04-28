@@ -314,6 +314,11 @@ class UrlMappings {
             action = 'siteMap'
         }
 
+        "/sitemapCountry"{
+            controller = 'siteMap'
+            action = 'siteMapCountry'
+        }
+
         "403" (controller: "error", action: "forbidden")
         "404" (controller: "error", action: "notFound")
         "401" (controller: "error", action: "notAuthorized")
