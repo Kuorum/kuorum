@@ -30,7 +30,7 @@
             <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-unimcr.png')}" alt="The University of Manchester">
         </li>
         <li itemscope itemtype="http://schema.org/Organization">
-            <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-upf.png')}" alt="Universitat Pompeu Fabra Barcelona">
+            <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-votoinformado.png')}" alt="Voto Informado UNAM">
         </li>
     </ul>
 </section>
