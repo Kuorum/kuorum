@@ -342,7 +342,7 @@ header.landing .nav > li > .navbar-link.btn-transparent.active {background-color
 header.landing.transp .nav > li > .navbar-link.btn-transparent:hover,
 header.landing.transp .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #545454 !important;}
 
-header.landing .nav > li > .navbar-link.active {font-weight: bold; cursor: default; pointer-events: none; margin-top: -2px;}
+header.landing .nav > li > .navbar-link.active {font-weight: bold; cursor: default; pointer-events: none;}
 header.landing .nav > li > .navbar-link.special.active {margin-top: 0px;background-color: #fff; color:#ccc; margin-top: 2px;}
 
 header.landing .nav > li > .navbar-link.active:hover,
@@ -4091,6 +4091,37 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 
 .box-ppal.politician-messages {text-align: center; margin-top: 50px; padding-bottom: 40px;}
 .box-ppal.politician-messages h1 {padding: 0; margin: 0;}
+
+
+
+
+/* widgets =========== */
+/* ====================================================== */
+body.widget {padding: 0; font-family: Arial, Helvetica, sans-serif;}
+section.widget {border-top: 1px solid #000; width: 100%;}
+section.widget header {background-color: #ff9431; padding: 8px; color: #fff; position: relative;}
+section.widget header > h1 {text-transform: uppercase;; font-size: 15px; font-size: 1.5rem; padding: 0 50px 0 0; margin: 0;}
+section.widget header > a {color: #fff; text-transform: uppercase;; text-decoration: underline; position: absolute; right: 8px; bottom: 3px; font-size: 9px; font-size: .9rem;}
+section.widget footer {text-align: center;}
+section.widget footer a {font-size: 14px; font-size: 1.4rem; color: #545454; text-decoration: none; text-transform: uppercase;}
+section.widget footer a:hover,
+section.widget footer a:focus {text-decoration: underline;}
+section.widget .rating {margin: 5px 0 0 0; width: auto; float: right;}
+section.widget .rating fieldset.rating:not(:checked) > label {font-size: 20px; font-size: 2rem;}
+section.widget .rating label:hover > .rate-message {display: none;}
+
+section.widget .user-list-followers > li:hover fieldset.rating:not(:checked) > label:before {color: #fff;}
+section.widget .user-list-followers > li:hover fieldset.rating > input:checked ~ label:before,
+section.widget .user-list-followers > li:hover fieldset.rating > input + label:hover ~ label:before,
+section.widget .user-list-followers > li:hover fieldset.rating > input + label:hover:before {color: #ff9431;}
+
+section.widget .user-list-followers {margin: 0 0 5px 0; padding: 0 !important;}
+section.widget .user-list-followers > li {height: 52px; border-bottom: 1px solid #f0f0f0; padding: 6px; margin: 0;}
+section.widget .user-list-followers > li:hover,
+section.widget .user-list-followers > li:focus {background-color: #f0f0f0;}
+section.widget .user-list-followers > li > a {float: left; max-width: calc(100% - 130px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+section.widget .user-list-followers > li > a:hover,
+section.widget .user-list-followers > li > a:focus {text-decoration: underline;;}
 
 
 /* clases especiales accesibilidad =========== */
