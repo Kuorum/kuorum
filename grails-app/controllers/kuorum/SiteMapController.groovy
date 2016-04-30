@@ -1,8 +1,10 @@
 package kuorum
 
-import kuorum.core.model.CommissionType
-import kuorum.project.Project
+import com.mongodb.DBCursor
+import kuorum.core.model.UserType
 import kuorum.post.Post
+import kuorum.project.Project
+import kuorum.users.KuorumUser
 
 class SiteMapController {
 
@@ -23,20 +25,19 @@ class SiteMapController {
                 }
 
                 def footerMappings = [
-                        'footerWhatIsKuorum',
-                        'footerUsingMyVote',
-                        'footerUserGuide',
-                        'footerHistories',
-                        'footerPurposes',
-                        'footerQuestions',
+                        'footerAboutUs',
+                        'footerVision',
+                        'footerTeam',
+                        'footerTechnology',
                         'footerCitizens',
-                        'footerOrganizations',
+                        'footerImpact',
                         'footerPoliticians',
                         'footerDevelopers',
-                        'footerKuorumStore',
+                        'footerInformation',
                         'footerPrivacyPolicy',
                         'footerTermsUse',
-                        'footerTermsAds'
+                        'landingEditors',
+                        'landingPoliticians',
                 ]
                 footerMappings.each{mapping ->
                     url {
@@ -47,20 +48,10 @@ class SiteMapController {
                 }
 
                 url {
-                    loc(g.createLink(absolute: true, mapping: 'politicians'))
-                    changefreq('yearly')
-                    priority(0.6)
-                }
-                url {
                     loc(g.createLink(absolute: true, mapping: 'register'))
                     changefreq('yearly')
                     priority(0.7)
                 }
-//                url {
-//                    loc(g.createLink(absolute: true, mapping: 'tourStart'))
-//                    changefreq('yearly')
-//                    priority(0.4)
-//                }
 
                 url {
                     loc(g.createLink(absolute: true, mapping: 'discover'))
@@ -68,23 +59,6 @@ class SiteMapController {
                     priority(0.9)
                 }
 
-//                Region.list().each {region ->
-//                    String regionName = region.name.encodeAsKuorumUrl()
-//                    url {
-//                        loc(g.createLink(absolute: true, mapping: 'projects', params:[regionName:regionName]))
-//                        changefreq('weekly')
-//                        priority(0.9)
-//                    }
-//                    CommissionType.values().each { commission ->
-//                        String commissionUrl = message(code:"${CommissionType.canonicalName}.${commission}")
-//                        commissionUrl = commissionUrl.toLowerCase().encodeAsKuorumUrl() //toLowerCase is necessary because ... I don't know. If is not present, codec doesn't work
-//                        url {
-//                            loc(g.createLink(absolute: true, mapping: 'projects', params:[regionName:regionName, commission:commissionUrl]))
-//                            changefreq('weekly')
-//                            priority(0.9)
-//                        }
-//                    }
-//                }
                 //DYNAMIC ENTRIES
                 Project.list().each {project->
                     url {
@@ -108,6 +82,37 @@ class SiteMapController {
                         priority(0.7)
                         lastmod(lastModified?.format(FORMAT_DATE_SITEMAP))
                         log.info("Creada la URL del post (${post.id}): ${post.title}")
+                    }
+                }
+            }
+        }
+    }
+
+    def siteMapCountry() {
+
+        String countryCode = params.countryCode
+        render(contentType: 'text/xml', encoding: 'UTF-8') {
+            mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
+            urlset(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
+                    'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance",
+                    'xsi:schemaLocation': "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd") {
+                url {
+                    loc(g.createLink(absolute: true, mapping: 'home'))
+                    changefreq('monthly')
+                    priority(1.0)
+                }
+
+                DBCursor cursor = KuorumUser.collection.find([
+                    userType:UserType.POLITICIAN.toString(),
+                    'professionalDetails.region.iso3166_2':['$regex':"^${countryCode}"]
+                ],[_id:1, alias: 1, lastUpdated:1])
+                while(cursor.hasNext()){
+                    def politicianData = cursor.next()
+                    url {
+                        loc(g.createLink(absolute: true, mapping:'userShow', params:[userAlias:politicianData.alias]))
+                        changefreq('weekly')
+                        priority(0.8)
+                        lastmod(politicianData.lastUpdated.format(FORMAT_DATE_SITEMAP))
                     }
                 }
             }

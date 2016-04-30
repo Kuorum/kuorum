@@ -342,40 +342,4 @@ class KuorumUserController {
         setEvaluatorUserId(userReputationRSDTO.evaluatorId)
         render userReputationRSDTO as JSON
     }
-
-    def historicPoliticianRate(String userAlias){
-        KuorumUser politician = kuorumUserService.findByAlias(userAlias)
-        if (!politician || politician.userType != UserType.POLITICIAN){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
-        UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician)
-        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician, null)
-        def data=  [
-            "title":"",
-            "average":userReputationRSDTO.userReputation,
-            "averageLabel":"${message(code:'politician.valuation.chart.module.average')}",
-            "datasets": [
-                [
-                     "name": "${message(code:'politician.valuation.chart.module.realTime')}",
-                     "data": [],
-                     "unit": "",
-                     "type": "spline"
-                ], [
-                     "name": "${message(code:'politician.valuation.chart.module.runningAverage')}",
-                     "data": [],
-                     "unit": "",
-                     "type": "spline"
-                ]
-            ]
-        ]
-
-        evolutionRSDTO.reputationSnapshots.each {def reputationSnapshot ->
-            data.datasets[0].data << [reputationSnapshot.timestamp, reputationSnapshot.stockValue]
-            data.datasets[1].data << [reputationSnapshot.timestamp, reputationSnapshot.runningAverage]
-        }
-
-        render data as JSON
-    }
-
 }

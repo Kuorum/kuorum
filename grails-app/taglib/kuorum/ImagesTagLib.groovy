@@ -71,7 +71,7 @@ out << """
         }else{
             out << getDefaultAvatar(null)
         }
-        out <<"' class='user-img' alt='Tu fotograf�a'><span>${userName}</span>"
+        out <<"' class='user-img' alt='Tu foto'><span>${userName}</span>"
 
     }
 
