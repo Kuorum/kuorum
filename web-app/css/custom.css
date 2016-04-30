@@ -4098,8 +4098,9 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right
 /* widgets =========== */
 /* ====================================================== */
 body.widget {padding: 0; font-family: Arial, Helvetica, sans-serif;}
-section.widget {border-top: 1px solid #000; width: 100%;}
-section.widget header {background-color: #ff9431; padding: 8px; color: #fff; position: relative;}
+section.widget {width: 100%;}
+section.widget header {background-color: #ff9431; padding: 12px; color: #fff; position: relative;}
+section.widget.dark header {background-color: #666;}
 section.widget header > h1 {text-transform: uppercase;; font-size: 15px; font-size: 1.5rem; padding: 0 50px 0 0; margin: 0;}
 section.widget header > a {color: #fff; text-transform: uppercase;; text-decoration: underline; position: absolute; right: 8px; bottom: 3px; font-size: 9px; font-size: .9rem;}
 section.widget footer {text-align: center;}
@@ -4110,6 +4111,7 @@ section.widget .rating {margin: 5px 0 0 0; width: auto; float: right;}
 section.widget .rating fieldset.rating:not(:checked) > label {font-size: 20px; font-size: 2rem;}
 section.widget .rating label:hover > .rate-message {display: none;}
 
+#valuations-widget-content header {padding: 8px;}
 section.widget .user-list-followers > li:hover fieldset.rating:not(:checked) > label:before {color: #fff;}
 section.widget .user-list-followers > li:hover fieldset.rating > input:checked ~ label:before,
 section.widget .user-list-followers > li:hover fieldset.rating > input + label:hover ~ label:before,
@@ -4122,6 +4124,18 @@ section.widget .user-list-followers > li:focus {background-color: #f0f0f0;}
 section.widget .user-list-followers > li > a {float: left; max-width: calc(100% - 130px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 section.widget .user-list-followers > li > a:hover,
 section.widget .user-list-followers > li > a:focus {text-decoration: underline;;}
+
+body.widget > header {text-align: center; height: 40px; margin-bottom: 25px; border-bottom: 1px solid #e1e1e1;}
+body.widget > header h1 {margin: 0; padding: 0; text-align: center;}
+body.widget > header h1 .navbar-brand {float: none; display: block; margin: 0 auto;}
+body.widget > footer {background-color: #f8f8f8; margin-top: 25px;}
+body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
+
+#results-widget-content {padding: 0 20px;}
+#results-widget-content section {border:1px solid #f0f0f0;}
+#results-widget-content #evolution {height: 392px; margin-bottom: 25px;}
+#results-widget-content #valuations-widget-content {width: 35%; float: left;}
+#results-widget-content #real-time {width: 61.5%; float: right; min-height: 271px;}
 
 
 /* clases especiales accesibilidad =========== */
