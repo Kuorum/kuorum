@@ -160,6 +160,8 @@ function printChart(divId){
                     }
                 }
             });
+            var divHeight = $(divId).height();
+            console.log(divHeight)
             $('<div class="chart">')
                 .appendTo(divId)
                 .highcharts('StockChart', {
@@ -167,7 +169,7 @@ function printChart(divId){
                         spacingBottom: 10,
                         spacingTop: -23,
                         zoomType: 'x',
-                        height: 300,
+                        height: divHeight,
                         events : {
                             load : function () {
                                 // set up the updating of the chart each second

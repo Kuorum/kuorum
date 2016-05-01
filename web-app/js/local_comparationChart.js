@@ -4,12 +4,15 @@
 // valuation chart
 $(function () {
     printComparative();
+
+
+    //The click before adding event click. If not 2 charts will be displayed the first time
+    $("#real-time ul.nav li a")[0].click();
     $("#real-time .nav a").on("click", function(e){
         var tabId = $(this).attr("href")
         var graphDiv = $(tabId +" .polValChart").attr("id")
         printChart("#"+graphDiv)
     });
-    $("#real-time ul.nav li a")[0].click();
 });
 
 
@@ -56,6 +59,7 @@ function printComparative(){
                         spacingTop: -23,
                         zoomType: 'x',
                         height: 300,
+                        //marginLeft:240
                         //events : {
                         //    load : function () {
                         //        // set up the updating of the chart each second
@@ -84,17 +88,19 @@ function printComparative(){
                     },
                     legend: {
                         enabled: true,
-                        layout:"horizontal",
+                        layout:"vertical",
                         verticalAlign:"top",
                         align:"left",
-                        floating:true,
+                        padding:30,
+                        itemMarginTop:10,
+                        floating:false,
                         itemStyle:
                         {
                             fontSize:'14px',
                             fontWeight:'normal'
                         },
-                        y:20,
-                        x:0
+                        y:40,
+                        //x:0
                     },
                     xAxis: {
                         type: 'datetime',

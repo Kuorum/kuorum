@@ -8,7 +8,7 @@
                 <h1><g:message code="widget.politician.valuation.rate.title"/></h1>
                 %{--<a href="https://kuorum.org" target="_blank">Kuorum.org</a>--}%
             </header>
-            <ul class="user-list-followers hide4">
+            <ul class="user-list-followers">
                 <g:each in="${politicians}" var="politician">
                     <g:set var="politicianRate" value="${Math.round(rates[politician.alias].userReputation)}"/>
                     <g:set var="userPoliticianRated" value="${rates[politician.alias].evaluation}"/>
