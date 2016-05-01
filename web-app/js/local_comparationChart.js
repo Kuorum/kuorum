@@ -93,7 +93,7 @@ function printComparative(){
                             fontSize:'14px',
                             fontWeight:'normal'
                         },
-                        y:15,
+                        y:20,
                         x:0
                     },
                     xAxis: {
@@ -128,7 +128,7 @@ function printComparative(){
                         positioner: function () {
                             return {
                                 x: 5,
-                                y: -11
+                                y: 0
                             };
                         },
                         backgroundColor: 'rgba(255, 255, 255, 1)',
