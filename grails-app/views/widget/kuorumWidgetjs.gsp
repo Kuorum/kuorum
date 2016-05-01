@@ -11,10 +11,8 @@
 
 	switch (type) {
 	  case "ratePolitician":
-		url = url + 'userAlias='+widget.getAttribute("data-userAlias")
-		break;
 	  case "comparative":
-	    var aliases = widget.getAttribute("data-userAliases").split(",")
+	    var aliases = widget.getAttribute("data-userAlias").split(",")
 	    for (i = 0; i < aliases.length; i++) {
 	    	url = url + 'userAlias='+aliases[i] +'&'
 		}
@@ -26,6 +24,6 @@
 
 	if (widget) {
 		widget.style.cssText = 'border:' + colorBorde + '; width:' + ancho + '; height:' + alto + '; overflow:hidden;';
-		widget.innerHTML     = '<iframe src="'+url+'" frameborder="0" scrolling="yes" width="100%" height="100%" allowTransparency="true" style="overflow: hidden;"></iframe>';
+		widget.innerHTML     = '<iframe src="'+url+'" frameborder="0" scrolling="no" width="100%" height="100%" allowTransparency="true" style="overflow: hidden;"></iframe>';
 	}
 })();

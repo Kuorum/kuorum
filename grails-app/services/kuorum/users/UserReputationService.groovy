@@ -1,5 +1,7 @@
 package kuorum.users
 
+import grails.plugin.cookie.CookieService
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
@@ -9,9 +11,12 @@ import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 class UserReputationService {
 
     RestKuorumApiService restKuorumApiService;
+    SpringSecurityService springSecurityService
+    CookieService cookieService
 
-    UserReputationRSDTO addReputation(KuorumUser politician, String evaluatorId = null, Integer evaluation) {
+    UserReputationRSDTO addReputation(KuorumUser politician, Integer evaluation) {
 
+        String evaluatorId =getEvaluatorUserId()
         Map<String, String> params = [userId:politician.id.toString()]
         Map<String, String> query = [evaluation:evaluation]
         if (evaluatorId){
@@ -22,10 +27,26 @@ class UserReputationService {
         if (response.data){
             userReputation = (UserReputationRSDTO)response.data
         }
+        setEvaluatorUserId(userReputation.evaluatorId)
         return userReputation;
     }
 
-    UserReputationRSDTO getReputation(KuorumUser politician, String evaluatorId) {
+    private static final String COOKIE_EVALUATOR_NAME='EVALUATOR_ID_RATING'
+
+    private String getEvaluatorUserId(){
+        String evaluatorId = cookieService.getCookie(COOKIE_EVALUATOR_NAME)
+        if (springSecurityService.isLoggedIn()){
+            evaluatorId = springSecurityService.currentUser.id.toString()
+        }
+        return evaluatorId;
+    }
+
+    private void setEvaluatorUserId(String evaluatorId){
+        cookieService.setCookie(COOKIE_EVALUATOR_NAME,evaluatorId, Integer.MAX_VALUE )
+    }
+
+    UserReputationRSDTO getReputation(KuorumUser politician) {
+        String evaluatorId = getEvaluatorUserId();
         Map<String, String> params = [userId:politician.id.toString()]
         Map<String, String> query = [evaluatorId:evaluatorId]
         def response = restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_STATS_REPUTATION, params, query)

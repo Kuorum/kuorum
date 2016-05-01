@@ -77,7 +77,7 @@
     <meta property="twitter:account_id" content="4503599627910348" />
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="http://schema.org/WebPage" class="widget">
     <g:render template="/layouts/googleTagManager"/>
     <g:layoutBody/>
     <g:render template="/layouts/jsAjaxUrls"/>

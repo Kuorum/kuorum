@@ -181,7 +181,7 @@ class KuorumUserController {
         List<CauseRSDTO> causes = causesService.findSupportedCauses(politician)
         Campaign campaign = campaignService.findActiveCampaign(politician)
         LeaningIndexRSDTO politicianLeaningIndex = kuorumUserStatsService.findLeaningIndex(politician)
-        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician, getEvaluatorUserId())
+        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician)
         [
                 politician:politician,
                 politicianLeaningIndex:politicianLeaningIndex,
@@ -231,7 +231,7 @@ class KuorumUserController {
     }
 
     def politicianProjects(Pagination pagination){
-        KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
+        KuorumUser politician = kuorumUserService.findByAlias(params.userAlias)
         if (!politician){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
@@ -310,36 +310,5 @@ class KuorumUserController {
         KuorumUser follower = KuorumUser.get(springSecurityService.principal.id)
         kuorumUserService.deleteFollower(follower, following)
         render follower.following.size()
-    }
-
-    private static final String COOKIE_EVALUATOR_NAME='EVALUATOR_ID_RATING'
-
-    private String getEvaluatorUserId(){
-        String evaluatorId = g.cookie(name: COOKIE_EVALUATOR_NAME)
-        if (springSecurityService.isLoggedIn()){
-            evaluatorId = springSecurityService.currentUser.id.toString()
-        }
-        return evaluatorId;
-    }
-
-    private void setEvaluatorUserId(String evaluatorId){
-        Cookie cookie = new Cookie(COOKIE_EVALUATOR_NAME,evaluatorId)
-        cookie.maxAge = Integer.MAX_VALUE
-//        cookie.path = "/${grailsApplication.metadata['app.name']}/"
-        cookie.path = "/"
-        response.addCookie(cookie)
-    }
-
-    def ratePolitician(String userAlias){
-        KuorumUser politician = kuorumUserService.findByAlias(userAlias)
-        if (!politician || politician.userType != UserType.POLITICIAN){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
-        Integer rate = Integer.parseInt(params.rate)
-        String evaluatorId =getEvaluatorUserId()
-        UserReputationRSDTO userReputationRSDTO = userReputationService.addReputation(politician, evaluatorId,rate)
-        setEvaluatorUserId(userReputationRSDTO.evaluatorId)
-        render userReputationRSDTO as JSON
     }
 }

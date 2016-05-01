@@ -95,8 +95,8 @@ class UrlMappings {
 
 
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
-        name widgetRatePolitician:     "/widget/ratePolitician" (controller: "widget", action:"ratePolitician")
-        name widgetComparative:        "/widget/comparation"    (controller: "widget", action:"comparativePoliticianInfo")
+        name widgetRatePolitician:     "/widget/ratePolitician" (controller: "rating", action:"widgetRatePolitician")
+        name widgetComparative:        "/widget/comparation"    (controller: "rating", action:"widgetComparativePoliticianInfo")
 //        name postAddDefender:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/apadrinar"(controller: "post", action:"addDefender")
 
 
@@ -149,9 +149,9 @@ class UrlMappings {
         name ajaxPoliticianVictoryPosts:     "/ajax/$userAlias/defendedVictoryPosts" (controller: "kuorumUser", action: "politicianDefendedVictories")
         name ajaxRegisterContact:            "/ajax/contact"(controller: "register", action: "contactRegister");
 
-        name userRate:           "/ajax/$userAlias/rate"(controller: "kuorumUser", action:"ratePolitician")
-        name userHistoricRate:   "/ajax/$userAlias/historicRate"(controller: "widget", action:"historicPoliticianRate")
-        name comparingPoliticianRate:   "/ajax/user/compareRate"(controller: "widget", action:"comparingPoliticianRateData")
+        name userRate:                  "/ajax/$userAlias/rate"(controller: "rating", action:"ratePolitician")
+        name userHistoricRate:          "/ajax/$userAlias/historicRate"(controller: "rating", action:"historicPoliticianRate")
+        name comparingPoliticianRate:   "/ajax/user/compareRate"(controller: "rating", action:"comparingPoliticianRateData")
 
         name register:            "/sign-up"(controller: "register"){action = [GET:"index", POST:"register"]}
                                   "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}

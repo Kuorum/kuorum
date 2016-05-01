@@ -1038,15 +1038,27 @@ $(document).ready(function() {
         })
     })
 
-//    $("form.submitOrangeButton input.form-control").on('keyup paste',function(){
-//        console.log("change")
-//        var submitButtons = $(this).parents("form").find("input[type=submit]");
-//        submitButtons.removeClass("btn-grey");
-//        submitButtons.removeClass("disabled");
-//        submitButtons.addClass("btn-orange");
-//    })
-//    $("form.submitOrangeButton input[type=submit]").addClass("disabled")
 
+    $(".widget form.rating").on("click", "fieldset.rating input",function(e) {
+        var $form = $(this).closest("form")
+        var url = $form.attr("action")
+        var $input = $(this)
+        var $popover = $input.parents("popover")
+        var rate = $(this).val()
+        $form.find("input[name=rating]").removeAttr("checked");
+        $form.find("input[name=rating][value=" + rate + "]").attr('checked', true);
+        $form.find("input[name=rating][value=" + rate + "]").prop("checked", true)
+        $.ajax({
+            url: url,
+            data: {rate: rate}
+        }).done(function (data) {
+            var $visisbleForm = $form.siblings("form")
+            var newRate = Math.floor(data.userReputation +0.5);
+            $visisbleForm.find("input[name=rating]").removeAttr("checked");
+            $visisbleForm.find("input[name=rating][value=" + newRate + "]").attr('checked', true);
+            $visisbleForm.find("input[name=rating][value=" + newRate + "]").prop("checked", true)
+        })
+    })
 });
 
 // ***** End jQuey Init *********** //
