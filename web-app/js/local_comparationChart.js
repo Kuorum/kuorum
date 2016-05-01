@@ -9,6 +9,7 @@ $(function () {
         var graphDiv = $(tabId +" .polValChart").attr("id")
         printChart("#"+graphDiv)
     });
+    $("#real-time ul.nav li a")[0].click();
 });
 
 
