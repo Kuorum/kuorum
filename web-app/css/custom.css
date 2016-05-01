@@ -3419,6 +3419,12 @@ fieldset.rating:hover > input + label:hover:before {
     min-width: 74px;
     margin-right: 0;
     margin-bottom: 3px;
+    padding: 5px 5px;
+}
+
+.tabs-left > .nav-tabs > li > a .user-img{
+    width: 25px;
+    height: 25px;
 }
 
 .tabs-left > .nav-tabs {
