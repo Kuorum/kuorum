@@ -3446,6 +3446,7 @@ fieldset.rating:hover > input + label:hover:before {
     *border-right-color: #ffffff;
 }
 
+.tabs-left .tab-content{padding:25px 0;}
 
 .pago {border: #545454 solid 1px; height: 200px; position: relative; display: block; background-color: transparent; background-repeat: no-repeat; background-position: center 30px; background-size: 285px auto;}
 .pago:hover span {background-color: #797979;}
@@ -4194,6 +4195,19 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 #results-widget-content #evolution {height: 392px; margin-bottom: 25px;}
 #results-widget-content #valuations-widget-content {width: 35%; float: left;}
 #results-widget-content #real-time {width: 61.5%; float: right; min-height: 271px;}
+#results-widget-content #real-time .politician-info{float: left; width: 25%;}
+#results-widget-content #real-time .politician-info ul {padding: 0px;}
+#results-widget-content #real-time .politician-info ul li{
+    list-style: none;
+    /*height: 1em;*/
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    line-height: 12px;
+    margin-bottom: 6px;
+}
+#results-widget-content #real-time .politician-chart{float:right;width: 60%;}
 
 
 /* clases especiales accesibilidad =========== */

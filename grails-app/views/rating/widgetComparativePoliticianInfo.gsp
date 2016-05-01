@@ -52,7 +52,7 @@
                     <div class="tab-content">
                         <g:each in="${politicians}" var="politician">
                             <div class="tab-pane" id="tab-${politician.alias}">
-                                <section class="col-md-3 text-center" style="float:left">
+                                <div class="politician-info text-center">
                                     <h4>${politician.name}</h4>
                                     <h5><userUtil:roleName user="${politician}"/> </h5>
                                     <g:link mapping="userShow" params="${politician.encodeAsLinkProperties()}" class="btn btn-blue">
@@ -62,21 +62,23 @@
                                     <ul>
                                         <g:each in="${politician.relevantEvents}" var="relevantEvent">
                                             <li>
-                                                <g:if test="${relevantEvent.url}">
-                                                    <a href="${relevantEvent.url}" target="_blank">
+                                                <abbr title="${relevantEvent.title}">
+                                                    <g:if test="${relevantEvent.url}">
+                                                        <a href="${relevantEvent.url}" target="_blank">
+                                                            ${relevantEvent.title}
+                                                        </a>
+                                                    </g:if>
+                                                    <g:else>
                                                         ${relevantEvent.title}
-                                                    </a>
-                                                </g:if>
-                                                <g:else>
-                                                    ${relevantEvent.title}
-                                                </g:else>
+                                                    </g:else>
+                                                </abbr>
                                             </li>
                                         </g:each>
                                     </ul>
-                                </section>
-                                <section class="col-md-7" style="float:right">
+                                </div>
+                                <div class="politician-chart">
                                     <div class="polValChart" data-urljs="${createLink(mapping: 'userHistoricRate', params:politician.encodeAsLinkProperties(), absolute: true)}"></div>
-                                </section>
+                                </div>
 
                                 %{--</div>--}%
 
