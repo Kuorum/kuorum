@@ -3403,6 +3403,50 @@ fieldset.rating:hover > input + label:hover:before {
 .contratando .nav-tabs > li input[type="radio"] {margin-right: 8px;}
 .contratando .tab-content .form-inline .form-control {width: 100%;}
 
+.tabs-left > .nav-tabs {
+    border-bottom: 0;
+}
+
+.tabs-left > .nav-tabs > li,
+.tabs-right > .nav-tabs > li {
+    float: none;
+    background-color: #ccc;
+    margin-bottom:-3px;
+}
+
+.tabs-left > .nav-tabs > li > a,
+.tabs-right > .nav-tabs > li > a {
+    min-width: 74px;
+    margin-right: 0;
+    margin-bottom: 3px;
+}
+
+.tabs-left > .nav-tabs {
+    float: left;
+    margin-right: 19px;
+    border-right: 1px solid #ddd;
+}
+
+.tabs-left > .nav-tabs > li > a {
+    margin-right: -1px;
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
+}
+
+.tabs-left > .nav-tabs > li > a:hover,
+.tabs-left > .nav-tabs > li > a:focus {
+    border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+}
+
+.tabs-left > .nav-tabs .active > a,
+.tabs-left > .nav-tabs .active > a:hover,
+.tabs-left > .nav-tabs .active > a:focus {
+    border-color: #ddd transparent #ddd #ddd;
+    *border-right-color: #ffffff;
+}
+
+
 .pago {border: #545454 solid 1px; height: 200px; position: relative; display: block; background-color: transparent; background-repeat: no-repeat; background-position: center 30px; background-size: 285px auto;}
 .pago:hover span {background-color: #797979;}
 .pago span {display: block; background-color: #bcbcbc; padding: 15px; font-size: 25px; font-size: 2.5rem; position: absolute; bottom: 0; left: 0; width: 100%; text-align: center; color: #fff;}

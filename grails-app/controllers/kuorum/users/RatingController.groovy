@@ -97,6 +97,7 @@ class RatingController {
             UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician)
             data.datasets << [
                     "name": "${politician.name}",
+                    "alias":"${politician.alias}",
                     "data": evolutionRSDTO.reputationSnapshots.collect{[it.timestamp, it.runningAverage]},
                     "type": "spline"
             ]

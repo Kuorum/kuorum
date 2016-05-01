@@ -117,21 +117,29 @@ $(document).ready(function() {
 // valuation chart
 $(function () {
 
-    printChart();
+    printCharts();
 
 });
 
+function printCharts(){
+    $(".polValChart").each(function(idx){
+        var uuid = guid()
+        $(this).attr("id",uuid)
+        printChart("#"+uuid);
+    })
+}
 
-function printChart(){
-    if ($('#polValChart').length >0){
-        $('#polValChart').html("")
+function printChart(divId){
+    if ($(divId).length >0){
+        $(divId).html("")
+        $(divId).parent().show()
         Highcharts.setOptions({
             colors: ['#ff9431', '#999999', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
             global: {
                 useUTC: false
             }
         });
-        var urlHighchart=$('#polValChart').attr("data-urljs")
+        var urlHighchart=$(divId).attr("data-urljs")
         if (urlHighchart == undefined){
             urlHighchart = 'mock//valpol.json'
         }
@@ -153,7 +161,7 @@ function printChart(){
                 }
             });
             $('<div class="chart">')
-                .appendTo('#polValChart')
+                .appendTo(divId)
                 .highcharts('StockChart', {
                     chart: {
                         spacingBottom: 10,
@@ -959,4 +967,14 @@ function moveToHash(hash){
             scrollTop: dest
         }, 1000, 'swing');
     }
+}
+
+function guid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
 }

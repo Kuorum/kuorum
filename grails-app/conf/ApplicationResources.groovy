@@ -86,6 +86,11 @@ modules = {
         resource url:'js/social/googlePlus.js'
     }
 
+    kuorumCookies{
+        dependsOn 'basic'
+        resource url:'js/cookies.js'
+    }
+
     comparativeChart{
         dependsOn 'basic'
         resource url:'js/local_comparationChart.js'

@@ -69,7 +69,7 @@
 
     <r:require modules="vimeo" />
     <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
-    <r:require modules="lang_${lang}" />
+    <r:require modules="lang_${lang}, kuorumCookies" />
     <g:layoutHead/>
     <g:javascript library="jquery" plugin="jquery"/>
     <g:javascript library="application"/>

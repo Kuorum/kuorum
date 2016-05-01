@@ -4,6 +4,11 @@
 // valuation chart
 $(function () {
     printComparative();
+    $("#real-time .nav a").on("click", function(e){
+        var tabId = $(this).attr("href")
+        var graphDiv = $(tabId +" .polValChart").attr("id")
+        printChart("#"+graphDiv)
+    });
 });
 
 
@@ -21,8 +26,9 @@ function printComparative(){
 
         $.getJSON(urlHighchart, function (activity) {
             var seriesData = []
+            var alias = {}
             $.each(activity.datasets, function (i, dataset) {
-
+                alias[dataset.name]=dataset.alias
                 seriesData[i]= {
                     data: dataset.data,
                     name: dataset.name,
@@ -36,11 +42,7 @@ function printComparative(){
                     cursor: 'pointer',
                     events: {
                         click: function (event) {
-                            console.log(event)
-                            alert(this.name + ' clicked\n' +
-                                'Alt: ' + event.altKey + '\n' +
-                                'Control: ' + event.ctrlKey + '\n' + 'Shift: ' + event.shiftKey + '\n');
-
+                            $("#tab-link-"+alias[this.name]).click()
                         }
                     }
                 }

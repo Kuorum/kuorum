@@ -4,6 +4,6 @@
         <h3 class="panel-title"><g:message code="politician.valuation.chart.module.title"/> </h3>
     </div>
     <div class="panel-body text-center">
-        <div id="polValChart" data-urljs="${createLink(mapping: 'userHistoricRate', params:user.encodeAsLinkProperties(), absolute: true)}"></div>
+        <div class="polValChart" data-urljs="${createLink(mapping: 'userHistoricRate', params:user.encodeAsLinkProperties(), absolute: true)}"></div>
     </div>
 </section>
