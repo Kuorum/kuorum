@@ -58,6 +58,7 @@
                                     <g:link mapping="userShow" params="${politician.encodeAsLinkProperties()}" class="btn btn-blue" target="_blank">
                                         <g:message code="search.list.seeMore"/>
                                     </g:link>
+                                    <hr>
                                     <h6>Ultimas noticias</h6>
                                     <ul>
                                         <g:each in="${politician.relevantEvents}" var="relevantEvent">
