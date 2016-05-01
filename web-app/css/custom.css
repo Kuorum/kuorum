@@ -4170,7 +4170,6 @@ section.widget .rating {margin: 5px 0 0 0; width: auto; float: right;}
 section.widget .rating fieldset.rating:not(:checked) > label {font-size: 20px; font-size: 2rem;}
 section.widget .rating label:hover > .rate-message {display: none;}
 
-#valuations-widget-content header {padding: 8px;}
 section.widget .user-list-followers > li:hover fieldset.rating:not(:checked) > label:before {color: #fff;}
 section.widget .user-list-followers > li:hover fieldset.rating > input:checked ~ label:before,
 section.widget .user-list-followers > li:hover fieldset.rating > input + label:hover ~ label:before,
