@@ -55,7 +55,7 @@
                                 <div class="politician-info text-center">
                                     <h4>${politician.name}</h4>
                                     <h5><userUtil:roleName user="${politician}"/> </h5>
-                                    <g:link mapping="userShow" params="${politician.encodeAsLinkProperties()}" class="btn btn-blue">
+                                    <g:link mapping="userShow" params="${politician.encodeAsLinkProperties()}" class="btn btn-blue" target="_blank">
                                         <g:message code="search.list.seeMore"/>
                                     </g:link>
                                     <h6>Ultimas noticias</h6>
