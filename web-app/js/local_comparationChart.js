@@ -21,7 +21,6 @@ function printComparative(){
     if ($(divId).length >0){
         $(divId).html("")
         Highcharts.setOptions({
-            colors: ['#e10b17', '#02a1e2', '#5b1256', '#eb6a26', '#2ba443', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
             global: {
                 useUTC: false
             }
@@ -75,6 +74,7 @@ function printComparative(){
                         //    }
                         //}
                     },
+                    colors: ['#e10b17', '#02a1e2', '#5b1256', '#eb6a26', '#2ba443', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
                     title: {
                         text: null,
                         //text: activity.title,

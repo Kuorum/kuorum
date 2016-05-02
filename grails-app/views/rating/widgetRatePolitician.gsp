@@ -17,8 +17,8 @@
                             <img src="${image.userImgSrc(user:politician)}" alt="${politician.name}" class="user-img" itemprop="image"><span itemprop='name'>${politician.name}</span>
                         </g:link>
                         <!-- politician valuation -->
-                        <form action="${g.createLink(mapping:'userRate', params:politician.encodeAsLinkProperties(), absolute:true)}" method="post" class="rating">
-                            <fieldset class="rating user-rate">
+                        <form action="${g.createLink(mapping:'userRate', params:politician.encodeAsLinkProperties(), absolute:true)}" method="post" class="rating user-rate">
+                            <fieldset class="rating">
                                 <legend><g:message code="politician.valuation.rate"/></legend>
                                 <g:each in="${(1..5).reverse()}" var="i">
                                     <input id="star${i}_userRate_${politician.alias}" type="radio" name="rating" value="${i}" ${userPoliticianRated==i?'checked':''}>
