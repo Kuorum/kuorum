@@ -45,7 +45,7 @@
                 </g:each>
             </ul>
             <footer>
-                <a href="https://kuorum.org" target="_blank">Ir a la página</a>
+                <a href="https://kuorum.org" target="_blank">Ver resultados</a>
             </footer>
         </section>
     </body>
