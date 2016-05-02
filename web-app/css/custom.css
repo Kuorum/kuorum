@@ -3419,7 +3419,7 @@ fieldset.rating:hover > input + label:hover:before {
     min-width: 0px;
     margin-right: 0;
     margin-bottom: 3px;
-    padding: 8px 5px 9px;
+    padding: 8px 5px;
 }
 
 .tabs-left > .nav-tabs > li > a .user-img{
@@ -4197,7 +4197,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 #results-widget-content {padding: 0 20px;}
 #results-widget-content section {border:1px solid #f0f0f0;}
-#results-widget-content #evolution {height: 392px; margin-bottom: 25px;}
+#results-widget-content #evolution {height: 346px; margin-bottom: 25px;}
 #results-widget-content #valuations-widget-content {width: 35%; float: left;}
 #results-widget-content #real-time {width: 61.5%; float: right;}
 #results-widget-content #real-time .politician-info{float: left; width: 35%;}
@@ -4216,7 +4216,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 #results-widget-content #real-time .politician-info ul li abbr{border-bottom:none;cursor:auto;}
 #results-widget-content #real-time .politician-chart{float:right;width: 50%;}
 #results-widget-content #real-time .politician-chart .polValChart{height: 220px; width: 100%;}
-#results-widget-content #real-time .politician-info.text-center h4{font-variant:normal;font-weight:bold;font-size:14px;line-height: 0.5;}
+#results-widget-content #real-time .politician-info.text-center h4{font-variant:normal;font-weight:normal;font-size:16px;line-height: 0.5;}
 #results-widget-content #real-time .politician-info.text-center h5{color:#a8a8a8;font-weight:bold;font-size:12px;}
 #results-widget-content #real-time .politician-info.text-center h6{font-weight:bold;}
 #results-widget-content #real-time .politician-info.text-center .btn.btn-blue{padding: 3px 9px !important; font-size:11px;}
