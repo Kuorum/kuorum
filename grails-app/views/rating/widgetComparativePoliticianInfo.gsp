@@ -91,6 +91,23 @@
             </section>
         </div>
     </section>
+    <footer>
+        <div class="container-fluid">
+            <section class="links">
+                <ul>
+                    <li><g:link absolute="true" mapping="footerTechnology"><g:message code="layout.footer.tech"/></g:link> </li>
+                    <li><g:link absolute="true" mapping="footerPoliticians"><g:message code="layout.footer.politicians"/></g:link></li>
+                    <li><g:link absolute="true" mapping="footerCitizens"><g:message code="layout.footer.citizens"/></g:link></li>
+                    <li><g:link absolute="true" mapping="footerDevelopers"><g:message code="layout.footer.editors"/></g:link></li>
+                    <li><g:link absolute="true" mapping="footerAboutUs"><g:message code="layout.footer.aboutUs"/></g:link></li>
+                    <li><g:link absolute="true" mapping="footerInformation"><g:message code="layout.footer.pressTitle"/></g:link></li>
+                    <li><a href="http://kuorumorg.tumblr.com" target="_blank"><g:message code="layout.footer.blog"/></a></li>
+                    <li><g:link absolute="true" mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
+                    <li><g:link absolute="true" mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>
+                </ul>
+            </section>
+        </div><!-- /.container-fluid - da ancho máximo y centra -->
+    </footer>
     </body>
 
 </g:applyLayout>
