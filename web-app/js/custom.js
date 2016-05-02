@@ -1036,6 +1036,24 @@ $(document).ready(function() {
         })
     })
 
+    var orgRate;
+    $(".widget form.rating.user-rate").hover(
+        function(e) {
+            var $form = $(this).closest("form")
+            orgRate = $(this).find("input[name=rating]:checked").val()
+            $form.find("input[name=rating]").removeAttr("checked");
+        },
+        function(e) {
+            var $form = $(this).closest("form")
+            console.log("out")
+            var newRate = $(this).find("input[name=rating]:checked").val()
+            if (newRate == undefined && orgRate != undefined) {
+                $form.find("input[name=rating][value=" + orgRate + "]").attr('checked', true);
+                $form.find("input[name=rating][value=" + orgRate + "]").prop("checked", true);
+            }
+        }
+    )
+
 
     $(".widget form.rating").on("click", "fieldset.rating input",function(e) {
         var $form = $(this).closest("form")
