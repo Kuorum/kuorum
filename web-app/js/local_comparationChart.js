@@ -37,7 +37,6 @@ function printComparative(){
                     name: dataset.name,
                     type: dataset.type,
                     pointInterval: 1 * 3600 * 1000, // cada 1h
-                    color: Highcharts.getOptions().colors[i],
                     fillOpacity: 0.3,
                     tooltip: {
                         valueSuffix: ' '
