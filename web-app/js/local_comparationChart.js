@@ -21,7 +21,7 @@ function printComparative(){
     if ($(divId).length >0){
         $(divId).html("")
         Highcharts.setOptions({
-            colors: ['#ff9431', '#999999', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
+            colors: ['#e10b17', '#02a1e2', '#5b1256', '#eb6a26', '#2ba443', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
             global: {
                 useUTC: false
             }
