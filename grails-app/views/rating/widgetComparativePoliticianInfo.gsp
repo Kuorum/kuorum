@@ -29,7 +29,7 @@
                      data-userAlias="sanchezcastejon,marianorajoy,pablo_iglesias_,albert_rivera,agarzon"
                      data-width="100%"
                      data-height="300px"></div>
-                <script type="text/javascript" src="http://127.0.0.1:8080/kuorum/widget.js?divId=valuation-widget"></script>
+                <script type="text/javascript" src="https://kuorum.org/widget.js?divId=valuation-widget"></script>
             </section>
             <section id="real-time" class="widget dark">
                 <header>
