@@ -54,7 +54,7 @@ function printComparative(){
                 .highcharts('StockChart', {
                     chart: {
                         spacingBottom: 10,
-                        spacingTop: -23,
+                        spacingTop: 0,
                         zoomType: 'x',
                         height: 300,
                         //marginLeft:240
@@ -87,19 +87,18 @@ function printComparative(){
                     },
                     legend: {
                         enabled: true,
-                        layout:"vertical",
+                        layout:"horizontal",
                         verticalAlign:"top",
                         align:"left",
-                        padding:30,
-                        itemMarginTop:10,
-                        floating:false,
+                        floating:true,
                         itemStyle:
                         {
                             fontSize:'14px',
-                            fontWeight:'normal'
+                            fontWeight:'normal',
+                            fontSize: "12px"
                         },
-                        y:40,
-                        //x:0
+                        y:5,
+                        x:0
                     },
                     xAxis: {
                         type: 'datetime',
@@ -130,15 +129,29 @@ function printComparative(){
                         offset: 20
                     },
                     tooltip: {
-                        positioner: function () {
-                            return {
-                                x: 5,
-                                y: 0
-                            };
+                        //positioner: function () {
+                        //    return {
+                        //        x: 5,
+                        //        y: 0
+                        //    };
+                        //},
+
+                        formatter: function () {
+                            var date = new Date(this.x)
+                            var s = '<b>'+formatTooltipDate(date)+'</b>';
+                            s += '<br/> -----------'; //CHAPU BR
+
+                            $.each(this.points, function () {
+                                s += '<br/><span style="color:'+this.series.color+'">' + this.series.name + '</span><span style="float:right">: ' +
+                                    Math.floor(this.y*100)/100 + '</span>';
+                            });
+                            return s;
                         },
-                        backgroundColor: 'rgba(255, 255, 255, 1)',
-                        borderWidth: 0,
-                        pointFormat: '<span style="color:{point.color}"> {series.name}: <b>{point.y}</b></span>',
+                        backgroundColor: 'rgba(240, 240, 240, 0.8)',
+                        borderWidth: 1,
+                        borderRadius:15,
+                        borderColor:'#666',
+                        //pointFormat: '<br/><span style="color:{point.color};"> {series.name}: <b>{point.y}</b></span>',
                         //pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
                         headerFormat: '',
                         shadow: false,
@@ -163,4 +176,12 @@ function printComparative(){
                 });
         });
     }
+}
+function formatTooltipDate(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    hours = hours < 10 ? '0'+hours : hours;
+    var strTime = hours + ':' + minutes
+    return date.getDate()+"-"+(date.getMonth()+1) + "-" + date.getFullYear() + "  " + strTime;
 }

@@ -122,15 +122,15 @@ class SearchController{
         }else{
             Locale locale = localeResolver.resolveLocale(request)
             AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
-            Region suggestedRegion = regionService.findMostAccurateRegion(searchParams.word,null, language)
-            List<Region> regions = []
-            if (suggestedRegion){
-               regions = regionService.findRegionsList(suggestedRegion)
-            }
-            if (regions){
-                searchParams.boostedRegions = regions.collect{it.iso3166_2}
-//                searchParams.word= "${searchParams.word} ${regions.collect{it.iso3166_2.replace('-', '')}.join(" ")}"
-            }
+//            Region suggestedRegion = regionService.findMostAccurateRegion(searchParams.word,null, language)
+//            List<Region> regions = []
+//            if (suggestedRegion){
+//               regions = regionService.findRegionsList(suggestedRegion)
+//            }
+//            if (regions){
+//                searchParams.boostedRegions = regions.collect{it.iso3166_2}
+////                searchParams.word= "${searchParams.word} ${regions.collect{it.iso3166_2.replace('-', '')}.join(" ")}"
+//            }
             searchParams.max = max
             docs = searchSolrService.search(searchParams)
             searchParams.word = params.word

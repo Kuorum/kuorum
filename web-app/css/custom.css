@@ -4198,8 +4198,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 #results-widget-content {padding: 0 20px;}
 #results-widget-content section {border:1px solid #f0f0f0;}
 #results-widget-content #evolution {height: 346px; margin-bottom: 25px;}
-#results-widget-content #valuations-widget-content {width: 35%; float: left;}
-#results-widget-content #real-time {width: 61.5%; float: right;}
+#results-widget-content #valuations-widget-content {float: left;}
+#results-widget-content #real-time {margin-bottom:20px;float: left;}
 #results-widget-content #real-time .politician-info{float: left; width: 35%;}
 #results-widget-content #real-time .politician-info ul {padding: 0px;}
 #results-widget-content #real-time .politician-info ul li{

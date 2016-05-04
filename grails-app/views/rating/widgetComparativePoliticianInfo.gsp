@@ -23,14 +23,6 @@
             </div>
         </section>
         <div>
-            <section id="valuations-widget-content" class="widget">
-                <div id="valuation-widget"
-                     data-type="ratePolitician"
-                     data-userAlias="sanchezcastejon,marianorajoy,pablo_iglesias_,albert_rivera,agarzon"
-                     data-width="100%"
-                     data-height="300px"></div>
-                <script type="text/javascript" src="https://kuorum.org/widget.js?divId=valuation-widget"></script>
-            </section>
             <section id="real-time" class="widget dark">
                 <header>
                     <h1>Valoración en tiempo real</h1>
@@ -88,6 +80,14 @@
                     </div>
                 </div>
                 <!-- /tabs -->
+            </section>
+            <section id="valuations-widget-content" class="widget">
+                <div id="valuation-widget"
+                     data-type="ratePolitician"
+                     data-userAlias="sanchezcastejon,marianorajoy,pablo_iglesias_,albert_rivera,agarzon"
+                     data-width="100%"
+                     data-height="300px"></div>
+                <script type="text/javascript" src="https://kuorum.org/widget.js?divId=valuation-widget"></script>
             </section>
         </div>
     </section>

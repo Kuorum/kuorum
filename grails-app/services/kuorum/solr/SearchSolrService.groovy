@@ -120,7 +120,7 @@ class SearchSolrService {
 //            String boost = params.boostedRegions.collect{"regionIso3166_2:${it.replace('-', '')}^${Math.pow(it.length(),2)}"}.join(" ")
 //            boost = "${boost} name^1000 hashtag^800.0"
 //            query.setParam("bq", boost)
-            query.setParam("bf","ord(kuorumRelevance)^10 ord(regionIso3166_2Length)^100")
+            query.setParam("bf","ord(kuorumRelevance)^10 ord(regionIso3166_2Length)^10")
         }
     }
 
