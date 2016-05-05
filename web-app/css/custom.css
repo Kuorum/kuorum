@@ -3429,7 +3429,7 @@ fieldset.rating:hover > input + label:hover:before {
 
 .tabs-left > .nav-tabs {
     float: left;
-    margin-right: 15px;
+    /*margin-right: 15px;*/
     border-right: 1px solid #ddd;
 }
 
@@ -4195,11 +4195,11 @@ body.widget > header h1 .navbar-brand {float: none; display: block; margin: 0 au
 body.widget > footer {background-color: #f8f8f8; margin-top: 25px;}
 body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
-#results-widget-content {padding: 0 20px;}
-#results-widget-content section {border:1px solid #f0f0f0;}
-#results-widget-content #evolution {height: 346px; margin-bottom: 25px;}
+#results-widget-content {padding: 0 5px;}
+#results-widget-content section {border:1px solid #f0f0f0; margin-bottom: 10px;}
+/*#results-widget-content #evolution {height: 346px; }*/
 #results-widget-content #valuations-widget-content {float: left;}
-#results-widget-content #real-time {margin-bottom:20px;float: left;}
+#results-widget-content #real-time {float: left;}
 #results-widget-content #real-time .politician-info{}
 #results-widget-content #real-time .politician-info ul {padding: 0px;}
 #results-widget-content #real-time .politician-info ul li{
