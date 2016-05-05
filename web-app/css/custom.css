@@ -5904,6 +5904,7 @@ hr{
 /* Módulo evaluación político =========== */
 .polValChart {
     width: 100%;
+    height: 300px;
 }
 .highcharts-title {font-family: 'Georgia', Times, serif;}
 
