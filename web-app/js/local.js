@@ -161,7 +161,6 @@ function printChart(divId){
                 }
             });
             var divHeight = $(divId).height();
-            console.log(divHeight)
             $('<div class="chart">')
                 .appendTo(divId)
                 .highcharts('StockChart', {
@@ -171,18 +170,18 @@ function printChart(divId){
                         zoomType: 'x',
                         height: divHeight,
                         events : {
-                            load : function () {
-                                // set up the updating of the chart each second
-                                var series = this.series;
-                                setInterval(function () {
-                                    $.getJSON(urlHighchart, function (activity) {
-                                        $.each(activity.datasets, function (i, dataset) {
-                                            series[i].setData(dataset.data);
-                                        });
-                                    });
-
-                                }, 1000);
-                            }
+                            //load : function () {
+                            //    // set up the updating of the chart each second
+                            //    var series = this.series;
+                            //    setInterval(function () {
+                            //        $.getJSON(urlHighchart, function (activity) {
+                            //            $.each(activity.datasets, function (i, dataset) {
+                            //                series[i].setData(dataset.data);
+                            //            });
+                            //        });
+                            //
+                            //    }, 1000);
+                            //}
                         }
                     },
                     title: {
