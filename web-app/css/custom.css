@@ -268,6 +268,7 @@ a:focus {color: #ff9431;}
     #main{
         padding-bottom: 0;
     }
+    #results-widget-content #real-time .tab-content{padding: 15px 0;}
 }
 #main.home {margin: 0 0 40px 0; padding: 0;}
 #main.home, #main.home .full-video {min-height: 495px;}
@@ -4215,6 +4216,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 }
 #results-widget-content #real-time .politician-info ul li abbr{border-bottom:none;cursor:auto;}
 #results-widget-content #real-time .politician-chart{}
+#results-widget-content #real-time .politician-chart.text-center .btn.btn-blue{padding: 3px 9px !important; font-size:11px;}
+#results-widget-content #real-time .politician-chart.text-center a{font-variant:normal;font-weight:normal;}
+
 #results-widget-content #real-time .polValChart{ width: 100%; height: 200px;}
 #results-widget-content #real-time .politician-info.text-center h4{font-variant:normal;font-weight:normal;font-size:16px;line-height: 0.5;}
 #results-widget-content #real-time .politician-info.text-center h5{color:#a8a8a8;font-weight:bold;font-size:12px;}
