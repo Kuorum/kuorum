@@ -44,7 +44,7 @@
                     <div class="tab-content">
                         <g:each in="${politicians}" var="politician">
                             <div class="tab-pane" id="tab-${politician.alias}">
-                                <div class="col-sm-5 hidden-xs text-center">
+                                <div class="col-sm-5 hidden-xs text-center politician-info">
                                     <h4>${politician.name}</h4>
                                     <h5><userUtil:roleName user="${politician}"/> </h5>
                                     <g:link mapping="userShow" params="${politician.encodeAsLinkProperties()}" class="btn btn-blue" target="_blank">
@@ -69,7 +69,7 @@
                                         </g:each>
                                     </ul>
                                 </div>
-                                <div class="col-sm-6 col-xs-9 text-center">
+                                <div class="col-sm-6 col-xs-9 text-center politician-chart">
                                     <h4 class="hidden-sm hidden-lg hidden-md text-center">
                                         <g:link mapping="userShow" params="${politician.encodeAsLinkProperties()}" class="btn btn-blue" target="_blank">
                                         <g:message code="search.list.seeMore"/> - ${politician.name}
