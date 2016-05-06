@@ -401,6 +401,8 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 
 #findRepresentatives .open-filter .dropdown-menu {margin:14px 0 0 2px}
 #findRepresentatives .open-filter a span +span {margin-left: 0.3em}
+#findRepresentatives .dropdown-menu > li > a {color: #a8a8a8; padding: 3px 7px;}
+#search-form .dropdown-menu > li > a {color: #a8a8a8; padding: 3px 7px;}
 
 .row.main.presskit {
     background: url('../images/eu-parliament.jpg') center center no-repeat #000;
