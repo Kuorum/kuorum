@@ -220,7 +220,7 @@ class KuorumMailService {
         <h2> Message related with ${cause}</h2>
         <p> ${message} </p>
         """
-        sendBatchMail(getFeedbackUser(), rawMessage, "${user.name} has been contacted with ${politician.name}")
+        sendBatchMail(getFeedbackUser(), rawMessage, "${user.name} has contacted with ${politician.name}")
     }
     def sendPoliticianContact(KuorumUser politician, KuorumUser user, String message, String cause){
         String contactLink = generateLink("userShow",user.encodeAsLinkProperties())
