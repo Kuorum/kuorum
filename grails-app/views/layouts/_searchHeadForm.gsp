@@ -10,8 +10,8 @@
 
             <div class="open-filter">
                 <a data-target="#" href="#" class="dropdown-toggle" id="open-filter-search" data-toggle="dropdown" role="button">
-                    <span class="sr-only">Filtra tu búsqueda</span> <span class="fa fa-navicon fa-lg"></span>
-                    %{--<span class="sr-only">Filtra tu búsqueda</span> <span class="fa fa-caret-down fa-lg"></span>--}%
+                    <span class="fa fa-navicon fa-lg"></span>
+                    <span class="sr-only">Filtra tu búsqueda</span>
                 </a>
                 <ul id="filters" class="dropdown-menu dropdown-menu-left" aria-labelledby="open-filter-search" role="menu">
                     <g:each in="${kuorum.core.model.search.SearchType.values()}" var="searchType">
@@ -29,14 +29,9 @@
                 <button class="btn search" type="submit"><span class="fa fa-search"></span></button>
             </div>
 
-
-            %{--<div id="filterSign"></div>--}%
-            <input type="hidden" name="searchType" id="srch-type" value="${params.searchType}" />
             <input type="hidden" name="type" id="srch-userType" value="${params.type?:kuorum.core.model.solr.SolrType.POLITICIAN}"/>
-            %{--<input type="hidden" name="wordOrg" id="srch-orgTerm" value="${params.word}"/>--}%
-            %{--<g:each in="${kuorum.core.model.solr.SolrType.values()}" var="type">--}%
-                %{--<input name="subTypes" type="checkbox" value="${type}" class="hidden" data-type="${type}" ${searchParams?.type==type?'checked':''}/>--}%
-            %{--</g:each>--}%
+            <input type="hidden" name="searchType" id="srch-type" value="${params.searchType}" />
+            <input type="hidden" name="regionCode" id="srch-regionCode" value="${params.regionCode}" />
 
         </div>
     </form>
@@ -57,13 +52,15 @@
                 noCache: false, //default is false, set to true to disable caching
                 onSearchStart: function (query) {
                     $('.loadingSearch').show()
+                    query.searchType = getSearchType()
+                    query.type = getFileterType()
                 },
                 onSearchComplete: function (query, suggestions) {
                     $('.loadingSearch').hide()
                 },
                 formatResult:function (suggestion, currentValue) {
                     var format = ""
-                    if (suggestion.type=="SUGGESTION"){
+                    if (suggestion.type=="SUGGESTION" || suggestion.type=="REGION"){
                         format =  suggestion.value
                     }else if(suggestion.type=="USER"){
                         format = "<img class='user-img' alt='"+suggestion.data.name+"' src='"+suggestion.data.urlAvatar+"'>"
@@ -80,13 +77,14 @@
                     window.location = urls.search+"?word="+encodeURIComponent(userText)
                 },
                 onSelect: function(suggestion){
-                    if(suggestion.type=="USER"){
-                        window.location = suggestion.data.url
-                    }else if(suggestion.type=="PROJECT"){
-                        window.location = suggestion.data.url
-                    }else{
-                        window.location = urls.search+"?word="+encodeURIComponent(suggestion.value)+"&type="+$("#srch-type").val();
+                    var location = urls.search
+                            +"?type="+$("#srch-type").val()
+                            +"&searchType="+getSearchType()
+                            +"&word="+encodeURIComponent(suggestion.value)
+                    if(suggestion.type=="REGION"){
+                        location +="&regionCode="+suggestion.data.iso3166_2
                     }
+                    window.location = location
                 },
                 triggerSelectOnValidInput:false,
                 deferRequestBy: 100 //miliseconds

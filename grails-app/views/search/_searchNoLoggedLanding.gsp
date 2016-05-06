@@ -42,6 +42,7 @@
                             <formUtil:input field="word" id="suggestDiscoverWord" cssClass="form-control" command="${searchParams}" labelCssClass="sr-only" showLabel="true"/>
 
                             <input type="hidden" name="searchType" id="srch-type" value="${searchParams.searchType}" />
+                            <input type="hidden" name="regionCode" id="srch-regionCode" value="${params.regionCode}" />
 
 
                             <script>
@@ -59,13 +60,14 @@
                                         noCache: false, //default is false, set to true to disable caching
                                         onSearchStart: function (query) {
                                             $('.loadingSearch').show()
+                                            query.searchType = getSearchType()
                                         },
                                         onSearchComplete: function (query, suggestions) {
                                             $('.loadingSearch').hide()
                                         },
                                         formatResult:function (suggestion, currentValue) {
                                             var format = ""
-                                            if (suggestion.type=="SUGGESTION"){
+                                            if (suggestion.type=="SUGGESTION" || suggestion.type=="REGION"){
                                                 format =  suggestion.value
                                             }else if(suggestion.type=="USER"){
                                                 format = "<img class='user-img' alt='"+suggestion.data.name+"' src='"+suggestion.data.urlAvatar+"'>"
@@ -79,16 +81,23 @@
                                             return format
                                         },
                                         searchUserText:function(userText){
-                                            window.location = location.protocol + '//' + location.host + location.pathname+"?type=POLITICIAN&word="+encodeURIComponent(userText)+"#results"
+                                            window.location = location.protocol + '//' + location.host + location.pathname
+                                                    +"?type=POLITICIAN"
+                                                    +"&searchType="+getSearchType()
+                                                    +"&word="+encodeURIComponent(userText)
+                                                    +"#results"
                                         },
                                         onSelect: function(suggestion){
-                                            if(suggestion.type=="USER"){
-                                                window.location = suggestion.data.url
-                                            }else if(suggestion.type=="PROJECT"){
-                                                window.location = suggestion.data.url
-                                            }else{
-                                                window.location = location.protocol + '//' + location.host + location.pathname+"?type=POLITICIAN&word="+encodeURIComponent(suggestion.value)+"#results"
+                                            var location = location.protocol + '//' + location.host + location.pathname
+                                                    +"?type=POLITICIAN"
+                                                    +"?searchType="+getSearchType()
+                                                    +"&word="+encodeURIComponent(suggestion.value)
+                                            if(suggestion.type=="REGION"){
+                                                location +="&regionCode="+suggestion.data.iso3166_2
                                             }
+                                            location += "#results";
+                                            window.location = location
+
                                         },
                                         triggerSelectOnValidInput:false,
                                         deferRequestBy: 100 //miliseconds

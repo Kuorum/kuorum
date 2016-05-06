@@ -95,8 +95,7 @@ class SearchController{
     }
 
     def search(SearchParams searchParams) {
-        Long maxElements = 10;
-        SolrResults docs = searchDocs(searchParams, maxElements)
+        SolrResults docs = searchDocs(searchParams, params)
         [docs:docs, searchParams:searchParams]
     }
     def searchLanding(SearchParams searchParams){
@@ -105,9 +104,9 @@ class SearchController{
             return;
         }
 
-        Long maxElements = 12;
         searchParams.type = SolrType.POLITICIAN
-        SolrResults docs = searchDocs(searchParams, maxElements)
+        searchParams.max = 12;
+        SolrResults docs = searchDocs(searchParams, params)
         if (docs.elements){
             render view:"searchLanding", model:[docs:docs, searchParams:searchParams]
         }else{
@@ -115,28 +114,43 @@ class SearchController{
         }
     }
 
-    private SolrResults searchDocs(SearchParams searchParams, Long max){
+    private SolrResults searchDocs(SearchParams searchParams, def params){
         SolrResults docs
         if (searchParams.hasErrors()){
             searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.POLITICIAN)
-            docs = searchSolrService.search(searchParams, searchParams.max)
-        }else{
-            Locale locale = localeResolver.resolveLocale(request)
-            AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
-            Region suggestedRegion = regionService.findMostAccurateRegion(searchParams.word,null, language)
-            List<Region> regions = []
-            if (suggestedRegion){
-               regions = regionService.findRegionsList(suggestedRegion)
-            }
-            if (regions){
-                searchParams.boostedRegions = regions.collect{it.iso3166_2}
-//                searchParams.word= "${searchParams.word} ${regions.collect{it.iso3166_2.replace('-', '')}.join(" ")}"
-            }
-            searchParams.max = max
             docs = searchSolrService.search(searchParams)
-            searchParams.word = params.word
+        }else{
+            searchParams = createRegionSearchParams(searchParams, params)
+            docs = searchSolrService.search(searchParams)
         }
         return docs;
+    }
+
+    private SearchParams createRegionSearchParams( SearchParams searchParams, def params){
+        SearchParams editedSearchParams = searchParams
+        if (searchParams.searchType == SearchType.REGION){
+            editedSearchParams = new SearchParams(searchParams.properties)
+            Locale locale = localeResolver.resolveLocale(request)
+            AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
+            Region suggestedRegion = null;
+            if (params.regionCode){
+                suggestedRegion = regionService.findRegionBySuggestedId(params.regionCode)
+            }
+            if (!suggestedRegion){
+                suggestedRegion = regionService.findMostAccurateRegion(searchParams.word,null, language)
+            }
+
+            List<Region> regions = []
+            if (suggestedRegion){
+                regions = regionService.findRegionsList(suggestedRegion)
+            }
+            if (regions){
+//                editedSearchParams.regionIsoCodes = regions.collect{it.iso3166_2}
+                editedSearchParams.boostedRegions = regions.collect{it.iso3166_2}
+                editedSearchParams.word = "";
+            }
+        }
+        return editedSearchParams;
     }
 
     def modifyFilters(SearchParams searchParams) {
@@ -155,7 +169,7 @@ class SearchController{
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "false")
             render template: '/search/searchElement', model:[docs:[], searchParams:searchParams, columnsCss:params.columnsCss?:'']
         }else{
-            SolrResults docs = searchDocs(searchParams, searchParams.max)
+            SolrResults docs = searchDocs(searchParams, params)
             response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${docs.numResults-searchParams.offset<=searchParams.max}")
             render template: '/search/searchElement', model:[docs:docs.elements, searchParams:searchParams, columnsCss:params.columnsCss?:'']
         }
@@ -182,7 +196,7 @@ class SearchController{
         Locale locale = localeResolver.resolveLocale(request)
         AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
         List<Region> regions = regionService.suggestRegions(suggestRegion.word, language)
-        Map suggestions =[suggestions:regions.collect{[type:"SUGGESTION", value:it.name, data:it]}]
+        Map suggestions =[suggestions:regions.collect{[type:"REGION", value:it.name, data:it]}]
         render suggestions as JSON
     }
 
