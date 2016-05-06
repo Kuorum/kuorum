@@ -360,23 +360,47 @@ header.landing.transp + .row.main.landing {margin-top:0}
 header.landing .navbar-form {margin: 3px 0 4px; width: 100%;}
 header.landing .form-control,
 header.landing .btn.search {background-color: transparent !important;}
-header.landing .form-control {height: 38px;}
+header.landing .form-control {height: 30px;}
 header.landing .btn.search {color: #afafaf; border: none;}
 header.landing .btn.search .fa-search {padding: 0;}
 header.landing.transp .navbar-form .input-group > .form-control {
-    border: 3px solid rgba(255,255,255,.4);
-    -moz-box-shadow: inset 0 0 0 rgba(0,0,0,0);
-    -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,0);
-    box-shadow: inset 0 0 0 rgba(0,0,0,0);
+    /*border: 3px solid rgba(255,255,255,.4);*/
+    /*-moz-box-shadow: inset 0 0 0 rgba(0,0,0,0);*/
+    /*-webkit-box-shadow: inset 0 0 0 rgba(0,0,0,0);*/
+    /*box-shadow: inset 0 0 0 rgba(0,0,0,0);*/
     color: #fff;
 }
 header.landing .navbar-collapse.collapse {background-color: #ffffff}
 header.landing.transp .navbar-collapse.collapse {background-color: transparent}
-header.landing .navbar-form .input-group > .form-control {border: 3px solid rgba(153,153,153,.4);}
-header.landing #search-form .input-group-btn {right: 34px;}
+header.landing .navbar-form .input-group > .form-control {  border:0px;}
+header.landing .navbar-form .input-group  input {
+    width: 70%;
+    padding:0 0 0 6px;
+    /*width:calc(100% - 40px);*/
+}
+header.landing #search-form .input-group-btn {}
+header.landing #search-form .open-filter {
+    float:left;
+    padding:3px 5px 3px 10px;
+    width:40px;
+    background-color: rgba(219,219,219,1);
+}
+header.landing #search-form .open-filter >a,
+header.landing #search-form .open-filter >a:focus{color:#fff; text-decoration: none}
+
 header.landing.transp .form-control::-moz-placeholder {color:#fff; opacity:1}
 header.landing.transp .form-control:-ms-input-placeholder{color:#fff}
 header.landing.transp .form-control::-webkit-input-placeholder{color:#fff}
+
+header.landing.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4);  }
+
+.open-filter .dropdown-menu{top:32px;left:-3px;}
+.open-filter .dropdown-menu li{text-align: left !important; padding: 0.3em !important;}
+.open-filter .dropdown-menu > li:first-child{border:0px;}
+.open-filter .dropdown-menu > li:first-child{border:0px;}
+
+#findRepresentatives .open-filter .dropdown-menu {margin:14px 0 0 2px}
+#findRepresentatives .open-filter a span +span {margin-left: 0.3em}
 
 .row.main.presskit {
     background: url('../images/eu-parliament.jpg') center center no-repeat #000;
@@ -575,7 +599,7 @@ header.landing.transp .form-control::-webkit-input-placeholder{color:#fff}
 .box .dropdown-menu > li:focus a.btn {text-decoration: none;}
 .btn:hover, .btn:active, .btn:focus {color: #fff;}
 .btn.search {
-    height: 34px;
+    height: 30px;
     padding: 0 10px !important;
     background-color: #fff !important;
     border-top: 2px solid #dbdbdb;
@@ -594,19 +618,20 @@ header.landing.transp .form-control::-webkit-input-placeholder{color:#fff}
 }
 .btn.search .fa-search {padding-bottom: 3px;}
 .navbar-form .input-group > .form-control {
-    border: 2px solid #dbdbdb;
-    border-right: none;
-    -moz-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
-    -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
-    box-shadow: inset 0 0 0 rgba(0,0,0,.9);
     padding: 6px 6px 6px 10px;
-    border-radius: 3px !important;
     font-family: 'FontAwesome', Georgia, serif;
     -webkit-appearance: none;
 }
-#search-form .input-group {width: 100%;}
+#search-form .input-group {
+    width: 100%;
+    border: 3px solid #dbdbdb;
+    -moz-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
+    -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,.9);
+    box-shadow: inset 0 0 0 rgba(0,0,0,.9);
+    border-radius: 3px;
+}
 #search-form .input-group > #filterSign {position: absolute; right: 28px; top: 9px; z-index: 99; color: #a8a8a8;}
-#search-form .input-group-btn {right: 29px; position: absolute; top: 0; z-index: 9;}
+#search-form .input-group-btn {float:right; z-index: 9;right: 40px;}
 
 
 
@@ -1407,8 +1432,29 @@ video#bgvid {
 .landing.editors .full-video h2 {font-size: 25px; font-size: 2.5rem; font-family: Arial,Helvetica,sans-serif; margin-bottom: 25px;}
 .landing.editors .full-video .btn.btn-white {font-size: 25px; font-size: 2.5rem;}
 
-#main.landing.search .form-inline.searchRep .form-group input {width: 290px; margin: 0 auto; line-height: 48px; height: 48px;}
+#main.landing.search .form-inline.searchRep .form-group input {
+    width: 90%; margin: 0 auto 0 3em; line-height: 48px; height: 48px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+#main.landing.search .form-inline.searchRep .form-group input:focus {border:1px solid #cfcfcf;}
 #main.landing.search .form-inline.searchRep .btn {width: 290px; border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important;}
+
+#findRepresentatives .open-filter{
+    position:absolute;
+    z-index:10;
+    padding:12px;
+    /*width:13em;*/
+    background-color: rgba(219,219,219,1);
+    color:#ccc;
+    text-align: left;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+#findRepresentatives .open-filter a{color:#666;}
+#findRepresentatives .open-filter a:focus,
+#findRepresentatives .open-filter a:hover{text-decoration: none}
+#findRepresentatives .open-filter .fa-caret-down{float: right; margin-top: 5px;}
 
 .main.special .no-results {text-align: center;}
 .main.special .no-results h1,
@@ -4369,7 +4415,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (min-width: 768px) {
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 195px;}
+    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 235px;}
     .box-ppal.profile .activity > li:nth-child(3) {border-right: none;}
     #info-sup-scroll .btn.follow {position: relative; top: 5px; right: auto;}
     .box-ppal.profile .activity > li {width: 16%; margin-bottom: 0;}
@@ -4672,15 +4718,16 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* LANDING */
     #main.landing .full-video h1 {font-size: 47px; margin-top: 10%;}
-    .landing .full-video .container-fluid form {margin-bottom: 7%;}
+    .landing .full-video .container-fluid form {margin-bottom: 8em;}
     .landing .full-video .container-fluid form fieldset {padding: 25px;}
-    .landing .full-video .container-fluid .form-inline .form-group {margin-right: 2.5%; width: 28%;}
+    .landing .full-video .container-fluid .form-inline .form-group {margin-right: 2.5%; width: 50%;}
     .landing .full-video .container-fluid form input.input-lg {max-width: none;}
     .landing .full-video .btn.btn-white {margin-bottom: 22px;}
 
-    #main.landing.search .form-inline.searchRep .form-group input {width: 100%;}
+    #main.landing.search .form-inline.searchRep .form-group input {width: 100%;    border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;}
     #main.landing.search .form-inline.searchRep .form-group {margin-right: 0;}
-    #main.landing.search .form-inline.searchRep .btn {margin-left: -8px;}
+    #main.landing.search .form-inline.searchRep .btn {margin-left: 1em;}
 
     .main.special.landing .homeSub h1,
     .homeSub > .row > h1,
@@ -4958,7 +5005,12 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* LANDING */
     .main.special.landing .homeSub ul li { width: 20%; height:85px; }
-    .landing .full-video .container-fluid .form-inline .form-group { width: 33%; }
+    .landing .full-video .container-fluid .form-inline .form-group { width: 50%; }
+    .landing .full-video .container-fluid .form-inline .form-group {margin-right: 2.5%; width: 50%;}
+    #main.landing.search .form-inline.searchRep .form-group input {width: 100%;margin-left: 157px;}
+    #findRepresentatives .open-filter{width: 157px;}
+    #main.landing.search .form-inline.searchRep .btn{margin-left:153px;}
+
     .row.main.presskit section { padding: 120px 0; }
     .row.main.presskit { background-position: center -240px; }
     .row.main.presskit h1 { font-size: 2.2rem; line-height: 1.2;}
@@ -5018,15 +5070,15 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     video#bgvid {display: block;}
     #main.landing .full-video h1 {margin-top: 12%;}
-    .landing .full-video .container-fluid form {margin-bottom: 3%;}
+    .landing .full-video .container-fluid form {margin-bottom: 8em;}
     #main.landing.mainEditors .full-video {background-position: right -22px;}
 
     .saveTime, .saveTime li {padding: 0 30px;}
     .saveTime li p {font-size: 18px; font-size: 1.8rem;}
     .saveTime li h2 {font-size: 20px; font-size: 1.9rem;}
 
-    #main.landing.search .form-inline.searchRep .form-group {width: calc(100% - 294px); margin-right: 0;}
-    #main.landing.search .form-inline.searchRep .btn {margin-left: -10px;}
+    /*#main.landing.search .form-inline.searchRep .form-group {width: calc(100% - 294px); margin-right: 0;}*/
+    /*#main.landing.search .form-inline.searchRep .btn {margin-left: -10px;}*/
 
 }
 

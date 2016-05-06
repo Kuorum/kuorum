@@ -8,6 +8,17 @@
     >
         <div class="input-group">
 
+            <div class="open-filter">
+                <a data-target="#" href="#" class="dropdown-toggle" id="open-filter-search" data-toggle="dropdown" role="button">
+                    <span class="sr-only">Filtra tu búsqueda</span> <span class="fa fa-navicon fa-lg"></span>
+                    %{--<span class="sr-only">Filtra tu búsqueda</span> <span class="fa fa-caret-down fa-lg"></span>--}%
+                </a>
+                <ul id="filters" class="dropdown-menu dropdown-menu-left" aria-labelledby="open-filter-search" role="menu">
+                    <li><a href="#" class="searchAll"      ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder')}</a></li>
+                    <li><a href="#" class="searchByRegion" ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder.region')}</a></li>
+                    <li><a href="#" class="searchByName"   ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder.name')}</a></li>
+                </ul>
+            </div>
             <input type="text" class="form-control" placeholder="${message(code:'search.head.placeHolder')}" name="word" id="srch-term" value="${params.word}">
             <div class="input-group-btn">
                 <button class="btn search" type="submit"><span class="fa fa-search"></span></button>
@@ -21,14 +32,6 @@
                 %{--<input name="subTypes" type="checkbox" value="${type}" class="hidden" data-type="${type}" ${searchParams?.type==type?'checked':''}/>--}%
             %{--</g:each>--}%
 
-
-
-            %{--<a data-target="#" href="#" class="dropdown-toggle" id="open-filter-search" data-toggle="dropdown" role="button"><span class="sr-only">Filtra tu búsqueda</span> <span class="fa fa-caret-down fa-lg"></span></a>--}%
-            %{--<ul id="filters" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-filter-search" role="menu">--}%
-                %{--<li><a href="#" class="entodo">${message(code:'search.head.placeHolder')}</a></li>--}%
-                %{--<li><a href="#" class="enleyes">${message(code:'search.head.placeHolder.projects')}<span class="fa fa-briefcase"></span></a></li>--}%
-                %{--<li><a href="#" class="enpersonas">${message(code:'search.head.placeHolder.users')}<span class="fa fa-user"></span></a></li>--}%
-            %{--</ul>--}%
         </div>
     </form>
     <script>

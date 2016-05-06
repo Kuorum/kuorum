@@ -17,7 +17,23 @@
                     %{--<g:link mapping="register" class="btn btn-white"><g:message code="login.head.register"/> </g:link>--}%
                     <a href="#results" class="btn btn-white smooth"><g:message code="search.noLogged.landing.examplesButton"/></a>
                     <g:form mapping="searcherLanding" method="GET" name="findRepresentatives" id="findRepresentatives" class="form-inline searchRep" role="search" fragment="results">
-                        <div class="form-group">
+                        <div class="form-group input-group">
+
+                            <div class="open-filter">
+                                <a data-target="#" href="#" class="dropdown-toggle" id="open-filter-search" data-toggle="dropdown" role="button">
+                                    <span class="fa fa-navicon fa-lg"></span>
+                                    <span class="hidden-xs hidden-sm">
+                                       <g:message code="search.head.placeHolder.all"/>
+                                    </span>
+                                    <span class="hidden-xs hidden-sm fa fa-caret-down fa-lg"></span>
+                                </a>
+                                <ul id="filters" class="dropdown-menu dropdown-menu-left" aria-labelledby="open-filter-search" role="menu">
+                                    <li><a href="#" class="searchAll"      ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder.all')}</a></li>
+                                    <li><a href="#" class="searchByRegion" ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder.region')}</a></li>
+                                    <li><a href="#" class="searchByName"   ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder.name')}</a></li>
+                                </ul>
+                            </div>
+
                             <formUtil:input field="word" id="suggestDiscoverWord" cssClass="form-control" command="${searchParams}" labelCssClass="sr-only" showLabel="true"/>
 
 
