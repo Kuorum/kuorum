@@ -4215,7 +4215,10 @@ section.widget header {background-color: #ff9431; padding: 12px; color: #fff; po
 section.widget.dark header {background-color: #666;}
 section.widget header > h1 {font-family: 'Georgia'; font-size: 18px; padding: 0 50px 0 0; margin: 0;}
 section.widget header > a {color: #fff; text-transform: uppercase;; text-decoration: underline; position: absolute; right: 8px; bottom: 3px; font-size: 9px; font-size: .9rem;}
-section.widget footer {text-align: center;}
+section.widget footer {text-align: center;text-align: center; height: 40px; margin-bottom: 18px; margin-top: 5px; border-bottom: 1px solid #e1e1e1;}
+section.widget footer h1 {margin: 0; padding: 0; text-align: center;}
+section.widget footer h1 .navbar-brand {float: none; display: block; margin: 0 auto;}
+section.widget footer h1 a img{width:100px;}
 section.widget footer a {font-size: 14px; font-size: 1.4rem; color: #545454; text-decoration: none; text-transform: uppercase;}
 section.widget footer a:hover,
 section.widget footer a:focus {text-decoration: underline;}
@@ -4236,13 +4239,14 @@ section.widget .user-list-followers > li > a {float: left; max-width: calc(100% 
 section.widget .user-list-followers > li > a:hover,
 section.widget .user-list-followers > li > a:focus {text-decoration: underline;;}
 
-body.widget > header {text-align: center; height: 40px; margin-bottom: 25px; border-bottom: 1px solid #e1e1e1;}
+body.widget > header {text-align: center; height: 40px; margin-bottom: 25px; padding-top: 10px; border-top: 1px solid #e1e1e1;}
 body.widget > header h1 {margin: 0; padding: 0; text-align: center;}
 body.widget > header h1 .navbar-brand {float: none; display: block; margin: 0 auto;}
+body.widget > header h1 a img{width:100px;}
 body.widget > footer {background-color: #f8f8f8;}
 body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
-#results-widget-content {padding: 0 5px;}
+#results-widget-content {padding: 5px;}
 #results-widget-content section {border:1px solid #f0f0f0; margin-bottom: 10px;}
 /*#results-widget-content #evolution {height: 346px; }*/
 #results-widget-content #valuations-widget-content {float: left;}

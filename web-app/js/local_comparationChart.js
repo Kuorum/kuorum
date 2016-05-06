@@ -177,11 +177,3 @@ function printComparative(){
         });
     }
 }
-function formatTooltipDate(date) {
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    hours = hours < 10 ? '0'+hours : hours;
-    var strTime = hours + ':' + minutes
-    return date.getDate()+"-"+(date.getMonth()+1) + "-" + date.getFullYear() + "  " + strTime;
-}

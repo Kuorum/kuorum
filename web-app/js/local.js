@@ -254,16 +254,21 @@ function printChart(divId){
                         offset: 20
                     },
                     tooltip: {
-                        positioner: function () {
-                            return {
-                                x: 5,
-                                y: -11
-                            };
+                        formatter: function () {
+                            var date = new Date(this.x)
+                            var s = '<b>'+formatTooltipDate(date)+'</b>';
+                            s += '<br/> -----------'; //CHAPU BR
+
+                            $.each(this.points, function () {
+                                s += '<br/><span style="color:'+this.series.color+'">' + this.series.name + '</span><span style="float:right">: ' +
+                                    Math.floor(this.y*100)/100 + '</span>';
+                            });
+                            return s;
                         },
-                        backgroundColor: 'rgba(255, 255, 255, 1)',
-                        borderWidth: 0,
-                        pointFormat: '<span style="color:{point.color}"> {series.name}: <b>{point.y}</b></span>',
-                        //pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
+                        backgroundColor: 'rgba(240, 240, 240, 0.8)',
+                        borderWidth: 1,
+                        borderRadius:15,
+                        borderColor:'#666',
                         headerFormat: '',
                         shadow: false,
                         style: {
@@ -528,6 +533,16 @@ $(document).ready(function() {
         moveToHash($(this).attr("href"))
     });
     moveToHash(window.location.hash)
+
+    // SEARCH FILTERS
+    $('.open-filter #filters a').on("click", function(e){
+        e.preventDefault()
+        var link = $(this).attr("href")
+        var value = link.substr(1);
+        var text = $(this).find(".search-filter-text").html()
+        $("input[name=searchType]").val(value)
+        $(".open-filter > a > span + span:first").html(text)
+    })
 
     // setTimeout(prepareProgressBar, 500)
     // prepareProgressBar();  lo he pasado a custom.js
@@ -978,4 +993,13 @@ function guid() {
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
         s4() + '-' + s4() + s4() + s4();
+}
+
+function formatTooltipDate(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    hours = hours < 10 ? '0'+hours : hours;
+    var strTime = hours + ':' + minutes
+    return date.getDate()+"-"+(date.getMonth()+1) + "-" + date.getFullYear() + "  " + strTime;
 }

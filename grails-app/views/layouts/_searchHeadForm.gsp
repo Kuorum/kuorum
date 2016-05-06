@@ -14,9 +14,14 @@
                     %{--<span class="sr-only">Filtra tu búsqueda</span> <span class="fa fa-caret-down fa-lg"></span>--}%
                 </a>
                 <ul id="filters" class="dropdown-menu dropdown-menu-left" aria-labelledby="open-filter-search" role="menu">
-                    <li><a href="#" class="searchAll"      ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder')}</a></li>
-                    <li><a href="#" class="searchByRegion" ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder.region')}</a></li>
-                    <li><a href="#" class="searchByName"   ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder.name')}</a></li>
+                    <g:each in="${kuorum.core.model.search.SearchType.values()}" var="searchType">
+                        <li>
+                            <a href="#${searchType}" class="search-${searchType}">
+                                <span class="fa fa-navicon fa-lg"></span>
+                                <span class="search-filter-text">${message(code:'search.head.placeHolder.'+searchType)}</span>
+                            </a>
+                        </li>
+                    </g:each>
                 </ul>
             </div>
             <input type="text" class="form-control" placeholder="${message(code:'search.head.placeHolder')}" name="word" id="srch-term" value="${params.word}">
@@ -26,7 +31,8 @@
 
 
             %{--<div id="filterSign"></div>--}%
-            <input type="hidden" name="type" id="srch-type" value="${params.type?:kuorum.core.model.solr.SolrType.POLITICIAN}"/>
+            <input type="hidden" name="searchType" id="srch-type" value="${params.searchType}" />
+            <input type="hidden" name="type" id="srch-userType" value="${params.type?:kuorum.core.model.solr.SolrType.POLITICIAN}"/>
             %{--<input type="hidden" name="wordOrg" id="srch-orgTerm" value="${params.word}"/>--}%
             %{--<g:each in="${kuorum.core.model.solr.SolrType.values()}" var="type">--}%
                 %{--<input name="subTypes" type="checkbox" value="${type}" class="hidden" data-type="${type}" ${searchParams?.type==type?'checked':''}/>--}%
@@ -35,13 +41,16 @@
         </div>
     </form>
     <script>
-        function getFileterType(){
+        function getSearchType(){
             return $("#srch-type").val()
+        }
+        function getFileterType(){
+            return $("#srch-userType").val()
         }
         $(function(){
             var a = $('#srch-term').autocomplete({
                 paramName:"word",
-                params:{type:getFileterType},
+                params:{type:getFileterType(), searchType:getSearchType()},
                 serviceUrl:urls.searchSuggest,
                 minChars:1,
                 width:330,

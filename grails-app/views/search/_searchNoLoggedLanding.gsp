@@ -23,25 +23,36 @@
                                 <a data-target="#" href="#" class="dropdown-toggle" id="open-filter-search" data-toggle="dropdown" role="button">
                                     <span class="fa fa-navicon fa-lg"></span>
                                     <span class="hidden-xs hidden-sm">
-                                       <g:message code="search.head.placeHolder.all"/>
+                                       <g:message code="search.head.placeHolder.${searchParams.searchType}"/>
                                     </span>
                                     <span class="hidden-xs hidden-sm fa fa-caret-down fa-lg"></span>
                                 </a>
                                 <ul id="filters" class="dropdown-menu dropdown-menu-left" aria-labelledby="open-filter-search" role="menu">
-                                    <li><a href="#" class="searchAll"      ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder.all')}</a></li>
-                                    <li><a href="#" class="searchByRegion" ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder.region')}</a></li>
-                                    <li><a href="#" class="searchByName"   ><span class="fa fa-navicon fa-lg"></span> ${message(code:'search.head.placeHolder.name')}</a></li>
+                                    <g:each in="${kuorum.core.model.search.SearchType.values()}" var="searchType">
+                                        <li>
+                                            <a href="#${searchType}" class="search-${searchType}">
+                                                <span class="fa fa-navicon fa-lg"></span>
+                                                <span class="search-filter-text">${message(code:'search.head.placeHolder.'+searchType)}</span>
+                                            </a>
+                                        </li>
+                                    </g:each>
                                 </ul>
                             </div>
 
                             <formUtil:input field="word" id="suggestDiscoverWord" cssClass="form-control" command="${searchParams}" labelCssClass="sr-only" showLabel="true"/>
 
+                            <input type="hidden" name="searchType" id="srch-type" value="${searchParams.searchType}" />
+
 
                             <script>
+                                function getSearchType(){
+                                    console.log($("#srch-type").val())
+                                    return $("#srch-type").val()
+                                }
                                 $(function(){
                                     var a = $('#suggestDiscoverWord').autocomplete({
                                         paramName:"word",
-                                        params:{type:'POLITICIAN'},
+                                        params:{type:'POLITICIAN', searchType:getSearchType()},
                                         serviceUrl:urls.searchSuggest,
                                         minChars:1,
                                         width:330,
