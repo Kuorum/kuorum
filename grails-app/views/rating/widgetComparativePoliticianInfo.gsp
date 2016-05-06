@@ -2,19 +2,10 @@
 
     <r:require module="comparativeChart"/>
 
-
-    <header>
-        <h1>
-            <a href="https://kuorum.org" id="brand" class="navbar-brand">
-                <img src="${resource(dir: 'images', file: 'logo@2x.png')}" alt="Kuorum.org">
-                <span class="hidden">Kuorum.org</span>
-            </a>
-        </h1>
-    </header>
     <section id="results-widget-content" class="clearfix">
         <section id="evolution" class="widget dark">
             <header>
-                <h1>Evolución de la valoración de líderes políticos</h1>
+                <h1><g:message code="widget.politician.results.title"/></h1>
             </header>
             <div id="comparativeValChart" data-urlJson="${createLink(mapping: 'comparingPoliticianRate', absolute: true, params:params)}">
 
@@ -85,32 +76,40 @@
             </div>
             <!-- /tabs -->
         </section>
-        <section id="valuations-widget-content" class="widget">
-            <div id="valuation-widget"
-                 data-type="ratePolitician"
-                 data-userAlias="sanchezcastejon,marianorajoy,pablo_iglesias_,albert_rivera,agarzon"
-                 data-width="100%"
-                 data-height="300px"></div>
-            <script type="text/javascript" src="https://kuorum.org/widget.js?divId=valuation-widget"></script>
-        </section>
+        %{--<section id="valuations-widget-content" class="widget">--}%
+            %{--<div id="valuation-widget"--}%
+                 %{--data-type="ratePolitician"--}%
+                 %{--data-userAlias="sanchezcastejon,marianorajoy,pablo_iglesias_,albert_rivera,agarzon"--}%
+                 %{--data-width="100%"--}%
+                 %{--data-height="300px"></div>--}%
+            %{--<script type="text/javascript" src="https://kuorum.org/widget.js?divId=valuation-widget"></script>--}%
+        %{--</section>--}%
     </section>
-    <footer>
-        <div class="container-fluid">
-            <section class="links">
-                <ul>
-                    <li><g:link absolute="true" mapping="footerTechnology" target="_blank"><g:message code="layout.footer.tech"/></g:link> </li>
-                    <li><g:link absolute="true" mapping="footerPoliticians" target="_blank"><g:message code="layout.footer.politicians"/></g:link></li>
-                    <li><g:link absolute="true" mapping="footerCitizens" target="_blank"><g:message code="layout.footer.citizens"/></g:link></li>
-                    <li><g:link absolute="true" mapping="footerDevelopers" target="_blank"><g:message code="layout.footer.editors"/></g:link></li>
-                    <li><g:link absolute="true" mapping="footerAboutUs" target="_blank"><g:message code="layout.footer.aboutUs"/></g:link></li>
-                    <li><g:link absolute="true" mapping="footerInformation" target="_blank"><g:message code="layout.footer.pressTitle"/></g:link></li>
-                    <li><a href="http://kuorumorg.tumblr.com" target="_blank" target="_blank"><g:message code="layout.footer.blog"/></a></li>
-                    <li><g:link absolute="true" mapping="footerPrivacyPolicy" target="_blank"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
-                    <li><g:link absolute="true" mapping="footerTermsUse" target="_blank"><g:message code="layout.footer.termsUse"/></g:link></li>
-                </ul>
-            </section>
-        </div><!-- /.container-fluid - da ancho máximo y centra -->
-    </footer>
+    %{--<footer>--}%
+        %{--<div class="container-fluid">--}%
+            %{--<section class="links">--}%
+                %{--<ul>--}%
+                    %{--<li><g:link absolute="true" mapping="footerTechnology" target="_blank"><g:message code="layout.footer.tech"/></g:link> </li>--}%
+                    %{--<li><g:link absolute="true" mapping="footerPoliticians" target="_blank"><g:message code="layout.footer.politicians"/></g:link></li>--}%
+                    %{--<li><g:link absolute="true" mapping="footerCitizens" target="_blank"><g:message code="layout.footer.citizens"/></g:link></li>--}%
+                    %{--<li><g:link absolute="true" mapping="footerDevelopers" target="_blank"><g:message code="layout.footer.editors"/></g:link></li>--}%
+                    %{--<li><g:link absolute="true" mapping="footerAboutUs" target="_blank"><g:message code="layout.footer.aboutUs"/></g:link></li>--}%
+                    %{--<li><g:link absolute="true" mapping="footerInformation" target="_blank"><g:message code="layout.footer.pressTitle"/></g:link></li>--}%
+                    %{--<li><a href="http://kuorumorg.tumblr.com" target="_blank" target="_blank"><g:message code="layout.footer.blog"/></a></li>--}%
+                    %{--<li><g:link absolute="true" mapping="footerPrivacyPolicy" target="_blank"><g:message code="layout.footer.privacyPolicy"/></g:link></li>--}%
+                    %{--<li><g:link absolute="true" mapping="footerTermsUse" target="_blank"><g:message code="layout.footer.termsUse"/></g:link></li>--}%
+                %{--</ul>--}%
+            %{--</section>--}%
+        %{--</div><!-- /.container-fluid - da ancho máximo y centra -->--}%
+    %{--</footer>--}%
+    <header>
+        <h1>
+            <a href="https://kuorum.org" id="brand" class="navbar-brand">
+                <img src="${resource(dir: 'images', file: 'logo@3x.png')}" alt="Kuorum.org">
+                <span class="hidden">Kuorum.org</span>
+            </a>
+        </h1>
+    </header>
     </body>
 
 </g:applyLayout>
