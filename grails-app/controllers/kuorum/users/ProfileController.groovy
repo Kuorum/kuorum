@@ -339,7 +339,7 @@ class ProfileController {
             render view:"configurationEmails", model: [command:command,user:user]
             return
         }
-        user.availableMails = MailType.values().findAll{command.availableMails.contains(it.mailGroup)}
+        user.availableMails = MailType.values().findAll{command.availableMails?.contains(it.mailGroup)}
         kuorumUserService.updateUser(user)
         flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'
