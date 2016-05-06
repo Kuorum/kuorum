@@ -44,8 +44,16 @@
                     </li>
                 </g:each>
             </ul>
+            %{--<footer>--}%
+                %{--<a href="https://kuorum.org" target="_blank">Ver resultados</a>--}%
+            %{--</footer>--}%
             <footer>
-                <a href="https://kuorum.org" target="_blank">Ver resultados</a>
+                <h1>
+                    <a href="https://kuorum.org" id="brand" class="navbar-brand" target="_blank">
+                        <img src="${resource(dir: 'images', file: 'logo@3x.png')}" alt="Kuorum.org">
+                        <span class="hidden">Kuorum.org</span>
+                    </a>
+                </h1>
             </footer>
         </section>
     </body>
