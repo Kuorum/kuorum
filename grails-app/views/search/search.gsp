@@ -48,6 +48,8 @@
     >
         <input type="hidden" name="word" value="${searchParams.word}" />
         <input type="hidden" name="type" value="${searchParams.type}" />
+        <input type="hidden" name="searchType" value="${searchParams.searchType}" />
+        <input type="hidden" name="regionCode" value="${params.regionCode}" />
     </nav:loadMoreLink>
 </content>
 
@@ -90,6 +92,8 @@
             %{--</li>--}%
         </ul>
         <input type="hidden" name="word" value="${searchParams.word}" />
+        <input type="hidden" name="searchType" value="${searchParams.searchType}" />
+        <input type="hidden" name="regionCode" value="${params.regionCode}" />
     </g:form>
 </content>
 </html>

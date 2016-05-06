@@ -22,7 +22,7 @@ class SearchParams extends Pagination implements Serializable{
     /**
      * Filter by type: PROJECT, POST, USER
      */
-    SolrType type
+    SolrType type = SolrType.POLITICIAN
 
     SearchType searchType = SearchType.ALL
 

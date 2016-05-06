@@ -138,6 +138,7 @@ class SearchController{
             }
             if (!suggestedRegion){
                 suggestedRegion = regionService.findMostAccurateRegion(searchParams.word,null, language)
+                params.regionCode = suggestedRegion.iso3166_2 //Chapu para el menu lateral
             }
 
             List<Region> regions = []

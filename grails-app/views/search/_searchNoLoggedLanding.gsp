@@ -64,6 +64,7 @@
                                         },
                                         onSearchComplete: function (query, suggestions) {
                                             $('.loadingSearch').hide()
+                                            $('#srch-regionCode').val("");
                                         },
                                         formatResult:function (suggestion, currentValue) {
                                             var format = ""

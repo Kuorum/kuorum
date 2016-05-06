@@ -57,6 +57,7 @@
                 },
                 onSearchComplete: function (query, suggestions) {
                     $('.loadingSearch').hide()
+                    $('#srch-regionCode').val("");
                 },
                 formatResult:function (suggestion, currentValue) {
                     var format = ""
@@ -78,7 +79,7 @@
                 },
                 onSelect: function(suggestion){
                     var location = urls.search
-                            +"?type="+$("#srch-type").val()
+                            +"?type="+getFileterType()
                             +"&searchType="+getSearchType()
                             +"&word="+encodeURIComponent(suggestion.value)
                     if(suggestion.type=="REGION"){
