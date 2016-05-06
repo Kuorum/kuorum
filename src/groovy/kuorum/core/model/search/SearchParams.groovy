@@ -24,6 +24,8 @@ class SearchParams extends Pagination implements Serializable{
      */
     SolrType type
 
+    SearchType searchType = SearchType.ALL
+
     CommissionType commissionType
 
     List<String> regionIsoCodes;
@@ -39,5 +41,6 @@ class SearchParams extends Pagination implements Serializable{
         offset min: 0L
         regionIsoCodes nullable:true
         filteredUserIds nullable:true
+        searchType nullable:true
     }
 }

@@ -529,6 +529,16 @@ $(document).ready(function() {
     });
     moveToHash(window.location.hash)
 
+    // SEARCH FILTERS
+    $('.open-filter #filters a').on("click", function(e){
+        e.preventDefault()
+        var link = $(this).attr("href")
+        var value = link.substr(1);
+        var text = $(this).find(".search-filter-text").html()
+        $("input[name=searchType]").val(value)
+        $(".open-filter > a > span + span:first").html(text)
+    })
+
     // setTimeout(prepareProgressBar, 500)
     // prepareProgressBar();  lo he pasado a custom.js
 

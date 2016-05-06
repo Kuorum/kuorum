@@ -5,6 +5,7 @@ import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.core.model.search.SearchParams
+import kuorum.core.model.search.SearchType
 import kuorum.core.model.search.SuggestRegion
 import kuorum.core.model.solr.*
 import kuorum.web.constants.WebConstants
@@ -166,10 +167,14 @@ class SearchController{
             render ([] as JSON)
             return;
         }
-        SolrAutocomplete res = searchSolrService.suggest(searchParams)
-        init()
-        JSON.use('suggest') {
-            render res as JSON
+        if (searchParams.searchType == SearchType.REGION){
+            return suggestRegions(new SuggestRegion(word: searchParams.word))
+        }else{
+            SolrAutocomplete res = searchSolrService.suggest(searchParams)
+            init()
+            JSON.use('suggest') {
+                render res as JSON
+            }
         }
     }
 
