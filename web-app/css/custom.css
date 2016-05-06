@@ -5063,7 +5063,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (min-width: 1024px) {
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form {margin: 3px 4px 4px 120px;}
+    header.landing .navbar-form {margin: 3px 4px 4px 190px;}
     #main {min-height: 642px;}
     .list-team > li {width: 310px;}
     .list-updates > li {width: 314px;}
