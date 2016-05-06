@@ -631,7 +631,7 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     border-radius: 3px;
 }
 #search-form .input-group > #filterSign {position: absolute; right: 28px; top: 9px; z-index: 99; color: #a8a8a8;}
-#search-form .input-group-btn {float:right; z-index: 9;right: 40px;}
+#search-form .input-group-btn {float:right; z-index: 9;right: 33px;}
 
 
 
