@@ -4722,9 +4722,11 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* LANDING */
     #main.landing .full-video h1 {font-size: 47px; margin-top: 10%;}
-    .landing .full-video .container-fluid form {margin-bottom: 8em;}
+    .landing .full-video .container-fluid form {margin-bottom: 7%;}
+    .landing .full-video .container-fluid form#findRepresentatives {margin-bottom: 8em;}
     .landing .full-video .container-fluid form fieldset {padding: 25px;}
-    .landing .full-video .container-fluid .form-inline .form-group {margin-right: 2.5%; width: 50%;}
+    .landing .full-video .container-fluid .form-inline .form-group {margin-right: 2.5%; width: 28%;}
+    .landing .full-video .container-fluid #findRepresentatives.form-inline .form-group {margin-right: 2.5%; width: 50%;}
     .landing .full-video .container-fluid form input.input-lg {max-width: none;}
     .landing .full-video .btn.btn-white {margin-bottom: 22px;}
 
@@ -5009,11 +5011,14 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* LANDING */
     .main.special.landing .homeSub ul li { width: 20%; height:85px; }
-    .landing .full-video .container-fluid .form-inline .form-group { width: 50%; }
-    .landing .full-video .container-fluid .form-inline .form-group {margin-right: 2.5%; width: 50%;}
-    #main.landing.search .form-inline.searchRep .form-group input {width: 100%;margin-left: 157px;}
-    #findRepresentatives .open-filter{width: 157px;}
-    #main.landing.search .form-inline.searchRep .btn{margin-left:153px;}
+    .landing .full-video .container-fluid .form-inline .form-group { width: 33%; }
+
+    /* LANGIN SEARCH CHAPU DE INA */
+    .landing .full-video .container-fluid #findRepresentatives.form-inline .form-group {margin-right: 2.5%; width: 50%;}
+    .landing .full-video .container-fluid #findRepresentatives.form-inline.searchRep .form-group input {width: 100%;margin-left: 157px;}
+    .landing .full-video .container-fluid #findRepresentatives .open-filter{width: 157px;}
+    .landing .full-video .container-fluid #findRepresentatives.form-inline.searchRep .btn{margin-left: 129px;}
+    /*  END LANDING SEARCH CHAPU DE INA */
 
     .row.main.presskit section { padding: 120px 0; }
     .row.main.presskit { background-position: center -240px; }
@@ -5074,7 +5079,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     video#bgvid {display: block;}
     #main.landing .full-video h1 {margin-top: 12%;}
-    .landing .full-video .container-fluid form {margin-bottom: 8em;}
+    .landing .full-video .container-fluid form {margin-bottom: 3%;}
+    .landing .full-video .container-fluid form#findRepresentatives {margin-bottom: 8em;}
     #main.landing.mainEditors .full-video {background-position: right -22px;}
 
     .saveTime, .saveTime li {padding: 0 30px;}
