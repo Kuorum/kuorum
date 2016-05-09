@@ -401,6 +401,8 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 
 #findRepresentatives .open-filter .dropdown-menu {margin:14px 0 0 2px}
 #findRepresentatives .open-filter a span +span {margin-left: 0.3em}
+#findRepresentatives .dropdown-menu > li > a {color: #a8a8a8; padding: 3px 7px;}
+#search-form .dropdown-menu > li > a {color: #a8a8a8; padding: 3px 7px;}
 
 .row.main.presskit {
     background: url('../images/eu-parliament.jpg') center center no-repeat #000;
@@ -631,7 +633,7 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     border-radius: 3px;
 }
 #search-form .input-group > #filterSign {position: absolute; right: 28px; top: 9px; z-index: 99; color: #a8a8a8;}
-#search-form .input-group-btn {float:right; z-index: 9;right: 40px;}
+#search-form .input-group-btn {float:right; z-index: 9;right: 33px;}
 
 
 
@@ -5024,7 +5026,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .landing .full-video .container-fluid #findRepresentatives.form-inline .form-group {margin-right: 2.5%; width: 50%;}
     .landing .full-video .container-fluid #findRepresentatives.form-inline.searchRep .form-group input {width: 100%;margin-left: 157px;}
     .landing .full-video .container-fluid #findRepresentatives .open-filter{width: 157px;}
-    .landing .full-video .container-fluid #findRepresentatives.form-inline.searchRep .btn{margin-left: 129px;}
+    .landing .full-video .container-fluid #findRepresentatives.form-inline.searchRep .btn{margin-left: 125px;}
     /*  END LANDING SEARCH CHAPU DE INA */
 
     .row.main.presskit section { padding: 120px 0; }
