@@ -189,6 +189,7 @@
 .fa-star-o:before {
   content: "\f006";
 }
+.fa-kuorumSearchType-NAME:before,
 .fa-user:before {
   content: "\f007";
 }
@@ -271,6 +272,7 @@
 .fa-lock:before {
   content: "\f023";
 }
+.fa-kuorumSearchType-POLITICAL_PARTY:before,
 .fa-flag:before {
   content: "\f024";
 }
@@ -667,6 +669,7 @@
 .fa-arrow-circle-down:before {
   content: "\f0ab";
 }
+.fa-kuorumSearchType-REGION:before,
 .fa-globe:before {
   content: "\f0ac";
 }
@@ -719,6 +722,7 @@
 }
 .fa-navicon:before,
 .fa-reorder:before,
+.fa-kuorumSearchType-ALL:before
 .fa-bars:before {
   content: "\f0c9";
 }

@@ -10,14 +10,14 @@
 
             <div class="open-filter">
                 <a data-target="#" href="#" class="dropdown-toggle" id="open-filter-search" data-toggle="dropdown" role="button">
-                    <span class="fa fa-navicon fa-lg"></span>
+                    <span class="fa fa-kuorumSearchType-${params.searchType?:kuorum.core.model.search.SearchType.ALL} fa-lg"></span>
                     <span class="sr-only">Filtra tu búsqueda</span>
                 </a>
                 <ul id="filters" class="dropdown-menu dropdown-menu-left" aria-labelledby="open-filter-search" role="menu">
                     <g:each in="${kuorum.core.model.search.SearchType.values()}" var="searchType">
                         <li>
                             <a href="#${searchType}" class="search-${searchType}">
-                                <span class="fa fa-navicon fa-lg"></span>
+                                <span class="fa fa-kuorumSearchType-${searchType} fa-lg"></span>
                                 <span class="search-filter-text">${message(code:'search.head.placeHolder.'+searchType)}</span>
                             </a>
                         </li>

@@ -21,7 +21,7 @@
 
                             <div class="open-filter">
                                 <a data-target="#" href="#" class="dropdown-toggle" id="open-filter-search" data-toggle="dropdown" role="button">
-                                    <span class="fa fa-navicon fa-lg"></span>
+                                    <span class="fa fa-kuorumSearchType-${searchParams.searchType} fa-lg"></span>
                                     <span class="hidden-xs hidden-sm">
                                        <g:message code="search.head.placeHolder.${searchParams.searchType}"/>
                                     </span>
@@ -31,7 +31,7 @@
                                     <g:each in="${kuorum.core.model.search.SearchType.values()}" var="searchType">
                                         <li>
                                             <a href="#${searchType}" class="search-${searchType}">
-                                                <span class="fa fa-navicon fa-lg"></span>
+                                                <span class="fa fa-kuorumSearchType-${searchType} fa-lg"></span>
                                                 <span class="search-filter-text">${message(code:'search.head.placeHolder.'+searchType)}</span>
                                             </a>
                                         </li>

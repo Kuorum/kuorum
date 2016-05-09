@@ -539,9 +539,11 @@ $(document).ready(function() {
         e.preventDefault()
         var link = $(this).attr("href")
         var value = link.substr(1);
+        var iconClasses = $(this).find("span").first().attr("class")
         var text = $(this).find(".search-filter-text").html()
         $("input[name=searchType]").val(value)
         $(".open-filter > a > span + span:first").html(text)
+        $(".open-filter > a > span").first().attr("class",iconClasses )
     })
 
     // setTimeout(prepareProgressBar, 500)

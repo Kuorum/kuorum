@@ -6,6 +6,7 @@ import kuorum.core.model.CommissionType
 import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.search.SearchPolitician
+import kuorum.core.model.search.SearchType
 import kuorum.core.model.solr.*
 import kuorum.project.Project
 import org.apache.solr.client.solrj.SolrQuery
@@ -35,6 +36,7 @@ class SearchSolrService {
         prepareWord(params, query)
         prepareFilter(params, query)
         prepareBoosted(params, query)
+        prepareScore(params, query)
 
         query.setSort("score", SolrQuery.ORDER.desc)
         query.addSort("kuorumRelevance", SolrQuery.ORDER.desc)
@@ -115,6 +117,24 @@ class SearchSolrService {
         solrAutocomplete
     }
 
+
+    private void prepareScore(SearchParams params, SolrQuery query){
+        switch (params.searchType){
+            case SearchType.POLITICAL_PARTY:
+                query.setParam("qf","politicalPartyName^10 politicalPartyNameStream^5")
+                break;
+            case SearchType.NAME:
+                query.setParam("qf","hashtag^10.0 name^5.0")
+                break;
+            case SearchType.REGION:
+                query.setParam("qf","regionIso3166_2^10.0 constituencyIso3166_2^5.0")
+                break;
+            case SearchType.ALL:
+            default:
+            //DEFAULT
+                break;
+        }
+    }
     private void prepareBoosted(SearchParams params, SolrQuery query){
         if (params.boostedRegions){
 //            String boost = params.boostedRegions.collect{"regionIso3166_2:${it.replace('-', '')}^${Math.pow(it.length(),2)}"}.join(" ")
