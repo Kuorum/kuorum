@@ -30,7 +30,7 @@
                                 <ul id="filters" class="dropdown-menu dropdown-menu-left" aria-labelledby="open-filter-search" role="menu">
                                     <g:each in="${kuorum.core.model.search.SearchType.values()}" var="searchType">
                                         <li>
-                                            <a href="#${searchType}" class="search-${searchType}">
+                                            <a href="#${searchType}" class="search-${searchType} ${searchType==searchParams.searchType?'active':''}">
                                                 <span class="fa fa-kuorumSearchType-${searchType} fa-lg"></span>
                                                 <span class="search-filter-text">${message(code:'search.head.placeHolder.'+searchType)}</span>
                                             </a>

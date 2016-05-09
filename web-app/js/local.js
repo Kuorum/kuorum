@@ -538,6 +538,8 @@ $(document).ready(function() {
     $('.open-filter #filters a').on("click", function(e){
         e.preventDefault()
         var link = $(this).attr("href")
+        $(this).parents("li").first().siblings().find("a").removeClass("active")
+        $(this).addClass("active")
         var value = link.substr(1);
         var iconClasses = $(this).find("span").first().attr("class")
         var text = $(this).find(".search-filter-text").html()

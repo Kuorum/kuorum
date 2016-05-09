@@ -400,6 +400,9 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 .open-filter .dropdown-menu > li:first-child{border:0px;}
 .open-filter .dropdown-menu > li > a {color: #a8a8a8; padding: 3px 7px;}
 
+#findRepresentatives .open-filter .dropdown-menu > li > a.active,
+.open-filter .dropdown-menu > li > a.active {color:#FF9431;}
+
 #findRepresentatives .open-filter .dropdown-menu {margin:14px 0 0 2px}
 #findRepresentatives .open-filter a span +span {margin-left: 0.3em}
 
