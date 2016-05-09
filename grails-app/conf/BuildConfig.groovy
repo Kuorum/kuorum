@@ -75,8 +75,8 @@ grails.project.dependency.resolution = {
 //            excludes 'org.codehaus.jackson:jackson-mapper-asl'
         }
         compile 'com.mandrillapp.wrapper.lutung:lutung:0.0.4'
-        compile 'org.apache.solr:solr-solrj:4.6.0'
-        test ('org.apache.solr:solr-core:4.6.0'){
+        compile 'org.apache.solr:solr-solrj:4.9.0'
+        test ('org.apache.solr:solr-core:4.9.0'){
             excludes "org.slf4j:slf4j-log4j12"
         }
 	    compile "net.sf.ehcache:ehcache-core:2.4.6" // Para eliminar :cache:1.1.1 que da un problema de dependencia al quitar hibernate
@@ -87,7 +87,8 @@ grails.project.dependency.resolution = {
             excludes "joda-time:joda-time"
         }
         compile 'joda-time:joda-time:2.9.1' // Actualizacion de libreria para amazon
-        compile 'org.apache.httpcomponents:httpclient:4.5' //Actualizacion librer�a para Amazon
+        compile 'org.apache.httpcomponents:httpclient:4.5.2' //Actualizacion librer�a para Amazon
+        compile 'org.apache.httpcomponents:httpcore:4.4.4' //Actualizacion librer�a para Amazon
 
         compile ('org.codehaus.groovy:groovy-xmlrpc:jar:0.7'){
             excludes "jivesoftware:smack"
