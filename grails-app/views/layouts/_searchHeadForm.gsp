@@ -49,7 +49,7 @@
                 serviceUrl:urls.searchSuggest,
                 minChars:1,
                 width:330,
-                noCache: false, //default is false, set to true to disable caching
+                noCache: true, //default is false, set to true to disable caching
                 onSearchStart: function (query) {
                     $('.loadingSearch').show()
                     query.searchType = getSearchType()
