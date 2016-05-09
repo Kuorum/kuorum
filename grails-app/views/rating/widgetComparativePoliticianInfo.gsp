@@ -61,7 +61,7 @@
                                 </ul>
                             </div>
                             <div class="col-sm-6 col-xs-offset-1 col-sm-offset-0 text-center politician-chart">
-                                <h4 class="hidden-sm hidden-lg hidden-md text-center">
+                                <h4 class="hidden-sm hidden-lg hidden-md text-right">
                                     <g:link mapping="userShow" params="${politician.encodeAsLinkProperties()}" class="btn btn-blue" target="_blank">
                                     <g:message code="search.list.seeMore"/> - ${politician.name}
                                 </g:link></h4>

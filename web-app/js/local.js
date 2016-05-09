@@ -166,7 +166,7 @@ function printChart(divId){
                 .highcharts('StockChart', {
                     chart: {
                         spacingBottom: 10,
-                        spacingTop: -23,
+                        spacingTop: 0,
                         zoomType: 'x',
                         height: divHeight,
                         events : {
@@ -206,7 +206,7 @@ function printChart(divId){
                             fontSize:'14px',
                             fontWeight:'normal'
                         },
-                        y:15,
+                        y:-5,
                         x:0
                     },
                     xAxis: {
