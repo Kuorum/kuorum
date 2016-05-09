@@ -7,6 +7,7 @@ import grails.plugin.springsecurity.oauth.OAuthToken
 import grails.transaction.Transactional
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
+import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.Gender
 import kuorum.users.*
 import kuorum.util.LookUpEnumUtil
@@ -68,6 +69,7 @@ class GoogleOAuthService implements IOAuthService{
                 password: "${PASSWORD_PREFIX}${Math.random()}"
         )
         KuorumUser user = registerService.createUser(registerCommand)
+        user.password = registerCommand.password
         user.accountExpired = false;
         user.enabled = true;
 
@@ -83,6 +85,7 @@ class GoogleOAuthService implements IOAuthService{
 
             user.personalData = personData
 //        }
+        user.language = AvailableLanguage.fromLocaleParam(googleUser.locale)?:AvailableLanguage.en_EN
 
 
         RoleUser roleUser = RoleUser.findByAuthority('ROLE_USER')
