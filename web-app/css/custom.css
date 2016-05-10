@@ -3266,6 +3266,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
     left: 40px;
     border: none;
     color: #ff9431;
+    width: auto;
 }
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
    follow these rules. Every browser that supports :checked also supports :not(), so
