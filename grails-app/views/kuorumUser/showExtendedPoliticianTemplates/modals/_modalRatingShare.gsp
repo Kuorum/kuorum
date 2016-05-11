@@ -1,15 +1,18 @@
 
 <r:require modules="social"/>
 
+<g:set var="titleModal" value="${titleModal?:message(code:'politician.valuation.modal.share.title', args: [user.name])}"/>
+<g:set var="paragraphModal" value="${paragraphModal?:message(code:'politician.valuation.modal.share.description', args: [user.name])}"/>
+
 <div class="modal fade rating-social-share-modal" id="rating-social-share-modal-${user.id}" tabindex="-1" role="dialog" aria-labelledby="dynamicInputOverflow_${formId}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
-                <h4 class="modal-title"><g:message code="politician.valuation.modal.share.title" args="[user.name]"/> </h4>
+                <h4 class="modal-title">${titleModal}</h4>
             </div>
             <div class="modal-body clearfix">
-                <p><g:message code="politician.valuation.modal.share.description" args="[user.name]" /></p>
+                <p>${paragraphModal}</p>
                 <div class="form-group">
                     <g:set var="userLink"><g:createLink
                             mapping="userShow"
