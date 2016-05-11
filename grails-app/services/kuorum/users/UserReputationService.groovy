@@ -42,7 +42,12 @@ class UserReputationService {
     }
 
     private void setEvaluatorUserId(String evaluatorId){
-        cookieService.setCookie(COOKIE_EVALUATOR_NAME,evaluatorId, Integer.MAX_VALUE )
+        cookieService.setCookie(
+                [name:COOKIE_EVALUATOR_NAME,
+                 value:evaluatorId,
+                 maxAge:Integer.MAX_VALUE ,
+                 path:"/",
+                 domain:null])
     }
 
     UserReputationRSDTO getReputation(KuorumUser politician) {
