@@ -42,6 +42,7 @@
                             </fieldset>
                         </form>
                     </li>
+                    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/modals/modalRatingShare" model="[user:politician]"/>
                 </g:each>
             </ul>
             %{--<footer>--}%

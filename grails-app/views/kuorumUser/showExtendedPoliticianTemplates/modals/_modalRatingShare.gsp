@@ -1,7 +1,7 @@
 
 <r:require modules="social"/>
 
-<div class="modal fade" id="rating-social-share-modal" tabindex="-1" role="dialog" aria-labelledby="dynamicInputOverflow_${formId}" aria-hidden="true">
+<div class="modal fade rating-social-share-modal" id="rating-social-share-modal-${user.id}" tabindex="-1" role="dialog" aria-labelledby="dynamicInputOverflow_${formId}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
