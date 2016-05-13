@@ -129,9 +129,9 @@ class SearchSolrService {
                 query.setParam("qf","hashtag^10.0 name^5.0")
                 break;
             case SearchType.REGION:
+            case SearchType.ALL:
                 query.setParam("qf","regionIso3166_2^10.0 constituencyIso3166_2^5.0")
                 break;
-            case SearchType.ALL:
             default:
             //DEFAULT
                 break;

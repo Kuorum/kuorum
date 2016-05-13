@@ -120,6 +120,7 @@ class SearchController{
             searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.POLITICIAN)
             docs = searchSolrService.search(searchParams)
         }else{
+            searchParams.searchType = searchParams.searchType?:SearchType.ALL
             searchParams = createRegionSearchParams(searchParams, params)
             docs = searchSolrService.search(searchParams)
         }
@@ -128,7 +129,7 @@ class SearchController{
 
     private SearchParams createRegionSearchParams( SearchParams searchParams, def params){
         SearchParams editedSearchParams = searchParams
-        if (searchParams.searchType == SearchType.REGION){
+        if (searchParams.searchType == SearchType.REGION || searchParams.searchType== SearchType.ALL){
             editedSearchParams = new SearchParams(searchParams.properties)
             Locale locale = localeResolver.resolveLocale(request)
             AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
@@ -138,7 +139,7 @@ class SearchController{
             }
             if (!suggestedRegion){
                 suggestedRegion = regionService.findMostAccurateRegion(searchParams.word,null, language)
-                params.regionCode = suggestedRegion.iso3166_2 //Chapu para el menu lateral
+                params.regionCode = suggestedRegion?.iso3166_2 //Chapu para el menu lateral
             }
 
             List<Region> regions = []
@@ -150,6 +151,10 @@ class SearchController{
                 editedSearchParams.boostedRegions = regions.collect{it.iso3166_2}
                 editedSearchParams.word = "";
             }
+        }
+        if (searchParams.searchType== SearchType.ALL){
+            // Restoring word to search
+            editedSearchParams.word = searchParams.word
         }
         return editedSearchParams;
     }
