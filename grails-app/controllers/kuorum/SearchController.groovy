@@ -134,7 +134,7 @@ class SearchController{
             Locale locale = localeResolver.resolveLocale(request)
             AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
             Region suggestedRegion = null;
-            if (params.regionCode){
+            if (params.regionCode && searchParams.searchType==SearchType.REGION){
                 suggestedRegion = regionService.findRegionBySuggestedId(params.regionCode)
             }
             if (!suggestedRegion){
