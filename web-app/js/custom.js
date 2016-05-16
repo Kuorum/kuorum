@@ -1019,7 +1019,7 @@ $(document).ready(function() {
             url:url,
             data:{rate:rate}
         }).done(function(data){
-            $("#rating-social-share-modal").modal("show")
+            $("#rating-social-share-modal-"+data.userId).modal("show")
             $("#user-rating-form .counter").html(rate)
             $(".counter.user-reputation").html(data.userReputation.toFixed(2))
             var newRate = Math.round(data.userReputation)
@@ -1068,6 +1068,7 @@ $(document).ready(function() {
             url: url,
             data: {rate: rate}
         }).done(function (data) {
+            $("#rating-social-share-modal-"+data.userId).modal("show")
             var $visisbleForm = $form.siblings("form")
             var newRate = Math.floor(data.userReputation +0.5);
             $visisbleForm.find("input[name=rating]").removeAttr("checked");

@@ -24,7 +24,6 @@ class SearchSolrService {
     SolrServer server
     IndexSolrService indexSolrService
 
-
     SolrResults search(SearchParams params) {
 
         SolrQuery query = new SolrQuery();
@@ -132,6 +131,7 @@ class SearchSolrService {
                 query.setParam("qf","regionIso3166_2^10.0 constituencyIso3166_2^5.0")
                 break;
             case SearchType.ALL:
+                break;
             default:
             //DEFAULT
                 break;
