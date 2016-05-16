@@ -4285,7 +4285,6 @@ section.widget .user-list-followers > li:focus {background-color: #f0f0f0;}
 section.widget .user-list-followers > li > a {float: left; max-width: calc(100% - 130px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 section.widget .user-list-followers > li > a:hover,
 section.widget .user-list-followers > li > a:focus {text-decoration: underline;;}
-section.widget .share-buttons li { margin-left: 10px;}
 
 body.widget > header {text-align: center; height: 40px; margin-bottom: 25px; padding-top: 10px; border-top: 1px solid #e1e1e1;}
 body.widget > header h1 {margin: 0; padding: 0; text-align: center;}
@@ -4833,6 +4832,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .carousel.news .carousel-inner .active.right {left: 33%;}
     .carousel.news .carousel-inner .next         {left: 33%;}
     .carousel.news .carousel-inner .prev         {left: -33%;}
+    .carousel.news .carousel-inner .next.left,
+    .carousel.news .carousel-inner .prev.right {z-index: 99;}
     .carousel.news .carousel-inner .item .carousel-caption h1 {height: 64px;}
     .carousel.news .carousel-control > span {top: 60px;}
     @media all and (transform-3d), (-webkit-transform-3d) {
@@ -5669,17 +5670,17 @@ p.party{
     color: #fff;
 }
 
-.rating-social-share-modal .share-buttons {background:none;padding:0; margin:0;}
-.rating-social-share-modal .share-buttons li a{margin:0;}
-.rating-social-share-modal .share-buttons li a .fa{padding:9px 10px; border-radius: 50%; width: 1.7em; height:1.7em;}
-.rating-social-share-modal .share-buttons li a .fa:hover{color:#FFF;
+#rating-social-share-modal .share-buttons {background:none;padding:0; margin:0;}
+#rating-social-share-modal .share-buttons li a{margin:0;}
+#rating-social-share-modal .share-buttons li a .fa{padding:9px 10px; border-radius: 50%; width: 1.7em; height:1.7em;}
+#rating-social-share-modal .share-buttons li a .fa:hover{color:#FFF;
     -webkit-box-shadow: 0px 0px 10px 1px rgba(102,102,102,1);
     -moz-box-shadow:    0px 0px 10px 1px rgba(102,102,102,1);
     box-shadow:         0px 0px 10px 1px rgba(102,102,102,1);}
-.rating-social-share-modal .share-buttons li a .fa-facebook{background:#3b5998; padding-left:12px}
-.rating-social-share-modal .share-buttons li a .fa-twitter{background:#00aced;}
-.rating-social-share-modal .share-buttons li a .fa-linkedin{background:#0077B5;}
-.rating-social-share-modal .share-buttons li a .fa-google-plus{background:#d34836;}
+#rating-social-share-modal .share-buttons li a .fa-facebook{background:#3b5998; padding-left:12px}
+#rating-social-share-modal .share-buttons li a .fa-twitter{background:#00aced;}
+#rating-social-share-modal .share-buttons li a .fa-linkedin{background:#0077B5;}
+#rating-social-share-modal .share-buttons li a .fa-google-plus{background:#d34836;}
 
 /* Contact Card =========== */
 .btn-contact{
