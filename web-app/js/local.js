@@ -70,28 +70,27 @@ $(document).tooltip({
 });
 
 
-// controla el alto del iframe de Youtube cuando cambia de ancho en los diferentes tamaños de pantalla
+// EVENTOS ON RESIZE
 $(window).on('resize',function() {
+
+    // controla el alto del iframe de Youtube cuando cambia de ancho en los diferentes tamaños de pantalla
     $('.youtube').each(function() {
         var width = $(this).width();
         $(this).css("height", width / 1.77777778);
     });
-});
-$(document).ready(function() {
-    $(window).trigger('resize');
-});
 
-
-// controla el alto del cuadro de subir imagen con formato 16:9
-$(window).on('resize',function() {
+    // controla el alto del cuadro de subir imagen con formato 16:9
     $('.fondoperfil .qq-upload-drop-area').each(function() {
         var width = $(this).width();
         $(this).css("height", width * 328 /728);
     });
+
 });
+
 $(document).ready(function() {
     $(window).trigger('resize');
 });
+
 
 
 // aparece la info en la franja superior bajo el header al hacer scroll
@@ -116,11 +115,8 @@ $(document).ready(function() {
 
 // valuation chart
 $(function () {
-
     printCharts();
-
 });
-
 function printCharts(){
     $(".polValChart").each(function(idx){
         var uuid = guid()
@@ -128,7 +124,6 @@ function printCharts(){
         printChart("#"+uuid);
     })
 }
-
 function printChart(divId){
     if ($(divId).length >0){
         $(divId).html("")
@@ -295,6 +290,31 @@ function printChart(divId){
 }
 
 $(document).ready(function() {
+
+    // Carrusel noticias perfil político
+    $('.carousel.news').carousel({
+          interval: false
+    })
+
+    // 3 items a partir de 768px
+    if (window.matchMedia("(min-width: 768px)").matches) {
+
+        $('.carousel.news .item').each(function(){
+          var next = $(this).next();
+          if (!next.length) {
+            next = $(this).siblings(':first');
+          }
+          next.children(':first-child').clone().appendTo($(this));
+
+          if (next.next().length>0) {
+            next.next().children(':first-child').clone().appendTo($(this));
+          }
+          else {
+            $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+          }
+        });
+
+    }
 
     // oscurecer el header de la Landing cuando se hace scroll
     if ($('#header.transp').length) {

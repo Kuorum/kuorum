@@ -3325,7 +3325,6 @@ fieldset.rating:hover > input + label:hover:before {
 }
 .rating-over ul> li .star {display: block; width: 25px; float: left; margin-right: 10px; height:100%; line-height: 15px;}
 .rating-over ul> li .star span {font-size: 10px; font-size: 1rem;}
-
 .rate-number {
     display: block;
     margin: 10px auto 0;
@@ -3348,8 +3347,52 @@ fieldset.rating:hover > input + label:hover:before {
 .widget-user-rating:hover form.rating {display:none}
 .widget-user-rating:hover form.rating.user-rate {display: block}
 
+/* CAROUSEL NOTICIAS PERFIL POLÍTICO */
+.carousel.news .carousel-inner > .item {
+  -webkit-transition: 500ms ease-in-out left;
+  transition: 300ms ease-in-out left;
+}
+.carousel.news {margin: 0 -5px 20px;}
+.carousel.news .carousel-inner .item {margin: 4px 0;}
+.carousel.news .carousel-inner .item > div {padding: 0 5px;}
+.carousel.news .carousel-inner .item > div > a {background: #fff; display: block; box-shadow: 0 0 2px rgba(0, 0, 0, .4); padding: 9px 9px 6px 9px; margin-bottom: 4px;}
+.carousel.news .carousel-inner .item > div > a .img-container {position: relative;}
+.carousel.news .carousel-inner .item > div > a .img-container .logo {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: auto;
+    height: 30px;
+}
+.carousel.news .carousel-inner .item .carousel-caption {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin: 0;
+    padding: 0;
+    text-shadow: none;
+    text-align: left;
+    overflow: hidden;
+    padding: 10px 5px 0;
+}
+.carousel.news .carousel-inner .item .carousel-caption h1 {font-size: 14px; font-size: 1.4rem; font-family: Arial, sans-serif; color: #20a2ea; margin: 0; padding: 0; height: 48px; overflow: hidden;}
+.carousel.news .carousel-inner .item .carousel-caption h1:hover,
+.carousel.news .carousel-inner .item .carousel-caption h1:focus {color: #2e6bab;}
+.carousel.news .carousel-inner .item a,
+.carousel.news .carousel-inner .item a:hover,
+.carousel.news .carousel-inner .item a:focus,
+.carousel.news .carousel-control .fa-inverse {color: #20a2ea; text-decoration: none;}
+.carousel.news .carousel-control .fa-inverse {text-shadow: none;}
+.carousel.news .carousel-control > span {position: absolute; top: 35%;}
+.carousel.news .carousel-control.left > span {left: 0;}
+.carousel.news .carousel-control.right > span {right: 0;}
+.carousel.news .carousel-control.left {background-image: none; left: 15px;}
+.carousel.news .carousel-control.right {background-image: none; right: 15px;}
+.carousel.news .carousel-control {width: 50px;}
 
 
+/* CAUSAS */
 .causes-list {margin-top: 0; margin-bottom: 0; padding: 0;}
 .causes-list .link-wrapper .close {margin-top: -2px;}
 .causes-list .box-ppal {padding: 15px 15px 10px 15px; margin-bottom: 20px;}
@@ -4773,6 +4816,35 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .landing.prices .full-video p:first-of-type {margin-top: -250px;}
 
     .onecol .subscribeForm fieldset .form-group:last-child {border-left: 1px solid #545454;}
+
+    @media not all, (-webkit-transform-3d) {
+        .carousel.news .carousel-inner > .item.active,
+        .carousel.news .carousel-inner > .item.next.left,
+        .carousel.news .carousel-inner > .item.prev.right {
+            left: 0;
+            -webkit-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+        }
+    }
+    .carousel.news {margin: 0 -30px 20px;}
+    /*.carousel.news .carousel-inner .active {background: #fff;}*/
+    .carousel.news .carousel-inner .active.left  {left: -33%;}
+    .carousel.news .carousel-inner .active.right {left: 33%;}
+    .carousel.news .carousel-inner .next         {left: 33%;}
+    .carousel.news .carousel-inner .prev         {left: -33%;}
+    .carousel.news .carousel-inner .item .carousel-caption h1 {height: 64px;}
+    .carousel.news .carousel-control > span {top: 60px;}
+    @media all and (transform-3d), (-webkit-transform-3d) {
+        .carousel.news .carousel-inner > .item {
+            -webkit-transition: 300ms ease-in-out all;
+            transition: 300ms ease-in-out all;
+            -webkit-backface-visibility: visible;
+                    backface-visibility: visible;
+            -webkit-transform: none!important;
+                    transform: none!important;
+        }
+    }
+
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -5318,6 +5390,7 @@ only screen and (min-resolution: 192dpi) {
 .panel.collapsable:not(.collapsed) .panel-title .fa-chevron-up {display:blcok}
 .panel.collapsable.collapsed .panel-title .fa-chevron-down {display:block}
 .panel.collapsable.collapsed .panel-title .fa-chevron-up {display:none}
+
 /* Profile Card ----------------*/
 .politician-card p{
     text-align: justify;
