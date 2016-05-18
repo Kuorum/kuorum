@@ -8,15 +8,13 @@
                 <h1><g:message code="widget.politician.results.title"/></h1>
             </header>
             <div id="comparativeValChart" data-urlJson="${createLink(mapping: 'comparingPoliticianRate', absolute: true, params:params)}">
-
-                Cargando....
-
+                <g:message code="widget.loading"/>
             </div>
         </section>
 
         <section id="real-time" class="widget dark">
             <header>
-                <h1>Valoración en tiempo real</h1>
+                <h1><g:message code="widget.politician.realTime.title"/></h1>
             </header>
             <!-- tabs left -->
             <div class="tabbable tabs-left">
@@ -42,7 +40,7 @@
                                     <g:message code="search.list.seeMore"/>
                                 </g:link>
                                 <hr>
-                                <h6>Ultimas noticias</h6>
+                                <h6><g:message code="widget.politician.realTime.latestNews"/></h6>
                                 <ul>
                                     <g:each in="${politician.relevantEvents}" var="relevantEvent">
                                         <li>

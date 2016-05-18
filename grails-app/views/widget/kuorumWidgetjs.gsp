@@ -7,8 +7,12 @@
 	var type = widget.getAttribute("data-type")
 	var ancho = widget.getAttribute("data-width")
 	var alto = widget.getAttribute("data-height")
+	var lang = widget.getAttribute("data-lang")
 	var url = urlTypes[type]+ "?"
 
+	if (lang != undefined){
+		url += "lang="+lang+"&"
+	}
 	switch (type) {
 	  case "ratePolitician":
 	  case "comparative":
