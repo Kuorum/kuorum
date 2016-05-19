@@ -62,23 +62,7 @@
                         </g:each>
                     </ul>
                 </g:if>
-                <g:if test="${politician.relevantEvents}">
-                    <h4><g:message code="politician.knownFor"/></h4>
-                    <ul class='known-for'>
-                        <g:each in="${politician.relevantEvents}" var="relevantEvent">
-                            <li>
-                                <g:if test="${relevantEvent.url}">
-                                    <a href="${relevantEvent.url}" target="_blank">
-                                        ${relevantEvent.title}
-                                    </a>
-                                </g:if>
-                                <g:else>
-                                    ${relevantEvent.title}
-                                </g:else>
-                            </li>
-                        </g:each>
-                    </ul>
-                </g:if>
+                <g:render template="/kuorumUser/showExtendedPoliticianTemplates/userNews" model="[user:politician, userNews:userNews]"/>
                 <h4><g:message code="politician.bio"/></h4>
                 <p class="limit-height" data-collapsedHeight="50">${politician.bio}</p>
             </div><!--/.extra-padding -->

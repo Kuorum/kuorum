@@ -16,6 +16,7 @@ import kuorum.project.Project
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
+import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.ReputationSnapshotRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
@@ -35,6 +36,7 @@ class KuorumUserController {
     def projectService
 
     CausesService causesService
+    UserNewsService userNewsService
 
     CampaignService campaignService
 
@@ -182,6 +184,7 @@ class KuorumUserController {
         Campaign campaign = campaignService.findActiveCampaign(politician)
         LeaningIndexRSDTO politicianLeaningIndex = kuorumUserStatsService.findLeaningIndex(politician)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician)
+        List<UserNewRSDTO> userNews = userNewsService.findUserNews(politician)
         [
                 politician:politician,
                 politicianLeaningIndex:politicianLeaningIndex,
@@ -189,7 +192,8 @@ class KuorumUserController {
                 recommendPoliticians:recommendPoliticians,
                 campaign:campaign,
                 causes:causes,
-                userReputation: userReputationRSDTO
+                userReputation: userReputationRSDTO,
+                userNews:userNews
         ]
     }
 
