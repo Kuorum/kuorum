@@ -1,6 +1,13 @@
 <g:applyLayout name="mainWidget">
 
-    <r:require module="comparativeChart"/>
+    <head>
+        <r:require module="comparativeChart"/>
+        <style>
+            ${raw(params.customCss)}
+        </style>
+    </head>
+
+
 
     <section id="results-widget-content" class="clearfix">
         <section id="evolution" class="widget dark">

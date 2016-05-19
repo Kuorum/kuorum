@@ -1,6 +1,9 @@
 <g:applyLayout name="mainWidget">
     <head>
         <title><g:message code="widget.politician.valuation.rate.title"/></title>
+        <style>
+            ${raw(params.customCss)}
+        </style>
     </head>
     <body>
         <section id="valuations-widget-content" class="widget">
