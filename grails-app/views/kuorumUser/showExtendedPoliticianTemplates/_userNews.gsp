@@ -7,7 +7,7 @@
                     <div class="col-xs-12 col-sm-4">
                         <a href="${userNew.url}" target="_blank">
                             <div class="img-container">
-                                <img src="${userNew.image}" alt="texto alternativo a la imagen">
+                                <img src="${userNew.image}" alt="${userNew.title}">
                                 <g:if test="${userNew.logoSource}">
                                     <img src="${userNew.logoSource}" alt="Europapress" class="logo">
                                 </g:if>
