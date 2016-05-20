@@ -11,6 +11,7 @@ import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
+import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
@@ -266,6 +267,7 @@ class PoliticianService {
         politician.personalData.userType = politician.userType
         politician.personalData.telephone = politician?.personalData?.telephone?:line."phone"?.trim()
         politician.alias = generateAlias(politician, line)
+        politician.language = AvailableLanguage.fromLocaleParam(line."language"?:"en")?:AvailableLanguage.en_EN
         if (!politician.save(flush: true)){
             throw new KuorumException("Basic data not porvided, ${politician.errors}")
         }
