@@ -26,7 +26,7 @@ class KuorumUser {
     String bio
 //    String username
     String password
-    AvailableLanguage language = AvailableLanguage.es_ES
+    AvailableLanguage language = AvailableLanguage.en_EN
     Boolean verified = Boolean.FALSE
 
     KuorumFile avatar
