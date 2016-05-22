@@ -227,6 +227,7 @@ class UrlMappings {
         name footerPoliticians:   "/kuorum/politicians"               (controller:"footer", action: "politicians" )
                                   "/kuorum/politicos"               (controller:"footer", action: "politicians" )
         name footerDevelopers:    "/kuorum/editors"         (controller:"footer", action: "developers" )
+        name footerWidget:        "/kuorum/widget"  (controller:"footer", action: "widget" )
         name footerInformation:   "/kuorum/press"  (controller:"footer", action: "information" )
                                   "/kuorum/informacion-y-recursos"  (controller:"footer", action: "information" )
         name footerPrivacyPolicy: "/kuorum/privacy-policy"     (controller:"footer", action: "privacyPolicy")

@@ -8,7 +8,7 @@
                 <li><g:link mapping="footerDevelopers"><g:message code="layout.footer.editors"/></g:link></li>
                 <li><g:link mapping="footerAboutUs"><g:message code="layout.footer.aboutUs"/></g:link></li>
                 <li><g:link mapping="footerInformation"><g:message code="layout.footer.pressTitle"/></g:link></li>
-                <li><a href="http://kuorumorg.tumblr.com" target="_blank"><g:message code="layout.footer.blog"/></a></li>
+                <li><g:link mapping="footerWidget"><g:message code="layout.footer.widget"/></g:link></li>
                 <li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
                 <li><g:link mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>
             </ul>
