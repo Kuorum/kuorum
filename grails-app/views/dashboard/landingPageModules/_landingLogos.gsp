@@ -27,8 +27,8 @@
             <span itemprop="name" class="sr-only">Conservatives</span>
         </li>
         <li itemscope itemtype="http://schema.org/Organization">
-            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-save.png')}" alt="Save the Children">
-            <span itemprop="name" class="sr-only">Save the Children</span>
+            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-victoryawards.png')}" alt="Victory Awards">
+            <span itemprop="name" class="sr-only">Victory Awards</span>
         </li>
         <li itemscope itemtype="http://schema.org/Organization">
             <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-unicef.png')}" alt="Unicef">
@@ -42,13 +42,13 @@
             <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-telefonica-of.png')}" alt="Telefónica">
             <span itemprop="name" class="sr-only">Telefónica Open Future</span>
         </li>
-        <li itemscope itemtype="http://schema.org/Organization"  class="square">
-            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-sif.png')}" alt="Socialiniu Inovaciju Fondas">
-            <span itemprop="name" class="sr-only">SIF</span>
+        <li itemscope itemtype="http://schema.org/Organization">
+            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-expansion.png')}" alt="Expansión">
+            <span itemprop="name" class="sr-only">Expansión</span>
         </li>
-        <li itemscope itemtype="http://schema.org/Organization"  class="square">
-            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-centralworking.png')}" alt="Central Working">
-            <span itemprop="name" class="sr-only">Central Working</span>
+        <li itemscope itemtype="http://schema.org/Organization">
+            <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-save.png')}" alt="Save the Children">
+            <span itemprop="name" class="sr-only">Save the Children</span>
         </li>
         <li itemscope itemtype="http://schema.org/Organization"  class="square">
             <img itemprop="logo" src="${resource(dir: 'images/organizations', file: 'logo-cesie.png')}" alt="Cesie">
