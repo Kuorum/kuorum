@@ -2,12 +2,10 @@ package kuorum.users
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.model.UserType
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 
-import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
 
 class RatingController {
