@@ -12,6 +12,7 @@ class FooterController {
     def impact() {}
     def politicians() {}
     def developers() {}
+    def widget() {}
     def information() {
         Locale locale = LocaleContextHolder.getLocale();
         String langPressKit = "en"

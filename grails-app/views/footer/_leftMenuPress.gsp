@@ -3,6 +3,9 @@
     <li class="${activeMapping=='footerInformation'?'active':''}">
         <g:link mapping="footerInformation"><g:message code="layout.footer.information"/></g:link>
     </li>
+    <li class="${activeMapping=='footerWidget'?'active':''}">
+        <g:link mapping="footerWidget"><g:message code="layout.footer.widget"/></g:link>
+    </li>
     <li>
         <a href="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/press/KuorumPressKit_2016_${langPressKit}.pdf" target="_blank"><g:message code="layout.footer.press"/></a>
     </li>
