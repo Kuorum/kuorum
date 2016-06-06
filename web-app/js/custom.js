@@ -1032,6 +1032,11 @@ $(document).ready(function() {
                 $(".rate-progress-bar-"+pos).css("width",data.evaluationPercentages[pos]*100 +"%")
             })
             printCharts();
+            dataLayer.push({
+                event:"Valuation",
+                'politician.alias':data.userAlias,
+                'politician.rating.userVote':rate
+            })
 //            $(".user-rating").popover("show")
         })
     })
@@ -1073,7 +1078,12 @@ $(document).ready(function() {
             var newRate = Math.floor(data.userReputation +0.5);
             $visisbleForm.find("input[name=rating]").removeAttr("checked");
             $visisbleForm.find("input[name=rating][value=" + newRate + "]").attr('checked', true);
-            $visisbleForm.find("input[name=rating][value=" + newRate + "]").prop("checked", true)
+            $visisbleForm.find("input[name=rating][value=" + newRate + "]").prop("checked", true);
+            dataLayer.push({
+                event:"Valuation",
+                'politician.alias':data.userAlias,
+                'politician.rating.userVote':rate
+            })
         })
     })
 });
