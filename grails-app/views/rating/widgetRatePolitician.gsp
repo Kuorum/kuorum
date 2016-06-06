@@ -15,7 +15,7 @@
                 <g:each in="${politicians}" var="politician">
                     <g:set var="politicianRate" value="${Math.round(rates[politician.alias].userReputation)}"/>
                     <g:set var="userPoliticianRated" value="${rates[politician.alias].evaluation}"/>
-                    <li itemtype="http://schema.org/Person" itemscope class="user widget-user-rating" id="${politicians.alias}">
+                    <li itemtype="http://schema.org/Person" itemscope class="user widget-user-rating" id="${politician.alias}">
                         <g:link mapping="userShow" params="${politician.encodeAsLinkProperties()}" target="_blank">
                             <img src="${image.userImgSrc(user:politician)}" alt="${politician.name}" class="user-img" itemprop="image"><span itemprop='name'>${politician.name}</span>
                         </g:link>
