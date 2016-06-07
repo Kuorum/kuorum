@@ -294,7 +294,7 @@ $(document).ready(function() {
     // Carrusel noticias perfil político
     $('.carousel.news').carousel({
           interval: false,
-          wrap: false
+          wrap: true
     })
 
     // 3 items a partir de 768px
@@ -303,23 +303,15 @@ $(document).ready(function() {
         $('.carousel.news .item').each(function(){
           var next = $(this).next();
           if (!next.length) {
-            next = 0;
+            next = $(this).siblings(':first');
           }
           next.children(':first-child').clone().appendTo($(this));
           if (next.next().length>0) {
             next.next().children(':first-child').clone().appendTo($(this));
           }
-        });
-
-        $('.carousel.news').on('slide.bs.carousel', function () {
-              if ($('.carousel-inner .item:first').hasClass('active')) {
-                $(this).children('.left.carousel-control').hide();
-              } else if($('.carousel-inner .item:last').hasClass('active')) {
-                $(this).children('.right.carousel-control').hide();
-              } else {
-                $(this).children('.carousel-control').show();
-
-              }
+          else {
+            $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+          }
         });
 
     }
