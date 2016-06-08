@@ -208,7 +208,7 @@ function printChart(divId){
                         type: 'datetime',
                         //minTickInterval: 24 * 1000 * 3600, // intervalo cada 1h
                         //minorTickInterval: 24 * 1000 * 3600, // intervalo cada 1h
-                        range: 3 * 24 * 3600 * 1000, // mostramos 1 semana
+                        range: 13 * 24 * 3600 * 1000, // mostramos 1 semana
                         dateTimeLabelFormats:{
                             millisecond: '%H:%M:%S.%L',
                             second: '%H:%M:%S',
