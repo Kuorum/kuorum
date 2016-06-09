@@ -1,14 +1,22 @@
+<%@ page import="org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO" %>
 (function () {
 	var urlTypes={
 		'ratePolitician':'${createLink(mapping: 'widgetRatePolitician', absolute: true)}',
-		'comparative':'${createLink(mapping: 'widgetComparative', absolute: true)}'
+		'comparative':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.HOUR])}',
+		'comparative_15MINS':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_15])}',
+		'comparative_5MINS':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_5])}'
 	}
 	var widget = document.getElementById('${divId}');
 	var type = widget.getAttribute("data-type")
 	var ancho = widget.getAttribute("data-width")
 	var alto = widget.getAttribute("data-height")
 	var lang = widget.getAttribute("data-lang")
-	var url = urlTypes[type]+ "?"
+	var url = urlTypes[type]
+	if (url.indexOf("?")>=0){
+		url += "&"
+	}else{
+		url += "?"
+	}
 	// Style
 	var style = {
 	    bodyBackground:widget.getAttribute("data-style-body-background"),
@@ -32,16 +40,11 @@
 	if (customCss != ""){
 	    url += "customCss="+encodeURI(customCss).replace(/#/g, '%23')+"&";
 	}
-	switch (type) {
-	  case "ratePolitician":
-	  case "comparative":
-	    var aliases = widget.getAttribute("data-userAlias").split(",")
-	    for (i = 0; i < aliases.length; i++) {
-	    	url = url + 'userAlias='+aliases[i] +'&'
-		}
-	  	break;
-	  default:
-    }
+
+	var aliases = widget.getAttribute("data-userAlias").split(",")
+	for (i = 0; i < aliases.length; i++) {
+		url = url + 'userAlias='+aliases[i] +'&'
+	}
 
     var borderColor = "#ddd"
     if (style.borderColor !=undefined) {borderColor=style.borderColor}

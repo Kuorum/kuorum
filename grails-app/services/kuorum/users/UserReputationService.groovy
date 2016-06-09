@@ -62,9 +62,10 @@ class UserReputationService {
         return userReputation;
     }
 
-    UserReputationEvolutionRSDTO getReputationEvoulution(KuorumUser politician){
+    UserReputationEvolutionRSDTO getReputationEvoulution(KuorumUser politician, UserReputationEvolutionRSDTO.Interval interval = UserReputationEvolutionRSDTO.Interval.HOUR){
         Map<String, String> params = [userId:politician.id.toString()]
-        def response = restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_STATS_REPUTATION_EVOLUTION, params, null)
+        Map<String, String> query = [interval:interval.toString()]
+        def response = restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_STATS_REPUTATION_EVOLUTION, params, query)
         UserReputationEvolutionRSDTO userReputationEvolution = null
         if (response.data){
             userReputationEvolution = (UserReputationEvolutionRSDTO)response.data

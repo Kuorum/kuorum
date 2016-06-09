@@ -31,7 +31,8 @@ class RatingController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        [politicians:politicians]
+        UserReputationEvolutionRSDTO.Interval interval = getIntervalFromParams(params)
+        [politicians:politicians, interval:interval]
     }
 
     def widgetRatePolitician = {
@@ -50,7 +51,8 @@ class RatingController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
-        UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician)
+        UserReputationEvolutionRSDTO.Interval interval = getIntervalFromParams(params)
+        UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician,interval)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician)
         def data=  [
                 "title":"",
@@ -90,9 +92,9 @@ class RatingController {
                 "title":"Comparing politicians",
                 "datasets": []
         ]
-
+        UserReputationEvolutionRSDTO.Interval interval = getIntervalFromParams(params)
         politicians.each {politician ->
-            UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician)
+            UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician, interval)
             data.datasets << [
                     "name": "${politician.name}",
                     "alias":"${politician.alias}",
@@ -101,6 +103,18 @@ class RatingController {
             ]
         }
         render data as JSON
+    }
+
+    private UserReputationEvolutionRSDTO.Interval getIntervalFromParams(def params){
+        UserReputationEvolutionRSDTO.Interval interval = UserReputationEvolutionRSDTO.Interval.HOUR
+        if (params.interval){
+            try{
+                interval = params.interval as UserReputationEvolutionRSDTO.Interval
+            }catch(java.lang.IllegalArgumentException wrongIntervalException){
+                interval = UserReputationEvolutionRSDTO.Interval.HOUR
+            }
+        }
+        return interval;
     }
 
 }
