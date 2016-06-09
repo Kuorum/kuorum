@@ -98,7 +98,7 @@ class RatingController {
             data.datasets << [
                     "name": "${politician.name}",
                     "alias":"${politician.alias}",
-                    "data": evolutionRSDTO.reputationSnapshots.collect{[it.timestamp, it.runningAverage]},
+                    "data": evolutionRSDTO.reputationSnapshots.collect{[it.timestamp, it.averageEvaluation]},
                     "type": "spline"
             ]
         }
