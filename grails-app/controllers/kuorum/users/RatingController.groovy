@@ -3,6 +3,9 @@ package kuorum.users
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.model.UserType
+import kuorum.web.widget.AverageWidgetType
+import net.sf.ehcache.search.aggregator.Average
+import org.kuorum.rest.model.kuorumUser.reputation.ReputationSnapshotRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 
@@ -32,13 +35,14 @@ class RatingController {
             return;
         }
         UserReputationEvolutionRSDTO.Interval interval = getIntervalFromParams(params)
-        [politicians:politicians, interval:interval]
+        AverageWidgetType averageWidgetType = getAverageTypeFromParams(params)
+        [politicians:politicians, interval:interval, averageWidgetType:averageWidgetType]
     }
 
     def widgetRatePolitician = {
         List<KuorumUser> politicians = params.userAlias.collect{kuorumUserService.findByAlias(it)}.findAll{it && it.userType == UserType.POLITICIAN}
         Map<String, UserReputationRSDTO> rates = [:]
-        politicians.each{politician ->1
+        politicians.each{politician ->
             UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician)
             rates.put(politician.alias, userReputationRSDTO)
         }
@@ -52,6 +56,7 @@ class RatingController {
             return;
         }
         UserReputationEvolutionRSDTO.Interval interval = getIntervalFromParams(params)
+        AverageWidgetType averageWidgetType = getAverageTypeFromParams(params)
         UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician,interval)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician)
         def data=  [
@@ -65,7 +70,7 @@ class RatingController {
                                 "unit": "",
                                 "type": "spline"
                         ], [
-                                "name": "${message(code:'politician.valuation.chart.module.runningAverage')}",
+                                "name": """${message(code:"politician.valuation.chart.module.${averageWidgetType}")}""",
                                 "data": [],
                                 "unit": "",
                                 "type": "spline"
@@ -75,7 +80,7 @@ class RatingController {
 
         evolutionRSDTO.reputationSnapshots.each {def reputationSnapshot ->
             data.datasets[0].data << [reputationSnapshot.timestamp, reputationSnapshot.stockValue]
-            data.datasets[1].data << [reputationSnapshot.timestamp, reputationSnapshot.runningAverage]
+            data.datasets[1].data << [reputationSnapshot.timestamp, getProperAverage(averageWidgetType,reputationSnapshot)]
         }
 
         render data as JSON
@@ -93,12 +98,13 @@ class RatingController {
                 "datasets": []
         ]
         UserReputationEvolutionRSDTO.Interval interval = getIntervalFromParams(params)
+        AverageWidgetType averageWidgetType = getAverageTypeFromParams(params)
         politicians.each {politician ->
             UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician, interval)
             data.datasets << [
                     "name": "${politician.name}",
                     "alias":"${politician.alias}",
-                    "data": evolutionRSDTO.reputationSnapshots.collect{[it.timestamp, it.runningAverage]},
+                    "data": evolutionRSDTO.reputationSnapshots.collect{[it.timestamp, getProperAverage(averageWidgetType,it)]},
                     "type": "spline"
             ]
         }
@@ -115,6 +121,26 @@ class RatingController {
             }
         }
         return interval;
+    }
+
+    private AverageWidgetType getAverageTypeFromParams(def params){
+        AverageWidgetType averageWidgetType = AverageWidgetType.RUNNING_AVERAGE
+        if (params.averageWidgetType){
+            try{
+                averageWidgetType = params.averageWidgetType as AverageWidgetType
+            }catch(java.lang.IllegalArgumentException wrongAverageTypeException){
+                averageWidgetType = AverageWidgetType.RUNNING_AVERAGE
+            }
+        }
+        return averageWidgetType;
+    }
+
+    private Double getProperAverage(AverageWidgetType averageWidgetType, def reputationSnapshotRSDTO){
+        if (AverageWidgetType.GLOBAL_AVERAGE== averageWidgetType){
+            return reputationSnapshotRSDTO.averageEvaluation
+        }else{
+            return reputationSnapshotRSDTO.runningAverage
+        }
     }
 
 }

@@ -1,10 +1,13 @@
-<%@ page import="org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO" %>
+<%@ page import="kuorum.web.widget.AverageWidgetType; org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO" %>
 (function () {
 	var urlTypes={
 		'ratePolitician':'${createLink(mapping: 'widgetRatePolitician', absolute: true)}',
-		'comparative':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.HOUR])}',
-		'comparative_15MINS':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_15])}',
-		'comparative_5MINS':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_5])}'
+		'comparative':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.HOUR, averageWidgetType:kuorum.web.widget.AverageWidgetType.RUNNING_AVERAGE])}',
+		'comparative_15MINS':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_15,averageWidgetType:kuorum.web.widget.AverageWidgetType.RUNNING_AVERAGE])}',
+		'comparative_5MINS':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_5,averageWidgetType:kuorum.web.widget.AverageWidgetType.RUNNING_AVERAGE])}',
+		'average_HOUR':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.HOUR,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE])}',
+		'average_15MINS':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_15,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE])}',
+		'average_5MINS':'${createLink(mapping: 'widgetComparative', absolute: true, params:[interval:org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO.Interval.MINUTE_5,averageWidgetType:kuorum.web.widget.AverageWidgetType.GLOBAL_AVERAGE])}'
 	}
 	var widget = document.getElementById('${divId}');
 	var type = widget.getAttribute("data-type")
@@ -12,6 +15,7 @@
 	var alto = widget.getAttribute("data-height")
 	var lang = widget.getAttribute("data-lang")
 	var url = urlTypes[type]
+	console.log(url)
 	if (url.indexOf("?")>=0){
 		url += "&"
 	}else{
