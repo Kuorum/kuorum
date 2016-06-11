@@ -77,7 +77,7 @@ environments {
     production {
         grails{
             mongo {
-                replicaSet = [ "172.31.40.27:27017", "172.31.40.27:27017"]
+                replicaSet = [ "172.31.40.27:27017", "172.31.47.221:27017", "172.31.42.250:27017"]
 //                host = "localhost"
                 port = "27017"
                 username = ""
