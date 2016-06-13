@@ -10,6 +10,7 @@ import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 
 import javax.servlet.http.HttpServletResponse
+import java.text.SimpleDateFormat
 
 class RatingController {
 
@@ -116,12 +117,14 @@ class RatingController {
 
     def getRangeDate(def params){
         Date startDate = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        sdf.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
         try{
-            startDate = Date.parse("yyyy-MM-dd hh:mm",params.startDate)
+            startDate = sdf.parse(params.startDate)
         }catch (Exception e){}
         Date endDate= null;
         try{
-            endDate = Date.parse("yyyy-MM-dd hh:mm",params.endDate)
+            endDate = sdf.parse(params.endDate)
         }catch (Exception e){}
         return [endDate:endDate, startDate: startDate]
     }
