@@ -67,7 +67,7 @@
                                     <g:link mapping="userShow" params="${politician.encodeAsLinkProperties()}" class="btn btn-blue" target="_blank">
                                     <g:message code="search.list.seeMore"/> - ${politician.name}
                                 </g:link></h4>
-                                <div class="polValChart" data-urljs="${createLink(mapping: 'userHistoricRate', params:politician.encodeAsLinkProperties() + [interval:interval,averageWidgetType:averageWidgetType], absolute: true)}"></div>
+                                <div class="polValChart" data-urljs="${createLink(mapping: 'userHistoricRate', params:politician.encodeAsLinkProperties() + [interval:interval,averageWidgetType:averageWidgetType,startDate:startDate, endDate:endDate], absolute: true)}"></div>
                             </div>
 
                             %{--</div>--}%

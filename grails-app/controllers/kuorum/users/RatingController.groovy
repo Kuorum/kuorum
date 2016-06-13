@@ -36,7 +36,7 @@ class RatingController {
         }
         UserReputationEvolutionRSDTO.Interval interval = getIntervalFromParams(params)
         AverageWidgetType averageWidgetType = getAverageTypeFromParams(params)
-        [politicians:politicians, interval:interval, averageWidgetType:averageWidgetType]
+        [politicians:politicians, interval:interval, averageWidgetType:averageWidgetType, startDate:params.startDate, endDate:params.endDate]
     }
 
     def widgetRatePolitician = {
@@ -57,7 +57,8 @@ class RatingController {
         }
         UserReputationEvolutionRSDTO.Interval interval = getIntervalFromParams(params)
         AverageWidgetType averageWidgetType = getAverageTypeFromParams(params)
-        UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician,interval)
+        def range = getRangeDate(params)
+        UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician,interval, range.startDate, range.endDate)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician)
         def data=  [
                 "title":"",
@@ -99,8 +100,9 @@ class RatingController {
         ]
         UserReputationEvolutionRSDTO.Interval interval = getIntervalFromParams(params)
         AverageWidgetType averageWidgetType = getAverageTypeFromParams(params)
+        def range = getRangeDate(params)
         politicians.each {politician ->
-            UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician, interval)
+            UserReputationEvolutionRSDTO evolutionRSDTO = userReputationService.getReputationEvoulution(politician, interval, range.startDate, range.endDate)
             data.datasets << [
                     "name": "${politician.name}",
                     "alias":"${politician.alias}",
@@ -111,6 +113,18 @@ class RatingController {
         render data as JSON
     }
 
+
+    def getRangeDate(def params){
+        Date startDate = null;
+        try{
+            startDate = Date.parse("yyyy-MM-dd hh:mm",params.startDate)
+        }catch (Exception e){}
+        Date endDate= null;
+        try{
+            endDate = Date.parse("yyyy-MM-dd hh:mm",params.endDate)
+        }catch (Exception e){}
+        return [endDate:endDate, startDate: startDate]
+    }
     private UserReputationEvolutionRSDTO.Interval getIntervalFromParams(def params){
         UserReputationEvolutionRSDTO.Interval interval = UserReputationEvolutionRSDTO.Interval.HOUR
         if (params.interval){
