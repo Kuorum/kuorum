@@ -182,7 +182,8 @@ grails.plugin.springsecurity.rememberMe.alwaysRemember=true
 grails.plugin.springsecurity.rememberMe.tokenValiditySeconds=60*60*24*365 //(one year)
 grails.plugin.springsecurity.rememberMe.key='kuorumRememberMe'
 grails.plugin.springsecurity.rememberMe.cookieName='kuorumSecurity_rememberMe'
-//grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName=''
+grails.plugin.springsecurity.rememberMe.persistent=true
+grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName='kuorum.web.users.PersistentLoginToken'
 // Added by the Spring Security OAuth plugin:
 grails.plugin.springsecurity.oauth.domainClass = 'kuorum.users.OAuthID'
 oauth {
