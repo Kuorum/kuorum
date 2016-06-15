@@ -13,7 +13,7 @@
             <g:if test="${whiteLogo}">
                 <g:set var="imageBrand" value="logo-white@2x.png"/>
             </g:if>
-            <img src="${resource(dir: 'images', file: imageBrand)}" alt="${g.message(code:'head.logo.alt')}">
+            <img src="${resource(dir: 'images', file: imageBrand)}" alt="${g.message(code:'head.logo.alt')}" title="${g.message(code:'head.logo.title')}">
             <span class="hidden"><g:message code="kuorum.name"/> </span>
         </g:link>
     </h1>
