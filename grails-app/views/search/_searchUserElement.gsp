@@ -10,7 +10,7 @@
 
         <div class="user">
             <div class='profile-pic-div'>
-                <img itemprop="image" class="user-img big" alt="nombre" src="${image.userImgSrc(user:user)}">
+                <img itemprop="image" class="user-img big" alt="${message(code:'kuorumUser.image.avatar.alt', args:[user.name])}" title="${message(code:'kuorumUser.image.avatar.title', args:[user.name])}" src="${image.userImgSrc(user:user)}">
                 <g:if test="${user.verified}">
                     %{--<i class="fa fa-check"></i>--}%
                 </g:if>
