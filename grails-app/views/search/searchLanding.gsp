@@ -1,15 +1,15 @@
 <%@ page import="kuorum.core.model.solr.SolrType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="kuorum.name"/></title>
+    <title><g:message code="page.title.landing.discover"/></title>
     <meta name="layout" content="landingLayout"/>
     <parameter name="showHeadSearch" value="false"/>
     <parameter name="special-cssClass" value="noResults"/>
     <parameter name="transparentHead" value="true"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
-                      kuorumTitle:g.message(code:'search.noLogged.landing.title'),
-                      kuorumDescription:g.message(code:'search.noLogged.landing.subTitle'),
+                      kuorumTitle:g.message(code:'page.title.landing.discover'),
+                      kuorumDescription:g.message(code:'page.title.landing.discover.description'),
                       kuorumImage:r.resource(dir:'images', file:'landingSearch-rrss.png', absolute:true)
 //                      kuorumImage:request.siteUrl +r.resource(dir:'images', file:'background-search.jpg')
               ]"/>
