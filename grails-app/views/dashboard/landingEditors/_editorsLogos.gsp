@@ -1,5 +1,5 @@
 <section role="complementary" class="homeSub logos">
-    <h1><g:message code="landingEditors.logos.title"/> </h1>
+    <h3><g:message code="landingEditors.logos.title"/> </h3>
     <ul class="clearfix limit-height" data-collapsedHeight="320" data-collapsedButtonCss="openLogos">
         <li itemscope itemtype="http://schema.org/Organization" class="square">
             <img itemprop="logo" src="${resource(dir: 'images/universities', file: 'logo-accessinfo.png')}" alt="Access Info Europe">

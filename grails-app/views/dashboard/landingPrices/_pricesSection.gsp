@@ -16,7 +16,7 @@
     })
 </script>
 <section id="main" role="main" class="homeSub">
-    <h1><g:message code="landingPrices.title"/> </h1>
+    <h3><g:message code="landingPrices.title"/> </h3>
     <div class="promo-options clearfix">
         <div class="col-xs-12 col-sm-12 col-md-3">
             <g:render template="/dashboard/landingPrices/headPriceBox" model="[offerType:OfferType.BASIC]"/>

@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <h1><g:message code="landingEditors.ipdb.title"/> </h1>
+                    <h3><g:message code="landingEditors.ipdb.title"/> </h3>
                     <p><g:message code="landingEditors.ipdb.p1"/></p>
                     <p><g:message code="landingEditors.ipdb.p2"/></p>
                     <p><g:message code="landingEditors.ipdb.p3" args="[Math.floor(KuorumUser.countByUserType(UserType.POLITICIAN)/100)*100]"/></p>

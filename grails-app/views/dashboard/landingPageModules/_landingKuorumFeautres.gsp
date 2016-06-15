@@ -1,5 +1,5 @@
 <section role="complementary" class="homeSub" id="saveTime-tag" data-smoothOffset="-105">
-    <h1><g:message code="landingPage.features.title"/> </h1>
+    <h3><g:message code="landingPage.features.title"/> </h3>
 
     <div class="row">
         <ul class="saveTime">

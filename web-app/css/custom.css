@@ -3040,8 +3040,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .home .play > a:focus,
 .home .play > a:active {color: rgba(32, 162, 234, 0.5);}
 .homeSub {margin: 0 0 40px 0;}
-.homeSub > .row > h1,
-.homeSub > h1 {text-align: center; padding: 0 15px 10px 15px; margin: 0 0 20px 0; font-size: 26px; font-size: 2.6rem; border-bottom: 1px solid #e5e5e5;}
+.homeSub > .row > h3,
+.homeSub > h3 {text-align: center; padding: 0 15px 10px 15px; margin: 0 0 20px 0; font-size: 26px; font-size: 2.6rem; border-bottom: 1px solid #e5e5e5;}
 .homeSub h2 {font-size: 24px; font-size: 2.4rem; padding: 0 16%;}
 .homeSub .homeMore {width: 100%; margin: 0 auto;text-align: center;}
 .homeSub .homeMore.two .btn {width: 43%; margin-right: 2% !important;}
@@ -3058,14 +3058,14 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub.logos ul li {height:85px;}
 
 .homeSub > .row > h1,
-.homeSub > h1 { border-bottom: 1px solid #e5e5e5; }
+.homeSub > h3 { border-bottom: 1px solid #e5e5e5; }
 .main.special.landing .homeSub h1,
 .landing.ipdb .full-video h1,
 .landing.prices .full-video h1 { border-bottom: 1px solid rgba(255,255,255,.2); }
 
 .main.special.landing .homeSub h1,
 .homeSub > .row > h1,
-.homeSub > h1,
+.homeSub > h3,
 .landing.ipdb .full-video h1,
 .landing.prices .full-video h1 {font-size: 26px; font-size: 2.6rem; max-width: 650px; margin: 0 auto 20px; text-align: center; padding-bottom: 18px;}
 .main.special.landing .homeSub ul {padding: 0; margin: 0; list-style: none;}
@@ -4790,7 +4790,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .main.special.landing .homeSub h1,
     .homeSub > .row > h1,
-    .homeSub > h1,
+    .homeSub > h3,
     .landing.ipdb .full-video h1,
     .landing.prices .full-video h1 {font-size: 34px; font-size: 3.4rem; margin-bottom: 54px;}
     #saveTime {margin-bottom: 40px;}
