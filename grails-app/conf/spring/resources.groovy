@@ -6,6 +6,8 @@ import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
 import kuorum.files.AmazonFileService
 import kuorum.files.LocalFileService
 import kuorum.security.permission.KuorumPermissionEvaluator
+import kuorum.security.KuroumPersistentTokenBasedRememberMeServices
+import kuorum.security.rememberMe.RememberMeTokenRepository
 import kuorum.solr.IndexSolrService
 import kuorum.solr.SearchSolrService
 import kuorum.register.MongoUserDetailsService
@@ -25,6 +27,10 @@ beans = {
 
     localeChangeInterceptor(kuorum.web.interceptors.CustomLocaleInterceptor) {
         paramName = "lang"
+    }
+
+    tokenRepository(RememberMeTokenRepository){
+        grailsApplication=ref("grailsApplication")
     }
 
     switch(Environment.current) {
