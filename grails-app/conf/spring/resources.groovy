@@ -1,22 +1,20 @@
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.encoding.BCryptPasswordEncoder
 import grails.spring.BeanBuilder
+import grails.util.Environment
 import kuorum.core.security.passwordEncoders.PasswordFixingDaoAuthenticationProvider
 import kuorum.core.security.passwordEncoders.Sha256ToBCryptPasswordEncoder
+import kuorum.core.springSecurity.handlers.SuccessAuthenticationHandler
 import kuorum.files.AmazonFileService
-import kuorum.files.LocalFileService
+import kuorum.register.MongoUserDetailsService
 import kuorum.security.permission.KuorumPermissionEvaluator
-import kuorum.security.KuroumPersistentTokenBasedRememberMeServices
 import kuorum.security.rememberMe.RememberMeTokenRepository
 import kuorum.solr.IndexSolrService
 import kuorum.solr.SearchSolrService
-import kuorum.register.MongoUserDetailsService
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer
 import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.apache.solr.core.CoreContainer
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder
-import kuorum.core.springSecurity.handlers.SuccessAuthenticationHandler
-import grails.util.Environment
 
 // Place your Spring DSL code here
 beans = {
