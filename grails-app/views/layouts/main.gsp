@@ -123,8 +123,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span></button>
                 <div class="col" id="modalVictoryUser">
                     <img class="user-img big" alt="nombre" src="">
-                    <h1>${message(code:'modalVictory.title')}</h1>
-                    <h2 id="myModalLabel">${message(code:'modalVictory.label')}</h2>
+                    <h3>${message(code:'modalVictory.title')}</h3>
+                    <h4 id="myModalLabel">${message(code:'modalVictory.label')}</h4>
                 </div>
                 <div class="col" id="modalVictoryDefender">
                     <span class="fdoDiagonal"></span>
