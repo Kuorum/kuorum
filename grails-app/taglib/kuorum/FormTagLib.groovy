@@ -58,16 +58,28 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
         def kuorumPdfId = command."$field"
+        def prefixFieldName=attrs.prefixFieldName?:""
 
-        KuorumFile kuorumFile = null
         FileGroup fileGroup = attrs.fileGroup
         def label = message(code: "${command.class.name}.${field}.label")
         def placeHolder = message(code: "${command.class.name}.${field}.placeHolder", default: message(code:'form.uploadFile.placeHolder', default: 'Upload file'))
         def value = ""
         def pdfUrl = ""
         String fileName = ""
-        if (kuorumPdfId)
+
+        KuorumFile kuorumFile = null
+
+        if (kuorumPdfId  && kuorumPdfId instanceof KuorumFile){
+            kuorumFile = kuorumPdfId
+            kuorumPdfId = kuorumFile.id.toString()
+        }else if (kuorumPdfId ){
             kuorumFile = KuorumFile.get(new ObjectId(kuorumPdfId))
+        }
+        String fieldName = prefixFieldName+field
+        Class fieldType = command.class.metaClass.properties.find { it.name == "$field" }.type
+        if (fieldType == KuorumFile){
+            fieldName += ".id"
+        }
 
         if (!kuorumFile){
             kuorumPdfId = "_${field}_NEW_"
@@ -87,7 +99,7 @@ class FormTagLib {
                 value:value,
                 fileGroup:fileGroup,
                 pdfUrl:pdfUrl,
-                name:field,
+                name:fieldName,
                 fileName:fileName,
                 label:label,
                 placeHolder:placeHolder,

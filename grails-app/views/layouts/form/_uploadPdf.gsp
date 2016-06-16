@@ -9,6 +9,7 @@
         ${placeHolder}
     </g:else>
 </g:set>
+<label>${label}</label>
 <div id="${divId}">
     <noscript>
         <p>Please enable JavaScript to use file uploader.</p>

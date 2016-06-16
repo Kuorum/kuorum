@@ -405,8 +405,8 @@ class PoliticianService {
             politician.careerDetails = new CareerDetails()
         }
         politician.careerDetails.profession = politician.careerDetails.profession?:line."profession"
-        politician.careerDetails.cvLink =politician.careerDetails.cvLink?:line."cvLink"
-        politician.careerDetails.declarationLink = politician.careerDetails.declarationLink?:line."declarationLink"
+        politician.careerDetails.cvLink =politician.careerDetails.cvLink?:fileService.createExternalFile(politician, line."cvLink", FileGroup.PDF, FileType.AMAZON_IMAGE)
+        politician.careerDetails.declarationLink = politician.careerDetails.declarationLink?:fileService.createExternalFile(politician, line."declarationLink", FileGroup.PDF, FileType.AMAZON_IMAGE)
         politician.careerDetails.university = politician.careerDetails.university?:line."university"
         politician.careerDetails.school = politician.careerDetails.school?:line."school"
     }
