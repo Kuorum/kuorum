@@ -53,10 +53,10 @@
     </fieldset>
     <fieldset class="row">
         <div class="form-group col-md-6">
-            <formUtil:url command="${command.careerDetails}" field="cvLink" showLabel="true" prefixFieldName="careerDetails."/>
+            <formUtil:editPdf command="${command.careerDetails}" field="cvLink" showLabel="true" prefixFieldName="careerDetails."/>
         </div>
         <div class="form-group col-md-6">
-            <formUtil:url command="${command.careerDetails}" field="declarationLink" showLabel="true" prefixFieldName="careerDetails."/>
+            <formUtil:editPdf command="${command.careerDetails}" field="declarationLink" showLabel="true" prefixFieldName="careerDetails."/>
         </div>
     </fieldset>
 </div>
