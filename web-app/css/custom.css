@@ -2037,8 +2037,8 @@ textarea.error,
 #modalVictory .modal-header > .col:last-child {background-color: #faebcc; color: #545454;}
 #modalVictory .modal-header {position: relative; background-color: #ff9431; padding: 0; color: #fff; height: 110px;}
 #modalVictory .modal-header img {float: left; border: solid 4px #fff; margin-top: 0;}
-#modalVictory .modal-header h1 {font-size: 48px; font-style: 4.8rem; text-transform: uppercase; margin-bottom: 0; margin-top: 10px; line-height: 1;}
-#modalVictory .modal-header h2 {font-size: 22px; font-style: 2.2rem; margin: 0; color: #faebcc;}
+#modalVictory .modal-header h3 {font-size: 48px; font-style: 4.8rem; text-transform: uppercase; margin-bottom: 0; margin-top: 10px; line-height: 1;}
+#modalVictory .modal-header h4 {font-size: 22px; font-style: 2.2rem; margin: 0; color: #faebcc;}
 #modalVictory .modal-header .user-img.big {width: 90px; height: 90px; margin: 0 10px 0 0;}
 #modalVictory .modal-header .user {margin: 0; position: relative; width: 100%;}
 #modalVictory .modal-header .user > .user-img.big {width: 70px; height: 70px; border-color: #ff9431; margin: 0 10px 4px 0;}
