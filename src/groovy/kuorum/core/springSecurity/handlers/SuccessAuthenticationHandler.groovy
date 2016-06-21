@@ -13,10 +13,12 @@ public class SuccessAuthenticationHandler extends SavedRequestAwareAuthenticatio
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response,
                                         final Authentication authentication) throws ServletException, IOException {
-
-        String token = authentication.accessToken.accessToken
-
-        kuorumUserService.checkFacebookFriendsByUserToken(token)
+        if(authentication){
+            String token = authentication?.accessToken?.accessToken
+            kuorumUserService.checkFacebookFriendsByUserToken(token)
+        }else{
+            logger.info("Facebook token null: URI = ${request.requestURI}")
+        }
         super.onAuthenticationSuccess(request, response, authentication)
 
     }
