@@ -14,6 +14,9 @@ class UserReputationService {
     SpringSecurityService springSecurityService
     CookieService cookieService
 
+    private static final String COOKIE_DOMAIN =".kuorum.org";
+    private static final String COOKIE_EVALUATOR_NAME='EVALUATOR_ID_RATING'
+
     UserReputationRSDTO addReputation(KuorumUser politician, Integer evaluation) {
 
         String evaluatorId =getEvaluatorUserId()
@@ -31,8 +34,6 @@ class UserReputationService {
         return userReputation;
     }
 
-    private static final String COOKIE_EVALUATOR_NAME='EVALUATOR_ID_RATING'
-
     private String getEvaluatorUserId(){
         String evaluatorId = cookieService.getCookie(COOKIE_EVALUATOR_NAME)
         if (springSecurityService.isLoggedIn()){
@@ -47,7 +48,7 @@ class UserReputationService {
                  value:evaluatorId,
                  maxAge:Integer.MAX_VALUE ,
                  path:"/",
-                 domain:null])
+                 domain:COOKIE_DOMAIN])
     }
 
     UserReputationRSDTO getReputation(KuorumUser politician) {
