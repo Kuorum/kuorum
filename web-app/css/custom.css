@@ -1490,8 +1490,8 @@ video#bgvid {
 .landing.ipdb,
 .landing.prices {color: #fff; text-align: center;}
 .landing.ipdb .full-video {background-image: url('../images/background-ipdb.jpg'); padding-top: 50px;}
-.landing.ipdb .full-video h1,
-.landing.prices .full-video h1 {font-size: 33px; font-size: 3rem;}
+.landing.ipdb .full-video h3,
+.landing.prices .full-video h3 {font-size: 33px; font-size: 3rem;}
 .landing.ipdb .full-video p,
 .landing.ipdb .full-video .btn-lg,
 .landing.prices .full-video p,
@@ -3060,14 +3060,14 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .homeSub > .row > h1,
 .homeSub > h3 { border-bottom: 1px solid #e5e5e5; }
 .main.special.landing .homeSub h1,
-.landing.ipdb .full-video h1,
-.landing.prices .full-video h1 { border-bottom: 1px solid rgba(255,255,255,.2); }
+.landing.ipdb .full-video h3,
+.landing.prices .full-video h3 { border-bottom: 1px solid rgba(255,255,255,.2); }
 
 .main.special.landing .homeSub h1,
 .homeSub > .row > h1,
 .homeSub > h3,
-.landing.ipdb .full-video h1,
-.landing.prices .full-video h1 {font-size: 26px; font-size: 2.6rem; max-width: 650px; margin: 0 auto 20px; text-align: center; padding-bottom: 18px;}
+.landing.ipdb .full-video h3,
+.landing.prices .full-video h3 {font-size: 26px; font-size: 2.6rem; max-width: 650px; margin: 0 auto 20px; text-align: center; padding-bottom: 18px;}
 .main.special.landing .homeSub ul {padding: 0; margin: 0; list-style: none;}
 .main.special.landing .homeSub ul li {width: 100%; list-style: none; float: left; text-align: center; margin: 20px 0; height: 65px;}
 .main.special.landing .homeSub ul li img {max-width: 145px;}
@@ -4791,8 +4791,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .main.special.landing .homeSub h1,
     .homeSub > .row > h1,
     .homeSub > h3,
-    .landing.ipdb .full-video h1,
-    .landing.prices .full-video h1 {font-size: 34px; font-size: 3.4rem; margin-bottom: 54px;}
+    .landing.ipdb .full-video h3,
+    .landing.prices .full-video h3 {font-size: 34px; font-size: 3.4rem; margin-bottom: 54px;}
     #saveTime {margin-bottom: 40px;}
     .testimonies-list li {height: 158px; overflow: hidden;}
     .testimonies-list li blockquote footer,
