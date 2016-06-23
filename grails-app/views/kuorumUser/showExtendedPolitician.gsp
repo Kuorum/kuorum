@@ -6,6 +6,7 @@
     <parameter name="specialContainerCssClass" value="userprofile" />
     <parameter name="specialMainContentCssClass" value="politician-card" />
     <g:render template="userMetaTags" model="[user:politician]"/>
+    <link rel="canonical" href="${g.createLink(mapping:"userShow", params: politician.encodeAsLinkProperties(), absolute:true)}"/>
 </head>
 
 <content tag="mainContent">
