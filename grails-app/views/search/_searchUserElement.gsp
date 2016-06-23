@@ -5,7 +5,7 @@
     <div class="link-wrapper">
         <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" class="hidden"></g:link>
         <div class="card-header-photo">
-            <img src="${image.userImgProfile(user:user)}" alt="${user.name}">
+            <img src="${image.userImgProfile(user:user)}" alt="${message(code:'kuorumUser.image.profile.alt', args:[user.name])}">
         </div>
 
         <div class="user">
