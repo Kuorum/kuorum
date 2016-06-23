@@ -175,7 +175,8 @@ class UrlMappings {
 
         name searcherSearch:        "/search"(controller: "search", action:"search")
                                     "/buscar"(controller: "search", action:"search")
-        name searcherLanding:       "/discover"(controller: "search", action:"searchLanding")
+        name searcherLanding:       "/"(controller: "search", action:"searchLanding")
+                                    "/discover"(controller: "search", action:"searchLanding")
         name searcherSearchSeeMore: "/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
         name searcherSearchFilters: "/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
         name searcherSuggests:      "/ajax/buscar/sugerencias"(controller: "search", action:"suggest")
