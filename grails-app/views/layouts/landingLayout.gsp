@@ -48,7 +48,18 @@
         </div>
     </g:if>
 
-    <g:render template="/layouts/fastRegisterSection"/>
+    <g:if test="${pageProperty(name:"page.lastCallToAction")}">
+        <div class="row main special profile">
+            <div class="container-fluid">
+                <section class="homeSub" role="complementary">
+                    <g:pageProperty name="page.lastCallToAction"/>
+                </section>
+            </div>
+        </div>
+    </g:if>
+    <g:else>
+        <g:render template="/layouts/fastRegisterSection"/>
+    </g:else>
     <g:render template="/layouts/footer/footer"/>
 </div><!-- .container-fluid -->
 </body>

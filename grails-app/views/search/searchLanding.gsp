@@ -13,6 +13,7 @@
                       kuorumImage:r.resource(dir:'images', file:'landingSearch-rrss.png', absolute:true)
 //                      kuorumImage:request.siteUrl +r.resource(dir:'images', file:'background-search.jpg')
               ]"/>
+    <link rel="canonical" href="${g.createLink(mapping:"searcherLanding", params: [], absolute:true)}"/>
 </head>
 
 <content tag="videoAndRegister">
@@ -61,4 +62,12 @@
         </nav:loadMoreLink>
     </div>
 </content>
+
+<content tag="lastCallToAction">
+    <h3><g:message code="landingSearch.lastCallToAction.title"/> </h3>
+    <g:link mapping="register" class="btn btn-lg">
+        <g:message code="landingPage.fastRegister.start"/>
+    </g:link>
+</content>
+
 </html>
