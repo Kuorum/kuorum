@@ -1,12 +1,12 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="kuorum.name"/></title>
+    <title><g:message code="page.title.landing.politician"/></title>
     <meta name="layout" content="landingLayout">
     <parameter name="transparentHead" value="true"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
-                      kuorumTitle:g.message(code:'landingPage.videoAndRegister.title'),
-                      kuorumDescription:g.message(code:'landingPage.videoAndRegister.subtitle'),
+                      kuorumTitle:g.message(code:'page.title.landing.politician'),
+                      kuorumDescription:g.message(code:'page.title.landing.politician.description'),
                       kuorumImage:request.siteUrl +r.resource(dir:'images', file:'background-capitol.png')
               ]"/>
 </head>
