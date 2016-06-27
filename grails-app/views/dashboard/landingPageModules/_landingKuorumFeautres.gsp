@@ -5,7 +5,9 @@
         <ul class="saveTime">
             <li class="col-sm-5 col-md-3">
                 <g:link mapping="footerPoliticians">
-                    <img src="${resource(dir: 'images', file: 'dashboard_bw.png')}" alt="${g.message(code:'landingPage.features.socialAnalytics.title')}">
+                    <img src="${resource(dir: 'images', file: 'dashboard_bw.png')}"
+                         alt="${g.message(code:'landingPage.features.socialAnalytics.img.title')}"
+                         title="${g.message(code:'landingPage.features.socialAnalytics.img.alt')}">
                 </g:link>
                 <h2><g:message code="landingPage.features.socialAnalytics.title"/></h2>
                 <p><g:message code="landingPage.features.socialAnalytics.description"/></p>
@@ -15,7 +17,9 @@
             </li>
             <li class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-0">
                 <g:link mapping="footerPoliticians">
-                    <img src="${resource(dir: 'images', file: 'semantic_bw.png')}" alt="${g.message(code:'landingPage.features.semanticAnalytics.title')}">
+                    <img src="${resource(dir: 'images', file: 'semantic_bw.png')}"
+                         title="${g.message(code:'landingPage.features.semanticAnalytics.img.title')}"
+                         alt="${g.message(code:'landingPage.features.semanticAnalytics.img.alt')}">
                 </g:link>
                 <h2><g:message code="landingPage.features.semanticAnalytics.title"/></h2>
                 <p><g:message code="landingPage.features.semanticAnalytics.description"/></p>
@@ -25,7 +29,9 @@
             </li>
             <li class="col-sm-5 col-md-3">
                 <g:link mapping="footerPoliticians">
-                    <img src="${resource(dir: 'images', file: 'organizer_bw.png')}" alt="${g.message(code:'landingPage.features.massMailing.title')}">
+                    <img src="${resource(dir: 'images', file: 'organizer_bw.png')}"
+                         alt="${g.message(code:'landingPage.features.massMailing.img.alt')}"
+                         title="${g.message(code:'landingPage.features.massMailing.img.title')}">
                 </g:link>
                 <h2><g:message code="landingPage.features.massMailing.title"/></h2>
                 <p><g:message code="landingPage.features.massMailing.description"/></p>
@@ -35,7 +41,9 @@
             </li>
             <li class="col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-0">
                 <g:link mapping="footerPoliticians">
-                    <img src="${resource(dir: 'images', file: 'docman_bw.png')}" alt="${g.message(code:'landingPage.features.teamManagement.title')}">
+                    <img src="${resource(dir: 'images', file: 'docman_bw.png')}"
+                         alt="${g.message(code:'landingPage.features.teamManagement.img.alt')}"
+                         title="${g.message(code:'landingPage.features.teamManagement.img.title')}">
                 </g:link>
                 <h2><g:message code="landingPage.features.teamManagement.title"/></h2>
                 <p><g:message code="landingPage.features.teamManagement.description"/></p>

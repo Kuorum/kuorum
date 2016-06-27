@@ -1,7 +1,7 @@
 <section role="complementary">
     <div class="row">
         <div class="col-md-5 col-lg-6">
-            <h1><g:message code="landingPage.pressKit.title"/> </h1>
+            <h2><g:message code="landingPage.pressKit.title"/> </h2>
         </div>
 
         <div class="col-md-7 col-lg-6">

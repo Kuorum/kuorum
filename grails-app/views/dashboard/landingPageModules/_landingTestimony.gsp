@@ -1,7 +1,7 @@
 <blockquote itemtype="http://schema.org/Review" itemscope="">
     <footer>
         <cite itemprop="publisher">
-            <img alt="${name}" src="${image}">
+            <img src="${image}" alt="${alt}">
         </cite>
     </footer>
 
