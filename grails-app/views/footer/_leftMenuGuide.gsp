@@ -1,4 +1,4 @@
-<h1><g:message code="layout.footer.technology"/></h1>
+<h1><g:message code="layout.footer.tech"/></h1>
 <ul>
     <li class="${activeMapping=='footerTechnology'?'active':''}">
         <g:link mapping="footerTechnology"><g:message code="layout.footer.tech"/></g:link>

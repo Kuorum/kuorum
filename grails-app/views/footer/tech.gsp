@@ -1,8 +1,14 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.footer.projects"/> </title>
+    <title><g:message code="page.title.footer.whatIsKuorum"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="info" />
+    <g:render template="/dashboard/landingMetaTags"
+              model="[
+                      kuorumTitle:g.message(code:'page.title.footer.whatIsKuorum'),
+                      kuorumDescription:g.message(code:'page.title.footer.whatIsKuorum.description'),
+                      kuorumImage:r.resource(dir:'images', file:'landingSearch-rrss.png', absolute:true)
+              ]"/>
 </head>
 
 <content tag="leftMenu">

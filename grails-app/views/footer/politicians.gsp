@@ -3,6 +3,12 @@
     <title><g:message code="page.title.footer.politicians"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="info" />
+    <g:render template="/dashboard/landingMetaTags"
+              model="[
+                      kuorumTitle:g.message(code:'page.title.footer.politicians'),
+                      kuorumDescription:g.message(code:'page.title.footer.politicians.description'),
+                      kuorumImage:r.resource(dir:'images', file:'landingSearch-rrss.png', absolute:true)
+              ]"/>
 </head>
 
 <content tag="leftMenu">
@@ -20,5 +26,5 @@
         <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature4" encodeAs="raw"/></li>
     </ul>
     <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.brief" encodeAs="raw" args="[g.createLink(mapping:'landingPrices'),g.createLink(mapping:'register')]"/></p>
-    <img src="${resource(dir: 'images', file: 'features.png')}" alt="features-kuorum" itemprop="image">
+    <img src="${resource(dir: 'images', file: 'features.png')}" alt="${g.message(code:'footer.menu.footerWhatIsKuorum.forPoliticians.image.alt')}" itemprop="image">
 </content>
