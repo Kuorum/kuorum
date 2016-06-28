@@ -1018,7 +1018,7 @@ $(document).ready(function() {
         $.ajax({
             url:url,
             data:{rate:rate}
-        }).done(function(data){
+        }).success(function(data){
             $("#rating-social-share-modal-"+data.userId).modal("show")
             $("#user-rating-form .counter").html(rate)
             $(".counter.user-reputation").html(data.userReputation.toFixed(2))
@@ -1038,7 +1038,13 @@ $(document).ready(function() {
                 'politician.rating.userVote':rate
             })
 //            $(".user-rating").popover("show")
-        })
+        }).error(function(jqXHR, textStatus, errorThrown){
+            dataLayer.push({
+                event:"Valuation",
+                'politician.alias':"Error",
+                'politician.rating.userVote':errorThrown
+            })
+        });
     })
 
     var orgRate;
