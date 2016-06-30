@@ -42,3 +42,5 @@ grails {
         //"kuorum.mail.smtp.port":"1587"]
     }
 }
+
+grails.plugin.cookiesession.domain="127.0.0.1"
