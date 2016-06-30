@@ -46,7 +46,7 @@ class CausesTagLib {
                     <a href='${searchLink}' class="sr-only hidden"> Search cause ${cause.name}</a>
                     <div class="cause-name" aria-hidden="true" tabindex="104">
                         <span class="fa fa-tag"></span>
-                        <span itemprop="sponsor">${cause.name}</span>
+                        <span>${cause.name}</span>
                     </div>
                     <div class="cause-support">
                         <a href='${supportCause}' role="button" tabindex="105" aria-pressed="${ariaPressed}" aria-labelledby="cause-support cause-counter">
