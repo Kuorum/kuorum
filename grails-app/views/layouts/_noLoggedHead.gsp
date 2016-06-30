@@ -5,14 +5,22 @@
             <span><g:message code="head.noLogged.search"/></span>
         </g:link>
     </li>
-    <li>
-        <g:link mapping="landingEditors" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingEditors')}">
-            <span><g:message code="head.noLogged.editors"/></span>
-        </g:link>
-    </li>
+
     <li>
         <g:link mapping="landingPoliticians" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingPoliticians')}">
             <span><g:message code="head.noLogged.politicians"/> </span>
+        </g:link>
+    </li>
+
+    <li>
+        <g:link mapping="landingCitizens" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingCitizens')}">
+            <span><g:message code="head.noLogged.citizens"/></span>
+        </g:link>
+    </li>
+
+    <li>
+        <g:link mapping="landingEditors" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingEditors')}">
+            <span><g:message code="head.noLogged.editors"/></span>
         </g:link>
     </li>
     %{--<li>--}%

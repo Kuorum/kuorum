@@ -12,7 +12,13 @@
 </head>
 
 <content tag="videoAndRegister">
-    <g:render template="landingEditors/videoAndRegister" model="[command:command]"/>
+    <section id="main" role="main" class="landing mainEditors clearfix">
+        <g:render template="landingEditors/videoAndRegister"
+                  model="[command:command,
+                          title:g.message(code:'landingEditors.videoAndRegister.title'),
+                          subtitle:g.message(code:'landingEditors.videoAndRegister.subTitle'),
+                  ]"/>
+    </section>
 </content>
 
 <content tag="logos">

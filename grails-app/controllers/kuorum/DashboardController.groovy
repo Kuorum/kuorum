@@ -135,6 +135,10 @@ class DashboardController {
         [command: new KuorumRegisterCommand()]
     }
 
+    def landingCitizens(){
+        [command: new KuorumRegisterCommand()]
+    }
+
     def landingPrices(){
         []
     }

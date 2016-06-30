@@ -25,6 +25,7 @@ class UrlMappings {
         name home:             "/" (controller: "search", action:"searchLanding")
         name dashboard:             "/dashboard" (controller: "dashboard", action:"dashboard")
         name landingEditors:   "/editors" (controller: "dashboard", action:"landingEditors")
+        name landingCitizens:   "/citizens" (controller: "dashboard", action:"landingCitizens")
         name landingPrices:    "/prices" (controller: "dashboard", action:"landingPrices")
         name landingPoliticians:    "/politicians" (controller: "dashboard", action:"landingPoliticians")
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")

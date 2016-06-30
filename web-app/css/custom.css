@@ -1487,6 +1487,7 @@ video#bgvid {
 
 /* editors y prices */
 #main.landing.mainEditors .full-video {background-image: url('../images/background-editors.jpg'); background-position: right 0;}
+#main.landing.mainCitizens .full-video {background-image: url('../images/background-citizens.jpg'); background-position: right 0;}
 .landing.ipdb,
 .landing.prices {color: #fff; text-align: center;}
 .landing.ipdb .full-video {background-image: url('../images/background-ipdb.jpg'); padding-top: 50px;}
@@ -5167,7 +5168,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #main.landing .full-video h1 {margin-top: 12%;}
     .landing .full-video .container-fluid form {margin-bottom: 3%;}
     .landing .full-video .container-fluid form#findRepresentatives {margin-bottom: 8em;}
-    #main.landing.mainEditors .full-video {background-position: right -22px;}
+    #main.landing.mainEditors .full-video,#main.landing.mainCitizens .full-video {background-position: right -22px;}
 
     .saveTime, .saveTime li {padding: 0 30px;}
     .saveTime li p {font-size: 18px; font-size: 1.8rem;}
@@ -5219,7 +5220,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #otras-propuestas .kakareo-list .kakareo footer,
     .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
 
-    #main.landing.mainEditors .full-video {background-position: right -38px;}
+    #main.landing.mainEditors .full-video, #main.landing.mainCitizens .full-video {background-position: right -38px;}
 
     .main.prices .promo-options > div p.price .currency {left: 35px; top: -35px;}
     .main.prices .promo-options > div p.price .amount {font-size: 90px; font-size: 9rem;}
