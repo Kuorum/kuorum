@@ -136,7 +136,7 @@
                     <span class="fdoDiagonal"></span>
                     <div class="user">
                         <img class="user-img big" alt="nombre" src="">
-                        <span class="name" itemprop="name">Nombre usuario</span>
+                        <span class="name">Nombre usuario</span>
                         <span class="what">se ha comprometido a</span>
                         <span class="action">llevarla al congreso</span>
                     </div>
