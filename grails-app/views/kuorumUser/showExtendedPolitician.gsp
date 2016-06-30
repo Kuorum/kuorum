@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>${politician.name}</title>
+    <g:set var="schema" value="http://schema.org/Person" scope="request"/>
+    <parameter name="schema" value="http://schema.org/Person" />
     <meta name="layout" content="columnCLayout">
     <parameter name="specialContainerCssClass" value="userprofile" />
     <parameter name="specialMainContentCssClass" value="politician-card" />
@@ -24,7 +26,8 @@
                              class="img-circle"
                              data-src="holder.js/140x140"
                              src="${image.userImgSrc(user:politician)}"
-                             data-holder-rendered="true">
+                             data-holder-rendered="true"
+                             itemprop="image">
                             <g:if test="${politician.enabled}">
                                 <abbr title="${message(code:'politician.image.icon.enabled.text')}"><i class="fa fa-check"></i></abbr>
                             </g:if>
@@ -36,9 +39,9 @@
             </div><!--/.row -->
             <div class="row extra-padding">
                 <div class='col-sm-7 profile-title'>
-                    <h2>${politician.name}</h2>
-                    <cite><userUtil:politicianPosition user="${politician}"/></cite>
-                    <p class='party'>${userUtil.roleName(user:politician)}</p>
+                    <h2 itemprop="name">${politician.name}</h2>
+                    <cite itemprop="jobTitle"><userUtil:politicianPosition user="${politician}"/></cite>
+                    <p class='party' itemprop="affiliation"><span  itemscope itemtype="http://schema.org/Organization">${userUtil.roleName(user:politician)}</span></p>
                 </div>
                 <div class="col-sm-5">
                     <g:render template="politicianValuation" model="[user:politician, userReputation:userReputation]"/>
@@ -65,7 +68,7 @@
                 </g:if>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/userNews" model="[user:politician, userNews:userNews]"/>
                 <h4><g:message code="politician.bio"/></h4>
-                <p class="limit-height" data-collapsedHeight="50">${politician.bio}</p>
+                <p class="limit-height" data-collapsedHeight="50"  itemprop="description">${politician.bio}</p>
             </div><!--/.extra-padding -->
         </div><!--/.panel-body-->
     </div><!--/.panel panel-default -->

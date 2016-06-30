@@ -76,10 +76,17 @@
     <meta property="twitter:account_id" content="4503599627910348" />
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
+<g:if test="${!schema}">
+    <g:set var="schema" value="http://schema.org/WebPage"/>
+</g:if>
+
+<body itemscope itemtype="${schema}">
+
+
+
+
     <span class="hidden" itemprop="name"><g:layoutTitle default="${g.message(code:"layout.head.title.default")}"/></span>
     <g:render template="/layouts/googleTagManager"/>
-
 
 <div class ="container-fluid">
     <a href="#main" accesskey="S" class="sr-only first"><g:message code="layout.mainContent.skipMenu"/></a>

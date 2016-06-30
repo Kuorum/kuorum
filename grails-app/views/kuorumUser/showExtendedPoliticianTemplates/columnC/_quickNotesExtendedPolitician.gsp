@@ -12,7 +12,7 @@
             </h3>
         </div>
         <div class="panel-body text-center">
-            <g:if test="${['completeName','birthDate', 'birthPlace','family'].find{politician?.politicianExtraInfo?."${it}"}}">
+            <g:if test="${['completeName','birthDate', 'birthPlace','family'].find{politician?.politicianExtraInfo?."${it}"} || ['gender'].find{politician?.personalData?."${it}"}}">
                 <div class="table table-condensed limit-height" data-collapsedHeight="95">
                     <div class="thead"><g:message code="politician.quickNotes.data.background.title"/></div>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
@@ -21,15 +21,23 @@
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.background.age'),
-                            data:(politician?.politicianExtraInfo?.birthDate?new Date()[Calendar.YEAR]-politician.politicianExtraInfo.birthDate[Calendar.YEAR]:'')
+                            data:(politician?.politicianExtraInfo?.birthDate?new Date()[Calendar.YEAR]-politician.politicianExtraInfo.birthDate[Calendar.YEAR]:''),
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.background.placeOfBirth'),
-                            data:politician?.politicianExtraInfo?.birthPlace?:''
+                            data:politician?.politicianExtraInfo?.birthPlace?:'',
+                            itemprop: 'address'
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.background.dateOfBirth'),
-                            data:(politician?.politicianExtraInfo?.birthDate?g.formatDate(format: 'yyyy', date: politician.politicianExtraInfo.birthDate):'')
+                            data:(politician?.politicianExtraInfo?.birthDate?g.formatDate(format: 'yyyy', date: politician.politicianExtraInfo.birthDate):''),
+                            itemprop: 'birthDate',
+                            content: politician?.politicianExtraInfo?.birthDate?g.formatDate(date: politician?.politicianExtraInfo?.birthDate, format: 'yyyy-MM-dd'):''
+                    ]"/>
+                    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
+                            message:g.message(code:'kuorum.web.commands.profile.EditUserProfileCommand.gender.label'),
+                            data:(politician?.personalData?.gender?g.message(code:'kuorum.core.model.Gender.'+politician?.personalData?.gender):''),
+                            itemprop:'gender'
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.background.family'),

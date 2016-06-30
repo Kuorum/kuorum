@@ -1,7 +1,7 @@
 <g:if test='${data || link}'>
-    <div class="tr">
+    <div class="tr clearfix">
         <div class="th" scope="row"><g:message code="${message}"/></div>
-        <div class="td">
+        <div class="td" ${raw(itemprop?"itemprop='${itemprop}'":'')} ${raw(content?"content='${content}'":'')}>
             <g:if test="${link}">
                 <a class="ellipsis" href="${link}" target="_blank">${link}</a>
             </g:if>

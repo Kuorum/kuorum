@@ -12,7 +12,8 @@
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.professionalDetails.data.institution'),
-                        data:politician?.professionalDetails?.institution?:''
+                        data:politician?.professionalDetails?.institution?:'',
+                        itemprop: 'worksFor'
                 ]"/>
                 <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                         message:g.message(code:'politician.professionalDetails.data.constituency'),
@@ -40,7 +41,8 @@
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.education.university'),
-                            data:politician?.careerDetails?.university
+                            data:politician?.careerDetails?.university,
+                            itemprop:'alumniOf'
                     ]"/>
                     <g:render template="/kuorumUser/showExtendedPoliticianTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.education.school'),
