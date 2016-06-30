@@ -76,19 +76,7 @@
                 </ul>
             </div>
         </li>
-        %{--<li itemscope itemtype="http://schema.org/Person">--}%
-            %{--<div class="box-ppal">--}%
-                %{--<img src="${resource(dir: 'images', file: 'foto-irene.jpg')}" alt="Foto" itemprop="image">--}%
-                %{--<h1 itemprop="name"><g:message code="footer.menu.footerTeam.member11"/></h1>--}%
-                %{--<h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position11"/></h2>--}%
-                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description11"/></p>--}%
-                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description11b"/></p>--}%
-                %{--<ul class="social">--}%
-                    %{--<li><a href="https://twitter.com/" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    %{--<li><a href="https://www.linkedin.com/" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>--}%
-                %{--</ul>--}%
-            %{--</div>--}%
-        %{--</li>--}%
+
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
                 <img src="${resource(dir: 'images', file: 'foto-arnolds.jpg')}" alt="Foto" itemprop="image">
@@ -104,17 +92,32 @@
         </li>
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-serae.jpg')}" alt="Foto" itemprop="image">
-                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member7"/></h1>
-                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position7"/></h2>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description7"/></p>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description7b"/></p>
-                %{--<ul class="social">--}%
-                    %{--<li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    %{--<li><a href="#" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>--}%
-                %{--</ul>--}%
+                <img src="${resource(dir: 'images', file: 'foto-jiaxi.jpg')}" alt="Foto" itemprop="image">
+                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member11"/></h1>
+                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position11"/></h2>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description11"/></p>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description11b"/></p>
+                <ul class="social">
+                    %{--<li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
+                    <li><a href="https://uk.linkedin.com/in/jiaxi-huang-a3b680123" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                </ul>
             </div>
         </li>
+
+        <li itemscope itemtype="http://schema.org/Person">
+            <div class="box-ppal">
+                <img src="${resource(dir: 'images', file: 'foto-will.jpg')}" alt="Foto" itemprop="image">
+                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member12"/></h1>
+                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position12"/></h2>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description12"/></p>
+                <p itemprop="description"><g:message code="footer.menu.footerTeam.description12b"/></p>
+                <ul class="social">
+                    %{--<li><a href="https://twitter.com/Jackie_Flore" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
+                    <li><a href="https://www.linkedin.com/in/william-davis7" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
+                </ul>
+            </div>
+        </li>
+
         <li itemscope itemtype="http://schema.org/Person">
             <div class="box-ppal">
                 <img src="${resource(dir: 'images', file: 'foto-sara.jpg')}" alt="Foto" itemprop="image">
