@@ -16,6 +16,7 @@
         <li><g:message code="footer.menu.footerInformation.journalistRelation1"/></li>
         <li><g:message code="footer.menu.footerInformation.journalistRelation2"/></li>
         <li><g:message code="footer.menu.footerInformation.journalistRelation3"/></li>
+        <li><g:message code="footer.menu.footerInformation.journalistRelation4"/></li>
     </ul>
     %{--<div class="video">--}%
         %{--<a href="#" class="front">--}%

@@ -17,8 +17,7 @@
 
 <content tag="mainContent">
     <h1><g:message code="layout.footer.tech"/></h1>
-    <p>
-        <g:message code="footer.menu.tech.description1"/>
-    </p>
+    <p><g:message code="footer.menu.tech.description1"/></p>
+    <p><g:message code="footer.menu.tech.description2"/></p>
     <p><img src="${resource(dir: 'images', file: 'screens.png')}" alt="kuorum-screens" itemprop="image"></p>
 </content>

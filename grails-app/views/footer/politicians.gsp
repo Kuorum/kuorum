@@ -17,14 +17,9 @@
 
 <content tag="mainContent">
     <h1><g:message code="layout.footer.politicians"/></h1>
-    <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.description" encodeAs="raw"/></p>
-    <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features" encodeAs="raw"/></p>
-    <ul>
-        <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature1" encodeAs="raw"/></li>
-        <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature2" encodeAs="raw"/></li>
-        <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature3" encodeAs="raw"/></li>
-        <li><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.features.feature4" encodeAs="raw"/></li>
-    </ul>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.politicians.description1" encodeAs="raw"/></p>
+    <h1><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.administration.title"/></h1>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.administration.description1" encodeAs="raw"/></p>
+
     <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.brief" encodeAs="raw" args="[g.createLink(mapping:'landingPrices'),g.createLink(mapping:'register')]"/></p>
-    <img src="${resource(dir: 'images', file: 'features.png')}" alt="${g.message(code:'footer.menu.footerWhatIsKuorum.forPoliticians.image.alt')}" itemprop="image">
 </content>
