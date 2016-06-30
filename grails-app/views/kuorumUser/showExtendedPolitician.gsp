@@ -1,7 +1,7 @@
 <%@ page import="kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>${politician.name}</title>
+    <title><g:message code="page.politicianProfile.title" args="[politician.name]"/></title>
     <g:set var="schema" value="http://schema.org/Person" scope="request"/>
     <parameter name="schema" value="http://schema.org/Person" />
     <meta name="layout" content="columnCLayout">
@@ -15,14 +15,14 @@
     <div class="panel panel-default">
         <div class='profile-header'>
             <g:render template="editUserOptionsProfile" model="[user:politician]"/>
-            <img src="${image.userImgProfile(user:politician)}" alt="${politician.name}">
+            <img src="${image.userImgProfile(user:politician)}" alt="${g.message(code:'page.politicianProfile.imageProfile.alt', args:[politician.name])}">
 
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 profile-pic-col">
                     <div class="profile-pic text-center">
-                        <img alt="${politician.name}"
+                        <img alt="${message(code:'page.politicianProfile.imageAvatar.alt', args: [politician.name])}"
                              class="img-circle"
                              data-src="holder.js/140x140"
                              src="${image.userImgSrc(user:politician)}"

@@ -1,6 +1,6 @@
 <div class="extendedPolitician">
     <section class="boxes follow" id='${id}'>
-        <h1>${boxTitle}</h1>
+        <h3>${boxTitle}</h3>
         <ul class="user-list-followers hide3">
             <g:each in="${recommendedUsers}" var="user">
                 <li itemprop="colleague" id="user-list-followers-${user.id}">

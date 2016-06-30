@@ -3377,9 +3377,9 @@ fieldset.rating:hover > input + label:hover:before {
     overflow: hidden;
     padding: 10px 5px 0;
 }
-.carousel.news .carousel-inner .item .carousel-caption h1 {font-size: 14px; font-size: 1.4rem; font-family: Arial, sans-serif; color: #20a2ea; margin: 0; padding: 0; height: 48px; overflow: hidden;}
-.carousel.news .carousel-inner .item .carousel-caption h1:hover,
-.carousel.news .carousel-inner .item .carousel-caption h1:focus {color: #2e6bab;}
+.carousel.news .carousel-inner .item .carousel-caption h3 {font-size: 14px; font-size: 1.4rem; font-family: Arial, sans-serif; color: #20a2ea; margin: 0; padding: 0; height: 48px; overflow: hidden;font-style: inherit; line-height: 1.1;}
+.carousel.news .carousel-inner .item .carousel-caption h3:hover,
+.carousel.news .carousel-inner .item .carousel-caption h3:focus {color: #2e6bab;}
 .carousel.news .carousel-inner .item a,
 .carousel.news .carousel-inner .item a:hover,
 .carousel.news .carousel-inner .item a:focus,
@@ -4834,7 +4834,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .carousel.news .carousel-inner .prev         {left: -33%;}
     .carousel.news .carousel-inner .next.left,
     .carousel.news .carousel-inner .prev.right {z-index: 99;}
-    .carousel.news .carousel-inner .item .carousel-caption h1 {height: 64px;}
+    .carousel.news .carousel-inner .item .carousel-caption h3 {height: 64px;}
     @media all and (transform-3d), (-webkit-transform-3d) {
         .carousel.news .carousel-inner > .item {
             -webkit-transition: 300ms ease-in-out all;
@@ -6041,13 +6041,14 @@ hr{
     padding: 40px 0 20px;
 }
 /*extendedPolitician - who to follow*/
-.extendedPolitician .boxes.follow h1 {
+.extendedPolitician .boxes.follow h3 {
     background-color: #666;
     color: #fff;
     border-radius: 0;
     border: none;
     font-size: 18px;
     padding: 10px 15px;
+    margin:0;
 }
 .extendedPolitician .boxes.follow {box-shadow: 0 0 2px rgba(200,200,200,0.6);
 }

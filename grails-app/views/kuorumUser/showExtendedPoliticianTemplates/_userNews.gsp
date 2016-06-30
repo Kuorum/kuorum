@@ -13,7 +13,7 @@
                                 </g:if>
                             </div>
                             <div class="carousel-caption">
-                                <h1>${userNew.title}</h1>
+                                <h3>${userNew.title}</h3>
                             </div>
                         </a>
                     </div>
