@@ -1613,7 +1613,7 @@ video#bgvid {
 .boxes.follow .kakareo {border: none; padding: 0; margin: 15px 10px 0;}
 .boxes.follow .kakareo > ul > li {margin-right: 10px;}
 .boxes.taking-part > ul > li:last-child {margin: 0;}
-.boxes.follow .user-list-followers > .user > .user-type {padding: 0 0 0 44px;}
+.boxes.follow .user-list-followers .user > .user-type {padding: 0 0 0 44px;}
 
 /* boxes columna derecha dashboard */
 #aside-ppal {padding-top: 24px;}
@@ -1693,8 +1693,8 @@ video#bgvid {
 
 /*.boxes.follow .user-type {display: block; margin-left: 4px;}*/
 .personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px;}
-.user-list-followers > .user > .actions {float: right; margin: -14px 0 0 !important; width: 108px;}
-.user-list-followers > .user > .actions .btn.follow {
+.user-list-followers  .user > .actions {float: right; margin: -14px 0 0 !important; width: 108px;}
+.user-list-followers  .user > .actions .btn.follow {
     -webkit-border-radius: 0 !important;
     -moz-border-radius: 0 !important;
     border-radius: 0 !important;
@@ -1702,7 +1702,7 @@ video#bgvid {
     padding: 2px 6px !important;
     width: 80px;
 }
-.user-list-followers > .user > .actions .close {margin: 1px 0 0 0;}
+.user-list-followers .user > .actions .close {margin: 1px 0 0 0;}
 .boxes .user-img,
 .condition .user-list-followers .user-img {float: left;}
 .user-list-followers .user-img {margin: 0 6px 0 0;}
@@ -4421,7 +4421,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .form-home-container {width: 320px;}
     .homeSub .homeMore {width: 320px;}
     #info-sup-scroll .voting > ul > li {margin-right: 20px;}
-    .user-list-followers > .user > .actions {margin: -32px 0 0 !important;}
+    .user-list-followers .user > .actions {margin: -32px 0 0 !important;}
 
     /* LANDING */
     .main.special.landing .homeSub ul li {width: 50%; height: 110px; line-height: 110px; margin-bottom: 45px;}
@@ -4516,7 +4516,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .sign.purchase .no-phone .form-group:nth-child(2) {width: 26%;}
     .sign.purchase .no-phone .form-group:nth-child(3) {width: 70%;}
     .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
-    /*.boxes.follow .user-list-followers > .user > .actions {float: none; margin: 8px 0 0 !important; text-align: right;}*/
+    /*.boxes.follow .user-list-followers .user > .actions {float: none; margin: 8px 0 0 !important; text-align: right;}*/
     #aside-ppal {background-color: transparent;}
     /*#main {min-height: 898px;}*/
     #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
@@ -4955,8 +4955,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .team > section > .box-ppal{padding:0; margin:0; background-color: transparent; border:0}
 
-    .user-list-followers > .user > .actions {float: right; margin: -30px 0 0 0 !important;}
-    .user-list-followers > .user > .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
+    .user-list-followers .user > .actions {float: right; margin: -30px 0 0 0 !important;}
+    .user-list-followers .user > .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
 
     .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
     .arrow2 {right: 24px;}
@@ -5220,7 +5220,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #otras-propuestas .kakareo-list .kakareo footer,
     .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
 
-    #main.landing.mainEditors .full-video, #main.landing.mainCitizens .full-video {background-position: right -38px;}
+    #main.landing.mainEditors .full-video, #main.landing.mainEditors .full-video {background-position: right -38px;}
 
     .main.prices .promo-options > div p.price .currency {left: 35px; top: -35px;}
     .main.prices .promo-options > div p.price .amount {font-size: 90px; font-size: 9rem;}
@@ -5252,7 +5252,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .config .icheckbox_line-orange,
     .config .iradio_line-orange {margin-right: 16px; margin-bottom: 18px;}
     .box-ppal.condition .no-age .form-group:nth-child(2) {width: 172px;}
-    .boxes.follow .user-list-followers > .user > .actions {float: right; margin: -30px 0 0 !important;}
+    .boxes.follow .user-list-followers .user > .actions {float: right; margin: -30px 0 0 !important;}
     .condition .user-list-followers  > li {width: 47%; float: left;}
     .sign .login .btn + .cancel {margin-left: 34px;}
     #main {min-height: 674px;}
