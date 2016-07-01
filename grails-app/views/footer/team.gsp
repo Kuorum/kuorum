@@ -3,6 +3,12 @@
     <title><g:message code="page.title.footer.team"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="info team" />
+    <g:render template="/dashboard/landingMetaTags"
+              model="[
+                      kuorumTitle:g.message(code:'page.title.footer.team'),
+                      kuorumDescription:g.message(code:'page.title.footer.team.description'),
+                      kuorumImage:r.resource(dir:'images', file:'landingSearch-rrss.png', absolute:true)
+              ]"/>
 </head>
 
 <content tag="leftMenu">
