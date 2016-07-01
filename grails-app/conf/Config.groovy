@@ -187,6 +187,7 @@ grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName='kuorum.
 // Added by the Spring Security OAuth plugin:
 grails.plugin.springsecurity.oauth.domainClass = 'kuorum.users.OAuthID'
 
+grails.plugin.springsecurity.rememberMe.domain = ".kuorum.org"
 grails.plugin.cookiesession.domain=".kuorum.org"
 oauth {
     // ...

@@ -44,3 +44,4 @@ grails {
 }
 
 grails.plugin.cookiesession.domain="127.0.0.1"
+grails.plugin.springsecurity.rememberMe.domain = "127.0.0.1"
