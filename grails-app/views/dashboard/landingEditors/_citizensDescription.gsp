@@ -8,7 +8,6 @@
                     <p><g:message code="landingCitizens.ipdb.p1"/></p>
                     <p><g:message code="landingCitizens.ipdb.p2"/></p>
                     <p><g:message code="landingCitizens.ipdb.p3"/></p>
-                    <p><g:message code="landingCitizens.ipdb.p4"/></p>
                     <g:link mapping="register" class="btn btn-lg"><g:message code="landingCitizens.ipdb.form.submit"/> </g:link>
                 </div>
             </div>
