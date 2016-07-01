@@ -2,11 +2,11 @@
     <div class="container-fluid">
         <section class="links">
             <ul>
-                <li><g:link mapping="footerTechnology"><g:message code="layout.footer.tech"/></g:link> </li>
+                <li><g:link mapping="footerTechnology"><g:message code="layout.footer.technology"/></g:link> </li>
                 <li><g:link mapping="footerPoliticians"><g:message code="layout.footer.politicians"/></g:link></li>
                 <li><g:link mapping="footerCitizens"><g:message code="layout.footer.citizens"/></g:link></li>
                 <li><g:link mapping="footerDevelopers"><g:message code="layout.footer.editors"/></g:link></li>
-                <li><g:link mapping="footerAboutUs"><g:message code="layout.footer.aboutUs"/></g:link></li>
+                <li><g:link mapping="footerAboutUs"><g:message code="layout.footer.about"/></g:link></li>
                 <li><g:link mapping="footerInformation"><g:message code="layout.footer.pressTitle"/></g:link></li>
                 <li><g:link mapping="footerWidget"><g:message code="layout.footer.widget"/></g:link></li>
                 <li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
