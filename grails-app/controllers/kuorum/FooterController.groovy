@@ -11,6 +11,7 @@ class FooterController {
     def citizens() {}
     def impact() {}
     def politicians() {}
+    def government() {}
     def developers() {}
     def widget() {}
     def information() {

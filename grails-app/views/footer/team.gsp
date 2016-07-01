@@ -118,44 +118,44 @@
             </div>
         </li>
 
-        <li itemscope itemtype="http://schema.org/Person">
-            <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-sara.jpg')}" alt="Foto" itemprop="image">
-                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member8"/></h1>
-                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position8"/></h2>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description8"/></p>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description8b"/></p>
-                <ul class="social">
+        %{--<li itemscope itemtype="http://schema.org/Person">--}%
+            %{--<div class="box-ppal">--}%
+                %{--<img src="${resource(dir: 'images', file: 'foto-sara.jpg')}" alt="Foto" itemprop="image">--}%
+                %{--<h1 itemprop="name"><g:message code="footer.menu.footerTeam.member8"/></h1>--}%
+                %{--<h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position8"/></h2>--}%
+                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description8"/></p>--}%
+                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description8b"/></p>--}%
+                %{--<ul class="social">--}%
                     %{--<li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    <li><a href="https://uk.linkedin.com/pub/sara-nso/18/37a/652/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
-                </ul>
-            </div>
-        </li>
-        <li itemscope itemtype="http://schema.org/Person">
-            <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-carmen.jpg')}" alt="Foto" itemprop="image">
-                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member9"/></h1>
-                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position9"/></h2>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description9"/></p>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description9b"/></p>
-                <ul class="social">
+                    %{--<li><a href="https://uk.linkedin.com/pub/sara-nso/18/37a/652/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>--}%
+                %{--</ul>--}%
+            %{--</div>--}%
+        %{--</li>--}%
+        %{--<li itemscope itemtype="http://schema.org/Person">--}%
+            %{--<div class="box-ppal">--}%
+                %{--<img src="${resource(dir: 'images', file: 'foto-carmen.jpg')}" alt="Foto" itemprop="image">--}%
+                %{--<h1 itemprop="name"><g:message code="footer.menu.footerTeam.member9"/></h1>--}%
+                %{--<h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position9"/></h2>--}%
+                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description9"/></p>--}%
+                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description9b"/></p>--}%
+                %{--<ul class="social">--}%
                     %{--<li><a href="#" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
-                    <li><a href="https://www.linkedin.com/pub/carmen-bernardo-garcía/5/b23/201/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
-                </ul>
-            </div>
-        </li>
-        <li itemscope itemtype="http://schema.org/Person">
-            <div class="box-ppal">
-                <img src="${resource(dir: 'images', file: 'foto-carolina.jpeg')}" alt="Foto" itemprop="image">
-                <h1 itemprop="name"><g:message code="footer.menu.footerTeam.member10"/></h1>
-                <h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position10"/></h2>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description10"/></p>
-                <p itemprop="description"><g:message code="footer.menu.footerTeam.description10b"/></p>
-                <ul class="social">
-                    <li><a href="https://twitter.com/CarolinahCoach" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>
-                    <li><a href="https://es.linkedin.com/pub/carolina-hernández/1a/56b/548" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>
-                </ul>
-            </div>
-        </li>
+                    %{--<li><a href="https://www.linkedin.com/pub/carmen-bernardo-garcía/5/b23/201/es" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>--}%
+                %{--</ul>--}%
+            %{--</div>--}%
+        %{--</li>--}%
+        %{--<li itemscope itemtype="http://schema.org/Person">--}%
+            %{--<div class="box-ppal">--}%
+                %{--<img src="${resource(dir: 'images', file: 'foto-carolina.jpeg')}" alt="Foto" itemprop="image">--}%
+                %{--<h1 itemprop="name"><g:message code="footer.menu.footerTeam.member10"/></h1>--}%
+                %{--<h2 itemprop="jobTitle"><g:message code="footer.menu.footerTeam.position10"/></h2>--}%
+                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description10"/></p>--}%
+                %{--<p itemprop="description"><g:message code="footer.menu.footerTeam.description10b"/></p>--}%
+                %{--<ul class="social">--}%
+                    %{--<li><a href="https://twitter.com/CarolinahCoach" target="_blank"><span class="fa fa-twitter fa-2x"></span> <span class="sr-only">Twitter</span></a></li>--}%
+                    %{--<li><a href="https://es.linkedin.com/pub/carolina-hernández/1a/56b/548" target="_blank"><span class="fa fa-linkedin fa-2x"></span> <span class="sr-only">LinkedIn</span></a></li>--}%
+                %{--</ul>--}%
+            %{--</div>--}%
+        %{--</li>--}%
     </ul>
 </content>
