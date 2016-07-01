@@ -48,8 +48,17 @@ class KuorumUserController {
     private checkUser(){
         KuorumUser user = kuorumUserService.findByAlias(params.userAlias)
         if (!user) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return false
+            //Search by old alias
+            user = kuorumUserService.findByOldAlias(params.userAlias)
+            if (user){
+                def userLink = g.createLink(mapping: 'userShow', params: user.encodeAsLinkProperties())
+                response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY)
+                response.setHeader("Location", userLink);
+                return false
+            }else{
+                response.sendError(HttpServletResponse.SC_NOT_FOUND)
+                return false
+            }
         }
     }
     def index(){

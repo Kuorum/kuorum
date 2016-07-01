@@ -23,6 +23,7 @@ class KuorumUser {
     String name
     String email
     String alias
+    List<String> oldAlias
     String bio
 //    String username
     String password
@@ -128,6 +129,7 @@ class KuorumUser {
         name nullable:false
         email nullable: false, email: true
         alias nullable:true, unique:true, maxSize: 15, matches: ALIAS_REGEX
+        oldAlias nullable:true
         password nullable:true
         bio nullable:true
         avatar nullable:true

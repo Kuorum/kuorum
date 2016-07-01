@@ -411,6 +411,13 @@ class KuorumUserService {
             return KuorumUser.findByAlias(userAlias.toLowerCase())
     }
 
+    KuorumUser findByOldAlias(String oldUserAlias){
+        if (!oldUserAlias)
+            return null
+        else
+            return KuorumUser.findByOldAlias(oldUserAlias.toLowerCase())
+    }
+
     @PreAuthorize("hasPermission(#user, 'edit')")
     KuorumUser updateUser(KuorumUser user){
         KuorumUser.withNewTransaction {
@@ -450,7 +457,7 @@ class KuorumUserService {
             try{
                 newAlias = newAlias.toLowerCase()
                 log.info("Updating alias ${user.alias} -> ${newAlias}")
-                def res = KuorumUser.collection.update([_id:user.id],['$set':[alias:newAlias]])
+                def res = KuorumUser.collection.update([_id:user.id],['$set':[alias:newAlias], '$push':[oldAlias:currentAlias]])
                 user.refresh()
                 kuorumMailAccountService.changeAliasAccount(currentAlias, newAlias)
             }catch (Exception e){
