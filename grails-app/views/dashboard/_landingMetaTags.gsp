@@ -1,4 +1,3 @@
-
 %{--Page description. No longer than 155 characters.--}%
 <g:set var="kuorumName" value="${message(code: 'kuorum.name')}"/>
 

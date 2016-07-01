@@ -4,6 +4,13 @@
     <title><g:message code="page.title.footer.developers"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="info" />
+    <g:render template="/dashboard/landingMetaTags"
+              model="[
+                      kuorumTitle:g.message(code:'page.title.footer.editors'),
+                      kuorumDescription:g.message(code:'page.title.footer.editors.description'),
+                      kuorumImage:r.resource(dir:'images', file:'landingSearch-rrss.png', absolute:true)
+              ]"/>
+
 </head>
 
 <content tag="leftMenu">
