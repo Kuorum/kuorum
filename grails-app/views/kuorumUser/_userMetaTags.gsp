@@ -39,15 +39,3 @@
 %{--<meta property="article:section" content="User Section" />--}%
 %{--<meta property="article:tag" content="${post.project.hashtag}" />--}%
 %{--<meta property="fb:admins" content="Facebook numberic ID" />--}%
-
-<script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "Person",
-      "headline": "${g.message(code:'page.politicianProfile.title', args:[user.name])}",
-      "image": [
-        "${image.userImgSrc(user:user)}"
-      ],
-      "name": "${user.name}"
-    }
-</script>
