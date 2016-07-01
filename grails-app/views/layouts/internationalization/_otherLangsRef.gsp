@@ -4,7 +4,7 @@
 <g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}" />
 <g:each in="${kuorum.core.model.AvailableLanguage.values()}" var="lang">
     <link rel="alternate"
-          href="https://${lang.locale.language}.${request.serverName}${request.requestURI}${request.queryString? "?" +request.queryString:''}"
+          href="https://${lang.locale.language}.kuorum.org${request.requestURI}${request.queryString? "?" +request.queryString:''}"
           hreflang="${lang.locale.language}" />
 </g:each>
 
