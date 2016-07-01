@@ -130,15 +130,16 @@ class SearchController{
 
     private SearchParams createRegionSearchParams( SearchParams searchParams, def params, String preferredCountry){
         SearchParams editedSearchParams = searchParams
-        if (searchParams.searchType== SearchType.ALL && !params.word && !params.regionCode){
-            // NO PARAMS -> Show politicians from country
-            editedSearchParams =  editedSearchParams = new SearchParams(searchParams.properties)
-            editedSearchParams.searchType = SearchType.REGION
-            Region country = Region.findByIso3166_2(preferredCountry)
-            List<Region> regions= regionService.findRegionsList(country)
-            editedSearchParams.boostedRegions = regions.collect{it.iso3166_2}
-            editedSearchParams.word = "";
-        }else if (searchParams.searchType == SearchType.REGION || searchParams.searchType== SearchType.ALL){
+//        if (searchParams.searchType== SearchType.ALL && !params.word && !params.regionCode){
+//            // NO PARAMS -> Show politicians from country
+//            editedSearchParams =  editedSearchParams = new SearchParams(searchParams.properties)
+//            editedSearchParams.searchType = SearchType.REGION
+//            Region country = Region.findByIso3166_2(preferredCountry)
+//            List<Region> regions= regionService.findRegionsList(country)
+//            editedSearchParams.boostedRegions = regions.collect{it.iso3166_2}
+//            editedSearchParams.word = "";
+//        }else
+        if (searchParams.searchType == SearchType.REGION || searchParams.searchType== SearchType.ALL){
             editedSearchParams = new SearchParams(searchParams.properties)
             Locale locale = localeResolver.resolveLocale(request)
             AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
