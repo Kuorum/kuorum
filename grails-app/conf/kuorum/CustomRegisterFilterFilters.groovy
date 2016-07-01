@@ -1,6 +1,5 @@
 package kuorum
 
-import kuorum.core.model.UserType
 import kuorum.users.KuorumUser
 
 class CustomRegisterFilterFilters {

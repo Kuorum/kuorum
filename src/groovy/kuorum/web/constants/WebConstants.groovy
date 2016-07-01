@@ -8,4 +8,6 @@ class WebConstants {
     public static final String AJAX_END_INFINITE_LIST_HEAD = "moreResults"
     public static final String AJAX_IS_FAVORITE = "isFavorite"
     public static final String AJAX_NUM_LIST = "numList" //Num of elements of some list
+
+    public static final String COUNTRY_CODE_SESSION="countryCode"
 }

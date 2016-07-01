@@ -3,6 +3,7 @@ package kuorum.web.interceptors
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.model.AvailableLanguage
 import kuorum.users.KuorumUser
+import kuorum.web.constants.WebConstants
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.propertyeditors.LocaleEditor
@@ -56,6 +57,7 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
             log.warn("Not language discover due to exception. ${webRequest.baseUrl} ${webRequest.getParams()}", t)
             userLanguage = AvailableLanguage.en_EN
         }
+        setCountrySession(request, userLanguage.locale.language)
         localeResolver?.setLocale request, response, userLanguage.locale
         return true;
     }
@@ -65,6 +67,20 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
         def domainSplitter= /([^\.]*).*\.kuorum\.org/
         def matcher = ( domain =~ domainSplitter )
         matcher.size()>0?matcher[0][1]:null
+    }
+
+    private void setCountrySession(HttpServletRequest request, String lang){
+        String countryCode = "";
+        //FAST CHAPU
+        switch (lang){
+            case "es": countryCode="EU-ES"; break;
+            case "en": countryCode="EU-GB"; break;
+            case "it": countryCode="EU-IT"; break;
+            case "de": countryCode="EU-DE"; break;
+            case "de": countryCode="EU-LT"; break;
+            default: countryCode=""
+        }
+        request.session.setAttribute(WebConstants.COUNTRY_CODE_SESSION, countryCode)
     }
 
     public void setLocaleResolver(LocaleResolver localeResolver) {

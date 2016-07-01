@@ -116,20 +116,29 @@ class SearchController{
 
     private SolrResults searchDocs(SearchParams searchParams, def params){
         SolrResults docs
+        String regionCountryCode = request.session.getAttribute(WebConstants.COUNTRY_CODE_SESSION)
         if (searchParams.hasErrors()){
             searchParams=new SearchParams(word: '', type: searchParams.type?:SolrType.POLITICIAN)
             docs = searchSolrService.search(searchParams)
         }else{
             searchParams.searchType = searchParams.searchType?:SearchType.ALL
-            searchParams = createRegionSearchParams(searchParams, params)
+            searchParams = createRegionSearchParams(searchParams, params, regionCountryCode)
             docs = searchSolrService.search(searchParams)
         }
         return docs;
     }
 
-    private SearchParams createRegionSearchParams( SearchParams searchParams, def params){
+    private SearchParams createRegionSearchParams( SearchParams searchParams, def params, String preferredCountry){
         SearchParams editedSearchParams = searchParams
-        if (searchParams.searchType == SearchType.REGION || searchParams.searchType== SearchType.ALL){
+        if (searchParams.searchType== SearchType.ALL && !params.word && !params.regionCode){
+            // NO PARAMS -> Show politicians from country
+            editedSearchParams =  editedSearchParams = new SearchParams(searchParams.properties)
+            editedSearchParams.searchType = SearchType.REGION
+            Region country = Region.findByIso3166_2(preferredCountry)
+            List<Region> regions= regionService.findRegionsList(country)
+            editedSearchParams.boostedRegions = regions.collect{it.iso3166_2}
+            editedSearchParams.word = "";
+        }else if (searchParams.searchType == SearchType.REGION || searchParams.searchType== SearchType.ALL){
             editedSearchParams = new SearchParams(searchParams.properties)
             Locale locale = localeResolver.resolveLocale(request)
             AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.language)
