@@ -1,7 +1,7 @@
 // log4j configuration
 
 grails.logging.jul.usebridge = false
-grails.serverURL = "http://kuorum.org"
+grails.serverURL = "https://kuorum.org"
 
 log4j = {
     appenders {
