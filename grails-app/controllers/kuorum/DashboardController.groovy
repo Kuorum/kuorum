@@ -131,10 +131,6 @@ class DashboardController {
         redirect mapping: "projectShow" , params: project.encodeAsLinkProperties()
     }
 
-    def landingEditors(){
-        [command: new KuorumRegisterCommand()]
-    }
-
     def landingCitizens(){
         [command: new KuorumRegisterCommand()]
     }

@@ -1487,7 +1487,7 @@ video#bgvid {
 
 /* editors y prices */
 #main.landing.mainEditors .full-video {background-image: url('../images/background-editors.jpg'); background-position: right 0;}
-#main.landing.mainCitizens .full-video {background-image: url('../images/background-citizens.jpg'); background-position: right 0;}
+#main.landing.mainCitizens .full-video {background-image: url('../images/background-editors.jpg'); background-position: right 0;}
 .landing.ipdb,
 .landing.prices {color: #fff; text-align: center;}
 .landing.ipdb .full-video {background-image: url('../images/background-ipdb.jpg'); padding-top: 50px;}
