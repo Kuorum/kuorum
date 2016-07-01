@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ page import="org.springframework.web.servlet.support.RequestContextUtils; org.springframework.context.i18n.LocaleContextHolder; springSecurity.KuorumRegisterCommand; grails.plugin.springsecurity.ui.RegisterCommand" contentType="text/html;charset=UTF-8" %>
-<html class="no-js" lang="es">
+<g:set var="currentLang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)}" />
+<html class="no-js" lang="${currentLang.language}" xml:lang="${currentLang.language}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF8-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -74,6 +75,7 @@
     <g:javascript library="application"/>
     <r:layoutResources />
     <meta property="twitter:account_id" content="4503599627910348" />
+    <g:render template="/layouts/internationalization/otherLangsRef"/>
 </head>
 
 <g:if test="${!schema}">
