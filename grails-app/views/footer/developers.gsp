@@ -14,6 +14,6 @@
     <h1><g:message code="layout.footer.editors"/></h1>
     <p><g:message code="footer.menu.footerWhatIsKuorum.forEditors.description1"/></p>
     <p><g:message code="footer.menu.footerWhatIsKuorum.forEditors.description2" args="[Math.round(kuorum.users.KuorumUser.countByUserType(kuorum.core.model.UserType.POLITICIAN)/1000)*1000]"/></p>
-    <p><g:message code="footer.menu.footerWhatIsKuorum.forEditors.description3" args="[g.createLink(mapping:'landingEditors', absolute: true)]"/></p>
+    <p><g:message code="footer.menu.footerWhatIsKuorum.forEditors.description3" args="[g.createLink(mapping:'landingCitizens', absolute: true)]"/></p>
     <p><img src="${resource(dir: 'images', file: 'ipdb-kuorum.png')}" alt="we-build-transparency" itemprop="image"></p>
 </content>
