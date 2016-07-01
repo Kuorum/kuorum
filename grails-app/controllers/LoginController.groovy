@@ -48,7 +48,7 @@ class LoginController {
 		}
 
 		String view = 'auth'
-		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
+		String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
 		render view: view, model: [postUrl: postUrl,
 		                           rememberMeParameter: config.rememberMe.parameter]
 	}
@@ -71,7 +71,7 @@ class LoginController {
 
     def loginForm = {
         def config = SpringSecurityUtils.securityConfig
-        String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
+        String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
         render template: "/layouts/loginForm", model:[postUrl:postUrl]
     }
 
@@ -84,7 +84,7 @@ class LoginController {
         }
 
         String view = 'auth'
-        String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
+        String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
         render template:"/dashboard/landingPageModules/loginHome", model: [postUrl: postUrl]
     }
 
@@ -114,7 +114,7 @@ class LoginController {
 		def config = SpringSecurityUtils.securityConfig
 		render view: 'auth', params: params,
 			model: [hasCookie: authenticationTrustResolver.isRememberMe(SCH.context?.authentication),
-			        postUrl: "${request.contextPath}${config.apf.filterProcessesUrl}"]
+			        postUrl: "${config.loginDomain}${config.apf.filterProcessesUrl}"]
 	}
 
 	/**
