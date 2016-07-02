@@ -53,7 +53,7 @@ class SiteMapController {
                 url {
                     loc(g.createLink(absolute: true, mapping: 'register'))
                     changefreq('yearly')
-                    priority(0.7)
+                    priority(0.9)
                 }
 
 //                url {
@@ -102,7 +102,7 @@ class SiteMapController {
                 url {
                     loc(g.createLink(absolute: true, mapping: 'home'))
                     changefreq('monthly')
-                    priority(1.0)
+                    priority(0.7)
                 }
 
                 DBCursor cursor = KuorumUser.collection.find([
@@ -114,7 +114,7 @@ class SiteMapController {
                     url {
                         loc(g.createLink(absolute: true, mapping:'userShow', params:[userAlias:politicianData.alias]))
                         changefreq('weekly')
-                        priority(0.8)
+                        priority(0.6)
                         lastmod(politicianData.lastUpdated.format(FORMAT_DATE_SITEMAP))
                     }
                 }
