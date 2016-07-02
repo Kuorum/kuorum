@@ -25,19 +25,22 @@ class SiteMapController {
                 }
 
                 def footerMappings = [
+                        'landingPoliticians',
+                        'landingCitizens',
+                        'landingPrices',
+                        'footerTechnology',
+                        'footerPoliticians',
+                        'footerGovernment',
+                        'footerCitizens',
+                        'footerDevelopers',
                         'footerAboutUs',
                         'footerVision',
-                        'footerTeam',
-                        'footerTechnology',
-                        'footerCitizens',
                         'footerImpact',
-                        'footerPoliticians',
-                        'footerDevelopers',
+                        'footerTeam',
                         'footerInformation',
+                        'footerWidget',
                         'footerPrivacyPolicy',
                         'footerTermsUse',
-                        'landingEditors',
-                        'landingPoliticians',
                 ]
                 footerMappings.each{mapping ->
                     url {
@@ -53,11 +56,11 @@ class SiteMapController {
                     priority(0.7)
                 }
 
-                url {
-                    loc(g.createLink(absolute: true, mapping: 'discover'))
-                    changefreq('weekly')
-                    priority(0.9)
-                }
+//                url {
+//                    loc(g.createLink(absolute: true, mapping: 'discover'))
+//                    changefreq('weekly')
+//                    priority(0.9)
+//                }
 
                 //DYNAMIC ENTRIES
                 Project.list().each {project->
