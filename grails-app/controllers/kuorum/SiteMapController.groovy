@@ -46,7 +46,7 @@ class SiteMapController {
                     url {
                         loc(g.createLink(absolute: true, mapping: mapping))
                         changefreq('yearly')
-                        priority(0.4)
+                        priority(0.9)
                     }
                 }
 
@@ -67,7 +67,7 @@ class SiteMapController {
                     url {
                         loc(g.createLink(absolute: true, mapping:'projectShow', params:project.encodeAsLinkProperties()))
                         changefreq('weekly')
-                        priority(0.8)
+                        priority(0.4)
                         lastmod(project.dateCreated.format(FORMAT_DATE_SITEMAP))
                     }
                 }
@@ -82,7 +82,7 @@ class SiteMapController {
                     url {
                         loc(g.createLink(absolute: true, mapping:'postShow', params:post.encodeAsLinkProperties()))
                         changefreq('weekly')
-                        priority(0.7)
+                        priority(0.3)
                         lastmod(lastModified?.format(FORMAT_DATE_SITEMAP))
                         log.info("Creada la URL del post (${post.id}): ${post.title}")
                     }
