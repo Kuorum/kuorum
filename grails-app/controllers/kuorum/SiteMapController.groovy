@@ -138,7 +138,7 @@ class SiteMapController {
 
     private String subDomainLink(HttpServletRequest request, String relativeUrl){
 
-        return "${request.scheme}://${request.serverName}${request.serverPort=='80'| request.serverPort=='443'?'':':'+request.serverPort}${request.contextPath?:''}${relativeUrl}"
+        return "${request.scheme}://${request.serverName}${request.serverPort=='80'|| request.serverPort=='443'?'':':'+request.serverPort}${request.contextPath?:''}${relativeUrl}"
 
     }
 }
