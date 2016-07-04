@@ -16,10 +16,14 @@ class SiteMapController {
         render(contentType: 'text/xml', encoding: 'UTF-8', ) {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
             sitemapindex(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9") {
-                url {loc(subDomainLink(request, "/sitemap"))}
+                sitemap {
+                    loc(subDomainLink(request, "/sitemap"))
+                }
                 def continentsCode = ["AF", "AS", "EU", "NA", "OC", "SA"]
                 continentsCode.each{continentCode ->
-                    url{loc(subDomainLink(request,"/sitemapCountry?countryCode=${continentCode}"))}
+                    sitemap {
+                        loc(subDomainLink(request, "/sitemapCountry?countryCode=${continentCode}"))
+                    }
                 }
             }
         }
