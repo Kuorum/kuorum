@@ -313,14 +313,19 @@ class UrlMappings {
         name politicianMassMailing:                     "/account/mass-mailing" (controller:"politician", action: "betaTesterPage")
         name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
 
+        "/sitemapIndex"{
+            controller = 'siteMap'
+            action = 'sitemapIndex'
+        }
+
         "/sitemap"{
             controller = 'siteMap'
-            action = 'siteMap'
+            action = 'sitemap'
         }
 
         "/sitemapCountry"{
             controller = 'siteMap'
-            action = 'siteMapCountry'
+            action = 'sitemapCountry'
         }
 
         "403" (controller: "error", action: "forbidden")

@@ -6,11 +6,26 @@ import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 
+import javax.servlet.http.HttpServletRequest
+
 class SiteMapController {
 
     private static final FORMAT_DATE_SITEMAP="yyyy-MM-dd"
 
-    def siteMap() {
+    def sitemapIndex(){
+        render(contentType: 'text/xml', encoding: 'UTF-8', ) {
+            mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
+            sitemapindex(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9") {
+                url {loc(subDomainLink(request, "/sitemap"))}
+                def continentsCode = ["AF", "AS", "EU", "NA", "OC", "SA"]
+                continentsCode.each{continentCode ->
+                    url{loc(subDomainLink(request,"/sitemapCountry?countryCode=${continentCode}"))}
+                }
+            }
+        }
+    }
+
+    def sitemap() {
         //TODO: Pensar si salvar a un fichero o a MONGO en vez de generarlo al vuelo
 
         render(contentType: 'text/xml', encoding: 'UTF-8') {
@@ -19,7 +34,7 @@ class SiteMapController {
                     'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance",
                     'xsi:schemaLocation': "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd") {
                 url {
-                    loc(g.createLink(absolute: true, mapping: 'home'))
+                    loc(subDomainLink(request,g.createLink( mapping: 'home')))
                     changefreq('monthly')
                     priority(1.0)
                 }
@@ -31,7 +46,7 @@ class SiteMapController {
                         'register']
                 highPriority.each{mapping ->
                     url {
-                        loc(g.createLink(absolute: true, mapping: mapping))
+                        loc(subDomainLink(request,g.createLink( mapping: mapping)))
                         changefreq('yearly')
                         priority(0.9)
                     }
@@ -54,14 +69,14 @@ class SiteMapController {
                 ]
                 footerMappings.each{mapping ->
                     url {
-                        loc(g.createLink(absolute: true, mapping: mapping))
+                        loc(subDomainLink(request,g.createLink( mapping: mapping)))
                         changefreq('yearly')
                         priority(0.7)
                     }
                 }
 
 //                url {
-//                    loc(g.createLink(absolute: true, mapping: 'discover'))
+//                    loc(subDomainLink(request,g.createLink( mapping: 'discover'))
 //                    changefreq('weekly')
 //                    priority(0.9)
 //                }
@@ -69,7 +84,7 @@ class SiteMapController {
                 //DYNAMIC ENTRIES
                 Project.list().each {project->
                     url {
-                        loc(g.createLink(absolute: true, mapping:'projectShow', params:project.encodeAsLinkProperties()))
+                        loc(subDomainLink(request,g.createLink( mapping:'projectShow', params:project.encodeAsLinkProperties())))
                         changefreq('weekly')
                         priority(0.3)
                         lastmod(project.dateCreated.format(FORMAT_DATE_SITEMAP))
@@ -84,7 +99,7 @@ class SiteMapController {
                             ]
                     Date lastModified = dates.max{a, b -> a  <=> b }
                     url {
-                        loc(g.createLink(absolute: true, mapping:'postShow', params:post.encodeAsLinkProperties()))
+                        loc(subDomainLink(request,g.createLink( mapping:'postShow', params:post.encodeAsLinkProperties())))
                         changefreq('weekly')
                         priority(0.2)
                         lastmod(lastModified?.format(FORMAT_DATE_SITEMAP))
@@ -95,7 +110,7 @@ class SiteMapController {
         }
     }
 
-    def siteMapCountry() {
+    def sitemapCountry() {
 
         String countryCode = params.countryCode
         render(contentType: 'text/xml', encoding: 'UTF-8') {
@@ -111,7 +126,7 @@ class SiteMapController {
                 while(cursor.hasNext()){
                     def politicianData = cursor.next()
                     url {
-                        loc(g.createLink(absolute: true, mapping:'userShow', params:[userAlias:politicianData.alias]))
+                        loc(subDomainLink(request,g.createLink( mapping:'userShow', params:[userAlias:politicianData.alias])))
                         changefreq('weekly')
                         priority(0.5)
                         lastmod(politicianData.lastUpdated.format(FORMAT_DATE_SITEMAP))
@@ -119,5 +134,11 @@ class SiteMapController {
                 }
             }
         }
+    }
+
+    private String subDomainLink(HttpServletRequest request, String relativeUrl){
+
+        return "${request.scheme}://${request.serverName}${request.serverPort=='80'?'':':'+request.serverPort}${request.contextPath?:''}${relativeUrl}"
+
     }
 }
