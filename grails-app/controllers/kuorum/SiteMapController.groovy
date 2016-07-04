@@ -24,10 +24,20 @@ class SiteMapController {
                     priority(1.0)
                 }
 
-                def footerMappings = [
+                def highPriority = [
                         'landingPoliticians',
                         'landingCitizens',
                         'landingPrices',
+                        'register']
+                highPriority.each{mapping ->
+                    url {
+                        loc(g.createLink(absolute: true, mapping: mapping))
+                        changefreq('yearly')
+                        priority(0.9)
+                    }
+                }
+
+                def footerMappings = [
                         'footerTechnology',
                         'footerPoliticians',
                         'footerGovernment',
@@ -46,14 +56,8 @@ class SiteMapController {
                     url {
                         loc(g.createLink(absolute: true, mapping: mapping))
                         changefreq('yearly')
-                        priority(0.9)
+                        priority(0.7)
                     }
-                }
-
-                url {
-                    loc(g.createLink(absolute: true, mapping: 'register'))
-                    changefreq('yearly')
-                    priority(0.9)
                 }
 
 //                url {
@@ -67,7 +71,7 @@ class SiteMapController {
                     url {
                         loc(g.createLink(absolute: true, mapping:'projectShow', params:project.encodeAsLinkProperties()))
                         changefreq('weekly')
-                        priority(0.4)
+                        priority(0.3)
                         lastmod(project.dateCreated.format(FORMAT_DATE_SITEMAP))
                     }
                 }
@@ -82,7 +86,7 @@ class SiteMapController {
                     url {
                         loc(g.createLink(absolute: true, mapping:'postShow', params:post.encodeAsLinkProperties()))
                         changefreq('weekly')
-                        priority(0.3)
+                        priority(0.2)
                         lastmod(lastModified?.format(FORMAT_DATE_SITEMAP))
                         log.info("Creada la URL del post (${post.id}): ${post.title}")
                     }
@@ -99,11 +103,6 @@ class SiteMapController {
             urlset(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9",
                     'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance",
                     'xsi:schemaLocation': "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd") {
-                url {
-                    loc(g.createLink(absolute: true, mapping: 'home'))
-                    changefreq('monthly')
-                    priority(0.7)
-                }
 
                 DBCursor cursor = KuorumUser.collection.find([
                     userType:UserType.POLITICIAN.toString(),
@@ -114,7 +113,7 @@ class SiteMapController {
                     url {
                         loc(g.createLink(absolute: true, mapping:'userShow', params:[userAlias:politicianData.alias]))
                         changefreq('weekly')
-                        priority(0.6)
+                        priority(0.5)
                         lastmod(politicianData.lastUpdated.format(FORMAT_DATE_SITEMAP))
                     }
                 }
