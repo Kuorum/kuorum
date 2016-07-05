@@ -11,6 +11,14 @@ modules = {
         resource url: 'css/custom.css'
         resource url:'js/jquery.min.js'
         resource url:'js/bootstrap.min.js'
+        resource url:[dir:'css',file:'style_ie.css'], attrs:[media:'screen'], wrapper: { s -> "<!--[if IE]>$s<![endif]-->" }
+        resource url:[dir:'css',file:'style_ie9.css'], attrs:[media:'screen'], wrapper: { s -> "<!--[if IE 9]>$s<![endif]-->" }
+        resource url:[dir:'css',file:'style_ie8.css'], attrs:[media:'screen'], wrapper: { s -> "<!--[if IE 8]>$s<![endif]-->" }
+        // Soporte HTML5 y pseudo-clases CSS3 para IE9 e inferior
+        resource url:[dir:'js',file:'respond.min.js'], wrapper: { s -> "<!--[if (lt IE 9) & (!IEMobile)]>$s<![endif]-->" }
+        resource url:[dir:'js',file:'selectivizr.js'], wrapper: { s -> "<!--[if (lt IE 9) & (!IEMobile)]>$s<![endif]-->" }
+        // Fin soporte HTML5
+        resource url:'js/modernizr.js'
     }
 
 

@@ -19,10 +19,10 @@
     {
       "@context": "http://schema.org",
       "@type": "WebSite",
-      "url": "https://kuorum.org/",
+      "url": "https://${request.serverName}",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://kuorum.org/search?word={word}",
+        "target": "https://${request.serverName}/search?word={word}",
         "query-input": "required name=word"
       }
     }

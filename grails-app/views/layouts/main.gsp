@@ -19,27 +19,6 @@
 
     <meta name="robots" content="all">
 
-    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'fonts/font-awesome/css', file: 'font-awesome.min.css')}">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'fonts/font-awesome', file: 'styles.css')}">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'fonts/icomoon', file: 'styles.css')}">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'fonts/icomoon2', file: 'styles.css')}">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'fonts/icomoon3', file: 'styles.css')}">--}%
-    %{--<link rel="stylesheet" href="css/bootstrap-tour.min.css">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'datepicker3.css')}">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-tour.min.css')}">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}">--}%
-    <!-- Estilos sólo para IE -->
-    <!--[if IE]><link rel="stylesheet" href="${resource(dir: 'css', file: 'style_ie.css')}" type="text/css" media="screen"><![endif]-->
-    <!--[if IE 9]><link rel="stylesheet" href="${resource(dir: 'css', file: 'style_ie9.css')}" type="text/css" media="screen"><![endif]-->
-    <!--[if IE 8]><link rel="stylesheet" href="${resource(dir: 'css', file: 'style_ie8.css')}" type="text/css" media="screen"><![endif]-->
-    <!-- Soporte HTML5 y pseudo-clases CSS3 para IE9 e inferior -->
-    <!--[if (lt IE 9) & (!IEMobile)]>
-        <script src="${resource(dir: 'js', file: 'respond.min.js')}"></script>
-        <script src="${resource(dir: 'js', file: 'selectivizr.js')}"></script>
-    <![endif]-->
-
-
     <!-- JavaScript -->
     <script src="${resource(dir: 'js', file: 'modernizr.js')}"></script>
 
