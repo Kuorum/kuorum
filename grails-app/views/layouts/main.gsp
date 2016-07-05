@@ -19,8 +19,6 @@
 
     <meta name="robots" content="all">
 
-    <!-- JavaScript -->
-    <script src="${resource(dir: 'js', file: 'modernizr.js')}"></script>
 
     <!-- For iPhone 5 and iPod touch -->
     <link rel="apple-touch-icon" sizes="120x120" href="${resource(dir: 'images/icons', file: 'apple-touch-icon-120x120.png')}">
