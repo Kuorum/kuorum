@@ -3,6 +3,7 @@
     <title><g:message code="page.title.footer.privacyPolicy"/> </title>
 <meta name="layout" content="leftMenuLayout">
 <parameter name="extraCssContainer" value="info" />
+    <link rel="canonical" href="https://${request.serverName}${g.link(mapping: 'footerPrivacyPolicy')}" />
 </head>
 
 <content tag="leftMenu">
