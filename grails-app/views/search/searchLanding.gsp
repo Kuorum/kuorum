@@ -13,7 +13,20 @@
                       kuorumImage:r.resource(dir:'images', file:'landingSearch-rrss.png', absolute:true)
 //                      kuorumImage:request.siteUrl +r.resource(dir:'images', file:'background-search.jpg')
               ]"/>
-    <link rel="canonical" href="${g.createLink(mapping:"searcherLanding", params: [], absolute:true)}"/>
+    <link rel="canonical" href="${g.createLink(mapping:"searcherLanding", params: [])}"/>
+
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "url": "https://kuorum.org/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://kuorum.org/search?word={word}",
+        "query-input": "required name=word"
+      }
+    }
+    </script>
 </head>
 
 <content tag="videoAndRegister">

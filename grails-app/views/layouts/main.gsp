@@ -76,19 +76,6 @@
     <r:layoutResources />
     <meta property="twitter:account_id" content="4503599627910348" />
     <g:render template="/layouts/internationalization/otherLangsRef"/>
-
-    <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      "url": "https://kuorum.org/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://kuorum.org/search?word={word}",
-        "query-input": "required name=word"
-      }
-    }
-    </script>
 </head>
 
 <g:if test="${!schema}">
