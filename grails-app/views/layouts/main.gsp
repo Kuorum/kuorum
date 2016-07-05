@@ -19,16 +19,16 @@
 
     <meta name="robots" content="all">
 
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}">
-    <link rel="stylesheet" href="${resource(dir: 'fonts/font-awesome/css', file: 'font-awesome.min.css')}">
+    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.min.css')}">--}%
+    %{--<link rel="stylesheet" href="${resource(dir: 'fonts/font-awesome/css', file: 'font-awesome.min.css')}">--}%
     %{--<link rel="stylesheet" href="${resource(dir: 'fonts/font-awesome', file: 'styles.css')}">--}%
-    <link rel="stylesheet" href="${resource(dir: 'fonts/icomoon', file: 'styles.css')}">
-    <link rel="stylesheet" href="${resource(dir: 'fonts/icomoon2', file: 'styles.css')}">
-    <link rel="stylesheet" href="${resource(dir: 'fonts/icomoon3', file: 'styles.css')}">
+    %{--<link rel="stylesheet" href="${resource(dir: 'fonts/icomoon', file: 'styles.css')}">--}%
+    %{--<link rel="stylesheet" href="${resource(dir: 'fonts/icomoon2', file: 'styles.css')}">--}%
+    %{--<link rel="stylesheet" href="${resource(dir: 'fonts/icomoon3', file: 'styles.css')}">--}%
     %{--<link rel="stylesheet" href="css/bootstrap-tour.min.css">--}%
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'datepicker3.css')}">
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-tour.min.css')}">
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}">
+    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'datepicker3.css')}">--}%
+    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-tour.min.css')}">--}%
+    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}">--}%
     <!-- Estilos sólo para IE -->
     <!--[if IE]><link rel="stylesheet" href="${resource(dir: 'css', file: 'style_ie.css')}" type="text/css" media="screen"><![endif]-->
     <!--[if IE 9]><link rel="stylesheet" href="${resource(dir: 'css', file: 'style_ie9.css')}" type="text/css" media="screen"><![endif]-->
@@ -69,10 +69,9 @@
 
     <r:require modules="vimeo" />
     <g:set var="lang" value="${org.springframework.web.servlet.support.RequestContextUtils.getLocale(request).language}" />
-    <r:require modules="lang_${lang}, kuorumCookies" />
+    <r:require modules="lang_${lang}, kuorumCookies, application" />
     <g:layoutHead/>
     <g:javascript library="jquery" plugin="jquery"/>
-    <g:javascript library="application"/>
     <r:layoutResources />
     <meta property="twitter:account_id" content="4503599627910348" />
     <g:render template="/layouts/internationalization/otherLangsRef"/>

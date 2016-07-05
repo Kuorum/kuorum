@@ -1,6 +1,14 @@
 modules = {
 
-    basic {
+    basic{
+        resource url: 'css/bootstrap.min.css'
+        resource url: 'fonts/font-awesome/css/font-awesome.min.css'
+        resource url: 'fonts/icomoon/styles.css'
+        resource url: 'fonts/icomoon2/styles.css'
+        resource url: 'fonts/icomoon3/styles.css'
+        resource url: 'css/datepicker3.css'
+        resource url: 'css/bootstrap-tour.min.css'
+        resource url: 'css/custom.css'
         resource url:'js/jquery.min.js'
         resource url:'js/bootstrap.min.js'
     }
