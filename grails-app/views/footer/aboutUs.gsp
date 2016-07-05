@@ -9,7 +9,7 @@
                       kuorumDescription:g.message(code:'page.title.footer.ourStory.description'),
                       kuorumImage:r.resource(dir:'images', file:'landingSearch-rrss.png', absolute:true)
               ]"/>
-    <link rel="canonical" href="https://${request.serverName}${g.link(mapping: 'footerAboutUs')}" />
+    <link rel="canonical" href="https://${request.serverName}${g.createLink(mapping: 'footerAboutUs')}" />
 </head>
 
 <content tag="leftMenu">

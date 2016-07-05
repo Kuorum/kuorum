@@ -3,7 +3,7 @@
     <title><g:message code="page.title.footer.termsUse"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="info" />
-    <link rel="canonical" href="https://${request.serverName}${g.link(mapping: 'footerTermsUse')}" />
+    <link rel="canonical" href="https://${request.serverName}${g.createLink(mapping: 'footerTermsUse')}" />
 </head>
 
 <content tag="leftMenu">
