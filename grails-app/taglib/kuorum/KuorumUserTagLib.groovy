@@ -209,7 +209,7 @@ class KuorumUserTagLib {
 
     def politicianPosition={attrs->
         KuorumUser user = attrs.user
-        if (user.userType == UserType.POLITICIAN){
+        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
             String position = user?.professionalDetails?.position?:""
             String regionName = user?.professionalDetails?.region?.name?:""
             String coma = position?", ":""
@@ -219,8 +219,8 @@ class KuorumUserTagLib {
 
     def roleName={attrs ->
         KuorumUser user = attrs.user
-        if (user.userType == UserType.POLITICIAN){
-            String rolePolitician = user.professionalDetails?.politicalParty?:message(code:'kuorum.core.model.UserType.POLITICIAN')
+        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
+            String rolePolitician = user.professionalDetails?.politicalParty?:message(code:"kuorum.core.model.UserType.${user.userType}")
             out << rolePolitician
         }else{
             out << g.message(code:"${kuorum.core.model.gamification.GamificationAward.name}.${user.gamification.activeRole}.${user.personalData.gender}")

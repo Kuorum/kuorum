@@ -42,7 +42,7 @@ class LayoutsController {
 
     //FAST CHAPU
     def emptyEditableData(KuorumUser user){
-        if (user.userType == UserType.POLITICIAN){
+        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
             List<CauseRSDTO> causes = causesService.findDefendedCauses(user);
 
             List fields = [

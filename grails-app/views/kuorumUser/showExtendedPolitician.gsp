@@ -31,6 +31,9 @@
                             <g:if test="${politician.enabled}">
                                 <abbr title="${message(code:'politician.image.icon.enabled.text')}"><i class="fa fa-check"></i></abbr>
                             </g:if>
+                            <g:elseif test="${politician.userType.equals(UserType.CANDIDATE)}">
+                                <abbr title="${message(code:'politician.image.icon.candidate.text')}"><i class="fa icon-megaphone"></i></abbr>
+                            </g:elseif>
                             <g:else>
                                 <abbr title="${message(code:'politician.image.icon.notEnabled.text')}"><i class="fa fa-binoculars"></i></abbr>
                             </g:else>

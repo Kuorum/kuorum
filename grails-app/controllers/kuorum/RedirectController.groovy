@@ -1,6 +1,5 @@
 package kuorum
 
-import kuorum.core.model.UserType
 import kuorum.users.KuorumUser
 import org.apache.http.HttpStatus
 import org.bson.types.ObjectId

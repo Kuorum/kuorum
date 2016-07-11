@@ -81,6 +81,9 @@ class AmazonFileService extends LocalFileService{
 
             // Step 1: Initialize.
             InitiateMultipartUploadRequest initRequest = new InitiateMultipartUploadRequest(bucketName, keyName);
+            initRequest.putCustomRequestHeader("Cache-Control", "max-age=${3600*24*30}") // 30 days = 2592000 secs
+            initRequest.putCustomRequestHeader("Expires", "Thu, 15 Apr 2050 00:00:00 GMT")
+
             InitiateMultipartUploadResult initResponse = s3Client.initiateMultipartUpload(initRequest);
 
 

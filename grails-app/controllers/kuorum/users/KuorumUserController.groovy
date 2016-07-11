@@ -88,6 +88,7 @@ class KuorumUserController {
                 case UserType.ORGANIZATION: return showCitizen(user); break;
                 case UserType.PERSON: return showCitizen(user); break;
                 case UserType.POLITICIAN: return showPolitician(user); break;
+                case UserType.CANDIDATE: return showPolitician(user); break;
             }
         }
     }
@@ -102,6 +103,7 @@ class KuorumUserController {
             case UserType.ORGANIZATION: return showCitizen(user); break;
             case UserType.PERSON: return showCitizen(user); break;
             case UserType.POLITICIAN: return showPolitician(user); break;
+            case UserType.CANDIDATE: return showPolitician(user); break;
         }
         log.error("User type (userType=${user.userType}) not found for user ${user.id} (${user})")
         response.sendError(HttpServletResponse.SC_NOT_FOUND)
@@ -113,7 +115,7 @@ class KuorumUserController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
-        if (user.userType == UserType.POLITICIAN){
+        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
             redirect(mapping: "userShow", params: user.encodeAsLinkProperties())
             return
         }
@@ -151,7 +153,7 @@ class KuorumUserController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
-        if (politician.userType != UserType.POLITICIAN){
+        if (politician.userType != UserType.POLITICIAN && politician.userType != UserType.CANDIDATE){
             redirect(mapping: "userShow", params: politician.encodeAsLinkProperties())
             return
         }

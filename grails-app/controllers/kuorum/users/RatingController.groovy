@@ -17,10 +17,11 @@ class RatingController {
     SpringSecurityService springSecurityService
     KuorumUserService kuorumUserService
     UserReputationService userReputationService
+    PoliticianService politicianService
 
     def ratePolitician(String userAlias){
         KuorumUser politician = kuorumUserService.findByAlias(userAlias)
-        if (!politician || politician.userType != UserType.POLITICIAN){
+        if (!politicianService.isPolitician(politician)){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
@@ -30,7 +31,7 @@ class RatingController {
     }
 
     def widgetComparativePoliticianInfo = {
-        List<KuorumUser> politicians = params.userAlias.collect{kuorumUserService.findByAlias(it)}.findAll{it && it.userType == UserType.POLITICIAN}
+        List<KuorumUser> politicians = params.userAlias.collect{kuorumUserService.findByAlias(it)}.findAll{politicianService.isPolitician(it)}
         if (!politicians){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
@@ -52,7 +53,7 @@ class RatingController {
 
     def historicPoliticianRate(String userAlias){
         KuorumUser politician = kuorumUserService.findByAlias(userAlias)
-        if (!politician || politician.userType != UserType.POLITICIAN){
+        if (!politicianService.isPolitician(politician)){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
@@ -89,7 +90,7 @@ class RatingController {
     }
 
     def comparingPoliticianRateData(){
-        List<KuorumUser> politicians = params.userAlias.collect{kuorumUserService.findByAlias(it)}.findAll{it && it.userType == UserType.POLITICIAN}
+        List<KuorumUser> politicians = params.userAlias.collect{kuorumUserService.findByAlias(it)}.findAll{politicianService.isPolitician(it)}
         if (!politicians){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;

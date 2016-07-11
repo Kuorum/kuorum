@@ -36,7 +36,6 @@ class KuorumUser {
     PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
 
-    Boolean requestedPolitician = Boolean.FALSE
     Boolean requestedPoliticianBetaTester = Boolean.FALSE
     EditorRules editorRules
 
@@ -140,7 +139,6 @@ class KuorumUser {
 
         //POLITICIAN VALIDATION
 //        institution nullable:true
-        requestedPolitician nullable:true
         requestedPoliticianBetaTester nullable:true
         organization nullable: true
         politicianActivity nullable:true
@@ -208,7 +206,7 @@ class KuorumUser {
             this.personalData = new PersonalData()
         }
         personalData.userType = userType
-        if (UserType.POLITICIAN.equals(userType) && politicianLeaning?.liberalIndex==null){
+        if ((UserType.POLITICIAN.equals(userType) || UserType.CANDIDATE.equals(userType)) && politicianLeaning?.liberalIndex==null){
             politicianLeaning.liberalIndex = 50
         }
         if (politicianLeaning?.liberalIndex){
