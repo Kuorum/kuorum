@@ -219,11 +219,13 @@ class UrlMappings {
         name causeSupport:         "/ajax/cause/$causeName/support" (controller:"causes", action: "supportCause")
         name causeDiscard:         "/ajax/cause/$causeName/discard" (controller:"causes", action: "discardCause")
 
-        name footerTechnology:    "/services/what-is-kuorum"          (controller:"footer", action: "tech" )
-                                  "/services"          (controller:"footer", action: "tech" )
-        name footerPoliticians:     "/services/politicians"             (controller:"footer", action: "politicians" )
+        name footerTechnology:      "/services/what-is-kuorum"          (controller:"footer", action: "tech" )
+                                    "/services"          (controller:"footer", action: "tech" )
+        name footerPoliticians:     "/services/win-your-election"      (controller:"footer", action: "politicians" )
+                                    "/services/politicians"             (controller:"footer", action: "politicians" )
         name footerGovernment:      "/services/government"               (controller:"footer", action: "government" )
-        name footerCitizens:      "/services/citizens"              (controller:"footer", action: "citizens" )
+        name footerCitizens:        "/services/who-should-i-vote-for" (controller:"footer", action: "citizens" )
+                                    "/services/citizens"
         name footerDevelopers:    "/services/editors"         (controller:"footer", action: "developers" )
         name footerAboutUs:       "/about/our-story"                          (controller:"footer", action: "aboutUs" )
                                   "/about"                (controller:"footer", action: "aboutUs" )
