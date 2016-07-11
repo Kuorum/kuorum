@@ -144,7 +144,7 @@ class MandrillAppService {
             userMailRSDTO.bindings = it.bindings
             userMailRSDTO.lang = it.user.language?.locale?.language?:"en"
             userMailRSDTO.name = it.user.name
-            userMailRSDTO.email =it. user.email
+            userMailRSDTO.email =it.user.email
             return userMailRSDTO
         }
         restKuorumApiService.post(apiMethod,params, [:], sendMailRSDTO )

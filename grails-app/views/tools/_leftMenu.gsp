@@ -3,11 +3,11 @@
     <li class="${activeMapping=='toolsNotifications'?'active':''}">
         <g:link mapping="toolsNotifications"><g:message code="tools.menu.profileNotifications"/></g:link>
     </li>
-    <g:if test="${kuorum.core.model.UserType.POLITICIAN.equals(user.userType)}">
+    <sec:ifAnyGranted roles="ROLE_POLITICIAN">
         <li>
             <g:link mapping="projectCreate"><g:message code="head.navigation.userMenu.project.new"/></g:link>
         </li>
-    </g:if>
+    </sec:ifAnyGranted>
     %{--<li class="${activeMapping=='toolsFavorites'?'active':''}">--}%
         %{--<g:link mapping="toolsFavorites">--}%
             %{--<span id="post-sin-leer">--}%

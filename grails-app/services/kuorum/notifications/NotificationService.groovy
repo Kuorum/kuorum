@@ -628,7 +628,7 @@ class NotificationService {
                 personalData{
                     like('provinceCode',project.region?.iso3166_2 + '%')
                 }
-                or{
+                and{
                     project.commissions.each{commision->
                         inList("relevantCommissions", commision)
                     }

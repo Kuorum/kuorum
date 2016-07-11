@@ -133,8 +133,8 @@ class ProjectController {
             region = project?.region
         }
         if (!region){
-            region = Region.findByIso3166_2("EU-ES")
-            log.warn("Usuario ${user} sin region de politico. Se pone españa")
+            flash.message = "We need your region for create new project"
+            return redirect(mapping:'profilePoliticianProfessionalDetails')
         }
         [project:project, command:command, region:region]
 

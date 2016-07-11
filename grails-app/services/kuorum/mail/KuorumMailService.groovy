@@ -30,23 +30,17 @@ class KuorumMailService {
     def grailsApplication
 
     def sendSavedProjectToRelatedUsers(List <KuorumUser> listUsers, Project project){
-        def requiredBindings = [
-                projectName: project.shortName,
-                projectOwner: project.owner,
-                commissionType: project.commissions,
-        ]
-
         def globalBindings=[
                 projectYoutube: project.urlYoutube?.url,
                 projectLink: generateLink('projectShow', project.encodeAsLinkProperties()),
-                projectImage: project.image?.url
+//                projectImage: project.image?.url,
+                projectName: project.shortName,
+                projectOwner: project.owner.name
         ]
 
-        listUsers.each{
-            MailUserData mailUserData = new MailUserData(user:it, bindings:requiredBindings)
-            MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME , mailType: MailType.PROJECT_CREATED_NOTIFICATION, globalBindings: globalBindings, userBindings: [mailUserData])
-            mandrillAppService.sendTemplate(mailData)
-        }
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME , mailType: MailType.PROJECT_CREATED_NOTIFICATION, globalBindings: globalBindings)
+        mailData.userBindings = listUsers.collect{new MailUserData(user:it, bindings:[:])}
+        mandrillAppService.sendTemplate(mailData)
     }
 
     def sendBatchMail(KuorumUser user, String rawMail, String subject){
