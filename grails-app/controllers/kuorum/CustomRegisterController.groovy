@@ -143,7 +143,7 @@ class CustomRegisterController {
             KuorumUser user = springSecurityService.currentUser
             offerService.purchaseOffer(user, offerType, kpeople)
             flash.message = message(code: 'dashboard.userProfile.advise.politicianRequest.text')
-            if(user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
+            if(politicianService.isPolitician(user)){
                 redirect mapping:'politicianInbox'
             }else{
                 politicianService.requestAPoliticianAccount(user)

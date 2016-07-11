@@ -34,7 +34,7 @@ class SubscriptionStep1Command extends KuorumRegisterCommand{
                 return "unique"
             }
         }
-        alias nullable: false, validator: {val, obj ->
+        alias nullable: false, maxSize: 15, matches: KuorumUser.ALIAS_REGEX, validator: {val, obj ->
             if (val && KuorumUser.findByAlias(val)){
                 return "unique"
             }
