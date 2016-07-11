@@ -1,5 +1,5 @@
 <sec:ifNotGranted roles="ROLE_EDITOR">
-    <g:if test="${user?.editorRules?.requestedEditor && !user?.requestedPolitician}">
+    <g:if test="${user?.editorRules?.requestedEditor}">
         <div class="ico-info">
             <span class="popover-trigger" data-trigger="manual" rel="popover" tabindex="100" role="button" data-toggle="popover" id="seeMore-politicalLeaningIndex">
                 <span class="fa fa-info-circle front">

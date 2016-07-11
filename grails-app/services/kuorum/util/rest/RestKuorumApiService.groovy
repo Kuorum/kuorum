@@ -1,5 +1,6 @@
 package kuorum.util.rest
 
+import grails.converters.JSON
 import groovyx.net.http.RESTClient
 import kuorum.core.exception.KuorumException
 import org.springframework.beans.factory.annotation.Value
@@ -51,7 +52,10 @@ class RestKuorumApiService {
         REGION_FIND     ("/geolocation/find"),
 
         ACCOUNT_INFO("/notification/mailing/{userAlias}"),
-        ACCOUNT_MAILS("/notification/mailing/{userAlias}/emails");
+        ACCOUNT_MAILS("/notification/mailing/{userAlias}/emails"),
+        ACCOUNT_MAILS_SEND("/notification/mailing/{userAlias}/send"),
+
+        ADMIN_MAILS_SEND("/admin/notification/mailing/send");
 
         String url;
         ApiMethod(String url){
@@ -110,10 +114,10 @@ class RestKuorumApiService {
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.post(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
-                query:query,
-                body:body,
-                requestContentType : groovyx.net.http.ContentType.JSON
+                headers: ["User-Agent": "Kuorum Web", "token": kuorumRestApiKey],
+                query: query,
+                body: body,
+                requestContentType: groovyx.net.http.ContentType.JSON
         )
         return response
     }

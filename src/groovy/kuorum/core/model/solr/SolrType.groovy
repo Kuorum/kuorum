@@ -31,6 +31,7 @@ enum SolrType {
             case UserType.ORGANIZATION: SolrSubType.ORGANIZATION; break;
             case UserType.POLITICIAN: SolrSubType.POLITICIAN; break;
             case UserType.PERSON: SolrSubType.PERSON; break;
+            case UserType.CANDIDATE: SolrSubType.CANDIDATE; break;
         }
 
     }),
@@ -39,8 +40,16 @@ enum SolrType {
             case UserType.ORGANIZATION: SolrSubType.ORGANIZATION; break;
             case UserType.POLITICIAN: SolrSubType.POLITICIAN; break;
             case UserType.PERSON: SolrSubType.PERSON; break;
+            case UserType.CANDIDATE: SolrSubType.CANDIDATE; break;
         }
-
+    }),
+    CANDIDATE({KuorumUser kuorumUser ->
+        switch (kuorumUser.userType){
+            case UserType.ORGANIZATION: SolrSubType.ORGANIZATION; break;
+            case UserType.POLITICIAN: SolrSubType.POLITICIAN; break;
+            case UserType.PERSON: SolrSubType.PERSON; break;
+            case UserType.CANDIDATE: SolrSubType.CANDIDATE; break;
+        }
     })
 
     public def generateSubtype
@@ -50,5 +59,14 @@ enum SolrType {
 
     List<SolrSubType> getSolrSubTypes(){
         SolrSubType.values().findAll{it.solrType==this}
+    }
+
+    static SolrType createFromUserType(UserType userType){
+        switch (userType){
+            case UserType.ORGANIZATION: SolrType.KUORUM_USER; break;
+            case UserType.POLITICIAN: SolrType.POLITICIAN; break;
+            case UserType.PERSON: SolrType.KUORUM_USER; break;
+            case UserType.CANDIDATE: SolrType.CANDIDATE; break;
+        }
     }
 }

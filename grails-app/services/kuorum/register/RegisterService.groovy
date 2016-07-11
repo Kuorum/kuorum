@@ -173,6 +173,9 @@ class RegisterService {
             if (userType == UserType.POLITICIAN){
                 user.authorities << RoleUser.findByAuthority("ROLE_POLITICIAN")
             }
+            if (userType == UserType.CANDIDATE){
+                user.authorities << RoleUser.findByAuthority("ROLE_CANDIDATE")
+            }
             user.userType = userType
             user.save();
         }

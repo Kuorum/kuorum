@@ -301,7 +301,7 @@ class IndexSolrService {
             bestUserData = ["score":0, "numFollowers":0]
         }
 
-        SolrType type = kuorumUser.userType==UserType.POLITICIAN?SolrType.POLITICIAN:SolrType.KUORUM_USER
+        SolrType type = SolrType.createFromUserType(kuorumUser.userType)
         new SolrKuorumUser(
                 id:kuorumUser.id.toString(),
                 name: kuorumUser.toString(),
@@ -412,6 +412,7 @@ class IndexSolrService {
     SolrElement recoverSolrElementFromSolr(SolrDocument solrDocument){
         switch (SolrType.valueOf(solrDocument.type)){
             case SolrType.KUORUM_USER:
+            case SolrType.CANDIDATE:
             case SolrType.POLITICIAN:   return recoverKuorumUserFromSolr(solrDocument); break;
             case SolrType.PROJECT:      return recoverProjectFromSolr(solrDocument); break;
             case SolrType.POST:         return recoverPostFromSolr(solrDocument); break;

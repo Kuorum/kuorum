@@ -28,7 +28,7 @@
     <g:if test="${searchParams.type == SolrType.PROJECT}">
         <g:set var="cssClassUL" value="kakareo-list project clearfix"/>
     </g:if>
-    <g:elseif test="${searchParams.type == SolrType.KUORUM_USER || searchParams.type == SolrType.POLITICIAN}">
+    <g:elseif test="${searchParams.type == SolrType.KUORUM_USER || searchParams.type == SolrType.POLITICIAN || searchParams.type == SolrType.CANDIDATE}">
         <g:set var="cssClassUL" value="politician-list clearfix"/>
     </g:elseif>
     <g:else>
@@ -63,6 +63,14 @@
                     <label>
                         <input type="checkbox" name="type" id="politicos" value="${kuorum.core.model.solr.SolrType.POLITICIAN}" ${searchParams.type == kuorum.core.model.solr.SolrType.POLITICIAN?'checked':''}>
                         <span class="icon-user"></span> <g:message code="search.filters.SolrType.POLITICIAN"/>
+                    </label>
+                </div>
+            </li>
+            <li>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="type" id="candidates" value="${kuorum.core.model.solr.SolrType.CANDIDATE}" ${searchParams.type == kuorum.core.model.solr.SolrType.CANDIDATE?'checked':''}>
+                        <span class="icon-user"></span> <g:message code="search.filters.SolrType.CANDIDATE"/>
                     </label>
                 </div>
             </li>

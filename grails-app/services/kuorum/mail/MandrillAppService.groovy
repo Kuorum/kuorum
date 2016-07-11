@@ -7,22 +7,37 @@ import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.AvailableLanguage
+import kuorum.users.KuorumUser
+import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.notification.mail.sent.MailTypeRSDTO
+import org.kuorum.rest.model.notification.mail.sent.SendMailRSDTO
+import org.kuorum.rest.model.notification.mail.sent.SentUserMailRSDTO
 import org.springframework.beans.factory.annotation.Value
 
 @Transactional
 class MandrillAppService {
 
+
+    RestKuorumApiService restKuorumApiService;
+
     @Value('${mail.mandrillapp.key}')
     String MANDRIL_APIKEY
 
     //UNTESTED - Is not possible to test if the mail has been sent. Only if not fails
-    void sendTemplate(MailData mailData, Boolean async = false) {
+    void sendTemplate(MailData mailData, Boolean async = true, KuorumUser user = null) {
 
-        if (!mailData.validate()){
+        if (!mailData.validate()) {
             log.error("Faltan datos para mandar este email. Errors:  ${mailData.errors.allErrors}")
             return;
         }
 
+        if (!mailData.mailType.mailTypeRSDTO) {
+            sendViaMandrillApp(mailData, async)
+        } else {
+            sendTemplateViaKuorumServices(mailData, user)
+        }
+    }
+    private sendViaMandrillApp(MailData mailData,Boolean async = true){
         List<MandrillMessage.Recipient> recipients = createRecipients(mailData)
         List<MandrillMessage.MergeVar> globalMergeVars = createGlobalMergeVars(mailData)
         List<MandrillMessage.MergeVarBucket> mergeVars = createMergeVars(mailData)
@@ -113,4 +128,26 @@ class MandrillAppService {
             userVars
         }
     }
+
+    private void sendTemplateViaKuorumServices(MailData mailData, KuorumUser user){
+        Map params = [:]
+        RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ADMIN_MAILS_SEND
+        if (user){
+            params.put("userAlias",user.alias)
+            apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MAILS_SEND
+        }
+        SendMailRSDTO sendMailRSDTO = new SendMailRSDTO()
+        sendMailRSDTO.globalBindings = mailData.globalBindings
+        sendMailRSDTO.mailType = mailData.mailType.mailTypeRSDTO
+        sendMailRSDTO.destinations = mailData.userBindings.collect{
+            SentUserMailRSDTO userMailRSDTO = new SentUserMailRSDTO()
+            userMailRSDTO.bindings = it.bindings
+            userMailRSDTO.lang = it.user.language?.locale?.language?:"en"
+            userMailRSDTO.name = it.user.name
+            userMailRSDTO.email =it. user.email
+            return userMailRSDTO
+        }
+        restKuorumApiService.post(apiMethod,params, [:], sendMailRSDTO )
+    }
+
 }

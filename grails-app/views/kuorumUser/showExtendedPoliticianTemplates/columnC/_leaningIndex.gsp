@@ -17,7 +17,7 @@
             <span class="pull-left"><g:message code="politician.leaningIndex.left"/></span>
             <span class="pull-right"><g:message code="politician.leaningIndex.right"/></span>
         </div>
-        <g:if test="${user.userType == UserType.POLITICIAN}">
+        <g:if test="${user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE}">
             <div class="text-right">
                 <a href="javascript:return false" class="popover-trigger" data-trigger="manual" rel="popover" role="button" data-toggle="popover" data-original-title="" title="" id="seeMore-politicalLeaningIndex">
                     <g:message code="politician.leaningIndex.link"/>

@@ -1,17 +1,19 @@
 package kuorum.mail
 
+import org.kuorum.rest.model.notification.mail.sent.MailTypeRSDTO
+
 /**
  * Created by iduetxe on 25/02/14.
  */
 public enum MailType {
 
-    REGISTER_VERIFY_EMAIL               (MailGroupType.REGISTER,"register-validation",    ["confirmationLink"], []),
-    REGISTER_RESET_PASSWORD             (MailGroupType.REGISTER,"register-resetPassword", ["resetPasswordLink"], []),
-    REGISTER_RRSS                       (MailGroupType.REGISTER,"register-socialNetworks",[], ["provider"]),
-    REGISTER_ACCOUNT_COMPLETED          (MailGroupType.REGISTER,"register-completed",     [], []),
-    REGISTER_CHANGE_EMAIL_VERIFY        (MailGroupType.REGISTER,"register-emailChangeNew",["confirmationLink"], []),
-    REGISTER_CHANGE_EMAIL_REQUESTED     (MailGroupType.REGISTER,"register-emailChangeOld",["newEmailAccount"], []),
-    NOTIFICATION_OFFER_PURCHASED        (MailGroupType.REGISTER,"register-suscription",   [], ["userLink", "user", "offerType", "totalPrice"]),
+    REGISTER_VERIFY_EMAIL               (MailGroupType.REGISTER,"register-validation",    ["confirmationLink"], [], MailTypeRSDTO.REGISTER_VERIFY_EMAIL),
+    REGISTER_RESET_PASSWORD             (MailGroupType.REGISTER,"register-resetPassword", ["resetPasswordLink"], [], MailTypeRSDTO.REGISTER_RESET_PASSWORD),
+    REGISTER_RRSS                       (MailGroupType.REGISTER,"register-socialNetworks",[], ["provider"],MailTypeRSDTO.REGISTER_SOCIAL_NETWORKS),
+    REGISTER_ACCOUNT_COMPLETED          (MailGroupType.REGISTER,"register-completed",     [], [], MailTypeRSDTO.REGISTER_ACCOUNT_COMPLETED),
+    REGISTER_CHANGE_EMAIL_VERIFY        (MailGroupType.REGISTER,"register-emailChangeNew",["confirmationLink"], [], MailTypeRSDTO.REGISTER_CHANGE_EMAIL_VERIFY),
+    REGISTER_CHANGE_EMAIL_REQUESTED     (MailGroupType.REGISTER,"register-emailChangeOld",["newEmailAccount"], [], MailTypeRSDTO.REGISTER_CHANGE_EMAIL_REQUESTED),
+    NOTIFICATION_OFFER_PURCHASED        (MailGroupType.REGISTER,"register-suscription",   [], ["userLink", "user", "offerType", "totalPrice"], MailTypeRSDTO.REGISTER_CANDIDATE_SUBSCRIPTION),
     CAMPAIGN_POLL_THANK_YOU             (MailGroupType.REGISTER,"register-modalelections",[],["recovery", "education", "democracy", "equalty", "constitution", "foreign", "politician", "politicianLink"]),
 
     PROJECT_CREATED_NOTIFICATION        (MailGroupType.EVENT_PROJECT, "project-new", ["projectName", "projectOwner", "commissionType"], ["projectYoutube", "projectLink", "projectImage"]),
@@ -49,6 +51,7 @@ public enum MailType {
     List<String> requiredBindings
     List<String> globalBindings
     MailGroupType mailGroup
+    MailTypeRSDTO mailTypeRSDTO
 
     MailType(MailGroupType mailGroup, String nameTemplate, List<String> requiredBindings, List<String> globalBindings){
         this.nameTemplate = nameTemplate
@@ -57,7 +60,13 @@ public enum MailType {
         this.mailGroup = mailGroup
     }
 
+    MailType(MailGroupType mailGroup, String nameTemplate, List<String> requiredBindings, List<String> globalBindings, MailTypeRSDTO mailTypeRSDTO){
+        this(mailGroup, nameTemplate, requiredBindings, globalBindings)
+        this.mailTypeRSDTO = mailTypeRSDTO
+    }
+
     Boolean getConfigurable(){
         mailGroup.editable
     }
+
 }

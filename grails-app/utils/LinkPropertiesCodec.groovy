@@ -140,6 +140,7 @@ class LinkPropertiesCodec {
             case UserType.PERSON: return "ciudadanos"
             case UserType.ORGANIZATION: return "organizaciones"
             case UserType.POLITICIAN: return "politicos"
+            case UserType.CANDIDATE: return "candidato"
         }
     }
 

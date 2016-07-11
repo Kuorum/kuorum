@@ -325,7 +325,7 @@ class KuorumUserService {
         if(compareUser.personalData.provinceCode && activeUser.personalData.provinceCode && compareUser.personalData.provinceCode == activeUser.personalData.provinceCode){
             formula += grailsApplication.config.kuorum.recommendedUser.regionValue
         }
-        if(compareUser.userType == UserType.POLITICIAN){
+        if(compareUser.userType == UserType.POLITICIAN || compareUser.userType == UserType.CANDIDATE){
             formula += grailsApplication.config.kuorum.recommendedUser.politicianValue
         } else if(compareUser.userType == UserType.ORGANIZATION){
             formula += grailsApplication.config.kuorum.recommendedUser.organizationValue
@@ -609,7 +609,7 @@ class KuorumUserService {
         searchParams.max +=1
         List<Region> regions;
         String politicalParty = ""
-        if (user && user.userType != UserType.POLITICIAN){
+        if (user && user.userType != UserType.POLITICIAN && user.userType != UserType.CANDIDATE){
             regions = regionService.findUserRegions(user)
         }else if(user){
             regions = regionService.findRegionsList(user.professionalDetails?.region)
