@@ -117,8 +117,9 @@ class PoliticianService {
     KuorumUser requestAPoliticianAccount(KuorumUser user){
         user.userType = UserType.CANDIDATE
         user.authorities << RoleUser.findByAuthority("ROLE_POLITICIAN")
-        indexSolrService.index(user)
         user.save()
+        indexSolrService.index(user)
+        user
     }
 
     /**

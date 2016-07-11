@@ -9,11 +9,11 @@
         <div class="popover-more-actions edition">
             <ul>
                 <li>
-                    <sec:ifAnyGranted roles="ROLE_EDITOR">
+                    <sec:access expression="hasPermission('${user.id}', 'kuorum.users.KuorumUser', 'edit')">
                         <g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}">
                             <span><g:message code="project.editMenu.edit"/></span>
                         </g:link>
-                    </sec:ifAnyGranted>
+                    </sec:access>
                     <sec:ifAnyGranted roles="ROLE_ADMIN">
                         <g:link mapping="editorAdminUserRights" params="${user.encodeAsLinkProperties()}">
                             <span><g:message code="admin.menu.user.editRights"/></span>
