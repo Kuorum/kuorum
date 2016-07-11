@@ -99,6 +99,11 @@ class PoliticianService {
         }
     }
 
+
+    Boolean isPolitician(KuorumUser user){
+        user && (user.userType ==UserType.POLITICIAN || user.userType==UserType.CANDIDATE)
+    }
+
     KuorumUser requestABetaTesterAccount(KuorumUser user){
         if (user.userType!= UserType.POLITICIAN && user.userType!= UserType.CANDIDATE){
             throw new KuorumException("This user is not a politician")
