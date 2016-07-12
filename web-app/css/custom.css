@@ -5445,9 +5445,10 @@ p.party{
     font-weight: bold;
     margin-bottom: 5px;
 }
-.profile-title h2{
+.profile-title h1{
     margin-top: 0;
     margin-bottom: 6px;
+    font-size: 30px;
 }
 
 .follow-btn-group {text-align: center;}
@@ -5500,7 +5501,7 @@ p.party{
         top:-10px;
     }
 
-    .profile-title h2{
+    .profile-title h1{
         font-size: 24px;
         margin-bottom: 3px;
     }

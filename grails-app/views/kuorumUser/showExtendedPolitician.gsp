@@ -42,7 +42,7 @@
             </div><!--/.row -->
             <div class="row extra-padding">
                 <div class='col-sm-7 profile-title'>
-                    <h2 itemprop="name">${politician.name}</h2>
+                    <h1 itemprop="name">${politician.name}</h1>
                     <cite itemprop="jobTitle"><userUtil:politicianPosition user="${politician}"/></cite>
                     <p class='party' itemprop="affiliation"><span  itemscope itemtype="http://schema.org/Organization">${userUtil.roleName(user:politician)}</span></p>
                 </div>
