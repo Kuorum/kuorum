@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><g:layoutTitle default="${g.message(code:"layout.head.title.default")}"/></title>
-    <g:layoutHead/>
     <meta name="Keywords" content="${g.message(code:"layout.head.meta.keywords")}">
     <meta name="dcterms.rightsHolder" content="Kuorum.org">
     %{--<meta name="dcterms.dateCopyrighted" content="2013">--}%
