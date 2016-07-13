@@ -187,8 +187,8 @@ codenarc.reports = {
 }
 
 grails.war.resources = { stagingDir, args ->
-    copy(file: ".ebextensions/HTTPtoHTTPS.config",
-            tofile: "${stagingDir}/.ebextensions/HTTPtoHTTPS.config")
+//    copy(file: ".ebextensions/HTTPtoHTTPS.config",
+//            tofile: "${stagingDir}/.ebextensions/HTTPtoHTTPS.config")
     copy(file: ".ebextensions/installJava8.config",
             tofile: "${stagingDir}/.ebextensions/installJava8.config")
 
