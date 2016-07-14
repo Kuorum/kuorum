@@ -3,6 +3,7 @@
         <section class="links">
             <ul>
                 <li><g:link mapping="footerTechnology"><g:message code="layout.footer.technology"/></g:link> </li>
+                <li><g:link mapping="blog"><g:message code="layout.footer.blog"/></g:link> </li>
                 <li><g:link mapping="footerPoliticians"><g:message code="layout.footer.politicians"/></g:link></li>
                 <li><g:link mapping="footerGovernment"><g:message code="layout.footer.government"/></g:link></li>
                 <li><g:link mapping="footerCitizens"><g:message code="layout.footer.citizens"/></g:link></li>
