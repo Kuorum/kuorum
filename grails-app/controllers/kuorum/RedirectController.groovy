@@ -3,8 +3,11 @@ package kuorum
 import kuorum.users.KuorumUser
 import org.apache.http.HttpStatus
 import org.bson.types.ObjectId
+import org.springframework.web.servlet.LocaleResolver
 
 class RedirectController {
+
+    LocaleResolver localeResolver
 
     static defaultAction = 'redirect301'
 
@@ -33,5 +36,14 @@ class RedirectController {
             render('')
             return false
         }
+    }
+
+    def blogRedirect(String articlePath){
+        def urlBlog = articlePath
+        Locale locale = localeResolver.resolveLocale(request)
+        String subDomain = locale.language=="es"?"es":"en";
+        String redirectUrl = "http://${subDomain}.kuorum.org/blog/${urlBlog?:''}"
+        redirect(url: redirectUrl, permanent: true)
+        return;
     }
 }

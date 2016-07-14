@@ -103,6 +103,10 @@ class UrlMappings {
 //        name postAddDefender:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/apadrinar"(controller: "post", action:"addDefender")
 
 
+        //BLOG REDIRECT:
+        name blog:          "/blog/"    (controller: "redirect", action:"blogRedirect")
+                            "/blog/$articlePath**" (controller: "redirect", action:"blogRedirect")
+
         //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
                              "/$userTypeUrl/$urlName-$id" {
                                     controller="redirect";
