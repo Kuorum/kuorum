@@ -42,7 +42,7 @@ class RedirectController {
         def urlBlog = articlePath
         Locale locale = localeResolver.resolveLocale(request)
         String subDomain = locale.language=="es"?"es":"en";
-        String redirectUrl = "http://${subDomain}.kuorum.org/blog/${urlBlog?:''}"
+        String redirectUrl = "https://${subDomain}.kuorum.org/blog/${urlBlog?:''}"
         redirect(url: redirectUrl, permanent: true)
         return;
     }
