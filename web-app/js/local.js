@@ -291,6 +291,52 @@ function printChart(divId){
 
 $(document).ready(function() {
 
+
+    // input tags
+    if ($('#tagsField').length) {
+        var tagsnames = new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          prefetch: {
+            url: 'mock/tags.json',
+            filter: function(list) {
+              return $.map(list, function(tagsname) {
+                return { name: tagsname }; });
+            }
+          }
+        });
+        tagsnames.initialize();
+
+        $('#tagsField').tagsinput({
+          typeaheadjs: {
+            minLength: 2,
+            hint: true,
+            highlight: true,
+            name: 'tagsnames',
+            displayKey: 'name',
+            valueKey: 'name',
+            source: tagsnames.ttAdapter()
+          }
+        });
+    }
+
+
+    // select row table csv
+    $('table.csv tr').click(function (event) {
+        if (event.target.type !== 'checkbox') {
+            $(':checkbox', this).trigger('click');
+        }
+    });
+
+    $('table.csv input[type="checkbox"]').change(function (e) {
+        if ($(this).is(":checked")) {
+            $(this).closest('tr').addClass("highlight_row");
+        } else {
+            $(this).closest('tr').removeClass("highlight_row");
+        }
+    });
+
+
     // Carrusel noticias perfil político
     $('.carousel.news').carousel({
           interval: false,
@@ -825,31 +871,7 @@ $(document).ready(function() {
     $("form [data-fileType]").on("click", function(e){
         $(this).closest("form").find("input[name=fileType]").val($(this).attr("data-fileType"));
     })
-    // textarea editor
-    $(".texteditor").jqte({
-        br: true,
-        center: false,
-        color: false,
-        format: false,
-        indent: false,
-        left: false,
-        ol: false,
-        outdent: false,
-        p: true,
-        placeholder: i18n.form.textEditor.textAreaPlaceHolder,
-        linktypes: ["URL", "Email"],
-        remove: false,
-        right: false,
-        rule: false,
-        source: false,
-        sub: false,
-        strike: false,
-        sup: false,
-        ul: false,
-        unlink: false,
-        fsize: false,
-        title: false
-    });
+
 
     if ( $('.jqte_editor').text() == "" ) {
         $('.jqte_placeholder_text').css('display', 'block');

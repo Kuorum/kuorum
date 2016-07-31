@@ -57,6 +57,7 @@ select {color: #545454; font-size: 12px; font-size:  1.2rem; border: 1px solid #
 input[type="number"],
 input[type="email"],
 select {padding: 6px 6px 6px 8px !important;}*/
+
 .form-control:focus,
 .jqte_focused {box-shadow: 0 0 0 rgba(0,0,0,0);}
 .form-group {margin-bottom: 20px;}
@@ -274,7 +275,7 @@ a:focus {color: #ff9431;}
 #main.home, #main.home .full-video {min-height: 495px;}
 .navbar-fixed-top {border-bottom: solid 1px #e5e5e5;}
 #header h1 {margin: 4px 0 0 5px;}
-.navbar-nav .user-area .user-img {width: 25px; height: 25px; margin: 0;}
+/*.navbar-nav .user-area .user-img {width: 25px; height: 25px; margin: 0;}*/
 .navbar-brand {
     width: 130px;
     height: 38px;
@@ -284,8 +285,8 @@ a:focus {color: #ff9431;}
     margin-top: 1px;
 }
 .navbar {
-    font-size: 15px;
-    font-size: 1.5rem;
+    font-size: 14px;
+    font-size: 1.4rem;
     padding: 9px 0 0;
     margin: 0;
     background-color: #fff;
@@ -528,6 +529,21 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     color: #fff !important;
 }
 
+
+.btn.inverted {
+    background-color: #fff !important;
+    border: 1px solid #ff9431 ;
+    color: #ff9431 !important;
+}
+.btn.inverted:hover,
+.btn.inverted:active,
+.btn.inverted:focus {
+    background-color: #ff9431 !important;
+    color: #fff !important;
+}
+
+
+
 .btn.btn-transparent{
     background-color: transparent !important;
     color: #8e8e8c !important;
@@ -637,22 +653,23 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 #search-form .input-group-btn {float:right; z-index: 9;right: 33px;}
 
 
-
-
-
-
 .nav > li > .navbar-link {
     color: #545454;
     padding: 8px;
     background-color: transparent;
     display: block;
     position: relative;
+    line-height: 38px;
 }
 .nav > li > .navbar-link:hover,
 .nav > li > .navbar-link:focus,
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {background-color: #ff9431; color: #fff;}
+
+.nav > li > .navbar-link.user-area .badge {position: absolute; left: 26px; top: -4px;}
+.nav > li > .navbar-link.user-area img {margin: 0;}
+
 .nav > li > span.navbar-link,
 .nav > li > span.navbar-link:hover,
 .nav > li > span.navbar-link:focus {color: #dadada;}
@@ -815,6 +832,12 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .gpl img,
 .github img {width: 48px; height: 48px;}
 
+/* breadcrumb */
+.breadcrumb {background-color: transparent; font-size: 15px; font-size: 1.5rem; font-weight: 700; margin-bottom: 0;}
+.breadcrumb a {color: #20a2ea;}
+.breadcrumb > .active {color: #a8a8a8;}
+
+
 /* dashboard */
 .box-ppal.condition {border: 1px solid #20a2ea; margin: 0 0 20px 0;}
 .box-ppal.condition p {margin-bottom: 10px;}
@@ -822,9 +845,6 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.condition .close + h1 {padding: 0 25px 0 0;}
 .box-ppal.condition h1,
 .kakareo.post h1 {font-size: 20px; font-size: 2rem; margin-bottom: 20px; padding: 0;}
-
-/*.box-ppal.condition.politician > .row h1 {font-size: 2.15rem; line-height: 46px; margin: 0;}*/
-
 .box-ppal.condition h2 {font-size: 16px; font-size: 1.6rem; margin: 0 0 30px 0; line-height: 1.4;}
 .box-ppal.condition > button.close {right: 10px; top: 10px; position: absolute;}
 .box-ppal.condition > button.close:hover,
@@ -832,28 +852,181 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.condition .photo {margin-bottom: 10px;}
 .kakareo-list {list-style: none; margin: 0; padding: 0;}
 .kakareo-list .kakareo {margin-bottom: 20px;}
-
 .box-ppal.condition .no-age .form-group {margin-bottom: 0;}
 .box-ppal.condition .no-age .form-group:nth-child(2) {width: 180px; margin-right: 10px;}
 .box-ppal.condition .no-age .form-group:nth-child(2),
 .box-ppal.condition .no-age .form-group:nth-child(3) {margin-bottom: 20px;}
-
 .box-ppal.condition .no-postalcode .form-group {margin-bottom: 10px;}
 .box-ppal.condition .no-postalcode .form-group:nth-child(1) {width: 47%; margin-right: 3%;}
 .box-ppal.condition .no-postalcode .form-group:nth-child(2) {width: 50%;}
 .box-ppal.condition .no-postalcode .form-group:last-child {width: 100%; text-align: right;}
-
 .box-ppal.condition .no-phone .form-group {margin-bottom: 10px;}
 .no-phone .form-group:nth-child(2) {width: 28%; margin-right: 3%;}
 .no-phone .form-group:nth-child(3) {width: 69%;}
 .no-phone .form-group:last-child {width: 100%; text-align: right;}
-
 .box-ppal.condition form {margin-bottom: 20px;}
 .box-ppal.condition.politician .list-project {margin: 20px 0 0; padding: 0;}
 .box-ppal.condition.politician .list-project > li {list-style: none;}
 .box-ppal.condition.politician .list-project > li .kakareo {border-top: none; border-left: none; border-right: none; margin: 0; padding: 0;}
 .box-ppal.condition.politician .list-project > li:last-child {padding: 20px 0;}
 .box-ppal.condition.politician .list-project > li:last-child a {color: #a8a8a8; font-size: 14px; font-size: 1.4rem;}
+
+/* import contacts */
+.bootstrap-filestyle.input-group {max-width: 572px; margin: 0 auto;}
+.bootstrap-filestyle.input-group .form-control {background-color: #fff; border-radius: 0; float: right; width: calc(100% - 10px); height: 35px;}
+.bootstrap-filestyle .btn {border-radius: 0 !important;}
+.bootstrap-filestyle .input-group-btn {outline: none;}
+.box-ppal.import-contacts {padding: 25px 25px 10px 25px;}
+.box-ppal.5062 .bootstrap-filestyle {margin-bottom: 20px;}
+.box-ppal.import-contacts > p {color: #a8a8a8; text-align: center; font-size: 17px; font-size: 1.7rem; max-width: 750px; margin: 0 auto 20px;}
+.box-ppal.import-contacts > p a {color: #20a2ea;}
+.box-ppal.import-contacts form {margin-bottom: 30px;}
+.box-ppal.import-contacts-videos {padding: 25px 25px 0 25px;}
+.box-ppal.import-contacts-videos h1 {font-size: 21px; font-size: 2.1rem; color: #a8a8a8; margin-bottom: 22px;}
+.box-ppal.import-contacts-videos iframe {width: 100%; margin-bottom: 40px;}
+
+.box-ppal.import-contacts table.csv {font-size: 14px; font-size: 1.4rem; color: #a8a8a8;}
+.box-ppal.import-contacts table.csv th, .box-ppal.import-contacts table.csv td {vertical-align: middle;}
+.box-ppal.import-contacts table.csv tbody th, .box-ppal.import-contacts table.csv tbody td {padding: 20px;}
+.box-ppal.import-contacts table.csv th {font-weight: normal; background-color: #f7f7f7;}
+.box-ppal.import-contacts table.csv select {height: 49px;}
+
+.box-ppal.import-contacts.csv h1 {font-size: 19px; font-size: 1.9rem; margin-bottom: 10px;}
+.box-ppal.import-contacts.csv p {padding: 0; text-align: left; margin: 0 0 30px 0; max-width: none; font-size: 17px; font-size: 1.7rem; color: #a8a8a8;}
+table.csv {margin-bottom: 40px;}
+table.csv input {margin-left: 15px;}
+table.csv .highlight_row {background-color: #f7f7f7;}
+
+.box-ppal.import-contacts.csv label {font-size: 17px; font-size: 1.7rem; font-weight: 700;}
+.box-ppal.import-contacts.csv .bootstrap-tagsinput {width: calc(100% - 150px);}
+.box-ppal.import-contacts.csv input.btn {float: right;}
+
+/* TAGS INPUT PLUGIN */
+#mySingleField {height: 35px;}
+
+/*
+ * bootstrap-tagsinput v0.8.0
+ *
+ */
+
+.bootstrap-tagsinput {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  display: inline-block;
+  min-height: 47px;
+  padding: 11px 9px 7px;
+  color: #555;
+  vertical-align: middle;
+  border-radius: 4px;
+  max-width: 100%;
+  line-height: 22px;
+  cursor: text;
+}
+.bootstrap-tagsinput input[type="text"] {
+    font-size: 12px; font-size: 1.2rem;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0 6px;
+    margin: 0;
+    width: auto;
+    max-width: inherit;
+}
+.bootstrap-tagsinput.form-control input::-moz-placeholder {
+  color: #777;
+  opacity: 1;
+}
+.bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+  color: #777;
+}
+.bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+  color: #777;
+}
+.bootstrap-tagsinput input:focus {
+  border: none;
+  box-shadow: none;
+}
+.bootstrap-tagsinput .tag {
+  margin-right: 2px;
+  margin-bottom: 6px;
+  display: inline-block;
+  color: #20a2ea;
+  background-color: rgba(32, 162, 234, 0.1);
+  border: 1px solid #20a2ea;
+  font-family: Arial,Helvetica,sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  font-size: 1.3rem;
+}
+.bootstrap-tagsinput .tag [data-role="remove"] {
+  margin-left: 8px;
+  cursor: pointer;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:after {
+  content: "x";
+  padding: 0px 2px;
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+/*
+ * bootstrap-tagsinput v0.8.0
+ *
+ */
+
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {margin-bottom: 0;}
+.twitter-typeahead .tt-hint {display: none;}
+.tt-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    background-clip: padding-box;
+    cursor: pointer;
+    background-color: #fbfbfb; border: 1px solid #e0dddd; padding: 0; color: #a8a8a8; font-size: 15px; font-size: 1.5rem; box-shadow: none;
+}
+
+.tt-suggestion {
+    color: #a8a8a8;
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    white-space: nowrap;
+}
+
+.tt-suggestion:hover,
+.tt-suggestion:focus {
+    text-decoration: none;
+    outline: 0;
+    background-color: #e5e5e5;
+    color: #a8a8a8;
+}
+.typeahead.dropdown-menu {background-color: #fbfbfb; border: 1px solid #e0dddd; padding: 0; color: #a8a8a8; font-size: 15px; font-size: 1.5rem; box-shadow: none;}
+.typeahead.dropdown-menu > li:first-child {border-bottom: none; padding: 0;}
+.typeahead.dropdown-menu>.active>a, .typeahead.dropdown-menu>.active>a:hover, .typeahead.dropdown-menu>.active>a:focus {background-color: #e5e5e5; color: #a8a8a8;}
+
+/* FIN TAGS INPUT PLUGIN */
+
+
+
+
+
+
 
 .kakareo-list.project {margin: 0; list-style: none;}
 .kakareo-list.project .kakareo.post.ley {padding: 0;}
@@ -1100,8 +1273,22 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .popover-content .close,
 .modal-dialog .close {font-size: 22px; font-weight: 2.2rem;}
 .popover-trigger {cursor: pointer;}
+/*.user-list-images .popover-trigger,
+.user-list-followers .popover-trigger {display: inline-block; z-index: 998; position: relative;}*/
+
 .user-list-images .popover-trigger,
-.user-list-followers .popover-trigger {display: inline-block; z-index: 998; position: relative;}
+.user-list-followers .popover-trigger {
+    z-index: 998;
+    position: relative;
+    width: 170px;
+    display: inline-block;
+    line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
 /*#main .user .popover-trigger { margin-bottom: 10px;}*/
 #main .user.actor {font-size: 12.5px; font-size: 1.25rem; margin-bottom: 10px;}
 
@@ -3217,13 +3404,14 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
     font-size: 14px;
     margin-top: 5px;
     margin-bottom: 0;
+    line-height: 20px;
 }
 .politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
 .politician-list .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
 .politician-list .box-ppal > small .fa {opacity: .5;}
 .politician-list .box-ppal {padding: 0; margin: 0 0 20px 0;}
 .politician-list .box-ppal .link-wrapper {padding-bottom: 10px;}
-.politician-list .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0;}
+.politician-list .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0; line-height: 18px;}
 .politician-list .box-ppal > .pull-right {width: 42%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; text-align: right;}
 .politician-list .box-ppal .card-footer{
     position: absolute;
@@ -4390,8 +4578,33 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 }
 
 
-/* media queries =========== */
+/* MQ - media queries =========== */
 /* ====================================================== */
+
+@media only screen and (max-width: 1023px) {
+    .table-responsive {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 1px solid #ddd;
+        -webkit-overflow-scrolling: touch;
+    }
+    .table-responsive>.table {
+        margin-bottom: 0;
+    }
+    .table-responsive>.table-bordered {
+        border: 0;
+    }
+    .table-responsive>.table-bordered>thead>tr>th:first-child, .table-responsive>.table-bordered>tbody>tr>th:first-child, .table-responsive>.table-bordered>tfoot>tr>th:first-child, .table-responsive>.table-bordered>thead>tr>td:first-child, .table-responsive>.table-bordered>tbody>tr>td:first-child, .table-responsive>.table-bordered>tfoot>tr>td:first-child {
+        border-left: 0;
+    }
+    .table-responsive>.table>thead>tr>th, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tfoot>tr>td {
+        white-space: nowrap;
+    }
+}
+
 
 @media only screen and (min-width: 480px) {
     .form-control,
@@ -4406,7 +4619,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /*#detailsInfoVotes .icons {padding: 0 15px;}*/
     #detailsInfoVotes.autor .table tbody th {width: 170px;}
     #sign .checkbox-inline + .checkbox-inline {margin-left: 10px;}
-    .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 17%;}
+    .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 22%;}
     .chat > li .user.author {margin-top: -32px;}
     .listComments > li .user.author {margin-top: -32px;}
     .boxes.vote.drive form,
@@ -4427,7 +4640,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .main.special.landing .homeSub ul li {width: 50%; height: 110px; line-height: 110px; margin-bottom: 45px;}
     .main.special.profile .homeSub { background-position: center 170px; background-size: 420px auto;}
     .landing + .row.main .onecol .login .btn.btn-lg {margin-right: 20px;}
-
     .main.prices .promo-options > div p.price .currency {left: 95px;}
 
 }
@@ -4473,7 +4685,73 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (min-width: 768px) {
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 235px;}
+    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 195px;}
+    .nav > li > .navbar-link.user-area img {margin-top: -5px;}
+    .navbar-nav>li {margin: 0 0 0 25px;}
+    .navbar-nav>li:first-child {margin: 0;}
+    .navbar-nav {margin-top: 8px;}
+    .navbar-form {width: 245px; margin: 4px 4px 4px 4%;}
+    .nav > li > .navbar-link {background-color: transparent; border-bottom: 0px solid #fff; padding: 0; height: 50px;}
+    .nav > li > .navbar-link:hover,
+    .nav > li > .navbar-link:focus {background-color: transparent; color: #ff9431;}
+    .nav > .underline > .navbar-link:hover,
+    .nav > .underline > .navbar-link:focus,
+    .nav > .underline > .navbar-link.active {
+        background-color: transparent;
+        color: #ff9431;
+        border-bottom: 4px solid #ff9431;
+        -webkit-transition: all .15s ease-in-out;
+        -moz-transition: all .15s ease-in-out;
+        -o-transition: all .15s ease-in-out;
+        transition: all .15s ease-in-out;
+    }
+    .nav > li > .user-area .fa-caret-down {vertical-align: -6%;}
+    .nav > li > a.btn {padding: 10px !important; border: 0; margin: 2px 0 0 4px !important;}
+    .nav > li > .user-area > .user-img {margin-right: 0;}
+    .nav > li > .navbar-link.new-project .symbol {font-size: 28px; font-size: 2.8rem;}
+    .nav > li > .navbar-link.special {font-size: 18px; font-size: 1.8rem;}
+    .navbar-btn {margin-top: 6px;}
+    .box .badge {position: absolute; top: 2px; right: 0;}
+    .badge-small {position: absolute; top: 2px; right: 0;}
+    .navbar-nav .visible-xs {display: none !important;}
+    .nav .open > a,
+    .nav .open > a:hover,
+    .nav .open > a:focus {background-color: transparent; color: #ff9431; border-color: #fff;}
+    .nav .underline.open > a,
+    .nav .underline.open > a:hover,
+    .nav .underline.open > a:focus {border-color: #ff9431;}
+    .nav > li > .navbar-link:hover .badge,
+    .nav > li > .navbar-link:focus .badge {background-color: #ff9431; color: #fff;}
+    .box .dropdown-menu > li {width: 340px;}
+    .navbar-nav .form .dropdown-menu {width: 340px; padding: 15px;}
+    .navbar-nav .form .dropdown-menu form {width: 310px;}
+    .nav > li > .navbar-link.new-project,
+    .nav > li > .navbar-link.special {
+        background-color: #ff9431;
+        color: #fff;
+        height: auto;
+        margin: 4px 0 0;
+        padding: 6px 8px 3px;
+        border-radius:3px;
+    }
+    .nav > li > .navbar-link.special {padding: 6px 5px 3px; border-radius: 0;}
+    .nav > li.tools {height: 48px;}
+    .nav > li.tools  > .navbar-link.special {background-image: url("../images/ico-tools.png"); background-position: center center; display: inline-block; width: 45px; height: 61px; background-repeat: no-repeat; margin-top: -13px;}
+    .nav > li.tools.open .navbar-link.special,
+    .navbar-nav > li.tools.open .dropdown-menu {background-color: #666 !important;}
+    .navbar-nav > li.tools.open .dropdown-menu {
+        width: 100%;
+        position: fixed;
+        left: auto;
+        display: block;
+        height: 50px;
+        top: 56px;
+    }
+    .box.tools.open .dropdown-menu li {background-color: #666 !important; display: inline-block; width: 19%; text-align: center; }
+    .box.tools.open .dropdown-menu li a {font-size: 14px; font-size: 1.4rem; line-height: 3.3; color: #fff; border: none;}
+    .box.tools.open .dropdown-menu li a.active {text-decoration: underline; cursor: default; pointer-events: none;}
+
+
     .box-ppal.profile .activity > li:nth-child(3) {border-right: none;}
     #info-sup-scroll .btn.follow {position: relative; top: 5px; right: auto;}
     .box-ppal.profile .activity > li {width: 16%; margin-bottom: 0;}
@@ -4509,16 +4787,12 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #entrar .modal-dialog {width: 350px;}
     #videoHome .modal-dialog,
     #videoHome .modal-dialog .youtube {width: 600px;}
-    /*.icheckbox_line-orange,
-    .iradio_line-orange {margin-right: 40px;}*/
     .no-phone .form-group:nth-child(2) {width: 20%;}
     .no-phone .form-group:nth-child(3) {width: 77%;}
     .sign.purchase .no-phone .form-group:nth-child(2) {width: 26%;}
     .sign.purchase .no-phone .form-group:nth-child(3) {width: 70%;}
     .uploadPdf .progress-pdf .progress {width: 70%; margin: 0;}
-    /*.boxes.follow .user-list-followers .user > .actions {float: none; margin: 8px 0 0 !important; text-align: right;}*/
     #aside-ppal {background-color: transparent;}
-    /*#main {min-height: 898px;}*/
     #footer > .more .links ul {margin: 0; padding: 0; line-height: 46px; text-align: left;}
     .sign h1 {font-size: 30px; font-size: 3rem; margin-top: 30px;text-align: center;}
     .sign h2 {font-size: 22px; font-size: 2.2rem; line-height: 1.4; padding: 0;text-align: center;}
@@ -4543,41 +4817,12 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .list-project .kakareo.post.ley .laley a {font-size: 18px; font-size: 1.8rem;}
     .config > section .filter-order > li {display: inline; margin: 0 2% 0 0; font-size: 14px; font-size: 1.4rem; text-align: left;}
     .list-project .kakareo.post.ley .total-info {font-size: 18px; font-size: 1.8rem;}
-    /*.arrow1 {top: 72px;}*/
+
     .arrow2 {right: 15px;}
     h1.withArrow {margin-bottom: 50px;}
     fieldset.multimedia ul.nav.nav-pills.nav-justified li a {margin-right: 10px; border-radius: 0; padding: 5px 15px;}
     .charNum {margin: 0;}
     .login .btn.btn-blue.btn-lg {padding-left: 50px !important; padding-right: 50px !important;}
-    .nav > li > .navbar-link.new-project,
-    .nav > li > .navbar-link.special {
-        background-color: #ff9431;
-        color: #fff;
-        height: auto;
-        margin: 4px 0 0;
-        padding: 6px 8px 3px;
-        border-radius:3px;
-    }
-    .nav > li > .navbar-link.special {
-        padding: 6px 5px 3px;
-        border-radius: 0;
-    }
-    .nav > li.tools {height: 48px;}
-    .nav > li.tools  > .navbar-link.special {background-image: url("../images/ico-tools.png"); background-position: center center; display: inline-block; width: 45px; height: 61px; background-repeat: no-repeat; margin-top: -13px;}
-    .nav > li.tools.open .navbar-link.special,
-    .navbar-nav > li.tools.open .dropdown-menu {background-color: #666 !important;}
-    .navbar-nav > li.tools.open .dropdown-menu {
-        width: 100%;
-        position: fixed;
-        left: auto;
-        display: block;
-        height: 50px;
-        top: 56px;
-    }
-
-    .box.tools.open .dropdown-menu li {background-color: #666 !important; display: inline-block; width: 19%; text-align: center; }
-    .box.tools.open .dropdown-menu li a {font-size: 14px; font-size: 1.4rem; line-height: 3.3; color: #fff; border: none;}
-    .box.tools.open .dropdown-menu li a.active {text-decoration: underline; cursor: default; pointer-events: none;}
 
     #detailsInfoVotes .icons {margin: 10px 0;}
     #info-sup-scroll {top: 55px; padding: 10px;}
@@ -4610,41 +4855,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .btn.btn-file {font-size: 17px !important; font-size: 1.7rem !important;}
     .navbar-collapse.collapse.in {border-bottom: 0;}
     #header h1 {margin: 0;}
-    .navbar-form {width: 245px; margin: 4px 4px 4px 4%;}
-    .nav > li > .navbar-link {background-color: transparent; border-bottom: 0px solid #fff; padding: 10px; height: 48px;}
-    .nav > li > .navbar-link:hover,
-    .nav > li > .navbar-link:focus {background-color: transparent; color: #ff9431;}
-    .nav > .underline > .navbar-link:hover,
-    .nav > .underline > .navbar-link:focus,
-    .nav > .underline > .navbar-link.active {
-        background-color: transparent;
-        color: #ff9431;
-        border-bottom: 4px solid #ff9431;
-        -webkit-transition: all .15s ease-in-out;
-        -moz-transition: all .15s ease-in-out;
-        -o-transition: all .15s ease-in-out;
-        transition: all .15s ease-in-out;
-    }
-    .nav > li > a.btn {padding: 10px !important; border: 0; margin: 2px 0 0 4px !important;}
-    .nav > li > .user-area > .user-img {margin-right: 0;}
-    .nav > li > .navbar-link.new-project .symbol {font-size: 28px; font-size: 2.8rem;}
-    .nav > li > .navbar-link.special {font-size: 18px; font-size: 1.8rem;}
-    .navbar-btn {margin-top: 6px;}
-    .box .badge {position: absolute; top: 2px; right: 0;}
-    .badge-small {position: absolute; top: 2px; right: 0;}
-    .navbar-nav .visible-xs {display: none !important;}
-    .nav .open > a,
-    .nav .open > a:hover,
-    .nav .open > a:focus {background-color: transparent; color: #ff9431; border-color: #fff;}
-    .nav .underline.open > a,
-    .nav .underline.open > a:hover,
-    .nav .underline.open > a:focus {border-color: #ff9431;}
-    .nav > li > .navbar-link:hover .badge,
-    .nav > li > .navbar-link:focus .badge {background-color: #ff9431; color: #fff;}
-    .box .dropdown-menu > li {width: 340px;}
-
-    .navbar-nav .form .dropdown-menu {width: 340px; padding: 15px;}
-    .navbar-nav .form .dropdown-menu form {width: 310px;}
 
     #footer .social li {margin-right: 4px; font-size: 16px; font-size: 1.6rem;}
     #footer .social {text-align: left; margin: 4px 0 0 0;}
@@ -4848,13 +5058,25 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .carousel.news .carousel-inner .item > div > a .img-container {height: 122px; overflow: hidden;}
     .carousel.news .carousel-control {top: 22%;}
 
+    /* import contacts */
+    .box-ppal.import-contacts {padding: 70px 70px 50px 70px;}
+    .box-ppal.import-contacts p {margin-bottom: 45px;}
+    .box-ppal.import-contacts.csv {padding-top: 50px;}
+    .box-ppal.import-contacts .bootstrap-filestyle {margin-bottom: 40px;}
+    .box-ppal.import-contacts-videos {padding: 50px;}
+    .box-ppal.import-contacts-videos iframe {margin-bottom: 40px;}
+
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+    .main {min-height: calc(100vh - 171px);}
+
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form {margin: 3px 4px 4px 72px; width: 285px;}
+    header.landing .navbar-form {margin: 6px 6px 6px 76px; width: 220px;}
+    .navbar {font-size: 17px; font-size: 1.7rem;}
+
     .config .kakareo-list.project > li,
     .config .politician-list > li {width: 48%; float: left; margin: 0 2% 0 0;padding:0}
     .config .kakareo-list.project > li:nth-child(even),
@@ -4863,10 +5085,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .config .kakareo-list.project .kakareo.post footer {position: absolute;}
     .config.search > article > .clearfix > h1 {width: 70%; float: left;}
     .config.search > article > .clearfix > #results {width: 30%; float: right; line-height: 30px; margin: 20px 0 0 0; text-align: right;}
+
     .form-group.image {height: 325px;}
-    /*  #otros-proyectos .kakareo.post > .link-wrapper,
-      .homeSub .kakareo-list.project .kakareo.post > .link-wrapper,
-      .kakareo-list.project > .col-md-6 > .kakareo.post > .link-wrapper {height: 398px;}*/
     #otros-proyectos .kakareo.post > .link-wrapper p,
     .homeSub .kakareo-list.project .kakareo.post > .link-wrapper p,
     .kakareo-list.project .kakareo.post > .link-wrapper p {height: 92px; overflow: hidden; margin-bottom: 10px;}
@@ -4879,10 +5099,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #otras-propuestas .kakareo-list .kakareo footer,
     .homeSub .kakareo-list .kakareo footer {margin-top: 5px;}
     .politician-list .box-ppal p {height: 116px; margin: 0 0 7px; overflow: hidden;}
-    .politician-list .box-ppal p.party{
-        font-size: 12px;
-        height: auto;
-    }
+    .politician-list .box-ppal p.party{font-size: 12px; height: auto; margin: 0;}
     .politician-list .box-ppal > small {float: none; position: absolute; bottom: 0; left: 0;}
     .politician-list .box-ppal > .pull-right {float: none; position: absolute; bottom: 0; right: 0;}
     .config .icheckbox_line-orange,
@@ -4992,11 +5209,11 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #detailsInfoVotes.autor .icons.subject li {margin: 0 18px 10px 0;}
     #detailsInfoVotes .icons {margin: 0;}
 
-    .navbar-brand {width: 170px; height: 47px; margin-top: -4px;}
+    .navbar-brand {width: 190px; height: 48px; margin-top: -4px; margin-bottom: 0;}
     .btn.search {line-height: 0.7;}
     .navbar-form {width: 340px; margin: 5px 4px 4px 12%;}
 
-    .nav > li > .navbar-link {padding-bottom: 15px;}
+    /*.nav > li > .navbar-link {padding-bottom: 15px;}*/
     .nav > li > .navbar-link.user-area {padding-bottom: 9px;}
 
     .navbar-btn {margin-left: 12px !important; padding: 4px 14px !important;}
@@ -5155,7 +5372,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (min-width: 1024px) {
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form {margin: 3px 4px 4px 190px;}
+    header.landing .navbar-form {width: 240px;}
     #main {min-height: 642px;}
     .list-team > li {width: 310px;}
     .list-updates > li {width: 314px;}
@@ -5191,6 +5408,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 
 @media only screen and (min-width: 1152px) {
+    header.landing .navbar-form {width: 290px;}
     .list-updates > li {width: 356px;}
     .list-team > li {width: 350px;}
     #main {min-height: 738px;}
