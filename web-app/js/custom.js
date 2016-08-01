@@ -4,6 +4,33 @@ $(document).ready(function() {
     setTimeout(prepareProgressBar, 500)
     prepareProgressBar();
 
+    // textarea editor
+    $(".texteditor").jqte({
+        br: true,
+        center: false,
+        color: false,
+        format: false,
+        indent: false,
+        left: false,
+        ol: false,
+        outdent: false,
+        p: true,
+        placeholder: i18n.form.textEditor.textAreaPlaceHolder,
+        linktypes: ["URL", "Email"],
+        remove: false,
+        right: false,
+        rule: false,
+        source: false,
+        sub: false,
+        strike: false,
+        sup: false,
+        ul: false,
+        unlink: false,
+        fsize: false,
+        title: false
+    });
+
+
     // para los checkbox del formulario de registro
     var texts= {
         0: i18n.customRegister.step4.form.submit.description0,
