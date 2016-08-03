@@ -1,10 +1,21 @@
 package payment
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityService
+import grails.plugin.springsecurity.annotation.Secured
+import kuorum.users.KuorumUser
+import org.kuorum.rest.model.contact.ContactRSDTO
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
+import payment.contact.ContactService
 
+@Secured("ROLE_POLITICIAN")
 class ContactsController {
+
+    private static final String CONTACT_CSV_UPLOADED_SESSION_KEY="CONTACT_CSV_UPLOADED_SESSION_KEY"
+
+    ContactService contactService;
+    SpringSecurityService springSecurityService
 
     def importContacts() {}
 
@@ -27,7 +38,7 @@ class ContactsController {
         OutputStream outStream = new FileOutputStream(csv);
         outStream.write(buffer);
         outStream.close()
-        request.getSession().setAttribute("fileContacts", csv);
+        request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csv);
         InputStream csvStream = new FileInputStream(csv);
         Reader reader = new InputStreamReader(csvStream)
         def lines = com.xlson.groovycsv.CsvParser.parseCsv(reader)
@@ -39,7 +50,36 @@ class ContactsController {
     }
 
     def importCSVContactsSave(){
+        if (!request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)){
+            flash.message = 'Not file defined'
+            render(view: 'importContacts')
+            return
+        }
+        File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
 
+        List<String> columnOption = params.columnOption
+
+        def namePos = columnOption.findIndexOf{it=="name"}
+        def emailPos = columnOption.findIndexOf{it=="email"}
+        def tagsPos = columnOption.findIndexValues{it=="tag"}
+
+        InputStream csvStream = new FileInputStream(csv);
+        Reader reader = new InputStreamReader(csvStream)
+        def lines = com.xlson.groovycsv.CsvParser.parseCsv(reader)
+        def contacts =[]
+        lines.each{line ->
+            ContactRSDTO contact = new ContactRSDTO()
+            contact.setName(line[namePos])
+            contact.setEmail(line[emailPos])
+            contact.setTags(tagsPos.collect{line[it.intValue()]})
+            contacts << contact
+        }
+        KuorumUser loggedUser = springSecurityService.currentUser
+        contactService.addBulkContacts(loggedUser,contacts);
+
+        csv.delete();
+        session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+        render contacts as JSON
     }
 
     def contactTags(){

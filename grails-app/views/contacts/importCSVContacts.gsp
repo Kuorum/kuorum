@@ -17,7 +17,7 @@
 
 
     <div class="container-fluid box-ppal import-contacts csv">
-        <form id="importContacts-02">
+        <g:form mapping="politicianContactImportCSVSave" name="importContacts-02">
             <h1>${fileName}</h1>
             <p>The following table shows the first rows of the file you uploaded. Select the field that corresponds to each column and start the import.</p>
             <div class="table-responsive">
@@ -29,10 +29,10 @@
                         <g:each in="${line.columns}">
                             <th>
                                 <select class="form-control" name="columnOption">
-                                    <option>-- Not imported --</option>
-                                    <option>Name</option>
-                                    <option>Mail</option>
-                                    <option>Tag</option>
+                                    <option value="">-- Not imported --</option>
+                                    <option value="name">Name</option>
+                                    <option value="email">Mail</option>
+                                    <option value="tag">Tag</option>
                                 </select>
                             </th>
                         </g:each>
@@ -64,7 +64,7 @@
             <input id="tagsField" type="text" value="tory,journalist,anti-gun" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}">
 
             <input type="submit" value="Start import" class="btn btn-blue inverted btn-lg">
-        </form>
+        </g:form>
     </div>
 
 </content>

@@ -42,6 +42,8 @@ class RestKuorumApiService {
 
         USER_NEWS               ('/user/{userId}/news/'),
 
+        USER_CONTACT_ADD_BULK   ('/contacts/{userId}'),
+
         CAUSE_OPERATIONS        ("/cause/{causeName}"),
         CAUSE_USERS_DEFENDING   ("/cause/{causeName}/defending"),
         CAUSE_USERS_SUPPORTING  ("/cause/{causeName}/supporting"),
@@ -96,13 +98,14 @@ class RestKuorumApiService {
         return response
     }
 
-    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query) {
+    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body = null) {
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.put(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
                 query:query,
+                body: body,
                 requestContentType : groovyx.net.http.ContentType.JSON
         )
         return response

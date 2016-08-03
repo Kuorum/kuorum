@@ -319,6 +319,7 @@ class UrlMappings {
         name politicianContactProfiling:                "/account/contact-profiling" (controller:"politician", action: "betaTesterPage")
         name politicianContactImport:                   "/account/contacts/import" (controller:"contacts", action: "importContacts")
         name politicianContactImportCSV:                "/account/contacts/import/csv" (controller:"contacts", action: "importCSVContacts")
+        name politicianContactImportCSVSave:            "/account/contacts/import/csv_save" (controller:"contacts", action: "importCSVContactsSave")
         name politicianContactTagsAjax:                 "/ajax/account/contacts/tags" (controller:"contacts", action: "contactTags")
         name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
         name politicianMassMailing:                     "/account/mass-mailing" (controller:"politician", action: "betaTesterPage")
