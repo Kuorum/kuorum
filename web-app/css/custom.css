@@ -894,7 +894,9 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.import-contacts.csv h1 {font-size: 19px; font-size: 1.9rem; margin-bottom: 10px;}
 .box-ppal.import-contacts.csv p {padding: 0; text-align: left; margin: 0 0 30px 0; max-width: none; font-size: 17px; font-size: 1.7rem; color: #a8a8a8;}
 table.csv {margin-bottom: 40px;}
-table.csv input {margin-left: 15px;}
+table.csv input {margin-left: 15px; display: none;}
+table.csv > tbody > tr:first-child > th input,
+table.csv > tbody > tr.highlight_row + tr > th input {display: inline-block;}
 table.csv .highlight_row {background-color: #f7f7f7;}
 
 .box-ppal.import-contacts.csv label {font-size: 17px; font-size: 1.7rem; font-weight: 700;}
@@ -4581,29 +4583,29 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* MQ - media queries =========== */
 /* ====================================================== */
 
-@media only screen and (max-width: 1023px) {
-    .table-responsive {
-        width: 100%;
-        margin-bottom: 15px;
-        overflow-y: hidden;
-        overflow-x: scroll;
-        -ms-overflow-style: -ms-autohiding-scrollbar;
-        border: 1px solid #ddd;
-        -webkit-overflow-scrolling: touch;
-    }
-    .table-responsive>.table {
-        margin-bottom: 0;
-    }
-    .table-responsive>.table-bordered {
-        border: 0;
-    }
-    .table-responsive>.table-bordered>thead>tr>th:first-child, .table-responsive>.table-bordered>tbody>tr>th:first-child, .table-responsive>.table-bordered>tfoot>tr>th:first-child, .table-responsive>.table-bordered>thead>tr>td:first-child, .table-responsive>.table-bordered>tbody>tr>td:first-child, .table-responsive>.table-bordered>tfoot>tr>td:first-child {
-        border-left: 0;
-    }
-    .table-responsive>.table>thead>tr>th, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tfoot>tr>td {
-        white-space: nowrap;
-    }
+
+.table-responsive {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid #ddd;
+    -webkit-overflow-scrolling: touch;
 }
+.table-responsive>.table {
+    margin-bottom: 0;
+}
+.table-responsive>.table-bordered {
+    border: 0;
+}
+.table-responsive>.table-bordered>thead>tr>th:first-child, .table-responsive>.table-bordered>tbody>tr>th:first-child, .table-responsive>.table-bordered>tfoot>tr>th:first-child, .table-responsive>.table-bordered>thead>tr>td:first-child, .table-responsive>.table-bordered>tbody>tr>td:first-child, .table-responsive>.table-bordered>tfoot>tr>td:first-child {
+    border-left: 0;
+}
+.table-responsive>.table>thead>tr>th, .table-responsive>.table>tbody>tr>th, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tfoot>tr>td {
+    white-space: nowrap;
+}
+
 
 
 @media only screen and (min-width: 480px) {
@@ -4687,11 +4689,11 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
     header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 195px;}
     .nav > li > .navbar-link.user-area img {margin-top: -5px;}
-    .navbar-nav>li {margin: 0 0 0 25px;}
+    .navbar-nav>li {margin: 0;}
     .navbar-nav>li:first-child {margin: 0;}
-    .navbar-nav {margin-top: 8px;}
+    .navbar-nav {margin-top: 2px;}
     .navbar-form {width: 245px; margin: 4px 4px 4px 4%;}
-    .nav > li > .navbar-link {background-color: transparent; border-bottom: 0px solid #fff; padding: 0; height: 50px;}
+    .nav > li > .navbar-link {background-color: transparent; border-bottom: 0 solid #fff; padding: 0 12px; height: 50px;}
     .nav > li > .navbar-link:hover,
     .nav > li > .navbar-link:focus {background-color: transparent; color: #ff9431;}
     .nav > .underline > .navbar-link:hover,
@@ -5074,8 +5076,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form {margin: 6px 6px 6px 76px; width: 220px;}
-    .navbar {font-size: 17px; font-size: 1.7rem;}
+    header.landing .navbar-form {margin: 6px 6px 6px 85px; width: 220px;}
+    .navbar {font-size: 15px; font-size: 1.5rem;}
 
     .config .kakareo-list.project > li,
     .config .politician-list > li {width: 48%; float: left; margin: 0 2% 0 0;padding:0}
@@ -5372,7 +5374,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (min-width: 1024px) {
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form {width: 240px;}
+    header.landing .navbar-form {width: 290px;}
     #main {min-height: 642px;}
     .list-team > li {width: 310px;}
     .list-updates > li {width: 314px;}
