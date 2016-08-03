@@ -131,7 +131,6 @@ grails.project.dependency.resolution = {
         // runtime ":database-migration:1.3.8"
 
         compile ':cookie:1.2'
-        compile ":cookie-session:2.0.17"
         compile ":spring-security-core:2.0-RC4"
         compile ":spring-security-facebook:0.15.2-CORE2"
         compile ':spring-security-oauth:2.0.2'

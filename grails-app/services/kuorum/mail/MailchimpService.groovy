@@ -8,6 +8,7 @@ import com.mongodb.BasicDBObject
 import com.mongodb.DBCursor
 import com.mongodb.DBObject
 import grails.transaction.Transactional
+import kuorum.RegionService
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.users.KuorumUser
@@ -28,6 +29,8 @@ class MailchimpService {
     private static final MAILCHIMP_DATE_FORMAT = "dd-MM-yyyy"
 
     KuorumMailService kuorumMailService;
+
+    RegionService regionService
 
     def updateAllUsers(KuorumUser executorUser){
 
@@ -108,6 +111,10 @@ class MailchimpService {
         if (user.userType != UserType.ORGANIZATION){
             mergeVars.STUDIES = user.personalData.studies
             mergeVars.WORKINGSEC = user.personalData.workingSector
+        }
+        if (user.userType == UserType.POLITICIAN && user?.professionalDetails?.region?.iso3166_2){
+            mergeVars.LOCATION_C = user.professionalDetails.region.iso3166_2
+            mergeVars.COUNTRY_C = regionService.findCountry(user?.professionalDetails?.region)
         }
         mergeVars.USERTYPE = user.userType.toString()
         mergeVars.mc_language = user.language.locale.language.toString()
