@@ -68,6 +68,9 @@ modules = {
         resource url:'js/bootstrap-datepicker.js'
         resource url:'js/bootstrap-datepicker.es.js'
         resource url:'js/hideShowPassword.min.js'
+        resource url:'js/bootstrap-filestyle.min.js'
+        resource url:'js/typeahead.bundle.min.js' // PARA el input tag con autocompletado
+        resource url:'js/bootstrap-tagsinput.min.js' // PARA el input tag con autocompletado
         resource url:'js/isotope.pkgd.min.js'
         resource url:'js/highstock.js'
         resource url:'js/custom.js'

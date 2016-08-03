@@ -37,7 +37,11 @@ class LayoutsController {
                 list: listNotifications,
                 numNews: numNewNotifications
         ]
-        render template:'/layouts/userHead', model:[user:user, notifications:notifications, emptyFields:emptyEditableData(user)]
+        if (user.userType == UserType.CANDIDATE || user.userType == UserType.POLITICIAN){
+            render template:'/layouts/payment/paymentHead', model:[user:user, notifications:notifications, emptyFields:emptyEditableData(user)]
+        }else{
+            render template:'/layouts/userHead', model:[user:user, notifications:notifications, emptyFields:emptyEditableData(user)]
+        }
     }
 
     //FAST CHAPU

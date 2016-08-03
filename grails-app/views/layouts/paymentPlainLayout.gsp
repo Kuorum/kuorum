@@ -1,0 +1,19 @@
+<g:applyLayout name="main">
+
+    <head>
+        <title><g:layoutTitle/></title>
+        <g:layoutHead/>
+    </head>
+
+    <body>
+        <g:render template="/layouts/head"/>
+        <div class="row main">
+            <div class="container-fluid">
+                <section id="main" class="col-xs-12" role="main">
+                    <g:pageProperty name="page.mainContent"/>
+                </section>
+            </div>
+        </div>
+        <g:render template="/layouts/footer/footer"/>
+    </body>
+</g:applyLayout>
