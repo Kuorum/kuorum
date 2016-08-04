@@ -15,16 +15,9 @@
         <li class="active">Import contacts</li>
     </ol>
 
-
-    <div class="container-fluid box-ppal import-contacts csv">
-        <ol class="breadcrumb">
-            <li><a href="#">Contacts</a></li>
-            <li class="active">Imported contacts</li>
-        </ol>
-        <div class="container-fluid box-ppal import-contacts">
-            <p>Congratulations! Your contacts were uploaded. Now create a new campaing to inform them about your next achievement.</p>
-            <p><a href="#" class="btn btn-blue inverted btn-lg">New campaign</a></p>
-        </div>
+    <div class="container-fluid box-ppal import-contacts">
+        <p>Congratulations! Your contacts were uploaded. Now create a new campaing to inform them about your next achievement.</p>
+        <p><a href="#" class="btn btn-blue inverted btn-lg">New campaign</a></p>
     </div>
 
 </content>
