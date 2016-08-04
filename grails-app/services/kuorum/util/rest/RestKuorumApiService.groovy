@@ -43,6 +43,7 @@ class RestKuorumApiService {
         USER_NEWS               ('/user/{userId}/news/'),
 
         USER_CONTACT_ADD_BULK   ('/contacts/{userId}'),
+        USER_CONTACT_TAGS       ('/contacts/{userId}/tags'),
 
         CAUSE_OPERATIONS        ("/cause/{causeName}"),
         CAUSE_USERS_DEFENDING   ("/cause/{causeName}/defending"),

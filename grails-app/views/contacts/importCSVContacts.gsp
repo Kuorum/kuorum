@@ -61,7 +61,7 @@
             </div>
 
             <label for="tagsField">Add tags to each person</label>
-            <input id="tagsField" type="text" value="tory,journalist,anti-gun" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}">
+            <input name="tags" id="tagsField" type="text" value="" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}">
 
             <input type="submit" value="Start import" class="btn btn-blue inverted btn-lg">
         </g:form>

@@ -24,4 +24,16 @@ class ContactService {
             ContactsInfoRSDTO contactsInfo = (ContactsInfoRSDTO)response.data
         }
     }
+
+    List<String> getUserTags(KuorumUser user){
+        Map<String, String> params = [userId:user.id.toString()]
+        Map<String, String> query = [:]
+
+        def response= restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_CONTACT_TAGS, params,query)
+        List<String> tags = []
+        if (response.data){
+            tags = response.data
+        }
+        tags
+    }
 }

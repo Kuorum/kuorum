@@ -62,6 +62,7 @@ class ContactsController {
         def namePos = columnOption.findIndexOf{it=="name"}
         def emailPos = columnOption.findIndexOf{it=="email"}
         def tagsPos = columnOption.findIndexValues{it=="tag"}
+        def tags = params.tags.split(",")
 
         InputStream csvStream = new FileInputStream(csv);
         Reader reader = new InputStreamReader(csvStream)
@@ -71,7 +72,8 @@ class ContactsController {
             ContactRSDTO contact = new ContactRSDTO()
             contact.setName(line[namePos])
             contact.setEmail(line[emailPos])
-            contact.setTags(tagsPos.collect{line[it.intValue()]})
+            contact.setTags(tagsPos.collect{line[it.intValue()]} as Set)
+            contact.getTags().addAll(tags)
             contacts << contact
         }
         KuorumUser loggedUser = springSecurityService.currentUser
@@ -79,27 +81,12 @@ class ContactsController {
 
         csv.delete();
         session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
-        render contacts as JSON
+//        render contacts as JSON
     }
 
     def contactTags(){
-
-        render (
-                ["con espacios",
-                 "con espacios2",
-                 "perritoFaldero",
-                 "republicano",
-                 "estafador",
-                 "ecologista",
-                 "escandaloso",
-                 "verde",
-                 "veterano",
-                 "anti-abortista",
-                 "vividor",
-                "pepero",
-                "podemita",
-                 "pacifista"
-            ] as JSON
-        )
+        KuorumUser loggedUser = springSecurityService.currentUser
+        List<String> tags = contactService.getUserTags(loggedUser)
+        render tags as JSON
     }
 }
