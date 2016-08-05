@@ -98,13 +98,33 @@ class ContactsController {
     private Map modelImportCSVContacts(){
         File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         String fileName = (csv.name =~/(.*)([0-9]{19}\..*$)/)[0][1]
-        InputStream csvStream = new FileInputStream(csv);
-        Reader reader = new InputStreamReader(csvStream)
-        def lines = com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
+        def lines = parseCsvFile(csv)
+        def line = lines.next()
+        Set<Integer> emptyColumns= (0..line.values.length) as Set;
+        while (line){
+            line.values.eachWithIndex{val, idx ->
+                if(val){
+                    emptyColumns.remove(idx)
+                }
+            }
+            if (lines.hasNext()) {
+                line = lines.next()
+            }else {
+                line = null;
+            }
+        }
+        lines = parseCsvFile(csv)
         [
                 fileName:fileName,
-                lines: lines
+                lines: lines,
+                emptyColumns:emptyColumns
         ]
+    }
+
+    private def parseCsvFile(File csv){
+        InputStream csvStream = new FileInputStream(csv);
+        Reader reader = new InputStreamReader(csvStream)
+        return com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
     }
 
     def contactTags(){

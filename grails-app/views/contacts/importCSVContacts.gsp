@@ -26,8 +26,8 @@
                     <thead>
                     <tr>
                         <th></th>
-                        <g:each in="${line.values}">
-                            <th>
+                        <g:each in="${line.values}" var="val" status="i">
+                            <th class="${emptyColumns.contains(i)?'hide':''}">
                                 <select class="form-control" name="columnOption">
                                     <option value="">-- Not imported --</option>
                                     <option value="name">Name</option>
@@ -47,7 +47,7 @@
                                 <span class="notImport"><input type="checkbox" value="${exampleLinesShowed+1}" name="notImport"> do not import</span>
                             </th>
                             <g:each in="${line.values}" var="columnValue" status="i">
-                                    <td>${columnValue}</td>
+                                    <td class="${emptyColumns.contains(i)?'hide':''}">${columnValue}</td>
                             </g:each>
                         </tr>
                         <g:if test="${lines.hasNext() && exampleLinesShowed < 6}">
