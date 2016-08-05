@@ -34,40 +34,51 @@ class ContactsController {
         InputStream data = uploadedFile.inputStream
         byte[] buffer = new byte[data.available()];
         data.read(buffer)
-        File csv = File.createTempFile("temp-file-name-${new Date().time}", ".csv");
+        File csv = File.createTempFile(uploadedFile.originalFilename, ".csv");
         OutputStream outStream = new FileOutputStream(csv);
         outStream.write(buffer);
         outStream.close()
         request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csv);
-        InputStream csvStream = new FileInputStream(csv);
-        Reader reader = new InputStreamReader(csvStream)
-        def lines = com.xlson.groovycsv.CsvParser.parseCsv(reader)
-        [
-                fileName:uploadedFile.originalFilename,
-                lines: lines
-        ]
+        modelImportCSVContacts()
 
     }
 
     def importCSVContactsSave(){
         if (!request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)){
             flash.message = 'Not file defined'
-            render(view: 'importContacts')
+            redirect(mapping:'politicianContactImport')
             return
         }
-        File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
 
         List<String> columnOption = params.columnOption
 
         def namePos = columnOption.findIndexOf{it=="name"}
         def emailPos = columnOption.findIndexOf{it=="email"}
         def tagsPos = columnOption.findIndexValues{it=="tag"}
-        def tags = params.tags.split(",")
+        def tags = params.tags?.split(",")?:[]
+        Integer notImport = ((params.notImport?:[]) as List).collect{Integer.parseInt(it)}.max()?:0
 
+        if (namePos == -1 || emailPos == -1){
+
+            flash.message="Please select at least the column with the name and with the email"
+            render(view: 'importCSVContacts', model: modelImportCSVContacts())
+            return;
+        }
+
+
+        File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         InputStream csvStream = new FileInputStream(csv);
         Reader reader = new InputStreamReader(csvStream)
-        def lines = com.xlson.groovycsv.CsvParser.parseCsv(reader)
+        Iterator lines = com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
         def contacts =[]
+        //Not save first columns
+        if (notImport>0) {
+            for ( int i = 0; i < notImport; i++){
+                lines.next();
+            }
+//            (0..notImport-1).each {lines.next()}
+        }
+
         lines.each{line ->
             ContactRSDTO contact = new ContactRSDTO()
             contact.setName(line[namePos])
@@ -82,6 +93,18 @@ class ContactsController {
         csv.delete();
         session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
 //        render contacts as JSON
+    }
+
+    private Map modelImportCSVContacts(){
+        File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+        String fileName = (csv.name =~/(.*)([0-9]{19}\..*$)/)[0][1]
+        InputStream csvStream = new FileInputStream(csv);
+        Reader reader = new InputStreamReader(csvStream)
+        def lines = com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
+        [
+                fileName:fileName,
+                lines: lines
+        ]
     }
 
     def contactTags(){

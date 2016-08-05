@@ -26,7 +26,7 @@
                     <thead>
                     <tr>
                         <th></th>
-                        <g:each in="${line.columns}">
+                        <g:each in="${line.values}">
                             <th>
                                 <select class="form-control" name="columnOption">
                                     <option value="">-- Not imported --</option>
@@ -42,9 +42,12 @@
                     <g:set var="exampleLinesShowed" value="${0}"/>
                     <g:while test="${line}">
                         <tr>
-                            <th scope="row"> Row ${exampleLinesShowed} <input type="checkbox" id="row01"/> do not import</th>
-                            <g:each in="${line.columns}" var="columnName" status="i">
-                                    <td>${line[i]}</td>
+                            <th scope="row">
+                                Row ${exampleLinesShowed}
+                                <span class="notImport"><input type="checkbox" value="${exampleLinesShowed+1}" name="notImport"> do not import</span>
+                            </th>
+                            <g:each in="${line.values}" var="columnValue" status="i">
+                                    <td>${columnValue}</td>
                             </g:each>
                         </tr>
                         <g:if test="${lines.hasNext() && exampleLinesShowed < 6}">
