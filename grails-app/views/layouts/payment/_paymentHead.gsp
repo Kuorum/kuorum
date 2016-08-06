@@ -2,19 +2,19 @@
 <ul class="nav navbar-nav navbar-right">
     <li class="underline">
         <a href="#" class="navbar-link">
-            <span class="fa fa-home fa-2x"></span>
+            <span class="fa fa-home fa-lg"></span>
             <span class="">Home</span>
         </a>
     </li>
     <li class="underline">
         <a href="#" class="navbar-link">
-            <span class="fa fa-paper-plane fa-2x"></span>
+            <span class="fa fa-paper-plane fa-lg"></span>
             <span class="">Campaigns</span>
         </a>
     </li>
     <li class="underline">
         <a href="#" class="navbar-link">
-            <span class="fa fa-users fa-2x"></span>
+            <span class="fa fa-users fa-lg"></span>
             <span class="">Contacts</span>
         </a>
     </li>

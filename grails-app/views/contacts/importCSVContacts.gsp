@@ -26,8 +26,8 @@
                     <thead>
                     <tr>
                         <th></th>
-                        <g:each in="${line.columns}">
-                            <th>
+                        <g:each in="${line.values}" var="val" status="i">
+                            <th class="${emptyColumns.contains(i)?'hide':''}">
                                 <select class="form-control" name="columnOption">
                                     <option value="">-- Not imported --</option>
                                     <option value="name">Name</option>
@@ -42,9 +42,12 @@
                     <g:set var="exampleLinesShowed" value="${0}"/>
                     <g:while test="${line}">
                         <tr>
-                            <th scope="row"> Row ${exampleLinesShowed} <input type="checkbox" id="row01"/> do not import</th>
-                            <g:each in="${line.columns}" var="columnName" status="i">
-                                    <td>${line[i]}</td>
+                            <th scope="row">
+                                Row ${exampleLinesShowed}
+                                <span class="notImport"><input type="checkbox" value="${exampleLinesShowed+1}" name="notImport"> do not import</span>
+                            </th>
+                            <g:each in="${line.values}" var="columnValue" status="i">
+                                    <td class="${emptyColumns.contains(i)?'hide':''}">${columnValue}</td>
                             </g:each>
                         </tr>
                         <g:if test="${lines.hasNext() && exampleLinesShowed < 6}">
@@ -61,7 +64,7 @@
             </div>
 
             <label for="tagsField">Add tags to each person</label>
-            <input id="tagsField" type="text" value="tory,journalist,anti-gun" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}">
+            <input name="tags" id="tagsField" type="text" value="" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}">
 
             <input type="submit" value="Start import" class="btn btn-blue inverted btn-lg">
         </g:form>

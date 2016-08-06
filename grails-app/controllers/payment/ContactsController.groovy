@@ -34,44 +34,57 @@ class ContactsController {
         InputStream data = uploadedFile.inputStream
         byte[] buffer = new byte[data.available()];
         data.read(buffer)
-        File csv = File.createTempFile("temp-file-name-${new Date().time}", ".csv");
+        File csv = File.createTempFile(uploadedFile.originalFilename, ".csv");
         OutputStream outStream = new FileOutputStream(csv);
         outStream.write(buffer);
         outStream.close()
         request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csv);
-        InputStream csvStream = new FileInputStream(csv);
-        Reader reader = new InputStreamReader(csvStream)
-        def lines = com.xlson.groovycsv.CsvParser.parseCsv(reader)
-        [
-                fileName:uploadedFile.originalFilename,
-                lines: lines
-        ]
+        modelImportCSVContacts()
 
     }
 
     def importCSVContactsSave(){
         if (!request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)){
             flash.message = 'Not file defined'
-            render(view: 'importContacts')
+            redirect(mapping:'politicianContactImport')
             return
         }
-        File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
 
         List<String> columnOption = params.columnOption
 
         def namePos = columnOption.findIndexOf{it=="name"}
         def emailPos = columnOption.findIndexOf{it=="email"}
         def tagsPos = columnOption.findIndexValues{it=="tag"}
+        def tags = params.tags?.split(",")?:[]
+        Integer notImport = ((params.notImport?:[]) as List).collect{Integer.parseInt(it)}.max()?:0
 
+        if (namePos == -1 || emailPos == -1){
+
+            flash.message="Please select at least the column with the name and with the email"
+            render(view: 'importCSVContacts', model: modelImportCSVContacts())
+            return;
+        }
+
+
+        File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         InputStream csvStream = new FileInputStream(csv);
         Reader reader = new InputStreamReader(csvStream)
-        def lines = com.xlson.groovycsv.CsvParser.parseCsv(reader)
+        Iterator lines = com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
         def contacts =[]
+        //Not save first columns
+        if (notImport>0) {
+            for ( int i = 0; i < notImport; i++){
+                lines.next();
+            }
+//            (0..notImport-1).each {lines.next()}
+        }
+
         lines.each{line ->
             ContactRSDTO contact = new ContactRSDTO()
             contact.setName(line[namePos])
             contact.setEmail(line[emailPos])
-            contact.setTags(tagsPos.collect{line[it.intValue()]})
+            contact.setTags(tagsPos.collect{line[it.intValue()]} as Set)
+            contact.getTags().addAll(tags)
             contacts << contact
         }
         KuorumUser loggedUser = springSecurityService.currentUser
@@ -79,27 +92,44 @@ class ContactsController {
 
         csv.delete();
         session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
-        render contacts as JSON
+//        render contacts as JSON
+    }
+
+    private Map modelImportCSVContacts(){
+        File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+        String fileName = (csv.name =~/(.*)([0-9]{19}\..*$)/)[0][1]
+        def lines = parseCsvFile(csv)
+        def line = lines.next()
+        Set<Integer> emptyColumns= (0..line.values.length) as Set;
+        while (line){
+            line.values.eachWithIndex{val, idx ->
+                if(val){
+                    emptyColumns.remove(idx)
+                }
+            }
+            if (lines.hasNext()) {
+                line = lines.next()
+            }else {
+                line = null;
+            }
+        }
+        lines = parseCsvFile(csv)
+        [
+                fileName:fileName,
+                lines: lines,
+                emptyColumns:emptyColumns
+        ]
+    }
+
+    private def parseCsvFile(File csv){
+        InputStream csvStream = new FileInputStream(csv);
+        Reader reader = new InputStreamReader(csvStream)
+        return com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
     }
 
     def contactTags(){
-
-        render (
-                ["con espacios",
-                 "con espacios2",
-                 "perritoFaldero",
-                 "republicano",
-                 "estafador",
-                 "ecologista",
-                 "escandaloso",
-                 "verde",
-                 "veterano",
-                 "anti-abortista",
-                 "vividor",
-                "pepero",
-                "podemita",
-                 "pacifista"
-            ] as JSON
-        )
+        KuorumUser loggedUser = springSecurityService.currentUser
+        List<String> tags = contactService.getUserTags(loggedUser)
+        render tags as JSON
     }
 }
