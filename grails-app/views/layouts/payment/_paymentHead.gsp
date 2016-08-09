@@ -1,10 +1,10 @@
 
 <ul class="nav navbar-nav navbar-right">
     <li class="underline">
-        <a href="#" class="navbar-link">
+        <g:link mapping="dashboard" class="navbar-link">
             <span class="fa fa-home fa-lg"></span>
-            <span class="">Home</span>
-        </a>
+            <span class=""><g:message code="default.home.label"/> </span>
+        </g:link>
     </li>
     <li class="underline">
         <a href="#" class="navbar-link">
