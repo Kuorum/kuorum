@@ -896,9 +896,9 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 table.csv {margin-bottom: 40px;}
 table.csv tbody th {min-width: 200px;}
 table.csv tbody td {min-width: 150px;}
-table.csv input {margin-left: 15px; display: none;}
-table.csv > tbody > tr:first-child > th input,
-table.csv > tbody > tr.highlight_row + tr > th input {display: inline-block;}
+table.csv .notImport {margin-left: 15px; display: none;}
+table.csv > tbody > tr:first-child > th .notImport,
+table.csv > tbody > tr.highlight_row + tr > th .notImport {display: inline-block;}
 table.csv .highlight_row {background-color: #f7f7f7;}
 
 .box-ppal.import-contacts.csv label {font-size: 17px; font-size: 1.7rem; font-weight: 700;}
@@ -5063,7 +5063,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .carousel.news .carousel-control {top: 22%;}
 
     /* import contacts */
-    .box-ppal.import-contacts {padding: 70px 70px 50px 70px;}
+    .box-ppal.import-contacts {padding: 70px 70px 0px 70px;}
     .box-ppal.import-contacts p {margin-bottom: 45px;}
     .box-ppal.import-contacts.csv {padding-top: 50px;}
     .box-ppal.import-contacts .bootstrap-filestyle {margin-bottom: 40px;}
