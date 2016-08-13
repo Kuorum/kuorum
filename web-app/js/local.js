@@ -85,6 +85,26 @@ $(window).on('resize',function() {
         $(this).css("height", width * 328 /728);
     });
 
+    // controla el alto del cuadro de subir imagen de header campaign
+    $('.header-campaign .qq-upload-drop-area').each(function() {
+        var width = $(this).width();
+        $(this).css("height", width / 4.43);
+    });
+
+    if (window.matchMedia("(min-width: 768px)").matches) {
+        $('.header-campaign').each(function() {
+            var width = $(this).width();
+            $(this).css("height", width / 6.5);
+        });
+    } else {
+        $('.header-campaign').each(function() {
+            var width = $(this).width();
+            $(this).css("height", width / 3.5);
+        });
+    }
+
+
+
 });
 
 $(document).ready(function() {
@@ -330,6 +350,82 @@ $(document).ready(function() {
             $('table.csv tbody tr:gt('+clear+')').removeClass('highlight_row').find('input').prop( "checked", false );
         }
     });
+
+    // datepicker new campaign
+    if ( $('.form-final-options .input-group.date').length > 0 ) {
+        $('.form-final-options .input-group.date').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+    }
+    // abrir/cerrar calendario
+    $('body').on('click','#openCalendar', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        if ($('#selectDate').hasClass('on')) {
+            $(this).next('#selectDate').removeClass('on');
+        } else {
+            $(this).next('#selectDate').addClass('on');
+        }
+    });
+    $('body').mouseup(function(e) {
+        var subject = $("#selectDate");
+        var subject2 = $(".datepicker");
+        if(e.target.id != subject.attr('id') && !subject.has(e.target).length && !subject2.has(e.target).length) {
+            $('#selectDate').removeClass('on');
+        }
+    });
+
+    // abrir opciones nuevo filtro con select
+    $('#toFilters select#recipients').on('change', function () {
+        if ( !($('select#recipients option:selected').is('#all') || $('select#recipients option:selected').is('#newFilter') ) ) {
+            $('#infoToContacts').addClass('on');
+            $('#filterContacts').removeClass('on');
+            $("#newFilterContainer").fadeOut();
+
+        } else if ($('select#recipients option:selected').is('#newFilter')) {
+            $("#newFilterContainer").fadeIn();
+            $('#filterContacts, #infoToContacts').addClass('on');
+
+        } else if ($('select#recipients option:selected').is('#all')) {
+            $('#infoToContacts, #filterContacts').removeClass('on');
+            $("#newFilterContainer").fadeOut();
+        }
+    });
+    // abrir opciones nuevo filtro con botón
+    $('body').on('click','#toFilters #filterContacts', function() {
+        if ($(this).hasClass('on')) {
+            $("#newFilterContainer").fadeOut();
+            $(this).removeClass('on');
+        } else {
+            $("#newFilterContainer").fadeIn();
+            $(this).addClass('on');
+            $('select#recipients').val('new').trigger('change');
+        }
+    });
+    // eliminar condición con botón
+    $('body').on('click','.new-filter-options .minus-condition', function(e) {
+        e.preventDefault();
+        $(this).closest('.new-filter-options').fadeOut();
+    });
+
+    // abrir modal contenido filtro seleccionado
+    $('body').on('click','#numberRecipients', function() {
+        $("#filtersInfo").modal("show");
+    });
+    // abrir modal confirmar envío campaña
+    $('body').on('click','.form-final-options #send, .form-final-options #sendLater', function(e) {
+        e.preventDefault();
+        $("#campaignConfirm").modal("show");
+    });
+    // cerrar modal confirmar envío campaña
+    $('body').on('click','#campaignConfirm .btn', function() {
+        $("#campaignConfirm").modal("hide");
+    });
+
+
+
 
 
     // Carrusel noticias perfil político
