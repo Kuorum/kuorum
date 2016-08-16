@@ -3,7 +3,9 @@ package payment
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
+import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO
 import org.kuorum.rest.model.contact.filter.ConditionOperatorTypeRDTO
@@ -20,8 +22,15 @@ class MassMailingController {
 
     ContactService contactService;
 
-    def index(){
+    KuorumUserService kuorumUserService;
 
+    def index(){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        ContactPageRSDTO concatPage = contactService.getUsers(user)
+        if (concatPage.total <= 0) {
+            render view: "/dashboard/payment/paymentNoContactsDashboard", model: [:]
+            return;
+        }
     }
 
     def createMassMailing(){
