@@ -61,7 +61,7 @@ class MassMailingController {
         if (!filterTest){
             FilterRDTO filter = new FilterRDTO();
             filter.setOperator(OperatorTypeRDTO.AND)
-            filter.setName("MysSelf (TEST)")
+            filter.setName(g.message(code: 'tools.massMailing.fields.filter.to.testFilterName'))
             filter.filterConditions = []
             filter.filterConditions.add(new ConditionRDTO([
                     field:ConditionFieldTypeRDTO.EMAIL,
@@ -83,7 +83,7 @@ class MassMailingController {
     private FilterRDTO createTestFilter(KuorumUser user){
         FilterRDTO filter = new FilterRDTO();
         filter.setOperator(OperatorTypeRDTO.AND)
-        filter.setName("MysSelf -TEST-")
+        filter.setName(g.message(code: 'tools.massMailing.fields.filter.to.testFilterName'))
         filter.filterConditions = []
         filter.filterConditions.add(new ConditionRDTO([
                 field:ConditionFieldTypeRDTO.EMAIL,
