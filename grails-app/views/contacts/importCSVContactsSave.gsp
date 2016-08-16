@@ -11,13 +11,17 @@
 
 <content tag="mainContent">
     <ol class="breadcrumb">
-        <li><a href="#">Contacts</a></li>
-        <li class="active">Import contacts</li>
+        <li><a href="#"><g:message code="tools.contact.title"/> </a></li>
+        <li class="active"><g:message code="tools.contact.import.title"/></li>
     </ol>
 
     <div class="container-fluid box-ppal import-contacts">
-        <p>Congratulations! Your contacts were uploaded. Now create a new campaing to inform them about your next achievement.</p>
-        <p><a href="#" class="btn btn-blue inverted btn-lg">New campaign</a></p>
+        <p><g:message code="tools.contact.import.csv.success.congrats"/> </p>
+        <p>
+            <g:link mapping="politicianMassMailingNew" class="btn btn-blue inverted btn-lg">
+                <g:message code="tools.contact.import.csv.success.newCampaign"/>
+            </g:link>
+        </p>
     </div>
 
 </content>
