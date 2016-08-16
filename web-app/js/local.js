@@ -423,8 +423,92 @@ $(document).ready(function() {
     $('body').on('click','#campaignConfirm .btn', function() {
         $("#campaignConfirm").modal("hide");
     });
+    // FILTRADO Y BUSCADOR LISTADO CAMPAÑAS
+    if ($('#listCampaigns').length) {
+
+        //contador para el select (antes del plugin)
+        var counterList = $('#campaignsList > li').length;
+        $('.totalList').text(counterList);
+        var sent = $('li.sent').length;
+        var scheduled = $('li.scheduled').length;
+        var draft = $('li.draft').length;
 
 
+        //select filtro campañas según estado
+        $('#filterCampaigns').on('change', function () {
+            if ($('#filterCampaigns option:selected').is('#all')) {
+                $('.totalList').text(counterList);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
+            }
+            if ($('#filterCampaigns option:selected').is('#sent')) {
+                $('.totalList').text(sent);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('sent');
+            }
+            if ($('#filterCampaigns option:selected').is('#scheduled')) {
+                $('.totalList').text(scheduled);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('scheduled');
+            }
+            if ($('#filterCampaigns option:selected').is('#draft')) {
+                $('.totalList').text(draft);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('draft');
+            }
+        });
+
+        // clase active botones ordenar listado
+        $('body').on('click','.sort', function(e) {
+            if (!$(this).hasClass('active')) {
+                $('.sort').removeClass('active');
+                $(this).addClass('active');
+            }
+        });
+
+        //plugin options
+        var paginationTopOptions = {
+            name: "paginationTop",
+            paginationClass: "paginationTop",
+            innerWindow: 1,
+            outerWindow: 1
+        };
+        var paginationBottomOptions = {
+            name: "paginationBottom",
+            paginationClass: "paginationBottom",
+            innerWindow: 1,
+            outerWindow: 1
+        };
+        var options = {
+            valueNames: [ 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', { name: 'timestamp', attr: 'val' } ],
+            page: 10,
+            searchClass: "searchCampaigns",
+            plugins: [
+                ListPagination(paginationTopOptions),
+                ListPagination(paginationBottomOptions)
+            ]
+        };
+        var campaignList = new List('listCampaigns', options);
+
+        //select filtro campañas según estado
+        $('#filterCampaigns').on('change', function () {
+            var selection = this.value;
+            if ($('select#filterCampaigns option:selected').is('#all')) {
+                campaignList.filter();
+            } else {
+                // filter items in the list
+                campaignList.filter(function (item) {
+                    if (item.values().state == selection) {
+                        return (item.values().state == selection);
+                    }
+                });
+            }
+        });
+
+        // delete item
+        // $('.campaignDelete').click(function(e) {
+        //     e.preventDefault();
+        //     var itemId = $(this).closest('li').prop('id');
+        //     campaignList.remove('id', itemId);
+        // });
+
+    }
 
 
 
@@ -432,7 +516,7 @@ $(document).ready(function() {
     $('.carousel.news').carousel({
           interval: false,
           wrap: true
-    })
+    });
 
     // 3 items a partir de 768px
     if (window.matchMedia("(min-width: 768px)").matches) {

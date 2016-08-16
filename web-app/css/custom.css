@@ -197,6 +197,7 @@ textarea:focus,
 button:focus {
 /*    outline: 1px dashed #bac2cc;*/
     outline: 0 !important;
+    outline-width: 0;
 }
 
 
@@ -871,14 +872,17 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.condition.politician .list-project > li:last-child {padding: 20px 0;}
 .box-ppal.condition.politician .list-project > li:last-child a {color: #a8a8a8; font-size: 14px; font-size: 1.4rem;}
 
-/* import contacts */
+/* IMPORT CONTACTS (08/2016) */
 .bootstrap-filestyle.input-group {max-width: 572px; margin: 0 auto;}
 .bootstrap-filestyle.input-group .form-control {background-color: #fff; border-radius: 0; float: right; width: calc(100% - 10px); height: 35px;}
 .bootstrap-filestyle .btn {border-radius: 0 !important;}
 .bootstrap-filestyle .input-group-btn {outline: none;}
-.box-ppal.import-contacts {padding: 25px 25px 10px 25px;}
+
+.box-ppal.import-contacts, .box-ppal.dashboard {padding: 25px 25px 10px 25px; margin-top: 20px;}
+.breadcrumb + .box-ppal.import-contacts, .breadcrumb + .box-ppal.dashboard {margin-top: 0;}
 .box-ppal.5062 .bootstrap-filestyle {margin-bottom: 20px;}
-.box-ppal.import-contacts > p {color: #a8a8a8; text-align: center; font-size: 17px; font-size: 1.7rem; max-width: 750px; margin: 0 auto 20px;}
+.box-ppal.import-contacts > p,
+.box-ppal.dashboard > p {color: #a8a8a8; text-align: center; font-size: 17px; font-size: 1.7rem; max-width: 800px; margin: 0 auto 20px;}
 .box-ppal.import-contacts > p a {color: #20a2ea;}
 .box-ppal.import-contacts form {margin-bottom: 30px;}
 .box-ppal.import-contacts-videos {padding: 25px 25px 0 25px;}
@@ -905,7 +909,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .box-ppal.import-contacts.csv .bootstrap-tagsinput {width: calc(100% - 150px);}
 .box-ppal.import-contacts.csv input.btn {float: right;}
 
-/* TAGS INPUT PLUGIN */
+/* TAGS INPUT PLUGIN (08/2016) */
 #mySingleField {height: 35px;}
 
 /*
@@ -1028,7 +1032,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 
 
-/* CAMPAIGNS */
+/* CAMPAIGNS (08/2016) */
 .nav-tabs.simple > li {margin-right: 1px;}
 .nav-tabs.simple > li:last-child {margin-right: 0;}
 
@@ -1070,6 +1074,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #infoToContacts.on > .fa-filter {display: inline;}
 
 #tabs-new-campaign > .tab-pane > h1 {margin: 0; padding: 0;}
+#toFilters .btn {margin-top: 10px; display: block;}
 #toFilters > div:last-child {text-align: right;}
 #tabs-new-campaign .textareaContainer + div {text-align: right;}
 
@@ -1084,7 +1089,6 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .new-filter-actions a:hover,
 .new-filter-actions a:focus,
 .new-filter-actions a:active {color: #a8a8a8;}
-
 
 .form-final-options {margin: 15px 0 0; padding: 0;}
 .form-final-options li {list-style: none; display: inline-block; margin-right: 10px; position: relative;}
@@ -1102,7 +1106,6 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     position: absolute;
     pointer-events: none;
 }
-
 .form-final-options #selectDate:after {
     border-color: rgba(255, 255, 255, 0);
     border-bottom-color: #ffffff;
@@ -1128,11 +1131,86 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 .datepicker-days tbody td {cursor: pointer;}
 
-
-/*.form-final-options .popover.bottom >.arrow:after {border-bottom-color: #f9f9f9;}*/
 .form-final-options #selectDate .input-group {margin-bottom: 15px;}
 .form-final-options #selectDate .btn {display: block; width: 100%;}
 .form-final-options #selectDate .input-group-addon {border: none; background-color: transparent;}
+
+#toFilters > div:nth-child(2) {line-height: 36px; font-size: 16px; font-size: 1.6rem;}
+#toFilters > div:nth-child(3) .input-group .btn.search {line-height: 1.2; height: 34px; border-width: 1px; margin-left: -1px !important; z-index: 9;}
+#searchCampaign {border-color: #ddd;}
+#infoFilterCampaigns, .pag-list-campaigns {color: #a8a8a8;}
+#campaignsOrderOptions, .pag-list-campaigns {color: #a8a8a8; font-size: 18px; font-size: 1.8rem;}
+#campaignsOrderOptions {border-bottom: 1px solid #e5e5e5; padding-left: 25px; padding-right: 25px;}
+#campaignsOrderOptions > span {display: block; float: left; margin-right: 5px; margin-top: 5px;}
+#campaignsOrderOptions > ul {width: 100%; float: left; padding: 0; margin: 5px 0 0 0;}
+#campaignsOrderOptions > ul li {list-style: none; display: block; margin: 0 10px 5px 0; }
+#campaignsOrderOptions > ul li:last-child {margin: 0;}
+#campaignsOrderOptions > ul li a {color: #a8a8a8; position: relative;}
+#campaignsOrderOptions > ul li a.active::before {font-family: FontAwesome; left:-12px; position:absolute; top:-2px;}
+#campaignsOrderOptions > ul li a.active.asc::before {content: '';}
+#campaignsOrderOptions > ul li a.active.desc::before {content: '';}
+#campaignsOrderOptions > div {margin-top: 15px; float: right;}
+.pag-list-campaigns {margin-bottom: 20px;}
+.pag-list-campaigns > ul {float: right; padding: 0; margin: 0;}
+.pag-list-campaigns > ul > li {list-style: none; display: inline-block;}
+.pag-list-campaigns > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
+.pag-list-campaigns a {text-align: center; color: #545454; display: block; float: right; width: 32px; height: 32px; line-height: 28px; margin-left: 10px; border: 1px solid #e5e5e5; background-color: #fff; background-position: center center; background-repeat: no-repeat;}
+.pag-list-campaigns a:hover, .pag-list-campaigns a:focus, .pag-list-campaigns a:active, .pag-list-campaigns .disabled a {background-color: #f7f7f7; text-decoration: none;}
+.pag-list-campaigns .active a {background-color: #ddd;}
+.pag-list-campaigns .active a,
+.pag-list-campaigns .disabled a {cursor: default; pointer-events: none;}
+.searchContainer {position: relative;}
+.searchContainer::after {font-family: FontAwesome; content:''; position: absolute; right: 8px; top: 5px; color: #a8a8a8;}
+/*.nextCampaings {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAARCAYAAADkIz3lAAABTElEQVQoU32SPUvDUBSGvZUMDqIuuusiQiYHcdPJLYaYiItYP8Au4uJSUAk4WASniq3iVhFqPsjkHFwc/AUODk5OAcFNTOJzxZbGNr3wcsk9T957zpuIgT7LsqyRJEkqQog7kcdpmjasKEqV+gbgcU8QaALoCmgZXRcKhcMuUNf1KQoNXOaBKlEUHYVh+J0B6WmWnu4BJlFZVdUz27YT2V4bNAxjEafbNE3Hcdt2XbdBPW3N8AuusNhkT/Ltoud5D/+HFKZp7uJyTuENxx3HcZ56JSEwa1JYRRc47eXFJcFpijW0QG9VdIDrV9fV8oBIRrm2BrTGYzOO41IQBB+dcHtqohkimlOK++gReAv4NTN16wF4EKCM8wlnLwy57vv+cybHzmvItAh8ydkn2pRx5f4UDLkEdIPGUCkX/PsQc+x13Ot9QQnT9wx/0vsPX0htrxF9MPAAAAAASUVORK5CYII=');}
+.prevCampaings {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAARCAYAAADkIz3lAAABUklEQVQoU32RO0vDUBiGPYkIGQQFF0dx8BcIDuKuU0hbpbHdhLZiJ0EI6KSgg4u4OHhDKYi1TXBzEUcFZyfB1UFQXCSEJD5fsGLb1AMv5/I9vOe7KNu2h4MgGK3X6099/yyVzWZLcRyXYcqNRuOhF6symUyB4AF6R0vAN2mwkkfgObYTNIj7crPZPO2EE1CWZVmTSqlzjhPAG7qub5N32Ir/gvJgmuY4wDHHGbSnaZoD/CWxNvAHHgKWnBdwvoiiqOJ53kcXKHAulxsA2kVVrneokgq28qLIfc4r6LInSHFTFHcINIZWU0GGMMu30qJ+9hLtuuoCcSridAT0RiEF13VvO6uWca7hsEPgBc0zpce2PlKlDrCJHAL39K9I/55bUOKYz+dHfN/f4rsSupYd6PUvlIDktE5Q3M4Mw6jWarXPTigB+XaapBfDMHRkAmmQvH0Dog6MNpzI4sgAAAAASUVORK5CYII=');}*/
+
+#infoFilterCampaigns {position: relative;}
+#infoFilterCampaigns::after {font-family: FontAwesome; color: #a8a8a8; right:-24px; position:absolute; top:-8px;}
+#infoFilterCampaigns.searched::after {content: '';}
+
+#campaignsList + .pag-list-campaigns {border-top: 1px solid #e5e5e5; padding: 20px 15px 0;}
+
+#campaignsList {height: 520px; overflow-y: auto; color: #a8a8a8; padding: 0; margin: 0;}
+.box-ppal.list-campaigns {padding-left: 0; padding-right: 0;}
+#campaignsList li {list-style: none;}
+#campaignsList > li {padding: 20px 25px 15px 50px; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 113px;}
+#campaignsList > li > .state {position: absolute; text-indent: -9999px; top: 33px; left: 15px; display: block; width: 27px; height: 27px; background-repeat: no-repeat; background-position: center center;}
+#campaignsList > li.sent > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAFBklEQVRIS41Wa2xURRT+5u62FWw1YLC7bWorlERFICi+jTEYH3+IRaiNKO1ulza1hiAIBlFjq9EICDY+gJJ220oh8QGGaDRqGtPKQymCL34YTYQ27m4bbbHbKu127/jN3Ufv3r1tmeTkzp0553znNWdG4FJGYO31ENH7yHoLaT7pStIQJP6AkD9CoBO5RSch6vSp1IkpsUKehZBiFXkeIC0g5djw/8c1BfoldO0Q8vxHJ9NpD9Zfm43ov08BYi0Fiy/F+ThPP2XaocsG5Lf0WuXSwQLl10A4tpOxlKTZAI1wLUpykGbY8kgcJ+h6ennKLJ8K1lueD6ezCZAPWUD+YphOU0E3rf4Vmhg0QqpjHvO1JJ7LAovML0yB1ww4ARaonglEmij8mElIcv4pHWyEI6sTV+8eTvNUljoQmHk7HFo5C6aC+1kmnhM0qCwR0hiYJESochMnr/HPGWeOQMqdiDp2oKB5YNq8yTonQudr6P3L1DMryS/xFtwZmyD2RWJgwQpWmnaEs3lxJuXRLrgKt7Ccx6cFMjMEvU/yd5sR5thgjsVyuP1fCyiL+s49y/i+arLmK4zKR3Ft64VpgWR1BkLjKvQXqfADgz/kbWS0qpOyAo2IDG8Q6KtczLjupOvq0KrBcyNWUvDz6YGM0G0l30sxOWyGq2Uv+isXsZA+4X+iaHpYVD6BgGcjhFjHjaKYctmFsbESFB5UFQf0e+YjqhVjINyBBR+OTXivgHqeI/+LXMsw1gUu0PAtyGtpRMjTzmg9HudXnWW3QNDbxkkJ6YrYhqiHy19PQYlAxc3QtCbOCkgNGBzebgAaoYsQCM+TMlMjIA/BNVKGUM4aGrKXe4nq/IZgnk4C3M3FxAGuhbtlD/70LYEmWymwKK6MXokXIJ3vQousJ3h90qMkmvgJerQW+W3HmLdl9OwjU2WeVp51k3fpRHhkOfJa99MI5kHUpVqNMEG+pdd3cD3bsneWealCrv+Esd7nvRO64BlNHoMzCqyLW3clPZOoMWKuQig0FWLVgKcbZ2mAj8XxXZIx6LmXwTps9cySM1kHV9ErxnVhhFJvp4IbpkD7mUBVKUCKOeCpYuG9bcrZUZtq5N00NroiWY0KUOgtVLg4DVDgB4aqytpwDb6Qdz9D/kRcZpxzVmPAexMV7eDisvjGCDdWMpRfJJUHKpeyEfv5v9AEeIZhqoG7+WSaEcbZZVVOdKQeZZTAb+uykBN+JqWDqIswI1KKqw4MmXLAW5rHQFWn8gjMrTlHCUZZp/Ggv8Nf1bZiQ6IJ2vjTsd4Y8t0IqX/MWeKiVPdVAwaGt6Yc5Ni5K6GVR2xDp3QFPbWsYtXQ1dNBjSGm4RG42jriXV9Z07OBJrzOzUTX5+EVbyBrdFuKh2kxS1hvHHTe7KrHWrr+4PBmZfTEfRZaczkPbDNFy0z6lIefUXgXnNr3mOMPp2HF7sHryFPL6lvNfXV7J0Y3ZHQV8t7rUQupN3Vf5VyGcw89Ug8c8whTUQdjf5z0O6UusmAyjTYmcBu/D5J5jkUm7Uikv0H6fcWIRhlOsYLCdm8Q1YwVqXBfZhtVIY7R4I3WSrV/XZ1fPQuZWT4qUhU1d7I02az30cv36fWbcLees+5P/W40WpZ4mG2LTVUnqHDbAPzNdSrW2TPFYeQWdk12u08NpjT3ls6AM/tW5uZ+Wn0PV2aT1LURIf1DOmU8UDMzuzB7n/qfdPwPBt7B4OnyQfEAAAAASUVORK5CYII=');}
+#campaignsList > li.scheduled > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAaCAYAAABCfffNAAAEe0lEQVRIS5VWfWhbVRT/3Ze0zaJ2W5LWIZvODYeKYh1jiB/I1CGIdnV0oZp2m5swcML8ZwjioIqg+IegzvqBrCwfrQa3sSmj+EGLn+jAwUBBtlHQdtoleXGtc+bjvevvvvdMXvKSMC/c9N1zfvf87jnnnnMr0GqMnl8Gv1gPaHcD4gZALic8wPk75zSkOAm/OYWF8FnsEqVmpkRDRVq2o5C9k4Z3cj5AzBLHuBte5mKB82di4ujwfYToYr2RPS9JMrccUj7HjU9yQ1tLT2uV38CUw9gW+bx+Ty1JKt8D09xP0F0e4xI6hHVy0/Eq4j2EzEBowxgMjbj3V0mS+q08SZqGbqwj+Iyy41ZYhHaeXhqcV3GuhhD3Uv4IZ7drT5G6vdgaeeM/mU0yNnc1ym3jEHKDCzxL4y+g3X+oWawxKf2Y1ddxzzAkHnTt/YvfWzAUnlAymySR28ffF6sgcQYakx5b+mWNV1IKYnnbxLXwt03i8c6spU9fCKFQep3yQRf+BCPzKHM0K5DM3cwoT5BuhQO4QGV/owQi/dsiFK4Y41XuI6aPmKMVowfnw9BKH3J9f0Um5dP0ZkQgnn2esVVe2F4JvITBsPLMO949F0SwI0lFL/O/GUNdx2pAydwdzAdlosux9R3z+JRy/1MKNjrgaRi+jdi+5GxDEuVJMZhk/HtZiJuxNfSxB5fMjVK/vRIViLcUiTK4yhF+QPcea0hgxV6FK5jg16amJHF9gBdIeetz7HyhSPJcqIpW938vSV5rSqIUidw4f/ubkhzMrGGIGCaEHDunFMklLtiPZIG52cZ8qOTZIy19KGVWoeyLQDML7GEB61pLeQ8N9bPoPvEcyLoAxe+Zl9WO7hdF8jcXiziLVOzAUChV2ajqx/CRVKgCVb1K47STCgzQ60MekgMLXWgv/sC8rHSTZLhQLULylGwJ4Wq9WKcqv88Y91Bb4FQYSWye4XqWif/a60n+dno9RXmnrRM/Kk/YRXGTA55AR+hhRIVhra3im+uCL3AlF7bMEBo0o4SLobmG7T2e3c2wv6msc6o8H1XFmObZttgkbHAQfQzDt54TXo7AeiL0I4Q+5MD/4N9XeFJ9F40rZqetyxQ6wjvoDXP0P0dCj9HWe9wVdEJ1jKHeLazmaPhVI+txTHq66GVRJfK3MTppYtdU7Ag5gMHIEbuVxLNDjOMBfvkdwEXr4VoRHsEGoW5V65HKroepvU0v1laAAodRmo/hiev/sUlUy57R3+EXn9vKYNLkGPO1HwHzJ0S7VfuuDlVDl3LLeLgoU7yHiutc2tMwBZts6JSSVR+tsfkITF5XKTfVHVu18ylOdV1n2H3L3LWUJbPWeX9uqcPPUL+TpaB6ojVqn19FZJRedjxq/E9Gy8DJkyTfw4L+yg3zGhqdDsDXGSP9MwTWn7IZxZ8MW4pV8SoL9Nd6UPPTjmeugaFFGdteq+KhQuQeVq87w8qfZO7G2cfYFIXqBp7ROiRpfTGK5n1MPt8bsdIh8tPwAoR5jrITrP7jiHWfbhXFfwFoyZDIbT0KhwAAAABJRU5ErkJggg==');}
+#campaignsList > li.draft > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACXUlEQVQ4T52Uz0tUURTHz50foAktBly07BeU2UxC0SaEFm1atJSgNoWk2BshxcoCmWXG9OvNjyyLWberKIv+gTYh/VAqjRZRm6xAaBLE8fY5j/dCZ54604PvnHvn3vO533PfmTHyH4/N5XZJJJKR5eVOMaYk8fhV09MzryjTCM9mMhFJJFISjY6ItcfIjaA/KCuLi1fMwMBCY8BSqUnK5SKAU1VGFnA6KrHYzbqBtlhMSqWSoNQtuBsGuLcGKpKvC2gLhQPcl4uLBPE4JceA3g+Dbgi0rtuBqxzJB9E8oCmA/YBbOKDAvGOF08l1gcBSJI2hJCqS3EJyN+Mpyj8JWOd3fOgk8dKaQO/OrM37m13id0CnASR9Ry8BngG80zvE2nGTTj8MBfplFtjYjm6gnyiNdlS9iDfMhzjonbS2zpmurkoNkBewj9PG2KjlXmP8w4dtC+nZL6z34uxZsLYKaPP5PWy4B2g/MUucY+NZFAabYX2Y3nvOr0Sb23v+AT2YiDrTt+mir8hB20OcfeTA8zh7XL3mAbmzNlpD76wT3UafOb2XJL3w1Y+2jTEXjONMhBwkxi9zlE1H2aAlvkJb0e6QhA98N7gWzCsZ4APiEYDjHsDafj6bamDGzLI2BOxRmLPgOwV+Y+OsOM5hyWY3SXPzdRZPIG3a4Pnkweiz9WCBQy0jisMscYL4m2Y9R7zIPI50XZ092QgWAF8zSKEyLi7j4hauu5nfRTO8rEHT1/e0HlgAnGbQ5ie8BTqNu0PMf+nf1MqmrQeqd/iCxHYgS8QYcTOJ7xmPNArTA/8CHvDtgw1o76YAAAAASUVORK5CYII=');}
+#campaignsList > li h3 {margin: 10px 0 0 0; font-size: 18px; font-size: 1.8rem;}
+#campaignsList > li h3 a {color: #545454;}
+#campaignsList > li .name, #campaignsList > li > ul > li, #campaignsList > li > a {font-size: 17px; font-size: 1.7rem;}
+#campaignsList > li > ul {padding: 0; margin: 0 0 0 -45px; border-top: 1px solid #e5e5e5;}
+#campaignsList > li > ul > li {display: inline-block; margin: 0 10px; text-align: center;}
+#campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 20px; font-size: 2rem; display: block; margin-bottom: 2px;}
+#campaignsList > li > ul > li span.open-number::after,
+#campaignsList > li > ul > li span.click-number::after {content:'%'; right:-17px; position:absolute; top:2px;}
+#campaignsList > li > ul > li span:empty::before {content:'-'; left:14px; position:absolute; top:2px;}
+#campaignsList > li > ul > li span.recip-number:empty::before {left:32px;}
+
+
+#campaignsList > li > a {position: absolute; top: 0; color: #545454; padding: 10px;}
+#campaignsList > li > a :hover, #campaignsList > li > a:focus, #campaignsList > li > a:active {color: #20a2ea;}
+#campaignsList .campaignDelete {right: 20px;}
+#campaignsList .campaignStats,
+#campaignsList .campaignEdit{right: 45px;}
+
+
+/* DASHBOARD (08/2016) */
+#mails {text-align: center;}
+#mails li {list-style: none; display: block; float: left; margin-bottom: 20px; margin-right: 35px;}
+#mails li:last-child {margin-right: 0;}
+.mail {display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
+.mail:hover, .mai:focus, .mail:active {text-decoration: none; background-color: #fbfbfb;}
+.mail#gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;}
+.mail#yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
+.mail#outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
+.mail#uploadFile {padding-top: 34px;}
+
+
+
+
 
 
 .kakareo-list.project {margin: 0; list-style: none;}
@@ -5168,8 +5246,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .carousel.news .carousel-control {top: 22%;}
 
     /* import contacts */
-    .box-ppal.import-contacts {padding: 70px 70px 50px 70px;}
-    .box-ppal.import-contacts p {margin-bottom: 45px;}
+    .box-ppal.import-contacts, .box-ppal.dashboard {padding: 70px 70px 50px 70px;}
+    .box-ppal.import-contacts p, .box-ppal.dashboard p {margin-bottom: 45px;}
     .box-ppal.import-contacts.csv {padding-top: 50px;}
     .box-ppal.import-contacts .bootstrap-filestyle {margin-bottom: 40px;}
     .box-ppal.import-contacts-videos {padding: 50px;}
@@ -5183,14 +5261,31 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .new-filter-options > div:first-child > a > .text {display: none;}
     .new-filter-options.last > div:first-child > a > .text {display: inline; margin-left: 5px;}
 
+    #toFilters .btn {margin-top: 0; display: inline-block;}
     #toFilters > div:last-child {text-align: left;}
     #filterContacts {margin-top: 0;}
+    #campaignsOrderOptions > ul {width: 55%; margin: 5px 0 0 10px;}
+    #campaignsOrderOptions > ul li, #campaignsOrderOptions > ul li:last-child {margin: 0 10px; display: inline;}
+    #campaignsOrderOptions > div {width: 34%; float: right; margin-top: 0}
     .nav-tabs.simple > li > a {padding: 10px 15px;}
     .new-filter-actions {margin-top: -23px; margin-bottom: 35px;}
     .new-filter-options .form-control {margin-left: 30px;}
     .new-filter-options.first .form-control {margin-left: 0;}
     .new-filter-options.first > div:last-child {line-height: 38px;}
     .new-filter-options .minus-condition, .new-filter-options .plus-condition {position: absolute;}
+    #campaignsList > li > a {top: 5px;}
+    #campaignsList > li h3, #campaignsList > li .name {padding-right: 50%;}
+    #campaignsList > li h3 {font-size: 21px; font-size: 2.1rem;}
+    #campaignsList > li {padding: 20px 25px 15px 75px;}
+    #campaignsList > li > .state {left: 20px;}
+    #campaignsList > li > ul {width: 38%; position: absolute; top: 10px; right: 10%; padding: 20px 0 20px 2%; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
+    #campaignsList > li > ul > li {margin: 0 8%;}
+    #campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 24px; font-size: 2.4rem; display: block; margin-bottom: 8px;}
+    #campaignsList > li > ul > li span.open-number::after,
+    #campaignsList > li > ul > li span.click-number::after {content:'%'; right:-22px; position:absolute; top:2px;}
+
+    /* DASHBOARD (08/2016) */
+    #mails {margin: 0 auto; width: 575px; text-align: center;}
 
 }
 
