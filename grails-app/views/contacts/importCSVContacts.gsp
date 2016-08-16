@@ -11,15 +11,15 @@
 
 <content tag="mainContent">
     <ol class="breadcrumb">
-        <li><a href="#">Contacts</a></li>
-        <li class="active">Import contacts</li>
+        <li><a href="#"><g:message code="tools.contact.title"/> </a></li>
+        <li class="active"><g:message code="tools.contact.import.title"/></li>
     </ol>
 
 
     <div class="container-fluid box-ppal import-contacts csv">
         <g:form mapping="politicianContactImportCSVSave" name="importContacts-02">
             <h1>${fileName}</h1>
-            <p>The following table shows the first rows of the file you uploaded. Select the field that corresponds to each column and start the import.</p>
+            <p><g:message code="tools.contact.import.firstRowAdvise"/></p>
             <div class="table-responsive">
                 <g:set var="line" value="${lines.next()}"/>
                 <table class="table table-hover table-bordered csv">
@@ -29,10 +29,10 @@
                         <g:each in="${line.values}" var="val" status="i">
                             <th class="${emptyColumns.contains(i)?'hide':''}">
                                 <select class="form-control" name="columnOption">
-                                    <option value="">-- Not imported --</option>
-                                    <option value="name">Name</option>
-                                    <option value="email">Mail</option>
-                                    <option value="tag">Tag</option>
+                                    <option value=""><g:message code="tools.contact.import.table.columnOption.notImported"/> </option>
+                                    <option value="name"><g:message code="tools.contact.import.table.columnOption.name"/> </option>
+                                    <option value="email"><g:message code="tools.contact.import.table.columnOption.email"/> </option>
+                                    <option value="tag"><g:message code="tools.contact.import.table.columnOption.tag"/> </option>
                                 </select>
                             </th>
                         </g:each>
@@ -43,8 +43,8 @@
                     <g:while test="${line}">
                         <tr>
                             <th scope="row">
-                                Row ${exampleLinesShowed}
-                                <span class="notImport"><input type="checkbox" value="${exampleLinesShowed+1}" name="notImport"> do not import</span>
+                                <g:message code="tools.contact.import.table.row" args="[exampleLinesShowed]"/>
+                                <span class="notImport"><input type="checkbox" value="${exampleLinesShowed+1}" name="notImport"> <g:message code="tools.contact.import.table.row.notImport"/></span>
                             </th>
                             <g:each in="${line.values}" var="columnValue" status="i">
                                     <td class="${emptyColumns.contains(i)?'hide':''}">${columnValue}</td>
@@ -63,10 +63,10 @@
                 </table>
             </div>
 
-            <label for="tagsField">Add tags to each person</label>
+            <label for="tagsField"><g:message code="tools.contact.import.addTags"/> </label>
             <input name="tags" id="tagsField" type="text" value="" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}">
 
-            <input type="submit" value="Start import" class="btn btn-blue inverted btn-lg">
+            <input type="submit" value="${g.message(code: 'tools.contact.import.start')}" class="btn btn-blue inverted btn-lg">
         </g:form>
     </div>
 

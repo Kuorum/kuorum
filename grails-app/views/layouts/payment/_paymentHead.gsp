@@ -1,13 +1,13 @@
 
 <ul class="nav navbar-nav navbar-right">
     <li class="underline">
-        <g:link mapping="dashboard" class="navbar-link">
+        <g:link mapping="dashboard" class="navbar-link ${nav.activeMenuCss(mappingName:'dashboard')}">
             <span class="fa fa-home fa-lg"></span>
             <span class=""><g:message code="default.home.label"/> </span>
         </g:link>
     </li>
     <li class="underline">
-        <g:link mapping="politicianMassMailing" class="navbar-link">
+        <g:link mapping="politicianMassMailing" class="navbar-link ${nav.activeMenuCss(mappingName:'politicianMassMailing')}">
             <span class="fa fa-paper-plane fa-lg"></span>
             <span class=""><g:message code="head.logged.account.tools.massMailing"/> </span>
         </g:link>
@@ -15,7 +15,7 @@
     <li class="underline">
         <a href="#" class="navbar-link">
             <span class="fa fa-users fa-lg"></span>
-            <span class="">Contacts</span>
+            <span class=""><g:message code="tools.contact.title"/> </span>
         </a>
     </li>
     <li class="dropdown underline" itemscope itemtype="http://schema.org/Person">
