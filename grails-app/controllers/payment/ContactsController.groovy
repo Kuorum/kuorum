@@ -21,13 +21,13 @@ class ContactsController {
 
     def importCSVContacts(){
         if (!params.get("fileContacts")) {
-            flash.message = 'Not file defined'
+            flash.message = g.message(code:'tools.contact.import.csv.error.noFile')
             render(view: 'importContacts')
             return
         }
         MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile('fileContacts')
         if (uploadedFile.empty) {
-            flash.message = 'file cannot be empty'
+            flash.message = g.message(code:'tools.contact.import.csv.error.emptyFile')
             render(view: 'importContacts')
             return
         }
@@ -45,7 +45,7 @@ class ContactsController {
 
     def importCSVContactsSave(){
         if (!request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)){
-            flash.message = 'Not file defined'
+            flash.message = g.message(code:'tools.contact.import.csv.error.noFile')
             redirect(mapping:'politicianContactImport')
             return
         }
@@ -60,7 +60,7 @@ class ContactsController {
 
         if (namePos == -1 || emailPos == -1){
 
-            flash.message="Please select at least the column with the name and with the email"
+            flash.message=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
             render(view: 'importCSVContacts', model: modelImportCSVContacts())
             return;
         }
