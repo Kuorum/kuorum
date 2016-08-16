@@ -254,7 +254,7 @@ class UrlMappings {
         name tourStart:           "/tour" (controller:"tour", action: "index")
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
 
-        name campaignPoll:        "/campaign/poll" (controller: "campaign", action: "saveCitizenPriorities")
+        name campaignPoll:        "/campaign/poll" (controller: "massMailing", action: "saveCitizenPriorities")
 
         name ajaxHeadNotificationsChecked: "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")
         name ajaxPostponeAlert: "/ajax/notificaiones/posponer/$id"(controller:"notification", action:"postponeAlert")
@@ -322,7 +322,8 @@ class UrlMappings {
         name politicianContactImportCSVSave:            "/account/contacts/import/csv_save" (controller:"contacts", action: "importCSVContactsSave")
         name politicianContactTagsAjax:                 "/ajax/account/contacts/tags" (controller:"contacts", action: "contactTags")
         name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
-        name politicianMassMailing:                     "/account/mass-mailing" (controller:"politician", action: "betaTesterPage")
+        name politicianMassMailing:                     "/account/mass-mailing" (controller:"massMailing", action: "index")
+        name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing",POST:'saveMassMailing']}
         name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
 
         "/sitemapIndex"{

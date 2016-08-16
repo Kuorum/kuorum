@@ -325,7 +325,7 @@ class KuorumUserService {
         if(compareUser.personalData.provinceCode && activeUser.personalData.provinceCode && compareUser.personalData.provinceCode == activeUser.personalData.provinceCode){
             formula += grailsApplication.config.kuorum.recommendedUser.regionValue
         }
-        if(compareUser.userType == UserType.POLITICIAN || compareUser.userType == UserType.CANDIDATE){
+        if(isPaymentUser(compareUser)){
             formula += grailsApplication.config.kuorum.recommendedUser.politicianValue
         } else if(compareUser.userType == UserType.ORGANIZATION){
             formula += grailsApplication.config.kuorum.recommendedUser.organizationValue
@@ -338,6 +338,10 @@ class KuorumUserService {
         formula
     }
 
+
+    boolean isPaymentUser(KuorumUser user ){
+        user && (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE)
+    }
 
     private List<KuorumUser> recommendedUsersByPostVotes(UserType userType, KuorumUser user = null, Pagination pagination = new Pagination()){
         def orderUsersByVotes = Post.collection.aggregate([
@@ -609,7 +613,7 @@ class KuorumUserService {
         searchParams.max +=1
         List<Region> regions;
         String politicalParty = ""
-        if (user && user.userType != UserType.POLITICIAN && user.userType != UserType.CANDIDATE){
+        if (isPaymentUser(user)){
             regions = regionService.findUserRegions(user)
         }else if(user){
             regions = regionService.findRegionsList(user.professionalDetails?.region)

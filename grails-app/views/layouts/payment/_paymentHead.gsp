@@ -7,10 +7,10 @@
         </g:link>
     </li>
     <li class="underline">
-        <a href="#" class="navbar-link">
+        <g:link mapping="politicianMassMailing" class="navbar-link">
             <span class="fa fa-paper-plane fa-lg"></span>
-            <span class="">Campaigns</span>
-        </a>
+            <span class=""><g:message code="head.logged.account.tools.massMailing"/> </span>
+        </g:link>
     </li>
     <li class="underline">
         <a href="#" class="navbar-link">

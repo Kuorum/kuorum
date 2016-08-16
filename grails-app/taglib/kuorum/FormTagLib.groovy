@@ -21,6 +21,7 @@ class FormTagLib {
         def kuorumImageId = command."$field"
 
         def labelCssClass = attrs.labelCssClass?:''
+        def cssClass = attrs.cssClass?:''
         KuorumFile kuorumFile = null
         FileGroup fileGroup = attrs.fileGroup
         def label = message(code: "${command.class.name}.${field}.label")
@@ -42,6 +43,7 @@ class FormTagLib {
             errorMessage = g.fieldError(bean: command, field: field)
         }
         def model = [
+                cssClass:cssClass,
                 imageId: kuorumImageId,
                 value:value,
                 fileGroup:fileGroup,

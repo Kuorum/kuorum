@@ -9,7 +9,7 @@
     var jcropApi;
     var fileId;
 </script>
-<div class="uploaderImageContainer ${fileGroup}">
+<div class="uploaderImageContainer ${fileGroup} ${cssClass}">
     <uploader:uploader
             id="uploaderImageId_${imageId}"
             multiple="false"
@@ -98,7 +98,7 @@
 </div>
 <script>
     function showCoords(coords){
-       console.log(coords)
+       console.log(coords);;;
 //        var $preview = $('#preview');
 //        if (parseInt(coords.w) > 0)
 //        {
@@ -115,9 +115,9 @@
 //        }
     }
     function cropImage(imageId){
-        var selected = jcropApi.tellSelect()
-        var cutButton = $(".uploadKuorumImage .modal-footer button")
-        var cutButtonHtml = cutButton.html()
+        var selected = jcropApi.tellSelect();;;
+        var cutButton = $(".uploadKuorumImage .modal-footer button");;;
+        var cutButtonHtml = cutButton.html();;;
 
         $.ajax({
             type: "POST",
@@ -141,27 +141,27 @@
                 cutButton.html(cutButtonHtml)
             }
         }).done(function( data ) {
-            changeImageBackground(data.absolutePathImg,imageId)
+            changeImageBackground(data.absolutePathImg,imageId);;;
             $("#modal_"+imageId).modal('hide');
-            $("#input_"+imageId).val(data.fileId)
+            $("#input_"+imageId).val(data.fileId);;;
             formHelper.dirtyFormControl.dirty($("#input_"+imageId).parents("form"))
         });
     }
 
     function changeImageBackground(urlImage, imageId){
-        console.log("#uploaderImageId_"+imageId+" .qq-upload-drop-area")
+        console.log("#uploaderImageId_"+imageId+" .qq-upload-drop-area");;;
 //        var timestampedUrlImage = urlImage +'?timestamp='+new Date().getTime();
-        var timestampedUrlImage = urlImage
+        var timestampedUrlImage = urlImage;;;
         $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-image",'url('+timestampedUrlImage+')');
-        $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-size","100% auto")
-        $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-position","0 0")
+        $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-size","100% auto");;;
+        $("#au-uploaderImageId_"+imageId+" .qq-upload-drop-area").css("background-position","0 0");;;
         $("#au-uploaderImageId_"+imageId+" .button-container").css("background-color","rgba(0, 0, 0, 0.7)")
     }
 
     <g:if test="${imageUrl}">
     $(function(){
         changeImageBackground('${raw(imageUrl)}', '${imageId}')
-    })
+    });;;
     </g:if>
 </script>
 <input type="hidden" name="${name}" id="input_${imageId}" value="${value}"/>

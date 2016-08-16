@@ -12,6 +12,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserStatsService
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
+import payment.contact.ContactService
 import springSecurity.KuorumRegisterCommand
 
 class DashboardController {
@@ -23,6 +24,7 @@ class DashboardController {
     KuorumUserStatsService kuorumUserStatsService
     CausesService causesService
     SearchSolrService searchSolrService
+    ContactService contactService
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -41,6 +43,19 @@ class DashboardController {
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        if (kuorumUserService.isPaymentUser(user)){
+            Map model = buildPaymentDashboadr(user);
+            if (model.contacts.total>0){
+                render view: "/dashboard/payment/paymentDashboard", model: model
+            }else{
+                render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
+            }
+        }else{
+            buildUserDashboard(user)
+        }
+    }
+
+    private Map buildUserDashboard(KuorumUser user){
         Pagination causesPagination = new Pagination(max:6)
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
         Pagination politiciansDashboardPagination = new Pagination(max:6)
@@ -52,6 +67,10 @@ class DashboardController {
                 politicians:politicians,
                 politiciansDashboardPagination:politiciansDashboardPagination
         ]
+    }
+
+    private def buildPaymentDashboadr(KuorumUser user){
+        [contacts:contactService.getUsers(user)]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
