@@ -57,7 +57,7 @@ class MassMailingController {
     }
 
     private ExtendedFilterRSDTO createTestFilter(List<ExtendedFilterRSDTO> filters , KuorumUser user){
-        ExtendedFilterRSDTO filterTest = filters.find{it.name=~ "\\(TEST\\)"}
+        ExtendedFilterRSDTO filterTest = filters.find{it.name=~ "-TEST-"}
         if (!filterTest){
             FilterRDTO filter = new FilterRDTO();
             filter.setOperator(OperatorTypeRDTO.AND)
