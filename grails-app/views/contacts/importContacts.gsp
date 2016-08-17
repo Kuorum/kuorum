@@ -11,7 +11,7 @@
 
 <content tag="mainContent">
     <ol class="breadcrumb">
-        <li><a href="#"><g:message code="tools.contact.title"/> </a></li>
+        <li><g:link mapping="politicianContacts"> <g:message code="tools.contact.title"/> </g:link></li>
         <li class="active"><g:message code="tools.contact.import.title"/></li>
     </ol>
     <div class="container-fluid box-ppal import-contacts">

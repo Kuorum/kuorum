@@ -317,6 +317,7 @@ class UrlMappings {
         name politicianRequestBetaTester:               "/account/request-beta-tester-account" (controller:"politician", action: "requestAPoliticianBetaTester")
         name politicianAnalytics:                       "/account/data-analytics" (controller:"politician", action: "betaTesterPage")
         name politicianContactProfiling:                "/account/contact-profiling" (controller:"politician", action: "betaTesterPage")
+        name politicianContacts:                        "/account/contacts" (controller:"contacts", action: "index")
         name politicianContactImport:                   "/account/contacts/import" (controller:"contacts", action: "importContacts")
         name politicianContactImportCSV:                "/account/contacts/import/csv" (controller:"contacts", action: "importCSVContacts")
         name politicianContactImportCSVSave:            "/account/contacts/import/csv_save" (controller:"contacts", action: "importCSVContactsSave")
@@ -324,6 +325,7 @@ class UrlMappings {
         name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
         name politicianMassMailing:                     "/account/mass-mailing" (controller:"massMailing", action: "index")
         name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing",POST:'saveMassMailing']}
+        name politicianMassMailingEdit:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"editCampaign",POST:'updateCampaign']}
         name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
 
         "/sitemapIndex"{

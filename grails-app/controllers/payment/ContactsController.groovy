@@ -4,6 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
+import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
@@ -16,6 +17,17 @@ class ContactsController {
 
     ContactService contactService;
     SpringSecurityService springSecurityService
+
+    def index(){
+        KuorumUser user = springSecurityService.currentUser
+        ContactPageRSDTO contacts = contactService.getUsers(user)
+        if (contacts.total <=0){
+            redirect mapping:"politicianContactImport"
+            return;
+        }
+        [contacts:contacts]
+    }
+
 
     def importContacts() {}
 
