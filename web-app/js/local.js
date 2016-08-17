@@ -369,8 +369,8 @@ $(document).ready(function() {
         }
     });
 
-    // abrir opciones nuevo filtro con select
-    $('#toFilters select#recipients').on('change', function () {
+
+    function loadSelectRecipientStatus(){
         if ( !($('select#recipients option:selected').is('#all') || $('select#recipients option:selected').is('#newFilter') ) ) {
             $('#infoToContacts').addClass('on');
             $('#filterContacts').removeClass('on');
@@ -384,7 +384,15 @@ $(document).ready(function() {
             $('#infoToContacts, #filterContacts').removeClass('on');
             $("#newFilterContainer").fadeOut();
         }
-    });
+        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
+        $("#infoToContacts .amountRecipients").html(amountContacts)
+    }
+    // abrir opciones nuevo filtro con select
+    $('#toFilters select#recipients').on('change', loadSelectRecipientStatus);
+
+    //Preparar el select segun el option seleccionado
+    loadSelectRecipientStatus();
+
     // abrir opciones nuevo filtro con botón
     $('body').on('click','#toFilters #filterContacts', function() {
         if ($(this).hasClass('on')) {

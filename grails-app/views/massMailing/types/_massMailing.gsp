@@ -10,7 +10,7 @@
                 <g:each in="${filters}" var="filter">
                     <option value="${filter.id}" ${command.filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
                 </g:each>
-                <option value="new" id="newFilter"><g:message code="tools.massMailing.fields.filter.to.createNew"/></option>
+                <option value="new" id="newFilter" data-amountContacts="-"><g:message code="tools.massMailing.fields.filter.to.createNew"/></option>
             </select>
         </div>
         <div class="col-sm-5">
@@ -19,7 +19,7 @@
                 <span class="sr-only"><g:message code="tools.massMailing.fields.filter.button"/></span>
             </a>
             <span id="infoToContacts">
-                <span class="amountRecipients">10</span> recipients <span class="fa fa-filter fa-lg"></span>
+                <span class="amountRecipients"></span> recipients <span class="fa fa-filter fa-lg"></span>
             </span>
         </div>
     </fieldset>
