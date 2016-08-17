@@ -520,6 +520,7 @@ $(document).ready(function() {
             }
         });
 
+        // eliminar campaña
         var removeBtn = $('.campaignDelete');
         refreshCallbacks();
         function refreshCallbacks() {
