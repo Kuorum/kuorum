@@ -12,7 +12,14 @@
 <content tag="mainContent">
     <ol class="breadcrumb">
         <li><g:link mapping="politicianMassMailing"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
-        <li class="active"><g:message code="head.logged.account.tools.massMailing.new"/> </li>
+        <li class="active">
+            <g:if test="${command?.subject}">
+                <g:message code="head.logged.account.tools.massMailing.edit" args="[command.subject]"/>
+            </g:if>
+            <g:else>
+                <g:message code="head.logged.account.tools.massMailing.new"/>
+            </g:else>
+        </li>
     </ol>
     <div class="box-ppal">
         <ul class="nav nav-tabs simple" data-tabs="tabs">
