@@ -58,7 +58,9 @@ class MassMailingController {
             ExtendedFilterRSDTO testFilter = fakeTestFilter(filters, user)
             command.filterId = testFilter.id
         }
-        [filters:filters, command:command]
+        ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
+
+        [filters:filters, command:command, totalContacts:contactPageRSDTO.total]
     }
 
     private ExtendedFilterRSDTO fakeTestFilter(List<ExtendedFilterRSDTO> filters , KuorumUser user){

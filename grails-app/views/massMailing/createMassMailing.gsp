@@ -33,7 +33,7 @@
         </ul>
         <div id="tabs-new-campaign" class="tab-content">
             <div class="tab-pane active" id="newsletter">
-                <g:render template="types/massMailing" model="[command:command, filters:filters]"/>
+                <g:render template="types/massMailing" model="[command:command, filters:filters, totalContacts:totalContacts]"/>
             </div>
             <div class="tab-pane" id="petition">
                 <g:render template="types/notDone"/>

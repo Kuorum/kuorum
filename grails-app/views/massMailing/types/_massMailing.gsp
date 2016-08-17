@@ -6,7 +6,7 @@
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
         <div class="col-sm-4 col-md-3">
             <select name="filterId" class="form-control input-lg" id="recipients">
-                <option value="0" id="all"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
+                <option value="0" id="all" data-amountContacts="${totalContacts}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
                 <g:each in="${filters}" var="filter">
                     <option value="${filter.id}" ${command.filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
                 </g:each>
