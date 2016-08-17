@@ -72,6 +72,8 @@ modules = {
         resource url:'js/typeahead.bundle.min.js' // PARA el input tag con autocompletado
         resource url:'js/bootstrap-tagsinput.min.js' // PARA el input tag con autocompletado
         resource url:'js/isotope.pkgd.min.js'
+        resource url: 'js/list.min.js'
+        resource url: 'js/list.pagination.min.js'
         resource url:'js/highstock.js'
         resource url:'js/custom.js'
         resource url:'js/local.js'

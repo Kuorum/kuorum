@@ -202,9 +202,9 @@
                                 <label for="filterCampaigns" class="sr-only">Filter Campaigns:</label>
                                 <select name="filterCampaigns" class="form-control input-lg" id="filterCampaigns">
                                     <option value="all" name="all" id="all">All</option>
-                                    <option value="sent" name="sent" id="sent">Sent</option>
-                                    <option value="scheduled" name="scheduled" id="scheduled">Scheduled</option>
-                                    <option value="draft" name="drafts" id="draft">Drafts</option>
+                                    <option value="SENT" name="SENT" id="SENT">Sent</option>
+                                    <option value="SCHEDULED" name="SCHEDULED" id="SCHEDULED">Scheduled</option>
+                                    <option value="DRAFT" name="DRAFTs" id="DRAFT">Drafts</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -226,7 +226,7 @@
                     <div id="campaignsOrderOptions" class="clearfix">
                         <span>Order by:</span>
                         <ul>
-                            <li><a href="#" role="button" class="sort" data-sort="timestamp">Time sent</a></li>
+                            <li><a href="#" role="button" class="sort" data-sort="timestamp">Time SENT</a></li>
                             <li><a href="#" role="button" class="sort" data-sort="title">Title</a></li>
                             <li><a href="#" role="button" class="sort" data-sort="recip-number">Recipients</a></li>
                             <li><a href="#" role="button" class="sort" data-sort="open-number">Open rate</a></li>
@@ -238,8 +238,8 @@
                         </div>
                     </div>
                     <ul id="campaignsList" class="list">
-                        <li class="sent" id="1">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="1">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">It’s time to build a better country for everybody!</a></h3>
                             <p class="name">Sent <span class="date"><span class="timestamp" type="hidden" val="1465748640" />(Tue, June 12, 2016, 4:24 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -251,8 +251,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="scheduled" id="2">
-                            <span class="state">scheduled</span>
+                        <li class="SCHEDULED" id="2">
+                            <span class="state">SCHEDULED</span>
                             <h3 class="title"><a href="#">Let’s talk about climate change</a></h3>
                             <p class="name">Scheduled <span class="date"><input class="timestamp" type="hidden" val="1474547040" />(Sat, Sep 22, 2016, 12:24 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -264,8 +264,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="3">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="3">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">More jobs for the North</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -277,8 +277,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="sent" id="4">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="4">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">Support our businesses for the future</a></h3>
                             <p class="name">Sent <span class="date"><input class="timestamp" type="hidden" val="1467468780" />(Tue, July 2, 2016, 2:13 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -290,8 +290,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="sent" id="5">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="5">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">It’s time to build a better country for everybody!</a></h3>
                             <p class="name">Sent <span class="date"><input class="timestamp" type="hidden" val="1465748640" />(Tue, June 12, 2016, 4:24 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -303,8 +303,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="6">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="6">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">Let’s talk about climate change</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -316,8 +316,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="7">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="7">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">More jobs for the North</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -329,8 +329,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="sent" id="8">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="8">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">Support our businesses for the future</a></h3>
                             <p class="name">Sent <span class="date"><input class="timestamp" type="hidden" val="1461529200" />(Tue, April 24, 2016, 8:20 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -342,8 +342,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="9">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="9">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">It’s time to build a better country for everybody!</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -355,8 +355,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="scheduled" id="10">
-                            <span class="state">scheduled</span>
+                        <li class="SCHEDULED" id="10">
+                            <span class="state">SCHEDULED</span>
                             <h3 class="title"><a href="#">Let’s talk about climate change</a></h3>
                             <p class="name">Scheduled <span class="date"><input class="timestamp" type="hidden" val="1475065440" />(Sat, Sep 28, 2016, 12:24 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -368,8 +368,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="11">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="11">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">Save the children</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -381,8 +381,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="sent" id="12">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="12">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">Nothing to declare</a></h3>
                             <p class="name">Sent <span class="date"><input class="timestamp" type="hidden" val="1469885040" />(Mon, July 30, 2016, 13:24 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -394,8 +394,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="sent" id="13">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="13">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">A better country for everybody!</a></h3>
                             <p class="name">Sent <span class="date"><input class="timestamp" type="hidden" val="1475065440" />(Sat, Sep 28, 2016, 12:24 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -407,8 +407,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="scheduled" id="14">
-                            <span class="state">scheduled</span>
+                        <li class="SCHEDULED" id="14">
+                            <span class="state">SCHEDULED</span>
                             <h3 class="title"><a href="#">Let's talk about no more guns :-)</a></h3>
                             <p class="name">Scheduled <span class="date"><input class="timestamp" type="hidden" val="1472840640" />(Fri, Sep 2, 2016, 18:24 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -420,8 +420,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="15">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="15">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">Jobs for the South</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -433,8 +433,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="sent" id="16">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="16">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">Our businesses for the future</a></h3>
                             <p class="name">Sent <span class="date"><input class="timestamp" type="hidden" val="1462389840" />(Tue, May 4, 2016, 7:24 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -446,8 +446,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="sent" id="17">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="17">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">It’s time to build a better country for everybody!</a></h3>
                             <p class="name">Sent <span class="date"><input class="timestamp" type="hidden" val="1465748940" />(Tue, June 12, 2016, 4:29 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -459,8 +459,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="scheduled" id="18">
-                            <span class="state">scheduled</span>
+                        <li class="SCHEDULED" id="18">
+                            <span class="state">SCHEDULED</span>
                             <h3 class="title"><a href="#">Let’s talk about climate change</a></h3>
                             <p class="name">Scheduled <span class="date"><input class="timestamp" type="hidden" val="1474372800" />(Sat, Sep 20, 2016, 12:00 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -472,8 +472,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="19">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="19">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">More jobs for the North</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -485,8 +485,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="sent" id="20">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="20">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">Support our businesses for the future</a></h3>
                             <p class="name">Sent <span class="date"><input class="timestamp" type="hidden" val="1466343000" />(Tue, June 19, 2016, 1:30 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -498,8 +498,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="21">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="21">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">It’s time to build a better country for everybody!</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -511,8 +511,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="scheduled" id="22">
-                            <span class="state">scheduled</span>
+                        <li class="SCHEDULED" id="22">
+                            <span class="state">SCHEDULED</span>
                             <h3 class="title"><a href="#">Let’s talk about climate change</a></h3>
                             <p class="name">Scheduled <span class="date"><input class="timestamp" type="hidden" val="1481460300" />(Sat, Dec 11, 2016, 12:45 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -524,8 +524,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="23">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="23">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">More jobs for the North</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -537,8 +537,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="24">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="24">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">Support our businesses for the future</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -550,8 +550,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="sent" id="25">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="25">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">It’s time to build a better country for everybody!</a></h3>
                             <p class="name">Sent <span class="date"><input class="timestamp" type="hidden" val="1453656000" />(Tue, Jan 24, 2016, 5:20 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -563,8 +563,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="scheduled" id="26">
-                            <span class="state">scheduled</span>
+                        <li class="SCHEDULED" id="26">
+                            <span class="state">SCHEDULED</span>
                             <h3 class="title"><a href="#">Let’s talk about climate change</a></h3>
                             <p class="name">Scheduled <span class="date"><input class="timestamp" type="hidden" val="1475360640" />(Sat, Oct 1, 2016, 10:24 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -576,8 +576,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="27">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="27">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">Save the children</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -589,8 +589,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="sent" id="28">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="28">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">Nothing to declare</a></h3>
                             <p class="name">Sent <span class="date"><input class="timestamp" type="hidden" val="1469883600" />(Mon, July 30, 2016, 13:00 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -602,8 +602,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="29">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="29">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">A different way of thinking</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -615,8 +615,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="scheduled" id="30">
-                            <span class="state">scheduled</span>
+                        <li class="SCHEDULED" id="30">
+                            <span class="state">SCHEDULED</span>
                             <h3 class="title"><a href="#">Talk about poverty</a></h3>
                             <p class="name">Scheduled <span class="date"><input class="timestamp" type="hidden" val="1472842500" />(Fri, Sep 2, 2016, 18:55 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -628,8 +628,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="draft" id="31">
-                            <span class="state">draft</span>
+                        <li class="DRAFT" id="31">
+                            <span class="state">DRAFT</span>
                             <h3 class="title"><a href="#">Jobs for the South</a></h3>
                             <p class="name"></p>
                             <ul>
@@ -641,8 +641,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="sent" id="32">
-                            <span class="state">sent</span>
+                        <li class="SENT" id="32">
+                            <span class="state">SENT</span>
                             <h3 class="title"><a href="#">Our businesses for the future</a></h3>
                             <p class="name">Sent <span class="date"><input class="timestamp" type="hidden" val="1460283600" />(Tue, April 10, 2016, 10:20 pm)</span> - Name of saved filter</p>
                             <ul>
@@ -654,8 +654,8 @@
                             <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
                         </li>
 
-                        <li class="scheduled" id="33">
-                            <span class="state">scheduled</span>
+                        <li class="SCHEDULED" id="33">
+                            <span class="state">SCHEDULED</span>
                             <h3 class="title"><a href="#">It’s time to nothing</a></h3>
                             <p class="name">Scheduled <span class="date"><input class="timestamp" type="hidden" val="1460283600" />(Tue, April 10, 2016, 10:20 pm)</span> - Name of saved filter</p>
                             <ul>

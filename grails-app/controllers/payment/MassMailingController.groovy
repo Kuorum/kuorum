@@ -1,5 +1,6 @@
 package payment
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
@@ -15,6 +16,7 @@ import org.kuorum.rest.model.contact.filter.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.OperatorTypeRDTO
+import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
@@ -34,11 +36,14 @@ class MassMailingController {
 
     def index(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        ContactPageRSDTO concatPage = contactService.getUsers(user)
-        if (concatPage.total <= 0) {
-            render view: "/dashboard/payment/paymentNoContactsDashboard", model: [:]
-            return;
-        }
+//        ContactPageRSDTO concatPage = contactService.getUsers(user)
+//        if (concatPage.total <= 0) {
+//            render view: "/dashboard/payment/paymentNoContactsDashboard", model: [:]
+//            return;
+//        }
+        List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
+
+        [campaigns:campaigns]
     }
 
     def createMassMailing(){
@@ -110,27 +115,55 @@ class MassMailingController {
             render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, command.filterId<0)
             return;
         }
-        CampaignRSDTO campaignRSDTO = new CampaignRSDTO();
-        campaignRSDTO.setName(command.getSubject())
-        campaignRSDTO.setSubject(command.getSubject())
-        campaignRSDTO.setBody(command.getText())
+        CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
+        campaignRQDTO.setName(command.getSubject())
+        campaignRQDTO.setSubject(command.getSubject())
+        campaignRQDTO.setBody(command.getText())
 
         KuorumFile picture = KuorumFile.get(command.headerPictureId);
         picture = fileService.convertTemporalToFinalFile(picture)
         fileService.deleteTemporalFiles(loggedUser)
-        campaignRSDTO.setImageUrl(picture.getUrl())
+        campaignRQDTO.setImageUrl(picture.getUrl())
+        CampaignRSDTO savedCampaign = null;
         if (command.getSendType()=="SEND" && command.filterId >= 0){
-            campaignRSDTO = massMailingService.campaignSend(loggedUser, campaignRSDTO)
+            savedCampaign = massMailingService.campaignSend(loggedUser, campaignRQDTO)
         }else if(command.sendType == "SCHEDULED" && command.filterId >= 0){
-            campaignRSDTO = massMailingService.campaignSchedule(loggedUser, campaignRSDTO,command.getScheduled())
+            savedCampaign = massMailingService.campaignSchedule(loggedUser, campaignRQDTO,command.getScheduled())
         }else{
             // IS A DRAFT
-            campaignRSDTO = massMailingService.campaignDraft(loggedUser, campaignRSDTO)
+            savedCampaign = massMailingService.campaignDraft(loggedUser, savedCampaign)
         }
         if (command.filterId <0){
             //Is a test
-            massMailingService.campaignTest(loggedUser, campaignRSDTO.getId())
+            massMailingService.campaignTest(loggedUser, savedCampaign.getId())
         }
         render "OK"
+    }
+
+    def editCampaign(Long campaignId){
+        KuorumUser loggedUser = springSecurityService.currentUser
+        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
+        MassMailingCommand command = new MassMailingCommand()
+        command.filterId = campaignRSDTO.filter?.id?:null
+        KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.imageUrl)
+        command.headerPictureId =kuorumFile.id
+        command.scheduled = campaignRSDTO.sentOn
+        command.subject=campaignRSDTO.subject
+        command.text =campaignRSDTO.body
+
+        render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, command.filterId<0)
+
+    }
+
+    def updateCampaign(MassMailingCommand command){
+        KuorumUser loggedUser = springSecurityService.currentUser
+        if (command.hasErrors()){
+            render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, command.filterId<0)
+            return;
+        }
+        Long campaignId = Long.parseLong(params.campaignId)
+
+        render "NOT DONE -> ${campaignId}"
+
     }
 }

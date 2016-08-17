@@ -1,6 +1,6 @@
 <h1 class="sr-only">Newsletter</h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm"/>
-<g:form mapping="politicianMassMailingNew" class="form-horizontal" name="politicianMassMailingForm">
+<form action="#" class="form-horizontal" name="politicianMassMailingForm" method="POST">
     <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
     <fieldset class="form-group" id="toFilters">
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
@@ -83,7 +83,7 @@
             </ul>
         </div>
     </fieldset>
-</g:form>
+<form>
 
 <!-- MODAL CONFIRM -->
 <div class="modal fade in" id="campaignConfirm" tabindex="-1" role="dialog" aria-labelledby="campaignConfirmTitle" aria-hidden="true">
