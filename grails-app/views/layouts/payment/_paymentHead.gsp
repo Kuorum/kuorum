@@ -13,10 +13,10 @@
         </g:link>
     </li>
     <li class="underline">
-        <a href="#" class="navbar-link">
+        <g:link mapping="politicianContacts" class="navbar-link">
             <span class="fa fa-users fa-lg"></span>
             <span class=""><g:message code="tools.contact.title"/> </span>
-        </a>
+        </g:link>
     </li>
     <li class="dropdown underline" itemscope itemtype="http://schema.org/Person">
         <a data-target="#" href="#" id="open-user-options" class="dropdown-toggle dropdown-menu-right navbar-link user-area" data-toggle="dropdown" role="button">
