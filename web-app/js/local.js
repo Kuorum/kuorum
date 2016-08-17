@@ -1,4 +1,4 @@
-var htmlLoading = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>'
+var htmlLoading = '<div class="loading xs"><span class="sr-only">Cargando...</span></div>';
 
 // inicializa los popover
 function preparePopover(){
@@ -38,7 +38,7 @@ function preparePopover(){
             //En el click ejecutamos el link normal. El framework the popover lo está bloqueando
             .on("click", function(e){
                 if ( !($(this).hasClass('user-rating') || $(this).hasClass('rating'))) {
-                    var href = $(this).attr("href")
+                    var href = $(this).attr("href");
                     window.location=href;
                 }
             });
@@ -139,28 +139,28 @@ $(function () {
 });
 function printCharts(){
     $(".polValChart").each(function(idx){
-        var uuid = guid()
-        $(this).attr("id",uuid)
+        var uuid = guid();
+        $(this).attr("id",uuid);
         printChart("#"+uuid);
     })
 }
 function printChart(divId){
     if ($(divId).length >0){
-        $(divId).html("")
-        $(divId).parent().show()
+        $(divId).html("");
+        $(divId).parent().show();
         Highcharts.setOptions({
             colors: ['#ff9431', '#999999', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
             global: {
                 useUTC: false
             }
         });
-        var urlHighchart=$(divId).attr("data-urljs")
+        var urlHighchart=$(divId).attr("data-urljs");
         if (urlHighchart == undefined){
             urlHighchart = 'mock//valpol.json'
         }
 
         $.getJSON(urlHighchart, function (activity) {
-            var seriesData = []
+            var seriesData = [];
             $.each(activity.datasets, function (i, dataset) {
 
                 seriesData[i]={
@@ -270,7 +270,7 @@ function printChart(divId){
                     },
                     tooltip: {
                         formatter: function () {
-                            var date = new Date(this.x)
+                            var date = new Date(this.x);
                             var s = '<b>'+formatTooltipDate(date)+'</b>';
                             s += '<br/> -----------'; //CHAPU BR
 
@@ -351,14 +351,6 @@ $(document).ready(function() {
         }
     });
 
-    // datepicker new campaign
-    if ( $('.form-final-options .input-group.date').length > 0 ) {
-        $('.form-final-options .input-group.date').datepicker({
-            language: "es",
-            autoclose: true,
-            todayHighlight: true
-        });
-    }
     // abrir/cerrar calendario
     $('body').on('click','#openCalendar', function(e) {
         e.stopPropagation();
@@ -414,9 +406,25 @@ $(document).ready(function() {
     $('body').on('click','#numberRecipients', function() {
         $("#filtersInfo").modal("show");
     });
+
     // abrir modal confirmar envío campaña
-    $('body').on('click','.form-final-options #send, .form-final-options #sendLater', function(e) {
+    $('body').on('click','.form-final-options #save-draft-campaign', function(e) {
         e.preventDefault();
+        $("#sendMassMailingType").val("DRAFT");
+        $(this).parents("form").submit();
+    });
+
+    // abrir modal confirmar envío campaña
+    $('body').on('click','.form-final-options #send', function(e) {
+        e.preventDefault();
+        $("#sendMassMailingType").val("SEND");
+        $("#campaignConfirm").modal("show");
+    });
+
+    // abrir modal confirmar envío campaña programada
+    $('body').on('click','.form-final-options #sendLater', function(e) {
+        e.preventDefault();
+        $("#sendMassMailingType").val("SCHEDULED");
         $("#campaignConfirm").modal("show");
     });
     // cerrar modal confirmar envío campaña
@@ -579,7 +587,7 @@ $(document).ready(function() {
         var voteType = $(this).attr("data-voteType");
         $("#basicUserDataForm input[name=voteType]").val(voteType);
         $("#basicUserDataForm").submit()
-    })
+    });
 
 
     // controla el comportamiento del módulo de la columna derecha en Propuestas
@@ -663,9 +671,9 @@ $(document).ready(function() {
     $('.progress-bar').progressbar();
 
     $("#module-card-ipdb-recruitment-hideWarnButton").on("click", function(e){
-        e.preventDefault()
+        e.preventDefault();
         $("#module-card-ipdb-recruitment").fadeOut('fast')
-    })
+    });
 
     // desvanecer y eliminar la caja primera del Dashboard (.condition)
     $('body').on('click','aside.condition > .close', function(e) {
@@ -742,8 +750,8 @@ $(document).ready(function() {
 
         $('body').on('click','.link-wrapper', function(e) {
             //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
-            var target = $(e.target)
-            var popover = target.parents(".popover")
+            var target = $(e.target);
+            var popover = target.parents(".popover");
             if (!popover.hasClass("popover")){
                 window.location = $(this).find('a.hidden').attr('href');
             }
@@ -770,24 +778,24 @@ $(document).ready(function() {
     $('.smooth').click(function (event) {
         event.preventDefault();
         event.stopPropagation();
-        $(this).blur()
+        $(this).blur();
         moveToHash($(this).attr("href"))
     });
-    moveToHash(window.location.hash)
+    moveToHash(window.location.hash);
 
     // SEARCH FILTERS
     $('.open-filter #filters a').on("click", function(e){
-        e.preventDefault()
-        var link = $(this).attr("href")
-        $(this).parents("li").first().siblings().find("a").removeClass("active")
-        $(this).addClass("active")
+        e.preventDefault();
+        var link = $(this).attr("href");
+        $(this).parents("li").first().siblings().find("a").removeClass("active");
+        $(this).addClass("active");
         var value = link.substr(1);
-        var iconClasses = $(this).find("span").first().attr("class")
-        var text = $(this).find(".search-filter-text").html()
-        $("input[name=searchType]").val(value)
-        $(".open-filter > a > span + span:first").html(text)
+        var iconClasses = $(this).find("span").first().attr("class");
+        var text = $(this).find(".search-filter-text").html();
+        $("input[name=searchType]").val(value);
+        $(".open-filter > a > span + span:first").html(text);
         $(".open-filter > a > span").first().attr("class",iconClasses )
-    })
+    });
 
     // setTimeout(prepareProgressBar, 500)
     // prepareProgressBar();  lo he pasado a custom.js
@@ -802,9 +810,9 @@ $(document).ready(function() {
     $(function() {
         //Eventos del menu de cabecera
         $('.nav .dropdown > a >.badge').closest('a').click(function(e) {
-            e.preventDefault()
-            var url = $(this).attr('href')
-            var element = $(this)
+            e.preventDefault();
+            var url = $(this).attr('href');
+            var element = $(this);
             $.ajax(url).done(function(data){
                 element.find('.badge').delay(1000).fadeOut("slow").queue(function() {
                     $(this).empty();
@@ -892,15 +900,15 @@ $(document).ready(function() {
 
     // votaciones
     $('body').on("click", ".voting li .yes", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId")
+        var lawId = $(this).parents("section").attr("data-lawId");
         $('section[data-lawId='+lawId+'] .activity .favor').addClass('active');
     });
     $('body').on("click", ".voting li .no", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId")
+        var lawId = $(this).parents("section").attr("data-lawId");
         $('section[data-lawId='+lawId+'] .activity .contra').addClass('active');
     });
     $('body').on("click", ".voting li .neutral", function(e) {
-        var lawId = $(this).parents("section").attr("data-lawId")
+        var lawId = $(this).parents("section").attr("data-lawId");
         $('section[data-lawId='+lawId+'] .activity .abstencion').addClass('active');
     });
 
@@ -1045,7 +1053,7 @@ $(document).ready(function() {
     //Tipo de imagen o youtube seleccionado
     $("form [data-fileType]").on("click", function(e){
         $(this).closest("form").find("input[name=fileType]").val($(this).attr("data-fileType"));
-    })
+    });
 
 
     if ( $('.jqte_editor').text() == "" ) {
@@ -1058,7 +1066,7 @@ $(document).ready(function() {
         e.preventDefault();
         $("input[name=isDraft]").val(true);
         $(this).parents("form").submit();
-    })
+    });
 
 
     // controlando el video de Vimeo en la modal de la Home
@@ -1069,7 +1077,7 @@ $(document).ready(function() {
 
         $("#videoHome").on('hidden.bs.modal', function (e) {
             playerHome.api('pause');
-        })
+        });
         $("#videoHome").on('shown.bs.modal', function (e) {
             playerHome.api('play');
         })
@@ -1120,8 +1128,8 @@ $(document).ready(function() {
     // hacer clic en player falso del video (.front)
     $('.video').find('.front').click( function(e) {
         e.stopPropagation();
-        e.preventDefault()
-        var iframe = $(this).next('.youtube')
+        e.preventDefault();
+        var iframe = $(this).next('.youtube');
         iframe.css('display', 'block');
 //        iframe[0].src += "&autoplay=1";
         $(this).remove();
@@ -1150,15 +1158,15 @@ function prepareForms(){
 
 function counterCharacters(idField) {
     // idField puede ser ID o name
-    var idFieldEscaped = idField.replace('[','\\[').replace(']','\\]').replace('\.','\\.')
+    var idFieldEscaped = idField.replace('[','\\[').replace(']','\\]').replace('\.','\\.');
     var input = $("[name='"+idFieldEscaped+"']");
     if (input == undefined){
         var input = $("[id='"+idFieldEscaped+"']");
     }
-    var totalCharsText = input.parents(".form-group").find("div[id*='charInit']").find("span").text()
+    var totalCharsText = input.parents(".form-group").find("div[id*='charInit']").find("span").text();
     var totalChars      = parseInt(totalCharsText);
-    var countTextBox    = input
-    var charsCountEl    = input.parents(".form-group").find("div[id*='charNum']").find("span")
+    var countTextBox    = input;
+    var charsCountEl    = input.parents(".form-group").find("div[id*='charNum']").find("span");
     if (countTextBox.length> 0){
         charsCountEl.text(totalChars - countTextBox.val().length);
     }
@@ -1186,7 +1194,7 @@ function stringStartsWith (string, prefix) {
 
 function moveToHash(hash){
     var dest = 0;
-    hash = hash + "-tag"
+    hash = hash + "-tag";
     if ($(hash).length){ //If the element exists
         if ($(hash).offset().top > $(document).height() - $(window).height()) {
             dest = $(document).height() - $(window).height();
@@ -1197,8 +1205,8 @@ function moveToHash(hash){
         if ($(hash)[0].hasAttribute("data-smoothOffset")){
             extraOffset = parseInt($(hash).attr("data-smoothOffset"))
         }
-        console.log("Moving to "+hash + " offset: "+extraOffset)
-        dest = dest + extraOffset
+        console.log("Moving to "+hash + " offset: "+extraOffset);
+        dest = dest + extraOffset;
         //go to destination
         $('html,body').animate({
             scrollTop: dest
@@ -1221,6 +1229,6 @@ function formatTooltipDate(date) {
     var minutes = date.getMinutes();
     minutes = minutes < 10 ? '0'+minutes : minutes;
     hours = hours < 10 ? '0'+hours : hours;
-    var strTime = hours + ':' + minutes
+    var strTime = hours + ':' + minutes;
     return date.getDate()+"-"+(date.getMonth()+1) + "-" + date.getFullYear() + "  " + strTime;
 }

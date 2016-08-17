@@ -13,10 +13,15 @@ class MassMailingCommand {
     String text;
     String headerPictureId;
 
+    Date scheduled
+    String sendType
+
     static constraints = {
         subject nullable: false
         text nullable: false
         filterId nullable: false
         headerPictureId nullable: false
+        scheduled nullable: true
+        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND"]
     }
 }

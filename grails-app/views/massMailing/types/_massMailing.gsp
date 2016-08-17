@@ -1,9 +1,11 @@
 <h1 class="sr-only">Newsletter</h1>
-<g:form mapping="politicianMassMailingNew" class="form-horizontal">
+<formUtil:validateForm bean="${command}" form="politicianMassMailingForm"/>
+<g:form mapping="politicianMassMailingNew" class="form-horizontal" name="politicianMassMailingForm">
+    <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
     <fieldset class="form-group" id="toFilters">
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
         <div class="col-sm-4 col-md-3">
-            <select name="recipients" class="form-control input-lg" id="recipients">
+            <select name="filterId" class="form-control input-lg" id="recipients">
                 <option value="0" id="all"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
                 <g:each in="${filters}" var="filter">
                     <option value="${filter.id}" ${command.filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
@@ -38,7 +40,7 @@
         %{--</div>--}%
     </fieldset>
     <fieldset class="form-group image header-campaign" data-multimedia-switch="on" data-multimedia-type="IMAGE">
-        <label for="header" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.header.label"/>:</label>
+        <label for="header" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.headerPictureId.label"/>:</label>
         <formUtil:editImage
                 command="${command}"
                 field="headerPictureId"
@@ -50,7 +52,8 @@
     <fieldset class="form-group">
         <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
         <div class="textareaContainer col-sm-8 col-md-7">
-            <textarea class="form-control texteditor" rows="8" placeholder="${message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.text.placeholder')}" id="textProject" required aria-required="true"></textarea>
+            %{--<textarea name="text" class="form-control texteditor" rows="8" placeholder="${message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.text.placeholder')}" id="textProject" required aria-required="true"></textarea>--}%
+            <formUtil:textArea command="${command}" field="text" rows="8" texteditor="texteditor"/>
         </div>
         <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
             <ul class="form-final-options">
@@ -67,10 +70,7 @@
                     <div id="selectDate">
                         %{--<form>--}%
                             <label class="sr-only">Select your date</label>
-                            <div class="input-group date">
-                                <input class="form-control" type="text" placeholder="Fecha">
-                                <span class="input-group-addon"><span class="fa fa-calendar fa-fw"></span></span>
-                            </div>
+                            <formUtil:date field="scheduled" command="${command}" cssClass="form-control"/>
                             <button type="submit" class="btn btn-blue inverted" id="sendLater">
                                 <g:message code="tools.massMailing.schedule.sendLater"/>
                             </button>
@@ -84,3 +84,20 @@
         </div>
     </fieldset>
 </g:form>
+
+<!-- MODAL CONFIRM -->
+<div class="modal fade in" id="campaignConfirm" tabindex="-1" role="dialog" aria-labelledby="campaignConfirmTitle" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span>
+                </button>
+                <h4 id="campaignConfirmTitle">Send this to 3,567 recipients?</h4>
+            </div>
+            <div class="modal-body">
+                <a href="#" class="btn btn-blue inverted btn-lg" id="send">Oh, yeah!</a>
+            </div>
+        </div>
+    </div>
+</div>
