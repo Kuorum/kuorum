@@ -447,15 +447,37 @@ $(document).ready(function() {
         $('#filterContacts').removeClass('on');
     });
 
-    // abrir modal confirmar envío campaña
-    $('body').on('click','.form-final-options #send, .form-final-options #sendLater', function(e) {
+    // Guardar borrador
+    $('body').on('click','.form-final-options #save-draft-campaign', function(e) {
         e.preventDefault();
-        $("#campaignConfirm").modal("show");
+        $("#sendMassMailingType").val("DRAFT");
+        $(this).parents("form").submit();
+    });
+
+    // abrir modal confirmar envío campaña
+    $('body').on('click','.form-final-options #send', function(e) {
+        e.preventDefault();
+        $("#sendMassMailingType").val("SEND");
+        prepareAndOpenCampaignConfirmModal();
+    });
+
+    // abrir modal confirmar envío campaña programada
+    $('body').on('click','.form-final-options #sendLater', function(e) {
+        e.preventDefault();
+        $("#sendMassMailingType").val("SCHEDULED");
+        prepareAndOpenCampaignConfirmModal();
     });
     // cerrar modal confirmar envío campaña
-    $('body').on('click','#campaignConfirm .btn', function() {
+    $('body').on('click','#campaignConfirm #saveCampaignBtn', function() {
+        $("#politicianMassMailingForm").submit();
         $("#campaignConfirm").modal("hide");
     });
+
+    function prepareAndOpenCampaignConfirmModal(){
+        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
+        $("#campaignConfirmTitle > span").html(amountContacts);
+        $("#campaignConfirm").modal("show");
+    }
     // FILTRADO Y BUSCADOR LISTADO CAMPAÑAS
     if ($('#listCampaigns').length) {
 

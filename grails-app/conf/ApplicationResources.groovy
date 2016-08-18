@@ -48,7 +48,7 @@ modules = {
     }
 
     datepicker{
-        dependsOn 'application'
+        dependsOn 'basic'
         resource url:'js/datepicker/bootstrap-datepicker.js'
         resource url:'js/datepicker/moment-with-locales.min.js'
         resource url:'js/datepicker/bootstrap-datetimepicker.js'
@@ -56,7 +56,7 @@ modules = {
     }
 
     application {
-        dependsOn "basic"
+        dependsOn "basic,datepicker"
         resource url:'js/jquery.validate.min.js'
         resource url:'js/readmore.min.js'
         resource url:'js/jquery.timeago.js'

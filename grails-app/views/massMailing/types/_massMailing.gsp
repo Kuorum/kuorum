@@ -1,7 +1,7 @@
 <r:require modules="datepicker" />
 <h1 class="sr-only">Newsletter</h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm"/>
-<form action="#" class="form-horizontal" name="politicianMassMailingForm" method="POST">
+<form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST">
     <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
     <fieldset class="form-group" id="toFilters">
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
@@ -84,7 +84,7 @@
             </ul>
         </div>
     </fieldset>
-<form>
+</form>
 
 <!-- MODAL CONFIRM -->
 <div class="modal fade in" id="campaignConfirm" tabindex="-1" role="dialog" aria-labelledby="campaignConfirmTitle" aria-hidden="true">
@@ -94,10 +94,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                     <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span>
                 </button>
-                <h4 id="campaignConfirmTitle">Send this to 3,567 recipients?</h4>
+                <h4 id="campaignConfirmTitle">
+                    <g:message code="tools.massMailing.confirmationModal.title"/>
+                </h4>
             </div>
             <div class="modal-body">
-                <a href="#" class="btn btn-blue inverted btn-lg" id="send">Oh, yeah!</a>
+                <a href="#" class="btn btn-blue inverted btn-lg" id="saveCampaignBtn">
+                    <g:message code="tools.massMailing.confirmationModal.button"/>
+                </a>
             </div>
         </div>
     </div>
