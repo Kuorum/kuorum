@@ -355,15 +355,23 @@ $(document).ready(function() {
             $('table.csv tbody tr:gt('+clear+')').removeClass('highlight_row').find('input').prop( "checked", false );
         }
     });
+    // Datepiker for all input dates
+    $('.input-group.date').datepicker({
 
-    // datepicker new campaign
-    if ( $('.form-final-options .input-group.date').length > 0 ) {
-        $('.form-final-options .input-group.date').datepicker({
-            language: "es",
-            autoclose: true,
-            todayHighlight: true
-        });
-    }
+        language: "es",
+        autoclose: true,
+        todayHighlight: true
+
+    });
+
+    // Datetime piker for all input datestimes
+    $('.input-group.datetime').datetimepicker({
+        locale: "es",
+        format:"YYYY/MM/DD HH:mm",
+        allowInputToggle:true,
+        stepping:15
+    });
+
     // abrir/cerrar calendario
     $('body').on('click','#openCalendar', function(e) {
         e.stopPropagation();

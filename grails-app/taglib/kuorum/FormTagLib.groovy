@@ -291,6 +291,7 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
 
+        def time = attrs.time?:false
         def prefixFieldName=attrs.prefixFieldName?:""
         def id = attrs.id?:field
         def required = attrs.required?'required':''
@@ -305,10 +306,13 @@ class FormTagLib {
         if (showLabel){
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
         }
+
+        String typePicker = time?"datetime":"date"
+
         out <<"""
-            <div class="input-group date">
+            <div class="input-group ${typePicker}">
                 <input type="text" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" aria-required="${required}" value="${value}">
-                <span class="input-group-addon"><a href="#" class="datepicker"><span class="fa fa-calendar fa-lg"></span></a></span>
+                <span class="input-group-addon"><span class="fa fa-calendar fa-lg"></span></span>
             </div>
         """
         if(error){

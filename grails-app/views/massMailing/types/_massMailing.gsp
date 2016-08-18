@@ -1,3 +1,4 @@
+<r:require modules="datepicker" />
 <h1 class="sr-only">Newsletter</h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm"/>
 <form action="#" class="form-horizontal" name="politicianMassMailingForm" method="POST">

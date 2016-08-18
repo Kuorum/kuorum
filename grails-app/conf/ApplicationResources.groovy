@@ -47,6 +47,14 @@ modules = {
         resource url:'js/timeago/jquery.timeago.lt.js'
     }
 
+    datepicker{
+        dependsOn 'application'
+        resource url:'js/datepicker/bootstrap-datepicker.js'
+        resource url:'js/datepicker/moment-with-locales.min.js'
+        resource url:'js/datepicker/bootstrap-datetimepicker.js'
+        resource url:'js/datepicker/bootstrap-datepicker.es.js'
+    }
+
     application {
         dependsOn "basic"
         resource url:'js/jquery.validate.min.js'
@@ -65,8 +73,6 @@ modules = {
         resource url:'js/jquery.autocomplete.js'
         resource url:'js/jquery.bgswitcher.js' //HOME
         resource url:'js/jquery.dynamiclist.min.js' //Dynamic input
-        resource url:'js/bootstrap-datepicker.js'
-        resource url:'js/bootstrap-datepicker.es.js'
         resource url:'js/hideShowPassword.min.js'
         resource url:'js/bootstrap-filestyle.min.js'
         resource url:'js/typeahead.bundle.min.js' // PARA el input tag con autocompletado
