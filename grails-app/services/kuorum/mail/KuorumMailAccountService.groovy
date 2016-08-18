@@ -4,6 +4,7 @@ import grails.transaction.Transactional
 import groovyx.net.http.RESTClient
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
 
@@ -20,9 +21,10 @@ class KuorumMailAccountService {
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.ACCOUNT_MAILS,
                     [userAlias:user.alias],
-                    [:]
+                    [:],
+                    new TypeReference<MailsMessageRSDTO>(){}
             )
-            mails =  new MailsMessageRSDTO(response.data)
+            mails =  response.data
 
         }else{
             mails = new MailsMessageRSDTO()
@@ -38,10 +40,11 @@ class KuorumMailAccountService {
             def response = restKuorumApiService.patch(
                     RestKuorumApiService.ApiMethod.ACCOUNT_INFO,
                     [userAlias:currentAlias],
-                    [newAlias:newAlias]
+                    [newAlias:newAlias],
+                    new TypeReference<KuorumMailAccountDetailsRSDTO>(){}
             )
             if (response.data){
-                account = new KuorumMailAccountDetailsRSDTO(response.data)
+                account = response.data
             }
         }
         return account;
@@ -56,11 +59,12 @@ class KuorumMailAccountService {
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.ACCOUNT_INFO,
                     [userAlias:userAlias],
-                    [:]
+                    [:],
+                    new TypeReference<KuorumMailAccountDetailsRSDTO>(){}
             )
             KuorumMailAccountDetailsRSDTO account = null;
             if (response.data){
-                account = new KuorumMailAccountDetailsRSDTO(response.data)
+                account = response.data
             }
             return account;
         }else{
@@ -73,9 +77,10 @@ class KuorumMailAccountService {
             def response = restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.ACCOUNT_INFO,
                     [userAlias:user.alias],
-                    [:]
+                    [:],
+                    new TypeReference<KuorumMailAccountDetailsRSDTO>(){}
             )
-            KuorumMailAccountDetailsRSDTO account = new KuorumMailAccountDetailsRSDTO(response.data)
+            KuorumMailAccountDetailsRSDTO account = response.data
             return account
         }else{
             return null;

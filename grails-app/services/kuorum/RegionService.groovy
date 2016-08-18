@@ -1,7 +1,6 @@
 package kuorum
 
 import grails.transaction.Transactional
-import groovyx.net.http.RESTClient
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.RegionType
@@ -9,8 +8,9 @@ import kuorum.postalCodeHandlers.PostalCodeHandler
 import kuorum.postalCodeHandlers.PostalCodeHandlerType
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.codehaus.jackson.type.TypeReference
+import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 
 class RegionService {
 
@@ -182,7 +182,9 @@ class RegionService {
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.REGION_GET,
                     [:],
-                    [isoCode:isoCode]
+                    [isoCode:isoCode],
+                    new TypeReference<RegionRSDTO>(){}
+
             )
             return Region.findByIso3166_2(response.data.iso3166)
         }catch (Exception e){
@@ -196,10 +198,11 @@ class RegionService {
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.REGION_SUGGEST,
                 [:],
-                [regionName:prefixRegionName,lang: language.getLocale().language]
+                [regionName:prefixRegionName,lang: language.getLocale().language],
+                new TypeReference<List<RegionRSDTO>>(){}
         )
         List regions = response.data.collect{val ->
-            Region region = new Region(val);
+            Region region = new Region(val.properties);
             region.iso3166_2=val.iso3166;
             region
         }
@@ -215,10 +218,11 @@ class RegionService {
             def response = restKuorumApiService.get(
                     RestKuorumApiService.ApiMethod.REGION_FIND,
                     [:],
-                    params
+                    params,
+                    new TypeReference<RegionRSDTO>(){}
             )
             return Region.findByIso3166_2(response.data.iso3166)
-        }catch (KuorumException kuorumException){
+        }catch (Exception kuorumException){
             return null;
         }
     }

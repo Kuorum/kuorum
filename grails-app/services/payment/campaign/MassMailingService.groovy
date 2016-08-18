@@ -3,6 +3,7 @@ package payment.campaign
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
@@ -13,28 +14,34 @@ class MassMailingService {
     RestKuorumApiService restKuorumApiService;
 
 
-    CampaignRSDTO campaignSend(KuorumUser user, CampaignRQDTO campaignRQDTO){
-        campaignSchedule(user, campaignRQDTO, new Date()-10)
+    CampaignRSDTO campaignSend(KuorumUser user, CampaignRQDTO campaignRQDTO, Long campaignId = null){
+        campaignSchedule(user, campaignRQDTO, new Date(), campaignId)
     }
-    CampaignRSDTO campaignSchedule(KuorumUser user, CampaignRQDTO campaignRQDTO, Date date){
+    CampaignRSDTO campaignSchedule(KuorumUser user, CampaignRQDTO campaignRQDTO, Date date, Long campaignId = null){
         campaignRQDTO.sentOn = date
         Map<String, String> params = [userAlias:user.id.toString()]
         Map<String, String> query = [:]
+        RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS
+        if (campaignId){
+            apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN
+            params.put("campaignId",campaignId.toString())
+        }
         def response= restKuorumApiService.post(
-                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS,
+                apiMethod,
                 params,
                 query,
-                campaignRQDTO
+                campaignRQDTO,
+                new TypeReference<CampaignRSDTO>(){}
         )
         CampaignRSDTO campaignSaved=null;
         if (response.data){
-            campaignSaved = (CampaignRSDTO)response.data
+            campaignSaved = response.data
         }
         campaignSaved
     }
 
-    CampaignRSDTO campaignDraft(KuorumUser user, CampaignRQDTO campaignRQDTO){
-        return campaignSchedule(user, campaignRQDTO, null)
+    CampaignRSDTO campaignDraft(KuorumUser user, CampaignRQDTO campaignRQDTO, Long campaignId = null){
+        return campaignSchedule(user, campaignRQDTO, null, campaignId)
     }
 
     CampaignRSDTO campaignTest(KuorumUser user, Long campaignId){
@@ -43,7 +50,8 @@ class MassMailingService {
         def response= restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_SEND,
                 params,
-                query
+                query,
+                new TypeReference<CampaignRSDTO>(){}
         )
         CampaignRSDTO campaignSaved=null;
         if (response.data){
@@ -58,7 +66,8 @@ class MassMailingService {
         def response= restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS,
                 params,
-                query
+                query,
+                new TypeReference<List<CampaignRSDTO>>(){}
         )
         List<CampaignRSDTO> campaigns=null;
         if (response.data){
@@ -73,7 +82,8 @@ class MassMailingService {
         def response= restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN,
                 params,
-                query
+                query,
+                new TypeReference<CampaignRSDTO>(){}
         )
         CampaignRSDTO campaignSaved=null;
         if (response.data){

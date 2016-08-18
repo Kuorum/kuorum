@@ -1,6 +1,5 @@
 package payment
 
-import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
@@ -117,29 +116,8 @@ class MassMailingController {
             render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, command.filterId<0)
             return;
         }
-        CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
-        campaignRQDTO.setName(command.getSubject())
-        campaignRQDTO.setSubject(command.getSubject())
-        campaignRQDTO.setBody(command.getText())
-
-        KuorumFile picture = KuorumFile.get(command.headerPictureId);
-        picture = fileService.convertTemporalToFinalFile(picture)
-        fileService.deleteTemporalFiles(loggedUser)
-        campaignRQDTO.setImageUrl(picture.getUrl())
-        CampaignRSDTO savedCampaign = null;
-        if (command.getSendType()=="SEND" && command.filterId >= 0){
-            savedCampaign = massMailingService.campaignSend(loggedUser, campaignRQDTO)
-        }else if(command.sendType == "SCHEDULED" && command.filterId >= 0){
-            savedCampaign = massMailingService.campaignSchedule(loggedUser, campaignRQDTO,command.getScheduled())
-        }else{
-            // IS A DRAFT
-            savedCampaign = massMailingService.campaignDraft(loggedUser, savedCampaign)
-        }
-        if (command.filterId <0){
-            //Is a test
-            massMailingService.campaignTest(loggedUser, savedCampaign.getId())
-        }
-        render "OK"
+        flash.message = saveAndSendCampaign(loggedUser, command)
+        redirect mapping:'politicianMassMailing'
     }
 
     def editCampaign(Long campaignId){
@@ -153,7 +131,7 @@ class MassMailingController {
         command.subject=campaignRSDTO.subject
         command.text =campaignRSDTO.body
 
-        render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, command.filterId<0)
+        render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, false)
 
     }
 
@@ -164,8 +142,43 @@ class MassMailingController {
             return;
         }
         Long campaignId = Long.parseLong(params.campaignId)
+        flash.message = saveAndSendCampaign(loggedUser, command, campaignId)
+        redirect mapping:'politicianMassMailing'
+    }
 
-        render "NOT DONE -> ${campaignId}"
+    private CampaignRQDTO convertCommandToCampaign(MassMailingCommand command, KuorumUser user){
+        CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
+        campaignRQDTO.setName(command.getSubject())
+        campaignRQDTO.setSubject(command.getSubject())
+        campaignRQDTO.setBody(command.getText())
 
+        KuorumFile picture = KuorumFile.get(command.headerPictureId);
+        picture = fileService.convertTemporalToFinalFile(picture)
+        fileService.deleteTemporalFiles(user)
+        campaignRQDTO.setImageUrl(picture.getUrl())
+        campaignRQDTO
+    }
+
+    private String saveAndSendCampaign(KuorumUser user, MassMailingCommand command, Long campaignId = null){
+        CampaignRQDTO campaignRQDTO = convertCommandToCampaign(command, user)
+        String msg = ""
+        CampaignRSDTO savedCampaign = null;
+        if (command.getSendType()=="SEND" && command.filterId >= 0){
+            savedCampaign = massMailingService.campaignSend(user, campaignRQDTO, campaignId)
+            msg = g.message(code:'tools.massMailing.send.advise', args: [savedCampaign.subject])
+        }else if(command.sendType == "SCHEDULED" && command.filterId >= 0){
+            savedCampaign = massMailingService.campaignSchedule(user, campaignRQDTO,command.getScheduled(),campaignId)
+            msg = g.message(code:'tools.massMailing.schedule.advise', args: [savedCampaign.subject, g.formatDate(date:  savedCampaign.sentOn, type:"datetime", style:"SHORT")])
+        }else{
+            // IS A DRAFT
+            savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
+            msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.subject])
+        }
+        if (command.filterId <0){
+            //Is a test
+            msg = g.message(code:'tools.massMailing.saveDraft.adviseTest', args: [savedCampaign.subject])
+            massMailingService.campaignTest(user, savedCampaign.getId())
+        }
+        msg
     }
 }

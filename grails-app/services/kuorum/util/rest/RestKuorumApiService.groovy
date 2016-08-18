@@ -1,9 +1,17 @@
 package kuorum.util.rest
 
-import grails.converters.JSON
+import groovyx.net.http.EncoderRegistry
+import groovyx.net.http.HttpResponseDecorator
+import groovyx.net.http.ParserRegistry
 import groovyx.net.http.RESTClient
 import kuorum.core.exception.KuorumException
+import org.apache.commons.io.IOUtils
+import org.apache.http.entity.InputStreamEntity
+import org.codehaus.jackson.map.ObjectMapper
+import org.codehaus.jackson.type.TypeReference
 import org.springframework.beans.factory.annotation.Value
+
+import java.nio.charset.StandardCharsets
 
 class RestKuorumApiService {
 
@@ -76,11 +84,9 @@ class RestKuorumApiService {
         }
     }
 
-    def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query) {
-        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        mailKuorumServices.handler.failure = { resp, data ->
-            throw new KuorumException("No found - ${apiMethod}")
-        }
+    def get(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.get(
                 path: path,
@@ -91,7 +97,7 @@ class RestKuorumApiService {
         return response
     }
 
-    def patch(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query) {
+    def patch(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.patch(
@@ -103,7 +109,7 @@ class RestKuorumApiService {
         return response
     }
 
-    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body = null) {
+    def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) {
         RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.put(
@@ -117,9 +123,13 @@ class RestKuorumApiService {
     }
 
 
-    def post(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body) {
-        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+    def post(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) {
+
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+
+//        encoderRegistry
         String path = apiMethod.buildUrl(apiPath,params);
+
         def response = mailKuorumServices.post(
                 path: path,
                 headers: ["User-Agent": "Kuorum Web", "token": kuorumRestApiKey],
@@ -128,5 +138,37 @@ class RestKuorumApiService {
                 requestContentType: groovyx.net.http.ContentType.JSON
         )
         return response
+    }
+
+    private RESTClient getRestMailKuorumServices(TypeReference clazz){
+        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+        EncoderRegistry encoderRegistry = mailKuorumServices.getEncoder();
+        encoderRegistry.putAt(groovyx.net.http.ContentType.JSON, {it ->
+            def builder = new groovy.json.JsonBuilder();
+            builder.content = it
+            InputStreamEntity res = new InputStreamEntity(new ByteArrayInputStream(builder.toString().getBytes(StandardCharsets.UTF_8)));
+            res.setContentType(groovyx.net.http.ContentType.JSON.toString())
+            return res;
+        })
+
+        ParserRegistry parserRegistry = mailKuorumServices.getParser()
+        parserRegistry.putAt(groovyx.net.http.ContentType.JSON, { HttpResponseDecorator resp ->
+            def obj = null
+            if (resp.status ==200){
+                if(clazz != null){
+                    String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
+                    obj = new ObjectMapper().readValue(jsonString, clazz);
+                }
+                return obj
+            }else{
+                throw new KuorumException("No found")
+            }
+        })
+
+        mailKuorumServices.handler.failure = { resp, data ->
+            throw new KuorumException("No found")
+        }
+        return mailKuorumServices
+
     }
 }

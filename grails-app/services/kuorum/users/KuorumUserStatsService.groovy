@@ -7,6 +7,7 @@ import kuorum.core.model.project.ProjectRegionStats
 import kuorum.core.model.UserType
 import kuorum.project.AcumulativeVotes
 import kuorum.util.rest.RestKuorumApiService
+import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 
 @Transactional(readOnly = true)
@@ -92,9 +93,10 @@ class KuorumUserStatsService {
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_STATS_LEANING_INDEX,
                 [userId:user.id.toString()],
-                [:]
+                [:],
+                new TypeReference<LeaningIndexRSDTO>(){}
         )
-        LeaningIndexRSDTO leaningIndexRSDTO =  new LeaningIndexRSDTO(response.data)
+        LeaningIndexRSDTO leaningIndexRSDTO =  response.data
 
         return leaningIndexRSDTO;
     }

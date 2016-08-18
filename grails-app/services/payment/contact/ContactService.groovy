@@ -3,6 +3,7 @@ package payment.contact
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.SearchContactRSDTO
@@ -18,7 +19,12 @@ class ContactService {
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.put(RestKuorumApiService.ApiMethod.USER_CONTACTS, params,query, contactRSDTOs)
+        def response= restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.USER_CONTACTS,
+                params,
+                query,
+                contactRSDTOs,
+                null)
 //        if (response.data){
 //            ContactsInfoRSDTO contactsInfo = (ContactsInfoRSDTO)response.data
 //        }
@@ -28,7 +34,11 @@ class ContactService {
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_CONTACT_TAGS, params,query)
+        def response= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_TAGS,
+                params,
+                query,
+                new TypeReference<List<String>>(){})
         List<String> tags = []
         if (response.data){
             tags = response.data
@@ -40,7 +50,11 @@ class ContactService {
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_CONTACT_FILTERS, params,query)
+        def response= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_FILTERS,
+                params,
+                query,
+                new TypeReference<List<ExtendedFilterRSDTO>>(){})
         List<ExtendedFilterRSDTO> filters = []
         if (response.data){
             filters = response.data
@@ -52,7 +66,12 @@ class ContactService {
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
 
-        def response= restKuorumApiService.post(RestKuorumApiService.ApiMethod.USER_CONTACT_FILTERS, params,query, filterRSDTO)
+        def response= restKuorumApiService.post(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_FILTERS,
+                params,
+                query,
+                filterRSDTO,
+                new TypeReference<ExtendedFilterRSDTO>(){})
         ExtendedFilterRSDTO filter= null
         if (response.data){
             filter = response.data
@@ -67,7 +86,11 @@ class ContactService {
         Map<String, String> query = new org.apache.commons.beanutils.BeanMap(searchContactRSDTO);
         query = query.findAll {k,v -> v }
 
-        def response= restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_CONTACTS, params,query)
+        def response= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACTS,
+                params,
+                query,
+                new TypeReference<ContactPageRSDTO>(){})
         ContactPageRSDTO contactPage = new ContactPageRSDTO();
         if (response.data){
             contactPage = response.data

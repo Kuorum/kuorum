@@ -147,7 +147,12 @@ class MandrillAppService {
             userMailRSDTO.email =it.user.email
             return userMailRSDTO
         }
-        restKuorumApiService.post(apiMethod,params, [:], sendMailRSDTO )
+        restKuorumApiService.post(
+                apiMethod,
+                params,
+                [:],
+                sendMailRSDTO,
+                null)
     }
 
 }

@@ -5,6 +5,8 @@ import kuorum.core.model.search.Pagination
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.codehaus.jackson.type.TypeReference
+import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 import org.kuorum.rest.model.tag.SupportedCauseRSDTO
@@ -18,7 +20,11 @@ class CausesService {
     IndexSolrService indexSolrService;
 
     List<CauseRSDTO> findDefendedCauses(KuorumUser user) {
-        def response = restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_CAUSES_DEFENDED, [userId:user.id.toString()],[:])
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CAUSES_DEFENDED,
+                [userId:user.id.toString()],
+                [:],
+                new TypeReference<List<CauseRSDTO>>(){})
         List<CauseRSDTO> account = [];
         if (response.data){
             account = (List<CauseRSDTO>)response.data
@@ -27,7 +33,11 @@ class CausesService {
     }
 
     List<CauseRSDTO> findSupportedCauses(KuorumUser user) {
-        def response = restKuorumApiService.get(RestKuorumApiService.ApiMethod.USER_CAUSES_SUPPORTED, [userId:user.id.toString()],[:])
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CAUSES_SUPPORTED,
+                [userId:user.id.toString()],
+                [:],
+                new TypeReference<List<CauseRSDTO>>(){})
         List<CauseRSDTO> account = [];
         if (response.data){
             account = (List<CauseRSDTO>)response.data
@@ -36,10 +46,14 @@ class CausesService {
     }
 
     CauseRSDTO createCause(String causeName){
-        def response = restKuorumApiService.put(RestKuorumApiService.ApiMethod.CAUSE_OPERATIONS, [causeName:causeName],[:])
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.CAUSE_OPERATIONS,
+                [causeName:causeName],
+                [:],
+                new TypeReference<CauseRSDTO>(){})
         CauseRSDTO cause = null;
         if (response.data){
-            cause = new CauseRSDTO(response.data)
+            cause = response.data
         }
         return cause;
     }
@@ -48,10 +62,11 @@ class CausesService {
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_CAUSES_SUPPORT,
                 [userId:user.id.toString(), causeName:causeName],
-                [:])
+                [:],
+                new TypeReference<SupportedCauseRSDTO>(){})
         SupportedCauseRSDTO cause = null;
         if (response.data){
-            cause = new SupportedCauseRSDTO(response.data)
+            cause = response.data
         }
         return cause;
     }
@@ -72,10 +87,11 @@ class CausesService {
         def response = restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_CAUSES_DEFEND,
                 [userId:user.id.toString(), causeName:causeName],
-                [:])
+                [:],
+                new TypeReference<SupportedCauseRSDTO>(){})
         SupportedCauseRSDTO cause = null;
         if (response.data){
-            cause = new SupportedCauseRSDTO(response.data)
+            cause = response.data
         }
         return cause;
     }
@@ -96,10 +112,11 @@ class CausesService {
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_CAUSES_SUPPORT,
                 [userId:user.id.toString(), causeName:causeName],
-                [:])
+                [:],
+                new TypeReference<SupportedCauseRSDTO>(){})
         SupportedCauseRSDTO cause = null;
         if (response.data){
-            cause = new SupportedCauseRSDTO(response.data)
+            cause = response.data
         }
         return cause;
     }
@@ -109,10 +126,11 @@ class CausesService {
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.CAUSE_SUGGESTIONS,
                 [:],
-                [userId:user.id.toString(),page:Math.round(pagination.offset/pagination.max), size:pagination.max])
+                [userId:user.id.toString(),page:Math.round(pagination.offset/pagination.max), size:pagination.max],
+                new TypeReference<SuggestedCausesRSDTO>(){})
         SuggestedCausesRSDTO suggestions = null;
         if (response.data){
-            suggestions = new SuggestedCausesRSDTO(response.data)
+            suggestions = response.data
         }
         return suggestions;
     }
@@ -138,10 +156,11 @@ class CausesService {
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.CAUSE_USERS_DEFENDING,
                 [causeName:causeName],
-                [page:page.offset/page.max, size: page.max])
+                [page:page.offset/page.max, size: page.max],
+                new TypeReference<UsersSupportingCauseRSDTO>(){})
         UsersSupportingCauseRSDTO supportingCauseRSDTO = null;
         if (response.data){
-            supportingCauseRSDTO = new UsersSupportingCauseRSDTO(response.data)
+            supportingCauseRSDTO = response.data
         }
         return supportingCauseRSDTO;
     }
@@ -149,10 +168,11 @@ class CausesService {
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.CAUSE_USERS_SUPPORTING,
                 [causeName:causeName],
-                [page:page.offset/page.max, size: page.max])
+                [page:page.offset/page.max, size: page.max],
+                new TypeReference<UsersSupportingCauseRSDTO>(){})
         UsersSupportingCauseRSDTO supportingCauseRSDTO = null;
         if (response.data){
-            supportingCauseRSDTO = new UsersSupportingCauseRSDTO(response.data)
+            supportingCauseRSDTO = response.data
         }
         return supportingCauseRSDTO;
     }
