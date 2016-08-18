@@ -53,9 +53,9 @@ class MassMailingController {
 
     private def modelMassMailing(KuorumUser user, MassMailingCommand command, def testFilterParam){
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
+        ExtendedFilterRSDTO testFilter = fakeTestFilter(filters, user)
         if (testFilterParam){
 //            ExtendedFilterRSDTO testFilter = createTestFilter(filters, loggedUser)
-            ExtendedFilterRSDTO testFilter = fakeTestFilter(filters, user)
             command.filterId = testFilter.id
         }
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
