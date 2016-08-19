@@ -11,9 +11,9 @@
         - ${campaign.filter?.name?:g.message(code:'tools.massMailing.fields.filter.to.all')}
     </p>
     <ul>
-        <li class="recipients"><span class="recip-number">${campaign.numberRecipients}</span> <g:message code="tools.massMailing.list.recipients"/> </li>
-        <li class="open"><span class="open-number">${campaign.numberOpens/campaign.numberRecipients*100}</span> <g:message code="tools.massMailing.list.opens"/></li>
-        <li class="click"><span class="click-number">${campaign.numberClicks/campaign.numberRecipients*100}</span> <g:message code="tools.massMailing.list.click"/></li>
+        <li class="recipients"><span class="recip-number">${campaign.numberRecipients>0?campaign.numberRecipients:''}</span> <g:message code="tools.massMailing.list.recipients"/> </li>
+        <li class="open"><span class="open-number">${campaign.numberRecipients>0?campaign.numberOpens/campaign.numberRecipients*100:''}</span> <g:message code="tools.massMailing.list.opens"/></li>
+        <li class="click"><span class="click-number">${campaign.numberRecipients>0?campaign.numberClicks/campaign.numberRecipients*100:''}</span> <g:message code="tools.massMailing.list.click"/></li>
     </ul>
     <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="campaignEdit"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
     <a href="#" role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></a>
