@@ -925,9 +925,10 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 table.csv {margin-bottom: 40px;}
 table.csv tbody th {min-width: 200px;}
 table.csv tbody td {min-width: 150px;}
-table.csv input {margin-left: 15px; display: none;}
-table.csv > tbody > tr:first-child > th input,
-table.csv > tbody > tr.highlight_row + tr > th input {display: inline-block;}
+table.csv input {margin-left: 15px;}
+table.csv .notImport{display:none}
+table.csv > tbody > tr:first-child > th .notImport,
+table.csv > tbody > tr.highlight_row + tr > th .notImport {display: inline-block;}
 table.csv .highlight_row {background-color: #f7f7f7;}
 
 .box-ppal.import-contacts.csv label {font-size: 17px; font-size: 1.7rem;}
@@ -5290,7 +5291,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #toFilters .btn {margin-top: 0; display: inline-block;}
     #toFilters > div:last-child {text-align: left;}
     #filterContacts {margin-top: 0;}
-    #campaignsOrderOptions > ul {width: 55%; margin: 5px 0 0 10px;}
+    #campaignsOrderOptions > ul {width: 50%; margin: 5px 0 0 10px;}
     #campaignsOrderOptions > ul li, #campaignsOrderOptions > ul li:last-child {margin: 0 10px; display: inline;}
     #campaignsOrderOptions > div {width: 34%; float: right; margin-top: 0}
     .nav-tabs.simple > li > a {padding: 10px 15px;}
