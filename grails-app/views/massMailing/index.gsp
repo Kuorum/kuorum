@@ -20,9 +20,11 @@
             <form class="form-horizontal">
                 <fieldset class="form-group" id="toFilters">
                     <div class="col-sm-3">
-                        <label for="filterCampaigns" class="sr-only">Filter Campaigns:</label>
+                        <label for="filterCampaigns" class="sr-only">
+                            <g:message code="tools.massMailing.list.filter.title"/> :
+                        </label>
                         <select name="filterCampaigns" class="form-control input-lg" id="filterCampaigns">
-                            <option value="all" name="all" id="all">All</option>
+                            <option value="all" name="all" id="all"><g:message code="tools.massMailing.list.filter.all"/> </option>
                             <g:each in="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.values()}" var="campaingStatus">
                                 <option value="${campaingStatus}" name="${campaingStatus}" id="${campaingStatus}">
                                     <g:message code="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.class.name}.${campaingStatus}"/>
@@ -31,7 +33,11 @@
                         </select>
                     </div>
                     <div class="col-sm-3">
-                        <span id="infoFilterCampaigns"><span class="totalList"></span> campaigns <span class="filtered"></span></span>
+                        <span id="infoFilterCampaigns">
+                            <span class="totalList"></span>
+                            <g:message code="tools.massMailing.list.filter.counterText"/>
+                            <span class="filtered"></span>
+                        </span>
                     </div>
                     <div class="col-sm-3 col-md-3 col-md-offset-1">
                         <div class="searchContainer">
@@ -39,7 +45,9 @@
                         </div>
                     </div>
                     <div class="col-sm-1">
-                        <g:link mapping="politicianMassMailingNew" class="btn btn-blue inverted">New campaign</g:link>
+                        <g:link mapping="politicianMassMailingNew" class="btn btn-blue inverted">
+                            <g:message code="tools.massMailing.list.newCampaign"/>
+                        </g:link>
                     </div>
                 </fieldset>
             </form>
@@ -47,13 +55,13 @@
         <!-- LISTADO DE CAMPAÑAS -->
         <div class="box-ppal list-campaigns">
             <div id="campaignsOrderOptions" class="clearfix">
-                <span>Order by:</span>
+                <span><g:message code="tools.massMailing.list.order.by"/> :</span>
                 <ul>
-                    <li><a href="#" role="button" class="sort" data-sort="timestamp">Time sent</a></li>
-                    <li><a href="#" role="button" class="sort" data-sort="title">Title</a></li>
-                    <li><a href="#" role="button" class="sort" data-sort="recip-number">Recipients</a></li>
-                    <li><a href="#" role="button" class="sort" data-sort="open-number">Open rate</a></li>
-                    <li><a href="#" role="button" class="sort" data-sort="click-number">Click rate</a></li>
+                    <li><a href="#" role="button" class="sort" data-sort="timestamp"><g:message code="tools.massMailing.list.order.timeSent"/></a></li>
+                    <li><a href="#" role="button" class="sort" data-sort="title"><g:message code="tools.massMailing.list.order.title"/></a></li>
+                    <li><a href="#" role="button" class="sort" data-sort="recip-number"><g:message code="tools.massMailing.list.order.recipients"/></a></li>
+                    <li><a href="#" role="button" class="sort" data-sort="open-number"><g:message code="tools.massMailing.list.order.openRate"/></a></li>
+                    <li><a href="#" role="button" class="sort" data-sort="click-number"><g:message code="tools.massMailing.list.order.clickRate"/></a></li>
                 </ul>
                 <div class="pag-list-campaigns">
                     <ul class="paginationTop"></ul>

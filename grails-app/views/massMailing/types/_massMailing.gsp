@@ -20,7 +20,7 @@
                 <span class="sr-only"><g:message code="tools.massMailing.fields.filter.button"/></span>
             </a>
             <span id="infoToContacts">
-                <span class="amountRecipients"></span> recipients <span class="fa fa-filter fa-lg"></span>
+                <span class="amountRecipients"></span> <g:message code="tools.massMailing.fields.filter.recipients"/> <span class="fa fa-filter fa-lg"></span>
             </span>
         </div>
     </fieldset>
@@ -70,8 +70,8 @@
                     </a>
                     <div id="selectDate">
                         %{--<form>--}%
-                            <label class="sr-only">Select your date</label>
-                            <formUtil:date field="scheduled" command="${command}" cssClass="form-control"/>
+                            <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
+                            <formUtil:date field="scheduled" command="${command}" cssClass="form-control" time="true"/>
                             <button type="submit" class="btn btn-blue inverted" id="sendLater">
                                 <g:message code="tools.massMailing.schedule.sendLater"/>
                             </button>
@@ -92,7 +92,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span>
+                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                 </button>
                 <h4 id="campaignConfirmTitle">
                     <g:message code="tools.massMailing.confirmationModal.title"/>
