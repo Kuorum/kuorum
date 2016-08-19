@@ -319,11 +319,16 @@ $(document).ready(function() {
 
     // input tags
     if ($('#tagsField').length) {
+        var tagsUrl = 'mock/tags.json';
+        if ($('#tagsField').attr("data-urlTags") != undefined){
+            tagsUrl=$('#tagsField').attr("data-urlTags");
+        }
         var tagsnames = new Bloodhound({
           datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           prefetch: {
-            url: 'mock/tags.json',
+            url: tagsUrl,
+              cache:false, //Prevents local storage
             filter: function(list) {
               return $.map(list, function(tagsname) {
                 return { name: tagsname }; });
