@@ -568,6 +568,7 @@ class PostService {
     Boolean isAllowedToDefendAPost(Post post, KuorumUser politician){
         return (
                 politician.userType == UserType.POLITICIAN &&
+                politician?.professionalDetails?.region &&
                 politician.professionalDetails.region == post.project.region
         )
     }
