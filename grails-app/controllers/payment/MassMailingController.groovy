@@ -17,6 +17,7 @@ import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.OperatorTypeRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
 
@@ -120,18 +121,22 @@ class MassMailingController {
         redirect mapping:'politicianMassMailing'
     }
 
-    def editCampaign(Long campaignId){
+    def showCampaign(Long campaignId){
         KuorumUser loggedUser = springSecurityService.currentUser
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
-        MassMailingCommand command = new MassMailingCommand()
-        command.filterId = campaignRSDTO.filter?.id?:null
-        KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.imageUrl)
-        command.headerPictureId =kuorumFile.id
-        command.scheduled = campaignRSDTO.sentOn
-        command.subject=campaignRSDTO.subject
-        command.text =campaignRSDTO.body
+        if (campaignRSDTO.status == CampaignStatusRSDTO.DRAFT || campaignRSDTO.status == CampaignStatusRSDTO.SCHEDULED ){
+            MassMailingCommand command = new MassMailingCommand()
+            command.filterId = campaignRSDTO.filter?.id ?: null
+            KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.imageUrl)
+            command.headerPictureId = kuorumFile.id
+            command.scheduled = campaignRSDTO.sentOn
+            command.subject = campaignRSDTO.subject
+            command.text = campaignRSDTO.body
 
-        render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, false)
+            render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, false)
+        }else{
+            render view: 'showCampaign', model: [campaign: campaignRSDTO]
+        }
 
     }
 

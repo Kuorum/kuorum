@@ -325,7 +325,7 @@ class UrlMappings {
         name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
         name politicianMassMailing:                     "/account/mass-mailing" (controller:"massMailing", action: "index")
         name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing",POST:'saveMassMailing']}
-        name politicianMassMailingEdit:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"editCampaign",POST:'updateCampaign']}
+        name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"showCampaign",POST:'updateCampaign']}
         name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
 
         "/sitemapIndex"{
