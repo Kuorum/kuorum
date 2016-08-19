@@ -1,6 +1,7 @@
 package kuorum.web.commands.payment.massMailing
 
 import grails.validation.Validateable
+import org.grails.databinding.BindingFormat
 
 /**
  * Created by iduetxe on 16/08/16.
@@ -13,6 +14,7 @@ class MassMailingCommand {
     String text;
     String headerPictureId;
 
+    @BindingFormat('yyyy/MM/dd HH:mm')
     Date scheduled
     String sendType
 
