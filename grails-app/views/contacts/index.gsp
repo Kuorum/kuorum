@@ -21,5 +21,8 @@
                 <li>${contact.name} (${contact.email})</li>
             </g:each>
         </ul>
+        <g:link mapping="politicianContactImport" class="btn btn-blue inverted">
+            Import more contacts
+        </g:link>
     </div>
 </content>
