@@ -5273,7 +5273,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .carousel.news .carousel-control {top: 22%;}
 
     /* import contacts */
-    .box-ppal.import-contacts, .box-ppal.dashboard {padding: 70px 70px 50px 70px;}
+    .box-ppal.import-contacts, .box-ppal.dashboard {padding: 70px 70px 0px 70px;}
     .box-ppal.import-contacts p, .box-ppal.dashboard p {margin-bottom: 45px;}
     .box-ppal.import-contacts.csv {padding-top: 50px;}
     .box-ppal.import-contacts .bootstrap-filestyle {margin-bottom: 40px;}
