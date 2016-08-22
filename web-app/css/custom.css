@@ -228,6 +228,8 @@ button:focus {
 
 /* General Styles (Estilos generales) =========== */
 /* ====================================================== */
+body.on {padding-top: 120px;}
+
 select.input-lg {padding: 0px 16px 0px 10px;height:36px;}
 .input-lg {padding: 10px 12px;}
 .modal-content {border-radius: 3px;}
@@ -1255,6 +1257,12 @@ li + .picker-switch {display: none;}
 #dashboardGraphs {min-height: 415px;}
 #dashboardGraphs .nav-tabs.simple > li {margin-bottom: 10px; margin-right: 22px;}
 #dashboardGraphs .nav-tabs.simple {margin-bottom: 20px;}
+
+.alert-box {display: none; background-color: #ca1d3f; color: #fff; height: 54px; text-align: center; position: fixed; top: 0; left: 0; width: 100%; padding: 15px; font-size: 16px; font-size: 1.6rem;}
+.alert-box.on {display: block;}
+.alert-box a {color: #fff; text-transform: uppercase; text-decoration: underline;}
+.alert-box a:hover, .alert-box a:focus, .alert-box a:active {color: #fff;}
+.alert-box.on + #header .navbar-fixed-top {top: 64px;}
 
 #profileInfo {position: relative; font-size: 15px; font-size: 1.5rem;}
 
