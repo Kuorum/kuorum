@@ -80,11 +80,14 @@
     <meta property="twitter:account_id" content="4503599627910348">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="http://schema.org/WebPage" class="on">
 
 <div class ="container-fluid">
 
     <a href="#main" accesskey="S" class="sr-only first" tabindex="1">Ir directamente al contenido</a>
+
+    <!-- para hacer visible esto, añadir clase "on" y añadirle también esta clase al <body> -->
+    <div class="alert-box on">Get a monthly 10% discount for every friend you invite to join. <a href="#" id="openInviteModal">INVITE NOW!</a></div>
 
     <!--  *******************  HEADER CONECTADO POLÍTICO  *******************  -->
     <header id="header" role="banner" class="row landing">
@@ -704,6 +707,28 @@
         </section>
     </footer>
 
+    <!-- MODAL INVITE FRIENDS -->
+    <div class="modal fade in" id="inviteFriendsModal" tabindex="-1" role="dialog" aria-labelledby="inviteFriendsTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span>
+                    </button>
+                    <h4 id="inviteFriendsTitle">Invite your friends and you all will get a 10% discount in our services.</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="inviteForm">
+                        <fieldset class="form-group">
+                            <label for="friends" class="control-label">Add email addresses separated by comas.</label>
+                            <textarea id="friends" class="form-control"></textarea>
+                        </fieldset>
+                        <a href="#" class="btn btn-blue inverted btn-lg" id="inviteFriendsBtn">Invite friends</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div><!--fin container -->
 

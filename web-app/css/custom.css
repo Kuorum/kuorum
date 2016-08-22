@@ -1258,14 +1258,13 @@ li + .picker-switch {display: none;}
 #dashboardGraphs .nav-tabs.simple > li {margin-bottom: 10px; margin-right: 22px;}
 #dashboardGraphs .nav-tabs.simple {margin-bottom: 20px;}
 
-.alert-box {display: none; background-color: #ca1d3f; color: #fff; height: 54px; text-align: center; position: fixed; top: 0; left: 0; width: 100%; padding: 15px; font-size: 16px; font-size: 1.6rem;}
+.alert-box {display: none; background-color: #ca1d3f; color: #fff; height: 54px; text-align: center; position: fixed; top: 0; left: 0; width: 100%; padding: 5px; font-size: 16px; font-size: 1.6rem; line-height: 1.4;}
 .alert-box.on {display: block;}
 .alert-box a {color: #fff; text-transform: uppercase; text-decoration: underline;}
 .alert-box a:hover, .alert-box a:focus, .alert-box a:active {color: #fff;}
 .alert-box.on + #header .navbar-fixed-top {top: 64px;}
 
 #profileInfo {position: relative; font-size: 15px; font-size: 1.5rem;}
-
 #progressProfile {overflow: hidden; position: relative; background-color: #e5e5e5; display: block; float: left; border-radius: 50%; width: 120px; height: 120px; z-index: 2;}
 #progressProfileFill {
     width: 100%;
@@ -1293,7 +1292,12 @@ li + .picker-switch {display: none;}
 #profileInfo .dropdown-menu {width: 165px; margin-top: 5px;}
 #profileInfo .dropdown-menu > li:first-child {border-bottom: none; padding: 0;}
 
-
+#inviteFriendsModal {text-align: center;}
+#inviteFriendsModal h4 {color: #545454; margin-top: 20px; font-variant: normal; font-size: 24px; font-size: 2.4rem; font-weight: normal; margin-bottom: 0;}
+#inviteFriendsModal .modal-header {border: none; padding-bottom: 0;}
+#inviteForm textarea {height: 150px;}
+#inviteForm .form-group {text-align: left;}
+#inviteForm .control-label {font-size: 16px; font-size: 1.6rem;}
 
 .kakareo-list.project {margin: 0; list-style: none;}
 .kakareo-list.project .kakareo.post.ley {padding: 0;}
@@ -5378,6 +5382,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* DASHBOARD (08/2016) */
     #mails {margin: 0 auto; width: 575px; text-align: center;}
     #dashboardGraphs .nav-tabs.simple > li {margin-bottom: -1px; margin-right: 1px;}
+    .alert-box {height: 54px; padding: 15px;}
+    #inviteFriendsModal h4 {font-size: 26px; font-size: 2.6rem;}
 
 }
 

@@ -588,6 +588,16 @@ $(document).ready(function() {
         }, 1500);
     }
 
+    // abrir modal invitar amigos
+    $('body').on('click','#openInviteModal', function(e) {
+        e.preventDefault();
+        $("#inviteFriendsModal").modal("show");
+    });
+    // cerrar modal confirmar envío campaña
+    $('body').on('click','#inviteFriendsBtn', function() {
+        $("#inviteFriendsModal").modal("hide");
+    });
+
 
 
     // Carrusel noticias perfil político
