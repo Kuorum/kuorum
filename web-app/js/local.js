@@ -486,6 +486,10 @@ $(document).ready(function() {
     // FILTRADO Y BUSCADOR LISTADO CAMPAÑAS
     if ($('#listCampaigns').length) {
 
+        $('#search-form-campaign').submit(function(){
+            //The search campaign form has not a submit action. All the search is done with javascript
+            return false;
+        });
         //contador para el select (antes del plugin)
         var counterList = $('#campaignsList > li').length;
         $('.totalList').text(counterList);
