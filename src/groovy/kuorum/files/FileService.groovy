@@ -50,4 +50,15 @@ public interface FileService {
 
 
     public InputStream readFile(KuorumFile kuorumFile)
+
+    /**
+     * Crops an image
+     * @param kuorumFile
+     * @param x -> 0 is left corner
+     * @param y -> 0 is top corner
+     * @param h -> Height
+     * @param w -> weight
+     * @return
+     */
+    KuorumFile cropImage(KuorumFile kuorumFile, def x, def y, def h, def w);
 }
