@@ -362,18 +362,18 @@ $(document).ready(function() {
     });
     // Datepiker for all input dates
     $('.input-group.date').datepicker({
-
         language: "es",
         autoclose: true,
         todayHighlight: true
-
     });
+
 
     // Datetime piker for all input datestimes
     $('.input-group.datetime').datetimepicker({
         locale: "es",
         format:"YYYY/MM/DD HH:mm",
         allowInputToggle:true,
+        collapse: false,
         stepping:15
     });
 
@@ -573,6 +573,23 @@ $(document).ready(function() {
           });
         }
     }
+
+
+    //animar porcentaje perfil político
+    if ($('#profileInfo').length) {
+        var skillBar = $('#progressProfileFill');
+        var skillVal = skillBar.attr("data-progress");
+        $(skillBar).animate({
+            height: skillVal
+        }, 1500);
+        var skillIndicator = $('#progressLineFill');
+        $(skillIndicator).animate({
+            height: skillVal
+        }, 1500);
+    }
+
+
+
     // Carrusel noticias perfil político
     $('.carousel.news').carousel({
           interval: false,

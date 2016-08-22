@@ -903,7 +903,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .bootstrap-filestyle .btn {border-radius: 0 !important;}
 .bootstrap-filestyle .input-group-btn {outline: none;}
 
-.box-ppal.import-contacts, .box-ppal.dashboard {padding: 25px 25px 10px 25px; margin-top: 20px;}
+.box-ppal.import-contacts, .box-ppal.dashboard {padding: 25px 25px 10px 25px;}
 .breadcrumb + .box-ppal.import-contacts, .breadcrumb + .box-ppal.dashboard {margin-top: 0;}
 .box-ppal.5062 .bootstrap-filestyle {margin-bottom: 20px;}
 .box-ppal.import-contacts > p,
@@ -931,9 +931,9 @@ table.csv > tbody > tr:first-child > th .notImport,
 table.csv > tbody > tr.highlight_row + tr > th .notImport {display: inline-block;}
 table.csv .highlight_row {background-color: #f7f7f7;}
 
-.box-ppal.import-contacts.csv label {font-size: 17px; font-size: 1.7rem;}
-.box-ppal.import-contacts.csv .bootstrap-tagsinput {width: calc(100% - 150px);}
-.box-ppal.import-contacts.csv input.btn {float: right;}
+.box-ppal.import-contacts.csv label {font-size: 17px; font-size: 1.7rem; display: block;}
+.box-ppal.import-contacts.csv .bootstrap-tagsinput {width: calc(100% - 23%);}
+.box-ppal.import-contacts.csv input.btn {float: right; width: 22%;}
 
 /* TAGS INPUT PLUGIN (08/2016) */
 #mySingleField {height: 35px;}
@@ -1134,7 +1134,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 .form-final-options #selectDate:after {
     border-color: rgba(255, 255, 255, 0);
-    border-bottom-color: #ffffff;
+    border-bottom-color: #f9f9f9;
     border-width: 10px;
     margin-left: -10px;
 }
@@ -1156,6 +1156,12 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #campaignConfirm .modal-body {background: url('../images/campaignModalConfirm.jpg')  center 0 no-repeat transparent; padding-top: 245px;}
 
 .datepicker-days tbody td {cursor: pointer;}
+.datepicker th {text-align: center;}
+li + .picker-switch {display: none;}
+.timepicker-picker th, .timepicker-picker td {text-align: center;}
+.timepicker-picker .table-condensed {margin: 0 auto;}
+.timepicker-picker .btn {background-color: transparent !important; color: #ff9431 !important; margin: 0;}
+.timepicker-picker .btn:active, .timepicker-picker .btn:focus, .timepicker-picker .btn:hover {box-shadow: none; background-color: #dedede !important;}
 
 .form-final-options #selectDate .input-group {margin-bottom: 15px;}
 .form-final-options #selectDate .btn {display: block; width: 100%;}
@@ -1199,21 +1205,21 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #campaignsList {/*height: 520px;*/ overflow-y: auto; color: #a8a8a8; padding: 0; margin: 0;}
 .box-ppal.list-campaigns {padding-left: 0; padding-right: 0;}
 #campaignsList li {list-style: none;}
-#campaignsList > li {padding: 25px 25px 15px 50px; border-bottom: 1px solid #e5e5e5; position: relative;}
-#campaignsList > li > .state {position: absolute; text-indent: -9999px; top: 33px; left: 15px; display: block; width: 27px; height: 27px; background-repeat: no-repeat; background-position: center center;}
+#campaignsList > li {padding: 25px 10px 10px 35px; border-bottom: 1px solid #e5e5e5; position: relative;}
+#campaignsList > li > .state {position: absolute; text-indent: -9999px; top: 33px; left: 5px; display: block; width: 27px; height: 27px; background-repeat: no-repeat; background-position: center center;}
 #campaignsList > li.SENT > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAFBklEQVRIS41Wa2xURRT+5u62FWw1YLC7bWorlERFICi+jTEYH3+IRaiNKO1ulza1hiAIBlFjq9EICDY+gJJ220oh8QGGaDRqGtPKQymCL34YTYQ27m4bbbHbKu127/jN3Ufv3r1tmeTkzp0553znNWdG4FJGYO31ENH7yHoLaT7pStIQJP6AkD9CoBO5RSch6vSp1IkpsUKehZBiFXkeIC0g5djw/8c1BfoldO0Q8vxHJ9NpD9Zfm43ov08BYi0Fiy/F+ThPP2XaocsG5Lf0WuXSwQLl10A4tpOxlKTZAI1wLUpykGbY8kgcJ+h6ennKLJ8K1lueD6ezCZAPWUD+YphOU0E3rf4Vmhg0QqpjHvO1JJ7LAovML0yB1ww4ARaonglEmij8mElIcv4pHWyEI6sTV+8eTvNUljoQmHk7HFo5C6aC+1kmnhM0qCwR0hiYJESochMnr/HPGWeOQMqdiDp2oKB5YNq8yTonQudr6P3L1DMryS/xFtwZmyD2RWJgwQpWmnaEs3lxJuXRLrgKt7Ccx6cFMjMEvU/yd5sR5thgjsVyuP1fCyiL+s49y/i+arLmK4zKR3Ft64VpgWR1BkLjKvQXqfADgz/kbWS0qpOyAo2IDG8Q6KtczLjupOvq0KrBcyNWUvDz6YGM0G0l30sxOWyGq2Uv+isXsZA+4X+iaHpYVD6BgGcjhFjHjaKYctmFsbESFB5UFQf0e+YjqhVjINyBBR+OTXivgHqeI/+LXMsw1gUu0PAtyGtpRMjTzmg9HudXnWW3QNDbxkkJ6YrYhqiHy19PQYlAxc3QtCbOCkgNGBzebgAaoYsQCM+TMlMjIA/BNVKGUM4aGrKXe4nq/IZgnk4C3M3FxAGuhbtlD/70LYEmWymwKK6MXokXIJ3vQousJ3h90qMkmvgJerQW+W3HmLdl9OwjU2WeVp51k3fpRHhkOfJa99MI5kHUpVqNMEG+pdd3cD3bsneWealCrv+Esd7nvRO64BlNHoMzCqyLW3clPZOoMWKuQig0FWLVgKcbZ2mAj8XxXZIx6LmXwTps9cySM1kHV9ErxnVhhFJvp4IbpkD7mUBVKUCKOeCpYuG9bcrZUZtq5N00NroiWY0KUOgtVLg4DVDgB4aqytpwDb6Qdz9D/kRcZpxzVmPAexMV7eDisvjGCDdWMpRfJJUHKpeyEfv5v9AEeIZhqoG7+WSaEcbZZVVOdKQeZZTAb+uykBN+JqWDqIswI1KKqw4MmXLAW5rHQFWn8gjMrTlHCUZZp/Ggv8Nf1bZiQ6IJ2vjTsd4Y8t0IqX/MWeKiVPdVAwaGt6Yc5Ni5K6GVR2xDp3QFPbWsYtXQ1dNBjSGm4RG42jriXV9Z07OBJrzOzUTX5+EVbyBrdFuKh2kxS1hvHHTe7KrHWrr+4PBmZfTEfRZaczkPbDNFy0z6lIefUXgXnNr3mOMPp2HF7sHryFPL6lvNfXV7J0Y3ZHQV8t7rUQupN3Vf5VyGcw89Ug8c8whTUQdjf5z0O6UusmAyjTYmcBu/D5J5jkUm7Uikv0H6fcWIRhlOsYLCdm8Q1YwVqXBfZhtVIY7R4I3WSrV/XZ1fPQuZWT4qUhU1d7I02az30cv36fWbcLees+5P/W40WpZ4mG2LTVUnqHDbAPzNdSrW2TPFYeQWdk12u08NpjT3ls6AM/tW5uZ+Wn0PV2aT1LURIf1DOmU8UDMzuzB7n/qfdPwPBt7B4OnyQfEAAAAASUVORK5CYII=');}
 #campaignsList > li.SCHEDULED > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAaCAYAAABCfffNAAAEe0lEQVRIS5VWfWhbVRT/3Ze0zaJ2W5LWIZvODYeKYh1jiB/I1CGIdnV0oZp2m5swcML8ZwjioIqg+IegzvqBrCwfrQa3sSmj+EGLn+jAwUBBtlHQdtoleXGtc+bjvevvvvdMXvKSMC/c9N1zfvf87jnnnnMr0GqMnl8Gv1gPaHcD4gZALic8wPk75zSkOAm/OYWF8FnsEqVmpkRDRVq2o5C9k4Z3cj5AzBLHuBte5mKB82di4ujwfYToYr2RPS9JMrccUj7HjU9yQ1tLT2uV38CUw9gW+bx+Ty1JKt8D09xP0F0e4xI6hHVy0/Eq4j2EzEBowxgMjbj3V0mS+q08SZqGbqwj+Iyy41ZYhHaeXhqcV3GuhhD3Uv4IZ7drT5G6vdgaeeM/mU0yNnc1ym3jEHKDCzxL4y+g3X+oWawxKf2Y1ddxzzAkHnTt/YvfWzAUnlAymySR28ffF6sgcQYakx5b+mWNV1IKYnnbxLXwt03i8c6spU9fCKFQep3yQRf+BCPzKHM0K5DM3cwoT5BuhQO4QGV/owQi/dsiFK4Y41XuI6aPmKMVowfnw9BKH3J9f0Um5dP0ZkQgnn2esVVe2F4JvITBsPLMO949F0SwI0lFL/O/GUNdx2pAydwdzAdlosux9R3z+JRy/1MKNjrgaRi+jdi+5GxDEuVJMZhk/HtZiJuxNfSxB5fMjVK/vRIViLcUiTK4yhF+QPcea0hgxV6FK5jg16amJHF9gBdIeetz7HyhSPJcqIpW938vSV5rSqIUidw4f/ubkhzMrGGIGCaEHDunFMklLtiPZIG52cZ8qOTZIy19KGVWoeyLQDML7GEB61pLeQ8N9bPoPvEcyLoAxe+Zl9WO7hdF8jcXiziLVOzAUChV2ajqx/CRVKgCVb1K47STCgzQ60MekgMLXWgv/sC8rHSTZLhQLULylGwJ4Wq9WKcqv88Y91Bb4FQYSWye4XqWif/a60n+dno9RXmnrRM/Kk/YRXGTA55AR+hhRIVhra3im+uCL3AlF7bMEBo0o4SLobmG7T2e3c2wv6msc6o8H1XFmObZttgkbHAQfQzDt54TXo7AeiL0I4Q+5MD/4N9XeFJ9F40rZqetyxQ6wjvoDXP0P0dCj9HWe9wVdEJ1jKHeLazmaPhVI+txTHq66GVRJfK3MTppYtdU7Ag5gMHIEbuVxLNDjOMBfvkdwEXr4VoRHsEGoW5V65HKroepvU0v1laAAodRmo/hiev/sUlUy57R3+EXn9vKYNLkGPO1HwHzJ0S7VfuuDlVDl3LLeLgoU7yHiutc2tMwBZts6JSSVR+tsfkITF5XKTfVHVu18ylOdV1n2H3L3LWUJbPWeX9uqcPPUL+TpaB6ojVqn19FZJRedjxq/E9Gy8DJkyTfw4L+yg3zGhqdDsDXGSP9MwTWn7IZxZ8MW4pV8SoL9Nd6UPPTjmeugaFFGdteq+KhQuQeVq87w8qfZO7G2cfYFIXqBp7ROiRpfTGK5n1MPt8bsdIh8tPwAoR5jrITrP7jiHWfbhXFfwFoyZDIbT0KhwAAAABJRU5ErkJggg==');}
 #campaignsList > li.DRAFT > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACXUlEQVQ4T52Uz0tUURTHz50foAktBly07BeU2UxC0SaEFm1atJSgNoWk2BshxcoCmWXG9OvNjyyLWberKIv+gTYh/VAqjRZRm6xAaBLE8fY5j/dCZ54604PvnHvn3vO533PfmTHyH4/N5XZJJJKR5eVOMaYk8fhV09MzryjTCM9mMhFJJFISjY6ItcfIjaA/KCuLi1fMwMBCY8BSqUnK5SKAU1VGFnA6KrHYzbqBtlhMSqWSoNQtuBsGuLcGKpKvC2gLhQPcl4uLBPE4JceA3g+Dbgi0rtuBqxzJB9E8oCmA/YBbOKDAvGOF08l1gcBSJI2hJCqS3EJyN+Mpyj8JWOd3fOgk8dKaQO/OrM37m13id0CnASR9Ry8BngG80zvE2nGTTj8MBfplFtjYjm6gnyiNdlS9iDfMhzjonbS2zpmurkoNkBewj9PG2KjlXmP8w4dtC+nZL6z34uxZsLYKaPP5PWy4B2g/MUucY+NZFAabYX2Y3nvOr0Sb23v+AT2YiDrTt+mir8hB20OcfeTA8zh7XL3mAbmzNlpD76wT3UafOb2XJL3w1Y+2jTEXjONMhBwkxi9zlE1H2aAlvkJb0e6QhA98N7gWzCsZ4APiEYDjHsDafj6bamDGzLI2BOxRmLPgOwV+Y+OsOM5hyWY3SXPzdRZPIG3a4Pnkweiz9WCBQy0jisMscYL4m2Y9R7zIPI50XZ092QgWAF8zSKEyLi7j4hauu5nfRTO8rEHT1/e0HlgAnGbQ5ie8BTqNu0PMf+nf1MqmrQeqd/iCxHYgS8QYcTOJ7xmPNArTA/8CHvDtgw1o76YAAAAASUVORK5CYII=');}
 #campaignsList > li.PROGRESS > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AgSCCcWMPIzewAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAKaSURBVEjH7ZbPSxVRFMe/594ZX4ZGC6GiSIgw7A8QqrcooR/7aBNEQYFtooTCdJinMQxkb/Gg2oQZFS2k31DUXlcFbYKCNKIgDCWCMp/y3p3zbSMymWLl1CI6cHfnnM+cc7733AH+osnPOHV2dq4xxqz4XYhzzvX29r5bFNbV1dVsrb0AYPMSinKqetFbzMtauxbAVhGpXWIXW8xiHqpqspiXMcZ6C7RupXOuwfd9S3JDVgL5AVYoFPYnSXIol8s1A/BERADUZg4LguAgyW5jTCOAYQAg6YvIqkxamQYZY7oBrFfVHgDbZ04PyanMKguC4EAKdCaO4yj1EePGmGxmVigU1gM4RrJRVXvSoKzNq1ar63zfbwLwlOTDIAg2pR2yVuMykj6AFmvtox/22Z9Qo4gYAKv/5CI2+Iv2D8MW2A7TSZIMk3z/K8lITpF8RXJ0Xpi19qiILE8FlJMk6XDO7QCwl+S9nwR9BXDKObfDObcvSZIHc16PxAMwRvKlqnrW2iZVfVYuly+XSqUygNEwDO+Q3AOAAN7OczU8AE0AnkRR1AegAuBDGIb3Se4CUAUwAmDQjI+PHwbQSvI4yU/GGL++vt5P5asFYFV1oFKp7ATQmj4kT5L8IiK5tra2XCpu2YwmbkxMTOyO4/j87G9Be3t7Q11d3cBMknPOuZue520QkeMktwBoi6Kof25lYRiuEpHbJLeJyFnn3C1r7UYAJwC0qOqROI6vfafGUqn0UVX7RGRERDqMMY8AXCG5DcB159zd+WYVRdEYyUsA3pA8LSKPAfQD2KKqV2tqamZnbtOBQ0NDL/L5/LCITImID+C1qvZNTk4Wi8Xip4XEMTg4+Dyfz48AmDbG1AB4BeBSkiTFKIo+479lad8A1mQzSakS41oAAAAASUVORK5CYII=');}
 #campaignsList > li h3 {margin: 10px 0 5px 0; font-size: 18px; font-size: 1.8rem;}
 #campaignsList > li h3 a {color: #545454;}
-#campaignsList > li .name, #campaignsList > li > ul > li, #campaignsList > li > a {font-size: 17px; font-size: 1.7rem;}
-#campaignsList > li > ul {padding: 0; margin: 0 0 0 -45px; border-top: 1px solid #e5e5e5;}
-#campaignsList > li > ul > li {display: inline-block; margin: 0 10px; text-align: center;}
-#campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 20px; font-size: 2rem; display: block; margin-bottom: 2px;}
+#campaignsList > li .name, #campaignsList > li > ul > li, #campaignsList > li > a {font-size: 16px; font-size: 1.6rem; line-height: 1.2;}
+#campaignsList > li > ul {padding: 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
+#campaignsList > li > ul > li {display: inline-block; margin: 0; width: 30%; text-align: center; font-size: 15px; font-size: 1.5rem;}
+#campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 16px; font-size: 1.6rem; display: block; margin-bottom: 2px;}
 #campaignsList > li > ul > li span.open-number::after,
-#campaignsList > li > ul > li span.click-number::after {content:'%'; right:-17px; position:absolute; top:2px;}
-#campaignsList > li > ul > li span:empty::before {content:'-'; left:14px; position:absolute; top:2px;}
+#campaignsList > li > ul > li span.click-number::after {content:'%'; position:absolute;}
+#campaignsList > li > ul > li span:empty::before {content:'-'; left:30px; position:absolute; top:2px;}
 #campaignsList > li > ul > li span.recip-number:empty::before {left:32px;}
 
 
@@ -1228,15 +1234,56 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #mails {text-align: center;}
 #mails li {list-style: none; display: block; float: left; margin-bottom: 20px; margin-right: 35px;}
 #mails li:last-child {margin-right: 0;}
-.mail {display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
-.mail:hover, .mai:focus, .mail:active {text-decoration: none; background-color: #fbfbfb;}
-.mail#gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;}
-.mail#yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
-.mail#outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
-.mail#uploadFile {padding-top: 34px;}
+#mails li > a {display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
+#mails li > a:hover, #mails li > a:focus, #mails li > a:active {text-decoration: none; background-color: #fbfbfb;}
+#mails li > #gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;}
+#mails li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
+#mails li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
+#mails li > #uploadFile {padding-top: 34px;}
+.dashboard, .box-ppal.dashboard {margin-top: 20px;}
+.dashboard > div > .box-ppal {min-height: 333px;}
+.dashboard .box-ppal > h2 {font-size: 20px; font-size: 2rem; color: #a8a8a8; padding-bottom: 10px; border-bottom: solid 1px #e5e5e5; margin: 0 0 20px 0;}
+.box-ppal#createNewCampaign p {font-size: 20px; font-size: 2rem; color: #a8a8a8; line-height: 1.4; text-align: center;}
+.box-ppal#createNewCampaign p strong {font-size: 26px; font-size: 2.6rem; color: #545454; font-weight: normal;}
+.box-ppal#createNewCampaign .btn {padding: 48px 17px !important; margin: 20px 0 10px;}
+.box-ppal#followOthers > h2 {margin-bottom: 0;}
+.box-ppal#followOthers .user-list-followers {padding: 20px 0 10px !important;}
+.box-ppal#politicianProfile
+.box-ppal#politicianProfile h2 {font-size: 30px; font-size: 3rem; margin: 10px 0;}
+.box-ppal#politicianProfile h3 {font-size: 18px; font-size: 1.8rem; color: #a8a8a8; margin: 0 0 14px 0;}
+.box-ppal#politicianProfile .activity {margin: 0;}
+#dashboardGraphs {min-height: 415px;}
+#dashboardGraphs .nav-tabs.simple > li {margin-bottom: 10px; margin-right: 22px;}
+#dashboardGraphs .nav-tabs.simple {margin-bottom: 20px;}
 
+#profileInfo {position: relative; font-size: 15px; font-size: 1.5rem;}
 
+#progressProfile {overflow: hidden; position: relative; background-color: #e5e5e5; display: block; float: left; border-radius: 50%; width: 120px; height: 120px; z-index: 2;}
+#progressProfileFill {
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    background-color: #ff9431;
+    display: block;
+    bottom: 0;
+    height: 0%;
+}
+#progressLine {display: block; width: 75px; height: 120px; position: absolute; left: 60px; z-index: 1;}
+#progressLineFill {
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    border-top: 1px solid #ff9431;
+    display: block;
+    bottom: 0;
+    height: 0%;
+}
 
+#progressProfileFill:after {content:''; display: block; width: 40px; height: 2px; background-color: #ff9431; top: 0; right: -30px; position: absolute;}
+#progressProfile .user-img.big {border-radius: 53px; width: 106px; height: 106px; position: absolute; left: 7px; top: 7px; margin: 0;}
+#profileInfo > span {position: relative; display: block; float: left; margin-left: 10px;}
+#profileInfo .dropdown-menu {width: 165px; margin-top: 5px;}
+#profileInfo .dropdown-menu > li:first-child {border-bottom: none; padding: 0;}
 
 
 
@@ -1291,7 +1338,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .user > a:focus .name,
 .user > a:active .name {text-decoration: underline;}
 .user-type,
-.kakareo.follow {display: block; padding: 0 0 0 43px; color: #A8A8A8;}
+.kakareo.follow {display: block; padding: 0 0 0 48px; color: #A8A8A8;}
 
 /*Prueba kakareos fondo transparente (MAT 04/06/2014)*/
 .container-fluid .discover .kakareo {background-color: #fff;}
@@ -1403,12 +1450,12 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .btn.mail:hover,
 .btn.mail:active,
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
-.user-type {margin-top: -22px;}
+.user-type {margin-top: -26px;}
 
 .user-list-images,
 .boxes.taking-part .user-list-followers {margin: 0 0 20px 0; padding: 0; display: inline-block; line-height: 1.2;}
 .boxes.taking-part .user-list-followers {margin: 0;}
-.user-list-followers {padding: 10px !important;}
+.user-list-followers {padding: 20px 10px 0 !important;}
 
 .user-list-images li {list-style: none; display: inline-block !important; margin: 0; width: auto;}
 .user-list-images li:last-child {margin-right: 0;}
@@ -1428,14 +1475,13 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .condition .user-list-followers {margin: 0; padding: 0 !important;}
 .condition .user-list-followers  > li {list-style: none; margin: 0 0 20px 0; width: 100%; float: none;}
 
-.user .popover-trigger:hover,
-.user .popover-trigger:active,
-.user .popover-trigger:focus {text-decoration: underline;}
+.user a.popover-trigger:hover span,
+.user a.popover-trigger:active span,
+.user a.popover-trigger:focus span {text-decoration: underline;}
 .edit-user .user .popover-trigger:hover,
 .edit-user .user .popover-trigger:active,
 .edit-user .user .popover-trigger:focus {text-decoration: none;}
 .user-list-images li .popover-trigger .user-img {margin: 4px 2px 0 0;}
-/*.sponsor .user-list-images li .popover-trigger .user-img {margin-top: 0;}*/
 .user-list-images .more-users,
 .user-list-followers .more-users {margin: 0;}
 .author.important .user.actor.politic .user-list-images li .popover-trigger .user-img {margin: 0;}
@@ -1494,7 +1540,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     position: relative;
     width: 170px;
     display: inline-block;
-    line-height: 1;
+    line-height: 1.4;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -2102,8 +2148,8 @@ video#bgvid {
     width: 80px;
 }
 .user-list-followers .user > .actions .close {margin: 1px 0 0 0;}
-.boxes .user-img,
-.condition .user-list-followers .user-img {float: left;}
+/*.boxes .user-img,
+.condition .user-list-followers .user-img {float: left;}*/
 .user-list-followers .user-img {margin: 0 6px 0 0;}
 /*.boxes .user-img.big {margin: 0 6px 6px 0;}*/
 .boxes.info .user-img {float: none;}
@@ -2142,10 +2188,12 @@ video#bgvid {
 .activity .popover-trigger span {font-size: 31px; font-size: 3.1rem; display: block;}
 .activity > li.posts span {line-height: 1.1; font-size: 31px; font-size: 3.1rem; display: block;}
 .activity .popover-trigger {color: #545454; line-height: 1.1;}
-.activity .popover-trigger:hover {color: #a8a8a8;}
+.activity .popover-trigger:hover,
+.activity .popover-trigger:active,
+.activity .popover-trigger:focus,
 .activity > li a:hover,
 .activity > li a:active,
-.activity > li a:focus {text-decoration: none; color: #A8A8A8;}
+.activity > li a:focus {text-decoration: none; color: #a8a8a8; border: none;}
 .activity > li > .popover .user a {display: block;}
 
 .box-ppal.profile .activity {width: 100%; margin: 10px 0;}
@@ -4855,6 +4903,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         background-position: center 12%;
         padding: 8% 0 0;
     }
+    /* DASHBOARD */
+    #profileInfo > span {margin-top: 50px;}
 
 }
 
@@ -5273,7 +5323,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .carousel.news .carousel-control {top: 22%;}
 
     /* import contacts */
-    .box-ppal.import-contacts, .box-ppal.dashboard {padding: 70px 70px 0px 70px;}
+    .box-ppal.import-contacts, .box-ppal.dashboard {padding: 70px 70px 50px 70px;}
     .box-ppal.import-contacts p, .box-ppal.dashboard p {margin-bottom: 45px;}
     .box-ppal.import-contacts.csv {padding-top: 50px;}
     .box-ppal.import-contacts .bootstrap-filestyle {margin-bottom: 40px;}
@@ -5284,6 +5334,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* CAMPAIGNS */
     #tabs-new-campaign .form-horizontal .control-label {text-align: left;}
     .header-campaign .qq-upload-drop-area {background-size: 70px auto; padding-top: 10%;}
+    .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
     .new-filter-options > div:first-child > a > .text {display: none;}
     .new-filter-options.last > div:first-child > a > .text {display: inline; margin-left: 5px;}
@@ -5301,20 +5352,24 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .new-filter-options.first > div:last-child {line-height: 38px;}
     .new-filter-options .minus-condition, .new-filter-options .plus-condition {position: absolute;}
     #campaignsList > li > a {top: 5px;}
-    #campaignsList > li h3, #campaignsList > li .name {padding-right: 50%;}
-    #campaignsList > li h3 {font-size: 21px; font-size: 2.1rem;}
-    #campaignsList > li {padding: 10px 20px 10px 55px;}
+    #campaignsList > li h3, #campaignsList > li .name {padding-right: 50%; margin: 0;}
+    #campaignsList > li h3 {font-size: 21px; font-size: 2.1rem; margin-bottom: 4px;}
+    #campaignsList > li {padding: 10px 20px 10px 55px; min-height: 92px;}
     #campaignsList > li > .state {left: 15px;}
     #campaignsList > li > ul {width: 38%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 2%; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
-    #campaignsList > li > ul > li {margin: 0 10px;}
-    #campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 24px; font-size: 2.4rem; display: block; margin-bottom: 8px;}
+    #campaignsList > li > ul > li {margin: 0 12px 0 0; width: 24%;}
+    #campaignsList > li > ul > li:last-child {margin: 0;}
+    #campaignsList > li > ul > li.recipients {width: 34%;}
+    #campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 22px; font-size: 2.2rem; margin-bottom: 0;}
+    #campaignsList > li > ul > li span:empty {min-width: 100%;}
     #campaignsList > li > ul > li span.open-number::after,
-    #campaignsList > li > ul > li span.click-number::after {content:'%'; right:-22px; position:absolute; top:2px;}
-    #campaignsList .campaignDelete {right: 10px;}
-    #campaignsList .campaignStats, #campaignsList .campaignEdit {right: 30px;}
+    #campaignsList > li > ul > li span.click-number::after {content:'%'; right:-2px; position:absolute; top:2px;}
+    #campaignsList .campaignDelete {right: 5px;}
+    #campaignsList .campaignStats, #campaignsList .campaignEdit {right: 28px;}
 
     /* DASHBOARD (08/2016) */
     #mails {margin: 0 auto; width: 575px; text-align: center;}
+    #dashboardGraphs .nav-tabs.simple > li {margin-bottom: -1px; margin-right: 1px;}
 
 }
 
@@ -5422,7 +5477,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .team > section > .box-ppal{padding:0; margin:0; background-color: transparent; border:0}
 
-    .user-list-followers .user > .actions {float: right; margin: -30px 0 0 0 !important;}
+    .user-list-followers .user > .actions {float: right; margin: -35px 0 0 0 !important;}
     .user-list-followers .user > .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
 
     .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
@@ -5472,7 +5527,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .kakareo footer {font-size: 13px; font-size: 1.3rem;}
     .activity > li {font-size: 15px; font-size: 1.5rem;}
     .activity .popover-trigger span,
-    .activity > li.posts span {font-size: 34px; font-size: 3.4rem;}
+    .activity > li.posts span {font-size: 30px; font-size: 3rem;}
     .boxes > h1 {font-size: 22px; font-size: 2.2rem;}
     .boxes .kakareo footer > ul.actions-kak > li .label-cluckAction {display:none;}
     #victory {margin: 20px 0 0 0;}
@@ -5625,6 +5680,11 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #tabs-new-campaign .textareaContainer + div {text-align: left;}
     .form-final-options .btn.btn-blue.inverted {margin-bottom: 0;}
 
+    /* DASHBOARD */
+    #profileInfo > span {margin-top: 0; float: right;}
+    #followOthers .user-list-followers .user > .actions {margin-top: -15px !important;}
+    .dashboard > div > .box-ppal {min-height: 357px;}
+
 
 }
 
@@ -5653,11 +5713,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* CAMPAIGNS */
     .form-final-options {margin-top: 314px;}
     .form-final-options li:first-child {display: inline-block; margin-bottom: 0;}
-    #campaignsList > li {min-height: 125px;}
     #campaignsList > li > ul {height: 100px;}
     #campaignsList > li > .state {left: 20px;}
     #campaignsList > li {padding-left: 65px; padding-top: 20px;}
-    #campaignsList > li > ul > li {margin: 0 25px;}
     #campaignsList .campaignDelete {right: 20px;}
     #campaignsList .campaignStats, #campaignsList .campaignEdit {right: 45px;}
     #campaignsList > li > ul {width: 36%; margin-top: 10px;}
@@ -5721,6 +5779,11 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #aside-ppal .panel.collaborate .panel-body ul li a.btn {min-width: 90px;}
 
     .box.tools.open .dropdown-menu li a {font-size: 20px; font-size: 2rem; line-height: 2.3;}
+
+    /* DASHBOARD */
+    #followOthers .user-list-followers .user > .actions {margin-top: -35px !important;}
+    .dashboard > div > .box-ppal {min-height: 333px;}
+    #profileInfo > span {margin-top: 50px;}
 
 }
 
