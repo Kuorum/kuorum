@@ -25,7 +25,7 @@
         </div>
     </fieldset>
     <div id="newFilterContainer">
-        <g:render template="/contacts/filter/filterFieldSet"/>
+        <g:render template="/contacts/filter/listFilterFieldSet" model="[filters:filters]"/>
     </div>
     <fieldset class="form-group">
         <label for="subject" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.label"/>:</label>

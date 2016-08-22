@@ -4,6 +4,7 @@
         command="${command}"
         field="externalPoliticianActivities"
         listClassName="kuorum.users.extendedPoliticianData.ExternalPoliticianActivity"
+        cssParentContainer="profile-dynamic-fields"
         formId="externalActivitiesForm">
     <fieldset class="row">
         <div class="form-group col-md-12">

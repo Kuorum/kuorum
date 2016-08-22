@@ -1305,7 +1305,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .box-ppal {padding: 22px 10px 0;}
 .box-ppal .box-ppal-section{padding-left: 20px}
 .box-ppal .box-ppal-section .box-ppal-section-title{margin:0 0 10px -20px; font-variant:small-caps;}
-.box-ppal-section + .box-ppal-section, .dynamic-fieldset + .dynamic-fieldset{border-top: 1px #e5e5e5 solid; padding-top: 20px;}
+.box-ppal-section + .box-ppal-section, .dynamic-fieldset.profile-dynamic-fields + .dynamic-fieldset.profile-dynamic-fields{border-top: 1px #e5e5e5 solid; padding-top: 20px;}
 .box-ppal-title {background-color: #fff; border-width: 1px 1px 0 1px; border-color: #e5e5e5; border-style:solid; padding:20px 15px}
 .box-ppal-title h1 { margin-bottom:15px;margin:0 0 10px 0;font-size: 2.5rem}
 .box-ppal-title h3 { color: #a8a8a8; margin:0px;font-size:1.4rem;}
@@ -6728,10 +6728,10 @@ header .header-msg h6:hover{
     color: transparent !important;
 }
 
-.dynamic-fieldset{
+.dynamic-fieldset.profile-dynamic-fields{
     padding:10px;
 }
-.dynamic-fieldset .form-group-remove{padding-top:23px;}
+.dynamic-fieldset.profile-dynamic-fields .form-group-remove{padding-top:23px;}
 .dynamic-fieldset-addbutton{margin-bottom:25px;}
 .dynamicList .list-item { display:block; width: 100%;}
 .dynamicList .list-item input{ width: 70%;}

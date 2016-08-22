@@ -4,6 +4,7 @@
         command="${command}"
         field="timeLine"
         listClassName="kuorum.users.extendedPoliticianData.PoliticianTimeLine"
+        cssParentContainer="profile-dynamic-fields"
         formId="politicianExperienceForm">
     <fieldset class="row">
         <div class="form-group col-md-6">

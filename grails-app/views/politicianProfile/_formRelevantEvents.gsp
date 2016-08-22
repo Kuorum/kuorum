@@ -4,6 +4,7 @@
         command="${command}"
         field="politicianRelevantEvents"
         listClassName="kuorum.users.extendedPoliticianData.PoliticianRelevantEvent"
+        cssParentContainer="profile-dynamic-fields"
         customRemoveButton="true"
         formId="relevantEventsForm">
     <fieldset class="row">

@@ -218,9 +218,12 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
         def listClassName = attrs.listClassName
+        def cssParentContainer = attrs.cssParentContainer?:''
         def formId = attrs.formId
         def id = attrs.id?:field
         def customRemoveButton=attrs.customRemoveButton?Boolean.parseBoolean(attrs.customRemoveButton):false
+        def customAddButton=attrs.customAddButton?Boolean.parseBoolean(attrs.customRemoveButton):false
+        def appendLast=Boolean.parseBoolean(attrs.appendLast?:'false')
 
         List listCommands = command."${field}"
 
@@ -232,7 +235,7 @@ class FormTagLib {
             </fieldset>
 """
 
-        String addButton =  """
+        String addButton =  customAddButton?'':"""
         <fieldset class="row dynamic-fieldset-addbutton">
             <div class="form-group">
                 <div class="col-md-12">
@@ -244,7 +247,7 @@ class FormTagLib {
         out << addButton
 
         def obj= Class.forName(listClassName, true, Thread.currentThread().getContextClassLoader()).newInstance()
-        out << "<div class='hide dynamic-fieldset' id='${id}-template'>"
+        out << "<div class='hide dynamic-fieldset ${cssParentContainer}' id='${id}-template'>"
         out << removeButton
         out << body([listCommand:obj, prefixField:""])
         out << "</div>"
@@ -253,7 +256,7 @@ class FormTagLib {
         listCommands.each{
             if (it){
                 idx --;
-                out <<"<div class='dynamic-fieldset' data-dynamic-list-index='${idx}' >"
+                out <<"<div class='dynamic-fieldset ${cssParentContainer}' data-dynamic-list-index='${idx}' >"
                 out << body([listCommand:it, prefixField:"${field}[${idx}].", ])
                 out << removeButton
                 out <<"</div>"
@@ -282,6 +285,7 @@ class FormTagLib {
                         templateId : "${id}-template",
                         fields:fields,
                         parentField:field,
+                        appendLast:appendLast,
                         formId:formId
                 ])
 
@@ -499,13 +503,16 @@ class FormTagLib {
         def cssClass = attrs.cssClass
         def cssLabel=attrs.cssLabel?:""
         def clazz = command.metaClass.properties.find{it.name == field}.type
-        def label ="${message(code: "${clazz.name}.label")}${isRequired(command,field)?'*':''}"
+        Boolean isRequired = isRequired(command,field)
+        def label ="${message(code: "${clazz.name}.label")}${isRequired?'*':''}"
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
             <label for="${id}" class="${cssLabel}">${label}</label>
             <select name="${field}" class="form-control input-lg ${error}" id="${id}">
             """
-        out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
+        if (!isRequired){
+            out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
+        }
         clazz.values().each{
             String codeMessage = "${clazz.name}.$it"
             out << "<option value='${it}' ${it==command."$field"?'selected':''}> ${message(code:codeMessage)}</option>"
