@@ -1,4 +1,5 @@
 <%@ page import="kuorum.web.commands.payment.contact.ContactFilterCommand" %>
+<r:require modules="forms"/>
 <g:set var="formId" value="formFilter"/>
 <g:set var="commandFilter" value="${new kuorum.web.commands.payment.contact.ContactFilterCommand(filter)}"/>
 <div id="${formId}">

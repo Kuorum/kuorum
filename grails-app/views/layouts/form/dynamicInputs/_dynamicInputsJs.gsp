@@ -40,7 +40,7 @@
 
 <script>
     var ${validationDataVarName} = ${raw(validationDataVarNameValue)};
-    var ${validationDataVarIndex} =; ${validationDataVarIndexValue}
+    var ${validationDataVarIndex} = ${validationDataVarIndexValue};
     var removableRow_${formId};
     $(function(){
         <g:each in="${0..validationDataVarIndexValue-1}" var="i">
