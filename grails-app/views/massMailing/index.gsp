@@ -17,7 +17,7 @@
 
         <!-- FILTRO Y BUSCADOR DE CAMPAÑAS -->
         <div class="box-ppal">
-            <form class="form-horizontal">
+            <form class="form-horizontal" id="search-form-campaign">
                 <fieldset class="form-group" id="toFilters">
                     <div class="col-sm-3">
                         <label for="filterCampaigns" class="sr-only">
