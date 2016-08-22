@@ -139,5 +139,5 @@
                 removeLine_${formId}(element);
                 addLine_${formId}();
 
-            });
+            });;
 </script>
