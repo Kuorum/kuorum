@@ -16,7 +16,7 @@
         </div>
 
         <div class="col-md-4">
-            <g:render template="/dashboard/payment/dashboardModules/followOtherPoliticians"/>
+            <g:render template="/dashboard/payment/dashboardModules/followOtherPoliticians" model="[recommendedUsers:recommendedUsers]"/>
         </div>
 
         <div class="col-md-4">

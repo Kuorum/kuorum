@@ -76,7 +76,13 @@ class DashboardController {
             def duration = new Date() - lastCampaign.sentOn
             durationDays = duration.days
         }
-        [lastCampaign:lastCampaign, durationDays:durationDays, contacts: contactService.getUsers(user)]
+        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:16))
+
+        [lastCampaign:lastCampaign,
+         durationDays:durationDays,
+         contacts: contactService.getUsers(user),
+         recommendedUsers:recommendedUsers
+        ]
 
     }
 

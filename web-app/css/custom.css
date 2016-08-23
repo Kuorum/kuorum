@@ -1249,7 +1249,7 @@ li + .picker-switch {display: none;}
 .box-ppal#createNewCampaign p strong {font-size: 26px; font-size: 2.6rem; color: #545454; font-weight: normal;}
 .box-ppal#createNewCampaign .btn {padding: 48px 17px !important; margin: 20px 0 10px;}
 .box-ppal#followOthers > h2 {margin-bottom: 0;}
-.box-ppal#followOthers .user-list-followers {padding: 20px 0 10px !important;}
+.box-ppal#followOthers .user-list-followers {padding: 20px 0 0px !important;}
 .box-ppal#politicianProfile
 .box-ppal#politicianProfile h2 {font-size: 30px; font-size: 3rem; margin: 10px 0;}
 .box-ppal#politicianProfile h3 {font-size: 18px; font-size: 1.8rem; color: #a8a8a8; margin: 0 0 14px 0;}
