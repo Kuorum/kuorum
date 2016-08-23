@@ -212,7 +212,7 @@ class KuorumUserTagLib {
         if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
             String position = user?.professionalDetails?.position?:""
             String regionName = user?.professionalDetails?.region?.name?:""
-            String coma = position?", ":""
+            String coma = position && regionName?", ":""
             out << "${position}${coma}${regionName}"
         }
     }
