@@ -79,6 +79,23 @@ class ContactService {
         filter
     }
 
+    ExtendedFilterRSDTO updateFilter(KuorumUser user, FilterRDTO filterRSDTO, Long filterId){
+        Map<String, String> params = [userId:user.id.toString(),filterId:filterId.toString()]
+        Map<String, String> query = [:]
+
+        def response= restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_FILTER,
+                params,
+                query,
+                filterRSDTO,
+                new TypeReference<ExtendedFilterRSDTO>(){})
+        ExtendedFilterRSDTO filter= null
+        if (response.data){
+            filter = response.data
+        }
+        filter
+    }
+
     ContactPageRSDTO getUsers(KuorumUser user){
         Map<String, String> params = [userId:user.id.toString()]
         SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO();

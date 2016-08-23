@@ -53,6 +53,7 @@ class RestKuorumApiService {
         USER_CONTACTS           ('/contacts/{userId}'),
         USER_CONTACT_TAGS       ('/contacts/{userId}/tags'),
         USER_CONTACT_FILTERS    ('/contacts/{userId}/filters'),
+        USER_CONTACT_FILTER     ("/contacts/{userId}/filters/{filterId}"),
 
         CAUSE_OPERATIONS        ("/cause/{causeName}"),
         CAUSE_USERS_DEFENDING   ("/cause/{causeName}/defending"),
@@ -110,7 +111,7 @@ class RestKuorumApiService {
     }
 
     def put(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, def body,TypeReference typeToMap) {
-        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
         String path = apiMethod.buildUrl(apiPath,params);
         def response = mailKuorumServices.put(
                 path: path,

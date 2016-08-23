@@ -225,6 +225,7 @@ class FormTagLib {
         def customAddButton=attrs.customAddButton?Boolean.parseBoolean(attrs.customRemoveButton):false
         def appendLast=Boolean.parseBoolean(attrs.appendLast?:'false')
 
+        String templateId = "${formId}-template";
         List listCommands = command."${field}"
 
         String removeButton = customRemoveButton?'':"""
@@ -247,7 +248,7 @@ class FormTagLib {
         out << addButton
 
         def obj= Class.forName(listClassName, true, Thread.currentThread().getContextClassLoader()).newInstance()
-        out << "<div class='hide dynamic-fieldset ${cssParentContainer}' id='${id}-template'>"
+        out << "<div class='hide dynamic-fieldset ${cssParentContainer}' id='${templateId}'>"
         out << removeButton
         out << body([listCommand:obj, prefixField:""])
         out << "</div>"
@@ -282,7 +283,7 @@ class FormTagLib {
                         validationDataVarIndex:validationDataVarIndex,
                         validationDataVarIndexValue: listCommands.size(),
                         validationDataMaxSize:maxSize,
-                        templateId : "${id}-template",
+                        templateId : templateId,
                         fields:fields,
                         parentField:field,
                         appendLast:appendLast,

@@ -1,8 +1,10 @@
 <%@ page import="kuorum.web.commands.payment.contact.ContactFilterCommand" %>
 <r:require modules="forms"/>
-<g:set var="formId" value="formFilter"/>
+<g:set var="formId" value="formFilter_${filter?.id?.toString().replace("-","_")}"/>
 <g:set var="commandFilter" value="${new kuorum.web.commands.payment.contact.ContactFilterCommand(filter)}"/>
-<div id="${formId}">
+<div id="${formId}" class="disabled-filters hide">
+    <input type="hidden" name="filterId" value="${filter.id}"/>
+    <input type="hidden" name="filterName" value="${filter.name}"/>
     <fieldset class="form-group new-filter-options first">
         <label for="matches" class="col-sm-2 col-md-1 control-label"><g:message code="tools.contact.filter.form.matches"/></label>
         <div class="col-sm-4 col-md-3">
@@ -66,9 +68,9 @@
         </div>
     </fieldset>
     <fieldset class="new-filter-actions">
-        <a href="#" id="numberRecipients"><g:message code="tools.contact.filter.form.recipients" args="[10]"/></a>
+        <a href="#" id="numberRecipients"><g:message code="tools.contact.filter.form.recipients" args="[filter.amountOfContacts?:'-']"/></a>
         <a href="#" role="button" class="btn btn-blue inverted" id="refreshFilter"><g:message code="tools.contact.filter.form.refresh"/></a>
-        <a href="#" role="button" class="btn btn-blue inverted" id="saveFilter"><g:message code="tools.contact.filter.form.save"/></a>
+        <g:link mapping="politicianContactFilterUpdate" role="button" class="btn btn-blue inverted" elementId="saveFilter"><g:message code="tools.contact.filter.form.save"/></g:link>
         <a href="#" role="button" class="btn btn-blue inverted" id="saveFilterAs"><g:message code="tools.contact.filter.form.saveAs"/> </a>
     </fieldset>
 </div>

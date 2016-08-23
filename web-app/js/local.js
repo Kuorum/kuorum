@@ -395,26 +395,38 @@ $(document).ready(function() {
         }
     });
 
+    function getFormFilterIdSelected(){
+        var filterId = $("#recipients").val();
+        return $("#formFilter_"+filterId.replace("-","_"))
+    }
+
     function openFilterCampaignsOptions (){
         $("#newFilterContainer").fadeIn();
+        var filterId = $("#recipients").val();
+        console.log(filterId)
+        if (filterId == 0){
+            $('select#recipients').val('-2');
+            var filterId = $("#recipients").val();
+        }
+        var $filterData = getFormFilterIdSelected();
+        $filterData.removeClass("hide");
+        $filterData.fadeIn();
+        $filterData.find("input, select").prop('disabled', false);
         $('#filterContacts, #infoToContacts').addClass('on');
+
     }
     function closeFilterCampaignsOptions (){
         $('#filterContacts').removeClass('on');
         $("#newFilterContainer").fadeOut();
+        $(".disabled-filters").fadeOut();
+        $(".disabled-filters").find("input, select").prop('disabled', true);
+        $('#infoToContacts, #filterContacts').removeClass('on');
     }
 
     function loadSelectRecipientStatus(){
-        if ( !($('select#recipients option:selected').is('#all') || $('select#recipients option:selected').is('#newFilter') ) ) {
-            $('#infoToContacts').addClass('on');
-            closeFilterCampaignsOptions();
-
-        } else if ($('select#recipients option:selected').is('#newFilter')) {
+        closeFilterCampaignsOptions();
+        if ($('select#recipients option:selected').is('#newFilter')) {
             openFilterCampaignsOptions();
-
-        } else if ($('select#recipients option:selected').is('#all')) {
-            $('#infoToContacts, #filterContacts').removeClass('on');
-            closeFilterCampaignsOptions();
         }
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
         $("#infoToContacts .amountRecipients").html(amountContacts)
@@ -428,18 +440,15 @@ $(document).ready(function() {
     // abrir opciones nuevo filtro con botón
     $('body').on('click','#toFilters #filterContacts', function() {
         if ($(this).hasClass('on')) {
-            $("#newFilterContainer").fadeOut();
-            $(this).removeClass('on');
+            closeFilterCampaignsOptions();
         } else {
-            $("#newFilterContainer").fadeIn();
-            $(this).addClass('on');
-            $('select#recipients').val('new').trigger('change');
+            openFilterCampaignsOptions();
         }
     });
     // eliminar condición con botón
     $('body').on('click','.new-filter-options .minus-condition', function(e) {
         e.preventDefault();
-        $(this).closest('.new-filter-options').fadeOut();
+        $(this).closest('.new-filter-options').fadeOut("fast", function(){$(this).remove()});
     });
 
     // abrir modal contenido filtro seleccionado
@@ -450,6 +459,32 @@ $(document).ready(function() {
     $('body').on('click','#refreshFilter', function() {
         $("#newFilterContainer").fadeOut();
         $('#filterContacts').removeClass('on');
+    });
+
+    // Update filter
+    $('body').on('click','#saveFilter', function(e) {
+        e.preventDefault();
+        var filterId = $("#recipients").val();
+        var $filterData = getFormFilterIdSelected();
+        var inputs = $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select"))
+        var postData = inputs.serializeArray();
+        var link = $(this).attr("href");
+        pageLoadingOn();
+        $.post( link, postData)
+            .done(function(data) {
+                var dataFilter = data.data.filter;
+                var amountContacts = dataFilter.amountOfContacts
+                $('select#recipients option:selected').attr("data-amountContacts", amountContacts);
+                console.log($filterData)
+                $filterData.find("#numberRecipients > span").html(amountContacts);
+                $("#infoToContacts > span.amountRecipients").html(amountContacts);
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+        .always(function() {
+            pageLoadingOff();
+        });
     });
 
     // Guardar borrador

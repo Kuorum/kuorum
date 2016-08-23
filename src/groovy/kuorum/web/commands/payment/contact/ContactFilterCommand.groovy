@@ -13,12 +13,17 @@ import org.kuorum.rest.model.contact.filter.OperatorTypeRDTO
 @Validateable
 class ContactFilterCommand {
 
+    ContactFilterCommand(){
+        this.operator = OperatorTypeRDTO.AND
+        this.filterConditions =[]
+    }
     ContactFilterCommand(FilterRDTO filterRDTO){
         this.operator = filterRDTO.operator
         this.filterConditions = filterRDTO.filterConditions.collect {new ContactFilterOptionCommand(it)}
+        this.filterName = filterRDTO.name
     }
 
-
+    String filterName;
     OperatorTypeRDTO operator;
     List<ContactFilterOptionCommand> filterConditions;
 

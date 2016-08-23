@@ -156,6 +156,7 @@ class MassMailingController {
         campaignRQDTO.setName(command.getSubject())
         campaignRQDTO.setSubject(command.getSubject())
         campaignRQDTO.setBody(command.getText())
+        campaignRQDTO.setFilterId(command.filterId)
 
         KuorumFile picture = KuorumFile.get(command.headerPictureId);
         picture = fileService.convertTemporalToFinalFile(picture)
