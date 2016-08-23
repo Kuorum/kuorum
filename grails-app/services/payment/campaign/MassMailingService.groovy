@@ -69,7 +69,7 @@ class MassMailingService {
                 query,
                 new TypeReference<List<CampaignRSDTO>>(){}
         )
-        List<CampaignRSDTO> campaigns=null;
+        List<CampaignRSDTO> campaigns=[];
         if (response.data){
             campaigns = response.data
         }

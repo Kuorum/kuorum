@@ -3,6 +3,7 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
+import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
 import kuorum.post.Cluck
 import kuorum.project.Project
@@ -10,8 +11,15 @@ import kuorum.project.ProjectEvent
 import kuorum.solr.SearchSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserStatsService
+import kuorum.web.commands.profile.AccountDetailsCommand
+import kuorum.web.commands.profile.EditUserProfileCommand
+import kuorum.web.commands.profile.SocialNetworkCommand
+import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
+import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
+import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
@@ -70,20 +78,69 @@ class DashboardController {
 
     private def buildPaymentDashboadr(KuorumUser user){
         List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
-        CampaignRSDTO lastCampaign = campaigns.sort {it.sentOn}.last()
+        CampaignRSDTO lastCampaign = null
+        List<CampaignRSDTO> sentCampaigns = campaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
         Long durationDays = 0;
-        use(groovy.time.TimeCategory) {
-            def duration = new Date() - lastCampaign.sentOn
-            durationDays = duration.days
+        if (sentCampaigns){
+            lastCampaign = sentCampaigns.sort {it.sentOn}.last()?:null
+            use(groovy.time.TimeCategory) {
+                def duration = new Date() - lastCampaign.sentOn
+                durationDays = duration.days
+            }
         }
         List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:16))
 
-        [lastCampaign:lastCampaign,
-         durationDays:durationDays,
-         contacts: contactService.getUsers(user),
-         recommendedUsers:recommendedUsers
+        [
+                lastCampaign:lastCampaign,
+                campaigns:campaigns,
+                durationDays:durationDays,
+                contacts: contactService.getUsers(user),
+                recommendedUsers:recommendedUsers,
+                user:user,
+                emptyEditableData:emptyEditableData(user)
         ]
 
+    }
+
+    //FAST CHAPU - Evaluating empty data
+    def emptyEditableData(KuorumUser user){
+        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
+            List<CauseRSDTO> causes = causesService.findDefendedCauses(user);
+
+            List fields = [
+                    [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
+                    [urlMapping: 'profilePoliticianCauses', total:causes?0:1],
+                    [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["birthday", "workingSector", "studies", "enterpriseSector"].contains(it.key)}.size()],
+                    [urlMapping: 'profilePoliticianRelevantEvents', total:user.relevantEvents?0:1],
+                    [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()],
+                    [urlMapping: 'profilePoliticianExternalActivity', total:user.externalPoliticianActivities?0:1],
+                    [urlMapping: 'profilePoliticianExperience', total:user.timeLine?0:1]
+            ]
+            QuickNotesCommand quickNotesCommand = new QuickNotesCommand(user);
+            fields.add([urlMapping:'profilePoliticianQuickNotes', total:
+                    quickNotesCommand.institutionalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
+                            quickNotesCommand.politicalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
+                            quickNotesCommand.politicianExtraInfo.properties.findAll{!it.value && !["dbo", "externalId"].contains(it.key)}.size()]
+            )
+
+            ProfessionalDetailsCommand professionalDetailsCommand = new ProfessionalDetailsCommand(user)
+            fields.add([urlMapping: 'profilePoliticianProfessionalDetails', total:
+                    professionalDetailsCommand.properties.findAll{!it.value}.size() +
+                            professionalDetailsCommand.careerDetails.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size()
+            ])
+
+            Integer totalFields = 54; // FAST CHAPU
+            Integer emptyFields= fields.sum{it.total}
+            return [
+                    percentage: (1 - emptyFields/totalFields)*100,
+                    fields:fields
+            ]
+        }else{
+            return [
+                    percentage: 100,
+                    fields:[]
+            ]
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

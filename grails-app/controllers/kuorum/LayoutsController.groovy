@@ -38,50 +38,9 @@ class LayoutsController {
                 numNews: numNewNotifications
         ]
         if (user.userType == UserType.CANDIDATE || user.userType == UserType.POLITICIAN){
-            render template:'/layouts/payment/paymentHead', model:[user:user, notifications:notifications, emptyFields:emptyEditableData(user)]
+            render template:'/layouts/payment/paymentHead', model:[user:user, notifications:notifications]
         }else{
-            render template:'/layouts/userHead', model:[user:user, notifications:notifications, emptyFields:emptyEditableData(user)]
-        }
-    }
-
-    //FAST CHAPU
-    def emptyEditableData(KuorumUser user){
-        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
-            List<CauseRSDTO> causes = causesService.findDefendedCauses(user);
-
-            List fields = [
-                [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
-                [urlMapping: 'profilePoliticianCauses', total:causes?0:1],
-                [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["birthday", "workingSector", "studies", "enterpriseSector"].contains(it.key)}.size()],
-                [urlMapping: 'profilePoliticianRelevantEvents', total:user.relevantEvents?0:1],
-                [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()],
-                [urlMapping: 'profilePoliticianExternalActivity', total:user.externalPoliticianActivities?0:1],
-                [urlMapping: 'profilePoliticianExperience', total:user.timeLine?0:1]
-            ]
-            QuickNotesCommand quickNotesCommand = new QuickNotesCommand(user);
-            fields.add([urlMapping:'profilePoliticianQuickNotes', total:
-                    quickNotesCommand.institutionalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
-                    quickNotesCommand.politicalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
-                    quickNotesCommand.politicianExtraInfo.properties.findAll{!it.value && !["dbo", "externalId"].contains(it.key)}.size()]
-            )
-
-            ProfessionalDetailsCommand professionalDetailsCommand = new ProfessionalDetailsCommand(user)
-            fields.add([urlMapping: 'profilePoliticianProfessionalDetails', total:
-                    professionalDetailsCommand.properties.findAll{!it.value}.size() +
-                            professionalDetailsCommand.careerDetails.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size()
-            ])
-
-            Integer totalFields = 54; // FAST CHAPU
-            Integer emptyFields= fields.sum{it.total}
-            return [
-                    percentage: (1 - emptyFields/totalFields)*100,
-                    fields:fields
-            ]
-        }else{
-            return [
-                    percentage: 100,
-                    fields:[]
-            ]
+            render template:'/layouts/userHead', model:[user:user, notifications:notifications]
         }
     }
 

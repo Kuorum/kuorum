@@ -9,11 +9,20 @@
             </g:link>
         </p>
     </g:if>
+    <g:elseif test="${!lastCampaign}">
+        <p>
+            <g:message code="dashboard.payment.newCampaign.neverSent" args="['#']" encodeAs="raw"/>
+            <br/>
+            <g:link mapping="politicianMassMailingNew" class="btn btn-lg inverted" role="button">
+                <g:message code="dashboard.payment.newCampaign.sentNew"/>
+            </g:link>
+        </p>
+    </g:elseif>
     <g:else>
         <p>
             <g:message code="dashboard.payment.newCampaign.lastCampaignSent" args="[durationDays, '#']" encodeAs="raw"/>
             <br/>
-            <g:link mapping="politicianMassMailing" class="btn btn-lg inverted" role="button">
+            <g:link mapping="politicianMassMailingNew" class="btn btn-lg inverted" role="button">
                 <g:message code="dashboard.payment.newCampaign.sentNew"/>
             </g:link>
         </p>

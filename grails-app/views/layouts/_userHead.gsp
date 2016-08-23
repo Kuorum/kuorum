@@ -30,7 +30,7 @@
             </ul>
         </li>
 
-        <g:render template="/layouts/headPolitician/userHeadIncompleteUserData" model="[user:user, emptyFields:emptyFields]"/>
+        %{--<g:render template="/layouts/headPolitician/userHeadIncompleteUserData" model="[user:user, emptyFields:emptyFields]"/>--}%
 
     </sec:ifAnyGranted>
     %{--<li class="underline">--}%
