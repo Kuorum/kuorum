@@ -500,6 +500,7 @@ class FormTagLib {
         def field = attrs.field
 
         def id = attrs.id?:field
+        def prefixFieldName=attrs.prefixFieldName?:""
         def cssClass = attrs.cssClass
         def cssLabel=attrs.cssLabel?:""
         def clazz = command.metaClass.properties.find{it.name == field}.type
@@ -508,7 +509,7 @@ class FormTagLib {
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
             <label for="${id}" class="${cssLabel}">${label}</label>
-            <select name="${field}" class="form-control input-lg ${error}" id="${id}">
+            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
             """
         if (!isRequired){
             out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
