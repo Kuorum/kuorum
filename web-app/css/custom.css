@@ -2199,13 +2199,13 @@ video#bgvid {
 .activity > li:last-child {border: none;}
 .activity .popover-trigger span {font-size: 31px; font-size: 3.1rem; display: block;}
 .activity > li.posts span {line-height: 1.1; font-size: 31px; font-size: 3.1rem; display: block;}
-.activity .popover-trigger {color: #545454; line-height: 1.1;}
+.activity .popover-trigger, .activity > li > a {color: #545454; line-height: 1.1;}
 .activity .popover-trigger:hover,
 .activity .popover-trigger:active,
 .activity .popover-trigger:focus,
 .activity > li a:hover,
 .activity > li a:active,
-.activity > li a:focus {text-decoration: none; color: #a8a8a8; border: none;}
+.activity > li a:focus {text-decoration: none; color: #a8a8a8; border: none; outline: 0;}
 .activity > li > .popover .user a {display: block;}
 
 .box-ppal.profile .activity {width: 100%; margin: 10px 0;}
@@ -5137,7 +5137,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .kakareo .main-kakareo {margin-top: 10px;}
     .multimedia .video .fa {left: 44%; top: 40%;}
     .activity .popover-trigger span,
-    .activity > li.posts span {font-size: 26px; font-size: 2.6rem; line-height: 1.5;}
+    .activity > li.posts span,
+    .activity > li > a span {font-size: 26px; font-size: 2.6rem; line-height: 1.5;}
     #main .user .popover-trigger,
     #main .sponsor {font-size: 15px; font-size: 1.5rem;}
     #main .user.actor,
