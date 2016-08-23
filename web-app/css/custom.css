@@ -2205,7 +2205,7 @@ video#bgvid {
 .activity .popover-trigger:focus,
 .activity > li a:hover,
 .activity > li a:active,
-.activity > li a:focus {text-decoration: none; color: #a8a8a8; border: none;}
+.activity > li a:focus {text-decoration: none; color: #a8a8a8; border: none; outline: 0;}
 .activity > li > .popover .user a {display: block;}
 
 .box-ppal.profile .activity {width: 100%; margin: 10px 0;}

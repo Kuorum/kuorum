@@ -528,9 +528,9 @@ $(document).ready(function() {
         //contador para el select (antes del plugin)
         var counterList = $('#campaignsList > li').length;
         $('.totalList').text(counterList);
-        var sent = $('li.sent').length;
-        var scheduled = $('li.scheduled').length;
-        var draft = $('li.draft').length;
+        var sent = $('li.SENT').length;
+        var scheduled = $('li.SCHEDULED').length;
+        var draft = $('li.DRAFT').length;
 
 
         //select filtro campañas según estado
@@ -539,15 +539,15 @@ $(document).ready(function() {
                 $('.totalList').text(counterList);
                 $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
             }
-            if ($('#filterCampaigns option:selected').is('#sent')) {
+            if ($('#filterCampaigns option:selected').is('#SENT')) {
                 $('.totalList').text(sent);
                 $('#infoFilterCampaigns').removeClass().find('.filtered').text('sent');
             }
-            if ($('#filterCampaigns option:selected').is('#scheduled')) {
+            if ($('#filterCampaigns option:selected').is('#SCHEDULED')) {
                 $('.totalList').text(scheduled);
                 $('#infoFilterCampaigns').removeClass().find('.filtered').text('scheduled');
             }
-            if ($('#filterCampaigns option:selected').is('#draft')) {
+            if ($('#filterCampaigns option:selected').is('#DRAFT')) {
                 $('.totalList').text(draft);
                 $('#infoFilterCampaigns').removeClass().find('.filtered').text('draft');
             }
