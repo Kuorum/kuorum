@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactFilterCommand
+import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -25,7 +26,7 @@ class ContactFiltersController {
         }
         Long filterId = Long.parseLong(params.filterId)
         if (filterId <= 0){
-            render ([status:"error", msg:"Estas intentando actualizar un filtro que no existe"] as JSON)
+            render ([status:"error", msg:g.message(code:'tools.contact.filter.form.notExits')] as JSON)
             return;
         }
         KuorumUser user = springSecurityService.currentUser
@@ -33,7 +34,34 @@ class ContactFiltersController {
         ExtendedFilterRSDTO filterSaved = contactService.updateFilter(user,filterRDTO, filterId);
 
 
-        render ([status:"ok",msg:"SUCCESS", data:[filter:filterSaved]] as JSON)
+        render ([
+                status:"ok",
+                msg:g.message(code:'tools.contact.filter.form.success', args: [filterSaved.name]),
+                data:[filter:filterSaved]
+        ] as JSON)
+    }
+
+    def refreshFilter(ContactFilterCommand filterCommand){
+        if (filterCommand.hasErrors()){
+            ObjectError error = filterCommand.errors.allErrors.first();
+            render ([status:"error", msg:error.defaultMessage] as JSON)
+            return
+        }
+        Long filterId = Long.parseLong(params.filterId)
+        if (filterId <= 0){
+            render ([status:"error", msg:g.message(code:'tools.contact.filter.form.notExits')] as JSON)
+            return;
+        }
+        KuorumUser user = springSecurityService.currentUser
+        FilterRDTO filterRDTO = convertCommandToFilter(filterCommand);
+        ContactPageRSDTO usersPage = contactService.getUsers(user, filterRDTO)
+
+        ExtendedFilterRSDTO filterSaved = new ExtendedFilterRSDTO(amountOfContacts: usersPage.total)
+        render ([
+                status:"ok",
+                msg:g.message(code:'tools.contact.filter.form.refreshed'),
+                data:[filter:filterSaved]
+        ] as JSON)
     }
 
     private FilterRDTO convertCommandToFilter(ContactFilterCommand command){

@@ -456,13 +456,13 @@ $(document).ready(function() {
         $("#filtersInfo").modal("show");
     });
     // cerrar filtros cuando guardo filtro
-    $('body').on('click','#refreshFilter', function() {
-        $("#newFilterContainer").fadeOut();
-        $('#filterContacts').removeClass('on');
-    });
+    //$('body').on('click','#refreshFilter', function() {
+    //    $("#newFilterContainer").fadeOut();
+    //    $('#filterContacts').removeClass('on');
+    //});
 
     // Update filter
-    $('body').on('click','#saveFilter', function(e) {
+    $('body').on('click','#saveFilter, #refreshFilter', function(e) {
         e.preventDefault();
         var filterId = $("#recipients").val();
         var $filterData = getFormFilterIdSelected();
@@ -473,11 +473,9 @@ $(document).ready(function() {
         $.post( link, postData)
             .done(function(data) {
                 var dataFilter = data.data.filter;
-                var amountContacts = dataFilter.amountOfContacts
-                $('select#recipients option:selected').attr("data-amountContacts", amountContacts);
-                console.log($filterData)
-                $filterData.find("#numberRecipients > span").html(amountContacts);
-                $("#infoToContacts > span.amountRecipients").html(amountContacts);
+                updateAmountContacts(dataFilter.amountOfContacts);
+                display.success(data.msg)
+                //closeFilterCampaignsOptions();
             })
             .fail(function(messageError) {
                 display.warn("Error");
@@ -486,6 +484,13 @@ $(document).ready(function() {
             pageLoadingOff();
         });
     });
+
+    function updateAmountContacts(amountContacts){
+        var $filterData = getFormFilterIdSelected();
+        $('select#recipients option:selected').attr("data-amountContacts", amountContacts);
+        $filterData.find("#numberRecipients > span").html(amountContacts);
+        $("#infoToContacts > span.amountRecipients").html(amountContacts);
+    }
 
     // Guardar borrador
     $('body').on('click','.form-final-options #save-draft-campaign', function(e) {
