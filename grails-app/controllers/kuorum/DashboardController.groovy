@@ -11,7 +11,9 @@ import kuorum.solr.SearchSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserStatsService
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
+import payment.campaign.MassMailingService
 import payment.contact.ContactService
 import springSecurity.KuorumRegisterCommand
 
@@ -25,6 +27,7 @@ class DashboardController {
     CausesService causesService
     SearchSolrService searchSolrService
     ContactService contactService
+    MassMailingService massMailingService
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -45,11 +48,7 @@ class DashboardController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         if (kuorumUserService.isPaymentUser(user)){
             Map model = buildPaymentDashboadr(user);
-            if (model.contacts.total>0){
-                render view: "/dashboard/payment/paymentDashboard", model: model
-            }else{
-                render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
-            }
+            render view: "/dashboard/payment/paymentDashboard", model: model
         }else{
             buildUserDashboard(user)
         }
@@ -70,7 +69,15 @@ class DashboardController {
     }
 
     private def buildPaymentDashboadr(KuorumUser user){
-        [contacts:contactService.getUsers(user)]
+        List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
+        CampaignRSDTO lastCampaign = campaigns.sort {it.sentOn}.last()
+        Long durationDays = 0;
+        use(groovy.time.TimeCategory) {
+            def duration = new Date() - lastCampaign.sentOn
+            durationDays = duration.days
+        }
+        [lastCampaign:lastCampaign, durationDays:durationDays, contacts: contactService.getUsers(user)]
+
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
