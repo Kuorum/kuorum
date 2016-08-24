@@ -425,7 +425,8 @@ $(document).ready(function() {
 
     function loadSelectRecipientStatus(){
         closeFilterCampaignsOptions();
-        if ($('select#recipients option:selected').is('#newFilter')) {
+        if ($('select#recipients').val()==-2) {
+            //New filter
             openFilterCampaignsOptions();
         }
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
