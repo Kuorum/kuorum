@@ -3,13 +3,10 @@
 <g:form url="[mapping:'projectVoteNoTotalUser', params:project.encodeAsLinkProperties()]" method="post" name="${formName}" role="form" autocomplete="off" >
     <g:if test="${!header}">
         <div class="form-group">
-            <formUtil:selectNation command="${basicPersonalDataCommand}" field="country" cssClass="sr-only"/>
+            <formUtil:regionInput command="${basicPersonalDataCommand}" field="homeRegion" showLabel="fasle"/>
         </div>
         <div class="row">
-            <div class="form-group col-xs-6">
-                <formUtil:input command="${basicPersonalDataCommand}" field="postalCode" labelCssClass="sr-only" showCharCounter="false"/>
-            </div>
-            <div class="form-group col-xs-6 userData">
+              <div class="form-group col-xs-12 userData">
                 <formUtil:input command="${basicPersonalDataCommand}" field="year" labelCssClass="sr-only"/>
             </div>
         </div>

@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.Region
+import kuorum.RegionService
 import kuorum.core.model.CommissionType
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
@@ -34,6 +35,7 @@ class ProjectController {
     def gamificationService
     def searchSolrService
     def kuorumUserService
+    RegionService regionService
 
     FileService fileService
 
@@ -352,10 +354,10 @@ class ProjectController {
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         user.personalData.year=basicPersonalDataCommand.year
-        user.personalData.country=basicPersonalDataCommand.country
+        user.personalData.province=basicPersonalDataCommand.homeRegion
+        user.personalData.country=regionService.findCountry(basicPersonalDataCommand.homeRegion)
         user.personalData.gender=basicPersonalDataCommand.gender
-        user.personalData.province=basicPersonalDataCommand.province
-        user.personalData.postalCode=basicPersonalDataCommand.postalCode
+//        user.personalData.postalCode=basicPersonalDataCommand.postalCode
         kuorumUserService.updateUser(user)
         if (SpringSecurityUtils.ifAnyGranted("ROLE_INCOMPLETE_USER")){
             //El usuario no ha confirmado el email
