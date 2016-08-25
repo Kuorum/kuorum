@@ -5,10 +5,13 @@
     <h3 class="title"><g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]">${campaign.name}</g:link></h3>
     <p class="name">
         <g:message code="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.class.name}.${campaign.status}"/>
-        <span class="date"><input class="timestamp" type="hidden" val="${campaign?.sentOn?.time?:''}" />
-            (<g:formatDate date="${campaign.sentOn}" type="datetime" style="LONG" timeStyle="SHORT"/>)
-        </span>
-        - ${campaign.filter?.name?:g.message(code:'tools.massMailing.fields.filter.to.all')}
+        <g:if test="${campaign.sentOn}">
+            <span class="date">
+                <input class="timestamp" type="hidden" val="${campaign?.sentOn?.time?:''}" />
+                (<g:formatDate date="${campaign.sentOn}" type="datetime" style="LONG" timeStyle="SHORT"/>)
+            </span>
+            - ${campaign.filter?.name?:g.message(code:'tools.massMailing.fields.filter.to.all')}
+        </g:if>
     </p>
     <ul>
         <li class="recipients"><span class="recip-number">${campaign.numberRecipients>0?campaign.numberRecipients:''}</span> <g:message code="tools.massMailing.list.recipients"/> </li>

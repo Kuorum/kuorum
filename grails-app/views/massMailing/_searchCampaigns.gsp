@@ -1,0 +1,64 @@
+<!-- FILTRO Y BUSCADOR DE CAMPAÑAS -->
+<div class="box-ppal">
+    <form class="form-horizontal" id="search-form-campaign">
+        <fieldset class="form-group" id="toFilters">
+            <div class="col-sm-3">
+                <label for="filterCampaigns" class="sr-only">
+                    <g:message code="tools.massMailing.list.filter.title"/> :
+                </label>
+                <select name="filterCampaigns" class="form-control input-lg" id="filterCampaigns">
+                    <option value="all" name="all" id="all"><g:message code="tools.massMailing.list.filter.all"/> </option>
+                    <g:each in="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.values()}" var="campaingStatus">
+                        <option value="${campaingStatus}" name="${campaingStatus}" id="${campaingStatus}">
+                            <g:message code="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.class.name}.${campaingStatus}"/>
+                        </option>
+                    </g:each>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <span id="infoFilterCampaigns">
+                    <span class="totalList"></span>
+                    <g:message code="tools.massMailing.list.filter.counterText"/>
+                    <span class="filtered"></span>
+                </span>
+            </div>
+            <div class="col-sm-3 col-md-3 col-md-offset-1">
+                <div class="searchContainer">
+                    <input type="text" class="form-control searchCampaigns" name="searchCampaign" id="searchCampaign"/>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <g:link mapping="politicianMassMailingNew" class="btn btn-blue inverted">
+                    <g:message code="tools.massMailing.list.newCampaign"/>
+                </g:link>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<!-- LISTADO DE CAMPAÑAS -->
+<div class="box-ppal list-campaigns">
+    <div id="campaignsOrderOptions" class="clearfix">
+        <span><g:message code="tools.massMailing.list.order.by"/> :</span>
+        <ul>
+            <li><a href="#" role="button" class="sort" data-sort="timestamp"><g:message code="tools.massMailing.list.order.timeSent"/></a></li>
+            <li><a href="#" role="button" class="sort" data-sort="title"><g:message code="tools.massMailing.list.order.title"/></a></li>
+            <li><a href="#" role="button" class="sort" data-sort="recip-number"><g:message code="tools.massMailing.list.order.recipients"/></a></li>
+            <li><a href="#" role="button" class="sort" data-sort="open-number"><g:message code="tools.massMailing.list.order.openRate"/></a></li>
+            <li><a href="#" role="button" class="sort" data-sort="click-number"><g:message code="tools.massMailing.list.order.clickRate"/></a></li>
+        </ul>
+        <div class="pag-list-campaigns">
+            <ul class="paginationTop"></ul>
+            <span class="counterList">Total of <span class="totalList"></span></span>
+        </div>
+    </div>
+    <ul id="campaignsList" class="list">
+        <g:each in="${campaigns}" var="campaign" status="i">
+            <g:render template="liCampaign" model="[campaign:campaign, idx:i]"/>
+        </g:each>
+    </ul>
+
+    <div class="pag-list-campaigns clearfix">
+        <ul class="paginationBottom"></ul>
+        <span class="counterList">Total of <span class="totalList"></span></span>
+    </div>
+</div>
