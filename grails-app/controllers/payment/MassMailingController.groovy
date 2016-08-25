@@ -8,6 +8,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
+import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO
 import org.kuorum.rest.model.contact.filter.ConditionOperatorTypeRDTO
@@ -90,8 +91,8 @@ class MassMailingController {
             filters.add(filterTest)
         }
         if (filterTest.amountOfContacts==0){
-            List<ContactRSDTO> contactRSDTOs = []
-            contactRSDTOs.add(new ContactRSDTO(name:user.name, email: user.email))
+            List<ContactRDTO> contactRSDTOs = []
+            contactRSDTOs.add(new ContactRDTO(name:user.name, email: user.email))
             contactService.addBulkContacts(user, contactRSDTOs)
             filterTest.amountOfContacts++ //Chapu por asincronia y por no volver a llamar
         }
