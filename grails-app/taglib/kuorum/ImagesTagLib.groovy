@@ -3,6 +3,7 @@ package kuorum
 import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.users.KuorumUser
+import org.kuorum.rest.model.contact.ContactRSDTO
 
 class ImagesTagLib {
     static defaultEncodeAs = 'html'
@@ -36,6 +37,15 @@ class ImagesTagLib {
             out << getDefaultAvatar(user)
         }
     }
+    def contactImgSrc={attrs ->
+        ContactRSDTO contact = attrs.contact
+        if (contact.urlImage){
+            out << contact.urlImage
+        }else{
+            out << getDefaultAvatar(contact)
+        }
+    }
+
 
     def showYoutube ={attrs ->
         KuorumFile youtube = attrs.youtube

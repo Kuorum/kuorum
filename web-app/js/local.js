@@ -318,40 +318,44 @@ function pageLoadingOff (){
 $(document).ready(function() {
 
     //importar contacts add tag
-    $('body').on('click','.addTagBtn', function() {
+    $('body').on('click','.addTagBtn', function(e) {
+        e.preventDefault();
         $(this).closest('.addTag').removeClass('off');
     });
 
     // input tags
-    if ($('#tagsField').length) {
-        var tagsUrl = 'mock/tags.json';
-        if ($('#tagsField').attr("data-urlTags") != undefined){
-            tagsUrl=$('#tagsField').attr("data-urlTags");
-        }
-        var tagsnames = new Bloodhound({
-          datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-          queryTokenizer: Bloodhound.tokenizers.whitespace,
-          prefetch: {
-            url: tagsUrl,
-              cache:false, //Prevents local storage
-            filter: function(list) {
-              return $.map(list, function(tagsname) {
-                return { name: tagsname }; });
-            }
-          }
-        });
-        tagsnames.initialize();
+    if ($('.tagsField').length) {
 
-        $('#tagsField').tagsinput({
-          typeaheadjs: {
-            minLength: 2,
-            hint: true,
-            highlight: true,
-            name: 'tagsnames',
-            displayKey: 'name',
-            valueKey: 'name',
-            source: tagsnames.ttAdapter()
-          }
+        $.each($('.tagsField'),function(i, input){
+            var tagsUrl = 'mock/tags.json';
+            if ($(input).attr("data-urlTags") != undefined){
+                tagsUrl=$(input).attr("data-urlTags");
+            }
+            var tagsnames = new Bloodhound({
+              datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+              queryTokenizer: Bloodhound.tokenizers.whitespace,
+              prefetch: {
+                url: tagsUrl,
+                  cache:false, //Prevents local storage
+                filter: function(list) {
+                  return $.map(list, function(tagsname) {
+                    return { name: tagsname }; });
+                }
+              }
+            });
+            tagsnames.initialize();
+
+            $(input).tagsinput({
+              typeaheadjs: {
+                minLength: 2,
+                hint: true,
+                highlight: true,
+                name: 'tagsnames',
+                displayKey: 'name',
+                valueKey: 'name',
+                source: tagsnames.ttAdapter()
+              }
+            });
         });
     }
 
@@ -408,7 +412,6 @@ $(document).ready(function() {
     function openFilterCampaignsOptions (){
         $("#newFilterContainer").fadeIn();
         var filterId = $("#recipients").val();
-        console.log(filterId)
         if (filterId == 0){
             $('select#recipients').val('-2');
             var filterId = $("#recipients").val();
@@ -1335,7 +1338,7 @@ function moveToHash(hash){
         if ($(hash)[0].hasAttribute("data-smoothOffset")){
             extraOffset = parseInt($(hash).attr("data-smoothOffset"))
         }
-        console.log("Moving to "+hash + " offset: "+extraOffset);
+        //console.log("Moving to "+hash + " offset: "+extraOffset);
         dest = dest + extraOffset;
         //go to destination
         $('html,body').animate({
