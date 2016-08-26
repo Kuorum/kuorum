@@ -1098,8 +1098,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #filterContacts, #filContacts {border: 1px solid #dedede; border-radius: 6px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #a8a8a8;}
 #filterContacts.on, #filContacts.on {background-color: #20a2ea; border-color: #20a2ea; color: #fff; cursor: default; pointer-events: none;}
 #infoToContacts, #infoContacts {color: #a8a8a8; padding-right: 30px;}
-#infoToContacts > span, #infoContacts > span {display: none;}
-#infoToContacts.on > span, #infoContacts.on > span {display: inline;}
+#infoToContacts > span.fa, #infoContacts > span.fa {display: none;}
+#infoToContacts.on > span.fa, #infoContacts.on > span.fa {display: inline;}
 
 #tabs-new-campaign > .tab-pane > h1 {margin: 0; padding: 0;}
 #toFilters .btn {margin-top: 10px; display: block;}

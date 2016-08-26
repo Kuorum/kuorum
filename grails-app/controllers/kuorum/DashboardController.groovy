@@ -56,7 +56,11 @@ class DashboardController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         if (kuorumUserService.isPaymentUser(user)){
             Map model = buildPaymentDashboadr(user);
-            render view: "/dashboard/payment/paymentDashboard", model: model
+            if (model.contacts.total>0){
+                render view: "/dashboard/payment/paymentDashboard", model: model
+            }else{
+                render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
+            }
         }else{
             buildUserDashboard(user)
         }

@@ -1,11 +1,16 @@
 package payment
 
+import grails.async.Promise
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
+import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
+import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
+import org.kuorum.rest.model.contact.SearchContactRSDTO
+import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.contact.ContactService
@@ -25,10 +30,18 @@ class ContactsController {
             redirect mapping:"politicianContactImport"
             return;
         }
-        [contacts:contacts]
+        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
+
+        [contacts:contacts, filters:filters, totalContacts:contacts.total,  command:new MassMailingCommand()]
     }
 
-
+    def searchContacts(){
+        KuorumUser user = springSecurityService.currentUser
+        SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO();
+        searchContactRSDTO.setSize(Integer.MAX_VALUE)
+        ContactPageRSDTO contacts = contactService.getUsers(user, searchContactRSDTO)
+        render contacts as JSON
+    }
     def importContacts() {}
 
     def importCSVContacts(){
@@ -91,19 +104,33 @@ class ContactsController {
 //            (0..notImport-1).each {lines.next()}
         }
 
-        lines.each{line ->
-            ContactRSDTO contact = new ContactRSDTO()
-            contact.setName(line[namePos])
-            contact.setEmail(line[emailPos])
-            contact.setTags(tagsPos.collect{line[it.intValue()]} as Set)
-            contact.getTags().addAll(tags)
-            contacts << contact
-        }
         KuorumUser loggedUser = springSecurityService.currentUser
-        contactService.addBulkContacts(loggedUser,contacts);
+        Promise p = grails.async.Promises.task {
+            lines.each{line ->
+                ContactRDTO contact = new ContactRDTO()
+                contact.setName(line[namePos])
+                contact.setEmail(line[emailPos])
+                contact.setTags(tagsPos.collect{line[it.intValue()]} as Set)
+                contact.getTags().addAll(tags)
+                contacts << contact
+                if (contacts.size() > 1000){
+                    contactService.addBulkContacts(loggedUser,contacts);
+                    contacts.clear();
+                }
+            }
 
-        csv.delete();
-        session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+            contactService.addBulkContacts(loggedUser,contacts);
+            csv.delete();
+            session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+        }
+        p.onError { Throwable err ->
+            log.error("An error occured importing contacts: ${err.message}");
+        }
+        p.onComplete { result ->
+            log.info("Imported contacts has sent: $result");
+        }
+
+
 //        render contacts as JSON
     }
 

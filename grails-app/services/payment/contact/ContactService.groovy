@@ -5,6 +5,7 @@ import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.contact.ContactPageRSDTO
+import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.SearchContactRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
@@ -15,7 +16,7 @@ class ContactService {
 
     RestKuorumApiService restKuorumApiService;
 
-    void addBulkContacts(KuorumUser user, List<ContactRSDTO> contactRSDTOs){
+    void addBulkContacts(KuorumUser user, List<ContactRDTO> contactRSDTOs){
         Map<String, String> params = [userId:user.id.toString()]
         Map<String, String> query = [:]
 
@@ -97,8 +98,13 @@ class ContactService {
     }
 
     ContactPageRSDTO getUsers(KuorumUser user, FilterRDTO filterRDTO = null){
-        Map<String, String> params = [userId:user.id.toString()]
         SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO(filter:filterRDTO);
+        getUsers(user, searchContactRSDTO)
+    }
+
+    ContactPageRSDTO getUsers(KuorumUser user, SearchContactRSDTO searchContactRSDTO){
+        Map<String, String> params = [userId:user.id.toString()]
+
 
         Map<String, String> query = convertObjectToQueryParams("",searchContactRSDTO)
 
