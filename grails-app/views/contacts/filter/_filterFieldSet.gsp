@@ -69,7 +69,7 @@
     </fieldset>
     <fieldset class="new-filter-actions">
         <a href="#" id="numberRecipients"><g:message code="tools.contact.filter.form.recipients" args="[filter.amountOfContacts?:'-']"/></a>
-        <a href="#" role="button" class="btn btn-blue inverted" id="refreshFilter"><g:message code="tools.contact.filter.form.refresh"/></a>
+        <g:link mapping="politicianContactFilterRefresh" role="button" class="btn btn-blue inverted" elementId="refreshFilter"><g:message code="tools.contact.filter.form.refresh"/></g:link>
         <g:link mapping="politicianContactFilterUpdate" role="button" class="btn btn-blue inverted" elementId="saveFilter"><g:message code="tools.contact.filter.form.save"/></g:link>
         <a href="#" role="button" class="btn btn-blue inverted" id="saveFilterAs"><g:message code="tools.contact.filter.form.saveAs"/> </a>
     </fieldset>
