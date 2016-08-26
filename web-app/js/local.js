@@ -317,6 +317,11 @@ function pageLoadingOff (){
 }
 $(document).ready(function() {
 
+    //importar contacts add tag
+    $('body').on('click','.addTagBtn', function() {
+        $(this).closest('.addTag').removeClass('off');
+    });
+
     // input tags
     if ($('#tagsField').length) {
         var tagsUrl = 'mock/tags.json';
