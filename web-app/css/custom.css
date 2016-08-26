@@ -1323,6 +1323,9 @@ li + .picker-switch {display: none;}
 .container-lists {margin-top: 10px;}
 .container-lists li {display: inline-block;}
 .off .bootstrap-tagsinput {padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
+.off .bootstrap-tagsinput .twitter-typeahead {display: none !important;}
+.bootstrap-tagsinput .twitter-typeahead {display: inline-block;}
+
 /*#contactsList > li .bootstrap-tagsinput a {color: #20a2ea;}
 #contactsList > li .bootstrap-tagsinput a:hover, #contactsList > li .bootstrap-tagsinput a:focus, #contactsList > li .bootstrap-tagsinput a:active {color: #fff; background-color: #20a2ea;}*/
 #contactsList > li > a :hover,
