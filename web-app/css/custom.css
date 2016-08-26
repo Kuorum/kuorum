@@ -984,7 +984,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
   border: none;
   box-shadow: none;
 }
-.bootstrap-tagsinput .tag {
+.bootstrap-tagsinput .tag, .addTagBtn {
   margin-right: 2px;
   margin-bottom: 6px;
   display: inline-block;
@@ -1095,11 +1095,11 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .form-group.image.header-campaign {width: auto; height: auto; min-height: 100px;}
 .header-campaign .qq-upload-drop-area {border-color: #dedede;}
 .header-campaign .qq-upload-button {line-height: 1; padding: 0;}
-#filterContacts {border: 1px solid #dedede; border-radius: 6px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #a8a8a8;}
-#filterContacts.on {background-color: #20a2ea; border-color: #20a2ea; color: #fff; cursor: default; pointer-events: none;}
-#infoToContacts {color: #a8a8a8; padding-right: 30px;}
-#infoToContacts > .fa-filter {display: none;}
-#infoToContacts.on > .fa-filter {display: inline;}
+#filterContacts, #filContacts {border: 1px solid #dedede; border-radius: 6px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #a8a8a8;}
+#filterContacts.on, #filContacts.on {background-color: #20a2ea; border-color: #20a2ea; color: #fff; cursor: default; pointer-events: none;}
+#infoToContacts, #infoContacts {color: #a8a8a8; padding-right: 30px;}
+#infoToContacts > span, #infoContacts > span {display: none;}
+#infoToContacts.on > span, #infoContacts.on > span {display: inline;}
 
 #tabs-new-campaign > .tab-pane > h1 {margin: 0; padding: 0;}
 #toFilters .btn {margin-top: 10px; display: block;}
@@ -1169,30 +1169,33 @@ li + .picker-switch {display: none;}
 .form-final-options #selectDate .btn {display: block; width: 100%;}
 .form-final-options #selectDate .input-group-addon {border: none; background-color: transparent;}
 
-#toFilters > div:nth-child(2) {line-height: 36px; font-size: 16px; font-size: 1.6rem;}
+#tabs-new-campaign #toFilters > div:nth-child(2) {line-height: 36px; font-size: 16px; font-size: 1.6rem;}
 #toFilters > div:nth-child(3) .input-group .btn.search {line-height: 1.2; height: 34px; border-width: 1px; margin-left: -1px !important; z-index: 9;}
 #searchCampaign {border-color: #ddd;}
 #infoFilterCampaigns, .pag-list-campaigns {color: #a8a8a8;}
-#campaignsOrderOptions, .pag-list-campaigns {color: #a8a8a8; font-size: 18px; font-size: 1.8rem;}
-#campaignsOrderOptions {border-bottom: 1px solid #e5e5e5; padding-left: 25px; padding-right: 25px;}
-#campaignsOrderOptions > span {display: block; float: left; margin-right: 5px; margin-top: 5px;}
-#campaignsOrderOptions > ul {width: 100%; float: left; padding: 0; margin: 5px 0 0 0;}
-#campaignsOrderOptions > ul li {list-style: none; display: block; margin: 0 10px 5px 0; }
-#campaignsOrderOptions > ul li:last-child {margin: 0;}
-#campaignsOrderOptions > ul li a {color: #a8a8a8; position: relative;}
-#campaignsOrderOptions > ul li a.active::before {font-family: FontAwesome; left:-12px; position:absolute; top:-2px;}
-#campaignsOrderOptions > ul li a.active.asc::before {content: '';}
-#campaignsOrderOptions > ul li a.active.desc::before {content: '';}
-#campaignsOrderOptions > div {margin-top: 15px; float: right;}
-.pag-list-campaigns {margin-bottom: 20px;}
-.pag-list-campaigns > ul {float: right; padding: 0; margin: 0;}
-.pag-list-campaigns > ul > li {list-style: none; display: inline-block;}
-.pag-list-campaigns > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
-.pag-list-campaigns a {text-align: center; color: #545454; display: block; float: right; width: 32px; height: 32px; line-height: 28px; margin-left: 10px; border: 1px solid #e5e5e5; background-color: #fff; background-position: center center; background-repeat: no-repeat;}
-.pag-list-campaigns a:hover, .pag-list-campaigns a:focus, .pag-list-campaigns a:active, .pag-list-campaigns .disabled a {background-color: #f7f7f7; text-decoration: none;}
-.pag-list-campaigns .active a {background-color: #ddd;}
+.box-order-options, .pag-list-campaigns, .pag-list-contacts {color: #a8a8a8; font-size: 18px; font-size: 1.8rem;}
+.box-order-options {border-bottom: 1px solid #e5e5e5; padding-left: 25px; padding-right: 25px;}
+.box-order-options > span {display: block; float: left; margin-right: 5px; margin-top: 5px;}
+.box-order-options > ul {width: 100%; float: left; padding: 0; margin: 5px 0 0 0;}
+.box-order-options > ul li {list-style: none; display: block; margin: 0 10px 5px 0; }
+.box-order-options > ul li:last-child {margin: 0;}
+.box-order-options > ul li a {color: #a8a8a8; position: relative;}
+.box-order-options > ul li a.active::before {font-family: FontAwesome; left:-12px; position:absolute; top:-2px;}
+.box-order-options > ul li a.active.asc::before {content: '';}
+.box-order-options > ul li a.active.desc::before {content: '';}
+.box-order-options > div {margin-top: 15px; float: right;}
+.pag-list-campaigns, .pag-list-contacts {margin-bottom: 20px;}
+.pag-list-campaigns > ul, .pag-list-contacts > ul {float: right; padding: 0; margin: 0;}
+.pag-list-campaigns > ul > li, .pag-list-contacts > ul > li {list-style: none; display: inline-block;}
+.pag-list-campaigns > span, .pag-list-contacts > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
+.pag-list-campaigns a, .pag-list-contacts a {text-align: center; color: #545454; display: block; float: right; width: 32px; height: 32px; line-height: 28px; margin-left: 10px; border: 1px solid #e5e5e5; background-color: #fff; background-position: center center; background-repeat: no-repeat;}
+.pag-list-campaigns a:hover, .pag-list-campaigns a:focus, .pag-list-campaigns a:active, .pag-list-campaigns .disabled a,
+.pag-list-contacts a:hover, .pag-list-contacts a:focus, .pag-list-contacts a:active, .pag-list-contacts .disabled a {background-color: #f7f7f7; text-decoration: none;}
+.pag-list-campaigns .active a, .pag-list-contacts .active a {background-color: #ddd;}
 .pag-list-campaigns .active a,
-.pag-list-campaigns .disabled a {cursor: default; pointer-events: none;}
+.pag-list-campaigns .disabled a,
+.pag-list-contacts .active a,
+.pag-list-contacts .disabled a {cursor: default; pointer-events: none;}
 .searchContainer {position: relative;}
 .searchContainer::after {font-family: FontAwesome; content:''; position: absolute; right: 8px; top: 5px; color: #a8a8a8;}
 /*.nextCampaings {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAARCAYAAADkIz3lAAABTElEQVQoU32SPUvDUBSGvZUMDqIuuusiQiYHcdPJLYaYiItYP8Au4uJSUAk4WASniq3iVhFqPsjkHFwc/AUODk5OAcFNTOJzxZbGNr3wcsk9T957zpuIgT7LsqyRJEkqQog7kcdpmjasKEqV+gbgcU8QaALoCmgZXRcKhcMuUNf1KQoNXOaBKlEUHYVh+J0B6WmWnu4BJlFZVdUz27YT2V4bNAxjEafbNE3Hcdt2XbdBPW3N8AuusNhkT/Ltoud5D/+HFKZp7uJyTuENxx3HcZ56JSEwa1JYRRc47eXFJcFpijW0QG9VdIDrV9fV8oBIRrm2BrTGYzOO41IQBB+dcHtqohkimlOK++gReAv4NTN16wF4EKCM8wlnLwy57vv+cybHzmvItAh8ydkn2pRx5f4UDLkEdIPGUCkX/PsQc+x13Ot9QQnT9wx/0vsPX0htrxF9MPAAAAAASUVORK5CYII=');}
@@ -1202,11 +1205,10 @@ li + .picker-switch {display: none;}
 #infoFilterCampaigns::after {font-family: FontAwesome; color: #a8a8a8; right:-24px; position:absolute; top:-8px;}
 #infoFilterCampaigns.searched::after {content: '';}
 
-#campaignsList + .pag-list-campaigns {border-top: 1px solid #e5e5e5; padding: 20px 15px 0;}
+.box-order-options + .list + div {padding: 20px 15px 0;}
+.box-order-options + .list {overflow-y: auto; color: #a8a8a8; padding: 0; margin: 0;}
+.box-order-options + .list li {list-style: none;}
 
-#campaignsList {/*height: 520px;*/ overflow-y: auto; color: #a8a8a8; padding: 0; margin: 0;}
-.box-ppal.list-campaigns {padding-left: 0; padding-right: 0;}
-#campaignsList li {list-style: none;}
 #campaignsList > li {padding: 25px 10px 10px 35px; border-bottom: 1px solid #e5e5e5; position: relative;}
 #campaignsList > li > .state {position: absolute; text-indent: -9999px; top: 33px; left: 5px; display: block; width: 27px; height: 27px; background-repeat: no-repeat; background-position: center center;}
 #campaignsList > li.SENT > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAFBklEQVRIS41Wa2xURRT+5u62FWw1YLC7bWorlERFICi+jTEYH3+IRaiNKO1ulza1hiAIBlFjq9EICDY+gJJ220oh8QGGaDRqGtPKQymCL34YTYQ27m4bbbHbKu127/jN3Ufv3r1tmeTkzp0553znNWdG4FJGYO31ENH7yHoLaT7pStIQJP6AkD9CoBO5RSch6vSp1IkpsUKehZBiFXkeIC0g5djw/8c1BfoldO0Q8vxHJ9NpD9Zfm43ov08BYi0Fiy/F+ThPP2XaocsG5Lf0WuXSwQLl10A4tpOxlKTZAI1wLUpykGbY8kgcJ+h6ennKLJ8K1lueD6ezCZAPWUD+YphOU0E3rf4Vmhg0QqpjHvO1JJ7LAovML0yB1ww4ARaonglEmij8mElIcv4pHWyEI6sTV+8eTvNUljoQmHk7HFo5C6aC+1kmnhM0qCwR0hiYJESochMnr/HPGWeOQMqdiDp2oKB5YNq8yTonQudr6P3L1DMryS/xFtwZmyD2RWJgwQpWmnaEs3lxJuXRLrgKt7Ccx6cFMjMEvU/yd5sR5thgjsVyuP1fCyiL+s49y/i+arLmK4zKR3Ft64VpgWR1BkLjKvQXqfADgz/kbWS0qpOyAo2IDG8Q6KtczLjupOvq0KrBcyNWUvDz6YGM0G0l30sxOWyGq2Uv+isXsZA+4X+iaHpYVD6BgGcjhFjHjaKYctmFsbESFB5UFQf0e+YjqhVjINyBBR+OTXivgHqeI/+LXMsw1gUu0PAtyGtpRMjTzmg9HudXnWW3QNDbxkkJ6YrYhqiHy19PQYlAxc3QtCbOCkgNGBzebgAaoYsQCM+TMlMjIA/BNVKGUM4aGrKXe4nq/IZgnk4C3M3FxAGuhbtlD/70LYEmWymwKK6MXokXIJ3vQousJ3h90qMkmvgJerQW+W3HmLdl9OwjU2WeVp51k3fpRHhkOfJa99MI5kHUpVqNMEG+pdd3cD3bsneWealCrv+Esd7nvRO64BlNHoMzCqyLW3clPZOoMWKuQig0FWLVgKcbZ2mAj8XxXZIx6LmXwTps9cySM1kHV9ErxnVhhFJvp4IbpkD7mUBVKUCKOeCpYuG9bcrZUZtq5N00NroiWY0KUOgtVLg4DVDgB4aqytpwDb6Qdz9D/kRcZpxzVmPAexMV7eDisvjGCDdWMpRfJJUHKpeyEfv5v9AEeIZhqoG7+WSaEcbZZVVOdKQeZZTAb+uykBN+JqWDqIswI1KKqw4MmXLAW5rHQFWn8gjMrTlHCUZZp/Ggv8Nf1bZiQ6IJ2vjTsd4Y8t0IqX/MWeKiVPdVAwaGt6Yc5Ni5K6GVR2xDp3QFPbWsYtXQ1dNBjSGm4RG42jriXV9Z07OBJrzOzUTX5+EVbyBrdFuKh2kxS1hvHHTe7KrHWrr+4PBmZfTEfRZaczkPbDNFy0z6lIefUXgXnNr3mOMPp2HF7sHryFPL6lvNfXV7J0Y3ZHQV8t7rUQupN3Vf5VyGcw89Ug8c8whTUQdjf5z0O6UusmAyjTYmcBu/D5J5jkUm7Uikv0H6fcWIRhlOsYLCdm8Q1YwVqXBfZhtVIY7R4I3WSrV/XZ1fPQuZWT4qUhU1d7I02az30cv36fWbcLees+5P/W40WpZ4mG2LTVUnqHDbAPzNdSrW2TPFYeQWdk12u08NpjT3ls6AM/tW5uZ+Wn0PV2aT1LURIf1DOmU8UDMzuzB7n/qfdPwPBt7B4OnyQfEAAAAASUVORK5CYII=');}
@@ -1215,7 +1217,9 @@ li + .picker-switch {display: none;}
 #campaignsList > li.PROGRESS > .state {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AgSCCcWMPIzewAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAKaSURBVEjH7ZbPSxVRFMe/594ZX4ZGC6GiSIgw7A8QqrcooR/7aBNEQYFtooTCdJinMQxkb/Gg2oQZFS2k31DUXlcFbYKCNKIgDCWCMp/y3p3zbSMymWLl1CI6cHfnnM+cc7733AH+osnPOHV2dq4xxqz4XYhzzvX29r5bFNbV1dVsrb0AYPMSinKqetFbzMtauxbAVhGpXWIXW8xiHqpqspiXMcZ6C7RupXOuwfd9S3JDVgL5AVYoFPYnSXIol8s1A/BERADUZg4LguAgyW5jTCOAYQAg6YvIqkxamQYZY7oBrFfVHgDbZ04PyanMKguC4EAKdCaO4yj1EePGmGxmVigU1gM4RrJRVXvSoKzNq1ar63zfbwLwlOTDIAg2pR2yVuMykj6AFmvtox/22Z9Qo4gYAKv/5CI2+Iv2D8MW2A7TSZIMk3z/K8lITpF8RXJ0Xpi19qiILE8FlJMk6XDO7QCwl+S9nwR9BXDKObfDObcvSZIHc16PxAMwRvKlqnrW2iZVfVYuly+XSqUygNEwDO+Q3AOAAN7OczU8AE0AnkRR1AegAuBDGIb3Se4CUAUwAmDQjI+PHwbQSvI4yU/GGL++vt5P5asFYFV1oFKp7ATQmj4kT5L8IiK5tra2XCpu2YwmbkxMTOyO4/j87G9Be3t7Q11d3cBMknPOuZue520QkeMktwBoi6Kof25lYRiuEpHbJLeJyFnn3C1r7UYAJwC0qOqROI6vfafGUqn0UVX7RGRERDqMMY8AXCG5DcB159zd+WYVRdEYyUsA3pA8LSKPAfQD2KKqV2tqamZnbtOBQ0NDL/L5/LCITImID+C1qvZNTk4Wi8Xip4XEMTg4+Dyfz48AmDbG1AB4BeBSkiTFKIo+479lad8A1mQzSakS41oAAAAASUVORK5CYII=');}
 #campaignsList > li h3 {margin: 10px 0 5px 0; font-size: 18px; font-size: 1.8rem;}
 #campaignsList > li h3 a {color: #545454;}
-#campaignsList > li .name, #campaignsList > li > ul > li, #campaignsList > li > a {font-size: 16px; font-size: 1.6rem; line-height: 1.2;}
+#campaignsList > li > p,
+#campaignsList > li > ul > li,
+#campaignsList > li > a {font-size: 16px; font-size: 1.6rem; line-height: 1.2;}
 #campaignsList > li > ul {padding: 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
 #campaignsList > li > ul > li {display: inline-block; margin: 0; width: 30%; text-align: center; font-size: 15px; font-size: 1.5rem;}
 #campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 16px; font-size: 1.6rem; display: block; margin-bottom: 2px;}
@@ -1224,12 +1228,13 @@ li + .picker-switch {display: none;}
 #campaignsList > li > ul > li span:empty::before {content:'-'; left:30px; position:absolute; top:2px;}
 #campaignsList > li > ul > li span.recip-number:empty::before {left:32px;}
 
-
-#campaignsList > li > a {position: absolute; top: 0; color: #545454; padding: 10px;}
-#campaignsList > li > a :hover, #campaignsList > li > a:focus, #campaignsList > li > a:active {color: #20a2ea;}
-#campaignsList .campaignDelete {right: 20px;}
-#campaignsList .campaignStats,
-#campaignsList .campaignEdit{right: 45px;}
+#campaignsList > li > a, #contactsList > li > a {position: absolute; top: 0; color: #545454; padding: 10px;}
+#campaignsList > li > a :hover,
+#campaignsList > li > a:focus,
+#campaignsList > li > a:active {color: #20a2ea;}
+.campaignDelete, .contactDelete {right: 20px;}
+.campaignStats, .contactStats,
+.campaignEdit {right: 45px;}
 
 
 /* DASHBOARD (08/2016) */
@@ -1298,6 +1303,78 @@ li + .picker-switch {display: none;}
 #inviteForm textarea {height: 150px;}
 #inviteForm .form-group {text-align: left;}
 #inviteForm .control-label {font-size: 16px; font-size: 1.6rem;}
+
+
+/* LIST CONTACTS (08/2016) */
+#boxfiltersContacts ul {padding: 0; margin: 0; text-align: right;}
+#boxfiltersContacts > div > ul > li {list-style: none; display: inline;}
+#boxfiltersContacts .searchContainer {margin: 10px 0;}
+#boxfiltersContacts .dropdown-menu {min-width: 82px; right: 14px;}
+#boxfiltersContacts .dropdown-menu > li:first-child {font-weight: normal; padding: 0; border-bottom: none; margin: 0;}
+
+#contactsList > li {padding: 18px 0 0 80px; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 220px;}
+#contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 0; top: 15px; overflow: hidden; background-color: #e5e5e5;}
+#contactsList > li .user-img img {}
+#contactsList > li p {margin: 0;}
+#contactsList > li .title {font-size: 17px; font-size: 1.7rem; margin: 0 0 4px 0;}
+#contactsList > li a {color: #545454;}
+#contactsList > li .email a {color: #a8a8a8;}
+#contactsList > li .email span {margin-right: 5px;}
+.container-lists {margin-top: 10px;}
+.container-lists li {display: inline-block;}
+.off .bootstrap-tagsinput {padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
+/*#contactsList > li .bootstrap-tagsinput a {color: #20a2ea;}
+#contactsList > li .bootstrap-tagsinput a:hover, #contactsList > li .bootstrap-tagsinput a:focus, #contactsList > li .bootstrap-tagsinput a:active {color: #fff; background-color: #20a2ea;}*/
+#contactsList > li > a :hover,
+#contactsList > li > a:focus,
+#contactsList > li > a:active {color: #20a2ea;}
+
+.container-lists h4 {color: #a8a8a8; font-size: 14px; font-size: 1.4rem; font-weight: normal; font-variant: normal; margin: 0 10px 0 -80px; float: left; line-height: 30px;}
+.engagement {list-style: none; overflow: hidden; padding: 0 30px 0 0; margin: 32px 0 0 -92px; position: relative; float: left; font-size: 70%;}
+.engagement li {float: left;}
+.engagement li a {color: #a8a8a8 !important; text-decoration: none; padding: 3px 0 3px 38px; background: #f2f2f2; position: relative; display: block; float: left; pointer-events: none; cursor: default;}
+.engagement li a:after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid #f2f2f2;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    left: 100%;
+    z-index: 2;
+}
+.engagement li a:before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+    border-left: 30px solid white;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    margin-left: 3px;
+    left: 100%;
+    z-index: 1;
+}
+.engagement li:first-child a {padding-left: 15px;}
+.engagement li.active a {background-color: #fff0ce; color: #ff9431 !important; cursor: pointer; pointer-events: auto;}
+.engagement li.active a:after {border-left-color: #fff0ce;}
+.engagement li.active a:hover {color: #ff9431; text-decoration: underline;}
+
+.addTagBtn {color: #20a2ea !important;}
+.addTagBtn:hover, .addTagBtn:focus, .addTagBtn:active {color: #fff !important; background-color: #20a2ea !important;}
+.off #inputAddTags {display: none;}
+#contactsList .bootstrap-tagsinput {padding-bottom: 0;}
+#inputAddTags {margin-top: 5px; margin-left: 5px;}
+.off .engagement-container {margin-top: 0;}
+.engagement-container {margin-top: 10px;}
+
 
 .kakareo-list.project {margin: 0; list-style: none;}
 .kakareo-list.project .kakareo.post.ley {padding: 0;}
@@ -4930,6 +5007,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #detailsInfoVotes .table tbody th {width: 270px;}
     #detailsInfoVotes.autor .table tbody th {width: 295px;}
     .main.prices .promo-options > div p.price .currency {left: 155px;}
+    .engagement {margin: 0; font-size: 100%;}
+    .container-lists h4 {margin-left: 0;}
 }
 
 @media only screen and (min-width: 640px) {
@@ -4954,6 +5033,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #myWidgetLabel {font-size: 34px;}
     #detailsInfoVotes .table tbody th {width: 300px;}
     #detailsInfoVotes.autor .table tbody th {width: 335px;}
+    #contactsList > li {min-height: 190px;}
 
 }
 
@@ -5354,10 +5434,14 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     #toFilters .btn {margin-top: 0; display: inline-block;}
     #toFilters > div:last-child {text-align: left;}
-    #filterContacts {margin-top: 0;}
-    #campaignsOrderOptions > ul {width: 50%; margin: 5px 0 0 10px;}
-    #campaignsOrderOptions > ul li, #campaignsOrderOptions > ul li:last-child {margin: 0 10px; display: inline;}
-    #campaignsOrderOptions > div {width: 34%; float: right; margin-top: 0}
+    #filterContacts, #filContacts {margin-top: 0;}
+    .box-order-options > ul {width: 50%; margin: 5px 0 0 10px;}
+    .box-order-options > ul li, .box-order-options > ul li:last-child {margin: 0 10px 10px; display: inline-block;}
+    #contactsOrderOptions.box-order-options > ul {width: 45%;}
+    #contactsOrderOptions.box-order-options > ul li,
+    #contactsOrderOptions.box-order-options > ul li:last-child {margin: 0 20px;}
+
+    .box-order-options > div {width: 34%; float: right; margin-top: 0}
     .nav-tabs.simple > li > a {padding: 10px 15px;}
     .new-filter-actions {margin-top: -23px; margin-bottom: 35px;}
     .new-filter-options .form-control {margin-left: 30px;}
@@ -5365,26 +5449,31 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .new-filter-options.first > div:last-child {line-height: 38px;}
     .new-filter-options .minus-condition, .new-filter-options .plus-condition {position: absolute;}
     #campaignsList > li > a {top: 5px;}
-    #campaignsList > li h3, #campaignsList > li .name {padding-right: 50%; margin: 0;}
+    #campaignsList > li h3, #campaignsList > li > p {padding-right: 50%; margin: 0;}
     #campaignsList > li h3 {font-size: 21px; font-size: 2.1rem; margin-bottom: 4px;}
     #campaignsList > li {padding: 10px 20px 10px 55px; min-height: 92px;}
     #campaignsList > li > .state {left: 15px;}
-    #campaignsList > li > ul {width: 38%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 2%; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
+    #campaignsList > li > ul {width: 36%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 10px; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
     #campaignsList > li > ul > li {margin: 0 12px 0 0; width: 24%;}
     #campaignsList > li > ul > li:last-child {margin: 0;}
     #campaignsList > li > ul > li.recipients {width: 34%;}
     #campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 22px; font-size: 2.2rem; margin-bottom: 0;}
     #campaignsList > li > ul > li span:empty {min-width: 100%;}
     #campaignsList > li > ul > li span.open-number::after,
-    #campaignsList > li > ul > li span.click-number::after {content:'%'; right:-2px; position:absolute; top:2px;}
-    #campaignsList .campaignDelete {right: 5px;}
-    #campaignsList .campaignStats, #campaignsList .campaignEdit {right: 28px;}
+    #campaignsList > li > ul > li span.click-number::after {content:'%'; right:-12px; position:absolute; top:2px;}
+    .campaignDelete, .contactDelete  {right: 5px;}
+    .campaignStats, .contactStats, #campaignsList .campaignEdit {right: 28px;}
 
     /* DASHBOARD (08/2016) */
     #mails {margin: 0 auto; width: 575px; text-align: center;}
     #dashboardGraphs .nav-tabs.simple > li {margin-bottom: -1px; margin-right: 1px;}
     .alert-box {height: 54px; padding: 15px;}
     #inviteFriendsModal h4 {font-size: 26px; font-size: 2.6rem;}
+    .box-order-options {padding-left: 10px; padding-right: 10px;}
+
+    /* LIST CONTACTS (08/2016) */
+    #boxfiltersContacts .searchContainer {margin: 0;}
+    #contactsOrderOptions.box-order-options > div {width: 40%;}
 
 }
 
@@ -5700,6 +5789,16 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #followOthers .user-list-followers .user > .actions {margin-top: -15px !important;}
     .dashboard > div > .box-ppal {min-height: 357px;}
 
+    /* LIST CONTACTS (08/2016) */
+    #boxfiltersContacts ul li .btn {min-width: 138px;}
+    #contactsOrderOptions.box-order-options > ul {width: 52%;}
+    #contactsOrderOptions.box-order-options > div {width: 36%;}
+    #contactsList > li > h3, #contactsList > li > p {padding-right: 74%;}
+    .container-lists {position: absolute; right: 0; top: 7px; border-left: 1px solid #e5e5e5; width: 68%; padding: 10px 20px; margin: 0;}
+    #contactsList > li {min-height: 130px;}
+    #contactsList > li > h3, #contactsList > li > p {padding-right: 68%;}
+    .container-lists {width: 63%;}
+
 
 }
 
@@ -5728,11 +5827,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* CAMPAIGNS */
     .form-final-options {margin-top: 314px;}
     .form-final-options li:first-child {display: inline-block; margin-bottom: 0;}
-    #campaignsList > li > ul {height: 100px;}
     #campaignsList > li > .state {left: 20px;}
-    #campaignsList > li {padding-left: 65px; padding-top: 20px;}
-    #campaignsList .campaignDelete {right: 20px;}
-    #campaignsList .campaignStats, #campaignsList .campaignEdit {right: 45px;}
+    #campaignsList > li {padding-left: 65px; padding-top: 24px; padding-bottom: 15px;}
+    .campaignDelete, .contactDelete {right: 5px;}
+    .campaignStats, .contactStats , #campaignsList .campaignEdit {right: 30px;}
     #campaignsList > li > ul {width: 36%; margin-top: 10px;}
     #campaignsList > li h3, #campaignsList > li .name {padding-right: 48%;}
 
@@ -5799,6 +5897,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #followOthers .user-list-followers .user > .actions {margin-top: -35px !important;}
     .dashboard > div > .box-ppal {min-height: 333px;}
     #profileInfo > span {margin-top: 50px;}
+
+    /* LIST CONTACTS (08/2016) */
+    #contactsList > li > h3, #contactsList > li > p {padding-right: 72%;}
+    .container-lists {width: 68%;}
 
 }
 
@@ -5889,6 +5991,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     #main.landing .full-video h1 {margin-top: 15%;}
     .landing .full-video .container-fluid form {margin-bottom: 9.2%;}
+
+    /* LIST CONTACTS (08/2016) */
+    #boxfiltersContacts ul li .btn {min-width: 0;}
 
 
 
