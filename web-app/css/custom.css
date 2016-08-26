@@ -372,14 +372,14 @@ header.landing .nav > li > .navbar-link.btn-transparent.active {background-color
 header.landing.transp .nav > li > .navbar-link.btn-transparent:hover,
 header.landing.transp .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #545454 !important;}
 
-header.landing .nav > li > .navbar-link.active {font-weight: bold; cursor: default; pointer-events: none;}
+header.landing .nav > li > .navbar-link.active {cursor: default; pointer-events: none;}
 header.landing .nav > li > .navbar-link.special.active {margin-top: 0px;background-color: #fff; color:#ccc; margin-top: 2px;}
 
 header.landing .nav > li > .navbar-link.active:hover,
 header.landing .nav > li > .navbar-link.active:focus {text-decoration: none;}
 
 header.landing .nav > li > .navbar-link:hover,
-header.landing .nav > li > .navbar-link:focus { text-decoration: none;}
+header.landing .nav > li > .navbar-link:focus {text-decoration: none;}
 
 header.landing.transp .nav > li > .navbar-link:hover,
 header.landing.transp .nav > li > .navbar-link:focus {color: #fff;}
@@ -984,7 +984,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
   border: none;
   box-shadow: none;
 }
-.bootstrap-tagsinput .tag, .addTagBtn {
+.bootstrap-tagsinput .tag, .addTagBtn, .addTag > ul > li a {
   margin-right: 2px;
   margin-bottom: 6px;
   display: inline-block;
@@ -1111,20 +1111,23 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .new-filter-options .minus-condition, .new-filter-options .plus-condition {color: #a8a8a8; margin-bottom: 5px; display: inline-block; line-height: 35px;}
 .new-filter-options .minus-condition:hover, .new-filter-options .minus-condition:focus, .new-filter-options .minus-condition:active,
 .new-filter-options .plus-condition:hover, .new-filter-options .plus-condition:focus, .new-filter-options .plus-condition:active {text-decoration: none; color: #333;}
-.new-filter-actions {margin-top: -60px; margin-bottom: 60px; padding-bottom: 10px; border-bottom: 1px solid #ddd; text-align: right;}
+.new-filter-actions {margin-top: -60px; margin-bottom: 60px; padding-bottom: 10px; border-bottom: 1px solid #ddd; text-align: right; position: relative;}
 .new-filter-actions a {margin-left: 5px !important;}
 .new-filter-actions a {color: #a8a8a8;}
 .new-filter-actions a:hover,
 .new-filter-actions a:focus,
 .new-filter-actions a:active {color: #a8a8a8;}
+#saveFilterAs input {margin-bottom: 10px;}
+#sendLater {margin-left: 10px; margin-bottom: 0; min-width: 85px;}
 
 .form-final-options {margin: 15px 0 0; padding: 0;}
 .form-final-options li {list-style: none; display: inline-block; margin-right: 10px; position: relative;}
 .form-final-options li:last-child {margin-right: 0;}
 .form-final-options li a {color: #a8a8a8;}
-.form-final-options #selectDate {display: none; background-color: #f9f9f9; position: absolute; width: 260px; bottom: -130px; left: -80px;border: 1px solid #dddddd; padding: 15px;}
-.form-final-options #selectDate.on {display: block;}
-.form-final-options #selectDate:after, .form-final-options #selectDate:before {
+.form-final-options #selectDate, #saveFilterAs {display: none; background-color: #f9f9f9; position: absolute; width: 260px; top: 48px; right: -80px;border: 1px solid #dddddd; padding: 15px;}
+.form-final-options #selectDate.on, #saveFilterAs.on {display: block;}
+.form-final-options #selectDate:after, .form-final-options #selectDate:before,
+#saveFilterAs:after, #saveFilterAs:before {
     bottom: 100%;
     left: 50%;
     border: solid transparent;
@@ -1134,13 +1137,13 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     position: absolute;
     pointer-events: none;
 }
-.form-final-options #selectDate:after {
+.form-final-options #selectDate:after, #saveFilterAs:after  {
     border-color: rgba(255, 255, 255, 0);
     border-bottom-color: #f9f9f9;
     border-width: 10px;
     margin-left: -10px;
 }
-.form-final-options #selectDate:before {
+.form-final-options #selectDate:before, #saveFilterAs:before {
     border-color: rgba(221, 221, 221, 0);
     border-bottom-color: #dddddd;
     border-width: 11px;
@@ -1317,24 +1320,29 @@ li + .picker-switch {display: none;}
 #contactsList > li .user-img img {}
 #contactsList > li p {margin: 0;}
 #contactsList > li .title {font-size: 17px; font-size: 1.7rem; margin: 0 0 4px 0;}
-#contactsList > li a {color: #545454;}
+#contactsList > li > .title > a, #contactsList > li > p > a {color: #545454;}
 #contactsList > li .email a {color: #a8a8a8;}
 #contactsList > li .email span {margin-right: 5px;}
 .container-lists {margin-top: 10px;}
 .container-lists li {display: inline-block;}
-.off .bootstrap-tagsinput {padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
+.off .bootstrap-tagsinput {display: none; padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
+.bootstrap-tagsinput {display: inline-block;}
 .off .bootstrap-tagsinput .twitter-typeahead,
 .off .bootstrap-tagsinput .tag > span {display: none !important;}
 .bootstrap-tagsinput .twitter-typeahead {display: inline-block;}
 
-/*#contactsList > li .bootstrap-tagsinput a {color: #20a2ea;}
-#contactsList > li .bootstrap-tagsinput a:hover, #contactsList > li .bootstrap-tagsinput a:focus, #contactsList > li .bootstrap-tagsinput a:active {color: #fff; background-color: #20a2ea;}*/
+.addTag {margin-top: -6px;}
+.addTag.off {margin-top: 3px;}
+.addTag > ul {display: inline-block; margin: 0; padding: 0;}
+.addTag > ul > li a {color: #20a2ea;}
+.addTag > ul > li a:hover, #addTag > ul > li a:focus, #addTag > ul > li a:active {color: #fff; background-color: #20a2ea;}
+
 #contactsList > li > a :hover,
 #contactsList > li > a:focus,
 #contactsList > li > a:active {color: #20a2ea;}
 
 .container-lists h4 {color: #a8a8a8; font-size: 14px; font-size: 1.4rem; font-weight: normal; font-variant: normal; margin: 0 10px 0 -70px; float: left; line-height: 30px;}
-.engagement {list-style: none; overflow: hidden; padding: 0 30px 0 0; margin: 0 0 0 -70px; position: relative; float: left; font-size: 70%;}
+.engagement {list-style: none; overflow: hidden; padding: 0 30px 0 0; margin: 0 0 10px -70px; position: relative; float: left; font-size: 70%;}
 .engagement li {float: left;}
 .engagement li a {color: #a8a8a8 !important; text-decoration: none; padding: 3px 0 3px 38px; background: #f2f2f2; position: relative; display: block; float: left; pointer-events: none; cursor: default;}
 .engagement li a:after {
@@ -1342,12 +1350,12 @@ li + .picker-switch {display: none;}
     display: block;
     width: 0;
     height: 0;
-    border-top: 50px solid transparent;
-    border-bottom: 50px solid transparent;
+    border-top: 40px solid transparent;
+    border-bottom: 40px solid transparent;
     border-left: 30px solid #f2f2f2;
     position: absolute;
     top: 50%;
-    margin-top: -50px;
+    margin-top: -40px;
     left: 100%;
     z-index: 2;
 }
@@ -1356,12 +1364,12 @@ li + .picker-switch {display: none;}
     display: block;
     width: 0;
     height: 0;
-    border-top: 50px solid transparent;
-    border-bottom: 50px solid transparent;
+    border-top: 40px solid transparent;
+    border-bottom: 40px solid transparent;
     border-left: 30px solid white;
     position: absolute;
     top: 50%;
-    margin-top: -50px;
+    margin-top: -40px;
     margin-left: 3px;
     left: 100%;
     z-index: 1;
@@ -1372,11 +1380,12 @@ li + .picker-switch {display: none;}
 .engagement li.active a:hover {color: #ff9431; text-decoration: underline;}
 
 .addTagBtn {color: #20a2ea !important;}
-.addTagBtn:hover, .addTagBtn:focus, .addTagBtn:active {color: #fff !important; background-color: #20a2ea !important;}
+.addTagBtn:hover, .addTagBtn:focus, .addTagBtn:active, .addTagBtn.on,
+.addTag > ul > li a:hover, .addTag > ul > li a:focus, .addTag > ul > li a:active {color: #fff !important; background-color: #20a2ea !important;}
 .off #inputAddTags {display: none;}
-#contactsList .bootstrap-tagsinput {padding-bottom: 0;}
+#contactsList .bootstrap-tagsinput {padding-bottom: 0; min-height: 0; padding-top: 6px;}
 #inputAddTags {margin-top: 5px; margin-left: 5px;}
-.off .engagement-container {margin-top: 0;}
+.off .engagement-container {margin-top: 18px;}
 .engagement-container {margin-top: 10px;}
 
 

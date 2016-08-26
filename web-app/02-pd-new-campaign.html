@@ -290,7 +290,15 @@
                                         <a href="#" id="numberRecipients">10 recipients</a>
                                         <a href="#" role="button" class="btn btn-blue inverted" id="refreshFilter">Refresh filter</a>
                                         <a href="#" role="button" class="btn btn-blue inverted" id="saveFilter">Save filter</a>
-                                        <a href="#" role="button" class="btn btn-blue inverted" id="saveFilterAs">Save filter as</a>
+                                        <a href="#" role="button" class="btn btn-blue inverted" id="saveFilterAsBtn">Save filter as</a>
+                                        <div id="saveFilterAs">
+                                            <form>
+                                                <label class="sr-only" for="filterName">Write a name</label>
+                                                <input class="form-control" type="text" id="filterName">
+                                                <a href="#">Cancel</a>
+                                                <button type="submit" class="btn btn-blue inverted" id="sendLater">Save</button>
+                                            </form>
+                                        </div>
                                     </fieldset>
                                 </div>
                                 <fieldset class="form-group">

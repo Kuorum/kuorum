@@ -284,12 +284,17 @@
                             <p class="followers"> <span class="fa fa-user"></span> 12 followers <a href="#"><span class="fa fa-pencil-square-o"></span><span class="sr-only">Editar</span></a></p>
                             <div class="container-lists">
                                 <form class="addTag off">
-                                    <a href="#" role="button" class="tag label label-info addTagBtn"><span class="fa fa-tag"></span>+ add tag</a>
-                                    <label for="tagsField" class="sr-only">Add tags</label>
-                                    <input id="tagsField" type="text" value="tory,journalist,anti-gun">
-                                    <input type="submit" value="Add tags" class="btn btn-blue inverted" id="inputAddTags">
+                                    <a href="#" role="button" class="tag label label-info addTagBtn"><span class="fa fa-tag"></span> edit tag</a>
+                                    <ul>
+                                        <li><a href="#" class="tag label label-info">tory</a></li>
+                                        <li><a href="#" class="tag label label-info">journalist</a></li>
+                                        <li><a href="#" class="tag label label-info">anti-gun</a></li>
+                                    </ul>
+                                    <label for="tagsField" class="sr-only">Save tags</label>
+                                    <input id="tagsField" class="tagsField" type="text" value="tory,journalist,anti-gun">
+                                    <input type="submit" value="Save tags" class="btn btn-blue inverted" id="inputAddTags">
                                 <form>
-                                <div class="engagement-container">
+                                <div class="engagement-container clearfix">
                                     <h4>Engagement:</h4>
                                     <ul class="engagement">
                                         <li><a href="#">inactive</a></li>

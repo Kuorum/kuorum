@@ -320,7 +320,15 @@ $(document).ready(function() {
     //importar contacts add tag
     $('body').on('click','.addTagBtn', function(e) {
         e.preventDefault();
-        $(this).closest('.addTag').removeClass('off');
+        if ($(this).hasClass('on')) {
+            $(this).next('ul').show();
+            $(this).removeClass('on');
+            $(this).closest('.addTag').addClass('off');
+        } else {
+            $(this).next('ul').hide();
+            $(this).addClass('on');
+            $(this).closest('.addTag').delay(1000).removeClass('off');
+        }
     });
 
     // input tags
@@ -358,6 +366,17 @@ $(document).ready(function() {
             });
         });
     }
+
+    // abrir/cerrar Save filter as
+    $('body').on('click','#saveFilterAsBtn', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        if ($('#saveFilterAs').hasClass('on')) {
+            $(this).next('#saveFilterAs').removeClass('on');
+        } else {
+            $(this).next('#saveFilterAs').addClass('on');
+        }
+    });
 
     // comportamiento para seleccionar filas en la tabla de importar contactos
     $('table.csv input[type="checkbox"]').change(function (e) {
