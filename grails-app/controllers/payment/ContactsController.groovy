@@ -5,10 +5,12 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
+import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.SearchContactRSDTO
+import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.contact.ContactService
@@ -28,7 +30,9 @@ class ContactsController {
             redirect mapping:"politicianContactImport"
             return;
         }
-        [contacts:contacts]
+        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
+
+        [contacts:contacts, filters:filters, totalContacts:contacts.total,  command:new MassMailingCommand()]
     }
 
     def searchContacts(){

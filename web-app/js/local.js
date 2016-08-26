@@ -441,13 +441,17 @@ $(document).ready(function() {
         $("#infoToContacts .amountRecipients").html(amountContacts)
     }
     // abrir opciones nuevo filtro con select
-    $('#toFilters select#recipients').on('change', loadSelectRecipientStatus);
+    $('#newsletter select#recipients').on('change', loadSelectRecipientStatus);
+    $('#searchContacts select#recipients').on('change', loadSelectRecipientStatus);
+
+
 
     //Preparar el select segun el option seleccionado
     loadSelectRecipientStatus();
 
     // abrir opciones nuevo filtro con botón
-    $('body').on('click','#toFilters #filterContacts', function() {
+    $('body').on('click','#filterContacts', function(e) {
+        e.preventDefault();
         if ($(this).hasClass('on')) {
             closeFilterCampaignsOptions();
         } else {

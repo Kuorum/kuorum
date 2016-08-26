@@ -14,30 +14,34 @@
         <li class="active"><g:message code="tools.contact.title"/></li>
     </ol>
 
-    <div>
+    <div id="searchContacts">
 
         <!-- FILTRO Y BUSCADOR DE CONTACTOS -->
         <div class="box-ppal">
-            <form class="form-horizontal">
+            <formUtil:validateForm bean="${command}" form="contactFilterForm"/>
+            <form class="form-horizontal" id="contactFilterForm">
                 <fieldset class="form-group" id="boxfiltersContacts">
                     <div class="col-sm-3">
-                        <label for="filterContactsOptions" class="sr-only">Filter Contacts:</label>
-                        <select name="filterContactsOptions" class="form-control input-lg" id="filterContactsOptions">
-                            <option value="saved" name="saved" id="saved">- Saved filters -</option>
-                            <option value="option1" name="option1" id="option1">Option 1</option>
-                            <option value="option2" name="option2" id="option2">Option 2</option>
-                            <option value="option3" name="option3" id="option3">Option 3</option>
-                            <option value="new" id="newFilter">Create new filter</option>
+                        <label for="recipients" class="sr-only">Filter Contacts:</label>
+                        <select name="filterContactsOptions" class="form-control input-lg" id="recipients">
+                            <option value="0" data-amountContacts="${totalContacts}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
+                            <g:each in="${filters}" var="filter">
+                                <option value="${filter.id}" ${command.filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
+                            </g:each>
+                            <option value="-2" data-amountContacts="-"><g:message code="tools.massMailing.fields.filter.to.createNew"/></option>
                         </select>
                     </div>
                     <div class="col-sm-3">
                         <!-- para activarlo añadir clase "on" -->
-                        <a href="#" role="buttom" id="filContacts">
+                        <a href="#" role="buttom" id="filterContacts">
                             <span class="fa fa-filter fa-lg"></span>
                             <span class="sr-only">Filter contacts</span>
                         </a>
-                        <span id="infoContacts">
-                            3.240 contacts <span class="fa fa-filter fa-lg"></span><span class="fa fa-search fa-lg"></span>
+                        <span id="infoToContacts">
+                            <span class="amountRecipients">${contacts.total}</span>
+                            <g:message code="tools.massMailing.fields.filter.recipients"/>
+                            <span class="fa fa-filter fa-lg"></span>
+                            <span class="fa fa-search fa-lg"></span>
                         </span>
                     </div>
                     <div class="col-sm-3 col-md-2 col-lg-3">
@@ -58,8 +62,11 @@
                                 </ul>
                             </li>
                         </ul>
-                        <div>
+                    </div>
                 </fieldset>
+                <div id="newFilterContainer">
+                    <g:render template="/contacts/filter/listFilterFieldSet" model="[filters:filters]"/>
+                </div>
             </form>
         </div>
         <!-- LISTADO DE CONTACTOS -->
@@ -95,10 +102,5 @@
                 <span class="counterList">101 - 200 of 347,902</span>
             </div>
         </div>
-
-        <h2>Contacts: ${contacts.total}</h2>
-        <ul>
-
-        </ul>
     </div>
 </content>
