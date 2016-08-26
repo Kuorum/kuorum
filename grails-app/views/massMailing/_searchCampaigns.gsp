@@ -37,7 +37,7 @@
 </div>
 <!-- LISTADO DE CAMPAÑAS -->
 <div class="box-ppal list-campaigns">
-    <div id="campaignsOrderOptions" class="clearfix">
+    <div id="campaignsOrderOptions" class="box-order-options clearfix">
         <span><g:message code="tools.massMailing.list.order.by"/> :</span>
         <ul>
             <li><a href="#" role="button" class="sort" data-sort="timestamp"><g:message code="tools.massMailing.list.order.timeSent"/></a></li>
