@@ -1174,7 +1174,7 @@ li + .picker-switch {display: none;}
 #searchCampaign {border-color: #ddd;}
 #infoFilterCampaigns, .pag-list-campaigns {color: #a8a8a8;}
 .box-order-options, .pag-list-campaigns, .pag-list-contacts {color: #a8a8a8; font-size: 18px; font-size: 1.8rem;}
-.box-order-options {border-bottom: 1px solid #e5e5e5; padding-left: 25px; padding-right: 25px;}
+.box-order-options {border-bottom: 1px solid #e5e5e5; padding-left: 10px; padding-right: 5px;}
 .box-order-options > span {display: block; float: left; margin-right: 5px; margin-top: 5px;}
 .box-order-options > ul {width: 100%; float: left; padding: 0; margin: 5px 0 0 0;}
 .box-order-options > ul li {list-style: none; display: block; margin: 0 10px 5px 0; }
@@ -1232,9 +1232,9 @@ li + .picker-switch {display: none;}
 #campaignsList > li > a :hover,
 #campaignsList > li > a:focus,
 #campaignsList > li > a:active {color: #20a2ea;}
-.campaignDelete, .contactDelete {right: 20px;}
+.campaignDelete, .contactDelete {right: 0;}
 .campaignStats, .contactStats,
-.campaignEdit {right: 45px;}
+.campaignEdit {right: 25px;}
 
 
 /* DASHBOARD (08/2016) */
@@ -1312,7 +1312,7 @@ li + .picker-switch {display: none;}
 #boxfiltersContacts .dropdown-menu {min-width: 82px; right: 14px;}
 #boxfiltersContacts .dropdown-menu > li:first-child {font-weight: normal; padding: 0; border-bottom: none; margin: 0;}
 
-#contactsList > li {padding: 18px 0 0 80px; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 220px;}
+#contactsList > li {padding: 34px 0 0 70px; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 220px;}
 #contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 0; top: 15px; overflow: hidden; background-color: #e5e5e5;}
 #contactsList > li .user-img img {}
 #contactsList > li p {margin: 0;}
@@ -1323,7 +1323,8 @@ li + .picker-switch {display: none;}
 .container-lists {margin-top: 10px;}
 .container-lists li {display: inline-block;}
 .off .bootstrap-tagsinput {padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
-.off .bootstrap-tagsinput .twitter-typeahead {display: none !important;}
+.off .bootstrap-tagsinput .twitter-typeahead,
+.off .bootstrap-tagsinput .tag > span {display: none !important;}
 .bootstrap-tagsinput .twitter-typeahead {display: inline-block;}
 
 /*#contactsList > li .bootstrap-tagsinput a {color: #20a2ea;}
@@ -1332,8 +1333,8 @@ li + .picker-switch {display: none;}
 #contactsList > li > a:focus,
 #contactsList > li > a:active {color: #20a2ea;}
 
-.container-lists h4 {color: #a8a8a8; font-size: 14px; font-size: 1.4rem; font-weight: normal; font-variant: normal; margin: 0 10px 0 -80px; float: left; line-height: 30px;}
-.engagement {list-style: none; overflow: hidden; padding: 0 30px 0 0; margin: 32px 0 0 -92px; position: relative; float: left; font-size: 70%;}
+.container-lists h4 {color: #a8a8a8; font-size: 14px; font-size: 1.4rem; font-weight: normal; font-variant: normal; margin: 0 10px 0 -70px; float: left; line-height: 30px;}
+.engagement {list-style: none; overflow: hidden; padding: 0 30px 0 0; margin: 0 0 0 -70px; position: relative; float: left; font-size: 70%;}
 .engagement li {float: left;}
 .engagement li a {color: #a8a8a8 !important; text-decoration: none; padding: 3px 0 3px 38px; background: #f2f2f2; position: relative; display: block; float: left; pointer-events: none; cursor: default;}
 .engagement li a:after {
@@ -5036,7 +5037,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #myWidgetLabel {font-size: 34px;}
     #detailsInfoVotes .table tbody th {width: 300px;}
     #detailsInfoVotes.autor .table tbody th {width: 335px;}
-    #contactsList > li {min-height: 190px;}
+    #contactsList > li {padding: 18px 0 0 80px; min-height: 190px;}
 
 }
 
@@ -5438,6 +5439,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #toFilters .btn {margin-top: 0; display: inline-block;}
     #toFilters > div:last-child {text-align: left;}
     #filterContacts, #filContacts {margin-top: 0;}
+    .box-order-options {padding-left: 25px; padding-right: 25px;}
     .box-order-options > ul {width: 50%; margin: 5px 0 0 10px;}
     .box-order-options > ul li, .box-order-options > ul li:last-child {margin: 0 10px 10px; display: inline-block;}
     #contactsOrderOptions.box-order-options > ul {width: 45%;}
