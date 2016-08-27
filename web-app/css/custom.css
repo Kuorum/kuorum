@@ -517,7 +517,7 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     font-size: 1.6rem !important;
     line-height: 1.1 !important;
     margin: 0;
-    padding: 14px !important;
+    padding: 14px 24px !important;
 }
 /* Extra large button */
 .btn.btn-xl {
@@ -1235,6 +1235,7 @@ li + .picker-switch {display: none;}
 #campaignsList > li > a :hover,
 #campaignsList > li > a:focus,
 #campaignsList > li > a:active {color: #20a2ea;}
+
 .campaignDelete, .contactDelete {right: 0;}
 .campaignStats, .contactStats,
 .campaignEdit {right: 25px;}
@@ -1263,8 +1264,8 @@ li + .picker-switch {display: none;}
 .box-ppal#politicianProfile h3 {font-size: 18px; font-size: 1.8rem; color: #a8a8a8; margin: 0 0 14px 0;}
 .box-ppal#politicianProfile .activity {margin: 0;}
 #dashboardGraphs {min-height: 415px;}
-#dashboardGraphs .nav-tabs.simple > li {margin-bottom: 10px; margin-right: 22px;}
-#dashboardGraphs .nav-tabs.simple {margin-bottom: 20px;}
+.nav-tabs.simple > li {margin-bottom: 10px; margin-right: 22px; float: none;}
+.nav-tabs.simple {margin-bottom: 20px;}
 
 .alert-box {display: none; background-color: #ca1d3f; color: #fff; height: 54px; text-align: center; position: fixed; top: 0; left: 0; width: 100%; padding: 5px; font-size: 16px; font-size: 1.6rem; line-height: 1.4;}
 .alert-box.on {display: block;}
@@ -1315,13 +1316,13 @@ li + .picker-switch {display: none;}
 #boxfiltersContacts .dropdown-menu {min-width: 82px; right: 14px;}
 #boxfiltersContacts .dropdown-menu > li:first-child {font-weight: normal; padding: 0; border-bottom: none; margin: 0;}
 
-#contactsList > li {padding: 34px 0 0 70px; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 220px;}
+#contactsList > li {padding: 90px 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 220px;}
 #contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 0; top: 15px; overflow: hidden; background-color: #e5e5e5;}
-#contactsList > li .user-img img {}
 #contactsList > li p {margin: 0;}
 #contactsList > li .title {font-size: 17px; font-size: 1.7rem; margin: 0 0 4px 0;}
-#contactsList > li > .title > a, #contactsList > li > p > a {color: #545454;}
-#contactsList > li .email a {color: #a8a8a8;}
+#contactsList > li > .title > a,
+#contactsList > li > p > a{color: #545454;}
+#contactsList > li .email, #contactsList > li .email a {color: #a8a8a8;}
 #contactsList > li .email span {margin-right: 5px;}
 .container-lists {margin-top: 10px;}
 .container-lists li {display: inline-block;}
@@ -1337,49 +1338,22 @@ li + .picker-switch {display: none;}
 .addTag > ul > li a {color: #20a2ea;}
 .addTag > ul > li a:hover, #addTag > ul > li a:focus, #addTag > ul > li a:active {color: #fff; background-color: #20a2ea;}
 
-#contactsList > li > a :hover,
+#contactsList > li > a:hover,
 #contactsList > li > a:focus,
 #contactsList > li > a:active {color: #20a2ea;}
 
-.container-lists h4 {color: #a8a8a8; font-size: 14px; font-size: 1.4rem; font-weight: normal; font-variant: normal; margin: 0 10px 0 -70px; float: left; line-height: 30px;}
-.engagement {list-style: none; overflow: hidden; padding: 0 30px 0 0; margin: 0 0 10px -70px; position: relative; float: left; font-size: 70%;}
+.container-lists h4 {color: #a8a8a8; font-size: 14px; font-size: 1.4rem; font-weight: normal; font-variant: normal; margin: 0 10px 0 0; float: left; line-height: 30px;}
+.engagement {list-style: none; overflow: hidden; padding: 0 15px 0 0; margin: 0 0 10px 0; position: relative; float: left; font-size: 70%;}
 .engagement li {float: left;}
-.engagement li a {color: #a8a8a8 !important; text-decoration: none; padding: 3px 0 3px 38px; background: #f2f2f2; position: relative; display: block; float: left; pointer-events: none; cursor: default;}
-.engagement li a:after {
-    content: " ";
-    display: block;
-    width: 0;
-    height: 0;
-    border-top: 40px solid transparent;
-    border-bottom: 40px solid transparent;
-    border-left: 30px solid #f2f2f2;
-    position: absolute;
-    top: 50%;
-    margin-top: -40px;
-    left: 100%;
-    z-index: 2;
-}
-.engagement li a:before {
-    content: " ";
-    display: block;
-    width: 0;
-    height: 0;
-    border-top: 40px solid transparent;
-    border-bottom: 40px solid transparent;
-    border-left: 30px solid white;
-    position: absolute;
-    top: 50%;
-    margin-top: -40px;
-    margin-left: 3px;
-    left: 100%;
-    z-index: 1;
-}
-.engagement li:first-child a {padding-left: 15px;}
+.engagement li a {color: #a8a8a8 !important; text-decoration: none; padding: 3px 0 3px 19px; background: #f2f2f2; position: relative; display: block; float: left; pointer-events: none; cursor: default;}
+.engagement li a:after {content: " "; display: block; width: 0; height: 0; border-top: 30px solid transparent; border-bottom: 30px solid transparent; border-left: 15px solid #f2f2f2; position: absolute; top: 50%; margin-top: -30px; left: 100%; z-index: 2;}
+.engagement li a:before {content: " "; display: block; width: 0; height: 0; border-top: 30px solid transparent; border-bottom: 30px solid transparent; border-left: 15px solid white; position: absolute; top: 50%; margin-top: -30px; margin-left: 3px; left: 100%; z-index: 1;}
+.engagement li:first-child a {padding-left: 7px;}
 .engagement li.active a {background-color: #fff0ce; color: #ff9431 !important; cursor: pointer; pointer-events: auto;}
 .engagement li.active a:after {border-left-color: #fff0ce;}
 .engagement li.active a:hover {color: #ff9431; text-decoration: underline;}
 
-.addTagBtn {color: #20a2ea !important;}
+.addTagBtn {color: #20a2ea !important; background-color: #fff;}
 .addTagBtn:hover, .addTagBtn:focus, .addTagBtn:active, .addTagBtn.on,
 .addTag > ul > li a:hover, .addTag > ul > li a:focus, .addTag > ul > li a:active {color: #fff !important; background-color: #20a2ea !important;}
 .off #inputAddTags {display: none;}
@@ -1387,6 +1361,55 @@ li + .picker-switch {display: none;}
 #inputAddTags {margin-top: 5px; margin-left: 5px;}
 .off .engagement-container {margin-top: 18px;}
 .engagement-container {margin-top: 10px;}
+
+/* NEW / EDIT CONTACT */
+.edit-contact form fieldset:last-child {margin-bottom: 20px;}
+.edit-contact-header > div:first-child {padding: 70px 0 10px 5px; position: relative; min-height: 135px;}
+.edit-contact-header > div:first-child .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 5px; top: 0; overflow: hidden; background-color: #e5e5e5; margin: 0;}
+.edit-contact-header > div:first-child p {margin: 0;}
+.edit-contact-header > div:first-child p.followers {margin-bottom: 5px;}
+.edit-contact-header > div:first-child p.followers a {padding: 10px 5px;}
+.edit-contact-header > div:first-child .title {font-size: 20px; font-size: 2rem; margin: 0 0 4px 0;}
+.edit-contact-header > div:first-child .title > a,
+.edit-contact-header > div:first-child p.email > a {color: #545454;}
+.edit-contact-header > div:first-child,
+.edit-contact-header > div:first-child a {color: #a8a8a8;}
+.edit-contact-header > div:first-child .email span {margin-right: 5px;}
+.edit-contact-header .container-lists {position: relative; width: auto; border: 0; top: auto; right: auto; padding: 0; margin: 0 0 30px 0;}
+.edit-contact-header > div:first-child ul {margin: 0; padding: 0;}
+.edit-contact-header > div:first-child ul,
+.edit-contact-header > div:first-child ul li {list-style: none; display: inline; margin-right: 5px;}
+.edit-contact-header > div:first-child ul li:last-child {margin: 0;}
+.edit-contact-header ul.btns {position: absolute; top: 0; right: 0;}
+.edit-contact-header ul.social-links a {font-size: 2rem;}
+.edit-contact-header ul.social-links a:hover,
+.edit-contact-header ul.social-links a:focus,
+.edit-contact-header ul.social-links a:active,
+.edit-contact-header > div:first-child p.followers a:hover,
+.edit-contact-header > div:first-child p.followers a:focus,
+.edit-contact-header > div:first-child p.followers a:active {color: #545454;}
+.edit-contact .tab-pane#details form > div:last-child > div:last-child {text-align: right; min-height: 65px; margin-bottom: 20px;}
+.edit-contact .tab-pane#details form > div:last-child > div:last-child .btn {min-width: 90px; position: absolute; bottom: 0; right: 15px; margin: 0;}
+.edit-contact .tab-pane#activity .activity {border: solid 1px #dadada; padding: 0; margin-top: 30px;}
+.edit-contact .tab-pane#activity .activity > li {border-bottom: solid 1px #dadada; padding: 12px 0; width: 100%;}
+.edit-contact .tab-pane#activity .activity > li:last-child {border-right: none;}
+.edit-contact .tab-pane#activity .activity > li.posts {font-size: 20px; font-size: 2rem;}
+.edit-contact .tab-pane#activity .activity > li.posts span {font-size: 48px; font-size: 4.8rem; line-height: 1; margin-bottom: 10px;}
+.edit-contact .tab-pane#activity .activity.des-engagement {margin-top: 20px; margin-bottom: 31px;}
+.edit-contact .tab-pane#activity .activity.des-engagement > li {width: 100%; display: block; float: left;}
+.edit-contact .tab-pane#activity .activity.des-engagement > li.posts span {font-size: 30px; font-size: 3rem;}
+.edit-contact .tab-pane#activity .activity.des-engagement > li.posts ul {padding: 0; margin: 0; height: 55px;}
+.edit-contact .tab-pane#activity .activity.des-engagement > li.posts li {list-style: none; display: block;}
+
+.edit-contact .tab-pane form {margin-top: 25px;}
+.edit-contact .tab-pane .form-group {margin-bottom: 30px;}
+.edit-contact .tab-pane#socialNetwork form .input-group-addon:first-child {border-right: none; background-color: #eeeeee;}
+.edit-contact .tab-pane#socialNetwork form > .row:last-child > div {text-align: right; padding-top: 34px;}
+.edit-contact .tab-pane form .btn {margin-bottom: 30px; min-width: 90px;}
+.edit-contact .tab-pane#notes .form-group:last-child {padding-top: 20px;}
+.edit-contact .tab-pane#notes .btn {position: absolute; right: 15px; bottom: 0; margin: 0;}
+.edit-contact .tab-pane#notes textarea {height: 226px;}
+
 
 
 .kakareo-list.project {margin: 0; list-style: none;}
@@ -2079,15 +2102,12 @@ video#bgvid {
     left: -25px;
     position: absolute;
 }
-
 .main.prices .promo-options > div.recomended {margin-top: -32px;}
 .main.prices .promo-options > div.recomended h2 {margin-top: -10px;}
 .main.prices .promo-options > div.recomended h2,
 .main.prices .promo-options > div.recomended .tag {background-color: #6e6e6e;}
 .main.prices .promo-options > div.recomended .tag {color: #fff; font-size: 14px; font-size: 1.4rem; text-transform: uppercase; font-family: Arial,Helvetica,sans-serif; text-align: center; line-height: 2.5; display: block; letter-spacing: 1px;}
 .main.prices .promo-options > div.recomended .tag:first-letter {font-size: 120%;}
-
-
 
 
 /* PARA EL QUIERO TRASTEAR MÁS DEL DASHBOARD */
@@ -5008,6 +5028,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* DASHBOARD */
     #profileInfo > span {margin-top: 50px;}
 
+    /* NEW / EDIT CONTACT */
+    .edit-contact form fieldset {width: 30%; min-width: 260px; float:left;}
+    .edit-contact form fieldset:last-child {width: 100%; text-align: right; margin: -54px 0 30px 0;}
+
 }
 
 @media only screen and (min-width: 533px) {
@@ -5022,6 +5046,19 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .main.prices .promo-options > div p.price .currency {left: 155px;}
     .engagement {margin: 0; font-size: 100%;}
     .container-lists h4 {margin-left: 0;}
+
+    /* CONTACT LIST */
+    .engagement {padding: 0 30px 0 0;}
+    .engagement li a {color: #a8a8a8 !important; text-decoration: none; padding: 3px 0 3px 38px; background: #f2f2f2; position: relative; display: block; float: left; pointer-events: none; cursor: default;}
+    .engagement li a:after {content: " "; display: block; width: 0; height: 0; border-top: 40px solid transparent; border-bottom: 40px solid transparent; border-left: 30px solid #f2f2f2; position: absolute; top: 50%; margin-top: -40px; left: 100%; z-index: 2;}
+    .engagement li a:before {content: " "; display: block; width: 0; height: 0; border-top: 40px solid transparent; border-bottom: 40px solid transparent; border-left: 30px solid white; position: absolute; top: 50%; margin-top: -40px; margin-left: 3px; left: 100%; z-index: 1;}
+    .engagement li:first-child a {padding-left: 10px;}
+
+    /* NEW / EDIT CONTACT */
+    .edit-contact form fieldset {width: 320px;}
+    .edit-contact .tab-pane#activity .activity > li {width: 32%; border-right: solid 1px #dadada; border-bottom: none;}
+    .edit-contact .tab-pane#activity .activity.des-engagement > li {width: 25%;}
+
 }
 
 @media only screen and (min-width: 640px) {
@@ -5214,7 +5251,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         line-height: 1 !important;
     }
     .btn {
-        padding: 6px 8px !important;
+        padding: 6px 14px !important;
         margin: 0;
         color: #fff !important;
         border-radius: 3px !important;
@@ -5456,7 +5493,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #contactsOrderOptions.box-order-options > ul li:last-child {margin: 0 20px;}
 
     .box-order-options > div {width: 34%; float: right; margin-top: 0}
-    .nav-tabs.simple > li > a {padding: 10px 15px;}
+    .nav-tabs.simple > li > a {padding: 10px 15px; float: left;}
     .new-filter-actions {margin-top: -23px; margin-bottom: 35px;}
     .new-filter-options .form-control {margin-left: 30px;}
     .new-filter-options.first .form-control {margin-left: 0;}
@@ -5480,7 +5517,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* DASHBOARD (08/2016) */
     #mails {margin: 0 auto; width: 575px; text-align: center;}
-    #dashboardGraphs .nav-tabs.simple > li {margin-bottom: -1px; margin-right: 1px;}
+    .nav-tabs.simple > li {margin-bottom: -1px; margin-right: 1px;}
     .alert-box {height: 54px; padding: 15px;}
     #inviteFriendsModal h4 {font-size: 26px; font-size: 2.6rem;}
     .box-order-options {padding-left: 10px; padding-right: 10px;}
@@ -5488,6 +5525,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts .searchContainer {margin: 0;}
     #contactsOrderOptions.box-order-options > div {width: 40%;}
+
+    /* NEW / EDIT CONTACT */
+    .edit-contact-header > div:first-child {padding: 10px 0 0 140px;}
+    .edit-contact-header > div:first-child .user-img {width: 114px; height: 114px;}
 
 }
 
@@ -5847,6 +5888,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .campaignStats, .contactStats , #campaignsList .campaignEdit {right: 30px;}
     #campaignsList > li > ul {width: 36%; margin-top: 10px;}
     #campaignsList > li h3, #campaignsList > li .name {padding-right: 48%;}
+
+    /* NEW / EDIT CONTACT */
+    .edit-contact .tab-pane#notes .form-group:last-child {padding-top: 255px;}
 
 
 }
