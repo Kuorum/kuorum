@@ -1390,16 +1390,16 @@ li + .picker-switch {display: none;}
 .edit-contact-header > div:first-child p.followers a:active {color: #545454;}
 .edit-contact .tab-pane#details form > div:last-child > div:last-child {text-align: right; min-height: 65px; margin-bottom: 20px;}
 .edit-contact .tab-pane#details form > div:last-child > div:last-child .btn {min-width: 90px; position: absolute; bottom: 0; right: 15px; margin: 0;}
-.edit-contact .tab-pane#activity .activity {border: solid 1px #dadada; padding: 0; margin-top: 30px;}
-.edit-contact .tab-pane#activity .activity > li {border-bottom: solid 1px #dadada; padding: 12px 0; width: 100%;}
-.edit-contact .tab-pane#activity .activity > li:last-child {border-right: none;}
-.edit-contact .tab-pane#activity .activity > li.posts {font-size: 20px; font-size: 2rem;}
-.edit-contact .tab-pane#activity .activity > li.posts span {font-size: 48px; font-size: 4.8rem; line-height: 1; margin-bottom: 10px;}
-.edit-contact .tab-pane#activity .activity.des-engagement {margin-top: 20px; margin-bottom: 31px;}
-.edit-contact .tab-pane#activity .activity.des-engagement > li {width: 100%; display: block; float: left;}
-.edit-contact .tab-pane#activity .activity.des-engagement > li.posts span {font-size: 30px; font-size: 3rem;}
-.edit-contact .tab-pane#activity .activity.des-engagement > li.posts ul {padding: 0; margin: 0; height: 55px;}
-.edit-contact .tab-pane#activity .activity.des-engagement > li.posts li {list-style: none; display: block;}
+.tab-pane .activity {border: solid 1px #dadada; padding: 0; margin-top: 30px;}
+.tab-pane .activity > li {border-bottom: solid 1px #dadada; padding: 12px 0; width: 100%;}
+.tab-pane .activity > li:last-child {border-right: none;}
+.tab-pane .activity > li.posts {font-size: 20px; font-size: 2rem;}
+.tab-pane .activity > li.posts span {font-size: 48px; font-size: 4.8rem; line-height: 1; margin-bottom: 10px;}
+.tab-pane .activity.des-engagement {margin-top: 20px; margin-bottom: 31px;}
+.tab-pane .activity.des-engagement > li {width: 100%; display: block; float: left;}
+.tab-pane .activity.des-engagement > li.posts span {font-size: 30px; font-size: 3rem;}
+.tab-pane .activity.des-engagement > li.posts ul {padding: 0; margin: 0; height: 55px;}
+.tab-pane .activity.des-engagement > li.posts li {list-style: none; display: block;}
 
 .edit-contact .tab-pane form {margin-top: 25px;}
 .edit-contact .tab-pane .form-group {margin-bottom: 30px;}
@@ -1409,6 +1409,16 @@ li + .picker-switch {display: none;}
 .edit-contact .tab-pane#notes .form-group:last-child {padding-top: 20px;}
 .edit-contact .tab-pane#notes .btn {position: absolute; right: 15px; bottom: 0; margin: 0;}
 .edit-contact .tab-pane#notes textarea {height: 226px;}
+
+/* STATS CAMPAIGNS */
+#tabs-stats-campaign h3 {font-size: 20px; margin-top: 50px; font-size: 2rem; color: #a8a8a8;}
+#tabs-stats-campaign .table {border: solid 1px #dddddd; margin-bottom: 20px;}
+#tabs-stats-campaign .table thead {display: none;}
+#tabs-stats-campaign .table th, #tabs-stats-campaign .table td {color: #a8a8a8; padding: 12px; line-height: 1.2; vertical-align: middle; width: 100%; display: block;}
+#tabs-stats-campaign .table td:nth-child(4) {height: 46px;}
+#tabs-stats-campaign .table td:nth-child(4) .only-mobile {display: block; margin-bottom: 5px;}
+#campaignStatsContainer {height: 355px;}
+#campaignEmailContainer {width: 100%; height: 700px; border: 1px solid #dddddd; margin-bottom: 10px;}
 
 
 
@@ -4903,6 +4913,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     font-size: x-small;
     z-index: -1;
     display: inline-block;
+    margin: 0 !important;
+    padding: 0 !important;
 } /* oculta de la vista pero es accesible a los lectores de pantalla */
 .sr-only.first:active,
 .sr-only.first:focus {
@@ -5056,8 +5068,11 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* NEW / EDIT CONTACT */
     .edit-contact form fieldset {width: 320px;}
-    .edit-contact .tab-pane#activity .activity > li {width: 32%; border-right: solid 1px #dadada; border-bottom: none;}
-    .edit-contact .tab-pane#activity .activity.des-engagement > li {width: 25%;}
+    .tab-pane .activity > li {width: 32%; border-right: solid 1px #dadada; border-bottom: none;}
+    .tab-pane .activity.des-engagement > li {width: 25%;}
+
+    /* STATS CAMPAIGNS */
+    #tabs-stats-campaign .table td:nth-child(4) {height: 70px;}
 
 }
 
@@ -5854,6 +5869,14 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #contactsList > li > h3, #contactsList > li > p {padding-right: 68%;}
     .container-lists {width: 63%;}
 
+    /* STATS CAMPAIGNS */
+    #tabs-stats-campaign .table thead {display: table-header-group;}
+    #tabs-stats-campaign .table thead th {background-color: #f7f7f7; font-weight: normal;}
+    #tabs-stats-campaign .table td:nth-child(4) {height: auto;}
+    #tabs-stats-campaign .table th, #tabs-stats-campaign .table td {color: #a8a8a8; padding: 22px; line-height: 1.2; vertical-align: middle; display: table-cell; width: auto;}
+    #tabs-stats-campaign .table th:nth-child(2), #tabs-stats-campaign .table th:nth-child(3),
+    #tabs-stats-campaign .table td:nth-child(2), #tabs-stats-campaign .table td:nth-child(3) {text-align: center;}
+    #tabs-stats-campaign .table .only-mobile {display: none !important;}
 
 }
 
