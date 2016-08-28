@@ -1284,7 +1284,7 @@ li + .picker-switch {display: none;}
     bottom: 0;
     height: 0%;
 }
-#progressLine {display: block; width: 75px; height: 120px; position: absolute; left: 60px; z-index: 1;}
+#progressLine {display: block; width: 125px; height: 120px; position: absolute; left: 60px; z-index: 1;}
 #progressLineFill {
     width: 100%;
     overflow: hidden;
@@ -1297,7 +1297,7 @@ li + .picker-switch {display: none;}
 
 #progressProfileFill:after {content:''; display: block; width: 40px; height: 2px; background-color: #ff9431; top: 0; right: -30px; position: absolute;}
 #progressProfile .user-img.big {border-radius: 53px; width: 106px; height: 106px; position: absolute; left: 7px; top: 7px; margin: 0;}
-#profileInfo > span {position: relative; display: block; float: left; margin-left: 10px;}
+#profileInfo > span {position: absolute; display: block; left: 140px; bottom: 0; color: #a8a8a8;}
 #profileInfo .dropdown-menu {width: 165px; margin-top: 5px;}
 #profileInfo .dropdown-menu > li:first-child {border-bottom: none; padding: 0;}
 
@@ -5038,7 +5038,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         padding: 8% 0 0;
     }
     /* DASHBOARD */
-    #profileInfo > span {margin-top: 50px;}
+    /*#profileInfo > span {margin-top: 50px;}*/
 
     /* NEW / EDIT CONTACT */
     .edit-contact form fieldset {width: 30%; min-width: 260px; float:left;}
@@ -5855,7 +5855,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .form-final-options .btn.btn-blue.inverted {margin-bottom: 0;}
 
     /* DASHBOARD */
-    #profileInfo > span {margin-top: 0; float: right;}
+    /*#profileInfo > span {margin-top: 0; float: right;}*/
     #followOthers .user-list-followers .user > .actions {margin-top: -15px !important;}
     .dashboard > div > .box-ppal {min-height: 357px;}
 
@@ -5977,7 +5977,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* DASHBOARD */
     #followOthers .user-list-followers .user > .actions {margin-top: -35px !important;}
     .dashboard > div > .box-ppal {min-height: 348px;}
-    #profileInfo > span {margin-top: 50px;}
+    /*#profileInfo > span {margin-top: 50px;}*/
 
     /* LIST CONTACTS (08/2016) */
     #contactsList > li > h3, #contactsList > li > p {padding-right: 72%;}

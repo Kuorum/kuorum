@@ -662,6 +662,11 @@ $(document).ready(function() {
         $(skillIndicator).animate({
             height: skillVal
         }, 1500);
+        var skillText = $('#profileInfo > span');
+        $(skillText).animate({
+            bottom: skillVal
+        }, 1500);
+
     }
 
     // abrir modal invitar amigos
