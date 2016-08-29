@@ -1299,7 +1299,7 @@ var filterContacts = {
             filterContacts.openFilterCampaignsOptions();
         }
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
-        $("#infoToContacts .amountRecipients").html(amountContacts)
+        filterContacts.updateAmountContacts(amountContacts)
     },
     callBackFilters : {
         campaignFilterRefresh:function(data){
