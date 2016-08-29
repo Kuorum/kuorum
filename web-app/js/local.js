@@ -368,7 +368,7 @@ $(document).ready(function() {
     }
 
     // abrir/cerrar Save filter as
-    $('body').on('click','#saveFilterAsBtn', function(e) {
+    $('body').on('click','#saveFilterAsBtnOpenModal, #saveFilterAsBtnCancel', function(e) {
         e.stopPropagation();
         e.preventDefault();
         if ($('#saveFilterAs').hasClass('on')) {
@@ -422,59 +422,22 @@ $(document).ready(function() {
             $('#selectDate').removeClass('on');
         }
     });
-
-    function getFormFilterIdSelected(){
-        var filterId = $("#recipients").val();
-        return $("#formFilter_"+filterId.replace("-","_"))
-    }
-
-    function openFilterCampaignsOptions (){
-        $("#newFilterContainer").fadeIn();
-        var filterId = $("#recipients").val();
-        if (filterId == 0){
-            $('select#recipients').val('-2');
-            var filterId = $("#recipients").val();
-        }
-        var $filterData = getFormFilterIdSelected();
-        $filterData.removeClass("hide");
-        $filterData.fadeIn();
-        $filterData.find("input, select").prop('disabled', false);
-        $('#filterContacts, #infoToContacts').addClass('on');
-
-    }
-    function closeFilterCampaignsOptions (){
-        $('#filterContacts').removeClass('on');
-        $("#newFilterContainer").fadeOut();
-        $(".disabled-filters").fadeOut();
-        $(".disabled-filters").find("input, select").prop('disabled', true);
-        $('#infoToContacts, #filterContacts').removeClass('on');
-    }
-
-    function loadSelectRecipientStatus(){
-        closeFilterCampaignsOptions();
-        if ($('select#recipients').val()==-2) {
-            //New filter
-            openFilterCampaignsOptions();
-        }
-        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
-        $("#infoToContacts .amountRecipients").html(amountContacts)
-    }
     // abrir opciones nuevo filtro con select
-    $('#newsletter select#recipients').on('change', loadSelectRecipientStatus);
-    $('#searchContacts select#recipients').on('change', loadSelectRecipientStatus);
+    $('#newsletter select#recipients').on('change', filterContacts.loadSelectRecipientStatus);
+    $('#searchContacts select#recipients').on('change', filterContacts.loadSelectRecipientStatus);
 
 
 
     //Preparar el select segun el option seleccionado
-    loadSelectRecipientStatus();
+    filterContacts.loadSelectRecipientStatus();
 
     // abrir opciones nuevo filtro con botón
     $('body').on('click','#filterContacts', function(e) {
         e.preventDefault();
         if ($(this).hasClass('on')) {
-            closeFilterCampaignsOptions();
+            filterContacts.closeFilterCampaignsOptions();
         } else {
-            openFilterCampaignsOptions();
+            filterContacts.openFilterCampaignsOptions();
         }
     });
     // eliminar condición con botón
@@ -494,35 +457,12 @@ $(document).ready(function() {
     //});
 
     // Update filter
-    $('body').on('click','#saveFilter, #refreshFilter', function(e) {
+    $('body').on('click','#saveFilter, #refreshFilter, #saveFilterAsBtn', function(e) {
         e.preventDefault();
-        var filterId = $("#recipients").val();
-        var $filterData = getFormFilterIdSelected();
-        var inputs = $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select"))
-        var postData = inputs.serializeArray();
         var link = $(this).attr("href");
-        pageLoadingOn();
-        $.post( link, postData)
-            .done(function(data) {
-                var dataFilter = data.data.filter;
-                updateAmountContacts(dataFilter.amountOfContacts);
-                display.success(data.msg)
-                //closeFilterCampaignsOptions();
-            })
-            .fail(function(messageError) {
-                display.warn("Error");
-            })
-        .always(function() {
-            pageLoadingOff();
-        });
+        var callback = $(this).attr("data-callaBackFunction");
+        filterContacts.postFilter(link, callback);
     });
-
-    function updateAmountContacts(amountContacts){
-        var $filterData = getFormFilterIdSelected();
-        $('select#recipients option:selected').attr("data-amountContacts", amountContacts);
-        $filterData.find("#numberRecipients > span").html(amountContacts);
-        $("#infoToContacts > span.amountRecipients").html(amountContacts);
-    }
 
     // Guardar borrador
     $('body').on('click','.form-final-options #save-draft-campaign', function(e) {
@@ -1300,6 +1240,86 @@ $(document).ready(function() {
 
     prepareForms()
 });
+
+var filterContacts = {
+    postFilter:function(link, callback){
+        var filterId = $("#recipients").val();
+        var $filterData = filterContacts.getFormFilterIdSelected();
+        var inputs = $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select"))
+        var postData = inputs.serializeArray();
+        pageLoadingOn();
+        $.post( link, postData)
+            .done(function(data) {
+                var dataFilter = data.data.filter;
+                filterContacts.updateAmountContacts(dataFilter.amountOfContacts);
+                display.success(data.msg)
+                if (callback != undefined){
+                    window["filterContacts"]["callBackFilters"][callback](data)
+                }
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+    },
+    updateAmountContacts:function(amountContacts){
+        var $filterData = this.getFormFilterIdSelected();
+        $('select#recipients option:selected').attr("data-amountContacts", amountContacts);
+        $filterData.find("#numberRecipients > span").html(amountContacts);
+        $("#infoToContacts > span.amountRecipients").html(amountContacts);
+    },
+    getFormFilterIdSelected: function(){
+        var filterId = $("#recipients").val();
+        return $("#formFilter_"+filterId.replace("-","_"))
+    },
+    openFilterCampaignsOptions: function(){
+        var filterId = $("#recipients").val();
+        if (filterId == 0){
+            $('select#recipients').val('-2');
+            var filterId = $("#recipients").val();
+        }
+        var $filterData = this.getFormFilterIdSelected();
+        $filterData.removeClass("hide");
+        $filterData.slideDown("fast", function(){$("#newFilterContainer").slideDown();});
+        $filterData.find("input, select").prop('disabled', false);
+        $('#filterContacts, #infoToContacts').addClass('on');
+    },
+    closeFilterCampaignsOptions: function(){
+        $('#filterContacts').removeClass('on');
+        $(".disabled-filters").slideUp("fast",function(){$("#newFilterContainer").slideUp()});
+        $(".disabled-filters").find("input, select").prop('disabled', true);
+        $('#infoToContacts, #filterContacts').removeClass('on');
+    },
+    loadSelectRecipientStatus: function(){
+        filterContacts.closeFilterCampaignsOptions();
+        if ($('select#recipients').val()==-2) {
+            //New filter
+            filterContacts.openFilterCampaignsOptions();
+        }
+        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
+        $("#infoToContacts .amountRecipients").html(amountContacts)
+    },
+    callBackFilters : {
+        campaignFilterRefresh:function(data){
+            //console.log(data)
+        },
+        campaignFilterSave:function(data){
+            filterContacts.closeFilterCampaignsOptions();
+        },
+        campaignFilterSaveAs:function(data){
+            filterContacts.closeFilterCampaignsOptions();
+            var filter = data.data.filter
+            $("#recipients option:last").before($('<option>', {
+                value: filter.id,
+                text: filter.name,
+                'data-amountContacts':filter.amountOfContacts
+            }));
+            $("#recipients").val(filter.id);
+        }
+    }
+};
 
 function prepareForms(){
     // datepicker calendario

@@ -69,8 +69,14 @@
     </fieldset>
     <fieldset class="new-filter-actions">
         <a href="#" id="numberRecipients"><g:message code="tools.contact.filter.form.recipients" args="[filter.amountOfContacts?:'-']"/></a>
-        <g:link mapping="politicianContactFilterRefresh" role="button" class="btn btn-blue inverted" elementId="refreshFilter"><g:message code="tools.contact.filter.form.refresh"/></g:link>
-        <g:link mapping="politicianContactFilterUpdate" role="button" class="btn btn-blue inverted" elementId="saveFilter"><g:message code="tools.contact.filter.form.save"/></g:link>
-        <a href="#" role="button" class="btn btn-blue inverted" id="saveFilterAs"><g:message code="tools.contact.filter.form.saveAs"/> </a>
+        <g:link mapping="politicianContactFilterRefresh"    data-callaBackFunction="campaignFilterRefresh" role="button" class="btn btn-blue inverted" elementId="refreshFilter"><g:message code="tools.contact.filter.form.refresh"/></g:link>
+        <g:link mapping="politicianContactFilterUpdate"     data-callaBackFunction="campaignFilterSave" role="button" class="btn btn-blue inverted" elementId="saveFilter"><g:message code="tools.contact.filter.form.save"/></g:link>
+        <a href="#"        role="button" class="btn btn-blue inverted" id="saveFilterAsBtnOpenModal"><g:message code="tools.contact.filter.form.saveAs"/></a>
+        <div id="saveFilterAs">
+            <label class="sr-only" for="newFilterName">Write a name</label>
+            <input class="form-control" type="text" name="newFilterName" id="newFilterName">
+            <a href="#" id="saveFilterAsBtnCancel">Cancel</a>
+            <g:link mapping="politicianContactFilterNew" data-callaBackFunction="campaignFilterSaveAs" type="submit" class="btn btn-blue inverted" elementId="saveFilterAsBtn">Save</g:link>
+        </div>
     </fieldset>
 </div>

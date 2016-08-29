@@ -18,6 +18,30 @@ class ContactFiltersController {
     ContactService contactService;
     SpringSecurityService springSecurityService
 
+    def newFilter(ContactFilterCommand filterCommand){
+        if (filterCommand.hasErrors()){
+            ObjectError error = filterCommand.errors.allErrors.first();
+            render ([status:"error", msg:error.defaultMessage] as JSON)
+            return
+        }
+        String newFilterName = params.newFilterName
+        if (!newFilterName){
+            render ([status:"error", msg:g.message(code:"tools.contact.filter.form.saveAs.noName")] as JSON)
+            return;
+        }
+        KuorumUser user = springSecurityService.currentUser
+        FilterRDTO filterRDTO = convertCommandToFilter(filterCommand);
+        filterRDTO.name = newFilterName
+        ExtendedFilterRSDTO filterSaved = contactService.createFilter(user,filterRDTO);
+
+
+        render ([
+                status:"ok",
+                msg:g.message(code:'tools.contact.filter.form.success', args: [filterSaved.name]),
+                data:[filter:filterSaved]
+        ] as JSON)
+    }
+
     def updateFilter(ContactFilterCommand filterCommand){
         if (filterCommand.hasErrors()){
             ObjectError error = filterCommand.errors.allErrors.first();
@@ -47,11 +71,7 @@ class ContactFiltersController {
             render ([status:"error", msg:error.defaultMessage] as JSON)
             return
         }
-        Long filterId = Long.parseLong(params.filterId)
-        if (filterId <= 0){
-            render ([status:"error", msg:g.message(code:'tools.contact.filter.form.notExits')] as JSON)
-            return;
-        }
+
         KuorumUser user = springSecurityService.currentUser
         FilterRDTO filterRDTO = convertCommandToFilter(filterCommand);
         ContactPageRSDTO usersPage = contactService.getUsers(user, filterRDTO)

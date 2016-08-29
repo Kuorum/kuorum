@@ -9,7 +9,7 @@
         <g:render template="/layouts/head"/>
         <div class="row main">
             <div class="container-fluid">
-                <section id="main" class="col-xs-12" role="main">
+                <section id="main" role="main">
                     <g:pageProperty name="page.mainContent"/>
                 </section>
             </div>
