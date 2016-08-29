@@ -1243,7 +1243,6 @@ $(document).ready(function() {
 
 var filterContacts = {
     postFilter:function(link, callback){
-        var filterId = $("#recipients").val();
         var $filterData = filterContacts.getFormFilterIdSelected();
         var inputs = $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select"))
         var postData = inputs.serializeArray();
