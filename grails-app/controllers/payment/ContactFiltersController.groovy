@@ -34,11 +34,12 @@ class ContactFiltersController {
         filterRDTO.name = newFilterName
         ExtendedFilterRSDTO filterSaved = contactService.createFilter(user,filterRDTO);
 
+        def filterRendered = g.render( template:"/contacts/filter/filterFieldSet",model:[filter:filterSaved])
 
         render ([
                 status:"ok",
                 msg:g.message(code:'tools.contact.filter.form.success', args: [filterSaved.name]),
-                data:[filter:filterSaved]
+                data:[filter:filterSaved, filterRendered:filterRendered]
         ] as JSON)
     }
 

@@ -1310,6 +1310,12 @@ var filterContacts = {
         },
         campaignFilterSaveAs:function(data){
             filterContacts.closeFilterCampaignsOptions();
+            var filter = data.data.filter;
+            console.log(data)
+            var htmlFilter = data.data.filterRendered;
+            console.log(htmlFilter)
+
+            $("#newFilterContainer").append(htmlFilter);
             var filter = data.data.filter
             $("#recipients option:last").before($('<option>', {
                 value: filter.id,
@@ -1317,6 +1323,8 @@ var filterContacts = {
                 'data-amountContacts':filter.amountOfContacts
             }));
             $("#recipients").val(filter.id);
+
+
         }
     }
 };
