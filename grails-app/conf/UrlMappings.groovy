@@ -318,7 +318,7 @@ class UrlMappings {
         name politicianAnalytics:                       "/account/data-analytics" (controller:"politician", action: "betaTesterPage")
         name politicianContactProfiling:                "/account/contact-profiling" (controller:"politician", action: "betaTesterPage")
         name politicianContacts:                        "/account/contacts" (controller:"contacts", action: "index")
-        name politicianContactsList:                    "/ajax/account/contacts" (controller:"contacts", action: "searchContacts")
+        name politicianContactsSearch:                  "/ajax/account/contacts" (controller:"contactFilters", action: "searchContacts")
         name politicianContactImport:                   "/account/contacts/import" (controller:"contacts", action: "importContacts")
         name politicianContactImportCSV:                "/account/contacts/import/csv" (controller:"contacts", action: "importCSVContacts")
         name politicianContactImportCSVSave:            "/account/contacts/import/csv_save" (controller:"contacts", action: "importCSVContactsSave")

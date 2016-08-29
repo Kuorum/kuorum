@@ -35,13 +35,6 @@ class ContactsController {
         [contacts:contacts, filters:filters, totalContacts:contacts.total,  command:new MassMailingCommand()]
     }
 
-    def searchContacts(){
-        KuorumUser user = springSecurityService.currentUser
-        SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO();
-        searchContactRSDTO.setSize(Integer.MAX_VALUE)
-        ContactPageRSDTO contacts = contactService.getUsers(user, searchContactRSDTO)
-        render contacts as JSON
-    }
     def importContacts() {}
 
     def importCSVContacts(){

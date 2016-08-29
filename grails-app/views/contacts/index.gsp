@@ -69,38 +69,8 @@
                 </div>
             </form>
         </div>
-        <!-- LISTADO DE CONTACTOS -->
-        <div class="box-ppal list-contacts">
-            <div id="contactsOrderOptions" class="box-order-options clearfix">
-                <span>Order by:</span>
-                <ul>
-                    <!-- añadir la clase "active asc" o "active desc" al <a> -->
-                    <li><a href="#" role="button" class="sort" data-sort="timestamp">Name</a></li>
-                    <li><a href="#" role="button" class="sort" data-sort="title">Email</a></li>
-                    <li><a href="#" role="button" class="sort" data-sort="recip-number">Followers</a></li>
-                    <li><a href="#" role="button" class="sort" data-sort="open-number">Engagement</a></li>
-                </ul>
-                <div class="pag-list-contacts">
-                    <ul>
-                        <li><a href="#" role="button"><span class="fa fa-caret-left"></span><span class="sr-only">Anteriores</span></a></li>
-                        <li><a href="#" role="button"><span class="fa fa-caret-right"></span><span class="sr-only">Posteriores</span></a></li>
-                    </ul>
-                    <span class="counterList">101 - 200 of 347,902</span>
-                </div>
-            </div>
-            <ul id="contactsList" class="list">
-                <g:each in="${contacts.data}" var="contact">
-                    <g:render template="liContact" model="[contact:contact]"/>
-                </g:each>
-            </ul>
-
-            <div class="pag-list-contacts clearfix">
-                <ul>
-                    <li><a href="#" role="button"><span class="fa fa-caret-left"></span><span class="sr-only">Anteriores</span></a></li>
-                    <li><a href="#" role="button"><span class="fa fa-caret-right"></span><span class="sr-only">Posteriores</span></a></li>
-                </ul>
-                <span class="counterList">101 - 200 of 347,902</span>
-            </div>
+        <div id="listContacts" data-ajaxUrlContacts="${g.createLink(mapping: 'politicianContactsSearch', absolute:true)}">
+            <g:render template="/contacts/listContacts" model="[contacts:contacts]"/>
         </div>
     </div>
 </content>

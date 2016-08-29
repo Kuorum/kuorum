@@ -331,41 +331,7 @@ $(document).ready(function() {
         }
     });
 
-    // input tags
-    if ($('.tagsField').length) {
-
-        $.each($('.tagsField'),function(i, input){
-            var tagsUrl = 'mock/tags.json';
-            if ($(input).attr("data-urlTags") != undefined){
-                tagsUrl=$(input).attr("data-urlTags");
-            }
-            var tagsnames = new Bloodhound({
-              datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-              queryTokenizer: Bloodhound.tokenizers.whitespace,
-              prefetch: {
-                url: tagsUrl,
-                  cache:false, //Prevents local storage
-                filter: function(list) {
-                  return $.map(list, function(tagsname) {
-                    return { name: tagsname }; });
-                }
-              }
-            });
-            tagsnames.initialize();
-
-            $(input).tagsinput({
-              typeaheadjs: {
-                minLength: 2,
-                hint: true,
-                highlight: true,
-                name: 'tagsnames',
-                displayKey: 'name',
-                valueKey: 'name',
-                source: tagsnames.ttAdapter()
-              }
-            });
-        });
-    }
+    prepareContactTags();
 
     // abrir/cerrar Save filter as
     $('body').on('click','#saveFilterAsBtnOpenModal, #saveFilterAsBtnCancel', function(e) {
@@ -424,7 +390,7 @@ $(document).ready(function() {
     });
     // abrir opciones nuevo filtro con select
     $('#newsletter select#recipients').on('change', filterContacts.loadSelectRecipientStatus);
-    $('#searchContacts select#recipients').on('change', filterContacts.loadSelectRecipientStatus);
+    $('#searchContacts select#recipients').on('change', filterContacts.searchContactsCallBacks.loadTableContacts);
 
 
 
@@ -1241,19 +1207,37 @@ $(document).ready(function() {
     prepareForms()
 });
 
-var filterContacts = {
-    postFilter:function(link, callback){
-        var $filterData = filterContacts.getFormFilterIdSelected();
+function FilterContacts() {
+
+    var that = this
+    var callBackBehaviour = "newsletterCallBacks";
+    if ($('#newsletter select#recipients').length > 0){
+        // NEWS LETTER BEHAVIOUR
+    }
+
+    if ($('#searchContacts select#recipients').length > 0){
+        // Contacts BEHAVIOUR
+        var callBackBehaviour = "searchContactsCallBacks";
+
+    }
+
+    this.serializedFilterData = function(){
+        var $filterData = that.getFormFilterIdSelected();
         var inputs = $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select"))
         var postData = inputs.serializeArray();
+        return postData;
+    }
+
+    this.postFilter = function(link, callback){
+        var postData = that.serializedFilterData();
         pageLoadingOn();
         $.post( link, postData)
             .done(function(data) {
                 var dataFilter = data.data.filter;
-                filterContacts.updateAmountContacts(dataFilter.amountOfContacts);
+                that.updateAmountContacts(dataFilter.amountOfContacts);
                 display.success(data.msg)
                 if (callback != undefined){
-                    window["filterContacts"]["callBackFilters"][callback](data)
+                    that[callBackBehaviour][callback](data)
                 }
             })
             .fail(function(messageError) {
@@ -1262,18 +1246,26 @@ var filterContacts = {
             .always(function() {
                 pageLoadingOff();
             });
-    },
-    updateAmountContacts:function(amountContacts){
+    }
+    this.updateAmountContacts = function(amountContacts){
         var $filterData = this.getFormFilterIdSelected();
         $('select#recipients option:selected').attr("data-amountContacts", amountContacts);
         $filterData.find("#numberRecipients > span").html(amountContacts);
         $("#infoToContacts > span.amountRecipients").html(amountContacts);
-    },
-    getFormFilterIdSelected: function(){
+    };
+
+    this.getFilterId= function(){
         var filterId = $("#recipients").val();
+        if (filterId == undefined){
+            filterId = "0";
+        }
+        return filterId;
+    }
+    this.getFormFilterIdSelected= function(){
+        var filterId = that.getFilterId();
         return $("#formFilter_"+filterId.replace("-","_"))
-    },
-    openFilterCampaignsOptions: function(){
+    };
+    this.openFilterCampaignsOptions= function(){
         var filterId = $("#recipients").val();
         if (filterId == 0){
             $('select#recipients').val('-2');
@@ -1284,35 +1276,33 @@ var filterContacts = {
         $filterData.slideDown("fast", function(){$("#newFilterContainer").slideDown();});
         $filterData.find("input, select").prop('disabled', false);
         $('#filterContacts, #infoToContacts').addClass('on');
-    },
-    closeFilterCampaignsOptions: function(){
+    };
+    this.closeFilterCampaignsOptions= function(){
         $('#filterContacts').removeClass('on');
         $(".disabled-filters").slideUp("fast",function(){$("#newFilterContainer").slideUp()});
         $(".disabled-filters").find("input, select").prop('disabled', true);
         $('#infoToContacts, #filterContacts').removeClass('on');
-    },
-    loadSelectRecipientStatus: function(){
-        filterContacts.closeFilterCampaignsOptions();
+    };
+    this.loadSelectRecipientStatus = function(){
+        that.closeFilterCampaignsOptions();
         if ($('select#recipients').val()==-2) {
             //New filter
-            filterContacts.openFilterCampaignsOptions();
+            this.openFilterCampaignsOptions();
         }
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
-        filterContacts.updateAmountContacts(amountContacts)
-    },
-    callBackFilters : {
+        that.updateAmountContacts(amountContacts)
+    };
+    this.newsletterCallBacks = {
         campaignFilterRefresh:function(data){
             //console.log(data)
         },
         campaignFilterSave:function(data){
-            filterContacts.closeFilterCampaignsOptions();
+            that.closeFilterCampaignsOptions();
         },
         campaignFilterSaveAs:function(data){
-            filterContacts.closeFilterCampaignsOptions();
+            that.closeFilterCampaignsOptions();
             var filter = data.data.filter;
-            console.log(data)
             var htmlFilter = data.data.filterRendered;
-            console.log(htmlFilter)
 
             $("#newFilterContainer").append(htmlFilter);
             var filter = data.data.filter
@@ -1325,8 +1315,43 @@ var filterContacts = {
 
 
         }
-    }
+    };
+
+
+    this.searchContactsCallBacks = {
+        campaignFilterRefresh:function(data){
+            that.searchContactsCallBacks.loadTableContacts();
+        },
+        campaignFilterSave:function(data){
+            that.newsletterCallBacks.campaignFilterSave(data)
+        },
+        campaignFilterSaveAs:function(data){
+            that.newsletterCallBacks.campaignFilterSaveAs(data)
+        },
+
+        loadTableContacts:function(){
+            console.log("Loading contacts")
+            var link = $("#listContacts").attr("data-ajaxUrlContacts");
+            var postData = that.serializedFilterData();
+            postData['filterId']=that.getFilterId()
+            pageLoadingOn();
+            $.post( link, postData)
+                .done(function(data) {
+                    $("#listContacts").html(data);
+                    prepareContactTags();
+                })
+                .fail(function(messageError) {
+                    display.warn("Error");
+                })
+                .always(function() {
+                    pageLoadingOff();
+                });
+        }
+    };
+
 };
+
+var filterContacts = new FilterContacts()
 
 function prepareForms(){
     // datepicker calendario
@@ -1419,4 +1444,42 @@ function formatTooltipDate(date) {
     hours = hours < 10 ? '0'+hours : hours;
     var strTime = hours + ':' + minutes;
     return date.getDate()+"-"+(date.getMonth()+1) + "-" + date.getFullYear() + "  " + strTime;
+}
+
+function prepareContactTags(){
+    // input tags
+    if ($('.tagsField').length) {
+
+        $.each($('.tagsField'),function(i, input){
+            var tagsUrl = 'mock/tags.json';
+            if ($(input).attr("data-urlTags") != undefined){
+                tagsUrl=$(input).attr("data-urlTags");
+            }
+            var tagsnames = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                prefetch: {
+                    url: tagsUrl,
+                    cache:false, //Prevents local storage
+                    filter: function(list) {
+                        return $.map(list, function(tagsname) {
+                            return { name: tagsname }; });
+                    }
+                }
+            });
+            tagsnames.initialize();
+
+            $(input).tagsinput({
+                typeaheadjs: {
+                    minLength: 2,
+                    hint: true,
+                    highlight: true,
+                    name: 'tagsnames',
+                    displayKey: 'name',
+                    valueKey: 'name',
+                    source: tagsnames.ttAdapter()
+                }
+            });
+        });
+    }
 }
