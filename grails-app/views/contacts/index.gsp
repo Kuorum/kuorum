@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-sm-3 col-md-4 col-lg-3">
                         <ul>
-                            <li><a href="#" class="btn btn-blue inverted"><span class="fa fa-plus fa-lg"></span> New contact</a></li>
+                            <li><a href="#" class="btn btn-blue inverted"><span class="fa fa-plus"></span> New contact</a></li>
                             <li>
                                 <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown">Import <span class="fa fa-caret-down fa-lg"></span></a>
                                 <ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">
