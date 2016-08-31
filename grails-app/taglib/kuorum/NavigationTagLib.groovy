@@ -102,4 +102,42 @@ class NavigationTagLib {
     protected getPage() {
         return getRequest().getAttribute(RequestConstants.PAGE)
     }
+
+    def contactPagination={ attrs ->
+        Long totalElements = attrs.total
+        String ulClass= attrs.ulClasss
+        Long currentPage = attrs.currentPage
+        Long sizePage = attrs.sizePage
+        Long totalPages = Math.floor(totalElements / sizePage)
+
+        out <<"<ul class='${ulClass}'>"
+        boolean lastLiDisabled = false
+        (0..totalPages).each {
+            if (it == 0 || it >= currentPage-1 && it<=currentPage+1 || it == totalPages ){
+                out << getPaginationLi(it, currentPage)
+                lastLiDisabled=false
+            }else if(!lastLiDisabled){
+                lastLiDisabled=true
+                out << getPaginationDisabledLi()
+            }
+        }
+        out <<"</ul>"
+        out <<"<span class='counterList'>Total of <span class='totalList'>${totalElements}</span></span>"
+    }
+
+    private String getPaginationLi(Long page, Long currentPage){
+        """
+            <li class="${page==currentPage?'active':''}">
+                <a class="page" href="#">${page+1}</a>
+            </li>
+        """
+    }
+
+    private String getPaginationDisabledLi(){
+        """
+            <li>
+                <a class="page disabled" href="#">...</a>
+            </li>
+        """
+    }
 }

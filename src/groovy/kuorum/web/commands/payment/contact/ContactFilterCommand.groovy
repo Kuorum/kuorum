@@ -31,6 +31,21 @@ class ContactFilterCommand {
         operator nullable: false
         filterConditions nullable: false, maxSize: 20
     }
+
+    public FilterRDTO buildFilter(){
+        FilterRDTO filterRDTO = new FilterRDTO()
+        filterRDTO.name = this.filterName
+        filterRDTO.operator = this.operator
+        filterRDTO.setFilterConditions(this.filterConditions.findAll{it && it.value}.collect{
+            ConditionRDTO conditionRDTO = new ConditionRDTO()
+            conditionRDTO.operator = it.operator
+            conditionRDTO.field = it.field
+            conditionRDTO.value= it.value
+            return conditionRDTO
+//            new ConditionRDTO(it.properties)
+        })
+        filterRDTO
+    }
 }
 
 @Validateable

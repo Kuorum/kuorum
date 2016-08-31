@@ -31,7 +31,7 @@ class ContactFiltersController {
             return;
         }
         KuorumUser user = springSecurityService.currentUser
-        FilterRDTO filterRDTO = convertCommandToFilter(filterCommand);
+        FilterRDTO filterRDTO = filterCommand.buildFilter()
         filterRDTO.name = newFilterName
         ExtendedFilterRSDTO filterSaved = contactService.createFilter(user,filterRDTO);
 
@@ -56,7 +56,7 @@ class ContactFiltersController {
             return;
         }
         KuorumUser user = springSecurityService.currentUser
-        FilterRDTO filterRDTO = convertCommandToFilter(filterCommand);
+        FilterRDTO filterRDTO = filterCommand.buildFilter()
         ExtendedFilterRSDTO filterSaved = contactService.updateFilter(user,filterRDTO, filterId);
 
 
@@ -75,7 +75,7 @@ class ContactFiltersController {
         }
 
         KuorumUser user = springSecurityService.currentUser
-        FilterRDTO filterRDTO = convertCommandToFilter(filterCommand);
+        FilterRDTO filterRDTO = filterCommand.buildFilter()
         ContactPageRSDTO usersPage = contactService.getUsers(user, filterRDTO)
 
         ExtendedFilterRSDTO filterSaved = new ExtendedFilterRSDTO(amountOfContacts: usersPage.total)
@@ -84,35 +84,5 @@ class ContactFiltersController {
                 msg:g.message(code:'tools.contact.filter.form.refreshed'),
                 data:[filter:filterSaved]
         ] as JSON)
-    }
-
-    def searchContacts(ContactFilterCommand filterCommand){
-        KuorumUser user = springSecurityService.currentUser
-        SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO();
-        searchContactRSDTO.setSize(Integer.MAX_VALUE)
-        Long filterId = Long.parseLong(params.filterId?:'0')
-        if (filterId <= 0){
-            FilterRDTO filterRDTO = convertCommandToFilter(filterCommand);
-            searchContactRSDTO.filter=filterRDTO
-        }else{
-            searchContactRSDTO.filterId = filterId
-        }
-        ContactPageRSDTO contacts = contactService.getUsers(user, searchContactRSDTO)
-        render (template: "/contacts/listContacts", model:[contacts:contacts])
-    }
-
-    private FilterRDTO convertCommandToFilter(ContactFilterCommand command){
-        FilterRDTO filterRDTO = new FilterRDTO()
-        filterRDTO.name = command.filterName
-        filterRDTO.operator = command.operator
-        filterRDTO.setFilterConditions(command.filterConditions.findAll{it && it.value}.collect{
-            ConditionRDTO conditionRDTO = new ConditionRDTO()
-            conditionRDTO.operator = it.operator
-            conditionRDTO.field = it.field
-            conditionRDTO.value= it.value
-            return conditionRDTO
-//            new ConditionRDTO(it.properties)
-        })
-        filterRDTO
     }
 }

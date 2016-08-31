@@ -5,12 +5,16 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
+import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.SearchContactRSDTO
+import org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
+import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.contact.sort.SortContactsRDTO
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.contact.ContactService
@@ -25,14 +29,44 @@ class ContactsController {
 
     def index(){
         KuorumUser user = springSecurityService.currentUser
-        ContactPageRSDTO contacts = contactService.getUsers(user)
+        SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO();
+        searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)
+        ContactPageRSDTO contacts = contactService.getUsers(user,searchContactRSDTO)
         if (contacts.total <=0){
             redirect mapping:"politicianContactImport"
             return;
         }
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
 
-        [contacts:contacts, filters:filters, totalContacts:contacts.total,  command:new MassMailingCommand()]
+        [
+                contacts:contacts,
+                filters:filters,
+                totalContacts:contacts.total,
+                command:new MassMailingCommand(),
+                searchContacts:searchContactRSDTO
+        ]
+    }
+
+    def searchContacts(ContactFilterCommand filterCommand){
+        KuorumUser user = springSecurityService.currentUser
+        SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO();
+        searchContactRSDTO.page=Long.parseLong(params.page?:"0")
+        searchContactRSDTO.size=params.size?Long.parseLong(params.size):searchContactRSDTO.size
+        searchContactRSDTO.sort = new SortContactsRDTO(
+                field: params.sort?.field?ConditionFieldTypeRDTO.valueOf(params.sort.field):ConditionFieldTypeRDTO.NAME,
+                direction: params.sort?.direction?SortContactsRDTO.Direction.valueOf(params.sort.direction):SortContactsRDTO.Direction.ASC
+        )
+        Long filterId = Long.parseLong(params.filterId?:'0')
+        if (filterId <0) {
+            FilterRDTO filterRDTO = filterCommand.buildFilter()
+            searchContactRSDTO.filter = filterRDTO
+        }else if (filterId == 0){
+            // NO FILTER -> ALL CONTACTS
+        }else{
+            searchContactRSDTO.filterId = filterId
+        }
+        ContactPageRSDTO contacts = contactService.getUsers(user, searchContactRSDTO)
+        render (template: "/contacts/listContacts", model:[contacts:contacts, searchContacts:searchContactRSDTO])
     }
 
     def importContacts() {}

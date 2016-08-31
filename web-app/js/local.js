@@ -389,9 +389,34 @@ $(document).ready(function() {
         }
     });
     // abrir opciones nuevo filtro con select
-    $('#newsletter select#recipients').on('change', filterContacts.loadSelectRecipientStatus);
-    $('#searchContacts select#recipients').on('change', filterContacts.searchContactsCallBacks.loadTableContacts);
+    $('#newsletter select#recipients,#searchContacts select#recipients').on('change', filterContacts.loadSelectRecipientStatus);
+    //$('#searchContacts select#recipients').on('change', filterContacts.searchContactsCallBacks.campaignFilterRefresh);
 
+    $("#listContacts").on("click", "#contactsOrderOptions ul.pag-list-sort li a",function(e){
+        e.preventDefault();
+        var sortField = $(this).attr("data-sort");
+        var sortDirection ="ASC";
+        $("#contactsOrderOptions ul.pag-list-sort li a").removeClass("active")
+        $(this).addClass("active")
+        if ($(this).hasClass("asc")){
+            $(this).removeClass("asc")
+            $(this).addClass("desc")
+            sortDirection="DESC"
+        }else{
+            $(this).removeClass("desc")
+            $(this).addClass("asc")
+        }
+        console.log(sortDirection)
+        filterContacts.searchContactsCallBacks.sort(sortField, sortDirection)
+    });
+
+    $("#listContacts").on("click", ".pag-list-contacts li a",function(e){
+        e.preventDefault();
+        if (!$(this).hasClass("disabled")){
+            var page = parseInt($(this).html())-1
+            filterContacts.searchContactsCallBacks.page(page)
+        }
+    });
 
 
     //Preparar el select segun el option seleccionado
@@ -1291,8 +1316,13 @@ function FilterContacts() {
         }
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
         that.updateAmountContacts(amountContacts)
+        that[callBackBehaviour].changeSelectRecipients();
+
     };
     this.newsletterCallBacks = {
+        changeSelectRecipients:function(){
+            //console.log(data)
+        },
         campaignFilterRefresh:function(data){
             //console.log(data)
         },
@@ -1319,21 +1349,32 @@ function FilterContacts() {
 
 
     this.searchContactsCallBacks = {
+        changeSelectRecipients:function(data){
+            that.searchContactsCallBacks.resetPage();
+            that.searchContactsCallBacks.loadTableContacts();
+        },
         campaignFilterRefresh:function(data){
+            that.searchContactsCallBacks.resetPage();
             that.searchContactsCallBacks.loadTableContacts();
         },
         campaignFilterSave:function(data){
+            that.searchContactsCallBacks.resetPage();
             that.newsletterCallBacks.campaignFilterSave(data)
         },
         campaignFilterSaveAs:function(data){
+            that.searchContactsCallBacks.resetPage();
             that.newsletterCallBacks.campaignFilterSaveAs(data)
         },
 
         loadTableContacts:function(){
-            console.log("Loading contacts")
+            $("#listContacts").html(htmlLoading);
             var link = $("#listContacts").attr("data-ajaxUrlContacts");
-            var postData = that.serializedFilterData();
-            postData['filterId']=that.getFilterId()
+            var postData = $("#contactFilterForm").serializeArray();
+            //var postData = that.serializedFilterData();
+            //var filterId = that.getFilterId();
+            //if ($.grep(postData, function(objData) { return obj.name =="filterId"; }).length==0) {
+            //    postData.push({name:"filterId", value:filterId})
+            //}
             pageLoadingOn();
             $.post( link, postData)
                 .done(function(data) {
@@ -1346,6 +1387,19 @@ function FilterContacts() {
                 .always(function() {
                     pageLoadingOff();
                 });
+        },
+        sort:function(sortField, sortDirection){
+            $("input[name=sort\\.field]").val(sortField)
+            $("input[name=sort\\.direction]").val(sortDirection)
+            that.searchContactsCallBacks.resetPage();
+            that.searchContactsCallBacks.loadTableContacts();
+        },
+        page:function(page){
+            $("input[name=page]").val(page)
+            that.searchContactsCallBacks.loadTableContacts();
+        },
+        resetPage:function(){
+            $("input[name=page]").val(0)
         }
     };
 

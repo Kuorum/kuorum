@@ -1096,7 +1096,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .header-campaign .qq-upload-drop-area {border-color: #dedede;}
 .header-campaign .qq-upload-button {line-height: 1; padding: 0;}
 #filterContacts, #filContacts {border: 1px solid #dedede; border-radius: 6px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #a8a8a8;}
-#filterContacts.on, #filContacts.on {background-color: #20a2ea; border-color: #20a2ea; color: #fff; cursor: default; pointer-events: none;}
+#filterContacts.on, #filContacts.on {background-color: #20a2ea; border-color: #20a2ea; color: #fff; /*cursor: default; pointer-events: none;*/}
 #infoToContacts, #infoContacts {color: #a8a8a8; padding-right: 30px;}
 #infoToContacts > span.fa, #infoContacts > span.fa {display: none;}
 #infoToContacts.on > span.fa, #infoContacts.on > span.fa {display: inline;}
@@ -5505,7 +5505,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box-order-options > ul li, .box-order-options > ul li:last-child {margin: 0 10px 10px; display: inline-block;}
     #contactsOrderOptions.box-order-options > ul {width: 45%;}
     #contactsOrderOptions.box-order-options > ul li,
-    #contactsOrderOptions.box-order-options > ul li:last-child {margin: 0 20px;}
+    #contactsOrderOptions.box-order-options > ul li:last-child {margin: 0 10px;}
 
     .box-order-options > div {width: 34%; float: right; margin-top: 0}
     .nav-tabs.simple > li > a {padding: 10px 15px; float: left;}
@@ -5861,8 +5861,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts ul li .btn {min-width: 138px;}
-    #contactsOrderOptions.box-order-options > ul {width: 52%;}
-    #contactsOrderOptions.box-order-options > div {width: 36%;}
+    #contactsOrderOptions.box-order-options > ul {width: 45%;}
+    #contactsOrderOptions.box-order-options > div {width: 40%;}
     #contactsList > li > h3, #contactsList > li > p {padding-right: 74%;}
     .container-lists {position: absolute; right: 0; top: 7px; border-left: 1px solid #e5e5e5; width: 68%; padding: 10px 20px; margin: 0;}
     #contactsList > li {min-height: 130px;}
