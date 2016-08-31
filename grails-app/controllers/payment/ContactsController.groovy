@@ -79,6 +79,12 @@ class ContactsController {
         render contactRSDTO as JSON
     }
 
+    def removeContact(Long contactId){
+        KuorumUser user = springSecurityService.currentUser
+        contactService.removeContact(user, contactId);
+        render "";
+    }
+
     def importContacts() {}
 
     def importCSVContacts(){

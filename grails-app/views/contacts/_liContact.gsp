@@ -32,8 +32,8 @@
         <span class="fa fa-edit"></span>
         <span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
     </a>
-    <a href="#" role="button" class="contactDelete">
+    <g:link mapping="politicianContactRemoveAjax" params="[contactId:contact.id]" role="button" class="contactDelete">
         <span class="fa fa-trash"></span>
         <span class="sr-only"><g:message code="tools.contact.list.contact.delete"/></span>
-    </a>
+    </g:link>
 </li>

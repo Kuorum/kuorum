@@ -136,6 +136,16 @@ class ContactService {
         contactPage
     }
 
+    void removeContact(KuorumUser user, Long contactId){
+        Map<String, String> params = [userId:user.id.toString(),contactId:contactId.toString()]
+        Map<String, String> query = [:]
+
+        def response= restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.USER_CONTACT,
+                params,
+                query)
+    }
+
     ContactRSDTO updateContact(KuorumUser user, ContactRSDTO contactRSDTO){
         Map<String, String> params = [userId:user.id.toString(),contactId:contactRSDTO.id.toString()]
         Map<String, String> query = [:]

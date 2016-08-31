@@ -437,6 +437,24 @@ $(document).ready(function() {
         filterContacts.searchContactsCallBacks.sort(sortField, sortDirection)
     });
 
+    $("#listContacts").on("click", "a.contactDelete",function(e){
+        e.preventDefault();
+        pageLoadingOn();
+        var link = $(this).attr("href");
+        $(this).parent("li").fadeOut();
+        $.post( link)
+            .done(function(data) {
+                filterContacts.searchContactsCallBacks.loadTableContacts();
+            })
+            .fail(function(messageError) {
+                display.warn("Error deleting");
+                console.log(messageError)
+                pageLoadingOff();
+            })
+            .always(function() {
+
+            });
+    });
     $("#listContacts").on("click", ".pag-list-contacts li a",function(e){
         e.preventDefault();
         if (!$(this).hasClass("disabled")){
