@@ -1,10 +1,16 @@
 <li>
     <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name}" itemprop="image"></span>
-    <h3 class="title"><a href="#">${contact.name}</a></h3>
+    <h3 class="title">
+        <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats">
+            ${contact.name}
+        </g:link>
+    </h3>
     <p class="email"><span class="fa fa-envelope-o"></span> <a href="#">${contact.email}</a></p>
     <p class="followers">
         <span class="fa fa-user"></span> <g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
-        <a href="#"><span class="fa fa-external-link fa-fw"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span></a>
+        <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats" target="_blank">
+            <span class="fa fa-external-link fa-fw"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
+        </g:link>
     </p>
     <div class="container-lists">
         <form action="${g.createLink(mapping: 'politicianContactAddTagsAjax',params: [contactId:contact.id])}" class="addTag off">
@@ -28,10 +34,10 @@
             </ul>
         </div>
     </div>
-    <a href="#" class="contactStats">
+    <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats">
         <span class="fa fa-edit"></span>
         <span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
-    </a>
+    </g:link>
     <g:link mapping="politicianContactRemoveAjax" params="[contactId:contact.id]" role="button" class="contactDelete">
         <span class="fa fa-trash"></span>
         <span class="sr-only"><g:message code="tools.contact.list.contact.delete"/></span>

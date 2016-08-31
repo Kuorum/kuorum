@@ -85,6 +85,10 @@ class ContactsController {
         render "";
     }
 
+    def editContact(Long contactId){
+
+    }
+
     def importContacts() {}
 
     def importCSVContacts(){
