@@ -331,6 +331,33 @@ $(document).ready(function() {
         }
     });
 
+    $("body").on('submit', 'form.addTag', function(e){
+        e.preventDefault();
+        pageLoadingOn();
+        var $form = $(this);
+        var closeInputs =$form.children(".addTagBtn");
+        var url = $form.attr("action");
+        var postData = $form.serialize();
+        $.post( url, postData)
+            .done(function(data) {
+                var $ul = $form.find("ul");
+                $ul.html("");
+                for (i = 0; i < data.tags.length; i++) {
+                    $ul.append('<li><a href="#" class="tag label label-info">'+data.tags[i]+'</a></li>');
+                    tagsnames.add({name:data.tags[i]})
+                }
+                closeInputs.click();
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+        //Not submit
+        return false;
+    })
+
     prepareContactTags();
 
     // abrir/cerrar Save filter as
@@ -1500,6 +1527,7 @@ function formatTooltipDate(date) {
     return date.getDate()+"-"+(date.getMonth()+1) + "-" + date.getFullYear() + "  " + strTime;
 }
 
+var tagsnames
 function prepareContactTags(){
     // input tags
     if ($('.tagsField').length) {
@@ -1509,21 +1537,24 @@ function prepareContactTags(){
             if ($(input).attr("data-urlTags") != undefined){
                 tagsUrl=$(input).attr("data-urlTags");
             }
-            var tagsnames = new Bloodhound({
-                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-                queryTokenizer: Bloodhound.tokenizers.whitespace,
-                prefetch: {
-                    url: tagsUrl,
-                    cache:false, //Prevents local storage
-                    filter: function(list) {
-                        return $.map(list, function(tagsname) {
-                            return { name: tagsname }; });
+            if (tagsnames == undefined){
+                tagsnames = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    prefetch: {
+                        url: tagsUrl,
+                        cache:false, //Prevents local storage
+                        filter: function(list) {
+                            return $.map(list, function(tagsname) {
+                                return { name: tagsname }; });
+                        }
                     }
-                }
-            });
-            tagsnames.initialize();
+                });
+                tagsnames.initialize();
+            }
 
             $(input).tagsinput({
+                allowDuplicates: false,
                 typeaheadjs: {
                     minLength: 2,
                     hint: true,

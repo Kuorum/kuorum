@@ -69,6 +69,16 @@ class ContactsController {
         render (template: "/contacts/listContacts", model:[contacts:contacts, searchContacts:searchContactRSDTO])
     }
 
+
+    def addTagsToContact(Long contactId){
+        List<String> tags = params.tags?.split(",")?.findAll{it}?:[]
+        KuorumUser user = springSecurityService.currentUser
+        ContactRSDTO contactRSDTO = contactService.getContact(user, contactId);
+        contactRSDTO.tags = tags as Set
+        contactRSDTO = contactService.updateContact(user, contactRSDTO)
+        render contactRSDTO as JSON
+    }
+
     def importContacts() {}
 
     def importCSVContacts(){
