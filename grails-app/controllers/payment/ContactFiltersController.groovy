@@ -78,11 +78,11 @@ class ContactFiltersController {
         FilterRDTO filterRDTO = filterCommand.buildFilter()
         ContactPageRSDTO usersPage = contactService.getUsers(user, filterRDTO)
 
-        ExtendedFilterRSDTO filterSaved = new ExtendedFilterRSDTO(amountOfContacts: usersPage.total)
+        ExtendedFilterRSDTO filterMock = new ExtendedFilterRSDTO(amountOfContacts: usersPage.total)
         render ([
                 status:"ok",
                 msg:g.message(code:'tools.contact.filter.form.refreshed'),
-                data:[filter:filterSaved]
+                data:[filter:filterMock]
         ] as JSON)
     }
 }
