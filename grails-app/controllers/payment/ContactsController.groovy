@@ -12,6 +12,8 @@ import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.SearchContactRSDTO
 import org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO
+import org.kuorum.rest.model.contact.filter.ConditionOperatorTypeRDTO
+import org.kuorum.rest.model.contact.filter.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.sort.SortContactsRDTO
@@ -65,6 +67,7 @@ class ContactsController {
         }else{
             searchContactRSDTO.filterId = filterId
         }
+        searchContactRSDTO.quickSearch = params.quickSearchByName
         ContactPageRSDTO contacts = contactService.getUsers(user, searchContactRSDTO)
         render (template: "/contacts/listContacts", model:[contacts:contacts, searchContacts:searchContactRSDTO])
     }

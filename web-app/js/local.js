@@ -463,6 +463,13 @@ $(document).ready(function() {
         }
     });
 
+    $("#quickSearchByName").on("keypress", function(e){
+        if (e.which == 13) {
+            filterContacts.searchContactsCallBacks.page(0);
+            return false;
+        }
+    })
+
 
     //Preparar el select segun el option seleccionado
     filterContacts.loadSelectRecipientStatus();
@@ -1424,6 +1431,15 @@ function FilterContacts() {
             $.post( link, postData)
                 .done(function(data) {
                     $("#listContacts").html(data);
+                    var quickSearch = $("#quickSearchByName").val()
+                    if (quickSearch != undefined && quickSearch.length > 0){
+                        $( "#contactsList li h3 a" ).each(function( index ) {
+                            var name = $(this).html();
+                            var re = new RegExp(quickSearch, 'g');
+                            var highlighterName=name.replace(re, '<span class="highlighted">\$&</span>');
+                            $(this).html(highlighterName)
+                        });
+                    }
                     prepareContactTags();
                 })
                 .fail(function(messageError) {

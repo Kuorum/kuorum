@@ -50,7 +50,11 @@
                     </div>
                     <div class="col-sm-3 col-md-2 col-lg-3">
                         <div class="searchContainer">
-                            <input type="text" class="form-control searchContacts" name="searchContacts" id="searchContacts">
+                            <input type="text"
+                                   class="form-control searchContacts"
+                                   name="quickSearchByName"
+                                   id="quickSearchByName"
+                                   placeholder="${g.message(code:'tools.contact.list.quickSearchByName.placeHolder')}">
                         </div>
                     </div>
                     <div class="col-sm-3 col-md-4 col-lg-3">
