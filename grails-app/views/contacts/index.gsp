@@ -59,11 +59,16 @@
                     </div>
                     <div class="col-sm-3 col-md-4 col-lg-3">
                         <ul>
-                            <li><a href="#" class="btn btn-blue inverted"><span class="fa fa-plus"></span> New contact</a></li>
                             <li>
-                                <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown">Import <span class="fa fa-caret-down fa-lg"></span></a>
+                                <g:link mapping="politicianContactProfiling" class="btn btn-blue inverted">
+                                    <span class="fa fa-plus"></span>
+                                    <g:message code="tools.contact.list.newContact"/>
+                                </g:link>
+                            </li>
+                            <li>
+                                <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><g:message code="tools.contact.list.import"/><span class="fa fa-caret-down fa-lg"></span></a>
                                 <ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">
-                                    <li><g:link mapping="politicianContactImport">CSV file</g:link></li>
+                                    <li><g:link mapping="politicianContactImport"><g:message code="tools.contact.list.import.csv"/></g:link></li>
                                     %{--<li><a href="#">Gmail</a></li>--}%
                                     %{--<li><a href="#">Yahoo!</a></li>--}%
                                     %{--<li><a href="#">Outlook</a></li>--}%
