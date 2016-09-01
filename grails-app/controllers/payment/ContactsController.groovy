@@ -93,6 +93,10 @@ class ContactsController {
 
     }
 
+    def newContact(){
+
+    }
+
     def importContacts() {}
 
     def importCSVContacts(){

@@ -60,7 +60,7 @@
                     <div class="col-sm-3 col-md-4 col-lg-3">
                         <ul>
                             <li>
-                                <g:link mapping="politicianContactProfiling" class="btn btn-blue inverted">
+                                <g:link mapping="politicianContactNew" class="btn btn-blue inverted">
                                     <span class="fa fa-plus"></span>
                                     <g:message code="tools.contact.list.newContact"/>
                                 </g:link>
