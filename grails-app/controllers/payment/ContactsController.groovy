@@ -13,6 +13,8 @@ import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.SearchContactRSDTO
 import org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO
+import org.kuorum.rest.model.contact.filter.ConditionOperatorTypeRDTO
+import org.kuorum.rest.model.contact.filter.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.sort.SortContactsRDTO
@@ -104,6 +106,28 @@ class ContactsController {
     def saveContact(ContactCommand command){
         if (command.hasErrors()){
             render view: 'newContact', model:[command:command]
+        }
+        FilterRDTO filterRDTO = new FilterRDTO()
+        filterRDTO.setFilterConditions([new ConditionRDTO(field: ConditionFieldTypeRDTO.EMAIL, operator: ConditionOperatorTypeRDTO.EQUALS, value: command.email)])
+        KuorumUser user = springSecurityService.currentUser
+        ContactPageRSDTO alreadyExistsContact = contactService.getUsers(user, filterRDTO)
+        ContactRSDTO contactRSDTO
+        if (alreadyExistsContact.total>0){
+            flash.message=g.message(code: 'tools.contact.new.alreadyExists')
+            contactRSDTO = alreadyExistsContact.data.first()
+            redirect(mapping: "politicianContactEdit", params: [contactId:contactRSDTO.id])
+        }else{
+            ContactRDTO contactRDTO = new ContactRDTO();
+            contactRDTO.name = command.name
+            contactRDTO.email = command.email
+            contactRSDTO = contactService.addContact(user, contactRDTO)
+            if (contactRSDTO){
+                flash.message=g.message(code: 'tools.contact.new.success', args: [contactRSDTO.email])
+                redirect(mapping: "politicianContactEdit", params: [contactId:contactRSDTO.id])
+            }else{
+                flash.error=g.message(code: 'tools.contact.new.error', args: [contactRSDTO.email])
+                render view: 'newContact', model:[command:command]
+            }
         }
     }
 

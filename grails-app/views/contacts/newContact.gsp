@@ -15,8 +15,19 @@
         <li class="active"><g:message code="page.title.contacts.new"/></li>
     </ol>
     <div class="box-ppal edit-contact clearfix">
-        <form>
-            <g:render template="inputs/basicContactInputs" model="[command:command]"/>
-        </form>
+        <formUtil:validateForm bean="${command}" form="newContact"/>
+        <g:form method="POST" mapping="politicianContactNew"  name="newContact" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <formUtil:input command="${command}" field="name" showLabel="true"/>
+                </div>
+                <div class="form-group">
+                    <formUtil:input command="${command}" field="email" showLabel="true"/>
+                </div>
+            </fieldset>
+            <fieldset>
+                <input type="submit" value="${g.message(code: 'tools.contact.new.save')}" class="btn btn-blue inverted">
+            </fieldset>
+        </g:form>
     </div>
 </content>
