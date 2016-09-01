@@ -120,6 +120,48 @@ class ContactService {
         contactPage
     }
 
+    ContactRSDTO getContact(KuorumUser user, Long contactId){
+        Map<String, String> params = [userId:user.id.toString(),contactId:contactId.toString()]
+        Map<String, String> query = [:]
+
+        def response= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACT,
+                params,
+                query,
+                new TypeReference<ContactRSDTO>(){})
+        ContactRSDTO contactPage =null
+        if (response.data){
+            contactPage = response.data
+        }
+        contactPage
+    }
+
+    void removeContact(KuorumUser user, Long contactId){
+        Map<String, String> params = [userId:user.id.toString(),contactId:contactId.toString()]
+        Map<String, String> query = [:]
+
+        def response= restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.USER_CONTACT,
+                params,
+                query)
+    }
+
+    ContactRSDTO updateContact(KuorumUser user, ContactRSDTO contactRSDTO){
+        Map<String, String> params = [userId:user.id.toString(),contactId:contactRSDTO.id.toString()]
+        Map<String, String> query = [:]
+
+        def response= restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.USER_CONTACT,
+                params,
+                query,
+                contactRSDTO,
+                new TypeReference<ContactRSDTO>(){})
+        ContactRSDTO contactPage =null
+        if (response.data){
+            contactPage = response.data
+        }
+        contactPage
+    }
 
     private Map<String, String> convertObjectToQueryParams(String path, def obj){
         Map<String, String> data = [:]

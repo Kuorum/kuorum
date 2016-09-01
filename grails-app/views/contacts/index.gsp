@@ -20,10 +20,14 @@
         <div class="box-ppal">
             <formUtil:validateForm bean="${command}" form="contactFilterForm"/>
             <form class="form-horizontal" id="contactFilterForm">
+                <input type="hidden" name="sort.field" value="${searchContacts.sort.field}"/>
+                <input type="hidden" name="sort.direction" value="${searchContacts.sort.direction}"/>
+                <input type="hidden" name="page" value="${searchContacts.page}"/>
+                <input type="hidden" name="size" value="${searchContacts.size}"/>
                 <fieldset class="form-group" id="boxfiltersContacts">
                     <div class="col-sm-3">
                         <label for="recipients" class="sr-only">Filter Contacts:</label>
-                        <select name="filterContactsOptions" class="form-control input-lg" id="recipients">
+                        <select name="filterId" class="form-control input-lg" id="recipients">
                             <option value="0" data-amountContacts="${totalContacts}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
                             <g:each in="${filters}" var="filter">
                                 <option value="${filter.id}" ${command.filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
@@ -51,14 +55,14 @@
                     </div>
                     <div class="col-sm-3 col-md-4 col-lg-3">
                         <ul>
-                            <li><a href="#" class="btn btn-blue inverted"><span class="fa fa-plus fa-lg"></span> New contact</a></li>
+                            <li><a href="#" class="btn btn-blue inverted"><span class="fa fa-plus"></span> New contact</a></li>
                             <li>
                                 <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown">Import <span class="fa fa-caret-down fa-lg"></span></a>
                                 <ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">
                                     <li><g:link mapping="politicianContactImport">CSV file</g:link></li>
-                                    <li><a href="#">Gmail</a></li>
-                                    <li><a href="#">Yahoo!</a></li>
-                                    <li><a href="#">Outlook</a></li>
+                                    %{--<li><a href="#">Gmail</a></li>--}%
+                                    %{--<li><a href="#">Yahoo!</a></li>--}%
+                                    %{--<li><a href="#">Outlook</a></li>--}%
                                 </ul>
                             </li>
                         </ul>
@@ -70,7 +74,7 @@
             </form>
         </div>
         <div id="listContacts" data-ajaxUrlContacts="${g.createLink(mapping: 'politicianContactsSearch', absolute:true)}">
-            <g:render template="/contacts/listContacts" model="[contacts:contacts]"/>
+            %{--<g:render template="/contacts/listContacts" model="[contacts:contacts,searchContacts:searchContacts]"/>--}%
         </div>
     </div>
 </content>
