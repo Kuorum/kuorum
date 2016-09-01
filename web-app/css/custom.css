@@ -1390,8 +1390,8 @@ li + .picker-switch {display: none;}
 .edit-contact-header > div:first-child p.followers a:hover,
 .edit-contact-header > div:first-child p.followers a:focus,
 .edit-contact-header > div:first-child p.followers a:active {color: #545454;}
-.edit-contact .tab-pane#details form > div:last-child > div:last-child {text-align: right; min-height: 65px; margin-bottom: 20px;}
-.edit-contact .tab-pane#details form > div:last-child > div:last-child .btn {min-width: 90px; position: absolute; bottom: 0; right: 15px; margin: 0;}
+.edit-contact form > div:last-child > div:last-child {text-align: right; min-height: 65px; margin-bottom: 20px;}
+.edit-contact form > div:last-child > div:last-child .btn {min-width: 90px; position: absolute; bottom: 0; right: 15px; margin: 0;}
 .tab-pane .activity {border: solid 1px #dadada; padding: 0; margin-top: 30px;}
 .tab-pane .activity > li {border-bottom: solid 1px #dadada; padding: 12px 0; width: 100%;}
 .tab-pane .activity > li:last-child {border-right: none;}

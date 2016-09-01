@@ -16,19 +16,7 @@
     </ol>
     <div class="box-ppal edit-contact clearfix">
         <form>
-            <fieldset>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" class="form-control input-lg" id="name" required="" placeholder="Pepito Pérez" aria-required="true">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" class="form-control input-lg" id="email" required="" placeholder="pepito.perez@gmail.com" aria-required="true">
-                </div>
-            </fieldset>
-            <fieldset>
-                <input type="submit" value="Save contact" class="btn btn-blue inverted">
-            </fieldset>
+            <g:render template="inputs/basicContactInputs" model="[command:command]"/>
         </form>
     </div>
 </content>

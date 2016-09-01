@@ -70,32 +70,7 @@
             <div class="tab-pane active" id="details">
                 <h4 class="sr-only">Details</h4>
                 <form>
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" class="form-control input-lg" id="name" required placeholder="Pepito Pérez" aria-required="true">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="email">Email</label>
-                            <input type="text" name="email" class="form-control input-lg" id="email" required placeholder="pepito.perez@gmail.com" aria-required="true">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="city">City</label>
-                            <input type="text" name="city" class="form-control input-lg" id="city" required placeholder="Manchester" aria-required="true">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="language">Language</label>
-                            <!-- ejemplo deshabilitado -->
-                            <input type="text" name="language" class="form-control input-lg" id="language" required placeholder="English" aria-required="true" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="submit" value="Save" class="btn btn-blue inverted">
-                        </div>
-                    </div>
+                    <g:render template="inputs/basicContactInputs" />
                 </form>
             </div>
             <div class="tab-pane" id="activity">

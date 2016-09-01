@@ -6,14 +6,13 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactFilterCommand
+import kuorum.web.commands.payment.contact.ContactCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.SearchContactRSDTO
 import org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO
-import org.kuorum.rest.model.contact.filter.ConditionOperatorTypeRDTO
-import org.kuorum.rest.model.contact.filter.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.sort.SortContactsRDTO
@@ -90,11 +89,22 @@ class ContactsController {
     }
 
     def editContact(Long contactId){
-
+        KuorumUser user = springSecurityService.currentUser
+        ContactRSDTO contact = contactService.getContact(user, contactId)
+        ContactCommand command = new ContactCommand();
+        command.name = contact.name
+        command.email = contact.email
+        [command:command]
     }
 
     def newContact(){
+        [command:new ContactCommand()]
+    }
 
+    def saveContact(ContactCommand command){
+        if (command.hasErrors()){
+            render view: 'newContact', model:[command:command]
+        }
     }
 
     def importContacts() {}

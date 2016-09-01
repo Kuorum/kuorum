@@ -329,7 +329,7 @@ class UrlMappings {
         name politicianContactFilterUpdate:             "/ajax/account/contacts/filters/update" (controller:"contactFilters", action: "updateFilter")
         name politicianContactFilterRefresh:            "/ajax/account/contacts/filters/refresh" (controller:"contactFilters", action: "refreshFilter")
         name politicianContactEdit:                     "/account/contacts/$contactId/edit" (controller:"contacts", action: "editContact")
-        name politicianContactNew:                      "/account/contacts/new" (controller:"contacts", action: "newContact")
+        name politicianContactNew:                      "/account/contacts/new" (controller:"contacts"){action =[GET:"newContact", POST:"saveContact"]}
         name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
         name politicianMassMailing:                     "/account/mass-mailing" (controller:"massMailing", action: "index")
         name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing",POST:'saveMassMailing']}
