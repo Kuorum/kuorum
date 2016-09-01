@@ -1302,6 +1302,7 @@ function FilterContacts() {
         var $filterData = that.getFormFilterIdSelected();
         var inputs = $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select"))
         var postData = inputs.serializeArray();
+        postData.push({name:"filterId", value:that.getFilterId()})
         return postData;
     }
 
@@ -1337,13 +1338,13 @@ function FilterContacts() {
             filterId = "0";
         }
         return filterId;
-    }
+    };
     this.getFormFilterIdSelected= function(){
         var filterId = that.getFilterId();
         return $("#formFilter_"+filterId.replace("-","_"))
     };
     this.openFilterCampaignsOptions= function(){
-        var filterId = $("#recipients").val();
+        var filterId = that.getFilterId();
         if (filterId == 0){
             $('select#recipients').val('-2');
             var filterId = $("#recipients").val();
@@ -1412,21 +1413,19 @@ function FilterContacts() {
         campaignFilterSave:function(data){
             that.searchContactsCallBacks.resetPage();
             that.newsletterCallBacks.campaignFilterSave(data)
+            that.searchContactsCallBacks.loadTableContacts();
         },
         campaignFilterSaveAs:function(data){
             that.searchContactsCallBacks.resetPage();
             that.newsletterCallBacks.campaignFilterSaveAs(data)
+            that.searchContactsCallBacks.loadTableContacts();
         },
 
         loadTableContacts:function(){
             $("#listContacts").html(htmlLoading);
             var link = $("#listContacts").attr("data-ajaxUrlContacts");
             var postData = $("#contactFilterForm").serializeArray();
-            //var postData = that.serializedFilterData();
-            //var filterId = that.getFilterId();
-            //if ($.grep(postData, function(objData) { return obj.name =="filterId"; }).length==0) {
-            //    postData.push({name:"filterId", value:filterId})
-            //}
+            console.log(postData)
             pageLoadingOn();
             $.post( link, postData)
                 .done(function(data) {

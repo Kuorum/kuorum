@@ -1316,6 +1316,8 @@ li + .picker-switch {display: none;}
 #boxfiltersContacts .dropdown-menu {min-width: 82px; right: 14px;}
 #boxfiltersContacts .dropdown-menu > li:first-child {font-weight: normal; padding: 0; border-bottom: none; margin: 0;}
 
+#contactsList { min-height: 10em;}
+#contactsList > h3.noContacts {text-align: center}
 #contactsList > li {padding: 90px 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 220px;}
 #contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 0; top: 15px; overflow: hidden; background-color: #e5e5e5;}
 #contactsList > li p {margin: 0;}

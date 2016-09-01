@@ -19,9 +19,14 @@
         </div>
     </div>
     <ul id="contactsList" class="list">
-        <g:each in="${contacts.data}" var="contact">
-            <g:render template="/contacts/liContact" model="[contact:contact]"/>
-        </g:each>
+        <g:if test="${contacts.data}">
+            <g:each in="${contacts.data}" var="contact">
+                <g:render template="/contacts/liContact" model="[contact:contact]"/>
+            </g:each>
+        </g:if>
+        <g:else>
+            <h3 class="noContacts"><g:message code="tools.contact.list.noResults"/></h3>
+        </g:else>
     </ul>
 
     <div class="pag-list-contacts clearfix">

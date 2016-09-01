@@ -59,10 +59,11 @@ class ContactsController {
                 direction: params.sort?.direction?SortContactsRDTO.Direction.valueOf(params.sort.direction):SortContactsRDTO.Direction.ASC
         )
         Long filterId = Long.parseLong(params.filterId?:'0')
-        if (filterId <0) {
-            FilterRDTO filterRDTO = filterCommand.buildFilter()
+        FilterRDTO filterRDTO = filterCommand.buildFilter()
+
+        if (filterId <0 || filterRDTO.filterConditions ) {
             searchContactRSDTO.filter = filterRDTO
-        }else if (filterId == 0){
+        }else if (filterId == 0 ) {
             // NO FILTER -> ALL CONTACTS
         }else{
             searchContactRSDTO.filterId = filterId
