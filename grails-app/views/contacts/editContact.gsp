@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.contacts"/></title>
+    <title><g:message code="page.title.contacts.edit" args="[contact.name]"/></title>
     <meta name="layout" content="paymentPlainLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
@@ -12,17 +12,17 @@
 <content tag="mainContent">
     <ol class="breadcrumb">
         <li><g:link mapping="politicianContacts"> <g:message code="tools.contact.title"/> </g:link></li>
-        <li class="active">Leonard Hoffstader</li>
+        <li class="active">${contact.name}</li>
     </ol>
     <div class="box-ppal edit-contact-header clearfix" itemscope itemtype="http://schema.org/Person">
         <div>
-            <span class="user-img"><img src="images/user.jpg" alt="Diecisiete caract" itemprop="image"></span>
-            <h3 class="title"><a href="#">Pepito Pérez y Pérez</a></h3>
-            <p class="email"><span class="fa fa-envelope-o"></span> <a href="#">leonard.hoffstader@microsoft.com</a></p>
+            <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name}" itemprop="image"></span>
+            <h3 class="title"><a href="#">${contact.name}</a></h3>
+            <p class="email"><span class="fa fa-envelope-o"></span> <a href="#">${contact.email}</a></p>
             <p class="followers">
-                <span class="fa fa-user"></span> 12 followers
+                <span class="fa fa-user"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
             <!-- opción de editar si procede -->
-                <a href="#"><span class="fa fa-pencil-square-o"></span><span class="sr-only">Editar</span></a>
+                <a href="#"><span class="fa fa-external-link"></span><span class="sr-only">Editar</span></a>
             </p>
             <ul class="social-links">
                 <li><a href="#"><span class="fa fa-facebook-square"></span><span class="sr-only">Facebook</span></a></li>
@@ -37,26 +37,8 @@
             </ul>
         </div>
         <div class="container-lists">
-            <form class="addTag off">
-                <a href="#" role="button" class="tag label label-info addTagBtn"><span class="fa fa-tag"></span> edit tag</a>
-                <ul>
-                    <li><a href="#" class="tag label label-info">tory</a></li>
-                    <li><a href="#" class="tag label label-info">journalist</a></li>
-                    <li><a href="#" class="tag label label-info">anti-gun</a></li>
-                </ul>
-                <label for="tagsField" class="sr-only">Save tags</label>
-                <input id="tagsField" class="tagsField" type="text" value="tory,journalist,anti-gun">
-                <input type="submit" value="Save tags" class="btn btn-blue inverted" id="inputAddTags">
-            </form>
-            <div class="engagement-container clearfix">
-                <h4>Engagement:</h4>
-                <ul class="engagement">
-                    <li><a href="#">inactive</a></li>
-                    <li class="active"><a href="#">reader</a></li>
-                    <li><a href="#">supported</a></li>
-                    <li><a href="#">broadcaster</a></li>
-                </ul>
-            </div>
+            <g:render template="/contacts/inputs/editContactTags" model="[contact:contact]"/>
+            <g:render template="/contacts/inputs/showContactEngagement" model="[contact:contact]"/>
         </div>
     </div>
     <div class="box-ppal edit-contact clearfix">
@@ -110,14 +92,14 @@
                             <label for="socialFb">Facebook</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><span class="fa fa-facebook"></span></div>
-                                <input type="text" class="form-control" id="socialFb">
+                                <input type="text" value="${contact?.social?.facebook}" class="form-control" id="socialFb" disabled>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="socialTw">Twitter</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><span class="fa fa-twitter"></span></div>
-                                <input type="text" class="form-control" id="socialTw" disabled>
+                                <input type="text" value="${contact?.social?.twitter}" class="form-control" id="socialTw" disabled>
                             </div>
                         </div>
                     </div>
@@ -126,14 +108,14 @@
                             <label for="socialGp">Google+</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><span class="fa fa-google-plus"></span></div>
-                                <input type="text" class="form-control" id="socialGp">
+                                <input type="text" value="${contact?.social?.googlePlus}" class="form-control" id="socialGp" disabled>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="socialLk">Linkedin</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><span class="fa fa-linkedin"></span></div>
-                                <input type="text" class="form-control" id="socialLk">
+                                <input type="text" value="${contact?.social?.linkedIn}" class="form-control" id="socialLk" disabled>
                             </div>
                         </div>
                     </div>

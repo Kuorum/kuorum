@@ -96,7 +96,7 @@ class ContactsController {
         ContactCommand command = new ContactCommand();
         command.name = contact.name
         command.email = contact.email
-        [command:command]
+        [command:command,contact:contact]
     }
 
     def newContact(){
