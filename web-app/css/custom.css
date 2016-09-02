@@ -5059,15 +5059,14 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #detailsInfoVotes .table tbody th {width: 270px;}
     #detailsInfoVotes.autor .table tbody th {width: 295px;}
     .main.prices .promo-options > div p.price .currency {left: 155px;}
-    .engagement {margin: 0; font-size: 100%;}
     .container-lists h4 {margin-left: 0;}
 
     /* CONTACT LIST */
-    .engagement {padding: 0 30px 0 0;}
-    .engagement li a {color: #a8a8a8 !important; text-decoration: none; padding: 3px 0 3px 38px; background: #f2f2f2; position: relative; display: block; float: left; pointer-events: none; cursor: default;}
+    .engagement {margin: 0 0 10px 0; font-size: 100%; padding: 0 30px 0 0;}
+    .engagement li a {color: #a8a8a8 !important; text-decoration: none; padding: 3px 0 3px 50px; background: #f2f2f2; position: relative; display: block; float: left; pointer-events: none; cursor: default;}
     .engagement li a:after {content: " "; display: block; width: 0; height: 0; border-top: 40px solid transparent; border-bottom: 40px solid transparent; border-left: 30px solid #f2f2f2; position: absolute; top: 50%; margin-top: -40px; left: 100%; z-index: 2;}
     .engagement li a:before {content: " "; display: block; width: 0; height: 0; border-top: 40px solid transparent; border-bottom: 40px solid transparent; border-left: 30px solid white; position: absolute; top: 50%; margin-top: -40px; margin-left: 3px; left: 100%; z-index: 1;}
-    .engagement li:first-child a {padding-left: 10px;}
+    .engagement li:first-child a {padding-left: 24px;}
 
     /* NEW / EDIT CONTACT */
     .edit-contact form fieldset {width: 320px;}
