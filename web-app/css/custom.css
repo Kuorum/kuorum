@@ -5549,6 +5549,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .edit-contact-header > div:first-child {padding: 10px 0 0 140px;}
     .edit-contact-header > div:first-child .user-img {width: 114px; height: 114px;}
 
+    .header-campaign .progress {position: absolute; top: 52px; z-index: 99; left: 220px;}
+
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -5859,6 +5861,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
     #tabs-new-campaign .textareaContainer + div {text-align: left;}
     .form-final-options .btn.btn-blue.inverted {margin-bottom: 0;}
+    .header-campaign .progress {left: 165px;}
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 0; float: right;}*/
@@ -5988,6 +5991,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* LIST CONTACTS (08/2016) */
     #contactsList > li > h3, #contactsList > li > p {padding-right: 72%;}
     .container-lists {width: 68%;}
+
+    .header-campaign .progress {left: 185px;}
 
 }
 
