@@ -595,7 +595,7 @@ $(document).ready(function() {
             outerWindow: 1
         };
         var options = {
-            valueNames: [ 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', { name: 'timestamp', attr: 'val' } ],
+            valueNames: [ 'id', 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', { name: 'timestamp', attr: 'val' } ],
             page: 10,
             searchClass: "searchCampaigns",
             plugins: [
@@ -604,6 +604,20 @@ $(document).ready(function() {
             ]
         };
         var campaignList = new List('listCampaigns', options);
+
+        // eliminar campaña
+        var removeBtn = $('.campaignDelete');
+        refreshCallbacks();
+        function refreshCallbacks() {
+          // Needed to add new buttons to jQuery-extended object
+          removeBtn = $(removeBtn.selector);
+          removeBtn.click(function() {
+            console.log('click en eliminar');
+            var itemId =  $(this).closest('li').find('.id').text();
+            console.log(itemId);
+            campaignList.remove('id', itemId);
+          });
+        }
 
         //select filtro campañas según estado
         $('#filterCampaigns').on('change', function () {
@@ -619,18 +633,6 @@ $(document).ready(function() {
                 });
             }
         });
-
-        // eliminar campaña
-        var removeBtn = $('.campaignDelete');
-        refreshCallbacks();
-        function refreshCallbacks() {
-          // Needed to add new buttons to jQuery-extended object
-          removeBtn = $(removeBtn.selector);
-          removeBtn.click(function() {
-            var itemId =  $(this).closest('li').prop('id');
-            campaignList.remove('id', itemId);
-          });
-        }
     }
 
 
