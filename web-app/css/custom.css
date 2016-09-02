@@ -1319,8 +1319,8 @@ li + .picker-switch {display: none;}
 
 #contactsList { min-height: 10em;}
 #contactsList > h3.noContacts {text-align: center}
-#contactsList > li {padding: 90px 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 220px;}
-#contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 0; top: 15px; overflow: hidden; background-color: #e5e5e5;}
+#contactsList > li {padding: 85px 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 220px;}
+#contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 0; top: 10px; overflow: hidden; background-color: #e5e5e5;}
 #contactsList > li p {margin: 0;}
 #contactsList > li .title {font-size: 17px; font-size: 1.7rem; margin: 0 0 4px 0;}
 #contactsList > li > .title > a,
@@ -5101,7 +5101,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #myWidgetLabel {font-size: 34px;}
     #detailsInfoVotes .table tbody th {width: 300px;}
     #detailsInfoVotes.autor .table tbody th {width: 335px;}
-    #contactsList > li {padding: 18px 0 0 80px; min-height: 190px;}
+    #contactsList > li {padding: 10px 0 0 80px; min-height: 175px;}
 
 }
 
@@ -5870,9 +5870,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #contactsOrderOptions.box-order-options > div {width: 40%;}
     #contactsList > li > h3, #contactsList > li > p {padding-right: 74%;}
     .container-lists {position: absolute; right: 0; top: 7px; border-left: 1px solid #e5e5e5; width: 68%; padding: 10px 20px; margin: 0;}
-    #contactsList > li {min-height: 130px;}
+    #contactsList > li {min-height: 105px; padding-top: 15px;}
     #contactsList > li > h3, #contactsList > li > p {padding-right: 68%;}
-    .container-lists {width: 63%;}
+    .container-lists {width: 63%; padding-bottom: 0;}
 
     /* STATS CAMPAIGNS */
     #tabs-stats-campaign .table thead {display: table-header-group;}
