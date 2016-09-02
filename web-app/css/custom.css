@@ -1090,7 +1090,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 .header-campaign .qq-upload-drop-area {
     background: none;
-    padding: 0;
+    padding: 5px 0 0;
 }
 .form-group.image.header-campaign {width: auto; height: auto; min-height: 100px;}
 .header-campaign .qq-upload-drop-area {border-color: #dedede;}
@@ -1118,7 +1118,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .new-filter-actions a:focus,
 .new-filter-actions a:active {color: #a8a8a8;}
 #saveFilterAs input {margin-bottom: 10px;}
-#sendLater {margin-left: 10px; margin-bottom: 0; min-width: 85px;}
+#sendLater {/*margin-left: 10px;*/ margin-bottom: 0; min-width: 85px;}
 
 .form-final-options {margin: 15px 0 0; padding: 0;}
 .form-final-options li {list-style: none; display: inline-block; margin-right: 10px; position: relative;}
@@ -1162,6 +1162,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 .datepicker-days tbody td {cursor: pointer;}
 .datepicker th {text-align: center;}
+.datepicker span.month, .datepicker span.year {padding: 0 4px;}
 li + .picker-switch {display: none;}
 .timepicker-picker th, .timepicker-picker td {text-align: center;}
 .timepicker-picker .table-condensed {margin: 0 auto;}
@@ -2955,7 +2956,7 @@ textarea.error,
     color: #20a2ea;
     text-align: center;
     padding: 0;
-    height: 34px;
+    height: 30px;
 }
 .uploadImage {width:220px; height:220px; margin-right:20px;}
 .qq-upload-button-hover {text-decoration: underline;}
@@ -2979,7 +2980,7 @@ textarea.error,
 .uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:353px;}
 .uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
-.button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 10px;}
+.button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 5px 0 0 0;}
 .qq-upload-drop-area-active {
     background-color:#FFF8ED;
     -moz-box-shadow: 0px 0px 20px #000;
@@ -5037,7 +5038,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         background-size: 50px auto;
         height: 102px;
         background-position: center 12%;
-        padding: 8% 0 0;
+        padding: 4% 0 0;
     }
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 50px;}*/
@@ -5493,7 +5494,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* CAMPAIGNS */
     #tabs-new-campaign .form-horizontal .control-label {text-align: left;}
-    .header-campaign .qq-upload-drop-area {background-size: 70px auto; padding-top: 10%;}
+    .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
     .new-filter-options > div:first-child > a > .text {display: none;}
@@ -5853,7 +5854,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* CAMPAIGNS */
     .form-final-options {margin-top: 280px;}
     .form-final-options li:first-child {display: block; margin-bottom: 10px;}
-    .header-campaign .qq-upload-drop-area {background-size: 84px auto; padding-top: 11%; background-position: center 14%;}
+    .header-campaign .qq-upload-drop-area {background-size: 84px auto; background-position: center 14%;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
     #tabs-new-campaign .textareaContainer + div {text-align: left;}
     .form-final-options .btn.btn-blue.inverted {margin-bottom: 0;}
