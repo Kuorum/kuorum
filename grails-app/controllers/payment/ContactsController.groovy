@@ -95,7 +95,7 @@ class ContactsController {
         ContactRSDTO contact = contactService.getContact(user, contactId)
         ContactCommand command = new ContactCommand();
         command.name = contact.name
-        command.email = contact.email?:"No visible email"
+        command.email = contact.email?:g.message(code: 'tools.contact.edit.noMailVisible')
         [command:command,contact:contact]
     }
 
@@ -115,7 +115,11 @@ class ContactsController {
     def updateContactNotes(Long contactId){
         KuorumUser user = springSecurityService.currentUser
         ContactRSDTO contact = contactService.getContact(user, contactId)
-        contact.setNotes(params.notes)
+        if (!contact){
+            render ([err:g.message(code: 'tools.contact.edit.error')]  as JSON)
+            return;
+        }
+        contact.notes = params.notes
         ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
         render ([msg:g.message(code: 'tools.contact.edit.success', args: [contactUpdated.name])]  as JSON)
 

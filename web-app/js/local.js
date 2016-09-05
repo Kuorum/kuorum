@@ -507,6 +507,27 @@ $(document).ready(function() {
         filterContacts.postFilter(link, callback);
     });
 
+    $("#tabs-edit-contact #notes #updateContactNotes").on("submit",function(e){
+        e.preventDefault();
+        var postData = $(this).serialize();
+        var link = $(this).attr("action")
+        $.post( link, postData)
+            .done(function(data) {
+                if (data.err != undefined){
+                    display.warn(data.err)
+                }else{
+                    display.success(data.msg)
+                }
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+        return false;
+    })
+
     // Guardar borrador
     $('body').on('click','.form-final-options #save-draft-campaign', function(e) {
         e.preventDefault();

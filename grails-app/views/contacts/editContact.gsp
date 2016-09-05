@@ -48,7 +48,7 @@
             <li role="presentation"><a href="#socialNetwork" data-toggle="tab">Social Networks</a></li>
             <li role="presentation"><a href="#notes" data-toggle="tab">Notes</a></li>
         </ul>
-        <div id="tabs-new-campaign" class="tab-content">
+        <div id="tabs-edit-contact" class="tab-content">
             <div class="tab-pane active" id="details">
                 <h4 class="sr-only">Details</h4>
                 <formUtil:validateForm bean="${command}" form="editBasicContactForm"/>
@@ -129,17 +129,17 @@
             </div>
             <div class="tab-pane" id="notes">
                 <h4 class="sr-only">Notes</h4>
-                <form>
+                <g:form mapping="politicianContactEditUpdateNote" params="[contactId:contact.id]" name="updateContactNotes">
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label for="notesContact">Notes</label>
-                            <textarea id="notesContact" class="form-control"></textarea>
+                            <textarea id="notesContact" class="form-control" name="notes">${contact.notes}</textarea>
                         </div>
                         <div class="form-group col-md-2 col-md-offset-2">
                             <input type="submit" value="Save" class="btn btn-blue inverted">
                         </div>
                     </div>
-                </form>
+                </g:form>
             </div>
         </div>
     </div>
