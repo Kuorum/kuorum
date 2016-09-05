@@ -85,20 +85,20 @@
                 </ul>
                 <ul class="activity des-engagement clearfix">
                     <li class="posts">
-                        <span>inactive</span>
-                        <ul><li>Open rate &#60; 10%</li></ul>
+                        <span><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.INACTIVE"/> </span>
+                        <ul><li><g:message code="tools.contact.edit.tabs.activity.info.openRate.smaller" args="[10]"/></li></ul>
                     </li>
                     <li class="posts">
-                        <span>reader</span>
-                        <ul><li>Open rate &#62; 10%</li><li> Click rate &#60; 3%</li></ul>
+                        <span><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.READER"/></span>
+                        <ul><li><g:message code="tools.contact.edit.tabs.activity.info.openRate.bigger" args="[10]"/></li><li> <g:message code="tools.contact.edit.tabs.activity.info.clickRate.smaller" args="[3]"/> </li></ul>
                     </li>
                     <li class="posts">
-                        <span>supporter</span>
-                        <ul><li>Open rate &#62; 10%</li><li>Click rate &#60; 3%</li></ul>
+                        <span><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.SUPPORTER"/></span>
+                        <ul><li><g:message code="tools.contact.edit.tabs.activity.info.openRate.bigger" args="[10]"/></li><li><g:message code="tools.contact.edit.tabs.activity.info.clickRate.bigger" args="[3]"/></li></ul>
                     </li>
                     <li class="posts">
-                        <span>broadcaster</span>
-                        <ul><li>Open rate &#62; 70%</li></ul>
+                        <span><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.BROADCASTER"/></span>
+                        <ul><li><g:message code="tools.contact.edit.tabs.activity.info.openRate.bigger" args="[70]"/></li></ul>
                     </li>
                 </ul>
             </div>
