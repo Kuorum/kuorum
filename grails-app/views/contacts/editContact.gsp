@@ -25,10 +25,18 @@
                 <a href="#"><span class="fa fa-external-link"></span><span class="sr-only">Editar</span></a>
             </p>
             <ul class="social-links">
-                <li><a href="#"><span class="fa fa-facebook-square"></span><span class="sr-only">Facebook</span></a></li>
-                <li><a href="#"><span class="fa fa-twitter-square"></span><span class="sr-only">Twitter</span></a></li>
-                <li><a href="#"><span class="fa fa-google-plus-square"></span><span class="sr-only">Google+</span></a></li>
-                <li><a href="#"><span class="fa fa-linkedin-square"></span><span class="sr-only">Linkedin</span></a></li>
+                <g:if test="${contact?.social?.facebook}">
+                    <li><a href="${contact.social.facebook}" target="_blank"><span class="fa fa-facebook-square"></span><span class="sr-only">Facebook</span></a></li>
+                </g:if>
+                <g:if test="${contact?.social?.twitter}">
+                    <li><a href="${contact.social.twitter}" target="_blank"><span class="fa fa-twitter-square"></span><span class="sr-only">Twitter</span></a></li>
+                </g:if>
+                <g:if test="${contact?.social?.googlePlus}">
+                    <li><a href="${contact.social.googlePlus}" target="_blank"><span class="fa fa-google-plus-square"></span><span class="sr-only">Google+</span></a></li>
+                </g:if>
+                <g:if test="${contact?.social?.linkedIn}">
+                    <li><a href="${contact.social.linkedIn}" target="_blank"><span class="fa fa-linkedin-square"></span><span class="sr-only">Linkedin</span></a></li>
+                </g:if>
             </ul>
             <ul class="btns">
                 <!-- ejemplo deshabilitado -->
