@@ -210,20 +210,30 @@ class ContactsController {
 
 
         File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
-        InputStream csvStream = new FileInputStream(csv);
-        Reader reader = new InputStreamReader(csvStream)
-        Iterator lines = com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
-        def contacts =[]
-        //Not save first columns
-        if (notImport>0) {
-            for ( int i = 0; i < notImport; i++){
-                lines.next();
-            }
-//            (0..notImport-1).each {lines.next()}
-        }
+        ObjectId loggedUserId = springSecurityService.principal.id
 
-        KuorumUser loggedUser = springSecurityService.currentUser
+        asyncUploadContacts(loggedUserId, csv,notImport, namePos, emailPos, tagsPos, tags as List)
+
+        session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+        log.info("Programed async uploaded contacts")
+
+//        render contacts as JSON
+    }
+
+    private void asyncUploadContacts(final ObjectId loggedUserId, final File csv, final Integer notImport, final Integer namePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
+        InputStream csvStream = new FileInputStream(csv);
+        final Reader reader = new InputStreamReader(csvStream)
         Promise p = grails.async.Promises.task {
+            Iterator lines = com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
+            KuorumUser loggedUser = KuorumUser.get(loggedUserId)
+            def contacts =[]
+            //Not save first columns
+            if (notImport>0) {
+                for ( int i = 0; i < notImport; i++){
+                    lines.next();
+                }
+            }
+
             lines.each{line ->
                 ContactRDTO contact = new ContactRDTO()
                 contact.setName(line[namePos])
@@ -239,17 +249,14 @@ class ContactsController {
 
             contactService.addBulkContacts(loggedUser,contacts);
             csv.delete();
-            session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         }
         p.onError { Throwable err ->
-            log.error("An error occured importing contacts: ${err.message}");
+            log.error("An error occured importing contacts: ${err.message}", err);
         }
         p.onComplete { result ->
             log.info("Imported contacts has sent: $result");
         }
-
-
-//        render contacts as JSON
+        p
     }
 
     private Map modelImportCSVContacts(){
