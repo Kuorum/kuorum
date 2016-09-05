@@ -32,8 +32,14 @@
             </ul>
             <ul class="btns">
                 <!-- ejemplo deshabilitado -->
-                <li><a href="#" class="btn btn-blue inverted disabled"><span class="fa fa-plus"></span> Follow</a></li>
-                <li><a href="#" class="btn btn-blue inverted"><span class="fa fa-envelope-0"></span> Contact</a></li>
+                <g:if test="${contactUser}">
+                    <li><userUtil:followButton user="${contactUser}" /> </li>
+                </g:if>
+                <g:else>
+                    <li><a href="#" class="btn btn-blue inverted disabled"><span class="fa fa-plus"></span> Follow</a></li>
+                </g:else>
+
+                <li><a href="#" class="btn btn-blue inverted disabled"><span class="fa fa-envelope-0"></span> Contact</a></li>
             </ul>
         </div>
         <div class="container-lists">
@@ -43,30 +49,30 @@
     </div>
     <div class="box-ppal edit-contact clearfix">
         <ul class="nav nav-tabs simple" data-tabs="tabs">
-            <li role="presentation" class="active"><a href="#details" data-toggle="tab">Details</a></li>
-            <li role="presentation"><a href="#activity" data-toggle="tab">Activity</a></li>
-            <li role="presentation"><a href="#socialNetwork" data-toggle="tab">Social Networks</a></li>
-            <li role="presentation"><a href="#notes" data-toggle="tab">Notes</a></li>
+            <li role="presentation" class="active"><a href="#details" data-toggle="tab"><g:message code="tools.contact.edit.tabs.basic"/></a></li>
+            <li role="presentation"><a href="#activity" data-toggle="tab"><g:message code="tools.contact.edit.tabs.activity"/></a></li>
+            <li role="presentation"><a href="#socialNetwork" data-toggle="tab"><g:message code="tools.contact.edit.tabs.socialNetworks"/></a></li>
+            <li role="presentation"><a href="#notes" data-toggle="tab"><g:message code="tools.contact.edit.tabs.notes"/></a></li>
         </ul>
         <div id="tabs-edit-contact" class="tab-content">
             <div class="tab-pane active" id="details">
-                <h4 class="sr-only">Details</h4>
+                <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.basic"/></h4>
                 <formUtil:validateForm bean="${command}" form="editBasicContactForm"/>
                 <g:form mapping="politicianContactEdit" params="[contactId:contact.id]" name="editBasicContactForm">
                     <g:render template="inputs/basicContactInputs" model="[command:command, contact: contact]" />
                 </g:form>
             </div>
             <div class="tab-pane" id="activity">
-                <h4 class="sr-only">Activity</h4>
+                <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.activity"/></h4>
                 <ul class="activity">
                     <li class="posts">
-                        <span>52</span> Campaigns sent
+                        <g:message code="tools.contact.edit.tabs.activity.campaignSent" args="[contact.stats.numMails]"/>
                     </li>
                     <li class="posts">
-                        <span>30%</span> Open rate
+                        <g:message code="tools.contact.edit.tabs.activity.openRate" args="[contact.stats.opens]"/>
                     </li>
                     <li class="posts">
-                        <span>1%</span> Click rate
+                        <g:message code="tools.contact.edit.tabs.activity.clickRate" args="[contact.stats.clicks]"/>
                     </li>
                 </ul>
                 <ul class="activity des-engagement clearfix">
@@ -75,18 +81,21 @@
                         <ul><li>Open rate &#60; 10%</li></ul>
                     </li>
                     <li class="posts">
-                        <span>reader</span> <ul><li>Open rate &#62; 10%</li><li> Click rate &#60; 3%</li></ul>
+                        <span>reader</span>
+                        <ul><li>Open rate &#62; 10%</li><li> Click rate &#60; 3%</li></ul>
                     </li>
                     <li class="posts">
-                        <span>supporter</span> <ul><li>Open rate &#62; 10%</li><li>Click rate &#60; 3%</li></ul>
+                        <span>supporter</span>
+                        <ul><li>Open rate &#62; 10%</li><li>Click rate &#60; 3%</li></ul>
                     </li>
                     <li class="posts">
-                        <span>broadcaster</span> <ul><li>Open rate &#62; 70%</li></ul>
+                        <span>broadcaster</span>
+                        <ul><li>Open rate &#62; 70%</li></ul>
                     </li>
                 </ul>
             </div>
             <div class="tab-pane" id="socialNetwork">
-                <h4 class="sr-only">Social Networks</h4>
+                <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.socialNetworks"/></h4>
                 <form>
                     <div class="row">
                         <div class="form-group col-md-4">
@@ -122,17 +131,17 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-md-offset-8">
-                            <input type="submit" value="Save" class="btn btn-blue inverted" disabled>
+                            %{--<input type="submit" value="Save" class="btn btn-blue inverted" disabled>--}%
                         </div>
                     </div>
                 </form>
             </div>
             <div class="tab-pane" id="notes">
-                <h4 class="sr-only">Notes</h4>
+                <h4 class="sr-only"><g:message code="tools.contact.edit.tabs.notes"/></h4>
                 <g:form mapping="politicianContactEditUpdateNote" params="[contactId:contact.id]" name="updateContactNotes">
                     <div class="row">
                         <div class="form-group col-md-8">
-                            <label for="notesContact">Notes</label>
+                            <label for="notesContact"><g:message code="tools.contact.edit.tabs.notes"/></label>
                             <textarea id="notesContact" class="form-control" name="notes">${contact.notes}</textarea>
                         </div>
                         <div class="form-group col-md-2 col-md-offset-2">

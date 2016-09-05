@@ -8,6 +8,7 @@ import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.contact.ContactCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
+import org.bson.types.ObjectId
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
@@ -96,14 +97,16 @@ class ContactsController {
         ContactCommand command = new ContactCommand();
         command.name = contact.name
         command.email = contact.email?:g.message(code: 'tools.contact.edit.noMailVisible')
-        [command:command,contact:contact]
+        KuorumUser contactUser = contact.mongoId?KuorumUser.get(new ObjectId(contact.mongoId)):null
+        [command:command,contact:contact,contactUser:contactUser]
     }
 
     def updateContact(ContactCommand command){
         KuorumUser user = springSecurityService.currentUser
         ContactRSDTO contact = contactService.getContact(user, command.contactId)
         if (command.hasErrors() || !contact){
-            render template: "editContact", params:[command:command,contact:contact]
+            KuorumUser contactUser = contact.mongoId?KuorumUser.get(new ObjectId(contact.mongoId)):null
+            render template: "editContact", params:[command:command,contact:contact,contactUser:contactUser]
         }
         contact.name = command.name
         contact.email = command.email
