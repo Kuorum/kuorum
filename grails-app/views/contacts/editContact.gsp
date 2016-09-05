@@ -51,9 +51,10 @@
         <div id="tabs-new-campaign" class="tab-content">
             <div class="tab-pane active" id="details">
                 <h4 class="sr-only">Details</h4>
-                <form>
-                    <g:render template="inputs/basicContactInputs" />
-                </form>
+                <formUtil:validateForm bean="${command}" form="editBasicContactForm"/>
+                <g:form mapping="politicianContactEdit" params="[contactId:contact.id]" name="editBasicContactForm">
+                    <g:render template="inputs/basicContactInputs" model="[command:command, contact: contact]" />
+                </g:form>
             </div>
             <div class="tab-pane" id="activity">
                 <h4 class="sr-only">Activity</h4>

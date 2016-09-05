@@ -146,15 +146,15 @@ class ContactService {
                 query)
     }
 
-    ContactRSDTO updateContact(KuorumUser user, ContactRSDTO contactRSDTO){
-        Map<String, String> params = [userId:user.id.toString(),contactId:contactRSDTO.id.toString()]
+    ContactRSDTO updateContact(KuorumUser user, ContactRDTO contactRDTO, Long contactId){
+        Map<String, String> params = [userId:user.id.toString(),contactId:contactId.toString()]
         Map<String, String> query = [:]
 
         def response= restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_CONTACT,
                 params,
                 query,
-                contactRSDTO,
+                contactRDTO,
                 new TypeReference<ContactRSDTO>(){})
         ContactRSDTO contact =null
         if (response.data){

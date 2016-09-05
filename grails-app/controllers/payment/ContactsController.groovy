@@ -80,7 +80,7 @@ class ContactsController {
         KuorumUser user = springSecurityService.currentUser
         ContactRSDTO contactRSDTO = contactService.getContact(user, contactId);
         contactRSDTO.tags = tags as Set
-        contactRSDTO = contactService.updateContact(user, contactRSDTO)
+        contactRSDTO = contactService.updateContact(user, contactRSDTO, contactId)
         render contactRSDTO as JSON
     }
 
@@ -95,8 +95,30 @@ class ContactsController {
         ContactRSDTO contact = contactService.getContact(user, contactId)
         ContactCommand command = new ContactCommand();
         command.name = contact.name
-        command.email = contact.email
+        command.email = contact.email?:"No visible email"
         [command:command,contact:contact]
+    }
+
+    def updateContact(ContactCommand command){
+        KuorumUser user = springSecurityService.currentUser
+        ContactRSDTO contact = contactService.getContact(user, command.contactId)
+        if (command.hasErrors() || !contact){
+            render template: "editContact", params:[command:command,contact:contact]
+        }
+        contact.name = command.name
+        contact.email = command.email
+        ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
+        flash.message=g.message(code: 'tools.contact.edit.success', args: [contact.name])
+        redirect(mapping:"politicianContactEdit", params: [contactId: contactUpdated.getId()])
+    }
+
+    def updateContactNotes(Long contactId){
+        KuorumUser user = springSecurityService.currentUser
+        ContactRSDTO contact = contactService.getContact(user, contactId)
+        contact.setNotes(params.notes)
+        ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
+        render ([msg:g.message(code: 'tools.contact.edit.success', args: [contactUpdated.name])]  as JSON)
+
     }
 
     def newContact(){
