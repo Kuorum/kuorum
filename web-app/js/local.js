@@ -654,6 +654,9 @@ $(document).ready(function() {
                 });
             }
         });
+        $("#campaignsOrderOptions").on("click", "a", function(e){
+            e.preventDefault();
+        })
     }
 
 

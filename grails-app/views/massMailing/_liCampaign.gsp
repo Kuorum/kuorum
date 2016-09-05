@@ -1,8 +1,13 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 
-<li class="${campaign.status}" id="${idx}">
+<li class="${campaign.status}" id="campaignPos_${idx}">
+    <span class="id sr-only">${campaign.id}</span>
     <span class="state">${campaign.status}</span>
-    <h3 class="title"><g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]">${campaign.name}</g:link></h3>
+    <h3>
+        <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="title">
+            ${campaign.name}<span></span>
+        </g:link>
+    </h3>
     <p class="name">
         <g:message code="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.class.name}.${campaign.status}"/>
         <g:if test="${campaign.sentOn}">
