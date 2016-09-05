@@ -153,7 +153,7 @@
                             <textarea id="notesContact" class="form-control" name="notes">${contact.notes}</textarea>
                         </div>
                         <div class="form-group col-md-2 col-md-offset-2">
-                            <input type="submit" value="Save" class="btn btn-blue inverted">
+                            <input type="submit" value="${g.message(code:'tools.contact.edit.save')}" class="btn btn-blue inverted">
                         </div>
                     </div>
                 </g:form>
