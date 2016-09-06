@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.contacts.import"/></title>
+    <title><g:message code="page.title.dashboard.crmUser.normal"/></title>
     <meta name="layout" content="paymentPlainLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
@@ -35,16 +35,16 @@
                 </ul>
                 <div id="tabs-dashboard" class="tab-content">
                     <div class="tab-pane active" id="engagement">
-                        engagement content
+                        <g:message code="tools.feature.notReady"/>
                     </div>
                     <div class="tab-pane" id="valuation">
-                        valuation content
+                        <g:message code="tools.feature.notReady"/>
                     </div>
                     <div class="tab-pane" id="profile">
-                        profile content
+                        <g:message code="tools.feature.notReady"/>
                     </div>
                     <div class="tab-pane" id="socialData">
-                        social data content
+                        <g:message code="tools.feature.notReady"/>
                     </div>
                 </div>
             </div>

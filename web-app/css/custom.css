@@ -1385,6 +1385,7 @@ li + .picker-switch {display: none;}
 .edit-contact-header > div:first-child ul,
 .edit-contact-header > div:first-child ul li {list-style: none; display: inline; margin-right: 5px;}
 .edit-contact-header > div:first-child ul li:last-child {margin: 0;}
+.edit-contact-header > div:first-child ul li button{padding: 6px 14px !important}
 .edit-contact-header ul.btns {position: absolute; top: 0; right: 0;}
 .edit-contact-header ul.social-links a {font-size: 2rem;}
 .edit-contact-header ul.social-links a:hover,
@@ -5696,7 +5697,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #detailsInfoVotes.autor .icons.subject li {margin: 0 18px 10px 0;}
     #detailsInfoVotes .icons {margin: 0;}
 
-    .navbar-brand {width: 190px; height: 48px; margin-top: -4px; margin-bottom: 0;}
+    .navbar-brand {width: 170px; height: 48px; margin-top: -4px; margin-bottom: 0;}
     .btn.search {line-height: 0.7;}
     .navbar-form {width: 340px; margin: 5px 4px 4px 12%;}
 

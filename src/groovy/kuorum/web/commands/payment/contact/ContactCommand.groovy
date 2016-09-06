@@ -7,11 +7,13 @@ import grails.validation.Validateable
  */
 @Validateable
 class ContactCommand {
+    Long contactId;
     String name;
     String email;
 
     static constraints = {
+        contactId nullable: false
         name nullable: false
-        email nullable: false, email: true
+        email nullable: true, email: true // Is nullable because when the contact is a followe we don't have the email
     }
 }

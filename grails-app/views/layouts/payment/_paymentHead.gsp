@@ -22,8 +22,8 @@
         <a data-target="#" href="#" id="open-user-options" class="dropdown-toggle dropdown-menu-right navbar-link user-area" data-toggle="dropdown" role="button">
             <span itemprop="name" class="sr-only">${user.name}</span>
             <img src="${image.userImgSrc(user:user)}" alt="${user.name}" class="user-img" itemprop="image">
-            <span class="badge pull-right" role="log" aria-labelledby="alerts" aria-live="assertive" aria-relevant="additions">${notifications.numNews?:''}</span>
-            <span class="fa fa-caret-down fa-lg"></span>
+            %{--<span class="badge pull-right" role="log" aria-labelledby="alerts" aria-live="assertive" aria-relevant="additions">${notifications.numNews?:''}</span>--}%
+            %{--<span class="fa fa-caret-down fa-lg"></span>--}%
         </a>
         <g:render template="/layouts/headUserMenuDropDown" model="[user:user, numFavorites:user.favorites.size(), numMessages:7]"/>
     </li>

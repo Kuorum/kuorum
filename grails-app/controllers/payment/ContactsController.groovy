@@ -8,6 +8,7 @@ import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.contact.ContactCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
+import org.bson.types.ObjectId
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
@@ -18,6 +19,7 @@ import org.kuorum.rest.model.contact.filter.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.sort.SortContactsRDTO
+import org.mozilla.universalchardet.UniversalDetector
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.contact.ContactService
@@ -80,7 +82,7 @@ class ContactsController {
         KuorumUser user = springSecurityService.currentUser
         ContactRSDTO contactRSDTO = contactService.getContact(user, contactId);
         contactRSDTO.tags = tags as Set
-        contactRSDTO = contactService.updateContact(user, contactRSDTO)
+        contactRSDTO = contactService.updateContact(user, contactRSDTO, contactId)
         render contactRSDTO as JSON
     }
 
@@ -95,8 +97,36 @@ class ContactsController {
         ContactRSDTO contact = contactService.getContact(user, contactId)
         ContactCommand command = new ContactCommand();
         command.name = contact.name
-        command.email = contact.email
-        [command:command,contact:contact]
+        command.email = contact.email?:g.message(code: 'tools.contact.edit.noMailVisible')
+        KuorumUser contactUser = contact.mongoId?KuorumUser.get(new ObjectId(contact.mongoId)):null
+        [command:command,contact:contact,contactUser:contactUser]
+    }
+
+    def updateContact(ContactCommand command){
+        KuorumUser user = springSecurityService.currentUser
+        ContactRSDTO contact = contactService.getContact(user, command.contactId)
+        if (command.hasErrors() || !contact){
+            KuorumUser contactUser = contact.mongoId?KuorumUser.get(new ObjectId(contact.mongoId)):null
+            render template: "editContact", params:[command:command,contact:contact,contactUser:contactUser]
+        }
+        contact.name = command.name
+        contact.email = command.email
+        ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
+        flash.message=g.message(code: 'tools.contact.edit.success', args: [contact.name])
+        redirect(mapping:"politicianContactEdit", params: [contactId: contactUpdated.getId()])
+    }
+
+    def updateContactNotes(Long contactId){
+        KuorumUser user = springSecurityService.currentUser
+        ContactRSDTO contact = contactService.getContact(user, contactId)
+        if (!contact){
+            render ([err:g.message(code: 'tools.contact.edit.error')]  as JSON)
+            return;
+        }
+        contact.notes = params.notes
+        ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
+        render ([msg:g.message(code: 'tools.contact.edit.success', args: [contactUpdated.name])]  as JSON)
+
     }
 
     def newContact(){
@@ -145,15 +175,22 @@ class ContactsController {
             render(view: 'importContacts')
             return
         }
-        InputStream data = uploadedFile.inputStream
-        byte[] buffer = new byte[data.available()];
-        data.read(buffer)
         File csv = File.createTempFile(uploadedFile.originalFilename, ".csv");
-        OutputStream outStream = new FileOutputStream(csv);
-        outStream.write(buffer);
-        outStream.close()
+        uploadedFile.transferTo(csv)
+//        InputStream data = uploadedFile.inputStream
+//        byte[] buffer = new byte[data.available()];
+//        data.read(buffer)
+//        OutputStream outStream = new FileOutputStream(csv);
+//        outStream.write(buffer);
+//        outStream.close()
         request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csv);
-        modelImportCSVContacts()
+        try{
+            modelImportCSVContacts()
+        }catch (Exception e){
+            log.error("Error uploading CSV file",e)
+            flash.warn = g.message(code:'tools.contact.import.csv.error.emptyFile')
+            render(view: 'importContacts')
+        }
 
     }
 
@@ -181,25 +218,43 @@ class ContactsController {
 
 
         File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
-        InputStream csvStream = new FileInputStream(csv);
-        Reader reader = new InputStreamReader(csvStream)
-        Iterator lines = com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
-        def contacts =[]
-        //Not save first columns
-        if (notImport>0) {
-            for ( int i = 0; i < notImport; i++){
-                lines.next();
-            }
-//            (0..notImport-1).each {lines.next()}
-        }
+        ObjectId loggedUserId = springSecurityService.principal.id
 
-        KuorumUser loggedUser = springSecurityService.currentUser
+        asyncUploadContacts(loggedUserId, csv,notImport, namePos, emailPos, tagsPos, tags as List)
+
+        session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+        log.info("Programed async uploaded contacts")
+
+//        render contacts as JSON
+    }
+
+    private void asyncUploadContacts(final ObjectId loggedUserId, final File csv, final Integer notImport, final Integer namePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
+        InputStream csvStream = new FileInputStream(csv);
+        final Reader reader = new InputStreamReader(csvStream)
         Promise p = grails.async.Promises.task {
+            Iterator lines = com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
+            KuorumUser loggedUser = KuorumUser.get(loggedUserId)
+            def contacts =[]
+            //Not save first columns
+            if (notImport>0) {
+                for ( int i = 0; i < notImport; i++){
+                    lines.next();
+                }
+            }
+
             lines.each{line ->
                 ContactRDTO contact = new ContactRDTO()
                 contact.setName(line[namePos])
                 contact.setEmail(line[emailPos])
-                contact.setTags(tagsPos.collect{line[it.intValue()]} as Set)
+                def tagsSecuredTransformed = tagsPos.collect{
+                    try{
+                        line[it.intValue()]
+                    }catch (Exception e){
+                        //Wrong file
+                        ""
+                    }
+                }
+                contact.setTags(tagsSecuredTransformed as Set)
                 contact.getTags().addAll(tags)
                 contacts << contact
                 if (contacts.size() > 1000){
@@ -210,17 +265,14 @@ class ContactsController {
 
             contactService.addBulkContacts(loggedUser,contacts);
             csv.delete();
-            session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         }
         p.onError { Throwable err ->
-            log.error("An error occured importing contacts: ${err.message}");
+            log.error("An error occured importing contacts: ${err.message}", err);
         }
         p.onComplete { result ->
             log.info("Imported contacts has sent: $result");
         }
-
-
-//        render contacts as JSON
+        p
     }
 
     private Map modelImportCSVContacts(){
@@ -251,8 +303,23 @@ class ContactsController {
 
     private def parseCsvFile(File csv){
         InputStream csvStream = new FileInputStream(csv);
-        Reader reader = new InputStreamReader(csvStream)
+        String charSet = detectCharset(csv)
+        Reader reader = new InputStreamReader(csvStream, charSet)
         return com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
+    }
+
+    private String detectCharset(File csv){
+        java.io.FileInputStream fis = new java.io.FileInputStream(csv);
+        byte[] buf = new byte[4096];
+        UniversalDetector detector = new UniversalDetector(null);
+        int nread;
+        while ((nread = fis.read(buf)) > 0 && !detector.isDone()) {
+            detector.handleData(buf, 0, nread);
+        }
+        detector.dataEnd();
+        String encoding = detector.getDetectedCharset()
+        log.info("File uploaded with encoding: "+encoding)
+        encoding
     }
 
     def contactTags(){
