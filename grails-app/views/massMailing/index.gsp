@@ -23,7 +23,7 @@
         <div class="container-fluid box-ppal dashboard">
 
 
-            <p><g:message code="dashboard.payment.noContacts.sendTestCampaign" args="[g.createLink(mapping: 'politicianMassMailingNew', params: [testFilter:true])]"/>:</p>
+            <p><g:message code="dashboard.payment.noCampaigns" /></p>
             <p>
                 <g:link mapping="politicianMassMailingNew" class="btn inverted btn-lg">
                     <g:message code="tools.massMailing.list.newCampaign"/>
