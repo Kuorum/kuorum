@@ -107,6 +107,10 @@ grails.project.dependency.resolution = {
         test 'org.grails:grails-datastore-simple:3.1.0.RELEASE'
        compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
 
+        // Library for detect the charset of the uploaded file
+        compile group: 'com.googlecode.juniversalchardet', name: 'juniversalchardet', version: '1.0.3'
+
+
 //        test "org.gebish:geb-spock:$gebVersion"
 //        test("org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion")
 //        test("org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion")

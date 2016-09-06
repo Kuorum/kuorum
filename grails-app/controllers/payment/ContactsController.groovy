@@ -19,6 +19,7 @@ import org.kuorum.rest.model.contact.filter.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.sort.SortContactsRDTO
+import org.mozilla.universalchardet.UniversalDetector
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.contact.ContactService
@@ -174,15 +175,22 @@ class ContactsController {
             render(view: 'importContacts')
             return
         }
-        InputStream data = uploadedFile.inputStream
-        byte[] buffer = new byte[data.available()];
-        data.read(buffer)
         File csv = File.createTempFile(uploadedFile.originalFilename, ".csv");
-        OutputStream outStream = new FileOutputStream(csv);
-        outStream.write(buffer);
-        outStream.close()
+        uploadedFile.transferTo(csv)
+//        InputStream data = uploadedFile.inputStream
+//        byte[] buffer = new byte[data.available()];
+//        data.read(buffer)
+//        OutputStream outStream = new FileOutputStream(csv);
+//        outStream.write(buffer);
+//        outStream.close()
         request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csv);
-        modelImportCSVContacts()
+        try{
+            modelImportCSVContacts()
+        }catch (Exception e){
+            log.error("Error uploading CSV file",e)
+            flash.warn = g.message(code:'tools.contact.import.csv.error.emptyFile')
+            render(view: 'importContacts')
+        }
 
     }
 
@@ -295,8 +303,23 @@ class ContactsController {
 
     private def parseCsvFile(File csv){
         InputStream csvStream = new FileInputStream(csv);
-        Reader reader = new InputStreamReader(csvStream)
+        String charSet = detectCharset(csv)
+        Reader reader = new InputStreamReader(csvStream, charSet)
         return com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
+    }
+
+    private String detectCharset(File csv){
+        java.io.FileInputStream fis = new java.io.FileInputStream(csv);
+        byte[] buf = new byte[4096];
+        UniversalDetector detector = new UniversalDetector(null);
+        int nread;
+        while ((nread = fis.read(buf)) > 0 && !detector.isDone()) {
+            detector.handleData(buf, 0, nread);
+        }
+        detector.dataEnd();
+        String encoding = detector.getDetectedCharset()
+        log.info("File uploaded with encoding: "+encoding)
+        encoding
     }
 
     def contactTags(){
