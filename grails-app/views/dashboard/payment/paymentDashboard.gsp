@@ -35,16 +35,16 @@
                 </ul>
                 <div id="tabs-dashboard" class="tab-content">
                     <div class="tab-pane active" id="engagement">
-                        engagement content
+                        <g:message code="tools.feature.notReady"/>
                     </div>
                     <div class="tab-pane" id="valuation">
-                        valuation content
+                        <g:message code="tools.feature.notReady"/>
                     </div>
                     <div class="tab-pane" id="profile">
-                        profile content
+                        <g:message code="tools.feature.notReady"/>
                     </div>
                     <div class="tab-pane" id="socialData">
-                        social data content
+                        <g:message code="tools.feature.notReady"/>
                     </div>
                 </div>
             </div>
