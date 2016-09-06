@@ -1,3 +1,4 @@
+<%@ page import="kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <title><g:message code="page.title.login"/> </title>
@@ -47,41 +48,32 @@
                         showLabel="true"/>
             </div>
             <div class="form-group col-md-6">
-                <div class="pull-left prefix">
-                    <formUtil:input command="${command}" field="phonePrefix" showLabel="true"/>
-                </div>
-                <div class="pull-left phone">
-                    <formUtil:input command="${command}" field="phone" showLabel="true"/>
-                </div>
-                <span class="help-block">
-                    <g:message code="kuorum.web.commands.customRegister.Step2Command.phone-phonePrefix.helpBlock"/>
-                </span>
+                <formUtil:selectEnum
+                        command="${command}"
+                        field="userType"
+                        values="${[kuorum.core.model.UserType.PERSON, kuorum.core.model.UserType.POLITICIAN]}"
+                        showLabel="true"/>
             </div>
+            %{--<div class="form-group col-md-6">--}%
+                %{--<div class="pull-left prefix">--}%
+                    %{--<formUtil:input command="${command}" field="phonePrefix" showLabel="true"/>--}%
+                %{--</div>--}%
+                %{--<div class="pull-left phone">--}%
+                    %{--<formUtil:input command="${command}" field="phone" showLabel="true"/>--}%
+                %{--</div>--}%
+                %{--<span class="help-block">--}%
+                    %{--<g:message code="kuorum.web.commands.customRegister.Step2Command.phone-phonePrefix.helpBlock"/>--}%
+                %{--</span>--}%
+            %{--</div>--}%
         </fieldset>
 
         <fieldset class="row">
             <div class="form-group text-center option-buttons">
-                <label><g:message code="customRegister.step2.choseUserType.label"/> </label>
-                <input type="hidden" name="userType" value="${kuorum.core.model.UserType.PERSON}"/>
-                <input type="submit" id="submitPolitician" value="${g.message(code:'customRegister.step2.choseUserType.politician')}" class="btn btn-lg">
-                <input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">
+                %{--<label><g:message code="customRegister.step2.choseUserType.label"/> </label>--}%
+                <input type="submit"value="${g.message(code:'customRegister.step2.submit')}" class="btn btn-lg">
+                %{--<input type="submit" id="submitCitizen" value="${g.message(code:'customRegister.step2.choseUserType.citizen')}" class="btn btn-blue btn-lg">--}%
             </div>
         </fieldset>
     </g:form>
-    <script>
-        $(document).ready(function() {
-            $('input[name=alias]').focus();
-            $('#submitPolitician').on("click", function(e){
-                e.preventDefault()
-                $('input[name=userType]').val("${kuorum.core.model.UserType.POLITICIAN}")
-                $(this).parents("form").submit()
-            })
-            $('#submitCitizen').on("click", function(e){
-                e.preventDefault()
-                $('input[name=userType]').val("${kuorum.core.model.UserType.PERSON}")
-                $(this).parents("form").submit()
-            })
-        });
-    </script>
 </content>
 
