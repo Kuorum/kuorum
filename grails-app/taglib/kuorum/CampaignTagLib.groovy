@@ -2,6 +2,8 @@ package kuorum
 
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 
+import java.text.DecimalFormat
+
 class CampaignTagLib {
     static defaultEncodeAs = [taglib:'raw']
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
@@ -10,24 +12,34 @@ class CampaignTagLib {
     def camapignsSent = {attrs ->
 
         CampaignRSDTO campaignRSDTO = attrs.campaign
-        def campaignsSentValue = campaignRSDTO.numberRecipients>0 ? campaignRSDTO.numberRecipients : ''
-        out<< "<span class='recip-number'>${campaignsSentValue}</span>"
+        String campaignsSentValue = campaignRSDTO.numberRecipients>0 ? campaignRSDTO.numberRecipients : ''
+        out<< campaignsSentValue
 
     }
 
     def openRate = {attrs ->
 
         CampaignRSDTO campaignRSDTO = attrs.campaign
-        def openRateValue  = campaignRSDTO.numberRecipients>0 ? campaignRSDTO.numberOpens/campaignRSDTO.numberRecipients*100 : ''
-        out<< "<span class='open-number'>${openRateValue}</span>"
+        String openRateValue = ""
+
+        if(campaignRSDTO.numberRecipients>0) {
+            Number openRateNum = campaignRSDTO.numberOpens/campaignRSDTO.numberRecipients*100
+            openRateValue = g.formatNumber(number: openRateNum, maxFractionDigits: 1, type: 'number')
+        }
+        out << openRateValue
 
     }
 
     def clickRate = {attrs ->
 
         CampaignRSDTO campaignRSDTO = attrs.campaign
-        def clickRateValue = campaignRSDTO.numberRecipients>0 ? campaignRSDTO.numberClicks/campaignRSDTO.numberRecipients*100 : ''
-        out<< "<span class='click-number'>${clickRateValue}</span>"
+        String clickRateValue = ""
+
+        if(campaignRSDTO.numberRecipients>0) {
+            Number clickRateNum = campaignRSDTO.numberClicks/campaignRSDTO.numberRecipients*100
+            clickRateValue = g.formatNumber(number: clickRateNum, maxFractionDigits: 1, type: 'number')
+        }
+        out << clickRateValue
 
     }
 }

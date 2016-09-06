@@ -30,13 +30,19 @@
                 <h2 class="sr-only">Stats</h2>
                 <ul class="activity">
                     <li class="posts">
-                        <campaignUtil:camapignsSent campaign="${campaign}"/> Campaigns sent
+                        <span class='recip-number'>
+                            <campaignUtil:camapignsSent campaign="${campaign}"/>
+                        </span> Campaigns sent
                     </li>
                     <li class="posts">
-                        <campaignUtil:openRate campaign="${campaign}"/> Open rate
+                        <span class='open-number'>
+                            <campaignUtil:openRate campaign="${campaign}"/> %
+                        </span> Open rate
                     </li>
                     <li class="posts">
-                        <campaignUtil:clickRate campaign="${campaign}"/> Click rate
+                        <span class='click-number'>
+                            <campaignUtil:clickRate campaign="${campaign}"/> %
+                        </span> Click rate
                     </li>
                 </ul>
                 <h3>24-hour performance</h3>
