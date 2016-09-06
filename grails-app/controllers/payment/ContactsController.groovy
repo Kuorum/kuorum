@@ -238,7 +238,15 @@ class ContactsController {
                 ContactRDTO contact = new ContactRDTO()
                 contact.setName(line[namePos])
                 contact.setEmail(line[emailPos])
-                contact.setTags(tagsPos.collect{line[it.intValue()]} as Set)
+                def tagsSecuredTransformed = tagsPos.collect{
+                    try{
+                        line[it.intValue()]
+                    }catch (Exception e){
+                        //Wrong file
+                        ""
+                    }
+                }
+                contact.setTags(tagsSecuredTransformed as Set)
                 contact.getTags().addAll(tags)
                 contacts << contact
                 if (contacts.size() > 1000){
