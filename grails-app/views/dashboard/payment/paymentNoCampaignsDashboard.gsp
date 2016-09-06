@@ -1,7 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    %{--<title><g:message code="page.title.contacts.import"/></title>--}%
-    <title>NO CONTACTS</title>
+    <title><g:message code="page.title.dashboard.crmUser.noCampaign"/></title>
     <meta name="layout" content="paymentPlainLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
