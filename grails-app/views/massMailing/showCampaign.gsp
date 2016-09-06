@@ -31,7 +31,7 @@
                 <ul class="activity">
                     <li class="posts">
                         <span class='recip-number'>
-                            <campaignUtil:camapignsSent campaign="${campaign}"/>
+                            <campaignUtil:campaignsSent campaign="${campaign}"/>
                         </span> Campaigns sent
                     </li>
                     <li class="posts">

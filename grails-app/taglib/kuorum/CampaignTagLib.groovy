@@ -9,7 +9,7 @@ class CampaignTagLib {
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
     static namespace = "campaignUtil"
 
-    def camapignsSent = {attrs ->
+    def campaignsSent = {attrs ->
         CampaignRSDTO campaignRSDTO = attrs.campaign
         out<< campaignRSDTO.numberRecipients?: ''
     }

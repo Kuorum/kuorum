@@ -21,7 +21,7 @@
     <ul>
         <li class="recipients">
             <span class="recip-number">
-                <campaignUtil:camapignsSent campaign="${campaign}"/> <g:message code="tools.massMailing.list.recipients"/>
+                <campaignUtil:campaignsSent campaign="${campaign}"/> <g:message code="tools.massMailing.list.recipients"/>
             </span>
         </li>
         <li class="open">
