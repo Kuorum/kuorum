@@ -10,11 +10,8 @@ class CampaignTagLib {
     static namespace = "campaignUtil"
 
     def camapignsSent = {attrs ->
-
         CampaignRSDTO campaignRSDTO = attrs.campaign
-        String campaignsSentValue = campaignRSDTO.numberRecipients>0 ? campaignRSDTO.numberRecipients : ''
-        out<< campaignsSentValue
-
+        out<< campaignRSDTO.numberRecipients?: ''
     }
 
     def openRate = {attrs ->
