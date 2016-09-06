@@ -131,7 +131,8 @@ class CustomRegisterController {
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def step3(){
-
+        KuorumUser user = springSecurityService.currentUser
+        [user:user]
     }
 
     def subscriptionStep1(){
