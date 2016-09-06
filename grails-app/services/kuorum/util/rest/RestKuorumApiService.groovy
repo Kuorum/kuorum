@@ -65,12 +65,13 @@ class RestKuorumApiService {
         REGION_SUGGEST  ("/geolocation/suggest"),
         REGION_FIND     ("/geolocation/find"),
 
-        ACCOUNT_INFO            ("/notification/mailing/{userAlias}"),
-        ACCOUNT_MAILS           ("/notification/mailing/{userAlias}/emails"),
-        ACCOUNT_MAILS_SEND      ("/notification/mailing/{userAlias}/send"),
-        ACCOUNT_CAMPAIGNS       ("/notification/campaign/{userAlias}"),
-        ACCOUNT_CAMPAIGN        ("/notification/campaign/{userAlias}/{campaignId}"),
-        ACCOUNT_CAMPAIGN_SEND   ("/notification/campaign/{userAlias}/{campaignId}/send"),
+        ACCOUNT_INFO                ("/notification/mailing/{userAlias}"),
+        ACCOUNT_MAILS               ("/notification/mailing/{userAlias}/emails"),
+        ACCOUNT_MAILS_SEND          ("/notification/mailing/{userAlias}/send"),
+        ACCOUNT_CAMPAIGNS           ("/notification/campaign/{userAlias}"),
+        ACCOUNT_CAMPAIGN            ("/notification/campaign/{userAlias}/{campaignId}"),
+        ACCOUNT_CAMPAIGN_SEND       ("/notification/campaign/{userAlias}/{campaignId}/send"),
+        ACCOUNT_CAMPAIGN_TRACKING   ("/notification/campaign/{userAlias}/{campaignId}/trackingMails"),
 
         ADMIN_MAILS_SEND("/admin/notification/mailing/send");
 

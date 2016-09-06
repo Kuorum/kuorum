@@ -19,6 +19,7 @@ import org.kuorum.rest.model.contact.filter.OperatorTypeRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
+import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
 
@@ -136,7 +137,8 @@ class MassMailingController {
 
             render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, false)
         }else{
-            render view: 'showCampaign', model: [campaign: campaignRSDTO]
+            TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId)
+            render view: 'showCampaign', model: [campaign: campaignRSDTO, trackingPage:trackingPage]
         }
 
     }

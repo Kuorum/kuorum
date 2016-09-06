@@ -7,6 +7,7 @@ import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
+import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 
 @Transactional
 class MassMailingService {
@@ -90,5 +91,21 @@ class MassMailingService {
             campaignSaved = (CampaignRSDTO)response.data
         }
         campaignSaved
+    }
+
+    TrackingMailStatsByCampaignPageRSDTO findTrackingMails(KuorumUser user, Long campaignId, Integer page = 0, Integer size=10){
+        Map<String, String> params = [userAlias:user.id.toString(), campaignId:campaignId.toString()]
+        Map<String, String> query = [page:page.toString(), size:size.toString()]
+        def response= restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_TRACKING,
+                params,
+                query,
+                new TypeReference<TrackingMailStatsByCampaignPageRSDTO>(){}
+        )
+        TrackingMailStatsByCampaignPageRSDTO trackingMailStatsByCampaignPageRSDTO=null;
+        if (response.data){
+            trackingMailStatsByCampaignPageRSDTO = (TrackingMailStatsByCampaignPageRSDTO)response.data
+        }
+        trackingMailStatsByCampaignPageRSDTO
     }
 }

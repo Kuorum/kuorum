@@ -21,100 +21,76 @@
     </ol>
     <div class="box-ppal">
         <ul class="nav nav-tabs simple" data-tabs="tabs">
-            <li role="presentation" class="active"><a href="#stats" data-toggle="tab">Stats</a></li>
-            <li role="presentation"><a href="#recipients" data-toggle="tab">Recipients</a></li>
-            <li role="presentation"><a href="#viewemail" data-toggle="tab">View email</a></li>
+            <li role="presentation" class="active"><a href="#stats" data-toggle="tab"><g:message code="tools.massMailing.view.stats"/></a></li>
+            <li role="presentation"><a href="#recipients" data-toggle="tab"><g:message code="tools.massMailing.list.recipients"/></a></li>
+            <li role="presentation"><a href="#viewemail" data-toggle="tab"><g:message code="tools.massMailing.view.viewMail"/></a></li>
         </ul>
         <div id="tabs-stats-campaign" class="tab-content">
             <div class="tab-pane active" id="stats">
-                <h2 class="sr-only">Stats</h2>
+                <h2 class="sr-only"><g:message code="tools.massMailing.view.stats"/></h2>
                 <ul class="activity">
                     <li class="posts">
-                        <span class='recip-number'>
-                            <campaignUtil:campaignsSent campaign="${campaign}"/>
-                        </span> Campaigns sent
+                        <span class='recip-number'><campaignUtil:campaignsSent campaign="${campaign}"/></span>
+                        <g:message code="tools.massMailing.list.recipients"/>
                     </li>
                     <li class="posts">
-                        <span class='open-number'>
-                            <campaignUtil:openRate campaign="${campaign}"/> %
-                        </span> Open rate
+                        <span class='open-number'><campaignUtil:openRate campaign="${campaign}"/></span>
+                        <g:message code="tools.massMailing.list.opens"/>
                     </li>
                     <li class="posts">
-                        <span class='click-number'>
-                            <campaignUtil:clickRate campaign="${campaign}"/> %
-                        </span> Click rate
+                        <span class='click-number'><campaignUtil:clickRate campaign="${campaign}"/></span>
+                        <g:message code="tools.massMailing.list.click"/>
                     </li>
                 </ul>
                 <h3>24-hour performance</h3>
-                <div id="campaignStatsContainer"></div>
+                <div id="campaignStatsContainer">
+                    <g:message code="tools.feature.notReady"/>
+                </div>
             </div>
             <div class="tab-pane" id="recipients">
-                <h2 class="sr-only">Recipients</h2>
+                <h2 class="sr-only"><g:message code="tools.massMailing.list.recipients"/></h2>
                 <div class="pag-list-contacts clearfix">
-                    <ul class="paginationBottom">
-                        <li class="active">
-                            <a class="page" href="#">1</a>
-                        </li>
-                        <li>
-                            <a class="page" href="#">2</a>
-                        </li>
-                        <li class="disabled">
-                            <a class="page" href="#">...</a>
-                        </li>
-                        <li>
-                            <a class="page" href="#">4</a>
-                        </li>
-                    </ul>
-                    <span class="counterList">Total of <span class="totalList">33</span></span>
+                    <nav:contactPagination
+                        currentPage="${0}"
+                        sizePage="${trackingPage.size}"
+                        ulClasss="paginationTop"
+                        total="${trackingPage.total}"/>
                 </div>
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Open</th>
-                        <th>Click</th>
-                        <th>Contact engagement</th>
+                        <th><g:message code="kuorum.web.commands.payment.contact.ContactCommand.name.label"/></th>
+                        <th><g:message code="tools.massMailing.list.opens"/></th>
+                        <th><g:message code="tools.massMailing.list.click"/></th>
+                        <th><g:message code="tools.contact.list.contact.engagement"/></th>
                     </tr>
                     </thead>
                     <tbody>
                     <!-- EACH BLOCK -->
-                    <tr>
-                        <td><span class="only-mobile">Name: </span>Leonard Hoffstader</td>
-                        <td><span class="only-mobile">Open: </span>7</td>
-                        <td><span class="only-mobile">Click: </span>3</td>
-                        <td>
-                            <span class="only-mobile">Contact engagement: </span>
-                            <ul class="engagement">
-                                <li><a href="#">inactive</a></li>
-                                <li class="active"><a href="#">reader</a></li>
-                                <li><a href="#">supported</a></li>
-                                <li><a href="#">broadcaster</a></li>
-                            </ul>
-                        </td>
-                    </tr>
+                    <g:each in="${trackingPage.data}" var="trackingMail">
+                        <tr>
+                            <td><span class="only-mobile"><g:message code="kuorum.web.commands.payment.contact.ContactCommand.name.label"/>: </span>${trackingMail.contact.name}</td>
+                            <td><span class="only-mobile"><g:message code="tools.massMailing.list.opens"/>: </span>${trackingMail.numOpens}</td>
+                            <td><span class="only-mobile"><g:message code="tools.massMailing.list.click"/>: </span>${trackingMail.numClicks}</td>
+                            <td>
+                                <span class="only-mobile"><g:message code="tools.contact.list.contact.engagement"/></span>
+                                <contactUtil:engagement concat="${trackingMail.contact}"/>
+                            </td>
+                        </tr>
+                    </g:each>
                     <!-- END EACH BLOCK -->
                     </tbody>
                 </table>
                 <div class="pag-list-contacts clearfix">
-                    <ul class="paginationBottom">
-                        <li class="active">
-                            <a class="page" href="#">1</a>
-                        </li>
-                        <li>
-                            <a class="page" href="#">2</a>
-                        </li>
-                        <li class="disabled">
-                            <a class="page" href="#">...</a>
-                        </li>
-                        <li>
-                            <a class="page" href="#">4</a>
-                        </li>
-                    </ul>
-                    <span class="counterList">Total of <span class="totalList">33</span></span>
+                    <nav:contactPagination
+                        currentPage="${0}"
+                        sizePage="${trackingPage.size}"
+                        ulClasss="paginationBottom"
+                        total="${trackingPage.total}"/>
                 </div>
             </div>
             <div class="tab-pane" id="viewemail">
-                <h2 class="sr-only">View email</h2>
+                <h2 class="sr-only"><g:message code="tools.massMailing.view.viewMail"/></h2>
                 <iframe id="campaignEmailContainer">
                     iframe para cargar el html del email
                 </iframe>

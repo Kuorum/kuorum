@@ -20,19 +20,17 @@
     </p>
     <ul>
         <li class="recipients">
-            <span class="recip-number">
-                <campaignUtil:campaignsSent campaign="${campaign}"/> <g:message code="tools.massMailing.list.recipients"/>
-            </span>
+            <span class="recip-number"><campaignUtil:campaignsSent campaign="${campaign}"/></span>
+            <g:message code="tools.massMailing.list.recipients"/>
+
         </li>
         <li class="open">
-            <span class='open-number'>
-                <campaignUtil:openRate campaign="${campaign}"/> <g:message code="tools.massMailing.list.opens"/>
-            </span>
+            <span class='open-number'><campaignUtil:openRate campaign="${campaign}"/></span>
+            <g:message code="tools.massMailing.list.opens"/>
         </li>
         <li class="click">
-            <span class='click-number'>
-                <campaignUtil:clickRate campaign="${campaign}"/> <g:message code="tools.massMailing.list.click"/>
-            </span>
+            <span class='click-number'><campaignUtil:clickRate campaign="${campaign}"/></span>
+            <g:message code="tools.massMailing.list.click"/>
         </li>
     </ul>
     <g:if test="${campaign.status==org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
