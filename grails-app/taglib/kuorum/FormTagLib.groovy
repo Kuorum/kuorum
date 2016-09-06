@@ -515,7 +515,8 @@ class FormTagLib {
         if (!isRequired){
             out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
         }
-        clazz.values().each{
+        def values = attrs.values?:clazz.values()
+        values.each{
             String codeMessage = "${clazz.name}.$it"
             out << "<option value='${it}' ${it==command."$field"?'selected':''}> ${message(code:codeMessage)}</option>"
         }
