@@ -319,6 +319,7 @@ class ContactsController {
         detector.dataEnd();
         String encoding = detector.getDetectedCharset()
         log.info("File uploaded with encoding: "+encoding)
+        fis.close()
         encoding
     }
 
