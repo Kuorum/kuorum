@@ -109,8 +109,9 @@ class NavigationTagLib {
         Long currentPage = attrs.currentPage
         Long sizePage = attrs.sizePage
         Long totalPages = Math.floor(totalElements / sizePage)
+        String link = attrs.link?:"#"
 
-        out <<"<ul class='${ulClass}'>"
+        out <<"<ul class='${ulClass}' data-page='${currentPage}' data-size='${sizePage}' data-link='${link}'>"
         boolean lastLiDisabled = false
         (0..totalPages).each {
             if (it == 0 || it >= currentPage-1 && it<=currentPage+1 || it == totalPages ){

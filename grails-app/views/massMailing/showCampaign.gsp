@@ -30,7 +30,7 @@
                 <g:render template="/massMailing/campaignTabs/campaignStats" model="[campaign:campaign]"/>
             </div>
             <div class="tab-pane" id="recipients">
-                <g:render template="/massMailing/campaignTabs/campaignRecipeints" model="[trackingPage:trackingPage]"/>
+                <g:render template="/massMailing/campaignTabs/campaignRecipeints" model="[trackingPage:trackingPage, campaignId:campaign.id]"/>
             </div>
             <div class="tab-pane" id="viewemail">
                 <g:render template="campaignTabs/campaignViewMail" model="[campaign: campaign]"/>

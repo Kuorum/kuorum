@@ -140,7 +140,14 @@ class MassMailingController {
             TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId)
             render view: 'showCampaign', model: [campaign: campaignRSDTO, trackingPage:trackingPage]
         }
+    }
 
+    def showTrackingMails(Long campaignId){
+        KuorumUser loggedUser = springSecurityService.currentUser
+        Integer page = params.page?Integer.parseInt(params.page):0;
+        Integer size = params.size?Integer.parseInt(params.size):10;
+        TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId, page, size)
+        render template: '/massMailing/campaignTabs/campaignRecipeints', model: [trackingPage:trackingPage, campaignId:campaignId]
     }
 
     def updateCampaign(MassMailingCommand command){

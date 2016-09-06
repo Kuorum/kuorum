@@ -1,7 +1,8 @@
 <h2 class="sr-only"><g:message code="tools.massMailing.list.recipients"/></h2>
 <div class="pag-list-contacts clearfix">
     <nav:contactPagination
-            currentPage="${0}"
+            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [campaignId:campaignId], absolute:true)}"
+            currentPage="${trackingPage.page}"
             sizePage="${trackingPage.size}"
             ulClasss="paginationTop"
             total="${trackingPage.total}"/>
@@ -33,7 +34,7 @@
 </table>
 <div class="pag-list-contacts clearfix">
     <nav:contactPagination
-            currentPage="${0}"
+            currentPage="${trackingPage.page}"
             sizePage="${trackingPage.size}"
             ulClasss="paginationBottom"
             total="${trackingPage.total}"/>

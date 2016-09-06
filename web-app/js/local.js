@@ -659,6 +659,28 @@ $(document).ready(function() {
         })
     }
 
+    // Pagination of tracking mails of a campaign
+    $("#tabs-stats-campaign").on("click", ".pag-list-contacts li a",function(e){
+        e.preventDefault();
+        if (!$(this).hasClass("disabled")){
+            pageLoadingOn();
+            var page = parseInt($(this).html())-1
+            var link = $(this).parents("ul").attr("data-link")
+            var postData = {page:page}
+            console.log(link)
+            $.post( link, postData)
+                .done(function(data) {
+                    $("#recipients").html(data)
+                })
+                .fail(function(messageError) {
+                    display.warn("Error");
+                })
+                .always(function() {
+                    pageLoadingOff();
+                });
+        }
+    });
+
 
     //animar porcentaje perfil político
     if ($('#profileInfo').length) {
