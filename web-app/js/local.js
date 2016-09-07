@@ -1413,7 +1413,7 @@ function FilterContacts() {
         that.closeFilterCampaignsOptions();
         if ($('select#recipients').val()==-2) {
             //New filter
-            this.openFilterCampaignsOptions();
+            that.openFilterCampaignsOptions();
         }
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
         that.updateAmountContacts(amountContacts)
@@ -1451,8 +1451,10 @@ function FilterContacts() {
 
     this.searchContactsCallBacks = {
         changeSelectRecipients:function(data){
-            that.searchContactsCallBacks.resetPage();
-            that.searchContactsCallBacks.loadTableContacts();
+            if ($('select#recipients').val()!=-2) {
+                that.searchContactsCallBacks.resetPage();
+                that.searchContactsCallBacks.loadTableContacts();
+            }
         },
         campaignFilterRefresh:function(data){
             that.searchContactsCallBacks.resetPage();
