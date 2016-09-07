@@ -1415,7 +1415,7 @@ function FilterContacts() {
     };
     this.loadSelectRecipientStatus = function(){
         that.closeFilterCampaignsOptions();
-        if ($('select#recipients').val()==-2) {
+        if (that.getFilterId()==-2) {
             //New filter
             that.openFilterCampaignsOptions();
         }
@@ -1426,7 +1426,12 @@ function FilterContacts() {
     };
     this.newsletterCallBacks = {
         changeSelectRecipients:function(){
-            //console.log(data)
+            if (that.getFilterId()==-1) {
+                //Test filter
+                $("#openCalendar").addClass("disabled");
+            }else{
+                $("#openCalendar").removeClass("disabled");
+            }
         },
         campaignFilterRefresh:function(data){
             //console.log(data)
