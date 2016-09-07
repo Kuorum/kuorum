@@ -1121,9 +1121,9 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #sendLater {/*margin-left: 10px;*/ margin-bottom: 0; min-width: 85px;}
 
 .form-final-options {margin: 15px 0 0; padding: 0;}
-.form-final-options li {list-style: none; display: inline-block; margin-right: 10px; position: relative;}
-.form-final-options li:last-child {margin-right: 0;}
-.form-final-options li a {color: #a8a8a8;}
+.form-final-options > li {list-style: none; display: inline-block; margin-right: 10px; position: relative;}
+.form-final-options > li:last-child {margin-right: 0;}
+.form-final-options > li a {color: #a8a8a8;}
 .form-final-options #selectDate, #saveFilterAs {display: none; background-color: #f9f9f9; position: absolute; width: 260px; top: 48px; right: -80px;border: 1px solid #dddddd; padding: 15px;}
 .form-final-options #selectDate.on, #saveFilterAs.on {display: block;}
 .form-final-options #selectDate:after, .form-final-options #selectDate:before,
@@ -1162,8 +1162,14 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 .datepicker-days tbody td {cursor: pointer;}
 .datepicker th {text-align: center;}
-.datepicker span.month, .datepicker span.year {padding: 0 4px;}
-li + .picker-switch {display: none;}
+.datepicker span.month, .datepicker span.year {padding: 0 20px;}
+.datepicker table tr td, .datepicker table tr th {width:55px;}
+.datepicker table tr td span {width:auto;}
+.picker-switch table {width:100%;}
+.picker-switch table tbody tr:first-child td{text-align: center;}
+.picker-switch table tbody tr:first-child td a{cursor: pointer;}
+/*li + .picker-switch {display: none;}*/
+.timepicker-picker {width: 227px;}
 .timepicker-picker th, .timepicker-picker td {text-align: center;}
 .timepicker-picker .table-condensed {margin: 0 auto;}
 .timepicker-picker .btn {background-color: transparent !important; color: #ff9431 !important; margin: 0;}
@@ -5857,7 +5863,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* CAMPAIGNS */
     .form-final-options {margin-top: 280px;}
-    .form-final-options li:first-child {display: block; margin-bottom: 10px;}
+    .form-final-options > li:first-child {display: block; margin-bottom: 10px;}
     .header-campaign .qq-upload-drop-area {background-size: 84px auto; background-position: center 14%;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
     #tabs-new-campaign .textareaContainer + div {text-align: left;}
@@ -5914,7 +5920,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* CAMPAIGNS */
     .form-final-options {margin-top: 314px;}
-    .form-final-options li:first-child {display: inline-block; margin-bottom: 0;}
+    .form-final-options > li:first-child {display: inline-block; margin-bottom: 0;}
     #campaignsList > li > .state {left: 20px;}
     #campaignsList > li {padding-left: 65px; padding-top: 24px; padding-bottom: 15px;}
     .campaignDelete, .contactDelete {right: 5px;}

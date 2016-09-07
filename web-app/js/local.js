@@ -393,8 +393,8 @@ $(document).ready(function() {
     $('.input-group.datetime').datetimepicker({
         locale: "es",
         format:"YYYY/MM/DD HH:mm",
-        allowInputToggle:true,
-        collapse: false,
+        //allowInputToggle:true,
+        //collapse: false,
         stepping:15
     });
 
