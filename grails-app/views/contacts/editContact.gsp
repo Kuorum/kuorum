@@ -77,10 +77,10 @@
                         <g:message code="tools.contact.edit.tabs.activity.campaignSent" args="[contact.stats.numMails]"/>
                     </li>
                     <li class="posts">
-                        <g:message code="tools.contact.edit.tabs.activity.openRate" args="[contact.stats.opens]"/>
+                        <g:message code="tools.contact.edit.tabs.activity.openRate" args="[contactUtil.openRate(contact:contact)]"/>
                     </li>
                     <li class="posts">
-                        <g:message code="tools.contact.edit.tabs.activity.clickRate" args="[contact.stats.clicks]"/>
+                        <g:message code="tools.contact.edit.tabs.activity.clickRate" args="[contactUtil.clickRate(contact:contact)]"/>
                     </li>
                 </ul>
                 <ul class="activity des-engagement clearfix">
