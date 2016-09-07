@@ -6,7 +6,7 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="leftMenu" model="[user:user, activeMapping:'profileMailing', menu:menu]"/>
+    <g:render template="leftMenuAccount" model="[user:user, activeMapping:'profileMailing', menu:menu]"/>
 </content>
 
 <content tag="mainContent">
