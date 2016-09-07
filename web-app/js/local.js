@@ -395,7 +395,8 @@ $(document).ready(function() {
         format:"YYYY/MM/DD HH:mm",
         //allowInputToggle:true,
         //collapse: false,
-        stepping:15
+        stepping:15,
+        showTimeZone:true
     });
 
     // abrir/cerrar calendario

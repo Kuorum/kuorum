@@ -312,10 +312,20 @@ class FormTagLib {
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
         }
 
-        String typePicker = time?"datetime":"date"
+        String typePicker = "date"
+        String timeZone = ""
+        String timeZoneLabel = ""
+        String timeZoneChangeLink=""
+
+        if (time){
+            typePicker = "datetime";
+            timeZone="UTC-1"
+            timeZoneLabel="UTC-1 (Listbon)"
+            timeZoneChangeLink = g.createLink(mapping:'profileEditAccountDetails')
+        }
 
         out <<"""
-            <div class="input-group ${typePicker}">
+            <div class="input-group ${typePicker}" data-timeZone="${timeZone}" data-timeZoneLabel="${timeZoneLabel}" data-timeZoneChangeLink="${timeZoneChangeLink}">
                 <input type="text" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" aria-required="${required}" value="${value}">
                 <span class="input-group-addon"><span class="fa fa-calendar fa-lg"></span></span>
             </div>

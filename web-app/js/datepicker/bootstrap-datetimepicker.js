@@ -270,6 +270,20 @@
                         .append($('<a>').attr({ href: '#', tabindex: '-1', 'title': options.tooltips.decrementSecond }).addClass('btn').attr('data-action', 'decrementSeconds')
                             .append($('<span>').addClass(options.icons.down))));
                 }
+                console.log(options)
+                if (options.showTimeZone){
+                    console.log(element)
+                    console.log($(element))
+                    console.log()
+                    var timeZone            = $(element).attr("data-timeZone");
+                    var timeZoneLabel       = $(element).attr("data-timeZoneLabel");
+                    var timeZoneChangeLink  = $(element).attr("data-timeZoneChangeLink");
+                    topRow.append($('<td>').append(''));
+                    middleRow.append($('<td>').append($('<a>').attr({ href: timeZoneChangeLink, tabindex: '-1', 'title': timeZoneLabel }).append(timeZone)));
+                        //.append("<a href='#' title='Time zone UTC+1 (Lisboa)'>UTC+1</a>"));
+                    bottomRow.append($('<td>').append(''));
+
+                }
 
                 if (!use24Hours) {
                     topRow.append($('<td>').addClass('separator'));
@@ -1548,6 +1562,14 @@
             return picker;
         };
 
+        picker.showTimeZone = function(showTimeZone){
+            if (arguments.length === 0) {
+                return options.showTimeZone;
+            }
+
+            options.showTimeZone = showTimeZone;
+        }
+
         picker.dayViewHeaderFormat = function (newFormat) {
             if (arguments.length === 0) {
                 return options.dayViewHeaderFormat;
@@ -2394,7 +2416,6 @@
      */
     $.fn.datetimepicker = function (options) {
         options = options || {};
-
         var args = Array.prototype.slice.call(arguments, 1),
             isInstance = true,
             thisMethods = ['destroy', 'hide', 'show', 'toggle'],
@@ -2433,6 +2454,7 @@
 
     $.fn.datetimepicker.defaults = {
         timeZone: '',
+        showTimeZone: false,
         format: false,
         dayViewHeaderFormat: 'MMMM YYYY',
         extraFormats: false,
