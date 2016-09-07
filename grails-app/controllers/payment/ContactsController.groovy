@@ -107,7 +107,8 @@ class ContactsController {
         ContactRSDTO contact = contactService.getContact(user, command.contactId)
         if (command.hasErrors() || !contact){
             KuorumUser contactUser = contact.mongoId?KuorumUser.get(new ObjectId(contact.mongoId)):null
-            render template: "editContact", params:[command:command,contact:contact,contactUser:contactUser]
+            render view: "/contacts/editContact", model:[command:command,contact:contact,contactUser:contactUser]
+            return;
         }
         contact.name = command.name
         contact.email = command.email
