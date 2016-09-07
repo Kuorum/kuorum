@@ -658,6 +658,8 @@ $(document).ready(function() {
             e.preventDefault();
         })
     }
+    // Sorting campaign by default when load campaigns
+    $("#campaignsOrderOptions ul li:first a")[0].click();
 
     // Pagination of tracking mails of a campaign
     $("#tabs-stats-campaign").on("click", ".pag-list-contacts li a",function(e){

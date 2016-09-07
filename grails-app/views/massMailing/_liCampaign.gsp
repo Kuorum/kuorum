@@ -10,9 +10,9 @@
     </h3>
     <p class="name">
         <g:message code="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.class.name}.${campaign.status}"/>
+        <input class="timestamp" type="hidden" val="${campaign?.sentOn?.time?:'LAST'}" />  %{-- Letters are after than numbers--}%
         <g:if test="${campaign.sentOn}">
             <span class="date">
-                <input class="timestamp" type="hidden" val="${campaign?.sentOn?.time?:''}" />
                 (<g:formatDate date="${campaign.sentOn}" type="datetime" style="LONG" timeStyle="SHORT"/>)
             </span>
             - ${campaign.filter?.name?:g.message(code:'tools.massMailing.fields.filter.to.all')}
