@@ -632,7 +632,8 @@ $(document).ready(function() {
         function refreshCallbacks() {
           // Needed to add new buttons to jQuery-extended object
           removeBtn = $(removeBtn.selector);
-          removeBtn.click(function() {
+          removeBtn.click(function(e) {
+              e.preventDefault();
             console.log('click en eliminar');
             var itemId =  $(this).closest('li').find('.id').text();
             console.log(itemId);
