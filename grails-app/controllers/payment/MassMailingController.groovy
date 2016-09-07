@@ -1,5 +1,6 @@
 package payment
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
@@ -159,6 +160,12 @@ class MassMailingController {
         Long campaignId = Long.parseLong(params.campaignId)
         flash.message = saveAndSendCampaign(loggedUser, command, campaignId)
         redirect mapping:'politicianMassMailing'
+    }
+
+    def removeCampaign(Long campaignId){
+        KuorumUser loggedUser = springSecurityService.currentUser
+        massMailingService.removeCampaign(loggedUser, campaignId)
+        render ([msg:"Campaing deleted"] as JSON)
     }
 
     private CampaignRQDTO convertCommandToCampaign(MassMailingCommand command, KuorumUser user){

@@ -77,6 +77,16 @@ class MassMailingService {
         campaigns
     }
 
+    void removeCampaign(KuorumUser user, Long campaignId) {
+        Map<String, String> params = [userAlias: user.id.toString(), campaignId: campaignId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN,
+                params,
+                query
+        )
+    }
+
     CampaignRSDTO findCampaign(KuorumUser user, Long campaignId){
         Map<String, String> params = [userAlias:user.id.toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [test:true]

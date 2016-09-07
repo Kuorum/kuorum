@@ -634,10 +634,20 @@ $(document).ready(function() {
           removeBtn = $(removeBtn.selector);
           removeBtn.click(function(e) {
               e.preventDefault();
-            console.log('click en eliminar');
-            var itemId =  $(this).closest('li').find('.id').text();
-            console.log(itemId);
-            campaignList.remove('id', itemId);
+              //pageLoadingOn();
+              var link = $(this).attr("href");
+              var itemId =  $(this).closest('li').find('.id').text();
+              var postData= {};
+              $.post( link, postData)
+                  .done(function(data) {
+                      campaignList.remove('id', itemId);
+                  })
+                  .fail(function(messageError) {
+                      display.warn("Error");
+                  })
+                  .always(function() {
+                      pageLoadingOff();
+                  });
           });
         }
 
