@@ -21,7 +21,7 @@ class CampaignTagLib {
 
         if(campaignRSDTO.numberRecipients>0) {
             Number openRateNum = campaignRSDTO.numberOpens/campaignRSDTO.numberRecipients*100
-            openRateValue = g.formatNumber(number: openRateNum, maxFractionDigits: 1, type: 'percent')
+            openRateValue = g.formatNumber(number: openRateNum, maxFractionDigits: 1, type: 'number')
         }
         out << openRateValue
 
@@ -34,7 +34,7 @@ class CampaignTagLib {
 
         if(campaignRSDTO.numberRecipients>0) {
             Number clickRateNum = campaignRSDTO.numberClicks/campaignRSDTO.numberRecipients*100
-            clickRateValue = g.formatNumber(number: clickRateNum, maxFractionDigits: 1, type: 'percent')
+            clickRateValue = g.formatNumber(number: clickRateNum, maxFractionDigits: 1, type: 'number')
         }
         out << clickRateValue
 
