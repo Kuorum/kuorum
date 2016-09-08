@@ -16,7 +16,7 @@ class ContactTagLib {
     def openRate = {attrs ->
 
         ContactRSDTO contact = attrs.contact
-        String openRateValue = ""
+        String openRateValue = "-"
 
         if(contact.stats.numMails>0) {
             Number openRateNum = contact.stats.opens/contact.stats.numMails
@@ -28,7 +28,7 @@ class ContactTagLib {
     def clickRate = {attrs ->
 
         ContactRSDTO contact = attrs.contact
-        String clickRateValue = ""
+        String clickRateValue = "-"
 
         if(contact.stats.numMails>0) {
             Number clickRateNum = contact.stats.clicks/contact.stats.numMails
