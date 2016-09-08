@@ -55,6 +55,7 @@ class RestKuorumApiService {
         USER_CONTACT_TAGS       ('/contacts/{userId}/tags'),
         USER_CONTACT_FILTERS    ('/contacts/{userId}/filters'),
         USER_CONTACT_FILTER     ("/contacts/{userId}/filters/{filterId}"),
+        USER_CONTACT_FOLLOWER   ("/contacts/{userId}/follower"),
 
         CAUSE_OPERATIONS        ("/cause/{causeName}"),
         CAUSE_USERS_DEFENDING   ("/cause/{causeName}/defending"),

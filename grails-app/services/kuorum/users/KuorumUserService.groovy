@@ -30,11 +30,13 @@ import kuorum.project.Project
 import kuorum.register.RegisterService
 import kuorum.solr.SearchSolrService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
+import kuorum.util.rest.RestKuorumApiService
 import kuorum.web.commands.profile.AccountDetailsCommand
 import org.apache.tools.ant.taskdefs.Available
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
+import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.springframework.security.access.prepost.PreAuthorize
@@ -51,6 +53,7 @@ class KuorumUserService {
     KuorumMailAccountService kuorumMailAccountService;
     CausesService causesService
     KuorumUserAuditService kuorumUserAuditService
+    RestKuorumApiService restKuorumApiService
 
 
     GrailsApplication grailsApplication
@@ -73,6 +76,16 @@ class KuorumUserService {
     //        follower.save()
     //        following.save()
             notificationService.sendFollowerNotification(follower, following)
+
+            Map<String, String> params = [userAlias: following.alias]
+            Map<String, String> query = [followerAlias: follower.alias]
+            restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
+                    params,
+                    query,
+                    null,
+                    null
+            )
         }
     }
 
@@ -89,6 +102,14 @@ class KuorumUserService {
             following.refresh()
             following.numFollowers = following.followers.size()
             following.save(flush: true)
+
+            Map<String, String> params = [userAlias: following.alias]
+            Map<String, String> query = [followerAlias: follower.alias]
+            restKuorumApiService.delete(
+                    RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
+                    params,
+                    query
+            )
         }
     }
 
