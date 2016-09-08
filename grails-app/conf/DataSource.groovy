@@ -19,8 +19,8 @@ environments {
         logSql = true
         grails{
             mongo {
-//                replicaSet = [ "localhost:27017", "localhost:27018", "localhost:27019"]
-                replicaSet = [ "172.31.17.196:27017"]
+                replicaSet = [ "localhost:27017"]
+//                replicaSet = [ "172.31.17.196:27017"]
                 username = ""
                 password = ""
                 databaseName = "Kuorum"
@@ -53,7 +53,8 @@ environments {
     preproduction {
         grails{
             mongo {
-                replicaSet = [ "172.31.17.196:27017"]
+                host = "172.31.17.196"
+                port = "27017"
                 username = ""
                 password = ""
                 databaseName = "Kuorum"
@@ -77,7 +78,7 @@ environments {
     production {
         grails{
             mongo {
-                replicaSet = [ "172.31.40.27:27017"]
+                host = "172.31.40.27"
 //                host = "localhost"
                 port = "27017"
                 username = ""
