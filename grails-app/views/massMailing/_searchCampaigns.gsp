@@ -53,7 +53,7 @@
     </div>
     <ul id="campaignsList" class="list">
         <g:each in="${campaigns}" var="campaign" status="i">
-            <g:render template="liCampaign" model="[campaign:campaign, idx:i]"/>
+            <g:render template="liCampaign" model="[campaign:campaign, user:user, idx:i]"/>
         </g:each>
     </ul>
 

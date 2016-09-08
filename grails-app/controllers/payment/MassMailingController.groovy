@@ -46,7 +46,7 @@ class MassMailingController {
 //        }
         List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
 
-        [campaigns:campaigns]
+        [campaigns:campaigns, user:user]
     }
 
     def createMassMailing(){

@@ -14,7 +14,7 @@ class MassMailingCommand {
     String text;
     String headerPictureId;
 
-    @BindingFormat('yyyy/MM/dd HH:mm')
+    @BindingFormat('dd/MM/yyyy HH:mm')
     Date scheduled
     String sendType
 

@@ -13,7 +13,7 @@
         <input class="timestamp" type="hidden" val="${campaign?.sentOn?.time?:'LAST'}" />  %{-- Letters are after than numbers--}%
         <g:if test="${campaign.sentOn}">
             <span class="date">
-                (<g:formatDate date="${campaign.sentOn}" type="datetime" style="LONG" timeStyle="SHORT"/>)
+                (<g:formatDate date="${campaign.sentOn}" type="datetime" style="LONG" timeStyle="SHORT" timeZone="${user.timeZone}"/>)
             </span>
             - ${campaign.filter?.name?:g.message(code:'tools.massMailing.fields.filter.to.all')}
         </g:if>

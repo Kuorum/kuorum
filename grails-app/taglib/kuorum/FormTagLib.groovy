@@ -326,6 +326,7 @@ class FormTagLib {
             timeZoneId=utcOffset(user.timeZone)
             timeZoneLabel=timeZoneToString(user.timeZone)
             timeZoneChangeLink = g.createLink(mapping:'profileEditAccountDetails')
+            value = command."${field}"?command."${field}".format('dd/MM/yyyy HH:mm', user.timeZone):''
         }
 
         out <<"""

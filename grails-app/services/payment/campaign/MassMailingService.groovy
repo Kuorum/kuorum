@@ -4,10 +4,11 @@ import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.codehaus.jackson.type.TypeReference
-import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
+
+import java.text.SimpleDateFormat
 
 @Transactional
 class MassMailingService {
@@ -15,11 +16,26 @@ class MassMailingService {
     RestKuorumApiService restKuorumApiService;
 
 
-    CampaignRSDTO campaignSend(KuorumUser user, CampaignRQDTO campaignRQDTO, Long campaignId = null){
-        campaignSchedule(user, campaignRQDTO, new Date(), campaignId)
+    private Date getNowUTC(){
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date now = cal.getTime();
+        return now;
     }
+    CampaignRSDTO campaignSend(KuorumUser user, CampaignRQDTO campaignRQDTO, Long campaignId = null){
+        campaignSchedule(user, campaignRQDTO, getNowUTC(), campaignId)
+    }
+
+    private Date convertToUserTimeZone(Date date, TimeZone userTimeZone){
+        def dateFormat = 'yyyy/MM/dd HH:mm'
+        String rawDate = date.format(dateFormat)
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        sdf.setTimeZone(userTimeZone);
+        sdf.parse(rawDate)
+    }
+
     CampaignRSDTO campaignSchedule(KuorumUser user, CampaignRQDTO campaignRQDTO, Date date, Long campaignId = null){
-        campaignRQDTO.sentOn = date
+        campaignRQDTO.sentOn = convertToUserTimeZone(date, user.timeZone)
         Map<String, String> params = [userAlias:user.id.toString()]
         Map<String, String> query = [:]
         RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS
