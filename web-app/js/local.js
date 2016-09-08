@@ -392,7 +392,7 @@ $(document).ready(function() {
     // Datetime piker for all input datestimes
     $('.input-group.datetime').datetimepicker({
         locale: "es",
-        format:"YYYY/MM/DD HH:mm",
+        format:"DD/MM/YYYY HH:mm",
         //allowInputToggle:true,
         //collapse: false,
         stepping:15,
