@@ -1,9 +1,11 @@
 package kuorum
 
+import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.FileGroup
 import kuorum.core.model.CommissionType
 import kuorum.core.model.RegionType
 import kuorum.project.Project
+import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
 
@@ -12,6 +14,7 @@ class FormTagLib {
     //static encodeAsForTags = [tagName: 'html']
 
     def grailsApplication
+    SpringSecurityService springSecurityService
 
     static namespace = "formUtil"
 
@@ -313,19 +316,20 @@ class FormTagLib {
         }
 
         String typePicker = "date"
-        String timeZone = ""
+        String timeZoneId = ""
         String timeZoneLabel = ""
         String timeZoneChangeLink=""
 
         if (time){
+            KuorumUser user = springSecurityService.currentUser
             typePicker = "datetime";
-            timeZone="UTC-1"
-            timeZoneLabel="UTC-1 (Listbon)"
+            timeZoneId=utcOffset(user.timeZone)
+            timeZoneLabel=timeZoneToString(user.timeZone)
             timeZoneChangeLink = g.createLink(mapping:'profileEditAccountDetails')
         }
 
         out <<"""
-            <div class="input-group ${typePicker}" data-timeZone="${timeZone}" data-timeZoneLabel="${timeZoneLabel}" data-timeZoneChangeLink="${timeZoneChangeLink}">
+            <div class="input-group ${typePicker}" data-timeZone="${timeZoneId}" data-timeZoneLabel="${timeZoneLabel}" data-timeZoneChangeLink="${timeZoneChangeLink}">
                 <input type="text" name="${prefixFieldName}${field}" class="${cssClass} ${error?'error':''}" placeholder="${placeHolder}" id="${id}" aria-required="${required}" value="${value}">
                 <span class="input-group-addon"><span class="fa fa-calendar fa-lg"></span></span>
             </div>
@@ -333,6 +337,14 @@ class FormTagLib {
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
+    }
+
+    private String timeZoneToString(TimeZone timeZone){
+        "(${utcOffset(timeZone)}) ${timeZone.ID}"
+    }
+
+    private String utcOffset(TimeZone timeZone){
+        "UTC  ${timeZone.rawOffset>=0?'+':''}${timeZone.rawOffset / (1000*3600)}"
     }
 
     def regionInput={attrs->
@@ -529,6 +541,35 @@ class FormTagLib {
         values.each{
             String codeMessage = "${clazz.name}.$it"
             out << "<option value='${it}' ${it==command."$field"?'selected':''}> ${message(code:codeMessage)}</option>"
+        }
+        out << "</select>"
+        if(error){
+            out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
+        }
+    }
+
+    def selectTimeZone = {attrs->
+        def command = attrs.command
+        def field = attrs.field
+
+        def id = attrs.id?:field
+        def prefixFieldName=attrs.prefixFieldName?:""
+        def cssClass = attrs.cssClass
+        def cssLabel=attrs.cssLabel?:""
+        Boolean isRequired = isRequired(command,field)
+        def label ="${message(code: "${command.class.name}.${field}.label")}${isRequired?'*':''}"
+        def error = hasErrors(bean: command, field: field,'error')
+        out <<"""
+            <label for="${id}" class="${cssLabel}">${label}</label>
+            <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
+            """
+//        if (!isRequired){
+//            out << "<option value=''> ${message(code:"${command.class.name}.${field}.empty")}</option>"
+//        }
+        def values = TimeZone.availableIDs
+        values.each{timeZoneId ->
+            TimeZone timeZone = TimeZone.getTimeZone(timeZoneId)
+            out << "<option value='${timeZone.ID}' ${timeZoneId==command."$field"?'selected':''}> ${timeZoneToString(timeZone)}</option>"
         }
         out << "</select>"
         if(error){

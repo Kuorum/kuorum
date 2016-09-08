@@ -6,17 +6,6 @@ import kuorum.core.model.UserType
 import kuorum.core.model.search.SearchNotifications
 import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
-import kuorum.users.PersonalData
-import kuorum.users.extendedPoliticianData.CareerDetails
-import kuorum.users.extendedPoliticianData.OfficeDetails
-import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
-import kuorum.users.extendedPoliticianData.ProfessionalDetails
-import kuorum.web.commands.profile.AccountDetailsCommand
-import kuorum.web.commands.profile.EditUserProfileCommand
-import kuorum.web.commands.profile.SocialNetworkCommand
-import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
-import kuorum.web.commands.profile.politician.QuickNotesCommand
-import org.kuorum.rest.model.tag.CauseRSDTO
 
 class LayoutsController {
 

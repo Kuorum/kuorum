@@ -84,6 +84,7 @@ class ProfileController {
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
         user.personalData.province = command.homeRegion
+        user.timeZone = TimeZone.getTimeZone(command.timeZoneId)
         kuorumUserService.updateUser(user);
         if (user.email != command.email){
             def changeMailData = changeEmail(user, command.email)

@@ -29,6 +29,7 @@ class AccountDetailsCommand {
         this.phonePrefix = user.personalData?.phonePrefix?:''
         this.language = user.language
         this.homeRegion = user.personalData?.province
+        this.timeZoneId = user.timeZone.getID()
     }
     KuorumUser user;
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
@@ -42,6 +43,7 @@ class AccountDetailsCommand {
     String phone;
     AvailableLanguage language;
     String password;
+    String timeZoneId
 
 
     static constraints = {
@@ -70,6 +72,7 @@ class AccountDetailsCommand {
         phonePrefix nullable:true
         phone nullable: true
         homeRegion nullable: true
+        timeZoneId nullable:true
     }
 
     private static Boolean isPasswordValid(String inputPassword, KuorumUser user){

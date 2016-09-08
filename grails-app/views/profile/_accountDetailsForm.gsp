@@ -19,6 +19,10 @@
     <div class="form-group col-md-6">
         <formUtil:selectEnum command="${command}" field="language"/>
     </div>
+    <div class="form-group col-md-6">
+        <formUtil:selectTimeZone command="${command}" field="timeZoneId"/>
+    </div>
+
 </fieldset>
 <fieldset class="row">
     <div class="form-group col-md-6">

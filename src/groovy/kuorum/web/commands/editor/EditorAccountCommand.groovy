@@ -1,7 +1,6 @@
 package kuorum.web.commands.editor
 
 import grails.validation.Validateable
-import kuorum.core.model.UserType
 import kuorum.users.KuorumUser
 import kuorum.web.commands.profile.AccountDetailsCommand
 

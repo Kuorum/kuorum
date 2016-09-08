@@ -35,6 +35,7 @@ class KuorumUser {
 
     PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
+    String timeZoneId;
 
     Boolean requestedPoliticianBetaTester = Boolean.FALSE
     EditorRules editorRules
@@ -136,6 +137,7 @@ class KuorumUser {
         userType nullable: false
         notice nullable: true
         editorRules nullable:true
+        timeZoneId nullable:true // By default will be UTC
 
         //POLITICIAN VALIDATION
 //        institution nullable:true
@@ -164,6 +166,13 @@ class KuorumUser {
         writeConcern WriteConcern.FSYNC_SAFE
     }
 
+    TimeZone getTimeZone() {
+        return timeZoneId?TimeZone.getTimeZone(timeZoneId):TimeZone.getTimeZone("UTC")
+    }
+
+    void setTimeZone(TimeZone timeZone) {
+        this.timeZoneId = timeZone?.getID()?:""
+    }
 
     String toString(){
         name
@@ -181,7 +190,7 @@ class KuorumUser {
         return true
     }
 
-    static transients = ["springSecurityService", 'activityForRecommendation', 'kuorumUserAuditService']
+    static transients = ["springSecurityService", 'activityForRecommendation', 'kuorumUserAuditService', 'timeZone']
 
 //    static mapping = {
 //       password column: '`password`'
