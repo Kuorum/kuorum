@@ -75,17 +75,20 @@ class KuorumUserService {
     //        follower.save()
     //        following.save()
             notificationService.sendFollowerNotification(follower, following)
-
-            Map<String, String> params = [userAlias: following.alias]
-            Map<String, String> query = [followerAlias: follower.alias]
-            restKuorumApiService.put(
-                    RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
-                    params,
-                    query,
-                    null,
-                    null
-            )
+            addFollowerAsContact(follower, following)
         }
+    }
+
+    private addFollowerAsContact(KuorumUser follower, KuorumUser following){
+        Map<String, String> params = [userId: following.alias]
+        Map<String, String> query = [followerAlias: follower.alias]
+        restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
+                params,
+                query,
+                null,
+                null
+        )
     }
 
     def deleteFollower(KuorumUser follower, KuorumUser following) {
@@ -101,15 +104,18 @@ class KuorumUserService {
             following.refresh()
             following.numFollowers = following.followers.size()
             following.save(flush: true)
-
-            Map<String, String> params = [userAlias: following.alias]
-            Map<String, String> query = [followerAlias: follower.alias]
-            restKuorumApiService.delete(
-                    RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
-                    params,
-                    query
-            )
+            deleteFollowerAsContact(follower, following)
         }
+    }
+
+    private deleteFollowerAsContact(KuorumUser follower, KuorumUser following){
+        Map<String, String> params = [userId: following.alias]
+        Map<String, String> query = [followerAlias: follower.alias]
+        restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
+                params,
+                query
+        )
     }
 
     List<KuorumUser> findFollowers(KuorumUser user, Pagination pagination){
