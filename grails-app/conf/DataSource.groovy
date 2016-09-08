@@ -19,8 +19,8 @@ environments {
         logSql = true
         grails{
             mongo {
-                replicaSet = [ "localhost:27017"]
-//                replicaSet = [ "172.31.17.196:27017"]
+//                replicaSet = [ "localhost:27017"]
+                replicaSet = [ "172.31.17.196:27017"]
                 username = ""
                 password = ""
                 databaseName = "Kuorum"
