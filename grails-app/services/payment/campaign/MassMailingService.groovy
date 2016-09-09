@@ -27,11 +27,15 @@ class MassMailingService {
     }
 
     private Date convertToUserTimeZone(Date date, TimeZone userTimeZone){
-        def dateFormat = 'yyyy/MM/dd HH:mm'
-        String rawDate = date.format(dateFormat)
-        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-        sdf.setTimeZone(userTimeZone);
-        sdf.parse(rawDate)
+        if (date){
+            def dateFormat = 'yyyy/MM/dd HH:mm'
+            String rawDate = date.format(dateFormat)
+            SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+            sdf.setTimeZone(userTimeZone);
+            return sdf.parse(rawDate)
+        }else{
+            return null;
+        }
     }
 
     CampaignRSDTO campaignSchedule(KuorumUser user, CampaignRQDTO campaignRQDTO, Date date, Long campaignId = null){
