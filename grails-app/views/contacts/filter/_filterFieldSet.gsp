@@ -6,14 +6,14 @@
     %{--<input type="hidden" name="filterId" value="${filter.id}"/>--}%
     <input type="hidden" name="filterName" value="${filter.name}"/>
     <fieldset class="form-group new-filter-options first">
-        <label for="matches" class="col-sm-2 col-md-1 control-label"><g:message code="tools.contact.filter.form.matches"/></label>
+        <label class="col-sm-2 col-md-1 control-label contact-filter-text"><g:message code="tools.contact.filter.form.matches"/></label>
         <div class="col-sm-4 col-md-3">
             <formUtil:selectEnum
                     field="operator"
                     command="${commandFilter}"
                     cssLabel="hide"/>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-5 contact-filter-text">
             <g:message code="tools.contact.filter.form.followingConditions"/>:
         </div>
     </fieldset>

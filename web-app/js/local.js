@@ -469,7 +469,12 @@ $(document).ready(function() {
             filterContacts.searchContactsCallBacks.page(0);
             return false;
         }
-    })
+    });
+
+    $("#quickSearchByName").on("blur", function(e){
+        filterContacts.searchContactsCallBacks.page(0);
+        return false;
+    });
 
 
     //Preparar el select segun el option seleccionado
@@ -1377,7 +1382,6 @@ function FilterContacts() {
             .done(function(data) {
                 var dataFilter = data.data.filter;
                 that.updateAmountContacts(dataFilter.amountOfContacts);
-                display.success(data.msg)
                 if (callback != undefined){
                     that[callBackBehaviour][callback](data)
                 }
@@ -1447,6 +1451,7 @@ function FilterContacts() {
         },
         campaignFilterRefresh:function(data){
             //console.log(data)
+            display.success(data.msg)
         },
         campaignFilterSave:function(data){
             that.closeFilterCampaignsOptions();

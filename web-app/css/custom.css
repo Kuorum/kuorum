@@ -5506,7 +5506,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
     .new-filter-options > div:first-child > a > .text {display: none;}
+    /*.new-filter-options > label.control-label {color: #a8a8a8}*/
     .new-filter-options.last > div:first-child > a > .text {display: inline; margin-left: 5px;}
+
+    .contact-filter-text {color: #a8a8a8}
 
     #toFilters .btn {margin-top: 0; display: inline-block;}
     #toFilters > div:last-child {text-align: left;}

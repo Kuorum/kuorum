@@ -5,7 +5,7 @@
             ${contact.name}
         </g:link>
     </h3>
-    <p class="email"><span class="fa fa-envelope-o"></span> <a href="#">${contact.email}</a></p>
+    <p class="email"><span class="fa fa-envelope-o"></span> ${contact.email}</p>
     <p class="followers">
         <span class="fa fa-user"></span> <g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
         <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats" target="_blank">
