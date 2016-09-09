@@ -230,42 +230,44 @@ class ContactsController {
     }
 
     private void asyncUploadContacts(final ObjectId loggedUserId, final File csv, final Integer notImport, final Integer namePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
-        InputStream csvStream = new FileInputStream(csv);
-        final Reader reader = new InputStreamReader(csvStream)
         Promise p = grails.async.Promises.task {
-            Iterator lines = com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
-            KuorumUser loggedUser = KuorumUser.get(loggedUserId)
-            def contacts =[]
-            //Not save first columns
-            if (notImport>0) {
-                for ( int i = 0; i < notImport; i++){
-                    lines.next();
-                }
-            }
-
-            lines.each{line ->
-                ContactRDTO contact = new ContactRDTO()
-                contact.setName(line[namePos])
-                contact.setEmail(line[emailPos])
-                def tagsSecuredTransformed = tagsPos.collect{
-                    try{
-                        line[it.intValue()]
-                    }catch (Exception e){
-                        //Wrong file
-                        ""
+            try{
+                Iterator lines = parseCsvFile(csv)
+                KuorumUser loggedUser = KuorumUser.get(loggedUserId)
+                def contacts =[]
+                //Not save first columns
+                if (notImport>0) {
+                    for ( int i = 0; i < notImport; i++){
+                        lines.next();
                     }
                 }
-                contact.setTags(tagsSecuredTransformed as Set)
-                contact.getTags().addAll(tags)
-                contacts << contact
-                if (contacts.size() > 1000){
-                    contactService.addBulkContacts(loggedUser,contacts);
-                    contacts.clear();
-                }
-            }
 
-            contactService.addBulkContacts(loggedUser,contacts);
-            csv.delete();
+                lines.each{line ->
+                    ContactRDTO contact = new ContactRDTO()
+                    contact.setName(line[namePos])
+                    contact.setEmail(line[emailPos])
+                    def tagsSecuredTransformed = tagsPos.collect{
+                        try{
+                            line[it.intValue()]
+                        }catch (Exception e){
+                            //Wrong file
+                            ""
+                        }
+                    }
+                    contact.setTags(tagsSecuredTransformed as Set)
+                    contact.getTags().addAll(tags)
+                    contacts << contact
+                    if (contacts.size() > 1000){
+                        contactService.addBulkContacts(loggedUser,contacts);
+                        contacts.clear();
+                    }
+                }
+
+                contactService.addBulkContacts(loggedUser,contacts);
+                csv.delete();
+            }catch (Exception e){
+                log.error("Captured exception importing contacts: ${e.message}", e);
+            }
         }
         p.onError { Throwable err ->
             log.error("An error occured importing contacts: ${err.message}", err);
