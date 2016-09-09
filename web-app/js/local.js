@@ -1424,6 +1424,10 @@ function FilterContacts() {
         $(".disabled-filters").slideUp("fast",function(){$("#newFilterContainer").slideUp()});
         $(".disabled-filters").find("input, select").prop('disabled', true);
         $('#infoToContacts, #filterContacts').removeClass('on');
+        if (that.getFilterId()==-2) {
+            // Change 'new filter' to 'All'
+            that.changeFilterValue(0)
+        }
     };
     this.loadSelectRecipientStatus = function(){
         that.closeFilterCampaignsOptions();
@@ -1436,6 +1440,11 @@ function FilterContacts() {
         that[callBackBehaviour].changeSelectRecipients();
 
     };
+
+    this.changeFilterValue=function(filterId){
+        $("#recipients").val(filterId);
+        that.loadSelectRecipientStatus()
+    }
     this.newsletterCallBacks = {
         changeSelectRecipients:function(){
             if (that.getFilterId()==-1) {
