@@ -13,7 +13,7 @@
         </g:link>
     </li>
     <li class="underline">
-        <g:link mapping="politicianContacts" class="navbar-link">
+        <g:link mapping="politicianContacts" class="navbar-link ${nav.activeMenuCss(mappingName:'politicianContacts')}">
             <span class="fa fa-users fa-lg"></span>
             <span class=""><g:message code="tools.contact.title"/> </span>
         </g:link>
