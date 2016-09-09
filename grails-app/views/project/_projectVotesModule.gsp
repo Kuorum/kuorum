@@ -11,7 +11,7 @@
     <g:else>
         %{--PROYECTO CERRADO --}%
         <h1><g:message code="project.subHeader.closedProject"/></h1>
-        <g:link mapping="discoverProjects" class="btn btn-grey btn-lg">
+        <g:link mapping="userShow" params="${project.owner.encodeAsLinkProperties()}" class="btn btn-grey btn-lg">
             <g:message code="project.subHeader.closedProject.seeMoreProjects" encodeAs="raw"/>
         </g:link>
         <projectUtil:ifAllowedToUpdateProject project="${project}">

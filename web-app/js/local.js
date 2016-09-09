@@ -88,7 +88,7 @@ $(window).on('resize',function() {
     // controla el alto del cuadro de subir imagen de header campaign
     $('.header-campaign .qq-upload-drop-area').each(function() {
         var width = $(this).width();
-        $(this).css("height", width / 4.43);
+        $(this).css("height", width / 5);
     });
 
     if (window.matchMedia("(min-width: 768px)").matches) {
@@ -1428,6 +1428,10 @@ function FilterContacts() {
         $(".disabled-filters").slideUp("fast",function(){$("#newFilterContainer").slideUp()});
         $(".disabled-filters").find("input, select").prop('disabled', true);
         $('#infoToContacts, #filterContacts').removeClass('on');
+        if (that.getFilterId()==-2) {
+            // Change 'new filter' to 'All'
+            that.changeFilterValue(0)
+        }
     };
     this.loadSelectRecipientStatus = function(){
         that.closeFilterCampaignsOptions();
@@ -1440,6 +1444,11 @@ function FilterContacts() {
         that[callBackBehaviour].changeSelectRecipients();
 
     };
+
+    this.changeFilterValue=function(filterId){
+        $("#recipients").val(filterId);
+        that.loadSelectRecipientStatus()
+    }
     this.newsletterCallBacks = {
         changeSelectRecipients:function(){
             if (that.getFilterId()==-1) {
