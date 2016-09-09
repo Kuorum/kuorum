@@ -130,8 +130,10 @@ class MassMailingController {
         if (campaignRSDTO.status == CampaignStatusRSDTO.DRAFT || campaignRSDTO.status == CampaignStatusRSDTO.SCHEDULED ){
             MassMailingCommand command = new MassMailingCommand()
             command.filterId = campaignRSDTO.filter?.id ?: null
-            KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.imageUrl)
-            command.headerPictureId = kuorumFile.id
+            if (campaignRSDTO.imageUrl){
+                KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.imageUrl)
+                command.headerPictureId = kuorumFile?.id
+            }
             command.scheduled = campaignRSDTO.sentOn
             command.subject = campaignRSDTO.subject
             command.text = campaignRSDTO.body
@@ -175,10 +177,12 @@ class MassMailingController {
         campaignRQDTO.setBody(command.getText())
         campaignRQDTO.setFilterId(command.filterId)
 
-        KuorumFile picture = KuorumFile.get(command.headerPictureId);
-        picture = fileService.convertTemporalToFinalFile(picture)
-        fileService.deleteTemporalFiles(user)
-        campaignRQDTO.setImageUrl(picture.getUrl())
+        if (command.headerPictureId){
+            KuorumFile picture = KuorumFile.get(command.headerPictureId);
+            picture = fileService.convertTemporalToFinalFile(picture)
+            fileService.deleteTemporalFiles(user)
+            campaignRQDTO.setImageUrl(picture.getUrl())
+        }
         campaignRQDTO
     }
 

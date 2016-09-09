@@ -20,9 +20,17 @@ class MassMailingCommand {
 
     static constraints = {
         subject nullable: false
-        text nullable: false
+        text nullable: true, validator: { val, obj ->
+            if (obj.sendType!= "DRAFT" && !val){
+                return "kuorum.web.commands.payment.massMailing.MassMailingCommand.text.nullable"
+            }
+        }
         filterId nullable: false
-        headerPictureId nullable: false
+        headerPictureId nullable: true, validator: {val, obj ->
+            if (obj.sendType!= "DRAFT" && !val){
+                return "kuorum.web.commands.payment.massMailing.MassMailingCommand.headerPictureId.nullable"
+            }
+        }
         scheduled nullable: true
         sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND"]
     }
