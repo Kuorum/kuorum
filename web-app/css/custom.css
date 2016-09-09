@@ -1324,6 +1324,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #boxfiltersContacts .searchContainer {margin: 10px 0;}
 #boxfiltersContacts .dropdown-menu {min-width: 82px; right: 14px;}
 #boxfiltersContacts .dropdown-menu > li:first-child {font-weight: normal; padding: 0; border-bottom: none; margin: 0;}
+#boxfiltersContacts #openContactsOptions > span.fa {margin-left:4px;}
 
 #contactsList { min-height: 10em;}
 #contactsList > h3.noContacts {text-align: center}
@@ -1365,6 +1366,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .engagement li.active a:hover {color: #ff9431; text-decoration: underline;}
 
 .addTagBtn {color: #20a2ea !important; background-color: #fff;}
+.addTagBtn > span.fa-tag {margin-right:4px;}
 .addTagBtn:hover, .addTagBtn:focus, .addTagBtn:active, .addTagBtn.on,
 .addTag > ul > li a:hover, .addTag > ul > li a:focus, .addTag > ul > li a:active {color: #fff !important; background-color: #20a2ea !important;}
 .off #inputAddTags {display: none;}
@@ -1379,8 +1381,10 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .edit-contact-header > div:first-child .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 5px; top: 0; overflow: hidden; background-color: #e5e5e5; margin: 0;}
 .edit-contact-header > div:first-child p {margin: 0;}
 .edit-contact-header > div:first-child p.followers {margin-bottom: 5px;}
+.edit-contact-header > div:first-child p.followers >span.fa-user{margin-right: 4px;}
 .edit-contact-header > div:first-child p.followers a {padding: 10px 5px;}
 .edit-contact-header > div:first-child .title {font-size: 20px; font-size: 2rem; margin: 0 0 4px 0;}
+.edit-contact-header > div:first-child .title,
 .edit-contact-header > div:first-child .title > a,
 .edit-contact-header > div:first-child p.email > a {color: #545454;}
 .edit-contact-header > div:first-child,

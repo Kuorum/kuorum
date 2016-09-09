@@ -17,12 +17,18 @@
     <div class="box-ppal edit-contact-header clearfix" itemscope itemtype="http://schema.org/Person">
         <div>
             <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name}" itemprop="image"></span>
-            <h3 class="title"><a href="#">${contact.name}</a></h3>
+            <h3 class="title">
+                <g:if test="${contactUser}">
+                    <g:link mapping="userShow" params="${contactUser.encodeAsLinkProperties()}">${contact.name}</g:link>
+                    <g:link mapping="userShow" params="${contactUser.encodeAsLinkProperties()}" target="_blank"><span class="fa fa-desktop fa-sm"></span><span class="sr-only">Profile</span></g:link>
+                </g:if>
+                <g:else>
+                    ${contact.name}
+                </g:else>
+            </h3>
             <p class="email"><span class="fa fa-envelope-o"></span> <a href="#">${contact.email}</a></p>
             <p class="followers">
                 <span class="fa fa-user"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
-            <!-- opción de editar si procede -->
-                <a href="#"><span class="fa fa-external-link"></span><span class="sr-only">Editar</span></a>
             </p>
             <ul class="social-links">
                 <g:if test="${contact?.social?.facebook}">
