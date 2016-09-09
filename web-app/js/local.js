@@ -88,7 +88,7 @@ $(window).on('resize',function() {
     // controla el alto del cuadro de subir imagen de header campaign
     $('.header-campaign .qq-upload-drop-area').each(function() {
         var width = $(this).width();
-        $(this).css("height", width / 4.43);
+        $(this).css("height", width / 5);
     });
 
     if (window.matchMedia("(min-width: 768px)").matches) {

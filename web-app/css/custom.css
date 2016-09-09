@@ -2995,7 +2995,7 @@ textarea.error,
 .uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:353px;}
 .uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
-.button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 5px 0 0 0;}
+.button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 15px 0 0 0;}
 .qq-upload-drop-area-active {
     background-color:#FFF8ED;
     -moz-box-shadow: 0px 0px 20px #000;
