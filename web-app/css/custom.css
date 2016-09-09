@@ -1117,6 +1117,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .new-filter-actions a:hover,
 .new-filter-actions a:focus,
 .new-filter-actions a:active {color: #a8a8a8;}
+#searchContacts .new-filter-actions {border:0;}
 #saveFilterAs input {margin-bottom: 10px;}
 #sendLater {/*margin-left: 10px;*/ margin-bottom: 0; min-width: 85px;}
 
