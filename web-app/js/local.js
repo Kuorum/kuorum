@@ -1493,10 +1493,9 @@ function FilterContacts() {
         },
 
         loadTableContacts:function(){
-            $("#listContacts").html(htmlLoading);
+            $("#listContacts").html("");
             var link = $("#listContacts").attr("data-ajaxUrlContacts");
             var postData = $("#contactFilterForm").serializeArray();
-            console.log(postData)
             pageLoadingOn();
             $.post( link, postData)
                 .done(function(data) {
