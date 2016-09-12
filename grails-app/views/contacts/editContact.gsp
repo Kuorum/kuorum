@@ -26,7 +26,7 @@
                     ${contact.name}
                 </g:else>
             </h3>
-            <p class="email"><span class="fa fa-envelope-o"></span> <a href="#">${contact.email}</a></p>
+            <p class="email"><span class="fa fa-envelope-o"></span>${contact.email}</p>
             <p class="followers">
                 <span class="fa fa-user"></span><g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
             </p>
