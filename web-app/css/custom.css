@@ -4681,6 +4681,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 #update-project .title textarea {font-size: 17px; font-size: 1.7rem;}
 #update-project fieldset:last-child .form-group {margin-top: 43px;}
 #update-project textarea {height: 300px; padding: 20px;}
+#edit-project {padding:0; border:none;}
 
 .uploadPdf,
 .uploadPdf a,
