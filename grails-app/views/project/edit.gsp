@@ -30,7 +30,10 @@
             <div class="tab-pane" id="newsletter">
 
             </div>
-            <div class="tab-pane active" id="petition">
+            <div class="tab-pane" id="petition">
+                <g:render template="/massMailing/types/notDone"/>
+            </div>
+            <div class="tab-pane active" id="debate">
                 <formUtil:validateForm bean="${command}" form="edit-project"/>
                 <g:form url="[mapping:'projectEdit', params:project.encodeAsLinkProperties()]" method="POST" name="edit-project" role="form" class="box-ppal">
                     <h1><g:message code='admin.editProject.region.label' args="[project.hashtag, region.name]" encodeAs="raw"/><span class="hashtag pull-right">#</span></h1>
@@ -45,9 +48,6 @@
                     </fieldset>
 
                 </g:form>
-            </div>
-            <div class="tab-pane" id="debate">
-                <g:render template="/massMailing/types/notDone"/>
             </div>
             <div class="tab-pane" id="survey">
                 <g:render template="/massMailing/types/notDone"/>

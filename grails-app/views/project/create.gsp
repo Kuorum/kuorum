@@ -30,7 +30,10 @@
             <div class="tab-pane" id="newsletter">
 
             </div>
-            <div class="tab-pane active" id="petition">
+            <div class="tab-pane" id="petition">
+                <g:render template="/massMailing/types/notDone"/>
+            </div>
+            <div class="tab-pane active" id="debate">
                 <g:form mapping="projectCreate" method="POST" name="edit-project" role="form" class="box-ppal">
                     <h1><g:message code='admin.createProject.region.label' args="[region.name]" encodeAs="raw"/> <span class="hashtag pull-right">#</span></h1>
                     <g:render template="/project/formProject" model="[command:command]"/>
@@ -40,11 +43,7 @@
                             <input type="submit" class="btn btn-lg" value="${message(code:'admin.createProject.publish')}"/>
                         </div>
                     </fieldset>
-
                 </g:form>
-            </div>
-            <div class="tab-pane" id="debate">
-                <g:render template="/massMailing/types/notDone"/>
             </div>
             <div class="tab-pane" id="survey">
                 <g:render template="/massMailing/types/notDone"/>
