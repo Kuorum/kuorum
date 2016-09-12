@@ -1693,7 +1693,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .user-list-followers .popover-trigger {
     z-index: 998;
     position: relative;
-    width: 170px;
+    /*width: 170px;*/
     display: inline-block;
     line-height: 1.4;
     overflow: hidden;
