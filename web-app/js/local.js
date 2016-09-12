@@ -496,8 +496,9 @@ $(document).ready(function() {
     });
 
     // abrir modal contenido filtro seleccionado
-    $('body').on('click','#numberRecipients', function() {
-        $("#filtersInfo").modal("show");
+    $('body').on('click','#numberRecipients', function(e) {
+        e.preventDefault();
+        filterContacts.showModalListContacts()
     });
     // cerrar filtros cuando guardo filtro
     //$('body').on('click','#refreshFilter', function() {
@@ -1449,6 +1450,38 @@ function FilterContacts() {
         $("#recipients").val(filterId);
         that.loadSelectRecipientStatus()
     }
+
+    this.showModalListContacts=function(){
+        var postData = that.serializedFilterData();
+        postData.push({name:'page', value:0})
+        postData.push({name:'size', value:100})
+        postData.push({name:'asJson', value:true})
+        var link = $("#numberRecipients").attr("href")
+        pageLoadingOn();
+        console.log(postData)
+        $.post( link, postData)
+            .done(function(data) {
+                var table=$("#filtersInfo .modal-body table tbody");
+                console.log(data)
+                table.html("")
+                $.each(data.data, function(idx, contact){
+                    console.log(contact.name + " - " +contact.email)
+                    table.append("<tr><td>"+contact.name+"</td><td>"+contact.email+"</td></tr>")
+                })
+                var txt = $("#filtersRecipients").text().replace(/\d+/, data.total)
+                $("#filtersRecipients").text(txt)
+
+                pageLoadingOff();
+                $("#filtersInfo").modal("show");
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+    }
+
     this.newsletterCallBacks = {
         changeSelectRecipients:function(){
             if (that.getFilterId()==-1) {

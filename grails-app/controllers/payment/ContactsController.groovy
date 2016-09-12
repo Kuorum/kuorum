@@ -54,6 +54,7 @@ class ContactsController {
 
     def searchContacts(ContactFilterCommand filterCommand){
         KuorumUser user = springSecurityService.currentUser
+        Boolean asJson = params.asJson?true:false
         SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO();
         searchContactRSDTO.page=Long.parseLong(params.page?:"0")
         searchContactRSDTO.size=params.size?Long.parseLong(params.size):searchContactRSDTO.size
@@ -73,7 +74,11 @@ class ContactsController {
         }
         searchContactRSDTO.quickSearch = params.quickSearchByName
         ContactPageRSDTO contacts = contactService.getUsers(user, searchContactRSDTO)
-        render (template: "/contacts/listContacts", model:[contacts:contacts, searchContacts:searchContactRSDTO])
+        if (asJson){
+            render contacts as JSON
+        }else{
+            render (template: "/contacts/listContacts", model:[contacts:contacts, searchContacts:searchContactRSDTO])
+        }
     }
 
 
