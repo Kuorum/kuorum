@@ -1516,11 +1516,8 @@ function FilterContacts() {
                     $("#listContacts").html(data);
                     var quickSearch = $("#quickSearchByName").val()
                     if (quickSearch != undefined && quickSearch.length > 0){
-                        $( "#contactsList li h3 a" ).each(function( index ) {
-                            var name = $(this).html();
-                            var re = new RegExp(quickSearch, 'g');
-                            var highlighterName=name.replace(re, '<span class="highlighted">\$&</span>');
-                            $(this).html(highlighterName)
+                        $( "#contactsList li h3 a, #contactsList li p.email" ).each(function( index ) {
+                            highlightInElement($(this), quickSearch)
                         });
                     }
                     prepareContactTags();
@@ -1550,6 +1547,45 @@ function FilterContacts() {
 };
 
 var filterContacts = new FilterContacts()
+
+function highlightInElement($element, text){
+    var elementHtml = $element.html()
+    var tags = [];
+    var tagLocations= [];
+    var htmlTagRegEx = /<{1}\/{0,1}\w+>{1}/;
+
+    //Strip the tags from the elementHtml and keep track of them
+    var htmlTag;
+    while(htmlTag = elementHtml.match(htmlTagRegEx)){
+        tagLocations[tagLocations.length] = elementHtml.search(htmlTagRegEx);
+        tags[tags.length] = htmlTag;
+        elementHtml = elementHtml.replace(htmlTag, '');
+    }
+
+    //Search for the text in the stripped html
+    var textLocation = elementHtml.search(text);
+    if(textLocation){
+        //Add the highlight
+        var highlightHTMLStart = '<span class="highlighted">';
+        var highlightHTMLEnd = '</span>';
+        elementHtml = elementHtml.replace(text, highlightHTMLStart + text + highlightHTMLEnd);
+
+        //plug back in the HTML tags
+        var textEndLocation = textLocation + text.length;
+        for(i=tagLocations.length-1; i>=0; i--){
+            var location = tagLocations[i];
+            if(location > textEndLocation){
+                location += highlightHTMLStart.length + highlightHTMLEnd.length;
+            } else if(location > textLocation){
+                location += highlightHTMLStart.length;
+            }
+            elementHtml = elementHtml.substring(0,location) + tags[i] + elementHtml.substring(location);
+        }
+    }
+
+    //Update the innerHTML of the element
+    $element.html(elementHtml)
+}
 
 function prepareForms(){
     // datepicker calendario
