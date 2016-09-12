@@ -30,7 +30,7 @@ log4j = {
         rollingFile name:'stacktrace', maxFileSize:"5MB", maxBackupIndex: 10, file:"${System.getProperty('catalina.home')}/logs/kuorum_stacktrace.log", 'append':true, threshold:org.apache.log4j.Level.ALL
     }
 
-    info    'grails.app'
+    info    'grails.app','org.kuorum', 'kuorum'
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
             'org.codehaus.groovy.grails.web.pages',          // GSP
