@@ -38,8 +38,12 @@ class ShortUrlService {
             }
 
             response.'404' = {
-                println 'Not found'
+                log.error("Short URL service not foung")
             }
+            response.'500' = {
+                log.error("Short URL service had a internal problem")
+            }
+
         }
         log.info("URL corta para ${longUrl} : ${shortUrl}")
         shortUrl

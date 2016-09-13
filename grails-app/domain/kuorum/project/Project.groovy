@@ -26,6 +26,7 @@ class Project {
     @Updatable Region region
     @Updatable KuorumFile image
     @Updatable ProjectStatusType status = ProjectStatusType.OPEN
+    @Deprecated
     @Updatable URL shortUrl
     @Updatable Boolean availableStats
     @Updatable Integer relevance = -1
@@ -78,6 +79,7 @@ class Project {
         pdfFile nullable: true
         owner nullable: false
         updates nullable: true
+        shortUrl nullable:true
 
         //NO se por que es obligatorio meter este estos valores en la constraints aunque sena transient
         projectStatsService nullable: true

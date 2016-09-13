@@ -1106,6 +1106,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #toFilters .btn {margin-top: 10px; display: block;}
 #toFilters > div:last-child {text-align: right;}
 #tabs-new-campaign .textareaContainer + div {text-align: right; position: relative;}
+.contact-filter-text {color: #a8a8a8}
 
 #newFilterContainer {display: none;}
 .new-filter-options .form-control {margin-bottom: 5px;}
@@ -1155,11 +1156,12 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #filtersInfo .modal-header, #campaignConfirm .modal-header  {border: none;}
 #filtersInfo .modal-header h4, #campaignConfirm .modal-header h4 {font-size: 22px; margin: 0 0 10px 0; font-variant: normal; font-weight: normal; text-align: center;}
 #filtersInfo .modal-body, #campaignConfirm .modal-body {text-align: center;}
-#filtersInfo .modal-body table .scroll-container {display: block; height: 220px; overflow-y: auto;}
+#filtersInfo .modal-body .scroll-container {display: block; height: 220px; overflow-y: auto;}
 #filtersInfo .modal-body table {width: 100%;}
 #filtersInfo .modal-body table th, #filtersInfo .modal-body table td {width: 50%; text-align: left; padding: 10px 15px;}
 #filtersInfo .modal-body table tr th {background-color: #f7f7f7; border-bottom-width: 1px;}
-#filtersInfo .modal-body > table > tbody > tr > td {padding: 0;}
+#filtersInfo .modal-body table tfoot tr td {text-align: center; color:#ccc; }
+/*#filtersInfo .modal-body > table > tbody > tr > td {padding: 0;}*/
 #campaignConfirm .modal-body {background: url('../images/campaignModalConfirm.jpg')  center 0 no-repeat transparent; padding-top: 245px;}
 
 #filtersInfo .modal-header, #campaignDeleteConfirm .modal-header  {border: none;}
@@ -1345,7 +1347,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #contactsList > li > .title > a,
 #contactsList > li > p > a{color: #545454;}
 #contactsList > li .email, #contactsList > li .email a {color: #a8a8a8;}
-#contactsList > li .email span {margin-right: 5px;}
+#contactsList > li .email span.fa {margin-right: 5px;}
 .container-lists {margin-top: 10px;}
 .container-lists li {display: inline-block;}
 .off .bootstrap-tagsinput {display: none; padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
@@ -1699,7 +1701,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .user-list-followers .popover-trigger {
     z-index: 998;
     position: relative;
-    width: 170px;
+    /*width: 170px;*/
     display: inline-block;
     line-height: 1.4;
     overflow: hidden;
@@ -4688,6 +4690,7 @@ aside .back {position: relative; text-align: right; margin: 30px 0 14px; }
 #update-project .title textarea {font-size: 17px; font-size: 1.7rem;}
 #update-project fieldset:last-child .form-group {margin-top: 43px;}
 #update-project textarea {height: 300px; padding: 20px;}
+#edit-project {padding:0; border:none;}
 
 .uploadPdf,
 .uploadPdf a,
@@ -5522,8 +5525,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .new-filter-options > div:first-child > a > .text {display: none;}
     /*.new-filter-options > label.control-label {color: #a8a8a8}*/
     .new-filter-options.last > div:first-child > a > .text {display: inline; margin-left: 5px;}
-
-    .contact-filter-text {color: #a8a8a8}
 
     #toFilters .btn {margin-top: 0; display: inline-block;}
     #toFilters > div:last-child {text-align: left;}

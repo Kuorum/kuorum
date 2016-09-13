@@ -509,8 +509,9 @@ $(document).ready(function() {
     });
 
     // abrir modal contenido filtro seleccionado
-    $('body').on('click','#numberRecipients', function() {
-        $("#filtersInfo").modal("show");
+    $('body').on('click','#numberRecipients', function(e) {
+        e.preventDefault();
+        filterContacts.showModalListContacts()
     });
     // cerrar filtros cuando guardo filtro
     //$('body').on('click','#refreshFilter', function() {
@@ -1478,6 +1479,38 @@ function FilterContacts() {
         $("#recipients").val(filterId);
         that.loadSelectRecipientStatus()
     }
+
+    this.showModalListContacts=function(){
+        var postData = that.serializedFilterData();
+        postData.push({name:'page', value:0})
+        postData.push({name:'size', value:100})
+        postData.push({name:'asJson', value:true})
+        var link = $("#numberRecipients").attr("href")
+        pageLoadingOn();
+        console.log(postData)
+        $.post( link, postData)
+            .done(function(data) {
+                var table=$("#filtersInfo .modal-body table tbody");
+                console.log(data)
+                table.html("")
+                $.each(data.data, function(idx, contact){
+                    console.log(contact.name + " - " +contact.email)
+                    table.append("<tr><td>"+contact.name+"</td><td>"+contact.email+"</td></tr>")
+                })
+                var txt = $("#filtersRecipients").text().replace(/\d+/, data.total)
+                $("#filtersRecipients").text(txt)
+
+                pageLoadingOff();
+                $("#filtersInfo").modal("show");
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+    }
+
     this.newsletterCallBacks = {
         changeSelectRecipients:function(){
             if (that.getFilterId()==-1) {
@@ -1545,11 +1578,19 @@ function FilterContacts() {
                     $("#listContacts").html(data);
                     var quickSearch = $("#quickSearchByName").val()
                     if (quickSearch != undefined && quickSearch.length > 0){
-                        $( "#contactsList li h3 a" ).each(function( index ) {
+                        $( "#contactsList li h3 a:first" ).each(function( index ) {
                             var name = $(this).html();
-                            var re = new RegExp(quickSearch, 'g');
+                            var re = new RegExp(quickSearch, 'gi');
                             var highlighterName=name.replace(re, '<span class="highlighted">\$&</span>');
+                            console.log(highlighterName)
                             $(this).html(highlighterName)
+                        });
+                        $( "#contactsList li p.email" ).each(function( index ) {
+                            var emailWithSpan = $(this).html();
+                            var email = emailWithSpan.replace(/<[^>]*>/g,'')
+                            var re = new RegExp(quickSearch, 'gi');
+                            var highlighterName=email.replace(re, '<span class="highlighted">\$&</span>');
+                            $(this).html("<span class='fa fa-envelope-o'></span>"+highlighterName)
                         });
                     }
                     prepareContactTags();

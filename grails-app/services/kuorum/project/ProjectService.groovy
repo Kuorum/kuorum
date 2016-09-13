@@ -167,6 +167,7 @@ class ProjectService {
         project.availableStats = project.availableStats?:false
         calculateProjectRelevance(project)
         if (!project.save()){
+            log.error("Erro saving project: ${project.errors}")
            throw KuorumExceptionUtil.createExceptionFromValidatable(project, "Error salvando el proyecto")
         }
         project

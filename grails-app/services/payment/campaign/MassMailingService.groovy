@@ -16,14 +16,14 @@ class MassMailingService {
     RestKuorumApiService restKuorumApiService;
 
 
-    private Date getNowUTC(){
+    private Date getNowUTC(KuorumUser user){
         Calendar cal = Calendar.getInstance();
-        cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+        cal.setTimeZone(user?.timeZone?:TimeZone.getTimeZone("UTC"));
         Date now = cal.getTime();
         return now;
     }
     CampaignRSDTO campaignSend(KuorumUser user, CampaignRQDTO campaignRQDTO, Long campaignId = null){
-        campaignSchedule(user, campaignRQDTO, getNowUTC(), campaignId)
+        campaignSchedule(user, campaignRQDTO, getNowUTC(user), campaignId)
     }
 
     private Date convertToUserTimeZone(Date date, TimeZone userTimeZone){

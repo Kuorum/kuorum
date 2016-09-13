@@ -341,7 +341,8 @@ class FormTagLib {
     }
 
     private String timeZoneToString(TimeZone timeZone){
-        "(${utcOffset(timeZone)}) ${timeZone.ID}"
+//        "(${utcOffset(timeZone)}) ${timeZone.ID}"
+        "${timeZone.ID}"
     }
 
     private String utcOffset(TimeZone timeZone){
@@ -567,7 +568,7 @@ class FormTagLib {
 //        if (!isRequired){
 //            out << "<option value=''> ${message(code:"${command.class.name}.${field}.empty")}</option>"
 //        }
-        def values = TimeZone.availableIDs
+        def values = TimeZone.availableIDs.findAll{it.contains("/")}.sort{it}
         values.each{timeZoneId ->
             TimeZone timeZone = TimeZone.getTimeZone(timeZoneId)
             out << "<option value='${timeZone.ID}' ${timeZoneId==command."$field"?'selected':''}> ${timeZoneToString(timeZone)}</option>"
