@@ -27,23 +27,23 @@
     <div class="box-ppal">
         <ul class="nav nav-tabs simple" data-tabs="tabs">
             <li role="presentation" class="active"><a href="#newsletter" data-toggle="tab"><g:message code="tools.campaign.type.massMailing"/></a></li>
-            <li role="presentation"><a href="#petition" data-toggle="tab"><g:message code="tools.campaign.type.petition"/></a></li>
             <sec:ifAnyGranted roles="ROLE_POLITICIAN">
                 <li role="presentation"><g:link mapping="projectCreate"><g:message code="tools.campaign.type.debate"/></g:link></li>
             </sec:ifAnyGranted>
             <sec:ifNotGranted roles="ROLE_POLITICIAN">
                 <li role="presentation"><a href="#debate" data-toggle="tab"><g:message code="tools.campaign.type.debate"/></a></li>
             </sec:ifNotGranted>
+            <li role="presentation"><a href="#petition" data-toggle="tab"><g:message code="tools.campaign.type.petition"/></a></li>
             <li role="presentation"><a href="#survey" data-toggle="tab"><g:message code="tools.campaign.type.survey"/></a></li>
         </ul>
         <div id="tabs-new-campaign" class="tab-content">
             <div class="tab-pane active" id="newsletter">
                 <g:render template="types/massMailing" model="[command:command, filters:filters, totalContacts:totalContacts]"/>
             </div>
-            <div class="tab-pane" id="petition">
+            <div class="tab-pane" id="debate">
                 <g:render template="types/notDone"/>
             </div>
-            <div class="tab-pane" id="debate">
+            <div class="tab-pane" id="petition">
                 <g:render template="types/notDone"/>
             </div>
             <div class="tab-pane" id="survey">
