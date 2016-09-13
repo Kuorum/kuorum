@@ -31,7 +31,11 @@ class MassMailingCommand {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.headerPictureId.nullable"
             }
         }
-        scheduled nullable: true
+        scheduled nullable: true, validator: { val, obj ->
+            if (val && obj.sendType== "SCHEDULED" && val < new Date()){
+                return "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error"
+            }
+        }
         sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND"]
     }
 }

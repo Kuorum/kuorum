@@ -1127,7 +1127,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .form-final-options > li {list-style: none; display: inline-block; margin-right: 10px; position: relative;}
 .form-final-options > li:last-child {margin-right: 0;}
 .form-final-options > li a {color: #a8a8a8;}
-.form-final-options #selectDate, #saveFilterAs {display: none; background-color: #f9f9f9; position: absolute; width: 260px; top: 48px; right: -80px;border: 1px solid #dddddd; padding: 15px;}
+.form-final-options #selectDate, #saveFilterAs {display: none; background-color: #f9f9f9; position: absolute; width: 260px; top: 48px; right: -80px;border: 1px solid #dddddd; padding: 15px;z-index:1;}
 .form-final-options #selectDate.on, #saveFilterAs.on {display: block;}
 .form-final-options #selectDate:after, .form-final-options #selectDate:before,
 #saveFilterAs:after, #saveFilterAs:before {
@@ -1140,6 +1140,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     position: absolute;
     pointer-events: none;
 }
+.form-final-options #selectDate span.error{margin:-5px 0 10px 0}
 .form-final-options #selectDate:after, #saveFilterAs:after  {
     border-color: rgba(255, 255, 255, 0);
     border-bottom-color: #f9f9f9;
