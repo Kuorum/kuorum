@@ -20,7 +20,7 @@ class Step2Command {
         this.language = user.language
         this.phonePrefix = user.personalData?.phonePrefix
         this.phone = user.personalData?.telephone
-        this.userType=user.userType
+//        this.userType=user.userType
     }
 
     KuorumUser user

@@ -24,7 +24,7 @@ import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCamp
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
 
-@Secured("ROLE_POLITICIAN")
+@Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class MassMailingController {
 
     SpringSecurityService springSecurityService

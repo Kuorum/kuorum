@@ -26,11 +26,11 @@ class LayoutsController {
                 list: listNotifications,
                 numNews: numNewNotifications
         ]
-        if (user.userType == UserType.CANDIDATE || user.userType == UserType.POLITICIAN){
+//        if (user.userType == UserType.CANDIDATE || user.userType == UserType.POLITICIAN){
             render template:'/layouts/payment/paymentHead', model:[user:user, notifications:notifications]
-        }else{
-            render template:'/layouts/userHead', model:[user:user, notifications:notifications]
-        }
+//        }else{
+//            render template:'/layouts/userHead', model:[user:user, notifications:notifications]
+//        }
     }
 
 

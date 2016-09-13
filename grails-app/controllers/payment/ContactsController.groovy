@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.contact.ContactService
 
-@Secured("ROLE_POLITICIAN")
+@Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ContactsController {
 
     private static final String CONTACT_CSV_UPLOADED_SESSION_KEY="CONTACT_CSV_UPLOADED_SESSION_KEY"
@@ -218,8 +218,17 @@ class ContactsController {
         if (namePos == -1 || emailPos == -1){
 
             flash.message=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
-            render(view: 'importCSVContacts', model: modelImportCSVContacts())
-            return;
+
+            try{
+                def model = modelImportCSVContacts()
+                render(view: 'importCSVContacts', model: model)
+                return;
+            }catch (Exception e){
+                log.error("Error uploading CSV file",e)
+                flash.warn = g.message(code:'tools.contact.import.csv.error.emptyFile')
+                render(view: 'importContacts')
+            }
+
         }
 
 

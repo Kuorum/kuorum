@@ -1435,9 +1435,11 @@ function FilterContacts() {
         }
     };
     this.loadSelectRecipientStatus = function(){
+        var filterIdBeforeCloseOptions =that.getFilterId();
         that.closeFilterCampaignsOptions();
-        if (that.getFilterId()==-2) {
+        if (filterIdBeforeCloseOptions==-2) {
             //New filter
+            console.log("-2 filter selected")
             that.openFilterCampaignsOptions();
         }
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");

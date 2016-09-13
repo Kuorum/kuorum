@@ -13,7 +13,7 @@ import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.springframework.validation.ObjectError
 import payment.contact.ContactService
 
-@Secured("ROLE_POLITICIAN")
+@Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ContactFiltersController {
 
     ContactService contactService;

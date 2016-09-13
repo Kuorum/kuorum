@@ -529,6 +529,7 @@ class FormTagLib {
         def cssClass = attrs.cssClass
         def cssLabel=attrs.cssLabel?:""
         def clazz = command.metaClass.properties.find{it.name == field}.type
+        Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
         Boolean isRequired = isRequired(command,field)
         def label ="${message(code: "${clazz.name}.label")}${isRequired?'*':''}"
         def error = hasErrors(bean: command, field: field,'error')
@@ -536,7 +537,7 @@ class FormTagLib {
             <label for="${id}" class="${cssLabel}">${label}</label>
             <select name="${prefixFieldName}${field}" class="form-control input-lg ${error}" id="${id}">
             """
-        if (!isRequired){
+        if (!isRequired || defaultEmpty){
             out << "<option value=''> ${message(code:"${clazz.name}.empty")}</option>"
         }
         def values = attrs.values?:clazz.values()

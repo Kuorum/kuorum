@@ -51,6 +51,7 @@
                 <formUtil:selectEnum
                         command="${command}"
                         field="userType"
+                        defaultEmpty="true"
                         values="${[kuorum.core.model.UserType.PERSON, kuorum.core.model.UserType.POLITICIAN]}"
                         showLabel="true"/>
             </div>

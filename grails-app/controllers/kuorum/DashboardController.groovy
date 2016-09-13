@@ -54,7 +54,7 @@ class DashboardController {
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        if (kuorumUserService.isPaymentUser(user)){
+//        if (kuorumUserService.isPaymentUser(user)){
             Map model = buildPaymentDashboadr(user);
             if (model.contacts.total==0) {
                 render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
@@ -63,24 +63,24 @@ class DashboardController {
             }else{
                 render view: "/dashboard/payment/paymentDashboard", model: model
             }
-        }else{
-            buildUserDashboard(user)
-        }
+//        }else{
+//            buildUserDashboard(user)
+//        }
     }
 
-    private Map buildUserDashboard(KuorumUser user){
-        Pagination causesPagination = new Pagination(max:6)
-        SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
-        Pagination politiciansDashboardPagination = new Pagination(max:6)
-        List<KuorumUser> politicians = kuorumUserService.recommendPoliticians(user,politiciansDashboardPagination)
-        [
-                loggedUser:user,
-                causesSuggested:causesSuggested,
-                causesPagination:causesPagination,
-                politicians:politicians,
-                politiciansDashboardPagination:politiciansDashboardPagination
-        ]
-    }
+//    private Map buildUserDashboard(KuorumUser user){
+//        Pagination causesPagination = new Pagination(max:6)
+//        SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
+//        Pagination politiciansDashboardPagination = new Pagination(max:6)
+//        List<KuorumUser> politicians = kuorumUserService.recommendPoliticians(user,politiciansDashboardPagination)
+//        [
+//                loggedUser:user,
+//                causesSuggested:causesSuggested,
+//                causesPagination:causesPagination,
+//                politicians:politicians,
+//                politiciansDashboardPagination:politiciansDashboardPagination
+//        ]
+//    }
 
     private def buildPaymentDashboadr(KuorumUser user){
         List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
@@ -110,7 +110,7 @@ class DashboardController {
 
     //FAST CHAPU - Evaluating empty data
     def emptyEditableData(KuorumUser user){
-        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
+//        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
             List<CauseRSDTO> causes = causesService.findDefendedCauses(user);
 
             List fields = [
@@ -141,12 +141,12 @@ class DashboardController {
                     percentage: (1 - emptyFields/totalFields)*100,
                     fields:fields
             ]
-        }else{
-            return [
-                    percentage: 100,
-                    fields:[]
-            ]
-        }
+//        }else{
+//            return [
+//                    percentage: 100,
+//                    fields:[]
+//            ]
+//        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
