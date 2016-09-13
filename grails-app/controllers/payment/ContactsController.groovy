@@ -321,7 +321,12 @@ class ContactsController {
     private def parseCsvFile(File csv){
         InputStream csvStream = new FileInputStream(csv);
         String charSet = detectCharset(csv)
-        Reader reader = new InputStreamReader(csvStream, charSet)
+        Reader reader
+        if (charSet){
+            reader = new InputStreamReader(csvStream, charSet)
+        }else{
+            reader = new InputStreamReader(csvStream)
+        }
         return com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
     }
 

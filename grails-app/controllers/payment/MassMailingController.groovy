@@ -10,13 +10,7 @@ import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
-import org.kuorum.rest.model.contact.ContactRSDTO
-import org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO
-import org.kuorum.rest.model.contact.filter.ConditionOperatorTypeRDTO
-import org.kuorum.rest.model.contact.filter.ConditionRDTO
-import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
-import org.kuorum.rest.model.contact.filter.FilterRDTO
-import org.kuorum.rest.model.contact.filter.OperatorTypeRDTO
+import org.kuorum.rest.model.contact.filter.*
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
@@ -117,6 +111,9 @@ class MassMailingController {
     def saveMassMailing(MassMailingCommand command){
         KuorumUser loggedUser = springSecurityService.currentUser
         if (command.hasErrors()){
+            if (command.errors.allErrors.findAll{it.field == "scheduled"}){
+                flash.error=g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.warn')
+            }
             render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, command.filterId<0)
             return;
         }
@@ -145,6 +142,12 @@ class MassMailingController {
         }
     }
 
+    def showMailCampaign(Long campaignId){
+        KuorumUser loggedUser = springSecurityService.currentUser
+        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
+        render campaignRSDTO.htmlBody?:"Not sent"
+    }
+
     def showTrackingMails(Long campaignId){
         KuorumUser loggedUser = springSecurityService.currentUser
         Integer page = params.page?Integer.parseInt(params.page):0;
@@ -156,11 +159,15 @@ class MassMailingController {
     def updateCampaign(MassMailingCommand command){
         KuorumUser loggedUser = springSecurityService.currentUser
         if (command.hasErrors()){
+            if (command.errors.allErrors.findAll{it.field == "scheduled"}){
+                flash.error=g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.warn')
+            }
             render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, command.filterId<0)
             return;
         }
         Long campaignId = Long.parseLong(params.campaignId)
-        flash.message = saveAndSendCampaign(loggedUser, command, campaignId)
+        String msg = saveAndSendCampaign(loggedUser, command, campaignId)
+//        flash.message = msg
         redirect mapping:'politicianMassMailing'
     }
 
