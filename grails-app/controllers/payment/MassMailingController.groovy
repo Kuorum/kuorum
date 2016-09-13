@@ -167,7 +167,8 @@ class MassMailingController {
     def removeCampaign(Long campaignId){
         KuorumUser loggedUser = springSecurityService.currentUser
         massMailingService.removeCampaign(loggedUser, campaignId)
-        render ([msg:"Campaing deleted"] as JSON)
+        //render ([msg:"Campaing deleted"] as JSON)
+        redirect mapping:'politicianMassMailing'
     }
 
     private CampaignRQDTO convertCommandToCampaign(MassMailingCommand command, KuorumUser user){

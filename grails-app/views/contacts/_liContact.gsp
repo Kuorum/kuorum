@@ -19,8 +19,28 @@
         <span class="fa fa-edit"></span>
         <span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
     </g:link>
-    <g:link mapping="politicianContactRemoveAjax" params="[contactId:contact.id]" role="button" class="contactDelete">
-        <span class="fa fa-trash"></span>
-        <span class="sr-only"><g:message code="tools.contact.list.contact.delete"/></span>
-    </g:link>
+    <a href="#" class="contactDelete" id="delete">
+        <span class="fa fa-trash"></span> <span class="sr-only">Delete</span>
+    </a>
 </li>
+
+<!-- MODAL CONFIRM -->
+<div class="modal fade in" id="contactDeleteConfirm" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                </button>
+                <h4 id="contactDeleteTitle">
+                    <g:message code="tools.massMailing.deleteContactModal.title"/>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <g:link mapping="politicianContactRemoveAjax" params="[contactId:contact.id]" role="button" class="btn btn-blue inverted btn-lg deleteContactBtn">
+                    <g:message code="tools.massMailing.deleteContactModal.button"/>
+                </g:link>
+            </div>
+        </div>
+    </div>
+</div>

@@ -39,5 +39,30 @@
     <g:else>
         <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="campaignEdit"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
     </g:else>
-    <g:link mapping="politicianMassMailingRemove" params="[campaignId:campaign.id]"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+    <a href="#" class="campaignDelete deleteCampaignModal" id="deleteCampaignId_${campaign.id}">
+        <span class="fa fa-trash"></span> <span class="sr-only">Delete</span>
+    </a>
 </li>
+
+
+
+<!-- MODAL CONFIRM -->
+<div class="modal fade in" id="campaignDeleteConfirm" tabindex="-1" role="dialog" aria-labelledby="campaignDeleteTitle" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                </button>
+                <h4 id="campaignDeleteTitle">
+                    <g:message code="tools.massMailing.deleteCampaignModal.title"/>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <g:link mapping="politicianMassMailingRemove" params="[campaignId:campaign.id]"  role="button" class="btn btn-blue inverted btn-lg deleteCampaignBtn">
+                    <g:message code="tools.massMailing.deleteCampaignModal.button"/>
+                </g:link>
+            </div>
+        </div>
+    </div>
+</div>

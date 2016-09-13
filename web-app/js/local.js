@@ -438,7 +438,7 @@ $(document).ready(function() {
         filterContacts.searchContactsCallBacks.sort(sortField, sortDirection)
     });
 
-    $("#listContacts").on("click", "a.contactDelete",function(e){
+    $("#listContacts").on("click", "a#deleteContactBtn",function(e){
         e.preventDefault();
         pageLoadingOn();
         var link = $(this).attr("href");
@@ -463,6 +463,19 @@ $(document).ready(function() {
             filterContacts.searchContactsCallBacks.page(page)
         }
     });
+
+    // abrir modal confirmar borrado contacto
+    $('#listContacts').on('click','a#delete', function(e) {
+        e.preventDefault();
+        prepareAndOpenContactDeletionModal();
+    });
+    // cerrar modal confirmar envío campaña
+    $('#listContacts').on('click','#contactDeleteConfirm .deleteContactBtn', function() {
+        $("#contactDeleteConfirm").modal("hide");
+    });
+    function prepareAndOpenContactDeletionModal(){
+        $("#contactDeleteConfirm").modal("show");
+    }
 
     $("#quickSearchByName").on("keypress", function(e){
         if (e.which == 13) {
@@ -533,7 +546,7 @@ $(document).ready(function() {
                 pageLoadingOff();
             });
         return false;
-    })
+    });
 
     // Guardar borrador
     $('body').on('click','.form-final-options #save-draft-campaign', function(e) {
@@ -560,12 +573,28 @@ $(document).ready(function() {
         $("#politicianMassMailingForm").submit();
         $("#campaignConfirm").modal("hide");
     });
-
     function prepareAndOpenCampaignConfirmModal(){
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
         $("#campaignConfirmTitle > span").html(amountContacts);
         $("#campaignConfirm").modal("show");
     }
+
+    // abrir modal confirmar borrado campaña
+    $('body').on('click','.box-ppal .deleteCampaignModal', function(e) {
+        e.preventDefault();
+        var campaign_id = $('.deleteCampaignModal').attr("id")
+        prepareAndOpenCampaignConfirmDeletionModal(campaign_id);
+    });
+    // cerrar modal confirmar envío campaña
+    $('body').on('click','#campaignDeleteConfirm .deleteCampaignBtn', function() {
+        $("#politicianMassMailingForm").submit();
+        $("#campaignDeleteConfirm").modal("hide");
+    });
+    function prepareAndOpenCampaignConfirmDeletionModal(campaign_id){
+        alert ("Eliminar el " + campaign_id )
+        $("#campaignDeleteConfirm").modal("show");
+    }
+
     // FILTRADO Y BUSCADOR LISTADO CAMPAÑAS
     if ($('#listCampaigns').length) {
 
@@ -634,7 +663,7 @@ $(document).ready(function() {
         var campaignList = new List('listCampaigns', options);
 
         // eliminar campaña
-        var removeBtn = $('.campaignDelete');
+        var removeBtn = $('#deleteCampaignBtn');
         refreshCallbacks();
         function refreshCallbacks() {
           // Needed to add new buttons to jQuery-extended object
