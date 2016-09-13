@@ -1504,7 +1504,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .user > a:focus .name,
 .user > a:active .name {text-decoration: underline;}
 .user-type,
-.kakareo.follow {display: block; padding: 0 0 0 48px; color: #A8A8A8;}
+.kakareo.follow {display: block; padding: 0 0 0 40px; color: #A8A8A8;}
 
 /*Prueba kakareos fondo transparente (MAT 04/06/2014)*/
 .container-fluid .discover .kakareo {background-color: #fff;}
@@ -1616,7 +1616,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .btn.mail:hover,
 .btn.mail:active,
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
-.user-type {margin-top: -26px;}
+.user-type {margin-top: -24px;}
 
 .user-list-images,
 .boxes.taking-part .user-list-followers {margin: 0 0 20px 0; padding: 0; display: inline-block; line-height: 1.2;}
@@ -6012,7 +6012,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box.tools.open .dropdown-menu li a {font-size: 20px; font-size: 2rem; line-height: 2.3;}
 
     /* DASHBOARD */
-    #followOthers .user-list-followers .user > .actions {margin-top: -35px !important;}
+    #followOthers .user-list-followers .user > .actions {margin-top: -40px !important;}
     .dashboard > div > .box-ppal {min-height: 348px;}
     /*#profileInfo > span {margin-top: 50px;}*/
 
