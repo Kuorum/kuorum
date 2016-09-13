@@ -18,16 +18,9 @@
     </ol>
     <div class="signup final">
         <h3><g:message code="customRegister.step3.congratulations"/> </h3>
-        <g:if test="${user.userType == kuorum.core.model.UserType.CANDIDATE || user.userType == kuorum.core.model.UserType.POLITICIAN}">
-            <g:link mapping="dashboard" class="btn btn-lg">
-                <g:message code="customRegister.step3.goToDashboard"/>
-            </g:link>
-        </g:if>
-        <g:else>
-            <g:link mapping="tourStart" class="btn btn-lg">
-                <g:message code="customRegister.step3.goToDashboard"/>
-            </g:link>
-        </g:else>
+        <g:link mapping="dashboard" class="btn btn-lg">
+            <g:message code="customRegister.step3.goToDashboard"/>
+        </g:link>
     </div>
 </content>
 
