@@ -171,13 +171,13 @@ class ContactsController {
 
     def importCSVContacts(){
         if (!params.get("fileContacts")) {
-            flash.message = g.message(code:'tools.contact.import.csv.error.noFile')
+            flash.error = g.message(code:'tools.contact.import.csv.error.noFile')
             render(view: 'importContacts')
             return
         }
         MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile('fileContacts')
         if (uploadedFile.empty) {
-            flash.message = g.message(code:'tools.contact.import.csv.error.emptyFile')
+            flash.error = g.message(code:'tools.contact.import.csv.error.emptyFile')
             render(view: 'importContacts')
             return
         }
@@ -194,7 +194,7 @@ class ContactsController {
             modelImportCSVContacts()
         }catch (Exception e){
             log.error("Error uploading CSV file",e)
-            flash.warn = g.message(code:'tools.contact.import.csv.error.emptyFile')
+            flash.error = g.message(code:'tools.contact.import.csv.error.emptyFile')
             render(view: 'importContacts')
         }
 
@@ -202,7 +202,7 @@ class ContactsController {
 
     def importCSVContactsSave(){
         if (!request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)){
-            flash.message = g.message(code:'tools.contact.import.csv.error.noFile')
+            flash.error = g.message(code:'tools.contact.import.csv.error.noFile')
             redirect(mapping:'politicianContactImport')
             return
         }
@@ -217,7 +217,7 @@ class ContactsController {
 
         if (namePos == -1 || emailPos == -1){
 
-            flash.message=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
+            flash.error=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
             try{
                 def model = modelImportCSVContacts()
@@ -225,7 +225,7 @@ class ContactsController {
                 return;
             }catch (Exception e){
                 log.error("Error uploading CSV file",e)
-                flash.warn = g.message(code:'tools.contact.import.csv.error.emptyFile')
+                flash.error = g.message(code:'tools.contact.import.csv.error.emptyFile')
                 render(view: 'importContacts')
             }
 
