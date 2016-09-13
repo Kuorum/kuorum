@@ -145,6 +145,12 @@ class MassMailingController {
         }
     }
 
+    def showMailCampaign(Long campaignId){
+        KuorumUser loggedUser = springSecurityService.currentUser
+        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
+        render campaignRSDTO.htmlBody?:"Not sent"
+    }
+
     def showTrackingMails(Long campaignId){
         KuorumUser loggedUser = springSecurityService.currentUser
         Integer page = params.page?Integer.parseInt(params.page):0;
