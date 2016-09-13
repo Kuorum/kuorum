@@ -24,7 +24,7 @@
             </div>
             <div class="col-sm-3 col-md-3 col-md-offset-1">
                 <div class="searchContainer">
-                    <input type="text" class="form-control searchCampaigns" name="searchCampaign" id="searchCampaign"/>
+                    <input type="text" class="form-control searchCampaigns" name="searchCampaign" id="searchCampaign" placeholder="${g.message(code:'tools.campaign.filter.quickSearch.placeHolder')}"/>
                 </div>
             </div>
             <div class="col-sm-1">
