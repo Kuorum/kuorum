@@ -56,6 +56,26 @@
             <g:render template="liCampaign" model="[campaign:campaign, user:user, idx:i]"/>
         </g:each>
     </ul>
+    <!-- MODAL CONFIRM -->
+    <div class="modal fade in" id="campaignDeleteConfirm" tabindex="-1" role="dialog" aria-labelledby="campaignDeleteTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                    </button>
+                    <h4 id="campaignDeleteTitle">
+                        <g:message code="tools.massMailing.deleteCampaignModal.title"/>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <a href="#LinkOverwitedWithJS" role="button" class="btn btn-blue inverted btn-lg deleteCampaignBtn">
+                        <g:message code="tools.massMailing.deleteCampaignModal.button"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="pag-list-campaigns clearfix">
         <ul class="paginationBottom"></ul>

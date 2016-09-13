@@ -23,6 +23,28 @@
             <g:each in="${contacts.data}" var="contact">
                 <g:render template="/contacts/liContact" model="[contact:contact]"/>
             </g:each>
+
+            <!-- MODAL CONFIRM -->
+            <div class="modal fade in" id="contactDeleteConfirm" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                            </button>
+                            <h4 id="contactDeleteTitle">
+                                <g:message code="tools.massMailing.deleteContactModal.title"/>
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <a href="#UrlUpdatedByAjax" role="button" class="btn btn-blue inverted btn-lg deleteContactBtn">
+                                <g:message code="tools.massMailing.deleteContactModal.button"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </g:if>
         <g:else>
             <h3 class="noContacts"><g:message code="tools.contact.list.noResults"/></h3>

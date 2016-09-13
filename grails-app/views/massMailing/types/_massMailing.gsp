@@ -1,6 +1,6 @@
 <r:require modules="datepicker" />
 <h1 class="sr-only">Newsletter</h1>
-<formUtil:validateForm bean="${command}" form="politicianMassMailingForm"/>
+<formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
 <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST">
     <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
     <fieldset class="form-group" id="toFilters">
@@ -82,9 +82,7 @@
                         %{--</form>--}%
                     </div>
                 </li>
-                <li><a href="#" class="btn btn-blue inverted" id="send">
-                    <g:message code="tools.massMailing.send"/>
-                </a></li>
+                <li><a href="#" class="btn btn-blue inverted" id="send"><g:message code="tools.massMailing.send"/></a></li>
             </ul>
         </div>
     </fieldset>

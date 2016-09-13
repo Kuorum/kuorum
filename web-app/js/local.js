@@ -438,24 +438,6 @@ $(document).ready(function() {
         filterContacts.searchContactsCallBacks.sort(sortField, sortDirection)
     });
 
-    $("#listContacts").on("click", "a#deleteContactBtn",function(e){
-        e.preventDefault();
-        pageLoadingOn();
-        var link = $(this).attr("href");
-        $(this).parent("li").fadeOut();
-        $.post( link)
-            .done(function(data) {
-                filterContacts.searchContactsCallBacks.loadTableContacts();
-            })
-            .fail(function(messageError) {
-                display.warn("Error deleting");
-                console.log(messageError)
-                pageLoadingOff();
-            })
-            .always(function() {
-
-            });
-    });
     $("#listContacts").on("click", ".pag-list-contacts li a",function(e){
         e.preventDefault();
         if (!$(this).hasClass("disabled")){
@@ -465,15 +447,32 @@ $(document).ready(function() {
     });
 
     // abrir modal confirmar borrado contacto
-    $('#listContacts').on('click','a#delete', function(e) {
+    $('#listContacts').on('click','a.contactDelete', function(e) {
         e.preventDefault();
-        prepareAndOpenContactDeletionModal();
+        var link = $(this).attr("href")
+        prepareAndOpenContactDeletionModal(link);
     });
     // cerrar modal confirmar envío campaña
-    $('#listContacts').on('click','#contactDeleteConfirm .deleteContactBtn', function() {
+    $('#listContacts').on('click','#contactDeleteConfirm a.deleteContactBtn', function(e) {
+        e.preventDefault();
         $("#contactDeleteConfirm").modal("hide");
+        var link = $(this).attr("href");
+        $(this).parent("li").fadeOut();
+        $.post( link)
+            .done(function(data) {
+                filterContacts.searchContactsCallBacks.loadTableContacts();
+            })
+            .fail(function(messageError) {
+                display.warn("Error deleting");
+                console.log(messageError)
+            })
+            .always(function() {
+                // I don't know why modal("hide") not removes this div
+                $(".modal-backdrop").remove();
+            });
     });
-    function prepareAndOpenContactDeletionModal(){
+    function prepareAndOpenContactDeletionModal(link){
+        $("#contactDeleteConfirm a.deleteContactBtn").attr("href", link)
         $("#contactDeleteConfirm").modal("show");
     }
 
@@ -579,22 +578,6 @@ $(document).ready(function() {
         $("#campaignConfirm").modal("show");
     }
 
-    // abrir modal confirmar borrado campaña
-    $('body').on('click','.box-ppal .deleteCampaignModal', function(e) {
-        e.preventDefault();
-        var campaign_id = $('.deleteCampaignModal').attr("id")
-        prepareAndOpenCampaignConfirmDeletionModal(campaign_id);
-    });
-    // cerrar modal confirmar envío campaña
-    $('body').on('click','#campaignDeleteConfirm .deleteCampaignBtn', function() {
-        $("#politicianMassMailingForm").submit();
-        $("#campaignDeleteConfirm").modal("hide");
-    });
-    function prepareAndOpenCampaignConfirmDeletionModal(campaign_id){
-        alert ("Eliminar el " + campaign_id )
-        $("#campaignDeleteConfirm").modal("show");
-    }
-
     // FILTRADO Y BUSCADOR LISTADO CAMPAÑAS
     if ($('#listCampaigns').length) {
 
@@ -663,28 +646,42 @@ $(document).ready(function() {
         var campaignList = new List('listCampaigns', options);
 
         // eliminar campaña
-        var removeBtn = $('#deleteCampaignBtn');
+        var removeBtn = $('.campaignDelete');
         refreshCallbacks();
         function refreshCallbacks() {
           // Needed to add new buttons to jQuery-extended object
           removeBtn = $(removeBtn.selector);
           removeBtn.click(function(e) {
               e.preventDefault();
-              //pageLoadingOn();
               var link = $(this).attr("href");
               var itemId =  $(this).closest('li').find('.id').text();
-              var postData= {};
-              $.post( link, postData)
-                  .done(function(data) {
-                      campaignList.remove('id', itemId);
-                  })
-                  .fail(function(messageError) {
-                      display.warn("Error");
-                  })
-                  .always(function() {
-                      pageLoadingOff();
-                  });
+              prepareAndOpenCampaignConfirmDeletionModal(link, itemId)
           });
+        }
+
+        // cerrar modal confirmar envío campaña
+        $('body').on('click','a.deleteCampaignBtn', function(e) {
+            e.preventDefault();
+            $("#campaignDeleteConfirm").modal("hide");
+            pageLoadingOn();
+            var link = $(this).attr("href")
+            var campaignId = $(this).attr("data-campaign-id")
+            var postData= {};
+            $.post( link, postData)
+                .done(function(data) {
+                    campaignList.remove('id', campaignId);
+                })
+                .fail(function(messageError) {
+                    display.warn("Error");
+                })
+                .always(function() {
+                    pageLoadingOff();
+                });
+        });
+        function prepareAndOpenCampaignConfirmDeletionModal(urlDeleteCampaign, campaignId){
+            $("#campaignDeleteConfirm a.deleteCampaignBtn").attr("href",urlDeleteCampaign)
+            $("#campaignDeleteConfirm a.deleteCampaignBtn").attr("data-campaign-id",campaignId)
+            $("#campaignDeleteConfirm").modal("show");
         }
 
         //select filtro campañas según estado
