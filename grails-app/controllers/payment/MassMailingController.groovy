@@ -166,7 +166,8 @@ class MassMailingController {
             return;
         }
         Long campaignId = Long.parseLong(params.campaignId)
-        flash.message = saveAndSendCampaign(loggedUser, command, campaignId)
+        String msg = saveAndSendCampaign(loggedUser, command, campaignId)
+//        flash.message = msg
         redirect mapping:'politicianMassMailing'
     }
 
