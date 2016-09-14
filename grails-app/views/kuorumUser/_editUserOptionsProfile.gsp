@@ -10,9 +10,18 @@
             <ul>
                 <li>
                     <sec:access expression="hasPermission('${user.id}', 'kuorum.users.KuorumUser', 'edit')">
-                        <g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}">
-                            <span><g:message code="project.editMenu.edit"/></span>
-                        </g:link>
+                        <g:if test="${sec.username() == user.email}">
+                            %{--The user wants to edit himself--}%
+                            <g:link mapping="profileEditUser">
+                                <span><g:message code="project.editMenu.edit"/></span>
+                            </g:link>
+                        </g:if>
+                        <g:else>
+                            <g:link mapping="editorKuorumAccountEdit" params="${user.encodeAsLinkProperties()}">
+                                <span><g:message code="project.editMenu.edit"/></span>
+                            </g:link>
+                        </g:else>
+
                     </sec:access>
                     <sec:ifAnyGranted roles="ROLE_ADMIN">
                         <g:link mapping="editorAdminUserRights" params="${user.encodeAsLinkProperties()}">
