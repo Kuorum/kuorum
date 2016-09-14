@@ -557,8 +557,27 @@ $(document).ready(function() {
     // abrir modal confirmar envío campaña
     $('body').on('click','.form-final-options #send', function(e) {
         e.preventDefault();
-        $("#sendMassMailingType").val("SEND");
-        prepareAndOpenCampaignConfirmModal();
+
+        // Manual validation:
+        var valid = $("#politicianMassMailingForm").valid();
+        if ($("input[name=headerPictureId]").val() == ""){
+            $("fieldset.header-campaign").append('<span id="headerPictureErrorSpan" class="error"><span class="tooltip-arrow"></span>Define una imagen para que te quede un email bonito</span>');
+            valid = false;
+        }else{
+            $("#headerPictureErrorSpan").fadeOut()
+        }
+
+        if ($("textarea[name=text]").val() == ""){
+            $("div.textareaContainer").append('<span id="campatingTextErrorSpan" for="text" class="error"><span class="tooltip-arrow"></span>Cuenta algo en tu comunicado. :)</span>');
+            valid = false;
+        }else{
+            $("#campatingTextErrorSpan").fadeOut()
+        }
+
+        if (valid){
+            $("#sendMassMailingType").val("SEND");
+            prepareAndOpenCampaignConfirmModal();
+        }
     });
 
     // abrir modal confirmar envío campaña programada
