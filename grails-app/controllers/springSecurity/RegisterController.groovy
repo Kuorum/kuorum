@@ -149,6 +149,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             redirect uri: defaultTargetUrl
             return
         }
+        notificationService.sendWelcomeRegister(user)
 //        render view:'selectMyPassword', model:[userId:user.id, command:new ResetPasswordCommand()]
         redirect mapping:'dashboard'
     }

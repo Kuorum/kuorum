@@ -73,12 +73,10 @@ class KuorumMailService {
         MailData mailData = new MailData(fromName:adminUser.name, mailType: MailType.POLITICIAN_SUBSCRIPTION, globalBindings: bindings, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
-    def sendPoliticianSubscription(KuorumUser user, OfferPurchased offerPurchased){
+    def sendWelcomeRegister(KuorumUser user){
         def bindings = [
                 userLink:generateLink("userShow",user.encodeAsLinkProperties()),
-                user:user.name,
-                offerType:messageSource.getMessage("${OfferType.canonicalName}.${offerPurchased.offerType}",null,"", user.getLanguage().locale),
-                totalPrice:offerPurchased.offerType.price * offerPurchased.kPeople
+                user:user.name
         ]
         MailUserData mailUserData = new MailUserData(user:user)
         MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME, mailType: MailType.NOTIFICATION_OFFER_PURCHASED, globalBindings: bindings, userBindings: [mailUserData])
