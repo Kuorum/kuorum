@@ -27,12 +27,12 @@
     <div class="box-ppal">
         <ul class="nav nav-tabs simple" data-tabs="tabs">
             <li role="presentation" class="active"><a href="#newsletter" data-toggle="tab"><g:message code="tools.campaign.type.massMailing"/></a></li>
-            <sec:ifAnyGranted roles="ROLE_POLITICIAN">
+            <userUtil:isWeceUser>
                 <li role="presentation"><g:link mapping="projectCreate"><g:message code="tools.campaign.type.debate"/></g:link></li>
-            </sec:ifAnyGranted>
-            <sec:ifNotGranted roles="ROLE_POLITICIAN">
+            </userUtil:isWeceUser>
+            <userUtil:isNotWeceUser>
                 <li role="presentation"><a href="#debate" data-toggle="tab"><g:message code="tools.campaign.type.debate"/></a></li>
-            </sec:ifNotGranted>
+            </userUtil:isNotWeceUser>
             <li role="presentation"><a href="#petition" data-toggle="tab"><g:message code="tools.campaign.type.petition"/></a></li>
             <li role="presentation"><a href="#survey" data-toggle="tab"><g:message code="tools.campaign.type.survey"/></a></li>
         </ul>
