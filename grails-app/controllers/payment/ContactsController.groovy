@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.contact.ContactService
 
+import java.util.concurrent.TimeUnit
+
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ContactsController {
 
@@ -167,7 +169,9 @@ class ContactsController {
         }
     }
 
-    def importContacts() {}
+    def importContacts() {
+        request.getSession().removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY);
+    }
 
     def importCSVContacts(){
         if (!params.get("fileContacts")) {
@@ -182,7 +186,9 @@ class ContactsController {
             return
         }
         File csv = File.createTempFile(uploadedFile.originalFilename, ".csv");
+        log.info("Creating temporal file ${csv.absoluteFile}")
         uploadedFile.transferTo(csv)
+        log.info("Saved data into temporal file ${csv.absoluteFile}")
 //        InputStream data = uploadedFile.inputStream
 //        byte[] buffer = new byte[data.available()];
 //        data.read(buffer)
@@ -209,18 +215,23 @@ class ContactsController {
 
         List<String> columnOption = params.columnOption
 
-        def namePos = columnOption.findIndexOf{it=="name"}
-        def emailPos = columnOption.findIndexOf{it=="email"}
-        def tagsPos = columnOption.findIndexValues{it=="tag"}
+        Integer namePos = columnOption.findIndexOf{it=="name"}
+        Integer emailPos = columnOption.findIndexOf{it=="email"}
+        List<Number> tagsPos = columnOption.findIndexValues{it=="tag"}
         def tags = params.tags?.split(",")?:[]
         Integer notImport = ((params.notImport?:[]) as List).collect{Integer.parseInt(it)}.max()?:0
+
+        List<String> realPos = params.realPos
+        namePos = namePos<0 || namePos > realPos.size()?namePos:Integer.parseInt(realPos[namePos])
+        emailPos = emailPos<0 || emailPos > realPos.size()?emailPos:Integer.parseInt(realPos[emailPos])
+        tagsPos = tagsPos?.collect{Integer.parseInt(realPos[it.intValue()])}?:[]
 
         if (namePos == -1 || emailPos == -1){
 
             flash.error=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
             try{
-                def model = modelImportCSVContacts()
+                def model = modelImportCSVContacts(emailPos, namePos)
                 render(view: 'importCSVContacts', model: model)
                 return;
             }catch (Exception e){
@@ -233,6 +244,7 @@ class ContactsController {
 
 
         File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+        log.info("Recovered temporal file ${csv.absoluteFile}")
         ObjectId loggedUserId = springSecurityService.principal.id
 
         asyncUploadContacts(loggedUserId, csv,notImport, namePos, emailPos, tagsPos, tags as List)
@@ -243,9 +255,27 @@ class ContactsController {
 //        render contacts as JSON
     }
 
+    private static final def EMAIL_PATTERN =/^[_A-Za-z0-9\\.]+[\+_A-Za-z0-9]*@[A-Za-z0-9-]+\.[A-Za-z]{2,}$/
+    private Integer detectEmailPosition(final File csv){
+        Iterator lines = parseCsvFile(csv)
+        Integer emailPos = null;
+        while (lines.hasNext() && !emailPos){
+            def line = lines.next();
+            Integer i = 0;
+            line.values.each{ val ->
+                if (val =~ EMAIL_PATTERN){
+                    emailPos = i;
+                }
+                i++;
+            }
+        }
+        emailPos
+    }
+
     private void asyncUploadContacts(final ObjectId loggedUserId, final File csv, final Integer notImport, final Integer namePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
         Promise p = grails.async.Promises.task {
             try{
+                log.info("Importing ${csv.absoluteFile}")
                 Iterator lines = parseCsvFile(csv)
                 KuorumUser loggedUser = KuorumUser.get(loggedUserId)
                 def contacts =[]
@@ -278,7 +308,9 @@ class ContactsController {
                 }
 
                 contactService.addBulkContacts(loggedUser,contacts);
+                log.info("Finisehd ${csv.absoluteFile}")
                 csv.delete();
+                return "SUCCESS";
             }catch (Exception e){
                 log.error("Captured exception importing contacts: ${e.message}", e);
             }
@@ -289,11 +321,16 @@ class ContactsController {
         p.onComplete { result ->
             log.info("Imported contacts has sent: $result");
         }
-        p
+        try{
+            p.get(1, TimeUnit.MICROSECONDS)
+        }catch (Throwable e){
+            log.warn("Me la pela esta exception")
+        }
     }
 
-    private Map modelImportCSVContacts(){
+    private Map modelImportCSVContacts(Integer emailPos = -1, Integer namePos = -1){
         File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+        log.info("Calculating uploaded name: "+csv)
         String fileName = (csv.name =~/(.*)([0-9]{19}\..*$)/)[0][1]
         def lines = parseCsvFile(csv)
         def line = lines.next()
@@ -310,11 +347,16 @@ class ContactsController {
                 line = null;
             }
         }
+        if (emailPos == null || emailPos < 0){
+            emailPos = detectEmailPosition(csv);
+        }
         lines = parseCsvFile(csv)
         [
                 fileName:fileName,
                 lines: lines,
-                emptyColumns:emptyColumns
+                emptyColumns:emptyColumns,
+                emailPos:emailPos,
+                namePos:namePos
         ]
     }
 
