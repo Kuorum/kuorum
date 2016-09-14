@@ -910,7 +910,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.import-contacts, .box-ppal.dashboard {padding: 25px 25px 10px 25px;}
 .breadcrumb + .box-ppal.import-contacts, .breadcrumb + .box-ppal.dashboard {margin-top: 0;}
 .breadcrumb + .box-ppal.import-contacts {padding-bottom: 0; margin-bottom:20px}
-.box-ppal.5062 .bootstrap-filestyle {margin-bottom: 20px;}
+.box-ppal .bootstrap-filestyle {margin-bottom: 20px;}
 .box-ppal.import-contacts > p,
 .box-ppal.dashboard > p {color: #a8a8a8; text-align: center; font-size: 17px; font-size: 1.7rem; max-width: 800px; margin: 0 auto 20px;}
 .box-ppal.import-contacts > p a {color: #20a2ea;}
