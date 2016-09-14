@@ -557,8 +557,13 @@ $(document).ready(function() {
     // abrir modal confirmar envío campaña
     $('body').on('click','.form-final-options #send', function(e) {
         e.preventDefault();
+        if (isValidCampaignForm()){
+            $("#sendMassMailingType").val("SEND");
+            prepareAndOpenCampaignConfirmModal();
+        }
+    });
 
-        // Manual validation:
+    function isValidCampaignForm(){
         var valid = $("#politicianMassMailingForm").valid();
         if ($("input[name=headerPictureId]").val() == ""){
             $("fieldset.header-campaign").append('<span id="headerPictureErrorSpan" class="error"><span class="tooltip-arrow"></span>Define una imagen para que te quede un email bonito</span>');
@@ -573,18 +578,16 @@ $(document).ready(function() {
         }else{
             $("#campatingTextErrorSpan").fadeOut()
         }
-
-        if (valid){
-            $("#sendMassMailingType").val("SEND");
-            prepareAndOpenCampaignConfirmModal();
-        }
-    });
+        return valid;
+    }
 
     // abrir modal confirmar envío campaña programada
     $('body').on('click','.form-final-options #sendLater', function(e) {
         e.preventDefault();
-        $("#sendMassMailingType").val("SCHEDULED");
-        prepareAndOpenCampaignConfirmModal();
+        if (isValidCampaignForm()){
+            $("#sendMassMailingType").val("SCHEDULED");
+            prepareAndOpenCampaignConfirmModal();
+        }
     });
     // cerrar modal confirmar envío campaña
     $('body').on('click','#campaignConfirm #saveCampaignBtn', function() {
