@@ -28,7 +28,7 @@
         <div class="row">
             <article class="col-md-5">
                 <h1><g:message code="tools.contact.import.csv.export.gmail"/> </h1>
-                <iframe src="https://www.youtube.com/embed/H-17hUKyAQE" frameborder="0" allowfullscreen class="youtube"></iframe>
+                <iframe src="https://www.youtube.com/embed/f4blDbENBlI" frameborder="0" allowfullscreen class="youtube"></iframe>
             </article>
             <article class="col-md-5 col-md-offset-2">
                 <h1><g:message code="tools.contact.import.csv.export.outlook"/></h1>
