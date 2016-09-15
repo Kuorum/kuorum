@@ -348,10 +348,11 @@ class KuorumUserTagLib {
 
 
     Set<String> kaunasAlias = ['dariusrazmislev', 'rimantasmikaiti','rasasnapstiene','onabalzekiene']
+    Set<String> palermoAlias = ['antomonastra', 'toninorusso','totorlando','fabrizioferrara','ferrandelli']
     Set<String> manheimAlias = []
     Set<String> alcobendasAlias = ['marintegracion', 'luismi1980','mjortiz','agustin_martin', 'palomacanos']
 
-    Set<String> weceAlias = kaunasAlias + manheimAlias + alcobendasAlias
+    Set<String> weceAlias = kaunasAlias + manheimAlias + alcobendasAlias + palermoAlias
     def isWeceUser= { attrs, body ->
         KuorumUser user = springSecurityService.currentUser
         if (weceAlias.contains(user.alias)){
