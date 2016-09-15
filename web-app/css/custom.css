@@ -3849,7 +3849,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .politician-list .box-ppal > small .fa {opacity: .5;}
 .politician-list .box-ppal {padding: 0; margin: 0 0 20px 0;}
 .politician-list .box-ppal .link-wrapper {padding-bottom: 10px;}
-.politician-list .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0; line-height: 18px;}
+.politician-list .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0;}
 .politician-list .box-ppal > .pull-right {width: 42%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; text-align: right;}
 .politician-list .box-ppal .card-footer{
     position: absolute;
@@ -5078,7 +5078,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* CAMPAIGNS */
     .header-campaign .qq-upload-drop-area {
-        background: url('../images/fileUpload.png') center 32% no-repeat transparent;
+        background: url('../images/fileUpload.png') center 50% no-repeat transparent;
         background-size: 50px auto;
         height: 102px;
         background-position: center 12%;
@@ -5739,7 +5739,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #detailsInfoVotes.autor .icons.subject li {margin: 0 18px 10px 0;}
     #detailsInfoVotes .icons {margin: 0;}
 
-    .navbar-brand {width: 170px; height: 48px; margin-top: -4px; margin-bottom: 0;}
+    .navbar-brand {width: 170px; height: 48px; margin-top: -4px; margin-bottom: 10px;}
     .btn.search {line-height: 0.7;}
     .navbar-form {width: 340px; margin: 5px 4px 4px 12%;}
 
