@@ -563,6 +563,36 @@ $(document).ready(function() {
         }
     });
 
+    $('body').on('click','#sendTestModalButonOk', function(e) {
+        e.preventDefault();
+        $("#sendTestModal").modal("hide")
+    })
+    $('body').on('click','#sendTest', function(e) {
+        e.preventDefault();
+        if (isValidCampaignForm()){
+            pageLoadingOn();
+            var link = $(this).attr("href");
+            $("#sendMassMailingType").val("SEND_TEST");
+            var postData= $("#politicianMassMailingForm").serialize();
+            console.log(link)
+            console.log(postData)
+            $.post( link, postData)
+                .done(function(data) {
+                    $("#sendTestModal").modal("show")
+                    if ($("#politicianMassMailingForm input[name=campaignId]").length <=0){
+                        $("#politicianMassMailingForm").append("<input name='campaignId' type='hidden'/>")
+                    }
+                    $("#politicianMassMailingForm input[name=campaignId]").val(data.campaing.id)
+                })
+                .fail(function(messageError) {
+                    display.warn("Error");
+                })
+                .always(function() {
+                    pageLoadingOff();
+                });
+        }
+    });
+
     function isValidCampaignForm(){
         var valid = $("#politicianMassMailingForm").valid();
         if ($("input[name=headerPictureId]").val() == ""){
@@ -1482,6 +1512,9 @@ function FilterContacts() {
             that.changeFilterValue(0)
         }
     };
+    this.getFilterSelectedAmountOfContacts= function(){
+        return $('select#recipients option:selected').attr("data-amountContacts");
+    };
     this.loadSelectRecipientStatus = function(){
         var filterIdBeforeCloseOptions =that.getFilterId();
         that.closeFilterCampaignsOptions();
@@ -1490,7 +1523,7 @@ function FilterContacts() {
             console.log("-2 filter selected")
             that.openFilterCampaignsOptions();
         }
-        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
+        var amountContacts = that.getFilterSelectedAmountOfContacts();
         that.updateAmountContacts(amountContacts)
         that[callBackBehaviour].changeSelectRecipients();
 
@@ -1533,17 +1566,22 @@ function FilterContacts() {
     }
 
     this.newsletterCallBacks = {
+        init:function(){
+            that.newsletterCallBacks.changeSelectRecipients();
+        },
         changeSelectRecipients:function(){
-            if (that.getFilterId()==-1) {
-                //Test filter
+            var amountContacts = that.getFilterSelectedAmountOfContacts();
+            if (amountContacts<=0 || that.getFilterId() < 0) {
                 $("#openCalendar").addClass("disabled");
+                $("#send").addClass("disabled");
             }else{
                 $("#openCalendar").removeClass("disabled");
+                $("#send").removeClass("disabled");
             }
         },
         campaignFilterRefresh:function(data){
             //console.log(data)
-            display.success(data.msg)
+            //display.success(data.msg)
         },
         campaignFilterSave:function(data){
             that.closeFilterCampaignsOptions();
@@ -1566,8 +1604,14 @@ function FilterContacts() {
         }
     };
 
+    this.init=function(){
+        this[callBackBehaviour].init()
+    }
 
     this.searchContactsCallBacks = {
+        init:function(){
+
+        },
         changeSelectRecipients:function(data){
             if ($('select#recipients').val()!=-2) {
                 that.searchContactsCallBacks.resetPage();
@@ -1637,7 +1681,7 @@ function FilterContacts() {
             $("input[name=page]").val(0)
         }
     };
-
+    this.init();
 };
 
 var filterContacts = new FilterContacts()

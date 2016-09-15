@@ -7,18 +7,18 @@
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
         <div class="col-sm-4 col-md-3">
             <select name="filterId" class="form-control input-lg" id="recipients">
-                <g:if test="${totalContacts}">
-                    <option value="0" data-amountContacts="${totalContacts}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
-                </g:if>
+                %{--<g:if test="${totalContacts}">--}%
+                    <option value="0" data-amountContacts="${totalContacts?:0}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
+                %{--</g:if>--}%
                 <g:each in="${filters}" var="filter">
                     <option value="${filter.id}" ${command.filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
                 </g:each>
-                <g:if test="${totalContacts}">
+                %{--<g:if test="${totalContacts}">--}%
                     <option value="-2" data-amountContacts="-"><g:message code="tools.massMailing.fields.filter.to.createNew"/></option>
-                </g:if>
+                %{--</g:if>--}%
             </select>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-4">
             <a href="#" role="buttom" id="filterContacts">
                 <span class="fa fa-filter fa-lg"></span>
                 <span class="sr-only"><g:message code="tools.massMailing.fields.filter.button"/></span>
@@ -26,6 +26,9 @@
             <span id="infoToContacts">
                 <span class="amountRecipients"></span> <g:message code="tools.massMailing.fields.filter.recipients"/> <span class="fa fa-filter fa-lg"></span>
             </span>
+            <g:link mapping="politicianMassMailingSendTest" absolute="true" class="btn ${hightLigthTestButtons?'btn-blue':'btn-irrelevant'} pull-right" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">
+                <span class="fa fa-paper-plane-o"></span>
+            </g:link>
         </div>
     </fieldset>
     <div id="newFilterContainer">
@@ -76,9 +79,9 @@
                         %{--<form>--}%
                             <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
                             <formUtil:date field="scheduled" command="${command}" cssClass="form-control" time="true"/>
-                            <button type="submit" class="btn btn-blue inverted" id="sendLater">
+                            <a href="#" class="btn btn-blue inverted" id="sendLater">
                                 <g:message code="tools.massMailing.schedule.sendLater"/>
-                            </button>
+                            </a>
                         %{--</form>--}%
                     </div>
                 </li>
@@ -103,6 +106,28 @@
             <div class="modal-body">
                 <a href="#" class="btn btn-blue inverted btn-lg" id="saveCampaignBtn">
                     <g:message code="tools.massMailing.confirmationModal.button"/>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL TEST ADVISE -->
+<div class="modal fade in" id="sendTestModal" tabindex="-1" role="dialog" aria-labelledby="sendTestModalTitle" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                </button>
+                <h4 id="sendTestModalTitle">
+                    <g:message code="tools.massMailing.sendTestModal.title"/>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p><g:message code="tools.massMailing.sendTestModal.text"/></p>
+                <a href="#" class="btn btn-blue inverted btn-lg" id="sendTestModalButonOk">
+                    <g:message code="tools.massMailing.sendTestModal.button"/>
                 </a>
             </div>
         </div>

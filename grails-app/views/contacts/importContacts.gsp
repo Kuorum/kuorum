@@ -32,7 +32,7 @@
             </article>
             <article class="col-md-5 col-md-offset-2">
                 <h1><g:message code="tools.contact.import.csv.export.outlook"/></h1>
-                <iframe src="https://www.youtube.com/embed/ElQEINBkyTI" frameborder="0" allowfullscreen class="youtube"></iframe>
+                <iframe src="https://www.youtube.com/embed/tXOLwlwQoo8" frameborder="0" allowfullscreen class="youtube"></iframe>
             </article>
         </div>
     </div>

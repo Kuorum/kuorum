@@ -335,6 +335,7 @@ class UrlMappings {
         name politicianMassMailing:                     "/account/mass-mailing" (controller:"massMailing", action: "index")
         name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing",POST:'saveMassMailing']}
         name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"showCampaign",POST:'updateCampaign']}
+        name politicianMassMailingSendTest:             "/account/mass-mailing/test" (controller:"massMailing", action: "sendMassMailingTest")
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"massMailing", action:"removeCampaign")
         name politicianMassMailingTrackEvents:          "/ajax/account/mass-mailing/$campaignId/trackEvents" (controller:"massMailing", action: "showTrackingMails")
         name politicianMassMailingHtml:                 "/account/mass-mailing/$campaignId/html" (controller:"massMailing", action: "showMailCampaign")

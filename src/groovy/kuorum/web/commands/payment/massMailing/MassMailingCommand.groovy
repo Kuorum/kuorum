@@ -36,6 +36,6 @@ class MassMailingCommand {
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error"
             }
         }
-        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND"]
+        sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST"]
     }
 }
