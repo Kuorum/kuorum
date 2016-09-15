@@ -88,6 +88,7 @@ class CausesService {
                 RestKuorumApiService.ApiMethod.USER_CAUSES_DEFEND,
                 [userId:user.id.toString(), causeName:causeName],
                 [:],
+                null,
                 new TypeReference<SupportedCauseRSDTO>(){})
         SupportedCauseRSDTO cause = null;
         if (response.data){
