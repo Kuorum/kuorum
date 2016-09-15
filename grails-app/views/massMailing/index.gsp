@@ -16,7 +16,7 @@
 
     <g:if test="${campaigns}">
         <div id="listCampaigns">
-            <g:render template="searchCampaigns" model="[campaigns:campaigns, user:user]"/>
+            <g:render template="searchCampaigns" model="[campaigns:campaigns, projects:projects, user:user]"/>
         </div>
     </g:if>
     <g:else>

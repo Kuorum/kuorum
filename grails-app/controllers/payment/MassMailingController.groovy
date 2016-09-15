@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.files.FileService
+import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
@@ -33,9 +34,11 @@ class MassMailingController {
 
     def index(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
-        [campaigns:campaigns, user:user]
+        List campaigns = massMailingService.findCampaigns(user)
+        List<Project> projects = Project.findAllByOwner(user)
+        [campaigns:campaigns,projects:projects, user:user]
     }
+
 
     def createMassMailing(){
         KuorumUser loggedUser = springSecurityService.currentUser

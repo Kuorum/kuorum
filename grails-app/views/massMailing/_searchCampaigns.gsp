@@ -55,6 +55,9 @@
         <g:each in="${campaigns}" var="campaign" status="i">
             <g:render template="liCampaign" model="[campaign:campaign, user:user, idx:i]"/>
         </g:each>
+        <g:each in="${projects}" var="project" status="i">
+            <g:render template="liCampaignProject" model="[project:project, user:user, idx:project.id]"/>
+        </g:each>
     </ul>
     <!-- MODAL CONFIRM -->
     <div class="modal fade in" id="campaignDeleteConfirm" tabindex="-1" role="dialog" aria-labelledby="campaignDeleteTitle" aria-hidden="true">
