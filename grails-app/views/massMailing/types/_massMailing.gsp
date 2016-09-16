@@ -24,7 +24,9 @@
                 <span class="sr-only"><g:message code="tools.massMailing.fields.filter.button"/></span>
             </a>
             <span id="infoToContacts">
-                <span class="amountRecipients"></span> <g:message code="tools.massMailing.fields.filter.recipients"/> <span class="fa fa-filter fa-lg"></span>
+                <span class="amountRecipients"></span>
+                <g:message code="tools.massMailing.fields.filter.recipients"/>
+                %{--<span class="fa fa-filter fa-lg"></span>--}%
             </span>
             <g:link mapping="politicianMassMailingSendTest" absolute="true" class="btn ${hightLigthTestButtons?'btn-blue':'btn-irrelevant'} pull-right" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">
                 <span class="fa fa-eye"></span>
