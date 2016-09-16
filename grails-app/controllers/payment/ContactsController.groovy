@@ -238,6 +238,7 @@ class ContactsController {
                 log.error("Error uploading CSV file",e)
                 flash.error = g.message(code:'tools.contact.import.csv.error.emptyFile')
                 render(view: 'importContacts')
+                return;
             }
 
         }
@@ -273,7 +274,7 @@ class ContactsController {
     }
 
     private void asyncUploadContacts(final ObjectId loggedUserId, final File csv, final Integer notImport, final Integer namePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
-        Promise p = grails.async.Promises.task {
+//        Promise p = grails.async.Promises.task {
             try{
                 log.info("Importing ${csv.absoluteFile}")
                 Iterator lines = parseCsvFile(csv)
@@ -310,22 +311,22 @@ class ContactsController {
                 contactService.addBulkContacts(loggedUser,contacts);
                 log.info("Finisehd ${csv.absoluteFile}")
                 csv.delete();
-                return "SUCCESS";
+//                return "SUCCESS";
             }catch (Exception e){
                 log.error("Captured exception importing contacts: ${e.message}", e);
             }
-        }
-        p.onError { Throwable err ->
-            log.error("An error occured importing contacts: ${err.message}", err);
-        }
-        p.onComplete { result ->
-            log.info("Imported contacts has sent: $result");
-        }
-        try{
-            p.get(1, TimeUnit.MICROSECONDS)
-        }catch (Throwable e){
-            log.warn("Me la pela esta exception")
-        }
+//        }
+//        p.onError { Throwable err ->
+//            log.error("An error occured importing contacts: ${err.message}", err);
+//        }
+//        p.onComplete { result ->
+//            log.info("Imported contacts has sent: $result");
+//        }
+//        try{
+//            p.get(1, TimeUnit.MICROSECONDS)
+//        }catch (Throwable e){
+//            log.warn("Me la pela esta exception")
+//        }
     }
 
     private Map modelImportCSVContacts(Integer emailPos = -1, Integer namePos = -1){
