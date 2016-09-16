@@ -215,8 +215,8 @@ class KuorumUser {
             this.personalData = new PersonalData()
         }
         personalData.userType = userType
-        if ((UserType.POLITICIAN.equals(userType) || UserType.CANDIDATE.equals(userType)) && politicianLeaning?.liberalIndex==null){
-            politicianLeaning.liberalIndex = 50
+        if (politicianLeaning?.liberalIndex==null){
+            politicianLeaning = new PoliticianLeaning(liberalIndex: 50)
         }
         if (politicianLeaning?.liberalIndex){
             politicianLeaning?.liberalIndex = Math.min(100, politicianLeaning.liberalIndex) // MAX 100
