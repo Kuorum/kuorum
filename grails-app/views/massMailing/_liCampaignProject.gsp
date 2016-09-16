@@ -25,11 +25,11 @@
 
         </li>
         <li class="open">
-            <span class='open-number'><g:formatNumber number="${project.peopleVotes?.total?(project.peopleVotes?.yes?:0/project.peopleVotes.total)*100:0}" type="number"/></span>
+            <span class='open-number'><g:formatNumber number="${project.peopleVotes?.total?(((project.peopleVotes?.yes?:0)/project.peopleVotes.total)*100):0}" type="number" maxFractionDigits="0"/></span>
             <g:message code="project.stats.columnC.vote.yes"/>
         </li>
         <li class="click">
-            <span class='click-number'><g:formatNumber number="${project.peopleVotes?.total?(project.peopleVotes?.no?:0/project.peopleVotes.total)*100:0}" type="number"/></span>
+            <span class='click-number'><g:formatNumber number="${project.peopleVotes?.total?(((project.peopleVotes?.no?:0)/project.peopleVotes.total)*100):0}" type="number" maxFractionDigits="0"/></span>
             <g:message code="project.stats.columnC.vote.no"/>
         </li>
     </ul>

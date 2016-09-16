@@ -559,21 +559,6 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     color: #fff !important;
 }
 
-
-.btn.btn-irrelevant {
-    background-color: transparent !important;
-    color:#a8a8a8 !important;
-    boreder:none !important;
-    font-family: 'Georgia', 'Times New Roman', Times, serif !important;
-    font-size: 1.4rem;
-}
-.btn.btn-irrelevant:hover,
-.btn.btn-irrelevant:active,
-.btn.btn-irrelevant:focus {
-    text-decoration: underline !important;
-    box-shadow: 0 0 !important;
-}
-
 .btn.inverted {
     background-color: #fff !important;
     border: 1px solid #ff9431 ;

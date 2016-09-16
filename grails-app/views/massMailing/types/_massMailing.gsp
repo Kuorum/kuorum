@@ -1,7 +1,7 @@
 <r:require modules="datepicker" />
 <h1 class="sr-only">Newsletter</h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
-<form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST">
+<form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
     <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
     <fieldset class="form-group" id="toFilters">
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
@@ -28,8 +28,8 @@
                 <g:message code="tools.massMailing.fields.filter.recipients"/>
                 %{--<span class="fa fa-filter fa-lg"></span>--}%
             </span>
-            <g:link mapping="politicianMassMailingSendTest" absolute="true" class="btn ${hightLigthTestButtons?'btn-blue':'btn-irrelevant'} pull-right" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">
-                <span class="fa fa-eye"></span>
+            <g:link mapping="politicianMassMailingSendTest" absolute="true" class="btn ${hightLigthTestButtons?'btn-blue':'btn-grey'} pull-right" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">
+                <span class="fa fa-envelope"></span>
             </g:link>
         </div>
     </fieldset>
