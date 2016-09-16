@@ -17,7 +17,8 @@ class MassMailingService {
 
 
     CampaignRSDTO campaignSend(KuorumUser user, CampaignRQDTO campaignRQDTO, Long campaignId = null){
-        campaignSchedule(user, campaignRQDTO, convertToUserTimeZone(new Date(), user.timeZone), campaignId)
+        campaignRQDTO.sentOn = new Date();
+        sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 
     private Date convertToUserTimeZone(Date date, TimeZone userTimeZone){
@@ -34,6 +35,10 @@ class MassMailingService {
 
     CampaignRSDTO campaignSchedule(KuorumUser user, CampaignRQDTO campaignRQDTO, Date date, Long campaignId = null){
         campaignRQDTO.sentOn = convertToUserTimeZone(date, user.timeZone)
+        sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
+    }
+
+    private CampaignRSDTO sendScheduledCampaignWithoutDateModifications(KuorumUser user, CampaignRQDTO campaignRQDTO, Long campaignId = null){
         Map<String, String> params = [userAlias:user.id.toString()]
         Map<String, String> query = [:]
         RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS
@@ -56,7 +61,7 @@ class MassMailingService {
     }
 
     CampaignRSDTO campaignDraft(KuorumUser user, CampaignRQDTO campaignRQDTO, Long campaignId = null){
-        return campaignSchedule(user, campaignRQDTO, null, campaignId)
+        sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 
     CampaignRSDTO campaignTest(KuorumUser user, Long campaignId){
