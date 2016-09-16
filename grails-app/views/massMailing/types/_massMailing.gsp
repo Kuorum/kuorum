@@ -3,6 +3,7 @@
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
 <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
     <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
+    <input type="hidden" name="campaignId" value="${campaignId?:''}"/>
     <fieldset class="form-group" id="toFilters">
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
         <div class="col-sm-4 col-md-3">

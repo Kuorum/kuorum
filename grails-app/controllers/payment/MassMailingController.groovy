@@ -80,7 +80,9 @@ class MassMailingController {
             command.subject = campaignRSDTO.subject
             command.text = campaignRSDTO.body
 
-            render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, false)
+            def model = modelMassMailing(loggedUser, command, false);
+            model.put("campaignId", campaignId)
+            render view: 'createMassMailing', model: model
         }else{
             TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId)
             render view: 'showCampaign', model: [campaign: campaignRSDTO, trackingPage:trackingPage]
