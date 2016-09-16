@@ -608,6 +608,10 @@ $(document).ready(function() {
         }else{
             $("#campatingTextErrorSpan").fadeOut()
         }
+        if (!valid){
+            var msg = $("#politicianMassMailingForm").attr("data-generalErrorMessage")
+            display.warn(msg)
+        }
         return valid;
     }
 
