@@ -44,8 +44,8 @@
                         <span id="infoToContacts">
                             <span class="amountRecipients">${contacts.total}</span>
                             <g:message code="tools.massMailing.fields.filter.recipients"/>
-                            <span class="fa fa-filter fa-lg"></span>
-                            <span class="fa fa-search fa-lg"></span>
+                            %{--<span class="fa fa-filter fa-lg"></span>--}%
+                            %{--<span class="fa fa-search fa-lg"></span>--}%
                         </span>
                     </div>
                     <div class="col-sm-3 col-md-2 col-lg-3">
