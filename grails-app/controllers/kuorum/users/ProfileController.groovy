@@ -219,7 +219,7 @@ class ProfileController {
             personalData.gender = Gender.ORGANIZATION
         }else{
             personalData = new PersonData(user.personalData?.properties)
-            if (user.userType==UserType.POLITICIAN || user.userType.CANDIDATE){
+            if (user.userType==UserType.POLITICIAN || user.userType==user.userType.CANDIDATE){
                 if (!user.professionalDetails){
                     user.professionalDetails = new ProfessionalDetails()
                 }

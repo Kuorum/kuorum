@@ -110,7 +110,7 @@ class DashboardController {
 
     //FAST CHAPU - Evaluating empty data
     def emptyEditableData(KuorumUser user){
-//        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
+        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
             List<CauseRSDTO> causes = causesService.findDefendedCauses(user);
 
             List fields = [
@@ -141,12 +141,19 @@ class DashboardController {
                     percentage: (1 - emptyFields/totalFields)*100,
                     fields:fields
             ]
-//        }else{
-//            return [
-//                    percentage: 100,
-//                    fields:[]
-//            ]
-//        }
+        }else{
+            List fields = [
+                    [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
+                    [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["position", "politicalParty", "politicalLeaningIndex"].contains(it.key)}.size()],
+                    [urlMapping: 'profileSocialNetworks', total:4],
+            ]
+            Integer totalFields = 8+7+4; // FAST CHAPU
+            Integer emptyFields= fields.sum{it.total}
+            return [
+                    percentage: (1 - emptyFields/totalFields)*100,
+                    fields:fields
+            ]
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
