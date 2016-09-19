@@ -15,9 +15,11 @@ import kuorum.users.KuorumUserService
 import kuorum.users.PoliticianService
 import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.customRegister.SubscriptionStep1Command
+import kuorum.web.commands.payment.contact.promotionalCode.PromotionalCodeCommand
 import kuorum.web.commands.profile.PersonalDataCommand
 import kuorum.web.commands.profile.UserRegionCommand
 import org.springframework.web.servlet.LocaleResolver
+import payment.contact.PromotionalCodeService
 
 class CustomRegisterController {
 
@@ -29,6 +31,7 @@ class CustomRegisterController {
     RegisterService registerService
     OfferService offerService
     PoliticianService politicianService
+    PromotionalCodeService promotionalCodeService
 
     def afterInterceptor = {}
 
@@ -132,7 +135,25 @@ class CustomRegisterController {
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def step3(){
         KuorumUser user = springSecurityService.currentUser
-        [user:user]
+        [user:user, command: new PromotionalCodeCommand()]
+    }
+
+    def step3Save(PromotionalCodeCommand command){
+        if(!command.promotionalCode){
+            redirect(mapping:"dashboard")
+            return;
+        }else{
+            if (command.hasErrors()){
+                KuorumUser user = springSecurityService.currentUser
+                promotionalCodeService.setPromotionalCode(user, command.promotionalCode)
+                render view: "step3", model:[user:user, command: command]
+            }else{
+                KuorumUser user = springSecurityService.currentUser
+                promotionalCodeService.setPromotionalCode(user, command.promotionalCode)
+                flash.message="Your promotional code has been saved"
+                redirect(mapping:"dashboard")
+            }
+        }
     }
 
     def subscriptionStep1(){
