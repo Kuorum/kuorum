@@ -11,7 +11,7 @@
     </g:if>
     <g:else>
         <p>
-            <g:message code="dashboard.payment.newCampaign.lastCampaignSent" args="[durationDays, '#']" encodeAs="raw"/>
+            <g:message code="dashboard.payment.newCampaign.lastCampaignSent" args="[durationDays, g.createLink(mapping: 'blog')]" encodeAs="raw"/>
             <br/>
             <g:link mapping="politicianMassMailingNew" class="btn btn-lg inverted" role="button">
                 <g:message code="dashboard.payment.newCampaign.sentNew"/>
