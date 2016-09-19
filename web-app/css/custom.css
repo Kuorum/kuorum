@@ -5893,7 +5893,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* CAMPAIGNS */
     .form-final-options {margin-top: 280px;}
     .form-final-options > li:first-child {display: block; margin-bottom: 10px;}
-    .header-campaign .qq-upload-drop-area {background-size: 84px auto; background-position: center 14%;}
+    .header-campaign .qq-upload-drop-area {background-size: 155px auto; background-position: center 14%;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
     #tabs-new-campaign .textareaContainer + div {text-align: left;}
     .form-final-options .btn.btn-blue.inverted {margin-bottom: 0;}
