@@ -317,6 +317,10 @@ function pageLoadingOff (){
 }
 $(document).ready(function() {
 
+    // DISABLED NAV TABS
+    $(".nav-tabs > li.disabled > a, .nav-tabs > li.disabled").on("click", function(e){e.stopPropagation();return false;})
+
+
     //importar contacts add tag
     $('body').on('click','.addTagBtn', function(e) {
         e.preventDefault();

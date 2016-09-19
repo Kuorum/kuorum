@@ -21,10 +21,10 @@
     </ol>
     <div class="box-ppal">
         <ul class="nav nav-tabs simple" data-tabs="tabs">
-            <li role="presentation"><g:link mapping="politicianMassMailingNew"><g:message code="tools.campaign.type.massMailing"/></g:link></li>
+            <li role="presentation" class="disabled"><g:link mapping="politicianMassMailingNew"><g:message code="tools.campaign.type.massMailing"/></g:link></li>
             <li role="presentation" class="active"><a href="#debate" data-toggle="tab"><g:message code="tools.campaign.type.debate"/></a></li>
-            <li role="presentation"><a href="#petition" data-toggle="tab"><g:message code="tools.campaign.type.petition"/></a></li>
-            <li role="presentation"><a href="#survey" data-toggle="tab"><g:message code="tools.campaign.type.survey"/></a></li>
+            <li role="presentation" class="disabled"><a href="#petition" data-toggle="tab"><g:message code="tools.campaign.type.petition"/></a></li>
+            <li role="presentation" class="disabled"><a href="#survey" data-toggle="tab"><g:message code="tools.campaign.type.survey"/></a></li>
         </ul>
         <div id="tabs-new-campaign" class="tab-content">
             <div class="tab-pane" id="newsletter">

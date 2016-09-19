@@ -1091,6 +1091,14 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     background-color: transparent;
     color: #20a2ea;
 }
+
+.nav-tabs > li.disabled {}
+.nav-tabs > li.disabled > a {cursor: default ! important}
+.nav-tabs > li.disabled > a {cursor: default ! important}
+.nav-tabs > li.disabled > a:hover,
+.nav-tabs > li.disabled > a:active,
+.nav-tabs > li.disabled > a:focus {color: #a8a8a8 !important;}
+
 .header-campaign .qq-upload-drop-area {
     background: none;
     padding: 5px 0 0;
