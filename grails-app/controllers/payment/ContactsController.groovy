@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit
 class ContactsController {
 
     private static final String CONTACT_CSV_UPLOADED_SESSION_KEY="CONTACT_CSV_UPLOADED_SESSION_KEY"
+    private static final String CONTACT_CSV_UPLOADED_EXTENSION=".csv"
 
     ContactService contactService;
     SpringSecurityService springSecurityService
@@ -185,7 +186,12 @@ class ContactsController {
             render(view: 'importContacts')
             return
         }
-        File csv = File.createTempFile(uploadedFile.originalFilename, ".csv");
+        if (!uploadedFile.originalFilename.endsWith(CONTACT_CSV_UPLOADED_EXTENSION)){
+            flash.error = g.message(code:'tools.contact.import.csv.error.wrongExtension', args: [CONTACT_CSV_UPLOADED_EXTENSION])
+            render(view: 'importContacts')
+            return
+        }
+        File csv = File.createTempFile(uploadedFile.originalFilename, CONTACT_CSV_UPLOADED_EXTENSION);
         log.info("Creating temporal file ${csv.absoluteFile}")
         uploadedFile.transferTo(csv)
         log.info("Saved data into temporal file ${csv.absoluteFile}")
@@ -332,7 +338,8 @@ class ContactsController {
     private Map modelImportCSVContacts(Integer emailPos = -1, Integer namePos = -1){
         File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         log.info("Calculating uploaded name: "+csv)
-        String fileName = (csv.name =~/(.*)([0-9]{19}\..*$)/)[0][1]
+        String fileNamePattern = "(.*[a-zA-Z])([0-9]{18,}${CONTACT_CSV_UPLOADED_EXTENSION})\$"
+        String fileName = (csv.name =~/${fileNamePattern}/)[0][1]
         def lines = parseCsvFile(csv)
         def line = lines.next()
         Set<Integer> emptyColumns= (0..line.values.length) as Set;
