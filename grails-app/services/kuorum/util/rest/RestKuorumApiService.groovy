@@ -62,6 +62,9 @@ class RestKuorumApiService {
         CAUSE_USERS_SUPPORTING  ("/cause/{causeName}/supporting"),
         CAUSE_SUGGESTIONS       ("/cause/suggest"),
 
+        PROMOTIONAL_CODES       ("/promotions/{promotionCode}/"),
+        PROMOTIONAL_CODE_ADD    ("/promotions/{promotionCode}/{userId}"),
+
         REGION_GET      ("/geolocation/get"),
         REGION_SUGGEST  ("/geolocation/suggest"),
         REGION_FIND     ("/geolocation/find"),

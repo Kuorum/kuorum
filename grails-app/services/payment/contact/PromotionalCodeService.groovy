@@ -16,13 +16,32 @@ class PromotionalCodeService {
 
     RestKuorumApiService restKuorumApiService;
 
-    private Set<String> promotionalCodes = ["deusto", "wece"] as Set
-
     boolean checkPromotionalCode(String promotionalCode){
-        return promotionalCodes.contains(promotionalCode)
+        Map<String, String> params = [ promotionCode:promotionalCode]
+        Map<String, String> query = [:]
+
+        try{
+            def response= restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.PROMOTIONAL_CODES,
+                    params,
+                    query,
+                    null)
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
     }
 
     def setPromotionalCode(KuorumUser user, String promotionalCode){
-        // NOT DONE
+        Map<String, String> params = [userId:user.id.toString(), promotionCode:promotionalCode]
+        Map<String, String> query = [:]
+
+        def response= restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.PROMOTIONAL_CODE_ADD,
+                params,
+                query,
+                null,
+                null)
     }
 }

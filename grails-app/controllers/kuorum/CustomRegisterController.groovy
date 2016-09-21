@@ -145,7 +145,6 @@ class CustomRegisterController {
         }else{
             if (command.hasErrors()){
                 KuorumUser user = springSecurityService.currentUser
-                promotionalCodeService.setPromotionalCode(user, command.promotionalCode)
                 render view: "step3", model:[user:user, command: command]
             }else{
                 KuorumUser user = springSecurityService.currentUser
