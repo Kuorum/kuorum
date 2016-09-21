@@ -338,7 +338,7 @@ class ContactsController {
     private Map modelImportCSVContacts(Integer emailPos = -1, Integer namePos = -1){
         File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         log.info("Calculating uploaded name: "+csv)
-        String fileNamePattern = "(.*[a-zA-Z])([0-9]{18,}${CONTACT_CSV_UPLOADED_EXTENSION})\$"
+        String fileNamePattern = "(.*[a-zA-Z])([0-9]+${CONTACT_CSV_UPLOADED_EXTENSION})\$"
         String fileName = (csv.name =~/${fileNamePattern}/)[0][1]
         def lines = parseCsvFile(csv)
         def line = lines.next()
