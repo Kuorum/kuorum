@@ -1534,21 +1534,10 @@ function FilterContacts() {
             });
     };
 
-    this.filterEdited = function(e){
-        //console.log("Changed  kk to: "+$field.val())
-        var filterIdSelected = that.getFilterId();
-        var filterId = temporalFilterId
+    this.filterEditedEvent = function(e){
         $("input[name=filterEdited]").val(true)
-        if ($("#recipients option[value='"+filterIdSelected+"']").attr("data-anononymus") != undefined) {
-            // Custom filter for a campaign. Not change
-            //$("#recipients option[value='"+filterIdSelected+"']").attr("value",temporalFilterId);
-        }else{
-            // EDITING NORMAL FILTER
-            var temporalFilterName = "Custom filter ["+$("#recipients option[value='"+filterIdSelected+"']").html() +"]"
-            that.addOptionToSelect(filterId, temporalFilterName, "-");
-            $("input[name=filterName]").val(temporalFilterName)
-            $("#recipients").val(filterId);
-            that.setOriginalFilterToTemporalFilter(filterIdSelected)
+        if (that.getFilterId() != newFilterId){
+            that[callBackBehaviour].filterEditedEvent(e);
         }
     };
 
@@ -1595,8 +1584,10 @@ function FilterContacts() {
     this.changeFilterValue=function(filterId){
         $("#recipients").val(filterId);
         that.loadSelectRecipientStatus()
-    }
-
+    };
+    this.setFilterName=function(filterName){
+        $("input[name=filterName]").val(filterName)
+    };
     this.showModalListContacts=function(){
         var postData = that.serializedFilterData();
         postData.push({name:'page', value:0})
@@ -1650,7 +1641,22 @@ function FilterContacts() {
             if ($("#recipients option[data-anononymus='true']").length>0){
                 that.openFilterCampaignsOptions();
             }
-            $("#filterData").on("change", "input,select", that.filterEdited);
+        },
+        filterEditedEvent: function(e){
+            //console.log("Changed  kk to: "+$field.val())
+            var filterIdSelected = that.getFilterId();
+            var filterId = temporalFilterId
+            if ($("#recipients option[value='"+filterIdSelected+"']").attr("data-anononymus") != undefined) {
+                // Custom filter for a campaign. Not change
+                //$("#recipients option[value='"+filterIdSelected+"']").attr("value",temporalFilterId);
+            }else{
+                // EDITING NORMAL FILTER
+                var temporalFilterName = "Custom filter ["+$("#recipients option[value='"+filterIdSelected+"']").html() +"]"
+                that.addOptionToSelect(filterId, temporalFilterName, "-");
+                that.setFilterName(temporalFilterName)
+                $("#recipients").val(filterId);
+                that.setOriginalFilterToTemporalFilter(filterIdSelected)
+            }
         },
         changeSelectRecipients:function(){
             var amountContacts = that.getFilterSelectedAmountOfContacts();
@@ -1676,6 +1682,7 @@ function FilterContacts() {
                 if (filterId == temporalFilterId){
                     filterId = that.getOriginalFilterToTemporalFilter();
                     $("#recipients").val(filterId);
+                    that.setFilterName($("#recipients option[value='"+filterId+"']").html())
                 }
             },
             success:function(data){
@@ -1699,13 +1706,24 @@ function FilterContacts() {
     };
 
     this.init=function(){
-        $("#filterData").on("click", ".minus-condition, .plus-condition", that.filterEdited)
+        $("#filterData").on("click", ".minus-condition, .plus-condition", that.filterEditedEvent)
+        $("#filterData").on("change", "input,select", that.filterEditedEvent);
         this[callBackBehaviour].init()
     };
 
     this.searchContactsCallBacks = {
         init:function(){
 
+        },
+        filterEditedEvent: function(e){
+            //console.log("Changed  kk to: "+$field.val())
+            var filterIdSelected = that.getFilterId();
+            var filterId = temporalFilterId
+            var temporalFilterName = "Custom filter ["+$("#recipients option[value='"+filterIdSelected+"']").html() +"]"
+            that.addOptionToSelect(filterId, temporalFilterName, "-");
+            that.setFilterName(temporalFilterName)
+            $("#recipients").val(filterId);
+            that.setOriginalFilterToTemporalFilter(filterIdSelected)
         },
         changeSelectRecipients:function(data){
             if ($('select#recipients').val()!=newFilterId) {
@@ -1721,10 +1739,13 @@ function FilterContacts() {
             }
         },
         campaignFilterSave:{
-            prepare:function(){},
+            prepare:function(){
+                // THE SAME LOGIC AS NEWSLETTER
+                that.newsletterCallBacks.campaignFilterSave.prepare();
+            },
             success:function(data){
                 that.searchContactsCallBacks.resetPage();
-                that.newsletterCallBacks.campaignFilterSave(data)
+                that.newsletterCallBacks.campaignFilterSave.success(data)
                 that.searchContactsCallBacks.loadTableContacts();
             }
         },
@@ -1732,7 +1753,7 @@ function FilterContacts() {
             prepare:function(){},
             success:function(data){
                 that.searchContactsCallBacks.resetPage();
-                that.newsletterCallBacks.campaignFilterSaveAs(data)
+                that.newsletterCallBacks.campaignFilterSaveAs.success(data)
                 that.searchContactsCallBacks.loadTableContacts();
             }
         },
