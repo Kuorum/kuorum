@@ -37,7 +37,7 @@
                     </div>
                     <div class="col-sm-3">
                         <!-- para activarlo añadir clase "on" -->
-                        <g:link mapping="politicianContactFilterData" role="button" elementId="filterContacts">
+                        <g:link mapping="politicianContactFilterData" role="button" elementId="filterContacts" title="${g.message(code:'tools.massMailing.fields.filter.button.title')}">
                             <span class="fa fa-filter fa-lg"></span>
                             <span class="sr-only">Filter contacts</span>
                         </g:link>
