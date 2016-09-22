@@ -1,9 +1,9 @@
 <%@ page import="kuorum.web.commands.payment.contact.ContactFilterCommand" %>
-<r:require modules="forms"/>
 <g:set var="formId" value="formFilter_${filter?.id?.toString().replace("-","_")}"/>
 <g:set var="commandFilter" value="${new kuorum.web.commands.payment.contact.ContactFilterCommand(filter)}"/>
 <div id="${formId}" class="disabled-filters hide">
     %{--<input type="hidden" name="filterId" value="${filter.id}"/>--}%
+    <input type="hidden" name="filterEdited" value="false"/>
     <input type="hidden" name="filterName" value="${filter.name}"/>
     <fieldset class="form-group new-filter-options first">
         <label class="col-sm-2 col-md-1 control-label contact-filter-text"><g:message code="tools.contact.filter.form.matches"/></label>

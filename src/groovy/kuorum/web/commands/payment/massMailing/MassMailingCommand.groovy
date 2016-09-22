@@ -10,6 +10,7 @@ import org.grails.databinding.BindingFormat
 class MassMailingCommand {
 
     Long filterId;
+    Boolean filterEdited;
     String subject;
     String text;
     String headerPictureId;

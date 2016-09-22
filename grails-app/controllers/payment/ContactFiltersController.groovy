@@ -7,9 +7,12 @@ import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.SearchContactRSDTO
+import org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO
+import org.kuorum.rest.model.contact.filter.ConditionOperatorTypeRDTO
 import org.kuorum.rest.model.contact.filter.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.contact.filter.OperatorTypeRDTO
 import org.springframework.validation.ObjectError
 import payment.contact.ContactService
 
@@ -89,7 +92,15 @@ class ContactFiltersController {
 
     def getFilterData(Long filterId){
         KuorumUser user = springSecurityService.currentUser
-        ExtendedFilterRSDTO filterRDTO = contactService.getFilter(user, filterId)
+        ExtendedFilterRSDTO filterRDTO
+        if (filterId ==-2){
+            filterRDTO = new ExtendedFilterRSDTO()
+            filterRDTO.filterConditions = [new ConditionRDTO([field: ConditionFieldTypeRDTO.NAME,operator:ConditionOperatorTypeRDTO.STARTS_WITH])]
+            filterRDTO.operator = OperatorTypeRDTO.AND
+            filterRDTO.id = -2
+        }else{
+            filterRDTO = contactService.getFilter(user, filterId)
+        }
         render template: '/contacts/filter/filterFieldSet', model:[filter:filterRDTO]
     }
 }

@@ -148,7 +148,8 @@ class MassMailingController {
         campaignRQDTO.setName(command.getSubject())
         campaignRQDTO.setSubject(command.getSubject())
         campaignRQDTO.setBody(command.getText())
-        if (command.filterId <=0){
+        if (command.filterEdited){
+//            anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             campaignRQDTO.setAnonymousFilter(anonymousFilter)
         }else {
             campaignRQDTO.setFilterId(command.filterId)

@@ -1524,7 +1524,6 @@ function FilterContacts() {
                 $filterData.children("div").removeClass("hide")
                 $filterData.slideDown("fast", function(){$("#newFilterContainer").slideDown();});
                 $('#filterContacts, #infoToContacts').addClass('on');
-                $filterData.find("input,select").on("change", that.filterEdited);
                 pageLoadingOff();
             })
             .fail(function(messageError) {
@@ -1536,14 +1535,21 @@ function FilterContacts() {
     };
 
     this.filterEdited = function(e){
-        $field = $(this)
         //console.log("Changed  kk to: "+$field.val())
-        var filterId = temporalFilterId
         var filterIdSelected = that.getFilterId();
-        var temporalFilterName = $("#recipients option[value='"+filterIdSelected+"']").html() +" [EDIT]"
-        that.addOptionToSelect(filterId, temporalFilterName, "-");
-        $("#recipients").val(filterId);
-        that.setOriginalFilterToTemporalFilter(filterIdSelected)
+        var filterId = temporalFilterId
+        $("input[name=filterEdited]").val(true)
+        if ($("#recipients option[value='"+filterIdSelected+"']").attr("data-anononymus") != undefined) {
+            // Custom filter for a campaign. Not change
+            //$("#recipients option[value='"+filterIdSelected+"']").attr("value",temporalFilterId);
+        }else{
+            // EDITING NORMAL FILTER
+            var temporalFilterName = "Custom filter ["+$("#recipients option[value='"+filterIdSelected+"']").html() +"]"
+            that.addOptionToSelect(filterId, temporalFilterName, "-");
+            $("input[name=filterName]").val(temporalFilterName)
+            $("#recipients").val(filterId);
+            that.setOriginalFilterToTemporalFilter(filterIdSelected)
+        }
     };
 
     this.closeFilterCampaignsOptions= function(){
@@ -1644,6 +1650,7 @@ function FilterContacts() {
             if ($("#recipients option[data-anononymus='true']").length>0){
                 that.openFilterCampaignsOptions();
             }
+            $("#filterData").on("change", "input,select", that.filterEdited);
         },
         changeSelectRecipients:function(){
             var amountContacts = that.getFilterSelectedAmountOfContacts();
@@ -1672,6 +1679,7 @@ function FilterContacts() {
                 }
             },
             success:function(data){
+                that.removeOptionToSelect(temporalFilterId)
                 that.closeFilterCampaignsOptions();
             }
         },
@@ -1691,6 +1699,7 @@ function FilterContacts() {
     };
 
     this.init=function(){
+        $("#filterData").on("click", ".minus-condition, .plus-condition", that.filterEdited)
         this[callBackBehaviour].init()
     };
 
