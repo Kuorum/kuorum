@@ -1693,7 +1693,6 @@ function FilterContacts() {
         campaignFilterSaveAs:{
             prepare:function(){},
             success:function(data){
-                that.closeFilterCampaignsOptions();
                 var filter = data.data.filter;
                 var htmlFilter = data.data.filterRendered;
 
@@ -1701,6 +1700,7 @@ function FilterContacts() {
                 var filter = data.data.filter
                 that.addOptionToSelect(filter.id, filter.name, filter.amountOfContacts)
                 $("#recipients").val(filter.id);
+                that.closeFilterCampaignsOptions();
             }
         }
     };
@@ -1752,9 +1752,13 @@ function FilterContacts() {
         campaignFilterSaveAs:{
             prepare:function(){},
             success:function(data){
+                console.log("FILTER SAVED AS")
                 that.searchContactsCallBacks.resetPage();
+                console.log("RESET OK")
                 that.newsletterCallBacks.campaignFilterSaveAs.success(data)
+                console.log("NEWSLETTER CALLBACK OK")
                 that.searchContactsCallBacks.loadTableContacts();
+                console.log("LOAD TABLE OK")
             }
         },
 
