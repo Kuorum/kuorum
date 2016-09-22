@@ -14,16 +14,19 @@
                 <g:each in="${filters}" var="filter">
                     <option value="${filter.id}" ${command.filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
                 </g:each>
+                <g:if test="${anonymousFilter}">
+                    <option value="${anonymousFilter.id}" ${command.filterId == anonymousFilter.id?'selected':''} data-amountContacts="${anonymousFilter.amountOfContacts}" data-anononymus="true">${anonymousFilter.name}</option>
+                </g:if>
                 %{--<g:if test="${totalContacts}">--}%
                     <option value="-2" data-amountContacts="-"><g:message code="tools.massMailing.fields.filter.to.createNew"/></option>
                 %{--</g:if>--}%
             </select>
         </div>
         <div class="col-sm-4">
-            <a href="#" role="buttom" id="filterContacts">
+            <g:link mapping="politicianContactFilterData" role="button" elementId="filterContacts">
                 <span class="fa fa-filter fa-lg"></span>
                 <span class="sr-only"><g:message code="tools.massMailing.fields.filter.button"/></span>
-            </a>
+            </g:link>
             <span id="infoToContacts">
                 <span class="amountRecipients"></span>
                 <g:message code="tools.massMailing.fields.filter.recipients"/>
@@ -35,7 +38,7 @@
         </div>
     </fieldset>
     <div id="newFilterContainer">
-        <g:render template="/contacts/filter/listFilterFieldSet" model="[filters:filters]"/>
+        <g:render template="/contacts/filter/listFilterFieldSet" model="[filters:filters,anonymousFilter:anonymousFilter]"/>
     </div>
     <fieldset class="form-group">
         <label for="subject" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.label"/>:</label>

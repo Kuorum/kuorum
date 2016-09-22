@@ -37,10 +37,10 @@
                     </div>
                     <div class="col-sm-3">
                         <!-- para activarlo añadir clase "on" -->
-                        <a href="#" role="buttom" id="filterContacts">
+                        <g:link mapping="politicianContactFilterData" role="button" elementId="filterContacts">
                             <span class="fa fa-filter fa-lg"></span>
                             <span class="sr-only">Filter contacts</span>
-                        </a>
+                        </g:link>
                         <span id="infoToContacts">
                             <span class="amountRecipients">${contacts.total}</span>
                             <g:message code="tools.massMailing.fields.filter.recipients"/>

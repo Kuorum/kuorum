@@ -1444,6 +1444,11 @@ function FilterContacts() {
 
     var that = this
     var callBackBehaviour = "newsletterCallBacks";
+
+    var allContactsFilterId= "0";
+    var temporalFilterId = "-1";
+    var newFilterId = "-2";
+
     if ($('#newsletter select#recipients').length > 0){
         // NEWS LETTER BEHAVIOUR
     }
@@ -1463,14 +1468,16 @@ function FilterContacts() {
     }
 
     this.postFilter = function(link, callback){
+        that[callBackBehaviour][callback].prepare();
         var postData = that.serializedFilterData();
+        console.log(postData)
         pageLoadingOn();
         $.post( link, postData)
             .done(function(data) {
                 var dataFilter = data.data.filter;
                 that.updateAmountContacts(dataFilter.amountOfContacts);
                 if (callback != undefined){
-                    that[callBackBehaviour][callback](data)
+                    that[callBackBehaviour][callback].success(data);
                 }
             })
             .fail(function(messageError) {
@@ -1481,54 +1488,96 @@ function FilterContacts() {
             });
     }
     this.updateAmountContacts = function(amountContacts){
-        var $filterData = this.getFormFilterIdSelected();
         $('select#recipients option:selected').attr("data-amountContacts", amountContacts);
-        $filterData.find("#numberRecipients > span").html(amountContacts);
+        $("#filterData #numberRecipients > span").html(amountContacts);
         $("#infoToContacts > span.amountRecipients").html(amountContacts);
     };
 
     this.getFilterId= function(){
         var filterId = $("#recipients").val();
         if (filterId == undefined){
-            filterId = "0";
+            filterId = allContactsFilterId;
         }
         return filterId;
     };
     this.getFormFilterIdSelected= function(){
-        var filterId = that.getFilterId();
-        return $("#formFilter_"+filterId.replace("-","_"))
+        //var filterId = that.getFilterId();
+        //return $("#formFilter_"+filterId.replace("-","_"))
+        return $("#filterData")
     };
     this.openFilterCampaignsOptions= function(){
+        pageLoadingOn();
         var filterId = that.getFilterId();
-        if (filterId == 0){
-            $('select#recipients').val('-2');
+        if (filterId == allContactsFilterId){
+            $('select#recipients').val(newFilterId);
             var filterId = $("#recipients").val();
         }
-        var $filterData = this.getFormFilterIdSelected();
-        $filterData.removeClass("hide");
-        $filterData.slideDown("fast", function(){$("#newFilterContainer").slideDown();});
-        $filterData.find("input, select").prop('disabled', false);
-        $('#filterContacts, #infoToContacts').addClass('on');
+        var link = $("#filterContacts").attr("href")
+        var postData = [];
+        postData.push({name:'filterId', value:filterId})
+        $.post( link, postData)
+            .done(function(data) {
+                var $filterData = $("#filterData")
+                $filterData.addClass("hide");
+                $filterData.html(data)
+                $filterData.removeClass("hide");
+                $filterData.children("div").removeClass("hide")
+                $filterData.slideDown("fast", function(){$("#newFilterContainer").slideDown();});
+                $('#filterContacts, #infoToContacts').addClass('on');
+                $filterData.find("input,select").on("change", that.filterEdited);
+                pageLoadingOff();
+            })
+            .fail(function(messageError) {
+                display.warn("Error");
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
     };
+
+    this.filterEdited = function(e){
+        $field = $(this)
+        //console.log("Changed  kk to: "+$field.val())
+        var filterId = temporalFilterId
+        var filterIdSelected = that.getFilterId();
+        var temporalFilterName = $("#recipients option[value='"+filterIdSelected+"']").html() +" [EDIT]"
+        that.addOptionToSelect(filterId, temporalFilterName, "-");
+        $("#recipients").val(filterId);
+        that.setOriginalFilterToTemporalFilter(filterIdSelected)
+    };
+
     this.closeFilterCampaignsOptions= function(){
         $('#filterContacts').removeClass('on');
         $(".disabled-filters").slideUp("fast",function(){$("#newFilterContainer").slideUp()});
         $(".disabled-filters").find("input, select").prop('disabled', true);
         $('#infoToContacts, #filterContacts').removeClass('on');
-        if (that.getFilterId()==-2) {
+        if (that.getFilterId()==newFilterId) {
             // Change 'new filter' to 'All'
-            that.changeFilterValue(0)
+            that.changeFilterValue(allContactsFilterId)
+        }
+        if (that.getFilterId()==temporalFilterId) {
+            // Temporal filter
+            var originalFilter = that.getOriginalFilterToTemporalFilter()
+            that.changeFilterValue(originalFilter);
+            that.removeOptionToSelect(temporalFilterId);
         }
     };
+
+    this.setOriginalFilterToTemporalFilter=function(originalFilterId){
+        $("#recipients option[value='"+temporalFilterId+"']").attr("data-orginal-filter-id", originalFilterId)
+    }
+    this.getOriginalFilterToTemporalFilter=function(){
+        return $("#recipients option[value='"+temporalFilterId+"']").attr("data-orginal-filter-id")
+    }
+
     this.getFilterSelectedAmountOfContacts= function(){
         return $('select#recipients option:selected').attr("data-amountContacts");
     };
     this.loadSelectRecipientStatus = function(){
         var filterIdBeforeCloseOptions =that.getFilterId();
         that.closeFilterCampaignsOptions();
-        if (filterIdBeforeCloseOptions==-2) {
+        if (filterIdBeforeCloseOptions==newFilterId) {
             //New filter
-            console.log("-2 filter selected")
             that.openFilterCampaignsOptions();
         }
         var amountContacts = that.getFilterSelectedAmountOfContacts();
@@ -1573,9 +1622,28 @@ function FilterContacts() {
             });
     }
 
+    this.addOptionToSelect=function(filterId, name, amountOfContacts){
+        if ($("#recipients option[value='"+filterId+"']").length <= 0){
+            $("#recipients option:last").before($('<option>', {
+                value: filterId,
+                text: name,
+                'data-amountContacts':amountOfContacts
+            }));
+        }
+    };
+
+    this.removeOptionToSelect=function(filterId){
+        if ($("#recipients option[value='"+filterId+"']").length > 0){
+            $("#recipients option[value='"+filterId+"']").remove()
+        }
+    }
+
     this.newsletterCallBacks = {
         init:function(){
             that.newsletterCallBacks.changeSelectRecipients();
+            if ($("#recipients option[data-anononymus='true']").length>0){
+                that.openFilterCampaignsOptions();
+            }
         },
         changeSelectRecipients:function(){
             var amountContacts = that.getFilterSelectedAmountOfContacts();
@@ -1587,58 +1655,77 @@ function FilterContacts() {
                 $("#send").removeClass("disabled");
             }
         },
-        campaignFilterRefresh:function(data){
-            //console.log(data)
-            //display.success(data.msg)
+        campaignFilterRefresh:{
+            prepare:function(){
+            },
+            success:function(data){
+                //console.log(data)
+                //display.success(data.msg)
+            }
         },
-        campaignFilterSave:function(data){
-            that.closeFilterCampaignsOptions();
+        campaignFilterSave:{
+            prepare:function(){
+                var filterId = that.getFilterId();
+                if (filterId == temporalFilterId){
+                    filterId = that.getOriginalFilterToTemporalFilter();
+                    $("#recipients").val(filterId);
+                }
+            },
+            success:function(data){
+                that.closeFilterCampaignsOptions();
+            }
         },
-        campaignFilterSaveAs:function(data){
-            that.closeFilterCampaignsOptions();
-            var filter = data.data.filter;
-            var htmlFilter = data.data.filterRendered;
+        campaignFilterSaveAs:{
+            prepare:function(){},
+            success:function(data){
+                that.closeFilterCampaignsOptions();
+                var filter = data.data.filter;
+                var htmlFilter = data.data.filterRendered;
 
-            $("#newFilterContainer").append(htmlFilter);
-            var filter = data.data.filter
-            $("#recipients option:last").before($('<option>', {
-                value: filter.id,
-                text: filter.name,
-                'data-amountContacts':filter.amountOfContacts
-            }));
-            $("#recipients").val(filter.id);
-
-
+                $("#newFilterContainer").append(htmlFilter);
+                var filter = data.data.filter
+                that.addOptionToSelect(filter.id, filter.name, filter.amountOfContacts)
+                $("#recipients").val(filter.id);
+            }
         }
     };
 
     this.init=function(){
         this[callBackBehaviour].init()
-    }
+    };
 
     this.searchContactsCallBacks = {
         init:function(){
 
         },
         changeSelectRecipients:function(data){
-            if ($('select#recipients').val()!=-2) {
+            if ($('select#recipients').val()!=newFilterId) {
                 that.searchContactsCallBacks.resetPage();
                 that.searchContactsCallBacks.loadTableContacts();
             }
         },
-        campaignFilterRefresh:function(data){
-            that.searchContactsCallBacks.resetPage();
-            that.searchContactsCallBacks.loadTableContacts();
+        campaignFilterRefresh:{
+            prepare:function(){},
+            success:function(data){
+                that.searchContactsCallBacks.resetPage();
+                that.searchContactsCallBacks.loadTableContacts();
+            }
         },
-        campaignFilterSave:function(data){
-            that.searchContactsCallBacks.resetPage();
-            that.newsletterCallBacks.campaignFilterSave(data)
-            that.searchContactsCallBacks.loadTableContacts();
+        campaignFilterSave:{
+            prepare:function(){},
+            success:function(data){
+                that.searchContactsCallBacks.resetPage();
+                that.newsletterCallBacks.campaignFilterSave(data)
+                that.searchContactsCallBacks.loadTableContacts();
+            }
         },
-        campaignFilterSaveAs:function(data){
-            that.searchContactsCallBacks.resetPage();
-            that.newsletterCallBacks.campaignFilterSaveAs(data)
-            that.searchContactsCallBacks.loadTableContacts();
+        campaignFilterSaveAs:{
+            prepare:function(){},
+            success:function(data){
+                that.searchContactsCallBacks.resetPage();
+                that.newsletterCallBacks.campaignFilterSaveAs(data)
+                that.searchContactsCallBacks.loadTableContacts();
+            }
         },
 
         loadTableContacts:function(){

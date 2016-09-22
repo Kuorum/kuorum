@@ -38,7 +38,7 @@
         </ul>
         <div id="tabs-new-campaign" class="tab-content">
             <div class="tab-pane active" id="newsletter">
-                <g:render template="types/massMailing" model="[command:command, filters:filters, totalContacts:totalContacts, campaignId:campaignId]"/>
+                <g:render template="types/massMailing" model="[command:command, filters:filters, totalContacts:totalContacts, campaignId:campaignId, anonymousFilter:anonymousFilter]"/>
             </div>
             <div class="tab-pane" id="debate">
                 <g:render template="types/notDone"/>

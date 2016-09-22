@@ -8,6 +8,7 @@ import kuorum.files.FileService
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
@@ -18,6 +19,8 @@ import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
+
+import java.util.logging.Filter
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class MassMailingController {
@@ -61,7 +64,8 @@ class MassMailingController {
             return;
         }
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
-        def dataSend = saveAndSendCampaign(loggedUser, command, campaignId)
+        FilterRDTO anonymousFilter = recoverAnonymousFilter(params)
+        def dataSend = saveAndSendCampaign(loggedUser, command, campaignId, anonymousFilter)
 //        flash.message = dataSend.msg
         redirect mapping:'politicianMassMailing'
     }
@@ -81,6 +85,11 @@ class MassMailingController {
             command.text = campaignRSDTO.body
 
             def model = modelMassMailing(loggedUser, command, false);
+            if (campaignRSDTO.filter && !model.filters.find{it.id==campaignRSDTO.filter.id}){
+                // Not found campaign filter. That means that the filter is custom filter for the campaign
+                ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(loggedUser, campaignRSDTO.filter.id)
+                model.put("anonymousFilter", anonymousFilter)
+            }
             model.put("campaignId", campaignId)
             render view: 'createMassMailing', model: model
         }else{
@@ -113,7 +122,8 @@ class MassMailingController {
             return;
         }
         Long campaignId = Long.parseLong(params.campaignId)
-        def dataSend = saveAndSendCampaign(loggedUser, command, campaignId)
+        FilterRDTO anonymousFilter = recoverAnonymousFilter(params)
+        def dataSend = saveAndSendCampaign(loggedUser, command, campaignId, anonymousFilter)
 //        flash.message = dataSend.msg
         redirect mapping:'politicianMassMailing'
     }
@@ -124,12 +134,25 @@ class MassMailingController {
         render ([msg:"Campaing deleted"] as JSON)
     }
 
-    private CampaignRQDTO convertCommandToCampaign(MassMailingCommand command, KuorumUser user){
+    private FilterRDTO recoverAnonymousFilter(def params){
+        ContactFilterCommand filterCommand = bindData(new ContactFilterCommand(), params)
+        FilterRDTO filterRDTO = filterCommand.buildFilter();
+        if (!filterRDTO?.filterConditions){
+            return null;
+        }
+        return filterRDTO
+    }
+
+    private CampaignRQDTO convertCommandToCampaign(MassMailingCommand command, KuorumUser user,FilterRDTO anonymousFilter){
         CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
         campaignRQDTO.setName(command.getSubject())
         campaignRQDTO.setSubject(command.getSubject())
         campaignRQDTO.setBody(command.getText())
-        campaignRQDTO.setFilterId(command.filterId)
+        if (command.filterId <=0){
+            campaignRQDTO.setAnonymousFilter(anonymousFilter)
+        }else {
+            campaignRQDTO.setFilterId(command.filterId)
+        }
 
         if (command.headerPictureId){
             KuorumFile picture = KuorumFile.get(command.headerPictureId);
@@ -149,13 +172,18 @@ class MassMailingController {
         }
         command.sendType = "SEND_TEST"
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
-        def dataSend = saveAndSendCampaign(loggedUser, command, campaignId)
+        FilterRDTO anonymousFilter = recoverAnonymousFilter(params)
+        def dataSend = saveAndSendCampaign(loggedUser, command, campaignId, anonymousFilter)
         render ([msg:dataSend.msg, campaing: dataSend.campaign] as JSON)
 
     }
 
-    private def saveAndSendCampaign(KuorumUser user, MassMailingCommand command, Long campaignId = null){
-        CampaignRQDTO campaignRQDTO = convertCommandToCampaign(command, user)
+    private def saveAndSendCampaign(KuorumUser user, MassMailingCommand command, Long campaignId = null, FilterRDTO anonymousFilter = null){
+        CampaignRQDTO campaignRQDTO = convertCommandToCampaign(command, user, anonymousFilter)
+        if (!campaignId){
+            campaignRQDTO.filterId = null;
+            campaignRQDTO.anonymousFilter = anonymousFilter;
+        }
         String msg = ""
         CampaignRSDTO savedCampaign = null;
         if (command.getSendType()=="SEND" && command.filterId >= 0){

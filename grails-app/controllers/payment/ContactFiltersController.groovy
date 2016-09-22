@@ -85,4 +85,11 @@ class ContactFiltersController {
                 data:[filter:filterMock]
         ] as JSON)
     }
+
+
+    def getFilterData(Long filterId){
+        KuorumUser user = springSecurityService.currentUser
+        ExtendedFilterRSDTO filterRDTO = contactService.getFilter(user, filterId)
+        render template: '/contacts/filter/filterFieldSet', model:[filter:filterRDTO]
+    }
 }
