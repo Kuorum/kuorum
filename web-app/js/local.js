@@ -1455,7 +1455,7 @@ function FilterContacts() {
 
     if ($('#searchContacts select#recipients').length > 0){
         // Contacts BEHAVIOUR
-        var callBackBehaviour = "searchContactsCallBacks";
+        callBackBehaviour = "searchContactsCallBacks";
 
     }
 
