@@ -1570,8 +1570,8 @@ function FilterContacts() {
             // Temporal filter
             var originalFilter = that.getOriginalFilterToTemporalFilter()
             that.changeFilterValue(originalFilter);
-            that.removeOptionToSelect(temporalFilterId);
         }
+        that.removeOptionToSelect(temporalFilterId);
     };
 
     this.setOriginalFilterToTemporalFilter=function(originalFilterId){
