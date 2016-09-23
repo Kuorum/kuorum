@@ -170,7 +170,7 @@
         0% Complete
     </div>
 </div>
-<div class="modal fade uploadKuorumImage" id="modal_${imageId}">
+<div class="modal fade uploadKuorumImage" id="modal_${imageId}" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
