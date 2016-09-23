@@ -1606,7 +1606,6 @@ function FilterContacts() {
         $.post( link, postData)
             .done(function(data) {
                 var table=$("#filtersInfo .modal-body table tbody");
-                console.log(data)
                 table.html("")
                 $.each(data.data, function(idx, contact){
                     console.log(contact.name + " - " +contact.email)
