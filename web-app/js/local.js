@@ -1615,6 +1615,7 @@ function FilterContacts() {
                 })
                 var txt = $("#filtersRecipients").text().replace(/\d+/, data.total)
                 $("#filtersRecipients").text(txt)
+                that.updateAmountContacts(data.total)
 
                 pageLoadingOff();
                 $("#filtersInfo").modal("show");
