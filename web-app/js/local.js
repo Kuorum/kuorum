@@ -1603,7 +1603,6 @@ function FilterContacts() {
         postData.push({name:'asJson', value:true})
         var link = $("#infoToContacts").attr("href")
         pageLoadingOn();
-        console.log(postData)
         $.post( link, postData)
             .done(function(data) {
                 var table=$("#filtersInfo .modal-body table tbody");
