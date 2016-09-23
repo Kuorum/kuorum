@@ -41,12 +41,12 @@
                             <span class="fa fa-filter fa-lg"></span>
                             <span class="sr-only">Filter contacts</span>
                         </g:link>
-                        <span id="infoToContacts">
+                        <g:link mapping="politicianContactsSearch" elementId="infoToContacts">
                             <span class="amountRecipients">${contacts.total}</span>
                             <g:message code="tools.massMailing.fields.filter.recipients"/>
                             %{--<span class="fa fa-filter fa-lg"></span>--}%
                             %{--<span class="fa fa-search fa-lg"></span>--}%
-                        </span>
+                        </g:link>
                     </div>
                     <div class="col-sm-3 col-md-2 col-lg-3">
                         <div class="searchContainer">

@@ -512,7 +512,7 @@ $(document).ready(function() {
     });
 
     // abrir modal contenido filtro seleccionado
-    $('body').on('click','#numberRecipients', function(e) {
+    $('body').on('click','#numberRecipients, #infoToContacts', function(e) {
         e.preventDefault();
         filterContacts.showModalListContacts()
     });
@@ -1593,7 +1593,7 @@ function FilterContacts() {
         postData.push({name:'page', value:0})
         postData.push({name:'size', value:100})
         postData.push({name:'asJson', value:true})
-        var link = $("#numberRecipients").attr("href")
+        var link = $("#infoToContacts").attr("href")
         pageLoadingOn();
         console.log(postData)
         $.post( link, postData)
