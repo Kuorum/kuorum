@@ -1538,12 +1538,12 @@ function FilterContacts() {
         return $("input[name=filterEdited]").val() === 'true';
     }
 
-    this.marckFilterAsEdited = function(){
+    this.setFilterAsEdited = function(){
         $("input[name=filterEdited]").val(true);
     }
 
     this.filterEditedEvent = function(e){
-        that.marckFilterAsEdited();
+        that.setFilterAsEdited();
         if (that.getFilterId() != newFilterId){
             that[callBackBehaviour].filterEditedEvent(e);
         }
