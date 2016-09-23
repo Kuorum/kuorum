@@ -1493,6 +1493,13 @@ function FilterContacts() {
         $("#infoToContacts > span.amountRecipients").html(amountContacts);
     };
 
+    this.updateAmountContactsSilently = function(){
+        $a = $("#refreshFilter")
+        var link = $a.attr("href");
+        var callback = $a.attr("data-callaBackFunction");
+        filterContacts.postFilter(link, callback);
+    }
+
     this.getFilterId= function(){
         var filterId = $("#recipients").val();
         if (filterId == undefined){
@@ -1544,6 +1551,7 @@ function FilterContacts() {
 
     this.filterEditedEvent = function(e){
         that.setFilterAsEdited();
+        that.updateAmountContactsSilently();
         if (that.getFilterId() != newFilterId){
             that[callBackBehaviour].filterEditedEvent(e);
         }
