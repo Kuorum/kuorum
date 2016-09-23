@@ -148,14 +148,14 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                     <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                 </button>
-                <h4 id="campaignWarnFilterEditedTitle">
-                    WARN FILTER EDITED
+                <h4>
+                    <g:message code="tools.massMailing.warnFilterEdited.title"/>
                 </h4>
             </div>
             <div class="modal-body">
-                <p>WARN FILTER EDITED explication</p>
+                <p><g:message code="tools.massMailing.warnFilterEdited.text"/> </p>
                 <a href="#" class="btn btn-blue inverted btn-lg" id="campaignWarnFilterEditedButtonOk">
-                    <g:message code="tools.massMailing.sendTestModal.button"/>
+                    <g:message code="tools.massMailing.warnFilterEdited.button"/>
                 </a>
             </div>
         </div>
