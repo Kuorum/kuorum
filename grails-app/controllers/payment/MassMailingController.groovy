@@ -64,7 +64,7 @@ class MassMailingController {
             return;
         }
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
-        FilterRDTO anonymousFilter = recoverAnonymousFilter(params)
+        FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
         def dataSend = saveAndSendCampaign(loggedUser, command, campaignId, anonymousFilter)
 //        flash.message = dataSend.msg
         redirect mapping:'politicianMassMailing'
@@ -122,7 +122,7 @@ class MassMailingController {
             return;
         }
         Long campaignId = Long.parseLong(params.campaignId)
-        FilterRDTO anonymousFilter = recoverAnonymousFilter(params)
+        FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
         def dataSend = saveAndSendCampaign(loggedUser, command, campaignId, anonymousFilter)
 //        flash.message = dataSend.msg
         redirect mapping:'politicianMassMailing'
@@ -134,8 +134,11 @@ class MassMailingController {
         render ([msg:"Campaing deleted"] as JSON)
     }
 
-    private FilterRDTO recoverAnonymousFilter(def params){
+    private FilterRDTO recoverAnonymousFilter(def params, MassMailingCommand command){
         ContactFilterCommand filterCommand = bindData(new ContactFilterCommand(), params)
+        if (!filterCommand.filterName){
+            filterCommand.filterName = "Custom filter for ${command.subject}"
+        }
         FilterRDTO filterRDTO = filterCommand.buildFilter();
         if (!filterRDTO?.filterConditions){
             return null;
@@ -173,7 +176,7 @@ class MassMailingController {
         }
         command.sendType = "SEND_TEST"
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
-        FilterRDTO anonymousFilter = recoverAnonymousFilter(params)
+        FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
         def dataSend = saveAndSendCampaign(loggedUser, command, campaignId, anonymousFilter)
         render ([msg:dataSend.msg, campaing: dataSend.campaign] as JSON)
 
@@ -195,6 +198,7 @@ class MassMailingController {
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedCampaign.subject, g.formatDate(date: savedCampaign.sentOn, type: "datetime", style: "SHORT")])
         }else{
             // IS A DRAFT
+            campaignRQDTO.status = CampaignStatusRSDTO.DRAFT;
             savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
             msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.subject])
         }

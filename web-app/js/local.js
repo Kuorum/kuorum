@@ -632,10 +632,21 @@ $(document).ready(function() {
         $("#politicianMassMailingForm").submit();
         $("#campaignConfirm").modal("hide");
     });
+
+    $('body').on('click', '#campaignWarnFilterEditedButtonOk', function(e){
+        e.preventDefault();
+        $("#campaignWarnFilterEdited").modal("hide");
+        $("#campaignConfirm").modal("show");
+    });
+
     function prepareAndOpenCampaignConfirmModal(){
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
         $("#campaignConfirmTitle > span").html(amountContacts);
-        $("#campaignConfirm").modal("show");
+        if (filterContacts.isFilterEdited()){
+            $("#campaignWarnFilterEdited").modal("show");
+        }else{
+            $("#campaignConfirm").modal("show");
+        }
     }
 
     // FILTRADO Y BUSCADOR LISTADO CAMPAÑAS
@@ -1491,6 +1502,7 @@ function FilterContacts() {
         $('select#recipients option:selected').attr("data-amountContacts", amountContacts);
         $("#filterData #numberRecipients > span").html(amountContacts);
         $("#infoToContacts > span.amountRecipients").html(amountContacts);
+        that[callBackBehaviour].changeSelectRecipients();
     };
 
     this.updateAmountContactsSilently = function(){
@@ -1675,7 +1687,7 @@ function FilterContacts() {
         },
         changeSelectRecipients:function(){
             var amountContacts = that.getFilterSelectedAmountOfContacts();
-            if (amountContacts<=0 || that.getFilterId() < 0) {
+            if (amountContacts<=0) {
                 $("#openCalendar").addClass("disabled");
                 $("#send").addClass("disabled");
             }else{
