@@ -1534,8 +1534,16 @@ function FilterContacts() {
             });
     };
 
+    this.isFilterEdited=function(){
+        return $("input[name=filterEdited]").val() === 'true';
+    }
+
+    this.marckFilterAsEdited = function(){
+        $("input[name=filterEdited]").val(true);
+    }
+
     this.filterEditedEvent = function(e){
-        $("input[name=filterEdited]").val(true)
+        that.marckFilterAsEdited();
         if (that.getFilterId() != newFilterId){
             that[callBackBehaviour].filterEditedEvent(e);
         }
@@ -1543,7 +1551,7 @@ function FilterContacts() {
 
     this.closeFilterCampaignsOptions= function(){
         $('#filterContacts').removeClass('on');
-        $(".disabled-filters").slideUp("fast",function(){$("#newFilterContainer").slideUp()});
+        $(".disabled-filters").slideUp("fast",function(){$("#filterData").html("")});
         $(".disabled-filters").find("input, select").prop('disabled', true);
         $('#infoToContacts, #filterContacts').removeClass('on');
         if (that.getFilterId()==newFilterId) {
