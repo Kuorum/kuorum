@@ -1677,8 +1677,12 @@ function FilterContacts() {
             if ($("#recipients option[value='"+filterIdSelected+"']").attr("data-anononymus") != undefined) {
                 // Custom filter for a campaign. Not change
                 //$("#recipients option[value='"+filterIdSelected+"']").attr("value",temporalFilterId);
+            }if (filterIdSelected == temporalFilterId){
+                // EDITING AN ALREADY CREATED TEMPORAL FILTER
+
             }else{
                 // EDITING NORMAL FILTER
+                console.log("Editiog nomral ilter: "+filterIdSelected)
                 var temporalFilterName = "Custom filter ["+$("#recipients option[value='"+filterIdSelected+"']").html() +"]"
                 that.addOptionToSelect(filterId, temporalFilterName, "-");
                 that.setFilterName(temporalFilterName)
