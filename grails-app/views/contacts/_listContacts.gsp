@@ -2,10 +2,10 @@
 <!-- LISTADO DE CONTACTOS -->
 <div class="box-ppal list-contacts">
     <div id="contactsOrderOptions" class="box-order-options clearfix">
-        %{--<span class="filter-warning">--}%
-            %{--<span class="fa fa-filter "></span>--}%
-            %{--<span class="fa fa-search "></span>--}%
-        %{--</span>--}%
+        <span class="filter-warning">
+            <span class="fa fa-filter ${(searchContacts?.filter?.filterConditions || searchContacts?.filterId)?'on':''}"></span>
+            <span class="fa fa-search ${searchContacts?.quickSearch?'on':''}"></span>
+        </span>
         <span><g:message code="tools.contact.list.sort.label"/> </span>
         <ul class="pag-list-sort">
             <!-- añadir la clase "active asc" o "active desc" al <a> -->

@@ -1219,7 +1219,16 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .box-order-options > ul li a.active.asc::before {content: '';}
 .box-order-options > ul li a.active.desc::before {content: '';}
 .box-order-options > div {margin-top: 15px; float: right;}
-.box-order-options .filter-warning span {}
+.box-order-options .filter-warning {margin-top:3px;}
+.box-order-options .filter-warning span {
+    border: 1px solid #dedede;
+    border-radius: 6px;
+    padding: 5px 10px;
+    display: inline-block;
+    color: #dedede;
+    font-size:14px;
+}
+.box-order-options .filter-warning span.on {border-color:#a8a8a8; color: #a8a8a8}
 .pag-list-campaigns, .pag-list-contacts {margin-bottom: 20px;}
 .pag-list-campaigns > ul, .pag-list-contacts > ul {float: right; padding: 0; margin: 0;}
 .pag-list-campaigns > ul > li, .pag-list-contacts > ul > li {list-style: none; display: inline-block;}
