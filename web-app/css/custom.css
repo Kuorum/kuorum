@@ -1106,8 +1106,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .form-group.image.header-campaign {width: auto; height: auto; min-height: 100px;}
 .header-campaign .qq-upload-drop-area {border-color: #dedede;}
 .header-campaign .qq-upload-button {line-height: 1; padding: 0;}
-#filterContacts, #filContacts {border: 1px solid #dedede; border-radius: 6px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #a8a8a8;}
-#filterContacts.on, #filContacts.on {background-color: #20a2ea; border-color: #20a2ea; color: #fff; /*cursor: default; pointer-events: none;*/}
+#filterContacts {border: 1px solid #dedede; border-radius: 6px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #a8a8a8;}
+#filterContacts.on {background-color: #20a2ea; border-color: #20a2ea; color: #fff; /*cursor: default; pointer-events: none;*/}
 #infoToContacts, #infoContacts {color: #a8a8a8; padding-right: 30px;}
 #infoToContacts > span.fa, #infoContacts > span.fa {display: none;}
 #infoToContacts.on > span.fa, #infoContacts.on > span.fa {display: inline;}
@@ -1219,6 +1219,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .box-order-options > ul li a.active.asc::before {content: '';}
 .box-order-options > ul li a.active.desc::before {content: '';}
 .box-order-options > div {margin-top: 15px; float: right;}
+.box-order-options .filter-warning span {}
 .pag-list-campaigns, .pag-list-contacts {margin-bottom: 20px;}
 .pag-list-campaigns > ul, .pag-list-contacts > ul {float: right; padding: 0; margin: 0;}
 .pag-list-campaigns > ul > li, .pag-list-contacts > ul > li {list-style: none; display: inline-block;}
@@ -5540,7 +5541,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     #toFilters .btn {margin-top: 0; display: inline-block;}
     #toFilters > div:last-child {text-align: left;}
-    #filterContacts, #filContacts {margin-top: 0;}
+    #filterContacts {margin-top: 0;}
     .box-order-options {padding-left: 25px; padding-right: 25px;}
     .box-order-options > ul {width: 50%; margin: 5px 0 0 10px;}
     .box-order-options > ul li, .box-order-options > ul li:last-child {margin: 0 10px 10px; display: inline-block;}
