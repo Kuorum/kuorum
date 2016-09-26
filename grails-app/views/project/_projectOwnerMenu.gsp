@@ -19,11 +19,6 @@
                         <span><g:message code="project.editMenu.update"/></span>
                     </g:link>
                 </li>
-                <li>
-                    <a href="#">
-                        <span><g:message code="project.editMenu.remove"/></span>
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
