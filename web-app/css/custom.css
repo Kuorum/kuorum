@@ -1355,7 +1355,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #boxfiltersContacts ul {padding: 0; margin: 0; text-align: right;}
 #boxfiltersContacts > div > ul > li {list-style: none; display: inline;}
 #boxfiltersContacts .searchContainer {margin: 10px 0;}
-#boxfiltersContacts .dropdown-menu {min-width: 82px; right: 14px;}
+#boxfiltersContacts .dropdown-menu {min-width: 95px; margin-top: -6px; right: 14px;}
 #boxfiltersContacts .dropdown-menu > li:first-child {font-weight: normal; padding: 0; border-bottom: none; margin: 0;}
 #boxfiltersContacts #openContactsOptions > span.fa {margin-left:4px;}
 
@@ -5591,6 +5591,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts .searchContainer {margin: 0;}
+    #boxfiltersContacts .dropdown-menu {min-width: 99px;}
     #contactsOrderOptions.box-order-options > div {width: 40%;}
 
     /* NEW / EDIT CONTACT */
@@ -5917,6 +5918,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .dashboard > div > .box-ppal {min-height: 357px;}
 
     /* LIST CONTACTS (08/2016) */
+    #boxfiltersContacts .dropdown-menu {min-width: 140px;}
     #boxfiltersContacts ul li .btn {min-width: 138px;}
     #contactsOrderOptions.box-order-options > ul {width: 45%;}
     #contactsOrderOptions.box-order-options > div {width: 40%;}
@@ -6134,6 +6136,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts ul li .btn {min-width: 0;}
+    #boxfiltersContacts .dropdown-menu {min-width: 99px;}
 
 
 
