@@ -1479,7 +1479,7 @@ function FilterContacts() {
     this.postFilter = function(link, callback){
         that[callBackBehaviour][callback].prepare();
         var postData = that.serializedFilterData();
-        //console.log(postData)
+        console.log(postData)
         pageLoadingOn();
         $.post( link, postData)
             .done(function(data) {
@@ -1762,7 +1762,7 @@ function FilterContacts() {
     };
 
     this.init=function(){
-        $("#filterData").on("click", ".minus-condition, .plus-condition", that.filterEditedEvent)
+        $("#filterData").on("click", ".minus-condition, .plus-condition",function(){setTimeout(that.filterEditedEvent, 300)});
         $("#filterData").on("change", "input,select", that.filterEditedEvent);
         this[callBackBehaviour].init()
     };
