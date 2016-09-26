@@ -93,6 +93,14 @@
                 title:"<g:message code="tour.dashboard.step4.title"/>",
                 content:"<g:message code="tour.dashboard.step4.content"/>"
             }
+        },
+        tools:{
+            contact:{
+                filter:{
+                    anonymousName:"<g:message code="tools.contact.filter.anonymousName"/>",
+                    newAnonymousName:"<g:message code="tools.contact.filter.newAnonymousName"/>"
+                }
+            }
         }
     }
 

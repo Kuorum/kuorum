@@ -1,5 +1,5 @@
 <%@ page import="org.kuorum.rest.model.contact.filter.ConditionRDTO; org.kuorum.rest.model.contact.filter.FilterRDTO" %>
-<r:require modules="forms"/>
+<r:require modules="filterContacts"/>
 %{--<g:each in="${filters}" var="filter">--}%
     %{--<g:render template="/contacts/filter/filterFieldSet" model="[filter:filter]"/>--}%
 %{--</g:each>--}%

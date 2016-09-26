@@ -95,6 +95,11 @@ modules = {
         resource url:'js/customForm.js'
     }
 
+    filterContacts{
+        dependsOn("basic", "forms")
+        resource url:'js/filterContacs.js'
+    }
+
     vimeo {
         resource url:'js/froogaloop2.min.js'
     }
