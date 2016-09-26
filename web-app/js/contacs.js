@@ -192,6 +192,7 @@ function FilterContacts() {
         return $("#filterData")
     };
     this.loadFilter= function(){
+        $('#filterContacts').attr("title",i18n.tools.contact.filter.conditions.close);
         if (that.getFilterId() == temporalFilterId){
             slideDownFilterInfo();
         }else{
@@ -274,6 +275,7 @@ function FilterContacts() {
 
     this.closeFilterCampaignsOptions= function(){
         $('#filterContacts').removeClass('on');
+        $('#filterContacts').attr("title",i18n.tools.contact.filter.conditions.open);
         $(".disabled-filters").slideUp("fast");
 
         $('#infoToContacts, #filterContacts').removeClass('on');

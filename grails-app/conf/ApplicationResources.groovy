@@ -95,9 +95,9 @@ modules = {
         resource url:'js/customForm.js'
     }
 
-    filterContacts{
+    contacts{
         dependsOn("basic", "forms")
-        resource url:'js/filterContacs.js'
+        resource url:'js/contacs.js'
     }
 
     vimeo {

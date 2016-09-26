@@ -23,7 +23,7 @@
             </select>
         </div>
         <div class="col-sm-4">
-            <g:link mapping="politicianContactFilterData" role="button" elementId="filterContacts" title="${g.message(code:'tools.massMailing.fields.filter.button.title')}">
+            <g:link mapping="politicianContactFilterData" role="button" elementId="filterContacts" title="${g.message(code:'tools.contact.filter.conditions.open')}">
                 <span class="fa fa-filter fa-lg"></span>
                 <span class="sr-only"><g:message code="tools.massMailing.fields.filter.button"/></span>
             </g:link>

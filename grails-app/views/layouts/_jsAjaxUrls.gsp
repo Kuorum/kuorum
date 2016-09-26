@@ -98,9 +98,13 @@
             contact:{
                 filter:{
                     anonymousName:"<g:message code="tools.contact.filter.anonymousName"/>",
-                    newAnonymousName:"<g:message code="tools.contact.filter.newAnonymousName"/>"
+                    newAnonymousName:"<g:message code="tools.contact.filter.newAnonymousName"/>",
+                    conditions:{
+                        open:"<g:message code="tools.contact.filter.conditions.open"/>",
+                        close:"<g:message code="tools.contact.filter.conditions.close"/>"
+                    }
                 }
-            }
+            },
         }
     }
 
