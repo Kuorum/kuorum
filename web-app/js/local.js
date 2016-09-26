@@ -368,10 +368,10 @@ $(document).ready(function() {
     $('body').on('click','#saveFilterAsBtnOpenModal, #saveFilterAsBtnCancel', function(e) {
         e.stopPropagation();
         e.preventDefault();
-        if ($('#saveFilterAs').hasClass('on')) {
-            $(this).next('#saveFilterAs').removeClass('on');
+        if ($('#saveFilterAsPopUp').hasClass('on')) {
+            $(this).next('#saveFilterAsPopUp').removeClass('on');
         } else {
-            $(this).next('#saveFilterAs').addClass('on');
+            $(this).next('#saveFilterAsPopUp').addClass('on');
         }
     });
 
