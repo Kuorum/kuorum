@@ -1224,13 +1224,13 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .box-order-options .filter-warning {margin-top:3px;}
 .box-order-options .filter-warning span {
     border: 1px solid #dedede;
-    border-radius: 6px;
-    padding: 5px 10px;
+    border-radius: 2px;
+    padding: 4px 5px;
     display: inline-block;
     color: #dedede;
     font-size:14px;
 }
-.box-order-options .filter-warning span.on {border-color:#a8a8a8; color: #a8a8a8}
+.box-order-options .filter-warning span.on {background-color:#dedede; color: #fff}
 .pag-list-campaigns, .pag-list-contacts {margin-bottom: 20px;}
 .pag-list-campaigns > ul, .pag-list-contacts > ul {float: right; padding: 0; margin: 0;}
 .pag-list-campaigns > ul > li, .pag-list-contacts > ul > li {list-style: none; display: inline-block;}
@@ -5557,7 +5557,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box-order-options {padding-left: 25px; padding-right: 25px;}
     .box-order-options > ul {width: 50%; margin: 5px 0 0 10px;}
     .box-order-options > ul li, .box-order-options > ul li:last-child {margin: 0 10px 10px; display: inline-block;}
-    #contactsOrderOptions.box-order-options > ul {width: 45%;}
+    #contactsOrderOptions.box-order-options > ul {width: 35%;}
     #contactsOrderOptions.box-order-options > ul li,
     #contactsOrderOptions.box-order-options > ul li:last-child {margin: 0 10px;}
 
@@ -5922,7 +5922,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts .dropdown-menu {min-width: 140px;}
     #boxfiltersContacts ul li .btn {min-width: 138px;}
-    #contactsOrderOptions.box-order-options > ul {width: 45%;}
+    #contactsOrderOptions.box-order-options > ul {width: 40%;}
     #contactsOrderOptions.box-order-options > div {width: 40%;}
     #contactsList > li > h3, #contactsList > li > p {padding-right: 74%;}
     .container-lists {position: absolute; right: 0; top: 7px; border-left: 1px solid #e5e5e5; width: 68%; padding: 10px 20px; margin: 0;}
