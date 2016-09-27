@@ -104,7 +104,7 @@ $(function(){
     //});
 
     // Update filter
-    $('body').on('click','#saveFilter, #refreshFilter, #saveFilterAsBtn', function(e) {
+    $('body').on('click','#saveFilter, #refreshFilter, #saveFilterAs', function(e) {
         e.preventDefault();
         var link = $(this).attr("href");
         var callback = $(this).attr("data-callaBackFunction");

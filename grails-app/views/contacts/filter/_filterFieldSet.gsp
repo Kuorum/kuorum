@@ -72,11 +72,11 @@
         <g:link mapping="politicianContactFilterRefresh"    data-callaBackFunction="campaignFilterRefresh" role="button" class="btn btn-blue inverted" elementId="refreshFilter"><span class="fa fa-refresh"></span> <g:message code="tools.contact.filter.form.refresh"/></g:link>
         <g:link mapping="politicianContactFilterUpdate"     data-callaBackFunction="campaignFilterSave" role="button" class="btn btn-blue inverted ${filter?.id==-2?'disabled':''}" elementId="saveFilter"><g:message code="tools.contact.filter.form.save"/></g:link>
         <a href="#"        role="button" class="btn btn-blue inverted" id="saveFilterAsBtnOpenModal"><g:message code="tools.contact.filter.form.saveAs"/></a>
-        <div id="saveFilterAs">
+        <div id="saveFilterAsPopUp">
             <label class="sr-only" for="newFilterName">Write a name</label>
             <input class="form-control" type="text" name="newFilterName" id="newFilterName">
             <a href="#" id="saveFilterAsBtnCancel">Cancel</a>
-            <g:link mapping="politicianContactFilterNew" data-callaBackFunction="campaignFilterSaveAs" type="submit" class="btn btn-blue inverted" elementId="saveFilterAsBtn">Save</g:link>
+            <g:link mapping="politicianContactFilterNew" data-callaBackFunction="campaignFilterSaveAs" type="submit" class="btn btn-blue inverted" elementId="saveFilterAs">Save</g:link>
         </div>
     </fieldset>
 </div>
