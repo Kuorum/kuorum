@@ -87,8 +87,10 @@ $(function(){
     // eliminar condición con botón
     $('body').on('click','.new-filter-options .minus-condition', function(e) {
         e.preventDefault();
-        $(this).closest('.new-filter-options').fadeOut("fast", function(){$(this).remove()});
-        filterContacts.filterEditedEvent();
+        $(this).closest('.new-filter-options').fadeOut("fast", function(){
+            $(this).remove()
+            filterContacts.filterEditedEvent();
+        });
     });
     $("#filterData").on("click", ".plus-condition",filterContacts.filterEditedEvent);
 
