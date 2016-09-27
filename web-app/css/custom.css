@@ -6051,6 +6051,13 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Large devices (large desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+    .kakareo.post,
+    .box-ppal,
+    .kakareo .link-wrapper,
+    .kakareo .wrapper,
+    .edit-post .kakareo.post .wrapper,
+    .kakareo.post {padding: 22px;}
+
     .pago {background-size: 342px auto; background-position: center 25px;}
     .embudo #aside-ppal {padding-bottom: 46px;}
     .config.info > article > .box-ppal > h1 {margin: 5px 0 25px;}
