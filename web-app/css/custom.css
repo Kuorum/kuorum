@@ -2029,7 +2029,7 @@ video#bgvid {
 /* NUEVOS ESTILOS LANDING 2016 */
 /* vídeo */
 #main.landing {padding: 0; color: #fff; min-height: 0;}
-#main.landing .full-video {padding: 0; background-image: url('../images/background.png');}
+#main.landing .full-video {padding: 0; /* background-image: url('../images/background.png'); */}
 #main.landing .full-video video#bgvid {
     background-image: url('../images/background.png');
     background-size: 100% auto;
