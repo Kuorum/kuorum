@@ -5547,6 +5547,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
+    fieldset.form-group.new-filter-options > div {padding: 0px 28px 0 0;}
     .new-filter-options > div:first-child > a > .text {display: none;}
     /*.new-filter-options > label.control-label {color: #a8a8a8}*/
     .new-filter-options.last > div:first-child > a > .text {display: inline; margin-left: 5px;}
