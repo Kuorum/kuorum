@@ -149,7 +149,7 @@ class CustomRegisterController {
             }else{
                 KuorumUser user = springSecurityService.currentUser
                 promotionalCodeService.setPromotionalCode(user, command.promotionalCode)
-                flash.message="Your promotional code has been saved"
+                flash.message=g.message(code: 'subscriber.step3.promotionalCode.success')
                 redirect(mapping:"dashboard")
             }
         }
