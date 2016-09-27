@@ -35,7 +35,7 @@ class KuorumUser {
 
     PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
-    String timeZoneId;
+    String timeZoneId = "Europe/Madrid";
 
     Boolean requestedPoliticianBetaTester = Boolean.FALSE
     EditorRules editorRules
