@@ -16,7 +16,7 @@
     </ol>
     <div class="box-ppal edit-contact clearfix">
         <formUtil:validateForm bean="${command}" form="newContact"/>
-        <g:form method="POST" mapping="politicianContactNew"  name="newContact" role="form">
+        <g:form method="POST" mapping="politicianContactNew"  name="newContact" role="form" class="clearfix">
             <fieldset>
                 <div class="form-group">
                     <formUtil:input command="${command}" field="name" showLabel="true"/>
