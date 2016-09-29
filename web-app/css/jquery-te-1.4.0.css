@@ -45,7 +45,8 @@
 	display: block;
 	width: 30px;
 	height: 30px;
-	background: url('../images/jquery-te-cstm.png') no-repeat
+	/*background: url('../images/jquery-te-cstm.png') no-repeat*/
+	background: url('../images/jqte-custom.png') no-repeat
 }
 .jqte_tool.jqte_tool_1 .jqte_tool_label {
 	position:relative;
@@ -75,7 +76,52 @@
 	background-position:0 0
 }
 .jqte_tool.jqte_tool_3 .jqte_tool_icon {
-	background-position:-22px 0
+	background-position:0 0;
+}
+.jqte_tool.jqte_tool_4 .jqte_tool_icon {
+	background-position:0 0;
+}
+.jqte_tool.jqte_tool_5 .jqte_tool_icon {
+	background-position:-35px 0
+}
+.jqte_tool.jqte_tool_6 .jqte_tool_icon {
+	background-position:-70px 1px;
+}
+.jqte_tool.jqte_tool_7 .jqte_tool_icon {
+	background-position:-105px 1px;
+}
+.jqte_tool.jqte_tool_8 .jqte_tool_icon {
+	background-position:-140px 1px;
+}
+.jqte_tool.jqte_tool_11 .jqte_tool_icon {
+	background-position:-245px 1px;
+}
+.jqte_tool.jqte_tool_12 .jqte_tool_icon {
+	background-position:-280px 1px;
+}
+.jqte_tool.jqte_tool_13 .jqte_tool_icon {
+	background-position:-315px 1px;
+}
+.jqte_tool.jqte_tool_14 .jqte_tool_icon {
+	background-position:-350px 1px;
+}
+.jqte_tool.jqte_tool_15 .jqte_tool_icon {
+	background-position:-385px 1px;
+}
+.jqte_tool.jqte_tool_16 .jqte_tool_icon {
+	background-position:-420px 1px;
+}
+.jqte_tool.jqte_tool_17 .jqte_tool_icon {
+	background-position:-490px 1px;
+}
+.jqte_tool.jqte_tool_18 .jqte_tool_icon {
+	background-position:-525px 1px;
+}
+.jqte_tool.jqte_tool_19 .jqte_tool_icon {
+	background-position:-455px 1px;
+}/*
+.jqte_tool.jqte_tool_3 .jqte_tool_icon {
+	background-position: -22px 1px;
 }
 .jqte_tool.jqte_tool_4 .jqte_tool_icon {
 	background-position: -46px 1px;
@@ -130,7 +176,7 @@
 }
 .jqte_tool.jqte_tool_21 .jqte_tool_icon {
 	background-position:-418px 0
-}
+}*/
 .jqte_tool:hover {
 	background-color: transparent;
 }
@@ -203,7 +249,7 @@
 }
 .jqte_linktypes a:hover {
 	background: #ddd;
-	text-decoration: none;
+	/*text-decoration: none*/;
 }
 .jqte_linkinput {
 	float:left;
@@ -215,10 +261,12 @@
 	color: #a8a8a8;
 	font-size: 12px;
 	outline:none;
+	cursor: pointer;
 }
 .jqte_linkinput:focus, .jqte_linkinput:hover {
 	background: #eee;
 	border: #eee 1px solid;
+	cursor: pointer;
 }
 .jqte_linkbutton {
 	float: left;
@@ -345,8 +393,7 @@
 	margin:0 0 7px
 }
 .jqte_editor a:link, .jqte_editor a:link * {
-	color:#0066FF !important;
-	text-decoration:underline;
+	cursor: pointer;
 }
 .jqte_editor blockquote {
 	margin-top:0;
@@ -357,7 +404,7 @@
 	margin:0 10px 5px 0
 }
 .jqte_editor a[jqte-setlink], .jqte_editor a[jqte-setlink] * {
-	background:#3297FD !important;
+	background:#ff9431 !important;
 	color:#FFF !important
 }
 .jqte_editor h1, .jqte_editor h2, .jqte_editor h3, .jqte_editor h4, .jqte_editor h5, .jqte_editor h6, .jqte_editor pre {
