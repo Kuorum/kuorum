@@ -36,7 +36,7 @@
                         values="${org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.values()-org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.STATUS}"
                         cssLabel="sr-only"/>
             </div>
-            <div class="col-sm-3">%
+            <div class="col-sm-3">
                 <formUtil:selectEnum
                         field="operator"
                         command="${listCommand}"
