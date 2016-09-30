@@ -1,4 +1,4 @@
-<%@ page import="org.kuorum.rest.model.contact.filter.ConditionRDTO; org.kuorum.rest.model.contact.filter.FilterRDTO" %>
+<%@ page import=" org.kuorum.rest.model.contact.filter.FilterRDTO" %>
 <r:require modules="contacts"/>
 %{--<g:each in="${filters}" var="filter">--}%
     %{--<g:render template="/contacts/filter/filterFieldSet" model="[filter:filter]"/>--}%
@@ -24,8 +24,8 @@
                     <table class="table-bordered">
                         <thead>
                         <tr>
-                            <th><g:message code="org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO.NAME"/> </th>
-                            <th><g:message code="org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO.EMAIL"/></th>
+                            <th><g:message code="org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.NAME"/> </th>
+                            <th><g:message code="org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.EMAIL"/></th>
                         </tr>
                         </thead>
                         <tbody>

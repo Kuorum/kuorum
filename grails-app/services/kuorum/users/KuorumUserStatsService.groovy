@@ -1,13 +1,13 @@
 package kuorum.users
 
+import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.Region
 import kuorum.core.model.Gender
-import kuorum.core.model.project.ProjectRegionStats
 import kuorum.core.model.UserType
+import kuorum.core.model.project.ProjectRegionStats
 import kuorum.project.AcumulativeVotes
 import kuorum.util.rest.RestKuorumApiService
-import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 
 @Transactional(readOnly = true)

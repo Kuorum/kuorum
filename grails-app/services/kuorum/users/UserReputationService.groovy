@@ -1,10 +1,10 @@
 package kuorum.users
 
+import com.fasterxml.jackson.core.type.TypeReference
 import grails.plugin.cookie.CookieService
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import kuorum.util.rest.RestKuorumApiService
-import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 

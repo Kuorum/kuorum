@@ -1,30 +1,27 @@
 package payment
 
-import grails.async.Promise
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
-import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.contact.ContactCommand
+import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
 import org.kuorum.rest.model.contact.SearchContactRSDTO
-import org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO
-import org.kuorum.rest.model.contact.filter.ConditionOperatorTypeRDTO
-import org.kuorum.rest.model.contact.filter.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionRDTO
+import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
 import org.kuorum.rest.model.contact.sort.SortContactsRDTO
 import org.mozilla.universalchardet.UniversalDetector
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import payment.contact.ContactService
-
-import java.util.concurrent.TimeUnit
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ContactsController {
@@ -147,7 +144,7 @@ class ContactsController {
             render view: 'newContact', model:[command:command]
         }
         FilterRDTO filterRDTO = new FilterRDTO()
-        filterRDTO.setFilterConditions([new ConditionRDTO(field: ConditionFieldTypeRDTO.EMAIL, operator: ConditionOperatorTypeRDTO.EQUALS, value: command.email)])
+        filterRDTO.setFilterConditions([ConditionRDTO.factory(ConditionFieldTypeRDTO.EMAIL, TextConditionOperatorTypeRDTO.EQUALS.toString(), command.email)])
         KuorumUser user = springSecurityService.currentUser
         ContactPageRSDTO alreadyExistsContact = contactService.getUsers(user, filterRDTO)
         ContactRSDTO contactRSDTO

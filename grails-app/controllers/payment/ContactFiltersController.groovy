@@ -6,13 +6,12 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
-import org.kuorum.rest.model.contact.SearchContactRSDTO
-import org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO
-import org.kuorum.rest.model.contact.filter.ConditionOperatorTypeRDTO
-import org.kuorum.rest.model.contact.filter.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.OperatorTypeRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionRDTO
+import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
 import org.springframework.validation.ObjectError
 import payment.contact.ContactService
 
@@ -95,7 +94,7 @@ class ContactFiltersController {
         ExtendedFilterRSDTO filterRDTO
         if (filterId ==-2){
             filterRDTO = new ExtendedFilterRSDTO()
-            filterRDTO.filterConditions = [new ConditionRDTO([field: ConditionFieldTypeRDTO.NAME,operator:ConditionOperatorTypeRDTO.STARTS_WITH])]
+            filterRDTO.filterConditions = [ConditionRDTO.factory(ConditionFieldTypeRDTO.NAME, TextConditionOperatorTypeRDTO.STARTS_WITH.toString(), "")]
             filterRDTO.operator = OperatorTypeRDTO.AND
             filterRDTO.id = -2
         }else{
