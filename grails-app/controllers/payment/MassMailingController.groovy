@@ -190,10 +190,10 @@ class MassMailingController {
         }
         String msg = ""
         CampaignRSDTO savedCampaign = null;
-        if (command.getSendType()=="SEND" && command.filterId >= 0){
+        if (command.getSendType()=="SEND"){
             savedCampaign = massMailingService.campaignSend(user, campaignRQDTO, campaignId)
             msg = g.message(code:'tools.massMailing.send.advise', args: [savedCampaign.subject])
-        }else if(command.sendType == "SCHEDULED" && command.filterId >= 0) {
+        }else if(command.sendType == "SCHEDULED") {
             savedCampaign = massMailingService.campaignSchedule(user, campaignRQDTO, command.getScheduled(), campaignId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [savedCampaign.subject, g.formatDate(date: savedCampaign.sentOn, type: "datetime", style: "SHORT")])
         }else{
