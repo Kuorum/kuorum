@@ -1363,7 +1363,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 #contactsList { min-height: 10em;}
 #contactsList > h3.noContacts {text-align: center}
-#contactsList > li {padding: 85px 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 220px;}
+#contactsList > li {padding: 85px 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 170px;}
 #contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 0; top: 10px; overflow: hidden; background-color: #e5e5e5;}
 #contactsList > li p {margin: 0;}
 #contactsList > li .title {font-size: 17px; font-size: 1.7rem; margin: 0 0 4px 0;}
@@ -1371,7 +1371,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #contactsList > li > p > a{color: #545454;}
 #contactsList > li .email, #contactsList > li .email a {color: #a8a8a8;}
 #contactsList > li .email span.fa {margin-right: 5px;}
-.container-lists {margin-top: 10px;}
+.container-lists {margin-top: 10px; display: none;}
 .container-lists li {display: inline-block;}
 .off .bootstrap-tagsinput {display: none; padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
 .bootstrap-tagsinput {display: inline-block;}
@@ -5113,6 +5113,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .container-lists h4 {margin-left: 0;}
 
     /* CONTACT LIST */
+    .container-lists {display: block;}
+    #contactsList > li {min-height: 220px;}
     .engagement {margin: 0 0 10px 0; font-size: 100%; padding: 0 30px 0 0;}
     .engagement li a {color: #a8a8a8 !important; text-decoration: none; padding: 3px 0 3px 50px; background: #f2f2f2; position: relative; display: block; float: left; pointer-events: none; cursor: default;}
     .engagement li a:after {content: " "; display: block; width: 0; height: 0; border-top: 40px solid transparent; border-bottom: 40px solid transparent; border-left: 30px solid #f2f2f2; position: absolute; top: 50%; margin-top: -40px; left: 100%; z-index: 2;}
@@ -5608,7 +5610,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* Medium devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
     .main {min-height: calc(100vh - 171px);}
-
+    .main.landing {min-height: 0;}
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
     header.landing .navbar-form {margin: 6px 6px 6px 85px; width: 220px;}
