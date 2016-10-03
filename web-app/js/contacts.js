@@ -235,7 +235,6 @@ function FilterContacts() {
         $filterData.slideDown("fast", function(){$("#newFilterContainer").slideDown();$(".disabled-filters").slideDown()});
         $('#filterContacts, #infoToContacts').addClass('on');
     }
-
     this.isFilterEdited=function(){
         return $("input[name=filterEdited]").val() === 'true';
     }
@@ -281,6 +280,7 @@ function FilterContacts() {
         $(".disabled-filters").slideUp("fast");
 
         $('#infoToContacts, #filterContacts').removeClass('on');
+        $("#filterData").html(""); // REMOVE INFO FILTER
         if (that.getFilterId()==newFilterId) {
             // Change 'new filter' to 'All'
             that.changeFilterValue(allContactsFilterId)
