@@ -1118,7 +1118,6 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #tabs-new-campaign .textareaContainer + div {text-align: right; position: relative;}
 .contact-filter-text {color: #a8a8a8}
 
-#newFilterContainer {display: none;}
 .new-filter-options .form-control {margin-bottom: 5px;}
 .new-filter-options .minus-condition, .new-filter-options .plus-condition {color: #a8a8a8; margin-bottom: 5px; display: inline-block; line-height: 35px; z-index:1}
 .new-filter-options .minus-condition:hover, .new-filter-options .minus-condition:focus, .new-filter-options .minus-condition:active,
