@@ -57,9 +57,10 @@ class KuorumUserTagLib {
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
         Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
         Boolean showDeleteRecommendation = attrs.showDeleteRecommendation?Boolean.parseBoolean(attrs.showDeleteRecommendation):false
+        String htmlWrapper = attrs.htmlWrapper?:"div"
 
 //        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
-        out << "<div class='user' itemtype=\"http://schema.org/Person\" itemscope>"
+        out << "<${htmlWrapper} class='user ${showDeleteRecommendation?'recommendation-deletable':''}' itemtype=\"http://schema.org/Person\" itemscope data-userId='${user.id}'>"
         def imgSrc = image.userImgSrc(user:user)
         def userName = ""
         if (showName){
@@ -92,7 +93,7 @@ class KuorumUserTagLib {
             }
             out << "</div>"
         }
-        out << "</div>" //END DIV
+        out << "</${htmlWrapper}>" //END DIV
     }
 
     def showDebateUsers={attrs->

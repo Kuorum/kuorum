@@ -124,10 +124,42 @@ $(document).ready(function() {
                 var message = buttonFollow.attr('data-message-unfollow');
                 var userId = buttonFollow.attr('data-userId');
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
-                $("#user-list-followers-"+userId).fadeOut('slow').remove()
+                deleteUserRecommendation(userId);
             });
         }
     }
+
+    function deleteUserRecommendation(userId){
+        $(".user.recommendation-deletable[data-userid="+userId+"]").fadeOut('slow', function(){
+            $(".user.recommendation-deletable[data-userid="+userId+"]").remove();
+        });
+        $("#user-list-followers-"+userId).fadeOut('slow').remove()
+    }
+
+
+    // si el box de Usuarios de la columna C no lleva la X de cierre quito el hueco de la derecha del botón Follow
+    if ( !$('.user-list-followers .actions .close').length ) {
+        $('.user-list-followers > .user > .actions').css('width', 'auto');
+    }
+
+    // desvanecer y eliminar los usuario de la lista "A quién seguir"
+    $('body').on('click','ul.user-list-followers > li.user .actions .close', function(e) {
+
+        //$(this).closest('li.user').fadeOut('slow', function(){
+        //  $(this).remove();
+        //});
+        var userId = $(this).attr("data-userid")
+        deleteUserRecommendation(userId)
+
+    });
+    $('body').on('click','ul.user-list-followers > li.user:only-child .actions .close', function(e) {
+
+        //$(this).closest('.boxes.follow').fadeOut('slow', function(){
+        //  $(this).remove();
+        //});
+        var userId = $(this).attr("data-userid")
+        deleteUserRecommendation(userId)
+    });
 
     function clickedButtonContact(button){
         var buttonContact = $(button);
