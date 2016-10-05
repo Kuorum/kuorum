@@ -17,8 +17,8 @@ class UserNewsService {
                 [:],
                 new TypeReference<List<UserNewRSDTO>>(){}
         )
-        List<UserNewRSDTO>  leaningIndexRSDTO =  response.data
+        List<UserNewRSDTO>  userNews =  response.data
 
-        return leaningIndexRSDTO;
+        return userNews;
     }
 }
