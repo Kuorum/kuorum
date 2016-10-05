@@ -1,6 +1,5 @@
 package kuorum.users
 
-import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.Region
 import kuorum.core.model.Gender
@@ -8,7 +7,6 @@ import kuorum.core.model.UserType
 import kuorum.core.model.project.ProjectRegionStats
 import kuorum.project.AcumulativeVotes
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 
 @Transactional(readOnly = true)
 class KuorumUserStatsService {
@@ -87,17 +85,5 @@ class KuorumUserStatsService {
             return politician.politicianActivity
         }
 
-    }
-
-    LeaningIndexRSDTO findLeaningIndex(KuorumUser user){
-        def response = restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.USER_STATS_LEANING_INDEX,
-                [userId:user.id.toString()],
-                [:],
-                new TypeReference<LeaningIndexRSDTO>(){}
-        )
-        LeaningIndexRSDTO leaningIndexRSDTO =  response.data
-
-        return leaningIndexRSDTO;
     }
 }

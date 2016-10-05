@@ -994,12 +994,6 @@ $(document).ready(function() {
             $parent.toggleClass("active");
             $parent.find(".cause-counter").html(citizenSupports);
 
-            if($("#user-logged-leaning-index-panel-id").length){
-                var barWidth= data.leaningIndex.liberalIndex+'%';
-                $("#user-logged-leaning-index-panel-id").find(".progress-bar").css('width',barWidth);
-                $("#user-logged-leaning-index-panel-id").find(".tooltip").css('left',barWidth);
-                $("#user-logged-leaning-index-panel-id").find(".tooltip-inner").html(barWidth);
-            }
             relaodAllDynamicDivs();
             actionAfterSupport()
         });

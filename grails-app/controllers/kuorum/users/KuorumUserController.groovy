@@ -1,6 +1,5 @@
 package kuorum.users
 
-import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.campaign.Campaign
 import kuorum.campaign.CampaignService
@@ -15,14 +14,10 @@ import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
-import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
-import org.kuorum.rest.model.kuorumUser.reputation.ReputationSnapshotRSDTO
-import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
-import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
 
 class KuorumUserController {
@@ -191,14 +186,12 @@ class KuorumUserController {
     def showExtendedPolitician(KuorumUser politician){
         List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(politician, new Pagination(max:12))
         List<Project> userProjects = projectService.politicianProjects(politician)
-        List<CauseRSDTO> causes = causesService.findSupportedCauses(politician)
+        List<CauseRSDTO> causes = causesService.findDefendedCauses(politician)
         Campaign campaign = campaignService.findActiveCampaign(politician)
-        LeaningIndexRSDTO politicianLeaningIndex = kuorumUserStatsService.findLeaningIndex(politician)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(politician)
         [
                 politician:politician,
-                politicianLeaningIndex:politicianLeaningIndex,
                 userProjects:userProjects,
                 recommendPoliticians:recommendPoliticians,
                 campaign:campaign,

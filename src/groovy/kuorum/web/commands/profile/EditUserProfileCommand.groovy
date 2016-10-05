@@ -30,7 +30,6 @@ class EditUserProfileCommand{
         }else if (user.userType == UserType.POLITICIAN){
             this.position = user.professionalDetails?.position
             this.politicalParty = user.professionalDetails?.politicalParty
-            this.politicalLeaningIndex = user.politicianLeaning?.liberalIndex
         }else{
             this.birthday= user.personalData?.birthday
             this.workingSector = user.personalData?.workingSector
@@ -54,7 +53,6 @@ class EditUserProfileCommand{
     //Politician
     String position
     String politicalParty
-    Integer politicalLeaningIndex
 
     static constraints = {
         gender nullable: true
@@ -65,7 +63,6 @@ class EditUserProfileCommand{
         enterpriseSector nullable:true
         bio nullable: true, maxSize: 1000
         imageProfile nullable: true
-        politicalLeaningIndex nullable:true, min:0, max:100
         politicalParty nullable:true
         position nullable:true
     }

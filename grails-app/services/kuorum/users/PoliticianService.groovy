@@ -1,7 +1,6 @@
 package kuorum.users
 
 import com.mongodb.DBCursor
-import grails.plugin.mail.MailService
 import grails.transaction.Transactional
 import kuorum.KuorumFile
 import kuorum.Region
@@ -10,7 +9,6 @@ import kuorum.causes.CausesService
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
-import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
@@ -18,14 +16,7 @@ import kuorum.files.FileService
 import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
 import kuorum.solr.IndexSolrService
-import kuorum.users.extendedPoliticianData.CareerDetails
-import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
-import kuorum.users.extendedPoliticianData.OfficeDetails
-import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
-import kuorum.users.extendedPoliticianData.PoliticianLeaning
-import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
-import kuorum.users.extendedPoliticianData.PoliticianTimeLine
-import kuorum.users.extendedPoliticianData.ProfessionalDetails
+import kuorum.users.extendedPoliticianData.*
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import org.apache.commons.lang.WordUtils
 import org.bson.types.ObjectId
@@ -164,7 +155,6 @@ class PoliticianService {
         KuorumUser politician = findOrRecoverPolitician(line)
         populateBasicData(politician, line)
         populateImages(politician, line)
-        populateLeaning(politician, line)
         populateProfessionalDetails(politician, line)
         populateCareerDetails(politician, line)
         populateSocialLinks(politician, line)
@@ -351,19 +341,6 @@ class PoliticianService {
         }
         politician.externalPoliticianActivities = externalPoliticianActivities
         sortExternalPoliticianActivity(politician)
-    }
-
-    private void populateLeaning(KuorumUser politician, def line){
-        if (!politician.politicianLeaning){
-            politician.politicianLeaning = new PoliticianLeaning()
-        }
-        String leanindIndex = line."political_leaning_index"?.trim();
-        Double dli = 0.5
-        if (leanindIndex){
-            dli = Double.parseDouble(leanindIndex)
-        }
-        politician.politicianLeaning.liberalIndex = Math.round(dli * 100)
-
     }
 
     private void populateAddress(KuorumUser politician, def line){

@@ -144,7 +144,7 @@ class DashboardController {
         }else{
             List fields = [
                     [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
-                    [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["position", "politicalParty", "politicalLeaningIndex"].contains(it.key)}.size()],
+                    [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["position", "politicalParty"].contains(it.key)}.size()],
                     [urlMapping: 'profileSocialNetworks', total:4],
             ]
             Integer totalFields = 8+7+4; // FAST CHAPU

@@ -39,7 +39,6 @@ class RestKuorumApiService {
     }
 
     public enum ApiMethod{
-        USER_STATS_LEANING_INDEX            ('/user/{userId}/stats/leaning-index'),
         USER_STATS_REPUTATION               ('/user/{userId}/stats/reputation'),
         USER_STATS_REPUTATION_EVOLUTION     ('/user/{userId}/stats/reputation/evolution'),
 

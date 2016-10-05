@@ -48,6 +48,7 @@ class CausesService {
                 RestKuorumApiService.ApiMethod.CAUSE_OPERATIONS,
                 [causeName:causeName],
                 [:],
+                null,
                 new TypeReference<CauseRSDTO>(){})
         CauseRSDTO cause = null;
         if (response.data){
@@ -61,6 +62,7 @@ class CausesService {
                 RestKuorumApiService.ApiMethod.USER_CAUSES_SUPPORT,
                 [userId:user.id.toString(), causeName:causeName],
                 [:],
+                null,
                 new TypeReference<SupportedCauseRSDTO>(){})
         SupportedCauseRSDTO cause = null;
         if (response.data){

@@ -7,9 +7,7 @@ import kuorum.core.model.search.Pagination
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserStatsService
-import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
-import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 
 class ModulesController {
 
@@ -96,18 +94,6 @@ class ModulesController {
         render template: "/dashboard/landingPageModules/relevantPoliticians", model: [politicians:politicians]
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def userLeaningIndex() {
-        KuorumUser user = springSecurityService.currentUser
-        LeaningIndexRSDTO userLeaningIndex = kuorumUserStatsService.findLeaningIndex(user)
-        render template: "/kuorumUser/showExtendedPoliticianTemplates/columnC/leaningIndex",
-                model:[
-                        user:user,
-                        leaningIndex: userLeaningIndex,
-                        panelId:"user-logged-leaning-index-panel-id"
-
-                ]
-    }
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userCauses() {
         KuorumUser user = springSecurityService.currentUser

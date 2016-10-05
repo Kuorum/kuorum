@@ -225,7 +225,6 @@ class ProfileController {
                 }
                 user.professionalDetails.position = command.position
                 user.professionalDetails.politicalParty = command.politicalParty
-                user.politicianLeaning.liberalIndex = command.politicalLeaningIndex
             }else{
                 personalData.birthday = command.birthday
                 personalData.studies =  command.studies
