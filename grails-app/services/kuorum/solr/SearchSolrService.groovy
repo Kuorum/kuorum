@@ -130,6 +130,9 @@ class SearchSolrService {
             case SearchType.REGION:
                 query.setParam("qf","regionIso3166_2^10.0 constituencyIso3166_2^5.0")
                 break;
+            case SearchType.CAUSE:
+                query.setParam("qf","tags^10.0")
+                break;
             case SearchType.ALL:
                 break;
             default:
@@ -153,6 +156,9 @@ class SearchSolrService {
         }
         if (!word){
             word = "*"
+        }
+        if (params.searchType == SearchType.CAUSE){
+            word = "\"${word}\""
         }
         query.setParam(CommonParams.Q, word);
     }

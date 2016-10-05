@@ -299,6 +299,7 @@
 .fa-barcode:before {
   content: "\f02a";
 }
+.fa-kuorumSearchType-CAUSE:before,
 .fa-tag:before {
   content: "\f02b";
 }
@@ -727,7 +728,7 @@
 }
 .fa-navicon:before,
 .fa-reorder:before,
-.fa-kuorumSearchType-ALL:before
+.fa-kuorumSearchType-ALL:before,
 .fa-bars:before {
   content: "\f0c9";
 }
