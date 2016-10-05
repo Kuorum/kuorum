@@ -12,6 +12,7 @@ import kuorum.notifications.NotificationService
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.users.OrganizationData
 import kuorum.users.PoliticianService
 import kuorum.web.commands.customRegister.Step2Command
 import kuorum.web.commands.customRegister.SubscriptionStep1Command
@@ -123,6 +124,10 @@ class CustomRegisterController {
         user.personalData.telephone = command.phone
         user.language = command.language
         user.userType = UserType.PERSON
+        if (command.userType == UserType.ORGANIZATION){
+            user.personalData = new OrganizationData();
+            user.personalData.gender = Gender.ORGANIZATION
+        }
         user.password = registerService.encodePassword(user, command.password)
         if (command.userType == UserType.POLITICIAN){
             offerService.purchaseOffer(user, OfferType.BASIC, 0)
