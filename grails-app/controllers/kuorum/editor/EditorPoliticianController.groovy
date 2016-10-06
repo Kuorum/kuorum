@@ -15,24 +15,6 @@ class EditorPoliticianController {
     KuorumUserService kuorumUserService
     CausesService causesService
 
-    def editExternalActivity(){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
-        [command:new ExternalPoliticianActivityCommand(politician:politician, externalPoliticianActivities: politician.externalPoliticianActivities)]
-    }
-
-    def updateExternalActivity(ExternalPoliticianActivityCommand command){
-        command.externalPoliticianActivities = command.externalPoliticianActivities.grep()
-        command.validate()
-        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
-        if (command.hasErrors()){
-            render view:"editExternalActivity", model:[command:command]
-            return;
-        }
-        politicianService.updatePoliticianExternalActivity(politician, command.externalPoliticianActivities)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'editorEditPoliticianExternalActivity', params: politician.encodeAsLinkProperties()
-    }
-
     def editRelevantEvents(){
         KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         [command:new RelevantEventsCommand(politician:politician, politicianRelevantEvents: politician.relevantEvents?.reverse()?:[])]

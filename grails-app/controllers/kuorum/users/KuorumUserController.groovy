@@ -156,31 +156,6 @@ class KuorumUserController {
         def model = showExtendedPolitician(politician)
         render (view:"showExtendedPolitician", model:model)
         return;
-        String provinceName = politician.personalData.province.name
-        if (politician.enabled){
-            Pagination pagination = new Pagination()
-            List<Project> userProjects = projectService.politicianProjects(politician)
-            Long numUserProjects = projectService.countPoliticianProjects(politician)
-            SearchUserPosts searchUserPosts = new SearchUserPosts(user:politician, publishedPosts: true);
-            List<Post> defendedPosts = postService.politicianDefendedPosts(searchUserPosts)
-            Long numDefendedPosts = postService.countPoliticianDefendedPosts(searchUserPosts)
-            SearchUserPosts searchVictoryUserPosts = new SearchUserPosts(user:politician, publishedPosts: true,  victory: true);
-            List<Post> userVictoryPost = postService.politicianDefendedPosts(searchVictoryUserPosts)
-            Long numUserVictoryPost = postService.countPoliticianDefendedPosts(searchVictoryUserPosts)
-            PoliticianActivity politicianStats =kuorumUserStatsService.calculatePoliticianActivity(politician)
-            render (view:"show",
-                    model:[
-                            user:politician,
-                            userProjects:userProjects,
-                            numUserProjects:numUserProjects,
-                            defendedPosts:defendedPosts,
-                            numDefendedPosts:numDefendedPosts,
-                            userVictoryPost:userVictoryPost,
-                            numUserVictoryPost:numUserVictoryPost,
-                            politicianStats:politicianStats])
-        }else{
-            render (view:"showInactivePolitician", model:[user:politician, provinceName:provinceName])
-        }
     }
 
     def showExtendedPolitician(KuorumUser politician){

@@ -38,11 +38,6 @@ class PoliticianService {
 
     private static final String IPDB_DATE_FORMAT = "dd/MM/yyyy HH:mm"
 
-    KuorumUser updatePoliticianExternalActivity(KuorumUser politician, List<ExternalPoliticianActivity> externalPoliticianActivities){
-        politician.externalPoliticianActivities = externalPoliticianActivities.findAll{it && it.validate()}
-        sortExternalPoliticianActivity(politician)
-        kuorumUserService.updateUser(politician)
-    }
 
     KuorumUser updatePoliticianRelevantEvents(KuorumUser politician, List<PoliticianRelevantEvent> relevantEvents){
         politician.relevantEvents = relevantEvents.findAll{it && it.validate()}
@@ -158,7 +153,6 @@ class PoliticianService {
         populateProfessionalDetails(politician, line)
         populateCareerDetails(politician, line)
         populateSocialLinks(politician, line)
-        populateExternalPoliticianActivity(politician, line)
         populateTimeLine(politician, line)
         populateTags(politician, line)
         populateRelevantEvents(politician, line)
@@ -214,9 +208,6 @@ class PoliticianService {
         politician.relevantEvents = relevantEvents
     }
 
-    private void sortExternalPoliticianActivity(KuorumUser politician){
-        politician.externalPoliticianActivities = politician.externalPoliticianActivities.sort{a,b-> !a.date?-1:!b.date?1:b.date<=>a.date}
-    }
     private void sortPoliticalExperience(KuorumUser politician){
         politician.timeLine = politician.timeLine.sort{a,b-> b.date<=>a.date}
     }
@@ -322,25 +313,6 @@ class PoliticianService {
         politician.socialLinks.youtube= politician.socialLinks.youtube?:line."youtubeChannel"?.trim()
         politician.socialLinks.officialWebSite = politician.socialLinks.officialWebSite?:line."officialWebsite"?.trim()
         politician.socialLinks.institutionalWebSite = politician.socialLinks.institutionalWebSite?:line."sourceWebsite"?.trim()
-    }
-
-    private void populateExternalPoliticianActivity(KuorumUser politician, def line){
-        List<ExternalPoliticianActivity> externalPoliticianActivities = [];
-        String prefix = "lastActivity"
-        (1..5).each{i->
-            ExternalPoliticianActivity epa = new ExternalPoliticianActivity()
-            String title = line."${prefix}${i}"
-            if (title){
-                epa.date = parseDate(line."${prefix}${i}Date", IPDB_DATE_FORMAT)
-                epa.title =title
-                epa.link =line."${prefix}${i}Link"?.trim()
-                epa.actionType =line."${prefix}${i}Action"?.trim()
-                epa.outcomeType =line."${prefix}${i}Outcome"?.trim()
-                externalPoliticianActivities << epa
-            }
-        }
-        politician.externalPoliticianActivities = externalPoliticianActivities
-        sortExternalPoliticianActivity(politician)
     }
 
     private void populateAddress(KuorumUser politician, def line){

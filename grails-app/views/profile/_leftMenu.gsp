@@ -23,9 +23,6 @@
         <li class="${activeMapping=='profilePoliticianQuickNotes'?'active':''}">
             <g:link mapping="profilePoliticianQuickNotes"><g:message code="profile.menu.profilePoliticianQuickNotes"/></g:link>
         </li>
-        <li class="${activeMapping=='profilePoliticianExternalActivity'?'active':''}">
-            <g:link mapping="profilePoliticianExternalActivity"><g:message code="profile.menu.profilePoliticianExternalActivity"/></g:link>
-        </li>
         <li class="${activeMapping=='profilePoliticianExperience'?'active':''}">
             <g:link mapping="profilePoliticianExperience"><g:message code="profile.menu.profilePoliticianExperience"/></g:link>
         </li>

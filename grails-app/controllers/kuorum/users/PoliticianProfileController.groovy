@@ -18,24 +18,6 @@ class PoliticianProfileController extends ProfileController{
     PoliticianService politicianService
     CausesService causesService
 
-    def editExternalActivity() {
-        KuorumUser user = params.user
-
-        [command:new ExternalPoliticianActivityCommand(politician:user, externalPoliticianActivities: user.externalPoliticianActivities)]
-    }
-
-    def updateExternalActivity(ExternalPoliticianActivityCommand command){
-        KuorumUser user = params.user
-        command.externalPoliticianActivities = command.externalPoliticianActivities.findAll{it}.reverse()
-        if (!command.validate()|| !user ){
-            render view:"editExternalActivity", model:[command:command]
-            return;
-        }
-        politicianService.updatePoliticianExternalActivity(params.user, command.externalPoliticianActivities)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'profilePoliticianExternalActivity'
-    }
-
     def editRelevantEvents(){
         KuorumUser user = params.user
         [command:new RelevantEventsCommand(politician:user, politicianRelevantEvents: user.relevantEvents?.reverse()?:[])]

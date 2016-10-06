@@ -75,15 +75,13 @@
             </div><!--/.extra-padding -->
         </div><!--/.panel-body-->
     </div><!--/.panel panel-default -->
-
-    <g:render template="showExtendedPoliticianTemplates/politicianLastActivity" model="[politician: politician]"/>
 </content>
 
 <content tag="cColumn">
     <g:render template="showExtendedPoliticianTemplates/columnC/socialButtonsExtendedPoliticianColumnC" model="[user:politician]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
     <g:render template="/modules/recommendedUsers" model="[recommendedUsers:recommendPoliticians, boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
-    <g:render template="showExtendedPoliticianTemplates/columnC/valuationChart" model="[user:politician]"/>
+    %{--<g:render template="showExtendedPoliticianTemplates/columnC/valuationChart" model="[user:politician]"/>--}%
     <g:render template="showExtendedPoliticianTemplates/columnC/professionalDetailExtendedPolitician" model="[politician:politician]"/>
     <g:render template="showExtendedPoliticianTemplates/columnC/quickNotesExtendedPolitician" model="[politician:politician]"/>
 </content>

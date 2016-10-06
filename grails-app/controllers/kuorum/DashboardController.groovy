@@ -119,7 +119,6 @@ class DashboardController {
                     [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["birthday", "workingSector", "studies", "enterpriseSector"].contains(it.key)}.size()],
                     [urlMapping: 'profilePoliticianRelevantEvents', total:user.relevantEvents?0:1],
                     [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()],
-                    [urlMapping: 'profilePoliticianExternalActivity', total:user.externalPoliticianActivities?0:1],
                     [urlMapping: 'profilePoliticianExperience', total:user.timeLine?0:1]
             ]
             QuickNotesCommand quickNotesCommand = new QuickNotesCommand(user);

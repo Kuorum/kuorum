@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.profile.profilePoliticianExternalActivity"/> </title>
+    <title><g:message code="dashboard.userProfile.causes"/> </title>
     <meta name="layout" content="leftMenuLayout">
     <parameter name="extraCssContainer" value="config" />
 </head>
