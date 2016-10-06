@@ -64,6 +64,7 @@ select {padding: 6px 6px 6px 8px !important;}*/
 .jqte_placeholder_text {color: #a8a8a8;}
 .jqte * {font-size: 1.5rem;}
 .jqte_editor, .jqte_source {height: 290px; min-height: 290px; max-height: 290px;}
+.jqte_editor div, .jqte_editor p {margin: 1em 0 7px;}
 
 .add-on.input-group-addon label {margin-bottom: 0; color: #a8a8a8;}
 .add-on.input-group-addon label input {margin-right: 2px;}
