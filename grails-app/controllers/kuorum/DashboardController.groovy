@@ -117,7 +117,7 @@ class DashboardController {
                     [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
                     [urlMapping: 'profileCauses', total:causes?0:1],
                     [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["birthday", "workingSector", "studies", "enterpriseSector"].contains(it.key)}.size()],
-                    [urlMapping: 'profilePoliticianRelevantEvents', total:user.relevantEvents?0:1],
+                    [urlMapping: 'profileNews', total:user.relevantEvents?0:1],
                     [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()],
                     [urlMapping: 'profilePoliticianExperience', total:user.timeLine?0:1]
             ]

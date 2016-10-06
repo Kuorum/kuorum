@@ -2,38 +2,15 @@ package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
-import kuorum.users.extendedPoliticianData.CareerDetails
-import kuorum.users.extendedPoliticianData.ProfessionalDetails
-import kuorum.web.commands.profile.politician.ExternalPoliticianActivityCommand
 import kuorum.web.commands.profile.politician.PoliticalExperienceCommand
-import kuorum.web.commands.profile.politician.PoliticianCausesCommand
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import kuorum.web.commands.profile.politician.QuickNotesCommand
-import kuorum.web.commands.profile.politician.RelevantEventsCommand
-import org.kuorum.rest.model.tag.CauseRSDTO
 
 @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
 class PoliticianProfileController extends ProfileController{
 
     PoliticianService politicianService
     CausesService causesService
-
-    def editRelevantEvents(){
-        KuorumUser user = params.user
-        [command:new RelevantEventsCommand(politician:user, politicianRelevantEvents: user.relevantEvents?.reverse()?:[])]
-    }
-
-    def updateRelevantEvents(RelevantEventsCommand command){
-        command.politicianRelevantEvents = command.politicianRelevantEvents.findAll{it}
-        KuorumUser user = params.user
-        if (!command.validate() || !user ){
-            render view:"editRelevantEvents", model:[command:command]
-            return;
-        }
-        politicianService.updatePoliticianRelevantEvents(params.user, command.politicianRelevantEvents)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'profilePoliticianRelevantEvents'
-    }
 
     def editProfessionalDetails(){
         KuorumUser politician = params.user
@@ -44,7 +21,7 @@ class PoliticianProfileController extends ProfileController{
     def updateProfessionalDetails(ProfessionalDetailsCommand command){
         KuorumUser user = params.user
         if (command.hasErrors() || !user ){
-            render view:"editRelevantEvents", model:[command:command]
+            render view:"editProfessionalDetails", model:[command:command]
             return;
         }
         politicianService.updatePoliticianProfessionalDetails(user, command)

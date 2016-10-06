@@ -204,8 +204,8 @@ class UrlMappings {
         name profileMessages:               "/configuracion-usuario/mensajes"                           (controller: "profile", action: "userMessages")
         name profileDeleteAccount:          "/configuracion-usuario/eliminar-cuenta"                    (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
         name profileCauses:                 "/configuracion-usuario/causas"                             (controller: "profile"){action=[GET:"editCauses", POST:"updateCauses"]}
+        name profileNews:                   "/configuracion-politico/news"                              (controller: "profile"){action=[GET:"editNews", POST:"updateNews"]}
 
-        name profilePoliticianRelevantEvents: "/configuracion-politico/known-for"     (controller: "politicianProfile"){action=[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}
         name profilePoliticianProfessionalDetails: "/configuracion-politico/professional-details"     (controller: "politicianProfile"){action=[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
         name profilePoliticianQuickNotes: "/configuracion-politico/quick-notes"     (controller: "politicianProfile"){action=[GET:"editQuickNotes", POST:"updateQuickNotes"]}
         name profilePoliticianExperience: "/configuracion-politico/experiencia"     (controller: "politicianProfile"){action=[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
@@ -297,7 +297,7 @@ class UrlMappings {
         name editorCreatePolitician:                        "/editor/usuarios/politician/create-politician" (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
         name editorEditUserProfile:                         "/editor/usuarios/$userAlias/editar/profile" (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
         name editorEditSocialNetwork:                       "/editor/usuarios/$userAlias/editar/social-network" (controller:"editorUser"){action =[GET:"editUserSocialNetwork", POST:"updateUserSocialNetwork"]}
-        name editorEditPoliticianRelevantEvents:            "/editor/usuarios/$userAlias/editar/relevantEvents" (controller:"editorPolitician"){action =[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}
+        name editorEditNews:                                "/editor/usuarios/$userAlias/editar/news" (controller:"editorPolitician"){action =[GET:"editNews", POST:"updateNews"]}
         name editorEditPoliticianProfessionalDetails:       "/editor/usuarios/$userAlias/editar/professionalDetails" (controller:"editorPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
         name editorEditPoliticianQuickNotes:                "/editor/usuarios/$userAlias/editar/quick-notes" (controller:"editorPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
         name editorEditPoliticianCauses:                    "/editor/usuarios/$userAlias/editar/causes" (controller:"editorPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}

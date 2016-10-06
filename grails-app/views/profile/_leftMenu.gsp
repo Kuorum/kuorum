@@ -6,11 +6,9 @@
     <li class="${activeMapping=='profileCauses'?'active':''}">
         <g:link mapping="profileCauses"><g:message code="profile.menu.profileCauses"/></g:link>
     </li>
-    <sec:ifAnyGranted roles="ROLE_POLITICIAN">
-        <li class="${activeMapping=='profilePoliticianRelevantEvents'?'active':''}">
-            <g:link mapping="profilePoliticianRelevantEvents"><g:message code="profile.menu.profilePoliticianRelevantEvents"/></g:link>
-        </li>
-    </sec:ifAnyGranted>
+    <li class="${activeMapping=='profileNews'?'active':''}">
+        <g:link mapping="profileNews"><g:message code="profile.menu.profileNews"/></g:link>
+    </li>
     <li class="${activeMapping=='profileSocialNetworks'?'active':''}">
         <g:link mapping="profileSocialNetworks"><g:message code="profile.menu.profileSocialNetworks"/></g:link>
     </li>

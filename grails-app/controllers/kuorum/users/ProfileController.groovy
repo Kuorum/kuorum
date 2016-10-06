@@ -17,6 +17,7 @@ import kuorum.register.RegisterService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
 import kuorum.web.commands.profile.politician.PoliticianCausesCommand
+import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
@@ -398,5 +399,22 @@ class ProfileController {
     def showUserEmails(){
         MailsMessageRSDTO mails = kuorumMailAccountService.getUserMails(params.user)
         [mails:mails]
+    }
+
+    def editNews(){
+        KuorumUser user = params.user
+        [command:new RelevantEventsCommand(politician:user, politicianRelevantEvents: user.relevantEvents?.reverse()?:[])]
+    }
+
+    def updateNews(RelevantEventsCommand command){
+        command.politicianRelevantEvents = command.politicianRelevantEvents.findAll{it}
+        KuorumUser user = params.user
+        if (!command.validate() || !user ){
+            render view:"/profile/editRelevantEvents", model:[command:command]
+            return;
+        }
+        politicianService.updatePoliticianRelevantEvents(params.user, command.politicianRelevantEvents)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profileNews'
     }
 }

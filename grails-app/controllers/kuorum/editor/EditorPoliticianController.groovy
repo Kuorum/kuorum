@@ -15,22 +15,22 @@ class EditorPoliticianController {
     KuorumUserService kuorumUserService
     CausesService causesService
 
-    def editRelevantEvents(){
+    def editNews(){
         KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         [command:new RelevantEventsCommand(politician:politician, politicianRelevantEvents: politician.relevantEvents?.reverse()?:[])]
     }
 
-    def updateRelevantEvents(RelevantEventsCommand command){
+    def updateNews(RelevantEventsCommand command){
         command.politicianRelevantEvents = command.politicianRelevantEvents.grep()
         command.validate()
         KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
-            render view:"editRelevantEvents", model:[command:command]
+            render view:"editNews", model:[command:command]
             return;
         }
         politicianService.updatePoliticianRelevantEvents(politician, command.politicianRelevantEvents)
         flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'editorEditPoliticianRelevantEvents', params: politician.encodeAsLinkProperties()
+        redirect mapping:'editorEditNews', params: politician.encodeAsLinkProperties()
     }
 
     def editProfessionalDetails(){

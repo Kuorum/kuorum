@@ -6,7 +6,7 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profilePoliticianRelevantEvents', menu:menu]"/>
+    <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profileNews', menu:menu]"/>
 
 </content>
 <content tag="titleContent">
@@ -15,7 +15,7 @@
 </content>
 <content tag="mainContent">
     <formUtil:validateForm form="relevantEventsForm" bean="${command}" dirtyControl="true"/>
-    <g:form method="POST" mapping="profilePoliticianRelevantEvents" name="relevantEventsForm" role="form">
-        <g:render template="formRelevantEvents" model="[command:command]"/>
+    <g:form method="POST" mapping="profileNews" name="relevantEventsForm" role="form">
+        <g:render template="formEditNews" model="[command:command]"/>
     </g:form>
 </content>
