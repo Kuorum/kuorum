@@ -719,12 +719,40 @@ $(document).ready(function() {
     });
 
 
+    function prepareImagesCarrousel(){
+        $(".carousel .img-container img").each(function(idx){
+            var rawImage = $(this);
+            var theImage = new Image();
+            theImage.src = rawImage.attr("src");
+            var kuorumRatio = rawImage.parent().width() / rawImage.parent().height()
+            //var kuorumRatio = 205 / 128;
+            var imageRatio =  theImage.width / theImage.height
+
+            console.log(rawImage)
+            console.log("kuorumRatio: " + rawImage.parent().width() +" / " +rawImage.parent().height()+" = "+kuorumRatio)
+            console.log("imageRatio: " + theImage.width +" / " +theImage.height+" = "+imageRatio)
+            if (imageRatio > kuorumRatio){
+                rawImage.css("width", "auto");
+                rawImage.css("height", "100%");
+            }else{
+                rawImage.css("width", "100%");
+                rawImage.css("height", "auto");
+            }
+        });
+    }
+
 
     // Carrusel noticias perfil político
     $('.carousel.news').carousel({
           interval: false,
           wrap: true
     });
+    setTimeout(prepareImagesCarrousel,1000);
+
+    prepareImagesCarrousel();
+    $('.carousel.news').on('slide.bs.carousel', function () {
+        setTimeout(prepareImagesCarrousel,50);
+    })
 
     // 3 items a partir de 768px
     if (window.matchMedia("(min-width: 768px)").matches) {
