@@ -489,7 +489,7 @@ $(document).ready(function() {
     function isValidCampaignForm(){
         var valid = $("#politicianMassMailingForm").valid();
         if ($("input[name=headerPictureId]").val() == ""){
-            $("fieldset.header-campaign").append('<span id="headerPictureErrorSpan" class="error"><span class="tooltip-arrow"></span>Define una imagen para que te quede un email bonito</span>');
+            $(".uploaderImageContainer").append('<span id="headerPictureErrorSpan" class="error"><span class="tooltip-arrow"></span>Define una imagen para que te quede un email bonito</span>');
             valid = false;
         }else{
             $("#headerPictureErrorSpan").fadeOut()

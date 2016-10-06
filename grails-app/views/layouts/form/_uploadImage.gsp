@@ -95,6 +95,9 @@
         </uploader:showMessage>
         <uploader:onCancel> alert('you cancelled the upload'); </uploader:onCancel>
     </uploader:uploader>
+    <g:if test="${errorMessage}">
+        <span for='input_${imageId}' class='error'>${errorMessage}</span>
+    </g:if>
 </div>
 <script>
     function showCoords(coords){
@@ -187,7 +190,3 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<g:if test="${errorMessage}">
-    <span for='input_${imageId}' class='error'>${errorMessage}</span>
-</g:if>
