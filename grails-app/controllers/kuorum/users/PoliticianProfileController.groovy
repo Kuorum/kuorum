@@ -69,24 +69,6 @@ class PoliticianProfileController extends ProfileController{
         redirect mapping:'profilePoliticianQuickNotes', params: user.encodeAsLinkProperties()
     }
 
-    def editCauses(){
-        KuorumUser politician = params.user
-        List<CauseRSDTO> causes = causesService.findDefendedCauses(politician)
-        PoliticianCausesCommand command = new PoliticianCausesCommand(politician, causes.collect{it.name})
-        [command:command]
-    }
-
-    def updateCauses(PoliticianCausesCommand command){
-        KuorumUser user = params.user
-        if (command.hasErrors() || !user ){
-            render view:"editCauses", model:[command:command]
-            return;
-        }
-        politicianService.updatePoliticianCauses(user, command.causes)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'profilePoliticianCauses', params: user.encodeAsLinkProperties()
-    }
-
     def editPoliticalExperience(){
         KuorumUser politician = params.user
         PoliticalExperienceCommand command = new PoliticalExperienceCommand(politician)

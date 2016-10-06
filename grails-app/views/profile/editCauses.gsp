@@ -6,16 +6,16 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profilePoliticianCauses', menu:menu]"/>
+    <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profileCauses', menu:menu]"/>
 
 </content>
 <content tag="titleContent">
-    <h1><g:message code="profile.menu.profilePoliticianCauses"/></h1>
-    <h3><g:message code="profile.menu.profilePoliticianCauses.subtitle"/></h3>
+    <h1><g:message code="profile.menu.profileCauses"/></h1>
+    <h3><g:message code="profile.menu.profileCauses.subtitle"/></h3>
 </content>
 <content tag="mainContent">
     <formUtil:validateForm form="causesForm" bean="${command}"/>
-    <g:form method="POST" mapping="profilePoliticianCauses" name="causesForm" role="form">
-        <g:render template="formPoliticianCauses" model="[command:command]"/>
+    <g:form method="POST" mapping="profileCauses" name="causesForm" role="form">
+        <g:render template="formCauses" model="[command:command]"/>
     </g:form>
 </content>

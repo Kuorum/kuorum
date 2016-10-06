@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import kuorum.KuorumFile
+import kuorum.causes.CausesService
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
@@ -15,8 +16,10 @@ import kuorum.register.GoogleOAuthService
 import kuorum.register.RegisterService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
+import kuorum.web.commands.profile.politician.PoliticianCausesCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
+import org.kuorum.rest.model.tag.CauseRSDTO
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ProfileController {
@@ -32,6 +35,8 @@ class ProfileController {
     def kuorumMailService
     KuorumMailAccountService kuorumMailAccountService
     RegisterService registerService
+    CausesService causesService;
+    PoliticianService politicianService
 
     def beforeInterceptor ={
         if (springSecurityService.isLoggedIn()){//Este if es para la confirmacion del email
@@ -110,6 +115,24 @@ class ProfileController {
         }else{
             render "Not valid email"
         }
+    }
+
+    def editCauses(){
+        KuorumUser politician = params.user
+        List<CauseRSDTO> causes = causesService.findDefendedCauses(politician)
+        PoliticianCausesCommand command = new PoliticianCausesCommand(politician, causes.collect{it.name})
+        [command:command]
+    }
+
+    def updateCauses(PoliticianCausesCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors() || !user ){
+            render view:"editCauses", model:[command:command]
+            return;
+        }
+        politicianService.updatePoliticianCauses(user, command.causes)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profileCauses', params: user.encodeAsLinkProperties()
     }
 
     private def changeEmail(KuorumUser user, String email){
