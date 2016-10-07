@@ -247,7 +247,7 @@ class KuorumUserTagLib {
             faIcon = "fa-child"
             tooltip = message(code:'kuorum.core.model.UserType.PERSON');
         }else if (user.userType == UserType.ORGANIZATION){
-            faIcon = "fa-industry"
+            faIcon = "fa-university"
             tooltip = message(code:'kuorum.core.model.UserType.ORGANIZATION');
         }else if(user.userType == UserType.CANDIDATE){
             faIcon = "icon-megaphone"
