@@ -45,7 +45,7 @@
                             </fieldset>
                         </form>
                     </li>
-                    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/modals/modalRatingShare"
+                    <g:render template="/kuorumUser/userShowTemplates/modals/modalRatingShare"
                               model="[
                                       user:politician,
                                       titleModal:message(code:'widget.politician.valuation.rate.modal.share.title', args: [politician.name]),

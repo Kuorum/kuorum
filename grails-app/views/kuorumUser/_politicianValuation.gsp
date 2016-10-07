@@ -58,5 +58,5 @@
         </div>
     </div>
 
-    <g:render template="/kuorumUser/showExtendedPoliticianTemplates/modals/modalRatingShare" model="[user:user]"/>
+    <g:render template="/kuorumUser/userShowTemplates/modals/modalRatingShare" model="[user:user]"/>
 </div>

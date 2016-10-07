@@ -72,101 +72,31 @@ class KuorumUserController {
     }
 
     @Deprecated
-    def show(String id){
+    def showWithId(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
         if (!user){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }else {
             log.warn("Executing show user")
-            switch (user.userType){
-                case UserType.ORGANIZATION: return showCitizen(user); break;
-                case UserType.PERSON: return showCitizen(user); break;
-                case UserType.POLITICIAN: return showPolitician(user); break;
-                case UserType.CANDIDATE: return showPolitician(user); break;
-            }
+            return showWithAlias(user.alias)
         }
     }
 
-    def showWithAlias(String userAlias){
+    def show(String userAlias){
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         if (!user) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
-        switch (user.userType){
-            case UserType.ORGANIZATION: return showCitizen(user); break;
-            case UserType.PERSON: return showCitizen(user); break;
-            case UserType.POLITICIAN: return showPolitician(user); break;
-            case UserType.CANDIDATE: return showPolitician(user); break;
-        }
-        log.error("User type (userType=${user.userType}) not found for user ${user.id} (${user})")
-        response.sendError(HttpServletResponse.SC_NOT_FOUND)
-        return false
-    }
-
-    def showCitizen(KuorumUser user){
-        if (!user) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return false
-        }
-        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
-            redirect(mapping: "userShow", params: user.encodeAsLinkProperties())
-            return
-        }
-        Pagination pagination = new Pagination()
-        List<Cluck> clucks = cluckService.userClucks(user)
-        Long numClucks = cluckService.countUserClucks(user)
-        SearchUserPosts searchUserPosts = new SearchUserPosts(user:user, publishedPosts: true);
-        List<Post> userPosts = postService.userPosts(searchUserPosts)
-        Long numUserPosts = postService.countUserPost(searchUserPosts)
-        List<CauseRSDTO> causes = causesService.findSupportedCauses(user)
-        Integer numCauses = causes.size()
-        SearchUserPosts searchVictoryUserPosts = new SearchUserPosts(user:user, publishedPosts: true,  victory: true);
-        List<Post> userVictoryPosts = postService.userPosts(searchVictoryUserPosts)
-        Long numUserVictoryPosts = postService.countUserPost(searchVictoryUserPosts)
-        List<UserParticipating> activeProjects = kuorumUserService.listUserActivityPerProject(user)
-        String provinceName = user.personalData.province?.name
-        render (
-                view:"show",
-                model:[
-                        user:user,
-                        activeProjects:activeProjects,
-                        provinceName:provinceName,
-                        clucks:clucks,
-                        numClucks:numClucks,
-                        userPosts:userPosts,
-                        numUserPosts:numUserPosts,
-                        userVictoryPosts:userVictoryPosts,
-                        numCauses:numCauses,
-                        numUserVictoryPosts:numUserVictoryPosts
-                ])
-    }
-
-    def showPolitician(KuorumUser politician){
-        if (!politician) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return false
-        }
-        if (politician.userType != UserType.POLITICIAN && politician.userType != UserType.CANDIDATE){
-            redirect(mapping: "userShow", params: politician.encodeAsLinkProperties())
-            return
-        }
-
-        def model = showExtendedPolitician(politician)
-        render (view:"showExtendedPolitician", model:model)
-        return;
-    }
-
-    def showExtendedPolitician(KuorumUser politician){
-        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(politician, new Pagination(max:12))
-        List<Project> userProjects = projectService.politicianProjects(politician)
-        List<CauseRSDTO> causes = causesService.findDefendedCauses(politician)
-        Campaign campaign = campaignService.findActiveCampaign(politician)
-        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician)
-        List<UserNewRSDTO> userNews = userNewsService.findUserNews(politician)
+        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(user, new Pagination(max:12))
+        List<Project> userProjects = projectService.politicianProjects(user)
+        List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
+        Campaign campaign = campaignService.findActiveCampaign(user)
+        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
+        List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
         [
-                politician:politician,
+                politician:user,
                 userProjects:userProjects,
                 recommendPoliticians:recommendPoliticians,
                 campaign:campaign,
@@ -175,6 +105,7 @@ class KuorumUserController {
                 userNews:userNews
         ]
     }
+
 
     def userClucks(Pagination pagination){
         KuorumUser user = kuorumUserService.findByAlias(params.userAlias)

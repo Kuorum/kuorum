@@ -116,7 +116,7 @@ class UrlMappings {
                                         userTypeUrl inList: ["ciudadanos", "organizaciones", "politicos"]
                                     }
         }
-        name userShow: "/$userAlias"   (controller: "kuorumUser", action: "showWithAlias"){
+        name userShow: "/$userAlias"   (controller: "kuorumUser", action: "show"){
             constraints{
                 userAlias (validator: { !['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos'].contains(it) })
             }
