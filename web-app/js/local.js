@@ -1269,6 +1269,12 @@ $(document).ready(function() {
         $('.jqte_placeholder_text').css('display', 'none');
     }
 
+    $("body").on("click", ".jqte_editor a", function(e){
+        e.preventDefault();
+        var link = $(this).attr("href");
+        window.open(link);
+    });
+
     $(".saveDraft").on("click", function(e){
         e.preventDefault();
         $("input[name=isDraft]").val(true);
