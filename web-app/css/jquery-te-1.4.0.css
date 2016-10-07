@@ -32,21 +32,23 @@
 .jqte_tool {
 	float: left;
 	margin: 0;
-	padding: 8px;
+	padding: 5px;
 	cursor: pointer;
 }
 .jqte_tool, .jqte_tool_label {
 	border-right:  1px solid #EFEFEF;
+	width: 35px;
+	height: 35px;
 }
 .jqte_hiddenField {
 	display:none
 }
 .jqte_tool_icon {
 	display: block;
-	width: 30px;
-	height: 30px;
+	width: 25px;
+	height: 25px;
 	/*background: url('../images/jquery-te-cstm.png') no-repeat*/
-	background: url('../images/jqte-custom.png') no-repeat
+	background: url('../images/jqte-custom-20.png') no-repeat
 }
 .jqte_tool.jqte_tool_1 .jqte_tool_label {
 	position:relative;
@@ -79,46 +81,46 @@
 	background-position:0 0;
 }
 .jqte_tool.jqte_tool_4 .jqte_tool_icon {
-	background-position:0 0;
+	background-position:1px 1px;
 }
 .jqte_tool.jqte_tool_5 .jqte_tool_icon {
-	background-position:-35px 0
+	background-position:-25px 1px;
 }
 .jqte_tool.jqte_tool_6 .jqte_tool_icon {
-	background-position:-70px 1px;
+	background-position:-50px 2px;
 }
 .jqte_tool.jqte_tool_7 .jqte_tool_icon {
-	background-position:-105px 1px;
+	background-position:-75px 1px;
 }
 .jqte_tool.jqte_tool_8 .jqte_tool_icon {
-	background-position:-140px 1px;
+	background-position:-100px 1px;
 }
 .jqte_tool.jqte_tool_11 .jqte_tool_icon {
-	background-position:-245px 1px;
+	background-position:-175px 1px;
 }
 .jqte_tool.jqte_tool_12 .jqte_tool_icon {
-	background-position:-280px 1px;
+	background-position:-200px 1px;
 }
 .jqte_tool.jqte_tool_13 .jqte_tool_icon {
-	background-position:-315px 1px;
+	background-position:-225px 1px;
 }
 .jqte_tool.jqte_tool_14 .jqte_tool_icon {
-	background-position:-350px 1px;
+	background-position:-250px 1px;
 }
 .jqte_tool.jqte_tool_15 .jqte_tool_icon {
-	background-position:-385px 1px;
+	background-position:-275px 1px;
 }
 .jqte_tool.jqte_tool_16 .jqte_tool_icon {
-	background-position:-420px 1px;
+	background-position:-300px 1px;
 }
 .jqte_tool.jqte_tool_17 .jqte_tool_icon {
-	background-position:-490px 1px;
+	background-position:-325px 1px;
 }
 .jqte_tool.jqte_tool_18 .jqte_tool_icon {
-	background-position:-525px 1px;
+	background-position:-350px 1px;
 }
 .jqte_tool.jqte_tool_19 .jqte_tool_icon {
-	background-position:-455px 1px;
+	background-position:-375px 1px;
 }/*
 .jqte_tool.jqte_tool_3 .jqte_tool_icon {
 	background-position: -22px 1px;
@@ -493,6 +495,6 @@
 }
 .jqte_placeholder_text {
 	position: absolute;
-	top: 54px;
+	top: 45px;
 	left: 10px;
 }
