@@ -121,7 +121,7 @@ class DashboardController {
                     [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()]
             ]
             QuickNotesCommand quickNotesCommand = new QuickNotesCommand(user);
-            fields.add([urlMapping:'profilePoliticianQuickNotes', total:
+            fields.add([urlMapping:'profileQuickNotes', total:
                     quickNotesCommand.institutionalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
                             quickNotesCommand.politicalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
                             quickNotesCommand.politicianExtraInfo.properties.findAll{!it.value && !["dbo", "externalId"].contains(it.key)}.size()]

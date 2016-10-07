@@ -17,6 +17,7 @@ import kuorum.register.RegisterService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
 import kuorum.web.commands.profile.politician.PoliticianCausesCommand
+import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
@@ -416,5 +417,22 @@ class ProfileController {
         politicianService.updatePoliticianRelevantEvents(params.user, command.politicianRelevantEvents)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileNews'
+    }
+
+    def editQuickNotes(){
+        KuorumUser politician = params.user
+        QuickNotesCommand command = new QuickNotesCommand(politician)
+        [command:command]
+    }
+
+    def updateQuickNotes(QuickNotesCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors() || !user ){
+            render view:"editQuickNotes", model:[command:command]
+            return;
+        }
+        politicianService.updatePoliticianQuickNotes(user, command.politicianExtraInfo, command.institutionalOffice, command.politicalOffice)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profileQuickNotes', params: user.encodeAsLinkProperties()
     }
 }

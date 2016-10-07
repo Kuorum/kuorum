@@ -6,17 +6,17 @@
 </head>
 
 <content tag="leftMenu">
-    <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profilePoliticianQuickNotes', menu:menu]"/>
+    <g:render template="/profile/leftMenu" model="[user:user, activeMapping:'profileQuickNotes', menu:menu]"/>
 
 </content>
 
 <content tag="titleContent">
-    <h1><g:message code="profile.menu.profilePoliticianQuickNotes"/></h1>
-    <h3><g:message code="profile.menu.profilePoliticianQuickNotes.subtitle"/></h3>
+    <h1><g:message code="profile.menu.profileQuickNotes"/></h1>
+    <h3><g:message code="profile.menu.profileQuickNotes.subtitle"/></h3>
 </content>
 <content tag="mainContent">
     <formUtil:validateForm form="quickNotesForm" bean="${command}" dirtyControl="true"/>
-    <g:form method="POST" mapping="profilePoliticianQuickNotes" name="quickNotesForm" role="form">
+    <g:form method="POST" mapping="profileQuickNotes" name="quickNotesForm" role="form">
         <g:render template="formQuickNotes" model="[command:command]"/>
     </g:form>
 </content>

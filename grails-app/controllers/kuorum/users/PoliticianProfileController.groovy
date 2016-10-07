@@ -27,22 +27,4 @@ class PoliticianProfileController extends ProfileController{
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profilePoliticianProfessionalDetails', params: user.encodeAsLinkProperties()
     }
-
-    def editQuickNotes(){
-        KuorumUser politician = params.user
-        QuickNotesCommand command = new QuickNotesCommand(politician)
-        [command:command]
-    }
-
-    def updateQuickNotes(QuickNotesCommand command){
-        KuorumUser user = params.user
-        if (command.hasErrors() || !user ){
-            render view:"editQuickNotes", model:[command:command]
-            return;
-        }
-        politicianService.updatePoliticianQuickNotes(user, command.politicianExtraInfo, command.institutionalOffice, command.politicalOffice)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'profilePoliticianQuickNotes', params: user.encodeAsLinkProperties()
-    }
-
 }
