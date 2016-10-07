@@ -119,15 +119,19 @@ class CustomRegisterController {
             return;
         }
         kuorumUserService.updateAlias(user, command.alias)
-        user.personalData = user.personalData?:new kuorum.users.PersonData()
-        user.personalData.phonePrefix = command.phonePrefix
-        user.personalData.telephone = command.phone
-        user.language = command.language
-        user.userType = UserType.PERSON
+
         if (command.userType == UserType.ORGANIZATION){
             user.personalData = new OrganizationData();
             user.personalData.gender = Gender.ORGANIZATION
+            user.userType = UserType.ORGANIZATION
+        }else{
+            user.personalData = user.personalData?:new kuorum.users.PersonData()
+            user.userType = UserType.PERSON
         }
+        user.personalData.phonePrefix = command.phonePrefix
+        user.personalData.telephone = command.phone
+        user.language = command.language
+
         user.password = registerService.encodePassword(user, command.password)
         if (command.userType == UserType.POLITICIAN){
             offerService.purchaseOffer(user, OfferType.BASIC, 0)
