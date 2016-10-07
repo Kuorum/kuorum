@@ -35,6 +35,14 @@ enum SolrType {
         }
 
     }),
+    ORGANIZATION({KuorumUser kuorumUser ->
+        switch (kuorumUser.userType){
+            case UserType.ORGANIZATION: SolrSubType.ORGANIZATION; break;
+            case UserType.POLITICIAN: SolrSubType.POLITICIAN; break;
+            case UserType.PERSON: SolrSubType.PERSON; break;
+            case UserType.CANDIDATE: SolrSubType.CANDIDATE; break;
+        }
+    }),
     POLITICIAN({KuorumUser kuorumUser ->
         switch (kuorumUser.userType){
             case UserType.ORGANIZATION: SolrSubType.ORGANIZATION; break;

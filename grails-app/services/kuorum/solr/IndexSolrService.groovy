@@ -413,6 +413,7 @@ class IndexSolrService {
         switch (SolrType.valueOf(solrDocument.type)){
             case SolrType.KUORUM_USER:
             case SolrType.CANDIDATE:
+            case SolrType.ORGANIZATION:
             case SolrType.POLITICIAN:   return recoverKuorumUserFromSolr(solrDocument); break;
             case SolrType.PROJECT:      return recoverProjectFromSolr(solrDocument); break;
             case SolrType.POST:         return recoverPostFromSolr(solrDocument); break;

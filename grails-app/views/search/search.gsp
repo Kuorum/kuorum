@@ -90,6 +90,14 @@
                     </label>
                 </div>
             </li>
+            <li>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="type" id="candidates" value="${kuorum.core.model.solr.SolrType.ORGANIZATION}" ${searchParams.type == kuorum.core.model.solr.SolrType.ORGANIZATION?'checked':''}>
+                        <span class="icon-user"></span> <g:message code="search.filters.SolrSubType.ORGANIZATION"/>
+                    </label>
+                </div>
+            </li>
             %{--<li>--}%
                 %{--<div class="checkbox">--}%
                     %{--<label>--}%
