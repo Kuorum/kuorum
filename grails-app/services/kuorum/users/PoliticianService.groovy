@@ -55,12 +55,6 @@ class PoliticianService {
         kuorumUserService.updateUser(politician)
     }
 
-    KuorumUser updatePoliticianExperience(KuorumUser politician, List<PoliticianTimeLine> timeLine){
-        politician.timeLine = timeLine.findAll{it && it.validate()}
-        sortPoliticalExperience(politician)
-        kuorumUserService.updateUser(politician)
-    }
-
     KuorumUser updatePoliticianQuickNotes(KuorumUser politician, PoliticianExtraInfo politicianExtraInfo, OfficeDetails institutionalOffice, OfficeDetails politicalOffice){
         politicianExtraInfo.ipdbId = politician?.politicianExtraInfo?.ipdbId
         politician.politicianExtraInfo = politicianExtraInfo
@@ -153,7 +147,6 @@ class PoliticianService {
         populateProfessionalDetails(politician, line)
         populateCareerDetails(politician, line)
         populateSocialLinks(politician, line)
-        populateTimeLine(politician, line)
         populateTags(politician, line)
         populateRelevantEvents(politician, line)
         populateExtraInfo(politician, line)
@@ -174,25 +167,6 @@ class PoliticianService {
         updatePoliticianCauses(politician, tags, false)
     }
 
-    private void populateTimeLine(KuorumUser politician, def line) {
-        List<PoliticianTimeLine> timeLine = []
-        String prefix = "political_experience"
-        (1..5).each{i->
-            if (line."${prefix}${i}"){
-                PoliticianTimeLine event = new PoliticianTimeLine();
-                event.title = line."${prefix}${i}"
-                event.text = line."${prefix}${i}_content"
-                event.date = parseDate(line."${prefix}${i}_date", IPDB_DATE_FORMAT)
-                event.important = false
-                if (!timeLine.find{it.title == event.title}){
-                    timeLine.add(event)
-                }
-            }
-        }
-        politician.timeLine = timeLine
-        sortPoliticalExperience(politician)
-    }
-
     private void populateRelevantEvents(KuorumUser politician, def line) {
         List<PoliticianRelevantEvent> relevantEvents = []
         String prefixTitle = "known_for"
@@ -206,10 +180,6 @@ class PoliticianService {
             }
         }
         politician.relevantEvents = relevantEvents
-    }
-
-    private void sortPoliticalExperience(KuorumUser politician){
-        politician.timeLine = politician.timeLine.sort{a,b-> b.date<=>a.date}
     }
 
     private KuorumUser findOrRecoverPolitician(def line){

@@ -208,7 +208,6 @@ class UrlMappings {
 
         name profilePoliticianProfessionalDetails: "/configuracion-politico/professional-details"     (controller: "politicianProfile"){action=[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
         name profilePoliticianQuickNotes: "/configuracion-politico/quick-notes"     (controller: "politicianProfile"){action=[GET:"editQuickNotes", POST:"updateQuickNotes"]}
-        name profilePoliticianExperience: "/configuracion-politico/experiencia"     (controller: "politicianProfile"){action=[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
 
         name profileMailing : "/notifications/mailing" (controller: "profile", action:"showUserEmails")
 
@@ -301,7 +300,6 @@ class UrlMappings {
         name editorEditPoliticianProfessionalDetails:       "/editor/usuarios/$userAlias/editar/professionalDetails" (controller:"editorPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
         name editorEditPoliticianQuickNotes:                "/editor/usuarios/$userAlias/editar/quick-notes" (controller:"editorPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
         name editorEditPoliticianCauses:                    "/editor/usuarios/$userAlias/editar/causes" (controller:"editorPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
-        name editorEditPoliticianExperience:                "/editor/usuarios/$userAlias/editar/experiencia" (controller:"editorPolitician"){action =[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
         name editorKuorumAccountEdit:                       "/editor/usuarios/$userAlias/editar/account-details" (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
         name editorAdminUserRights:                         "/editor/usuarios/$userAlias/editar/rights" (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
         name editorRequestRights:                           "/editor/request" (controller:"editorRecruitment", action: "requestEditor")

@@ -72,7 +72,6 @@ class KuorumUser {
             'imageProfile',
             'socialLinks',
             'notice',
-            'timeLine',
             'relevantEvents',
             'professionalDetails',
             'politicianExtraInfo',
@@ -95,7 +94,6 @@ class KuorumUser {
     PoliticianActivity politicianActivity
 
     List<PoliticianRelevantEvent> relevantEvents
-    List<PoliticianTimeLine> timeLine
     ProfessionalDetails professionalDetails
     CareerDetails careerDetails
     PoliticianExtraInfo politicianExtraInfo
@@ -141,7 +139,6 @@ class KuorumUser {
         organization nullable: true
         politicianActivity nullable:true
         relevantEvents nulable:true
-        timeLine nulable:true
         professionalDetails nullable:true
         institutionalOffice nullable:true
         politicalOffice nullable:true

@@ -118,8 +118,7 @@ class DashboardController {
                     [urlMapping: 'profileCauses', total:causes?0:1],
                     [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["birthday", "workingSector", "studies", "enterpriseSector"].contains(it.key)}.size()],
                     [urlMapping: 'profileNews', total:user.relevantEvents?0:1],
-                    [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()],
-                    [urlMapping: 'profilePoliticianExperience', total:user.timeLine?0:1]
+                    [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()]
             ]
             QuickNotesCommand quickNotesCommand = new QuickNotesCommand(user);
             fields.add([urlMapping:'profilePoliticianQuickNotes', total:
@@ -134,7 +133,7 @@ class DashboardController {
                             professionalDetailsCommand.careerDetails.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size()
             ])
 
-            Integer totalFields = 54; // FAST CHAPU
+            Integer totalFields = 52; // FAST CHAPU
             Integer emptyFields= fields.sum{it.total}
             return [
                     percentage: (1 - emptyFields/totalFields)*100,

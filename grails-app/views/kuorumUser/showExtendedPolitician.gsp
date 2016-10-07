@@ -88,7 +88,7 @@
 
 
 <content tag="extraRowData">
-    <g:render template="showExtendedPoliticianTemplates/politicianTimeLine" model="[politician:politician]"/>
+
 </content>
 
 <content tag="preFooterSections">

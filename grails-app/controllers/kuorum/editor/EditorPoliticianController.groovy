@@ -87,24 +87,4 @@ class EditorPoliticianController {
         redirect mapping:'editorEditPoliticianCauses', params: command.politician.encodeAsLinkProperties()
     }
 
-
-    def editPoliticalExperience(){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
-        PoliticalExperienceCommand command = new PoliticalExperienceCommand(politician)
-        [command:command]
-    }
-
-    def updatePoliticalExperience(PoliticalExperienceCommand command){
-        command.timeLine = command.timeLine.grep()
-        command.validate()
-        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
-        if (command.hasErrors()){
-            render view:"editPoliticalExperience", model:[command:command]
-            return;
-        }
-        politicianService.updatePoliticianExperience(politician, command.timeLine)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'editorEditPoliticianExperience', params: command.politician.encodeAsLinkProperties()
-    }
-
 }

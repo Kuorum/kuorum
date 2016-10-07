@@ -2,7 +2,6 @@ package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
-import kuorum.web.commands.profile.politician.PoliticalExperienceCommand
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import kuorum.web.commands.profile.politician.QuickNotesCommand
 
@@ -44,23 +43,6 @@ class PoliticianProfileController extends ProfileController{
         politicianService.updatePoliticianQuickNotes(user, command.politicianExtraInfo, command.institutionalOffice, command.politicalOffice)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profilePoliticianQuickNotes', params: user.encodeAsLinkProperties()
-    }
-
-    def editPoliticalExperience(){
-        KuorumUser politician = params.user
-        PoliticalExperienceCommand command = new PoliticalExperienceCommand(politician)
-        [command:command]
-    }
-
-    def updatePoliticalExperience(PoliticalExperienceCommand command){
-        KuorumUser user = params.user
-        if (command.hasErrors() || !user ){
-            render view:"editPoliticalExperience", model:[command:command]
-            return;
-        }
-        politicianService.updatePoliticianExperience(user, command.timeLine)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'profilePoliticianExperience', params: user.encodeAsLinkProperties()
     }
 
 }
