@@ -232,6 +232,13 @@ class KuorumUserTagLib {
         }
     }
 
+    def isPolitician={attrs, body ->
+        KuorumUser user = attrs.user
+        if ([UserType.POLITICIAN, UserType.CANDIDATE].contains(user.userType)){
+            out << body()
+        }
+    }
+
     def ifIsFollower={attrs, body ->
         KuorumUser user = attrs.user
         if (springSecurityService.isLoggedIn()){

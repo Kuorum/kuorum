@@ -12,11 +12,9 @@
     <li class="${activeMapping=='profileSocialNetworks'?'active':''}">
         <g:link mapping="profileSocialNetworks"><g:message code="profile.menu.profileSocialNetworks"/></g:link>
     </li>
-    <sec:ifAnyGranted roles="ROLE_POLITICIAN">
-        <li class="${activeMapping=='profilePoliticianProfessionalDetails'?'active':''}">
-            <g:link mapping="profilePoliticianProfessionalDetails"><g:message code="profile.menu.profilePoliticianProfessionalDetails"/></g:link>
-        </li>
-    </sec:ifAnyGranted>
+    <li class="${activeMapping=='profileProfessionalDetails'?'active':''}">
+        <g:link mapping="profileProfessionalDetails"><g:message code="profile.menu.profileProfessionalDetails"/></g:link>
+    </li>
     <li class="${activeMapping=='profileQuickNotes'?'active':''}">
         <g:link mapping="profileQuickNotes"><g:message code="profile.menu.profileQuickNotes"/></g:link>
     </li>

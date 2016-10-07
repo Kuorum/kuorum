@@ -11,12 +11,11 @@ import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailType
 import kuorum.notifications.Notification
-import kuorum.register.FacebookAuthService
-import kuorum.register.GoogleOAuthService
 import kuorum.register.RegisterService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
 import kuorum.web.commands.profile.politician.PoliticianCausesCommand
+import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import org.bson.types.ObjectId
@@ -434,5 +433,23 @@ class ProfileController {
         politicianService.updatePoliticianQuickNotes(user, command.politicianExtraInfo, command.institutionalOffice, command.politicalOffice)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileQuickNotes', params: user.encodeAsLinkProperties()
+    }
+
+
+    def editProfessionalDetails(){
+        KuorumUser politician = params.user
+        ProfessionalDetailsCommand command = new ProfessionalDetailsCommand(politician)
+        [command:command]
+    }
+
+    def updateProfessionalDetails(ProfessionalDetailsCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors() || !user ){
+            render view:"/profile/editProfessionalDetails", model:[command:command]
+            return;
+        }
+        politicianService.updatePoliticianProfessionalDetails(user, command)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profileProfessionalDetails', params: user.encodeAsLinkProperties()
     }
 }

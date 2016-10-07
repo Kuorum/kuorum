@@ -128,7 +128,7 @@ class DashboardController {
             )
 
             ProfessionalDetailsCommand professionalDetailsCommand = new ProfessionalDetailsCommand(user)
-            fields.add([urlMapping: 'profilePoliticianProfessionalDetails', total:
+            fields.add([urlMapping: 'profileProfessionalDetails', total:
                     professionalDetailsCommand.properties.findAll{!it.value}.size() +
                             professionalDetailsCommand.careerDetails.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size()
             ])

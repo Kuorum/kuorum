@@ -206,8 +206,8 @@ class UrlMappings {
         name profileCauses:                 "/edit-profile/causas"                             (controller: "profile"){action=[GET:"editCauses", POST:"updateCauses"]}
         name profileNews:                   "/edit-profile/news"                               (controller: "profile"){action=[GET:"editNews", POST:"updateNews"]}
         name profileQuickNotes:             "/edit-profile/quick-notes"                        (controller: "profile"){action=[GET:"editQuickNotes", POST:"updateQuickNotes"]}
+        name profileProfessionalDetails:    "/edit-profile/professional-details"               (controller: "profile"){action=[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
 
-        name profilePoliticianProfessionalDetails: "/configuracion-politico/professional-details"     (controller: "politicianProfile"){action=[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
 
         name profileMailing : "/notifications/mailing" (controller: "profile", action:"showUserEmails")
 
