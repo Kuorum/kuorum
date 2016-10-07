@@ -30,6 +30,8 @@ class UrlMappings {
         name landingPrices:    "/prices" (controller: "dashboard", action:"landingPrices")
         name landingPoliticians:    "/win-your-election" (controller: "dashboard", action:"landingPoliticians")
                                     "/politicians" (controller: "dashboard", action:"landingPoliticians")
+        name landingOrganizations:  "/advocate-better" (controller: "dashboard", action:"landingOrganizations")
+                                    "/organizations" (controller: "dashboard", action:"landingOrganizations")
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
         name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
