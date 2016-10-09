@@ -13,5 +13,5 @@ import kuorum.core.model.solr.SolrType
  */
 @Validateable
 enum SearchType {
-    ALL, REGION, NAME, POLITICAL_PARTY
+    ALL, REGION, NAME, POLITICAL_PARTY, CAUSE
 }

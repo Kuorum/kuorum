@@ -52,7 +52,7 @@
                         command="${command}"
                         field="userType"
                         defaultEmpty="true"
-                        values="${[kuorum.core.model.UserType.PERSON, kuorum.core.model.UserType.POLITICIAN]}"
+                        values="${[kuorum.core.model.UserType.PERSON, kuorum.core.model.UserType.POLITICIAN,  kuorum.core.model.UserType.ORGANIZATION]}"
                         showLabel="true"/>
             </div>
             %{--<div class="form-group col-md-6">--}%

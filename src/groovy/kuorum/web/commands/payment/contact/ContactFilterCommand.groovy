@@ -1,11 +1,11 @@
 package kuorum.web.commands.payment.contact
 
 import grails.validation.Validateable
-import org.kuorum.rest.model.contact.filter.ConditionFieldTypeRDTO
-import org.kuorum.rest.model.contact.filter.ConditionOperatorTypeRDTO
-import org.kuorum.rest.model.contact.filter.ConditionRDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.OperatorTypeRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionRDTO
+import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
 
 /**
  * Created by iduetxe on 22/08/16.
@@ -36,13 +36,10 @@ class ContactFilterCommand {
         FilterRDTO filterRDTO = new FilterRDTO()
         filterRDTO.name = this.filterName
         filterRDTO.operator = this.operator
-        filterRDTO.setFilterConditions(this.filterConditions.findAll{it && it.value}.collect{
-            ConditionRDTO conditionRDTO = new ConditionRDTO()
-            conditionRDTO.operator = it.operator
-            conditionRDTO.field = it.field
-            conditionRDTO.value= it.value
-            return conditionRDTO
-//            new ConditionRDTO(it.properties)
+        filterRDTO.setFilterConditions(
+                this.filterConditions
+                        .findAll{it && it.value}
+                        .collect{ConditionRDTO.factory(it.field, it.operator.toString(), it.value)
         })
         filterRDTO
     }
@@ -52,17 +49,17 @@ class ContactFilterCommand {
 class ContactFilterOptionCommand{
     ContactFilterOptionCommand(){
         this.field = ConditionFieldTypeRDTO.NAME
-        this.operator = ConditionOperatorTypeRDTO.EQUALS
+        this.operator = TextConditionOperatorTypeRDTO.EQUALS
     }
     ContactFilterOptionCommand(ConditionRDTO conditionRDTO){
         this.field = conditionRDTO.field
-        this.operator = conditionRDTO.operator
-        this.value = conditionRDTO.value
+        this.operator = conditionRDTO.operator.toString()
+        this.value = conditionRDTO.value.toString()
     }
 
 
     ConditionFieldTypeRDTO field;
-    ConditionOperatorTypeRDTO operator;
+    TextConditionOperatorTypeRDTO operator;
     String value;
 
     static constraints = {

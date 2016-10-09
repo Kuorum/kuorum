@@ -1,10 +1,9 @@
 package kuorum.mail
 
+import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
-import groovyx.net.http.RESTClient
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
 

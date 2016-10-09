@@ -30,6 +30,8 @@ class UrlMappings {
         name landingPrices:    "/prices" (controller: "dashboard", action:"landingPrices")
         name landingPoliticians:    "/win-your-election" (controller: "dashboard", action:"landingPoliticians")
                                     "/politicians" (controller: "dashboard", action:"landingPoliticians")
+        name landingOrganizations:  "/advocate-better" (controller: "dashboard", action:"landingOrganizations")
+                                    "/organizations" (controller: "dashboard", action:"landingOrganizations")
         name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
         name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
@@ -116,7 +118,7 @@ class UrlMappings {
                                         userTypeUrl inList: ["ciudadanos", "organizaciones", "politicos"]
                                     }
         }
-        name userShow: "/$userAlias"   (controller: "kuorumUser", action: "showWithAlias"){
+        name userShow: "/$userAlias"   (controller: "kuorumUser", action: "show"){
             constraints{
                 userAlias (validator: { !['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos'].contains(it) })
             }
@@ -190,26 +192,24 @@ class UrlMappings {
         name suggestRegions:        "/ajax/buscar/regiones/sugerencias"(controller: "search", action:"suggestRegions")
         name suggestTags:           "/ajax/buscar/tags/sugerencias"(controller: "search", action:"suggestTags")
 
-        name profileEditUser:     "/configuracion-usuario"                  (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
-        name profileEditAccountDetails:     "/config/account-details"                  (controller: "profile"){action =[GET:"editAccountDetails", POST:"updateAccountDetails"]}
-        name profileEditCommissions:     "/configuracion-usuario/cambiar-areas-interes"                  (controller: "profile"){action =[GET:"editCommissions", POST:"editCommissionsSave"]}
-        name profileChangePass:   "/configuracion-usuario/cambiar-password" (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
-        name profileSetPass:      "/configuracion-usuario/crear-password" (controller: "profile"){action =[GET:"setPassword", POST:"setPasswordSave"]}
-        name profileChangeEmail:  "/configuracion-usuario/cambiar-email"    (controller: "profile"){action =[GET:"changeEmail", POST:"changeEmailSave"]}
-        name profileChangeEmailSent:  "/configuracion-usuario/cambiar-email/solicitud-recivida"    (controller: "profile", action :"changeEmailConfirmSent")
-        name profileChangeEmailResend:  "/configuracion-usuario/cambiar-email/resend-email" (controller: "profile", action :"updateUserEmail")
-        name profileChangeEmailConfirm: "/configuracion-usuario/cambiar-email/confirmar"    (controller: "profile", action: "changeEmailConfirm")
-        name profileSocialNetworks:"/configuracion-usuario/redes-sociales"  (controller: "profile"){action=[GET:"socialNetworks",POST:"socialNetworksSave"]}
-        name profileEmailNotifications:"/configuracion-usuario/notificaciones-por-email"(controller: "profile"){action=[GET:"configurationEmails",POST:"configurationEmailsSave"]}
-        name profileMessages:     "/configuracion-usuario/mensajes"         (controller: "profile", action: "userMessages")
-        name profileDeleteAccount:"/configuracion-usuario/eliminar-cuenta"  (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
+        name profileEditAccountDetails:     "/config/account-details"                                   (controller: "profile"){action =[GET:"editAccountDetails", POST:"updateAccountDetails"]}
+        name profileEditUser:               "/edit-profile"                                    (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
+        name profileEditCommissions:        "/edit-profile/cambiar-areas-interes"              (controller: "profile"){action =[GET:"editCommissions", POST:"editCommissionsSave"]}
+        name profileChangePass:             "/edit-profile/cambiar-password"                   (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
+        name profileSetPass:                "/edit-profile/crear-password"                     (controller: "profile"){action =[GET:"setPassword", POST:"setPasswordSave"]}
+        name profileChangeEmail:            "/edit-profile/cambiar-email"                      (controller: "profile"){action =[GET:"changeEmail", POST:"changeEmailSave"]}
+        name profileChangeEmailSent:        "/edit-profile/cambiar-email/solicitud-recivida"   (controller: "profile", action :"changeEmailConfirmSent")
+        name profileChangeEmailResend:      "/edit-profile/cambiar-email/resend-email"         (controller: "profile", action :"updateUserEmail")
+        name profileChangeEmailConfirm:     "/edit-profile/cambiar-email/confirmar"            (controller: "profile", action: "changeEmailConfirm")
+        name profileSocialNetworks:         "/edit-profile/redes-sociales"                     (controller: "profile"){action=[GET:"socialNetworks",POST:"socialNetworksSave"]}
+        name profileEmailNotifications:     "/edit-profile/notificaciones-por-email"           (controller: "profile"){action=[GET:"configurationEmails",POST:"configurationEmailsSave"]}
+        name profileMessages:               "/edit-profile/mensajes"                           (controller: "profile", action: "userMessages")
+        name profileDeleteAccount:          "/edit-profile/eliminar-cuenta"                    (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
+        name profileCauses:                 "/edit-profile/causas"                             (controller: "profile"){action=[GET:"editCauses", POST:"updateCauses"]}
+        name profileNews:                   "/edit-profile/news"                               (controller: "profile"){action=[GET:"editNews", POST:"updateNews"]}
+        name profileQuickNotes:             "/edit-profile/quick-notes"                        (controller: "profile"){action=[GET:"editQuickNotes", POST:"updateQuickNotes"]}
+        name profileProfessionalDetails:    "/edit-profile/professional-details"               (controller: "profile"){action=[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
 
-        name profilePoliticianExternalActivity: "/configuracion-politico/external-activity" (controller: "politicianProfile"){action=[GET:"editExternalActivity", POST:"updateExternalActivity"]}
-        name profilePoliticianRelevantEvents: "/configuracion-politico/known-for"     (controller: "politicianProfile"){action=[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}
-        name profilePoliticianProfessionalDetails: "/configuracion-politico/professional-details"     (controller: "politicianProfile"){action=[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
-        name profilePoliticianQuickNotes: "/configuracion-politico/quick-notes"     (controller: "politicianProfile"){action=[GET:"editQuickNotes", POST:"updateQuickNotes"]}
-        name profilePoliticianCauses: "/configuracion-politico/causas"     (controller: "politicianProfile"){action=[GET:"editCauses", POST:"updateCauses"]}
-        name profilePoliticianExperience: "/configuracion-politico/experiencia"     (controller: "politicianProfile"){action=[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
 
         name profileMailing : "/notifications/mailing" (controller: "profile", action:"showUserEmails")
 
@@ -270,7 +270,6 @@ class UrlMappings {
         name ajaxModuleProjectBottomStats: '/ajax/project/bottomProjectStats' (controller:'modules', action: 'bottomProjectStats')
                                        '/ajax/law/bottomLawStats' (controller:'modules', action: 'bottomProjectStats')
         name ajaxModuleUserCauses:        "/ajax/module/user/causes" (controller:"modules", action: "userCauses")
-        name ajaxModuleUserLeaningIndex:  "/ajax/module/user/leaning-index" (controller:"modules", action: "userLeaningIndex")
 
         name login:     "/log-in"       (controller:"login", action:"index")
                         "/entrar"       (controller:"login", action:"index")
@@ -299,12 +298,10 @@ class UrlMappings {
         name editorCreatePolitician:                        "/editor/usuarios/politician/create-politician" (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
         name editorEditUserProfile:                         "/editor/usuarios/$userAlias/editar/profile" (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
         name editorEditSocialNetwork:                       "/editor/usuarios/$userAlias/editar/social-network" (controller:"editorUser"){action =[GET:"editUserSocialNetwork", POST:"updateUserSocialNetwork"]}
-        name editorEditPoliticianExternalActivity:          "/editor/usuarios/$userAlias/editar/externalActivity" (controller:"editorPolitician"){action =[GET:"editExternalActivity", POST:"updateExternalActivity"]}
-        name editorEditPoliticianRelevantEvents:            "/editor/usuarios/$userAlias/editar/relevantEvents" (controller:"editorPolitician"){action =[GET:"editRelevantEvents", POST:"updateRelevantEvents"]}
+        name editorEditNews:                                "/editor/usuarios/$userAlias/editar/news" (controller:"editorPolitician"){action =[GET:"editNews", POST:"updateNews"]}
         name editorEditPoliticianProfessionalDetails:       "/editor/usuarios/$userAlias/editar/professionalDetails" (controller:"editorPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
         name editorEditPoliticianQuickNotes:                "/editor/usuarios/$userAlias/editar/quick-notes" (controller:"editorPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
         name editorEditPoliticianCauses:                    "/editor/usuarios/$userAlias/editar/causes" (controller:"editorPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
-        name editorEditPoliticianExperience:                "/editor/usuarios/$userAlias/editar/experiencia" (controller:"editorPolitician"){action =[GET:"editPoliticalExperience", POST:"updatePoliticalExperience"]}
         name editorKuorumAccountEdit:                       "/editor/usuarios/$userAlias/editar/account-details" (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
         name editorAdminUserRights:                         "/editor/usuarios/$userAlias/editar/rights" (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
         name editorRequestRights:                           "/editor/request" (controller:"editorRecruitment", action: "requestEditor")

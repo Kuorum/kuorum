@@ -8,7 +8,6 @@ modules = {
         resource url: 'fonts/icomoon3/styles.css'
         resource url: 'css/datepicker3.css'
         resource url: 'css/bootstrap-tour.min.css'
-        resource url: 'css/custom.css'
         resource url:'js/jquery.min.js'
         resource url:'js/bootstrap.min.js'
         resource url:[dir:'css',file:'style_ie.css'], attrs:[media:'screen'], wrapper: { s -> "<!--[if IE]>$s<![endif]-->" }
@@ -82,6 +81,7 @@ modules = {
         resource url: 'js/list.pagination.min.js'
         resource url:'js/highstock.js'
         resource url:'js/custom.js'
+        resource url:'css/custom.css'
         resource url:'js/local.js'
     }
 

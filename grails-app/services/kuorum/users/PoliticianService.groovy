@@ -1,7 +1,6 @@
 package kuorum.users
 
 import com.mongodb.DBCursor
-import grails.plugin.mail.MailService
 import grails.transaction.Transactional
 import kuorum.KuorumFile
 import kuorum.Region
@@ -10,7 +9,6 @@ import kuorum.causes.CausesService
 import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
-import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
@@ -18,14 +16,7 @@ import kuorum.files.FileService
 import kuorum.mail.KuorumMailService
 import kuorum.notifications.NotificationService
 import kuorum.solr.IndexSolrService
-import kuorum.users.extendedPoliticianData.CareerDetails
-import kuorum.users.extendedPoliticianData.ExternalPoliticianActivity
-import kuorum.users.extendedPoliticianData.OfficeDetails
-import kuorum.users.extendedPoliticianData.PoliticianExtraInfo
-import kuorum.users.extendedPoliticianData.PoliticianLeaning
-import kuorum.users.extendedPoliticianData.PoliticianRelevantEvent
-import kuorum.users.extendedPoliticianData.PoliticianTimeLine
-import kuorum.users.extendedPoliticianData.ProfessionalDetails
+import kuorum.users.extendedPoliticianData.*
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import org.apache.commons.lang.WordUtils
 import org.bson.types.ObjectId
@@ -47,11 +38,6 @@ class PoliticianService {
 
     private static final String IPDB_DATE_FORMAT = "dd/MM/yyyy HH:mm"
 
-    KuorumUser updatePoliticianExternalActivity(KuorumUser politician, List<ExternalPoliticianActivity> externalPoliticianActivities){
-        politician.externalPoliticianActivities = externalPoliticianActivities.findAll{it && it.validate()}
-        sortExternalPoliticianActivity(politician)
-        kuorumUserService.updateUser(politician)
-    }
 
     KuorumUser updatePoliticianRelevantEvents(KuorumUser politician, List<PoliticianRelevantEvent> relevantEvents){
         politician.relevantEvents = relevantEvents.findAll{it && it.validate()}
@@ -66,12 +52,6 @@ class PoliticianService {
         politician.professionalDetails.institution = command.institution
         politician.professionalDetails.region= command.region
         politician.careerDetails= command.careerDetails
-        kuorumUserService.updateUser(politician)
-    }
-
-    KuorumUser updatePoliticianExperience(KuorumUser politician, List<PoliticianTimeLine> timeLine){
-        politician.timeLine = timeLine.findAll{it && it.validate()}
-        sortPoliticalExperience(politician)
         kuorumUserService.updateUser(politician)
     }
 
@@ -164,12 +144,9 @@ class PoliticianService {
         KuorumUser politician = findOrRecoverPolitician(line)
         populateBasicData(politician, line)
         populateImages(politician, line)
-        populateLeaning(politician, line)
         populateProfessionalDetails(politician, line)
         populateCareerDetails(politician, line)
         populateSocialLinks(politician, line)
-        populateExternalPoliticianActivity(politician, line)
-        populateTimeLine(politician, line)
         populateTags(politician, line)
         populateRelevantEvents(politician, line)
         populateExtraInfo(politician, line)
@@ -190,25 +167,6 @@ class PoliticianService {
         updatePoliticianCauses(politician, tags, false)
     }
 
-    private void populateTimeLine(KuorumUser politician, def line) {
-        List<PoliticianTimeLine> timeLine = []
-        String prefix = "political_experience"
-        (1..5).each{i->
-            if (line."${prefix}${i}"){
-                PoliticianTimeLine event = new PoliticianTimeLine();
-                event.title = line."${prefix}${i}"
-                event.text = line."${prefix}${i}_content"
-                event.date = parseDate(line."${prefix}${i}_date", IPDB_DATE_FORMAT)
-                event.important = false
-                if (!timeLine.find{it.title == event.title}){
-                    timeLine.add(event)
-                }
-            }
-        }
-        politician.timeLine = timeLine
-        sortPoliticalExperience(politician)
-    }
-
     private void populateRelevantEvents(KuorumUser politician, def line) {
         List<PoliticianRelevantEvent> relevantEvents = []
         String prefixTitle = "known_for"
@@ -222,13 +180,6 @@ class PoliticianService {
             }
         }
         politician.relevantEvents = relevantEvents
-    }
-
-    private void sortExternalPoliticianActivity(KuorumUser politician){
-        politician.externalPoliticianActivities = politician.externalPoliticianActivities.sort{a,b-> !a.date?-1:!b.date?1:b.date<=>a.date}
-    }
-    private void sortPoliticalExperience(KuorumUser politician){
-        politician.timeLine = politician.timeLine.sort{a,b-> b.date<=>a.date}
     }
 
     private KuorumUser findOrRecoverPolitician(def line){
@@ -332,38 +283,6 @@ class PoliticianService {
         politician.socialLinks.youtube= politician.socialLinks.youtube?:line."youtubeChannel"?.trim()
         politician.socialLinks.officialWebSite = politician.socialLinks.officialWebSite?:line."officialWebsite"?.trim()
         politician.socialLinks.institutionalWebSite = politician.socialLinks.institutionalWebSite?:line."sourceWebsite"?.trim()
-    }
-
-    private void populateExternalPoliticianActivity(KuorumUser politician, def line){
-        List<ExternalPoliticianActivity> externalPoliticianActivities = [];
-        String prefix = "lastActivity"
-        (1..5).each{i->
-            ExternalPoliticianActivity epa = new ExternalPoliticianActivity()
-            String title = line."${prefix}${i}"
-            if (title){
-                epa.date = parseDate(line."${prefix}${i}Date", IPDB_DATE_FORMAT)
-                epa.title =title
-                epa.link =line."${prefix}${i}Link"?.trim()
-                epa.actionType =line."${prefix}${i}Action"?.trim()
-                epa.outcomeType =line."${prefix}${i}Outcome"?.trim()
-                externalPoliticianActivities << epa
-            }
-        }
-        politician.externalPoliticianActivities = externalPoliticianActivities
-        sortExternalPoliticianActivity(politician)
-    }
-
-    private void populateLeaning(KuorumUser politician, def line){
-        if (!politician.politicianLeaning){
-            politician.politicianLeaning = new PoliticianLeaning()
-        }
-        String leanindIndex = line."political_leaning_index"?.trim();
-        Double dli = 0.5
-        if (leanindIndex){
-            dli = Double.parseDouble(leanindIndex)
-        }
-        politician.politicianLeaning.liberalIndex = Math.round(dli * 100)
-
     }
 
     private void populateAddress(KuorumUser politician, def line){

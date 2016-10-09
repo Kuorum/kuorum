@@ -1,5 +1,6 @@
 package kuorum
 
+import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
@@ -8,7 +9,6 @@ import kuorum.postalCodeHandlers.PostalCodeHandler
 import kuorum.postalCodeHandlers.PostalCodeHandlerType
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.springframework.beans.factory.annotation.Autowired
 

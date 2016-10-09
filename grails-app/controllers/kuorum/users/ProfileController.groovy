@@ -4,19 +4,23 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import kuorum.KuorumFile
+import kuorum.causes.CausesService
 import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailType
 import kuorum.notifications.Notification
-import kuorum.register.FacebookAuthService
-import kuorum.register.GoogleOAuthService
 import kuorum.register.RegisterService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
+import kuorum.web.commands.profile.politician.PoliticianCausesCommand
+import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
+import kuorum.web.commands.profile.politician.QuickNotesCommand
+import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
+import org.kuorum.rest.model.tag.CauseRSDTO
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ProfileController {
@@ -32,6 +36,8 @@ class ProfileController {
     def kuorumMailService
     KuorumMailAccountService kuorumMailAccountService
     RegisterService registerService
+    CausesService causesService;
+    PoliticianService politicianService
 
     def beforeInterceptor ={
         if (springSecurityService.isLoggedIn()){//Este if es para la confirmacion del email
@@ -110,6 +116,24 @@ class ProfileController {
         }else{
             render "Not valid email"
         }
+    }
+
+    def editCauses(){
+        KuorumUser politician = params.user
+        List<CauseRSDTO> causes = causesService.findDefendedCauses(politician)
+        PoliticianCausesCommand command = new PoliticianCausesCommand(politician, causes.collect{it.name})
+        [command:command]
+    }
+
+    def updateCauses(PoliticianCausesCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors() || !user ){
+            render view:"editCauses", model:[command:command]
+            return;
+        }
+        politicianService.updatePoliticianCauses(user, command.causes)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profileCauses', params: user.encodeAsLinkProperties()
     }
 
     private def changeEmail(KuorumUser user, String email){
@@ -225,7 +249,6 @@ class ProfileController {
                 }
                 user.professionalDetails.position = command.position
                 user.professionalDetails.politicalParty = command.politicalParty
-                user.politicianLeaning.liberalIndex = command.politicalLeaningIndex
             }else{
                 personalData.birthday = command.birthday
                 personalData.studies =  command.studies
@@ -376,5 +399,57 @@ class ProfileController {
     def showUserEmails(){
         MailsMessageRSDTO mails = kuorumMailAccountService.getUserMails(params.user)
         [mails:mails]
+    }
+
+    def editNews(){
+        KuorumUser user = params.user
+        [command:new RelevantEventsCommand(politician:user, politicianRelevantEvents: user.relevantEvents?.reverse()?:[])]
+    }
+
+    def updateNews(RelevantEventsCommand command){
+        command.politicianRelevantEvents = command.politicianRelevantEvents.findAll{it}
+        KuorumUser user = params.user
+        if (!command.validate() || !user ){
+            render view:"/profile/editRelevantEvents", model:[command:command]
+            return;
+        }
+        politicianService.updatePoliticianRelevantEvents(params.user, command.politicianRelevantEvents)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profileNews'
+    }
+
+    def editQuickNotes(){
+        KuorumUser politician = params.user
+        QuickNotesCommand command = new QuickNotesCommand(politician)
+        [command:command]
+    }
+
+    def updateQuickNotes(QuickNotesCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors() || !user ){
+            render view:"editQuickNotes", model:[command:command]
+            return;
+        }
+        politicianService.updatePoliticianQuickNotes(user, command.politicianExtraInfo, command.institutionalOffice, command.politicalOffice)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profileQuickNotes', params: user.encodeAsLinkProperties()
+    }
+
+
+    def editProfessionalDetails(){
+        KuorumUser politician = params.user
+        ProfessionalDetailsCommand command = new ProfessionalDetailsCommand(politician)
+        [command:command]
+    }
+
+    def updateProfessionalDetails(ProfessionalDetailsCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors() || !user ){
+            render view:"/profile/editProfessionalDetails", model:[command:command]
+            return;
+        }
+        politicianService.updatePoliticianProfessionalDetails(user, command)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profileProfessionalDetails', params: user.encodeAsLinkProperties()
     }
 }

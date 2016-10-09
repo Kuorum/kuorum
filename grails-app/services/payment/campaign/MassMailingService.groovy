@@ -3,7 +3,7 @@ package payment.campaign
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.codehaus.jackson.type.TypeReference
+import com.fasterxml.jackson.core.type.TypeReference
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO

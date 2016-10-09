@@ -528,7 +528,7 @@ class FormTagLib {
         def prefixFieldName=attrs.prefixFieldName?:""
         def cssClass = attrs.cssClass
         def cssLabel=attrs.cssLabel?:""
-        def clazz = command.metaClass.properties.find{it.name == field}.type
+        def clazz = attrs.enumClass?:command.metaClass.properties.find{it.name == field}.type
         Boolean defaultEmpty = attrs.defaultEmpty?Boolean.parseBoolean(attrs.defaultEmpty):false
         Boolean isRequired = isRequired(command,field)
         def label ="${message(code: "${clazz.name}.label")}${isRequired?'*':''}"

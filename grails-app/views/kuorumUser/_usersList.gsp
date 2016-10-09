@@ -1,9 +1,7 @@
 <span class="state">${messages.intro}</span>
 <ul class="${cssClass}">
     <g:each in="${visibleUsersList}" var="user">
-        <li itemtype="http://schema.org/Person" itemscope="" itemprop="contributor">
-            <userUtil:showUser user="${user}" showName="false"/>
-        </li>
+        <userUtil:showUser user="${user}" showName="false" htmlWrapper="li"/>
     </g:each>
     <g:if test="${hiddenUsersList}">
         <li>

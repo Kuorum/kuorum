@@ -1,5 +1,7 @@
 package kuorum.util.rest
 
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
 import groovyx.net.http.EncoderRegistry
 import groovyx.net.http.HttpResponseDecorator
 import groovyx.net.http.ParserRegistry
@@ -7,8 +9,6 @@ import groovyx.net.http.RESTClient
 import kuorum.core.exception.KuorumException
 import org.apache.commons.io.IOUtils
 import org.apache.http.entity.InputStreamEntity
-import org.codehaus.jackson.map.ObjectMapper
-import org.codehaus.jackson.type.TypeReference
 import org.springframework.beans.factory.annotation.Value
 
 import java.nio.charset.StandardCharsets
@@ -39,7 +39,6 @@ class RestKuorumApiService {
     }
 
     public enum ApiMethod{
-        USER_STATS_LEANING_INDEX            ('/user/{userId}/stats/leaning-index'),
         USER_STATS_REPUTATION               ('/user/{userId}/stats/reputation'),
         USER_STATS_REPUTATION_EVOLUTION     ('/user/{userId}/stats/reputation/evolution'),
 
@@ -164,7 +163,8 @@ class RestKuorumApiService {
             if (resp.status ==200){
                 if(clazz != null){
                     String jsonString = IOUtils.toString(resp.getEntity().getContent(), "UTF-8");
-                    obj = new ObjectMapper().readValue(jsonString, clazz);
+                    ObjectMapper objectMapper = new ObjectMapper()
+                    obj = objectMapper.readValue(jsonString, clazz);
                 }
                 return obj
             }else{

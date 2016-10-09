@@ -136,7 +136,7 @@ class ProjectController {
         }
         if (!region){
             flash.message = "We need your region for create new project"
-            return redirect(mapping:'profilePoliticianProfessionalDetails')
+            return redirect(mapping:'profileProfessionalDetails')
         }
         [project:project, command:command, region:region]
 

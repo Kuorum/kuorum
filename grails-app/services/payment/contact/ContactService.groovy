@@ -1,9 +1,9 @@
 package payment.contact
 
+import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.codehaus.jackson.type.TypeReference
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO

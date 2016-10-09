@@ -74,6 +74,10 @@ grails.project.dependency.resolution = {
             //CONFLICT WITH grails json parsers
 //            excludes 'org.codehaus.jackson:jackson-mapper-asl'
         }
+        // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.3'
+
+
         compile 'com.mandrillapp.wrapper.lutung:lutung:0.0.4'
         compile 'org.apache.solr:solr-solrj:4.9.0'
         test ('org.apache.solr:solr-core:4.9.0'){

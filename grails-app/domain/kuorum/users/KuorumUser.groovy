@@ -35,7 +35,7 @@ class KuorumUser {
 
     PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
-    String timeZoneId;
+    String timeZoneId = "Europe/Madrid";
 
     Boolean requestedPoliticianBetaTester = Boolean.FALSE
     EditorRules editorRules
@@ -72,10 +72,7 @@ class KuorumUser {
             'imageProfile',
             'socialLinks',
             'notice',
-            'externalPoliticianActivities',
-            'timeLine',
             'relevantEvents',
-            'politicianLeaning',
             'professionalDetails',
             'politicianExtraInfo',
             'careerDetails',
@@ -96,10 +93,7 @@ class KuorumUser {
 //    Region politicianOnRegion
     PoliticianActivity politicianActivity
 
-    List<ExternalPoliticianActivity> externalPoliticianActivities
     List<PoliticianRelevantEvent> relevantEvents
-    List<PoliticianTimeLine> timeLine
-    PoliticianLeaning politicianLeaning = new PoliticianLeaning()
     ProfessionalDetails professionalDetails
     CareerDetails careerDetails
     PoliticianExtraInfo politicianExtraInfo
@@ -144,10 +138,7 @@ class KuorumUser {
         requestedPoliticianBetaTester nullable:true
         organization nullable: true
         politicianActivity nullable:true
-        externalPoliticianActivities nullable: true
         relevantEvents nulable:true
-        timeLine nulable:true
-        politicianLeaning nullable:true
         professionalDetails nullable:true
         institutionalOffice nullable:true
         politicalOffice nullable:true
@@ -215,13 +206,6 @@ class KuorumUser {
             this.personalData = new PersonalData()
         }
         personalData.userType = userType
-        if (politicianLeaning?.liberalIndex==null){
-            politicianLeaning = new PoliticianLeaning(liberalIndex: 50)
-        }
-        if (politicianLeaning?.liberalIndex){
-            politicianLeaning?.liberalIndex = Math.min(100, politicianLeaning.liberalIndex) // MAX 100
-            politicianLeaning?.liberalIndex = Math.max(0, politicianLeaning.liberalIndex) // min 0
-        }
     }
 
 

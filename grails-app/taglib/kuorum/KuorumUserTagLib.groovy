@@ -57,9 +57,10 @@ class KuorumUserTagLib {
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
         Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
         Boolean showDeleteRecommendation = attrs.showDeleteRecommendation?Boolean.parseBoolean(attrs.showDeleteRecommendation):false
+        String htmlWrapper = attrs.htmlWrapper?:"div"
 
 //        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
-        out << "<div class='user' itemtype=\"http://schema.org/Person\" itemscope>"
+        out << "<${htmlWrapper} class='user ${showDeleteRecommendation?'recommendation-deletable':''}' itemtype=\"http://schema.org/Person\" itemscope data-userId='${user.id}'>"
         def imgSrc = image.userImgSrc(user:user)
         def userName = ""
         if (showName){
@@ -92,7 +93,7 @@ class KuorumUserTagLib {
             }
             out << "</div>"
         }
-        out << "</div>" //END DIV
+        out << "</${htmlWrapper}>" //END DIV
     }
 
     def showDebateUsers={attrs->
@@ -229,6 +230,38 @@ class KuorumUserTagLib {
                 out << "<span class='roleOrganization'>(<a href='$link'>${user.organization.name}</a>)</span>"
             }
         }
+    }
+
+    def isPolitician={attrs, body ->
+        KuorumUser user = attrs.user
+        if ([UserType.POLITICIAN, UserType.CANDIDATE].contains(user.userType)){
+            out << body()
+        }
+    }
+
+    def userTypeIcon={attrs ->
+        KuorumUser user = attrs.user
+        String faIcon = ""
+        String tooltip = "";
+        if (user.userType == UserType.PERSON){
+            faIcon = "fa-child"
+            tooltip = message(code:'kuorum.core.model.UserType.PERSON');
+        }else if (user.userType == UserType.ORGANIZATION){
+            faIcon = "fa-industry"
+            tooltip = message(code:'kuorum.core.model.UserType.ORGANIZATION');
+        }else if(user.userType == UserType.CANDIDATE){
+            faIcon = "icon-megaphone"
+            tooltip = message(code:'politician.image.icon.candidate.text');
+        }else{
+            if (user.enabled){
+                faIcon = "fa-check"
+                tooltip = message(code:'politician.image.icon.enabled.text');
+            }else{
+                faIcon = "fa-binoculars"
+                tooltip = message(code:'politician.image.icon.notEnabled.text');
+            }
+        }
+        out << """<abbr title="${tooltip}"><i class="fa ${faIcon}"></i></abbr>"""
     }
 
     def ifIsFollower={attrs, body ->

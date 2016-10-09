@@ -1,6 +1,5 @@
 package kuorum.users
 
-import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.campaign.Campaign
 import kuorum.campaign.CampaignService
@@ -15,14 +14,10 @@ import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
-import org.kuorum.rest.model.kuorumUser.LeaningIndexRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
-import org.kuorum.rest.model.kuorumUser.reputation.ReputationSnapshotRSDTO
-import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
-import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
 
 class KuorumUserController {
@@ -77,128 +72,31 @@ class KuorumUserController {
     }
 
     @Deprecated
-    def show(String id){
+    def showWithId(String id){
         KuorumUser user = KuorumUser.get(new ObjectId(id))
         if (!user){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }else {
             log.warn("Executing show user")
-            switch (user.userType){
-                case UserType.ORGANIZATION: return showCitizen(user); break;
-                case UserType.PERSON: return showCitizen(user); break;
-                case UserType.POLITICIAN: return showPolitician(user); break;
-                case UserType.CANDIDATE: return showPolitician(user); break;
-            }
+            return showWithAlias(user.alias)
         }
     }
 
-    def showWithAlias(String userAlias){
+    def show(String userAlias){
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         if (!user) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
-        switch (user.userType){
-            case UserType.ORGANIZATION: return showCitizen(user); break;
-            case UserType.PERSON: return showCitizen(user); break;
-            case UserType.POLITICIAN: return showPolitician(user); break;
-            case UserType.CANDIDATE: return showPolitician(user); break;
-        }
-        log.error("User type (userType=${user.userType}) not found for user ${user.id} (${user})")
-        response.sendError(HttpServletResponse.SC_NOT_FOUND)
-        return false
-    }
-
-    def showCitizen(KuorumUser user){
-        if (!user) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return false
-        }
-        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
-            redirect(mapping: "userShow", params: user.encodeAsLinkProperties())
-            return
-        }
-        Pagination pagination = new Pagination()
-        List<Cluck> clucks = cluckService.userClucks(user)
-        Long numClucks = cluckService.countUserClucks(user)
-        SearchUserPosts searchUserPosts = new SearchUserPosts(user:user, publishedPosts: true);
-        List<Post> userPosts = postService.userPosts(searchUserPosts)
-        Long numUserPosts = postService.countUserPost(searchUserPosts)
-        List<CauseRSDTO> causes = causesService.findSupportedCauses(user)
-        Integer numCauses = causes.size()
-        SearchUserPosts searchVictoryUserPosts = new SearchUserPosts(user:user, publishedPosts: true,  victory: true);
-        List<Post> userVictoryPosts = postService.userPosts(searchVictoryUserPosts)
-        Long numUserVictoryPosts = postService.countUserPost(searchVictoryUserPosts)
-        List<UserParticipating> activeProjects = kuorumUserService.listUserActivityPerProject(user)
-        String provinceName = user.personalData.province?.name
-        render (
-                view:"show",
-                model:[
-                        user:user,
-                        activeProjects:activeProjects,
-                        provinceName:provinceName,
-                        clucks:clucks,
-                        numClucks:numClucks,
-                        userPosts:userPosts,
-                        numUserPosts:numUserPosts,
-                        userVictoryPosts:userVictoryPosts,
-                        numCauses:numCauses,
-                        numUserVictoryPosts:numUserVictoryPosts
-                ])
-    }
-
-    def showPolitician(KuorumUser politician){
-        if (!politician) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return false
-        }
-        if (politician.userType != UserType.POLITICIAN && politician.userType != UserType.CANDIDATE){
-            redirect(mapping: "userShow", params: politician.encodeAsLinkProperties())
-            return
-        }
-
-        def model = showExtendedPolitician(politician)
-        render (view:"showExtendedPolitician", model:model)
-        return;
-        String provinceName = politician.personalData.province.name
-        if (politician.enabled){
-            Pagination pagination = new Pagination()
-            List<Project> userProjects = projectService.politicianProjects(politician)
-            Long numUserProjects = projectService.countPoliticianProjects(politician)
-            SearchUserPosts searchUserPosts = new SearchUserPosts(user:politician, publishedPosts: true);
-            List<Post> defendedPosts = postService.politicianDefendedPosts(searchUserPosts)
-            Long numDefendedPosts = postService.countPoliticianDefendedPosts(searchUserPosts)
-            SearchUserPosts searchVictoryUserPosts = new SearchUserPosts(user:politician, publishedPosts: true,  victory: true);
-            List<Post> userVictoryPost = postService.politicianDefendedPosts(searchVictoryUserPosts)
-            Long numUserVictoryPost = postService.countPoliticianDefendedPosts(searchVictoryUserPosts)
-            PoliticianActivity politicianStats =kuorumUserStatsService.calculatePoliticianActivity(politician)
-            render (view:"show",
-                    model:[
-                            user:politician,
-                            userProjects:userProjects,
-                            numUserProjects:numUserProjects,
-                            defendedPosts:defendedPosts,
-                            numDefendedPosts:numDefendedPosts,
-                            userVictoryPost:userVictoryPost,
-                            numUserVictoryPost:numUserVictoryPost,
-                            politicianStats:politicianStats])
-        }else{
-            render (view:"showInactivePolitician", model:[user:politician, provinceName:provinceName])
-        }
-    }
-
-    def showExtendedPolitician(KuorumUser politician){
-        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(politician, new Pagination(max:12))
-        List<Project> userProjects = projectService.politicianProjects(politician)
-        List<CauseRSDTO> causes = causesService.findSupportedCauses(politician)
-        Campaign campaign = campaignService.findActiveCampaign(politician)
-        LeaningIndexRSDTO politicianLeaningIndex = kuorumUserStatsService.findLeaningIndex(politician)
-        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(politician)
-        List<UserNewRSDTO> userNews = userNewsService.findUserNews(politician)
+        List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(user, new Pagination(max:12))
+        List<Project> userProjects = projectService.politicianProjects(user)
+        List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
+        Campaign campaign = campaignService.findActiveCampaign(user)
+        UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
+        List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
         [
-                politician:politician,
-                politicianLeaningIndex:politicianLeaningIndex,
+                politician:user,
                 userProjects:userProjects,
                 recommendPoliticians:recommendPoliticians,
                 campaign:campaign,
@@ -207,6 +105,7 @@ class KuorumUserController {
                 userNews:userNews
         ]
     }
+
 
     def userClucks(Pagination pagination){
         KuorumUser user = kuorumUserService.findByAlias(params.userAlias)

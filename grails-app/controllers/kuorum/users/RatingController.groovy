@@ -21,10 +21,6 @@ class RatingController {
 
     def ratePolitician(String userAlias){
         KuorumUser politician = kuorumUserService.findByAlias(userAlias)
-        if (!politicianService.isPolitician(politician)){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND)
-            return;
-        }
         Integer rate = Integer.parseInt(params.rate)
         UserReputationRSDTO userReputationRSDTO = userReputationService.addReputation(politician,rate)
         render userReputationRSDTO as JSON

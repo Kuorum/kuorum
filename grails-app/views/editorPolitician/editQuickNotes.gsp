@@ -13,6 +13,6 @@
     <h1><g:message code="admin.menu.user.editPersonalNotes" args="[command.politician.name]"/></h1>
     <formUtil:validateForm form="externalActivitiesForm" bean="${command}"/>
     <g:form method="POST" mapping="editorEditPoliticianQuickNotes" params="${command.politician.encodeAsLinkProperties()}" name="externalActivitiesForm" role="form">
-        <g:render template="/politicianProfile/formQuickNotes" model="[command:command]"/>
+        <g:render template="/profile/formQuickNotes" model="[command:command]"/>
     </g:form>
 </content>

@@ -1,12 +1,10 @@
 package kuorum.causes
 
-import kuorum.core.model.UserType
+import com.fasterxml.jackson.core.type.TypeReference
 import kuorum.core.model.search.Pagination
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.codehaus.jackson.type.TypeReference
-import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
 import org.kuorum.rest.model.tag.SupportedCauseRSDTO
@@ -50,6 +48,7 @@ class CausesService {
                 RestKuorumApiService.ApiMethod.CAUSE_OPERATIONS,
                 [causeName:causeName],
                 [:],
+                null,
                 new TypeReference<CauseRSDTO>(){})
         CauseRSDTO cause = null;
         if (response.data){
@@ -63,6 +62,7 @@ class CausesService {
                 RestKuorumApiService.ApiMethod.USER_CAUSES_SUPPORT,
                 [userId:user.id.toString(), causeName:causeName],
                 [:],
+                null,
                 new TypeReference<SupportedCauseRSDTO>(){})
         SupportedCauseRSDTO cause = null;
         if (response.data){

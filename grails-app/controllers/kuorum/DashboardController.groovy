@@ -115,27 +115,25 @@ class DashboardController {
 
             List fields = [
                     [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
-                    [urlMapping: 'profilePoliticianCauses', total:causes?0:1],
+                    [urlMapping: 'profileCauses', total:causes?0:1],
                     [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["birthday", "workingSector", "studies", "enterpriseSector"].contains(it.key)}.size()],
-                    [urlMapping: 'profilePoliticianRelevantEvents', total:user.relevantEvents?0:1],
-                    [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()],
-                    [urlMapping: 'profilePoliticianExternalActivity', total:user.externalPoliticianActivities?0:1],
-                    [urlMapping: 'profilePoliticianExperience', total:user.timeLine?0:1]
+                    [urlMapping: 'profileNews', total:user.relevantEvents?0:1],
+                    [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()]
             ]
             QuickNotesCommand quickNotesCommand = new QuickNotesCommand(user);
-            fields.add([urlMapping:'profilePoliticianQuickNotes', total:
+            fields.add([urlMapping:'profileQuickNotes', total:
                     quickNotesCommand.institutionalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
                             quickNotesCommand.politicalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
                             quickNotesCommand.politicianExtraInfo.properties.findAll{!it.value && !["dbo", "externalId"].contains(it.key)}.size()]
             )
 
             ProfessionalDetailsCommand professionalDetailsCommand = new ProfessionalDetailsCommand(user)
-            fields.add([urlMapping: 'profilePoliticianProfessionalDetails', total:
+            fields.add([urlMapping: 'profileProfessionalDetails', total:
                     professionalDetailsCommand.properties.findAll{!it.value}.size() +
                             professionalDetailsCommand.careerDetails.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size()
             ])
 
-            Integer totalFields = 54; // FAST CHAPU
+            Integer totalFields = 52; // FAST CHAPU
             Integer emptyFields= fields.sum{it.total}
             return [
                     percentage: (1 - emptyFields/totalFields)*100,
@@ -144,7 +142,7 @@ class DashboardController {
         }else{
             List fields = [
                     [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
-                    [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["position", "politicalParty", "politicalLeaningIndex"].contains(it.key)}.size()],
+                    [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["position", "politicalParty"].contains(it.key)}.size()],
                     [urlMapping: 'profileSocialNetworks', total:4],
             ]
             Integer totalFields = 8+7+4; // FAST CHAPU
@@ -190,6 +188,9 @@ class DashboardController {
     }
 
     def landingPoliticians(){
+        [command: new KuorumRegisterCommand()]
+    }
+    def landingOrganizations(){
         [command: new KuorumRegisterCommand()]
     }
 

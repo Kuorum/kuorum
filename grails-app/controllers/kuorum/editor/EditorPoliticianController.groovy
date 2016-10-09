@@ -15,40 +15,22 @@ class EditorPoliticianController {
     KuorumUserService kuorumUserService
     CausesService causesService
 
-    def editExternalActivity(){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
-        [command:new ExternalPoliticianActivityCommand(politician:politician, externalPoliticianActivities: politician.externalPoliticianActivities)]
-    }
-
-    def updateExternalActivity(ExternalPoliticianActivityCommand command){
-        command.externalPoliticianActivities = command.externalPoliticianActivities.grep()
-        command.validate()
-        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
-        if (command.hasErrors()){
-            render view:"editExternalActivity", model:[command:command]
-            return;
-        }
-        politicianService.updatePoliticianExternalActivity(politician, command.externalPoliticianActivities)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'editorEditPoliticianExternalActivity', params: politician.encodeAsLinkProperties()
-    }
-
-    def editRelevantEvents(){
+    def editNews(){
         KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         [command:new RelevantEventsCommand(politician:politician, politicianRelevantEvents: politician.relevantEvents?.reverse()?:[])]
     }
 
-    def updateRelevantEvents(RelevantEventsCommand command){
+    def updateNews(RelevantEventsCommand command){
         command.politicianRelevantEvents = command.politicianRelevantEvents.grep()
         command.validate()
         KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
         if (command.hasErrors()){
-            render view:"editRelevantEvents", model:[command:command]
+            render view:"editNews", model:[command:command]
             return;
         }
         politicianService.updatePoliticianRelevantEvents(politician, command.politicianRelevantEvents)
         flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'editorEditPoliticianRelevantEvents', params: politician.encodeAsLinkProperties()
+        redirect mapping:'editorEditNews', params: politician.encodeAsLinkProperties()
     }
 
     def editProfessionalDetails(){
@@ -103,26 +85,6 @@ class EditorPoliticianController {
         politicianService.updatePoliticianCauses(politician, command.causes)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'editorEditPoliticianCauses', params: command.politician.encodeAsLinkProperties()
-    }
-
-
-    def editPoliticalExperience(){
-        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
-        PoliticalExperienceCommand command = new PoliticalExperienceCommand(politician)
-        [command:command]
-    }
-
-    def updatePoliticalExperience(PoliticalExperienceCommand command){
-        command.timeLine = command.timeLine.grep()
-        command.validate()
-        KuorumUser politician = kuorumUserService.findEditableUser(params.userAlias)
-        if (command.hasErrors()){
-            render view:"editPoliticalExperience", model:[command:command]
-            return;
-        }
-        politicianService.updatePoliticianExperience(politician, command.timeLine)
-        flash.message=message(code:'profile.editUser.success')
-        redirect mapping:'editorEditPoliticianExperience', params: command.politician.encodeAsLinkProperties()
     }
 
 }

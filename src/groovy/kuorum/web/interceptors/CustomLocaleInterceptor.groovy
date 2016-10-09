@@ -39,7 +39,7 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
         request.getServerName()
         LocaleResolver localeResolver = org.springframework.web.servlet.support.RequestContextUtils.getLocaleResolver(request)
         try{
-            if (springSecurityService.isLoggedIn()){
+            if (springSecurityService.isLoggedIn() && springSecurityService?.principal?.id){
                 KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
                 userLanguage = user.language
             }else{
@@ -54,7 +54,7 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
                 }
             }
         }catch(Throwable t){
-            log.warn("Not language discover due to exception. ${webRequest.baseUrl} ${webRequest.getParams()}", t)
+            log.warn("Not language discover due to exception. ${webRequest.baseUrl} ${webRequest.getParams()}. [Excp: ${t.getLocalizedMessage()}")
             userLanguage = AvailableLanguage.en_EN
         }
         setCountrySession(request, userLanguage.locale.language)

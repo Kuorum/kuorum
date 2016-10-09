@@ -489,7 +489,7 @@ $(document).ready(function() {
     function isValidCampaignForm(){
         var valid = $("#politicianMassMailingForm").valid();
         if ($("input[name=headerPictureId]").val() == ""){
-            $("fieldset.header-campaign").append('<span id="headerPictureErrorSpan" class="error"><span class="tooltip-arrow"></span>Define una imagen para que te quede un email bonito</span>');
+            $(".uploaderImageContainer").append('<span id="headerPictureErrorSpan" class="error"><span class="tooltip-arrow"></span>Define una imagen para que te quede un email bonito</span>');
             valid = false;
         }else{
             $("#headerPictureErrorSpan").fadeOut()
@@ -719,12 +719,40 @@ $(document).ready(function() {
     });
 
 
+    function prepareImagesCarrousel(){
+        $(".carousel .img-container img").each(function(idx){
+            var rawImage = $(this);
+            var theImage = new Image();
+            theImage.src = rawImage.attr("src");
+            var kuorumRatio = rawImage.parent().width() / rawImage.parent().height()
+            //var kuorumRatio = 205 / 128;
+            var imageRatio =  theImage.width / theImage.height
+
+            console.log(rawImage)
+            console.log("kuorumRatio: " + rawImage.parent().width() +" / " +rawImage.parent().height()+" = "+kuorumRatio)
+            console.log("imageRatio: " + theImage.width +" / " +theImage.height+" = "+imageRatio)
+            if (imageRatio > kuorumRatio){
+                rawImage.css("width", "auto");
+                rawImage.css("height", "100%");
+            }else{
+                rawImage.css("width", "100%");
+                rawImage.css("height", "auto");
+            }
+        });
+    }
+
 
     // Carrusel noticias perfil político
     $('.carousel.news').carousel({
           interval: false,
           wrap: true
     });
+    setTimeout(prepareImagesCarrousel,1000);
+
+    prepareImagesCarrousel();
+    $('.carousel.news').on('slide.bs.carousel', function () {
+        setTimeout(prepareImagesCarrousel,50);
+    })
 
     // 3 items a partir de 768px
     if (window.matchMedia("(min-width: 768px)").matches) {
@@ -879,27 +907,6 @@ $(document).ready(function() {
     $('body').on('click','aside.condition > .close', function(e) {
 
         $(this).parent('aside.condition').fadeOut('slow', function(){
-          $(this).remove();
-        });
-
-    });
-
-    // si el box de Usuarios de la columna C no lleva la X de cierre quito el hueco de la derecha del botón Follow
-    if ( !$('.user-list-followers .actions .close').length ) {
-        $('.user-list-followers > .user > .actions').css('width', 'auto');
-    }
-
-    // desvanecer y eliminar los usuario de la lista "A quién seguir"
-    $('body').on('click','ul.user-list-followers > li.user .actions .close', function(e) {
-
-        $(this).closest('li.user').fadeOut('slow', function(){
-          $(this).remove();
-        });
-
-    });
-    $('body').on('click','ul.user-list-followers > li.user:only-child .actions .close', function(e) {
-
-        $(this).closest('.boxes.follow').fadeOut('slow', function(){
           $(this).remove();
         });
 
@@ -1261,6 +1268,12 @@ $(document).ready(function() {
     } else {
         $('.jqte_placeholder_text').css('display', 'none');
     }
+
+    $("body").on("click", ".jqte_editor a", function(e){
+        e.preventDefault();
+        var link = $(this).attr("href");
+        window.open(link);
+    });
 
     $(".saveDraft").on("click", function(e){
         e.preventDefault();
