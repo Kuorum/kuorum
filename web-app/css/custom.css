@@ -1406,7 +1406,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .addTagBtn:hover, .addTagBtn:focus, .addTagBtn:active, .addTagBtn.on,
 .addTag > ul > li a:hover, .addTag > ul > li a:focus, .addTag > ul > li a:active {color: #fff !important; background-color: #20a2ea !important;}
 .off #inputAddTags {display: none;}
-#contactsList .bootstrap-tagsinput {padding-bottom: 0; min-height: 0; padding-top: 6px;}
+#contactsList .bootstrap-tagsinput {padding-bottom: 1px; min-height: 0; padding-top: 1px;}
 #inputAddTags {margin-top: 5px; margin-left: 5px;}
 .off .engagement-container {margin-top: 18px;}
 
