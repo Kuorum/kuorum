@@ -28,11 +28,11 @@
     <g:if test="${searchParams.type == SolrType.PROJECT}">
         <g:set var="cssClassUL" value="kakareo-list project clearfix"/>
     </g:if>
-    <g:elseif test="${searchParams.type == SolrType.KUORUM_USER || searchParams.type == SolrType.POLITICIAN || searchParams.type == SolrType.CANDIDATE}">
-        <g:set var="cssClassUL" value="politician-list clearfix"/>
+    <g:elseif test="${searchParams.type == SolrType.POST}">
+        <g:set var="cssClassUL" value="kakareo-list"/>
     </g:elseif>
     <g:else>
-        <g:set var="cssClassUL" value="kakareo-list"/>
+        <g:set var="cssClassUL" value="politician-list clearfix"/>
     </g:else>
 
     <ul class="${cssClassUL}" id="search-list-id">
