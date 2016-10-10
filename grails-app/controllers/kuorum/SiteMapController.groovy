@@ -46,7 +46,7 @@ class SiteMapController {
                 def highPriority = [
                         'landingPoliticians',
                         'landingCitizens',
-                        'landingPrices',
+                        'landingOrganizations',
                         'register']
                 highPriority.each{mapping ->
                     url {
