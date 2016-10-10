@@ -707,6 +707,7 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 .nav > li > a.btn:hover,
 .nav > li > a.btn:active,
 .nav > li > a.btn:focus {background-color: #ee7612 !important;}
+.navbar-collapse {max-height: none;}
 .navbar-collapse.collapse.in {
     border-bottom: 6px solid #ff9431;
     -webkit-transition: background-color .3s ease;
@@ -1380,7 +1381,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .bootstrap-tagsinput .twitter-typeahead {display: inline-block;}
 
 .addTag {margin-top: -6px;}
-.addTag.off {margin-top: 3px;}
+.addTag.off {margin-top: 3px; padding-bottom: 8px;}
 .addTag > ul {display: inline-block; margin: 0; padding: 0;}
 .addTag > ul > li a {color: #20a2ea;}
 .addTag > ul > li a:hover, #addTag > ul > li a:focus, #addTag > ul > li a:active {color: #fff; background-color: #20a2ea;}
@@ -1405,10 +1406,9 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .addTagBtn:hover, .addTagBtn:focus, .addTagBtn:active, .addTagBtn.on,
 .addTag > ul > li a:hover, .addTag > ul > li a:focus, .addTag > ul > li a:active {color: #fff !important; background-color: #20a2ea !important;}
 .off #inputAddTags {display: none;}
-#contactsList .bootstrap-tagsinput {padding-bottom: 0; min-height: 0; padding-top: 6px;}
+#contactsList .bootstrap-tagsinput {padding-bottom: 1px; min-height: 0; padding-top: 1px;}
 #inputAddTags {margin-top: 5px; margin-left: 5px;}
 .off .engagement-container {margin-top: 18px;}
-.engagement-container {margin-top: 10px;}
 
 /* NEW / EDIT CONTACT */
 .edit-contact form fieldset:last-child {margin-bottom: 20px;}
@@ -5962,7 +5962,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .landing .full-video .container-fluid form#findRepresentatives {margin-bottom: 8em;}
     #main.landing.mainEditors .full-video,#main.landing.mainCitizens .full-video {background-position: right -22px;}
 
-    .saveTime, .saveTime li {padding: 0 30px;}
+    .saveTime, .saveTime li {padding: 0 26px;}
     .saveTime li p {font-size: 18px; font-size: 1.8rem;}
     .saveTime li h2 {font-size: 20px; font-size: 1.9rem;}
 
