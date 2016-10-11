@@ -149,7 +149,12 @@ class RegisterService {
         RegistrationCode registrationCode = RegistrationCode.findByUsername(user."$usernameFieldName")
         registrationCode[META_DATA_REGISTER_FOLLOW_POLITICIAN] = ["$META_DATA_REGISTER_FOLLOW_POLITICIAN_ID":following.id]
         registrationCode.save()
-        user
+
+        //Sets default pass and alias to delete custom register process
+        user.password = "${NOT_USER_PASSWORD}_${Math.random()}"
+        user.alias = user.id.toString().take(15)
+        user.userType = UserType.PERSON
+        user.save()
     }
 
     /*
