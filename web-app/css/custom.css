@@ -2002,7 +2002,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .vimeo > .youtube {width: 100%; display: none;}
 
 /* vídeo de fondo de la Home  */
-.full-video {width: 100%; overflow: hidden; position: relative; margin: 0; padding: 0 0 40px 0; background: url('../images/home-video.png') no-repeat center center; background-size: cover;}
+.full-video {width: 100%; overflow: hidden; position: relative; margin: 0; padding: 0 0 40px 0; background: url('../images/logo@2x.png') no-repeat center center; background-size: cover; background-color: #c9c9c9;}
 .full-video  .container-fluid {margin-top: 24px;}
 .full-video .socialGo {margin-bottom: 20px;}
 video#bgvid {
