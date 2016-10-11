@@ -12,12 +12,15 @@ import kuorum.core.model.solr.SolrType
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.project.Project
+import kuorum.register.RegisterService
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
+import springSecurity.KuorumRegisterCommand
 
+import javax.imageio.spi.RegisterableService
 import javax.servlet.http.HttpServletResponse
 
 class KuorumUserController {
@@ -29,6 +32,7 @@ class KuorumUserController {
     def searchSolrService
     def postService
     def projectService
+    RegisterService registerService
 
     CausesService causesService
     UserNewsService userNewsService
@@ -224,5 +228,16 @@ class KuorumUserController {
         KuorumUser follower = KuorumUser.get(springSecurityService.principal.id)
         kuorumUserService.deleteFollower(follower, following)
         render follower.following.size()
+    }
+
+    def subscribeTo(KuorumRegisterCommand command){
+        KuorumUser following = kuorumUserService.findByAlias(params.userAlias)
+        if (command.hasErrors()){
+            flash.error=g.message(code: 'politician.subscribe.error')
+            redirect mapping:"userShow", params: following.encodeAsLinkProperties()
+            return ;
+        }
+        KuorumUser follower = registerService.registerUserFollowingPolitician(command, following)
+        redirect mapping:"userShow", params: following.encodeAsLinkProperties()
     }
 }

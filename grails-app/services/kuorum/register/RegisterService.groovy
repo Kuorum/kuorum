@@ -20,6 +20,7 @@ import kuorum.web.commands.customRegister.ContactRegister
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.transaction.annotation.Transactional
+import payment.contact.ContactService
 import springSecurity.KuorumRegisterCommand
 
 class RegisterService {
@@ -40,6 +41,8 @@ class RegisterService {
 
     IndexSolrService indexSolrService
 
+    ContactService contactService
+
     def saltSource
 
     SpringSecurityUiService springSecurityUiService
@@ -54,6 +57,9 @@ class RegisterService {
     private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_ID="politicianId"
     private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE="politicianMessage"
     private static final String META_DATA_REGISTER_CONCATC_POLITICIAN_CAUSE="politicianCause"
+
+    private static final String META_DATA_REGISTER_FOLLOW_POLITICIAN="followPolitician"
+    private static final String META_DATA_REGISTER_FOLLOW_POLITICIAN_ID="followPoliticianId"
 
     public static final String NOT_USER_PASSWORD = "NO_VALID_PASS"
     /*
@@ -132,6 +138,16 @@ class RegisterService {
                 "$META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE":command.message,
                 "$META_DATA_REGISTER_CONCATC_POLITICIAN_CAUSE":command.cause
         ]
+        registrationCode.save()
+        user
+    }
+
+    @Transactional
+    KuorumUser registerUserFollowingPolitician(KuorumRegisterCommand command, KuorumUser following){
+        KuorumUser user = registerUser(command);
+        String usernameFieldName = SpringSecurityUtils.securityConfig.userLookup.usernamePropertyName
+        RegistrationCode registrationCode = RegistrationCode.findByUsername(user."$usernameFieldName")
+        registrationCode[META_DATA_REGISTER_FOLLOW_POLITICIAN] = ["$META_DATA_REGISTER_FOLLOW_POLITICIAN_ID":following.id]
         registrationCode.save()
         user
     }
@@ -254,6 +270,10 @@ class RegisterService {
             String message = registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN][META_DATA_REGISTER_CONCATC_POLITICIAN_MESSAGE]
             String cause = registrationCode[META_DATA_REGISTER_CONCATC_POLITICIAN][META_DATA_REGISTER_CONCATC_POLITICIAN_CAUSE]
             notificationService.sendPoliticianContactNotification(politician, user, message, cause)
+        }
+        if(registrationCode[META_DATA_REGISTER_FOLLOW_POLITICIAN]){
+            KuorumUser following = KuorumUser.get(registrationCode[META_DATA_REGISTER_FOLLOW_POLITICIAN][META_DATA_REGISTER_FOLLOW_POLITICIAN_ID])
+            kuorumUserService.createFollower(user, following)
         }
     }
 

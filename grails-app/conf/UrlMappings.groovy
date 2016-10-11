@@ -150,6 +150,7 @@ class UrlMappings {
                                 "/$userTypeUrl/$urlName-$id/seguidores" {controller="redirect"; action= "redirect301User"; newMapping:'userFollowers'}
         name userFollowing:     "/$userAlias/siguiendo"  (controller: "kuorumUser", action: "userFollowing")
                                 "/$userTypeUrl/$urlName-$id/siguiendo"  {controller="redirect"; action= "redirect301User"; newMapping:'userFollowing'}
+        name userFollowAndRegister:          "/$userAlias/subscribe" (controller: "kuorumUser", action: "subscribeTo")
         name userClucks:        "/ajax/$userAlias/clucks"  (controller: "kuorumUser", action: "userClucks")
         name userPost:          "/ajax/$userAlias/posts"  (controller: "kuorumUser", action: "userPosts")
         name userVictories:     "/ajax/$userAlias/victories"  (controller: "kuorumUser", action: "userVictories")

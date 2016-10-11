@@ -173,8 +173,8 @@ grails.project.dependency.resolution = {
         //test ':build-test-data:2.1.1'
         compile ':fixtures:1.2'
 //        test ":geb:$gebVersion"
-        test ":code-coverage:1.2.7"
-        test ":codenarc:0.20"
+//        test ":code-coverage:1.2.7"
+//        test ":codenarc:0.20"
 
         compile ":quartz:1.0.2"
     }

@@ -72,6 +72,7 @@
 <content tag="cColumn">
     <g:render template="userShowTemplates/columnC/socialButtonsColumnC" model="[user:politician]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
+    <g:render template="userShowTemplates/columnC/subscribeForm" model="[user:politician]"/>
     <g:render template="/modules/recommendedUsers" model="[recommendedUsers:recommendPoliticians, boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/valuationChart" model="[user:politician]"/>--}%
     <g:render template="userShowTemplates/columnC/professionalDetails" model="[politician:politician]"/>
