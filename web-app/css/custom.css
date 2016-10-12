@@ -3029,7 +3029,7 @@ textarea.error,
 .uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:353px;}
 .uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
-.button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 15px 0 0 0;}
+.button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0;}
 .qq-upload-drop-area-active {
     background-color:#FFF8ED;
     -moz-box-shadow: 0px 0px 20px #000;
@@ -5549,7 +5549,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
-    fieldset.form-group.new-filter-options > div {padding: 0px 28px 0 0;}
+    /*fieldset.form-group.new-filter-options > div {padding: 0px 28px 0 0;}*/
     .new-filter-options > div:first-child > a > .text {display: none;}
     /*.new-filter-options > label.control-label {color: #a8a8a8}*/
     .new-filter-options.last > div:first-child > a > .text {display: inline; margin-left: 5px;}
@@ -5604,6 +5604,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .edit-contact-header > div:first-child .user-img {width: 114px; height: 114px;}
 
     .header-campaign .progress {position: absolute; top: 52px; z-index: 99; left: 220px;}
+    .button-container {padding-top: 15px;}
 
 }
 
