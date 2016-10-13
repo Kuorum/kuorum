@@ -2026,7 +2026,7 @@ video#bgvid {
     width: auto;
     height: auto;
     position: absolute;
-    background-image: url('../images/home-video.png');
+    background-image: url('https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/landingSearch.png');
     background-repeat: no-repeat;
     background-size: cover;
     display: none;
@@ -2042,13 +2042,15 @@ video#bgvid {
 /* NUEVOS ESTILOS LANDING 2016 */
 /* vídeo */
 #main.landing {padding: 0; color: #fff; min-height: 0;}
-#main.landing .full-video {padding: 0;  background-image: url('../images/background.png'); }
+#main.landing .full-video {padding: 0;}
+#main.landing.politicians .full-video,
+#main.landing.organizations .full-video {background-image: url('../images/background.png'); }
 #main.landing .full-video video#bgvid {
-    background-image: url('../images/background.png');
-    background-size: 100% auto;
-    width: 100%;
-    min-height: 0;
-    min-width: 0;
+    /*background-image: url('../images/background.png');*/
+    /*background-size: 100% auto;*/
+    /*width: 100%;*/
+    /*min-height: 0;*/
+    /*min-width: 0;*/
 }
 #main.landing .full-video h1,
 #main.landing .full-video h2 {font-family: Arial,Helvetica,sans-serif;}

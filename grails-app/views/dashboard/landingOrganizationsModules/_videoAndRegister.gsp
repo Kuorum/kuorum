@@ -1,4 +1,4 @@
-<section id="main" role="main" class="landing clearfix">
+<section id="main" role="main" class="landing organizations clearfix">
     <div class="full-video">
         <video autoplay loop poster="${resource(dir: 'images', file: 'background.png')}" id="bgvid">
             <source src="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/landing.webm" type="video/webm">
