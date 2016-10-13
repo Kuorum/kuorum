@@ -102,4 +102,10 @@ class ContactFiltersController {
         }
         render template: '/contacts/filter/filterFieldSet', model:[filter:filterRDTO]
     }
+
+    def deleteFilter(Long filterId){
+        KuorumUser user = springSecurityService.currentUser
+        contactService.removeFilter(user, filterId)
+        render "removed"
+    }
 }

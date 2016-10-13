@@ -113,6 +113,17 @@ class ContactService {
         filter
     }
 
+    void removeFilter(KuorumUser user, Long filterId){
+        Map<String, String> params = [userId:user.id.toString(),filterId:filterId.toString()]
+        Map<String, String> query = [:]
+
+        def response= restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_FILTER,
+                params,
+                query)
+
+    }
+
     ContactPageRSDTO getUsers(KuorumUser user, FilterRDTO filterRDTO = null){
         SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO(filter:filterRDTO);
         getUsers(user, searchContactRSDTO)

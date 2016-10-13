@@ -539,6 +539,12 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 .btn.btn-grey:hover,
 .btn.btn-grey:active,
 .btn.btn-grey:focus {background-color: #797979 !important;}
+
+.btn.btn-grey.inverted {border: 1px solid #bcbcbc;color:#bcbcbc !important;}
+.btn.btn-grey.inverted:hover,
+.btn.btn-grey.inverted:active,
+.btn.btn-grey.inverted:focus {border: 1px solid #797979;background-color: #797979 !important;color:#fff !important;}
+
 .btn.btn-grey-light {background-color: #efefef !important; color: #545454 !important;}
 .btn.btn-grey-light:hover,
 .btn.btn-grey-light:active,
@@ -1130,6 +1136,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .new-filter-actions a:hover,
 .new-filter-actions a:focus,
 .new-filter-actions a:active {color: #a8a8a8;}
+.new-filter-actions .btn{margin:0 0 6px 0;}
 #searchContacts .new-filter-actions {border:0;}
 #saveFilterAs {margin-left: 10px;}
 #saveFilterAsPopUp input {margin-bottom: 10px;}
@@ -1185,6 +1192,9 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #filtersInfo .modal-header, #contactDeleteConfirm .modal-header  {border: none;}
 #filtersInfo .modal-header h4, #contactDeleteConfirm .modal-header h4 {font-size: 22px; margin: 0 0 10px 0; font-variant: normal; font-weight: normal; text-align: center;}
 #filtersInfo .modal-body, #contactDeleteConfirm .modal-body {text-align: center;}
+
+#filtersDelete .modal-body {text-align: center;}
+#filtersDelete .modal-body div:last-child{margin-top: 2em;}
 
 .datepicker-days tbody td {cursor: pointer;}
 .datepicker th {text-align: center;}
