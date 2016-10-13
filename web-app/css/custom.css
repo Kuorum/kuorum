@@ -1242,7 +1242,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     font-size:14px;
 }
 .box-order-options .filter-warning span.on {background-color:#dedede; color: #fff}
-.pag-list-campaigns, .pag-list-contacts {margin-bottom: 20px;}
+.pag-list-campaigns, .pag-list-contacts {margin: 20px 0;}
 .pag-list-campaigns > ul, .pag-list-contacts > ul {float: right; padding: 0; margin: 0;}
 .pag-list-campaigns > ul > li, .pag-list-contacts > ul > li {list-style: none; display: inline-block;}
 .pag-list-campaigns > span, .pag-list-contacts > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
@@ -3042,7 +3042,7 @@ textarea.error,
 .uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:353px;}
 .uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
-.button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 15px 0 0 0;}
+.button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0;}
 .qq-upload-drop-area-active {
     background-color:#FFF8ED;
     -moz-box-shadow: 0px 0px 20px #000;
@@ -3338,6 +3338,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .boxes.vote.drive > h1 > span {font-size: 25px; font-size: 2.5rem;}
 .boxes.vote.drive > h2 {font-size: 13px; font-size: 1.3rem; margin: 15px 0 25px;}
 .progress {height: 15px; border-radius: 0; margin: 0;}
+.header-campaign .progress {height: 22px; border-radius: 0; margin: 10px 0 0 10%; position: relative; width: calc(100% - 20%); max-width: 430px;}
 .progress-bar {background-color: #828282;}
 .boxes.vote.drive .user-list-images > li {display: block; float: left; margin-right: 2px;}
 .boxes.vote.drive .user-list-images > li:last-child {margin-right: 0;}
@@ -5562,7 +5563,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
-    fieldset.form-group.new-filter-options > div {padding: 0px 28px 0 0;}
+    /*fieldset.form-group.new-filter-options > div {padding: 0px 28px 0 0;}*/
     .new-filter-options > div:first-child > a > .text {display: none;}
     /*.new-filter-options > label.control-label {color: #a8a8a8}*/
     .new-filter-options.last > div:first-child > a > .text {display: inline; margin-left: 5px;}
@@ -5616,7 +5617,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .edit-contact-header > div:first-child {padding: 10px 0 0 140px;}
     .edit-contact-header > div:first-child .user-img {width: 114px; height: 114px;}
 
-    .header-campaign .progress {position: absolute; top: 52px; z-index: 99; left: 220px;}
+    .header-campaign .progress {position: absolute; z-index: 99; margin-top: 64px; margin-left: 21%;}
+    .button-container {padding-top: 15px;}
 
 }
 
@@ -5928,7 +5930,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
     #tabs-new-campaign .textareaContainer + div {text-align: left;}
     .form-final-options .btn.btn-blue.inverted {margin-bottom: 0;}
-    .header-campaign .progress {left: 165px;}
+    .header-campaign .progress {margin-top: 70px; margin-left: 14%;}
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 0; float: right;}*/
@@ -6060,7 +6062,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #contactsList > li > h3, #contactsList > li > p {padding-right: 72%;}
     .container-lists {width: 68%;}
 
-    .header-campaign .progress {left: 185px;}
+    .header-campaign .progress {max-width: 525px;}
 
 }
 
