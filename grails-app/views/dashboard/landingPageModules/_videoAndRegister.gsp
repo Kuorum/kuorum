@@ -1,6 +1,6 @@
 <section id="main" role="main" class="landing clearfix">
     <div class="full-video">
-        <video autoplay loop poster="images/background.png" id="bgvid">
+        <video autoplay loop poster="${resource(dir: 'images', file: 'background.png')}" id="bgvid">
             <source src="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/landing.webm" type="video/webm">
             <source src="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/landing.mp4" type="video/mp4">
         </video>
