@@ -2026,7 +2026,7 @@ video#bgvid {
     width: auto;
     height: auto;
     position: absolute;
-    background-image: url('../images/home-video.png');
+    background-image: url('https://s3-eu-west-1.amazonaws.com/kuorumorg/static/video/landingSearch.png');
     background-repeat: no-repeat;
     background-size: cover;
     display: none;
