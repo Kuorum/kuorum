@@ -7,3 +7,20 @@
         '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-MN2J4F');</script>
 <!-- End Google Tag Manager -->
+
+<script>
+    <sec:ifLoggedIn>
+        dataLayer = [{
+            'userLoggedAlias': '${sec.loggedInUserInfo(field:'alias')}',
+            'userLoggedEmail': '${sec.loggedInUserInfo(field:'username')}',
+            'userLoggedName': '${sec.loggedInUserInfo(field:'name')}'
+          }];
+    </sec:ifLoggedIn>
+    <sec:ifNotLoggedIn>
+        dataLayer = [{
+            'userLoggedAlias': 'NO_LOGGED',
+            'userLoggedEmail': 'NO_LOGGED',
+            'userLoggedName': 'NO_LOGGED'
+          }];
+    </sec:ifNotLoggedIn>
+</script>
