@@ -112,6 +112,20 @@ $(function(){
         var callback = $(this).attr("data-callaBackFunction");
         filterContacts.postFilter(link, callback);
     });
+    $('body').on('click','#deleteFilter', function(e) {
+        e.preventDefault();
+        var filterName = filterContacts.getFilterName()
+        var filterAmount = filterContacts.getFilterSelectedAmountOfContacts()
+        $("#filtersDelete span.filter-name").html(filterName);
+        $("#filtersDelete span.filter-ammount").html(filterAmount);
+        $("#filtersDelete").modal("show")
+    });
+
+    $('body').on('click','#deleteFilterButton', function(e) {
+        e.preventDefault();
+        $("#filtersDelete").modal("hide")
+        filterContacts.deleteFilter();
+    });
 
 });
 
@@ -179,7 +193,24 @@ function FilterContacts() {
         var link = $a.attr("href");
         var callback = $a.attr("data-callaBackFunction");
         filterContacts.postFilter(link, callback);
-    }
+    };
+    this.deleteFilter = function(){
+        var link = $("#deleteFilterButton").attr("href")
+        var filterId = that.getFilterId;
+        console.log("Removing filter: "+filterId)
+        var postData = [];
+        pageLoadingOn();
+        postData.push({name:'filterId', value:filterId})
+        $.post( link, postData)
+            .done(function(data) {
+                that.changeFilterValue(allContactsFilterId)
+                that.removeOptionToSelect(filterId)
+            })
+            .always(function() {
+                pageLoadingOff();
+            });
+
+    };
 
     this.getFilterId= function(){
         var filterId = $("#recipients").val();
@@ -187,6 +218,13 @@ function FilterContacts() {
             filterId = allContactsFilterId;
         }
         return filterId;
+    };
+    this.getFilterName= function(){
+        var filterId = $("#recipients").val();
+        if (filterId == undefined){
+            filterId = allContactsFilterId;
+        }
+        return $("#recipients option[value='"+filterId+"']").html();
     };
     this.getFormFilterIdSelected= function(){
         //var filterId = that.getFilterId();

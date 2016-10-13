@@ -539,6 +539,12 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 .btn.btn-grey:hover,
 .btn.btn-grey:active,
 .btn.btn-grey:focus {background-color: #797979 !important;}
+
+.btn.btn-grey.inverted {border: 1px solid #bcbcbc;color:#bcbcbc !important;}
+.btn.btn-grey.inverted:hover,
+.btn.btn-grey.inverted:active,
+.btn.btn-grey.inverted:focus {border: 1px solid #797979;background-color: #797979 !important;color:#fff !important;}
+
 .btn.btn-grey-light {background-color: #efefef !important; color: #545454 !important;}
 .btn.btn-grey-light:hover,
 .btn.btn-grey-light:active,
@@ -1108,7 +1114,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .form-group.image.header-campaign {width: auto; height: auto; min-height: 100px;}
 .header-campaign .qq-upload-drop-area {border-color: #dedede;}
 .header-campaign .qq-upload-button {line-height: 1; padding: 0;}
-#filterContacts {border: 1px solid #dedede; border-radius: 6px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #a8a8a8;}
+#filterContacts {border: 1px solid #20a2ea; border-radius: 6px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #20a2ea;}
 #filterContacts.on {background-color: #20a2ea; border-color: #20a2ea; color: #fff; /*cursor: default; pointer-events: none;*/}
 #infoToContacts, #infoContacts {color: #a8a8a8; padding-right: 30px;}
 #infoToContacts > span.fa, #infoContacts > span.fa {display: none;}
@@ -1130,6 +1136,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .new-filter-actions a:hover,
 .new-filter-actions a:focus,
 .new-filter-actions a:active {color: #a8a8a8;}
+.new-filter-actions .btn{margin:0 0 6px 0;}
 #searchContacts .new-filter-actions {border:0;}
 #saveFilterAs {margin-left: 10px;}
 #saveFilterAsPopUp input {margin-bottom: 10px;}
@@ -1185,6 +1192,9 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #filtersInfo .modal-header, #contactDeleteConfirm .modal-header  {border: none;}
 #filtersInfo .modal-header h4, #contactDeleteConfirm .modal-header h4 {font-size: 22px; margin: 0 0 10px 0; font-variant: normal; font-weight: normal; text-align: center;}
 #filtersInfo .modal-body, #contactDeleteConfirm .modal-body {text-align: center;}
+
+#filtersDelete .modal-body {text-align: center;}
+#filtersDelete .modal-body div:last-child{margin-top: 2em;}
 
 .datepicker-days tbody td {cursor: pointer;}
 .datepicker th {text-align: center;}
@@ -1345,6 +1355,9 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #profileInfo > span {position: absolute; display: block; left: 140px; bottom: 0; color: #a8a8a8;}
 #profileInfo .dropdown-menu {width: 165px; margin-top: 5px;}
 #profileInfo .dropdown-menu > li:first-child {border-bottom: none; padding: 0;}
+
+#followAndRegister{padding: 10px 15px 0;}
+#followAndRegister .btn{width:100%;}
 
 #inviteFriendsModal {text-align: center;}
 #inviteFriendsModal h4 {color: #545454; margin-top: 20px; font-variant: normal; font-size: 24px; font-size: 2.4rem; font-weight: normal; margin-bottom: 0;}
@@ -2002,7 +2015,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .vimeo > .youtube {width: 100%; display: none;}
 
 /* vídeo de fondo de la Home  */
-.full-video {width: 100%; overflow: hidden; position: relative; margin: 0; padding: 0 0 40px 0; background: url('../images/home-video.png') no-repeat center center; background-size: cover;}
+.full-video {width: 100%; overflow: hidden; position: relative; margin: 0; padding: 0 0 40px 0; background-size: cover; background-color: #c9c9c9;}
 .full-video  .container-fluid {margin-top: 24px;}
 .full-video .socialGo {margin-bottom: 20px;}
 video#bgvid {
@@ -2029,7 +2042,7 @@ video#bgvid {
 /* NUEVOS ESTILOS LANDING 2016 */
 /* vídeo */
 #main.landing {padding: 0; color: #fff; min-height: 0;}
-#main.landing .full-video {padding: 0; /* background-image: url('../images/background.png'); */}
+#main.landing .full-video {padding: 0;  background-image: url('../images/background.png'); }
 #main.landing .full-video video#bgvid {
     background-image: url('../images/background.png');
     background-size: 100% auto;

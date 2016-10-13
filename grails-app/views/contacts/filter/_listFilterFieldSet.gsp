@@ -42,3 +42,26 @@
         </div>
     </div>
 </div>
+
+
+<!-- MODAL CONTACT -->
+<div class="modal fade in" id="filtersDelete" tabindex="-1" role="dialog" aria-labelledby="filtersDeleteTitle" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">Cerrar</span>
+                </button>
+                <h4 id="filtersDeleteTitle"><g:message code="tools.contact.filter.delete.title"/>: '<span class="filter-name">XXX</span>'</h4>
+            </div>
+            <div class="modal-body">
+                <div class="clearfix">
+                    ¿Estas seguro que quieres borrar el filtro '<span class="filter-name">XXX</span>' con <span class="filter-ammount">37</span> contactos?
+                </div>
+                <div class="clearfix">
+                    <g:link mapping="politicianContactFilterDelete" class="btn btn-blue inverted" elementId="deleteFilterButton">BORRAR</g:link>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
