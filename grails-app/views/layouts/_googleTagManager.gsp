@@ -10,17 +10,17 @@
 
 <script>
     <sec:ifLoggedIn>
-        dataLayer = [{
+        dataLayer.push({
             'userLoggedAlias': '${sec.loggedInUserInfo(field:'alias')}',
             'userLoggedEmail': '${sec.loggedInUserInfo(field:'username')}',
             'userLoggedName': '${sec.loggedInUserInfo(field:'name')}'
-          }];
+          });
     </sec:ifLoggedIn>
     <sec:ifNotLoggedIn>
-        dataLayer = [{
+        dataLayer.push({
             'userLoggedAlias': 'NO_LOGGED',
             'userLoggedEmail': 'NO_LOGGED',
             'userLoggedName': 'NO_LOGGED'
-          }];
+          });
     </sec:ifNotLoggedIn>
 </script>
