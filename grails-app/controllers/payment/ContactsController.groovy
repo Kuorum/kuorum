@@ -267,7 +267,7 @@ class ContactsController {
             def line = lines.next();
             Integer i = 0;
             line.values.each{ val ->
-                if (val =~ EMAIL_PATTERN){
+                if (val && val.trim() =~ EMAIL_PATTERN){
                     emailPos = i;
                 }
                 i++;
