@@ -20,10 +20,10 @@
     <!-- EACH BLOCK -->
     <g:each in="${trackingPage.data}" var="trackingMail">
         <tr>
-            <td>
+            <td class="recipient-name">
                 <span class="only-mobile"><g:message code="kuorum.web.commands.payment.contact.ContactCommand.name.label"/>: </span>
-                <g:link mapping="politicianContactEdit" params="[contactId:trackingMail.contact.id]" class="contactStats">${trackingMail.contact.name}</g:link>
-                <g:link mapping="politicianContactEdit" params="[contactId:trackingMail.contact.id]" class="contactStats" target="_blank">
+                <g:link mapping="politicianContactEdit" params="[contactId:trackingMail.contact.id]">${trackingMail.contact.name}</g:link>
+                <g:link mapping="politicianContactEdit" params="[contactId:trackingMail.contact.id]" target="_blank">
 
                     <span class="fa fa-external-link fa-sm"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
                 </g:link>
