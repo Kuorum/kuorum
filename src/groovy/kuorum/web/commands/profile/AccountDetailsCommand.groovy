@@ -56,7 +56,7 @@ class AccountDetailsCommand {
             }
         }
         alias nullable: false, maxSize: 15, matches: KuorumUser.ALIAS_REGEX, validator: {val, obj ->
-            if (val && obj.user && val != obj.user.alias && KuorumUser.findByAlias(val)){
+            if (val && obj.user && val != obj.user.alias && KuorumUser.findByAlias(val.toLowerCase())){
                 return "unique"
             }
             if (!val && obj.user && obj.user.enabled){
