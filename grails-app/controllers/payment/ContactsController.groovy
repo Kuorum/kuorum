@@ -3,6 +3,7 @@ package payment
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
@@ -199,12 +200,18 @@ class ContactsController {
 //        outStream.write(buffer);
 //        outStream.close()
         request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csv);
-        try{
+        try {
             modelImportCSVContacts()
-        }catch (Exception e){
-            log.error("Error uploading CSV file",e)
-            flash.error = g.message(code:'tools.contact.import.csv.error.emptyFile')
+        } catch(KuorumException e) {
+            log.error("Error in the CSV file", e)
+            flash.error = g.message(code: 'tools.contact.import.csv.error.noEmailColumn')
             render(view: 'importContacts')
+            return;
+        } catch(Exception e) {
+            log.error("Error uploading CSV file", e)
+            flash.error = g.message(code: 'tools.contact.import.csv.error.emptyFile')
+            render(view: 'importContacts')
+            return;
         }
 
     }
@@ -354,6 +361,9 @@ class ContactsController {
         }
         if (emailPos == null || emailPos < 0){
             emailPos = detectEmailPosition(csv);
+        }
+        if (emailPos == null) {
+            throw new KuorumException("No se ha detectado email", "Kuorum.exception.code.importCSVNoEmail")
         }
         lines = parseCsvFile(csv)
         [
