@@ -136,11 +136,11 @@ class ContactsController {
 
     }
 
-    def newContact(){
+    def newContact() {
         [command:new ContactCommand()]
     }
 
-    def saveContact(ContactCommand command){
+    def saveContact(ContactCommand command) {
         if (command.hasErrors()){
             render view: 'newContact', model:[command:command]
         }
@@ -172,21 +172,21 @@ class ContactsController {
         request.getSession().removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY);
     }
 
-    def importCSVContacts(){
+    def importCSVContacts() {
         if (!params.get("fileContacts")) {
             flash.error = g.message(code:'tools.contact.import.csv.error.noFile')
-            render(view: 'importContacts')
+            redirect(mapping: 'politicianContactImport')
             return
         }
         MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile('fileContacts')
         if (uploadedFile.empty) {
-            flash.error = g.message(code:'tools.contact.import.csv.error.emptyFile')
-            render(view: 'importContacts')
+            flash.error = g.message(code: 'tools.contact.import.csv.error.emptyFile')
+            redirect(mapping: 'politicianContactImport')
             return
         }
-        if (!uploadedFile.originalFilename.endsWith(CONTACT_CSV_UPLOADED_EXTENSION)){
-            flash.error = g.message(code:'tools.contact.import.csv.error.wrongExtension', args: [CONTACT_CSV_UPLOADED_EXTENSION])
-            render(view: 'importContacts')
+        if (!uploadedFile.originalFilename.endsWith(CONTACT_CSV_UPLOADED_EXTENSION)) {
+            flash.error = g.message(code: 'tools.contact.import.csv.error.wrongExtension', args: [CONTACT_CSV_UPLOADED_EXTENSION])
+            redirect(mapping: 'politicianContactImport')
             return
         }
         File csv = File.createTempFile(uploadedFile.originalFilename, CONTACT_CSV_UPLOADED_EXTENSION);
@@ -205,15 +205,12 @@ class ContactsController {
         } catch(KuorumException e) {
             log.error("Error in the CSV file", e)
             flash.error = g.message(code: 'tools.contact.import.csv.error.noEmailColumn')
-            render(view: 'importContacts')
-            return;
+            redirect(mapping: 'politicianContactImport')
         } catch(Exception e) {
             log.error("Error uploading CSV file", e)
             flash.error = g.message(code: 'tools.contact.import.csv.error.emptyFile')
-            render(view: 'importContacts')
-            return;
+            redirect(mapping: 'politicianContactImport')
         }
-
     }
 
     def importCSVContactsSave(){
