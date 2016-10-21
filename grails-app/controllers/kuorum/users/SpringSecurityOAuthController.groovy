@@ -53,7 +53,7 @@ class SpringSecurityOAuthController {
         org.scribe.model.Token token = session[sessionKey]
         // Create the relevant authentication token and attempt to log in.
         OAuthToken oAuthToken = createAuthToken(params.provider, token)
-        String url = RedirectHolder.redirect?"${RedirectHolder.redirect}?token=${token.token}":defaultTargetUrl
+        String url = defaultTargetUrl
         authenticateAndRedirect(oAuthToken, url)
     }
 

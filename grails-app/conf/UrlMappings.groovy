@@ -318,7 +318,7 @@ class UrlMappings {
         name politicianContacts:                        "/account/contacts" (controller:"contacts", action: "index")
         name politicianContactsSearch:                  "/ajax/account/contacts" (controller:"contacts", action: "searchContacts")
         name politicianContactImport:                   "/account/contacts/import" (controller:"contacts", action: "importContacts")
-        name politicianContactImportCSV:                "/account/contacts/import/csv" (controller:"contacts", action: "importCSVContacts")
+        name politicianContactImportCSV:                "/account/contacts/import/csv" (controller:"contacts"){action =[GET:"importCSVContacts", POST:"importCSVContactsUpload"]}
         name politicianContactImportCSVSave:            "/account/contacts/import/csv_save" (controller:"contacts", action: "importCSVContactsSave")
         name politicianContactImportGmail:              "/account/contacts/import/gmail" (controller:"googleContacts", action: "index")
         name politicianContactImportGmailSuccess:       "/account/contacts/import/gmail_success" (controller:"googleContacts", action: "success")

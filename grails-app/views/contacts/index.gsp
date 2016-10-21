@@ -74,10 +74,9 @@
                             <li>
                                 <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><g:message code="tools.contact.list.import"/><span class="fa fa-caret-down fa-lg"></span></a>
                                 <ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">
-                                    <li><g:link mapping="politicianContactImport"><g:message code="tools.contact.list.import.csv"/></g:link></li>
+                                    <li><g:link mapping="politicianContactImportCSV"><g:message code="tools.contact.list.import.csv"/></g:link></li>
                                     <li>
                                         <g:link mapping="politicianContactImportGmail">
-                                            <span class="fa fa-google-plus fa-lg"></span>
                                             <g:message code="login.rrss.google"/>
                                         </g:link>
                                     </li>

@@ -12,77 +12,29 @@
 <content tag="mainContent">
     <ol class="breadcrumb">
         <li><g:link mapping="politicianContacts"> <g:message code="tools.contact.title"/> </g:link></li>
-        <li class="active"><g:message code="tools.contact.import.title"/></li>
+        <li><g:link mapping="politicianContactImport"> <g:message code="tools.contact.import.title"/> </g:link></li>
+        <li class="active"><g:message code="tools.contact.import.options.csv"/></li>
     </ol>
-
-
-    <div class="container-fluid box-ppal import-contacts csv">
-        <g:form mapping="politicianContactImportCSVSave" name="importContacts-02">
-            <h1>${fileName}</h1>
-            <p><g:message code="tools.contact.import.firstRowAdvise"/></p>
-            <div class="table-responsive">
-                <g:set var="line" value="${lines.next()}"/>
-                <table class="table table-hover table-bordered csv">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>
-                            <select class="form-control" name="columnOption">
-                                <option value=""><g:message code="tools.contact.import.table.columnOption.notImported"/> </option>
-                                <option value="name"><g:message code="tools.contact.import.table.columnOption.name"/> </option>
-                                <option value="email" selected><g:message code="tools.contact.import.table.columnOption.email"/> </option>
-                                <option value="tag"><g:message code="tools.contact.import.table.columnOption.tag"/> </option>
-                            </select>
-                            <input type="hidden" name="realPos" value="${emailPos}"/>
-                        </th>
-                        <g:each in="${line.values}" var="val" status="i">
-                            <g:if test="${i != emailPos}">
-                                <th class="${emptyColumns.contains(i)?'hide':''}">
-                                    <select class="form-control" name="columnOption">
-                                        <option value=""><g:message code="tools.contact.import.table.columnOption.notImported"/> </option>
-                                        <option value="name" ${i == namePos?'selected':''}><g:message code="tools.contact.import.table.columnOption.name"/> </option>
-                                        <option value="email" ${i == emailPos?'selected':''}><g:message code="tools.contact.import.table.columnOption.email"/> </option>
-                                        <option value="tag"><g:message code="tools.contact.import.table.columnOption.tag"/> </option>
-                                    </select>
-                                    <input type="hidden" name="realPos" value="${i}"/>
-                                </th>
-                            </g:if>
-                        </g:each>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <g:set var="exampleLinesShowed" value="${0}"/>
-                    <g:while test="${line}">
-                        <g>
-                            <th scope="row">
-                                <g:message code="tools.contact.import.table.row" args="[exampleLinesShowed]"/>
-                                <span class="notImport"><input type="checkbox" value="${exampleLinesShowed+1}" name="notImport"> <g:message code="tools.contact.import.table.row.notImport"/></span>
-                            </th>
-                            <td>${line.values[emailPos]}</td>
-                            <g:each in="${line.values}" var="columnValue" status="i">
-                                <g:if test="${i != emailPos}">
-                                    <td class="${emptyColumns.contains(i)?'hide':''}">${columnValue}</td>
-                                </g:if>
-                            </g:each>
-                        </tr>
-                        <g:if test="${lines.hasNext() && exampleLinesShowed < 6}">
-                            <g:set var="line" value="${lines.next()}"/>
-                            <%exampleLinesShowed++%>
-                        </g:if>
-                        <g:else>
-                            <g:set var="line" value=""/>
-                        </g:else>
-                    </g:while>
-
-                    </tbody>
-                </table>
+    <div class="container-fluid box-ppal import-contacts">
+        <g:form mapping="politicianContactImportCSV" name="importContacts-01"  enctype="multipart/form-data" useToken="true">
+            <label class="sr-only"><g:message code="tools.contact.import.csv.selectFile"/></label>
+            <input name="fileContacts" type="file" class="filestyle" data-icon="false" data-buttonText="${message(code: 'tools.contact.import.csv.selectFile')}" data-buttonName="btn-blue inverted" data-buttonBefore="true" data-placeholder="${message(code: 'tools.contact.import.csv.selectFile.noSelection')}">
+            <div class="form-group text-center">
+                <input type="submit" value="${message(code: 'tools.contact.import.csv.selectFile.upload')}" class="btn inverted btn-lg">
             </div>
-
-            <label for="tagsField"><g:message code="tools.contact.import.addTags"/> </label>
-            <input name="tags" class="tagsField" id="tagsField" type="text" value="" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}">
-
-            <input type="submit" value="${g.message(code: 'tools.contact.import.start')}" class="btn btn-blue inverted btn-lg">
         </g:form>
+        <p><g:message code="tools.contact.import.csv.text" args="['mailto:info@kuorum.org']"/> </p>
     </div>
-
+    <div class="container-fluid box-ppal import-contacts-videos">
+        <div class="row">
+            <article class="col-md-5">
+                <h1><g:message code="tools.contact.import.csv.export.gmail"/> </h1>
+                <iframe src="https://www.youtube.com/embed/iLE9p4JO3_o" frameborder="0" allowfullscreen class="youtube"></iframe>
+            </article>
+            <article class="col-md-5 col-md-offset-2">
+                <h1><g:message code="tools.contact.import.csv.export.outlook"/></h1>
+                <iframe src="https://www.youtube.com/embed/c4ngLtafcaU" frameborder="0" allowfullscreen class="youtube"></iframe>
+            </article>
+        </div>
+    </div>
 </content>

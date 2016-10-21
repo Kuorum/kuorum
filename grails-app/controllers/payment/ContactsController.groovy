@@ -169,10 +169,14 @@ class ContactsController {
     }
 
     def importContacts() {
-        request.getSession().removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY);
+
     }
 
     def importCSVContacts() {
+        request.getSession().removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY);
+    }
+
+    def importCSVContactsUpload() {
         if (!params.get("fileContacts")) {
             flash.error = g.message(code:'tools.contact.import.csv.error.noFile')
             redirect(mapping: 'politicianContactImport')
@@ -201,7 +205,7 @@ class ContactsController {
 //        outStream.close()
         request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csv);
         try {
-            modelImportCSVContacts()
+            modelUploadCSVContacts()
         } catch(KuorumException e) {
             log.error("Error in the CSV file", e)
             flash.error = g.message(code: 'tools.contact.import.csv.error.noEmailColumn')
@@ -238,8 +242,8 @@ class ContactsController {
             flash.error=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
             try{
-                def model = modelImportCSVContacts(emailPos, namePos)
-                render(view: 'importCSVContacts', model: model)
+                def model = modelUploadCSVContacts(emailPos, namePos)
+                render(view: 'importCSVContactsUpload', model: model)
                 return;
             }catch (Exception e){
                 log.error("Error uploading CSV file",e)
@@ -336,7 +340,7 @@ class ContactsController {
 //        }
     }
 
-    private Map modelImportCSVContacts(Integer emailPos = -1, Integer namePos = -1){
+    private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1){
         File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         log.info("Calculating uploaded name: "+csv)
         String fileNamePattern = "(.*[a-zA-Z])([0-9]+${CONTACT_CSV_UPLOADED_EXTENSION})\$"
