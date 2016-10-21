@@ -65,21 +65,27 @@
                                     <g:message code="tools.contact.list.newContact"/>
                                 </g:link>
                             </li>
-                            <li>
-                                <g:link mapping="politicianContactImport" class="btn btn-blue inverted">
-                                    <span class="fa fa-plus"></span>
-                                    <g:message code="tools.contact.list.import"/>
-                                </g:link>
-                            </li>
                             %{--<li>--}%
-                                %{--<a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><g:message code="tools.contact.list.import"/><span class="fa fa-caret-down fa-lg"></span></a>--}%
-                                %{--<ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">--}%
-                                    %{--<li><g:link mapping="politicianContactImport"><g:message code="tools.contact.list.import.csv"/></g:link></li>--}%
-                                    %{--<li><a href="#">Gmail</a></li>--}%
+                                %{--<g:link mapping="politicianContactImport" class="btn btn-blue inverted">--}%
+                                    %{--<span class="fa fa-plus"></span>--}%
+                                    %{--<g:message code="tools.contact.list.import"/>--}%
+                                %{--</g:link>--}%
+                            %{--</li>--}%
+                            <li>
+                                <a href="#" role="button" id="openContactsOptions" class="btn btn-blue inverted dropdown-toggle" data-toggle="dropdown"><g:message code="tools.contact.list.import"/><span class="fa fa-caret-down fa-lg"></span></a>
+                                <ul id="contactsOptions" class="dropdown-menu dropdown-menu-right" aria-labelledby="openContactsOptions" role="menu">
+                                    <li><g:link mapping="politicianContactImport"><g:message code="tools.contact.list.import.csv"/></g:link></li>
+                                    <li>
+                                        <g:link mapping="politicianContactImportGmail">
+                                            <span class="fa fa-google-plus fa-lg"></span>
+                                            <g:message code="login.rrss.google"/>
+                                        </g:link>
+                                    </li>
+
                                     %{--<li><a href="#">Yahoo!</a></li>--}%
                                     %{--<li><a href="#">Outlook</a></li>--}%
-                                %{--</ul>--}%
-                            %{--</li>--}%
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </fieldset>

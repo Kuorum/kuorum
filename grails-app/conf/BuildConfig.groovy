@@ -74,6 +74,19 @@ grails.project.dependency.resolution = {
             //CONFLICT WITH grails json parsers
 //            excludes 'org.codehaus.jackson:jackson-mapper-asl'
         }
+        // https://mvnrepository.com/artifact/com.google.api.client/google-api-client-googleapis
+//        compile group: 'com.google.api.client', name: 'google-api-client-googleapis', version: '1.4.1-beta'
+//        compile group: 'com.google.api.client', name: 'google-api-client-googleapis-auth-oauth', version: '1.2.3-alpha'
+        compile 'com.google.api-client:google-api-client:1.22.0'
+        compile 'com.google.oauth-client:google-oauth-client-jetty:1.22.0'
+        compile 'com.google.apis:google-api-services-people:v1-rev4-1.22.0'
+        compile group: 'com.google.gdata', name: 'core', version: '1.47.1'
+//        compile 'com.google.apis:google-api-services-plus:v1-rev461-1.22.0'
+        compile group: 'com.google.apis', name: 'google-api-services-plusDomains', version: 'v1-rev7-1.17.0-rc'
+
+
+
+
         // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
         compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.3'
 
@@ -126,7 +139,7 @@ grails.project.dependency.resolution = {
     plugins {
         // plugins for the build system only
         build ":tomcat:7.0.50"
-        compile ":grails-melody:1.56.0"
+//        compile ":grails-melody:1.56.0"
 
         // plugins for the compile step
         compile ":scaffolding:2.0.1"

@@ -19,6 +19,7 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.oauth.OAuthToken
 import kuorum.register.IOAuthService
 import org.springframework.security.core.context.SecurityContextHolder
+import uk.co.desirableobjects.oauth.scribe.holder.RedirectHolder
 
 /**
  * Simple helper controller for handling OAuth authentication and integrating it
@@ -49,10 +50,11 @@ class SpringSecurityOAuthController {
             return
         }
 
+        org.scribe.model.Token token = session[sessionKey]
         // Create the relevant authentication token and attempt to log in.
-        OAuthToken oAuthToken = createAuthToken(params.provider, session[sessionKey])
-
-        authenticateAndRedirect(oAuthToken, defaultTargetUrl)
+        OAuthToken oAuthToken = createAuthToken(params.provider, token)
+        String url = RedirectHolder.redirect?"${RedirectHolder.redirect}?token=${token.token}":defaultTargetUrl
+        authenticateAndRedirect(oAuthToken, url)
     }
 
     def onFailure = {
@@ -88,9 +90,8 @@ class SpringSecurityOAuthController {
 
     protected void authenticateAndRedirect(OAuthToken oAuthToken, redirectUrl) {
         session.removeAttribute SPRING_SECURITY_OAUTH_TOKEN
-
         SecurityContextHolder.context.authentication = oAuthToken
-        redirect(redirectUrl instanceof Map ? redirectUrl : [uri: redirectUrl])
+        redirect (url: redirectUrl)
     }
 
 }
