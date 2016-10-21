@@ -191,6 +191,11 @@ class ContactFromGoogleService {
                         contactRDTO.tags.add(hobby.getValue())
                     }
                 }
+                if (contactEntry.hasOrganizations()){
+                    contactEntry.organizations.each {organization->
+                        contactRDTO.tags.add(organization.getOrgName().value)
+                    }
+                }
                 String mapName = contactEntry.getName()?.fullName?.value
                 if (circleMap.containsKey(mapName)){
                     contactRDTO.tags.addAll(circleMap.get(mapName))
