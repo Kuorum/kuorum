@@ -3,6 +3,7 @@ package payment
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
+import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
@@ -135,11 +136,11 @@ class ContactsController {
 
     }
 
-    def newContact(){
+    def newContact() {
         [command:new ContactCommand()]
     }
 
-    def saveContact(ContactCommand command){
+    def saveContact(ContactCommand command) {
         if (command.hasErrors()){
             render view: 'newContact', model:[command:command]
         }
@@ -171,21 +172,21 @@ class ContactsController {
         request.getSession().removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY);
     }
 
-    def importCSVContacts(){
+    def importCSVContacts() {
         if (!params.get("fileContacts")) {
             flash.error = g.message(code:'tools.contact.import.csv.error.noFile')
-            render(view: 'importContacts')
+            redirect(mapping: 'politicianContactImport')
             return
         }
         MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile('fileContacts')
         if (uploadedFile.empty) {
-            flash.error = g.message(code:'tools.contact.import.csv.error.emptyFile')
-            render(view: 'importContacts')
+            flash.error = g.message(code: 'tools.contact.import.csv.error.emptyFile')
+            redirect(mapping: 'politicianContactImport')
             return
         }
-        if (!uploadedFile.originalFilename.endsWith(CONTACT_CSV_UPLOADED_EXTENSION)){
-            flash.error = g.message(code:'tools.contact.import.csv.error.wrongExtension', args: [CONTACT_CSV_UPLOADED_EXTENSION])
-            render(view: 'importContacts')
+        if (!uploadedFile.originalFilename.endsWith(CONTACT_CSV_UPLOADED_EXTENSION)) {
+            flash.error = g.message(code: 'tools.contact.import.csv.error.wrongExtension', args: [CONTACT_CSV_UPLOADED_EXTENSION])
+            redirect(mapping: 'politicianContactImport')
             return
         }
         File csv = File.createTempFile(uploadedFile.originalFilename, CONTACT_CSV_UPLOADED_EXTENSION);
@@ -199,14 +200,17 @@ class ContactsController {
 //        outStream.write(buffer);
 //        outStream.close()
         request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csv);
-        try{
+        try {
             modelImportCSVContacts()
-        }catch (Exception e){
-            log.error("Error uploading CSV file",e)
-            flash.error = g.message(code:'tools.contact.import.csv.error.emptyFile')
-            render(view: 'importContacts')
+        } catch(KuorumException e) {
+            log.error("Error in the CSV file", e)
+            flash.error = g.message(code: 'tools.contact.import.csv.error.noEmailColumn')
+            redirect(mapping: 'politicianContactImport')
+        } catch(Exception e) {
+            log.error("Error uploading CSV file", e)
+            flash.error = g.message(code: 'tools.contact.import.csv.error.emptyFile')
+            redirect(mapping: 'politicianContactImport')
         }
-
     }
 
     def importCSVContactsSave(){
@@ -267,7 +271,7 @@ class ContactsController {
             def line = lines.next();
             Integer i = 0;
             line.values.each{ val ->
-                if (val =~ EMAIL_PATTERN){
+                if (val && val.trim() =~ EMAIL_PATTERN){
                     emailPos = i;
                 }
                 i++;
@@ -354,6 +358,9 @@ class ContactsController {
         }
         if (emailPos == null || emailPos < 0){
             emailPos = detectEmailPosition(csv);
+        }
+        if (emailPos == null) {
+            throw new KuorumException("No se ha detectado email", "Kuorum.exception.code.importCSVNoEmail")
         }
         lines = parseCsvFile(csv)
         [
