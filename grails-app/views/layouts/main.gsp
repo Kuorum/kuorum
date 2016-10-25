@@ -177,5 +177,6 @@
     </div>
 </div>
 
+<asset:deferredScripts/>
 </body>
 </html>
