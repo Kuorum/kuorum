@@ -74,7 +74,10 @@ grails.mime.types = [ // the first one is the default format
 //grails.urlmapping.cache.maxsize = 1000
 
 // What URL patterns should be processed by the resources plugin
-grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
+grails.resources.adhoc.patterns = ['/fonts/*', '/images/*', '/css/*', '/js/*', '/plugins/*']
+grails.resources.adhoc.includes = ['/fonts/**', '/images/**', '/css/**', '/js/**', '/plugins/**']
+grails.resources.resourceLocatorEnabled=true
+grails.resources.uriToUrlCacheTimeout = 30000
 
 grails.gorm.default.constraints = {
 //    '*'(nullable: true)

@@ -283,7 +283,6 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
                 params: linkParams)
     }
 
-    @Override
     protected String generateLinkWithMapping(String mapping, linkParams) {
         createLink(absolute: true,
                 mapping: mapping,
