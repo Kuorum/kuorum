@@ -159,6 +159,7 @@ class ContactFromGoogleService {
                 log.info("End contacts due to exception: "+numContacts +" => Excp:"+e.getLocalizedMessage())
                 break;
             }
+            credential.refreshToken()
         }
     }
 
