@@ -139,6 +139,7 @@ class ContactFromGoogleService {
     private void loadContactUsingGData(KuorumUser user, Credential credential){
 
         Map circleMap = loadCirclesMappedByName(credential)
+        credential.refreshToken()
         ContactsService contactsService = new ContactsService(APPLICATION_NAME)
         contactsService.setOAuth2Credentials(credential);
         URL feedUrl = new URL(URL_LOAD_ALL_CONTACTS);
