@@ -17,6 +17,7 @@ class PoliticianCausesCommand {
     List<String> causes
     static constraints = {
         politician nullable: false;
+        causes nullable: true
     }
 
     public PoliticianCausesCommand(){}

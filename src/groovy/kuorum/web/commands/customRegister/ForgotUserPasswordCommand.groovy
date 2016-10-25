@@ -17,6 +17,7 @@ class ForgotUserPasswordCommand {
     def user
 
     static constraints = {
+        user nullable: false
         email nullable: false, email:true, validator: {val, obj->
             KuorumUser user = KuorumUser.findByEmail(val.toLowerCase())
             if (obj.email && !user){

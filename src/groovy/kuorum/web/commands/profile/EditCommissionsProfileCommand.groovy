@@ -16,6 +16,8 @@ class EditCommissionsProfileCommand {
 
     List<CommissionType> commissions = []
 
-    static constraints = {}
+    static constraints = {
+        commissions nullable: true
+    }
 
 }

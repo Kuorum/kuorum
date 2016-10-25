@@ -10,7 +10,7 @@ class ProjectUpdateCommand {
     String videoPost
 
     static constraints = {
-        description maxSize:500
+        description nullable: false, maxSize:500
         photoId nullable: true
         videoPost nullable: true, url:true, validator: { val, obj ->
             if (val && !val.decodeYoutubeName()) {

@@ -21,5 +21,8 @@ class KuorumUserRightsCommand {
         user nullable: false
         relevance nullable: true
         password nullable:true
+        authorities nullable: false
+        emailAccountActive nullable: true
+        active nullable: true
     }
 }

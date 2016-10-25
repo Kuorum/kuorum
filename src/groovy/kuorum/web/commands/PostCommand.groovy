@@ -29,5 +29,8 @@ class PostCommand {
                         return ['notYoutubeFormat']
                     }
                 }
+        fileType nullable: false
+        imageId nullable:true
+        isDraft nullable: true
     }
 }

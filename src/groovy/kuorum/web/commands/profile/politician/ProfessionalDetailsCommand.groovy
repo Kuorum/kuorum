@@ -33,6 +33,7 @@ class ProfessionalDetailsCommand {
         region nullable: true
         constituency nullable: true
         institution nullable:true
+        careerDetails nullable: true
     }
 
     public ProfessionalDetailsCommand(){}

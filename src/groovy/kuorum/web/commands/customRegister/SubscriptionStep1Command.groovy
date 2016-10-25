@@ -24,18 +24,13 @@ class SubscriptionStep1Command extends KuorumRegisterCommand{
     Long kpeople
 
     static constraints = {
-        importFrom AccountDetailsCommand, include:["name", "phonePrefix", "phone", "language", "user"]
+        importFrom AccountDetailsCommand, include:["name", "phonePrefix", "phone", "language", "user", "alias"]
         password nullable:false;
 
         offerType nullable:true;
         kpeople nullable:true
         email nullable: false, email:true, validator: {val, obj ->
             if (val && KuorumUser.findByEmail(val)){
-                return "unique"
-            }
-        }
-        alias nullable: false, maxSize: 15, matches: KuorumUser.ALIAS_REGEX, validator: {val, obj ->
-            if (val && KuorumUser.findByAlias(val)){
                 return "unique"
             }
         }
