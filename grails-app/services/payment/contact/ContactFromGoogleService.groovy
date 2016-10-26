@@ -2,6 +2,8 @@ package payment.contact
 
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow
 import com.google.api.client.auth.oauth2.Credential
+import com.google.api.client.auth.oauth2.TokenResponse
+import com.google.api.client.auth.oauth2.TokenResponseException
 import com.google.api.client.googleapis.auth.oauth2.*
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.http.HttpTransport
@@ -70,76 +72,88 @@ class ContactFromGoogleService {
                         authorizationCode,
                         urlCallback
                 ).execute();
+        Credential credential = createCredentialFromToken(tokenResponse, urlCallback)
+        loadContactUsingGData(user, credential);
+
+    }
+
+    private Credential createCredentialFromToken(TokenResponse token, String urlCallback){
+
         Credential credential = new GoogleCredential.Builder()
                 .setJsonFactory(JSON_FACTORY)
                 .setTransport(new NetHttpTransport())
                 .setClientSecrets(getGoogleClientSecrets(urlCallback)).build()
-                .setFromTokenResponse(tokenResponse);
-        loadContactUsingGData(user, credential);
-
+                .setFromTokenResponse(token);
     }
 
     private Map loadCirclesMappedByName(Credential credential){
 
         Map<String, Set<String>> mapCircles = [:];
-        PlusDomains plusDomains = new PlusDomains.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-        PlusDomains.Circles.List listCircles = plusDomains.circles().list("me");
-        listCircles.setMaxResults(5L);
-        CircleFeed circleFeed = listCircles.execute();
-        List<Circle> circles = circleFeed.getItems();
+        try {
+            PlusDomains plusDomains = new PlusDomains.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
+                    .setApplicationName(APPLICATION_NAME)
+                    .build();
+            PlusDomains.Circles.List listCircles = plusDomains.circles().list("me");
+            listCircles.setMaxResults(5L);
+            CircleFeed circleFeed = listCircles.execute();
+            List<Circle> circles = circleFeed.getItems();
 
-        // Loop until no additional pages of results are available.
-        while (circles != null) {
-            for (Circle circle : circles) {
-                PlusDomains.People.ListByCircle listPeople = plusDomains.people().listByCircle(circle.getId());
-                log.info("Circle ${circle.getDisplayName()}[${circle.getPeople().getTotalItems()} contacts]")
-                PeopleFeed peopleFeed = listPeople.execute();
-                while (peopleFeed != null){
-                    if(peopleFeed.getItems() != null && peopleFeed.getItems().size() > 0 ) {
-                        for(Person person : peopleFeed.getItems()) {
-                            log.debug("${circle.getDisplayName()} :: ${person.getId()} (${person.getDisplayName()})")
-                            String mapName = person.getDisplayName();
-                            Set<String> userCircles = mapCircles.get(mapName)
-                            userCircles = userCircles?:[] as Set<String>
-                            userCircles.add(circle.getDisplayName())
-                            mapCircles.put(mapName, userCircles)
+            // Loop until no additional pages of results are available.
+            while (circles != null) {
+                for (Circle circle : circles) {
+                    PlusDomains.People.ListByCircle listPeople = plusDomains.people().listByCircle(circle.getId());
+                    log.info("Circle ${circle.getDisplayName()}[${circle.getPeople().getTotalItems()} contacts]")
+                    PeopleFeed peopleFeed = listPeople.execute();
+                    while (peopleFeed != null) {
+                        if (peopleFeed.getItems() != null && peopleFeed.getItems().size() > 0) {
+                            for (Person person : peopleFeed.getItems()) {
+                                log.debug("${circle.getDisplayName()} :: ${person.getId()} (${person.getDisplayName()})")
+                                String mapName = person.getDisplayName();
+                                Set<String> userCircles = mapCircles.get(mapName)
+                                userCircles = userCircles ?: [] as Set<String>
+                                userCircles.add(circle.getDisplayName())
+                                mapCircles.put(mapName, userCircles)
+                            }
+                        } else {
+                            log.debug("Circle ${circle.getDisplayName()} with no contacts")
                         }
-                    }else{
-                        log.debug("Circle ${circle.getDisplayName()} with no contacts")
+                        if (peopleFeed.getNextPageToken() != null) {
+                            listPeople.setPageToken(peopleFeed.getNextPageToken())
+                            peopleFeed = listPeople.execute();
+                        } else {
+                            log.debug("No more contacts on ${circle.getDisplayName()}")
+                            peopleFeed = null;
+                        }
                     }
-                    if (peopleFeed.getNextPageToken() != null){
-                        listPeople.setPageToken(peopleFeed.getNextPageToken())
-                        peopleFeed = listPeople.execute();
-                    }else{
-                        log.debug("No more contacts on ${circle.getDisplayName()}")
-                        peopleFeed = null;
-                    }
+
                 }
 
-            }
+                // When the next page token is null, there are no additional pages of
+                // results. If this is the case, break.
+                if (circleFeed.getNextPageToken() != null) {
+                    // Prepare the next page of results
+                    listCircles.setPageToken(circleFeed.getNextPageToken());
 
-            // When the next page token is null, there are no additional pages of
-            // results. If this is the case, break.
-            if (circleFeed.getNextPageToken() != null) {
-                // Prepare the next page of results
-                listCircles.setPageToken(circleFeed.getNextPageToken());
-
-                // Execute and process the next page request
-                circleFeed = listCircles.execute();
-                circles = circleFeed.getItems();
-            } else {
-                circles = null;
+                    // Execute and process the next page request
+                    circleFeed = listCircles.execute();
+                    circles = circleFeed.getItems();
+                } else {
+                    circles = null;
+                }
             }
+        }catch (com.google.api.client.googleapis.json.GoogleJsonResponseException e){
+            log.info("The user has no google plus. [Google excpt: ${e.getMessage()}]" )
+        }catch (Throwable t){
+            log.info("The user has not circles or was a problem loading his circles. ")
         }
         return mapCircles;
     }
 
     private void loadContactUsingGData(KuorumUser user, Credential credential){
 
+//        Map circleMap = [:]
         Map circleMap = loadCirclesMappedByName(credential)
-        credential.refreshToken()
+        credential = refreshCredential(credential)
         ContactsService contactsService = new ContactsService(APPLICATION_NAME)
         contactsService.setOAuth2Credentials(credential);
         URL feedUrl = new URL(URL_LOAD_ALL_CONTACTS);
@@ -148,6 +162,7 @@ class ContactFromGoogleService {
             ContactFeed resultFeed = contactsService.getFeed(feedUrl, ContactFeed.class);
             List<ContactRDTO> contactRDTOs =  processContactsFeed(resultFeed,circleMap);
             contactRDTOs.each {contactService.addContact(user, it)}
+            numContacts += contactRDTOs?.size()?:0
             try{
                 if (resultFeed.nextLink?.href){
                     feedUrl = new URL(resultFeed.nextLink.href)
@@ -159,7 +174,26 @@ class ContactFromGoogleService {
                 log.info("End contacts due to exception: "+numContacts +" => Excp:"+e.getLocalizedMessage())
                 break;
             }
-            credential.refreshToken()
+            if (credential.refreshToken()){
+                credential = refreshCredential(credential)
+            }
+        }
+    }
+
+    private Credential refreshCredential(Credential credential){
+        try {
+            String refreshToken = credential.getRefreshToken()?:credential.accessToken
+            TokenResponse tokenResponse =
+                    new GoogleRefreshTokenRequest(
+                            HTTP_TRANSPORT,
+                            JSON_FACTORY,
+                            refreshToken,
+                            grailsApplication.config.oauth.providers.google.key,
+                            grailsApplication.config.oauth.providers.google.secret).execute();
+            return createCredentialFromToken(tokenResponse, "")
+        } catch (TokenResponseException e) {
+            log.warn("No refreshed token due to exception: ${e.getMessage()}", e)
+            return null;
         }
     }
 
@@ -184,17 +218,17 @@ class ContactFromGoogleService {
                     contactRDTO.tags.add(contactEntry.gender.toString())
                 }
                 if (contactEntry.hasLanguages()){
-                    contactEntry.languages.each {lang ->
+                    contactEntry.languages.findAll{it.label}.each {lang ->
                         contactRDTO.tags.add(lang.label)
                     }
                 }
                 if (contactEntry.hasHobbies()){
-                    contactEntry.hobbies.each {hobby->
+                    contactEntry.hobbies.findAll{it.value}.each {hobby->
                         contactRDTO.tags.add(hobby.getValue())
                     }
                 }
                 if (contactEntry.hasOrganizations()){
-                    contactEntry.organizations.each {organization->
+                    contactEntry.organizations.findAll{it.orgName}.each {organization->
                         contactRDTO.tags.add(organization.getOrgName().value)
                     }
                 }
@@ -217,7 +251,7 @@ class ContactFromGoogleService {
                 new GoogleAuthorizationCodeFlow.Builder(
                         HTTP_TRANSPORT, JSON_FACTORY,getGoogleClientSecrets(urlCallback) , SCOPES)
                         .setDataStoreFactory(DATA_STORE_FACTORY)
-//                        .setAccessType("offline")
+                        .setAccessType("offline")
                         .build();
         return flow;
     }
