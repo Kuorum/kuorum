@@ -317,7 +317,8 @@ class KuorumRegisterCommand{
                 }
             }
         }
-        password: nullable:true
+        password nullable:true
+        conditions nullable: true
 //      validator: RegisterController.passwordValidator
     }
 }
