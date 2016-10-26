@@ -175,7 +175,7 @@ class ContactFromGoogleService {
             List<ContactRDTO> contactRDTOs = []
             while (true){
                 ContactFeed resultFeed = contactsService.getFeed(feedUrl, ContactFeed.class);
-                contactRDTOs =  processContactsFeed(resultFeed,circleMap);
+                contactRDTOs.addAll(processContactsFeed(resultFeed,circleMap));
                 if (contactRDTOs.size() > MAX_BULK_CONTACTS){
                     contactService.addBulkContacts(user, contactRDTOs);
                     contactRDTOs.clear()
@@ -199,7 +199,7 @@ class ContactFromGoogleService {
             }
             contactService.addBulkContacts(user, contactRDTOs);
             contactRDTOs.clear()
-            log.info("Imported ${numContacts} [${user.alias}]")
+            log.info("Last imported ${numContacts} [${user.alias}]")
         }
     }
 
