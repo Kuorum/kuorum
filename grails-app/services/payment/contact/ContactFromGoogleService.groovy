@@ -22,17 +22,21 @@ import com.google.common.io.Files
 import com.google.gdata.client.contacts.ContactsService
 import com.google.gdata.data.contacts.ContactEntry
 import com.google.gdata.data.contacts.ContactFeed
-import grails.async.Promise
-import grails.async.Promises
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.contact.ContactRDTO
+
+import javax.annotation.PreDestroy
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 @Transactional
 class ContactFromGoogleService {
 
     ContactService contactService
     def grailsApplication
+
+    private static final Integer MAX_BULK_CONTACTS = 10000;
 
     private static final String URL_LOAD_ALL_CONTACTS= "https://www.google.com/m8/feeds/contacts/default/full"
 
@@ -54,6 +58,12 @@ class ContactFromGoogleService {
      * at ~/.credentials/people.googleapis.com-java-quickstart
      */
     private static final List<String> SCOPES = Arrays.asList(PeopleScopes.CONTACTS_READONLY, PlusDomainsScopes.PLUS_CIRCLES_READ);
+
+    ExecutorService executor = Executors.newSingleThreadExecutor()
+    @PreDestroy
+    void shutdown() {
+        executor.shutdownNow()
+    }
 
 
     public String getUrlForAuthorization(String urlCallback){
@@ -154,50 +164,42 @@ class ContactFromGoogleService {
 
     private void loadContactUsingGData(KuorumUser user, Credential credential){
 
-        Map circleMap = [:]
-//        Map circleMap = loadCirclesMappedByName(credential)
-//        credential = refreshCredential(credential)
-        ContactsService contactsService = new ContactsService(APPLICATION_NAME)
-        contactsService.setOAuth2Credentials(credential);
-
-        URL feedUrl = new URL(URL_LOAD_ALL_CONTACTS);
-        Long numAsyncRequest = 0;
-        List<Promise> importsAsyncList = []
-        while (true){
-            def asyncInfo = asyncImport(contactsService, user, credential, circleMap,feedUrl)
-            numAsyncRequest++;
-            if (asyncInfo){
-                feedUrl = asyncInfo.feedUrl
-                importsAsyncList.add(asyncInfo.task)
-            }else{
-                log.info("End prepared async request contacts: "+numAsyncRequest)
-                break
+//        Map circleMap = [:]
+        Map circleMap = loadCirclesMappedByName(credential)
+        credential = refreshCredential(credential)
+        executor.execute{
+            ContactsService contactsService = new ContactsService(APPLICATION_NAME)
+            contactsService.setOAuth2Credentials(credential);
+            URL feedUrl = new URL(URL_LOAD_ALL_CONTACTS);
+            Long numContacts = 0;
+            List<ContactRDTO> contactRDTOs = []
+            while (true){
+                ContactFeed resultFeed = contactsService.getFeed(feedUrl, ContactFeed.class);
+                contactRDTOs =  processContactsFeed(resultFeed,circleMap);
+                if (contactRDTOs.size() > MAX_BULK_CONTACTS){
+                    contactService.addBulkContacts(user, contactRDTOs);
+                    contactRDTOs.clear()
+                    log.info("Imported ${numContacts} [${user.alias}]")
+                }
+                numContacts += contactRDTOs?.size()?:0
+                try{
+                    if (resultFeed.nextLink?.href){
+                        feedUrl = new URL(resultFeed.nextLink.href)
+                    }else{
+                        log.info("End contacts: "+numContacts)
+                        break
+                    }
+                }catch (Exception e){
+                    log.info("End contacts due to exception: "+numContacts +" => Excp:"+e.getLocalizedMessage())
+                    break;
+                }
+                if (credential.refreshToken()){
+                    credential = refreshCredential(credential)
+                }
             }
-
-//            if (credential.refreshToken()){
-//                credential = refreshCredential(credential)
-//            }
-        }
-        Promises.waitAll(importsAsyncList)
-    }
-
-    private def asyncImport(ContactsService contactsService, KuorumUser user, Credential credential,  Map circleMap, URL feedUrl){
-        ContactFeed resultFeed = contactsService.getFeed(feedUrl, ContactFeed.class);
-        Promise task = Promises.task {
-            List<ContactRDTO> contactRDTOs =  processContactsFeed(resultFeed,circleMap);
-            contactRDTOs.each {contactService.addContact(user, it)}
-            log.info("Imported ${contactRDTOs.size()} [${user.alias}]")
-        }
-        try{
-            if (resultFeed.nextLink?.href){
-                feedUrl = new URL(resultFeed.nextLink.href)
-                return [feedUrl: feedUrl, task:task]
-            }else{
-                return null;
-            }
-        }catch (Exception e){
-            log.info("End contacts due to exception: "+numContacts +" => Excp:"+e.getLocalizedMessage())
-            return null;
+            contactService.addBulkContacts(user, contactRDTOs);
+            contactRDTOs.clear()
+            log.info("Imported ${numContacts} [${user.alias}]")
         }
     }
 

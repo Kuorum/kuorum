@@ -263,7 +263,7 @@ class ContactsController {
 
         session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         log.info("Programed async uploaded contacts")
-
+        redirect(mapping:'politicianContactSuccess')
 //        render contacts as JSON
     }
 
@@ -408,4 +408,6 @@ class ContactsController {
         List<String> tags = contactService.getUserTags(loggedUser)
         render tags as JSON
     }
+
+    def importSuccess(){}
 }

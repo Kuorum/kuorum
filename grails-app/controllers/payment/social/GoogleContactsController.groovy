@@ -19,15 +19,11 @@ class GoogleContactsController {
         KuorumUser user = springSecurityService.currentUser
         String code = params.code
         contactFromGoogleService.loadContacts(user, code, getRedirectUrl())
-        redirect(mapping: "politicianContactImportGmailSuccess")
+        redirect(mapping:'politicianContactSuccess')
 
     }
 
     private String getRedirectUrl(){
         g.createLink(controller: 'googleContacts', action: 'loadContactsFromGoogle', absolute: true)
-    }
-
-    def success(){
-
     }
 }
