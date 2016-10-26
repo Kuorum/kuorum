@@ -63,6 +63,7 @@ class ContactFromGoogleService {
 
 
     public void loadContacts(KuorumUser user, String authorizationCode, String urlCallback){
+        log.info("Loading ${user.alias}'s gmail contacs")
         GoogleTokenResponse tokenResponse =
                 new GoogleAuthorizationCodeTokenRequest(
                         HTTP_TRANSPORT,
@@ -79,7 +80,7 @@ class ContactFromGoogleService {
 
     private Credential createCredentialFromToken(TokenResponse token, String urlCallback){
 
-        Credential credential = new GoogleCredential.Builder()
+        new GoogleCredential.Builder()
                 .setJsonFactory(JSON_FACTORY)
                 .setTransport(new NetHttpTransport())
                 .setClientSecrets(getGoogleClientSecrets(urlCallback)).build()
@@ -151,9 +152,9 @@ class ContactFromGoogleService {
 
     private void loadContactUsingGData(KuorumUser user, Credential credential){
 
-//        Map circleMap = [:]
-        Map circleMap = loadCirclesMappedByName(credential)
-        credential = refreshCredential(credential)
+        Map circleMap = [:]
+//        Map circleMap = loadCirclesMappedByName(credential)
+//        credential = refreshCredential(credential)
         ContactsService contactsService = new ContactsService(APPLICATION_NAME)
         contactsService.setOAuth2Credentials(credential);
         URL feedUrl = new URL(URL_LOAD_ALL_CONTACTS);
@@ -163,6 +164,7 @@ class ContactFromGoogleService {
             List<ContactRDTO> contactRDTOs =  processContactsFeed(resultFeed,circleMap);
             contactRDTOs.each {contactService.addContact(user, it)}
             numContacts += contactRDTOs?.size()?:0
+            log.info("Imported ${numContacts} [${user.alias}]")
             try{
                 if (resultFeed.nextLink?.href){
                     feedUrl = new URL(resultFeed.nextLink.href)
