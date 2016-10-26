@@ -22,6 +22,8 @@ import com.google.common.io.Files
 import com.google.gdata.client.contacts.ContactsService
 import com.google.gdata.data.contacts.ContactEntry
 import com.google.gdata.data.contacts.ContactFeed
+import grails.async.Promise
+import grails.async.Promises
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.contact.ContactRDTO
@@ -157,28 +159,45 @@ class ContactFromGoogleService {
 //        credential = refreshCredential(credential)
         ContactsService contactsService = new ContactsService(APPLICATION_NAME)
         contactsService.setOAuth2Credentials(credential);
+
         URL feedUrl = new URL(URL_LOAD_ALL_CONTACTS);
-        Long numContacts = 0;
+        Long numAsyncRequest = 0;
+        List<Promise> importsAsyncList = []
         while (true){
-            ContactFeed resultFeed = contactsService.getFeed(feedUrl, ContactFeed.class);
+            def asyncInfo = asyncImport(contactsService, user, credential, circleMap,feedUrl)
+            numAsyncRequest++;
+            if (asyncInfo){
+                feedUrl = asyncInfo.feedUrl
+                importsAsyncList.add(asyncInfo.task)
+            }else{
+                log.info("End prepared async request contacts: "+numAsyncRequest)
+                break
+            }
+
+//            if (credential.refreshToken()){
+//                credential = refreshCredential(credential)
+//            }
+        }
+        Promises.waitAll(importsAsyncList)
+    }
+
+    private def asyncImport(ContactsService contactsService, KuorumUser user, Credential credential,  Map circleMap, URL feedUrl){
+        ContactFeed resultFeed = contactsService.getFeed(feedUrl, ContactFeed.class);
+        Promise task = Promises.task {
             List<ContactRDTO> contactRDTOs =  processContactsFeed(resultFeed,circleMap);
             contactRDTOs.each {contactService.addContact(user, it)}
-            numContacts += contactRDTOs?.size()?:0
-            log.info("Imported ${numContacts} [${user.alias}]")
-            try{
-                if (resultFeed.nextLink?.href){
-                    feedUrl = new URL(resultFeed.nextLink.href)
-                }else{
-                    log.info("End contacts: "+numContacts)
-                    break
-                }
-            }catch (Exception e){
-                log.info("End contacts due to exception: "+numContacts +" => Excp:"+e.getLocalizedMessage())
-                break;
+            log.info("Imported ${contactRDTOs.size()} [${user.alias}]")
+        }
+        try{
+            if (resultFeed.nextLink?.href){
+                feedUrl = new URL(resultFeed.nextLink.href)
+                return [feedUrl: feedUrl, task:task]
+            }else{
+                return null;
             }
-            if (credential.refreshToken()){
-                credential = refreshCredential(credential)
-            }
+        }catch (Exception e){
+            log.info("End contacts due to exception: "+numContacts +" => Excp:"+e.getLocalizedMessage())
+            return null;
         }
     }
 
