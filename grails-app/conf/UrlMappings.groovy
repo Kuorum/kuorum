@@ -344,6 +344,9 @@ class UrlMappings {
         name politicianMassMailingHtml:                 "/account/mass-mailing/$campaignId/html" (controller:"massMailing", action: "showMailCampaign")
         name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
 
+        "/account/contacts/oauth/$provider/success" (controller: "contactsOAuth", action: "onSuccess")
+        "/account/contacts/oauth/$provider/failure" (controller: "contactsOAuth", action: "onFailure")
+
         "/sitemapIndex"{
             controller = 'siteMap'
             action = 'sitemapIndex'

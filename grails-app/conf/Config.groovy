@@ -210,8 +210,8 @@ oauth {
             api = kuorum.payment.contact.outlook.oauth.OutlookApi
             key = 'OUTLOOK KEY'
             secret = 'OUTLOOK SECRET'
-            successUri = '/oauth/outlook/success'
-            failureUri = '/oauth/outlook/failure'
+            successUri = '/account/contacts/oauth/outlook/success'
+            failureUri = '/account/contacts/oauth/outlook/success'
             callback = "http://localhost:8080/kuorum/oauth/outlook/callback"
             scope = 'openid offline_access profile https://outlook.office.com/contacts.read'
         }
