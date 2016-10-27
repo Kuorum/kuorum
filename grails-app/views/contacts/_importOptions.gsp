@@ -3,7 +3,7 @@
     %{--<li><a href="#" role="button" class="mail" id="yahoo">Yahoo!</a></li>--}%
     <li>
         <oauth:connect provider="outlook" elementId="outlook" class="mail">
-            <g:message code="tools.contact.import.options.outlook"/></g:link>
+            <g:message code="tools.contact.import.options.outlook"/>
         </oauth:connect>
     </li>
     <li><g:link mapping="politicianContactImportCSV" role="button" class="mail" elementId="uploadFile"><g:message code="tools.contact.import.options.csv"/></g:link></li>

@@ -321,6 +321,7 @@ class UrlMappings {
         name politicianContactImportCSV:                "/account/contacts/import/csv" (controller:"contacts"){action =[GET:"importCSVContacts", POST:"importCSVContactsUpload"]}
         name politicianContactImportCSVSave:            "/account/contacts/import/csv_save" (controller:"contacts", action: "importCSVContactsSave")
         name politicianContactImportGmail:              "/account/contacts/import/gmail" (controller:"googleContacts", action: "index")
+        name politicianContactImportOutlook:            "/account/contacts/import/outlook" (controller:"outlookContacts", action: "index")
         name politicianContactSuccess:                  "/account/contacts/import/success" (controller:"contacts", action: "importSuccess")
         name politicianContactTagsAjax:                 "/ajax/account/contacts/tags" (controller:"contacts", action: "contactTags")
         name politicianContactAddTagsAjax:              "/ajax/account/contacts/$contactId/tags" (controller:"contacts", action: "addTagsToContact")
