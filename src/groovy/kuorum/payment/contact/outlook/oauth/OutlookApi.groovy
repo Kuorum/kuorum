@@ -36,10 +36,10 @@ class OutlookApi extends DefaultApi20 {
 		UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromHttpUrl(
 				AUTHORIZE_URL
 		);
-		urlBuilder.queryParam("client_id", oAuthConfig.apiKey);
-		urlBuilder.queryParam("redirect_uri", oAuthConfig.callback);
+		urlBuilder.queryParam(OAuthConstants.CLIENT_ID, oAuthConfig.apiKey);
+		urlBuilder.queryParam(OAuthConstants.REDIRECT_URI, oAuthConfig.callback);
 		urlBuilder.queryParam("response_type", "code id_token");
-		urlBuilder.queryParam("scope", oAuthConfig.scope);
+		urlBuilder.queryParam(OAuthConstants.SCOPE, oAuthConfig.scope);
 		urlBuilder.queryParam("state", state);
 		urlBuilder.queryParam("nonce", nonce);
 		urlBuilder.queryParam("response_mode", "form_post");
