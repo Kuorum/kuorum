@@ -179,18 +179,18 @@ class ContactsController {
     def importCSVContactsUpload() {
         if (!params.get("fileContacts")) {
             flash.error = g.message(code:'tools.contact.import.csv.error.noFile')
-            redirect(mapping: 'politicianContactImport')
+            redirect(mapping: 'politicianContactImportCSV')
             return
         }
         MultipartFile uploadedFile = ((MultipartHttpServletRequest) request).getFile('fileContacts')
         if (uploadedFile.empty) {
             flash.error = g.message(code: 'tools.contact.import.csv.error.emptyFile')
-            redirect(mapping: 'politicianContactImport')
+            redirect(mapping: 'politicianContactImportCSV')
             return
         }
         if (!uploadedFile.originalFilename.endsWith(CONTACT_CSV_UPLOADED_EXTENSION)) {
             flash.error = g.message(code: 'tools.contact.import.csv.error.wrongExtension', args: [CONTACT_CSV_UPLOADED_EXTENSION])
-            redirect(mapping: 'politicianContactImport')
+            redirect(mapping: 'politicianContactImportCSV')
             return
         }
         File csv = File.createTempFile(uploadedFile.originalFilename, CONTACT_CSV_UPLOADED_EXTENSION);
@@ -209,11 +209,11 @@ class ContactsController {
         } catch(KuorumException e) {
             log.error("Error in the CSV file", e)
             flash.error = g.message(code: 'tools.contact.import.csv.error.noEmailColumn')
-            redirect(mapping: 'politicianContactImport')
+            redirect(mapping: 'politicianContactImportCSV')
         } catch(Exception e) {
             log.error("Error uploading CSV file", e)
             flash.error = g.message(code: 'tools.contact.import.csv.error.emptyFile')
-            redirect(mapping: 'politicianContactImport')
+            redirect(mapping: 'politicianContactImportCSV')
         }
     }
 

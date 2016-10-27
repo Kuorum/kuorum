@@ -192,7 +192,6 @@ grails.plugin.springsecurity.loginDomain = "https://kuorum.org"
 grails.plugin.cookiesession.domain=".kuorum.org"
 grails.plugin.cookiesession.springsecuritycompatibility=true
 oauth {
-    // ...
     providers {
         // for Google OAuth 2.0
         google {
@@ -204,6 +203,16 @@ oauth {
             callback = "http://localhost:8080/kuorum/oauth/google/callback" // Is overwritten with properties file
             scope = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
         }
+        outlook {
+            api = kuorum.payment.contact.outlook.oauth.OutlookApi
+            key = 'OUTLOOK KEY'
+            secret = 'OUTLOOK SECRET'
+            successUri = '/oauth/outlook/success'
+            failureUri = '/oauth/outlook/failure'
+            callback = "http://localhost:8080/kuorum/oauth/outlook/callback"
+            scope = 'openid offline_access profile https://outlook.office.com/contacts.read'
+        }
+
         // ...
     }
 }

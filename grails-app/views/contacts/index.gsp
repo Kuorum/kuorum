@@ -80,6 +80,11 @@
                                             <g:message code="login.rrss.google"/>
                                         </g:link>
                                     </li>
+                                    <li>
+                                        <g:link mapping="politicianContactImportOutlook">
+                                            <g:message code="login.rrss.outlook"/>
+                                        </g:link>
+                                    </li>
 
                                     %{--<li><a href="#">Yahoo!</a></li>--}%
                                     %{--<li><a href="#">Outlook</a></li>--}%
