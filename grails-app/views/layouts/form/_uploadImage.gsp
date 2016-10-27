@@ -160,7 +160,7 @@
         $("#au-uploaderImageId_" + imageId + " .qq-upload-drop-area").css("background-position", "0 0");
         $("#au-uploaderImageId_"+imageId+" .button-container").css("background-color","rgba(0, 0, 0, 0.7)")
     }
-    console.log( '==> ${raw(imageUrl)}')
+
     <g:if test="${imageUrl}">
         <asset:script type="text/javascript">
     // DEFERED SCRIPT
