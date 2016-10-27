@@ -85,6 +85,11 @@
                                             <g:message code="login.rrss.outlook"/>
                                         </g:link>
                                     </li>
+                                    <li>
+                                        <oauth:connect provider="yahoo" id="yahoo-connect-link">
+                                            <g:message code="login.rrss.yahoo"/>
+                                        </oauth:connect>
+                                    </li>
 
                                     %{--<li><a href="#">Yahoo!</a></li>--}%
                                     %{--<li><a href="#">Outlook</a></li>--}%
