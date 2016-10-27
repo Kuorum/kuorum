@@ -14,6 +14,6 @@ class RelevantEventsCommand {
     List<PoliticianRelevantEvent> politicianRelevantEvents
     static constraints = {
         politician nullable: false;
-        politicianRelevantEvents maxSize: 5
+        politicianRelevantEvents nullable: true, maxSize: 5
     }
 }

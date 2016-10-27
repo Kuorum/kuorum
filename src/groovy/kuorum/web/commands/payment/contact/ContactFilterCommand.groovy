@@ -28,6 +28,7 @@ class ContactFilterCommand {
     List<ContactFilterOptionCommand> filterConditions;
 
     static constraints = {
+        filterName nullable: true
         operator nullable: false
         filterConditions nullable: false, maxSize: 20
     }

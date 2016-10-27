@@ -49,6 +49,7 @@ grails.project.dependency.resolution = {
 
         //Repository for kuorum.springSecurity
         mavenRepo "http://repo.spring.io/milestone/"
+        mavenRepo "https://repository.jboss.org/maven2/"
 
         //Repository for google spring social template
 //        mavenRepo "http://gabiaxel.github.io/maven/"
@@ -71,6 +72,7 @@ grails.project.dependency.resolution = {
 //        compile 'org.springframework.social:spring-social-core:1.0.3.RELEASE'
 //        compile ('org.springframework.social:spring-social-google:1.0.0.M4')
         compile ('org.springframework.social:spring-social-facebook:1.0.3.RELEASE'){
+//        compile 'org.springframework.social:spring-social-facebook:2.0.3.RELEASE'{
             //CONFLICT WITH grails json parsers
 //            excludes 'org.codehaus.jackson:jackson-mapper-asl'
         }
@@ -78,7 +80,7 @@ grails.project.dependency.resolution = {
 //        compile group: 'com.google.api.client', name: 'google-api-client-googleapis', version: '1.4.1-beta'
 //        compile group: 'com.google.api.client', name: 'google-api-client-googleapis-auth-oauth', version: '1.2.3-alpha'
         compile 'com.google.api-client:google-api-client:1.22.0'
-        compile 'com.google.oauth-client:google-oauth-client-jetty:1.22.0'
+//        compile 'com.google.oauth-client:google-oauth-client-jetty:1.22.0'
         compile 'com.google.apis:google-api-services-people:v1-rev4-1.22.0'
         compile group: 'com.google.gdata', name: 'core', version: '1.47.1'
 //        compile 'com.google.apis:google-api-services-plus:v1-rev461-1.22.0'
@@ -138,11 +140,11 @@ grails.project.dependency.resolution = {
 
     plugins {
         // plugins for the build system only
-        build ":tomcat:7.0.50"
+        build ':tomcat:7.0.52.1'
 //        compile ":grails-melody:1.56.0"
 
         // plugins for the compile step
-        compile ":scaffolding:2.0.1"
+        compile ':scaffolding:2.1.0'
         //compile ':cache:1.1.1'
 
 //        compile ":mongodb:1.3.3"
@@ -153,13 +155,13 @@ grails.project.dependency.resolution = {
 
         compile ':cookie:1.2'
         compile ":spring-security-core:2.0-RC4"
-        compile ":spring-security-facebook:0.15.2-CORE2"
+        compile ":spring-security-facebook:0.17"
         compile ':spring-security-oauth:2.0.2'
         compile ':spring-security-oauth-google:0.2'
 
         //compile ":spring-security-acl:2.0-RC1"
         compile "org.grails.plugins:spring-security-acl:2.0.1" //Para las partes que tienen seguridad custom
-        compile ":spring-security-ui:1.0-RC1"
+        compile ":spring-security-ui:1.0-RC3"
         //compile ":spring-security-core:1.2.7.3"
 
 //        compile ":rest-client-builder:2.0.1"
@@ -170,21 +172,22 @@ grails.project.dependency.resolution = {
 //        compile ":executor:0.3"
 
         //Images and uploading files
-        compile (":ajax-uploader:1.1")
-        compile ":burning-image:0.5.1"
+        compile (":ajax-uploader:1.3")
+        compile ":burning-image:0.5.2"
 
 
-        runtime ":jquery:1.11.0.1"
+        runtime ":jquery:1.11.1"
         compile ":cache-headers:1.1.7"
-        runtime ":resources:1.2.1"
-        runtime ":cached-resources:1.0"
+//        compile "org.grails.plugins:asset-pipeline:2.11.0"
+        runtime ":resources:1.2.14"
+//        runtime ":cached-resources:1.0"
         // Uncomment these (or add new ones) to enable additional resources capabilities
-        runtime ":zipped-resources:1.0.1"
+//        runtime ":zipped-resources:1.0.1"
         //runtime ":cached-resources:1.1"
         //runtime ":yui-minify-resources:0.1.5"
 
         //test ':build-test-data:2.1.1'
-        compile ':fixtures:1.2'
+//        compile ':fixtures:1.2'
 //        test ":geb:$gebVersion"
 //        test ":code-coverage:1.2.7"
 //        test ":codenarc:0.20"

@@ -18,6 +18,9 @@ class QuickNotesCommand {
 
     static constraints = {
         politician nullable: false;
+        politicianExtraInfo nullable: true
+        institutionalOffice nullable: true
+        politicalOffice nullable: true
     }
 
     public QuickNotesCommand(){}

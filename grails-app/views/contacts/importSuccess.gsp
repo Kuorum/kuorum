@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.contacts.import"/></title>
+    <title><g:message code="tools.contact.import.title.success"/></title>
     <meta name="layout" content="paymentPlainLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
@@ -12,14 +12,15 @@
 <content tag="mainContent">
     <ol class="breadcrumb">
         <li><g:link mapping="politicianContacts"> <g:message code="tools.contact.title"/> </g:link></li>
-        <li class="active"><g:message code="tools.contact.import.title"/></li>
+        <li><g:link mapping="politicianContactImport"> <g:message code="tools.contact.import.title"/> </g:link></li>
+        <li class="active"><g:message code="tools.contact.import.title.success"/></li>
     </ol>
 
     <div class="container-fluid box-ppal import-contacts">
-        <p><g:message code="tools.contact.import.google.success.congrats"/> </p>
+        <p><g:message code="tools.contact.import.success.congrats"/> </p>
         <p>
             <g:link mapping="politicianMassMailingNew" class="btn btn-blue inverted btn-lg">
-                <g:message code="tools.contact.import.csv.success.newCampaign"/>
+                <g:message code="tools.contact.import.success.newCampaign"/>
             </g:link>
         </p>
     </div>

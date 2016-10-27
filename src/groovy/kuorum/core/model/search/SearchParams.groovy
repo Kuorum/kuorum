@@ -42,5 +42,6 @@ class SearchParams extends Pagination implements Serializable{
         regionIsoCodes nullable:true
         filteredUserIds nullable:true
         searchType nullable:true
+        boostedRegions nullable: true
     }
 }

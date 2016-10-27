@@ -27,6 +27,7 @@ class MassMailingCommand {
             }
         }
         filterId nullable: false
+        filterEdited nullable: true
         headerPictureId nullable: true, validator: {val, obj ->
             if (obj.sendType!= "DRAFT" && !val){
                 return "kuorum.web.commands.payment.massMailing.MassMailingCommand.headerPictureId.nullable"

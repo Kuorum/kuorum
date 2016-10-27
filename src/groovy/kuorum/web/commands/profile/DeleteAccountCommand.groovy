@@ -12,5 +12,6 @@ class DeleteAccountCommand {
 
     static constraints = {
         explanation nullable: false, minSize: 10
+        forever nullable:true
     }
 }

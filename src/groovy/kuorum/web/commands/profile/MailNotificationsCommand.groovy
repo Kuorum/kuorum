@@ -14,5 +14,6 @@ class MailNotificationsCommand {
     List<MailGroupType> availableMails
 
     static constraints = {
+        availableMails nullable: true
     }
 }
