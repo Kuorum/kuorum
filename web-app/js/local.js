@@ -94,12 +94,12 @@ $(window).on('resize',function() {
     if (window.matchMedia("(min-width: 768px)").matches) {
         $('.header-campaign').each(function() {
             var width = $(this).width();
-            $(this).css("height", width / 6.5);
+            $(this).css("height", width / 8.5);
         });
     } else {
         $('.header-campaign').each(function() {
             var width = $(this).width();
-            $(this).css("height", width / 3.5);
+            $(this).css("height", width / 4.2);
         });
     }
 
