@@ -946,7 +946,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 .box-ppal.import-contacts.csv label {font-size: 17px; font-size: 1.7rem; display: block;}
 .box-ppal.import-contacts.csv .bootstrap-tagsinput {width: calc(100% - 23%);}
-.box-ppal.import-contacts.csv input.btn {float: right; width: 22%;}
+.box-ppal.import-contacts.csv input.btn {margin-top: 5px;}
 
 /* TAGS INPUT PLUGIN (08/2016) */
 #mySingleField {height: 35px;}
@@ -5562,6 +5562,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box-ppal.import-contacts .bootstrap-filestyle {margin-bottom: 40px;}
     .box-ppal.import-contacts-videos {padding: 50px;}
     .box-ppal.import-contacts-videos iframe {margin-bottom: 40px;}
+    .box-ppal.import-contacts.csv input.btn {float: right; width: 22%; margin: 0;}
 
 
     /* CAMPAIGNS */
