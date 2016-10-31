@@ -16,6 +16,7 @@ import kuorum.project.Project
 import kuorum.mail.KuorumMailService
 import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
+import kuorum.users.PoliticianActivity
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -334,6 +335,9 @@ class PostService {
         if (isAllowedToAddDebate(post, comment.kuorumUser)){
             KuorumUser user = comment.kuorumUser
             if (!post.debates.collect{it.kuorumUser.id}.contains(user.id) && user.userType == UserType.POLITICIAN){
+                if (!user.politicianActivity){
+                    user.politicianActivity = new PoliticianActivity()
+                }
                 user.politicianActivity.numDebates ++
                 user.save()
             }

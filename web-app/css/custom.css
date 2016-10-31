@@ -3440,7 +3440,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .chat > li .user.author + span {text-align: right;}
 .chat > li time {text-align: right; color: #a8a8a8; display: block;}
 .chat > li.politician time {text-align: left;}
-.chat .user-type {margin-top: -20px;}
+.chat .user-type {margin-top: -20px;    position: absolute;right: 0;}
 .chat > li:last-child time {text-align: right !important;}
 .chat > li:last-child .user.author {text-align: left !important;}
 .chat > li:last-child .user.author > .popover-trigger > .user-img {float: none; margin: 8px 6px 4px 0 !important;}
