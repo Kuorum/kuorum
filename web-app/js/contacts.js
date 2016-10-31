@@ -164,7 +164,6 @@ function FilterContacts() {
     this.postFilter = function(link, callback){
         that[callBackBehaviour][callback].prepare();
         var postData = that.serializedFilterData();
-        console.log(postData)
         pageLoadingOn();
         $.post( link, postData)
             .done(function(data) {
@@ -196,7 +195,7 @@ function FilterContacts() {
     };
     this.deleteFilter = function(){
         var link = $("#deleteFilterButton").attr("href")
-        var filterId = that.getFilterId;
+        var filterId = that.getFilterId();
         console.log("Removing filter: "+filterId)
         var postData = [];
         pageLoadingOn();
