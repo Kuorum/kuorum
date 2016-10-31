@@ -41,7 +41,7 @@ class OutlookOAuthContactService implements IOAuthLoadContacts{
     ContactService contactService
 
     @Override
-    void loadContacts(KuorumUser user, Object accessToken) {
+    void loadContacts(KuorumUser user, org.scribe.model.Token accessToken) {
         log.info("Creating Outlook OAuth Service");
     }
 

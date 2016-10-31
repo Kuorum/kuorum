@@ -82,7 +82,7 @@ class YahooApi extends DefaultApi20 {
 			public Token extract(String response) {
 				Preconditions.checkEmptyString(response, "Response body is incorrect. Can\'t extract a token from an empty string");
 				def responseData = JSON.parse(response)
-				return new Token((String) responseData.access_token, "", response);
+				return new Token((String) responseData.access_token, responseData.xoauth_yahoo_guid, response);
 			}
 		}
 	}
