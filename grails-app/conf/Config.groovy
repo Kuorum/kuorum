@@ -223,7 +223,7 @@ oauth {
             secret = 'YAHOO SECRET'
             successUri = '/account/contacts/oauth/yahoo/success'
             failureUri = '/account/contacts/oauth/yahoo/success'
-            callback = "http://localhost:8080/kuorum/oauth/yahoo/callback" // Is overwritten with properties file
+            callback = "http://local.kuorum.org:8080/kuorum/account/contacts/oauth/yahoo/success" // Is overwritten with properties file
             scope = 'mail-r sdct-r' // Mail y contactos
         }
         // ...
