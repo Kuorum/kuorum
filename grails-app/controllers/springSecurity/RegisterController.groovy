@@ -18,6 +18,8 @@ import org.springframework.context.i18n.LocaleContextHolder
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
+    def springSecurityService
+
     def kuorumMailService
     RegisterService registerService
 

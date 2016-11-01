@@ -3,9 +3,9 @@ package kuorum.payment.contact.outlook.model
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PagedResult<T> {
-	@JsonProperty("@odata.nextLink")
+	//@JsonProperty("@odata.nextLink")
 	private String nextPageLink;
-	private T[] value;
+	private ArrayList<T> value;
 
 	public String getNextPageLink() {
 		return nextPageLink;
@@ -13,7 +13,7 @@ public class PagedResult<T> {
 	public void setNextPageLink(String nextPageLink) {
 		this.nextPageLink = nextPageLink;
 	}
-	public T[] getValue() {
+	public ArrayList<T> getValue() {
 		return value;
 	}
 	public void setValue(T[] value) {

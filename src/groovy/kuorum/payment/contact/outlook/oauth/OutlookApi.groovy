@@ -1,6 +1,8 @@
 package kuorum.payment.contact.outlook.oauth
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import grails.converters.JSON
+import kuorum.payment.contact.outlook.model.TokenResponse
 import org.scribe.builder.api.DefaultApi20
 import org.scribe.extractors.AccessTokenExtractor
 import org.scribe.model.OAuthConfig
@@ -19,7 +21,7 @@ class OutlookApi extends DefaultApi20 {
 
 	private static final String AUTHORIZE_URL = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize";
 	@Override
-	String getAccessTokenEndpoint() {
+	public String getAccessTokenEndpoint() {
 		return "https://login.microsoftonline.com/common/oauth2/v2.0/token"
 	}
 
@@ -29,7 +31,7 @@ class OutlookApi extends DefaultApi20 {
 	}
 
 	@Override
-	String getAuthorizationUrl(OAuthConfig oAuthConfig) {
+	public String getAuthorizationUrl(OAuthConfig oAuthConfig) {
 		UUID state = UUID.randomUUID();
 		UUID nonce = UUID.randomUUID();
 
@@ -80,11 +82,13 @@ class OutlookApi extends DefaultApi20 {
 	}
 
 	@Override
-	AccessTokenExtractor getAccessTokenExtractor() {
+	public AccessTokenExtractor getAccessTokenExtractor() {
 		new AccessTokenExtractor() {
 			public Token extract(String response) {
 				Preconditions.checkEmptyString(response, "Response body is incorrect. Can\'t extract a token from an empty string");
-				def responseData = JSON.parse(response)
+				def responseData = JSON.parse(response);
+				//def mapper = new ObjectMapper();
+				//return  mapper.readValue(response, TokenResponse.class);
 				return new Token((String) responseData.access_token, "", response);
 			}
 		}

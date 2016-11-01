@@ -263,7 +263,7 @@ class ContactsController {
 
         session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         log.info("Programed async uploaded contacts")
-        redirect(mapping:'politicianContactSuccess')
+        redirect(mapping:'politicianContactImportSuccess')
 //        render contacts as JSON
     }
 
