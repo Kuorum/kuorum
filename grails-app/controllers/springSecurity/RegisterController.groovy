@@ -1,5 +1,6 @@
 package springSecurity
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
 import grails.plugin.springsecurity.ui.RegistrationCode
@@ -24,6 +25,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     RegisterService registerService
 
     KuorumUserService kuorumUserService
+
+    SpringSecurityService springSecurityService
 
     NotificationService notificationService
 

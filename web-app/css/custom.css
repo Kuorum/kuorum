@@ -946,7 +946,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 .box-ppal.import-contacts.csv label {font-size: 17px; font-size: 1.7rem; display: block;}
 .box-ppal.import-contacts.csv .bootstrap-tagsinput {width: calc(100% - 23%);}
-.box-ppal.import-contacts.csv input.btn {float: right; width: 22%;}
+.box-ppal.import-contacts.csv input.btn {margin-top: 5px;}
 
 /* TAGS INPUT PLUGIN (08/2016) */
 #mySingleField {height: 35px;}
@@ -1650,7 +1650,9 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .btn.mail:hover,
 .btn.mail:active,
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
-.user-type {margin-top: -24px;}
+
+.user {position: relative;}
+.user-type {/*margin-top: -24px;*/ position: absolute; bottom: 2px; left: 3px; line-height: 1;}
 
 .user-list-images,
 .boxes.taking-part .user-list-followers {margin: 0 0 20px 0; padding: 0; display: inline-block; line-height: 1.2;}
@@ -1659,7 +1661,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 .user-list-images li {list-style: none; display: inline-block !important; margin: 0; width: auto;}
 .user-list-images li:last-child {margin-right: 0;}
-.user-list-followers > li {list-style: none; margin: 0 0 20px; width: 100%;}
+.user-list-followers > li {list-style: none; margin: 0 0 20px; width: 100%; position: relative; height: 38px;}
 .user-list-followers > li:last-child {margin: 0;}
 .user-list-followers li a {text-decoration: none;}
 .user-list-followers.hide4 > li + li + li +li +li {display: none;}
@@ -1739,6 +1741,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     z-index: 998;
     position: relative;
     /*width: 170px;*/
+    width: calc(100% - 125px);
     display: inline-block;
     line-height: 1.4;
     overflow: hidden;
@@ -1765,13 +1768,13 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     width: 38px !important;
     height: 38px !important;
     display: inline-block !important;
-    margin: 0 10px 4px 0 !important;
+    /*margin: 0 10px 4px 0 !important;*/
 }
 .popover .user-type {
     color: #A8A8A8 !important;
-    padding: 0 0 0 49px !important;
+/*    padding: 0 0 0 49px !important;
     margin: -18px 0 0 0!important;
-    display: block !important;
+    display: block !important;*/
 }
 .popover .scroll .user-type {margin-top: -15px !important;}
 .popover .follow {margin: 0 0 0 49px !important;}
@@ -2257,7 +2260,7 @@ video#bgvid {
 .boxes.follow .kakareo {border: none; padding: 0; margin: 15px 10px 0;}
 .boxes.follow .kakareo > ul > li {margin-right: 10px;}
 .boxes.taking-part > ul > li:last-child {margin: 0;}
-.boxes.follow .user-list-followers .user > .user-type {padding: 0 0 0 44px;}
+/*.boxes.follow .user-list-followers .user > .user-type {padding: 0 0 0 44px;}*/
 
 /* boxes columna derecha dashboard */
 #aside-ppal {padding-top: 24px;}
@@ -2336,8 +2339,8 @@ video#bgvid {
 
 
 /*.boxes.follow .user-type {display: block; margin-left: 4px;}*/
-.personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px;}
-.user-list-followers  .user > .actions {float: right; margin: -14px 0 0 !important; width: 108px;}
+.personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px; position: relative; left: auto; bottom: auto;}
+.user-list-followers  .user > .actions {/*float: right; margin: -14px 0 0 !important;*/ width: 108px; position: absolute; top: 5px; right: 0;}
 .user-list-followers  .user > .actions .btn.follow {
     -webkit-border-radius: 0 !important;
     -moz-border-radius: 0 !important;
@@ -3437,7 +3440,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .chat > li .user.author + span {text-align: right;}
 .chat > li time {text-align: right; color: #a8a8a8; display: block;}
 .chat > li.politician time {text-align: left;}
-.chat .user-type {margin-top: -20px;}
+.chat .user-type {margin-top: -20px;    position: absolute;right: 0;}
 .chat > li:last-child time {text-align: right !important;}
 .chat > li:last-child .user.author {text-align: left !important;}
 .chat > li:last-child .user.author > .popover-trigger > .user-img {float: none; margin: 8px 6px 4px 0 !important;}
@@ -5091,7 +5094,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .form-home-container {width: 320px;}
     .homeSub .homeMore {width: 320px;}
     #info-sup-scroll .voting > ul > li {margin-right: 20px;}
-    .user-list-followers .user > .actions {margin: -32px 0 0 !important;}
+    /*.user-list-followers .user > .actions {margin: -32px 0 0 !important;}*/
 
     /* LANDING */
     .main.special.landing .homeSub ul li {width: 50%; height: 110px; line-height: 110px; margin-bottom: 45px;}
@@ -5559,6 +5562,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box-ppal.import-contacts .bootstrap-filestyle {margin-bottom: 40px;}
     .box-ppal.import-contacts-videos {padding: 50px;}
     .box-ppal.import-contacts-videos iframe {margin-bottom: 40px;}
+    .box-ppal.import-contacts.csv input.btn {float: right; width: 22%; margin: 0;}
 
 
     /* CAMPAIGNS */
@@ -5731,7 +5735,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .team > section > .box-ppal{padding:0; margin:0; background-color: transparent; border:0}
 
-    .user-list-followers .user > .actions {float: right; margin: -35px 0 0 0 !important;}
+    /*.user-list-followers .user > .actions {float: right; margin: -35px 0 0 0 !important;}*/
     .user-list-followers .user > .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
 
     .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
@@ -5937,7 +5941,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 0; float: right;}*/
-    #followOthers .user-list-followers .user > .actions {margin-top: -15px !important;}
+    /*#followOthers .user-list-followers .user > .actions {margin-top: -15px !important;}*/
     .dashboard > div > .box-ppal {min-height: 357px;}
 
     /* LIST CONTACTS (08/2016) */
@@ -6057,7 +6061,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box.tools.open .dropdown-menu li a {font-size: 20px; font-size: 2rem; line-height: 2.3;}
 
     /* DASHBOARD */
-    #followOthers .user-list-followers .user > .actions {margin-top: -40px !important;}
+    /*#followOthers .user-list-followers .user > .actions {margin-top: -40px !important;}*/
     .dashboard > div > .box-ppal {min-height: 348px;}
     /*#profileInfo > span {margin-top: 50px;}*/
 
@@ -6092,7 +6096,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .config .icheckbox_line-orange,
     .config .iradio_line-orange {margin-right: 16px; margin-bottom: 18px;}
     .box-ppal.condition .no-age .form-group:nth-child(2) {width: 172px;}
-    .boxes.follow .user-list-followers .user > .actions {float: right; margin: -30px 0 0 !important;}
+    /*.boxes.follow .user-list-followers .user > .actions {float: right; margin: -30px 0 0 !important;}*/
     .condition .user-list-followers  > li {width: 47%; float: left;}
     .sign .login .btn + .cancel {margin-left: 34px;}
     #main {min-height: 674px;}

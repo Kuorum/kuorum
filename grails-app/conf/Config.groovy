@@ -22,7 +22,7 @@ grails.config.locations = [
 // log4j configuration
 
 grails.logging.jul.usebridge = false
-grails.serverURL = "http://127.0.0.1:8080/kuorum"
+grails.serverURL = "http://local.kuorum.org:8080/kuorum"
 
 log4j = {
     appenders {
@@ -111,7 +111,7 @@ grails {
         }
     }
 }
- 
+
 grails.converters.encoding = "UTF-8"
 grails.converters.default.circular.reference.behaviour="INSERT_NULL"
 grails.converters.json.default.deep=true
@@ -195,6 +195,7 @@ grails.plugin.springsecurity.loginDomain = "https://kuorum.org"
 grails.plugin.cookiesession.domain=".kuorum.org"
 grails.plugin.cookiesession.springsecuritycompatibility=true
 oauth {
+    debug = true
     providers {
         // for Google OAuth 2.0
         google {
@@ -215,7 +216,16 @@ oauth {
             callback = "http://localhost:8080/kuorum/oauth/outlook/callback"
             scope = 'openid offline_access profile https://outlook.office.com/contacts.read'
         }
-
+        yahoo {
+            api = kuorum.payment.contact.yahoo.oauth.YahooApi
+//            api = org.scribe.builder.api.YahooApi
+            key = 'YAHOO KEY'
+            secret = 'YAHOO SECRET'
+            successUri = '/account/contacts/oauth/yahoo/success'
+            failureUri = '/account/contacts/oauth/yahoo/success'
+            callback = "http://local.kuorum.org:8080/kuorum/account/contacts/oauth/yahoo/success" // Is overwritten with properties file
+            scope = 'mail-r sdct-r' // Mail y contactos
+        }
         // ...
     }
 }
