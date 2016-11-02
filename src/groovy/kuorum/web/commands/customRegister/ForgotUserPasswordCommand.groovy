@@ -2,6 +2,7 @@ package kuorum.web.commands.customRegister
 
 import grails.validation.Validateable
 import kuorum.users.KuorumUser
+import org.grails.databinding.BindUsing
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,19 +13,23 @@ import kuorum.users.KuorumUser
  */
 @Validateable
 class ForgotUserPasswordCommand {
-
+    @BindUsing({
+        ForgotUserPasswordCommand cmd, org.grails.databinding.DataBindingSource source ->
+            String rawEmail = source['email']?.toLowerCase()
+            cmd.user =  KuorumUser.findByEmail(rawEmail )
+            rawEmail
+    })
     String email
-    def user
+
+    KuorumUser user
+
 
     static constraints = {
         user nullable: false
         email nullable: false, email:true, validator: {val, obj->
-            KuorumUser user = KuorumUser.findByEmail(val.toLowerCase())
-            if (obj.email && !user){
+            if (val && !obj.user){
                 return 'register.forgotPassword.notUserNameExists'
             }
-            if (user)
-                obj.user = user
             true
         }
     }
