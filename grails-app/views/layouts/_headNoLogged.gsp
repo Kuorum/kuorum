@@ -29,11 +29,11 @@
                         </g:link>
                     </li>
                     <li>
-                        <g:set var="logInMapping" value="loginAuth"/>
-                        <g:set var="logInText" value="${g.message(code:"head.noLogged.login")}"/>
-                        <nav:ifActiveMapping mappingName="loginAuth">
-                            <g:set var="logInMapping" value="register"/>
-                            <g:set var="logInText" value="${g.message(code:"login.head.register")}"/>
+                        <g:set var="logInMapping" value="register"/>
+                        <g:set var="logInText" value="${g.message(code:"login.head.register")}"/>
+                        <nav:ifActiveMapping mappingName="register">
+                            <g:set var="logInMapping" value="loginAuth"/>
+                            <g:set var="logInText" value="${g.message(code:"head.noLogged.login")}"/>
                         </nav:ifActiveMapping>
                         <g:link mapping="${logInMapping}" class="navbar-link btn btn-transparent">
                             <span>${logInText}</span>
