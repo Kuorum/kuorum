@@ -6,6 +6,10 @@ import kuorum.users.KuorumUser
 import payment.contact.IOAuthLoadContacts
 import org.scribe.model.Token
 
+import javax.annotation.PreDestroy
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+
 class ContactsOAuthController {
 
 	public static final String SPRING_SECURITY_OAUTH_TOKEN = 'springSecurityOAuthToken'
@@ -13,6 +17,13 @@ class ContactsOAuthController {
 	def grailsApplication
 	def oauthService
 	SpringSecurityService springSecurityService
+
+	ExecutorService executor = Executors.newSingleThreadExecutor()
+	@PreDestroy
+	void shutdown() {
+		executor.shutdownNow()
+	}
+
 
 	/**
 	 * Is called on oauth callback
@@ -63,7 +74,9 @@ class ContactsOAuthController {
 
 	protected void loadContacts(KuorumUser user, providerName, Token scribeToken) throws KuorumException {
 		IOAuthLoadContacts providerService = (IOAuthLoadContacts) grailsApplication.mainContext.getBean("${providerName}OAuthContactService")
-		providerService.loadContacts(user, scribeToken)
+		executor.execute{
+			providerService.loadContacts(user, scribeToken)
+		}
 	}
 
 	protected void removeTokenAndRedirect(redirectUrl) {

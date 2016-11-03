@@ -5,6 +5,6 @@ import kuorum.users.KuorumUser
 
 interface IOAuthLoadContacts {
 
-	void loadContacts(KuorumUser user, accessToken) throws KuorumException
+	void loadContacts(KuorumUser user, org.scribe.model.Token accessToken) throws KuorumException
 
 }
