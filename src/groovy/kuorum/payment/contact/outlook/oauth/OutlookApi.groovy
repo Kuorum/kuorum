@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder
 class OutlookApi extends DefaultApi20 {
 
 	private static final String AUTHORIZE_URL = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize";
+
 	@Override
 	public String getAccessTokenEndpoint() {
 		return "https://login.microsoftonline.com/common/oauth2/v2.0/token"

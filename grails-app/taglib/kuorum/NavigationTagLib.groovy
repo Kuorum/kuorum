@@ -40,6 +40,7 @@ class NavigationTagLib {
         Boolean equals = attrs.equals?Boolean.parseBoolean(attrs.equals): true;
         List<String> urls = mappingNames.collect{grailsLinkGenerator.link(mapping:it,absolute: true)}
 
+        // TODO: "request.getRequestURL()" is not "sign-in" at the sign-in page
         if (equals && urls.contains(request.getRequestURL().toString()) || !equals && !urls.contains(request.getRequestURL().toString())){
             out << body()
         }

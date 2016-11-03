@@ -218,7 +218,6 @@ oauth {
         }
         yahoo {
             api = kuorum.payment.contact.yahoo.oauth.YahooApi
-//            api = org.scribe.builder.api.YahooApi
             key = 'YAHOO KEY'
             secret = 'YAHOO SECRET'
             successUri = '/account/contacts/oauth/yahoo/success'
