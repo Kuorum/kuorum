@@ -5,11 +5,8 @@ import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
-import org.apache.commons.codec.binary.Base64
-import org.scribe.builder.api.DefaultApi10a
+import org.kuorum.rest.model.contact.ContactRDTO
 import org.scribe.model.Token
-import org.scribe.services.HMACSha1SignatureService
-import org.scribe.services.SignatureService
 
 @Transactional
 class YahooOAuthContactService implements IOAuthLoadContacts {
@@ -24,6 +21,22 @@ class YahooOAuthContactService implements IOAuthLoadContacts {
     @Override
     void loadContacts(KuorumUser user, Token accessToken) throws KuorumException {
         log.info("Creating Yahoo OAuth Service for GUID ${accessToken.getSecret()}");
+        def listContacts = getListContacts(accessToken)
+        List<ContactRDTO> contacts = listContacts.collect{
+            transformYahooContact(it)
+        }
+        contactService.addBulkContacts(contacts)
+    }
+
+    private ContactRDTO transformYahooContact(def infoContact) {
+        def infoName = infoContact.fields.find{it.type=="name"}?.value
+        String email = infoContact.fields.find{it.type=="email"}?.value
+        String guid = infoContact.fields.find{it.type=="guid"}?.value
+        String name = "${infoName.givenName} ${infoName.familyName}".trim()
+        ContactRDTO contactRDTO = new ContactRDTO(email: email, name:name);
+    }
+
+    private def getListContacts(Token accessToken){
         String contactsEndPoint = CONTACTS_END_POINT.replaceAll("\\{guid}", accessToken.getSecret())
         RESTClient client = new RESTClient(CONTACTS_SOCIAL_URL);
         client.getHeaders().put("Authorization", "Bearer " + accessToken.token);
@@ -34,15 +47,15 @@ class YahooOAuthContactService implements IOAuthLoadContacts {
         ]
         try {
             def response = client.get(
-                path: contactsEndPoint,
-                query: query,
-                requestContentType: ContentType.JSON
+                    path: contactsEndPoint,
+                    query: query,
+                    requestContentType: ContentType.JSON
             );
-
-            response;
+            return response.data.contacts.contact
 
         } catch (Exception e) {
             log.error("Error recovering contacts", e)
+            return null
         }
     }
 }
