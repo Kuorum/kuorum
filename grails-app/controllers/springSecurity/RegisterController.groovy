@@ -23,7 +23,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     RegisterService registerService
 
     KuorumUserService kuorumUserService
-
+    SpringSecurityService springSecurityService
     NotificationService notificationService
 
     FileService fileService
