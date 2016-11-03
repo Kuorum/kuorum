@@ -3,9 +3,9 @@ package payment.contact
 import grails.transaction.Transactional
 import groovyx.net.http.ContentType
 import groovyx.net.http.RESTClient
-import kuorum.payment.contact.outlook.model.Contact
-import kuorum.payment.contact.outlook.model.PagedResult
+import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
+import org.scribe.model.Token
 
 @Transactional
 class YahooOAuthContactService implements IOAuthLoadContacts {
@@ -16,15 +16,15 @@ class YahooOAuthContactService implements IOAuthLoadContacts {
     ContactService contactService
 
     @Override
-    void loadContacts(KuorumUser user, token) {
+    void loadContacts(KuorumUser user, Token accessToken) throws KuorumException {
         log.info("Creating Yahoo OAuth Service for GUID ${accessToken.getSecret()}");
-        String contactsEndPoint = CONTACTS_END_POINT.replaceAll("\\{guid}", accessToken.secret)
+        String contactsEndPoint = CONTACTS_END_POINT.replaceAll("\\{guid}", accessToken.getSecret())
         RESTClient client = new RESTClient(CONTACTS_SOCIAL_URL);
         try {
             def response = client.get(
-                    path: contactsEndPoint,
-                    query: [start: 0, count: 'max'],
-                    requestContentType: ContentType.JSON
+                path: contactsEndPoint,
+                query: [start: 0, count: 'max'],
+                requestContentType: ContentType.JSON
             );
 
             response;
