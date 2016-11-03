@@ -43,14 +43,14 @@ class OutlookOAuthContactService implements IOAuthLoadContacts {
     }
 
     @Override
-    void loadContacts(KuorumUser user, token) {
+    void loadContacts(KuorumUser user, org.scribe.model.Token token) {
         // Params for the pagination
         String properties = "GivenName,Surname,EmailAddresses";
         Integer maxResults = 1000;
 
         // Fix: convert Token to TokenResponse
         def mapper = new ObjectMapper();
-        TokenResponse tokenResponse = mapper.readValue(((Token) token).getRawResponse(), TokenResponse.class);
+        TokenResponse tokenResponse = mapper.readValue(token.getRawResponse(), TokenResponse.class);
 
         // Get all contacts (per page)
         ArrayList<ContactRDTO> contactRDTOs = [];
@@ -75,8 +75,6 @@ class OutlookOAuthContactService implements IOAuthLoadContacts {
 
             contactService.addBulkContacts(user, contactRDTOs);
             contactRDTOs.clear();
-
-            System.out.println("ANOTHER PAGE OF CONTACTS !!");
 
             // Refresh token
             //tokenResponse = refreshToken(tokenResponse);
