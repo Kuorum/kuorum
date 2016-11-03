@@ -65,6 +65,7 @@ class ContactsOAuthController {
 	}
 
 	def onFailure() {
+		flash.error="Error recovering contacts"
 		removeTokenAndRedirect(g.createLink(mapping: "politicianContacts", absolute: true))
 	}
 
