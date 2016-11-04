@@ -1,7 +1,8 @@
 <%@ page import="kuorum.core.model.UserType" %>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.politicianProfile.title" args="[politician.name]"/></title>
+    <g:set var="userTypeText" value="${g.message(code: "kuorum.core.model.UserType.${politician.userType}")}"/>
+    <title><g:message code="page.politicianProfile.title" args="[politician.name, userTypeText]"/></title>
     <g:set var="schema" value="http://schema.org/Person" scope="request"/>
     <parameter name="schema" value="http://schema.org/Person" />
     <meta name="layout" content="columnCLayout">
