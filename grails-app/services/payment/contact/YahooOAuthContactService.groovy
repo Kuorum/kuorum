@@ -25,15 +25,21 @@ class YahooOAuthContactService implements IOAuthLoadContacts {
         List<ContactRDTO> contacts = listContacts.collect{
             transformYahooContact(it)
         }
-        contactService.addBulkContacts(contacts)
+        contactService.addBulkContacts(user,contacts)
     }
 
     private ContactRDTO transformYahooContact(def infoContact) {
         def infoName = infoContact.fields.find{it.type=="name"}?.value
         String email = infoContact.fields.find{it.type=="email"}?.value
         String guid = infoContact.fields.find{it.type=="guid"}?.value
+        String notes = infoContact.fields.find{it.type=="notes"}?.value
+        String company = infoContact.fields.find{it.type=="company"}?.value
         String name = "${infoName.givenName} ${infoName.familyName}".trim()
-        ContactRDTO contactRDTO = new ContactRDTO(email: email, name:name);
+        Set tags = []
+        if (company){
+            tags << company
+        }
+        new ContactRDTO(email: email, name:name, notes:notes, tags: tags);
     }
 
     private def getListContacts(Token accessToken){
