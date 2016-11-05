@@ -1,13 +1,10 @@
 <ul class="socialGo clearfix">
     %{--<li><a href="#" class="btn tw"><span class="fa fa-twitter fa-lg"></span> Entrar con Twitter</a></li>--}%
     <li>
-        <div class="hidden" id="facebookLoginContainer">
-            <facebookAuth:connect id="facebookLogin" type="server"/>
-        </div>
-        <a href="#" onclick="$('#facebookLoginContainer a')[0].click(); return false;" class="btn btn-lg fb">
+        <oauth:connect provider="facebook" id="facebook-connect-link" class="btn btn-lg fb">
             <span class="fa fa-facebook fa-lg"></span>
             <g:message code="login.rrss.facebook"/>
-        </a>
+        </oauth:connect>
     </li>
     <li>
         <oauth:connect provider="google" id="google-connect-link" class="btn btn-lg gog">
@@ -15,5 +12,6 @@
             <g:message code="login.rrss.google"/>
         </oauth:connect>
     </li>
+
     %{--<li><a href="#" class="btn lin"><span class="fa fa-linkedin fa-lg"></span> Entrar con LinkedIn</a></li>--}%
 </ul>
