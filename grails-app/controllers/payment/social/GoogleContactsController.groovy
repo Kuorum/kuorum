@@ -16,7 +16,7 @@ class GoogleContactsController {
     }
 
     def loadContactsFromGoogle(){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         String code = params.code
         contactFromGoogleService.loadContacts(user, code, getRedirectUrl())
         redirect(mapping:'politicianContactImportSuccess')
