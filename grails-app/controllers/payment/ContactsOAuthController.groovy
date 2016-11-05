@@ -53,7 +53,7 @@ class ContactsOAuthController {
 
 		// Create the relevant authentication token and attempt to log in.
 		String url = getRedirectUrl()
-		KuorumUser loggedUser = (KuorumUser) springSecurityService.currentUser
+		KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
 		try {
 			loadContacts(loggedUser, params.provider, token)
 		} catch (KuorumException e) {
