@@ -32,7 +32,7 @@ class ContactFiltersController {
             render ([status:"error", msg:g.message(code:"tools.contact.filter.form.saveAs.noName")] as JSON)
             return;
         }
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         FilterRDTO filterRDTO = filterCommand.buildFilter()
         filterRDTO.name = newFilterName
         ExtendedFilterRSDTO filterSaved = contactService.createFilter(user,filterRDTO);
@@ -57,7 +57,7 @@ class ContactFiltersController {
             render ([status:"error", msg:g.message(code:'tools.contact.filter.form.notExits')] as JSON)
             return;
         }
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         FilterRDTO filterRDTO = filterCommand.buildFilter()
         ExtendedFilterRSDTO filterSaved = contactService.updateFilter(user,filterRDTO, filterId);
 
@@ -76,7 +76,7 @@ class ContactFiltersController {
             return
         }
 
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         FilterRDTO filterRDTO = filterCommand.buildFilter()
         ContactPageRSDTO usersPage = contactService.getUsers(user, filterRDTO)
 
@@ -90,7 +90,7 @@ class ContactFiltersController {
 
 
     def getFilterData(Long filterId){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         ExtendedFilterRSDTO filterRDTO
         if (filterId ==-2){
             filterRDTO = new ExtendedFilterRSDTO()
@@ -104,7 +104,7 @@ class ContactFiltersController {
     }
 
     def deleteFilter(Long filterId){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         contactService.removeFilter(user, filterId)
         render "removed"
     }

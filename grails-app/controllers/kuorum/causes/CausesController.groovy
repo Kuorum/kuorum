@@ -19,14 +19,14 @@ class CausesController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def supportCause(String causeName) {
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         SupportedCauseRSDTO causeRSDTO = causesService.toggleSupportCause(user, causeName)
         render ([cause:causeRSDTO] as JSON)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def discardCause(String causeName){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         causesService.discardSuggestedCause(user, causeName)
         Pagination pagination = new Pagination(offset: params.offset, max: 1)
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, pagination)

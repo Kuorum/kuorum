@@ -107,13 +107,13 @@ class CustomRegisterController {
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def step2(){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         [command:new Step2Command(user)]
     }
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def step2Save(Step2Command  command){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             render view: "step2", model:[command:command]
             return;
@@ -143,7 +143,7 @@ class CustomRegisterController {
 
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def step3(){
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
         [user:user, command: new PromotionalCodeCommand()]
     }
 
@@ -153,10 +153,10 @@ class CustomRegisterController {
             return;
         }else{
             if (command.hasErrors()){
-                KuorumUser user = springSecurityService.currentUser
+                KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
                 render view: "step3", model:[user:user, command: command]
             }else{
-                KuorumUser user = springSecurityService.currentUser
+                KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
                 promotionalCodeService.setPromotionalCode(user, command.promotionalCode)
                 flash.message=g.message(code: 'subscriber.step3.promotionalCode.success')
                 redirect(mapping:"dashboard")
@@ -170,7 +170,7 @@ class CustomRegisterController {
 
         // THE USER WAS DOING SOME WIRED AND TRY TO SUBSCRIBE AN ACCOUNT ALREADY LOGGED
         if (springSecurityService.isLoggedIn()){
-            KuorumUser user = springSecurityService.currentUser
+            KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
             offerService.purchaseOffer(user, offerType, kpeople)
             flash.message = message(code: 'dashboard.userProfile.advise.politicianRequest.text')
             if(politicianService.isPolitician(user)){

@@ -23,7 +23,8 @@ class CausesTagLib {
         String causeSupportClass = ""
         String ariaPressed = "false"
         if (springSecurityService.isLoggedIn()){
-            SupportedCauseRSDTO supportedCauseRSDTO = causesService.statusCause(springSecurityService.currentUser, cause.name)
+            KuorumUser userLogged = KuorumUser.get(springSecurityService.principal.id)
+            SupportedCauseRSDTO supportedCauseRSDTO = causesService.statusCause(userLogged, cause.name)
             if (supportedCauseRSDTO.supported){
                 causeSupportClass = "active"
                 ariaPressed = "true"

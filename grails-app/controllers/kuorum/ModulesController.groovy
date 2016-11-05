@@ -96,7 +96,7 @@ class ModulesController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userCauses() {
-        KuorumUser user = springSecurityService.currentUser
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<CauseRSDTO> supportedCauses = causesService.findSupportedCauses(user)
 
         if (supportedCauses.size()>10){

@@ -13,7 +13,7 @@ class EditorRecruitmentController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def requestEditor() {
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         KuorumUser user = editorService.requestEditorRights(loggedUser)
 
         if (!user || user.hasErrors()){
@@ -26,7 +26,7 @@ class EditorRecruitmentController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def discardEditor() {
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         KuorumUser user = editorService.discardEditorWarns(loggedUser)
 
         if (!user || user.hasErrors()){

@@ -44,7 +44,7 @@ class MassMailingController {
 
 
     def createMassMailing(){
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         modelMassMailing(loggedUser, new MassMailingCommand(), params.testFilter)
     }
 
@@ -55,7 +55,7 @@ class MassMailingController {
     }
 
     def saveMassMailing(MassMailingCommand command){
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             if (command.errors.allErrors.findAll{it.field == "scheduled"}){
                 flash.error=g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.warn')
@@ -71,7 +71,7 @@ class MassMailingController {
     }
 
     def showCampaign(Long campaignId){
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
         if (campaignRSDTO.status == CampaignStatusRSDTO.DRAFT || campaignRSDTO.status == CampaignStatusRSDTO.SCHEDULED ){
             MassMailingCommand command = new MassMailingCommand()
@@ -99,13 +99,13 @@ class MassMailingController {
     }
 
     def showMailCampaign(Long campaignId){
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
         render campaignRSDTO.htmlBody?:"Not sent"
     }
 
     def showTrackingMails(Long campaignId){
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         Integer page = params.page?Integer.parseInt(params.page):0;
         Integer size = params.size?Integer.parseInt(params.size):10;
         TrackingMailStatsByCampaignPageRSDTO trackingPage = massMailingService.findTrackingMails(loggedUser, campaignId, page, size)
@@ -113,7 +113,7 @@ class MassMailingController {
     }
 
     def updateCampaign(MassMailingCommand command){
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             if (command.errors.allErrors.findAll{it.field == "scheduled"}){
                 flash.error=g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.warn')
@@ -129,7 +129,7 @@ class MassMailingController {
     }
 
     def removeCampaign(Long campaignId){
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         massMailingService.removeCampaign(loggedUser, campaignId)
         render ([msg:"Campaing deleted"] as JSON)
     }
@@ -168,7 +168,7 @@ class MassMailingController {
     }
 
     def sendMassMailingTest(MassMailingCommand command, KuorumUser user){
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             String msg = "error"
             ([msg:msg] as JSON)

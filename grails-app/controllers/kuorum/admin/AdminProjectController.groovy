@@ -66,7 +66,7 @@ class AdminProjectController  extends  AdminController{
         if (SpringSecurityUtils.ifAnyGranted('ROLE_ADMIN')){
             return [projects:Project.findAllByPublished(false)]
         }else if (SpringSecurityUtils.ifAnyGranted('ROLE_POLITICIAN')){
-            KuorumUser user = springSecurityService.currentUser
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             return [projects: Project.findAllByPublishedAndRegion(false, user.personalData.province)]
         }
     }

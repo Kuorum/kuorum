@@ -14,7 +14,7 @@ class KuorumUserAuditService {
         try{
             KuorumUserAudit kuorumUserAudit = new KuorumUserAudit()
             if (springSecurityService.isLoggedIn()){
-                kuorumUserAudit.editor = springSecurityService.currentUser
+                kuorumUserAudit.editor = KuorumUser.get(springSecurityService.principal.id)
             }
             if (auditUser != kuorumUserAudit.editor) {
 

@@ -213,7 +213,7 @@ class RegisterService {
     boolean isPasswordSetByUser(String encodedPassword){
         return !(!encodedPassword
                 || encodedPassword.startsWith(NOT_USER_PASSWORD)
-                || encodedPassword.startsWith(FacebookAuthService.PASSWORD_PREFIX)
+                || encodedPassword.startsWith(FacebookOAuthService.PASSWORD_PREFIX)
                 || encodedPassword.startsWith(GoogleOAuthService.PASSWORD_PREFIX))
 
     }

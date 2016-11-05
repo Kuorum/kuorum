@@ -321,7 +321,7 @@ class FormTagLib {
         String timeZoneChangeLink=""
 
         if (time){
-            KuorumUser user = springSecurityService.currentUser
+            KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
             typePicker = "datetime";
             timeZoneId=utcOffset(user.timeZone)
             timeZoneLabel=timeZoneToString(user.timeZone)

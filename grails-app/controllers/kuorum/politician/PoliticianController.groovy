@@ -12,13 +12,13 @@ class PoliticianController {
     PoliticianService politicianService;
 
     def requestAPoliticianBetaTester() {
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         politicianService.requestABetaTesterAccount(loggedUser)
         redirect mapping:'dashboard'
     }
 
     def betaTesterPage(){
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         [user:loggedUser]
     }
 }

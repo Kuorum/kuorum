@@ -53,8 +53,7 @@ class SpringSecurityOAuthController {
         org.scribe.model.Token token = session[sessionKey]
         // Create the relevant authentication token and attempt to log in.
         OAuthToken oAuthToken = createAuthToken(params.provider, token)
-        String url = defaultTargetUrl
-        authenticateAndRedirect(oAuthToken, url)
+        authenticateAndRedirect(oAuthToken, defaultTargetUrl)
     }
 
     def onFailure = {
@@ -91,7 +90,7 @@ class SpringSecurityOAuthController {
     protected void authenticateAndRedirect(OAuthToken oAuthToken, redirectUrl) {
         session.removeAttribute SPRING_SECURITY_OAUTH_TOKEN
         SecurityContextHolder.context.authentication = oAuthToken
-        redirect (url: redirectUrl)
+        redirect (redirectUrl)
     }
 
 }

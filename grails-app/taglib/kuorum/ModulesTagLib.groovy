@@ -74,7 +74,7 @@ class ModulesTagLib {
     def recommendedProjects={attrs ->
         KuorumUser user = null
         if (springSecurityService.isLoggedIn()){
-            user = (KuorumUser)springSecurityService.currentUser;
+            user = KuorumUser.get(springSecurityService.principal.id);
         }
         List<Project> projects = projectService.relevantProjects(user, new Pagination(max:2))
         out << render (template:'/modules/recommendedProjects', model: [projects:projects])
