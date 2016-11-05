@@ -69,9 +69,9 @@ class SpringSecurityOAuthController {
         render status: code, text: msg
     }
 
-    protected OAuthToken createAuthToken(providerName, scribeToken) {
+    protected OAuthToken createAuthToken(providerName, org.scribe.model.Token token) {
         IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService")
-        OAuthToken oAuthToken = providerService.createAuthToken(scribeToken)
+        OAuthToken oAuthToken = providerService.createAuthToken(token)
         oAuthToken.authenticated = true
         return oAuthToken
     }

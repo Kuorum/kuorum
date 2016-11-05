@@ -26,7 +26,7 @@ class GoogleOAuthService implements IOAuthService{
     private static final String PROVIDER = 'Google+'
     public static final String PASSWORD_PREFIX = "*google*"
 
-    OAuthToken createAuthToken(accessToken) {
+    OAuthToken createAuthToken(org.scribe.model.Token accessToken) {
         def response = oauthService.getGoogleResource(accessToken, GOOLE_USER_INFO_URL)
         def googleUser
         try {
