@@ -57,6 +57,7 @@ class FacebookOAuthService implements IOAuthService{
         user.accountExpired = false
         user.accountLocked = false
         user.enabled = true
+        user.password = registerCommand.password
         user.alias = user.alias?:fbProfile.username
         //Ya no pedimos datos personales
 //        if (user.userType == UserType.PERSON){
