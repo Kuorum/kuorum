@@ -31,7 +31,8 @@ class DiscoverController {
         def dynamicDiscoverProjects = []
         List<Region> regions =[]
         if (springSecurityService.isLoggedIn()){
-            regions = regionService.findUserRegions(springSecurityService.currentUser)
+            KuorumUser loggedUser =  KuorumUser.get(springSecurityService.principal.id)
+            regions = regionService.findUserRegions(loggedUser)
         }else{
             //TODO: PEnsar cuando no sea solo para espa�a
             regions << Region.findByIso3166_2("EU-ES")

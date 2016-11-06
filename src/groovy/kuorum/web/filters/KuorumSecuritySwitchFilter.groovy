@@ -58,7 +58,7 @@ class KuorumSecuritySwitchFilter extends GenericFilterBean  {
         HttpServletRequest request = ((HttpServletRequest) req);
 
         //Se supone que está logado. Tiene más filtros delante que hacen esto
-        KuorumUser loggedUser = springSecurityService.currentUser
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
 
 
         KuorumUser switchingUser = KuorumUser.findByEmail(request.getParameter("j_username"))

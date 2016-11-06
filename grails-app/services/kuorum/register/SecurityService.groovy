@@ -15,7 +15,7 @@ class SecurityService {
         if (!springSecurityService.isLoggedIn()){
              return false
         }
-        KuorumUser kuorumUser = springSecurityService.currentUser
+        KuorumUser kuorumUser = KuorumUser.get(springSecurityService.principal.id)
         Post post = Post.get(new ObjectId(id))
         post.owner == kuorumUser
     }

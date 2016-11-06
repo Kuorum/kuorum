@@ -43,7 +43,7 @@ class UserReputationService {
     private String getEvaluatorUserId(){
         String evaluatorId = cookieService.getCookie(COOKIE_EVALUATOR_NAME)
         if (springSecurityService.isLoggedIn()){
-            evaluatorId = springSecurityService.currentUser.id.toString()
+            evaluatorId = springSecurityService.principal.id.toString()
         }
         return evaluatorId;
     }

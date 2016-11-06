@@ -81,13 +81,15 @@
                                         </g:link>
                                     </li>
                                     <li>
-                                        <g:link mapping="politicianContactImportOutlook">
+                                        <oauth:connect provider="outlook" id="yahoo-connect-link">
                                             <g:message code="login.rrss.outlook"/>
-                                        </g:link>
+                                        </oauth:connect>
                                     </li>
-
-                                    %{--<li><a href="#">Yahoo!</a></li>--}%
-                                    %{--<li><a href="#">Outlook</a></li>--}%
+                                    <li>
+                                        <oauth:connect provider="yahoo" id="yahoo-connect-link">
+                                            Yahoo!
+                                        </oauth:connect>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

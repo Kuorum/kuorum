@@ -1,13 +1,14 @@
 package payment
 
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.plugin.springsecurity.SpringSecurityUtils
-import grails.plugin.springsecurity.oauth.OAuthToken
 import kuorum.core.exception.KuorumException
-import kuorum.register.IOAuthService
 import kuorum.users.KuorumUser
-import org.springframework.security.core.context.SecurityContextHolder
 import payment.contact.IOAuthLoadContacts
+import org.scribe.model.Token
+
+import javax.annotation.PreDestroy
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class ContactsOAuthController {
 
@@ -17,53 +18,70 @@ class ContactsOAuthController {
 	def oauthService
 	SpringSecurityService springSecurityService
 
+	ExecutorService executor = Executors.newSingleThreadExecutor()
+	@PreDestroy
+	void shutdown() {
+		executor.shutdownNow()
+	}
+
+
 	/**
 	 * Is called on oauth callback
 	 */
-	def onSuccess = {
+	def onSuccess() {
 		// Validate the 'provider' URL. Any errors here are either misconfiguration
 		// or web crawlers (or malicious users).
 		if (!params.provider) {
-			renderError 400, "The Spring Security OAuth callback URL must include the 'provider' URL parameter."
+			//flash.error = g.message(code: 'tools.contact.import.oauth.errorProvidero')
+			flash.error = "The Spring Security OAuth callback URL must include the 'provider' URL parameter."
+			redirect(mapping: 'politicianContacts')
+
+			//renderError(400, "The Spring Security OAuth callback URL must include the 'provider' URL parameter.")
 			return
 		}
 
 		def sessionKey = oauthService.findSessionKeyForAccessToken(params.provider)
 		if (!session[sessionKey]) {
-			renderError 500, "No OAuth token in the session for provider '${params.provider}'!"
+			flash.error = "No OAuth token in the session for provider '${params.provider}'!"
+			redirect(mapping: 'politicianContacts')
+
+			//renderError(500, "No OAuth token in the session for provider '${params.provider}'!")
 			return
 		}
 
-		org.scribe.model.Token token = session[sessionKey]
+		Token token = (Token) session[sessionKey]
+
 		// Create the relevant authentication token and attempt to log in.
 		String url = getRedirectUrl()
-		KuorumUser loggedUser = springSecurityService.currentUser
-		try{
+		KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+		try {
 			loadContacts(loggedUser, params.provider, token)
-		}catch (KuorumException e){
-			url = g.createLink(mapping: "politicianContacts")
+		} catch (KuorumException e) {
 			flash.error = "Error importing contacts"
+			url = g.createLink(mapping: "politicianContacts", absolute: true)
 		}
 
-		removeTokenAndRedirect( url)
+		removeTokenAndRedirect(url)
 	}
 
-	def onFailure = {
-		removeTokenAndRedirect( g.createLink(mapping: "politicianContacts", absolute: true))
+	def onFailure() {
+		flash.error="Error recovering contacts"
+		removeTokenAndRedirect(g.createLink(mapping: "politicianContacts", absolute: true))
 	}
 
-	private String getRedirectUrl(){
-		g.createLink(mapping: "politicianContactSuccess", absolute: true)
+	private String getRedirectUrl() {
+		g.createLink(mapping: "politicianContactImportSuccess", absolute: true)
 	}
 
-
-	protected void loadContacts(KuorumUser user, providerName, scribeToken) throws KuorumException {
-		IOAuthLoadContacts providerService = grailsApplication.mainContext.getBean("${providerName}OAuthContactService")
-		providerService.loadContacts(user, scribeToken)
+	protected void loadContacts(KuorumUser user, providerName, Token scribeToken) throws KuorumException {
+		IOAuthLoadContacts providerService = (IOAuthLoadContacts) grailsApplication.mainContext.getBean("${providerName}OAuthContactService")
+		executor.execute{
+			providerService.loadContacts(user, scribeToken)
+		}
 	}
 
-	protected void removeTokenAndRedirect( redirectUrl) {
-		session.removeAttribute SPRING_SECURITY_OAUTH_TOKEN
-		redirect (url: redirectUrl)
+	protected void removeTokenAndRedirect(redirectUrl) {
+		session.removeAttribute(SPRING_SECURITY_OAUTH_TOKEN)
+		redirect(url: redirectUrl)
 	}
 }

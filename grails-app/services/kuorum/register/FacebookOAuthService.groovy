@@ -1,5 +1,7 @@
 package kuorum.register
-import com.the6hours.grails.springsecurity.facebook.FacebookAuthToken
+
+import grails.plugin.springsecurity.oauth.FacebookOAuthToken
+import grails.plugin.springsecurity.oauth.OAuthToken
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
@@ -8,13 +10,15 @@ import kuorum.users.FacebookUser
 import kuorum.users.KuorumUser
 import kuorum.users.PersonalData
 import kuorum.users.RoleUser
+import org.scribe.model.Token
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.social.facebook.api.Facebook
 import org.springframework.social.facebook.api.FacebookProfile
 import org.springframework.social.facebook.api.impl.FacebookTemplate
 import springSecurity.KuorumRegisterCommand
 
-class FacebookAuthService {
+class FacebookOAuthService implements IOAuthService{
 
     private static final String FORMAT_BIRTHDAY_FACEBOOK = "MM/dd/yyyy"
 
@@ -25,23 +29,18 @@ class FacebookAuthService {
     public static final String PASSWORD_PREFIX = "*facebook*"
 
     private static final PROVIDER = "Facebook"
-    /**
-     * Called first time an user register with facebook
-     * @link http://splix.github.io/grails-spring-security-facebook/guide/5%20Customization.html
-     *
-     * @param facebookAuthToken
-     * @return
-     */
-    FacebookUser create(FacebookAuthToken facebookAuthToken) {
-        FacebookUser facebookUser = new FacebookUser(
-                accessToken:facebookAuthToken.accessToken.accessToken,
-                uid:facebookAuthToken.uid,
-                accessTokenExpires:facebookAuthToken.accessToken.expireAt
-        )
-        Facebook facebook = new FacebookTemplate(facebookAuthToken.accessToken.accessToken)
+
+    @Override
+    OAuthToken createAuthToken(Token accessToken) {
+
+
+        Facebook facebook = new FacebookTemplate(accessToken.token)
         FacebookProfile fbProfile = facebook.userOperations().userProfile
         log.info("Nuevo usario con facebook con email: ${fbProfile.email}" )
 
+        FacebookUser facebookUser = FacebookUser.findByUid(fbProfile.id)?:new FacebookUser(uid:fbProfile.id)
+        facebookUser.accessToken = accessToken.token
+        facebookUser.accessTokenExpires = getExpirationDateFromToken(accessToken)
 
         //YA no pedimos los estudios
 //        Studies studies = recoverStudies(fbProfile)
@@ -58,7 +57,8 @@ class FacebookAuthService {
         user.accountExpired = false
         user.accountLocked = false
         user.enabled = true
-        user.alias = fbProfile.username
+        user.password = registerCommand.password
+        user.alias = user.alias?:fbProfile.username
         //Ya no pedimos datos personales
 //        if (user.userType == UserType.PERSON){
 //            log.info("${fbProfile.email} es una persona")
@@ -88,8 +88,22 @@ class FacebookAuthService {
             kuorumMailService.sendRegisterUserViaRRSS(user, PROVIDER)
         }
         facebookUser
+
+        FacebookOAuthToken oAuthToken = new FacebookOAuthToken(accessToken, fbProfile.email)
+        UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
+        def authorities = mongoUserDetailsService.getRoles(user)
+
+        oAuthToken.principal = userDetails
+        oAuthToken.authorities = authorities
+        oAuthToken
     }
 
+    private Date getExpirationDateFromToken(Token accessToken){
+        Calendar cal = Calendar.getInstance()
+        Integer secondsAlive = Integer.parseInt(accessToken.rawResponse.split("&")[1].split("=")[1]);
+        cal.add(Calendar.SECOND, secondsAlive)
+        cal.getTime()
+    }
     private def overwriteFieldIfNotFilled(PersonalData personalData, String field, FacebookProfile fbProfile, def parseData){
         try{
             if (personalData.hasProperty(field) && personalData."$field")

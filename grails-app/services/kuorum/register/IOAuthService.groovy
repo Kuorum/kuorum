@@ -7,6 +7,6 @@ import grails.plugin.springsecurity.oauth.OAuthToken
  */
 interface IOAuthService {
 
-    OAuthToken createAuthToken(accessToken)
+    OAuthToken createAuthToken(org.scribe.model.Token accessToken)
 
 }

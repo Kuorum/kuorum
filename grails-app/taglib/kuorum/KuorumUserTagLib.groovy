@@ -387,16 +387,20 @@ class KuorumUserTagLib {
 
     Set<String> weceAlias = kaunasAlias + manheimAlias + alcobendasAlias + palermoAlias
     def isWeceUser= { attrs, body ->
-        KuorumUser user = springSecurityService.currentUser
-        if (weceAlias.contains(user.alias)){
-            out << body()
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
+            if (weceAlias.contains(user.alias)){
+                out << body()
+            }
         }
     }
 
     def isNotWeceUser= { attrs, body ->
-        KuorumUser user = springSecurityService.currentUser
-        if (!weceAlias.contains(user.alias)){
-            out << body()
+        if (springSecurityService.isLoggedIn()) {
+            KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+            if (!weceAlias.contains(user.alias)) {
+                out << body()
+            }
         }
     }
 }

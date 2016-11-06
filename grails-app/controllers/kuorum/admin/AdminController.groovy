@@ -47,7 +47,8 @@ class AdminController {
     }
 
     def updateMailChimp(){
-        mailchimpService.updateAllUsers(springSecurityService.currentUser)
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        mailchimpService.updateAllUsers(loggedUser)
         flash.message="Se ha puesto en marcha el proceso de actualización de mail chimp. Recibirá un email cuando termine"
         redirect mapping:"adminPrincipal"
     }
@@ -64,7 +65,8 @@ class AdminController {
             render(view: 'solrIndex')
             return
         }
-        politicianService.asyncUploadPoliticianCSV(springSecurityService.currentUser,uploadedFile.inputStream)
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        politicianService.asyncUploadPoliticianCSV(loggedUser,uploadedFile.inputStream)
         flash.message = "CSV ${uploadedFile.originalFilename} uploaded. An email will be sent at the end of the process"
         redirect(mapping:"adminSearcherIndex")
 //        render view: "csvPoliticiansLoaded", model: [politiciansOk:politiciansOk,politiciansWrong:politiciansWrong, fileName:uploadedFile.getOriginalFilename()]

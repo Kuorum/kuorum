@@ -155,9 +155,9 @@ grails.project.dependency.resolution = {
 
         compile ':cookie:1.2'
         compile ":spring-security-core:2.0-RC4"
-        compile ":spring-security-facebook:0.17"
-        compile ':spring-security-oauth:2.0.2'
+        compile ':spring-security-oauth:2.1.0-RC4'
         compile ':spring-security-oauth-google:0.2'
+        compile ':spring-security-oauth-facebook:0.2'
 
         //compile ":spring-security-acl:2.0-RC1"
         compile "org.grails.plugins:spring-security-acl:2.0.1" //Para las partes que tienen seguridad custom

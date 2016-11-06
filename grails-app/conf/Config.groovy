@@ -22,7 +22,7 @@ grails.config.locations = [
 // log4j configuration
 
 grails.logging.jul.usebridge = false
-grails.serverURL = "http://127.0.0.1:8080/kuorum"
+grails.serverURL = "http://local.kuorum.org:8080/kuorum"
 
 log4j = {
     appenders {
@@ -111,7 +111,7 @@ grails {
         }
     }
 }
- 
+
 grails.converters.encoding = "UTF-8"
 grails.converters.default.circular.reference.behaviour="INSERT_NULL"
 grails.converters.json.default.deep=true
@@ -171,16 +171,6 @@ grails.plugin.springsecurity.filterChain.chainMap = [  //LOS FILTROS SIN ESPACIO
         '/**':         'JOINED_FILTERS'
 ]
 //FACEBOOK
-grails.plugin.springsecurity.facebook.domain.classname='kuorum.users.FacebookUser'
-grails.plugin.springsecurity.facebook.domain.appUserConnectionPropertyName='user'
-grails.plugin.springsecurity.facebook.appId='OVERWRITE_FROM_EXTERNAL_CONFIG'
-grails.plugin.springsecurity.facebook.secret='OVERWRITE_FROM_EXTERNAL_CONFIG'
-//grails.plugin.springsecurity.facebook.permissions='email,user_about_me,user_birthday,user_education_history'
-grails.plugin.springsecurity.facebook.permissions='email,user_about_me'
-grails.plugin.springsecurity.facebook.autoCreate.roles='ROLE_USER'
-grails.plugin.springsecurity.facebook.filter.type='redirect'
-grails.plugin.springsecurity.facebook.filter.redirect.successHandler='facebookSuccessHandler'
-//grails.plugins.springsecurity.facebook.filter.redirect.failureHandler = 'facebookHandler'
 grails.plugin.springsecurity.rememberMe.alwaysRemember=true
 grails.plugin.springsecurity.rememberMe.tokenValiditySeconds=60*60*24*365 //(one year)
 grails.plugin.springsecurity.rememberMe.key='kuorumRememberMe'
@@ -195,7 +185,17 @@ grails.plugin.springsecurity.loginDomain = "https://kuorum.org"
 grails.plugin.cookiesession.domain=".kuorum.org"
 grails.plugin.cookiesession.springsecuritycompatibility=true
 oauth {
+    debug = true
     providers {
+        facebook {
+            api = org.scribe.builder.api.FacebookApi
+            key = 'FACEBOOK KEY'
+            secret = 'FACEBOOK SECRET'
+            successUri = '/oauth/facebook/success'
+            failureUri = '/oauth/facebook/failure'
+            callback = "http://localhost:8080/kuorum/oauth/facebook/callback" // Is overwritten with properties file
+            scope = 'public_profile user_friends email user_about_me'
+        }
         // for Google OAuth 2.0
         google {
             api = org.grails.plugin.springsecurity.oauth.GoogleApi20
@@ -215,7 +215,16 @@ oauth {
             callback = "http://localhost:8080/kuorum/oauth/outlook/callback"
             scope = 'openid offline_access profile https://outlook.office.com/contacts.read'
         }
-
+        yahoo {
+            api = kuorum.payment.contact.yahoo.oauth.YahooApi
+//            api = org.scribe.builder.api.YahooApi
+            key = 'YAHOO KEY'
+            secret = 'YAHOO SECRET'
+            successUri = '/account/contacts/oauth/yahoo/success'
+            failureUri = '/account/contacts/oauth/yahoo/success'
+            callback = "http://local.kuorum.org:8080/kuorum/account/contacts/oauth/yahoo/success" // Is overwritten with properties file
+            scope = 'mail-r sdct-r' // Mail y contactos
+        }
         // ...
     }
 }

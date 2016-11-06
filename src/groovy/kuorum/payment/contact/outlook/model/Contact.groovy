@@ -11,8 +11,6 @@ public class Contact {
 	private String givenName;
 	@JsonProperty("Surname")
 	private String surname;
-	@JsonProperty("CompanyName")
-	private String companyName;
 	@JsonProperty("EmailAddresses")
 	private EmailAddress[] emailAddresses;
 
@@ -33,12 +31,6 @@ public class Contact {
 	}
 	public void setSurname(String surname) {
 		this.surname = surname;
-	}
-	public String getCompanyName() {
-		return companyName;
-	}
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
 	}
 	public EmailAddress[] getEmailAddresses() {
 		return emailAddresses;
