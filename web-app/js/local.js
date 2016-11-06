@@ -317,6 +317,17 @@ function pageLoadingOff (){
 }
 $(document).ready(function() {
 
+    // highlight search resultas with mark.js for list.js
+
+    if ($('input#searchCampaign').length) {
+        var mark = function() {
+            var keyword = $('input#searchCampaign').val();
+            $('#campaignsList').unmark().mark(keyword, options);
+        };
+        $('input#searchCampaign').on('input', mark);
+    }
+
+
     // DISABLED NAV TABS
     $(".nav-tabs > li.disabled > a, .nav-tabs > li.disabled").on("click", function(e){e.stopPropagation();return false;})
 
