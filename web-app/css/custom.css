@@ -5588,7 +5588,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box-order-options > div {width: 34%; float: right; margin-top: 0}
     .nav-tabs.simple > li > a {padding: 10px 15px; float: left;}
     .new-filter-actions {margin-top: -23px; margin-bottom: 35px;}
-    .new-filter-options .form-control {margin-left: 30px;}
+    .new-filter-options .form-control {margin-left: 20px;}
     .new-filter-options.first .form-control {margin-left: 0;}
     .new-filter-options.first > div:last-child {line-height: 38px;}
     .new-filter-options .minus-condition, .new-filter-options .plus-condition {position: absolute;}
