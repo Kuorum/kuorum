@@ -80,6 +80,8 @@ modules = {
         resource url: 'js/list.min.js'
         resource url: 'js/list.pagination.min.js'
         resource url:'js/highstock.js'
+        resource url:'js/jquery.mark.min.js'
+        resource url:'js/mark.min.js'
         resource url:'js/custom.js'
         resource url:'css/custom.css'
         resource url:'js/local.js'
