@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.ui.ResetPasswordCommand
+import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import grails.validation.Validateable
 import kuorum.KuorumFile
 import kuorum.files.FileService
@@ -24,6 +25,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     KuorumUserService kuorumUserService
     SpringSecurityService springSecurityService
+    SpringSecurityUiService springSecurityUiService
     NotificationService notificationService
 
     FileService fileService
