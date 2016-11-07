@@ -8,4 +8,7 @@
           hreflang="${lang.locale.language}" />
 </g:each>
 
-<link rel="alternate" href="https://kuorum.org${request.pathInfo}${request.queryString? "?" +request.queryString:''}" hreflang="x-default" />
+<link
+        rel="alternate"
+        href="https://kuorum.org${request.forwardURI}${request.queryString? "?" +request.queryString:''}"
+        hreflang="x-default" />
