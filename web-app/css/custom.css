@@ -3047,6 +3047,7 @@ textarea.error,
 .uploaderImageContainer.USER_PROFILE .qq-upload-drop-area {height:234px;}
 .uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {height:367px;}
 .uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
+.uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {height:122px;}
 .uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:353px;}
 .uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
 .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0;}
