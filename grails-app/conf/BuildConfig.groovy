@@ -129,6 +129,10 @@ grails.project.dependency.resolution = {
         // Library for detect the charset of the uploaded file
         compile group: 'com.googlecode.juniversalchardet', name: 'juniversalchardet', version: '1.0.3'
 
+        // Library for clean html
+        compile group: 'org.jsoup', name: 'jsoup', version: '1.10.1'
+
+
 
 //        test "org.gebish:geb-spock:$gebVersion"
 //        test("org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion")
