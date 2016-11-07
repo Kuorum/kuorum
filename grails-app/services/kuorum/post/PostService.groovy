@@ -17,6 +17,8 @@ import kuorum.mail.KuorumMailService
 import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
 import kuorum.users.PoliticianActivity
+import org.jsoup.Jsoup
+import org.jsoup.safety.Whitelist
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -168,22 +170,16 @@ class PostService {
             text = text.replaceAll('<br>','</p><p>')
             text = text.replaceAll("&nbsp;", " ")
             text = text.replaceAll(~/>\s*</, "> <")
-            def openTags = ~/<[^\/ibaup]r{0,1} *[^>]*>/  // Only allow <a> <b> <i> <u> <p>
-            def closeTags = ~/<\/[^ibaup] *[^>]*>/ // Only allow </a> </b> </i> </u> </p>
-            text = text.replaceAll(openTags,'')
-            text = text.replaceAll(closeTags,'')
+            //REMOVING NOT CLOSED TAGS of <a> JSOUP creates its ends or its starts with no href
+            text = removeNotClosedTag(text, 'a')
 
-            def notAllowedAttributes = ~/(<[abiup]r{0,1})(style=["'][^"']*["']){0,1}([^h>]*)(href=[^ >]*){0,1}([^h>]*)(style=["'][^"']*["']){0,1}>/ //Delete all attributes that are not href
-            text = text.replaceAll(notAllowedAttributes, '$1 $4>')
-            text = text.replaceAll(~/( *)(>)/,'$2')
-            text = text.replaceAll(~/(<a href=[^ >]*)(>)/,'$1 rel=\'nofollow\' target=\'_blank\'>')
 
-            //REMOVING NOT CLOSED TAGS
-            "abiup".each {
-                text = removeNotClosedTag(text, it)
-            }
+            Whitelist whitelist = Whitelist.basic()
+                    .addEnforcedAttribute("a", "target", "_blank")
+            text = Jsoup.clean(text, whitelist);
+            text = text.replaceAll("\n","") // JSOUP adds new lines codes.
 
-            def emtpyTags = ~/<[abiup]>\s*<\/[abiup]>/
+            def emtpyTags = ~/<[abiup][^>]*>\s*<\/[abiup]>/
             while(text.find(emtpyTags)){
                 text = text.replaceAll(emtpyTags,'')
             }

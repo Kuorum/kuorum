@@ -18,7 +18,7 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 @TestFor(PostService)
-@Mock([KuorumUser, Post, Project, RoleUser, Cluck])
+//@Mock([KuorumUser, Post, Project, RoleUser, Cluck])
 class PostServiceSpec extends Specification{
 
     IndexSolrService indexSolrService = Mock(IndexSolrService)
@@ -113,7 +113,7 @@ class PostServiceSpec extends Specification{
         given: "A post"
         when: "Calculating num emails"
         //"service" represents the grails service you are testing for
-       Integer numEmailsCalculated= service.calculateNumEmails(amount)
+        Integer numEmailsCalculated= service.calculateNumEmails(amount)
 
         then: "Expected num emails"
         numEmailsCalculated == numEmails
@@ -180,7 +180,7 @@ class PostServiceSpec extends Specification{
     }
 
     @Unroll
-    void "test corosScripting processor #raw => #expectedText"(){
+    void "test crosScripting processor #raw => #expectedText"(){
         given:"A text written by user"
 
         when:
@@ -192,14 +192,14 @@ class PostServiceSpec extends Specification{
         "<i> hola </i>"                 | "<i> hola </i>"
         "<b>hola</b>"                   | "<b>hola</b>"
         "<u> hola </u>"                 | "<u> hola </u>"
-        "<a href='dd'> hola </a>"                           | "<a href='dd' rel='nofollow' target='_blank'> hola </a>"
-        "<a href='dd' style=''> hola </a>"                  | "<a href='dd' rel='nofollow' target='_blank'> hola </a>"
-        "<a class='' href='dd' style=''>hola</a>"         | "<a href='dd' rel='nofollow' target='_blank'>hola</a>"
-        "txt<script> hola </script>txt"                   | "txt hola txt"
-        "<script> hola </script>"                   | "hola"
-        "<script conflorituras> hola </script>"                   | "hola"
-        "<strong class='dd'> hola </strong>"        | "hola"
-        "<script>alert(\"hola\")</script>"          | "alert(\"hola\")"
+        "<a href=\"http://dd.com\"> hola </a>"                           | "<a href=\"http://dd.com\" rel=\"nofollow\" target=\"_blank\"> hola </a>"
+        "<a href=\"http://dd.com\" style=''> hola </a>"                  | "<a href=\"http://dd.com\" rel=\"nofollow\" target=\"_blank\"> hola </a>"
+        "<a class='' href=\"http://dd.com\" style=''>hola</a>"           | "<a href=\"http://dd.com\" rel=\"nofollow\" target=\"_blank\">hola</a>"
+        "txt<script> hola </script>txt"                   | "txttxt"
+        "<script> hola </script>"                   | ""
+        "<script conflorituras> hola </script>"                   | ""
+        "<strong class='dd'> hola </strong>"        | "<strong> hola </strong>"
+        "<script>alert(\"hola\")</script>"          | ""
 
         "<p><br>hola<br>feo<br></p>"                                   | "<p>hola</p> <p>feo</p>"
         "<p><br>hola<br>feo<br><br></p>"                               | "<p>hola</p> <p>feo</p>"
@@ -207,15 +207,17 @@ class PostServiceSpec extends Specification{
         "<p><br><br>hola<br><br><br>feo<br><br><br><br><br><br></p>"   | "<p>hola</p> <p>feo</p>"
         "<p class='xx'>texto</p> <p>  <i> </i></p>"   | "<p>texto</p>"
 
+        "<ul><li>texto1</li><li>texto 2</li></ul>"   | "<ul>  <li>texto1</li>  <li>texto 2</li> </ul>"
+
         "<p lang='es-ES' class='western' style='margin-bottom: 0cm'><font color='#222222'><font face='Calibri, serif'><span lang='es-ES'><i>ITALIC</i></span></font></font></p><p class='western' style='margin-bottom: 0cm'><br></p><p lang='es-ES' class='western' style='margin-bottom: 0cm'><font color='#222222'><font face='Calibri, serif'><span lang='es-ES'>NORMAL</span></font></font></p>" | "<p>    <i>ITALIC</i>    </p>   <p>   NORMAL   </p>"
         "<p lang='es-ES'>text<i>ITALIC</i>more text</p><p class='western' style='margin-bottom: 0cm'><br></p>" | "<p>text<i>ITALIC</i>more text</p>"
 
-        "<p> not closed p" | "not closed p"
+        "<p> not closed p" | "<p> not closed p</p>"
         "not closed </a>" | "not closed"
         "not closed <a>" | "not closed"
-        "not <i> <u>closed</u>" | "not  <u>closed</u>"
-        "<p> Hay varias carencias no resueltas para   <b style=\"color: black; font-family: Arial, sans-serif; line-height: 115%;\">resolver los gravísimos problemas depobreza y desigualdad</b>  , y es la falta de análisis compartido, de voluntad políticay de coordinación de esfuerzos. </p>" | "<p> Hay varias carencias no resueltas para   <b>resolver los gravísimos problemas depobreza y desigualdad</b>  , y es la falta de análisis compartido, de voluntad políticay de coordinación de esfuerzos. </p>"
-        "<p> Hay varias carencias no resueltas para   <b style='color: black; font-family: Arial, sans-serif; line-height: 115%;'>resolver los gravísimos problemas depobreza y desigualdad</b>  , y es la falta de análisis compartido, de voluntad políticay de coordinación de esfuerzos. </p>" | "<p> Hay varias carencias no resueltas para   <b>resolver los gravísimos problemas depobreza y desigualdad</b>  , y es la falta de análisis compartido, de voluntad políticay de coordinación de esfuerzos. </p>"
+        "<p><a>not closed</p> " | "<p> not closed</p>"
+        "not <i> <u>closed</u>" | "not <i> <u>closed</u></i>"
+        "<p> Hay varias carencias no resueltas para  <b style=\"color: black; font-family: Arial, sans-serif; line-height: 115%;\">resolver los gravísimos problemas depobreza y desigualdad</b>  , y es la falta de análisis compartido, de voluntad políticay de coordinación de esfuerzos. </p>" | "<p> Hay varias carencias no resueltas para <b>resolver los grav&iacute;simos problemas depobreza y desigualdad</b> , y es la falta de an&aacute;lisis compartido, de voluntad pol&iacute;ticay de coordinaci&oacute;n de esfuerzos. </p>"
     }
     @Unroll
     void "test removeNotClosedTag processor #raw => #expectedText"(){
