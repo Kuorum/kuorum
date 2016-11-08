@@ -294,9 +294,9 @@ class KuorumUserTagLib {
     def followButton={attrs, body ->
         KuorumUser user = attrs.user
         String cssSize = attrs.cssSize?:''
-        def linkAjaxFollow = g.createLink(mapping:'ajaxFollow', params: [userAlias:user.alias])
-        def linkAjaxUnFollow = g.createLink(mapping:'ajaxUnFollow', params: [userAlias:user.alias])
-        def prefixMessages = attrs.prefixMessages?:"kuorumUser.follow"
+        def linkAjaxFollow = g.createLink(mapping: 'ajaxFollow', params: [userAlias:user.alias])
+        def linkAjaxUnFollow = g.createLink(mapping: 'ajaxUnFollow', params: [userAlias:user.alias])
+        def prefixMessages = attrs.prefixMessages?: "kuorumUser.follow"
         def text = "${g.message(code:"${prefixMessages}.follow", args:[user.name], codec:"raw")} "
         def cssClass = "enabled"
         def cssExtra =  attrs.cssExtra?:''
