@@ -340,7 +340,8 @@ a:focus {color: #ff9431;}
 .navbar-nav .form .dropdown-menu form,
 #registro.modal form  {position: absolute; width: 272px;}
 .navbar-nav .form .dropdown-menu #sign-header,
-.modal-dialog #sign-modal {display: none;}
+.modal-dialog #login-modal {display: none;}
+.modal-dialog #signup-modal {display: block;}
 
 
 /* NUEVOS ESTILOS LANDING 2016 */
