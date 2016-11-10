@@ -6,6 +6,20 @@
         </div>
         <g:set var="command" value="${new springSecurity.KuorumRegisterCommand()}"/>
         <div class="panel-body text-center">
+
+            <div class="campaign-progress-bar-wrapper">
+                <h4><g:message code="register.progressBar.title" /></h4>
+                <div class="campaign-progress-bar">
+                    <div class="pop-up">
+                        <g:message code="register.progressBar.popup" args="[user.name]" />
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="progress-bar-custom">
+                        <div class="progress-bar-custom-done"></div>
+                    </div>
+                </div>
+            </div>
+
             <formUtil:validateForm bean="${command}" form="followAndRegister"/>
             <g:form mapping="userFollowAndRegister" params="${user.encodeAsLinkProperties()}" class="login" name="followAndRegister">
                 <fieldset class="row">
