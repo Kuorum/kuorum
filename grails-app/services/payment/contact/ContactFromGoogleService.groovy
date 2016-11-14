@@ -231,36 +231,40 @@ class ContactFromGoogleService {
     // A gmail user has more than one email
     private List<ContactRDTO> createContactRDTO(ContactEntry contactEntry, Map<String, Set<String>> circleMap){
         List<ContactRDTO> contacts = new ArrayList<>()
-        if (contactEntry.hasEmailAddresses()){
-            contactEntry.emailAddresses.address.each {email ->
-                ContactRDTO contactRDTO = null;
-                String name = contactEntry.title.plainText
-                contactRDTO = new ContactRDTO(name:name, email:email)
-                contactRDTO.tags = []
-                if (contactEntry.hasGender()){
-                    contactRDTO.tags.add(contactEntry.gender.toString())
-                }
-                if (contactEntry.hasLanguages()){
-                    contactEntry.languages.findAll{it.label}.each {lang ->
-                        contactRDTO.tags.add(lang.label)
+        try{
+            if (contactEntry.hasEmailAddresses()){
+                contactEntry.emailAddresses.address.each {email ->
+                    ContactRDTO contactRDTO = null;
+                    String name = contactEntry.title.plainText
+                    contactRDTO = new ContactRDTO(name:name, email:email)
+                    contactRDTO.tags = []
+                    if (contactEntry.hasGender()){
+                        contactRDTO.tags.add(contactEntry.gender.toString())
                     }
-                }
-                if (contactEntry.hasHobbies()){
-                    contactEntry.hobbies.findAll{it.value}.each {hobby->
-                        contactRDTO.tags.add(hobby.getValue())
+                    if (contactEntry.hasLanguages()){
+                        contactEntry.languages.findAll{it.label}.each {lang ->
+                            contactRDTO.tags.add(lang.label)
+                        }
                     }
-                }
-                if (contactEntry.hasOrganizations()){
-                    contactEntry.organizations.findAll{it.orgName}.each {organization->
-                        contactRDTO.tags.add(organization.getOrgName().value)
+                    if (contactEntry.hasHobbies()){
+                        contactEntry.hobbies.findAll{it.value}.each {hobby->
+                            contactRDTO.tags.add(hobby.getValue())
+                        }
                     }
+                    if (contactEntry.hasOrganizations()){
+                        contactEntry.organizations.findAll{it.orgName}.each {organization->
+                            contactRDTO.tags.add(organization.getOrgName().value)
+                        }
+                    }
+                    String mapName = contactEntry.getName()?.fullName?.value
+                    if (circleMap.containsKey(mapName)){
+                        contactRDTO.tags.addAll(circleMap.get(mapName))
+                    }
+                    contacts.add(contactRDTO)
                 }
-                String mapName = contactEntry.getName()?.fullName?.value
-                if (circleMap.containsKey(mapName)){
-                    contactRDTO.tags.addAll(circleMap.get(mapName))
-                }
-                contacts.add(contactRDTO)
             }
+        }catch (Exception e){
+            log.warn("There was a problem recovering google contact [Excp: ${e.getMessage()}]")
         }
 
         return contacts;
