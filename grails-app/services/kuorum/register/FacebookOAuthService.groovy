@@ -34,19 +34,20 @@ class FacebookOAuthService implements IOAuthService{
 
         Facebook facebook = new FacebookTemplate(accessToken.token)
         FacebookProfile fbProfile = facebook.userOperations().userProfile
-        log.info("Nuevo usario con facebook con email: ${fbProfile.email}" )
 
         KuorumUser user = KuorumUser.findByEmail(fbProfile.email)?:createNewUser(fbProfile)
 
         FacebookUser facebookUser = updateSavedAccessToken(accessToken, user, fbProfile)
         if (user.hasErrors() || !facebookUser || facebookUser.hasErrors()){
             log.error("El usuario ${user} se ha logado usando faceboook y no se ha podido crear debido a estos errores: ${user.errors}" )
+            return null;
         }
 
         FacebookOAuthToken oAuthToken = new FacebookOAuthToken(accessToken, fbProfile.email)
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
-        def authorities = mongoUserDetailsService.getRoles(user)
 
+        log.info("Usuario '${fbProfile.email}' logado con facebook" )
+        def authorities = mongoUserDetailsService.getRoles(user)
         oAuthToken.principal = userDetails
         oAuthToken.authorities = authorities
         oAuthToken
@@ -76,7 +77,7 @@ class FacebookOAuthService implements IOAuthService{
         user
     }
 
-    private void updateSavedAccessToken(Token accessToken, KuorumUser user, FacebookProfile fbProfile){
+    private FacebookUser updateSavedAccessToken(Token accessToken, KuorumUser user, FacebookProfile fbProfile){
         FacebookUser facebookUser = FacebookUser.findByUid(fbProfile.id)?:new FacebookUser(uid:fbProfile.id)
         facebookUser.accessToken = accessToken.token
         facebookUser.accessTokenExpires = getExpirationDateFromToken(accessToken)
