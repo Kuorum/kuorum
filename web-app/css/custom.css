@@ -1359,7 +1359,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #profileInfo .dropdown-menu > li:first-child {border-bottom: none; padding: 0;}
 
 .campaign-progress-bar-wrapper {padding: 0px 15px 10px 15px;}
-.campaign-progress-bar-wrapper h4 {font-variant: normal; color: #666; margin: 10px 0px 30px 0px;}
+.campaign-progress-bar-wrapper h4 {font-variant: normal; color: #666; margin: 10px 0px 20px 0px;font-weight: normal;font-size: 1.35em;}
 .campaign-progress-bar-wrapper .campaign-progress-bar {position: relative;}
 .campaign-progress-bar-wrapper .campaign-progress-bar:hover .pop-up {display: block;}
 .campaign-progress-bar-wrapper .campaign-progress-bar .pop-up {border: 2px solid #666; position: absolute; padding: 10px 20px; bottom: 22px; background: #fff; text-align: initial; display: none;}
