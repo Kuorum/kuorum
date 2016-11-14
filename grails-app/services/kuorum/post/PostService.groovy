@@ -361,7 +361,7 @@ class PostService {
         (
                 post.project.owner == user
                 ||
-                post.owner == user
+                post.owner == user && !post.debates.isEmpty()
         )
     }
 
