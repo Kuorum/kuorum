@@ -32,6 +32,7 @@ class OutlookOAuthContactService implements IOAuthLoadContacts {
 
     @Override
     void loadContacts(KuorumUser user, org.scribe.model.Token token) {
+        log.info("Creating Outlook OAuth Service for user ${user.email}");
         // Params for the pagination
         String properties = "GivenName,Surname,EmailAddresses";
         Integer maxResults = 1000;
