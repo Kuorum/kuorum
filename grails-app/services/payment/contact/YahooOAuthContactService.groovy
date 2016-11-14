@@ -20,7 +20,7 @@ class YahooOAuthContactService implements IOAuthLoadContacts {
 
     @Override
     void loadContacts(KuorumUser user, Token accessToken) throws KuorumException {
-        log.info("Creating Yahoo OAuth Service for GUID ${accessToken.getSecret()}");
+        log.info("Creating Yahoo OAuth Service for user ${user.email} [GUID ${accessToken.getSecret()}]");
         def listContacts = getListContacts(accessToken)
         List<ContactRDTO> contacts = listContacts.collect{
             transformYahooContact(it)
