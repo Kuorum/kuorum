@@ -352,16 +352,16 @@ class PostService {
             }
             post
         }else{
-            throw new KuorumException("El usuario no es el dueño o un político", "error.security.post.notDebateAllowed")
+            throw new KuorumException("El usuario no es el dueño del proyecto o del post", "error.security.post.notDebateAllowed")
         }
     }
 
-    Boolean isAllowedToAddDebate(Post post, KuorumUser user){
+    Boolean isAllowedToAddDebate(Post post, KuorumUser user) {
         user &&
         (
-                UserType.POLITICIAN.equals(user.userType) && isAllowedToDefendAPost(post, user)
-                        ||
-                post.owner == user && !post.debates.isEmpty()
+                post.project.owner == user
+                ||
+                post.owner == user
         )
     }
 
