@@ -10,8 +10,7 @@
     </g:if>
     <g:else>
         <sec:ifNotLoggedIn>
-            <g:set var="gogoLink" value="${g.createLink(mapping: 'footerUserGuide')}"/>
-            <p class="no-debate"><g:message code="post.debate.empty" args="[gogoLink]" encodeAs="raw"/> </p>
+            <p class="no-debate"><g:message code="post.debate.empty"/></p>
         </sec:ifNotLoggedIn>
         <postUtil:ifUserCanAddDebates post="${post}">
             <ul class="chat">
@@ -19,8 +18,7 @@
             </ul>
         </postUtil:ifUserCanAddDebates>
         <postUtil:elsIfUserCanAddDebates>
-            <g:set var="gogoLink" value="${g.createLink(mapping: 'footerUserGuide')}"/>
-            <p class="no-debate"><g:message code="post.debate.empty" args="[gogoLink]" encodeAs="raw"/> </p>
+            <p class="no-debate"><g:message code="post.debate.empty"/></p>
         </postUtil:elsIfUserCanAddDebates>
     </g:else>
 </aside>
