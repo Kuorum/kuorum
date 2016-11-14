@@ -29,15 +29,23 @@ class YahooOAuthContactService implements IOAuthLoadContacts {
     }
 
     private ContactRDTO transformYahooContact(def infoContact) {
-        def infoName = infoContact.fields.find{it.type=="name"}?.value
-        String email = infoContact.fields.find{it.type=="email"}?.value
-        String guid = infoContact.fields.find{it.type=="guid"}?.value
-        String notes = infoContact.fields.find{it.type=="notes"}?.value
-        String company = infoContact.fields.find{it.type=="company"}?.value
-        String name = "${infoName.givenName} ${infoName.familyName}".trim()
         Set tags = []
-        if (company){
-            tags << company
+        String name = ""
+        String email = ""
+        String notes = ""
+        try{
+            def infoName = infoContact.fields.find{it.type=="name"}?.value
+            email = infoContact.fields.find{it.type=="email"}?.value
+            notes = infoContact.fields.find{it.type=="notes"}?.value
+            name = infoName?"${infoName.givenName} ${infoName.familyName}".trim():email
+
+            String guid = infoContact.fields.find{it.type=="guid"}?.value
+            String company = infoContact.fields.find{it.type=="company"}?.value
+            if (company){
+                tags << company
+            }
+        }catch (Exception e){
+            log.info("Yahoo contact not created due to an exception [Exc: ${e.getMessage()}]",)
         }
         new ContactRDTO(email: email, name:name, notes:notes, tags: tags);
     }
