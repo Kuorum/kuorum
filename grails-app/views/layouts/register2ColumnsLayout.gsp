@@ -6,7 +6,7 @@
     </head>
 
     <body>
-        <g:render template="/layouts/headNoLogged"/>
+        <g:render template="/layouts/head"/>
         <div class="row main">
             <div class="container-fluid">
                 <div class="row">
