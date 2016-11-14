@@ -55,10 +55,14 @@ class OutlookOAuthContactService implements IOAuthLoadContacts {
 
             for (Contact contact : pagedResult.value) {
                 if (contact.emailAddresses.length > 0) {
-                    def newContact = new ContactRDTO();
-                    newContact.setName(contact.givenName);
-                    newContact.setEmail(contact.emailAddresses[0].getAddress());
-                    contactRDTOs.add(newContact);
+                    try{
+                        def newContact = new ContactRDTO();
+                        newContact.setName(contact.givenName);
+                        newContact.setEmail(contact.emailAddresses[0].getAddress());
+                        contactRDTOs.add(newContact);
+                    }catch (Exception e){
+                        log.info("Error recovering outlook email due to exception [Excp: ${e.getMessage()}]")
+                    }
                 }
             }
 
