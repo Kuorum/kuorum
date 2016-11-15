@@ -119,10 +119,11 @@ class KuorumUser {
 
 
     public static final transient ALIAS_REGEX = "[a-zA-Z0-9_]{1,15}"
+    public static final transient ALIAS_MAX_SIZE = 15
     static constraints = {
         name nullable:false
         email nullable: false, email: true
-        alias nullable:true, unique:true, maxSize: 15, matches: ALIAS_REGEX
+        alias nullable:true, unique:true, maxSize: ALIAS_MAX_SIZE, matches: ALIAS_REGEX
         oldAlias nullable:true
         password nullable:true
         bio nullable:true

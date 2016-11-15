@@ -696,4 +696,16 @@ class KuorumUserService {
     boolean isUserConfirmedMail(KuorumUser user){
         !user.authorities.find{RoleUser role-> role.authority == "ROLE_INCOMPLETE_USER" }
     }
+
+    String generateValidAlias(String name){
+        String alias = name.replaceAll("[^a-zA-Z0-9]+","");
+        alias = alias.substring(0, Math.min(alias.length(), KuorumUser.ALIAS_MAX_SIZE)).toLowerCase()
+        KuorumUser user = KuorumUser.findByAlias(alias)
+        while (user){
+            alias = alias.take(alias.length() -2)
+            alias = "${alias}${new Double(Math.floor(Math.random()*100)).intValue()}"
+            user = KuorumUser.findByAlias(alias)
+        }
+        return alias;
+    }
 }

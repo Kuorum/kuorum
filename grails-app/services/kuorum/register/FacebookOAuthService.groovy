@@ -8,6 +8,7 @@ import kuorum.core.FileType
 import kuorum.core.model.Studies
 import kuorum.users.FacebookUser
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.users.PersonalData
 import kuorum.users.RoleUser
 import org.scribe.model.Token
@@ -22,6 +23,7 @@ class FacebookOAuthService implements IOAuthService{
 
     def mongoUserDetailsService
     def kuorumMailService
+    KuorumUserService kuorumUserService
     RegisterService registerService
 
     public static final String PASSWORD_PREFIX = "*facebook*"
@@ -64,7 +66,7 @@ class FacebookOAuthService implements IOAuthService{
         user.accountLocked = false
         user.enabled = true
         user.password = registerCommand.password
-        user.alias = user.alias?:fbProfile.username
+        user.alias = user.alias?:kuorumUserService.generateValidAlias(fbProfile.username)
         RoleUser roleUser = RoleUser.findByAuthority('ROLE_USER')
         user.authorities = [roleUser]
 
@@ -73,6 +75,7 @@ class FacebookOAuthService implements IOAuthService{
 
         log.info("Usuario ${user} creado usando facebook")
         kuorumMailService.sendRegisterUserViaRRSS(user, PROVIDER)
+        kuorumMailService.sendWelcomeRegister(user)
 
         user
     }

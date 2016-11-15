@@ -9,6 +9,7 @@ import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.Gender
+import kuorum.notifications.NotificationService
 import kuorum.users.*
 import kuorum.util.LookUpEnumUtil
 import org.springframework.security.core.userdetails.UserDetails
@@ -20,6 +21,7 @@ class GoogleOAuthService implements IOAuthService{
     def oauthService
     def mongoUserDetailsService
     def kuorumMailService
+    KuorumUserService kuorumUserService
     RegisterService registerService
 
     private static final String GOOLE_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v1/userinfo'
@@ -42,18 +44,11 @@ class GoogleOAuthService implements IOAuthService{
         log.info("Creating user with google: ${googleUser.email}")
         GoogleOAuthToken oAuthToken =  new GoogleOAuthToken(accessToken, googleUser.email)
 
-        KuorumUser user = KuorumUser.findByEmail(googleUser.email)
-        if (!user){
-            user = createUser(googleUser)
-            OAuthID oAuthID = new OAuthID(provider:PROVIDER.toLowerCase(),accessToken:accessToken,user:user)
-            oAuthID.save()
-            kuorumMailService.sendRegisterUserViaRRSS(user,PROVIDER)
-        }
-        user.accountExpired = false
-        user.accountLocked = false
-        user.enabled = true
-        createAvatar(user, googleUser)
-        user.save()
+        KuorumUser user = KuorumUser.findByEmail(googleUser.email)?:createUser(googleUser)
+
+        OAuthID oAuthID = new OAuthID(provider:PROVIDER.toLowerCase(),accessToken:accessToken,user:user)
+        oAuthID.save()
+
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
         def authorities = mongoUserDetailsService.getRoles(user)
 
@@ -71,7 +66,9 @@ class GoogleOAuthService implements IOAuthService{
         KuorumUser user = registerService.createUser(registerCommand)
         user.password = registerCommand.password
         user.accountExpired = false;
+        user.accountLocked = false
         user.enabled = true;
+        user.alias = kuorumUserService.generateValidAlias(registerCommand.name)
 
 //        if (user.userType == UserType.PERSON){
             PersonData personData = new PersonData()
@@ -90,16 +87,16 @@ class GoogleOAuthService implements IOAuthService{
 
         RoleUser roleUser = RoleUser.findByAuthority('ROLE_USER')
         user.authorities = [roleUser]
-//        user.pathAvatar="http://graph.facebook.com/${facebookUser.uid}/picture?type=large"
-//        SocialLinks socialLinks = new SocialLinks();
-//        socialLinks.facebook = fbProfile.link
-//        person.socialLinks = socialLinks
 
-        if (user.save()){
-            return user
-        }else{
+        if (!user.save()){
             log.error("El usuario ${user} se ha logado usando google y no se ha podido crear debido a estos errores: ${user.errors}" )
+            return null;
         }
+
+        createAvatar(user, googleUser)
+        kuorumMailService.sendRegisterUserViaRRSS(user,PROVIDER)
+        kuorumMailService.sendWelcomeRegister(user)
+        return user;
     }
 
     private def overwriteFieldIfNotFilled(PersonalData personalData, String field,def user,def parseData){
@@ -118,6 +115,8 @@ class GoogleOAuthService implements IOAuthService{
                 storagePath:null,
                 fileName:null,
                 url:googleUser.picture,
+                originalName: "avatar.png",
+                urlThumb: googleUser.picture,
                 fileGroup:FileGroup.USER_AVATAR
             )
             kuorumFile.save()
