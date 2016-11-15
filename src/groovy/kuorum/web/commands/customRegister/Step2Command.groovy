@@ -14,9 +14,9 @@ import kuorum.web.commands.profile.AccountDetailsCommand
 class Step2Command {
 
     public Step2Command(){}
-    public Step2Command(KuorumUser user){
+    public Step2Command(KuorumUser user, String recommendedAlias){
         this.user = user
-        this.alias = user.alias
+        this.alias = user.alias?:recommendedAlias
         this.language = user.language
         this.phonePrefix = user.personalData?.phonePrefix
         this.phone = user.personalData?.telephone
