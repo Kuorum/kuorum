@@ -14,7 +14,7 @@ public enum MailType {
     REGISTER_CHANGE_EMAIL_VERIFY        (MailGroupType.REGISTER,"register-emailChangeNew",["confirmationLink"], [], MailTypeRSDTO.REGISTER_CHANGE_EMAIL_VERIFY),
     REGISTER_CHANGE_EMAIL_REQUESTED     (MailGroupType.REGISTER,"register-emailChangeOld",["newEmailAccount"], [], MailTypeRSDTO.REGISTER_CHANGE_EMAIL_REQUESTED),
     //TODO: Change this email to REGISTER_WELCOME
-    NOTIFICATION_OFFER_PURCHASED        (MailGroupType.REGISTER,"register-suscription",   [], ["userLink", "user", "offerType", "totalPrice"], MailTypeRSDTO.REGISTER_WELCOME),
+    NOTIFICATION_OFFER_PURCHASED        (MailGroupType.REGISTER,"register-suscription",   [], ["user"], MailTypeRSDTO.REGISTER_WELCOME),
     CAMPAIGN_POLL_THANK_YOU             (MailGroupType.REGISTER,"register-modalelections",[],["recovery", "education", "democracy", "equalty", "constitution", "foreign", "politician", "politicianLink"]),
 
     PROJECT_CREATED_NOTIFICATION        (MailGroupType.EVENT_PROJECT, "project-new", [], ["projectName", "projectOwner", "projectLink"], MailTypeRSDTO.CAMPAIGN_PROJECT_CREATED),
