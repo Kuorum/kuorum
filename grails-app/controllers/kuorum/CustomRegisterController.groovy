@@ -108,7 +108,7 @@ class CustomRegisterController {
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def step2(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        String recommendedAlias = kuorumUserService.generateValidAlias(user.name)
+        String recommendedAlias = kuorumUserService.generateValidAlias(user.name, true)
         [command:new Step2Command(user,recommendedAlias)]
     }
 
