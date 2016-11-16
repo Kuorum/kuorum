@@ -75,7 +75,6 @@ class KuorumMailService {
     }
     def sendWelcomeRegister(KuorumUser user){
         def bindings = [
-                userLink:generateLink("userShow",user.encodeAsLinkProperties()),
                 user:user.name
         ]
         MailUserData mailUserData = new MailUserData(user:user)
