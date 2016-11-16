@@ -10,7 +10,7 @@
             <ul>
                 <li>
                     <sec:access expression="hasPermission('${user.id}', 'kuorum.users.KuorumUser', 'edit')">
-                        <g:if test="${sec.username() == user.email}">
+                        <g:if test="${sec.username() == user.email.encodeAsHTML()}">
                             %{--The user wants to edit himself--}%
                             <g:link mapping="profileEditUser">
                                 <span><g:message code="project.editMenu.edit"/></span>
