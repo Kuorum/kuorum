@@ -697,9 +697,13 @@ class KuorumUserService {
         !user.authorities.find{RoleUser role-> role.authority == "ROLE_INCOMPLETE_USER" }
     }
 
-    String generateValidAlias(String name){
+    String generateValidAlias(String name, Boolean validEmptyAlias = false){
         String alias = name.replaceAll("[^a-zA-Z0-9]+","");
         alias = alias.substring(0, Math.min(alias.length(), KuorumUser.ALIAS_MAX_SIZE)).toLowerCase()
+        if (!alias && validEmptyAlias){
+            return "";
+        }
+        alias = alias?:new Double(Math.floor(Math.random()*Math.pow(10, KuorumUser.ALIAS_MAX_SIZE))).intValue()
         KuorumUser user = KuorumUser.findByAlias(alias)
         while (user){
             alias = alias.take(alias.length() -2)
