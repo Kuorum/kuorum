@@ -18,6 +18,12 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 
 // Place your Spring DSL code here
 beans = {
+    xmlns aop:"http://www.springframework.org/schema/aop"
+    aspectBean(kuorum.core.aop.LanguageInjectorAOP)
+    aop.config("proxy-target-class":true) {
+    }
+
+
    userDetailsService(MongoUserDetailsService)
 
 
