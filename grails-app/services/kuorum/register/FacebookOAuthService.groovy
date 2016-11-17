@@ -39,6 +39,7 @@ class FacebookOAuthService implements IOAuthService{
 
         KuorumUser user = KuorumUser.findByEmail(fbProfile.email)?:createNewUser(fbProfile)
 
+        log.info("Logando suario '${user.email}' con facebook" )
         FacebookUser facebookUser = updateSavedAccessToken(accessToken, user, fbProfile)
         if (user.hasErrors() || !facebookUser || facebookUser.hasErrors()){
             log.error("El usuario ${user} se ha logado usando faceboook y no se ha podido crear debido a estos errores: ${user.errors}" )
@@ -46,9 +47,9 @@ class FacebookOAuthService implements IOAuthService{
         }
 
         FacebookOAuthToken oAuthToken = new FacebookOAuthToken(accessToken, fbProfile.email)
+
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
 
-        log.info("Usuario '${fbProfile.email}' logado con facebook" )
         def authorities = mongoUserDetailsService.getRoles(user)
         oAuthToken.principal = userDetails
         oAuthToken.authorities = authorities
@@ -66,7 +67,7 @@ class FacebookOAuthService implements IOAuthService{
         user.accountLocked = false
         user.enabled = true
         user.password = registerCommand.password
-        user.alias = user.alias?:kuorumUserService.generateValidAlias(fbProfile.username)
+        user.alias = user.alias?:kuorumUserService.generateValidAlias(fbProfile.username?:fbProfile.name)
         RoleUser roleUser = RoleUser.findByAuthority('ROLE_USER')
         user.authorities = [roleUser]
 
