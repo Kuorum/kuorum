@@ -57,6 +57,7 @@ class SpringSecurityOAuthController {
             OAuthToken oAuthToken = createAuthToken(params.provider, token);
             authenticateAndRedirect(oAuthToken, defaultTargetUrl);
         } catch (KuorumException e) {
+            log.warn("User couldn't log in using ${params.provider}. [Excpt: ${e.getMessage()}]")
             flash.error = g.message(code: e.errors[0].code)
             redirect(mapping: "loginAuth", fragment: "error")
         }
