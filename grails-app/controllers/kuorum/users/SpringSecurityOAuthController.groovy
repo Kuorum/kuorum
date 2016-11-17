@@ -17,6 +17,7 @@ package kuorum.users
 
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.oauth.OAuthToken
+import kuorum.core.exception.KuorumException
 import kuorum.register.IOAuthService
 import org.springframework.security.core.context.SecurityContextHolder
 import uk.co.desirableobjects.oauth.scribe.holder.RedirectHolder
@@ -51,17 +52,21 @@ class SpringSecurityOAuthController {
         }
 
         org.scribe.model.Token token = session[sessionKey]
-        // Create the relevant authentication token and attempt to log in.
-        OAuthToken oAuthToken = createAuthToken(params.provider, token)
-        authenticateAndRedirect(oAuthToken, defaultTargetUrl)
+        // Create the relevant authentication token and attempt to log in
+        try {
+            OAuthToken oAuthToken = createAuthToken(params.provider, token);
+            authenticateAndRedirect(oAuthToken, defaultTargetUrl);
+        } catch (KuorumException e) {
+            flash.error = g.message(code: e.errors[0].code)
+            redirect(mapping: "loginAuth", fragment: "error")
+        }
     }
 
     def onFailure = {
         authenticateAndRedirect(null, defaultTargetUrl)
     }
 
-
-    // utils
+    // Utils
 
     protected renderError(code, msg) {
         log.error msg + " (returning ${code})"
@@ -69,10 +74,10 @@ class SpringSecurityOAuthController {
     }
 
     protected OAuthToken createAuthToken(providerName, org.scribe.model.Token token) {
-        IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService")
-        OAuthToken oAuthToken = providerService.createAuthToken(token)
-        oAuthToken.authenticated = true
-        return oAuthToken
+        IOAuthService providerService = grailsApplication.mainContext.getBean("${providerName}OAuthService");
+        OAuthToken oAuthToken = providerService.createAuthToken(token);
+        oAuthToken.authenticated = true;
+        return oAuthToken;
     }
 
     protected Map getDefaultTargetUrl() {

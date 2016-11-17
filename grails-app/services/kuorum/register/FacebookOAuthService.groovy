@@ -5,21 +5,19 @@ import grails.plugin.springsecurity.oauth.OAuthToken
 import kuorum.KuorumFile
 import kuorum.core.FileGroup
 import kuorum.core.FileType
-import kuorum.core.model.Studies
+import kuorum.core.exception.KuorumException
 import kuorum.users.FacebookUser
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
-import kuorum.users.PersonalData
 import kuorum.users.RoleUser
 import org.scribe.model.Token
-import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.social.facebook.api.Facebook
 import org.springframework.social.facebook.api.FacebookProfile
 import org.springframework.social.facebook.api.impl.FacebookTemplate
 import springSecurity.KuorumRegisterCommand
 
-class FacebookOAuthService implements IOAuthService{
+class FacebookOAuthService implements IOAuthService {
 
     def mongoUserDetailsService
     def kuorumMailService
@@ -31,19 +29,23 @@ class FacebookOAuthService implements IOAuthService{
     private static final PROVIDER = "Facebook"
 
     @Override
-    OAuthToken createAuthToken(Token accessToken) {
-
-
+    OAuthToken createAuthToken(Token accessToken) throws KuorumException {
         Facebook facebook = new FacebookTemplate(accessToken.token)
         FacebookProfile fbProfile = facebook.userOperations().userProfile
+
+        // No email provided
+        if (fbProfile.email == null) {
+            log.error("El usuario no ha proporcionado un email en el login con Facebook" );
+            throw new KuorumException("Email de Facebook no proporcionado", "login.rrss.error.noEmail");
+        }
 
         KuorumUser user = KuorumUser.findByEmail(fbProfile.email)?:createNewUser(fbProfile)
 
         log.info("Logando suario '${user.email}' con facebook" )
         FacebookUser facebookUser = updateSavedAccessToken(accessToken, user, fbProfile)
-        if (user.hasErrors() || !facebookUser || facebookUser.hasErrors()){
+        if (user.hasErrors() || !facebookUser || facebookUser.hasErrors()) {
             log.error("El usuario ${user} se ha logado usando faceboook y no se ha podido crear debido a estos errores: ${user.errors}" )
-            return null;
+            throw new KuorumException("Ha habido errores al crear el usuario", "register.errors");
         }
 
         FacebookOAuthToken oAuthToken = new FacebookOAuthToken(accessToken, fbProfile.email)
@@ -53,7 +55,7 @@ class FacebookOAuthService implements IOAuthService{
         def authorities = mongoUserDetailsService.getRoles(user)
         oAuthToken.principal = userDetails
         oAuthToken.authorities = authorities
-        oAuthToken
+        return oAuthToken
     }
 
     private KuorumUser createNewUser(FacebookProfile fbProfile ){
