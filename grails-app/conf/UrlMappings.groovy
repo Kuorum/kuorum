@@ -155,28 +155,7 @@ class UrlMappings {
             }
         }
         name secUserShow:       "/sec/$userAlias"   (controller: "kuorumUser", action: "secShow")
-        name users:             "/$userTypeUrl"     (controller: "kuorumUser", action: "index"){
-            constraints {
-                userTypeUrl inList: ["ciudadanos", "organizaciones", "politicos"]
-            }
-        }
 
-        name citizens:          "/ciudadanos"     {
-            controller = "kuorumUser"
-            action ="index"
-            userTypeUrl = UserType.PERSON
-        }
-        name organizations:     "/organizaciones"  {
-            controller = "kuorumUser"
-            action ="index"
-            userTypeUrl = UserType.ORGANIZATION
-        }
-
-        name politicians:       "/politicos"  {
-            controller = "kuorumUser"
-            action ="politicians"
-            userTypeUrl = UserType.POLITICIAN
-        }
         name userFollowers:     "/$userAlias/seguidores" (controller: "kuorumUser", action: "userFollowers")
                                 "/$userTypeUrl/$urlName-$id/seguidores" {controller="redirect"; action= "redirect301User"; newMapping:'userFollowers'}
         name userFollowing:     "/$userAlias/siguiendo"  (controller: "kuorumUser", action: "userFollowing")

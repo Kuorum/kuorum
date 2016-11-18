@@ -60,13 +60,6 @@ class KuorumUserController {
             }
         }
     }
-    def index(){
-        redirect(mapping:'searcherSearch',params: [type:SolrType.KUORUM_USER], permanent: true)
-    }
-
-    def politicians(){
-        redirect(mapping:'searcherSearch', params:[type:SolrType.POLITICIAN],permanent: true)
-    }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def secShow(String userAlias){
