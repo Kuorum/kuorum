@@ -1,5 +1,6 @@
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
+import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.UserType
 import org.springframework.security.access.AccessDeniedException
 
@@ -9,40 +10,65 @@ class UrlMappings {
 
 	static mappings = {
 
-        //TODO Hacer esta chapu en BBDD
-//        name tempmoralLink: "/$customLink" (controller: "dashboard", action:"customPostMapping")
-        name tempmoralLink: "/losdatoscuentan" (controller: "dashboard", action:"customPostMapping")
-        "/losDatosCuentan" (controller: "dashboard", action:"customPostMapping")
-        "/empleoJuvenil" (controller: "dashboard", action:"customPostMappingEmpleoJuvenil")
-        "/empleojuvenil" (controller: "dashboard", action:"customPostMappingEmpleoJuvenil")
-        "/sayNoToFracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
-        "/SayNoToFracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
-        "/saynotofracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
-        "/immigrationrc" (controller: "dashboard", action:"customPostMappingImmigrationrc")
-        "/immigrationRC" (controller: "dashboard", action:"customPostMappingImmigrationrc")
+        /**********************/
+        /***** I18N URLs ******/
+        /**********************/
+        name home:             "/$lang" (controller: "search", action:"searchLanding")
+                               "/" (controller: "search", action:"searchLanding")
 
-        //The URLs are duplicated because of the refactor of Law into Project. The name of aliases are changed.
-        name home:             "/" (controller: "search", action:"searchLanding")
-        name dashboard:             "/dashboard" (controller: "dashboard", action:"dashboard")
-        name landingCitizens:   "/who-should-i-vote-for" (controller: "dashboard", action:"landingCitizens")
-                                "/citizens" (controller: "dashboard", action:"landingCitizens")
-                                "/editors" (controller: "dashboard", action:"landingCitizens")
-        name landingPrices:    "/prices" (controller: "dashboard", action:"landingPrices")
-        name landingPoliticians:    "/win-your-election" (controller: "dashboard", action:"landingPoliticians")
-                                    "/politicians" (controller: "dashboard", action:"landingPoliticians")
-        name landingOrganizations:  "/advocate-better" (controller: "dashboard", action:"landingOrganizations")
-                                    "/organizations" (controller: "dashboard", action:"landingOrganizations")
-        name dashboardSeeMore: "/ajax/dashboard/ver-mas" (controller: "dashboard", action:"dashboardClucks")
+        name landingCitizens:   "/$lang/who-should-i-vote-for" (controller: "dashboard", action:"landingCitizens")
+                                "/who-should-i-vote-for" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}
+                                "/citizens" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}
+                                "/editors" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}
+        name landingPrices:     "/$lang/prices" (controller: "dashboard", action:"landingPrices")
+                                "/prices" { controller="redirect"; action= "redirect301"; newMapping='landingPrices'}
+        name landingPoliticians:"/$lang/win-your-election" (controller: "dashboard", action:"landingPoliticians")
+                                "/win-your-election" { controller="redirect"; action= "redirect301"; newMapping='landingPoliticians'}
+                                "/politicians"  { controller="redirect"; action= "redirect301"; newMapping='landingPoliticians'}
+        name landingOrganizations:  "/$lang/advocate-better" (controller: "dashboard", action:"landingOrganizations")
+                                    "/advocate-better" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
+                                    "/organizations" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
+
+
+        name footerTechnology:      "/$lang/services/what-is-kuorum"    (controller:"footer", action: "tech" )
+                                    "/services/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
+                                    "/services"                         { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
+        name footerPoliticians:     "/$lang/services/win-your-election" (controller:"footer", action: "politicians" )
+                                    "/services/win-your-election"       {controller="redirect"; action= "redirect301"; newMapping='footerPoliticians'}
+                                    "/services/politicians"             {controller="redirect"; action= "redirect301"; newMapping='footerPoliticians'}
+        name footerGovernment:      "/$lang/services/government"        (controller:"footer", action: "government" )
+                                    "/services/government"              {controller="redirect"; action= "redirect301"; newMapping='footerGovernment'}
+        name footerCitizens:        "$lang/services/who-should-i-vote-for"   (controller:"footer", action: "citizens" )
+                                    "/services/who-should-i-vote-for"   {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
+                                    "/services/citizens"                {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
+        name footerDevelopers:      "/$lang/services/editors"           (controller:"footer", action: "developers" )
+                                    "/services/editors"                 {controller="redirect"; action= "redirect301"; newMapping='footerDevelopers'}
+        name footerAboutUs:         "$lang/about/our-story"             (controller:"footer", action: "aboutUs" )
+                                    "/about/our-story"                  {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
+                                    "/about"                            {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
+        name footerVision:          "/$lang/about/mision-and-vision"    (controller:"footer", action: "vision" )
+                                    "/about/mision-and-vision"          {controller="redirect"; action= "redirect301"; newMapping='footerVision'}
+        name footerImpact:          "/$lang/about/impact"               (controller:"footer", action: "impact" )
+                                    "/about/impact"                     {controller="redirect"; action= "redirect301"; newMapping='footerImpact'}
+        name footerTeam:            "/$lang/about/our-team"             (controller:"footer", action: "team" )
+                                    "/about/our-team"                   {controller="redirect"; action= "redirect301"; newMapping='footerTeam'}
+        name footerInformation:     "/$lang/press"                      (controller:"footer", action: "information" )
+                                    "/press"                            {controller="redirect"; action= "redirect301"; newMapping='footerInformation'}
+                                    "/press/information-and-resources"  {controller="redirect"; action= "redirect301"; newMapping='footerInformation'}
+        name footerWidget:          "/$lang/press/widget"               (controller:"footer", action: "widget" )
+                                    "/press/widget"                     {controller="redirect"; action= "redirect301"; newMapping='footerWidget'}
+        name footerPrivacyPolicy:   "/$lang/legal/privacy-policy"       (controller:"footer", action: "privacyPolicy")
+                                    "/legal/privacy-policy"             {controller="redirect"; action= "redirect301"; newMapping='footerPrivacyPolicy'}
+                                    "/legal"                            {controller="redirect"; action= "redirect301"; newMapping='footerPrivacyPolicy'}
+        name footerTermsUse:        "/$lang/legal/terms-of-use"         (controller:"footer", action: "termsUse")
+                                    "/legal/terms-of-use"               {controller="redirect"; action= "redirect301"; newMapping='footerTermsUse'}
+
+        /**********************/
+        /***** LOGGED URLs ****/ //Language no matters
+        /**********************/
+        name dashboard:                     "/dashboard" (controller: "dashboard", action:"dashboard")
         name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
-        name discover:                      "/descubre" (controller: "discover", action:"discoverProjects")
-        name discoverProjects:              "/descubre/proyectos"         (controller: "discover", action:"discoverProjects")
-                                            "/descubre/leyes"         (controller: "discover", action:"discoverProjects")
-        name discoverProjectsByRegion:      "/descubre/proyectos/$regionName" (controller: "discover", action:"discoverProjects")
-                                            "/descubre/leyes/$regionName" (controller: "discover", action:"discoverProjects")
-        name discoverPoliticians:           "/descubre/politicos"     (controller: "discover", action:"discoverPoliticians")
-        name discoverRecentPosts:           "/descubre/publicaciones-recientes" (controller: "discover", action:"discoverRecentPosts")
-        name discoverRecommendedPosts:      "/descubre/publicaciones-mas-impulsadas" (controller: "discover", action:"discoverRecommendedPosts")
 
         name projectCreate:             "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"save"]}
                                         "/leyes/nueva"(controller: "project"){action = [GET:"create", POST:"save"]}
@@ -63,11 +89,11 @@ class UrlMappings {
         name projectListPostDefends:    "/ajax/proyectos/$regionName/$commission/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
         name projectListPostVictories:  "/ajax/proyectos/$regionName/$commission/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
 
-        name projectList: "/herramientas/proyectos"(controller: "tools", action:"listProjects")
-        name projectListOfUsers: "/ajax/herramientas/proyectos"(controller: "tools", action: "ajaxShowProjectListOfUsers")
-        name publishProject:   "/herramientas/proyectos/$hashtag/publicar" (controller:"tools", action: "publishProject")
+        name projectList:               "/herramientas/proyectos"(controller: "tools", action:"listProjects")
+        name projectListOfUsers:        "/ajax/herramientas/proyectos"(controller: "tools", action: "ajaxShowProjectListOfUsers")
+        name publishProject:            "/herramientas/proyectos/$hashtag/publicar" (controller:"tools", action: "publishProject")
 
-        name projectUpdate:  "/proyectos/$regionName/$commission/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
+        name projectUpdate:             "/proyectos/$regionName/$commission/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
         name postCreate:    "/proyectos/$regionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
                             "/leyes/$regionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
@@ -120,7 +146,12 @@ class UrlMappings {
         }
         name userShow: "/$userAlias"   (controller: "kuorumUser", action: "show"){
             constraints{
-                userAlias (validator: { !['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos'].contains(it) })
+                userAlias (validator:
+                        {
+                            def noValidAlias =['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos']
+                            noValidAlias.addAll(AvailableLanguage.values().collect{it.locale.language})
+                            !noValidAlias.contains(it)
+                        })
             }
         }
         name secUserShow:       "/sec/$userAlias"   (controller: "kuorumUser", action: "secShow")
@@ -225,25 +256,6 @@ class UrlMappings {
         name causeSupport:         "/ajax/cause/$causeName/support" (controller:"causes", action: "supportCause")
         name causeDiscard:         "/ajax/cause/$causeName/discard" (controller:"causes", action: "discardCause")
 
-        name footerTechnology:      "/services/what-is-kuorum"          (controller:"footer", action: "tech" )
-                                    "/services"          (controller:"footer", action: "tech" )
-        name footerPoliticians:     "/services/win-your-election"      (controller:"footer", action: "politicians" )
-                                    "/services/politicians"             (controller:"footer", action: "politicians" )
-        name footerGovernment:      "/services/government"               (controller:"footer", action: "government" )
-        name footerCitizens:        "/services/who-should-i-vote-for" (controller:"footer", action: "citizens" )
-                                    "/services/citizens"
-        name footerDevelopers:    "/services/editors"         (controller:"footer", action: "developers" )
-        name footerAboutUs:       "/about/our-story"                          (controller:"footer", action: "aboutUs" )
-                                  "/about"                (controller:"footer", action: "aboutUs" )
-        name footerVision:        "/about/mision-and-vision"        (controller:"footer", action: "vision" )
-        name footerImpact:        "/about/impact"      (controller:"footer", action: "impact" )
-        name footerTeam:          "/about/our-team"          (controller:"footer", action: "team" )
-        name footerInformation:   "/press"                      (controller:"footer", action: "information" )
-                                  "/press/information-and-resources"  (controller:"footer", action: "information" )
-        name footerWidget:        "/press/widget"  (controller:"footer", action: "widget" )
-        name footerPrivacyPolicy: "/legal/privacy-policy"     (controller:"footer", action: "privacyPolicy")
-                                  "/legal"     (controller:"footer", action: "privacyPolicy")
-        name footerTermsUse:      "/legal/terms-of-use"      (controller:"footer", action: "termsUse")
 
         name funnelSuccessfulStories:      "/la-nueva-politica"  (controller:"funnel", action:"funnelSuccessfulStories")
         name funnelOffers:                 "/ofertas"            (controller:"funnel", action:"funnelOffers")
@@ -347,6 +359,38 @@ class UrlMappings {
 
         "/account/contacts/oauth/$provider/success" (controller: "contactsOAuth", action: "onSuccess")
         "/account/contacts/oauth/$provider/failure" (controller: "contactsOAuth", action: "onFailure")
+
+        /**********************/
+        /***** PENSAR SEO *****/
+        /**********************/
+        name discover:                      "/descubre" (controller: "discover", action:"discoverProjects")
+        name discoverProjects:              "/descubre/proyectos"         (controller: "discover", action:"discoverProjects")
+        name discoverProjectsByRegion:      "/descubre/proyectos/$regionName" (controller: "discover", action:"discoverProjects")
+        name discoverPoliticians:           "/descubre/politicos"     (controller: "discover", action:"discoverPoliticians")
+        name discoverRecentPosts:           "/descubre/publicaciones-recientes" (controller: "discover", action:"discoverRecentPosts")
+        name discoverRecommendedPosts:      "/descubre/publicaciones-mas-impulsadas" (controller: "discover", action:"discoverRecommendedPosts")
+        /**********************/
+        /*** END PENSAR SEO ***/
+        /**********************/
+
+
+        /**********************/
+        /***** DEPRECATED *****/
+        /**********************/
+        //TODO Hacer esta chapu en BBDD
+        "/losdatoscuentan" (controller: "dashboard", action:"customPostMapping")
+        "/losDatosCuentan" (controller: "dashboard", action:"customPostMapping")
+        "/empleoJuvenil" (controller: "dashboard", action:"customPostMappingEmpleoJuvenil")
+        "/empleojuvenil" (controller: "dashboard", action:"customPostMappingEmpleoJuvenil")
+        "/sayNoToFracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
+        "/SayNoToFracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
+        "/saynotofracking" (controller: "dashboard", action:"customPostMappingSayNoToFracking")
+        "/immigrationrc" (controller: "dashboard", action:"customPostMappingImmigrationrc")
+        "/immigrationRC" (controller: "dashboard", action:"customPostMappingImmigrationrc")
+
+        /**********************/
+        /*** END DEPRECATED ***/
+        /**********************/
 
         "/sitemapIndex"{
             controller = 'siteMap'
