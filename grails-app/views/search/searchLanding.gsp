@@ -13,7 +13,7 @@
                       kuorumImage:r.resource(dir:'images', file:'landingSearch-rrss.png', absolute:true)
 //                      kuorumImage:request.siteUrl +r.resource(dir:'images', file:'background-search.jpg')
               ]"/>
-    <link rel="canonical" href="${g.createLink(mapping:"searcherLanding", params: [])}"/>
+    <link rel="canonical" href="${g.createLink(mapping:"landingSearch", params: [])}"/>
 
     <script type="application/ld+json">
     {

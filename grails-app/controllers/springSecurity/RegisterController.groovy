@@ -251,7 +251,9 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     def downloadPressKit(ResendVerificationMailCommand command){
         if (command.hasErrors()){
-            return "Not valid mail";
+            flash.message = "Invalid mail"
+            redirect mapping:'landingPoliticians'
+            return
         }
         Locale locale = LocaleContextHolder.getLocale();
         mailchimpService.addPress(command.email.split("@")[0], command.email, locale)

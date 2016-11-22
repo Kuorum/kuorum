@@ -8,14 +8,20 @@ class UrlMappings {
 
     static excludes = ['/robots.txt']
 
+    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos']
+    static List<String> VALID_LANGUAGE_PATHS = ["es","en","lt","de","it"]
 	static mappings = {
 
         /**********************/
         /***** I18N URLs ******/
         /**********************/
-        name home:             "/$lang" (controller: "search", action:"searchLanding")
-                               "/" (controller: "search", action:"searchLanding")
+        name home:              "/$lang" (controller: "search", action:"searchLanding"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                "/" { controller="redirect"; action= "redirect301"; newMapping='home'}
 
+
+        name landingSearch:     "/$lang"(controller: "search", action:"searchLanding")
+                                "/$lang/discover"   (controller: "search", action:"searchLanding")
+                                "/discover"         { controller="redirect"; action= "redirect301"; newMapping='landingSearch'}
         name landingCitizens:   "/$lang/who-should-i-vote-for" (controller: "dashboard", action:"landingCitizens")
                                 "/who-should-i-vote-for" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}
                                 "/citizens" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}
@@ -29,7 +35,6 @@ class UrlMappings {
                                     "/advocate-better" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
                                     "/organizations" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
 
-
         name footerTechnology:      "/$lang/services/what-is-kuorum"    (controller:"footer", action: "tech" )
                                     "/services/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
                                     "/services"                         { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
@@ -38,12 +43,12 @@ class UrlMappings {
                                     "/services/politicians"             {controller="redirect"; action= "redirect301"; newMapping='footerPoliticians'}
         name footerGovernment:      "/$lang/services/government"        (controller:"footer", action: "government" )
                                     "/services/government"              {controller="redirect"; action= "redirect301"; newMapping='footerGovernment'}
-        name footerCitizens:        "$lang/services/who-should-i-vote-for"   (controller:"footer", action: "citizens" )
+        name footerCitizens:        "/$lang/services/who-should-i-vote-for"   (controller:"footer", action: "citizens" )
                                     "/services/who-should-i-vote-for"   {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
                                     "/services/citizens"                {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
         name footerDevelopers:      "/$lang/services/editors"           (controller:"footer", action: "developers" )
                                     "/services/editors"                 {controller="redirect"; action= "redirect301"; newMapping='footerDevelopers'}
-        name footerAboutUs:         "$lang/about/our-story"             (controller:"footer", action: "aboutUs" )
+        name footerAboutUs:         "/$lang/about/our-story"             (controller:"footer", action: "aboutUs" )
                                     "/about/our-story"                  {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
                                     "/about"                            {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
         name footerVision:          "/$lang/about/mision-and-vision"    (controller:"footer", action: "vision" )
@@ -63,6 +68,54 @@ class UrlMappings {
         name footerTermsUse:        "/$lang/legal/terms-of-use"         (controller:"footer", action: "termsUse")
                                     "/legal/terms-of-use"               {controller="redirect"; action= "redirect301"; newMapping='footerTermsUse'}
 
+        name register:              "/$lang/sign-up"    (controller: "register"){action = [GET:"index", POST:"register"]}
+                                    "/sign-up"          {controller="redirect"; action= "redirect301"; newMapping='register'}
+                                    "/registro"         {controller="redirect"; action= "redirect301"; newMapping='register'}
+
+        name registerPressKit:          "/$lang/sign-up/pressKit"(controller: "register",action:"downloadPressKit")
+        name registerStep2:             "/$lang/sign-up/step2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
+        name registerStep3:             "/$lang/sign-up/step3"(controller: "customRegister"){action = [GET:"step3", POST:"step3Save"]}
+
+
+        name registerSuccess:       "/$lang/sign-up/success"(controller: "register",action:"registerSuccess")
+                                    "/registro/satisfactorio"{controller="redirect"; action= "redirect301"; newMapping='registerSuccess'}
+        name registerPassword:      "/$lang/sign-up/establece-password"(controller: "register", action:"selectMyPassword")
+                                    "/registro/establece-password"{controller="redirect"; action= "redirect301"; newMapping='registerPassword'}
+        name registerResendMail:    "/$lang/sign-up/no-valid"(controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"]}
+                                    "/registro/no-verificado"{controller="redirect"; action= "redirect301"; newMapping='registerResendMail'}
+        name resetPassword:         "/$lang/sign-in/recover-password"(controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"]}
+                                    "/sign-in/recover-password"{controller="redirect"; action= "redirect301"; newMapping='resetPassword'}
+                                    "/registro/password-olvidado"{controller="redirect"; action= "redirect301"; newMapping='resetPassword'}
+        name resetPasswordSent:     "/$lang/sign-up/verification-sent"(controller: "register", action:"forgotPasswordSuccess")
+                                    "/registro/enviada-verificacion"{controller="redirect"; action= "redirect301"; newMapping='resetPasswordSent'}
+        name resetPasswordChange:   "/$lang/sign-up/change-pass"(controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"]}
+                                    "/registro/cambiar-password"{controller="redirect"; action= "redirect301"; newMapping='resetPasswordChange'}
+
+
+        name login:     "/$lang/log-in" (controller:"login", action:"index")
+                        "/log-in"       {controller="redirect"; action= "redirect301"; newMapping='login'}
+                        "/entrar"       {controller="redirect"; action= "redirect301"; newMapping='login'}
+        name loginAuth: "/$lang/sign-in"(controller:"login", action:"auth")
+                        "/sign-in"      {controller="redirect"; action= "redirect301"; newMapping='loginAuth'}
+                        "/autenticarse" {controller="redirect"; action= "redirect301"; newMapping='loginAuth'}
+        name loginFull: "/$lang/confirmar-usuario"  (controller:"login", action:"full")
+                        "/confirmar-usuario"        {controller="redirect"; action= "redirect301"; newMapping='loginFull'}
+        name logout:    "/logout"       (controller:"logout", action:"index")
+                        "/salir"        {controller="redirect"; action= "redirect301"; newMapping='logout'}
+
+        name userShow:              "/$lang/$userAlias"     (controller: "kuorumUser", action: "show") {constraints{lang (inList:UrlMappings.VALID_LANGUAGE_PATHS)}}
+        name userShowPlain:         "/$userAlias"           (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name secUserShow:           "/sec/$userAlias"       (controller: "kuorumUser", action: "secShow")
+
+        name searcherSearch:        "/$lang/search"(controller: "search", action:"search")
+                                    "/search"{controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
+                                    "/buscar"{controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
+
+        //BLOG REDIRECT:
+        name blog:          "/$lang/blog/"    (controller: "redirect", action:"blogRedirect")
+                            "/blog/"    (controller: "redirect", action:"blogRedirect")
+                            "/blog/$articlePath**" (controller: "redirect", action:"blogRedirect")
+
         /**********************/
         /***** LOGGED URLs ****/ //Language no matters
         /**********************/
@@ -71,15 +124,13 @@ class UrlMappings {
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
 
         name projectCreate:             "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"save"]}
-                                        "/leyes/nueva"(controller: "project"){action = [GET:"create", POST:"save"]}
         name projectEdit:               "/proyectos/$regionName/$commission/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
         name projects:                  "/proyectos/$regionName?/$commission?" (controller: "project", action:"index")
-                                        "/leyes/$regionName?/$commission?" (controller: "project", action:"index")
         name projectShow:               "/hashtag/$hashtag" (controller: "project", action:"show")
                                         "/proyectos/$regionName/$commission/$hashtag" (controller: "project", action:"show")
                                         "/leyes/$regionName/$commission/$hashtag" (controller: "project", action:"show")
         name projectStats:              "/proyectos/$regionName/$commission/$hashtag/ficha-tecnica" (controller: "project", action:"stats")
-                                        "/leyes/$regionName/$commission/$hashtag/ficha-tecnica" (controller: "project", action:"stats")
+
         name projectStatsDataMap:       "/ajax/proyectos/$regionName/$commission/$hashtag/ficha-tecnica/datos-mapa" (controller: "project", action:"statsDataMap")
         name projectStatsPieChart:      "/ajax/proyectos/$regionName/$commission/$hashtag/ficha-tecnica/datos-pieChart" (controller: "project", action:"statsDataPieChart")
         name projectShowSec:            "/sec/proyectos/$regionName/$commission/$hashtag" (controller: "project", action:"showSecured")
@@ -128,38 +179,10 @@ class UrlMappings {
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
         name widgetRatePolitician:     "/widget/ratePolitician" (controller: "rating", action:"widgetRatePolitician")
         name widgetComparative:        "/widget/comparation"    (controller: "rating", action:"widgetComparativePoliticianInfo")
-//        name postAddDefender:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/apadrinar"(controller: "post", action:"addDefender")
 
+        name userFollowers:     "/ajax/$userAlias/seguidores" (controller: "kuorumUser", action: "userFollowers")
+        name userFollowing:     "/ajax/$userAlias/siguiendo"  (controller: "kuorumUser", action: "userFollowing")
 
-        //BLOG REDIRECT:
-        name blog:          "/blog/"    (controller: "redirect", action:"blogRedirect")
-                            "/blog/$articlePath**" (controller: "redirect", action:"blogRedirect")
-
-        //userShow && users is used for build the urls but is never called because the urls constructed should be like citizenShow, organizationShow, politicianShow
-                             "/$userTypeUrl/$urlName-$id" {
-                                    controller="redirect";
-                                    action= "redirect301User";
-                                    newMapping='userShow';
-                                    constraints {
-                                        userTypeUrl inList: ["ciudadanos", "organizaciones", "politicos"]
-                                    }
-        }
-        name userShow: "/$userAlias"   (controller: "kuorumUser", action: "show"){
-            constraints{
-                userAlias (validator:
-                        {
-                            def noValidAlias =['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos']
-                            noValidAlias.addAll(AvailableLanguage.values().collect{it.locale.language})
-                            !noValidAlias.contains(it)
-                        })
-            }
-        }
-        name secUserShow:       "/sec/$userAlias"   (controller: "kuorumUser", action: "secShow")
-
-        name userFollowers:     "/$userAlias/seguidores" (controller: "kuorumUser", action: "userFollowers")
-                                "/$userTypeUrl/$urlName-$id/seguidores" {controller="redirect"; action= "redirect301User"; newMapping:'userFollowers'}
-        name userFollowing:     "/$userAlias/siguiendo"  (controller: "kuorumUser", action: "userFollowing")
-                                "/$userTypeUrl/$urlName-$id/siguiendo"  {controller="redirect"; action= "redirect301User"; newMapping:'userFollowing'}
         name userFollowAndRegister:          "/$userAlias/subscribe" (controller: "kuorumUser", action: "subscribeTo")
         name userClucks:        "/ajax/$userAlias/clucks"  (controller: "kuorumUser", action: "userClucks")
         name userPost:          "/ajax/$userAlias/posts"  (controller: "kuorumUser", action: "userPosts")
@@ -173,31 +196,6 @@ class UrlMappings {
         name userHistoricRate:          "/ajax/$userAlias/historicRate"(controller: "rating", action:"historicPoliticianRate")
         name comparingPoliticianRate:   "/ajax/user/compareRate"(controller: "rating", action:"comparingPoliticianRateData")
 
-        name register:            "/sign-up"(controller: "register"){action = [GET:"index", POST:"register"]}
-                                  "/registro"(controller: "register"){action = [GET:"index", POST:"register"]}
-        name registerPressKit:          "/sign-up/pressKit"(controller: "register",action:"downloadPressKit")
-        name registerPressKit:          "/sign-up/pressKit"(controller: "register",action:"downloadPressKit")
-        name registerStep2:             "/sign-up/step2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
-        name registerStep3:             "/sign-up/step3"(controller: "customRegister"){action = [GET:"step3", POST:"step3Save"]}
-        name registerSubscriptionStep1:  "/subscribe/step1" (controller: "customRegister", action:"subscriptionStep1")
-        name registerSubscriptionStep1Save:  "/subscribe/step1-save" (controller: "customRegister"){action = [GET:"subscriptionStep1", POST:"subscriptionStep1Save"]}
-        name registerSubscriptionStep3:  "/subscribe/step3" (controller: "customRegister", action:"subscriptionStep3")
-        name registerSuccess:     "/registro/satisfactorio"(controller: "register",action:"registerSuccess")
-        name registerPassword: "/registro/establece-password"(controller: "register", action:"selectMyPassword")
-        name registerResendMail:  "/registro/no-verificado"(controller: "register"){action=[GET:"resendRegisterVerification", POST:"resendVerification"]}
-        name resetPassword:       "/sign-in/recover-password"(controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"]}
-                                  "/registro/password-olvidado"(controller: "register"){action=[GET:"forgotPassword", POST:"forgotPasswordPost"]}
-        name resetPasswordSent:   "/registro/enviada-verificacion"(controller: "register", action:"forgotPasswordSuccess")
-        name resetPasswordChange: "/registro/cambiar-password"(controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"]}
-
-        name customRegisterCountryAndPostalCode: "/registro/countryAndPostalCode"(controller: "customRegister", action:"countryAndPostalCode")
-        name customRegisterAgeAndGender: "/registro/ageAndGender"(controller: "customRegister", action:"ageAndGender")
-        name customRegisterTelephone: "/registro/telephone"(controller: "customRegister", action:"telephone")
-
-        name searcherSearch:        "/search"(controller: "search", action:"search")
-                                    "/buscar"(controller: "search", action:"search")
-        name searcherLanding:       "/"(controller: "search", action:"searchLanding")
-                                    "/discover"(controller: "search", action:"searchLanding")
         name searcherSearchSeeMore: "/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
         name searcherSearchFilters: "/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
         name searcherSuggests:      "/ajax/buscar/sugerencias"(controller: "search", action:"suggest")
@@ -225,27 +223,8 @@ class UrlMappings {
 
         name profileMailing : "/notifications/mailing" (controller: "profile", action:"showUserEmails")
 
-        name toolsNotifications:  "/herramientas/notificaciones"   (controller: "tools", action: "userNotifications")
-        name toolsFavorites:    "/herramientas/pendientes-de-leer"(controller: "tools", action: "showFavoritesPosts")
-        name toolsMyPosts:      "/herramientas/mis-posts"        (controller: "tools", action: "showUserPosts")
-        name toolsKuorumStore:  "/herramientas/el-gallinero"     (controller: "tools", action: "kuorumStore")
-        name toolsBuyAward:     "/ajax/herramientas/el-gallinero/comprar"     (controller: "tools", action: "kuorumStoreBuyAward")
-        name toolsActivateAward:"/ajax/herramientas/el-gallinero/activar"     (controller: "tools", action: "kuorumStoreActivateAward")
-
         name causeSupport:         "/ajax/cause/$causeName/support" (controller:"causes", action: "supportCause")
         name causeDiscard:         "/ajax/cause/$causeName/discard" (controller:"causes", action: "discardCause")
-
-
-        name funnelSuccessfulStories:      "/la-nueva-politica"  (controller:"funnel", action:"funnelSuccessfulStories")
-        name funnelOffers:                 "/ofertas"            (controller:"funnel", action:"funnelOffers")
-        name funnelPay:                    "/suscripcion"        (controller:"funnel", action:"funnelPay")
-        name funnelSubscription:           "/registro-politico"  (controller:"funnel", action:"funnelSubscription")
-        name funnelLoggin:                 "/login-politico"     (controller:"funnel", action:"funnelLogin")
-        name funnelPaySuccess:    "/pago-satisfactorio" (controller:"funnel", action:"funnelSuccess")
-        name funnelUpdatePersonalData:    "/actualizar-tlf-politico" (controller:"funnel", action:"funnelUpdatePersonalData")
-
-        name tourStart:           "/tour" (controller:"tour", action: "index")
-        name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
 
         name campaignPoll:        "/campaign/poll" (controller: "massMailing", action: "saveCitizenPriorities")
 
@@ -257,20 +236,10 @@ class UrlMappings {
         name ajaxRequestPolitician: "/ajax/politico/solicitud-kuorum"(controller:"kuorumUser", action:"follow")
         name ajaxCropImage: "/ajax/file/crop"(controller:"file", action:"cropImage")
         name ajaxUploadFile: "/ajax/file/upload" (controller:'file', action:"uploadImage")
-        //New endpoint. Upload a PDF file
         name ajaxUploadFilePDF: "/ajax/file/uploadPDF" (controller:'file', action:"uploadPDF")
 
         name ajaxModuleProjectBottomStats: '/ajax/project/bottomProjectStats' (controller:'modules', action: 'bottomProjectStats')
-                                       '/ajax/law/bottomLawStats' (controller:'modules', action: 'bottomProjectStats')
         name ajaxModuleUserCauses:        "/ajax/module/user/causes" (controller:"modules", action: "userCauses")
-
-        name login:     "/log-in"       (controller:"login", action:"index")
-                        "/entrar"       (controller:"login", action:"index")
-        name loginAuth: "/sign-in" (controller:"login", action:"auth")
-                        "/autenticarse" (controller:"login", action:"auth")
-        name loginFull: "/confirmar-usuario" (controller:"login", action:"full")
-        name logout:    "/logout"        (controller:"logout", action:"index")
-                        "/salir"        (controller:"logout", action:"index")
 
         name adminPrincipal:        "/admin"                          (controller:"adminProject", action: "index")
         name adminCreateProject:    "/admin/proyectos/crear-proyecto" (controller:"adminProject"){action =[GET:"createProject", POST:"saveProject"]}
@@ -287,7 +256,7 @@ class UrlMappings {
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
         name adminEditorsMonitoring:"/admin/editors/monitoring"    (controller:"admin", action:"editorsMonitoring")
-//        name adminCreateUser:       "/admin/usuarios/crear-usuario" (controller:"adminUser"){action =[GET:"createUser", POST:"saveUser"]}
+
         name editorCreatePolitician:                        "/editor/usuarios/politician/create-politician" (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
         name editorEditUserProfile:                         "/editor/usuarios/$userAlias/editar/profile" (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
         name editorEditSocialNetwork:                       "/editor/usuarios/$userAlias/editar/social-network" (controller:"editorUser"){action =[GET:"editUserSocialNetwork", POST:"updateUserSocialNetwork"]}
@@ -367,6 +336,29 @@ class UrlMappings {
         "/immigrationrc" (controller: "dashboard", action:"customPostMappingImmigrationrc")
         "/immigrationRC" (controller: "dashboard", action:"customPostMappingImmigrationrc")
 
+        // REGISTRO DE POLITICO
+        name registerSubscriptionStep1:  "/subscribe/step1" (controller: "customRegister", action:"subscriptionStep1")
+        name registerSubscriptionStep1Save:  "/subscribe/step1-save" (controller: "customRegister"){action = [GET:"subscriptionStep1", POST:"subscriptionStep1Save"]}
+        name registerSubscriptionStep3:  "/subscribe/step3" (controller: "customRegister", action:"subscriptionStep3")
+
+        // Registros parciales
+        name customRegisterCountryAndPostalCode: "/registro/countryAndPostalCode"(controller: "customRegister", action:"countryAndPostalCode")
+        name customRegisterAgeAndGender: "/registro/ageAndGender"(controller: "customRegister", action:"ageAndGender")
+        name customRegisterTelephone: "/registro/telephone"(controller: "customRegister", action:"telephone")
+
+        // Funel antiguo de compra de politico
+        name funnelSuccessfulStories:      "/la-nueva-politica"  (controller:"funnel", action:"funnelSuccessfulStories")
+
+        // HERRAMIENTAS (TOOLS)
+        name toolsNotifications:    "/herramientas/notificaciones"   (controller: "tools", action: "userNotifications")
+        name toolsFavorites:        "/herramientas/pendientes-de-leer"(controller: "tools", action: "showFavoritesPosts")
+        name toolsMyPosts:          "/herramientas/mis-posts"        (controller: "tools", action: "showUserPosts")
+        name toolsKuorumStore:      "/herramientas/el-gallinero"     (controller: "tools", action: "kuorumStore")
+        name toolsBuyAward:         "/ajax/herramientas/el-gallinero/comprar"     (controller: "tools", action: "kuorumStoreBuyAward")
+        name toolsActivateAward:    "/ajax/herramientas/el-gallinero/activar"     (controller: "tools", action: "kuorumStoreActivateAward")
+
+        name tourStart:           "/tour" (controller:"tour", action: "index")
+        name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
         /**********************/
         /*** END DEPRECATED ***/
         /**********************/

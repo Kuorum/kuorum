@@ -16,7 +16,7 @@
 
                     %{--<g:link mapping="register" class="btn btn-white"><g:message code="login.head.register"/> </g:link>--}%
                     <a href="#results" class="btn btn-white smooth"><g:message code="search.noLogged.landing.examplesButton"/></a>
-                    <g:form mapping="searcherLanding" method="GET" name="findRepresentatives" id="findRepresentatives" class="form-inline searchRep" role="search" fragment="results">
+                    <g:form mapping="landingSearch" method="GET" name="findRepresentatives" id="findRepresentatives" class="form-inline searchRep" role="search" fragment="results">
                         <div class="form-group input-group">
 
                             <div class="open-filter">

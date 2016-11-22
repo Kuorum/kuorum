@@ -12,7 +12,8 @@ class RedirectController {
     static defaultAction = 'redirect301'
 
     def redirect301 = {
-        def link = g.createLink(mapping: params.newMapping)
+        def newMapping = params.remove("newMapping")
+        def link = g.createLink(mapping: newMapping, params: params)
         response.setHeader "Location", link
         response.status = 301
         render('')
@@ -20,7 +21,7 @@ class RedirectController {
     }
 
     def redirect301User = {
-        KuorumUser user = KuorumUser.get(new ObjectId(params.id))
+        KuorumUser user = KuorumUser.findByAlias(params.userAlias)
         if (user){
             def link = g.createLink(mapping: params.newMapping, params: user.encodeAsLinkProperties())
             response.setHeader "Location", link
@@ -28,10 +29,10 @@ class RedirectController {
             render('')
             return false
         }else{
-            def link = g.createLink(mapping: 'searcherLanding', params: [word:params.urlName])
+            def link = g.createLink(mapping: 'landingSearch', params: [word:params.urlName])
             link = link + "#results"
             response.setHeader "Location", link
-            response.status = HttpStatus.SC_MOVED_PERMANENTLY
+            response.status = HttpStatus.SC_GONE
             flash.message=g.message(code:'redirect.user.notFound')
             render('')
             return false
@@ -39,10 +40,14 @@ class RedirectController {
     }
 
     def blogRedirect(String articlePath){
+        if (params.lang){
+            render "CloudFront redirect"
+            return;
+        }
         def urlBlog = articlePath
         Locale locale = localeResolver.resolveLocale(request)
         String subDomain = locale.language=="es"?"es":"en";
-        String redirectUrl = "https://${subDomain}.kuorum.org/blog/${urlBlog?:''}"
+        String redirectUrl = "https://kuorum.org/$subDomain/blog/${urlBlog?:''}"
         redirect(url: redirectUrl, permanent: true)
         return;
     }

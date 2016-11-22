@@ -5,7 +5,7 @@
     <div class="panel-body">
 
         <g:set var="sharedLink"><g:createLink
-                mapping="searcherLanding"
+                mapping="landingSearch"
                 params="[:]"
                 absolute="true"/></g:set>
 

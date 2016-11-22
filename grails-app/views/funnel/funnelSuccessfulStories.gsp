@@ -12,6 +12,6 @@
 </content>
 
 <content tag="preFooter">
-    <g:render template="offersNoPrice"/>
+    <g:render template="/layouts/fastRegisterSection"/>
 </content>
 
