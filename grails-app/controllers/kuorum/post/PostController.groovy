@@ -231,33 +231,6 @@ class PostController {
         model
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def promotePost(){
-        Post post = params.post
-        def promotionPrizes = grailsApplication.config.kuorum.post.promotionPrizes
-        def prices = promotionPrizes.collect{[price:it, numMails: postService.calculateNumEmails(it)]}
-        [post:post, prices:prices, command: new PromotePostCommand()]
-    }
-
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def paimentPost(PromotePostCommand command){
-        Post post = params.post
-        if (command.hasErrors()){
-            def promotionPrizes = grailsApplication.config.kuorum.post.promotionPrizes
-            def prices = promotionPrizes.collect{[price:it, numMails: postService.calculateNumEmails(it)]}
-            [post:post, prices:prices, command: command]
-        }
-
-        [post:post, amount:command.amount, numMails:postService.calculateNumEmails(command.amount)]
-    }
-
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def successPromotePost(PromotePostCommand command){
-        Post post = params.post
-        [post:post, numMails: 1000]
-    }
-
-
     @Secured('IS_AUTHENTICATED_REMEMBERED')
     def favorite() {
         Post post = params.post

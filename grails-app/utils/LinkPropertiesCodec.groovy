@@ -65,23 +65,14 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(Project project){
-        String commissionName = translate("${CommissionType.canonicalName}.${project.commissions.first()}")
+        KuorumUser owner = project.owner
         [
                 hashtag: project.hashtag.decodeHashtag(),
-                regionName:project.region.name.encodeAsKuorumUrl(),
-//                institutionName:project.institution.name.encodeAsKuorumUrl(),
-                commission:commissionName.encodeAsKuorumUrl(),
+                userAlias: owner.alias
         ]
     }
 
     private static def prepareParams(KuorumUser user){
-        //userTypeUrl is the name that match with UrlMappings to redirect to correct action
-//        String userTypeUrl = transEnumToUrl(user.userType)
-//        [
-//                id: user.id.toString(),
-//                urlName:user.name.encodeAsKuorumUrl(),
-//                userTypeUrl:userTypeUrl.encodeAsKuorumUrl(),
-//        ]
         [
                 userAlias:user.alias.toLowerCase()
         ]

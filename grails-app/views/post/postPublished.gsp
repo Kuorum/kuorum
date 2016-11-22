@@ -30,16 +30,6 @@
     <p><g:message code="post.edit.step3.info.content.small"/></p>
 
     <ul class="btns">
-        <g:if env="production">
-            %{--DESACTIVADO PROCESO PAGO EN PRODUCCION--}%
-        </g:if>
-        <g:else>
-            <li>
-                <g:link mapping="postPayPost" class="btn btn-blue btn-lg" params="${post.encodeAsLinkProperties()}">
-                    <g:message code="post.edit.step3.promoteButton"/>
-                </g:link>
-            </li>
-        </g:else>
         <li>
             <g:link mapping="postShow" class="btn btn-grey-light btn-lg" params="${post.encodeAsLinkProperties()}">
                 Ver mi propuesta

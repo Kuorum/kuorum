@@ -143,8 +143,6 @@ class UrlMappings {
         name projectUpdate:             "/proyectos/$regionName/$commission/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
         name postCreate:    "/proyectos/$regionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-                            "/leyes/$regionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-//        name postSave:      "/leyes/$regionName/$commission/$hashtag/guardar-nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
         name postShow:      "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"(controller: "post", action: "show")
                             "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"(controller: "post", action: "show")
                             "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"(controller: "post", action: "show")
@@ -162,11 +160,7 @@ class UrlMappings {
         name postVoteAndRegister:    "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/impulsar-registro"(controller: "post",action: "votePostWithRegister")
         name postVotesList: "/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/lista-impulsos"(controller: "post",action: "listVotes")
         name postClucksList:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/lista-kakareos"(controller: "post",action: "listClucks")
-        name postPayPost:   "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/promocionar"(controller: "post", action:"promotePost")
-                            "/leyes/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/promocionar"(controller: "post", action:"promotePost")
-        name postPaiment:   "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/resumen-promocion"(controller: "post", action:"paimentPost")
-                            "/leyes/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/resumen-promocion"(controller: "post", action:"paimentPost")
-        name postSuccessPay:"/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/gracias"(controller: "post", action:"successPromotePost")
+
         name postAddDebate: "/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
         name postAddVictory:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/victoria"(controller: "post", action:"addVictory")
         name postAddDefender:"/ajax/proyectos/propuesta/apadrinar"(controller: "post", action:"addDefender")
