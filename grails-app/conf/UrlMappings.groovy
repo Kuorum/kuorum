@@ -222,8 +222,6 @@ class UrlMappings {
         name causeSupport:         "/ajax/cause/$causeName/support" (controller:"causes", action: "supportCause")
         name causeDiscard:         "/ajax/cause/$causeName/discard" (controller:"causes", action: "discardCause")
 
-        name campaignPoll:        "/campaign/poll" (controller: "massMailing", action: "saveCitizenPriorities")
-
         name ajaxHeadNotificationsChecked:  "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")
         name ajaxPostponeAlert:             "/ajax/notificaiones/posponer/$id"(controller:"notification", action:"postponeAlert")
         name ajaxHeadMessagesChecked:       "/ajax/mensajes/check"(controller:"layouts", action:"headNotificationsChecked")
@@ -350,6 +348,9 @@ class UrlMappings {
         name adminPublishProject:   "/admin/proyectos/editar-proyecto/$hashtag/publicar"     (controller:"adminProject", action: "publishProject")
         name adminUnpublishProject: "/admin/proyectos/editar-proyecto/$hashtag/despublicar"  (controller:"adminProject", action: "unPublishProject")
         name adminUnpublishedProjects:"/admin/proyectos/no-publicados"    (controller:"adminProject", action: "unpublishedProjects")
+
+        // PSOE POLL
+        name campaignPoll:        "/campaign/poll" (controller: "massMailing", action: "saveCitizenPriorities")
         /**********************/
         /*** END DEPRECATED ***/
         /**********************/
