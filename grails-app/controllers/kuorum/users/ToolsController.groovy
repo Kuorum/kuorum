@@ -160,7 +160,7 @@ class ToolsController {
                 seeMore: seeMore]
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def publishProject(String hashtag){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())

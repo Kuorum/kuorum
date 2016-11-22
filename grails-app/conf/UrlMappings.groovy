@@ -237,10 +237,6 @@ class UrlMappings {
         name ajaxModuleUserCauses:          "/ajax/module/user/causes" (controller:"modules", action: "userCauses")
 
         name adminPrincipal:        "/admin"                          (controller:"adminProject", action: "index")
-        name adminEditProject:      "/admin/proyectos/editar-proyecto/$hashtag" (controller:"adminProject"){action =[GET:"editProject", POST:"updateProject"]}
-        name adminPublishProject:   "/admin/proyectos/editar-proyecto/$hashtag/publicar"     (controller:"adminProject", action: "publishProject")
-        name adminUnpublishProject: "/admin/proyectos/editar-proyecto/$hashtag/despublicar"  (controller:"adminProject", action: "unPublishProject")
-        name adminUnpublishedProjects:"/admin/proyectos/no-publicados"    (controller:"adminProject", action: "unpublishedProjects")
         name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
@@ -348,6 +344,12 @@ class UrlMappings {
 
         name tourStart:           "/tour" (controller:"tour", action: "index")
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
+
+        // PROYECTOS (ADMIN)
+        name adminEditProject:      "/admin/proyectos/editar-proyecto/$hashtag" (controller:"adminProject"){action =[GET:"editProject", POST:"updateProject"]}
+        name adminPublishProject:   "/admin/proyectos/editar-proyecto/$hashtag/publicar"     (controller:"adminProject", action: "publishProject")
+        name adminUnpublishProject: "/admin/proyectos/editar-proyecto/$hashtag/despublicar"  (controller:"adminProject", action: "unPublishProject")
+        name adminUnpublishedProjects:"/admin/proyectos/no-publicados"    (controller:"adminProject", action: "unpublishedProjects")
         /**********************/
         /*** END DEPRECATED ***/
         /**********************/
