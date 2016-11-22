@@ -178,15 +178,6 @@ class DashboardController {
         render template: "/dashboard/listDashboardPoliticians", model:[politicians:suggesterPoliticians]
     }
 
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def dashboardClucks(Pagination pagination){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<ProjectEvent> projectEvents = projectService.findRelevantProjectEvents(user, new Pagination(max: MAX_PROJECT_EVENTS, offset: pagination.offset))
-        List<Cluck> clucks =  cluckService.dashboardClucks(user, pagination)
-        response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${clucks.size()<pagination.max}")
-        render template: "/cluck/liClucks", model:[clucks:clucks, projectEvents:projectEvents]
-    }
-
     def landingPoliticians(){
         [command: new KuorumRegisterCommand()]
     }
