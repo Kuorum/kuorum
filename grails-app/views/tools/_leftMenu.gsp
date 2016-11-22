@@ -18,11 +18,6 @@
             %{--</span>--}%
         %{--</g:link>--}%
     %{--</li>--}%
-    %{--<sec:ifAnyGranted roles="ROLE_POLITICIAN">--}%
-        %{--<li class="${activeMapping=='projectList'?'active':''}">--}%
-            %{--<g:link mapping="projectList"><g:message code="tools.menu.profileMyProjects"/></g:link>--}%
-        %{--</li>--}%
-    %{--</sec:ifAnyGranted>--}%
     %{--<li class="${activeMapping=='toolsMyPosts'?'active':''}">--}%
         %{--<g:link mapping="toolsMyPosts">--}%
             %{--<span id="post-para-publicar">--}%

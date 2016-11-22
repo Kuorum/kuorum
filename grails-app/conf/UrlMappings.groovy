@@ -8,8 +8,8 @@ class UrlMappings {
 
     static excludes = ['/robots.txt']
 
-    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos']
-    static List<String> VALID_LANGUAGE_PATHS = ["es","en","lt","de","it"]
+    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos', 'register']
+    static List<String> VALID_LANGUAGE_PATHS = AvailableLanguage.values().collect{it.locale.language}
 	static mappings = {
 
         /**********************/
@@ -72,9 +72,9 @@ class UrlMappings {
                                     "/sign-up"          {controller="redirect"; action= "redirect301"; newMapping='register'}
                                     "/registro"         {controller="redirect"; action= "redirect301"; newMapping='register'}
 
-        name registerPressKit:          "/$lang/sign-up/pressKit"(controller: "register",action:"downloadPressKit")
-        name registerStep2:             "/$lang/sign-up/step2"(controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
-        name registerStep3:             "/$lang/sign-up/step3"(controller: "customRegister"){action = [GET:"step3", POST:"step3Save"]}
+        name registerPressKit:      "/$lang/sign-up/pressKit"   (controller: "register",action:"downloadPressKit")
+        name registerStep2:         "/$lang/sign-up/step2"      (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
+        name registerStep3:         "/$lang/sign-up/step3"      (controller: "customRegister"){action = [GET:"step3", POST:"step3Save"]}
 
 
         name registerSuccess:       "/$lang/sign-up/success"(controller: "register",action:"registerSuccess")
@@ -103,10 +103,6 @@ class UrlMappings {
         name logout:    "/logout"       (controller:"logout", action:"index")
                         "/salir"        {controller="redirect"; action= "redirect301"; newMapping='logout'}
 
-        name userShow:              "/$lang/$userAlias"     (controller: "kuorumUser", action: "show") {constraints{lang (inList:UrlMappings.VALID_LANGUAGE_PATHS)}}
-        name userShowPlain:         "/$userAlias"           (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name secUserShow:           "/sec/$userAlias"       (controller: "kuorumUser", action: "secShow")
-
         name searcherSearch:        "/$lang/search"(controller: "search", action:"search")
                                     "/search"{controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
                                     "/buscar"{controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
@@ -124,51 +120,61 @@ class UrlMappings {
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
 
         name projectCreate:             "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"save"]}
-        name projectEdit:               "/proyectos/$regionName/$commission/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
+        name projectEdit:               "/proyectos/$lang/$userAlias/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
         name projects:                  "/proyectos/$regionName?/$commission?" (controller: "project", action:"index")
-        name projectShow:               "/hashtag/$hashtag" (controller: "project", action:"show")
-                                        "/proyectos/$regionName/$commission/$hashtag" (controller: "project", action:"show")
-                                        "/leyes/$regionName/$commission/$hashtag" (controller: "project", action:"show")
-        name projectShowSec:            "/sec/proyectos/$regionName/$commission/$hashtag" (controller: "project", action:"showSecured")
-        name projectVote:               "/ajax/proyectos/$regionName/$commission/$hashtag/votar"(controller: "project", action:"voteProject")
-        name projectVoteNoTotalUser:    "/sec/proyectos/$regionName/$commission/$hashtag/salvarDatosUsuarioYvotar"(controller: "project", action:"voteProjectAsNonCompleteUser")
-        name projectListClucks:         "/ajax/proyectos/$regionName/$commission/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
-        name projectListPostDefends:    "/ajax/proyectos/$regionName/$commission/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
-        name projectListPostVictories:  "/ajax/proyectos/$regionName/$commission/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
+
+        name projectShow:   "/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                            "/hashtag/$hashtag"                             {controller="redirect"; action= "redirect301Project"; }
+                            "/proyectos/$regionName/$commission/$hashtag"   {controller="redirect"; action= "redirect301Project"; }
+                            "/leyes/$regionName/$commission/$hashtag"       {controller="redirect"; action= "redirect301Project";}
+
+        name projectShowSec:            "/sec/proyectos/$userAlias/$hashtag" (controller: "project", action:"showSecured")
+        name projectVote:               "/ajax/proyectos/$userAlias/$hashtag/votar"(controller: "project", action:"voteProject")
+        name projectVoteNoTotalUser:    "/sec/proyectos/$userAlias/$hashtag/salvarDatosUsuarioYvotar"(controller: "project", action:"voteProjectAsNonCompleteUser")
+        name projectListClucks:         "/ajax/proyectos/$userAlias/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
+        name projectListPostDefends:    "/ajax/proyectos/$userAlias/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
+        name projectListPostVictories:  "/ajax/proyectos/$userAlias/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
 
         name projectList:               "/herramientas/proyectos"(controller: "tools", action:"listProjects")
         name projectListOfUsers:        "/ajax/herramientas/proyectos"(controller: "tools", action: "ajaxShowProjectListOfUsers")
         name publishProject:            "/herramientas/proyectos/$hashtag/publicar" (controller:"tools", action: "publishProject")
 
-        name projectUpdate:             "/proyectos/$regionName/$commission/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
+        name projectUpdate:             "/proyectos/$userAlias/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
-        name postCreate:    "/proyectos/$regionName/$commission/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-        name postShow:      "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"(controller: "post", action: "show")
-                            "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"(controller: "post", action: "show")
-                            "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"(controller: "post", action: "show")
-        name postReview:    "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/revisar"(controller: "post", action: "review")
-        name postPublish:   "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/publicar"(controller: "post", action:"publish")
-        name postPublished: "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/publicado"(controller: "post", action:"postPublished")
-        name postEdit:      "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/editar"(controller: "post"){action = [GET:"edit", POST:"update"]}
-        name postDelete:    "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/eliminar-post"(controller: "post", action: "deletePost")
-        name postToggleFavorite:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/favorito"(controller: "post",action: "favorite")
-        name postDelComment:"/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/borrarCommentario"(controller: "post",action: "deleteComment")
-        name postAddComment:"/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/nuevoComentario"(controller: "post",action: "addComment")
-        name postVoteComment:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/votar-comentario"(controller: "post",action: "voteComment")
-        name postCluckIt:   "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/kakarear"(controller: "post",action: "cluckPost")
-        name postVoteIt:    "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/impulsar"(controller: "post",action: "votePost")
-        name postVoteAndRegister:    "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/impulsar-registro"(controller: "post",action: "votePostWithRegister")
-        name postVotesList: "/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/lista-impulsos"(controller: "post",action: "listVotes")
-        name postClucksList:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/lista-kakareos"(controller: "post",action: "listClucks")
+        name postShow:      "/$userAlias/$hashtag/$postBrief-$postId"(controller: "post", action: "show")
+                            "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"          {controller="redirect"; action= "redirect301Post";}
+                            "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"  {controller="redirect"; action= "redirect301Post";}
+                            "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"      {controller="redirect"; action= "redirect301Post";}
 
-        name postAddDebate: "/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
-        name postAddVictory:"/ajax/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId/victoria"(controller: "post", action:"addVictory")
+        name postCreate:    "/$userAlias/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
+        name postReview:    "/$userAlias/$hashtag/$postBrief-$postId/revisar"(controller: "post", action: "review")
+        name postPublish:   "/$userAlias/$hashtag/$postBrief-$postId/publish"(controller: "post", action:"publish")
+        name postPublished: "/$userAlias/$hashtag/$postBrief-$postId/published"(controller: "post", action:"postPublished")
+        name postEdit:      "/$userAlias/$hashtag/$postBrief-$postId/edit"(controller: "post"){action = [GET:"edit", POST:"update"]}
+        name postDelete:    "/$userAlias/$hashtag/$postBrief-$postId/delete-post"(controller: "post", action: "deletePost")
+        name postToggleFavorite:"/ajax/$userAlias/$hashtag/$postBrief-$postId/favorito"(controller: "post",action: "favorite")
+        name postDelComment:"/$userAlias/$hashtag/$postBrief-$postId/delete-comment"(controller: "post",action: "deleteComment")
+        name postAddComment:"/$userAlias/$hashtag/$postBrief-$postId/add-comment"(controller: "post",action: "addComment")
+        name postVoteComment:"/ajax/$userAlias/$hashtag/$postBrief-$postId/vote-comment"(controller: "post",action: "voteComment")
+        name postCluckIt:   "/$userAlias/$hashtag/$postBrief-$postId/cluck"(controller: "post",action: "cluckPost")
+        name postVoteIt:    "/$userAlias/$hashtag/$postBrief-$postId/vote"(controller: "post",action: "votePost")
+        name postVoteAndRegister:    "/$userAlias/$hashtag/$postBrief-$postId/register-and-vote"(controller: "post",action: "votePostWithRegister")
+        name postVotesList: "/ajax/$userAlias/$hashtag/$postBrief-$postId/list-votes"(controller: "post",action: "listVotes")
+        name postClucksList:"/ajax/$userAlias/$hashtag/$postBrief-$postId/list-clucks"(controller: "post",action: "listClucks")
+
+        name postAddDebate: "/ajax/$userAlias/$hashtag/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
+        name postAddVictory:"/ajax/$userAlias/$hashtag/$postBrief-$postId/victoria"(controller: "post", action:"addVictory")
         name postAddDefender:"/ajax/proyectos/propuesta/apadrinar"(controller: "post", action:"addDefender")
 
 
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
         name widgetRatePolitician:     "/widget/ratePolitician" (controller: "rating", action:"widgetRatePolitician")
         name widgetComparative:        "/widget/comparation"    (controller: "rating", action:"widgetComparativePoliticianInfo")
+
+
+        name userShow:              "/$userAlias"           (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name secUserShow:           "/sec/$userAlias"       (controller: "kuorumUser", action: "secShow")
+
 
         name userFollowers:     "/ajax/$userAlias/seguidores" (controller: "kuorumUser", action: "userFollowers")
         name userFollowing:     "/ajax/$userAlias/siguiendo"  (controller: "kuorumUser", action: "userFollowing")

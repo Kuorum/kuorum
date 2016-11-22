@@ -143,23 +143,6 @@ class ToolsController {
                 seeMore: seeMore, urlLoadMore: params.urlLoadMore]
     }
 
-    @Secured(['ROLE_POLITICIAN'])
-    def listProjects(){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        String sort = 'dateCreated'
-        Order order = Order.ASC
-        Pagination pagination = new Pagination()
-        Map projectsOrderListOfUser = projectService.search(user, sort, order, null, pagination.offset, pagination.max)
-        Integer totalProjects = Project.countByOwner(user)
-        Integer publishedProjects = Project.countByOwnerAndPublished(user, true)
-        Integer draftProjects = Project.countByOwnerAndPublished(user, false)
-        Boolean seeMore = projectsOrderListOfUser.projects?projectsOrderListOfUser.projects.size() < totalProjects:false
-
-        [projects: projectsOrderListOfUser.projects, order: order.value, sort: sort, published: '', max: pagination.max, offset: pagination.offset,
-                totalProjects: totalProjects, publishedProjects: publishedProjects, draftProjects: draftProjects,
-                seeMore: seeMore]
-    }
-
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def publishProject(String hashtag){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
