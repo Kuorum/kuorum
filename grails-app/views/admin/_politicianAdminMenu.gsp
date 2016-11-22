@@ -1,7 +1,4 @@
 <ul>
-    <li class="${activeMapping=='adminCreateProject'?'active':''}">
-        <g:link mapping="adminCreateProject"><g:message code="admin.menu.createProject.link"/></g:link>
-    </li>
     <li class="${activeMapping=='adminUnpublishedProjects'?'active':''}">
         <g:link mapping="adminUnpublishedProjects">
             <span>

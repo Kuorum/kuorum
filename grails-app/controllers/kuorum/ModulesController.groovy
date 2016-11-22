@@ -24,11 +24,6 @@ class ModulesController {
     private static final Long NUM_RELEVANT_PROJECT = 3
     private static final Long NUM_RELEVANT_POLITICIANS = 3
 
-    def bottomProjectStats(String hashtag){
-        Project project = Project.findByHashtag(hashtag.encodeAsHashtag())
-        ProjectBasicStats projectStats = projectStatsService.calculateProjectStats(project)
-        [projectStats:projectStats]
-    }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userProfile() {

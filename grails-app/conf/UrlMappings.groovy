@@ -129,10 +129,6 @@ class UrlMappings {
         name projectShow:               "/hashtag/$hashtag" (controller: "project", action:"show")
                                         "/proyectos/$regionName/$commission/$hashtag" (controller: "project", action:"show")
                                         "/leyes/$regionName/$commission/$hashtag" (controller: "project", action:"show")
-        name projectStats:              "/proyectos/$regionName/$commission/$hashtag/ficha-tecnica" (controller: "project", action:"stats")
-
-        name projectStatsDataMap:       "/ajax/proyectos/$regionName/$commission/$hashtag/ficha-tecnica/datos-mapa" (controller: "project", action:"statsDataMap")
-        name projectStatsPieChart:      "/ajax/proyectos/$regionName/$commission/$hashtag/ficha-tecnica/datos-pieChart" (controller: "project", action:"statsDataPieChart")
         name projectShowSec:            "/sec/proyectos/$regionName/$commission/$hashtag" (controller: "project", action:"showSecured")
         name projectVote:               "/ajax/proyectos/$regionName/$commission/$hashtag/votar"(controller: "project", action:"voteProject")
         name projectVoteNoTotalUser:    "/sec/proyectos/$regionName/$commission/$hashtag/salvarDatosUsuarioYvotar"(controller: "project", action:"voteProjectAsNonCompleteUser")
@@ -228,22 +224,19 @@ class UrlMappings {
 
         name campaignPoll:        "/campaign/poll" (controller: "massMailing", action: "saveCitizenPriorities")
 
-        name ajaxHeadNotificationsChecked: "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")
-        name ajaxPostponeAlert: "/ajax/notificaiones/posponer/$id"(controller:"notification", action:"postponeAlert")
-        name ajaxHeadMessagesChecked: "/ajax/mensajes/check"(controller:"layouts", action:"headNotificationsChecked")
-        name ajaxFollow: "/ajax/kuorumUser/follow"(controller:"kuorumUser", action:"follow")
-        name ajaxUnFollow: "/ajax/kuorumUser/unFollow"(controller:"kuorumUser", action:"unFollow")
-        name ajaxRequestPolitician: "/ajax/politico/solicitud-kuorum"(controller:"kuorumUser", action:"follow")
-        name ajaxCropImage: "/ajax/file/crop"(controller:"file", action:"cropImage")
-        name ajaxUploadFile: "/ajax/file/upload" (controller:'file', action:"uploadImage")
-        name ajaxUploadFilePDF: "/ajax/file/uploadPDF" (controller:'file', action:"uploadPDF")
+        name ajaxHeadNotificationsChecked:  "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")
+        name ajaxPostponeAlert:             "/ajax/notificaiones/posponer/$id"(controller:"notification", action:"postponeAlert")
+        name ajaxHeadMessagesChecked:       "/ajax/mensajes/check"(controller:"layouts", action:"headNotificationsChecked")
+        name ajaxFollow:                    "/ajax/kuorumUser/follow"(controller:"kuorumUser", action:"follow")
+        name ajaxUnFollow:                  "/ajax/kuorumUser/unFollow"(controller:"kuorumUser", action:"unFollow")
+        name ajaxRequestPolitician:         "/ajax/politico/solicitud-kuorum"(controller:"kuorumUser", action:"follow")
+        name ajaxCropImage:                 "/ajax/file/crop"(controller:"file", action:"cropImage")
+        name ajaxUploadFile:                "/ajax/file/upload" (controller:'file', action:"uploadImage")
+        name ajaxUploadFilePDF:             "/ajax/file/uploadPDF" (controller:'file', action:"uploadPDF")
 
-        name ajaxModuleProjectBottomStats: '/ajax/project/bottomProjectStats' (controller:'modules', action: 'bottomProjectStats')
-        name ajaxModuleUserCauses:        "/ajax/module/user/causes" (controller:"modules", action: "userCauses")
+        name ajaxModuleUserCauses:          "/ajax/module/user/causes" (controller:"modules", action: "userCauses")
 
         name adminPrincipal:        "/admin"                          (controller:"adminProject", action: "index")
-        name adminCreateProject:    "/admin/proyectos/crear-proyecto" (controller:"adminProject"){action =[GET:"createProject", POST:"saveProject"]}
-                                    "/admin/leyes/crear-ley"        (controller:"adminProject"){action =[GET:"createProject", POST:"saveProject"]}
         name adminEditProject:      "/admin/proyectos/editar-proyecto/$hashtag" (controller:"adminProject"){action =[GET:"editProject", POST:"updateProject"]}
                                     "/admin/leyes/editar-ley/$hashtag" (controller:"adminProject"){action =[GET:"editProject", POST:"updateProject"]}
         name adminPublishProject:   "/admin/proyectos/editar-proyecto/$hashtag/publicar"     (controller:"adminProject", action: "publishProject")
