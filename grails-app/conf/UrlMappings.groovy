@@ -135,7 +135,6 @@ class UrlMappings {
         name projectListPostDefends:    "/ajax/proyectos/$userAlias/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
         name projectListPostVictories:  "/ajax/proyectos/$userAlias/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
 
-        name projectList:               "/herramientas/proyectos"(controller: "tools", action:"listProjects")
         name projectListOfUsers:        "/ajax/herramientas/proyectos"(controller: "tools", action: "ajaxShowProjectListOfUsers")
         name publishProject:            "/herramientas/proyectos/$hashtag/publicar" (controller:"tools", action: "publishProject")
 
