@@ -18,7 +18,7 @@
     <h1><g:message code="admin.editProject.title" args="[project.hashtag]"/></h1>
     <formUtil:validateForm bean="${command}" form="createProject"/>
     <g:form method="POST" mapping="adminEditProject" params="${project.encodeAsLinkProperties()}" name="createProject" role="form">
-        <g:render template="formProject" model="[command:command, regions:regions, institutions:institutions]"/>
+        <g:render template="formProject" model="[command:command]"/>
         <div class="form-group">
             <input type="submit" value="${message(code:'admin.editProject.submit')}" class="btn btn-grey btn-lg">
             <g:if test="${project.published}">

@@ -41,7 +41,7 @@
 
         <div class="tab-pane fade" id="projectUploadYoutube">
             <div class="form-group video" data-multimedia-switch="on" data-multimedia-type="YOUTUBE">
-                <formUtil:url command="${command}" field="urlYoutube" required="true"/>
+                <formUtil:url command="${command}" field="videoPost" required="true"/>
             </div>
         </div>
     </div>

@@ -238,13 +238,9 @@ class UrlMappings {
 
         name adminPrincipal:        "/admin"                          (controller:"adminProject", action: "index")
         name adminEditProject:      "/admin/proyectos/editar-proyecto/$hashtag" (controller:"adminProject"){action =[GET:"editProject", POST:"updateProject"]}
-                                    "/admin/leyes/editar-ley/$hashtag" (controller:"adminProject"){action =[GET:"editProject", POST:"updateProject"]}
         name adminPublishProject:   "/admin/proyectos/editar-proyecto/$hashtag/publicar"     (controller:"adminProject", action: "publishProject")
-                                    "/admin/leyes/editar-ley/$hashtag/publicar"     (controller:"adminProject", action: "publishProject")
         name adminUnpublishProject: "/admin/proyectos/editar-proyecto/$hashtag/despublicar"  (controller:"adminProject", action: "unPublishProject")
-                                    "/admin/leyes/editar-ley/$hashtag/despublicar"  (controller:"adminProject", action: "unPublishProject")
         name adminUnpublishedProjects:"/admin/proyectos/no-publicados"    (controller:"adminProject", action: "unpublishedProjects")
-                                      "/admin/leyes/no-publicadas"    (controller:"adminProject", action: "unpublishedProjects")
         name adminTestMail:         "/admin/mailing/test"           (controller:"mailTesting", action: "index")
         name adminSearcherIndex:    "/admin/searcher/indexar"       (controller:"admin", action: "solrIndex")
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
