@@ -1,3 +1,5 @@
+import grails.util.Environment
+
 grails.servlet.version = "3.0" // Change depending on target container compliance (2.5 or 3.0)
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
@@ -219,6 +221,16 @@ grails.war.resources = { stagingDir, args ->
 //            tofile: "${stagingDir}/.ebextensions/HTTPtoHTTPS.config")
     copy(file: ".ebextensions/installJava8.config",
             tofile: "${stagingDir}/.ebextensions/installJava8.config")
+
+    // HTTP Auth
+    if (System.getProperty("grails.env") == "preproduction") {
+        copy(file: ".ebextensions/HttpAuth.config",
+                tofile: "${stagingDir}/.ebextensions/HttpAuth.config")
+        copy(file: ".ebextensions/tomcat-users.xml",
+                tofile: "${stagingDir}/.ebextensions/tomcat-users.xml")
+        copy(file: ".ebextensions/web.xml",
+                tofile: "${stagingDir}/.ebextensions/web.xml")
+    }
 
     delete { fileset(dir: "${stagingDir}", includes: '*.html') }
 }
