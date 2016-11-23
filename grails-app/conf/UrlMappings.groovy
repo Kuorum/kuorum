@@ -18,12 +18,9 @@ class UrlMappings {
         name home:              "/$lang" (controller: "search", action:"searchLanding"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/" { controller="redirect"; action= "redirect301"; newMapping='home'}
 
-
-        name landingSearch:     "/$lang"(controller: "search", action:"searchLanding")
-        name landingSearch:     "/$lang"(controller: "search", action:"searchLanding")
+        name landingSearch:     "/$lang"(controller: "search", action:"searchLanding"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/$lang/discover"   (controller: "search", action:"searchLanding")
                                 "/discover"         { controller="redirect"; action= "redirect301"; newMapping='landingSearch'}
-        name es_landingCitizens:   "/$lang/a-quien-voto" (controller: "dashboard", action:"landingCitizens")
         name landingCitizens:   "/$lang/who-should-i-vote-for" (controller: "dashboard", action:"landingCitizens")
                                 "/who-should-i-vote-for" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}
                                 "/citizens" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}

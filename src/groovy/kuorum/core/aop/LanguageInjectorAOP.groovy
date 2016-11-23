@@ -7,6 +7,8 @@ import org.aspectj.lang.annotation.Aspect
 @Aspect
 class LanguageInjectorAOP {
 
+    private static def VALID_URL_MAPPING = /^[landing|register|home|footer|reset|login|blog].*/
+
     @Around("execution(public * org.codehaus.groovy.grails.web.mapping.LinkGenerator+.*(..)) && args(params)")
     public Object processLink(final ProceedingJoinPoint pjp,
                                  final Map params) throws Throwable {
@@ -27,7 +29,7 @@ class LanguageInjectorAOP {
     }
 
     private void addLang(Map params){
-        if (params.mapping && !params.params?.lang){
+        if (params.mapping && !params.params?.lang && (params.mapping =~ VALID_URL_MAPPING).matches()){
             params.params = params.params?:[:]
             Locale locale = org.springframework.context.i18n.LocaleContextHolder.getLocale()
             params.params.lang = locale.getLanguage()
