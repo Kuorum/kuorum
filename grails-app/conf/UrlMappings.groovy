@@ -8,7 +8,7 @@ class UrlMappings {
 
     static excludes = ['/robots.txt']
 
-    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos', 'register']
+    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect','project', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos', 'register']
     static List<String> VALID_LANGUAGE_PATHS = AvailableLanguage.values().collect{it.locale.language}
 	static mappings = {
 
@@ -20,8 +20,10 @@ class UrlMappings {
 
 
         name landingSearch:     "/$lang"(controller: "search", action:"searchLanding")
+        name landingSearch:     "/$lang"(controller: "search", action:"searchLanding")
                                 "/$lang/discover"   (controller: "search", action:"searchLanding")
                                 "/discover"         { controller="redirect"; action= "redirect301"; newMapping='landingSearch'}
+        name es_landingCitizens:   "/$lang/a-quien-voto" (controller: "dashboard", action:"landingCitizens")
         name landingCitizens:   "/$lang/who-should-i-vote-for" (controller: "dashboard", action:"landingCitizens")
                                 "/who-should-i-vote-for" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}
                                 "/citizens" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}
@@ -119,26 +121,26 @@ class UrlMappings {
         name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
 
-        name projectCreate:             "/proyectos/nuevo"(controller: "project"){action = [GET:"create", POST:"save"]}
-        name projectEdit:               "/proyectos/$lang/$userAlias/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
-        name projects:                  "/proyectos/$regionName?/$commission?" (controller: "project", action:"index")
+        name projectCreate:             "/project/new"(controller: "project"){action = [GET:"create", POST:"save"]}
+        name projectEdit:               "/project/$lang/$userAlias/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
+        name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")
 
         name projectShow:   "/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                             "/hashtag/$hashtag"                             {controller="redirect"; action= "redirect301Project"; }
                             "/proyectos/$regionName/$commission/$hashtag"   {controller="redirect"; action= "redirect301Project"; }
                             "/leyes/$regionName/$commission/$hashtag"       {controller="redirect"; action= "redirect301Project";}
 
-        name projectShowSec:            "/sec/proyectos/$userAlias/$hashtag" (controller: "project", action:"showSecured")
-        name projectVote:               "/ajax/proyectos/$userAlias/$hashtag/votar"(controller: "project", action:"voteProject")
-        name projectVoteNoTotalUser:    "/sec/proyectos/$userAlias/$hashtag/salvarDatosUsuarioYvotar"(controller: "project", action:"voteProjectAsNonCompleteUser")
-        name projectListClucks:         "/ajax/proyectos/$userAlias/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
-        name projectListPostDefends:    "/ajax/proyectos/$userAlias/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
-        name projectListPostVictories:  "/ajax/proyectos/$userAlias/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
+        name projectShowSec:            "/sec/project/$userAlias/$hashtag" (controller: "project", action:"showSecured")
+        name projectVote:               "/ajax/project/$userAlias/$hashtag/votar"(controller: "project", action:"voteProject")
+        name projectVoteNoTotalUser:    "/sec/project/$userAlias/$hashtag/salvarDatosUsuarioYvotar"(controller: "project", action:"voteProjectAsNonCompleteUser")
+        name projectListClucks:         "/ajax/project/$userAlias/$hashtag/listado-kakareos" (controller: "project", action:"listClucksProject")
+        name projectListPostDefends:    "/ajax/project/$userAlias/$hashtag/listado-post-defendidos" (controller: "project", action:"listClucksProjectDefends")
+        name projectListPostVictories:  "/ajax/project/$userAlias/$hashtag/listado-victorias" (controller: "project", action:"listClucksProjectVictories")
 
-        name projectListOfUsers:        "/ajax/herramientas/proyectos"(controller: "tools", action: "ajaxShowProjectListOfUsers")
-        name publishProject:            "/herramientas/proyectos/$hashtag/publicar" (controller:"tools", action: "publishProject")
+        name projectListOfUsers:        "/ajax/herramientas/project"(controller: "tools", action: "ajaxShowProjectListOfUsers")
+        name publishProject:            "/herramientas/project/$hashtag/publicar" (controller:"tools", action: "publishProject")
 
-        name projectUpdate:             "/proyectos/$userAlias/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
+        name projectUpdate:             "/project/$userAlias/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
         name postShow:      "/$userAlias/$hashtag/$postBrief-$postId"(controller: "post", action: "show")
                             "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"          {controller="redirect"; action= "redirect301Post";}
@@ -146,12 +148,12 @@ class UrlMappings {
                             "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"      {controller="redirect"; action= "redirect301Post";}
 
         name postCreate:    "/$userAlias/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-        name postReview:    "/$userAlias/$hashtag/$postBrief-$postId/revisar"(controller: "post", action: "review")
+        name postReview:    "/$userAlias/$hashtag/$postBrief-$postId/review"(controller: "post", action: "review")
         name postPublish:   "/$userAlias/$hashtag/$postBrief-$postId/publish"(controller: "post", action:"publish")
         name postPublished: "/$userAlias/$hashtag/$postBrief-$postId/published"(controller: "post", action:"postPublished")
         name postEdit:      "/$userAlias/$hashtag/$postBrief-$postId/edit"(controller: "post"){action = [GET:"edit", POST:"update"]}
         name postDelete:    "/$userAlias/$hashtag/$postBrief-$postId/delete-post"(controller: "post", action: "deletePost")
-        name postToggleFavorite:"/ajax/$userAlias/$hashtag/$postBrief-$postId/favorito"(controller: "post",action: "favorite")
+        name postToggleFavorite:"/ajax/$userAlias/$hashtag/$postBrief-$postId/favourite"(controller: "post",action: "favorite")
         name postDelComment:"/$userAlias/$hashtag/$postBrief-$postId/delete-comment"(controller: "post",action: "deleteComment")
         name postAddComment:"/$userAlias/$hashtag/$postBrief-$postId/add-comment"(controller: "post",action: "addComment")
         name postVoteComment:"/ajax/$userAlias/$hashtag/$postBrief-$postId/vote-comment"(controller: "post",action: "voteComment")
@@ -162,8 +164,8 @@ class UrlMappings {
         name postClucksList:"/ajax/$userAlias/$hashtag/$postBrief-$postId/list-clucks"(controller: "post",action: "listClucks")
 
         name postAddDebate: "/ajax/$userAlias/$hashtag/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
-        name postAddVictory:"/ajax/$userAlias/$hashtag/$postBrief-$postId/victoria"(controller: "post", action:"addVictory")
-        name postAddDefender:"/ajax/proyectos/propuesta/apadrinar"(controller: "post", action:"addDefender")
+        name postAddVictory:"/ajax/$userAlias/$hashtag/$postBrief-$postId/victory"(controller: "post", action:"addVictory")
+        name postAddDefender:"/ajax/project/propuesta/apadrinar"(controller: "post", action:"addDefender")
 
 
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
@@ -175,8 +177,8 @@ class UrlMappings {
         name secUserShow:           "/sec/$userAlias"       (controller: "kuorumUser", action: "secShow")
 
 
-        name userFollowers:     "/ajax/$userAlias/seguidores" (controller: "kuorumUser", action: "userFollowers")
-        name userFollowing:     "/ajax/$userAlias/siguiendo"  (controller: "kuorumUser", action: "userFollowing")
+        name userFollowers:     "/ajax/$userAlias/followers" (controller: "kuorumUser", action: "userFollowers")
+        name userFollowing:     "/ajax/$userAlias/following"  (controller: "kuorumUser", action: "userFollowing")
 
         name userFollowAndRegister:          "/$userAlias/subscribe" (controller: "kuorumUser", action: "subscribeTo")
         name userClucks:        "/ajax/$userAlias/clucks"  (controller: "kuorumUser", action: "userClucks")
@@ -191,26 +193,25 @@ class UrlMappings {
         name userHistoricRate:          "/ajax/$userAlias/historicRate"(controller: "rating", action:"historicPoliticianRate")
         name comparingPoliticianRate:   "/ajax/user/compareRate"(controller: "rating", action:"comparingPoliticianRateData")
 
-        name searcherSearchSeeMore: "/ajax/buscar/seeMore"(controller: "search", action:"searchSeeMore")
-        name searcherSearchFilters: "/ajax/buscar/nuevos-filtros"(controller: "search", action:"modifyFilters")
-        name searcherSuggests:      "/ajax/buscar/sugerencias"(controller: "search", action:"suggest")
-        name suggestRegions:        "/ajax/buscar/regiones/sugerencias"(controller: "search", action:"suggestRegions")
-        name suggestTags:           "/ajax/buscar/tags/sugerencias"(controller: "search", action:"suggestTags")
+        name searcherSearchSeeMore: "/ajax/search/seeMore"(controller: "search", action:"searchSeeMore")
+        name searcherSearchFilters: "/ajax/search/new-filters"(controller: "search", action:"modifyFilters")
+        name searcherSuggests:      "/ajax/search/suggestions"(controller: "search", action:"suggest")
+        name suggestRegions:        "/ajax/search/suggestions/regions"(controller: "search", action:"suggestRegions")
+        name suggestTags:           "/ajax/search/suggestions/tags"(controller: "search", action:"suggestTags")
 
         name profileEditAccountDetails:     "/config/account-details"                                   (controller: "profile"){action =[GET:"editAccountDetails", POST:"updateAccountDetails"]}
         name profileEditUser:               "/edit-profile"                                    (controller: "profile"){action =[GET:"editUser", POST:"editUserSave"]}
-        name profileEditCommissions:        "/edit-profile/cambiar-areas-interes"              (controller: "profile"){action =[GET:"editCommissions", POST:"editCommissionsSave"]}
-        name profileChangePass:             "/edit-profile/cambiar-password"                   (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
-        name profileSetPass:                "/edit-profile/crear-password"                     (controller: "profile"){action =[GET:"setPassword", POST:"setPasswordSave"]}
-        name profileChangeEmail:            "/edit-profile/cambiar-email"                      (controller: "profile"){action =[GET:"changeEmail", POST:"changeEmailSave"]}
-        name profileChangeEmailSent:        "/edit-profile/cambiar-email/solicitud-recivida"   (controller: "profile", action :"changeEmailConfirmSent")
-        name profileChangeEmailResend:      "/edit-profile/cambiar-email/resend-email"         (controller: "profile", action :"updateUserEmail")
-        name profileChangeEmailConfirm:     "/edit-profile/cambiar-email/confirmar"            (controller: "profile", action: "changeEmailConfirm")
-        name profileSocialNetworks:         "/edit-profile/redes-sociales"                     (controller: "profile"){action=[GET:"socialNetworks",POST:"socialNetworksSave"]}
-        name profileEmailNotifications:     "/edit-profile/notificaciones-por-email"           (controller: "profile"){action=[GET:"configurationEmails",POST:"configurationEmailsSave"]}
-        name profileMessages:               "/edit-profile/mensajes"                           (controller: "profile", action: "userMessages")
-        name profileDeleteAccount:          "/edit-profile/eliminar-cuenta"                    (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
-        name profileCauses:                 "/edit-profile/causas"                             (controller: "profile"){action=[GET:"editCauses", POST:"updateCauses"]}
+        name profileEditCommissions:        "/edit-profile/edit-commission"                    (controller: "profile"){action =[GET:"editCommissions", POST:"editCommissionsSave"]}
+        name profileChangePass:             "/edit-profile/change-password"                    (controller: "profile"){action =[GET:"changePassword", POST:"changePasswordSave"]}
+        name profileSetPass:                "/edit-profile/create-password"                    (controller: "profile"){action =[GET:"setPassword", POST:"setPasswordSave"]}
+        name profileChangeEmail:            "/edit-profile/change-email"                       (controller: "profile"){action =[GET:"changeEmail", POST:"changeEmailSave"]}
+        name profileChangeEmailSent:        "/edit-profile/change-email/request-received"      (controller: "profile", action :"changeEmailConfirmSent")
+        name profileChangeEmailResend:      "/edit-profile/change-email/resend-email"          (controller: "profile", action :"updateUserEmail")
+        name profileChangeEmailConfirm:     "/edit-profile/change-email/confirm"               (controller: "profile", action: "changeEmailConfirm")
+        name profileSocialNetworks:         "/edit-profile/social-networks"                    (controller: "profile"){action=[GET:"socialNetworks",POST:"socialNetworksSave"]}
+        name profileEmailNotifications:     "/edit-profile/email-notifications"                (controller: "profile"){action=[GET:"configurationEmails",POST:"configurationEmailsSave"]}
+        name profileDeleteAccount:          "/edit-profile/delete-account"                     (controller: "profile"){action=[GET:"deleteAccount", POST:"deleteAccountPost"]}
+        name profileCauses:                 "/edit-profile/causes"                             (controller: "profile"){action=[GET:"editCauses", POST:"updateCauses"]}
         name profileNews:                   "/edit-profile/news"                               (controller: "profile"){action=[GET:"editNews", POST:"updateNews"]}
         name profileQuickNotes:             "/edit-profile/quick-notes"                        (controller: "profile"){action=[GET:"editQuickNotes", POST:"updateQuickNotes"]}
         name profileProfessionalDetails:    "/edit-profile/professional-details"               (controller: "profile"){action=[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
@@ -239,20 +240,18 @@ class UrlMappings {
         name adminSearcherFullIndex:"/admin/searcher/full-index"    (controller:"admin", action:"fullIndex")
         name adminEditorsMonitoring:"/admin/editors/monitoring"    (controller:"admin", action:"editorsMonitoring")
 
-        name editorCreatePolitician:                        "/editor/usuarios/politician/create-politician" (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
-        name editorEditUserProfile:                         "/editor/usuarios/$userAlias/editar/profile" (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
-        name editorEditSocialNetwork:                       "/editor/usuarios/$userAlias/editar/social-network" (controller:"editorUser"){action =[GET:"editUserSocialNetwork", POST:"updateUserSocialNetwork"]}
-        name editorEditNews:                                "/editor/usuarios/$userAlias/editar/news" (controller:"editorPolitician"){action =[GET:"editNews", POST:"updateNews"]}
-        name editorEditPoliticianProfessionalDetails:       "/editor/usuarios/$userAlias/editar/professionalDetails" (controller:"editorPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
-        name editorEditPoliticianQuickNotes:                "/editor/usuarios/$userAlias/editar/quick-notes" (controller:"editorPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
-        name editorEditPoliticianCauses:                    "/editor/usuarios/$userAlias/editar/causes" (controller:"editorPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
-        name editorKuorumAccountEdit:                       "/editor/usuarios/$userAlias/editar/account-details" (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
-        name editorAdminUserRights:                         "/editor/usuarios/$userAlias/editar/rights" (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
-        name editorRequestRights:                           "/editor/request" (controller:"editorRecruitment", action: "requestEditor")
-        name editorDiscardWarns:                            "/editor/discard" (controller:"editorRecruitment", action: "discardEditor")
-        name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
-        name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
-        name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
+        name editorCreatePolitician:                        "/editor/user/politician/create-politician"             (controller:"editorUser"){action =[GET:"createPolitician", POST:"saveCreatePolitician"]}
+        name editorEditUserProfile:                         "/editor/user/$userAlias/editar/profile"                (controller:"editorUser"){action =[GET:"editUser", POST:"updateUser"]}
+        name editorEditSocialNetwork:                       "/editor/user/$userAlias/editar/social-network"         (controller:"editorUser"){action =[GET:"editUserSocialNetwork", POST:"updateUserSocialNetwork"]}
+        name editorEditNews:                                "/editor/user/$userAlias/editar/news"                   (controller:"editorPolitician"){action =[GET:"editNews", POST:"updateNews"]}
+        name editorEditPoliticianProfessionalDetails:       "/editor/user/$userAlias/editar/professionalDetails"    (controller:"editorPolitician"){action =[GET:"editProfessionalDetails", POST:"updateProfessionalDetails"]}
+        name editorEditPoliticianQuickNotes:                "/editor/user/$userAlias/editar/quick-notes"            (controller:"editorPolitician"){action =[GET:"editQuickNotes", POST:"updateQuickNotes"]}
+        name editorEditPoliticianCauses:                    "/editor/user/$userAlias/editar/causes"                 (controller:"editorPolitician"){action =[GET:"editCauses", POST:"updateCauses"]}
+        name editorKuorumAccountEdit:                       "/editor/user/$userAlias/editar/account-details"        (controller:"editorUser"){action =[GET:"editAdminAccountDetails", POST:"updateAdminAccountDetails"]}
+        name editorAdminUserRights:                         "/editor/user/$userAlias/editar/rights"                 (controller:"admin"){action =[GET:"editUserRights", POST:"updateUserRights"]}
+        name editorRequestRights:                           "/editor/request"                                           (controller:"editorRecruitment", action: "requestEditor")
+        name editorDiscardWarns:                            "/editor/discard"                                           (controller:"editorRecruitment", action: "discardEditor")
+
         name ajaxDeleteRecommendedUser: "/ajax/kuorumUser/deleteRecommendedUser"(controller: 'recommendedUserInfo', action: 'deleteRecommendedUser')
 
         name politicianRequestBetaTester:               "/account/request-beta-tester-account" (controller:"politician", action: "requestAPoliticianBetaTester")
@@ -294,8 +293,8 @@ class UrlMappings {
         /***** PENSAR SEO *****/
         /**********************/
         name discover:                      "/descubre" (controller: "discover", action:"discoverProjects")
-        name discoverProjects:              "/descubre/proyectos"         (controller: "discover", action:"discoverProjects")
-        name discoverProjectsByRegion:      "/descubre/proyectos/$regionName" (controller: "discover", action:"discoverProjects")
+        name discoverProjects:              "/descubre/project"         (controller: "discover", action:"discoverProjects")
+        name discoverProjectsByRegion:      "/descubre/project/$regionName" (controller: "discover", action:"discoverProjects")
         name discoverPoliticians:           "/descubre/politicos"     (controller: "discover", action:"discoverPoliticians")
         name discoverRecentPosts:           "/descubre/publicaciones-recientes" (controller: "discover", action:"discoverRecentPosts")
         name discoverRecommendedPosts:      "/descubre/publicaciones-mas-impulsadas" (controller: "discover", action:"discoverRecommendedPosts")
@@ -343,10 +342,15 @@ class UrlMappings {
         name tour_dashboard:      "/tour/dashboard" (controller:"tour", action: "tour_dashboard")
 
         // PROYECTOS (ADMIN)
-        name adminEditProject:      "/admin/proyectos/editar-proyecto/$hashtag" (controller:"adminProject"){action =[GET:"editProject", POST:"updateProject"]}
-        name adminPublishProject:   "/admin/proyectos/editar-proyecto/$hashtag/publicar"     (controller:"adminProject", action: "publishProject")
-        name adminUnpublishProject: "/admin/proyectos/editar-proyecto/$hashtag/despublicar"  (controller:"adminProject", action: "unPublishProject")
-        name adminUnpublishedProjects:"/admin/proyectos/no-publicados"    (controller:"adminProject", action: "unpublishedProjects")
+        name adminEditProject:      "/admin/project/editar-proyecto/$hashtag" (controller:"adminProject"){action =[GET:"editProject", POST:"updateProject"]}
+        name adminPublishProject:   "/admin/project/editar-proyecto/$hashtag/publicar"     (controller:"adminProject", action: "publishProject")
+        name adminUnpublishProject: "/admin/project/editar-proyecto/$hashtag/despublicar"  (controller:"adminProject", action: "unPublishProject")
+        name adminUnpublishedProjects:"/admin/project/no-publicados"    (controller:"adminProject", action: "unpublishedProjects")
+
+        // ADMIN STATS
+        name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
+        name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
+        name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
 
         // PSOE POLL
         name campaignPoll:        "/campaign/poll" (controller: "massMailing", action: "saveCitizenPriorities")

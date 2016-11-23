@@ -37,7 +37,9 @@ class KuorumUser {
     UserType userType = UserType.PERSON
     String timeZoneId = "Europe/Madrid";
 
+    @Deprecated
     Boolean requestedPoliticianBetaTester = Boolean.FALSE
+
     EditorRules editorRules
 
     List<CommissionType> relevantCommissions = CommissionType.values()

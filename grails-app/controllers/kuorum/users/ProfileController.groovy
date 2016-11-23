@@ -369,11 +369,6 @@ class ProfileController {
         redirect mapping:'profileEmailNotifications'
     }
 
-    def userMessages() {
-        KuorumUser user = params.user
-        [user:user]
-    }
-
     def deleteAccount(){
         KuorumUser user = params.user
         [user:user, command: new DeleteAccountCommand()]
