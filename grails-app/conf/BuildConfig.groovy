@@ -134,6 +134,9 @@ grails.project.dependency.resolution = {
         // Library for clean html
         compile group: 'org.jsoup', name: 'jsoup', version: '1.10.1'
 
+        // Email validator need new TLDs (i.e: .city)
+        compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
+
 
 
 //        test "org.gebish:geb-spock:$gebVersion"
