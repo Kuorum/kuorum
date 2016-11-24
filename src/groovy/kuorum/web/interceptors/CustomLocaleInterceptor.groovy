@@ -57,7 +57,6 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
             log.warn("Not language discover due to exception. ${webRequest.baseUrl} ${webRequest.getParams()}. [Excp: ${t.getLocalizedMessage()}")
             userLanguage = AvailableLanguage.en_EN
         }
-        log.info("Finally, user language is ${userLanguage.locale}" )
         setCountrySession(request, userLanguage.locale.language)
         localeResolver?.setLocale request, response, userLanguage.locale
         return true;
