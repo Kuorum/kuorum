@@ -34,7 +34,7 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
     boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         GrailsWebRequest webRequest = GrailsWebRequest.lookup(request)
         def params = webRequest.params
-        def localeParam = recoverLangFromDomain(request)?:params?.get(paramName)
+        def localeParam = params?.get(paramName)
         AvailableLanguage userLanguage
         request.getServerName()
         LocaleResolver localeResolver = org.springframework.web.servlet.support.RequestContextUtils.getLocaleResolver(request)
@@ -66,12 +66,12 @@ class CustomLocaleInterceptor extends LocaleChangeInterceptor{
         return true;
     }
 
-    private String recoverLangFromDomain (HttpServletRequest request){
-        String domain = request.getServerName();
-        def domainSplitter= /([^\.]*).*\.kuorum\.org/
-        def matcher = ( domain =~ domainSplitter )
-        matcher.size()>0?matcher[0][1]:null
-    }
+//    private String recoverLangFromDomain (HttpServletRequest request){
+//        String domain = request.getServerName();
+//        def domainSplitter= /([^\.]*).*\.kuorum\.org/
+//        def matcher = ( domain =~ domainSplitter )
+//        matcher.size()>0?matcher[0][1]:null
+//    }
 
     private void setCountrySession(HttpServletRequest request, String lang){
         String countryCode = "";
