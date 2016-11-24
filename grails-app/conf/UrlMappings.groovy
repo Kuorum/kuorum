@@ -156,7 +156,7 @@ class UrlMappings {
         name postVoteComment:"/ajax/$userAlias/$hashtag/$postBrief-$postId/vote-comment"(controller: "post",action: "voteComment")
         name postCluckIt:   "/$userAlias/$hashtag/$postBrief-$postId/cluck"(controller: "post",action: "cluckPost")
         name postVoteIt:    "/$userAlias/$hashtag/$postBrief-$postId/vote"(controller: "post",action: "votePost")
-        name postVoteAndRegister:    "/$userAlias/$hashtag/$postBrief-$postId/register-and-vote"(controller: "post",action: "votePostWithRegister")
+        name postVoteAndRegister:    "/$userAlias/$hashtag/$postBrief-$postId/register-and-vote"(controller: "post"){action = [POST:"votePostWithRegister"]}
         name postVotesList: "/ajax/$userAlias/$hashtag/$postBrief-$postId/list-votes"(controller: "post",action: "listVotes")
         name postClucksList:"/ajax/$userAlias/$hashtag/$postBrief-$postId/list-clucks"(controller: "post",action: "listClucks")
 
