@@ -87,9 +87,6 @@ class KuorumUserController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
-        LocaleResolver localeResolver = org.springframework.web.servlet.support.RequestContextUtils.getLocaleResolver(request)
-        localeResolver?.setLocale request, response, user.language.locale
-
         List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(user, new Pagination(max:12))
         List<Project> userProjects = projectService.politicianProjects(user)
         List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
