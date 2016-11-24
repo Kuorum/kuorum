@@ -18,6 +18,7 @@ import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
+import org.springframework.web.servlet.LocaleResolver
 import springSecurity.KuorumRegisterCommand
 
 import javax.imageio.spi.RegisterableService
@@ -86,6 +87,9 @@ class KuorumUserController {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return false
         }
+        LocaleResolver localeResolver = org.springframework.web.servlet.support.RequestContextUtils.getLocaleResolver(request)
+        localeResolver?.setLocale request, response, user.language.locale
+
         List<KuorumUser> recommendPoliticians = kuorumUserService.recommendPoliticians(user, new Pagination(max:12))
         List<Project> userProjects = projectService.politicianProjects(user)
         List<CauseRSDTO> causes = causesService.findDefendedCauses(user)

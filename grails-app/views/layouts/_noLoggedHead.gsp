@@ -6,12 +6,6 @@
         </g:link>
     </li>
 
-    %{--<li>--}%
-        %{--<g:link mapping="landingCitizens" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingCitizens')}">--}%
-            %{--<span><g:message code="head.noLogged.citizens"/></span>--}%
-        %{--</g:link>--}%
-    %{--</li>--}%
-
     <li>
         <g:link mapping="landingPoliticians" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingPoliticians')}">
             <span><g:message code="head.noLogged.politicians"/> </span>

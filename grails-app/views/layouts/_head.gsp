@@ -1,3 +1,4 @@
+<%@ page import="springSecurity.KuorumRegisterCommand" %>
 <header id="header" class="row landing ${extraHeadCss}" role="banner">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="container-fluid">
@@ -9,7 +10,8 @@
                         <g:include controller="layouts" action="userHead"/>
                     </sec:ifLoggedIn>
                     <sec:ifNotLoggedIn>
-                        <g:include controller="login" action="headAuth"/>
+                        %{--<g:include controller="login" action="headAuth"/>--}%
+                        <g:render template="/layouts/noLoggedHead" model="[registerCommand: new springSecurity.KuorumRegisterCommand()]"/>
                     </sec:ifNotLoggedIn>
                 </nav:ifPageProperty>
             </div>
