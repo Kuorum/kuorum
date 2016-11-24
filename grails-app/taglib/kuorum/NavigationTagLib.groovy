@@ -1,6 +1,7 @@
 package kuorum
 
 import com.opensymphony.module.sitemesh.RequestConstants
+import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.search.Pagination
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 
@@ -43,6 +44,37 @@ class NavigationTagLib {
         // TODO: "request.getRequestURL()" is not "sign-in" at the sign-in page
         if (equals && urls.contains(request.getRequestURL().toString()) || !equals && !urls.contains(request.getRequestURL().toString())){
             out << body()
+        }
+    }
+
+    def generateAlternateLangLink = { attrs, body ->
+        def languages = AvailableLanguage.values();
+        StringBuilder sb = new StringBuilder("");
+        for (AvailableLanguage langAux : languages) {
+            if (sb.length() > 0) sb.append('|');
+            sb.append(langAux.locale.language);
+        }
+        def urlPath = request.forwardURI.replaceFirst(request.contextPath, "");
+        def languagesStr = sb.toString();
+
+        // Lang at start (landing) or in the middle (other)
+        // Don't confuse with user profile, example: "/ESperanzaaguirre"
+        def startRegex = /^(\/($languagesStr))$/;
+        def middleRegex = /^(\/($languagesStr)\/)/;
+
+        if (urlPath =~ startRegex || urlPath =~ middleRegex) {
+            AvailableLanguage.values().each { lang ->
+                out << """
+                    <link   rel="alternate"
+                            href="https://kuorum.org${
+                                request.contextPath +
+                                    urlPath
+                                            .replaceFirst(startRegex, "/" + lang.locale.language)
+                                            .replaceFirst(middleRegex, "/" + lang.locale.language + "/")
+                                }${request.queryString ? "?" + request.queryString : ''}"
+                            hreflang="${lang.locale.language}" />
+                """
+            }
         }
     }
 
