@@ -286,19 +286,6 @@ class UrlMappings {
         "/account/contacts/oauth/$provider/success" (controller: "contactsOAuth", action: "onSuccess")
         "/account/contacts/oauth/$provider/failure" (controller: "contactsOAuth", action: "onFailure")
 
-        /**********************/
-        /***** PENSAR SEO *****/
-        /**********************/
-        name discover:                      "/descubre" (controller: "discover", action:"discoverProjects")
-        name discoverProjects:              "/descubre/project"         (controller: "discover", action:"discoverProjects")
-        name discoverProjectsByRegion:      "/descubre/project/$regionName" (controller: "discover", action:"discoverProjects")
-        name discoverPoliticians:           "/descubre/politicos"     (controller: "discover", action:"discoverPoliticians")
-        name discoverRecentPosts:           "/descubre/publicaciones-recientes" (controller: "discover", action:"discoverRecentPosts")
-        name discoverRecommendedPosts:      "/descubre/publicaciones-mas-impulsadas" (controller: "discover", action:"discoverRecommendedPosts")
-        /**********************/
-        /*** END PENSAR SEO ***/
-        /**********************/
-
 
         /**********************/
         /***** DEPRECATED *****/
@@ -351,6 +338,16 @@ class UrlMappings {
 
         // PSOE POLL
         name campaignPoll:        "/campaign/poll" (controller: "massMailing", action: "saveCitizenPriorities")
+
+
+        // DEPRECATED SEO - THINK AGAIN
+        name discover:                      "/descubre"                                 {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
+        name discoverProjects:              "/descubre/project"                         {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
+        name discoverProjectsByRegion:      "/descubre/project/$regionName"             {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
+        name discoverPoliticians:           "/descubre/politicos"                       {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
+        name discoverRecentPosts:           "/descubre/publicaciones-recientes"         {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
+        name discoverRecommendedPosts:      "/descubre/publicaciones-mas-impulsadas"    {controller="redirect"; action= "redirect301"; newMapping='searcherSearch'}
+
         /**********************/
         /*** END DEPRECATED ***/
         /**********************/
