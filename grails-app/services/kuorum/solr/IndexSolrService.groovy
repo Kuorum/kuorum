@@ -25,6 +25,10 @@ import org.apache.solr.common.SolrInputDocument
 import org.bson.types.ObjectId
 import org.springframework.beans.factory.annotation.Value
 
+import javax.annotation.PreDestroy
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+
 @Transactional
 class IndexSolrService {
 
@@ -63,7 +67,7 @@ class IndexSolrService {
     }
 
     private Integer solrDeltaIndex(){
-        solrIndex([command:'delta-import', commit:'true', wt:'json'])
+        solrIndex([command: 'delta-import', commit: 'true', wt: 'json'])
     }
     private Integer solrIndex(Map options, Boolean waitEnd = false){
         if (server instanceof HttpSolrServer){
@@ -120,17 +124,24 @@ class IndexSolrService {
     }
 
     void index(Post post){
-        log.info("Indexing post: ${post}")
-        solrDeltaIndex()
+//        Delta index is going to be via quartz
+//        log.info("Indexing post: ${post}")
+//        solrDeltaIndex()
     }
     void index(KuorumUser user){
-        log.info("Indexing user:${user}")
-        solrDeltaIndex()
+//        Delta index is going to be via quartz
+//        log.info("Indexing user:${user}")
+//        solrDeltaIndex()
     }
 
     void index(Project project){
-        log.info("Indexing project: ${project}")
-        solrDeltaIndex()
+//        Delta index is going to be via quartz
+//        log.info("Indexing project: ${project}")
+//        solrDeltaIndex()
+    }
+
+    public void deltaIndex(){
+        this.solrDeltaIndex()
     }
 
     private void deleteDocument(String id){
