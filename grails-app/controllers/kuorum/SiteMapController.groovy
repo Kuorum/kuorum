@@ -17,12 +17,12 @@ class SiteMapController {
             mkp.yieldUnescaped '<?xml version="1.0" encoding="UTF-8"?>'
             sitemapindex(xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9") {
                 sitemap {
-                    loc(subDomainLink(request, "/sitemap"))
+                    loc(g.createLink(mapping: 'sitemap', absolute: true))
                 }
                 def continentsCode = ["AF", "AS", "EU", "NA", "OC", "SA"]
                 continentsCode.each{continentCode ->
                     sitemap {
-                        loc(subDomainLink(request, "/sitemapCountry?countryCode=${continentCode}"))
+                        loc(g.createLink(mapping: 'sitemapCountry', params: [countryCode:continentCode], absolute: true))
                     }
                 }
             }
@@ -38,7 +38,7 @@ class SiteMapController {
                     'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance",
                     'xsi:schemaLocation': "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd") {
                 url {
-                    loc(subDomainLink(request,g.createLink( mapping: 'home')))
+                    loc(g.createLink( mapping: 'home', absolute: true))
                     changefreq('monthly')
                     priority(1.0)
                 }
@@ -50,7 +50,7 @@ class SiteMapController {
                         'register']
                 highPriority.each{mapping ->
                     url {
-                        loc(subDomainLink(request,g.createLink( mapping: mapping)))
+                        loc(g.createLink( mapping: mapping, absolute: true))
                         changefreq('yearly')
                         priority(0.9)
                     }
@@ -73,22 +73,16 @@ class SiteMapController {
                 ]
                 footerMappings.each{mapping ->
                     url {
-                        loc(subDomainLink(request,g.createLink( mapping: mapping)))
+                        loc(g.createLink( mapping: mapping, absolute: true))
                         changefreq('yearly')
                         priority(0.7)
                     }
                 }
 
-//                url {
-//                    loc(subDomainLink(request,g.createLink( mapping: 'discover'))
-//                    changefreq('weekly')
-//                    priority(0.9)
-//                }
-
                 //DYNAMIC ENTRIES
                 Project.list().each {project->
                     url {
-                        loc(subDomainLink(request,g.createLink( mapping:'projectShow', params:project.encodeAsLinkProperties())))
+                        loc(g.createLink( mapping: 'langProjectShow', params:project.encodeAsLinkProperties(), absolute: true))
                         changefreq('weekly')
                         priority(0.3)
                         lastmod(project.dateCreated.format(FORMAT_DATE_SITEMAP))
@@ -103,11 +97,10 @@ class SiteMapController {
                             ]
                     Date lastModified = dates.max{a, b -> a  <=> b }
                     url {
-                        loc(subDomainLink(request,g.createLink( mapping:'postShow', params:post.encodeAsLinkProperties())))
+                        loc(g.createLink( mapping: 'langPostShow', params:post.encodeAsLinkProperties(), absolute: true))
                         changefreq('weekly')
                         priority(0.2)
                         lastmod(lastModified?.format(FORMAT_DATE_SITEMAP))
-                        log.info("Creada la URL del post (${post.id}): ${post.title}")
                     }
                 }
             }
@@ -130,7 +123,7 @@ class SiteMapController {
                 while(cursor.hasNext()){
                     def politicianData = cursor.next()
                     url {
-                        loc(subDomainLink(request,g.createLink( mapping:'userShow', params:[userAlias:politicianData.alias])))
+                        loc(g.createLink( mapping: 'langUserShow', params:[userAlias:politicianData.alias], absolute: true))
                         changefreq('weekly')
                         priority(0.5)
                         lastmod(politicianData.lastUpdated.format(FORMAT_DATE_SITEMAP))
@@ -138,11 +131,5 @@ class SiteMapController {
                 }
             }
         }
-    }
-
-    private String subDomainLink(HttpServletRequest request, String relativeUrl){
-
-        return "${request.scheme}://${request.serverName}${request.serverPort==80|| request.serverPort==443?'':':'+request.serverPort}${request.contextPath?:''}${relativeUrl}"
-
     }
 }

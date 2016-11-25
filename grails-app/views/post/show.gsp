@@ -3,6 +3,7 @@
 <head>
     <title>${post.title}</title>
     <meta name="layout" content="columnCFloatingLayout">
+    <link rel="canonical" href="${g.createLink(mapping:"postShow", params: post.encodeAsLinkProperties(), absolute:true)}"/>
 </head>
 
 <content tag="metaData">

@@ -18,6 +18,7 @@ import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
+import org.springframework.web.servlet.LocaleResolver
 import springSecurity.KuorumRegisterCommand
 
 import javax.imageio.spi.RegisterableService
