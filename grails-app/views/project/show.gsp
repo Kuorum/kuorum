@@ -3,6 +3,7 @@
 <head>
     <title>${project.shortName}</title>
     <meta name="layout" content="columnCLayout">
+    <link rel="canonical" href="${g.createLink(mapping:"projectShow", params: project.encodeAsLinkProperties(), absolute:true)}"/>
 </head>
 <content tag="metaData">
     <g:render template="projectMetaTags" model="[project:project]"/>
