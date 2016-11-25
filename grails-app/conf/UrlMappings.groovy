@@ -122,7 +122,7 @@ class UrlMappings {
         name projectEdit:               "/project/$lang/$userAlias/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
         name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")
 
-        name projectShowLang:   "/$lang/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name langProjectShow:   "/$lang/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name projectShow:       "/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/hashtag/$hashtag"                             {controller="redirect"; action= "redirect301Project"; }
                                 "/proyectos/$regionName/$commission/$hashtag"   {controller="redirect"; action= "redirect301Project"; }
@@ -140,7 +140,7 @@ class UrlMappings {
 
         name projectUpdate:             "/project/$userAlias/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
-        name postShowLang:  "/$lang/$userAlias/$hashtag/$postBrief-$postId"(controller: "post", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name langPostShow:  "/$lang/$userAlias/$hashtag/$postBrief-$postId"(controller: "post", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name postShow:      "/$userAlias/$hashtag/$postBrief-$postId"(controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                             "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"          {controller="redirect"; action= "redirect301Post";}
                             "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"  {controller="redirect"; action= "redirect301Post";}
@@ -172,7 +172,7 @@ class UrlMappings {
         name widgetComparative:        "/widget/comparation"    (controller: "rating", action:"widgetComparativePoliticianInfo")
 
 
-        name userShowLang:          "/$lang/$userAlias"     (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name langUserShow:          "/$lang/$userAlias"     (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name userShow:              "/$userAlias"           (controller: "kuorumUser", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name secUserShow:           "/sec/$userAlias"       (controller: "kuorumUser", action: "secShow")
 
@@ -355,20 +355,14 @@ class UrlMappings {
         /*** END DEPRECATED ***/
         /**********************/
 
-        "/sitemapIndex"{
-            controller = 'siteMap'
-            action = 'sitemapIndex'
-        }
+        name sitemapIndex:  "/$lang/sitemapIndex" (controller: "siteMap", action: "sitemapIndex"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                            "/sitemapIndex"{ controller="redirect"; action= "redirect301"; newMapping='sitemapIndex'}
 
-        "/sitemap"{
-            controller = 'siteMap'
-            action = 'sitemap'
-        }
+        name sitemap:       "/$lang/sitemap" (controller: "siteMap", action: "sitemap"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                            "/sitemap"{ controller="redirect"; action= "redirect301"; newMapping='sitemap'}
 
-        "/sitemapCountry"{
-            controller = 'siteMap'
-            action = 'sitemapCountry'
-        }
+        name sitemapCountry:"/$lang/sitemapCountry" (controller: "siteMap", action: "sitemapCountry"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                            "/sitemapCountry"{ controller="redirect"; action= "redirect301"; newMapping='sitemapCountry'}
 
         "403" (controller: "error", action: "forbidden")
         "404" (controller: "error", action: "notFound")
