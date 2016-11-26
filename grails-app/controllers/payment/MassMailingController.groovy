@@ -184,10 +184,6 @@ class MassMailingController {
 
     private def saveAndSendCampaign(KuorumUser user, MassMailingCommand command, Long campaignId = null, FilterRDTO anonymousFilter = null){
         CampaignRQDTO campaignRQDTO = convertCommandToCampaign(command, user, anonymousFilter)
-        if (!campaignId){
-            campaignRQDTO.filterId = null;
-            campaignRQDTO.anonymousFilter = anonymousFilter;
-        }
         String msg = ""
         CampaignRSDTO savedCampaign = null;
         if (command.getSendType()=="SEND"){
