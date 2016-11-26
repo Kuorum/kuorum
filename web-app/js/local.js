@@ -1361,6 +1361,11 @@ $(document).ready(function() {
         iframe.get(0).contentWindow.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
     });
 
+    // Language selector
+    $('select#language-selector').on('change', function() {
+        window.location.href = $(this).val();
+    });
+
     prepareForms()
 });
 

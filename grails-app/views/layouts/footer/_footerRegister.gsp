@@ -4,6 +4,7 @@
             <ul>
                 <li><g:link mapping="footerPrivacyPolicy"><g:message code="layout.footer.privacyPolicy"/></g:link></li>
                 <li><g:link mapping="footerTermsUse"><g:message code="layout.footer.termsUse"/></g:link></li>
+                <li><nav:generateLangSelector /></li>
             </ul>
         </section>
     </div><!-- /.container-fluid - da ancho máximo y centra -->

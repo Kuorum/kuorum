@@ -1,6 +1,7 @@
 package kuorum
 
 import com.opensymphony.module.sitemesh.RequestConstants
+import jdk.nashorn.internal.runtime.regexp.joni.Regex
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.search.Pagination
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
@@ -34,7 +35,6 @@ class NavigationTagLib {
         }
     }
 
-
     def ifActiveMapping = {attrs, body ->
         String mappingName = attrs.mappingName?:''
         List<String> mappingNames = attrs.mappingNames?attrs.mappingNames.split(",").collect{it.trim()}.findAll{it}:[mappingName]
@@ -47,35 +47,89 @@ class NavigationTagLib {
         }
     }
 
-    def generateAlternateLangLink = { attrs, body ->
-        def languages = AvailableLanguage.values();
-        StringBuilder sb = new StringBuilder("");
-        for (AvailableLanguage langAux : languages) {
-            if (sb.length() > 0) sb.append('|');
-            sb.append(langAux.locale.language);
-        }
-        def urlPath = request.forwardURI.replaceFirst(request.contextPath, "");
-        def languagesStr = sb.toString();
+    /**
+     * Language utils to display hreflangs and language selector
+     */
+    private getLanguageUtils() {
+        // Init
+        def languageList = AvailableLanguage.values()
+        def urlPath = request.forwardURI.replaceFirst(request.contextPath, "")
 
         // Lang at start (landing) or in the middle (other)
         // Don't confuse with user profile, example: "/ESperanzaaguirre"
-        def startRegex = /^(\/($languagesStr))$/;
-        def middleRegex = /^(\/($languagesStr)\/)/;
+        StringBuilder str = new StringBuilder("")
+        languageList.each { lang ->
+            if (str.length() > 0) str.append('|')
+            str.append(lang.locale.language)
+        }
+        def languagesRegex = str.toString()
+        def langAtStartRegex = /^(\/($languagesRegex))$/
+        def langAtMiddleRegex = /^(\/($languagesRegex)\/)/
+        def isUsingLanguages = (urlPath =~ langAtStartRegex || urlPath =~ langAtMiddleRegex)
 
-        if (urlPath =~ startRegex || urlPath =~ middleRegex) {
-            AvailableLanguage.values().each { lang ->
-                out << """
+        def usingLanguagesList = new ArrayList<Boolean>()
+        def languageUrlList = new ArrayList<String>()
+        languageList.each { lang ->
+            usingLanguagesList.add(
+                    urlPath =~ /^\/$lang.locale.language$/ || urlPath =~ /^\/$lang.locale.language\//
+            )
+
+            String link;
+            if (isUsingLanguages) {
+                link = request.contextPath + urlPath
+                        .replaceFirst(langAtStartRegex, "/" + lang.locale.language)
+                        .replaceFirst(langAtMiddleRegex, "/" + lang.locale.language + "/") +
+                        (request.queryString ? "?" + request.queryString : "");
+            } else {
+                link = request.contextPath + urlPath
+                        .replaceFirst(langAtStartRegex, "/" + lang.locale.language)
+                        .replaceFirst(langAtMiddleRegex, "/" + lang.locale.language + "/") +
+                        (request.queryString ?
+                                "?" + request.queryString + "&lang=" + lang.locale.language
+                                : "?lang=" + lang.locale.language);
+            }
+            languageUrlList.add(link)
+        }
+
+        return [
+            // es, en, it, ...
+            "languageList": languageList,
+            // If using "/$lang/" then true
+            "isUsingLanguages": isUsingLanguages,
+            // true, false, false, ...
+            "usingLanguagesList": usingLanguagesList,
+            // "/kuorum/es", "/kuorum/en", "/kuorum/it", ...
+            "languageUrlList": languageUrlList,
+        ];
+    }
+
+    def generateAlternateLangLink = { attrs, body ->
+        def languages = getLanguageUtils();
+
+        for (int i = 0; i < languages["languageList"].size(); i++) {
+            out << """
                     <link   rel="alternate"
-                            href="https://kuorum.org${
-                                request.contextPath +
-                                    urlPath
-                                            .replaceFirst(startRegex, "/" + lang.locale.language)
-                                            .replaceFirst(middleRegex, "/" + lang.locale.language + "/")
-                                }${request.queryString ? "?" + request.queryString : ''}"
-                            hreflang="${lang.locale.language}" />
+                            href="https://kuorum.org${languages["languageUrlList"][i]}"
+                            hreflang="${languages["languageList"][i].locale.language}" />
                 """
+        }
+    }
+
+    def generateLangSelector = { attrs, body ->
+        def languages = getLanguageUtils();
+
+        StringBuilder strHtml = new StringBuilder("<select id=\"language-selector\">");
+        for (int i = 0; i < languages["languageList"].size(); i++) {
+            // Check if lang is selected
+            if (languages["usingLanguagesList"][i]) {
+                strHtml.append("<option selected value=\"" + languages["languageUrlList"][i] + "\">" + languages["languageList"][i].locale.language.toUpperCase() + "</option>");
+            } else {
+                strHtml.append("<option value=\"" + languages["languageUrlList"][i] + "\">" + languages["languageList"][i].locale.language.toUpperCase() + "</option>");
             }
         }
+        strHtml.append("</select>");
+
+        out << strHtml.toString()
     }
 
     def loadMoreLink = {attrs, body ->
