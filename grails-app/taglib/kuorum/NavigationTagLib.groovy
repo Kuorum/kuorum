@@ -1,7 +1,6 @@
 package kuorum
 
 import com.opensymphony.module.sitemesh.RequestConstants
-import jdk.nashorn.internal.runtime.regexp.joni.Regex
 import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.search.Pagination
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
