@@ -97,6 +97,8 @@ class UrlMappings {
         name loginAuth: "/$lang/sign-in"(controller:"login", action:"auth")
                         "/sign-in"      {controller="redirect"; action= "redirect301"; newMapping='loginAuth'}
                         "/autenticarse" {controller="redirect"; action= "redirect301"; newMapping='loginAuth'}
+                        "/login/auth"   {controller="redirect"; action= "redirect301"; newMapping='loginAuth'}
+
         name loginFull: "/$lang/confirmar-usuario"  (controller:"login", action:"full")
                         "/confirmar-usuario"        {controller="redirect"; action= "redirect301"; newMapping='loginFull'}
         name logout:    "/logout"       (controller:"logout", action:"index")
