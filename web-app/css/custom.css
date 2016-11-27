@@ -2937,6 +2937,15 @@ textarea.error,
 .links.simple {padding: 20px;}
 .links.simple .legal li {display: block; margin: 0 0 8px 0; border-bottom: solid 1px #a8a8a8; padding: 4px;}
 .links.simple .legal li:last-child {border: none;}
+.links #language-selector{
+    color: #a8a8a8;
+    background-color: #666666;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+}
 
 /* cuando se tengan los 4 botones de acceso a la web se necesitará este margin */
 /*#remember-pass {margin-top: 51px;}*/
