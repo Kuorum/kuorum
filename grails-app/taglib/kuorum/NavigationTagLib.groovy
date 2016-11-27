@@ -117,18 +117,13 @@ class NavigationTagLib {
     def generateLangSelector = { attrs, body ->
         def languages = getLanguageUtils();
 
-        StringBuilder strHtml = new StringBuilder("<select id=\"language-selector\">");
+        out << "<select id='language-selector'>"
         for (int i = 0; i < languages["languageList"].size(); i++) {
             // Check if lang is selected
-            if (languages["usingLanguagesList"][i]) {
-                strHtml.append("<option selected value=\"" + languages["languageUrlList"][i] + "\">" + languages["languageList"][i].locale.language.toUpperCase() + "</option>");
-            } else {
-                strHtml.append("<option value=\"" + languages["languageUrlList"][i] + "\">" + languages["languageList"][i].locale.language.toUpperCase() + "</option>");
-            }
+            String languageName = g.message(code: "kuorum.core.model.AvailableLanguage.${languages["languageList"][i]}")
+            out << "<option ${languages["usingLanguagesList"][i]?'selected':''} value='${languages["languageUrlList"][i]}'>${languageName}</option>"
         }
-        strHtml.append("</select>");
-
-        out << strHtml.toString()
+        out << "</select>"
     }
 
     def loadMoreLink = {attrs, body ->
