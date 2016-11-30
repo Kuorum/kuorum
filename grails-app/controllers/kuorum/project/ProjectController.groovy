@@ -4,13 +4,12 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
-import kuorum.Region
 import kuorum.RegionService
 import kuorum.core.model.CommissionType
 import kuorum.core.model.VoteType
 import kuorum.core.model.gamification.GamificationElement
 import kuorum.core.model.project.ProjectBasicStats
-import kuorum.core.model.project.ProjectRegionStats
+import kuorum.core.model.project.ProjectStats
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.solr.SolrType
 import kuorum.files.FileService
@@ -39,13 +38,13 @@ class ProjectController {
 
     FileService fileService
 
-    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
         projectModel(new ProjectCommand(), null)
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
-    def save(ProjectCommand command){
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def save(ProjectCommand command) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 
         if(!command.validate()){
@@ -74,8 +73,8 @@ class ProjectController {
         redirect mapping:"projectShow", params:project.encodeAsLinkProperties()
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
-    def edit(String hashtag){
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def edit(String hashtag) {
         Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
         if (!project){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
@@ -94,8 +93,8 @@ class ProjectController {
         projectModel(projectCommand, project)
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
-    def update(ProjectCommand command){
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def update(ProjectCommand command) {
         Project project = projectService.findProjectByHashtag(params.hashtag?.encodeAsHashtag())
         if (!project){
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
@@ -130,19 +129,10 @@ class ProjectController {
 
     private def projectModel(ProjectCommand command, Project project){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Region region = user?.professionalDetails?.region
-        if (!region){
-            region = project?.region
-        }
-        if (!region){
-            flash.message = "We need your region for create new project"
-            return redirect(mapping:'profileProfessionalDetails')
-        }
-        [project:project, command:command, region:region]
-
+        [project: project, command: command]
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def createProjectUpdate(String hashtag){
         if(hashtag){
             Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
@@ -158,8 +148,8 @@ class ProjectController {
         }
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_POLITICIAN'])
-    def addProjectUpdate(ProjectUpdateCommand projectUpdateCommand){
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def addProjectUpdate(ProjectUpdateCommand projectUpdateCommand) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Project project = projectService.findProjectByHashtag(params.hashtag.encodeAsHashtag())
         if (projectUpdateCommand.hasErrors()){
@@ -190,17 +180,14 @@ class ProjectController {
         }
     }
 
-    def index(){
-        def paramsUrl = [type:SolrType.PROJECT]
-        if (params.commission){
+    def index() {
+        def paramsUrl = [type: SolrType.PROJECT]
+        if (params.commission) {
             CommissionType commissionType = recoverCommissionByTranslatedName(request.locale, params.commission)
             paramsUrl.put('commissionType', commissionType)
         }
-        if (params.regionName){
-            paramsUrl.put('regionName',params.regionName)
-        }
 
-        redirect(mapping:'searcherSearch',params: paramsUrl, permanent: true)
+        redirect(mapping: 'searcherSearch',params: paramsUrl, permanent: true)
     }
 
     private CommissionType recoverCommissionByTranslatedName(Locale locale, String searchedCommission){
@@ -220,41 +207,41 @@ class ProjectController {
         redirect(mapping: 'projectShow', params:project.encodeAsLinkProperties(), permanent: true)
     }
 
-    def show(String hashtag){
+    def show(String hashtag) {
         Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
-        if (!project){
+        if (!project) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
             return;
         }
         Pagination pagination = new Pagination()
-        List<Post> posts = postService.projectPosts(project,pagination)
+        List<Post> posts = postService.projectPosts(project, pagination)
         Long numPosts = postService.countProjectPosts(project)
         List<Post> victories = postService.projectVictories(project)
         Long numVictories = postService.countProjectVictories(project)
         List<Post> defends = postService.projectDefends(project)
         Long numDefends = postService.countProjectDefends(project)
         ProjectVote userVote = null;
-        if (springSecurityService.isLoggedIn()){
+        if (springSecurityService.isLoggedIn()) {
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             userVote = projectService.findProjectVote(project,user)
         } else {
-            if(!project.published){
+            if (!project.published) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
             }
         }
-        ProjectBasicStats projectStats = projectStatsService.calculateProjectStats(project)
-        ProjectRegionStats regionStats = projectStatsService.calculateRegionStats(project)
+        ProjectBasicStats projectBasicStats = projectStatsService.calculateProjectBasicStats(project)
+        ProjectStats projectStats = projectStatsService.calculateProjectStats(project)
 
-        //Objeto usado para la creacion del formulario de datos básicos de una persona para que pueda votar
+        // Objeto usado para la creacion del formulario de datos básicos de una persona para que pueda votar
         BasicPersonalDataCommand basicPersonalDataCommand = new BasicPersonalDataCommand();
-        if (flash?.basicPersonalDataCommand){
+        if (flash?.basicPersonalDataCommand) {
             basicPersonalDataCommand = flash?.basicPersonalDataCommand
         }
 
         [
                 project:project,
+                projectBasicStats:projectBasicStats,
                 projectStats:projectStats,
-                regionStats:regionStats,
                 posts: posts,
                 numPosts:numPosts,
                 seeMorePosts:posts.size() < numPosts,
@@ -304,7 +291,7 @@ class ProjectController {
         render template: "/cluck/liPosts", model:[posts:posts]
     }
 
-    @Secured(['ROLE_USER', 'ROLE_ADMIN', 'ROLE_PREMIUM', 'ROLE_POLITICIAN'])
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def voteProject(String hashtag){
         VoteType voteType = VoteType.valueOf(params.voteType)
         Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
@@ -339,7 +326,7 @@ class ProjectController {
         ] as JSON)
     }
 
-    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_PASSWORDCHANGED', 'ROLE_USER'])
+    @Secured(['ROLE_INCOMPLETE_USER', 'ROLE_USER'])
     def voteProjectAsNonCompleteUser(BasicPersonalDataCommand basicPersonalDataCommand){
         String hashtag = params.hashtag
         Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())

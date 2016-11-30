@@ -5,10 +5,6 @@
             <span class="circle"><g:message code="${kuorum.core.model.ProjectStatusType.class.name}.${project.status}.iconText"/></span>
             <span class="text"><g:message code="${kuorum.core.model.ProjectStatusType.class.name}.${project.status}"/></span>
         </div>
-        <div class="country">
-            <span class="circle">${project.region.iso3166_2.split('-').last()}</span>
-            <span class="text">${project.region.name}</span>
-        </div>
     </div>
     <g:if test="${victory}">
         <div class="info">

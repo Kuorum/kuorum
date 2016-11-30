@@ -340,7 +340,6 @@ class UrlMappings {
 
         // ADMIN STATS
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
-        name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
 
         // PSOE POLL

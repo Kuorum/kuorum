@@ -51,7 +51,7 @@ class ProjectService {
         if (!hashtag){
             return null;
         }
-        List<Project> projects = Project.collection.find( ['hashtag':['$regex':hashtag, '$options': 'i']]).collect({
+        List<Project> projects = Project.collection.find(['hashtag': ['$regex': hashtag, '$options': 'i']]).collect({
             it as Project
         })
         if (projects.size() > 2){
@@ -101,22 +101,22 @@ class ProjectService {
             if (!projectVote.save()){
                 throw KuorumExceptionUtil.createExceptionFromValidatable(projectVote, "Error salvando el projectVote")
             }
-            if (isUserVoteRelevant(user, project)){
-                switch (orgVoteType){
-                    case VoteType.POSITIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.yes':-1]]); break;
-                    case VoteType.ABSTENTION:   Project.collection.update([_id:project.id],['$inc':['peopleVotes.abs':-1]]); break;
-                    case VoteType.NEGATIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.no':-1]]); break;
-                    default: break;
-                }
 
-                switch (voteType){
-                    case VoteType.POSITIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.yes':1]]); break;
-                    case VoteType.ABSTENTION:   Project.collection.update([_id:project.id],['$inc':['peopleVotes.abs':1]]); break;
-                    case VoteType.NEGATIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.no':1]]); break;
-                    default: break;
-                }
-                project.refresh()
+            switch (orgVoteType){
+                case VoteType.POSITIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.yes':-1]]); break;
+                case VoteType.ABSTENTION:   Project.collection.update([_id:project.id],['$inc':['peopleVotes.abs':-1]]); break;
+                case VoteType.NEGATIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.no':-1]]); break;
+                default: break;
             }
+
+            switch (voteType){
+                case VoteType.POSITIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.yes':1]]); break;
+                case VoteType.ABSTENTION:   Project.collection.update([_id:project.id],['$inc':['peopleVotes.abs':1]]); break;
+                case VoteType.NEGATIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.no':1]]); break;
+                default: break;
+            }
+            project.refresh()
+
         }
         projectVote
     }
@@ -126,29 +126,23 @@ class ProjectService {
         projectVote.kuorumUser = user
         projectVote.voteType = voteType
         projectVote.personalData = user.personalData
-        if (!projectVote.save()){
+        if (!projectVote.save()) {
             throw KuorumExceptionUtil.createExceptionFromValidatable(projectVote, "Error salvando el projectVote")
         }
-        if (isUserVoteRelevant(user, project)){
-            switch (voteType){
-                case VoteType.POSITIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.yes':1,'peopleVotes.total':1]]); break;
-                case VoteType.ABSTENTION:   Project.collection.update([_id:project.id],['$inc':['peopleVotes.abs':1,'peopleVotes.total':1]]); break;
-                case VoteType.NEGATIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.no':1,'peopleVotes.total':1]]); break;
-                default: break;
-            }
-            project.refresh()
+        switch (voteType) {
+            case VoteType.POSITIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.yes':1,'peopleVotes.total':1]]); break;
+            case VoteType.ABSTENTION:   Project.collection.update([_id:project.id],['$inc':['peopleVotes.abs':1,'peopleVotes.total':1]]); break;
+            case VoteType.NEGATIVE:     Project.collection.update([_id:project.id],['$inc':['peopleVotes.no':1,'peopleVotes.total':1]]); break;
+            default: break;
         }
-        projectVote
-    }
+        project.refresh()
 
-    Boolean isUserVoteRelevant(KuorumUser user, Project project){
-        Region userRegion = regionService.findUserRegion(user)
-        userRegion.iso3166_2.startsWith(project.region.iso3166_2)
+        projectVote
     }
 
     Project saveAndCreateNewProject(Project project, KuorumUser user){
 //        project.institution = user.institution
-        project.region = user.professionalDetails.region
+//        project.region = user.professionalDetails.region
         project.owner = user
         project.description = postService.removeCustomCrossScripting(project.description)
 
@@ -170,6 +164,7 @@ class ProjectService {
             log.error("Erro saving project: ${project.errors}")
            throw KuorumExceptionUtil.createExceptionFromValidatable(project, "Error salvando el proyecto")
         }
+
         project
     }
 
@@ -178,7 +173,7 @@ class ProjectService {
         projectEvent.projectAction = ProjectAction.PROJECT_CREATED
         projectEvent.project = project
         projectEvent.owner = project.owner
-        projectEvent.region = project.region
+//        projectEvent.region = project.region
         projectEvent.dateCreated = new Date()
         projectEvent.projectUpdatePos = null
         projectEvent.save()
@@ -188,7 +183,7 @@ class ProjectService {
         projectEvent.projectAction = ProjectAction.PROJECT_UPDATE
         projectEvent.project = project
         projectEvent.owner = project.owner
-        projectEvent.region = project.region
+ //       projectEvent.region = project.region
         projectEvent.dateCreated = new Date()
         projectEvent.projectUpdatePos = projectUpdatePos
         projectEvent.save();

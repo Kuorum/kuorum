@@ -32,7 +32,6 @@
             </div>
             <div class="tab-pane active" id="debate">
                 <g:form mapping="projectCreate" method="POST" name="edit-project" role="form" class="box-ppal">
-                    <h1><g:message code='admin.createProject.region.label' args="[region.name]" encodeAs="raw"/> <span class="hashtag pull-right">#</span></h1>
                     <g:render template="/project/formProject" model="[command:command]"/>
                     <fieldset class="btns text-right">
                         <div class="form-group">

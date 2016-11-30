@@ -3,9 +3,7 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityUtils
 import kuorum.core.model.RegionType
 import kuorum.core.model.UserType
-import kuorum.core.model.solr.SolrPost
 import kuorum.core.model.solr.SolrProject
-import kuorum.post.Post
 import kuorum.project.Project
 import kuorum.project.ProjectUpdate
 import kuorum.project.ProjectVote
@@ -24,21 +22,6 @@ class ProjectTagLib {
     RegionService regionService
     KuorumUserService kuorumUserService
     static namespace = "projectUtil"
-
-    def ifProjectIsEditable={attrs, body ->
-        if (springSecurityService.isLoggedIn()){
-            Project project = attrs.project
-            Boolean isAdmin = SpringSecurityUtils.ifAnyGranted('ROLE_ADMIN');
-            Boolean isPoliticianAndSameRegion = false;
-            if (SpringSecurityUtils.ifAnyGranted('ROLE_POLITICIAN')){
-                KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-                isPoliticianAndSameRegion = user.personalData.province == project.region
-            }
-            if (isAdmin || isPoliticianAndSameRegion){
-                out << body()
-            }
-        }
-    }
 
     def projectFromSolr={attrs ->
         SolrProject solrProject = attrs.solrProject
@@ -103,16 +86,19 @@ class ProjectTagLib {
         }
     }
 
+    /**
+     * Region attribute is deprecated, do not use
+     */
     def showProjectRegionIcon={attrs ->
         Project project = attrs.project
         Region region
-        if (project){
+        if (project) {
             region = project.region
-        }else{
+        } else {
             region = attrs.region
         }
         String cssClass= ""
-        switch (region.regionType){
+        switch (region.regionType) {
             case RegionType.LOCAL:          cssClass = "icon2-ciudad"; break;
             case RegionType.STATE:          cssClass = "icon2-region"; break;
             case RegionType.NATION:         cssClass = "icon2-estado"; break;

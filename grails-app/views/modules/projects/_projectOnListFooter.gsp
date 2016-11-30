@@ -1,9 +1,6 @@
 <footer>
     <div class="row">
         <ul class="col-xs-5 col-sm-5 col-md-6 info-kak">
-            <li itemprop="keywords">
-                <projectUtil:showProjectRegionIcon project="${project}"/>
-            </li>
             <li itemprop="datePublished" class="hidden-xs hidden-sm">
                 <kuorumDate:humanDate date="${project.deadline}"/>
             </li>

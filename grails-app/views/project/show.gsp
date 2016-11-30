@@ -10,12 +10,12 @@
 </content>
 
 <content tag="subHeader">
-    <g:render template="/project/projectSubHeader" model="[project: project, projectStats:projectStats, regionStats:regionStats, userVote:userVote]"/>
+    <g:render template="/project/projectSubHeader" model="[project: project, projectBasicStats:projectBasicStats, userVote:userVote]"/>
 </content>
 
 
 <content tag="mainContent">
-    <g:render template="/project/projectInfo" model="[project:project, victories: victories, readMore:true,projectStats:projectStats,regionStats:regionStats]"/>
+    <g:render template="/project/projectInfo" model="[project:project, victories: victories, readMore:true, projectBasicStats:projectBasicStats, projectStats:projectStats]"/>
     <g:render template="/project/projectUpdates" model="[project:project]"/>
 
     %{--<g:if test="${victories}">--}%

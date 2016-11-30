@@ -7,9 +7,7 @@ import kuorum.project.AcumulativeVotes
 /**
  * Created by iduetxe on 1/06/14.
  */
-class ProjectRegionStats {
-    Region region
+class ProjectStats {
     AcumulativeVotes totalVotes
     HashMap<Gender, AcumulativeVotes> genderVotes
-    AcumulativeVotes noRegionVotes
 }
