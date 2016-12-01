@@ -291,8 +291,9 @@ class UrlMappings {
         "/account/contacts/oauth/$provider/success" (controller: "contactsOAuth", action: "onSuccess")
         "/account/contacts/oauth/$provider/failure" (controller: "contactsOAuth", action: "onFailure")
 
-        "/googleContacts/loadContactsFromGoogle" (controller:"googleContacts", action: "loadContactsFromGoogle")
+        "/googleContacts/loadContactsFromGoogle" (controller: "googleContacts", action: "loadContactsFromGoogle")
 
+        "/admin/updateMailChimp" (controller: "admin", action: "updateMailChimp")
 
         /**********************/
         /***** DEPRECATED *****/
@@ -340,7 +341,6 @@ class UrlMappings {
 
         // ADMIN STATS
         name adminStats:            "/admin/estadisticas"           (controller:"adminStats", action: "stats")
-        name adminStatsMap:         "/admin/estadisticas/mapa"      (controller:"adminStats", action: "statsDataMap")
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
 
         // PSOE POLL

@@ -1,6 +1,5 @@
 package kuorum.project
 
-import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.ProjectStatusType
 import kuorum.helper.IntegrationHelper
@@ -25,7 +24,7 @@ class ProjectServiceIntegrationSpec extends Specification {
         given: "A project"
         Project project = Project.findByHashtag("#leyAborto")
         when: "Updating the project"
-        Region region = Region.findByIso3166_2("EU-ES")
+//        Region region = Region.findByIso3166_2("EU-ES")
 //        Institution institution = Institution.findAllByRegion(region).first()
 //        PoliticalParty politicalParty = PoliticalParty.list().find { it.institution == institution }
         String realName = "realName"
@@ -33,7 +32,7 @@ class ProjectServiceIntegrationSpec extends Specification {
         def commissions = [CommissionType.AGRICULTURE, CommissionType.BUDGETS, CommissionType.CONSTITUTIONAL]
 
         project.shortName = shortName
-        project.region = region
+//        project.region = region
 //        project.institution = institution
         project.realName = realName
         project.commissions = commissions
@@ -41,9 +40,9 @@ class ProjectServiceIntegrationSpec extends Specification {
         then: "Project is update properly"
 
         projectSaved.shortName == shortName
-        projectSaved.region == region
-        projectSaved.region.iso3166_2 == region.iso3166_2
-        projectSaved.region.id == region.id
+//        projectSaved.region == region
+//        projectSaved.region.iso3166_2 == region.iso3166_2
+//        projectSaved.region.id == region.id
         projectSaved.realName == realName
         projectSaved.commissions == commissions
 //        projectSaved.politicalParty == politicalParty
@@ -52,9 +51,9 @@ class ProjectServiceIntegrationSpec extends Specification {
         Project.withNewSession {
             Project projectRecovered = Project.findByHashtag("#leyAborto")
             projectRecovered.shortName == shortName
-            projectRecovered.region == region
-            projectRecovered.region.iso3166_2 == region.iso3166_2
-            projectRecovered.region.id == region.id
+//            projectRecovered.region == region
+//            projectRecovered.region.iso3166_2 == region.iso3166_2
+//            projectRecovered.region.id == region.id
             projectRecovered.realName == realName
             projectRecovered.commissions == commissions
 //            projectRecovered.institution == institution

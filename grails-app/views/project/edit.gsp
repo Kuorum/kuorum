@@ -33,7 +33,6 @@
             <div class="tab-pane active" id="debate">
                 <formUtil:validateForm bean="${command}" form="edit-project"/>
                 <g:form url="[mapping:'projectEdit', params:project.encodeAsLinkProperties()]" method="POST" name="edit-project" role="form" class="box-ppal">
-                    <h1><g:message code='admin.editProject.region.label' args="[project.hashtag, region.name]" encodeAs="raw"/><span class="hashtag pull-right">#</span></h1>
                     <g:render template="/project/formProject" model="[command:command, editableHashtag :true]"/>
                     <fieldset class="btns text-right">
                         <div class="form-group">

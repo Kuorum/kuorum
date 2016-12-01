@@ -19,9 +19,6 @@
     %{--</g:if>--}%
     <div class="row options">
         <ul class="col-xs-12 col-sm-4 col-md-4 typeTime">
-            <li>
-                <projectUtil:showProjectRegionIcon project="${project}"/>
-            </li>
             <li itemprop="datePublished">
                 %{--<time>cerrado <span class="hidden-sm">hace 15 días</span></time>--}%
                 <g:set var="statusText" value="${g.message(code:'kuorum.core.model.ProjectStatusType.OPEN')}"/>
@@ -31,7 +28,7 @@
                 <time>${statusText} <kuorumDate:humanDate date="${project.deadline}" cssClass="hidden-sm"/> </time>
             </li>
         </ul>
-        <g:render template="projectStats" model="[project:project, regionStats:regionStats, projectStats:projectStats]"/>
+        <g:render template="projectStats" model="[project:project, projectStats:projectStats, projectBasicStats:projectBasicStats]"/>
     </div>
     <p>
         ${raw(project.description.replaceAll('\n','</p><p>'))}

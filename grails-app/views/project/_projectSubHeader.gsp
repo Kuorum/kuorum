@@ -4,10 +4,8 @@
 </div>
 <div class="col-sm-5 hidden-xs">
     <ul class="infoVotes">
-        <g:render template="/project/projectLiBasicPercentageStats" model="[project:project, projectStats:projectStats, extraCss:'']"/>
+        <g:render template="/project/projectLiBasicPercentageStats" model="[project:project, projectBasicStats:projectBasicStats, extraCss:'']"/>
     </ul>
 </div>
 
 <g:render template="/project/projectVotesModuleVotingButtons" model="[project:project, userVote: userVote, header:Boolean.TRUE]"/>
-
-

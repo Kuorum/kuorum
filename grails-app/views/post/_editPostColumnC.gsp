@@ -12,11 +12,6 @@
             </div><!-- /autor -->
         </div>
         <footer class="row">
-            <ul class="col-xs-2 col-sm-2 col-md-4 info-kak">
-                <li>
-                    <projectUtil:showProjectRegionIcon project="${project}"/>
-                </li>
-            </ul>
             <ul class="col-xs-10 col-sm-10 col-md-8 actions-kak">
                 <li class="read-later">
                     <a class="enabled" href="#">
@@ -67,11 +62,6 @@
             </div><!-- /patrocinadores -->
         </div>
         <footer class="row">
-            <ul class="col-xs-2 col-sm-2 col-md-4 info-kak">
-                <li>
-                    <projectUtil:showProjectRegionIcon project="${project}"/>
-                </li>
-            </ul>
             <ul class="col-xs-10 col-sm-10 col-md-8 actions-kak">
                 <li class="read-later">
                     <a class="enabled" href="#">

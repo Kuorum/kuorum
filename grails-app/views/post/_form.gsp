@@ -1,6 +1,6 @@
 <%@ page import="kuorum.core.FileType; kuorum.core.FileGroup" %>
 <input type="hidden" name="isDraft" value="false"/>
-<h1><g:message code="post.edit.step1.intro.head" args="[project.hashtag, project.region.name]" encodeAs="raw"/> <span class="fa fa-lightbulb-o fa-lg pull-right"></span></h1>
+<h1><g:message code="post.edit.step1.intro.head" args="[project.hashtag]" encodeAs="raw"/> <span class="fa fa-lightbulb-o fa-lg pull-right"></span></h1>
 <fieldset class="title">
     <div class="form-group">
         <label for="titlePost" class="sr-only"><g:message code="post.edit.step1.postTitle.label"/> </label>

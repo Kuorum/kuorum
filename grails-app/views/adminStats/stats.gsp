@@ -16,7 +16,6 @@
         <a  href="#" itemprop="keywords" class="laley">Volver</a>
         <h1><g:message code="admin.stats.title"/></h1>
         <p class="cl-ntral-dark"><g:message code="admin.stats.subTitle"/></p>
-        <h2><g:message code="project.stats.introRegionName"/> <span>${region.name}</span></h2>
         <a id="allMap" class="pull-right"><g:message code="project.stats.restartParentRegion"/> </a>
         <div id="map"></div>
         <dl class="moreInfo row">
