@@ -9,6 +9,7 @@ import com.mongodb.DBCursor
 import com.mongodb.DBObject
 import grails.transaction.Transactional
 import kuorum.RegionService
+import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.users.KuorumUser
@@ -54,9 +55,6 @@ class MailchimpService {
                     usersError++
                 }
 
-                if (usersOk + usersError >= 10) {
-                    new Exception("Max of 10 users reached")
-                }
             }
             log.info("Enviando mail de fin de procesado de email a ${executorUser.name} (${executorUser.email})")
             politiciansOk += "<br/> Counter ${usersOk}"
@@ -121,8 +119,8 @@ class MailchimpService {
             mergeVars.COUNTRY_C = regionService.findCountry(user?.professionalDetails?.region)
         }
         mergeVars.USERTYPE = user.userType.toString()
-        if (user.language.locale.language.toString() == "es") {
-            mergeVars.mc_language = "es_ES"
+        if (AvailableLanguage.es_ES.equals(user.language)) {
+            mergeVars.mc_language = "es_ES" // It is necesary to add the countre as "es_ES" because only "es" is spanish from Mexico
         } else {
             mergeVars.mc_language = user.language.locale.language.toString()
         }
