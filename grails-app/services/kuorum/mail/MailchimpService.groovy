@@ -49,9 +49,13 @@ class MailchimpService {
                     log.info("Updating mailchimp ${user.name}")
                     addSubscriber(user)
                     usersOk++
-                }catch(Exception e){
+                } catch(Exception e) {
                     politiciansWrong +=  "<li>${user.name} (${user.id}): <i>${e.getMessage()}</i></li>"
                     usersError++
+                }
+
+                if (usersOk + usersError >= 10) {
+                    new Exception("Max of 10 users reached")
                 }
             }
             log.info("Enviando mail de fin de procesado de email a ${executorUser.name} (${executorUser.email})")
@@ -117,7 +121,11 @@ class MailchimpService {
             mergeVars.COUNTRY_C = regionService.findCountry(user?.professionalDetails?.region)
         }
         mergeVars.USERTYPE = user.userType.toString()
-        mergeVars.mc_language = user.language.locale.language.toString()
+        if (user.language.locale.language.toString() == "es") {
+            mergeVars.mc_language = "es_ES"
+        } else {
+            mergeVars.mc_language = user.language.locale.language.toString()
+        }
         mergeVars.groupings = createGroups(user)
         mergeVars
     }

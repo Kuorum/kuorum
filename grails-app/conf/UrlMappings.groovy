@@ -291,8 +291,9 @@ class UrlMappings {
         "/account/contacts/oauth/$provider/success" (controller: "contactsOAuth", action: "onSuccess")
         "/account/contacts/oauth/$provider/failure" (controller: "contactsOAuth", action: "onFailure")
 
-        "/googleContacts/loadContactsFromGoogle" (controller:"googleContacts", action: "loadContactsFromGoogle")
+        "/googleContacts/loadContactsFromGoogle" (controller: "googleContacts", action: "loadContactsFromGoogle")
 
+        "/admin/updateMailChimp" (controller: "admin", action: "updateMailChimp")
 
         /**********************/
         /***** DEPRECATED *****/
