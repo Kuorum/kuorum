@@ -6013,8 +6013,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #tabs-stats-campaign .table thead th {background-color: #f7f7f7; font-weight: normal;}
     #tabs-stats-campaign .table td:nth-child(4) {height: auto;}
     #tabs-stats-campaign .table th, #tabs-stats-campaign .table td {color: #a8a8a8; padding: 22px; line-height: 1.2; vertical-align: middle; display: table-cell; width: auto;}
-    #tabs-stats-campaign .table th:nth-child(2), #tabs-stats-campaign .table th:nth-child(3),
-    #tabs-stats-campaign .table td:nth-child(2), #tabs-stats-campaign .table td:nth-child(3) {text-align: center;}
+    #tabs-stats-campaign .table th:nth-child(2), #tabs-stats-campaign .table th:nth-child(3), #tabs-stats-campaign .table th:nth-child(4), #tabs-stats-campaign .table th:nth-child(5),
+    #tabs-stats-campaign .table td:nth-child(2), #tabs-stats-campaign .table td:nth-child(3), #tabs-stats-campaign .table td:nth-child(4), #tabs-stats-campaign .table td:nth-child(5) {text-align: center;}
     #tabs-stats-campaign .table .only-mobile {display: none !important;}
 
 }

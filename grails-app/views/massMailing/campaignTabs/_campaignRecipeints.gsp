@@ -13,6 +13,8 @@
         <th><g:message code="kuorum.web.commands.payment.contact.ContactCommand.name.label"/></th>
         <th><g:message code="tools.massMailing.list.opens"/></th>
         <th><g:message code="tools.massMailing.list.click"/></th>
+        <th><g:message code="tools.massMailing.list.bounced"/></th>
+        <th><g:message code="tools.massMailing.list.hardBounced"/></th>
         <th><g:message code="tools.contact.list.contact.engagement"/></th>
     </tr>
     </thead>
@@ -30,6 +32,8 @@
             </td>
             <td><span class="only-mobile"><g:message code="tools.massMailing.list.opens"/>: </span>${trackingMail.numOpens}</td>
             <td><span class="only-mobile"><g:message code="tools.massMailing.list.click"/>: </span>${trackingMail.numClicks}</td>
+            <td><span class="only-mobile"><g:message code="tools.massMailing.list.bounced"/>: </span>${trackingMail.numBounced}</td>
+            <td><span class="only-mobile"><g:message code="tools.massMailing.list.hardBounced"/>: </span>${trackingMail.numHardBounced}</td>
             <td>
                 <span class="only-mobile"><g:message code="tools.contact.list.contact.engagement"/></span>
                 <contactUtil:engagement concat="${trackingMail.contact}"/>
