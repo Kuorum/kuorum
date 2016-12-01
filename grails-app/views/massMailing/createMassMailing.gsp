@@ -27,12 +27,12 @@
     <div class="box-ppal">
         <ul class="nav nav-tabs simple" data-tabs="tabs">
             <li role="presentation" class="active"><a href="#newsletter" data-toggle="tab"><g:message code="tools.campaign.type.massMailing"/></a></li>
-            %{--<userUtil:isWeceUser>--}%
+            <userUtil:isWeceUser>
                 <li role="presentation" class="${campaignId?'disabled':''}"><g:link mapping="projectCreate"><g:message code="tools.campaign.type.debate"/></g:link></li>
-            %{--</userUtil:isWeceUser>--}%
-            %{--<userUtil:isNotWeceUser>--}%
-                %{--<li role="presentation" class="${campaignId?'disabled':''}"><a href="#debate" data-toggle="tab"><g:message code="tools.campaign.type.debate"/></a></li>--}%
-            %{--</userUtil:isNotWeceUser>--}%
+            </userUtil:isWeceUser>
+            <userUtil:isNotWeceUser>
+                <li role="presentation" class="${campaignId?'disabled':''}"><a href="#debate" data-toggle="tab"><g:message code="tools.campaign.type.debate"/></a></li>
+            </userUtil:isNotWeceUser>
             <li role="presentation" class="${campaignId?'disabled':''}"><a href="#petition" data-toggle="tab"><g:message code="tools.campaign.type.petition"/></a></li>
             <li role="presentation" class="${campaignId?'disabled':''}"><a href="#survey" data-toggle="tab"><g:message code="tools.campaign.type.survey"/></a></li>
         </ul>
