@@ -41,6 +41,7 @@ class MailchimpService {
 
             DBObject query = new BasicDBObject('enabled', true)
             DBCursor cursor = KuorumUser.collection.find(query)
+            cursor.addOption(com.mongodb.Bytes.QUERYOPTION_NOTIMEOUT)
             Long usersOk= 0L;
             Long usersError= 0L;
 
