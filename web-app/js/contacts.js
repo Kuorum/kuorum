@@ -525,20 +525,20 @@ function FilterContacts() {
             $.post( link, postData)
                 .done(function(data) {
                     $("#listContacts").html(data);
+                    console.log(data)
                     var quickSearch = $("#quickSearchByName").val()
                     if (quickSearch != undefined && quickSearch.length > 0){
-                        $( "#contactsList li h3 a:first" ).each(function( index ) {
+                        $( "#contactsList li h3 a.contactStats" ).each(function( index ) {
                             var name = $(this).html();
                             var re = new RegExp(quickSearch, 'gi');
                             var highlighterName=name.replace(re, '<span class="highlighted">\$&</span>');
                             $(this).html(highlighterName)
                         });
-                        $( "#contactsList li p.email" ).each(function( index ) {
-                            var emailWithSpan = $(this).html();
-                            var email = emailWithSpan.replace(/<[^>]*>/g,'')
+                        $( "#contactsList li p.email span.raw-email" ).each(function( index ) {
+                            var email = $(this).html();
                             var re = new RegExp(quickSearch, 'gi');
                             var highlighterName=email.replace(re, '<span class="highlighted">\$&</span>');
-                            $(this).html("<span class='fa fa-envelope-o'></span>"+highlighterName)
+                            $(this).html(highlighterName)
                         });
                     }
                     prepareContactTags();

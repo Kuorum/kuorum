@@ -81,6 +81,10 @@ select {padding: 6px 6px 6px 8px !important;}*/
 .text-danger{
     color:#ff0000;
 }
+
+abbr.text-danger{
+    border:none;
+}
 /* text truncation */
 .ellipsis{
     white-space: nowrap;
@@ -1428,6 +1432,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #contactsList > li > p > a{color: #545454;}
 #contactsList > li .email, #contactsList > li .email a {color: #a8a8a8;}
 #contactsList > li .email span.fa {margin-right: 5px;}
+#contactsList > li .email span.fa.fa-exclamation-circle {margin-right: 0px;}
 .container-lists {margin-top: 10px; display: none;}
 .container-lists li {display: inline-block;}
 .off .bootstrap-tagsinput {display: none; padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
@@ -1480,7 +1485,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .edit-contact-header > div:first-child p.email > a {color: #545454;}
 .edit-contact-header > div:first-child,
 .edit-contact-header > div:first-child a {color: #a8a8a8;}
-.edit-contact-header > div:first-child .email span {margin-right: 5px;}
+/*.edit-contact-header > div:first-child .email span.fa-exclamation-circle {color:#FF0000;}*/
+.edit-contact-header > div:first-child .email abbr {border:none}
 .edit-contact-header .container-lists {position: relative; width: auto; border: 0; top: auto; right: auto; padding: 0; margin: 0 0 30px 0;}
 .edit-contact-header > div:first-child ul {margin: 0; padding: 0;}
 .edit-contact-header > div:first-child ul,

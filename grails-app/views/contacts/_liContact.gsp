@@ -2,12 +2,12 @@
     <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name}" itemprop="image"></span>
     <h3 class="title">
         <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats">${contact.name}</g:link>
-        <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats" target="_blank">
+        <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" target="_blank">
 
             <span class="fa fa-external-link fa-sm"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
         </g:link>
     </h3>
-    <p class="email"><span class="fa fa-envelope-o"></span> ${contact.email}</p>
+    <p class="email"><contactUtil:printContactMail contact="${contact}"/></p>
     <p class="followers">
         <span class="fa fa-user"></span> <g:message code="tools.contact.list.contact.followers" args="[contact.numFollowers]"/>
     </p>
