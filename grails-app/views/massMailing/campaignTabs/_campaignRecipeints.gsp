@@ -11,6 +11,7 @@
     <thead>
     <tr>
         <th><g:message code="kuorum.web.commands.payment.contact.ContactCommand.name.label"/></th>
+        <th><g:message code="tools.massMailing.list.status"/></th>
         <th><g:message code="tools.massMailing.list.opens"/></th>
         <th><g:message code="tools.massMailing.list.click"/></th>
         <th><g:message code="tools.massMailing.list.bounced"/></th>
@@ -30,6 +31,7 @@
                     <span class="fa fa-external-link fa-sm"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
                 </g:link>
             </td>
+            <td><span class="only-mobile"><g:message code="tools.massMailing.list.status"/>: </span><g:message code="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.${trackingMail.mailStatus}"/> </td>
             <td><span class="only-mobile"><g:message code="tools.massMailing.list.opens"/>: </span>${trackingMail.numOpens}</td>
             <td><span class="only-mobile"><g:message code="tools.massMailing.list.click"/>: </span>${trackingMail.numClicks}</td>
             <td><span class="only-mobile"><g:message code="tools.massMailing.list.bounced"/>: </span>${trackingMail.numBounced}</td>
