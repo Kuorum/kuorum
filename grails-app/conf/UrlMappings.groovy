@@ -120,6 +120,8 @@ class UrlMappings {
         name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
 
+        name projectSaveTimeZone:       "/project/saveTimeZone"(controller: "project"){action = [POST:"saveTimeZone"]}
+
         name projectCreate:             "/project/new"(controller: "project"){action = [GET:"create", POST:"save"]}
         name projectEdit:               "/project/$userAlias/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
         name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")

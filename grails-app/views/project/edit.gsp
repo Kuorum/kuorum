@@ -42,7 +42,6 @@
                             <input type="submit" class="btn btn-lg" value="${message(code:'admin.createProject.publish')}" />
                         </div>
                     </fieldset>
-
                 </g:form>
             </div>
             <div class="tab-pane" id="petition">

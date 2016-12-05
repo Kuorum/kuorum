@@ -17,6 +17,7 @@ import kuorum.post.Post
 import kuorum.users.KuorumUser
 import kuorum.web.commands.ProjectCommand
 import kuorum.web.commands.ProjectUpdateCommand
+import kuorum.web.commands.profile.AccountDetailsCommand
 import kuorum.web.commands.profile.BasicPersonalDataCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
@@ -40,22 +41,48 @@ class ProjectController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
-        projectModel(new ProjectCommand(), null)
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        def returnModels = projectModel(new ProjectCommand(), null)
+
+        // If first project, popup timezone
+        returnModels.put("isFirstProject", (Project.countByOwner(user) == 0))
+
+        return returnModels
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def saveTimeZone(AccountDetailsCommand profileCommand) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        boolean isFirstProject = (Project.countByOwner(user) == 0)
+
+        if (isFirstProject && !profileCommand.validate(['timeZoneId'])) {
+            render(view: '/project/create', model: [
+                    command: new ProjectCommand(),
+                    profileCommand: profileCommand,
+                    isFirstProject: isFirstProject
+            ])
+        } else if (profileCommand.validate(['timeZoneId'])) {
+            user.timeZone = TimeZone.getTimeZone(profileCommand.timeZoneId)
+            kuorumUserService.updateUser(user);
+            redirect(mapping: "projectCreate")
+        } else {
+            redirect(mapping: "projectCreate")
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def save(ProjectCommand command) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 
-        if(!command.validate()){
+        if (!command.validate()) {
             render view:'/project/create', model: projectModel(command, null)
             return
         }
 
-        if (Project.findByHashtag(command.hashtag)){
+        if (Project.findByHashtag(command.hashtag)) {
             command.errors.rejectValue("hashtag","notUnique")
         }
-        if (command.hasErrors()){
+        if (command.hasErrors()) {
             render view:'/project/create', model: projectModel(command, null)
             return
         }
@@ -64,9 +91,9 @@ class ProjectController {
         project = projectService.saveAndCreateNewProject(project, user)
         fileService.deleteTemporalFiles(user)
         Boolean isDraft =params.isDraft? Boolean.parseBoolean(params.isDraft):false
-        if (isDraft){
+        if (isDraft) {
             flash.message=message(code:'admin.createProject.success', args: [project.hashtag])
-        }else{
+        } else {
             projectService.publish(project)
             flash.message=message(code:'admin.publishProject.success', args: [project.hashtag])
         }
@@ -129,7 +156,11 @@ class ProjectController {
 
     private def projectModel(ProjectCommand command, Project project){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        [project: project, command: command]
+
+        // First time project, then ask for timeZone
+        AccountDetailsCommand profileCommand = new AccountDetailsCommand(user)
+
+        [project: project, command: command, profileCommand: profileCommand]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

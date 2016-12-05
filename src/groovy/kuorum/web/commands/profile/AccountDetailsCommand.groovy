@@ -72,7 +72,7 @@ class AccountDetailsCommand {
         phonePrefix nullable:true
         phone nullable: true
         homeRegion nullable: true
-        timeZoneId nullable:true
+        timeZoneId nullable: true
     }
 
     private static Boolean isPasswordValid(String inputPassword, KuorumUser user){
