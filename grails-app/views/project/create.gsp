@@ -32,7 +32,7 @@
             </div>
             <div class="tab-pane active" id="debate">
                 <g:form mapping="projectCreate" method="POST" name="edit-project" role="form" class="box-ppal">
-                    <g:render template="/project/formProject" model="[command:command]"/>
+                    <g:render template="/project/formProject" model="[command: command]"/>
                     <fieldset class="btns text-right">
                         <div class="form-group">
                             <a href="#" class="btn btn-grey cancel saveDraft">${message(code:'admin.createProject.saveDraft')}</a>
@@ -49,4 +49,38 @@
             </div>
         </div>
     </div>
+
+    <!-- First project -->
+    <g:if test="${isFirstProject}">
+        <div class="modal fade in" id="enterTimeZone" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <formUtil:validateForm bean="${profileCommand}" form="timeZoneForm" dirtyControl="false"/>
+                    <g:form method="POST" mapping="projectSaveTimeZone" name="timeZoneForm" role="form" class="submitOrangeButton" autocomplete="noFill">
+                        <div class="modal-body">
+                            <fieldset class="time-zone">
+                                <div class="row form-group">
+                                    <div class="col-xs-12 col-sm-4">
+                                        <formUtil:selectTimeZone command="${profileCommand}" field="timeZoneId" required="true"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" type="submit"><g:message code="modal.timeZone.send"/></button>
+                        </div>
+                    </g:form>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function() {
+                $("#enterTimeZone").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                }).modal('show');
+            });
+        </script>
+    </g:if>
+
 </content>
