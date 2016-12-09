@@ -8,8 +8,10 @@ import kuorum.files.FileService
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
+import kuorum.web.commands.ProjectCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
+import kuorum.web.commands.profile.AccountDetailsCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.filter.*
@@ -35,17 +37,42 @@ class MassMailingController {
 
     MassMailingService massMailingService;
 
-    def index(){
+    def index() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List campaigns = massMailingService.findCampaigns(user)
         List<Project> projects = Project.findAllByOwner(user)
         [campaigns:campaigns,projects:projects, user:user]
     }
 
+    def createMassMailing() {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        def returnModels = modelMassMailing(user, new MassMailingCommand(), params.testFilter)
 
-    def createMassMailing(){
-        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
-        modelMassMailing(loggedUser, new MassMailingCommand(), params.testFilter)
+        // If first massMailing, popup timezone
+        returnModels.put("showTimeZonePopup", user.getTimeZone() == null)
+        returnModels.put("profileCommand", new AccountDetailsCommand())
+
+        return returnModels
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def saveTimeZone(AccountDetailsCommand profileCommand) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        boolean showTimeZonePopup = (user.getTimeZone() == null)
+
+        if (showTimeZonePopup && !profileCommand.validate(['timeZoneId'])) {
+            def returnModels = modelMassMailing(user, new MassMailingCommand(), params.testFilter)
+            returnModels.put("showTimeZonePopup", showTimeZonePopup)
+            returnModels.put("profileCommand", profileCommand)
+
+            render(view: '/massMailing/createMassMailing', model: returnModels)
+        } else if (profileCommand.validate(['timeZoneId'])) {
+            user.timeZone = TimeZone.getTimeZone(profileCommand.timeZoneId)
+            kuorumUserService.updateUser(user)
+            redirect(mapping: "politicianMassMailingNew")
+        } else {
+            redirect(mapping: "politicianMassMailingNew")
+        }
     }
 
     private def modelMassMailing(KuorumUser user, MassMailingCommand command, def testFilterParam = false){

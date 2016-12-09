@@ -161,7 +161,7 @@ class KuorumUser {
     }
 
     TimeZone getTimeZone() {
-        return timeZoneId?TimeZone.getTimeZone(timeZoneId):TimeZone.getTimeZone("Europe/Madrid")
+        return timeZoneId ? TimeZone.getTimeZone(timeZoneId) : null
     }
 
     void setTimeZone(TimeZone timeZone) {

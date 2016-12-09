@@ -120,8 +120,6 @@ class UrlMappings {
         name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
 
-        name projectSaveTimeZone:       "/project/saveTimeZone"(controller: "project"){action = [POST:"saveTimeZone"]}
-
         name projectCreate:             "/project/new"(controller: "project"){action = [GET:"create", POST:"save"]}
         name projectEdit:               "/project/$userAlias/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
         name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")
@@ -288,6 +286,8 @@ class UrlMappings {
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"massMailing", action:"removeCampaign")
         name politicianMassMailingTrackEvents:          "/ajax/account/mass-mailing/$campaignId/trackEvents" (controller:"massMailing", action: "showTrackingMails")
         name politicianMassMailingHtml:                 "/account/mass-mailing/$campaignId/html" (controller:"massMailing", action: "showMailCampaign")
+        name politicianMassMailingSaveTimeZone:         "/account/mass-mailing/saveTimeZone" (controller: "massMailing"){action = [POST:"saveTimeZone"]}
+
         name politicianTeamManagement:                  "/account/team-management" (controller:"politician", action: "betaTesterPage")
 
         "/account/contacts/oauth/$provider/success" (controller: "contactsOAuth", action: "onSuccess")

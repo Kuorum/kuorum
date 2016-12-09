@@ -41,33 +41,7 @@ class ProjectController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        def returnModels = projectModel(new ProjectCommand(), null)
-
-        // If first project, popup timezone
-        returnModels.put("isFirstProject", (Project.countByOwner(user) == 0))
-
-        return returnModels
-    }
-
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def saveTimeZone(AccountDetailsCommand profileCommand) {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        boolean isFirstProject = (Project.countByOwner(user) == 0)
-
-        if (isFirstProject && !profileCommand.validate(['timeZoneId'])) {
-            render(view: '/project/create', model: [
-                    command: new ProjectCommand(),
-                    profileCommand: profileCommand,
-                    isFirstProject: isFirstProject
-            ])
-        } else if (profileCommand.validate(['timeZoneId'])) {
-            user.timeZone = TimeZone.getTimeZone(profileCommand.timeZoneId)
-            kuorumUserService.updateUser(user);
-            redirect(mapping: "projectCreate")
-        } else {
-            redirect(mapping: "projectCreate")
-        }
+        return projectModel(new ProjectCommand(), null)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -157,10 +131,7 @@ class ProjectController {
     private def projectModel(ProjectCommand command, Project project){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 
-        // First time project, then ask for timeZone
-        AccountDetailsCommand profileCommand = new AccountDetailsCommand(user)
-
-        [project: project, command: command, profileCommand: profileCommand]
+        [project: project, command: command]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
