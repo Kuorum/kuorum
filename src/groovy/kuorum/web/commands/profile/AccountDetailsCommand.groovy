@@ -29,7 +29,7 @@ class AccountDetailsCommand {
         this.phonePrefix = user.personalData?.phonePrefix?:''
         this.language = user.language
         this.homeRegion = user.personalData?.province
-        this.timeZoneId = user.timeZone.getID()
+        this.timeZoneId = user.timeZone?.getID()
     }
     KuorumUser user;
     @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->

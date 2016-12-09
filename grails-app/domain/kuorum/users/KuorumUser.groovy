@@ -161,7 +161,7 @@ class KuorumUser {
     }
 
     TimeZone getTimeZone() {
-        return timeZoneId ? TimeZone.getTimeZone(timeZoneId) : null
+        return (timeZoneId != null) ? TimeZone.getTimeZone(timeZoneId) : null
     }
 
     void setTimeZone(TimeZone timeZone) {
