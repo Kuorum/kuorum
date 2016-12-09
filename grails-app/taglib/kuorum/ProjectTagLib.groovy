@@ -78,11 +78,8 @@ class ProjectTagLib {
 
     def ifAllowedToAddPost = {attrs, body ->
         Project project = attrs.project
-        if ((springSecurityService.isLoggedIn()) && (SpringSecurityUtils.ifAnyGranted('ROLE_USER, ROLE_ADMIN, ROLE_PREMIUM, ROLE_POLITICIAN'))){
-            KuorumUser user = springSecurityService.getCurrentUser();
-            if (!(user.userType.equals(UserType.POLITICIAN)  &&  project.owner.professionalDetails.region.equals(user.professionalDetails?.region?:null))){
-                out << body()
-            }
+        if ((springSecurityService.isLoggedIn()) ){
+            out << body()
         }
     }
 
