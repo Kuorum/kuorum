@@ -134,7 +134,7 @@ class KuorumUser {
         userType nullable: false
         notice nullable: true
         editorRules nullable:true
-        timeZoneId nullable:true // By default will be UTC
+        timeZoneId nullable:true
 
         //POLITICIAN VALIDATION
 //        institution nullable:true
@@ -161,11 +161,11 @@ class KuorumUser {
     }
 
     TimeZone getTimeZone() {
-        return (timeZoneId != null) ? TimeZone.getTimeZone(timeZoneId) : null
+        return timeZoneId ? TimeZone.getTimeZone(timeZoneId) : null
     }
 
     void setTimeZone(TimeZone timeZone) {
-        this.timeZoneId = timeZone?.getID()?:""
+        this.timeZoneId = timeZone?.getID()?:null
     }
 
     String toString(){
