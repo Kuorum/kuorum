@@ -323,8 +323,9 @@ class FormTagLib {
         if (time){
             KuorumUser user =  KuorumUser.get(springSecurityService.principal.id)
             typePicker = "datetime";
-            timeZoneId=utcOffset(user.timeZone)
-            timeZoneLabel=timeZoneToString(user.timeZone)
+            TimeZone userTimeZone = user.timeZone?:TimeZone.getTimeZone("UTC")
+            timeZoneId=utcOffset(userTimeZone)
+            timeZoneLabel=timeZoneToString(userTimeZone)
             timeZoneChangeLink = g.createLink(mapping:'profileEditAccountDetails')
             value = command."${field}"?command."${field}".format('dd/MM/yyyy HH:mm', user.timeZone):''
         }
