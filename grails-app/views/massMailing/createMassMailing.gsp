@@ -59,13 +59,14 @@
                 <div class="modal-content">
                     <formUtil:validateForm bean="${profileCommand}" form="timeZoneForm" dirtyControl="false"/>
                     <g:form method="POST" mapping="politicianMassMailingSaveTimeZone" name="timeZoneForm" role="form" class="submitOrangeButton" autocomplete="noFill">
-                        <div class="modal-header"><g:message code="modal.timeZone.header"/></div>
+                        <div class="modal-header"><h4><g:message code="modal.timeZone.header"/></h4></div>
                         <div class="modal-body">
+                            <p>
+                                <g:message code="modal.timeZone.explain"/>
+                            </p>
                             <fieldset class="time-zone">
                                 <div class="row form-group">
-                                    <div class="col-xs-12 col-sm-4">
-                                        <formUtil:selectTimeZone command="${profileCommand}" field="timeZoneId" required="true"/>
-                                    </div>
+                                    <formUtil:selectTimeZone command="${profileCommand}" field="timeZoneId" required="true" cssLabel="hide" cssClass="col-xs-12 col-sm-4"/>
                                 </div>
                             </fieldset>
                         </div>
