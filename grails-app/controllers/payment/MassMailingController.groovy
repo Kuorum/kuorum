@@ -8,21 +8,18 @@ import kuorum.files.FileService
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
-import kuorum.web.commands.ProjectCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import kuorum.web.commands.profile.AccountDetailsCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
-import org.kuorum.rest.model.contact.ContactRDTO
-import org.kuorum.rest.model.contact.filter.*
+import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
+import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
-
-import java.util.logging.Filter
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class MassMailingController {
