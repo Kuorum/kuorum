@@ -11,6 +11,7 @@ import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import kuorum.web.commands.profile.AccountDetailsCommand
+import kuorum.web.commands.profile.TimeZoneCommand
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -47,27 +48,21 @@ class MassMailingController {
 
         // If first massMailing, popup timezone
         returnModels.put("showTimeZonePopup", user.getTimeZone() == null)
-        returnModels.put("profileCommand", new AccountDetailsCommand())
+        returnModels.put("timeZoneCommand", new TimeZoneCommand())
 
         return returnModels
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def saveTimeZone(AccountDetailsCommand profileCommand) {
+    def saveTimeZone(TimeZoneCommand timeZoneCommand) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        boolean showTimeZonePopup = (user.getTimeZone() == null)
 
-        if (showTimeZonePopup && !profileCommand.validate(['timeZoneId'])) {
-            def returnModels = modelMassMailing(user, new MassMailingCommand(), params.testFilter)
-            returnModels.put("showTimeZonePopup", showTimeZonePopup)
-            returnModels.put("profileCommand", profileCommand)
-
-            render(view: '/massMailing/createMassMailing', model: returnModels)
-        } else if (profileCommand.validate(['timeZoneId'])) {
-            user.timeZone = TimeZone.getTimeZone(profileCommand.timeZoneId)
-            kuorumUserService.updateUser(user)
+        if (timeZoneCommand.hasErrors()) {
+            flash.error="There was a problem with your data."
             redirect(mapping: "politicianMassMailingNew")
         } else {
+            user.timeZone = TimeZone.getTimeZone(timeZoneCommand.timeZoneId)
+            kuorumUserService.updateUser(user)
             redirect(mapping: "politicianMassMailingNew")
         }
     }
