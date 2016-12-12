@@ -35,7 +35,7 @@ class KuorumUser {
 
     PersonalData personalData = new PersonData()
     UserType userType = UserType.PERSON
-    String timeZoneId = "Europe/Madrid";
+    String timeZoneId;
 
     @Deprecated
     Boolean requestedPoliticianBetaTester = Boolean.FALSE
