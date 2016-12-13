@@ -7,7 +7,7 @@
             ulClasss="paginationTop"
             total="${trackingPage.total}"/>
 </div>
-<table class="table">
+<table class="table list-tracking">
     <thead>
     <tr>
         <th><g:message code="kuorum.web.commands.payment.contact.ContactCommand.name.label"/></th>
@@ -36,7 +36,7 @@
             <td><span class="only-mobile"><g:message code="tools.massMailing.list.click"/>: </span>${trackingMail.numClicks}</td>
             <td><span class="only-mobile"><g:message code="tools.massMailing.list.bounced"/>: </span>${trackingMail.numBounced}</td>
             <td><span class="only-mobile"><g:message code="tools.massMailing.list.hardBounced"/>: </span>${trackingMail.numHardBounced}</td>
-            <td>
+            <td class="tracking-engagement">
                 <span class="only-mobile"><g:message code="tools.contact.list.contact.engagement"/></span>
                 <contactUtil:engagement concat="${trackingMail.contact}"/>
             </td>
