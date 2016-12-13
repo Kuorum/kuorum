@@ -254,6 +254,8 @@ function FilterContacts() {
                 var $filterData = $("#filterData")
                 $filterData.addClass("hide");
                 $filterData.html(data)
+                $filterData.find("select#field").change(); /* Launch changeFieldOperation() event */
+                $filterData.find("input:disabled").val(""); /* Chapu para eliminar val porque todos los inputs usan el mismo */
                 slideDownFilterInfo();
                 pageLoadingOff();
             })
@@ -278,6 +280,24 @@ function FilterContacts() {
 
     this.setFilterAsEdited = function(){
         $("input[name=filterEdited]").val(true);
+    }
+
+    this.changeFieldOperation = function(e){
+        var $input = $(this)
+        var $fieldSet = $input.parents("fieldset.new-filter-options")
+        var val = $input.val()
+
+        var activeOperator = ".text-operator";
+        if (val == "STATUS"){
+            activeOperator = ".status-operator";
+        }
+
+        $fieldSet.find(".filter-operator").addClass("hide")
+        $fieldSet.find(activeOperator).removeClass("hide")
+        $fieldSet.find(".filter-operator input, .filter-operator select").prop('disabled', false);
+        $fieldSet.find(".filter-operator.hide input, .filter-operator.hide select").prop('disabled', true);
+        console.log($(".filter-operator.hide select"))
+
     }
 
     this.filterEditedEvent = function(e){
@@ -473,7 +493,8 @@ function FilterContacts() {
     };
 
     this.init=function(){
-        $("#filterData").on("change", "input,select", that.filterEditedEvent);
+        $("#filterData").on("change", "input,select:not(#field)", that.filterEditedEvent);
+        $("#filterData").on("change", "select#field", that.changeFieldOperation);
         this[callBackBehaviour].init()
     };
 
@@ -525,7 +546,6 @@ function FilterContacts() {
             $.post( link, postData)
                 .done(function(data) {
                     $("#listContacts").html(data);
-                    console.log(data)
                     var quickSearch = $("#quickSearchByName").val()
                     if (quickSearch != undefined && quickSearch.length > 0){
                         $( "#contactsList li h3 a.contactStats" ).each(function( index ) {

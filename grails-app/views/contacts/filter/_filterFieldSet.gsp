@@ -33,24 +33,44 @@
                         field="field"
                         command="${listCommand}"
                         prefixFieldName="${prefixField}"
-                        values="${org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.values()-org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.STATUS}"
+                        values="${org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.values()}"
                         cssLabel="sr-only"/>
             </div>
-            <div class="col-sm-3">
-                <formUtil:selectEnum
-                        field="operator"
-                        command="${listCommand}"
-                        prefixFieldName="${prefixField}"
-                        enumClass="${org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO.class}"
-                        cssLabel="sr-only"/>
+            <div class="filter-operator text-operator">
+                <div class="col-sm-3">
+                    <formUtil:selectEnum
+                            field="operatorText"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            enumClass="${org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO.class}"
+                            cssLabel="sr-only"/>
+                </div>
+                <div class="col-sm-4">
+                    <formUtil:input
+                            field="value"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            labelCssClass="sr-only"
+                            showLabel="true"/>
+                </div>
             </div>
-            <div class="col-sm-4">
-                <formUtil:input
-                        field="value"
+            <div class="filter-operator status-operator hide">
+                <div class="col-sm-3">
+                    <formUtil:selectEnum
+                        field="operatorNumber"
                         command="${listCommand}"
                         prefixFieldName="${prefixField}"
-                        labelCssClass="sr-only"
-                        showLabel="true"/>
+                        enumClass="${org.kuorum.rest.model.contact.filter.condition.NumberConditionOperatorTypeRDTO.class}"
+                        cssLabel="sr-only"/>
+                </div>
+                <div class="col-sm-4">
+                    <formUtil:selectEnum
+                            field="value"
+                            command="${listCommand}"
+                            prefixFieldName="${prefixField}"
+                            enumClass="${org.kuorum.rest.model.contact.ContactStatusRSDTO.class}"
+                            cssLabel="sr-only"/>
+                </div>
             </div>
         </fieldset>
     </formUtil:dynamicComplexInputs>

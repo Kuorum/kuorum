@@ -5,6 +5,8 @@ import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.OperatorTypeRDTO
 import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
 import org.kuorum.rest.model.contact.filter.condition.ConditionRDTO
+import org.kuorum.rest.model.contact.filter.condition.ConditionTextRDTO
+import org.kuorum.rest.model.contact.filter.condition.NumberConditionOperatorTypeRDTO
 import org.kuorum.rest.model.contact.filter.condition.TextConditionOperatorTypeRDTO
 
 /**
@@ -40,7 +42,7 @@ class ContactFilterCommand {
         filterRDTO.setFilterConditions(
                 this.filterConditions
                         .findAll{it && it.value}
-                        .collect{ConditionRDTO.factory(it.field, it.operator.toString(), it.value)
+                        .collect{ConditionRDTO.factory(it.field, it.operator, it.value)
         })
         filterRDTO
     }
@@ -50,22 +52,39 @@ class ContactFilterCommand {
 class ContactFilterOptionCommand{
     ContactFilterOptionCommand(){
         this.field = ConditionFieldTypeRDTO.NAME
-        this.operator = TextConditionOperatorTypeRDTO.EQUALS
+        this.operatorText = TextConditionOperatorTypeRDTO.EQUALS
+        this.operatorNumber = NumberConditionOperatorTypeRDTO.EQUALS
     }
     ContactFilterOptionCommand(ConditionRDTO conditionRDTO){
         this.field = conditionRDTO.field
-        this.operator = conditionRDTO.operator.toString()
+        if (conditionRDTO instanceof ConditionTextRDTO){
+            this.operatorText = conditionRDTO.operator
+            this.operatorNumber = NumberConditionOperatorTypeRDTO.EQUALS;
+        }else{
+            this.operatorNumber = conditionRDTO.operator
+            this.operatorText = TextConditionOperatorTypeRDTO.EQUALS;
+        }
         this.value = conditionRDTO.value.toString()
     }
 
 
     ConditionFieldTypeRDTO field;
-    TextConditionOperatorTypeRDTO operator;
+    TextConditionOperatorTypeRDTO operatorText;
+    NumberConditionOperatorTypeRDTO operatorNumber;
     String value;
+
+    public String getOperator(){
+        if (ConditionFieldTypeRDTO.STATUS.equals(field)){
+            return operatorNumber.toString()
+        }else{
+            return operatorText.toString()
+        }
+    }
 
     static constraints = {
         field nullable: false
-        operator nullable: false
+        operatorText nullable: false
+        operatorNumber nullable: false
         value nullable: false
     }
 }
