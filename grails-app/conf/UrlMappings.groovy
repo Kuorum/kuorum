@@ -300,7 +300,6 @@ class UrlMappings {
         /**********************/
         /***** DEPRECATED *****/
         /**********************/
-        //TODO Hacer esta chapu en BBDD
         "/losdatoscuentan" (controller: "dashboard", action:"customPostMapping")
         "/losDatosCuentan" (controller: "dashboard", action:"customPostMapping")
         "/empleoJuvenil" (controller: "dashboard", action:"customPostMappingEmpleoJuvenil")
@@ -346,7 +345,7 @@ class UrlMappings {
         name adminStatsPieChart:    "/admin/estadisticas/pie-chart" (controller:"adminStats", action: "statsDataPieChart")
 
         // PSOE POLL
-        name campaignPoll:        "/campaign/poll" (controller: "massMailing", action: "saveCitizenPriorities")
+        name campaignPoll:        "/campaign/poll" (controller: "campaign", action: "saveCitizenPriorities")
 
 
         // DEPRECATED SEO - THINK AGAIN
