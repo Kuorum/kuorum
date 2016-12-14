@@ -14,7 +14,7 @@
                 <h4><g:message code="tools.contact.unsubscribe.title" args="[user.name]"/></h4>
                 <div class="profile-pic">
                     <img alt="${message(code:'page.politicianProfile.imageAvatar.alt', args: [user.name])}"
-                         class="img-circle"
+                         class="img-circle hidden-xs"
                          data-src="holder.js/140x140"
                          src="${image.userImgSrc(user:user)}"
                          data-holder-rendered="true"

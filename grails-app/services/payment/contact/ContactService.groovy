@@ -262,17 +262,18 @@ class ContactService {
 
     }
 
-    void unsubscribeContactUser(KuorumUser user, String email, String digest){
+    boolean unsubscribeContactUser(KuorumUser user, String email, String digest){
         Map<String, String> params = [userId:user.alias]
         Map<String, String> query = [contactEmail:email, digest:digest]
         try{
             def response= restKuorumApiService.delete(
                     RestKuorumApiService.ApiMethod.USER_CONTACT_SUBSCRIBE,
                     params,
-                    query,
-                    new TypeReference<ContactRSDTO>(){})
+                    query)
+            return true;
         }catch (Exception e){
             log.warn("Someone trying to check conctact '${email}' of the user ${user.alias} that not extits")
+            return false;
         }
     }
 }
