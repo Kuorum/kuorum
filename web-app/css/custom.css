@@ -5124,8 +5124,13 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     white-space: nowrap;
 }
 
+/* Super small devices (mobile, 480px and down) */
+@media only screen and (max-width: 480px) {
+    .carousel.news .carousel-inner .item > div > a .img-container {height: 200px; overflow: hidden;}
+    .carousel.news .carousel-control {top: 30%;}
+}
 
-
+/* Very small devices (mobile, 480px and up) */
 @media only screen and (min-width: 480px) {
     .form-control,
     input[type="text"],
@@ -5178,6 +5183,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .edit-contact form fieldset {width: 30%; min-width: 260px; float:left;}
     .edit-contact form fieldset:last-child {width: 150px; min-width: 0; text-align: right; margin: 0; position: absolute; bottom: 13px; right: 0;}
 
+    .carousel.news .carousel-inner .item > div > a .img-container {height: 200px; overflow: hidden;}
+    .carousel.news .carousel-control {top: 30%;}
 }
 
 @media only screen and (min-width: 533px) {
@@ -5234,7 +5241,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #detailsInfoVotes .table tbody th {width: 300px;}
     #detailsInfoVotes.autor .table tbody th {width: 335px;}
     #contactsList > li {padding: 10px 0 0 80px; min-height: 175px;}
-
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -5612,7 +5618,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
                     transform: none!important;
         }
     }
-    .carousel.news .carousel-inner .item > div > a .img-container {height: 122px; overflow: hidden;}
+    .carousel.news .carousel-inner .item > div > a .img-container {height: 200px; overflow: hidden;}
     .carousel.news .carousel-control {top: 22%;}
 
     /* import contacts */
