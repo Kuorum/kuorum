@@ -6443,28 +6443,15 @@ p.party{
     font-size: 12px;
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #fff;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
 }
 #aside-ppal .causes-tags {margin: 0;}
 .causes-tags .cause {
     position: relative;
+    display: inline-block;
     background: #ff9431;
     border-radius: 6px;
     margin: 0px 10px 10px 0;
-    padding: 1px 1px 1px 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
+    padding: 1px 65px 1px 0;
 }
 .causes-tags.hide4 > li + li +li +li +li {display:none;}
 .causes-tags .cause:hover,
@@ -6475,6 +6462,9 @@ p.party{
 .causes-tags .cause .cause-name {padding: 0 10px 0 26px; display: inline-block; position: relative; color: #fff;}
 .causes-tags .cause .cause-name .fa-tag {font-size: 18px; font-size: 1.8rem; position: absolute; left: 5px; top: 4px;}
 .cause .cause-support {
+    position: absolute;
+    right: 1px;
+    top: 1px;
     font-size: 14px;
     font-size: 1.4rem;
     display: block;
