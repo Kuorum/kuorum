@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <g:set var="contactName" value="${contact.name} ${contact.surname}"/>
+    <g:set var="contactName" value="${contact.name} ${contact.surname?:''}"/>
     <title><g:message code="page.title.contacts.edit" args="[contactName]"/></title>
     <meta name="layout" content="paymentPlainLayout">
     <!-- Schema.org markup for Google+ -->

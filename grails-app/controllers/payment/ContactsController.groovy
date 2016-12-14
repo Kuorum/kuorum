@@ -167,6 +167,7 @@ class ContactsController {
         }else{
             ContactRDTO contactRDTO = new ContactRDTO();
             contactRDTO.name = command.name
+            contactRDTO.surname = command.surname
             contactRDTO.email = command.email
             contactRSDTO = contactService.addContact(user, contactRDTO)
             if (contactRSDTO){
