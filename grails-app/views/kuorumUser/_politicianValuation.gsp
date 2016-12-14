@@ -33,7 +33,6 @@
         <hr>
 
         <div class="rating-over">
-
             <!-- indicar la clase de la puntuación: show1, show2, show3, show4, show5 -->
             <div class="rate-number show${Math.round(userReputation.userReputation)}">
                 <label><g:message code="politician.valuation.rate.average"/>:</label>
@@ -46,7 +45,7 @@
                 <g:each in="${1..5}" var="i">
                     <li>
                         <span class="star">${i} <span>★</span></span>
-                        <g:set var="percentageStars" value="${Math.round((userReputation.evaluationPercentages.get(i.toString())?:0)*100)}"/>
+                        <g:set var="percentageStars" value="${Math.round((userReputation.evaluationPercentages.get(i)?:0)*100)}"/>
                         %{--<g:if test="${percentageStars > 0}">--}%
                         <div class="progress">
                             <div class="progress-bar rate-progress-bar-${i}" role="progressbar" aria-valuetransitiongoal="${percentageStars}" aria-valuemin="0" aria-valuemax="100"><span class="sr-only">${percentageStars}%</span></div>
