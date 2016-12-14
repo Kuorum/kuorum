@@ -5181,7 +5181,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* NEW / EDIT CONTACT */
     .edit-contact form {position: relative;}
     .edit-contact form fieldset {width: 30%; min-width: 260px; float:left;}
-    .edit-contact form fieldset:last-child {width: 150px; min-width: 0; text-align: right; margin: 0; position: absolute; bottom: 13px; right: 0;}
+    .edit-contact form fieldset:last-child {width: 100%; min-width: 0; text-align: right; margin: 0;  bottom: 13px; right: 0;}
 
     .carousel.news .carousel-inner .item > div > a .img-container {height: 200px; overflow: hidden;}
     .carousel.news .carousel-control {top: 30%;}
@@ -5209,7 +5209,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .engagement li:first-child a {padding-left: 24px;}
 
     /* NEW / EDIT CONTACT */
-    .edit-contact form fieldset {width: 320px;}
+    .edit-contact form fieldset {width: 100%;}
     .tab-pane .activity > li {width: 32%; border-right: solid 1px #dadada; border-bottom: none;}
     .tab-pane .activity.des-engagement > li {width: 25%;}
 

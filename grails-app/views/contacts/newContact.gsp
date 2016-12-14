@@ -18,11 +18,18 @@
         <formUtil:validateForm bean="${command}" form="newContact"/>
         <g:form method="POST" mapping="politicianContactNew"  name="newContact" role="form" class="clearfix">
             <fieldset>
-                <div class="form-group">
-                    <formUtil:input command="${command}" field="name" showLabel="true"/>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <formUtil:input command="${command}" field="name" showLabel="true"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <formUtil:input command="${command}" field="surname" showLabel="true"/>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <formUtil:input command="${command}" field="email" showLabel="true"/>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <formUtil:input command="${command}" field="email" showLabel="true"/>
+                    </div>
                 </div>
             </fieldset>
             <fieldset>
