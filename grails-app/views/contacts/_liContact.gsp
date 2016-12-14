@@ -1,7 +1,7 @@
 <li>
-    <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name}" itemprop="image"></span>
+    <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name} ${contact.surname}" itemprop="image"></span>
     <h3 class="title">
-        <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats">${contact.name}</g:link>
+        <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats">${contact.name} ${contact.surname}</g:link>
         <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" target="_blank">
 
             <span class="fa fa-external-link fa-sm"></span><span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>

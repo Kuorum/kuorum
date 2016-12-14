@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="page.title.contacts.edit" args="[contact.name]"/></title>
+    <g:set var="contactName" value="${contact.name} ${contact.surname}"/>
+    <title><g:message code="page.title.contacts.edit" args="[contactName]"/></title>
     <meta name="layout" content="paymentPlainLayout">
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="${g.message(code:"kuorum.name")}">
@@ -12,18 +13,18 @@
 <content tag="mainContent">
     <ol class="breadcrumb">
         <li><g:link mapping="politicianContacts"> <g:message code="tools.contact.title"/> </g:link></li>
-        <li class="active">${contact.name}</li>
+        <li class="active">${contactName} </li>
     </ol>
     <div class="box-ppal edit-contact-header clearfix" itemscope itemtype="http://schema.org/Person">
         <div>
-            <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name}" itemprop="image"></span>
+            <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contactName} " itemprop="image"></span>
             <h3 class="title">
                 <g:if test="${contactUser}">
-                    <g:link mapping="userShow" params="${contactUser.encodeAsLinkProperties()}">${contact.name}</g:link>
+                    <g:link mapping="userShow" params="${contactUser.encodeAsLinkProperties()}">${contactName}</g:link>
                     <g:link mapping="userShow" params="${contactUser.encodeAsLinkProperties()}" target="_blank"><span class="fa fa-desktop fa-sm"></span><span class="sr-only">Profile</span></g:link>
                 </g:if>
                 <g:else>
-                    ${contact.name}
+                    ${contactName}
                 </g:else>
             </h3>
             <p class="email">
