@@ -147,8 +147,12 @@ class ContactsController {
     }
 
     def saveContact(ContactCommand command) {
+        if (!command.email){
+            command.errors.rejectValue("email","kuorum.web.commands.payment.contact.ContactCommand.email.nullable")
+        }
         if (command.hasErrors()){
             render view: 'newContact', model:[command:command]
+            return;
         }
         FilterRDTO filterRDTO = new FilterRDTO()
         filterRDTO.setFilterConditions([ConditionRDTO.factory(ConditionFieldTypeRDTO.EMAIL, TextConditionOperatorTypeRDTO.EQUALS.toString(), command.email)])
