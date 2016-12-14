@@ -432,7 +432,7 @@ class ContactsController {
             return ;
         }
         List<Project> userProjects = projectService.politicianProjects(user)
-        [user:user,userProjects:userProjects, contact:contact]
+        [user:user,userProjects:userProjects, contact:contact, digest:digest]
     }
 
     @Secured("permitAll")

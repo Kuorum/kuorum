@@ -11,7 +11,7 @@
     <div class="container-fluid box-ppal unsubscribe">
         <div class="row">
             <div class="col-xs-12 profile-pic-col">
-                <h4>Lista de correo de ${user.name}</h4>
+                <h4><g:message code="tools.contact.unsubscribe.title" args="[user.name]"/></h4>
                 <div class="profile-pic">
                     <img alt="${message(code:'page.politicianProfile.imageAvatar.alt', args: [user.name])}"
                          class="img-circle"
@@ -21,7 +21,7 @@
                          itemprop="image"/>
 
                     <span class="unsubscribe-text">
-                        Licenciado en Pedagogía. Actualmente soy Secretario de Movilización y Dinamización del PSPV-PSOE. He tenido el honor de ser concejal en mi ciudad (Elche) entre los años 2003 y 2011. El pasado 20 de noviembre de 2011 fui elegido Diputado Nacional de la X Legislatura.
+                        <g:message code="tools.contact.unsubscribe.text" args="[user.name]"/>
                     </span>
                 </div>
             </div>
@@ -37,23 +37,19 @@
 <content tag="cColumn">
     <section class="panel panel-default unsubscribe-panel">
         <div class="panel-heading">
-            <h3 class="panel-title">Dar de baja a ${contact.name}</h3>
+            <h3 class="panel-title"><g:message code="tools.contact.unsubscribe.panel.title" args="[contact.name]"/></h3>
         </div>
         <div class="panel-body text-center">
 
-            <form>
+            <g:form mapping="userUnsubscribe" params="[userId:user.id.toString()]" method="POST">
+                <input type="hidden" name="email" value="${contact.email}"/>
+                <input type="hidden" name="digest" value="${digest}"/>
                 <fieldset class="row">
-                    %{--<div class="form-group col-md-12">--}%
-                        %{--<formUtil:input command="${command}" field="name"/>--}%
-                    %{--</div>--}%
-                    %{--<div class="form-group col-md-12">--}%
-                        %{--<formUtil:input command="${command}" field="email" type="email"/>--}%
-                    %{--</div>--}%
                     <div class="form-group col-md-12">
-                        <input type="submit" class="btn btn-blue inverted col-md-12" value="Dar de baja">
+                        <input type="submit" class="btn btn-blue inverted col-md-12" value="${g.message(code:'tools.contact.unsubscribe.panel.form.submit')}">
                     </div>
                 </fieldset>
-            <form>
+            </g:form>
         </div>
     </section>
 </content>
