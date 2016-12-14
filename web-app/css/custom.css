@@ -1701,7 +1701,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
 
 .user {position: relative;}
-.user-type {/*margin-top: -24px;*/ position: absolute; bottom: 2px; left: 3px; line-height: 1;}
+.user-type {/*margin-top: -24px;*/ position: absolute; bottom: 0px; line-height: 1;}
+.popover-user .user-type {left: 5px;}
 
 .user-list-images,
 .boxes.taking-part .user-list-followers {margin: 0 0 20px 0; padding: 0; display: inline-block; line-height: 1.2;}
@@ -1826,7 +1827,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     display: block !important;*/
 }
 .popover .scroll .user-type {margin-top: -15px !important;}
-.popover .follow {margin: 0 0 0 49px !important;}
+.popover .follow {margin: 10px 0 0 45px !important;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
 .popover .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}
 .popover .infoActivity li {list-style: none; float: left; margin-right: 6px; font-size: 14px; font-size: 1.4rem; color: #797979;}
@@ -6442,15 +6443,28 @@ p.party{
     font-size: 12px;
     font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
 }
 #aside-ppal .causes-tags {margin: 0;}
 .causes-tags .cause {
     position: relative;
-    display: inline-block;
     background: #ff9431;
     border-radius: 6px;
     margin: 0px 10px 10px 0;
-    padding: 1px 50px 1px 0;
+    padding: 1px 1px 1px 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
 }
 .causes-tags.hide4 > li + li +li +li +li {display:none;}
 .causes-tags .cause:hover,
@@ -6475,11 +6489,6 @@ p.party{
     -moz-border-radius-bottomright: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-}
-.cause .cause-support {
-    position: absolute;
-    right: 1px;
-    top: 1px;
 }
 .cause-footer .cause .cause-support {
     position: relative;
