@@ -9,6 +9,7 @@ import kuorum.project.ProjectService
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
+import kuorum.web.commands.payment.contact.NewContactCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.contact.ContactPageRSDTO
@@ -143,10 +144,10 @@ class ContactsController {
     }
 
     def newContact() {
-        [command:new ContactCommand()]
+        [command:new NewContactCommand()]
     }
 
-    def saveContact(ContactCommand command) {
+    def saveContact(NewContactCommand command) {
         if (!command.email){
             command.errors.rejectValue("email","kuorum.web.commands.payment.contact.ContactCommand.email.nullable")
         }
