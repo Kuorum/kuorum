@@ -15,7 +15,7 @@
             </div>
         </section>
     </g:if>
-    <div class="row main">
+    <div class="row main ${pageProperty(name: 'page.specialMainRowCssClass')}">
         <div class="container-fluid ${pageProperty(name: 'page.specialContainerCssClass')}">
             <g:pageProperty name="page.intro"/>
             <div class="row" >

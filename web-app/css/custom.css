@@ -6327,6 +6327,13 @@ only screen and (min-resolution: 192dpi) {
     margin-top: -14%;
     background-color: #fff;
 }
+.unsubscribe-row {min-height: auto;}
+.unsubscribe-row #main {min-height: auto; margin-bottom: 0px;padding-bottom: 0px;}
+.unsubscribe-row .unsubscribe .profile-pic .img-circle {margin-top: 0;}
+.unsubscribe-row .unsubscribe .unsubscribe-text{display: inline-block; width: 70%; vertical-align: middle;padding-left: 3em;text-align: justify;}
+.unsubscribe-row .unsubscribe #otros-proyectos{padding-top: 0; margin-top: 0px;  }
+.unsubscribe-panel .form-group{margin-top:20px;}
+
 .profile-pic .fa {
     position: absolute;
     bottom: 0px;
