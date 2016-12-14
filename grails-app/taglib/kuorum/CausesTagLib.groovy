@@ -36,10 +36,14 @@ class CausesTagLib {
         String supportCause = g.createLink(mapping:"causeSupport", params:[causeName:cause.name], absolute: true)
 
         String showCounter = ""
-        if (springSecurityService.isLoggedIn()){
+        if (springSecurityService.isLoggedIn()) {
+            String counterString = cause.citizenSupports
+            if (cause.citizenSupports >= 1000) {
+                counterString = Math.round((cause.citizenSupports/1000) * 10) / 10 + "k"
+            }
             showCounter = """
                             <span class="sr-only">Cause support counter:</span>
-                            <span class="cause-counter">${cause.citizenSupports}</span>
+                            <span class="cause-counter">${counterString}</span>
                           """
         }
 
