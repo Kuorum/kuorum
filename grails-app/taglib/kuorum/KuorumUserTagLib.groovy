@@ -51,7 +51,7 @@ class KuorumUserTagLib {
             name = user.name
         }else{
             user = attrs.user
-            name = user.name
+            name = user.fullName
         }
         Boolean showRole = attrs.showRole?Boolean.parseBoolean(attrs.showRole):false
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true

@@ -6,8 +6,8 @@
     <div class="popover-user">
         <div class="user" itemscope itemtype="http://schema.org/Person">
             <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" itemprop="url">
-                <img src="${image.userImgSrc(user: user)}" alt="${user.name}" class="user-img" itemprop="image"><span
-                    itemprop="name">${user.name}</span>
+                <img src="${image.userImgSrc(user: user)}" alt="${user.fullName}" class="user-img" itemprop="image"><span
+                    itemprop="name">${user.fullName}</span>
             </g:link>
             <span class="user-type">
                 <small><userUtil:roleName user="${user}"/></small>

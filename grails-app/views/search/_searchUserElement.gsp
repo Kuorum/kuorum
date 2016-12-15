@@ -5,12 +5,12 @@
     <div class="link-wrapper">
         <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" class="hidden"></g:link>
         <div class="card-header-photo">
-            <img src="${image.userImgProfile(user:user)}" alt="${message(code:'kuorumUser.image.profile.alt', args:[user.name])}">
+            <img src="${image.userImgProfile(user:user)}" alt="${message(code:'kuorumUser.image.profile.alt', args:[user.fullName])}">
         </div>
 
         <div class="user">
             <div class='profile-pic-div'>
-                <img itemprop="image" class="user-img big" alt="${message(code:'kuorumUser.image.avatar.alt', args:[user.name])}" title="${message(code:'kuorumUser.image.avatar.title', args:[user.name])}" src="${image.userImgSrc(user:user)}">
+                <img itemprop="image" class="user-img big" alt="${message(code:'kuorumUser.image.avatar.alt', args:[user.fullName])}" title="${message(code:'kuorumUser.image.avatar.title', args:[user.name])}" src="${image.userImgSrc(user:user)}">
                 <g:if test="${user.verified}">
                     %{--<i class="fa fa-check"></i>--}%
                 </g:if>
@@ -23,7 +23,7 @@
             <cite><userUtil:politicianPosition user="${user}"/></cite>
             <p class="party"><userUtil:roleName user="${user}"/></p>
         </div>
-        %{--<p><searchUtil:highlightedField solrElement="${solrUser}" field="text" numChars="120"/> </p>--}%
+        %{--<p><searchUtil:highlightedField solrElement="${solrUser}" field="text" numChars="165"/> </p>--}%
         <p><kuorumDate:showShortedText text="${user.bio}" numChars="165"/> </p>
         <div class='card-footer'>
             <userUtil:ifIsFollower user="${user}">

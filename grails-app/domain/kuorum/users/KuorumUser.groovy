@@ -63,6 +63,10 @@ class KuorumUser {
 
     Notice notice
 
+
+    String getFullName(){
+        "${name} ${surname?:''}".trim()
+    }
 //    static hasMany = [following:KuorumUser,followers:KuorumUser,subscribers:KuorumUser]
 
     static embedded = [
