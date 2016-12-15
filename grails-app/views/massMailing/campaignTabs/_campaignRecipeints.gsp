@@ -47,6 +47,7 @@
 </table>
 <div class="pag-list-contacts clearfix">
     <nav:contactPagination
+            link="${g.createLink(mapping:"politicianMassMailingTrackEvents", params: [campaignId:campaignId], absolute:true)}"
             currentPage="${trackingPage.page}"
             sizePage="${trackingPage.size}"
             ulClasss="paginationBottom"
