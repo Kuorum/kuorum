@@ -132,6 +132,8 @@ class CustomRegisterController {
         user.personalData.phonePrefix = command.phonePrefix
         user.personalData.telephone = command.phone
         user.language = command.language
+        user.name = command.name
+        user.surname = command.surname
 
         user.password = registerService.encodePassword(user, command.password)
         if (command.userType == UserType.POLITICIAN){

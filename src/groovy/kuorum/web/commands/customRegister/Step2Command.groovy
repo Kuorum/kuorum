@@ -20,18 +20,22 @@ class Step2Command {
         this.language = user.language
         this.phonePrefix = user.personalData?.phonePrefix
         this.phone = user.personalData?.telephone
+        this.name = user.name
+        this.surname = user.surname
 //        this.userType=user.userType
     }
 
     KuorumUser user
     String alias
+    String name
+    String surname
     String password;
     AvailableLanguage language;
     String phonePrefix;
     String phone;
     UserType userType;
     static constraints = {
-        importFrom AccountDetailsCommand, include:["alias", "phonePrefix", "phone", "language", "user"]
+        importFrom AccountDetailsCommand, include:["alias", "name","surname","phonePrefix", "phone", "language", "user"]
         password nullable:false;
         userType nullable:false;
     }

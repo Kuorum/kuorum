@@ -42,6 +42,26 @@
         </fieldset>
         <fieldset class="row">
             <div class="form-group col-md-6">
+                <formUtil:input
+                        command="${command}"
+                        field="name"
+                        cssClass="form-control input-lg"
+                        showLabel="true"
+                        showCharCounter="false"
+                        required="true"/>
+            </div>
+            <div class="form-group col-md-6">
+                <formUtil:input
+                        command="${command}"
+                        field="surname"
+                        cssClass="form-control input-lg"
+                        showLabel="true"
+                        showCharCounter="false"
+                        required="true"/>
+            </div>
+        </fieldset>
+        <fieldset class="row">
+            <div class="form-group col-md-6">
                 <formUtil:selectEnum
                         command="${command}"
                         field="language"

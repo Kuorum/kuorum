@@ -85,6 +85,7 @@ class EditorUserController {
         updatedUser.email = command.email
         updatedUser.language = command.language
         updatedUser.name = command.name
+        updatedUser.surname = command.surname
         if (!updatedUser.personalData){
             updatedUser.personalData = new  PersonData();
         }

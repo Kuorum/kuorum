@@ -23,6 +23,7 @@ class AccountDetailsCommand {
     public AccountDetailsCommand(KuorumUser user){
         this.user = user
         this.name = user.name
+        this.surname = user.surname
         this.alias = user.alias
         this.email = user.email
         this.phone = user.personalData?.telephone?:''
@@ -37,6 +38,7 @@ class AccountDetailsCommand {
     })
     Region homeRegion
     String name;
+    String surname;
     String alias;
     String email;
     String phonePrefix;
@@ -45,10 +47,10 @@ class AccountDetailsCommand {
     String password;
     String timeZoneId
 
-
     static constraints = {
         importFrom KuorumUser, include:["alias"]
         name nullable:false, maxSize: 17
+        surname nullable:true
         user nullable: false
         password nullable: false,  validator: {val, obj ->
             if (val && obj.user && !isPasswordValid(val, obj.user)){

@@ -84,6 +84,7 @@ class ProfileController {
         }
         user.language = command.language
         user.name = command.name
+        user.surname = command.surname
         if (!user.personalData){
             user.personalData = new  PersonData();
         }

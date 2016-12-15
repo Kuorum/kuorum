@@ -133,7 +133,7 @@ class DashboardController {
                             professionalDetailsCommand.careerDetails.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size()
             ])
 
-            Integer totalFields = 52; // FAST CHAPU
+            Integer totalFields = 53; // FAST CHAPU
             Integer emptyFields= fields.sum{it.total}
             return [
                     percentage: (1 - emptyFields/totalFields)*100,
@@ -145,7 +145,7 @@ class DashboardController {
                     [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["position", "politicalParty"].contains(it.key)}.size()],
                     [urlMapping: 'profileSocialNetworks', total:4],
             ]
-            Integer totalFields = 8+7+4; // FAST CHAPU
+            Integer totalFields = 9+7+4; // FAST CHAPU
             Integer emptyFields= fields.sum{it.total}
             return [
                     percentage: (1 - emptyFields/totalFields)*100,

@@ -21,6 +21,7 @@ class KuorumUser {
 
     ObjectId id
     String name
+    String surname
     String email
     String alias
     List<String> oldAlias
@@ -124,6 +125,7 @@ class KuorumUser {
     public static final transient ALIAS_MAX_SIZE = 15
     static constraints = {
         name nullable:false
+        surname nullable:true
         email nullable: false, email: true
         alias nullable:true, unique:true, maxSize: ALIAS_MAX_SIZE, matches: ALIAS_REGEX
         oldAlias nullable:true

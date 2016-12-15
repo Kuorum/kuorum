@@ -3,6 +3,9 @@
     <div class="form-group col-md-6">
         <formUtil:input command="${command}" field="name" required="true" showLabel="true" showCharCounter="false"/>
     </div>
+    <div class="form-group col-md-6">
+        <formUtil:input command="${command}" field="surname" required="true" showLabel="true" showCharCounter="false"/>
+    </div>
 </fieldset>
 <fieldset class="row">
     <div class="form-group col-md-6">
