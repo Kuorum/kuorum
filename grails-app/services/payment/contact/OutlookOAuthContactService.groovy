@@ -58,6 +58,7 @@ class OutlookOAuthContactService implements IOAuthLoadContacts {
                     try{
                         def newContact = new ContactRDTO();
                         newContact.setName(contact.givenName);
+                        newContact.setSurname(contact.surname);
                         newContact.setEmail(contact.emailAddresses[0].getAddress());
                         contactRDTOs.add(newContact);
                     }catch (Exception e){

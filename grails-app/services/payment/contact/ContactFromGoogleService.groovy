@@ -235,8 +235,8 @@ class ContactFromGoogleService {
             if (contactEntry.hasEmailAddresses()){
                 contactEntry.emailAddresses.address.each {email ->
                     ContactRDTO contactRDTO = null;
-                    String name = contactEntry.title.plainText
-                    contactRDTO = new ContactRDTO(name:name, email:email)
+                    def splitName = extractName(contactEntry);
+                    contactRDTO = new ContactRDTO(name:splitName.name, surname: splitName.surname, email:email)
                     contactRDTO.tags = []
                     if (contactEntry.hasGender()){
                         contactRDTO.tags.add(contactEntry.gender.toString())
@@ -268,6 +268,34 @@ class ContactFromGoogleService {
         }
 
         return contacts;
+    }
+
+    private def extractName(ContactEntry contactEntry){
+        String surname = contactEntry?.name?.familyName;
+        String name = contactEntry?.name?.givenName;
+        if (!name){
+            def splitName = splitNameAndSurname(contactEntry?.name?.fullName);
+            name = splitName.name
+            surname = splitName.surname
+        }
+
+        if (!name){
+            def splitName = splitNameAndSurname(contactEntry?.title?.plainText);
+            name = splitName.name
+            surname = splitName.surname
+        }
+        [name: name, surname:surname]
+    }
+
+    private def splitNameAndSurname(String fullName){
+        int firstSpace = fullName?.trim()?.indexOf(" ")?:-1; // detect the first space character
+        String name = fullName?.trim();
+        String surname = null;
+        if (firstSpace>0){
+            name = fullName.substring(0, firstSpace);  // get everything upto the first space character
+            surname = fullName.substring(firstSpace).trim()
+        }
+        [name: name, surname:surname]
     }
 
     private AuthorizationCodeFlow googleAuthorizationFlow(String urlCallback) throws IOException {

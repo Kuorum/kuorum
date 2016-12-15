@@ -22,32 +22,33 @@ class YahooOAuthContactService implements IOAuthLoadContacts {
     void loadContacts(KuorumUser user, Token accessToken) throws KuorumException {
         log.info("Creating Yahoo OAuth Service for user ${user.email} [GUID ${accessToken.getSecret()}]");
         def listContacts = getListContacts(accessToken)
-        List<ContactRDTO> contacts = listContacts.collect{
-            transformYahooContact(it)
-        }
+        List<ContactRDTO> contacts = listContacts.collect{transformYahooContact(it)}.findAll{it}
         contactService.addBulkContacts(user,contacts)
     }
 
     private ContactRDTO transformYahooContact(def infoContact) {
         Set tags = []
         String name = ""
+        String surname = ""
         String email = ""
         String notes = ""
         try{
-            def infoName = infoContact.fields.find{it.type=="name"}?.value
             email = infoContact.fields.find{it.type=="email"}?.value
             notes = infoContact.fields.find{it.type=="notes"}?.value
-            name = infoName?"${infoName.givenName} ${infoName.familyName}".trim():email
+            def infoName = infoContact.fields.find{it.type=="name"}?.value
+            name = infoName?"${infoName.givenName}".trim():email
+            surname = infoName?"${infoName.familyName}".trim():""
 
             String guid = infoContact.fields.find{it.type=="guid"}?.value
             String company = infoContact.fields.find{it.type=="company"}?.value
             if (company){
                 tags << company
             }
+            return new ContactRDTO(email: email, name:name,surname: surname, notes:notes, tags: tags);
         }catch (Exception e){
             log.info("Yahoo contact not created due to an exception [Exc: ${e.getMessage()}]",)
+            return null;
         }
-        new ContactRDTO(email: email, name:name, notes:notes, tags: tags);
     }
 
     private def getListContacts(Token accessToken){
