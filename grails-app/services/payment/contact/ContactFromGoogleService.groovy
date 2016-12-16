@@ -271,10 +271,10 @@ class ContactFromGoogleService {
     }
 
     private def extractName(ContactEntry contactEntry){
-        String surname = contactEntry?.name?.familyName;
-        String name = contactEntry?.name?.givenName;
+        String surname = contactEntry?.name?.familyName?.value;
+        String name = contactEntry?.name?.givenName?.value;
         if (!name){
-            def splitName = splitNameAndSurname(contactEntry?.name?.fullName);
+            def splitName = splitNameAndSurname(contactEntry?.name?.fullName?.value);
             name = splitName.name
             surname = splitName.surname
         }
