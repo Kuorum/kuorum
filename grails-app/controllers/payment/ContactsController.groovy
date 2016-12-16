@@ -239,6 +239,7 @@ class ContactsController {
         List<String> columnOption = params.columnOption
 
         Integer namePos = columnOption.findIndexOf{it=="name"}
+        Integer surnamePos = columnOption.findIndexOf{it=="surname"}
         Integer emailPos = columnOption.findIndexOf{it=="email"}
         List<Number> tagsPos = columnOption.findIndexValues{it=="tag"}
         def tags = params.tags?.split(",")?:[]
@@ -246,6 +247,7 @@ class ContactsController {
 
         List<String> realPos = params.realPos
         namePos = namePos<0 || namePos > realPos.size()?namePos:Integer.parseInt(realPos[namePos])
+        surnamePos = surnamePos<0 || surnamePos > realPos.size()?surnamePos:Integer.parseInt(realPos[surnamePos])
         emailPos = emailPos<0 || emailPos > realPos.size()?emailPos:Integer.parseInt(realPos[emailPos])
         tagsPos = tagsPos?.collect{Integer.parseInt(realPos[it.intValue()])}?:[]
 
@@ -271,7 +273,7 @@ class ContactsController {
         log.info("Recovered temporal file ${csv.absoluteFile}")
         ObjectId loggedUserId = springSecurityService.principal.id
 
-        asyncUploadContacts(loggedUserId, csv,notImport, namePos, emailPos, tagsPos, tags as List)
+        asyncUploadContacts(loggedUserId, csv,notImport, namePos,surnamePos, emailPos, tagsPos, tags as List)
 
         session.removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         log.info("Programed async uploaded contacts")
@@ -296,7 +298,7 @@ class ContactsController {
         emailPos
     }
 
-    private void asyncUploadContacts(final ObjectId loggedUserId, final File csv, final Integer notImport, final Integer namePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
+    private void asyncUploadContacts(final ObjectId loggedUserId, final File csv, final Integer notImport, final Integer namePos, final Integer surnamePos, final Integer emailPos, final List<Integer> tagsPos, final List<String> tags){
 //        Promise p = grails.async.Promises.task {
             try{
                 log.info("Importing ${csv.absoluteFile}")
@@ -313,6 +315,9 @@ class ContactsController {
                 lines.each{line ->
                     ContactRDTO contact = new ContactRDTO()
                     contact.setName(line[namePos])
+                    if (surnamePos > 0 ){
+                        contact.setSurname(line[surnamePos])
+                    }
                     contact.setEmail(line[emailPos])
                     def tagsSecuredTransformed = tagsPos.collect{
                         try{
@@ -352,7 +357,7 @@ class ContactsController {
 //        }
     }
 
-    private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1){
+    private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos= -1){
         File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         log.info("Calculating uploaded name: "+csv)
         String fileNamePattern = "(.*[a-zA-Z])([0-9]+${CONTACT_CSV_UPLOADED_EXTENSION})\$"
@@ -384,7 +389,8 @@ class ContactsController {
                 lines: lines,
                 emptyColumns:emptyColumns,
                 emailPos:emailPos,
-                namePos:namePos
+                namePos:namePos,
+                surnamePos:surnamePos
         ]
     }
 
