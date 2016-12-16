@@ -36,7 +36,7 @@ class YahooOAuthContactService implements IOAuthLoadContacts {
             email = infoContact.fields.find{it.type=="email"}?.value
             notes = infoContact.fields.find{it.type=="notes"}?.value
             def infoName = infoContact.fields.find{it.type=="name"}?.value
-            name = infoName?"${infoName.givenName}".trim():email
+            name = infoName?"${infoName.givenName}".trim():""
             surname = infoName?"${infoName.familyName}".trim():""
 
             String guid = infoContact.fields.find{it.type=="guid"}?.value
