@@ -5245,7 +5245,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    .unsubscribe-row .unsubscribe .unsubscribe-text{width: 70%; padding-left: 3em;}
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
     header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 195px;}
@@ -6335,12 +6334,8 @@ only screen and (min-resolution: 192dpi) {
     margin-top: -14%;
     background-color: #fff;
 }
-.unsubscribe-row {min-height: auto;}
-.unsubscribe-row #main {min-height: auto; margin-bottom: 0px;padding-bottom: 0px;}
-.unsubscribe-row .unsubscribe .profile-pic .img-circle {margin-top: 0;}
-.unsubscribe-row .unsubscribe .unsubscribe-text{display: inline-block; vertical-align: middle;text-align: justify;}
-.unsubscribe-row .unsubscribe #otros-proyectos{padding-top: 0; margin-top: 0px;  }
-.unsubscribe-panel .form-group{margin-top:20px;}
+.unsubscribe {text-align: center;}
+.unsubscribe h1 {text-transform: uppercase; padding: 0}
 
 .profile-pic .fa {
     position: absolute;

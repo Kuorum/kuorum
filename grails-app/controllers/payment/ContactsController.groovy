@@ -4,8 +4,6 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
-import kuorum.project.Project
-import kuorum.project.ProjectService
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.ContactCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
@@ -35,8 +33,6 @@ class ContactsController {
 
     ContactService contactService;
     SpringSecurityService springSecurityService
-
-    ProjectService projectService
 
     def index(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
@@ -435,22 +431,6 @@ class ContactsController {
     // USING userId instead of alias because the unsusbscribe email can't change.
     @Secured("permitAll")
     def unsubscribe(String userId, String email, String digest){
-        KuorumUser user = KuorumUser.get(new ObjectId(userId));
-        if (user == null){
-            redirect controller: 'error', action: 'notFound'
-            return ;
-        }
-        ContactRSDTO contact = contactService.checkContactUser(user, email, digest);
-        if (contact == null){
-            redirect controller: 'error', action: 'notFound'
-            return ;
-        }
-        List<Project> userProjects = projectService.politicianProjects(user)
-        [user:user,userProjects:userProjects, contact:contact, digest:digest]
-    }
-
-    @Secured("permitAll")
-    def unsubscribeConfirm(String userId, String email, String digest){
         KuorumUser user = KuorumUser.get(new ObjectId(userId));
         if (user == null){
             redirect controller: 'error', action: 'notFound'
