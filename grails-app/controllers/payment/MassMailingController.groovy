@@ -18,6 +18,7 @@ import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
+import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
 
@@ -101,6 +102,8 @@ class MassMailingController {
             command.scheduled = campaignRSDTO.sentOn
             command.subject = campaignRSDTO.subject
             command.text = campaignRSDTO.body
+            command.tags = campaignRSDTO.triggeredTags.entrySet().first().value;
+            command.eventsWithTag = campaignRSDTO.triggeredTags.keySet() as List
 
             def model = modelMassMailing(loggedUser, command, false);
             if (campaignRSDTO.filter && !model.filters.find{it.id==campaignRSDTO.filter.id}){
@@ -169,6 +172,10 @@ class MassMailingController {
         campaignRQDTO.setName(command.getSubject())
         campaignRQDTO.setSubject(command.getSubject())
         campaignRQDTO.setBody(command.getText())
+        campaignRQDTO.setTriggerTags(new HashMap<TrackingMailStatusRSDTO, List<String>>())
+        for (TrackingMailStatusRSDTO trackingMailStatusRSDTO : command.eventsWithTag){
+            campaignRQDTO.getTriggerTags().put(trackingMailStatusRSDTO, command.tags)
+        }
         if (command.filterEdited){
 //            anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             campaignRQDTO.setAnonymousFilter(anonymousFilter)

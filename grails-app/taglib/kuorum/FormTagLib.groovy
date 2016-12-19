@@ -354,12 +354,12 @@ class FormTagLib {
         def command = attrs.command
         def field = attrs.field
         def label = buildLabel(command, field, attrs.label)
-//        List<String> tags = command."${field}"?:[]
-        List<String> tags =[]
+        List<String> tags = command."${field}"?:[]
+//        List<String> tags =[]
 
         out << """
             <label for="${field}" class="sr-only"><g:message code="tools.contact.list.contact.saveTags"/> </label>
-            <input id="${field}" name="tags" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" value="${tags.join(",")}">
+            <input id="${field}" name="${field}" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" value="${tags.join(",")}">
             """
     }
 
@@ -659,9 +659,10 @@ class FormTagLib {
         def checked = command."$field"?'checked':''
         def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def error = hasErrors(bean: command, field: field,'error')
+        def value = attrs.value?.toString()?:"true"
         out <<"""
             <label class="checkbox-inline">
-                <input class="${error}" type="checkbox" name='${prefixFieldName}${field}' id="${field}" ${checked} value='true' />
+                <input class="${error}" type="checkbox" name='${prefixFieldName}${field}' id="${field}" ${checked} value='${value}' />
                 <span class="check-box-icon"></span>
                 <span class="label-checkbox">${label}</span>
             </label>

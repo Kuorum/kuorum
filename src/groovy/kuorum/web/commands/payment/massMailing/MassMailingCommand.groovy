@@ -1,6 +1,7 @@
 package kuorum.web.commands.payment.massMailing
 
 import grails.validation.Validateable
+import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
@@ -15,8 +16,11 @@ class MassMailingCommand {
     String subject;
     String text;
     String headerPictureId;
-    List<String> tags;
 
+    @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
+        source.map.tags?.split(",")?.collect{it.trim()}?.findAll{it}?:[]
+    })
+    List<String> tags;
     List<TrackingMailStatusRSDTO> eventsWithTag;
 
     @BindingFormat('dd/MM/yyyy HH:mm')
