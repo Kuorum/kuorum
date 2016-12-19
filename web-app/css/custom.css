@@ -6335,7 +6335,7 @@ only screen and (min-resolution: 192dpi) {
     background-color: #fff;
 }
 .unsubscribe {text-align: center;}
-.unsubscribe h1 {text-transform: uppercase; padding: 0}
+.unsubscribe h1 {text-transform: uppercase; padding: 0; font-family: Arial}
 
 .profile-pic .fa {
     position: absolute;
