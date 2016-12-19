@@ -350,6 +350,20 @@ class FormTagLib {
         "UTC  ${timeZone.rawOffset>=0?'+':''}${timeZone.rawOffset / (1000*3600)}"
     }
 
+    def tags={ attrs ->
+        def command = attrs.command
+        def field = attrs.field
+        def label = buildLabel(command, field, attrs.label)
+//        List<String> tags = command."${field}"?:[]
+        List<String> tags =[]
+
+        out << """
+            <label for="${field}" class="sr-only"><g:message code="tools.contact.list.contact.saveTags"/> </label>
+            <input id="${field}" name="tags" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" value="${tags.join(",")}">
+            """
+    }
+
+
     def regionInput={attrs->
 
         def command = attrs.command
@@ -643,12 +657,13 @@ class FormTagLib {
 
         def prefixFieldName=attrs.prefixFieldName?:""
         def checked = command."$field"?'checked':''
-        def label = message(code: "${command.class.name}.${field}.label")
+        def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
             <label class="checkbox-inline">
-                <input class="${error}" type="checkbox" name='${prefixFieldName}${field}' id="${field}" ${checked} value='true' >
-                ${label}
+                <input class="${error}" type="checkbox" name='${prefixFieldName}${field}' id="${field}" ${checked} value='true' />
+                <span class="check-box-icon"></span>
+                <span class="label-checkbox">${label}</span>
             </label>
             """
         if(error){

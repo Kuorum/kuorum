@@ -2,6 +2,7 @@ package kuorum.web.commands.payment.massMailing
 
 import grails.validation.Validateable
 import org.grails.databinding.BindingFormat
+import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
 /**
  * Created by iduetxe on 16/08/16.
@@ -14,6 +15,9 @@ class MassMailingCommand {
     String subject;
     String text;
     String headerPictureId;
+    List<String> tags;
+
+    List<TrackingMailStatusRSDTO> eventsWithTag;
 
     @BindingFormat('dd/MM/yyyy HH:mm')
     Date scheduled

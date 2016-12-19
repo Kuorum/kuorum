@@ -61,7 +61,21 @@
                 fileGroup="${ kuorum.core.FileGroup.MASS_MAIL_IMAGE}"
                 cssClass="col-sm-8 col-md-7"
                 labelCssClass="sr-only"/>
-        <!-- AQUÍ LA BARRA DE PROGRESO Y LA MODAL DE RECORTAR COMO EN EDICIÓN PROYECTO -->
+    </fieldset>
+    <fieldset class="form-group tags-campaign" data-multimedia-switch="on" data-multimedia-type="IMAGE">
+        <label for="tagsField" class="col-sm-2 col-md-1 control-label">Tags: </label>
+        <div class="col-sm-8 col-md-7">
+            <formUtil:tags
+                    command="${command}"
+                    field="tags"
+            />
+            <div class="tag-events">
+                <label><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.label"/></label>
+                <formUtil:checkBox command="${command}" field="eventsWithTag" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.OPEN')}"/>
+                <formUtil:checkBox command="${command}" field="eventsWithTag" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.CLICK')}"/>
+            </div>
+        </div>
+
     </fieldset>
     <fieldset class="form-group">
         <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
