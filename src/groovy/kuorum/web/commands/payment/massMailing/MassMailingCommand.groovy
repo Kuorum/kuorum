@@ -47,5 +47,6 @@ class MassMailingCommand {
             }
         }
         sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST"]
+        eventsWithTag nullable: true
     }
 }

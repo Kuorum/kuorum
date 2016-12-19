@@ -102,8 +102,10 @@ class MassMailingController {
             command.scheduled = campaignRSDTO.sentOn
             command.subject = campaignRSDTO.subject
             command.text = campaignRSDTO.body
-            command.tags = campaignRSDTO.triggeredTags.entrySet().first().value;
-            command.eventsWithTag = campaignRSDTO.triggeredTags.keySet() as List
+            if ( campaignRSDTO.triggeredTags){
+                command.tags = campaignRSDTO.triggeredTags.entrySet().first().value
+                command.eventsWithTag = campaignRSDTO.triggeredTags.keySet() as List
+            }
 
             def model = modelMassMailing(loggedUser, command, false);
             if (campaignRSDTO.filter && !model.filters.find{it.id==campaignRSDTO.filter.id}){
