@@ -6039,7 +6039,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .carousel.news .carousel-inner .item > div > a .img-container {height: 128px;}
 
     /* CAMPAIGNS */
-    .form-final-options {margin-top: 280px;}
+    .form-final-options {margin-top: 20px;}
     .form-final-options > li:first-child {display: block; margin-bottom: 10px;}
     .header-campaign .qq-upload-drop-area {background-size: 155px auto; background-position: center 14%;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
@@ -6099,7 +6099,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .saveTime li h2 {font-size: 20px; font-size: 1.9rem;}
 
     /* CAMPAIGNS */
-    .form-final-options {margin-top: 314px;}
+    .form-final-options {margin-top: 50px;}
     .form-final-options > li:first-child {display: inline-block; margin-bottom: 0;}
     #campaignsList > li > .state {left: 20px;}
     #campaignsList > li {padding-left: 65px; padding-top: 24px; padding-bottom: 15px;}
