@@ -72,10 +72,11 @@ class RestKuorumApiService {
         ACCOUNT_INFO                ("/notification/mailing/{userAlias}"),
         ACCOUNT_MAILS               ("/notification/mailing/{userAlias}/emails"),
         ACCOUNT_MAILS_SEND          ("/notification/mailing/{userAlias}/send"),
-        ACCOUNT_CAMPAIGNS           ("/notification/campaign/{userAlias}"),
-        ACCOUNT_CAMPAIGN            ("/notification/campaign/{userAlias}/{campaignId}"),
-        ACCOUNT_CAMPAIGN_SEND       ("/notification/campaign/{userAlias}/{campaignId}/send"),
-        ACCOUNT_CAMPAIGN_TRACKING   ("/notification/campaign/{userAlias}/{campaignId}/trackingMails"),
+
+        ACCOUNT_MASS_MAILINGS           ("/communication/massmailing/{userAlias}"),
+        ACCOUNT_MASS_MAILING            ("/communication/massmailing/{userAlias}/{campaignId}"),
+        ACCOUNT_MASS_MAILING_SEND       ("/communication/massmailing/{userAlias}/{campaignId}/send"),
+        ACCOUNT_MASS_MAILING_TRACKING   ("/communication/massmailing/{userAlias}/{campaignId}/trackingMails"),
 
         ADMIN_MAILS_SEND("/admin/notification/mailing/send");
 

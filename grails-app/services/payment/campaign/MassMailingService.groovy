@@ -41,9 +41,9 @@ class MassMailingService {
     private CampaignRSDTO sendScheduledCampaignWithoutDateModifications(KuorumUser user, CampaignRQDTO campaignRQDTO, Long campaignId = null){
         Map<String, String> params = [userAlias:user.id.toString()]
         Map<String, String> query = [:]
-        RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS
+        RestKuorumApiService.ApiMethod apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILINGS
         if (campaignId){
-            apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN
+            apiMethod = RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING
             params.put("campaignId",campaignId.toString())
         }
         def response= restKuorumApiService.post(
@@ -68,7 +68,7 @@ class MassMailingService {
         Map<String, String> params = [userAlias:user.id.toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [test:true]
         def response= restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_SEND,
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_SEND,
                 params,
                 query,
                 new TypeReference<CampaignRSDTO>(){}
@@ -84,7 +84,7 @@ class MassMailingService {
         Map<String, String> params = [userAlias:user.id.toString()]
         Map<String, String> query = [:]
         def response= restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGNS,
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILINGS,
                 params,
                 query,
                 new TypeReference<List<CampaignRSDTO>>(){}
@@ -100,7 +100,7 @@ class MassMailingService {
         Map<String, String> params = [userAlias: user.id.toString(), campaignId: campaignId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
-                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN,
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING,
                 params,
                 query
         )
@@ -110,7 +110,7 @@ class MassMailingService {
         Map<String, String> params = [userAlias:user.id.toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [test:true]
         def response= restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN,
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING,
                 params,
                 query,
                 new TypeReference<CampaignRSDTO>(){}
@@ -126,7 +126,7 @@ class MassMailingService {
         Map<String, String> params = [userAlias:user.id.toString(), campaignId:campaignId.toString()]
         Map<String, String> query = [page:page.toString(), size:size.toString()]
         def response= restKuorumApiService.get(
-                RestKuorumApiService.ApiMethod.ACCOUNT_CAMPAIGN_TRACKING,
+                RestKuorumApiService.ApiMethod.ACCOUNT_MASS_MAILING_TRACKING,
                 params,
                 query,
                 new TypeReference<TrackingMailStatsByCampaignPageRSDTO>(){}
