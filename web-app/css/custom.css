@@ -200,7 +200,7 @@ label {font-weight: normal;}
 .checkbox-inline > span.check-box-icon {
     background-color: #fafafa;
     border: 1px solid #cacece;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    /*box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);*/
     padding: 9px;
     border-radius: 3px;
     display: inline-block;
@@ -216,7 +216,7 @@ label {font-weight: normal;}
 .checkbox-inline > input[type=checkbox]:checked + span.check-box-icon {
     background-color: #e9ecee;
     border: 1px solid #adb8c0;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+    /*box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);*/
     color: #99a1a7;
 }
 
@@ -1268,9 +1268,9 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #searchCampaign {border-color: #ddd;}
 #infoFilterCampaigns, .pag-list-campaigns {color: #a8a8a8;}
 .box-order-options, .pag-list-campaigns, .pag-list-contacts {color: #a8a8a8; font-size: 18px; font-size: 1.8rem;}
-.box-order-options {border-bottom: 1px solid #e5e5e5; padding-left: 10px; padding-right: 5px;}
+.box-order-options {border-bottom: 1px solid #e5e5e5;}
 .box-order-options > span {display: block; float: left; margin-right: 5px; margin-top: 5px;}
-.box-order-options > ul {width: 100%; float: left; padding: 0; margin: 5px 0 0 0;}
+.box-order-options > ul {width: 100%; float: left; padding: 0px 0px 0px 12px; margin: 5px 0 0 0;}
 .box-order-options > ul li {list-style: none; display: block; margin: 0 10px 5px 0; }
 .box-order-options > ul li:last-child {margin: 0;}
 .box-order-options > ul li a, .box-order-options > ul li a:active, .box-order-options > ul li a:focus {color: #a8a8a8; position: relative; text-decoration: none;}
@@ -1290,6 +1290,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     font-size:14px;
 }
 .box-order-options .filter-warning span.on {background-color:#dedede; color: #fff}
+.box-order-options .checkbox-inline {float: left; padding: 0px; margin-top: 4px;}
 .pag-list-campaigns, .pag-list-contacts {margin: 20px 0;}
 .pag-list-campaigns > ul, .pag-list-contacts > ul {float: right; padding: 0; margin: 0;}
 .pag-list-campaigns > ul > li, .pag-list-contacts > ul > li {list-style: none; display: inline-block;}
@@ -1467,7 +1468,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #contactsList { min-height: 10em;}
 #contactsList > h3.noContacts {text-align: center}
 #contactsList > li {padding: 85px 0 0 0; border-bottom: 1px solid #e5e5e5; position: relative; min-height: 170px;}
-#contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 0; top: 10px; overflow: hidden; background-color: #e5e5e5;}
+#contactsList > li .user-img {display: block; width: 64px; height: 64px; border-radius: 50%; position: absolute; left: 48px; top: 10px; overflow: hidden; background-color: #e5e5e5;}
+#contactsList > li .checkbox-inline {padding: 0px; position: absolute; left: 10px; top: 35px;}
 #contactsList > li p {margin: 0;}
 #contactsList > li .title {font-size: 17px; font-size: 1.7rem; margin: 0 0 4px 0;}
 #contactsList > li > .title > a,
@@ -4111,7 +4113,7 @@ fieldset.rating:hover > input + label:hover:before {
 .carousel.news .carousel-inner .item {margin: 4px 0;}
 .carousel.news .carousel-inner .item > div {padding: 0 5px;}
 .carousel.news .carousel-inner .item > div > a {background: #fff; display: block; box-shadow: 0 0 2px rgba(0, 0, 0, .4); padding: 9px 9px 6px 9px; margin-bottom: 4px;}
-.carousel.news .carousel-inner .item > div > a .img-container {position: relative; background-color: #c9c9c9;}
+.carousel.news .carousel-inner .item > div > a .img-container {position: relative; background-color: #c9c9c9; background-size: cover;}
 .carousel.news .carousel-inner .item > div > a .img-container .logo {
     position: absolute;
     left: 0;
@@ -5282,7 +5284,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #myWidgetLabel {font-size: 34px;}
     #detailsInfoVotes .table tbody th {width: 300px;}
     #detailsInfoVotes.autor .table tbody th {width: 335px;}
-    #contactsList > li {padding: 10px 0 0 80px; min-height: 175px;}
+    #contactsList > li {padding: 10px 0 0 140px; min-height: 175px;}
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -5649,7 +5651,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .carousel.news .carousel-inner .prev         {left: -33%;}
     .carousel.news .carousel-inner .next.left,
     .carousel.news .carousel-inner .prev.right {z-index: 99;}
-    .carousel.news .carousel-inner .item .carousel-caption h3 {height: 64px;}
+    .carousel.news .carousel-inner .item .carousel-caption h3 {height: 60px;}
     @media all and (transform-3d), (-webkit-transform-3d) {
         .carousel.news .carousel-inner > .item {
             -webkit-transition: 300ms ease-in-out all;
@@ -5687,9 +5689,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #toFilters > div:last-child {text-align: left;}
     #filterContacts {margin-top: 0;}
     .box-order-options {padding-left: 25px; padding-right: 25px;}
-    .box-order-options > ul {width: 50%; margin: 5px 0 0 10px;}
+    .box-order-options > ul {width: 45%;}
     .box-order-options > ul li, .box-order-options > ul li:last-child {margin: 0 10px 10px; display: inline-block;}
-    #contactsOrderOptions.box-order-options > ul {width: 35%;}
+    #contactsOrderOptions.box-order-options > ul {width: 30%;}
     #contactsOrderOptions.box-order-options > ul li,
     #contactsOrderOptions.box-order-options > ul li:last-child {margin: 0 10px;}
 
@@ -6055,12 +6057,11 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts .dropdown-menu {min-width: 140px;}
     #boxfiltersContacts ul li .btn {min-width: 138px;}
-    #contactsOrderOptions.box-order-options > ul {width: 40%;}
-    #contactsOrderOptions.box-order-options > div {width: 40%;}
+    #contactsOrderOptions.box-order-options > ul {width: 35%;}
+    #contactsOrderOptions.box-order-options > div {width: 35%;}
     #contactsList > li > h3, #contactsList > li > p {padding-right: 74%;}
     .container-lists {position: absolute; right: 0; top: 7px; border-left: 1px solid #e5e5e5; width: 68%; padding: 10px 20px; margin: 0;}
     #contactsList > li {min-height: 105px; padding-top: 15px;}
-    #contactsList > li > h3, #contactsList > li > p {padding-right: 68%;}
     .container-lists {width: 63%; padding-bottom: 0;}
 
     /* STATS CAMPAIGNS */

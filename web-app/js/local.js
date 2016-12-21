@@ -730,7 +730,8 @@ $(document).ready(function() {
     });
 
 
-    function prepareImagesCarrousel(){
+    // Not in use
+    /*function prepareImagesCarrousel(){
         $(".carousel .img-container img").each(function(idx){
             var rawImage = $(this);
             var theImage = new Image();
@@ -750,7 +751,7 @@ $(document).ready(function() {
                 rawImage.css("height", "auto");
             }
         });
-    }
+    }*/
 
 
     // Carrusel noticias perfil político
@@ -758,12 +759,6 @@ $(document).ready(function() {
           interval: false,
           wrap: true
     });
-    setTimeout(prepareImagesCarrousel,1000);
-
-    prepareImagesCarrousel();
-    $('.carousel.news').on('slide.bs.carousel', function () {
-        setTimeout(prepareImagesCarrousel,50);
-    })
 
     // 3 items a partir de 768px
     if (window.matchMedia("(min-width: 768px)").matches) {
@@ -771,14 +766,21 @@ $(document).ready(function() {
         $('.carousel.news .item').each(function(){
           var next = $(this).next();
           if (!next.length) {
-            next = $(this).siblings(':first');
+              next = $(this).siblings(':first');
           }
           next.children(':first-child').clone().appendTo($(this));
-          if (next.next().length>0) {
-            next.next().children(':first-child').clone().appendTo($(this));
-          }
-          else {
-            $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+
+          if ($('.carousel.news .item').length >= 3) {
+              // For more than or equal to 3 photos
+              if (next.next().length > 0) {
+                  next.next().children(':first-child').clone().appendTo($(this));
+              } else {
+                  $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+              }
+          } else {
+              // Hide controls for less than 3 photos
+              $('.left.carousel-control').hide();
+              $('.right.carousel-control').hide();
           }
         });
 
