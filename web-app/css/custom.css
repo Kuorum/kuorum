@@ -4114,7 +4114,7 @@ fieldset.rating:hover > input + label:hover:before {
 .carousel.news .carousel-inner .item {margin: 4px 0;}
 .carousel.news .carousel-inner .item > div {padding: 0 5px;}
 .carousel.news .carousel-inner .item > div > a {background: #fff; display: block; box-shadow: 0 0 2px rgba(0, 0, 0, .4); padding: 9px 9px 6px 9px; margin-bottom: 4px;}
-.carousel.news .carousel-inner .item > div > a .img-container {position: relative; background-color: #c9c9c9; background-size: cover;}
+.carousel.news .carousel-inner .item > div > a .img-container {position: relative; background-color: #c9c9c9; background-size: cover; padding-bottom: 58.8%}
 .carousel.news .carousel-inner .item > div > a .img-container .logo {
     position: absolute;
     left: 0;
@@ -5171,7 +5171,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
-    .carousel.news .carousel-inner .item > div > a .img-container {height: 200px; overflow: hidden;}
     .carousel.news .carousel-control {top: 30%;}
 }
 
@@ -5228,7 +5227,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .edit-contact form fieldset {width: 30%; min-width: 260px; float:left;}
     .edit-contact form fieldset:last-child {width: 100%; min-width: 0; text-align: right; margin: 0;  bottom: 13px; right: 0;}
 
-    .carousel.news .carousel-inner .item > div > a .img-container {height: 200px; overflow: hidden;}
     .carousel.news .carousel-control {top: 30%;}
 }
 
@@ -5668,7 +5666,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
                     transform: none!important;
         }
     }
-    .carousel.news .carousel-inner .item > div > a .img-container {height: 200px; overflow: hidden;}
     .carousel.news .carousel-control {top: 22%;}
 
     /* import contacts */
@@ -6044,7 +6041,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #aside-ppal .panel.collaborate .panel-body ul li a.btn {min-width: 74px;}
 
     .box.tools.open .dropdown-menu li a {font-size: 18px; font-size: 1.8rem; line-height: 2.6;}
-    .carousel.news .carousel-inner .item > div > a .img-container {height: 128px;}
 
     /* CAMPAIGNS */
     .form-final-options {margin-top: 20px;}
