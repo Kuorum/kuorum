@@ -16,7 +16,7 @@
                         itemprop: 'worksFor'
                 ]"/>
                 <g:render template="/kuorumUser/userShowTemplates/columnC/rowPoliticianColumnC" model="[
-                        message:g.message(code:'politician.professionalDetails.data.constituency'),
+                        message:g.message(code:'politician.professionalDetails.data.constituency.short'),
                         data:politician?.professionalDetails?.constituency?.name?:''
                 ]"/>
                 <g:render template="/kuorumUser/userShowTemplates/columnC/rowPoliticianColumnC" model="[
