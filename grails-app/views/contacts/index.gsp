@@ -103,5 +103,7 @@
         <div id="listContacts" data-ajaxUrlContacts="${g.createLink(mapping: 'politicianContactsSearch', absolute:true)}">
             %{--<g:render template="/contacts/listContacts" model="[contacts:contacts,searchContacts:searchContacts]"/>--}%
         </div>
+
+        <!-- Bulk actions modal -->
     </div>
 </content>

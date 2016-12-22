@@ -656,23 +656,24 @@ class FormTagLib {
         def field = attrs.field
 
         def prefixFieldName=attrs.prefixFieldName?:""
-        def checked = '';
+        def checked = ''
         def value = attrs.value?:"true"
-        if (command."$field" instanceof Collection){
+        def elementId = attrs.elementId?:field
+        if (command."$field" instanceof Collection) {
             checked = ((Collection)command."$field").contains(value)?'checked':''
-        }else{
+        } else {
             checked = command."$field"?'checked':''
         }
         def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
             <label class="checkbox-inline">
-                <input class="${error}" type="checkbox" name='${prefixFieldName}${field}' id="${field}" ${checked} value='${value}' />
+                <input id="${elementId}" class="${error}" type="checkbox" name='${prefixFieldName}${field}' ${checked} value='${value}' />
                 <span class="check-box-icon"></span>
                 <span class="label-checkbox">${label}</span>
             </label>
             """
-        if(error){
+        if (error) {
             out << "<span for='${field}' class='error'>${g.fieldError(bean: command, field: field)}</span>"
         }
     }

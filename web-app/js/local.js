@@ -700,8 +700,83 @@ $(document).ready(function() {
         }
     });
 
+    // Bulk actions for contacts
+    $("#listContacts").on("change", "#contactsOrderOptions .bulk-actions", function(e) {
+        switch ($(this).val()) {
+            case 1:
+                // Delete all
 
-    //animar porcentaje perfil político
+                // Open popup
+                //$('body').modal('show');
+                break;
+            case 2:
+                // Add tags
+
+                // Open popup
+                //$('body').modal('show');
+                break;
+        }
+    });
+
+    // "Check-all" checkbox
+    var allContactsSelected = false;
+    $('#listContacts').on('change', '#contactsOrderOptions .checkbox-inline input[type=checkbox]', function (e) {
+        if ($(this).is(':checked')) {
+            // Save
+            allContactsSelected = true;
+
+            // Show bulk actions
+            $('.bulk-actions').show();
+
+            // Check all "contact item" checkbox
+            var contactsCheckbox = $('#contactsList .checkbox-inline input[type=checkbox]');
+            contactsCheckbox.prop('checked', true);
+
+            // Add all contacts to selected
+            contactsSelected = [];
+            for (var i = 0; i < contactsCheckbox.length; i++) {
+                contactsSelected.push(contactsCheckbox.eq(i).val());
+            }
+        } else {
+            // Save
+            allContactsSelected = false;
+
+            // Check if there are no users selected
+            if (contactsSelected.length < 2) {
+                $('.bulk-actions').hide();
+            }
+        }
+    });
+
+    // "Contact item" checkbox
+    var contactsSelected = [];
+    $('#listContacts').on('change', '#contactsList .checkbox-inline input[type=checkbox]', function (e) {
+        if ($(this).is(':checked')) {
+            // Add to list
+            contactsSelected.push($(this).val());
+
+            if (contactsSelected.length >= 2) {
+                // Show bulk actions
+                $('.bulk-actions').show();
+            }
+        } else {
+            // Remove from list
+            var i = contactsSelected.indexOf($(this).val());
+            if (i != -1) {
+                contactsSelected.splice(i, 1);
+            }
+
+            // Uncheck "check-all" checkbox
+            $('#contactsOrderOptions .checkbox-inline input[type=checkbox]').prop('checked', false);
+
+            // Check if there are no users selected
+            if (contactsSelected.length < 2) {
+                $('.bulk-actions').hide();
+            }
+        }
+    });
+
+    // Animar porcentaje perfil político
     if ($('#profileInfo').length) {
         var skillBar = $('#progressProfileFill');
         var skillVal = skillBar.attr("data-progress");

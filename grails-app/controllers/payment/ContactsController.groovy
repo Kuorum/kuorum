@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
+import kuorum.web.commands.payment.contact.BulkContactActionCommand
 import kuorum.web.commands.payment.contact.ContactCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.contact.NewContactCommand
@@ -79,7 +80,11 @@ class ContactsController {
         if (asJson){
             render contacts as JSON
         }else{
-            render (template: "/contacts/listContacts", model:[contacts:contacts, searchContacts:searchContactRSDTO])
+            render (template: "/contacts/listContacts", model:[
+                    contacts: contacts,
+                    searchContacts: searchContactRSDTO,
+                    bulkContactActionCommand: new BulkContactActionCommand()
+            ])
         }
     }
 
