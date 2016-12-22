@@ -62,6 +62,13 @@
                 cssClass="col-sm-8 col-md-7"
                 labelCssClass="sr-only"/>
     </fieldset>
+    <fieldset class="form-group">
+        <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
+        <div class="textareaContainer col-sm-8 col-md-7">
+            %{--<textarea name="text" class="form-control texteditor" rows="8" placeholder="${message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.text.placeholder')}" id="textProject" required aria-required="true"></textarea>--}%
+            <formUtil:textArea command="${command}" field="text" rows="8" texteditor="texteditor"/>
+        </div>
+    </fieldset>
     <fieldset class="form-group tags-campaign" data-multimedia-switch="on" data-multimedia-type="IMAGE">
         <label for="tagsField" class="col-sm-2 col-md-1 control-label">Tags: </label>
         <div class="col-sm-8 col-md-7">
@@ -74,14 +81,6 @@
                 <formUtil:checkBox command="${command}" field="eventsWithTag" value="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.OPEN}" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.OPEN')}"/>
                 <formUtil:checkBox command="${command}" field="eventsWithTag" value="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.CLICK}" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.CLICK')}"/>
             </div>
-        </div>
-
-    </fieldset>
-    <fieldset class="form-group">
-        <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
-        <div class="textareaContainer col-sm-8 col-md-7">
-            %{--<textarea name="text" class="form-control texteditor" rows="8" placeholder="${message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.text.placeholder')}" id="textProject" required aria-required="true"></textarea>--}%
-            <formUtil:textArea command="${command}" field="text" rows="8" texteditor="texteditor"/>
         </div>
         <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
             <ul class="form-final-options">
@@ -97,11 +96,11 @@
                     </a>
                     <div id="selectDate">
                         %{--<form>--}%
-                            <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
-                            <formUtil:date field="scheduled" command="${command}" cssClass="form-control" time="true"/>
-                            <a href="#" class="btn btn-blue inverted" id="sendLater">
-                                <g:message code="tools.massMailing.schedule.sendLater"/>
-                            </a>
+                        <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
+                        <formUtil:date field="scheduled" command="${command}" cssClass="form-control" time="true"/>
+                        <a href="#" class="btn btn-blue inverted" id="sendLater">
+                            <g:message code="tools.massMailing.schedule.sendLater"/>
+                        </a>
                         %{--</form>--}%
                     </div>
                 </li>
