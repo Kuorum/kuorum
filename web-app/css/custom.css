@@ -1162,7 +1162,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .tags-campaign .tag-events {color:#dedede; padding-left:2em;margin-top:1em;}
 
 
-#filterContacts {border: 1px solid #20a2ea; border-radius: 6px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #20a2ea;}
+#filterContacts {border: 1px solid #20a2ea; border-radius: 2px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #20a2ea;}
 #filterContacts.on {background-color: #20a2ea; border-color: #20a2ea; color: #fff; /*cursor: default; pointer-events: none;*/}
 #infoToContacts, #infoContacts {color: #a8a8a8; padding-right: 30px;}
 #infoToContacts > span.fa, #infoContacts > span.fa {display: none;}
