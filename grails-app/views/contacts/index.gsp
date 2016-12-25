@@ -105,5 +105,46 @@
         </div>
 
         <!-- Bulk actions modal -->
+        <div id="bulk-action-delete-all-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <g:form method="POST" mapping="" role="form" id="" class="submitOrangeButton" autocomplete="off">
+                        <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.deleteAll"/></h4></div>
+                        <div class="modal-body">
+                            <p>
+                                <g:message code="modal.bulkAction.deleteAll.explain" args="[contacts.total]"/>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" type="submit"><g:message code="modal.bulkAction.deleteAll.deleteContacts"/></button>
+                        </div>
+                    </g:form>
+                </div>
+            </div>
+        </div>
+        <div id="bulk-action-add-tags-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    %{--<formUtil:validateForm bean="${timeZoneCommand}" form="timeZoneForm" dirtyControl="false"/>--}%
+                    <g:form method="POST" mapping="" role="form" id="" class="submitOrangeButton" autocomplete="off">
+                        <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.addTags"/></h4></div>
+                        <div class="modal-body">
+                            <p>
+                                <g:message code="modal.bulkAction.addTags.explain" args="[contacts.total]"/>
+                            </p>
+                            <fieldset class="time-zone">
+                                <div class="row form-group">
+                                    %{--<formUtil:selectTimeZone command="${timeZoneCommand}" field="timeZoneId" required="true" cssLabel="hide" cssClass="col-xs-12 col-sm-4"/>--}%
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" type="submit"><g:message code="modal.bulkAction.addTags.addToContacts"/></button>
+                        </div>
+                    </g:form>
+                </div>
+            </div>
+        </div>
+
     </div>
 </content>

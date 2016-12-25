@@ -702,70 +702,97 @@ $(document).ready(function() {
 
     // Bulk actions for contacts
     $("#listContacts").on("change", "#contactsOrderOptions .bulk-actions", function(e) {
-        switch ($(this).val()) {
-            case 1:
-                // Delete all
+        var value = $(this).val();
 
-                // Open popup
-                //$('body').modal('show');
+        // Reset value
+        $(this).val(-1);
+
+        var numSelectedContactsElement = $('.num-selected-contacts');
+        var contactsSelected = $('#contactsList .checkbox-inline input[type=checkbox]:checked');
+        var allContactsSelected = $('#contactsOrderOptions .checkbox-inline input[type=checkbox]').is(':checked');
+
+        if (allContactsSelected) {
+            // Update text
+            numSelectedContactsElement.text(filterContacts.getFilterSelectedAmountOfContacts());
+        } else {
+            // Update text
+            numSelectedContactsElement.text(contactsSelected.length);
+        }
+
+        // Update filter and ids
+        var contactCheckboxes = $("#contactsList .checkbox-inline input[type=checkbox]");
+        $('filter-delete-all').val($('#contactFilterForm').serialize());
+        $('ids-delete-all').val(contactCheckboxes.serialize());
+
+        var value = "";
+        contactCheckboxes.each(function() {
+            value += $(this).val() + ",";
+        });
+        value = value.slice(0, -1);
+
+        switch (parseInt(value)) {
+            case 1:
+                // "Delete all" popup
+                $('#bulk-action-delete-all-modal').modal('show');
+                // Fill in hidden input
+                var link = $(this).parents("ul").attr("data-link")
+                var postData = {page:page}
+                $.post(url, postData)
+                    .done(function(data) {
+                        var $ul = $form.find("ul");
+                        $ul.html("");
+                        for (i = 0; i < data.tags.length; i++) {
+                            $ul.append('<li><a href="#" class="tag label label-info">'+data.tags[i]+'</a></li>');
+                            tagsnames.add({name:data.tags[i]})
+                        }
+                        closeInputs.click();
+                    })
+                    .fail(function(messageError) {
+                        display.warn("Error");
+                    })
+                    .always(function() {
+                        pageLoadingOff();
+                    });
                 break;
             case 2:
-                // Add tags
+                // "Add tags" popup
+                $('#bulk-action-add-tags-modal').modal('show');
+                // Fill in hidden input
 
-                // Open popup
-                //$('body').modal('show');
                 break;
         }
     });
 
     // "Check-all" checkbox
-    var allContactsSelected = false;
     $('#listContacts').on('change', '#contactsOrderOptions .checkbox-inline input[type=checkbox]', function (e) {
+        var contactsCheckbox = $('#contactsList .checkbox-inline input[type=checkbox]');
+
         if ($(this).is(':checked')) {
-            // Save
-            allContactsSelected = true;
+            // Check all "contact item" checkbox
+            contactsCheckbox.prop('checked', true);
 
             // Show bulk actions
             $('.bulk-actions').show();
-
-            // Check all "contact item" checkbox
-            var contactsCheckbox = $('#contactsList .checkbox-inline input[type=checkbox]');
-            contactsCheckbox.prop('checked', true);
-
-            // Add all contacts to selected
-            contactsSelected = [];
-            for (var i = 0; i < contactsCheckbox.length; i++) {
-                contactsSelected.push(contactsCheckbox.eq(i).val());
-            }
         } else {
-            // Save
-            allContactsSelected = false;
+            // Uncheck all "contact item" checkbox
+            contactsCheckbox.prop('checked', false);
 
-            // Check if there are no users selected
-            if (contactsSelected.length < 2) {
-                $('.bulk-actions').hide();
-            }
+            // Hide bulk actions
+            $('.bulk-actions').hide();
         }
     });
 
     // "Contact item" checkbox
     var contactsSelected = [];
     $('#listContacts').on('change', '#contactsList .checkbox-inline input[type=checkbox]', function (e) {
-        if ($(this).is(':checked')) {
-            // Add to list
-            contactsSelected.push($(this).val());
+        var contactsSelected = $('#contactsList .checkbox-inline input[type=checkbox]:checked');
 
+        if ($(this).is(':checked')) {
             if (contactsSelected.length >= 2) {
                 // Show bulk actions
                 $('.bulk-actions').show();
             }
         } else {
-            // Remove from list
-            var i = contactsSelected.indexOf($(this).val());
-            if (i != -1) {
-                contactsSelected.splice(i, 1);
-            }
-
             // Uncheck "check-all" checkbox
             $('#contactsOrderOptions .checkbox-inline input[type=checkbox]').prop('checked', false);
 

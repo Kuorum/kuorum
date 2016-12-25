@@ -10,6 +10,7 @@ import kuorum.web.commands.payment.contact.ContactCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.contact.NewContactCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
+import kuorum.web.commands.payment.contact.BulkRemoveContactsCommand
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
@@ -51,7 +52,8 @@ class ContactsController {
                 filters:filters,
                 totalContacts:contacts.total,
                 command:new MassMailingCommand(),
-                searchContacts:searchContactRSDTO
+                searchContacts:searchContactRSDTO,
+                bulkRemoveContactsCommand: new BulkRemoveContactsCommand()
         ]
     }
 
@@ -453,5 +455,21 @@ class ContactsController {
             return;
         }
         [user:user, contact:contact]
+    }
+
+    def deleteContactsBulkAction(BulkRemoveContactsCommand command) {
+        // TODO
+        FilterRDTO filterRDTO = command.buildFilter();
+
+        if (command.ids != null) {
+
+        } else {
+            // Is not valid
+        }
+    }
+
+    def addTagsBulkAction() {
+        // TODO
+
     }
 }
