@@ -196,7 +196,6 @@ function FilterContacts() {
     this.deleteFilter = function(){
         var link = $("#deleteFilterButton").attr("href")
         var filterId = that.getFilterId();
-        console.log("Removing filter: "+filterId)
         var postData = [];
         pageLoadingOn();
         postData.push({name:'filterId', value:filterId})
@@ -245,6 +244,7 @@ function FilterContacts() {
         if (filterId == allContactsFilterId){
             $('select#recipients').val(newFilterId);
             var filterId = $("#recipients").val();
+            that.updateAmountContacts(that.getTotalContacts())
         }
         var link = $("#filterContacts").attr("href")
         var postData = [];
@@ -296,7 +296,6 @@ function FilterContacts() {
         $fieldSet.find(activeOperator).removeClass("hide")
         $fieldSet.find(".filter-operator input, .filter-operator select").prop('disabled', false);
         $fieldSet.find(".filter-operator.hide input, .filter-operator.hide select").prop('disabled', true);
-        console.log($(".filter-operator.hide select"))
 
     }
 
@@ -361,6 +360,11 @@ function FilterContacts() {
     this.getFilterSelectedAmountOfContacts= function(){
         return $('select#recipients option:selected').attr("data-amountContacts");
     };
+
+    this.getTotalContacts = function(){
+        return $("select#recipients option[value=0]").attr("data-amountcontacts")
+    }
+
     this.changedFilterValueEvent = function(){
         var filterIdBeforeCloseOptions =that.getFilterId();
         that.closeFilterCampaignsOptions();

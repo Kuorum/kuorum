@@ -33,7 +33,7 @@
                         field="field"
                         command="${listCommand}"
                         prefixFieldName="${prefixField}"
-                        values="${org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.values()}"
+                        values="${org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.values() - org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO.ID}"
                         cssLabel="sr-only"/>
             </div>
             <div class="filter-operator text-operator">
