@@ -773,7 +773,12 @@ $(document).ready(function() {
                     // All good
                     display.success(data.msg);
                     setTimeout(function() {
-                        location.reload()
+                        // Update contact's list
+                        filterContacts.searchContactsCallBacks.loadTableContacts();
+
+                        // Close modals
+                        $('#bulk-action-delete-all-modal').modal('hide');
+                        $('#bulk-action-add-tags-modal').modal('hide');
                     }, 1000);
                 } else {
                     display.warn(data.msg);
