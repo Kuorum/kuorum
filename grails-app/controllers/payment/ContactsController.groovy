@@ -5,13 +5,15 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
-import kuorum.web.commands.payment.contact.BulkContactActionCommand
+import kuorum.web.commands.payment.contact.BulkActionContactsCommand
+import kuorum.web.commands.payment.contact.BulkAddTagsContactsCommand
 import kuorum.web.commands.payment.contact.ContactCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.contact.NewContactCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import kuorum.web.commands.payment.contact.BulkRemoveContactsCommand
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.contact.BulkUpdateContactTagsRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
@@ -33,17 +35,17 @@ class ContactsController {
     private static final String CONTACT_CSV_UPLOADED_SESSION_KEY="CONTACT_CSV_UPLOADED_SESSION_KEY"
     private static final String CONTACT_CSV_UPLOADED_EXTENSION=".csv"
 
-    ContactService contactService;
+    ContactService contactService
     SpringSecurityService springSecurityService
 
     def index(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO();
+        SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO()
         searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)
         ContactPageRSDTO contacts = contactService.getUsers(user,searchContactRSDTO)
-        if (contacts.total <=0){
+        if (contacts.total <= 0) {
             redirect mapping:"politicianContactImport"
-            return;
+            return
         }
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
 
@@ -53,7 +55,8 @@ class ContactsController {
                 totalContacts:contacts.total,
                 command:new MassMailingCommand(),
                 searchContacts:searchContactRSDTO,
-                bulkRemoveContactsCommand: new BulkRemoveContactsCommand()
+                bulkActionContactsCommand: new BulkActionContactsCommand(),
+                bulkAddTagsContactsCommand: new BulkAddTagsContactsCommand()
         ]
     }
 
@@ -61,8 +64,8 @@ class ContactsController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Boolean asJson = params.asJson?true:false
         SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO();
-        searchContactRSDTO.page=Long.parseLong(params.page?:"0")
-        searchContactRSDTO.size=params.size?Long.parseLong(params.size):searchContactRSDTO.size
+        searchContactRSDTO.page = Long.parseLong(params.page?:"0")
+        searchContactRSDTO.size = params.size?Long.parseLong(params.size):searchContactRSDTO.size
         searchContactRSDTO.sort = new SortContactsRDTO(
                 field: params.sort?.field?ConditionFieldTypeRDTO.valueOf(params.sort.field):ConditionFieldTypeRDTO.NAME,
                 direction: params.sort?.direction?SortContactsRDTO.Direction.valueOf(params.sort.direction):SortContactsRDTO.Direction.ASC
@@ -82,10 +85,10 @@ class ContactsController {
         if (asJson){
             render contacts as JSON
         }else{
-            render (template: "/contacts/listContacts", model:[
+            render (template: "/contacts/listContacts", model: [
                     contacts: contacts,
                     searchContacts: searchContactRSDTO,
-                    bulkContactActionCommand: new BulkContactActionCommand()
+                    bulkActionContactsCommand: new BulkActionContactsCommand()
             ])
         }
     }
@@ -94,7 +97,7 @@ class ContactsController {
     def addTagsToContact(Long contactId){
         List<String> tags = params.tags?.split(",")?.findAll{it}?:[]
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        ContactRSDTO contactRSDTO = contactService.getContact(user, contactId);
+        ContactRSDTO contactRSDTO = contactService.getContact(user, contactId)
         contactRSDTO.tags = tags as Set
         contactRSDTO = contactService.updateContact(user, contactRSDTO, contactId)
         render contactRSDTO as JSON
@@ -102,14 +105,14 @@ class ContactsController {
 
     def removeContact(Long contactId){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        contactService.removeContact(user, contactId);
-        render "";
+        contactService.removeContact(user, contactId)
+        render ""
     }
 
     def editContact(Long contactId){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         ContactRSDTO contact = contactService.getContact(user, contactId)
-        ContactCommand command = new ContactCommand();
+        ContactCommand command = new ContactCommand()
         command.name = contact.name
         command.email = contact.email?:g.message(code: 'tools.contact.edit.noMailVisible')
         command.surname = contact.surname
@@ -138,7 +141,7 @@ class ContactsController {
         ContactRSDTO contact = contactService.getContact(user, contactId)
         if (!contact){
             render ([err:g.message(code: 'tools.contact.edit.error')]  as JSON)
-            return;
+            return
         }
         contact.notes = params.notes
         ContactRSDTO contactUpdated = contactService.updateContact(user, contact, contact.getId())
@@ -156,7 +159,7 @@ class ContactsController {
         }
         if (command.hasErrors()){
             render view: 'newContact', model:[command:command]
-            return;
+            return
         }
         FilterRDTO filterRDTO = new FilterRDTO()
         filterRDTO.setFilterConditions([ConditionRDTO.factory(ConditionFieldTypeRDTO.EMAIL, TextConditionOperatorTypeRDTO.EQUALS.toString(), command.email)])
@@ -188,7 +191,7 @@ class ContactsController {
     }
 
     def importCSVContacts() {
-        request.getSession().removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY);
+        request.getSession().removeAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
     }
 
     def importCSVContactsUpload() {
@@ -457,19 +460,75 @@ class ContactsController {
         [user:user, contact:contact]
     }
 
-    def deleteContactsBulkAction(BulkRemoveContactsCommand command) {
-        // TODO
-        FilterRDTO filterRDTO = command.buildFilter();
+    def removeContactsBulkAction(BulkRemoveContactsCommand bulkRemoveCommand) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 
-        if (command.ids != null) {
+        // Filter
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
+        Long filterId = Long.parseLong(params.filterId?:'0')
+        FilterRDTO filterRDTO = bulkRemoveCommand.buildFilter()
 
+        if (filterId < 0 || filterRDTO.filterConditions) {
+            searchContactRSDTO.filter = filterRDTO
+        } else if (filterId == 0l) {
+            // NO FILTER -> ALL CONTACTS
+        }
+
+        if (bulkRemoveCommand.validate()) {
+            if (contactService.bulkRemoveContacts(user, searchContactRSDTO)) {
+                return render ([
+                    status: 'ok',
+                    msg: g.message(code: "modal.bulkAction.deleteAll.done")
+                ] as JSON)
+            } else {
+                return render ([
+                    status: 'error',
+                    msg: g.message(code: "modal.bulkAction.deleteAll.error.deleting")
+                ] as JSON)
+            }
         } else {
-            // Is not valid
+            return render ([
+                status: 'error',
+                msg: g.message(code: "modal.bulkAction.deleteAll.error.validating")
+            ] as JSON)
         }
     }
 
-    def addTagsBulkAction() {
-        // TODO
+    def addTagsBulkAction(BulkAddTagsContactsCommand bulkAddTagsCommand) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 
+        // Filter
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
+        Long filterId = Long.parseLong(params.filterId?:'0')
+        FilterRDTO filterRDTO = bulkAddTagsCommand.buildFilter()
+
+        if (filterId < 0 || filterRDTO.filterConditions) {
+            searchContactRSDTO.filter = filterRDTO
+        } else if (filterId == 0l) {
+            // NO FILTER -> ALL CONTACTS
+        }
+
+        if (bulkAddTagsCommand.validate()) {
+            BulkUpdateContactTagsRDTO bulkUpdateContactTagsRDTO = new BulkUpdateContactTagsRDTO()
+            bulkUpdateContactTagsRDTO.setSearchContacts(searchContactRSDTO)
+            bulkUpdateContactTagsRDTO.setTagNames(bulkAddTagsCommand.tags)
+
+            if (contactService.bulkAddTagsContacts(user, bulkUpdateContactTagsRDTO)) {
+                return render ([
+                    status: 'ok',
+                    msg: g.message(code: "modal.bulkAction.addTags.processing")
+                ] as JSON)
+            } else {
+                return render ([
+                    status: 'error',
+                    msg: g.message(code: "modal.bulkAction.addTags.error.deleting")
+                ] as JSON)
+            }
+        } else {
+            return render ([
+                status: 'error',
+                msg: g.message(code: "modal.bulkAction.addTags.error.validating")
+            ] as JSON)
+        }
     }
 }

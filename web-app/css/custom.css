@@ -1244,6 +1244,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #filtersDelete .modal-body {text-align: center;}
 #filtersDelete .modal-body div:last-child{margin-top: 2em;}
 
+#bulk-action-add-tags-modal .bootstrap-tagsinput {width: 100%;}
+
 .datepicker-days tbody td {cursor: pointer;}
 .datepicker th {text-align: center;}
 .datepicker span.month, .datepicker span.year {padding: 0 20px;}

@@ -108,7 +108,7 @@
         <div id="bulk-action-delete-all-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
             <div class="modal-dialog ">
                 <div class="modal-content">
-                    <g:form method="POST" mapping="" role="form" id="" class="submitOrangeButton" autocomplete="off">
+                    <g:form method="POST" mapping="bulkActionRemoveContactsAjax" role="form" class="submitOrangeButton" autocomplete="off" data-type="1">
                         <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.deleteAll"/></h4></div>
                         <div class="modal-body">
                             <p>
@@ -125,16 +125,16 @@
         <div id="bulk-action-add-tags-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
             <div class="modal-dialog ">
                 <div class="modal-content">
-                    %{--<formUtil:validateForm bean="${timeZoneCommand}" form="timeZoneForm" dirtyControl="false"/>--}%
-                    <g:form method="POST" mapping="" role="form" id="" class="submitOrangeButton" autocomplete="off">
+                    <g:form method="POST" mapping="bulkActionAddTagsContactsAjax" role="form" class="submitOrangeButton" autocomplete="off" data-type="2">
                         <div class="modal-header"><h4><g:message code="tools.contact.bulkActions.addTags"/></h4></div>
                         <div class="modal-body">
                             <p>
                                 <g:message code="modal.bulkAction.addTags.explain" args="[contacts.total]"/>
                             </p>
-                            <fieldset class="time-zone">
-                                <div class="row form-group">
-                                    %{--<formUtil:selectTimeZone command="${timeZoneCommand}" field="timeZoneId" required="true" cssLabel="hide" cssClass="col-xs-12 col-sm-4"/>--}%
+                            <fieldset class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="addTagsField" class="sr-only"><g:message code="tools.contact.bulkActions.addTags"/> </label>
+                                    <input id="addTagsField" name="tags" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" />
                                 </div>
                             </fieldset>
                         </div>

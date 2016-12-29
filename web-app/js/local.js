@@ -700,18 +700,19 @@ $(document).ready(function() {
         }
     });
 
-    // Bulk actions for contacts
+    // Bulk actions -- Open modal
     $("#listContacts").on("change", "#contactsOrderOptions .bulk-actions", function(e) {
-        var value = $(this).val();
+        e.preventDefault();
+        var type = parseInt($(this).val());
 
-        // Reset value
+        // Reset type
         $(this).val(-1);
 
         var numSelectedContactsElement = $('.num-selected-contacts');
         var contactsSelected = $('#contactsList .checkbox-inline input[type=checkbox]:checked');
-        var allContactsSelected = $('#contactsOrderOptions .checkbox-inline input[type=checkbox]').is(':checked');
+        var isAllContactsSelected = $('#contactsOrderOptions .checkbox-inline input[type=checkbox]').is(':checked');
 
-        if (allContactsSelected) {
+        if (isAllContactsSelected) {
             // Update text
             numSelectedContactsElement.text(filterContacts.getFilterSelectedAmountOfContacts());
         } else {
@@ -719,51 +720,71 @@ $(document).ready(function() {
             numSelectedContactsElement.text(contactsSelected.length);
         }
 
-        // Update filter and ids
-        var contactCheckboxes = $("#contactsList .checkbox-inline input[type=checkbox]");
-        $('filter-delete-all').val($('#contactFilterForm').serialize());
-        $('ids-delete-all').val(contactCheckboxes.serialize());
-
-        var value = "";
-        contactCheckboxes.each(function() {
-            value += $(this).val() + ",";
-        });
-        value = value.slice(0, -1);
-
-        switch (parseInt(value)) {
+        // Select modal
+        switch (type) {
             case 1:
                 // "Delete all" popup
                 $('#bulk-action-delete-all-modal').modal('show');
-                // Fill in hidden input
-                var link = $(this).parents("ul").attr("data-link")
-                var postData = {page:page}
-                $.post(url, postData)
-                    .done(function(data) {
-                        var $ul = $form.find("ul");
-                        $ul.html("");
-                        for (i = 0; i < data.tags.length; i++) {
-                            $ul.append('<li><a href="#" class="tag label label-info">'+data.tags[i]+'</a></li>');
-                            tagsnames.add({name:data.tags[i]})
-                        }
-                        closeInputs.click();
-                    })
-                    .fail(function(messageError) {
-                        display.warn("Error");
-                    })
-                    .always(function() {
-                        pageLoadingOff();
-                    });
                 break;
             case 2:
                 // "Add tags" popup
                 $('#bulk-action-add-tags-modal').modal('show');
-                // Fill in hidden input
-
                 break;
         }
     });
 
-    // "Check-all" checkbox
+    // Bulk actions -- Submit modal form
+    $('#bulk-action-delete-all-modal form, ' +
+        '#bulk-action-add-tags-modal form').submit(function (e) {
+        e.preventDefault();
+
+        var contactsSelected = $('#contactsList .checkbox-inline input[type=checkbox]:checked');
+        var isAllContactsSelected = $('#contactsOrderOptions .checkbox-inline input[type=checkbox]').is(':checked');
+
+        var actionPath = $(this).attr("action");
+        var postData = "";
+
+        if (isAllContactsSelected) {
+            // Send filter
+            postData = $('#contactFilterForm').serialize();
+            postData += "&checkedAll=1";
+        } else {
+            // Send list of ids
+            var listIds = "listIds=";
+            contactsSelected.each(function () {
+                listIds += $(this).val() + ",";
+            });
+            listIds = listIds.slice(0, -1);
+            postData = listIds;
+            postData += "&checkedAll=0";
+        }
+
+        // Additional params
+        var type = parseInt($(this).data('type'));
+        switch (type) {
+            case 2:
+                postData += "&tags=" + $('#addTagsField').val();
+                break;
+        }
+
+        $.post(actionPath, postData)
+            .done(function (data) {
+                if (data.status == 'ok') {
+                    // All good
+                    display.success(data.msg);
+                    setTimeout(function() {
+                        location.reload()
+                    }, 1000);
+                } else {
+                    display.warn(data.msg);
+                }
+            })
+            .fail(function () {
+                display.warn("Error");
+            });
+    });
+
+    // Bulk actions -- "Check-all" checkbox
     $('#listContacts').on('change', '#contactsOrderOptions .checkbox-inline input[type=checkbox]', function (e) {
         var contactsCheckbox = $('#contactsList .checkbox-inline input[type=checkbox]');
 
@@ -782,8 +803,7 @@ $(document).ready(function() {
         }
     });
 
-    // "Contact item" checkbox
-    var contactsSelected = [];
+    // Buk actions -- "Contact item" checkbox
     $('#listContacts').on('change', '#contactsList .checkbox-inline input[type=checkbox]', function (e) {
         var contactsSelected = $('#contactsList .checkbox-inline input[type=checkbox]:checked');
 

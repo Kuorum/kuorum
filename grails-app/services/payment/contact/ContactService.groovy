@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.contact.BulkUpdateContactTagsRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.ContactRDTO
 import org.kuorum.rest.model.contact.ContactRSDTO
@@ -14,7 +15,7 @@ import org.kuorum.rest.model.contact.filter.FilterRDTO
 @Transactional
 class ContactService {
 
-    RestKuorumApiService restKuorumApiService;
+    RestKuorumApiService restKuorumApiService
 
     void addBulkContacts(KuorumUser user, List<ContactRDTO> contactRSDTOs){
         Map<String, String> params = [userId:user.id.toString()]
@@ -228,18 +229,18 @@ class ContactService {
     }
     private static Set<Class<?>> getWrapperTypes()
     {
-        Set<Class<?>> ret = new HashSet<Class<?>>();
-        ret.add(Boolean.class);
-        ret.add(Character.class);
-        ret.add(Byte.class);
-        ret.add(Short.class);
-        ret.add(Integer.class);
-        ret.add(Long.class);
-        ret.add(Float.class);
-        ret.add(Double.class);
-        ret.add(Void.class);
-        ret.add(String.class);
-        return ret;
+        Set<Class<?>> ret = new HashSet<Class<?>>()
+        ret.add(Boolean.class)
+        ret.add(Character.class)
+        ret.add(Byte.class)
+        ret.add(Short.class)
+        ret.add(Integer.class)
+        ret.add(Long.class)
+        ret.add(Float.class)
+        ret.add(Double.class)
+        ret.add(Void.class)
+        ret.add(String.class)
+        return ret
     }
 
     ContactRSDTO checkContactUser(KuorumUser user, String email, String digest){
@@ -273,7 +274,45 @@ class ContactService {
             return true;
         }catch (Exception e){
             log.warn("Someone trying to check conctact '${email}' of the user ${user.alias} that not extits")
-            return false;
+            return false
         }
     }
+
+    boolean bulkRemoveContacts(KuorumUser user, SearchContactRSDTO searchContact) {
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = convertObjectToQueryParams("", searchContact)
+
+        try {
+            restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.USER_CONTACTS,
+                params,
+                query
+            )
+
+            return true
+        } catch (Exception e) {
+            log.warn(e.getMessage())
+            return false
+        }
+    }
+
+    boolean bulkAddTagsContacts(KuorumUser user, BulkUpdateContactTagsRDTO bulkUpdateContactTags) {
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [:]
+
+        try {
+            restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.USER_CONTACT_TAGS,
+                params,
+                query,
+                bulkUpdateContactTags,
+                new TypeReference<BulkUpdateContactTagsRDTO>(){}
+            )
+
+            return true
+        } catch (Exception ignored) {
+            return false
+        }
+    }
+
 }

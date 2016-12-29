@@ -1,10 +1,11 @@
 <li>
     <formUtil:checkBox
-        command="${bulkContactActionCommand}"
-        field="ids"
+        command="${bulkActionContactsCommand}"
+        field="listIds"
         label=" "
-        value="${contact.email}"
-        />
+        value="${contact.id}"
+    />
+
     <span class="user-img"><img src="${image.contactImgSrc(contact:contact)}" alt="${contact.name} ${contact.surname}" itemprop="image"></span>
     <h3 class="title">
         <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats">${contact.name} ${contact.surname}</g:link>

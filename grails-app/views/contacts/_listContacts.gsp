@@ -2,13 +2,15 @@
 <!-- LISTADO DE CONTACTOS -->
 <div class="box-ppal list-contacts">
     <div id="contactsOrderOptions" class="box-order-options clearfix">
+
         <formUtil:checkBox
-            command="${bulkContactActionCommand}"
+            command="${bulkActionContactsCommand}"
             field="checkedAll"
             elementId="checked-all"
             value="1"
             label=" "
-            />
+        />
+
         <span class="filter-warning">
             <span class="fa fa-filter ${(searchContacts?.filter?.filterConditions || searchContacts?.filterId)?'on':''}"></span>
             <span class="fa fa-search ${searchContacts?.quickSearch?'on':''}"></span>
@@ -38,7 +40,7 @@
     <ul id="contactsList" class="list">
         <g:if test="${contacts.data}">
             <g:each in="${contacts.data}" var="contact">
-                <g:render template="/contacts/liContact" model="[contact: contact, bulkContactActionCommand: bulkContactActionCommand]"/>
+                <g:render template="/contacts/liContact" model="[contact: contact, bulkActionContactsCommand: bulkActionContactsCommand]"/>
             </g:each>
 
             <!-- MODAL CONFIRM -->

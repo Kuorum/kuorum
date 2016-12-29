@@ -2,6 +2,7 @@ package kuorum.util.rest
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import groovyx.net.http.ContentType
 import groovyx.net.http.EncoderRegistry
 import groovyx.net.http.HttpResponseDecorator
 import groovyx.net.http.ParserRegistry
@@ -25,15 +26,14 @@ class RestKuorumApiService {
     @Value('${kuorum.rest.apiKey}')
     String kuorumRestApiKey
 
-
     def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query) {
-        RESTClient mailKuorumServices = new RESTClient( kuorumRestServices)
-        String path = apiMethod.buildUrl(apiPath, params);
+        RESTClient mailKuorumServices = new RESTClient(kuorumRestServices)
+        String path = apiMethod.buildUrl(apiPath, params)
         def response = mailKuorumServices.delete(
                 path: path,
-                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
-                query:query,
-                requestContentType : groovyx.net.http.ContentType.JSON
+                headers: ["User-Agent": "Kuorum Web", "token": kuorumRestApiKey],
+                query: query,
+                requestContentType: ContentType.JSON
         )
         return response
     }
