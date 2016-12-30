@@ -142,7 +142,7 @@ class FormTagLib {
         String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
         String extraInfo = message(code: "${command.class.name}.${field}.extraInfo", default: '')
 
-        def value = command."${field}"?:''
+        def value = (command."${field}"?:'').encodeAsHTML()
         def error = hasErrors(bean: command, field: field,'error')
 
         ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
