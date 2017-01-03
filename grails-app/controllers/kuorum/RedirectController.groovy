@@ -63,7 +63,7 @@ class RedirectController {
     }
 
     def redirect301Post = {
-        Post post =  Post.get(new ObjectId(params.postId))
+        Post post = ObjectId.isValid(params.postId)?Post.get(new ObjectId(params.postId)):null;
         if (post){
             def link = g.createLink(mapping: "postShow", params: post.encodeAsLinkProperties())
             response.setHeader "Location", link
@@ -71,12 +71,12 @@ class RedirectController {
             render('')
             return false
         }else{
-            def link = g.createLink(mapping: 'landingSearch', params: [word:params.urlName])
+            def link = g.createLink(mapping: 'landingSearch', params: [word:params.urlName], absolute: true)
             link = link + "#results"
             response.setHeader "Location", link
             response.status = HttpStatus.SC_GONE
             flash.message=g.message(code:'redirect.project.notFound')
-            render('')
+            render("<script>window.location = '${link}' ;</script>")
             return false
         }
     }
