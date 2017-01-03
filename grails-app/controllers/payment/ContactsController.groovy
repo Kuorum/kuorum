@@ -1,5 +1,6 @@
 package payment
 
+import com.xlson.groovycsv.CsvParser
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
@@ -63,7 +64,7 @@ class ContactsController {
     def searchContacts(ContactFilterCommand filterCommand){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Boolean asJson = params.asJson?true:false
-        SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO();
+        SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO()
         searchContactRSDTO.page = Long.parseLong(params.page?:"0")
         searchContactRSDTO.size = params.size?Long.parseLong(params.size):searchContactRSDTO.size
         searchContactRSDTO.sort = new SortContactsRDTO(
@@ -126,7 +127,7 @@ class ContactsController {
         if (command.hasErrors() || !contact){
             KuorumUser contactUser = contact.mongoId?KuorumUser.get(new ObjectId(contact.mongoId)):null
             render view: "/contacts/editContact", model:[command:command,contact:contact,contactUser:contactUser]
-            return;
+            return
         }
         contact.name = command.name
         contact.email = command.email
@@ -171,7 +172,7 @@ class ContactsController {
             contactRSDTO = alreadyExistsContact.data.first()
             redirect(mapping: "politicianContactEdit", params: [contactId:contactRSDTO.id])
         }else{
-            ContactRDTO contactRDTO = new ContactRDTO();
+            ContactRDTO contactRDTO = new ContactRDTO()
             contactRDTO.name = command.name
             contactRDTO.surname = command.surname
             contactRDTO.email = command.email
@@ -211,7 +212,7 @@ class ContactsController {
             redirect(mapping: 'politicianContactImportCSV')
             return
         }
-        File csv = File.createTempFile(uploadedFile.originalFilename, CONTACT_CSV_UPLOADED_EXTENSION);
+        File csv = File.createTempFile(uploadedFile.originalFilename, CONTACT_CSV_UPLOADED_EXTENSION)
         log.info("Creating temporal file ${csv.absoluteFile}")
         uploadedFile.transferTo(csv)
         log.info("Saved data into temporal file ${csv.absoluteFile}")
@@ -221,12 +222,12 @@ class ContactsController {
 //        OutputStream outStream = new FileOutputStream(csv);
 //        outStream.write(buffer);
 //        outStream.close()
-        request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csv);
+        request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csv)
         try {
             modelUploadCSVContacts()
         } catch(KuorumException e) {
             log.error("Error in the CSV file", e)
-            flash.error = g.message(code: 'tools.contact.import.csv.error.noEmailColumn')
+            flash.error = g.message(code: e.getMessage())
             redirect(mapping: 'politicianContactImportCSV')
         } catch(Exception e) {
             log.error("Error uploading CSV file", e)
@@ -257,21 +258,20 @@ class ContactsController {
         emailPos = emailPos<0 || emailPos > realPos.size()?emailPos:Integer.parseInt(realPos[emailPos])
         tagsPos = tagsPos?.collect{Integer.parseInt(realPos[it.intValue()])}?:[]
 
-        if (namePos == -1 || emailPos == -1){
+        if (namePos == -1 || emailPos == -1) {
 
             flash.error=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
-            try{
+            try {
                 def model = modelUploadCSVContacts(emailPos, namePos)
                 render(view: 'importCSVContactsUpload', model: model)
-                return;
-            }catch (Exception e){
+                return
+            } catch (Exception e) {
                 log.error("Error uploading CSV file",e)
                 flash.error = g.message(code:'tools.contact.import.csv.error.emptyFile')
                 render(view: 'importContacts')
-                return;
+                return
             }
-
         }
 
 
@@ -290,15 +290,15 @@ class ContactsController {
     private static final def EMAIL_PATTERN =/^[_A-Za-z0-9\\.]+[\+_A-Za-z0-9]*@[A-Za-z0-9-]+\.[A-Za-z]{2,}$/
     private Integer detectEmailPosition(final File csv){
         Iterator lines = parseCsvFile(csv)
-        Integer emailPos = null;
+        Integer emailPos = null
         while (lines.hasNext() && !emailPos){
-            def line = lines.next();
-            Integer i = 0;
+            def line = lines.next()
+            Integer i = 0
             line.values.each{ val ->
                 if (val && val.trim() =~ EMAIL_PATTERN){
-                    emailPos = i;
+                    emailPos = i
                 }
-                i++;
+                i++
             }
         }
         emailPos
@@ -310,44 +310,49 @@ class ContactsController {
                 log.info("Importing ${csv.absoluteFile}")
                 Iterator lines = parseCsvFile(csv)
                 KuorumUser loggedUser = KuorumUser.get(loggedUserId)
-                def contacts =[]
-                //Not save first columns
-                if (notImport>0) {
-                    for ( int i = 0; i < notImport; i++){
-                        lines.next();
+                def contacts = []
+                // Not save first columns
+                if (notImport > 0) {
+                    for (int i = 0; i < notImport; i++){
+                        lines.next()
                     }
                 }
 
                 lines.each{line ->
-                    ContactRDTO contact = new ContactRDTO()
-                    contact.setName(line[namePos])
-                    if (surnamePos > 0 ){
-                        contact.setSurname(line[surnamePos])
+                    // Ignore empty rows
+                    if (line.values.length == 1 && line[0].isEmpty()) {
+                        return
                     }
-                    contact.setEmail(line[emailPos])
+
+                    ContactRDTO contact = new ContactRDTO()
+                    contact.setName(line[namePos] as String)
+                    if (surnamePos > 0) {
+                        contact.setSurname(line[surnamePos] as String)
+                    }
+                    contact.setEmail(line[emailPos] as String)
                     def tagsSecuredTransformed = tagsPos.collect{
-                        try{
+                        try {
                             line[it.intValue()]
-                        }catch (Exception e){
-                            //Wrong file
+                        } catch (Exception ignored) {
+                            // Wrong file
                             ""
                         }
                     }
-                    contact.setTags(tagsSecuredTransformed as Set)
+                    contact.setTags(tagsSecuredTransformed as Set<String>)
                     contact.getTags().addAll(tags)
                     contacts << contact
-                    if (contacts.size() > 1000){
-                        contactService.addBulkContacts(loggedUser,contacts);
-                        contacts.clear();
+                    if (contacts.size() > 1000) {
+                        contactService.addBulkContacts(loggedUser,contacts)
+                        contacts.clear()
                     }
                 }
 
-                contactService.addBulkContacts(loggedUser,contacts);
+                contactService.addBulkContacts(loggedUser,contacts)
                 log.info("Finisehd ${csv.absoluteFile}")
-                csv.delete();
+                csv.delete()
 //                return "SUCCESS";
-            }catch (Exception e){
-                log.error("Captured exception importing contacts: ${e.message}", e);
+            } catch (Exception e) {
+                log.error("Captured exception importing contacts: ${e.message}", e)
             }
 //        }
 //        p.onError { Throwable err ->
@@ -363,45 +368,49 @@ class ContactsController {
 //        }
     }
 
-    private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos= -1){
+    private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos= -1) {
         File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
         log.info("Calculating uploaded name: "+csv)
         String fileNamePattern = "(.*[a-zA-Z])([0-9]+${CONTACT_CSV_UPLOADED_EXTENSION})\$"
         String fileName = (csv.name =~/${fileNamePattern}/)[0][1]
-        def lines = parseCsvFile(csv)
-        def line = lines.next()
-        Set<Integer> emptyColumns= (0..line.values.length) as Set;
-        while (line){
-            line.values.eachWithIndex{val, idx ->
-                if(val){
+        def linesIterator = parseCsvFile(csv)
+        def nextLine = linesIterator.next()
+        Set<Integer> emptyColumns = (0..nextLine.values.length) as Set
+        while (nextLine) {
+            nextLine.values.eachWithIndex{val, idx ->
+                if (val) {
                     emptyColumns.remove(idx)
                 }
+                // Empty row => error
+                if (val.isEmpty()) {
+                    throw new KuorumException("tools.contact.import.csv.error.emptyRow")
+                }
             }
-            if (lines.hasNext()) {
-                line = lines.next()
-            }else {
-                line = null;
+            if (linesIterator.hasNext()) {
+                nextLine = linesIterator.next()
+            } else {
+                nextLine = null
             }
         }
-        if (emailPos == null || emailPos < 0){
-            emailPos = detectEmailPosition(csv);
+        if (emailPos == null || emailPos < 0) {
+            emailPos = detectEmailPosition(csv)
         }
         if (emailPos == null) {
-            throw new KuorumException("No se ha detectado email", "Kuorum.exception.code.importCSVNoEmail")
+            throw new KuorumException("tools.contact.import.csv.error.noEmailColumn")
         }
-        lines = parseCsvFile(csv)
+        linesIterator = parseCsvFile(csv)
         [
-                fileName:fileName,
-                lines: lines,
-                emptyColumns:emptyColumns,
-                emailPos:emailPos,
-                namePos:namePos,
-                surnamePos:surnamePos
+                fileName: fileName,
+                lines: linesIterator,
+                emptyColumns: emptyColumns,
+                emailPos: emailPos,
+                namePos: namePos,
+                surnamePos: surnamePos
         ]
     }
 
     private def parseCsvFile(File csv){
-        InputStream csvStream = new FileInputStream(csv);
+        InputStream csvStream = new FileInputStream(csv)
         String charSet = detectCharset(csv)
         Reader reader
         if (charSet){
@@ -409,18 +418,18 @@ class ContactsController {
         }else{
             reader = new InputStreamReader(csvStream)
         }
-        return com.xlson.groovycsv.CsvParser.parseCsv([readFirstLine:true],reader)
+        return CsvParser.parseCsv([readFirstLine:true],reader)
     }
 
     private String detectCharset(File csv){
-        java.io.FileInputStream fis = new java.io.FileInputStream(csv);
-        byte[] buf = new byte[4096];
-        UniversalDetector detector = new UniversalDetector(null);
-        int nread;
+        FileInputStream fis = new FileInputStream(csv)
+        byte[] buf = new byte[4096]
+        UniversalDetector detector = new UniversalDetector(null)
+        int nread
         while ((nread = fis.read(buf)) > 0 && !detector.isDone()) {
-            detector.handleData(buf, 0, nread);
+            detector.handleData(buf, 0, nread)
         }
-        detector.dataEnd();
+        detector.dataEnd()
         String encoding = detector.getDetectedCharset()
         log.info("File uploaded with encoding: "+encoding)
         fis.close()
@@ -441,21 +450,21 @@ class ContactsController {
     // USING userId instead of alias because the unsusbscribe email can't change.
     @Secured("permitAll")
     def unsubscribe(String userId, String email, String digest){
-        KuorumUser user = KuorumUser.get(new ObjectId(userId));
+        KuorumUser user = KuorumUser.get(new ObjectId(userId))
         if (user == null){
             redirect controller: 'error', action: 'notFound'
-            return ;
+            return
         }
-        ContactRSDTO contact = contactService.checkContactUser(user, email, digest);
+        ContactRSDTO contact = contactService.checkContactUser(user, email, digest)
         if (contact == null){
             redirect controller: 'error', action: 'notFound'
-            return ;
+            return
         }
         boolean success = contactService.unsubscribeContactUser(user, email, digest)
         if (!success){
             flash.error="There was an error deleting your user. If the problem persists, please contact with info@kuorum.org"
             redirect mapping:'userUnsubscribe', params: [userId:userId, email:email, digest: digest]
-            return;
+            return
         }
         [user:user, contact:contact]
     }
@@ -472,6 +481,8 @@ class ContactsController {
             searchContactRSDTO.filter = filterRDTO
         } else if (filterId == 0l) {
             // NO FILTER -> ALL CONTACTS
+        } else {
+            searchContactRSDTO.filterId = filterId
         }
 
         if (bulkRemoveCommand.validate()) {
@@ -506,6 +517,8 @@ class ContactsController {
             searchContactRSDTO.filter = filterRDTO
         } else if (filterId == 0l) {
             // NO FILTER -> ALL CONTACTS
+        } else {
+            searchContactRSDTO.filterId = filterId
         }
 
         if (bulkAddTagsCommand.validate()) {
