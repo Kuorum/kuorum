@@ -1,5 +1,5 @@
-$(function(){
-// abrir opciones nuevo filtro con select
+$(function () {
+    // abrir opciones nuevo filtro con select
     $('#newsletter select#recipients,#searchContacts select#recipients').on('change', filterContacts.changedFilterValueEvent);
     //$('#searchContacts select#recipients').on('change', filterContacts.searchContactsCallBacks.campaignFilterRefresh);
 
@@ -7,14 +7,14 @@ $(function(){
         e.preventDefault();
         var sortField = $(this).attr("data-sort");
         var sortDirection ="ASC";
-        $("#contactsOrderOptions ul.pag-list-sort li a").removeClass("active")
-        $(this).addClass("active")
-        if ($(this).hasClass("asc")){
-            $(this).removeClass("asc")
-            $(this).addClass("desc")
+        $("#contactsOrderOptions ul.pag-list-sort li a").removeClass("active");
+        $(this).addClass("active");
+        if ($(this).hasClass("asc")) {
+            $(this).removeClass("asc");
+            $(this).addClass("desc");
             sortDirection="DESC"
         }else{
-            $(this).removeClass("desc")
+            $(this).removeClass("desc");
             $(this).addClass("asc")
         }
         //console.log(sortDirection)
@@ -24,7 +24,7 @@ $(function(){
     $("#listContacts").on("click", ".pag-list-contacts li a",function(e){
         e.preventDefault();
         if (!$(this).hasClass("disabled")){
-            var page = parseInt($(this).html())-1
+            var page = parseInt($(this).html()) - 1;
             filterContacts.searchContactsCallBacks.page(page)
         }
     });
@@ -32,7 +32,7 @@ $(function(){
     // abrir modal confirmar borrado contacto
     $('#listContacts').on('click','a.contactDelete', function(e) {
         e.preventDefault();
-        var link = $(this).attr("href")
+        var link = $(this).attr("href");
         prepareAndOpenContactDeletionModal(link);
     });
     // cerrar modal confirmar envío campaña
@@ -55,7 +55,7 @@ $(function(){
             });
     });
     function prepareAndOpenContactDeletionModal(link){
-        $("#contactDeleteConfirm a.deleteContactBtn").attr("href", link)
+        $("#contactDeleteConfirm a.deleteContactBtn").attr("href", link);
         $("#contactDeleteConfirm").modal("show");
     }
 
@@ -114,8 +114,8 @@ $(function(){
     });
     $('body').on('click','#deleteFilter', function(e) {
         e.preventDefault();
-        var filterName = filterContacts.getFilterName()
-        var filterAmount = filterContacts.getFilterSelectedAmountOfContacts()
+        var filterName = filterContacts.getFilterName();
+        var filterAmount = filterContacts.getFilterSelectedAmountOfContacts();
         $("#filtersDelete span.filter-name").html(filterName);
         $("#filtersDelete span.filter-ammount").html(filterAmount);
         $("#filtersDelete").modal("show")
@@ -123,7 +123,7 @@ $(function(){
 
     $('body').on('click','#deleteFilterButton', function(e) {
         e.preventDefault();
-        $("#filtersDelete").modal("hide")
+        $("#filtersDelete").modal("hide");
         filterContacts.deleteFilter();
     });
 
@@ -133,7 +133,7 @@ $(function(){
 
 function FilterContacts() {
 
-    var that = this
+    var that = this;
     var callBackBehaviour = "newsletterCallBacks";
 
     var allContactsFilterId= "0";
@@ -157,9 +157,9 @@ function FilterContacts() {
         var $filterData = that.getFormFilterIdSelected();
         var inputs = $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select"))
         var postData = inputs.serializeArray();
-        postData.push({name:"filterId", value:that.getFilterId()})
+        postData.push({name:"filterId", value:that.getFilterId()});
         return postData;
-    }
+    };
 
     this.postFilter = function(link, callback){
         that[callBackBehaviour][callback].prepare();
@@ -179,7 +179,7 @@ function FilterContacts() {
             .always(function() {
                 pageLoadingOff();
             });
-    }
+    };
     this.updateAmountContacts = function(amountContacts){
         $('select#recipients option:selected').attr("data-amountContacts", amountContacts);
         $("#filterData #numberRecipients > span").html(amountContacts);
@@ -188,26 +188,25 @@ function FilterContacts() {
     };
 
     this.updateAmountContactsSilently = function(){
-        $a = $("#refreshFilter")
+        $a = $("#refreshFilter");
         var link = $a.attr("href");
         var callback = $a.attr("data-callaBackFunction");
         filterContacts.postFilter(link, callback);
     };
     this.deleteFilter = function(){
-        var link = $("#deleteFilterButton").attr("href")
+        var link = $("#deleteFilterButton").attr("href");
         var filterId = that.getFilterId();
         var postData = [];
         pageLoadingOn();
-        postData.push({name:'filterId', value:filterId})
+        postData.push({name:'filterId', value:filterId});
         $.post( link, postData)
             .done(function(data) {
-                that.changeFilterValue(allContactsFilterId)
+                that.changeFilterValue(allContactsFilterId);
                 that.removeOptionToSelect(filterId)
             })
             .always(function() {
                 pageLoadingOff();
             });
-
     };
 
     this.getFilterId= function(){
@@ -236,7 +235,7 @@ function FilterContacts() {
         }else{
             loadRealFilter();
         }
-    }
+    };
 
     var loadRealFilter= function(){
         pageLoadingOn();
@@ -244,16 +243,16 @@ function FilterContacts() {
         if (filterId == allContactsFilterId){
             $('select#recipients').val(newFilterId);
             var filterId = $("#recipients").val();
-            that.updateAmountContacts(that.getTotalContacts())
+            that.updateAmountContacts(that.getTotalContacts());
         }
-        var link = $("#filterContacts").attr("href")
+        var link = $("#filterContacts").attr("href");
         var postData = [];
-        postData.push({name:'filterId', value:filterId})
-        $.post( link, postData)
+        postData.push({name:'filterId', value:filterId});
+        $.post(link, postData)
             .done(function(data) {
-                var $filterData = $("#filterData")
+                var $filterData = $("#filterData");
                 $filterData.addClass("hide");
-                $filterData.html(data)
+                $filterData.html(data);
                 $filterData.find("select#field").change(); /* Launch changeFieldOperation() event */
                 $filterData.find("input:disabled").val(""); /* Chapu para eliminar val porque todos los inputs usan el mismo valor del command */
                 slideDownFilterInfo();
@@ -268,42 +267,41 @@ function FilterContacts() {
     };
 
     var slideDownFilterInfo = function(){
-        var $filterData = $("#filterData")
+        var $filterData = $("#filterData");
         $filterData.removeClass("hide");
-        $filterData.children("div").removeClass("hide")
+        $filterData.children("div").removeClass("hide");
         $filterData.slideDown("fast", function(){$("#newFilterContainer").slideDown();$(".disabled-filters").slideDown()});
         $('#filterContacts, #infoToContacts').addClass('on');
-    }
+    };
     this.isFilterEdited=function(){
         return $("input[name=filterEdited]").val() === 'true';
-    }
+    };
 
     this.setFilterAsEdited = function(){
         $("input[name=filterEdited]").val(true);
-    }
+    };
 
     this.changeFieldOperation = function(e){
-        var $input = $(this)
-        var $fieldSet = $input.parents("fieldset.new-filter-options")
-        var val = $input.val()
+        var $input = $(this);
+        var $fieldSet = $input.parents("fieldset.new-filter-options");
+        var val = $input.val();
 
         var activeOperator = ".text-operator";
         if (val == "STATUS"){
             activeOperator = ".status-operator";
         }
 
-        $fieldSet.find(".filter-operator").addClass("hide")
-        $fieldSet.find(activeOperator).removeClass("hide")
+        $fieldSet.find(".filter-operator").addClass("hide");
+        $fieldSet.find(activeOperator).removeClass("hide");
         $fieldSet.find(".filter-operator input, .filter-operator select").prop('disabled', false);
         $fieldSet.find(".filter-operator.hide input, .filter-operator.hide select").prop('disabled', true);
-
-    }
+    };
 
     this.filterEditedEvent = function(e){
         that.setFilterAsEdited();
         that.updateAmountContactsSilently();
         var filterIdSelected = that.getFilterId();
-        var filterId = temporalFilterId
+        var filterId = temporalFilterId;
         if ($("#recipients option[value='"+filterIdSelected+"']").attr("data-anononymus") != undefined) {
             // Custom filter for a campaign. Not change
             //$("#recipients option[value='"+filterIdSelected+"']").attr("value",temporalFilterId);
@@ -322,7 +320,7 @@ function FilterContacts() {
             var filterName = $("#recipients option[value='"+filterIdSelected+"']").html();
             var temporalFilterName =  filterEditedText.replace("{0}", filterName);
             that.addOptionToSelect(filterId, temporalFilterName, "-");
-            that.setFilterName(temporalFilterName)
+            that.setFilterName(temporalFilterName);
             $("#recipients").val(filterId);
             that.setOriginalFilterToTemporalFilter(filterIdSelected)
         }
@@ -352,10 +350,10 @@ function FilterContacts() {
 
     this.setOriginalFilterToTemporalFilter=function(originalFilterId){
         $("#recipients option[value='"+temporalFilterId+"']").attr("data-orginal-filter-id", originalFilterId)
-    }
+    };
     this.getOriginalFilterToTemporalFilter=function(){
         return $("#recipients option[value='"+temporalFilterId+"']").attr("data-orginal-filter-id")
-    }
+    };
 
     this.getFilterSelectedAmountOfContacts= function(){
         return $('select#recipients option:selected').attr("data-amountContacts");
@@ -363,7 +361,7 @@ function FilterContacts() {
 
     this.getTotalContacts = function(){
         return $("select#recipients option[value=0]").attr("data-amountcontacts")
-    }
+    };
 
     this.changedFilterValueEvent = function(){
         var filterIdBeforeCloseOptions =that.getFilterId();
@@ -387,21 +385,21 @@ function FilterContacts() {
     };
     this.showModalListContacts=function(){
         var postData = that.serializedFilterData();
-        postData.push({name:'page', value:0})
-        postData.push({name:'size', value:100})
-        postData.push({name:'asJson', value:true})
-        var link = $("#infoToContacts").attr("href")
+        postData.push({name:'page', value:0});
+        postData.push({name:'size', value:100});
+        postData.push({name:'asJson', value:true});
+        var link = $("#infoToContacts").attr("href");
         pageLoadingOn();
-        $.post( link, postData)
+        $.post(link, postData)
             .done(function(data) {
                 var table=$("#filtersInfo .modal-body table tbody");
-                table.html("")
+                table.html("");
                 $.each(data.data, function(idx, contact){
                     table.append("<tr><td>"+contact.name+"</td><td>"+contact.email+"</td></tr>")
-                })
-                var txt = $("#filtersRecipients").text().replace(/\d+/, data.total)
-                $("#filtersRecipients").text(txt)
-                that.updateAmountContacts(data.total)
+                });
+                var txt = $("#filtersRecipients").text().replace(/\d+/, data.total);
+                $("#filtersRecipients").text(txt);
+                that.updateAmountContacts(data.total);
 
                 pageLoadingOff();
                 $("#filtersInfo").modal("show");
@@ -412,7 +410,7 @@ function FilterContacts() {
             .always(function() {
                 pageLoadingOff();
             });
-    }
+    };
 
     this.addOptionToSelect=function(filterId, name, amountOfContacts){
         if ($("#recipients option[value='"+filterId+"']").length <= 0){
@@ -428,7 +426,18 @@ function FilterContacts() {
         if ($("#recipients option[value='"+filterId+"']").length > 0){
             $("#recipients option[value='"+filterId+"']").remove()
         }
-    }
+    };
+
+    this.addFilterTag = function (tagName) {
+        // TODO
+        // New input in filter
+        $('#filterData .addButton').click();
+        // Fill in filter
+        var dynamicFieldset = $('#filterData .dynamic-fieldset');
+        dynamicFieldset.eq(dynamicFieldset.length - 1);
+        // Set tag name
+        dynamicFieldset.find('#value').eq(0).val(tagName);
+    };
 
     this.newsletterCallBacks = {
         init:function(){
@@ -477,7 +486,7 @@ function FilterContacts() {
                 }
             },
             success:function(data){
-                that.removeOptionToSelect(temporalFilterId)
+                that.removeOptionToSelect(temporalFilterId);
                 that.closeFilterCampaignsOptions();
             }
         },
@@ -488,15 +497,15 @@ function FilterContacts() {
                 var htmlFilter = data.data.filterRendered;
 
                 $("#newFilterContainer").append(htmlFilter);
-                var filter = data.data.filter
-                that.addOptionToSelect(filter.id, filter.name, filter.amountOfContacts)
+                var filter = data.data.filter;
+                that.addOptionToSelect(filter.id, filter.name, filter.amountOfContacts);
                 $("#recipients").val(filter.id);
                 that.closeFilterCampaignsOptions();
             }
         }
     };
 
-    this.init=function(){
+    this.init = function () {
         $("#filterData").on("change", "input,select:not(#field)", that.filterEditedEvent);
         $("#filterData").on("change", "select#field", that.changeFieldOperation);
         this[callBackBehaviour].init()
@@ -541,7 +550,6 @@ function FilterContacts() {
                 that.searchContactsCallBacks.loadTableContacts();
             }
         },
-
         loadTableContacts:function(){
             $("#listContacts").html("");
             var link = $("#listContacts").attr("data-ajaxUrlContacts");
@@ -574,21 +582,21 @@ function FilterContacts() {
                     pageLoadingOff();
                 });
         },
-        sort:function(sortField, sortDirection){
-            $("input[name=sort\\.field]").val(sortField)
-            $("input[name=sort\\.direction]").val(sortDirection)
+        sort:function(sortField, sortDirection) {
+            $("input[name=sort\\.field]").val(sortField);
+            $("input[name=sort\\.direction]").val(sortDirection);
             that.searchContactsCallBacks.resetPage();
             that.searchContactsCallBacks.loadTableContacts();
         },
-        page:function(page){
-            $("input[name=page]").val(page)
+        page:function (page) {
+            $("input[name=page]").val(page);
             that.searchContactsCallBacks.loadTableContacts();
         },
-        resetPage:function(){
+        resetPage:function () {
             $("input[name=page]").val(0)
         }
     };
     this.init();
-};
+}
 
-var filterContacts = new FilterContacts()
+var filterContacts = new FilterContacts();

@@ -315,4 +315,23 @@ class ContactService {
         }
     }
 
+    boolean bulkRemoveTagsContacts(KuorumUser user, BulkUpdateContactTagsRDTO bulkUpdateContactTags) {
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [:]
+
+        try {
+            restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.USER_CONTACT_TAGS,
+                    params,
+                    query,
+                    bulkUpdateContactTags,
+                    new TypeReference<BulkUpdateContactTagsRDTO>(){}
+            )
+
+            return true
+        } catch (Exception ignored) {
+            return false
+        }
+    }
+
 }

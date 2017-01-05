@@ -353,7 +353,7 @@ $(document).ready(function() {
         var closeInputs =$form.children(".addTagBtn");
         var url = $form.attr("action");
         var postData = $form.serialize();
-        $.post( url, postData)
+        $.post(url, postData)
             .done(function(data) {
                 var $ul = $form.find("ul");
                 $ul.html("");
@@ -384,6 +384,14 @@ $(document).ready(function() {
         } else {
             $(this).next('#saveFilterAsPopUp').addClass('on');
         }
+    });
+
+    // Add tags to filter when clicked
+    $('body').on('click', '.addTagBtn', function() {
+        // Get value
+        var value = $(this).text();
+        // TODO: Add to filter
+
     });
 
     // comportamiento para seleccionar filas en la tabla de importar contactos
@@ -730,12 +738,17 @@ $(document).ready(function() {
                 // "Add tags" popup
                 $('#bulk-action-add-tags-modal').modal('show');
                 break;
+            case 3:
+                // "Remove tags" popup
+                $('#bulk-action-remove-tags-modal').modal('show');
+                break;
         }
     });
 
     // Bulk actions -- Submit modal form
     $('#bulk-action-delete-all-modal form, ' +
-        '#bulk-action-add-tags-modal form').submit(function (e) {
+        '#bulk-action-add-tags-modal form, ' +
+        '#bulk-action-remove-tags-modal form').submit(function (e) {
         e.preventDefault();
 
         var contactsSelected = $('#contactsList .checkbox-inline input[type=checkbox]:checked');
@@ -765,6 +778,9 @@ $(document).ready(function() {
             case 2:
                 postData += "&tags=" + $('#addTagsField').val();
                 break;
+            case 3:
+                postData += "&tags=" + $('#removeTagsField').val();
+                break;
         }
 
         $.post(actionPath, postData)
@@ -779,6 +795,7 @@ $(document).ready(function() {
                         // Close modals
                         $('#bulk-action-delete-all-modal').modal('hide');
                         $('#bulk-action-add-tags-modal').modal('hide');
+                        $('#bulk-action-remove-tags-modal').modal('hide');
                     }, 1000);
                 } else {
                     display.warn(data.msg);
