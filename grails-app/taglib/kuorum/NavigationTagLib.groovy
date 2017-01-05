@@ -64,7 +64,7 @@ class NavigationTagLib {
         def languagesRegex = str.toString()
         def langAtStartRegex = /^(\/($languagesRegex))$/
         def langAtMiddleRegex = /^(\/($languagesRegex)\/)/
-        def isUsingLanguages = (urlPath =~ langAtStartRegex || urlPath =~ langAtMiddleRegex)
+        def isUsingPathLanguages = (urlPath =~ langAtStartRegex || urlPath =~ langAtMiddleRegex)
 
         def usingLanguagesList = new ArrayList<Boolean>()
         def languageUrlList = new ArrayList<String>()
@@ -74,12 +74,21 @@ class NavigationTagLib {
             )
 
             String link;
-            if (isUsingLanguages) {
+            params;
+            if (isUsingPathLanguages) {
+                // Using "/es" or "/es/"
                 link = request.contextPath + urlPath
                         .replaceFirst(langAtStartRegex, "/" + lang.locale.language)
                         .replaceFirst(langAtMiddleRegex, "/" + lang.locale.language + "/") +
                         (request.queryString ? "?" + request.queryString : "");
+            } else if (request.getParameter("lang") != null && !request.getParameter("lang").isEmpty()) {
+                // Using "?lang=es" or "&lang=es"
+                link = request.contextPath + urlPath
+                        .replaceFirst(langAtStartRegex, "/" + lang.locale.language)
+                        .replaceFirst(langAtMiddleRegex, "/" + lang.locale.language + "/") +
+                        ("?" + request.queryString.replace("lang=" + request.getParameter("lang"), "lang=" + lang.locale.language));
             } else {
+                // Not using any language
                 link = request.contextPath + urlPath
                         .replaceFirst(langAtStartRegex, "/" + lang.locale.language)
                         .replaceFirst(langAtMiddleRegex, "/" + lang.locale.language + "/") +
@@ -94,7 +103,7 @@ class NavigationTagLib {
             // es, en, it, ...
             "languageList": languageList,
             // If using "/$lang/" then true
-            "isUsingLanguages": isUsingLanguages,
+            "isUsingPathLanguages": isUsingPathLanguages,
             // true, false, false, ...
             "usingLanguagesList": usingLanguagesList,
             // "/kuorum/es", "/kuorum/en", "/kuorum/it", ...
@@ -112,6 +121,13 @@ class NavigationTagLib {
                             hreflang="${languages["languageList"][i].locale.language}" />
                 """
         }
+
+        // X-default
+        out << """
+            <link   rel="alternate"
+                    href="https://kuorum.org${request.forwardURI}"
+                    hreflang="x-default" />
+            """
     }
 
     def generateLangSelector = { attrs, body ->
