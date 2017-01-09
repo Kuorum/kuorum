@@ -8,6 +8,7 @@ import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.BulkActionContactsCommand
 import kuorum.web.commands.payment.contact.BulkAddTagsContactsCommand
+import kuorum.web.commands.payment.contact.BulkRemoveTagsContactsCommand
 import kuorum.web.commands.payment.contact.ContactCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.contact.NewContactCommand
@@ -524,7 +525,7 @@ class ContactsController {
         if (bulkAddTagsCommand.validate()) {
             BulkUpdateContactTagsRDTO bulkUpdateContactTagsRDTO = new BulkUpdateContactTagsRDTO()
             bulkUpdateContactTagsRDTO.setSearchContacts(searchContactRSDTO)
-            bulkUpdateContactTagsRDTO.setTagNames(bulkAddTagsCommand.tags)
+            bulkUpdateContactTagsRDTO.setAddTagNames(bulkAddTagsCommand.tags)
 
             if (contactService.bulkAddTagsContacts(user, bulkUpdateContactTagsRDTO)) {
                 return render ([
@@ -534,13 +535,53 @@ class ContactsController {
             } else {
                 return render ([
                     status: 'error',
-                    msg: g.message(code: "modal.bulkAction.addTags.error.deleting")
+                    msg: g.message(code: "modal.bulkAction.addTags.error.adding")
                 ] as JSON)
             }
         } else {
             return render ([
                 status: 'error',
                 msg: g.message(code: "modal.bulkAction.addTags.error.validating")
+            ] as JSON)
+        }
+    }
+
+    def removeTagsBulkAction(BulkRemoveTagsContactsCommand bulkRemoveTagsCommand) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+
+        // Filter
+        SearchContactRSDTO searchContactRSDTO = new SearchContactRSDTO()
+        Long filterId = Long.parseLong(params.filterId?:'0')
+        FilterRDTO filterRDTO = bulkRemoveTagsCommand.buildFilter()
+
+        if (filterId < 0 || filterRDTO.filterConditions) {
+            searchContactRSDTO.filter = filterRDTO
+        } else if (filterId == 0l) {
+            // NO FILTER -> ALL CONTACTS
+        } else {
+            searchContactRSDTO.filterId = filterId
+        }
+
+        if (bulkRemoveTagsCommand.validate()) {
+            BulkUpdateContactTagsRDTO bulkUpdateContactTagsRDTO = new BulkUpdateContactTagsRDTO()
+            bulkUpdateContactTagsRDTO.setSearchContacts(searchContactRSDTO)
+            bulkUpdateContactTagsRDTO.setRemoveTagNames(bulkRemoveTagsCommand.tags)
+
+            if (contactService.bulkRemoveTagsContacts(user, bulkUpdateContactTagsRDTO)) {
+                return render ([
+                        status: 'ok',
+                        msg: g.message(code: "modal.bulkAction.removeTags.processing")
+                ] as JSON)
+            } else {
+                return render ([
+                        status: 'error',
+                        msg: g.message(code: "modal.bulkAction.removeTags.error.removing")
+                ] as JSON)
+            }
+        } else {
+            return render ([
+                    status: 'error',
+                    msg: g.message(code: "modal.bulkAction.removeTags.error.validating")
             ] as JSON)
         }
     }
