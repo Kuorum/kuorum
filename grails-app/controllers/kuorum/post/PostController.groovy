@@ -41,7 +41,11 @@ class PostController {
     }
 
     def show(){
-        Post post = params.post //Intellij Detects type for autocomplete
+        Post post = params.post
+        if (!post){
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return;
+        }
         KuorumUser user= null
         PostVote userVote=null
         if (springSecurityService.isLoggedIn()){

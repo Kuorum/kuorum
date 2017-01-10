@@ -1160,7 +1160,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .header-campaign .qq-upload-button {line-height: 1; padding: 0;}
 
 .tags-campaign .bootstrap-tagsinput {width: 100%;}
-.tags-campaign .tag-events {color:#dedede; padding-left:2em;margin-top:1em;}
+.tags-campaign .tag-events { padding-left:2em;margin-top:1em;}
 
 
 #filterContacts {border: 1px solid #20a2ea; border-radius: 2px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #20a2ea;}
@@ -1295,12 +1295,13 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 }
 .box-order-options .filter-warning span.on {background-color:#dedede; color: #fff}
 .box-order-options .checkbox-inline {float: left; padding: 0px; margin-top: 4px;}
-.box-order-options .bulk-actions {width: 16%; display: inline-block;}
+.box-order-options .bulk-actions {width: 16%; display: inline-block; float:left;}
 .pag-list-campaigns, .pag-list-contacts {margin: 20px 0;}
 .pag-list-campaigns > ul, .pag-list-contacts > ul {float: right; padding: 0; margin: 0;}
 .pag-list-campaigns > ul > li, .pag-list-contacts > ul > li {list-style: none; display: inline-block;}
 .pag-list-campaigns > span, .pag-list-contacts > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
 .pag-list-campaigns a, .pag-list-contacts a {text-align: center; color: #545454; display: block; float: right; width: 32px; height: 32px; line-height: 28px; margin-left: 10px; border: 1px solid #e5e5e5; background-color: #fff; background-position: center center; background-repeat: no-repeat;}
+.pag-list-campaigns a.disabled, .pag-list-contacts a.disabled {background-color: #f7f7f7; color:#ddd}
 .pag-list-campaigns a:hover, .pag-list-campaigns a:focus, .pag-list-campaigns a:active, .pag-list-campaigns .disabled a,
 .pag-list-contacts a:hover, .pag-list-contacts a:focus, .pag-list-contacts a:active, .pag-list-contacts .disabled a {background-color: #f7f7f7; text-decoration: none;}
 .pag-list-campaigns .active a, .pag-list-contacts .active a {background-color: #ddd;}
@@ -1308,7 +1309,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .pag-list-campaigns .disabled a,
 .pag-list-contacts .active a,
 .pag-list-contacts .disabled a {cursor: default; pointer-events: none;}
-.pag-list-contacts .disabled a {border: none; width: 5px; margin-left: 1px;}
+.pag-list-contacts .disabled a {border: none; width: 5px; margin-left: 1px; color:}
 .searchContainer {position: relative;}
 .searchContainer::after {font-family: FontAwesome; content:''; position: absolute; right: 8px; top: 5px; color: #a8a8a8;}
 /*.nextCampaings {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAARCAYAAADkIz3lAAABTElEQVQoU32SPUvDUBSGvZUMDqIuuusiQiYHcdPJLYaYiItYP8Au4uJSUAk4WASniq3iVhFqPsjkHFwc/AUODk5OAcFNTOJzxZbGNr3wcsk9T957zpuIgT7LsqyRJEkqQog7kcdpmjasKEqV+gbgcU8QaALoCmgZXRcKhcMuUNf1KQoNXOaBKlEUHYVh+J0B6WmWnu4BJlFZVdUz27YT2V4bNAxjEafbNE3Hcdt2XbdBPW3N8AuusNhkT/Ltoud5D/+HFKZp7uJyTuENxx3HcZ56JSEwa1JYRRc47eXFJcFpijW0QG9VdIDrV9fV8oBIRrm2BrTGYzOO41IQBB+dcHtqohkimlOK++gReAv4NTN16wF4EKCM8wlnLwy57vv+cybHzmvItAh8ydkn2pRx5f4UDLkEdIPGUCkX/PsQc+x13Ot9QQnT9wx/0vsPX0htrxF9MPAAAAAASUVORK5CYII=');}
@@ -5697,13 +5698,15 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #toFilters > div:last-child {text-align: left;}
     #filterContacts {margin-top: 0;}
     .box-order-options {padding-left: 25px; padding-right: 25px;}
-    .box-order-options > ul {width: 45%;}
+    .box-order-options > ul {width: 25%;}
     .box-order-options > ul li, .box-order-options > ul li:last-child {margin: 0 10px 10px; display: inline-block;}
-    #contactsOrderOptions.box-order-options > ul {width: 22%;}
+    /*#s> ul {width: 22%;}*/
+    .box-order-options > div {width: 29%; float: right; margin-top: 0}
+
     #contactsOrderOptions.box-order-options > ul li,
     #contactsOrderOptions.box-order-options > ul li:last-child {margin: 0 10px;}
 
-    .box-order-options > div {width: 30%; float: right; margin-top: 0}
+    #campaignsOrderOptions.box-order-options > ul.sort-options {width: 60%;}
     .nav-tabs.simple > li > a {padding: 10px 15px; float: left;}
     .new-filter-actions {margin-top: -23px; margin-bottom: 35px;}
     .new-filter-options .form-control {margin-left: 20px;}
@@ -5736,7 +5739,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts .searchContainer {margin: 0;}
     #boxfiltersContacts .dropdown-menu {min-width: 99px;}
-    #contactsOrderOptions.box-order-options > div {width: 38%;}
+    /*#contactsOrderOptions.box-order-options > div {width: 25%;}*/
 
     /* NEW / EDIT CONTACT */
     .edit-contact-header > div:first-child {padding: 10px 0 0 140px;}
@@ -6064,8 +6067,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts .dropdown-menu {min-width: 140px;}
     #boxfiltersContacts ul li .btn {min-width: 138px;}
-    #contactsOrderOptions.box-order-options > ul {width: 25%;}
-    #contactsOrderOptions.box-order-options > div {width: 28%;}
+    /*#contactsOrderOptions.box-order-options > ul {width: 25%;}*/
+    /*#contactsOrderOptions.box-order-options > div {width: 28%;}*/
     #contactsList > li > h3, #contactsList > li > p {padding-right: 74%;}
     .container-lists {position: absolute; right: 0; top: 7px; border-left: 1px solid #e5e5e5; width: 68%; padding: 10px 20px; margin: 0;}
     #contactsList > li {min-height: 105px; padding-top: 15px;}

@@ -692,7 +692,7 @@ $(document).ready(function() {
         e.preventDefault();
         if (!$(this).hasClass("disabled")){
             pageLoadingOn();
-            var page = parseInt($(this).html())-1
+            var page = parseInt($(this).attr("data-nextPage"));
             var link = $(this).parents("ul").attr("data-link")
             var postData = {page:page}
             $.post( link, postData)
