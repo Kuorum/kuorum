@@ -24,7 +24,7 @@ $(function () {
     $("#listContacts").on("click", ".pag-list-contacts li a",function(e){
         e.preventDefault();
         if (!$(this).hasClass("disabled")){
-            var page = parseInt($(this).html()) - 1;
+            var page = parseInt($(this).attr("data-nextPage"));
             filterContacts.searchContactsCallBacks.page(page)
         }
     });
