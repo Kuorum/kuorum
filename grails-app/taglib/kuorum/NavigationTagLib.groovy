@@ -211,7 +211,7 @@ class NavigationTagLib {
         out <<"<ul class='${ulClass}' data-page='${currentPage}' data-size='${sizePage}' data-link='${link}'>"
 
         out << getPaginationLi("<", currentPage-1, currentPage == 0)
-        out << getPaginationLi(">", currentPage+1, totalPages>0 && currentPage >= totalPages)
+        out << getPaginationLi(">", currentPage+1, currentPage >= totalPages )
 
         out <<"</ul>"
         Long upperLimit = (currentPage +1) * sizePage
