@@ -383,9 +383,9 @@ class ContactsController {
                     emptyColumns.remove(idx)
                 }
                 // Empty row => error
-                if (val.isEmpty()) {
-                    throw new KuorumException("tools.contact.import.csv.error.emptyRow")
-                }
+//                if (val.isEmpty()) {
+//                    throw new KuorumException("tools.contact.import.csv.error.emptyRow")
+//                }
             }
             if (linesIterator.hasNext()) {
                 nextLine = linesIterator.next()
