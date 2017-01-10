@@ -5700,10 +5700,12 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box-order-options > ul {width: 25%;}
     .box-order-options > ul li, .box-order-options > ul li:last-child {margin: 0 10px 10px; display: inline-block;}
     /*#s> ul {width: 22%;}*/
+    .box-order-options > div {width: 29%; float: right; margin-top: 0}
+
     #contactsOrderOptions.box-order-options > ul li,
     #contactsOrderOptions.box-order-options > ul li:last-child {margin: 0 10px;}
 
-    .box-order-options > div {width: 29%; float: right; margin-top: 0}
+    #campaignsOrderOptions.box-order-options > ul.sort-options {width: 60%;}
     .nav-tabs.simple > li > a {padding: 10px 15px; float: left;}
     .new-filter-actions {margin-top: -23px; margin-bottom: 35px;}
     .new-filter-options .form-control {margin-left: 20px;}
