@@ -1159,7 +1159,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .header-campaign .qq-upload-button {line-height: 1; padding: 0;}
 
 .tags-campaign .bootstrap-tagsinput {width: 100%;}
-.tags-campaign .tag-events {color:#dedede; padding-left:2em;margin-top:1em;}
+.tags-campaign .tag-events { padding-left:2em;margin-top:1em;}
 
 
 #filterContacts {border: 1px solid #20a2ea; border-radius: 2px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #20a2ea;}
