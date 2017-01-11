@@ -7233,6 +7233,14 @@ header .header-msg h6:hover{
 .config .admin-user-options > ul > li #switchUserLink{ font-style: italic; }
 
 /*** user-box ***/
+.user-box {
+    display: inline-block;
+}
+
+div [class^='user-box col-'] {
+    padding: 0;
+}
+
 .user-box img{
     height: 34px;
     width: 34px;
@@ -7259,9 +7267,10 @@ header .header-msg h6:hover{
 }
 
 /*** Leader post section ***/
-.leader-post {
+.leader-post, .comment-box {
     background-color: #FFF;
     border: 1px solid #F0F0F0;
+    margin-bottom: 20px;
 }
 
 .leader-post h1.title {
@@ -7304,7 +7313,7 @@ header .header-msg h6:hover{
 }
 
 .leader-post > .footer {
-    padding: 0 30px 0 30px;
+    padding: 0 20px 0 20px;
 }
 
 .leader-post > .footer .labels, .leader-post > .footer .social {
@@ -7367,4 +7376,41 @@ header .header-msg h6:hover{
     text-decoration: inherit;
     font-size: 14px;
     padding-right: 5px;
+}
+
+/*** commment-box ***/
+.comment-box {
+    padding: 30px 20px 30px 20px;
+}
+
+div [class^='comment-box col-'] {
+    padding: 0;
+}
+
+.comment-box .comment {
+    display: inline-block;
+    border: 1px solid #F0F0F0;
+}
+
+.comment-box .comment {
+    font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+    font-style: normal;
+    font-size: 21px;
+    line-height: 1.58;
+    padding: 0 20px 0 20px;
+}
+
+.comment-box .comment p a {
+    color: #428bca;
+    text-decoration: underline;
+}
+
+.comment-box button.publish {
+    padding: 10px;
+    margin: 20px 0 20px 0;
+    background: none;
+    border: 1px solid #20a2ea;
+    color: #20a2ea;
+    font-weight: bold;
+    border-radius: 3px;
 }

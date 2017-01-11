@@ -367,7 +367,7 @@
                                             <span class="user-box-name">Andy Burnham</span></br>
                                             <span class="user-box-role">Labour</span>
                                         </p>
-                                    </div>
+                                    </div> <!-- ^user-box !-->
                                     <div class="clearfix">
                                         <span class="time-ago pull-left">2 months ago</span>
                                         <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>
@@ -428,12 +428,20 @@
                                             </span>
                                         </li>
                                     </ul>
+
                                     <div class="comment-counter pull-right">
                                         <span class="fa fa-lightbulb-o" aria-hidden="true"></span>
                                         <span class="number">36</span>
-                                    </div>
-                                    
+                                    </div>                                
                                 </div>
+                            </div> <!-- ^leader-post !-->
+                            
+                            <div class="comment-box clearfix">
+                                <div class="user-box col-lg-1">
+                                    <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
+                                </div>
+                                <div class="comment editable col-lg-11"></div>
+                                <button class="pull-right publish">Publish</button>
                             </div>
 
                         </section>
@@ -938,6 +946,21 @@
         <!-- el siguiente cargar al integrar -->
         <!-- <script src="js/custom.js"></script> -->
 
+        <script src="js/medium-editor/medium-editor.js"></script>
+        <link rel="stylesheet" href="css/medium-editor/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="css/medium-editor/themes/default.css" type="text/css" media="screen" charset="utf-8">
+
+        <script>
+            var editor = new MediumEditor('.editable', {
+                buttonLabels: 'fontawesome',
+                placeholder: {
+                    text: 'Lorem ipsum'
+                },
+                toolbar: {
+                    buttons: ['anchor']
+                }
+            });
+        </script>
     </body>
 
 </html>
