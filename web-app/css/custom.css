@@ -527,7 +527,7 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     letter-spacing: 0.4px;
     font-size: 15px;
     font-size: 1.5rem;
-    background-color: #ff9431 !important;
+    background-color: #ff9431;
     padding: 6px 12px !important;
     border-radius: 3px;
     border: none;
@@ -899,15 +899,15 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .delhap:hover,
 .delhap:active,
 .delhap:focus {background-position: -50px -34px}
-.social li a {color: #ff9431 !important;}
+.social li a {color: #ff9431;}
 .social li a:hover,
 .social li a:active,
-.social li a:focus {color: #fff !important;}
-.social li .fa-circle {color: #fff !important;}
-.social li .fa-circle.dark {color: #A8A8A8 !important;}
+.social li a:focus {color: #fff;}
+.social li .fa-circle {color: #fff;}
+.social li .fa-circle.dark {color: #A8A8A8;}
 .social li a:hover .fa-circle,
 .social li a:active .fa-circle,
-.social li a:focus .fa-circle {color: #ff9431 !important;}
+.social li a:focus .fa-circle {color: #ff9431;}
 .ethz img {width: 78px; height: 25px;}
 .delhap img {width: 45px; height: 32px;}
 .gpl img,
@@ -5464,7 +5464,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         padding: 6px 14px !important;
         margin: 0;
         color: #fff !important;
-        border-radius: 3px !important;
+        border-radius: 3px;
         text-decoration: none !important;
     }
     .btn-custom-gray {background-color: #a8a8a8 !important; border-color: #a8a8a8 !important;}
@@ -7254,10 +7254,27 @@ div [class^='user-box col-'] {
 }   
 
 .user-box-role {
-    color: #A8A8A8;
     font-size: 11px;
 }
+
+.user-box-role, .time-ago {
+    color: #A8A8A8;
+}
+
 /*** global ***/
+.tooltip {
+    background-color: #FF9431;
+}
+
+.tooltip-arrow {
+    background-color: #FF9431;
+}
+
+.tooltip-inner {
+    background-color: #FF9431;
+    color: white;
+}
+
 .container-fluid {
     margin-top: 10px;
 }
@@ -7265,6 +7282,49 @@ div [class^='user-box col-'] {
 .grey {
     color: #A8A8A8;
 }
+
+.middle-point::before {
+    content: '\00b7';
+}
+
+.btn.btn-see-more {
+    background-color: #A8A8A8;
+    border-radius: 12px;
+}
+
+.btn.btn-see-more.angle-down::after {
+    content: '\f107';
+    margin-left: 10px;
+    font-family: fontawesome;
+}
+
+.btn.btn-see-more.angle-up::after {
+    content: '\f106';
+    margin-left: 10px;
+    font-family: fontawesome;
+}
+
+.nav-pills.nav-underline {
+    margin-bottom: 30px;
+}
+
+.nav-pills.nav-underline > .active > a,
+.nav-pills.nav-underline > .active > a:hover,.nav-pills.nav-underline > li > a:hover {
+    text-decoration: none;
+    border-radius:0px;
+    border-bottom-width: 6px;
+    border-bottom-style: solid;
+    border-bottom-color: #428BCA;
+    color: #428BCA;
+    background-color: transparent;
+}
+.nav-pills.nav-underline > li > a {
+    border-radius: 0px;
+    font-family: arial;
+    color: black;
+    font-size: 20px;
+}
+
 
 /*** Leader post section ***/
 .leader-post, .comment-box {
@@ -7381,6 +7441,9 @@ div [class^='user-box col-'] {
 /*** commment-box ***/
 .comment-box {
     padding: 30px 20px 30px 20px;
+    background-color: #FFF;
+    border: 1px solid #F0F0F0;
+    margin-bottom: 20px;
 }
 
 div [class^='comment-box col-'] {
@@ -7413,4 +7476,139 @@ div [class^='comment-box col-'] {
     color: #20a2ea;
     font-weight: bold;
     border-radius: 3px;
+}
+
+/*** conversation-box ***/
+.conversation-box {
+    padding: 30px 20px 0 20px;
+    background-color: #FFF;
+    border: 1px solid #F0F0F0;
+}
+
+.conversation-box button {
+    border: none;
+    background-color: transparent;
+}
+
+.coversation-box ul {
+    list-style: none outside none;
+    margin: 0 0 30px 0;
+    padding: 0;
+}
+
+.conversation-box ul li {
+    display: inline-block;
+}
+
+.conversation-box ul.icons li button {
+    color: grey;
+}
+
+.conversation-box ul.icons li button:hover {
+    color: #FF9431;
+}
+
+.conversation-box .body {
+    margin-bottom: 30px;
+}
+
+.conversation-box .body p {
+    font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+    font-style: normal;
+    font-size: 21px;
+    line-height: 1.58;
+    padding: 0 20px 0 20px;
+}
+
+.conversation-box .footer {
+    border-top: 1px solid #F0F0F0;
+}
+
+.conversation-box .footer .social li {
+    font-size: 15px;
+}
+
+.conversation-box .footer .social, .conversation-box .footer .comment-counter {
+    padding: 0;
+    margin: 20px 0 20px 0;
+}
+
+.conversation-box .footer .social li.active .fa-circle {
+    color: #428BCA;
+}
+
+.conversation-box .footer .comment-counter {
+    font-size: 2em;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+    color: #A8A8A8;
+}
+.conversation-box .footer .comment-counter .number {
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.conversation-box-comments ul {
+    padding: 30px 20px 0 20px;
+    background-color: transparent;
+    border: 1px solid #F0F0F0;
+    margin-bottom: 20px;
+    border-top: 0;
+}
+
+.conversation-box-comments ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+.conversation-box-comments ul li {
+    display: inline-block;
+    padding: 30px;
+}
+
+.conversation-box-comments ul li.active {
+    border-left-color: #FF9431;
+    border-left-width: 3px;
+    border-left-style: solid;
+}
+
+.conversation-box-comment .body {
+    padding-left: 40px;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+    font-style: normal;
+    font-size: 15px;
+    line-height: 1.58;
+}
+
+.conversation-box-comment .footer {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+    padding-left: 40px;
+    font-size: 14px;
+    color: #A8A8A8;
+}
+
+.conversation-box-comment .footer .number {
+    padding-right: 4px;
+}
+.conversation-box-comments button, .conversation-box-comment .footer button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    padding-right: 4px;
+}
+
+.conversation-box-comments button {
+    margin: 20px 0 20px 0;
+}
+
+.conversation-box-comment .footer button span.delete:hover {
+    text-decoration: underline;
+}
+
+.conversation-box-comments .comment-box {
+    background: transparent;
+    border-top: none;
+}
+.conversation-box-comments .comment-box .editable-comment {
+    background-color: white;
 }
