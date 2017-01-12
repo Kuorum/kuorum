@@ -284,10 +284,10 @@ a:hover,
 a:active,
 a:focus {color: #ff9431;}
 *[rel="tooltip"] {cursor: pointer;}
-.tooltip.top .tooltip-arrow {border-top-color: #dadada !important;}
-.tooltip.left .tooltip-arrow {border-left-color: #dadada !important;}
-.tooltip.right .tooltip-arrow {border-right-color: #dadada !important;}
-.tooltip.bottom .tooltip-arrow {border-bottom-color: #dadada !important;}
+.tooltip.top .tooltip-arrow {border-top-color: #dadada;}
+.tooltip.left .tooltip-arrow {border-left-color: #dadada;}
+.tooltip.right .tooltip-arrow {border-right-color: #dadada;}
+.tooltip.bottom .tooltip-arrow {border-bottom-color: #dadada;}
 .tooltip-inner {background-color: #dadada; color: #545454; font-size: 11px; font-size: 1.1rem;}
 .boxes.likes .progress {background-color: #8ac2fc; border-radius: 0; width: 70%; margin: 0 auto 35px;}
 .likesContainer {position: relative; padding-top: 84px;}
@@ -7261,18 +7261,23 @@ div [class^='user-box col-'] {
     color: #A8A8A8;
 }
 
+.user-box + .tooltip.in {
+    opacity: 1;
+}
+
+.user-box + .tooltip .tooltip-arrow {
+    border-bottom-color: #FF9431;
+    margin-left: -10px;
+    border-width: 0 10px 10px;
+}
+
+.user-box + .tooltip .tooltip-inner {
+    background: transparent;
+}
+
 /*** global ***/
-.tooltip {
-    background-color: #FF9431;
-}
-
-.tooltip-arrow {
-    background-color: #FF9431;
-}
-
 .tooltip-inner {
-    background-color: #FF9431;
-    color: white;
+    max-width: none;
 }
 
 .container-fluid {
@@ -7384,6 +7389,7 @@ div [class^='user-box col-'] {
 
 .leader-post > .footer .labels li, .leader-post > .footer .social li {
     display: inline-block;
+    font-size: 15px;
 }
 
 .leader-post > .footer .comment-counter {
@@ -7490,6 +7496,26 @@ div [class^='comment-box col-'] {
     background-color: transparent;
 }
 
+.conversation-box .pin-propusal + .tooltip.bottom .tooltip-arrow {
+    border-bottom-color: #FF9431;
+    top: -10px;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 0 10px 10px;
+    background-color: transparent;
+}
+
+.conversation-box .pin-propusal + .tooltip.bottom {
+    background-color: #FF9431;
+}
+
+.conversation-box .pin-propusal + .tooltip.bottom .tooltip-inner {
+    background-color: #FF9431;
+    color: white;
+    font-size: 14px;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+}
+
 .coversation-box ul {
     list-style: none outside none;
     margin: 0 0 30px 0;
@@ -7501,7 +7527,7 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box ul.icons li button {
-    color: grey;
+    color: #A8A8A8;
 }
 
 .conversation-box ul.icons li button:hover {
@@ -7518,6 +7544,16 @@ div [class^='comment-box col-'] {
     font-size: 21px;
     line-height: 1.58;
     padding: 0 20px 0 20px;
+}
+
+.conversation-box > .body p a {
+    color: #428bca;
+    text-decoration: underline;
+}
+
+.conversation-box > .body p a:hover {
+    color: #ff9431;
+    text-decoration: underline;
 }
 
 .conversation-box .footer {
@@ -7566,6 +7602,10 @@ div [class^='comment-box col-'] {
     padding: 30px;
 }
 
+.conversation-box-comments button.go-up {
+    color: #A8A8A8;
+}
+
 .conversation-box-comments ul li.active {
     border-left-color: #FF9431;
     border-left-width: 3px;
@@ -7611,4 +7651,53 @@ div [class^='comment-box col-'] {
 }
 .conversation-box-comments .comment-box .editable-comment {
     background-color: white;
+}
+
+/*** vote-user ***/
+.vote-user {
+    background-color: white;
+    padding: 30px 20px 0 20px;
+    background-color: #FFF;
+    border: 1px solid #F0F0F0;
+}
+
+.vote-user .follow-user button.follow {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+    font-size: 12px;
+    padding: 0 10px;
+    background: none;
+    border: 1px solid #20a2ea;
+    color: #20a2ea;
+}
+
+.vote-user .follow-user button.follow::before {
+    content: '\f067';
+    font-family: fontawesome;
+    padding-right: 10px;
+}
+
+/*** rating ***/
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    font-size: 30px;
+    text-align: center;
+}
+
+.rating span.star {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+}
+
+.rating span.star:before {
+    content: "\f005";
+    padding-right: 5px;
+    color: #f5f5f5;
+}
+
+.rating > span:hover:before, .rating > span:hover ~ span:before {
+   content: "\2605";
+   color: orange;
 }

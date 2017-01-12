@@ -466,7 +466,7 @@
                                     </div>
                                     <ul class="icons pull-right">
                                         <li>
-                                            <button type="button" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+                                            <button class="pin-propusal" type="button" data-toggle="tooltip" data-placement="bottom" title="Pin this proposal if you think it is useful for you or your team">
                                                 <span class="fa-stack fa-lg" aria-hidden="true">
                                                     <span class="fa fa-circle dark fa-stack-2x"></span>
                                                     <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
@@ -613,17 +613,40 @@
                                 </ul>
                                 <!-- ^comment-box !-->
                                 <div class="comment-box clearfix">
-                                    <div class="user-box col-lg-1">
+                                    <div class="user-box col-lg-1" data-toggle="tooltip-vote" data-html="true" data-placement="bottom">
                                         <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
                                     </div>
                                     <div class="comment editable-comment col-lg-11"></div>
-                                    <button>
+                                    <button class="go-up">
                                         <span class="pull-left fa-stack fa-lg" aria-hidden="true">
                                             <span class="fa fa-circle dark fa-stack-2x"></span>
                                             <span class="fa fa-angle-up fa-stack-1x fa-inverse"></span>
                                         </span>
                                     </button>
                                     <button class="pull-right publish">Comment</button>
+                                    <!-- ^vote-user !-->
+                                    <div class="vote-user">
+                                        <div class="header clearfix">
+                                            <div class="user-box pull-left">
+                                                <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                                <p class="user-box-data">
+                                                    <span class="user-box-name">Andy Burnham</span>
+                                                </p>
+                                            </div>
+                                            <div class="follow-user pull-right">
+                                                <button type="button" class="follow">Follow</button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="rating">
+                                                <span class="star"></span>
+                                                <span class="star"></span>
+                                                <span class="star"></span>
+                                                <span class="star"></span>
+                                                <span class="star"></span>
+                                            </div>
+                                        </div>
+                                    </div><!-- ^vote-user !-->
                                 </div> <!-- ^comment-box !-->
                             </div>
                         </section>
@@ -1156,6 +1179,24 @@
         <script>
             window.onload = function () {
                 $('[data-toggle="tooltip"]').tooltip();
+                $('[data-toggle="tooltip-vote"]').tooltip({
+                    html: true,
+                    trigger: 'manual',
+                    title : function () {
+                        console.log($(this).parent().find('.vote-user').html());
+                        return $('.vote-user')[0].outerHTML;
+                    }
+                });
+                //mouse events
+                $('[data-toggle="tooltip-vote"]').mouseover(function () {
+                    $(this).tooltip('show');
+                });
+                $('[data-toggle="tooltip-vote"]').on('show.bs.tooltip', function () {
+                    var $self = $(this);
+                    $(this).next('.tooltip').mouseleave(function () {
+                        $self.tooltip('hide');
+                    });  
+                });
             }
         </script>
     </body>
