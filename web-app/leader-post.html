@@ -438,10 +438,10 @@
                             
                             <!-- ^comment-box !-->
                             <div class="comment-box clearfix">
-                                <div class="user-box col-lg-1">
+                                <div class="user-box col-lg-1 col-xs-12">
                                     <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
                                 </div>
-                                <div class="comment editable col-lg-11"></div>
+                                <div class="comment editable col-lg-11 col-xs-12"></div>
                                 <button class="pull-right publish">Publish</button>
                             </div> <!-- ^comment-box !-->
 
@@ -612,18 +612,22 @@
                                     </li>
                                 </ul>
                                 <!-- ^comment-box !-->
-                                <div class="comment-box clearfix">
-                                    <div class="user-box col-lg-1" data-toggle="tooltip-vote" data-html="true" data-placement="bottom">
-                                        <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
+                                <div class="comment-box">
+                                    <div class="row">
+                                        <div class="user-box col-lg-1 col-xs-12" data-toggle="tooltip-vote" data-html="true" data-placement="bottom">
+                                            <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
+                                        </div>
+                                        <div class="comment editable-comment col-lg-11 col-xs-12"></div>
                                     </div>
-                                    <div class="comment editable-comment col-lg-11"></div>
-                                    <button class="go-up">
-                                        <span class="pull-left fa-stack fa-lg" aria-hidden="true">
-                                            <span class="fa fa-circle dark fa-stack-2x"></span>
-                                            <span class="fa fa-angle-up fa-stack-1x fa-inverse"></span>
-                                        </span>
-                                    </button>
-                                    <button class="pull-right publish">Comment</button>
+                                    <div class="row clearfix">
+                                        <button class="go-up pull-left">
+                                            <span class="pull-left fa-stack fa-lg" aria-hidden="true">
+                                                <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                <span class="fa fa-angle-up fa-stack-1x fa-inverse"></span>
+                                            </span>
+                                        </button>
+                                        <button class="pull-right publish">Comment</button>
+                                    </div>
                                     <!-- ^vote-user !-->
                                     <div class="vote-user">
                                         <div class="header clearfix">
@@ -637,7 +641,7 @@
                                                 <button type="button" class="follow">Follow</button>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="body row">
                                             <div class="rating">
                                                 <span class="star"></span>
                                                 <span class="star"></span>

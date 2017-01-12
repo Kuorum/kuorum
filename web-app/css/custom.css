@@ -7245,6 +7245,7 @@ div [class^='user-box col-'] {
     height: 34px;
     width: 34px;
     vertical-align: top;
+    margin-bottom: 20px;
 }
 .user-box-data {
     display: inline-block;
@@ -7280,6 +7281,14 @@ div [class^='user-box col-'] {
     max-width: none;
 }
 
+.m-top-10 {
+    margin-top: 10px;
+}
+
+.m-top-20 {
+    margin-top: 20px;
+}
+
 .container-fluid {
     margin-top: 10px;
 }
@@ -7313,6 +7322,11 @@ div [class^='user-box col-'] {
     margin-bottom: 30px;
 }
 
+.nav-pills.nav-underline li {
+    height: 50px;
+    margin-bottom: 10px;
+}
+
 .nav-pills.nav-underline > .active > a,
 .nav-pills.nav-underline > .active > a:hover,.nav-pills.nav-underline > li > a:hover {
     text-decoration: none;
@@ -7323,6 +7337,7 @@ div [class^='user-box col-'] {
     color: #428BCA;
     background-color: transparent;
 }
+
 .nav-pills.nav-underline > li > a {
     border-radius: 0px;
     font-family: arial;
@@ -7669,6 +7684,7 @@ div [class^='comment-box col-'] {
     background: none;
     border: 1px solid #20a2ea;
     color: #20a2ea;
+    margin: 0;
 }
 
 .vote-user .follow-user button.follow::before {
