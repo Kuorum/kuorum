@@ -1183,8 +1183,7 @@
                     html: true,
                     trigger: 'manual',
                     title : function () {
-                        console.log($(this).parent().find('.vote-user').html());
-                        return $('.vote-user')[0].outerHTML;
+                        return $(this).parent().find('.vote-user')[0].outerHTML;
                     }
                 });
                 //mouse events
