@@ -642,8 +642,8 @@
                                                 <span class="star"></span>
                                                 <span class="star"></span>
                                                 <span class="star"></span>
-                                                <span class="star"></span>
-                                                <span class="star"></span>
+                                                <span class="star active"></span>
+                                                <span class="star active"></span>
                                             </div>
                                         </div>
                                     </div><!-- ^vote-user !-->
@@ -1183,7 +1183,8 @@
                     html: true,
                     trigger: 'manual',
                     title : function () {
-                        return $(this).parent().find('.vote-user')[0].outerHTML;
+                        var voteUser = $(this).parent().find('.vote-user').clone();
+                        return voteUser.addClass('show')[0].outerHTML;
                     }
                 });
                 //mouse events

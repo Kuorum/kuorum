@@ -7655,6 +7655,7 @@ div [class^='comment-box col-'] {
 
 /*** vote-user ***/
 .vote-user {
+    display: none;
     background-color: white;
     padding: 30px 20px 0 20px;
     background-color: #FFF;
@@ -7691,13 +7692,18 @@ div [class^='comment-box col-'] {
     display: inline-block;
 }
 
+.rating span.star.active:before {
+    color: #FF9431;
+}
+
 .rating span.star:before {
     content: "\f005";
     padding-right: 5px;
     color: #f5f5f5;
 }
 
-.rating > span:hover:before, .rating > span:hover ~ span:before {
-   content: "\2605";
-   color: orange;
+.rating > span:hover:before, .rating > span:hover ~ span:before,
+.rating > span.active:hover:before, .rating > span.active:hover ~ span:before {
+   content: "\f005";
+   color: #666666;
 }
