@@ -370,7 +370,7 @@
                                     </div> <!-- ^user-box !-->
                                     <div class="clearfix">
                                         <span class="time-ago pull-left">2 months ago</span>
-                                        <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>
+                                        <a class="edit" href="#"><span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span></a>
                                     </div>
                                 </div>
 
@@ -430,8 +430,10 @@
                                     </ul>
 
                                     <div class="comment-counter pull-right">
-                                        <span class="fa fa-lightbulb-o" aria-hidden="true"></span>
-                                        <span class="number">36</span>
+                                        <button type="button">
+                                            <span class="fa fa-lightbulb-o" aria-hidden="true"></span>
+                                            <span class="number">36</span>
+                                        </button>
                                     </div>                                
                                 </div>
                             </div> <!-- ^leader-post !-->
@@ -442,7 +444,7 @@
                                     <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
                                 </div>
                                 <div class="comment editable col-lg-11 col-xs-12"></div>
-                                <button class="pull-right publish">Publish</button>
+                                <button class="pull-right btn btn-blue inverted publish">Publish</button>
                             </div> <!-- ^comment-box !-->
 
                             <ul class="nav nav-pills nav-underline">
@@ -455,7 +457,7 @@
                             </ul>
 
                             <!-- ^conversation-box !-->
-                            <div class="conversation-box">
+                            <div id ="conversation-box" class="conversation-box">
                                 <div class="header clearfix">
                                     <div class="user-box pull-left">
                                         <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
@@ -482,8 +484,9 @@
                                     <p>
                                         Nunc in consequat <a href="#">nibh</a>. Praesent interdum tincidunt risus, quis egestas urna. Integer dapibus pellentesque consectetur. Etiam orci lacus, placerat eget nisl nec, varius convallis nunc. Nam pharetra dui sit amet magna sagittis, non consequat ipsum vestibulum. Curabitur tempus nisi sit amet mauris commodo, ut hendrerit urna hendrerit. Praesent tempor condimentum nulla in lobortis. Aenean velit turpis, fringilla vitae ligula nec, consequat volutpat tellus. Nulla facilisi. Curabitur vel venenatis leo, ac placerat nisl. Sed fringilla orci tellus, non feugiat nisi sagittis sed.
                                     </p>
-                                    <button type="button" class="btn btn-see-more angle-down">See More</button>
                                 </div>
+                                <button type="button" class="btn btn-see-more angle-down">See More</button>
+
                                 <div class="footer clearfix">
                                     <ul class="social pull-left">
                                         <li class="active">
@@ -515,10 +518,14 @@
                                     </ul>
 
                                     <div class="comment-counter pull-right">
-                                        <span class="fa fa-comment-o" aria-hidden="true"></span>
-                                        <span class="number">36</span>
-                                        <span class="fa fa-heart-o" aria-hidden="true"></span>
-                                        <span class="number">36</span>
+                                        <button type="button">
+                                            <span class="fa fa-comment-o" aria-hidden="true"></span>
+                                            <span class="number">36</span>
+                                        </button>
+                                        <button type="button">
+                                            <span class="fa fa-heart-o" aria-hidden="true"></span>
+                                            <span class="number">36</span>
+                                        </button>
                                     </div>                                
                                 </div>
                             </div>
@@ -618,39 +625,39 @@
                                             <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
                                         </div>
                                         <div class="comment editable-comment col-lg-11 col-xs-12"></div>
+                                        <!-- ^vote-user !-->
+                                        <div class="vote-user">
+                                            <div class="header clearfix">
+                                                <div class="user-box pull-left">
+                                                    <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                                    <p class="user-box-data">
+                                                        <span class="user-box-name">Andy Burnham</span>
+                                                    </p>
+                                                </div>
+                                                <div class="follow-user pull-right">
+                                                    <button type="button" class="follow">Follow</button>
+                                                </div>
+                                            </div>
+                                            <div class="body row">
+                                                <div class="rating">
+                                                    <span class="star"></span>
+                                                    <span class="star"></span>
+                                                    <span class="star"></span>
+                                                    <span class="star active"></span>
+                                                    <span class="star active"></span>
+                                                </div>
+                                            </div>
+                                        </div><!-- ^vote-user !-->
                                     </div>
                                     <div class="row clearfix">
-                                        <button class="go-up pull-left">
+                                        <button class="go-up pull-left" data-anchor="conversation-box">
                                             <span class="pull-left fa-stack fa-lg" aria-hidden="true">
                                                 <span class="fa fa-circle dark fa-stack-2x"></span>
                                                 <span class="fa fa-angle-up fa-stack-1x fa-inverse"></span>
                                             </span>
                                         </button>
-                                        <button class="pull-right publish">Comment</button>
+                                        <button class="pull-right btn btn-blue inverted publish">Comment</button>
                                     </div>
-                                    <!-- ^vote-user !-->
-                                    <div class="vote-user">
-                                        <div class="header clearfix">
-                                            <div class="user-box pull-left">
-                                                <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
-                                                <p class="user-box-data">
-                                                    <span class="user-box-name">Andy Burnham</span>
-                                                </p>
-                                            </div>
-                                            <div class="follow-user pull-right">
-                                                <button type="button" class="follow">Follow</button>
-                                            </div>
-                                        </div>
-                                        <div class="body row">
-                                            <div class="rating">
-                                                <span class="star"></span>
-                                                <span class="star"></span>
-                                                <span class="star"></span>
-                                                <span class="star active"></span>
-                                                <span class="star active"></span>
-                                            </div>
-                                        </div>
-                                    </div><!-- ^vote-user !-->
                                 </div> <!-- ^comment-box !-->
                             </div>
                         </section>
@@ -1182,6 +1189,7 @@
         </script>
         <script>
             window.onload = function () {
+                
                 $('[data-toggle="tooltip"]').tooltip();
                 $('[data-toggle="tooltip-vote"]').tooltip({
                     html: true,
@@ -1200,6 +1208,42 @@
                     $(this).next('.tooltip').mouseleave(function () {
                         $self.tooltip('hide');
                     });  
+                });
+
+                // LightbulButton
+                var lightbulbButton = $('.leader-post > .footer .comment-counter button')[0];
+                lightbulbButton.addEventListener('click', function () {
+                    var commentBox = $('.comment-box .comment')[0];
+                    commentBox.focus();
+                });
+
+                var commentButton = $('.conversation-box .footer .comment-counter button')[0];
+                commentButton.addEventListener('click', function (event) {
+                    var commentBox = $(event.target.parentElement).closest('.conversation-box').next().find('.comment');
+                    commentBox.focus();
+                });
+
+                var conversationBoxButtonSeeMore = $('.conversation-box .btn-see-more')[0];
+                conversationBoxButtonSeeMore.addEventListener('click', function (event) {
+                    var $targetElement = $(event.target)
+                    $targetElement.toggleClass('btn-see-less angle-down angle-up');
+                    if ($targetElement.prev('.body').height() > 134) {
+                        $targetElement.text('See More');
+                        $targetElement.prev('.body').height(134);
+                    } else {
+                        $targetElement.text('Collapse');
+                        $targetElement.prev('.body').height('auto');
+                    }
+                });
+
+                var goUp = $('.conversation-box-comments .go-up')[0];
+                goUp.addEventListener('click', function (event) {
+                    var jumpTo = '#' + $(event.target).closest('button').data('anchor');
+                    var navbarHeight = $('.navbar').height();
+                    var placeholderToJumpPositionTop = $(jumpTo).offset().top;
+                    $('html, body').animate({
+                        scrollTop: placeholderToJumpPositionTop - navbarHeight
+                    }, 2000);
                 });
             }
         </script>

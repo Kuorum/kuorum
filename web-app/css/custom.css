@@ -7245,8 +7245,12 @@ div [class^='user-box col-'] {
     height: 34px;
     width: 34px;
     vertical-align: top;
+}
+
+.user-box .comment {
     margin-bottom: 20px;
 }
+
 .user-box-data {
     display: inline-block;
     line-height: 17px; /* 1/2 user-box img height*/
@@ -7304,6 +7308,7 @@ div [class^='user-box col-'] {
 .btn.btn-see-more {
     background-color: #A8A8A8;
     border-radius: 12px;
+    margin-bottom: 10px;
 }
 
 .btn.btn-see-more.angle-down::after {
@@ -7333,8 +7338,8 @@ div [class^='user-box col-'] {
     border-radius:0px;
     border-bottom-width: 6px;
     border-bottom-style: solid;
-    border-bottom-color: #428BCA;
-    color: #428BCA;
+    border-bottom-color: #20A2EA;
+    color: #20A2EA;
     background-color: transparent;
 }
 
@@ -7370,6 +7375,14 @@ div [class^='user-box col-'] {
     margin: 30px 0 10px 0;
 }
 
+.leader-post .header a.edit {
+    color: #333333;
+}
+
+.leader-post .header a.edit:hover {
+    color: #FF9431;
+}
+
 .leader-post .time-ago {
     color: #A8A8A8;
 }
@@ -7383,7 +7396,7 @@ div [class^='user-box col-'] {
 }
 
 .leader-post > .body p a {
-    color: #428bca;
+    color: #20a2ea;
     text-decoration: underline;
 }
 
@@ -7407,10 +7420,18 @@ div [class^='user-box col-'] {
     font-size: 15px;
 }
 
-.leader-post > .footer .comment-counter {
+.leader-post > .footer .comment-counter button {
     font-size: 35px;
     font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
     color: #A8A8A8;
+    text-decoration: none;
+    border: none;
+    background: transparent;
+}
+
+.leader-post > .footer .comment-counter button:hover {
+    color: #ff9431;
+    text-decoration: none;
 }
 
 .leader-post > .footer .comment-counter .number {
@@ -7433,6 +7454,8 @@ div [class^='user-box col-'] {
 .leader-post-stats li .fa {
     font-size: 20px;
     margin-right: 10px;
+    text-align: center;
+    width: 1em;
 }
 
 .leader-post-stats li .info {
@@ -7485,18 +7508,12 @@ div [class^='comment-box col-'] {
 }
 
 .comment-box .comment p a {
-    color: #428bca;
+    color: #20a2ea;
     text-decoration: underline;
 }
 
-.comment-box button.publish {
-    padding: 10px;
+.comment-box button.btn-blue.inverted.publish {
     margin: 20px 0 20px 0;
-    background: none;
-    border: 1px solid #20a2ea;
-    color: #20a2ea;
-    font-weight: bold;
-    border-radius: 3px;
 }
 
 /*** conversation-box ***/
@@ -7522,6 +7539,7 @@ div [class^='comment-box col-'] {
 
 .conversation-box .pin-propusal + .tooltip.bottom {
     background-color: #FF9431;
+    opacity: 1;
 }
 
 .conversation-box .pin-propusal + .tooltip.bottom .tooltip-inner {
@@ -7550,7 +7568,10 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box .body {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    height: 134px;
+    overflow: hidden;
+    position: relative;
 }
 
 .conversation-box .body p {
@@ -7562,7 +7583,7 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box > .body p a {
-    color: #428bca;
+    color: #20a2ea;
     text-decoration: underline;
 }
 
@@ -7585,14 +7606,27 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box .footer .social li.active .fa-circle {
-    color: #428BCA;
+    color: #20a2ea;
+}
+
+.conversation-box .footer .social li.active a:hover .fa-circle {
+    color: #FF9431;
 }
 
 .conversation-box .footer .comment-counter {
-    font-size: 2em;
-    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+    font-size: 35px;
+    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
     color: #A8A8A8;
+    text-decoration: none;
+    border: none;
+    background: transparent;
 }
+
+.conversation-box .footer .comment-counter button:hover {
+    color: #ff9431;
+    text-decoration: none;
+}
+
 .conversation-box .footer .comment-counter .number {
     font-size: 20px;
     vertical-align: middle;
@@ -7668,6 +7702,20 @@ div [class^='comment-box col-'] {
     background-color: white;
 }
 
+.conversation-box-comments .comment-box button.go-up {
+    font-size: 15px;
+    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+    color: #A8A8A8;
+    text-decoration: none;
+    border: none;
+    background: transparent;
+}
+
+.conversation-box-comments .comment-box button.go-up:hover {
+    color: #ff9431;
+    text-decoration: none;
+}
+
 /*** vote-user ***/
 .vote-user {
     display: none;
@@ -7697,7 +7745,7 @@ div [class^='comment-box col-'] {
 .rating {
     unicode-bidi: bidi-override;
     direction: rtl;
-    font-size: 30px;
+    font-size: 20px;
     text-align: center;
 }
 
