@@ -676,7 +676,7 @@ class KuorumUserService {
         user.enabled = Boolean.FALSE
         String nombreEmail = user.email.split("@")[0]
         String domain = user.email.split("@")[1]
-        String email = "BORRADO_${nombreEmail}@NO_EMAIL_${domain}"
+        String email = "BORRADO_${nombreEmail}@NO-EMAIL-${domain}"
         user.email = email
         user.authorities.remove(RoleUser.findByAuthority("ROLE_USER"));
         user.authorities.add(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER"));
@@ -684,7 +684,7 @@ class KuorumUserService {
             //TODO: Gestion errores
             log.error("Error salvando usuario ${user.id}. ERRORS => ${user.errors}")
             throw new KuorumException("Error desactivando un usuario")
-        }
+        }                   
         indexSolrService.delete(user);
     }
 
