@@ -5,6 +5,7 @@ import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.UserType
 import kuorum.users.KuorumUser
 import kuorum.web.commands.profile.AccountDetailsCommand
+import org.grails.databinding.BindUsing
 
 /**
  * Commands for the steps after the first login
@@ -26,6 +27,9 @@ class Step2Command {
     }
 
     KuorumUser user
+    @BindUsing({obj, org.grails.databinding.DataBindingSource source->
+        AccountDetailsCommand.normalizeAlias(source["alias"])
+    })
     String alias
     String name
     String surname
