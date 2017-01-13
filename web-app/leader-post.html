@@ -1203,8 +1203,10 @@
                 $('[data-toggle="tooltip-vote"]').mouseover(function () {
                     $(this).tooltip('show');
                 });
+
                 $('[data-toggle="tooltip-vote"]').on('show.bs.tooltip', function () {
                     var $self = $(this);
+
                     $(this).next('.tooltip').mouseleave(function () {
                         $self.tooltip('hide');
                     });  
@@ -1217,12 +1219,14 @@
                     commentBox.focus();
                 });
 
+                //commentButton
                 var commentButton = $('.conversation-box .footer .comment-counter button')[0];
                 commentButton.addEventListener('click', function (event) {
                     var commentBox = $(event.target.parentElement).closest('.conversation-box').next().find('.comment');
                     commentBox.focus();
                 });
 
+                //See More button
                 var conversationBoxButtonSeeMore = $('.conversation-box .btn-see-more')[0];
                 conversationBoxButtonSeeMore.addEventListener('click', function (event) {
                     var $targetElement = $(event.target)
@@ -1236,6 +1240,7 @@
                     }
                 });
 
+                //Go Up Button
                 var goUp = $('.conversation-box-comments .go-up')[0];
                 goUp.addEventListener('click', function (event) {
                     var jumpTo = '#' + $(event.target).closest('button').data('anchor');
