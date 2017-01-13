@@ -600,7 +600,7 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     background-color: #fff !important;
     border: 1px solid #20a2ea ;
     color: #20a2ea !important;
-    margin: 0 0 6px 0;
+    /*margin: 0 0 6px 0;*/
 }
 .btn.btn-blue.inverted:hover,
 .btn.btn-blue.inverted:active,
@@ -654,6 +654,8 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 .btn.follow {
     width: 105px;
     padding: 8px 8px !important;
+    margin: 0;
+    line-height: 1.1;
 }
 .btn.follow span {margin: -2px 0 0 0px; display: inline-block;}
 .btn.follow i{
@@ -1503,6 +1505,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .addTag > ul {display: inline-block; margin: 0; padding: 0;}
 .addTag > ul > li a {color: #20a2ea;}
 .addTag > ul > li a:hover, #addTag > ul > li a:focus, #addTag > ul > li a:active {color: #fff; background-color: #20a2ea;}
+.addTag .btn{margin: 0 0 6px 0;}
 
 #contactsList > li > a:hover,
 #contactsList > li > a:focus,
@@ -6071,7 +6074,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts .dropdown-menu {min-width: 140px;}
-    #boxfiltersContacts ul li .btn {min-width: 138px;}
+    #boxfiltersContacts ul li .btn {min-width: 138px; margin: 0 0 6px 0;}
     /*#contactsOrderOptions.box-order-options > ul {width: 25%;}*/
     /*#contactsOrderOptions.box-order-options > div {width: 28%;}*/
     #contactsList > li > h3, #contactsList > li > p {padding-right: 74%;}
