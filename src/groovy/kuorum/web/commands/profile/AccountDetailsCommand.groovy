@@ -39,6 +39,9 @@ class AccountDetailsCommand {
     Region homeRegion
     String name;
     String surname;
+    @BindUsing({obj, org.grails.databinding.DataBindingSource source->
+        AccountDetailsCommand.normalizeAlias(source["alias"])
+    })
     String alias;
     String email;
     String phonePrefix;
@@ -81,5 +84,11 @@ class AccountDetailsCommand {
         Object appContext = ServletContextHolder.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
         org.springframework.security.authentication.encoding.PasswordEncoder passwordEncoder = (org.springframework.security.authentication.encoding.PasswordEncoder)appContext.passwordEncoder
         passwordEncoder.isPasswordValid(user.password, inputPassword, null)
+    }
+
+    public static String normalizeAlias(String alias){
+        String s = java.text.Normalizer.normalize(alias, java.text.Normalizer.Form.NFD);
+        s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        return s;
     }
 }
