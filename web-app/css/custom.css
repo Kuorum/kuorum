@@ -7276,9 +7276,25 @@ div [class^='user-box col-'] {
 }
 
 .user-box + .tooltip .tooltip-arrow {
-    border-bottom-color: #FF9431;
+    border-bottom-color: #dadada;
     margin-left: -10px;
-    border-width: 0 10px 10px;
+    border-width: 0 8px 9px;
+}
+
+.user-box + .tooltip .tooltip-arrow::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-bottom-color: white;
+    margin-left: -9px;
+    border-width: 0px 9px 8px;
+    content: '';
+    margin-top: 2px;
 }
 
 .user-box + .tooltip .tooltip-inner {
