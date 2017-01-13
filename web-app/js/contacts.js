@@ -495,6 +495,7 @@ function FilterContacts() {
                 that.addOptionToSelect(filter.id, filter.name, filter.amountOfContacts);
                 $("#recipients").val(filter.id);
                 that.closeFilterCampaignsOptions();
+                that.removeOptionToSelect(temporalFilterId);
             }
         }
     };
