@@ -331,19 +331,13 @@ function FilterContacts() {
     this.closeFilterCampaignsOptions= function(){
         $('#filterContacts').removeClass('on');
         $('#filterContacts').attr("title",i18n.tools.contact.filter.conditions.open);
-        $(".disabled-filters").slideUp("fast");
+        $(".disabled-filters").slideUp("fast", function(){$(".disabled-filters").remove();});
 
         $('#infoToContacts, #filterContacts').removeClass('on');
         $("#filterData").html(""); // REMOVE INFO FILTER
-        if (that.getFilterId()==newFilterId) {
+        if (that.getFilterId()==newFilterId || that.getFilterId()==temporalFilterId ) {
             // Change 'new filter' to 'All'
             that.changeFilterValue(allContactsFilterId)
-        }
-        if (that.getFilterId()==temporalFilterId) {
-            // Temporal filter
-            //var originalFilter = that.getOriginalFilterToTemporalFilter()
-            //that.changeFilterValue(originalFilter);
-        }else{
             that.removeOptionToSelect(temporalFilterId);
         }
     };
@@ -501,6 +495,7 @@ function FilterContacts() {
                 that.addOptionToSelect(filter.id, filter.name, filter.amountOfContacts);
                 $("#recipients").val(filter.id);
                 that.closeFilterCampaignsOptions();
+                that.removeOptionToSelect(temporalFilterId);
             }
         }
     };
