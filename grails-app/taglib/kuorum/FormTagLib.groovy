@@ -190,6 +190,7 @@ class FormTagLib {
     def password={attrs ->
         def command = attrs.command
         def field = attrs.field
+        def printValue = attrs.printValue?Boolean.parseBoolean(attrs.printValue):false
 
         def id = attrs.id?:field
         def label = buildLabel(command,field,attrs.label)
@@ -197,7 +198,7 @@ class FormTagLib {
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         def prefixFieldName=attrs.prefixFieldName?:""
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
-        def value = command."${field}"?:''
+        def value = printValue?command."${field}"?:'':''
         def error = hasErrors(bean: command, field: field,'error')
         if (showLabel){
             out << "<label for='${prefixFieldName}${field}'>${label}</label>"
@@ -206,7 +207,7 @@ class FormTagLib {
         }
         out <<"""
                 <div class="input-append input-group">
-                    <input type="password" required aria-required="true" id="${id}" name="${field}" class="form-control input-lg" placeholder="${g.message(code:"login.email.form.password.label")}" value="" data-ays-ignore="true">
+                    <input type="password" required aria-required="true" id="${id}" name="${field}" class="form-control input-lg" placeholder="${g.message(code:"login.email.form.password.label")}" value="${value}" data-ays-ignore="true">
                     <span tabindex="100" class="add-on input-group-addon">
                         <label><input type="checkbox" name="show-${id}" class="show-hide-pass" id="show-${id}" data-ays-ignore="true">${message(code:'login.email.form.password.show')}</label>
                     </span>
