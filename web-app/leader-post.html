@@ -451,7 +451,7 @@
                                 <div class="user-box col-lg-1 col-xs-12">
                                     <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
                                 </div>
-                                <div class="comment editable col-lg-11 col-xs-12"></div>
+                                <div class="comment editable col-lg-11 col-xs-12" data-placeholder="&#xf0eb;  Write your proposal here..." style="min-height: 100px; padding-top: 10px"></div>
                                 <button type="button" class="pull-right btn btn-blue inverted publish">Publish</button>
                             </div> <!-- ^comment-box !-->
 
@@ -476,7 +476,7 @@
                                     </div>
                                     <ul class="icons pull-right">
                                         <li>
-                                            <button class="pin-propusal" type="button" data-toggle="tooltip" data-placement="bottom" title="Pin this proposal if you think it is useful for you or your team">
+                                            <button class="pin-propusal active" type="button" data-toggle="tooltip" data-placement="bottom" title="Pin this proposal if you think it is useful for you or your team">
                                                 <span class="fa-stack fa-lg" aria-hidden="true">
                                                     <span class="fa fa-circle dark fa-stack-2x"></span>
                                                     <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
@@ -493,7 +493,16 @@
                                         Nunc in consequat <a href="#">nibh</a>. Praesent interdum tincidunt risus, quis egestas urna. Integer dapibus pellentesque consectetur. Etiam orci lacus, placerat eget nisl nec, varius convallis nunc. Nam pharetra dui sit amet magna sagittis, non consequat ipsum vestibulum. Curabitur tempus nisi sit amet mauris commodo, ut hendrerit urna hendrerit. Praesent tempor condimentum nulla in lobortis. Aenean velit turpis, fringilla vitae ligula nec, consequat volutpat tellus. Nulla facilisi. Curabitur vel venenatis leo, ac placerat nisl. Sed fringilla orci tellus, non feugiat nisi sagittis sed.
                                     </p>
                                 </div>
-                                <button type="button" class="btn btn-see-more angle-down">See More</button>
+                                <div class="actions">
+                                    <button type="button" class="btn btn-see-more angle-down">See More</button>
+                                    
+                                    <button type="button" class="btn-see-more stack" data-anchor="conversation-box">
+                                        <span class="pull-left fa-stack fa-lg" aria-hidden="true">
+                                            <span class="fa fa-circle dark fa-stack-2x"></span>
+                                            <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                                        </span>
+                                    </button>
+                                </div>
 
                                 <div class="footer">
                                     <div class="clearfix">
@@ -533,7 +542,7 @@
                                         </ul>
 
                                         <div class="comment-counter pull-right">
-                                            <button type="button">
+                                            <button type="button" class="delete">
                                                 <span class="middle-point right delete">delete </span>
                                             </button>
                                             <button type="button" class="comment">
@@ -643,19 +652,13 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <button type="button" class="go-up" data-anchor="conversation-box">
-                                    <span class="pull-left fa-stack fa-lg" aria-hidden="true">
-                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                        <span class="angle fa fa-angle-up fa-stack-1x fa-inverse"></span>
-                                    </span>
-                                </button>
                                 <!-- ^comment-box !-->
                                 <div class="comment-box">
                                     <div>
                                         <div class="user-box col-lg-1 col-xs-12" data-toggle="tooltip-vote" data-html="true" data-placement="bottom">
                                             <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
                                         </div>
-                                        <div class="comment editable-comment col-lg-11 col-xs-12"></div>
+                                        <div class="comment editable-comment col-lg-11 col-xs-12" data-placeholder="&#xf0e5;  Write your comment here..." style="min-height: 100px; padding-top: 20px"></div>
                                         <!-- ^vote-user !-->
                                         <div class="vote-user">
                                             <div class="header clearfix">
@@ -714,11 +717,25 @@
                                             </div>
                                         </div><!-- ^vote-user !-->
                                     </div>
-                                    <div class="clearfix">
+                                
+                                    <div class="actions clearfix">
+                                        <div class="pull-left">
+                                            <button type="button" class="btn btn-see-more angle-down" data-anchor="conversation-box">See Comments</button>
+                                            <button type="button" class="go-up" data-anchor="conversation-box">
+                                                <span class="pull-left fa-stack fa-lg" aria-hidden="true">
+                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                    <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                                                </span>
+                                            </button>
+                                        </div>
                                         <button type="button" class="pull-right btn btn-blue inverted publish">Comment</button>
                                     </div>
-                                </div> <!-- ^comment-box !-->
+                                </div><!-- ^comment-box !-->
                             </div>
+
+                            <div class="see-more-content"> <!-- ^see-more-content !-->
+                                <button type="button" class="btn angle-down" data-anchor="conversation-box">See more</button>
+                            </div> <!-- ^see-more-content !-->
                         </section>
 
                         <aside id="aside-ppal" class="col-sm-12 col-md-4" role="complementary">
@@ -1228,9 +1245,6 @@
         <script>
             var editor = new MediumEditor('.editable', {
                 buttonLabels: 'fontawesome',
-                placeholder: {
-                    text: 'Lorem ipsum'
-                },
                 toolbar: {
                     buttons: ['anchor']
                 }
@@ -1238,9 +1252,6 @@
 
             var editor = new MediumEditor('.editable-comment', {
                 buttonLabels: 'fontawesome',
-                placeholder: {
-                    text: 'Write your comment here...'
-                },
                 toolbar: {
                     buttons: ['anchor']
                 }
@@ -1298,30 +1309,59 @@
                 });
 
                 // See More button
-                var conversationBoxButtonSeeMore = $('.conversation-box .btn-see-more')[0];
+                var conversationBoxButtonSeeMore = $('.conversation-box .btn.btn-see-more')[0];
+                var conversationBoxButtonSeeMoreSmall = $('.conversation-box button.btn-see-more.stack')[0];
+
+                conversationBoxButtonSeeMoreSmall.addEventListener('mouseover', function (event) {
+                    $(conversationBoxButtonSeeMoreSmall).hide();
+                    $(conversationBoxButtonSeeMore).show();
+                });
+
+                conversationBoxButtonSeeMore.addEventListener('mouseleave', function (event) {
+                    $(conversationBoxButtonSeeMore).hide();
+                    $(conversationBoxButtonSeeMoreSmall).show();
+                });
+                
                 conversationBoxButtonSeeMore.addEventListener('click', function (event) {
                     var $targetElement = $(event.target)
-                    $targetElement.toggleClass('btn-see-less angle-down angle-up');
+                    var conversationBoxButtonSeeMoreSmall = $('.conversation-box button.btn-see-more.stack .angle')[0];
                     
-                    if ($targetElement.prev('.body').height() > 134) {
+                    $targetElement.toggleClass('btn-see-less angle-down angle-up');
+                    $(conversationBoxButtonSeeMoreSmall).toggleClass('fa-angle-down fa-angle-up');
+                    
+                    if ($targetElement.parent().prev('.body').height() > 134) {
                         $targetElement.text('See More');
-                        $targetElement.prev('.body').animate({
+                        $targetElement.parent().prev('.body').animate({
                             height: 134
                         }, 1000);
                     } else {
                         $targetElement.text('Collapse');
-                        var targetElementHeight = $targetElement.prev('.body').addClass('height-auto').height();
+                        var targetElementHeight = $targetElement.parent().prev('.body').addClass('height-auto').height();
                         console.log(targetElementHeight);
-                        $targetElement.prev('.body').removeClass('height-auto').animate({
+                        $targetElement.parent().prev('.body').removeClass('height-auto').animate({
                             height: targetElementHeight
                         }, 1000);
                     }
                 });
 
-                //Go Up Button
-                var goUp = $('.conversation-box-comments .go-up')[0];
-                goUp.addEventListener('click', function (event) {
-                    var jumpTo = '#' + $(event.target).closest('button').data('anchor');
+                // See More comments
+                var seeMoreComments = $('.conversation-box-comments .btn.btn-see-more')[0];
+                var seeMoreCommentsSmall = $('.conversation-box-comments .go-up')[0];
+
+                seeMoreCommentsSmall.addEventListener('mouseover', function (event) {
+                    $(seeMoreCommentsSmall).hide();
+                    $(seeMoreComments).show();
+                });
+
+                seeMoreComments.addEventListener('mouseleave', function (event) {
+                    $(seeMoreComments).hide();
+                    $(seeMoreCommentsSmall).show();
+                });
+
+                seeMoreComments.addEventListener('click', function (event) {
+                    var placeholder = $(event.target).parent().prev('.conversation-box-comments');
+                    console.log(placeholder);
+                    /*var jumpTo = '#' + $(event.target).closest('button').data('anchor');
                     var navbarHeight = $('.navbar').height();
                     var placeholderToJumpPositionTop = $(jumpTo).offset().top;
                     
@@ -1331,7 +1371,7 @@
                         $('html, body').animate({
                             scrollTop: placeholderToJumpPositionTop - navbarHeight
                         }, 1000);
-                    }
+                    }*/
                 });            
             }
         </script>
