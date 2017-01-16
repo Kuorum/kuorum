@@ -1274,8 +1274,14 @@
                 // LightbulButton
                 var lightbulbButton = $('.leader-post > .footer .comment-counter button')[0];
                 lightbulbButton.addEventListener('click', function () {
-                    var commentBox = $('.comment-box .comment')[0];
-                    commentBox.focus();
+                    var $commentBox = $($('.comment-box .comment')[0]);
+                    var navbarHeight = $('.navbar').outerHeight();
+                    
+                    $('html, body').animate({
+                        scrollTop: $commentBox.offset().top - navbarHeight - 40
+                    }, 1000, function () {
+                        $commentBox.focus();
+                    });
                 });
 
                 // CommentButton
