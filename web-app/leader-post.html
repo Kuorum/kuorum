@@ -452,7 +452,7 @@
                                     <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
                                 </div>
                                 <div class="comment editable col-lg-11 col-xs-12"></div>
-                                <button class="pull-right btn btn-blue inverted publish">Publish</button>
+                                <button type="button" class="pull-right btn btn-blue inverted publish">Publish</button>
                             </div> <!-- ^comment-box !-->
 
                             <ul class="nav nav-pills nav-underline">
@@ -568,7 +568,7 @@
                                         <div class="footer clearfix">
                                             <div class="pull-right">
                                                 <button type="button">
-                                                    <span class="middle-point right">delete </span>
+                                                    <span class="middle-point right delete">delete </span>
                                                 </button>
                                                 <span class="number">-10</span>
                                                 <button type="button">
@@ -599,7 +599,7 @@
                                         <div class="footer clearfix">
                                             <div class="pull-right">
                                                 <button type="button">
-                                                    <span class="middle-point right">delete </span>
+                                                    <span class="middle-point right delete">delete </span>
                                                 </button>
                                                 <span class="number">-10</span>
                                                 <button type="button">
@@ -630,7 +630,7 @@
                                         <div class="footer clearfix">
                                             <div class="pull-right">
                                                 <button type="button">
-                                                    <span class="middle-point right">delete </span>
+                                                    <span class="middle-point right delete">delete </span>
                                                 </button>
                                                 <span class="number">-10</span>
                                                 <button type="button">
@@ -643,7 +643,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <button class="go-up" data-anchor="conversation-box">
+                                <button type="button" class="go-up" data-anchor="conversation-box">
                                     <span class="pull-left fa-stack fa-lg" aria-hidden="true">
                                         <span class="fa fa-circle dark fa-stack-2x"></span>
                                         <span class="angle fa fa-angle-up fa-stack-1x fa-inverse"></span>
@@ -715,7 +715,7 @@
                                         </div><!-- ^vote-user !-->
                                     </div>
                                     <div class="clearfix">
-                                        <button class="pull-right btn btn-blue inverted publish">Comment</button>
+                                        <button type="button" class="pull-right btn btn-blue inverted publish">Comment</button>
                                     </div>
                                 </div> <!-- ^comment-box !-->
                             </div>
@@ -1287,12 +1287,11 @@
                 // CommentButton
                 var commentButton = $('.conversation-box .footer .comment-counter button.comment')[0];
                 commentButton.addEventListener('click', function (event) {
-                    console.log('hola');
-                    var $commentBox = $(event.target.parentElement).closest('.conversation-box').next().find('.comment');
+                    var $commentBox = $(event.target.parentElement).closest('.conversation-box').next('.conversation-box-comments').find('.comment-box .editable-comment');
                     var navbarHeight = $('.navbar').height();
 
                     $('html, body').animate({
-                        scrollTop: $commentBox.offset().top - navbarHeight
+                        scrollTop: $commentBox.offset().top - navbarHeight - 40
                     }, 1000, function () {
                         $commentBox.focus();
                     });
