@@ -7836,6 +7836,14 @@ div [class^='comment-box col-'] {
     padding-right: 4px;
 }
 
+.conversation-box-comment .footer button:hover {
+    color: #A8A8A8;
+}
+
+.conversation-box-comment .footer button.angle {
+    font-size: 25px;
+}
+
 .conversation-box-comment .footer button span.delete {
     font-size: 14px;
 }
