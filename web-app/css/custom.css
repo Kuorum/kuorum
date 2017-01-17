@@ -523,7 +523,7 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 /* Default button : orange (botón por defecto: naranja) */
 .btn {
     color: #fff !important;
-    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
     letter-spacing: 0.4px;
     font-size: 15px;
     font-size: 1.5rem;
@@ -7394,8 +7394,8 @@ button.btn-see-more {
     border-radius:0px;
     border-bottom-width: 6px;
     border-bottom-style: solid;
-    border-bottom-color: #20A2EA;
-    color: #20A2EA;
+    border-bottom-color: #00A3ED;
+    color: #00A3ED;
     background-color: transparent;
 }
 
@@ -7455,7 +7455,7 @@ button.btn-see-more {
 }
 
 .leader-post > .body p a {
-    color: #20a2ea;
+    color: #00a3ed;
     text-decoration: underline;
 }
 
@@ -7484,7 +7484,7 @@ button.btn-see-more {
 }
 
 .leader-post > .footer .social li a:hover .fa-circle {
-    color: #20A2EA;
+    color: #00a3ed;
 }
 
 .leader-post > .footer .comment-counter button {
@@ -7574,7 +7574,7 @@ div [class^='comment-box col-'] {
 }
 
 .comment-box .comment p a {
-    color: #20a2ea;
+    color: #00a3ed;
     text-decoration: underline;
 }
 
@@ -7636,7 +7636,7 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box > .footer .social li a:hover .fa-circle {
-    color: #20A2EA;
+    color: #00a3ed;
 }
 
 .conversation-box .body {
@@ -7655,7 +7655,7 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box > .body p a {
-    color: #20a2ea;
+    color: #00a3ed;
     text-decoration: underline;
 }
 
@@ -7696,7 +7696,7 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box .footer .social li.active .fa-circle {
-    color: #20a2ea;
+    color: #00a3ed;
 }
 
 .conversation-box .footer .social li.active a:hover .fa-circle {
