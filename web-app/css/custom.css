@@ -609,6 +609,23 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     color: #fff !important;
 }
 
+.btn.btn-grey {background-color: #D0D0D0 !important;}
+.btn.btn-grey:hover,
+.btn.btn-grey:active,
+.btn.btn-grey:focus {background-color: #A5A5A5 !important;}
+.btn.btn-grey.inverted {
+    background-color: #fff !important;
+    border: 1px solid #20a2ea ;
+    color: #20a2ea !important;
+    /*margin: 0 0 6px 0;*/
+}
+.btn.btn-grey.inverted:hover,
+.btn.btn-grey.inverted:active,
+.btn.btn-grey.inverted:focus {
+    background-color: #20a2ea !important;
+    color: #fff !important;
+}
+
 .btn.inverted {
     background-color: #fff !important;
     border: 1px solid #ff9431 ;
@@ -7353,7 +7370,7 @@ button.btn-see-more {
     margin: 0;
     padding: 0;
     border-radius: 12px;
-    margin-bottom: 10px;
+    font-size: 12px;
 }
 
 
@@ -7551,7 +7568,7 @@ button.btn-see-more {
 
 /*** commment-box ***/
 .comment-box {
-    padding: 30px 20px 30px 20px;
+    padding: 25px 20px 10px 20px;
     background-color: #FFF;
     border: 1px solid #F0F0F0;
 }
@@ -7573,14 +7590,30 @@ div [class^='comment-box col-'] {
     padding: 0 20px 0 20px;
 }
 
+.comment-box .publish {
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    font-size: 16px;
+}
+
 .comment-box .comment p a {
     color: #00a3ed;
     text-decoration: underline;
 }
 
+.comment-box .actions {
+    display: inline-block;
+    margin: 0;
+    margin: 20px 0 5px 0;
+    min-height: 40px;
+}
+
+.comment-box .actions button {
+    margin: 0;
+}
+
 /*** conversation-box ***/
 .conversation-box {
-    padding: 30px 20px 0 20px;
+    padding: 25px 20px 10px 20px;
     background-color: #FFF;
     border: 1px solid #F0F0F0;
 }
@@ -7618,7 +7651,7 @@ div [class^='comment-box col-'] {
     font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;;
 }
 
-.coversation-box ul {
+.conversation-box ul {
     list-style: none outside none;
     margin: 0 0 30px 0;
     padding: 0;
@@ -7662,6 +7695,10 @@ div [class^='comment-box col-'] {
 .conversation-box > .body p a:hover {
     color: #ff9431;
     text-decoration: underline;
+}
+
+.conversation-box .actions {
+    min-height: 40px;
 }
 
 .conversation-box .footer {
@@ -7738,7 +7775,7 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box-comments button.btn-see-more {
-    padding: 30px 20px 0 20px;
+    padding: 25px 20px 10px 20px;
     background-color: #D0D0D0;
 }
 
@@ -7748,24 +7785,28 @@ div [class^='comment-box col-'] {
     padding: 0;
 }
 
-.conversation-box-comments ul li,  .conversation-box-comments .actions{
+.conversation-box-comments ul li {
     display: inline-block;
-    padding: 30px 20px 0 20px;
+    padding: 25px 20px 10px 20px;
+}
+
+.conversation-box-comments .actions {
+    position: relative;
+    width: 100%;
 }
 
 .conversation-box-comments button.go-up {
     color: #D0D0D0;
 }
 
+.conversation-box-comments ul {
+    display: none;
+}
+
 .conversation-box-comments ul li.active {
     border-left-color: #FF9431;
     border-left-width: 3px;
     border-left-style: solid;
-}
-
-.conversation-box-comments .actions {
-    position: relative;
-    width: 100%;
 }
 
 .conversation-box-comment .body {
@@ -7797,6 +7838,11 @@ div [class^='comment-box col-'] {
     font-size: 14px;
 }
 
+.conversation-box-comment .footer button span.delete:hover {
+    text-decoration: underline;
+    color: #A8A8A8;
+}
+
 .conversation-box-comments .comment-box {
     background: transparent;
     border: none;
@@ -7811,7 +7857,7 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box-comments .comment-box button.go-up {
-    font-size: 15px;
+    font-size: 12px;
     font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
     color: #D0D0D0;
     text-decoration: none;
@@ -7828,13 +7874,15 @@ div [class^='comment-box col-'] {
 .vote-user {
     display: none;
     background-color: white;
-    padding: 30px 20px 0 20px;
+    padding: 25px 20px 10px 20px;
     background-color: #FFF;
     border: 1px solid #F0F0F0;
 }
 
 .vote-user button.follow-user {
-    margin-left: 20px;
+    width: auto;
+    font-size: 12px !important;
+    border-radius: 0;
 }
 
 .vote-user fieldset.rating:not(:checked) > label {
@@ -7849,6 +7897,10 @@ div [class^='comment-box col-'] {
     text-align: center;
 }
 
+.rating label {
+    font-size: 25px;
+}
+
 /*** see-more-content ***/
 
 .see-more-content {
@@ -7859,6 +7911,12 @@ div [class^='comment-box col-'] {
     background: transparent;
     border: none;
     color: #545454 !important;
+    font-size: 17px;
+}
+
+.see-more-content button:hover {
+    background: #A5A5A5 !important;
+    color: #FFF !important;
 }
 
 .see-more-content button.angle-down::after {

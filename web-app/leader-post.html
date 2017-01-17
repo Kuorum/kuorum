@@ -452,7 +452,9 @@
                                     <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
                                 </div>
                                 <div class="comment editable col-lg-11 col-xs-12" data-placeholder="&#xf0eb;  Write your proposal here..." style="min-height: 100px; padding-top: 10px"></div>
-                                <button type="button" class="pull-right btn btn-blue inverted publish">Publish</button>
+                                <div class="actions pull-right">
+                                    <button type="button" class="btn btn-blue inverted publish">Publish</button>
+                                </div>
                             </div> <!-- ^comment-box !-->
 
                             <ul class="nav nav-pills nav-underline">
@@ -668,7 +670,7 @@
                                                         <span class="user-box-name">Andy Burnham</span>
                                                     </p>
                                                 </div>
-                                                <button type="button" class="follow-user pull-right follow btn btn-blue inverted btn-lg allow enabled noLogged " data-ajaxfollowurl="/ajax/kuorumUser/follow?userAlias=hillaryclinton" data-ajaxunfollowurl="/ajax/kuorumUser/unFollow?userAlias=hillaryclinton" data-message-follow_hover="<i class=&quot;fa fa-plus&quot;></i> Seguir" data-message-follow="<i class=&quot;fa fa-plus&quot;></i>Seguir" data-message-unfollow_hover="No seguir" data-message-unfollow="Siguiendo" data-userid="562897aae4b04fc5e3d80a37"><i class="fa fa-plus"></i>Seguir</button>
+                                                <button type="button" class="follow-user pull-right follow btn btn-blue inverted btn-lg allow enabled noLogged " data-ajaxfollowurl="/ajax/kuorumUser/follow?userAlias=hillaryclinton" data-ajaxunfollowurl="/ajax/kuorumUser/unFollow?userAlias=hillaryclinton" data-message-follow_hover="<i class=&quot;fa fa-plus&quot;></i> Seguir" data-message-follow="<i class=&quot;fa fa-plus&quot;></i>Seguir" data-message-unfollow_hover="No seguir" data-message-unfollow="Siguiendo" data-userid="562897aae4b04fc5e3d80a37"><i class="fa fa-plus"></i>Follow</button>
                                             </div>
                                             <div class="body">
                                                 <form action="https://kuorum.org/ajax/sadiqkhan/rate" id="user-rating-form" method="post" class="rating">
@@ -707,12 +709,6 @@
                                                             </label>
                                                         
                                                     </fieldset>
-                                                    <div class="rating-over">
-                                                        <div class="rate-number show3">
-                                                            <label>Mi evaluación: </label>
-                                                            <span class="counter">3</span>
-                                                        </div>
-                                                    </div>
                                                 </form>
                                             </div>
                                         </div><!-- ^vote-user !-->
@@ -728,7 +724,7 @@
                                                 </span>
                                             </button>
                                         </div>
-                                        <button type="button" class="pull-right btn btn-blue inverted publish">Comment</button>
+                                        <button type="button" class="pull-right btn btn-grey publish">Comment</button>
                                     </div>
                                 </div><!-- ^comment-box !-->
                             </div>
@@ -1259,7 +1255,7 @@
         </script>
         <script>
             window.onload = function () {
-                
+                // Rating tooltip
                 $('[data-toggle="tooltip"]').tooltip();
                 $('[data-toggle="tooltip-vote"]').tooltip({
                     html: true,
@@ -1269,6 +1265,7 @@
                         return voteUser.addClass('show')[0].outerHTML;
                     }
                 });
+
                 // Mouse events
                 $('[data-toggle="tooltip-vote"]').mouseover(function () {
                     $(this).tooltip('show');
@@ -1277,6 +1274,10 @@
                 $('[data-toggle="tooltip-vote"]').on('show.bs.tooltip', function () {
                     var $self = $(this);
 
+                    $(this).closest('.comment-box').mouseleave(function () {
+                        $self.tooltip('hide');
+                    });  
+                    
                     $(this).next('.tooltip').mouseleave(function () {
                         $self.tooltip('hide');
                     });  
@@ -1359,19 +1360,18 @@
                 });
 
                 seeMoreComments.addEventListener('click', function (event) {
-                    var placeholder = $(event.target).parent().prev('.conversation-box-comments');
-                    console.log(placeholder);
-                    /*var jumpTo = '#' + $(event.target).closest('button').data('anchor');
-                    var navbarHeight = $('.navbar').height();
-                    var placeholderToJumpPositionTop = $(jumpTo).offset().top;
+                    var $placeholder = $(event.target).closest('.comment-box');
+                    var $conversationComments = $placeholder.prev();
+                    var $seeMoreComments = $(seeMoreComments);
                     
-                    $(this).find('.angle').toggleClass('fa-angle-up fa-angle-down');
-                    $('.conversation-box-comments ul').slideToggle(1000);
-                    if ($(this).find('.angle').hasClass('fa-angle-down')) {
-                        $('html, body').animate({
-                            scrollTop: placeholderToJumpPositionTop - navbarHeight
-                        }, 1000);
-                    }*/
+                    $conversationComments.slideToggle(1000);
+                    $(seeMoreComments).toggleClass('btn-see-less angle-down angle-up');
+
+                    if ($seeMoreComments.hasClass('angle-up')) {
+                        $seeMoreComments.text('Collapse Comments')
+                    } else {
+                        $seeMoreComments.text('See Comments')
+                    }
                 });            
             }
         </script>
