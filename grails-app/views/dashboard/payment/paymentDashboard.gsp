@@ -23,31 +23,4 @@
             <g:render template="/dashboard/payment/dashboardModules/dashboardPoliticianProfile" model="[user:user, emptyEditableData:emptyEditableData, campaigns:campaigns]"/>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box-ppal" id="dashboardGraphs">
-                <ul class="nav nav-tabs simple" data-tabs="tabs">
-                    <li role="presentation" class="active"><a href="#engagement" data-toggle="tab">Engagement stats</a></li>
-                    <li role="presentation"><a href="#valuation" data-toggle="tab">Valuation stats</a></li>
-                    <li role="presentation"><a href="#profile" data-toggle="tab">Profile stats</a></li>
-                    <li role="presentation"><a href="#socialData" data-toggle="tab">Social Data Analytics</a></li>
-                </ul>
-                <div id="tabs-dashboard" class="tab-content">
-                    <div class="tab-pane active" id="engagement">
-                        <g:message code="tools.feature.notReady"/>
-                    </div>
-                    <div class="tab-pane" id="valuation">
-                        <g:message code="tools.feature.notReady"/>
-                    </div>
-                    <div class="tab-pane" id="profile">
-                        <g:message code="tools.feature.notReady"/>
-                    </div>
-                    <div class="tab-pane" id="socialData">
-                        <g:message code="tools.feature.notReady"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </content>

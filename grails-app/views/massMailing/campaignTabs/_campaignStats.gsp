@@ -13,7 +13,3 @@
         <g:message code="tools.massMailing.list.click"/>
     </li>
 </ul>
-<h3>24-hour performance</h3>
-<div id="campaignStatsContainer">
-    <g:message code="tools.feature.notReady"/>
-</div>
