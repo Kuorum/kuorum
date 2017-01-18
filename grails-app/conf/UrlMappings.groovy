@@ -124,6 +124,9 @@ class UrlMappings {
         name projectEdit:               "/project/$userAlias/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
         name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")
 
+        name debateCreate:      "/debate/new" (controller: "debate"){action = [GET: "create", POST: "save"]}
+        name debateEdit:        "/debate/$debateId/edit" (controller: "debate"){action = [GET: "edit", POST: "update"]}
+
         name langProjectShow:   "/$lang/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name projectShow:       "/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/hashtag/$hashtag"                             {controller="redirect"; action= "redirect301Project"; }

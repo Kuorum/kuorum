@@ -27,13 +27,13 @@ class MassMailingController {
 
     SpringSecurityService springSecurityService
 
-    ContactService contactService;
+    ContactService contactService
 
-    KuorumUserService kuorumUserService;
+    KuorumUserService kuorumUserService
 
-    FileService fileService;
+    FileService fileService
 
-    MassMailingService massMailingService;
+    MassMailingService massMailingService
 
     def index() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)

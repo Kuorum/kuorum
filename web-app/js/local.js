@@ -471,7 +471,7 @@ $(document).ready(function() {
     // abrir modal confirmar envío campaña
     $('body').on('click','.form-final-options #send', function(e) {
         e.preventDefault();
-        if (isValidCampaignForm()){
+        if (isValidCampaignForm()) {
             $("#sendMassMailingType").val("SEND");
             prepareAndOpenCampaignConfirmModal();
         }
@@ -480,10 +480,10 @@ $(document).ready(function() {
     $('body').on('click','#sendTestModalButonOk', function(e) {
         e.preventDefault();
         $("#sendTestModal").modal("hide")
-    })
+    });
     $('body').on('click','#sendTest', function(e) {
         e.preventDefault();
-        if (isValidCampaignForm()){
+        if (isValidCampaignForm()) {
             pageLoadingOn();
             var link = $(this).attr("href");
             $("#sendMassMailingType").val("SEND_TEST");
@@ -505,32 +505,81 @@ $(document).ready(function() {
         }
     });
 
-    function isValidCampaignForm(){
+    function isValidCampaignForm() {
         var valid = $("#politicianMassMailingForm").valid();
-        if ($("input[name=headerPictureId]").val() == ""){
+
+        var headerPicture = $("input[name=headerPictureId]");
+        if ((typeof headerPicture.attr('required') == "undefined" || headerPicture.attr('required') != "false")
+                && headerPicture.val() == "") {
             $(".uploaderImageContainer").append('<span id="headerPictureErrorSpan" class="error"><span class="tooltip-arrow"></span>Define una imagen para que te quede un email bonito</span>');
             valid = false;
-        }else{
+        } else {
             $("#headerPictureErrorSpan").fadeOut()
         }
 
-        if ($("textarea[name=text]").val() == ""){
+        if ($("textarea[name=text]").val() == "") {
             $("div.textareaContainer").append('<span id="campatingTextErrorSpan" for="text" class="error"><span class="tooltip-arrow"></span>Cuenta algo en tu comunicado. :)</span>');
             valid = false;
-        }else{
+        } else {
             $("#campatingTextErrorSpan").fadeOut()
         }
-        if (!valid){
+        if (!valid) {
             var msg = $("#politicianMassMailingForm").attr("data-generalErrorMessage")
             display.warn(msg)
         }
         return valid;
     }
 
-    // abrir modal confirmar envío campaña programada
+    function isValidDebateForm() {
+        var valid = $("#politicianMassMailingForm").valid();
+
+        if ($("textarea[name=body]").val() == "") {
+            $("div.textareaContainer").append('<span id="campatingTextErrorSpan" for="text" class="error"><span class="tooltip-arrow"></span>Cuenta algo en tu comunicado. :)</span>');
+            valid = false;
+        } else {
+            $("#campatingTextErrorSpan").fadeOut()
+        }
+
+        if (!valid) {
+            var msg = $("#politicianMassMailingForm").attr("data-generalErrorMessage")
+            display.warn(msg)
+        }
+
+        return valid;
+    }
+
+    // Abrir modal confirmar envio de debate
+    $('body').on('click','.form-final-options #send-debate', function(e) {
+        e.preventDefault();
+        if (isValidDebateForm()) {
+            // Autoset publish day for today
+            var dateString = date.getDate()
+                + "/" + ("0" + (date.getMonth() + 1)).slice(-2)
+                + "/" + date.getFullYear()
+                + " " + date.getHours() + ":" + date.getMinutes();
+            $("input[name='publishOn']").val(dateString);
+            prepareAndOpenDebateConfirmModal();
+        }
+    });
+    // Abrir modal confirmar envío debate programada
+    $('body').on('click','.form-final-options #send-debate-later', function(e) {
+        e.preventDefault();
+        if (isValidDebateForm()) {
+            prepareAndOpenCampaignConfirmModal();
+        }
+    });
+
+    // Guardar borrador de debate
+    $('body').on('click','.form-final-options #save-draft-debate', function(e) {
+        e.preventDefault();
+        $("input[name='publishOn']").val("");
+        $(this).parents("form").submit();
+    });
+
+    // Abrir modal confirmar envío campaña programada
     $('body').on('click','.form-final-options #sendLater', function(e) {
         e.preventDefault();
-        if (isValidCampaignForm()){
+        if (isValidCampaignForm()) {
             $("#sendMassMailingType").val("SCHEDULED");
             prepareAndOpenCampaignConfirmModal();
         }
@@ -547,13 +596,24 @@ $(document).ready(function() {
         $("#campaignConfirm").modal("show");
     });
 
-    function prepareAndOpenCampaignConfirmModal(){
+    function prepareAndOpenCampaignConfirmModal() {
         var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
         $("#campaignConfirmTitle > span").html(amountContacts);
         $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
         if (filterContacts.isFilterEdited()){
             $("#campaignWarnFilterEdited").modal("show");
         }else{
+            $("#campaignConfirm").modal("show");
+        }
+    }
+
+    function prepareAndOpenDebateConfirmModal() {
+        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
+        $("#campaignConfirmTitle > span").html(amountContacts);
+        $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
+        if (filterContacts.isFilterEdited()) {
+            $("#campaignWarnFilterEdited").modal("show");
+        } else {
             $("#campaignConfirm").modal("show");
         }
     }
