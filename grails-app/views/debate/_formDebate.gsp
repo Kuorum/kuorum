@@ -97,7 +97,7 @@
         <div class="text-right">
             <ul class="form-final-options">
                 <li>
-                    <a href="#" id="save-draft-campaign">
+                    <a href="#" id="save-draft-debate">
                         <g:message code="tools.massMailing.saveDraft"/>
                     </a>
                 </li>

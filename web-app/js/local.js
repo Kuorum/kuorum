@@ -569,6 +569,13 @@ $(document).ready(function() {
         }
     });
 
+    // Guardar borrador de debate
+    $('body').on('click','.form-final-options #save-draft-debate', function(e) {
+        e.preventDefault();
+        $("input[name='publishOn']").val("");
+        $(this).parents("form").submit();
+    });
+
     // Abrir modal confirmar envío campaña programada
     $('body').on('click','.form-final-options #sendLater', function(e) {
         e.preventDefault();
