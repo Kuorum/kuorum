@@ -124,7 +124,8 @@ class DebateController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def removeDebate(Long debateId) {
+    def remove(Long debateId) {
+        // TODO: This function is incomplete in other places
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         debateService.removeDebate(loggedUser, debateId)
         render ([msg: "Debate deleted"] as JSON)
@@ -165,7 +166,7 @@ class DebateController {
             savedDebate = debateService.saveDebate(user, debateRDTO, debateId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
                     savedDebate.title,
-                    g.formatDate(date: savedDebate.publishOn, type: "datetime", style: "SHORT")
+                    g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
             ])
         } else {
             // IS A DRAFT
