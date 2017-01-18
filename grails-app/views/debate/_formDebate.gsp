@@ -86,7 +86,7 @@
 
                 <div class="tab-pane fade ${command.videoPost?'in active':''}" id="projectUploadYoutube">
                     <div class="video" data-multimedia-switch="on" data-multimedia-type="YOUTUBE">
-                        <formUtil:url command="${command}" field="videoPost" placeHolder="${g.message(code: "kuorum.web.commands.payment.massMailing.DebateCommand.video.placeholder")}"/>
+                        <formUtil:url command="${command}" field="videoPost" placeHolder="${g.message(code: "kuorum.web.commands.payment.massMailing.DebateCommand.videoPost.placeholder")}"/>
                     </div>
                 </div>
             </div>
