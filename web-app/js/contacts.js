@@ -62,12 +62,16 @@ $(function () {
     $("#quickSearchByName").on("keypress", function(e){
         if (e.which == 13) {
             filterContacts.searchContactsCallBacks.page(0);
+            filterContacts.lastQuickSearch = $(this).val();
             return false;
         }
     });
 
     $("#quickSearchByName").on("blur", function(e){
-        filterContacts.searchContactsCallBacks.page(0);
+        if (filterContacts.lastQuickSearch != $(this).val()){
+            filterContacts.searchContactsCallBacks.page(0);
+            filterContacts.lastQuickSearch = $(this).val();
+        }
         return false;
     });
 
@@ -142,6 +146,8 @@ function FilterContacts() {
 
     var filterEditedText = i18n.tools.contact.filter.anonymousName
     var newFilterEditedText = i18n.tools.contact.filter.newAnonymousName
+
+    this.lastQuickSearch = "";
 
     if ($('#newsletter select#recipients').length > 0){
         // NEWS LETTER BEHAVIOUR
@@ -331,19 +337,13 @@ function FilterContacts() {
     this.closeFilterCampaignsOptions= function(){
         $('#filterContacts').removeClass('on');
         $('#filterContacts').attr("title",i18n.tools.contact.filter.conditions.open);
-        $(".disabled-filters").slideUp("fast");
+        $(".disabled-filters").slideUp("fast", function(){$(".disabled-filters").remove();});
 
         $('#infoToContacts, #filterContacts').removeClass('on');
         $("#filterData").html(""); // REMOVE INFO FILTER
-        if (that.getFilterId()==newFilterId) {
+        if (that.getFilterId()==newFilterId || that.getFilterId()==temporalFilterId ) {
             // Change 'new filter' to 'All'
             that.changeFilterValue(allContactsFilterId)
-        }
-        if (that.getFilterId()==temporalFilterId) {
-            // Temporal filter
-            //var originalFilter = that.getOriginalFilterToTemporalFilter()
-            //that.changeFilterValue(originalFilter);
-        }else{
             that.removeOptionToSelect(temporalFilterId);
         }
     };
@@ -501,6 +501,7 @@ function FilterContacts() {
                 that.addOptionToSelect(filter.id, filter.name, filter.amountOfContacts);
                 $("#recipients").val(filter.id);
                 that.closeFilterCampaignsOptions();
+                that.removeOptionToSelect(temporalFilterId);
             }
         }
     };

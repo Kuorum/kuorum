@@ -121,25 +121,26 @@ class CustomRegisterController {
         }
         kuorumUserService.updateAlias(user, command.alias)
 
-        if (command.userType == UserType.ORGANIZATION){
-            user.personalData = new OrganizationData();
-            user.personalData.gender = Gender.ORGANIZATION
-            user.userType = UserType.ORGANIZATION
-        }else{
+//        if (command.userType == UserType.ORGANIZATION){
+//            user.personalData = new OrganizationData();
+//            user.personalData.gender = Gender.ORGANIZATION
+//            user.userType = UserType.ORGANIZATION
+//        }else{
             user.personalData = user.personalData?:new kuorum.users.PersonData()
             user.userType = UserType.PERSON
-        }
-        user.personalData.phonePrefix = command.phonePrefix
-        user.personalData.telephone = command.phone
+            user.personalData.province = command.homeRegion
+//        }
+//        user.personalData.phonePrefix = command.phonePrefix
+//        user.personalData.telephone = command.phone
         user.language = command.language
-        user.name = command.name
-        user.surname = command.surname
+//        user.name = command.name
+//        user.surname = command.surname
 
         user.password = registerService.encodePassword(user, command.password)
-        if (command.userType == UserType.POLITICIAN){
-            offerService.purchaseOffer(user, OfferType.BASIC, 0)
-            politicianService.requestAPoliticianAccount(user)
-        }
+//        if (command.userType == UserType.POLITICIAN){
+//            offerService.purchaseOffer(user, OfferType.BASIC, 0)
+//            politicianService.requestAPoliticianAccount(user)
+//        }
         kuorumUserService.updateUser(user)
         redirect mapping:"registerStep3"
     }
