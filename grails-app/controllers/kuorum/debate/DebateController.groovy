@@ -1,5 +1,6 @@
 package kuorum.debate
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.files.FileService
@@ -78,10 +79,11 @@ class DebateController {
         }
 
         // Multimedia URL
-        if (debateRSDTO.multimediaUrl?.contains("youtube")) {
-            debateCommand.videoPost = debateRSDTO.multimediaUrl
-        } else {
-            debateCommand.headerPictureId = debateRSDTO.multimediaUrl
+        if (debateRSDTO.videoUrl?.contains("youtube")) {
+            debateCommand.videoPost = debateRSDTO.videoUrl
+        } else if (debateRSDTO.photoUrl) {
+            KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.photoUrl)
+            debateCommand.headerPictureId = kuorumFile?.id
         }
 
         // Filter
@@ -119,6 +121,13 @@ class DebateController {
         flash.message = resultDebate.msg.toString()
 
         redirect mapping: "politicianMassMailing", params: []
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def removeDebate(Long debateId) {
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        debateService.removeDebate(loggedUser, debateId)
+        render ([msg: "Debate deleted"] as JSON)
     }
 
     private def debateModel(DebateCommand command, Long debateId) {
@@ -192,10 +201,10 @@ class DebateController {
             KuorumFile picture = KuorumFile.get(command.headerPictureId)
             picture = fileService.convertTemporalToFinalFile(picture)
             fileService.deleteTemporalFiles(user)
-            debateRDTO.setMultimediaUrl(picture.getUrl())
+            debateRDTO.setPhotoUrl(picture.getUrl())
         } else if (command.videoPost) {
-            //KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
-            debateRDTO.setMultimediaUrl(command.videoPost)
+            KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
+            debateRDTO.setVideoUrl(urlYoutubeFile?.url)
         }
 
         debateRDTO

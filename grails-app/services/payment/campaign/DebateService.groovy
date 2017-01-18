@@ -14,6 +14,24 @@ class DebateService {
 
     RestKuorumApiService restKuorumApiService
 
+    List<DebateRSDTO> findAllDebates(KuorumUser user) {
+        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_DEBATES,
+                params,
+                query,
+                new TypeReference<List<DebateRSDTO>>(){}
+        )
+
+        List<DebateRSDTO> debatesFound = null
+        if (response.data) {
+            debatesFound = (List<DebateRSDTO>) response.data
+        }
+
+        debatesFound
+    }
+
     DebateRSDTO findDebate(KuorumUser user, Long debateId) {
         Map<String, String> params = [userAlias: user.id.toString(), debateId: debateId.toString()]
         Map<String, String> query = [:]
@@ -85,7 +103,7 @@ class DebateService {
         debateSaved
     }
 
-    /*Long removeDebate(KuorumUser user, Long debateId) {
+    Long removeDebate(KuorumUser user, Long debateId) {
         Map<String, String> params = [userAlias: user.id.toString(), debateId: debateId.toString()]
         Map<String, String> query = [:]
         def response = restKuorumApiService.delete(
@@ -95,7 +113,7 @@ class DebateService {
         )
 
         debateId
-    }*/
+    }
 
     private static Date convertToUserTimeZone(Date date, TimeZone userTimeZone) {
         if (date) {

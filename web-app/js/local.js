@@ -553,6 +553,7 @@ $(document).ready(function() {
         e.preventDefault();
         if (isValidDebateForm()) {
             // Autoset publish day for today
+            var date = new Date();
             var dateString = date.getDate()
                 + "/" + ("0" + (date.getMonth() + 1)).slice(-2)
                 + "/" + date.getFullYear()
