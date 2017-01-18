@@ -2602,7 +2602,7 @@ video#bgvid {
 .edit-post > h1 + p {color: #a8a8a8;}
 .edit-post > h1 {
     font-size: 48px;
-    font-style: 4.8rem;
+    font-size: 4.8rem;
     text-transform: uppercase;
     color: #545454;
     margin-top: 35px;
@@ -2611,10 +2611,10 @@ video#bgvid {
 .edit-post .kakareo.post h1 {font-size: 18px; font-size: 1.8rem; padding: 20px 0 10px; margin: 0 0 10px;}
 .edit-post #main h2 {font-size: 28px; font-size: 2.8rem; text-transform: uppercase;}
 .edit-post > p {border-bottom: solid 1px #efefef; padding: 0 0 20px 0; margin: 0;}
-.edit-post form {font-size: 14px; font-style: 1.4rem;}
+.edit-post form {font-size: 14px; font-size: 1.4rem;}
 .edit-post form label, .edit-post form .span-label{
     font-size: 24px;
-    font-style: 2.4rem;
+    font-size: 2.4rem;
     color: #545454;
     padding-bottom: 0;
     margin-bottom: 10px;
@@ -2769,7 +2769,7 @@ textarea.error,
 }
 #karma  h1 {
     font-size: 36px;
-    font-style: 3.6rem;
+    font-size: 3.6rem;
     text-transform: uppercase;
     color: #545454;
     text-align: center;
@@ -2788,13 +2788,13 @@ textarea.error,
 #modalVictory .modal-header > .col:last-child {background-color: #faebcc; color: #545454;}
 #modalVictory .modal-header {position: relative; background-color: #ff9431; padding: 0; color: #fff; height: 110px;}
 #modalVictory .modal-header img {float: left; border: solid 4px #fff; margin-top: 0;}
-#modalVictory .modal-header h3 {font-size: 48px; font-style: 4.8rem; text-transform: uppercase; margin-bottom: 0; margin-top: 10px; line-height: 1;}
-#modalVictory .modal-header h4 {font-size: 22px; font-style: 2.2rem; margin: 0; color: #faebcc;}
+#modalVictory .modal-header h3 {font-size: 48px; font-size: 4.8rem; text-transform: uppercase; margin-bottom: 0; margin-top: 10px; line-height: 1;}
+#modalVictory .modal-header h4 {font-size: 22px; font-size: 2.2rem; margin: 0; color: #faebcc;}
 #modalVictory .modal-header .user-img.big {width: 90px; height: 90px; margin: 0 10px 0 0;}
 #modalVictory .modal-header .user {margin: 0; position: relative; width: 100%;}
 #modalVictory .modal-header .user > .user-img.big {width: 70px; height: 70px; border-color: #ff9431; margin: 0 10px 4px 0;}
 #modalVictory .modal-header > .col:last-child .user > span {display: block;}
-#modalVictory .modal-header > .col:last-child .user > .name {font-size: 18px; font-style: 1.8rem; text-overflow: ellipsis; /* pone [...] al final si no cabe */ width: 190px; white-space: nowrap; overflow:hidden; /* para old browser */}
+#modalVictory .modal-header > .col:last-child .user > .name {font-size: 18px; font-size: 1.8rem; text-overflow: ellipsis; /* pone [...] al final si no cabe */ width: 190px; white-space: nowrap; overflow:hidden; /* para old browser */}
 #modalVictory .modal-header > .col:last-child .user > .what {color: #ff9431;}
 #modalVictory .fdoDiagonal {width: 0; height: 0; border-bottom: 110px solid #faebcc; border-left: 60px solid transparent; position: absolute; top: 0; left: -60px; display: none;}
 #modalVictory .modal-body {margin-top: 90px;}
@@ -2813,18 +2813,18 @@ textarea.error,
 #modalSponsor .modal-header > .col:last-child {background-color: #faebcc; color: #545454;}
 #modalSponsor .modal-header {position: relative; background-color: #ff9431; padding: 0; color: #fff; height: 110px;}
 #modalSponsor .modal-header img {float: left; border: solid 4px #fff; margin-top: 0;}
-#modalSponsor .modal-header h1 {font-size: 16px; font-style: 1.6rem; margin: 12px 0 6px 0;}
-#modalSponsor .modal-header h2 {font-size: 26px; font-style: 2.6rem; text-transform: uppercase; margin-bottom: 0; margin-top: 5px; line-height: 1;}
-#modalSponsor .modal-header h3 {font-size: 16px; font-style: 1.6rem; margin: 0; color: #faebcc;}
+#modalSponsor .modal-header h1 {font-size: 16px; font-size: 1.6rem; margin: 12px 0 6px 0;}
+#modalSponsor .modal-header h2 {font-size: 26px; font-size: 2.6rem; text-transform: uppercase; margin-bottom: 0; margin-top: 5px; line-height: 1;}
+#modalSponsor .modal-header h3 {font-size: 16px; font-size: 1.6rem; margin: 0; color: #faebcc;}
 #modalSponsor .modal-header .user-img.big {width: 90px; height: 90px; margin: 0 10px 0 0;}
 #modalSponsor .modal-header .user {margin: 0; position: relative; width: 100%;}
 #modalSponsor .modal-header .user > .user-img.big {width: 70px; height: 70px; border-color: #ff9431; margin: 0 10px 4px 0;}
 #modalSponsor .modal-header > .col:last-child .user > span {display: block;}
-#modalSponsor .modal-header > .col:last-child .user > .name {font-size: 16px; font-style: 1.6rem; text-overflow: ellipsis; /* pone [...] al final si no cabe */ width: 190px; white-space: nowrap; overflow:hidden; /* para old browser */}
+#modalSponsor .modal-header > .col:last-child .user > .name {font-size: 16px; font-size: 1.6rem; text-overflow: ellipsis; /* pone [...] al final si no cabe */ width: 190px; white-space: nowrap; overflow:hidden; /* para old browser */}
 #modalSponsor .modal-header > .col:last-child .user > .what,
-#modalSponsor .modal-header > .col:last-child .user > .action {font-size: 12px; font-style: 1.2rem;}
+#modalSponsor .modal-header > .col:last-child .user > .action {font-size: 12px; font-size: 1.2rem;}
 #modalSponsor .modal-header > .col:last-child .user > .action {line-height: 1;}
-#modalSponsor .modal-header > .col:last-child .user > .action span {font-size: 20px; font-style: 2rem;}
+#modalSponsor .modal-header > .col:last-child .user > .action span {font-size: 20px; font-size: 2rem;}
 #modalSponsor .fdoDiagonal {width: 0; height: 0; border-bottom: 110px solid #faebcc; border-left: 60px solid transparent; position: absolute; top: 0; left: -60px; display: none;}
 #modalSponsor .modal-body {margin-top: 90px;}
 #modalSponsor .modal-body > p:first-child {color: #a8a8a8;}
@@ -2836,7 +2836,7 @@ textarea.error,
 
 
 /* páginas de entrar y registro, con layout de 1 columna */
-.sign h1 {font-size: 25px; font-size: 2.2rem; margin-top: 0;text-align:center;}
+.sign h1 {      font-size: 25px; font-size: 2.2rem; margin-top: 0;text-align:center;}
 .sign h2 {font-size: 18px; font-size: 1.8rem; line-height: 1.4; padding: 0;text-align:center;}
 .sign h3 {font-size: 18px; font-size: 1.8rem;text-align:left;}
 .sign .login {margin-top: 20px; margin-bottom: 20px;}
@@ -2969,7 +2969,7 @@ textarea.error,
 .intro.confirm {margin: 0 0 40px;}
 .intro h1 {
     font-size: 40px;
-    font-style: 4rem;
+    font-size: 4rem;
     text-transform: uppercase;}
 .onecol h2, .onecol h3 {margin-top: 0;}
 .onecol h2,
@@ -4248,7 +4248,7 @@ fieldset.rating:hover > input + label:hover:before {
 .contratando > div:last-child h3,
 .contratando > div:last-child ul {margin-bottom: 0;}
 .contratando > div:last-child h4 {background-color: #ededed; margin: -10px 0 0 0; text-align: center; font-size: 50px; font-size: 5rem; line-height: .6; padding-bottom: 40px;}
-.decimals {font-size: 25px !important; font-style: 2.5rem !important;}
+.decimals {font-size: 25px !important; font-size: 2.5rem !important;}
 .contratando > div:last-child h4 small {font-size: 19px; font-size: 1.9rem; color: #545454;}
 
 .contratando .form-group:last-child {margin-right: 0;}
@@ -4311,7 +4311,7 @@ fieldset.rating:hover > input + label:hover:before {
 .tipo-pago {margin-top: 30px;}
 
 .funnelFormDetectUser .form-group:last-child {margin: 30px 0 0 0; text-align: center;}
-.funnelFormDetectUser .form-group:last-child .btn {width: 100%; font-size: 25px !important; font-style: 2.5rem !important;}
+.funnelFormDetectUser .form-group:last-child .btn {width: 100%; font-size: 25px !important; font-size: 2.5rem !important;}
 
 
 
@@ -4455,10 +4455,10 @@ fieldset.rating:hover > input + label:hover:before {
 .onecol.list .intro {margin-bottom: 0; border: none;}
 .onecol.list h2 {
     font-size: 29px;
-    font-style: 2.9rem;
+    font-size: 2.9rem;
     text-transform: uppercase;
 }
-.onecol.list h3 {font-size: 19px; font-style: 1.9rem; margin-bottom: 20px;}
+.onecol.list h3 {font-size: 19px; font-size: 1.9rem; margin-bottom: 20px;}
 .onecol.list .block-results {border-top: 1px solid #DADADA; padding-top: 40px;}
 .onecol.list .block-results ul {
     margin: 0 0 40px 0;
@@ -4959,6 +4959,8 @@ h3.withArrow {margin-top: 60px; margin-bottom: 110px; font-size: 20px; font-size
 }
 .embudo .arrow5 {width: 140px; height: 154px; background-image: url('../images/arrow5-blue.png'); background-size: auto; right: 95px;}
 
+#politicianDebateForm .buttons .div {padding-bottom: 20px; float: right; width: 38%;}
+
 /*botones video o foto en la edición del post*/
 fieldset.multimedia ul.nav.nav-pills.nav-justified li a {
     margin-bottom: 15px;
@@ -4975,7 +4977,8 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li a:hover,
 fieldset.multimedia ul.nav.nav-pills.nav-justified li a:focus,
 fieldset.multimedia ul.nav.nav-pills.nav-justified li a:active {background-color: #fafafa;}
 fieldset.multimedia ul.nav.nav-pills.nav-justified li a {border-radius: 0; padding: 5px 15px;}
-fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {margin-right: 0;}
+fieldset.multimedia ul.nav.nav-pills.nav-justified li a:first-child {border-radius: 4px 0px 0px 4px;}
+fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radius: 0px 4px 4px 0px;}
 
 
 /* boxes columna derecha actialización Proyecto */
@@ -5436,7 +5439,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .arrow2 {right: 15px;}
     h1.withArrow {margin-bottom: 50px;}
-    fieldset.multimedia ul.nav.nav-pills.nav-justified li a {margin-right: 10px; border-radius: 0; padding: 5px 15px;}
+    fieldset.multimedia ul.nav.nav-pills.nav-justified li a {padding: 5px 15px;}
     .charNum {margin: 0;}
     .login .btn.btn-blue.btn-lg {padding-left: 50px !important; padding-right: 50px !important;}
 
@@ -5484,7 +5487,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #main .user.actor,
     #main .user.actor .popover-trigger {font-size: 13px; font-size: 1.3rem;}
     .intro {margin: 40px 0 60px;}
-    .intro h1 {font-size: 48px; font-style: 4.8rem;}
+    .intro h1 {font-size: 48px; font-size: 4.8rem;}
     .intro.confirm {margin: 60px 0 40px;}
     .links.simple {padding: 40px;}
     .links.simple .legal li {display: inline; margin: 0 14px 0 0; border-right: solid 1px #a8a8a8; border-bottom: none; padding: 0 14px 0 0;}
