@@ -39,6 +39,8 @@
     </g:if>
     <g:else>
         <g:link mapping="debateEdit" params="[debateId: debate.id]" class="campaignEdit"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
+
+        %{-- This delete function is not implemented --}%
+        <g:link mapping="debateRemove" params="[debateId: debate.id]"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
     </g:else>
-    <g:link mapping="debateRemove" params="[debateId: debate.id]"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
 </li>
