@@ -1018,7 +1018,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #contactsList .bootstrap-tagsinput, .edit-contact-header .bootstrap-tagsinput {padding-bottom: 1px; min-height: 0; padding-top: 1px;}
 #contactsList .bootstrap-tagsinput .tag, .edit-contact-header .bootstrap-tagsinput .tag{margin-bottom: 1px;}
 
-.bootstrap-tagsinput .tt-input {min-width: 5em;}
+.bootstrap-tagsinput .tt-input {min-width: 15em;}
 
 .bootstrap-tagsinput input[type="text"] {
     font-size: 12px; font-size: 1.2rem;
