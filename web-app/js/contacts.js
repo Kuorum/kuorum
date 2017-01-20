@@ -395,7 +395,11 @@ function FilterContacts() {
                 var table=$("#filtersInfo .modal-body table tbody");
                 table.html("");
                 $.each(data.data, function(idx, contact){
-                    table.append("<tr><td>"+contact.name+"</td><td>"+contact.email+"</td></tr>")
+                    var surname = contact.surname;
+                    if (surname == undefined || surname == "null"){
+                        surname = ""
+                    }
+                    table.append("<tr><td>"+contact.name+" "+surname+"</td><td>"+contact.email+"</td></tr>")
                 });
                 var txt = $("#filtersRecipients").text().replace(/\d+/, data.total);
                 $("#filtersRecipients").text(txt);
