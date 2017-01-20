@@ -51,10 +51,7 @@ class DebateService {
     }
 
     DebateRSDTO saveDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
-        // If no date, set it to today
-        if (debateRDTO.publishOn == null) {
-            debateRDTO.publishOn = new Date()
-        } else {
+        if (debateRDTO.publishOn != null) {
             debateRDTO.publishOn = convertToUserTimeZone(debateRDTO.publishOn, user.timeZone)
         }
 

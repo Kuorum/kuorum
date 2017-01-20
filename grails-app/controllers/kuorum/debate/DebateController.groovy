@@ -66,16 +66,8 @@ class DebateController {
         // Tags
         if (debateRSDTO.triggeredTags) {
             debateCommand.setEventsWithTag(new ArrayList<TrackingMailStatusRSDTO>())
-            for (TrackingMailStatusRSDTO trackingMailStatusRSDTO : debateRSDTO.triggeredTags.keySet()) {
-                debateCommand.getEventsWithTag().add(trackingMailStatusRSDTO)
-            }
-            for (List<String> lists : debateRSDTO.triggeredTags.values()) {
-                for (String tagAux : lists) {
-                    if (lists.indexOf(tagAux) != -1) {
-                        lists.add(tagAux)
-                    }
-                }
-            }
+            debateCommand.setEventsWithTag(debateRSDTO.triggeredTags.keySet() as List)
+            debateCommand.setTags(debateRSDTO.triggeredTags.values().flatten())
         }
 
         // Multimedia URL
