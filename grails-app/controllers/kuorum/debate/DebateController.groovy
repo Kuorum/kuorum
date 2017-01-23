@@ -3,8 +3,10 @@ package kuorum.debate
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
+import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.DebateCommand
 import org.kuorum.rest.model.communication.debate.DebateRDTO
@@ -21,9 +23,27 @@ class DebateController {
 
     def springSecurityService
 
+    KuorumUserService kuorumUserService
     FileService fileService
     ContactService contactService
     DebateService debateService
+
+    def show() {
+        KuorumUser user = kuorumUserService.findByAlias((String) params.userAlias)
+        try {
+            DebateRSDTO debate = debateService.findDebate(user, Long.parseLong((String) params.debateId))
+
+            if (!debate) {
+                throw new KuorumException(message(code: "debate.notFound") as String)
+            }
+
+            return [debate: debate]
+        } catch (Exception ignored) {
+            // Error parsing or not found
+            flash.error = message(code: "debate.notFound")
+            redirect mapping: "politicianMassMailing", params: []
+        }
+    }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
@@ -33,7 +53,7 @@ class DebateController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def save(DebateCommand command) {
         if (command.hasErrors()) {
-            render view: '/debate/create', model: debateModel(command, null)
+            render view: 'create', model: debateModel(command, null)
             return
         }
 

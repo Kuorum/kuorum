@@ -5,7 +5,7 @@
     <span class="id sr-only">${debate.id}</span>
     <span class="state">${debate.campaignStatusRSDTO}</span>
     <h3>
-        <g:link mapping="debateShow" params="[debateId: debate.id]" class="title">
+        <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="title">
             ${debate.title}<span></span>
         </g:link>
     </h3>

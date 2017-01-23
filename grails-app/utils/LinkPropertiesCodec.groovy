@@ -1,7 +1,6 @@
 import grails.util.Holders
 import kuorum.Region
 import kuorum.core.model.CommissionType
-import kuorum.core.model.PostType
 import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.core.model.solr.SolrProject
@@ -9,6 +8,7 @@ import kuorum.core.model.solr.SolrPost
 import kuorum.project.Project
 import kuorum.post.Post
 import kuorum.users.KuorumUser
+import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
 /**
@@ -21,7 +21,7 @@ class LinkPropertiesCodec {
     static encode = {target->
 
         def params = [:]
-        switch (target){
+        switch (target) {
             case CauseRSDTO:
                 params = prepareParams(target);
                 break
@@ -29,27 +29,30 @@ class LinkPropertiesCodec {
             case SolrProject:
 //                Project project = (Project) target
                 params = prepareParams(target);
-                break;
+                break
             case SolrPost:
                 params = prepareParams(target)
-                break;
+                break
             case Post:
                 params = prepareParams(target.project)
                 params+= [
                         postId:target.id,
                         postBrief:target.title[0..Math.min(NUM_CHARS_URL_POST_TITLE, target.title.size()-1)].encodeAsKuorumUrl()
                 ]
-                break;
+                break
+            case DebateRSDTO:
+                params = prepareParams(target)
+                break
             case KuorumUser:
             case SolrKuorumUser:
                 params = prepareParams(target)
-                break;
+                break
             case UserType:
                 params = [userTypeUrl: transEnumToUrl(target)]
-                break;
+                break
             case Region:
                 params = [regionName:target.name.encodeAsKuorumUrl(), iso3166_2:target.iso3166_2]
-                break;
+                break
             default:
                 params = [:]
         }
@@ -111,6 +114,14 @@ class LinkPropertiesCodec {
                 commission:commissionName.encodeAsKuorumUrl(),
                 postId:post.id,
                 postBrief:post.name[0..Math.min(NUM_CHARS_URL_POST_TITLE, post.name.size()-1)].encodeAsKuorumUrl()
+        ]
+    }
+
+    private static def prepareParams(DebateRSDTO debate) {
+        [
+                userAlias: debate.userAlias.toLowerCase(),
+                title: debate.title.encodeAsKuorumUrl(),
+                debateId: debate.id
         ]
     }
 
