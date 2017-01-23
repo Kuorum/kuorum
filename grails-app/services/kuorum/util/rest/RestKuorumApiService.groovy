@@ -78,6 +78,9 @@ class RestKuorumApiService {
         ACCOUNT_MASS_MAILING_SEND       ("/communication/massmailing/{userAlias}/{campaignId}/send"),
         ACCOUNT_MASS_MAILING_TRACKING   ("/communication/massmailing/{userAlias}/{campaignId}/trackingMails"),
 
+        ACCOUNT_DEBATES         ("/communication/debate/{userAlias}"),
+        ACCOUNT_DEBATE          ("/communication/debate/{userAlias}/{debateId}"),
+
         ADMIN_MAILS_SEND("/admin/notification/mailing/send");
 
         String url;

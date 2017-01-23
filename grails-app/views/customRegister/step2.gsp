@@ -37,42 +37,22 @@
                         field="password"
                         showLabel="true"
                         cssClass="form-control input-lg"
+                        printValue="true"
                         required="true"/>
             </div>
         </fieldset>
+
         <fieldset class="row">
             <div class="form-group col-md-6">
-                <formUtil:input
+                <formUtil:regionInput
                         command="${command}"
-                        field="name"
-                        cssClass="form-control input-lg"
-                        showLabel="true"
-                        showCharCounter="false"
-                        required="true"/>
-            </div>
-            <div class="form-group col-md-6">
-                <formUtil:input
-                        command="${command}"
-                        field="surname"
-                        cssClass="form-control input-lg"
-                        showLabel="true"
-                        showCharCounter="false"
-                        required="true"/>
-            </div>
-        </fieldset>
-        <fieldset class="row">
-            <div class="form-group col-md-6">
-                <formUtil:selectEnum
-                        command="${command}"
-                        field="language"
+                        field="homeRegion"
                         showLabel="true"/>
             </div>
             <div class="form-group col-md-6">
                 <formUtil:selectEnum
                         command="${command}"
-                        field="userType"
-                        defaultEmpty="true"
-                        values="${[kuorum.core.model.UserType.PERSON, kuorum.core.model.UserType.POLITICIAN,  kuorum.core.model.UserType.ORGANIZATION]}"
+                        field="language"
                         showLabel="true"/>
             </div>
             %{--<div class="form-group col-md-6">--}%

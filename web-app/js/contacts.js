@@ -62,12 +62,16 @@ $(function () {
     $("#quickSearchByName").on("keypress", function(e){
         if (e.which == 13) {
             filterContacts.searchContactsCallBacks.page(0);
+            filterContacts.lastQuickSearch = $(this).val();
             return false;
         }
     });
 
     $("#quickSearchByName").on("blur", function(e){
-        filterContacts.searchContactsCallBacks.page(0);
+        if (filterContacts.lastQuickSearch != $(this).val()){
+            filterContacts.searchContactsCallBacks.page(0);
+            filterContacts.lastQuickSearch = $(this).val();
+        }
         return false;
     });
 
@@ -142,6 +146,8 @@ function FilterContacts() {
 
     var filterEditedText = i18n.tools.contact.filter.anonymousName
     var newFilterEditedText = i18n.tools.contact.filter.newAnonymousName
+
+    this.lastQuickSearch = "";
 
     if ($('#newsletter select#recipients').length > 0){
         // NEWS LETTER BEHAVIOUR
@@ -389,7 +395,11 @@ function FilterContacts() {
                 var table=$("#filtersInfo .modal-body table tbody");
                 table.html("");
                 $.each(data.data, function(idx, contact){
-                    table.append("<tr><td>"+contact.name+"</td><td>"+contact.email+"</td></tr>")
+                    var surname = contact.surname;
+                    if (surname == undefined || surname == "null"){
+                        surname = ""
+                    }
+                    table.append("<tr><td>"+contact.name+" "+surname+"</td><td>"+contact.email+"</td></tr>")
                 });
                 var txt = $("#filtersRecipients").text().replace(/\d+/, data.total);
                 $("#filtersRecipients").text(txt);

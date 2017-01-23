@@ -31,17 +31,17 @@
                 <li role="presentation" class="${campaignId?'disabled':''}"><g:link mapping="projectCreate"><g:message code="tools.campaign.type.debate"/></g:link></li>
             </userUtil:isWeceUser>
             <userUtil:isNotWeceUser>
-                <li role="presentation" class="${campaignId?'disabled':''}"><a href="#debate" data-toggle="tab"><g:message code="tools.campaign.type.debate"/></a></li>
+                <li role="presentation" class="${campaignId?'disabled':''}"><g:link mapping="debateCreate"><g:message code="tools.campaign.type.debate"/></g:link></li>
             </userUtil:isNotWeceUser>
             <li role="presentation" class="${campaignId?'disabled':''}"><a href="#petition" data-toggle="tab"><g:message code="tools.campaign.type.petition"/></a></li>
             <li role="presentation" class="${campaignId?'disabled':''}"><a href="#survey" data-toggle="tab"><g:message code="tools.campaign.type.survey"/></a></li>
         </ul>
         <div id="tabs-new-campaign" class="tab-content">
             <div class="tab-pane active" id="newsletter">
-                <g:render template="types/massMailing" model="[command:command, filters:filters, totalContacts:totalContacts, campaignId:campaignId, anonymousFilter:anonymousFilter]"/>
+                <g:render template="types/massMailing" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
             </div>
             <div class="tab-pane" id="debate">
-                <g:render template="types/notDone"/>
+
             </div>
             <div class="tab-pane" id="petition">
                 <g:render template="types/notDone"/>
@@ -58,7 +58,7 @@
             <div class="modal-dialog ">
                 <div class="modal-content">
                     <formUtil:validateForm bean="${timeZoneCommand}" form="timeZoneForm" dirtyControl="false"/>
-                    <g:form method="POST" mapping="politicianMassMailingSaveTimeZone" name="timeZoneForm" role="form" class="submitOrangeButton" autocomplete="noFill">
+                    <g:form method="POST" mapping="politicianMassMailingSaveTimeZone" name="timeZoneForm" role="form" class="submitOrangeButton" autocomplete="off">
                         <div class="modal-header"><h4><g:message code="modal.timeZone.header"/></h4></div>
                         <div class="modal-body">
                             <p>

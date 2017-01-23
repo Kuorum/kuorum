@@ -1,54 +1,99 @@
 <r:require modules="datepicker" />
-<h1 class="sr-only">Newsletter</h1>
-<formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
-<form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
-    <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
+<h1 class="sr-only">Debate</h1>
+<formUtil:validateForm bean="${command}" form="politicianDebateForm" dirtyControl="true"/>
+<form action="#" class="form-horizontal" id="politicianDebateForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
+    <input type="hidden" name="sendType" value="DRAFT" id="sendDebateType"/>
     <input type="hidden" name="campaignId" value="${campaignId?:''}"/>
-
-    <g:render template="/massMailing/filter" model="[command: command, filters: filters, anonymousFilter: anonymousFilter]"/>
-
-    <fieldset class="form-group">
-        <label for="subject" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.subject.label"/>:</label>
-        <div class="col-sm-8 col-md-7">
-            <formUtil:input
-                    command="${command}"
-                    field="subject"/>
+    <fieldset class="form-group" id="toFilters">
+        <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
+        <div class="col-sm-4 col-md-3">
+            <select name="filterId" class="form-control input-lg" id="recipients">
+                %{--<g:if test="${totalContacts}">--}%
+                    <option value="0" data-amountContacts="${totalContacts?:0}"><g:message code="tools.massMailing.fields.filter.to.all"/></option>
+                %{--</g:if>--}%
+                <g:each in="${filters}" var="filter">
+                    <option value="${filter.id}" ${command.filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
+                </g:each>
+                <g:if test="${anonymousFilter}">
+                    <option value="${anonymousFilter.id}" ${command.filterId == anonymousFilter.id?'selected':''} data-amountContacts="${anonymousFilter.amountOfContacts}" data-anononymus="true">${anonymousFilter.name}</option>
+                </g:if>
+                %{--<g:if test="${totalContacts}">--}%
+                <option value="-2" data-amountContacts="-"><g:message code="tools.massMailing.fields.filter.to.createNew"/></option>
+                %{--</g:if>--}%
+            </select>
         </div>
-
-        %{--<label for="subject" class="col-sm-2 col-md-1 control-label">Subject:</label>--}%
-        %{--<div class="col-sm-8 col-md-7">--}%
-            %{--<input type="text" class="form-control input-lg" id="subject" placeholder="It’s time to build a better country for everybody" equired aria-required="true">--}%
-        %{--</div>--}%
+        <div class="col-sm-4">
+            <g:link mapping="politicianContactFilterData" role="button" elementId="filterContacts" title="${g.message(code:'tools.contact.filter.conditions.open')}">
+                <span class="fa fa-filter fa-lg"></span>
+                <span class="sr-only"><g:message code="tools.massMailing.fields.filter.button"/></span>
+            </g:link>
+            <g:link mapping="politicianContactsSearch" elementId="infoToContacts">
+                <span class="amountRecipients"></span>
+                <g:message code="tools.massMailing.fields.filter.recipients"/>
+            </g:link>
+            <g:link mapping="politicianMassMailingSendTest" absolute="true" class="btn ${hightLigthTestButtons?'btn-blue':'btn-grey'} pull-right" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">
+                <span class="fa fa-envelope"></span>
+            </g:link>
+        </div>
     </fieldset>
-    <fieldset class="form-group image header-campaign" data-multimedia-switch="on" data-multimedia-type="IMAGE">
-        <label for="header" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.headerPictureId.label"/>:</label>
-        <formUtil:editImage
-                command="${command}"
-                field="headerPictureId"
-                fileGroup="${ kuorum.core.FileGroup.MASS_MAIL_IMAGE}"
-                cssClass="col-sm-8 col-md-7"
-                labelCssClass="sr-only"/>
+    <div id="newFilterContainer">
+        <g:render template="/contacts/filter/listFilterFieldSet" model="[filters:filters,anonymousFilter:anonymousFilter]"/>
+    </div>
+    <fieldset class="form-group">
+        <label for="title" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
+        <div class="col-sm-8 col-md-7">
+            <formUtil:input command="${command}" field="title"/>
+        </div>
     </fieldset>
     <fieldset class="form-group">
         <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
         <div class="textareaContainer col-sm-8 col-md-7">
-            %{--<textarea name="text" class="form-control texteditor" rows="8" placeholder="${message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.text.placeholder')}" id="textProject" required aria-required="true"></textarea>--}%
             <formUtil:textArea command="${command}" field="text" rows="8" texteditor="texteditor"/>
         </div>
     </fieldset>
     <fieldset class="form-group tags-campaign" data-multimedia-switch="on" data-multimedia-type="IMAGE">
-        <label for="tagsField" class="col-sm-2 col-md-1 control-label">Tags: </label>
+        <label for="tagsField" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.tags.label"/>: </label>
         <div class="col-sm-8 col-md-7">
             <formUtil:tags
-                    command="${command}"
-                    field="tags"
-            />
+                command="${command}"
+                field="tags"
+                />
             <div class="tag-events">
                 <label><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.label"/></label>
                 <formUtil:checkBox command="${command}" field="eventsWithTag" value="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.OPEN}" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.OPEN')}"/>
                 <formUtil:checkBox command="${command}" field="eventsWithTag" value="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.CLICK}" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.CLICK')}"/>
             </div>
         </div>
+    </fieldset>
+    <fieldset class="form-group multimedia">
+        <label for="photoId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:</label>
+        <div class="col-sm-8 col-md-7">
+            <span class="span-label sr-only"><g:message code="admin.createProject.upload.imageOrVideo" /></span>
+            <input type="hidden" name="fileType" value="${command.videoPost?'YOUTUBE':'IMAGE'}" id="fileType">
+            <ul class="nav nav-pills nav-justified">
+                <li class="${command.photoId || (command.errors?.getFieldError('photoId')?.codes?.contains('imageOrUrlYoutubeRequired') && command.errors?.getFieldError('videoPost')?.codes?.contains('imageOrUrlYoutubeRequired'))?'active':''}">
+                    <a href="#projectUploadImage" data-toggle="tab" data-filetype="IMAGE"><g:message code="admin.createProject.upload.image" /></a>
+                </li>
+                <li class="${command.videoPost?'active':''}">
+                    <a href="#projectUploadYoutube" data-toggle="tab" data-filetype="YOUTUBE"><g:message code="admin.createProject.upload.video" /></a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade ${command.photoId || (command.errors?.getFieldError('photoId')?.codes?.contains('imageOrUrlYoutubeRequired') && command.errors?.getFieldError('videoPost')?.codes?.contains('imageOrUrlYoutubeRequired'))?'in active':''}" id="projectUploadImage">
+                    <div class="form-group image" data-multimedia-switch="on" data-multimedia-type="IMAGE">
+                        <formUtil:editImage command="${command}" field="photoId" fileGroup="${kuorum.core.FileGroup.PROJECT_IMAGE}"/>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade ${command.videoPost?'in active':''}" id="projectUploadYoutube">
+                    <div class="video" data-multimedia-switch="on" data-multimedia-type="YOUTUBE">
+                        <formUtil:url command="${command}" field="videoPost" required="true" placeHolder="${g.message(code: "kuorum.web.commands.payment.massMailing.DebateCommand.video.placeholder")}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="buttons">
         <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
             <ul class="form-final-options">
                 <li>
@@ -62,13 +107,11 @@
                         <g:message code="tools.massMailing.schedule"/>
                     </a>
                     <div id="selectDate">
-                        %{--<form>--}%
                         <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
                         <formUtil:date field="scheduled" command="${command}" cssClass="form-control" time="true"/>
                         <a href="#" class="btn btn-blue inverted" id="sendLater">
                             <g:message code="tools.massMailing.schedule.sendLater"/>
                         </a>
-                        %{--</form>--}%
                     </div>
                 </li>
                 <li><a href="#" class="btn btn-blue inverted" id="send"><g:message code="tools.massMailing.send"/></a></li>
