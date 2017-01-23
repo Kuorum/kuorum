@@ -1609,21 +1609,24 @@
                 });
                 
                 $conversationBoxButtonSeeMore.on('click', function (event) {
-                    var $targetElement = $(event.target)
-                    var conversationBoxButtonSeeMoreSmall = $('.conversation-box button.btn-see-more.stack .angle')[0];
+                    var $actionsContent = $(event.target).closest('.actions');
+                    var $conversationBoxButtonSeeMore = $actionsContent.find('.btn.btn-see-more'); //event.target
+                    var $conversationBoxButtonSeeMoreSmall = $actionsContent.find('button.btn-see-more.stack');
+                    var $conversationBox = $actionsContent.closest('.conversation-box');
+                    var $conversationBoxBody = $actionsContent.closest('.conversation-box').find('.body');
+
+                    $conversationBoxButtonSeeMore.toggleClass('btn-see-less angle-down angle-up');
+                    $conversationBoxButtonSeeMoreSmall.find('.angle').toggleClass('fa-angle-down fa-angle-up');
                     
-                    $targetElement.toggleClass('btn-see-less angle-down angle-up');
-                    $(conversationBoxButtonSeeMoreSmall).toggleClass('fa-angle-down fa-angle-up');
-                    
-                    if ($targetElement.parent().prev('.body').height() > 134) {
-                        $targetElement.text('See More');
-                        $targetElement.parent().prev('.body').animate({
+                    if ($conversationBoxBody.height() > 134) {
+                        $conversationBoxButtonSeeMore.text('See More');
+                        $conversationBoxBody.animate({
                             height: 134
                         }, 1000);
                     } else {
-                        $targetElement.text('Collapse');
-                        var targetElementHeight = $targetElement.parent().prev('.body').addClass('height-auto').height();
-                        $targetElement.parent().prev('.body').removeClass('height-auto').animate({
+                        $conversationBoxButtonSeeMore.text('Collapse');
+                        var targetElementHeight = $conversationBoxBody.addClass('height-auto').height();
+                        $conversationBoxBody.removeClass('height-auto').animate({
                             height: targetElementHeight
                         }, 1000);
                     }
@@ -1654,8 +1657,10 @@
                 $seeMoreComments.on('click', function (event) {
                     var $placeholder = $(event.target).closest('.comment-box');
                     var $conversationComments = $placeholder.prev();
+
                     var $actionsContent = $(event.target).closest('.actions');
                     var $seeMoreComments = $actionsContent.find('.btn.btn-see-more');
+                    var $seeMoreCommentsSmall = $actionsContent.find('button.go-up.stack');
                     
                     $conversationComments.slideToggle(1000);
                     $seeMoreComments.toggleClass('btn-see-less angle-down angle-up');
