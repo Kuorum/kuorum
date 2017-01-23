@@ -12,6 +12,7 @@ import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.campaign.DebateService
 import payment.contact.ContactService
@@ -87,7 +88,12 @@ class DebateController {
             model.put("anonymousFilter", anonymousFilter)
         }
 
-        render view: 'create', model: model
+        // Edit while sent or while draft
+        if (debateRSDTO.campaignStatusRSDTO == CampaignStatusRSDTO.SENT) {
+            render view: 'edit', model: model
+        } else {
+            render view: 'create', model: model
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -102,7 +108,12 @@ class DebateController {
         }
 
         if (!command.validate()) {
-            render view:'/project/edit', model: debateModel(command, null)
+            // Edit while sent or while draft
+            if (debateRSDTO.campaignStatusRSDTO == CampaignStatusRSDTO.SENT) {
+                render view: 'edit', model: debateModel(command, null)
+            } else {
+                render view: 'create', model: debateModel(command, null)
+            }
             return
         }
 
