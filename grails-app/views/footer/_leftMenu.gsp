@@ -6,9 +6,6 @@
     <li class="${activeMapping=='footerVision'?'active':''}">
         <g:link mapping="footerVision"><g:message code="layout.footer.mision"/></g:link>
     </li>
-    <li class="${activeMapping=='footerImpact'?'active':''}">
-        <g:link mapping="footerImpact"><g:message code="layout.footer.impact"/></g:link>
-    </li>
     <li class="${activeMapping=='footerTeam'?'active':''}">
         <g:link mapping="footerTeam"><g:message code="layout.footer.team"/></g:link>
     </li>

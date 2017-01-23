@@ -43,15 +43,11 @@ class UrlMappings {
                                     "/services/organizations"              {controller="redirect"; action= "redirect301"; newMapping='footerGovernment'}
         name footerCitizens:        "/$lang/services/corporations"   (controller:"footer", action: "citizens" )
                                     "/services/corporations"   {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
-        name footerDevelopers:      "/$lang/services/editors"           (controller:"footer", action: "developers" )
-                                    "/services/editors"                 {controller="redirect"; action= "redirect301"; newMapping='footerDevelopers'}
         name footerAboutUs:         "/$lang/about/our-story"             (controller:"footer", action: "aboutUs" )
                                     "/about/our-story"                  {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
                                     "/about"                            {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
         name footerVision:          "/$lang/about/mision-and-vision"    (controller:"footer", action: "vision" )
                                     "/about/mision-and-vision"          {controller="redirect"; action= "redirect301"; newMapping='footerVision'}
-        name footerImpact:          "/$lang/about/impact"               (controller:"footer", action: "impact" )
-                                    "/about/impact"                     {controller="redirect"; action= "redirect301"; newMapping='footerImpact'}
         name footerTeam:            "/$lang/about/our-team"             (controller:"footer", action: "team" )
                                     "/about/our-team"                   {controller="redirect"; action= "redirect301"; newMapping='footerTeam'}
         name footerInformation:     "/$lang/press"                      (controller:"footer", action: "information" )
