@@ -7370,6 +7370,8 @@ div [class^='user-box col-'] {
 
 .middle-point.right::after {
     content: '\00b7';
+    padding-left: 5px;
+    display: inline-block;
 }
 button.btn-see-more {
     background-color: transparent; 
@@ -7387,6 +7389,10 @@ button.btn-see-more {
 
 .btn.btn-see-more:hover {
     background-color: #A8A8A8 !important;
+}
+
+.btn-see-more:hover, .go-up:hover {
+    color: #A8A8A8 !important;
 }
 
 .btn.btn-see-more.angle-down::after {
@@ -7638,7 +7644,7 @@ div [class^='comment-box col-'] {
 
 .conversation-box .pin-propusal + .tooltip.bottom .tooltip-arrow {
     border-bottom-color: #FF9431;
-    top: -10px;
+    top: -8px;
     left: 50%;
     margin-left: -10px;
     border-width: 0 10px 10px;
@@ -7731,11 +7737,17 @@ div [class^='comment-box col-'] {
 
 .conversation-box .footer .comment-counter .delete {
     font-size: 14px;
+    display: inline-block;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;;
 }
 
 .conversation-box .footer .comment-counter .delete:hover {
     text-decoration: underline;
     color: #A8A8A8;
+}
+
+.conversation-box .footer .comment-counter .delete:hover::after {
+    display: inline-block;
 }
 
 .conversation-box .footer .social li.active .fa-circle {
@@ -7823,6 +7835,10 @@ div [class^='comment-box col-'] {
     line-height: 1.58;
 }
 
+.conversation-box-comment .body p {
+    margin: 0;
+}
+
 .conversation-box-comment .footer {
     font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;;
     padding-left: 40px;
@@ -7864,6 +7880,11 @@ div [class^='comment-box col-'] {
     border-top: 1px solid #F0F0F0;
     margin: 0;
     padding-bottom: 0;
+    padding-top: 0;
+}
+
+.conversation-box-comments .comment-box .comment-propusal {
+    padding-top: 25px;
 }
 
 .conversation-box-comments .comment-box .editable-comment {
@@ -7882,6 +7903,10 @@ div [class^='comment-box col-'] {
 .conversation-box-comments .comment-box button.go-up:hover {
     color: #ff9431;
     text-decoration: none;
+}
+
+.conversation-box-comments .comment-box .comment-propusal {
+    display: none;
 }
 
 /*** vote-user ***/
