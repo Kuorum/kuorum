@@ -8,7 +8,7 @@ class UrlMappings {
 
     static excludes = ['/robots.txt']
 
-    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect','project', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos', 'register', 'login']
+    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect','project', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos', 'register', 'login','js','images','css', 'fonts']
     static List<String> VALID_LANGUAGE_PATHS = AvailableLanguage.values().collect{it.locale.language}
 	static mappings = {
 
