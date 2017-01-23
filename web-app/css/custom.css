@@ -7473,7 +7473,7 @@ button.btn-see-more {
     font-style: normal;
     font-size: 20px;
     line-height: 34px;
-    color: #818181;
+    color: #545454;
     padding: 0 30px 0 30px;
 }
 
@@ -7520,7 +7520,7 @@ button.btn-see-more {
 }
 
 .leader-post > .footer .comment-counter button:hover {
-    color: #ff9431;
+    color: #00a3ed;
     text-decoration: none;
 }
 
@@ -7760,7 +7760,7 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box .footer .comment-counter button:hover {
-    color: #ff9431;
+    color: #00a3ed;
     text-decoration: none;
 }
 
