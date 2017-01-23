@@ -37,14 +37,12 @@ class UrlMappings {
         name footerTechnology:      "/$lang/services/what-is-kuorum"    (controller:"footer", action: "tech" )
                                     "/services/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
                                     "/services"                         { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
-        name footerPoliticians:     "/$lang/services/win-your-election" (controller:"footer", action: "politicians" )
-                                    "/services/win-your-election"       {controller="redirect"; action= "redirect301"; newMapping='footerPoliticians'}
-                                    "/services/politicians"             {controller="redirect"; action= "redirect301"; newMapping='footerPoliticians'}
-        name footerGovernment:      "/$lang/services/government"        (controller:"footer", action: "government" )
-                                    "/services/government"              {controller="redirect"; action= "redirect301"; newMapping='footerGovernment'}
-        name footerCitizens:        "/$lang/services/who-should-i-vote-for"   (controller:"footer", action: "citizens" )
-                                    "/services/who-should-i-vote-for"   {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
-                                    "/services/citizens"                {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
+        name footerPoliticians:     "/$lang/services/leaders" (controller:"footer", action: "politicians" )
+                                    "/services/leaders"       {controller="redirect"; action= "redirect301"; newMapping='footerPoliticians'}
+        name footerGovernment:      "/$lang/services/organizations"        (controller:"footer", action: "government" )
+                                    "/services/organizations"              {controller="redirect"; action= "redirect301"; newMapping='footerGovernment'}
+        name footerCitizens:        "/$lang/services/corporations"   (controller:"footer", action: "citizens" )
+                                    "/services/corporations"   {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
         name footerDevelopers:      "/$lang/services/editors"           (controller:"footer", action: "developers" )
                                     "/services/editors"                 {controller="redirect"; action= "redirect301"; newMapping='footerDevelopers'}
         name footerAboutUs:         "/$lang/about/our-story"             (controller:"footer", action: "aboutUs" )
