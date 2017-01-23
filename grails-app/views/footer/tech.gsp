@@ -18,6 +18,5 @@
 <content tag="mainContent">
     <h1><g:message code="layout.footer.technology"/></h1>
     <p><g:message code="footer.menu.tech.description1"/></p>
-    <p><g:message code="footer.menu.tech.description2" args="[g.createLink(mapping:'register', absolute: true)]"/></p>
-    <p><img src="${resource(dir: 'images', file: 'screens.png')}" alt="kuorum-screens" itemprop="image"></p>
+    %{--<p><img src="${resource(dir: 'images', file: 'screens.png')}" alt="kuorum-screens" itemprop="image"></p>--}%
 </content>
