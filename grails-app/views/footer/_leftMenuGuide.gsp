@@ -3,8 +3,8 @@
     <li class="${activeMapping=='footerTechnology'?'active':''}">
         <g:link mapping="footerTechnology"><g:message code="layout.footer.technology"/></g:link>
     </li>
-    <li class="${activeMapping=='footerPoliticians'?'active':''}">
-        <g:link mapping="footerPoliticians"><g:message code="layout.footer.politicians"/></g:link>
+    <li class="${activeMapping=='footerLeaders'?'active':''}">
+        <g:link mapping="footerLeaders"><g:message code="layout.footer.leaders"/></g:link>
     </li>
     <li class="${activeMapping=='footerGovernment'?'active':''}">
         <g:link mapping="footerGovernment"><g:message code="layout.footer.government"/></g:link>
