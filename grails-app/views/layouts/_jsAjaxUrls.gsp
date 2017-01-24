@@ -105,6 +105,23 @@
                     }
                 }
             },
+        },
+        kuorum:{
+            web:{
+                commands:{
+                    payment:{
+                        massMailing:{
+                            MassMailingCommand:{
+                                scheduled:{
+                                    min:{
+                                        error:"<g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error"/>"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
