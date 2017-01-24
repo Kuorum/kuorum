@@ -54,6 +54,7 @@ class DebateService {
         if (debateRDTO.publishOn != null) {
             debateRDTO.publishOn = convertToUserTimeZone(debateRDTO.publishOn, user.timeZone)
         }
+        debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags()
 
         if (debateId) {
             updateDebate(user, debateRDTO, debateId)
