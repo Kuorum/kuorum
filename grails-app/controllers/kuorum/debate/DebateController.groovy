@@ -86,7 +86,7 @@ class DebateController {
         DebateCommand debateCommand = new DebateCommand()
         debateCommand.title = debateRSDTO.title
         debateCommand.body = debateRSDTO.body
-        debateCommand.publishOn = debateRSDTO.publishOn
+        debateCommand.publishOn = debateRSDTO.datePublished
 
         // Tags
         if (debateRSDTO.triggeredTags) {
