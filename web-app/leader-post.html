@@ -1569,30 +1569,31 @@
                     });  
                 });
 
-                // LightbulButton
+                // LightbulButton - comment-counter
                 var lightbulbButton = $('.leader-post > .footer .comment-counter button');
-                lightbulbButton.on('click', function () {
-                    var $commentBox = $($('.comment-box .comment')[0]);
-                    var navbarHeight = $('.navbar').outerHeight();
-                    
+                lightbulbButton.on('click', function (event) {
+                    var $commentBox = $(event.target).closest('.leader-post').next('.comment-box');
+                    var $comment = $commentBox.find('.comment');
+                    var navbarHeight = $('.navbar').outerHeight();                    
+
                     $('html, body').animate({
                         scrollTop: $commentBox.offset().top - navbarHeight - 40
                     }, 1000, function () {
-                        $commentBox.focus();
+                        $comment.focus();
                     });
                 });
 
                 // CommentButton
-                var commentButton = $('.conversation-box .footer .comment-counter button.comment');
-                commentButton.on('click', function (event) {
-                    var $commentBox = $(event.target.parentElement).closest('.conversation-box').next('.conversation-box-comments').find('.comment-box .editable-comment');
+                var $commentButton = $('.conversation-box .footer .comment-counter button.comment');
+                
+                $commentButton.on('click', function (event) {
+                    var $conversationBox = $(event.target.parentElement).closest('.conversation-box');
+                    var $conversationBoxComments = $conversationBox.next('.conversation-box-comments');
+                    var $conversationBoxCommentsComment = $conversationBoxComments.find('.comment-box .editable-comment');
+                    var $conversationBoxCommentsArrow = $conversationBoxComments.find('.go-up');    
                     var navbarHeight = $('.navbar').height();
 
-                    $('html, body').animate({
-                        scrollTop: $commentBox.offset().top - navbarHeight - 40
-                    }, 1000, function () {
-                        $commentBox.focus();
-                    });
+                    $conversationBoxCommentsArrow.trigger('click', [true, $conversationBoxCommentsComment]);
                 });
 
                 // See More button
@@ -1620,7 +1621,7 @@
                 // See More comments
                 var $seeMoreCommentsSmall = $('.conversation-box-comments .go-up');
 
-                $seeMoreCommentsSmall.on('click', function (event) {
+                $seeMoreCommentsSmall.on('click', function (event, animate, $target) {
                     var $placeholder = $(event.target).closest('.comment-box');
                     var $conversationComments = $placeholder.prev();
                     var $actionsContent = $(event.target).closest('.actions');
@@ -1629,6 +1630,15 @@
                     $commentPropusal.slideToggle();
                     $conversationComments.slideToggle(1000, function () {
                         $(event.target).toggleClass('fa-angle-down fa-angle-up');
+                        if (animate) {
+                            var navbarHeight = $('.navbar').outerHeight();
+                            $('html, body').animate({
+                                scrollTop: $target.offset().top - navbarHeight - 40
+                            }, 1000, function () {
+                                $target.focus();
+                                console.log($target);
+                            });
+                        }
                     });
                 });            
             }
