@@ -18,142 +18,98 @@ editorComment.subscribe('focus', function (event, editable) {
 });
 
 $(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="tooltip-vote"]').tooltip({
-        html: true,
-        trigger: 'manual',
-        title : function () {
-            var voteUser = $(this).parent().closest('.comment-box').find('.vote-user').clone();
-            return voteUser.addClass('show')[0].outerHTML;
-        }
-    });
-
-    // Mouse events
-    $('[data-toggle="tooltip-vote"]').mouseover(function () {
-        if (!$(this).next('.tooltip').is(':visible')) {
-            $(this).tooltip('show');
-        }
-    });
-
-    $('[data-toggle="tooltip-vote"]').on('shown.bs.tooltip', function () {
-        var $self = $(this);
-        var $commentBox = $(this).closest('.comment-box');
-        var $tooltip = $commentBox.find('.tooltip');
-
-        $commentBox.mouseleave(function () {
-            $self.tooltip('hide');
-        });
-
-        $tooltip.mouseleave(function () {
-            $self.tooltip('hide');
-        });
-    });
-
-    // LightbulButton
+    // LightbulButton - comment-counter
     var lightbulbButton = $('.leader-post > .footer .comment-counter button');
-    lightbulbButton.on('click', function () {
-        var $commentBox = $($('.comment-box .comment')[0]);
+    lightbulbButton.on('click', function (event) {
+        var $commentBox = $(event.target).closest('.leader-post').next('.comment-box');
+        var $comment = $commentBox.find('.comment');
         var navbarHeight = $('.navbar').outerHeight();
 
         $('html, body').animate({
             scrollTop: $commentBox.offset().top - navbarHeight - 40
         }, 1000, function () {
-            $commentBox.focus();
+            $comment.focus();
         });
     });
 
     // CommentButton
-    var commentButton = $('.conversation-box .footer .comment-counter button.comment');
-    commentButton.on('click', function (event) {
-        var $commentBox = $(event.target.parentElement).closest('.conversation-box').next('.conversation-box-comments').find('.comment-box .editable-comment');
+    var $commentButton = $('.conversation-box .footer .comment-counter button.comment');
+
+    $commentButton.on('click', function (event) {
+        var $conversationBox = $(event.target.parentElement).closest('.conversation-box');
+        conversationSectionClick($conversationBox)
+
+    });
+
+    var $commentSaveButton = $('.conversation-box-comments .comment-box .actions button.save-comment')
+
+    $commentSaveButton.on('click', function (event) {
+        var $conversationBox = $($(this).parents('.conversation-box-comments')[0]).prev();
+        conversationSectionClick($conversationBox)
+    });
+
+    function conversationSectionClick($conversationBox){
+        var $conversationBoxComments = $conversationBox.next('.conversation-box-comments');
+        var $conversationBoxCommentsComment = $conversationBoxComments.find('.comment-box .editable-comment');
+        var $conversationBoxCommentsArrow = $conversationBoxComments.find('.go-up');
         var navbarHeight = $('.navbar').height();
 
-        $('html, body').animate({
-            scrollTop: $commentBox.offset().top - navbarHeight - 40
-        }, 1000, function () {
-            $commentBox.focus();
-        });
-    });
+        var isVisible = $conversationBoxCommentsComment.is(':visible');
+
+        $conversationBoxCommentsArrow.trigger('click', [isVisible, $conversationBoxCommentsComment]);
+    }
 
     // See More button
-    var $conversationBoxButtonSeeMore = $('.conversation-box .btn.btn-see-more');
     var $conversationBoxButtonSeeMoreSmall = $('.conversation-box button.btn-see-more.stack');
 
-    $conversationBoxButtonSeeMoreSmall.on('mouseover', function (event) {
+    $conversationBoxButtonSeeMoreSmall.on('click', function (event) {
         var $actionsContent = $(event.target).closest('.actions');
-        var $conversationBoxButtonSeeMore = $actionsContent.find('.btn.btn-see-more');
-        var $conversationBoxButtonSeeMoreSmall = $actionsContent.find('button.btn-see-more.stack');
+        var $conversationBox = $actionsContent.closest('.conversation-box');
+        var $conversationBoxBody = $actionsContent.closest('.conversation-box').find('.body');
 
-        $conversationBoxButtonSeeMoreSmall.hide();
-        $conversationBoxButtonSeeMore.show();
-    });
+        $(event.target).toggleClass('fa-angle-down fa-angle-up');
 
-    $conversationBoxButtonSeeMore.on('mouseleave', function (event) {
-        var $actionsContent = $(event.target).closest('.actions');
-        var $conversationBoxButtonSeeMore = $actionsContent.find('.btn.btn-see-more');
-        var $conversationBoxButtonSeeMoreSmall = $actionsContent.find('button.btn-see-more.stack');
-
-        $conversationBoxButtonSeeMore.hide();
-        $conversationBoxButtonSeeMoreSmall.show();
-    });
-
-    $conversationBoxButtonSeeMore.on('click', function (event) {
-        var $targetElement = $(event.target)
-        var conversationBoxButtonSeeMoreSmall = $('.conversation-box button.btn-see-more.stack .angle')[0];
-
-        $targetElement.toggleClass('btn-see-less angle-down angle-up');
-        $(conversationBoxButtonSeeMoreSmall).toggleClass('fa-angle-down fa-angle-up');
-
-        if ($targetElement.parent().prev('.body').height() > 134) {
-            $targetElement.text('See More');
-            $targetElement.parent().prev('.body').animate({
+        if ($conversationBoxBody.height() > 134) {
+            $conversationBoxBody.animate({
                 height: 134
             }, 1000);
         } else {
-            $targetElement.text('Collapse');
-            var targetElementHeight = $targetElement.parent().prev('.body').addClass('height-auto').height();
-            $targetElement.parent().prev('.body').removeClass('height-auto').animate({
+            var targetElementHeight = $conversationBoxBody.addClass('height-auto').height();
+            $conversationBoxBody.removeClass('height-auto').animate({
                 height: targetElementHeight
             }, 1000);
         }
     });
 
     // See More comments
-    var $seeMoreComments = $('.conversation-box-comments .btn.btn-see-more');
     var $seeMoreCommentsSmall = $('.conversation-box-comments .go-up');
 
-    $seeMoreCommentsSmall.on('mouseover', function (event) {
-        var $actionsContent = $(event.target).closest('.actions');
-        var $seeMoreComments = $actionsContent.find('.btn.btn-see-more');
-        var $seeMoreCommentsSmall = $actionsContent.find('button.go-up.stack');
-
-        $seeMoreCommentsSmall.hide();
-        $seeMoreComments.show();
-    });
-
-    $seeMoreComments.on('mouseleave', function (event) {
-        var $actionsContent = $(event.target).closest('.actions');
-        var $seeMoreComments = $actionsContent.find('.btn.btn-see-more');
-        var $seeMoreCommentsSmall = $actionsContent.find('button.go-up.stack');
-
-        $seeMoreComments.hide();
-        $seeMoreCommentsSmall.show();
-    });
-
-    $seeMoreComments.on('click', function (event) {
+    $seeMoreCommentsSmall.on('click', function (event, isVisible, $target) {
         var $placeholder = $(event.target).closest('.comment-box');
         var $conversationComments = $placeholder.prev();
         var $actionsContent = $(event.target).closest('.actions');
-        var $seeMoreComments = $actionsContent.find('.btn.btn-see-more');
+        var $commentPropusal = $placeholder.find('.comment-propusal');
+        var navbarHeight = $('.navbar').outerHeight();
+        var $arrowButton = $(event.target).closest('.go-up').find('.angle');
 
-        $conversationComments.slideToggle(1000);
-        $seeMoreComments.toggleClass('btn-see-less angle-down angle-up');
-        $seeMoreCommentsSmall.find('.angle').toggleClass('fa-angle-down fa-angle-up');
-
-        if ($seeMoreComments.hasClass('angle-up')) {
-            $seeMoreComments.text('Collapse Comments')
-        } else {
-            $seeMoreComments.text('See Comments')
+        if (!isVisible) {
+            $commentPropusal.slideToggle();
+            $conversationComments.slideToggle(1000, function () {
+                $arrowButton.toggleClass('fa-angle-down fa-angle-up');
+                if (isVisible === false) {
+                    $('html, body').animate({
+                        scrollTop: $target.offset().top - navbarHeight - 40
+                    }, 1000, function () {
+                        $target.focus();
+                    });
+                }
+            });
+        } else if (isVisible) {
+            $('html, body').animate({
+                scrollTop: $target.offset().top - navbarHeight - 40
+            }, 1000, function () {
+                $target.focus();
+            });
         }
     });
 });
