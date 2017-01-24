@@ -7462,7 +7462,7 @@ button.btn-see-more {
     padding: 30px;
 }
 
-.leader-post .header .user-box {
+.leader-post .header .user-box, .leader-post .header .user{
     margin: 30px 0 10px 0;
 }
 
