@@ -5,7 +5,7 @@
     </g:if>
     <div class="header">
         <h1 class="title">${debate.title}</h1>
-        <userUtil:showUser user="${debateUser}" showRole="true"/>
+        <userUtil:showUser user="${debateUser}"/>
         <div class="clearfix">
             <span class="time-ago pull-left">2 months ago</span>
             <g:if test="${debateUser.id == user?.id}">
