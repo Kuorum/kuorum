@@ -1037,7 +1037,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #contactsList .bootstrap-tagsinput, .edit-contact-header .bootstrap-tagsinput {padding-bottom: 1px; min-height: 0; padding-top: 1px;}
 #contactsList .bootstrap-tagsinput .tag, .edit-contact-header .bootstrap-tagsinput .tag{margin-bottom: 1px;}
 
-.bootstrap-tagsinput .tt-input {min-width: 5em;}
+.bootstrap-tagsinput .tt-input {min-width: 15em;}
 
 .bootstrap-tagsinput input[type="text"] {
     font-size: 12px; font-size: 1.2rem;
@@ -1197,6 +1197,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #tabs-new-campaign > .tab-pane > h1 {margin: 0; padding: 0;}
 #toFilters .btn {margin-top: 10px; display: block;}
 #toFilters > div:last-child {text-align: right;}
+#toFilters.showOnly > div:nth-child(3) {line-height: 36px; color: #a8a8a8;}
 #tabs-new-campaign .textareaContainer + div {text-align: right; position: relative;}
 .contact-filter-text {color: #a8a8a8}
 
@@ -1375,7 +1376,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .campaignDelete, .contactDelete {right: 0;}
 .campaignStats, .contactStats,
 .campaignEdit {right: 25px;}
-
+.debateItem .campaignStats {right: 55px;}
 
 /* DASHBOARD (08/2016) */
 #mails {text-align: center;}
@@ -5756,6 +5757,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #campaignsList > li > ul > li span.click-number::after {content:'%'; right:-12px; position:absolute; top:2px;}
     .campaignDelete, .contactDelete  {right: 5px;}
     .campaignStats, .contactStats, #campaignsList .campaignEdit {right: 28px;}
+    .debateItem .campaignStats {right: 58px;}
 
     /* DASHBOARD (08/2016) */
     #mails {margin: 0 auto; width: 575px; text-align: center;}
@@ -6146,6 +6148,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #campaignsList > li {padding-left: 65px; padding-top: 24px; padding-bottom: 15px;}
     .campaignDelete, .contactDelete {right: 5px;}
     .campaignStats, .contactStats , #campaignsList .campaignEdit {right: 30px;}
+    .debateItem .campaignStats {right: 60px;}
     #campaignsList > li > ul {width: 36%; margin-top: 10px;}
     #campaignsList > li h3, #campaignsList > li .name {padding-right: 48%;}
 
@@ -7479,7 +7482,7 @@ button.btn-see-more {
     font-style: normal;
     font-size: 20px;
     line-height: 34px;
-    color: #818181;
+    color: #545454;
     padding: 0 30px 0 30px;
 }
 
@@ -7526,7 +7529,7 @@ button.btn-see-more {
 }
 
 .leader-post > .footer .comment-counter button:hover {
-    color: #ff9431;
+    color: #00a3ed;
     text-decoration: none;
 }
 
@@ -7772,7 +7775,7 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box .footer .comment-counter button:hover {
-    color: #ff9431;
+    color: #00a3ed;
     text-decoration: none;
 }
 

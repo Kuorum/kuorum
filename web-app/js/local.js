@@ -505,7 +505,26 @@ $(document).ready(function() {
         }
     });
 
-    function isValidCampaignForm() {
+    function dateFromString(str) {
+        // FORMAT dd/mm/yyyy hh24:mi
+        var m = str.match(/(\d+)\/(\d+)\/(\d+)\s+(\d+):(\d+)/);
+        return new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5], 0);
+    }
+
+    function correctCampaingScheduled(){
+        var strTimestampScheduled = $("#scheduled").val();
+        var timestampScheduled = dateFromString(strTimestampScheduled); // Sat Oct 10 2012 03:47:00 GMT-0500 (EST)
+        console.log(timestampScheduled)
+        if (timestampScheduled < new Date()){
+            var errorMsg = i18n.kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error;
+            $("#scheduled").parents("div.input-group.datetime").after("<span for='scheduled' class='error'><span class='tooltip-arrow'></span>"+errorMsg+"</span>")
+            $("#scheduled").addClass("error")
+            return false;
+        }
+        return true;
+    }
+
+    function isValidCampaignForm(){
         var valid = $("#politicianMassMailingForm").valid();
 
         var headerPicture = $("input[name=headerPictureId]");
@@ -553,6 +572,7 @@ $(document).ready(function() {
         e.preventDefault();
         if (isValidDebateForm()) {
             // Autoset publish day for today
+            var date = new Date();
             var dateString = date.getDate()
                 + "/" + ("0" + (date.getMonth() + 1)).slice(-2)
                 + "/" + date.getFullYear()
@@ -579,7 +599,7 @@ $(document).ready(function() {
     // Abrir modal confirmar envío campaña programada
     $('body').on('click','.form-final-options #sendLater', function(e) {
         e.preventDefault();
-        if (isValidCampaignForm()) {
+        if (isValidCampaignForm() && correctCampaingScheduled()){
             $("#sendMassMailingType").val("SCHEDULED");
             prepareAndOpenCampaignConfirmModal();
         }

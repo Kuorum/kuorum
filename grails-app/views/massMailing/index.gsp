@@ -14,9 +14,9 @@
         <li  class="active"><g:message code="head.logged.account.tools.massMailing"/> </li>
     </ol>
 
-    <g:if test="${campaigns || projects}">
+    <g:if test="${campaigns || projects || debates}">
         <div id="listCampaigns">
-            <g:render template="searchCampaigns" model="[campaigns:campaigns, projects:projects, user:user]"/>
+            <g:render template="searchCampaigns" model="[campaigns: campaigns, projects: projects, debates: debates, user: user]"/>
         </div>
     </g:if>
     <g:else>

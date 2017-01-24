@@ -8,7 +8,7 @@ class UrlMappings {
 
     static excludes = ['/robots.txt']
 
-    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect','project', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos', 'register', 'login']
+    static List<String> RESERVED_PATHS = ['j_spring_security_facebook_redirect','project', 'proyectos', 'ciudadanos', 'organizaciones', 'politicos', 'register', 'login','js','images','css', 'fonts']
     static List<String> VALID_LANGUAGE_PATHS = AvailableLanguage.values().collect{it.locale.language}
 	static mappings = {
 
@@ -37,23 +37,17 @@ class UrlMappings {
         name footerTechnology:      "/$lang/services/what-is-kuorum"    (controller:"footer", action: "tech" )
                                     "/services/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
                                     "/services"                         { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
-        name footerPoliticians:     "/$lang/services/win-your-election" (controller:"footer", action: "politicians" )
-                                    "/services/win-your-election"       {controller="redirect"; action= "redirect301"; newMapping='footerPoliticians'}
-                                    "/services/politicians"             {controller="redirect"; action= "redirect301"; newMapping='footerPoliticians'}
-        name footerGovernment:      "/$lang/services/government"        (controller:"footer", action: "government" )
-                                    "/services/government"              {controller="redirect"; action= "redirect301"; newMapping='footerGovernment'}
-        name footerCitizens:        "/$lang/services/who-should-i-vote-for"   (controller:"footer", action: "citizens" )
-                                    "/services/who-should-i-vote-for"   {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
-                                    "/services/citizens"                {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
-        name footerDevelopers:      "/$lang/services/editors"           (controller:"footer", action: "developers" )
-                                    "/services/editors"                 {controller="redirect"; action= "redirect301"; newMapping='footerDevelopers'}
+        name footerPoliticians:     "/$lang/services/leaders" (controller:"footer", action: "politicians" )
+                                    "/services/leaders"       {controller="redirect"; action= "redirect301"; newMapping='footerPoliticians'}
+        name footerGovernment:      "/$lang/services/organizations"        (controller:"footer", action: "government" )
+                                    "/services/organizations"              {controller="redirect"; action= "redirect301"; newMapping='footerGovernment'}
+        name footerCitizens:        "/$lang/services/corporations"   (controller:"footer", action: "citizens" )
+                                    "/services/corporations"   {controller="redirect"; action= "redirect301"; newMapping='footerCitizens'}
         name footerAboutUs:         "/$lang/about/our-story"             (controller:"footer", action: "aboutUs" )
                                     "/about/our-story"                  {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
                                     "/about"                            {controller="redirect"; action= "redirect301"; newMapping='footerAboutUs'}
         name footerVision:          "/$lang/about/mision-and-vision"    (controller:"footer", action: "vision" )
                                     "/about/mision-and-vision"          {controller="redirect"; action= "redirect301"; newMapping='footerVision'}
-        name footerImpact:          "/$lang/about/impact"               (controller:"footer", action: "impact" )
-                                    "/about/impact"                     {controller="redirect"; action= "redirect301"; newMapping='footerImpact'}
         name footerTeam:            "/$lang/about/our-team"             (controller:"footer", action: "team" )
                                     "/about/our-team"                   {controller="redirect"; action= "redirect301"; newMapping='footerTeam'}
         name footerInformation:     "/$lang/press"                      (controller:"footer", action: "information" )
@@ -124,8 +118,10 @@ class UrlMappings {
         name projectEdit:               "/project/$userAlias/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
         name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")
 
-        name debateCreate:      "/debate/new" (controller: "debate"){action = [GET: "create", POST: "save"]}
-        name debateEdit:        "/debate/$debateId/edit" (controller: "debate"){action = [GET: "edit", POST: "update"]}
+        name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "save"]}
+        name debateEdit:        "/account/debate/$debateId/edit" (controller: "debate"){action = [GET: "edit", POST: "update"]}
+        name debateRemove:      "/ajax/account/debate/$debateId/remove" (controller: "debate", action: "remove")
+        name debateShow:      "/$userAlias/d/$title-$debateId"(controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
 
         name langProjectShow:   "/$lang/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name projectShow:       "/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}

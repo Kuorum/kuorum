@@ -87,6 +87,13 @@ modules = {
         resource url:'js/local.js'
     }
 
+    debate {
+        resource url:'js/medium-editor/medium-editor.js'
+        resource url:'css/medium-editor/medium-editor.min.css'
+        resource url:'css/medium-editor/themes/default.css'
+        resource url:'js/debate.js'
+    }
+
     forms{
 //        resource url:'js/jquery-ui/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js'
 //        resource url:'js/jquery-ui/jquery-ui-1.10.4.custom/css/base/jquery-ui-1.10.4.custom.min.css'

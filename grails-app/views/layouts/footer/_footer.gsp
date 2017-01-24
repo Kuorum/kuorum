@@ -7,7 +7,6 @@
                 <li><g:link mapping="footerPoliticians"><g:message code="layout.footer.politicians"/></g:link></li>
                 <li><g:link mapping="footerGovernment"><g:message code="layout.footer.government"/></g:link></li>
                 <li><g:link mapping="footerCitizens"><g:message code="layout.footer.citizens"/></g:link></li>
-                <li><g:link mapping="footerDevelopers"><g:message code="layout.footer.editors"/></g:link></li>
                 <li><g:link mapping="footerAboutUs"><g:message code="layout.footer.about"/></g:link></li>
                 <li><g:link mapping="footerInformation"><g:message code="layout.footer.pressTitle"/></g:link></li>
                 <li><g:link mapping="footerWidget"><g:message code="layout.footer.widget"/></g:link></li>

@@ -1,9 +1,12 @@
 package kuorum.debate
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
+import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
 import kuorum.users.KuorumUser
+import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.DebateCommand
 import org.kuorum.rest.model.communication.debate.DebateRDTO
@@ -11,6 +14,7 @@ import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
+import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.campaign.DebateService
 import payment.contact.ContactService
@@ -19,9 +23,27 @@ class DebateController {
 
     def springSecurityService
 
+    KuorumUserService kuorumUserService
     FileService fileService
     ContactService contactService
     DebateService debateService
+
+    def show() {
+        KuorumUser user = kuorumUserService.findByAlias((String) params.userAlias)
+        try {
+            DebateRSDTO debate = debateService.findDebate(user, Long.parseLong((String) params.debateId))
+
+            if (!debate) {
+                throw new KuorumException(message(code: "debate.notFound") as String)
+            }
+
+            return [debate: debate]
+        } catch (Exception ignored) {
+            // Error parsing or not found
+            flash.error = message(code: "debate.notFound")
+            redirect mapping: "politicianMassMailing", params: []
+        }
+    }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
@@ -31,7 +53,7 @@ class DebateController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def save(DebateCommand command) {
         if (command.hasErrors()) {
-            render view: '/debate/create', model: debateModel(command, null)
+            render view: 'create', model: debateModel(command, null)
             return
         }
 
@@ -65,23 +87,16 @@ class DebateController {
         // Tags
         if (debateRSDTO.triggeredTags) {
             debateCommand.setEventsWithTag(new ArrayList<TrackingMailStatusRSDTO>())
-            for (TrackingMailStatusRSDTO trackingMailStatusRSDTO : debateRSDTO.triggeredTags.keySet()) {
-                debateCommand.getEventsWithTag().add(trackingMailStatusRSDTO)
-            }
-            for (List<String> lists : debateRSDTO.triggeredTags.values()) {
-                for (String tagAux : lists) {
-                    if (lists.indexOf(tagAux) != -1) {
-                        lists.add(tagAux)
-                    }
-                }
-            }
+            debateCommand.setEventsWithTag(debateRSDTO.triggeredTags.keySet() as List)
+            debateCommand.setTags(debateRSDTO.triggeredTags.values().flatten())
         }
 
         // Multimedia URL
-        if (debateRSDTO.multimediaUrl?.contains("youtube")) {
-            debateCommand.videoPost = debateRSDTO.multimediaUrl
-        } else {
-            debateCommand.headerPictureId = debateRSDTO.multimediaUrl
+        if (debateRSDTO.videoUrl?.contains("youtube")) {
+            debateCommand.videoPost = debateRSDTO.videoUrl
+        } else if (debateRSDTO.photoUrl) {
+            KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.photoUrl)
+            debateCommand.headerPictureId = kuorumFile?.id
         }
 
         // Filter
@@ -93,7 +108,12 @@ class DebateController {
             model.put("anonymousFilter", anonymousFilter)
         }
 
-        render view: 'create', model: model
+        // Edit while sent or while draft
+        if (debateRSDTO.campaignStatusRSDTO == CampaignStatusRSDTO.SENT) {
+            render view: 'edit', model: model
+        } else {
+            render view: 'create', model: model
+        }
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -108,7 +128,12 @@ class DebateController {
         }
 
         if (!command.validate()) {
-            render view:'/project/edit', model: debateModel(command, null)
+            // Edit while sent or while draft
+            if (debateRSDTO.campaignStatusRSDTO == CampaignStatusRSDTO.SENT) {
+                render view: 'edit', model: debateModel(command, null)
+            } else {
+                render view: 'create', model: debateModel(command, null)
+            }
             return
         }
 
@@ -119,6 +144,14 @@ class DebateController {
         flash.message = resultDebate.msg.toString()
 
         redirect mapping: "politicianMassMailing", params: []
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def remove(Long debateId) {
+        // TODO: This function is incomplete in other places
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        debateService.removeDebate(loggedUser, debateId)
+        render ([msg: "Debate deleted"] as JSON)
     }
 
     private def debateModel(DebateCommand command, Long debateId) {
@@ -156,7 +189,7 @@ class DebateController {
             savedDebate = debateService.saveDebate(user, debateRDTO, debateId)
             msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
                     savedDebate.title,
-                    g.formatDate(date: savedDebate.publishOn, type: "datetime", style: "SHORT")
+                    g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
             ])
         } else {
             // IS A DRAFT
@@ -192,10 +225,10 @@ class DebateController {
             KuorumFile picture = KuorumFile.get(command.headerPictureId)
             picture = fileService.convertTemporalToFinalFile(picture)
             fileService.deleteTemporalFiles(user)
-            debateRDTO.setMultimediaUrl(picture.getUrl())
+            debateRDTO.setPhotoUrl(picture.getUrl())
         } else if (command.videoPost) {
-            //KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
-            debateRDTO.setMultimediaUrl(command.videoPost)
+            KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
+            debateRDTO.setVideoUrl(urlYoutubeFile?.url)
         }
 
         debateRDTO

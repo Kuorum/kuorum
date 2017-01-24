@@ -18,10 +18,5 @@
 <content tag="mainContent">
     <h1><g:message code="layout.footer.mision"/></h1>
     <p><g:message code="footer.menu.footerVision.vision.description"/></p>
-    <ul>
-        <li><g:message code="footer.menu.footerVision.vision.description.outcome1"/></li>
-        <li><g:message code="footer.menu.footerVision.vision.description.outcome2"/></li>
-        <li><g:message code="footer.menu.footerVision.vision.description.outcome3"/></li>
-    </ul>
     %{--<p><img src="${resource(dir: 'images', file: 'info2.png')}" alt="foto-multitud" itemprop="image"></p>--}%
 </content>

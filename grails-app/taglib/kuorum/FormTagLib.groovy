@@ -589,15 +589,23 @@ class FormTagLib {
 //        if (!isRequired){
 //            out << "<option value=''> ${message(code:"${command.class.name}.${field}.empty")}</option>"
 //        }
-        def values = TimeZone.availableIDs.findAll{it.contains("/")}.sort{it}
-        values.each{timeZoneId ->
-            TimeZone timeZone = TimeZone.getTimeZone(timeZoneId)
-            out << "<option value='${timeZone.ID}' ${timeZoneId==command."$field"?'selected':''}> ${timeZoneToString(timeZone)}</option>"
+        List<String> timeZoneIds = TimeZone.availableIDs.findAll{it.contains("/")}.sort{it}
+        out << "<option value=''> ${message(code: 'kuorum.web.commands.profile.AccountDetailsCommand.timeZoneId.empty')} </option>"
+        out << buildTimeZoneOption(timeZoneIds.find{it.contains("Madrid")})
+        out << buildTimeZoneOption(timeZoneIds.find{it.contains("London")})
+        out << "<option value=''> ------------------ </option>"
+        timeZoneIds.each{timeZoneId ->
+            out << buildTimeZoneOption(timeZoneId, timeZoneId==command."$field")
         }
         out << "</select>"
         if(error){
             out << "<span for='${id}' class='error'>${g.fieldError(bean: command, field: id)}</span>"
         }
+    }
+
+    private String buildTimeZoneOption(String timeZoneId, Boolean selected = false){
+        TimeZone timeZone = TimeZone.getTimeZone(timeZoneId)
+        return "<option value='${timeZone.ID}' ${selected?'selected':''}> ${timeZoneToString(timeZone)}</option>"
     }
 
     def selectBirthYear = {attrs->

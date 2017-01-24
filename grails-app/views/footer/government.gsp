@@ -18,5 +18,4 @@
 <content tag="mainContent">
     <h1><g:message code="layout.footer.government"/></h1>
     <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.administration.description1" encodeAs="raw"/></p>
-    <p><g:message code="footer.menu.footerWhatIsKuorum.forPoliticians.brief" encodeAs="raw" args="[g.createLink(mapping:'landingPrices'),g.createLink(mapping:'register')]"/></p>
 </content>

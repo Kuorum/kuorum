@@ -11,6 +11,7 @@ import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import kuorum.web.commands.profile.TimeZoneCommand
+import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -19,6 +20,7 @@ import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
+import payment.campaign.DebateService
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
 
@@ -35,11 +37,15 @@ class MassMailingController {
 
     MassMailingService massMailingService
 
+    DebateService debateService
+
     def index() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List campaigns = massMailingService.findCampaigns(user)
         List<Project> projects = Project.findAllByOwner(user)
-        [campaigns:campaigns,projects:projects, user:user]
+        List<DebateRSDTO> debates = debateService.findAllDebates(user)
+
+        [campaigns: campaigns, projects: projects, debates: debates, user: user]
     }
 
     def createMassMailing() {

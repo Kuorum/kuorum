@@ -18,12 +18,6 @@
 <content tag="mainContent">
     <h1><g:message code="layout.footer.information"/></h1>
     <p><g:message code="footer.menu.footerInformation.description"/></p>
-    <ul>
-        <li><g:message code="footer.menu.footerInformation.journalistRelation1"/></li>
-        <li><g:message code="footer.menu.footerInformation.journalistRelation2"/></li>
-        <li><g:message code="footer.menu.footerInformation.journalistRelation3"/></li>
-        <li><g:message code="footer.menu.footerInformation.journalistRelation4"/></li>
-    </ul>
     %{--<div class="video">--}%
         %{--<a href="#" class="front">--}%
             %{--<span class="fa fa-play-circle fa-4x"></span>--}%
