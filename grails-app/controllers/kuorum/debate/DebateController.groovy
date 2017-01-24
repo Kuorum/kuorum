@@ -29,10 +29,13 @@ class DebateController {
     DebateService debateService
 
     def show() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        KuorumUser user = null
+        if (springSecurityService.isLoggedIn()){
+            user = KuorumUser.get(springSecurityService.principal.id)
+        }
         KuorumUser debateUser = kuorumUserService.findByAlias((String) params.userAlias)
         try {
-            DebateRSDTO debate = debateService.findDebate(user, Long.parseLong((String) params.debateId))
+            DebateRSDTO debate = debateService.findDebate(debateUser, Long.parseLong((String) params.debateId))
 
             if (!debate) {
                 throw new KuorumException(message(code: "debate.notFound") as String)

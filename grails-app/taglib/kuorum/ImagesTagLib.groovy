@@ -14,7 +14,7 @@ class ImagesTagLib {
 
     def userImgSrc={attrs ->
         KuorumUser user = attrs.user
-        if (user.avatar){
+        if (user?.avatar){
             out << user.avatar.url
         }else{
             out << getDefaultAvatar(user)

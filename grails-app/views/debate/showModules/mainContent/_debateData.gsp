@@ -5,18 +5,10 @@
     </g:if>
     <div class="header">
         <h1 class="title">${debate.title}</h1>
-        <!-- ^user-box !-->
-        <div class="user-box">
-            <img class="img-circle" alt="${debateUser.name}" src="${image.userImgSrc(user: debateUser)}">
-            <p class="user-box-data">
-                <span class="user-box-name">${debateUser.name}</span>
-                <br />
-                <span class="user-box-role">Labour</span>
-            </p>
-        </div> <!-- ^user-box !-->
+        <userUtil:showUser user="${debateUser}" showRole="true"/>
         <div class="clearfix">
             <span class="time-ago pull-left">2 months ago</span>
-            <g:if test="${debateUser.id == user.id}">
+            <g:if test="${debateUser.id == user?.id}">
                 <g:link class="edit" mapping="debateEdit" params="[debateId: debate.id]">
                     <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>
                 </g:link>

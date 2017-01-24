@@ -1781,6 +1781,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .user-type {/*margin-top: -24px;*/ position: absolute; bottom: 0px; line-height: 1;}
 .popover-user .user-type {left: 5px;}
 
+
 .user-list-images,
 .boxes.taking-part .user-list-followers {margin: 0 0 20px 0; padding: 0; display: inline-block; line-height: 1.2;}
 .boxes.taking-part .user-list-followers {margin: 0;}
@@ -1816,8 +1817,9 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .author.important .user.actor.politic .user-list-images li .popover-trigger .user-img {margin: 0;}
 
 .popover {width: 260px; max-width: 260px; border-radius: 0;}
-.popover-content {padding: 9px;}
+.popover-content {padding: 0 9px;}
 .popover-content p:last-child {margin: 0;}
+.popover-user-body {width: 260px;}
 
 .config .popover {font-size: 15px; font-size: 1.5rem; color: #a8a8a8;}
 .config .popover-content {padding: 15px 10px 5px;}
@@ -1904,7 +1906,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
     display: block !important;*/
 }
 .popover .scroll .user-type {margin-top: -15px !important;}
-.popover .follow {margin: 10px 0 0 45px !important;}
+.popover .follow {width: auto;border-radius: 0; margin: 7px 0 0 0!important; float: right;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
 .popover .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}
 .popover .infoActivity li {list-style: none; float: left; margin-right: 6px; font-size: 14px; font-size: 1.4rem; color: #797979;}
@@ -7931,11 +7933,12 @@ div [class^='comment-box col-'] {
     float: none;
 }
 
+.vote-user .rating{font-size: 20px;}
+
 /*** rating ***/
 .rating {
     unicode-bidi: bidi-override;
     direction: rtl;
-    font-size: 20px;
     text-align: center;
 }
 
