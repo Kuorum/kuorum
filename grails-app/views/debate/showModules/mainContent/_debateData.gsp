@@ -8,11 +8,11 @@
         <userUtil:showUser user="${debateUser}"/>
         <div class="clearfix">
             <span class="time-ago pull-left"><kuorumDate:humanDate date="${debate.datePublished}"/> </span>
-            <g:if test="${debateUser.id == user?.id}">
+            <userUtil:ifUserIsTheLoggedOne user="${debateUser}">
                 <g:link class="edit" mapping="debateEdit" params="[debateId: debate.id]">
                     <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>
                 </g:link>
-            </g:if>
+            </userUtil:ifUserIsTheLoggedOne>
         </div>
     </div>
 

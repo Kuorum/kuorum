@@ -29,10 +29,6 @@ class DebateController {
     DebateService debateService
 
     def show() {
-        KuorumUser user = null
-        if (springSecurityService.isLoggedIn()){
-            user = KuorumUser.get(springSecurityService.principal.id)
-        }
         KuorumUser debateUser = kuorumUserService.findByAlias((String) params.userAlias)
         try {
             DebateRSDTO debate = debateService.findDebate(debateUser, Long.parseLong((String) params.debateId))
@@ -41,7 +37,7 @@ class DebateController {
                 throw new KuorumException(message(code: "debate.notFound") as String)
             }
 
-            return [debate: debate, debateUser: debateUser, user: user]
+            return [debate: debate, debateUser: debateUser]
         } catch (Exception ignored) {
             // Error parsing or not found
             flash.error = message(code: "debate.notFound")

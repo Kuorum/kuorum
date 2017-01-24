@@ -4,7 +4,7 @@
 <!-- ^comment-box !-->
 <div class="comment-box clearfix">
     <div class="user-box col-lg-1 col-xs-12">
-        <img class="img-circle" alt="Pepito perz" src="${image.userImgSrc(user: user)}">
+        <img class="img-circle" alt="Pepito perz" src="${image.loggedUserImgSrc()}">
     </div>
     <div class="comment editable col-lg-11 col-xs-12" data-placeholder="${message(code: "debate.proposal.placeholder")}" style="min-height: 100px; padding-top: 10px"></div>
     <div class="actions pull-right">
