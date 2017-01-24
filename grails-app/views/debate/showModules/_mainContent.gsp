@@ -1,13 +1,14 @@
 
-<g:render template="/debate/showModules/mainContent/debateData"/>
+<g:render template="/debate/showModules/mainContent/debateData" model="[debate: debate, debateUser: debateUser, user: user]" />
+
 <!-- ^comment-box !-->
 <div class="comment-box clearfix">
     <div class="user-box col-lg-1 col-xs-12">
-        <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+        <img class="img-circle" alt="${user.name}" src="${image.userImgSrc(user: user)}">
     </div>
-    <div class="comment editable col-lg-11 col-xs-12" data-placeholder="&#xf0eb;  Write your proposal here..." style="min-height: 100px; padding-top: 10px"></div>
+    <div class="comment editable col-lg-11 col-xs-12" data-placeholder="${message(code: "debate.proposal.placeholder")}" style="min-height: 100px; padding-top: 10px"></div>
     <div class="actions pull-right">
-        <button type="button" class="btn btn-blue inverted publish">Publish</button>
+        <button type="button" class="btn btn-blue inverted publish"><g:message code="debate.publish" /></button>
     </div>
 </div> <!-- ^comment-box !-->
 
