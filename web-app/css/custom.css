@@ -7894,6 +7894,10 @@ div [class^='comment-box col-'] {
 
 .conversation-box-comments .comment-box .editable-comment {
     background-color: white;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    font-style: normal;
+    font-size: 15px;
+    line-height: 1.58;
 }
 
 .conversation-box-comments .comment-box button.go-up {
