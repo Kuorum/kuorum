@@ -1593,7 +1593,9 @@
                     var $conversationBoxCommentsArrow = $conversationBoxComments.find('.go-up');    
                     var navbarHeight = $('.navbar').height();
 
-                    $conversationBoxCommentsArrow.trigger('click', [true, $conversationBoxCommentsComment]);
+                    var isVisible = $conversationBoxCommentsComment.is(':visible');
+                    
+                    $conversationBoxCommentsArrow.trigger('click', [isVisible, $conversationBoxCommentsComment]);
                 });
 
                 // See More button
@@ -1621,25 +1623,33 @@
                 // See More comments
                 var $seeMoreCommentsSmall = $('.conversation-box-comments .go-up');
 
-                $seeMoreCommentsSmall.on('click', function (event, animate, $target) {
+                $seeMoreCommentsSmall.on('click', function (event, isVisible, $target) {
                     var $placeholder = $(event.target).closest('.comment-box');
                     var $conversationComments = $placeholder.prev();
                     var $actionsContent = $(event.target).closest('.actions');
                     var $commentPropusal = $placeholder.find('.comment-propusal');
-
-                    $commentPropusal.slideToggle();
-                    $conversationComments.slideToggle(1000, function () {
-                        $(event.target).toggleClass('fa-angle-down fa-angle-up');
-                        if (animate) {
-                            var navbarHeight = $('.navbar').outerHeight();
-                            $('html, body').animate({
-                                scrollTop: $target.offset().top - navbarHeight - 40
-                            }, 1000, function () {
-                                $target.focus();
-                                console.log($target);
-                            });
-                        }
-                    });
+                    var navbarHeight = $('.navbar').outerHeight();
+                    var $arrowButton = $(event.target).closest('.go-up').find('.angle');
+                    
+                    if (!isVisible) {
+                        $commentPropusal.slideToggle();
+                        $conversationComments.slideToggle(1000, function () {
+                            $arrowButton.toggleClass('fa-angle-down fa-angle-up');
+                            if (isVisible === false) {
+                                $('html, body').animate({
+                                    scrollTop: $target.offset().top - navbarHeight - 40
+                                }, 1000, function () {
+                                    $target.focus();
+                                });
+                            }
+                        });
+                    } else if (isVisible) {
+                        $('html, body').animate({
+                            scrollTop: $target.offset().top - navbarHeight - 40
+                        }, 1000, function () {
+                            $target.focus();
+                        });
+                    }
                 });            
             }
         </script>
