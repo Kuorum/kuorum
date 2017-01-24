@@ -12,10 +12,10 @@
 </head>
 
 <content tag="mainContent">
-    <g:render template="showModules/mainContent" model="[debate: debate]" />
+    <g:render template="showModules/mainContent" model="[debate: debate, debateUser: debateUser, user: user]" />
 </content>
 
 <content tag="cColumn">
-    <g:render template="showModules/cColumn" model="[debate: debate]" />
+    <g:render template="showModules/cColumn" model="[debate: debate, debateUser: debateUser, user: user]" />
 </content>
 

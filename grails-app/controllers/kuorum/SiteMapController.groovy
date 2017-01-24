@@ -58,7 +58,7 @@ class SiteMapController {
 
                 def footerMappings = [
                         'footerTechnology',
-                        'footerPoliticians',
+                        'footerLeaders',
                         'footerGovernment',
                         'footerCitizens',
                         'footerDevelopers',

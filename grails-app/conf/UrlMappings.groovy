@@ -37,8 +37,8 @@ class UrlMappings {
         name footerTechnology:      "/$lang/services/what-is-kuorum"    (controller:"footer", action: "tech" )
                                     "/services/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
                                     "/services"                         { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
-        name footerPoliticians:     "/$lang/services/leaders" (controller:"footer", action: "politicians" )
-                                    "/services/leaders"       {controller="redirect"; action= "redirect301"; newMapping='footerPoliticians'}
+        name footerLeaders:         "/$lang/services/leaders" (controller:"footer", action: "leaders" )
+                                    "/services/leaders"       {controller="redirect"; action= "redirect301"; newMapping='footerLeaders'}
         name footerGovernment:      "/$lang/services/organizations"        (controller:"footer", action: "government" )
                                     "/services/organizations"              {controller="redirect"; action= "redirect301"; newMapping='footerGovernment'}
         name footerCitizens:        "/$lang/services/corporations"   (controller:"footer", action: "citizens" )
