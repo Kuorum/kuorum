@@ -81,6 +81,15 @@ $(function(){
         }
     });
 
+    function prepareCollapsableBodys(){
+        $.each($(".conversation-box .body"), function(idx,obj){
+            if ($(this).height() > 134){
+                $(this).addClass("collapsible")
+            }
+        });
+    }
+    prepareCollapsableBodys();
+
     // See More comments
     var $seeMoreCommentsSmall = $('.conversation-box-comments .go-up');
 
@@ -109,6 +118,33 @@ $(function(){
                 scrollTop: $target.offset().top - navbarHeight - 40
             }, 1000, function () {
                 $target.focus();
+            });
+        }
+    });
+
+    $(".publish-proposal").on("click", function(e){
+        var alias = $(this).attr("data-userLoggedAlias")
+        if (alias == ""){
+            // USER NO LOGGED
+            $('#registro').modal('show');
+        }else{
+            var body = $(".comment.editable.medium-editor-element p").html();
+            var debateId = $(this).attr("data-debateId");
+            var debateAlias = $(this).attr("data-debateAlias");
+            var url = $(this).attr("data-postUrl");
+            var data={
+                debateId:debateId,
+                debateAlias:debateAlias,
+                body:body
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function(htmlProposal){
+                    console.log(htmlProposal)
+                },
+                dataType: "html"
             });
         }
     });

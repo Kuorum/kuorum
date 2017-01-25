@@ -11,10 +11,10 @@
     </h3>
     <p class="name">
         <g:message code="${CampaignStatusRSDTO.class.name}.${debate.campaignStatusRSDTO}"/>
-        <input class="timestamp" type="hidden" value="${debate?.publishOn?.time?:'LAST'}" />  %{-- Letters are after than numbers--}%
-        <g:if test="${debate.publishOn}">
+        <input class="timestamp" type="hidden" value="${debate?.datePublished?.time?:'LAST'}" />  %{-- Letters are after than numbers--}%
+        <g:if test="${debate.datePublished}">
             <span class="date">
-                (<g:formatDate date="${debate.publishOn}" type="datetime" style="LONG" timeStyle="SHORT" timeZone="${user.timeZone}"/>)
+                (<g:formatDate date="${debate.datePublished}" type="datetime" style="LONG" timeStyle="SHORT" timeZone="${user.timeZone}"/>)
             </span>
             - ${debate.anonymousFilter?.name?:g.message(code:'tools.massMailing.fields.filter.to.all')}
         </g:if>

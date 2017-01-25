@@ -11,12 +11,16 @@ import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.DebateCommand
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
+import org.kuorum.rest.model.communication.debate.search.SearchProposalRSDTO
+import org.kuorum.rest.model.communication.debate.search.SortProposalRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.campaign.DebateService
+import payment.campaign.ProposalService
 import payment.contact.ContactService
 
 class DebateController {
@@ -27,17 +31,23 @@ class DebateController {
     FileService fileService
     ContactService contactService
     DebateService debateService
+    ProposalService proposalService
 
     def show() {
         KuorumUser debateUser = kuorumUserService.findByAlias((String) params.userAlias)
         try {
             DebateRSDTO debate = debateService.findDebate(debateUser, Long.parseLong((String) params.debateId))
+            SearchProposalRSDTO searchProposalRSDTO = new SearchProposalRSDTO();
+            searchProposalRSDTO.sort = new SortProposalRDTO()
+            searchProposalRSDTO.sort.direction = SortProposalRDTO.Direction.DESC
+            searchProposalRSDTO.sort.field = SortProposalRDTO.Field.LIKES
 
+            ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO)
             if (!debate) {
                 throw new KuorumException(message(code: "debate.notFound") as String)
             }
 
-            return [debate: debate, debateUser: debateUser]
+            return [debate: debate, debateUser: debateUser, proposalPage:proposalPage]
         } catch (Exception ignored) {
             // Error parsing or not found
             flash.error = message(code: "debate.notFound")

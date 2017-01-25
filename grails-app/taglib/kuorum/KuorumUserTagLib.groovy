@@ -26,6 +26,12 @@ class KuorumUserTagLib {
         }
     }
 
+    def loggedUserAlias = {attrs ->
+        if (springSecurityService.isLoggedIn()){
+            out << KuorumUser.get(springSecurityService.principal.id).alias
+        }
+    }
+
     def showLoggedUser={attrs ->
         attrs.showRole
         attrs.showName
@@ -35,7 +41,16 @@ class KuorumUserTagLib {
         }
     }
 
-    def showUser={attrs ->
+    def showUserByAlias= { attrs, body ->
+        String alias = attrs.alias
+        attrs.showRole
+        attrs.showName
+        attrs.extraCss
+        KuorumUser user = KuorumUser.findByAlias(alias);
+        attrs.put("user", user)
+        out << showUser(user:user, showRole: attrs.showRole, showName:attrs.showName, extraCss: attrs.extraCss)
+    }
+    def showUser={attrs, body ->
         KuorumUser user
         //attrs.withPopover => String expected
         Boolean withPopover = !attrs.withPopover?true:Boolean.parseBoolean(attrs.withPopover)
@@ -58,9 +73,10 @@ class KuorumUserTagLib {
         Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
         Boolean showDeleteRecommendation = attrs.showDeleteRecommendation?Boolean.parseBoolean(attrs.showDeleteRecommendation):false
         String htmlWrapper = attrs.htmlWrapper?:"div"
+        String extraCss = attrs.extraCss?:''
 
 //        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
-        out << "<${htmlWrapper} class='user ${showDeleteRecommendation?'recommendation-deletable':''}' itemtype=\"http://schema.org/Person\" itemscope data-userId='${user.id}'>"
+        out << "<${htmlWrapper} class='user ${extraCss} ${showDeleteRecommendation?'recommendation-deletable':''}' itemtype=\"http://schema.org/Person\" itemscope data-userId='${user.id}'>"
         def imgSrc = image.userImgSrc(user:user)
         def userName = ""
         if (showName){
@@ -73,7 +89,9 @@ class KuorumUserTagLib {
         String userLink = g.createLink(mapping: "userShow", params: user.encodeAsLinkProperties())
         out << """
                 <a href="${userLink}" $popOverSpanElements itemprop="url">
-                    <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image">${userName}</a>
+                    <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image">
+                    ${userName}
+                </a>
         """
         if (withPopover){
             out << g.render(template: '/kuorumUser/popoverUser', model:[user:user])

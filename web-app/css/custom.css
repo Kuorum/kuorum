@@ -7647,6 +7647,8 @@ div [class^='comment-box col-'] {
     color: #D0D0D0;
 }
 
+.conversation-box .header .user + .time-ago{ margin-top: 7px;margin-left: 5px; position: absolute;}
+
 .conversation-box .pin-propusal + .tooltip.bottom .tooltip-arrow {
     border-bottom-color: #FF9431;
     top: -8px;
@@ -7691,10 +7693,16 @@ div [class^='comment-box col-'] {
 
 .conversation-box .body {
     margin-bottom: 20px;
-    height: 134px;
     overflow: hidden;
     position: relative;
 }
+
+.conversation-box .body.collapsible{
+    height: 134px;
+}
+
+.conversation-box .actions {display:none}
+.conversation-box .body.collapsible + .actions {display:inline-block}
 
 .conversation-box .body p {
     font-family: Georgia,Cambria,"Times New Roman",Times,serif;
