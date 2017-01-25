@@ -7647,7 +7647,7 @@ div [class^='comment-box col-'] {
     color: #D0D0D0;
 }
 
-.conversation-box .header .user + .time-ago{ margin-top: 7px;margin-left: 5px; position: absolute;}
+.conversation-box .header .user + .time-ago{ margin-top: 8px;margin-left: 5px; position: absolute;}
 
 .conversation-box .pin-propusal + .tooltip.bottom .tooltip-arrow {
     border-bottom-color: #FF9431;

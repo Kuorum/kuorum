@@ -148,4 +148,30 @@ $(function(){
             });
         }
     });
+
+    $(".pin-propusal").on("click", function(){
+        $(this).toggleClass("active","")
+        var pin = $(this).hasClass("active");
+        var url =$(this).attr("data-urlAction");
+        var debateId = $(this).attr("data-debateId");
+        var debateAlias = $(this).attr("data-debateAlias");
+        var proposalId = $(this).attr("data-proposalId");
+        var data={
+            debateId:debateId,
+            debateAlias:debateAlias,
+            proposalId:proposalId,
+            pin:pin
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(jsonData){
+                console.log(jsonData)
+            },
+            dataType: "json"
+        });
+
+
+    })
 });

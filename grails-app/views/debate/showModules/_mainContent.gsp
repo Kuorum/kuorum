@@ -21,16 +21,14 @@
 </div> <!-- ^comment-box !-->
 
 <ul class="nav nav-pills nav-underline">
-    <li class="active">
-        <a href="#">Best</a>
-    </li>
-    <li><a href="#">Newest</a></li>
+    <li><a href="#">Latest</a></li>
     <li><a href="#">Oldest</a></li>
+    <li class="active"><a href="#">Best</a></li>
     <li><a href="#">Pinned</a></li>
 </ul>
 
 <g:each in="${proposalPage.data}" var="proposal">
-    <g:render template="/debate/showModules/mainContent/proposalData" model="[proposal:proposal]"/>
+    <g:render template="/debate/showModules/mainContent/proposalData" model="[debate:debate, proposal:proposal]"/>
 </g:each>
 <!-- propusal block !-->
 

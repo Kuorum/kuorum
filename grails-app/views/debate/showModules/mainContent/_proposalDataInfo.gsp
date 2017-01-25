@@ -4,7 +4,18 @@
         <span class="time-ago middle-point left"><kuorumDate:humanDate date="${proposal.datePublished}"/> </span>
         <ul class="icons pull-right">
             <li>
-                <button class="pin-propusal ${proposal.pined?'active':''}" type="button" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Pin this proposal if you think it is useful for you or your team">
+                <button
+                        class="pin-propusal ${proposal.pinned?'active':''}"
+                        rel="tooltip"
+                        type="button"
+                        data-urlAction="${g.createLink(mapping: 'debateProposalPin')}"
+                        data-debateId="${debate.id}"
+                        data-debateAlias="${debate.userAlias}"
+                        data-proposalId="${proposal.id}"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title=""
+                        data-original-title="${g.message(code:'debate.show.proposal.pin.tooltip')}">
                     <span class="fa-stack fa-lg" aria-hidden="true">
                         <span class="fa fa-circle dark fa-stack-2x"></span>
                         <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
