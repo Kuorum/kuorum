@@ -214,3 +214,74 @@ $(function(){
         return true;
     }
 });
+
+
+function SortProposals(){
+    var that = this;
+    var proposalList = $('ul.proposal-list');
+    var proposals = proposalList.children('li').get();
+
+    this.proposalsOptions = {}
+    this.proposalsOptions['latest']={
+        sort:function(a,b){
+            var aDateTime = $(a).find(".conversation-box time.timeago").attr('datetime')
+            var bDateTime = $(b).find(".conversation-box time.timeago").attr('datetime')
+            return aDateTime.localeCompare(bDateTime);
+        },
+        filter:function(idx){return false;},
+        name:"latest"
+    }
+    this.proposalsOptions['oldest']={
+        sort:function(a,b){
+            var aDateTime = $(a).find(".conversation-box time.timeago").attr('datetime')
+            var bDateTime = $(b).find(".conversation-box time.timeago").attr('datetime')
+            return bDateTime.localeCompare(aDateTime);
+        },
+        filter:function(idx){return false;},
+        name:"oldest"
+    }
+    this.proposalsOptions['best']={
+        sort:function(a,b){
+            var aDateTime = $(a).find(".comment-counter .fa-heart-o").next().text()
+            var bDateTime = $(b).find(".comment-counter .fa-heart-o").next().text()
+            return bDateTime.localeCompare(aDateTime);
+        },
+        filter:function(idx){return false;},
+        name:"best"
+    }
+    this.proposalsOptions['pinned']={
+        sort:that.proposalsOptions.latest.sort,
+        filter:function(idx){return !$(this).find(".pin-propusal").hasClass("active");},
+        name:"pinned"
+    }
+
+    var proposalOption = that.proposalsOptions.latest;
+
+    this.setProposalOption = function(option){
+        var opt = that.proposalsOptions[option];
+        if (opt == undefined){
+            opt = that.proposalsOptions.latest
+        }
+        proposalOption = opt;
+    }
+
+    this.reorderList = function(){
+        $("#proposal-option li").removeClass("active")
+        $("a[href=#"+proposalOption.name+"]").parent().addClass("active")
+        proposals.sort(proposalOption.sort);
+        $('ul.proposal-list > li').show();
+        $('ul.proposal-list > li').filter(proposalOption.filter).hide();
+        $.each(proposals, function(idx, itm) { proposalList.append(itm); });
+    }
+}
+var sortProposals;
+$(function(){
+    sortProposals = new SortProposals()
+    sortProposals.reorderList()
+
+    $("#proposal-option li a").on("click", function(e){
+        var optionName = $(this).attr("href").substr(1);
+        sortProposals.setProposalOption(optionName);
+        sortProposals.reorderList();
+    })
+});

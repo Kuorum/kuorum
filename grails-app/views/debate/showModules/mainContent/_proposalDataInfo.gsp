@@ -87,7 +87,7 @@
                 </button>
                 <button type="button">
                     <span class="fa fa-heart-o" aria-hidden="true"></span>
-                    <span class="number">36</span>
+                    <span class="number">${proposal.id}</span>
                 </button>
             </div>
         </div>

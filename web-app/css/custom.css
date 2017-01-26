@@ -7423,7 +7423,9 @@ button.btn-see-more {
 }
 
 .nav-pills.nav-underline > .active > a,
-.nav-pills.nav-underline > .active > a:hover,.nav-pills.nav-underline > li > a:hover {
+.nav-pills.nav-underline > .active > a:hover,
+.nav-pills.nav-underline > li > a:focus,
+.nav-pills.nav-underline > li > a:hover {
     text-decoration: none;
     border-radius:0px;
     border-bottom-width: 6px;
@@ -7582,6 +7584,9 @@ button.btn-see-more {
     font-size: 14px;
     padding-right: 5px;
 }
+
+
+ul.proposal-list {margin:0; padding:0;}
 
 /*** commment-box ***/
 .comment-box {

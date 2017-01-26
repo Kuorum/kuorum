@@ -20,18 +20,24 @@
     </div>
 </div> <!-- ^comment-box !-->
 
-<ul class="nav nav-pills nav-underline">
-    <li><a href="#">Latest</a></li>
-    <li><a href="#">Oldest</a></li>
-    <li class="active"><a href="#">Best</a></li>
-    <li><a href="#">Pinned</a></li>
+<ul id="proposal-option" class="nav nav-pills nav-underline">
+    <li><a href="#latest">Latest</a></li>
+    <li><a href="#oldest">Oldest</a></li>
+    <li><a href="#best">Best</a></li>
+    <li><a href="#pinned">Pinned</a></li>
 </ul>
 
+<ul class="proposal-list">
 <g:each in="${proposalPage.data}" var="proposal">
     <g:render template="/debate/showModules/mainContent/proposalData" model="[debate:debate, proposal:proposal]"/>
 </g:each>
+</ul>
 <!-- propusal block !-->
+
+%{-- SEE MORE HIDDEN
 
 <div class="see-more-content"> <!-- ^see-more-content !-->
     <button type="button" class="btn angle-down" data-anchor="conversation-box">See more</button>
 </div> <!-- ^see-more-content !-->
+
+--}%
