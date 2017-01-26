@@ -9,11 +9,11 @@
     </li>
     <li>
         <span class="fa fa-lightbulb-o" aria-hidden="true"></span>
-        <span class="info"><g:message code="debate.proposalsMade" args="[346]" /></span>
+        <span class="info"><g:message code="debate.proposalsMade" args="[proposalPage.total]" /></span>
     </li>
     <li>
         <span class="fa fa-heart-o" aria-hidden="true"></span>
-        <span class="info"><g:message code="debate.supportsCollected" args="[4567]" /></span>
+        <span class="info"><g:message code="debate.supportsCollected" args="[debate.likes]" /></span>
     </li>
     <li>
         <span class="fa fa-comment-o" aria-hidden="true"></span>

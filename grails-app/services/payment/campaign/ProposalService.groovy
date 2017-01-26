@@ -79,6 +79,27 @@ class ProposalService {
         proposalRSDTO
     }
 
+    void likeProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId, Boolean like) {
+        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString()]
+        Map<String, String> query = [likeUserAlias:user.alias]
+        def response
+        if (like) {
+            response = restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_LIKE,
+                    params,
+                    query,
+                    null,
+                    new TypeReference<ProposalRSDTO>() {}
+            )
+        }else{
+            response = restKuorumApiService.delete(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_LIKE,
+                    params,
+                    query
+            )
+        }
+    }
+
     ProposalRSDTO addComment(KuorumUser user, DebateRSDTO debate, Long proposalId, String body) {
         Map<String, String> params = [userAlias: debate.userAlias,debateId:debate.id.toString(), proposalId:proposalId.toString() ]
         Map<String, String> query = [:]

@@ -9,7 +9,6 @@ import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 @Validateable
 class DebateProposalCommand {
 
-    // Filter
     Long debateId
     String debateAlias
     String body

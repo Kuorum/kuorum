@@ -180,6 +180,34 @@ $(function(){
         }
     });
 
+    $("#main").on("click",".proposal-like", function(){
+        var $button = $(this)
+
+        var like = $(this).find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
+        var url =$(this).attr("data-urlAction");
+        var debateId = $(this).attr("data-debateId");
+        var debateAlias = $(this).attr("data-debateAlias");
+        var proposalId = $(this).attr("data-proposalId");
+        var data={
+            debateId:debateId,
+            debateAlias:debateAlias,
+            proposalId:proposalId,
+            like:like
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(jsonData){
+                console.log("success")
+                $button.find(".fa").toggleClass("fa-heart-o fa-heart");
+                var count = parseInt($button.find(".number").text())
+                $button.find(".number").text(count+1)
+            },
+            dataType: "html"
+        });
+    })
+
     $(".pin-propusal").on("click", function(){
         $(this).toggleClass("active","")
         var pin = $(this).hasClass("active");

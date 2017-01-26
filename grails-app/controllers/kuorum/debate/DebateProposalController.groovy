@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.massMailing.CommentProposalCommand
 import kuorum.web.commands.payment.massMailing.DebateProposalCommand
+import kuorum.web.commands.payment.massMailing.LikeProposalCommand
 import kuorum.web.commands.payment.massMailing.PinProposalCommand
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalCommentRDTO
@@ -39,7 +40,11 @@ class DebateProposalController {
         render "ok"
     }
 
-    def likeProposal(){}
+    def likeProposal(LikeProposalCommand command){
+        KuorumUser user = springSecurityService.currentUser
+        proposalService.likeProposal(user, command.debateAlias,command.debateId, command.proposalId, command.like)
+        render "Ok"
+    }
 
     def addComment(CommentProposalCommand command){
         KuorumUser user = springSecurityService.currentUser

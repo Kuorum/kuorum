@@ -83,11 +83,22 @@
                 </button>
                 <button type="button" class="comment">
                     <span class="fa fa-comment-o" aria-hidden="true"></span>
-                    <span class="number">36</span>
+                    <span class="number">${proposal.comments?.size()?:0}</span>
                 </button>
-                <button type="button">
-                    <span class="fa fa-heart-o" aria-hidden="true"></span>
-                    <span class="number">${proposal.id}</span>
+                <button type="button"
+                        class="proposal-like"
+                        data-urlAction="${g.createLink(mapping: 'debateProposalLike')}"
+                        data-debateId="${debate.id}"
+                        data-debateAlias="${debate.userAlias}"
+                        data-proposalId="${proposal.id}"
+                    >
+                    <g:if test="${proposal.liked}">
+                        <span class="fa fa-heart" aria-hidden="true"></span>
+                    </g:if>
+                    <g:else>
+                        <span class="fa fa-heart-o" aria-hidden="true"></span>
+                    </g:else>
+                    <span class="number">${proposal.likes}</span>
                 </button>
             </div>
         </div>

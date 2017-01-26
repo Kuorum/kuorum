@@ -3,18 +3,16 @@ package kuorum.web.commands.payment.massMailing
 import grails.validation.Validateable
 
 @Validateable
-class CommentProposalCommand {
+class LikeProposalCommand {
 
     Long debateId
-    Long proposalId
     String debateAlias
-    String body
-
+    Long proposalId
+    Boolean like
     static constraints = {
         debateId nullable: false
         proposalId nullable: false
-        body nullable: false
-        debateAlias nullable: true
+        like nullable: false
     }
 
 }

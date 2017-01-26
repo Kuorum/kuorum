@@ -16,6 +16,6 @@
 </content>
 
 <content tag="cColumn">
-    <g:render template="showModules/cColumn" model="[debate: debate, debateUser: debateUser]" />
+    <g:render template="showModules/cColumn" model="[debate: debate, debateUser: debateUser, proposalPage:proposalPage]" />
 </content>
 
