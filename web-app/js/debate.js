@@ -277,6 +277,11 @@ function SortProposals(){
 var sortProposals;
 $(function(){
     sortProposals = new SortProposals()
+    var hash = window.location.hash
+    if (hash != undefined || hash != ""){
+        hash = hash.substr(1);
+        sortProposals.setProposalOption(hash)
+    }
     sortProposals.reorderList()
 
     $("#proposal-option li a").on("click", function(e){
