@@ -13,10 +13,6 @@ var editorComment = new MediumEditor('.editable-comment', {
     }
 });
 
-editorComment.subscribe('focus', function (event, editable) {
-    $('[data-toggle="tooltip-vote"]').tooltip('hide');
-});
-
 $(function(){
     // LightbulButton - comment-counter
     var lightbulbButton = $('.leader-post > .footer .comment-counter button');
@@ -44,8 +40,41 @@ $(function(){
     var $commentSaveButton = $('.conversation-box-comments .comment-box .actions button.save-comment')
 
     $commentSaveButton.on('click', function (event) {
-        var $conversationBox = $($(this).parents('.conversation-box-comments')[0]).prev();
-        conversationSectionClick($conversationBox)
+        var $button = $(this)
+        var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
+        var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
+        $commentsList.addClass("PRUEBA")
+        console.log($commentsList)
+        console.log($commentsList.is(":visible"))
+        if ( $commentsList.is(":visible") ){
+            // BOTON SALVAR
+            var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
+            var body = $mediumEditor.html();
+            if (!validMediumEditor($mediumEditor)){return;}
+            var debateId = $(this).attr("data-debateId");
+            var debateAlias = $(this).attr("data-debateAlias");
+            var proposalId = $(this).attr("data-proposalId");
+            var url = $(this).attr("data-postUrl");
+            var data={
+                debateId:debateId,
+                debateAlias:debateAlias,
+                proposalId:proposalId,
+                body:body
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function(htmlComment){
+                    var comment = $(htmlComment).hide().fadeIn(2000);
+                    $commentsList.append(comment)
+                },
+                dataType: "html"
+            });
+        }else{
+            // ABRIR COMENTARIOS
+            conversationSectionClick($conversationBox)
+        }
     });
 
     function conversationSectionClick($conversationBox){
@@ -128,7 +157,9 @@ $(function(){
             // USER NO LOGGED
             $('#registro').modal('show');
         }else{
-            var body = $(".comment.editable.medium-editor-element p").html();
+            var $mediumEditor = $(".comment.editable.medium-editor-element p");
+            var body = $mediumEditor.html();
+            if (!validMediumEditor($mediumEditor)){return;}
             var debateId = $(this).attr("data-debateId");
             var debateAlias = $(this).attr("data-debateAlias");
             var url = $(this).attr("data-postUrl");
@@ -171,7 +202,15 @@ $(function(){
             },
             dataType: "json"
         });
-
-
     })
+
+    function validMediumEditor($mediumEditor){
+        var text = $mediumEditor.html();
+        if (text == undefined || text == ""){
+            console.log($mediumEditor.parent())
+            $mediumEditor.parent().addClass("error")
+            return false
+        }
+        return true;
+    }
 });

@@ -1,17 +1,16 @@
 <div class="conversation-box-comments">
-    <ul>
-        <g:render template="/debate/showModules/mainContent/proposalDataComment"/>
-        <g:render template="/debate/showModules/mainContent/proposalDataComment"/>
-        <g:render template="/debate/showModules/mainContent/proposalDataComment"/>
-
+    <ul class="conversation-box-comments-list">
+        <g:each in="${proposal.comments}" var="comment">
+            <g:render template="/debate/showModules/mainContent/proposalDataComment" model="[debate:debate, proposal:proposal, comment:comment]"/>
+        </g:each>
     </ul>
     <!-- ^comment-box !-->
     <div class="comment-box">
         <div class="comment-propusal clearfix">
             <div class="user-box col-lg-1 col-xs-12">
-                <img class="img-circle" data-toggle="tooltip-vote" data-html="true" data-placement="bottom" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham" data-original-title="" title="">
+                <img class="img-circle" alt="${userUtil.loggedUserName()}" src="${image.loggedUserImgSrc()}">
             </div>
-            <div class="comment editable-comment col-lg-11 col-xs-12 medium-editor-element medium-editor-placeholder" data-placeholder="  Write your comment here..." style="min-height: 100px; padding-top: 20px" contenteditable="true" spellcheck="true" data-medium-editor-element="true" role="textbox" aria-multiline="true" data-medium-editor-editor-index="2" medium-editor-index="91640354-8e18-9f3a-6e03-43188294a60d"></div>
+            <div class="comment editable-comment col-lg-11 col-xs-12" data-placeholder="&#xf0e5;  Write your comment here..." style="min-height: 100px; padding-top: 20px"></div>
         </div>
 
         <div class="actions clearfix">
@@ -23,7 +22,15 @@
                     </span>
                 </button>
             </div>
-            <button type="button" class="pull-right btn btn-grey publish save-comment">Comment</button>
+            <button
+                type="button"
+                class="pull-right btn btn-grey publish save-comment"
+                data-postUrl="${g.createLink(mapping: 'debateProposalComment')}"
+                data-debateId="${debate.id}"
+                data-proposalId="${proposal.id}"
+                data-debateAlias="${debate.userAlias}">
+                <g:message code="debate.show.proposal.comments.save"/>
+            </button>
         </div>
     </div><!-- ^comment-box !-->
 </div>

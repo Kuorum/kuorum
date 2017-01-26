@@ -423,7 +423,12 @@ class KuorumUserTagLib {
     }
 
     def ifUserIsTheLoggedOne={attrs, body->
-        KuorumUser user = attrs.user
+        KuorumUser user
+        if (attrs.user instanceof KuorumUser){
+            user = attrs.user
+        }else{
+            user = KuorumUser.findByAlias(attrs.user)
+        }
         if (springSecurityService.isLoggedIn()){
             KuorumUser loggedUser = springSecurityService.currentUser;
             if (loggedUser.id == user.id){

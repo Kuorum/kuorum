@@ -5,6 +5,7 @@ import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.debate.ProposalCommentRDTO
 import org.kuorum.rest.model.communication.debate.ProposalRDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
@@ -67,6 +68,28 @@ class ProposalService {
                 params,
                 query,
                 proposalRDTO,
+                new TypeReference<ProposalRSDTO>(){}
+        )
+
+        ProposalRSDTO proposalRSDTO= null
+        if (response.data) {
+            proposalRSDTO = (ProposalRSDTO) response.data
+        }
+
+        proposalRSDTO
+    }
+
+    ProposalRSDTO addComment(KuorumUser user, DebateRSDTO debate, Long proposalId, String body) {
+        Map<String, String> params = [userAlias: debate.userAlias,debateId:debate.id.toString(), proposalId:proposalId.toString() ]
+        Map<String, String> query = [:]
+        ProposalCommentRDTO commentRDTO = new ProposalCommentRDTO();
+        commentRDTO.body=body
+        commentRDTO.userAlias=user.alias
+        def response = restKuorumApiService.post(
+                RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_COMMENT,
+                params,
+                query,
+                commentRDTO,
                 new TypeReference<ProposalRSDTO>(){}
         )
 

@@ -7647,7 +7647,8 @@ div [class^='comment-box col-'] {
     color: #D0D0D0;
 }
 
-.conversation-box .header .user + .time-ago{ margin-top: 8px;margin-left: 5px; position: absolute;}
+.conversation-box         .header .user + .time-ago,
+.conversation-box-comment .header .user + .time-ago { margin-top: 8px;margin-left: 5px; position: absolute;}
 
 .conversation-box .pin-propusal + .tooltip.bottom .tooltip-arrow {
     border-bottom-color: #FF9431;
@@ -7834,6 +7835,7 @@ div [class^='comment-box col-'] {
     display: none;
 }
 
+.conversation-box-comments ul li {width: 100%; }
 .conversation-box-comments ul li.active {
     border-left-color: #FF9431;
     border-left-width: 3px;

@@ -82,6 +82,7 @@ class RestKuorumApiService {
         ACCOUNT_DEBATE          ("/communication/debate/{userAlias}/{debateId}"),
         ACCOUNT_DEBATE_PROPOSALS("/communication/debate/{userAlias}/{debateId}/proposal"),
         ACCOUNT_DEBATE_PROPOSAL ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}"),
+        ACCOUNT_DEBATE_PROPOSAL_COMMENT ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment"),
 
         ADMIN_MAILS_SEND("/admin/notification/mailing/send");
 
