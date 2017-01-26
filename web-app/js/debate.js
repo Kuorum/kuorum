@@ -43,7 +43,6 @@ $(function(){
         var $button = $(this)
         var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
         var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
-        $commentsList.addClass("PRUEBA")
         console.log($commentsList)
         console.log($commentsList.is(":visible"))
         if ( $commentsList.is(":visible") ){
@@ -68,6 +67,7 @@ $(function(){
                 success: function(htmlComment){
                     var comment = $(htmlComment).hide().fadeIn(2000);
                     $commentsList.append(comment)
+                    $mediumEditor.html("")
                 },
                 dataType: "html"
             });
@@ -173,7 +173,10 @@ $(function(){
                 url: url,
                 data: data,
                 success: function(htmlProposal){
-                    console.log(htmlProposal)
+                    $("#proposal-option a[href=#latest]").trigger("click")
+                    var proposal = $(htmlProposal).hide().fadeIn(2000);
+                    $(".proposal-list").prepend(proposal)
+                    $mediumEditor.html("")
                 },
                 dataType: "html"
             });
@@ -228,7 +231,7 @@ $(function(){
             success: function(jsonData){
                 console.log(jsonData)
             },
-            dataType: "json"
+            dataType: "html"
         });
     })
 
@@ -247,14 +250,14 @@ $(function(){
 function SortProposals(){
     var that = this;
     var proposalList = $('ul.proposal-list');
-    var proposals = proposalList.children('li').get();
+
 
     this.proposalsOptions = {}
     this.proposalsOptions['latest']={
         sort:function(a,b){
             var aDateTime = $(a).find(".conversation-box time.timeago").attr('datetime')
             var bDateTime = $(b).find(".conversation-box time.timeago").attr('datetime')
-            return aDateTime.localeCompare(bDateTime);
+            return bDateTime.localeCompare(aDateTime);
         },
         filter:function(idx){return false;},
         name:"latest"
@@ -263,7 +266,7 @@ function SortProposals(){
         sort:function(a,b){
             var aDateTime = $(a).find(".conversation-box time.timeago").attr('datetime')
             var bDateTime = $(b).find(".conversation-box time.timeago").attr('datetime')
-            return bDateTime.localeCompare(aDateTime);
+            return aDateTime.localeCompare(bDateTime);
         },
         filter:function(idx){return false;},
         name:"oldest"
@@ -294,6 +297,7 @@ function SortProposals(){
     }
 
     this.reorderList = function(){
+        var proposals = proposalList.children('li').get();
         $("#proposal-option li").removeClass("active")
         $("a[href=#"+proposalOption.name+"]").parent().addClass("active")
         proposals.sort(proposalOption.sort);
