@@ -43,40 +43,7 @@
 
     <div class="footer">
         <div class="clearfix">
-            <ul class="social pull-left">
-                <li>
-                    <a href="#" target="_blank">
-                        <span class="fa-stack fa-lg" aria-hidden="true">
-                            <span class="fa fa-circle dark fa-stack-2x"></span>
-                            <span class="fa fa-twitter fa-stack-1x fa-inverse"></span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <span class="fa-stack fa-lg" aria-hidden="true">
-                            <span class="fa fa-circle dark fa-stack-2x"></span>
-                            <span class="fa fa-facebook fa-stack-1x fa-inverse"></span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <span class="fa-stack fa-lg" aria-hidden="true">
-                            <span class="fa fa-circle dark fa-stack-2x"></span>
-                            <span class="fa fa-linkedin fa-stack-1x fa-inverse"></span>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <span class="fa-stack fa-lg" aria-hidden="true">
-                            <span class="fa fa-circle dark fa-stack-2x"></span>
-                            <span class="fa fa-google-plus fa-stack-1x fa-inverse"></span>
-                        </span>
-                    </a>
-                </li>
-            </ul>
+            <g:render template="/debate/showModules/mainContent/proposalDataInfoSocial" model="[debate:debate, proposal:proposal]"/>
 
             <div class="comment-counter pull-right">
                 <button type="button" class="delete">
