@@ -29,17 +29,15 @@ $(function(){
     });
 
     // CommentButton
-    var $commentButton = $('.conversation-box .footer .comment-counter button.comment');
-
-    $commentButton.on('click', function (event) {
+    $(".proposal-list").on('click','.conversation-box .footer .comment-counter button.comment', function (event) {
         var $conversationBox = $(event.target.parentElement).closest('.conversation-box');
         conversationSectionClick($conversationBox)
 
     });
 
-    var $commentSaveButton = $('.conversation-box-comments .comment-box .actions button.save-comment')
 
-    $commentSaveButton.on('click', function (event) {
+    // Save comment
+    $(".proposal-list").on('click','.conversation-box-comments .comment-box .actions button.save-comment', function (event) {
         var $button = $(this)
         var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
         var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
@@ -94,10 +92,8 @@ $(function(){
         $conversationBoxCommentsArrow.trigger('click', [isVisible, $conversationBoxCommentsComment]);
     }
 
-    // See More button
-    var $conversationBoxButtonSeeMoreSmall = $('.conversation-box button.btn-see-more.stack');
-
-    $conversationBoxButtonSeeMoreSmall.on('click', function (event) {
+    // See More button (OPEN)
+    $(".proposal-list").on('click','.conversation-box button.btn-see-more.stack', function (event) {
         var $actionsContent = $(event.target).closest('.actions');
         var $conversationBox = $actionsContent.closest('.conversation-box');
         var $conversationBoxBody = $actionsContent.closest('.conversation-box').find('.body');
@@ -125,10 +121,8 @@ $(function(){
     }
     prepareCollapsableBodys();
 
-    // See More comments
-    var $seeMoreCommentsSmall = $('.conversation-box-comments .go-up');
-
-    $seeMoreCommentsSmall.on('click', function (event, isVisible, $target) {
+    // See More button (CLOSE)
+    $(".proposal-list").on('click','.conversation-box-comments .go-up', function (event, isVisible, $target) {
         var $placeholder = $(event.target).closest('.comment-box');
         var $conversationComments = $placeholder.prev();
         var $actionsContent = $(event.target).closest('.actions');
@@ -189,7 +183,7 @@ $(function(){
         }
     });
 
-    $("#main").on("click",".proposal-like", function(){
+    $(".proposal-list").on("click",".proposal-like", function(){
         var $button = $(this)
         var userLogged = $button.attr("data-userLogged")
         if (userLogged == undefined || userLogged == "" ){
@@ -226,7 +220,7 @@ $(function(){
         }
     })
 
-    $(".pin-propusal").on("click", function(){
+    $(".proposal-list").on("click",".pin-propusal", function(){
         var userLogged = $(this).attr("data-userLogged");
         if (userLogged == undefined || userLogged == "" ){
             // USER NO LOGGED
