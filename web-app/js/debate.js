@@ -342,4 +342,19 @@ $(function(){
         sortProposals.setProposalOption(optionName);
         sortProposals.reorderList();
     })
+
+
+    // Marc as active the comment or the proposal
+    var $element = $("#"+hash)
+    if ($element != undefined){
+        $element.addClass("active")
+        var $commentBox = $element.parents(".conversation-box-comments");
+        if ($commentBox!=undefined){
+            $commentBox.find("button.go-up[data-anchor=conversation-box]").click()
+        }
+        $('html, body').animate({
+            scrollTop: $element.offset().top -100
+        }, 2000, function () {});
+
+    }
 });
