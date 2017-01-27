@@ -43,34 +43,40 @@ $(function(){
         var $button = $(this)
         var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
         var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
-        console.log($commentsList)
-        console.log($commentsList.is(":visible"))
         if ( $commentsList.is(":visible") ){
-            // BOTON SALVAR
-            var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
-            var body = $mediumEditor.html();
-            if (!validMediumEditor($mediumEditor)){return;}
-            var debateId = $(this).attr("data-debateId");
-            var debateAlias = $(this).attr("data-debateAlias");
-            var proposalId = $(this).attr("data-proposalId");
-            var url = $(this).attr("data-postUrl");
-            var data={
-                debateId:debateId,
-                debateAlias:debateAlias,
-                proposalId:proposalId,
-                body:body
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function(htmlComment){
-                    var comment = $(htmlComment).hide().fadeIn(2000);
-                    $commentsList.append(comment)
-                    $mediumEditor.html("")
-                },
-                dataType: "html"
-            });
+            var userLogged = $button.attr("data-userLogged")
+            if (userLogged == undefined || userLogged == "" ){
+                // USER NO LOGGED
+                $('#registro').modal('show');
+            }else {
+                // BOTON SALVAR
+                var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
+                var body = $mediumEditor.html();
+                if (!validMediumEditor($mediumEditor)) {
+                    return;
+                }
+                var debateId = $(this).attr("data-debateId");
+                var debateAlias = $(this).attr("data-debateAlias");
+                var proposalId = $(this).attr("data-proposalId");
+                var url = $(this).attr("data-postUrl");
+                var data = {
+                    debateId: debateId,
+                    debateAlias: debateAlias,
+                    proposalId: proposalId,
+                    body: body
+                };
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function (htmlComment) {
+                        var comment = $(htmlComment).hide().fadeIn(2000);
+                        $commentsList.append(comment)
+                        $mediumEditor.html("")
+                    },
+                    dataType: "html"
+                });
+            }
         }else{
             // ABRIR COMENTARIOS
             conversationSectionClick($conversationBox)
@@ -185,58 +191,69 @@ $(function(){
 
     $("#main").on("click",".proposal-like", function(){
         var $button = $(this)
-
-        var like = $(this).find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
-        var url =$(this).attr("data-urlAction");
-        var debateId = $(this).attr("data-debateId");
-        var debateAlias = $(this).attr("data-debateAlias");
-        var proposalId = $(this).attr("data-proposalId");
-        var data={
-            debateId:debateId,
-            debateAlias:debateAlias,
-            proposalId:proposalId,
-            like:like
-        };
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(jsonData) {
-                console.log("success")
-                $button.find(".fa").toggleClass("fa-heart-o fa-heart");
-                var count = parseInt($button.find(".number").text())
-                if (like) {
-                    $button.find(".number").text(count + 1)
-                }else{
-                    $button.find(".number").text(count - 1)
-                }
-            },
-            dataType: "html"
-        });
+        var userLogged = $button.attr("data-userLogged")
+        if (userLogged == undefined || userLogged == "" ){
+            // USER NO LOGGED
+            $('#registro').modal('show');
+        }else {
+            var like = $(this).find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
+            var url = $(this).attr("data-urlAction");
+            var debateId = $(this).attr("data-debateId");
+            var debateAlias = $(this).attr("data-debateAlias");
+            var proposalId = $(this).attr("data-proposalId");
+            var data = {
+                debateId: debateId,
+                debateAlias: debateAlias,
+                proposalId: proposalId,
+                like: like
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function (jsonData) {
+                    console.log("success")
+                    $button.find(".fa").toggleClass("fa-heart-o fa-heart");
+                    var count = parseInt($button.find(".number").text())
+                    if (like) {
+                        $button.find(".number").text(count + 1)
+                    } else {
+                        $button.find(".number").text(count - 1)
+                    }
+                },
+                dataType: "html"
+            });
+        }
     })
 
     $(".pin-propusal").on("click", function(){
-        $(this).toggleClass("active","")
-        var pin = $(this).hasClass("active");
-        var url =$(this).attr("data-urlAction");
-        var debateId = $(this).attr("data-debateId");
-        var debateAlias = $(this).attr("data-debateAlias");
-        var proposalId = $(this).attr("data-proposalId");
-        var data={
-            debateId:debateId,
-            debateAlias:debateAlias,
-            proposalId:proposalId,
-            pin:pin
-        };
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            success: function(jsonData){
-                console.log(jsonData)
-            },
-            dataType: "html"
-        });
+        var userLogged = $(this).attr("data-userLogged");
+        if (userLogged == undefined || userLogged == "" ){
+            // USER NO LOGGED
+            $('#registro').modal('show');
+        }else{
+            $(this).toggleClass("active","")
+            var pin = $(this).hasClass("active");
+            var url =$(this).attr("data-urlAction");
+            var debateId = $(this).attr("data-debateId");
+            var debateAlias = $(this).attr("data-debateAlias");
+            var proposalId = $(this).attr("data-proposalId");
+            var data={
+                debateId:debateId,
+                debateAlias:debateAlias,
+                proposalId:proposalId,
+                pin:pin
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function(jsonData){
+                    console.log(jsonData)
+                },
+                dataType: "html"
+            });
+        }
     })
 
     function validMediumEditor($mediumEditor){
