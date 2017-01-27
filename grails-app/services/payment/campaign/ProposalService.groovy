@@ -16,9 +16,12 @@ class ProposalService {
 
     RestKuorumApiService restKuorumApiService
 
-    ProposalPageRSDTO findProposal(DebateRSDTO debate, SearchProposalRSDTO searchProposalRSDTO){
+    ProposalPageRSDTO findProposal(DebateRSDTO debate, SearchProposalRSDTO searchProposalRSDTO, String viewerUid = null){
         Map<String, String> params = [userAlias: debate.userAlias,debateId:debate.id.toString()]
         Map<String, String> query = searchProposalRSDTO.encodeAsQueryParams()
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSALS,
                 params,

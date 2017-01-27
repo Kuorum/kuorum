@@ -201,11 +201,15 @@ $(function(){
             type: "POST",
             url: url,
             data: data,
-            success: function(jsonData){
+            success: function(jsonData) {
                 console.log("success")
                 $button.find(".fa").toggleClass("fa-heart-o fa-heart");
                 var count = parseInt($button.find(".number").text())
-                $button.find(".number").text(count+1)
+                if (like) {
+                    $button.find(".number").text(count + 1)
+                }else{
+                    $button.find(".number").text(count - 1)
+                }
             },
             dataType: "html"
         });

@@ -1,14 +1,17 @@
 package kuorum.debate
 
 import grails.converters.JSON
+import grails.plugin.cookie.CookieService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
+import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.DebateCommand
+import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
@@ -32,17 +35,19 @@ class DebateController {
     ContactService contactService
     DebateService debateService
     ProposalService proposalService
+    CookieUUIDService cookieUUIDService
 
     def show() {
         KuorumUser debateUser = kuorumUserService.findByAlias((String) params.userAlias)
+        String viewerId = cookieUUIDService.buildUserUUID();
         try {
-            DebateRSDTO debate = debateService.findDebate(debateUser, Long.parseLong((String) params.debateId))
+            DebateRSDTO debate = debateService.findDebate(debateUser, Long.parseLong((String) params.debateId),viewerId)
             SearchProposalRSDTO searchProposalRSDTO = new SearchProposalRSDTO();
             searchProposalRSDTO.sort = new SortProposalRDTO()
             searchProposalRSDTO.sort.direction = SortProposalRDTO.Direction.DESC
             searchProposalRSDTO.sort.field = SortProposalRDTO.Field.LIKES
 
-            ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO)
+            ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO,viewerId)
             if (!debate) {
                 throw new KuorumException(message(code: "debate.notFound") as String)
             }
@@ -243,5 +248,4 @@ class DebateController {
 
         debateRDTO
     }
-
 }

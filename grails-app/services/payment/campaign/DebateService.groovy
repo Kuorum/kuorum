@@ -1,6 +1,7 @@
 package payment.campaign
 
 import com.fasterxml.jackson.core.type.TypeReference
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
@@ -32,9 +33,12 @@ class DebateService {
         debatesFound
     }
 
-    DebateRSDTO findDebate(KuorumUser user, Long debateId) {
+    DebateRSDTO findDebate(KuorumUser user, Long debateId, String viewerUid = null) {
         Map<String, String> params = [userAlias: user.id.toString(), debateId: debateId.toString()]
         Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE,
                 params,
