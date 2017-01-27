@@ -1,8 +1,6 @@
 <!-- ^leader-post !-->
 <div class="leader-post">
-    <g:if test="${debate.photoUrl}">
-        <img src="${debate.photoUrl}" >
-    </g:if>
+    <g:render template="showModules/mainContent/debateDataMultimedia" model="[debate:debate]"/>
     <div class="header">
         <h1 class="title">${debate.title}</h1>
         <userUtil:showUser user="${debateUser}"/>
