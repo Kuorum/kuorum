@@ -25,7 +25,7 @@
         <div class="comment-counter pull-right">
             <button type="button">
                 <span class="fa fa-lightbulb-o" aria-hidden="true"></span>
-                <span class="number">36</span>
+                <span class="number">${proposalPage.total}</span>
             </button>
         </div>
     </div>

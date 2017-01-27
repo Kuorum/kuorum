@@ -1,5 +1,5 @@
 
-<g:render template="/debate/showModules/mainContent/debateData" model="[debate: debate, debateUser: debateUser, user: user]" />
+<g:render template="/debate/showModules/mainContent/debateData" model="[debate: debate, debateUser: debateUser, proposalPage: proposalPage]" />
 
 <!-- ^comment-box !-->
 <div class="comment-box clearfix">
