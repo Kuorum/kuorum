@@ -46,6 +46,7 @@ class DebateController {
             searchProposalRSDTO.sort = new SortProposalRDTO()
             searchProposalRSDTO.sort.direction = SortProposalRDTO.Direction.DESC
             searchProposalRSDTO.sort.field = SortProposalRDTO.Field.LIKES
+            searchProposalRSDTO.size = Integer.MAX_VALUE // Sorting and filtering will be done using JS. We expect maximum 100 proposals
 
             ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO,viewerId)
             if (!debate) {
