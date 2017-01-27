@@ -17,14 +17,14 @@
     </li>
     <li>
         <span class="fa fa-comment-o" aria-hidden="true"></span>
-        <span class="info"><g:message code="debate.peopleCommentedProposals" args="[4567]" /></span>
+        <span class="info"><g:message code="debate.peopleCommentedProposals" args="[proposalPage?.data?.collect{it.comments.size()}.sum()?:0]" /></span>
     </li>
     <li>
         <span class="fa fa-flag-o" aria-hidden="true"></span>
-        <span class="info"><g:message code="debate.proposalsPinned" args="[4567]" /></span>
+        <span class="info"><g:message code="debate.proposalsPinned" args="[proposalPage?.data?.findAll{it.pinned}?.size()?:0]" /></span>
     </li>
     <li>
         <span class="fa fa-clock-o" aria-hidden="true"></span>
-        <span class="info"><g:message code="debate.lastActivity" args="['1 day']" /></span>
+        <span class="info"><g:message code="debate.lastActivity"/> <kuorumDate:humanDate date="${proposalPage?.data?.collect{[it.datePublished]+it.comments*.datePublished}.flatten().min()?:debate.datePublished}"/> </span>
     </li>
 </ul>
