@@ -695,7 +695,7 @@ $(document).ready(function() {
             outerWindow: 1
         };
         var options = {
-            valueNames: [ 'id', 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', { name: 'timestamp', attr: 'val' } ],
+            valueNames: [ 'id', 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', { name: 'timestamp', attr: 'value' } ],
             page: 10,
             searchClass: "searchCampaigns",
             plugins: [
