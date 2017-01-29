@@ -349,9 +349,11 @@ $(function(){
         if ($commentBox!=undefined){
             $commentBox.find("button.go-up[data-anchor=conversation-box]").click()
         }
-        $('html, body').animate({
-            scrollTop: $element.offset().top -100
-        }, 2000, function () {});
+        if ($element.offset() != undefined){ // Fails some times
+            $('html, body').animate({
+                scrollTop: $element.offset().top -100
+            }, 2000, function () {});
+        }
 
     }
 });
