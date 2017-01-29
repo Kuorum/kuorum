@@ -1,7 +1,6 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 
-<g:set var="status" value="${(debate.campaignStatusRSDTO == CampaignStatusRSDTO.SENT) ? CampaignStatusRSDTO.SENT : CampaignStatusRSDTO.DRAFT}"/>
-<li class="${status} debateItem" id="campaignPos_${idx}">
+<li class="${debate.newsletter.status} debateItem" id="campaignPos_${idx}">
     <span class="id sr-only">${debate.id}</span>
     <span class="state">${debate.campaignStatusRSDTO}</span>
     <h3>
