@@ -17,10 +17,12 @@ import kuorum.web.commands.profile.SocialNetworkCommand
 import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.kuorum.rest.model.tag.SuggestedCausesRSDTO
+import payment.campaign.DebateService
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
 import springSecurity.KuorumRegisterCommand
@@ -36,6 +38,7 @@ class DashboardController {
     SearchSolrService searchSolrService
     ContactService contactService
     MassMailingService massMailingService
+    DebateService debateService
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -58,7 +61,7 @@ class DashboardController {
             Map model = buildPaymentDashboadr(user);
             if (model.contacts.total==0) {
                 render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
-            }else if (!model.campaigns?.size()){
+            }else if (!model.numberCampaigns){
                 render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
             }else{
                 render view: "/dashboard/payment/paymentDashboard", model: model
@@ -94,11 +97,16 @@ class DashboardController {
                 durationDays = duration.days
             }
         }
+
+        List<DebateRSDTO> debates = debateService.findAllDebates(user)
+
+        Long numberCampaigns = debates?.size()?:0 + campaigns?.size()?:0;
+
         List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:16))
 
         [
                 lastCampaign:lastCampaign,
-                campaigns:campaigns,
+                numberCampaigns:numberCampaigns,
                 durationDays:durationDays,
                 contacts: contactService.getUsers(user),
                 recommendedUsers:recommendedUsers,
