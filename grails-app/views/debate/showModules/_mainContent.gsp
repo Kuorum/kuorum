@@ -20,11 +20,11 @@
     </div>
 </div> <!-- ^comment-box !-->
 
-<ul id="proposal-option" class="nav nav-pills nav-underline">
-    <li><a href="#latest">Latest</a></li>
-    <li><a href="#oldest">Oldest</a></li>
-    <li><a href="#best">Best</a></li>
-    <li><a href="#pinned">Pinned</a></li>
+<ul id="proposal-option" class="nav nav-pills nav-underline" style="display: none">
+    <li><a href="#latest"><g:message code="debate.proposals.nav.latest"/> </a></li>
+    <li><a href="#oldest"><g:message code="debate.proposals.nav.oldest"/></a></li>
+    <li><a href="#best"><g:message code="debate.proposals.nav.best"/></a></li>
+    <li><a href="#pinned"><g:message code="debate.proposals.nav.pinned"/></a></li>
 </ul>
 
 <ul class="proposal-list">

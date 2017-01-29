@@ -313,6 +313,9 @@ function SortProposals(){
 
     this.reorderList = function(){
         var proposals = proposalList.children('li').get();
+        if(proposals.length>0){
+            $("#proposal-option").show()
+        }
         $("#proposal-option li").removeClass("active")
         $("a[href=#"+proposalOption.name+"]").parent().addClass("active")
         proposals.sort(proposalOption.sort);
