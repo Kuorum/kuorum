@@ -1,6 +1,7 @@
 package kuorum.web.commands.payment.massMailing
 
 import grails.validation.Validateable
+import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
 import org.grails.databinding.DataBindingSource
@@ -25,7 +26,7 @@ class DebateCommand {
     List<String> tags
     List<TrackingMailStatusRSDTO> eventsWithTag
 
-    @BindingFormat('dd/MM/yyyy HH:mm')
+    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date publishOn
 
     static constraints = {

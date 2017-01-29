@@ -1,4 +1,4 @@
-<%@ page import="kuorum.core.FileGroup; org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
+<%@ page import="kuorum.web.constants.WebConstants; kuorum.core.FileGroup; org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <r:require modules="datepicker" />
 <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" />
@@ -9,6 +9,8 @@
     <input type="hidden" name="tags" value="${command.tags?:''}"/>
     <input type="hidden" name="photoUrl" value="${command.headerPictureId?:''}"/>
     <input type="hidden" name="videoPost" value="${command.videoPost?:''}"/>
+    <input type="hidden" name="publishOn" value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
+
     <g:each in="${command.eventsWithTag}" var="inputEvent">
         <g:if test="${inputEvent == org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.OPEN}">
             <input type="hidden" name="eventsWithTag" value="${inputEvent}"/>
