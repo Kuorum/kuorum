@@ -183,10 +183,10 @@ $(function(){
                 url: url,
                 data: data,
                 success: function(htmlProposal){
-                    $("#proposal-option a[href=#latest]").trigger("click")
                     var proposal = $(htmlProposal).hide().fadeIn(2000);
                     $(".proposal-list").prepend(proposal)
                     $mediumEditor.html("")
+                    $("#proposal-option a[href=#latest]").trigger("click")
                 },
                 dataType: "html"
             });
