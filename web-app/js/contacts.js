@@ -1,6 +1,6 @@
 $(function () {
     // abrir opciones nuevo filtro con select
-    $('#newsletter select#recipients,#searchContacts select#recipients').on('change', filterContacts.changedFilterValueEvent);
+    $('select#recipients').on('change', filterContacts.changedFilterValueEvent);
     //$('#searchContacts select#recipients').on('change', filterContacts.searchContactsCallBacks.campaignFilterRefresh);
 
     $("#listContacts").on("click", "#contactsOrderOptions ul.pag-list-sort li a",function(e){
