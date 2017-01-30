@@ -88,7 +88,11 @@ class DashboardController {
     private def buildPaymentDashboadr(KuorumUser user){
         List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
         CampaignRSDTO lastCampaign = null
-        List<CampaignRSDTO> sentCampaigns = campaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<DebateRSDTO> debates = debateService.findAllDebates(user)
+
+        List<CampaignRSDTO> sentDebateNewsletters = debates*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> sentMassMailCampaigns = campaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> sentCampaigns = sentMassMailCampaigns + sentDebateNewsletters
         Long durationDays = 0;
         if (sentCampaigns){
             lastCampaign = sentCampaigns.sort {it.sentOn}.last()?:null
@@ -97,8 +101,6 @@ class DashboardController {
                 durationDays = duration.days
             }
         }
-
-        List<DebateRSDTO> debates = debateService.findAllDebates(user)
 
         Long numberCampaigns = debates?.size()?:0 + campaigns?.size()?:0;
 

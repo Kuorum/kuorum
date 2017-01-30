@@ -1,6 +1,6 @@
 <div class="box-ppal" id="createNewCampaign">
     <h2><g:message code="dashboard.payment.newCampaign.title"/></h2>
-    <g:if test="${!lastCampaign}">
+    <g:if test="${!numberCampaigns}">
         <p>
             <g:message code="dashboard.payment.newCampaign.neverSent" args="[g.createLink(mapping: 'blog')]" encodeAs="raw"/>
             <br/>
