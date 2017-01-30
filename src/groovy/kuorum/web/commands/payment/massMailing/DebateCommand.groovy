@@ -1,6 +1,7 @@
 package kuorum.web.commands.payment.massMailing
 
 import grails.validation.Validateable
+import kuorum.core.FileType
 import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
@@ -17,6 +18,7 @@ class DebateCommand {
     String title
     String body
 
+    String fileType
     String headerPictureId
     String videoPost
 
@@ -34,6 +36,7 @@ class DebateCommand {
         body nullable: false
         filterId nullable: true
         filterEdited nullable: true
+        fileType nullable: true
         headerPictureId nullable: true
         videoPost nullable: true
         publishOn nullable: true, validator: { val, obj ->

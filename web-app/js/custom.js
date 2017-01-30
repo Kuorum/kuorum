@@ -448,13 +448,13 @@ $(document).ready(function() {
             //console.log("pete")
         }
     });
-    $("#addDebate").on('submit', function(e){
+    $("#addDebate").on('submit', function(e) {
         e.preventDefault();
         var form = $(this);
-        if (form.valid()){
+        if (form.valid()) {
             var url = form.attr('action');
             var ulList = $("ul.chat");
-            $.ajax( {
+            $.ajax({
                 url:url,
                 data:$(this).serialize(),
                 statusCode: {
