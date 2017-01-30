@@ -1,6 +1,8 @@
 
 var editor = new MediumEditor('.editable', {
     buttonLabels: 'fontawesome',
+    targetBlank: true,
+    disableDoubleReturn: false,
     toolbar: {
         buttons: ['anchor']
     }
@@ -8,6 +10,14 @@ var editor = new MediumEditor('.editable', {
 
 var editorComment = new MediumEditor('.editable-comment', {
     buttonLabels: 'fontawesome',
+    targetBlank: true,
+    disableDoubleReturn: false,
+    anchorPreview: {
+        /* These are the default options for anchor preview,
+         if nothing is passed this is what it used */
+        hideDelay: 500,
+        previewValueSelector: 'a'
+    },
     toolbar: {
         buttons: ['anchor']
     }
@@ -290,7 +300,7 @@ function SortProposals(){
         sort:function(a,b){
             var aDateTime = $(a).find(".comment-counter .fa-heart-o").next().text()
             var bDateTime = $(b).find(".comment-counter .fa-heart-o").next().text()
-            return bDateTime.localeCompare(aDateTime);
+            return aDateTime.localeCompare(bDateTime);
         },
         filter:function(idx){return false;},
         name:"best"

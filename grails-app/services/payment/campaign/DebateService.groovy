@@ -51,14 +51,14 @@ class DebateService {
             debateFound = (DebateRSDTO) response.data
         }
 
-        debateFound
+            debateFound
     }
 
     DebateRSDTO saveDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
         if (debateRDTO.publishOn != null) {
             debateRDTO.publishOn = convertToUserTimeZone(debateRDTO.publishOn, user.timeZone)
         }
-        debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags()
+        debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 
         if (debateId) {
             updateDebate(user, debateRDTO, debateId)

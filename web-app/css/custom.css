@@ -7490,13 +7490,11 @@ button.btn-see-more {
     padding: 0 30px 0 30px;
 }
 
-.leader-post > .body p a {
+.leader-post > .body p a, .conversation-box-comment .body a {
     color: #00a3ed;
-    text-decoration: underline;
 }
 
-.leader-post > .body p a:hover {
-    color: #ff9431;
+.leader-post > .body p a:hover, .conversation-box-comment .body a:hover{
     text-decoration: underline;
 }
 
