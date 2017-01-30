@@ -1,9 +1,9 @@
 package kuorum.debate
 
 import grails.converters.JSON
-import grails.plugin.cookie.CookieService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
+import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
 import kuorum.users.CookieUUIDService
@@ -11,7 +11,6 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.DebateCommand
-import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
@@ -39,10 +38,10 @@ class DebateController {
 
     def show() {
         KuorumUser debateUser = kuorumUserService.findByAlias((String) params.userAlias)
-        String viewerId = cookieUUIDService.buildUserUUID();
+        String viewerId = cookieUUIDService.buildUserUUID()
         try {
             DebateRSDTO debate = debateService.findDebate(debateUser, Long.parseLong((String) params.debateId),viewerId)
-            SearchProposalRSDTO searchProposalRSDTO = new SearchProposalRSDTO();
+            SearchProposalRSDTO searchProposalRSDTO = new SearchProposalRSDTO()
             searchProposalRSDTO.sort = new SortProposalRDTO()
             searchProposalRSDTO.sort.direction = SortProposalRDTO.Direction.DESC
             searchProposalRSDTO.sort.field = SortProposalRDTO.Field.LIKES
@@ -109,8 +108,10 @@ class DebateController {
 
         // Multimedia URL
         if (debateRSDTO.videoUrl?.contains("youtube")) {
+            debateCommand.fileType = FileType.YOUTUBE.toString()
             debateCommand.videoPost = debateRSDTO.videoUrl
         } else if (debateRSDTO.photoUrl) {
+            debateCommand.fileType = FileType.IMAGE.toString()
             KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.photoUrl)
             debateCommand.headerPictureId = kuorumFile?.id
         }
@@ -237,14 +238,26 @@ class DebateController {
         }
 
         // Multimedia URL
-        if (command.headerPictureId) {
+        if (command.fileType == FileType.IMAGE.toString()) {
+            // Save image
             KuorumFile picture = KuorumFile.get(command.headerPictureId)
             picture = fileService.convertTemporalToFinalFile(picture)
             fileService.deleteTemporalFiles(user)
             debateRDTO.setPhotoUrl(picture.getUrl())
-        } else if (command.videoPost) {
+
+            // Remove video
+            debateRDTO.setVideoUrl(null)
+        } else if (command.fileType == FileType.YOUTUBE.toString()) {
+            // Save video
             KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
             debateRDTO.setVideoUrl(urlYoutubeFile?.url)
+
+            // Remove image
+            if (command.headerPictureId) {
+                KuorumFile picture = KuorumFile.get(command.headerPictureId)
+                fileService.deleteKuorumFile(picture)
+                command.setHeaderPictureId(null)
+            }
         }
 
         debateRDTO

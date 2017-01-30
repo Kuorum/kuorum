@@ -12,12 +12,14 @@
             <formUtil:input command="${command}" field="title"/>
         </div>
     </fieldset>
+
     <fieldset class="form-group">
         <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
         <div class="textareaContainer col-sm-8 col-md-7">
             <formUtil:textArea command="${command}" field="body" rows="8" texteditor="texteditor"/>
         </div>
     </fieldset>
+
     <fieldset class="form-group tags-campaign" data-multimedia-switch="on" data-multimedia-type="IMAGE">
         <label for="tagsField" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.tags.label"/>: </label>
         <div class="col-sm-8 col-md-7">
@@ -32,11 +34,12 @@
             </div>
         </div>
     </fieldset>
+
     <fieldset class="form-group multimedia">
         <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:</label>
         <div class="col-sm-8 col-md-7">
             <span class="span-label sr-only"><g:message code="admin.createProject.upload.imageOrVideo" /></span>
-            <input type="hidden" name="fileType" value="${command.videoPost?'YOUTUBE':'IMAGE'}" id="fileType">
+            <input type="hidden" name="fileType" value="${(command.fileType == kuorum.core.FileType.YOUTUBE.toString())?'YOUTUBE':'IMAGE'}" id="fileType">
             <ul class="nav nav-pills nav-justified">
                 <li class="${command.headerPictureId || (command.errors?.getFieldError('headerPictureId')?.codes?.contains('imageOrUrlYoutubeRequired') && command.errors?.getFieldError('videoPost')?.codes?.contains('imageOrUrlYoutubeRequired'))?'active':''}">
                     <a href="#projectUploadImage" data-toggle="tab" data-filetype="IMAGE"><g:message code="admin.createProject.upload.image" /></a>

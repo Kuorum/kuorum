@@ -9,6 +9,7 @@ import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 
 class KuorumUserTagLib {
     static defaultEncodeAs = 'raw'
@@ -17,6 +18,7 @@ class KuorumUserTagLib {
     static namespace = "userUtil"
 
     def springSecurityService
+    def userReputationService
     RegisterService registerService
     private Integer NUM_MAX_ON_USER_LIST = 100
 
@@ -68,6 +70,7 @@ class KuorumUserTagLib {
             user = attrs.user
             name = user.fullName
         }
+
         Boolean showRole = attrs.showRole?Boolean.parseBoolean(attrs.showRole):false
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
         Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
@@ -93,8 +96,12 @@ class KuorumUserTagLib {
                     ${userName}
                 </a>
         """
-        if (withPopover){
-            out << g.render(template: '/kuorumUser/popoverUser', model:[user:user])
+        if (withPopover) {
+            UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
+            out << g.render(template: '/kuorumUser/popoverUser', model: [
+                    user: user,
+                    userReputation: userReputationRSDTO
+            ])
         }
         if (showRole){
             out << """
