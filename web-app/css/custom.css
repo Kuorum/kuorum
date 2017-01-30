@@ -1817,9 +1817,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .author.important .user.actor.politic .user-list-images li .popover-trigger .user-img {margin: 0;}
 
 .popover {width: 260px; max-width: 260px; border-radius: 0;}
-.popover-content {padding: 0 9px;}
+.popover-content {padding: 9px;}
 .popover-content p:last-child {margin: 0;}
-.popover-user-body {width: 260px;}
 
 .config .popover {font-size: 15px; font-size: 1.5rem; color: #a8a8a8;}
 .config .popover-content {padding: 15px 10px 5px;}
@@ -4103,7 +4102,6 @@ fieldset.rating:hover > input + label:hover:before {
 
 /* la capa popover de la votación */
 .rating + .popover.bottom {margin-top: 25px;}
-.rating-over {padding: 0 10px;}
 .rating-over ul{
     list-style: none;
     margin: 0 0 10px 0;
@@ -7953,17 +7951,6 @@ div [class^='comment-box col-'] {
 }
 
 .vote-user .rating{font-size: 20px;}
-
-/*** rating ***/
-.rating {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    text-align: center;
-}
-
-.rating label {
-    font-size: 25px;
-}
 
 /*** see-more-content ***/
 

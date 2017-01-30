@@ -1046,36 +1046,52 @@ $(document).ready(function() {
     /*******************************************/
     /******* USER RATES ************************/
     /*******************************************/
-    $(".user-rating-container").on("click", "#user-rating-form fieldset.rating input",function(e){
-        var $form = $(this).parents("form");
+    $("body").on("click", ".user-rating-form fieldset.rating input", function (e) {
+        var $form = $(this).closest("form");
         var url = $form.attr("action");
-        var $input = $(this);
-        var $popover = $input.parents("popover");
-        var rate = $(this).val();
-        $("input[name=rating]").removeAttr("checked");
-        $("input[name=rating][value="+rate+"]").attr('checked', true);
-        $("input[name=rating][value=" + rate + "]").prop("checked", true);
+        var myRate = $(this).val();
+
         $.ajax({
-            url:url,
-            data:{rate:rate}
-        }).success(function(data){
-            $("#rating-social-share-modal-" + data.userId).modal("show");
-            $("#user-rating-form .counter").html(rate);
-            $(".counter.user-reputation").html(data.userReputation.toFixed(2));
-            var newRate = Math.round(data.userReputation);
-            $(".user-rating label").removeClass("active");
-            $(".user-rating label[for=star" + newRate + "]").addClass("active");
-            $([1,2,3,4,5]).each(function(i){
-                var pos = i+1;
-                $(".rate-progress-bar-" + pos).attr("aria-valuetransitiongoal", data.evaluationPercentages[pos] * 100);
-                $(".rate-progress-bar-" + pos).find("span").html(data.evaluationPercentages[pos] * 100 + "%");
-                $(".rate-progress-bar-"+pos).css("width",data.evaluationPercentages[pos]*100 +"%")
-            });
-            printCharts();
+            url: url,
+            data: {rate: myRate}
+        }).success(function (data) {
+            // Update rating
+            var newRate = Math.floor(data.userReputation + 0.5);
+
+            // Only for profile rating
+            if ($form.hasClass("rating-profile")) {
+                // Update "read only" rating
+                $(".user-rating label").removeClass("active");
+                $(".user-rating label[for=star" + newRate + "]").addClass("active");
+
+                // Popover - Change both ratings (visible & invisible)
+                $form.closest('.popover').parent().find("input[name=rating]").removeAttr("checked");
+                $form.closest('.popover').parent().find("input[name=rating][value=" + myRate + "]").attr('checked', true);
+                $form.closest('.popover').parent().find("input[name=rating][value=" + myRate + "]").prop("checked", true);
+
+                // Popover - Statistics
+                $form.closest('.popover').parent().find(".counter").html(myRate);
+                $form.closest('.popover').parent().find(".rating-over").find(".counter.user-reputation").html(data.userReputation.toFixed(2));
+                $([1, 2, 3, 4, 5]).each(function(i) {
+                    var pos = i+1;
+                    $(".rate-progress-bar-" + pos).attr("aria-valuetransitiongoal", data.evaluationPercentages[pos] * 100);
+                    $(".rate-progress-bar-" + pos).find("span").html(data.evaluationPercentages[pos] * 100 + "%");
+                    $(".rate-progress-bar-" + pos).css("width", data.evaluationPercentages[pos]*100 + "%")
+                });
+                printCharts();
+
+                // Show modal
+                $("#rating-social-share-modal-" + data.userId).modal("show");
+            } else {
+                // Change only the invisible one
+                $form.parents('.popover').siblings('.popover:not(.in)').find("input[name=rating]").removeAttr("checked");
+                $form.parents('.popover').siblings('.popover:not(.in)').find("input[name=rating][value=" + newRate + "]").attr('checked', true);
+                $form.parents('.popover').siblings('.popover:not(.in)').find("input[name=rating][value=" + newRate + "]").prop("checked", true);
+            }
             dataLayer.push({
                 event:"Valuation",
-                'politician.alias':data.userAlias,
-                'politician.rating.userVote':rate
+                'politician.alias': data.userAlias,
+                'politician.rating.userVote': myRate
             });
 //            $(".user-rating").popover("show")
         }).error(function(jqXHR, textStatus, errorThrown){
@@ -1106,19 +1122,15 @@ $(document).ready(function() {
     $(".widget form.rating").on("click", "fieldset.rating input",function(e) {
         var $form = $(this).closest("form");
         var url = $form.attr("action");
-        var $input = $(this);
-        var $popover = $input.parents("popover");
         var rate = $(this).val();
-        $form.find("input[name=rating]").removeAttr("checked");
-        $form.find("input[name=rating][value=" + rate + "]").attr('checked', true);
-        $form.find("input[name=rating][value=" + rate + "]").prop("checked", true);
+
         $.ajax({
             url: url,
             data: {rate: rate}
         }).done(function (data) {
             $("#rating-social-share-modal-" + data.userId).modal("show");
             var $visisbleForm = $form.siblings("form");
-            var newRate = Math.floor(data.userReputation +0.5);
+            var newRate = Math.floor(data.userReputation + 0.5);
             $visisbleForm.find("input[name=rating]").removeAttr("checked");
             $visisbleForm.find("input[name=rating][value=" + newRate + "]").attr('checked', true);
             $visisbleForm.find("input[name=rating][value=" + newRate + "]").prop("checked", true);
