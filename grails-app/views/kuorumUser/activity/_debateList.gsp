@@ -24,8 +24,10 @@
             <div class="card-footer">
                 <ul class="pull-right">
                     <li>
-                        <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" fragment="openProposal" role="button" class="likes"><span class="fa fa fa-lightbulb-o fa-lg"></span></g:link>
-                        <span class="label">${debate.likes}</span>
+                        <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" fragment="openProposal" role="button">
+                            <span class="fa fa fa-lightbulb-o fa-lg"></span>
+                            <span class="label">${debate.numProposals}</span>
+                        </g:link>
                     </li>
                 </ul>
             </div>

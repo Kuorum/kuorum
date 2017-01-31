@@ -69,12 +69,12 @@
     </div><!--/.panel panel-default -->
 
 
-    <ul id="proposal-option" class="nav nav-pills nav-underline">
-        <li class="active"><a href="#latest"><g:message code="debate.proposals.nav.latest"/> </a></li>
-        <li><a href="#oldest"><g:message code="debate.proposals.nav.oldest"/></a></li>
-        <li><a href="#best"><g:message code="debate.proposals.nav.best"/></a></li>
-        <li><a href="#pinned"><g:message code="debate.proposals.nav.pinned"/></a></li>
-    </ul>
+    %{--<ul id="proposal-option" class="nav nav-pills nav-underline">--}%
+        %{--<li class="active"><a href="#latest"><g:message code="debate.proposals.nav.latest"/> </a></li>--}%
+        %{--<li><a href="#oldest"><g:message code="debate.proposals.nav.oldest"/></a></li>--}%
+        %{--<li><a href="#best"><g:message code="debate.proposals.nav.best"/></a></li>--}%
+        %{--<li><a href="#pinned"><g:message code="debate.proposals.nav.pinned"/></a></li>--}%
+    %{--</ul>--}%
 
     <ul class="campaign-list clearfix">
         <g:each in="${debates}" var="debate">
