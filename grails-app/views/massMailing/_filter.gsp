@@ -8,7 +8,7 @@
                     ${filter.name}
                 </g:if>
             </g:each>
-            <g:if test="${command.filterId == anonymousFilter?.id}">
+            <g:if test="${anonymousFilter && command.filterId == anonymousFilter?.id}">
                 ${anonymousFilter.name}
             </g:if>
             <g:elseif test="${command.filterId == null}">
@@ -22,7 +22,7 @@
                         ${filter.amountOfContacts}
                     </g:if>
                 </g:each>
-                <g:if test="${command.filterId == anonymousFilter?.id}">
+                <g:if test="${anonymousFilter && command.filterId == anonymousFilter?.id}">
                     ${anonymousFilter.amountOfContacts}
                 </g:if>
                 <g:elseif test="${command.filterId == null}">
