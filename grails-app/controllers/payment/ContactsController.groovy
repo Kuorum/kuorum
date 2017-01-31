@@ -378,14 +378,15 @@ class ContactsController {
         def nextLine = linesIterator.next()
         Set<Integer> emptyColumns = (0..nextLine.values.length) as Set
         while (nextLine) {
+            // Empty row => error
+            if (nextLine.values.join("").isEmpty()) {
+                throw new KuorumException("tools.contact.import.csv.error.emptyRow")
+            }
+
             nextLine.values.eachWithIndex{val, idx ->
                 if (val) {
                     emptyColumns.remove(idx)
                 }
-                // Empty row => error
-//                if (val.isEmpty()) {
-//                    throw new KuorumException("tools.contact.import.csv.error.emptyRow")
-//                }
             }
             if (linesIterator.hasNext()) {
                 nextLine = linesIterator.next()
