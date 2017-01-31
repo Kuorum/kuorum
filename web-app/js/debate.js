@@ -35,7 +35,6 @@ $(function(){
 
     });
 
-
     // Save comment
     $(".proposal-list").on('click','.conversation-box-comments .comment-box .actions button.save-comment', function (event) {
         var $button = $(this)
@@ -43,10 +42,10 @@ $(function(){
         var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
         if ( $commentsList.is(":visible") ){
             var userLogged = $button.attr("data-userLogged")
-            if (userLogged == undefined || userLogged == "" ){
+            if (userLogged == undefined || userLogged == "" ) {
                 // USER NO LOGGED
                 $('#registro').modal('show');
-            }else {
+            } else {
                 // BOTON SALVAR
                 var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
                 var body = $mediumEditor.html();
@@ -71,6 +70,10 @@ $(function(){
                         var comment = $(htmlComment).hide().fadeIn(2000);
                         $commentsList.append(comment)
                         $mediumEditor.html("")
+
+                        // Update comments counter
+                        var $counterProposals = $button.parents('li').find('.comment .number');
+                        $counterProposals.text(parseInt($counterProposals.text()) + 1);
                     },
                     dataType: "html"
                 });
@@ -151,39 +154,45 @@ $(function(){
         }
     });
 
-    $(".publish-proposal").on("click", function(e){
-        var alias = $(this).attr("data-userLoggedAlias")
-        if (alias == ""){
+    // Save proposal
+    $(".publish-proposal").on("click", function (e) {
+        var $button = $(this);
+        var alias = $button.attr("data-userLoggedAlias")
+        if (alias == "") {
             // USER NO LOGGED
             $('#registro').modal('show');
-        }else{
+        } else {
             var $mediumEditor = $(".comment.editable.medium-editor-element p");
             var body = $mediumEditor.html();
             if (!validMediumEditor($mediumEditor)){return;}
             var debateId = $(this).attr("data-debateId");
             var debateAlias = $(this).attr("data-debateAlias");
             var url = $(this).attr("data-postUrl");
-            var data={
-                debateId:debateId,
-                debateAlias:debateAlias,
-                body:body
+            var data = {
+                debateId: debateId,
+                debateAlias: debateAlias,
+                body: body
             };
             $.ajax({
                 type: "POST",
                 url: url,
                 data: data,
-                success: function(htmlProposal){
-                    $("#proposal-option a[href=#latest]").trigger("click")
+                success: function (htmlProposal) {
+                    $("#proposal-option a[href=#latest]").trigger("click");
                     var proposal = $(htmlProposal).hide().fadeIn(2000);
-                    $(".proposal-list").prepend(proposal)
-                    $mediumEditor.html("")
+                    $(".proposal-list").prepend(proposal);
+                    $mediumEditor.html("");
+
+                    // Update proposal counter
+                    var $counterProposals = $('.leader-post .comment-counter .number');
+                    $counterProposals.text(parseInt($counterProposals.text()) + 1);
                 },
                 dataType: "html"
             });
         }
     });
 
-    $(".proposal-list").on("click",".proposal-like", function(){
+    $(".proposal-list").on("click", ".proposal-like", function(){
         var $button = $(this)
         var userLogged = $button.attr("data-userLogged")
         if (userLogged == undefined || userLogged == "" ){
