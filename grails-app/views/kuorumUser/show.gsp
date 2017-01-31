@@ -53,14 +53,6 @@
                 </userUtil:ifIsFollower>
             </div>
             <div class="extra-padding" id="politician-bio">
-                <g:if test="${causes}">
-                    <h4><g:message code="politician.causes"/> </h4>
-                    <ul class='causes-tags'>
-                        <g:each in="${causes}" var="cause">
-                            <cause:show cause="${cause}"/>
-                        </g:each>
-                    </ul>
-                </g:if>
                 <g:render template="/kuorumUser/userShowTemplates/userNews" model="[user:politician, userNews:userNews]"/>
                 <h4><g:message code="politician.bio"/></h4>
                 <p class="limit-height" data-collapsedHeight="50"  itemprop="description">${politician.bio}</p>
@@ -88,6 +80,7 @@
     <g:render template="userShowTemplates/columnC/socialButtonsColumnC" model="[user:politician]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
     <g:render template="userShowTemplates/columnC/subscribeForm" model="[user:politician]"/>
+    <g:render template="/dashboard/dashboardModules/supportedCauses" model="[user:politician, supportedCauses:causes]"/>
     <g:render template="/modules/recommendedUsers" model="[recommendedUsers:recommendPoliticians, boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/valuationChart" model="[user:politician]"/>--}%
     <g:render template="userShowTemplates/columnC/professionalDetails" model="[politician:politician]"/>
