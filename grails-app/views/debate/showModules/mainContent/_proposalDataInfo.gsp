@@ -54,7 +54,7 @@
                     <span class="number">${proposal.comments?.size()?:0}</span>
                 </button>
                 <button type="button"
-                        class="proposal-like"
+                        class="proposal-like ${(proposal.liked)?'active':''}"
                         data-urlAction="${g.createLink(mapping: 'debateProposalLike')}"
                         data-debateId="${debate.id}"
                         data-debateAlias="${debate.userAlias}"
