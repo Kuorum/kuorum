@@ -67,9 +67,24 @@
             </div><!--/.extra-padding -->
         </div><!--/.panel-body-->
     </div><!--/.panel panel-default -->
+
+
+    <ul id="proposal-option" class="nav nav-pills nav-underline">
+        <li class="active"><a href="#latest"><g:message code="debate.proposals.nav.latest"/> </a></li>
+        <li><a href="#oldest"><g:message code="debate.proposals.nav.oldest"/></a></li>
+        <li><a href="#best"><g:message code="debate.proposals.nav.best"/></a></li>
+        <li><a href="#pinned"><g:message code="debate.proposals.nav.pinned"/></a></li>
+    </ul>
+
+    <ul class="campaign-list clearfix">
+        <g:each in="${debates}" var="debate">
+            <g:render template="activity/debateList" model="[debate:debate, user:politician]"/>
+        </g:each>
+    </ul>
 </content>
 
 <content tag="cColumn">
+
     <g:render template="userShowTemplates/columnC/socialButtonsColumnC" model="[user:politician]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
     <g:render template="userShowTemplates/columnC/subscribeForm" model="[user:politician]"/>

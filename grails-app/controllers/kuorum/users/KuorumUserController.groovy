@@ -15,10 +15,14 @@ import kuorum.project.Project
 import kuorum.register.RegisterService
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
+import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 import org.springframework.web.servlet.LocaleResolver
+import payment.campaign.DebateService
+import payment.campaign.MassMailingService
 import springSecurity.KuorumRegisterCommand
 
 import javax.imageio.spi.RegisterableService
@@ -41,6 +45,9 @@ class KuorumUserController {
     CampaignService campaignService
 
     UserReputationService userReputationService;
+
+    DebateService debateService;
+    MassMailingService massMailingService;
 
 //    def beforeInterceptor = [action: this.&checkUser, except: 'login']
     def beforeInterceptor = [action: this.&checkUser, except: ['index', 'politicians']]
@@ -93,6 +100,8 @@ class KuorumUserController {
         Campaign campaign = campaignService.findActiveCampaign(user)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
+        List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
+        List<DebateRSDTO> debates = debateService.findAllDebates(user)
         [
                 politician:user,
                 userProjects:userProjects,
@@ -100,7 +109,9 @@ class KuorumUserController {
                 campaign:campaign,
                 causes:causes,
                 userReputation: userReputationRSDTO,
-                userNews:userNews
+                userNews:userNews,
+                debates:debates,
+                campaigns: campaigns
         ]
     }
 

@@ -392,4 +392,8 @@ $(function () {
             }, 2000, function () {});
         }
     }
+
+    if (hash == "openProposal"){
+        $(".leader-post > .footer .comment-counter button").trigger("click")
+    }
 });
