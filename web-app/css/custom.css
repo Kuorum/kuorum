@@ -1587,6 +1587,11 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .tab-pane .activity.des-engagement > li.posts ul {padding: 0; margin: 0; height: 55px;}
 .tab-pane .activity.des-engagement > li.posts li {list-style: none; display: block;}
 
+/* Hide Surveys and posts */
+[role="presentation"] [href="#petition"], [role="presentation"] [href="#survey"] {
+    display: none;
+}
+
 .edit-contact .tab-pane form {margin-top: 25px;}
 .edit-contact .tab-pane .form-group {margin-bottom: 30px;}
 .edit-contact .tab-pane#socialNetwork form .input-group-addon:first-child {border-right: none; background-color: #eeeeee;}
