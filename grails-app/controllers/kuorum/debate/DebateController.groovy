@@ -79,7 +79,7 @@ class DebateController {
 
         flash.message = resultDebate.msg.toString()
 
-        redirect mapping: "politicianMassMailing", params: []
+        redirect mapping: "debateShow", params: resultDebate.debate.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -160,7 +160,7 @@ class DebateController {
 
         flash.message = resultDebate.msg.toString()
 
-        redirect mapping: "politicianMassMailing", params: []
+        redirect mapping: "debateShow", params: resultDebate.debate.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -238,7 +238,7 @@ class DebateController {
         }
 
         // Multimedia URL
-        if (command.fileType == FileType.IMAGE.toString()) {
+        if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
             // Save image
             KuorumFile picture = KuorumFile.get(command.headerPictureId)
             picture = fileService.convertTemporalToFinalFile(picture)
@@ -247,7 +247,7 @@ class DebateController {
 
             // Remove video
             debateRDTO.setVideoUrl(null)
-        } else if (command.fileType == FileType.YOUTUBE.toString()) {
+        } else if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
             // Save video
             KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
             debateRDTO.setVideoUrl(urlYoutubeFile?.url)
