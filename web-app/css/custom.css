@@ -149,8 +149,6 @@ html, body {
 html.loading {
     background: #fff url('../images/loading@2x.gif') no-repeat 50% 50%;
     background-size: 50px auto;
-    -webkit-transition: background-color 0;
-    transition: background-color 0;
     padding: 0;
     text-align: inherit;
 }
@@ -160,8 +158,6 @@ body {
 }
 html.loading body {
     opacity: .5;
-    -webkit-transition: opacity .5;
-    transition: opacity .5;
 }
 /* FIN PAGE LOADING */
 
@@ -1859,7 +1855,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .slimScrollBar {border-radius: 4px !important;}
 .popover-content .close {position: absolute; top: 6px; right: 10px;}
 .popover-content .close,
-.modal-dialog .close {font-size: 22px; font-weight: 2.2rem;}
+.modal-dialog .close {font-size: 22px; font-size: 2.2rem;}
 .popover-trigger {cursor: pointer;}
 /*.user-list-images .popover-trigger,
 .user-list-followers .popover-trigger {display: inline-block; z-index: 998; position: relative;}*/
@@ -7788,7 +7784,8 @@ div [class^='comment-box col-'] {
     font-size: 25px;
 }
 
-.conversation-box .footer .comment-counter button:hover {
+.conversation-box .footer .comment-counter button:hover,
+.conversation-box .footer .comment-counter button.active {
     color: #00a3ed;
     text-decoration: none;
 }

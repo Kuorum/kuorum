@@ -192,14 +192,28 @@ $(function(){
         }
     });
 
-    $(".proposal-list").on("click", ".proposal-like", function(){
-        var $button = $(this)
-        var userLogged = $button.attr("data-userLogged")
-        if (userLogged == undefined || userLogged == "" ){
-            // USER NO LOGGED
+    function onClickProposalLike() {
+        // Unbind
+        $(".proposal-list").off("click", ".proposal-like");
+
+        var $button = $(this);
+        var userLogged = $button.attr("data-userLogged");
+        if (userLogged == undefined || userLogged == "" ) {
+            // USER NOT LOGGED
             $('#registro').modal('show');
-        }else {
+        } else {
             var like = $(this).find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
+
+            // Prediction: toggle button
+            $button.toggleClass("active");
+            $button.find(".fa").toggleClass("fa-heart-o fa-heart");
+            var count = parseInt($button.find(".number").text());
+            if (like) {
+                $button.find(".number").text(count + 1)
+            } else {
+                $button.find(".number").text(count - 1)
+            }
+
             var url = $(this).attr("data-urlAction");
             var debateId = $(this).attr("data-debateId");
             var debateAlias = $(this).attr("data-debateAlias");
@@ -214,34 +228,46 @@ $(function(){
                 type: "POST",
                 url: url,
                 data: data,
-                success: function (jsonData) {
-                    console.log("success")
+                success: function () {
+
+                },
+                error: function () {
+                    // Recover from prediction
+                    $button.toggleClass("active");
                     $button.find(".fa").toggleClass("fa-heart-o fa-heart");
-                    var count = parseInt($button.find(".number").text())
+                    var count = parseInt($button.find(".number").text());
                     if (like) {
-                        $button.find(".number").text(count + 1)
-                    } else {
                         $button.find(".number").text(count - 1)
+                    } else {
+                        $button.find(".number").text(count + 1)
                     }
+                },
+                complete: function () {
+                    // Re-bind
+                    $(".proposal-list").on("click", ".proposal-like", onClickProposalLike);
                 },
                 dataType: "html"
             });
         }
-    })
+    }
 
-    $(".proposal-list").on("click",".pin-propusal", function(){
+    // Mark proposal as liked
+    $(".proposal-list").on("click", ".proposal-like", onClickProposalLike);
+
+    // Pin proposal
+    $(".proposal-list").on("click",".pin-propusal", function() {
         var userLogged = $(this).attr("data-userLogged");
-        if (userLogged == undefined || userLogged == "" ){
+        if (userLogged == undefined || userLogged == "" ) {
             // USER NO LOGGED
             $('#registro').modal('show');
-        }else{
-            $(this).toggleClass("active","")
+        } else {
+            $(this).toggleClass("active", "");
             var pin = $(this).hasClass("active");
             var url =$(this).attr("data-urlAction");
             var debateId = $(this).attr("data-debateId");
             var debateAlias = $(this).attr("data-debateAlias");
             var proposalId = $(this).attr("data-proposalId");
-            var data={
+            var data = {
                 debateId:debateId,
                 debateAlias:debateAlias,
                 proposalId:proposalId,
@@ -257,13 +283,13 @@ $(function(){
                 dataType: "html"
             });
         }
-    })
+    });
 
     function validMediumEditor($mediumEditor){
         var text = $mediumEditor.html();
         if (text == undefined || text == ""){
-            console.log($mediumEditor.parent())
-            $mediumEditor.parent().addClass("error")
+            console.log($mediumEditor.parent());
+            $mediumEditor.parent().addClass("error");
             return false
         }
         return true;
@@ -271,44 +297,43 @@ $(function(){
 });
 
 
-function SortProposals(){
+function SortProposals() {
     var that = this;
     var proposalList = $('ul.proposal-list');
 
-
-    this.proposalsOptions = {}
+    this.proposalsOptions = {};
     this.proposalsOptions['latest']={
         sort:function(a,b){
-            var aDateTime = $(a).find(".conversation-box time.timeago").attr('datetime')
-            var bDateTime = $(b).find(".conversation-box time.timeago").attr('datetime')
+            var aDateTime = $(a).find(".conversation-box time.timeago").attr('datetime');
+            var bDateTime = $(b).find(".conversation-box time.timeago").attr('datetime');
             return bDateTime.localeCompare(aDateTime);
         },
         filter:function(idx){return false;},
         name:"latest"
-    }
+    };
     this.proposalsOptions['oldest']={
         sort:function(a,b){
-            var aDateTime = $(a).find(".conversation-box time.timeago").attr('datetime')
-            var bDateTime = $(b).find(".conversation-box time.timeago").attr('datetime')
+            var aDateTime = $(a).find(".conversation-box time.timeago").attr('datetime');
+            var bDateTime = $(b).find(".conversation-box time.timeago").attr('datetime');
             return aDateTime.localeCompare(bDateTime);
         },
         filter:function(idx){return false;},
         name:"oldest"
-    }
+    };
     this.proposalsOptions['best']={
         sort:function(a,b){
-            var aDateTime = $(a).find(".comment-counter .fa-heart-o").next().text()
-            var bDateTime = $(b).find(".comment-counter .fa-heart-o").next().text()
+            var aDateTime = $(a).find(".comment-counter .fa-heart-o").next().text();
+            var bDateTime = $(b).find(".comment-counter .fa-heart-o").next().text();
             return bDateTime.localeCompare(aDateTime);
         },
         filter:function(idx){return false;},
         name:"best"
-    }
+    };
     this.proposalsOptions['pinned']={
         sort:that.proposalsOptions.latest.sort,
         filter:function(idx){return !$(this).find(".pin-propusal").hasClass("active");},
         name:"pinned"
-    }
+    };
 
     var proposalOption = that.proposalsOptions.latest;
 
@@ -318,15 +343,15 @@ function SortProposals(){
             opt = that.proposalsOptions.latest
         }
         proposalOption = opt;
-    }
+    };
 
     this.reorderList = function(){
         var proposals = proposalList.children('li').get();
         if(proposals.length>0){
             $("#proposal-option").show()
         }
-        $("#proposal-option li").removeClass("active")
-        $("a[href=#"+proposalOption.name+"]").parent().addClass("active")
+        $("#proposal-option li").removeClass("active");
+        $("a[href=#"+proposalOption.name+"]").parent().addClass("active");
         proposals.sort(proposalOption.sort);
         $('ul.proposal-list > li').show();
         $('ul.proposal-list > li').filter(proposalOption.filter).hide();
@@ -334,35 +359,33 @@ function SortProposals(){
     }
 }
 var sortProposals;
-$(function(){
-    sortProposals = new SortProposals()
+$(function () {
+    sortProposals = new SortProposals();
     var hash = window.location.hash
-    if (hash != undefined || hash != ""){
+    if (hash != undefined || hash != "") {
         hash = hash.substr(1);
         sortProposals.setProposalOption(hash)
     }
-    sortProposals.reorderList()
+    sortProposals.reorderList();
 
     $("#proposal-option li a").on("click", function(e){
         var optionName = $(this).attr("href").substr(1);
         sortProposals.setProposalOption(optionName);
         sortProposals.reorderList();
-    })
-
+    });
 
     // Marc as active the comment or the proposal
-    var $element = $("#"+hash)
-    if ($element != undefined){
-        $element.addClass("active")
+    var $element = $("#" + hash);
+    if ($element != undefined) {
+        $element.addClass("active");
         var $commentBox = $element.parents(".conversation-box-comments");
-        if ($commentBox!=undefined){
+        if ($commentBox != undefined) {
             $commentBox.find("button.go-up[data-anchor=conversation-box]").click()
         }
-        if ($element.offset() != undefined){ // Fails some times
+        if ($element.offset() != undefined) { // Fails some times
             $('html, body').animate({
                 scrollTop: $element.offset().top -100
             }, 2000, function () {});
         }
-
     }
 });
