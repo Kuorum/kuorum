@@ -22,7 +22,7 @@
                 </g:if>
             </div>
             <div class="card-footer">
-                <ul class="pull-right">
+                <ul>
                     <li>
                         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" fragment="openProposal" role="button">
                             <span class="fa fa fa-lightbulb-o fa-lg"></span>
