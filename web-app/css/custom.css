@@ -1194,6 +1194,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #tabs-new-campaign > .tab-pane > h1 {margin: 0; padding: 0;}
 #toFilters .btn {margin-top: 10px; display: block;}
 #toFilters > div:last-child {text-align: right;}
+#toFilters.showOnly > div:nth-child(2) {line-height: 36px;}
 #toFilters.showOnly > div:nth-child(3) {line-height: 36px; color: #a8a8a8;}
 #tabs-new-campaign .textareaContainer + div {text-align: right; position: relative;}
 .contact-filter-text {color: #a8a8a8}
