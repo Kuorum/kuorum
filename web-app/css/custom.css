@@ -65,6 +65,7 @@ select {padding: 6px 6px 6px 8px !important;}*/
 .jqte * {font-size: 1.5rem;}
 .jqte_editor, .jqte_source {height: 290px; min-height: 290px; max-height: 290px;resize: none;}
 .jqte_editor div, .jqte_editor p {margin: 1em 0 7px;}
+.jqte_editor a {color: #428bca;}
 
 .add-on.input-group-addon label {margin-bottom: 0; color: #a8a8a8;}
 .add-on.input-group-addon label input {margin-right: 2px;}
@@ -7502,6 +7503,10 @@ button.btn-see-more {
     margin: 30px 0 10px 0;
 }
 
+.leader-post .header .popover .user {
+    margin: 0px;
+}
+
 .leader-post .header a.edit {
     color: #333333;
 }
@@ -7522,6 +7527,10 @@ button.btn-see-more {
     line-height: 34px;
     color: #545454;
     padding: 0 30px 0 30px;
+}
+
+.leader-post > .body a {
+    color: #428bca;
 }
 
 .leader-post > .body p a, .conversation-box-comment .body a {
