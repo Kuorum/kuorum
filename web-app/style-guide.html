@@ -88,105 +88,133 @@
 
     <!--  *******************  HEADER CONECTADO POLÍTICO  *******************  -->
 
-    <header id="header" role="banner" class="row landing">
+    <header id="header" class="row landing " role="banner">
         <nav class="navbar navbar-fixed-top" role="navigation">
             <div class="container-fluid">
-
+                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle bg-primary" data-toggle="collapse" data-target="#navbar-collapse">
-                        <span class="sr-only">Abrir/cerrar navegación</span>
+                        <span class="sr-only">Open/close navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <h1><a href="index.htm" class="navbar-brand"><img src="images/logo@2x.png" alt="kuorum.org"><span class="hidden">kuorum.org</span></a></h1>
-                    <h2 class="hidden">cyberactivismo para una mejor democracia</h2>
-                </div>
 
+                    <a href="/kuorum/en" id="brand" class="navbar-brand null">
+                        <img src="https://kuorum.org/static/images/logo@2x.png" alt="Kuorum.org | Be a great leader" title="Kuorum.org">
+                        <span class="hidden">Kuorum.org </span>
+                    </a>
+
+                    <h2 class="hidden">Political decision makers open their projects to debate with you. Send them your proposals now!</h2>
+                </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse">
-                    <form action="/search" id="search-form" class="navbar-form navbar-left" role="search" method="get">
+
+                    <form action="/kuorum/en/search" id="search-form" class="navbar-form navbar-left" role="search" method="get">
                         <div class="input-group">
+
+
                             <div class="open-filter">
                                 <a data-target="#" href="#" class="dropdown-toggle" id="open-filter-search" data-toggle="dropdown" role="button">
                                     <span class="fa fa-kuorumSearchType-ALL fa-lg"></span>
                                     <span class="sr-only">Filtra tu búsqueda</span>
                                 </a>
                                 <ul id="filters" class="dropdown-menu dropdown-menu-left" aria-labelledby="open-filter-search" role="menu">
+
                                     <li>
                                         <a href="#ALL" class="search-ALL active">
                                             <span class="fa fa-kuorumSearchType-ALL fa-lg"></span>
-                                            <span class="search-filter-text">En Kuorum</span>
+                                            <span class="search-filter-text">In Kuorum</span>
                                         </a>
                                     </li>
+
                                     <li>
                                         <a href="#REGION" class="search-REGION ">
                                             <span class="fa fa-kuorumSearchType-REGION fa-lg"></span>
-                                            <span class="search-filter-text">Por región</span>
+                                            <span class="search-filter-text">By regions</span>
                                         </a>
                                     </li>
+
                                     <li>
                                         <a href="#NAME" class="search-NAME ">
                                             <span class="fa fa-kuorumSearchType-NAME fa-lg"></span>
-                                            <span class="search-filter-text">Por nombre</span>
+                                            <span class="search-filter-text">By name</span>
                                         </a>
                                     </li>
+
                                     <li>
                                         <a href="#POLITICAL_PARTY" class="search-POLITICAL_PARTY ">
                                             <span class="fa fa-kuorumSearchType-POLITICAL_PARTY fa-lg"></span>
-                                            <span class="search-filter-text">Por partido</span>
+                                            <span class="search-filter-text">By political party</span>
                                         </a>
                                     </li>
+
+                                    <li>
+                                        <a href="#CAUSE" class="search-CAUSE ">
+                                            <span class="fa fa-kuorumSearchType-CAUSE fa-lg"></span>
+                                            <span class="search-filter-text">By cause</span>
+                                        </a>
+                                    </li>
+
                                 </ul>
                             </div>
-                            <input type="text" class="form-control" placeholder="Buscar en Kuorum" name="word" id="srch-term" value="" autocomplete="off">
+                            <input type="text" class="form-control" placeholder="Search in Kuorum" name="word" id="srch-term" value="" autocomplete="off">
                             <div class="input-group-btn">
                                 <button class="btn search" type="submit"><span class="fa fa-search"></span></button>
                             </div>
-                            <input type="hidden" name="type" id="srch-userType" value="POLITICIAN">
-                            <input type="hidden" name="searchType" id="srch-type" value="">
-                            <input type="hidden" name="regionCode" id="srch-regionCode" value="">
                         </div>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="underline">
-                            <a href="#" class="navbar-link">
+                            <a href="/kuorum/dashboard" class="navbar-link ">
                                 <span class="fa fa-home fa-lg"></span>
-                                <span class="">Home</span>
+                                <span class="">Home </span>
                             </a>
                         </li>
                         <li class="underline">
-                            <a href="#" class="navbar-link">
+                            <a href="/kuorum/account/campaigns" class="navbar-link ">
                                 <span class="fa fa-paper-plane fa-lg"></span>
-                                <span class="">Campaigns</span>
+                                <span class="">Campaigns </span>
                             </a>
                         </li>
                         <li class="underline">
-                            <a href="#" class="navbar-link">
+                            <a href="/kuorum/account/contacts" class="navbar-link ">
                                 <span class="fa fa-users fa-lg"></span>
-                                <span class="">Contacts</span>
+                                <span class="">Contacts </span>
                             </a>
                         </li>
-                        <li class="dropdown underline" itemscope itemtype="http://schema.org/Person">
+                        <li class="dropdown underline" itemscope="" itemtype="http://schema.org/Person">
+                            <a data-target="#" href="#" id="notitications-list-link" class="dropdown-toggle dropdown-menu-right navbar-link user-area" data-toggle="dropdown" role="button">
+                                <span class="fa fa-bell fa-lg"></span>
+                                <span class="badge" role="log" aria-labelledby="alerts" aria-live="assertive" aria-relevant="additions">4</span>
+                            </a>
+                            <ul id="notitications-list" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
+                                <li>Notifications</li>
+                                <li>1 con <a>link</a></li>
+                                <li>2 con <a>link</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown underline" itemscope="" itemtype="http://schema.org/Person">
                             <a data-target="#" href="#" id="open-user-options" class="dropdown-toggle dropdown-menu-right navbar-link user-area" data-toggle="dropdown" role="button">
-                                <span itemprop="name" class="sr-only">Nombre usuario</span>
-                                <img src="images/user.jpg" alt="Diecisiete caract" class="user-img" itemprop="image">
-                                <span class="badge pull-right" role="log" aria-labelledby="alerts" aria-live="assertive" aria-relevant="additions">8</span>
-                                <span class="fa fa-caret-down fa-lg"></span>
+                                <span itemprop="name" class="sr-only">Iñaki Domínguez</span>
+                                <span itemprop="alias" class="sr-only">iduetxe</span>
+                                <img src="https://kuorumorg.s3.amazonaws.com/UsersFiles/56379cb8e4b0068dceee05a1.jpg" alt="Iñaki Domínguez" class="user-img" itemprop="image">
                             </a>
                             <ul id="user-options" class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-options" role="menu">
-                                <li>Opciones</li>
-                                <li><a href="#">Mi perfil</a></li>
-                                <li><a href="#">Configuración</a></li>
-                                <li><a href="#">Herramientas</a></li>
-                                <li><a href="#">Administrador</a></li>
-                                <li><a href="#">Cerrar sesión</a></li>
+                                <li>Options</li>
+                                <li><a href="/kuorum/iduetxe" itemprop="url">My profile</a></li>
+                                <li><a href="/kuorum/edit-profile" itemprop="url">Edit profile</a></li>
+                                <li><a href="/kuorum/config/account-details" itemprop="url">Settings</a></li>
+                                <li><a href="/kuorum/admin">Admin</a></li>
+                                <li><a href="/kuorum/logout">Log out</a></li>
                             </ul>
                         </li>
                     </ul>
+
+
+
                 </div>
             </div>
         </nav>
-
     </header>
 
 

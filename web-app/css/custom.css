@@ -761,7 +761,7 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 .nav .open > a:hover,
 .nav .open > a:focus {background-color: #ff9431; color: #fff;}
 
-.nav > li > .navbar-link.user-area .badge {position: absolute; left: 36px; top: -4px;}
+.nav > li > .navbar-link.user-area .badge {position: absolute; left: 20px; top:0;}
 .nav > li > .navbar-link.user-area img {margin: 0;}
 
 .nav > li > span.navbar-link,
@@ -1377,13 +1377,19 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 /* DASHBOARD (08/2016) */
 #mails {text-align: center;}
 #mails li {list-style: none; display: block; float: left; margin-bottom: 20px; margin-right: 35px;}
-#mails li:last-child {margin-right: 0;}
+/*#mails li:last-child {margin-right: 0;}*/
 #mails li > a {display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
 #mails li > a:hover, #mails li > a:focus, #mails li > a:active {text-decoration: none; background-color: #fbfbfb;}
 #mails li > #gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;}
 #mails li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
 #mails li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
 #mails li > #uploadFile {padding-top: 34px;}
+
+/*#mails.campaigns {margin:0 auto;}*/
+#mails li.fontIcon > a {padding:16px;}
+#mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;margin-bottom: 10px;}
+#mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit;font-size: inherit}
+
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}
 .dashboard > div > .box-ppal {min-height: 333px;}
 .dashboard .box-ppal > h2 {font-size: 20px; font-size: 2rem; color: #a8a8a8; padding-bottom: 10px; border-bottom: solid 1px #e5e5e5; margin: 0 0 20px 0;}
@@ -3205,7 +3211,7 @@ textarea.error,
 .uploaderImageContainer.USER_AVATAR .qq-upload-drop-area {height:367px;}
 .uploaderImageContainer.POST_IMAGE .qq-upload-drop-area {height:393px;}
 .uploaderImageContainer.MASS_MAIL_IMAGE .qq-upload-drop-area {height:122px;}
-.uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:353px;}
+.uploaderImageContainer.PROJECT_IMAGE .qq-upload-drop-area {height:342px;}
 .uploaderImageContainer.PROJECT_IMAGE > div {height:332px;}
 .button-container {width: 80%; margin: 0 auto; border-radius: 4px; padding: 0;}
 .qq-upload-drop-area-active {
@@ -5785,7 +5791,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .debateItem .campaignStats {right: 58px;}
 
     /* DASHBOARD (08/2016) */
-    #mails {margin: 0 auto; width: 575px; text-align: center;}
+    #mails {margin: 0 auto; width: 620px; text-align: center;}
+    #mails.campaigns {width: 340px;}
     .nav-tabs.simple > li {margin-bottom: -1px; margin-right: 1px;}
     .alert-box {height: 54px; padding: 15px;}
     #inviteFriendsModal h4 {font-size: 26px; font-size: 2.6rem;}
@@ -7529,9 +7536,15 @@ button.btn-see-more {
     padding: 0 30px 0 30px;
 }
 
-.leader-post > .footer .labels, .leader-post > .footer .social {
+.leader-post > .footer .labels{
     list-style: none outside none;
-    margin: 0 0 30px 0;
+    margin: 0;
+    padding: 0;
+}
+
+.leader-post > .footer .social {
+    list-style: none outside none;
+    margin: 30px 0 30px 0;
     padding: 0;
 }
 
@@ -7548,6 +7561,9 @@ button.btn-see-more {
     color: #00a3ed;
 }
 
+.leader-post > .footer .comment-counter {
+    margin:30px 0;
+}
 .leader-post > .footer .comment-counter button {
     font-size: 25px;
     font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;

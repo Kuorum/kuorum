@@ -4,7 +4,7 @@
         <p>
             <g:message code="dashboard.payment.newCampaign.neverSent" args="[g.createLink(mapping: 'blog')]" encodeAs="raw"/>
             <br/>
-            <g:link mapping="politicianMassMailingNew" class="btn btn-lg inverted" role="button">
+            <g:link mapping="politicianCampaignsNew" class="btn btn-lg inverted" role="button">
                 <g:message code="dashboard.payment.newCampaign.sentNew"/>
             </g:link>
         </p>
@@ -13,7 +13,7 @@
         <p>
             <g:message code="dashboard.payment.newCampaign.lastCampaignSent" args="[durationDays, g.createLink(mapping: 'blog')]" encodeAs="raw"/>
             <br/>
-            <g:link mapping="politicianMassMailingNew" class="btn btn-lg inverted" role="button">
+            <g:link mapping="politicianCampaignsNew" class="btn btn-lg inverted" role="button">
                 <g:message code="dashboard.payment.newCampaign.sentNew"/>
             </g:link>
         </p>
