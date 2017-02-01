@@ -7740,6 +7740,7 @@ div [class^='comment-box col-'] {
 
 .conversation-box .body {
     margin-bottom: 20px;
+    margin-top: 15px;
     overflow: hidden;
     position: relative;
 }
