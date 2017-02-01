@@ -49,16 +49,17 @@ class MassMailingController {
     }
 
     def newCampaign(){
-
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        // If first massMailing, popup timezone
+        [
+            showTimeZonePopup:(user.getTimeZone() == null),
+            timeZoneCommand:new TimeZoneCommand()
+        ]
     }
 
     def createMassMailing() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         def returnModels = modelMassMailing(user, new MassMailingCommand(), params.testFilter)
-
-        // If first massMailing, popup timezone
-        returnModels.put("showTimeZonePopup", user.getTimeZone() == null)
-        returnModels.put("timeZoneCommand", new TimeZoneCommand())
 
         return returnModels
     }
@@ -69,11 +70,11 @@ class MassMailingController {
 
         if (timeZoneCommand.hasErrors()) {
             flash.error="There was a problem with your data."
-            redirect(mapping: "politicianMassMailingNew")
+            redirect(mapping: "politicianCampaignsNew")
         } else {
             user.timeZone = TimeZone.getTimeZone(timeZoneCommand.timeZoneId)
             kuorumUserService.updateUser(user)
-            redirect(mapping: "politicianMassMailingNew")
+            redirect(mapping: "politicianCampaignsNew")
         }
     }
 
