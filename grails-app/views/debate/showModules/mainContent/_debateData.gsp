@@ -19,7 +19,7 @@
     </div>
 
     <div class="footer clearfix">
-        <g:render template="/debate/showModules/mainContent/debateDataLabels" model="[debate:debate]"/>
+        %{--<g:render template="/debate/showModules/mainContent/debateDataLabels" model="[debate:debate]"/>--}%
         <g:render template="/debate/showModules/mainContent/debateDataSocial" model="[debate:debate, debateUser:debateUser]"/>
 
         <div class="comment-counter pull-right">
