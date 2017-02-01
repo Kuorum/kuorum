@@ -761,7 +761,7 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 .nav .open > a:hover,
 .nav .open > a:focus {background-color: #ff9431; color: #fff;}
 
-.nav > li > .navbar-link.user-area .badge {position: absolute; left: 36px; top: -4px;}
+.nav > li > .navbar-link.user-area .badge {position: absolute; left: 20px; top:0;}
 .nav > li > .navbar-link.user-area img {margin: 0;}
 
 .nav > li > span.navbar-link,
