@@ -7487,6 +7487,7 @@ button.btn-see-more {
     line-height: 34px;
     color: #545454;
     padding: 0 30px 0 30px;
+    word-break: break-word;
 }
 
 .leader-post > .body a {
