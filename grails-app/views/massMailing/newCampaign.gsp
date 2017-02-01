@@ -25,7 +25,7 @@
                 %{--<span class="label"><g:message code="tools.campaign.new.post"/></span></g:link>--}%
             %{--</li>--}%
             <li class="fontIcon"><g:link mapping="debateCreate" role="button" class="mail">
-                <span class="fa fa-comments"></span>
+                <span class="fa fa-comments-o"></span>
                 <span class="label"><g:message code="tools.campaign.new.debate"/></span></g:link>
             </li>
             %{--<li class="fontIcon"><g:link mapping="debateCreate" role="button" class="mail">--}%
