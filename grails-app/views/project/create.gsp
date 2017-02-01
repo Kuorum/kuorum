@@ -16,12 +16,12 @@
 
 <content tag="mainContent">
     <ol class="breadcrumb">
-        <li><g:link mapping="politicianMassMailing"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
+        <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
     <div class="box-ppal">
         <ul class="nav nav-tabs simple" data-tabs="tabs">
-            <li role="presentation"><g:link mapping="politicianMassMailingNew"><g:message code="tools.campaign.type.massMailing"/></g:link></li>
+            <li role="presentation"><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.type.massMailing"/></g:link></li>
             <li role="presentation" class="active"><a href="#debate" data-toggle="tab"><g:message code="tools.campaign.type.debate"/></a></li>
             <li role="presentation"><a href="#petition" data-toggle="tab"><g:message code="tools.campaign.type.petition"/></a></li>
             <li role="presentation"><a href="#survey" data-toggle="tab"><g:message code="tools.campaign.type.survey"/></a></li>

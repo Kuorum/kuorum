@@ -287,7 +287,8 @@ class UrlMappings {
         name politicianContactEditUpdateNote:           "/ajax/account/contacts/$contactId/edit/updateNote" (controller:"contacts",action:"updateContactNotes")
         name politicianContactNew:                      "/account/contacts/new" (controller:"contacts"){action =[GET:"newContact", POST:"saveContact"]}
         name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
-        name politicianMassMailing:                     "/account/mass-mailing" (controller:"massMailing", action: "index")
+        name politicianCampaigns:                       "/account/campaigns" (controller:"massMailing", action: "index")
+        name politicianCampaignsNew:                    "/account/campaigns/new" (controller:"massMailing", action: "newCampaign")
         name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing",POST:'saveMassMailing']}
         name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"showCampaign",POST:'updateCampaign']}
         name politicianMassMailingSendTest:             "/account/mass-mailing/test" (controller:"massMailing", action: "sendMassMailingTest")

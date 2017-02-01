@@ -21,35 +21,11 @@
 
 <content tag="mainContent">
     <ol class="breadcrumb">
-        <li><g:link mapping="politicianMassMailing"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
+        <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
     <div class="box-ppal">
-        <ul class="nav nav-tabs simple" data-tabs="tabs">
-            <li role="presentation" class="active"><a href="#newsletter" data-toggle="tab"><g:message code="tools.campaign.type.massMailing"/></a></li>
-            <userUtil:isWeceUser>
-                <li role="presentation" class="${campaignId?'disabled':''}"><g:link mapping="projectCreate"><g:message code="tools.campaign.type.debate"/></g:link></li>
-            </userUtil:isWeceUser>
-            <userUtil:isNotWeceUser>
-                <li role="presentation" class="${campaignId?'disabled':''}"><g:link mapping="debateCreate"><g:message code="tools.campaign.type.debate"/></g:link></li>
-            </userUtil:isNotWeceUser>
-            <li role="presentation" class="${campaignId?'disabled':''}"><a href="#petition" data-toggle="tab"><g:message code="tools.campaign.type.petition"/></a></li>
-            <li role="presentation" class="${campaignId?'disabled':''}"><a href="#survey" data-toggle="tab"><g:message code="tools.campaign.type.survey"/></a></li>
-        </ul>
-        <div id="tabs-new-campaign" class="tab-content">
-            <div class="tab-pane active" id="newsletter">
-                <g:render template="types/massMailing" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
-            </div>
-            <div class="tab-pane" id="debate">
-
-            </div>
-            <div class="tab-pane" id="petition">
-                <g:render template="types/notDone"/>
-            </div>
-            <div class="tab-pane" id="survey">
-                <g:render template="types/notDone"/>
-            </div>
-        </div>
+         <g:render template="types/massMailing" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
     </div>
 
     <!-- First MassMailing Popup-->

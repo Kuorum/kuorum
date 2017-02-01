@@ -56,7 +56,7 @@ class DebateController {
         } catch (Exception ignored) {
             // Error parsing or not found
             flash.error = message(code: "debate.notFound")
-            redirect mapping: "politicianMassMailing", params: []
+            redirect mapping: "politicianCampaigns", params: []
         }
     }
 

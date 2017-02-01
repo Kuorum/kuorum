@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="col-sm-1">
-                <g:link mapping="politicianMassMailingNew" class="btn btn-blue inverted">
+                <g:link mapping="politicianCampaignsNew" class="btn btn-blue inverted">
                     <g:message code="tools.massMailing.list.newCampaign"/>
                 </g:link>
             </div>

@@ -19,7 +19,7 @@
     <div class="container-fluid box-ppal import-contacts">
         <p><g:message code="tools.contact.import.success.congrats"/> </p>
         <p>
-            <g:link mapping="politicianMassMailingNew" class="btn btn-blue inverted btn-lg">
+            <g:link mapping="politicianCampaignsNew" class="btn btn-blue inverted btn-lg">
                 <g:message code="tools.contact.import.success.newCampaign"/>
             </g:link>
         </p>

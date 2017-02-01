@@ -48,6 +48,10 @@ class MassMailingController {
         [campaigns: campaigns, projects: projects, debates: debates, user: user]
     }
 
+    def newCampaign(){
+
+    }
+
     def createMassMailing() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         def returnModels = modelMassMailing(user, new MassMailingCommand(), params.testFilter)
