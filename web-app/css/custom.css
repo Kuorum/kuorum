@@ -1504,8 +1504,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #contactsList > li > .title > a,
 #contactsList > li > p > a{color: #545454;}
 #contactsList > li .email, #contactsList > li .email a {color: #a8a8a8;}
-#contactsList > li .email span.fa {margin-right: 5px;}
 #contactsList > li .email span.fa.fa-exclamation-circle {margin-right: 0px;}
+.raw-email{padding-left:5px;}
 .container-lists {margin-top: 10px; display: none;}
 .container-lists li {display: inline-block;}
 .off .bootstrap-tagsinput {display: none; padding: 0; margin: 12px 0 10px 0; background-color: transparent; border: none; box-shadow: none; min-height: 0;}
@@ -1652,9 +1652,9 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .kakareo .link-wrapper:hover,
 .kakareo .link-wrapper:active,
 .kakareo .link-wrapper:focus,
-.politician-list .box-ppal .link-wrapper:hover,
-.politician-list .box-ppal .link-wrapper:active,
-.politician-list .box-ppal .link-wrapper:focus {background-color: #efefef;}
+.box-ppal .link-wrapper:hover,
+.box-ppal .link-wrapper:active,
+.box-ppal .link-wrapper:focus {background-color: #efefef;}
 .user-list-images li a {display: inline-block;}
 .user.actor .action {color: #a8a8a8;}
 .user.actor .user-img {width: 25px; height: 25px; margin: 0 6px 6px 0;}
@@ -2620,6 +2620,26 @@ video#bgvid {
 .boxes.profile-user > .pull-right {width: 40%; margin: 0; padding: 0; font-size: 20px; font-size: 2rem; text-align: right;}
 .boxes.profile-user > small .fa {opacity: .5;}
 .boxes.profile-user .profile-pic abbr .fa {background-color:#ff9431}
+
+
+ul.campaign-list{margin: 0;padding: 0;list-style: none;}
+ul.campaign-list li {padding: 0;}
+ul.campaign-list .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto;}
+ul.campaign-list li .box-ppal .card-header-photo {height: 200px;}
+ul.campaign-list li .box-ppal .card-body {padding:1em;overflow: hidden;height: 300px;}
+ul.campaign-list li .box-ppal .card-header-photo + .card-body {height: 120px;}
+ul.campaign-list li .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
+ul.campaign-list li .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;  }
+ul.campaign-list li .box-ppal .card-body .card-text a{color: #00a3ed;}
+ul.campaign-list li .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
+
+ul.campaign-list li .box-ppal .card-footer{width:100%; height:2em;display:block; padding: 0 1em 0.5em; text-align: right}
+ul.campaign-list li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
+ul.campaign-list li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
+ul.campaign-list li .box-ppal .card-footer:after {clear:both; content:"\f020"}
+ul.campaign-list li .box-ppal .card-footer > ul li a  {color:#a8a8a8;}
+ul.campaign-list li .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
+ul.campaign-list li .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
 
 
 
@@ -5264,8 +5284,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .edit-contact form fieldset:last-child {width: 100%; min-width: 0; text-align: right; margin: 0;  bottom: 13px; right: 0;}
 
     .carousel.news .carousel-control {top: 30%;}
-}
 
+    ul.campaign-list li .box-ppal .card-header-photo {height: 250px;}
+}
 @media only screen and (min-width: 533px) {
     #detailsInfoVotes .table tbody th {width: 205px;}
     #detailsInfoVotes.autor .table tbody th {width: 230px;}
@@ -5294,6 +5315,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* STATS CAMPAIGNS */
     #tabs-stats-campaign .table td:nth-child(4) {height: 70px;}
+
+
+    ul.campaign-list li .box-ppal .card-header-photo {height: 300px;}
 
 }
 
@@ -5779,6 +5803,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .header-campaign .progress {position: absolute; z-index: 99; margin-top: 64px; margin-left: 21%;}
     .button-container {padding-top: 15px;}
 
+    ul.campaign-list li .box-ppal .card-header-photo {height: 350px;}
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -6118,6 +6143,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     #contactsList > li > .title > a {display:inline-flex; overflow: hidden;max-width: 10em;}
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
+
+    ul.campaign-list li:nth-child(even) .box-ppal {margin-left: 15px;}
+    ul.campaign-list li .box-ppal .card-header-photo {height: 180px;}
 }
 
 @media only screen and (min-width: 1024px) {
@@ -7450,7 +7478,7 @@ button.btn-see-more {
 }
 
 .leader-post h1.title {
-    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     letter-spacing: -.02em;
     font-style: normal;
     font-size: 49px;
@@ -7487,16 +7515,13 @@ button.btn-see-more {
     line-height: 34px;
     color: #545454;
     padding: 0 30px 0 30px;
-    word-break: break-word;
 }
 
-.leader-post > .body a {
+.leader-post > .body p a, .conversation-box-comment .body a {
     color: #00a3ed;
-    text-decoration: underline;
 }
 
-.leader-post > .body a:hover {
-    color: #ff9431;
+.leader-post > .body p a:hover, .conversation-box-comment .body a:hover{
     text-decoration: underline;
 }
 

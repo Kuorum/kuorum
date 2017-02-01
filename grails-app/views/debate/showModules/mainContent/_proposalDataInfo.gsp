@@ -29,7 +29,7 @@
     </div>
     <div class="body">
         <p>
-            ${proposal.body}
+            ${raw(proposal.body)}
         </p>
     </div>
     <div class="actions">

@@ -107,7 +107,7 @@ class ProposalService {
         Map<String, String> params = [userAlias: debate.userAlias,debateId:debate.id.toString(), proposalId:proposalId.toString() ]
         Map<String, String> query = [:]
         ProposalCommentRDTO commentRDTO = new ProposalCommentRDTO();
-        commentRDTO.body=body
+        commentRDTO.body=body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
         commentRDTO.userAlias=user.alias
         def response = restKuorumApiService.post(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_COMMENT,
