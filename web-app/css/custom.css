@@ -5792,6 +5792,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* DASHBOARD (08/2016) */
     #mails {margin: 0 auto; width: 620px; text-align: center;}
+    #mails.campaigns {width: 340px;}
     .nav-tabs.simple > li {margin-bottom: -1px; margin-right: 1px;}
     .alert-box {height: 54px; padding: 15px;}
     #inviteFriendsModal h4 {font-size: 26px; font-size: 2.6rem;}
