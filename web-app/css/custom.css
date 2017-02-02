@@ -420,7 +420,7 @@ header.landing .nav > li > .navbar-link.active {
     cursor: default; 
     pointer-events: none;
     font-weight: bold;
-    color: #545454;
+    /*color: #545454;*/
 }
 
 header.landing .nav > li > .navbar-link.special.active {margin-top: 0px;background-color: #fff; color:#ccc; margin-top: 2px;}
