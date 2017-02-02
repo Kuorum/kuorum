@@ -22,4 +22,5 @@
     <div class="box-ppal">
         <g:render template="/debate/formDebate" model="[command: command, filters: filters, totalContacts: totalContacts, debateId: debateId, anonymousFilter: anonymousFilter]"/>
     </div>
+    <g:render template="/massMailing/timeZoneSelectorPopUp"/>
 </content>

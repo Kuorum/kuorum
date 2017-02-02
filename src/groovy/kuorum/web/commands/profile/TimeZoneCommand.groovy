@@ -20,10 +20,12 @@ class TimeZoneCommand {
         this.timeZoneId = user.timeZone?.getID()
     }
 
+    String timeZoneRedirect;
     String timeZoneId
 
 
     static constraints = {
         timeZoneId nullable: false
+        timeZoneRedirect nullable:true
     }
 }

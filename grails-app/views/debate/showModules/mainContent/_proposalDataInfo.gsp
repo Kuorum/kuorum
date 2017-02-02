@@ -25,12 +25,24 @@
                     </button>
                 </li>
             </userUtil:ifUserIsTheLoggedOne>
+            <userUtil:elseIfUserNotIsTheLoggedOne user="${debate.userAlias}">
+                <li >
+                    <span class="fa-stack fa-lg pin-propusal ${proposal.pinned?'active':''}"
+                          aria-hidden="true"
+                          rel="tooltip"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title=""
+                          data-original-title="${g.message(code:'debate.show.proposal.pinned.tooltip', args: [debateUser.name])}">
+                        <span class="fa fa-circle dark fa-stack-2x"></span>
+                        <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
+                    </span>
+                </li>
+            </userUtil:elseIfUserNotIsTheLoggedOne>
         </ul>
     </div>
     <div class="body">
-        <p>
-            ${raw(proposal.body)}
-        </p>
+        ${raw(proposal.body)}
     </div>
     <div class="actions">
         <button type="button" class="btn-see-more stack" data-anchor="conversation-box">
@@ -46,9 +58,9 @@
             <g:render template="/debate/showModules/mainContent/proposalDataInfoSocial" model="[debate:debate, proposal:proposal]"/>
 
             <div class="comment-counter pull-right">
-                <button type="button" class="delete">
-                    <span class="middle-point right delete">delete</span>
-                </button>
+                %{--<button type="button" class="delete">--}%
+                    %{--<span class="middle-point right delete">delete</span>--}%
+                %{--</button>--}%
                 <button type="button" class="comment">
                     <span class="fa fa-comment-o" aria-hidden="true"></span>
                     <span class="number">${proposal.comments?.size()?:0}</span>

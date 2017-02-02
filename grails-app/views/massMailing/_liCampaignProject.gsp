@@ -18,7 +18,7 @@
             </span>
         </g:if>
     </p>
-    <ul>
+    <ul class="list-campaign-stats">
         <li class="recipients">
             <span class="recip-number">${project.peopleVotes?.total}</span>
             <g:message code="project.stats.total.numVotes.total"/>
@@ -34,5 +34,9 @@
         </li>
     </ul>
 
-    <g:link mapping="projectEdit" params="${project.encodeAsLinkProperties()}" class="campaignEdit"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
+    <ul class="list-actions">
+        <li>
+            <g:link mapping="projectEdit" params="${project.encodeAsLinkProperties()}" class="campaignEdit"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
+        </li>
+    </ul>
 </li>

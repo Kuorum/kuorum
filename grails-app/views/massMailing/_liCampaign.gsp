@@ -18,7 +18,7 @@
             - ${campaign.filter?.name?:g.message(code:'tools.massMailing.fields.filter.to.all')}
         </g:if>
     </p>
-    <ul>
+    <ul class="list-campaign-stats">
         <li class="recipients">
             <span class="recip-number"><campaignUtil:campaignsSent campaign="${campaign}"/></span>
             <g:message code="tools.massMailing.list.recipients"/>
@@ -33,11 +33,19 @@
             <g:message code="tools.massMailing.list.click"/>
         </li>
     </ul>
+    <ul class="list-actions">
     <g:if test="${campaign.status==org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
-        <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="campaignStats"><span class="fa fa-line-chart"></span> <span class="sr-only">Stats</span></g:link>
+        <li>
+            <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="campaignStats"><span class="fa fa-line-chart"></span> <span class="sr-only">Stats</span></g:link>
+        </li>
     </g:if>
     <g:else>
-        <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="campaignEdit"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
+        <li>
+            <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="campaignEdit"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
+        </li>
     </g:else>
-    <g:link mapping="politicianMassMailingRemove" params="[campaignId:campaign.id]"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+        <li>
+            <g:link mapping="politicianMassMailingRemove" params="[campaignId:campaign.id]"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+        </li>
+    </ul>
 </li>

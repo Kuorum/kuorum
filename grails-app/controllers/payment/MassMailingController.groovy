@@ -41,7 +41,7 @@ class MassMailingController {
 
     def index() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List campaigns = massMailingService.findCampaigns(user)
+        List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
         List<Project> projects = Project.findAllByOwner(user)
         List<DebateRSDTO> debates = debateService.findAllDebates(user)
 
@@ -49,12 +49,7 @@ class MassMailingController {
     }
 
     def newCampaign(){
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        // If first massMailing, popup timezone
-        [
-            showTimeZonePopup:(user.getTimeZone() == null),
-            timeZoneCommand:new TimeZoneCommand()
-        ]
+
     }
 
     def createMassMailing() {
@@ -74,7 +69,11 @@ class MassMailingController {
         } else {
             user.timeZone = TimeZone.getTimeZone(timeZoneCommand.timeZoneId)
             kuorumUserService.updateUser(user)
-            redirect(mapping: "politicianCampaignsNew")
+            if (timeZoneCommand.timeZoneRedirect){
+                redirect url: timeZoneCommand.timeZoneRedirect
+            }else{
+                redirect(mapping: "politicianCampaignsNew")
+            }
         }
     }
 

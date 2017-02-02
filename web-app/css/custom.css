@@ -192,6 +192,7 @@ label {font-weight: normal;}
 
 
 .form-horizontal .checkbox-inline{padding-top: 0px; margin-top:-0.3em;}
+.form-horizontal .tab-pane .form-group.image{margin-left:0;}
 .checkbox-inline input[type=checkbox] {display: none;}
 
 .checkbox-inline > span.check-box-icon {
@@ -419,7 +420,7 @@ header.landing .nav > li > .navbar-link.active {
     cursor: default; 
     pointer-events: none;
     font-weight: bold;
-    color: #545454;
+    /*color: #545454;*/
 }
 
 header.landing .nav > li > .navbar-link.special.active {margin-top: 0px;background-color: #fff; color:#ccc; margin-top: 2px;}
@@ -1216,6 +1217,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #tabs-new-campaign > .tab-pane > h1 {margin: 0; padding: 0;}
 #toFilters .btn {margin-top: 10px; display: block;}
 #toFilters > div:last-child {text-align: right;}
+#toFilters.showOnly > div:nth-child(2) {line-height: 36px;}
 #toFilters.showOnly > div:nth-child(3) {line-height: 36px; color: #a8a8a8;}
 #tabs-new-campaign .textareaContainer + div {text-align: right; position: relative;}
 .contact-filter-text {color: #a8a8a8}
@@ -1377,25 +1379,28 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #campaignsList > li h3 {margin: 10px 0 5px 0; font-size: 18px; font-size: 1.8rem;}
 #campaignsList > li h3 a {color: #545454;}
 #campaignsList > li > p,
-#campaignsList > li > ul > li,
+#campaignsList > li > ul.list-campaign-stats > li,
 #campaignsList > li > a {font-size: 16px; font-size: 1.6rem; line-height: 1.2;}
-#campaignsList > li > ul {padding: 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
-#campaignsList > li > ul > li {display: inline-block; margin: 0; width: 30%; text-align: center; font-size: 15px; font-size: 1.5rem;}
-#campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 16px; font-size: 1.6rem; display: block; margin-bottom: 2px;}
-#campaignsList > li > ul > li span.open-number::after,
-#campaignsList > li > ul > li span.click-number::after {content:'%'; position:absolute;}
-#campaignsList > li > ul > li span:empty::before {content:'-'; left:30px; position:absolute; top:2px;}
-#campaignsList > li > ul > li span.recip-number:empty::before {left:32px;}
+#campaignsList > li > ul.list-campaign-stats {padding: 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
+#campaignsList > li > ul.list-campaign-stats > li {display: inline-block; margin: 0; width: 30%; text-align: center; font-size: 15px; font-size: 1.5rem;}
+#campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 16px; font-size: 1.6rem; display: block; margin-bottom: 2px;}
+#campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
+#campaignsList > li > ul.list-campaign-stats > li span.click-number::after {content:'%'; position:absolute;}
+#campaignsList > li > ul.list-campaign-stats > li span.open-number:empty::before,
+#campaignsList > li > ul.list-campaign-stats > li span.click-number:empty::before {content:'-'; left:30px; position:absolute; top:2px;}
+#campaignsList > li > ul.list-campaign-stats > li span.recip-number:empty::before {left:32px;}
 
-#campaignsList > li > a, #contactsList > li > a {position: absolute; top: 0; color: #545454; padding: 10px;}
-#campaignsList > li > a :hover,
-#campaignsList > li > a:focus,
-#campaignsList > li > a:active {color: #20a2ea;}
+ul.list > li > ul.list-actions {position:absolute; top:10px; right: 10px;text-align: right;margin: 0;padding: 0; border:0;}
+ul.list > li > ul.list-actions > li {display: inline-block;margin-right: 10px;}
+ul.list > li > ul.list-actions > li > a {font-size: 1.6rem; line-height: 1.2; color:#545454}
+ul.list > li > ul.list-actions > li > a :hover,
+ul.list > li > ul.list-actions > li > a:focus,
+ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
-.campaignDelete, .contactDelete {right: 0;}
-.campaignStats, .contactStats,
-.campaignEdit {right: 25px;}
-.debateItem .campaignStats {right: 55px;}
+/*.campaignDelete, .contactDelete {right: 0;}*/
+/*.campaignStats, .contactStats,*/
+/*.campaignEdit {right: 25px;}*/
+/*.debateItem .campaignStats {right: 55px;}*/
 
 /* DASHBOARD (08/2016) */
 #mails {text-align: center;}
@@ -4098,6 +4103,10 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 .user-rating label span{display:none}
 
+.user .popover-content {padding: 6px 6px 0 6px}
+.user .popover-content .popover-user-body{margin-top:-8px;}
+.user .popover-content .popover-user-body .rating{margin-bottom:0px;}
+
 .rating {margin: 10px auto 10px; width: 12em;}
 .rating fieldset {position: relative;}
 .rating legend {
@@ -4125,7 +4134,7 @@ fieldset.rating:not(:checked) > label {
     white-space:nowrap;
     cursor:pointer;
     font-size:28px;
-    font-size:2.8rem;
+    font-size:2.7rem;
     line-height:1;
     color:#e1e1e1;
 }
@@ -5768,7 +5777,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 
     /* CAMPAIGNS */
-    #tabs-new-campaign .form-horizontal .control-label {text-align: left;}
     .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
@@ -5801,14 +5809,14 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #campaignsList > li h3 {font-size: 21px; font-size: 2.1rem; margin-bottom: 4px;}
     #campaignsList > li {padding: 10px 20px 10px 55px; min-height: 92px;}
     #campaignsList > li > .state {left: 15px;}
-    #campaignsList > li > ul {width: 36%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 10px; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
-    #campaignsList > li > ul > li {margin: 0 12px 0 0; width: 24%;}
-    #campaignsList > li > ul > li:last-child {margin: 0;}
-    #campaignsList > li > ul > li.recipients {width: 34%;}
-    #campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 22px; font-size: 2.2rem; margin-bottom: 0;}
-    #campaignsList > li > ul > li span:empty {min-width: 100%;}
-    #campaignsList > li > ul > li span.open-number::after,
-    #campaignsList > li > ul > li span.click-number::after {content:'%'; right:-12px; position:absolute; top:2px;}
+    #campaignsList > li > ul.list-campaign-stats {width: 36%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 10px; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
+    #campaignsList > li > ul.list-campaign-stats > li {margin: 0 12px 0 0; width: 24%;}
+    #campaignsList > li > ul.list-campaign-stats > li:last-child {margin: 0;}
+    #campaignsList > li > ul.list-campaign-stats > li.recipients {width: 34%;}
+    #campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 22px; font-size: 2.2rem; margin-bottom: 0;}
+    #campaignsList > li > ul.list-campaign-stats > li span:empty {min-width: 100%;}
+    #campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
+    #campaignsList > li > ul.list-campaign-stats > li span.click-number::after {content:'%'; right:-12px; position:absolute; top:2px;}
     .campaignDelete, .contactDelete  {right: 5px;}
     .campaignStats, .contactStats, #campaignsList .campaignEdit {right: 28px;}
     .debateItem .campaignStats {right: 58px;}
@@ -6208,7 +6216,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .campaignDelete, .contactDelete {right: 5px;}
     .campaignStats, .contactStats , #campaignsList .campaignEdit {right: 30px;}
     .debateItem .campaignStats {right: 60px;}
-    #campaignsList > li > ul {width: 36%; margin-top: 10px;}
+    #campaignsList > li > ul.list-campaign-stats {width: 36%; margin-top: 10px;}
     #campaignsList > li h3, #campaignsList > li .name {padding-right: 48%;}
 
     /* NEW / EDIT CONTACT */
@@ -7732,6 +7740,9 @@ div [class^='comment-box col-'] {
 
 .conversation-box         .header .user + .time-ago,
 .conversation-box-comment .header .user + .time-ago { margin-top: 8px;margin-left: 5px; display:inline-block}
+.conversation-box .header ul {margin:0;}
+
+.conversation-box span.pin-propusal{cursor: default;}
 
 .conversation-box .pin-propusal + .tooltip.bottom .tooltip-arrow {
     border-bottom-color: #FF9431;
@@ -7764,12 +7775,9 @@ div [class^='comment-box col-'] {
     display: inline-block;
 }
 
-.conversation-box ul.icons li button.pin-propusal:hover, .conversation-box ul.icons li button.pin-propusal.active {
-    color: #FF9431;
-}
-.conversation-box ul.icons li button {
-    color: #D0D0D0;
-}
+.conversation-box ul.icons li button,
+.conversation-box ul.icons li .pin-propusal {color: #D0D0D0;}
+.conversation-box ul.icons li .pin-propusal.active {color: #FF9431;}
 
 .conversation-box > .footer .social li a:hover .fa-circle {
     color: #00a3ed;
@@ -7777,13 +7785,13 @@ div [class^='comment-box col-'] {
 
 .conversation-box .body {
     margin-bottom: 20px;
+    margin-top: 15px;
     overflow: hidden;
     position: relative;
 }
 
-.conversation-box .body.collapsible{
-    height: 134px;
-}
+.conversation-box .body.collapsible{height: 134px;}
+.conversation-box .body.collapsible p:last-child{margin:0;}
 
 .conversation-box .actions {display:none}
 .conversation-box .body.collapsible + .actions {display:inline-block}
@@ -7936,6 +7944,7 @@ div [class^='comment-box col-'] {
 
 .conversation-box-comment .body p {
     margin: 0;
+    padding-bottom:1em;
 }
 
 .conversation-box-comment .footer {

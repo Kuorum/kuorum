@@ -8,18 +8,18 @@
     </div>
     <div class="footer clearfix">
         <div class="pull-right">
-            <button type="button">
-                <span class="middle-point right delete">delete</span>
-            </button>
+            %{--<button type="button">--}%
+                %{--<span class="middle-point right delete">delete</span>--}%
+            %{--</button>--}%
 
-            <button type="button" class="angle">
-                <span class="fa fa-angle-up" aria-hidden="true"></span>
-            </button>
-            <button type="button" class="angle">
-                <span class="fa fa-angle-down" aria-hidden="true"></span>
-            </button>
+            %{--<button type="button" class="angle">--}%
+                %{--<span class="fa fa-angle-up" aria-hidden="true"></span>--}%
+            %{--</button>--}%
+            %{--<button type="button" class="angle">--}%
+                %{--<span class="fa fa-angle-down" aria-hidden="true"></span>--}%
+            %{--</button>--}%
 
-            <span class="number">${comment.votes}</span>
+            %{--<span class="number">${comment.votes}</span>--}%
         </div>
     </div>
 </li>
