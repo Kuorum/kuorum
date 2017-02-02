@@ -25,6 +25,14 @@
                     </button>
                 </li>
             </userUtil:ifUserIsTheLoggedOne>
+            <userUtil:elseIfUserNotIsTheLoggedOne user="${debate.userAlias}">
+                <li >
+                    <span class="fa-stack fa-lg pin-propusal ${proposal.pinned?'active':''}" aria-hidden="true">
+                        <span class="fa fa-circle dark fa-stack-2x"></span>
+                        <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
+                    </span>
+                </li>
+            </userUtil:elseIfUserNotIsTheLoggedOne>
         </ul>
     </div>
     <div class="body">

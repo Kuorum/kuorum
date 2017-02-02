@@ -22,12 +22,18 @@
         <g:render template="/contacts/inputs/editContactTags" model="[contact:contact]"/>
         <g:render template="/contacts/inputs/showContactEngagement" model="[contact:contact]"/>
     </div>
-    <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats">
-        <span class="fa fa-edit"></span>
-        <span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
-    </g:link>
-    <g:link mapping="politicianContactRemoveAjax" params="[contactId:contact.id]" role="button" class="contactDelete">
-        <span class="fa fa-trash"></span>
-        <span class="sr-only"><g:message code="tools.contact.list.contact.delete"/></span>
-    </g:link>
+    <ul class="list-actions">
+        <li>
+            <g:link mapping="politicianContactEdit" params="[contactId:contact.id]" class="contactStats">
+                <span class="fa fa-edit"></span>
+                <span class="sr-only"><g:message code="tools.contact.list.contact.edit"/></span>
+            </g:link>
+        </li>
+        <li>
+            <g:link mapping="politicianContactRemoveAjax" params="[contactId:contact.id]" role="button" class="contactDelete">
+                <span class="fa fa-trash"></span>
+                <span class="sr-only"><g:message code="tools.contact.list.contact.delete"/></span>
+            </g:link>
+        </li>
+    </ul>
 </li>

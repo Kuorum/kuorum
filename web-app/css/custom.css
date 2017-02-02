@@ -1356,25 +1356,28 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #campaignsList > li h3 {margin: 10px 0 5px 0; font-size: 18px; font-size: 1.8rem;}
 #campaignsList > li h3 a {color: #545454;}
 #campaignsList > li > p,
-#campaignsList > li > ul > li,
+#campaignsList > li > ul.list-campaign-stats > li,
 #campaignsList > li > a {font-size: 16px; font-size: 1.6rem; line-height: 1.2;}
-#campaignsList > li > ul {padding: 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
-#campaignsList > li > ul > li {display: inline-block; margin: 0; width: 30%; text-align: center; font-size: 15px; font-size: 1.5rem;}
-#campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 16px; font-size: 1.6rem; display: block; margin-bottom: 2px;}
-#campaignsList > li > ul > li span.open-number::after,
-#campaignsList > li > ul > li span.click-number::after {content:'%'; position:absolute;}
-#campaignsList > li > ul > li span:empty::before {content:'-'; left:30px; position:absolute; top:2px;}
-#campaignsList > li > ul > li span.recip-number:empty::before {left:32px;}
+#campaignsList > li > ul.list-campaign-stats {padding: 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
+#campaignsList > li > ul.list-campaign-stats > li {display: inline-block; margin: 0; width: 30%; text-align: center; font-size: 15px; font-size: 1.5rem;}
+#campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 16px; font-size: 1.6rem; display: block; margin-bottom: 2px;}
+#campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
+#campaignsList > li > ul.list-campaign-stats > li span.click-number::after {content:'%'; position:absolute;}
+#campaignsList > li > ul.list-campaign-stats > li span.open-number:empty::before,
+#campaignsList > li > ul.list-campaign-stats > li span.click-number:empty::before {content:'-'; left:30px; position:absolute; top:2px;}
+#campaignsList > li > ul.list-campaign-stats > li span.recip-number:empty::before {left:32px;}
 
-#campaignsList > li > a, #contactsList > li > a {position: absolute; top: 0; color: #545454; padding: 10px;}
-#campaignsList > li > a :hover,
-#campaignsList > li > a:focus,
-#campaignsList > li > a:active {color: #20a2ea;}
+ul.list > li > ul.list-actions {position:absolute; top:10px; right: 10px;text-align: right;margin: 0;padding: 0; border:0;}
+ul.list > li > ul.list-actions > li {display: inline-block;margin-right: 10px;}
+ul.list > li > ul.list-actions > li > a {font-size: 1.6rem; line-height: 1.2; color:#545454}
+ul.list > li > ul.list-actions > li > a :hover,
+ul.list > li > ul.list-actions > li > a:focus,
+ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
-.campaignDelete, .contactDelete {right: 0;}
-.campaignStats, .contactStats,
-.campaignEdit {right: 25px;}
-.debateItem .campaignStats {right: 55px;}
+/*.campaignDelete, .contactDelete {right: 0;}*/
+/*.campaignStats, .contactStats,*/
+/*.campaignEdit {right: 25px;}*/
+/*.debateItem .campaignStats {right: 55px;}*/
 
 /* DASHBOARD (08/2016) */
 #mails {text-align: center;}
@@ -5780,14 +5783,14 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #campaignsList > li h3 {font-size: 21px; font-size: 2.1rem; margin-bottom: 4px;}
     #campaignsList > li {padding: 10px 20px 10px 55px; min-height: 92px;}
     #campaignsList > li > .state {left: 15px;}
-    #campaignsList > li > ul {width: 36%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 10px; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
-    #campaignsList > li > ul > li {margin: 0 12px 0 0; width: 24%;}
-    #campaignsList > li > ul > li:last-child {margin: 0;}
-    #campaignsList > li > ul > li.recipients {width: 34%;}
-    #campaignsList > li > ul > li span {position: relative; min-height: 24px; font-size: 22px; font-size: 2.2rem; margin-bottom: 0;}
-    #campaignsList > li > ul > li span:empty {min-width: 100%;}
-    #campaignsList > li > ul > li span.open-number::after,
-    #campaignsList > li > ul > li span.click-number::after {content:'%'; right:-12px; position:absolute; top:2px;}
+    #campaignsList > li > ul.list-campaign-stats {width: 36%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 10px; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
+    #campaignsList > li > ul.list-campaign-stats > li {margin: 0 12px 0 0; width: 24%;}
+    #campaignsList > li > ul.list-campaign-stats > li:last-child {margin: 0;}
+    #campaignsList > li > ul.list-campaign-stats > li.recipients {width: 34%;}
+    #campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 22px; font-size: 2.2rem; margin-bottom: 0;}
+    #campaignsList > li > ul.list-campaign-stats > li span:empty {min-width: 100%;}
+    #campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
+    #campaignsList > li > ul.list-campaign-stats > li span.click-number::after {content:'%'; right:-12px; position:absolute; top:2px;}
     .campaignDelete, .contactDelete  {right: 5px;}
     .campaignStats, .contactStats, #campaignsList .campaignEdit {right: 28px;}
     .debateItem .campaignStats {right: 58px;}
@@ -6187,7 +6190,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .campaignDelete, .contactDelete {right: 5px;}
     .campaignStats, .contactStats , #campaignsList .campaignEdit {right: 30px;}
     .debateItem .campaignStats {right: 60px;}
-    #campaignsList > li > ul {width: 36%; margin-top: 10px;}
+    #campaignsList > li > ul.list-campaign-stats {width: 36%; margin-top: 10px;}
     #campaignsList > li h3, #campaignsList > li .name {padding-right: 48%;}
 
     /* NEW / EDIT CONTACT */
