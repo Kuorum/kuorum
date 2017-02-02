@@ -42,9 +42,7 @@
         </ul>
     </div>
     <div class="body">
-        <p>
-            ${raw(proposal.body)}
-        </p>
+        ${raw(proposal.body)}
     </div>
     <div class="actions">
         <button type="button" class="btn-see-more stack" data-anchor="conversation-box">

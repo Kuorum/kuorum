@@ -124,7 +124,11 @@ $(function(){
 
     function prepareCollapsableBodys(){
         $.each($(".conversation-box .body"), function(idx,obj){
-            if ($(this).height() > 134){
+            var pxMarginTopParent = 15;
+            var pxMarginBottomParent = 20;
+            var visibleHeight = 134;
+            var maxDivHeight = visibleHeight +pxMarginTopParent+pxMarginBottomParent;
+            if ($(this).height() > maxDivHeight ){
                 $(this).addClass("collapsible")
             }
         });
@@ -167,8 +171,9 @@ $(function(){
             // USER NO LOGGED
             $('#registro').modal('show');
         }else{
-            var $mediumEditor = $(".comment.editable.medium-editor-element p");
+            var $mediumEditor = $(".comment.editable.medium-editor-element");
             var body = $mediumEditor.html();
+            console.log(body)
             if (!validMediumEditor($mediumEditor)){return;}
             var debateId = $(this).attr("data-debateId");
             var debateAlias = $(this).attr("data-debateAlias");

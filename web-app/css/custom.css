@@ -7740,6 +7740,7 @@ div [class^='comment-box col-'] {
 
 .conversation-box         .header .user + .time-ago,
 .conversation-box-comment .header .user + .time-ago { margin-top: 8px;margin-left: 5px; display:inline-block}
+.conversation-box .header ul {margin:0;}
 
 .conversation-box span.pin-propusal{cursor: default;}
 
@@ -7789,9 +7790,8 @@ div [class^='comment-box col-'] {
     position: relative;
 }
 
-.conversation-box .body.collapsible{
-    height: 134px;
-}
+.conversation-box .body.collapsible{height: 134px;}
+.conversation-box .body.collapsible p:last-child{margin:0;}
 
 .conversation-box .actions {display:none}
 .conversation-box .body.collapsible + .actions {display:inline-block}
@@ -7944,6 +7944,7 @@ div [class^='comment-box col-'] {
 
 .conversation-box-comment .body p {
     margin: 0;
+    padding-bottom:1em;
 }
 
 .conversation-box-comment .footer {
