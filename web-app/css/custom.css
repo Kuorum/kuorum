@@ -7744,7 +7744,6 @@ div [class^='comment-box col-'] {
 
 .conversation-box ul.icons li button,
 .conversation-box ul.icons li .pin-propusal {color: #D0D0D0;}
-.conversation-box ul.icons li button.pin-propusal:hover,
 .conversation-box ul.icons li .pin-propusal.active {color: #FF9431;}
 
 .conversation-box > .footer .social li a:hover .fa-circle {
