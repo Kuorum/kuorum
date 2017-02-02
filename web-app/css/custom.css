@@ -7709,6 +7709,8 @@ div [class^='comment-box col-'] {
 .conversation-box         .header .user + .time-ago,
 .conversation-box-comment .header .user + .time-ago { margin-top: 8px;margin-left: 5px; display:inline-block}
 
+.conversation-box span.pin-propusal{cursor: default;}
+
 .conversation-box .pin-propusal + .tooltip.bottom .tooltip-arrow {
     border-bottom-color: #FF9431;
     top: -8px;
@@ -7740,12 +7742,10 @@ div [class^='comment-box col-'] {
     display: inline-block;
 }
 
-.conversation-box ul.icons li button.pin-propusal:hover, .conversation-box ul.icons li button.pin-propusal.active {
-    color: #FF9431;
-}
-.conversation-box ul.icons li button {
-    color: #D0D0D0;
-}
+.conversation-box ul.icons li button,
+.conversation-box ul.icons li .pin-propusal {color: #D0D0D0;}
+.conversation-box ul.icons li button.pin-propusal:hover,
+.conversation-box ul.icons li .pin-propusal.active {color: #FF9431;}
 
 .conversation-box > .footer .social li a:hover .fa-circle {
     color: #00a3ed;

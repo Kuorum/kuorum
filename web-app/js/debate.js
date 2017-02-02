@@ -260,7 +260,7 @@ $(function(){
     $(".proposal-list").on("click", ".proposal-like", onClickProposalLike);
 
     // Pin proposal
-    $(".proposal-list").on("click",".pin-propusal", function() {
+    $(".proposal-list").on("click","button.pin-propusal", function() {
         var userLogged = $(this).attr("data-userLogged");
         if (userLogged == undefined || userLogged == "" ) {
             // USER NO LOGGED

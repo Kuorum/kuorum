@@ -29,7 +29,7 @@
 
 <ul class="proposal-list">
 <g:each in="${proposalPage.data}" var="proposal">
-    <g:render template="/debate/showModules/mainContent/proposalData" model="[debate:debate, proposal:proposal]"/>
+    <g:render template="/debate/showModules/mainContent/proposalData" model="[debate:debate, debateUser:debateUser, proposal:proposal]"/>
 </g:each>
 </ul>
 <!-- propusal block !-->

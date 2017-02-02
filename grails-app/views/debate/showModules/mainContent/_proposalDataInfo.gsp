@@ -27,7 +27,13 @@
             </userUtil:ifUserIsTheLoggedOne>
             <userUtil:elseIfUserNotIsTheLoggedOne user="${debate.userAlias}">
                 <li >
-                    <span class="fa-stack fa-lg pin-propusal ${proposal.pinned?'active':''}" aria-hidden="true">
+                    <span class="fa-stack fa-lg pin-propusal ${proposal.pinned?'active':''}"
+                          aria-hidden="true"
+                          rel="tooltip"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title=""
+                          data-original-title="${g.message(code:'debate.show.proposal.pinned.tooltip', args: [debateUser.name])}">
                         <span class="fa fa-circle dark fa-stack-2x"></span>
                         <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
                     </span>
