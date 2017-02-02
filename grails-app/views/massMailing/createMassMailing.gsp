@@ -27,4 +27,5 @@
     <div class="box-ppal">
          <g:render template="types/massMailing" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
     </div>
+    <g:render template="timeZoneSelectorPopUp"/>
 </content>
