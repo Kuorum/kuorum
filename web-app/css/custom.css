@@ -4103,6 +4103,10 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 .user-rating label span{display:none}
 
+.user .popover-content {padding: 6px 6px 0 6px}
+.user .popover-content .popover-user-body{margin-top:-8px;}
+.user .popover-content .popover-user-body .rating{margin-bottom:0px;}
+
 .rating {margin: 10px auto 10px; width: 12em;}
 .rating fieldset {position: relative;}
 .rating legend {
@@ -4130,7 +4134,7 @@ fieldset.rating:not(:checked) > label {
     white-space:nowrap;
     cursor:pointer;
     font-size:28px;
-    font-size:2.8rem;
+    font-size:2.7rem;
     line-height:1;
     color:#e1e1e1;
 }
