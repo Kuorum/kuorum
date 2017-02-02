@@ -54,9 +54,9 @@
             <g:render template="/debate/showModules/mainContent/proposalDataInfoSocial" model="[debate:debate, proposal:proposal]"/>
 
             <div class="comment-counter pull-right">
-                <button type="button" class="delete">
-                    <span class="middle-point right delete">delete</span>
-                </button>
+                %{--<button type="button" class="delete">--}%
+                    %{--<span class="middle-point right delete">delete</span>--}%
+                %{--</button>--}%
                 <button type="button" class="comment">
                     <span class="fa fa-comment-o" aria-hidden="true"></span>
                     <span class="number">${proposal.comments?.size()?:0}</span>
