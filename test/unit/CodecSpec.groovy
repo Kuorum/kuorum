@@ -123,4 +123,22 @@ class CodecSpec extends Specification {
         " https://twitter.com/nick-Name_23" | "@nick-name_23" | "https://twitter.com/nick-name_23" //El primer espacio no es un espacio
         "    "                              | ""              | ""
     }
+
+
+    @Unroll
+    void "test TargetBlanck #orgString == #tranformedString"() {
+        given:"The kuorumCodec"
+        when:
+        def res = TargetBlankCodec.encode(orgString)
+        then:
+        res == tranformedString
+        where:
+        orgString                               | tranformedString
+        "<a href='http://hola.com'>hola</a>"    | "<a href='http://hola.com' target='_blank' rel='nofollow'>hola</a>"
+        "<a href=\"http://hola.com\">hola</a>"  | "<a href='http://hola.com' target='_blank' rel='nofollow'>hola</a>"
+        "<a href=\"http://hola.com\" target='_blank'>hola</a>"  | "<a href='http://hola.com' target='_blank' rel='nofollow'>hola</a>"
+        "<a href=\"http://hola.com\" target='_blank' rel='nofollow'>hola</a>"  | "<a href='http://hola.com' target='_blank' rel='nofollow'>hola</a>"
+        "Nada"                                  | "Nada"
+        "<p>Nada</p>"                           | "<p>Nada</p>"
+    }
 }

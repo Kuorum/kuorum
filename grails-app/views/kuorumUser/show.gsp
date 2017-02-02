@@ -53,26 +53,34 @@
                 </userUtil:ifIsFollower>
             </div>
             <div class="extra-padding" id="politician-bio">
-                <g:if test="${causes}">
-                    <h4><g:message code="politician.causes"/> </h4>
-                    <ul class='causes-tags'>
-                        <g:each in="${causes}" var="cause">
-                            <cause:show cause="${cause}"/>
-                        </g:each>
-                    </ul>
-                </g:if>
                 <g:render template="/kuorumUser/userShowTemplates/userNews" model="[user:politician, userNews:userNews]"/>
                 <h4><g:message code="politician.bio"/></h4>
                 <p class="limit-height" data-collapsedHeight="50"  itemprop="description">${politician.bio}</p>
             </div><!--/.extra-padding -->
         </div><!--/.panel-body-->
     </div><!--/.panel panel-default -->
+
+
+    %{--<ul id="proposal-option" class="nav nav-pills nav-underline">--}%
+        %{--<li class="active"><a href="#latest"><g:message code="debate.proposals.nav.latest"/> </a></li>--}%
+        %{--<li><a href="#oldest"><g:message code="debate.proposals.nav.oldest"/></a></li>--}%
+        %{--<li><a href="#best"><g:message code="debate.proposals.nav.best"/></a></li>--}%
+        %{--<li><a href="#pinned"><g:message code="debate.proposals.nav.pinned"/></a></li>--}%
+    %{--</ul>--}%
+
+    <ul class="campaign-list clearfix">
+        <g:each in="${debates}" var="debate">
+            <g:render template="activity/debateList" model="[debate:debate, user:politician]"/>
+        </g:each>
+    </ul>
 </content>
 
 <content tag="cColumn">
+
     <g:render template="userShowTemplates/columnC/socialButtonsColumnC" model="[user:politician]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/contactPolitician" model="[politician:politician]"/>--}%
     <g:render template="userShowTemplates/columnC/subscribeForm" model="[user:politician]"/>
+    <g:render template="/dashboard/dashboardModules/supportedCauses" model="[user:politician, supportedCauses:causes]"/>
     <g:render template="/modules/recommendedUsers" model="[recommendedUsers:recommendPoliticians, boxTitle:g.message(code:'modules.similarPoliticians.title')]"/>
     %{--<g:render template="showExtendedPoliticianTemplates/columnC/valuationChart" model="[user:politician]"/>--}%
     <g:render template="userShowTemplates/columnC/professionalDetails" model="[politician:politician]"/>
@@ -94,5 +102,7 @@
     <g:if test="${campaign}">
         <g:render template="userShowTemplates/modals/modalElection" model="[politician:politician, campaign:campaign]"/>
     </g:if>
-    <g:render template="userShowTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>
+    <g:if test="${causes}">
+        <g:render template="userShowTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>
+    </g:if>
 </content>

@@ -6,6 +6,7 @@ import kuorum.core.model.CommissionType
 import kuorum.core.model.RegionType
 import kuorum.project.Project
 import kuorum.users.KuorumUser
+import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
 
@@ -328,7 +329,7 @@ class FormTagLib {
             timeZoneId=utcOffset(userTimeZone)
             timeZoneLabel=timeZoneToString(userTimeZone)
             timeZoneChangeLink = g.createLink(mapping:'profileEditAccountDetails')
-            value = command."${field}"?command."${field}".format('dd/MM/yyyy HH:mm', user.timeZone):''
+            value = command."${field}"?command."${field}".format(WebConstants.WEB_FORMAT_DATE, user.timeZone):''
         }
 
         out <<"""

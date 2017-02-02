@@ -1,7 +1,6 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 
-<g:set var="status" value="${(debate.campaignStatusRSDTO == CampaignStatusRSDTO.SENT) ? CampaignStatusRSDTO.SENT : CampaignStatusRSDTO.DRAFT}"/>
-<li class="${status} debateItem" id="campaignPos_${idx}">
+<li class="${debate.newsletter.status} debateItem" id="campaignPos_${idx}">
     <span class="id sr-only">${debate.id}</span>
     <span class="state">${debate.campaignStatusRSDTO}</span>
     <h3>
@@ -11,10 +10,10 @@
     </h3>
     <p class="name">
         <g:message code="${CampaignStatusRSDTO.class.name}.${debate.campaignStatusRSDTO}"/>
-        <input class="timestamp" type="hidden" value="${debate?.publishOn?.time?:'LAST'}" />  %{-- Letters are after than numbers--}%
-        <g:if test="${debate.publishOn}">
+        <input class="timestamp" type="hidden" val="${debate?.datePublished?.time?:'LAST'}" />  %{-- Letters are after than numbers--}%
+        <g:if test="${debate.datePublished}">
             <span class="date">
-                (<g:formatDate date="${debate.publishOn}" type="datetime" style="LONG" timeStyle="SHORT" timeZone="${user.timeZone}"/>)
+                (<g:formatDate date="${debate.datePublished}" type="datetime" style="LONG" timeStyle="SHORT" timeZone="${user.timeZone}"/>)
             </span>
             - ${debate.anonymousFilter?.name?:g.message(code:'tools.massMailing.fields.filter.to.all')}
         </g:if>

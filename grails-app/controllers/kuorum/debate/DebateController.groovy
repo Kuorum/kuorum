@@ -3,20 +3,26 @@ package kuorum.debate
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
+import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.files.FileService
+import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.DebateCommand
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.debate.search.ProposalPageRSDTO
+import org.kuorum.rest.model.communication.debate.search.SearchProposalRSDTO
+import org.kuorum.rest.model.communication.debate.search.SortProposalRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.campaign.DebateService
+import payment.campaign.ProposalService
 import payment.contact.ContactService
 
 class DebateController {
@@ -27,22 +33,30 @@ class DebateController {
     FileService fileService
     ContactService contactService
     DebateService debateService
+    ProposalService proposalService
+    CookieUUIDService cookieUUIDService
 
     def show() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         KuorumUser debateUser = kuorumUserService.findByAlias((String) params.userAlias)
+        String viewerId = cookieUUIDService.buildUserUUID()
         try {
-            DebateRSDTO debate = debateService.findDebate(user, Long.parseLong((String) params.debateId))
+            DebateRSDTO debate = debateService.findDebate(debateUser, Long.parseLong((String) params.debateId),viewerId)
+            SearchProposalRSDTO searchProposalRSDTO = new SearchProposalRSDTO()
+            searchProposalRSDTO.sort = new SortProposalRDTO()
+            searchProposalRSDTO.sort.direction = SortProposalRDTO.Direction.DESC
+            searchProposalRSDTO.sort.field = SortProposalRDTO.Field.LIKES
+            searchProposalRSDTO.size = Integer.MAX_VALUE // Sorting and filtering will be done using JS. We expect maximum 100 proposals
 
+            ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO,viewerId)
             if (!debate) {
                 throw new KuorumException(message(code: "debate.notFound") as String)
             }
 
-            return [debate: debate, debateUser: debateUser, user: user]
+            return [debate: debate, debateUser: debateUser, proposalPage:proposalPage]
         } catch (Exception ignored) {
             // Error parsing or not found
             flash.error = message(code: "debate.notFound")
-            redirect mapping: "politicianMassMailing", params: []
+            redirect mapping: "politicianCampaigns", params: []
         }
     }
 
@@ -65,7 +79,7 @@ class DebateController {
 
         flash.message = resultDebate.msg.toString()
 
-        redirect mapping: "politicianMassMailing", params: []
+        redirect mapping: "debateShow", params: resultDebate.debate.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -83,7 +97,7 @@ class DebateController {
         DebateCommand debateCommand = new DebateCommand()
         debateCommand.title = debateRSDTO.title
         debateCommand.body = debateRSDTO.body
-        debateCommand.publishOn = debateRSDTO.publishOn
+        debateCommand.publishOn = debateRSDTO.datePublished
 
         // Tags
         if (debateRSDTO.triggeredTags) {
@@ -94,8 +108,10 @@ class DebateController {
 
         // Multimedia URL
         if (debateRSDTO.videoUrl?.contains("youtube")) {
+            debateCommand.fileType = FileType.YOUTUBE.toString()
             debateCommand.videoPost = debateRSDTO.videoUrl
         } else if (debateRSDTO.photoUrl) {
+            debateCommand.fileType = FileType.IMAGE.toString()
             KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.photoUrl)
             debateCommand.headerPictureId = kuorumFile?.id
         }
@@ -144,7 +160,7 @@ class DebateController {
 
         flash.message = resultDebate.msg.toString()
 
-        redirect mapping: "politicianMassMailing", params: []
+        redirect mapping: "debateShow", params: resultDebate.debate.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -222,17 +238,28 @@ class DebateController {
         }
 
         // Multimedia URL
-        if (command.headerPictureId) {
+        if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
+            // Save image
             KuorumFile picture = KuorumFile.get(command.headerPictureId)
             picture = fileService.convertTemporalToFinalFile(picture)
             fileService.deleteTemporalFiles(user)
             debateRDTO.setPhotoUrl(picture.getUrl())
-        } else if (command.videoPost) {
+
+            // Remove video
+            debateRDTO.setVideoUrl(null)
+        } else if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
+            // Save video
             KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
             debateRDTO.setVideoUrl(urlYoutubeFile?.url)
+
+            // Remove image
+            if (command.headerPictureId) {
+                KuorumFile picture = KuorumFile.get(command.headerPictureId)
+                fileService.deleteKuorumFile(picture)
+                command.setHeaderPictureId(null)
+            }
         }
 
         debateRDTO
     }
-
 }

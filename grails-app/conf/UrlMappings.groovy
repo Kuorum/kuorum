@@ -121,7 +121,11 @@ class UrlMappings {
         name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "save"]}
         name debateEdit:        "/account/debate/$debateId/edit" (controller: "debate"){action = [GET: "edit", POST: "update"]}
         name debateRemove:      "/ajax/account/debate/$debateId/remove" (controller: "debate", action: "remove")
-        name debateShow:      "/$userAlias/d/$title-$debateId"(controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name debateShow:        "/$userAlias/d/$title-$debateId"(controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name debateProposalNew: "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
+        name debateProposalPin: "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
+        name debateProposalLike:"/ajax/likeProposal"(controller: "debateProposal", action: "likeProposal")
+        name debateProposalComment: "/ajax/proposalComment"(controller: "debateProposal", action: "addComment")
 
         name langProjectShow:   "/$lang/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name projectShow:       "/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
@@ -283,7 +287,8 @@ class UrlMappings {
         name politicianContactEditUpdateNote:           "/ajax/account/contacts/$contactId/edit/updateNote" (controller:"contacts",action:"updateContactNotes")
         name politicianContactNew:                      "/account/contacts/new" (controller:"contacts"){action =[GET:"newContact", POST:"saveContact"]}
         name politicianInbox:                           "/account/inbox" (controller:"politician", action: "betaTesterPage")
-        name politicianMassMailing:                     "/account/mass-mailing" (controller:"massMailing", action: "index")
+        name politicianCampaigns:                       "/account/campaigns" (controller:"massMailing", action: "index")
+        name politicianCampaignsNew:                    "/account/campaigns/new" (controller:"massMailing", action: "newCampaign")
         name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing",POST:'saveMassMailing']}
         name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"showCampaign",POST:'updateCampaign']}
         name politicianMassMailingSendTest:             "/account/mass-mailing/test" (controller:"massMailing", action: "sendMassMailingTest")

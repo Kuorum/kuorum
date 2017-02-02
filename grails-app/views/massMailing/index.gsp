@@ -25,7 +25,7 @@
 
             <p><g:message code="dashboard.payment.noCampaigns" /></p>
             <p>
-                <g:link mapping="politicianMassMailingNew" class="btn inverted btn-lg">
+                <g:link mapping="politicianCampaignsNew" class="btn inverted btn-lg">
                     <g:message code="tools.massMailing.list.newCampaign"/>
                 </g:link>
             </p>

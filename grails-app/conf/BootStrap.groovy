@@ -65,6 +65,11 @@ class BootStrap {
             }
 
         }
+
+        List.metaClass.reverseFind = { Closure c ->
+            delegate.iterator().reverse().find c
+        }
+
         environments {
             development {
 //                RoleUser.collection.getDB().dropDatabase()

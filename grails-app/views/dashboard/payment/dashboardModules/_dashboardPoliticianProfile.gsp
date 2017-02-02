@@ -37,7 +37,7 @@
                 <userUtil:counterFollowing user="${user}"/>
             </li>
             <li class="posts">
-                <span>${campaigns.size()}</span>
+                <span>${numberCampaigns}</span>
                 <g:message code="dashboard.payment.profile.campaigns"/>
             </li>
         </ul>

@@ -3,32 +3,36 @@
     <fieldset class="form-group showOnly" id="toFilters">
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
         <div class="col-sm-4">
-            <g:if test="${command.filterId == filter?.id}">
-                ${filter.name}
-            </g:if>
-            <g:elseif test="${command.filterId == anonymousFilter?.id}">
+            <g:each in="${filters}" var="filter">
+                <g:if test="${command.filterId == filter.id}">
+                    ${filter.name}
+                </g:if>
+            </g:each>
+            <g:if test="${anonymousFilter && command.filterId == anonymousFilter?.id}">
                 ${anonymousFilter.name}
-            </g:elseif>
-            <g:else>
+            </g:if>
+            <g:elseif test="${command.filterId == null}">
                 <g:message code="tools.massMailing.fields.filter.to.all"/>
-            </g:else>
+            </g:elseif>
         </div>
         <div class="col-sm-4">
             <span class="amountRecipients">
-                <g:if test="${command.filterId == filter?.id}">
-                    ${filter.amountOfContacts}
-                </g:if>
-                <g:elseif test="${command.filterId == anonymousFilter?.id}">
+                <g:each in="${filters}" var="filter">
+                    <g:if test="${command.filterId == filter.id}">
+                        ${filter.amountOfContacts}
+                    </g:if>
+                </g:each>
+                <g:if test="${anonymousFilter && command.filterId == anonymousFilter?.id}">
                     ${anonymousFilter.amountOfContacts}
-                </g:elseif>
-                <g:else>
+                </g:if>
+                <g:elseif test="${command.filterId == null}">
                     ${totalContacts?:0}
-                </g:else>
+                </g:elseif>
             </span>
             <g:message code="tools.massMailing.fields.filter.recipients"/>
             %{--<span class="fa fa-filter fa-lg"></span>--}%
         </div>
-        <input type="hidden" name="filterId" id="recipients" value="${(filter && filter.id) ? filter.id : anonymousFilter.id}" />
+        <input type="hidden" name="filterId" id="recipients" value="${(command.filterId) ? command.filterId : ((anonymousFilter?.id) ? anonymousFilter.id : 0)}" />
         <input type="hidden" name="filterEdited" value="0" />
         <div id="newFilterContainer">
 

@@ -7,7 +7,7 @@
         </g:link>
     </li>
     <li class="underline">
-        <g:link mapping="politicianMassMailing" class="navbar-link ${nav.activeMenuCss(mappingName:'politicianMassMailing')}">
+        <g:link mapping="politicianCampaigns" class="navbar-link ${nav.activeMenuCss(mappingName:'politicianMassMailing')}">
             <span class="fa fa-paper-plane fa-lg"></span>
             <span class=""><g:message code="head.logged.account.tools.massMailing"/> </span>
         </g:link>

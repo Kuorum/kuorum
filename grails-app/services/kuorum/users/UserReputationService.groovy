@@ -5,6 +5,7 @@ import grails.plugin.cookie.CookieService
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import kuorum.util.rest.RestKuorumApiService
+import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationEvolutionRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 
@@ -13,14 +14,11 @@ class UserReputationService {
 
     RestKuorumApiService restKuorumApiService;
     SpringSecurityService springSecurityService
-    CookieService cookieService
-
-    private static final String COOKIE_DOMAIN =".kuorum.org";
-    private static final String COOKIE_EVALUATOR_NAME='EVALUATOR_ID_RATING'
+    CookieUUIDService cookieUUIDService
 
     UserReputationRSDTO addReputation(KuorumUser politician, Integer evaluation) {
 
-        String evaluatorId =getEvaluatorUserId()
+        String evaluatorId = cookieUUIDService.getUserUUID();
         Map<String, String> params = [userId:politician.id.toString()]
         Map<String, String> query = [evaluation:evaluation]
         if (evaluatorId){
@@ -36,29 +34,12 @@ class UserReputationService {
         if (response.data){
             userReputation = (UserReputationRSDTO)response.data
         }
-        setEvaluatorUserId(userReputation.evaluatorId)
+        cookieUUIDService.setUserUUID(userReputation.evaluatorId)
         return userReputation;
     }
 
-    private String getEvaluatorUserId(){
-        String evaluatorId = cookieService.getCookie(COOKIE_EVALUATOR_NAME)
-        if (springSecurityService.isLoggedIn()){
-            evaluatorId = springSecurityService.principal.id.toString()
-        }
-        return evaluatorId;
-    }
-
-    private void setEvaluatorUserId(String evaluatorId){
-        cookieService.setCookie(
-                [name:COOKIE_EVALUATOR_NAME,
-                 value:evaluatorId,
-                 maxAge:Integer.MAX_VALUE ,
-                 path:"/",
-                 domain:COOKIE_DOMAIN])
-    }
-
     UserReputationRSDTO getReputation(KuorumUser politician) {
-        String evaluatorId = getEvaluatorUserId();
+        String evaluatorId = cookieUUIDService.getUserUUID();
         Map<String, String> params = [userId:politician.id.toString()]
         Map<String, String> query = [evaluatorId:evaluatorId]
         def response = restKuorumApiService.get(

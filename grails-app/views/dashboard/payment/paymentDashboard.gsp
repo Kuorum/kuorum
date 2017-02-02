@@ -20,7 +20,7 @@
         </div>
 
         <div class="col-md-4">
-            <g:render template="/dashboard/payment/dashboardModules/dashboardPoliticianProfile" model="[user:user, emptyEditableData:emptyEditableData, campaigns:campaigns]"/>
+            <g:render template="/dashboard/payment/dashboardModules/dashboardPoliticianProfile" model="[user:user, emptyEditableData:emptyEditableData, numberCampaigns:numberCampaigns]"/>
         </div>
     </div>
 </content>

@@ -729,7 +729,7 @@
                                                 </span>
                                             </button>
                                         </div>
-                                        <button type="button" class="pull-right btn btn-grey publish comment-propusal">Comment</button>
+                                        <button type="button" class="pull-right btn btn-grey publish save-comment">Comment</button>
                                     </div>
                                 </div><!-- ^comment-box !-->
                             </div><!-- ^conversation-box-comments !-->
@@ -998,7 +998,7 @@
                                                 </span>
                                             </button>
                                         </div>
-                                        <button type="button" class="pull-right btn btn-grey publish comment-propusal">Comment</button>
+                                        <button type="button" class="pull-right btn btn-grey publish save-comment">Comment</button>
                                     </div>
                                 </div><!-- ^comment-box !-->
                             </div><!-- ^conversation-box-comments !-->
@@ -1588,15 +1588,27 @@
                 
                 $commentButton.on('click', function (event) {
                     var $conversationBox = $(event.target.parentElement).closest('.conversation-box');
+                    conversationSectionClick($conversationBox)
+
+                });
+
+                var $commentSaveButton = $('.conversation-box-comments .comment-box .actions button.save-comment')
+
+                $commentSaveButton.on('click', function (event) {
+                    var $conversationBox = $($(this).parents('.conversation-box-comments')[0]).prev();
+                    conversationSectionClick($conversationBox)
+                });
+
+                function conversationSectionClick($conversationBox){
                     var $conversationBoxComments = $conversationBox.next('.conversation-box-comments');
                     var $conversationBoxCommentsComment = $conversationBoxComments.find('.comment-box .editable-comment');
-                    var $conversationBoxCommentsArrow = $conversationBoxComments.find('.go-up');    
+                    var $conversationBoxCommentsArrow = $conversationBoxComments.find('.go-up');
                     var navbarHeight = $('.navbar').height();
 
                     var isVisible = $conversationBoxCommentsComment.is(':visible');
-                    
+
                     $conversationBoxCommentsArrow.trigger('click', [isVisible, $conversationBoxCommentsComment]);
-                });
+                }
 
                 // See More button
                 var $conversationBoxButtonSeeMoreSmall = $('.conversation-box button.btn-see-more.stack');

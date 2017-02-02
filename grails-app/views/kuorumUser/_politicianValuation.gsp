@@ -7,18 +7,18 @@
             </label>
         </g:each>
     </div>
+
     <!-- POPOVER PARA VOTACIÓN -->
     <div class="popover">
-
-        <form action="${g.createLink(mapping:'userRate', params:user.encodeAsLinkProperties(), absolute:true)}" id="user-rating-form" method="post" class="rating">
+        <form action="${g.createLink(mapping:'userRate', params:user.encodeAsLinkProperties(), absolute:true)}" method="post" class="user-rating-form rating rating-profile">
             <input type="hidden" name="politicianId" value="${user.id}"/>
             <fieldset class="rating">
                 <legend class="sr-only"><g:message code="politician.valuation.rate"/></legend>
                 <g:each in="${(1..5).reverse()}" var="i">
-                    <input id="star${i}" type="radio" name="rating" value="${i}" ${userReputation.evaluation==i?'checked':''}>
-                    <label for="star${i}">
+                    <input id="star${i}_${user.id}" type="radio" name="rating" value="${i}" ${userReputation.evaluation==i?'checked':''}>
+                    <label for="star${i}_${user.id}">
                         <g:message code="politician.valuation.rate.value.starts" args="[i]"/>
-                        <span class="rate-message"><g:message code="politician.valuation.rate.value.text.${i}"/></span>
+                        %{--<span class="rate-message"><g:message code="politician.valuation.rate.value.text.${i}"/></span>--}%
                     </label>
                 </g:each>
             </fieldset>
@@ -32,6 +32,7 @@
 
         <hr>
 
+        <!-- Statistics -->
         <div class="rating-over">
             <!-- indicar la clase de la puntuación: show1, show2, show3, show4, show5 -->
             <div class="rate-number show${Math.round(userReputation.userReputation)}">
@@ -57,5 +58,5 @@
         </div>
     </div>
 
-    <g:render template="/kuorumUser/userShowTemplates/modals/modalRatingShare" model="[user:user]"/>
+    <g:render template="/kuorumUser/userShowTemplates/modals/modalRatingShare" model="[user: user]"/>
 </div>

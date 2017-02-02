@@ -21,70 +21,10 @@
 
 <content tag="mainContent">
     <ol class="breadcrumb">
-        <li><g:link mapping="politicianMassMailing"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
+        <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
     <div class="box-ppal">
-        <ul class="nav nav-tabs simple" data-tabs="tabs">
-            <li role="presentation" class="active"><a href="#newsletter" data-toggle="tab"><g:message code="tools.campaign.type.massMailing"/></a></li>
-            <userUtil:isWeceUser>
-                <li role="presentation" class="${campaignId?'disabled':''}"><g:link mapping="projectCreate"><g:message code="tools.campaign.type.debate"/></g:link></li>
-            </userUtil:isWeceUser>
-            <userUtil:isNotWeceUser>
-                <li role="presentation" class="${campaignId?'disabled':''}"><g:link mapping="debateCreate"><g:message code="tools.campaign.type.debate"/></g:link></li>
-            </userUtil:isNotWeceUser>
-            <li role="presentation" class="${campaignId?'disabled':''}"><a href="#petition" data-toggle="tab"><g:message code="tools.campaign.type.petition"/></a></li>
-            <li role="presentation" class="${campaignId?'disabled':''}"><a href="#survey" data-toggle="tab"><g:message code="tools.campaign.type.survey"/></a></li>
-        </ul>
-        <div id="tabs-new-campaign" class="tab-content">
-            <div class="tab-pane active" id="newsletter">
-                <g:render template="types/massMailing" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
-            </div>
-            <div class="tab-pane" id="debate">
-
-            </div>
-            <div class="tab-pane" id="petition">
-                <g:render template="types/notDone"/>
-            </div>
-            <div class="tab-pane" id="survey">
-                <g:render template="types/notDone"/>
-            </div>
-        </div>
+         <g:render template="types/massMailing" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
     </div>
-
-    <!-- First MassMailing Popup-->
-    <g:if test="${showTimeZonePopup}">
-        <div class="modal fade in" id="enterTimeZone" tabindex="-1" role="dialog" aria-labelledby="contactDeleteTitle" aria-hidden="true">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <formUtil:validateForm bean="${timeZoneCommand}" form="timeZoneForm" dirtyControl="false"/>
-                    <g:form method="POST" mapping="politicianMassMailingSaveTimeZone" name="timeZoneForm" role="form" class="submitOrangeButton" autocomplete="off">
-                        <div class="modal-header"><h4><g:message code="modal.timeZone.header"/></h4></div>
-                        <div class="modal-body">
-                            <p>
-                                <g:message code="modal.timeZone.explain"/>
-                            </p>
-                            <fieldset class="time-zone">
-                                <div class="row form-group">
-                                    <formUtil:selectTimeZone command="${timeZoneCommand}" field="timeZoneId" required="true" cssLabel="hide" cssClass="col-xs-12 col-sm-4"/>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn" type="submit"><g:message code="modal.timeZone.send"/></button>
-                        </div>
-                    </g:form>
-                </div>
-            </div>
-        </div>
-        <script>
-            $(function() {
-                $("#enterTimeZone").modal({
-                    backdrop: 'static',
-                    keyboard: false
-                }).modal('show');
-            });
-        </script>
-    </g:if>
-
 </content>

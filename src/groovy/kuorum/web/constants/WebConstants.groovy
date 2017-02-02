@@ -10,4 +10,9 @@ class WebConstants {
     public static final String AJAX_NUM_LIST = "numList" //Num of elements of some list
 
     public static final String COUNTRY_CODE_SESSION="countryCode"
+
+    public static final String COOKIE_USER_UUID='KUORUM_USER_UUID'
+    public static final String COOKIE_DOMAIN=".kuorum.org"; // Deprecated
+
+    public static final String WEB_FORMAT_DATE="dd/MM/yyyy HH:mm"
 }

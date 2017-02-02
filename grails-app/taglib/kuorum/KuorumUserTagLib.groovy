@@ -9,6 +9,7 @@ import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
+import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
 
 class KuorumUserTagLib {
     static defaultEncodeAs = 'raw'
@@ -17,12 +18,19 @@ class KuorumUserTagLib {
     static namespace = "userUtil"
 
     def springSecurityService
+    def userReputationService
     RegisterService registerService
     private Integer NUM_MAX_ON_USER_LIST = 100
 
     def loggedUserName = {attrs ->
         if (springSecurityService.isLoggedIn()){
             out << KuorumUser.get(springSecurityService.principal.id).name
+        }
+    }
+
+    def loggedUserAlias = {attrs ->
+        if (springSecurityService.isLoggedIn()){
+            out << KuorumUser.get(springSecurityService.principal.id).alias
         }
     }
 
@@ -35,7 +43,16 @@ class KuorumUserTagLib {
         }
     }
 
-    def showUser={attrs ->
+    def showUserByAlias= { attrs, body ->
+        String alias = attrs.alias
+        attrs.showRole
+        attrs.showName
+        attrs.extraCss
+        KuorumUser user = KuorumUser.findByAlias(alias);
+        attrs.put("user", user)
+        out << showUser(user:user, showRole: attrs.showRole, showName:attrs.showName, extraCss: attrs.extraCss)
+    }
+    def showUser={attrs, body ->
         KuorumUser user
         //attrs.withPopover => String expected
         Boolean withPopover = !attrs.withPopover?true:Boolean.parseBoolean(attrs.withPopover)
@@ -53,14 +70,16 @@ class KuorumUserTagLib {
             user = attrs.user
             name = user.fullName
         }
+
         Boolean showRole = attrs.showRole?Boolean.parseBoolean(attrs.showRole):false
         Boolean showName = attrs.showName?Boolean.parseBoolean(attrs.showName):true
         Boolean showActions = attrs.showActions?Boolean.parseBoolean(attrs.showActions):false
         Boolean showDeleteRecommendation = attrs.showDeleteRecommendation?Boolean.parseBoolean(attrs.showDeleteRecommendation):false
         String htmlWrapper = attrs.htmlWrapper?:"div"
+        String extraCss = attrs.extraCss?:''
 
 //        def link = g.createLink(mapping:'userShow', params:user.encodeAsLinkProperties())
-        out << "<${htmlWrapper} class='user ${showDeleteRecommendation?'recommendation-deletable':''}' itemtype=\"http://schema.org/Person\" itemscope data-userId='${user.id}'>"
+        out << "<${htmlWrapper} class='user ${extraCss} ${showDeleteRecommendation?'recommendation-deletable':''}' itemtype=\"http://schema.org/Person\" itemscope data-userId='${user.id}'>"
         def imgSrc = image.userImgSrc(user:user)
         def userName = ""
         if (showName){
@@ -73,10 +92,16 @@ class KuorumUserTagLib {
         String userLink = g.createLink(mapping: "userShow", params: user.encodeAsLinkProperties())
         out << """
                 <a href="${userLink}" $popOverSpanElements itemprop="url">
-                    <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image">${userName}</a>
+                    <img src="${imgSrc}" alt="${user.name}" class="user-img" itemprop="image">
+                    ${userName}
+                </a>
         """
-        if (withPopover){
-            out << g.render(template: '/kuorumUser/popoverUser', model:[user:user])
+        if (withPopover) {
+            UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
+            out << g.render(template: '/kuorumUser/popoverUser', model: [
+                    user: user,
+                    userReputation: userReputationRSDTO
+            ])
         }
         if (showRole){
             out << """
@@ -399,6 +424,21 @@ class KuorumUserTagLib {
         if (springSecurityService.isLoggedIn()) {
             KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
             if (!weceAlias.contains(user.alias)) {
+                out << body()
+            }
+        }
+    }
+
+    def ifUserIsTheLoggedOne={attrs, body->
+        KuorumUser user
+        if (attrs.user instanceof KuorumUser){
+            user = attrs.user
+        }else{
+            user = KuorumUser.findByAlias(attrs.user)
+        }
+        if (springSecurityService.isLoggedIn()){
+            KuorumUser loggedUser = springSecurityService.currentUser;
+            if (loggedUser.id == user.id){
                 out << body()
             }
         }
