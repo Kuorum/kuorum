@@ -192,6 +192,7 @@ label {font-weight: normal;}
 
 
 .form-horizontal .checkbox-inline{padding-top: 0px; margin-top:-0.3em;}
+.form-horizontal .tab-pane .form-group.image{margin-left:0;}
 .checkbox-inline input[type=checkbox] {display: none;}
 
 .checkbox-inline > span.check-box-icon {
@@ -5750,7 +5751,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 
     /* CAMPAIGNS */
-    #tabs-new-campaign .form-horizontal .control-label {text-align: left;}
     .header-campaign .qq-upload-drop-area {background-size: 70px auto;}
     .header-campaign #au-uploaderImageId__headerPictureId_NEW_ {height: 128px;}
     #filtersInfo .modal-dialog {width: 560px;}
