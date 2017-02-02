@@ -8073,6 +8073,10 @@ div [class^='comment-box col-'] {
     font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
 }
 
+.landing-2 .row.light {
+    background-color: #fbfbfb;
+}
+
 /** fade-carousel **/
 
 .carousel.slide.fade-carousel {
@@ -8341,6 +8345,7 @@ form.dark {
 
 #how-it-works {
     padding-top: 60px;
+    padding-bottom: 60px;
     text-align: center;
 }
 
