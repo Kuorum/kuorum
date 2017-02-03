@@ -1363,7 +1363,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #campaignsList > li > p,
 #campaignsList > li > ul.list-campaign-stats > li,
 #campaignsList > li > a {font-size: 16px; font-size: 1.6rem; line-height: 1.2;}
-#campaignsList > li > ul.list-campaign-stats {padding: 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
+#campaignsList > li > ul.list-campaign-stats {padding: 10px 0 0 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
 #campaignsList > li > ul.list-campaign-stats > li {display: inline-block; margin: 0; width: 30%; text-align: center; font-size: 15px; font-size: 1.5rem;}
 #campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 16px; font-size: 1.6rem; display: block; margin-bottom: 2px;}
 #campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
@@ -6198,7 +6198,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .campaignDelete, .contactDelete {right: 5px;}
     .campaignStats, .contactStats , #campaignsList .campaignEdit {right: 30px;}
     .debateItem .campaignStats {right: 60px;}
-    #campaignsList > li > ul.list-campaign-stats {width: 36%; margin-top: 10px;}
+    #campaignsList > li > ul.list-campaign-stats {width: 36%;}
     #campaignsList > li h3, #campaignsList > li .name {padding-right: 48%;}
 
     /* NEW / EDIT CONTACT */
