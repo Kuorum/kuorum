@@ -1186,7 +1186,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .header-campaign .qq-upload-drop-area {border-color: #dedede;}
 .header-campaign .qq-upload-button {line-height: 1; padding: 0;}
 
-.tags-campaign .bootstrap-tagsinput {width: 100%;}
+.tags-campaign .bootstrap-tagsinput {width: 100%;border:1px solid #DDDDDD; box-shadow: none;}
+.tags-campaign .bootstrap-tagsinput.focus {border:1px solid #20a2ea;}
 .tags-campaign .tag-events { padding-left:2em;margin-top:1em;}
 
 
