@@ -1,7 +1,7 @@
 <r:require modules="datepicker" />
 <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 <formUtil:validateForm bean="${command}" form="debateForm" dirtyControl="true"/>
-<form action="#" class="form-horizontal" id="debateForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
+<form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
     <input type="hidden" name="debateId" value="${debateId?:''}"/>
 
     <g:render template="/massMailing/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true]"/>
