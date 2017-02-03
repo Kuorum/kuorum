@@ -4103,7 +4103,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 .user-rating label span{display:none}
 
-.user .popover-content {padding: 6px 6px 0 6px}
+.user .popover-content {padding: 6px}
 .user .popover-content .popover-user-body{margin-top:-8px;}
 .user .popover-content .popover-user-body .rating{margin-bottom:0px;}
 
