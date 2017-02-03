@@ -629,23 +629,6 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     color: #fff !important;
 }
 
-.btn.btn-grey {background-color: #D0D0D0 !important;}
-.btn.btn-grey:hover,
-.btn.btn-grey:active,
-.btn.btn-grey:focus {background-color: #A5A5A5 !important;}
-.btn.btn-grey.inverted {
-    background-color: #fff !important;
-    border: 1px solid #20a2ea ;
-    color: #20a2ea !important;
-    /*margin: 0 0 6px 0;*/
-}
-.btn.btn-grey.inverted:hover,
-.btn.btn-grey.inverted:active,
-.btn.btn-grey.inverted:focus {
-    background-color: #20a2ea !important;
-    color: #fff !important;
-}
-
 .btn.inverted {
     background-color: #fff !important;
     border: 1px solid #ff9431 ;
@@ -711,7 +694,6 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 }
 .btn.contact {
     width: 105px;
-    padding: 8px 8px !important
 }
 .btn.contact i{
     margin-right: 6px;
@@ -6328,7 +6310,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .boxes.performance a.improve {font-size: 24px; font-size: 2.4rem;}
     #info-sup-scroll .laley {font-size: 25px; font-size: 2.5rem;}
     .navbar-form {margin: 5px 4px 4px 22%;}
-    .btn {margin: 6px 0 0 8px;}
+    /*.btn {margin: 6px 0 0 8px;}*/
     .container-fluid.userprofile #adminActions{top: 15px;}
     .kakareo footer {font-size: 14px; font-size: 1.4rem;}
     .kakareo h1 {font-size: 20px; font-size: 2rem;}
