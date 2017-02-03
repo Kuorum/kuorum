@@ -1825,9 +1825,10 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .user a.popover-trigger:hover span,
 .user a.popover-trigger:active span,
 .user a.popover-trigger:focus span {text-decoration: underline;}
-.edit-user .user .popover-trigger:hover,
-.edit-user .user .popover-trigger:active,
-.edit-user .user .popover-trigger:focus {text-decoration: none;}
+.user a.popover-trigger:hover,
+.user a.popover-trigger:active,
+.user a.popover-trigger:focus {text-decoration: none;}
+
 .user-list-images li .popover-trigger .user-img {margin: 4px 2px 0 0;}
 .user-list-images .more-users,
 .user-list-followers .more-users {margin: 0;}
