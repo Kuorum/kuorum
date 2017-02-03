@@ -5757,7 +5757,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box-ppal.import-contacts .bootstrap-filestyle {margin-bottom: 40px;}
     .box-ppal.import-contacts-videos {padding: 50px;}
     .box-ppal.import-contacts-videos iframe {margin-bottom: 40px;}
-    .box-ppal.import-contacts.csv input.btn {float: right; width: 22%; margin: 0;}
+    .box-ppal.import-contacts.csv input.btn {float: right; width: 22%; margin: 0; padding: 11px 24px !important}
 
 
     /* CAMPAIGNS */
