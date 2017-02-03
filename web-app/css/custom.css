@@ -699,6 +699,11 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     margin-right: 6px;
     font-weight: bold;
 }
+
+.btn.btn-sign-up {
+    font-size: 25px !important;
+    width: 100%;
+}
 .popover .btn.btn-blue.disabled {background-color: #a8a8a8 !important;}
 .boxes .btn {margin-bottom: 20px !important;}
 .boxes .cancel {margin: 0 !important; float: right;}
@@ -8243,6 +8248,10 @@ form.dark {
     margin-bottom: 50px;
 }
 
+.container-overflow-image div > a.btn {
+    margin-top: 30px;
+}
+
 .container-overflow-image ul.checklist {
     list-style: none;
     padding: 0;
@@ -8265,10 +8274,29 @@ form.dark {
 
 .img-full-container {
     position: absolute;
-    bottom: 0;
+    top: 42px;
     right: 0;
-    left: 55%;
+    left: 56%;
     overflow: hidden;
+}
+
+.img-full-container.left {
+    position: absolute;
+    top: 42px;
+    left: -10%;
+    overflow: visible;
+}
+
+.img-full-container.pull-right {
+    position: absolute;
+    top: 42px;
+    left: 0;
+    right: 56%;
+    overflow: hidden;
+}
+
+.img-full-container img {
+    width: 110%;
 }
 
 @media (max-width: 767px) {
@@ -8369,3 +8397,62 @@ form.dark {
     margin-bottom: 60px;
 }
 
+/** organizations **/
+#organizations {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    text-align: center;
+}
+
+#organizations h1 {
+    padding-bottom: 60px;
+    font-weight: bold;
+}
+
+#organizations h2 {
+    font-size: 20px;
+    padding-bottom: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#organizations p {
+    font-size: 18px;
+}
+
+#organizations p span.name{
+    font-weight: bold;
+}
+
+#organizations p.quote {
+    font-size: 25px;
+}
+
+#organizations .testimonial .header {
+    position: relative;
+    margin: 0 auto;
+    width: 150px;
+    height: 250px;
+}
+
+#organizations .testimonial .header .img-brand {
+    width: 102px;
+    margin-top: 15px;
+}
+
+#organizations .testimonial .header .img {
+    width: 102px;
+    position: absolute;
+    top: 24px;
+    left: 25px;
+}
+
+#organizations ul.globus {
+    list-style: none;
+}
+
+#organizations ul.globus li img {
+    width: 175px;
+    margin: 0 auto;
+    margin-bottom: 60px;
+}
