@@ -4089,7 +4089,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 .user .popover-content {padding: 6px}
 .user .popover-content .popover-user-body{margin-top:-8px;}
-.user .popover-content .popover-user-body .rating{margin-bottom:0px;}
+.user .popover-content .popover-user-body .rating{margin-bottom:0px;
+    text-align: center;}
 
 .rating {margin: 10px auto 10px; width: 12em;}
 .rating fieldset {position: relative;}
