@@ -629,23 +629,6 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     color: #fff !important;
 }
 
-.btn.btn-grey {background-color: #D0D0D0 !important;}
-.btn.btn-grey:hover,
-.btn.btn-grey:active,
-.btn.btn-grey:focus {background-color: #A5A5A5 !important;}
-.btn.btn-grey.inverted {
-    background-color: #fff !important;
-    border: 1px solid #20a2ea ;
-    color: #20a2ea !important;
-    /*margin: 0 0 6px 0;*/
-}
-.btn.btn-grey.inverted:hover,
-.btn.btn-grey.inverted:active,
-.btn.btn-grey.inverted:focus {
-    background-color: #20a2ea !important;
-    color: #fff !important;
-}
-
 .btn.inverted {
     background-color: #fff !important;
     border: 1px solid #ff9431 ;
@@ -711,7 +694,6 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 }
 .btn.contact {
     width: 105px;
-    padding: 8px 8px !important
 }
 .btn.contact i{
     margin-right: 6px;
@@ -1209,7 +1191,8 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .header-campaign .qq-upload-drop-area {border-color: #dedede;}
 .header-campaign .qq-upload-button {line-height: 1; padding: 0;}
 
-.tags-campaign .bootstrap-tagsinput {width: 100%;}
+.tags-campaign .bootstrap-tagsinput {width: 100%;border:1px solid #DDDDDD; box-shadow: none;}
+.tags-campaign .bootstrap-tagsinput.focus {border:1px solid #20a2ea;}
 .tags-campaign .tag-events { padding-left:2em;margin-top:1em;}
 
 
@@ -1386,7 +1369,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #campaignsList > li > p,
 #campaignsList > li > ul.list-campaign-stats > li,
 #campaignsList > li > a {font-size: 16px; font-size: 1.6rem; line-height: 1.2;}
-#campaignsList > li > ul.list-campaign-stats {padding: 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
+#campaignsList > li > ul.list-campaign-stats {padding: 10px 0 0 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
 #campaignsList > li > ul.list-campaign-stats > li {display: inline-block; margin: 0; width: 30%; text-align: center; font-size: 15px; font-size: 1.5rem;}
 #campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 16px; font-size: 1.6rem; display: block; margin-bottom: 2px;}
 #campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
@@ -1848,9 +1831,10 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .user a.popover-trigger:hover span,
 .user a.popover-trigger:active span,
 .user a.popover-trigger:focus span {text-decoration: underline;}
-.edit-user .user .popover-trigger:hover,
-.edit-user .user .popover-trigger:active,
-.edit-user .user .popover-trigger:focus {text-decoration: none;}
+.user a.popover-trigger:hover,
+.user a.popover-trigger:active,
+.user a.popover-trigger:focus {text-decoration: none;}
+
 .user-list-images li .popover-trigger .user-img {margin: 4px 2px 0 0;}
 .user-list-images .more-users,
 .user-list-followers .more-users {margin: 0;}
@@ -4110,7 +4094,8 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 
 .user .popover-content {padding: 6px}
 .user .popover-content .popover-user-body{margin-top:-8px;}
-.user .popover-content .popover-user-body .rating{margin-bottom:0px;}
+.user .popover-content .popover-user-body .rating{margin-bottom:0px;
+    text-align: center;}
 
 .rating {margin: 10px auto 10px; width: 12em;}
 .rating fieldset {position: relative;}
@@ -5778,7 +5763,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box-ppal.import-contacts .bootstrap-filestyle {margin-bottom: 40px;}
     .box-ppal.import-contacts-videos {padding: 50px;}
     .box-ppal.import-contacts-videos iframe {margin-bottom: 40px;}
-    .box-ppal.import-contacts.csv input.btn {float: right; width: 22%; margin: 0;}
+    .box-ppal.import-contacts.csv input.btn {float: right; width: 22%; margin: 0; padding: 11px 24px !important}
 
 
     /* CAMPAIGNS */
@@ -5956,7 +5941,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .team > section > .box-ppal{padding:0; margin:0; background-color: transparent; border:0}
 
     /*.user-list-followers .user > .actions {float: right; margin: -35px 0 0 0 !important;}*/
-    .user-list-followers .user > .actions .btn.follow {-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
+    .user-list-followers .user > .actions .btn.follow{-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
+    .popover-user-header .btn.follow{-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 13px 0 0 0!important; width: 80px; padding:2px 2px 1px 2px!important;}
 
     .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
     .arrow2 {right: 24px;}
@@ -6221,7 +6207,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .campaignDelete, .contactDelete {right: 5px;}
     .campaignStats, .contactStats , #campaignsList .campaignEdit {right: 30px;}
     .debateItem .campaignStats {right: 60px;}
-    #campaignsList > li > ul.list-campaign-stats {width: 36%; margin-top: 10px;}
+    #campaignsList > li > ul.list-campaign-stats {width: 36%;}
     #campaignsList > li h3, #campaignsList > li .name {padding-right: 48%;}
 
     /* NEW / EDIT CONTACT */
@@ -6333,7 +6319,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .boxes.performance a.improve {font-size: 24px; font-size: 2.4rem;}
     #info-sup-scroll .laley {font-size: 25px; font-size: 2.5rem;}
     .navbar-form {margin: 5px 4px 4px 22%;}
-    .btn {margin: 6px 0 0 8px;}
+    /*.btn {margin: 6px 0 0 8px;}*/
     .container-fluid.userprofile #adminActions{top: 15px;}
     .kakareo footer {font-size: 14px; font-size: 1.4rem;}
     .kakareo h1 {font-size: 20px; font-size: 2rem;}
@@ -7616,7 +7602,7 @@ button.btn-see-more {
 }
 .leader-post > .footer .comment-counter button {
     font-size: 25px;
-    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
     color: #D0D0D0;
     text-decoration: none;
     border: none;
@@ -7704,7 +7690,6 @@ div [class^='comment-box col-'] {
 }
 
 .comment-box .publish {
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
     font-size: 16px;
 }
 
@@ -8510,7 +8495,6 @@ form.dark {
     margin: 0 auto;
     margin-bottom: 60px;
 }
-
 /********************************/
 /*          Media Queries       */
 /********************************/

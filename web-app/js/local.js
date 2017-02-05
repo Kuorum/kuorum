@@ -315,6 +315,10 @@ function pageLoadingOn (){
 function pageLoadingOff (){
     $('html').removeClass('loading');
 }
+
+function isPageLoading(){
+    return $('html').hasClass('loading');
+}
 $(document).ready(function() {
 
     // highlight search resultas with mark.js for list.js
