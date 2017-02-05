@@ -8087,7 +8087,7 @@ div [class^='comment-box col-'] {
     font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
 }
 
-.landing-2 .row.light {
+.landing-2 .light {
     background-color: #fbfbfb;
 }
 
@@ -8226,24 +8226,35 @@ div [class^='comment-box col-'] {
   background-position: center center;
   background-repeat: no-repeat;
 }
-.fade-carousel .slides .slide-1 {
+
+.fade-carousel .slides .slide-1.leaders {
     background-image: url('../images/landing/leaders-01.jpg'); 
 }
-.fade-carousel .slides .slide-2 {
+.fade-carousel .slides .slide-2.leaders {
     background-image: url('../images/landing/leaders-02.jpg'); 
 }
-.fade-carousel .slides .slide-3 {
+.fade-carousel .slides .slide-3.leaders {
     background-image: url('../images/landing/leaders-03.jpg'); 
 }
 
-/********************************/
-/*          Media Queries       */
-/********************************/
-@media screen and (min-width: 980px){
-    .hero { width: 980px; }    
+.fade-carousel .slides .slide-1.corporations {
+    background-image: url('../images/landing/corporations-01.jpg'); 
 }
-@media screen and (max-width: 640px){
-    .hero h1 { font-size: 4em; }    
+.fade-carousel .slides .slide-2.corporations {
+    background-image: url('../images/landing/corporations-02.jpg'); 
+}
+.fade-carousel .slides .slide-3.corporations {
+    background-image: url('../images/landing/corporations-03.jpg'); 
+}
+
+.fade-carousel .slides .slide-1.organizations {
+    background-image: url('../images/landing/organizations-01.jpg'); 
+}
+.fade-carousel .slides .slide-2.organizations {
+    background-image: url('../images/landing/organizations-02.jpg'); 
+}
+.fade-carousel .slides .slide-3.organizations {
+    background-image: url('../images/landing/organizations-03.jpg'); 
 }
 
 /** form **/
@@ -8365,6 +8376,10 @@ form.dark {
     padding: 30px;
 }
 
+.case-study .content .btn {
+    font-size: 25px !important;
+}
+
 .case-study .content form {
     margin: 60px 0 30px 0;
 }
@@ -8375,6 +8390,7 @@ form.dark {
 }
 
 .case-study .content form input {
+    min-height: 55px;
     width: 100%;
 }
 
@@ -8410,6 +8426,29 @@ form.dark {
     width: 175px;
     margin: 0 auto;
     margin-bottom: 60px;
+}
+
+/** engange **/
+#engage {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    text-align: center;
+}
+
+#engage h1 {
+    padding-bottom: 60px;
+    font-weight: bold;
+}
+
+#engage h2 {
+    font-size: 20px;
+    padding-bottom: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#engage p {
+    font-size: 20px;
 }
 
 /** organizations **/
@@ -8470,4 +8509,49 @@ form.dark {
     width: 175px;
     margin: 0 auto;
     margin-bottom: 60px;
+}
+
+/********************************/
+/*          Media Queries       */
+/********************************/
+@media screen and (min-width: 980px){
+    .fade-carousel .content { width: 980px; }    
+}
+@media screen and (max-width: 640px){
+    
+    .fade-carousel .content h1 {
+        font-size: 45px;
+    }
+
+    .fade-carousel .slides .slide-1, 
+    .fade-carousel .slides .slide-2,
+    .fade-carousel .slides .slide-3 {
+        background-position: initial;
+    }
+
+    .fade-carousel .indicators .carousel-indicators {
+        text-align: center;
+    }
+
+    .img-full-container img {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .img-full-container.left {
+        display: inline-block;
+        position: initial;
+    }
+
+    .globus {
+        padding: 0;
+    }
+
+    .case-study .content h3 {
+        font-size: 25px;
+    }
+
+    #engage {
+        padding-bottom: 0;
+    }
 }
