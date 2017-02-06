@@ -8337,14 +8337,14 @@ form.dark {
 .main.case-study {
     position: relative;
     padding: 0;
+    height: 674px;
 }
 
 .main.case-study .image {
     background-image: url('../images/landing/case-study.jpg');
     background-size: cover;
-    background-position: center center;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 100%;
 }
 
 .case-study .overlay {
