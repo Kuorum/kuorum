@@ -420,7 +420,7 @@ header.landing .nav > li > .navbar-link.active {
     cursor: default; 
     pointer-events: none;
     font-weight: bold;
-    /*color: #545454;*/
+    color: #545454;
 }
 
 header.landing .nav > li > .navbar-link.special.active {margin-top: 0px;background-color: #fff; color:#ccc; margin-top: 2px;}
@@ -8155,7 +8155,7 @@ div [class^='comment-box col-'] {
 }
 
 .fade-carousel .content hgroup {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 }
 
 .fade-carousel .content h1 {
@@ -8170,7 +8170,7 @@ div [class^='comment-box col-'] {
 .fade-carousel .content h3 {
     font-size: 25px;
     margin: 0;
-    padding: 30px;
+    padding: 25px;
 }
 
 .fade-carousel .content .btn {
