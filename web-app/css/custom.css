@@ -8542,4 +8542,8 @@ form.dark {
     #engage {
         padding-bottom: 0;
     }
+
+    .case-study .content form .form-group {
+        padding-right: 0;
+    }
 }
