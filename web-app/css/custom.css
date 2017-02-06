@@ -8334,20 +8334,20 @@ form.dark {
 }
 
 /** case-study **/
-.main.case-study {
+#case-study {
     position: relative;
     padding: 0;
-    height: 674px;
+    height: 674px !important;
 }
 
-.main.case-study .image {
+#case-study .image {
     background-image: url('../images/landing/case-study.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
 }
 
-.case-study .overlay {
+#case-study .overlay {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -8356,7 +8356,7 @@ form.dark {
     opacity: .4;
 }
 
-.case-study .content {
+#case-study .content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -8370,7 +8370,7 @@ form.dark {
               transform: translate3d(-50%,-50%,0);
 }
 
-.case-study .content h3 {
+#case-study .content h3 {
     margin-bottom: 30px;
     font-size: 33px;
     margin: 0;
@@ -8378,20 +8378,20 @@ form.dark {
     line-height: 41px;
 }
 
-.case-study .content .btn {
+#case-study .content .btn {
     font-size: 25px !important;
 }
 
-.case-study .content form {
+#case-study .content form {
     margin: 60px 0 30px 0;
 }
 
-.case-study .content form .form-group {
+#case-study .content form .form-group {
     padding: 0;
     padding-right: 25px;
 }
 
-.case-study .content form input {
+#case-study .content form input {
     min-height: 55px;
     width: 100%;
 }
