@@ -143,95 +143,59 @@
     <div class="row main landing">
         <section id="main" role="main" class="landing clearfix">
             <!-- ^fade-carousel !-->
-            <div id="carousel-new-landing" class="carousel slide fade-carousel" data-ride="carousel" data-interval="5000">
+            <div id="carousel-new-landing" class="carousel slide fade-carousel" data-ride="carousel" data-interval="5000" data-pause="null">
                 <!-- Indicators -->
                 <div class="container indicators">
                     <ol class="carousel-indicators">
                         <li data-target="#carousel-new-landing" data-slide-to="0" class="active"></li>
                         <li data-target="#carousel-new-landing" data-slide-to="1"></li>
                         <li data-target="#carousel-new-landing" data-slide-to="2"></li>
-                        <li data-target="#carousel-new-landing" data-slide-to="3"></li>
-                        <li data-target="#carousel-new-landing" data-slide-to="4"></li>
-                        <li data-target="#carousel-new-landing" data-slide-to="5"></li>
-                        <li data-target="#carousel-new-landing" data-slide-to="6"></li>
-                        <li data-target="#carousel-new-landing" data-slide-to="7"></li>
-                        <li data-target="#carousel-new-landing" data-slide-to="8"></li>
                         <li class="text hidden-xs">Name of someone who achieved something thanks to us</li>
                     </ol>
                 </div>
-                <!-- Wrapper for slides -->
+                <!-- Wrapper for slides --> 
+                <div class="content container">
+                    <hgroup>
+                        <h1>Be a great leader</h1>
+                        <h3 class="hidden-xs">Lead your passion to the next level. Engage with your audiences to bring about change.</h3>
+                    </hgroup>
+                    <a href="#how-it-works" class="btn btn-lg btn-blue-light" data-effect="scroll">How it works</a>
+                    </br class="hidden-xs">
+                    <form action="" method="post" name="" id="" class="form-inline dark hidden-xs" role="form">
+                        <fieldset>
+                            <div class="form-group col-lg-4">
+                                <label for="first-name" class="sr-only">First Name</label>
+                                <input type="text" name="first-name" class="form-control input-lg" id="first-name" required="" placeholder="First name" aria-required="true">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="email-press" class="sr-only">Email</label>
+                                <input type="email" name="email-press" class="form-control input-lg" id="email-press" required="" placeholder="Email" aria-required="true">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-blue btn-lg col-lg-4">Sign up now</button>
+                        </fieldset>
+                    </form>
+                    <p class="conditions hidden-xs">You are accepting the <a href="#" target="_blank">service conditions</a></p>
+                </div>
                 <div class="carousel-inner" role="listbox">
-                    <div class="content container">
-                            <hgroup>
-                                <h1>Be a great leader</h1>
-                                <h3 class="hidden-xs">Lead your passion to the next level. Engage with your audiences to bring about change.</h3>
-                            </hgroup>
-                            <a href="#how-it-works" class="btn btn-lg btn-blue-light" data-effect="scroll">How it works</a>
-                            </br class="hidden-xs">
-                            <form action="" method="post" name="" id="" class="form-inline dark hidden-xs" role="form">
-                                <fieldset>
-                                    <div class="form-group col-lg-4">
-                                        <label for="first-name" class="sr-only">First Name</label>
-                                        <input type="text" name="first-name" class="form-control input-lg" id="first-name" required="" placeholder="First name" aria-required="true">
-                                    </div>
-                                    <div class="form-group col-lg-4">
-                                        <label for="email-press" class="sr-only">Email</label>
-                                        <input type="email" name="email-press" class="form-control input-lg" id="email-press" required="" placeholder="Email" aria-required="true">
-                                    </div>
-                                    
-                                    <button type="submit" class="btn btn-blue btn-lg col-lg-4">Sign up now</button>
-                                </fieldset>
-                            </form>
-                            <p class="conditions hidden-xs">You are accepting the <a href="#" target="_blank">service conditions</a></p>
-                        </div>
-                    <!-- slide 1 !-->
+                <!-- leaders !-->
                     <div class="item slides active">
                         <div class="slide-1 leaders">
                             <div class="overlay"></div>
                         </div>
                     </div> <!-- slide 1 leaders !-->
-                    
+                    <!--
                     <div class="item slides">
                         <div class="slide-2 leaders">
                             <div class="overlay"></div>
                         </div>
                     </div> <!-- slide 2 leaders !-->
+                    <!--
                     <div class="item slides">
                         <div class="slide-3 leaders">
                             <div class="overlay"></div>
                         </div>
                     </div> <!-- slide 3 leaders !-->
-                    <!-- corporations !-->
-                    <div class="item slides">
-                        <div class="slide-1 corporations">
-                            <div class="overlay"></div>
-                        </div>
-                    </div> <!-- slide 1 corporations !-->
-                    <div class="item slides">
-                        <div class="slide-2 corporations">
-                            <div class="overlay"></div>
-                        </div>
-                    </div> <!-- slide 2 corporations !-->
-                    <div class="item slides">
-                        <div class="slide-3 corporations">
-                            <div class="overlay"></div>
-                        </div>
-                    </div> <!-- slide 3 corporations !-->
-                    <div class="item slides">
-                        <div class="slide-1 organizations">
-                            <div class="overlay"></div>
-                        </div>
-                    </div> <!-- slide 1 organizations !-->
-                    <div class="item slides">
-                        <div class="slide-2 organizations">
-                            <div class="overlay"></div>
-                        </div>
-                    </div> <!-- slide 2 organizations !-->
-                    <div class="item slides">
-                        <div class="slide-3 organizations">
-                            <div class="overlay"></div>
-                        </div>
-                    </div> <!-- slide 3 organizations !-->
                 </div>
             </div>
         </section>
@@ -243,17 +207,17 @@
                 <h1>Build teams that bring about change</h1>
                 <div class="row">
                     <ul class="globus">
-                        <li class="col-sm-5 col-md-4">
+                        <li class="col-sm-4 col-md-4">
                             <img class="img-responsive" src="images/landing/onboarding-01.png" alt="step 1">
                             <h2>Sign up</h2>
                             <p>Sign up in less than a minute. Set up your profile and state the causes you care about.</p>
                         </li>
-                        <li class="col-sm-5 col-sm-offset-2 col-md-4 col-md-offset-0">
+                        <li class="col-sm-4 col-md-4">
                             <img class="img-responsive" src="images/landing/onboarding-02.png" alt="step 2">
                             <h2>Connect</h2>
                             <p>Upload your contacts. Easily segment yout audiences using customized and behavioral tags.</p>
                         </li>
-                        <li class="col-sm-5 col-md-4">
+                        <li class="col-sm-4 col-md-4">
                             <img class="img-responsive" src="images/landing/onboarding-03.png" alt="step 3">
                             <h2>Engage</h2>
                             <p>Open debates, surveys, petitions and events. Measure your efficiency and bring about change.</p>
@@ -264,7 +228,7 @@
         </div>
     </div>
 
-    <div class="main special full-width full-padding container-overflow-image">
+    <div class="full-width container-overflow-image">
         <div class="container">
             <section class="row" id="engage">
                 <div class="col-md-6">
@@ -283,7 +247,7 @@
                             <div class="col-md-11 col-xs-11"><span>Optimization</span> - Test with different subjects and contents, idenfy the most engaged individuals and increase the efficiency of your fundrassing or advocacy campaigns.</div>
                         </li>
                     </ul>
-                    <div class="col-md-6 col-md-offset-3">
+                    <div class="col-md-8 col-md-offset-2">
                         <a href="/es/sign-up" class="btn btn-lg btn-sign-up">
                             Sign up for free
                         </a>
@@ -328,12 +292,12 @@
         </div>
     </div>
 
-    <div class="main special case-study">
+    <div id="case-study">
         <div class="image">
             <div class="overlay"></div>
         </div>
         <div class="content container">
-            <div class="col-md-8 col-md-offset-4">
+            <div class="col-md-8 col-md-offset-5">
                 <h3>Discover the successful story of those leaders who are changing the world.</h3>
                 <form action="" method="post" name="freeTrial" id="freeTrial" class="form-inline dark" role="form">
                     <fieldset>
@@ -348,7 +312,7 @@
         </div>
     </div>
 
-    <div class="main special full-width full-padding container-overflow-image">
+    <div class="full-width container-overflow-image">
         <div class="container">
             <section id="progress">
                 <div class="row">
@@ -364,14 +328,14 @@
                             </li>
                             <li class="clearfix">
                                 <div class="col-md-1 col-xs-1"><i class="fa fa-check" aria-hidden="true"></i></div>
-                                <div class="col-md-11 col-xs-11"><span>Audience segmentation</span> - Send segmented newsletters to your contacts and see who opens and clicks in your emails.</div>
+                                <div class="col-md-11 col-xs-11"><span>Gamification</span> - Let your followers shine. Their achievements will be recorded on thier profile and will qualify them to pursue each time more ambitious goals. </div>
                             </li>
                             <li class="clearfix">
                                 <div class="col-md-1 col-xs-1"><i class="fa fa-check" aria-hidden="true"></i></div>
-                                <div class="col-md-11 col-xs-11"><span>Optimization</span> - Test with different subjects and contents, idenfy the most engaged individuals and increase the efficiency of your fundrassing or advocacy campaigns.</div>
+                                <div class="col-md-11 col-xs-11"><span>API available</span> - Have access to real time data about the activity in the platform.</div>
                             </li>
                         </ul>
-                        <div class="col-md-6 col-md-offset-3">
+                        <div class="col-md-8 col-md-offset-2">
                             <a href="/es/sign-up" class="btn btn-lg btn-sign-up">
                                 Sign up for free
                             </a>
@@ -455,15 +419,15 @@
         var $carouselContainer = $(event.target);
         var $carouselText = $($carouselContainer.find('li.text')[0]);
         var messages = {
-            'slide-1': 'texto 1',
-            'slide-2': 'texto 2',
-            'slide-3': 'texto 3',
-            'slide-4': 'texto 4',
-            'slide-5': 'texto 5',
-            'slide-6': 'texto 6',
-            'slide-7': 'texto 7',
-            'slide-8': 'texto 8',
-            'slide-9': 'texto 9',
+            'slide-0': 'texto 1',
+            'slide-1': 'texto 2',
+            'slide-2': 'texto 3',
+            'slide-3': 'texto 4',
+            'slide-4': 'texto 5',
+            'slide-5': 'texto 6',
+            'slide-6': 'texto 7',
+            'slide-7': 'texto 8',
+            'slide-8': 'texto 9',
         }
         $carouselText.slideToggle('slow', function () {
             var activeSlide = $carouselContainer.find('.carousel-indicators li.active').attr('data-slide-to');

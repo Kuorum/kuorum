@@ -420,7 +420,7 @@ header.landing .nav > li > .navbar-link.active {
     cursor: default; 
     pointer-events: none;
     font-weight: bold;
-    /*color: #545454;*/
+    color: #545454;
 }
 
 header.landing .nav > li > .navbar-link.special.active {margin-top: 0px;background-color: #fff; color:#ccc; margin-top: 2px;}
@@ -1193,7 +1193,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 .tags-campaign .bootstrap-tagsinput {width: 100%;border:1px solid #DDDDDD; box-shadow: none;}
 .tags-campaign .bootstrap-tagsinput.focus {border:1px solid #20a2ea;}
-.tags-campaign .tag-events { padding-left:2em;margin-top:1em;}
+.tags-campaign .tag-events { padding-left:2em;margin-top:0.6em;}
 
 
 #filterContacts {border: 1px solid #20a2ea; border-radius: 2px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #20a2ea;}
@@ -7227,8 +7227,9 @@ header .header-msg h6:hover{
 }
 
 .hint {
-    color: #d0d0d0;
+    color: #a8a8a8;
     font-style: italic;
+    font-size: 1rem;
 }
 
 #enterTimeZone .modal-header h4{margin:0px}
@@ -8067,6 +8068,11 @@ div [class^='comment-box col-'] {
 }
 
 /** new-landing **/
+.landing-2 h1 {
+    font-size: 32px;
+    line-height: 40px;
+}
+
 .landing-2 header + .row.main.landing {
     margin-top: 0;
 }
@@ -8074,6 +8080,8 @@ div [class^='comment-box col-'] {
 .landing-2 {
     padding: 0;
     font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .landing-2 .light {
@@ -8084,11 +8092,12 @@ div [class^='comment-box col-'] {
 
 .carousel.slide.fade-carousel {
     position: relative;
-    height: 100vh;  
+    height: 674px;
+    margin-top: 65px;
 }
 
-.fade-carousel .carousel-inner .item {
-    height: 100vh;
+.fade-carousel .carousel-inner {
+    height: 100%;
 }
 
 .fade-carousel .indicators {
@@ -8104,13 +8113,14 @@ div [class^='comment-box col-'] {
     bottom: 40px;
     left: 0;
     z-index: 15;
-    width: 100%;
-    margin: 0;
+    width: 1100px;
+    margin: 0 auto;
     padding: 0;
     list-style: none;
     text-align: left;
     padding-left: 15px;
     padding-right: 15px;
+    right: 0;
 }
 
 .fade-carousel .carousel-indicators > li {
@@ -8160,11 +8170,12 @@ div [class^='comment-box col-'] {
 }
 
 .fade-carousel .content hgroup {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 }
 
 .fade-carousel .content h1 {
     font-size: 66px;
+    line-height: 70px;
     font-weight: bold;
     margin: 0;
     padding: 0;
@@ -8175,7 +8186,7 @@ div [class^='comment-box col-'] {
 .fade-carousel .content h3 {
     font-size: 25px;
     margin: 0;
-    padding: 30px;
+    padding-top: 25px;
 }
 
 .fade-carousel .content .btn {
@@ -8198,6 +8209,7 @@ div [class^='comment-box col-'] {
 
 .fade-carousel .content .conditions {
     color: #c7c6c6;
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
 }
 
 .fade-carousel .content .conditions a {
@@ -8250,7 +8262,7 @@ div [class^='comment-box col-'] {
 
 form.dark {
     background-color: rgba(0,0,0,0.4);
-    padding: 30px;
+    padding: 25px;
 }
 
 /** landing specific sections **/
@@ -8281,15 +8293,17 @@ form.dark {
 
 .container-overflow-image ul.checklist li div {
     padding: 0;
+    line-height: 31px;    
 }
 
 .container-overflow-image ul.checklist li span{
     font-weight: bold;
+    font-size: 20px;
 }
 
 .img-full-container {
     position: absolute;
-    top: 42px;
+    top: 60px;
     right: 0;
     left: 56%;
     overflow: hidden;
@@ -8298,10 +8312,10 @@ form.dark {
 
 .img-full-container.left {
     position: absolute;
-    top: 0;
+    top: 60px;
     left: -32%;
     overflow: visible;
-    width: 75%;
+    width: 72%;
 }
 
 .img-full-container.pull-right {
@@ -8320,20 +8334,20 @@ form.dark {
 }
 
 /** case-study **/
-.main.case-study {
+#case-study {
     position: relative;
     padding: 0;
+    height: 674px !important;
 }
 
-.main.case-study .image {
+#case-study .image {
     background-image: url('../images/landing/case-study.jpg');
     background-size: cover;
-    background-position: center center;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 100%;
 }
 
-.case-study .overlay {
+#case-study .overlay {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -8342,7 +8356,7 @@ form.dark {
     opacity: .4;
 }
 
-.case-study .content {
+#case-study .content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -8356,27 +8370,28 @@ form.dark {
               transform: translate3d(-50%,-50%,0);
 }
 
-.case-study .content h3 {
+#case-study .content h3 {
     margin-bottom: 30px;
-    font-size: 35px;
+    font-size: 33px;
     margin: 0;
     padding: 30px;
+    line-height: 41px;
 }
 
-.case-study .content .btn {
+#case-study .content .btn {
     font-size: 25px !important;
 }
 
-.case-study .content form {
+#case-study .content form {
     margin: 60px 0 30px 0;
 }
 
-.case-study .content form .form-group {
+#case-study .content form .form-group {
     padding: 0;
     padding-right: 25px;
 }
 
-.case-study .content form input {
+#case-study .content form input {
     min-height: 55px;
     width: 100%;
 }
@@ -8403,6 +8418,7 @@ form.dark {
 
 #how-it-works p {
     font-size: 20px;
+    line-height: 31px;
 }
 
 #how-it-works ul.globus {
@@ -8426,6 +8442,7 @@ form.dark {
 #engage h1 {
     padding-bottom: 60px;
     font-weight: bold;
+    text-align: left;
 }
 
 #engage h2 {
@@ -8468,6 +8485,8 @@ form.dark {
 
 #organizations p.quote {
     font-size: 25px;
+    line-height: 33px;
+    font-style: italic;
 }
 
 #organizations .testimonial .header {
@@ -8502,15 +8521,46 @@ form.dark {
 /** progress **/
 #progress {
     position: relative;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    text-align: center;
+}
+
+#progress h1 {
+    text-align: left;
 }
 
 /********************************/
 /*          Media Queries       */
 /********************************/
-@media screen and (min-width: 980px){
-    .fade-carousel .content { width: 980px; }    
+@media screen and (min-width: 980px) {
+    .fade-carousel .content { 
+        width: 1100px; 
+    }
 }
-@media screen and (max-width: 640px){
+
+@media screen and (max-width: 980px) {
+    .img-full-container {
+        position: relative;
+        top: 0;
+        right: 0;
+        left: 0;
+        overflow: hidden;
+        width: 100%;
+        margin-top: 35px;
+    }
+
+    .img-full-container.left {
+        position: relative;
+        top: 0;
+        left: 0;
+        overflow: visible;
+        width: 100%;
+        margin-bottom: 35px;
+    }
+}
+
+@media screen and (max-width: 640px) {
     
     .fade-carousel .content h1 {
         font-size: 45px;

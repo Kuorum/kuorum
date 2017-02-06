@@ -91,7 +91,7 @@ $(window).on('resize',function() {
         $(this).css("height", width / 5);
     });
 
-    if (window.matchMedia("(min-width: 768px)").matches) {
+    if (window.matchMedia && window.matchMedia("(min-width: 768px)").matches) {
         $('.header-campaign').each(function() {
             var width = $(this).width();
             $(this).css("height", width / 8.5);
@@ -103,14 +103,11 @@ $(window).on('resize',function() {
         });
     }
 
-
-
 });
 
 $(document).ready(function() {
     $(window).trigger('resize');
 });
-
 
 
 // aparece la info en la franja superior bajo el header al hacer scroll
@@ -989,7 +986,7 @@ $(document).ready(function() {
     });
 
     // 3 items a partir de 768px
-    if (window.matchMedia("(min-width: 768px)").matches) {
+    if (window.matchMedia && window.matchMedia("(min-width: 768px)").matches) {
 
         $('.carousel.news .item').each(function(){
           var next = $(this).next();
@@ -1063,7 +1060,7 @@ $(document).ready(function() {
     $(window).on("load resize",function(e){
 
         // elimina el vídeo de la landing por debajo de 1025px
-        if (window.matchMedia('only screen and (max-width: 1024px)').matches) {
+        if (window.matchMedia && window.matchMedia('only screen and (max-width: 1024px)').matches) {
             $('.landing .full-video').find('video').remove();
         }
 
@@ -1172,6 +1169,8 @@ $(document).ready(function() {
     });
 
 
+    // Timeago
+    $.timeago.settings.allowFuture = true;
     // inicializa formato fechas
     $("time.timeago").timeago();
 
