@@ -8068,6 +8068,11 @@ div [class^='comment-box col-'] {
 }
 
 /** new-landing **/
+.landing-2 h1 {
+    font-size: 32px;
+    line-height: 40px;
+}
+
 .landing-2 header + .row.main.landing {
     margin-top: 0;
 }
@@ -8285,15 +8290,17 @@ form.dark {
 
 .container-overflow-image ul.checklist li div {
     padding: 0;
+    line-height: 31px;    
 }
 
 .container-overflow-image ul.checklist li span{
     font-weight: bold;
+    font-size: 20px;
 }
 
 .img-full-container {
     position: absolute;
-    top: 42px;
+    top: 60px;
     right: 0;
     left: 56%;
     overflow: hidden;
@@ -8362,9 +8369,10 @@ form.dark {
 
 .case-study .content h3 {
     margin-bottom: 30px;
-    font-size: 35px;
+    font-size: 33px;
     margin: 0;
     padding: 30px;
+    line-height: 41px;
 }
 
 .case-study .content .btn {
@@ -8407,6 +8415,7 @@ form.dark {
 
 #how-it-works p {
     font-size: 20px;
+    line-height: 31px;
 }
 
 #how-it-works ul.globus {
@@ -8430,6 +8439,7 @@ form.dark {
 #engage h1 {
     padding-bottom: 60px;
     font-weight: bold;
+    text-align: left;
 }
 
 #engage h2 {
@@ -8472,6 +8482,8 @@ form.dark {
 
 #organizations p.quote {
     font-size: 25px;
+    line-height: 33px;
+    font-style: italic;
 }
 
 #organizations .testimonial .header {
@@ -8509,6 +8521,10 @@ form.dark {
     padding-top: 60px;
     padding-bottom: 60px;
     text-align: center;
+}
+
+#progress h1 {
+    text-align: left;
 }
 
 /********************************/
