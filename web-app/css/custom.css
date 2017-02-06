@@ -8175,6 +8175,7 @@ div [class^='comment-box col-'] {
 
 .fade-carousel .content h1 {
     font-size: 66px;
+    line-height: 70px;
     font-weight: bold;
     margin: 0;
     padding: 0;
