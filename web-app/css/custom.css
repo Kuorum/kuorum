@@ -8106,6 +8106,7 @@ div [class^='comment-box col-'] {
     left: 0;
     right: 0;
     bottom: 0px;
+    max-width: 1100px;
 }
 
 .fade-carousel .indicators .carousel-indicators {
@@ -8113,7 +8114,7 @@ div [class^='comment-box col-'] {
     bottom: 40px;
     left: 0;
     z-index: 15;
-    width: 1100px;
+    width: 100%;
     margin: 0 auto;
     padding: 0;
     list-style: none;
@@ -8570,10 +8571,6 @@ form.dark {
     .fade-carousel .slides .slide-2,
     .fade-carousel .slides .slide-3 {
         background-position: initial;
-    }
-
-    .fade-carousel .indicators .carousel-indicators {
-        text-align: center;
     }
 
     .img-full-container img {
