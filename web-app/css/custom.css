@@ -8127,8 +8127,8 @@ div [class^='comment-box col-'] {
     margin: 0px 2px;
     border-color: white;
     border: 3px solid;
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
 }
 
 .fade-carousel .carousel-indicators > li.text {
@@ -8139,6 +8139,7 @@ div [class^='comment-box col-'] {
     text-indent: 0px;
     margin-left: 25px;
     font-size: 20px;
+    font-weight: bold;
 }
 
 .fade-carousel .carousel-indicators > li.active {
