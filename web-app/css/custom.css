@@ -8293,9 +8293,10 @@ form.dark {
 
 .img-full-container.left {
     position: absolute;
-    top: 42px;
-    left: -10%;
+    top: 0;
+    left: -32%;
     overflow: visible;
+    width: 75%;
 }
 
 .img-full-container.pull-right {
@@ -8492,6 +8493,12 @@ form.dark {
     margin: 0 auto;
     margin-bottom: 60px;
 }
+
+/** progress **/
+#progress {
+    position: relative;
+}
+
 /********************************/
 /*          Media Queries       */
 /********************************/
