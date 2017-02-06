@@ -8068,6 +8068,13 @@ div [class^='comment-box col-'] {
 }
 
 /** new-landing **/
+.landing-2 {
+    padding: 0;
+    font-family: Arial;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
 .landing-2 h1 {
     font-size: 32px;
     line-height: 40px;
@@ -8075,13 +8082,6 @@ div [class^='comment-box col-'] {
 
 .landing-2 header + .row.main.landing {
     margin-top: 0;
-}
-
-.landing-2 {
-    padding: 0;
-    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
-    -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 }
 
 .landing-2 .light {
@@ -8127,8 +8127,8 @@ div [class^='comment-box col-'] {
     margin: 0px 2px;
     border-color: white;
     border: 3px solid;
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
 }
 
 .fade-carousel .carousel-indicators > li.text {
@@ -8139,6 +8139,7 @@ div [class^='comment-box col-'] {
     text-indent: 0px;
     margin-left: 25px;
     font-size: 20px;
+    font-weight: bold;
 }
 
 .fade-carousel .carousel-indicators > li.active {
@@ -8224,7 +8225,6 @@ div [class^='comment-box col-'] {
 .fade-carousel .slides .slide-3 {
   height: 100vh;
   background-size: cover;
-  background-position: center center;
   background-repeat: no-repeat;
 }
 
