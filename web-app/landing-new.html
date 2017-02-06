@@ -171,7 +171,7 @@
                                 <h1>Be a great leader</h1>
                                 <h3 class="hidden-xs">Lead your passion to the next level. Engage with your audiences to bring about change.</h3>
                             </hgroup>
-                            <a href="#how-it-works" class="btn btn-lg btn-blue-light">How it works</a>
+                            <a href="#how-it-works" class="btn btn-lg btn-blue-light" data-effect="scroll">How it works</a>
                             </br class="hidden-xs">
                             <form action="" method="post" name="" id="" class="form-inline dark hidden-xs" role="form">
                                 <fieldset>
@@ -624,8 +624,27 @@
 <script src="js/readmore.min.js"></script>
 <script src="js/highstock.js"></script>
 <script src="js/local.js"></script>
-<!-- el siguiente cargar al integrar -->
-<!-- <script src="js/custom.js"></script> -->
+<script>
+    $("[data-effect='scroll']").on('click', function(e) {
+
+    // prevent default anchor click behavior
+    e.preventDefault();
+
+    // store hash
+    var hash = this.hash;
+
+    // animate
+    $('html, body').animate({
+        scrollTop: $(hash).offset().top
+        }, 1000, function(){
+
+        // when done, add hash to url
+        // (default click behaviour)
+        window.location.hash = hash;
+        });
+
+    });
+</script>
 
 </body>
 </html>
