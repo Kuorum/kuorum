@@ -16,7 +16,7 @@
             url="${[mapping:'ajaxUploadFile']}"
             sizeLimit="${fileGroup.maxSize}"
             minSizeLimit="${kuorum.core.FileGroup.MIN_SIZE_IMAGE}"
-            allowedExtensions='["\'png\'", "\'gif\'", "\'jpeg\'", "\'jpg\'"]'
+            allowedExtensions='["\'png\'", "\'jpeg\'", "\'jpg\'", "\'JPG\'", "\'JPEG\'"]'
             messages='{
                     typeError: typeErrorText,
                     sizeError: sizeErrorText,
