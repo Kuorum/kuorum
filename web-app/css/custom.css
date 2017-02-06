@@ -1193,7 +1193,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 
 .tags-campaign .bootstrap-tagsinput {width: 100%;border:1px solid #DDDDDD; box-shadow: none;}
 .tags-campaign .bootstrap-tagsinput.focus {border:1px solid #20a2ea;}
-.tags-campaign .tag-events { padding-left:2em;margin-top:1em;}
+.tags-campaign .tag-events { padding-left:2em;margin-top:0.6em;}
 
 
 #filterContacts {border: 1px solid #20a2ea; border-radius: 2px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #20a2ea;}
@@ -7227,8 +7227,9 @@ header .header-msg h6:hover{
 }
 
 .hint {
-    color: #d0d0d0;
+    color: #a8a8a8;
     font-style: italic;
+    font-size: 1rem;
 }
 
 #enterTimeZone .modal-header h4{margin:0px}
