@@ -465,11 +465,11 @@ function FilterContacts() {
         },
         disableSendButtons:function(){
             $("#openCalendar").addClass("disabled");
-            $("#send").addClass("disabled");
+            $("#send, #send-debate").addClass("disabled");
         },
         enableSendButtons:function(){
             $("#openCalendar").removeClass("disabled");
-            $("#send").removeClass("disabled");
+            $("#send, #send-debate").removeClass("disabled");
         },
 
         campaignFilterRefresh:{
