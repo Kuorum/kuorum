@@ -8080,6 +8080,8 @@ div [class^='comment-box col-'] {
 .landing-2 {
     padding: 0;
     font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .landing-2 .light {
