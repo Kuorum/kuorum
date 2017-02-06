@@ -7205,6 +7205,11 @@ header .header-msg h6:hover{
     margin-bottom: 12px;
 }
 
+.hint {
+    color: #d0d0d0;
+    font-style: italic;
+}
+
 #enterTimeZone .modal-header h4{margin:0px}
 #enterTimeZone .modal-body fieldset.time-zone .form-group{margin: 0 0 20px 0}
 #enterTimeZone .modal-body fieldset.time-zone .form-group select[name='timeZoneId']{display: inline;width: 12em;}

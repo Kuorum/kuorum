@@ -352,7 +352,7 @@ class FormTagLib {
         "UTC  ${timeZone.rawOffset>=0?'+':''}${timeZone.rawOffset / (1000*3600)}"
     }
 
-    def tags={ attrs ->
+    def tags = { attrs ->
         def command = attrs.command
         def field = attrs.field
         def label = buildLabel(command, field, attrs.label)
@@ -360,8 +360,9 @@ class FormTagLib {
 //        List<String> tags =[]
 
         out << """
-            <label for="${field}" class="sr-only"><g:message code="tools.contact.list.contact.saveTags"/> </label>
+            <label for="${field}" class="sr-only">${g.message(code: 'tools.contact.list.contact.saveTags')}</label>
             <input id="${field}" name="${field}" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" value="${tags.join(",")}">
+            <span class="hint">${g.message(code: 'admin.createDebate.hint.setNewTag')}</span>
             """
     }
 
