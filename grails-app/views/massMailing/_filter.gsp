@@ -1,8 +1,8 @@
-<g:if test="${showOnly}">
+<g:if test="${showOnly && !hide}">
     <!-- Show only -->
     <fieldset class="form-group showOnly" id="toFilters">
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
-        <div class="col-sm-4">
+        <div class="col-sm-4 filter-name">
             <g:each in="${filters}" var="filter">
                 <g:if test="${command.filterId == filter.id}">
                     ${filter.name}
@@ -39,7 +39,7 @@
         </div>
     </fieldset>
 </g:if>
-<g:else>
+<g:elseif test="${!hide}">
     <fieldset class="form-group" id="toFilters">
         <label for="to" class="col-sm-2 col-md-1 control-label"><g:message code="tools.massMailing.fields.filter.to"/> :</label>
         <div class="col-sm-4 col-md-3">
@@ -79,4 +79,4 @@
     <div id="newFilterContainer">
         <g:render template="/contacts/filter/listFilterFieldSet" model="[filters:filters,anonymousFilter:anonymousFilter]"/>
     </div>
-</g:else>
+</g:elseif>

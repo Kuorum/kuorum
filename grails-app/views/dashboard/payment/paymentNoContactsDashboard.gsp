@@ -16,16 +16,5 @@
 
         <p><g:message code="dashboard.payment.noContacts.sendTestCampaign" args="[g.createLink(mapping: 'politicianMassMailingNew', params: [testFilter:true])]"/>:</p>
         <g:render template="/contacts/importOptions"/>
-        %{--<ul id="mails">--}%
-            %{--<li><a href="#" role="button" class="mail" id="gmail">Gmail</a></li>--}%
-            %{--<li><a href="#" role="button" class="mail" id="yahoo">Yahoo!</a></li>--}%
-            %{--<li><a href="#" role="button" class="mail" id="outlook">Outlook</a></li>--}%
-            %{--<li><a href="#" role="button" class="mail" id="uploadFile">Upload file</a></li>--}%
-        %{--</ul>--}%
-        %{--<p>--}%
-            %{--<g:link mapping="politicianContactImport" class="btn inverted btn-lg">--}%
-                %{--<g:message code="dashboard.payment.importContact"/>--}%
-            %{--</g:link>--}%
-        %{--</p>--}%
     </div>
 </content>

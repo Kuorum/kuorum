@@ -1050,7 +1050,6 @@ $(document).ready(function() {
         var $form = $(this).closest("form");
         var url = $form.attr("action");
         var myRate = $(this).val();
-
         $.ajax({
             url: url,
             data: {rate: myRate}
@@ -1084,6 +1083,7 @@ $(document).ready(function() {
                 $("#rating-social-share-modal-" + data.userId).modal("show");
             } else {
                 // Change only the invisible one
+                $form.children(".rating").html(i18n.politician.valuation.rate.success)
                 $form.parents('.popover').siblings('.popover:not(.in)').find("input[name=rating]").removeAttr("checked");
                 $form.parents('.popover').siblings('.popover:not(.in)').find("input[name=rating][value=" + newRate + "]").attr('checked', true);
                 $form.parents('.popover').siblings('.popover:not(.in)').find("input[name=rating][value=" + newRate + "]").prop("checked", true);

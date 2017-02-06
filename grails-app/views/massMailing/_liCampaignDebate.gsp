@@ -18,7 +18,7 @@
             - ${debate.anonymousFilter?.name?:g.message(code:'tools.massMailing.fields.filter.to.all')}
         </g:if>
     </p>
-    <ul>
+    <ul class="list-campaign-stats">
         <li class="recipients">
             <span class="recip-number"><campaignUtil:campaignsSent campaign="${debate.newsletter}"/></span>
             <g:message code="tools.massMailing.list.recipients"/>
@@ -32,12 +32,17 @@
             <g:message code="tools.massMailing.list.click"/>
         </li>
     </ul>
-    <g:if test="${debate.campaignStatusRSDTO == CampaignStatusRSDTO.SENT}">
-        <g:link mapping="politicianMassMailingShow" params="[campaignId: debate.newsletter.id]" role="button" class="campaignStats"><span class="fa fa-line-chart"></span> <span class="sr-only">Stats</span></g:link>
-    </g:if>
-
-    <g:link mapping="debateEdit" params="[debateId: debate.id]" role="button" class="campaignEdit"><span class="fa fa-edit"></span> <span class="sr-only">Edit</span></g:link>
+    <ul class="list-actions">
+        <g:if test="${debate.campaignStatusRSDTO == CampaignStatusRSDTO.SENT}">
+            <li>
+                <g:link mapping="politicianMassMailingShow" params="[campaignId: debate.newsletter.id]" role="button" class="campaignStats"><span class="fa fa-line-chart"></span> <span class="sr-only">Stats</span></g:link>
+            </li>
+        </g:if>
+        <li>
+            <g:link mapping="debateEdit" params="[debateId: debate.id]" role="button" class="campaignEdit"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
+        </li>
+    </ul>
 
     %{-- This delete function is not implemented --}%
-    <g:link mapping="debateRemove" params="[debateId: debate.id]"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>
+    %{--<g:link mapping="debateRemove" params="[debateId: debate.id]"  role="button" class="campaignDelete"><span class="fa fa-trash"></span> <span class="sr-only">Delete</span></g:link>--}%
 </li>

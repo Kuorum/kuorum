@@ -443,4 +443,27 @@ class KuorumUserTagLib {
             }
         }
     }
+    def elseIfUserNotIsTheLoggedOne={attrs, body->
+        if (!springSecurityService.isLoggedIn()){
+            out << body()
+        }else{
+            // LOGGED
+            KuorumUser user
+            if (attrs.user instanceof KuorumUser){
+                user = attrs.user
+            }else{
+                user = KuorumUser.findByAlias(attrs.user)
+            }
+            KuorumUser loggedUser = springSecurityService.currentUser;
+            if (loggedUser.id != user.id){
+                out << body()
+            }
+        }
+    }
+
+    def ifLoggedUserHasNotTimeZone = { attrs, body ->
+        if (springSecurityService.isLoggedIn() && !((KuorumUser)springSecurityService.currentUser).timeZone) {
+            out << body()
+        }
+    }
 }

@@ -106,6 +106,13 @@
                 }
             },
         },
+        politician:{
+            valuation:{
+                rate:{
+                    success:"<g:message code="politician.valuation.rate.success"/>"
+                }
+            }
+        },
         kuorum:{
             web:{
                 commands:{

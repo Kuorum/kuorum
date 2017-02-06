@@ -47,8 +47,14 @@ $(function(){
 
 
     // Save comment
-    $(".proposal-list").on('click','.conversation-box-comments .comment-box .actions button.save-comment', function (event) {
-        var $button = $(this)
+    $(".proposal-list").on('click','.conversation-box-comments .comment-box .actions button.save-comment', saveCommentButtonClick);
+
+    function saveCommentButtonClick(e){
+        if (isPageLoading()){
+            console.log("PAGE LOADING")
+            return;
+        }
+        var $button = $(e.target)
         var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
         var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
         if ( $commentsList.is(":visible") ){
@@ -59,10 +65,12 @@ $(function(){
             }else {
                 // BOTON SALVAR
                 var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
-                var body = $mediumEditor.html();
                 if (!validMediumEditor($mediumEditor)) {
                     return;
                 }
+                pageLoadingOn();
+                console.log($button)
+                var body = $mediumEditor.html();
                 var debateId = $(this).attr("data-debateId");
                 var debateAlias = $(this).attr("data-debateAlias");
                 var proposalId = $(this).attr("data-proposalId");
@@ -82,14 +90,17 @@ $(function(){
                         $commentsList.append(comment)
                         $mediumEditor.html("")
                     },
-                    dataType: "html"
+                    dataType: "html",
+                    complete: function(){
+                        pageLoadingOff();
+                    }
                 });
             }
         }else{
             // ABRIR COMENTARIOS
             conversationSectionClick($conversationBox)
         }
-    });
+    }
 
     function conversationSectionClick($conversationBox){
         var $conversationBoxComments = $conversationBox.next('.conversation-box-comments');
@@ -124,7 +135,11 @@ $(function(){
 
     function prepareCollapsableBodys(){
         $.each($(".conversation-box .body"), function(idx,obj){
-            if ($(this).height() > 134){
+            var pxMarginTopParent = 15;
+            var pxMarginBottomParent = 20;
+            var visibleHeight = 134;
+            var maxDivHeight = visibleHeight +pxMarginTopParent+pxMarginBottomParent;
+            if ($(this).height() > maxDivHeight ){
                 $(this).addClass("collapsible")
             }
         });
@@ -161,15 +176,21 @@ $(function(){
         }
     });
 
-    $(".publish-proposal").on("click", function(e){
-        var alias = $(this).attr("data-userLoggedAlias")
+    $(".publish-proposal").on("click", publishProposal);
+
+    function publishProposal(e){
+        var $buttonPublish = $(event.target)
+        var alias = $buttonPublish.attr("data-userLoggedAlias")
         if (alias == ""){
             // USER NO LOGGED
             $('#registro').modal('show');
         }else{
-            var $mediumEditor = $(".comment.editable.medium-editor-element p");
-            var body = $mediumEditor.html();
+            var $mediumEditor = $(".comment.editable.medium-editor-element");
             if (!validMediumEditor($mediumEditor)){return;}
+            pageLoadingOn();
+            $buttonPublish.off("click")
+            var body = $mediumEditor.html();
+            console.log(body)
             var debateId = $(this).attr("data-debateId");
             var debateAlias = $(this).attr("data-debateAlias");
             var url = $(this).attr("data-postUrl");
@@ -192,10 +213,15 @@ $(function(){
                     $counterProposals.text(parseInt($counterProposals.text()) + 1);
                     $("#proposal-option a[href=#latest]").trigger("click");
                 },
+                complete : function(){
+                    console.log("END")
+                    $buttonPublish.on("click",publishProposal)
+                    pageLoadingOff();
+                },
                 dataType: "html"
             });
         }
-    });
+    }
 
     function onClickProposalLike() {
         // Unbind
@@ -260,7 +286,7 @@ $(function(){
     $(".proposal-list").on("click", ".proposal-like", onClickProposalLike);
 
     // Pin proposal
-    $(".proposal-list").on("click",".pin-propusal", function() {
+    $(".proposal-list").on("click","button.pin-propusal", function() {
         var userLogged = $(this).attr("data-userLogged");
         if (userLogged == undefined || userLogged == "" ) {
             // USER NO LOGGED
