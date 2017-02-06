@@ -8561,7 +8561,10 @@ form.dark {
 }
 
 @media screen and (max-width: 640px) {
-    
+    .carousel.slide.fade-carousel {
+        position: relative;
+        margin-top: 60px;
+    }
     .fade-carousel .content h1 {
         font-size: 45px;
     }
