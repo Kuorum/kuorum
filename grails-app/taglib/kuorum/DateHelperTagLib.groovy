@@ -11,14 +11,14 @@ class DateHelperTagLib {
 
     def humanDate={attrs ->
         Date date = attrs.date
-        if (!date){
+        if (!date) {
             out << "---"
-        }else{
+        } else {
             String cssClass = attrs.cssClass?:""
-            TimeZone tz = TimeZone.getTimeZone("UTC");
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
-            df.setTimeZone(tz);
-            String dateAsISO = df.format(date);
+            TimeZone tz = TimeZone.getTimeZone("UTC")
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
+            df.setTimeZone(tz)
+            String dateAsISO = df.format(date)
 
             out << "<time class='timeago ${cssClass}' datetime='${dateAsISO}'>${dateAsISO}</time>"
         }

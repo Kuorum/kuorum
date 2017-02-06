@@ -1169,6 +1169,8 @@ $(document).ready(function() {
     });
 
 
+    // Timeago
+    $.timeago.settings.allowFuture = true;
     // inicializa formato fechas
     $("time.timeago").timeago();
 
