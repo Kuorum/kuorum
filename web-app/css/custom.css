@@ -8085,11 +8085,12 @@ div [class^='comment-box col-'] {
 
 .carousel.slide.fade-carousel {
     position: relative;
-    height: 100vh;  
+    height: 674px;
+    margin-top: 65px;
 }
 
-.fade-carousel .carousel-inner .item {
-    height: 100vh;
+.fade-carousel .carousel-inner {
+    height: 100%;
 }
 
 .fade-carousel .indicators {
@@ -8105,13 +8106,14 @@ div [class^='comment-box col-'] {
     bottom: 40px;
     left: 0;
     z-index: 15;
-    width: 100%;
-    margin: 0;
+    width: 1100px;
+    margin: 0 auto;
     padding: 0;
     list-style: none;
     text-align: left;
     padding-left: 15px;
     padding-right: 15px;
+    right: 0;
 }
 
 .fade-carousel .carousel-indicators > li {
@@ -8176,7 +8178,7 @@ div [class^='comment-box col-'] {
 .fade-carousel .content h3 {
     font-size: 25px;
     margin: 0;
-    padding: 25px;
+    padding-top: 25px;
 }
 
 .fade-carousel .content .btn {
@@ -8199,6 +8201,7 @@ div [class^='comment-box col-'] {
 
 .fade-carousel .content .conditions {
     color: #c7c6c6;
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
 }
 
 .fade-carousel .content .conditions a {
@@ -8251,7 +8254,7 @@ div [class^='comment-box col-'] {
 
 form.dark {
     background-color: rgba(0,0,0,0.4);
-    padding: 30px;
+    padding: 25px;
 }
 
 /** landing specific sections **/
@@ -8299,10 +8302,10 @@ form.dark {
 
 .img-full-container.left {
     position: absolute;
-    top: 0;
+    top: 60px;
     left: -32%;
     overflow: visible;
-    width: 75%;
+    width: 72%;
 }
 
 .img-full-container.pull-right {
@@ -8503,15 +8506,42 @@ form.dark {
 /** progress **/
 #progress {
     position: relative;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    text-align: center;
 }
 
 /********************************/
 /*          Media Queries       */
 /********************************/
-@media screen and (min-width: 980px){
-    .fade-carousel .content { width: 980px; }    
+@media screen and (min-width: 980px) {
+    .fade-carousel .content { 
+        width: 1100px; 
+    }
 }
-@media screen and (max-width: 640px){
+
+@media screen and (max-width: 980px) {
+    .img-full-container {
+        position: relative;
+        top: 0;
+        right: 0;
+        left: 0;
+        overflow: hidden;
+        width: 100%;
+        margin-top: 35px;
+    }
+
+    .img-full-container.left {
+        position: relative;
+        top: 0;
+        left: 0;
+        overflow: visible;
+        width: 100%;
+        margin-bottom: 35px;
+    }
+}
+
+@media screen and (max-width: 640px) {
     
     .fade-carousel .content h1 {
         font-size: 45px;
