@@ -7387,7 +7387,6 @@ div [class^='user-box col-'] {
 /*** global ***/
 .full-width {
     width: 100%;
-    position: relative;
 }
 
 .full-padding {
@@ -8289,6 +8288,7 @@ form.dark {
     right: 0;
     left: 56%;
     overflow: hidden;
+    width: 90%;
 }
 
 .img-full-container.left {
@@ -8304,10 +8304,6 @@ form.dark {
     left: 0;
     right: 56%;
     overflow: hidden;
-}
-
-.img-full-container img {
-    width: 110%;
 }
 
 @media (max-width: 767px) {
@@ -8418,6 +8414,7 @@ form.dark {
     padding-top: 60px;
     padding-bottom: 60px;
     text-align: center;
+    position: relative;
 }
 
 #engage h1 {
