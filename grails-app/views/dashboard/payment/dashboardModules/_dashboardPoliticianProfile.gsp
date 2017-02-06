@@ -27,7 +27,9 @@
 
             </span>
         </div>
-        <h2>${user.name}</h2>
+        <g:link mapping="userShow" params="${user.encodeAsLinkProperties()}" itemprop="url">
+            <h2>${user.name}</h2>
+        </g:link>
         <h3><userUtil:politicianPosition user="${user}"/></h3>
         <ul class="activity">
             <li class="followers">
