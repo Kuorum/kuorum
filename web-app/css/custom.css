@@ -613,10 +613,10 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
     color: #fff !important;
 }
 
-.btn.btn-blue-light {background-color: #BBE6F0 !important;}
+.btn.btn-blue-light {background-color: rgba(255,255,255,.4) !important;}
 .btn.btn-blue-light:hover,
 .btn.btn-blue-light:active,
-.btn.btn-blue-light:focus {background-color: #20a2ea !important;}
+.btn.btn-blue-light:focus {background-color: rgba(255,255,255,.8) !important;}
 .btn.btn-blue-light.inverted {
     background-color: #fff !important;
     border: 1px solid #20a2ea ;
@@ -8108,7 +8108,7 @@ div [class^='comment-box col-'] {
 
 .fade-carousel .indicators .carousel-indicators {
     position: absolute;
-    bottom: 40px;
+    bottom: 50px;
     left: 0;
     z-index: 15;
     width: 100%;
@@ -8185,7 +8185,7 @@ div [class^='comment-box col-'] {
 .fade-carousel .content h3 {
     font-size: 25px;
     margin: 0;
-    padding-top: 25px;
+    padding-top: 10px;
 }
 
 .fade-carousel .content .btn {
@@ -8326,7 +8326,7 @@ form.dark {
 @media (max-width: 767px) {
     .img-full-container {
         position: static;
-        margin: 0 15px;
+        margin: 0 auto;
     }
 }
 
@@ -8493,8 +8493,9 @@ form.dark {
 }
 
 #organizations .testimonial .header .img-brand {
-    width: 102px;
+    width: auto;
     margin-top: 15px;
+    height: 25px;
 }
 
 #organizations .testimonial .header .img {
