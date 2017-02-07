@@ -43,13 +43,7 @@ class DashboardController {
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
     def index(){
-        if (springSecurityService.isLoggedIn()){
-//            render(view: "dashboard", model: dashboard())
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-            render(view: "landingPoliticians", model: landingPoliticians())
-        }
+        return landingLeaders()
     }
     def dashboard() {
         if (!springSecurityService.isLoggedIn()){
@@ -241,7 +235,13 @@ class DashboardController {
     }
 
     def landingLeaders(){
-        [command: new KuorumRegisterCommand()]
+        if (springSecurityService.isLoggedIn()){
+//            render(view: "dashboard", model: dashboard())
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+            render(view: "landingLeaders", model: [command: new KuorumRegisterCommand()])
+        }
     }
 
     def landingCorporations(){
