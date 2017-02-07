@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6 img-full-container left">
-        <img src="${r.resource(dir:'images/landing', file:'features-02.png')}">
+        <img src="${r.resource(dir:'images/landing', file:'features-profile.png')}">
     </div>
     <div class="col-md-6 pull-right">
         <h1><g:message code="landingLeaders.featuresGeneric.title"/> </h1>
