@@ -15,7 +15,7 @@ class UrlMappings {
         /**********************/
         /***** I18N URLs ******/
         /**********************/
-        name home:              "/$lang" (controller: "search", action:"searchLanding"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name home:              "/$lang" (controller: "dashboard", action:"landingLeaders"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/" { controller="redirect"; action= "redirect301"; newMapping='home'}
 
         name landingSearch:     "/$lang"(controller: "search", action:"searchLanding"){constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
