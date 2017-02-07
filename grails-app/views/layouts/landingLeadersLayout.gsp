@@ -3,6 +3,7 @@
 <head>
     <title><g:layoutTitle/></title>
     <g:layoutHead/>
+    <parameter name="bodyCss" value="landing-2"/>
 </head>
 
 <body>
@@ -13,14 +14,14 @@
             <g:pageProperty name="page.main"/>
         </section>
     </div>
-    <div class="light" class="row main">
+    <div class="light">
         <div class="container">
             <section id="how-it-works">
                 <g:pageProperty name="page.howItWorks"/>
             </section>
         </div>
     </div>
-    <div class="full-width container-overflow-image row main">
+    <div class="container-overflow-image row main">
         <div class="container">
             <section class="row" id="engage">
                 <g:pageProperty name="page.engage"/>
@@ -44,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div class="full-width container-overflow-image row main">
+    <div class="container-overflow-image row main">
         <div class="container">
             <section id="progress">
                 <g:pageProperty name="page.features"/>
