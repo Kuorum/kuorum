@@ -2652,14 +2652,14 @@ ul.campaign-list li .box-ppal .card-header-photo {height: 200px;}
 ul.campaign-list li .box-ppal .card-body {padding:1em;overflow: hidden;height: 300px;}
 ul.campaign-list li .box-ppal .card-header-photo + .card-body {height: 120px;}
 ul.campaign-list li .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
-ul.campaign-list li .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;  }
+ul.campaign-list li .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
 ul.campaign-list li .box-ppal .card-body .card-text a{color: #00a3ed;}
 ul.campaign-list li .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
 
 ul.campaign-list li .box-ppal .card-footer{width:100%; height:2em;display:block; padding: 0 1em 0.5em; text-align: right}
 ul.campaign-list li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
 ul.campaign-list li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
-ul.campaign-list li .box-ppal .card-footer:after {clear:both; content:"\f020"}
+ul.campaign-list li .box-ppal .card-footer:after {clear:both; content: " "}
 ul.campaign-list li .box-ppal .card-footer > ul li a  {color:#a8a8a8;}
 ul.campaign-list li .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
 ul.campaign-list li .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
@@ -4098,7 +4098,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
     text-align: center;}
 
 .rating {margin: 10px auto 10px; width: 12em;}
-.rating fieldset {position: relative;}
+.rating fieldset {position: relative; line-height: 32px;}
 .rating legend {
     font-size: 10px;
     position: absolute;
@@ -6452,6 +6452,8 @@ only screen and (min-resolution: 192dpi) {
 /* Profile Card ----------------*/
 .politician-card p{
     text-align: justify;
+    margin: 0px;
+    display: inline;
 }
 .profile-header{
     position: relative;
@@ -7544,7 +7546,7 @@ button.btn-see-more {
 }
 
 .leader-post .header a.edit:hover {
-    color: #FF9431;
+    color: #00a3ed;
 }
 
 .leader-post .time-ago {
@@ -7559,6 +7561,7 @@ button.btn-see-more {
     line-height: 34px;
     color: #545454;
     padding: 0 30px 0 30px;
+    word-break: break-word;
 }
 
 .leader-post > .body a {
