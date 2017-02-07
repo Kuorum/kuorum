@@ -242,4 +242,8 @@ class DashboardController {
     def landingPrices(){
         []
     }
+
+    def landingLeaders(){
+        [command: new KuorumRegisterCommand()]
+    }
 }
