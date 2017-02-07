@@ -8305,7 +8305,7 @@ form.dark {
     right: 0;
     left: 56%;
     overflow: hidden;
-    width: 90%;
+    width: 72%;
 }
 
 .img-full-container.left {
@@ -8313,7 +8313,6 @@ form.dark {
     top: 60px;
     left: -32%;
     overflow: visible;
-    width: 72%;
 }
 
 .img-full-container.pull-right {
@@ -8438,7 +8437,6 @@ form.dark {
 }
 
 #engage h1 {
-    padding-bottom: 60px;
     font-weight: bold;
     text-align: left;
 }
@@ -8573,9 +8571,9 @@ form.dark {
         background-position: initial;
     }
 
-    .img-full-container img {
+    .img-full-container {
         width: 100%;
-        margin-top: 30px;
+        margin: 30px auto 0;
     }
 
     .img-full-container.left {
