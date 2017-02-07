@@ -33,7 +33,8 @@ class UrlMappings {
         name landingOrganizations:  "/$lang/advocate-better" (controller: "dashboard", action:"landingOrganizations")
                                     "/advocate-better" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
                                     "/organizations" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
-        name landingLeaders:    "/$lang/be-a-great-leader" (controller: "dashboard", action:"landingLeaders")
+        name landingLeaders:        "/$lang/be-a-great-leader" (controller: "dashboard", action:"landingLeaders")
+        name landingCorporations:   "/$lang/corporations" (controller: "dashboard", action:"landingCorporations")
 
         name footerTechnology:      "/$lang/services/what-is-kuorum"    (controller:"footer", action: "tech" )
                                     "/services/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}

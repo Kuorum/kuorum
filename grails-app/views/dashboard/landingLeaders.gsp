@@ -12,7 +12,7 @@
 </head>
 
 <content tag="main">
-    <g:render template="/dashboard/landingLeaders/leadersCarousel" model="[command:command]"/>
+    <g:render template="/dashboard/landingLeaders/leadersCarousel" model="[command:command, msgPrefix:'landingLeaders']"/>
 </content>
 
 <content tag="howItWorks">
@@ -20,12 +20,13 @@
 </content>
 
 <content tag="engage">
-    <g:render template="/dashboard/landingLeaders/leadersFeaturesCustom"/>
+    <g:render template="/dashboard/landingLeaders/leadersFeaturesCustom" model="[msgPrefix:'landingLeaders']"/>
 </content>
 
 <content tag="organizations">
     <g:render template="/dashboard/landingLeaders/leadersTrustUs"  model=
     "[
+            msgPrefix:'landingLeaders',
             users:[[
                         img:'thai.jpg',
                         name:'Thai Jungpanich',
