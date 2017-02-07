@@ -30,12 +30,18 @@ class UrlMappings {
         name landingPoliticians:"/$lang/win-your-election" (controller: "dashboard", action:"landingPoliticians")
                                 "/win-your-election" { controller="redirect"; action= "redirect301"; newMapping='landingPoliticians'}
                                 "/politicians"  { controller="redirect"; action= "redirect301"; newMapping='landingPoliticians'}
-        name landingOrganizations:  "/$lang/advocate-better" (controller: "dashboard", action:"landingOrganizations")
-                                    "/advocate-better" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
+        name landingOrganizations:  "/$lang/fundraising-tools" (controller: "dashboard", action:"landingOrganizations")
+                                    "/fundraising-tools" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
+                                    "/$lang/organizations" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
                                     "/organizations" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
-        name landingLeaders:        "/$lang/be-a-great-leader" (controller: "dashboard", action:"landingLeaders")
-        name landingCorporations:   "/$lang/corporations" (controller: "dashboard", action:"landingCorporations")
-
+        name landingLeaders:        "/$lang/best-email-marketing" (controller: "dashboard", action:"landingLeaders")
+                                    "/best-email-marketing" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
+                                    "/$lang/leaders" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
+                                    "/leaders" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
+        name landingCorporations:   "/$lang/corporate-innovation" (controller: "dashboard", action:"landingCorporations")
+                                    "/corporate-innovation" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
+                                    "/$lang/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
+                                    "/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
         name footerTechnology:      "/$lang/services/what-is-kuorum"    (controller:"footer", action: "tech" )
                                     "/services/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
                                     "/services"                         { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
