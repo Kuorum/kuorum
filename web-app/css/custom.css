@@ -4098,7 +4098,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
     text-align: center;}
 
 .rating {margin: 10px auto 10px; width: 12em;}
-.rating fieldset {position: relative;}
+.rating fieldset {position: relative; line-height: 32px;}
 .rating legend {
     font-size: 10px;
     position: absolute;
