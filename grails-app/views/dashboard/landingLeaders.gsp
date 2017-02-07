@@ -20,7 +20,7 @@
 </content>
 
 <content tag="engage">
-    <g:render template="/dashboard/landingLeaders/leadersFeaturesCustom" model="[msgPrefix:'landingLeaders']"/>
+    <g:render template="/dashboard/landingLeaders/leadersFeaturesCustom" model="[msgPrefix:'landingLeaders', imgBackground:'features-leaders.png']"/>
 </content>
 
 <content tag="organizations">
@@ -28,19 +28,19 @@
     "[
             msgPrefix:'landingLeaders',
             users:[[
-                        img:'thai.jpg',
-                        name:'Thai Jungpanich',
-                        logo:'logo-oxfam.png',
-                        logoAlt:'Oxfam',
-                        quote:g.message(code: 'landingLeaders.trustUs.user1.quote'),
-                        role:g.message(code: 'landingLeaders.trustUs.user1.role')
+                           img:'david-burrowes.jpg',
+                           name:'David Burrowes ',
+                           logo:'logo-conservatives.png',
+                           logoAlt:'Conservatives',
+                           quote:g.message(code: 'landingCorporations.trustUs.user1.quote'),
+                           role:g.message(code: 'landingCorporations.trustUs.user1.role')
                    ],[
-                        img:'thai.jpg',
-                        name:'Thai Jungpanich',
-                        logo:'logo-kreab.png',
-                        logoAlt:'Kreab',
-                        quote:g.message(code: 'landingLeaders.trustUs.user2.quote'),
-                        role:g.message(code: 'landingLeaders.trustUs.user2.role')
+                           img:'gabriel-gonzalez.jpg',
+                           name:'Gabriel Gonzalez ',
+                           logo:'logo-unicef.png',
+                           logoAlt:'Unicef',
+                           quote:g.message(code: 'landingCorporations.trustUs.user2.quote'),
+                           role:g.message(code: 'landingCorporations.trustUs.user2.role')
                    ]
             ]
     ]"/>

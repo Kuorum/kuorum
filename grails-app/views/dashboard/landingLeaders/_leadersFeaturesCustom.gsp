@@ -21,5 +21,5 @@
     </div>
 </div>
 <div class="col-md-6 img-full-container">
-    <img src="${r.resource(dir:'images/landing', file:'features-01.png')}">
+    <img src="${r.resource(dir:'images/landing', file:imgBackground)}">
 </div>

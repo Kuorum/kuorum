@@ -20,7 +20,7 @@
 </content>
 
 <content tag="engage">
-    <g:render template="/dashboard/landingLeaders/leadersFeaturesCustom" model="[msgPrefix:'landingCorporations']"/>
+    <g:render template="/dashboard/landingLeaders/leadersFeaturesCustom" model="[msgPrefix:'landingCorporations', imgBackground:'features-corporations.png']"/>
 </content>
 
 <content tag="organizations">
@@ -28,17 +28,17 @@
     "[
             msgPrefix:'landingCorporations',
             users:[[
-                           img:'thai.jpg',
-                           name:'Thai Jungpanich',
-                           logo:'logo-oxfam.png',
-                           logoAlt:'Oxfam',
+                           img:'david-burrowes.jpg',
+                           name:'David Burrowes ',
+                           logo:'logo-conservatives.png',
+                           logoAlt:'Conservatives',
                            quote:g.message(code: 'landingCorporations.trustUs.user1.quote'),
                            role:g.message(code: 'landingCorporations.trustUs.user1.role')
                    ],[
-                           img:'thai.jpg',
-                           name:'Thai Jungpanich',
-                           logo:'logo-kreab.png',
-                           logoAlt:'Kreab',
+                           img:'gabriel-gonzalez.jpg',
+                           name:'Gabriel Gonzalez ',
+                           logo:'logo-unicef.png',
+                           logoAlt:'Unicef',
                            quote:g.message(code: 'landingCorporations.trustUs.user2.quote'),
                            role:g.message(code: 'landingCorporations.trustUs.user2.role')
                    ]
