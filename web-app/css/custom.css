@@ -8073,7 +8073,6 @@ div [class^='comment-box col-'] {
 /** new-landing **/
 .landing-2 {
     padding: 0;
-    font-family: Arial;
     -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -8083,15 +8082,11 @@ div [class^='comment-box col-'] {
     line-height: 40px;
 }
 
-.landing-2 header + .row.main.landing {
-    margin-top: 0;
+.landing-2 > div.container-fluid > div {
+    font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;
 }
 
-.landing-2 .light {
-    background-color: #fbfbfb;
-}
-
-/** fade-carousel **/
+    /** fade-carousel **/
 
 .carousel.slide.fade-carousel {
     position: relative;

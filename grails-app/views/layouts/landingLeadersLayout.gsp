@@ -3,6 +3,7 @@
 <head>
     <title><g:layoutTitle/></title>
     <g:layoutHead/>
+    <parameter name="bodyCss" value="landing-2"/>
 </head>
 
 <body>
@@ -13,7 +14,7 @@
             <g:pageProperty name="page.main"/>
         </section>
     </div>
-    <div class="light" class="row main">
+    <div class="light">
         <div class="container">
             <section id="how-it-works">
                 <g:pageProperty name="page.howItWorks"/>
