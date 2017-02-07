@@ -191,9 +191,6 @@ class DashboardController {
     def landingPoliticians(){
         [command: new KuorumRegisterCommand()]
     }
-    def landingOrganizations(){
-        [command: new KuorumRegisterCommand()]
-    }
 
     def discover(){
         //TODO: QUE HACER SI NO ES ESPA�A
@@ -244,6 +241,14 @@ class DashboardController {
     }
 
     def landingLeaders(){
+        [command: new KuorumRegisterCommand()]
+    }
+
+    def landingCorporations(){
+        [command: new KuorumRegisterCommand()]
+    }
+
+    def landingOrganizations(){
         [command: new KuorumRegisterCommand()]
     }
 }

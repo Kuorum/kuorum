@@ -1,5 +1,5 @@
 <div class="row">
-    <h1><g:message code="landingLeaders.trustUs.title"/></h1>
+    <h1><g:message code="${msgPrefix}.trustUs.title"/></h1>
     <g:each in="${users}" var="userTestimony">
         <div class="col-md-6 testimonial">
             <div class="header">

@@ -8231,33 +8231,33 @@ div [class^='comment-box col-'] {
   background-repeat: no-repeat;
 }
 
-.fade-carousel .slides .slide-1.leaders {
+.fade-carousel .slides .slide-1.landingLeaders {
     background-image: url('../images/landing/leaders-01.jpg'); 
 }
-.fade-carousel .slides .slide-2.leaders {
+.fade-carousel .slides .slide-2.landingLeaders {
     background-image: url('../images/landing/leaders-02.jpg'); 
 }
-.fade-carousel .slides .slide-3.leaders {
+.fade-carousel .slides .slide-3.landingLeaders {
     background-image: url('../images/landing/leaders-03.jpg'); 
 }
 
-.fade-carousel .slides .slide-1.corporations {
+.fade-carousel .slides .slide-1.landingCorporations {
     background-image: url('../images/landing/corporations-01.jpg'); 
 }
-.fade-carousel .slides .slide-2.corporations {
+.fade-carousel .slides .slide-2.landingCorporations {
     background-image: url('../images/landing/corporations-02.jpg'); 
 }
-.fade-carousel .slides .slide-3.corporations {
+.fade-carousel .slides .slide-3.landingCorporations {
     background-image: url('../images/landing/corporations-03.jpg'); 
 }
 
-.fade-carousel .slides .slide-1.organizations {
+.fade-carousel .slides .slide-1.landingOrganizations {
     background-image: url('../images/landing/organizations-01.jpg'); 
 }
-.fade-carousel .slides .slide-2.organizations {
+.fade-carousel .slides .slide-2.landingOrganizations {
     background-image: url('../images/landing/organizations-02.jpg'); 
 }
-.fade-carousel .slides .slide-3.organizations {
+.fade-carousel .slides .slide-3.landingOrganizations {
     background-image: url('../images/landing/organizations-03.jpg'); 
 }
 

@@ -1,18 +1,18 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="landingLeaders.head.title"/></title>
+    <title><g:message code="landingCorporations.head.title"/></title>
     <meta name="layout" content="landingLeadersLayout">
     <parameter name="transparentHead" value="true"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
-                      kuorumTitle:g.message(code:'landingOrganizations.head.title'),
-                      kuorumDescription:g.message(code:'landingOrganizations.head.description'),
+                      kuorumTitle:g.message(code:'landingCorporations.head.title'),
+                      kuorumDescription:g.message(code:'landingCorporations.head.description'),
                       kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'leaders-01.jpg')
               ]"/>
 </head>
 
 <content tag="main">
-    <g:render template="/dashboard/landingLeaders/leadersCarousel" model="[command:command, msgPrefix:'landingOrganizations']"/>
+    <g:render template="/dashboard/landingLeaders/leadersCarousel" model="[command:command, msgPrefix:'landingCorporations']"/>
 </content>
 
 <content tag="howItWorks">
@@ -20,27 +20,27 @@
 </content>
 
 <content tag="engage">
-    <g:render template="/dashboard/landingLeaders/leadersFeaturesCustom" model="[msgPrefix:'landingOrganizations']"/>
+    <g:render template="/dashboard/landingLeaders/leadersFeaturesCustom" model="[msgPrefix:'landingCorporations']"/>
 </content>
 
 <content tag="organizations">
     <g:render template="/dashboard/landingLeaders/leadersTrustUs"  model=
     "[
-            msgPrefix:'landingOrganizations',
+            msgPrefix:'landingCorporations',
             users:[[
                            img:'thai.jpg',
                            name:'Thai Jungpanich',
                            logo:'logo-oxfam.png',
                            logoAlt:'Oxfam',
-                           quote:g.message(code: 'landingOrganizations.trustUs.user1.quote'),
-                           role:g.message(code: 'landingOrganizations.trustUs.user1.role')
+                           quote:g.message(code: 'landingCorporations.trustUs.user1.quote'),
+                           role:g.message(code: 'landingCorporations.trustUs.user1.role')
                    ],[
                            img:'thai.jpg',
                            name:'Thai Jungpanich',
                            logo:'logo-kreab.png',
                            logoAlt:'Kreab',
-                           quote:g.message(code: 'landingOrganizations.trustUs.user2.quote'),
-                           role:g.message(code: 'landingOrganizations.trustUs.user2.role')
+                           quote:g.message(code: 'landingCorporations.trustUs.user2.quote'),
+                           role:g.message(code: 'landingCorporations.trustUs.user2.role')
                    ]
             ]
     ]"/>
