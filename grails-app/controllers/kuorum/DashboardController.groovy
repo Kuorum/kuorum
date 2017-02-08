@@ -250,7 +250,7 @@ class DashboardController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "landingLeaders", model: [command: new KuorumRegisterCommand()])
+            render(view: "landingCorporations", model: [command: new KuorumRegisterCommand()])
         }
     }
 
@@ -260,7 +260,7 @@ class DashboardController {
             flash.message = flash.message
             redirect (mapping:"dashboard")
         }else{
-            render(view: "landingLeaders", model: [command: new KuorumRegisterCommand()])
+            render(view: "landingOrganizations", model: [command: new KuorumRegisterCommand()])
         }
     }
 }

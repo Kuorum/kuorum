@@ -8422,11 +8422,12 @@ form.dark {
     line-height: 31px;
 }
 
-#how-it-works ul.globus {
+ul.globus {
     list-style: none;
+    padding:0;
 }
 
-#how-it-works ul.globus li img {
+ul.globus li img {
     width: 175px;
     margin: 0 auto;
     margin-bottom: 60px;
@@ -8511,16 +8512,6 @@ form.dark {
     position: absolute;
     top: 24px;
     left: 25px;
-}
-
-#organizations ul.globus {
-    list-style: none;
-}
-
-#organizations ul.globus li img {
-    width: 175px;
-    margin: 0 auto;
-    margin-bottom: 60px;
 }
 
 /** progress **/
