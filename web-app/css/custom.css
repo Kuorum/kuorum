@@ -592,10 +592,10 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 .btn.btn-grey.inverted:active,
 .btn.btn-grey.inverted:focus {border: 1px solid #797979;background-color: #797979 !important;color:#fff !important;}
 
-.btn.btn-grey-light {color: #A8A8A8 !important;  background-color:transparent;}
+.btn.btn-grey-light {color: #dadada !important;  background-color:transparent;}
 .btn.btn-grey-light:hover,
 .btn.btn-grey-light:active,
-.btn.btn-grey-light:focus {color: #dadada !important;  background-color:transparent !important; box-shadow:none;}
+.btn.btn-grey-light:focus {color:  #A8A8A8!important;  background-color:transparent !important; box-shadow:none;}
 
 .btn.btn-blue {background-color: #20a2ea !important;}
 .btn.btn-blue:hover,
@@ -1801,9 +1801,10 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .btn.mail:active,
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
 
-.user-type {position: absolute; bottom: -2px; line-height: 1;}
-.popover-user .user-type {left: 5px;}
-
+.user {position: relative;}
+.user-type {position: absolute; top: 32px; line-height: 1;}
+.popover-user .user-type {left: 2px;}
+.popover-user .popover-user-header {margin-bottom: 15px;}
 
 .user-list-images,
 .boxes.taking-part .user-list-followers {margin: 0 0 20px 0; padding: 0; display: inline-block; line-height: 1.2;}
@@ -1920,7 +1921,6 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
     width: 38px !important;
     height: 38px !important;
     display: inline-block !important;
-    /*margin: 0 10px 4px 0 !important;*/
 }
 .popover .user-type {
     color: #A8A8A8 !important;
@@ -2504,7 +2504,6 @@ video#bgvid {
 .user-list-followers .user > .actions .close {margin: 1px 0 0 0;}
 /*.boxes .user-img,
 .condition .user-list-followers .user-img {float: left;}*/
-.user-list-followers .user-img {margin: 0 6px 0 0;}
 /*.boxes .user-img.big {margin: 0 6px 6px 0;}*/
 .boxes.info .user-img {float: none;}
 .boxes .popover .user-img {float: none;}
@@ -5383,8 +5382,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (min-width: 768px) {
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 22%;}
-    header.landing .btn.search .fa-search {background-color: #FFF;border: 2px solid #FFF} /*Chapu para tapar placeholder*/
+    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 195px;}
     .nav > li > .navbar-link.user-area img {margin-top: -5px;}
     .navbar-nav>li {margin: 0;}
     .navbar-nav>li:first-child {margin: 0;}
@@ -7352,7 +7350,7 @@ div [class^='user-box col-'] {
     line-height: 17px; /* 1/2 user-box img height*/
     margin: 0px;
     padding-left: 5px;
-}   
+}
 
 .user-box-role {
     font-size: 11px;
@@ -7449,7 +7447,7 @@ div [class^='user-box col-'] {
     display: inline-block;
 }
 button.btn-see-more {
-    background-color: transparent; 
+    background-color: transparent;
     margin: 0;
     padding: 0;
     border-radius: 12px;
@@ -8087,15 +8085,11 @@ div [class^='comment-box col-'] {
     font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;
 }
 
-.landing-2 .container-fluid{
-    overflow:hidden; /*Chapu para ipad*/
-}
-
     /** fade-carousel **/
 
 .carousel.slide.fade-carousel {
     position: relative;
-    margin-top: 90px;
+    margin-top: 65px;
 }
 
 .fade-carousel .carousel-inner {
@@ -8184,7 +8178,7 @@ div [class^='comment-box col-'] {
     margin: 0;
     padding: 0;
     text-transform: uppercase;
-    font-family: 'arial black',Arial,Helvetica,sans-serif;
+    font-family: arial black
 }
 
 .fade-carousel .content h3 {
@@ -8223,7 +8217,7 @@ div [class^='comment-box col-'] {
 /********************************/
 /*       Slides backgrounds     */
 /********************************/
-.fade-carousel .slides .slide-1, 
+.fade-carousel .slides .slide-1,
 .fade-carousel .slides .slide-2,
 .fade-carousel .slides .slide-3 {
   height: 640px;
@@ -8232,33 +8226,33 @@ div [class^='comment-box col-'] {
 }
 
 .fade-carousel .slides .slide-1.landingLeaders {
-    background-image: url('../images/landing/leaders-01.jpg'); 
+    background-image: url('../images/landing/leaders-01.jpg');
 }
 .fade-carousel .slides .slide-2.landingLeaders {
-    background-image: url('../images/landing/leaders-02.jpg'); 
+    background-image: url('../images/landing/leaders-02.jpg');
 }
 .fade-carousel .slides .slide-3.landingLeaders {
-    background-image: url('../images/landing/leaders-03.jpg'); 
+    background-image: url('../images/landing/leaders-03.jpg');
 }
 
 .fade-carousel .slides .slide-1.landingCorporations {
-    background-image: url('../images/landing/corporations-01.jpg'); 
+    background-image: url('../images/landing/corporations-01.jpg');
 }
 .fade-carousel .slides .slide-2.landingCorporations {
-    background-image: url('../images/landing/corporations-02.jpg'); 
+    background-image: url('../images/landing/corporations-02.jpg');
 }
 .fade-carousel .slides .slide-3.landingCorporations {
-    background-image: url('../images/landing/corporations-03.jpg'); 
+    background-image: url('../images/landing/corporations-03.jpg');
 }
 
 .fade-carousel .slides .slide-1.landingOrganizations {
-    background-image: url('../images/landing/organizations-01.jpg'); 
+    background-image: url('../images/landing/organizations-01.jpg');
 }
 .fade-carousel .slides .slide-2.landingOrganizations {
-    background-image: url('../images/landing/organizations-02.jpg'); 
+    background-image: url('../images/landing/organizations-02.jpg');
 }
 .fade-carousel .slides .slide-3.landingOrganizations {
-    background-image: url('../images/landing/organizations-03.jpg'); 
+    background-image: url('../images/landing/organizations-03.jpg');
 }
 
 /** form **/
@@ -8296,7 +8290,7 @@ form.dark {
 
 .container-overflow-image ul.checklist li div {
     padding: 0;
-    line-height: 31px;    
+    line-height: 31px;
 }
 
 .container-overflow-image ul.checklist li span{
@@ -8442,24 +8436,20 @@ ul.globus li img {
     position: relative;
 }
 
-.features h1 {
+#engage h1 {
     font-weight: bold;
     text-align: left;
 }
 
-.features h2 {
+#engage h2 {
     font-size: 20px;
     padding-bottom: 30px;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-.features p {
+#engage p {
     font-size: 20px;
-}
-
-.features > div {
-    padding-bottom: 30px;
 }
 
 /** organizations **/
@@ -8521,6 +8511,10 @@ ul.globus li img {
     padding-top: 60px;
     padding-bottom: 60px;
     text-align: center;
+}
+
+#progress h1 {
+    text-align: left;
 }
 
 /********************************/
