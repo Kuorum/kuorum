@@ -8178,7 +8178,7 @@ div [class^='comment-box col-'] {
     margin: 0;
     padding: 0;
     text-transform: uppercase;
-    font-family: arial black
+    font-family: 'Arial black', Arial;
 }
 
 .fade-carousel .content h3 {
@@ -8515,6 +8515,7 @@ ul.globus li img {
 
 #progress h1 {
     text-align: left;
+    font-weight: bold;
 }
 
 /********************************/
@@ -8544,6 +8545,12 @@ ul.globus li img {
         overflow: visible;
         width: 100%;
         margin-bottom: 35px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .fade-carousel .content {
+        top: 37%;
     }
 }
 
