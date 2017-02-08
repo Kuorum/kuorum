@@ -37,11 +37,9 @@
                 <h3><g:message code="landingPrices.form.features.title"/></h3>
                 <ul>
                     <li><g:message code="landingPrices.form.features.1profile"/></li>
-                    <li><g:message code="landingPrices.form.features.inbox"/></li>
                     <li><g:message code="landingPrices.form.features.massMailing"/></li>
-                    <li><g:message code="landingPrices.form.features.socialDataAnalytics"/></li>
-                    <li><g:message code="landingPrices.form.features.docManagement"/></li>
-                    <li><g:message code="landingPrices.form.features.fundraising"/></li>
+                    <li><g:message code="landingPrices.form.features.segmentation"/></li>
+                    <li><g:message code="landingPrices.form.features.postsAndDebates"/></li>
                 </ul>
             </g:form>
         </div>
@@ -65,13 +63,13 @@
                 <h3><g:message code="landingPrices.form.features.title"/></h3>
                 <ul>
                     <li><g:message code="landingPrices.form.features.1profile"/></li>
-                    <li><g:message code="landingPrices.form.features.inbox"/></li>
-                    <li><g:message code="landingPrices.form.features.semanticAnalysis"/></li>
                     <li><g:message code="landingPrices.form.features.massMailing"/></li>
-                    <li><g:message code="landingPrices.form.features.socialDataAnalytics"/></li>
-                    <li><g:message code="landingPrices.form.features.docManagement"/></li>
+                    <li><g:message code="landingPrices.form.features.segmentation"/></li>
+                    <li><g:message code="landingPrices.form.features.postsAndDebates"/></li>
+                    <li><g:message code="landingPrices.form.features.petitionsAndSurveys"/></li>
+                    <li><g:message code="landingPrices.form.features.eventsAndTicketing"/></li>
                     <li><g:message code="landingPrices.form.features.fundraising"/></li>
-                    <li><g:message code="landingPrices.form.features.events"/></li>
+                    <li><g:message code="landingPrices.form.features.inboxAutomation"/></li>
                 </ul>
             </g:form>
         </div>
@@ -93,14 +91,14 @@
                 <input type="submit" value="${g.message(code:'landingPage.videoAndRegister.startFreeTrial')}" class="btn btn-block">
                 <h3><g:message code="landingPrices.form.features.title"/></h3>
                 <ul>
-                    <li><g:message code="landingPrices.form.features.10profiles"/></li>
-                    <li><g:message code="landingPrices.form.features.inbox"/></li>
-                    <li><g:message code="landingPrices.form.features.semanticAnalysis"/></li>
+                    <li><g:message code="landingPrices.form.features.1profile"/></li>
                     <li><g:message code="landingPrices.form.features.massMailing"/></li>
-                    <li><g:message code="landingPrices.form.features.socialDataAnalytics"/></li>
-                    <li><g:message code="landingPrices.form.features.docManagement"/></li>
+                    <li><g:message code="landingPrices.form.features.segmentation"/></li>
+                    <li><g:message code="landingPrices.form.features.postsAndDebates"/></li>
+                    <li><g:message code="landingPrices.form.features.petitionsAndSurveys"/></li>
+                    <li><g:message code="landingPrices.form.features.eventsAndTicketing"/></li>
                     <li><g:message code="landingPrices.form.features.fundraising"/></li>
-                    <li><g:message code="landingPrices.form.features.events"/></li>
+                    <li><g:message code="landingPrices.form.features.inboxAutomation"/></li>
                 </ul>
             </g:form>
         </div>
@@ -114,13 +112,14 @@
                 <input type="submit" value="${g.message(code:'landingPage.videoAndRegister.startFreeTrial')}" class="btn btn-block">
                 <h3><g:message code="landingPrices.form.features.title"/></h3>
                 <ul>
-                    <li><g:message code="landingPrices.form.features.inbox"/></li>
-                    <li><g:message code="landingPrices.form.features.semanticAnalysis"/></li>
+                    <li><g:message code="landingPrices.form.features.10profiles"/></li>
                     <li><g:message code="landingPrices.form.features.massMailing"/></li>
-                    <li><g:message code="landingPrices.form.features.socialDataAnalytics"/></li>
-                    <li><g:message code="landingPrices.form.features.docManagement"/></li>
+                    <li><g:message code="landingPrices.form.features.segmentation"/></li>
+                    <li><g:message code="landingPrices.form.features.postsAndDebates"/></li>
+                    <li><g:message code="landingPrices.form.features.petitionsAndSurveys"/></li>
+                    <li><g:message code="landingPrices.form.features.eventsAndTicketing"/></li>
                     <li><g:message code="landingPrices.form.features.fundraising"/></li>
-                    <li><g:message code="landingPrices.form.features.events"/></li>
+                    <li><g:message code="landingPrices.form.features.inboxAutomation"/></li>
                     <li><g:message code="landingPrices.form.features.projectManager"/></li>
                 </ul>
             </g:form>
