@@ -20,15 +20,15 @@ class UrlMappings {
 
         name landingSearch:     "/$lang/discover"   (controller: "search", action:"searchLanding") {constraints{lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/discover"         { controller="redirect"; action= "redirect301"; newMapping='landingSearch'}
-        name landingCitizens:   "/$lang/who-should-i-vote-for" (controller: "dashboard", action:"landingCitizens")
-                                "/who-should-i-vote-for" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}
-                                "/citizens" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}
-                                "/editors" { controller="redirect"; action= "redirect301"; newMapping='landingCitizens'}
+        name landingCitizens:   "/$lang/who-should-i-vote-for" (controller: "dashboard", action:"landingLeaders")
+                                "/who-should-i-vote-for" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
+                                "/citizens" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
+                                "/editors" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
         name landingPrices:     "/$lang/prices" (controller: "dashboard", action:"landingPrices")
                                 "/prices" { controller="redirect"; action= "redirect301"; newMapping='landingPrices'}
-        name landingPoliticians:"/$lang/win-your-election" (controller: "dashboard", action:"landingPoliticians")
-                                "/win-your-election" { controller="redirect"; action= "redirect301"; newMapping='landingPoliticians'}
-                                "/politicians"  { controller="redirect"; action= "redirect301"; newMapping='landingPoliticians'}
+        name landingPoliticians:"/$lang/win-your-election" (controller: "dashboard", action:"landingLeaders")
+                                "/win-your-election" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
+                                "/politicians"  { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
         name landingOrganizations:  "/$lang/fundraising-tools" (controller: "dashboard", action:"landingOrganizations")
                                     "/fundraising-tools" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
                                     "/$lang/organizations" { controller="redirect"; action= "redirect301"; newMapping='landingOrganizations'}
