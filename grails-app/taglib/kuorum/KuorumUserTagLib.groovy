@@ -354,6 +354,10 @@ class KuorumUserTagLib {
     }
 
     def contactButton={attrs, body ->
+        def show = attrs.show?:true
+        if (!show) {
+            return
+        }
         KuorumUser user = attrs.user
         String cssSize = attrs.cssSize?:''
         def prefixMessages = attrs.prefixMessages?:"kuorumUser.contact"
