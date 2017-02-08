@@ -8087,6 +8087,10 @@ div [class^='comment-box col-'] {
     font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;
 }
 
+.landing-2 .container-fluid{
+    overflow:hidden; /*Chapu para ipad*/
+}
+
     /** fade-carousel **/
 
 .carousel.slide.fade-carousel {
@@ -8451,6 +8455,10 @@ form.dark {
 
 .features p {
     font-size: 20px;
+}
+
+.features > div {
+    padding-bottom: 30px;
 }
 
 /** organizations **/
