@@ -8083,6 +8083,7 @@ div [class^='comment-box col-'] {
 
 .landing-2 > div.container-fluid > div {
     font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;
+    overflow: hidden;
 }
 
     /** fade-carousel **/
@@ -8551,6 +8552,9 @@ ul.globus li img {
 @media screen and (max-width: 767px) {
     .fade-carousel .content {
         top: 37%;
+    }
+    #case-study .content form input {
+        width: 109%;
     }
 }
 
