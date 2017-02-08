@@ -15,11 +15,11 @@
             <h1><g:message code="${msgPrefix}.carousel.slogan"/> </h1>
             <h3 class="hidden-xs"><g:message code="${msgPrefix}.carousel.subslogan"/></h3>
         </hgroup>
-        <a href="#how-it-works" class="btn btn-lg btn-blue-light" data-effect="scroll"><g:message code="${msgPrefix}.carousel.howItWorks"/> </a>
+        <a href="#how-it-works" class="btn btn-lg btn-blue-light hidden-xs" data-effect="scroll"><g:message code="${msgPrefix}.carousel.howItWorks"/> </a>
         </br class="hidden-xs">
         <sec:ifNotLoggedIn>
             <formUtil:validateForm bean="${command}" form="landing-register"/>
-            <g:form mapping="register" autocomplete="off" method="post" name="landing-register" class="form-inline dark hidden-xs" role="form" novalidate="novalidate">
+            <g:form mapping="register" autocomplete="off" method="post" name="landing-register" class="form-inline dark" role="form" novalidate="novalidate">
                 <fieldset>
                     <div class="form-group col-lg-4">
                         <formUtil:input

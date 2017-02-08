@@ -8551,10 +8551,31 @@ ul.globus li img {
 
 @media screen and (max-width: 767px) {
     .fade-carousel .content {
-        top: 37%;
+        top: 43%;
+        width: 100%;
+        padding: 0;
+    }
+    .fade-carousel .content h1 {
+        line-height: 65px;
+    }
+    .fade-carousel .content form input {
+        min-height: 45px;
     }
     #case-study .content form input {
         width: 109%;
+    }
+    .fade-carousel .content form .form-group {
+        padding-right: 0;
+    }
+    .fade-carousel .content form {
+        margin: 0;
+        width: 100%;
+    }
+    .fade-carousel .content .btn {
+        width: 100%;
+    }
+    .fade-carousel .content hgroup {
+        margin-bottom: 0;
     }
 }
 
@@ -8564,7 +8585,8 @@ ul.globus li img {
         margin-top: 90px;
     }
     .fade-carousel .content h1 {
-        font-size: 45px;
+        font-size: 40px;
+        line-height: 45px;
     }
 
     .fade-carousel .slides .slide-1, 
