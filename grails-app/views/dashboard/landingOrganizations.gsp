@@ -28,19 +28,19 @@
     "[
             msgPrefix:'landingOrganizations',
             users:[[
-                           img:'david-burrowes.jpg',
-                           name:'David Burrowes ',
-                           logo:'logo-conservatives.png',
+                           img:'testimony-thai-jungpanich.jpg',
+                           name:'Thai Jungpanich ',
+                           logo:'logo-oxfam.png',
                            logoAlt:'Conservatives',
-                           quote:g.message(code: 'landingCorporations.trustUs.user1.quote'),
-                           role:g.message(code: 'landingCorporations.trustUs.user1.role')
+                           quote:g.message(code: 'landingOrganizations.trustUs.user1.quote'),
+                           role:g.message(code: 'landingOrganizations.trustUs.user1.role')
                    ],[
-                           img:'gabriel-gonzalez.jpg',
+                           img:'testimony-gabriel-gonzalez.jpg',
                            name:'Gabriel Gonzalez ',
                            logo:'logo-unicef.png',
                            logoAlt:'Unicef',
-                           quote:g.message(code: 'landingCorporations.trustUs.user2.quote'),
-                           role:g.message(code: 'landingCorporations.trustUs.user2.role')
+                           quote:g.message(code: 'landingOrganizations.trustUs.user2.quote'),
+                           role:g.message(code: 'landingOrganizations.trustUs.user2.role')
                    ]
             ]
     ]"/>
