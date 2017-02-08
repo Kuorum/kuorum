@@ -592,10 +592,10 @@ header.landing.transp #search-form .open-filter {background-color: rgba(219,219,
 .btn.btn-grey.inverted:active,
 .btn.btn-grey.inverted:focus {border: 1px solid #797979;background-color: #797979 !important;color:#fff !important;}
 
-.btn.btn-grey-light {color: #A8A8A8 !important;  background-color:transparent;}
+.btn.btn-grey-light {color: #dadada !important;  background-color:transparent;}
 .btn.btn-grey-light:hover,
 .btn.btn-grey-light:active,
-.btn.btn-grey-light:focus {color: #dadada !important;  background-color:transparent !important; box-shadow:none;}
+.btn.btn-grey-light:focus {color:  #A8A8A8!important;  background-color:transparent !important; box-shadow:none;}
 
 .btn.btn-blue {background-color: #20a2ea !important;}
 .btn.btn-blue:hover,
