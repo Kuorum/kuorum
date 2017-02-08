@@ -23,7 +23,7 @@
     </div>
     <div class="container-overflow-image row main">
         <div class="container">
-            <section class="row" id="engage">
+            <section class="features" id="engage">
                 <g:pageProperty name="page.engage"/>
             </section>
         </div>
@@ -47,7 +47,7 @@
     </div>
     <div class="container-overflow-image row main">
         <div class="container">
-            <section id="progress">
+            <section id="progress"  class="features">
                 <g:pageProperty name="page.features"/>
             </section>
         </div>

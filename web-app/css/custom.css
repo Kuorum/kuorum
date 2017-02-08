@@ -1801,8 +1801,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .btn.mail:active,
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
 
-.user {position: relative;}
-.user-type {/*margin-top: -24px;*/ position: absolute; bottom: 0px; line-height: 1;}
+.user-type {position: absolute; bottom: -2px; line-height: 1;}
 .popover-user .user-type {left: 5px;}
 
 
@@ -5384,7 +5383,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (min-width: 768px) {
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 195px;}
+    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 22%;}
+    header.landing .btn.search .fa-search {background-color: #FFF;border: 2px solid #FFF} /*Chapu para tapar placeholder*/
     .nav > li > .navbar-link.user-area img {margin-top: -5px;}
     .navbar-nav>li {margin: 0;}
     .navbar-nav>li:first-child {margin: 0;}
@@ -8087,11 +8087,15 @@ div [class^='comment-box col-'] {
     font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;
 }
 
+.landing-2 .container-fluid{
+    overflow:hidden; /*Chapu para ipad*/
+}
+
     /** fade-carousel **/
 
 .carousel.slide.fade-carousel {
     position: relative;
-    margin-top: 65px;
+    margin-top: 90px;
 }
 
 .fade-carousel .carousel-inner {
@@ -8180,7 +8184,7 @@ div [class^='comment-box col-'] {
     margin: 0;
     padding: 0;
     text-transform: uppercase;
-    font-family: arial black
+    font-family: 'arial black',Arial,Helvetica,sans-serif;
 }
 
 .fade-carousel .content h3 {
@@ -8419,11 +8423,12 @@ form.dark {
     line-height: 31px;
 }
 
-#how-it-works ul.globus {
+ul.globus {
     list-style: none;
+    padding:0;
 }
 
-#how-it-works ul.globus li img {
+ul.globus li img {
     width: 175px;
     margin: 0 auto;
     margin-bottom: 60px;
@@ -8437,20 +8442,24 @@ form.dark {
     position: relative;
 }
 
-#engage h1 {
+.features h1 {
     font-weight: bold;
     text-align: left;
 }
 
-#engage h2 {
+.features h2 {
     font-size: 20px;
     padding-bottom: 30px;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-#engage p {
+.features p {
     font-size: 20px;
+}
+
+.features > div {
+    padding-bottom: 30px;
 }
 
 /** organizations **/
@@ -8506,26 +8515,12 @@ form.dark {
     left: 25px;
 }
 
-#organizations ul.globus {
-    list-style: none;
-}
-
-#organizations ul.globus li img {
-    width: 175px;
-    margin: 0 auto;
-    margin-bottom: 60px;
-}
-
 /** progress **/
 #progress {
     position: relative;
     padding-top: 60px;
     padding-bottom: 60px;
     text-align: center;
-}
-
-#progress h1 {
-    text-align: left;
 }
 
 /********************************/
