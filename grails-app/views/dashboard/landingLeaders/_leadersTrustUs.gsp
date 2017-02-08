@@ -5,6 +5,8 @@
             <div class="header">
                 <img src="${r.resource(dir:'images/landing', file:'fotos.png')}" alt="image border" class="img-border">
                 <img class="img img-circle" src="${r.resource(dir:'images/landing', file:userTestimony.img)}" alt="${userTestimony.name}">
+            </div>
+            <div class="brand">
                 <img class="img-brand" src="${r.resource(dir:'images/landing', file:userTestimony.logo)}" alt="${userTestimony.logoAlt}">
             </div>
             <div class="body">

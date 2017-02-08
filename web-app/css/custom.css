@@ -8456,7 +8456,7 @@ ul.globus li img {
 /** organizations **/
 #organizations {
     padding-top: 60px;
-    padding-bottom: 60px;
+    padding-bottom: 75px;
     text-align: center;
 }
 
@@ -8490,10 +8490,17 @@ ul.globus li img {
     position: relative;
     margin: 0 auto;
     width: 150px;
-    height: 250px;
+    height: 150px;
 }
 
-#organizations .testimonial .header .img-brand {
+#organizations .testimonial .brand {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    height: 90px;
+}
+
+#organizations .testimonial .brand .img-brand {
     width: auto;
     margin-top: 15px;
     height: 25px;
@@ -8576,6 +8583,12 @@ ul.globus li img {
     }
     .fade-carousel .content hgroup {
         margin-bottom: 0;
+    }
+    #engage h1 {
+        text-align: center;
+    }
+    #progress h1 {
+        text-align: center;
     }
 }
 
