@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="landingLeaders.head.title"/></title>
+    <title><g:message code="landingOrganizations.head.title"/></title>
     <meta name="layout" content="landingLeadersLayout">
     <parameter name="transparentHead" value="true"/>
     <g:render template="/dashboard/landingMetaTags"
