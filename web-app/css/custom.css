@@ -8160,7 +8160,7 @@ div [class^='comment-box col-'] {
 
 .fade-carousel .content {
     position: absolute;
-    top: 50%;
+    top: 49%;
     left: 50%;
     z-index: 3;
     color: #fff;
@@ -8173,7 +8173,7 @@ div [class^='comment-box col-'] {
 }
 
 .fade-carousel .content hgroup {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 
 .fade-carousel .content h1 {
@@ -8197,7 +8197,7 @@ div [class^='comment-box col-'] {
 }
 
 .fade-carousel .content form {
-    margin: 60px 0 15px 0;
+    margin: 35px 0 15px 0;
 }
 
 .fade-carousel .content form .form-group {
@@ -8225,7 +8225,7 @@ div [class^='comment-box col-'] {
 .fade-carousel .slides .slide-1, 
 .fade-carousel .slides .slide-2,
 .fade-carousel .slides .slide-3 {
-  height: 674px;
+  height: 640px;
   background-size: cover;
   background-repeat: no-repeat;
 }
