@@ -1800,8 +1800,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .btn.mail:active,
 .btn.mail:focus {background-color: #a8a8a8 !important; color: #ffffff !important;}
 
-.user {position: relative;}
-.user-type {/*margin-top: -24px;*/ position: absolute; bottom: 0px; line-height: 1;}
+.user-type {position: absolute; bottom: -2px; line-height: 1;}
 .popover-user .user-type {left: 5px;}
 
 
