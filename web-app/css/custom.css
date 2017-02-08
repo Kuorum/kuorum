@@ -5383,7 +5383,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (min-width: 768px) {
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 195px;}
+    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 22%;}
+    header.landing .btn.search .fa-search {background-color: #FFF;border: 2px solid #FFF} /*Chapu para tapar placeholder*/
     .nav > li > .navbar-link.user-area img {margin-top: -5px;}
     .navbar-nav>li {margin: 0;}
     .navbar-nav>li:first-child {margin: 0;}
@@ -8090,7 +8091,7 @@ div [class^='comment-box col-'] {
 
 .carousel.slide.fade-carousel {
     position: relative;
-    margin-top: 65px;
+    margin-top: 90px;
 }
 
 .fade-carousel .carousel-inner {
@@ -8179,7 +8180,7 @@ div [class^='comment-box col-'] {
     margin: 0;
     padding: 0;
     text-transform: uppercase;
-    font-family: arial black
+    font-family: 'arial black',Arial,Helvetica,sans-serif;
 }
 
 .fade-carousel .content h3 {
@@ -8436,19 +8437,19 @@ form.dark {
     position: relative;
 }
 
-#engage h1 {
+.features h1 {
     font-weight: bold;
     text-align: left;
 }
 
-#engage h2 {
+.features h2 {
     font-size: 20px;
     padding-bottom: 30px;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-#engage p {
+.features p {
     font-size: 20px;
 }
 
@@ -8521,10 +8522,6 @@ form.dark {
     padding-top: 60px;
     padding-bottom: 60px;
     text-align: center;
-}
-
-#progress h1 {
-    text-align: left;
 }
 
 /********************************/
