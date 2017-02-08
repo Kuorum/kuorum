@@ -151,6 +151,10 @@
                 <a href="#" class="btn btn-blue inverted btn-lg" id="campaignWarnFilterEditedButtonOk">
                     <g:message code="tools.massMailing.warnFilterEdited.button"/>
                 </a>
+                <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal" id="campaignWarnFilterEditedButtonClose">
+                    <g:message code="tools.massMailing.warnFilterEdited.cancel"/>
+                </a>
+
             </div>
         </div>
     </div>
