@@ -28,19 +28,19 @@
     "[
             msgPrefix:'landingLeaders',
             users:[[
-                           img:'david-burrowes.jpg',
+                           img:'testimony-david-burrowes.jpg',
                            name:'David Burrowes ',
                            logo:'logo-conservatives.png',
                            logoAlt:'Conservatives',
-                           quote:g.message(code: 'landingCorporations.trustUs.user1.quote'),
-                           role:g.message(code: 'landingCorporations.trustUs.user1.role')
+                           quote:g.message(code: 'landingLeaders.trustUs.user1.quote'),
+                           role:g.message(code: 'landingLeaders.trustUs.user1.role')
                    ],[
-                           img:'gabriel-gonzalez.jpg',
-                           name:'Gabriel Gonzalez ',
-                           logo:'logo-unicef.png',
-                           logoAlt:'Unicef',
-                           quote:g.message(code: 'landingCorporations.trustUs.user2.quote'),
-                           role:g.message(code: 'landingCorporations.trustUs.user2.role')
+                           img:'testimony-cat-smith.jpg',
+                           name:'Cat Smith ',
+                           logo:'logo-labour.png',
+                           logoAlt:'Labour',
+                           quote:g.message(code: 'landingLeaders.trustUs.user2.quote'),
+                           role:g.message(code: 'landingLeaders.trustUs.user2.role')
                    ]
             ]
     ]"/>
