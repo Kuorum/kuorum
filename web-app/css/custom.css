@@ -8556,7 +8556,7 @@ ul.globus li img {
 @media screen and (max-width: 640px) {
     .carousel.slide.fade-carousel {
         position: relative;
-        margin-top: 60px;
+        margin-top: 90px;
     }
     .fade-carousel .content h1 {
         font-size: 45px;
