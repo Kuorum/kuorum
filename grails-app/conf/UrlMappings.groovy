@@ -37,12 +37,14 @@ class UrlMappings {
                                     "/best-email-marketing" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
                                     "/$lang/leaders" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
                                     "/leaders" { controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
+                                    "/kuorum/citizens"        {controller="redirect"; action= "redirect301"; newMapping='landingLeaders'}
         name landingCorporations:   "/$lang/corporate-innovation" (controller: "dashboard", action:"landingCorporations")
                                     "/corporate-innovation" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
                                     "/$lang/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
-                                    "/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
+        "/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
         name footerTechnology:      "/$lang/services/what-is-kuorum"    (controller:"footer", action: "tech" )
                                     "/services/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
+                                    "/kuorum/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
                                     "/services"                         { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
         name footerLeaders:         "/$lang/services/leaders" (controller:"footer", action: "leaders" )
                                     "/services/leaders"       {controller="redirect"; action= "redirect301"; newMapping='footerLeaders'}
