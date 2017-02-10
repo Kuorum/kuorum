@@ -48,6 +48,7 @@
                 <div class="col-sm-4">
                     <formUtil:input
                             field="value"
+                            cssClass="form-control"
                             command="${listCommand}"
                             prefixFieldName="${prefixField}"
                             labelCssClass="sr-only"
@@ -83,6 +84,8 @@
             </a>
         </div>
     </fieldset>
+    <%-- miguel este conjunto de campos tiene un margen de 35 px que tendria que ser de 22 si es que se desea que coincida con el div box-ppal filterbox --%>
+    <%-- miguel procedo a crear una clase para este fielfset en concreto  --%>
     <fieldset class="new-filter-actions">
         <g:link mapping="politicianContactsSearch" elementId="numberRecipients"><g:message code="tools.contact.filter.form.recipients" args="[filter.amountOfContacts==null?'-':filter.amountOfContacts]"/></g:link>
         <g:link mapping="politicianContactFilterRefresh"    data-callaBackFunction="campaignFilterRefresh" role="button" class="btn btn-blue inverted" elementId="refreshFilter"><span class="fa fa-refresh"></span> <g:message code="tools.contact.filter.form.refresh"/></g:link>
