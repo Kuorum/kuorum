@@ -8560,7 +8560,7 @@ ul.globus li img {
     }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
     ul.globus li img {
         margin-bottom: 0px;
     }
