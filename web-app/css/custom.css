@@ -8561,6 +8561,9 @@ ul.globus li img {
 }
 
 @media screen and (max-width: 767px) {
+    ul.globus li img {
+        margin-bottom: 0px;
+    }
     .fade-carousel .content {
         top: 43%;
         width: 100%;
@@ -8571,6 +8574,24 @@ ul.globus li img {
     }
     .fade-carousel .content form input {
         min-height: 45px;
+    }
+    #how-it-works {
+        padding-bottom: 0px;
+    }
+    #how-it-works h2 {
+        padding-bottom: 0px;
+    }
+    #how-it-works p {
+        margin-bottom: 80px;
+    }
+    #organizations h1 {
+        padding-bottom: 0;
+    }
+    #organizations .testimonial .brand {
+        height: 60px;
+    }
+    #organizations .testimonial .header {
+        margin-top: 60px;
     }
     #case-study .content form input {
         width: 109%;
