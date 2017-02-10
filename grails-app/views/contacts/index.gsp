@@ -17,7 +17,7 @@
     <div id="searchContacts">
 
         <!-- FILTRO Y BUSCADOR DE CONTACTOS -->
-        <div class="box-ppal">
+        <div class="box-ppal filterbox">
             <formUtil:validateForm bean="${command}" form="contactFilterForm"/>
             <form class="form-horizontal" id="contactFilterForm">
                 <input type="hidden" name="sort.field" value="${searchContacts.sort.field}"/>
@@ -100,6 +100,7 @@
                 </div>
             </form>
         </div>
+
         <div id="listContacts" data-ajaxUrlContacts="${g.createLink(mapping: 'politicianContactsSearch', absolute:true)}">
             %{--<g:render template="/contacts/listContacts" model="[contacts:contacts,searchContacts:searchContacts]"/>--}%
         </div>
