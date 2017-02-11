@@ -8179,7 +8179,7 @@ div [class^='comment-box col-'] {
     margin: 0;
     padding: 0;
     text-transform: uppercase;
-    font-family: 'Arial black', Arial;
+    font-family: 'Arial black', 'AvenirNext-Heavy', Arial;
 }
 
 .fade-carousel .content h3 {
