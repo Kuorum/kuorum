@@ -251,15 +251,16 @@ class ContactsController {
         Integer emailPos = columnOption.findIndexOf{it=="email"}
         List<Number> tagsPos = columnOption.findIndexValues{it=="tag"}
         def tags = params.tags?.split(",")?:[]
+        Integer numOfEmptyColumns = columnOption.count{it==""}
         Integer notImport = ((params.notImport?:[]) as List).collect{Integer.parseInt(it)}.max()?:0
 
         List<String> realPos = params.realPos
-        namePos = namePos<0 || namePos > realPos.size()?namePos:Integer.parseInt(realPos[namePos])
-        surnamePos = surnamePos<0 || surnamePos > realPos.size()?surnamePos:Integer.parseInt(realPos[surnamePos])
-        emailPos = emailPos<0 || emailPos > realPos.size()?emailPos:Integer.parseInt(realPos[emailPos])
+        surnamePos = surnamePos<0 || surnamePos > realPos.size() ? surnamePos : Integer.parseInt(realPos[surnamePos])
+        emailPos = emailPos<0 || emailPos > realPos.size() ? emailPos : Integer.parseInt(realPos[emailPos])
+        namePos = namePos<0 || namePos > realPos.size() ? namePos : Integer.parseInt(realPos[namePos])
         tagsPos = tagsPos?.collect{Integer.parseInt(realPos[it.intValue()])}?:[]
 
-        if (namePos == -1 || emailPos == -1) {
+        if ((namePos == -1 && (columnOption.size() - numOfEmptyColumns) > 1) || emailPos == -1) {
 
             flash.error=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
@@ -326,7 +327,9 @@ class ContactsController {
                     }
 
                     ContactRDTO contact = new ContactRDTO()
-                    contact.setName(line[namePos] as String)
+                    if (namePos > 0) {
+                        contact.setName(line[namePos] as String)
+                    }
                     if (surnamePos > 0) {
                         contact.setSurname(line[surnamePos] as String)
                     }
