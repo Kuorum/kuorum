@@ -260,7 +260,7 @@ class ContactsController {
         namePos = namePos<0 || namePos > realPos.size() ? namePos : Integer.parseInt(realPos[namePos])
         tagsPos = tagsPos?.collect{Integer.parseInt(realPos[it.intValue()])}?:[]
 
-        if ((namePos == -1 && (columnOption.size() - numOfEmptyColumns) > 1) || emailPos == -1) {
+        if ((namePos == -1 && (columnOption.size() - numOfEmptyColumns) == 1) || emailPos == -1) {
 
             flash.error=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
