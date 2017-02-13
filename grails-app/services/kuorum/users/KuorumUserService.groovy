@@ -680,14 +680,12 @@ class KuorumUserService {
         String fechaBaja = new Date().getTime().toString()
         String email = "BORRADO_${nombreEmail}_${fechaBaja}@NO-EMAIL-${domain}"
         user.email = email
-        user.alias = fechaBaja
-        //user.alias = user.alias + fechaBaja
-        //if (user.alias.size() > 15) user.alias = user.alias.substring(user.alias.size() - 15 , user.alias.size() - 1)
+        user.alias = fechaBaja + user.alias
+        if (user.alias.size() > 15) user.alias = user.alias.substring(user.alias.size() - 15 , user.alias.size() - 1)
         user.authorities.remove(RoleUser.findByAuthority("ROLE_USER"));
         user.authorities.add(RoleUser.findByAuthority("ROLE_INCOMPLETE_USER"));
-        boolean guardado = user.save(flush: true)
 
-        if (!guardado) {
+        if (!user.save(flush: true)) {
             //TODO: Gestion errores
             log.error("Error salvando usuario ${user.id}. ERRORS => ${user.errors}")
             throw new KuorumException("Error desactivando un usuario")
