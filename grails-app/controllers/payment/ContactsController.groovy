@@ -254,9 +254,10 @@ class ContactsController {
         Integer notImport = ((params.notImport?:[]) as List).collect{Integer.parseInt(it)}.max()?:0
 
         List<String> realPos = params.realPos
-        namePos = namePos<0 || namePos > realPos.size()?namePos:Integer.parseInt(realPos[namePos])
-        surnamePos = surnamePos<0 || surnamePos > realPos.size()?surnamePos:Integer.parseInt(realPos[surnamePos])
-        emailPos = emailPos<0 || emailPos > realPos.size()?emailPos:Integer.parseInt(realPos[emailPos])
+        surnamePos = surnamePos<0 || surnamePos > realPos.size() ? surnamePos : Integer.parseInt(realPos[surnamePos])
+        emailPos = emailPos<0 || emailPos > realPos.size() ? emailPos : Integer.parseInt(realPos[emailPos])
+        // If no namePos, use email as name
+        namePos = namePos<0 || namePos > realPos.size() ? emailPos : Integer.parseInt(realPos[namePos])
         tagsPos = tagsPos?.collect{Integer.parseInt(realPos[it.intValue()])}?:[]
 
         if (namePos == -1 || emailPos == -1) {
