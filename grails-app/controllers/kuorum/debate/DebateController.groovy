@@ -142,6 +142,10 @@ class DebateController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         DebateRSDTO debateRSDTO = debateService.findDebate(user, debateId)
 
+        if (debateRSDTO.userAlias != user.alias){
+            throw new AccessDeniedException("This debate is not yours");
+        }
+
         if (!debateRSDTO) {
             flash.message = message(code: 'admin.createProjectUpdate.project.not.found', args: [])
             redirect mapping: "home"
