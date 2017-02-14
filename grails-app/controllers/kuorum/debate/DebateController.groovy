@@ -21,6 +21,7 @@ import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
+import org.springframework.security.access.AccessDeniedException
 import payment.campaign.DebateService
 import payment.campaign.ProposalService
 import payment.contact.ContactService
@@ -91,6 +92,9 @@ class DebateController {
             flash.message = message(code: 'admin.createDebateUpdate.debate.notFound', args: [])
             redirect mapping: "home"
             return
+        }
+        if (debateRSDTO.userAlias != loggedUser.alias){
+            throw new AccessDeniedException("This debate is not yours");
         }
 
         // Convert debate to command
