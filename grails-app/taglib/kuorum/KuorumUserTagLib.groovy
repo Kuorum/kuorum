@@ -354,7 +354,7 @@ class KuorumUserTagLib {
     }
 
     def contactButton={attrs, body ->
-        def show = attrs.show?:true
+        Boolean show = attrs.show!=null?attrs.show:true
         if (!show) {
             return
         }

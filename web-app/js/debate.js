@@ -179,7 +179,8 @@ $(function(){
     $(".publish-proposal").on("click", publishProposal);
 
     function publishProposal(e){
-        var $buttonPublish = $(event.target)
+        e = e || window.event;
+        var $buttonPublish = $(e.target)
         var alias = $buttonPublish.attr("data-userLoggedAlias")
         if (alias == ""){
             // USER NO LOGGED
