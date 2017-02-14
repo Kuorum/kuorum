@@ -7669,8 +7669,8 @@ button.btn-see-more {
     padding-right: 5px;
 }
 
-
 ul.proposal-list {margin:0; padding:0;}
+ul.proposal-list li {list-style-type: none;}
 
 /*** commment-box ***/
 .comment-box {
