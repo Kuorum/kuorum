@@ -57,7 +57,7 @@
     <g:set var="schema" value="http://schema.org/WebSite"/>
 </g:if>
 
-<body itemscope itemtype="${schema}">
+<body itemscope itemtype="${schema}" class="${pageProperty(name:"page.bodyCss")}">
 
 
 

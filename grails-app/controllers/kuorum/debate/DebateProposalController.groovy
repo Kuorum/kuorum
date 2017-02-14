@@ -29,7 +29,7 @@ class DebateProposalController {
         DebateRSDTO debate = debateService.findDebate(debateUser, command.debateId)
         ProposalRSDTO proposalRSDTO = proposalService.addProposal(user, debate, command.body)
 
-        render template: '/debate/showModules/mainContent/proposalData', model:[debate:debate, proposal:proposalRSDTO]
+        render template: '/debate/showModules/mainContent/proposalData', model:[debate:debate, debateUser:debateUser,proposal:proposalRSDTO]
 
     }
 

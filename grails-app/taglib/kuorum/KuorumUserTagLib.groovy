@@ -103,13 +103,6 @@ class KuorumUserTagLib {
                     userReputation: userReputationRSDTO
             ])
         }
-        if (showRole){
-            out << """
-                <span class="user-type">
-                    <small>${userUtil.roleName(user:user)}</small>
-                </span>
-                """
-        }
         if(showActions){
             out << "<div class='actions'>"
             out << userUtil.followButton(user: user, cssExtra: 'follow',cssSize:"btn-xs" )
@@ -117,6 +110,13 @@ class KuorumUserTagLib {
                 out << userUtil.deleteRecommendedUserButton(user: user)
             }
             out << "</div>"
+        }
+        if (showRole){
+            out << """
+                <span class="user-type">
+                    <small>${userUtil.roleName(user:user)}</small>
+                </span>
+                """
         }
         out << "</${htmlWrapper}>" //END DIV
     }
@@ -354,6 +354,10 @@ class KuorumUserTagLib {
     }
 
     def contactButton={attrs, body ->
+        Boolean show = attrs.show!=null?attrs.show:true
+        if (!show) {
+            return
+        }
         KuorumUser user = attrs.user
         String cssSize = attrs.cssSize?:''
         def prefixMessages = attrs.prefixMessages?:"kuorumUser.contact"

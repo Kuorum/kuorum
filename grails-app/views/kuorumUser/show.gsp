@@ -42,7 +42,7 @@
                     <g:render template="politicianValuation" model="[user:politician, userReputation:userReputation]"/>
                     <div class="follow-btn-group">
                         <userUtil:followButton user="${politician}" cssExtra="inverted"/>
-                        <userUtil:contactButton user="${politician}" cssExtra="inverted"/>
+                        <userUtil:contactButton user="${politician}" cssExtra="inverted" show="${causes.size() > 0}"/>
                     </div>
                 </div>
             </div>

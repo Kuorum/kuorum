@@ -43,13 +43,7 @@ class DashboardController {
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
     def index(){
-        if (springSecurityService.isLoggedIn()){
-//            render(view: "dashboard", model: dashboard())
-            flash.message = flash.message
-            redirect (mapping:"dashboard")
-        }else{
-            render(view: "landingPoliticians", model: landingPoliticians())
-        }
+        return landingLeaders()
     }
     def dashboard() {
         if (!springSecurityService.isLoggedIn()){
@@ -191,9 +185,6 @@ class DashboardController {
     def landingPoliticians(){
         [command: new KuorumRegisterCommand()]
     }
-    def landingOrganizations(){
-        [command: new KuorumRegisterCommand()]
-    }
 
     def discover(){
         //TODO: QUE HACER SI NO ES ESPA�A
@@ -241,5 +232,35 @@ class DashboardController {
 
     def landingPrices(){
         []
+    }
+
+    def landingLeaders(){
+        if (springSecurityService.isLoggedIn()){
+//            render(view: "dashboard", model: dashboard())
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+            render(view: "landingLeaders", model: [command: new KuorumRegisterCommand()])
+        }
+    }
+
+    def landingCorporations(){
+        if (springSecurityService.isLoggedIn()){
+//            render(view: "dashboard", model: dashboard())
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+            render(view: "landingCorporations", model: [command: new KuorumRegisterCommand()])
+        }
+    }
+
+    def landingOrganizations(){
+        if (springSecurityService.isLoggedIn()){
+//            render(view: "dashboard", model: dashboard())
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+            render(view: "landingOrganizations", model: [command: new KuorumRegisterCommand()])
+        }
     }
 }

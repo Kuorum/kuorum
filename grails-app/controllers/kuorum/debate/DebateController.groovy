@@ -204,10 +204,16 @@ class DebateController {
         DebateRSDTO savedDebate
         if (command.publishOn != null) {
             savedDebate = debateService.saveDebate(user, debateRDTO, debateId)
-            msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
-                    savedDebate.title,
-                    g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
-            ])
+            if (savedDebate.campaignStatusRSDTO == CampaignStatusRSDTO.SENT) {
+                msg = g.message(code: 'tools.massMailing.saved.advise', args: [
+                        savedDebate.title
+                ])
+            } else {
+                msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
+                        savedDebate.title,
+                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
+                ])
+            }
         } else {
             // IS A DRAFT
             savedDebate = debateService.saveDebate(user, debateRDTO, debateId)

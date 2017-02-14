@@ -14,6 +14,7 @@ import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.contact.NewContactCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import kuorum.web.commands.payment.contact.BulkRemoveContactsCommand
+import kuorum.web.session.CSVDataSession
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.contact.BulkUpdateContactTagsRDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
@@ -35,7 +36,7 @@ import payment.contact.ContactService
 class ContactsController {
 
     private static final String CONTACT_CSV_UPLOADED_SESSION_KEY="CONTACT_CSV_UPLOADED_SESSION_KEY"
-    private static final String CONTACT_CSV_UPLOADED_EXTENSION=".csv"
+    private static final String CONTACT_CSV_UPLOADED_EXTENSION = ".csv"
 
     ContactService contactService
     SpringSecurityService springSecurityService
@@ -213,7 +214,9 @@ class ContactsController {
             redirect(mapping: 'politicianContactImportCSV')
             return
         }
+        CSVDataSession csvDataSession = new CSVDataSession()
         File csv = File.createTempFile(uploadedFile.originalFilename, CONTACT_CSV_UPLOADED_EXTENSION)
+        csvDataSession.file = csv
         log.info("Creating temporal file ${csv.absoluteFile}")
         uploadedFile.transferTo(csv)
         log.info("Saved data into temporal file ${csv.absoluteFile}")
@@ -223,7 +226,7 @@ class ContactsController {
 //        OutputStream outStream = new FileOutputStream(csv);
 //        outStream.write(buffer);
 //        outStream.close()
-        request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csv)
+        request.getSession().setAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY, csvDataSession)
         try {
             modelUploadCSVContacts()
         } catch(KuorumException e) {
@@ -238,11 +241,14 @@ class ContactsController {
     }
 
     def importCSVContactsSave(){
-        if (!request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)){
+        if (!request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)) {
             flash.error = g.message(code:'tools.contact.import.csv.error.noFile')
             redirect(mapping:'politicianContactImport')
             return
         }
+
+        // From session
+        CSVDataSession csvDataSession = (CSVDataSession) request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
 
         List<String> columnOption = params.columnOption
 
@@ -251,15 +257,18 @@ class ContactsController {
         Integer emailPos = columnOption.findIndexOf{it=="email"}
         List<Number> tagsPos = columnOption.findIndexValues{it=="tag"}
         def tags = params.tags?.split(",")?:[]
+
+        Integer numOfTotalColumns = csvDataSession.numTotalColumns
+        Integer numOfEmptyColumns = csvDataSession.numOfEmptyColumns
         Integer notImport = ((params.notImport?:[]) as List).collect{Integer.parseInt(it)}.max()?:0
 
         List<String> realPos = params.realPos
-        namePos = namePos<0 || namePos > realPos.size()?namePos:Integer.parseInt(realPos[namePos])
-        surnamePos = surnamePos<0 || surnamePos > realPos.size()?surnamePos:Integer.parseInt(realPos[surnamePos])
-        emailPos = emailPos<0 || emailPos > realPos.size()?emailPos:Integer.parseInt(realPos[emailPos])
+        surnamePos = surnamePos<0 || surnamePos > realPos.size() ? surnamePos : Integer.parseInt(realPos[surnamePos])
+        emailPos = emailPos<0 || emailPos > realPos.size() ? emailPos : Integer.parseInt(realPos[emailPos])
+        namePos = namePos<0 || namePos > realPos.size() ? namePos : Integer.parseInt(realPos[namePos])
         tagsPos = tagsPos?.collect{Integer.parseInt(realPos[it.intValue()])}?:[]
 
-        if (namePos == -1 || emailPos == -1) {
+        if ((namePos == -1 && (numOfTotalColumns - numOfEmptyColumns) != 1) || emailPos == -1) {
 
             flash.error=g.message(code: 'tools.contact.import.csv.error.notEmailNameColumnSelected')
 
@@ -275,8 +284,7 @@ class ContactsController {
             }
         }
 
-
-        File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+        File csv = csvDataSession.file
         log.info("Recovered temporal file ${csv.absoluteFile}")
         ObjectId loggedUserId = springSecurityService.principal.id
 
@@ -326,7 +334,9 @@ class ContactsController {
                     }
 
                     ContactRDTO contact = new ContactRDTO()
-                    contact.setName(line[namePos] as String)
+                    if (namePos > 0) {
+                        contact.setName(line[namePos] as String)
+                    }
                     if (surnamePos > 0) {
                         contact.setSurname(line[surnamePos] as String)
                     }
@@ -370,13 +380,15 @@ class ContactsController {
     }
 
     private Map modelUploadCSVContacts(Integer emailPos = -1, Integer namePos = -1, surnamePos= -1) {
-        File csv = (File)request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+        CSVDataSession csvDataSession = (CSVDataSession) request.getSession().getAttribute(CONTACT_CSV_UPLOADED_SESSION_KEY)
+        File csv = csvDataSession.file
         log.info("Calculating uploaded name: "+csv)
         String fileNamePattern = "(.*[a-zA-Z])([0-9]+${CONTACT_CSV_UPLOADED_EXTENSION})\$"
         String fileName = (csv.name =~/${fileNamePattern}/)[0][1]
         def linesIterator = parseCsvFile(csv)
         def nextLine = linesIterator.next()
         Set<Integer> emptyColumns = (0..nextLine.values.length) as Set
+        csvDataSession.numTotalColumns = nextLine.values.length
         while (nextLine) {
             // Empty row => error
             if (nextLine.values.join("").isEmpty()) {
@@ -400,6 +412,10 @@ class ContactsController {
         if (emailPos == null) {
             throw new KuorumException("tools.contact.import.csv.error.noEmailColumn")
         }
+
+        // Save in session
+        csvDataSession.numOfEmptyColumns = emptyColumns.size() - 1
+
         linesIterator = parseCsvFile(csv)
         [
                 fileName: fileName,
