@@ -5382,7 +5382,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (min-width: 768px) {
     header.landing.transp .navbar {background-color: transparent;}
     header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 195px;}
+    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 186px;}
     .nav > li > .navbar-link.user-area img {margin-top: -5px;}
     .navbar-nav>li {margin: 0;}
     .navbar-nav>li:first-child {margin: 0;}
