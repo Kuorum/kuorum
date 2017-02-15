@@ -21,6 +21,7 @@ import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
+import org.springframework.security.access.AccessDeniedException
 import payment.campaign.DebateService
 import payment.campaign.ProposalService
 import payment.contact.ContactService
@@ -92,6 +93,9 @@ class DebateController {
             redirect mapping: "home"
             return
         }
+        if (debateRSDTO.userAlias != loggedUser.alias){
+            throw new AccessDeniedException("This debate is not yours");
+        }
 
         // Convert debate to command
         DebateCommand debateCommand = new DebateCommand()
@@ -137,6 +141,10 @@ class DebateController {
     def update(DebateCommand command, Long debateId) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         DebateRSDTO debateRSDTO = debateService.findDebate(user, debateId)
+
+        if (debateRSDTO.userAlias != user.alias){
+            throw new AccessDeniedException("This debate is not yours");
+        }
 
         if (!debateRSDTO) {
             flash.message = message(code: 'admin.createProjectUpdate.project.not.found', args: [])
