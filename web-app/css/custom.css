@@ -336,7 +336,7 @@ a:focus {color: #ff9431;}
 .navbar > .container-fluid {padding-right: 30px; padding-left: 30px;}
 .main > .container-fluid > .row {position: relative;}
 #main {padding-bottom: 40px; padding-top: 24px; min-height: 382px;}
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
     #main{
         padding-bottom: 0;
     }
@@ -2416,7 +2416,7 @@ video#bgvid {
 
 /* boxes columna derecha dashboard */
 #aside-ppal {padding-top: 24px;}
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
     #aside-ppal {
         padding-top: 0px;
     }
@@ -3163,7 +3163,7 @@ textarea.error,
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
 
     .icheckbox_line-orange,
     .iradio_line-orange {
@@ -5374,7 +5374,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 }
 
 /* Small devices (tablets, 768px and down) */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
     .box-order-options .bulk-actions {display: block; width: 100%;}
 }
 
@@ -5388,7 +5388,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .navbar-nav>li:first-child {margin: 0;}
     .navbar-nav {margin-top: 2px;}
     .navbar-form {width: 245px; margin: 4px 4px 4px 4%;}
-    .nav > li > .navbar-link {background-color: transparent; border-bottom: 0 solid #fff; padding: 0 12px; height: 50px;}
+    .nav > li > .navbar-link {background-color: transparent; border-bottom: 0 solid #fff; padding: 0 6px; height: 50px;}
     .nav > li > .navbar-link:hover,
     .nav > li > .navbar-link:focus {background-color: transparent; color: #ff9431;}
     .nav > .underline > .navbar-link:hover,
@@ -5843,6 +5843,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .navbar {font-size: 15px; font-size: 1.5rem;}
     .nav > li > .navbar-link > .fa.fa-lg {font-size: 18px; font-size: 1.8rem;}
     .nav > li > .navbar-link > .fa.fa-lg.fa-home {font-size: 20px; font-size: 2rem;}
+    .nav > li > .navbar-link {padding: 0 10px;}
 
     .config .kakareo-list.project > li,
     .config .politician-list > li {width: 48%; float: left; margin: 0 2% 0 0;padding:0}
@@ -8536,6 +8537,35 @@ ul.globus li img {
     }
 }
 
+@media screen and (max-width: 1199px) {
+    .container-overflow-image {
+        min-height: 720px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .img-full-container {
+        position: relative;
+        top: 0;
+        right: 0;
+        left: 0;
+        overflow: hidden;
+        width: 100%;
+        margin-top: 35px;
+    }
+    .img-full-container.left {
+        position: relative;
+        top: 0;
+        left: 0;
+        overflow: visible;
+        width: 100%;
+        margin-bottom: 35px;
+    }
+    header.landing .nav > li > .navbar-link.btn-transparent{
+        padding: 6px 9px !important;
+    }
+}
+
 @media screen and (max-width: 980px) {
     .img-full-container {
         position: relative;
@@ -8561,7 +8591,7 @@ ul.globus li img {
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     ul.globus li img {
         margin-bottom: 0px;
     }
