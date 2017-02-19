@@ -1,10 +1,6 @@
 
-<g:set var="text">
-        <span>made a</span>
-        <g:link mapping="debateShow" params="${notification.proposal.encodeAsLinkProperties()}" fragment="proposal_${notification.proposal.id}" itemprop="url">
-                <span>proposal</span>
-        </g:link>
-</g:set>
+<g:set var="proposalLink"><g:createLink mapping="debateShow" params="${notification.proposal.encodeAsLinkProperties()}" fragment="proposal_${notification.proposal.id}"/></g:set>
+<g:set var="text"><g:message code="notifications.debateNotification.text" args="[proposalLink]"/></g:set>
 
 <g:render
         template="/layouts/notifications/notification"

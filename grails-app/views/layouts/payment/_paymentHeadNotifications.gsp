@@ -5,12 +5,12 @@
     </g:link>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="open-user-notifications" role="menu">
         <ul class="notification-menu">
-            <li class="hidden-xs title">Notifications</li>
+            <li class="hidden-xs title"><g:message code="head.navigation.userMenu.userNotifications"/> </li>
             <g:render template="/layouts/payment/paymentHeadNotificationsLi" model="[notificationsPage:notificationsPage]"/>
         </ul>
         <div class="see-more ${notificationsPage.total <= notificationsPage.size?'hide':''}">
             <g:link mapping="ajaxHeadNotificationsSeeMore" elementId="see-more-notifications" data-pagination-max="${notificationsPage.size}" data-pagination-offset="${notificationsPage.page}" data-pagination-total="${notificationsPage.total}">
-                <span>see more ${notificationsPage.total} ${notificationsPage.size}</span>
+                <span><g:message code="read.more"/> </span>
             </g:link>
         </div>
     </div>
