@@ -6,6 +6,8 @@ import kuorum.core.model.UserType
 import kuorum.core.model.search.SearchNotifications
 import kuorum.notifications.Notification
 import kuorum.users.KuorumUser
+import org.kuorum.rest.model.notification.NotificationPageRSDTO
+import org.kuorum.rest.model.notification.NotificationRSDTO
 
 class LayoutsController {
 
@@ -20,14 +22,10 @@ class LayoutsController {
     def userHead() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         SearchNotifications searchNotificationsCommand = new SearchNotifications(user:user, max: MAX_HEAD_NOTIFICATIONS)
-        List<Notification> listNotifications = notificationService.findUserNotifications(searchNotificationsCommand)
-        Integer numNewNotifications = listNotifications.findAll{it.dateCreated>user.lastNotificationChecked}.size()
-        def notifications =[
-                list: listNotifications,
-                numNews: numNewNotifications
-        ]
+        NotificationPageRSDTO notificationsPage = notificationService.findUserNotifications(searchNotificationsCommand)
+
 //        if (user.userType == UserType.CANDIDATE || user.userType == UserType.POLITICIAN){
-            render template:'/layouts/payment/paymentHead', model:[user:user, notifications:notifications]
+        render template:'/layouts/payment/paymentHead', model:[user:user, notificationsPage:notificationsPage]
 //        }else{
 //            render template:'/layouts/userHead', model:[user:user, notifications:notifications]
 //        }

@@ -292,7 +292,6 @@ class PostService {
                 Post.collection.update([_id:post.id],['$push':dbObject])
                 post.refresh()
             }
-            notificationService.sendCommentVoteNotification(post, postComment, voteType, votedBy)
 
         }else{
             log.warn("Un usuario ha intentado votar 2 veces")
@@ -348,7 +347,6 @@ class PostService {
             post.refresh()
             if (sendNotification){
                 cluckService.createActionCluck(post, comment.kuorumUser, CluckAction.DEBATE)
-                notificationService.sendDebateNotification(post)
             }
             post
         }else{
@@ -431,13 +429,11 @@ class PostService {
 
     List<Post> recommendedPosts(KuorumUser user = null, Project project = null, Pagination pagination = new Pagination()){
         //TODO: Improve algorithm
-        Integer votesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
         if (project){
             Post.findAllByProjectAndPublishedAndDateCreatedGreaterThan(project,true,new Date()-180,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
         }else{
             List<Project> openProjects = Project.findAllByStatus(ProjectStatusType.OPEN);
             Post.findAllByPublishedAndDateCreatedGreaterThanAndProjectInList(true, new Date()-180, openProjects,[max: pagination.max, sort: "numVotes", order: "desc", offset: pagination.offset])
-//        Post.findAllByNumVotesGreaterThan(votesToBePublic,[max: NUM_RECOMMENDED_POST, sort: "numVotes", order: "desc", offset: 0])
         }
     }
 
@@ -496,7 +492,6 @@ class PostService {
         defender.politicianActivity.numVictories +=1
         defender.save()
         cluckService.createActionCluck(post, owner, CluckAction.VICTORY)
-        notificationService.sendVictoryNotification(post)
         try{
             kuorumMailService.sendVictoryToAdmins(owner, post, victoryOk)
         }catch (Exception e){

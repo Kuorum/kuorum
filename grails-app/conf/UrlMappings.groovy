@@ -242,7 +242,6 @@ class UrlMappings {
         name causeDiscard:         "/ajax/cause/$causeName/discard" (controller:"causes", action: "discardCause")
 
         name ajaxHeadNotificationsChecked:  "/ajax/notificaiones/check"(controller:"notification", action:"notificationChecked")
-        name ajaxPostponeAlert:             "/ajax/notificaiones/posponer/$id"(controller:"notification", action:"postponeAlert")
         name ajaxHeadMessagesChecked:       "/ajax/mensajes/check"(controller:"layouts", action:"headNotificationsChecked")
         name ajaxFollow:                    "/ajax/kuorumUser/follow"(controller:"kuorumUser", action:"follow")
         name ajaxUnFollow:                  "/ajax/kuorumUser/unFollow"(controller:"kuorumUser", action:"unFollow")
@@ -342,7 +341,6 @@ class UrlMappings {
         name funnelSuccessfulStories:      "/la-nueva-politica"  (controller:"funnel", action:"funnelSuccessfulStories")
 
         // HERRAMIENTAS (TOOLS)
-        name toolsNotifications:    "/herramientas/notificaciones"   (controller: "tools", action: "userNotifications")
         name toolsFavorites:        "/herramientas/pendientes-de-leer"(controller: "tools", action: "showFavoritesPosts")
         name toolsMyPosts:          "/herramientas/mis-posts"        (controller: "tools", action: "showUserPosts")
         name toolsKuorumStore:      "/herramientas/el-gallinero"     (controller: "tools", action: "kuorumStore")

@@ -237,27 +237,4 @@ class PostServiceSpec extends Specification{
         "not closed </a>"            | "not closed "
         "not closed <a>"             | "not closed "
     }
-
-    @Unroll
-    void "test given victory to post(vicotry=#stausVictoryPost) by #emailUser"(){
-        given:"A post"
-            KuorumUser user = Helper.createDefaultUser("user@email.com").save()
-            KuorumUser politician = Helper.createDefaultUser("politician@email.com").save()
-            politician.politicianActivity = new PoliticianActivity()
-            Project project = Helper.createDefaultProject("#project").save()
-            Post post = Helper.createDefaultPost(user, project).save()
-            post.defender = politician
-            KuorumUser userGivenVictory = KuorumUser.findByEmail(emailUser)
-            post.victory = stausVictoryPost
-        when:
-            service.victory(post, userGivenVictory, true)
-        then:
-                1 * notificationService.sendVictoryNotification(post)
-                post.victory
-        where:
-            stausVictoryPost  | emailUser               | exceptionCode
-//            true              | 'user@email.com'        | 'error.security.post.victory.alreadyVictoryGiven'
-//            false             | 'politician@email.com'  | 'error.security.post.victory.notOwnerGivenVictory'
-            false             | 'user@email.com'        | ''
-    }
 }

@@ -33,31 +33,12 @@ class PostVoteService {
         post.save(flush:true)
         Post.collection.update([_id:post.id],[$inc:[numVotes:1]])
         post.refresh()
-
-        if (checkIfPublicMilestone(post)){
-            notificationService.sendPublicMilestoneNotification(post)
-            gamificationService.postCreatedAward(post.owner, post)
-        }else if(checkIfMilestone(post)){
-            notificationService.sendMilestoneNotification(post)
-        }
-        gamificationService.postVotedAward(kuorumUser, post)
         postVote
 
     }
 
     boolean isAllowedToVote(Post post, KuorumUser user){
         PostVote.countByPostAndUser(post,user) == 0
-    }
-
-    boolean checkIfMilestone(Post post){
-
-        Range<Long> rangePost = findPostRange(post)
-        grailsApplication.config.kuorum.milestones.postVotes.publicVotes != post.numVotes &&
-        rangePost.from == post.numVotes
-    }
-
-    boolean checkIfPublicMilestone(Post post){
-        grailsApplication.config.kuorum.milestones.postVotes.publicVotes == post.numVotes
     }
 
     Range<Long> findPostRange(Post post){

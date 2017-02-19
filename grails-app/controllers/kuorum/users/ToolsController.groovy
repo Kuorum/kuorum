@@ -15,6 +15,7 @@ import kuorum.project.Project
 import kuorum.project.ProjectService
 import kuorum.util.Order
 import kuorum.web.constants.WebConstants
+import org.kuorum.rest.model.notification.NotificationRSDTO
 
 class ToolsController {
 
@@ -44,20 +45,6 @@ class ToolsController {
     }
 
     def index() {}
-
-
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def userNotifications(SearchNotifications searchNotificationsCommand) {
-        KuorumUser user = params.user
-        searchNotificationsCommand.user = user
-        List<Notification> notifications = notificationService.findUserNotifications(searchNotificationsCommand)
-        if (request.xhr){
-            response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${notifications.size()<searchNotificationsCommand.max}")
-            render template: "/tools/usrNotificationsList", model:[notifications:notifications]
-        }else{
-            [user:user, notifications:notifications, searchNotificationsCommand:searchNotificationsCommand]
-        }
-    }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def showFavoritesPosts() {

@@ -29,20 +29,6 @@ class KuorumMailService {
     IndexSolrService indexSolrService
     def grailsApplication
 
-    def sendSavedProjectToRelatedUsers(List <KuorumUser> listUsers, Project project){
-        def globalBindings=[
-                projectYoutube: project.urlYoutube?.url,
-                projectLink: generateLink('projectShow', project.encodeAsLinkProperties()),
-//                projectImage: project.image?.url,
-                projectName: project.shortName,
-                projectOwner: project.owner.name
-        ]
-
-        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME , mailType: MailType.PROJECT_CREATED_NOTIFICATION, globalBindings: globalBindings)
-        mailData.userBindings = listUsers.collect{new MailUserData(user:it, bindings:[:])}
-        mandrillAppService.sendTemplate(mailData)
-    }
-
     def sendBatchMail(KuorumUser user, String rawMail, String subject){
         MailUserData mailUserData = new MailUserData(user:user)
         MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME , mailType: MailType.BATCH_PROCESS, globalBindings: [rawMail: rawMail, SUBJECT:subject], userBindings: [mailUserData])
@@ -421,25 +407,6 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailNotificationsData)
     }
 
-    def sendVictoryNotificationUsers(Post post, Set<MailUserData> notificationUsers){
-        def globalBindings = [
-                defender:post.defender.name,
-                defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
-                debateOwner:post.owner.name,
-                postName:post.title,
-                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
-                postOwner: post.owner.name,
-                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties())
-        ]
-
-        MailData mailNotificationsData = new MailData()
-        mailNotificationsData.mailType = MailType.NOTIFICATION_VICTORY_USERS
-        mailNotificationsData.globalBindings=globalBindings
-        mailNotificationsData.userBindings = notificationUsers.asList().collect{postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", it.user.language.locale)}
-        mailNotificationsData.fromName = prepareFromName(post.owner.name)
-        mandrillAppService.sendTemplate(mailNotificationsData)
-    }
-
     private def globalBindingsForPromotedMails(Post post, KuorumUser sponsor){
         Project project = post.project
         String commissionName = messageSource.getMessage("${CommissionType.canonicalName}.${project.commissions.first()}",null,"otros", new Locale("ES_es"))
@@ -453,26 +420,6 @@ class KuorumMailService {
                 hashtag:post.project.hashtag,
                 hashtagLink:generateLink("projectShow",project.encodeAsLinkProperties())
         ]
-    }
-
-    def sendVictoryNotificationDefender(Post post){
-        def globalBindings = [
-                postType:messageSource.getMessage("${PostType.canonicalName}.${PostType.PURPOSE}",null,"", post.defender.language.locale),
-                defender:post.defender.name,
-                defenderLink:generateLink("userShow",post.defender.encodeAsLinkProperties()),
-                debateOwner:post.owner.name,
-                postName:post.title,
-                postLink:generateLink("postShow", post.encodeAsLinkProperties()),
-                postOwner: post.owner.name,
-                postOwnerLink: generateLink("userShow",post.owner.encodeAsLinkProperties())
-        ]
-
-        MailData mailNotificationsData = new MailData()
-        mailNotificationsData.mailType = MailType.NOTIFICATION_VICTORY_DEFENDER
-        mailNotificationsData.globalBindings=globalBindings
-        mailNotificationsData.userBindings = [new MailUserData(user:post.defender)]
-        mailNotificationsData.fromName = prepareFromName(post.owner.name)
-        mandrillAppService.sendTemplate(mailNotificationsData)
     }
 
     def sendCommentedPostNotificationUsers(Post post, PostComment postComment, Set<MailUserData> notificationUsers){

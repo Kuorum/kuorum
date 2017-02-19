@@ -237,7 +237,6 @@ class ProjectService {
             project.save()
             createNewProjectEvent(project)
             indexSolrService.index(project)
-            notificationService.sendProjectPublishNotification(project)
         }
         project
     }

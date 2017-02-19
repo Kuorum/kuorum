@@ -1259,6 +1259,7 @@ $(document).ready(function() {
         $('.nav .dropdown > a >.badge').closest('a').click(function(e) {
             e.preventDefault();
             var url = $(this).attr('href');
+            console.log(url)
             var element = $(this);
             $.ajax(url).done(function(data){
                 element.find('.badge').delay(1000).fadeOut("slow").queue(function() {

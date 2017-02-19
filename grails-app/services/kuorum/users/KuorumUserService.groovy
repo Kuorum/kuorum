@@ -70,11 +70,6 @@ class KuorumUserService {
             following.refresh()
             following.numFollowers = following.followers.size()
             following.save(flush: true)
-    //        follower.following.add(following.id)
-    //        following.followers.add(follower.id)
-    //        follower.save()
-    //        following.save()
-            notificationService.sendFollowerNotification(follower, following)
             addFollowerAsContact(follower, following)
         }
     }

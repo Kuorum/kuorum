@@ -8687,7 +8687,7 @@ ul.globus li img {
     padding-top: 10px;
 }
 
-.notification-menu > li.padding-top {
+.notification-menu > li.title + li {
     padding-top: 20px;
 }
 
