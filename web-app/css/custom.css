@@ -5387,6 +5387,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .navbar-nav>li {margin: 0;}
     .navbar-nav>li:first-child {margin: 0;}
     .navbar-nav {margin-top: 2px;}
+    .navbar-nav>li.notifications>.dropdown-menu{padding-bottom:0;}
     .navbar-form {width: 245px; margin: 4px 4px 4px 4%;}
     .nav > li > .navbar-link {background-color: transparent; border-bottom: 0 solid #fff; padding: 0 12px; height: 50px;}
     .nav > li > .navbar-link:hover,

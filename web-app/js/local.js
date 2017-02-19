@@ -1270,6 +1270,42 @@ $(document).ready(function() {
                 });
             });
         });
+
+        $('#see-more-notifications').on("click",function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var $link = $(this)
+            var offset= parseInt($link.attr("data-pagination-offset"))+1;
+            var max= parseInt($link.attr("data-pagination-max"));
+            var total= parseInt($link.attr("data-pagination-total"));
+            var url = $link.attr("href");
+            var $seeMoreContainer =  $link.parents("div.see-more");
+            var $ul = $seeMoreContainer.siblings("ul.notification-menu");
+            console.log($ul)
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    offset: offset,
+                    max: max
+                },
+                success: function(result) {
+                    $link.attr("data-pagination-offset", offset);
+                    $ul.append(result);
+                    if (total <= (offset+1)*max){
+                        console.log($seeMoreContainer)
+                        $seeMoreContainer.fadeOut("fast")
+                    }
+
+                },
+                error: function() {
+                    console.log('error');
+                }
+            });
+        });
+
+
     });
 
 
