@@ -73,9 +73,20 @@ class NotificationService {
      * Marks all the notifications as checked by the user
      * @param user
      */
-    KuorumUser markUserNotificationsAsChecked(KuorumUser user){
-        user.lastNotificationChecked = new Date()
-        user.save()
+    void markUserNotificationsAsChecked(KuorumUser user){
+        Map<String, String> params = [userAlias: user.id.toString()]
+        def response = restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.ACCOUNT_NOTIFICATIONS,
+                params,
+                [:]
+        )
+
+        NotificationPageRSDTO notificationPage = null
+        if (response.data) {
+            notificationPage = (NotificationPageRSDTO) response.data
+        }
+
+        notificationPage
     }
 
     public void sendPollCampaignNotification(PollCampaignVote pollCampaign){
