@@ -5,6 +5,12 @@
 <g:elseif test="${notification instanceof NotificationProposalNewRSDTO}">
     <g:render template="/layouts/notifications/debateNotification"  model='[notification:notification]'/>
 </g:elseif>
-<g:else>
+<g:elseif test="${notification instanceof NotificationProposalLikeRSDTO}">
+    <g:render template="/layouts/notifications/proposalLikeNotification"  model='[notification:notification]'/>
+</g:elseif>
+<g:elseif test="${notification instanceof NotificationProposalCommentRSDTO}">
+    <g:render template="/layouts/notifications/proposalCommentNotification"  model='[notification:notification]'/>
+</g:elseif>
+<g:elseif env="development">
     NOT DONE ${notification.class.name}
-</g:else>
+</g:elseif>
