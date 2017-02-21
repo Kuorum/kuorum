@@ -4739,6 +4739,10 @@ fieldset.rating:hover > input + label:hover:before {
 .config #config9 .checkbox-inline,
 #edit-project .checkbox label,
 #edit-project .checkbox-inline {font-weight: normal; font-size: 13px; font-size: 1.3rem;}
+.config #config9 .checkbox-inline {display: block;}
+.config #config9 .span-label {margin: 0;}
+.config #config9 .help-block {margin: 0 0 10px 0;}
+.config #config9 .checkbox-inline+.checkbox-inline {margin: 0;}
 .config #config9 .checkbox,
 #edit-project .checkbox {margin-top: 15px; margin-bottom: 15px;}
 .config #config9 .interestContainer {width: 530px}

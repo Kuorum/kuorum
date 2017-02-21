@@ -679,9 +679,10 @@ class FormTagLib {
             checked = command."$field"?'checked':''
         }
         def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
+        def extraClass = attrs.extraClass?:""
         def error = hasErrors(bean: command, field: field,'error')
         out <<"""
-            <label class="checkbox-inline">
+            <label class="checkbox-inline ${extraClass}">
                 <input id="${elementId}" class="${error}" type="checkbox" name='${prefixFieldName}${field}' ${checked} value='${value}' />
                 <span class="check-box-icon"></span>
                 <span class="label-checkbox">${label}</span>

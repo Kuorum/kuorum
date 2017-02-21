@@ -11,6 +11,7 @@ import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
 import kuorum.mail.MailType
 import kuorum.notifications.Notification
+import kuorum.notifications.NotificationService
 import kuorum.register.RegisterService
 import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.web.commands.profile.*
@@ -19,6 +20,8 @@ import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.commands.profile.politician.RelevantEventsCommand
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
+import org.kuorum.rest.model.kuorumUser.config.NotificationMailConfigRDTO
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
@@ -32,7 +35,7 @@ class ProfileController {
     KuorumUserService kuorumUserService
     def postService
     def gamificationService
-    def notificationService
+    NotificationService notificationService
     def kuorumMailService
     KuorumMailAccountService kuorumMailAccountService
     RegisterService registerService
@@ -354,8 +357,13 @@ class ProfileController {
 
     def configurationEmails() {
         KuorumUser user = params.user
+        NotificationConfigRDTO notificationConfig = notificationService.getNotificationsConfig(user)
         MailNotificationsCommand command = new MailNotificationsCommand()
-        command.availableMails = user.availableMails?.collect{it.mailGroup}.unique()?:[]
+        command.followNew = notificationConfig.mailConfig.followNew
+        command.proposalComment = notificationConfig.mailConfig.proposalComment
+        command.proposalLike = notificationConfig.mailConfig.proposalLike
+        command.proposalNew = notificationConfig.mailConfig.proposalNew
+        notificationService.saveNotificationsConfig(user, notificationConfig);
         [user:user, command: command]
     }
     def configurationEmailsSave(MailNotificationsCommand command) {
@@ -364,8 +372,13 @@ class ProfileController {
             render view:"configurationEmails", model: [command:command,user:user]
             return
         }
-        user.availableMails = MailType.values().findAll{command.availableMails?.contains(it.mailGroup)}
-        kuorumUserService.updateUser(user)
+        NotificationConfigRDTO notificationConfig = new NotificationConfigRDTO();
+        notificationConfig.setMailConfig(new NotificationMailConfigRDTO())
+        notificationConfig.mailConfig.followNew = command.followNew
+        notificationConfig.mailConfig.proposalComment = command.proposalComment
+        notificationConfig.mailConfig.proposalLike = command.proposalLike
+        notificationConfig.mailConfig.proposalNew = command.proposalNew
+        notificationService.saveNotificationsConfig(user, notificationConfig)
         flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'
     }

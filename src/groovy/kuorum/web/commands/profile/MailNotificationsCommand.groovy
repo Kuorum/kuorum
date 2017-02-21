@@ -11,9 +11,11 @@ import kuorum.mail.MailType
 @Validateable
 class MailNotificationsCommand {
 
-    List<MailGroupType> availableMails
+    boolean followNew;
+    boolean proposalNew;
+    boolean proposalLike;
+    boolean proposalComment;
 
     static constraints = {
-        availableMails nullable: true
     }
 }

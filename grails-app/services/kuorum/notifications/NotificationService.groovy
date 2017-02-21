@@ -23,6 +23,7 @@ import kuorum.util.rest.RestKuorumApiService
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.kuorumUser.config.NotificationConfigRDTO
 import org.kuorum.rest.model.notification.NotificationPageRSDTO
 import org.kuorum.rest.model.notification.NotificationRSDTO
 
@@ -34,17 +35,6 @@ class NotificationService {
     LinkGenerator grailsLinkGenerator
 
     RestKuorumApiService restKuorumApiService;
-
-    private static Integer BUFFER_NOTIFICATIONS_SIZE = 1000
-
-    /**
-     * Returns notifications, including alerts that the user hasn't see.
-     * @param user
-     * @return
-     */
-    List<Notification> findUserNotificationsNotChecked(KuorumUser user, Pagination pagination = new Pagination()){
-        Notification.findAllByKuorumUserAndDateCreatedGreaterThan(user, user.lastNotificationChecked,[max: pagination.max, sort: "dateCreated", order: "desc", offset: pagination.offset])
-    }
 
     /**
      * Returns all notifications
@@ -89,10 +79,12 @@ class NotificationService {
         notificationPage
     }
 
+    @Deprecated
     public void sendPollCampaignNotification(PollCampaignVote pollCampaign){
         kuorumMailService.sendPollCampaignMail(pollCampaign)
     }
 
+    @Deprecated
     public void sendPoliticianContactNotification(KuorumUser politician, KuorumUser user, String message, String cause){
         kuorumMailService.sendPoliticianContact(politician, user, message, cause)
         kuorumMailService.sendPoliticianContactKuorumNotification(politician, user, message, cause)
@@ -103,6 +95,38 @@ class NotificationService {
         // Does nothing
     }
 
+    NotificationConfigRDTO getNotificationsConfig(KuorumUser user){
+        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_NOTIFICATIONS_CONFIG,
+                params,
+                query,
+                new TypeReference<NotificationConfigRDTO>(){}
+        )
+
+        NotificationConfigRDTO notificationPage = null
+        if (response.data) {
+            notificationPage = (NotificationConfigRDTO) response.data
+        }
+
+        notificationPage
+    }
+
+    void saveNotificationsConfig(KuorumUser user,NotificationConfigRDTO notificationConfigRDTO){
+        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_NOTIFICATIONS_CONFIG,
+                params,
+                query,
+                notificationConfigRDTO,
+                null
+        )
+
+        NotificationConfigRDTO notificationPage = null
+
+    }
 
     /**
     * A post has been supported by a politician
