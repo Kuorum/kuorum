@@ -926,15 +926,15 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .delhap:hover,
 .delhap:active,
 .delhap:focus {background-position: -50px -34px}
-.social li a {color: #ff9431;}
-.social li a:hover,
-.social li a:active,
-.social li a:focus {color: #fff;}
-.social li .fa-circle {color: #fff;}
-.social li .fa-circle.dark {color: #A8A8A8;}
-.social li a:hover .fa-circle,
-.social li a:active .fa-circle,
-.social li a:focus .fa-circle {color: #ff9431;}
+#footer .social li a, .social li a {color: #ff9431;}
+#footer .social li a:hover,.social li a:hover,
+#footer .social li a:active,.social li a:active,
+#footer .social li a:focus, .social li a:focus {color: #fff;}
+#footer .social li .fa-circle, .social li .fa-circle {color: #fff;}
+#footer .social li .fa-circle.dark, .social li .fa-circle.dark {color: #A8A8A8;}
+#footer .social li a:hover .fa-circle,.social li a:hover .fa-circle,
+#footer .social li a:active .fa-circle,.social li a:active .fa-circle,
+#footer .social li a:focus .fa-circle, .social li a:focus .fa-circle {color: #ff9431;}
 .ethz img {width: 78px; height: 25px;}
 .delhap img {width: 45px; height: 32px;}
 .gpl img,
