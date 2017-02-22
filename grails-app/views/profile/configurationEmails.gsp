@@ -20,16 +20,21 @@
 <content tag="mainContent">
     <g:form method="POST" mapping="profileEmailNotifications" name="config9" role="form">
         <div class="box-ppal-section">
-            <div class="form-group activityMe">
+            <div class="form-group">
                 <span class="span-label"><g:message code="profile.emailNotifications.basic.title"/></span>
                 %{--<span class="span-label"><g:message code="profile.emailNotifications.${mailGroup}.label"/></span>--}%
                 <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
-                <label class="checkbox-inline pull-right"><input type="checkbox" class="allActivityMails" value=""><g:message code="profile.emailNotifications.checkAll"/></label>
-                <g:each in="${kuorum.mail.MailGroupType.values().findAll{it.editable}}" var="mailGroup">
-                    <div class="checkbox">
-                        <label><input type="checkbox" name="availableMails"  value="${mailGroup}" ${command.availableMails.contains(mailGroup)?'checked':''}><g:message code="profile.emailNotifications.${mailGroup}.label"/></label>
-                    </div>
-                </g:each>
+                %{--<label class="checkbox-inline pull-right"><input type="checkbox" class="allActivityMails" value=""><g:message code="profile.emailNotifications.checkAll"/></label>--}%
+                <formUtil:checkBox command="${command}" field="followNew" extraClass="clearfix" />
+            </div>
+            <div class="form-group">
+                <span class="span-label"><g:message code="profile.emailNotifications.basic.title"/></span>
+                %{--<span class="span-label"><g:message code="profile.emailNotifications.${mailGroup}.label"/></span>--}%
+                <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
+                %{--<label class="checkbox-inline pull-right"><input type="checkbox" class="allActivityMails" value=""><g:message code="profile.emailNotifications.checkAll"/></label>--}%
+                <formUtil:checkBox command="${command}" field="proposalComment" extraClass="clearfix" />
+                <formUtil:checkBox command="${command}" field="proposalLike" extraClass="clearfix" />
+                <formUtil:checkBox command="${command}" field="proposalNew" extraClass="clearfix" />
             </div>
         </div>
         <div class="box-ppal-section">

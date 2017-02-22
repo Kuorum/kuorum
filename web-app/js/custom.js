@@ -660,9 +660,9 @@ $(document).ready(function() {
         $('.allActivityMails').change(function() {
             var formGroup = $(this).parents(".form-group");
             if($(this).is(':checked')) {
-                formGroup.find('.checkbox input').prop('checked', true);
+                formGroup.find('input[type=checkbox]').prop('checked', true);
             } else {
-                formGroup.find('.checkbox input').prop('checked', false);
+                formGroup.find('input[type=checkbox]').prop('checked', false);
             }
         });
 	});

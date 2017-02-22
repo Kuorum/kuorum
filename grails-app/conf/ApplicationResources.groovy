@@ -95,6 +95,17 @@ modules = {
         resource url:'js/debate.js'
     }
 
+    debateForm {
+        dependsOn("basic", "forms")
+        resource url:'js/debate-form.js'
+    }
+
+    newsletter{
+        dependsOn("basic", "forms")
+        resource url:'js/newsletter-form.js'
+
+    }
+
     forms{
 //        resource url:'js/jquery-ui/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js'
 //        resource url:'js/jquery-ui/jquery-ui-1.10.4.custom/css/base/jquery-ui-1.10.4.custom.min.css'

@@ -7,7 +7,7 @@
         </g:link>
     </li>
     <li class="underline">
-        <g:link mapping="politicianCampaigns" class="navbar-link ${nav.activeMenuCss(mappingName:'politicianMassMailing')}">
+        <g:link mapping="politicianCampaigns" class="navbar-link ${nav.activeMenuCss(mappingName:'politicianCampaigns')}">
             <span class="fa fa-paper-plane fa-lg"></span>
             <span class=""><g:message code="head.logged.account.tools.massMailing"/> </span>
         </g:link>
@@ -18,6 +18,7 @@
             <span class=""><g:message code="tools.contact.title"/> </span>
         </g:link>
     </li>
+    <g:render template="/layouts/payment/paymentHeadNotifications" bean="[notificationsPage:notificationsPage]"/>
     <li class="dropdown underline" itemscope itemtype="http://schema.org/Person">
         <a data-target="#" href="#" id="open-user-options" class="dropdown-toggle dropdown-menu-right navbar-link user-area" data-toggle="dropdown" role="button">
             <span itemprop="name" class="sr-only">${user.name}</span>

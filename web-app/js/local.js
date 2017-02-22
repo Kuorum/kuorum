@@ -462,183 +462,6 @@ $(document).ready(function() {
         return false;
     });
 
-    // Guardar borrador
-    $('body').on('click','.form-final-options #save-draft-campaign', function(e) {
-        e.preventDefault();
-        $("#sendMassMailingType").val("DRAFT");
-        $(this).parents("form").submit();
-    });
-
-    // abrir modal confirmar envío campaña
-    $('body').on('click','.form-final-options #send', function(e) {
-        e.preventDefault();
-        if (isValidCampaignForm()) {
-            $("#sendMassMailingType").val("SEND");
-            prepareAndOpenCampaignConfirmModal();
-        }
-    });
-
-    $('body').on('click','#sendTestModalButonOk', function(e) {
-        e.preventDefault();
-        $("#sendTestModal").modal("hide")
-    });
-    $('body').on('click','#sendTest', function(e) {
-        e.preventDefault();
-        if (isValidCampaignForm()) {
-            pageLoadingOn();
-            var link = $(this).attr("href");
-            $("#sendMassMailingType").val("SEND_TEST");
-            var postData= $("#politicianMassMailingForm").serialize();
-            $.post( link, postData)
-                .done(function(data) {
-                    $("#sendTestModal").modal("show")
-                    if ($("#politicianMassMailingForm input[name=campaignId]").length <=0){
-                        $("#politicianMassMailingForm").append("<input name='campaignId' type='hidden'/>")
-                    }
-                    $("#politicianMassMailingForm input[name=campaignId]").val(data.campaing.id)
-                })
-                .fail(function(messageError) {
-                    display.warn("Error");
-                })
-                .always(function() {
-                    pageLoadingOff();
-                });
-        }
-    });
-
-    function dateFromString(str) {
-        // FORMAT dd/mm/yyyy hh24:mi
-        var m = str.match(/(\d+)\/(\d+)\/(\d+)\s+(\d+):(\d+)/);
-        return new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5], 0);
-    }
-
-    function correctCampaingScheduled(){
-        var strTimestampScheduled = $("#scheduled").val();
-        var timestampScheduled = dateFromString(strTimestampScheduled); // Sat Oct 10 2012 03:47:00 GMT-0500 (EST)
-        console.log(timestampScheduled)
-        if (timestampScheduled < new Date()){
-            var errorMsg = i18n.kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error;
-            $("#scheduled").parents("div.input-group.datetime").after("<span for='scheduled' class='error'><span class='tooltip-arrow'></span>"+errorMsg+"</span>")
-            $("#scheduled").addClass("error")
-            return false;
-        }
-        return true;
-    }
-
-    function isValidCampaignForm(){
-        var valid = $("#politicianMassMailingForm").valid();
-
-        var headerPicture = $("input[name=headerPictureId]");
-        if ((typeof headerPicture.attr('required') == "undefined" || headerPicture.attr('required') != "false")
-                && headerPicture.val() == "") {
-            $(".uploaderImageContainer").append('<span id="headerPictureErrorSpan" class="error"><span class="tooltip-arrow"></span>Define una imagen para que te quede un email bonito</span>');
-            valid = false;
-        } else {
-            $("#headerPictureErrorSpan").fadeOut()
-        }
-
-        if ($("textarea[name=text]").val() == "") {
-            $("div.textareaContainer").append('<span id="campatingTextErrorSpan" for="text" class="error"><span class="tooltip-arrow"></span>Cuenta algo en tu comunicado. :)</span>');
-            valid = false;
-        } else {
-            $("#campatingTextErrorSpan").fadeOut()
-        }
-        if (!valid) {
-            var msg = $("#politicianMassMailingForm").attr("data-generalErrorMessage")
-            display.warn(msg)
-        }
-        return valid;
-    }
-
-    function isValidDebateForm() {
-        var valid = $("#politicianMassMailingForm").valid();
-
-        if ($("textarea[name=body]").val() == "") {
-            $("div.textareaContainer").append('<span id="campatingTextErrorSpan" for="text" class="error"><span class="tooltip-arrow"></span>Cuenta algo en tu comunicado. :)</span>');
-            valid = false;
-        } else {
-            $("#campatingTextErrorSpan").fadeOut()
-        }
-
-        if (!valid) {
-            var msg = $("#politicianMassMailingForm").attr("data-generalErrorMessage")
-            display.warn(msg)
-        }
-
-        return valid;
-    }
-
-    // Abrir modal confirmar envio de debate
-    $('body').on('click','.form-final-options #send-debate', function(e) {
-        e.preventDefault();
-        if (isValidDebateForm()) {
-            // Autoset publish day for today
-            var date = new Date();
-            var dateString = date.getDate()
-                + "/" + ("0" + (date.getMonth() + 1)).slice(-2)
-                + "/" + date.getFullYear()
-                + " " + date.getHours() + ":" + date.getMinutes();
-            $("input[name='publishOn']").val(dateString);
-            prepareAndOpenDebateConfirmModal();
-        }
-    });
-    // Abrir modal confirmar envío debate programada
-    $('body').on('click','.form-final-options #send-debate-later', function(e) {
-        e.preventDefault();
-        if (isValidDebateForm()) {
-            prepareAndOpenCampaignConfirmModal();
-        }
-    });
-
-    // Guardar borrador de debate
-    $('body').on('click','.form-final-options #save-draft-debate', function(e) {
-        e.preventDefault();
-        $("input[name='publishOn']").val("");
-        $(this).parents("form").submit();
-    });
-
-    // Abrir modal confirmar envío campaña programada
-    $('body').on('click','.form-final-options #sendLater', function(e) {
-        e.preventDefault();
-        if (isValidCampaignForm() && correctCampaingScheduled()){
-            $("#sendMassMailingType").val("SCHEDULED");
-            prepareAndOpenCampaignConfirmModal();
-        }
-    });
-    // cerrar modal confirmar envío campaña
-    $('body').on('click','#campaignConfirm #saveCampaignBtn', function() {
-        $("#politicianMassMailingForm").submit();
-        $("#campaignConfirm").modal("hide");
-    });
-
-    $('body').on('click', '#campaignWarnFilterEditedButtonOk', function(e){
-        e.preventDefault();
-        $("#campaignWarnFilterEdited").modal("hide");
-        $("#campaignConfirm").modal("show");
-    });
-
-    function prepareAndOpenCampaignConfirmModal() {
-        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
-        $("#campaignConfirmTitle > span").html(amountContacts);
-        $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
-        if (filterContacts.isFilterEdited()){
-            $("#campaignWarnFilterEdited").modal("show");
-        }else{
-            $("#campaignConfirm").modal("show");
-        }
-    }
-
-    function prepareAndOpenDebateConfirmModal() {
-        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
-        $("#campaignConfirmTitle > span").html(amountContacts);
-        $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
-        if (filterContacts.isFilterEdited()) {
-            $("#campaignWarnFilterEdited").modal("show");
-        } else {
-            $("#campaignConfirm").modal("show");
-        }
-    }
-
     // FILTRADO Y BUSCADOR LISTADO CAMPAÑAS
     if ($('#listCampaigns').length) {
 
@@ -1259,6 +1082,7 @@ $(document).ready(function() {
         $('.nav .dropdown > a >.badge').closest('a').click(function(e) {
             e.preventDefault();
             var url = $(this).attr('href');
+            console.log(url)
             var element = $(this);
             $.ajax(url).done(function(data){
                 element.find('.badge').delay(1000).fadeOut("slow").queue(function() {
@@ -1269,6 +1093,41 @@ $(document).ready(function() {
                 });
             });
         });
+
+        $('#see-more-notifications').on("click",function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var $link = $(this)
+            var offset= parseInt($link.attr("data-pagination-offset"))+1;
+            var max= parseInt($link.attr("data-pagination-max"));
+            var total= parseInt($link.attr("data-pagination-total"));
+            var url = $link.attr("href");
+            var $seeMoreContainer =  $link.parents(".see-more");
+            var $ul = $seeMoreContainer.parents("ul.notification-menu");
+            console.log($ul)
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    offset: offset,
+                    max: max
+                },
+                success: function(result) {
+                    $link.attr("data-pagination-offset", offset);
+                    $ul.append(result);
+                    if (total <= (offset+1)*max){
+                        $seeMoreContainer.fadeOut("fast")
+                    }
+
+                },
+                error: function() {
+                    console.log('error');
+                }
+            });
+        });
+
+
     });
 
 

@@ -9,6 +9,9 @@ import kuorum.project.Project
 import kuorum.post.Post
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.debate.ProposalCommentRSDTO
+import org.kuorum.rest.model.communication.debate.ProposalRSDTO
+import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
 /**
@@ -41,6 +44,8 @@ class LinkPropertiesCodec {
                 ]
                 break
             case DebateRSDTO:
+            case ProposalRSDTO:
+            case NotificationProposalCommentRSDTO:
                 params = prepareParams(target)
                 break
             case KuorumUser:
@@ -122,6 +127,21 @@ class LinkPropertiesCodec {
                 userAlias: debate.userAlias.toLowerCase(),
                 title: debate.title.encodeAsKuorumUrl(),
                 debateId: debate.id
+        ]
+    }
+
+    private static def prepareParams(ProposalRSDTO proposalRSDTO) {
+        [
+                userAlias: proposalRSDTO.debateAlias.toLowerCase(),
+                title: proposalRSDTO.debateTitle.encodeAsKuorumUrl(),
+                debateId: proposalRSDTO.debateId
+        ]
+    }
+    private static def prepareParams(NotificationProposalCommentRSDTO notificationProposalCommentRSDTO) {
+        [
+                userAlias: notificationProposalCommentRSDTO.debateAlias.toLowerCase(),
+                title: notificationProposalCommentRSDTO.debateTitle.encodeAsKuorumUrl(),
+                debateId: notificationProposalCommentRSDTO.debateId
         ]
     }
 

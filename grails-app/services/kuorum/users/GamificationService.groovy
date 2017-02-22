@@ -30,11 +30,6 @@ class GamificationService {
         updateGamificationUser(user,config)
     }
 
-    def postVotedAward(KuorumUser user, Post post){
-        def config = gamificationConfigVotePost()
-        updateGamificationUser(user,config)
-    }
-
     def sponsorAPostAward(KuorumUser sponsor, Integer numMailsSent){
         def config = gamificationConfigVotePost().collectEntries{ k, v -> [k, v * numMailsSent] }
         updateGamificationUser(sponsor,config)

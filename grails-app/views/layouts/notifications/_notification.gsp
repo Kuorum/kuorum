@@ -1,46 +1,14 @@
-<g:if test="${toolsList}">
-
-    <li>
-        <span class="user" itemscope itemtype="http://schema.org/Person">
-            <g:render template="/layouts/notifications/notificationUser" model="[user:user, modalUser:modalUser]"/>
-            <!-- FIN POPOVER INFO USUARIO-->
-            <span class="text-notification">${text}</span>
-            %{--<span class="text-notification">ha apadrinado tu propuesta <a href="#">referendum para llegar al consenso</a></span>--}%
-
-            <ul class="actions">
-                <li>
-                    <span class="time">
-                        <small><kuorumDate:humanDate date="${notification.dateCreated}"/> </small>
-                    </span>
-                </li>
-
-                <g:if test="${answerLink && notification.isActive}">
-                    <li>
-                        <g:render template="/layouts/notifications/notificationActionLink" model="[answerLink:answerLink, notification:notification, modalVictory:modalVictory]"/>
-                        %{--<a href="#" class="btn btn-xs">Dar victoria</a>--}%
-                    </li>
-                </g:if>
-            </ul>
+<li class="${!notification.checked?'new':''} user">
+    <g:set var="actor" value="${kuorum.users.KuorumUser.findByAlias(notification.actorAlias)}"/>
+    <span itemscope="" itemtype="http://schema.org/Person">
+        <g:link mapping="userShow" params="${actor.encodeAsLinkProperties()}" itemprop="url">
+            <img src="${image.userImgSrc(user:actor)}" alt="${actor.name}" class="user-img" itemprop="image">
+        </g:link>
+        <span class="notification-text">
+            <g:link mapping="userShow" params="${actor.encodeAsLinkProperties()}" itemprop="url">
+                ${actor.name}
+            </g:link>
+            ${raw(text)}
         </span>
-    </li>
-</g:if>
-<g:else>
-    <li class='${newNotification?'new':''} ${user?'user':''} ${answerLink?'answerLink':''}'>
-        <g:render template="/layouts/notifications/notificationUser" model="[user:user, modalUser:modalUser]"/>
-        <span class="time">
-            <small>
-                <kuorumDate:humanDate date="${notification.dateCreated}"/>
-            </small>
-        </span>
-        <span class="text-notification">
-            ${text}
-        </span>
-        <g:if test="${answerLink && notification.isActive}">
-            <span class="actions clearfix">
-                <span class="pull-right">
-                    <g:render template="/layouts/notifications/notificationActionLink" model="[answerLink:answerLink, notification:notification, modalVictory:modalVictory]"/>
-                </span>
-            </span>
-        </g:if>
-    </li>
-</g:else>
+    </span>
+</li>

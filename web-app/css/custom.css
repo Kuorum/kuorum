@@ -416,13 +416,7 @@ header.landing .nav > li > .navbar-link.btn-transparent.active {background-color
 header.landing.transp .nav > li > .navbar-link.btn-transparent:hover,
 header.landing.transp .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #545454 !important;}
 
-header.landing .nav > li > .navbar-link.active {
-    cursor: default; 
-    pointer-events: none;
-    font-weight: bold;
-    color: #545454;
-}
-
+header.landing .nav > li > .navbar-link.active {cursor: default; pointer-events: none;}
 header.landing .nav > li > .navbar-link.special.active {margin-top: 0px;background-color: #fff; color:#ccc; margin-top: 2px;}
 
 header.landing .nav > li > .navbar-link.active:hover,
@@ -926,15 +920,15 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .delhap:hover,
 .delhap:active,
 .delhap:focus {background-position: -50px -34px}
-.social li a {color: #ff9431;}
-.social li a:hover,
-.social li a:active,
-.social li a:focus {color: #fff;}
-.social li .fa-circle {color: #fff;}
-.social li .fa-circle.dark {color: #A8A8A8;}
-.social li a:hover .fa-circle,
-.social li a:active .fa-circle,
-.social li a:focus .fa-circle {color: #ff9431;}
+#footer .social li a, .social li a {color: #ff9431;}
+#footer .social li a:hover,.social li a:hover,
+#footer .social li a:active,.social li a:active,
+#footer .social li a:focus, .social li a:focus {color: #fff;}
+#footer .social li .fa-circle, .social li .fa-circle {color: #fff;}
+#footer .social li .fa-circle.dark, .social li .fa-circle.dark {color: #A8A8A8;}
+#footer .social li a:hover .fa-circle,.social li a:hover .fa-circle,
+#footer .social li a:active .fa-circle,.social li a:active .fa-circle,
+#footer .social li a:focus .fa-circle, .social li a:focus .fa-circle {color: #ff9431;}
 .ethz img {width: 78px; height: 25px;}
 .delhap img {width: 45px; height: 32px;}
 .gpl img,
@@ -4739,6 +4733,10 @@ fieldset.rating:hover > input + label:hover:before {
 .config #config9 .checkbox-inline,
 #edit-project .checkbox label,
 #edit-project .checkbox-inline {font-weight: normal; font-size: 13px; font-size: 1.3rem;}
+.config #config9 .checkbox-inline {display: block;}
+.config #config9 .span-label {margin: 0;}
+.config #config9 .help-block {margin: 0 0 10px 0;}
+.config #config9 .checkbox-inline+.checkbox-inline {margin: 0;}
 .config #config9 .checkbox,
 #edit-project .checkbox {margin-top: 15px; margin-bottom: 15px;}
 .config #config9 .interestContainer {width: 530px}
@@ -5387,6 +5385,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .navbar-nav>li {margin: 0;}
     .navbar-nav>li:first-child {margin: 0;}
     .navbar-nav {margin-top: 2px;}
+    .navbar-nav>li.notifications>.dropdown-menu{padding-bottom:0;}
     .navbar-form {width: 245px; margin: 4px 4px 4px 4%;}
     .nav > li > .navbar-link {background-color: transparent; border-bottom: 0 solid #fff; padding: 0 6px; height: 50px;}
     .nav > li > .navbar-link:hover,
@@ -8694,7 +8693,7 @@ ul.globus li img {
 /** Notification **/
 .notification-menu {
     min-width: 300px;
-    max-height: 290px;
+    max-height: 256px;
     overflow: auto;
     list-style: none;
     padding: 0;
@@ -8710,14 +8709,9 @@ ul.globus li img {
     border-bottom: 1px solid #e4e4e4;
 }
 
-.notification-menu > li.user {
-    padding-bottom: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-}
+.notification-menu > li.user {padding: 0px 20px 15px 20px;  }
 
-.notification-menu > li.padding-top {
+.notification-menu > li.title + li {
     padding-top: 20px;
 }
 
@@ -8725,7 +8719,13 @@ ul.globus li img {
     background-color: #eeeeee;
 }
 
-ul.notification-menu + div.see-more {
+.notification-menu > li .notification-text{
+    position:absolute;
+    line-height: 20px;
+    padding-top:5px;
+}
+
+ul.notification-menu > li.see-more {
     text-align: center;
     border-top: 1px solid #e4e4e4;
     padding: 10px;

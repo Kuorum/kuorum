@@ -222,7 +222,7 @@ class PostController {
         }
         def model = [post:post]
         if (flash.args?.justPublished){
-            def numVotesToBePublic = grailsApplication.config.kuorum.milestones.postVotes.publicVotes
+            def numVotesToBePublic = 10 // DEPRECATED
             def gamification = [
                     title: "${message(code:'post.edit.step3.gamification.title')}",
                     text:"${message(code:'post.edit.step3.gamification.motivationText', args:[numVotesToBePublic])}",

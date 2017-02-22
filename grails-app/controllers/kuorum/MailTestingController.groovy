@@ -103,30 +103,6 @@ class MailTestingController {
         redirect action: "index", params:[email:email]
     }
 
-    def testNewFollower(String email, String lang){
-        def data = prepareMailTestEnviroment(email,lang)
-        kuorumMailService.sendFollowerNotificationMail(data.user, data.politician)
-
-        flash.message ="Se ha enviado el mail al email $email"
-        redirect action: "index", params:[email:email]
-    }
-
-    def testVictoryUsers(String email, String lang){
-        def data = prepareMailTestEnviroment(email,lang)
-        kuorumMailService.sendVictoryNotificationUsers(data.post, data.peopleAlerted)
-
-        flash.message ="Se ha enviado el mail al email $email"
-        redirect action: "index", params:[email:email]
-    }
-
-    def testVictoryDefender(String email, String lang){
-        def data = prepareMailTestEnviroment(email,lang)
-        kuorumMailService.sendVictoryNotificationDefender(data.post)
-
-        flash.message ="Se ha enviado el mail al email $email"
-        redirect action: "index", params:[email:email]
-    }
-
     def testRegister(String email, String lang){
         def data = prepareMailTestEnviroment(email,lang)
         kuorumMailService.sendRegisterUser(data.user, "https://kuorum.org")

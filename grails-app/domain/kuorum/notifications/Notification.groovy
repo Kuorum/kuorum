@@ -4,6 +4,7 @@ import kuorum.mail.MailType
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
+@Deprecated
 class Notification {
 /*
   Notification is not abstract because grails(GORM) tries to instantiate Notificationa, and

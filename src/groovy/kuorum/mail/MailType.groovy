@@ -5,6 +5,7 @@ import org.kuorum.rest.model.notification.mail.sent.MailTypeRSDTO
 /**
  * Created by iduetxe on 25/02/14.
  */
+@Deprecated
 public enum MailType {
 
     REGISTER_VERIFY_EMAIL               (MailGroupType.REGISTER,"register-validation",    ["confirmationLink"], [], MailTypeRSDTO.REGISTER_VERIFY_EMAIL),

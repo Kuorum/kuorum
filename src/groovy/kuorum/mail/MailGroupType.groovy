@@ -3,6 +3,7 @@ package kuorum.mail
 /**
  * Created by iduetxe on 21/05/14.
  */
+@Deprecated
 public enum MailGroupType {
     ADMIN(false),
     TIME(false),

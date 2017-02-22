@@ -13,7 +13,13 @@ class ImagesTagLib {
     static namespace = "image"
 
     def userImgSrc={attrs ->
-        KuorumUser user = attrs.user
+        KuorumUser user = null;
+        if (attrs.user instanceof KuorumUser){
+            user = attrs.user
+        }else{
+            // IS A STRING => Alias
+            user = KuorumUser.findByAlias(attrs.user)
+        }
         if (user?.avatar){
             out << user.avatar.url
         }else{

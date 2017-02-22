@@ -17,7 +17,6 @@
     <g:link action="testPostDefendedNotificationPoliticians"        params="[email:email, lang:lang]">Test envio mail a los politicos tras un apadrinamiento</g:link><br/>
     <g:link action="testPublicMilestone"                            params="[email:email, lang:lang]">Test envio mail un post se hace publico</g:link><br/>
     <g:link action="testCluck"                                      params="[email:email, lang:lang]">Test envio mail un cluck</g:link><br/>
-    <g:link action="testNewFollower"                                params="[email:email, lang:lang]">Test envio mail nuevo follower</g:link><br/>
     <g:link action="testVictoryUsers"                               params="[email:email, lang:lang]">Test envio mail victoria a usuarios</g:link><br/>
     <g:link action="testVictoryDefender"                            params="[email:email, lang:lang]">Test envio mail victoria al politico que la ha defendido</g:link><br/>
     <g:link action="testRegister"                                   params="[email:email, lang:lang]">Test envio mail registro</g:link><br/>

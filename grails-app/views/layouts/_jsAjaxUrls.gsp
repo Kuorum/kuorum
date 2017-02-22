@@ -123,6 +123,17 @@
                                     min:{
                                         error:"<g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.error"/>"
                                     }
+                                },
+                                headerPictureId:{
+                                    nullable:"<g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.headerPictureId.nullable"/>"
+                                },
+                                text:{
+                                    nullable:"<g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.nullable"/>"
+                                }
+                            },
+                            DebateCommand:{
+                                body:{
+                                    nullable:"<g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.body.nullable"/>"
                                 }
                             }
                         }

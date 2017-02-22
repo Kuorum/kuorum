@@ -127,7 +127,6 @@ function(key, values){
             if (!cluck.save()){
                 KuorumExceptionUtil.createExceptionFromValidatable(cluck, "Error salvando el kakareo del post ${post}")
             }
-            notificationService.sendCluckNotification(cluck)
             //Atomic operation - non transactional
             post.save(flush:true)
             Post.collection.update([_id:post.id],[$inc:[numClucks:1]])

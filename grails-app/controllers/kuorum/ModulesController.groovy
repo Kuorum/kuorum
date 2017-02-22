@@ -33,12 +33,6 @@ class ModulesController {
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
-    def userProfileAlerts() {
-        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        render template:'/modules/userProfileAlerts', model: [alerts:notificationService.findActiveUserAlerts(user)]
-    }
-
-    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def userFavorites() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         render template:'/modules/userFavorites', model:[favorites:postService.favoritesPosts(user)]
