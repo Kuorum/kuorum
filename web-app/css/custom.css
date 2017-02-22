@@ -8693,7 +8693,7 @@ ul.globus li img {
 /** Notification **/
 .notification-menu {
     min-width: 300px;
-    max-height: 290px;
+    max-height: 256px;
     overflow: auto;
     list-style: none;
     padding: 0;
@@ -8725,7 +8725,7 @@ ul.globus li img {
     padding-top:5px;
 }
 
-ul.notification-menu + div.see-more {
+ul.notification-menu > li.see-more {
     text-align: center;
     border-top: 1px solid #e4e4e4;
     padding: 10px;

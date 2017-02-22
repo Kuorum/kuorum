@@ -1102,8 +1102,8 @@ $(document).ready(function() {
             var max= parseInt($link.attr("data-pagination-max"));
             var total= parseInt($link.attr("data-pagination-total"));
             var url = $link.attr("href");
-            var $seeMoreContainer =  $link.parents("div.see-more");
-            var $ul = $seeMoreContainer.siblings("ul.notification-menu");
+            var $seeMoreContainer =  $link.parents(".see-more");
+            var $ul = $seeMoreContainer.parents("ul.notification-menu");
             console.log($ul)
 
             $.ajax({
@@ -1117,7 +1117,6 @@ $(document).ready(function() {
                     $link.attr("data-pagination-offset", offset);
                     $ul.append(result);
                     if (total <= (offset+1)*max){
-                        console.log($seeMoreContainer)
                         $seeMoreContainer.fadeOut("fast")
                     }
 
