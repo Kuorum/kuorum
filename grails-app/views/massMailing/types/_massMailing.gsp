@@ -1,4 +1,4 @@
-<r:require modules="datepicker" />
+<r:require modules="datepicker, newsletter" />
 <h1 class="sr-only">Newsletter</h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
 <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
