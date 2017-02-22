@@ -8709,12 +8709,7 @@ ul.globus li img {
     border-bottom: 1px solid #e4e4e4;
 }
 
-.notification-menu > li.user {
-    padding-bottom: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-}
+.notification-menu > li.user {padding: 0px 20px 15px 20px;  }
 
 .notification-menu > li.title + li {
     padding-top: 20px;
@@ -8722,6 +8717,12 @@ ul.globus li img {
 
 .notification-menu > li.user.new {
     background-color: #eeeeee;
+}
+
+.notification-menu > li .notification-text{
+    position:absolute;
+    line-height: 20px;
+    padding-top:5px;
 }
 
 ul.notification-menu + div.see-more {
