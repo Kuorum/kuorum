@@ -9,7 +9,7 @@ import org.grails.databinding.DataBindingSource
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
 @Validateable
-class DebateCommand {
+class DebateCommand extends Expando {
 
     // Filter
     Long filterId
@@ -23,10 +23,19 @@ class DebateCommand {
     String videoPost
 
     @BindUsing({ obj, DataBindingSource source ->
-        source.map.tags?.split(',')?.collect{it.trim()}?.findAll{it}?:[]
+        return source.map.tags?.collectEntries{
+            it -> [TrackingMailStatusRSDTO.valueOf(it.key),it.value.split(",")]
+        }
     })
-    List<String> tags
-    List<TrackingMailStatusRSDTO> eventsWithTag
+    Map<TrackingMailStatusRSDTO, List<String>> tags
+
+    //ÑAPA FOR FAST MAPPING TAGS DEPENDING ON MAIL EVENT
+    def propertyMissing(String name) {
+//        def tagValue = TrackingMailStatusRSDTO.valueOf((name =~ /\[(.*)\]/)[0][1])
+        def tagValue = TrackingMailStatusRSDTO.valueOf(name.split("\\.")[1])
+        tags?.get(tagValue)?:null
+    }
+
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date publishOn
@@ -44,7 +53,7 @@ class DebateCommand {
                 return "kuorum.web.commands.payment.massMailing.DebateCommand.scheduled.min.error"
             }*/
         }
-        eventsWithTag nullable: true
+        tags nullable: true
     }
 
 }

@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <r:require modules="datepicker, debateForm" />
 <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
@@ -23,14 +24,26 @@
     <fieldset class="form-group tags-campaign" data-multimedia-switch="on" data-multimedia-type="IMAGE">
         <label for="tagsField" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.tags.label"/>: </label>
         <div class="col-sm-8 col-md-7">
-            <formUtil:tags
-                    command="${command}"
-                    field="tags"
-            />
-            <div class="tag-events">
-                <label><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.label"/></label>
-                <formUtil:checkBox command="${command}" field="eventsWithTag" value="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.OPEN}" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.OPEN')}"/>
-                <formUtil:checkBox command="${command}" field="eventsWithTag" value="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.CLICK}" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.CLICK')}"/>
+            <label class="toggle-inputs" data-toggle="collapse" data-target="#tag-events">
+                <g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.label"/>
+                <span class="go-up stack">
+                    <span class="fa-stack fa-lg" aria-hidden="true">
+                        <span class="fa fa-circle fa-stack-1x"></span>
+                        <span class="fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                    </span>
+                </span>
+            </label>
+            <div class="tag-events collapse" id="tag-events">
+                <g:each in="[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_NEW,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_COMMENT,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_LIKE]" var="event">
+                    <div class="tag-event">
+                        <span class="tag-event-label">
+                            <g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.${event}"/>
+                        </span>
+                        <span class="tag-event-input">
+                            <formUtil:tags command="${command}" field="tags.${event}"/>
+                        </span>
+                    </div>
+                </g:each>
             </div>
         </div>
     </fieldset>

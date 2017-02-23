@@ -6,17 +6,7 @@
     <input type="hidden" name="debateId" value="${debateId?:''}"/>
 
     <!-- Hidden inputs -->
-    <input type="hidden" name="tags" value="${command.tags?:''}"/>
     <input type="hidden" name="publishOn" value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
-
-    <g:each in="${command.eventsWithTag}" var="inputEvent">
-        <g:if test="${inputEvent == org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.OPEN}">
-            <input type="hidden" name="eventsWithTag" value="${inputEvent}"/>
-        </g:if>
-        <g:elseif test="${inputEvent == org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.CLICK}">
-            <input type="hidden" name="eventsWithTag" value="${inputEvent}"/>
-        </g:elseif>
-    </g:each>
 
     <g:render template="/massMailing/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true, showOnly: true, hide:true, totalContacts: totalContacts]"/>
 

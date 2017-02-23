@@ -1035,8 +1035,12 @@ class FormTagLib {
     }
 
     private boolean isRequired(def command, String field){
-        ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}.value
-        NullableConstraint nullableConstraint = constraints.appliedConstraints.find{it instanceof NullableConstraint}
-        !(nullableConstraint?.nullable?:false)
+        ConstrainedProperty constraints = command.constraints.find{it.key.toString() == field}?.value?:null
+        if (constraints){
+            NullableConstraint nullableConstraint = constraints.appliedConstraints.find{it instanceof NullableConstraint}
+            return !(nullableConstraint?.nullable?:false)
+        }else{
+            return false;
+        }
     }
 }
