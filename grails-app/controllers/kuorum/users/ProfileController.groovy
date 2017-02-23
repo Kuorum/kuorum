@@ -362,6 +362,7 @@ class ProfileController {
         command.followNew = notificationConfig.mailConfig.followNew
         command.proposalComment = notificationConfig.mailConfig.proposalComment
         command.proposalLike = notificationConfig.mailConfig.proposalLike
+        command.proposalPinned = notificationConfig.mailConfig.proposalPinned
         command.proposalNew = notificationConfig.mailConfig.proposalNew
         notificationService.saveNotificationsConfig(user, notificationConfig);
         [user:user, command: command]
@@ -377,6 +378,7 @@ class ProfileController {
         notificationConfig.mailConfig.followNew = command.followNew
         notificationConfig.mailConfig.proposalComment = command.proposalComment
         notificationConfig.mailConfig.proposalLike = command.proposalLike
+        notificationConfig.mailConfig.proposalPinned = command.proposalPinned
         notificationConfig.mailConfig.proposalNew = command.proposalNew
         notificationService.saveNotificationsConfig(user, notificationConfig)
         flash.message = message(code:'profile.emailNotifications.success')
