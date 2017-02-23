@@ -1,11 +1,8 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <g:set var="breadCrumbName">
-        <g:message code="admin.createDebate.title"/>
-    </g:set>
-
-    <title>${breadCrumbName}</title>
+    <title>${debate.title}</title>
     <meta name="layout" content="columnCLayout">
+    <g:render template="debateMetaTags" model="[debate: debate]"/>
     <r:require modules="debate"/>
 
 
