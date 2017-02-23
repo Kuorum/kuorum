@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <r:require modules="datepicker, newsletter" />
 <h1 class="sr-only">Newsletter</h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
@@ -36,20 +37,9 @@
             <formUtil:textArea command="${command}" field="text" rows="8" texteditor="texteditor"/>
         </div>
     </fieldset>
-    <fieldset class="form-group tags-campaign" data-multimedia-switch="on" data-multimedia-type="IMAGE">
-        <label for="tagsField" class="col-sm-2 col-md-1 control-label">Tags: </label>
-        <div class="col-sm-8 col-md-7">
-            <formUtil:tags
-                    command="${command}"
-                    field="tags"
-            />
-            <div class="tag-events">
-                <label><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.label"/></label>
-                <formUtil:checkBox command="${command}" field="eventsWithTag" value="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.OPEN}" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.OPEN')}"/>
-                <formUtil:checkBox command="${command}" field="eventsWithTag" value="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.CLICK}" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.CLICK')}"/>
-            </div>
-        </div>
-        <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-0">
+    <g:render template="/massMailing/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK]]"/>
+    <fieldset class="form-group">
+        <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-8 form-control-campaign">
             <ul class="form-final-options">
                 <li>
                     <a href="#" id="save-draft-campaign">

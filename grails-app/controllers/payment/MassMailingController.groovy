@@ -181,13 +181,10 @@ class MassMailingController {
 
     private CampaignRQDTO convertCommandToCampaign(MassMailingCommand command, KuorumUser user,FilterRDTO anonymousFilter){
         CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
-        campaignRQDTO.setName(command.getSubject())
-        campaignRQDTO.setSubject(command.getSubject())
-        campaignRQDTO.setBody(command.getText())
-        campaignRQDTO.setTriggerTags(new HashMap<TrackingMailStatusRSDTO, List<String>>())
-        for (TrackingMailStatusRSDTO trackingMailStatusRSDTO : command.eventsWithTag){
-            campaignRQDTO.getTriggerTags().put(trackingMailStatusRSDTO, command.tags)
-        }
+        campaignRQDTO.setName(command.subject)
+        campaignRQDTO.setSubject(command.subject)
+        campaignRQDTO.setBody(command.text)
+        campaignRQDTO.setTriggerTags(command.tags)
         if (command.filterEdited){
 //            anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             campaignRQDTO.setAnonymousFilter(anonymousFilter)

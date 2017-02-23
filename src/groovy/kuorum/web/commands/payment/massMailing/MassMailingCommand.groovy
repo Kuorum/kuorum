@@ -3,6 +3,7 @@ package kuorum.web.commands.payment.massMailing
 import grails.validation.Validateable
 import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
+import org.grails.databinding.DataBindingSource
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
 /**
@@ -17,15 +18,24 @@ class MassMailingCommand {
     String text;
     String headerPictureId;
 
-    @BindUsing({obj,  org.grails.databinding.DataBindingSource source ->
-        source.map.tags?.split(",")?.collect{it.trim()}?.findAll{it}?:[]
+    @BindUsing({ obj, DataBindingSource source ->
+        return source.map.tags?.collectEntries{
+            it -> [TrackingMailStatusRSDTO.valueOf(it.key),it.value.split(",")]
+        }
     })
-    List<String> tags;
-    List<TrackingMailStatusRSDTO> eventsWithTag;
+    Map<TrackingMailStatusRSDTO, List<String>> tags
 
     @BindingFormat('dd/MM/yyyy HH:mm')
     Date scheduled
     String sendType
+
+    //ÑAPA FOR FAST MAPPING TAGS DEPENDING ON MAIL EVENT
+    def propertyMissing(String name) {
+//        def tagValue = TrackingMailStatusRSDTO.valueOf((name =~ /\[(.*)\]/)[0][1])
+        def tagValue = TrackingMailStatusRSDTO.valueOf(name.split("\\.")[1])
+        tags?.get(tagValue)?:null
+    }
+
 
     static constraints = {
         subject nullable: false
@@ -47,6 +57,6 @@ class MassMailingCommand {
             }
         }
         sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST"]
-        eventsWithTag nullable: true
+        tags nullable: true
     }
 }
