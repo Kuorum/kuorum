@@ -325,6 +325,16 @@ $(function(){
         }
         return true;
     }
+
+    // Handle notification menu
+    $(".notification-menu").on("click", ".notification-text a", function(e){
+        var href = $(this).attr("href");
+        if (href.indexOf(window.location.pathname) >= 0 && href.indexOf("#")>=0){
+            e.preventDefault();
+            var hash = href.substring(href.indexOf("#")+1);
+            openElement(hash)
+        }
+    });
 });
 
 
@@ -406,6 +416,14 @@ $(function () {
     });
 
     // Marc as active the comment or the proposal
+    openElement(hash)
+
+    if (hash == "openProposal"){
+        $(".leader-post > .footer .comment-counter button").trigger("click")
+    }
+});
+
+function openElement(hash){
     var $element = $("#" + hash);
     if ($element != undefined) {
         $element.addClass("active");
@@ -419,8 +437,4 @@ $(function () {
             }, 2000, function () {});
         }
     }
-
-    if (hash == "openProposal"){
-        $(".leader-post > .footer .comment-counter button").trigger("click")
-    }
-});
+}
