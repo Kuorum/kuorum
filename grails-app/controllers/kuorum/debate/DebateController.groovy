@@ -158,7 +158,10 @@ class DebateController {
             }
             return
         }
-        command.setTags(debateRSDTO.getTriggeredTags())
+        if (debateRSDTO.campaignStatusRSDTO == CampaignStatusRSDTO.SENT) {
+            // TAGS CAN NOT BE OVERWRITTEN
+            command.setTags(debateRSDTO.getTriggeredTags())
+        }
         // Save debate
         FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
         Map<String, Object> resultDebate = saveAndSendDebate(user, command, debateId, anonymousFilter)

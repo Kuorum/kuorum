@@ -23,18 +23,18 @@ class MassMailingCommand {
             it -> [TrackingMailStatusRSDTO.valueOf(it.key),it.value.split(",")]
         }
     })
-    Map<TrackingMailStatusRSDTO, List<String>> tags
+    Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
     @BindingFormat('dd/MM/yyyy HH:mm')
     Date scheduled
     String sendType
 
-    //ÑAPA FOR FAST MAPPING TAGS DEPENDING ON MAIL EVENT
-    def propertyMissing(String name) {
-//        def tagValue = TrackingMailStatusRSDTO.valueOf((name =~ /\[(.*)\]/)[0][1])
-        def tagValue = TrackingMailStatusRSDTO.valueOf(name.split("\\.")[1])
-        tags?.get(tagValue)?:null
-    }
+//    //ÑAPA FOR FAST MAPPING TAGS DEPENDING ON MAIL EVENT
+//    def propertyMissing(String name) {
+////        def tagValue = TrackingMailStatusRSDTO.valueOf((name =~ /\[(.*)\]/)[0][1])
+//        def tagValue = TrackingMailStatusRSDTO.valueOf(name.split("\\.")[1])
+//        tags?.get(tagValue)?:null
+//    }
 
 
     static constraints = {

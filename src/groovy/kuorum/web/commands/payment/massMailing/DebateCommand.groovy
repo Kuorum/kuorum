@@ -27,14 +27,14 @@ class DebateCommand extends Expando {
             it -> [TrackingMailStatusRSDTO.valueOf(it.key),it.value.split(",")]
         }
     })
-    Map<TrackingMailStatusRSDTO, List<String>> tags
+    Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
     //ÑAPA FOR FAST MAPPING TAGS DEPENDING ON MAIL EVENT
-    def propertyMissing(String name) {
-//        def tagValue = TrackingMailStatusRSDTO.valueOf((name =~ /\[(.*)\]/)[0][1])
-        def tagValue = TrackingMailStatusRSDTO.valueOf(name.split("\\.")[1])
-        tags?.get(tagValue)?:null
-    }
+//    def propertyMissing(String name) {
+////        def tagValue = TrackingMailStatusRSDTO.valueOf((name =~ /\[(.*)\]/)[0][1])
+//        def tagValue = TrackingMailStatusRSDTO.valueOf(name.split("\\.")[1])
+//        tags?.get(tagValue)?:null
+//    }
 
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)

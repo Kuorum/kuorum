@@ -358,13 +358,13 @@ class FormTagLib {
     def tags = { attrs ->
         def command = attrs.command
         def field = attrs.field
-        def label = buildLabel(command, field, attrs.label)
-        List<String> tags = command."${field}"?:[]
+        List<String> tags = command[field]?:[]
+        String prefixFieldName =attrs.prefixFieldName?:""
 //        List<String> tags =[]
 
         out << """
-            <label for="${field}" class="sr-only">${g.message(code: 'tools.contact.list.contact.saveTags')}</label>
-            <input id="${field}" name="${field}" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" value="${tags.join(",")}">
+            <label for="${prefixFieldName}.${field}" class="sr-only">${g.message(code: 'tools.contact.list.contact.saveTags')}</label>
+            <input id="${prefixFieldName}.${field}" name="${prefixFieldName}.${field}" class="tagsField" type="text" data-urlTags="${g.createLink(mapping:'politicianContactTagsAjax')}" value="${tags.join(",")}">
             <span class="hint">${g.message(code: 'admin.createDebate.hint.setNewTag')}</span>
             """
     }
