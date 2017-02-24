@@ -22,11 +22,7 @@ class DebateCommand extends Expando {
     String headerPictureId
     String videoPost
 
-    @BindUsing({ obj, DataBindingSource source ->
-        return source.map.tags?.collectEntries{
-            it -> [TrackingMailStatusRSDTO.valueOf(it.key),it.value.split(",")]
-        }
-    })
+    @BindUsing({ obj, source ->return MassMailingCommand.bindTags(source)})
     Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
     //ÑAPA FOR FAST MAPPING TAGS DEPENDING ON MAIL EVENT

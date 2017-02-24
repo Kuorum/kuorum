@@ -18,11 +18,7 @@ class MassMailingCommand {
     String text;
     String headerPictureId;
 
-    @BindUsing({ obj, DataBindingSource source ->
-        return source.map.tags?.collectEntries{
-            it -> [TrackingMailStatusRSDTO.valueOf(it.key),it.value.split(",")]
-        }
-    })
+    @BindUsing({ obj, source ->return MassMailingCommand.bindTags(source)})
     Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
     @BindingFormat('dd/MM/yyyy HH:mm')
@@ -58,5 +54,11 @@ class MassMailingCommand {
         }
         sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST"]
         tags nullable: true
+    }
+
+    public static Map<TrackingMailStatusRSDTO, List<String>> bindTags(DataBindingSource source){
+        return source["tags"]?.collectEntries{
+            it -> [TrackingMailStatusRSDTO.valueOf(it.key),it.value.split(",")]
+        }
     }
 }
