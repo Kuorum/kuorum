@@ -20,7 +20,6 @@ import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
-import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import org.springframework.security.access.AccessDeniedException
 import payment.campaign.DebateService
 import payment.campaign.ProposalService

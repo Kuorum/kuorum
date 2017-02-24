@@ -1,15 +1,13 @@
 package kuorum.web.commands.payment.massMailing
 
 import grails.validation.Validateable
-import kuorum.core.FileType
 import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
-import org.grails.databinding.DataBindingSource
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
 @Validateable
-class DebateCommand extends Expando {
+class DebateCommand {
 
     // Filter
     Long filterId
