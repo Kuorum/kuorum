@@ -1,20 +1,15 @@
 package kuorum.users
 
-import com.mongodb.*
+import com.mongodb.BasicDBObject
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import groovy.time.TimeCategory
 import groovyx.gpars.GParsPool
-import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.causes.CausesService
 import kuorum.core.exception.KuorumException
 import kuorum.core.exception.KuorumExceptionUtil
-import kuorum.core.model.AvailableLanguage
-import kuorum.core.model.Gender
-import kuorum.core.model.ProjectStatusType
 import kuorum.core.model.UserType
 import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
@@ -27,17 +22,11 @@ import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostComment
 import kuorum.project.Project
-import kuorum.register.RegisterService
 import kuorum.solr.SearchSolrService
-import kuorum.users.extendedPoliticianData.ProfessionalDetails
 import kuorum.util.rest.RestKuorumApiService
-import kuorum.web.commands.profile.AccountDetailsCommand
-import org.apache.tools.ant.taskdefs.Available
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.web.json.JSONElement
-import org.kuorum.rest.model.notification.KuorumMailAccountDetailsRSDTO
-import org.kuorum.rest.model.tag.CauseRSDTO
 import org.springframework.security.access.prepost.PreAuthorize
 
 @Transactional
@@ -79,6 +68,18 @@ class KuorumUserService {
         Map<String, String> query = [followerAlias: follower.alias]
         restKuorumApiService.put(
                 RestKuorumApiService.ApiMethod.USER_CONTACT_FOLLOWER,
+                params,
+                query,
+                null,
+                null
+        )
+    }
+
+    private void updateKuorumUserOnRest(KuorumUser user){
+        Map<String, String> params = [userId: user.alias]
+        Map<String, String> query = [:]
+        restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.USER_DATA,
                 params,
                 query,
                 null,
@@ -463,6 +464,8 @@ class KuorumUserService {
         indexSolrService.index(user)
         kuorumUserAuditService.auditEditUser(user)
         kuorumMailService.mailingListUpdateUser(user)
+        updateKuorumUserOnRest(user);
+
 
         user
     }

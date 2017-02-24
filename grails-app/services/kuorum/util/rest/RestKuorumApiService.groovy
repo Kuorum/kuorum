@@ -49,6 +49,8 @@ class RestKuorumApiService {
 
         USER_NEWS               ('/user/{userId}/news/'),
 
+        USER_DATA               ('/user/{userId}/data/'),
+
         USER_CONTACTS           ('/contacts/{userId}'),
         USER_CONTACT            ('/contacts/{userId}/{contactId}'),
         USER_CONTACT_TAGS       ('/contacts/{userId}/tags'),
