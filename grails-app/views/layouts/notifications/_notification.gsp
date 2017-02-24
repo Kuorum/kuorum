@@ -5,9 +5,6 @@
             <img src="${image.userImgSrc(user:actor)}" alt="${actor.name}" class="user-img" itemprop="image">
         </g:link>
         <span class="notification-text">
-            <g:link mapping="userShow" params="${actor.encodeAsLinkProperties()}" itemprop="url">
-                ${actor.name}
-            </g:link>
             ${raw(text)}
         </span>
     </span>
