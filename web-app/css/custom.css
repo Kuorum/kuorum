@@ -6182,7 +6182,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
 
     ul.campaign-list li:nth-child(even) .box-ppal {margin-left: 15px;}
-    ul.campaign-list li .box-ppal .card-header-photo {height: 180px;}
+    ul.campaign-list li .box-ppal .card-header-photo {height: 195px;}
 }
 
 @media only screen and (min-width: 1024px) {
