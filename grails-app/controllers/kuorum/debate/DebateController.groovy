@@ -25,6 +25,8 @@ import payment.campaign.DebateService
 import payment.campaign.ProposalService
 import payment.contact.ContactService
 
+import javax.servlet.http.HttpServletResponse
+
 class DebateController {
 
     def springSecurityService
@@ -54,9 +56,9 @@ class DebateController {
 
             return [debate: debate, debateUser: debateUser, proposalPage:proposalPage]
         } catch (Exception ignored) {
-            // Error parsing or not found
             flash.error = message(code: "debate.notFound")
-            redirect mapping: "politicianCampaigns", params: []
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return false
         }
     }
 
