@@ -20,11 +20,12 @@ import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
-import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import org.springframework.security.access.AccessDeniedException
 import payment.campaign.DebateService
 import payment.campaign.ProposalService
 import payment.contact.ContactService
+
+import javax.servlet.http.HttpServletResponse
 
 class DebateController {
 
@@ -55,9 +56,9 @@ class DebateController {
 
             return [debate: debate, debateUser: debateUser, proposalPage:proposalPage]
         } catch (Exception ignored) {
-            // Error parsing or not found
             flash.error = message(code: "debate.notFound")
-            redirect mapping: "politicianCampaigns", params: []
+            response.sendError(HttpServletResponse.SC_NOT_FOUND)
+            return false
         }
     }
 
@@ -105,9 +106,7 @@ class DebateController {
 
         // Tags
         if (debateRSDTO.triggeredTags) {
-            debateCommand.setEventsWithTag(new ArrayList<TrackingMailStatusRSDTO>())
-            debateCommand.setEventsWithTag(debateRSDTO.triggeredTags.keySet() as List)
-            debateCommand.setTags(debateRSDTO.triggeredTags.values().flatten())
+            debateCommand.setTags(debateRSDTO.triggeredTags)
         }
 
         // Multimedia URL
@@ -151,7 +150,6 @@ class DebateController {
             redirect mapping: "home"
             return
         }
-
         if (!command.validate()) {
             // Edit while sent or while draft
             if (debateRSDTO.campaignStatusRSDTO == CampaignStatusRSDTO.SENT) {
@@ -161,7 +159,10 @@ class DebateController {
             }
             return
         }
-
+        if (debateRSDTO.campaignStatusRSDTO == CampaignStatusRSDTO.SENT) {
+            // TAGS CAN NOT BE OVERWRITTEN
+            command.setTags(debateRSDTO.getTriggeredTags())
+        }
         // Save debate
         FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
         Map<String, Object> resultDebate = saveAndSendDebate(user, command, debateId, anonymousFilter)
@@ -233,15 +234,12 @@ class DebateController {
 
     private DebateRDTO convertCommandToDebate(DebateCommand command, KuorumUser user, FilterRDTO anonymousFilter) {
         DebateRDTO debateRDTO = new DebateRDTO()
-        debateRDTO.setTitle(command.getTitle())
-        debateRDTO.setBody(command.getBody())
-        debateRDTO.setPublishOn(command.getPublishOn())
+        debateRDTO.setTitle(command.title)
+        debateRDTO.setBody(command.body)
+        debateRDTO.setPublishOn(command.publishOn)
 
         // Tags
-        debateRDTO.setTriggeredTags(new HashMap<TrackingMailStatusRSDTO, List<String>>())
-        for (TrackingMailStatusRSDTO trackingMailStatusRSDTO : command.eventsWithTag) {
-            debateRDTO.getTriggeredTags().put(trackingMailStatusRSDTO, command.tags)
-        }
+        debateRDTO.setTriggeredTags(command.tags)
 
         // Filter
         if (command.filterEdited) {

@@ -14,6 +14,7 @@ class MailNotificationsCommand {
     boolean followNew;
     boolean proposalNew;
     boolean proposalLike;
+    boolean proposalPinned;
     boolean proposalComment;
 
     static constraints = {

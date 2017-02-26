@@ -1,0 +1,27 @@
+$(function(){
+
+    // cerrar modal confirmar envío campaña
+    $('body').on('click','#campaignConfirm #saveCampaignBtn', function() {
+        $("#politicianMassMailingForm").submit();
+        $("#campaignConfirm").modal("hide");
+    });
+
+    $('body').on('click', '#campaignWarnFilterEditedButtonOk', function(e){
+        e.preventDefault();
+        $("#campaignWarnFilterEdited").modal("hide");
+        $("#campaignConfirm").modal("show");
+    });
+
+})
+
+
+function prepareAndOpenCampaignConfirmModal() {
+    var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
+    $("#campaignConfirmTitle > span").html(amountContacts);
+    $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
+    if (filterContacts.isFilterEdited()){
+        $("#campaignWarnFilterEdited").modal("show");
+    }else{
+        $("#campaignConfirm").modal("show");
+    }
+}

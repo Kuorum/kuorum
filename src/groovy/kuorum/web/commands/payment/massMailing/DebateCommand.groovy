@@ -1,11 +1,9 @@
 package kuorum.web.commands.payment.massMailing
 
 import grails.validation.Validateable
-import kuorum.core.FileType
 import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindUsing
 import org.grails.databinding.BindingFormat
-import org.grails.databinding.DataBindingSource
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
 @Validateable
@@ -22,11 +20,16 @@ class DebateCommand {
     String headerPictureId
     String videoPost
 
-    @BindUsing({ obj, DataBindingSource source ->
-        source.map.tags?.split(',')?.collect{it.trim()}?.findAll{it}?:[]
-    })
-    List<String> tags
-    List<TrackingMailStatusRSDTO> eventsWithTag
+    @BindUsing({ obj, source ->return MassMailingCommand.bindTags(source)})
+    Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
+
+    //ÑAPA FOR FAST MAPPING TAGS DEPENDING ON MAIL EVENT
+//    def propertyMissing(String name) {
+////        def tagValue = TrackingMailStatusRSDTO.valueOf((name =~ /\[(.*)\]/)[0][1])
+//        def tagValue = TrackingMailStatusRSDTO.valueOf(name.split("\\.")[1])
+//        tags?.get(tagValue)?:null
+//    }
+
 
     @BindingFormat(WebConstants.WEB_FORMAT_DATE)
     Date publishOn
@@ -44,7 +47,7 @@ class DebateCommand {
                 return "kuorum.web.commands.payment.massMailing.DebateCommand.scheduled.min.error"
             }*/
         }
-        eventsWithTag nullable: true
+        tags nullable: true
     }
 
 }

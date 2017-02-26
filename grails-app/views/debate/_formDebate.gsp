@@ -1,3 +1,4 @@
+<%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <r:require modules="datepicker, debateForm" />
 <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
@@ -20,20 +21,7 @@
         </div>
     </fieldset>
 
-    <fieldset class="form-group tags-campaign" data-multimedia-switch="on" data-multimedia-type="IMAGE">
-        <label for="tagsField" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.tags.label"/>: </label>
-        <div class="col-sm-8 col-md-7">
-            <formUtil:tags
-                    command="${command}"
-                    field="tags"
-            />
-            <div class="tag-events">
-                <label><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.label"/></label>
-                <formUtil:checkBox command="${command}" field="eventsWithTag" value="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.OPEN}" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.OPEN')}"/>
-                <formUtil:checkBox command="${command}" field="eventsWithTag" value="${org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO.CLICK}" label="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.eventsWithTag.CLICK')}"/>
-            </div>
-        </div>
-    </fieldset>
+    <g:render template="/massMailing/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_NEW,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_COMMENT,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_LIKE]]"/>
 
     <fieldset class="form-group multimedia">
         <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:</label>

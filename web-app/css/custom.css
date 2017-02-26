@@ -193,6 +193,7 @@ label {font-weight: normal;}
 
 .form-horizontal .checkbox-inline{padding-top: 0px; margin-top:-0.3em;}
 .form-horizontal .tab-pane .form-group.image{margin-left:0;}
+.form-horizontal .form-group .form-control-campaign {text-align: right;}
 .checkbox-inline input[type=checkbox] {display: none;}
 
 .checkbox-inline > span.check-box-icon {
@@ -1189,6 +1190,10 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .tags-campaign .bootstrap-tagsinput {width: 100%;border:1px solid #DDDDDD; box-shadow: none;}
 .tags-campaign .bootstrap-tagsinput.focus {border:1px solid #20a2ea;}
 .tags-campaign .tag-events { padding-left:2em;margin-top:0.6em;}
+.tags-campaign label.toggle-inputs {cursor:pointer;margin-top:2px;}
+.tags-campaign label.toggle-inputs:hover { text-decoration:underline;}
+.tags-campaign label.toggle-inputs .go-up.stack { color:#DDDDDD;}
+.tags-campaign label.toggle-inputs:hover .go-up.stack { color:#A8A8A8;}
 
 
 #filterContacts {border: 1px solid #20a2ea; border-radius: 2px; padding: 5px 10px; display: inline-block; margin-top: 10px; margin-right: 10px; color: #20a2ea;}
@@ -5809,6 +5814,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .campaignStats, .contactStats, #campaignsList .campaignEdit {right: 28px;}
     .debateItem .campaignStats {right: 58px;}
 
+    .tags-campaign .tag-events {border-left: 1px solid #DDDDDD;}
+
     /* DASHBOARD (08/2016) */
     #mails {margin: 0 auto; width: 620px; text-align: center;}
     #mails.campaigns {width: 340px;}
@@ -6143,6 +6150,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .form-final-options .btn.btn-blue.inverted {margin: 0;}
     .header-campaign .progress {margin-top: 70px; margin-left: 14%;}
 
+    .form-horizontal .form-group .form-control-campaign {margin-top:-120px;text-align: left;}
+
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 0; float: right;}*/
     /*#followOthers .user-list-followers .user > .actions {margin-top: -15px !important;}*/
@@ -6173,7 +6182,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
 
     ul.campaign-list li:nth-child(even) .box-ppal {margin-left: 15px;}
-    ul.campaign-list li .box-ppal .card-header-photo {height: 180px;}
+    ul.campaign-list li .box-ppal .card-header-photo {height: 195px;}
 }
 
 @media only screen and (min-width: 1024px) {
