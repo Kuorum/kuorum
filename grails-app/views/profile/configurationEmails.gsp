@@ -28,7 +28,7 @@
                 <formUtil:checkBox command="${command}" field="followNew" extraClass="clearfix" />
             </div>
             <div class="form-group">
-                <span class="span-label"><g:message code="profile.emailNotifications.basic.title"/></span>
+                <span class="span-label"><g:message code="profile.emailNotifications.debate.title"/></span>
                 %{--<span class="span-label"><g:message code="profile.emailNotifications.${mailGroup}.label"/></span>--}%
                 <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
                 %{--<label class="checkbox-inline pull-right"><input type="checkbox" class="allActivityMails" value=""><g:message code="profile.emailNotifications.checkAll"/></label>--}%
