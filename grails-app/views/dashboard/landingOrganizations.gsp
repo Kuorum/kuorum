@@ -2,7 +2,7 @@
 <head>
     <title><g:message code="landingOrganizations.head.title"/></title>
     <meta name="layout" content="landingLeadersLayout">
-    <parameter name="transparentHead" value="true"/>
+    <parameter name="extraHeadCss" value="landing"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
                       kuorumTitle:g.message(code:'landingOrganizations.head.title'),

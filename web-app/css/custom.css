@@ -387,86 +387,91 @@ a:focus {color: #ff9431;}
 /* NUEVOS ESTILOS LANDING 2016 */
 /* hay dos tipos de header: transparente y fondo blanco; añadimos clase al <header> para diferenciar el transparente */
 /* EN movil el header en vez de transparente es negro porque el desplegable es negro */
-header.landing.transp .navbar {background-color: #000; border: none; color: #fff; transition: background-color 500ms ease-out;}
-header.landing.transp.scrolled .navbar {background-color: #000;}
-header.landing.transp.scrolled .nav > li > .navbar-link.btn-transparent:hover,
-header.landing.transp.scrolled .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #000 !important;}
+header.transp .navbar {background-color: #000; border: none; color: #fff; transition: background-color 500ms ease-out;}
+header.transp.scrolled .navbar {background-color: #000;}
+header.transp.scrolled .nav > li > .navbar-link.btn-transparent:hover,
+header.transp.scrolled .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #000 !important;}
 
 
-header.landing.transp .nav > li > .navbar-link {color: #fff;}
+header.transp .nav > li > .navbar-link {color: #fff;}
 
-header.landing .nav > li > .navbar-link.btn-transparent {
+header .nav > li > .navbar-link.btn-transparent {
     font-family: 'Georgia', 'Times New Roman', Times, serif;
     line-height: 20px;
     padding: 10px 12px !important;
     height: auto;
 }
-header.landing .nav > li > .navbar-link.btn-transparent {
+header .nav > li > .navbar-link.btn-transparent {
     border: 1px solid #545454;
     color: #545454 !important;
 }
-header.landing.transp .nav > li > .navbar-link.btn-transparent {
+header.transp .nav > li > .navbar-link.btn-transparent {
     border: 1px solid #fff;
     color: #fff !important;
 }
 
-header.landing .nav > li > .navbar-link.btn-transparent:hover,
-header.landing .nav > li > .navbar-link.btn-transparent:focus,
-header.landing .nav > li > .navbar-link.btn-transparent.active {background-color: #545454 !important; color: #fff !important; font-weight: normal;}
+header .nav > li > .navbar-link.btn-transparent:hover,
+header .nav > li > .navbar-link.btn-transparent:focus,
+header .nav > li > .navbar-link.btn-transparent.active {background-color: #545454 !important; color: #fff !important; font-weight: normal;}
 
-header.landing.transp .nav > li > .navbar-link.btn-transparent:hover,
-header.landing.transp .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #545454 !important;}
+header.transp .nav > li > .navbar-link.btn-transparent:hover,
+header.transp .nav > li > .navbar-link.btn-transparent:focus {background-color: #fff !important; color: #545454 !important;}
 
-header.landing .nav > li > .navbar-link.active {cursor: default; pointer-events: none;}
-header.landing .nav > li > .navbar-link.special.active {margin-top: 0px;background-color: #fff; color:#ccc; margin-top: 2px;}
+header .nav > li > .navbar-link.active {cursor: default; pointer-events: none;}
 
-header.landing .nav > li > .navbar-link.active:hover,
-header.landing .nav > li > .navbar-link.active:focus {text-decoration: none;}
+header .nav > li > .navbar-link.special.active {margin-top: 0px;background-color: #fff; color:#ccc; margin-top: 2px;}
 
+header .nav > li > .navbar-link.active:hover,
+header .nav > li > .navbar-link.active:focus {text-decoration: none;}
+
+header .nav > li > .navbar-link:hover,
+header .nav > li > .navbar-link:focus {text-decoration: none;}
+
+header.landing .nav > li > .navbar-link.active {font-weight: bold;color: #545454;}
 header.landing .nav > li > .navbar-link:hover,
-header.landing .nav > li > .navbar-link:focus {text-decoration: none;}
+header.landing .nav > li > .navbar-link:focus {text-decoration: underline;color: #545454;}
 
-header.landing.transp .nav > li > .navbar-link:hover,
-header.landing.transp .nav > li > .navbar-link:focus {color: #fff;}
+header.transp .nav > li > .navbar-link:hover,
+header.transp .nav > li > .navbar-link:focus {color: #fff;}
 
 header + .row.main.landing {margin-top: -55px;}
-header.landing.transp + .row.main.landing {margin-top:0}
-header.landing .navbar-form {margin: 3px 0 4px; width: 100%;}
-header.landing .form-control,
-header.landing .btn.search {background-color: transparent !important;}
-header.landing .form-control {height: 30px;}
-header.landing .btn.search {color: #afafaf; border: none;}
-header.landing .btn.search .fa-search {padding: 0;}
-header.landing.transp .navbar-form .input-group > .form-control {
+header.transp + .row.main.landing {margin-top:0}
+header .navbar-form {margin: 3px 0 4px; width: 100%;}
+header .form-control,
+header .btn.search {background-color: transparent !important;}
+header .form-control {height: 30px;}
+header .btn.search {color: #afafaf; border: none;}
+header .btn.search .fa-search {padding: 0;}
+header.transp .navbar-form .input-group > .form-control {
     /*border: 3px solid rgba(255,255,255,.4);*/
     /*-moz-box-shadow: inset 0 0 0 rgba(0,0,0,0);*/
     /*-webkit-box-shadow: inset 0 0 0 rgba(0,0,0,0);*/
     /*box-shadow: inset 0 0 0 rgba(0,0,0,0);*/
     color: #fff;
 }
-header.landing .navbar-collapse.collapse {background-color: #ffffff}
-header.landing.transp .navbar-collapse.collapse {background-color: transparent}
-header.landing .navbar-form .input-group > .form-control {  border:0px;}
-header.landing .navbar-form .input-group  input {
+header .navbar-collapse.collapse {background-color: #ffffff}
+header.transp .navbar-collapse.collapse {background-color: transparent}
+header .navbar-form .input-group > .form-control {  border:0px;}
+header .navbar-form .input-group  input {
     width: 70%;
     padding:0 0 0 6px;
     /*width:calc(100% - 40px);*/
 }
-header.landing #search-form .input-group-btn {}
-header.landing #search-form .open-filter {
+header #search-form .input-group-btn {}
+header #search-form .open-filter {
     float:left;
     padding:3px 5px 3px 10px;
     width:40px;
     background-color: rgba(219,219,219,1);
 }
-header.landing #search-form .open-filter >a,
-header.landing #search-form .open-filter >a:focus{color:#fff; text-decoration: none}
+header #search-form .open-filter >a,
+header #search-form .open-filter >a:focus{color:#fff; text-decoration: none}
 
-header.landing.transp .form-control::-moz-placeholder {color:#fff; opacity:1}
-header.landing.transp .form-control:-ms-input-placeholder{color:#fff}
-header.landing.transp .form-control::-webkit-input-placeholder{color:#fff}
+header.transp .form-control::-moz-placeholder {color:#fff; opacity:1}
+header.transp .form-control:-ms-input-placeholder{color:#fff}
+header.transp .form-control::-webkit-input-placeholder{color:#fff}
 
-header.landing.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4);  }
+header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4);  }
 
 .open-filter .dropdown-menu{top:32px;left:-3px;}
 .open-filter .dropdown-menu li{text-align: left !important; padding: 0.3em !important;}
@@ -5383,9 +5388,10 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Small devices (tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    header.landing.transp .navbar {background-color: transparent;}
-    header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form { margin: 3px 4px 4px 18px; width: 186px;}
+    header.transp .navbar {background-color: transparent;}
+    header.transp + .row.main.landing {margin-top:-55px}
+    header .navbar-form { margin: 3px 4px 4px 18px; width: 186px;}
+    header .navbar-form .input-group>.form-control {width: 70%;}
     .nav > li > .navbar-link.user-area img {margin-top: -5px;}
     .navbar-nav>li {margin: 0;}
     .navbar-nav>li:first-child {margin: 0;}
@@ -5843,9 +5849,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (min-width: 992px) {
     .main {min-height: calc(100vh - 171px);}
     .main.landing {min-height: 0;}
-    header.landing.transp .navbar {background-color: transparent;}
-    header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form {margin: 6px 6px 6px 85px; width: 220px;}
+    header.transp .navbar {background-color: transparent;}
+    header.transp + .row.main.landing {margin-top:-55px}
+    header .navbar-form {margin: 6px 6px 6px 85px; width: 220px;}
     .navbar {font-size: 15px; font-size: 1.5rem;}
     .nav > li > .navbar-link > .fa.fa-lg {font-size: 18px; font-size: 1.8rem;}
     .nav > li > .navbar-link > .fa.fa-lg.fa-home {font-size: 20px; font-size: 2rem;}
@@ -6186,9 +6192,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 }
 
 @media only screen and (min-width: 1024px) {
-    header.landing.transp .navbar {background-color: transparent;}
-    header.landing.transp + .row.main.landing {margin-top:-55px}
-    header.landing .navbar-form {width: 290px;}
+    header.transp .navbar {background-color: transparent;}
+    header.transp + .row.main.landing {margin-top:-55px}
+    header .navbar-form {width: 290px;}
     #main {min-height: 642px;}
     .list-team > li {width: 310px;}
     .list-updates > li {width: 314px;}
@@ -6236,7 +6242,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 
 @media only screen and (min-width: 1152px) {
-    header.landing .navbar-form {width: 290px;}
+    header .navbar-form {width: 290px;}
     .list-updates > li {width: 356px;}
     .list-team > li {width: 350px;}
     #main {min-height: 738px;}
@@ -8569,7 +8575,7 @@ ul.globus li img {
         width: 100%;
         margin-bottom: 35px;
     }
-    header.landing .nav > li > .navbar-link.btn-transparent{
+    header .nav > li > .navbar-link.btn-transparent{
         padding: 6px 9px !important;
     }
 }

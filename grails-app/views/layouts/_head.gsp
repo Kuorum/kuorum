@@ -1,5 +1,5 @@
 <%@ page import="springSecurity.KuorumRegisterCommand" %>
-<header id="header" class="row landing ${extraHeadCss}" role="banner">
+<header id="header" class="row ${extraHeadCss}" role="banner">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <g:render template="/layouts/brandAndLogo" model="[whiteLogo:extraHeadCss?.contains('transp')]"/>

@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <g:render template="/layouts/head" model="[extraHeadCss:'']"/>
+    <g:render template="/layouts/head" model="[extraHeadCss:g.pageProperty(name:'page.extraHeadCss')]"/>
 
     <div class="row main landing">
         <section id="main" role="main" class="landing clearfix">
