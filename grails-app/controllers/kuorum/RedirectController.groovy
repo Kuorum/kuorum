@@ -6,12 +6,15 @@ import kuorum.project.ProjectService
 import kuorum.users.KuorumUser
 import org.apache.http.HttpStatus
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.springframework.web.servlet.LocaleResolver
+import payment.campaign.DebateService
 
 class RedirectController {
 
     LocaleResolver localeResolver
     ProjectService projectService
+    DebateService debateService;
 
     static defaultAction = 'redirect301'
 
@@ -45,8 +48,14 @@ class RedirectController {
 
     def redirect301Project = {
         Project project = projectService.findProjectByHashtag(params.hashtag.encodeAsHashtag())
+        DebateRSDTO debateMoved = null;
         if (project){
-            def link = g.createLink(mapping: "projectShow", params: project.encodeAsLinkProperties())
+            List<DebateRSDTO> debates = debateService.findAllDebates(project.owner)
+            debateMoved = debates.find{it.title == project.shortName}
+        }
+        if (debateMoved){
+            def link = g.createLink(mapping: "debateShow", params: debateMoved.encodeAsLinkProperties())
+
             response.setHeader "Location", link
             response.status = HttpStatus.SC_MOVED_PERMANENTLY
             render('')

@@ -137,7 +137,7 @@ class UrlMappings {
         name debateProposalComment: "/ajax/proposalComment"(controller: "debateProposal", action: "addComment")
 
         name langProjectShow:   "/$lang/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name projectShow:       "/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name projectShow:       "/$userAlias/$hashtag"                          {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/hashtag/$hashtag"                             {controller="redirect"; action= "redirect301Project"; }
                                 "/proyectos/$regionName/$commission/$hashtag"   {controller="redirect"; action= "redirect301Project"; }
                                 "/leyes/$regionName/$commission/$hashtag"       {controller="redirect"; action= "redirect301Project";}

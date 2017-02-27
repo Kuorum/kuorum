@@ -21,6 +21,8 @@ import kuorum.web.commands.profile.AccountDetailsCommand
 import kuorum.web.commands.profile.BasicPersonalDataCommand
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import payment.campaign.DebateService
 
 import javax.servlet.http.HttpServletResponse
 
@@ -36,6 +38,7 @@ class ProjectController {
     def searchSolrService
     def kuorumUserService
     RegionService regionService
+    DebateService debateService
 
     FileService fileService
 
@@ -209,6 +212,7 @@ class ProjectController {
         redirect(mapping: 'projectShow', params:project.encodeAsLinkProperties(), permanent: true)
     }
 
+    @Deprecated
     def show(String hashtag) {
         Project project = projectService.findProjectByHashtag(hashtag.encodeAsHashtag())
         if (!project) {
