@@ -7,7 +7,7 @@
 
     <body>
 
-    <g:render template="/layouts/head"/>
+    <g:render template="/layouts/head" model="[extraHeadCss:g.pageProperty(name:'page.extraHeadCss')]"/>
         <!-- IMPORTANTE este div debe estar justo después del header; no poner nada entre ellos -->
         <div class="row main">
             <div class="container-fluid onecol">

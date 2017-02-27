@@ -2,6 +2,7 @@
 <head>
     <title><g:message code="kuorum.name"/> </title>
     <meta name="layout" content="register1ColumnLayout">
+
 </head>
 
 <content tag="title">

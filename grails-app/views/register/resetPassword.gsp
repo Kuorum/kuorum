@@ -2,6 +2,7 @@
 <head>
     <title><g:message code="register.resetPassword.head.title"/> </title>
     <meta name="layout" content="register2ColumnsLayout">
+    <parameter name="extraHeadCss" value="landing"/>
 </head>
 
 <content tag="mainContent">

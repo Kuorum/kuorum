@@ -2,6 +2,7 @@
 <head>
     <title><g:message code="kuorum.name"/> </title>
     <meta name="layout" content="register1ColumnLayout">
+    <parameter name="extraHeadCss" value="landing"/>
 </head>
 
 <content tag="intro">

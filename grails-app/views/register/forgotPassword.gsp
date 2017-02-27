@@ -2,6 +2,7 @@
 <head>
     <title><g:message code="page.title.register.forgotPassword"/> </title>
     <meta name="layout" content="register2ColumnsLayout">
+    <parameter name="extraHeadCss" value="landing"/>
 </head>
 
 <content tag="mainContent">
