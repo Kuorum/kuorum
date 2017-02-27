@@ -7250,7 +7250,7 @@ header .header-msg h6:hover{
 
 #enterTimeZone .modal-header h4{margin:0px}
 #enterTimeZone .modal-body fieldset.time-zone .form-group{margin: 0 0 20px 0}
-#enterTimeZone .modal-body fieldset.time-zone .form-group select[name='timeZoneId']{display: inline;width: 12em;}
+#enterTimeZone .modal-body fieldset.time-zone .form-group select[name='timeZoneId']{display: inline;width: 100%;}
 #enterTimeZone .modal-footer {margin:0px}
 
 @media only screen and (min-width: 768px){
@@ -7293,6 +7293,7 @@ header .header-msg h6:hover{
     #causes-modal .form-group{
         margin-bottom: 14px;
     }
+    #enterTimeZone .modal-body fieldset.time-zone .form-group select[name='timeZoneId']{display: inline;width: auto;}
 }
 
 /* contact modal =========== */
