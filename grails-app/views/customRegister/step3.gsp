@@ -4,6 +4,7 @@
     <meta name="layout" content="register1ColumnLayout">
     <parameter name="showHeadSearch" value="false"/>
     <parameter name="showNavBar" value="false"/>
+    <parameter name="extraHeadCss" value="landing"/>
 </head>
 
 <content tag="title">
