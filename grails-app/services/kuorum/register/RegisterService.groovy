@@ -172,7 +172,7 @@ class RegisterService {
                     email: command.email.toLowerCase(),
                     name: command.name,
                     language: availableLanguage,
-                    accountLocked: true, enabled: true)
+                    accountLocked: false, enabled: true)
             user.relevantCommissions = CommissionType.values()
             user.authorities = [RoleUser.findByAuthority("ROLE_INCOMPLETE_USER")]
             user
