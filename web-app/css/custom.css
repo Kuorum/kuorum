@@ -429,7 +429,7 @@ header .nav > li > .navbar-link:focus {text-decoration: none;}
 
 header.landing .nav > li > .navbar-link.active {font-weight: bold;color: #545454;}
 header.landing .nav > li > .navbar-link:hover,
-header.landing .nav > li > .navbar-link:focus {text-decoration: underline;color: #545454;}
+header.landing .nav > li > .navbar-link:focus {}
 
 header.transp .nav > li > .navbar-link:hover,
 header.transp .nav > li > .navbar-link:focus {color: #fff;}
