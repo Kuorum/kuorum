@@ -112,33 +112,10 @@
         <meta property="og:site_name" content="Kuorum.org"/>
         <meta property="twitter:account_id" content="4503599627910348"/>
 
-        <script src="plugins/jquery-1.11.0.1/js/jquery/jquery-1.11.0.min.js" type="text/javascript"></script>
-        <link href="bundle-bundle_application_head.css" type="text/css" rel="stylesheet" media="screen, projection"/>
+        <script src="js/jquery.min.js" type="text/javascript"></script>
     </head>
 
     <body itemscope itemtype="http://schema.org/WebPage">
-
-        <!-- Google Tag Manager -->
-        <noscript>
-            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-MN2J4F" height="0" width="0"
-                    style="display:none;visibility:hidden"></iframe>
-        </noscript>
-
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    'gtm.start': new Date().getTime(), event: 'gtm.js'
-                });
-                var f = d.getElementsByTagName(s)[0],
-                        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src =
-                        '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-MN2J4F');
-        </script>
-        <!-- End Google Tag Manager -->
 
 
         <div class="container-fluid">
@@ -177,56 +154,6 @@
                                     <input type="hidden" name="type" id="srch-type" value="POLITICIAN"/>
                                 </div>
                             </form>
-                            <script>
-                                function getFileterType() {
-                                    return $("#srch-type").val()
-                                }
-                                $(function () {
-                                    var a = $('#srch-term').autocomplete({
-                                        paramName: "word",
-                                        params: {type: getFileterType},
-                                        serviceUrl: urls.searchSuggest,
-                                        minChars: 1,
-                                        width: 330,
-                                        noCache: false, //default is false, set to true to disable caching
-                                        onSearchStart: function (query) {
-                                            $('.loadingSearch').show()
-                                        },
-                                        onSearchComplete: function (query, suggestions) {
-                                            $('.loadingSearch').hide()
-                                        },
-                                        formatResult: function (suggestion, currentValue) {
-                                            var format = ""
-                                            if (suggestion.type == "SUGGESTION") {
-                                                format = suggestion.value
-                                            } else if (suggestion.type == "USER") {
-                                                format = "<img class='user-img' alt='" + suggestion.data.name + "' src='" + suggestion.data.urlAvatar + "'>"
-                                                format += "<span class='name'>" + suggestion.data.name + "</span>"
-                                                format += "<span class='user-type'>" + suggestion.data.role.i18n + "</span>"
-                                            } else if (suggestion.type == "PROJECT") {
-                                                format = "<span class='statusProject'>" + suggestion.data.status.i18n + "</span>"
-                                                format += suggestion.data.title
-                                                format += " <strong>" + suggestion.data.hashtag + "</strong>"
-                                            }
-                                            return format
-                                        },
-                                        searchUserText: function (userText) {
-                                            window.location = urls.search + "?word=" + encodeURIComponent(userText)
-                                        },
-                                        onSelect: function (suggestion) {
-                                            if (suggestion.type == "USER") {
-                                                window.location = suggestion.data.url
-                                            } else if (suggestion.type == "PROJECT") {
-                                                window.location = suggestion.data.url
-                                            } else {
-                                                window.location = urls.search + "?word=" + encodeURIComponent(suggestion.value) + "&type=" + $("#srch-type").val();
-                                            }
-                                        },
-                                        triggerSelectOnValidInput: false,
-                                        deferRequestBy: 100 //miliseconds
-                                    });
-                                });
-                            </script>
 
 
                             <ul class="nav navbar-nav navbar-right">
@@ -465,551 +392,554 @@
                                 <li><a href="#">Oldest</a></li>
                                 <li><a href="#">Pinned</a></li>
                             </ul>
-                            
-                            <!-- propusal block !-->
-                            <!-- ^conversation-box !-->
-                            <div id ="conversation-box" class="conversation-box">
-                                <div class="header clearfix">
-                                    <div class="user-box pull-left">
-                                        <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
-                                        <p class="user-box-data">
-                                            <span class="user-box-name">Andy Burnham</span>
-                                            <span class="time-ago middle-point left"> 2 months ago</span>
-                                        </p>
-                                    </div>
-                                    <ul class="icons pull-right">
-                                        <li>
-                                            <button class="pin-propusal active" type="button" data-toggle="tooltip" data-placement="bottom" title="Pin this proposal if you think it is useful for you or your team">
-                                                <span class="fa-stack fa-lg" aria-hidden="true">
-                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                    <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
-                                                </span>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="body">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
-                                    </p>
-                                    <p>
-                                        Nunc in consequat <a href="#">nibh</a>. Praesent interdum tincidunt risus, quis egestas urna. Integer dapibus pellentesque consectetur. Etiam orci lacus, placerat eget nisl nec, varius convallis nunc. Nam pharetra dui sit amet magna sagittis, non consequat ipsum vestibulum. Curabitur tempus nisi sit amet mauris commodo, ut hendrerit urna hendrerit. Praesent tempor condimentum nulla in lobortis. Aenean velit turpis, fringilla vitae ligula nec, consequat volutpat tellus. Nulla facilisi. Curabitur vel venenatis leo, ac placerat nisl. Sed fringilla orci tellus, non feugiat nisi sagittis sed.
-                                    </p>
-                                </div>
-                                <div class="actions">
-                                    <button type="button" class="btn-see-more stack" data-anchor="conversation-box">
-                                        <span class="pull-left fa-stack fa-lg" aria-hidden="true">
-                                            <span class="fa fa-circle dark fa-stack-2x"></span>
-                                            <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
-                                        </span>
-                                    </button>
-                                </div>
-
-                                <div class="footer">
-                                    <div class="clearfix">
-                                        <ul class="social pull-left">
+                            <ul class="proposal-list">
+                                <li>
+                                <!-- propusal block !-->
+                                <!-- ^conversation-box !-->
+                                <div id ="conversation-box" class="conversation-box">
+                                    <div class="header clearfix">
+                                        <div class="user-box pull-left">
+                                            <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                            <p class="user-box-data">
+                                                <span class="user-box-name">Andy Burnham</span>
+                                                <span class="time-ago middle-point left"> 2 months ago</span>
+                                            </p>
+                                        </div>
+                                        <ul class="icons pull-right">
                                             <li>
-                                                <a href="#" target="_blank">
+                                                <button class="pin-propusal active" type="button" data-toggle="tooltip" data-placement="bottom" title="Pin this proposal if you think it is useful for you or your team">
                                                     <span class="fa-stack fa-lg" aria-hidden="true">
                                                         <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-twitter fa-stack-1x fa-inverse"></span>
+                                                        <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
                                                     </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank">
-                                                    <span class="fa-stack fa-lg" aria-hidden="true">
-                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-facebook fa-stack-1x fa-inverse"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank">
-                                                    <span class="fa-stack fa-lg" aria-hidden="true">
-                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-linkedin fa-stack-1x fa-inverse"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank">
-                                                    <span class="fa-stack fa-lg" aria-hidden="true">
-                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-google-plus fa-stack-1x fa-inverse"></span>
-                                                    </span>
-                                                </a>
+                                                </button>
                                             </li>
                                         </ul>
+                                    </div>
+                                    <div class="body">
+                                        <p>
+                                            Lorem ipsum dolor.
+                                        </p>
+                                        <p>
+                                            Nunc in consequat <a href="#">nibh</a>. Praesent interdum tincidunt risus, quis egestas urna. Integer dapibus pellentesque consectetur. Etiam orci lacus, placerat eget nisl nec, varius convallis nunc. Nam pharetra dui sit amet magna sagittis, non consequat ipsum vestibulum. Curabitur tempus nisi sit amet mauris commodo, ut hendrerit urna hendrerit. Praesent tempor condimentum nulla in lobortis. Aenean velit turpis, fringilla vitae ligula nec, consequat volutpat tellus. Nulla facilisi. Curabitur vel venenatis leo, ac placerat nisl. Sed fringilla orci tellus, non feugiat nisi sagittis sed.
+                                        </p>
+                                    </div>
+                                    <div class="actions">
+                                        <button type="button" class="btn-see-more stack" data-anchor="conversation-box">
+                                            <span class="pull-left fa-stack fa-lg" aria-hidden="true">
+                                                <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                                            </span>
+                                        </button>
+                                    </div>
 
-                                        <div class="comment-counter pull-right">
-                                            <button type="button" class="delete">
-                                                <span class="middle-point right delete">delete</span>
-                                            </button>
-                                            <button type="button" class="comment">
-                                                <span class="fa fa-comment-o" aria-hidden="true"></span>
-                                                <span class="number">36</span>
-                                            </button>
-                                            <button type="button">
-                                                <span class="fa fa-heart-o" aria-hidden="true"></span>
-                                                <span class="number">36</span>
-                                            </button>
+                                    <div class="footer">
+                                        <div class="clearfix">
+                                            <ul class="social pull-left">
+                                                <li>
+                                                    <a href="#" target="_blank">
+                                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                                            <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                            <span class="fa fa-twitter fa-stack-1x fa-inverse"></span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank">
+                                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                                            <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                            <span class="fa fa-facebook fa-stack-1x fa-inverse"></span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank">
+                                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                                            <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                            <span class="fa fa-linkedin fa-stack-1x fa-inverse"></span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank">
+                                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                                            <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                            <span class="fa fa-google-plus fa-stack-1x fa-inverse"></span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                            <div class="comment-counter pull-right">
+                                                <button type="button" class="delete">
+                                                    <span class="middle-point right delete">delete</span>
+                                                </button>
+                                                <button type="button" class="comment">
+                                                    <span class="fa fa-comment-o" aria-hidden="true"></span>
+                                                    <span class="number">36</span>
+                                                </button>
+                                                <button type="button">
+                                                    <span class="fa fa-heart-o" aria-hidden="true"></span>
+                                                    <span class="number">36</span>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div> <!-- ^conversation-box !-->
-                            <!-- ^conversation-box-comments !-->
-                            <div class="conversation-box-comments">
-                                <ul>
-                                    <li class="conversation-box-comment active">
-                                        <div class="header">
-                                            <div class="user-box">
-                                                <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
-                                                <p class="user-box-data">
-                                                    <span class="user-box-name">Andy Burnham</span>
-                                                    <span class="time-ago middle-point left"> 2 months ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="body">
-                                            <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
-                                            </p>
-                                        </div>
-                                        <div class="footer clearfix">
-                                            <div class="pull-right">
-                                                <button type="button">
-                                                    <span class="middle-point right delete">delete</span>
-                                                </button>
-                                                
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-up" aria-hidden="true"></span>
-                                                </button>
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-down" aria-hidden="true"></span>
-                                                </button>
-
-                                                <span class="number">-10</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    
-                                    <li class="conversation-box-comment">
-                                        <div class="header">
-                                            <div class="user-box">
-                                                <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
-                                                <p class="user-box-data">
-                                                    <span class="user-box-name">Andy Burnham</span>
-                                                    <span class="time-ago middle-point left"> 2 months ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="body">
-                                            <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
-                                            </p>
-                                        </div>
-                                        <div class="footer clearfix">
-                                            <div class="pull-right">
-                                                <button type="button">
-                                                    <span class="middle-point right delete">delete</span>
-                                                </button>
-                                                
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-up" aria-hidden="true"></span>
-                                                </button>
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-down" aria-hidden="true"></span>
-                                                </button>
-
-                                                <span class="number">-10</span>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="conversation-box-comment">
-                                        <div class="header">
-                                            <div class="user-box">
-                                                <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
-                                                <p class="user-box-data">
-                                                    <span class="user-box-name">Andy Burnham</span>
-                                                    <span class="time-ago middle-point left"> 2 months ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="body">
-                                            <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
-                                            </p>
-                                        </div>
-                                        <div class="footer clearfix">
-                                            <div class="pull-right">
-                                                <button type="button">
-                                                    <span class="middle-point right delete">delete</span>
-                                                </button>
-                                                
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-up" aria-hidden="true"></span>
-                                                </button>
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-down" aria-hidden="true"></span>
-                                                </button>
-
-                                                <span class="number">-10</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <!-- ^comment-box !-->
-                                <div class="comment-box">
-                                    <div class="comment-propusal clearfix">
-                                        <div class="user-box col-lg-1 col-xs-12">
-                                            <img class="img-circle" data-toggle="tooltip-vote" data-html="true" data-placement="bottom" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
-                                        </div>
-                                        <div class="comment editable-comment col-lg-11 col-xs-12" data-placeholder="&#xf0e5;  Write your comment here..." style="min-height: 100px; padding-top: 20px"></div>
-                                        <!-- ^vote-user !-->
-                                        <div class="vote-user">
-                                            <div class="header clearfix">
-                                                <div class="user-box pull-left">
+                                </div> <!-- ^conversation-box !-->
+                                <!-- ^conversation-box-comments !-->
+                                <div class="conversation-box-comments">
+                                    <ul>
+                                        <li class="conversation-box-comment active">
+                                            <div class="header">
+                                                <div class="user-box">
                                                     <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
                                                     <p class="user-box-data">
                                                         <span class="user-box-name">Andy Burnham</span>
+                                                        <span class="time-ago middle-point left"> 2 months ago</span>
                                                     </p>
                                                 </div>
-                                                <button type="button" class="follow-user pull-right follow btn btn-blue inverted btn-lg allow enabled noLogged " data-ajaxfollowurl="/ajax/kuorumUser/follow?userAlias=hillaryclinton" data-ajaxunfollowurl="/ajax/kuorumUser/unFollow?userAlias=hillaryclinton" data-message-follow_hover="<i class=&quot;fa fa-plus&quot;></i> Seguir" data-message-follow="<i class=&quot;fa fa-plus&quot;></i>Seguir" data-message-unfollow_hover="No seguir" data-message-unfollow="Siguiendo" data-userid="562897aae4b04fc5e3d80a37"><i class="fa fa-plus"></i>Follow</button>
                                             </div>
                                             <div class="body">
-                                                <form action="https://kuorum.org/ajax/sadiqkhan/rate" id="user-rating-form" method="post" class="rating">
-                                                    <input type="hidden" name="politicianId" value="565826e3e4b0e824f577f368">
-                                                    <fieldset class="rating">
-                                                        <legend class="sr-only">Mi valoración</legend>
-                                                        
-                                                            <input id="star5" type="radio" name="rating" value="5">
-                                                            <label for="star5">
-                                                                5 estrellas
-                                                                <span class="rate-message">Me encanta</span>
-                                                            </label>
-                                                        
-                                                            <input id="star4" type="radio" name="rating" value="4">
-                                                            <label for="star4">
-                                                                4 estrellas
-                                                                <span class="rate-message">Me gusta bastante</span>
-                                                            </label>
-                                                        
-                                                            <input id="star3" type="radio" name="rating" value="3" checked="checked">
-                                                            <label for="star3">
-                                                                3 estrellas
-                                                                <span class="rate-message">No está mal</span>
-                                                            </label>
-                                                        
-                                                            <input id="star2" type="radio" name="rating" value="2">
-                                                            <label for="star2">
-                                                                2 estrellas
-                                                                <span class="rate-message">No me gusta mucho</span>
-                                                            </label>
-                                                        
-                                                            <input id="star1" type="radio" name="rating" value="1">
-                                                            <label for="star1">
-                                                                1 estrellas
-                                                                <span class="rate-message">No me gusta nada</span>
-                                                            </label>
-                                                        
-                                                    </fieldset>
-                                                </form>
+                                                <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
+                                                </p>
                                             </div>
-                                        </div><!-- ^vote-user !-->
-                                    </div>
-                                
-                                    <div class="actions clearfix">
-                                        <div class="pull-left">
-                                            <button type="button" class="go-up stack" data-anchor="conversation-box">
-                                                <span class="pull-left fa-stack fa-lg" aria-hidden="true">
-                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                    <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
-                                                </span>
-                                            </button>
-                                        </div>
-                                        <button type="button" class="pull-right btn btn-grey publish save-comment">Comment</button>
-                                    </div>
-                                </div><!-- ^comment-box !-->
-                            </div><!-- ^conversation-box-comments !-->
-                            <!-- propusal block !-->
+                                            <div class="footer clearfix">
+                                                <div class="pull-right">
+                                                    <button type="button">
+                                                        <span class="middle-point right delete">delete</span>
+                                                    </button>
 
-                            <!-- propusal block !-->
-                            <!-- ^conversation-box !-->
-                            <div id ="conversation-box" class="conversation-box">
-                                <div class="header clearfix">
-                                    <div class="user-box pull-left">
-                                        <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
-                                        <p class="user-box-data">
-                                            <span class="user-box-name">Andy Burnham</span>
-                                            <span class="time-ago middle-point left"> 2 months ago</span>
-                                        </p>
-                                    </div>
-                                    <ul class="icons pull-right">
-                                        <li>
-                                            <button class="pin-propusal active" type="button" data-toggle="tooltip" data-placement="bottom" title="Pin this proposal if you think it is useful for you or your team">
-                                                <span class="fa-stack fa-lg" aria-hidden="true">
-                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                    <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
-                                                </span>
-                                            </button>
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-up" aria-hidden="true"></span>
+                                                    </button>
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-down" aria-hidden="true"></span>
+                                                    </button>
+
+                                                    <span class="number">-10</span>
+                                                </div>
+                                            </div>
                                         </li>
-                                    </ul>
-                                </div>
-                                <div class="body">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
-                                    </p>
-                                    <p>
-                                        Nunc in consequat <a href="#">nibh</a>. Praesent interdum tincidunt risus, quis egestas urna. Integer dapibus pellentesque consectetur. Etiam orci lacus, placerat eget nisl nec, varius convallis nunc. Nam pharetra dui sit amet magna sagittis, non consequat ipsum vestibulum. Curabitur tempus nisi sit amet mauris commodo, ut hendrerit urna hendrerit. Praesent tempor condimentum nulla in lobortis. Aenean velit turpis, fringilla vitae ligula nec, consequat volutpat tellus. Nulla facilisi. Curabitur vel venenatis leo, ac placerat nisl. Sed fringilla orci tellus, non feugiat nisi sagittis sed.
-                                    </p>
-                                </div>
-                                <div class="actions">
-                                    <button type="button" class="btn-see-more stack" data-anchor="conversation-box">
-                                        <span class="pull-left fa-stack fa-lg" aria-hidden="true">
-                                            <span class="fa fa-circle dark fa-stack-2x"></span>
-                                            <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
-                                        </span>
-                                    </button>
-                                </div>
 
-                                <div class="footer">
-                                    <div class="clearfix">
-                                        <ul class="social pull-left">
-                                            <li>
-                                                <a href="#" target="_blank">
-                                                    <span class="fa-stack fa-lg" aria-hidden="true">
-                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-twitter fa-stack-1x fa-inverse"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank">
-                                                    <span class="fa-stack fa-lg" aria-hidden="true">
-                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-facebook fa-stack-1x fa-inverse"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank">
-                                                    <span class="fa-stack fa-lg" aria-hidden="true">
-                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-linkedin fa-stack-1x fa-inverse"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" target="_blank">
-                                                    <span class="fa-stack fa-lg" aria-hidden="true">
-                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                        <span class="fa fa-google-plus fa-stack-1x fa-inverse"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-
-                                        <div class="comment-counter pull-right">
-                                            <button type="button" class="delete">
-                                                <span class="middle-point right delete">delete</span>
-                                            </button>
-                                            <button type="button" class="comment">
-                                                <span class="fa fa-comment-o" aria-hidden="true"></span>
-                                                <span class="number">36</span>
-                                            </button>
-                                            <button type="button">
-                                                <span class="fa fa-heart-o" aria-hidden="true"></span>
-                                                <span class="number">36</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- ^conversation-box !-->
-                            <!-- ^conversation-box-comments !-->
-                            <div class="conversation-box-comments">
-                                <ul>
-                                    <li class="conversation-box-comment active">
-                                        <div class="header">
-                                            <div class="user-box">
-                                                <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
-                                                <p class="user-box-data">
-                                                    <span class="user-box-name">Andy Burnham</span>
-                                                    <span class="time-ago middle-point left"> 2 months ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="body">
-                                            <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
-                                            </p>
-                                        </div>
-                                        <div class="footer clearfix">
-                                            <div class="pull-right">
-                                                <button type="button">
-                                                    <span class="middle-point right delete">delete</span>
-                                                </button>
-                                                
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-up" aria-hidden="true"></span>
-                                                </button>
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-down" aria-hidden="true"></span>
-                                                </button>
-
-                                                <span class="number">-10</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    
-                                    <li class="conversation-box-comment">
-                                        <div class="header">
-                                            <div class="user-box">
-                                                <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
-                                                <p class="user-box-data">
-                                                    <span class="user-box-name">Andy Burnham</span>
-                                                    <span class="time-ago middle-point left"> 2 months ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="body">
-                                            <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
-                                            </p>
-                                        </div>
-                                        <div class="footer clearfix">
-                                            <div class="pull-right">
-                                                <button type="button">
-                                                    <span class="middle-point right delete">delete</span>
-                                                </button>
-                                                
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-up" aria-hidden="true"></span>
-                                                </button>
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-down" aria-hidden="true"></span>
-                                                </button>
-
-                                                <span class="number">-10</span>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="conversation-box-comment">
-                                        <div class="header">
-                                            <div class="user-box">
-                                                <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
-                                                <p class="user-box-data">
-                                                    <span class="user-box-name">Andy Burnham</span>
-                                                    <span class="time-ago middle-point left"> 2 months ago</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="body">
-                                            <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
-                                            </p>
-                                        </div>
-                                        <div class="footer clearfix">
-                                            <div class="pull-right">
-                                                <button type="button">
-                                                    <span class="middle-point right delete">delete</span>
-                                                </button>
-                                                
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-up" aria-hidden="true"></span>
-                                                </button>
-                                                <button type="button" class="angle">
-                                                    <span class="fa fa-angle-down" aria-hidden="true"></span>
-                                                </button>
-
-                                                <span class="number">-10</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <!-- ^comment-box !-->
-                                <div class="comment-box">
-                                    <div class="comment-propusal clearfix">
-                                        <div class="user-box col-lg-1 col-xs-12">
-                                            <img class="img-circle" data-toggle="tooltip-vote" data-html="true" data-placement="bottom" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">                                
-                                        </div>
-                                        <div class="comment editable-comment col-lg-11 col-xs-12" data-placeholder="&#xf0e5;  Write your comment here..." style="min-height: 100px; padding-top: 20px"></div>
-                                        <!-- ^vote-user !-->
-                                        <div class="vote-user">
-                                            <div class="header clearfix">
-                                                <div class="user-box pull-left">
+                                        <li class="conversation-box-comment">
+                                            <div class="header">
+                                                <div class="user-box">
                                                     <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
                                                     <p class="user-box-data">
                                                         <span class="user-box-name">Andy Burnham</span>
+                                                        <span class="time-ago middle-point left"> 2 months ago</span>
                                                     </p>
                                                 </div>
-                                                <button type="button" class="follow-user pull-right follow btn btn-blue inverted btn-lg allow enabled noLogged " data-ajaxfollowurl="/ajax/kuorumUser/follow?userAlias=hillaryclinton" data-ajaxunfollowurl="/ajax/kuorumUser/unFollow?userAlias=hillaryclinton" data-message-follow_hover="<i class=&quot;fa fa-plus&quot;></i> Seguir" data-message-follow="<i class=&quot;fa fa-plus&quot;></i>Seguir" data-message-unfollow_hover="No seguir" data-message-unfollow="Siguiendo" data-userid="562897aae4b04fc5e3d80a37"><i class="fa fa-plus"></i>Follow</button>
                                             </div>
                                             <div class="body">
-                                                <form action="https://kuorum.org/ajax/sadiqkhan/rate" id="user-rating-form" method="post" class="rating">
-                                                    <input type="hidden" name="politicianId" value="565826e3e4b0e824f577f368">
-                                                    <fieldset class="rating">
-                                                        <legend class="sr-only">Mi valoración</legend>
-                                                        
-                                                            <input id="star5" type="radio" name="rating" value="5">
-                                                            <label for="star5">
-                                                                5 estrellas
-                                                                <span class="rate-message">Me encanta</span>
-                                                            </label>
-                                                        
-                                                            <input id="star4" type="radio" name="rating" value="4">
-                                                            <label for="star4">
-                                                                4 estrellas
-                                                                <span class="rate-message">Me gusta bastante</span>
-                                                            </label>
-                                                        
-                                                            <input id="star3" type="radio" name="rating" value="3" checked="checked">
-                                                            <label for="star3">
-                                                                3 estrellas
-                                                                <span class="rate-message">No está mal</span>
-                                                            </label>
-                                                        
-                                                            <input id="star2" type="radio" name="rating" value="2">
-                                                            <label for="star2">
-                                                                2 estrellas
-                                                                <span class="rate-message">No me gusta mucho</span>
-                                                            </label>
-                                                        
-                                                            <input id="star1" type="radio" name="rating" value="1">
-                                                            <label for="star1">
-                                                                1 estrellas
-                                                                <span class="rate-message">No me gusta nada</span>
-                                                            </label>
-                                                        
-                                                    </fieldset>
-                                                </form>
+                                                <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
+                                                </p>
                                             </div>
-                                        </div><!-- ^vote-user !-->
-                                    </div>
-                                
-                                    <div class="actions clearfix">
-                                        <div class="pull-left">
-                                            <button type="button" class="go-up stack" data-anchor="conversation-box">
-                                                <span class="pull-left fa-stack fa-lg" aria-hidden="true">
-                                                    <span class="fa fa-circle dark fa-stack-2x"></span>
-                                                    <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
-                                                </span>
-                                            </button>
-                                        </div>
-                                        <button type="button" class="pull-right btn btn-grey publish save-comment">Comment</button>
-                                    </div>
-                                </div><!-- ^comment-box !-->
-                            </div><!-- ^conversation-box-comments !-->
-                            <!-- propusal block !-->
+                                            <div class="footer clearfix">
+                                                <div class="pull-right">
+                                                    <button type="button">
+                                                        <span class="middle-point right delete">delete</span>
+                                                    </button>
 
-                            <div class="load-more">
-                                <a href="/ajax/search/seeMore?lang=es" class="loadMore" data-parent-id="search-list-id" data-form-id="search-form-loadMore" data-offset="12">
-                                    Ver más
-                                    <span class="fa fa-angle-down"></span>
-                                </a>
-                            </div>
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-up" aria-hidden="true"></span>
+                                                    </button>
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-down" aria-hidden="true"></span>
+                                                    </button>
+
+                                                    <span class="number">-10</span>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="conversation-box-comment">
+                                            <div class="header">
+                                                <div class="user-box">
+                                                    <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                                    <p class="user-box-data">
+                                                        <span class="user-box-name">Andy Burnham</span>
+                                                        <span class="time-ago middle-point left"> 2 months ago</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="body">
+                                                <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
+                                                </p>
+                                            </div>
+                                            <div class="footer clearfix">
+                                                <div class="pull-right">
+                                                    <button type="button">
+                                                        <span class="middle-point right delete">delete</span>
+                                                    </button>
+
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-up" aria-hidden="true"></span>
+                                                    </button>
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-down" aria-hidden="true"></span>
+                                                    </button>
+
+                                                    <span class="number">-10</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <!-- ^comment-box !-->
+                                    <div class="comment-box">
+                                        <div class="comment-propusal clearfix">
+                                            <div class="user-box col-lg-1 col-xs-12">
+                                                <img class="img-circle" data-toggle="tooltip-vote" data-html="true" data-placement="bottom" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                            </div>
+                                            <div class="comment editable-comment col-lg-11 col-xs-12" data-placeholder="&#xf0e5;  Write your comment here..." style="min-height: 100px; padding-top: 20px"></div>
+                                            <!-- ^vote-user !-->
+                                            <div class="vote-user">
+                                                <div class="header clearfix">
+                                                    <div class="user-box pull-left">
+                                                        <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                                        <p class="user-box-data">
+                                                            <span class="user-box-name">Andy Burnham</span>
+                                                        </p>
+                                                    </div>
+                                                    <button type="button" class="follow-user pull-right follow btn btn-blue inverted btn-lg allow enabled noLogged " data-ajaxfollowurl="/ajax/kuorumUser/follow?userAlias=hillaryclinton" data-ajaxunfollowurl="/ajax/kuorumUser/unFollow?userAlias=hillaryclinton" data-message-follow_hover="<i class=&quot;fa fa-plus&quot;></i> Seguir" data-message-follow="<i class=&quot;fa fa-plus&quot;></i>Seguir" data-message-unfollow_hover="No seguir" data-message-unfollow="Siguiendo" data-userid="562897aae4b04fc5e3d80a37"><i class="fa fa-plus"></i>Follow</button>
+                                                </div>
+                                                <div class="body">
+                                                    <form action="https://kuorum.org/ajax/sadiqkhan/rate" id="user-rating-form" method="post" class="rating">
+                                                        <input type="hidden" name="politicianId" value="565826e3e4b0e824f577f368">
+                                                        <fieldset class="rating">
+                                                            <legend class="sr-only">Mi valoración</legend>
+
+                                                                <input id="star5" type="radio" name="rating" value="5">
+                                                                <label for="star5">
+                                                                    5 estrellas
+                                                                    <span class="rate-message">Me encanta</span>
+                                                                </label>
+
+                                                                <input id="star4" type="radio" name="rating" value="4">
+                                                                <label for="star4">
+                                                                    4 estrellas
+                                                                    <span class="rate-message">Me gusta bastante</span>
+                                                                </label>
+
+                                                                <input id="star3" type="radio" name="rating" value="3" checked="checked">
+                                                                <label for="star3">
+                                                                    3 estrellas
+                                                                    <span class="rate-message">No está mal</span>
+                                                                </label>
+
+                                                                <input id="star2" type="radio" name="rating" value="2">
+                                                                <label for="star2">
+                                                                    2 estrellas
+                                                                    <span class="rate-message">No me gusta mucho</span>
+                                                                </label>
+
+                                                                <input id="star1" type="radio" name="rating" value="1">
+                                                                <label for="star1">
+                                                                    1 estrellas
+                                                                    <span class="rate-message">No me gusta nada</span>
+                                                                </label>
+
+                                                        </fieldset>
+                                                    </form>
+                                                </div>
+                                            </div><!-- ^vote-user !-->
+                                        </div>
+
+                                        <div class="actions clearfix">
+                                            <div class="pull-left">
+                                                <button type="button" class="go-up stack" data-anchor="conversation-box">
+                                                    <span class="pull-left fa-stack fa-lg" aria-hidden="true">
+                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                        <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <button type="button" class="pull-right btn btn-grey publish save-comment">Comment</button>
+                                        </div>
+                                    </div><!-- ^comment-box !-->
+                                </div><!-- ^conversation-box-comments !-->
+                                <!-- propusal block !-->
+                            </li>
+                            <li>
+                                <!-- propusal block !-->
+                                <!-- ^conversation-box !-->
+                                <div id ="conversation-box" class="conversation-box">
+                                    <div class="header clearfix">
+                                        <div class="user-box pull-left">
+                                            <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                            <p class="user-box-data">
+                                                <span class="user-box-name">Andy Burnham</span>
+                                                <span class="time-ago middle-point left"> 2 months ago</span>
+                                            </p>
+                                        </div>
+                                        <ul class="icons pull-right">
+                                            <li>
+                                                <button class="pin-propusal active" type="button" data-toggle="tooltip" data-placement="bottom" title="Pin this proposal if you think it is useful for you or your team">
+                                                    <span class="fa-stack fa-lg" aria-hidden="true">
+                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                        <span class="fa fa-flag-o fa-stack-1x fa-inverse"></span>
+                                                    </span>
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="body">
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
+                                        </p>
+                                        <p>
+                                            Nunc in consequat <a href="#">nibh</a>. Praesent interdum tincidunt risus, quis egestas urna. Integer dapibus pellentesque consectetur. Etiam orci lacus, placerat eget nisl nec, varius convallis nunc. Nam pharetra dui sit amet magna sagittis, non consequat ipsum vestibulum. Curabitur tempus nisi sit amet mauris commodo, ut hendrerit urna hendrerit. Praesent tempor condimentum nulla in lobortis. Aenean velit turpis, fringilla vitae ligula nec, consequat volutpat tellus. Nulla facilisi. Curabitur vel venenatis leo, ac placerat nisl. Sed fringilla orci tellus, non feugiat nisi sagittis sed.
+                                        </p>
+                                    </div>
+                                    <div class="actions">
+                                        <button type="button" class="btn-see-more stack" data-anchor="conversation-box">
+                                            <span class="pull-left fa-stack fa-lg" aria-hidden="true">
+                                                <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                                            </span>
+                                        </button>
+                                    </div>
+
+                                    <div class="footer">
+                                        <div class="clearfix">
+                                            <ul class="social pull-left">
+                                                <li>
+                                                    <a href="#" target="_blank">
+                                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                                            <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                            <span class="fa fa-twitter fa-stack-1x fa-inverse"></span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank">
+                                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                                            <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                            <span class="fa fa-facebook fa-stack-1x fa-inverse"></span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank">
+                                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                                            <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                            <span class="fa fa-linkedin fa-stack-1x fa-inverse"></span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" target="_blank">
+                                                        <span class="fa-stack fa-lg" aria-hidden="true">
+                                                            <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                            <span class="fa fa-google-plus fa-stack-1x fa-inverse"></span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                            <div class="comment-counter pull-right">
+                                                <button type="button" class="delete">
+                                                    <span class="middle-point right delete">delete</span>
+                                                </button>
+                                                <button type="button" class="comment">
+                                                    <span class="fa fa-comment-o" aria-hidden="true"></span>
+                                                    <span class="number">36</span>
+                                                </button>
+                                                <button type="button">
+                                                    <span class="fa fa-heart-o" aria-hidden="true"></span>
+                                                    <span class="number">36</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- ^conversation-box !-->
+                                <!-- ^conversation-box-comments !-->
+                                <div class="conversation-box-comments">
+                                    <ul>
+                                        <li class="conversation-box-comment active">
+                                            <div class="header">
+                                                <div class="user-box">
+                                                    <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                                    <p class="user-box-data">
+                                                        <span class="user-box-name">Andy Burnham</span>
+                                                        <span class="time-ago middle-point left"> 2 months ago</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="body">
+                                                <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
+                                                </p>
+                                            </div>
+                                            <div class="footer clearfix">
+                                                <div class="pull-right">
+                                                    <button type="button">
+                                                        <span class="middle-point right delete">delete</span>
+                                                    </button>
+
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-up" aria-hidden="true"></span>
+                                                    </button>
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-down" aria-hidden="true"></span>
+                                                    </button>
+
+                                                    <span class="number">-10</span>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="conversation-box-comment">
+                                            <div class="header">
+                                                <div class="user-box">
+                                                    <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                                    <p class="user-box-data">
+                                                        <span class="user-box-name">Andy Burnham</span>
+                                                        <span class="time-ago middle-point left"> 2 months ago</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="body">
+                                                <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
+                                                </p>
+                                            </div>
+                                            <div class="footer clearfix">
+                                                <div class="pull-right">
+                                                    <button type="button">
+                                                        <span class="middle-point right delete">delete</span>
+                                                    </button>
+
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-up" aria-hidden="true"></span>
+                                                    </button>
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-down" aria-hidden="true"></span>
+                                                    </button>
+
+                                                    <span class="number">-10</span>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="conversation-box-comment">
+                                            <div class="header">
+                                                <div class="user-box">
+                                                    <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                                    <p class="user-box-data">
+                                                        <span class="user-box-name">Andy Burnham</span>
+                                                        <span class="time-ago middle-point left"> 2 months ago</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="body">
+                                                <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus scelerisque mauris maximus massa sodales, sagittis rhoncus elit rhoncus. Sed cursus venenatis sapien nec cursus. Proin cursus justo commodo sagittis imperdiet. Duis blandit leo eget libero pretium, tincidunt venenatis arcu tristique. Praesent auctor magna in leo dictum, ut aliquam nisl pharetra. Etiam sed erat laoreet, vulputate nulla quis, vulputate felis. Nullam convallis facilisis sem at consequat. Sed diam arcu, fermentum eget lectus ac, venenatis molestie quam. Donec et venenatis ligula, sed sollicitudin sem. Ut bibendum nunc urna. Nulla finibus sem quis hendrerit blandit. Mauris porta nibh justo, in euismod lorem euismod eleifend. Sed dignissim cursus pretium.
+                                                </p>
+                                            </div>
+                                            <div class="footer clearfix">
+                                                <div class="pull-right">
+                                                    <button type="button">
+                                                        <span class="middle-point right delete">delete</span>
+                                                    </button>
+
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-up" aria-hidden="true"></span>
+                                                    </button>
+                                                    <button type="button" class="angle">
+                                                        <span class="fa fa-angle-down" aria-hidden="true"></span>
+                                                    </button>
+
+                                                    <span class="number">-10</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <!-- ^comment-box !-->
+                                    <div class="comment-box">
+                                        <div class="comment-propusal clearfix">
+                                            <div class="user-box col-lg-1 col-xs-12">
+                                                <img class="img-circle" data-toggle="tooltip-vote" data-html="true" data-placement="bottom" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                            </div>
+                                            <div class="comment editable-comment col-lg-11 col-xs-12" data-placeholder="&#xf0e5;  Write your comment here..." style="min-height: 100px; padding-top: 20px"></div>
+                                            <!-- ^vote-user !-->
+                                            <div class="vote-user">
+                                                <div class="header clearfix">
+                                                    <div class="user-box pull-left">
+                                                        <img class="img-circle" src="https://pbs.twimg.com/profile_images/616198230297214976/PeR519Mx.png" alt="Andy Burnham">
+                                                        <p class="user-box-data">
+                                                            <span class="user-box-name">Andy Burnham</span>
+                                                        </p>
+                                                    </div>
+                                                    <button type="button" class="follow-user pull-right follow btn btn-blue inverted btn-lg allow enabled noLogged " data-ajaxfollowurl="/ajax/kuorumUser/follow?userAlias=hillaryclinton" data-ajaxunfollowurl="/ajax/kuorumUser/unFollow?userAlias=hillaryclinton" data-message-follow_hover="<i class=&quot;fa fa-plus&quot;></i> Seguir" data-message-follow="<i class=&quot;fa fa-plus&quot;></i>Seguir" data-message-unfollow_hover="No seguir" data-message-unfollow="Siguiendo" data-userid="562897aae4b04fc5e3d80a37"><i class="fa fa-plus"></i>Follow</button>
+                                                </div>
+                                                <div class="body">
+                                                    <form action="https://kuorum.org/ajax/sadiqkhan/rate" id="user-rating-form" method="post" class="rating">
+                                                        <input type="hidden" name="politicianId" value="565826e3e4b0e824f577f368">
+                                                        <fieldset class="rating">
+                                                            <legend class="sr-only">Mi valoración</legend>
+
+                                                                <input id="star5" type="radio" name="rating" value="5">
+                                                                <label for="star5">
+                                                                    5 estrellas
+                                                                    <span class="rate-message">Me encanta</span>
+                                                                </label>
+
+                                                                <input id="star4" type="radio" name="rating" value="4">
+                                                                <label for="star4">
+                                                                    4 estrellas
+                                                                    <span class="rate-message">Me gusta bastante</span>
+                                                                </label>
+
+                                                                <input id="star3" type="radio" name="rating" value="3" checked="checked">
+                                                                <label for="star3">
+                                                                    3 estrellas
+                                                                    <span class="rate-message">No está mal</span>
+                                                                </label>
+
+                                                                <input id="star2" type="radio" name="rating" value="2">
+                                                                <label for="star2">
+                                                                    2 estrellas
+                                                                    <span class="rate-message">No me gusta mucho</span>
+                                                                </label>
+
+                                                                <input id="star1" type="radio" name="rating" value="1">
+                                                                <label for="star1">
+                                                                    1 estrellas
+                                                                    <span class="rate-message">No me gusta nada</span>
+                                                                </label>
+
+                                                        </fieldset>
+                                                    </form>
+                                                </div>
+                                            </div><!-- ^vote-user !-->
+                                        </div>
+
+                                        <div class="actions clearfix">
+                                            <div class="pull-left">
+                                                <button type="button" class="go-up stack" data-anchor="conversation-box">
+                                                    <span class="pull-left fa-stack fa-lg" aria-hidden="true">
+                                                        <span class="fa fa-circle dark fa-stack-2x"></span>
+                                                        <span class="angle fa fa-angle-down fa-stack-1x fa-inverse"></span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <button type="button" class="pull-right btn btn-grey publish save-comment">Comment</button>
+                                        </div>
+                                    </div><!-- ^comment-box !-->
+                                </div><!-- ^conversation-box-comments !-->
+                                <!-- propusal block !-->
+                            </li>
+                        </ul>
+                        <div class="load-more">
+                            <a href="/ajax/search/seeMore?lang=es" class="loadMore" data-parent-id="search-list-id" data-form-id="search-form-loadMore" data-offset="12">
+                                Ver más
+                                <span class="fa fa-angle-down"></span>
+                            </a>
+                        </div>
                         </section>
 
                         <aside id="aside-ppal" class="col-sm-12 col-md-4" role="complementary">
@@ -1127,41 +1057,6 @@
 
                         <div class="modal-body">
                             <!-- email subscription form -->
-
-                            <script type="text/javascript">
-                                $(function () {
-                                    $("#contact-modal-form").validate({
-                                        errorClass: 'error',
-                                        errorPlacement: function (error, element) {
-                                            if (element.attr('id') == 'deadline') {
-                                                error.appendTo(element.parent("div").parent("div"));
-                                            } else if (stringStartsWith(element.attr('id'), 'pretty-check-')) {
-                                                error.appendTo(element.parents(".interestContainer"));
-                                            } else {
-                                                error.insertAfter(element);
-                                            }
-                                        },
-                                        errorElement: 'span',
-                                        rules: {
-                                            'name': {required: true},
-                                            'email': {required: true, email: true},
-                                            'message': {required: true, minlength: 10},
-                                            'cause': {required: true},
-                                            'politician.id': {required: true}
-                                        },
-                                        messages: {
-                                            'name': {required: 'Rellene su nomrbe'},
-                                            'email': {required: 'Un email para poder contestarle', email: 'Formato inválido'},
-                                            'message': {
-                                                required: 'Algo que comentar?',
-                                                minlength: 'Escribe más de 10 caracteres'
-                                            },
-                                            'cause': {required: 'Inique de que tema quiere hablar'},
-                                            'politician.id': {required: 'kuorum.web.commands.customRegister.ContactRegister.politician.id.nullable'}
-                                        }
-                                    });
-                                });
-                            </script>
 
                             <form action="/kuorum/ajax/contact?id=contact-modal-form" method="post" role="form"
                                 name="contact-modal-form" id="contact-modal-form">
@@ -1285,9 +1180,7 @@
             }
 
         </script>
-        <script src="bundle-bundle_basic_defer.js" type="text/javascript"></script>
-        <script src="bundle-bundle_application_defer.js" type="text/javascript"></script>
-        <script src="bundle-bundle_social_defer.js" type="text/javascript"></script>
+
         <script src="js/froogaloop2.min.js" type="text/javascript"></script>
 
 
@@ -1354,29 +1247,6 @@
                         <p>Al apadrinar esta propuesta te estas comprometiendo a defenderla y, si es posible, llevarla a cabo.
                             Si el
                             autor de la propuesta considera que has cumplido tu promesa obtendrás una victoria.</p>
-
-                        <script type="text/javascript">
-                            $(function () {
-                                $("#apadrinar").validate({
-                                    errorClass: 'error',
-                                    errorPlacement: function (error, element) {
-                                        if (element.attr('id') == 'deadline') {
-                                            error.appendTo(element.parent("div").parent("div"));
-                                        } else if (stringStartsWith(element.attr('id'), 'pretty-check-')) {
-                                            error.appendTo(element.parents(".interestContainer"));
-                                        } else {
-                                            error.insertAfter(element);
-                                        }
-                                    },
-                                    errorElement: 'span',
-                                    rules: {'postId': {required: true}, 'text': {required: true}},
-                                    messages: {
-                                        'postId': {required: 'kuorum.web.commands.post.PostDefendCommand.postId.nullable'},
-                                        'text': {required: 'Defina brevemente la acción que va a tomar con este post.'}
-                                    }
-                                });
-                            });
-                        </script>
 
                         <form action="/kuorum/ajax/proyectos/propuesta/apadrinar" method="post" name="apadrinar" id="apadrinar">
                             <input type="hidden" name="postId" value=""/>
@@ -1464,32 +1334,6 @@
                             </div>
                         </form>
 
-                        <script type="text/javascript">
-                            $(function () {
-                                $("#sign-modal").validate({
-                                    errorClass: 'error',
-                                    errorPlacement: function (error, element) {
-                                        if (element.attr('id') == 'deadline') {
-                                            error.appendTo(element.parent("div").parent("div"));
-                                        } else if (stringStartsWith(element.attr('id'), 'pretty-check-')) {
-                                            error.appendTo(element.parents(".interestContainer"));
-                                        } else {
-                                            error.insertAfter(element);
-                                        }
-                                    },
-                                    errorElement: 'span',
-                                    rules: {'name': {required: true}, 'email': {required: true, email: true}},
-                                    messages: {
-                                        'name': {required: 'Necesitamos un nombre para dirigirnos a ti'},
-                                        'email': {
-                                            required: 'Neceistamos un email para comunicarnos contigo',
-                                            email: 'Formato de email erróneo'
-                                        }
-                                    }
-                                });
-                            });
-                        </script>
-
 
                     </div>
                 </div>
@@ -1507,164 +1351,20 @@
         <script src="js/jquery.slimscroll.min.js"></script>
         <script src="js/hideShowPassword.min.js"></script>
         <script src="js/highstock.js"></script>
+        <script src="js/datepicker/bootstrap-datepicker.js"></script>
+        <script src="js/datepicker/moment-with-locales.min.js"></script>
+        <script src="js/datepicker/bootstrap-datetimepicker.js"></script>
 
         <script src="js/local.js"></script>
         <!-- el siguiente cargar al integrar -->
         <!-- <script src="js/custom.js"></script> -->
 
         <script src="js/medium-editor/medium-editor.js"></script>
+        <script src="js/debate.js"></script>
         <link rel="stylesheet" href="css/medium-editor/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
         <link rel="stylesheet" href="css/medium-editor/themes/default.css" type="text/css" media="screen" charset="utf-8">
 
-        <script>
-            var editor = new MediumEditor('.editable', {
-                buttonLabels: 'fontawesome',
-                toolbar: {
-                    buttons: ['anchor']
-                }
-            });
 
-            var editorComment = new MediumEditor('.editable-comment', {
-                buttonLabels: 'fontawesome',
-                toolbar: {
-                    buttons: ['anchor']
-                }
-            });
-
-            editorComment.subscribe('focus', function (event, editable) {
-                $('[data-toggle="tooltip-vote"]').tooltip('hide');
-            });
-        </script>
-        <script>
-            window.onload = function () {
-                // Rating tooltip
-                $('[data-toggle="tooltip"]').tooltip();
-                $('[data-toggle="tooltip-vote"]').tooltip({
-                    html: true,
-                    trigger: 'manual',
-                    title : function () {
-                        var voteUser = $(this).parent().closest('.comment-box').find('.vote-user').clone();
-                        return voteUser.addClass('show')[0].outerHTML;
-                    }
-                });
-
-                // Mouse events
-                $('[data-toggle="tooltip-vote"]').mouseover(function () {
-                    if (!$(this).next('.tooltip').is(':visible')) {
-                        $(this).tooltip('show');
-                    }
-                });
-
-                $('[data-toggle="tooltip-vote"]').on('shown.bs.tooltip', function () {
-                    var $self = $(this);
-                    var $commentBox = $(this).closest('.comment-box');
-                    var $tooltip = $commentBox.find('.tooltip');
-
-                    $commentBox.mouseleave(function () {
-                        $self.tooltip('hide');
-                    });
-                
-                    $tooltip.mouseleave(function () {
-                        $self.tooltip('hide');
-                    });  
-                });
-
-                // LightbulButton - comment-counter
-                var lightbulbButton = $('.leader-post > .footer .comment-counter button');
-                lightbulbButton.on('click', function (event) {
-                    var $commentBox = $(event.target).closest('.leader-post').next('.comment-box');
-                    var $comment = $commentBox.find('.comment');
-                    var navbarHeight = $('.navbar').outerHeight();                    
-
-                    $('html, body').animate({
-                        scrollTop: $commentBox.offset().top - navbarHeight - 40
-                    }, 1000, function () {
-                        $comment.focus();
-                    });
-                });
-
-                // CommentButton
-                var $commentButton = $('.conversation-box .footer .comment-counter button.comment');
-                
-                $commentButton.on('click', function (event) {
-                    var $conversationBox = $(event.target.parentElement).closest('.conversation-box');
-                    conversationSectionClick($conversationBox)
-
-                });
-
-                var $commentSaveButton = $('.conversation-box-comments .comment-box .actions button.save-comment')
-
-                $commentSaveButton.on('click', function (event) {
-                    var $conversationBox = $($(this).parents('.conversation-box-comments')[0]).prev();
-                    conversationSectionClick($conversationBox)
-                });
-
-                function conversationSectionClick($conversationBox){
-                    var $conversationBoxComments = $conversationBox.next('.conversation-box-comments');
-                    var $conversationBoxCommentsComment = $conversationBoxComments.find('.comment-box .editable-comment');
-                    var $conversationBoxCommentsArrow = $conversationBoxComments.find('.go-up');
-                    var navbarHeight = $('.navbar').height();
-
-                    var isVisible = $conversationBoxCommentsComment.is(':visible');
-
-                    $conversationBoxCommentsArrow.trigger('click', [isVisible, $conversationBoxCommentsComment]);
-                }
-
-                // See More button
-                var $conversationBoxButtonSeeMoreSmall = $('.conversation-box button.btn-see-more.stack');
-
-                $conversationBoxButtonSeeMoreSmall.on('click', function (event) {
-                    var $actionsContent = $(event.target).closest('.actions');
-                    var $conversationBox = $actionsContent.closest('.conversation-box');
-                    var $conversationBoxBody = $actionsContent.closest('.conversation-box').find('.body');
-                    
-                    $(event.target).toggleClass('fa-angle-down fa-angle-up');
-
-                    if ($conversationBoxBody.height() > 134) {
-                        $conversationBoxBody.animate({
-                            height: 134
-                        }, 1000);
-                    } else {
-                        var targetElementHeight = $conversationBoxBody.addClass('height-auto').height();
-                        $conversationBoxBody.removeClass('height-auto').animate({
-                            height: targetElementHeight
-                        }, 1000);
-                    }
-                });
-
-                // See More comments
-                var $seeMoreCommentsSmall = $('.conversation-box-comments .go-up');
-
-                $seeMoreCommentsSmall.on('click', function (event, isVisible, $target) {
-                    var $placeholder = $(event.target).closest('.comment-box');
-                    var $conversationComments = $placeholder.prev();
-                    var $actionsContent = $(event.target).closest('.actions');
-                    var $commentPropusal = $placeholder.find('.comment-propusal');
-                    var navbarHeight = $('.navbar').outerHeight();
-                    var $arrowButton = $(event.target).closest('.go-up').find('.angle');
-                    
-                    if (!isVisible) {
-                        $commentPropusal.slideToggle();
-                        $conversationComments.slideToggle(1000, function () {
-                            $arrowButton.toggleClass('fa-angle-down fa-angle-up');
-                            if (isVisible === false) {
-                                $('html, body').animate({
-                                    scrollTop: $target.offset().top - navbarHeight - 40
-                                }, 1000, function () {
-                                    $target.focus();
-                                });
-                            }
-                        });
-                    } else if (isVisible) {
-                        $('html, body').animate({
-                            scrollTop: $target.offset().top - navbarHeight - 40
-                        }, 1000, function () {
-                            $target.focus();
-                        });
-                    }
-                });            
-            }
-        </script>
     </body>
 
 </html>
