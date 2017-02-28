@@ -20,7 +20,7 @@
         </div>
     </g:if>
     <g:else>
-        <div class="container-fluid box-ppal dashboard">
+        <div class="container-fluid box-ppal choose-campaign">
 
 
             <p><g:message code="dashboard.payment.noCampaigns" /></p>

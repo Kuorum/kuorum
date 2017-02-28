@@ -985,12 +985,13 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .bootstrap-filestyle .btn {border-radius: 0 !important;}
 .bootstrap-filestyle .input-group-btn {outline: none;}
 
-.box-ppal.import-contacts, .box-ppal.dashboard {padding: 25px 25px 10px 25px;}
+.box-ppal.import-contacts, .box-ppal.dashboard {padding: 25px 0 10px;}
 .breadcrumb + .box-ppal.import-contacts, .breadcrumb + .box-ppal.dashboard {margin-top: 0;}
 .breadcrumb + .box-ppal.import-contacts {padding-bottom: 0; margin-bottom:20px}
 .box-ppal .bootstrap-filestyle {margin-bottom: 20px;}
 .box-ppal.import-contacts > p,
-.box-ppal.dashboard > p {color: #a8a8a8; text-align: center; font-size: 17px; font-size: 1.7rem; max-width: 800px; margin: 0 auto 20px;}
+.box-ppal.dashboard > p,
+.box-ppal.choose-campaign > p {color: #a8a8a8; text-align: center; font-size: 17px; font-size: 1.7rem; max-width: 800px; margin: 0 auto 20px; padding: 0 1em;}
 .box-ppal.import-contacts > p a {color: #20a2ea;}
 .box-ppal.import-contacts form {margin-bottom: 30px;}
 .box-ppal.import-contacts-videos {padding: 25px 25px 0 25px;}
@@ -1406,7 +1407,8 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #mails li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
 #mails li > #uploadFile {padding-top: 34px;}
 
-/*#mails.campaigns {margin:0 auto;}*/
+.container-fluid.box-ppal.choose-campaign {padding:30px 0px;}
+#mails {margin:0 auto; width:24em;}
 #mails li.fontIcon > a {padding:16px;}
 #mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;margin-bottom: 10px;}
 #mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit;font-size: inherit}

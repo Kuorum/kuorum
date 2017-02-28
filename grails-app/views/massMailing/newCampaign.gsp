@@ -15,7 +15,7 @@
         <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
         <li class="active"><g:message code="tools.campaign.new.title"/></li>
     </ol>
-    <div class="container-fluid box-ppal dashboard">
+    <div class="container-fluid box-ppal choose-campaign">
         <g:render template="chooseCampaign"/>
     </div>
     <g:render template="timeZoneSelectorPopUp"/>

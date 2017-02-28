@@ -10,9 +10,7 @@
 </head>
 
 <content tag="mainContent">
-    <div class="container-fluid box-ppal dashboard">
-
-
+    <div class="container-fluid box-ppal choose-campaign">
         <p><g:message code="dashboard.payment.noCampaigns"/></p>
         %{--<p>--}%
             %{--<g:link mapping="politicianCampaignsNew" class="btn inverted btn-lg">--}%
