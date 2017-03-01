@@ -953,35 +953,9 @@ $(document).ready(function() {
         e.preventDefault();
         e.stopPropagation();
         var $form = $(this).parents("form[name=login-header]");
-        pageLoadingOn();
-        setTimeout(function() {
-            if ($form.valid()){
-                var url = $form.attr("action")
-                var data={
-                    j_username:$form.find("input[name=j_username]").val(),
-                    j_password:$form.find("input[name=j_password]").val()
-                };
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    success: function (dataLogin) {
-                        console.log(dataLogin);
-                        if (dataLogin.success){
-                            document.location.reload();
-                        }else{
-                            // Form validation doesn't allow to take this conditional branch
-                            document.location.href = dataLogin.url
-                        }
-                    },
-                    complete : function(){
-                        pageLoadingOff();
-                    }
-                });
-            }else{
-                pageLoadingOff();
-            }
-        }, 500);
+        modalLogin($form, function(){
+            document.location.reload();
+        });
     });
 
     // Funcionamiento de los radio button como nav-tabs
@@ -1625,4 +1599,36 @@ function prepareContactTags(){
             });
         });
     }
+}
+
+function modalLogin($form, callback){
+    pageLoadingOn();
+    setTimeout(function() {
+        if ($form.valid()){
+            var url = $form.attr("action")
+            var data={
+                j_username:$form.find("input[name=j_username]").val(),
+                j_password:$form.find("input[name=j_password]").val()
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function (dataLogin) {
+                    console.log(dataLogin);
+                    if (dataLogin.success){
+                        callback()
+                    }else{
+                        // Form validation doesn't allow to take this conditional branch
+                        document.location.href = dataLogin.url
+                    }
+                },
+                complete : function(){
+                    pageLoadingOff();
+                }
+            });
+        }else{
+            pageLoadingOff();
+        }
+    }, 500);
 }

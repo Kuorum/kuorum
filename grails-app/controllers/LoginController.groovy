@@ -78,8 +78,7 @@ class LoginController {
     def loginForm = {
 //        def config = SpringSecurityUtils.securityConfig
 //        String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
-        String postUrl = g.createLink(controller: 'login', action: 'modalAuth')
-        render template: "/layouts/loginForm", model:[postUrl:postUrl, modalId:'registro']
+        render template: "/layouts/loginForm", model:[ modalId:'registro']
     }
 
     def homeLogin = {

@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <!-- Formulario de Entrar -->
-                <g:render template="/layouts/loginForm" model="[postUrl:'', modalId:'registroDebate']"/>
+                <g:render template="/layouts/loginForm" model="[modalId:'registroDebate']"/>
                 <!-- Formulario de Registro -->
                 <g:render template="/layouts/registerForm" model="[registerCommand: new springSecurity.KuorumRegisterCommand(), formId:'debate-modal', registerMappingName:'register']"/>
             </div>

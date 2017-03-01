@@ -37,11 +37,6 @@ class DebateProposalController {
 
     }
 
-    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
-    def addProposalAndLogin(){
-
-    }
-
     def pinProposal(PinProposalCommand command){
         KuorumUser user = springSecurityService.currentUser
 

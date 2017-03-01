@@ -180,10 +180,23 @@ $(function(){
 
     $('#registroDebate form[name=login-header] input[type=submit]').on("click", function(e){
         e.preventDefault();
+        e.stopPropagation();
         var $form = $(this).parents("form[name=login-header]");
-        if ($form.valid()){
-            console.log("loggin")
-        }
+        modalLogin($form, function(){
+            console.log("Callback Login")
+            var $buttonPublish = $(".publish-proposal")
+            $buttonPublish.attr("data-userLoggedAlias", "logged"); //Chapu para que el if no saque de nuevo la modal
+            var eventFake = {target:$buttonPublish}
+            publishProposal(eventFake, function(proposalDivId){
+                //$('#registroDebate').modal('hide');
+                var href = document.location.href;
+                var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+                var newUrl = href.substring(0,sharpPos);
+                newUrl = newUrl + "#"+proposalDivId
+                document.location.href = newUrl;
+                document.location.reload()
+            })
+        });
     });
 
     $('#registroDebate form[name=debate-modal] input[type=submit]').on("click", function(e){
@@ -193,9 +206,10 @@ $(function(){
         console.log("register")
     })
 
-    function publishProposal(e){
+    function publishProposal(e, callback){
         e = e || window.event;
         var $buttonPublish = $(e.target)
+        console.log($buttonPublish );
         var alias = $buttonPublish.attr("data-userLoggedAlias")
         if (alias == ""){
             // USER NO LOGGED
@@ -206,9 +220,9 @@ $(function(){
             pageLoadingOn();
             $buttonPublish.off("click")
             var body = $mediumEditor.html();
-            var debateId = $(this).attr("data-debateId");
-            var debateAlias = $(this).attr("data-debateAlias");
-            var url = $(this).attr("data-postUrl");
+            var debateId = $buttonPublish.attr("data-debateId");
+            var debateAlias = $buttonPublish.attr("data-debateAlias");
+            var url = $buttonPublish.attr("data-postUrl");
             var data={
                 debateId:debateId,
                 debateAlias:debateAlias,
@@ -219,7 +233,9 @@ $(function(){
                 url: url,
                 data: data,
                 success: function (htmlProposal) {
+                    console.log("Success ajax")
                     var proposal = $(htmlProposal).hide().fadeIn(2000);
+                    var proposalDivId = proposal.find("div.conversation-box").attr("id");
                     $(".proposal-list").prepend(proposal);
                     $mediumEditor.html("");
 
@@ -227,9 +243,11 @@ $(function(){
                     var $counterProposals = $('.leader-post .comment-counter .number');
                     $counterProposals.text(parseInt($counterProposals.text()) + 1);
                     $("#proposal-option a[href=#latest]").trigger("click");
+                    if (callback != 'undefined'){
+                        callback(proposalDivId)
+                    }
                 },
                 complete : function(){
-                    console.log("END")
                     $buttonPublish.on("click",publishProposal)
                     pageLoadingOff();
                 },
