@@ -182,29 +182,28 @@ $(function(){
         e.preventDefault();
         e.stopPropagation();
         var $form = $(this).parents("form[name=login-header]");
-        modalLogin($form, function(){
-            console.log("Callback Login")
-            var $buttonPublish = $(".publish-proposal")
-            $buttonPublish.attr("data-userLoggedAlias", "logged"); //Chapu para que el if no saque de nuevo la modal
-            var eventFake = {target:$buttonPublish}
-            publishProposal(eventFake, function(proposalDivId){
-                //$('#registroDebate').modal('hide');
-                var href = document.location.href;
-                var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
-                var newUrl = href.substring(0,sharpPos);
-                newUrl = newUrl + "#"+proposalDivId
-                document.location.href = newUrl;
-                document.location.reload()
-            })
-        });
+        modalLogin($form, publishProposalNoLogged);
     });
 
     $('#registroDebate form[name=debate-modal] input[type=submit]').on("click", function(e){
         e.preventDefault();
         var $form = $(this).parents("form[name=debate-modal]")
-        $form.valid()
-        console.log("register")
+        modalRegister($form, publishProposalNoLogged);
     })
+
+    function publishProposalNoLogged(){
+        var $buttonPublish = $(".publish-proposal")
+        $buttonPublish.attr("data-userLoggedAlias", "logged"); //Chapu para que el if no saque de nuevo la modal
+        var eventFake = {target:$buttonPublish}
+        publishProposal(eventFake, function(proposalDivId){
+            var href = document.location.href;
+            var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+            var newUrl = href.substring(0,sharpPos);
+            newUrl = newUrl + "#"+proposalDivId
+            document.location.href = newUrl;
+            document.location.reload()
+        })
+    }
 
     function publishProposal(e, callback){
         e = e || window.event;

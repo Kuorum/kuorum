@@ -928,14 +928,14 @@ $(document).ready(function() {
         e.stopPropagation();
         e.preventDefault();
         $(this).closest('form').fadeOut('fast');
-        $(this).closest('form').next('form').fadeIn('slow');
+        $(this).closest('form').siblings('form').fadeIn('slow');
     });
 
     $('body').on('click','.change-home-login', function(e) {
         e.stopPropagation();
         e.preventDefault();
         $(this).closest('form').fadeOut('fast');
-        $(this).closest('form').prev('form').fadeIn('slow');
+        $(this).closest('form').siblings('form').fadeIn('slow');
     });
 
     // al hacer clic en el botón "Regístrate" de la Home cambio el orden de aparición
