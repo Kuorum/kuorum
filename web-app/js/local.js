@@ -968,11 +968,10 @@ $(document).ready(function() {
                     success: function (dataLogin) {
                         console.log(dataLogin);
                         if (dataLogin.success){
-                            console.log("SUCCESS")
                             document.location.reload();
                         }else{
-                            console.log("ERROR")
-                            //document.location.href = dataLogin.url
+                            // Form validation doesn't allow to take this conditional branch
+                            document.location.href = dataLogin.url
                         }
                     },
                     complete : function(){
