@@ -1,5 +1,8 @@
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
+import kuorum.register.RegisterService
+import kuorum.users.KuorumUser
 import org.springframework.security.authentication.AccountExpiredException
 import org.springframework.security.authentication.CredentialsExpiredException
 import org.springframework.security.authentication.DisabledException
@@ -22,6 +25,8 @@ class LoginController {
 	 * Dependency injection for the springSecurityService.
 	 */
 	def springSecurityService
+
+	RegisterService registerService;
 
 	/**
 	 * Default action; redirects to 'defaultTargetUrl' if logged in, /login/auth otherwise.
@@ -71,7 +76,7 @@ class LoginController {
     def loginForm = {
         def config = SpringSecurityUtils.securityConfig
         String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
-        render template: "/layouts/loginForm", model:[postUrl:postUrl]
+        render template: "/layouts/loginForm", model:[postUrl:postUrl, modalId:'registro']
     }
 
     def homeLogin = {
@@ -93,6 +98,14 @@ class LoginController {
 	def authAjax = {
 		response.setHeader 'Location', SpringSecurityUtils.securityConfig.auth.ajaxLoginFormUrl
 		response.sendError HttpServletResponse.SC_UNAUTHORIZED
+	}
+
+	def checkEmailAndPass = {
+		String email = params.j_username
+		String pass = params.j_password
+		KuorumUser user = KuorumUser.findByEmail(email);
+		Boolean valid = registerService.isValidPassword(user, pass);
+		render valid.toString();
 	}
 
 	/**

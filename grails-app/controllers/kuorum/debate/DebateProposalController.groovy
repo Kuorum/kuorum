@@ -32,6 +32,15 @@ class DebateProposalController {
         render template: '/debate/showModules/mainContent/proposalData', model:[debate:debate, debateUser:debateUser,proposal:proposalRSDTO]
 
     }
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def addProposalAndRegister(){
+
+    }
+
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def addProposalAndLogin(){
+
+    }
 
     def pinProposal(PinProposalCommand command){
         KuorumUser user = springSecurityService.currentUser

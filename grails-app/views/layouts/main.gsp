@@ -98,7 +98,7 @@
 </script>
 
 <!-- Modal registro/login -->
-<div class="modal fade" id="registro" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="true">
+<div class="modal fade modal-register" id="registro" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -109,7 +109,7 @@
                 <!-- Formulario de Entrar -->
                 <g:include controller="login" action="loginForm"/>
                 <!-- Formulario de Registro -->
-                <g:render template="/layouts/registerForm" model="[registerCommand: new KuorumRegisterCommand(), formId:'signup-modal']"/>
+                <g:render template="/layouts/registerForm" model="[registerCommand: new KuorumRegisterCommand(), formId:'signup-modal', registerMappingName:'register']"/>
             </div>
         </div>
     </div>

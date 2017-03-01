@@ -1,5 +1,5 @@
 
-<g:form mapping="register" autocomplete="off" method="post" name="${formId}" class="login" role="form" novalidate="novalidate">
+<g:form mapping="${registerMappingName}" autocomplete="off" method="post" name="${formId}" class="login" role="form" novalidate="novalidate">
 %{--<g:set var="registerLink" value="${g.createLink(mapping: 'register')}"/>--}%
 %{--<form action="${registerLink}" method="post" name="sign-header" id="sign-header" class="login" role="form">--}%
     <div class="form-group">

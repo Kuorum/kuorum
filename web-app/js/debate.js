@@ -61,7 +61,7 @@ $(function(){
             var userLogged = $button.attr("data-userLogged")
             if (userLogged == undefined || userLogged == "" ){
                 // USER NO LOGGED
-                $('#registro').modal('show');
+                $('#registroDebate').modal('show');
             }else {
                 // BOTON SALVAR
                 var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
@@ -178,20 +178,34 @@ $(function(){
 
     $(".publish-proposal").on("click", publishProposal);
 
+    $('#registroDebate form[name=login-header] input[type=submit]').on("click", function(e){
+        e.preventDefault();
+        var $form = $(this).parents("form[name=login-header]");
+        if ($form.valid()){
+            console.log("loggin")
+        }
+    });
+
+    $('#registroDebate form[name=debate-modal] input[type=submit]').on("click", function(e){
+        e.preventDefault();
+        var $form = $(this).parents("form[name=debate-modal]")
+        $form.valid()
+        console.log("register")
+    })
+
     function publishProposal(e){
         e = e || window.event;
         var $buttonPublish = $(e.target)
         var alias = $buttonPublish.attr("data-userLoggedAlias")
         if (alias == ""){
             // USER NO LOGGED
-            $('#registro').modal('show');
+            $('#registroDebate').modal('show');
         }else{
             var $mediumEditor = $(".comment.editable.medium-editor-element");
             if (!validMediumEditor($mediumEditor)){return;}
             pageLoadingOn();
             $buttonPublish.off("click")
             var body = $mediumEditor.html();
-            console.log(body)
             var debateId = $(this).attr("data-debateId");
             var debateAlias = $(this).attr("data-debateAlias");
             var url = $(this).attr("data-postUrl");
