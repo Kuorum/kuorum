@@ -53,8 +53,10 @@ class LoginController {
 
 		String view = 'auth'
 		String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
+		String username = params.email?:''
 		render view: view, model: [postUrl: postUrl,
-		                           rememberMeParameter: config.rememberMe.parameter]
+		                           rememberMeParameter: config.rememberMe.parameter,
+								   username:username]
 	}
 
     def headAuth = {
@@ -74,8 +76,9 @@ class LoginController {
     }
 
     def loginForm = {
-        def config = SpringSecurityUtils.securityConfig
-        String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
+//        def config = SpringSecurityUtils.securityConfig
+//        String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
+        String postUrl = g.createLink(controller: 'login', action: 'modalAuth')
         render template: "/layouts/loginForm", model:[postUrl:postUrl, modalId:'registro']
     }
 
@@ -106,6 +109,19 @@ class LoginController {
 		KuorumUser user = KuorumUser.findByEmail(email);
 		Boolean valid = registerService.isValidPassword(user, pass);
 		render valid.toString();
+	}
+
+	def modalAuth = {
+		String email = params.j_username
+		String pass = params.j_password
+		KuorumUser user = KuorumUser.findByEmail(email);
+		if (registerService.isValidPassword(user, pass)){
+			springSecurityService.reauthenticate(email, pass)
+			render ([success:true, url: g.createLink(controller: 'login', action: 'authfail')] as JSON)
+		}else{
+			session[WebAttributes.AUTHENTICATION_EXCEPTION] = new Exception("Wrong pass");
+			render ([success:false, url: g.createLink(controller: 'login', action: 'authfail', params: [email:email])] as JSON)
+		}
 	}
 
 	/**

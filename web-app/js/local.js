@@ -949,6 +949,42 @@ $(document).ready(function() {
         $('form#sign-modal').fadeOut('fast');
     });
 
+    $('#registro form[name=login-header] input[type=submit]').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var $form = $(this).parents("form[name=login-header]");
+        pageLoadingOn();
+        setTimeout(function() {
+            if ($form.valid()){
+                var url = $form.attr("action")
+                var data={
+                    j_username:$form.find("input[name=j_username]").val(),
+                    j_password:$form.find("input[name=j_password]").val()
+                };
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function (dataLogin) {
+                        console.log(dataLogin);
+                        if (dataLogin.success){
+                            console.log("SUCCESS")
+                            document.location.reload();
+                        }else{
+                            console.log("ERROR")
+                            //document.location.href = dataLogin.url
+                        }
+                    },
+                    complete : function(){
+                        pageLoadingOff();
+                    }
+                });
+            }else{
+                pageLoadingOff();
+            }
+        }, 500);
+    });
+
     // Funcionamiento de los radio button como nav-tabs
     $('input[name="cuenta"]').click(function () {
     //jQuery handles UI toggling correctly when we apply "data-target" attributes and call .tab('show')
