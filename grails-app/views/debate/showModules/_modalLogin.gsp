@@ -10,7 +10,7 @@
                 <!-- Formulario de Entrar -->
                 <g:render template="/layouts/loginForm" model="[modalId:'registroDebate']"/>
                 <!-- Formulario de Registro -->
-                <g:render template="/layouts/registerForm" model="[registerCommand: new springSecurity.KuorumRegisterCommand(), formId:'debate-modal', registerMappingName:'register']"/>
+                <g:render template="/layouts/registerForm" model="[registerCommand: new springSecurity.KuorumRegisterCommand(), formId:'debate-modal']"/>
             </div>
             </div>
         </div>

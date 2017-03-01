@@ -958,6 +958,15 @@ $(document).ready(function() {
         });
     });
 
+    $('#registro form[name=signup-modal] input[type=submit]').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var $form = $(this).parents("form[name=signup-modal]");
+        modalRegister($form, function(){
+            document.location.reload();
+        });
+    });
+
     // Funcionamiento de los radio button como nav-tabs
     $('input[name="cuenta"]').click(function () {
     //jQuery handles UI toggling correctly when we apply "data-target" attributes and call .tab('show')
@@ -1621,6 +1630,37 @@ function modalLogin($form, callback){
                     }else{
                         // Form validation doesn't allow to take this conditional branch
                         document.location.href = dataLogin.url
+                    }
+                },
+                complete : function(){
+                    pageLoadingOff();
+                }
+            });
+        }else{
+            pageLoadingOff();
+        }
+    }, 500);
+}
+
+function modalRegister($form, callback){
+    pageLoadingOn();
+    setTimeout(function() {
+        if ($form.valid()){
+            var url = $form.attr("action-ajax")
+            var data={
+                name:$form.find("input[name=name]").val(),
+                email:$form.find("input[name=email]").val()
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function (dataLogin) {
+                    if (dataLogin.success){
+                        callback()
+                    }else{
+                        // Form validation doesn't allow to take this conditional branch
+                        $form.submit() // Goes to register page usign normal flow and handling errors
                     }
                 },
                 complete : function(){

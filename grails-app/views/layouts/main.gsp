@@ -109,7 +109,7 @@
                 <!-- Formulario de Entrar -->
                 <g:include controller="login" action="loginForm"/>
                 <!-- Formulario de Registro -->
-                <g:render template="/layouts/registerForm" model="[registerCommand: new KuorumRegisterCommand(), formId:'signup-modal', registerMappingName:'register']"/>
+                <g:render template="/layouts/registerForm" model="[registerCommand: new KuorumRegisterCommand(), formId:'signup-modal']"/>
             </div>
         </div>
     </div>
