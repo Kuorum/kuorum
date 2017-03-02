@@ -93,9 +93,7 @@
 </content>
 
 <content tag="preFooterSections">
-    <g:render template="userShowTemplates/latestProjects" model="[politician:politician, userProjects:userProjects, divCss:'main']"/>
     <g:render template="userShowTemplates/recommendedPoliticians" model="[politician:politician, recommendPoliticians:recommendPoliticians]"/>
-
 </content>
 
 <content tag="modals">

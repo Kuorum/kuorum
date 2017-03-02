@@ -79,9 +79,8 @@ $(function(){
     // Save comment
     $(".proposal-list").on('click','.conversation-box-comments .comment-box .actions button.save-comment', saveCommentButtonClick);
 
-    function saveCommentButtonClick(e){
+    function saveCommentButtonClick(e, callback){
         if (isPageLoading()){
-            console.log("PAGE LOADING")
             return;
         }
         var $button = $(e.target)
@@ -89,9 +88,15 @@ $(function(){
         var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
         if ( $commentsList.is(":visible") ){
             var userLogged = $button.attr("data-userLogged")
+            var debateId = $button.attr("data-debateId");
+            var debateAlias = $button.attr("data-debateAlias");
+            var proposalId = $button.attr("data-proposalId");
             if (userLogged == undefined || userLogged == "" ){
                 // USER NO LOGGED
-                $('#registro').modal('show');
+                console.log("No LOGGED")
+                $('#registroDebate').find("form").attr("callback", "publishComment")
+                $('#registroDebate').find("form").attr("data-proposalId", proposalId)
+                $('#registroDebate').modal('show');
             }else {
                 // BOTON SALVAR
                 var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
@@ -99,12 +104,8 @@ $(function(){
                     return;
                 }
                 pageLoadingOn();
-                console.log($button)
                 var body = $mediumEditor.html();
-                var debateId = $(this).attr("data-debateId");
-                var debateAlias = $(this).attr("data-debateAlias");
-                var proposalId = $(this).attr("data-proposalId");
-                var url = $(this).attr("data-postUrl");
+                var url = $button.attr("data-postUrl");
                 var data = {
                     debateId: debateId,
                     debateAlias: debateAlias,
@@ -117,8 +118,14 @@ $(function(){
                     data: data,
                     success: function (htmlComment) {
                         var comment = $(htmlComment).hide().fadeIn(2000);
+                        var commentDivId = comment.attr("id");
+                        console.log(commentDivId)
                         $commentsList.append(comment)
                         $mediumEditor.html("")
+
+                        if (callback != undefined){
+                            callback(commentDivId)
+                        }
                     },
                     dataType: "html",
                     complete: function(){
@@ -209,23 +216,72 @@ $(function(){
 
     $(".publish-proposal").on("click", publishProposal);
 
-    function publishProposal(e){
+    $('#registroDebate form[name=login-header] input[type=submit]').on("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var $form = $(this).parents("form[name=login-header]");
+        var callback = $form.attr("callback")
+        modalLogin($form, noLoggedCallbacks[callback]);
+    });
+
+    $('#registroDebate form[name=debate-modal] input[type=submit]').on("click", function(e){
+        e.preventDefault();
+        var $form = $(this).parents("form[name=debate-modal]")
+        var callback = $form.attr("callback")
+        modalRegister($form, noLoggedCallbacks[callback]);
+    })
+
+    var noLoggedCallbacks = {
+        publishProposal: function(){
+            var $buttonPublish = $(".publish-proposal")
+            $buttonPublish.attr("data-userLoggedAlias", "logged"); //Chapu para que el if no saque de nuevo la modal
+            var eventFake = {target:$buttonPublish}
+            publishProposal(eventFake, function(proposalDivId){
+                var href = document.location.href;
+                var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+                var newUrl = href.substring(0,sharpPos);
+                newUrl = newUrl + "#"+proposalDivId
+                document.location.href = newUrl;
+                document.location.reload()
+            })
+        },
+        publishComment: function(){
+            var proposalId = $('#registroDebate').find("form").attr("data-proposalId")
+            var $buttonSaveComment = $("#proposal_"+proposalId).next("div").find(".actions button.save-comment")
+            $buttonSaveComment.attr("data-userLogged", "logged"); //Chapu para que el if no saque de nuevo la modal
+            var eventFake = {target:$buttonSaveComment}
+            pageLoadingOff();
+            saveCommentButtonClick(eventFake, function(commentDivId){
+                pageLoadingOn();
+                var href = document.location.href;
+                var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+                var newUrl = href.substring(0,sharpPos);
+                newUrl = newUrl + "#"+commentDivId
+                document.location.href = newUrl;
+                document.location.reload()
+            })
+        }
+    }
+
+
+    function publishProposal(e, callback){
         e = e || window.event;
         var $buttonPublish = $(e.target)
+        console.log($buttonPublish );
         var alias = $buttonPublish.attr("data-userLoggedAlias")
         if (alias == ""){
             // USER NO LOGGED
-            $('#registro').modal('show');
+            $('#registroDebate').find("form").attr("callback", "publishProposal")
+            $('#registroDebate').modal('show');
         }else{
             var $mediumEditor = $(".comment.editable.medium-editor-element");
             if (!validMediumEditor($mediumEditor)){return;}
             pageLoadingOn();
             $buttonPublish.off("click")
             var body = $mediumEditor.html();
-            console.log(body)
-            var debateId = $(this).attr("data-debateId");
-            var debateAlias = $(this).attr("data-debateAlias");
-            var url = $(this).attr("data-postUrl");
+            var debateId = $buttonPublish.attr("data-debateId");
+            var debateAlias = $buttonPublish.attr("data-debateAlias");
+            var url = $buttonPublish.attr("data-postUrl");
             var data={
                 debateId:debateId,
                 debateAlias:debateAlias,
@@ -236,7 +292,9 @@ $(function(){
                 url: url,
                 data: data,
                 success: function (htmlProposal) {
+                    console.log("Success ajax")
                     var proposal = $(htmlProposal).hide().fadeIn(2000);
+                    var proposalDivId = proposal.find("div.conversation-box").attr("id");
                     $(".proposal-list").prepend(proposal);
                     $mediumEditor.html("");
 
@@ -244,9 +302,11 @@ $(function(){
                     var $counterProposals = $('.leader-post .comment-counter .number');
                     $counterProposals.text(parseInt($counterProposals.text()) + 1);
                     $("#proposal-option a[href=#latest]").trigger("click");
+                    if (callback != undefined){
+                        callback(proposalDivId)
+                    }
                 },
                 complete : function(){
-                    console.log("END")
                     $buttonPublish.on("click",publishProposal)
                     pageLoadingOff();
                 },

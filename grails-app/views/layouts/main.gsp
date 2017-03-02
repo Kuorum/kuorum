@@ -98,7 +98,7 @@
 </script>
 
 <!-- Modal registro/login -->
-<div class="modal fade" id="registro" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="true">
+<div class="modal fade modal-register" id="registro" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

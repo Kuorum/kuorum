@@ -11,7 +11,7 @@
 <content tag="mainContent">
     <form id="login" role="form" action='${postUrl}' method='POST' class="login">
         <div class="form-group">
-            <input type="email" name="j_username" placeholder="${g.message(code: 'login.email.form.email.label')}" class="form-control input-lg" id="j_username" required>
+            <input type="email" name="j_username" placeholder="${g.message(code: 'login.email.form.email.label')}" class="form-control input-lg" id="j_username" required value="${username}">
             <g:if test="${flash.message}">
                 <span for="titlePost" class="error">${flash.message}</span>
             </g:if>

@@ -1,7 +1,35 @@
 
-<g:form mapping="register" autocomplete="off" method="post" name="${formId}" class="login" role="form" novalidate="novalidate">
-%{--<g:set var="registerLink" value="${g.createLink(mapping: 'register')}"/>--}%
-%{--<form action="${registerLink}" method="post" name="sign-header" id="sign-header" class="login" role="form">--}%
+<script type="text/javascript">
+    $(function (){
+        $("#${formId}").validate({
+            errorClass:'error',
+            errorElement:'span',
+            onkeyup: false,
+            onclick: false,
+            rules: {
+                "name":{
+                    required: true
+                },
+                "email":{
+                    required: true,
+                    remote:"${g.createLink(mapping: 'registerAjaxCheckEmail')}"
+                }
+            },
+            messages: {
+                "name":{
+                    required: "Necesitamos un nombre para dirigirnos a ti",
+
+                },
+                "email":{
+                    required: "Neceistamos un email para comunicarnos contigo",
+                    remote:"Ya existe en kuorum",
+                    email: "Formato de email erróneo"
+                }
+            }
+        });
+    });
+</script>
+<g:form mapping="register" action-ajax="${g.createLink(mapping: 'registerAjax')}" autocomplete="off" method="post" name="${formId}" class="login" role="form" novalidate="novalidate">
     <div class="form-group">
         <formUtil:input
                 command="${registerCommand}"
@@ -10,8 +38,6 @@
                 labelCssClass="sr-only"
                 showCharCounter="false"
                 required="true"/>
-        %{--<label for="name-header" class="sr-only">Dinos tu nombre o el de tu organización</label>--}%
-        %{--<input type="text" name="name-header" class="form-control input-lg" id="name-header" required placeholder="Dinos tu nombre o el de tu organización" aria-required="true">--}%
     </div>
 
     <div class="form-group">
@@ -23,8 +49,6 @@
                 cssClass="form-control input-lg"
                 labelCssClass="sr-only"
                 required="true"/>
-        %{--<label for="email-header" class="sr-only">Introduce tu email</label>--}%
-        %{--<input type="email" name="email-header" class="form-control input-lg" id="email-header" required placeholder="Introduce tu email" aria-required="true">--}%
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-lg" value="${g.message(code:'register.email.form.submit')}"> <p class="cancel"><g:message code="springSecurity.KuorumRegisterCommand.email.or"/> <a href="#" class="change-home-login"><g:message code="login.intro.loginAfter"/></a></p>
@@ -33,4 +57,3 @@
         <g:message code="register.conditions" args="[g.createLink(mapping: 'footerPrivacyPolicy')]" encodeAs="raw"/>
     </div>
 </g:form>
-<formUtil:validateForm bean="${registerCommand}" form="${formId}"/>

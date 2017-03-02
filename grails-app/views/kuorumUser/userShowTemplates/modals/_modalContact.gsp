@@ -1,12 +1,12 @@
 <!-- MODAL CONTACT -->
 <g:set var="command" value="${new kuorum.web.commands.customRegister.ContactRegister() }"/>
-<div class="modal fade in" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="false">
+<div class="modal fade in" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="contactModalTitle" aria-hidden="false">
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span
                         class="sr-only"><g:message code="default.close"/></span></button>
-                <h4 class="sr-only" id="registroLoginUsuario"><g:message code="login.head.register"/></h4>
+                <h4 class="sr-only" id="contactModalTitle"><g:message code="login.head.register"/></h4>
                 <h5><g:message code="modal.contact.header" args="[politician.name]"/></h5>
             </div>
 

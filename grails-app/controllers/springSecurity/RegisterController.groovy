@@ -1,5 +1,6 @@
 package springSecurity
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
@@ -57,6 +58,32 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             notificationService.sendEditorPurchaseNotification(user)
         }
         redirect mapping:"home"
+    }
+
+    def ajaxRegister(KuorumRegisterCommand command){
+        if (command.hasErrors()) {
+            render ([success:false] as JSON)
+            return
+        }
+
+        KuorumUser user = registerService.registerUser(command)
+        String automaticAlias = kuorumUserService.generateValidAlias(user.name)
+        kuorumUserService.updateAlias(user, automaticAlias)
+        kuorumUserService.updateUser(user)
+        if (user){
+            render ([success:true] as JSON)
+        }else{
+            render ([success:false] as JSON)
+        }
+    }
+
+    def checkEmail(String email){
+        KuorumUser user = KuorumUser.findByEmail(email);
+        if (user){
+            render Boolean.FALSE.toString();
+        }else{
+            render Boolean.TRUE.toString();
+        }
     }
 
     def contactRegister(ContactRegister contactRegister){

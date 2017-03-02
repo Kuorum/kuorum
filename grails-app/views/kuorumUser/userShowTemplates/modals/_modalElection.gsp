@@ -13,12 +13,12 @@
 </script>
 
 <!-- Modal registro/login -->
-<div class="modal fade in" id="causes-modal" tabindex="-1" role="dialog" aria-labelledby="registroLoginUsuario" aria-hidden="false">
+<div class="modal fade in" id="causes-modal" tabindex="-1" role="dialog" aria-labelledby="causeModalTitle" aria-hidden="false">
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="${g.message(code:'default.close')}"><span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only">${g.message(code:'default.close')}</span></button>
-                <h4 class="sr-only" id="registroLoginUsuario">${g.message(code:'modal.election.main.header')}</h4>
+                <h4 class="sr-only" id="causeModalTitle">${g.message(code:'modal.election.main.header')}</h4>
             </div>
             <!-- BODY FOR COMPUTER-->
             <div class="modal-body text-center">

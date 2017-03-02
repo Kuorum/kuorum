@@ -928,14 +928,14 @@ $(document).ready(function() {
         e.stopPropagation();
         e.preventDefault();
         $(this).closest('form').fadeOut('fast');
-        $(this).closest('form').next('form').fadeIn('slow');
+        $(this).closest('form').siblings('form').fadeIn('slow');
     });
 
     $('body').on('click','.change-home-login', function(e) {
         e.stopPropagation();
         e.preventDefault();
         $(this).closest('form').fadeOut('fast');
-        $(this).closest('form').prev('form').fadeIn('slow');
+        $(this).closest('form').siblings('form').fadeIn('slow');
     });
 
     // al hacer clic en el botón "Regístrate" de la Home cambio el orden de aparición
@@ -947,6 +947,24 @@ $(document).ready(function() {
     $('body').on('click','.homeMore.two .btn-blue', function(e) {
         $('form#login-modal').fadeIn('fast');
         $('form#sign-modal').fadeOut('fast');
+    });
+
+    $('#registro form[name=login-header] input[type=submit]').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var $form = $(this).parents("form[name=login-header]");
+        modalLogin($form, function(){
+            document.location.reload();
+        });
+    });
+
+    $('#registro form[name=signup-modal] input[type=submit]').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var $form = $(this).parents("form[name=signup-modal]");
+        modalRegister($form, function(){
+            document.location.reload();
+        });
     });
 
     // Funcionamiento de los radio button como nav-tabs
@@ -1590,4 +1608,69 @@ function prepareContactTags(){
             });
         });
     }
+}
+
+function modalLogin($form, callback){
+    pageLoadingOn();
+    $form.parents(".modal").modal("hide")
+    setTimeout(function() {
+        if ($form.valid()){
+            var url = $form.attr("action")
+            var data={
+                j_username:$form.find("input[name=j_username]").val(),
+                j_password:$form.find("input[name=j_password]").val()
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function (dataLogin) {
+                    console.log(dataLogin);
+                    if (dataLogin.success){
+                        callback()
+                    }else{
+                        // Form validation doesn't allow to take this conditional branch
+                        document.location.href = dataLogin.url
+                    }
+                },
+                complete : function(){
+                    pageLoadingOff();
+                }
+            });
+        }else{
+            pageLoadingOff();
+        }
+    }, 500);
+}
+
+function modalRegister($form, callback){
+    pageLoadingOn();
+    $form.parents(".modal").modal("hide")
+    setTimeout(function() {
+        if ($form.valid()){
+            var url = $form.attr("action-ajax")
+            var data={
+                name:$form.find("input[name=name]").val(),
+                email:$form.find("input[name=email]").val()
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function (dataLogin) {
+                    if (dataLogin.success){
+                        callback()
+                    }else{
+                        // Form validation doesn't allow to take this conditional branch
+                        $form.submit() // Goes to register page usign normal flow and handling errors
+                    }
+                },
+                complete : function(){
+                    pageLoadingOff();
+                }
+            });
+        }else{
+            pageLoadingOff();
+        }
+    }, 500);
 }

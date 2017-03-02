@@ -1,4 +1,41 @@
-<form action='${postUrl}' method="post" name="login-header" id="login-modal" role="form" class="login">
+<script type="text/javascript">
+    $(function (){
+        $("#${modalId} #login-modal").validate({
+            errorClass:'error',
+            errorElement:'span',
+            onkeyup: false,
+            onclick: false,
+            rules: {
+                "j_username":{
+                    required: true ,
+                    email: true
+                },
+                "j_password":{
+                    required: true,
+                    remote:{
+                        url: "${g.createLink(mapping: 'loginCheck')}",
+                        type: "post",
+                        data: {
+                            j_username: function() {return $( "#${modalId} input[name=j_username]" ).val();},
+                            j_password: function() {return $( "#${modalId} input[name=j_password]" ).val();}
+                        }
+                    }
+                }
+            },
+            messages: {
+                "j_username":{
+                    required: "Necesitamos un nombre para dirigirnos a ti",
+                    email: "Formato de email erróneo"
+                },
+                "j_password":{
+                    required: "Neceistamos un email para comunicarnos contigo",
+                    remote:"No match"
+                }
+            }
+        });
+    });
+</script>
+<form action='${g.createLink(controller: 'login', action: 'modalAuth')}' method="post" name="login-header" id="login-modal" role="form" class="login">
     <div class="form-group">
         <label for="j_username" class="sr-only"><g:message code="login.email.form.email.label"/></label>
         <input type="email" name="j_username" class="form-control input-lg" id="j_username" required placeholder="Email" aria-required="true">

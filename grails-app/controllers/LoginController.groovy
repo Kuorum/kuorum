@@ -1,5 +1,8 @@
 import grails.converters.JSON
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.SpringSecurityUtils
+import kuorum.register.RegisterService
+import kuorum.users.KuorumUser
 import org.springframework.security.authentication.AccountExpiredException
 import org.springframework.security.authentication.CredentialsExpiredException
 import org.springframework.security.authentication.DisabledException
@@ -22,6 +25,8 @@ class LoginController {
 	 * Dependency injection for the springSecurityService.
 	 */
 	def springSecurityService
+
+	RegisterService registerService;
 
 	/**
 	 * Default action; redirects to 'defaultTargetUrl' if logged in, /login/auth otherwise.
@@ -48,8 +53,10 @@ class LoginController {
 
 		String view = 'auth'
 		String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
+		String username = params.email?:''
 		render view: view, model: [postUrl: postUrl,
-		                           rememberMeParameter: config.rememberMe.parameter]
+		                           rememberMeParameter: config.rememberMe.parameter,
+								   username:username]
 	}
 
     def headAuth = {
@@ -69,9 +76,9 @@ class LoginController {
     }
 
     def loginForm = {
-        def config = SpringSecurityUtils.securityConfig
-        String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
-        render template: "/layouts/loginForm", model:[postUrl:postUrl]
+//        def config = SpringSecurityUtils.securityConfig
+//        String postUrl = "${config.loginDomain}${config.apf.filterProcessesUrl}"
+        render template: "/layouts/loginForm", model:[ modalId:'registro']
     }
 
     def homeLogin = {
@@ -93,6 +100,27 @@ class LoginController {
 	def authAjax = {
 		response.setHeader 'Location', SpringSecurityUtils.securityConfig.auth.ajaxLoginFormUrl
 		response.sendError HttpServletResponse.SC_UNAUTHORIZED
+	}
+
+	def checkEmailAndPass = {
+		String email = params.j_username
+		String pass = params.j_password
+		KuorumUser user = KuorumUser.findByEmail(email);
+		Boolean valid = registerService.isValidPassword(user, pass);
+		render valid.toString();
+	}
+
+	def modalAuth = {
+		String email = params.j_username
+		String pass = params.j_password
+		KuorumUser user = KuorumUser.findByEmail(email);
+		if (registerService.isValidPassword(user, pass)){
+			springSecurityService.reauthenticate(email, pass)
+			render ([success:true, url: g.createLink(controller: 'login', action: 'authfail')] as JSON)
+		}else{
+			session[WebAttributes.AUTHENTICATION_EXCEPTION] = new Exception("Wrong pass");
+			render ([success:false, url: g.createLink(controller: 'login', action: 'authfail', params: [email:email])] as JSON)
+		}
 	}
 
 	/**

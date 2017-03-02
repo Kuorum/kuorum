@@ -73,6 +73,8 @@ class UrlMappings {
         name register:              "/$lang/sign-up"    (controller: "register"){action = [GET:"index", POST:"register"]}
                                     "/sign-up"          {controller="redirect"; action= "redirect301"; newMapping='register'}
                                     "/registro"         {controller="redirect"; action= "redirect301"; newMapping='register'}
+        name registerAjax:          "/ajax/sign-up"     (controller: "register", action:"ajaxRegister")
+        name registerAjaxCheckEmail:"/ajax/sign-up/checkEmail"(controller: "register", action:"checkEmail")
 
         name registerPressKit:      "/$lang/sign-up/pressKit"   (controller: "register",action:"downloadPressKit")
         name registerStep2:         "/$lang/sign-up/step2"      (controller: "customRegister"){action = [GET:"step2", POST:"step2Save"]}
@@ -97,6 +99,7 @@ class UrlMappings {
         name login:     "/$lang/log-in" (controller:"login", action:"index")
                         "/log-in"       {controller="redirect"; action= "redirect301"; newMapping='login'}
                         "/entrar"       {controller="redirect"; action= "redirect301"; newMapping='login'}
+        name loginCheck:"/ajax/checkLogin" (controller:"login", action:"checkEmailAndPass")
         name loginAuth: "/$lang/sign-in"(controller:"login", action:"auth")
                         "/sign-in"      {controller="redirect"; action= "redirect301"; newMapping='loginAuth'}
                         "/autenticarse" {controller="redirect"; action= "redirect301"; newMapping='loginAuth'}
@@ -199,7 +202,7 @@ class UrlMappings {
         name bulkActionAddTagsContactsAjax:         "/ajax/contact/addTags" (controller:"contacts", action: "addTagsBulkAction")
         name bulkActionRemoveTagsContactsAjax:      "/ajax/contact/removeTags" (controller: "contacts", action: "removeTagsBulkAction")
 
-        name userFollowAndRegister:          "/$userAlias/subscribe" (controller: "kuorumUser", action: "subscribeTo")
+        name userFollowAndRegisteruserFollowAndRegister:          "/$userAlias/subscribe" (controller: "kuorumUser", action: "subscribeTo")
         name userClucks:        "/ajax/$userAlias/clucks"  (controller: "kuorumUser", action: "userClucks")
         name userPost:          "/ajax/$userAlias/posts"  (controller: "kuorumUser", action: "userPosts")
         name userVictories:     "/ajax/$userAlias/victories"  (controller: "kuorumUser", action: "userVictories")

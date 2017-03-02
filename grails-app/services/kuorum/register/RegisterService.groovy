@@ -236,6 +236,14 @@ class RegisterService {
         String salt = saltSource instanceof NullSaltSource ? null : user.name
         springSecurityUiService.encodePassword(rawPass, salt)
     }
+    Boolean isValidPassword(KuorumUser user, String rawPass){
+        if (user){
+            String salt = saltSource instanceof NullSaltSource ? null : user.name
+            return springSecurityService.passwordEncoder.isPasswordValid(user.password, rawPass, salt)
+        }else{
+            return false;
+        }
+    }
 
     KuorumUser createUserByRegistrationCode (RegistrationCode registrationCode){
         KuorumUser user
