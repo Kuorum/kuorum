@@ -1612,6 +1612,7 @@ function prepareContactTags(){
 
 function modalLogin($form, callback){
     pageLoadingOn();
+    $form.parents(".modal").modal("hide")
     setTimeout(function() {
         if ($form.valid()){
             var url = $form.attr("action")
@@ -1644,6 +1645,7 @@ function modalLogin($form, callback){
 
 function modalRegister($form, callback){
     pageLoadingOn();
+    $form.parents(".modal").modal("hide")
     setTimeout(function() {
         if ($form.valid()){
             var url = $form.attr("action-ajax")
