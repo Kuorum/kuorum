@@ -261,7 +261,6 @@ $(function(){
                 url: url,
                 data: data,
                 success: function (htmlProposal) {
-                    console.log("Success ajax")
                     var proposal = $(htmlProposal).hide().fadeIn(2000);
                     var proposalDivId = proposal.find("div.conversation-box").attr("id");
                     $(".proposal-list").prepend(proposal);
@@ -394,6 +393,34 @@ $(function(){
             var hash = href.substring(href.indexOf("#")+1);
             openElement(hash)
         }
+    });
+
+    // DELETE PROPOSAL
+    $(".proposal-list").on("click",".conversation-box button.delete",function(){
+        var $button = $(this);
+        var $proposalDiv = $button.parents("div.conversation-box")
+        var proposalDivId = $proposalDiv.attr("id")
+        var proposalId = proposalDivId.substring(proposalDivId.indexOf("_")+1);
+        var debateId = $proposalDiv.attr("data-debateId")
+        var debateAlias = $proposalDiv.attr("data-debateAlias")
+        var url = $button.attr("data-ajaxDelete")
+        var data = {
+            proposalId:proposalId,
+            debateId:debateId,
+            debateAlias:debateAlias
+        }
+        pageLoadingOn();
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(jsonData){
+                $proposalDiv.parent("li").fadeOut();
+            },
+            complete: function () {
+                pageLoadingOff();
+            }
+        });
     });
 });
 

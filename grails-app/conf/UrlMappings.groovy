@@ -135,6 +135,7 @@ class UrlMappings {
         name debateRemove:      "/ajax/account/debate/$debateId/remove" (controller: "debate", action: "remove")
         name debateShow:        "/$userAlias/d/$title-$debateId"(controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name debateProposalNew: "/ajax/addProposal"(controller: "debateProposal", action: "addProposal")
+        name debateProposalDelete:"/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
         name debateProposalPin: "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
         name debateProposalLike:"/ajax/likeProposal"(controller: "debateProposal", action: "likeProposal")
         name debateProposalComment: "/ajax/proposalComment"(controller: "debateProposal", action: "addComment")

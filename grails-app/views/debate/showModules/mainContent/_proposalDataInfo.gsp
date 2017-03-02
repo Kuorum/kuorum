@@ -1,4 +1,4 @@
-<div id="proposal_${proposal.id}" class="conversation-box">
+<div id="proposal_${proposal.id}" class="conversation-box" data-debateId="${proposal.debateId}" data-debateAlias="${proposal.debateAlias}">
     <div class="header clearfix">
         <userUtil:showUserByAlias alias="${proposal.userAlias}" extraCss="pull-left"/>
         <span class="time-ago middle-point left"><kuorumDate:humanDate date="${proposal.datePublished}"/> </span>
@@ -58,9 +58,11 @@
             <g:render template="/debate/showModules/mainContent/proposalDataInfoSocial" model="[debate:debate, proposal:proposal]"/>
 
             <div class="comment-counter pull-right">
-                %{--<button type="button" class="delete">--}%
-                    %{--<span class="middle-point right delete">delete</span>--}%
-                %{--</button>--}%
+                <userUtil:ifUserIsTheLoggedOne user="${proposal.userAlias}">
+                    <button type="button" class="delete" data-ajaxDelete='${g.createLink(mapping: 'debateProposalDelete')}'>
+                        <span class="middle-point right delete">delete</span>
+                    </button>
+                </userUtil:ifUserIsTheLoggedOne>
                 <button type="button" class="comment">
                     <span class="fa fa-comment-o" aria-hidden="true"></span>
                     <span class="number">${proposal.comments?.size()?:0}</span>

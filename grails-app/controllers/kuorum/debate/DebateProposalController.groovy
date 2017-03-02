@@ -32,6 +32,16 @@ class DebateProposalController {
         render template: '/debate/showModules/mainContent/proposalData', model:[debate:debate, debateUser:debateUser,proposal:proposalRSDTO]
 
     }
+
+    def deleteProposal(){
+        Long proposalId = Long.parseLong(params.proposalId)
+        Long debateId = Long.parseLong(params.debateId)
+        String debateAlias = params.debateAlias
+        KuorumUser user = springSecurityService.currentUser
+        proposalService.deleteProposal(user, debateAlias, debateId, proposalId)
+        render "true"
+    }
+
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def addProposalAndRegister(){
 
