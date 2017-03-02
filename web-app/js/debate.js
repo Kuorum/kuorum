@@ -51,7 +51,6 @@ $(function(){
 
     function saveCommentButtonClick(e, callback){
         if (isPageLoading()){
-            console.log("PAGE LOADING")
             return;
         }
         var $button = $(e.target)
