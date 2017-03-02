@@ -271,7 +271,7 @@ $(function(){
                     var $counterProposals = $('.leader-post .comment-counter .number');
                     $counterProposals.text(parseInt($counterProposals.text()) + 1);
                     $("#proposal-option a[href=#latest]").trigger("click");
-                    if (callback != 'undefined'){
+                    if (callback != undefined){
                         callback(proposalDivId)
                     }
                 },
