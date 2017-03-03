@@ -25,37 +25,63 @@ var editorComment = new MediumEditor('.editable-comment', {
 
 $(function () {
     //Calculo de altura de las cajas de comentarios de debate
-    $(window).load(function() { 
+    $(window).load(function() {
+        var parragraphMarginBottom = 20; //px
+        var lineHeight= 33; //px
+
+        var calculateParragraphLines = function (parragrahHeight, lastParragraph) {
+            if (lastParragraph) {
+                return parragrahHeight / lineHeight;
+            } else {
+                return (parragrahHeight - parragraphMarginBottom) / lineHeight;
+            }
+        };
+
         $('.conversation-box').each(function(idx, obj) {
             var $conversationBox = $($(obj).find('div.body'));
             var $conversationBoxParagraph = $($(obj).find('div.body p'));
             var parragraphNumber = 0;
+            var totalParragraph = $conversationBoxParagraph.size();
             var parragraphInfo = {};
-            var parragraphMarginBottom = 20; //px
-            var lineHeight= 33; //px
 
             $conversationBoxParagraph.each(function (idx, obj) {
+                var parragrahHeight = $(obj).outerHeight(true);
                 parragraphNumber += 1;
                 parragraphInfo[idx] = {
-                    height: $(obj).outerHeight(true)
+                    height: parragrahHeight,
+                    lines: calculateParragraphLines(parragrahHeight, parragraphNumber === totalParragraph)
                 };
             });
 
             if (parragraphNumber > 1) { //en este caso habrá margenes entre párrafos
-                var firstParragraphLines = (parragraphInfo[0].height - parragraphMarginBottom) / lineHeight;
-
-                switch (firstParragraphLines) {
-                    case 1:
-                        $conversationBox.height((4 * lineHeight) + parragraphMarginBottom);
-                        break;
-                    case 2:
-                        $conversationBox.height((2 * lineHeight) + (2 * parragraphMarginBottom) + (2 * lineHeight));
+                var numberVisibleLines = 4;
+                var idx = 0;
+                while (numberVisibleLines > 0) {
+                    if (!parragraphInfo.hasOwnProperty(idx)) {
+                        numberVisibleLines = 0;
+                    } else {
+                        numberVisibleLines = numberVisibleLines - parragraphInfo[idx].lines;
+                        idx += 1;
+                    }
+                }
+                switch (idx) { //número de párrafos
+                    case 2: //se necesitan usar dos párrafos para rellenar el espacio
+                        var height = (parragraphInfo[0].lines * lineHeight) + parragraphMarginBottom + 
+                                    (4 - parragraphInfo[0].lines) * lineHeight;
+                        $conversationBox.height(height);
                         break;
                     case 3:
-                        $conversationBox.height((3 * lineHeight) + (3 * parragraphMarginBottom) + (lineHeight));
+                        var height = (parragraphInfo[0].lines * lineHeight) + parragraphMarginBottom +
+                                    (parragraphInfo[1].lines * lineHeight) + parragraphMarginBottom + 
+                                    (4 - parragraphInfo[0].lines - parragraphInfo[1].lines) * lineHeight;
+                        $conversationBox.height(height);
                         break;
                     case 4:
-                        $conversationBox.height((4 * lineHeight) + (4 * parragraphMarginBottom));
+                        var height = (parragraphInfo[0].lines * lineHeight) + parragraphMarginBottom +
+                                    (parragraphInfo[1].lines * lineHeight) + parragraphMarginBottom + 
+                                    (parragraphInfo[2].lines * lineHeight) + parragraphMarginBottom + 
+                                    (4 - parragraphInfo[0].lines - parragraphInfo[1].lines - parragraphInfo[2].lines) * lineHeight;
+                        $conversationBox.height(height);
                         break;
                     default:
                         $conversationBox.height(4 * lineHeight); //132 px
