@@ -23,6 +23,38 @@ var editorComment = new MediumEditor('.editable-comment', {
     }
 });
 
+$(function () {
+    //Calculo de altura de las cajas de comentarios de debate
+    $(window).load(function() { 
+        $('.conversation-box').each(function(idx, obj) {
+            var $conversationBox = $($(obj).find('div.body'));
+            var $conversationBoxParagraph = $($(obj).find('div.body p'));
+            var parragraphNumber = 0;
+            var parragraphInfo = {};
+            var parragraphMarginBottom = 20; //px
+            var lineHeight= 33; //px
+
+            $conversationBoxParagraph.each(function (idx, obj) {
+                parragraphNumber += 1;
+                parragraphInfo[idx] = {
+                    height: $(obj).outerHeight(true)
+                };
+            });
+
+            if (parragraphNumber > 1) { //en este caso habrá margenes entre párrafos
+                var firstParragraphLines = (parragraphInfo[0].height - parragraphMarginBottom) / lineHeight;
+
+                if (firstParragraphLines < 4) {
+                    $conversationBox.height((4 * lineHeight) + parragraphMarginBottom);
+                } else {
+                    $conversationBox.height(4 * lineHeight); //132 px
+                }
+                $conversationBox.attr('data-height', $conversationBox.height());
+            }
+        });
+    });
+});
+
 $(function(){
     // LightbulButton - comment-counter
     var lightbulbButton = $('.leader-post > .footer .comment-counter button');
@@ -120,17 +152,18 @@ $(function(){
         $conversationBoxCommentsArrow.trigger('click', [isVisible, $conversationBoxCommentsComment]);
     }
 
-    // See More button (OPEN)
+    // See More button (TOOGLE)
     $(".proposal-list").on('click','.conversation-box button.btn-see-more.stack', function (event) {
         var $actionsContent = $(event.target).closest('.actions');
         var $conversationBox = $actionsContent.closest('.conversation-box');
         var $conversationBoxBody = $actionsContent.closest('.conversation-box').find('.body');
+        var collapsibleHeight = $conversationBoxBody.attr('data-height') || $conversationBoxBody.height();
 
         $(event.target).toggleClass('fa-angle-down fa-angle-up');
 
-        if ($conversationBoxBody.height() > 134) {
+        if ($conversationBoxBody.height() > collapsibleHeight) {
             $conversationBoxBody.animate({
-                height: 134
+                height: collapsibleHeight
             }, 1000);
         } else {
             var targetElementHeight = $conversationBoxBody.addClass('height-auto').height();

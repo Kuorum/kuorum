@@ -7800,7 +7800,7 @@ div [class^='comment-box col-'] {
     position: relative;
 }
 
-.conversation-box .body.collapsible{height: 134px;}
+.conversation-box .body.collapsible{height: 132px;}
 .conversation-box .body.collapsible p:last-child{margin:0;}
 
 .conversation-box .actions {display:none}
