@@ -44,11 +44,23 @@ $(function () {
             if (parragraphNumber > 1) { //en este caso habrá margenes entre párrafos
                 var firstParragraphLines = (parragraphInfo[0].height - parragraphMarginBottom) / lineHeight;
 
-                if (firstParragraphLines < 4) {
-                    $conversationBox.height((4 * lineHeight) + parragraphMarginBottom);
-                } else {
-                    $conversationBox.height(4 * lineHeight); //132 px
+                switch (firstParragraphLines) {
+                    case 1:
+                        $conversationBox.height((4 * lineHeight) + parragraphMarginBottom);
+                        break;
+                    case 2:
+                        $conversationBox.height((2 * lineHeight) + (2 * parragraphMarginBottom) + (2 * lineHeight));
+                        break;
+                    case 3:
+                        $conversationBox.height((3 * lineHeight) + (3 * parragraphMarginBottom) + (lineHeight));
+                        break;
+                    case 4:
+                        $conversationBox.height((4 * lineHeight) + (4 * parragraphMarginBottom));
+                        break;
+                    default:
+                        $conversationBox.height(4 * lineHeight); //132 px
                 }
+                
                 $conversationBox.attr('data-height', $conversationBox.height());
             }
         });
