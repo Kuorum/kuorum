@@ -455,6 +455,42 @@ $(function(){
             }
         });
     });
+
+    // DELEtE COMMENT
+    $(".proposal-list").on("click",".conversation-box-comments ul.conversation-box-comments-list li.conversation-box-comment button.delete",function() {
+        var $button = $(this);
+        var $proposalDiv = $button.parents("div.conversation-box-comments").prev()
+        var $commentLi = $button.parents("li.conversation-box-comment")
+        var proposalDivId = $proposalDiv.attr("id")
+        var proposalId = proposalDivId.substring(proposalDivId.indexOf("_")+1);
+        var debateId = $proposalDiv.attr("data-debateId")
+        var debateAlias = $proposalDiv.attr("data-debateAlias")
+        var commentId = $button.attr("data-commentId")
+        var url = $button.attr("data-ajaxDelete")
+        var data = {
+            proposalId:proposalId,
+            debateId:debateId,
+            debateAlias:debateAlias,
+            commentId:commentId
+        }
+
+        pageLoadingOn();
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(jsonData){
+                $commentLi.fadeOut();
+            },
+            error:function(){
+                display.error("Sorry: Error deleting comment")
+            },
+            complete: function () {
+                pageLoadingOff();
+            }
+        });
+    });
+
 });
 
 

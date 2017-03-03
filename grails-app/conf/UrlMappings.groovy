@@ -138,7 +138,8 @@ class UrlMappings {
         name debateProposalDelete:"/ajax/deleteProposal"(controller: "debateProposal", action: "deleteProposal")
         name debateProposalPin: "/ajax/pinProposal"(controller: "debateProposal", action: "pinProposal")
         name debateProposalLike:"/ajax/likeProposal"(controller: "debateProposal", action: "likeProposal")
-        name debateProposalComment: "/ajax/proposalComment"(controller: "debateProposal", action: "addComment")
+        name debateProposalComment: "/ajax/proposalComment/add"(controller: "debateProposal", action: "addComment")
+        name debateProposalDeleteComment: "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment")
 
         name langProjectShow:   "/$lang/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name projectShow:       "/$userAlias/$hashtag"                          {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}

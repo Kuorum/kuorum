@@ -71,5 +71,13 @@ class DebateProposalController {
 
     def voteComment(){}
 
-    def deleteComment(){}
+    def deleteComment(){
+        Long proposalId = Long.parseLong(params.proposalId)
+        Long debateId = Long.parseLong(params.debateId)
+        String debateAlias = params.debateAlias
+        Long commentId = Long.parseLong(params.commentId)
+        KuorumUser user = springSecurityService.currentUser
+        proposalService.deleteComment(user, debateId,debateAlias, proposalId, commentId)
+        render "true"
+    }
 }
