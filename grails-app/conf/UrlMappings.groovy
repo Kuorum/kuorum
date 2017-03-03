@@ -159,7 +159,7 @@ class UrlMappings {
         name projectUpdate:             "/project/$userAlias/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
         name langPostShow:  "/$lang/$userAlias/$hashtag/$postBrief-$postId"(controller: "post", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name postShow:      "/$userAlias/$hashtag/$postBrief-$postId"(controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name postShow:      "/$userAlias/$hashtag/$postBrief-$postId"{controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                             "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"          {controller="redirect"; action= "redirect301Post";}
                             "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"  {controller="redirect"; action= "redirect301Post";}
                             "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"      {controller="redirect"; action= "redirect301Post";}
