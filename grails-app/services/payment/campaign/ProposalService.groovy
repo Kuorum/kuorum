@@ -103,8 +103,8 @@ class ProposalService {
         }
     }
 
-    void deleteProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId){
-        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString()]
+    void deleteProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId, Long commentId){
+        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString()]
         Map<String, String> query = [userAction:user.alias]
         restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL,
@@ -120,7 +120,7 @@ class ProposalService {
         commentRDTO.body=body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
         commentRDTO.userAlias=user.alias
         def response = restKuorumApiService.post(
-                RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_COMMENT,
+                RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_COMMENTS,
                 params,
                 query,
                 commentRDTO,
@@ -134,5 +134,17 @@ class ProposalService {
 
         proposalRSDTO
     }
+
+    void deleteComment(KuorumUser user,Long debateId, String debateAlias, Long proposalId, Long commentId) {
+        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString() ]
+        Map<String, String> query = [:]
+        restKuorumApiService.delete(
+                RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL_COMMENT,
+                params,
+                query
+        )
+
+    }
+
 
 }

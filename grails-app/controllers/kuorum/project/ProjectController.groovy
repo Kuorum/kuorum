@@ -26,6 +26,7 @@ import payment.campaign.DebateService
 
 import javax.servlet.http.HttpServletResponse
 
+@Deprecated
 class ProjectController {
 
     def kuorumMailService

@@ -60,7 +60,7 @@
             <div class="comment-counter pull-right">
                 <userUtil:ifUserIsTheLoggedOne user="${proposal.userAlias}">
                     <button type="button" class="delete" data-ajaxDelete='${g.createLink(mapping: 'debateProposalDelete')}'>
-                        <span class="middle-point right delete">delete</span>
+                        <span class="middle-point right delete"><g:message code="post.show.comments.delete"/></span>
                     </button>
                 </userUtil:ifUserIsTheLoggedOne>
                 <button type="button" class="comment">

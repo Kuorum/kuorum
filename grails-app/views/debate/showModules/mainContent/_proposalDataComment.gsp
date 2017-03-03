@@ -8,9 +8,11 @@
     </div>
     <div class="footer clearfix">
         <div class="pull-right">
-            %{--<button type="button">--}%
-                %{--<span class="middle-point right delete">delete</span>--}%
-            %{--</button>--}%
+            <userUtil:ifUserIsTheLoggedOne user="${comment.userAlias}">
+                <button type="button" class="delete" data-ajaxDelete='${g.createLink(mapping: 'debateProposalDeleteComment')}' data-commentId="${comment.id}">
+                    <span class="middle-point right"><g:message code="post.show.comments.delete"/></span>
+                </button>
+            </userUtil:ifUserIsTheLoggedOne>
 
             %{--<button type="button" class="angle">--}%
                 %{--<span class="fa fa-angle-up" aria-hidden="true"></span>--}%

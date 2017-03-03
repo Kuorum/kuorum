@@ -24,6 +24,7 @@ import springSecurity.KuorumRegisterCommand
 
 import javax.servlet.http.HttpServletResponse
 
+@Deprecated
 class PostController {
 
     def postService
