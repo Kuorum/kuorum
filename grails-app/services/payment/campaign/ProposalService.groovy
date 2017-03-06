@@ -103,8 +103,8 @@ class ProposalService {
         }
     }
 
-    void deleteProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId, Long commentId){
-        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString(), commentId:commentId.toString()]
+    void deleteProposal(KuorumUser user, String debateAlias, Long debateId, Long proposalId){
+        Map<String, String> params = [userAlias: debateAlias,debateId:debateId.toString(), proposalId:proposalId.toString()]
         Map<String, String> query = [userAction:user.alias]
         restKuorumApiService.delete(
                 RestKuorumApiService.ApiMethod.ACCOUNT_DEBATE_PROPOSAL,

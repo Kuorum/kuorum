@@ -467,8 +467,43 @@ $(function(){
     });
 
     // DELETE PROPOSAL
-    $(".proposal-list").on("click",".conversation-box button.delete",function(){
-        var $button = $(this);
+    $(".proposal-list").on("click",".conversation-box button.delete",function(e){
+        var $button = $(this)
+        var buttonId = guid();
+        $button.attr("id", buttonId);
+        $modalButton = $("#modalDeleteDebateButton");
+        $modalButton.attr("data-buttonId", buttonId)
+        $modalButton.attr("data-deleteFunction", "deleteProposal")
+        $("#debateDeleteConfirm").modal("show")
+    });
+
+    // DELEtE COMMENT
+    $(".proposal-list").on("click",".conversation-box-comments ul.conversation-box-comments-list li.conversation-box-comment button.delete",function(e) {
+        var $button = $(this)
+        var buttonId = guid();
+        $button.attr("id", buttonId);
+        $modalButton = $("#modalDeleteDebateButton");
+        $modalButton.attr("data-buttonId", buttonId)
+        $modalButton.attr("data-deleteFunction", "deleteComment")
+        $("#debateDeleteConfirm").modal("show")
+    });
+
+    // MODAL DELETE CONFIRM
+    $("#modalDeleteDebateButton").on("click", function(e){
+        e.preventDefault();
+        var $button = $(this)
+        var buttonId = $modalButton.attr("data-buttonId")
+        var functionName = $modalButton.attr("data-deleteFunction")
+        var $realButtonClick = $("#"+buttonId);
+        deletes[functionName]($realButtonClick, function(){
+            $("#debateDeleteConfirm").modal("hide")
+        });
+
+    });
+});
+
+var deletes ={
+    deleteProposal: function($button, callback){
         var $proposalDiv = $button.parents("div.conversation-box")
         var proposalDivId = $proposalDiv.attr("id")
         var proposalId = proposalDivId.substring(proposalDivId.indexOf("_")+1);
@@ -487,16 +522,16 @@ $(function(){
             data: data,
             success: function(jsonData){
                 $proposalDiv.parent("li").fadeOut();
+                if (callback != undefined){
+                    callback()
+                }
             },
             complete: function () {
                 pageLoadingOff();
             }
         });
-    });
-
-    // DELEtE COMMENT
-    $(".proposal-list").on("click",".conversation-box-comments ul.conversation-box-comments-list li.conversation-box-comment button.delete",function() {
-        var $button = $(this);
+    },
+    deleteComment: function ($button, callback){
         var $proposalDiv = $button.parents("div.conversation-box-comments").prev()
         var $commentLi = $button.parents("li.conversation-box-comment")
         var proposalDivId = $proposalDiv.attr("id")
@@ -519,6 +554,9 @@ $(function(){
             data: data,
             success: function(jsonData){
                 $commentLi.fadeOut();
+                if (callback != undefined){
+                    callback()
+                }
             },
             error:function(){
                 display.error("Sorry: Error deleting comment")
@@ -527,10 +565,9 @@ $(function(){
                 pageLoadingOff();
             }
         });
-    });
+    }
 
-});
-
+}
 
 function SortProposals() {
     var that = this;
