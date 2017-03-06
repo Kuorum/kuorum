@@ -1,6 +1,6 @@
 %{--Page description. No longer than 155 characters.--}%
 <meta name="description" content="${debate.title}" />
-<g:set var="debateImage" value="${debate.photoUrl?:debate.videoUrl?image.imageYoutubeSrc(youtube: debate.videoUrl):''}"/>
+<g:set var="debateImage" value="${debate.photoUrl?:debate.videoUrl?image.imageYoutubeSrc(youtube: debate.videoUrl, maxResolution: true):''}"/>
 
 <!-- Google Authorship and Publisher Markup -->
 %{--<link rel="author" href="https://plus.google.com/[Google+_Profile]/posts"/>--}%
