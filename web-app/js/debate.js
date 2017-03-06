@@ -8,20 +8,26 @@ var editor = new MediumEditor('.editable', {
     }
 });
 
-var editorComment = new MediumEditor('.editable-comment', {
-    buttonLabels: 'fontawesome',
-    targetBlank: true,
-    disableDoubleReturn: false,
-    anchorPreview: {
-        /* These are the default options for anchor preview,
-         if nothing is passed this is what it used */
-        hideDelay: 500,
-        previewValueSelector: 'a'
-    },
-    toolbar: {
-        buttons: ['anchor']
-    }
-});
+
+
+function prepareEditorComment(){
+    var editorComment = new MediumEditor('.editable-comment', {
+        buttonLabels: 'fontawesome',
+        targetBlank: true,
+        disableDoubleReturn: false,
+        anchorPreview: {
+            /* These are the default options for anchor preview,
+             if nothing is passed this is what it used */
+            hideDelay: 500,
+            previewValueSelector: 'a'
+        },
+        toolbar: {
+            buttons: ['anchor']
+        }
+    });
+}
+
+prepareEditorComment();
 
 $(function () {
     //Calculo de altura de las cajas de comentarios de debate
@@ -341,6 +347,7 @@ $(function(){
                     var $counterProposals = $('.leader-post .comment-counter .number');
                     $counterProposals.text(parseInt($counterProposals.text()) + 1);
                     $("#proposal-option a[href=#latest]").trigger("click");
+                    prepareEditorComment();
                     if (callback != undefined){
                         callback(proposalDivId)
                     }
