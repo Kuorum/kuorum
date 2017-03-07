@@ -1876,12 +1876,12 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .popover[class*=tour-] .popover-navigation button:last-child,
 .popover[class*=tour-] .popover-navigation #totour2,
 .popover[class*=tour-] .popover-navigation #totour3 {float: right !important; width: 45%;}
-.popover.tour .popover-content {font-size: 16px; font-size: 1.6rem;}
+.popover.tour .popover-content {font-size: 12px;}
 .popover.tour .popover-content,
-.popover.tour .popover-navigation {padding: 4px !important;}
+.popover.tour .popover-navigation {padding: 6px 4px 10px 4px!important;}
 .popover.tour .popover-navigation {width: 100%; height: 50px;}
 .tour-step-background {background: none !important;}
-/*.tour-backdrop {background: #fff !important;}*/
+.tour-backdrop {z-index:1000;}
 .popover[class*="tour-"] {z-index: 1200 !important;}
 
 .slimScrollBar {z-index: 9999 !important;}
@@ -5670,8 +5670,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .othersPost #postNav .item {min-height: 107px;}
     .othersPost #postNav > a {padding: 44px 18px;}
     #map {width: 475px; height: 405px;}
-    .popover.tour {width: 385px; max-width: 385px !important; padding: 10px;}
-    .popover.tour .popover-title {font-size: 28px; font-size: 2.8rem; line-height: 1;}
+    .popover.tour {width: 385px; max-width: 385px !important; padding: 15px;}
+    .popover.tour .popover-title {font-size: 2rem; line-height: 1; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;}
     .kakareo footer > ul.actions-kak > li {list-style: none; margin: 0 10px 0 0;}
     .kakareo footer > ul > li.read-later {margin-right: 32px !important;}
     #footer .licenses {margin: 0; width: auto;}
@@ -7968,9 +7968,18 @@ div [class^='comment-box col-'] {
     font-size: 14px;
     color: #D0D0D0;
 }
+.conversation-box-comment .footer .footer-comment-votes{
+    display:inline-block;
+}
 
 .conversation-box-comment .footer .number {
     padding-right: 4px;
+}
+.conversation-box-comment .footer .footer-comment-votes.vote-up .number,
+.conversation-box-comment .footer .footer-comment-votes.vote-down .number,
+.conversation-box-comment .footer .footer-comment-votes.vote-up button.vote-up,
+.conversation-box-comment .footer .footer-comment-votes.vote-down button.vote-down{
+    color: #A8A8A8;
 }
 
 .conversation-box-comments button, .conversation-box-comment .footer button {

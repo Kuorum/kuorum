@@ -507,6 +507,54 @@ $(function(){
         });
 
     });
+
+    $(".proposal-list").on("click",".conversation-box-comment .footer button.angle",function(e) {
+        var $button = $(this)
+        var vote = -1;
+        if ($button.find("span").hasClass("fa-angle-up")){
+            vote = 1;
+        }
+        var $proposalDiv = $button.parents("div.conversation-box-comments").prev()
+        var $commentLi = $button.parents("li.conversation-box-comment")
+        var proposalDivId = $proposalDiv.attr("id")
+        var proposalId = proposalDivId.substring(proposalDivId.indexOf("_")+1);
+        var debateId = $proposalDiv.attr("data-debateId")
+        var debateAlias = $proposalDiv.attr("data-debateAlias")
+        var commentId = $button.attr("data-commentId")
+        var url = $button.attr("data-ajaxVote")
+        var $number = $button.siblings(".number")
+        var data = {
+            proposalId:proposalId,
+            debateId:debateId,
+            debateAlias:debateAlias,
+            commentId:commentId,
+            vote:vote
+        }
+
+        pageLoadingOn();
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function(jsonData){
+                $number.html(jsonData.votes)
+                $button.parents(".footer-comment-votes").removeClass("vote-up");
+                $button.parents(".footer-comment-votes").removeClass("vote-down");
+                if (vote > 0){
+                    $button.parents(".footer-comment-votes").addClass("vote-up");
+                }else{
+                    $button.parents(".footer-comment-votes").addClass("vote-down");
+                }
+            },
+            error:function(){
+                display.error("Sorry: Error voting comment")
+            },
+            complete: function () {
+                pageLoadingOff();
+            }
+        });
+    })
+
 });
 
 var deletes ={

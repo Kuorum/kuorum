@@ -25,7 +25,7 @@
 <meta property="twitter:account_id" content="4503599627910348" />
 <!-- Open Graph data -->
 <meta property="og:title" content="${kuorumTitle}" />
-<meta property="og:type" content="article" />
+<meta property="og:type" content="website" />
 <meta property="og:image" content="${kuorumImage}" />
 <meta property="og:description" content="${kuorumDescription}" />
 <meta property="og:site_name" content="${kuorumName}" />
