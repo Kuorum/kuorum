@@ -14,14 +14,16 @@
                 </button>
             </userUtil:ifUserIsTheLoggedOne>
 
-            %{--<button type="button" class="angle">--}%
-                %{--<span class="fa fa-angle-up" aria-hidden="true"></span>--}%
-            %{--</button>--}%
-            %{--<button type="button" class="angle">--}%
-                %{--<span class="fa fa-angle-down" aria-hidden="true"></span>--}%
-            %{--</button>--}%
+            <sec:ifLoggedIn>
+                <button type="button" class="angle" data-ajaxVote='${g.createLink(mapping: 'debateProposalVoteComment')}' data-commentId="${comment.id}">
+                    <span class="fa fa-angle-up" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="angle" data-ajaxVote='${g.createLink(mapping: 'debateProposalVoteComment')}' data-commentId="${comment.id}">
+                    <span class="fa fa-angle-down" aria-hidden="true"></span>
+                </button>
+            </sec:ifLoggedIn>
 
-            %{--<span class="number">${comment.votes}</span>--}%
+            <span class="number">${comment.votes}</span>
         </div>
     </div>
 </li>
