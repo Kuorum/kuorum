@@ -523,7 +523,6 @@ $(function(){
         var commentId = $button.attr("data-commentId")
         var url = $button.attr("data-ajaxVote")
         var $number = $button.siblings(".number")
-        //$number.html("<span class='loading xs'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>")
         var data = {
             proposalId:proposalId,
             debateId:debateId,
@@ -538,8 +537,14 @@ $(function(){
             url: url,
             data: data,
             success: function(jsonData){
-                console.log(jsonData)
                 $number.html(jsonData.votes)
+                $button.parents(".footer-comment-votes").removeClass("vote-up");
+                $button.parents(".footer-comment-votes").removeClass("vote-down");
+                if (vote > 0){
+                    $button.parents(".footer-comment-votes").addClass("vote-up");
+                }else{
+                    $button.parents(".footer-comment-votes").addClass("vote-down");
+                }
             },
             error:function(){
                 display.error("Sorry: Error voting comment")
