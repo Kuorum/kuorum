@@ -6,6 +6,7 @@ import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
+import pl.burningice.plugins.image.file.ImageFile
 
 import javax.servlet.http.HttpServletResponse
 
@@ -94,9 +95,11 @@ class LocalFileService implements FileService{
         String folderPath = calculateLocalStoragePath(kuorumFile)
         String filePath = "${folderPath}/${kuorumFile.fileName}"
         burningImageService.doWith(filePath, folderPath)
-                .execute {
-            it.crop(x,y,w-2,h-2) // HEIGHT COMES WITH AN ERROR. Deleting 2 pixels, the proportion is the same and fix the problem
+                .execute {pl.burningice.plugins.image.engines.Action it ->
+            log.info(it.loadedImage.size.getWidth())
+//            log.info(it.loadedImage.size.getHeight())
 //            it.crop(x,y,h,w)
+            it.crop(x,y,w-0.cust,h-0.00000000001) // HEIGHT COMES WITH AN ERROR. Reducing the size 0.00000000001, the proportion is more or less the same and fix the problem
         }
         postProcessCroppingImage(kuorumFile)
 //        def imageWidth = fileGroup.imageWidth
