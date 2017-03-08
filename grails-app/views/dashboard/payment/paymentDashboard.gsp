@@ -14,12 +14,8 @@
 
 <content tag="mainContent">
     <div class="row dashboard">
-        <div class="col-md-4">
+        <div class="col-md-8">
             <g:render template="/dashboard/payment/dashboardModules/campaignNewCampaign" model="[lastCampaign:lastCampaign,durationDays:durationDays,contacts:contacts]"/>
-        </div>
-
-        <div class="col-md-4">
-            <g:render template="/dashboard/payment/dashboardModules/followOtherPoliticians" model="[recommendedUsers:recommendedUsers]"/>
         </div>
 
         <div class="col-md-4">
