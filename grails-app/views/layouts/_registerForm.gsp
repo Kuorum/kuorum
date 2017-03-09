@@ -12,7 +12,21 @@
                 },
                 "email":{
                     required: true,
-                    remote:"${g.createLink(mapping: 'registerAjaxCheckEmail')}"
+                    remote:{
+                        url: "${g.createLink(mapping: 'registerAjaxCheckEmail')}",
+                        type: "post",
+                        data: {
+                            email: function() {return $( "#${formId} input[name=email]" ).val();}
+                        },
+                        beforeSend: function () {
+                            var $form = $(this)
+                            $form.removeClass("checked")
+                        },
+                        complete: function () {
+                            var $form = $(this)
+                            $form.addClass("checked")
+                        }
+                    }
                 }
             },
             messages: {
@@ -25,6 +39,16 @@
                     remote:"Ya existe en kuorum",
                     email: "Formato de email erróneo"
                 }
+            },
+            beforeSend: function () {
+                var $form = $(this)
+                $form.removeClass("checked")
+                console.log("REMOVE")
+            },
+            complete: function () {
+                var $form = $(this)
+                $form.addClass("checked")
+                console.log("ADD")
             }
         });
     });
