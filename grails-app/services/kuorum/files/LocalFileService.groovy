@@ -99,7 +99,7 @@ class LocalFileService implements FileService{
             log.info(it.loadedImage.size.getWidth())
 //            log.info(it.loadedImage.size.getHeight())
 //            it.crop(x,y,h,w)
-            it.crop(x,y,w-0.cust,h-0.00000000001) // HEIGHT COMES WITH AN ERROR. Reducing the size 0.00000000001, the proportion is more or less the same and fix the problem
+            it.crop(x,y,w-0.00000000001,h-0.00000000001) // HEIGHT COMES WITH AN ERROR. Reducing the size 0.00000000001, the proportion is more or less the same and fix the problem
         }
         postProcessCroppingImage(kuorumFile)
 //        def imageWidth = fileGroup.imageWidth
