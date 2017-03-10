@@ -658,9 +658,9 @@ function SortProposals() {
     };
     this.proposalsOptions['best']={
         sort:function(a,b){
-            var aDateTime = $(a).find(".comment-counter .fa-heart-o").next().text();
-            var bDateTime = $(b).find(".comment-counter .fa-heart-o").next().text();
-            return aDateTime.localeCompare(bDateTime);
+            var aLikes = parseInt($(a).find(".comment-counter .fa-heart-o").next().text().trim());
+            var bLikes = parseInt($(b).find(".comment-counter .fa-heart-o").next().text().trim());
+            return bLikes - aLikes;
         },
         filter:function(idx){return false;},
         name:"best"
