@@ -1614,7 +1614,7 @@ function waitFormChecked($form, callback){
     if ($form.hasClass("checked")){
         callback();
     }else{
-        console.log("Waiting ....")
+        //console.log("Waiting ....")
         window.setTimeout(function(){waitFormChecked($form, callback)}, 500);
     }
 }
