@@ -44,13 +44,22 @@ class GoogleOAuthService implements IOAuthService{
         log.info("Creating user with google: ${googleUser.email}")
         GoogleOAuthToken oAuthToken =  new GoogleOAuthToken(accessToken, googleUser.email)
 
-        KuorumUser user = KuorumUser.findByEmail(googleUser.email)?:createUser(googleUser)
+        KuorumUser user = KuorumUser.findByEmail(googleUser.email)
+        Boolean newUser = false;
+        if (!user){
+            user = createUser(googleUser);
+            newUser = true;
+        }
 
         OAuthID oAuthID = new OAuthID(provider:PROVIDER.toLowerCase(),accessToken:accessToken,user:user)
         oAuthID.save()
 
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
         def authorities = mongoUserDetailsService.getRoles(user)
+
+        OAuthToken.metaClass.newUser = false;
+        oAuthToken.metaClass = null
+        oAuthToken.newUser = newUser
 
         oAuthToken.principal = userDetails
         oAuthToken.authorities = authorities
