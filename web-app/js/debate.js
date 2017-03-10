@@ -133,56 +133,59 @@ $(function(){
         var $conversationBox = $($button.parents('.conversation-box-comments')[0]).prev();
         var $commentsList = $conversationBox.next().children(".conversation-box-comments-list");
         if ( $commentsList.is(":visible") ){
-            var userLogged = $button.attr("data-userLogged")
-            var debateId = $button.attr("data-debateId");
-            var debateAlias = $button.attr("data-debateAlias");
-            var proposalId = $button.attr("data-proposalId");
-            if (userLogged == undefined || userLogged == "" ){
-                // USER NO LOGGED
-                console.log("No LOGGED")
-                $('#registroDebate').find("form").attr("callback", "publishComment")
-                $('#registroDebate').find("form").attr("data-proposalId", proposalId)
-                $('#registroDebate').modal('show');
-            }else {
-                // BOTON SALVAR
-                var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
-                if (!validMediumEditor($mediumEditor)) {
-                    return;
-                }
-                pageLoadingOn();
-                var body = $mediumEditor.html();
-                var url = $button.attr("data-postUrl");
-                var data = {
-                    debateId: debateId,
-                    debateAlias: debateAlias,
-                    proposalId: proposalId,
-                    body: body
-                };
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    success: function (htmlComment) {
-                        var comment = $(htmlComment).hide().fadeIn(2000);
-                        var commentDivId = comment.attr("id");
-                        console.log(commentDivId)
-                        $commentsList.append(comment)
-                        $mediumEditor.html("")
-
-                        if (callback != undefined){
-                            callback(commentDivId)
-                        }
-                    },
-                    dataType: "html",
-                    complete: function(){
-                        pageLoadingOff();
-                    }
-                });
-            }
+            saveComment($commentsList,$button, callback)
         }else{
             // ABRIR COMENTARIOS
             conversationSectionClick($conversationBox)
         }
+    }
+
+    function saveComment($commentsList, $button, callback){
+        callback = callback || printComment
+        var userLogged = $button.attr("data-userLogged")
+        var debateId = $button.attr("data-debateId");
+        var debateAlias = $button.attr("data-debateAlias");
+        var proposalId = $button.attr("data-proposalId");
+        if (userLogged == undefined || userLogged == "" ){
+            // USER NO LOGGED
+            console.log("No LOGGED")
+            $('#registroDebate').find("form").attr("callback", "publishCommentNoLogged")
+            $('#registroDebate').find("form").attr("data-proposalId", proposalId)
+            $('#registroDebate').modal('show');
+        }else {
+            // BOTON SALVAR
+            var $mediumEditor = $button.parents('.comment-box').find('.editable-comment');
+            if (!validMediumEditor($mediumEditor)) {
+                return;
+            }
+            pageLoadingOn();
+            var body = $mediumEditor.html();
+            var url = $button.attr("data-postUrl");
+            var data = {
+                debateId: debateId,
+                debateAlias: debateAlias,
+                proposalId: proposalId,
+                body: body
+            };
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function (htmlComment) {
+                    callback($commentsList, htmlComment);
+                    $mediumEditor.html("")
+                },
+                dataType: "html",
+                complete: function(){
+                    pageLoadingOff();
+                }
+            });
+        }
+    }
+
+    function printComment($commentsList, htmlComment){
+        var comment = $(htmlComment).hide().fadeIn(2000);
+        $commentsList.append(comment)
     }
 
     function conversationSectionClick($conversationBox){
@@ -278,11 +281,14 @@ $(function(){
     })
 
     var noLoggedCallbacks = {
-        publishProposal: function(){
+        publishProposalNoLogged: function(){
+            pageLoadingOn();
             var $buttonPublish = $(".publish-proposal")
             $buttonPublish.attr("data-userLoggedAlias", "logged"); //Chapu para que el if no saque de nuevo la modal
             var eventFake = {target:$buttonPublish}
-            publishProposal(eventFake, function(proposalDivId){
+            publishProposal(eventFake, function(htmlProposal){
+                var proposal = $(htmlProposal).hide().fadeIn(2000);
+                var proposalDivId = proposal.find("div.conversation-box").attr("id");
                 var href = document.location.href;
                 var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
                 var newUrl = href.substring(0,sharpPos);
@@ -291,14 +297,16 @@ $(function(){
                 document.location.reload()
             })
         },
-        publishComment: function(){
+        publishCommentNoLogged: function(){
             var proposalId = $('#registroDebate').find("form").attr("data-proposalId")
             var $buttonSaveComment = $("#proposal_"+proposalId).next("div").find(".actions button.save-comment")
             $buttonSaveComment.attr("data-userLogged", "logged"); //Chapu para que el if no saque de nuevo la modal
             var eventFake = {target:$buttonSaveComment}
             pageLoadingOff();
-            saveCommentButtonClick(eventFake, function(commentDivId){
+            saveCommentButtonClick(eventFake, function($commentsList, htmlComment){
                 pageLoadingOn();
+                var comment = $(htmlComment).hide().fadeIn(2000);
+                var commentDivId = comment.attr("id");
                 var href = document.location.href;
                 var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
                 var newUrl = href.substring(0,sharpPos);
@@ -312,12 +320,12 @@ $(function(){
 
     function publishProposal(e, callback){
         e = e || window.event;
+        callback = callback || printProposal
         var $buttonPublish = $(e.target)
-        console.log($buttonPublish );
         var alias = $buttonPublish.attr("data-userLoggedAlias")
         if (alias == ""){
             // USER NO LOGGED
-            $('#registroDebate').find("form").attr("callback", "publishProposal")
+            $('#registroDebate').find("form").attr("callback", "publishProposalNoLogged")
             $('#registroDebate').modal('show');
         }else{
             var $mediumEditor = $(".comment.editable.medium-editor-element");
@@ -338,19 +346,8 @@ $(function(){
                 url: url,
                 data: data,
                 success: function (htmlProposal) {
-                    var proposal = $(htmlProposal).hide().fadeIn(2000);
-                    var proposalDivId = proposal.find("div.conversation-box").attr("id");
-                    $(".proposal-list").prepend(proposal);
+                    callback(htmlProposal)
                     $mediumEditor.html("");
-
-                    // Update proposal counter
-                    var $counterProposals = $('.leader-post .comment-counter .number');
-                    $counterProposals.text(parseInt($counterProposals.text()) + 1);
-                    $("#proposal-option a[href=#latest]").trigger("click");
-                    prepareEditorComment();
-                    if (callback != undefined){
-                        callback(proposalDivId)
-                    }
                 },
                 complete : function(){
                     $buttonPublish.on("click",publishProposal)
@@ -359,6 +356,18 @@ $(function(){
                 dataType: "html"
             });
         }
+    }
+
+    function printProposal(htmlProposal){
+        var proposal = $(htmlProposal).hide().fadeIn(2000);
+        var proposalDivId = proposal.find("div.conversation-box").attr("id");
+        $(".proposal-list").prepend(proposal);
+
+        // Update proposal counter
+        var $counterProposals = $('.leader-post .comment-counter .number');
+        $counterProposals.text(parseInt($counterProposals.text()) + 1);
+        $("#proposal-option a[href=#latest]").trigger("click");
+        prepareEditorComment();
     }
 
     function onClickProposalLike() {
@@ -649,9 +658,9 @@ function SortProposals() {
     };
     this.proposalsOptions['best']={
         sort:function(a,b){
-            var aDateTime = $(a).find(".comment-counter .fa-heart-o").next().text();
-            var bDateTime = $(b).find(".comment-counter .fa-heart-o").next().text();
-            return aDateTime.localeCompare(bDateTime);
+            var aLikes = parseInt($(a).find(".comment-counter .fa-heart-o").next().text().trim());
+            var bLikes = parseInt($(b).find(".comment-counter .fa-heart-o").next().text().trim());
+            return bLikes - aLikes;
         },
         filter:function(idx){return false;},
         name:"best"

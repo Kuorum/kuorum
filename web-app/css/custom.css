@@ -1415,7 +1415,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}
 .dashboard > div > .box-ppal {min-height: 333px;}
 .dashboard .box-ppal > h2 {font-size: 20px; font-size: 2rem; color: #a8a8a8; padding-bottom: 10px; border-bottom: solid 1px #e5e5e5; margin: 0 0 20px 0;}
-.box-ppal#createNewCampaign p {font-size: 20px; font-size: 2rem; color: #a8a8a8; line-height: 1.4; text-align: center;}
+.box-ppal#createNewCampaign p {font-size: 20px; font-size: 2rem; color: #a8a8a8; line-height: 1.4; text-align: center;margin-bottom: 60px;}
 .box-ppal#createNewCampaign p strong {font-size: 26px; font-size: 2.6rem; color: #545454; font-weight: normal;}
 .box-ppal#createNewCampaign .btn {padding: 48px 17px !important; margin: 20px 0 10px;}
 .box-ppal#followOthers > h2 {margin-bottom: 0;}
@@ -2652,7 +2652,7 @@ video#bgvid {
 ul.campaign-list{margin: 0;padding: 0;list-style: none;}
 ul.campaign-list li {padding: 0;}
 ul.campaign-list .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto;}
-ul.campaign-list li .box-ppal .card-header-photo {height: 200px;}
+ul.campaign-list li .box-ppal .card-header-photo {height: auto;}
 ul.campaign-list li .box-ppal .card-body {padding:1em;overflow: hidden;height: 300px;}
 ul.campaign-list li .box-ppal .card-header-photo + .card-body {height: 120px;}
 ul.campaign-list li .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
@@ -5318,8 +5318,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .edit-contact form fieldset:last-child {width: 100%; min-width: 0; text-align: right; margin: 0;  bottom: 13px; right: 0;}
 
     .carousel.news .carousel-control {top: 30%;}
-
-    ul.campaign-list li .box-ppal .card-header-photo {height: 250px;}
 }
 @media only screen and (min-width: 533px) {
     #detailsInfoVotes .table tbody th {width: 205px;}
@@ -5349,9 +5347,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* STATS CAMPAIGNS */
     #tabs-stats-campaign .table td:nth-child(4) {height: 70px;}
-
-
-    ul.campaign-list li .box-ppal .card-header-photo {height: 300px;}
 
 }
 
@@ -5837,8 +5832,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .header-campaign .progress {position: absolute; z-index: 99; margin-top: 64px; margin-left: 21%;}
     .button-container {padding-top: 15px;}
-
-    ul.campaign-list li .box-ppal .card-header-photo {height: 350px;}
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -6183,8 +6176,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #contactsList > li > .title > a {display:inline-flex; overflow: hidden;max-width: 10em;}
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
 
-    ul.campaign-list li:nth-child(even) .box-ppal {margin-left: 15px;}
-    ul.campaign-list li .box-ppal .card-header-photo {height: 195px;}
+    ul.campaign-list li:nth-child(even) .box-ppal {margin-left: 7px;}
+    ul.campaign-list li:nth-child(odd) .box-ppal {margin-right: 7px;}
 }
 
 @media only screen and (min-width: 1024px) {
@@ -6284,7 +6277,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* DASHBOARD */
     /*#followOthers .user-list-followers .user > .actions {margin-top: -40px !important;}*/
-    .dashboard > div > .box-ppal {min-height: 348px;}
+    .dashboard > div > .box-ppal {min-height: 298px;}
     /*#profileInfo > span {margin-top: 50px;}*/
 
     /* LIST CONTACTS (08/2016) */

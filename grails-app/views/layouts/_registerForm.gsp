@@ -8,23 +8,49 @@
             onclick: false,
             rules: {
                 "name":{
-                    required: true
+                    required: true,
+                    maxlength: 15
                 },
                 "email":{
                     required: true,
-                    remote:"${g.createLink(mapping: 'registerAjaxCheckEmail')}"
+                    remote:{
+                        url: "${g.createLink(mapping: 'registerAjaxCheckEmail')}",
+                        type: "post",
+                        data: {
+                            email: function() {return $( "#${formId} input[name=email]" ).val();}
+                        },
+                        beforeSend: function () {
+                            var $form = $(this)
+                            $form.removeClass("checked")
+                        },
+                        complete: function () {
+                            var $form = $(this)
+                            $form.addClass("checked")
+                        }
+                    }
                 }
             },
             messages: {
                 "name":{
-                    required: "Necesitamos un nombre para dirigirnos a ti",
+                    required: "${g.message(code:'springSecurity.KuorumRegisterCommand.name.nullable')}",
+                    maxlength: "${g.message(code:'springSecurity.KuorumRegisterCommand.name.max.size', args:[15])}"
 
                 },
                 "email":{
-                    required: "Neceistamos un email para comunicarnos contigo",
-                    remote:"Ya existe en kuorum",
-                    email: "Formato de email erróneo"
+                    required: "${g.message(code:'springSecurity.KuorumRegisterCommand.email.nullable')}",
+                    remote:"${g.message(code:'springSecurity.KuorumRegisterCommand.email.registerCommand.username.unique')}",
+                    email: "${g.message(code:'springSecurity.KuorumRegisterCommand.email.wrongFormat')}",
                 }
+            },
+            beforeSend: function () {
+                var $form = $(this)
+                $form.removeClass("checked")
+                console.log("REMOVE")
+            },
+            complete: function () {
+                var $form = $(this)
+                $form.addClass("checked")
+                console.log("ADD")
             }
         });
     });

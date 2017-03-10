@@ -1610,67 +1610,84 @@ function prepareContactTags(){
     }
 }
 
+function waitFormChecked($form, callback){
+    if ($form.hasClass("checked")){
+        callback();
+    }else{
+        //console.log("Waiting ....")
+        window.setTimeout(function(){waitFormChecked($form, callback)}, 500);
+    }
+}
+
 function modalLogin($form, callback){
     pageLoadingOn();
-    $form.parents(".modal").modal("hide")
-    setTimeout(function() {
-        if ($form.valid()){
-            var url = $form.attr("action")
-            var data={
-                j_username:$form.find("input[name=j_username]").val(),
-                j_password:$form.find("input[name=j_password]").val()
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function (dataLogin) {
-                    console.log(dataLogin);
-                    if (dataLogin.success){
-                        callback()
-                    }else{
-                        // Form validation doesn't allow to take this conditional branch
-                        document.location.href = dataLogin.url
+    if ($form.valid()) {
+        waitFormChecked($form, function () {
+            if ($form.valid()) {
+                $form.parents(".modal").modal("hide")
+                var url = $form.attr("action")
+                var data = {
+                    j_username: $form.find("input[name=j_username]").val(),
+                    j_password: $form.find("input[name=j_password]").val()
+                };
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function (dataLogin) {
+                        console.log(dataLogin);
+                        if (dataLogin.success) {
+                            callback()
+                        } else {
+                            // Form validation doesn't allow to take this conditional branch
+                            document.location.href = dataLogin.url
+                        }
+                    },
+                    complete: function () {
+                        pageLoadingOff();
                     }
-                },
-                complete : function(){
-                    pageLoadingOff();
-                }
-            });
-        }else{
-            pageLoadingOff();
-        }
-    }, 500);
+                });
+            } else {
+                pageLoadingOff();
+            }
+        });
+    } else {
+        pageLoadingOff();
+    }
 }
 
 function modalRegister($form, callback){
     pageLoadingOn();
-    $form.parents(".modal").modal("hide")
-    setTimeout(function() {
-        if ($form.valid()){
-            var url = $form.attr("action-ajax")
-            var data={
-                name:$form.find("input[name=name]").val(),
-                email:$form.find("input[name=email]").val()
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function (dataLogin) {
-                    if (dataLogin.success){
-                        callback()
-                    }else{
-                        // Form validation doesn't allow to take this conditional branch
-                        $form.submit() // Goes to register page usign normal flow and handling errors
+    if ($form.valid()) {
+        waitFormChecked($form, function () {
+            if ($form.valid()) {
+                $form.parents(".modal").modal("hide")
+                var url = $form.attr("action-ajax")
+                var data = {
+                    name: $form.find("input[name=name]").val(),
+                    email: $form.find("input[name=email]").val()
+                };
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function (dataLogin) {
+                        if (dataLogin.success) {
+                            callback()
+                        } else {
+                            // Form validation doesn't allow to take this conditional branch
+                            $form.submit() // Goes to register page usign normal flow and handling errors
+                        }
+                    },
+                    complete: function () {
+                        pageLoadingOff();
                     }
-                },
-                complete : function(){
-                    pageLoadingOff();
-                }
-            });
-        }else{
-            pageLoadingOff();
-        }
-    }, 500);
+                });
+            } else {
+                pageLoadingOff();
+            }
+        })
+    } else {
+        pageLoadingOff();
+    }
 }

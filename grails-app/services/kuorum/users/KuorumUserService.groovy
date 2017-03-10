@@ -581,55 +581,32 @@ class KuorumUserService {
         mostActiveUsers
     }
 
-    List<KuorumUser> bestSponsorsEver(Pagination pagination = new Pagination()){
-        bestSponsorsSince(null, pagination)
-    }
-    List<KuorumUser> bestSponsorsSince(Date startDate, Pagination pagination = new Pagination()){
-//Not enought posts this week
-        List<KuorumUser> bestSponsors = []
+    List<KuorumUser> suggestUsers (Pagination pagination = new Pagination(), List<KuorumUser> specialUsersFiltered){
 
-        if (startDate){
-            def bestSponsorsByDate = Cluck.collection.aggregate(
-                    ['$match':[sponsors: ['$exists':1],dateCreated:['$gt':startDate]]],
-                    ['$unwind':'$sponsors'],
-                    ['$group':[_id:'$sponsors.kuorumUserId',total:['$sum':'$sponsors.amount']]],
-                    ['$match':[total:['$gte':1]]],
-                    ['$sort':[total:-1]],
-                    ['$limit':pagination.max]
-            )
-            bestSponsors= bestSponsorsByDate.results().collect{
-                KuorumUser.load(it._id)
+        KuorumUser loggedUser = springSecurityService.getCurrentUser();
+        List<ObjectId> filteredUserIds = []
+        if (loggedUser){
+            filteredUserIds  = loggedUser.following?:[]
+            filteredUserIds << loggedUser.id
+            RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
+            if(recommendedUserInfo){
+                filteredUserIds.addAll(recommendedUserInfo.deletedRecommendedUsers)
+            }else{
+                log.warn("User ${loggedUser.name} (${loggedUser.id}) has not calculated recommendedUserInfo")
             }
         }
+        filteredUserIds << specialUsersFiltered.collect{it.id}
 
-        //Not enought sponsor
-        if (bestSponsors.size() < pagination.max){
-            log.info("Buscando los mejores sponsors de la historia de kuorum")
-            BasicDBObject alreadyUsers = new BasicDBObject('$nin', bestSponsors.collect{it.id});
-            def bestSponsorsEver = Cluck.collection.aggregate(
-                    ['$match':[sponsors: ['$exists':1],owner:alreadyUsers]],
-                    ['$unwind':'$sponsors'],
-                    ['$group':[_id:'$sponsors.kuorumUserId',total:['$sum':'$sponsors.amount']]],
-                    ['$match':[total:['$gte':1]]],
-                    ['$sort':[total:-1]],
-                    ['$skip':pagination.offset],
-                    ['$limit':pagination.max]
-            )
-            bestSponsorsEver.results().each{
-                bestSponsors.add(KuorumUser.load(it._id))
-            }
+        com.mongodb.DBCursor search = KuorumUser.collection.find([
+                '_id':['$nin':filteredUserIds],
+                'avatar':['$exists':true]
+        ],[_id:1]).sort([_id:-1]).limit(pagination.max)
+
+        List<KuorumUser> recommendations = []
+        while (search.hasNext()){
+            recommendations << KuorumUser.get(search.next().get("_id"))
         }
-
-        if (bestSponsors.size() < pagination.max){
-            log.warn("Using default sponsors")
-            def userNamesFake = ["eQuo", "PACMA"]
-
-            userNamesFake.each {
-                KuorumUser user = KuorumUser.findByName(it)
-                if (user) bestSponsors.add(user)
-            }
-        }
-        bestSponsors
+        return recommendations;
     }
 
     List<KuorumUser> bestPoliticiansSince(KuorumUser user, List<ObjectId> userFiltered = [], Pagination pagination = new Pagination()){

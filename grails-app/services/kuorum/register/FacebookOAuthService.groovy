@@ -39,7 +39,12 @@ class FacebookOAuthService implements IOAuthService {
             throw new KuorumException("Email de Facebook no proporcionado", "login.rrss.error.noEmail");
         }
 
-        KuorumUser user = KuorumUser.findByEmail(fbProfile.email)?:createNewUser(fbProfile)
+        KuorumUser user = KuorumUser.findByEmail(fbProfile.email)
+        Boolean newUser = false;
+        if (!user){
+            user = createNewUser(fbProfile);
+            newUser = true;
+        }
 
         log.info("Logando suario '${user.email}' con facebook" )
         FacebookUser facebookUser = updateSavedAccessToken(accessToken, user, fbProfile)
@@ -53,6 +58,11 @@ class FacebookOAuthService implements IOAuthService {
         UserDetails userDetails =  mongoUserDetailsService.createUserDetails(user)
 
         def authorities = mongoUserDetailsService.getRoles(user)
+
+        OAuthToken.metaClass.newUser = false;
+        oAuthToken.metaClass = null
+        oAuthToken.newUser = newUser
+
         oAuthToken.principal = userDetails
         oAuthToken.authorities = authorities
         return oAuthToken
