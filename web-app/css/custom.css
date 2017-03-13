@@ -497,8 +497,13 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 
 
 
+.login .form-group:nth-child(n+3) {text-align:center;margin:0px;}
 .login .form-group:last-child {color: #a8a8a8; margin-bottom: 0; font-size: 14px; font-size: 1.4rem;}
-.login .form-group:last-child a {color: #545454;}
+.login .form-group a {color: #545454;}
+.login .form-group p {color: #a8a8a8; margin:0; font-size:10px;}
+.login .form-group:nth-child(3) p {margin:10px 0 0 0;}
+.login .form-group:last-child p:last-child a {color:#ff9431;}
+#login-modal.login .form-group:last-child p:last-child a {color:#2E6BA6;}
 .login .btn.btn-lg {padding-left: 40px !important;padding-right: 40px !important;}
 .login.pass .btn.btn-lg {padding: 15px !important;}
 .modal-register.modal .modal-header {border: none;}
@@ -2928,6 +2933,8 @@ textarea.error,
 .landing + .row.main .onecol .login,
 .landing + .row.main .onecol .socialGo {width: 100%; max-width: 380px; margin: 0 auto 30px; }
 .landing + .row.main .onecol .login {background-color: rgba(0,0,0,.4); padding: 15px 25px 25px 25px;}
+.landing + .row.main .onecol .login p {color:#545454;}
+.landing + .row.main .onecol .login .form-group:last-child a {/*color:#ff9431;*/}
 .landing + .row.main .onecol .input-lg {height: 50px;}
 .landing + .row.main .onecol .btn.btn-lg {font-size: 21px !important; font-size: 2.1rem !important;}
 .landing + .row.main .onecol .login .cancel {font-size: 21px !important; font-size: 2.1rem !important; color: #c6c6c6 !important;}
@@ -3382,7 +3389,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .modal-register .modal-dialog {width: 290px; margin: 10px auto;}
 .modal-register .modal-dialog .modal-body {padding: 8px;}
 
-.modal-register .modal-dialog .modal-content {height: 295px;}
+.modal-register .modal-dialog .modal-content {height: 305px;}
 
 .modal .input-group-addon,
 .dropdown .input-group-addon {width: 95px;}
@@ -5509,7 +5516,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .modal-register.modal form{width: 310px;}
     .modal-register .modal-dialog .modal-body {padding: 20px;}
-    .modal-register .modal-dialog .modal-content {height: 295px;}
 
     .home .play {font-size: 16px; font-size: 1.6rem;text-align: center;}
     .list-project .kakareo.post.ley .laley a {font-size: 18px; font-size: 1.8rem;}
@@ -7677,6 +7683,8 @@ button.btn-see-more {
 
 ul.proposal-list {margin:0; padding:0;}
 ul.proposal-list li {list-style-type: none;}
+.comment-box > .user-box,
+ul.proposal-list .comment-box > .comment-propusal > .user-box{margin-bottom: 10px;}
 
 /*** commment-box ***/
 .comment-box {

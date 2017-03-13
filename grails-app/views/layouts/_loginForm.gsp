@@ -60,16 +60,15 @@
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-blue btn-lg" value="${g.message(code:'login.email.form.login')}">
-        <p class="cancel">
-            <g:message code="head.noLogged.register_or"/>
-            <g:link mapping="register" class="change-home-register">
-                <g:message code="head.noLogged.register"/>
+        <p>
+            <g:link mapping="resetPassword">
+                <g:message  code="login.email.form.password.forgotten"/>
             </g:link>
         </p>
     </div>
     <div class="form-group">
-        <g:link mapping="resetPassword">
-            <g:message  code="login.email.form.password.forgotten"/>
-        </g:link>
+        <p>
+            <g:message code="head.noLogged.register" args="[g.createLink(mapping: 'register'),'change-home-register' ]"/>
+        </p>
     </div>
 </form>
