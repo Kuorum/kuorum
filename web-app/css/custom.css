@@ -503,7 +503,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .login .form-group p {color: #a8a8a8; margin:0;}
 .login .form-group:nth-child(3) p {margin:10px 0 0 0;}
 .login .form-group:last-child p:last-child a {color:#ff9431;}
-#login-modal.login .form-group:last-child p:last-child a {color:#2E6BA6;}
+#login-modal.login .form-group:last-child p:last-child a {color:#20a2ea;}
 .login .btn.btn-lg {padding-left: 40px !important;padding-right: 40px !important;}
 .login.pass .btn.btn-lg {padding: 15px !important;}
 .modal-register.modal .modal-header {border: none;}
