@@ -211,9 +211,9 @@ class DebateController {
 
         String msg
         DebateRSDTO savedDebate
-        if (command.publishOn != null) {
+        if (command.publishOn) {
             savedDebate = debateService.saveDebate(user, debateRDTO, debateId)
-            if (savedDebate.campaignStatusRSDTO == CampaignStatusRSDTO.SENT) {
+            if (command.publishOn < new Date()) {
                 msg = g.message(code: 'tools.massMailing.saved.advise', args: [
                         savedDebate.title
                 ])
