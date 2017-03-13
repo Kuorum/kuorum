@@ -519,6 +519,16 @@ $(function(){
 
     $(".proposal-list").on("click",".conversation-box-comment .footer button.angle",function(e) {
         var $button = $(this)
+        var userAliasLogged = $button.attr("data-userAlias")
+        if (userAliasLogged == undefined || userAliasLogged==""){
+            $('#registro').modal('show');
+        }else{
+            voteComment($button)
+        }
+
+    })
+
+    function voteComment($button){
         var vote = -1;
         if ($button.find("span").hasClass("fa-angle-up")){
             vote = 1;
@@ -562,7 +572,7 @@ $(function(){
                 pageLoadingOff();
             }
         });
-    })
+    }
 
 });
 
