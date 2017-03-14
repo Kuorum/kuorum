@@ -5269,6 +5269,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
     .carousel.news .carousel-control {top: 30%;}
+    #mails.campaigns {  width: auto !important;  }
+    #mails li{  float: none !important;  }
+    #mails li.fontIcon > a{  margin-left: 25% !important;  }
 }
 
 /* Very small devices (mobile, 480px and up) */
@@ -5305,7 +5308,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* LANDING */
     .main.special.landing .homeSub ul li {width: 50%; height: 110px; line-height: 110px; margin-bottom: 45px;}
     .main.special.profile .homeSub { background-position: center 170px; background-size: 420px auto;}
-    .landing + .row.main .onecol .login .btn.btn-lg {margin-right: 20px;}
+    .landing + .row.main .onecol .login .btn.btn-lg {}
     .main.prices .promo-options > div p.price .currency {left: 95px;}
 
     /* CAMPAIGNS */
@@ -5387,6 +5390,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 767px) {
     .box-order-options .bulk-actions {display: block; width: 100%;}
+    #mails.campaigns {width: 24em;}
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -8741,6 +8745,10 @@ ul.globus li img {
 
 .notification-menu > li.user {padding: 0px 20px 15px 20px;  }
 
+.notification-menu > li.user > span > a{
+    float: left;
+}
+
 .notification-menu > li.title + li {
     padding-top: 20px;
 }
@@ -8750,9 +8758,11 @@ ul.globus li img {
 }
 
 .notification-menu > li .notification-text{
-    position:absolute;
+
     line-height: 20px;
     padding-top:5px;
+    display: block;
+
 }
 
 ul.notification-menu > li.see-more {
