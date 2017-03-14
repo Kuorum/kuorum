@@ -12,7 +12,7 @@
                 <section id="main" role="main">
                     <g:pageProperty name="page.mainContent"/>
                 </section>
-                <g:render template="/layouts/footer/footer"/>
+                <g:render template="/layouts/footer/footer"/>s
             </div>
         </div>
     </body>
