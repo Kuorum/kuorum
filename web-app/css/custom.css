@@ -8741,6 +8741,10 @@ ul.globus li img {
 
 .notification-menu > li.user {padding: 0px 20px 15px 20px;  }
 
+.notification-menu > li.user > span > a{
+    float: left;
+}
+
 .notification-menu > li.title + li {
     padding-top: 20px;
 }
@@ -8750,9 +8754,11 @@ ul.globus li img {
 }
 
 .notification-menu > li .notification-text{
-    position:absolute;
+
     line-height: 20px;
     padding-top:5px;
+    display: block;
+
 }
 
 ul.notification-menu > li.see-more {
