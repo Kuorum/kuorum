@@ -5269,6 +5269,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
     .carousel.news .carousel-control {top: 30%;}
+    #mails.campaigns {  width: auto !important;  }
+    #mails li{  float: none !important;  }
+    #mails li.fontIcon > a{  margin-left: 25% !important;  }
 }
 
 /* Very small devices (mobile, 480px and up) */
@@ -5387,6 +5390,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 767px) {
     .box-order-options .bulk-actions {display: block; width: 100%;}
+    #mails.campaigns {width: 24em;}
 }
 
 /* Small devices (tablets, 768px and up) */
