@@ -5305,7 +5305,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* LANDING */
     .main.special.landing .homeSub ul li {width: 50%; height: 110px; line-height: 110px; margin-bottom: 45px;}
     .main.special.profile .homeSub { background-position: center 170px; background-size: 420px auto;}
-    .landing + .row.main .onecol .login .btn.btn-lg {margin-right: 20px;}
+    .landing + .row.main .onecol .login .btn.btn-lg {}
     .main.prices .promo-options > div p.price .currency {left: 95px;}
 
     /* CAMPAIGNS */
