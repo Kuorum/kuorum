@@ -8,16 +8,6 @@
                 <g:render template="/search/searchUserElement" model="[solrUser:solrElement]"/>
             </li>
         </g:if>
-        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrPost}">
-            <li>
-                <g:render template="/search/searchPostElement" model="[solrPost:solrElement]"/>
-            </li>
-        </g:elseif>
-        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrProject}">
-            <li class="${columnsCss}">
-                <g:render template="/search/searchProjectElement" model="[solrProject:solrElement]"/>
-            </li>
-        </g:elseif>
         <g:else>
             <sec:ifAllGranted roles="ROLE_ADMIN">
                 <li style="background: red">WAAARRNNN => ${solrElement} (${solrElement.name} - ${solrElement.id})</li>

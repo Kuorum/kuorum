@@ -2,11 +2,7 @@ package kuorum.util.rest
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
-import groovyx.net.http.ContentType
-import groovyx.net.http.EncoderRegistry
-import groovyx.net.http.HttpResponseDecorator
-import groovyx.net.http.ParserRegistry
-import groovyx.net.http.RESTClient
+import groovyx.net.http.*
 import kuorum.core.exception.KuorumException
 import org.apache.commons.io.IOUtils
 import org.apache.http.entity.InputStreamEntity
@@ -90,6 +86,11 @@ class RestKuorumApiService {
         ACCOUNT_DEBATE_PROPOSAL_COMMENTS      ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment"),
         ACCOUNT_DEBATE_PROPOSAL_COMMENT       ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment/{commentId}"),
         ACCOUNT_DEBATE_PROPOSAL_COMMENT_VOTE  ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment/{commentId}/vote"),
+
+        ACCOUNT_POSTS           ("/communication/post/{userAlias}"),
+        ACCOUNT_POST            ("/communication/post/{userAlias}/{postId}"),
+        ACCOUNT_POST_LIKES      ("/communication/post/{userAlias}/likes"),
+
 
         ADMIN_MAILS_SEND("/admin/notification/mailing/send");
 

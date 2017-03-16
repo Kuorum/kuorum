@@ -6,21 +6,11 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
-import kuorum.web.commands.payment.contact.BulkActionContactsCommand
-import kuorum.web.commands.payment.contact.BulkAddTagsContactsCommand
-import kuorum.web.commands.payment.contact.BulkRemoveTagsContactsCommand
-import kuorum.web.commands.payment.contact.ContactCommand
-import kuorum.web.commands.payment.contact.ContactFilterCommand
-import kuorum.web.commands.payment.contact.NewContactCommand
+import kuorum.web.commands.payment.contact.*
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
-import kuorum.web.commands.payment.contact.BulkRemoveContactsCommand
 import kuorum.web.session.CSVDataSession
 import org.bson.types.ObjectId
-import org.kuorum.rest.model.contact.BulkUpdateContactTagsRDTO
-import org.kuorum.rest.model.contact.ContactPageRSDTO
-import org.kuorum.rest.model.contact.ContactRDTO
-import org.kuorum.rest.model.contact.ContactRSDTO
-import org.kuorum.rest.model.contact.SearchContactRSDTO
+import org.kuorum.rest.model.contact.*
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
 import org.kuorum.rest.model.contact.filter.condition.ConditionFieldTypeRDTO
@@ -41,7 +31,7 @@ class ContactsController {
     ContactService contactService
     SpringSecurityService springSecurityService
 
-    def index(){
+    def index(ContactFilterCommand filterCommand){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO()
         searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)
@@ -50,6 +40,9 @@ class ContactsController {
             redirect mapping:"politicianContactImport"
             return
         }
+
+
+
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
 
         [
@@ -61,6 +54,7 @@ class ContactsController {
                 bulkActionContactsCommand: new BulkActionContactsCommand(),
                 bulkAddTagsContactsCommand: new BulkAddTagsContactsCommand()
         ]
+
     }
 
     def searchContacts(ContactFilterCommand filterCommand){
@@ -179,11 +173,12 @@ class ContactsController {
             contactRDTO.surname = command.surname
             contactRDTO.email = command.email
             contactRSDTO = contactService.addContact(user, contactRDTO)
+            String displayerName = "${contactRSDTO.name} ${contactRSDTO.surname}"
             if (contactRSDTO){
-                flash.message=g.message(code: 'tools.contact.new.success', args: [contactRSDTO.email])
+                flash.message=g.message(code: 'tools.contact.new.success', args: [displayerName])
                 redirect(mapping: "politicianContactEdit", params: [contactId:contactRSDTO.id])
             }else{
-                flash.error=g.message(code: 'tools.contact.new.error', args: [contactRSDTO.email])
+                flash.error=g.message(code: 'tools.contact.new.error', args: [displayerName])
                 render view: 'newContact', model:[command:command]
             }
         }

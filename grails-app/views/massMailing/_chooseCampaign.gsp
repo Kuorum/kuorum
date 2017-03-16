@@ -3,10 +3,10 @@
         <span class="fa fa-envelope-o"></span>
         <span class="label"><g:message code="tools.campaign.new.newsLetter"/></span></g:link>
     </li>
-    %{--<li class="fontIcon"><g:link mapping="debateCreate" role="button" class="mail">--}%
-    %{--<span class="fa fa-newspaper-o"></span>--}%
-    %{--<span class="label"><g:message code="tools.campaign.new.post"/></span></g:link>--}%
-    %{--</li>--}%
+    <li class="fontIcon"><g:link mapping="postCreate" role="button" class="mail">
+        <span class="fa fa-newspaper-o"></span>
+        <span class="label"><g:message code="tools.campaign.new.post"/></span></g:link>
+    </li>
     <li class="fontIcon"><g:link mapping="debateCreate" role="button" class="mail">
         <span class="fa fa-comments-o"></span>
         <span class="label"><g:message code="tools.campaign.new.debate"/></span></g:link>

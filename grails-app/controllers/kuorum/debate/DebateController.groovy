@@ -195,14 +195,7 @@ class DebateController {
 
     private FilterRDTO recoverAnonymousFilter(params, DebateCommand command) {
         ContactFilterCommand filterCommand = (ContactFilterCommand) bindData(new ContactFilterCommand(), params)
-        if (!filterCommand.filterName) {
-            filterCommand.filterName = "Custom filter for ${command.title}"
-        }
-        FilterRDTO filterRDTO = filterCommand.buildFilter()
-        if (!filterRDTO?.filterConditions) {
-            return null
-        }
-        return filterRDTO
+        contactService.transformCommand(filterCommand, "Custom filter for ${command.title}")
     }
 
     private Map<String, Object> saveAndSendDebate(KuorumUser user, DebateCommand command,

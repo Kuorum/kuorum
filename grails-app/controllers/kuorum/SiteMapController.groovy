@@ -2,11 +2,7 @@ package kuorum
 
 import com.mongodb.DBCursor
 import kuorum.core.model.UserType
-import kuorum.post.Post
-import kuorum.project.Project
 import kuorum.users.KuorumUser
-
-import javax.servlet.http.HttpServletRequest
 
 class SiteMapController {
 
@@ -80,29 +76,29 @@ class SiteMapController {
                 }
 
                 //DYNAMIC ENTRIES
-                Project.list().each {project->
-                    url {
-                        loc(g.createLink( mapping: 'langProjectShow', params:project.encodeAsLinkProperties(), absolute: true))
-                        changefreq('weekly')
-                        priority(0.3)
-                        lastmod(project.dateCreated.format(FORMAT_DATE_SITEMAP))
-                    }
-                }
-
-                Post.list().each {post->
-                    def dates = [
-                            post.debates?post.debates.last().dateCreated:null,
-                            post.comments?post.comments.last().dateCreated:null,
-                            post.dateCreated
-                            ]
-                    Date lastModified = dates.max{a, b -> a  <=> b }
-                    url {
-                        loc(g.createLink( mapping: 'langPostShow', params:post.encodeAsLinkProperties(), absolute: true))
-                        changefreq('weekly')
-                        priority(0.2)
-                        lastmod(lastModified?.format(FORMAT_DATE_SITEMAP))
-                    }
-                }
+//                Project.list().each {project->
+//                    url {
+//                        loc(g.createLink( mapping: 'langProjectShow', params:project.encodeAsLinkProperties(), absolute: true))
+//                        changefreq('weekly')
+//                        priority(0.3)
+//                        lastmod(project.dateCreated.format(FORMAT_DATE_SITEMAP))
+//                    }
+//                }
+//
+//                Post.list().each {post->
+//                    def dates = [
+//                            post.debates?post.debates.last().dateCreated:null,
+//                            post.comments?post.comments.last().dateCreated:null,
+//                            post.dateCreated
+//                            ]
+//                    Date lastModified = dates.max{a, b -> a  <=> b }
+//                    url {
+//                        loc(g.createLink( mapping: 'langPostShow', params:post.encodeAsLinkProperties(), absolute: true))
+//                        changefreq('weekly')
+//                        priority(0.2)
+//                        lastmod(lastModified?.format(FORMAT_DATE_SITEMAP))
+//                    }
+//                }
             }
         }
     }
