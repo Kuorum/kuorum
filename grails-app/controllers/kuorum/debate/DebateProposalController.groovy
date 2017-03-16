@@ -43,11 +43,6 @@ class DebateProposalController {
         render "true"
     }
 
-    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
-    def addProposalAndRegister(){
-
-    }
-
     def pinProposal(PinProposalCommand command){
         KuorumUser user = springSecurityService.currentUser
 
