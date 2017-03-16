@@ -1413,7 +1413,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
 .container-fluid.box-ppal.choose-campaign {padding:30px 0px;}
 #mails {margin:0 auto; width:24em;}
-#mails li.fontIcon > a {padding:16px;}
+#mails li.fontIcon > a {padding:16px 2px;}
 #mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;margin-bottom: 10px;}
 #mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit;font-size: inherit}
 
@@ -5269,9 +5269,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
     .carousel.news .carousel-control {top: 30%;}
-    #mails.campaigns {  width: auto !important;  }
+    #mails.campaigns {  width: 100% !important;  }
     #mails li{  float: none !important;  }
-    #mails li.fontIcon > a{  margin-left: 25% !important;  }
+    #mails li.fontIcon > a{  margin: auto !important;  }
 }
 
 /* Very small devices (mobile, 480px and up) */
@@ -5390,7 +5390,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 767px) {
     .box-order-options .bulk-actions {display: block; width: 100%;}
-    #mails.campaigns {width: 24em;}
+    #mails.campaigns {width: 36em;}
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -5827,7 +5827,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* DASHBOARD (08/2016) */
     #mails {margin: 0 auto; width: 620px; text-align: center;}
-    #mails.campaigns {width: 340px;}
+    #mails.campaigns {width: 510px;}
     .nav-tabs.simple > li {margin-bottom: -1px; margin-right: 1px;}
     .alert-box {height: 54px; padding: 15px;}
     #inviteFriendsModal h4 {font-size: 26px; font-size: 2.6rem;}

@@ -3,14 +3,13 @@ import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrKuorumUser
-import kuorum.core.model.solr.SolrProject
 import kuorum.core.model.solr.SolrPost
+import kuorum.core.model.solr.SolrProject
 import kuorum.project.Project
-import kuorum.post.Post
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.debate.ProposalCommentRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
+import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.NotificationProposalCommentRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
@@ -36,13 +35,7 @@ class LinkPropertiesCodec {
             case SolrPost:
                 params = prepareParams(target)
                 break
-            case Post:
-                params = prepareParams(target.project)
-                params+= [
-                        postId:target.id,
-                        postBrief:target.title[0..Math.min(NUM_CHARS_URL_POST_TITLE, target.title.size()-1)].encodeAsKuorumUrl()
-                ]
-                break
+            case PostRSDTO:
             case DebateRSDTO:
             case ProposalRSDTO:
             case NotificationProposalCommentRSDTO:
@@ -127,6 +120,14 @@ class LinkPropertiesCodec {
                 userAlias: debate.userAlias.toLowerCase(),
                 title: debate.title.encodeAsKuorumUrl(),
                 debateId: debate.id
+        ]
+    }
+
+    private static def prepareParams(PostRSDTO postRSDTO) {
+        [
+                userAlias: postRSDTO.userAlias.toLowerCase(),
+                title: postRSDTO.title.encodeAsKuorumUrl(),
+                postId: postRSDTO.id
         ]
     }
 

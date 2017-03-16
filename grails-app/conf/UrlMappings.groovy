@@ -1,7 +1,6 @@
 import grails.util.Environment
 import kuorum.core.exception.KuorumException
 import kuorum.core.model.AvailableLanguage
-import kuorum.core.model.UserType
 import org.springframework.security.access.AccessDeniedException
 
 class UrlMappings {
@@ -142,6 +141,9 @@ class UrlMappings {
         name debateProposalDeleteComment: "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment")
         name debateProposalVoteComment: "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment")
 
+        name postCreate:      "/account/post/new" (controller: "post"){action = [GET: "create", POST: "save"]}
+        name postShow:        "/$userAlias/p/$title-$postId"(controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+
         name langProjectShow:   "/$lang/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name projectShow:       "/$userAlias/$hashtag"                          {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                                 "/hashtag/$hashtag"                             {controller="redirect"; action= "redirect301Project"; }
@@ -160,31 +162,12 @@ class UrlMappings {
 
         name projectUpdate:             "/project/$userAlias/$hashtag/actualizar"(controller: "project"){action = [GET:"createProjectUpdate", POST:"addProjectUpdate"]}
 
-        name langPostShow:  "/$lang/$userAlias/$hashtag/$postBrief-$postId"(controller: "post", action: "show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name postShow:      "/$userAlias/$hashtag/$postBrief-$postId"{controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name langPostShow:  "/$lang/$userAlias/$hashtag/$postBrief-$postId"(controller: "redirect", action: "redirect301Project") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name OldPostShow:      "/$userAlias/$hashtag/$postBrief-$postId"{controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
                             "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"          {controller="redirect"; action= "redirect301Post";}
                             "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"  {controller="redirect"; action= "redirect301Post";}
                             "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"      {controller="redirect"; action= "redirect301Post";}
 
-        name postCreate:    "/$userAlias/$hashtag/nuevo-post"(controller: "post"){action = [GET:"create", POST:"save"]}
-        name postReview:    "/$userAlias/$hashtag/$postBrief-$postId/review"(controller: "post", action: "review")
-        name postPublish:   "/$userAlias/$hashtag/$postBrief-$postId/publish"(controller: "post", action:"publish")
-        name postPublished: "/$userAlias/$hashtag/$postBrief-$postId/published"(controller: "post", action:"postPublished")
-        name postEdit:      "/$userAlias/$hashtag/$postBrief-$postId/edit"(controller: "post"){action = [GET:"edit", POST:"update"]}
-        name postDelete:    "/$userAlias/$hashtag/$postBrief-$postId/delete-post"(controller: "post", action: "deletePost")
-        name postToggleFavorite:"/ajax/$userAlias/$hashtag/$postBrief-$postId/favourite"(controller: "post",action: "favorite")
-        name postDelComment:"/$userAlias/$hashtag/$postBrief-$postId/delete-comment"(controller: "post",action: "deleteComment")
-        name postAddComment:"/$userAlias/$hashtag/$postBrief-$postId/add-comment"(controller: "post",action: "addComment")
-        name postVoteComment:"/ajax/$userAlias/$hashtag/$postBrief-$postId/vote-comment"(controller: "post",action: "voteComment")
-        name postCluckIt:   "/$userAlias/$hashtag/$postBrief-$postId/cluck"(controller: "post",action: "cluckPost")
-        name postVoteIt:    "/$userAlias/$hashtag/$postBrief-$postId/vote"(controller: "post",action: "votePost")
-        name postVoteAndRegister:    "/$userAlias/$hashtag/$postBrief-$postId/register-and-vote"(controller: "post"){action = [POST:"votePostWithRegister"]}
-        name postVotesList: "/ajax/$userAlias/$hashtag/$postBrief-$postId/list-votes"(controller: "post",action: "listVotes")
-        name postClucksList:"/ajax/$userAlias/$hashtag/$postBrief-$postId/list-clucks"(controller: "post",action: "listClucks")
-
-        name postAddDebate: "/ajax/$userAlias/$hashtag/$postBrief-$postId/addDebate"(controller: "post", action:"addDebate")
-        name postAddVictory:"/ajax/$userAlias/$hashtag/$postBrief-$postId/victory"(controller: "post", action:"addVictory")
-        name postAddDefender:"/ajax/project/propuesta/apadrinar"(controller: "post", action:"addDefender")
 
 
         name widgetJs:      "/widget.js"(controller: "widget", action:"kuorumWidgetjs")
