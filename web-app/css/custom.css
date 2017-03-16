@@ -1938,7 +1938,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
     margin: -18px 0 0 0!important;
     display: block !important;*/
 }
-.popover .scroll .user-type {margin-top: -15px !important;}
+.popover .scroll .user-type {margin-left: 1px !important;}
 .popover .follow {width: auto;border-radius: 0; margin: 7px 0 0 0!important; float: right;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
 .popover .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}
