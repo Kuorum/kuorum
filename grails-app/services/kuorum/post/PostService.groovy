@@ -25,6 +25,19 @@ class PostService {
     KuorumMailService kuorumMailService
     RestKuorumApiService restKuorumApiService
 
+    List<PostRSDTO> findAllPosts(KuorumUser user){
+        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_POSTS,
+                params,
+                query,
+                new TypeReference<List<PostRSDTO>>(){}
+        )
+
+        response.data
+    }
+
     PostRSDTO savePost(KuorumUser user, PostRDTO postRDTO){
 
         createPost(user, postRDTO)
