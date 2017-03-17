@@ -31,7 +31,6 @@ class ProjectController {
 
     def kuorumMailService
     def projectService
-    def projectStatsService
     def postService
     def cluckService
     def springSecurityService
@@ -236,8 +235,6 @@ class ProjectController {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
             }
         }
-        ProjectBasicStats projectBasicStats = projectStatsService.calculateProjectBasicStats(project)
-        ProjectStats projectStats = projectStatsService.calculateProjectStats(project)
 
         // Objeto usado para la creacion del formulario de datos básicos de una persona para que pueda votar
         BasicPersonalDataCommand basicPersonalDataCommand = new BasicPersonalDataCommand();
@@ -247,8 +244,6 @@ class ProjectController {
 
         [
                 project:project,
-                projectBasicStats:projectBasicStats,
-                projectStats:projectStats,
                 posts: posts,
                 numPosts:numPosts,
                 seeMorePosts:posts.size() < numPosts,
