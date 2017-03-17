@@ -29,8 +29,8 @@ class PostController {
     def show() {
         KuorumUser postUser = kuorumUserService.findByAlias(params.userAlias)
         PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId))
-         return  [post: postRSDTO]
-        //render (postRSDTO as JSON)
+
+        return  [post: postRSDTO, postUser: postUser]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -78,7 +78,7 @@ class PostController {
         PostRDTO postRDTO = convertCommandToPost(command, user, anonymousFilter)
 
         PostRSDTO savedPost = postService.savePost(user, postRDTO)
-        msg = "Yeeeehaa"
+        msg = 'Posted'
 
         [msg: msg, post: savedPost]
 
