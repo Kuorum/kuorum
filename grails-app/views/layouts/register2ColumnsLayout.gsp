@@ -26,6 +26,6 @@
                 </div>
             </div>
         </div><!-- #main -->
-        %{--<g:render template="/layouts/footer/footerNoScape"/>--}%
+        <g:render template="/layouts/footer/footer"/>
     </body>
 </g:applyLayout>
