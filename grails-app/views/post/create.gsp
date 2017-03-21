@@ -19,7 +19,7 @@
         <li class="active">${breadCrumbName}</li>
     </ol>
     <div class="box-ppal">
-        <g:render template="/debate/formDebate" model="[command: command, filters: filters, totalContacts: totalContacts, debateId: debateId, anonymousFilter: anonymousFilter]"/>
+        <g:render template="/post/form" model="[command: command, filters: filters, totalContacts: totalContacts, debateId: debateId, anonymousFilter: anonymousFilter]"/>
     </div>
     <g:render template="/massMailing/timeZoneSelectorPopUp"/>
 </content>

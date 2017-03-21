@@ -6,11 +6,11 @@
         <userUtil:showUser user="${postUser}"/>
         <div class="clearfix">
             <span class="time-ago pull-left"><kuorumDate:humanDate date="${post.datePublished}"/> </span>
-            %{--<userUtil:ifUserIsTheLoggedOne user="${postUser}">--}%
-                %{--<g:link class="edit" mapping="postEdit" params="[postId: post.id]">--}%
-                    %{--<span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>--}%
-                %{--</g:link>--}%
-            %{--</userUtil:ifUserIsTheLoggedOne>--}%
+            <userUtil:ifUserIsTheLoggedOne user="${postUser}">
+                <g:link class="edit" mapping="postEdit" params="[postId: post.id]">
+                    <span class="fa fa-pencil-square-o pull-right fa-2x" aria-hidden="true"></span>
+                </g:link>
+            </userUtil:ifUserIsTheLoggedOne>
         </div>
     </div>
 

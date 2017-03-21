@@ -38,9 +38,13 @@ class PostService {
         response.data
     }
 
-    PostRSDTO savePost(KuorumUser user, PostRDTO postRDTO){
+    PostRSDTO savePost(KuorumUser user, PostRDTO postRDTO, Long postId){
 
-        createPost(user, postRDTO)
+        if (PostRDTO) {
+            updatePost(user, postRDTO, postId)
+        } else {
+            createPost(user, postRDTO)
+        }
 
     }
 
@@ -69,6 +73,26 @@ class PostService {
         )
 
         response.data
+    }
+
+    PostRSDTO updatePost(KuorumUser user, PostRDTO postRDTO, Long postId) {
+
+        Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_POST,
+                params,
+                query,
+                postRDTO,
+                new TypeReference<PostRSDTO>(){}
+        )
+
+        PostRSDTO postSaved = null
+        if (response.data) {
+            postSaved = response.data
+        }
+
+        postSaved
     }
 
     /**

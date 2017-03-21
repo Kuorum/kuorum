@@ -54,7 +54,43 @@ class PostController {
         redirect mapping: "postShow", params: resultPost.post.encodeAsLinkProperties()
     }
 
-    private def postModel(PostCommand command, Long postId) {
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def edit(Long postId) {
+        KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        PostRSDTO postRSDTO = postService.findPost(loggedUser, postId)
+
+        PostCommand postCommand = convertPostToCommand(postRSDTO, loggedUser)
+        def model = postModel(postCommand, postRSDTO)
+        postCommand.filterId = postRSDTO.anonymousFilter?.id ?: null
+        if (postRSDTO.anonymousFilter && !model.filters.find{it.id == postRSDTO.anonymousFilter.id}) {
+            // Not found debate filter. That means that the filter is custom filter for the campaign
+            ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(loggedUser, postRSDTO.anonymousFilter.id)
+            model.put("anonymousFilter", anonymousFilter)
+        }
+
+        render view: 'edit', model: model
+
+    }
+
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def update(PostCommand command, Long postId) {
+
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        PostRSDTO postRSDTO = postService.findPost(user, postId)
+
+        if(command.hasErrors()){
+            render view: 'edit', model: postModel(command, postRSDTO)
+        }
+
+        FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
+        Map<String, Object> resultPost = saveAndSendPost(user, command, postId, anonymousFilter)
+
+        flash.message = resultPost.msg.toString()
+
+        redirect mapping: "postShow", params: resultPost.post.encodeAsLinkProperties()
+    }
+
+    private def postModel(PostCommand command, PostRSDTO postRSDTO) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
@@ -63,7 +99,7 @@ class PostController {
                 filters: filters,
                 command: command,
                 totalContacts: contactPageRSDTO.total,
-                postId: postId
+                post: postRSDTO
         ]
     }
 
@@ -77,7 +113,7 @@ class PostController {
         String msg
         PostRDTO postRDTO = convertCommandToPost(command, user, anonymousFilter)
 
-        PostRSDTO savedPost = postService.savePost(user, postRDTO)
+        PostRSDTO savedPost = postService.savePost(user, postRDTO, postId)
         msg = 'Posted'
 
         [msg: msg, post: savedPost]
@@ -124,6 +160,33 @@ class PostController {
         }
 
         postRDTO
+    }
+
+    private PostCommand convertPostToCommand(PostRSDTO postRSDTO, KuorumUser kuorumUser){
+
+        PostCommand postCommand = new PostCommand()
+        postCommand.body = postRSDTO.body
+        postCommand.title = postRSDTO.title
+        postCommand.publishOn = postRSDTO.datePublished
+
+        // Tags
+        if(postRSDTO.triggeredTags){
+            postCommand.setTags(postRSDTO.triggeredTags)
+        }
+
+        // Multimedia
+        if (postRSDTO.photoUrl){
+            KuorumFile kuorumFile = KuorumFile.findByUrl(postRSDTO.photoUrl)
+            postCommand.headerPictureId = kuorumFile.id
+        }
+        else if (postRSDTO.videoUrl?.contains("youtube")){
+            postCommand.videoPost = postRSDTO.videoUrl
+        }
+
+        // Filters
+        //postCommand.filterId = postRSDTO.anonymousFilter?.id ?: null
+
+        postCommand
     }
 
 }

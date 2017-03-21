@@ -110,6 +110,11 @@ modules = {
         resource url:'js/debate-form.js'
     }
 
+    postForm {
+        dependsOn("campaignForm")
+        resource url: 'js/debate-form.js'
+    }
+
     newsletter{
         dependsOn("campaignForm")
         resource url:'js/newsletter-form.js'
