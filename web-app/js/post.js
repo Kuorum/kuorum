@@ -1,5 +1,6 @@
 $(function () {
 
+    console.log("Post");
     $(window).load(function () {
 
         function onClickPostLike(e) {

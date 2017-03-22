@@ -40,7 +40,7 @@ class PostService {
 
     PostRSDTO savePost(KuorumUser user, PostRDTO postRDTO, Long postId){
 
-        if (PostRDTO) {
+        if (postId) {
             updatePost(user, postRDTO, postId)
         } else {
             createPost(user, postRDTO)

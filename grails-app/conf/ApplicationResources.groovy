@@ -96,8 +96,7 @@ modules = {
     }
 
     post {
-        dependsOn("basic", "forms")
-        resource url:'js/debate.js'
+        dependsOn("debate")
         resource url:'js/post.js'
     }
 
