@@ -58,7 +58,7 @@ $(function () {
                     lines: calculateParragraphLines(parragrahHeight, parragraphNumber === totalParragraph)
                 };
             });
-
+            var boxHeight = 4 * lineHeight; //132 px;
             if (parragraphNumber > 1) { //en este caso habrá margenes entre párrafos
                 var numberVisibleLines = 4;
                 var idx = 0;
@@ -92,9 +92,9 @@ $(function () {
                     default:
                         $conversationBox.height(4 * lineHeight); //132 px
                 }
-                
-                $conversationBox.attr('data-height', $conversationBox.height());
+                boxHeight = $conversationBox.height();
             }
+            $conversationBox.attr('data-height', boxHeight);
         });
     });
 });
@@ -208,6 +208,7 @@ $(function(){
 
         $(event.target).toggleClass('fa-angle-down fa-angle-up');
 
+        console.log("height =>"  + $conversationBoxBody.height() + "> "+collapsibleHeight)
         if ($conversationBoxBody.height() > collapsibleHeight) {
             $conversationBoxBody.animate({
                 height: collapsibleHeight
