@@ -7546,6 +7546,7 @@ button.btn-see-more {
     background-color: #FFF;
     border: 1px solid #F0F0F0;
     margin-bottom: 20px;
+    box-shadow: 0 0 2px rgba(200,200,200,0.6);
 }
 
 .leader-post h1.title {
@@ -7659,6 +7660,7 @@ button.btn-see-more {
 }
 
 /*** leader-post-stats ***/
+ul.leader-post-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .leader-post-stats {
     background-color: #FFF;
     border: 1px solid #F0F0F0;
@@ -7702,7 +7704,10 @@ button.btn-see-more {
 }
 
 ul.proposal-list {margin:0; padding:0;}
-ul.proposal-list li {list-style-type: none;}
+ul.proposal-list li {list-style-type: none; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+ul.proposal-list ul.social li {list-style-type: none; box-shadow: none;}
+ul.proposal-list ul.icons li {list-style-type: none; box-shadow: none;}
+ul.proposal-list ul.conversation-box-comments-list li {list-style-type: none; box-shadow: none;}
 .comment-box > .user-box,
 ul.proposal-list .comment-box > .comment-propusal > .user-box{margin-bottom: 10px;}
 
@@ -7933,6 +7938,8 @@ div [class^='comment-box col-'] {
     margin-bottom: 20px;
     border-top: 0;
 }
+
+.conversation-box-comments .comment-box {box-shadow:  none;}
 
 .conversation-box-comments button.btn-see-more {
     padding: 25px 20px 10px 20px;
