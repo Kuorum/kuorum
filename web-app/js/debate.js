@@ -329,6 +329,19 @@ $(function(){
                 document.location.reload()
             })
 
+        },
+        likeProposalNoLogged: function(){
+            var buttonId = $('#registroDebate').find("form").attr("data-buttonId")
+            var $button = $("#"+buttonId)
+            likeProposal($button, function(){
+                var proposalId = $button.parents(".conversation-box").attr("id")
+                var href = document.location.href;
+                var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+                var newUrl = href.substring(0,sharpPos);
+                newUrl = newUrl + "#"+proposalId;
+                document.location.href = newUrl;
+                document.location.reload();
+            })
         }
     }
 
@@ -386,62 +399,72 @@ $(function(){
     }
 
     function onClickProposalLike() {
-        // Unbind
-        $(".proposal-list").off("click", ".proposal-like");
-
         var $button = $(this);
         var userLogged = $button.attr("data-userLogged");
         if (userLogged == undefined || userLogged == "" ) {
             // USER NOT LOGGED
-            $('#registro').modal('show');
+            var buttonId = guid();
+            $button.attr("id", buttonId)
+            $('#registroDebate').find("form").attr("callback", "likeProposalNoLogged")
+            $('#registroDebate').find("form").attr("data-buttonId", buttonId)
+            $('#registroDebate').modal('show');
         } else {
-            var like = $(this).find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
-
-            // Prediction: toggle button
-            $button.toggleClass("active");
-            $button.find(".fa").toggleClass("fa-heart-o fa-heart");
-            var count = parseInt($button.find(".number").text());
-            if (like) {
-                $button.find(".number").text(count + 1)
-            } else {
-                $button.find(".number").text(count - 1)
-            }
-
-            var url = $(this).attr("data-urlAction");
-            var debateId = $(this).attr("data-debateId");
-            var debateAlias = $(this).attr("data-debateAlias");
-            var proposalId = $(this).attr("data-proposalId");
-            var data = {
-                debateId: debateId,
-                debateAlias: debateAlias,
-                proposalId: proposalId,
-                like: like
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function () {
-
-                },
-                error: function () {
-                    // Recover from prediction
-                    $button.toggleClass("active");
-                    $button.find(".fa").toggleClass("fa-heart-o fa-heart");
-                    var count = parseInt($button.find(".number").text());
-                    if (like) {
-                        $button.find(".number").text(count - 1)
-                    } else {
-                        $button.find(".number").text(count + 1)
-                    }
-                },
-                complete: function () {
-                    // Re-bind
-                    $(".proposal-list").on("click", ".proposal-like", onClickProposalLike);
-                },
-                dataType: "html"
-            });
+            likeProposal($button);
         }
+    }
+
+    function likeProposal($button, callback){
+        // Unbind
+        $(".proposal-list").off("click", ".proposal-like");
+
+        var like = $button.find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
+
+        // Prediction: toggle button
+        $button.toggleClass("active");
+        $button.find(".fa").toggleClass("fa-heart-o fa-heart");
+        var count = parseInt($button.find(".number").text());
+        if (like) {
+            $button.find(".number").text(count + 1)
+        } else {
+            $button.find(".number").text(count - 1)
+        }
+
+        var url = $button.attr("data-urlAction");
+        var debateId = $button.attr("data-debateId");
+        var debateAlias = $button.attr("data-debateAlias");
+        var proposalId = $button.attr("data-proposalId");
+        var data = {
+            debateId: debateId,
+            debateAlias: debateAlias,
+            proposalId: proposalId,
+            like: like
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function () {
+                if (callback != undefined){
+                    callback()
+                }
+            },
+            error: function () {
+                // Recover from prediction
+                $button.toggleClass("active");
+                $button.find(".fa").toggleClass("fa-heart-o fa-heart");
+                var count = parseInt($button.find(".number").text());
+                if (like) {
+                    $button.find(".number").text(count - 1)
+                } else {
+                    $button.find(".number").text(count + 1)
+                }
+            },
+            complete: function () {
+                // Re-bind
+                $(".proposal-list").on("click", ".proposal-like", onClickProposalLike);
+            },
+            dataType: "html"
+        });
     }
 
     // Mark proposal as liked
