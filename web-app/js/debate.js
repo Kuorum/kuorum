@@ -315,6 +315,20 @@ $(function(){
                 document.location.href = newUrl;
                 document.location.reload()
             })
+        },
+        voteCommentNoLogged: function(){
+            var buttonId = $('#registroDebate').find("form").attr("data-buttonId")
+            var $button = $("#"+buttonId)
+            voteComment($button, function(){
+                var commentDivId = $button.parents(".conversation-box-comment").attr("id")
+                var href = document.location.href;
+                var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+                var newUrl = href.substring(0,sharpPos);
+                newUrl = newUrl + "#"+commentDivId;
+                document.location.href = newUrl;
+                document.location.reload()
+            })
+
         }
     }
 
@@ -522,14 +536,18 @@ $(function(){
         var $button = $(this)
         var userAliasLogged = $button.attr("data-userAlias")
         if (userAliasLogged == undefined || userAliasLogged==""){
-            $('#registro').modal('show');
+            var buttonId = guid();
+            $button.attr("id", buttonId)
+            $('#registroDebate').find("form").attr("callback", "voteCommentNoLogged")
+            $('#registroDebate').find("form").attr("data-buttonId", buttonId)
+            $('#registroDebate').modal('show');
         }else{
             voteComment($button)
         }
 
     })
 
-    function voteComment($button){
+    function voteComment($button, callback){
         var vote = -1;
         if ($button.find("span").hasClass("fa-angle-up")){
             vote = 1;
@@ -564,6 +582,9 @@ $(function(){
                     $button.parents(".footer-comment-votes").addClass("vote-up");
                 }else{
                     $button.parents(".footer-comment-votes").addClass("vote-down");
+                }
+                if (callback != undefined){
+                    callback()
                 }
             },
             error:function(){
