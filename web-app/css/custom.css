@@ -333,7 +333,7 @@ a:focus {color: #ff9431;}
 #otros-proyectos > .container-fluid,
 #otras-propuestas > .container-fluid,
 #info-sup-scroll > .container-fluid,
-.dropdown-menu.politician > .container-fluid { margin: 0 auto;}
+.dropdown-menu.politician > .container-fluid {max-width: 1140px; margin: 0 auto;}
 .navbar > .container-fluid {padding-right: 30px; padding-left: 30px;}
 .main > .container-fluid > .row {position: relative;}
 #main {padding-bottom: 40px; padding-top: 24px; min-height: 382px;}
@@ -1938,7 +1938,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
     margin: -18px 0 0 0!important;
     display: block !important;*/
 }
-.popover .scroll .user-type {margin-top: -15px !important;}
+.popover .scroll .user-type {margin-left: 1px !important;}
 .popover .follow {width: auto;border-radius: 0; margin: 7px 0 0 0!important; float: right;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
 .popover .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}

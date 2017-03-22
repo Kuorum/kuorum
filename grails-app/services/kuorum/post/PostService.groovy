@@ -25,9 +25,26 @@ class PostService {
     KuorumMailService kuorumMailService
     RestKuorumApiService restKuorumApiService
 
-    PostRSDTO savePost(KuorumUser user, PostRDTO postRDTO){
+    List<PostRSDTO> findAllPosts(KuorumUser user){
+        Map<String, String> params = [userAlias: user.id.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_POSTS,
+                params,
+                query,
+                new TypeReference<List<PostRSDTO>>(){}
+        )
 
-        createPost(user, postRDTO)
+        response.data
+    }
+
+    PostRSDTO savePost(KuorumUser user, PostRDTO postRDTO, Long postId){
+
+        if (PostRDTO) {
+            updatePost(user, postRDTO, postId)
+        } else {
+            createPost(user, postRDTO)
+        }
 
     }
 
@@ -56,6 +73,26 @@ class PostService {
         )
 
         response.data
+    }
+
+    PostRSDTO updatePost(KuorumUser user, PostRDTO postRDTO, Long postId) {
+
+        Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
+        Map<String, String> query = [:]
+        def response = restKuorumApiService.put(
+                RestKuorumApiService.ApiMethod.ACCOUNT_POST,
+                params,
+                query,
+                postRDTO,
+                new TypeReference<PostRSDTO>(){}
+        )
+
+        PostRSDTO postSaved = null
+        if (response.data) {
+            postSaved = response.data
+        }
+
+        postSaved
     }
 
     /**

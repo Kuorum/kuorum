@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.files.FileService
+import kuorum.post.PostService
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
@@ -12,6 +13,7 @@ import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
 import kuorum.web.commands.profile.TimeZoneCommand
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.kuorum.rest.model.contact.filter.ExtendedFilterRSDTO
 import org.kuorum.rest.model.contact.filter.FilterRDTO
@@ -19,7 +21,6 @@ import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatsByCampaignPageRSDTO
-import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 import payment.campaign.DebateService
 import payment.campaign.MassMailingService
 import payment.contact.ContactService
@@ -38,14 +39,16 @@ class MassMailingController {
     MassMailingService massMailingService
 
     DebateService debateService
+    PostService postService
 
     def index() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
         List<Project> projects = Project.findAllByOwner(user)
         List<DebateRSDTO> debates = debateService.findAllDebates(user)
+        List<PostRSDTO> posts = postService.findAllPosts(user)
 
-        [campaigns: campaigns, projects: projects, debates: debates, user: user]
+        [campaigns: campaigns, projects: projects, debates: debates, posts: posts, user: user]
     }
 
     def newCampaign(){
