@@ -1,6 +1,10 @@
+<%@ page import="org.kuorum.rest.model.contact.filter.condition.ConditionStatusRDTO; org.kuorum.rest.model.contact.filter.condition.ConditionTextRDTO" %>
 <ul class="engagement">
-    <li class="${contact.status == org.kuorum.rest.model.contact.ContactStatusRSDTO.INACTIVE?'active':''}"><a href="#"><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.INACTIVE"/> </a></li>
-    <li class="${contact.status == org.kuorum.rest.model.contact.ContactStatusRSDTO.READER?'active':''}"><a href="#"><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.READER"/> </a></li>
-    <li class="${contact.status == org.kuorum.rest.model.contact.ContactStatusRSDTO.SUPPORTER?'active':''}"><a href="#"><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.SUPPORTER"/> </a></li>
-    <li class="${contact.status == org.kuorum.rest.model.contact.ContactStatusRSDTO.BROADCASTER?'active':''}"><a href="#"><g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.BROADCASTER"/> </a></li>
+    <g:each in="${org.kuorum.rest.model.contact.ContactStatusRSDTO.values()}" var="status">
+        <li class="${contact.status == status?'active':''}">
+            <a href="${g.createLink(mapping: "politicianContacts", params: ['filterConditions[0].field':'STATUS','filterConditions[0].operatorNumber':'EQUALS', 'filterConditions[0].value':status])}">
+                <g:message code="org.kuorum.rest.model.contact.ContactStatusRSDTO.${status}"/>
+            </a>
+        </li>
+    </g:each>
 </ul>

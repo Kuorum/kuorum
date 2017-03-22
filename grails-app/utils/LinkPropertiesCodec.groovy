@@ -3,8 +3,6 @@ import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrKuorumUser
-import kuorum.core.model.solr.SolrPost
-import kuorum.core.model.solr.SolrProject
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
@@ -26,14 +24,6 @@ class LinkPropertiesCodec {
         switch (target) {
             case CauseRSDTO:
                 params = prepareParams(target);
-                break
-            case Project:
-            case SolrProject:
-//                Project project = (Project) target
-                params = prepareParams(target);
-                break
-            case SolrPost:
-                params = prepareParams(target)
                 break
             case PostRSDTO:
             case DebateRSDTO:
@@ -90,28 +80,6 @@ class LinkPropertiesCodec {
 //        ]
         [
                 userAlias:user.name
-        ]
-    }
-
-    private static def prepareParams(SolrProject project){
-        String commissionName = translate("${CommissionType.canonicalName}.${project.commissions.first()}")
-        [
-                hashtag: project.hashtag.decodeHashtag(),
-                regionName:project.regionName.encodeAsKuorumUrl(),
-//                institutionName:project.institutionName.encodeAsKuorumUrl(),
-                commission:commissionName.encodeAsKuorumUrl()
-        ]
-    }
-
-    private static def prepareParams(SolrPost post){
-        String commissionName = translate("${CommissionType.canonicalName}.${post.commissions.first()}")
-        [
-                hashtag: post.hashtagProject.decodeHashtag(),
-                regionName:post.regionName.encodeAsKuorumUrl(),
-//                institutionName:post.institutionName.encodeAsKuorumUrl(),
-                commission:commissionName.encodeAsKuorumUrl(),
-                postId:post.id,
-                postBrief:post.name[0..Math.min(NUM_CHARS_URL_POST_TITLE, post.name.size()-1)].encodeAsKuorumUrl()
         ]
     }
 

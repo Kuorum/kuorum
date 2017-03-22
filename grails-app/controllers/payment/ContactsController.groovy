@@ -41,15 +41,26 @@ class ContactsController {
             return
         }
 
-
+        MassMailingCommand command = new MassMailingCommand();
+        ExtendedFilterRSDTO anonymousFilter = null;
+        if (filterCommand.filterConditions){
+            anonymousFilter = new ExtendedFilterRSDTO();
+            anonymousFilter.id = -1;
+            anonymousFilter.filterConditions = filterCommand.buildFilter().filterConditions;
+            anonymousFilter.operator = filterCommand.operator
+            anonymousFilter.amountOfContacts = 10;
+            anonymousFilter.name = g.message(code:'tools.contact.filter.newAnonymousName');
+            command.filterId = anonymousFilter.id
+        }
 
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
 
         [
                 contacts:contacts,
                 filters:filters,
+                anonymousFilter:anonymousFilter,
                 totalContacts:contacts.total,
-                command:new MassMailingCommand(),
+                command:command,
                 searchContacts:searchContactRSDTO,
                 bulkActionContactsCommand: new BulkActionContactsCommand(),
                 bulkAddTagsContactsCommand: new BulkAddTagsContactsCommand()

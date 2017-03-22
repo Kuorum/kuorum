@@ -58,7 +58,7 @@ $(function () {
                     lines: calculateParragraphLines(parragrahHeight, parragraphNumber === totalParragraph)
                 };
             });
-
+            var boxHeight = 4 * lineHeight; //132 px;
             if (parragraphNumber > 1) { //en este caso habrá margenes entre párrafos
                 var numberVisibleLines = 4;
                 var idx = 0;
@@ -92,9 +92,9 @@ $(function () {
                     default:
                         $conversationBox.height(4 * lineHeight); //132 px
                 }
-                
-                $conversationBox.attr('data-height', $conversationBox.height());
+                boxHeight = $conversationBox.height();
             }
+            $conversationBox.attr('data-height', boxHeight);
         });
     });
 });
@@ -208,6 +208,7 @@ $(function(){
 
         $(event.target).toggleClass('fa-angle-down fa-angle-up');
 
+        console.log("height =>"  + $conversationBoxBody.height() + "> "+collapsibleHeight)
         if ($conversationBoxBody.height() > collapsibleHeight) {
             $conversationBoxBody.animate({
                 height: collapsibleHeight
@@ -314,6 +315,33 @@ $(function(){
                 document.location.href = newUrl;
                 document.location.reload()
             })
+        },
+        voteCommentNoLogged: function(){
+            var buttonId = $('#registroDebate').find("form").attr("data-buttonId")
+            var $button = $("#"+buttonId)
+            voteComment($button, function(){
+                var commentDivId = $button.parents(".conversation-box-comment").attr("id")
+                var href = document.location.href;
+                var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+                var newUrl = href.substring(0,sharpPos);
+                newUrl = newUrl + "#"+commentDivId;
+                document.location.href = newUrl;
+                document.location.reload()
+            })
+
+        },
+        likeProposalNoLogged: function(){
+            var buttonId = $('#registroDebate').find("form").attr("data-buttonId")
+            var $button = $("#"+buttonId)
+            likeProposal($button, function(){
+                var proposalId = $button.parents(".conversation-box").attr("id")
+                var href = document.location.href;
+                var sharpPos = href.indexOf("#") < 0 ? href.length:href.indexOf("#");
+                var newUrl = href.substring(0,sharpPos);
+                newUrl = newUrl + "#"+proposalId;
+                document.location.href = newUrl;
+                document.location.reload();
+            })
         }
     }
 
@@ -371,62 +399,72 @@ $(function(){
     }
 
     function onClickProposalLike() {
-        // Unbind
-        $(".proposal-list").off("click", ".proposal-like");
-
         var $button = $(this);
         var userLogged = $button.attr("data-userLogged");
         if (userLogged == undefined || userLogged == "" ) {
             // USER NOT LOGGED
-            $('#registro').modal('show');
+            var buttonId = guid();
+            $button.attr("id", buttonId)
+            $('#registroDebate').find("form").attr("callback", "likeProposalNoLogged")
+            $('#registroDebate').find("form").attr("data-buttonId", buttonId)
+            $('#registroDebate').modal('show');
         } else {
-            var like = $(this).find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
-
-            // Prediction: toggle button
-            $button.toggleClass("active");
-            $button.find(".fa").toggleClass("fa-heart-o fa-heart");
-            var count = parseInt($button.find(".number").text());
-            if (like) {
-                $button.find(".number").text(count + 1)
-            } else {
-                $button.find(".number").text(count - 1)
-            }
-
-            var url = $(this).attr("data-urlAction");
-            var debateId = $(this).attr("data-debateId");
-            var debateAlias = $(this).attr("data-debateAlias");
-            var proposalId = $(this).attr("data-proposalId");
-            var data = {
-                debateId: debateId,
-                debateAlias: debateAlias,
-                proposalId: proposalId,
-                like: like
-            };
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function () {
-
-                },
-                error: function () {
-                    // Recover from prediction
-                    $button.toggleClass("active");
-                    $button.find(".fa").toggleClass("fa-heart-o fa-heart");
-                    var count = parseInt($button.find(".number").text());
-                    if (like) {
-                        $button.find(".number").text(count - 1)
-                    } else {
-                        $button.find(".number").text(count + 1)
-                    }
-                },
-                complete: function () {
-                    // Re-bind
-                    $(".proposal-list").on("click", ".proposal-like", onClickProposalLike);
-                },
-                dataType: "html"
-            });
+            likeProposal($button);
         }
+    }
+
+    function likeProposal($button, callback){
+        // Unbind
+        $(".proposal-list").off("click", ".proposal-like");
+
+        var like = $button.find(".fa").hasClass("fa-heart-o"); // Empty heart -> Converting to LIKE = TRUE
+
+        // Prediction: toggle button
+        $button.toggleClass("active");
+        $button.find(".fa").toggleClass("fa-heart-o fa-heart");
+        var count = parseInt($button.find(".number").text());
+        if (like) {
+            $button.find(".number").text(count + 1)
+        } else {
+            $button.find(".number").text(count - 1)
+        }
+
+        var url = $button.attr("data-urlAction");
+        var debateId = $button.attr("data-debateId");
+        var debateAlias = $button.attr("data-debateAlias");
+        var proposalId = $button.attr("data-proposalId");
+        var data = {
+            debateId: debateId,
+            debateAlias: debateAlias,
+            proposalId: proposalId,
+            like: like
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            success: function () {
+                if (callback != undefined){
+                    callback()
+                }
+            },
+            error: function () {
+                // Recover from prediction
+                $button.toggleClass("active");
+                $button.find(".fa").toggleClass("fa-heart-o fa-heart");
+                var count = parseInt($button.find(".number").text());
+                if (like) {
+                    $button.find(".number").text(count - 1)
+                } else {
+                    $button.find(".number").text(count + 1)
+                }
+            },
+            complete: function () {
+                // Re-bind
+                $(".proposal-list").on("click", ".proposal-like", onClickProposalLike);
+            },
+            dataType: "html"
+        });
     }
 
     // Mark proposal as liked
@@ -521,14 +559,18 @@ $(function(){
         var $button = $(this)
         var userAliasLogged = $button.attr("data-userAlias")
         if (userAliasLogged == undefined || userAliasLogged==""){
-            $('#registro').modal('show');
+            var buttonId = guid();
+            $button.attr("id", buttonId)
+            $('#registroDebate').find("form").attr("callback", "voteCommentNoLogged")
+            $('#registroDebate').find("form").attr("data-buttonId", buttonId)
+            $('#registroDebate').modal('show');
         }else{
             voteComment($button)
         }
 
     })
 
-    function voteComment($button){
+    function voteComment($button, callback){
         var vote = -1;
         if ($button.find("span").hasClass("fa-angle-up")){
             vote = 1;
@@ -563,6 +605,9 @@ $(function(){
                     $button.parents(".footer-comment-votes").addClass("vote-up");
                 }else{
                     $button.parents(".footer-comment-votes").addClass("vote-down");
+                }
+                if (callback != undefined){
+                    callback()
                 }
             },
             error:function(){
@@ -668,8 +713,8 @@ function SortProposals() {
     };
     this.proposalsOptions['best']={
         sort:function(a,b){
-            var aLikes = parseInt($(a).find(".comment-counter .fa-heart-o").next().text().trim());
-            var bLikes = parseInt($(b).find(".comment-counter .fa-heart-o").next().text().trim());
+            var aLikes = parseInt($(a).find(".comment-counter button.proposal-like .number").text().trim());
+            var bLikes = parseInt($(b).find(".comment-counter button.proposal-like .number").text().trim());
             return bLikes - aLikes;
         },
         filter:function(idx){return false;},

@@ -75,10 +75,6 @@ $(function () {
         return false;
     });
 
-
-    //Preparar el select segun el option seleccionado
-    filterContacts.changedFilterValueEvent();
-
     // abrir opciones nuevo filtro con botón
     $('body').on('click','#filterContacts', function(e) {
         e.preventDefault();
@@ -131,6 +127,7 @@ $(function () {
         filterContacts.deleteFilter();
     });
 
+
 });
 
 
@@ -161,7 +158,7 @@ function FilterContacts() {
 
     this.serializedFilterData = function(){
         var $filterData = that.getFormFilterIdSelected();
-        var inputs = $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select"))
+        var inputs = $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select, .hide select, .hide input"))
         var postData = inputs.serializeArray();
         postData.push({name:"filterId", value:that.getFilterId()});
         return postData;
@@ -445,6 +442,9 @@ function FilterContacts() {
 
     this.newsletterCallBacks = {
         init:function(){
+            //Preparar el select segun el option seleccionado
+            that.changedFilterValueEvent();
+
             that.newsletterCallBacks.changeSelectRecipients();
             if ($("#recipients option[data-anononymus='true']").length>0){
                 that.loadFilter();
@@ -518,7 +518,17 @@ function FilterContacts() {
 
     this.searchContactsCallBacks = {
         init:function(){
-
+            if(window.location.search) {
+                slideDownFilterInfo()
+                var $filterData = $("#filterData");
+                $filterData.find("select#field").change();
+                $filterData.find("input:disabled").val("")
+                that.searchContactsCallBacks.loadTableContacts();
+            }else{
+                console.log("No search")
+                //Preparar el select segun el option seleccionado
+                that.changedFilterValueEvent();
+            }
         },
         filterEditedEvent: function(filterIdSelected){
 
@@ -558,7 +568,12 @@ function FilterContacts() {
         loadTableContacts:function(){
             $("#listContacts").html("");
             var link = $("#listContacts").attr("data-ajaxUrlContacts");
+            $("#contactFilterForm .hide select").prop("disabled",true);
+            $("#contactFilterForm .hide input").prop("disabled",true);
             var postData = $("#contactFilterForm").serializeArray();
+            //var postData = that.serializedFilterData() ?????
+            $("#contactFilterForm .hide input").prop("disabled",false);
+            $("#contactFilterForm .hide select").prop("disabled",false);
             pageLoadingOn();
             $.post( link, postData)
                 .done(function(data) {
