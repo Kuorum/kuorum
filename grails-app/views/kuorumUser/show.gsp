@@ -92,15 +92,15 @@
 
 </content>
 
-<content tag="preFooterSections">
-    <g:render template="userShowTemplates/recommendedPoliticians" model="[politician:politician, recommendPoliticians:recommendPoliticians]"/>
-</content>
+%{--<content tag="preFooterSections">--}%
+    %{--<g:render template="userShowTemplates/recommendedPoliticians" model="[politician:politician, recommendPoliticians:recommendPoliticians]"/>--}%
+%{--</content>--}%
 
-<content tag="modals">
-    <g:if test="${campaign}">
-        <g:render template="userShowTemplates/modals/modalElection" model="[politician:politician, campaign:campaign]"/>
-    </g:if>
-    <g:if test="${causes}">
-        <g:render template="userShowTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>
-    </g:if>
-</content>
+%{--<content tag="modals">--}%
+    %{--<g:if test="${campaign}">--}%
+        %{--<g:render template="userShowTemplates/modals/modalElection" model="[politician:politician, campaign:campaign]"/>--}%
+    %{--</g:if>--}%
+    %{--<g:if test="${causes}">--}%
+        %{--<g:render template="userShowTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>--}%
+    %{--</g:if>--}%
+%{--</content>--}%

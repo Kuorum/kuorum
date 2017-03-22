@@ -1418,7 +1418,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit;font-size: inherit}
 
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}
-.dashboard > div > .box-ppal {min-height: 333px;}
+.dashboard > div > .box-ppal {min-height: 333px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .dashboard .box-ppal > h2 {font-size: 20px; font-size: 2rem; color: #a8a8a8; padding-bottom: 10px; border-bottom: solid 1px #e5e5e5; margin: 0 0 20px 0;}
 .box-ppal#createNewCampaign p {font-size: 20px; font-size: 2rem; color: #a8a8a8; line-height: 1.4; text-align: center;margin-bottom: 60px;}
 .box-ppal#createNewCampaign p strong {font-size: 26px; font-size: 2.6rem; color: #545454; font-weight: normal;}
@@ -2656,7 +2656,7 @@ video#bgvid {
 
 ul.campaign-list{margin: 0;padding: 0;list-style: none;}
 ul.campaign-list > li {padding: 0;}
-ul.campaign-list .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto;}
+ul.campaign-list .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 ul.campaign-list > li .box-ppal .card-header-photo {height: auto;}
 ul.campaign-list > li .box-ppal .card-body {padding:1em;overflow: hidden;height: 300px;}
 ul.campaign-list > li .box-ppal .card-header-photo + .card-body {height: 120px;}
@@ -6162,7 +6162,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 0; float: right;}*/
     /*#followOthers .user-list-followers .user > .actions {margin-top: -15px !important;}*/
-    .dashboard > div > .box-ppal {min-height: 357px;}
+    .dashboard > div > .box-ppal {min-height: 357px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts .dropdown-menu {min-width: 140px;}
@@ -6289,7 +6289,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* DASHBOARD */
     /*#followOthers .user-list-followers .user > .actions {margin-top: -40px !important;}*/
-    .dashboard > div > .box-ppal {min-height: 298px;}
+    .dashboard > div > .box-ppal {min-height: 298px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     /*#profileInfo > span {margin-top: 50px;}*/
 
     /* LIST CONTACTS (08/2016) */
