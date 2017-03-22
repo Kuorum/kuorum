@@ -259,10 +259,7 @@ class SearchSolrService {
             filterQuery.append(" AND ")
             filterQuery.append("commissions:${params.commissionType}")
         }
-        if (params.projectStatusType){
-            filterQuery.append(" AND ")
-            filterQuery.append("subType:${SolrType.PROJECT.generateSubtype(params.projectStatusType)}")
-        }
+
         if (params.regionName){
             filterQuery.append(" AND ")
             filterQuery.append("regionName:${ClientUtils.escapeQueryChars(params.regionName)}")
@@ -299,9 +296,6 @@ class SearchSolrService {
         query.setParam("q.op", "AND")
         def fq = ["type:${SolrType.PROJECT}"]
 
-        if (params.projectStatusType){
-            fq << "subType:${SolrSubType.fromOriginalType(params.projectStatusType)}"
-        }
         if (params.commissionType){
             fq << "commissions:${params.commissionType}"
         }

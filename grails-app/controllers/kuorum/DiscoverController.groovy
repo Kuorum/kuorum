@@ -4,10 +4,10 @@ import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.solr.SolrResults
-import kuorum.project.Project
-import kuorum.project.ProjectService
 import kuorum.post.Post
 import kuorum.post.PostService
+import kuorum.project.Project
+import kuorum.project.ProjectService
 import kuorum.solr.SearchSolrService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService

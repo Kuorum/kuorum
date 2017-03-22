@@ -58,22 +58,22 @@
     %{--<g:form mapping="searcherSearchFilters" role="form" name="searchFilters" data-updateElementId="search-list-id" rel="nofollow">--}%
     <g:form mapping="searcherSearch" role="form" name="searchFilters" rel="nofollow" method="GET">
         <ul>
-            <li>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="type" id="politicos" value="${kuorum.core.model.solr.SolrType.POLITICIAN}" ${searchParams.type == kuorum.core.model.solr.SolrType.POLITICIAN?'checked':''}>
-                        <span class="icon-user"></span> <g:message code="search.filters.SolrType.POLITICIAN"/>
-                    </label>
-                </div>
-            </li>
-            <li>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="type" id="candidates" value="${kuorum.core.model.solr.SolrType.CANDIDATE}" ${searchParams.type == kuorum.core.model.solr.SolrType.CANDIDATE?'checked':''}>
-                        <span class="icon-user"></span> <g:message code="search.filters.SolrType.CANDIDATE"/>
-                    </label>
-                </div>
-            </li>
+            %{--<li>--}%
+                %{--<div class="checkbox">--}%
+                    %{--<label>--}%
+                        %{--<input type="checkbox" name="type" id="politicos" value="${kuorum.core.model.solr.SolrType.POLITICIAN}" ${searchParams.type == kuorum.core.model.solr.SolrType.POLITICIAN?'checked':''}>--}%
+                        %{--<span class="icon-user"></span> <g:message code="search.filters.SolrType.POLITICIAN"/>--}%
+                    %{--</label>--}%
+                %{--</div>--}%
+            %{--</li>--}%
+            %{--<li>--}%
+                %{--<div class="checkbox">--}%
+                    %{--<label>--}%
+                        %{--<input type="checkbox" name="type" id="candidates" value="${kuorum.core.model.solr.SolrType.CANDIDATE}" ${searchParams.type == kuorum.core.model.solr.SolrType.CANDIDATE?'checked':''}>--}%
+                        %{--<span class="icon-user"></span> <g:message code="search.filters.SolrType.CANDIDATE"/>--}%
+                    %{--</label>--}%
+                %{--</div>--}%
+            %{--</li>--}%
             %{--<li>--}%
                 %{--<div class="checkbox">--}%
                     %{--<label>--}%
@@ -90,14 +90,14 @@
                     </label>
                 </div>
             </li>
-            <li>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="type" id="candidates" value="${kuorum.core.model.solr.SolrType.ORGANIZATION}" ${searchParams.type == kuorum.core.model.solr.SolrType.ORGANIZATION?'checked':''}>
-                        <span class="icon-user"></span> <g:message code="search.filters.SolrSubType.ORGANIZATION"/>
-                    </label>
-                </div>
-            </li>
+            %{--<li>--}%
+                %{--<div class="checkbox">--}%
+                    %{--<label>--}%
+                        %{--<input type="checkbox" name="type" id="candidates" value="${kuorum.core.model.solr.SolrType.ORGANIZATION}" ${searchParams.type == kuorum.core.model.solr.SolrType.ORGANIZATION?'checked':''}>--}%
+                        %{--<span class="icon-user"></span> <g:message code="search.filters.SolrSubType.ORGANIZATION"/>--}%
+                    %{--</label>--}%
+                %{--</div>--}%
+            %{--</li>--}%
             %{--<li>--}%
                 %{--<div class="checkbox">--}%
                     %{--<label>--}%

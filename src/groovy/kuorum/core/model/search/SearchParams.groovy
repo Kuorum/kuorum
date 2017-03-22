@@ -2,7 +2,6 @@ package kuorum.core.model.search
 
 import grails.validation.Validateable
 import kuorum.core.model.CommissionType
-import kuorum.core.model.solr.SolrSubType
 import kuorum.core.model.solr.SolrType
 
 /**
@@ -22,7 +21,7 @@ class SearchParams extends Pagination implements Serializable{
     /**
      * Filter by type: PROJECT, POST, USER
      */
-    SolrType type = SolrType.POLITICIAN
+    SolrType type = SolrType.KUORUM_USER
 
     SearchType searchType = SearchType.ALL
 
