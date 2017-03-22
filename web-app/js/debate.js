@@ -669,8 +669,8 @@ function SortProposals() {
     };
     this.proposalsOptions['best']={
         sort:function(a,b){
-            var aLikes = parseInt($(a).find(".comment-counter .fa-heart-o").next().text().trim());
-            var bLikes = parseInt($(b).find(".comment-counter .fa-heart-o").next().text().trim());
+            var aLikes = parseInt($(a).find(".comment-counter button.proposal-like .number").text().trim());
+            var bLikes = parseInt($(b).find(".comment-counter button.proposal-like .number").text().trim());
             return bLikes - aLikes;
         },
         filter:function(idx){return false;},
