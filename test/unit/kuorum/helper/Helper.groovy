@@ -1,11 +1,6 @@
 package kuorum.helper
 
-import kuorum.Institution
-import kuorum.KuorumFile
-import kuorum.PoliticalParty
 import kuorum.Region
-import kuorum.core.FileGroup
-import kuorum.core.model.CommissionType
 import kuorum.core.model.Gender
 import kuorum.core.model.PostType
 import kuorum.core.model.RegionType
@@ -44,11 +39,6 @@ class Helper {
         )
     }
 
-    public static final Post createDefaultPost(){
-        KuorumUser owner = createDefaultUser("postOwner@example.com")
-        Project project = createDefaultProject("#hashTagProjectDefault")
-        return createDefaultPost(owner, project)
-    }
 
     public static final KuorumUser createDefaultUser(String email){
         PersonData personalData = new PersonData(gender: Gender.MALE, studies: Studies.DOCTOR)
@@ -64,42 +54,6 @@ class Helper {
         )
     }
 
-    public static final Project createDefaultProject(String hashtag){
-        //Creates the new objects related with project: urlYoutube and pdfFile and a user which is related with the files.
-        KuorumUser owner = createDefaultUser("projectOwner@example.com")
-        KuorumFile pdfFile = new KuorumFile(
-                fileGroup: FileGroup.PDF,
-                temporal: true,
-                user: owner,
-                url: "http://kuorum.org",
-                local: true,
-                storagePath: "/tmp",
-                fileName: "test.pdf"
-        )
-        KuorumFile urlYoutube = new KuorumFile(
-                fileGroup: FileGroup.PROJECT_IMAGE,
-                temporal: true,
-                user: owner,
-                url: "http://kuorum.org",
-                local: false
-        )
-
-        new Project(
-                hashtag: hashtag,
-                shortName: "shortName${hashtag}",
-                realName: "realName${hashtag}",
-                description: "description${hashtag}",
-                commissions: [CommissionType.OTHERS],
-                region: creteDefaultRegion(),
-//                institution: creteDefaultInstitution(),
-                availableStats: Boolean.TRUE,
-                deadline: new Date() + 10,
-                pdfFile: pdfFile,
-                urlYoutube: urlYoutube,
-                shortUrl:new URL('http://ow.ly'),
-                owner: owner
-        )
-    }
 
     public static final Region creteDefaultRegion(){
         new Region(
@@ -109,14 +63,4 @@ class Helper {
         )
     }
 
-    public static final Institution creteDefaultInstitution(){
-        new Institution(
-                name:"Parlamento europer",
-                region: creteDefaultRegion()
-        )
-    }
-
-    public static final PoliticalParty createDefaultPoliticalParty(){
-        "Parlamento europer"
-    }
 }
