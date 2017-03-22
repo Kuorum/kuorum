@@ -1,5 +1,5 @@
 <!-- FILTRO Y BUSCADOR DE CAMPAÑAS -->
-<div class="box-ppal">
+<div class="box-ppal filterbox">
     <form class="form-horizontal" id="search-form-campaign">
         <fieldset class="form-group" id="toFilters">
             <div class="col-sm-3">
