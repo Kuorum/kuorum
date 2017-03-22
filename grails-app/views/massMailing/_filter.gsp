@@ -53,9 +53,7 @@
                 <g:if test="${anonymousFilter}">
                     <option value="${anonymousFilter.id}" ${command.filterId == anonymousFilter.id?'selected':''} data-amountContacts="${anonymousFilter.amountOfContacts}" data-anononymus="true">${anonymousFilter.name}</option>
                 </g:if>
-                %{--<g:if test="${totalContacts}">--}%
-                    <option value="-2" data-amountContacts="-"><g:message code="tools.massMailing.fields.filter.to.createNew"/></option>
-                %{--</g:if>--}%
+                <option value="-2" data-amountContacts="-"><g:message code="tools.massMailing.fields.filter.to.createNew"/></option>
             </select>
         </div>
         <div class="col-sm-4">

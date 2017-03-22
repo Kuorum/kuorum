@@ -32,6 +32,9 @@
                             <g:each in="${filters}" var="filter">
                                 <option value="${filter.id}" ${command.filterId == filter.id?'selected':''} data-amountContacts="${filter.amountOfContacts}">${filter.name}</option>
                             </g:each>
+                            <g:if test="${anonymousFilter}">
+                                <option value="${anonymousFilter.id}" data-amountContacts="${anonymousFilter.amountOfContacts}" data-orginal-filter-id="-2" ${command.filterId == anonymousFilter.id?'selected':''}>${anonymousFilter.name}</option>
+                            </g:if>
                             <option value="-2" data-amountContacts="-"><g:message code="tools.massMailing.fields.filter.to.createNew"/></option>
                         </select>
                     </div>
@@ -42,7 +45,7 @@
                             <span class="sr-only">Filter contacts</span>
                         </g:link>
                         <g:link mapping="politicianContactsSearch" elementId="infoToContacts">
-                            <span class="amountRecipients">${contacts.total}</span>
+                            <span class="amountRecipients">${anonymousFilter?anonymousFilter.amountOfContacts:contacts.total}</span>
                             <g:message code="tools.massMailing.fields.filter.recipients"/>
                             %{--<span class="fa fa-filter fa-lg"></span>--}%
                             %{--<span class="fa fa-search fa-lg"></span>--}%
@@ -96,7 +99,7 @@
                     </div>
                 </fieldset>
                 <div id="newFilterContainer">
-                    <g:render template="/contacts/filter/listFilterFieldSet" model="[filters:filters]"/>
+                    <g:render template="/contacts/filter/listFilterFieldSet" model="[filters:filters, anonymousFilter:anonymousFilter]"/>
                 </div>
             </form>
         </div>
