@@ -24,7 +24,7 @@
         <g:render template="/post/showModules/mainContent/postDataSocial" model="[post:post, postUser:postUser]"/>
 
         <div class="comment-counter pull-right">
-            <button type="button">
+            <button type="button" class="post-like" data-postId="${post.id}" data-userAlias="${post.userAlias}">
                 <span class="fa fa-heart-o" aria-hidden="true"></span>
                 <span class="number">${post.likes}</span>
             </button>

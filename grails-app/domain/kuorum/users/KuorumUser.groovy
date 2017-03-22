@@ -93,11 +93,6 @@ class KuorumUser {
      */
     Date lastNotificationChecked = new Date()
 
-    //Politician FIELDS
-//    PoliticalParty politicalParty
-//    Institution institution
-//    @Deprecated //Use ProfesionalDetails.region
-//    Region politicianOnRegion
     PoliticianActivity politicianActivity
 
     List<PoliticianRelevantEvent> relevantEvents

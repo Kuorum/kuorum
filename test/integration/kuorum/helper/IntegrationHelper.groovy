@@ -1,8 +1,6 @@
 package kuorum.helper
 
-import kuorum.Institution
 import kuorum.KuorumFile
-import kuorum.PoliticalParty
 import kuorum.Region
 import kuorum.core.FileGroup
 import kuorum.core.model.*
@@ -105,16 +103,4 @@ class IntegrationHelper {
         )
     }
 
-    public static final Institution creteDefaultInstitution(){
-        new Institution(
-                name:"Parlamento europer",
-                region: Region.findByIso3166_2AndRegionType("EU", RegionType.STATE) ?:creteDefaultRegion()
-        )
-    }
-
-    public static final PoliticalParty createDefaultPoliticalParty(){
-        new PoliticalParty(
-                name:"Parlamento europer"
-        )
-    }
 }

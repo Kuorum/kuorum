@@ -1,6 +1,7 @@
 package kuorum.post
 
 import grails.plugin.springsecurity.annotation.Secured
+import groovy.time.TimeCategory
 import kuorum.KuorumFile
 import kuorum.core.FileType
 import kuorum.files.FileService
@@ -113,8 +114,41 @@ class PostController {
         String msg
         PostRDTO postRDTO = convertCommandToPost(command, user, anonymousFilter)
 
-        PostRSDTO savedPost = postService.savePost(user, postRDTO, postId)
-        msg = 'Posted'
+        PostRSDTO savedPost = new PostRSDTO()
+        if(command.publishOn){
+            // Published or Scheduled
+            savedPost = postService.savePost(user, postRDTO, postId)
+
+            Date date = new Date()
+            Date after5minutes = new Date()
+
+            // If Scheduled in the next 5 minutes, consider published
+            use (TimeCategory){
+                after5minutes = date + 5.minutes
+            }
+
+            if(command.publishOn < after5minutes){
+                // Shceduled over 5 minutes
+                msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
+                        savedPost.title,
+                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
+                ])
+            }
+            else {
+                // Published or scheduled within 5 minutes
+                msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
+                        savedPost.title
+                ])
+            }
+        }
+        else {
+            // Draft
+            savedPost = postService.savePost(user, postRDTO, postId)
+            msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [
+                    savedPost.title
+            ])
+        }
+
 
         [msg: msg, post: savedPost]
 
@@ -182,9 +216,6 @@ class PostController {
         else if (postRSDTO.videoUrl?.contains("youtube")){
             postCommand.videoPost = postRSDTO.videoUrl
         }
-
-        // Filters
-        //postCommand.filterId = postRSDTO.anonymousFilter?.id ?: null
 
         postCommand
     }

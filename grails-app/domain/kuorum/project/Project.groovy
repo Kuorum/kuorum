@@ -10,6 +10,7 @@ import kuorum.core.model.project.ProjectBasicStats
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
 
+@Deprecated
 @MongoUpdatable
 class Project {
 

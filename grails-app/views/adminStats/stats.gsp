@@ -112,16 +112,6 @@
             <dt><g:message code="admin.stats.totalStats.columnC.closeProjects"/></dt><dd>${totalStats.closeProjects} </dd>
             <dt><g:message code="admin.stats.totalStats.columnC.numPosts"/></dt><dd>${totalStats.numPosts} </dd>
             <dt><g:message code="admin.stats.totalStats.columnC.numVictories"/></dt><dd>${totalStats.numVictories} </dd>
-            %{--<dt>Tipo de ley</dt><dd>Proyecto de ley</dd>--}%
-            %{--<dt><g:message code="project.stats.columnC.infoProject.proposalBy"/></dt><dd>${project.politicalParty.name}</dd>--}%
-            %{--<dt><g:message code="project.stats.columnC.infoProject.commissions"/></dt>--}%
-            %{--<dd>--}%
-                %{--<g:set var="comma" value=""/>--}%
-                %{--<g:each in="${project.commissions}" var="commission">--}%
-                    %{--<g:message code="${kuorum.core.model.CommissionType.name}.${commission}"/>${comma}--}%
-                    %{--<g:set var="comma" value=", "/>--}%
-                %{--</g:each>--}%
-            %{--</dd>--}%
         </dl>
     </section>
 </content>

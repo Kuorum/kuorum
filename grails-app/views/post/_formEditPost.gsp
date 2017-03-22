@@ -1,8 +1,8 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO; kuorum.core.FileType; kuorum.web.constants.WebConstants; kuorum.core.FileGroup; org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <r:require modules="datepicker" />
-<h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
+<h1 class="sr-only"><g:message code="admin.createPost.title"/></h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" />
-<form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
+<form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.PostCommand.form.genericError')}">
     <input type="hidden" name="postId" value="${post.id?:''}"/>
 
     <!-- Hidden inputs -->
@@ -11,7 +11,7 @@
         <g:render template="/massMailing/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true, showOnly: false, hide:false]"/>
     </g:if>
     <fieldset class="form-group">
-        <label for="title" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
+        <label for="title" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.PostCommand.title.label"/>:</label>
         <div class="col-sm-8 col-md-7">
             <formUtil:input command="${command}" field="title"/>
         </div>
@@ -25,7 +25,7 @@
     </fieldset>
 
     <fieldset class="form-group multimedia">
-        <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:</label>
+        <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.PostCommand.image.label"/>:</label>
         <div class="col-sm-8 col-md-7">
             <span class="span-label sr-only"><g:message code="admin.createProject.upload.imageOrVideo" /></span>
             <input type="hidden" name="fileType" value="${(command.fileType == kuorum.core.FileType.YOUTUBE.toString())?'YOUTUBE':'IMAGE'}" id="fileType">
@@ -46,7 +46,7 @@
 
                 <div class="tab-pane fade ${command.videoPost?'in active':''}" id="projectUploadYoutube">
                     <div class="video" data-multimedia-switch="on" data-multimedia-type="YOUTUBE">
-                        <formUtil:url command="${command}" field="videoPost" placeHolder="${g.message(code: "kuorum.web.commands.payment.massMailing.DebateCommand.videoPost.placeholder")}"/>
+                        <formUtil:url command="${command}" field="videoPost" placeHolder="${g.message(code: "kuorum.web.commands.payment.massMailing.PostCommand.videoPost.placeholder")}"/>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,27 @@
     <fieldset class="buttons">
         <div class="text-right">
             <ul class="form-final-options">
-                <li><input class="btn btn-blue inverted" id="save-post" type="submit" value="${g.message(code: "tools.massMailing.save")}" /></li>
+                <g:if test="${post.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+                    <li>
+                        <a href="#" id="save-draft-debate">
+                            <g:message code="tools.massMailing.saveDraft"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-blue inverted" role="button" id="openCalendarPost">
+                            <span class="fa fa-clock-o"></span>
+                            <g:message code="tools.massMailing.schedule"/>
+                        </a>
+                        <div id="selectDate">
+                            <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
+                            <formUtil:date command="${command}" field="publishOn" cssClass="form-control" time="true"/>
+                            <a href="#" class="btn btn-blue inverted" id="send-debate-later">
+                                <g:message code="tools.massMailing.schedule.sendLater"/>
+                            </a>
+                        </div>
+                    </li>
+                </g:if>
+                <li><input class="btn btn-blue inverted" id="send-post" type="submit" value="${g.message(code: "tools.massMailing.send")}" /></li>
             </ul>
         </div>
     </fieldset>
