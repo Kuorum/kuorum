@@ -24,7 +24,7 @@
         <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <div class="box-ppal">
+    <div class="box-ppal campaign-new">
          <g:render template="types/massMailing" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
     </div>
     <g:render template="timeZoneSelectorPopUp"/>

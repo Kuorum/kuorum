@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        <g:message code="admin.createDebate.title"/>
+        <g:message code="tools.campaign.new.post"/>
     </g:set>
 
     <title>${breadCrumbName}</title>
@@ -18,7 +18,7 @@
         <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <div class="box-ppal">
+    <div class="box-ppal campaign-new">
         <g:render template="/post/form" model="[command: command, filters: filters, totalContacts: totalContacts, debateId: debateId, anonymousFilter: anonymousFilter]"/>
     </div>
     <g:render template="/massMailing/timeZoneSelectorPopUp"/>

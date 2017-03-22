@@ -989,8 +989,9 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .bootstrap-filestyle .btn {border-radius: 0 !important;}
 .bootstrap-filestyle .input-group-btn {outline: none;}
 
+.box-ppal.edit-contact, .box-ppal.edit-contact-header {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .box-ppal.import-contacts, .box-ppal.dashboard {padding: 25px 0 10px;}
-.breadcrumb + .box-ppal.import-contacts, .breadcrumb + .box-ppal.dashboard {margin-top: 0;}
+.breadcrumb + .box-ppal.import-contacts, .breadcrumb + .box-ppal.dashboard {margin-top: 0; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .breadcrumb + .box-ppal.import-contacts {padding-bottom: 0; margin-bottom:20px}
 .box-ppal .bootstrap-filestyle {margin-bottom: 20px;}
 .box-ppal.import-contacts > p,
@@ -998,7 +999,7 @@ section.links li a {font-size: 11px; font-size: 1.1rem; color: #a8a8a8; padding:
 .box-ppal.choose-campaign > p {color: #a8a8a8; text-align: center; font-size: 17px; font-size: 1.7rem; max-width: 800px; margin: 0 auto 20px; padding: 0 1em;}
 .box-ppal.import-contacts > p a {color: #20a2ea;}
 .box-ppal.import-contacts form {margin-bottom: 30px;}
-.box-ppal.import-contacts-videos {padding: 25px 25px 0 25px;}
+.box-ppal.import-contacts-videos {padding: 25px 25px 0 25px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .box-ppal.import-contacts-videos h1 {font-size: 21px; font-size: 2.1rem; color: #a8a8a8; margin-bottom: 22px;}
 .box-ppal.import-contacts-videos iframe {width: 100%; margin-bottom: 40px;}
 
@@ -1411,7 +1412,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #mails li > #outlook {background-image: url('../images/mail-outlook.png'); background-position: center 10px;}
 #mails li > #uploadFile {padding-top: 34px;}
 
-.container-fluid.box-ppal.choose-campaign {padding:30px 0px;}
+.container-fluid.box-ppal.choose-campaign {padding:70px 0px 50px 0px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 #mails {margin:0 auto; width:24em;}
 #mails li.fontIcon > a {padding:16px 2px;}
 #mails li.fontIcon > a > span.fa {font-size: 2em;width: 100%;margin-bottom: 10px;}
@@ -4064,7 +4065,7 @@ article #detailsInfoVotes .infoVotes > span {margin-left: 5px;}
 .politician-list .box-ppal .user .user-type {margin: 0; padding: 0; font-size: 20px; font-size: 2rem; line-height: .9;}
 .politician-list .box-ppal > small {display: block; float: left; width: 50%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; color: #20A2ea;}
 .politician-list .box-ppal > small .fa {opacity: .5;}
-.politician-list .box-ppal {padding: 0; margin: 0 0 20px 0;}
+.politician-list .box-ppal {padding: 0; margin: 0 0 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .politician-list .box-ppal .link-wrapper {padding-bottom: 10px;}
 .politician-list .box-ppal .link-wrapper > p {padding: 0 15px; font-size: 13px; font-size: 1.3rem; margin: 0;}
 .politician-list .box-ppal > .pull-right {width: 42%; margin: 0; padding: 10px; font-size: 18px; font-size: 1.8rem; text-align: right;}
@@ -4242,7 +4243,7 @@ fieldset.rating:hover > input + label:hover:before {
 /* CAUSAS */
 .causes-list {margin-top: 0; margin-bottom: 0; padding: 0;}
 .causes-list .link-wrapper .close {margin-top: -2px;}
-.causes-list .box-ppal {padding: 15px 15px 10px 15px; margin-bottom: 20px;}
+.causes-list .box-ppal {padding: 15px 15px 10px 15px; margin-bottom: 20px;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .causes-list .causes-tags {margin-bottom: 10px;}
 .causes-list .cause-footer {border-top: 1px solid #e5e5e5; margin-top: 10px; padding: 10px 0 0 0; color: #a8a8a8; font-size: 13px; font-size: 1.3rem;}
 .causes-list .cause-footer .politicians-counter .fa-user {font-size: 16px; font-size: 1.6rem; margin-right: 2px;}
@@ -4621,7 +4622,7 @@ fieldset.rating:hover > input + label:hover:before {
 
 /* configuración =========== */
 /* ====================================================== */
-.config > header .box-ppal {padding: 0;}
+.config > header .box-ppal {padding: 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .config > header h1 {border-bottom: 1px solid #dadada; padding: 20px 15px 18px; margin: 0;}
 .config > header ul {margin: 0; padding: 0;}
 .config > header ul > li {list-style: none; padding: 15px 20px; margin: 0; border-bottom: 1px solid #dadada; font-size: 1.9rem;}
@@ -4636,6 +4637,10 @@ fieldset.rating:hover > input + label:hover:before {
 .config > header ul > li > a:active > .badge,
 .config > header ul > li.active > a > .badge {background-color: #ffffff; color: #545454;}
 
+.config.config > section {box-shadow: 0 0 2px rgba(200,200,200,0.6); padding: 0;margin-bottom:60px}
+.config.search > section {box-shadow: none; padding: 0 15px;margin-bottom:0}
+.config.info.team > section {box-shadow: none; padding: 0 15px; margin-bottom:60px}
+.config > section > div.box-ppal{margin-bottom:0;}
 .config > section .filter-order {margin: 0; padding: 0 0 20px 0; border-bottom: 1px solid #dadada;}
 .config > section .filter-order > li {list-style: none; display: block; margin: 0 4% 0 0; color: #bcbcbc; font-size: 18px; font-size: 1.8rem; text-align: right;}
 .config > section .filter-order > li:first-child {text-align: left;}
@@ -4680,7 +4685,7 @@ fieldset.rating:hover > input + label:hover:before {
 .config .messages-list > li > .link-wrapper > .actions li:last-child {margin: 0;}
 .config .messages-list > li > .link-wrapper > .actions li a {text-decoration: none; color: #a8a8a8;}
 .config .messages-list > li > .link-wrapper > .actions li a .icon2-flame.fa-lg {font-size: 1.7em; line-height: 1.4;}
-.config .messages-list > .box-ppal {padding: 0; margin: 0 0 20px 0;}
+.config .messages-list > .box-ppal {padding: 0; margin: 0 0 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 
 .config form .form-group .prefix {margin-right: 10px; width: 80px;}
 .config form .form-group .phone {width: 192px;}
@@ -4772,7 +4777,7 @@ fieldset.rating:hover > input + label:hover:before {
 
 /* Info */
 .config.info > article {margin-bottom: 20px;}
-.config.info > article > .box-ppal {margin-bottom: 20px; padding: 22px 20px 0;}
+.config.info > article > .box-ppal {margin-bottom: 20px; padding: 22px 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .config.info > article > .box-ppal > h1 {font-size: 28px; font-size: 2.8rem; padding: 0; margin: 5px 0 15px 0;}
 .config.info > article > .box-ppal > img {margin-bottom: 20px;}
 
@@ -4781,7 +4786,7 @@ fieldset.rating:hover > input + label:hover:before {
 .list-team {text-align: center;}
 .list-team > li {width: 100%; margin-bottom: 15px;}
 .list-team > li > .box-ppal > img {width: 140px; height: 140px; border-radius: 70px; border: solid 5px #fff; margin: 0 0 10px 0;}
-.list-team > li > .box-ppal {padding: 20px; margin: 0; /* min-height: 485px; margin: 0 0 10px;*/}
+.list-team > li > .box-ppal {padding: 20px; margin: 0; box-shadow: 0 0 2px rgba(200,200,200,0.6); /* min-height: 485px; margin: 0 0 10px;*/}
 .list-team > li > .box-ppal > h1 {padding: 0; font-size: 33px; font-size: 3.3rem; margin: 0 0 5px 0;}
 .list-team > li > .box-ppal > h2 {padding: 0; font-size: 20px; font-size: 2rem; margin: 0 0 20px 0; color: #a8a8a8;}
 .list-team > li > .box-ppal > p,
@@ -5093,7 +5098,7 @@ fieldset.multimedia ul.nav.nav-pills.nav-justified li:last-child a {border-radiu
 .config.discover header .box-ppal > ul > li .dropdown-menu > li a:focus {text-decoration: none;}
 .config.discover #load-more,
 .config.search #load-more {margin: 0;}
-.config.discover > article > .box-ppal {padding: 22px 15px 0;}
+.config.discover > article > .box-ppal {padding: 22px 15px 0; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 
 .box-ppal.politician-messages {text-align: center; margin-top: 50px; padding-bottom: 40px;}
 .box-ppal.politician-messages h1 {padding: 0; margin: 0;}
@@ -5319,6 +5324,13 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         background-position: center 12%;
         padding: 4% 0 0;
     }
+
+    #listCampaigns > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #searchContacts > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #searchContacts > div#listContacts {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #main > div.box-ppal.campaign-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #main > div.box-ppal.campaign-new {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 50px;}*/
 

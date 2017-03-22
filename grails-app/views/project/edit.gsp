@@ -19,7 +19,7 @@
         <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <div class="box-ppal">
+    <div class="box-ppal campaign-new">
         <ul class="nav nav-tabs simple" data-tabs="tabs">
             <li role="presentation" class="disabled"><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.type.massMailing"/></g:link></li>
             <li role="presentation" class="active"><a href="#debate" data-toggle="tab"><g:message code="tools.campaign.type.debate"/></a></li>
