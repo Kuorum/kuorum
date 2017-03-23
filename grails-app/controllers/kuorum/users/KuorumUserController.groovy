@@ -4,11 +4,8 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.campaign.Campaign
 import kuorum.campaign.CampaignService
 import kuorum.causes.CausesService
-import kuorum.core.model.UserType
-import kuorum.core.model.kuorumUser.UserParticipating
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchUserPosts
-import kuorum.core.model.solr.SolrType
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.project.Project
@@ -16,16 +13,14 @@ import kuorum.register.RegisterService
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.kuorumUser.news.UserNewRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
-import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
-import org.springframework.web.servlet.LocaleResolver
 import payment.campaign.DebateService
 import payment.campaign.MassMailingService
 import springSecurity.KuorumRegisterCommand
 
-import javax.imageio.spi.RegisterableService
 import javax.servlet.http.HttpServletResponse
 
 class KuorumUserController {
@@ -100,6 +95,7 @@ class KuorumUserController {
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
         List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.datePublished && it.datePublished < new Date()}
+        List<PostRSDTO> posts = postService.findAllPosts(user).findAll{it.datePublished && it.datePublished < new Date()}
         [
                 politician:user,
                 recommendPoliticians:recommendPoliticians,
@@ -107,7 +103,8 @@ class KuorumUserController {
                 causes:causes,
                 userReputation: userReputationRSDTO,
                 userNews:userNews,
-                debates:debates
+                debates:debates,
+                posts: posts
         ]
     }
 

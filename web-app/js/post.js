@@ -50,7 +50,7 @@ $(function () {
         });
     }
 
-    var likeButton = $('.leader-post > .footer button');
+    var likeButton = $('.post-like');
     likeButton.click(binding);
 
     function binding (e){

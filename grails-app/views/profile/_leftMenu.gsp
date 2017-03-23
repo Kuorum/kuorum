@@ -1,4 +1,4 @@
-<h1><g:message code="profile.leftMenu.title"/></h1>
+<h1><g:message code="page.title.profile.editUser"/></h1>
 <ul>
     <li class="${activeMapping=='profileEditUser'?'active':''}">
         <g:link mapping="profileEditUser"><g:message code="profile.menu.profileEditUser"/></g:link>
