@@ -269,7 +269,7 @@ class KuorumUserTagLib {
         String faIcon = ""
         String tooltip = "";
         if (user.userType == UserType.PERSON){
-            faIcon = "fa-child"
+            faIcon = "icon-megaphone"
             tooltip = message(code:'kuorum.core.model.UserType.PERSON');
         }else if (user.userType == UserType.ORGANIZATION){
             faIcon = "fa-university"
