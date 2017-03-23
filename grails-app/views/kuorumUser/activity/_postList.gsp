@@ -24,7 +24,7 @@
             <div class="card-footer">
                 <ul>
                     <li>
-                        <a class=".post-like">
+                        <a class="post-like">
                             <span class="fa fa-heart-o fa-lg"></span>
                             <span class="label">${post.likes}</span>
                         </a>
