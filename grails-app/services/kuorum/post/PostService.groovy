@@ -40,12 +40,14 @@ class PostService {
 
     PostRSDTO savePost(KuorumUser user, PostRDTO postRDTO, Long postId){
 
+        PostRDTO post = null;
         if (postId) {
-            updatePost(user, postRDTO, postId)
+            post= updatePost(user, postRDTO, postId)
         } else {
-            createPost(user, postRDTO)
+            post= createPost(user, postRDTO)
         }
-
+        indexSolrService.deltaIndex();
+        post
     }
 
     PostRSDTO createPost(KuorumUser user, PostRDTO postRDTO){

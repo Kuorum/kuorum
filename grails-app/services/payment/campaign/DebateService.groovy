@@ -3,6 +3,7 @@ package payment.campaign
 import com.fasterxml.jackson.core.type.TypeReference
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
+import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.DebateRDTO
@@ -14,6 +15,7 @@ import java.text.SimpleDateFormat
 class DebateService {
 
     RestKuorumApiService restKuorumApiService
+    IndexSolrService indexSolrService
 
     List<DebateRSDTO> findAllDebates(KuorumUser user) {
         Map<String, String> params = [userAlias: user.id.toString()]
@@ -69,6 +71,7 @@ class DebateService {
         } else {
             createDebate(user, debateRDTO)
         }
+        indexSolrService.deltaIndex();
     }
 
     DebateRSDTO createDebate(KuorumUser user, DebateRDTO debateRDTO) {
