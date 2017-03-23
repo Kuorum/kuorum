@@ -222,6 +222,7 @@ class PostController {
         postCommand
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def likePost(LikePostCommand command){
         KuorumUser currentUser= springSecurityService.currentUser;
         postService.likePost(command.postId, currentUser, command.like, command.userAlias);
