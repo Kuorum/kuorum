@@ -66,12 +66,14 @@ class DebateService {
         }
         debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 
+        DebateRSDTO debate
         if (debateId) {
-            updateDebate(user, debateRDTO, debateId)
+            debate = updateDebate(user, debateRDTO, debateId)
         } else {
-            createDebate(user, debateRDTO)
+            debate = createDebate(user, debateRDTO)
         }
         indexSolrService.deltaIndex();
+        return debate;
     }
 
     DebateRSDTO createDebate(KuorumUser user, DebateRDTO debateRDTO) {
