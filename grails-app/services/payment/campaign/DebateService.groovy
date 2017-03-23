@@ -34,7 +34,11 @@ class DebateService {
     }
 
     DebateRSDTO findDebate(KuorumUser user, Long debateId, String viewerUid = null) {
-        Map<String, String> params = [userAlias: user.id.toString(), debateId: debateId.toString()]
+        findDebate(user.getId().toString(), debateId, viewerUid);
+    }
+
+    DebateRSDTO findDebate(String userId, Long debateId, String viewerUid = null) {
+        Map<String, String> params = [userAlias: userId, debateId: debateId.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)

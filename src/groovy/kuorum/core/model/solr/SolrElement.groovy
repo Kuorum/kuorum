@@ -16,7 +16,7 @@ class SolrElement {
     List<String> tags
     String urlImage
     Long kuorumRelevance
-    Long numberPeopleInterestedFor
+    String text
 
     //Not used for indexig. Is only for recovering data. On indexation time is skipped
     SolrHighlighting highlighting = new SolrHighlighting(element:this)

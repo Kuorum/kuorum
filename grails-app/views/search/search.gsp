@@ -11,22 +11,22 @@
 
 
 <content tag="mainContent">
-    %{--<div class="clearfix">--}%
-        %{--<g:if test="${searchParams.word}">--}%
-            %{--<h5><g:message code="search.head.title.filterType.${searchParams.type}" args="[searchParams.word?.encodeAsHTML()]"/> </h5>--}%
-            %{--<h5 id="results"><g:message code="search.head.title.numResults" args="[docs.numResults]"/> </h5>--}%
-        %{--</g:if>--}%
-        %{--<g:else>--}%
-            %{--<h1><g:message code="search.head.title.noWord"/> </h1>--}%
-        %{--</g:else>--}%
-    %{--</div>--}%
-    <g:if test="${docs.suggest}">
-        <p><g:message code="search.spelling"/> <g:link mapping="searcherSearch" params="[word:docs.suggest.suggestedQuery, type:searchParams.type]" > ${docs.suggest.suggestedQuery} </g:link>(${docs.suggest.hits})</p>
-    </g:if>
+    <div class="clearfix">
+        <g:if test="${searchParams.word}">
+            <h5><g:message code="search.head.title.filterType.${searchParams.type}" args="[searchParams.word?.encodeAsHTML()]"/> </h5>
+            <h5 id="results"><g:message code="search.head.title.numResults" args="[docs.numResults]"/> </h5>
+        </g:if>
+        <g:else>
+            <h1><g:message code="search.head.title.noWord"/> </h1>
+        </g:else>
+    </div>
+    %{--<g:if test="${docs.suggest}">--}%
+        %{--<p><g:message code="search.spelling"/> <g:link mapping="searcherSearch" params="[word:docs.suggest.suggestedQuery, type:searchParams.type]" > ${docs.suggest.suggestedQuery} </g:link>(${docs.suggest.hits})</p>--}%
+    %{--</g:if>--}%
 
     <g:set var="cssClassUL" value=""/>
-    <g:if test="${searchParams.type == SolrType.PROJECT}">
-        <g:set var="cssClassUL" value="kakareo-list project clearfix"/>
+    <g:if test="${searchParams.type == SolrType.DEBATE}">
+        <g:set var="cssClassUL" value="campaign-list clearfix"/>
     </g:if>
     <g:elseif test="${searchParams.type == SolrType.POST}">
         <g:set var="cssClassUL" value="kakareo-list"/>
@@ -90,14 +90,14 @@
                     </label>
                 </div>
             </li>
-            %{--<li>--}%
-                %{--<div class="checkbox">--}%
-                    %{--<label>--}%
-                        %{--<input type="checkbox" name="type" id="candidates" value="${kuorum.core.model.solr.SolrType.ORGANIZATION}" ${searchParams.type == kuorum.core.model.solr.SolrType.ORGANIZATION?'checked':''}>--}%
-                        %{--<span class="icon-user"></span> <g:message code="search.filters.SolrSubType.ORGANIZATION"/>--}%
-                    %{--</label>--}%
-                %{--</div>--}%
-            %{--</li>--}%
+            <li>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="type" id="search-debates" value="${kuorum.core.model.solr.SolrType.DEBATE}" ${searchParams.type == kuorum.core.model.solr.SolrType.DEBATE?'checked':''}>
+                        <span class="fa fa-comments-o"></span> <g:message code="search.filters.SolrType.DEBATE"/>
+                    </label>
+                </div>
+            </li>
             %{--<li>--}%
                 %{--<div class="checkbox">--}%
                     %{--<label>--}%
