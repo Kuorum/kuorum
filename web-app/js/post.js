@@ -8,13 +8,12 @@ $(function () {
 var postFunctions = {
     bindLikeClick: function(event){
         event.preventDefault();
-        var $button = $(event.target);
+        var $button = $(this);
         postFunctions.onClickPostLike($button);
     },
     onClickPostLike:function($button) {
 
         $button.off('click');
-
         var postId = $button.attr('data-postId');
         var userAlias = $button.attr('data-userAlias');
         var url = $button.attr('data-urlAction');
