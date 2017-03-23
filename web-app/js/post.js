@@ -1,9 +1,19 @@
 $(function () {
 
+    var likeButton = $('.post-like');
+    likeButton.on("click", postFunctions.bindLikeClick);
 
-    function onClickPostLike($button) {
+});
 
-        $button.off('click', '.post-like');
+var postFunctions = {
+    bindLikeClick: function(event){
+        event.preventDefault();
+        var $button = $(event.target);
+        postFunctions.onClickPostLike($button);
+    },
+    onClickPostLike:function($button) {
+
+        $button.off('click');
 
         var postId = $button.attr('data-postId');
         var userAlias = $button.attr('data-userAlias');
@@ -45,19 +55,9 @@ $(function () {
                 }
             },
             complete: function(){
-                $button.on('click', '.post-like', binding);
+                $button.on('click', postFunctions.bindLikeClick);
             }
         });
     }
-
-    var likeButton = $('.post-like');
-    likeButton.click(binding);
-
-    function binding (e){
-        e.preventDefault();
-        var $button = $(this);
-        onClickPostLike($button);
-    }
-
-});
+}
 

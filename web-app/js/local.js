@@ -1057,6 +1057,8 @@ $(document).ready(function() {
     $('.link-wrapper .card-footer .post-like').click(function(e) {
         e.preventDefault();
         e.stopPropagation();
+        var $button = $(this)
+        postFunctions.onClickPostLike($button)
     });
 
 
