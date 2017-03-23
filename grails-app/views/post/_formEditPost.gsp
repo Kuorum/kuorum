@@ -63,7 +63,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="btn btn-blue inverted" role="button" id="openCalendarPost">
+                        <a href="#" class="btn btn-blue inverted" role="button" id="openCalendar">
                             <span class="fa fa-clock-o"></span>
                             <g:message code="tools.massMailing.schedule"/>
                         </a>
@@ -75,8 +75,9 @@
                             </a>
                         </div>
                     </li>
+                    <li><input class="btn btn-blue inverted" id="send-draft" type="submit" value="${g.message(code: "tools.massMailing.send")}" /></li>
                 </g:if>
-                <li><input class="btn btn-blue inverted" id="send-post" type="submit" value="${g.message(code: "tools.massMailing.send")}" /></li>
+                <li><input class="btn btn-blue inverted" id="save-draft" type="submit" value="${g.message(code: "tools.massMailing.save")}" /></li>
             </ul>
         </div>
     </fieldset>

@@ -95,6 +95,28 @@ class PostService {
         postSaved
     }
 
+    void likePost (Long postId, KuorumUser currentUser, Boolean like, String userAlias){
+        Map<String, String> params = [userAlias: userAlias, postId: postId.toString()]
+        Map<String, String> query = [viewerUid: currentUser.id.toString()]
+        if(like){
+            def response = restKuorumApiService.put(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_POST_LIKES,
+                    params,
+                    query,
+                    null,
+                    new TypeReference<PostRSDTO>(){}
+            );
+        }
+        else {
+            def response = restKuorumApiService.delete(
+                    RestKuorumApiService.ApiMethod.ACCOUNT_POST_LIKES,
+                    params,
+                    query
+            );
+        }
+
+    }
+
     /**
      * Checks if the users can delete/moderate a comment
      *

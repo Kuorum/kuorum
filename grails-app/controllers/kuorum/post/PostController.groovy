@@ -10,6 +10,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.PostCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
+import kuorum.web.commands.payment.massMailing.post.LikePostCommand
 import org.kuorum.rest.model.communication.post.PostRDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
@@ -218,6 +219,12 @@ class PostController {
         }
 
         postCommand
+    }
+
+    def likePost(LikePostCommand command){
+        KuorumUser currentUser= springSecurityService.currentUser;
+        postService.likePost(command.postId, currentUser, command.like, command.userAlias);
+        render "ok";
     }
 
 }

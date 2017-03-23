@@ -20,7 +20,7 @@ $(function(){
     }
 
     // Abrir modal confirmar envio de debate
-    $('body').on('click','.form-final-options #send', function(e) {
+    $('body').on('click','.form-final-options #send-draft', function(e) {
         e.preventDefault();
         if (isValidDebateForm()) {
             // Autoset publish day for today

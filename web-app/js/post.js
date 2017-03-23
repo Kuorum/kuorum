@@ -1,38 +1,63 @@
 $(function () {
 
-    console.log("Post");
-    $(window).load(function () {
 
-        function onClickPostLike(e) {
+    function onClickPostLike($button) {
 
-            e.preventDefault();
+        $button.off('click', '.post-like');
 
-            var $button = $(this);
+        var postId = $button.attr('data-postId');
+        var userAlias = $button.attr('data-userAlias');
+        var url = $button.attr('data-urlAction');
 
-            $button.off("click", ".post-like");
+        var like = $button.find('.fa').hasClass('fa-heart-o');
 
-            var postId = $button.attr('data-postId');
-            var userAlias = $button.attr('data-userAlias');
-
-            var like = $button.attr('class', "fa-heart-o");
-
-            $button.toggleClass("active");
-            $button.attr('class', "fa").toggleClass("fa-heart-o fa-heart");
-            var count = parseInt($button.attr('class', "number").text());
-            console.log("El número es" + count);
-            if (like) {
-                $button.find(".number").text(count + 1)
-                console.log('LIKE!');
-            } else {
-                $button.find(".number").text(count - 1)
-            }
+        $button.toggleClass('active');
+        $button.find('.fa').toggleClass("fa-heart-o fa-heart");
+        var count = parseInt($button.find('.number').text());
+        if (like) {
+            $button.find('.number').text(count + 1);
+        } else {
+            $button.find('.number').text(count - 1);
         }
 
-        var likeButton = $('.leader-post > .footer button');
-        likeButton.click(function (e) {
-            onClickPostLike(e);
-        });
+        var data = {
+            postId: postId,
+            userAlias: userAlias,
+            like: like
+        };
 
-    });
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function(){
+                //
+            },
+            error: function(){
+                // Restore counter
+                $button.toggleClass('active');
+                $button.find('.fa').toggleClass('fa-heart-o fa-heart');
+                var count = parseInt($button.find('.number').text());
+                if(like){
+                    $button.find('.number').text(count - 1);
+                } else {
+                    $button.find('.number').text(count + 1);
+                }
+            },
+            complete: function(){
+                $button.on('click', '.post-like', binding);
+            }
+        });
+    }
+
+    var likeButton = $('.leader-post > .footer button');
+    likeButton.click(binding);
+
+    function binding (e){
+        e.preventDefault();
+        var $button = $(this);
+        onClickPostLike($button);
+    }
+
 });
 

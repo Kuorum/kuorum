@@ -7919,7 +7919,8 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box .footer .comment-counter button:hover,
-.conversation-box .footer .comment-counter button.active {
+.conversation-box .footer .comment-counter button.active,
+.leader-post .footer .comment-counter button.active{
     color: #00a3ed;
     text-decoration: none;
 }

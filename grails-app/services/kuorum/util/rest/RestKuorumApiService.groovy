@@ -89,7 +89,7 @@ class RestKuorumApiService {
 
         ACCOUNT_POSTS           ("/communication/post/{userAlias}"),
         ACCOUNT_POST            ("/communication/post/{userAlias}/{postId}"),
-        ACCOUNT_POST_LIKES      ("/communication/post/{userAlias}/likes"),
+        ACCOUNT_POST_LIKES      ("/communication/post/{userAlias}/{postId}/likes"),
 
 
         ADMIN_MAILS_SEND("/admin/notification/mailing/send");
