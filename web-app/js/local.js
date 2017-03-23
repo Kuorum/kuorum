@@ -953,18 +953,24 @@ $(document).ready(function() {
         e.preventDefault();
         e.stopPropagation();
         var $form = $(this).parents("form[name=login-header]");
-        modalLogin($form, function(){
-            document.location.reload();
-        });
+        var callback = $form.attr("callback")
+        var callbackFunction = noLoggedCallbacks[callback]
+        if (noLoggedCallbacks[callback] == undefined){
+            callbackFunction = noLoggedCallbacks.reloadPage
+        }
+        modalLogin($form, callbackFunction);
     });
 
     $('#registro form[name=signup-modal] input[type=submit]').on('click', function(e){
         e.preventDefault();
         e.stopPropagation();
         var $form = $(this).parents("form[name=signup-modal]");
-        modalRegister($form, function(){
-            document.location.reload();
-        });
+        var callback = $form.attr("callback")
+        var callbackFunction = noLoggedCallbacks[callback]
+        if (noLoggedCallbacks[callback] == undefined){
+            callbackFunction = noLoggedCallbacks.reloadPage
+        }
+        modalRegister($form, callbackFunction);
     });
 
     // Funcionamiento de los radio button como nav-tabs
@@ -1525,6 +1531,12 @@ function counterCharacters(idField) {
             charsCountEl.text( totalChars - thisChars );
         }
     });
+}
+
+var noLoggedCallbacks = {
+    reloadPage : function(){
+        document.location.reload();
+    }
 }
 
 

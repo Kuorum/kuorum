@@ -14,6 +14,5 @@
 
 <content tag="cColumn">
     <g:render template="showModules/cColumn" model="[debate: debate, debateUser: debateUser, proposalPage:proposalPage]" />
-    <g:render template="showModules/modalLogin" model="[debate: debate, debateUser: debateUser]" />
 </content>
 
