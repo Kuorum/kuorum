@@ -100,9 +100,10 @@ class PostService {
         postSaved
     }
 
-    void likePost (Long postId, KuorumUser currentUser, Boolean like, String userAlias){
+    PostRSDTO likePost (Long postId, KuorumUser currentUser, Boolean like, String userAlias){
         Map<String, String> params = [userAlias: userAlias, postId: postId.toString()]
         Map<String, String> query = [viewerUid: currentUser.id.toString()]
+        PostRSDTO postRSDTO;
         if(like){
             def response = restKuorumApiService.put(
                     RestKuorumApiService.ApiMethod.ACCOUNT_POST_LIKES,
@@ -111,15 +112,18 @@ class PostService {
                     null,
                     new TypeReference<PostRSDTO>(){}
             );
+            postRSDTO = response.data
         }
         else {
             def response = restKuorumApiService.delete(
                     RestKuorumApiService.ApiMethod.ACCOUNT_POST_LIKES,
                     params,
-                    query
+                    query,
+                    new TypeReference<PostRSDTO>(){}
             );
+            postRSDTO = response.data
         }
-
+        return  postRSDTO;
     }
 
     /**

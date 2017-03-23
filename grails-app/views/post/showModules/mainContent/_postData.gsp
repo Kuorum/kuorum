@@ -24,8 +24,12 @@
         <g:render template="/post/showModules/mainContent/postDataSocial" model="[post:post, postUser:postUser]"/>
 
         <div class="comment-counter pull-right">
-            <button type="button" class="post-like ${post.liked?'active':''}" data-postId="${post.id}" data-userAlias="${post.userAlias}"
-                    data-urlAction="${g.createLink(mapping: "postLike")}">
+            <button type="button" class="post-like ${post.liked?'active':''}"
+                    data-postId="${post.id}"
+                    data-userAlias="${post.userAlias}"
+                    data-urlAction="${g.createLink(mapping: "postLike")}"
+                    data-loggedUser="${sec.username()}"
+                >
                 <span class="fa ${post.liked?'fa-heart':'fa-heart-o'}" aria-hidden="true"></span>
                 <span class="number">${post.likes}</span>
             </button>

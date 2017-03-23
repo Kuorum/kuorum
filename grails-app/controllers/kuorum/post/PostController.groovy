@@ -1,5 +1,6 @@
 package kuorum.post
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import groovy.time.TimeCategory
 import kuorum.KuorumFile
@@ -225,8 +226,8 @@ class PostController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def likePost(LikePostCommand command){
         KuorumUser currentUser= springSecurityService.currentUser;
-        postService.likePost(command.postId, currentUser, command.like, command.userAlias);
-        render "ok";
+        PostRSDTO post = postService.likePost(command.postId, currentUser, command.like, command.userAlias);
+        render post as JSON;
     }
 
 }

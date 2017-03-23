@@ -34,6 +34,19 @@ class RestKuorumApiService {
         return response
     }
 
+    def delete(ApiMethod apiMethod, Map<String,String> params, Map<String,String> query, TypeReference typeToMap) {
+        RESTClient mailKuorumServices = getRestMailKuorumServices(typeToMap);
+
+        String path = apiMethod.buildUrl(apiPath,params);
+        def response = mailKuorumServices.delete(
+                path: path,
+                headers: ["User-Agent": "Kuorum Web", "token":kuorumRestApiKey],
+                query:query,
+                requestContentType : groovyx.net.http.ContentType.JSON
+        )
+        return response
+    }
+
     public enum ApiMethod{
         USER_STATS_REPUTATION               ('/user/{userId}/stats/reputation'),
         USER_STATS_REPUTATION_EVOLUTION     ('/user/{userId}/stats/reputation/evolution'),

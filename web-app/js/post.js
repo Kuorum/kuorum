@@ -2,16 +2,30 @@ $(function () {
 
     var likeButton = $('.post-like');
     likeButton.on("click", postFunctions.bindLikeClick);
-
+    noLoggedCallbacks['likePostNoLogged']= function(){
+        var buttonId = $('#registro').find("form").attr("data-buttonId")
+        var $button = $("#"+buttonId)
+        postFunctions.onClickPostLike($button, noLoggedCallbacks.reloadPage);
+    };
 });
 
 var postFunctions = {
     bindLikeClick: function(event){
         event.preventDefault();
         var $button = $(this);
-        postFunctions.onClickPostLike($button);
+        var loggedUser = $button.attr("data-loggedUser")
+        if (loggedUser == undefined || loggedUser == ""){
+            // NO LOGGED
+            var buttonId = guid();
+            $button.attr("id", buttonId)
+            $('#registro').find("form").attr("callback", "likePostNoLogged")
+            $('#registro').find("form").attr("data-buttonId", buttonId)
+            $('#registro').modal('show');
+        }else{
+            postFunctions.onClickPostLike($button);
+        }
     },
-    onClickPostLike:function($button) {
+    onClickPostLike:function($button, callback) {
 
         $button.off('click');
         var postId = $button.attr('data-postId');
@@ -20,15 +34,7 @@ var postFunctions = {
 
         var like = $button.find('.fa').hasClass('fa-heart-o');
 
-        $button.toggleClass('active');
-        $button.find('.fa').toggleClass("fa-heart-o fa-heart");
         var count = parseInt($button.find('.number').text());
-        if (like) {
-            $button.find('.number').text(count + 1);
-        } else {
-            $button.find('.number').text(count - 1);
-        }
-
         var data = {
             postId: postId,
             userAlias: userAlias,
@@ -39,19 +45,17 @@ var postFunctions = {
             type: 'POST',
             url: url,
             data: data,
-            success: function(){
-                //
+            success: function(postRSDTO){
+                $button.toggleClass('active');
+                $button.find('.fa').toggleClass("fa-heart-o fa-heart");
+                $button.find('.number').text(postRSDTO.likes);
+
+                if (callback != undefined){
+                    callback();
+                }
             },
             error: function(){
-                // Restore counter
-                $button.toggleClass('active');
-                $button.find('.fa').toggleClass('fa-heart-o fa-heart');
-                var count = parseInt($button.find('.number').text());
-                if(like){
-                    $button.find('.number').text(count - 1);
-                } else {
-                    $button.find('.number').text(count + 1);
-                }
+
             },
             complete: function(){
                 $button.on('click', postFunctions.bindLikeClick);
