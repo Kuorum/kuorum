@@ -4,7 +4,7 @@ package kuorum.core.model.solr
  */
 @Deprecated
 class SolrProject extends SolrElement{
-    String hashtag
+    String alias
     String text
     String owner
     String ownerId

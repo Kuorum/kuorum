@@ -2,9 +2,11 @@ import grails.util.Holders
 import kuorum.Region
 import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
+import kuorum.core.model.solr.SolrDebate
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.project.Project
 import kuorum.users.KuorumUser
+import org.bson.types.ObjectId
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
@@ -27,6 +29,7 @@ class LinkPropertiesCodec {
                 break
             case PostRSDTO:
             case DebateRSDTO:
+            case SolrDebate:
             case ProposalRSDTO:
             case NotificationProposalCommentRSDTO:
                 params = prepareParams(target)
@@ -88,6 +91,14 @@ class LinkPropertiesCodec {
                 userAlias: debate.userAlias.toLowerCase(),
                 title: debate.title.encodeAsKuorumUrl(),
                 debateId: debate.id
+        ]
+    }
+    private static def prepareParams(SolrDebate debate) {
+        KuorumUser user = KuorumUser.get(new ObjectId(debate.ownerId))
+        [
+                userAlias: user.alias,
+                title: debate.name.encodeAsKuorumUrl(),
+                debateId: debate.id.split("_")[1]
         ]
     }
 

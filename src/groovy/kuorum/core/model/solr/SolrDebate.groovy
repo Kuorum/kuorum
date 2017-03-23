@@ -1,10 +1,11 @@
 package kuorum.core.model.solr
 
 /**
- * Mapped solr post
+ * Mapped solr debate
  */
-class SolrPost extends SolrElement{
+class SolrDebate extends SolrElement{
     String alias
     String owner
     String ownerId
+    String text
 }

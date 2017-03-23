@@ -39,10 +39,14 @@ class DebateController {
     CookieUUIDService cookieUUIDService
 
     def show() {
-        KuorumUser debateUser = kuorumUserService.findByAlias((String) params.userAlias)
         String viewerId = cookieUUIDService.buildUserUUID()
         try {
-            DebateRSDTO debate = debateService.findDebate(debateUser, Long.parseLong((String) params.debateId),viewerId)
+            DebateRSDTO debate = debateService.findDebate( params.userAlias, Long.parseLong((String) params.debateId),viewerId)
+            if (!debate) {
+                throw new KuorumException(message(code: "debate.notFound") as String)
+            }
+
+            KuorumUser debateUser = kuorumUserService.findByAlias(debate.userAlias)
             SearchProposalRSDTO searchProposalRSDTO = new SearchProposalRSDTO()
             searchProposalRSDTO.sort = new SortProposalRDTO()
             searchProposalRSDTO.sort.direction = SortProposalRDTO.Direction.DESC
@@ -50,9 +54,6 @@ class DebateController {
             searchProposalRSDTO.size = Integer.MAX_VALUE // Sorting and filtering will be done using JS. We expect maximum 100 proposals
 
             ProposalPageRSDTO proposalPage = proposalService.findProposal(debate, searchProposalRSDTO,viewerId)
-            if (!debate) {
-                throw new KuorumException(message(code: "debate.notFound") as String)
-            }
 
             return [debate: debate, debateUser: debateUser, proposalPage:proposalPage]
         } catch (Exception ignored) {

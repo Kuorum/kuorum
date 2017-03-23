@@ -2660,7 +2660,7 @@ ul.campaign-list{margin: 0;padding: 0;list-style: none;}
 ul.campaign-list > li {padding: 0;}
 ul.campaign-list .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 ul.campaign-list > li .box-ppal .card-header-photo {height: auto;}
-ul.campaign-list > li .box-ppal .card-body {padding:1em;overflow: hidden;height: 300px;}
+ul.campaign-list > li .box-ppal .card-body {padding:1em;overflow: hidden;height: 321px;}
 ul.campaign-list > li .box-ppal .card-header-photo + .card-body {height: 120px;}
 ul.campaign-list > li .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
 ul.campaign-list > li .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
@@ -4521,6 +4521,7 @@ fieldset.rating:hover > input + label:hover:before {
 .config.search > article > .clearfix > h1 {font-size: 25px; font-size: 2.5rem; color: #a8a8a8; margin-bottom: 5px;}
 .config.search > article > .clearfix > h1 #term,
 .config.search > article > .clearfix > #results .counter {color: #545454;}
+.config.search section > .box-ppal h5 #term {font-style: italic}
 .config.search > article > .clearfix > #results {color: #a8a8a8;}
 
 .config.search > article .kakareo-list .kakareo .link-wrapper {padding: 22px 15px 15px 15px;}

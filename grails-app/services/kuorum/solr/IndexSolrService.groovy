@@ -23,6 +23,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrServer
 import org.apache.solr.common.SolrDocument
 import org.apache.solr.common.SolrInputDocument
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.springframework.beans.factory.annotation.Value
 
 import javax.annotation.PreDestroy
@@ -228,7 +229,7 @@ class IndexSolrService {
             text:post.text,
             dateCreated:post.dateCreated,
             tags:[post.project.hashtag],
-            hashtagProject:post.project.hashtag,
+            alias:post.project.hashtag,
             owner:"${post.owner.name}",
             ownerId: "${post.owner.id.toString()}",
             victory: post.victory,
@@ -243,24 +244,39 @@ class IndexSolrService {
         )
     }
 
+
     SolrPost recoverPostFromSolr(SolrDocument solrDocument){
         new SolrPost(
-                id:new ObjectId(solrDocument.id),
+                id:solrDocument.id,
                 name:solrDocument.name,
                 type:SolrType.valueOf(solrDocument.type),
                 text:solrDocument.text,
                 dateCreated:solrDocument.dateCreated,
-                hashtagProject:solrDocument.hashtagProject,
+                alias:solrDocument.alias,
                 owner:solrDocument.owner,
                 ownerId:solrDocument.ownerId,
-                victory:solrDocument.victory,
-                commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
                 regionName:solrDocument.regionName,
-                institutionName:solrDocument.institutionName,
                 regionIso3166_2: solrDocument.regionIso3166_2,
                 urlImage: solrDocument.urlImage,
                 kuorumRelevance: solrDocument.kuorumRelevance,
-                numberPeopleInterestedFor: solrDocument.numberPeopleInterestedFor,
+                regionIso3166_2Length: solrDocument.regionIso3166_2Length
+        )
+    }
+
+    SolrDebate recoverDebateFromSolr(SolrDocument solrDocument){
+        new SolrDebate(
+                id:solrDocument.id,
+                name:solrDocument.name,
+                type:SolrType.valueOf(solrDocument.type),
+                text:solrDocument.text,
+                dateCreated:solrDocument.dateCreated,
+                alias:solrDocument.alias,
+                owner:solrDocument.owner,
+                ownerId:solrDocument.ownerId,
+                regionName:solrDocument.regionName,
+                regionIso3166_2: solrDocument.regionIso3166_2,
+                urlImage: solrDocument.urlImage,
+                kuorumRelevance: solrDocument.kuorumRelevance,
                 regionIso3166_2Length: solrDocument.regionIso3166_2Length
         )
     }
@@ -303,6 +319,7 @@ class IndexSolrService {
         new SolrKuorumUser(
                 id:kuorumUser.id.toString(),
                 name: kuorumUser.toString(),
+                alias: kuorumUser.alias,
                 type:SolrType.KUORUM_USER,
                 dateCreated:kuorumUser.dateCreated,
                 regionName: regionName,
@@ -321,16 +338,15 @@ class IndexSolrService {
         new SolrKuorumUser(
                 id:new ObjectId(solrDocument.id),
                 name:solrDocument.name,
+                alias:solrDocument.alias,
                 type:SolrType.valueOf(solrDocument.type),
                 dateCreated:solrDocument.dateCreated,
                 urlImage: solrDocument.urlImage,
                 tags: solrDocument.tags,
-                gender: Gender.valueOf(solrDocument.gender),
                 regionName: solrDocument.regionName,
                 regionIso3166_2: solrDocument.regionIso3166_2,
                 text:solrDocument.text,
                 kuorumRelevance: solrDocument.kuorumRelevance,
-                numberPeopleInterestedFor: solrDocument.numberPeopleInterestedFor,
                 regionIso3166_2Length: solrDocument.regionIso3166_2Length
         )
     }
@@ -347,7 +363,7 @@ class IndexSolrService {
                 text:project.description,
                 dateCreated:project.dateCreated,
                 tags:[project.hashtag],
-                hashtag:project.hashtag,
+                alias:project.hashtag,
                 regionName: project.region.name,
                 regionIso3166_2: project.region.iso3166_2,
                 urlImage: project.image?.url,
@@ -381,7 +397,7 @@ class IndexSolrService {
                 subType:solrSubType,
                 text:solrDocument.text,
                 dateCreated:solrDocument.dateCreated,
-                hashtag:solrDocument.hashtag,
+                alias:solrDocument.hashtag,
                 commissions: solrDocument.commissions.collect{CommissionType.valueOf(it)},
                 institutionName:solrDocument.institutionName,
                 regionName:solrDocument.regionName,
@@ -399,12 +415,10 @@ class IndexSolrService {
 
     SolrElement recoverSolrElementFromSolr(SolrDocument solrDocument){
         switch (SolrType.valueOf(solrDocument.type)){
-            case SolrType.KUORUM_USER:
-            case SolrType.CANDIDATE:
-            case SolrType.ORGANIZATION:
-            case SolrType.POLITICIAN:   return recoverKuorumUserFromSolr(solrDocument); break;
-            case SolrType.PROJECT:      return recoverProjectFromSolr(solrDocument); break;
+            case SolrType.KUORUM_USER:  return recoverKuorumUserFromSolr(solrDocument); break;
+//            case SolrType.PROJECT:      return recoverProjectFromSolr(solrDocument); break;
             case SolrType.POST:         return recoverPostFromSolr(solrDocument); break;
+            case SolrType.DEBATE:       return recoverDebateFromSolr(solrDocument); break;
             default: throw new KuorumException("No se ha reconocido el tipo ${solrDocument.type}")
         }
     }

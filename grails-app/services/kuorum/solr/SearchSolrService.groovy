@@ -41,7 +41,6 @@ class SearchSolrService {
         query.addSort("kuorumRelevance", SolrQuery.ORDER.desc)
         query.addSort("constituencyIso3166_2Length", SolrQuery.ORDER.asc)
         query.addSort("regionIso3166_2Length", SolrQuery.ORDER.asc)
-        query.addSort("numberPeopleInterestedFor", SolrQuery.ORDER.desc)
         query.addSort("dateCreated", SolrQuery.ORDER.desc)
 
         QueryResponse rsp = server.query( query );
