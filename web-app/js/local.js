@@ -1038,6 +1038,7 @@ $(document).ready(function() {
 
         $('body').on('click','.link-wrapper', function(e) {
             //ÑAAAPAAAAA para que no salte el evento del link-wrapper en los popover
+
             var target = $(e.target);
             var popover = target.parents(".popover");
             if (!popover.hasClass("popover")){
@@ -1051,6 +1052,11 @@ $(document).ready(function() {
     $('.link-wrapper .popover-trigger').click(function(e) {
         e.stopPropagation();
         e.preventDefault();
+    });
+
+    $('.link-wrapper .card-footer .post-like').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
     });
 
 

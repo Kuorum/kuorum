@@ -72,6 +72,9 @@
         <g:each in="${debates}" var="debate">
             <g:render template="activity/debateList" model="[debate:debate, user:politician]"/>
         </g:each>
+        <g:each in="${posts}" var="post">
+            <g:render template="activity/postList" model="[post:post, user:politician]"/>
+        </g:each>
     </ul>
 </content>
 

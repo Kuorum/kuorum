@@ -769,7 +769,7 @@ $(function () {
     openElement(hash)
 
     if (hash == "openProposal"){
-        $(".leader-post > .footer .comment-counter button").trigger("click")
+        $(".leader-post > .footer .comment-counter button").trigger("click");
     }
 });
 
