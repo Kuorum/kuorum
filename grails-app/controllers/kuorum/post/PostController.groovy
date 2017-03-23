@@ -29,8 +29,9 @@ class PostController {
     CookieUUIDService cookieUUIDService
 
     def show() {
+        String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser postUser = kuorumUserService.findByAlias(params.userAlias)
-        PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId))
+        PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId),viewerUid)
 
         return  [post: postRSDTO, postUser: postUser]
     }

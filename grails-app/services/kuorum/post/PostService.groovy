@@ -64,9 +64,12 @@ class PostService {
         response.data
     }
 
-    PostRSDTO findPost(KuorumUser user, Long postId){
+    PostRSDTO findPost(KuorumUser user, Long postId, String viewerUid = null){
         Map<String, String> params = [userAlias: user.id.toString(), postId: postId.toString()]
         Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_POST,
                 params,
