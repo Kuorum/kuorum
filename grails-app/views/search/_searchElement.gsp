@@ -8,11 +8,11 @@
                 <g:render template="/search/searchUserElement" model="[solrUser:solrElement]"/>
             </li>
         </g:if>
-    <g:if test="${solrElement instanceof kuorum.core.model.solr.SolrDebate}">
+        <g:elsif test="${solrElement instanceof kuorum.core.model.solr.SolrDebate}">
             <li class="${columnsCss}">
                 <g:render template="/search/searchDebateElement" model="[solrDebate:solrElement]"/>
             </li>
-        </g:if>
+        </g:elsif>
         <g:else>
             <sec:ifAllGranted roles="ROLE_ADMIN">
                 <li style="background: red">WAAARRNNN => ${solrElement} (${solrElement.name} - ${solrElement.id})</li>
