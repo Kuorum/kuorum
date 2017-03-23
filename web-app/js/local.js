@@ -1054,7 +1054,7 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
-    $('.link-wrapper .card-footer .post-like').click(function(e) {
+    $('.link-wrapper .card-footer .post-like').on("click", function(e) {
         e.preventDefault();
         e.stopPropagation();
         var $button = $(this)
