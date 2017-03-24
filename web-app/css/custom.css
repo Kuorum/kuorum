@@ -1404,7 +1404,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
 /* DASHBOARD (08/2016) */
 #mails {text-align: center;}
-#mails li {list-style: none; display: block; float: left; margin-bottom: 20px; margin-right: 35px;}
+#mails li {list-style: none; display: block; float: left; margin: 0 17px 20px;}
 /*#mails li:last-child {margin-right: 0;}*/
 #mails li > a {display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
 #mails li > a:hover, #mails li > a:focus, #mails li > a:active {text-decoration: none; background-color: #fbfbfb;}
