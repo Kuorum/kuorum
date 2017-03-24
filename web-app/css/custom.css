@@ -3209,9 +3209,9 @@ textarea.error,
 /* estilos para el resize upload image */
 .uploaderImageContainer > div {margin: 0; position: relative;}
 .form-group.image {width: 100%; height: 290px;}
-.form-group.image.perfil {height: 230px;}
+.form-group.image.perfil {height: 220px;}
 .form-group.image.perfil .uploaderImageContainer > div {width: 284px;}
-.form-group.image.perfil .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 215px; width:215px;}
+.form-group.image.perfil .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 210px; width:210px;}
 .form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 7%;}
 
 /* avatar en config cuadrado */
