@@ -19,13 +19,15 @@
                         </header>
 
                         <section id="${pageProperty(name:'page.idMainContent')}" class="col-xs-12 col-sm-8 col-md-8" role="article" itemtype="http://schema.org/Article" itemscope>
-                            <g:if test="${pageProperty(name:'page.titleContent')}">
-                                <div class="box-ppal-title">
-                                    <g:pageProperty name="page.titleContent"/>
-                                </div>
-                            </g:if>
                             <div class="box-ppal">
-                                <g:pageProperty name="page.mainContent"/>
+                                <g:if test="${pageProperty(name:'page.titleContent')}">
+                                    <div class="box-ppal-title">
+                                        <g:pageProperty name="page.titleContent"/>
+                                    </div>
+                                </g:if>
+                                <div>
+                                    <g:pageProperty name="page.mainContent"/>
+                                </div>
                             </div>
                         </section>
                     </section>

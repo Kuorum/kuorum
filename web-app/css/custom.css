@@ -1051,6 +1051,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #contactsList .bootstrap-tagsinput, .edit-contact-header .bootstrap-tagsinput {padding-bottom: 1px; min-height: 0; padding-top: 1px;}
 #contactsList .bootstrap-tagsinput .tag, .edit-contact-header .bootstrap-tagsinput .tag{margin-bottom: 1px;}
 
+div.tagsinput {border:1px solid #DDDDDD;}
 .bootstrap-tagsinput .tt-input {min-width: 15em;}
 
 .bootstrap-tagsinput input[type="text"] {
@@ -1712,12 +1713,17 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .box-ppal {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
 .box-ppal {padding: 22px 10px 0;}
 .box-ppal.filterbox{padding-bottom:0}
-.box-ppal .box-ppal-section{padding-left: 20px}
+.box-ppal .box-ppal-section{padding: 0 20px}
 .box-ppal .box-ppal-section .box-ppal-section-title{margin:0 0 10px -20px; font-variant:small-caps;}
 .box-ppal-section + .box-ppal-section, .dynamic-fieldset.profile-dynamic-fields + .dynamic-fieldset.profile-dynamic-fields{border-top: 1px #e5e5e5 solid; padding-top: 20px;}
-.box-ppal-title {background-color: #fff; border-width: 1px 1px 0 1px; border-color: #e5e5e5; border-style:solid; padding:20px 15px}
-.box-ppal-title h1 { margin-bottom:15px;margin:0 0 10px 0;font-size: 2.5rem}
-.box-ppal-title h3 { color: #a8a8a8; margin:0px;font-size:1.4rem;}
+.box-ppal-title {background-color: #fff;
+    border-width: 0 0 1px;
+    border-color: #e5e5e5;
+    border-style: solid;
+    padding: 0 0 20px;
+    margin-bottom: 20px;}
+.box-ppal-title h1 {margin:0 0 10px 0 !important;font-size: 2.5rem}
+.box-ppal-title h3 {color: #a8a8a8; margin:0px;font-size:1.4rem;}
 .box-ppal.profile {padding: 0; margin-bottom: 10px;}
 .config .box-ppal {padding: 10px;}
 .team > section > .box-ppal{padding:0; margin:0; background-color: transparent;border:0}
@@ -4527,7 +4533,7 @@ fieldset.rating:hover > input + label:hover:before {
 .config.search > article .kakareo-list .kakareo .link-wrapper {padding: 22px 15px 15px 15px;}
 .config.search > article .kakareo-list .kakareo .link-wrapper > footer + p {margin: 0; padding: 10px 0 0 0; border-top: 1px solid #dadada;}
 
-.config.search > section > .box-ppal {background-color:transparent; border:none; padding:0px;}
+.config.search > section > .box-ppal {background-color:transparent; border:none; padding:0px; box-shadow:none;}
 .config.search > section > .box-ppal > ul.politician-list li {padding:0px;}
 
 /* páginas de info, listados y errores =========== */
@@ -4641,9 +4647,13 @@ fieldset.rating:hover > input + label:hover:before {
 
 .grey-shadow {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .config.config > section {margin-bottom:60px;}
-.config.search > section {box-shadow: none; padding: 0 15px;margin-bottom:0}
+.config.edit-user > section {box-shadow: none; padding: 0 15px 60px; margin: 0;}
+
+.config.search > section {box-shadow: none; margin-bottom:0}
 .config.info.team > section {box-shadow: none; padding: 0 15px; margin-bottom:60px}
-.config > section > div.box-ppal{margin-bottom:0;}
+.config.info.team > section>div.box-ppal {box-shadow: none;}
+.config > section > div.box-ppal{margin-bottom:0; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.config.config > section > div.box-ppal-title{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .config > section .filter-order {margin: 0; padding: 0 0 20px 0; border-bottom: 1px solid #dadada;}
 .config > section .filter-order > li {list-style: none; display: block; margin: 0 4% 0 0; color: #bcbcbc; font-size: 18px; font-size: 1.8rem; text-align: right;}
 .config > section .filter-order > li:first-child {text-align: left;}
@@ -4783,6 +4793,7 @@ fieldset.rating:hover > input + label:hover:before {
 .config.info > article > .box-ppal {margin-bottom: 20px; padding: 22px 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .config.info > article > .box-ppal > h1 {font-size: 28px; font-size: 2.8rem; padding: 0; margin: 5px 0 15px 0;}
 .config.info > article > .box-ppal > img {margin-bottom: 20px;}
+.config.info > section > div.box-ppal {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 
 .list-team,
 .list-team ul {margin: 0; padding: 0; list-style: none;}
