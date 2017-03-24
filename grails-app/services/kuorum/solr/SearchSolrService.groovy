@@ -120,11 +120,8 @@ class SearchSolrService {
 
     private void prepareScore(SearchParams params, SolrQuery query){
         switch (params.searchType){
-            case SearchType.POLITICAL_PARTY:
-                query.setParam("qf","politicalPartyName^10 politicalPartyNameStream^5")
-                break;
             case SearchType.NAME:
-                query.setParam("qf","hashtag^10.0 name^5.0")
+                query.setParam("qf","alias^10.0 name^5.0")
                 break;
             case SearchType.REGION:
                 query.setParam("qf","regionIso3166_2^10.0 constituencyIso3166_2^5.0")

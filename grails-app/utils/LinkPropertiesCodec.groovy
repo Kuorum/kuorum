@@ -4,6 +4,7 @@ import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrDebate
 import kuorum.core.model.solr.SolrKuorumUser
+import kuorum.core.model.solr.SolrPost
 import kuorum.project.Project
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
@@ -28,6 +29,7 @@ class LinkPropertiesCodec {
                 params = prepareParams(target);
                 break
             case PostRSDTO:
+            case SolrPost:
             case DebateRSDTO:
             case SolrDebate:
             case ProposalRSDTO:
@@ -107,6 +109,14 @@ class LinkPropertiesCodec {
                 userAlias: postRSDTO.userAlias.toLowerCase(),
                 title: postRSDTO.title.encodeAsKuorumUrl(),
                 postId: postRSDTO.id
+        ]
+    }
+    private static def prepareParams(SolrPost solrPost) {
+        KuorumUser user = KuorumUser.get(new ObjectId(solrPost.ownerId))
+        [
+                userAlias: user.alias.toLowerCase(),
+                title: solrPost.name.encodeAsKuorumUrl(),
+                postId: solrPost.id.split("_")[1]
         ]
     }
 

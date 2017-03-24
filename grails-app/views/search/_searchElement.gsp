@@ -13,6 +13,11 @@
                 <g:render template="/search/searchDebateElement" model="[solrDebate:solrElement]"/>
             </li>
         </g:elseif>
+        <g:elseif test="${solrElement instanceof kuorum.core.model.solr.SolrPost}">
+            <li class="${columnsCss}">
+                <g:render template="/search/searchPostElement" model="[solrPost:solrElement]"/>
+            </li>
+        </g:elseif>
         <g:else>
             <sec:ifAllGranted roles="ROLE_ADMIN">
                 <li style="background: red">WAAARRNNN => ${solrElement} (${solrElement.name} - ${solrElement.id})</li>

@@ -3,8 +3,8 @@ $(function () {
     var likeButton = $('.post-like');
     likeButton.on("click", postFunctions.bindLikeClick);
     noLoggedCallbacks['likePostNoLogged']= function(){
-        var buttonId = $('#registro').find("form").attr("data-buttonId")
-        var $button = $("#"+buttonId)
+        var buttonId = $('#registro').find("form").attr("data-buttonId");
+        var $button = $("#"+buttonId);
         postFunctions.onClickPostLike($button, noLoggedCallbacks.reloadPage);
     };
 });
@@ -13,28 +13,29 @@ var postFunctions = {
     bindLikeClick: function(event){
         event.preventDefault();
         var $button = $(this);
-        var loggedUser = $button.attr("data-loggedUser")
+        var loggedUser = $button.attr("data-loggedUser");
         if (loggedUser == undefined || loggedUser == ""){
             // NO LOGGED
             var buttonId = guid();
-            $button.attr("id", buttonId)
-            $('#registro').find("form").attr("callback", "likePostNoLogged")
-            $('#registro').find("form").attr("data-buttonId", buttonId)
+            $button.attr("id", buttonId);
+            $('#registro').find("form").attr("callback", "likePostNoLogged");
+            $('#registro').find("form").attr("data-buttonId", buttonId);
             $('#registro').modal('show');
         }else{
             postFunctions.onClickPostLike($button);
         }
     },
     onClickPostLike:function($button, callback) {
-
-        $button.off('click');
+        //$button.off('click');
+        if(isPageLoading()){
+            return;
+        }
+        pageLoadingOn();
         var postId = $button.attr('data-postId');
         var userAlias = $button.attr('data-userAlias');
         var url = $button.attr('data-urlAction');
 
         var like = $button.find('.fa').hasClass('fa-heart-o');
-
-        var count = parseInt($button.find('.number').text());
         var data = {
             postId: postId,
             userAlias: userAlias,
@@ -58,7 +59,8 @@ var postFunctions = {
 
             },
             complete: function(){
-                $button.on('click', postFunctions.bindLikeClick);
+                //$button.on('click', postFunctions.bindLikeClick);
+                pageLoadingOff();
             }
         });
     }

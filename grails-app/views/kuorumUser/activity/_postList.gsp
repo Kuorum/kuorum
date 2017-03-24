@@ -24,9 +24,13 @@
             <div class="card-footer">
                 <ul>
                     <li>
-                        <a class="post-like">
-                            <span class="fa fa-heart-o fa-lg"></span>
-                            <span class="label">${post.likes}</span>
+                        <a class="post-like ${post.liked?'active':''}"
+                           data-postId="${post.id}"
+                           data-userAlias="${post.userAlias}"
+                           data-urlAction="${g.createLink(mapping: "postLike")}"
+                           data-loggedUser="${sec.username()}">
+                            <span class="fa ${post.liked?'fa-heart':'fa-heart-o'} fa-lg"></span>
+                            <span class="number">${post.likes}</span>
                         </a>
                     </li>
                 </ul>
