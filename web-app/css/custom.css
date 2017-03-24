@@ -3209,10 +3209,10 @@ textarea.error,
 /* estilos para el resize upload image */
 .uploaderImageContainer > div {margin: 0; position: relative;}
 .form-group.image {width: 100%; height: 290px;}
-.form-group.image.perfil {height: 320px;}
+.form-group.image.perfil {height: 230px;}
 .form-group.image.perfil .uploaderImageContainer > div {width: 284px;}
-.form-group.image.perfil .qq-upload-drop-area {padding: 52% 20px 20px 20px; height: 284px;}
-.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 9%;}
+.form-group.image.perfil .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 215px; width:215px;}
+.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 7%;}
 
 /* avatar en config cuadrado */
 .config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
@@ -3223,8 +3223,8 @@ textarea.error,
     text-align: center;
     color: #20a2ea;
     text-align: center;
-    padding: 0;
-    height: 30px;
+    padding: 0 !important;
+    height: 31px !important;
 }
 .uploadImage {width:220px; height:220px; margin-right:20px;}
 .qq-upload-button-hover {text-decoration: underline;}
@@ -5307,7 +5307,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /*#detailsInfoVotes .icons {padding: 0 15px;}*/
     #detailsInfoVotes.autor .table tbody th {width: 170px;}
     #sign .checkbox-inline + .checkbox-inline {margin-left: 10px;}
-    .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 22%;}
+    .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 15%;}
     .chat > li .user.author {margin-top: -32px;}
     .listComments > li .user.author {margin-top: -32px;}
     .boxes.vote.drive form,
@@ -5869,7 +5869,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .edit-contact-header > div:first-child .user-img {width: 114px; height: 114px;}
 
     .header-campaign .progress {position: absolute; z-index: 99; margin-top: 64px; margin-left: 21%;}
-    .button-container {padding-top: 15px;}
+    .button-container {padding-top: 7px;}
 }
 
 /* Medium devices (desktops, 992px and up) */
