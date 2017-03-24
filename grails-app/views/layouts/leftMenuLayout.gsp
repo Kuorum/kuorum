@@ -24,7 +24,7 @@
                                     <g:pageProperty name="page.titleContent"/>
                                 </div>
                             </g:if>
-                            <div class="box-ppal">
+                            <div class="box-ppal grey-shadow">
                                 <g:pageProperty name="page.mainContent"/>
                             </div>
                         </section>

@@ -4639,7 +4639,8 @@ fieldset.rating:hover > input + label:hover:before {
 .config > header ul > li > a:active > .badge,
 .config > header ul > li.active > a > .badge {background-color: #ffffff; color: #545454;}
 
-.config.config > section {box-shadow: 0 0 2px rgba(200,200,200,0.6); padding: 0;margin-bottom:60px}
+.grey-shadow {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.config.config > section {margin-bottom:60px;}
 .config.search > section {box-shadow: none; padding: 0 15px;margin-bottom:0}
 .config.info.team > section {box-shadow: none; padding: 0 15px; margin-bottom:60px}
 .config > section > div.box-ppal{margin-bottom:0;}

@@ -99,14 +99,14 @@ class DashboardController {
 
         Long numberCampaigns = debates?.size()?:0 + campaigns?.size()?:0;
 
-        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:16))
+//        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:16))
 
         [
                 lastCampaign:lastCampaign,
                 numberCampaigns:numberCampaigns,
                 durationDays:durationDays,
                 contacts: contactService.getUsers(user),
-                recommendedUsers:recommendedUsers,
+//                recommendedUsers:recommendedUsers,
                 user:user,
                 emptyEditableData:emptyEditableData(user)
         ]
