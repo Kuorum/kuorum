@@ -33,6 +33,7 @@ class KuorumUserController {
     def postService
     def projectService
     RegisterService registerService
+    CookieUUIDService cookieUUIDService
 
     CausesService causesService
     UserNewsService userNewsService
@@ -84,6 +85,7 @@ class KuorumUserController {
     }
 
     def show(String userAlias){
+        String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser user = kuorumUserService.findByAlias(userAlias)
         if (!user) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND)
@@ -95,7 +97,7 @@ class KuorumUserController {
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
         List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.datePublished && it.datePublished < new Date()}
-        List<PostRSDTO> posts = postService.findAllPosts(user).findAll{it.datePublished && it.datePublished < new Date()}
+        List<PostRSDTO> posts = postService.findAllPosts(user,viewerUid).findAll{it.datePublished && it.datePublished < new Date()}
         [
                 politician:user,
                 recommendPoliticians:recommendPoliticians,

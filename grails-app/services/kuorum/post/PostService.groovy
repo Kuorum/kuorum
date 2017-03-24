@@ -25,9 +25,12 @@ class PostService {
     KuorumMailService kuorumMailService
     RestKuorumApiService restKuorumApiService
 
-    List<PostRSDTO> findAllPosts(KuorumUser user){
+    List<PostRSDTO> findAllPosts(KuorumUser user, String viewerUid = null){
         Map<String, String> params = [userAlias: user.id.toString()]
         Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.ACCOUNT_POSTS,
                 params,

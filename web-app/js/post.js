@@ -12,7 +12,6 @@ $(function () {
 var postFunctions = {
     bindLikeClick: function(event){
         event.preventDefault();
-        console.log($(this));
         var $button = $(this);
         var loggedUser = $button.attr("data-loggedUser");
         if (loggedUser == undefined || loggedUser == ""){
@@ -27,7 +26,11 @@ var postFunctions = {
         }
     },
     onClickPostLike:function($button, callback) {
-        $button.off('click');
+        //$button.off('click');
+        if(isPageLoading()){
+            return;
+        }
+        pageLoadingOn();
         var postId = $button.attr('data-postId');
         var userAlias = $button.attr('data-userAlias');
         var url = $button.attr('data-urlAction');
@@ -38,8 +41,6 @@ var postFunctions = {
             userAlias: userAlias,
             like: like
         };
-
-        pageLoadingOn();
 
         $.ajax({
             type: 'POST',
@@ -58,7 +59,7 @@ var postFunctions = {
 
             },
             complete: function(){
-                $button.on('click', postFunctions.bindLikeClick);
+                //$button.on('click', postFunctions.bindLikeClick);
                 pageLoadingOff();
             }
         });
