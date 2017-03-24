@@ -29,7 +29,7 @@
         <g:set var="cssClassUL" value="campaign-list clearfix"/>
     </g:if>
     <g:elseif test="${searchParams.type == SolrType.POST}">
-        <g:set var="cssClassUL" value="kakareo-list"/>
+        <g:set var="cssClassUL" value="campaign-list clearfix"/>
     </g:elseif>
     <g:else>
         <g:set var="cssClassUL" value="politician-list clearfix"/>
@@ -58,30 +58,6 @@
     %{--<g:form mapping="searcherSearchFilters" role="form" name="searchFilters" data-updateElementId="search-list-id" rel="nofollow">--}%
     <g:form mapping="searcherSearch" role="form" name="searchFilters" rel="nofollow" method="GET">
         <ul>
-            %{--<li>--}%
-                %{--<div class="checkbox">--}%
-                    %{--<label>--}%
-                        %{--<input type="checkbox" name="type" id="politicos" value="${kuorum.core.model.solr.SolrType.POLITICIAN}" ${searchParams.type == kuorum.core.model.solr.SolrType.POLITICIAN?'checked':''}>--}%
-                        %{--<span class="icon-user"></span> <g:message code="search.filters.SolrType.POLITICIAN"/>--}%
-                    %{--</label>--}%
-                %{--</div>--}%
-            %{--</li>--}%
-            %{--<li>--}%
-                %{--<div class="checkbox">--}%
-                    %{--<label>--}%
-                        %{--<input type="checkbox" name="type" id="candidates" value="${kuorum.core.model.solr.SolrType.CANDIDATE}" ${searchParams.type == kuorum.core.model.solr.SolrType.CANDIDATE?'checked':''}>--}%
-                        %{--<span class="icon-user"></span> <g:message code="search.filters.SolrType.CANDIDATE"/>--}%
-                    %{--</label>--}%
-                %{--</div>--}%
-            %{--</li>--}%
-            %{--<li>--}%
-                %{--<div class="checkbox">--}%
-                    %{--<label>--}%
-                        %{--<input type="checkbox" name="type" id="proyectos" value="${kuorum.core.model.solr.SolrType.PROJECT}" ${searchParams.type == kuorum.core.model.solr.SolrType.PROJECT?'checked':''}>--}%
-                        %{--<span class="fa fa-briefcase"></span> <g:message code="search.filters.SolrType.PROJECT"/>--}%
-                    %{--</label>--}%
-                %{--</div>--}%
-            %{--</li>--}%
             <li>
                 <div class="checkbox">
                     <label>
@@ -98,14 +74,14 @@
                     </label>
                 </div>
             </li>
-            %{--<li>--}%
-                %{--<div class="checkbox">--}%
-                    %{--<label>--}%
-                        %{--<input type="checkbox" name="type" id="propuestas" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>--}%
-                        %{--&nbsp;<span class="fa fa-lightbulb-o"></span>&nbsp;&nbsp;<g:message code="search.filters.SolrType.POST"/>--}%
-                    %{--</label>--}%
-                %{--</div>--}%
-            %{--</li>--}%
+            <li>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="type" id="search-post" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>
+                        <span class="fa fa-newspaper-o"></span> <g:message code="search.filters.SolrType.POST"/>
+                    </label>
+                </div>
+            </li>
         </ul>
         <input type="hidden" name="word" value="${searchParams.word}" />
         <input type="hidden" name="searchType" value="${searchParams.searchType}" />

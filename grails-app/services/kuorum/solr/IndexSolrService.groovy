@@ -215,6 +215,7 @@ class IndexSolrService {
         solrInputDocument
     }
 
+    @Deprecated
     SolrPost createSolrElement(Post post){
         if (!post.published){
             log.info("No se indexa el post ${post.id} porque no está publicado")
@@ -232,8 +233,6 @@ class IndexSolrService {
             alias:post.project.hashtag,
             owner:"${post.owner.name}",
             ownerId: "${post.owner.id.toString()}",
-            victory: post.victory,
-            commissions: post.project.commissions,
             regionName: post.project.region.name,
 //            institutionName:post.project.institution.name,
             regionIso3166_2: post.project.region.iso3166_2,
