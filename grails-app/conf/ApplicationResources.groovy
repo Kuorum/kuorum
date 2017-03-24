@@ -85,6 +85,7 @@ modules = {
         resource url:'js/custom.js'
         resource url:'css/custom.css'
         resource url:'js/local.js'
+        resource url:'js/profile.js'
     }
 
     debate {

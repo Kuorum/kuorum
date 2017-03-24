@@ -1,6 +1,6 @@
 <li class="col-sm-12 col-md-6">
     <article role="article" class="box-ppal clearfix">
-        <div class="link-wrapper">
+        <div class="link-wrapper" id="debate-${debate.id}" data-datePublished="${debate.datePublished.time}">
             <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="hidden"></g:link>
             <g:if test="${debate.photoUrl || debate.videoUrl}">
                 <div class="card-header-photo">
