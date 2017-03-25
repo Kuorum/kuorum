@@ -73,7 +73,7 @@
                         </a>
                     </div>
                 </li>
-                <li><a href="#" class="btn btn-blue inverted" id="send-debate"><g:message code="tools.massMailing.send"/></a></li>
+                <li><a href="#" class="btn btn-blue inverted" id="send-draft"><g:message code="tools.massMailing.send"/></a></li>
             </ul>
         </div>
     </fieldset>

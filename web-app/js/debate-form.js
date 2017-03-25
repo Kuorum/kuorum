@@ -20,8 +20,9 @@ $(function(){
     }
 
     // Abrir modal confirmar envio de debate
-    $('body').on('click','.form-final-options #send-debate', function(e) {
+    $('body').on('click','.form-final-options #send-draft', function(e) {
         e.preventDefault();
+        console.log("CLICK")
         if (isValidDebateForm()) {
             // Autoset publish day for today
             var date = new Date();

@@ -1,5 +1,5 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO; kuorum.core.FileType; kuorum.web.constants.WebConstants; kuorum.core.FileGroup; org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
-<r:require modules="datepicker" />
+<r:require modules="datepicker,postForm" />
 <h1 class="sr-only"><g:message code="admin.createPost.title"/></h1>
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" />
 <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.PostCommand.form.genericError')}">

@@ -465,11 +465,13 @@ function FilterContacts() {
         },
         disableSendButtons:function(){
             $("#openCalendar").addClass("disabled");
-            $("#send").addClass("disabled");
+            $("#send-draft").addClass("disabled"); // Post && Debate send button
+            $("#send").addClass("disabled"); // News letter send button
         },
         enableSendButtons:function(){
             $("#openCalendar").removeClass("disabled");
-            $("#send").removeClass("disabled");
+            $("#send-draft").removeClass("disabled"); // Post && Debate send button
+            $("#send").removeClass("disabled"); // News letter send button
         },
 
         campaignFilterRefresh:{

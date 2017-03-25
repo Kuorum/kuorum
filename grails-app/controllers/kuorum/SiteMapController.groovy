@@ -2,11 +2,18 @@ package kuorum
 
 import com.mongodb.DBCursor
 import kuorum.core.model.UserType
+import kuorum.post.PostService
 import kuorum.users.KuorumUser
+import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.post.PostRSDTO
+import payment.campaign.DebateService
 
 class SiteMapController {
 
     private static final FORMAT_DATE_SITEMAP="yyyy-MM-dd"
+
+    PostService postService;
+    DebateService debateService;
 
     def sitemapIndex(){
         render(contentType: 'text/xml', encoding: 'UTF-8', ) {
@@ -40,8 +47,8 @@ class SiteMapController {
                 }
 
                 def highPriority = [
-                        'landingPoliticians',
-                        'landingCitizens',
+                        'landingLeaders',
+                        'landingCorporations',
                         'landingOrganizations',
                         'register']
                 highPriority.each{mapping ->
