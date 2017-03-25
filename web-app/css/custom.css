@@ -4523,6 +4523,7 @@ fieldset.rating:hover > input + label:hover:before {
     color: #545454;
 }
 .config.search label {font-weight: normal; position: relative; padding: 0 0 0 30px;}
+h5#results {margin: 0 0 15px;}
 
 .config.search > article > .clearfix > h1 {font-size: 25px; font-size: 2.5rem; color: #a8a8a8; margin-bottom: 5px;}
 .config.search > article > .clearfix > h1 #term,
