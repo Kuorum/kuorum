@@ -12,7 +12,8 @@ function SortCampaigns() {
             return bTime.localeCompare(aTime);
         },
         filter: function (e) {
-            $(this).removeClass('hide');
+            $('ul.campaign-list li').removeClass('hide');
+            $('ul.campaign-list li').removeClass('last-odd');
             return false;
         },
         name: 'latest'
