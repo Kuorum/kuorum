@@ -599,8 +599,7 @@ class KuorumUserService {
 
         com.mongodb.DBCursor search = KuorumUser.collection.find([
                 '_id':['$nin':filteredUserIds],
-                'avatar':['$exists':true],
-                'imageProfile':['$exists':true]
+                'avatar':['$exists':true]
         ],[_id:1]).sort([_id:-1]).limit(pagination.max)
 
         List<KuorumUser> recommendations = []

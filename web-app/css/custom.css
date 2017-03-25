@@ -1051,6 +1051,7 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 #contactsList .bootstrap-tagsinput, .edit-contact-header .bootstrap-tagsinput {padding-bottom: 1px; min-height: 0; padding-top: 1px;}
 #contactsList .bootstrap-tagsinput .tag, .edit-contact-header .bootstrap-tagsinput .tag{margin-bottom: 1px;}
 
+div.tagsinput {border:1px solid #DDDDDD;}
 .bootstrap-tagsinput .tt-input {min-width: 15em;}
 
 .bootstrap-tagsinput input[type="text"] {
@@ -1403,7 +1404,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
 /* DASHBOARD (08/2016) */
 #mails {text-align: center;}
-#mails li {list-style: none; display: block; float: left; margin-bottom: 20px; margin-right: 35px;}
+#mails li {list-style: none; display: block; float: left; margin: 0 17px 20px;}
 /*#mails li:last-child {margin-right: 0;}*/
 #mails li > a {display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
 #mails li > a:hover, #mails li > a:focus, #mails li > a:active {text-decoration: none; background-color: #fbfbfb;}
@@ -1426,7 +1427,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .box-ppal#createNewCampaign .btn {padding: 48px 17px !important; margin: 20px 0 10px;}
 .box-ppal#followOthers > h2 {margin-bottom: 0;}
 .box-ppal#followOthers .user-list-followers {padding: 20px 0 0px !important;}
-.box-ppal#politicianProfile
+.box-ppal#politicianProfile {padding-bottom:0;}
 .box-ppal#politicianProfile h2 {font-size: 30px; font-size: 3rem; margin: 10px 0;}
 .box-ppal#politicianProfile h3 {font-size: 18px; font-size: 1.8rem; color: #a8a8a8; margin: 0 0 14px 0;}
 .box-ppal#politicianProfile .activity {margin: 0;}
@@ -1712,12 +1713,17 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .box-ppal {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
 .box-ppal {padding: 22px 10px 0;}
 .box-ppal.filterbox{padding-bottom:0}
-.box-ppal .box-ppal-section{padding-left: 20px}
+.box-ppal .box-ppal-section{padding: 0 20px}
 .box-ppal .box-ppal-section .box-ppal-section-title{margin:0 0 10px -20px; font-variant:small-caps;}
 .box-ppal-section + .box-ppal-section, .dynamic-fieldset.profile-dynamic-fields + .dynamic-fieldset.profile-dynamic-fields{border-top: 1px #e5e5e5 solid; padding-top: 20px;}
-.box-ppal-title {background-color: #fff; border-width: 1px 1px 0 1px; border-color: #e5e5e5; border-style:solid; padding:20px 15px}
-.box-ppal-title h1 { margin-bottom:15px;margin:0 0 10px 0;font-size: 2.5rem}
-.box-ppal-title h3 { color: #a8a8a8; margin:0px;font-size:1.4rem;}
+.box-ppal-title {background-color: #fff;
+    border-width: 0 0 1px;
+    border-color: #e5e5e5;
+    border-style: solid;
+    padding: 0 0 20px;
+    margin-bottom: 20px;}
+.box-ppal-title h1 {margin:0 0 10px 0 !important;font-size: 2.5rem}
+.box-ppal-title h3 {color: #a8a8a8; margin:0px;font-size:1.4rem;}
 .box-ppal.profile {padding: 0; margin-bottom: 10px;}
 .config .box-ppal {padding: 10px;}
 .team > section > .box-ppal{padding:0; margin:0; background-color: transparent;border:0}
@@ -3203,10 +3209,10 @@ textarea.error,
 /* estilos para el resize upload image */
 .uploaderImageContainer > div {margin: 0; position: relative;}
 .form-group.image {width: 100%; height: 290px;}
-.form-group.image.perfil {height: 320px;}
+.form-group.image.perfil {height: 220px;}
 .form-group.image.perfil .uploaderImageContainer > div {width: 284px;}
-.form-group.image.perfil .qq-upload-drop-area {padding: 52% 20px 20px 20px; height: 284px;}
-.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 9%;}
+.form-group.image.perfil .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 210px; width:210px;}
+.form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 7%;}
 
 /* avatar en config cuadrado */
 .config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
@@ -3217,8 +3223,8 @@ textarea.error,
     text-align: center;
     color: #20a2ea;
     text-align: center;
-    padding: 0;
-    height: 30px;
+    padding: 0 !important;
+    height: 31px !important;
 }
 .uploadImage {width:220px; height:220px; margin-right:20px;}
 .qq-upload-button-hover {text-decoration: underline;}
@@ -4517,6 +4523,7 @@ fieldset.rating:hover > input + label:hover:before {
     color: #545454;
 }
 .config.search label {font-weight: normal; position: relative; padding: 0 0 0 30px;}
+h5#results {margin: 0 0 15px;}
 
 .config.search > article > .clearfix > h1 {font-size: 25px; font-size: 2.5rem; color: #a8a8a8; margin-bottom: 5px;}
 .config.search > article > .clearfix > h1 #term,
@@ -4527,7 +4534,7 @@ fieldset.rating:hover > input + label:hover:before {
 .config.search > article .kakareo-list .kakareo .link-wrapper {padding: 22px 15px 15px 15px;}
 .config.search > article .kakareo-list .kakareo .link-wrapper > footer + p {margin: 0; padding: 10px 0 0 0; border-top: 1px solid #dadada;}
 
-.config.search > section > .box-ppal {background-color:transparent; border:none; padding:0px;}
+.config.search > section > .box-ppal {background-color:transparent; border:none; padding:0px; box-shadow:none;}
 .config.search > section > .box-ppal > ul.politician-list li {padding:0px;}
 
 /* páginas de info, listados y errores =========== */
@@ -4639,10 +4646,15 @@ fieldset.rating:hover > input + label:hover:before {
 .config > header ul > li > a:active > .badge,
 .config > header ul > li.active > a > .badge {background-color: #ffffff; color: #545454;}
 
-.config.config > section {box-shadow: 0 0 2px rgba(200,200,200,0.6); padding: 0;margin-bottom:60px}
-.config.search > section {box-shadow: none; padding: 0 15px;margin-bottom:0}
+.grey-shadow {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.config.config > section {margin-bottom:60px;}
+.config.edit-user > section {box-shadow: none; padding: 0 15px 60px; margin: 0;}
+
+.config.search > section {box-shadow: none; margin-bottom:0}
 .config.info.team > section {box-shadow: none; padding: 0 15px; margin-bottom:60px}
-.config > section > div.box-ppal{margin-bottom:0;}
+.config.info.team > section>div.box-ppal {box-shadow: none;}
+.config > section > div.box-ppal{margin-bottom:0; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.config.config > section > div.box-ppal-title{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .config > section .filter-order {margin: 0; padding: 0 0 20px 0; border-bottom: 1px solid #dadada;}
 .config > section .filter-order > li {list-style: none; display: block; margin: 0 4% 0 0; color: #bcbcbc; font-size: 18px; font-size: 1.8rem; text-align: right;}
 .config > section .filter-order > li:first-child {text-align: left;}
@@ -4782,6 +4794,7 @@ fieldset.rating:hover > input + label:hover:before {
 .config.info > article > .box-ppal {margin-bottom: 20px; padding: 22px 20px 0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .config.info > article > .box-ppal > h1 {font-size: 28px; font-size: 2.8rem; padding: 0; margin: 5px 0 15px 0;}
 .config.info > article > .box-ppal > img {margin-bottom: 20px;}
+.config.info > section > div.box-ppal {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 
 .list-team,
 .list-team ul {margin: 0; padding: 0; list-style: none;}
@@ -5276,7 +5289,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
     .carousel.news .carousel-control {top: 30%;}
-    #mails.campaigns {  width: 100% !important;  }
+    #mails.campaigns {  width: 100% !important; padding:0;}
     #mails li{  float: none !important;  }
     #mails li.fontIcon > a{  margin: auto !important;  }
 }
@@ -5295,7 +5308,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /*#detailsInfoVotes .icons {padding: 0 15px;}*/
     #detailsInfoVotes.autor .table tbody th {width: 170px;}
     #sign .checkbox-inline + .checkbox-inline {margin-left: 10px;}
-    .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 22%;}
+    .form-group.image.fondoperfil .qq-upload-drop-area {background-size: auto auto; background-position: center 32%; padding-top: 15%;}
     .chat > li .user.author {margin-top: -32px;}
     .listComments > li .user.author {margin-top: -32px;}
     .boxes.vote.drive form,
@@ -5857,7 +5870,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .edit-contact-header > div:first-child .user-img {width: 114px; height: 114px;}
 
     .header-campaign .progress {position: absolute; z-index: 99; margin-top: 64px; margin-left: 21%;}
-    .button-container {padding-top: 15px;}
+    .button-container {padding-top: 7px;}
 }
 
 /* Medium devices (desktops, 992px and up) */
