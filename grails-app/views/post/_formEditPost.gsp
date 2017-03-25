@@ -77,7 +77,9 @@
                     </li>
                     <li><input class="btn btn-blue inverted" id="send-draft" type="submit" value="${g.message(code: "tools.massMailing.send")}" /></li>
                 </g:if>
-                <li><input class="btn btn-blue inverted" id="save-draft" type="submit" value="${g.message(code: "tools.massMailing.save")}" /></li>
+                <g:else>
+                    <li><input class="btn btn-blue inverted" id="save-draft" type="submit" value="${g.message(code: "tools.massMailing.save")}" /></li>
+                </g:else>
             </ul>
         </div>
     </fieldset>
