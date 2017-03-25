@@ -31,7 +31,6 @@ function SortCampaigns() {
             }
             else{
                 $(this).removeClass('hide');
-                lastOdd.addClass('last-odd');
             }
         },
         name:"posts"
@@ -50,7 +49,6 @@ function SortCampaigns() {
             }
             else{
                 $(this).removeClass('hide');
-                lastOdd.addClass('last-odd');
             }
             // hide al li
         },
@@ -80,15 +78,11 @@ function SortCampaigns() {
         $('ul.campaign-list > li').filter(campaignOption.filter).hide();
         $.each(campaigns, function(idx, itm) {
             campaignList.append(itm);
-            if((idx == counter - 1)&&(idx % 2 != 0)){
-                lastOdd = $(this);
-            }
         });
     }
 }
 
 var sortCampaigns;
-var lastOdd;
 $(function () {
     sortCampaigns = new SortCampaigns();
 
