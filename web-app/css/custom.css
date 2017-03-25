@@ -6204,6 +6204,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     ul.campaign-list > li:nth-child(even) .box-ppal {margin-left: 7px;}
     ul.campaign-list > li:nth-child(odd) .box-ppal {margin-right: 8px;}
+    ul.campaign-list > li.last-odd .box-ppal {margin-left: 0px; margin-right: 8px}
 }
 
 @media only screen and (min-width: 1024px) {

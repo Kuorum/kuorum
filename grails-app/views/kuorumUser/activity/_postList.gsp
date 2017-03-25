@@ -1,6 +1,6 @@
 <li class="col-sm-12 col-md-6">
     <article role="article" class="box-ppal clearfix"">
-        <div class="link-wrapper" id="post-${post.id}" data-datepublished="${post.datePublished.time}>
+        <div class="link-wrapper" id="post-${post.id}" data-datepublished="${post.datePublished.time}">
             <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="hidden"></g:link>
             <g:if test="${post.photoUrl || post.videoUrl}">
                 <div class="card-header-photo">

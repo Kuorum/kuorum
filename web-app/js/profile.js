@@ -12,6 +12,7 @@ function SortCampaigns() {
             return bTime.localeCompare(aTime);
         },
         filter: function (e) {
+            $(this).removeClass('hide');
             return false;
         },
         name: 'latest'
@@ -23,22 +24,34 @@ function SortCampaigns() {
         },
         filter:function(idx){
             var articleId = $(this).find(".link-wrapper").attr('id');
-            if(articleId.indexOf("post")!= 0){
+            if(articleId.indexOf("post")!=0){
+                $(this).addClass('hide');
                 return articleId;
+            }
+            else{
+                $(this).removeClass('hide');
+                lastOdd.addClass('last-odd');
             }
         },
         name:"posts"
     };
 
     this.campaignOptions['debates'] = {
-        sort:function(e){
+        sort:function(idx){
             return false;
         },
         filter:function(idx){
+
             var articleId = $(this).find(".link-wrapper").attr('id');
-            if(articleId.indexOf("debate")!= 0){
+            if(articleId.indexOf("debate")!=0) {
+                $(this).addClass('hide');
                 return articleId;
             }
+            else{
+                $(this).removeClass('hide');
+                lastOdd.addClass('last-odd');
+            }
+            // hide al li
         },
         name:"debates"
     };
@@ -58,6 +71,7 @@ function SortCampaigns() {
         if(campaigns.length>0){
             $("#campaign-sorter").show();
         }
+        var counter = campaigns.length;
         $("#campaign-sorter li").removeClass("active");
         $("a[href=#"+campaignOption.name+"]").parent().addClass("active");
         campaigns.sort(campaignOption.sort);
@@ -65,11 +79,15 @@ function SortCampaigns() {
         $('ul.campaign-list > li').filter(campaignOption.filter).hide();
         $.each(campaigns, function(idx, itm) {
             campaignList.append(itm);
+            if((idx == counter - 1)&&(idx % 2 != 0)){
+                lastOdd = $(this);
+            }
         });
     }
 }
 
 var sortCampaigns;
+var lastOdd;
 $(function () {
     sortCampaigns = new SortCampaigns();
 
@@ -80,5 +98,4 @@ $(function () {
         sortCampaigns.setCampaignOption(option);
         sortCampaigns.orderList();
     });
-
 });
