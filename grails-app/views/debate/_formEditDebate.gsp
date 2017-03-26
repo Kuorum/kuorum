@@ -56,7 +56,7 @@
     <fieldset class="buttons">
         <div class="text-right">
             <ul class="form-final-options">
-                <li><input class="btn btn-blue inverted" id="send-debate" type="submit" value="${g.message(code: "tools.massMailing.save")}" /></li>
+                <li><input class="btn btn-blue inverted" id="save-debate" type="submit" value="${g.message(code: "tools.massMailing.save")}" /></li>
             </ul>
         </div>
     </fieldset>

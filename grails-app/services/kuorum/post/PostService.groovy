@@ -43,7 +43,7 @@ class PostService {
 
     PostRSDTO savePost(KuorumUser user, PostRDTO postRDTO, Long postId){
 
-        PostRDTO post = null;
+        PostRSDTO post = null;
         if (postId) {
             post= updatePost(user, postRDTO, postId)
         } else {
@@ -64,7 +64,12 @@ class PostService {
                 new TypeReference<PostRSDTO>(){}
         )
 
-        response.data
+        PostRSDTO postSaved = null
+        if (response.data) {
+            postSaved = response.data
+        }
+
+        postSaved
     }
 
     PostRSDTO findPost(KuorumUser user, Long postId, String viewerUid = null){

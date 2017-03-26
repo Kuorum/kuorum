@@ -5,6 +5,7 @@ $(function () {
     noLoggedCallbacks['likePostNoLogged']= function(){
         var buttonId = $('#registro').find("form").attr("data-buttonId");
         var $button = $("#"+buttonId);
+        pageLoadingOff();
         postFunctions.onClickPostLike($button, noLoggedCallbacks.reloadPage);
     };
 });
@@ -50,7 +51,6 @@ var postFunctions = {
                 $button.toggleClass('active');
                 $button.find('.fa').toggleClass("fa-heart-o fa-heart");
                 $button.find('.number').text(postRSDTO.likes);
-
                 if (callback != undefined){
                     callback();
                 }
