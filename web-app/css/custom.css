@@ -6565,6 +6565,8 @@ p.party{
 .follow-btn-group .btn.btn-blue.inverted {
     display: inline;
     margin: 0 0 6px 6px;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 .following{
     margin-bottom: 20px;
