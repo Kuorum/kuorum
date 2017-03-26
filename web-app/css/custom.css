@@ -7173,7 +7173,8 @@ hr{
 .highcharts-title {font-family: 'Georgia', Times, serif;}
 
 
-#politician-bio .center-button {text-align:center;}
+#politician-bio .center-button {text-align:center; margin-top: 12px;}
+#politician-bio.extra-padding {padding: 0 30px 20px;}
 #suggested-politicians .container-fluid .center-button {text-align:center;}
 
 /* PSOE modal =========== */
