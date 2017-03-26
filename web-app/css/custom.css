@@ -678,7 +678,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 }
 .btn.follow {
     width: 105px;
-    padding: 8px 8px !important;
+    padding: 9px 8px !important;
     margin: 0;
     line-height: 1.1;
 }
@@ -1947,7 +1947,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
     display: block !important;*/
 }
 .popover .scroll .user-type {margin-left: 1px !important;}
-.popover .follow {width: auto;border-radius: 0; margin: 7px 0 0 0!important; float: right;}
+.popover .follow {width: auto; -webkit-border-radius: 2px !important; -moz-border-radius: 2px !important; border-radius: 2px !important; margin: 9px 0 0 0!important; float: right; padding: 6px 6px 5px !important; width: 80px !important;}
 .popover-box .follow {margin: 1px 0 0 90px !important;}
 .popover .infoActivity {border-top: solid 1px #dadada; margin: 6px 0 0; padding: 6px 0 0;}
 .popover .infoActivity li {list-style: none; float: left; margin-right: 6px; font-size: 14px; font-size: 1.4rem; color: #797979;}
@@ -2512,11 +2512,11 @@ video#bgvid {
 .personal .user-type {padding: 0; font-size: 20px; font-size: 2rem; margin-bottom: 12px; position: relative; left: auto; bottom: auto;}
 .user-list-followers  .user > .actions {/*float: right; margin: -14px 0 0 !important;*/ width: 108px; position: absolute; top: 5px; right: 0;}
 .user-list-followers  .user > .actions .btn.follow {
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-    border-radius: 0 !important;
+    -webkit-border-radius: 2px !important;
+    -moz-border-radius: 2px !important;
+    border-radius: 2px !important;
     margin: 0 5px 0 0 !important;
-    padding: 2px 6px !important;
+    padding: 6px 6px 5px !important;
     width: 80px;
 }
 .user-list-followers .user > .actions .close {margin: 1px 0 0 0;}
@@ -5981,8 +5981,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .team > section > .box-ppal{padding:0; margin:0; background-color: transparent; border:0}
 
     /*.user-list-followers .user > .actions {float: right; margin: -35px 0 0 0 !important;}*/
-    .user-list-followers .user > .actions .btn.follow{-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 0 5px 0 0 !important; width: 80px;}
-    .popover-user-header .btn.follow{-webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; margin: 13px 0 0 0!important; width: 80px; padding:2px 2px 1px 2px!important;}
+    .user-list-followers .user > .actions .btn.follow{-webkit-border-radius: 2px !important; -moz-border-radius: 2px !important; border-radius: 2px !important; margin: 0 5px 0 0 !important; width: 80px;}
+    .popover-user-header .btn.follow{-webkit-border-radius: 2px !important; -moz-border-radius: 2px !important; border-radius: 2px !important; margin: 9px 0 0 0!important; width: 80px; padding:6px 6px 5px !important;}
 
     .btn.btn-lg.go-for-pass {margin-top: 192px !important; margin-bottom: 60px !important;}
     .arrow2 {right: 24px;}
