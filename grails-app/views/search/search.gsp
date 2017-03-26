@@ -68,16 +68,16 @@
             <li>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="type" id="search-debates" value="${kuorum.core.model.solr.SolrType.DEBATE}" ${searchParams.type == kuorum.core.model.solr.SolrType.DEBATE?'checked':''}>
-                        <span class="fa fa-comments-o"></span> <g:message code="search.filters.SolrType.DEBATE"/>
+                        <input type="checkbox" name="type" id="search-post" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>
+                        <span class="fa fa-newspaper-o"></span> <g:message code="search.filters.SolrType.POST"/>
                     </label>
                 </div>
             </li>
             <li>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="type" id="search-post" value="${kuorum.core.model.solr.SolrType.POST}" ${searchParams.type == kuorum.core.model.solr.SolrType.POST?'checked':''}>
-                        <span class="fa fa-newspaper-o"></span> <g:message code="search.filters.SolrType.POST"/>
+                        <input type="checkbox" name="type" id="search-debates" value="${kuorum.core.model.solr.SolrType.DEBATE}" ${searchParams.type == kuorum.core.model.solr.SolrType.DEBATE?'checked':''}>
+                        <span class="fa fa-comments-o"></span> <g:message code="search.filters.SolrType.DEBATE"/>
                     </label>
                 </div>
             </li>
