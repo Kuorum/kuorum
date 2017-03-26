@@ -21,7 +21,7 @@
         </div>
     </fieldset>
 
-    <g:render template="/massMailing/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_NEW,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_COMMENT,TrackingMailStatusRSDTO.DEBATE_PROPOSAL_LIKE]]"/>
+    <g:render template="/massMailing/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK]]"/>
 
     <fieldset class="form-group multimedia">
         <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.image.label"/>:</label>

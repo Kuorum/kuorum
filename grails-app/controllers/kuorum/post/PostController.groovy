@@ -84,6 +84,7 @@ class PostController {
 
         if(command.hasErrors()){
             render view: 'edit', model: postModel(command, postRSDTO)
+            return;
         }
 
         FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
@@ -140,7 +141,8 @@ class PostController {
             else {
                 // Published or scheduled within 5 minutes
                 msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
-                        savedPost.title
+                        savedPost.title,
+                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
                 ])
             }
         }

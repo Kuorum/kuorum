@@ -5,8 +5,6 @@
 <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.PostCommand.form.genericError')}">
     <input type="hidden" name="postId" value="${post.id?:''}"/>
 
-    <!-- Hidden inputs -->
-    <input type="hidden" name="publishOn" value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
     <g:if test="${post.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
         <g:render template="/massMailing/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true, showOnly: false, hide:false]"/>
     </g:if>
@@ -23,7 +21,9 @@
             <formUtil:textArea command="${command}" field="body" rows="8" texteditor="texteditor"/>
         </div>
     </fieldset>
-
+    <g:if test="${post.campaignStatusRSDTO != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+        <g:render template="/massMailing/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK]]"/>
+    </g:if>
     <fieldset class="form-group multimedia">
         <label for="headerPictureId" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.PostCommand.image.label"/>:</label>
         <div class="col-sm-8 col-md-7">
@@ -78,6 +78,8 @@
                     <li><input class="btn btn-blue inverted" id="send-draft" type="submit" value="${g.message(code: "tools.massMailing.send")}" /></li>
                 </g:if>
                 <g:else>
+                    <!-- Hidden inputs -->
+                    <input type="hidden" name="publishOn" value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
                     <li><input class="btn btn-blue inverted" id="save-draft" type="submit" value="${g.message(code: "tools.massMailing.save")}" /></li>
                 </g:else>
             </ul>
