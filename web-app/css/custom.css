@@ -512,7 +512,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
 .container-fluid.userprofile #adminActions{left:inherit; right:20px; top: 5px; z-index: 1000;}
 .container-fluid.userprofile #adminActions a{color: #a8a8a8;}
 .container-fluid.userprofile #adminActions span{margin: 0 4px 2px 0;}
-.container-fluid.userprofile #main {padding-bottom:10px;}
+.container-fluid.userprofile #main {padding-bottom:25px;}
 /*#open-filter-search {
   display: block;
   position: absolute;
@@ -1469,7 +1469,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #profileInfo .dropdown-menu {width: 165px; margin-top: 5px;}
 #profileInfo .dropdown-menu > li:first-child {border-bottom: none; padding: 0;}
 
-.campaign-progress-bar-wrapper {padding: 20px 15px 10px 15px;}
+.campaign-progress-bar-wrapper {padding: 15px 15px 10px 15px;}
 .campaign-progress-bar-wrapper h4 {font-variant: normal; color: #666; margin: 2px 0px 18px 0px;font-weight: normal;font-size: 1.35em;}
 .campaign-progress-bar-wrapper .campaign-progress-bar {position: relative;}
 .campaign-progress-bar-wrapper .campaign-progress-bar:hover .pop-up {display: block;z-index:1000;}
@@ -1513,6 +1513,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #followAndRegister{padding: 10px 15px 0;}
 #followAndRegister .btn{width:100%;margin-bottom:7px; padding: 9px !important;}
 #followAndRegister.login .form-group:last-child {font-size: 11px; font-size: 1.1rem;}
+#followAndRegister.login .form-group {margin-bottom: 15px;}
 
 #inviteFriendsModal {text-align: center;}
 #inviteFriendsModal h4 {color: #545454; margin-top: 20px; font-variant: normal; font-size: 24px; font-size: 2.4rem; font-weight: normal; margin-bottom: 0;}
