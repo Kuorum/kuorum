@@ -8798,7 +8798,7 @@ ul.globus li img {
 }
 
 .notification-menu > li.title + li {
-    padding-top: 20px;
+    padding-top: 5px;
 }
 
 .notification-menu > li.user.new {
