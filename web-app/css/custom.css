@@ -1343,7 +1343,8 @@ div.tagsinput {border:1px solid #DDDDDD;}
 .box-order-options .filter-warning span.on {background-color:#dedede; color: #fff}
 .box-order-options .checkbox-inline {float: left; padding: 0px; margin-top: 4px;}
 .box-order-options .bulk-actions {width: 16%; display: inline-block; float:left;}
-.pag-list-campaigns, .pag-list-contacts {margin: 20px 0;}
+.pag-list-campaigns {margin: 20px 0;}
+.pag-list-contacts {margin: 0 0 20px;}
 .pag-list-campaigns > ul, .pag-list-contacts > ul {float: right; padding: 0; margin: 0;}
 .pag-list-campaigns > ul > li, .pag-list-contacts > ul > li {list-style: none; display: inline-block;}
 .pag-list-campaigns > span, .pag-list-contacts > span {display: block; line-height: 32px; float: right; margin-right: 5px;}
@@ -5349,6 +5350,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #searchContacts > div#listContacts {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-ppal.campaign-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-ppal.campaign-new {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #searchContacts > div#listContacts > div.box-ppal.list-contacts {padding: 22px 22px 0;}
+    #listCampaigns > div.box-ppal.listCampaigns {margin:22px 22px 0;}
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 50px;}*/
