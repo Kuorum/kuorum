@@ -1469,10 +1469,10 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #profileInfo .dropdown-menu {width: 165px; margin-top: 5px;}
 #profileInfo .dropdown-menu > li:first-child {border-bottom: none; padding: 0;}
 
-.campaign-progress-bar-wrapper {padding: 0px 15px 10px 15px;}
-.campaign-progress-bar-wrapper h4 {font-variant: normal; color: #666; margin: 10px 0px 20px 0px;font-weight: normal;font-size: 1.35em;}
+.campaign-progress-bar-wrapper {padding: 20px 15px 10px 15px;}
+.campaign-progress-bar-wrapper h4 {font-variant: normal; color: #666; margin: 2px 0px 18px 0px;font-weight: normal;font-size: 1.35em;}
 .campaign-progress-bar-wrapper .campaign-progress-bar {position: relative;}
-.campaign-progress-bar-wrapper .campaign-progress-bar:hover .pop-up {display: block;}
+.campaign-progress-bar-wrapper .campaign-progress-bar:hover .pop-up {display: block;z-index:1000;}
 .campaign-progress-bar-wrapper .campaign-progress-bar .pop-up {border: 2px solid #666; position: absolute; padding: 10px 20px; bottom: 22px; background: #fff; text-align: initial; display: none;}
 .campaign-progress-bar-wrapper .campaign-progress-bar .pop-up .arrow {position: absolute; bottom: -26px; left: calc(50% - 13px); border: 13px solid #666; width: 1px; height: 1px; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent;}
 .campaign-progress-bar-wrapper .campaign-progress-bar .pop-up .arrow::after {content: " "; position: absolute; border: 11px solid #fff; width: 1px; height: 1px; left: -11px; top: -14px; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent;}
@@ -1511,7 +1511,8 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .campaign-progress-bar-wrapper .campaign-progress-bar .progress-bar-custom .progress-bar-custom-done::after {content: ""; position: absolute; border: 10px solid #ff9934; border-left-color: transparent; border-right-color: transparent; border-bottom-color: transparent; width: 1px; height: 1px; right: -10px; top: -10px;}
 
 #followAndRegister{padding: 10px 15px 0;}
-#followAndRegister .btn{width:100%;}
+#followAndRegister .btn{width:100%;margin-bottom:7px; padding: 9px !important;}
+#followAndRegister.login .form-group:last-child {font-size: 11px; font-size: 1.1rem;}
 
 #inviteFriendsModal {text-align: center;}
 #inviteFriendsModal h4 {color: #545454; margin-top: 20px; font-variant: normal; font-size: 24px; font-size: 2.4rem; font-weight: normal; margin-bottom: 0;}

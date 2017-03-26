@@ -8,7 +8,7 @@
         <div class="panel-body text-center">
 
             <div class="campaign-progress-bar-wrapper">
-                <h4><g:message code="register.progressBar.title" /></h4>
+                %{--<h4><g:message code="register.progressBar.title" /></h4>--}%
                 <div class="campaign-progress-bar">
                     <div class="pop-up">
                         <g:message code="register.progressBar.popup" args="[user.name]" />
