@@ -5583,7 +5583,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         line-height: 1 !important;
     }
     .btn {
-        padding: 6px 14px !important;
+        padding: 6px 0 7px !important;
         margin: 0;
         color: #fff !important;
         border-radius: 3px;
