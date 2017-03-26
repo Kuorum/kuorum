@@ -6216,12 +6216,12 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #contactsList > li .email .raw-email {display:inline-flex; overflow: hidden;max-width: 12em;}
 
     ul.campaign-list {
-        margin-left:-5px;
-        margin-right:-5px;
+        margin-left:-7px;
+        margin-right:-8px;
     }
     ul.campaign-list > li .box-ppal{
-        margin-left: 5px;
-        margin-right: 5px;
+        margin-left: 7px;
+        margin-right: 8px;
         height: 350px;
     }
 }
