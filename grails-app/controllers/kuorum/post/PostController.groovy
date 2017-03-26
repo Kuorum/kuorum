@@ -220,6 +220,7 @@ class PostController {
         }
         else if (postRSDTO.videoUrl?.contains("youtube")){
             postCommand.videoPost = postRSDTO.videoUrl
+            postCommand.fileType = FileType.YOUTUBE.toString();
         }
 
         postCommand
