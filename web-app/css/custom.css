@@ -5345,13 +5345,12 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         padding: 4% 0 0;
     }
 
-    #listCampaigns > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #listCampaigns > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6); padding:22px 22px 0;}
     #searchContacts > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #searchContacts > div#listContacts {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-ppal.campaign-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-ppal.campaign-new {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #searchContacts > div#listContacts > div.box-ppal.list-contacts {padding: 22px 22px 0;}
-    #listCampaigns > div.box-ppal.listCampaigns {margin:22px 22px 0;}
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 50px;}*/
@@ -5589,7 +5588,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         line-height: 1 !important;
     }
     .btn {
-        padding: 6px 14px !important;
+        padding: 6px 14px 7px !important;
         margin: 0;
         color: #fff !important;
         border-radius: 3px;
