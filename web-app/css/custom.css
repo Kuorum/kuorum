@@ -2679,6 +2679,7 @@ ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-sty
 ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
 ul.campaign-list > li .box-ppal .card-footer:after {clear:both; content: " "}
 ul.campaign-list > li .box-ppal .card-footer > ul li a  {color:#a8a8a8;}
+ul.campaign-list > li .box-ppal .card-footer > ul li a .number{font-size: 20px; vertical-align: top;font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;}
 ul.campaign-list > li .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
 ul.campaign-list > li .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
 
@@ -5583,7 +5584,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         line-height: 1 !important;
     }
     .btn {
-        padding: 6px 0 7px !important;
+        padding: 6px 14px !important;
         margin: 0;
         color: #fff !important;
         border-radius: 3px;
@@ -7678,7 +7679,7 @@ button.btn-see-more {
 
 .leader-post > .footer .comment-counter .number {
     font-size: 20px;
-    vertical-align: middle;
+    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
 }
 
 /*** leader-post-stats ***/

@@ -26,7 +26,7 @@
                     <li>
                         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" fragment="openProposal" role="button">
                             <span class="fa fa fa-lightbulb-o fa-lg"></span>
-                            <span class="label">${debate.numProposals}</span>
+                            <span class="number">${debate.numProposals}</span>
                         </g:link>
                     </li>
                 </ul>
