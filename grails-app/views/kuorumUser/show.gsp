@@ -62,7 +62,7 @@
     </div><!--/.panel panel-default -->
 
 
-    <ul id="campaign-sorter" class="nav nav-pills nav-underline">
+    <ul id="campaign-sorter" class="nav nav-pills nav-underline hidden-xs">
         <li class="active"><a href="#latest"><g:message code="search.filters.all"/> </a></li>
         <li><a href="#posts"><g:message code="search.filters.SolrType.POST"/></a></li>
         <li><a href="#debates"><g:message code="search.filters.SolrType.DEBATE"/></a></li>
