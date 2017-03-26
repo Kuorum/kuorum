@@ -709,7 +709,7 @@ header.transp #search-form .open-filter {background-color: rgba(219,219,219,0.4)
     font-size: 25px !important;
     width: 100%;
 }
-.popover .btn.btn-blue.disabled {background-color: #a8a8a8 !important;}
+.popover .btn.btn-blue.disabled {}
 .boxes .btn {margin-bottom: 20px !important;}
 .boxes .cancel {margin: 0 !important; float: right;}
 .boxes .btn + .cancel {float: left;}
@@ -6865,7 +6865,6 @@ hr{
     margin: 0;
     padding: 0;
     text-align: left;
-    margin-top: 18px;
 }
 .panel-share-buttons > li {
     display: inline-block;
@@ -6874,6 +6873,7 @@ hr{
 .panel-share-buttons > li > a:hover{
     color:#b77a17;
 }
+.no-margins{margin:0;}
 .panel-table{
     margin: 0;
 }
