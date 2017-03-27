@@ -6,7 +6,7 @@
             <userUtil:ifUserIsTheLoggedOne user="${debate.userAlias}">
                 <li>
                     <button
-                            class="pin-propusal ${proposal.pinned?'active':''}"
+                            class="pin-proposal ${proposal.pinned?'active':''}"
                             rel="tooltip"
                             type="button"
                             data-urlAction="${g.createLink(mapping: 'debateProposalPin')}"

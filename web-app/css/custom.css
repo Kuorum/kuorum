@@ -7741,7 +7741,7 @@ ul.proposal-list ul.social li {list-style-type: none; box-shadow: none;}
 ul.proposal-list ul.icons li {list-style-type: none; box-shadow: none;}
 ul.proposal-list ul.conversation-box-comments-list li {list-style-type: none; box-shadow: none;}
 .comment-box > .user-box,
-ul.proposal-list .comment-box > .comment-propusal > .user-box{margin-bottom: 10px;}
+ul.proposal-list .comment-box > .comment-proposal > .user-box{margin-bottom: 10px;}
 
 /*** commment-box ***/
 .comment-box {
@@ -7810,9 +7810,9 @@ div [class^='comment-box col-'] {
 .conversation-box-comment .header .user + .time-ago { margin-top: 8px;margin-left: 5px; display:inline-block}
 .conversation-box .header ul {margin:0;}
 
-.conversation-box span.pin-propusal{cursor: default;}
+.conversation-box span.pin-proposal{cursor: default;}
 
-.conversation-box .pin-propusal + .tooltip.bottom .tooltip-arrow {
+.conversation-box .pin-proposal + .tooltip.bottom .tooltip-arrow {
     border-bottom-color: #FF9431;
     top: -8px;
     left: 50%;
@@ -7821,12 +7821,12 @@ div [class^='comment-box col-'] {
     background-color: transparent;
 }
 
-.conversation-box .pin-propusal + .tooltip.bottom {
+.conversation-box .pin-proposal + .tooltip.bottom {
     background-color: #FF9431;
     opacity: 1;
 }
 
-.conversation-box .pin-propusal + .tooltip.bottom .tooltip-inner {
+.conversation-box .pin-proposal + .tooltip.bottom .tooltip-inner {
     background-color: #FF9431;
     color: white;
     font-size: 14px;
@@ -7844,8 +7844,8 @@ div [class^='comment-box col-'] {
 }
 
 .conversation-box ul.icons li button,
-.conversation-box ul.icons li .pin-propusal {color: #D0D0D0;}
-.conversation-box ul.icons li .pin-propusal.active {color: #FF9431;}
+.conversation-box ul.icons li .pin-proposal {color: #D0D0D0;}
+.conversation-box ul.icons li .pin-proposal.active {color: #FF9431;}
 
 .conversation-box > .footer .social li a:hover .fa-circle {
     color: #00a3ed;
@@ -8077,7 +8077,7 @@ div [class^='comment-box col-'] {
     padding-top: 0;
 }
 
-.conversation-box-comments .comment-box .comment-propusal {
+.conversation-box-comments .comment-box .comment-proposal {
     padding-top: 25px;
 }
 
@@ -8103,7 +8103,7 @@ div [class^='comment-box col-'] {
     text-decoration: none;
 }
 
-.conversation-box-comments .comment-box .comment-propusal {
+.conversation-box-comments .comment-box .comment-proposal {
     display: none;
 }
 
