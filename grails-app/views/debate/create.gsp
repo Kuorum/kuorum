@@ -17,6 +17,7 @@
 <content tag="mainContent">
     <ol class="breadcrumb">
         <li><g:link mapping="politicianCampaigns"><g:message code="head.logged.account.tools.massMailing"/></g:link></li>
+        <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
     <div class="box-ppal campaign-new">
