@@ -47,7 +47,7 @@ class MassMailingController {
         List<DebateRSDTO> debates = debateService.findAllDebates(user)
         List<PostRSDTO> posts = postService.findAllPosts(user)
 
-        [campaigns: campaigns, projects: projects, debates: debates, posts: posts, user: user]
+        [campaigns: campaigns, debates: debates, posts: posts, user: user]
     }
 
     def newCampaign(){
