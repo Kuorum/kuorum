@@ -1407,7 +1407,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #mails {text-align: center;}
 #mails li {list-style: none; display: block; float: left; margin: 0 17px 20px;}
 /*#mails li:last-child {margin-right: 0;}*/
-#mails li > a {display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
+#mails li > a {margin:auto; display: block; width: 107px; height: 91px; padding-top: 60px; font-size: 16px; font-size: 1.6rem; background-color: #fff; background-repeat: no-repeat; border: 1px solid #ff9431;}
 #mails li > a:hover, #mails li > a:focus, #mails li > a:active {text-decoration: none; background-color: #fbfbfb;}
 #mails li > #gmail {background-image: url('../images/mail-gmail.png'); background-position: center 15px;}
 #mails li > #yahoo {background-image: url('../images/mail-yahoo.png'); background-position: center 25px;}
@@ -5295,6 +5295,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
+    #mails{padding:0;}
     .carousel.news .carousel-control {top: 30%;}
     #mails.campaigns {  width: 100% !important; padding:0;}
     #mails li{  float: none !important;  }
@@ -5352,6 +5353,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #searchContacts > div#listContacts {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-ppal.campaign-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-ppal.campaign-new {box-shadow: 0 0 2px rgba(200,200,200,0.6);padding: 22px 15px;}
+    .box-ppal.campaign-new{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    .box-ppal.campaign-stats{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #searchContacts > div#listContacts > div.box-ppal.list-contacts {padding: 22px 22px 0;}
 
     /* DASHBOARD */
