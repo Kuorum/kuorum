@@ -2,6 +2,7 @@ package payment.campaign
 
 import grails.transaction.Transactional
 import kuorum.users.KuorumUser
+import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
 import com.fasterxml.jackson.core.type.TypeReference
 import org.kuorum.rest.model.notification.campaign.CampaignRQDTO
@@ -21,20 +22,8 @@ class MassMailingService {
         sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 
-    private Date convertToUserTimeZone(Date date, TimeZone userTimeZone){
-        if (date){
-            def dateFormat = 'yyyy/MM/dd HH:mm'
-            String rawDate = date.format(dateFormat)
-            SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-            sdf.setTimeZone(userTimeZone);
-            return sdf.parse(rawDate)
-        }else{
-            return null;
-        }
-    }
-
     CampaignRSDTO campaignSchedule(KuorumUser user, CampaignRQDTO campaignRQDTO, Date date, Long campaignId = null){
-        campaignRQDTO.sentOn = convertToUserTimeZone(date, user.timeZone)
+        campaignRQDTO.sentOn = TimeZoneUtil.convertToUserTimeZone(date, user.timeZone)
         sendScheduledCampaignWithoutDateModifications(user, campaignRQDTO, campaignId)
     }
 

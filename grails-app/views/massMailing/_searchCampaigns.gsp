@@ -55,9 +55,6 @@
         <g:each in="${campaigns}" var="campaign" status="i">
             <g:render template="liCampaign" model="[campaign:campaign, user:user, idx:i]"/>
         </g:each>
-        <g:each in="${projects}" var="project" status="i">
-            <g:render template="liCampaignProject" model="[project:project, user:user, idx:project.id]"/>
-        </g:each>
         <g:each in="${debates}" var="debate" status="i">
             <g:render template="liCampaignDebate" model="[debate: debate, user: user, idx: debate.id]"/>
         </g:each>
