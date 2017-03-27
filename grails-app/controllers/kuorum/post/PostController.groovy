@@ -131,7 +131,7 @@ class PostController {
                 after5minutes = date + 5.minutes
             }
 
-            if(command.publishOn < after5minutes){
+            if(command.publishOn > after5minutes){
                 // Shceduled over 5 minutes
                 msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
                         savedPost.title,
@@ -140,7 +140,7 @@ class PostController {
             }
             else {
                 // Published or scheduled within 5 minutes
-                msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
+                msg = g.message(code: 'tools.massMailing.saved.advise', args: [
                         savedPost.title,
                         g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
                 ])
