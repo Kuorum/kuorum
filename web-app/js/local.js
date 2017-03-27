@@ -1147,7 +1147,7 @@ $(document).ready(function() {
                 },
                 success: function(result) {
                     $link.attr("data-pagination-offset", offset);
-                    $ul.append(result);
+                    $(result).insertBefore($ul.find("li").last())
                     if (total <= (offset+1)*max){
                         $seeMoreContainer.fadeOut("fast")
                     }
