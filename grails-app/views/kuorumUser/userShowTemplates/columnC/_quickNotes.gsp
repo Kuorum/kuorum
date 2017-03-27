@@ -12,7 +12,7 @@
             </h3>
         </div>
         <div class="panel-body text-center">
-            <g:if test="${['completeName','birthDate', 'birthPlace','family'].find{politician?.politicianExtraInfo?."${it}"} || ['gender'].find{politician?.personalData?."${it}"}}">
+            <g:if test="${['completeName','birthDate', 'birthPlace','family'].find{politician?.politicianExtraInfo?."${it}"}}">
                 <div class="table table-condensed limit-height" data-collapsedHeight="95">
                     <div class="thead"><g:message code="politician.quickNotes.data.background.title"/></div>
                     <g:render template="/kuorumUser/userShowTemplates/columnC/rowPoliticianColumnC" model="[
@@ -34,11 +34,11 @@
                             itemprop: 'birthDate',
                             content: politician?.politicianExtraInfo?.birthDate?g.formatDate(date: politician?.politicianExtraInfo?.birthDate, format: 'yyyy-MM-dd'):''
                     ]"/>
-                    <g:render template="/kuorumUser/userShowTemplates/columnC/rowPoliticianColumnC" model="[
-                            message:g.message(code:'kuorum.web.commands.profile.EditUserProfileCommand.gender.label'),
-                            data:(politician?.personalData?.gender?g.message(code:'kuorum.core.model.Gender.'+politician?.personalData?.gender):''),
-                            itemprop:'gender'
-                    ]"/>
+                    %{--<g:render template="/kuorumUser/userShowTemplates/columnC/rowPoliticianColumnC" model="[--}%
+                            %{--message:g.message(code:'kuorum.web.commands.profile.EditUserProfileCommand.gender.label'),--}%
+                            %{--data:(politician?.personalData?.gender?g.message(code:'kuorum.core.model.Gender.'+politician?.personalData?.gender):''),--}%
+                            %{--itemprop:'gender'--}%
+                    %{--]"/>--}%
                     <g:render template="/kuorumUser/userShowTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.background.family'),
                             data:politician?.politicianExtraInfo?.family?:''
@@ -115,7 +115,7 @@
                 </div>
             </g:if>
             <g:if test="${['twitter', 'facebook', 'googlePlus', 'linkedIn', 'blog', 'instagram', 'youtube'].find{politician?.socialLinks?."${it}"}}">
-                <div class="table table-condensed">
+                <div class="table table-condensed no-margins">
                     <ul class="panel-share-buttons">
 
                         <g:if test="${politician.socialLinks?.twitter}">
