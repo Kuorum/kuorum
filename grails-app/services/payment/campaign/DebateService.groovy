@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.SpringSecurityService
 import grails.transaction.Transactional
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
+import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
@@ -62,7 +63,7 @@ class DebateService {
 
     DebateRSDTO saveDebate(KuorumUser user, DebateRDTO debateRDTO, Long debateId) {
         if (debateRDTO.publishOn != null) {
-            debateRDTO.publishOn = convertToUserTimeZone(debateRDTO.publishOn, user.timeZone)
+            debateRDTO.publishOn = TimeZoneUtil.convertToUserTimeZone(debateRDTO.publishOn, user.timeZone)
         }
         debateRDTO.body = debateRDTO.body.encodeAsRemovingScriptTags().encodeAsTargetBlank()
 
@@ -124,18 +125,6 @@ class DebateService {
         )
 
         debateId
-    }
-
-    private static Date convertToUserTimeZone(Date date, TimeZone userTimeZone) {
-        if (date) {
-            def dateFormat = 'yyyy/MM/dd HH:mm'
-            String rawDate = date.format(dateFormat)
-            SimpleDateFormat sdf = new SimpleDateFormat(dateFormat)
-            sdf.setTimeZone(userTimeZone)
-            return sdf.parse(rawDate)
-        } else {
-            return new Date()
-        }
     }
 
 }

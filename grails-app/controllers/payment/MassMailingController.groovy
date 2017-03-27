@@ -44,11 +44,10 @@ class MassMailingController {
     def index() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
-        List<Project> projects = Project.findAllByOwner(user)
         List<DebateRSDTO> debates = debateService.findAllDebates(user)
         List<PostRSDTO> posts = postService.findAllPosts(user)
 
-        [campaigns: campaigns, projects: projects, debates: debates, posts: posts, user: user]
+        [campaigns: campaigns, debates: debates, posts: posts, user: user]
     }
 
     def newCampaign(){

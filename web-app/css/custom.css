@@ -1716,7 +1716,9 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 
 .box-ppal {background-color: #fff; color: #545454; border: solid 1px #e5e5e5; padding: 0; margin: 0 0 40px 0; position: relative;}
 .box-ppal {padding: 22px 10px 0;}
-.box-ppal.filterbox{padding-bottom:0}
+.box-ppal.filterbox{padding-bottom:0;box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.box-ppal.list-contacts{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.box-ppal.list-campaigns{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .box-ppal .box-ppal-section{padding: 0 20px}
 .box-ppal .box-ppal-section .box-ppal-section-title{margin:0 0 10px -20px; font-variant:small-caps;}
 .box-ppal-section + .box-ppal-section, .dynamic-fieldset.profile-dynamic-fields + .dynamic-fieldset.profile-dynamic-fields{border-top: 1px #e5e5e5 solid; padding-top: 20px;}
@@ -5349,7 +5351,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #searchContacts > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #searchContacts > div#listContacts {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-ppal.campaign-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
-    #main > div.box-ppal.campaign-new {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #main > div.box-ppal.campaign-new {box-shadow: 0 0 2px rgba(200,200,200,0.6);padding: 22px 15px;}
     #searchContacts > div#listContacts > div.box-ppal.list-contacts {padding: 22px 22px 0;}
 
     /* DASHBOARD */
