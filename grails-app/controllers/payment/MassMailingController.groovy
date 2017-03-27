@@ -6,7 +6,6 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
 import kuorum.files.FileService
 import kuorum.post.PostService
-import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.payment.contact.ContactFilterCommand
