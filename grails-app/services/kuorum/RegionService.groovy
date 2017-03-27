@@ -206,7 +206,7 @@ class RegionService {
             )
             return response.data
         }catch (Exception e){
-            log.error("Error recovering region '${isoCode}'",e)
+            log.warn("Error recovering region '${isoCode}'")
             return null
         }
 
