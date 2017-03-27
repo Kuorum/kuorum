@@ -2,7 +2,7 @@
 function SortCampaigns() {
 
     var that = this;
-    var campaignList = $('ul.campaign-list');
+    var campaignList = $('.politician-card ul.campaign-list');
 
     this.campaignOptions = {};
     this.campaignOptions['latest'] = {

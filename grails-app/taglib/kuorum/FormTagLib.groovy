@@ -9,6 +9,8 @@ import kuorum.users.KuorumUser
 import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
+import org.kuorum.rest.model.geolocation.RegionRSDTO
+import org.springframework.context.i18n.LocaleContextHolder
 
 class FormTagLib {
     static defaultEncodeAs = 'raw'
@@ -16,6 +18,7 @@ class FormTagLib {
 
     def grailsApplication
     SpringSecurityService springSecurityService
+    RegionService regionService;
 
     static namespace = "formUtil"
 
@@ -380,12 +383,16 @@ class FormTagLib {
         def showLabel = attrs.showLabel?Boolean.parseBoolean(attrs.showLabel):false
         Region regionValue = command."${field}"?:null
         def value = regionValue?.iso3166_2?:''
-        def showedValue = regionValue?.name?:""
+        def showedValue = "";
+        if (value){
+            Locale locale = LocaleContextHolder.getLocale();
+            RegionRSDTO regionRSDTO = regionService.findRegionDataById(value, locale)
+            showedValue = regionRSDTO.name
+        }
 
         def label = attrs.label?:message(code: "${command.class.name}.${field}.label")
         def placeHolder = attrs.placeHolder?:message(code: "${command.class.name}.${field}.placeHolder", default: '')
         String helpBlock = attrs.helpBlock?:message(code: "${command.class.name}.${field}.helpBlock", default: '')
-
         if (showLabel){
             out << "<label for='${field}'>${label}</label>"
         }
