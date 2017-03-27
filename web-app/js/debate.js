@@ -164,12 +164,12 @@ $(function(){
         var $placeholder = $(event.target).closest('.comment-box');
         var $conversationComments = $placeholder.prev();
         var $actionsContent = $(event.target).closest('.actions');
-        var $commentPropusal = $placeholder.find('.comment-propusal');
+        var $commentProposal = $placeholder.find('.comment-proposal');
         var navbarHeight = $('.navbar').outerHeight();
         var $arrowButton = $(event.target).closest('.go-up').find('.angle');
 
         if (!isVisible) {
-            $commentPropusal.slideToggle();
+            $commentProposal.slideToggle();
             $conversationComments.slideToggle(1000, function () {
                 $arrowButton.toggleClass('fa-angle-down fa-angle-up');
                 if (isVisible === false) {
@@ -195,7 +195,7 @@ $(function(){
     $(".proposal-list").on("click", ".proposal-like", debateFunctions.onClickProposalLike);
 
     // Pin proposal
-    $(".proposal-list").on("click","button.pin-propusal", function() {
+    $(".proposal-list").on("click","button.pin-proposal", function() {
         var userLogged = $(this).attr("data-userLogged");
         if (userLogged == undefined || userLogged == "" ) {
             // USER NO LOGGED
@@ -219,6 +219,7 @@ $(function(){
                 data: data,
                 success: function(jsonData){
                     //console.log(jsonData)
+                    removeProposalFromFilter($(this));
                 },
                 dataType: "html"
             });
@@ -698,7 +699,7 @@ function SortProposals() {
     };
     this.proposalsOptions['pinned']={
         sort:that.proposalsOptions.latest.sort,
-        filter:function(idx){return !$(this).find(".pin-propusal").hasClass("active");},
+        filter:function(idx){return !$(this).find(".pin-proposal").hasClass("active");},
         name:"pinned"
     };
 
@@ -748,6 +749,13 @@ $(function () {
         $(".leader-post > .footer .comment-counter button").trigger("click");
     }
 });
+
+function removeProposalFromFilter(element){
+    var active = element.hasClass('active');
+    if(!active){
+        sortProposals.reorderList();
+    }
+}
 
 function openElement(hash){
     var $element = $("#" + hash);

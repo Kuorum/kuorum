@@ -56,17 +56,21 @@
             <div class="extra-padding" id="politician-bio">
                 <g:render template="/kuorumUser/userShowTemplates/userNews" model="[user:politician, userNews:userNews]"/>
                 <h4><g:message code="politician.bio"/></h4>
-                <p class="limit-height" data-collapsedHeight="50"  itemprop="description">${politician.bio}</p>
+                <div class="limit-height" data-collapsedHeight="100"  itemprop="description">
+                    <div class="clearfix">${politician.bio}</div>
+                </div>
+                %{--<p class="limit-height" data-collapsedHeight="50"  itemprop="description">${politician.bio}</p>--}%
             </div><!--/.extra-padding -->
         </div><!--/.panel-body-->
     </div><!--/.panel panel-default -->
 
-
+    <g:if test="${debates && posts}">
     <ul id="campaign-sorter" class="nav nav-pills nav-underline hidden-xs">
         <li class="active"><a href="#latest"><g:message code="search.filters.all"/> </a></li>
         <li><a href="#posts"><g:message code="search.filters.SolrType.POST"/></a></li>
         <li><a href="#debates"><g:message code="search.filters.SolrType.DEBATE"/></a></li>
     </ul>
+    </g:if>
 
     <ul class="campaign-list clearfix">
         <g:each in="${debates}" var="debate">

@@ -61,7 +61,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="btn btn-blue inverted" role="button" id="openCalendarDebate">
+                    <a href="#" class="btn btn-blue inverted" role="button" id="openCalendar">
                         <span class="fa fa-clock-o"></span>
                         <g:message code="tools.massMailing.schedule"/>
                     </a>
