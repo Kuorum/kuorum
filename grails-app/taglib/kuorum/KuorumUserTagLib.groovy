@@ -8,8 +8,10 @@ import kuorum.post.Post
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
 import org.bson.types.ObjectId
+import org.kuorum.rest.model.geolocation.RegionRSDTO
 import org.kuorum.rest.model.kuorumUser.BasicDataKuorumUserRSDTO
 import org.kuorum.rest.model.kuorumUser.reputation.UserReputationRSDTO
+import org.springframework.context.i18n.LocaleContextHolder
 
 class KuorumUserTagLib {
     static defaultEncodeAs = 'raw'
@@ -20,6 +22,8 @@ class KuorumUserTagLib {
     def springSecurityService
     def userReputationService
     RegisterService registerService
+    RegionService regionService;
+
     private Integer NUM_MAX_ON_USER_LIST = 100
 
     def loggedUserName = {attrs ->
@@ -237,7 +241,13 @@ class KuorumUserTagLib {
         KuorumUser user = attrs.user
         if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
             String position = user?.professionalDetails?.position?:""
-            String regionName = user?.professionalDetails?.region?.name?:""
+            Region regionValue = user?.professionalDetails?.region;
+            def regionName = "";
+            if (regionValue){
+                Locale locale = LocaleContextHolder.getLocale();
+                RegionRSDTO regionRSDTO = regionService.findRegionDataById(regionValue.iso3166_2, locale)
+                regionName = regionRSDTO.name
+            }
             String coma = position && regionName?", ":""
             out << "${position}${coma}${regionName}"
         }

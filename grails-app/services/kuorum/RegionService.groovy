@@ -194,6 +194,24 @@ class RegionService {
 
     }
 
+    public RegionRSDTO findRegionDataById(String isoCode, Locale locale){
+
+        try{
+            def response = restKuorumApiService.get(
+                    RestKuorumApiService.ApiMethod.REGION_GET,
+                    [:],
+                    [isoCode:isoCode,lang:locale?.language?:"en"],
+                    new TypeReference<RegionRSDTO>(){}
+
+            )
+            return response.data
+        }catch (Exception e){
+            log.error("Error recovering region '${isoCode}'",e)
+            return null
+        }
+
+    }
+
     public List<Region> suggestRegions(String prefixRegionName, AvailableLanguage language = AvailableLanguage.en_EN){
         def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.REGION_SUGGEST,
