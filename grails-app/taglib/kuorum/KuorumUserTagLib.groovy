@@ -246,7 +246,7 @@ class KuorumUserTagLib {
             if (regionValue){
                 Locale locale = LocaleContextHolder.getLocale();
                 RegionRSDTO regionRSDTO = regionService.findRegionDataById(regionValue.iso3166_2, locale)
-                regionName = regionRSDTO.name
+                regionName = regionRSDTO?.name?:regionValue.name
             }
             String coma = position && regionName?", ":""
             out << "${position}${coma}${regionName}"
