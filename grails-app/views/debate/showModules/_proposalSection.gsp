@@ -22,9 +22,7 @@
     <li><a href="#latest"><g:message code="debate.proposals.nav.latest"/> </a></li>
     <li><a href="#oldest"><g:message code="debate.proposals.nav.oldest"/></a></li>
     <li><a href="#best"><g:message code="debate.proposals.nav.best"/></a></li>
-    <g:if test="${proposalPage.data.findAll({it.pinned})}">
-        <li><a href="#pinned"><g:message code="debate.proposals.nav.pinned"/></a></li>
-    </g:if>
+    <li><a href="#pinned"><g:message code="debate.proposals.nav.pinned"/></a></li>
 </ul>
 
 <ul class="proposal-list">

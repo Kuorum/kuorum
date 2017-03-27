@@ -196,17 +196,18 @@ $(function(){
 
     // Pin proposal
     $(".proposal-list").on("click","button.pin-proposal", function() {
-        var userLogged = $(this).attr("data-userLogged");
+        var $button = $(this);
+        var userLogged = $button.attr("data-userLogged");
         if (userLogged == undefined || userLogged == "" ) {
             // USER NO LOGGED
             $('#registro').modal('show');
         } else {
             $(this).toggleClass("active", "");
-            var pin = $(this).hasClass("active");
-            var url =$(this).attr("data-urlAction");
-            var debateId = $(this).attr("data-debateId");
-            var debateAlias = $(this).attr("data-debateAlias");
-            var proposalId = $(this).attr("data-proposalId");
+            var pin = $button.hasClass("active");
+            var url =$button.attr("data-urlAction");
+            var debateId = $button.attr("data-debateId");
+            var debateAlias = $button.attr("data-debateAlias");
+            var proposalId = $button.attr("data-proposalId");
             var data = {
                 debateId:debateId,
                 debateAlias:debateAlias,
@@ -219,7 +220,8 @@ $(function(){
                 data: data,
                 success: function(jsonData){
                     //console.log(jsonData)
-                    removeProposalFromFilter($(this));
+                    removeProposalFromFilter($button);
+                    checkPinnedFilter();
                 },
                 dataType: "html"
             });
@@ -728,6 +730,9 @@ function SortProposals() {
 }
 var sortProposals;
 $(function () {
+
+    checkPinnedFilter();
+
     sortProposals = new SortProposals();
     var hash = window.location.hash
     if (hash != undefined || hash != "") {
@@ -772,3 +777,16 @@ function openElement(hash){
         }
     }
 }
+
+function checkPinnedFilter (){
+    if($('.proposal-list ul.icons button.active').length == 0){
+        $('#proposal-option li').find('a[href*="pinned"]').hide();
+        $('#proposal-option li').find('a[href*="latest"]').click();
+        if(window.location.hash == '#pinned' ){
+            window.location.hash = '#latest';
+        }
+    } else{
+        $('#proposal-option li').find('a[href*="pinned"]').show();
+    }
+}
+
