@@ -1,5 +1,6 @@
 package kuorum.register
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.oauth.FacebookOAuthToken
 import grails.plugin.springsecurity.oauth.OAuthToken
 import kuorum.KuorumFile
@@ -103,7 +104,8 @@ class FacebookOAuthService implements IOAuthService {
 
     private Date getExpirationDateFromToken(Token accessToken){
         Calendar cal = Calendar.getInstance()
-        Integer secondsAlive = Integer.parseInt(accessToken.rawResponse.split("&")[1].split("=")[1]);
+        def responseData = JSON.parse(accessToken.rawResponse)
+        Integer secondsAlive = responseData.expires_in
         cal.add(Calendar.SECOND, secondsAlive)
         cal.getTime()
     }
