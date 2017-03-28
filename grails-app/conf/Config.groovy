@@ -188,7 +188,7 @@ oauth {
     debug = true
     providers {
         facebook {
-            api = org.scribe.builder.api.FacebookApi
+            api = kuorum.payment.contact.facebook.oauth.FacebookApiOauth2
             key = 'FACEBOOK KEY'
             secret = 'FACEBOOK SECRET'
             successUri = '/oauth/facebook/success'
