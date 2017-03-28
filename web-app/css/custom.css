@@ -876,7 +876,7 @@ span + .text-notification {padding: 0 0 0 36px; margin-top: -6px;}
 .badge {background-color: #ff9431; padding: 4px 6px;}
 .badge-small {background-color: transparent; color:#ff9431;}
 .navbar-nav .visible-xs {display: inline-block !important;}
-.user-img {border-radius: 19px; width: 34px; height: 34px; margin: 4px 4px 4px 0;}
+.user-img {border-radius: 19px; width: 34px; height: 34px; margin: 1px 4px 1px 1px;}
 .boxes.alerts .user-img,
 .boxes.guays .user-img,
 .boxes.follow .user-img {display: inline-block;}
@@ -1960,7 +1960,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .popover .infoActivity .fa-check {color: #bfd9f5;}
 .popover-user-list ul {margin: 0 20px 0 0 !important; padding: 0;}
 .popover-user-list ul li {padding: 2px; display: block !important; margin: 0 0 5px 0;}
-.popover-user-list ul li .user-img {margin-bottom: 0 !important;}
+/*.popover-user-list ul li .user-img {margin-bottom: 0 !important;}*/
 .popover-user-list ul li:hover,
 .popover-user-list ul li:active,
 .popover-user-list ul li:focus {background-color: #efefef !important;}
