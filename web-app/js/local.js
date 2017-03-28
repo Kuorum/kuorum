@@ -663,7 +663,10 @@ $(document).ready(function() {
 
         if (isAllContactsSelected) {
             // Send filter
-            postData = $('#contactFilterForm').serialize();
+            var $filterData = $('#contactFilterForm');
+            var inputs = filterContacts.getFilterInputs($filterData)
+            postData = inputs.serialize();
+
             postData += "&checkedAll=1";
         } else {
             // Send list of ids

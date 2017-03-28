@@ -156,9 +156,12 @@ function FilterContacts() {
 
     }
 
+    this.getFilterInputs=function($filterData){
+        return $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select, .hide select, .hide input"));
+    };
     this.serializedFilterData = function(){
         var $filterData = that.getFormFilterIdSelected();
-        var inputs = $filterData.find("input, select").not($filterData.find("[id$='template'] input, [id$='template'] select, .hide select, .hide input"))
+        var inputs = that.getFilterInputs($filterData)
         var postData = inputs.serializeArray();
         postData.push({name:"filterId", value:that.getFilterId()});
         return postData;

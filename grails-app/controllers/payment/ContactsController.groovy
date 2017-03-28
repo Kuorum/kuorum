@@ -48,7 +48,9 @@ class ContactsController {
             anonymousFilter.id = -1;
             anonymousFilter.filterConditions = filterCommand.buildFilter().filterConditions;
             anonymousFilter.operator = filterCommand.operator
-            anonymousFilter.amountOfContacts = 10;
+            //SearchContactRSDTO temporalContact = new SearchContactRSDTO(filter: anonymousFilter);
+            ContactPageRSDTO temporalContacts = contactService.getUsers(user, anonymousFilter);
+            anonymousFilter.amountOfContacts = temporalContacts.total;
             anonymousFilter.name = g.message(code:'tools.contact.filter.newAnonymousName');
             command.filterId = anonymousFilter.id
         }
