@@ -2934,7 +2934,7 @@ textarea.error,
 .sign h1 {      font-size: 25px; font-size: 2.2rem; margin-top: 0;text-align:center;}
 .sign h2 {font-size: 18px; font-size: 1.8rem; line-height: 1.4; padding: 0;text-align:center;}
 .sign h3 {font-size: 18px; font-size: 1.8rem;text-align:left;}
-.sign .login {margin-top: 20px; margin-bottom: 20px;}
+.sign .login {margin: 20px auto;}
 .sign .login .socialGo .btn.tw,
 .sign .login .socialGo .btn.fb {padding: 15px !important;}
 .sign .login {width: 305px;}
@@ -5428,6 +5428,11 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 @media only screen and (max-width: 767px) {
     .box-order-options .bulk-actions {display: block; width: 100%;}
     #mails.campaigns {width: 36em;}
+}
+
+/* Small devices (tablets, 768px and down) */
+@media only screen and (max-width: 998px) {
+    form#pass-forget .form-group {text-align: center;}
 }
 
 /* Small devices (tablets, 768px and up) */
