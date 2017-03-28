@@ -5350,7 +5350,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     #listCampaigns > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6); padding:22px 22px 0;}
     #searchContacts > div.box-ppal{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
-    #searchContacts > div#listContacts {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-ppal.campaign-stats {box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #main > div.box-ppal.campaign-new {box-shadow: 0 0 2px rgba(200,200,200,0.6);padding: 22px 15px;}
     .box-ppal.campaign-new{box-shadow: 0 0 2px rgba(200,200,200,0.6);}

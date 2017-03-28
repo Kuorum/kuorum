@@ -6,7 +6,7 @@
     </ul>
     <!-- ^comment-box !-->
     <div class="comment-box">
-        <div class="comment-propusal clearfix">
+        <div class="comment-proposal clearfix">
             <div class="user-box col-md-1 col-xs-12">
                 <img class="img-circle" alt="${userUtil.loggedUserName()}" src="${image.loggedUserImgSrc()}">
             </div>
