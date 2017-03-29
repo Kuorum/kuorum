@@ -115,13 +115,13 @@ class KuorumUserTagLib {
             }
             out << "</div>"
         }
-        if (showRole){
-            out << """
-                <span class="user-type">
-                    <small>${userUtil.roleName(user:user)}</small>
-                </span>
-                """
-        }
+//        if (showRole){
+//            out << """
+//                <span class="user-type">
+//                    <small>${userUtil.roleName(user:user)}</small>
+//                </span>
+//                """
+//        }
         out << "</${htmlWrapper}>" //END DIV
     }
 

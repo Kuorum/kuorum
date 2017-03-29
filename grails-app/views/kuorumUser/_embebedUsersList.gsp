@@ -3,9 +3,9 @@
         <g:link mapping="userShow" itemprop="url" params="${user.encodeAsLinkProperties()}">
             <img itemprop="image" class="user-img" alt="${user.name}" src="${image.userImgSrc(user:user)}"><span itemprop="name">${user.name}</span>
         </g:link>
-        <span class="user-type">
-            <small><userUtil:roleName user="${user}"/> </small>
-        </span>
+        %{--<span class="user-type">--}%
+            %{--<small><userUtil:roleName user="${user}"/> </small>--}%
+        %{--</span>--}%
     </li><!-- /.user -->
 </g:each>
 %{--<li class="link"><a href="#">Ver todos</a></li>--}%
