@@ -5,6 +5,8 @@ import kuorum.core.model.UserType
 import kuorum.post.PostService
 import kuorum.users.KuorumUser
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
+import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import payment.campaign.DebateService
 
@@ -82,30 +84,37 @@ class SiteMapController {
                     }
                 }
 
-                //DYNAMIC ENTRIES
-//                Project.list().each {project->
-//                    url {
-//                        loc(g.createLink( mapping: 'langProjectShow', params:project.encodeAsLinkProperties(), absolute: true))
-//                        changefreq('weekly')
-//                        priority(0.3)
-//                        lastmod(project.dateCreated.format(FORMAT_DATE_SITEMAP))
-//                    }
-//                }
-//
-//                Post.list().each {post->
-//                    def dates = [
-//                            post.debates?post.debates.last().dateCreated:null,
-//                            post.comments?post.comments.last().dateCreated:null,
-//                            post.dateCreated
-//                            ]
-//                    Date lastModified = dates.max{a, b -> a  <=> b }
-//                    url {
-//                        loc(g.createLink( mapping: 'langPostShow', params:post.encodeAsLinkProperties(), absolute: true))
-//                        changefreq('weekly')
-//                        priority(0.2)
-//                        lastmod(lastModified?.format(FORMAT_DATE_SITEMAP))
-//                    }
-//                }
+                Integer page = 0;
+                Integer size = 100;
+                PagePostRSDTO pagePostRSDTO = postService.findAllPosts(page, size)
+                while (pagePostRSDTO.getData()) {
+                    pagePostRSDTO.data.each { post ->
+                        url {
+                            loc(g.createLink(mapping: 'postShow', params: post.encodeAsLinkProperties(), absolute: true))
+                            changefreq('weekly')
+                            priority(0.3)
+                            lastmod(post.datePublished.format(FORMAT_DATE_SITEMAP))
+                        }
+                    }
+                    page++;
+                    pagePostRSDTO = postService.findAllPosts(page, size)
+                }
+
+                page = 0;
+                size = 100;
+                PageDebateRSDTO pageDebateRSDTO = debateService.findAllDebates(page, size)
+                while (pageDebateRSDTO.getData()) {
+                    pageDebateRSDTO.data.each { debate ->
+                        url {
+                            loc(g.createLink(mapping: 'debateShow', params: debate.encodeAsLinkProperties(), absolute: true))
+                            changefreq('weekly')
+                            priority(0.3)
+                            lastmod(debate.datePublished.format(FORMAT_DATE_SITEMAP))
+                        }
+                    }
+                    page++;
+                    pageDebateRSDTO = debateService.findAllDebates(page, size)
+                }
             }
         }
     }

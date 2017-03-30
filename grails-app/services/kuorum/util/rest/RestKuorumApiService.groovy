@@ -91,6 +91,7 @@ class RestKuorumApiService {
         ACCOUNT_MASS_MAILING_SEND       ("/communication/massmailing/{userAlias}/{campaignId}/send"),
         ACCOUNT_MASS_MAILING_TRACKING   ("/communication/massmailing/{userAlias}/{campaignId}/trackingMails"),
 
+        ACCOUNT_DEBATES_ALL     ("/communication/debate/"),
         ACCOUNT_DEBATES         ("/communication/debate/{userAlias}"),
         ACCOUNT_DEBATE          ("/communication/debate/{userAlias}/{debateId}"),
         ACCOUNT_DEBATE_PROPOSALS("/communication/debate/{userAlias}/{debateId}/proposal"),
@@ -100,6 +101,7 @@ class RestKuorumApiService {
         ACCOUNT_DEBATE_PROPOSAL_COMMENT       ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment/{commentId}"),
         ACCOUNT_DEBATE_PROPOSAL_COMMENT_VOTE  ("/communication/debate/{userAlias}/{debateId}/proposal/{proposalId}/comment/{commentId}/vote"),
 
+        ACCOUNT_POSTS_ALL       ("/communication/post/"),
         ACCOUNT_POSTS           ("/communication/post/{userAlias}"),
         ACCOUNT_POST            ("/communication/post/{userAlias}/{postId}"),
         ACCOUNT_POST_LIKES      ("/communication/post/{userAlias}/{postId}/likes"),

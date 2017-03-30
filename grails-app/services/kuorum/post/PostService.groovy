@@ -11,8 +11,10 @@ import kuorum.project.Project
 import kuorum.users.KuorumUser
 import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.communication.post.PostRDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
+import org.kuorum.rest.model.pagination.PageRSDTO
 
 @Transactional
 class PostService {
@@ -26,6 +28,19 @@ class PostService {
     KuorumMailService kuorumMailService
     RestKuorumApiService restKuorumApiService
 
+    PagePostRSDTO findAllPosts(Integer page = 0, Integer size = 10){
+        Map<String, String> params = [:]
+        Map<String, String> query = [page:page.toString(), size:size.toString()]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_POSTS_ALL,
+                params,
+                query,
+                new TypeReference<PagePostRSDTO>(){}
+        )
+
+        response.data
+
+    }
     List<PostRSDTO> findAllPosts(KuorumUser user, String viewerUid = null){
         Map<String, String> params = [userAlias: user.id.toString()]
         Map<String, String> query = [:]
