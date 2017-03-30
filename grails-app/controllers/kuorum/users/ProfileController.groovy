@@ -9,7 +9,6 @@ import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
-import kuorum.mail.MailType
 import kuorum.notifications.Notification
 import kuorum.notifications.NotificationService
 import kuorum.register.RegisterService
@@ -216,6 +215,26 @@ class ProfileController {
         kuorumUserService.updateUser(user)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileEditUser'
+    }
+
+    def editPictures(){
+        KuorumUser user = params.user
+        EditUserProfileCommand command = new EditUserProfileCommand(user)
+
+        [command: command]
+    }
+
+    def updatePictures(EditUserProfileCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors()){
+            render view:"editPictures", model: [command:command,user:user]
+            return
+        }
+        prepareUserImages(user,command, fileService)
+        kuorumUserService.updateUser(user)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profilePictures'
+
     }
 
     def editCommissions () {
