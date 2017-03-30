@@ -779,7 +779,8 @@ function openElement(hash){
 }
 
 function checkPinnedFilter (){
-    if($('.proposal-list ul.icons button.active').length == 0){
+
+    if($('.proposal-list ul.icons .active').length == 0){
         $('#proposal-option li').find('a[href*="pinned"]').hide();
         $('#proposal-option li').find('a[href*="latest"]').click();
         if(window.location.hash == '#pinned' ){

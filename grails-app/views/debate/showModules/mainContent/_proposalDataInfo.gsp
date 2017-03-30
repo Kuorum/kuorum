@@ -28,7 +28,7 @@
             <userUtil:elseIfUserNotIsTheLoggedOne user="${debate.userAlias}">
                 <g:if test="${proposal.pinned}">
                     <li >
-                        <span class="fa-stack fa-lg pin-propusal active"
+                        <span class="fa-stack fa-lg pin-proposal active"
                               aria-hidden="true"
                               rel="tooltip"
                               data-toggle="tooltip"

@@ -9,7 +9,6 @@ import kuorum.core.model.Gender
 import kuorum.core.model.UserType
 import kuorum.files.FileService
 import kuorum.mail.KuorumMailAccountService
-import kuorum.mail.MailType
 import kuorum.notifications.Notification
 import kuorum.notifications.NotificationService
 import kuorum.register.RegisterService
@@ -218,6 +217,26 @@ class ProfileController {
         redirect mapping:'profileEditUser'
     }
 
+    def editPictures(){
+        KuorumUser user = params.user
+        EditUserProfileCommand command = new EditUserProfileCommand(user)
+
+        [command: command]
+    }
+
+    def updatePictures(EditUserProfileCommand command){
+        KuorumUser user = params.user
+        if (command.hasErrors()){
+            render view:"editPictures", model: [command:command,user:user]
+            return
+        }
+        prepareUserImages(user,command, fileService)
+        kuorumUserService.updateUser(user)
+        flash.message=message(code:'profile.editUser.success')
+        redirect mapping:'profilePictures'
+
+    }
+
     def editCommissions () {
         KuorumUser user = params.user
         EditCommissionsProfileCommand command = new EditCommissionsProfileCommand()
@@ -364,7 +383,7 @@ class ProfileController {
         command.proposalLike = notificationConfig.mailConfig.proposalLike
         command.proposalPinned = notificationConfig.mailConfig.proposalPinned
         command.proposalNew = notificationConfig.mailConfig.proposalNew
-        notificationService.saveNotificationsConfig(user, notificationConfig);
+        command.postLike = notificationConfig.mailConfig.postLike
         [user:user, command: command]
     }
     def configurationEmailsSave(MailNotificationsCommand command) {
@@ -380,6 +399,7 @@ class ProfileController {
         notificationConfig.mailConfig.proposalLike = command.proposalLike
         notificationConfig.mailConfig.proposalPinned = command.proposalPinned
         notificationConfig.mailConfig.proposalNew = command.proposalNew
+        notificationConfig.mailConfig.postLike = command.postLike
         notificationService.saveNotificationsConfig(user, notificationConfig)
         flash.message = message(code:'profile.emailNotifications.success')
         redirect mapping:'profileEmailNotifications'

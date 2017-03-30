@@ -3,6 +3,9 @@
     <li class="${activeMapping=='profileEditUser'?'active':''}">
         <g:link mapping="profileEditUser"><g:message code="profile.menu.profileEditUser"/></g:link>
     </li>
+    <li class="${activeMapping=='profilePictures'?'active':''}">
+        <g:link mapping="profilePictures"><g:message code="profile.menu.profilePictures"/></g:link>
+    </li>
     <li class="${activeMapping=='profileCauses'?'active':''}">
         <g:link mapping="profileCauses"><g:message code="profile.menu.profileCauses"/></g:link>
     </li>

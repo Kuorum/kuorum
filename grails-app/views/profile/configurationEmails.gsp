@@ -37,6 +37,11 @@
                 <formUtil:checkBox command="${command}" field="proposalLike" extraClass="clearfix" />
                 <formUtil:checkBox command="${command}" field="proposalPinned" extraClass="clearfix" />
             </div>
+            <div class="form-group">
+                <span class="span-label"><g:message code="profile.emailNotifications.post.title"/></span>
+                <p class="help-block"><g:message code="profile.emailNotifications.basic.title.helpBlock"/></p>
+                 <formUtil:checkBox command="${command}" field="postLike" extraClass="clearfix" />
+            </div>
         </div>
         <div class="box-ppal-section">
             <fieldset class="form-group text-center">
