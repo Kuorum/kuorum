@@ -6205,6 +6205,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /*#profileInfo > span {margin-top: 0; float: right;}*/
     /*#followOthers .user-list-followers .user > .actions {margin-top: -15px !important;}*/
     .dashboard > div > .box-ppal {min-height: 357px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    .contacts-campaigns h2.campaign-list-title {margin-top: 50px}
 
     /* LIST CONTACTS (08/2016) */
     #boxfiltersContacts .dropdown-menu {min-width: 140px;}
@@ -7819,25 +7820,52 @@ div [class^='comment-box col-'] {
 
 .conversation-box span.pin-proposal{cursor: default;}
 
-.conversation-box .pin-proposal + .tooltip.bottom .tooltip-arrow {
+.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-arrow {
+    position: relative;
     border-bottom-color: #FF9431;
-    top: -8px;
+    top: -14px;
     left: 50%;
     margin-left: -10px;
     border-width: 0 10px 10px;
     background-color: transparent;
 }
 
-.conversation-box .pin-proposal + .tooltip.bottom {
+.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-arrow {
+    position: relative;
+    border-bottom-color: #FF9431;
+    top: -11px;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 0 10px 10px;
+    background-color: transparent;
+}
+
+.conversation-box button.pin-proposal + .tooltip.bottom {
     background-color: #FF9431;
     opacity: 1;
 }
 
-.conversation-box .pin-proposal + .tooltip.bottom .tooltip-inner {
+.conversation-box span.pin-proposal + .tooltip.bottom {
+    background-color: #FF9431;
+    opacity: 1;
+}
+
+.conversation-box button.pin-proposal + .tooltip.bottom .tooltip-inner {
+    position: relative;
     background-color: #FF9431;
     color: white;
     font-size: 14px;
-    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    top: -5px;
+}
+
+.conversation-box span.pin-proposal + .tooltip.bottom .tooltip-inner {
+    position: relative;
+    background-color: #FF9431;
+    color: white;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    top: -5px;
 }
 
 .conversation-box ul {
