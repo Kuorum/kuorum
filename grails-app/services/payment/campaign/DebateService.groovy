@@ -9,6 +9,7 @@ import kuorum.util.TimeZoneUtil
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.DebateRDTO
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
 
 import java.text.SimpleDateFormat
 
@@ -18,6 +19,17 @@ class DebateService {
     RestKuorumApiService restKuorumApiService
     IndexSolrService indexSolrService
 
+    PageDebateRSDTO findAllDebates(Integer page = 0, Integer size = 10) {
+        Map<String, String> params = [:]
+        Map<String, String> query = [page:page, size:size]
+        def response = restKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.ACCOUNT_DEBATES_ALL,
+                params,
+                query,
+                new TypeReference<PageDebateRSDTO>(){}
+        )
+        response.data
+    }
     List<DebateRSDTO> findAllDebates(KuorumUser user) {
         Map<String, String> params = [userAlias: user.id.toString()]
         Map<String, String> query = [:]
