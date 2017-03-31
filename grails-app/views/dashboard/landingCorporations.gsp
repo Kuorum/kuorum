@@ -32,7 +32,7 @@
                            img:'testimony-thai-jungpanich.jpg',
                            name:'Thai Jungpanich ',
                            logo:'logo-oxfam.png',
-                           logoAlt:'Conservatives',
+                           logoAlt:'Oxfam',
                            quote:g.message(code: 'landingCorporations.trustUs.user1.quote'),
                            role:g.message(code: 'landingCorporations.trustUs.user1.role')
                    ],[
