@@ -1,5 +1,7 @@
 package kuorum.dashboard
 
+import com.fasterxml.jackson.core.type.TypeReference
+import groovy.time.TimeCategory
 import kuorum.Region
 import kuorum.RegionService
 import kuorum.core.model.Gender
@@ -7,8 +9,9 @@ import kuorum.core.model.UserType
 import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
 import kuorum.users.KuorumUser
+import kuorum.util.rest.RestKuorumApiService
+import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.springframework.context.MessageSource
-import groovy.time.*
 
 class DashboardService {
 
@@ -121,6 +124,22 @@ class DashboardService {
             }
         }
         numPoliticiansForUser > 0
+    }
+
+    List<PostRSDTO> findAllContactsPosts (KuorumUser user, String viewerUid = null){
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [:]
+        if (viewerUid){
+            query.put("viewerUid",viewerUid)
+        }
+        def response = RestKuorumApiService.get(
+                RestKuorumApiService.ApiMethod.USER_CONTACTS_POSTS_ALL,
+                params,
+                query,
+                new TypeReference<List<PostRSDTO>>() {}
+        );
+
+        response.data
     }
 }
 

@@ -35,6 +35,7 @@ class KuorumUserController {
     RegisterService registerService
     CookieUUIDService cookieUUIDService
 
+
     CausesService causesService
     UserNewsService userNewsService
 

@@ -5,10 +5,12 @@ import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
 import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
+import kuorum.dashboard.DashboardService
 import kuorum.post.Cluck
+import kuorum.post.PostService
 import kuorum.project.Project
-import kuorum.project.ProjectEvent
 import kuorum.solr.SearchSolrService
+import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserStatsService
 import kuorum.web.commands.profile.AccountDetailsCommand
@@ -18,6 +20,7 @@ import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
@@ -39,6 +42,9 @@ class DashboardController {
     ContactService contactService
     MassMailingService massMailingService
     DebateService debateService
+    PostService postService
+    DashboardService dashboardService
+    CookieUUIDService cookieUUIDService
 
     private  static final Integer MAX_PROJECT_EVENTS = 2
 
@@ -52,7 +58,7 @@ class DashboardController {
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
 //        if (kuorumUserService.isPaymentUser(user)){
-            Map model = buildPaymentDashboadr(user);
+            Map model = buildPaymentDashboard(user);
             model.put("tour", params.tour?true:false)
             if (model.contacts.total==0) {
                 render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
@@ -80,10 +86,14 @@ class DashboardController {
 //        ]
 //    }
 
-    private def buildPaymentDashboadr(KuorumUser user){
+    private def buildPaymentDashboard(KuorumUser user){
+        String viewerUid = cookieUUIDService.buildUserUUID()
         List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
         CampaignRSDTO lastCampaign = null
-        List<DebateRSDTO> debates = debateService.findAllDebates(user)
+//      List<DebateRSDTO> debates = debateService.findAllDebates(user)
+        List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.datePublished && it.datePublished < new Date()}
+        //List<PostRSDTO> posts = postService.findAllPosts(user, viewerUid).findAll{it.datePublished && it.datePublished < new Date()}
+        List<PostRSDTO> posts = dashboardService.findAllContactsPosts(user, viewerUid).findAll{it.datePublished && it.datePublished < new Date()}
 
         List<CampaignRSDTO> sentDebateNewsletters = debates*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
         List<CampaignRSDTO> sentMassMailCampaigns = campaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
@@ -108,7 +118,9 @@ class DashboardController {
                 contacts: contactService.getUsers(user),
 //                recommendedUsers:recommendedUsers,
                 user:user,
-                emptyEditableData:emptyEditableData(user)
+                emptyEditableData:emptyEditableData(user),
+                debates: debates,
+                posts: posts
         ]
 
     }

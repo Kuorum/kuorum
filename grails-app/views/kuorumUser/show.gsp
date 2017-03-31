@@ -74,10 +74,10 @@
 
     <ul class="campaign-list clearfix">
         <g:each in="${debates}" var="debate">
-            <g:render template="activity/debateList" model="[debate:debate, user:politician]"/>
+            <g:render template="/campaigns/cards/debateList" model="[debate:debate, user:politician]"/>
         </g:each>
         <g:each in="${posts}" var="post">
-            <g:render template="activity/postList" model="[post:post, user:politician]"/>
+            <g:render template="/campaigns/cards/postList" model="[post:post, user:politician]"/>
         </g:each>
     </ul>
 </content>
