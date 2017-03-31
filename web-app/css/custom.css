@@ -2684,7 +2684,7 @@ ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-sty
 ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
 ul.campaign-list > li .box-ppal .card-footer:after {clear:both; content: " "}
 ul.campaign-list > li .box-ppal .card-footer > ul li a  {color:#a8a8a8;}
-ul.campaign-list > li .box-ppal .card-footer > ul li a .number{font-size: 20px; vertical-align: top;font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;}
+ul.campaign-list > li .box-ppal .card-footer > ul li a .number{font-size: 20px; vertical-align: top;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
 ul.campaign-list > li .box-ppal .card-footer > ul li a:hover {color: #00a3ed; text-decoration: none;}
 ul.campaign-list > li .box-ppal .card-footer > ul li .label { color:inherit; padding: 0;font-size: inherit;font-weight: inherit;}
 
