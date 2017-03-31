@@ -1099,7 +1099,8 @@ $(document).ready(function() {
         var text = $(this).find(".search-filter-text").html();
         $("input[name=searchType]").val(value);
         $(".open-filter > a > span + span:first").html(text);
-        $(".open-filter > a > span").first().attr("class",iconClasses )
+        $(".open-filter > a > span").first().attr("class",iconClasses );
+        $(".input-group-btn .btn.search").click();
     });
 
     // setTimeout(prepareProgressBar, 500)
