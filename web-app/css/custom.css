@@ -6594,7 +6594,8 @@ p.party{
     content: " | \f05d";
 }
 
-@media only screen and (max-width: 480px){
+@media only screen and (max-width: 480px)
+    .form-group.image.fondoperfil {height: 170px;}
     .profile-header img{
         min-height: 120px;
     }
@@ -6729,6 +6730,7 @@ p.party{
 }
 
 @media only screen and (max-width: 767px){
+    .form-group.image.fondoperfil {height: 300px;}
     .extra-padding{
         padding: 0 5px;
     }
