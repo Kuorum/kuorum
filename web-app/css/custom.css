@@ -1421,7 +1421,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #mails li.fontIcon > a > span.label {color:inherit; padding:0; font-weight: inherit;font-size: inherit}
 
 .dashboard, .box-ppal.dashboard {margin-top: 20px;}
-.dashboard > div > .box-ppal {min-height: 333px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+.dashboard > div > .box-ppal {min-height: 290px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 .dashboard .box-ppal > h2 {font-size: 20px; font-size: 2rem; color: #a8a8a8; padding-bottom: 10px; border-bottom: solid 1px #e5e5e5; margin: 0 0 20px 0;}
 .box-ppal#createNewCampaign {margin-bottom:20px;}
 .box-ppal#createNewCampaign p {font-size: 20px; font-size: 2rem; color: #a8a8a8; line-height: 1.4; text-align: center;margin-bottom: 60px;}
@@ -6204,7 +6204,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 0; float: right;}*/
     /*#followOthers .user-list-followers .user > .actions {margin-top: -15px !important;}*/
-    .dashboard > div > .box-ppal {min-height: 357px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    .dashboard > div > .box-ppal {min-height: 290px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     .contacts-campaigns h2.campaign-list-title {margin-top: 50px}
 
     /* LIST CONTACTS (08/2016) */
@@ -6339,7 +6339,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* DASHBOARD */
     /*#followOthers .user-list-followers .user > .actions {margin-top: -40px !important;}*/
-    .dashboard > div > .box-ppal {min-height: 298px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    .dashboard > div > .box-ppal {min-height: 290px; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     /*#profileInfo > span {margin-top: 50px;}*/
 
     /* LIST CONTACTS (08/2016) */
@@ -6594,7 +6594,8 @@ p.party{
     content: " | \f05d";
 }
 
-@media only screen and (max-width: 480px){
+@media only screen and (max-width: 480px)
+    .form-group.image.fondoperfil {height: 170px;}
     .profile-header img{
         min-height: 120px;
     }
@@ -6729,6 +6730,7 @@ p.party{
 }
 
 @media only screen and (max-width: 767px){
+    .form-group.image.fondoperfil {height: 300px;}
     .extra-padding{
         padding: 0 5px;
     }
