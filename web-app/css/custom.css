@@ -2190,7 +2190,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .video > .front,
 .vimeo > .front {display: block; background-color: #000; position: relative; width: 100%; overflow: hidden;}
 .video > .front > img,
-.vimeo > .front > img {opacity: 0.5;}
+.vimeo > .front > img {opacity: 0.6;}
 .video > .youtube,
 .vimeo > .youtube {width: 100%; display: none;}
 
