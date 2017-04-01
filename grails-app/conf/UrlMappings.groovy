@@ -40,7 +40,11 @@ class UrlMappings {
         name landingCorporations:   "/$lang/corporate-innovation" (controller: "dashboard", action:"landingCorporations")
                                     "/corporate-innovation" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
                                     "/$lang/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
-        "/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
+                                    "/corporations" { controller="redirect"; action= "redirect301"; newMapping='landingCorporations'}
+        name landingCorporationsBrands:   "/$lang/influential-brands" (controller: "dashboard", action:"landingCorporationsBrands")
+                                    "/influential-brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
+                                    "/$lang/brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
+                                    "/brands" { controller="redirect"; action= "redirect301"; newMapping='landingCorporationsBrands'}
         name footerTechnology:      "/$lang/services/what-is-kuorum"    (controller:"footer", action: "tech" )
                                     "/services/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}
                                     "/kuorum/what-is-kuorum"          { controller="redirect"; action= "redirect301"; newMapping='footerTechnology'}

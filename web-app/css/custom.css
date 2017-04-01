@@ -8372,6 +8372,16 @@ div [class^='comment-box col-'] {
     background-image: url('../images/landing/corporations-03.jpg');
 }
 
+.fade-carousel .slides .slide-1.landingCorporationsBrands {
+    background-image: url('../images/landing/brands-01.jpg');
+}
+.fade-carousel .slides .slide-2.landingCorporationsBrands {
+    background-image: url('../images/landing/brands-02.jpg');
+}
+.fade-carousel .slides .slide-3.landingCorporationsBrands {
+    background-image: url('../images/landing/brands-03.jpg');
+}
+
 .fade-carousel .slides .slide-1.landingOrganizations {
     background-image: url('../images/landing/organizations-01.jpg');
 }
