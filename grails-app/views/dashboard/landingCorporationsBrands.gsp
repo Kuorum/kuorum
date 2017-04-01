@@ -1,13 +1,13 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="landingCorporations.head.title"/></title>
+    <title><g:message code="landingCorporationsBrands.head.title"/></title>
     <meta name="layout" content="landingLeadersLayout">
     <parameter name="transparentHead" value="true"/>
     <parameter name="extraHeadCss" value="landing"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
-                      kuorumTitle:g.message(code:'landingCorporations.head.title'),
-                      kuorumDescription:g.message(code:'landingCorporations.head.description'),
+                      kuorumTitle:g.message(code:'landingCorporationsBrands.head.title'),
+                      kuorumDescription:g.message(code:'landingCorporationsBrands.head.description'),
                       kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'leaders-01.jpg')
               ]"/>
 </head>
@@ -29,19 +29,19 @@
     "[
             msgPrefix:'landingCorporationsBrands',
             users:[[
-                           img:'testimony-veronica-respaldiza.jpg',
-                           name:'Verónica Respaldiza ',
-                           logo:'logo-ibm.png',
-                           logoAlt:'IBM',
-                           quote:g.message(code: 'landingCorporations.trustUs.user1.quote'),
-                           role:g.message(code: 'landingCorporations.trustUs.user1.role')
-                   ],[
                            img:'testimony-miguel-ferrer.png',
                            name:'Miguel Ferrer ',
                            logo:'logo-kreab.png',
                            logoAlt:'Kreab',
                            quote:g.message(code: 'landingCorporations.trustUs.user2.quote'),
                            role:g.message(code: 'landingCorporations.trustUs.user2.role')
+                   ],[
+                           img:'testimony-veronica-respaldiza.jpg',
+                           name:'Verónica Respaldiza ',
+                           logo:'logo-ibm.png',
+                           logoAlt:'IBM',
+                           quote:g.message(code: 'landingCorporations.trustUs.user1.quote'),
+                           role:g.message(code: 'landingCorporations.trustUs.user1.role')
                    ]
             ]
     ]"/>
