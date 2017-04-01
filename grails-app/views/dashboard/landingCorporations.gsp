@@ -29,17 +29,17 @@
     "[
             msgPrefix:'landingCorporations',
             users:[[
-                           img:'testimony-thai-jungpanich.jpg',
-                           name:'Thai Jungpanich ',
-                           logo:'logo-oxfam.png',
-                           logoAlt:'Oxfam',
+                           img:'testimony-veronica-respaldiza.jpg',
+                           name:'Verónica Respaldiza ',
+                           logo:'logo-ibm.png',
+                           logoAlt:'IBM',
                            quote:g.message(code: 'landingCorporations.trustUs.user1.quote'),
                            role:g.message(code: 'landingCorporations.trustUs.user1.role')
                    ],[
-                           img:'testimony-gabriel-gonzalez.jpg',
-                           name:'Gabriel Gonzalez ',
-                           logo:'logo-unicef.png',
-                           logoAlt:'Unicef',
+                           img:'testimony-miguel-ferrer.png',
+                           name:'Miguel Ferrer ',
+                           logo:'logo-kreab.png',
+                           logoAlt:'Kreab',
                            quote:g.message(code: 'landingCorporations.trustUs.user2.quote'),
                            role:g.message(code: 'landingCorporations.trustUs.user2.role')
                    ]
