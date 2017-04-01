@@ -267,6 +267,16 @@ class DashboardController {
         }
     }
 
+    def landingCorporationsBrands(){
+        if (springSecurityService.isLoggedIn()){
+//            render(view: "dashboard", model: dashboard())
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+            render(view: "landingCorporationsBrands", model: [command: new KuorumRegisterCommand()])
+        }
+    }
+
     def landingOrganizations(){
         if (springSecurityService.isLoggedIn()){
 //            render(view: "dashboard", model: dashboard())
