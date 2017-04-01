@@ -13,7 +13,7 @@
     </li>
 
     <li>
-        <g:link mapping="landingCorporations" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingCorporationsBrands')}">
+        <g:link mapping="landingCorporationsBrands" class="navbar-link ${nav.activeMenuCss(mappingName: 'landingCorporationsBrands')}">
             <span><g:message code="head.noLogged.corporations"/> </span>
         </g:link>
     </li>
