@@ -10,7 +10,8 @@ import kuorum.notifications.Notice
 import kuorum.notifications.NoticeType
 import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
-import org.kuorum.rest.model.communication.post.PostRSDTO
+import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
+import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.springframework.context.MessageSource
 
 class DashboardService {
@@ -18,6 +19,8 @@ class DashboardService {
     MessageSource messageSource
 
     RegionService regionService
+
+    RestKuorumApiService restKuorumApiService
 
     /**
      * Method to show notices if the user's data profile is incomplete
@@ -126,17 +129,31 @@ class DashboardService {
         numPoliticiansForUser > 0
     }
 
-    List<PostRSDTO> findAllContactsPosts (KuorumUser user, String viewerUid = null){
+    PagePostRSDTO findAllContactsPosts (KuorumUser user, String viewerUid = null){
         Map<String, String> params = [userId: user.id.toString()]
         Map<String, String> query = [:]
         if (viewerUid){
             query.put("viewerUid",viewerUid)
         }
-        def response = RestKuorumApiService.get(
+        def response = restKuorumApiService.get(
                 RestKuorumApiService.ApiMethod.USER_CONTACTS_POSTS_ALL,
                 params,
                 query,
-                new TypeReference<List<PostRSDTO>>() {}
+                new TypeReference<PagePostRSDTO>() {}
+        );
+
+        response.data
+    }
+
+    PageDebateRSDTO findAllContactsDebates (KuorumUser user){
+        Map<String, String> params = [userId: user.id.toString()]
+        Map<String, String> query = [:]
+
+        def response = restKuorumApiService.get(
+            RestKuorumApiService.ApiMethod.USER_CONTACTS_DEBATES_ALL,
+            params,
+            query,
+            new TypeReference<PageDebateRSDTO>(){}
         );
 
         response.data

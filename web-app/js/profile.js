@@ -2,11 +2,12 @@
 function SortCampaigns() {
 
     var that = this;
-    var campaignList = $('.politician-card ul.campaign-list');
+    var campaignList = $('ul.campaign-list');
 
     this.campaignOptions = {};
     this.campaignOptions['latest'] = {
         sort: function(a, b){
+            console.log('latest');
             var aTime = $(a).find('.link-wrapper').attr('data-datepublished');
             var bTime = $(b).find('.link-wrapper').attr('data-datepublished');
             return bTime.localeCompare(aTime);
@@ -20,8 +21,10 @@ function SortCampaigns() {
     };
 
     this.campaignOptions['posts'] = {
-        sort:function(e){
-            return false;
+        sort:function(a, b){
+            var aTime = $(a).find('.link-wrapper').attr('data-datepublished');
+            var bTime = $(b).find('.link-wrapper').attr('data-datepublished');
+            return bTime.localeCompare(aTime);
         },
         filter:function(idx){
             var articleId = $(this).find(".link-wrapper").attr('id');
@@ -37,8 +40,10 @@ function SortCampaigns() {
     };
 
     this.campaignOptions['debates'] = {
-        sort:function(idx){
-            return false;
+        sort:function(a, b){
+            var aTime = $(a).find('.link-wrapper').attr('data-datepublished');
+            var bTime = $(b).find('.link-wrapper').attr('data-datepublished');
+            return bTime.localeCompare(aTime);
         },
         filter:function(idx){
 
@@ -84,6 +89,7 @@ function SortCampaigns() {
 
 var sortCampaigns;
 $(function () {
+
     sortCampaigns = new SortCampaigns();
 
     sortCampaigns.orderList();

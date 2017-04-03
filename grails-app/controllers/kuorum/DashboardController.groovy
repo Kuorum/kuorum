@@ -20,6 +20,8 @@ import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
 import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
+import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
+import org.kuorum.rest.model.communication.post.PagePostRSDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO
@@ -91,9 +93,12 @@ class DashboardController {
         List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
         CampaignRSDTO lastCampaign = null
 //      List<DebateRSDTO> debates = debateService.findAllDebates(user)
-        List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.datePublished && it.datePublished < new Date()}
+        //List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.datePublished && it.datePublished < new Date()}
         //List<PostRSDTO> posts = postService.findAllPosts(user, viewerUid).findAll{it.datePublished && it.datePublished < new Date()}
-        List<PostRSDTO> posts = dashboardService.findAllContactsPosts(user, viewerUid).findAll{it.datePublished && it.datePublished < new Date()}
+        PagePostRSDTO pagePosts = dashboardService.findAllContactsPosts(user, viewerUid)
+        List<PostRSDTO> posts = pagePosts.data
+        PageDebateRSDTO pageDebates = dashboardService.findAllContactsDebates(user)
+        List<DebateRSDTO> debates = pageDebates.data
 
         List<CampaignRSDTO> sentDebateNewsletters = debates*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
         List<CampaignRSDTO> sentMassMailCampaigns = campaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
