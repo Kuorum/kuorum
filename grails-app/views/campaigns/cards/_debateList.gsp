@@ -1,9 +1,5 @@
-<g:if test="${referred == 'dashboard'}">
-    <li class="col-sm-12 col-md-4">
-</g:if>
-<g:else>
-    <li class="col-sm-12 col-md-6">
-</g:else>
+
+<li class="col-sm-12 col-md-6">
     <article role="article" class="box-ppal clearfix">
         <div class="link-wrapper" id="debate-${debate.id}" data-datePublished="${debate.datePublished.time}">
             <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="hidden"></g:link>
