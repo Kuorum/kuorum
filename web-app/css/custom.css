@@ -6596,7 +6596,7 @@ p.party{
     content: " | \f05d";
 }
 
-@media only screen and (max-width: 480px)
+@media only screen and (max-width: 480px){
     .profile-header img{
         min-height: 120px;
     }
