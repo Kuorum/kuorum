@@ -96,8 +96,9 @@ class DashboardController {
         List<PostRSDTO> posts = dashboardService.findAllContactsPosts(user, viewerUid).findAll{it.datePublished && it.datePublished < new Date()}
 
         List<CampaignRSDTO> sentDebateNewsletters = debates*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> sentPostNewsletters = posts*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
         List<CampaignRSDTO> sentMassMailCampaigns = campaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<CampaignRSDTO> sentCampaigns = sentMassMailCampaigns + sentDebateNewsletters
+        List<CampaignRSDTO> sentCampaigns = sentMassMailCampaigns + sentDebateNewsletters + sentPostNewsletters
         Long durationDays = 0;
         if (sentCampaigns){
             lastCampaign = sentCampaigns.sort {it.sentOn}.last()?:null
