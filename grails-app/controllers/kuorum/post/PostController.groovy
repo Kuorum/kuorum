@@ -218,7 +218,7 @@ class PostController {
             KuorumFile kuorumFile = KuorumFile.findByUrl(postRSDTO.photoUrl)
             postCommand.headerPictureId = kuorumFile.id
         }
-        else if (postRSDTO.videoUrl?.contains("youtube")){
+        else if (postRSDTO.videoUrl){
             postCommand.videoPost = postRSDTO.videoUrl
             postCommand.fileType = FileType.YOUTUBE.toString();
         }
