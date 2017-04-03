@@ -2,7 +2,7 @@
 <head>
     <title>${post.title}</title>
     <meta name="layout" content="columnCLayout">
-    %{--<g:render template="postMetaTags" model="[post: post]"/>--}%
+    <g:render template="postMetaTags" model="[post: post]"/>
     <r:require modules="post"/>
 
 </head>
