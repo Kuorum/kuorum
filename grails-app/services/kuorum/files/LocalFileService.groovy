@@ -183,7 +183,7 @@ class LocalFileService implements FileService{
                 alt:null,
                 fileName:fileName,
                 originalName: fileName,
-                url:youtubeUrl,
+                url:fileName.encodeAsYoutubeName(),
                 urlThumb: urlThumb,
                 fileGroup:FileGroup.YOUTUBE,
                 fileType:FileType.YOUTUBE
