@@ -2,7 +2,7 @@
 //    ['completeName','birthDate', 'birthPlace','family'].find{politician?.politicianExtraInfo?."${it}"} ||
 //    ['address','telephone', 'mobile','fax', 'assistants'].find{politician?.institutionalOffice?."${it}"} ||
 //    ['address','telephone', 'mobile','fax', 'assistants'].find{politician?.politicalOffice?."${it}"} ||
-    ['officialWebSite','institutionalWebSite'].find{politician?.socialLinks?."${it}"} ||
+    ['officialWebSite'].find{politician?.socialLinks?."${it}"} ||
     ['twitter', 'facebook', 'googlePlus', 'linkedIn', 'blog', 'instagram', 'youtube'].find{politician?.socialLinks?."${it}"}}">
 
     <section class="panel panel-default">
@@ -108,10 +108,10 @@
                             message:g.message(code:'politician.quickNotes.data.moreInfo.webSite'),
                             link:politician?.socialLinks?.officialWebSite?:''
                     ]"/>
-                    <g:render template="/kuorumUser/userShowTemplates/columnC/rowPoliticianColumnC" model="[
-                            message:g.message(code:'politician.quickNotes.readMore'),
-                            link:politician?.socialLinks?.institutionalWebSite?:''
-                    ]"/>
+                    %{--<g:render template="/kuorumUser/userShowTemplates/columnC/rowPoliticianColumnC" model="[--}%
+                            %{--message:g.message(code:'politician.quickNotes.readMore'),--}%
+                            %{--link:politician?.socialLinks?.institutionalWebSite?:''--}%
+                    %{--]"/>--}%
                 </div>
             </g:if>
             <g:if test="${['twitter', 'facebook', 'googlePlus', 'linkedIn', 'blog', 'instagram', 'youtube'].find{politician?.socialLinks?."${it}"}}">
