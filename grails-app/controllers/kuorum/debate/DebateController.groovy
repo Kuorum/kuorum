@@ -111,7 +111,7 @@ class DebateController {
         }
 
         // Multimedia URL
-        if (debateRSDTO.videoUrl?.contains("youtube")) {
+        if (debateRSDTO.videoUrl) {
             debateCommand.fileType = FileType.YOUTUBE.toString()
             debateCommand.videoPost = debateRSDTO.videoUrl
         } else if (debateRSDTO.photoUrl) {
