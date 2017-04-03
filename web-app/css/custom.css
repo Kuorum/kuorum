@@ -6592,9 +6592,11 @@ p.party{
     margin-right: 6px;
     font-size: 16px;
 }
-.following .fa-check-circle-o:before{
-    content: " | \f05d";
-}
+
+/*Until we show the number of followers, this line is not necessary*/
+/*/!*.following .fa-check-circle-o:before{*!/*/
+    /*/!*content: " | \f05d";*!/*/
+/*}*/
 
 @media only screen and (max-width: 480px){
     .profile-header img{
