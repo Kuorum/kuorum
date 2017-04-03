@@ -18,7 +18,7 @@
         <div class="col-md-8">
             <g:render template="/dashboard/payment/dashboardModules/campaignNewCampaign" model="[lastCampaign:lastCampaign,durationDays:durationDays,contacts:contacts]"/>
             <g:if test="${debates || posts}">
-                <h2 class="campaign-list-title">${g.message(code:"dashboard.payment.followingCampaignList.title")}</h2>
+                %{--<h2 class="campaign-list-title">${g.message(code:"dashboard.payment.followingCampaignList.title")}</h2>--}%
             </g:if>
             %{--<g:if test="${debates && posts}">--}%
             %{--<ul id="campaign-sorter" class="nav nav-pills nav-underline hidden-xs">--}%
