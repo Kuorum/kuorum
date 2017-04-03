@@ -3,11 +3,11 @@
         <div class="form-group col-md-6">
             <formUtil:url command="${command}" field="officialWebSite" showLabel="true"/>
         </div>
-        <g:if test="${showPoliticianFields}">
-            <div class="form-group col-md-6">
-                <formUtil:url command="${command}" field="institutionalWebSite" showLabel="true"/>
-            </div>
-        </g:if>
+        %{--<g:if test="${showPoliticianFields}">--}%
+            %{--<div class="form-group col-md-6">--}%
+                %{--<formUtil:url command="${command}" field="institutionalWebSite" showLabel="true"/>--}%
+            %{--</div>--}%
+        %{--</g:if>--}%
     </fieldset>
     <fieldset class="row">
         <div class="form-group col-md-6">

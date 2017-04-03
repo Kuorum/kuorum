@@ -25,8 +25,10 @@
     </div>
     <div class="row contacts-campaigns">
         <div class="col-md-8">
-            <g:if test="${debates && posts}">
+            <g:if test="${debates || posts}">
                 <h2 class="campaign-list-title">${g.message(code:"dashboard.payment.followingCampaignList.title")}</h2>
+            </g:if>
+            <g:if test="${debates && posts}">
                 <ul id="campaign-sorter" class="nav nav-pills nav-underline hidden-xs">
                     <li class="active"><a href="#latest"><g:message code="search.filters.all"/> </a></li>
                     <li><a href="#posts"><g:message code="search.filters.SolrType.POST"/></a></li>

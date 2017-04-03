@@ -7,7 +7,6 @@ function SortCampaigns() {
     this.campaignOptions = {};
     this.campaignOptions['latest'] = {
         sort: function(a, b){
-            console.log('latest');
             var aTime = $(a).find('.link-wrapper').attr('data-datepublished');
             var bTime = $(b).find('.link-wrapper').attr('data-datepublished');
             return bTime.localeCompare(aTime);
