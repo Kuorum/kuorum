@@ -64,8 +64,8 @@ class DashboardController {
             model.put("tour", params.tour?true:false)
             if (model.contacts.total==0) {
                 render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
-            }else if (!model.numberCampaigns){
-                render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
+//            }else if (!model.numberCampaigns){
+//                render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
             }else{
                 render view: "/dashboard/payment/paymentDashboard", model: model
             }
