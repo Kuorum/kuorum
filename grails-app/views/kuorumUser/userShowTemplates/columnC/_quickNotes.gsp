@@ -103,7 +103,7 @@
             %{--</g:if>--}%
             <g:if test="${['officialWebSite','institutionalWebSite'].find{politician?.socialLinks?."${it}"}}">
                 <div class="table table-condensed limit-height" data-collapsedHeight="60">
-                    <div class="thead"><g:message code="politician.quickNotes.data.moreInfo.title"/></div>
+                    %{--<div class="thead"><g:message code="politician.quickNotes.data.moreInfo.title"/></div>--}%
                     <g:render template="/kuorumUser/userShowTemplates/columnC/rowPoliticianColumnC" model="[
                             message:g.message(code:'politician.quickNotes.data.moreInfo.webSite'),
                             link:politician?.socialLinks?.officialWebSite?:''
