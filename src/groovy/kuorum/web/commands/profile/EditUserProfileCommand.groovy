@@ -27,10 +27,8 @@ class EditUserProfileCommand{
         this.imageProfile = user.imageProfile?.id?.toString()
         if (user.userType == UserType.ORGANIZATION){
             this.enterpriseSector = user.personalData?.enterpriseSector
-        }else if (user.userType == UserType.POLITICIAN){
-            this.position = user.professionalDetails?.position
-            this.politicalParty = user.professionalDetails?.politicalParty
         }else{
+            this.position = user.professionalDetails?.position
             this.birthday= user.personalData?.birthday
             this.workingSector = user.personalData?.workingSector
             this.studies = user.personalData?.studies

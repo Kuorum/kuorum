@@ -5,12 +5,12 @@
         <formUtil:textArea command="${command}" field="bio" showLabel="true"/>
     </fieldset>
 
-    <g:if test="${user.userType == UserType.POLITICIAN || user.userType == kuorum.core.model.UserType.CANDIDATE}">
-        <g:render template="/profile/formEditUserPolitician" model="[user:user, command:command]"/>
-    </g:if>
-    <g:else>
+    %{--<g:if test="${user.userType == UserType.POLITICIAN || user.userType == kuorum.core.model.UserType.CANDIDATE}">--}%
+        %{--<g:render template="/profile/formEditUserPolitician" model="[user:user, command:command]"/>--}%
+    %{--</g:if>--}%
+    %{--<g:else>--}%
         <g:render template="/profile/formEditUserCitizen" model="[user:user, command:command]"/>
-    </g:else>
+    %{--</g:else>--}%
 </div>
 <div class="box-ppal-section">
     <fieldset class="form-group text-center">

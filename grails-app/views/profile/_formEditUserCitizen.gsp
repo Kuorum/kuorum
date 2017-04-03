@@ -15,6 +15,9 @@
     <div class="form-group col-md-6">
         <formUtil:selectEnum command="${command}" field="studies"/>
     </div>
+    <div class="form-group col-md-6">
+        <formUtil:input command="${command}" field="position" showLabel="true"/>
+    </div>
 </fieldset>
 
 <fieldset class="row organizationData">
