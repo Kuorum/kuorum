@@ -1,19 +1,19 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title><g:message code="landingCorporations.head.title"/></title>
+    <title><g:message code="landingCorporationsBrands.head.title"/></title>
     <meta name="layout" content="landingLeadersLayout">
     <parameter name="transparentHead" value="true"/>
     <parameter name="extraHeadCss" value="landing"/>
     <g:render template="/dashboard/landingMetaTags"
               model="[
-                      kuorumTitle:g.message(code:'landingCorporations.head.title'),
-                      kuorumDescription:g.message(code:'landingCorporations.head.description'),
+                      kuorumTitle:g.message(code:'landingCorporationsBrands.head.title'),
+                      kuorumDescription:g.message(code:'landingCorporationsBrands.head.description'),
                       kuorumImage:request.siteUrl +r.resource(dir:'images/landing', file:'leaders-01.jpg')
               ]"/>
 </head>
 
 <content tag="main">
-    <g:render template="/dashboard/landingLeaders/leadersCarousel" model="[command:command, msgPrefix:'landingCorporations']"/>
+    <g:render template="/dashboard/landingLeaders/leadersCarousel" model="[command:command, msgPrefix:'landingCorporationsBrands']"/>
 </content>
 
 <content tag="howItWorks">
@@ -21,13 +21,13 @@
 </content>
 
 <content tag="engage">
-    <g:render template="/dashboard/landingLeaders/leadersFeaturesCustom" model="[msgPrefix:'landingCorporations', imgBackground:'features-corporations.png']"/>
+    <g:render template="/dashboard/landingLeaders/leadersFeaturesCustom" model="[msgPrefix:'landingCorporationsBrands', imgBackground:'features-corporations.png']"/>
 </content>
 
 <content tag="organizations">
     <g:render template="/dashboard/landingLeaders/leadersTrustUs"  model=
     "[
-            msgPrefix:'landingCorporations',
+            msgPrefix:'landingCorporationsBrands',
             users:[[
                            img:'testimony-miguel-ferrer.png',
                            name:'Miguel Ferrer ',

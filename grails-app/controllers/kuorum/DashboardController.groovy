@@ -101,8 +101,9 @@ class DashboardController {
         List<DebateRSDTO> debates = pageDebates.data
 
         List<CampaignRSDTO> sentDebateNewsletters = debates*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> sentPostNewsletters = posts*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
         List<CampaignRSDTO> sentMassMailCampaigns = campaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<CampaignRSDTO> sentCampaigns = sentMassMailCampaigns + sentDebateNewsletters
+        List<CampaignRSDTO> sentCampaigns = sentMassMailCampaigns + sentDebateNewsletters + sentPostNewsletters
         Long durationDays = 0;
         if (sentCampaigns){
             lastCampaign = sentCampaigns.sort {it.sentOn}.last()?:null
@@ -269,6 +270,16 @@ class DashboardController {
             redirect (mapping:"dashboard")
         }else{
             render(view: "landingCorporations", model: [command: new KuorumRegisterCommand()])
+        }
+    }
+
+    def landingCorporationsBrands(){
+        if (springSecurityService.isLoggedIn()){
+//            render(view: "dashboard", model: dashboard())
+            flash.message = flash.message
+            redirect (mapping:"dashboard")
+        }else{
+            render(view: "landingCorporationsBrands", model: [command: new KuorumRegisterCommand()])
         }
     }
 

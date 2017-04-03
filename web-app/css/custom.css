@@ -2190,7 +2190,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 .video > .front,
 .vimeo > .front {display: block; background-color: #000; position: relative; width: 100%; overflow: hidden;}
 .video > .front > img,
-.vimeo > .front > img {opacity: 0.25;}
+.vimeo > .front > img {opacity: 0.6;}
 .video > .youtube,
 .vimeo > .youtube {width: 100%; display: none;}
 
@@ -3220,6 +3220,7 @@ textarea.error,
 .form-group.image.perfil .uploaderImageContainer > div {width: 284px;}
 .form-group.image.perfil .qq-upload-drop-area {padding: 28% 20px 20px 20px; height: 210px; width:210px;}
 .form-group.image.fondoperfil .qq-upload-drop-area {background-size: 100px auto; background-position: center 12%; padding-top: 7%;}
+.form-group.image.fondoperfil {height: 170px;}
 
 /* avatar en config cuadrado */
 .config .uploaderImageContainer.USER_AVATAR > div {height: 390px; max-width:390px; margin: 10px 0 0 0; position: relative;}
@@ -5304,6 +5305,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Very small devices (mobile, 480px and up) */
 @media only screen and (min-width: 480px) {
+    .form-group.image.fondoperfil {height:300px;}
     .form-control,
     input[type="text"],
     input[type="number"],
@@ -6595,7 +6597,6 @@ p.party{
 }
 
 @media only screen and (max-width: 480px)
-    .form-group.image.fondoperfil {height: 170px;}
     .profile-header img{
         min-height: 120px;
     }
@@ -6730,7 +6731,6 @@ p.party{
 }
 
 @media only screen and (max-width: 767px){
-    .form-group.image.fondoperfil {height: 300px;}
     .extra-padding{
         padding: 0 5px;
     }
@@ -8370,6 +8370,16 @@ div [class^='comment-box col-'] {
 }
 .fade-carousel .slides .slide-3.landingCorporations {
     background-image: url('../images/landing/corporations-03.jpg');
+}
+
+.fade-carousel .slides .slide-1.landingCorporationsBrands {
+    background-image: url('../images/landing/brands-01.jpg');
+}
+.fade-carousel .slides .slide-2.landingCorporationsBrands {
+    background-image: url('../images/landing/brands-02.jpg');
+}
+.fade-carousel .slides .slide-3.landingCorporationsBrands {
+    background-image: url('../images/landing/brands-03.jpg');
 }
 
 .fade-carousel .slides .slide-1.landingOrganizations {

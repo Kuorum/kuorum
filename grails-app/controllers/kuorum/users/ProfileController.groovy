@@ -266,18 +266,18 @@ class ProfileController {
             personalData.gender = Gender.ORGANIZATION
         }else{
             personalData = new PersonData(user.personalData?.properties)
-            if (user.userType==UserType.POLITICIAN || user.userType==user.userType.CANDIDATE){
+//            if (user.userType==UserType.POLITICIAN || user.userType==user.userType.CANDIDATE){
                 if (!user.professionalDetails){
                     user.professionalDetails = new ProfessionalDetails()
                 }
                 user.professionalDetails.position = command.position
-                user.professionalDetails.politicalParty = command.politicalParty
-            }else{
+//                user.professionalDetails.politicalParty = command.politicalParty
+//            }else{
                 personalData.birthday = command.birthday
                 personalData.studies =  command.studies
                 personalData.workingSector =  command.workingSector
                 user.userType = UserType.PERSON
-            }
+//            }
             personalData.gender = command.gender
         }
         if (user.personalData){
