@@ -6240,8 +6240,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     ul.campaign-list > li .box-ppal{
         margin-left: 7px;
         margin-right: 8px;
-        height: 350px;
     }
+    ul.campaign-list > li > article.box-ppal > div.link-wrapper {height: 350px;}
+    ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}
 }
 
 @media only screen and (min-width: 1024px) {
