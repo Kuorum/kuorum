@@ -1554,6 +1554,7 @@ function stringStartsWith (string, prefix) {
 function moveToHash(hash){
     var dest = 0;
     hash = hash + "-tag";
+    hash = hash.replace("=",""); // Facebook login adds #_=_ at the end of the URL. This makes to fail this logic
     if ($(hash).length){ //If the element exists
         if ($(hash).offset().top > $(document).height() - $(window).height()) {
             dest = $(document).height() - $(window).height();
