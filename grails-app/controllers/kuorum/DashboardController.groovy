@@ -67,6 +67,8 @@ class DashboardController {
 //            }else if (!model.numberCampaigns){
 //                render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
             }else{
+                List<KuorumUser> recommendations = kuorumUserService.recommendUsers(user)
+                model.put("recommendations",recommendations)
                 render view: "/dashboard/payment/paymentDashboard", model: model
             }
 //        }else{
@@ -196,9 +198,9 @@ class DashboardController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def dashboardPoliticians(Pagination pagination){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<KuorumUser> suggesterPoliticians=  kuorumUserService.recommendPoliticians(user, pagination)
+        List<KuorumUser> suggesterPoliticians=  kuorumUserService.recommendUsers(user, pagination)
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${suggesterPoliticians.size() < pagination.max}")
-        render template: "/dashboard/listDashboardPoliticians", model:[politicians:suggesterPoliticians]
+        render template: "/dashboard/listDashboardUserRecommendations", model:[politicians:suggesterPoliticians]
     }
 
     def landingPoliticians(){

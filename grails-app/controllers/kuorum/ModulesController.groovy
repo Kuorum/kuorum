@@ -51,7 +51,7 @@ class ModulesController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def recommendedPoliticiansUserDashboard() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:14))
+        List<KuorumUser> recommendedUsers = kuorumUserService.recommendUsers(user, new Pagination(max:14))
         render template:'/modules/recommendedUsers',
                 model:[
                         recommendedUsers:recommendedUsers,
@@ -78,7 +78,7 @@ class ModulesController {
         if (springSecurityService.isLoggedIn()){
             user = KuorumUser.get(springSecurityService.principal.id)
         }
-        List<KuorumUser> politicians = kuorumUserService.recommendPoliticians(user, new Pagination(max:NUM_RELEVANT_POLITICIANS))
+        List<KuorumUser> politicians = kuorumUserService.recommendUsers(user, new Pagination(max:NUM_RELEVANT_POLITICIANS))
         render template: "/dashboard/landingPageModules/relevantPoliticians", model: [politicians:politicians]
     }
 

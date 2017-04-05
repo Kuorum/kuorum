@@ -39,7 +39,7 @@
         </div>
         <div class="col-md-4">
             <g:render template="/dashboard/payment/dashboardModules/dashboardPoliticianProfile" model="[user:user, emptyEditableData:emptyEditableData, numberCampaigns:numberCampaigns]"/>
-            %{--<g:render template="/dashboard/payment/dashboardModules/followOtherPoliticians" model="[recommendedUsers:recommendedUsers]"/>--}%
+            <g:render template="/dashboard/payment/dashboardModules/followOtherPoliticians" model="[recommendedUsers:recommendations]"/>
         </div>
     </div>
 </content>

@@ -397,7 +397,7 @@ class KuorumUserService {
      * @param pagination
      * @return
      */
-    List<KuorumUser> recommendPoliticians(KuorumUser user, Pagination pagination = new Pagination()) {
+    List<KuorumUser> recommendUsers(KuorumUser user, Pagination pagination = new Pagination()) {
 
         KuorumUser loggedUser = springSecurityService.getCurrentUser();
         List<ObjectId> filterPoliticians = []
@@ -614,19 +614,19 @@ class KuorumUserService {
         searchParams.max +=1
         List<Region> regions;
         String politicalParty = ""
-        if (isPaymentUser(user)){
-            regions = regionService.findUserRegions(user)
-        }else if(user){
-            regions = regionService.findRegionsList(user.professionalDetails?.region)
-            politicalParty = user?.professionalDetails?.politicalParty?:''
-        }else{
-//            regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
-        }
+//        if (isPaymentUser(user)){
+//            regions = regionService.findUserRegions(user)
+//        }else if(user){
+//            regions = regionService.findRegionsList(user.professionalDetails?.region)
+//            politicalParty = user?.professionalDetails?.politicalParty?:''
+//        }else{
+////            regions = [[iso3166_2:"EU-ES"], [iso3166_2:"EU"]]
+//        }
         if (regions){
             searchParams.boostedRegions = regions.collect{it.iso3166_2}
 //        searchParams.regionIsoCodes = regions.collect{it.iso3166_2}
         }
-        searchParams.setType(SolrType.POLITICIAN)
+        searchParams.setType(SolrType.KUORUM_USER)
         searchParams.filteredUserIds = userFiltered.collect{it.toString()}
         if (user) searchParams.filteredUserIds << user.id.toString()
 

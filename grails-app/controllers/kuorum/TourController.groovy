@@ -36,7 +36,7 @@ class TourController {
         Pagination causesPagination = new Pagination(max:6)
         SuggestedCausesRSDTO causesSuggested = causesService.suggestCauses(user, causesPagination)
         Pagination politiciansDashboardPagination = new Pagination(max:6)
-        List<KuorumUser> politicians = kuorumUserService.recommendPoliticians(user,politiciansDashboardPagination)
+        List<KuorumUser> politicians = kuorumUserService.recommendUsers(user,politiciansDashboardPagination)
         render view: '/dashboard/dashboard', model:[
                 loggedUser:user,
                 causesSuggested:causesSuggested,
