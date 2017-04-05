@@ -17,7 +17,7 @@
 </content>
 
 <content tag="howItWorks">
-    <g:render template="/dashboard/landingLeaders/howItWorks"/>
+    <g:render template="/dashboard/landingLeaders/howItWorks" model="[command:command, msgPrefix:'landingCorporations']"/>
 </content>
 
 <content tag="engage">
