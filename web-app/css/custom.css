@@ -1025,6 +1025,42 @@ table.csv .highlight_row {background-color: #f7f7f7;}
 .box-ppal.import-contacts.csv .bootstrap-tagsinput {width: calc(100% - 23%);}
 .box-ppal.import-contacts.csv input.btn {margin-top: 5px;}
 
+.box-ppal .contacts-tooltip{
+    position: absolute;
+    right: 10px;
+    top: 16px;
+}
+
+.box-ppal .contacts-tooltip .tooltip{
+    left: -190px;
+}
+
+.box-ppal span.animated-info-icon{color: #FF9431; cursor: default;}
+
+.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-inner {
+    position: relative;
+    background-color: #FF9431;
+    color: white;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica,Arial,sans-serif !important;
+    width: 250px;
+    padding: 10px;
+    top: -7px;
+    right: 10px;
+    left: -10px;
+    margin-left: -165px; /* KAKA PORQUE REVIENTA AL ABRIR TOOLTIP EN RESPONSIVE */
+}
+
+.box-ppal span.animated-info-icon + .tooltip.bottom .tooltip-arrow {
+    position: relative;
+    border-bottom-color: #FF9431;
+    top: -7px;
+    right: 10px;
+    margin-left: -9px;
+    border-width: 0 10px 10px;
+    background-color: transparent;
+}
+
 /* TAGS INPUT PLUGIN (08/2016) */
 #mySingleField {height: 35px;}
 
@@ -6240,8 +6276,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     ul.campaign-list > li .box-ppal{
         margin-left: 7px;
         margin-right: 8px;
-        height: 350px;
     }
+    ul.campaign-list > li > article.box-ppal > div.link-wrapper {height: 350px;}
+    ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}
 }
 
 @media only screen and (min-width: 1024px) {

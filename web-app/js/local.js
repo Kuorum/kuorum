@@ -69,6 +69,30 @@ $(document).tooltip({
     selector: '[rel="tooltip"]'
 });
 
+// Animación tooltip para importación de contactos
+$(function(){
+    var animatedIcon = $(".animated-info-icon");
+    var origin = animatedIcon.position();
+
+    animatedIcon.animate({"top": "-=5px"}, 500, "linear",function(){ goBack();});
+
+    animatedIcon.hover(function(){
+        animatedIcon.stop();
+    });
+    animatedIcon.mouseleave(function (){
+        animatedIcon.animate({"top": origin.top});
+        goOn();
+    });
+
+    function goOn(){
+        $( ".animated-info-icon" ).animate({ "top": "-=5px"}, 500, "linear",function(){ goBack(); });
+    }
+
+    function goBack (){
+        $( ".animated-info-icon" ).animate({ "top": "+=5px"}, 500, "linear", function(){ goOn(); });
+    }
+});
+
 
 // EVENTOS ON RESIZE
 $(window).on('resize',function() {
