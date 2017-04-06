@@ -2,6 +2,7 @@ package kuorum.campaign
 
 import kuorum.users.KuorumUser
 
+@Deprecated
 class PollCampaignVote extends CampaignVote{
 
     PollCampaign campaign;
