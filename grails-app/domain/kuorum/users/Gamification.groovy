@@ -5,6 +5,7 @@ import kuorum.core.model.gamification.GamificationAward
 /**
  * This object abtracts the personal data to store and handle it easily
  */
+@Deprecated
 class Gamification {
 
     Integer numEggs = 0
