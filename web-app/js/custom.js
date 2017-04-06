@@ -125,7 +125,15 @@ $(document).ready(function() {
                 var userId = buttonFollow.attr('data-userId');
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
                 deleteUserRecommendation(userId);
+                addUserCampaigns(userId);
             });
+        }
+    }
+
+    function addUserCampaigns(userId){
+        if (sortCampaigns != undefined ){
+            sortCampaigns.appendCampaignsOfUser(userId);
+
         }
     }
 

@@ -73,12 +73,7 @@
     </g:if>
 
     <ul class="campaign-list clearfix">
-        <g:each in="${debates}" var="debate">
-            <g:render template="/campaigns/cards/debateList" model="[debate:debate, user:politician]"/>
-        </g:each>
-        <g:each in="${posts}" var="post">
-            <g:render template="/campaigns/cards/postList" model="[post:post, user:politician]"/>
-        </g:each>
+        <g:render template="/campaigns/cards/campaignsList" model="[debates:debates, posts:posts]"/>
     </ul>
 </content>
 
@@ -104,9 +99,6 @@
 %{--</content>--}%
 
 %{--<content tag="modals">--}%
-    %{--<g:if test="${campaign}">--}%
-        %{--<g:render template="userShowTemplates/modals/modalElection" model="[politician:politician, campaign:campaign]"/>--}%
-    %{--</g:if>--}%
     %{--<g:if test="${causes}">--}%
         %{--<g:render template="userShowTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>--}%
     %{--</g:if>--}%
