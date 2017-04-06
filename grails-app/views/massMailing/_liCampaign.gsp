@@ -3,6 +3,7 @@
 <li class="${campaign.status}" id="campaignPos_${idx}">
     <span class="id sr-only">${campaign.id}</span>
     <span class="state">${campaign.status}</span>
+    <span class="fa fa-envelope-o"></span>
     <h3>
         <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="title">
             ${campaign.name}<span></span>
