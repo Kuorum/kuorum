@@ -25,7 +25,7 @@ class SocialNetworkCommand {
     String blog
     String instagram
     String officialWebSite
-    String institutionalWebSite
+    //String institutionalWebSite
 
     static constraints = {
         facebook            nullable:true, url:true
@@ -44,7 +44,7 @@ class SocialNetworkCommand {
         blog                nullable:true, url:true
         instagram           nullable:true, url:true
         officialWebSite     nullable:true, url:true
-        institutionalWebSite nullable:true, url:true
+        //institutionalWebSite nullable:true, url:true
 
     }
 

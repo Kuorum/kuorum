@@ -135,6 +135,7 @@ class KuorumUser {
         imageProfile nullable:true
         userType nullable: false
         notice nullable: true
+        skipUploadContacts nullable: true
         editorRules nullable:true
         timeZoneId nullable:true
 
