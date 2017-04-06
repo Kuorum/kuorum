@@ -28,18 +28,13 @@
                 %{--</ul>--}%
             %{--</g:if>--}%
 
-            <ul class="campaign-list clearfix">
-                <g:each in="${debates}" var="debate">
-                    <g:render template="/campaigns/cards/debateList" model="[debate:debate, user:politician, referred:'dashboard']" />
-                </g:each>
-                <g:each in="${posts}" var="post">
-                    <g:render template="/campaigns/cards/postList" model="[post:post, user:politician, referred:'dashboard']"/>
-                </g:each>
+            <ul class="campaign-list clearfix" data-addCampaignsByUserUrl="${g.createLink(mapping:'politicianCampaignsLists' )}">
+                <g:render template="/campaigns/cards/campaignsList" model="[debates:debates, posts:posts]" />
             </ul>
         </div>
         <div class="col-md-4">
             <g:render template="/dashboard/payment/dashboardModules/dashboardPoliticianProfile" model="[user:user, emptyEditableData:emptyEditableData, numberCampaigns:numberCampaigns]"/>
-            %{--<g:render template="/dashboard/payment/dashboardModules/followOtherPoliticians" model="[recommendedUsers:recommendedUsers]"/>--}%
+            <g:render template="/dashboard/payment/dashboardModules/followOtherPoliticians" model="[recommendedUsers:recommendations]"/>
         </div>
     </div>
 </content>

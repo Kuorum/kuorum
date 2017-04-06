@@ -62,16 +62,25 @@ class DashboardController {
 //        if (kuorumUserService.isPaymentUser(user)){
             Map model = buildPaymentDashboard(user);
             model.put("tour", params.tour?true:false)
-            if (model.contacts.total==0) {
+            if (model.contacts.total==0 && !user.skipUploadContacts) {
                 render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
 //            }else if (!model.numberCampaigns){
 //                render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
             }else{
+                List<KuorumUser> recommendations = kuorumUserService.recommendUsers(user)
+                model.put("recommendations",recommendations)
                 render view: "/dashboard/payment/paymentDashboard", model: model
             }
 //        }else{
 //            buildUserDashboard(user)
 //        }
+    }
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def skipContacts(){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        user.skipUploadContacts = true;
+        user.save()
+        redirect mapping:'dashboard'
     }
 
 //    private Map buildUserDashboard(KuorumUser user){
@@ -196,9 +205,9 @@ class DashboardController {
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def dashboardPoliticians(Pagination pagination){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<KuorumUser> suggesterPoliticians=  kuorumUserService.recommendPoliticians(user, pagination)
+        List<KuorumUser> suggesterPoliticians=  kuorumUserService.recommendUsers(user, pagination)
         response.setHeader(WebConstants.AJAX_END_INFINITE_LIST_HEAD, "${suggesterPoliticians.size() < pagination.max}")
-        render template: "/dashboard/listDashboardPoliticians", model:[politicians:suggesterPoliticians]
+        render template: "/dashboard/listDashboardUserRecommendations", model:[politicians:suggesterPoliticians]
     }
 
     def landingPoliticians(){

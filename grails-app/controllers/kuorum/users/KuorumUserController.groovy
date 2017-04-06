@@ -94,7 +94,6 @@ class KuorumUserController {
         }
         List<KuorumUser> recommendPoliticians = kuorumUserService.suggestUsers(new Pagination(max:12),[user])
         List<CauseRSDTO> causes = causesService.findDefendedCauses(user)
-        Campaign campaign = campaignService.findActiveCampaign(user)
         UserReputationRSDTO userReputationRSDTO = userReputationService.getReputation(user)
         List<UserNewRSDTO> userNews = userNewsService.findUserNews(user)
         List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.datePublished && it.datePublished < new Date()}
@@ -102,7 +101,6 @@ class KuorumUserController {
         [
                 politician:user,
                 recommendPoliticians:recommendPoliticians,
-                campaign:campaign,
                 causes:causes,
                 userReputation: userReputationRSDTO,
                 userNews:userNews,

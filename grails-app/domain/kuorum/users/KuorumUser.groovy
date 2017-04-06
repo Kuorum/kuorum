@@ -30,6 +30,7 @@ class KuorumUser {
     String password
     AvailableLanguage language = AvailableLanguage.en_EN
     Boolean verified = Boolean.FALSE
+    Boolean skipUploadContacts = Boolean.FALSE
 
     KuorumFile avatar
     KuorumFile imageProfile

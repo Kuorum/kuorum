@@ -83,7 +83,34 @@ function SortCampaigns() {
         $.each(campaigns, function(idx, itm) {
             campaignList.append(itm);
         });
+    };
+
+    this.appendCampaignsOfUser= function(userId){
+        if (campaignList.attr("data-addCampaignsByUserUrl") != undefined){
+            var url = campaignList.attr("data-addCampaignsByUserUrl");
+            $.ajax( {
+                url:url,
+                data:{userId:userId},
+                statusCode: {
+                    401: function() {
+                        display.info("Estás deslogado");
+                        setTimeout('location.reload()',5000);
+                    }
+                },
+                beforeSend: function(){
+                    pageLoadingOn();
+                },
+                complete:function(){
+                    pageLoadingOff();
+                }
+            }).done(function(data, status, xhr) {
+                campaignList.append(data);
+                that.orderList();
+            })
+        }
     }
+
+
 }
 
 var sortCampaigns;
