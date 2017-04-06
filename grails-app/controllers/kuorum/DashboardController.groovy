@@ -62,7 +62,7 @@ class DashboardController {
 //        if (kuorumUserService.isPaymentUser(user)){
             Map model = buildPaymentDashboard(user);
             model.put("tour", params.tour?true:false)
-            if (model.contacts.total==0) {
+            if (model.contacts.total==0 && !user.skipUploadContacts) {
                 render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
 //            }else if (!model.numberCampaigns){
 //                render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
@@ -74,6 +74,13 @@ class DashboardController {
 //        }else{
 //            buildUserDashboard(user)
 //        }
+    }
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
+    def skipContacts(){
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        user.skipUploadContacts = true;
+        user.save()
+        redirect mapping:'dashboard'
     }
 
 //    private Map buildUserDashboard(KuorumUser user){

@@ -126,6 +126,7 @@ class UrlMappings {
         /***** LOGGED URLs ****/ //Language no matters
         /**********************/
         name dashboard:                     "/dashboard" (controller: "dashboard", action:"dashboard")
+        name dashboardSkipUploadContacts:   "/dashboard/skipContacts" (controller: "dashboard", action:"skipContacts")
         name dashboardCausesSeeMore:        "/ajax/dashboard/causes/see-more" (controller: "dashboard", action:"dashboardCauses")
         name dashboardPoliticiansSeeMore:   "/ajax/dashboard/politicians/see-more" (controller: "dashboard", action:"dashboardPoliticians")
 
