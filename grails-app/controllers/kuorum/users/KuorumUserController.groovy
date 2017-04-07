@@ -1,7 +1,6 @@
 package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.campaign.CampaignService
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination
 import kuorum.core.model.search.SearchUserPosts
@@ -37,8 +36,6 @@ class KuorumUserController {
 
     CausesService causesService
     UserNewsService userNewsService
-
-    CampaignService campaignService
 
     UserReputationService userReputationService;
 
