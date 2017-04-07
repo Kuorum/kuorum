@@ -8262,8 +8262,10 @@ div [class^='comment-box col-'] {
     line-height: 40px;
 }
 
-.landing-2 > div.container-fluid > div {
+.landing-2 > div > div {
     font-family:"Helvetica Neue", Helvetica,Arial,sans-serif;
+}
+.landing-2 > div.container-fluid > div {
     overflow: hidden;
 }
 
@@ -8458,6 +8460,7 @@ form.dark {
 .container-overflow-image {
     min-height: 670px;
     text-align: center;
+    overflow-x: hidden;
 }
 
 .container-overflow-image h1 {
