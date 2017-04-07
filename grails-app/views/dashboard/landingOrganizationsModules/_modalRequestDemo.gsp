@@ -62,7 +62,8 @@
                     url:url,
                     data:$form.serializeArray(),
                     success:function(data){
-                        display.success(data)
+                        display.success(data);
+                        $("#request-demo-modal").modal("hide");
                     }
                 })
             }
