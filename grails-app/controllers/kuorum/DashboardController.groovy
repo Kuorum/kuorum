@@ -60,7 +60,7 @@ class DashboardController {
 //        if (kuorumUserService.isPaymentUser(user)){
             Map model = buildPaymentDashboard(user);
             model.put("tour", params.tour?true:false)
-            if (model.contacts.total==0 && !user.skipUploadContacts) {
+            if (dashboardService.forceUploadContacts()) {
                 render view: "/dashboard/payment/paymentNoContactsDashboard", model: model
 //            }else if (!model.numberCampaigns){
 //                render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
@@ -128,7 +128,7 @@ class DashboardController {
                 lastCampaign:lastCampaign,
                 numberCampaigns:numberCampaigns,
                 durationDays:durationDays,
-                contacts: contactService.getUsers(user),
+//                contacts: contactService.getUsers(user),
 //                recommendedUsers:recommendedUsers,
                 user:user,
                 emptyEditableData:emptyEditableData(user),
