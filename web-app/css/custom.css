@@ -1336,7 +1336,7 @@ div.tagsinput {border:1px solid #DDDDDD;}
 #request-demo-modal.modal form .form-group label {color:#545454;}
 #request-demo-modal.modal form .form-group.button {text-align: center;}
 #request-demo-modal.modal form .form-group.button input{margin-top:15px;}
-
+#request-demo-modal-form {padding:15px;}
 
 .datepicker-days tbody td {cursor: pointer;}
 .datepicker th {text-align: center;}
