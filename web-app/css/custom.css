@@ -1338,7 +1338,7 @@ div.tagsinput {border:1px solid #DDDDDD;}
 #request-demo-modal.modal form .form-group label {color:#545454;}
 #request-demo-modal.modal form .form-group.button {text-align: center;}
 #request-demo-modal.modal form .form-group.button input{margin-top:15px;}
-
+#request-demo-modal-form {padding:15px;}
 
 .datepicker-days tbody td {cursor: pointer;}
 .datepicker th {text-align: center;}
@@ -1482,7 +1482,7 @@ ul.list > li > ul.list-actions > li > a:active {color: #20a2ea;}
 #dashboardGraphs {min-height: 415px;}
 .nav-tabs.simple > li {margin-bottom: 10px; margin-right: 22px; float: none;}
 .nav-tabs.simple {margin-bottom: 20px;}
-ul.user-list-followers .loading.xs {width: 19px}
+ul.user-list-followers .loading.xs {width: 18px}
 
 .alert-box {display: none; background-color: #ca1d3f; color: #fff; height: 54px; text-align: center; position: fixed; top: 0; left: 0; width: 100%; padding: 5px; font-size: 16px; font-size: 1.6rem; line-height: 1.4;}
 .alert-box.on {display: block;}
