@@ -65,7 +65,7 @@ class DashboardController {
 //            }else if (!model.numberCampaigns){
 //                render view: "/dashboard/payment/paymentNoCampaignsDashboard", model: model
             }else{
-                List<KuorumUser> recommendations = kuorumUserService.recommendUsers(user)
+                List<KuorumUser> recommendations = kuorumUserService.recommendUsers(user, new Pagination([max:50]))
                 model.put("recommendations",recommendations)
                 render view: "/dashboard/payment/paymentDashboard", model: model
             }
