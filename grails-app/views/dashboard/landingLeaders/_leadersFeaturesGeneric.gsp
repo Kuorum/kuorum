@@ -1,3 +1,4 @@
+<g:set var="msgPrefix" value="${msgPrefix?:'landingLeaders'}"/>
 <div class="row">
     <div class="col-md-6 img-full-container left">
         <img src="${r.resource(dir:'images/landing', file:'features-profile.png')}">
@@ -20,7 +21,7 @@
         </ul>
         <div class="col-md-8 col-md-offset-2">
             <g:link mapping="register"  class="btn btn-lg btn-sign-up">
-                <g:message code="landingLeaders.featuresCustom.register"/>
+                <g:message code="${msgPrefix}.featuresCustom.register"/>
             </g:link>
         </div>
     </div>

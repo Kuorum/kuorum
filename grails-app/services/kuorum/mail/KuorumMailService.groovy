@@ -31,7 +31,7 @@ class KuorumMailService {
 
     def sendBatchMail(KuorumUser user, String rawMail, String subject){
         MailUserData mailUserData = new MailUserData(user:user)
-        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME , mailType: MailType.BATCH_PROCESS, globalBindings: [rawMail: rawMail, SUBJECT:subject], userBindings: [mailUserData])
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME , mailType: MailType.BATCH_PROCESS, globalBindings: [body: rawMail, subject:subject], userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
 
@@ -105,10 +105,10 @@ class KuorumMailService {
         mandrillAppService.sendTemplate(mailData)
     }
 
-    private KuorumUser getFeedbackUser(){
+    private KuorumUser getFeedbackUser(String name = "Feedback"){
         //Chapu
         KuorumUser user = new KuorumUser(
-                name: "Feedback",
+                name: name,
                 email: "${grailsApplication.config.kuorum.contact.feedback}",
                 availableMails: MailType.values(),
                 language: AvailableLanguage.es_ES
@@ -122,6 +122,16 @@ class KuorumMailService {
                 email: "${grailsApplication.config.kuorum.purchase.email}",
                 availableMails: MailType.values(),
                 language: AvailableLanguage.es_ES
+        )
+    }
+
+    private KuorumUser buildMailUser(String name, String email, AvailableLanguage language){
+        //Chapu
+        KuorumUser user = new KuorumUser(
+                name: name,
+                email: email,
+                availableMails: MailType.values(),
+                language: language
         )
     }
 
@@ -144,6 +154,26 @@ class KuorumMailService {
         MailUserData mailUserData = new MailUserData(user:user, bindings:bindings)
         MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_RESET_PASSWORD, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
+    }
+
+    def sendRequestADemo(String name, String email, AvailableLanguage language){
+        def bindings = [:]
+        KuorumUser user = buildMailUser(name, email, language)
+        MailUserData mailUserData = new MailUserData(user:user, bindings:bindings)
+        MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_REQUEST_DEMO, userBindings: [mailUserData])
+        mandrillAppService.sendTemplate(mailData)
+    }
+    def sendRequestADemoAdmin(String name, String email, String enterprise, String phone){
+        String rawMessage = """
+        <h1> Requested a demo </h1>
+        <ul>
+            <li>Name: $name</li>
+            <li>Email: $email</li>
+            <li>Enterprise: $enterprise</li>
+            <li>Phone: $phone</li>
+        </ul>
+        """
+        sendBatchMail(getFeedbackUser("DEMO"), rawMessage, "Requested a demo: ${name}");
     }
 
     def sendChangeEmailRequested(KuorumUser user, String newEmail){

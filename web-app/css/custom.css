@@ -1333,6 +1333,11 @@ div.tagsinput {border:1px solid #DDDDDD;}
 #bulk-action-add-tags-modal .bootstrap-tagsinput {display: block;}
 #bulk-action-remove-tags-modal .bootstrap-tagsinput {display: block;}
 
+#request-demo-modal.modal form .form-group label {color:#545454;}
+#request-demo-modal.modal form .form-group.button {text-align: center;}
+#request-demo-modal.modal form .form-group.button input{margin-top:15px;}
+
+
 .datepicker-days tbody td {cursor: pointer;}
 .datepicker th {text-align: center;}
 .datepicker span.month, .datepicker span.year {padding: 0 20px;}

@@ -9,6 +9,7 @@ import grails.plugin.springsecurity.ui.ResetPasswordCommand
 import grails.plugin.springsecurity.ui.SpringSecurityUiService
 import grails.validation.Validateable
 import kuorum.KuorumFile
+import kuorum.core.model.AvailableLanguage
 import kuorum.files.FileService
 import kuorum.mail.MailchimpService
 import kuorum.notifications.NotificationService
@@ -17,6 +18,7 @@ import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
 import kuorum.web.commands.customRegister.ContactRegister
 import kuorum.web.commands.customRegister.ForgotUserPasswordCommand
+import kuorum.web.commands.customRegister.RequestDemoCommand
 import org.springframework.context.i18n.LocaleContextHolder
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
@@ -231,6 +233,18 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
         kuorumMailService.sendResetPasswordMail(command.user, url)
 
         redirect mapping:"resetPasswordSent"
+    }
+
+    def requestADemo(RequestDemoCommand command){
+        if (command.hasErrors()){
+            render g.message(code:'kuorum.web.commands.customRegister.RequestDemoCommand.error');
+            return ;
+        }
+        Locale locale = LocaleContextHolder.getLocale();
+        AvailableLanguage language = AvailableLanguage.fromLocaleParam(locale.getLanguage());
+        kuorumMailService.sendRequestADemo(command.getName(), command.getEmail(), language)
+        kuorumMailService.sendRequestADemoAdmin(command.getName(), command.getEmail(), command.getEnterprise(), command.getPhone())
+        render g.message(code:'kuorum.web.commands.customRegister.RequestDemoCommand.success');
     }
 
     def forgotPasswordSuccess = {

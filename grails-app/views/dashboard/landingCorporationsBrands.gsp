@@ -14,6 +14,7 @@
 
 <content tag="main">
     <g:render template="/dashboard/landingLeaders/leadersCarousel" model="[command:command, msgPrefix:'landingCorporationsBrands']"/>
+    <g:render template="/dashboard/landingOrganizationsModules/modalRequestDemo"/>
 </content>
 
 <content tag="howItWorks">
@@ -52,5 +53,5 @@
 </content>
 
 <content tag="features">
-    <g:render template="/dashboard/landingLeaders/leadersFeaturesGeneric"/>
+    <g:render template="/dashboard/landingLeaders/leadersFeaturesGeneric" model="[msgPrefix:'landingCorporationsBrands']"/>
 </content>
