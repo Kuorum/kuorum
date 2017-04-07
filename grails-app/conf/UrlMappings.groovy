@@ -98,6 +98,8 @@ class UrlMappings {
         name resetPasswordChange:   "/$lang/sign-up/change-pass"(controller: "register"){action=[GET:"resetPassword", POST:"resetPassword"]}
                                     "/registro/cambiar-password"{controller="redirect"; action= "redirect301"; newMapping='resetPasswordChange'}
 
+        name requestADemo:          "/register/requestADemo"(controller: "register", action: "requestADemo")
+
 
         name login:     "/$lang/log-in" (controller:"login", action:"index")
                         "/log-in"       {controller="redirect"; action= "redirect301"; newMapping='login'}

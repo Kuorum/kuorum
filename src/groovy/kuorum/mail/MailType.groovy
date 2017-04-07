@@ -14,6 +14,7 @@ public enum MailType {
     REGISTER_ACCOUNT_COMPLETED          (MailGroupType.REGISTER,"register-completed",     [], [], MailTypeRSDTO.REGISTER_ACCOUNT_COMPLETED),
     REGISTER_CHANGE_EMAIL_VERIFY        (MailGroupType.REGISTER,"register-emailChangeNew",["confirmationLink"], [], MailTypeRSDTO.REGISTER_CHANGE_EMAIL_VERIFY),
     REGISTER_CHANGE_EMAIL_REQUESTED     (MailGroupType.REGISTER,"register-emailChangeOld",["newEmailAccount"], [], MailTypeRSDTO.REGISTER_CHANGE_EMAIL_REQUESTED),
+    REGISTER_REQUEST_DEMO               (MailGroupType.REGISTER,"no-mandrillapp",[], [], MailTypeRSDTO.REGISTER_REQUEST_DEMO),
     //TODO: Change this email to REGISTER_WELCOME
     NOTIFICATION_OFFER_PURCHASED        (MailGroupType.REGISTER,"register-suscription",   [], ["user"], MailTypeRSDTO.REGISTER_WELCOME),
     CAMPAIGN_POLL_THANK_YOU             (MailGroupType.REGISTER,"register-modalelections",[],["recovery", "education", "democracy", "equalty", "constitution", "foreign", "politician", "politicianLink"]),
@@ -46,7 +47,7 @@ public enum MailType {
     POLITICIAN_SUBSCRIPTION       (MailGroupType.ADMIN, "admin-suscription", [],["userLink", "user", "offerType", "totalPrice"]),
     EDITOR_SUBSCRIPTION           (MailGroupType.ADMIN, "admin-suscription-editor", [],["userLink", "user"]),
     POLITICIAN_SUBSCRIPTION_TESTER(MailGroupType.ADMIN, "admin-suscription-beta-tester", [],["userLink", "user"]),
-    BATCH_PROCESS                 (MailGroupType.ADMIN, "admin-batchProcess",[],["rawMail", "SUBJECT"]);
+    BATCH_PROCESS                 (MailGroupType.ADMIN, "admin-batchProcess",[],["body", "subject"], MailTypeRSDTO.ADMIN_COMMUNICATION);
 
 
     String nameTemplate
