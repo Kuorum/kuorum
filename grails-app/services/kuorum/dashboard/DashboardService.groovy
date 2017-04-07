@@ -1,6 +1,8 @@
 package kuorum.dashboard
 
 import com.fasterxml.jackson.core.type.TypeReference
+import com.google.gdata.client.contacts.ContactsService
+import grails.plugin.springsecurity.SpringSecurityService
 import groovy.time.TimeCategory
 import kuorum.Region
 import kuorum.RegionService
@@ -12,7 +14,9 @@ import kuorum.users.KuorumUser
 import kuorum.util.rest.RestKuorumApiService
 import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
 import org.kuorum.rest.model.communication.post.PagePostRSDTO
+import org.kuorum.rest.model.contact.ContactPageRSDTO
 import org.springframework.context.MessageSource
+import payment.contact.ContactService
 
 class DashboardService {
 
@@ -21,6 +25,9 @@ class DashboardService {
     RegionService regionService
 
     RestKuorumApiService restKuorumApiService
+
+    SpringSecurityService springSecurityService;
+    ContactService contactService;
 
     /**
      * Method to show notices if the user's data profile is incomplete
@@ -61,7 +68,11 @@ class DashboardService {
         resultMessage
     }
 
-
+    boolean forceUploadContacts(){
+        KuorumUser user = springSecurityService.currentUser
+        ContactPageRSDTO contacts = contactService.getUsers(user)
+        return contacts.total==0 && !user.skipUploadContacts
+    }
     /**
      * Method to get the type of the current notice
      *
