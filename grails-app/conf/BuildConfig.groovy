@@ -189,9 +189,9 @@ grails.project.dependency.resolution = {
         compile ":cache-headers:1.1.7"
 //        compile "org.grails.plugins:asset-pipeline:2.11.0"
         runtime ":resources:1.2.14"
-//        runtime ":cached-resources:1.0"
+        runtime ":cached-resources:1.0"
         // Uncomment these (or add new ones) to enable additional resources capabilities
-//        runtime ":zipped-resources:1.0.1"
+        runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.1"
         //runtime ":yui-minify-resources:0.1.5"
 
