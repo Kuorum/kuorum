@@ -1428,6 +1428,7 @@ div.tagsinput {border:1px solid #DDDDDD;}
 #campaignsList > li > ul.list-campaign-stats > li span.open-number:empty::before,
 #campaignsList > li > ul.list-campaign-stats > li span.click-number:empty::before {content:'-'; left:30px; position:absolute; top:2px;}
 #campaignsList > li > ul.list-campaign-stats > li span.recip-number:empty::before {left:32px;}
+#campaignsList > li > .type {display: none;}
 
 ul.list > li > ul.list-actions {position:absolute; top:10px; right: 10px;text-align: right;margin: 0;padding: 0; border:0;}
 ul.list > li > ul.list-actions > li {display: inline-block;margin-right: 10px;}

@@ -1,7 +1,7 @@
 <ul id="mails" class="campaigns">
     <li class="fontIcon"><g:link mapping="politicianMassMailingNew" role="button" class="mail">
         <span class="fa fa-envelope-o"></span>
-        <span class="label"><g:message code="tools.campaign.new.newsLetter"/></span></g:link>
+        <span class="label"><g:message code="tools.campaign.new.newsletter"/></span></g:link>
     </li>
     <li class="fontIcon"><g:link mapping="postCreate" role="button" class="mail">
         <span class="fa fa-newspaper-o"></span>

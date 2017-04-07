@@ -499,10 +499,13 @@ $(document).ready(function() {
         var sent = $('li.SENT').length;
         var scheduled = $('li.SCHEDULED').length;
         var draft = $('li.DRAFT').length;
+        var newsletter = $('li.newsletterItem').length;
+        var debate = $('li.debateItem').length;
+        var post = $('li.postItem').length;
 
 
         //select filtro campañas según estado
-        $('#filterCampaigns').on('change', function () {
+        /*$('#filterCampaigns').on('change', function () {
             if ($('#filterCampaigns option:selected').is('#all')) {
                 $('.totalList').text(counterList);
                 $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
@@ -518,6 +521,27 @@ $(document).ready(function() {
             if ($('#filterCampaigns option:selected').is('#DRAFT')) {
                 $('.totalList').text(draft);
                 $('#infoFilterCampaigns').removeClass().find('.filtered').text('draft');
+            }
+        });*/
+
+        //select filtro campañas según tipo
+        $('#filterCampaigns').on('change', function () {
+            if ($('#filterCampaigns option:selected').is('#all')) {
+                $('.totalList').text(counterList);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
+            }
+            if ($('#filterCampaigns option:selected').is('#newsletter')) {
+                console.log('here');
+                $('.totalList').text(newsletter);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
+            }
+            if ($('#filterCampaigns option:selected').is('#debate')) {
+                $('.totalList').text(debate);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
+            }
+            if ($('#filterCampaigns option:selected').is('#post')) {
+                $('.totalList').text(post);
+                $('#infoFilterCampaigns').removeClass().find('.filtered').text('');
             }
         });
 
@@ -543,7 +567,7 @@ $(document).ready(function() {
             outerWindow: 1
         };
         var options = {
-            valueNames: [ 'id', 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', { name: 'timestamp', attr: 'val' } ],
+            valueNames: [ 'id', 'name', 'title', 'recip-number', 'open-number', 'click-number', 'state', 'type',{ name: 'timestamp', attr: 'val' } ],
             page: 10,
             searchClass: "searchCampaigns",
             plugins: [
@@ -600,8 +624,8 @@ $(document).ready(function() {
             } else {
                 // filter items in the list
                 campaignList.filter(function (item) {
-                    if (item.values().state == selection) {
-                        return (item.values().state == selection);
+                    if (item.values().type == selection) {
+                        return (item.values().type == selection);
                     }
                 });
             }

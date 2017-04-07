@@ -3,6 +3,7 @@
 <li class="${debate.newsletter.status} debateItem" id="campaignPos_${idx}">
     <span class="id sr-only">${debate.id}</span>
     <span class="state">${debate.campaignStatusRSDTO}</span>
+    <span class="type">debate</span>
     <span class="fa fa-comments-o"></span>
     <h3>
         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="title">

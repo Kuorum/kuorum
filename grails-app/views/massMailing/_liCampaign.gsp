@@ -1,8 +1,9 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO" %>
 
-<li class="${campaign.status}" id="campaignPos_${idx}">
+<li class="${campaign.status} newsletterItem" id="campaignPos_${idx}">
     <span class="id sr-only">${campaign.id}</span>
     <span class="state">${campaign.status}</span>
+    <span class="type">newsletter</span>
     <span class="fa fa-envelope-o"></span>
     <h3>
         <g:link mapping="politicianMassMailingShow" params="[campaignId:campaign.id]" class="title">

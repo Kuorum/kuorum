@@ -8,9 +8,9 @@
                 </label>
                 <select name="filterCampaigns" class="form-control input-lg" id="filterCampaigns">
                     <option value="all" name="all" id="all"><g:message code="tools.massMailing.list.filter.all"/> </option>
-                    <g:each in="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.values()}" var="campaingStatus">
-                        <option value="${campaingStatus}" name="${campaingStatus}" id="${campaingStatus}">
-                            <g:message code="${org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.class.name}.${campaingStatus}"/>
+                    <g:each in="${['newsletter', 'debate', 'post']}" var="campaignType">
+                        <option value="${campaignType}" name="${campaignType}" id="${campaignType}">
+                            <g:message code="${'tools.campaign.new'}.${campaignType}"/>
                         </option>
                     </g:each>
                 </select>
