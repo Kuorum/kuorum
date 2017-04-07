@@ -2,7 +2,6 @@ package kuorum
 
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
-import kuorum.core.model.project.ProjectBasicStats
 import kuorum.core.model.search.Pagination
 import kuorum.project.Project
 import kuorum.users.KuorumUser

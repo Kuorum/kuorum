@@ -39,7 +39,7 @@
                         </div>
                     </sec:ifNotLoggedIn>
                     <sec:ifLoggedIn>
-                        <input type="hidden" name="name" value="LOGGED USER NAME"/>
+                        <input type="hidden" name="name" value="LOGGED USER"/>
                         <input type="hidden" name="email" value="notExistingMail@notMail.com"/>
                     </sec:ifLoggedIn>
 

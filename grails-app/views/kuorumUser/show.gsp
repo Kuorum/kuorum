@@ -98,8 +98,8 @@
     %{--<g:render template="userShowTemplates/recommendedPoliticians" model="[politician:politician, recommendPoliticians:recommendPoliticians]"/>--}%
 %{--</content>--}%
 
-%{--<content tag="modals">--}%
-    %{--<g:if test="${causes}">--}%
-        %{--<g:render template="userShowTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>--}%
-    %{--</g:if>--}%
-%{--</content>--}%
+<content tag="modals">
+    <g:if test="${causes}">
+        <g:render template="userShowTemplates/modals/modalContact" model="[politician:politician, causes:causes]"/>
+    </g:if>
+</content>

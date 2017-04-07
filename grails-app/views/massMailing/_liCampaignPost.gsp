@@ -3,6 +3,7 @@
 <li class="${post.newsletter.status} postItem" id="campaignPos_${idx}">
     <span class="id sr-only">${post.id}</span>
     <span class="state">${post.newsletter.status}</span>
+    <span class="fa fa-newspaper-o"></span>
     <h3>
         <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="title">
             ${post.title}<span></span>

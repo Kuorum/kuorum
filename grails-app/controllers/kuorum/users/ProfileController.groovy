@@ -211,7 +211,6 @@ class ProfileController {
             return
         }
         prepareUserEditProfile(user,command)
-        prepareUserImages(user,command, fileService)
         kuorumUserService.updateUser(user)
         flash.message=message(code:'profile.editUser.success')
         redirect mapping:'profileEditUser'
@@ -219,12 +218,12 @@ class ProfileController {
 
     def editPictures(){
         KuorumUser user = params.user
-        EditUserProfileCommand command = new EditUserProfileCommand(user)
+        EditProfilePicturesCommand command = new EditProfilePicturesCommand(user)
 
         [command: command]
     }
 
-    def updatePictures(EditUserProfileCommand command){
+    def updatePictures(EditProfilePicturesCommand command){
         KuorumUser user = params.user
         if (command.hasErrors()){
             render view:"editPictures", model: [command:command,user:user]
@@ -289,7 +288,7 @@ class ProfileController {
         user.personalData = personalData
     }
 
-    public static  void prepareUserImages(KuorumUser user, EditUserProfileCommand command, FileService fileService){
+    public static  void prepareUserImages(KuorumUser user, EditProfilePicturesCommand command, FileService fileService){
 
         if (command.photoId && (!user.avatar || user.avatar.id.toString() != command.photoId)){
             KuorumFile avatar = KuorumFile.get(new ObjectId(command.photoId))

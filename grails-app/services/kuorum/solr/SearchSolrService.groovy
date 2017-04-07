@@ -3,12 +3,11 @@ package kuorum.solr
 import grails.transaction.Transactional
 import kuorum.core.exception.KuorumExceptionUtil
 import kuorum.core.model.CommissionType
-import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.search.SearchParams
 import kuorum.core.model.search.SearchPolitician
+import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.solr.*
-import kuorum.project.Project
 import org.apache.solr.client.solrj.SolrQuery
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.response.Group

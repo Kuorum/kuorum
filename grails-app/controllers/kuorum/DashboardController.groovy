@@ -3,7 +3,6 @@ package kuorum
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.causes.CausesService
-import kuorum.core.model.UserType
 import kuorum.core.model.search.Pagination
 import kuorum.dashboard.DashboardService
 import kuorum.post.Cluck
@@ -14,10 +13,9 @@ import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserStatsService
 import kuorum.web.commands.profile.AccountDetailsCommand
+import kuorum.web.commands.profile.EditProfilePicturesCommand
 import kuorum.web.commands.profile.EditUserProfileCommand
 import kuorum.web.commands.profile.SocialNetworkCommand
-import kuorum.web.commands.profile.politician.ProfessionalDetailsCommand
-import kuorum.web.commands.profile.politician.QuickNotesCommand
 import kuorum.web.constants.WebConstants
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
 import org.kuorum.rest.model.communication.debate.PageDebateRSDTO
@@ -142,48 +140,23 @@ class DashboardController {
 
     //FAST CHAPU - Evaluating empty data
     def emptyEditableData(KuorumUser user){
-        if (user.userType == UserType.POLITICIAN || user.userType == UserType.CANDIDATE){
-            List<CauseRSDTO> causes = causesService.findDefendedCauses(user);
 
-            List fields = [
-                    [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
-                    [urlMapping: 'profileCauses', total:causes?0:1],
-                    [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["birthday", "workingSector", "studies", "enterpriseSector"].contains(it.key)}.size()],
-                    [urlMapping: 'profileNews', total:user.relevantEvents?0:1],
-                    [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()]
-            ]
-            QuickNotesCommand quickNotesCommand = new QuickNotesCommand(user);
-            fields.add([urlMapping:'profileQuickNotes', total:
-                    quickNotesCommand.institutionalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
-                            quickNotesCommand.politicalOffice.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size() +
-                            quickNotesCommand.politicianExtraInfo.properties.findAll{!it.value && !["dbo", "externalId"].contains(it.key)}.size()]
-            )
+        List<CauseRSDTO> causes = causesService.findDefendedCauses(user);
 
-            ProfessionalDetailsCommand professionalDetailsCommand = new ProfessionalDetailsCommand(user)
-            fields.add([urlMapping: 'profileProfessionalDetails', total:
-                    professionalDetailsCommand.properties.findAll{!it.value}.size() +
-                            professionalDetailsCommand.careerDetails.properties.findAll{!it.value && !["dbo"].contains(it.key)}.size()
-            ])
-
-            Integer totalFields = 53; // FAST CHAPU
-            Integer emptyFields= fields.sum{it.total}
-            return [
-                    percentage: (1 - emptyFields/totalFields)*100,
-                    fields:fields
-            ]
-        }else{
-            List fields = [
-                    [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
-                    [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["position", "politicalParty"].contains(it.key)}.size()],
-                    [urlMapping: 'profileSocialNetworks', total:4],
-            ]
-            Integer totalFields = 9+7+4; // FAST CHAPU
-            Integer emptyFields= fields.sum{it.total}
-            return [
-                    percentage: (1 - emptyFields/totalFields)*100,
-                    fields:fields
-            ]
-        }
+        List fields = [
+                [urlMapping: 'profileEditAccountDetails', total: (new AccountDetailsCommand(user)).properties?.findAll{!it.value && !["password"].contains(it.key)}.size()],
+                [urlMapping: 'profileCauses', total:causes?0:1],
+                [urlMapping: 'profileEditUser', total:new EditUserProfileCommand(user).properties.findAll{!it.value && !["workingSector", "studies", "enterpriseSector"].contains(it.key)}.size()],
+                [urlMapping: 'profileNews', total:user.relevantEvents?0:1],
+                [urlMapping: 'profilePictures', total: new EditProfilePicturesCommand(user).properties.findAll {!it.value}.size()],
+                [urlMapping: 'profileSocialNetworks', total:(new SocialNetworkCommand(user)).properties.findAll{!it.value}.size()]
+        ]
+        Integer totalFields = 9+3+2+8+1+1; // FAST CHAPU
+        Integer emptyFields= fields.sum{it.total}
+        return [
+                percentage: (1 - emptyFields/totalFields)*100,
+                fields:fields
+        ]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

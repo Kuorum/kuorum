@@ -1,7 +1,6 @@
 package kuorum.users
 
 import grails.plugin.springsecurity.annotation.Secured
-import kuorum.campaign.Campaign
 import kuorum.campaign.CampaignService
 import kuorum.causes.CausesService
 import kuorum.core.model.search.Pagination

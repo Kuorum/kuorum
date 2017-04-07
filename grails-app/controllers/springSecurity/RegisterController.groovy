@@ -90,7 +90,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
 
     def contactRegister(ContactRegister contactRegister){
         if (!contactRegister.validate()){
-            flash.message = g.message(code: 'register.contactRegister.error.validation')
+            flash.error = g.message(error: contactRegister.errors.allErrors[0])
             if (contactRegister.politician){
                 redirect mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties()
             }else{
@@ -103,7 +103,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             KuorumUser user = springSecurityService.getCurrentUser();
             notificationService.sendPoliticianContactNotification(contactRegister.politician, user, contactRegister.message, contactRegister.cause)
             flash.message = g.message(code: 'register.contactRegister.success.userLogged', args: [contactRegister.politician.name])
-            redirect mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties()
+            redirect (mapping:"userShow", params: contactRegister.politician.encodeAsLinkProperties())
         }else{
             KuorumUser user = KuorumUser.findByEmail(contactRegister.email)
             if (user){

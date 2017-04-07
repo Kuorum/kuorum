@@ -7,10 +7,10 @@ import kuorum.core.model.AvailableLanguage
 import kuorum.core.model.CommissionType
 import kuorum.core.model.OfferType
 import kuorum.core.model.PostType
-import kuorum.project.Project
 import kuorum.post.Cluck
 import kuorum.post.Post
 import kuorum.post.PostComment
+import kuorum.project.Project
 import kuorum.solr.IndexSolrService
 import kuorum.users.KuorumUser
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
@@ -237,12 +237,10 @@ class KuorumMailService {
         MailData mailData = new MailData()
         mailData.mailType = MailType.NOTIFICATION_CONTACT
         mailData.globalBindings=[
-                "politician":politician.name,
-                "politicianLink":politicianLink,
-                "contact":user.name,
+                "contactName":user.name,
                 "contactLink":contactLink,
-                "message":message,
-                "cause":cause
+                "contactMessage":message,
+                "causeName":cause
         ]
         mailData.userBindings = [mailUserData]
         mailData.fromName = prepareFromName(user.name)

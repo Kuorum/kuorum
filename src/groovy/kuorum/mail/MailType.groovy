@@ -35,7 +35,7 @@ public enum MailType {
     NOTIFICATION_COMMENTED_POST_USERS   (MailGroupType.EVENT_ME,         "me-commentAnswer",            [],["commenter","commenterLink","comment", "postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_VICTORY_USERS          (MailGroupType.EVENT_PROPOSAL,   "proposal-victory",            [],["defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
     NOTIFICATION_VICTORY_DEFENDER       (MailGroupType.EVENT_POLITICIAN, "politician-victoryMine",      [],["defender","defenderLink","postName", "postOwner","postOwnerLink","postLink"]),
-    NOTIFICATION_CONTACT                (MailGroupType.EVENT_POLITICIAN, "politician-contact",          [],["politician","politicianLink","contact", "contactLink","message","cause"]),
+    NOTIFICATION_CONTACT                (MailGroupType.EVENT_POLITICIAN, "politician-contact",          [],["contact", "contactLink","contactMessage","causeName"], MailTypeRSDTO.NOTIFICATION_CONTACT),
 
     POST_CREATED_1                      (MailGroupType.TIME, "time-proposalPublished-0", [],[]),
     POST_CREATED_2                      (MailGroupType.TIME, "time-proposalPublished-1", [],[]),
