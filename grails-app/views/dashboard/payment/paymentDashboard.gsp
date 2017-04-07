@@ -16,7 +16,7 @@
 <content tag="mainContent">
     <div class="row dashboard">
         <div class="col-md-8">
-            <g:render template="/dashboard/payment/dashboardModules/campaignNewCampaign" model="[lastCampaign:lastCampaign,durationDays:durationDays,contacts:contacts]"/>
+            <g:render template="/dashboard/payment/dashboardModules/campaignNewCampaign" model="[lastCampaign:lastCampaign,durationDays:durationDays]"/>
             <g:if test="${debates || posts}">
                 %{--<h2 class="campaign-list-title">${g.message(code:"dashboard.payment.followingCampaignList.title")}</h2>--}%
             </g:if>

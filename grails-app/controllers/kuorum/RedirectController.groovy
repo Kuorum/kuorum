@@ -20,6 +20,7 @@ class RedirectController {
 
     def redirect301 = {
         def newMapping = params.remove("newMapping")
+        log.info("OLD URL: Redirecting to ${newMapping} with params: ${params}")
         def link = g.createLink(mapping: newMapping, params: params)
         response.setHeader "Location", link
         response.status = 301

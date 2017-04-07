@@ -5,6 +5,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.core.exception.KuorumException
+import kuorum.dashboard.DashboardService
 import kuorum.users.KuorumUser
 import kuorum.web.commands.payment.contact.*
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
@@ -30,8 +31,15 @@ class ContactsController {
 
     ContactService contactService
     SpringSecurityService springSecurityService
+    DashboardService dashboardService
 
     def index(ContactFilterCommand filterCommand){
+
+        if (dashboardService.forceUploadContacts()){
+            render view: "/dashboard/payment/paymentNoContactsDashboard", model: [:]
+            return;
+        }
+
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         SearchContactRSDTO searchContactRSDTO  = new SearchContactRSDTO()
         searchContactRSDTO.sort = new SortContactsRDTO(field:ConditionFieldTypeRDTO.NAME, direction: SortContactsRDTO.Direction.ASC)

@@ -4,6 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.KuorumFile
+import kuorum.dashboard.DashboardService
 import kuorum.files.FileService
 import kuorum.post.PostService
 import kuorum.users.KuorumUser
@@ -40,7 +41,15 @@ class MassMailingController {
     DebateService debateService
     PostService postService
 
+    DashboardService dashboardService;
+
     def index() {
+
+        if (dashboardService.forceUploadContacts()){
+            render view: "/dashboard/payment/paymentNoContactsDashboard", model: [:]
+            return;
+        }
+
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
         List<DebateRSDTO> debates = debateService.findAllDebates(user)
