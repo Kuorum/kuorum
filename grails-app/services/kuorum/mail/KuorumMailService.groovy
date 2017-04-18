@@ -163,7 +163,7 @@ class KuorumMailService {
         MailData mailData = new MailData(fromName:DEFAULT_SENDER_NAME,mailType: MailType.REGISTER_REQUEST_DEMO, userBindings: [mailUserData])
         mandrillAppService.sendTemplate(mailData)
     }
-    def sendRequestADemoAdmin(String name, String email, String enterprise, String phone){
+    def sendRequestADemoAdmin(String name, String email, String enterprise, String phone, AvailableLanguage language){
         String rawMessage = """
         <h1> Requested a demo </h1>
         <ul>
@@ -171,6 +171,7 @@ class KuorumMailService {
             <li>Email: $email</li>
             <li>Enterprise: $enterprise</li>
             <li>Phone: $phone</li>
+            <li>Lang: $language</li>
         </ul>
         """
         sendBatchMail(getFeedbackUser("DEMO"), rawMessage, "Requested a demo: ${name}");
