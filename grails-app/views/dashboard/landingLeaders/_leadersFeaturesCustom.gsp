@@ -14,11 +14,11 @@
             <div class="col-md-11 col-xs-11"><span><g:message code="${msgPrefix}.featuresCustom.bullet3.bold"/></span> - <g:message code="${msgPrefix}.featuresCustom.bullet3.description"/></div>
         </li>
     </ul>
-</div>
-<div class="col-md-8 col-md-offset-2">
-    <g:link mapping="register" class="btn btn-lg btn-sign-up">
-        <g:message code="${msgPrefix}.featuresCustom.register"/>
-    </g:link>
+    <div class="col-md-8 col-md-offset-2">
+        <g:link mapping="register" class="btn btn-lg btn-sign-up">
+            <g:message code="${msgPrefix}.featuresCustom.register"/>
+        </g:link>
+    </div>
 </div>
 <div class="col-md-6 img-full-container">
     <img src="${r.resource(dir:'images/landing', file:imgBackground)}">

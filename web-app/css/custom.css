@@ -5345,6 +5345,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
+    section.features > div > div a.btn.btn-sign-up {font-size: 18px !important;}
+    div.fade-carousel > div.content.container .btn {font-size: 22px !important;}
     .box-ppal#createNewCampaign {margin-bottom: 20px; padding-bottom: 15px;}
     #mails{padding:0;}
     .carousel.news .carousel-control {top: 30%;}
@@ -8757,6 +8759,7 @@ ul.globus li img {
 }
 
 @media screen and (max-width: 991px) {
+    section.features > div.pull-right {float:none !important;}
     .img-full-container {
         position: relative;
         top: 0;

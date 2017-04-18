@@ -1,5 +1,4 @@
 <g:set var="msgPrefix" value="${msgPrefix?:'landingLeaders'}"/>
-<div class="row">
     <div class="col-md-6 img-full-container left">
         <img src="${r.resource(dir:'images/landing', file:'features-profile.png')}">
     </div>
@@ -25,4 +24,3 @@
             </g:link>
         </div>
     </div>
-</div>
