@@ -175,9 +175,9 @@ class UrlMappings {
 
         name langPostShow:  "/$lang/$userAlias/$hashtag/$postBrief-$postId"(controller: "redirect", action: "redirect301Project") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name OldPostShow:      "/$userAlias/$hashtag/$postBrief-$postId"{controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                            "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"          {controller="redirect"; action= "redirect301Post";}
-                            "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"  {controller="redirect"; action= "redirect301Post";}
-                            "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"      {controller="redirect"; action= "redirect301Post";}
+                            "/proyectos/$regionName/$commission/$hashtag/propuesta/$postBrief-$postId"          {controller="redirect"; action= "redirect301Project";}
+                            "/proyectos/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"  {controller="redirect"; action= "redirect301Project";}
+                            "/leyes/$regionName/$commission/$hashtag/$urlPostTypeVieja/$postBrief-$postId"      {controller="redirect"; action= "redirect301Project";}
 
 
 
