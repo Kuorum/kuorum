@@ -7182,7 +7182,6 @@ hr{
 }
 
 @media only screen and (max-width: 767px) {
-    #politician-bio.extra-padding {padding: 0 5px;}
     #political-experience .panel-body{
         padding: 20px 40px 0 60px;
     }
@@ -7267,7 +7266,6 @@ hr{
 
 
 #politician-bio .center-button {text-align:center; margin-top: 12px;}
-#politician-bio.extra-padding {padding: 0 30px 20px;}
 #suggested-politicians .container-fluid .center-button {text-align:center;}
 
 /* PSOE modal =========== */
@@ -7388,6 +7386,7 @@ header .header-msg h6:hover{
 #enterTimeZone .modal-footer {margin:0px}
 
 @media only screen and (min-width: 768px){
+    #politician-bio.extra-padding {padding: 0 30px 20px;}
     header h6{
         font-size: 16px;
     }
@@ -8541,6 +8540,7 @@ form.dark {
 }
 
 @media (max-width: 767px) {
+    #politician-bio.extra-padding {padding: 0 5px;}
     .img-full-container {
         position: static;
         margin: 0 auto;
