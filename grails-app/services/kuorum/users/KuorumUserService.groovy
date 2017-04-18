@@ -402,7 +402,8 @@ class KuorumUserService {
         KuorumUser loggedUser = springSecurityService.getCurrentUser();
         List<ObjectId> filterPoliticians = []
         if (loggedUser){
-            filterPoliticians  = loggedUser.following?:[]
+            filterPoliticians  = []
+            filterPoliticians.addAll(loggedUser.following?:[])
             filterPoliticians << loggedUser.id
             RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
             if(recommendedUserInfo){
@@ -586,7 +587,8 @@ class KuorumUserService {
         KuorumUser loggedUser = springSecurityService.getCurrentUser();
         List<ObjectId> filteredUserIds = []
         if (loggedUser){
-            filteredUserIds  = loggedUser.following?:[]
+            filteredUserIds  = []
+            filteredUserIds.addAll(loggedUser.following?:[])
             filteredUserIds << loggedUser.id
             RecommendedUserInfo recommendedUserInfo = RecommendedUserInfo.findByUser(loggedUser)
             if(recommendedUserInfo){

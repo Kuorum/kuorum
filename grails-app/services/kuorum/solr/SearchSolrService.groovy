@@ -9,6 +9,7 @@ import kuorum.core.model.search.SearchProjects
 import kuorum.core.model.search.SearchType
 import kuorum.core.model.solr.*
 import org.apache.solr.client.solrj.SolrQuery
+import org.apache.solr.client.solrj.SolrRequest
 import org.apache.solr.client.solrj.SolrServer
 import org.apache.solr.client.solrj.response.Group
 import org.apache.solr.client.solrj.response.QueryResponse
@@ -42,7 +43,7 @@ class SearchSolrService {
         query.addSort("regionIso3166_2Length", SolrQuery.ORDER.asc)
         query.addSort("dateCreated", SolrQuery.ORDER.desc)
 
-        QueryResponse rsp = server.query( query );
+        QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
         SolrDocumentList docs = rsp.getResults();
 
         SolrResults solrResults = new SolrResults()
@@ -100,7 +101,7 @@ class SearchSolrService {
         prepareFilter(params, query)
         query.setParam("facet.prefix",params.word)
 
-        QueryResponse rsp = server.query( query );
+        QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
 
         SolrAutocomplete solrAutocomplete = new SolrAutocomplete()
         solrAutocomplete.suggests = prepareAutocompleteSuggestions(rsp)
@@ -270,7 +271,7 @@ class SearchSolrService {
         query.setFacetMinCount(1)
         query.setStart(params.offset.toInteger())
         query.setRows(params.max.toInteger())
-        QueryResponse rsp = server.query( query );
+        QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
         SolrDocumentList docs = rsp.getResults();
 
         SolrResults solrResults = new SolrResults()
@@ -282,84 +283,6 @@ class SearchSolrService {
         solrResults
     }
 
-    List<SolrProjectsGrouped> listProjects(SearchProjects params){
-        if (!params.validate()){
-            KuorumExceptionUtil.createExceptionFromValidatable(params, "Se necesita una region para buscar por ella")
-        }
-        SolrQuery query = new SolrQuery();
-        query.setParam(CommonParams.QT, "/select");
-        query.setParam(CommonParams.ROWS, "${params.max}");
-        query.setParam(CommonParams.Q, "regionName:\"${params.regionName}\"")
-        query.setParam("q.op", "AND")
-        def fq = ["type:${SolrType.PROJECT}"]
-
-        if (params.commissionType){
-            fq << "commissions:${params.commissionType}"
-        }
-        query.setParam(CommonParams.FQ, "(${fq.sum{ it +" " }})")
-
-        query.setParam("group", true)
-        query.setParam("group.field", "commission_group")
-        query.setParam("group.limit","${params.max}")
-        query.setParam("group.offset","${params.offset}")
-        query.setParam("group.sort","name desc")
-//        query.setParam(CommonParams.SORT, "name desc") // Default is score
-
-        QueryResponse rsp = server.query( query );
-        SolrDocumentList docs = rsp.getResults();
-        List<SolrProjectsGrouped> groupedElements= []
-
-        rsp.groupResponse.values[0].values.each{Group group ->
-
-            SolrProjectsGrouped element = new SolrProjectsGrouped()
-            element.commission = CommissionType.valueOf(group.groupValue)
-            element.elements = group.result.collect{doc ->indexSolrService.recoverProjectFromSolr(doc)}
-            groupedElements.add(element)
-        }
-
-        groupedElements
-    }
-
-    List<SolrPoliticiansGrouped> listPoliticians(SearchPolitician params){
-        if (!params.validate()){
-            KuorumExceptionUtil.createExceptionFromValidatable(params, "Se necesita una institución para buscar")
-        }
-        SolrQuery query = new SolrQuery();
-        query.setParam(CommonParams.QT, "/select");
-        query.setParam(CommonParams.ROWS, "${params.max}");
-        query.setParam("q.op", "AND")
-
-        def q = "institutionName:\"${params.institutionName}\""
-        def fq = ["type:${SolrType.KUORUM_USER}","subType:${SolrSubType.POLITICIAN}"]
-        if (params.regionIso3166_2){
-            fq << "regionIso3166_2:${params.regionIso3166_2}"
-        }
-        query.setParam(CommonParams.Q, q)
-        query.setParam(CommonParams.FQ, "(${fq.sum{ it +" " }})")
-
-
-        query.setParam("group", true)
-        query.setParam("group.field", "regionIso3166_2")
-        query.setParam("group.limit","${params.max}")
-        query.setParam("group.offset","${params.offset}")
-        query.setParam("group.sort","name desc")
-//        query.setParam(CommonParams.SORT, "name desc") // Default is score
-
-        QueryResponse rsp = server.query( query );
-        SolrDocumentList docs = rsp.getResults();
-        List<SolrPoliticiansGrouped> groupedElements= []
-
-        rsp.groupResponse.values[0].values.each{Group group ->
-
-            SolrPoliticiansGrouped element = new SolrPoliticiansGrouped()
-            element.politicians = group.result.collect{doc ->indexSolrService.recoverSolrElementFromSolr(doc)}
-            element.regionName = element.politicians[0].regionName
-            element.iso3166_2 = element.politicians[0].regionIso3166_2
-            groupedElements.add(element)
-        }
-
-        groupedElements
-    }
 
     public List<String> suggestTags(SearchParams params){
         if (!params.validate()){
@@ -372,7 +295,7 @@ class SearchSolrService {
         prepareWord(params,query)
         prepareFilter(params, query)
         query.setParam("facet.prefix",params.word)
-        QueryResponse rsp = server.query( query );
+        QueryResponse rsp = server.query( query, SolrRequest.METHOD.POST );
         List<String> suggestions = prepareAutocompleteSuggestions(rsp)
         suggestions
     }
