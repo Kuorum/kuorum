@@ -6415,6 +6415,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .kakareo .wrapper,
     .edit-post .kakareo.post .wrapper,
     .kakareo.post {padding: 22px;}
+    .box-ppal#followOthers {padding: 22px 22px 0;}
 
     .pago {background-size: 342px auto; background-position: center 25px;}
     .embudo #aside-ppal {padding-bottom: 46px;}
