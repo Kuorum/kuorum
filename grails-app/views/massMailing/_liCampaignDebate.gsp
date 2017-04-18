@@ -26,11 +26,11 @@
             <g:message code="tools.massMailing.list.recipients"/>
         </li>
         <li class="open">
-            <span class='open-number'><campaignUtil:openRate campaign="${debate.newsletter}"/></span>
+            <campaignUtil:openRate campaign="${debate.newsletter}"/>
             <g:message code="tools.massMailing.list.opens"/>
         </li>
         <li class="click">
-            <span class='click-number'><campaignUtil:clickRate campaign="${debate.newsletter}"/></span>
+            <campaignUtil:clickRate campaign="${debate.newsletter}"/>
             <g:message code="tools.massMailing.list.click"/>
         </li>
     </ul>

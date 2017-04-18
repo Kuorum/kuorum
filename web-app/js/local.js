@@ -956,6 +956,20 @@ $(document).ready(function() {
 
     });
 
+    // Switch porcentaje/numero para ratios de apertura y clicks de cada campaña
+    $('span.stat').hover(
+        function(){
+            var num = $(this).attr("data-openratenum");
+            $(this).text(num);
+        }
+    );
+    $('span.stat').mouseout(
+        function(){
+            var percentage = $(this).attr("data-openrateptg");
+            $(this).text(percentage);
+        }
+    );
+
 
     ////////////////////////////////////////////////  EDITAR ////////////////////////////////////////
     // Abre el aviso superior para usuarios semilogados en la Propuesta.

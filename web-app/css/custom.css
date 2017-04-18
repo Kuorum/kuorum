@@ -1430,8 +1430,6 @@ div.tagsinput {border:1px solid #DDDDDD;}
 #campaignsList > li > ul.list-campaign-stats {padding: 10px 0 0 0; margin: 0 0 0 -30px; border-top: 1px solid #e5e5e5;}
 #campaignsList > li > ul.list-campaign-stats > li {display: inline-block; margin: 0; width: 30%; text-align: center; font-size: 15px; font-size: 1.5rem;}
 #campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 16px; font-size: 1.6rem; display: block; margin-bottom: 2px;}
-#campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
-#campaignsList > li > ul.list-campaign-stats > li span.click-number::after {content:'%'; position:absolute;}
 #campaignsList > li > ul.list-campaign-stats > li span.open-number:empty::before,
 #campaignsList > li > ul.list-campaign-stats > li span.click-number:empty::before {content:'-'; left:30px; position:absolute; top:2px;}
 #campaignsList > li > ul.list-campaign-stats > li span.recip-number:empty::before {left:32px;}
@@ -5352,6 +5350,11 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #mails.campaigns {  width: 100% !important; padding:0;}
     #mails li{  float: none !important;  }
     #mails li.fontIcon > a{  margin: auto !important;  }
+
+    #main > div.box-steps{background-color: #fff; color:#545454; border: solid 1px #e5e5e5; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #main > div.box-steps{margin-bottom: 25px; padding: 20px 15px 0 15px;}
+    #main > div.box-steps > ul#mails.twoSteps {width: 420px}
+    #main > div.box-steps > ul#mails > li.arrow {color: #a8a8a8;}
 }
 
 /* Very small devices (mobile, 480px and up) */
@@ -5408,6 +5411,12 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .box-ppal.campaign-new{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     .box-ppal.campaign-stats{box-shadow: 0 0 2px rgba(200,200,200,0.6);}
     #searchContacts > div#listContacts > div.box-ppal.list-contacts {padding: 22px 22px 0;}
+
+    #main > div.box-steps{background-color: #fff; color:#545454; border: solid 1px #e5e5e5; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
+    #main > div.box-steps{margin-bottom: 25px; padding: 20px 15px 0 15px;}
+    #main > div.box-steps > ul#mails.twoSteps {width: 420px;}
+    #main > div.box-steps > ul#mails.twoSteps > li.arrow{ position: relative; top: 20px;}
+    #main > div.box-steps > ul#mails > li.arrow {color: #a8a8a8;}
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 50px;}*/
@@ -5475,12 +5484,18 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #detailsInfoVotes .table tbody th {width: 300px;}
     #detailsInfoVotes.autor .table tbody th {width: 335px;}
     #contactsList > li {padding: 10px 0 0 140px; min-height: 175px;}
+
+    #main > div.box-steps > ul#mails.threeSteps {width: 600px}
+    #main > div.box-steps > ul#mails.threeSteps > li.arrow{ position: relative; top: 20px;}
 }
 
 /* Small devices (tablets, 768px and down) */
 @media only screen and (max-width: 767px) {
     .box-order-options .bulk-actions {display: block; width: 100%;}
+
     #mails.campaigns {width: 36em;}
+
+    #main > div.box-steps #mails.threeSteps {width: auto;}
 }
 
 /* Small devices (tablets, 768px and down) */
@@ -5907,13 +5922,13 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     #campaignsList > li {padding: 10px 20px 10px 55px; min-height: 92px;}
     #campaignsList > li > .state {left: 15px;}
     #campaignsList > li > ul.list-campaign-stats {width: 36%; position: absolute; top: 10px; right: 10%; padding: 10px 0 0 10px; margin: 0; border-top: none; border-left: 1px solid #e5e5e5;}
-    #campaignsList > li > ul.list-campaign-stats > li {margin: 0 12px 0 0; width: 24%;}
+    #campaignsList > li > ul.list-campaign-stats > li {margin: 0 12px 0 0; width: 26%;}
     #campaignsList > li > ul.list-campaign-stats > li:last-child {margin: 0;}
     #campaignsList > li > ul.list-campaign-stats > li.recipients {width: 34%;}
     #campaignsList > li > ul.list-campaign-stats > li span {position: relative; min-height: 24px; font-size: 22px; font-size: 2.2rem; margin-bottom: 0;}
     #campaignsList > li > ul.list-campaign-stats > li span:empty {min-width: 100%;}
-    #campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
-    #campaignsList > li > ul.list-campaign-stats > li span.click-number::after {content:'%'; right:-12px; position:absolute; top:2px;}
+    /*#campaignsList > li > ul.list-campaign-stats > li span.open-number::after,
+    #campaignsList > li > ul.list-campaign-stats > li span.click-number::after {content:'%'; right:-12px; position:absolute; top:2px;}*/
     #campaignsList > li > span.fa {left: 18px;}
     #campaignsList > li h3 {margin-top: 14px;}
     .campaignDelete, .contactDelete  {right: 5px;}
@@ -8885,6 +8900,9 @@ ul.globus li img {
     .case-study .content form .form-group {
         padding-right: 0;
     }
+
+    ul#mails.threeSteps li {  float: none;  }
+    ul#mails.threeSteps li.arrow {position: relative; top: 0;}
 }
 
 /** Notification **/

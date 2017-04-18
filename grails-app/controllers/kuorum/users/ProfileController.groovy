@@ -24,6 +24,9 @@ import org.kuorum.rest.model.kuorumUser.config.NotificationMailConfigRDTO
 import org.kuorum.rest.model.notification.MailsMessageRSDTO
 import org.kuorum.rest.model.tag.CauseRSDTO
 
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class ProfileController {
 
@@ -40,6 +43,8 @@ class ProfileController {
     RegisterService registerService
     CausesService causesService;
     PoliticianService politicianService
+    Pattern pattern
+    Matcher matcher
 
     def beforeInterceptor ={
         if (springSecurityService.isLoggedIn()){//Este if es para la confirmacion del email
@@ -147,8 +152,8 @@ class ProfileController {
         }
         log.info("Solicitud de cambio de email del usuario ${user.email} con el token ${registrationCode.token}" )
         String url = generateLink('profileChangeEmailConfirm', [t: registrationCode.token])
-
-        kuorumMailService.sendChangeEmailRequested(user, email)
+        String emailToShow = email.replaceAll(/[\.|@]/,'<span>$0</span>')
+        kuorumMailService.sendChangeEmailRequested(user, emailToShow)
         kuorumMailService.sendChangeEmailVerification(user,url, email)
         return [url:url]
     }
