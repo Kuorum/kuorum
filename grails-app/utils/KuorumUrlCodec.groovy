@@ -12,7 +12,7 @@ class KuorumUrlCodec {
         res = Normalizer.normalize(res, Normalizer.Form.NFD)
         res = res.replaceAll("[^a-zA-Z0-9\\-]","")
         if (res.startsWith("-")){
-            res = res.substring(1, res.length())
+            res = res.replaceFirst(/^-*/, "")
         }
         res
     }
