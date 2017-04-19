@@ -17,7 +17,7 @@ class CampaignController {
         KuorumUser user = KuorumUser.get(new ObjectId(userId));
         List<PostRSDTO> posts = postService.findAllPosts(user).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT};
         List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.newsletter.status==CampaignStatusRSDTO.SENT};
-        render template: '/campaigns/cards/campaignsList', model: [posts:posts, debates:debates]
+        render template: '/campaigns/cards/campaignsList', model: [posts:posts, debates:debates, showAuthor:true]
 
     }
 }

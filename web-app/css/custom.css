@@ -2718,13 +2718,13 @@ ul.campaign-list > li {padding: 0;}
 ul.campaign-list .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 ul.campaign-list > li .box-ppal .card-header-photo {height: auto;}
 ul.campaign-list > li .box-ppal .card-body {padding:1em;overflow: hidden;height: 320px;}
-ul.campaign-list > li .box-ppal .card-header-photo + .card-body {height: 125px;}
+ul.campaign-list > li .box-ppal .card-header-photo + .card-body {height: 125px; margin-bottom: 15px;}
 ul.campaign-list > li .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
 ul.campaign-list > li .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
 ul.campaign-list > li .box-ppal .card-body .card-text a{color: #00a3ed;}
 ul.campaign-list > li .box-ppal .card-body .card-text a:hover{text-decoration: underline;}
 
-ul.campaign-list > li .box-ppal .card-footer{width:100%; height:2em;display:block; padding: 0 1em 0.5em; text-align: right}
+ul.campaign-list > li .box-ppal .card-footer{width:100%; height:36px;display:block; padding: 0 1em 0.5em; text-align: right}
 ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
 ul.campaign-list > li .box-ppal .card-footer > ul {margin: 0;padding: 0;list-style: none;}
 ul.campaign-list > li .box-ppal .card-footer:after {clear:both; content: " "}
@@ -6317,7 +6317,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
         position: relative;
         float: left;
-        bottom: 15px;
+        bottom: 7px;
     }
 }
 
@@ -8786,6 +8786,7 @@ ul.globus li img {
         padding: 6px 9px !important;
     }
 
+    /*ul.campaign-list > li > article.box-ppal > div.link-wrapper {height: 375px;}*/
     ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
         position: relative;
         float: left;
