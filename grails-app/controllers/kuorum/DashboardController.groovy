@@ -97,20 +97,21 @@ class DashboardController {
 
     private def buildPaymentDashboard(KuorumUser user){
         String viewerUid = cookieUUIDService.buildUserUUID()
-        List<CampaignRSDTO> campaigns = massMailingService.findCampaigns(user)
-        CampaignRSDTO lastCampaign = null
-//      List<DebateRSDTO> debates = debateService.findAllDebates(user)
-        //List<DebateRSDTO> debates = debateService.findAllDebates(user).findAll{it.datePublished && it.datePublished < new Date()}
-        //List<PostRSDTO> posts = postService.findAllPosts(user, viewerUid).findAll{it.datePublished && it.datePublished < new Date()}
+
         PagePostRSDTO pagePosts = dashboardService.findAllContactsPosts(user, viewerUid)
         List<PostRSDTO> posts = pagePosts.data
         PageDebateRSDTO pageDebates = dashboardService.findAllContactsDebates(user)
         List<DebateRSDTO> debates = pageDebates.data
 
-        List<CampaignRSDTO> sentDebateNewsletters = debates*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<CampaignRSDTO> sentPostNewsletters = posts*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
-        List<CampaignRSDTO> sentMassMailCampaigns = campaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> myCampaigns = massMailingService.findCampaigns(user)
+        List<DebateRSDTO> myDebates = debateService.findAllDebates(user)
+        List<PostRSDTO> myPosts = postService.findAllPosts(user)
+        List<CampaignRSDTO> sentDebateNewsletters = myDebates*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> sentPostNewsletters = myPosts*.newsletter.findAll{it.status==CampaignStatusRSDTO.SENT}
+        List<CampaignRSDTO> sentMassMailCampaigns = myCampaigns.findAll{it.status==CampaignStatusRSDTO.SENT}
         List<CampaignRSDTO> sentCampaigns = sentMassMailCampaigns + sentDebateNewsletters + sentPostNewsletters
+        Long numberCampaigns = sentCampaigns?.size()?:0;
+        CampaignRSDTO lastCampaign = null
         Long durationDays = 0;
         if (sentCampaigns){
             lastCampaign = sentCampaigns.sort {it.sentOn}.last()?:null
@@ -119,8 +120,6 @@ class DashboardController {
                 durationDays = duration.days
             }
         }
-
-        Long numberCampaigns = debates?.size()?:0 + campaigns?.size()?:0;
 
 //        List<KuorumUser> recommendedUsers = kuorumUserService.recommendPoliticians(user, new Pagination(max:16))
 

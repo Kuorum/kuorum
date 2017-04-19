@@ -126,6 +126,11 @@ $(document).ready(function() {
                 $("button.follow[data-userId="+userId+"]").html(message).removeClass('enabled').addClass('disabled');
                 deleteUserRecommendation(userId);
                 addUserCampaigns(userId);
+                var $followingCounter = $(".activity li.following span.counter");
+                if ($followingCounter.length > 0){
+                    var numFollowing = parseInt($followingCounter.html());
+                    $followingCounter.html(numFollowing +1);
+                }
             });
         }
     }

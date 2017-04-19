@@ -5345,6 +5345,9 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
 /* Super small devices (mobile, 480px and down) */
 @media only screen and (max-width: 480px) {
+    section.features > div > div a.btn.btn-sign-up {font-size: 18px !important;}
+    div.fade-carousel > div.content.container .btn {font-size: 22px !important;}
+    .box-ppal#createNewCampaign {margin-bottom: 20px; padding-bottom: 15px;}
     #mails{padding:0;}
     .carousel.news .carousel-control {top: 30%;}
     #mails.campaigns {  width: 100% !important; padding:0;}
@@ -7268,7 +7271,6 @@ hr{
 
 
 #politician-bio .center-button {text-align:center; margin-top: 12px;}
-#politician-bio.extra-padding {padding: 0 30px 20px;}
 #suggested-politicians .container-fluid .center-button {text-align:center;}
 
 /* PSOE modal =========== */
@@ -7389,6 +7391,7 @@ header .header-msg h6:hover{
 #enterTimeZone .modal-footer {margin:0px}
 
 @media only screen and (min-width: 768px){
+    #politician-bio.extra-padding {padding: 0 30px 20px;}
     header h6{
         font-size: 16px;
     }
@@ -8542,6 +8545,7 @@ form.dark {
 }
 
 @media (max-width: 767px) {
+    #politician-bio.extra-padding {padding: 0 5px;}
     .img-full-container {
         position: static;
         margin: 0 auto;
@@ -8760,6 +8764,7 @@ ul.globus li img {
 }
 
 @media screen and (max-width: 991px) {
+    section.features > div.pull-right {float:none !important;}
     .img-full-container {
         position: relative;
         top: 0;
