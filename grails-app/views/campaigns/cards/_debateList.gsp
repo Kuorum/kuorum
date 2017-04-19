@@ -24,6 +24,18 @@
             </div>
             <div class="card-footer">
                 <ul>
+                    <g:if test="${showAuthor}">
+                        <li class="owner">
+                            <userUtil:showUserByAlias
+                                    alias="${debate.userAlias}"
+                                    showName="true"
+                                    showRole="true"
+                                    showActions="true"
+                                    showDeleteRecommendation="true"
+                                    htmlWrapper="li"
+                            />
+                        </li>
+                    </g:if>
                     <li>
                         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" fragment="openProposal" role="button">
                             <span class="fa fa fa-lightbulb-o fa-lg"></span>

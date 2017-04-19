@@ -2718,7 +2718,7 @@ ul.campaign-list > li {padding: 0;}
 ul.campaign-list .box-ppal {padding: 0; margin: 0 0 20px 0;height: auto; box-shadow: 0 0 2px rgba(200,200,200,0.6);}
 ul.campaign-list > li .box-ppal .card-header-photo {height: auto;}
 ul.campaign-list > li .box-ppal .card-body {padding:1em;overflow: hidden;height: 320px;}
-ul.campaign-list > li .box-ppal .card-header-photo + .card-body {height: 120px;}
+ul.campaign-list > li .box-ppal .card-header-photo + .card-body {height: 125px;}
 ul.campaign-list > li .box-ppal .card-body h1{margin:0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif}
 ul.campaign-list > li .box-ppal .card-body .card-text{margin:0;padding:1em 0 0 0;text-overflow: ellipsis;word-break: break-word;}
 ul.campaign-list > li .box-ppal .card-body .card-text a{color: #00a3ed;}
@@ -6309,8 +6309,13 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         margin-left: 7px;
         margin-right: 8px;
     }
-    ul.campaign-list > li > article.box-ppal > div.link-wrapper {height: 350px;}
+    ul.campaign-list > li > article.box-ppal > div.link-wrapper {height: 375px;}
     ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer {position:absolute; bottom:0;}
+    ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
+        position: relative;
+        float: left;
+        bottom: 15px;
+    }
 }
 
 @media only screen and (min-width: 1024px) {
@@ -8774,6 +8779,12 @@ ul.globus li img {
     }
     header .nav > li > .navbar-link.btn-transparent{
         padding: 6px 9px !important;
+    }
+
+    ul.campaign-list > li > article.box-ppal > div.link-wrapper > div.card-footer > ul > li.owner {
+        position: relative;
+        float: left;
+        bottom: 9px;
     }
 }
 

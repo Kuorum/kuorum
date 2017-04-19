@@ -24,6 +24,15 @@
         </div>
         <div class="card-footer">
             <ul>
+                <li class="owner">
+                    <userUtil:showUser
+                            user="${solrDebate}"
+                            showName="true"
+                            showRole="true"
+                            showActions="false"
+                            showDeleteRecommendation="true"
+                    />
+                </li>
                 <li>
                     <g:link mapping="debateShow" params="${solrDebate.encodeAsLinkProperties()}" fragment="openProposal" role="button">
                         <span class="fa fa fa-lightbulb-o fa-lg"></span>

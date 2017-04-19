@@ -29,7 +29,7 @@
             %{--</g:if>--}%
 
             <ul class="campaign-list clearfix" data-addCampaignsByUserUrl="${g.createLink(mapping:'politicianCampaignsLists' )}">
-                <g:render template="/campaigns/cards/campaignsList" model="[debates:debates, posts:posts]" />
+                <g:render template="/campaigns/cards/campaignsList" model="[debates:debates, posts:posts, showAuthor: showAuthor]" />
             </ul>
         </div>
         <div class="col-md-4">

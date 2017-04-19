@@ -24,6 +24,15 @@
         </div>
         <div class="card-footer">
             <ul>
+                <li class="owner">
+                    <userUtil:showUser
+                            user="${solrPost}"
+                            showName="true"
+                            showRole="true"
+                            showActions="false"
+                            showDeleteRecommendation="true"
+                    />
+                </li>
                 <li>
                     <g:link mapping="postShow" params="${solrPost.encodeAsLinkProperties()}" fragment="openProposal" role="button">
                         <span class="fa fa fa-heart fa-lg"></span>

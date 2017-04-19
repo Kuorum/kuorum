@@ -133,7 +133,8 @@ class DashboardController {
                 user:user,
                 emptyEditableData:emptyEditableData(user),
                 debates: debates,
-                posts: posts
+                posts: posts,
+                showAuthor: true
         ]
 
     }

@@ -1,9 +1,9 @@
 package kuorum
 
 import kuorum.core.model.UserType
+import kuorum.core.model.solr.SolrDebate
 import kuorum.core.model.solr.SolrKuorumUser
 import kuorum.core.model.solr.SolrPost
-import kuorum.core.model.solr.SolrProject
 import kuorum.post.Post
 import kuorum.register.RegisterService
 import kuorum.users.KuorumUser
@@ -52,7 +52,7 @@ class KuorumUserTagLib {
         attrs.showRole
         attrs.showName
         attrs.extraCss
-        KuorumUser user = KuorumUser.findByAlias(alias);
+        KuorumUser user = KuorumUser.findByAlias(alias.toLowerCase());
         attrs.put("user", user)
         out << showUser(user:user, showRole: attrs.showRole, showName:attrs.showName, extraCss: attrs.extraCss)
     }
@@ -64,7 +64,7 @@ class KuorumUserTagLib {
         if (attrs.user instanceof SolrKuorumUser){
             user = KuorumUser.get(new ObjectId(attrs.user.id))
             name = user.name
-        }else if (attrs.user instanceof SolrPost || attrs.user instanceof SolrProject ){
+        }else if (attrs.user instanceof SolrPost || attrs.user instanceof SolrDebate ){
             user = KuorumUser.get(new ObjectId(attrs.user.ownerId))
             name = attrs.user.highlighting.owner?:user.name
         }else if (attrs.user instanceof BasicDataKuorumUserRSDTO){

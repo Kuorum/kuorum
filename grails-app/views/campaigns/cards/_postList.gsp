@@ -24,6 +24,18 @@
             </div>
             <div class="card-footer">
                 <ul>
+                    <g:if test="${showAuthor}">
+                        <li class="owner">
+                            <userUtil:showUserByAlias
+                                    alias="${post.userAlias}"
+                                    showName="true"
+                                    showRole="true"
+                                    showActions="true"
+                                    showDeleteRecommendation="true"
+                                    htmlWrapper="li"
+                            />
+                        </li>
+                    </g:if>
                     <li>
                         <a class="post-like ${post.liked?'active':''}"
                         data-postId="${post.id}"
