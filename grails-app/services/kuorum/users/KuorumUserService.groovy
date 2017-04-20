@@ -635,8 +635,13 @@ class KuorumUserService {
         SolrResults results = searchSolrService.search(searchParams)
 
         List<KuorumUser> politicians = results.elements.collect{SolrElement solrElement ->
-            KuorumUser.get(solrElement.getId())
+            KuorumUser politician = KuorumUser.get(solrElement.getId())
+            if (!politician){
+                log.warn("Error suggested user :: ${solrElement.name} | ${solrElement.id}" )
+            }
+            politician
         }
+        politicians = politicians.findAll{it}
         return politicians?politicians[0..Math.min(pagination.max-1, politicians.size()-1)]:[]
     }
 
