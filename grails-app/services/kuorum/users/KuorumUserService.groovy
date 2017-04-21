@@ -638,6 +638,9 @@ class KuorumUserService {
             KuorumUser politician = KuorumUser.get(solrElement.getId())
             if (!politician){
                 log.warn("Error suggested user :: ${solrElement.name} | ${solrElement.id}" )
+            }else if (!politician.alias){
+                log.warn("Error suggested user [NO ALIAS]:: ${solrElement.name} | ${solrElement.id}" )
+                politician = null;
             }
             politician
         }
