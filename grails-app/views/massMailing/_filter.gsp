@@ -66,11 +66,11 @@
                 <g:message code="tools.massMailing.fields.filter.recipients"/>
                 %{--<span class="fa fa-filter fa-lg"></span>--}%
             </g:link>
-            <g:if test="${!hideSendTestButton}">
-                <g:link mapping="politicianMassMailingSendTest" absolute="true" class="btn ${hightLigthTestButtons?'btn-blue':'btn-grey'} pull-right" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">
-                    <span class="fa fa-envelope"></span>
-                </g:link>
-            </g:if>
+            %{--<g:if test="${!hideSendTestButton}">--}%
+                %{--<g:link mapping="politicianMassMailingSendTest" absolute="true" class="btn ${hightLigthTestButtons?'btn-blue':'btn-grey'} pull-right" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">--}%
+                    %{--<span class="fa fa-envelope"></span>--}%
+                %{--</g:link>--}%
+            %{--</g:if>--}%
         </div>
     </fieldset>
 

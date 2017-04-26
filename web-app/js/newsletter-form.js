@@ -99,4 +99,33 @@ $(function () {
             prepareAndOpenCampaignConfirmModal();
         }
     });
+
+
+    // CREATE CAMPAIGN moving on STEPS
+    var $stepButton = $('ul.campaigns.threeSteps > li > a');
+    $stepButton.on('click', stepSubmit);
+
+    var $nextButton = $('.form-final-options #next[data-redirectLink]');
+    $nextButton.on('click', stepSubmit);
+
+    var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
+    $sendButton.on('click', stepSubmit);
+
 });
+
+function stepSubmit (e){
+    e.preventDefault();
+    var $form = $('form#politicianMassMailingForm');
+    var $inputHidden = $form.find('#redirectLink');
+    var redirect = $(this).attr('data-redirectLink');
+    $inputHidden.attr('value', redirect);
+    var $filter = $('select#recipients option:selected').length;
+    if($filter && filterContacts.isFilterEdited()){
+        var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
+        $("#campaignConfirmTitle > span").html(amountContacts);
+        $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
+        $("#campaignWarnFilterEdited").modal("show");
+    }else{
+        $form.submit();
+    }
+}

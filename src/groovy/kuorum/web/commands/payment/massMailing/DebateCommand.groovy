@@ -16,9 +16,12 @@ class DebateCommand {
     String title
     String body
 
+    String campaignName
+
     String fileType
     String headerPictureId
     String videoPost
+
 
     @BindUsing({ obj, source ->return MassMailingCommand.bindTags(source)})
     Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
@@ -48,6 +51,8 @@ class DebateCommand {
             }*/
         }
         tags nullable: true
+
+        campaignName nullable: false
     }
 
 }

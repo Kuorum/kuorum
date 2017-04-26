@@ -17,10 +17,13 @@
             <div class="col-sm-8 col-md-7">
                 <formUtil:input
                         command="${command}"
-                        field="campaignName"
-                        placeHolder="${g.message(code: 'kuorum.web.commands.payment.massMailing.MassMailingCommand.campaignName.placeHolder')}"
-                />
+                        field="campaignName"/>
             </div>
+
+            %{--<label for="subject" class="col-sm-2 col-md-1 control-label">Subject:</label>--}%
+            %{--<div class="col-sm-8 col-md-7">--}%
+            %{--<input type="text" class="form-control input-lg" id="subject" placeholder="It’s time to build a better country for everybody" equired aria-required="true">--}%
+            %{--</div>--}%
         </fieldset>
 
         <g:render template="/massMailing/filter" model="[command: command, filters: filters, anonymousFilter: anonymousFilter]"/>
@@ -41,22 +44,21 @@
     </form>
 </div>
 
-<!-- MODAL TEST ADVISE -->
-<div class="modal fade in" id="sendTestModal" tabindex="-1" role="dialog" aria-labelledby="sendTestModalTitle" aria-hidden="true">
+<!-- MODAL CONFIRM -->
+<div class="modal fade in" id="campaignConfirm" tabindex="-1" role="dialog" aria-labelledby="campaignConfirmTitle" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                     <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                 </button>
-                <h4 id="sendTestModalTitle">
-                    <g:message code="tools.massMailing.sendTestModal.title"/>
+                <h4 id="campaignConfirmTitle">
+                    <g:message code="tools.massMailing.confirmationModal.title"/>
                 </h4>
             </div>
             <div class="modal-body">
-                <p><g:message code="tools.massMailing.sendTestModal.text"/></p>
-                <a href="#" class="btn btn-blue inverted btn-lg" id="sendTestModalButonOk">
-                    <g:message code="tools.massMailing.sendTestModal.button"/>
+                <a href="#" class="btn btn-blue inverted btn-lg" id="saveCampaignBtn">
+                    <g:message code="tools.massMailing.confirmationModal.button"/>
                 </a>
             </div>
         </div>

@@ -300,6 +300,12 @@ class UrlMappings {
         name politicianCampaigns:                       "/account/campaigns" (controller:"massMailing", action: "index")
         name politicianCampaignsNew:                    "/account/campaigns/new" (controller:"massMailing", action: "newCampaign")
         name politicianCampaignsLists:                  "/ajax/account/campaigns/lists" (controller:"campaign", action: "findLiUserCampaigns")
+        name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing", POST:'saveMassMailingStep1']}
+        name politicianMassMailingEdit1:                "/account/mass-mailing/$campaignId/edit-first" (controller: "massMailing"){ action=[GET:"editFirstStep", POST: 'saveMassMailingStep1']}
+        name politicianMassMailingEdit2:                "/account/mass-mailing/$campaignId/edit-second" (controller: "massMailing"){ action=[GET:"editSecondStep", POST: 'saveMassMailingStep2']}
+        name politicianMassMailingEdit3:                "/account/mass-mailing/$campaignId/edit-third" (controller: "massMailing", action:"editThirdStep")
+        name politicianMassMailingEdit3Text:            "/account/mass-mailing/$campaignId/edit-third-text" (controller: "massMailing"){ action=[GET:"editThirdStepText", POST: 'saveMassMailingStep3Text']}
+        name politicianMassMailingEdit3Template:        "/account/mass-mailing/$campaignId/edit-third-template" (controller: "massMailing"){ action=[GET:"editThirdStepTemplate", POST: 'saveMassMailingStep3Template']}
         name politicianCampaignsUploadImages:           "/ajax/account/campaign/$campaignId/uploadImages" (controller:"file", action: "uploadCampaignImages");
         name politicianCampaignsListImages:             "/ajax/account/campaign/$campaignId/listImages" (controller:"file", action: "getCampaignImages");
         name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing",POST:'saveMassMailing']}

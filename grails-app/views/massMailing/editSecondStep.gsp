@@ -1,12 +1,13 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        <g:if test="${command?.campaignName}">
-            <g:message code="head.logged.account.tools.massMailing.edit" args="[command.campaignName]"/>
-        </g:if>
-        <g:else>
-            <g:message code="head.logged.account.tools.massMailing.new"/>
-        </g:else>
+        CAMPAIGN NAME
+        %{--<g:if test="${command?.subject}">--}%
+            %{--<g:message code="head.logged.account.tools.massMailing.edit" args="[command.subject]"/>--}%
+        %{--</g:if>--}%
+        %{--<g:else>--}%
+            %{--<g:message code="head.logged.account.tools.massMailing.new"/>--}%
+        %{--</g:else>--}%
     </g:set>
 
     <title>${breadCrumbName}</title>
@@ -25,8 +26,7 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-
-    <g:render template="types/massMailing" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
+    <g:render template="types/editSecondStepContent" model="[command: command, campaignId: campaignId]"/>
 
     <g:render template="timeZoneSelectorPopUp"/>
 </content>
