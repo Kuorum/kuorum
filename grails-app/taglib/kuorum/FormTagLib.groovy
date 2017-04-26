@@ -10,6 +10,7 @@ import kuorum.web.constants.WebConstants
 import org.bson.types.ObjectId
 import org.codehaus.groovy.grails.validation.*
 import org.kuorum.rest.model.geolocation.RegionRSDTO
+import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import org.springframework.context.i18n.LocaleContextHolder
 
 class FormTagLib {
@@ -21,6 +22,20 @@ class FormTagLib {
     RegionService regionService;
 
     static namespace = "formUtil"
+
+    def uploadCampaignImages = {attrs, body->
+        String field = attrs.field
+        CampaignRSDTO campaign = attrs.campaign
+        def model = [
+            fileGroup:FileGroup.MASS_MAIL_IMAGE,
+            campaign:campaign,
+            requestEndPoint:g.createLink(mapping:'politicianCampaignsUploadImages', params: [campaignId:campaign.id]),
+            sessionEndPoint:g.createLink(mapping:'politicianCampaignsListImages', params: [campaignId:campaign.id]),
+            body:body,
+            field:field
+        ]
+        out << g.render(template:'/layouts/form/uploadMultiImage', model:model)
+    }
 
     def editImage ={attrs ->
         def command = attrs.command

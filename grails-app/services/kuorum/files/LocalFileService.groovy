@@ -6,6 +6,7 @@ import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
+import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 import pl.burningice.plugins.image.file.ImageFile
 
 import javax.servlet.http.HttpServletResponse
@@ -19,10 +20,20 @@ class LocalFileService implements FileService{
     private static final MODAL_BOX_WIDTH=558
 
     public KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
-        return uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup)
+        return uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup, kuorumUser.alias)
     }
 
-    /**
+    @Override
+    KuorumFile uploadTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup, String path) throws KuorumException {
+        return uploadLocalTemporalFile(inputStream, kuorumUser, fileName, fileGroup, path)
+    }
+
+    @Override
+    List<KuorumFile> listFilesFromPath(FileGroup fileGroup, String path) {
+        //TODO
+        return null
+    }
+/**
      * This class saves the inputStream in a local storage.
      *
      * NOTE: The option super.uploadTemporalFile not works properly
@@ -34,10 +45,13 @@ class LocalFileService implements FileService{
      * @return
      * @throws KuorumException
      */
-    protected KuorumFile uploadLocalTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup) throws KuorumException{
+    protected KuorumFile uploadLocalTemporalFile(InputStream inputStream, KuorumUser kuorumUser, String fileName, FileGroup fileGroup, String path) throws KuorumException{
         String temporalPath = "${grailsApplication.config.kuorum.upload.serverPath}${TMP_PATH}"
         String rootUrl = "${grailsApplication.config.grails.serverURL}${grailsApplication.config.kuorum.upload.relativeUrlPath}${TMP_PATH}"
 
+        if (!path.startsWith("/")){
+            path = "/"+path
+        }
 
         KuorumFile kuorumFile = new KuorumFile()
         kuorumFile.user = kuorumUser
@@ -45,6 +59,7 @@ class LocalFileService implements FileService{
         kuorumFile.fileGroup = fileGroup
         kuorumFile.fileName = "TEMPORAL"
         kuorumFile.originalName = fileName
+        kuorumFile.relativePath = path
         kuorumFile.alt = fileName
         kuorumFile.storagePath = "TEMPORAL"
         kuorumFile.url ="http://TEMPORAL.com"
@@ -52,7 +67,7 @@ class LocalFileService implements FileService{
         kuorumFile.save()//The ID is necessary
 
         def fileLocation = generatePath(kuorumFile)
-        kuorumFile.fileName = "${kuorumFile.id}.${getExtension(fileName)}".toLowerCase()
+        kuorumFile.fileName = "${kuorumFile.originalName}".toLowerCase()
         kuorumFile.storagePath = "$temporalPath/$fileLocation"
         kuorumFile.url ="$rootUrl/$fileLocation/$kuorumFile.fileName"
         kuorumFile.urlThumb = kuorumFile.url
@@ -293,7 +308,7 @@ class LocalFileService implements FileService{
             subFolders += res.substring(0,2)+"/"
             res = res.substring(2)
         }
-        subFolders += res
+        subFolders += res + kuorumFile.relativePath
         "${kuorumFile.fileGroup.folderPath}/${subFolders}"
     }
 
