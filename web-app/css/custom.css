@@ -192,7 +192,7 @@ html.loading body {
 }
 label {font-weight: normal;}
 
-
+.form-horizontal#politicianMassMailingForm {min-height: 250px}
 .form-horizontal .checkbox-inline{padding-top: 0px; margin-top:-0.3em;}
 .form-horizontal .tab-pane .form-group.image{margin-left:0;}
 .form-horizontal .form-group .form-control-campaign {text-align: right;}
@@ -5490,6 +5490,19 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     #main > div.box-steps > ul#mails.threeSteps {width: 600px}
     #main > div.box-steps > ul#mails.threeSteps > li.arrow{ position: relative; top: 20px;}
+    #main > div.box-steps > ul#mails.threeSteps > li a {
+        background-color: #fff;
+        background-repeat: no-repeat;
+        border: 1px solid #a8a8a8;
+        color: #a8a8a8;
+    }
+    #main > div.box-steps > ul#mails.threeSteps > li.active a{
+        background-color: #fff;
+        background-repeat: no-repeat;
+        border: 1px solid #ff9431;
+        color: #ff9431;
+    }
+
 }
 
 /* Small devices (tablets, 768px and down) */
@@ -6208,6 +6221,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .box-ppal .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 6px 10px;}
     .box-ppal .notifications-list > li > .user > .actions > li > a {margin: 0 !important;}
+    .textareaContainer {position: relative; margin-bottom: 50px}
 
     /* LANDING */
     .main.special.landing .homeSub ul li { width: 20%; height:85px; }
@@ -6272,7 +6286,8 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .form-final-options .btn.btn-blue.inverted {margin: 0;}
     .header-campaign .progress {margin-top: 70px; margin-left: 14%;}
 
-    .form-horizontal .form-group .form-control-campaign {margin-top:-120px;text-align: left;}
+    /*.form-horizontal .form-group .form-control-campaign {margin-top:-120px;text-align: left;}*/
+    .form-horizontal .form-group .form-control-campaign {position: absolute;  right: 30px;  bottom: 40px;}
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 0; float: right;}*/

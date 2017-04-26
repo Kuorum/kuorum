@@ -1553,6 +1553,7 @@ $(document).ready(function() {
     });
 
     prepareForms()
+
 });
 
 function prepareForms(){

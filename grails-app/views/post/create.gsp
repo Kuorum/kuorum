@@ -19,6 +19,9 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
+    <div class="box-steps container-fluid choose-campaign">
+        <g:render template="/campaigns/creationSteps/twoSteps"/>
+    </div>
     <div class="box-ppal campaign-new">
         <g:render template="/post/form" model="[command: command, filters: filters, totalContacts: totalContacts, debateId: debateId, anonymousFilter: anonymousFilter]"/>
     </div>

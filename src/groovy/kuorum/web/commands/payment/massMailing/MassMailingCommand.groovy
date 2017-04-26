@@ -18,6 +18,12 @@ class MassMailingCommand {
     String text;
     String headerPictureId;
 
+    String campaignName
+
+    String simpleTemplate
+    String uploadHTML
+    String plainText
+
     @BindUsing({ obj, source ->return MassMailingCommand.bindTags(source)})
     Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
@@ -54,6 +60,12 @@ class MassMailingCommand {
         }
         sendType nullable: false, inList:["DRAFT", "SCHEDULED", "SEND", "SEND_TEST"]
         tags nullable: true
+
+        campaignName nullable: false
+
+        simpleTemplate nullable: true
+        uploadHTML nullable: true
+        plainText nullable: true
     }
 
     public static Map<TrackingMailStatusRSDTO, List<String>> bindTags(DataBindingSource source){

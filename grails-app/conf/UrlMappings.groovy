@@ -300,7 +300,12 @@ class UrlMappings {
         name politicianCampaigns:                       "/account/campaigns" (controller:"massMailing", action: "index")
         name politicianCampaignsNew:                    "/account/campaigns/new" (controller:"massMailing", action: "newCampaign")
         name politicianCampaignsLists:                  "/ajax/account/campaigns/lists" (controller:"campaign", action: "findLiUserCampaigns")
-        name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing",POST:'saveMassMailing']}
+        name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing", POST:'saveMassMailingStep1']}
+        name politicianMassMailingEdit1:                "/account/mass-mailing/$campaignId/edit-first" (controller: "massMailing"){ action=[GET:"editFirstStep", POST: 'saveMassMailingStep1']}
+        name politicianMassMailingEdit2:                "/account/mass-mailing/$campaignId/edit-second" (controller: "massMailing"){ action=[GET:"editSecondStep", POST: 'saveMassMailingStep2']}
+        name politicianMassMailingEdit3:                "/account/mass-mailing/$campaignId/edit-third" (controller: "massMailing", action:"editThirdStep")
+        name politicianMassMailingEdit3Text:            "/account/mass-mailing/$campaignId/edit-third-text" (controller: "massMailing"){ action=[GET:"editThirdStepText", POST: 'saveMassMailingStep3Text']}
+        name politicianMassMailingEdit3Template:        "/account/mass-mailing/$campaignId/edit-third-template" (controller: "massMailing"){ action=[GET:"editThirdStepTemplate", POST: 'saveMassMailingStep3Template']}
         name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"showCampaign",POST:'updateCampaign']}
         name politicianMassMailingSendTest:             "/account/mass-mailing/test" (controller:"massMailing", action: "sendMassMailingTest")
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"massMailing", action:"removeCampaign")
