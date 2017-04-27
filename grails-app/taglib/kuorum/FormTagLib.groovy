@@ -2,7 +2,6 @@ package kuorum
 
 import grails.plugin.springsecurity.SpringSecurityService
 import kuorum.core.FileGroup
-import kuorum.core.model.CommissionType
 import kuorum.core.model.RegionType
 import kuorum.project.Project
 import kuorum.users.KuorumUser

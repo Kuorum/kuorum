@@ -5,7 +5,6 @@ import kuorum.core.FileGroup
 import kuorum.core.FileType
 import kuorum.core.exception.KuorumException
 import kuorum.users.KuorumUser
-import org.kuorum.rest.model.notification.campaign.CampaignRSDTO
 
 /**
  * Created by iduetxe on 23/09/15.

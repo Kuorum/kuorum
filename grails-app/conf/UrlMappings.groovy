@@ -307,17 +307,11 @@ class UrlMappings {
         name politicianCampaignsUploadImages:           "/ajax/account/campaign/$campaignId/uploadImages" (controller:"file", action: "uploadCampaignImages");
         name politicianCampaignsListImages:             "/ajax/account/campaign/$campaignId/listImages" (controller:"file", action: "getCampaignImages");
         name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing", POST:'saveMassMailingStep1']}
-        name politicianMassMailingEdit1:                "/account/mass-mailing/$campaignId/edit-first" (controller: "massMailing"){ action=[GET:"editFirstStep", POST: 'saveMassMailingStep1']}
-        name politicianMassMailingEdit2:                "/account/mass-mailing/$campaignId/edit-second" (controller: "massMailing"){ action=[GET:"editSecondStep", POST: 'saveMassMailingStep2']}
-        name politicianMassMailingEdit3:                "/account/mass-mailing/$campaignId/edit-third" (controller: "massMailing", action:"editThirdStep")
-        name politicianMassMailingEdit3Text:            "/account/mass-mailing/$campaignId/edit-third-text" (controller: "massMailing"){ action=[GET:"editThirdStepText", POST: 'saveMassMailingStep3Text']}
-        name politicianMassMailingEdit3Template:        "/account/mass-mailing/$campaignId/edit-third-template" (controller: "massMailing"){ action=[GET:"editThirdStepTemplate", POST: 'saveMassMailingStep3Template']}
-        name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing", POST:'saveMassMailingSettings']}
         name politicianMassMailingSettings:             "/account/mass-mailing/$campaignId/edit-settings" (controller: "massMailing"){ action=[GET:"editSettingsStep", POST: 'saveMassMailingSettings']}
         name politicianMassMailingTemplate:             "/account/mass-mailing/$campaignId/edit-template" (controller: "massMailing"){ action=[GET:"editTemplateStep", POST: 'saveMassMailingTemplate']}
         name politicianMassMailingContent:              "/account/mass-mailing/$campaignId/edit-content" (controller: "massMailing", action:"editContentStep")
-        name politicianMassMailingEdit3Text:            "/account/mass-mailing/$campaignId/edit-content-text" (controller: "massMailing"){ action=[GET:"editContentStepText", POST: 'saveMassMailingContentText']}
-        name politicianMassMailingEdit3Template:        "/account/mass-mailing/$campaignId/edit-content-template" (controller: "massMailing"){ action=[GET:"editContentStepTemplate", POST: 'saveMassMailingContentTemplate']}
+        name politicianMassMailingContentText:          "/account/mass-mailing/$campaignId/edit-content-text" (controller: "massMailing"){ action=[GET:"editContentStepText", POST: 'saveMassMailingContentText']}
+        name politicianMassMailingContentTemplate:      "/account/mass-mailing/$campaignId/edit-content-template" (controller: "massMailing"){ action=[GET:"editContentStepTemplate", POST: 'saveMassMailingContentTemplate']}
         name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"showCampaign",POST:'updateCampaign']}
         name politicianMassMailingSendTest:             "/account/mass-mailing/test" (controller:"massMailing", action: "sendMassMailingTest")
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"massMailing", action:"removeCampaign")

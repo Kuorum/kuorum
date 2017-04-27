@@ -92,7 +92,7 @@ class MassMailingController {
         Long campaignId = Long.parseLong(params.campaignId)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
         if (campaignRSDTO.template == CampaignTemplateDTO.HTML){
-            editContentStepHtml()
+            editContentStepText()
             return;
         }
         else{
@@ -252,7 +252,7 @@ class MassMailingController {
     def saveMassMailingContentText(MassMailingContentTextCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
-            render view: 'politicianMassMailingEdit3', model: [command: command]
+            render view: 'politicianMassMailingContent', model: [command: command]
             return;
         }
         String nextStep = params.redirectLink
@@ -306,7 +306,7 @@ class MassMailingController {
     def saveMassMailingStep3Template(MassMailingContentTemplateCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
-            render view: 'politicianMassMailingEdit3', model: [command: command]
+            render view: 'politicianMassMailingContent', model: [command: command]
             return;
         }
         String nextStep = params.redirectLink
