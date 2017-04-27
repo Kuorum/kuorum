@@ -32,6 +32,7 @@ class KuorumFile {
     String alt
     String fileName
     String originalName
+    String relativePath
     String url
     String urlThumb
     FileGroup fileGroup
@@ -39,6 +40,7 @@ class KuorumFile {
 
     static constraints = {
         storagePath nullable: true
+        relativePath nullable: true // If null the relativePath will be root "/"
         fileName nullable:true
         originalName nullable: false
         url url: true

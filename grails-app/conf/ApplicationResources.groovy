@@ -137,6 +137,16 @@ modules = {
         resource url:'js/contacts.js'
     }
 
+    findUploader{
+        dependsOn("basic")
+        resource url : 'js/fineUploader/fine-uploader.core.js'
+//        resource url : 'js/fineUploader/fine-uploader.js'
+        resource url : 'js/fineUploader/jquery.fine-uploader.js'
+        resource url : 'js/fineUploader/fine-uploader.css'
+        resource url : 'js/fineUploader/fine-uploader-gallery.css'
+        resource url : 'js/fineUploader/fine-uploader-kuorum.css'
+    }
+
     vimeo {
         resource url:'js/froogaloop2.min.js'
     }
