@@ -57,6 +57,7 @@ class DashboardController {
             return
         }
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        log.info("Dashboard ${user}")
 //        if (kuorumUserService.isPaymentUser(user)){
             Map model = buildPaymentDashboard(user);
             model.put("tour", params.tour?true:false)
