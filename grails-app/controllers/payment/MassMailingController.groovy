@@ -257,13 +257,13 @@ class MassMailingController {
         }
         String nextStep = params.redirectLink
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
-        def dataSend = saveAndSendThirdStepText(loggedUser, command, campaignId)
+        def dataSend = saveAndSendContentText(loggedUser, command, campaignId)
 //        flash.message = dataSend.msg
         redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
     }
 
-    private def saveAndSendThirdStepText(KuorumUser user, MassMailingContentTextCommand command, Long campaignId = null){
-        CampaignRQDTO campaignRQDTO = convertThirdStepToTextCampaign(command, user, campaignId)
+    private def saveAndSendContentText(KuorumUser user, MassMailingContentTextCommand command, Long campaignId = null){
+        CampaignRQDTO campaignRQDTO = convertContentToTextCampaign(command, user, campaignId)
 
         String msg = ""
         CampaignRSDTO savedCampaign = null;
@@ -287,7 +287,7 @@ class MassMailingController {
         [msg:msg, campaign:savedCampaign]
     }
 
-    private CampaignRQDTO convertThirdStepToTextCampaign(MassMailingContentTextCommand command, KuorumUser user, Long campaignId){
+    private CampaignRQDTO convertContentToTextCampaign(MassMailingContentTextCommand command, KuorumUser user, Long campaignId){
         CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
         campaignRQDTO.setSubject(command.subject)
         campaignRQDTO.setBody(command.text)
@@ -303,7 +303,7 @@ class MassMailingController {
 
     /*** SAVE THIRD STEP TEMPLATE ***/
 
-    def saveMassMailingStep3Template(MassMailingContentTemplateCommand command){
+    def saveMassMailingContentTemplate(MassMailingContentTemplateCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             render view: 'politicianMassMailingContent', model: [command: command]
@@ -311,13 +311,13 @@ class MassMailingController {
         }
         String nextStep = params.redirectLink
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
-        def dataSend = saveAndSendThirdStepTemplate(loggedUser, command, campaignId)
+        def dataSend = saveAndSendContentTemplate(loggedUser, command, campaignId)
 //        flash.message = dataSend.msg
         redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
     }
 
-    private def saveAndSendThirdStepTemplate(KuorumUser user, MassMailingContentTemplateCommand command, Long campaignId = null){
-        CampaignRQDTO campaignRQDTO = convertThirdStepToTemplateCampaign(command, user, campaignId)
+    private def saveAndSendContentTemplate(KuorumUser user, MassMailingContentTemplateCommand command, Long campaignId = null){
+        CampaignRQDTO campaignRQDTO = convertContentToTemplateCampaign(command, user, campaignId)
 
         String msg = ""
         CampaignRSDTO savedCampaign = null;
@@ -341,7 +341,7 @@ class MassMailingController {
         [msg:msg, campaign:savedCampaign]
     }
 
-    private CampaignRQDTO convertThirdStepToTemplateCampaign(MassMailingContentTemplateCommand command, KuorumUser user, campaignId){
+    private CampaignRQDTO convertContentToTemplateCampaign(MassMailingContentTemplateCommand command, KuorumUser user, campaignId){
         CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
         campaignRQDTO.setSubject(command.subject)
         campaignRQDTO.setBody(command.text)
@@ -378,7 +378,7 @@ class MassMailingController {
                 command.tags = campaignRSDTO.triggeredTags
             }
 
-            def model = modelMassMailing(loggedUser, command, false);
+            def model = modelMassMailingSettings(loggedUser, command, false);
             if (campaignRSDTO.filter && !model.filters.find{it.id==campaignRSDTO.filter.id}){
                 // Not found campaign filter. That means that the filter is custom filter for the campaign
                 ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(loggedUser, campaignRSDTO.filter.id)
@@ -473,7 +473,7 @@ class MassMailingController {
         }
         command.sendType = "SEND_TEST"
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
-        def dataSend = saveAndSendThirdStepText(loggedUser, command, campaignId)
+        def dataSend = saveAndSendContentText(loggedUser, command, campaignId)
         render ([msg:dataSend.msg, campaing: dataSend.campaign] as JSON)
 
     }
