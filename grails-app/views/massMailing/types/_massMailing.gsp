@@ -2,7 +2,7 @@
 <r:require modules="datepicker, newsletter" />
 
 <div class="box-steps container-fluid choose-campaign">
-    <g:render template="/campaigns/steps/threeSteps" model="[editReference: 'politicianMassMailingEdit1']"/>
+    <g:render template="/campaigns/steps/threeSteps" model="[editReference: 'politicianMassMailingSettings']"/>
 </div>
 
 <div class="box-ppal campaign-new">
@@ -34,7 +34,7 @@
                             <g:message code="tools.massMailing.saveDraft"/>
                         </a>
                     </li>
-                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="politicianMassMailingEdit2"><g:message code="tools.massMailing.next"/></a></li>
+                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="politicianMassMailingTemplate"><g:message code="tools.massMailing.next"/></a></li>
                 </ul>
             </div>
         </fieldset>
