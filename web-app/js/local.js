@@ -1125,7 +1125,7 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
-    $('.link-wrapper .card-footer .post-like').on("click", function(e) {
+    $('ul.campaign-list').on("click",'.link-wrapper .card-footer .post-like', function(e) {
         e.preventDefault();
         e.stopPropagation();
         var $button = $(this)
