@@ -1,44 +1,30 @@
-package kuorum.web.commands
+package kuorum.web.commands.payment.debate
 
 import grails.validation.Validateable
 import kuorum.web.commands.payment.massMailing.MassMailingCommand
-import kuorum.web.constants.WebConstants
 import org.grails.databinding.BindUsing
-import org.grails.databinding.BindingFormat
 import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
 /**
- * Created by iduetxe on 13/02/14.
+ * Created by toni on 27/4/17.
  */
+
 @Validateable
-class PostCommand {
+class DebateSettingsCommand {
+
     // Filter
     Long filterId
     Boolean filterEdited
 
-    String title
-    String body
-
-    String fileType
-    String headerPictureId
-    String videoPost
+    String campaignName
 
     @BindUsing({ obj, source ->return MassMailingCommand.bindTags(source)})
     Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
-    @BindingFormat(WebConstants.WEB_FORMAT_DATE)
-    Date publishOn
-
     static constraints = {
-        title nullable: false
-        body nullable: false
         filterId nullable: true
         filterEdited nullable: true
-        fileType nullable: true
-        headerPictureId nullable: true
-        videoPost nullable: true
-        publishOn nullable: true, validator: { val, obj ->
-        }
+        campaignName nullable: false
         tags nullable: true
     }
 }

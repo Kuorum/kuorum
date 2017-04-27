@@ -5503,6 +5503,19 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
         color: #ff9431;
     }
 
+    #main > div.box-steps > ul#mails.twoSteps > li a {
+        background-color: #fff;
+        background-repeat: no-repeat;
+        border: 1px solid #a8a8a8;
+        color: #a8a8a8;
+    }
+    #main > div.box-steps > ul#mails.twoSteps > li.active a{
+        background-color: #fff;
+        background-repeat: no-repeat;
+        border: 1px solid #ff9431;
+        color: #ff9431;
+    }
+
 }
 
 /* Small devices (tablets, 768px and down) */

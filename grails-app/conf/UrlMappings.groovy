@@ -137,6 +137,8 @@ class UrlMappings {
         name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")
 
         name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "save"]}
+        name debateEditSettings:  "/account/debate/$postId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name debateEditContent:   "/account/debate/$postId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
         name debateEdit:        "/account/debate/$debateId/edit" (controller: "debate"){action = [GET: "edit", POST: "update"]}
         name debateRemove:      "/ajax/account/debate/$debateId/remove" (controller: "debate", action: "remove")
         name debateShow:        "/$userAlias/d/$title-$debateId"(controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
@@ -149,11 +151,13 @@ class UrlMappings {
         name debateProposalDeleteComment: "/ajax/proposalComment/delete"(controller: "debateProposal", action: "deleteComment")
         name debateProposalVoteComment: "/ajax/proposalComment/vote"(controller: "debateProposal", action: "voteComment")
 
-        name postCreate:        "/account/post/new" (controller: "post"){action = [GET: "create", POST: "save"]}
-        name postShow:          "/$userAlias/p/$title-$postId"  (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-                                "/$userAlias/p/-$postId"        (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
-        name postEdit:          "/account/post/$postId/edit" (controller: "post"){action = [GET: "edit", POST: "update"]}
-        name postLike:          "/ajax/likePost"(controller: "post", action: "likePost")
+        name postCreate:            "/account/post/new" (controller: "post"){action = [GET: "create", POST: "saveSettings"]}
+        name postEditSettings:      "/account/post/$postId/edit-settings" (controller: "post"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name postEditContent:       "/account/post/$postId/edit-content" (controller: "post"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name postShow:              "/$userAlias/p/$title-$postId"  (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+                                    "/$userAlias/p/-$postId"        (controller: "post", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
+        name postEdit:              "/account/post/$postId/edit" (controller: "post"){action = [GET: "edit", POST: "update"]}
+        name postLike:              "/ajax/likePost"(controller: "post", action: "likePost")
 
         name langProjectShow:   "/$lang/$userAlias/$hashtag" (controller: "project", action:"show") {constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)}); lang (validator:{UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
         name projectShow:       "/$userAlias/$hashtag"                          {controller="redirect"; action= "redirect301Project"; constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}
@@ -300,12 +304,12 @@ class UrlMappings {
         name politicianCampaigns:                       "/account/campaigns" (controller:"massMailing", action: "index")
         name politicianCampaignsNew:                    "/account/campaigns/new" (controller:"massMailing", action: "newCampaign")
         name politicianCampaignsLists:                  "/ajax/account/campaigns/lists" (controller:"campaign", action: "findLiUserCampaigns")
-        name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing", POST:'saveMassMailingStep1']}
-        name politicianMassMailingEdit1:                "/account/mass-mailing/$campaignId/edit-first" (controller: "massMailing"){ action=[GET:"editFirstStep", POST: 'saveMassMailingStep1']}
-        name politicianMassMailingEdit2:                "/account/mass-mailing/$campaignId/edit-second" (controller: "massMailing"){ action=[GET:"editSecondStep", POST: 'saveMassMailingStep2']}
-        name politicianMassMailingEdit3:                "/account/mass-mailing/$campaignId/edit-third" (controller: "massMailing", action:"editThirdStep")
-        name politicianMassMailingEdit3Text:            "/account/mass-mailing/$campaignId/edit-third-text" (controller: "massMailing"){ action=[GET:"editThirdStepText", POST: 'saveMassMailingStep3Text']}
-        name politicianMassMailingEdit3Template:        "/account/mass-mailing/$campaignId/edit-third-template" (controller: "massMailing"){ action=[GET:"editThirdStepTemplate", POST: 'saveMassMailingStep3Template']}
+        name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing", POST:'saveMassMailingSettings']}
+        name politicianMassMailingSettings:             "/account/mass-mailing/$campaignId/edit-settings" (controller: "massMailing"){ action=[GET:"editSettingsStep", POST: 'saveMassMailingSettings']}
+        name politicianMassMailingTemplate:             "/account/mass-mailing/$campaignId/edit-template" (controller: "massMailing"){ action=[GET:"editTemplateStep", POST: 'saveMassMailingTemplate']}
+        name politicianMassMailingContent:              "/account/mass-mailing/$campaignId/edit-content" (controller: "massMailing", action:"editContentStep")
+        name politicianMassMailingEdit3Text:            "/account/mass-mailing/$campaignId/edit-content-text" (controller: "massMailing"){ action=[GET:"editContentStepText", POST: 'saveMassMailingContentText']}
+        name politicianMassMailingEdit3Template:        "/account/mass-mailing/$campaignId/edit-content-template" (controller: "massMailing"){ action=[GET:"editContentStepTemplate", POST: 'saveMassMailingContentTemplate']}
         name politicianMassMailingShow:                 "/account/mass-mailing/$campaignId" (controller:"massMailing"){ action=[GET:"showCampaign",POST:'updateCampaign']}
         name politicianMassMailingSendTest:             "/account/mass-mailing/test" (controller:"massMailing", action: "sendMassMailingTest")
         name politicianMassMailingRemove:               "/ajax/account/mass-mailing/$campaignId/remove" (controller:"massMailing", action:"removeCampaign")

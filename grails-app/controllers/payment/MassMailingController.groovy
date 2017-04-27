@@ -65,21 +65,21 @@ class MassMailingController {
 
     def createMassMailing() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        def returnModels = modelMassMailing(user, new MassMailingStep1Command(), params.testFilter, null)
+        def returnModels = modelMassMailingSettings(user, new MassMailingStep1Command(), params.testFilter, null)
 
         return returnModels
     }
 
-    def editFirstStep(){
+    def editSettingsStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
-        def returnModels = modelMassMailing(user, new MassMailingStep1Command(), params.testFilter, campaignId)
+        def returnModels = modelMassMailingSettings(user, new MassMailingStep1Command(), params.testFilter, campaignId)
 
         return returnModels
     }
 
-    def editSecondStep(){
-        MassMailingStep2Command command = new MassMailingStep2Command()
+    def editTemplateStep(){
+        MassMailingTemplateCommand command = new MassMailingTemplateCommand()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
@@ -87,39 +87,39 @@ class MassMailingController {
         [command: command]
     }
 
-    def editThirdStep(){
+    def editContentStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
         if (campaignRSDTO.template == CampaignTemplateDTO.HTML){
-            editThirdStepHtml()
+            editContentStepHtml()
             return;
         }
         else{
-            editThirdStepTemplate()
+            editContentStepTemplate()
             return;
         }
     }
 
-    def editThirdStepHtml(){
+    def editContentStepText(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
 
-        MassMailingStep3Command command = new MassMailingStep3Command()
+        MassMailingContentTextCommand command = new MassMailingContentTextCommand()
 
         command.text = campaignRSDTO.body
         command.subject = campaignRSDTO.subject
 
-        render view: 'editThirdStep', model: [command: command, contentType: 'HTML', campaignId: campaignId, contacts: campaignRSDTO.numberRecipients]
+        render view: 'editContentStep', model: [command: command, contentType: 'HTML', campaignId: campaignId, contacts: campaignRSDTO.numberRecipients]
     }
 
-    def editThirdStepTemplate(){
+    def editContentStepTemplate(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
 
-        MassMailingStep3TemplateCommand command = new MassMailingStep3TemplateCommand()
+        MassMailingContentTemplateCommand command = new MassMailingContentTemplateCommand()
 
         command.text = campaignRSDTO.body
         command.subject = campaignRSDTO.subject
@@ -129,7 +129,7 @@ class MassMailingController {
             command.headerPictureId = kuorumFile?.id
         }
 
-        render view: 'editThirdStep', model: [command: command, contentType: 'NEWSLETTER', campaignId: campaignId, contacts: campaignRSDTO.numberRecipients]
+        render view: 'editContentStep', model: [command: command, contentType: 'NEWSLETTER', campaignId: campaignId, contacts: campaignRSDTO.numberRecipients]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -152,7 +152,7 @@ class MassMailingController {
 
     /*** SAVE FIRST STEP ***/
 
-    private def modelMassMailing(KuorumUser user, MassMailingStep1Command command, def testFilterParam = false, Long campaignId){
+    private def modelMassMailingSettings(KuorumUser user, MassMailingSettingsCommand command, def testFilterParam = false, Long campaignId){
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
         if(campaignId){
@@ -164,32 +164,31 @@ class MassMailingController {
         [filters:filters, command:command, totalContacts:contactPageRSDTO.total, hightLigthTestButtons: testFilterParam]
     }
 
-    def saveMassMailingStep1(MassMailingStep1Command command){
+    def saveMassMailingSettings(MassMailingSettingsCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
-            render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, command.filterId<0)
+            render view: 'createMassMailing', model: modelMassMailingSettings(loggedUser, command, command.filterId<0)
             return;
         }
         String nextStep = params.redirectLink
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
         FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
-        def dataSend = saveAndSendFirstStep(loggedUser, command, campaignId, anonymousFilter)
+        def dataSend = saveAndSendSettings(loggedUser, command, campaignId, anonymousFilter)
 //        flash.message = dataSend.msg
         redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
     }
 
-    private def saveAndSendFirstStep(KuorumUser user, MassMailingStep1Command command, Long campaignId = null, FilterRDTO anonymousFilter = null){
-        CampaignRQDTO campaignRQDTO = convertFirstStepToCampaign(command, user, anonymousFilter, campaignId)
+    private def saveAndSendSettings(KuorumUser user, MassMailingSettingsCommand command, Long campaignId = null, FilterRDTO anonymousFilter = null){
+        CampaignRQDTO campaignRQDTO = convertSettingsToCampaign(command, user, anonymousFilter, campaignId)
         String msg = ""
-        CampaignRSDTO savedCampaign = null;
         campaignRQDTO.status = CampaignStatusRSDTO.DRAFT;
-        savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
+        CampaignRSDTO savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
         msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.subject])
 
         [msg:msg, campaign:savedCampaign]
     }
 
-    private CampaignRQDTO convertFirstStepToCampaign(MassMailingStep1Command command, KuorumUser user, FilterRDTO anonymousFilter, Long campaignId){
+    private CampaignRQDTO convertSettingsToCampaign(MassMailingSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long campaignId){
         CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
         campaignRQDTO.setName(command.campaignName)
         campaignRQDTO.setTriggerTags(command.tags)
@@ -211,31 +210,29 @@ class MassMailingController {
         campaignRQDTO
     }
 
-    /*** SAVE SECOND STEP ***/
+    /*** SAVE TEMPLATE STEP ***/
 
-    def saveMassMailingStep2(MassMailingStep2Command command){
+    def saveMassMailingTemplate(MassMailingTemplateCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
-            render view: 'politicianMassMailingEdit2', model: [command: command]
+            render view: 'politicianMassMailingTemplate', model: [command: command]
             return;
         }
         String nextStep = params.redirectLink
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
-        def dataSend = saveAndSendSecondStep(loggedUser, command, campaignId)
+        def dataSend = saveAndSendTemplate(loggedUser, command, campaignId)
 //        flash.message = dataSend.msg
         redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
     }
 
-    private def saveAndSendSecondStep(KuorumUser user, MassMailingStep2Command command, Long campaignId = null){
-        CampaignRQDTO campaignRQDTO = convertSecondStepToCampaign(command, user, campaignId)
-        String msg = ""
-        CampaignRSDTO savedCampaign = null;
-        savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
-        msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.name])
+    private def saveAndSendTemplate(KuorumUser user, MassMailingTemplateCommand command, Long campaignId = null){
+        CampaignRQDTO campaignRQDTO = convertTemplateToCampaign(command, user, campaignId)
+        CampaignRSDTO savedCampaign = massMailingService.campaignDraft(user, campaignRQDTO, campaignId)
+        String msg = g.message(code:'tools.massMailing.saveDraft.advise', args: [savedCampaign.name])
         [msg:msg, campaign:savedCampaign]
     }
 
-    private CampaignRQDTO convertSecondStepToCampaign(MassMailingStep2Command command, KuorumUser user, Long campaignId){
+    private CampaignRQDTO convertTemplateToCampaign(MassMailingTemplateCommand command, KuorumUser user, Long campaignId){
         CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
         campaignRQDTO.setTemplate(command.contentType)
 
@@ -252,7 +249,7 @@ class MassMailingController {
 
     /*** SAVE THIRD STEP HTML ***/
 
-    def saveMassMailingStep3Text(MassMailingStep3Command command){
+    def saveMassMailingContentText(MassMailingContentTextCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             render view: 'politicianMassMailingEdit3', model: [command: command]
@@ -265,7 +262,7 @@ class MassMailingController {
         redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
     }
 
-    private def saveAndSendThirdStepText(KuorumUser user, MassMailingStep3Command command, Long campaignId = null){
+    private def saveAndSendThirdStepText(KuorumUser user, MassMailingContentTextCommand command, Long campaignId = null){
         CampaignRQDTO campaignRQDTO = convertThirdStepToTextCampaign(command, user, campaignId)
 
         String msg = ""
@@ -290,7 +287,7 @@ class MassMailingController {
         [msg:msg, campaign:savedCampaign]
     }
 
-    private CampaignRQDTO convertThirdStepToTextCampaign(MassMailingStep3Command command, KuorumUser user, campaignId){
+    private CampaignRQDTO convertThirdStepToTextCampaign(MassMailingContentTextCommand command, KuorumUser user, Long campaignId){
         CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
         campaignRQDTO.setSubject(command.subject)
         campaignRQDTO.setBody(command.text)
@@ -306,7 +303,7 @@ class MassMailingController {
 
     /*** SAVE THIRD STEP TEMPLATE ***/
 
-    def saveMassMailingStep3Template(MassMailingStep3TemplateCommand command){
+    def saveMassMailingStep3Template(MassMailingContentTemplateCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             render view: 'politicianMassMailingEdit3', model: [command: command]
@@ -319,7 +316,7 @@ class MassMailingController {
         redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
     }
 
-    private def saveAndSendThirdStepTemplate(KuorumUser user, MassMailingStep3TemplateCommand command, Long campaignId = null){
+    private def saveAndSendThirdStepTemplate(KuorumUser user, MassMailingContentTemplateCommand command, Long campaignId = null){
         CampaignRQDTO campaignRQDTO = convertThirdStepToTemplateCampaign(command, user, campaignId)
 
         String msg = ""
@@ -344,7 +341,7 @@ class MassMailingController {
         [msg:msg, campaign:savedCampaign]
     }
 
-    private CampaignRQDTO convertThirdStepToTemplateCampaign(MassMailingStep3TemplateCommand command, KuorumUser user, campaignId){
+    private CampaignRQDTO convertThirdStepToTemplateCampaign(MassMailingContentTemplateCommand command, KuorumUser user, campaignId){
         CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
         campaignRQDTO.setSubject(command.subject)
         campaignRQDTO.setBody(command.text)
@@ -433,7 +430,7 @@ class MassMailingController {
         render ([msg:"Campaing deleted"] as JSON)
     }
 
-    private FilterRDTO recoverAnonymousFilter(def params, MassMailingStep1Command command){
+    private FilterRDTO recoverAnonymousFilter(def params, MassMailingSettingsCommand command){
         ContactFilterCommand filterCommand = bindData(new ContactFilterCommand(), params)
         if (!filterCommand.filterName){
             filterCommand.filterName = "Custom filter for ${command.campaignName}"
@@ -467,7 +464,7 @@ class MassMailingController {
         campaignRQDTO
     }
 
-    def sendMassMailingTest(MassMailingCommand command, KuorumUser user){
+    def sendMassMailingTest(MassMailingContentTextCommand command, KuorumUser user){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             String msg = "error"
@@ -476,8 +473,7 @@ class MassMailingController {
         }
         command.sendType = "SEND_TEST"
         Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null
-        FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
-        def dataSend = saveAndSendCampaign(loggedUser, command, campaignId, anonymousFilter)
+        def dataSend = saveAndSendThirdStepText(loggedUser, command, campaignId)
         render ([msg:dataSend.msg, campaing: dataSend.campaign] as JSON)
 
     }

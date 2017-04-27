@@ -10,7 +10,7 @@ import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
  */
 
 @Validateable
-class MassMailingStep1Command {
+class MassMailingSettingsCommand {
 
     Long filterId;
     Boolean filterEdited;

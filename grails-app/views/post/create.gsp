@@ -19,11 +19,8 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <div class="box-steps container-fluid choose-campaign">
-        <g:render template="/campaigns/creationSteps/twoSteps"/>
-    </div>
-    <div class="box-ppal campaign-new">
-        <g:render template="/post/form" model="[command: command, filters: filters, totalContacts: totalContacts, debateId: debateId, anonymousFilter: anonymousFilter]"/>
-    </div>
+    <g:render template="/post/form" model="[command: command, filters: filters, totalContacts: totalContacts, post: post, anonymousFilter: anonymousFilter,
+                                            mappings:[step:'settings', settings:'postEditSettings', content:'debateEditContent', showResult: 'debateShow']]"/>
+
     <g:render template="/massMailing/timeZoneSelectorPopUp"/>
 </content>

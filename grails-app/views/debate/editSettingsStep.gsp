@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        <g:message code="admin.createDebate.title"/>
+        <g:message code="tools.campaign.new.post"/>
     </g:set>
 
     <title>${breadCrumbName}</title>
@@ -11,7 +11,6 @@
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
-
 </head>
 
 <content tag="mainContent">
@@ -20,11 +19,9 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="/debate/formDebate" model="[command: command, filters: filters, totalContacts: totalContacts,
-                                                    debate: debate, anonymousFilter: anonymousFilter,
-                                                    mappings:[step:'settings', settings:'debateEditSettings',
-                                                              content:'debateEditContent', showResult: 'debateShow',
-                                                              next: 'debateEditContent']]"/>
-
-    <g:render template="/massMailing/timeZoneSelectorPopUp"/>
+    <g:render template="/campaigns/edit/settingsStep" model="[command: command, filters: filters, totalContacts: totalContacts,
+                                                              debate: debate, anonymousFilter: anonymousFilter, next: 'debateEditContent',
+                                                              mappings:[step:'settings', settings:'debateEditSettings',
+                                                                        content:'debateEditContent', showResult: 'debateShow',
+                                                                        next: 'debateEditContent']]"/>
 </content>

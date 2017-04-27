@@ -1,7 +1,12 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        <g:message code="admin.createDebate.title"/>
+        <g:if test="${command?.campaignName}">
+            <g:message code="head.logged.account.tools.massMailing.edit" args="[command.campaignName]"/>
+        </g:if>
+        <g:else>
+            <g:message code="head.logged.account.tools.massMailing.new"/>
+        </g:else>
     </g:set>
 
     <title>${breadCrumbName}</title>
@@ -20,11 +25,7 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="/debate/formDebate" model="[command: command, filters: filters, totalContacts: totalContacts,
-                                                    debate: debate, anonymousFilter: anonymousFilter,
-                                                    mappings:[step:'settings', settings:'debateEditSettings',
-                                                              content:'debateEditContent', showResult: 'debateShow',
-                                                              next: 'debateEditContent']]"/>
+    <g:render template="types/settingsStep" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"/>
 
-    <g:render template="/massMailing/timeZoneSelectorPopUp"/>
+    <g:render template="timeZoneSelectorPopUp"/>
 </content>

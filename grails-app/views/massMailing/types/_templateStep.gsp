@@ -1,42 +1,31 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
-<r:require modules="datepicker, postForm" />
-
+<r:require modules="datepicker, newsletter" />
 <div class="box-steps container-fluid choose-campaign">
-    <g:render template="/campaigns/steps/twoSteps" model="[editReference: 'editSettings']"/>
+    <g:render template="/campaigns/steps/threeSteps" model="[editReference: 'politicianMassMailingTemplate']"/>
 </div>
 
 <div class="box-ppal campaign-new">
-    <h1 class="sr-only"><g:message code="admin.createDebate.title"/></h1>
+    <h1 class="sr-only">Newsletter</h1>
     <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
     <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
-        %{--<input type="hidden" name="debateId" value="${post.id?:''}"/>--}%
-        <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
         <input type="hidden" name="redirectLink" id="redirectLink"/>
 
         <fieldset class="form-group">
-            <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
-            <div class="col-sm-8 col-md-7">
-                <formUtil:input
-                        command="${command}"
-                        field="campaignName"
-                />
+            <h4 for="contentType" class="col-sm-3 col-md-2 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.contentType.label"/>:</h4>
+            <div class="col-sm-6 col-md-5">
+                <formUtil:radioEnum command="${command}" field="contentType" labelCssClass="hide" deleteOptions="[org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO.DEBATE, org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO.POST]"/>
             </div>
         </fieldset>
 
-        <g:render template="/massMailing/filter" model="[command: command, filters: filters,anonymousFilter: anonymousFilter, totalContacts: totalContacts, hideSendTestButton: true]"/>
-
-        <g:render template="/massMailing/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK,TrackingMailStatusRSDTO.POST_LIKE]]"/>
-
-        <fieldset class="buttons">
-            <div class="text-right">
+        <fieldset class="form-group">
+            <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-8 form-control-campaign">
                 <ul class="form-final-options">
                     <li>
-                        <a href="#" id="save-draft-debate">
+                        <a href="#" id="save-draft-campaign">
                             <g:message code="tools.massMailing.saveDraft"/>
                         </a>
                     </li>
-                    %{--<li><a href="#" class="btn btn-blue inverted" id="send-draft"><g:message code="tools.massMailing.send"/></a></li>--}%
-                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="postEditContent"><g:message code="tools.massMailing.send"/></a></li>
+                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="politicianMassMailingContent"><g:message code="tools.massMailing.next"/></a></li>
                 </ul>
             </div>
         </fieldset>
@@ -60,10 +49,6 @@
                 <a href="#" class="btn btn-blue inverted btn-lg" id="campaignWarnFilterEditedButtonOk">
                     <g:message code="tools.massMailing.warnFilterEdited.button"/>
                 </a>
-                <a href="#" class="btn btn-grey-light btn-lg" data-dismiss="modal" id="campaignWarnFilterEditedButtonClose">
-                    <g:message code="tools.massMailing.warnFilterEdited.cancel"/>
-                </a>
-
             </div>
         </div>
     </div>

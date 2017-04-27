@@ -4,12 +4,11 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import kuorum.users.KuorumUser
+import kuorum.web.commands.payment.debate.DebateProposalCommand
 import kuorum.web.commands.payment.massMailing.CommentProposalCommand
-import kuorum.web.commands.payment.massMailing.DebateProposalCommand
 import kuorum.web.commands.payment.massMailing.LikeProposalCommand
 import kuorum.web.commands.payment.massMailing.PinProposalCommand
 import org.kuorum.rest.model.communication.debate.DebateRSDTO
-import org.kuorum.rest.model.communication.debate.ProposalCommentRDTO
 import org.kuorum.rest.model.communication.debate.ProposalCommentRSDTO
 import org.kuorum.rest.model.communication.debate.ProposalRSDTO
 import payment.campaign.DebateService
