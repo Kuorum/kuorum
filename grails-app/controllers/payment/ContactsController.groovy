@@ -476,7 +476,12 @@ class ContactsController {
         render tags as JSON
     }
 
-    def importSuccess(){}
+    def importSuccess(){
+        log.info("Skipping force upload contacts")
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        user.skipUploadContacts = true;
+        user.save()
+    }
 
 
 
