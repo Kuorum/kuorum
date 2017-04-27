@@ -16,7 +16,7 @@ class MassMailingSettingsCommand {
     Boolean filterEdited;
     String campaignName;
 
-    @BindUsing({ obj, source ->return MassMailingStep1Command.bindTags(source)})
+    @BindUsing({ obj, source ->return MassMailingSettingsCommand.bindTags(source)})
     Map<TrackingMailStatusRSDTO, List<String>> tags =[:]
 
     static constraints = {

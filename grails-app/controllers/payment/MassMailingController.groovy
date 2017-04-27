@@ -65,7 +65,7 @@ class MassMailingController {
 
     def createMassMailing() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        def returnModels = modelMassMailingSettings(user, new MassMailingStep1Command(), params.testFilter, null)
+        def returnModels = modelMassMailingSettings(user, new MassMailingSettingsCommand(), params.testFilter, null)
 
         return returnModels
     }
@@ -73,7 +73,7 @@ class MassMailingController {
     def editSettingsStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
-        def returnModels = modelMassMailingSettings(user, new MassMailingStep1Command(), params.testFilter, campaignId)
+        def returnModels = modelMassMailingSettings(user, new MassMailingSettingsCommand(), params.testFilter, campaignId)
 
         return returnModels
     }
@@ -408,13 +408,13 @@ class MassMailingController {
         render template: '/massMailing/campaignTabs/campaignRecipeints', model: [trackingPage:trackingPage, campaignId:campaignId]
     }
 
-    def updateCampaign(MassMailingCommand command){
+    def updateCampaign(MassMailingSettingsCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         if (command.hasErrors()){
             if (command.errors.allErrors.findAll{it.field == "scheduled"}){
                 flash.error=g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.warn')
             }
-            render view: 'createMassMailing', model: modelMassMailing(loggedUser, command, command.filterId<0)
+            render view: 'createMassMailing', model: modelMassMailingSettings(loggedUser, command, command.filterId<0)
             return;
         }
         Long campaignId = Long.parseLong(params.campaignId)

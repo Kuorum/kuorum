@@ -405,7 +405,7 @@ class DebateController {
 
     private DebateRDTO convertCommandSettingsToDebate(DebateSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long debateId) {
         DebateRDTO debateRDTO = new DebateRDTO()
-        debateRDTO.title = command.campaignName
+        debateRDTO.name = command.campaignName
         debateRDTO.setTriggeredTags(command.tags)
         if (command.filterEdited) {
             //anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
@@ -456,7 +456,7 @@ class DebateController {
 
         if(debateId){
             DebateRSDTO debateRSDTO = debateService.findDebate(user, debateId)
-            debateRDTO.title = debateRSDTO.title
+            debateRDTO.name = debateRSDTO.name
             debateRDTO.triggeredTags = debateRSDTO.triggeredTags
         }
 

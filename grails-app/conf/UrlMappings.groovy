@@ -136,7 +136,7 @@ class UrlMappings {
         name projectEdit:               "/project/$userAlias/$hashtag/edit"(controller: "project"){action = [GET:"edit", POST:"update"]}
         name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")
 
-        name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "save"]}
+        name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "saveSettings"]}
         name debateEditSettings:  "/account/debate/$postId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
         name debateEditContent:   "/account/debate/$postId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
         name debateEdit:        "/account/debate/$debateId/edit" (controller: "debate"){action = [GET: "edit", POST: "update"]}
@@ -306,7 +306,7 @@ class UrlMappings {
         name politicianCampaignsLists:                  "/ajax/account/campaigns/lists" (controller:"campaign", action: "findLiUserCampaigns")
         name politicianCampaignsUploadImages:           "/ajax/account/campaign/$campaignId/uploadImages" (controller:"file", action: "uploadCampaignImages");
         name politicianCampaignsListImages:             "/ajax/account/campaign/$campaignId/listImages" (controller:"file", action: "getCampaignImages");
-        name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing", POST:'saveMassMailingStep1']}
+        name politicianMassMailingNew:                  "/account/mass-mailing/new" (controller:"massMailing"){ action=[GET:"createMassMailing", POST:'saveMassMailingSettings']}
         name politicianMassMailingSettings:             "/account/mass-mailing/$campaignId/edit-settings" (controller: "massMailing"){ action=[GET:"editSettingsStep", POST: 'saveMassMailingSettings']}
         name politicianMassMailingTemplate:             "/account/mass-mailing/$campaignId/edit-template" (controller: "massMailing"){ action=[GET:"editTemplateStep", POST: 'saveMassMailingTemplate']}
         name politicianMassMailingContent:              "/account/mass-mailing/$campaignId/edit-content" (controller: "massMailing", action:"editContentStep")

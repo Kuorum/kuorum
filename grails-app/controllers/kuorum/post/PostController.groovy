@@ -162,7 +162,7 @@ class PostController {
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
 
         if(postRSDTO){
-            command.campaignName = postRSDTO.title
+            command.campaignName = postRSDTO.name
             command.tags = postRSDTO.triggeredTags
         }
 
@@ -357,7 +357,7 @@ class PostController {
 
     private PostRDTO convertCommandSettingsToPost(PostSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long postId) {
         PostRDTO postRDTO = new PostRDTO()
-        postRDTO.title = command.campaignName
+        postRDTO.name = command.campaignName
         postRDTO.triggeredTags = command.tags
 
         if (command.filterEdited) {
