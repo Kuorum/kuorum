@@ -198,6 +198,8 @@ label {font-weight: normal;}
 .form-horizontal .form-group .form-control-campaign {text-align: right;}
 .checkbox-inline input[type=checkbox] {display: none;}
 
+
+.uploadCampaignImages { margin-bottom: 20px;}
 .checkbox-inline > span.check-box-icon {
     background-color: #fafafa;
     border: 1px solid #cacece;
@@ -6221,7 +6223,6 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     .box-ppal .notifications-list > li > .user > .popover-trigger > .user-img {margin: 0 6px 6px 10px;}
     .box-ppal .notifications-list > li > .user > .actions > li > a {margin: 0 !important;}
-    .textareaContainer {position: relative; margin-bottom: 50px}
 
     /* LANDING */
     .main.special.landing .homeSub ul li { width: 20%; height:85px; }

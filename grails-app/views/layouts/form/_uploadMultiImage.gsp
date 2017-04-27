@@ -16,6 +16,7 @@
     <div class="qq-upload-button-selector btn btn-blue">
         <div>Upload a file</div>
     </div>
+    <a class="images-uploaded-action">Replace images on text</a>
     <span class="qq-drop-processing-selector qq-drop-processing">
         <span>Processing dropped files...</span>
         <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
@@ -84,6 +85,7 @@
 
 
 <script>
+    var imagesCampaign${campaign.id} = {}
     $(function(){
         var galleryUploader = new qq.FineUploader({
             element: document.getElementById("fine-uploader-gallery"),
@@ -110,11 +112,28 @@
             },
             callbacks: {
                 onComplete: function (id, name, responseJSON, xhr) {
-                    ${raw(body())}
-                }
+                    imagesCampaign${campaign.id}[name]=responseJSON.absolutePath
+
+                },
+                onSessionRequestComplete:function(response, success, xhr){
+                    response.forEach(function(data){
+                        imagesCampaign${campaign.id}[data.name]=data.thumbnailUrl
+                    })
+                },
             }
         });
 //        galleryUploader.log = function(message, level) {window.console.log(message);}
+
+        $(".images-uploaded-action").on("click", function(e){
+            e.preventDefault();
+            var $textarea =  $("textarea[name=text]")
+            var text = $textarea.val();
+            Object.keys(imagesCampaign${campaign.id}).map(function(key, index) {
+                var regex = new RegExp('src=[\'"][^\'"]*'+key+'[\'"]', 'gi')
+                text =text.replace(regex, "src='"+imagesCampaign${campaign.id}[key]+"'")
+            });
+            $textarea.val(text)
+        })
     });
 </script>
 

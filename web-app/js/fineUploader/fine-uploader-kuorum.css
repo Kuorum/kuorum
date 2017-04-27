@@ -4,3 +4,4 @@
 .kuorum-upload-multi-image .qq-upload-button, .kuorum-upload-multi-image .btn {z-index: 1}
 .kuorum-upload-multi-image .qq-upload-list {display: block;}
 .kuorum-upload-multi-image .qq-upload-list li {z-index: 1}
+.kuorum-upload-multi-image a.images-uploaded-action {z-index: 1; position: relative; color:#a8a8a8; cursor: pointer;float:right;}

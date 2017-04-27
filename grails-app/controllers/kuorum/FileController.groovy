@@ -52,7 +52,7 @@ class FileController {
         KuorumFile kuorumFile = fileService.uploadTemporalFile(fileData.inputStream, user, fileData.fileName, fileGroup, path)
         kuorumFile = fileService.convertTemporalToFinalFile(kuorumFile)
 
-        render ([success:true,absolutePathPDF:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
+        render ([success:true,absolutePath:kuorumFile.url, fileId:kuorumFile.id.toString(), status:200] as JSON)
 //        render ([success:true] as JSON)
     }
 
