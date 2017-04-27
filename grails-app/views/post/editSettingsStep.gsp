@@ -1,12 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        <g:if test="${command?.subject}">
-            <g:message code="head.logged.account.tools.massMailing.edit" args="[command.subject]"/>
-        </g:if>
-        <g:else>
-            <g:message code="head.logged.account.tools.massMailing.new"/>
-        </g:else>
+        <g:message code="tools.campaign.new.post"/>
     </g:set>
 
     <title>${breadCrumbName}</title>
@@ -16,7 +11,6 @@
     <meta itemprop="description" content="${g.message(code:"layout.head.meta.description")}">
     <meta itemprop="image" content="${resource(dir: 'images', file:'landingSearch-rrss.png', absolute:true)}" />
     <meta itemprop="image" content="${resource(dir: 'images', file: 'logo@2x.png')}" />
-
 </head>
 
 <content tag="mainContent">
@@ -25,7 +19,9 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="types/editThirdStepContent" model="[command: command, campaignId: campaignId, contentType: contentType]"/>
-
-    <g:render template="timeZoneSelectorPopUp"/>
+    <g:render template="/campaigns/edit/settingsStep" model="[command: command, filters: filters, totalContacts: totalContacts,
+                                                              post: post, anonymousFilter: anonymousFilter,
+                                                              mappings:[step:'settings', settings:'postEditSettings',
+                                                                        content:'postEditContent', showResult: 'postShow',
+                                                                        next: 'postEditContent']]"/>
 </content>

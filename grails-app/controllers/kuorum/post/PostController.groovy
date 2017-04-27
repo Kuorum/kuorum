@@ -9,9 +9,11 @@ import kuorum.files.FileService
 import kuorum.users.CookieUUIDService
 import kuorum.users.KuorumUser
 import kuorum.users.KuorumUserService
-import kuorum.web.commands.PostCommand
 import kuorum.web.commands.payment.contact.ContactFilterCommand
 import kuorum.web.commands.payment.massMailing.post.LikePostCommand
+import kuorum.web.commands.payment.post.PostCommand
+import kuorum.web.commands.payment.post.PostContentCommand
+import kuorum.web.commands.payment.post.PostSettingsCommand
 import org.kuorum.rest.model.communication.post.PostRDTO
 import org.kuorum.rest.model.communication.post.PostRSDTO
 import org.kuorum.rest.model.contact.ContactPageRSDTO
@@ -39,7 +41,24 @@ class PostController {
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
-        return postModel(new PostCommand(), null)
+        return postModelSettings(new PostSettingsCommand(), null)
+    }
+
+    def editSettingsStep(){
+        String viewerUid = cookieUUIDService.buildUserUUID()
+        KuorumUser postUser = KuorumUser.get(springSecurityService.principal.id)
+        PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId), viewerUid)
+
+        return postModelSettings(new PostSettingsCommand(), postRSDTO)
+
+    }
+
+    def editContentStep(){
+        String viewerUid = cookieUUIDService.buildUserUUID()
+        KuorumUser postUser = KuorumUser.get(springSecurityService.principal.id)
+        PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId), viewerUid)
+
+        return postModelContent(new PostContentCommand(), postRSDTO)
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -56,6 +75,35 @@ class PostController {
         flash.message = resultPost.msg.toString()
 
         redirect mapping: "postShow", params: resultPost.post.encodeAsLinkProperties()
+    }
+
+    def saveSettings(PostSettingsCommand command) {
+        if (command.hasErrors()) {
+            render view: 'create', model: postModelSettings(command, null)
+            return
+        }
+        String nextStep = params.redirectLink
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
+        Map<String, Object> resultPost = saveAndSendPostSettings(user, command, null, anonymousFilter)
+
+        //flash.message = resultPost.msg.toString()
+
+        redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
+    }
+
+    def saveContentStep(PostContentCommand command) {
+        if (command.hasErrors()) {
+            render view: 'create', model: postModelContent(command, null)
+            return
+        }
+        String nextStep = params.redirectLink
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        Map<String, Object> resultPost = saveAndSendPostContent(user, command, null)
+
+        //flash.message = resultPost.msg.toString()
+
+        redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -108,9 +156,60 @@ class PostController {
         ]
     }
 
+    private def postModelSettings(PostSettingsCommand command, PostRSDTO postRSDTO) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
+        ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
+
+        if(postRSDTO){
+            command.campaignName = postRSDTO.title
+            command.tags = postRSDTO.triggeredTags
+        }
+
+
+        [
+                filters: filters,
+                command: command,
+                totalContacts: contactPageRSDTO.total,
+                post: postRSDTO
+        ]
+    }
+
+    private def postModelContent(PostContentCommand command, PostRSDTO postRSDTO) {
+        KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
+        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
+        ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
+
+        if(postRSDTO) {
+            command.title = postRSDTO.title
+            command.body = postRSDTO.body
+
+            if (postRSDTO.photoUrl) {
+                KuorumFile kuorumFile = KuorumFile.findByUrl(postRSDTO.photoUrl)
+                command.headerPictureId = kuorumFile?.id
+            }
+
+            if (postRSDTO.videoUrl) {
+                KuorumFile kuorumFile = KuorumFile.findByUrl(postRSDTO.videoUrl)
+                command.videoPost = kuorumFile?.id
+            }
+        }
+        [
+                filters: filters,
+                command: command,
+                totalContacts: contactPageRSDTO.total,
+                post: postRSDTO
+        ]
+    }
+
     private FilterRDTO recoverAnonymousFilter(params, PostCommand command) {
         ContactFilterCommand filterCommand = (ContactFilterCommand) bindData(new ContactFilterCommand(), params)
         contactService.transformCommand(filterCommand, "Custom filter for ${command.title}")
+    }
+
+    private FilterRDTO recoverAnonymousFilterSettings(params, PostSettingsCommand command) {
+        ContactFilterCommand filterCommand = (ContactFilterCommand) bindData(new ContactFilterCommand(), params)
+        contactService.transformCommand(filterCommand, "Custom filter for ${command.campaignName}")
     }
 
     private Map<String, Object> saveAndSendPost(KuorumUser user, PostCommand command,
@@ -158,6 +257,61 @@ class PostController {
         [msg: msg, post: savedPost]
 
     }
+    private Map<String, Object> saveAndSendPostSettings(KuorumUser user, PostSettingsCommand command,
+                                                        Long postId = null, FilterRDTO anonymousFilter = null) {
+        String msg
+        PostRDTO postRDTO = convertCommandSettingsToPost(command, user, anonymousFilter, postId)
+
+        PostRSDTO savedPost = postService.savePost(user, postRDTO, postId)
+        msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [savedPost.title])
+
+        [msg: msg, post: savedPost]
+
+    }
+    private Map<String, Object> saveAndSendPostContent(KuorumUser user, PostContentCommand command,
+                                                       Long postId = null) {
+        String msg
+        PostRDTO postRDTO = convertCommandContentToPost(command, user, postId)
+
+        PostRSDTO savedPost = new PostRSDTO()
+        if(command.publishOn){
+            // Published or Scheduled
+            savedPost = postService.savePost(user, postRDTO, postId)
+
+            Date date = new Date()
+            Date after5minutes = new Date()
+
+            // If Scheduled in the next 5 minutes, consider published
+            use (TimeCategory){
+                after5minutes = date + 5.minutes
+            }
+
+            if(command.publishOn > after5minutes){
+                // Shceduled over 5 minutes
+                msg = g.message(code: 'tools.massMailing.schedule.advise', args: [
+                        savedPost.title,
+                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
+                ])
+            }
+            else {
+                // Published or scheduled within 5 minutes
+                msg = g.message(code: 'tools.massMailing.saved.advise', args: [
+                        savedPost.title,
+                        g.formatDate(date: command.publishOn, type: "datetime", style: "SHORT")
+                ])
+            }
+        }
+        else {
+            // Draft
+            savedPost = postService.savePost(user, postRDTO, postId)
+            msg = g.message(code: 'tools.massMailing.saveDraft.advise', args: [
+                    savedPost.title
+            ])
+        }
+
+        [msg: msg, post: savedPost]
+
+    }
 
     private PostRDTO convertCommandToPost(PostCommand command, KuorumUser user, FilterRDTO anonymousFilter) {
         PostRDTO postRDTO = new PostRDTO()
@@ -196,6 +350,65 @@ class PostController {
                 fileService.deleteKuorumFile(picture)
                 command.setHeaderPictureId(null)
             }
+        }
+
+        postRDTO
+    }
+
+    private PostRDTO convertCommandSettingsToPost(PostSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long postId) {
+        PostRDTO postRDTO = new PostRDTO()
+        postRDTO.title = command.campaignName
+        postRDTO.triggeredTags = command.tags
+
+        if (command.filterEdited) {
+            postRDTO.setAnonymousFilter(anonymousFilter)
+        } else {
+            postRDTO.setFilterId(command.filterId)
+        }
+
+        if(postId){
+            PostRSDTO postRSDTO = postService.findPost(user, postId)
+            postRDTO.title = postRSDTO.title
+            postRDTO.body = postRSDTO.body
+            postRDTO.photoUrl = postRSDTO.photoUrl
+            postRDTO.videoUrl = postRSDTO.videoUrl
+        }
+
+        postRDTO
+    }
+
+    private PostRDTO convertCommandContentToPost(PostContentCommand command, KuorumUser user, Long postId) {
+        PostRDTO postRDTO = new PostRDTO()
+        postRDTO.title = command.title
+        postRDTO.body = command.body
+
+        // Multimedia URL
+        if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {
+            // Save image
+            KuorumFile picture = KuorumFile.get(command.headerPictureId)
+            picture = fileService.convertTemporalToFinalFile(picture)
+            fileService.deleteTemporalFiles(user)
+            postRDTO.setPhotoUrl(picture.getUrl())
+
+            // Remove video
+            postRDTO.setVideoUrl(null)
+        } else if (command.fileType == FileType.YOUTUBE.toString() && command.videoPost) {
+            // Save video
+            KuorumFile urlYoutubeFile = fileService.createYoutubeKuorumFile(command.videoPost, user)
+            postRDTO.setVideoUrl(urlYoutubeFile?.url)
+
+            // Remove image
+            if (command.headerPictureId) {
+                KuorumFile picture = KuorumFile.get(command.headerPictureId)
+                fileService.deleteKuorumFile(picture)
+                command.setHeaderPictureId(null)
+            }
+        }
+
+        if(postId){
+            PostRSDTO postRSDTO = postService.findPost(user, postId)
+            postRDTO.title = postRSDTO.title
+            postRDTO.triggeredTags = postRSDTO.triggeredTags
         }
 
         postRDTO

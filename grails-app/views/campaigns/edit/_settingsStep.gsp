@@ -1,8 +1,8 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
-<r:require modules="datepicker, postForm" />
+<r:require modules="datepicker, postForm, debateForm" />
 
 <div class="box-steps container-fluid choose-campaign">
-    <g:render template="/campaigns/steps/twoSteps" model="[editReference: 'editSettings']"/>
+    <g:render template="/campaigns/steps/twoSteps" model="[mappings: mappings]"/>
 </div>
 
 <div class="box-ppal campaign-new">
@@ -16,10 +16,7 @@
         <fieldset class="form-group">
             <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
             <div class="col-sm-8 col-md-7">
-                <formUtil:input
-                        command="${command}"
-                        field="campaignName"
-                />
+                <formUtil:input command="${command}" field="campaignName"/>
             </div>
         </fieldset>
 
@@ -35,8 +32,7 @@
                             <g:message code="tools.massMailing.saveDraft"/>
                         </a>
                     </li>
-                    %{--<li><a href="#" class="btn btn-blue inverted" id="send-draft"><g:message code="tools.massMailing.send"/></a></li>--}%
-                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="postEditContent"><g:message code="tools.massMailing.send"/></a></li>
+                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="${mappings.next}"><g:message code="tools.massMailing.next"/></a></li>
                 </ul>
             </div>
         </fieldset>

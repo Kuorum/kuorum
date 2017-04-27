@@ -2,7 +2,7 @@
 <r:require modules="datepicker, newsletter" />
 
 <div class="box-steps container-fluid choose-campaign">
-    <g:render template="/campaigns/creationSteps/threeSteps" model="[editReference: 'politicianMassMailingEdit1']"/>
+    <g:render template="/campaigns/steps/threeSteps" model="[editReference: 'politicianMassMailingEdit1']"/>
 </div>
 
 <div class="box-ppal campaign-new">

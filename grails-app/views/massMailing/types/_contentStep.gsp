@@ -1,35 +1,19 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
 <r:require modules="datepicker, newsletter" />
+<g:set var="contentType" value="${contentType}" />
 <div class="box-steps container-fluid choose-campaign">
-    <g:render template="/campaigns/creationSteps/threeSteps" model="[editReference: 'politicianMassMailingEdit2']"/>
+    <g:render template="/campaigns/steps/threeSteps" model="[editReference: 'politicianMassMailingContent']"/>
 </div>
 
 <div class="box-ppal campaign-new">
     <h1 class="sr-only">Newsletter</h1>
-    <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
-    <form action="#" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.DebateCommand.form.genericError')}">
-        <input type="hidden" name="redirectLink" id="redirectLink"/>
 
-        <fieldset class="form-group">
-            <h4 for="contentType" class="col-sm-3 col-md-2 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.contentType.label"/>:</h4>
-            <div class="col-sm-6 col-md-5">
-                <formUtil:radioEnum command="${command}" field="contentType" labelCssClass="hide" deleteOptions="[org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO.DEBATE, org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO.POST]"/>
-            </div>
-        </fieldset>
-
-        <fieldset class="form-group">
-            <div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-8 form-control-campaign">
-                <ul class="form-final-options">
-                    <li>
-                        <a href="#" id="save-draft-campaign">
-                            <g:message code="tools.massMailing.saveDraft"/>
-                        </a>
-                    </li>
-                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="politicianMassMailingEdit3"><g:message code="tools.massMailing.next"/></a></li>
-                </ul>
-            </div>
-        </fieldset>
-    </form>
+        <g:if test="${contentType=='HTML'}">
+            <g:render template="types/contentType/customHTML" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"></g:render>
+        </g:if>
+        <g:else>
+            <g:render template="types/contentType/simpleTemplate" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"></g:render>
+        </g:else>
 </div>
 
 <!-- MODAL CONFIRM -->
@@ -45,7 +29,7 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <a href="#" class="btn btn-blue inverted btn-lg" id="saveCampaignBtn">
+                <a href="#" class="btn btn-blue inverted btn-lg" id="saveCampaignBtn" data-redirectLink="politicianCampaigns">
                     <g:message code="tools.massMailing.confirmationModal.button"/>
                 </a>
             </div>

@@ -7,7 +7,7 @@ import org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO
  * Created by toni on 21/4/17.
  */
 @Validateable
-class MassMailingStep2Command {
+class MassMailingTemplateCommand {
 
     CampaignTemplateDTO contentType
 

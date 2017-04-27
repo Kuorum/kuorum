@@ -25,13 +25,6 @@ function prepareAndOpenCampaignConfirmModal() {
     }
 }*/
 
-function editedFilterModal() {
-    var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");
-    $("#campaignConfirmTitle > span").html(amountContacts);
-    $("#campaignWarnFilterEdited .modal-body > p > span").html(amountContacts);
-
-    $("#campaignWarnFilterEdited").modal("show");
-}
 
 function prepareAndOpenCampaignConfirmModal(){
     var amountContacts = $('select#recipients option:selected').attr("data-amountContacts");

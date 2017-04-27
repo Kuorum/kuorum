@@ -1,10 +1,6 @@
-package kuorum.web.commands.payment.massMailing
+package kuorum.web.commands.payment.debate
 
 import grails.validation.Validateable
-import org.grails.databinding.BindUsing
-import org.grails.databinding.BindingFormat
-import org.grails.databinding.DataBindingSource
-import org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO
 
 @Validateable
 class DebateProposalCommand {

@@ -1,13 +1,12 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        CAMPAIGN NAME
-        %{--<g:if test="${command?.subject}">--}%
-            %{--<g:message code="head.logged.account.tools.massMailing.edit" args="[command.subject]"/>--}%
-        %{--</g:if>--}%
-        %{--<g:else>--}%
-            %{--<g:message code="head.logged.account.tools.massMailing.new"/>--}%
-        %{--</g:else>--}%
+        <g:if test="${command?.subject}">
+            <g:message code="head.logged.account.tools.massMailing.edit" args="[command.subject]"/>
+        </g:if>
+        <g:else>
+            <g:message code="head.logged.account.tools.massMailing.new"/>
+        </g:else>
     </g:set>
 
     <title>${breadCrumbName}</title>
@@ -26,7 +25,7 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="types/editSecondStepContent" model="[command: command, campaignId: campaignId]"/>
+    <g:render template="types/contentStep" model="[command: command, campaignId: campaignId, contentType: contentType]"/>
 
     <g:render template="timeZoneSelectorPopUp"/>
 </content>
