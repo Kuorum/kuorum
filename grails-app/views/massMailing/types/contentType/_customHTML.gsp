@@ -1,5 +1,5 @@
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
-<form action="${g.createLink(mapping: 'politicianMassMailingEdit3Text', params: [campaignId: campaignId])}" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
+<form action="${g.createLink(mapping: 'politicianMassMailingContentText', params: [campaignId: campaignId])}" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
     <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
     <input type="hidden" name="redirectLink" id="redirectLink"/>
 

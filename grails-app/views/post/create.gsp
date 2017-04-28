@@ -20,7 +20,8 @@
         <li class="active">${breadCrumbName}</li>
     </ol>
     <g:render template="/post/form" model="[command: command, filters: filters, totalContacts: totalContacts, post: post, anonymousFilter: anonymousFilter,
-                                            mappings:[step:'settings', settings:'postEditSettings', content:'debateEditContent', showResult: 'debateShow']]"/>
+                                            mappings:[step:'settings', settings:'postEditSettings', content:'postEditContent',
+                                                      showResult: 'postShow', next: 'postEditContent']]"/>
 
     <g:render template="/massMailing/timeZoneSelectorPopUp"/>
 </content>
