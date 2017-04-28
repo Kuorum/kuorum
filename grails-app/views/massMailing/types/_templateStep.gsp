@@ -1,5 +1,5 @@
 <%@ page import="org.kuorum.rest.model.notification.campaign.stats.TrackingMailStatusRSDTO" %>
-<r:require modules="datepicker, newsletter" />
+<r:require modules="newsletter" />
 <div class="box-steps container-fluid choose-campaign">
     <g:render template="/campaigns/steps/threeSteps" model="[editReference: 'politicianMassMailingTemplate']"/>
 </div>
@@ -32,24 +32,43 @@
     </form>
 </div>
 
-<!-- WARN USING ANONYMOUS FILTER -->
-<div class="modal fade in" id="campaignWarnFilterEdited" tabindex="-1" role="dialog" aria-labelledby="campaignWarnFilterEditedTitle" aria-hidden="true">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                    <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
-                </button>
-                <h4>
-                    <g:message code="tools.massMailing.warnFilterEdited.title"/>
-                </h4>
-            </div>
-            <div class="modal-body">
-                <p><g:message code="tools.massMailing.warnFilterEdited.text"/> </p>
-                <a href="#" class="btn btn-blue inverted btn-lg" id="campaignWarnFilterEditedButtonOk">
-                    <g:message code="tools.massMailing.warnFilterEdited.button"/>
-                </a>
+<g:if test="${campaign.body}">
+%{--SHOW MODAL WARN LOOSING DATES--}%
+    <script>
+        $(function(){
+            var showModalTemplateEdited=true;
+            $("input[name=contentType]").on("change",function(e){
+                var originalValue = '${campaign.template}';
+                var newValue = $(this).val();
+                if (originalValue != newValue && showModalTemplateEdited){
+                    $("#campaignTemplateEdited").modal("show")
+                }
+            })
+
+            $("#campaignTemplateEditedButtonOk").on("click", function(e){
+                $("#campaignTemplateEdited").modal("hide")
+                showModalTemplateEdited = false;
+            })
+        });
+    </script>
+    <div class="modal fade in" id="campaignTemplateEdited" tabindex="-1" role="dialog" aria-labelledby="campaignTemplateEditedTitle" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
+                    </button>
+                    <h4>
+                        <g:message code="tools.massMailing.campaignTemplateEdited.title"/>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p><g:message code="tools.massMailing.campaignTemplateEdited.text"/> </p>
+                    <a href="#" class="btn btn-blue inverted btn-lg" id="campaignTemplateEditedButtonOk">
+                        <g:message code="tools.massMailing.warnFilterEdited.button"/>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</g:if>

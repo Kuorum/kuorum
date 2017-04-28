@@ -84,7 +84,7 @@ class MassMailingController {
         Long campaignId = Long.parseLong(params.campaignId)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
         command.contentType = campaignRSDTO.template
-        [command: command]
+        [command: command, campaign: campaignRSDTO]
     }
 
     def editContentStep(){
@@ -243,6 +243,10 @@ class MassMailingController {
         campaignRQDTO.subject = campaignRSDTO.subject
         campaignRQDTO.triggerTags = campaignRSDTO.triggeredTags
         campaignRQDTO.imageUrl = campaignRSDTO.imageUrl
+        if (campaignRSDTO.template != command.contentType){
+            // The template has been changed, so the body will be new
+            campaignRQDTO.body = "";
+        }
 
         campaignRQDTO
     }

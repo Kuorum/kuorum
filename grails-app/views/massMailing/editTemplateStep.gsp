@@ -1,7 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <g:set var="breadCrumbName">
-        CAMPAIGN NAME
+    <g:set var="breadCrumbName">${campaign.name}
         %{--<g:if test="${command?.subject}">--}%
             %{--<g:message code="head.logged.account.tools.massMailing.edit" args="[command.subject]"/>--}%
         %{--</g:if>--}%
@@ -26,7 +25,7 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="types/templateStep" model="[command: command, campaignId: campaignId]"/>
+    <g:render template="types/templateStep" model="[command: command, campaign:campaign]"/>
 
     <g:render template="timeZoneSelectorPopUp"/>
 </content>
