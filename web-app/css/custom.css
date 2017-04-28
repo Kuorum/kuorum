@@ -282,6 +282,7 @@ select.input-lg {padding: 0px 16px 0px 10px;height:36px;}
 .input-lg {padding: 10px 12px;}
 .modal-content {border-radius: 3px;}
 .modal-title {font-weight: bold;}
+.modal-footer {margin:0;border: 0;padding-top: 0;}
 a,
 a:hover,
 a:active,

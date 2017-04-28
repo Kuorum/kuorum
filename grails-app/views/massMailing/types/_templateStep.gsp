@@ -36,18 +36,23 @@
 %{--SHOW MODAL WARN LOOSING DATES--}%
     <script>
         $(function(){
-            var showModalTemplateEdited=true;
             $("input[name=contentType]").on("change",function(e){
                 var originalValue = '${campaign.template}';
                 var newValue = $(this).val();
-                if (originalValue != newValue && showModalTemplateEdited){
+                if (originalValue != newValue){
                     $("#campaignTemplateEdited").modal("show")
                 }
             })
 
             $("#campaignTemplateEditedButtonOk").on("click", function(e){
+                e.preventDefault();
                 $("#campaignTemplateEdited").modal("hide")
-                showModalTemplateEdited = false;
+            })
+            $("#campaignTemplateEditedButtonCancel").on("click", function(e){
+                e.preventDefault();
+                var originalValue = '${campaign.template}';
+                $('input[name="contentType"][value="' + originalValue + '"]').prop('checked', true);
+                $("#campaignTemplateEdited").modal("hide")
             })
         });
     </script>
@@ -64,8 +69,13 @@
                 </div>
                 <div class="modal-body">
                     <p><g:message code="tools.massMailing.campaignTemplateEdited.text"/> </p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-grey-light btn-lg" id="campaignTemplateEditedButtonCancel">
+                        <g:message code="tools.massMailing.campaignTemplateEdited.cancel"/>
+                    </a>
                     <a href="#" class="btn btn-blue inverted btn-lg" id="campaignTemplateEditedButtonOk">
-                        <g:message code="tools.massMailing.warnFilterEdited.button"/>
+                        <g:message code="tools.massMailing.campaignTemplateEdited.button"/>
                     </a>
                 </div>
             </div>
