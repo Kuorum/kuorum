@@ -137,8 +137,8 @@ class UrlMappings {
         name projects:                  "/project/$regionName?/$commission?" (controller: "project", action:"index")
 
         name debateCreate:      "/account/debate/new" (controller: "debate"){action = [GET: "create", POST: "saveSettings"]}
-        name debateEditSettings:  "/account/debate/$postId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
-        name debateEditContent:   "/account/debate/$postId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
+        name debateEditSettings: "/account/debate/$debateId/edit-settings" (controller: "debate"){action = [GET: "editSettingsStep", POST: "saveSettings"]}
+        name debateEditContent:  "/account/debate/$debateId/edit-content" (controller: "debate"){action = [GET: "editContentStep", POST: "saveContent"]}
         name debateEdit:        "/account/debate/$debateId/edit" (controller: "debate"){action = [GET: "edit", POST: "update"]}
         name debateRemove:      "/ajax/account/debate/$debateId/remove" (controller: "debate", action: "remove")
         name debateShow:        "/$userAlias/d/$title-$debateId"(controller: "debate", action: "show"){constraints{userAlias(validator:{!UrlMappings.RESERVED_PATHS.contains(it) && !UrlMappings.VALID_LANGUAGE_PATHS.contains(it)})}}

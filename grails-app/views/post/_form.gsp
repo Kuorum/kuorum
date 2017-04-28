@@ -2,7 +2,7 @@
 <r:require modules="datepicker, postForm" />
 
 <div class="box-steps container-fluid choose-campaign">
-    <g:render template="/campaigns/steps/twoSteps" model="[editReference: 'editSettings']"/>
+    <g:render template="/campaigns/steps/twoSteps" model="[mappings: mappings]"/>
 </div>
 
 <div class="box-ppal campaign-new">
@@ -36,7 +36,7 @@
                         </a>
                     </li>
                     %{--<li><a href="#" class="btn btn-blue inverted" id="send-draft"><g:message code="tools.massMailing.send"/></a></li>--}%
-                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="postEditContent"><g:message code="tools.massMailing.send"/></a></li>
+                    <li><a href="#" class="btn btn-blue inverted" id="next" data-redirectLink="${mappings.next}"><g:message code="tools.massMailing.next"/></a></li>
                 </ul>
             </div>
         </fieldset>

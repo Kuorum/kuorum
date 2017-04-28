@@ -92,7 +92,7 @@ class PostController {
         redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
     }
 
-    def saveContentStep(PostContentCommand command) {
+    def saveContent(PostContentCommand command) {
         if (command.hasErrors()) {
             render view: 'create', model: postModelContent(command, null)
             return
@@ -407,7 +407,7 @@ class PostController {
 
         if(postId){
             PostRSDTO postRSDTO = postService.findPost(user, postId)
-            postRDTO.title = postRSDTO.title
+            postRDTO.name = postRSDTO.name
             postRDTO.triggeredTags = postRSDTO.triggeredTags
         }
 
