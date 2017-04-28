@@ -114,7 +114,8 @@ class DebateController {
         String nextStep = params.redirectLink
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
-        Map<String, Object> resultDebate = saveAndSendDebateSettings(user, command, null, anonymousFilter)
+        Long debateId = params.debateId?Long.parseLong(params.debateId):null
+        Map<String, Object> resultDebate = saveAndSendDebateSettings(user, command, debateId, anonymousFilter)
 
         //flash.message = resultDebate.msg.toString()
 
@@ -129,9 +130,10 @@ class DebateController {
 
         String nextStep = params.redirectLink
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Map<String, Object> resultDebate = saveAndSendDebateContent(user, command, null)
+        Long debateId = params.debateId?Long.parseLong(params.debateId):null
+        Map<String, Object> resultDebate = saveAndSendDebateContent(user, command, debateId)
 
-        flash.message = resultDebate.msg.toString()
+        //flash.message = resultDebate.msg.toString()
 
         redirect mapping: nextStep, params: resultDebate.debate.encodeAsLinkProperties()
     }
@@ -249,6 +251,11 @@ class DebateController {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
+
+        if(debateRSDTO) {
+            command.campaignName = debateRSDTO.name
+            command.tags = debateRSDTO.triggeredTags
+        }
 
         [
                 filters: filters,
@@ -427,9 +434,9 @@ class DebateController {
 
     private DebateRDTO convertCommandContentToDebate(DebateContentCommand command, KuorumUser user, Long debateId) {
         DebateRDTO debateRDTO = new DebateRDTO()
-        debateRDTO.setTitle(command.title)
-        debateRDTO.setBody(command.body)
-        debateRDTO.setPublishOn(command.publishOn)
+        debateRDTO.title = command.title
+        debateRDTO.body = command.body
+        debateRDTO.publishOn = command.publishOn
 
         // Multimedia URL
         if (command.fileType == FileType.IMAGE.toString() && command.headerPictureId) {

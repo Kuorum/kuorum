@@ -85,7 +85,8 @@ class PostController {
         String nextStep = params.redirectLink
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         FilterRDTO anonymousFilter = recoverAnonymousFilterSettings(params, command)
-        Map<String, Object> resultPost = saveAndSendPostSettings(user, command, null, anonymousFilter)
+        Long postId = params.postId?Long.parseLong(params.postId):null
+        Map<String, Object> resultPost = saveAndSendPostSettings(user, command, postId, anonymousFilter)
 
         //flash.message = resultPost.msg.toString()
 
@@ -99,7 +100,8 @@ class PostController {
         }
         String nextStep = params.redirectLink
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        Map<String, Object> resultPost = saveAndSendPostContent(user, command, null)
+        Long postId = params.postId?Long.parseLong(params.postId):null
+        Map<String, Object> resultPost = saveAndSendPostContent(user, command, postId)
 
         //flash.message = resultPost.msg.toString()
 
@@ -269,7 +271,7 @@ class PostController {
 
     }
     private Map<String, Object> saveAndSendPostContent(KuorumUser user, PostContentCommand command,
-                                                       Long postId = null) {
+                                                       Long postId) {
         String msg
         PostRDTO postRDTO = convertCommandContentToPost(command, user, postId)
 
