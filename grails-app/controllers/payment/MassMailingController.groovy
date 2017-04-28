@@ -65,7 +65,7 @@ class MassMailingController {
 
     def createMassMailing() {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        def returnModels = modelMassMailingSettings(user, new MassMailingSettingsCommand(), params.testFilter, null)
+        def returnModels = modelMassMailingSettings(user, new MassMailingSettingsCommand(), null)
 
         return returnModels
     }
@@ -73,7 +73,7 @@ class MassMailingController {
     def editSettingsStep(){
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
         Long campaignId = Long.parseLong(params.campaignId)
-        def returnModels = modelMassMailingSettings(user, new MassMailingSettingsCommand(), params.testFilter, campaignId)
+        def returnModels = modelMassMailingSettings(user, new MassMailingSettingsCommand(), campaignId)
 
         return returnModels
     }
@@ -152,7 +152,7 @@ class MassMailingController {
 
     /*** SAVE FIRST STEP ***/
 
-    private def modelMassMailingSettings(KuorumUser user, MassMailingSettingsCommand command, def testFilterParam = false, Long campaignId){
+    private def modelMassMailingSettings(KuorumUser user, MassMailingSettingsCommand command, Long campaignId){
         List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
         ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
         if(campaignId){
@@ -161,17 +161,17 @@ class MassMailingController {
             command.filterId = campaignRSDTO.filter?.id
             command.tags = campaignRSDTO.triggeredTags
         }
-        [filters:filters, command:command, totalContacts:contactPageRSDTO.total, hightLigthTestButtons: testFilterParam]
+        [filters:filters, command:command, totalContacts:contactPageRSDTO.total]
     }
 
     def saveMassMailingSettings(MassMailingSettingsCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
         if (command.hasErrors()){
-            render view: 'createMassMailing', model: modelMassMailingSettings(loggedUser, command, command.filterId<0)
+            render view: 'createMassMailing', model: modelMassMailingSettings(loggedUser, command, campaignId)
             return;
         }
         String nextStep = params.redirectLink
-        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
         FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
         def dataSend = saveAndSendSettings(loggedUser, command, campaignId, anonymousFilter)
 //        flash.message = dataSend.msg
@@ -365,20 +365,13 @@ class MassMailingController {
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
         CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
         if (campaignRSDTO.status == CampaignStatusRSDTO.DRAFT || campaignRSDTO.status == CampaignStatusRSDTO.SCHEDULED ){
-            MassMailingCommand command = new MassMailingCommand()
+            MassMailingSettingsCommand command = new MassMailingSettingsCommand()
             command.filterId = campaignRSDTO.filter?.id ?: null
-            if (campaignRSDTO.imageUrl){
-                KuorumFile kuorumFile = KuorumFile.findByUrl(campaignRSDTO.imageUrl)
-                command.headerPictureId = kuorumFile?.id
-            }
-            command.scheduled = campaignRSDTO.sentOn
-            command.subject = campaignRSDTO.subject
-            command.text = campaignRSDTO.body
             if ( campaignRSDTO.triggeredTags){
                 command.tags = campaignRSDTO.triggeredTags
             }
 
-            def model = modelMassMailingSettings(loggedUser, command, false);
+            def model = modelMassMailingSettings(loggedUser, command, campaignRSDTO.getId());
             if (campaignRSDTO.filter && !model.filters.find{it.id==campaignRSDTO.filter.id}){
                 // Not found campaign filter. That means that the filter is custom filter for the campaign
                 ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(loggedUser, campaignRSDTO.filter.id)
@@ -410,14 +403,14 @@ class MassMailingController {
 
     def updateCampaign(MassMailingSettingsCommand command){
         KuorumUser loggedUser = KuorumUser.get(springSecurityService.principal.id)
+        Long campaignId = Long.parseLong(params.campaignId)
         if (command.hasErrors()){
             if (command.errors.allErrors.findAll{it.field == "scheduled"}){
                 flash.error=g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.scheduled.min.warn')
             }
-            render view: 'createMassMailing', model: modelMassMailingSettings(loggedUser, command, command.filterId<0)
+            render view: 'createMassMailing', model: modelMassMailingSettings(loggedUser, command, campaignId)
             return;
         }
-        Long campaignId = Long.parseLong(params.campaignId)
         FilterRDTO anonymousFilter = recoverAnonymousFilter(params, command)
         def dataSend = saveAndSendCampaign(loggedUser, command, campaignId, anonymousFilter)
 //        flash.message = dataSend.msg

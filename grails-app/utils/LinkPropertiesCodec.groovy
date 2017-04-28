@@ -91,7 +91,7 @@ class LinkPropertiesCodec {
     private static def prepareParams(DebateRSDTO debate) {
         [
                 userAlias: debate.userAlias.toLowerCase(),
-                title: debate.title.encodeAsKuorumUrl(),
+                title: getNameTitleUrl(debate),
                 debateId: debate.id
         ]
     }
@@ -107,7 +107,7 @@ class LinkPropertiesCodec {
     private static def prepareParams(PostRSDTO postRSDTO) {
         [
                 userAlias: postRSDTO.userAlias.toLowerCase(),
-                title: postRSDTO.title.encodeAsKuorumUrl(),
+                title: getNameTitleUrl(postRSDTO),
                 postId: postRSDTO.id
         ]
     }
@@ -123,7 +123,7 @@ class LinkPropertiesCodec {
     private static def prepareParams(ProposalRSDTO proposalRSDTO) {
         [
                 userAlias: proposalRSDTO.debateAlias.toLowerCase(),
-                title: proposalRSDTO.debateTitle.encodeAsKuorumUrl(),
+                title: getNameTitleUrl(proposalRSDTO),
                 debateId: proposalRSDTO.debateId
         ]
     }
@@ -154,6 +154,16 @@ class LinkPropertiesCodec {
             case UserType.POLITICIAN: return "politicos"
             case UserType.CANDIDATE: return "candidato"
         }
+    }
+
+    private static String getNameTitleUrl(def debatePost){
+        //debatePost is a DebateRSDTO or PostRSDTO7
+        String urlText =debatePost.title;
+        if (!urlText){
+            // The post or the debate are not complete and the title is not set [Also is not published]
+            urlText = debatePost.name
+        }
+        return urlText.encodeAsKuorumUrl()
     }
 
 
