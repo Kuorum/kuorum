@@ -8,7 +8,7 @@
 <div class="box-ppal campaign-new">
     <h1 class="sr-only">Newsletter</h1>
 
-        <g:if test="${contentType=='HTML'}">
+        <g:if test="${contentType==org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO.HTML}">
             <g:render template="types/contentType/customHTML" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"></g:render>
         </g:if>
         <g:else>
@@ -25,7 +25,7 @@
                     <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                 </button>
                 <h4 id="campaignConfirmTitle">
-                    <g:message code="tools.massMailing.confirmationModal.title"/>
+                    <g:message code="tools.massMailing.confirmationModal.title" args="[numberRecipients]"/>
                 </h4>
             </div>
             <div class="modal-body">
