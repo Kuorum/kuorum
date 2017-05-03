@@ -190,15 +190,11 @@ class PostController {
         if(postRSDTO) {
             command.title = postRSDTO.title
             command.body = postRSDTO.body
+            command.videoPost = postRSDTO.videoUrl
 
             if (postRSDTO.photoUrl) {
                 KuorumFile kuorumFile = KuorumFile.findByUrl(postRSDTO.photoUrl)
                 command.headerPictureId = kuorumFile?.id
-            }
-
-            if (postRSDTO.videoUrl) {
-                KuorumFile kuorumFile = KuorumFile.findByUrl(postRSDTO.videoUrl)
-                command.videoPost = kuorumFile?.id
             }
         }
         [

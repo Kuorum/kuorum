@@ -280,15 +280,11 @@ class DebateController {
         if(debateRSDTO) {
             command.title = debateRSDTO.title
             command.body = debateRSDTO.body
+            command.videoPost = debateRSDTO.videoUrl
 
             if (debateRSDTO.photoUrl) {
                 KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.photoUrl)
                 command.headerPictureId = kuorumFile?.id
-            }
-
-            if (debateRSDTO.videoUrl) {
-                KuorumFile kuorumFile = KuorumFile.findByUrl(debateRSDTO.videoUrl)
-                command.videoPost = kuorumFile?.id
             }
         }
 
