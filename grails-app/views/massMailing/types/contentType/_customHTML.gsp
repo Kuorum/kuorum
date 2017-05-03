@@ -35,7 +35,7 @@
         <div class="col-sm-8 col-sm-offset-2 col-md-7 col-md-offset-5 form-control-campaign">
             <ul class="form-final-options">
                 <li>
-                    <g:link mapping="politicianMassMailingSendTest" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">${g.message(code:'tools.massMailing.sendTest')}</g:link>
+                    <g:link mapping="politicianMassMailingSendTest" params="[campaignId:campaignId]" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">${g.message(code:'tools.massMailing.sendTest')}</g:link>
                 </li>
                 <li>
                     <a href="#" id="save-draft-campaign">
