@@ -90,7 +90,7 @@ class PostController {
 
         //flash.message = resultPost.msg.toString()
 
-        redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
+        redirect mapping: nextStep, params: [postId: resultPost.post.id]
     }
 
     def saveContent(PostContentCommand command) {
@@ -105,7 +105,7 @@ class PostController {
 
         //flash.message = resultPost.msg.toString()
 
-        redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
+        redirect mapping: nextStep, params: [postId: resultPost.post.id]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -142,7 +142,7 @@ class PostController {
 
         flash.message = resultPost.msg.toString()
 
-        redirect mapping: "postShow", params: resultPost.post.encodeAsLinkProperties()
+        redirect mapping: "postShow", params: [postId: resultPost.post.id]
     }
 
     private def postModel(PostCommand command, PostRSDTO postRSDTO) {
@@ -166,6 +166,11 @@ class PostController {
         if(postRSDTO){
             command.campaignName = postRSDTO.name
             command.tags = postRSDTO.triggeredTags
+            command.filterId = postRSDTO.newsletter?.filter?.id
+            if(postRSDTO.newsletter.filter && !filters.find{it.id==postRSDTO.newsletter.filter.id}){
+                ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, postRSDTO.newsletter.filter.id)
+                filters.add(anonymousFilter)
+            }
         }
 
 
@@ -411,6 +416,8 @@ class PostController {
             PostRSDTO postRSDTO = postService.findPost(user, postId)
             postRDTO.name = postRSDTO.name
             postRDTO.triggeredTags = postRSDTO.triggeredTags
+            postRDTO.filterId = postRSDTO.newsletter?.filter?.id
+            postRDTO.anonymousFilter = postRSDTO.anonymousFilter
         }
 
         postRDTO
