@@ -25,16 +25,16 @@
                 cssClass="col-sm-8 col-md-7"
                 labelCssClass="sr-only"/>
     </fieldset>
-    <fieldset class="form-group">
+    <fieldset class="form-group ">
         <label for="text" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.MassMailingCommand.text.label"/>:</label>
         <div class="textareaContainer col-sm-8 col-md-7">
             %{--<textarea name="text" class="form-control texteditor" rows="8" placeholder="${message(code:'kuorum.web.commands.payment.massMailing.MassMailingStep3Command.text.placeHolder')}" id="textProject" required aria-required="true"></textarea>--}%
-            <formUtil:textArea command="${command}" field="text" rows="8" texteditor="texteditor"/>
+            <formUtil:textArea command="${command}" field="text" rows="8" texteditor="texteditor" placeholder="${message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.text.placeHolder')}"/>
         </div>
     </fieldset>
 
     <fieldset class="form-group">
-        <div class="col-sm-8 col-sm-offset-2 col-md-5 col-md-offset-7 form-control-campaign">
+        <div class="col-sm-8 col-sm-offset-2 col-md-7 col-md-offset-5 form-control-campaign">
             <ul class="form-final-options">
                 <li>
                     <g:link mapping="politicianMassMailingSendTest" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">${g.message(code:'tools.massMailing.sendTest')}</g:link>

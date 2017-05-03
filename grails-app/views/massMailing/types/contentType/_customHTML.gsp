@@ -32,7 +32,7 @@
     </fieldset>
 
     <fieldset class="form-group">
-        <div class="col-sm-8 col-sm-offset-2 col-md-5 col-md-offset-7 form-control-campaign">
+        <div class="col-sm-8 col-sm-offset-2 col-md-7 col-md-offset-5 form-control-campaign">
             <ul class="form-final-options">
                 <li>
                     <g:link mapping="politicianMassMailingSendTest" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">${g.message(code:'tools.massMailing.sendTest')}</g:link>

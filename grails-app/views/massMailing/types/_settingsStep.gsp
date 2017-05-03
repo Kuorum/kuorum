@@ -26,7 +26,7 @@
             %{--</div>--}%
         </fieldset>
 
-        <g:render template="/massMailing/filter" model="[command: command, filters: filters, anonymousFilter: anonymousFilter]"/>
+        <g:render template="/massMailing/filter" model="[command: command, filters: filters, anonymousFilter: anonymousFilter,totalContacts:totalContacts]"/>
 
         <g:render template="/massMailing/form/formGroupCampaignTags" model="[command:command, events:[TrackingMailStatusRSDTO.OPEN,TrackingMailStatusRSDTO.CLICK]]"/>
         <fieldset class="form-group">

@@ -282,6 +282,7 @@ select.input-lg {padding: 0px 16px 0px 10px;height:36px;}
 .input-lg {padding: 10px 12px;}
 .modal-content {border-radius: 3px;}
 .modal-title {font-weight: bold;}
+.modal-footer {margin:0;border: 0;padding-top: 0;}
 a,
 a:hover,
 a:active,
@@ -6293,7 +6294,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
 
     /* CAMPAIGNS */
     .form-final-options {margin-top: 20px;}
-    .form-final-options > li:first-child {display: block; margin-bottom: 10px;}
+    .form-final-options > li:first-child {display: inline-block; margin-bottom: 10px;}
     .header-campaign .qq-upload-drop-area {background-size: 155px auto; background-position: center 14%;}
     #tabs-new-campaign .textareaContainer textarea {min-height: 349px;}
     #tabs-new-campaign .textareaContainer + div {text-align: left;}
@@ -6301,7 +6302,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .header-campaign .progress {margin-top: 70px; margin-left: 14%;}
 
     /*.form-horizontal .form-group .form-control-campaign {margin-top:-120px;text-align: left;}*/
-    .form-horizontal .form-group .form-control-campaign {position: absolute;  right: 30px;  bottom: 40px;}
+    /*.form-horizontal .form-group .form-control-campaign {position: absolute;  right: 30px;  bottom: 40px;}*/
 
     /* DASHBOARD */
     /*#profileInfo > span {margin-top: 0; float: right;}*/
@@ -6373,7 +6374,7 @@ body.widget > footer section.links a {font-size: 12px; font-size: 1.2rem;}
     .saveTime li h2 {font-size: 20px; font-size: 1.9rem;}
 
     /* CAMPAIGNS */
-    .form-final-options {margin-top: 50px;}
+    .form-final-options {margin-top: 0px;}
     .form-final-options > li:first-child {display: inline-block; margin-bottom: 0;}
     #campaignsList > li > .state {left: 20px;}
     #campaignsList > li {padding-left: 65px; padding-top: 24px; padding-bottom: 15px;}
