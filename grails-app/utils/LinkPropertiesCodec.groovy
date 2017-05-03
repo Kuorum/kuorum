@@ -1,6 +1,5 @@
 import grails.util.Holders
 import kuorum.Region
-import kuorum.core.model.CommissionType
 import kuorum.core.model.UserType
 import kuorum.core.model.solr.SolrDebate
 import kuorum.core.model.solr.SolrKuorumUser
@@ -157,8 +156,14 @@ class LinkPropertiesCodec {
     }
 
     private static String getNameTitleUrl(def debatePost){
-        //debatePost is a DebateRSDTO or PostRSDTO7
-        String urlText =debatePost.title;
+        //debatePost is a DebateRSDTO or PostRSDTO or ProposalRSDTO
+        String urlText = ""
+        if (debatePost instanceof ProposalRSDTO){
+            urlText = debatePost.debateTitle
+        }else{
+            urlText = debatePost.title;
+        }
+
         if (!urlText){
             // The post or the debate are not complete and the title is not set [Also is not published]
             urlText = debatePost.name
