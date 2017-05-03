@@ -115,7 +115,7 @@ class MassMailingController {
                 model: [
                         command: command,
                         contentType: CampaignTemplateDTO.HTML,
-                        campaignId: campaignId,
+                        campaign: campaignRSDTO,
                         numberRecipients: numberRecipients]
     }
 
@@ -138,7 +138,7 @@ class MassMailingController {
         render view: 'editContentStep', model: [
                 command: command,
                 contentType: CampaignTemplateDTO.NEWSLETTER,
-                campaignId: campaignId,
+                campaign: campaignRSDTO,
                 numberRecipients: numberRecipients]
     }
 

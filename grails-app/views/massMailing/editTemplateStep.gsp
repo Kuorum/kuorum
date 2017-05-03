@@ -1,13 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <g:set var="breadCrumbName">${campaign.name}
-        %{--<g:if test="${command?.subject}">--}%
-            %{--<g:message code="head.logged.account.tools.massMailing.edit" args="[command.subject]"/>--}%
-        %{--</g:if>--}%
-        %{--<g:else>--}%
-            %{--<g:message code="head.logged.account.tools.massMailing.new"/>--}%
-        %{--</g:else>--}%
-    </g:set>
+    <g:set var="breadCrumbName"><g:message code="head.logged.account.tools.massMailing.edit" args="[campaign.name]"/></g:set>
 
     <title>${breadCrumbName}</title>
     <meta name="layout" content="paymentPlainLayout">
