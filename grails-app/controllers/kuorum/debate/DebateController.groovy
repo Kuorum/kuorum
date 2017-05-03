@@ -119,7 +119,9 @@ class DebateController {
 
         //flash.message = resultDebate.msg.toString()
 
-        redirect mapping: nextStep, params: resultDebate.debate.encodeAsLinkProperties()
+        redirect mapping: nextStep, params: [
+                debateId: resultDebate.debate.id
+        ]
     }
 
     def saveContent(DebateContentCommand command) {
@@ -135,7 +137,7 @@ class DebateController {
 
         //flash.message = resultDebate.msg.toString()
 
-        redirect mapping: nextStep, params: resultDebate.debate.encodeAsLinkProperties()
+        redirect mapping: nextStep, params: [debateId: resultDebate.debate.id]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -255,6 +257,11 @@ class DebateController {
         if(debateRSDTO) {
             command.campaignName = debateRSDTO.name
             command.tags = debateRSDTO.triggeredTags
+            command.filterId = debateRSDTO.newsletter?.filter?.id
+            if(debateRSDTO.newsletter.filter && !filters.find{it.id == debateRSDTO.newsletter.filter.id}){
+                ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, debateRSDTO.newsletter.filter.id)
+                filters.add(anonymousFilter)
+            }
         }
 
         [
@@ -426,7 +433,7 @@ class DebateController {
             debateRDTO.photoUrl = debateRSDTO.photoUrl
             debateRDTO.videoUrl = debateRSDTO.videoUrl
             debateRDTO.title = debateRSDTO.title
-            debateRDTO.body = debateRDTO.body
+            debateRDTO.body = debateRSDTO.body
         }
 
         debateRDTO
@@ -465,6 +472,8 @@ class DebateController {
             DebateRSDTO debateRSDTO = debateService.findDebate(user, debateId)
             debateRDTO.name = debateRSDTO.name
             debateRDTO.triggeredTags = debateRSDTO.triggeredTags
+            debateRDTO.anonymousFilter = debateRDTO.anonymousFilter
+            debateRDTO.filterId = debateRSDTO.newsletter?.filter?.id
         }
 
         debateRDTO
