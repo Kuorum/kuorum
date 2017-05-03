@@ -92,7 +92,7 @@
                     <span aria-hidden="true" class="fa fa-times-circle-o fa"></span><span class="sr-only"><g:message code="modalDefend.close"/></span>
                 </button>
                 <h4 id="campaignConfirmTitle">
-                    <g:message code="tools.massMailing.confirmationModal.title"/>
+                    <g:message code="tools.massMailing.confirmationModal.title" args="[numberRecipients]"/>
                 </h4>
             </div>
             <div class="modal-body">

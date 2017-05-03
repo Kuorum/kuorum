@@ -1,8 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
-    <g:set var="breadCrumbName">
-        <g:message code="tools.campaign.new.post"/>
-    </g:set>
+    <g:set var="breadCrumbName">${post.name}</g:set>
 
     <title>${breadCrumbName}</title>
     <meta name="layout" content="paymentPlainLayout">
@@ -19,7 +17,6 @@
         <li><g:link mapping="politicianCampaignsNew"><g:message code="tools.campaign.new.title"/></g:link></li>
         <li class="active">${breadCrumbName}</li>
     </ol>
-    <g:render template="/campaigns/edit/contentStep" model="[command: command, filters: filters, totalContacts: totalContacts,
-                                                             post: post, anonymousFilter: anonymousFilter,
+    <g:render template="/campaigns/edit/contentStep" model="[command: command, post: post, numberRecipients:numberRecipients,
                                                              mappings:[step:'content', settings:'postEditSettings', content:'postEditContent', showResult: 'postShow']]"/>
 </content>
