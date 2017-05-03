@@ -160,6 +160,10 @@ class MassMailingController {
             command.campaignName = campaignRSDTO.name
             command.filterId = campaignRSDTO.filter?.id
             command.tags = campaignRSDTO.triggeredTags
+            if (campaignRSDTO.filter && !filters.find{it.id == campaignRSDTO.filter.id}){
+                ExtendedFilterRSDTO anonymousFilter = contactService.getFilter(user, campaignRSDTO.filter.id)
+                filters.add(anonymousFilter)
+            }
         }
         [filters:filters, command:command, totalContacts:contactPageRSDTO.total]
     }
@@ -189,21 +193,21 @@ class MassMailingController {
     }
 
     private CampaignRQDTO convertSettingsToCampaign(MassMailingSettingsCommand command, KuorumUser user, FilterRDTO anonymousFilter, Long campaignId){
-        CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
+        CampaignRQDTO campaignRQDTO = null;
+        if(campaignId){
+            campaignRQDTO = transformRStoRQ(user, campaignId)
+        }else{
+
+            campaignRQDTO = new CampaignRQDTO();
+        }
         campaignRQDTO.setName(command.campaignName)
         campaignRQDTO.setTriggerTags(command.tags)
 
-        if(campaignId){
-            CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-            campaignRQDTO.body = campaignRSDTO.body
-            campaignRQDTO.subject = campaignRSDTO.subject
-            campaignRQDTO.template = campaignRSDTO.template
-            campaignRQDTO.imageUrl = campaignRSDTO.imageUrl
-        }
 
         if (command.filterEdited){
 //            anonymousFilter.setName(g.message(code:'tools.contact.filter.anonymousName', args: anonymousFilter.getName()))
             campaignRQDTO.setAnonymousFilter(anonymousFilter)
+            campaignRQDTO.setFilterId(null)
         }else {
             campaignRQDTO.setFilterId(command.filterId)
         }
@@ -233,16 +237,10 @@ class MassMailingController {
     }
 
     private CampaignRQDTO convertTemplateToCampaign(MassMailingTemplateCommand command, KuorumUser user, Long campaignId){
-        CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
+        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
+        CampaignRQDTO campaignRQDTO = transformRStoRQ(campaignRSDTO)
         campaignRQDTO.setTemplate(command.contentType)
 
-        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-        campaignRQDTO.name = campaignRSDTO.name
-        campaignRQDTO.anonymousFilter = campaignRSDTO.filter
-        campaignRQDTO.body = campaignRSDTO.body
-        campaignRQDTO.subject = campaignRSDTO.subject
-        campaignRQDTO.triggerTags = campaignRSDTO.triggeredTags
-        campaignRQDTO.imageUrl = campaignRSDTO.imageUrl
         if (campaignRSDTO.template != command.contentType){
             // The template has been changed, so the body will be new
             campaignRQDTO.body = "";
@@ -260,7 +258,7 @@ class MassMailingController {
             return;
         }
         String nextStep = params.redirectLink
-        Long campaignId = params.campaignId?Long.parseLong(params.campaignId):null // if the user has sent a test, it was saved as draft but the url hasn't changed
+        Long campaignId = Long.parseLong(params.campaignId)
         def dataSend = saveAndSendContentText(loggedUser, command, campaignId)
 //        flash.message = dataSend.msg
         redirect(mapping: nextStep, params: [campaignId: dataSend.campaign.id])
@@ -292,16 +290,9 @@ class MassMailingController {
     }
 
     private CampaignRQDTO convertContentToTextCampaign(MassMailingContentTextCommand command, KuorumUser user, Long campaignId){
-        CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
+        CampaignRQDTO campaignRQDTO = transformRStoRQ(user, campaignId)
         campaignRQDTO.setSubject(command.subject)
         campaignRQDTO.setBody(command.text)
-
-        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-        campaignRQDTO.name = campaignRSDTO.name
-        campaignRQDTO.anonymousFilter = campaignRSDTO.filter
-        campaignRQDTO.template = campaignRSDTO.template
-        campaignRQDTO.triggerTags = campaignRSDTO.triggeredTags
-
         campaignRQDTO
     }
 
@@ -346,15 +337,7 @@ class MassMailingController {
     }
 
     private CampaignRQDTO convertContentToTemplateCampaign(MassMailingContentTemplateCommand command, KuorumUser user, campaignId){
-        CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
-        campaignRQDTO.setSubject(command.subject)
-        campaignRQDTO.setBody(command.text)
-
-        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(user, campaignId)
-        campaignRQDTO.name = campaignRSDTO.name
-        campaignRQDTO.anonymousFilter = campaignRSDTO.filter
-        campaignRQDTO.template = campaignRSDTO.template
-        campaignRQDTO.triggerTags = campaignRSDTO.triggeredTags
+        CampaignRQDTO campaignRQDTO = transformRStoRQ(user, campaignId)
 
         if (command.headerPictureId){
             KuorumFile picture = KuorumFile.get(command.headerPictureId);
@@ -497,5 +480,21 @@ class MassMailingController {
             massMailingService.campaignTest(user, savedCampaign.getId())
         }
         [msg:msg, campaign:savedCampaign]
+    }
+
+    private CampaignRQDTO transformRStoRQ(KuorumUser loggedUser, Long campaignId) {
+        CampaignRSDTO campaignRSDTO = massMailingService.findCampaign(loggedUser, campaignId)
+        transformRStoRQ(campaignRSDTO)
+    }
+    private CampaignRQDTO transformRStoRQ(CampaignRSDTO rsdto){
+        CampaignRQDTO campaignRQDTO = new CampaignRQDTO();
+        campaignRQDTO.setName(rsdto.name)
+        campaignRQDTO.setSubject(rsdto.subject)
+        campaignRQDTO.setBody(rsdto.body)
+        campaignRQDTO.setTriggerTags(rsdto.triggeredTags)
+        campaignRQDTO.setFilterId(rsdto.filter?.id)
+        campaignRQDTO.setImageUrl(rsdto.imageUrl)
+        campaignRQDTO.setTemplate(rsdto.template)
+        campaignRQDTO
     }
 }
