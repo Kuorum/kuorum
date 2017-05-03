@@ -13,7 +13,7 @@
         <input type="hidden" name="redirectLink" id="redirectLink"/>
 
         <fieldset class="form-group">
-            <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.massMailing.DebateCommand.title.label"/>:</label>
+            <label for="campaignName" class="col-sm-2 col-md-1 control-label"><g:message code="kuorum.web.commands.payment.debate.DebateSettingsCommand.campaignName.label"/>:</label>
             <div class="col-sm-8 col-md-7">
                 <formUtil:input command="${command}" field="campaignName"/>
             </div>

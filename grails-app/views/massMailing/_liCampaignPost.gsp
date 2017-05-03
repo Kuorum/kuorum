@@ -7,7 +7,7 @@
     <span class="fa fa-newspaper-o"></span>
     <h3>
         <g:link mapping="postShow" params="${post.encodeAsLinkProperties()}" class="title">
-            ${post.title}<span></span>
+            ${post.name}<span></span>
         </g:link>
     </h3>
     <p class="name">
@@ -41,7 +41,7 @@
             </li>
         </g:if>
         <li>
-            <g:link mapping="postEdit" params="[postId: post.id]" role="button" class="postEdit"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
+            <g:link mapping="postEditSettings" params="[postId: post.id]" role="button" class="postEdit"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
         </li>
     </ul>
 

@@ -7,7 +7,7 @@
     <span class="fa fa-comments-o"></span>
     <h3>
         <g:link mapping="debateShow" params="${debate.encodeAsLinkProperties()}" class="title">
-            ${debate.title}<span></span>
+            ${debate.name}<span></span>
         </g:link>
     </h3>
     <p class="name">
@@ -41,7 +41,7 @@
             </li>
         </g:if>
         <li>
-            <g:link mapping="debateEdit" params="[debateId: debate.id]" role="button" class="campaignEdit"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
+            <g:link mapping="debateEditSettings" params="[debateId: debate.id]" role="button" class="campaignEdit"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
         </li>
     </ul>
 
