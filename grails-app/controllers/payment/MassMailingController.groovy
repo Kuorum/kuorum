@@ -110,8 +110,13 @@ class MassMailingController {
 
         command.text = campaignRSDTO.body
         command.subject = campaignRSDTO.subject
-
-        render view: 'editContentStep', model: [command: command, contentType: CampaignTemplateDTO.HTML, campaignId: campaignId, numberRecipients: campaignRSDTO.filter?.amountOfContacts?:"all"]
+        def numberRecipients = campaignRSDTO.filter?.amountOfContacts?:contactService.getUsers(user, null).total;
+        render view: 'editContentStep',
+                model: [
+                        command: command,
+                        contentType: CampaignTemplateDTO.HTML,
+                        campaignId: campaignId,
+                        numberRecipients: numberRecipients]
     }
 
     def editContentStepTemplate(){
@@ -129,7 +134,12 @@ class MassMailingController {
             command.headerPictureId = kuorumFile?.id
         }
 
-        render view: 'editContentStep', model: [command: command, contentType: CampaignTemplateDTO.NEWSLETTER, campaignId: campaignId, numberRecipients: campaignRSDTO.filter?.amountOfContacts?:"all"]
+        def numberRecipients = campaignRSDTO.filter?.amountOfContacts?:contactService.getUsers(user, null).total;
+        render view: 'editContentStep', model: [
+                command: command,
+                contentType: CampaignTemplateDTO.NEWSLETTER,
+                campaignId: campaignId,
+                numberRecipients: numberRecipients]
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
