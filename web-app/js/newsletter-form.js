@@ -11,7 +11,7 @@ $(function () {
     $('body').on('click','.form-final-options #send', function(e) {
         e.preventDefault();
         if (isValidCampaignForm()) {
-            $("#sendMassMailingType").val("SEND");
+            $sendButton.attr("data-massMailingType", "SEND")
             prepareAndOpenCampaignConfirmModal();
         }
     });
@@ -95,7 +95,7 @@ $(function () {
     $('body').on('click','.form-final-options #sendLater', function(e) {
         e.preventDefault();
         if (isValidCampaignForm() && correctCampaingScheduled()){
-            $("#sendMassMailingType").val("SCHEDULED");
+            $sendButton.attr("data-massMailingType", "SCHEDULED")
             prepareAndOpenCampaignConfirmModal();
         }
     });
@@ -109,7 +109,11 @@ $(function () {
     $nextButton.on('click', stepSubmit);
 
     var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
-    $sendButton.on('click', stepSubmit);
+    $sendButton.on('click', function(e){
+        var mailingType = $sendButton.attr("data-massMailingType")
+        $("#sendMassMailingType").val(mailingType);
+        stepSubmit(e)
+    });
 
 });
 
