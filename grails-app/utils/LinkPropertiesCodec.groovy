@@ -74,14 +74,6 @@ class LinkPropertiesCodec {
     }
 
     private static def prepareParams(SolrKuorumUser user){
-        //userTypeUrl is the name that match with UrlMappings to redirect to correct action
-//        UserType userType = UserType.valueOf(user.subType.toString())
-//        String userTypeUrl = transEnumToUrl(userType)
-//        [
-//                id: user.id.toString(),
-//                urlName:user.name.encodeAsKuorumUrl(),
-//                userTypeUrl:userTypeUrl.encodeAsKuorumUrl(),
-//        ]
         [
                 userAlias:user.name
         ]
@@ -90,7 +82,7 @@ class LinkPropertiesCodec {
     private static def prepareParams(DebateRSDTO debate) {
         [
                 userAlias: debate.userAlias.toLowerCase(),
-                title: getNameTitleUrl(debate),
+                urlTitle: getNameTitleUrl(debate),
                 debateId: debate.id
         ]
     }
@@ -98,7 +90,7 @@ class LinkPropertiesCodec {
         KuorumUser user = KuorumUser.get(new ObjectId(debate.ownerId))
         [
                 userAlias: user.alias,
-                title: debate.name.encodeAsKuorumUrl(),
+                urlTitle: debate.name.encodeAsKuorumUrl(),
                 debateId: debate.id.split("_")[1]
         ]
     }
@@ -106,7 +98,7 @@ class LinkPropertiesCodec {
     private static def prepareParams(PostRSDTO postRSDTO) {
         [
                 userAlias: postRSDTO.userAlias.toLowerCase(),
-                title: getNameTitleUrl(postRSDTO),
+                urlTitle: getNameTitleUrl(postRSDTO),
                 postId: postRSDTO.id
         ]
     }
@@ -114,7 +106,7 @@ class LinkPropertiesCodec {
         KuorumUser user = KuorumUser.get(new ObjectId(solrPost.ownerId))
         [
                 userAlias: user.alias.toLowerCase(),
-                title: solrPost.name.encodeAsKuorumUrl(),
+                urlTitle: solrPost.name.encodeAsKuorumUrl(),
                 postId: solrPost.id.split("_")[1]
         ]
     }
@@ -122,14 +114,14 @@ class LinkPropertiesCodec {
     private static def prepareParams(ProposalRSDTO proposalRSDTO) {
         [
                 userAlias: proposalRSDTO.debateAlias.toLowerCase(),
-                title: getNameTitleUrl(proposalRSDTO),
+                urlTitle: getNameTitleUrl(proposalRSDTO),
                 debateId: proposalRSDTO.debateId
         ]
     }
     private static def prepareParams(NotificationProposalCommentRSDTO notificationProposalCommentRSDTO) {
         [
                 userAlias: notificationProposalCommentRSDTO.debateAlias.toLowerCase(),
-                title: notificationProposalCommentRSDTO.debateTitle.encodeAsKuorumUrl(),
+                urlTitle: notificationProposalCommentRSDTO.debateTitle.encodeAsKuorumUrl(),
                 debateId: notificationProposalCommentRSDTO.debateId
         ]
     }
