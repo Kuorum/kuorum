@@ -82,7 +82,7 @@
                     <g:else>
                         <!-- Hidden inputs -->
                         <input type="hidden" name="publishOn" value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
-                        <li><button class="btn btn-blue inverted" id="save-draft" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.save")}</button></li>
+                        <li><button class="btn btn-blue inverted" id="save-draft" data-redirectLink="${mappings.showResult}" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.save")}</button></li>
                     </g:else>
                 </ul>
             </div>
