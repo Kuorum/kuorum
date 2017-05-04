@@ -20,7 +20,7 @@
         <li>
             <div class="box-ppal">
                 <a href="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/users/KuorumUserGuide1(${langGuides}).pdf" target="_blank">
-                    <img class="guide" src="${resource(dir: 'images', file: 'guide1(en).png')}" alt="Guide I" itemprop="image">
+                    <img class="guide" src="${resource(dir: 'images', file: "${imgFile1}")}" alt="Guide I" itemprop="image">
                 </a>
                 <p itemprop="description"><g:message code="footer.menu.userGuide1.description"/></p>
             </div>
@@ -28,7 +28,7 @@
         <li>
             <div class="box-ppal">
                 <a href="https://s3-eu-west-1.amazonaws.com/kuorumorg/static/users/KuorumUserGuide2(${langGuides}).pdf" target="_blank">
-                    <img class="guide" src="${resource(dir: 'images', file: 'guide2(en).png')}" alt="Guide II" itemprop="image">
+                    <img class="guide" src="${resource(dir: 'images', file: "${imgFile2}")}" alt="Guide II" itemprop="image">
                 </a>
                 <p itemprop="description"><g:message code="footer.menu.userGuide2.description"/></p>
             </div>
