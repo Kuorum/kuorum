@@ -11,6 +11,14 @@ $(function(){
             $("#campatingTextErrorSpan").fadeOut()
         }
 
+        if ($("input[name=title]").val() == "") {
+            var errorMsg = i18n.kuorum.web.commands.payment.massMailing.DebateCommand.title.nullable;
+            $("input[name=title]").closest("div").append('<span id="campatingTextErrorSpan" for="text" class="error"><span class="tooltip-arrow"></span>'+errorMsg+'</span>');
+            valid = false;
+        } else {
+            $("#campatingTextErrorSpan").fadeOut()
+        }
+
         if (!valid) {
             var msg = $("#politicianMassMailingForm").attr("data-generalErrorMessage")
             display.warn(msg)
