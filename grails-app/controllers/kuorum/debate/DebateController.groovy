@@ -291,7 +291,9 @@ class DebateController {
                 command.headerPictureId = kuorumFile?.id
             }
         }
-        Long numberRecipients = debateRSDTO.newsletter?.filter?.amountOfContacts?:contactService.getUsers(user, null).total;
+        Long numberRecipients = debateRSDTO.newsletter?.filter?.amountOfContacts!=null?
+                debateRSDTO.newsletter?.filter?.amountOfContacts:
+                contactService.getUsers(user, null).total;
         [
                 filters: filters,
                 command: command,

@@ -196,7 +196,9 @@ class PostController {
                 KuorumFile kuorumFile = KuorumFile.findByUrl(postRSDTO.photoUrl)
                 command.headerPictureId = kuorumFile?.id
             }
-            numberRecipients = postRSDTO.newsletter?.filter?.amountOfContacts?:contactService.getUsers(user, null).total;
+            numberRecipients = postRSDTO.newsletter?.filter?.amountOfContacts!=null?
+                    postRSDTO.newsletter?.filter?.amountOfContacts:
+                    contactService.getUsers(user, null).total;
         }
         [
                 command: command,
