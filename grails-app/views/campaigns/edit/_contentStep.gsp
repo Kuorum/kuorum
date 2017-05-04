@@ -58,25 +58,32 @@
         <fieldset class="buttons">
             <div class="text-right">
                 <ul class="form-final-options">
-                    <li>
-                        <a href="#" id="save-draft-debate" data-redirectLink="politicianCampaigns">
-                            <g:message code="tools.massMailing.saveDraft"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="btn btn-blue inverted" role="button" id="openCalendar">
-                            <span class="fa fa-clock-o"></span>
-                            <g:message code="tools.massMailing.schedule"/>
-                        </a>
-                        <div id="selectDate">
-                            <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
-                            <formUtil:date command="${command}" field="publishOn" cssClass="form-control" time="true"/>
-                            <a href="#" class="btn btn-blue inverted" id="send-debate-later">
-                                <g:message code="tools.massMailing.schedule.sendLater"/>
+                    <g:if test="${status != org.kuorum.rest.model.notification.campaign.CampaignStatusRSDTO.SENT}">
+                        <li>
+                            <a href="#" id="save-draft-debate" data-redirectLink="politicianCampaigns">
+                                <g:message code="tools.massMailing.saveDraft"/>
                             </a>
-                        </div>
-                    </li>
-                    <li><a href="#" class="btn btn-blue inverted" id="send-draft"><g:message code="tools.massMailing.send"/></a></li>
+                        </li>
+                        <li>
+                            <a href="#" class="btn btn-blue inverted" role="button" id="openCalendar">
+                                <span class="fa fa-clock-o"></span>
+                                <g:message code="tools.massMailing.schedule"/>
+                            </a>
+                            <div id="selectDate">
+                                <label class="sr-only"><g:message code="tools.massMailing.schedule.label"/></label>
+                                <formUtil:date command="${command}" field="publishOn" cssClass="form-control" time="true"/>
+                                <a href="#" class="btn btn-blue inverted" id="send-debate-later">
+                                    <g:message code="tools.massMailing.schedule.sendLater"/>
+                                </a>
+                            </div>
+                        </li>
+                        <li><a href="#" class="btn btn-blue inverted" id="send-draft"><g:message code="tools.massMailing.send"/></a></li>
+                    </g:if>
+                    <g:else>
+                        <!-- Hidden inputs -->
+                        <input type="hidden" name="publishOn" value="${g.formatDate(date: command.publishOn, format: kuorum.web.constants.WebConstants.WEB_FORMAT_DATE)}"/>
+                        <li><button class="btn btn-blue inverted" id="save-draft" value="${g.message(code: "tools.massMailing.save")}" >${g.message(code: "tools.massMailing.save")}</button></li>
+                    </g:else>
                 </ul>
             </div>
         </fieldset>

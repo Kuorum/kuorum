@@ -298,7 +298,8 @@ class DebateController {
                 filters: filters,
                 command: command,
                 numberRecipients: numberRecipients,
-                debate: debateRSDTO
+                debate: debateRSDTO,
+                status: debateRSDTO.campaignStatusRSDTO
         ]
     }
 

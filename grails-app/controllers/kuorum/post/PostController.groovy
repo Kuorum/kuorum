@@ -203,7 +203,8 @@ class PostController {
         [
                 command: command,
                 post: postRSDTO,
-                numberRecipients:numberRecipients
+                numberRecipients:numberRecipients,
+                status: postRSDTO.campaignStatusRSDTO
         ]
     }
 
