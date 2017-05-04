@@ -41,7 +41,7 @@
             </li>
         </g:if>
         <li>
-            <g:link mapping="postEdit" params="[postId: post.id]" role="button" class="postEdit"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
+            <g:link mapping="postEdit" params="${post.encodeAsLinkProperties()}" role="button" class="postEdit"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
         </li>
     </ul>
 

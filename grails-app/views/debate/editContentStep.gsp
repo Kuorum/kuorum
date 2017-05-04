@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <g:set var="breadCrumbName">
-        <g:message code="tools.campaign.new.debate"/>
+        ${debate.name}
     </g:set>
 
     <title>${breadCrumbName}</title>

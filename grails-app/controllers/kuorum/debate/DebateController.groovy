@@ -119,9 +119,7 @@ class DebateController {
 
         //flash.message = resultDebate.msg.toString()
 
-        redirect mapping: nextStep, params: [
-                debateId: resultDebate.debate.id
-        ]
+        redirect mapping: nextStep, params: resultDebate.debate.encodeAsLinkProperties()
     }
 
     def saveContent(DebateContentCommand command) {
@@ -136,12 +134,7 @@ class DebateController {
         Map<String, Object> resultDebate = saveAndSendDebateContent(user, command, debateId)
 
         //flash.message = resultDebate.msg.toString()
-
-        if (CampaignStatusRSDTO.DRAFT.equals(((DebateRSDTO)resultDebate.debate).newsletter.status)){
-            redirect mapping: nextStep, params: [debateId: resultDebate.debate.id]
-        }else{
-            redirect mapping: "debateShow",  params:resultDebate.debate.encodeAsLinkProperties()
-        }
+        redirect mapping: nextStep, params:resultDebate.debate.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])

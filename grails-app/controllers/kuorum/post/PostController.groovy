@@ -87,7 +87,7 @@ class PostController {
 
         //flash.message = resultPost.msg.toString()
 
-        redirect mapping: nextStep, params: [postId: resultPost.post.id]
+        redirect mapping: nextStep, params: resultPost.post.encodeAsLinkProperties()
     }
 
     def saveContent(PostContentCommand command) {
@@ -101,11 +101,7 @@ class PostController {
         Map<String, Object> resultPost = saveAndSendPostContent(user, command, postId)
 
         //flash.message = resultPost.msg.toString()
-        if (CampaignStatusRSDTO.DRAFT.equals(((PostRSDTO)resultPost.post).newsletter.status)){
-            redirect mapping: nextStep, params: [postId: resultPost.post.id]
-        }else{
-            redirect mapping: "postShow",  params:resultPost.post.encodeAsLinkProperties()
-        }
+        redirect mapping: nextStep, params:resultPost.post.encodeAsLinkProperties()
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
