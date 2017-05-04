@@ -1,5 +1,5 @@
 <formUtil:validateForm bean="${command}" form="politicianMassMailingForm" dirtyControl="true"/>
-<form action="${g.createLink(mapping: 'politicianMassMailingContentTemplate', params: [campaignId: campaignId])}" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
+<form action="${g.createLink(mapping: 'politicianMassMailingContentTemplate', params: [campaignId: campaign.id])}" class="form-horizontal" id="politicianMassMailingForm" method="POST" data-generalErrorMessage="${g.message(code:'kuorum.web.commands.payment.massMailing.MassMailingCommand.form.genericError')}">
     <input type="hidden" name="sendType" value="DRAFT" id="sendMassMailingType"/>
     <input type="hidden" name="redirectLink" id="redirectLink"/>
 
@@ -37,7 +37,7 @@
         <div class="col-sm-8 col-sm-offset-2 col-md-7 col-md-offset-5 form-control-campaign">
             <ul class="form-final-options">
                 <li>
-                    <g:link mapping="politicianMassMailingSendTest" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">${g.message(code:'tools.massMailing.sendTest')}</g:link>
+                    <g:link mapping="politicianMassMailingSendTest" params="[campaignId:campaign.id]" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">${g.message(code:'tools.massMailing.sendTest')}</g:link>
                 </li>
                 <li>
                     <a href="#" id="save-draft-campaign">

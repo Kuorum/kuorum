@@ -9,10 +9,10 @@
     <h1 class="sr-only">Newsletter</h1>
 
         <g:if test="${contentType==org.kuorum.rest.model.notification.campaign.CampaignTemplateDTO.HTML}">
-            <g:render template="types/contentType/customHTML" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"></g:render>
+            <g:render template="types/contentType/customHTML" model="[command: command, filters: filters, totalContacts: totalContacts, campaign: campaign, anonymousFilter: anonymousFilter]"></g:render>
         </g:if>
         <g:else>
-            <g:render template="types/contentType/simpleTemplate" model="[command: command, filters: filters, totalContacts: totalContacts, campaignId: campaignId, anonymousFilter: anonymousFilter]"></g:render>
+            <g:render template="types/contentType/simpleTemplate" model="[command: command, filters: filters, totalContacts: totalContacts, campaign: campaign, anonymousFilter: anonymousFilter]"></g:render>
         </g:else>
 </div>
 

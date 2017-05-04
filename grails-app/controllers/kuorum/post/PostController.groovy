@@ -54,11 +54,7 @@ class PostController {
     }
 
     def editContentStep(){
-        String viewerUid = cookieUUIDService.buildUserUUID()
-        KuorumUser postUser = KuorumUser.get(springSecurityService.principal.id)
-        PostRSDTO postRSDTO = postService.findPost(postUser, Long.parseLong(params.postId), viewerUid)
-
-        return postModelContent(new PostContentCommand(), postRSDTO)
+        return postModelContent(new PostContentCommand(), Long.parseLong(params.postId))
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -95,7 +91,7 @@ class PostController {
 
     def saveContent(PostContentCommand command) {
         if (command.hasErrors()) {
-            render view: 'create', model: postModelContent(command, null)
+            render view: 'create', model: postModelContent(command, Long.parseLong(params.postId))
             return
         }
         String nextStep = params.redirectLink
@@ -182,11 +178,10 @@ class PostController {
         ]
     }
 
-    private def postModelContent(PostContentCommand command, PostRSDTO postRSDTO) {
+    private def postModelContent(PostContentCommand command, Long postId) {
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
-        List<ExtendedFilterRSDTO> filters = contactService.getUserFilters(user)
-        ContactPageRSDTO contactPageRSDTO = contactService.getUsers(user)
-
+        PostRSDTO postRSDTO = postService.findPost(user, Long.parseLong(params.postId))
+        def numberRecipients = 0;
         if(postRSDTO) {
             command.title = postRSDTO.title
             command.body = postRSDTO.body
@@ -196,12 +191,12 @@ class PostController {
                 KuorumFile kuorumFile = KuorumFile.findByUrl(postRSDTO.photoUrl)
                 command.headerPictureId = kuorumFile?.id
             }
+            numberRecipients = postRSDTO.newsletter?.filter?.amountOfContacts?:contactService.getUsers(user, null).total;
         }
         [
-                filters: filters,
                 command: command,
-                totalContacts: contactPageRSDTO.total,
-                post: postRSDTO
+                post: postRSDTO,
+                numberRecipients:numberRecipients
         ]
     }
 

@@ -586,7 +586,7 @@ $(document).ready(function() {
           removeBtn.click(function(e) {
               e.preventDefault();
               var link = $(this).attr("href");
-              var itemId =  $(this).closest('li').find('.id').text();
+              var itemId =  $(this).parents("ul#campaignsList > li").find('.id').text();
               prepareAndOpenCampaignConfirmDeletionModal(link, itemId)
           });
         }
