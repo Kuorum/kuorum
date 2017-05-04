@@ -43,6 +43,7 @@ class PostController {
         return postModelSettings(new PostSettingsCommand(), null)
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editSettingsStep(){
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser postUser = KuorumUser.get(springSecurityService.principal.id)
@@ -52,6 +53,7 @@ class PostController {
 
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editContentStep(){
         return postModelContent(Long.parseLong(params.postId))
     }

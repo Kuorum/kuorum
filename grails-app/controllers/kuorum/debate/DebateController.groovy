@@ -67,6 +67,7 @@ class DebateController {
         return debateModelSettings(new DebateSettingsCommand(), null)
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editSettingsStep(){
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
@@ -76,6 +77,7 @@ class DebateController {
 
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editContentStep(){
         String viewerUid = cookieUUIDService.buildUserUUID()
         KuorumUser user = KuorumUser.get(springSecurityService.principal.id)
