@@ -108,6 +108,9 @@ $(function () {
     var $nextButton = $('.form-final-options #next[data-redirectLink]');
     $nextButton.on('click', stepSubmit);
 
+    var $nextButton = $('.form-final-options #save-draft-campaign[data-redirectLink]');
+    $nextButton.on('click', stepSubmit);
+
     var $sendButton = $('#campaignConfirm #saveCampaignBtn[data-redirectLink]');
     $sendButton.on('click', function(e){
         var mailingType = $sendButton.attr("data-massMailingType")

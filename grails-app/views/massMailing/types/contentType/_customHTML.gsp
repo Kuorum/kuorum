@@ -38,7 +38,7 @@
                     <g:link mapping="politicianMassMailingSendTest" params="[campaignId:campaign.id]" elementId="sendTest" title="${g.message(code:'tools.massMailing.sendTest')}">${g.message(code:'tools.massMailing.sendTest')}</g:link>
                 </li>
                 <li>
-                    <a href="#" id="save-draft-campaign">
+                    <a href="#" id="save-draft-campaign" data-redirectLink="politicianCampaigns">
                         <g:message code="tools.massMailing.saveDraft"/>
                     </a>
                 </li>
