@@ -22,7 +22,7 @@
     </ol>
     <g:render template="/debate/formDebate" model="[command: command, filters: filters, totalContacts: totalContacts,
                                                     debate: debate, anonymousFilter: anonymousFilter,
-                                                    mappings:[step:'settings', settings:'debateEditSettings',
+                                                    mappings:[step:'settings', settings:'debateEdit',
                                                               content:'debateEditContent', showResult: 'debateShow',
                                                               next: 'debateEditContent']]"/>
 

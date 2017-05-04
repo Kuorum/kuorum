@@ -21,5 +21,5 @@
     </ol>
     <g:render template="/campaigns/edit/contentStep" model="[command: command, filters: filters, totalContacts: totalContacts,
                                                              post: post, anonymousFilter: anonymousFilter,
-                                                             mappings:[step:'content', settings:'postEditSettings', content:'postEditContent', showResult: 'postShow']]"/>
+                                                             mappings:[step:'content', settings:'postEdit', content:'postEditContent', showResult: 'postShow']]"/>
 </content>

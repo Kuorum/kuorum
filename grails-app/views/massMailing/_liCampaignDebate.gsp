@@ -41,7 +41,7 @@
             </li>
         </g:if>
         <li>
-            <g:link mapping="debateEditSettings" params="[debateId: debate.id]" role="button" class="campaignEdit"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
+            <g:link mapping="debateEdit" params="[debateId: debate.id]" role="button" class="campaignEdit"><span class="fa fa-edit"></span><span class="sr-only">Edit</span></g:link>
         </li>
     </ul>
 
